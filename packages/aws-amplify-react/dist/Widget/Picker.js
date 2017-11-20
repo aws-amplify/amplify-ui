@@ -16,10 +16,6 @@ var _AmplifyTheme = require('../AmplifyTheme');
 
 var _AmplifyTheme2 = _interopRequireDefault(_AmplifyTheme);
 
-var _Picker = require('./Picker');
-
-var _Picker2 = _interopRequireDefault(_Picker);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -39,87 +35,103 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 * and limitations under the License.
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 */
 
-var Container = {};
+var PickerPicker = {
+    position: 'relative'
+};
 
 var PickerPreview = {
     maxWidth: '100%'
 };
 
-var logger = new _awsAmplify.Logger('PhotoPicker');
+var PickerButton = {
+    width: '10em',
+    height: '3em',
+    fontSize: '1.2em',
+    textAlign: 'center'
+};
 
-var PhotoPicker = function (_Component) {
-    _inherits(PhotoPicker, _Component);
+var PickerInput = {
+    width: '100%',
+    height: '100%',
+    display: 'inline-block',
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    opacity: 0,
+    cursor: 'pointer'
+};
 
-    function PhotoPicker(props) {
-        _classCallCheck(this, PhotoPicker);
+var logger = new _awsAmplify.Logger('Picker');
 
-        var _this = _possibleConstructorReturn(this, (PhotoPicker.__proto__ || Object.getPrototypeOf(PhotoPicker)).call(this, props));
+var Picker = function (_Component) {
+    _inherits(Picker, _Component);
 
-        _this.handlePick = _this.handlePick.bind(_this);
+    function Picker() {
+        _classCallCheck(this, Picker);
 
-        _this.state = {
-            previewSrc: props.previewSrc
-        };
-        return _this;
+        return _possibleConstructorReturn(this, (Picker.__proto__ || Object.getPrototypeOf(Picker)).apply(this, arguments));
     }
 
-    _createClass(PhotoPicker, [{
-        key: 'handlePick',
+    _createClass(Picker, [{
+        key: 'handleInput',
         value: function () {
-            function handlePick(data) {
+            function handleInput(e) {
                 var that = this;
-                var file = data.file,
-                    name = data.name,
-                    size = data.size,
-                    type = data.type;
-                var _props = this.props,
-                    preview = _props.preview,
-                    onPick = _props.onPick,
-                    onLoad = _props.onLoad;
 
+                var file = e.target.files[0];
+                var name = file.name,
+                    size = file.size,
+                    type = file.type;
+
+                logger.debug(file);
+
+                var onPick = this.props.onPick;
 
                 if (onPick) {
-                    onPick(data);
-                }
-
-                if (preview) {
-                    var reader = new FileReader();
-                    reader.onload = function (e) {
-                        var url = e.target.result;
-                        that.setState({ previewSrc: url });
-                        if (onLoad) {
-                            onLoad(url);
-                        }
-                    };
-                    reader.readAsDataURL(file);
+                    onPick({
+                        file: file,
+                        name: name,
+                        size: size,
+                        type: type
+                    });
                 }
             }
 
-            return handlePick;
+            return handleInput;
         }()
     }, {
         key: 'render',
         value: function () {
             function render() {
-                var preview = this.props.preview;
-                var previewSrc = this.state.previewSrc;
+                var _this2 = this;
 
-
-                var title = this.props.title || 'Pick a Photo';
+                var title = this.props.title || 'Pick a File';
+                var accept = this.props.accept || '*/*';
 
                 var theme = this.props.theme || _AmplifyTheme2['default'];
-                var containerStyle = Object.assign({}, _Picker2['default'], theme.picker);
-                var previewStyle = Object.assign({}, PickerPreview, theme.pickerPreview, preview && preview !== 'hidden' ? {} : _AmplifyTheme2['default'].hidden);
+                var pickerStyle = Object.assign({}, PickerPicker, theme.pickerPicker);
+                var buttonStyle = Object.assign({}, PickerButton, theme.pickerButton);
+                var inputStyle = Object.assign({}, PickerInput, theme.pickerInput);
 
                 return _react2['default'].createElement(
                     'div',
-                    { style: containerStyle },
-                    previewSrc ? _react2['default'].createElement('img', { src: previewSrc, style: previewStyle }) : null,
-                    _react2['default'].createElement(_Picker2['default'], {
-                        title: title,
-                        accept: 'image/*',
-                        theme: theme,
-                        onPick: this.handlePick
+                    { style: pickerStyle },
+                    _react2['default'].createElement(
+                        'button',
+                        { style: buttonStyle },
+                        _awsAmplify.I18n.get(title)
+                    ),
+                    _react2['default'].createElement('input', {
+                        title: _awsAmplify.I18n.get(title),
+                        type: 'file', accept: accept,
+                        style: inputStyle,
+                        onChange: function () {
+                            function onChange(e) {
+                                return _this2.handleInput(e);
+                            }
+
+                            return onChange;
+                        }()
                     })
                 );
             }
@@ -128,7 +140,7 @@ var PhotoPicker = function (_Component) {
         }()
     }]);
 
-    return PhotoPicker;
+    return Picker;
 }(_react.Component);
 
-exports['default'] = PhotoPicker;
+exports['default'] = Picker;

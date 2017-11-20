@@ -45,25 +45,25 @@ var PickerPreview = {
     maxWidth: '100%'
 };
 
-var logger = new _awsAmplify.Logger('PhotoPicker');
+var logger = new _awsAmplify.Logger('TextPicker');
 
-var PhotoPicker = function (_Component) {
-    _inherits(PhotoPicker, _Component);
+var TextPicker = function (_Component) {
+    _inherits(TextPicker, _Component);
 
-    function PhotoPicker(props) {
-        _classCallCheck(this, PhotoPicker);
+    function TextPicker(props) {
+        _classCallCheck(this, TextPicker);
 
-        var _this = _possibleConstructorReturn(this, (PhotoPicker.__proto__ || Object.getPrototypeOf(PhotoPicker)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (TextPicker.__proto__ || Object.getPrototypeOf(TextPicker)).call(this, props));
 
         _this.handlePick = _this.handlePick.bind(_this);
 
         _this.state = {
-            previewSrc: props.previewSrc
+            previewText: props.previewText
         };
         return _this;
     }
 
-    _createClass(PhotoPicker, [{
+    _createClass(TextPicker, [{
         key: 'handlePick',
         value: function () {
             function handlePick(data) {
@@ -85,13 +85,13 @@ var PhotoPicker = function (_Component) {
                 if (preview) {
                     var reader = new FileReader();
                     reader.onload = function (e) {
-                        var url = e.target.result;
-                        that.setState({ previewSrc: url });
+                        var text = e.target.result;
+                        that.setState({ previewText: text });
                         if (onLoad) {
-                            onLoad(url);
+                            onLoad(text);
                         }
                     };
-                    reader.readAsDataURL(file);
+                    reader.readAsText(file);
                 }
             }
 
@@ -102,22 +102,30 @@ var PhotoPicker = function (_Component) {
         value: function () {
             function render() {
                 var preview = this.props.preview;
-                var previewSrc = this.state.previewSrc;
+                var previewText = this.state.previewText;
 
 
-                var title = this.props.title || 'Pick a Photo';
+                var title = this.props.title || 'Pick a File';
 
                 var theme = this.props.theme || _AmplifyTheme2['default'];
-                var containerStyle = Object.assign({}, _Picker2['default'], theme.picker);
-                var previewStyle = Object.assign({}, PickerPreview, theme.pickerPreview, preview && preview !== 'hidden' ? {} : _AmplifyTheme2['default'].hidden);
+                var containerStyle = Object.assign({}, Container, theme.picker);
+                var previewStyle = Object.assign({}, PickerPreview, theme.pickerPreview, theme.halfHeight, preview && preview !== 'hidden' ? {} : _AmplifyTheme2['default'].hidden);
 
                 return _react2['default'].createElement(
                     'div',
                     { style: containerStyle },
-                    previewSrc ? _react2['default'].createElement('img', { src: previewSrc, style: previewStyle }) : null,
+                    previewText ? _react2['default'].createElement(
+                        'div',
+                        { style: previewStyle },
+                        _react2['default'].createElement(
+                            'pre',
+                            { style: theme.pre },
+                            previewText
+                        )
+                    ) : null,
                     _react2['default'].createElement(_Picker2['default'], {
                         title: title,
-                        accept: 'image/*',
+                        accept: 'text/*',
                         theme: theme,
                         onPick: this.handlePick
                     })
@@ -128,7 +136,7 @@ var PhotoPicker = function (_Component) {
         }()
     }]);
 
-    return PhotoPicker;
+    return TextPicker;
 }(_react.Component);
 
-exports['default'] = PhotoPicker;
+exports['default'] = TextPicker;

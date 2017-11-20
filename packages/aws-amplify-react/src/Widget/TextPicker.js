@@ -24,16 +24,16 @@ const PickerPreview = {
     maxWidth: '100%'
 }
 
-const logger = new Logger('PhotoPicker');
+const logger = new Logger('TextPicker');
 
-export default class PhotoPicker extends Component {
+export default class TextPicker extends Component {
     constructor(props) {
         super(props);
 
         this.handlePick = this.handlePick.bind(this);
 
         this.state = {
-            previewSrc: props.previewSrc
+            previewText: props.previewText
         };
     }
 
@@ -47,35 +47,40 @@ export default class PhotoPicker extends Component {
         if (preview) {
             const reader = new FileReader();
             reader.onload = function(e) {
-                const url = e.target.result;
-                that.setState({ previewSrc: url });
-                if (onLoad) { onLoad(url); }
+                const text  = e.target.result;
+                that.setState({ previewText: text });
+                if (onLoad) { onLoad(text); }
             }
-            reader.readAsDataURL(file);
+            reader.readAsText(file);
         }
     }
 
     render() {
         const { preview } = this.props;
-        const { previewSrc } = this.state;
+        const { previewText } = this.state;
 
-        const title = this.props.title || 'Pick a Photo';
+        const title = this.props.title || 'Pick a File';
 
         const theme = this.props.theme || AmplifyTheme;
-        const containerStyle = Object.assign({}, Picker, theme.picker);
+        const containerStyle = Object.assign({}, Container, theme.picker);
         const previewStyle = Object.assign(
             {},
             PickerPreview,
             theme.pickerPreview,
+            theme.halfHeight,
             (preview && preview !== 'hidden')? {} : AmplifyTheme.hidden
         );
 
         return (
             <div style={containerStyle}>
-                { previewSrc? <img src={previewSrc} style={previewStyle} /> : null }
+                { previewText? <div style={previewStyle}>
+                                <pre style={theme.pre}>{previewText}</pre>
+                              </div>
+                             : null
+                }
                 <Picker
                     title={title}
-                    accept="image/*"
+                    accept="text/*"
                     theme={theme}
                     onPick={this.handlePick}
                 />
