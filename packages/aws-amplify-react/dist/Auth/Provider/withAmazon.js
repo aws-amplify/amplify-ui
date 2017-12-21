@@ -3,13 +3,13 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.FacebookButton = undefined;
+exports.AmazonButton = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-exports['default'] = withFacebook;
+exports['default'] = withAmazon;
 
 var _react = require('react');
 
@@ -31,9 +31,9 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var logger = new _awsAmplify.Logger('withFacebook');
+var logger = new _awsAmplify.Logger('withAmazon');
 
-function withFacebook(Comp) {
+function withAmazon(Comp) {
     return function (_Component) {
         _inherits(_class, _Component);
 
@@ -42,8 +42,7 @@ function withFacebook(Comp) {
 
             var _this = _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).call(this, props));
 
-            _this.fbAsyncInit = _this.fbAsyncInit.bind(_this);
-            _this.initFB = _this.initFB.bind(_this);
+            _this.initAmazon = _this.initAmazon.bind(_this);
             _this.signIn = _this.signIn.bind(_this);
             _this.federatedSignIn = _this.federatedSignIn.bind(_this);
 
@@ -57,19 +56,15 @@ function withFacebook(Comp) {
                 function signIn() {
                     var _this2 = this;
 
-                    var fb = window.FB;
-
-                    fb.getLoginStatus(function (response) {
-                        if (response.status === 'connected') {
-                            _this2.federatedSignIn(response.authResponse);
-                        } else {
-                            fb.login(function (response) {
-                                if (!response || !response.authResponse) {
-                                    return;
-                                }
-                                _this2.federatedSignIn(response.authResponse);
-                            }, { scope: 'public_profile,email' });
+                    var amz = window.amazon;
+                    var options = { scope: 'profile' };
+                    amz.Login.authorize(options, function (response) {
+                        if (response.error) {
+                            logger.debug('Failed to login with amazon: ' + response.error);
+                            return;
                         }
+
+                        _this2.federatedSignIn(response);
                     });
                 }
 
@@ -79,24 +74,30 @@ function withFacebook(Comp) {
             key: 'federatedSignIn',
             value: function () {
                 function federatedSignIn(response) {
-                    logger.debug(response);
+                    var access_token = response.access_token,
+                        expires_in = response.expires_in;
                     var onStateChange = this.props.onStateChange;
-                    var accessToken = response.accessToken,
-                        expiresIn = response.expiresIn;
 
                     var date = new Date();
-                    var expires_at = expiresIn * 1000 + date.getTime();
-                    if (!accessToken) {
+                    var expires_at = expires_in * 1000 + date.getTime();
+                    if (!access_token) {
                         return;
                     }
 
-                    var fb = window.FB;
-                    fb.api('/me', function (response) {
+                    var amz = window.amazon;
+                    amz.Login.retrieveProfile(function (userInfo) {
+                        if (!userInfo.success) {
+                            logger.debug('Get user Info failed');
+                            return;
+                        }
+
                         var user = {
-                            name: response.name
+                            name: userInfo.profile.Name
                         };
 
-                        _awsAmplify.Auth.federatedSignIn('facebook', { token: accessToken, expires_at: expires_at }, user).then(function (crednetials) {
+                        _awsAmplify.Auth.federatedSignIn('amazon', { token: access_token, expires_at: expires_at }, user).then(function (credentials) {
+                            logger.debug('getting credentials');
+                            logger.debug(credentials);
                             if (onStateChange) {
                                 onStateChange('signedIn');
                             }
@@ -116,59 +117,37 @@ function withFacebook(Comp) {
                 return componentDidMount;
             }()
         }, {
-            key: 'fbAsyncInit',
-            value: function () {
-                function fbAsyncInit() {
-                    logger.debug('init FB');
-
-                    var facebook_app_id = this.props.facebook_app_id;
-
-                    var fb = window.FB;
-                    fb.init({
-                        appId: facebook_app_id,
-                        cookie: true,
-                        xfbml: true,
-                        version: 'v2.11'
-                    });
-
-                    fb.getLoginStatus(function (response) {
-                        return logger.debug(response);
-                    });
-                }
-
-                return fbAsyncInit;
-            }()
-        }, {
-            key: 'initFB',
-            value: function () {
-                function initFB() {
-                    var fb = window.FB;
-                    logger.debug('FB inited');
-                }
-
-                return initFB;
-            }()
-        }, {
             key: 'createScript',
             value: function () {
                 function createScript() {
-                    window.fbAsyncInit = this.fbAsyncInit;
-
                     var script = document.createElement('script');
-                    script.src = 'https://connect.facebook.net/en_US/sdk.js';
+                    script.src = 'https://api-cdn.amazon.com/sdk/login1.js';
                     script.async = true;
-                    script.onload = this.initFB;
+                    script.onload = this.initAmazon;
                     document.body.appendChild(script);
                 }
 
                 return createScript;
             }()
         }, {
+            key: 'initAmazon',
+            value: function () {
+                function initAmazon() {
+                    logger.debug('init amazon');
+                    var amazon_client_id = this.props.amazon_client_id;
+
+                    var amz = window.amazon;
+                    amz.Login.setClientId(amazon_client_id);
+                }
+
+                return initAmazon;
+            }()
+        }, {
             key: 'render',
             value: function () {
                 function render() {
-                    var fb = window.FB;
-                    return _react2['default'].createElement(Comp, _extends({}, this.props, { fb: fb, facebookSignIn: this.signIn }));
+                    var amz = window.amazon;
+                    return _react2['default'].createElement(Comp, _extends({}, this.props, { amz: amz, amazonSignIn: this.signIn }));
                 }
 
                 return render;
@@ -183,12 +162,12 @@ var Button = function Button(props) {
     return _react2['default'].createElement(
         _AmplifyUI.SignInButton,
         {
-            id: 'facebook_signin_btn',
-            onClick: props.facebookSignIn,
+            id: 'amazon_signin_btn',
+            onClick: props.amazonSignIn,
             theme: props.theme || _AmplifyTheme2['default']
         },
-        'Sign In with Facebook'
+        'Sign In with Amazon'
     );
 };
 
-var FacebookButton = exports.FacebookButton = withFacebook(Button);
+var AmazonButton = exports.AmazonButton = withAmazon(Button);
