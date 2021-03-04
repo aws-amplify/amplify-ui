@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "scripts": {
+    "dev": "cd docs && yarn dev"
+  },
+  "workspaces": [
+    "docs",
+    "packages/react"
+  ]
+}

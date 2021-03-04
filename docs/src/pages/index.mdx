@@ -1,0 +1,126 @@
+import * as Spark from "@aws-amplify/spark-react";
+const { SparkContext } = Spark;
+
+# Amplify Spark (React)
+
+## Default Authenticator
+
+```jsx
+import * as Spark from "@aws-amplify/spark-react";
+const { SparkContext } = Spark
+
+<SparkContext.Provider value={Spark}>
+  <Authenticator>{({ user }) => (user ? <App /> : <SignIn />)}</Authenticator>
+</SparkContext.Provider>;
+```
+
+<SparkContext.Provider value={Spark}>
+  <Authenticator>{({ user }) => (user ? <App /> : <SignIn />)}</Authenticator>
+</SparkContext.Provider>
+
+## Headless Authenticator
+
+```jsx
+<Authenticator>{({ user }) => (user ? <App /> : <SignIn />)}</Authenticator>
+```
+
+<Authenticator>{({ user }) => (user ? <App /> : <SignIn />)}</Authenticator>
+
+## Custom Components
+
+```jsx
+<SparkContext.Provider
+  value={{
+    ...Spark,
+    classNames: {
+      "Authenticator.Wrapper": "custom-heading",
+    },
+    components: {
+      Heading: () => {
+        return <h1>Howdy!</h1>;
+      },
+    },
+  }}
+>
+  <Authenticator>{({ user }) => (user ? <App /> : <SignIn />)}</Authenticator>
+</SparkContext.Provider>
+```
+
+<SparkContext.Provider
+  value={{
+    ...Spark,
+    components: {
+      Heading: () => {
+        return <h1>Howdy!</h1>;
+      },
+    },
+  }}
+>
+  <Authenticator>{({ user }) => (user ? <App /> : <SignIn />)}</Authenticator>
+</SparkContext.Provider>
+
+## Working Backwards
+
+> As a developer, I want the Authenticator to...
+
+### [Automatically infer usernameAttribute (name may change) from aws-exports.js](https://github.com/aws-amplify/amplify-cli/issues/3550)
+
+### [Allow deep-linking initial state (e.g. “Forgot Password”)](https://github.com/aws-amplify/amplify-js/issues/7668) ([2](https://github.com/aws-amplify/amplify-js/issues/6641))
+
+### [Not show “Create Account” link if user signups are disabled](https://github.com/aws-amplify/amplify-js/issues/7685) ([2](https://github.com/aws-amplify/amplify-js/issues/7357))
+
+### [Support custom “Confirm Password” on Sign Up screen](https://github.com/aws-amplify/amplify-js/issues/5828) ([2](https://github.com/aws-amplify/amplify-js/issues/7249))
+
+### Support formatting inputs (e.g. trimming space, lowercasing emails) before proceeding
+
+### [Support both Cognito IDP & CUP for federation](https://github.com/aws-amplify/amplify-js/issues/7622) ([2](https://github.com/aws-amplify/amplify-js/issues/6760))
+
+### [Only bundle components used in Vue](https://github.com/aws-amplify/amplify-js/issues/7484)
+
+### [Support customization via CSS selectors](https://github.com/aws-amplify/amplify-js/issues/7410) ([2](https://github.com/aws-amplify/amplify-js/issues/6351))
+
+### [Not show errors as toast notifications](https://github.com/aws-amplify/amplify-js/issues/7259)
+
+### [Have accessible error messages](https://github.com/aws-amplify/amplify-js/issues/5304)
+
+### [Auto-dismiss toast notifications](https://github.com/aws-amplify/amplify-js/issues/7259)
+
+### [Support custom footer (e.g. legal text)](https://github.com/aws-amplify/amplify-js/issues/7239)
+
+### [Show Google/Facebook/etc. buttons on Sign Up](https://github.com/aws-amplify/amplify-js/issues/7238) ([2](https://github.com/aws-amplify/amplify-js/issues/5253), [3](https://github.com/aws-amplify/amplify-js/issues/5651))
+
+### [Combine Sign Up / Sign In screen](https://github.com/aws-amplify/amplify-js/issues/7238) ([2](https://github.com/aws-amplify/amplify-js/issues/4637))
+
+### [Hide “Sign in with AWS” button](https://github.com/aws-amplify/amplify-js/issues/7199)
+
+### [Support custom subtitle on TOTP screen](https://github.com/aws-amplify/amplify-js/issues/7186)
+
+### [Re-render when I18n has changed](https://github.com/aws-amplify/amplify-js/issues/6986)
+
+### [Should prompt to save password on submit](https://github.com/aws-amplify/amplify-js/issues/6782)
+
+### [Support headless UI](https://github.com/aws-amplify/amplify-js/issues/6751) ([2](https://github.com/aws-amplify/amplify-js/issues/4637), [3](https://github.com/aws-amplify/amplify-js/issues/3470), [4](https://github.com/aws-amplify/amplify-js/issues/2075), [5](https://github.com/aws-amplify/amplify-js/issues/1031), [6](https://github.com/aws-amplify/amplify-js/issues/474), [7](https://github.com/aws-amplify/amplify-js/issues/3196), [8](https://github.com/aws-amplify/amplify-js/issues/940), [10](https://github.com/aws-amplify/amplify-js/issues/2691), [11](https://github.com/aws-amplify/amplify-js/issues/1436), [12](https://github.com/aws-amplify/amplify-js/issues/2691), [13](https://github.com/aws-amplify/amplify-js/issues/474))
+
+### [Use custom input types](https://github.com/aws-amplify/amplify-js/issues/6689)
+
+### [Disable autocomplete on username](https://github.com/aws-amplify/amplify-js/issues/5048)
+
+### [Support password managers](https://github.com/aws-amplify/amplify-js/issues/5782) ([2](https://github.com/aws-amplify/amplify-js/issues/3050), [3](https://github.com/aws-amplify/amplify-js/issues/4374))
+
+### [Support autoConfirmUser in Sign Up flow](https://github.com/aws-amplify/amplify-js/issues/5314)
+
+### [Support PreSignup lambda error messages](https://github.com/aws-amplify/amplify-js/issues/5911)
+
+### [Not render <App /> by default when not signed in](https://github.com/aws-amplify/amplify-js/issues/6087)
+
+### [Handle expired verification codes](https://github.com/aws-amplify/amplify-js/issues/6402)
+
+### [Support Terms of Service that disables signup](https://github.com/aws-amplify/amplify-js/issues/6440) ([2](https://github.com/aws-amplify/amplify-js/pull/6502))
+
+### [Customize components](https://github.com/aws-amplify/amplify-js/issues/6479) ([2](https://github.com/aws-amplify/amplify-js/issues/3936), [3](https://github.com/aws-amplify/amplify-js/issues/1436))
+
+### [Support custom fields on Sign Up](https://github.com/aws-amplify/amplify-js/issues/6603)
+
+### Hook into events for analytics
+
+### Customize phone input
