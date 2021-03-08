@@ -1,12 +1,16 @@
 import {
   AfterViewInit,
+  ChangeDetectorRef,
   Component,
   ContentChild,
   ContentChildren,
   ElementRef,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+  TemplateRef,
 } from '@angular/core';
-import { AuthComponentTypeDirective } from 'src/app/directives/auth-component-type.directive';
-import { ContextPropsDirective } from 'src/app/directives/context-props.directive';
 
 type AuthState = 'signIn' | 'signedIn';
 
@@ -15,24 +19,30 @@ type AuthState = 'signIn' | 'signedIn';
   templateUrl: './amplify-authenticator.component.html',
   styleUrls: ['./amplify-authenticator.component.css'],
 })
-export class AmplifyAuthenticatorComponent implements AfterViewInit {
-  ngAfterViewInit(): void {
-    console.log(this.customComponents);
-  }
-  user: Record<PropertyKey, any>;
-  authState: AuthState = 'signIn';
-  @ContentChild(ContextPropsDirective) contextProp: ContextPropsDirective;
-  @ContentChildren(AuthComponentTypeDirective) customComponents;
+export class AmplifyAuthenticatorComponent implements OnChanges {
+  constructor(private cd: ChangeDetectorRef) {}
 
+  @ContentChild(TemplateRef) template;
+  @ContentChildren(AmplifyAuthenticatorComponent) customComponents;
+  @ContentChild('signIn') signInContent: TemplateRef<any>;
+  @ContentChild('signedIn') signedInContent: TemplateRef<any>;
+  authState: AuthState = 'signIn';
+  get getAuthState(): AuthState {
+    return this.authState;
+  }
+  @Output()
   context = {
     $implicit: {
       updateAuthState: (authState: AuthState) =>
         this.updateAuthState(authState),
     },
+    authState: this.authState,
   };
-
-  updateAuthState($event) {
-    console.log($event);
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes);
+  }
+  updateAuthState($event): void {
     this.authState = $event;
+    this.cd.detectChanges();
   }
 }

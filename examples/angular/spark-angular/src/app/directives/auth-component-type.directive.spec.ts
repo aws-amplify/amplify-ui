@@ -1,4 +1,4 @@
-import { AuthComponentTypeDirective } from './auth-component-type.directive';
+import { AuthComponentTypeDirective } from './authComponent-type.directive';
 
 describe('AuthComponentTypeDirective', () => {
   it('should create an instance', () => {

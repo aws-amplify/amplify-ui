@@ -1,9 +1,13 @@
-<h2>{{this.headerText}}</h2>
-<form>
-  <label for="username">username</label>
-  <input type="text" id="username" placeholder="Username" />
+<div>
+  <h2>{{ this.headerText }}</h2>
+  <form>
+    <label for="username">username</label>
+    <input type="text" id="username" placeholder="Username" />
 
-  <label for="password">password</label>
-  <input type="text" id="password" placeholder="Password" />
-  <button type="submit" (click)="this.signIn(); $event.preventDefault()">Sign In</button>
-</form>
+    <label for="password">password</label>
+    <input type="text" id="password" placeholder="Password" />
+    <button type="submit" (click)="this.signIn(); $event.preventDefault()">
+      Sign In
+    </button>
+  </form>
+</div>

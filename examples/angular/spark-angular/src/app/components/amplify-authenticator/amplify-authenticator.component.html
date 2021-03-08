@@ -1,12 +1,19 @@
-<ng-template #signIn>
-  <amplify-sign-in (signInEvent)="updateAuthState($event)"></amplify-sign-in>
+<ng-template #defaultSignIn>
+  <amplify-sign-in [headerText]="'This is a default sign in'"></amplify-sign-in>
 </ng-template>
+<ng-template #defaultSignedIn> This is a default signedIn form </ng-template>
 
-<!-- Render Auth Subcomponent -->
-<ng-container [ngTemplateOutlet]="signIn" *ngIf="authState === 'signIn'">
+<!-- render subcomponents -->
+<ng-container
+  [ngTemplateOutlet]="signInContent ? signInContent : defaultSignIn"
+  [ngTemplateOutletContext]="context"
+  *ngIf="authState === 'signIn'"
+>
 </ng-container>
-<ng-container *ngIf="authState === 'signedIn'">
-  <ng-content select="[auth-component=signed-in]"></ng-content>
+
+<ng-container
+  [ngTemplateOutlet]="signedInContent ? signedInContent : defaultSignedIn"
+  [ngTemplateOutletContext]="context"
+  *ngIf="authState === 'signedIn'"
+>
 </ng-container>
-<!-- <ng-container *ngIf="authState === 'signedIn'"> -->
-<!-- </ng-container> -->
