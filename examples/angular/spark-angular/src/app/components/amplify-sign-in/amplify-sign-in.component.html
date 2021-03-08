@@ -1,12 +1,26 @@
-<div>
+<div [ngStyle]="AuthenticatorStyle?.Container">
   <h2>{{ this.headerText }}</h2>
   <form>
-    <label for="username">username</label>
-    <input type="text" id="username" placeholder="Username" />
+    <label [ngStyle]="AuthenticatorStyle?.Label" for="username">Username</label>
+    <input
+      [ngStyle]="AuthenticatorStyle?.Input"
+      type="text"
+      id="username"
+      placeholder="Enter your username"
+    />
 
-    <label for="password">password</label>
-    <input type="text" id="password" placeholder="Password" />
-    <button type="submit" (click)="this.signIn(); $event.preventDefault()">
+    <label [ngStyle]="AuthenticatorStyle?.Label" for="password">Password</label>
+    <input
+      [ngStyle]="AuthenticatorStyle?.Input"
+      type="text"
+      id="password"
+      placeholder="Enter your password"
+    />
+    <button
+      [ngStyle]="AuthenticatorStyle?.Button"
+      type="submit"
+      (click)="this.signIn(); $event.preventDefault()"
+    >
       Sign In
     </button>
   </form>

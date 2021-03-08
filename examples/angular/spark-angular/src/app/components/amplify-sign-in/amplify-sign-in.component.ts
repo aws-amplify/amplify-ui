@@ -1,20 +1,32 @@
-import { Component, Output, EventEmitter, Input } from '@angular/core';
+import {
+  Component,
+  Output,
+  EventEmitter,
+  Input,
+  OnInit,
+  Optional,
+  AfterViewInit,
+} from '@angular/core';
+import { SparkContextProviderComponent } from 'src/app/spark-context-provider/spark-context-provider.component';
 import { AmplifyAuthenticatorComponent } from '../amplify-authenticator/amplify-authenticator.component';
 
 @Component({
   selector: 'amplify-sign-in',
   templateUrl: './amplify-sign-in.component.html',
-  styleUrls: ['./amplify-sign-in.component.css'],
 })
 export class AmplifySignInComponent {
-  constructor(private authenticator: AmplifyAuthenticatorComponent) {}
-  @Input() headerText = 'Sign in to your account';
+  AuthenticatorStyle: any = this.provider?.getComputedStyle.Authenticator;
 
-  signIn() {
+  constructor(
+    private authenticator: AmplifyAuthenticatorComponent,
+    @Optional() private provider: SparkContextProviderComponent
+  ) {}
+  @Input() headerText = 'Sign in to your account';
+  @Output() signInEvent = new EventEmitter<string>();
+
+  signIn(): void {
     console.log('signing in...');
     // this.signInEvent.emit('signedIn');
     this.authenticator.updateAuthState('signedIn');
   }
-
-  @Output() signInEvent = new EventEmitter<string>();
 }
