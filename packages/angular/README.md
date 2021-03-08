@@ -10,8 +10,6 @@ yarn add @aws-amplify/spark-angular
 
 ### Default Authenticator
 
-#### Simple example
-
 _app.component.ts_
 
 ```ts
