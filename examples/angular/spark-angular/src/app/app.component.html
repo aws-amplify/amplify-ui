@@ -1,0 +1,27 @@
+<style>
+  :host {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+      "Segoe UI Symbol";
+    font-size: 14px;
+    color: #333;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+</style>
+<h1>Amplify Spark Angular Demo</h1>
+<hr />
+<spark-context-provider>
+  <amplify-authenticator>
+    <amplify-sign-in
+      auth-component="sign-in"
+      *contextProps="let ctx"
+    ></amplify-sign-in>
+    <div auth-component="signed-in">
+      <div>My app</div>
+      <amplify-sign-out></amplify-sign-out>
+    </div>
+  </amplify-authenticator>
+</spark-context-provider>
+<hr />
