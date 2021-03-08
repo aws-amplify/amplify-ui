@@ -1,4 +1,4 @@
-# Amplify Spark (Angular)
+# Amplify Spark (Angular) IN DRAFT
 
 ## Getting Started
 
@@ -21,59 +21,47 @@ import Spark from "@aws-ampliufy/spark";
   selector: "my-app",
   templateUrl: "./app.comonent.html",
 })
-export class AppComponent {
-  context = Spark;
-}
+export class AppComponent {}
 ```
 
 _app.component.html_
 
 ```html
-<spark-context-provider [context]="context">
-  <amplify-authenticator>
-    <div #signedIn>My App</div>
-  </amplify-authenticator>
+<spark-context-provider>
+  <amplify-authenticator></amplify-authenticator>
 </spark-context-provider>
 ```
 
-#### Conditional rendering with `user` data
+### Headless Authenticator
+
+```html
+<amplify-authenticator> </amplify-authenticator>
+```
+
+#### Customizing Headless Authenticator with templateRef
+
+```html
+<amplify-authenticator>
+  <ng-template #signedIn let-signOut="signOut">
+    <button (click)="signOut">My custom sign out button</button>
+  </ng-template>
+</amplify-authenticator>
+```
+
+### Custom Authenticator
 
 _app.component.html_
 
 ```html
-<spark-context-provider [context]="context">
+<spark-context-provider>
   <amplify-authenticator>
-    <div #signedIn *contextProps="let props" *ngIf="props.user">
-      Welcome, {{props.user.username}}
-    </div>
+    <ng-template #signIn>
+      <amplify-sign-in [headerText]="'Custom Sign In'"></amplify-sign-in>
+    </ng-template>
+    <ng-template #signedIn>
+      <h1>This is customized signedIn content</h1>
+      <amplify-sign-out></amplify-sign-out>
+    </ng-template>
   </amplify-authenticator>
 </spark-context-provider>
-```
-
-### Custom Components
-
-_app.component.ts_
-
-```ts
-
-```
-
-_app.component.html_
-
-```html
-<spark-context-provider></spark-context-provider>
-```
-
-### Headless
-
-_app.component.ts_
-
-```ts
-
-```
-
-_app.component.html_
-
-```html
-
 ```
