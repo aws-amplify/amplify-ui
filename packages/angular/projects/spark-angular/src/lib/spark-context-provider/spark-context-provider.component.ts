@@ -1,11 +1,4 @@
-import {
-  Component,
-  ContentChild,
-  Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { StyleProvider } from './styles';
 @Component({
   selector: 'spark-context-provider',

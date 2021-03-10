@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-
+import * as Spark from '@aws-amplify/spark-angular';
+console.log(Spark);
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

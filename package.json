@@ -5,6 +5,8 @@
   },
   "workspaces": [
     "docs",
-    "packages/react"
+    "packages/react",
+    "packages/angular",
+    "examples/angular/spark-angular"
   ]
 }

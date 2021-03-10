@@ -1,8 +1,8 @@
 <style>
   :host {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-      Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-      "Segoe UI Symbol";
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+      Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+      'Segoe UI Symbol';
     font-size: 14px;
     color: #333;
     box-sizing: border-box;
@@ -34,3 +34,18 @@
   </amplify-authenticator>
 </spark-context-provider>
 <hr />
+
+<h1>Nested Slots</h1>
+<spark-context-provider>
+  <amplify-authenticator>
+    <ng-template #signIn>
+      <amplify-sign-in>
+        <button #signInButton>My custom button</button>
+      </amplify-sign-in>
+    </ng-template>
+    <ng-template #signedIn>
+      <h1>This is customized signedIn content</h1>
+      <amplify-sign-out></amplify-sign-out>
+    </ng-template>
+  </amplify-authenticator>
+</spark-context-provider>

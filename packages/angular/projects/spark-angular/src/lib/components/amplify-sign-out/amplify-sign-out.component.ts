@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { AmplifyAuthenticatorComponent } from '../amplify-authenticator/amplify-authenticator.component';
 
 @Component({

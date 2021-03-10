@@ -1,5 +1,3 @@
-import { R3TargetBinder } from '@angular/compiler';
-
 export const StyleProvider = {
   Authenticator: {
     Container: {

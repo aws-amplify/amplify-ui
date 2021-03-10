@@ -3,11 +3,12 @@ import {
   Output,
   EventEmitter,
   Input,
-  OnInit,
   Optional,
-  AfterViewInit,
+  ContentChild,
+  TemplateRef,
+  ElementRef,
 } from '@angular/core';
-import { SparkContextProviderComponent } from 'src/app/spark-context-provider/spark-context-provider.component';
+import { SparkContextProviderComponent } from '../../spark-context-provider/spark-context-provider.component';
 import { AmplifyAuthenticatorComponent } from '../amplify-authenticator/amplify-authenticator.component';
 
 @Component({
@@ -21,12 +22,13 @@ export class AmplifySignInComponent {
     private authenticator: AmplifyAuthenticatorComponent,
     @Optional() private provider: SparkContextProviderComponent
   ) {}
+  @ContentChild('signInButton') signedInContent: ElementRef<any>;
   @Input() headerText = 'Sign in to your account';
   @Output() signInEvent = new EventEmitter<string>();
 
   signIn(): void {
-    console.log('signing in...');
-    // this.signInEvent.emit('signedIn');
+    console.log(this.signedInContent);
+    this.signInEvent.emit('signedIn');
     this.authenticator.updateAuthState('signedIn');
   }
 }
