@@ -4,17 +4,11 @@ import { AmplifyAuthenticatorComponent } from '../amplify-authenticator/amplify-
 @Component({
   selector: 'amplify-sign-out',
   templateUrl: './amplify-sign-out.component.html',
-  styleUrls: ['./amplify-sign-out.component.css'],
+  styleUrls: [],
 })
 export class AmplifySignOutComponent {
-  // use dependency injection to find the nearest parent
   constructor(private authenticator: AmplifyAuthenticatorComponent) {}
-  signOut() {
-    console.log(this.authenticator);
-    console.log('signing out...');
-    this.signOutEvent.emit('signOut');
+  signOut(): void {
     this.authenticator.updateAuthState('signIn');
   }
-
-  @Output() signOutEvent = new EventEmitter<string>();
 }

@@ -1,28 +1,38 @@
-<div [ngStyle]="AuthenticatorStyle?.Container">
+<ng-template #defaultSignInButton>
+  <button
+    [ngStyle]="style?.Button"
+    type="submit"
+    (click)="this.signIn(); $event.preventDefault()"
+  >
+    Sign In
+  </button>
+</ng-template>
+
+<div [ngStyle]="style?.Container">
   <h2>{{ this.headerText }}</h2>
   <form>
-    <label [ngStyle]="AuthenticatorStyle?.Label" for="username">Username</label>
+    <label [ngStyle]="style?.Label" for="username">Username</label>
     <input
-      [ngStyle]="AuthenticatorStyle?.Input"
+      [ngStyle]="style?.Input"
       type="text"
       id="username"
       placeholder="Enter your username"
     />
 
-    <label [ngStyle]="AuthenticatorStyle?.Label" for="password">Password</label>
+    <label [ngStyle]="style?.Label" for="password">Password</label>
     <input
-      [ngStyle]="AuthenticatorStyle?.Input"
+      [ngStyle]="style?.Input"
       type="text"
       id="password"
       placeholder="Enter your password"
     />
-    <button
-      [ngStyle]="AuthenticatorStyle?.Button"
-      type="submit"
-      (click)="this.signIn(); $event.preventDefault()"
-    >
-      Sign In
-    </button>
   </form>
+  <ng-container
+    [ngTemplateOutlet]="
+      customSubmitButton ? customSubmitButton : defaultSignInButton
+    "
+    [ngTemplateOutletContext]="context"
+  >
+  </ng-container>
   <ng-content select="#signInButton"></ng-content>
 </div>

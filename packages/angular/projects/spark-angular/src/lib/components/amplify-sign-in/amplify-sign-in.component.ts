@@ -1,12 +1,9 @@
 import {
   Component,
-  Output,
-  EventEmitter,
   Input,
   Optional,
   ContentChild,
   TemplateRef,
-  ElementRef,
 } from '@angular/core';
 import { SparkContextProviderComponent } from '../../spark-context-provider/spark-context-provider.component';
 import { AmplifyAuthenticatorComponent } from '../amplify-authenticator/amplify-authenticator.component';
@@ -16,19 +13,21 @@ import { AmplifyAuthenticatorComponent } from '../amplify-authenticator/amplify-
   templateUrl: './amplify-sign-in.component.html',
 })
 export class AmplifySignInComponent {
-  AuthenticatorStyle: any = this.provider?.getComputedStyle.Authenticator;
-
+  style = this.provider?.getStyle;
   constructor(
     private authenticator: AmplifyAuthenticatorComponent,
     @Optional() private provider: SparkContextProviderComponent
   ) {}
-  @ContentChild('signInButton') signedInContent: ElementRef<any>;
+
+  @ContentChild('signInButton') customSubmitButton: TemplateRef<any>;
   @Input() headerText = 'Sign in to your account';
-  @Output() signInEvent = new EventEmitter<string>();
+
+  // this context will be passed to any templates under this component
+  context = {
+    signIn: () => this.signIn(),
+  };
 
   signIn(): void {
-    console.log(this.signedInContent);
-    this.signInEvent.emit('signedIn');
     this.authenticator.updateAuthState('signedIn');
   }
 }

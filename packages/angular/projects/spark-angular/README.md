@@ -1,24 +1,93 @@
-# SparkAngular
+# Amplify Spark (Angular) IN DRAFT
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.4.
+## Getting Started
 
-## Code scaffolding
+```shell
+yarn add @aws-amplify/spark-angular
+```
 
-Run `ng generate component component-name --project spark-angular` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project spark-angular`.
-> Note: Don't forget to add `--project spark-angular` or else it will be added to the default project in your `angular.json` file. 
+## Usage
 
-## Build
+### Default Authenticator
 
-Run `ng build spark-angular` to build the project. The build artifacts will be stored in the `dist/` directory.
+_app.component.html_
 
-## Publishing
+```html
+<spark-context-provider>
+  <amplify-authenticator></amplify-authenticator>
+</spark-context-provider>
+```
 
-After building your library with `ng build spark-angular`, go to the dist folder `cd dist/spark-angular` and run `npm publish`.
+### Headless Authenticator
 
-## Running unit tests
+```html
+<amplify-authenticator></amplify-authenticator>
+```
 
-Run `ng test spark-angular` to execute the unit tests via [Karma](https://karma-runner.github.io).
+#### Customizing Headless Authenticator with templateRef
 
-## Further help
+```html
+<amplify-authenticator>
+  <ng-template #signedIn let-signOut="signOut">
+    <button (click)="signOut">My custom sign out button</button>
+  </ng-template>
+</amplify-authenticator>
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+### Custom Authenticator
+
+_app.component.ts_
+
+```tsx
+import Spark from '@aws-amplify/spark-angular';
+
+@Component({
+  selector: 'my-app',
+  templateUrl: './app.comonent.html',
+})
+export class AppComponent {
+  customStyle = {
+    Authenticator: {
+      Container: {
+        width: '22rem',
+        padding: '3rem',
+        'box-shadow': '1px 1px 4px 0 rgba(0, 0, 0, 0.15)',
+      },
+      Input: {
+        display: 'block',
+        padding: '0.875rem',
+        width: '90%',
+        'margin-bottom': '1.25rem',
+        'border-color': 'rgb(196, 196, 196)',
+        'border-width': '1px',
+      },
+      Label: {
+        display: 'block',
+        'margin-bottom': '0.625rem',
+      },
+      Button: {
+        'background-color': 'skyblue',
+        padding: '0.75rem 1.25rem 0.75rem 1.25rem',
+        'border-style': 'none',
+        color: 'white',
+      },
+    },
+  };
+}
+```
+
+_app.component.html_
+
+```html
+<spark-context-provider [style]="customStyle">
+  <amplify-authenticator>
+    <ng-template #signIn>
+      <amplify-sign-in [headerText]="'Custom Sign In'"></amplify-sign-in>
+    </ng-template>
+    <ng-template #signedIn>
+      <h1>This is customized signedIn content</h1>
+      <amplify-sign-out></amplify-sign-out>
+    </ng-template>
+  </amplify-authenticator>
+</spark-context-provider>
+```

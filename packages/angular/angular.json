@@ -7,7 +7,7 @@
       "projectType": "library",
       "root": "projects/spark-angular",
       "sourceRoot": "projects/spark-angular/src",
-      "prefix": "lib",
+      "prefix": "amplify",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
@@ -36,9 +36,7 @@
               "projects/spark-angular/tsconfig.lib.json",
               "projects/spark-angular/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }

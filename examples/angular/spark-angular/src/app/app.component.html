@@ -10,7 +10,6 @@
     -moz-osx-font-smoothing: grayscale;
   }
 </style>
-<hr />
 <h1>Default Authenticator</h1>
 <spark-context-provider>
   <amplify-authenticator></amplify-authenticator>
@@ -21,31 +20,26 @@
 <amplify-authenticator> </amplify-authenticator>
 <hr />
 
-<h1>Custom Authenticator</h1>
-<spark-context-provider [style]="customStyle">
-  <amplify-authenticator>
-    <ng-template #signIn>
-      <amplify-sign-in [headerText]="'Custom Sign In'"></amplify-sign-in>
-    </ng-template>
-    <ng-template #signedIn>
-      <h1>This is customized signedIn content</h1>
-      <amplify-sign-out></amplify-sign-out>
-    </ng-template>
-  </amplify-authenticator>
+<h1>Custom Components</h1>
+<spark-context-provider [customStyle]="customStyle">
+  <amplify-authenticator> </amplify-authenticator>
 </spark-context-provider>
 <hr />
 
-<h1>Nested Slots</h1>
+<h1>Inserting Components</h1>
 <spark-context-provider>
   <amplify-authenticator>
     <ng-template #signIn>
-      <amplify-sign-in>
-        <button #signInButton>My custom button</button>
+      <amplify-sign-in [headerText]="'Custom Sign In Header'">
+        <ng-template #signInButton let-signIn="signIn">
+          <button
+            (click)="signIn()"
+            [ngStyle]="{ padding: '1rem', 'border-style': 'dashed' }"
+          >
+            Submit
+          </button>
+        </ng-template>
       </amplify-sign-in>
-    </ng-template>
-    <ng-template #signedIn>
-      <h1>This is customized signedIn content</h1>
-      <amplify-sign-out></amplify-sign-out>
     </ng-template>
   </amplify-authenticator>
 </spark-context-provider>

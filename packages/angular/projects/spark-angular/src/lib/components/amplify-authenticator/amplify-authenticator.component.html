@@ -1,19 +1,22 @@
 <ng-template #defaultSignIn>
   <amplify-sign-in></amplify-sign-in>
 </ng-template>
-<ng-template #defaultSignedIn> This is a default signedIn form </ng-template>
+<ng-template #defaultSignedIn>
+  <p>You've signed In.</p>
+  <amplify-sign-out></amplify-sign-out>
+</ng-template>
 
 <!-- render subcomponents -->
 <ng-container
   [ngTemplateOutlet]="signInContent ? signInContent : defaultSignIn"
   [ngTemplateOutletContext]="context"
-  *ngIf="authState === 'signIn'"
+  *ngIf="getAuthState === 'signIn'"
 >
 </ng-container>
 
 <ng-container
   [ngTemplateOutlet]="signedInContent ? signedInContent : defaultSignedIn"
   [ngTemplateOutletContext]="context"
-  *ngIf="authState === 'signedIn'"
+  *ngIf="getAuthState === 'signedIn'"
 >
 </ng-container>
