@@ -5,8 +5,7 @@ import { AmplifySignInComponent } from './components/amplify-sign-in/amplify-sig
 import { CommonModule } from '@angular/common';
 import { SparkContextProviderComponent } from './spark-context-provider/spark-context-provider.component';
 import { AmplifySignOutComponent } from './components/amplify-sign-out/amplify-sign-out.component';
-import { GetCtxDirective } from './directives/get-ctx.directive';
-import { OverrideDirective } from './directives/override.directive';
+import { AmplifyOverrideDirective } from './directives/amplify-override.directive';
 
 @NgModule({
   declarations: [
@@ -15,8 +14,7 @@ import { OverrideDirective } from './directives/override.directive';
     AmplifySignInComponent,
     AmplifySignOutComponent,
     SparkContextProviderComponent,
-    GetCtxDirective,
-    OverrideDirective,
+    AmplifyOverrideDirective,
   ],
   imports: [CommonModule],
   exports: [
@@ -25,8 +23,7 @@ import { OverrideDirective } from './directives/override.directive';
     AmplifySignInComponent,
     AmplifySignOutComponent,
     SparkContextProviderComponent,
-    GetCtxDirective,
-    OverrideDirective,
+    AmplifyOverrideDirective,
   ],
 })
 export class SparkAngularModule {}

@@ -7,9 +7,9 @@ import {
 } from '@angular/core';
 
 @Directive({
-  selector: '[getCtx]',
+  selector: '[amplifyOverride]',
 })
-export class GetCtxDirective {
+export class AmplifyOverrideDirective {
   constructor(public template: TemplateRef<any>) {}
   public name: string;
 

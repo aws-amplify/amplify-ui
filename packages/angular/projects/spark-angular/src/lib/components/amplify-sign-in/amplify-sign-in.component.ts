@@ -1,10 +1,4 @@
-import {
-  Component,
-  Input,
-  Optional,
-  ContentChild,
-  TemplateRef,
-} from '@angular/core';
+import { Component, Input, Optional, TemplateRef } from '@angular/core';
 import { SparkContextProviderComponent } from '../../spark-context-provider/spark-context-provider.component';
 import { AmplifyAuthenticatorComponent } from '../amplify-authenticator/amplify-authenticator.component';
 
@@ -13,19 +7,19 @@ import { AmplifyAuthenticatorComponent } from '../amplify-authenticator/amplify-
   templateUrl: './amplify-sign-in.component.html',
 })
 export class AmplifySignInComponent {
-  style = this.provider?.getStyle;
+  public style = this.provider?.getStyle;
+  public context = {
+    $implicit: { signIn: () => this.signIn() },
+  };
+  public customComponents: Record<string, TemplateRef<any>> = {};
+  @Input() public headerText = 'Sign in to your account';
+
   constructor(
     private authenticator: AmplifyAuthenticatorComponent,
     @Optional() private provider: SparkContextProviderComponent
-  ) {}
-
-  @ContentChild('signInButton') customSubmitButton: TemplateRef<any>;
-  @Input() headerText = 'Sign in to your account';
-
-  // this context will be passed to any templates under this component
-  context = {
-    $implicit: { signIn: () => this.signIn() },
-  };
+  ) {
+    this.customComponents = authenticator.getCustomComponents();
+  }
 
   signIn(): void {
     this.authenticator.updateAuthState('signedIn');

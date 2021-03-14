@@ -29,7 +29,9 @@
   </form>
   <ng-container
     [ngTemplateOutlet]="
-      customSubmitButton ? customSubmitButton : defaultSignInButton
+      customComponents.signInButton
+        ? customComponents.signInButton
+        : defaultSignInButton
     "
     [ngTemplateOutletContext]="context"
   >
