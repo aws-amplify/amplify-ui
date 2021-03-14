@@ -24,7 +24,7 @@ export class AmplifySignInComponent {
 
   // this context will be passed to any templates under this component
   context = {
-    signIn: () => this.signIn(),
+    $implicit: { signIn: () => this.signIn() },
   };
 
   signIn(): void {

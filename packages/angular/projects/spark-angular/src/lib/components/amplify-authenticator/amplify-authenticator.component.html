@@ -8,7 +8,7 @@
 
 <!-- render subcomponents -->
 <ng-container
-  [ngTemplateOutlet]="signInContent ? signInContent : defaultSignIn"
+  [ngTemplateOutlet]="customSignIn ? customSignIn : defaultSignIn"
   [ngTemplateOutletContext]="context"
   *ngIf="getAuthState === 'signIn'"
 >

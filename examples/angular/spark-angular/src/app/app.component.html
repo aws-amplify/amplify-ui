@@ -1,15 +1,3 @@
-<style>
-  :host {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-      Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-      'Segoe UI Symbol';
-    font-size: 14px;
-    color: #333;
-    box-sizing: border-box;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-</style>
 <h1>Default Authenticator</h1>
 <spark-context-provider>
   <amplify-authenticator></amplify-authenticator>
@@ -20,7 +8,7 @@
 <amplify-authenticator> </amplify-authenticator>
 <hr />
 
-<h1>Custom Components</h1>
+<h1>Customizing Style</h1>
 <spark-context-provider [customStyle]="customStyle">
   <amplify-authenticator> </amplify-authenticator>
 </spark-context-provider>
@@ -30,14 +18,9 @@
 <spark-context-provider>
   <amplify-authenticator>
     <ng-template #signIn>
-      <amplify-sign-in [headerText]="'Custom Sign In Header'">
-        <ng-template #signInButton let-signIn="signIn">
-          <button
-            (click)="signIn()"
-            [ngStyle]="{ padding: '1rem', 'border-style': 'dashed' }"
-          >
-            Submit
-          </button>
+      <amplify-sign-in [headerText]="'Hello'">
+        <ng-template #signInButton let-ctx>
+          <button (click)="ctx.signIn()">Custom Button</button>
         </ng-template>
       </amplify-sign-in>
     </ng-template>

@@ -1,5 +1,6 @@
 import { Component, ContentChild, TemplateRef } from '@angular/core';
 import { AuthState } from '../../common/auth-types';
+import { GetCtxDirective } from '../../directives/get-ctx.directive';
 
 @Component({
   selector: 'amplify-authenticator',
@@ -8,9 +9,8 @@ import { AuthState } from '../../common/auth-types';
 })
 export class AmplifyAuthenticatorComponent {
   private authState: AuthState = 'signIn';
-  @ContentChild('signIn') signInContent: TemplateRef<any>;
-  @ContentChild('signedIn') signedInContent: TemplateRef<any>;
-
+  @ContentChild('signIn') customSignIn: TemplateRef<any>;
+  @ContentChild('signedIn') customSignedIn: TemplateRef<any>;
   get getAuthState(): AuthState {
     return this.authState;
   }
