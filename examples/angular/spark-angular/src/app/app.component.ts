@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import * as Spark from '@aws-amplify/spark-angular';
-console.log(Spark);
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -11,13 +9,10 @@ export class AppComponent {
   customStyle = {
     Button: {
       'background-color': 'skyblue',
-      padding: '0.75rem 1.25rem 0.75rem 1.25rem',
-      'border-style': 'none',
-      color: 'white',
     },
   };
 
-  onError(event) {
-    console.error(event);
+  onError($event: object): void {
+    console.error($event);
   }
 }

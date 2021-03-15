@@ -6,9 +6,8 @@ import { SparkAngularModule } from '@aws-amplify/spark-angular';
 
 import { MarkdownModule } from 'ngx-markdown';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MatGridListModule } from '@angular/material/grid-list';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,8 +16,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
     SparkAngularModule,
     HttpClientModule,
     MarkdownModule.forRoot({ loader: HttpClient }),
-    BrowserAnimationsModule,
-    MatGridListModule,
+    MatButtonModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
