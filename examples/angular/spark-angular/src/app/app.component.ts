@@ -16,4 +16,8 @@ export class AppComponent {
       color: 'white',
     },
   };
+
+  onError(event) {
+    console.error(event);
+  }
 }
