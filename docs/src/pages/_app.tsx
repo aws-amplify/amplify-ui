@@ -7,6 +7,8 @@ import * as Spark from "@aws-amplify/spark-react";
 import "react-smooshpack/dist/index.css";
 import "tailwindcss/tailwind.css";
 
+import "@aws-amplify/spark-react/styles.css";
+
 const components = {
   code({ children, className = "template-jsx", sandbox, template = "react" }) {
     if (sandbox) {
@@ -42,13 +44,11 @@ const components = {
   ...Spark,
 
   Spark,
-
-  "SparkContext.Provider": Spark.SparkContext.Provider,
 };
 
 function MyApp({ Component, pageProps }) {
   return (
-    <div className="antialiased text-gray-900 bg-gray-100">
+    <div className="antialiased text-gray-900 bg-gray-50">
       <div className="max-w-3xl px-4 py-10 mx-auto sm:px-6 sm:py-12 lg:max-w-4xl lg:py-16 lg:px-8 xl:max-w-6xl">
         <div className="mx-auto prose-sm prose sm:prose lg:prose-md xl:prose-2xl">
           <MDXProvider components={components}>
