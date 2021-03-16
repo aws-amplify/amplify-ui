@@ -1,0 +1,67 @@
+[data-spark-theme] [data-spark-authenticator] {
+  @apply max-w-md mx-auto overflow-hidden text-base text-gray-700 rounded-md shadow;
+}
+
+[data-spark-theme] [data-spark-authenticator] [data-spark-heading] {
+  @apply mb-0 text-xl;
+}
+
+[data-spark-theme] [data-spark-authenticator] [data-spark-form] {
+  @apply grid gap-6 p-8 bg-white;
+}
+
+[data-spark-theme] [data-spark-authenticator] [data-spark-footer] {
+  @apply flex flex-row items-center space-x-1;
+}
+
+[data-spark-theme] [data-spark-authenticator] [data-spark-fieldset] {
+  @apply grid gap-6;
+}
+
+[data-spark-theme] [data-spark-authenticator] [data-spark-label] {
+  @apply space-y-2;
+}
+
+[data-spark-theme]
+  [data-spark-authenticator]
+  [data-spark-password]
+  [data-spark-box] {
+  @apply flex flex-row space-x-1;
+}
+
+[data-spark-theme]
+  [data-spark-authenticator]
+  [data-spark-password]
+  [data-spark-box]
+  [data-spark-text] {
+  @apply text-sm text-gray-500;
+}
+
+[data-spark-theme]
+  [data-spark-authenticator]
+  [data-spark-password]
+  [data-spark-box]
+  [data-spark-button] {
+  @apply text-sm text-blue-500;
+}
+
+[data-spark-theme]
+  [data-spark-authenticator]
+  [data-spark-footer]
+  [data-spark-text] {
+  @apply text-sm text-gray-500;
+}
+
+[data-spark-theme]
+  [data-spark-authenticator]
+  [data-spark-footer]
+  [data-spark-button]:first-of-type {
+  @apply text-sm text-blue-500;
+}
+
+[data-spark-theme]
+  [data-spark-authenticator]
+  [data-spark-footer]
+  [data-spark-button]:last-of-type {
+  @apply px-8 py-2 text-base text-white bg-gray-700 rounded;
+}

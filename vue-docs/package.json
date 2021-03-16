@@ -1,0 +1,20 @@
+{
+  "name": "vitepress-spark-vue-poc",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "autoprefixer": "^10.2.5",
+    "postcss": "^8.2.8",
+    "tailwindcss": "^2.0.3",
+    "vitepress": "^0.12.2"
+  },
+  "scripts": {
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:serve": "vitepress serve docs"
+  },
+  "dependencies": {
+    "@tailwindcss/typography": "^0.4.0"
+  }
+}

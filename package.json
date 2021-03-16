@@ -1,12 +1,15 @@
 {
   "private": true,
   "scripts": {
-    "dev": "cd docs && yarn dev"
+    "dev": "cd docs && yarn dev",
+    "dev:vue": "cd vue-docs && yarn docs:dev --port 3001"
   },
   "workspaces": [
     "docs",
-    "packages/react",
+    "vue-docs",
+    "examples/angular/spark-angular",
     "packages/angular",
-    "examples/angular/spark-angular"
+    "packages/react",
+    "packages/vue"
   ]
 }
