@@ -1,19 +1,28 @@
-import { Component, Input, Optional, TemplateRef } from '@angular/core';
+import {
+  Component,
+  HostBinding,
+  Input,
+  Optional,
+  TemplateRef,
+  ViewEncapsulation,
+} from '@angular/core';
 import { SparkContextProviderComponent } from '../../spark-context-provider/spark-context-provider.component';
 import { AmplifyAuthenticatorComponent } from '../amplify-authenticator/amplify-authenticator.component';
 
 @Component({
   selector: 'amplify-sign-in',
   templateUrl: './amplify-sign-in.component.html',
+  encapsulation: ViewEncapsulation.None,
 })
 export class AmplifySignInComponent {
+  @HostBinding('attr.data-spark-sign-in') dataAttr = '';
+
   public style = this.provider?.getStyle;
   public context = {
     $implicit: { signIn: () => this.signIn() },
   };
   public customComponents: Record<string, TemplateRef<any>> = {};
   @Input() public headerText = 'Sign in to your account';
-
   constructor(
     private authenticator: AmplifyAuthenticatorComponent,
     @Optional() private provider: SparkContextProviderComponent

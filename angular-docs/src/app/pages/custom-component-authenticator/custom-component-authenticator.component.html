@@ -1,0 +1,8 @@
+<markdown [src]="'markdowns/authenticator/inserting-components.md'"></markdown>
+<spark-context-provider>
+  <amplify-authenticator>
+    <ng-template #signInButton let-ctx>
+      <button mat-fab color="primary" (click)="ctx.signIn()">Submit</button>
+    </ng-template>
+  </amplify-authenticator>
+</spark-context-provider>

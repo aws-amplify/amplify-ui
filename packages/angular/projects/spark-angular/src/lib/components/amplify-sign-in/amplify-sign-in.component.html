@@ -1,6 +1,7 @@
 <ng-template #defaultSignInButton>
   <button
-    [ngStyle]="style?.Button"
+    data-spark-button
+    id="spark-button"
     type="submit"
     (click)="this.signIn(); $event.preventDefault()"
   >
@@ -8,20 +9,20 @@
   </button>
 </ng-template>
 
-<div [ngStyle]="style?.Container">
+<div data-spark-container>
   <h2>{{ this.headerText }}</h2>
   <form>
-    <label [ngStyle]="style?.Label" for="username">Username</label>
+    <label data-spark-label for="username">Username</label>
     <input
-      [ngStyle]="style?.Input"
+      data-spark-input
       type="text"
       id="username"
       placeholder="Enter your username"
     />
 
-    <label [ngStyle]="style?.Label" for="password">Password</label>
+    <label data-spark-label for="password">Password</label>
     <input
-      [ngStyle]="style?.Input"
+      data-spark-input
       type="text"
       id="password"
       placeholder="Enter your password"
@@ -36,5 +37,4 @@
     [ngTemplateOutletContext]="context"
   >
   </ng-container>
-  <ng-content select="#signInButton"></ng-content>
 </div>
