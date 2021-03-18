@@ -1,7 +1,9 @@
 <template>
-  <button data-spark-button="">
-    <slot></slot>
-  </button>
+  <slot v-bind="$attrs" name="buttont">
+    <button v-bind="$attrs" data-spark-button="">
+      <slot></slot>
+    </button>
+  </slot>
 </template>
 
 <script lang="ts">

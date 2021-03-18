@@ -9,7 +9,6 @@ export default defineComponent({
       this.$slots // array of children
     );
   },
-  inject: ["category", "defaultClasses"],
   props: {
     level: {
       type: Number,

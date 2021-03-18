@@ -1,17 +1,20 @@
 <template>
-  <div data-spark-wrapper="">
+  <div :data-spark-theme="this.defaults ? '' : null">
     <slot></slot>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent } from "vue";
 
 export default defineComponent({
-  provide() {
-    return {};
+  props: {
+    defaults: {
+      type: Boolean,
+      default: false,
+    },
   },
-  props: {},
+
   setup() {
     return {};
   },

@@ -1,165 +1,244 @@
-# How To Use Spark Authenticator Sign In
+# How To Use Spark Authenticator
 
 ## Usage Examples
 
 ### Default
 
 ```vue
-<SparkAuthentication>
-  <SparkAuthenticationSignIn defaults> </SparkAuthenticationSignIn>
-</SparkAuthentication>
+<SparkProvider defaults>
+  <Authenticator>
+
+  </Authenticator>
+</SparkProvider>
 
 <script setup>
-import {
-  SparkAuthenticationSignIn,
-  SparkAuthentication,
-} from "@aws-amplify/spark-vue";
+import { Authenticator, SparkProvider } from "@aws-amplify/spark-vue";
 
 import "@aws-amplify/spark-vue/styles.css";
 </script>
 ```
 
-<SparkAuthentication>
-  <SparkAuthenticationSignIn defaults >
-  </SparkAuthenticationSignIn>
+<SparkProvider defaults >
 
-</SparkAuthentication>
+<Authenticator>
+
+</Authenticator>
+
+</SparkProvider>
 
 <hr class="my-20"/>
 
 ### Sign In Click Event
 
 ```html
-<SparkAuthentication>
-  <SparkAuthenticationSignIn defaults @onSignInPressed="signInPressed">
-  </SparkAuthenticationSignIn>
-</SparkAuthentication>
+<SparkProvider defaults>
+  <Authenticator>
+    <template v-slot:sign-in>
+      <SignIn
+        @sign-in-button-clicked="signInPressed"
+        :full-name-text="'blah'"
+      />
+    </template>
+  </Authenticator>
+</SparkProvider>
 
 <script setup>
-  import {
-    SparkAuthenticationSignIn,
-    SparkAuthentication,
-  } from "@aws-amplify/spark-vue";
+  import { SignIn, Authenticator, SparkProvider } from "@aws-amplify/spark-vue";
 
   import "@aws-amplify/spark-vue/styles.css";
 </script>
 ```
 
-<SparkAuthentication>
+<SparkProvider defaults >
 
-<SparkAuthenticationSignIn defaults @onSignInPressed="signInPressed">
-</SparkAuthenticationSignIn>
+<Authenticator>
 
-</SparkAuthentication>
+<template v-slot:sign-in>
+
+<SignIn @sign-in-button-clicked="signInPressed" :full-name-text="'blah'">
+</SignIn>
+
+</template>
+
+</Authenticator>
+
+</SparkProvider>
 
 <hr class="my-20"/>
 
 ### Overriding Form Component
 
 ```html
-<SparkAuthentication>
-  <SparkAuthenticationSignIn defaults>
-    <template v-slot:form="{ info }">
-      <form class="grid gap-6 p-8 bg-green-200">
-        <RenderInfo :info="info"></RenderInfo>
-      </form>
+<SparkProvider defaults>
+  <Authenticator>
+    <template v-slot:sign-in>
+      <SignIn>
+        <template v-slot:form="{ info }">
+          <form class="grid gap-6 p-8 bg-green-200">
+            <RenderInfo :info="info"></RenderInfo>
+          </form>
+        </template>
+      </SignIn>
     </template>
-  </SparkAuthenticationSignIn>
-</SparkAuthentication>
+  </Authenticator>
+</SparkProvider>
 
 <script setup>
   import {
-    SparkAuthenticationSignIn,
-    SparkAuthentication,
+    SignIn,
+    Authenticator,
+    SparkProvider,
     RenderInfo,
   } from "@aws-amplify/spark-vue";
 
   import "@aws-amplify/spark-vue/styles.css";
+
+  const signInPressed = () => console.log("test");
 </script>
 ```
 
-<SparkAuthentication>
+<SparkProvider defaults>
+  <Authenticator>
+  <template v-slot:sign-in>
 
-<SparkAuthenticationSignIn defaults>
+<SignIn>
 
-<template v-slot:form="{ info }">
-    <form class="grid gap-6 p-8 bg-green-200">
+  <template v-slot:form="{info}">
+    <form class="grid gap-6  p-8  bg-green-200">
+    <RenderInfo :info="info"/>
+    </form>
 
-<RenderInfo :info="info"></RenderInfo>
+  </template>
 
-</form>
+</SignIn>
 
-</template>
-
-</SparkAuthenticationSignIn>
-
-</SparkAuthentication>
+  </template>
+  </Authenticator>
+</SparkProvider>
 
 <hr class="my-20"/>
 
 ### Headless UI version
 
 ```html
-<SparkAuthentication>
-  <SparkAuthenticationSignIn />
-</SparkAuthentication>
+<SparkProvider>
+  <Authenticator> </Authenticator>
+</SparkProvider>
 
 <script setup>
-  import {
-    SparkAuthenticationSignIn,
-    SparkAuthentication,
-  } from "@aws-amplify/spark-vue";
+  import { Authenticator, SparkProvider } from "@aws-amplify/spark-vue";
 </script>
 ```
 
-<SparkAuthentication>
+<SparkProvider>
 
-<SparkAuthenticationSignIn >
+<Authenticator>
 
-</SparkAuthenticationSignIn>
+</Authenticator>
 
-</SparkAuthentication>
+</SparkProvider>
 
 <hr class="my-20" />
 
-## Authentication Sign In API
+### Update Forgot Password Button
 
-### Props
+```html
+<SparkProvider defaults>
+  <Authenticator>
+    <template v-slot:sign-in>
+      <SignIn>
+        <template v-slot:forgot-password-button="{ onForgotPasswordClicked }">
+          <button
+            @click.prevent="forgotThePassword(onForgotPasswordClicked)"
+            class="outline-black border-solid bg-color-blue"
+          >
+            Reset Mah Password
+          </button>
+        </template>
+      </SignIn>
+    </template>
+  </Authenticator>
+</SparkProvider>
 
-| Name                |  Type  |      Default       |                     Description |
-| ------------------- | :----: | :----------------: | ------------------------------: |
-| signIntoAccountText | string |  '{{signInText}}'  |    Sets text for sign in header |
-| fullNameText        | string | '{{fullNameText}}' | Sets text for full name in form |
+<script setup>
+  import {
+    SignIn,
+    Authenticator,
+    SparkProvider,
+    RenderInfo,
+  } from "@aws-amplify/spark-vue";
+
+  import "@aws-amplify/spark-vue/styles.css";
+
+  const forgotThePassword = (fn) => fn();
+</script>
+```
+
+<SparkProvider defaults>
+  <Authenticator>
+
+  <template v-slot:sign-in>
+    <SignIn>
+    <template v-slot:forgot-password-button="{ onForgotPasswordClicked }">
+      <button @click.prevent="forgotThePassword(onForgotPasswordClicked)" class="outline-black border-solid bg-color-blue">forgot Mah Password</button>
+       </template>
+    </SignIn>
+  </template>
+
+  </Authenticator>
+</SparkProvider>
+
+## Authenticator Component
 
 ### Slots
 
-| Name     |                                    Description |
-| -------- | ---------------------------------------------: |
-| form     |              Replaces the `<form>` DOM Element |
-| fullName | Replaces the `<span>` label text for Full name |
+| Name    |                        Description |
+| ------- | ---------------------------------: |
+| sign-in | Replaces the `<sign-in>` component |
+
+<hr class="my-20" />
+
+## SignIn Component
+
+### Props
+
+| Name           |  Type  |      Default       |                     Description |
+| -------------- | :----: | :----------------: | ------------------------------: |
+| sign-in-text   | string |  '{{signInText}}'  |    Sets text for sign in header |
+| full-name-text | string | '{{fullNameText}}' | Sets text for full name in form |
+
+### Slots
+
+| Name                   |                  Description                   |               Scoped Slots                |
+| ---------------------- | :--------------------------------------------: | :---------------------------------------: |
+| form                   |       Replaces the `<form>` DOM Element        | Exposes `{ slotData }` default child data |
+| full-name              | Replaces the `<span>` label text for Full name |                   None                    |
+| forgot-password-button |      Replaces the forgot password button       |   Exposes `{ onForgotPasswordClicked }`   |
+| sign-in-button         |          Replaces the sign in button           |    Exposes `{ onSignInButtonClicked }`    |
 
 ### Events
 
-| Name          |                            Description |
-| ------------- | -------------------------------------: |
-| signInPressed | Emitted when sign in button is clicked |
-
-### CSS Variables
-
-| Name               | Default |
-| ------------------ | ------: |
-| --background-color |   white |
+| Name                   |                                        Description |
+| ---------------------- | -------------------------------------------------: |
+| sign-in-button-clicked | Emits and overrides when sign in button is clicked |
 
 <script setup>
 import "@aws-amplify/spark-vue/styles.css";
-import {SparkAuthenticationSignIn, SparkAuthentication, RenderInfo, SIGN_IN_TEXT, FULL_NAME_TEXT}  from "@aws-amplify/spark-vue";
+import {SignIn, SparkProvider, Authenticator, RenderInfo, SIGN_IN_TEXT, FULL_NAME_TEXT}  from "@aws-amplify/spark-vue";
 
 
 const signInText =  SIGN_IN_TEXT;
 const fullNameText = FULL_NAME_TEXT;
 const signInPressed = ()=>console.log('parent component sign in pressed');
+const forgotThePassword = (fn)=>
+{
+  console.log('do something here then run function')
+  //
+  fn();
+  console.log('forgot password inner');
+}
 </script>
-<style>
+<style >
 
 
 </style>
