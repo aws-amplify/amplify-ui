@@ -1,4 +1,7 @@
 .docs {
   padding: 5vh 20% 5vh 20%;
-  height: 85vh; /* Calc exact height later*/
+}
+
+.sidenav-container {
+  min-height: calc(100vh - 64px);
 }

@@ -1,12 +1,23 @@
 # Authenticator
+
 You can use `amplify-authenticator` component to add authenticator flows to your app.
 
-## Basic Example
-Here is our simplest authenticator example. We have a top-level `spark-context-provider` that provides the style information to the child components. Inside, we have `amplify-authenticator` ui component that takes care of the auth flow.
+## Authenticator with Default Theme
+
+Amplify provides simple, clean styles to get started with a great experience in two steps:
+
+1. Inside your `style.css`, import the shared css module:
+
+```css
+import "~@aws-amplify/spark-react/styles.css";
+```
+
+2. Wrap your app with `spark-context-provider`:
 
 ```html
 <spark-context-provider>
   <amplify-authenticator></amplify-authenticator>
 </spark-context-provider>
 ```
+
 <br/>
