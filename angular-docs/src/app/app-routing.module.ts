@@ -1,17 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { BasicAuthenticatorComponent } from './pages/basic-authenticator/basic-authenticator.component';
-import { CustomComponentAuthenticatorComponent } from './pages/custom-component-authenticator/custom-component-authenticator.component';
-import { HeadlessAuthenticatorComponent } from './pages/headless-authenticator/headless-authenticator.component';
-import { StyledAuthenticatorComponent } from './pages/styled-authenticator/styled-authenticator.component';
+import { docRoutes } from './common/routes';
 
-const routes: Routes = [
-  { path: '', component: BasicAuthenticatorComponent },
-  { path: 'basic-authenticator', component: BasicAuthenticatorComponent },
-  { path: 'headless-authenticator', component: HeadlessAuthenticatorComponent },
-  { path: 'styled-authenticator', component: StyledAuthenticatorComponent },
-  { path: 'custom-authenticator', component: CustomComponentAuthenticatorComponent },
-];
+const routes: Routes = docRoutes.map((route) => ({
+  path: route.path,
+  component: route.component,
+}));
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

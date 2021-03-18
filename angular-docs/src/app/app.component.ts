@@ -1,4 +1,5 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component } from '@angular/core';
+import { docRoutes } from './common/routes';
 
 @Component({
   selector: 'app-root',
@@ -7,21 +8,5 @@ import { Component, ViewEncapsulation } from '@angular/core';
 })
 export class AppComponent {
   title = 'angular-docs';
-  navList = [
-    {
-      path: 'basic-authenticator',
-      name: 'Basic Authenticator',
-    },
-    {
-      path: 'headless-authenticator',
-      name: 'Headless Authenticator',
-    },
-    {
-      path: 'styled-authenticator',
-      name: 'Styling Components',
-    },    {
-      path: 'custom-authenticator',
-      name: 'Inserting Custom Components',
-    },
-  ];
+  navList = docRoutes;
 }
