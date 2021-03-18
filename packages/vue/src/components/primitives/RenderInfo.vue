@@ -8,7 +8,7 @@ export default defineComponent({
     },
   },
   setup({ info }) {
-    return () => h("div", info);
+    return () => info;
   },
 });
 </script>

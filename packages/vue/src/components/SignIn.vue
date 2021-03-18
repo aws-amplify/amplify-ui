@@ -1,7 +1,7 @@
 <template>
   <slot name="signInSlotI">
     <Wrapper>
-      <Form>
+      <Form @submit.prevent="onSignInButtonClicked">
         <template #formt="{ slotData }">
           <slot name="form" :info="slotData"> </slot>
         </template>
@@ -24,12 +24,12 @@
           </Label>
 
           <Label>
-            <Text>Password</Text>
-            <Input name="username" required type="password" />
+            <Text>{{ passwordLabel }}</Text>
+            <Input name="password" required type="password" />
 
             <Box>
-              <Text> Forgot your password? </Text>
-              <Button @click.prevent="onForgotPasswordClicked">
+              <Text> {{ forgotYourPasswordText }}</Text>
+              <Button type="button" @click.prevent="onForgotPasswordClicked">
                 <template #buttont>
                   <slot
                     name="forgot-password-button"
@@ -37,14 +37,25 @@
                   ></slot>
                 </template>
 
-                Reset Password
+                {{ resetPasswordLink }}
               </Button>
             </Box>
           </Label>
         </FieldSet>
         <Footer>
-          <Text>No account?</Text>
-          <Button>Create account</Button>
+          <template #footert="{ slotData }">
+            <slot
+              name="footer"
+              :info="slotData"
+              :onSignInButtonClicked="onSignInButtonClicked"
+              :onCreateAccountClicked="onCreateAccountClicked"
+            >
+            </slot>
+          </template>
+          <Text>{{ noAccount }}</Text>
+          <Button type="button" @click.prevent="onCreateAccountClicked">{{
+            createAccountLink
+          }}</Button>
           <Spacer />
           <Button type="submit" @click.prevent="onSignInButtonClicked">
             <template #buttont>
@@ -53,7 +64,8 @@
                 :onSignInButtonClicked="onSignInButtonClicked"
               ></slot>
             </template>
-            Sign In
+            {{ signInButtonText }}
+            <!-- Add prop too? -->
           </Button>
         </Footer>
       </Form>
@@ -66,6 +78,12 @@ import {
   SIGN_IN_TEXT,
   FULL_NAME_TEXT,
   AUTHENTICATOR,
+  RESET_PASSWORD_LINK,
+  NO_ACCOUNT,
+  CREATE_ACCOUNT_LINK,
+  SIGN_IN_BUTTON_TEXT,
+  FORGOT_YOUR_PASSWORD_TEXT,
+  PASSWORD_LABEL,
 } from "../defaults/DefaultTexts";
 import Footer from "./primitives/Footer.vue";
 import Wrapper from "./primitives/Wrapper.vue";
@@ -82,15 +100,15 @@ import RenderInfo from "./primitives/RenderInfo.vue";
 
 export default {
   name: "Authentication",
-  props: {
-    signIntoAccountText: {
-      type: String,
-      default: SIGN_IN_TEXT,
-    },
-    fullNameText: {
-      type: String,
-      default: FULL_NAME_TEXT,
-    },
+  computed: {
+    signIntoAccountText: () => SIGN_IN_TEXT,
+    fullNameText: () => FULL_NAME_TEXT,
+    resetPasswordLink: () => RESET_PASSWORD_LINK,
+    noAccount: () => NO_ACCOUNT,
+    createAccountLink: () => CREATE_ACCOUNT_LINK,
+    signInButtonText: () => SIGN_IN_BUTTON_TEXT,
+    forgotYourPasswordText: () => FORGOT_YOUR_PASSWORD_TEXT,
+    passwordLabel: () => PASSWORD_LABEL,
   },
   inheritAttrs: false,
   mounted() {},
@@ -126,10 +144,23 @@ export default {
     };
 
     const onForgotPasswordClicked = (): void => {
-      console.log("you clicked the reset password link");
+      attrs?.onForgotPasswordClicked
+        ? emit("forgotPasswordClicked")
+        : console.log("you clicked the reset password link");
     };
 
-    return { onSignInButtonClicked, AUTHENTICATOR, onForgotPasswordClicked };
+    const onCreateAccountClicked = (): void => {
+      attrs?.onCreateAccountClicked
+        ? emit("createAccountClicked")
+        : console.log("create account clicked");
+    };
+
+    return {
+      onSignInButtonClicked,
+      AUTHENTICATOR,
+      onForgotPasswordClicked,
+      onCreateAccountClicked,
+    };
   },
 };
 </script>

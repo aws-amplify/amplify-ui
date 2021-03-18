@@ -2,13 +2,6 @@
 import { defineComponent, h } from "vue";
 
 export default defineComponent({
-  render() {
-    return h(
-      "h" + this.level, // tag name
-      { "data-spark-heading": "" }, // props/attributes
-      this.$slots // array of children
-    );
-  },
   props: {
     level: {
       type: Number,
@@ -16,8 +9,16 @@ export default defineComponent({
       default: 1,
     },
   },
-  setup() {
-    return {};
+  inheritAttrs: false,
+  setup({ level }, { slots, attrs }) {
+    const defaultSlot = slots.default ? slots.default() : [];
+    const headingI = slots.headingI ? slots.headingI() : [];
+    if (headingI[0]?.children.length === 0) {
+      headingI[0].children = [
+        h(`h${level}`, { "data-spark-heading": "", ...attrs }, [defaultSlot]),
+      ];
+    }
+    return () => headingI;
   },
 });
 </script>

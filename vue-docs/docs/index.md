@@ -5,11 +5,11 @@
 ### Default
 
 ```vue
-<SparkProvider defaults>
-  <Authenticator>
+<spark-provider defaults>
+  <authenticator>
 
-  </Authenticator>
-</SparkProvider>
+  </authenticator>
+</spark-provider>
 
 <script setup>
 import { Authenticator, SparkProvider } from "@aws-amplify/spark-vue";
@@ -18,29 +18,29 @@ import "@aws-amplify/spark-vue/styles.css";
 </script>
 ```
 
-<SparkProvider defaults >
+<spark-provider defaults >
 
-<Authenticator>
+<authenticator>
 
-</Authenticator>
+</authenticator>
 
-</SparkProvider>
+</spark-provider>
 
 <hr class="my-20"/>
 
 ### Sign In Click Event
 
 ```html
-<SparkProvider defaults>
-  <Authenticator>
+<spark-provider defaults>
+  <authenticator>
     <template v-slot:sign-in>
-      <SignIn
+      <sign-in
         @sign-in-button-clicked="signInPressed"
         :full-name-text="'blah'"
       />
     </template>
-  </Authenticator>
-</SparkProvider>
+  </authenticator>
+</spark-provider>
 
 <script setup>
   import { SignIn, Authenticator, SparkProvider } from "@aws-amplify/spark-vue";
@@ -49,39 +49,39 @@ import "@aws-amplify/spark-vue/styles.css";
 </script>
 ```
 
-<SparkProvider defaults >
+<spark-provider defaults >
 
-<Authenticator>
+<authenticator>
 
 <template v-slot:sign-in>
 
-<SignIn @sign-in-button-clicked="signInPressed" :full-name-text="'blah'">
-</SignIn>
+<sign-in @sign-in-button-clicked="signInPressed" :full-name-text="'blah'">
+</sign-in>
 
 </template>
 
-</Authenticator>
+</authenticator>
 
-</SparkProvider>
+</spark-provider>
 
 <hr class="my-20"/>
 
 ### Overriding Form Component
 
 ```html
-<SparkProvider defaults>
-  <Authenticator>
+<spark-provider defaults>
+  <authenticator>
     <template v-slot:sign-in>
-      <SignIn>
+      <sign-in>
         <template v-slot:form="{ info }">
           <form class="grid gap-6 p-8 bg-green-200">
             <RenderInfo :info="info"></RenderInfo>
           </form>
         </template>
-      </SignIn>
+      </sign-in>
     </template>
-  </Authenticator>
-</SparkProvider>
+  </authenticator>
+</spark-provider>
 
 <script setup>
   import {
@@ -97,56 +97,56 @@ import "@aws-amplify/spark-vue/styles.css";
 </script>
 ```
 
-<SparkProvider defaults>
-  <Authenticator>
+<spark-provider defaults>
+  <authenticator>
   <template v-slot:sign-in>
 
-<SignIn>
+<sign-in>
 
   <template v-slot:form="{info}">
     <form class="grid gap-6  p-8  bg-green-200">
-    <RenderInfo :info="info"/>
+    <render-info :info="info"/>
     </form>
 
   </template>
 
-</SignIn>
+</sign-in>
 
   </template>
-  </Authenticator>
-</SparkProvider>
+  </authenticator>
+</spark-provider>
 
 <hr class="my-20"/>
 
 ### Headless UI version
 
 ```html
-<SparkProvider>
-  <Authenticator> </Authenticator>
-</SparkProvider>
+<spark-provider>
+  <authenticator> </authenticator>
+</spark-provider>
 
 <script setup>
   import { Authenticator, SparkProvider } from "@aws-amplify/spark-vue";
 </script>
 ```
 
-<SparkProvider>
+<spark-provider>
 
-<Authenticator>
+<authenticator>
 
-</Authenticator>
+</authenticator>
 
-</SparkProvider>
+</spark-provider>
 
 <hr class="my-20" />
 
 ### Update Forgot Password Button
 
 ```html
-<SparkProvider defaults>
-  <Authenticator>
+<spark-provider defaults>
+  <authenticator>
     <template v-slot:sign-in>
-      <SignIn>
+      <sign-in>
         <template v-slot:forgot-password-button="{ onForgotPasswordClicked }">
           <button
             @click.prevent="forgotThePassword(onForgotPasswordClicked)"
@@ -155,10 +155,10 @@ import "@aws-amplify/spark-vue/styles.css";
             Reset Mah Password
           </button>
         </template>
-      </SignIn>
+      </sign-in>
     </template>
-  </Authenticator>
-</SparkProvider>
+  </authenticator>
+</spark-provider>
 
 <script setup>
   import {
@@ -174,21 +174,21 @@ import "@aws-amplify/spark-vue/styles.css";
 </script>
 ```
 
-<SparkProvider defaults>
-  <Authenticator>
+<spark-provider defaults>
+  <authenticator>
 
   <template v-slot:sign-in>
-    <SignIn>
+    <sign-in>
     <template v-slot:forgot-password-button="{ onForgotPasswordClicked }">
       <button @click.prevent="forgotThePassword(onForgotPasswordClicked)" class="outline-black border-solid bg-color-blue">forgot Mah Password</button>
        </template>
-    </SignIn>
+    </sign-in>
   </template>
 
-  </Authenticator>
-</SparkProvider>
+  </authenticator>
+</spark-provider>
 
-## Authenticator Component
+## `<authenticator/>` Component
 
 ### Slots
 
@@ -198,29 +198,30 @@ import "@aws-amplify/spark-vue/styles.css";
 
 <hr class="my-20" />
 
-## SignIn Component
+## `<sign-in/>` Component
 
 ### Props
 
-| Name           |  Type  |      Default       |                     Description |
-| -------------- | :----: | :----------------: | ------------------------------: |
-| sign-in-text   | string |  '{{signInText}}'  |    Sets text for sign in header |
-| full-name-text | string | '{{fullNameText}}' | Sets text for full name in form |
+_All texts are provided by internationalization_
 
 ### Slots
 
-| Name                   |                  Description                   |               Scoped Slots                |
-| ---------------------- | :--------------------------------------------: | :---------------------------------------: |
-| form                   |       Replaces the `<form>` DOM Element        | Exposes `{ slotData }` default child data |
-| full-name              | Replaces the `<span>` label text for Full name |                   None                    |
-| forgot-password-button |      Replaces the forgot password button       |   Exposes `{ onForgotPasswordClicked }`   |
-| sign-in-button         |          Replaces the sign in button           |    Exposes `{ onSignInButtonClicked }`    |
+| Name                   |                  Description                   |                           Scoped Slots                           |
+| ---------------------- | :--------------------------------------------: | :--------------------------------------------------------------: |
+| form                   |       Replaces the `<form>` DOM Element        |            Exposes `{ slotData }` default child data             |
+| full-name              | Replaces the `<span>` label text for Full name |                               None                               |
+| forgot-password-button |      Replaces the forgot password button       |              Exposes `{ onForgotPasswordClicked }`               |
+| sign-in-button         |          Replaces the sign in button           |               Exposes `{ onSignInButtonClicked }`                |
+| heading                |           Replaces the heading text            |                               none                               |
+| footer                 |      Replaces the `<footer>` DOM element       | Exposes `{ onSignInButtonClicked, info,onCreateAccountClicked }` |
 
 ### Events
 
-| Name                   |                                        Description |
-| ---------------------- | -------------------------------------------------: |
-| sign-in-button-clicked | Emits and overrides when sign in button is clicked |
+| Name                    |                                                Description |
+| ----------------------- | ---------------------------------------------------------: |
+| sign-in-button-clicked  |         Emits and overrides when sign in button is clicked |
+| forgot-password-clicked | Emits and overrides when forgot password button is clicked |
+| create-account-clicked  |  Emits and overrides when create account button is clicked |
 
 <script setup>
 import "@aws-amplify/spark-vue/styles.css";
