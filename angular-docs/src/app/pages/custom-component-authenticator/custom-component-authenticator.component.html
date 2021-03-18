@@ -6,13 +6,3 @@
     </ng-template>
   </amplify-authenticator>
 </amplify-context-provider>
-
-
-<markdown [src]="'markdowns/authenticator/inserting-components--override.md'"></markdown>
-<amplify-context-provider>
-  <amplify-authenticator>
-    <ng-template amplifyOverride="signInButton" let-ctx>
-      <button mat-fab color="primary" (click)="ctx.signIn()">Submit</button>
-    </ng-template>
-  </amplify-authenticator>
-</amplify-context-provider>
