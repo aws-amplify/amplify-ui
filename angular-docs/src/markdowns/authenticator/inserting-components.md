@@ -1,4 +1,4 @@
-## Inserting Components
+# Inserting Components
 You can insert your own components with `ng-template`. Simply mark your template with one of our slot names: `#signIn`, `#signedIn`, `#signedInButton`, to do so. We also provide [context](https://angular.io/api/common/NgTemplateOutlet) that you can use to attach Amplify logic.
 ```html
 <spark-context-provider>

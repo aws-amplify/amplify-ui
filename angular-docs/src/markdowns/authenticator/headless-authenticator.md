@@ -1,4 +1,4 @@
-## Headless Authenticator
+# Headless Authenticator
 
 If you do not have the top level `spark-context-provider`, you will get a _headless_ component, which you can customize to fit your application needs.
 
