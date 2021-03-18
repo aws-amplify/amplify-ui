@@ -12,6 +12,7 @@
 }
 
 [data-spark-theme] [data-spark-input] {
+  border-style: solid;
   display: block;
   padding: 0.875rem;
   width: 90%;
