@@ -16,17 +16,8 @@ _app.component.html_
 _styles.css_
 
 ```css
-#my-authenticator [data-spark-header] {
-  width: fit-content;
-  padding-bottom: 0.75rem;
-  border-bottom: 1px solid cornflowerblue;
-}
-
 #my-authenticator [data-spark-button] {
-  background-color: inherit;
-  color: black;
-  border-bottom: 1px solid cornflowerblue;
-  border-width: 1px;
+    background-color: skyblue;
 }
 ```
 
