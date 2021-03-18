@@ -1,4 +1,5 @@
-[data-spark-theme] [data-spark-button] {
+/* We're temporarily adding example class name or else the style will bleed into other pages. */
+.example [data-spark-sign-in] [data-spark-button] {
   background-color: skyblue;
 }
 
