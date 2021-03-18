@@ -6,7 +6,7 @@ import {
   TemplateRef,
   ViewEncapsulation,
 } from '@angular/core';
-import { SparkContextProviderComponent } from '../../spark-context-provider/spark-context-provider.component';
+import { AmplifyContextProviderComponent } from '../../amplify-context-provider/amplify-context-provider.component';
 import { AmplifyAuthenticatorComponent } from '../amplify-authenticator/amplify-authenticator.component';
 
 @Component({
@@ -25,7 +25,7 @@ export class AmplifySignInComponent {
   @Input() public headerText = 'Sign in to your account';
   constructor(
     private authenticator: AmplifyAuthenticatorComponent,
-    @Optional() private provider: SparkContextProviderComponent
+    @Optional() private provider: AmplifyContextProviderComponent
   ) {
     this.customComponents = authenticator.getCustomComponents();
   }

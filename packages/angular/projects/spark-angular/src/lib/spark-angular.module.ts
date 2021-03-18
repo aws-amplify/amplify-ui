@@ -3,7 +3,7 @@ import { SparkAngularComponent } from './spark-angular.component';
 import { AmplifyAuthenticatorComponent } from './components/amplify-authenticator/amplify-authenticator.component';
 import { AmplifySignInComponent } from './components/amplify-sign-in/amplify-sign-in.component';
 import { CommonModule } from '@angular/common';
-import { SparkContextProviderComponent } from './spark-context-provider/spark-context-provider.component';
+import { AmplifyContextProviderComponent } from './amplify-context-provider/amplify-context-provider.component';
 import { AmplifySignOutComponent } from './components/amplify-sign-out/amplify-sign-out.component';
 import { AmplifyOverrideDirective } from './directives/amplify-override.directive';
 
@@ -13,7 +13,7 @@ import { AmplifyOverrideDirective } from './directives/amplify-override.directiv
     AmplifyAuthenticatorComponent,
     AmplifySignInComponent,
     AmplifySignOutComponent,
-    SparkContextProviderComponent,
+    AmplifyContextProviderComponent,
     AmplifyOverrideDirective,
   ],
   imports: [CommonModule],
@@ -22,7 +22,7 @@ import { AmplifyOverrideDirective } from './directives/amplify-override.directiv
     AmplifyAuthenticatorComponent,
     AmplifySignInComponent,
     AmplifySignOutComponent,
-    SparkContextProviderComponent,
+    AmplifyContextProviderComponent,
     AmplifyOverrideDirective,
   ],
 })

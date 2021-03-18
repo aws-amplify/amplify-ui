@@ -4,10 +4,9 @@ import { mergeDeep } from '../common/utils';
 @Component({
   selector: 'spark-context-provider',
   template: `<ng-content></ng-content>`,
-  styleUrls: ['./spark-context-provider.component.css'],
   encapsulation: ViewEncapsulation.None,
 })
-export class SparkContextProviderComponent implements OnInit {
+export class AmplifyContextProviderComponent implements OnInit {
   @HostBinding('attr.data-spark-theme') dataAttr = '';
   @Input() customStyle: object = {};
   private style: object = {};
