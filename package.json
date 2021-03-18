@@ -8,7 +8,6 @@
     "docs",
     "vue-docs",
     "angular-docs",
-    "examples/angular/spark-angular",
     "packages/angular",
     "packages/react",
     "packages/vue"
