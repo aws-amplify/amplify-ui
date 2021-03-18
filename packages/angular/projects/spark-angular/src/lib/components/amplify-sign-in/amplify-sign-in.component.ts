@@ -16,15 +16,14 @@ import { AmplifyAuthenticatorComponent } from '../amplify-authenticator/amplify-
 export class AmplifySignInComponent {
   @HostBinding('attr.data-spark-sign-in') dataAttr = '';
 
+  public customComponents: Record<string, TemplateRef<any>> = {};
+  @Input() public headerText = 'Sign in to your account';
   public context = {
     $implicit: { signIn: () => this.signIn() },
   };
-  public customComponents: Record<string, TemplateRef<any>> = {};
-  @Input() public headerText = 'Sign in to your account';
-  constructor(
-    private authenticator: AmplifyAuthenticatorComponent,
-  ) {
-    this.customComponents = authenticator.getCustomComponents();
+
+  constructor(private authenticator: AmplifyAuthenticatorComponent) {
+    this.customComponents = authenticator.getCustomComponentMap;
   }
 
   signIn(): void {

@@ -18,10 +18,10 @@ export class AppComponent {
     },
     {
       path: 'styled-authenticator',
-      name: 'Define Custom Style',
+      name: 'Styling Components',
     },    {
       path: 'custom-authenticator',
-      name: 'Insert Custom Component',
+      name: 'Inserting Custom Components',
     },
   ];
 }

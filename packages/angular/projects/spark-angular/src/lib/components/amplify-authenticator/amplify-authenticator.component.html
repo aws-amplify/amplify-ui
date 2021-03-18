@@ -8,14 +8,14 @@
 
 <!-- render subcomponents -->
 <ng-container
-  [ngTemplateOutlet]="customSignIn ? customSignIn : defaultSignIn"
+  [ngTemplateOutlet]="customComponents.signIn ? customComponents.signIn : defaultSignIn"
   [ngTemplateOutletContext]="context"
   *ngIf="getAuthState === 'signIn'"
 >
 </ng-container>
 
 <ng-container
-  [ngTemplateOutlet]="signedInContent ? signedInContent : defaultSignedIn"
+  [ngTemplateOutlet]="customComponents.signedIn ? customComponents.signedIn : defaultSignedIn"
   [ngTemplateOutletContext]="context"
   *ngIf="getAuthState === 'signedIn'"
 >

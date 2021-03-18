@@ -1,6 +1,16 @@
 # Custom Style
 
-You can provide custom style into the `amplify-context-provider` with `customStyle` input. You can assign and target custom id to the authenticator to ensure that your style to give it override priority.
+We provide `data-spark-[name]` attributes that you can target with your css file. For example, you can target sign in button with
+
+_styles.css_
+```css 
+[data-spark-sign-in] [data-spark-button] {
+    background-color: skyblue;
+}
+```
+
+## Overriding Default Styles
+You can assign and target custom id to the authenticator to ensure that your style to give it override priority.
 
 _app.component.html_
 

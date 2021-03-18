@@ -5,9 +5,13 @@ import { Directive, Input, TemplateRef } from '@angular/core';
 })
 export class AmplifyOverrideDirective {
   constructor(public template: TemplateRef<any>) {}
-  public name: string;
+  private name: string;
 
   @Input() set amplifyOverride(component: string) {
     this.name = component;
+  }
+
+  get getName() {
+    return this.name;
   }
 }

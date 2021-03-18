@@ -28,3 +28,8 @@ code {
 pre code {
   padding: initial;
 }
+
+li {
+  margin-bottom: 0.5rem;
+}
+
