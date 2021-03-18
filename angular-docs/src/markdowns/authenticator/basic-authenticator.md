@@ -12,12 +12,12 @@ Amplify provides simple, clean styles to get started with a great experience in 
 import "~@aws-amplify/spark-react/styles.css";
 ```
 
-2. Wrap your app with `spark-context-provider`:
+2. Wrap your app with `amplify-context-provider`:
 
 ```html
-<spark-context-provider>
+<amplify-context-provider>
   <amplify-authenticator></amplify-authenticator>
-</spark-context-provider>
+</amplify-context-provider>
 ```
 
 <br/>

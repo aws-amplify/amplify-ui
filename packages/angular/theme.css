@@ -1,3 +1,10 @@
+[data-spark-theme],
+[data-spark-theme] [data-spark-authenticator],
+[data-spark-theme] [data-spark-sign-in],
+[data-spark-theme] [data-spark-sign-out] {
+  display: inline-block;
+}
+
 [data-spark-theme] [data-spark-container] {
   width: 22rem;
   padding: 3rem;

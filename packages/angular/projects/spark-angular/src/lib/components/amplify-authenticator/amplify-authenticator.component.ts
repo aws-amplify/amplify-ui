@@ -6,12 +6,10 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { AuthState } from '../../common/auth-types';
-import { AmplifyOverrideDirective } from '../../directives/amplify-override.directive';
 
 @Component({
   selector: 'amplify-authenticator',
   templateUrl: './amplify-authenticator.component.html',
-  styleUrls: ['./amplify-authenticator.component.css'],
   encapsulation: ViewEncapsulation.None,
 })
 export class AmplifyAuthenticatorComponent {

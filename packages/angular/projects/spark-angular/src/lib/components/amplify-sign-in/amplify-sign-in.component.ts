@@ -6,7 +6,6 @@ import {
   TemplateRef,
   ViewEncapsulation,
 } from '@angular/core';
-import { AmplifyContextProviderComponent } from '../../amplify-context-provider/amplify-context-provider.component';
 import { AmplifyAuthenticatorComponent } from '../amplify-authenticator/amplify-authenticator.component';
 
 @Component({
@@ -17,7 +16,6 @@ import { AmplifyAuthenticatorComponent } from '../amplify-authenticator/amplify-
 export class AmplifySignInComponent {
   @HostBinding('attr.data-spark-sign-in') dataAttr = '';
 
-  public style = this.provider?.getStyle;
   public context = {
     $implicit: { signIn: () => this.signIn() },
   };
@@ -25,7 +23,6 @@ export class AmplifySignInComponent {
   @Input() public headerText = 'Sign in to your account';
   constructor(
     private authenticator: AmplifyAuthenticatorComponent,
-    @Optional() private provider: AmplifyContextProviderComponent
   ) {
     this.customComponents = authenticator.getCustomComponents();
   }
