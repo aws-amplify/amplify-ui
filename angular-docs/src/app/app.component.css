@@ -2,6 +2,17 @@
   padding: 5vh 20% 5vh 20%;
 }
 
-.sidenav-container {
+mat-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+mat-sidenav-container {
   min-height: calc(100vh - 64px);
+}
+
+mat-sidenav {
+  position: fixed !important;
+  top: 64px !important;
 }

@@ -1,21 +1,45 @@
+<!-- 
+  Define default contents here.
+-->
 <ng-template #defaultSignIn>
   <amplify-sign-in></amplify-sign-in>
+</ng-template>
+<ng-template #defaultSignUp>
+  <amplify-sign-up></amplify-sign-up>
 </ng-template>
 <ng-template #defaultSignedIn>
   <p>You've signed In.</p>
   <amplify-sign-out></amplify-sign-out>
 </ng-template>
 
-<!-- render subcomponents -->
+<!-- 
+  Next, we render respective auth subcomponent respective to the current authState.
+  If customer is overriding that component, we render customer's template instead.
+-->
+
+<!-- signIn component -->
 <ng-container
-  [ngTemplateOutlet]="customComponents.signIn ? customComponents.signIn : defaultSignIn"
+  [ngTemplateOutlet]="
+    customComponents.signIn ? customComponents.signIn : defaultSignIn
+  "
   [ngTemplateOutletContext]="context"
   *ngIf="getAuthState === 'signIn'"
 >
 </ng-container>
 
+<!-- signUp component -->
 <ng-container
-  [ngTemplateOutlet]="customComponents.signedIn ? customComponents.signedIn : defaultSignedIn"
+  [ngTemplateOutlet]="defaultSignUp"
+  [ngTemplateOutletContext]="context"
+  *ngIf="getAuthState === 'signUp'"
+>
+</ng-container>
+
+<!-- signedIn content -->
+<ng-container
+  [ngTemplateOutlet]="
+    customComponents.signedIn ? customComponents.signedIn : defaultSignedIn
+  "
   [ngTemplateOutletContext]="context"
   *ngIf="getAuthState === 'signedIn'"
 >

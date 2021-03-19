@@ -3,7 +3,7 @@
     data-spark-button
     id="spark-button"
     type="submit"
-    (click)="this.signIn(); $event.preventDefault()"
+    (click)="this.signUp(); $event.preventDefault()"
   >
     Sign In
   </button>
@@ -12,7 +12,7 @@
 <div data-spark-container>
   <h2 data-spark-header>{{ this.headerText }}</h2>
   <form data-spark-form>
-    <label data-spark-label for="username">Username</label>
+    <label data-spark-label for="username">Username *</label>
     <input
       data-spark-input
       type="text"
@@ -20,17 +20,34 @@
       placeholder="Enter your username"
     />
 
-    <label data-spark-label for="password">Password</label>
+    <label data-spark-label for="password">Password *</label>
     <input
       data-spark-input
       type="text"
       id="password"
       placeholder="Enter your password"
     />
+
+    <label data-spark-label for="email">Email *</label>
+    <input
+      data-spark-input
+      type="email"
+      id="email"
+      placeholder="Enter your email"
+    />
+
+    <label data-spark-label for="phone">Phone Number *</label>
+    <input
+      data-spark-input
+      type="tel"
+      id="phone"
+      placeholder="Enter your phone number"
+    />
+
     <div data-spark-footer>
       <div>
-      No account?{{' '}}
-      <span data-spark-link (click)="toSignUp()">Create Account</span>
+      Have an account?{{' '}}
+      <span data-spark-link (click)="toSignIn()">Sign In</span>
       </div>
       <ng-container
         [ngTemplateOutlet]="

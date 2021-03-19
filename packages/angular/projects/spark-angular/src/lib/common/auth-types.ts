@@ -1,1 +1,1 @@
-export type AuthState = 'signIn' | 'signedIn';
+export type AuthState = 'signIn' | 'signUp' | 'signedIn';

@@ -17,6 +17,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeadlessAuthenticatorComponent } from './pages/headless-authenticator/headless-authenticator.component';
 import { StyledAuthenticatorComponent } from './pages/styled-authenticator/styled-authenticator.component';
 import { CustomComponentAuthenticatorComponent } from './pages/custom-component-authenticator/custom-component-authenticator.component';
+import { CompositionAuthenticatorComponent } from './pages/composition-authenticator/composition-authenticator.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { CustomComponentAuthenticatorComponent } from './pages/custom-component-
     HeadlessAuthenticatorComponent,
     StyledAuthenticatorComponent,
     CustomComponentAuthenticatorComponent,
+    CompositionAuthenticatorComponent,
   ],
   imports: [
     SparkAngularModule,

@@ -17,4 +17,4 @@ You can insert your own components with `ng-template` and `amplifyOverride` dire
 </amplify-context-provider>
 ```
 
-<br/>
+

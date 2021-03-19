@@ -23,10 +23,14 @@ export class AmplifySignInComponent {
   };
 
   constructor(private authenticator: AmplifyAuthenticatorComponent) {
-    this.customComponents = authenticator.getCustomComponentMap;
+    this.customComponents = authenticator.getCustomComponents;
   }
 
   signIn(): void {
     this.authenticator.updateAuthState('signedIn');
+  }
+
+  toSignUp(): void {
+    this.authenticator.updateAuthState('signUp');
   }
 }

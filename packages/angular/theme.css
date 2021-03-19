@@ -1,3 +1,8 @@
+[data-spark-theme] {
+  font-size: 14px;
+  font-family: 'Amazon Ember';
+}
+
 [data-spark-theme],
 [data-spark-theme] [data-spark-authenticator],
 [data-spark-theme] [data-spark-sign-in],
@@ -5,10 +10,17 @@
   display: inline-block;
 }
 
+[data-spark-theme] [data-spark-header] {
+  margin-top: 0px;
+}
+
 [data-spark-theme] [data-spark-container] {
   width: 22rem;
   padding: 3rem;
-  box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, 0.15);
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgba(0, 0, 0, 0.1);
+  background-color: white;
 }
 
 [data-spark-theme] [data-spark-input] {
@@ -16,9 +28,15 @@
   display: block;
   padding: 0.875rem;
   width: 90%;
-  margin-bottom: 1.25rem;
-  border-color: rgb(196, 196, 196);
+  margin-bottom: 1rem;
+  border-color: rgba(0, 0, 0, 0.1);
   border-width: 1px;
+  border-radius: 2px;
+}
+
+[data-spark-theme] [data-spark-input]:focus {
+  outline: none;
+  border:1px solid cornflowerblue;
 }
 
 [data-spark-theme] [data-spark-label] {
@@ -26,9 +44,23 @@
   margin-bottom: 0.625rem;
 }
 
+[data-spark-theme] [data-spark-footer] {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
 [data-spark-theme] [data-spark-button] {
-  background-color: rgb(255, 153, 0);
-  padding: 0.75rem 1.25rem 0.75rem 1.25rem;
+  background-color: black;
+  padding: 0.875rem 1.5rem 0.875rem 1.5rem;
   border-style: none;
   color: white;
+  border-radius: 2px;
+}
+
+[data-spark-theme] [data-spark-link] {
+  color: cornflowerblue;
+  cursor: pointer;
 }

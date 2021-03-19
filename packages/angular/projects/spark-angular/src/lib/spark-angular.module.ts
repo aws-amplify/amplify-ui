@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { AmplifyContextProviderComponent } from './amplify-context-provider/amplify-context-provider.component';
 import { AmplifySignOutComponent } from './components/amplify-sign-out/amplify-sign-out.component';
 import { AmplifyOverrideDirective } from './directives/amplify-override.directive';
+import { AmplifySignUpComponent } from './components/amplify-sign-up/amplify-sign-up.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { AmplifyOverrideDirective } from './directives/amplify-override.directiv
     AmplifySignOutComponent,
     AmplifyContextProviderComponent,
     AmplifyOverrideDirective,
+    AmplifySignUpComponent,
   ],
   imports: [CommonModule],
   exports: [

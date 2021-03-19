@@ -17,4 +17,3 @@ We provide `data-spark-[name]` attributes that you can target with your css file
 }
 ```
 
-<br />

@@ -4,6 +4,7 @@ import {
   ContentChild,
   ContentChildren,
   HostBinding,
+  Input,
   OnInit,
   QueryList,
   TemplateRef,
@@ -17,25 +18,41 @@ import { AmplifyOverrideDirective } from '../../directives/amplify-override.dire
   templateUrl: './amplify-authenticator.component.html',
   encapsulation: ViewEncapsulation.None,
 })
-export class AmplifyAuthenticatorComponent implements AfterContentInit {
+export class AmplifyAuthenticatorComponent implements AfterContentInit, OnInit {
+  @Input() initialAuthState: AuthState = 'signIn';
   @HostBinding('attr.data-spark-authenticator') dataAttr = '';
   @ContentChildren(AmplifyOverrideDirective)
   private customComponenQuery: QueryList<AmplifyOverrideDirective> = null;
   private customComponents: Record<string, TemplateRef<any>> = {};
-  private authState: AuthState = 'signIn';
+  private authState: AuthState;
+
+  /**
+   * Lifecycle Methods
+   */
+
+  ngOnInit(): void {
+    this.authState = this.initialAuthState;
+  }
 
   ngAfterContentInit(): void {
     this.customComponents = this.mapCustomComponents(this.customComponenQuery);
   }
 
+  /**
+   * Getters
+   */
+
   get getAuthState(): AuthState {
     return this.authState;
   }
 
-  get getCustomComponentMap(): Record<string, any> {
+  get getCustomComponents(): Record<string, any> {
     return this.customComponents;
   }
 
+  /**
+   * Class Functions
+   */
   public updateAuthState(newAuthState: AuthState): void {
     this.authState = newAuthState;
   }

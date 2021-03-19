@@ -1,4 +1,4 @@
-# Amplify Spark (Angular) IN DRAFT
+# Amplify Spark (Angular)
 
 ## Getting Started
 

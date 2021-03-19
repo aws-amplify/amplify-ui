@@ -11,6 +11,11 @@ body {
   background-color: #fafafa;
 }
 
+amplify-authenticator {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
 body {
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
@@ -32,4 +37,3 @@ pre code {
 li {
   margin-bottom: 0.5rem;
 }
-
