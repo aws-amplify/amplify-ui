@@ -1,7 +1,9 @@
 <template>
-  <div :data-spark-theme="defaults ? '' : null">
-    <slot></slot>
-  </div>
+  <select>
+    <option v-for="(option, idx) in options" :key="idx" :value="option.value">
+      {{ option.value }}
+    </option>
+  </select>
 </template>
 
 <script lang="ts">
@@ -9,12 +11,11 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   props: {
-    defaults: {
-      type: Boolean,
-      default: false,
+    options: {
+      required: true,
+      type: Array,
     },
   },
-
   setup() {
     return {};
   },

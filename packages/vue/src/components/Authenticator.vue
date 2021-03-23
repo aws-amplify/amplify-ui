@@ -1,6 +1,6 @@
 <template>
   <div data-spark-authenticator="">
-    <SignIn>
+    <SignIn v-if="currentPage === 'SIGNIN'">
       <template #signInSlotI="{ resetPasswordClicked }">
         <slot
           name="sign-in"
@@ -8,18 +8,25 @@
         ></slot>
       </template>
     </SignIn>
+    <SignUp v-if="currentPage === 'SIGNUP'" />
   </div>
 </template>
 
 <script lang="ts">
 import SignIn from "./SignIn.vue";
+import SignUp from "./SignUp.vue";
+import { ref, provide } from "vue";
 
 export default {
   components: {
     SignIn,
+    SignUp,
   },
   setup() {
-    return {};
+    const currentPage = ref("SIGNIN");
+    provide("pageInfo", currentPage);
+
+    return { currentPage };
   },
 };
 </script>

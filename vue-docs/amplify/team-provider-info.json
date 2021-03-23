@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-vuedocs-dev-100840-authRole",
+      "UnauthRoleArn": "arn:aws:iam::134262286951:role/amplify-vuedocs-dev-100840-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::134262286951:role/amplify-vuedocs-dev-100840-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-vuedocs-dev-100840-deployment",
+      "UnauthRoleName": "amplify-vuedocs-dev-100840-unauthRole",
+      "StackName": "amplify-vuedocs-dev-100840",
+      "StackId": "arn:aws:cloudformation:us-east-1:134262286951:stack/amplify-vuedocs-dev-100840/419738e0-8b31-11eb-a011-0e72707fff19",
+      "AmplifyAppId": "d1nsi9hv7854sb"
+    },
+    "categories": {
+      "auth": {
+        "vuedocs00007763": {}
+      }
+    }
+  }
+}

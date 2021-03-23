@@ -15,6 +15,7 @@
     "docs:serve": "vitepress serve docs"
   },
   "dependencies": {
-    "@tailwindcss/typography": "^0.4.0"
+    "@tailwindcss/typography": "^0.4.0",
+    "aws-amplify": "^3.3.25"
   }
 }

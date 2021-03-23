@@ -98,6 +98,8 @@ import Spacer from "./primitives/Spacer.vue";
 import Text from "./primitives/Text.vue";
 import RenderInfo from "./primitives/RenderInfo.vue";
 
+import { inject } from "vue";
+
 export default {
   name: "Authentication",
   computed: {
@@ -135,6 +137,7 @@ export default {
     >,
     { emit, attrs }
   ) {
+    const pageInfo = inject("pageInfo");
     // Methods
 
     const onSignInButtonClicked = (): void => {
@@ -153,6 +156,7 @@ export default {
       attrs?.onCreateAccountClicked
         ? emit("createAccountClicked")
         : console.log("create account clicked");
+      pageInfo.value = "SIGNUP";
     };
 
     return {

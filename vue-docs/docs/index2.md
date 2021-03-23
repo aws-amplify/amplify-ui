@@ -1,19 +1,13 @@
-## hello world
+## Sign Up Tester
 
 <spark-provider defaults>
 <authenticator>
 
 <template v-slot:sign-in>
 
-<sign-in>
-<template v-slot:footer="{ info, onSignInButtonClicked}">
+<sign-up>
 
-<footer data-spark-footer="">
-<RenderInfo :info="info"/>
-</footer>
-
-</template>
-</sign-in>
+</sign-up>
 
 </template>
 
@@ -22,7 +16,7 @@
 
 <script setup>
 import "@aws-amplify/spark-vue/styles.css";
-import {SignIn, SparkProvider, Authenticator, RenderInfo, SIGN_IN_TEXT, FULL_NAME_TEXT}  from "@aws-amplify/spark-vue";
+import {SignIn, SignUp, SparkProvider, Authenticator, RenderInfo, SIGN_IN_TEXT, FULL_NAME_TEXT}  from "@aws-amplify/spark-vue";
 
 
 const signInText =  SIGN_IN_TEXT;

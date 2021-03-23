@@ -224,17 +224,37 @@ _All texts are provided by internationalization_
 | create-account-clicked  |  Emits and overrides when create account button is clicked |
 
 <script setup>
+import Amplify, { Auth } from 'aws-amplify';
+import aws_exports from './aws-exports';
+
+
+Amplify.configure(aws_exports);
 import "@aws-amplify/spark-vue/styles.css";
 import {SignIn, SparkProvider, Authenticator, RenderInfo, SIGN_IN_TEXT, FULL_NAME_TEXT}  from "@aws-amplify/spark-vue";
 
 
 const signInText =  SIGN_IN_TEXT;
 const fullNameText = FULL_NAME_TEXT;
+const username = 'icystorm+add123@gmail.com';
+const password = 'Asdfasdf@1'
+const test = async ()=> {
+  try {
+        const { user } = await Auth.signUp({
+            username,
+            password,
+        });
+        console.log(user);
+    } catch (error) {
+        console.log('error signing up:', error);
+    }
+
+}
 const signInPressed = ()=>console.log('parent component sign in pressed');
-const forgotThePassword = (fn)=>
+const forgotThePassword = async (fn)=>
 {
   console.log('do something here then run function')
   //
+  test();
   fn();
   console.log('forgot password inner');
 }

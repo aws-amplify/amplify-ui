@@ -17,6 +17,11 @@ export default defineComponent({
       headingI[0].children = [
         h(`h${level}`, { "data-spark-heading": "", ...attrs }, [defaultSlot]),
       ];
+    } else {
+      return () =>
+        h(`h${level}`, { "data-spark-heading": "", ...attrs }, [
+          headingI[0].children,
+        ]);
     }
     return () => headingI;
   },
