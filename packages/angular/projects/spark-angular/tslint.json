@@ -2,6 +2,7 @@
   "extends": "../../tslint.json",
   "rules": {
     "directive-selector": [true, "attribute", "lib", "camelCase"],
-    "component-selector": [true, "element", "amplify", "kebab-case"]
+    "component-selector": [true, "element", "amplify", "kebab-case"],
+    "variable-name": false
   }
 }
