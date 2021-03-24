@@ -9,7 +9,7 @@ Amplify provides simple, clean styles to get started with a great experience in 
 1. Inside your `style.css`, import the shared css module:
 
 ```css
-import "~@aws-amplify/spark-react/styles.css";
+@import '~@aws-amplify/spark-angular/theme.css';
 ```
 
 2. Wrap your app with `amplify-context-provider`:
@@ -19,5 +19,3 @@ import "~@aws-amplify/spark-react/styles.css";
   <amplify-authenticator></amplify-authenticator>
 </amplify-context-provider>
 ```
-
-
