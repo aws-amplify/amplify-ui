@@ -15,7 +15,7 @@
 <script lang="ts">
 import SignIn from "./SignIn.vue";
 import SignUp from "./SignUp.vue";
-import { ref, provide } from "vue";
+import { ref, provide, onMounted } from "vue";
 
 export default {
   components: {

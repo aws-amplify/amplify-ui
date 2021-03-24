@@ -98,7 +98,7 @@ import Spacer from "./primitives/Spacer.vue";
 import Text from "./primitives/Text.vue";
 import RenderInfo from "./primitives/RenderInfo.vue";
 
-import { inject } from "vue";
+import { inject, Ref } from "vue";
 
 export default {
   name: "Authentication",
@@ -137,7 +137,7 @@ export default {
     >,
     { emit, attrs }
   ) {
-    const pageInfo = inject("pageInfo");
+    const pageInfo: Ref<string> = inject("pageInfo");
     // Methods
 
     const onSignInButtonClicked = (): void => {
