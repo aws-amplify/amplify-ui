@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { StateMachineService } from '../../services/state-machine.service';
 import { AmplifyAuthenticatorComponent } from '../amplify-authenticator/amplify-authenticator.component';
 
 @Component({
@@ -7,8 +8,8 @@ import { AmplifyAuthenticatorComponent } from '../amplify-authenticator/amplify-
   styleUrls: [],
 })
 export class AmplifySignOutComponent {
-  constructor(private authenticator: AmplifyAuthenticatorComponent) {}
+  constructor(private stateMachine: StateMachineService) {}
   signOut(): void {
-    this.authenticator.updateAuthState('signIn');
+    this.stateMachine.authState = 'signIn';
   }
 }

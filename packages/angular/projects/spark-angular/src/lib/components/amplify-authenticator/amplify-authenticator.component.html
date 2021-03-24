@@ -23,7 +23,7 @@
     customComponents.signIn ? customComponents.signIn : defaultSignIn
   "
   [ngTemplateOutletContext]="context"
-  *ngIf="getAuthState === 'signIn'"
+  *ngIf="getAuthState() === 'signIn'"
 >
 </ng-container>
 
@@ -31,7 +31,7 @@
 <ng-container
   [ngTemplateOutlet]="defaultSignUp"
   [ngTemplateOutletContext]="context"
-  *ngIf="getAuthState === 'signUp'"
+  *ngIf="getAuthState() === 'signUp'"
 >
 </ng-container>
 
@@ -41,6 +41,6 @@
     customComponents.signedIn ? customComponents.signedIn : defaultSignedIn
   "
   [ngTemplateOutletContext]="context"
-  *ngIf="getAuthState === 'signedIn'"
+  *ngIf="getAuthState() === 'signedIn'"
 >
 </ng-container>

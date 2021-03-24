@@ -5,7 +5,7 @@
     type="submit"
     (click)="this.signUp(); $event.preventDefault()"
   >
-    Sign In
+    Sign Up
   </button>
 </ng-template>
 
@@ -46,8 +46,8 @@
 
     <div data-spark-footer>
       <div>
-      Have an account?{{' '}}
-      <span data-spark-link (click)="toSignIn()">Sign In</span>
+        Have an account?{{ ' ' }}
+        <span data-spark-link (click)="toSignIn()">Sign In</span>
       </div>
       <ng-container
         [ngTemplateOutlet]="

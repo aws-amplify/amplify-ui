@@ -1,11 +1,18 @@
-import { Component, HostBinding, Input, TemplateRef } from '@angular/core';
-import { AmplifyAuthenticatorComponent } from '../amplify-authenticator/amplify-authenticator.component';
+import {
+  AfterContentInit,
+  Component,
+  HostBinding,
+  Input,
+  TemplateRef,
+} from '@angular/core';
+import { ComponentsProviderService } from '../../services/components-provider.service';
+import { StateMachineService } from '../../services/state-machine.service';
 
 @Component({
   selector: 'amplify-sign-up',
   templateUrl: './amplify-sign-up.component.html',
 })
-export class AmplifySignUpComponent {
+export class AmplifySignUpComponent implements AfterContentInit {
   @Input() headerText = 'Create a new account';
   @HostBinding('attr.data-spark-sign-up') dataAttr = '';
   public customComponents: Record<string, TemplateRef<any>>;
@@ -16,15 +23,20 @@ export class AmplifySignUpComponent {
       },
     },
   };
-  constructor(public authenticator: AmplifyAuthenticatorComponent) {
-    this.customComponents = authenticator.getCustomComponents;
+  constructor(
+    private stateMachine: StateMachineService,
+    private componentsProvider: ComponentsProviderService
+  ) {}
+
+  ngAfterContentInit(): void {
+    this.customComponents = this.componentsProvider.customComponents;
   }
 
-  signUp() {
-    this.authenticator.updateAuthState('signIn');
+  signUp(): void {
+    this.stateMachine.authState = 'signIn';
   }
 
-  toSignIn() {
-    this.authenticator.updateAuthState('signIn')
+  toSignIn(): void {
+    this.stateMachine.authState = 'signIn';
   }
 }
