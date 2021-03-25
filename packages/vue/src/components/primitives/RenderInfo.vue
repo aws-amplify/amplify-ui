@@ -2,16 +2,13 @@
 import { defineComponent, h } from "vue";
 
 export default defineComponent({
-  render() {
-    return h("div", this.info);
-  },
   props: {
     info: {
       type: Object,
     },
   },
-  setup() {
-    return {};
+  setup({ info }) {
+    return () => info;
   },
 });
 </script>

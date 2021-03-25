@@ -1,4 +1,4 @@
-import { Authenticator } from "@aws-amplify/spark-react";
+import { Authenticator } from "@aws-amplify/ui-react";
 
 export const customComponents = {
   Input(props) {

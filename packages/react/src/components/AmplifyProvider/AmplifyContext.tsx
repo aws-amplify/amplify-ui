@@ -1,6 +1,6 @@
 import { createContext } from "react";
 
-export const SparkContext = createContext({
+export const AmplifyContext = createContext({
   components: undefined,
   theme: undefined,
 });

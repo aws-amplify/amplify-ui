@@ -1,0 +1,10 @@
+{
+  "auth": {
+    "vuedocs00007763": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false
+    }
+  }
+}

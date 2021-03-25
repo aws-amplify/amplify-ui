@@ -11,8 +11,6 @@
     "docs",
     "vue-docs",
     "angular-docs",
-    "packages/angular",
-    "packages/react",
-    "packages/vue"
+    "packages/*"
   ]
 }

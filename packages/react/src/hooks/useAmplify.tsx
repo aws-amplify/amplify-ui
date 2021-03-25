@@ -1,10 +1,10 @@
 import { useContext } from "react";
 
-import { SparkContext } from "./components/SparkProvider/SparkContext";
-import * as primitives from "./primitives";
+import { AmplifyContext } from "../components/AmplifyProvider/AmplifyContext";
+import * as primitives from "../primitives";
 
-export function useSpark(namespace) {
-  const { components = {}, theme } = useContext(SparkContext);
+export function useAmplify(namespace) {
+  const { components = {}, theme } = useContext(AmplifyContext);
 
   const customComponents = Object.entries(components).reduce(
     (acc, [namespaced, Component]) => {

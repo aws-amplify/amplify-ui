@@ -12,6 +12,7 @@
     "@mdx-js/react": "^1.6.18",
     "@moxy/next-compile-node-modules": "^2.0.2",
     "@next/mdx": "^9.1.1",
+    "aws-amplify": "latest",
     "next": "latest",
     "prism-react-renderer": "^1.2.0",
     "raw-loader": "^4.0.2",

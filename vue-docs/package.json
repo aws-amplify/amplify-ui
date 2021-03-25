@@ -15,6 +15,10 @@
     "docs:serve": "vitepress serve docs"
   },
   "dependencies": {
-    "@tailwindcss/typography": "^0.4.0"
+    "@tailwindcss/typography": "^0.4.0",
+    "@xstate/inspect": "^0.4.1",
+    "@xstate/vue": "^0.5.0",
+    "aws-amplify": "^3.3.25",
+    "xstate": "^4.17.0"
   }
 }
