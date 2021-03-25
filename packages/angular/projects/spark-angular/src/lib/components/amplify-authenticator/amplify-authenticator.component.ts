@@ -25,7 +25,7 @@ export class AmplifyAuthenticatorComponent implements AfterContentInit, OnInit {
   @Input() initialAuthState: AuthState = 'signIn';
   @HostBinding('attr.data-spark-authenticator') dataAttr = '';
   @ContentChildren(AmplifyOverrideDirective)
-  private customComponenQuery: QueryList<AmplifyOverrideDirective> = null;
+  private customComponentQuery: QueryList<AmplifyOverrideDirective> = null;
   public customComponents: CustomComponents = {};
 
   constructor(
@@ -43,7 +43,7 @@ export class AmplifyAuthenticatorComponent implements AfterContentInit, OnInit {
 
   ngAfterContentInit(): void {
     this.componentsProvider.customComponents = this.mapCustomComponents(
-      this.customComponenQuery
+      this.customComponentQuery
     );
     this.customComponents = this.componentsProvider.customComponents;
   }
