@@ -11,10 +11,8 @@ You can insert your own components with `ng-template` and `amplifyOverride` dire
 <amplify-context-provider>
   <amplify-authenticator>
     <ng-template amplifyOverride="signInButton" let-ctx>
-      <button mat-fab color="primary" (click)="ctx.signIn()">Submit</button>
+      <button mat-fab color="primary">Submit</button>
     </ng-template>
   </amplify-authenticator>
 </amplify-context-provider>
 ```
-
-

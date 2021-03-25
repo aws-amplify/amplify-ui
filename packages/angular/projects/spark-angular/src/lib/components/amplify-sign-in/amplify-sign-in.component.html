@@ -1,46 +1,50 @@
 <ng-template #defaultSignInButton>
-  <button
-    data-spark-button
-    id="spark-button"
-    type="submit"
-    (click)="this.signIn(); $event.preventDefault()"
-  >
-    Sign In
-  </button>
+  <button data-spark-button id="spark-button" type="submit">Sign In</button>
 </ng-template>
 
 <div data-spark-container>
   <h2 data-spark-header>{{ this.headerText }}</h2>
-  <form data-spark-form>
-    <label data-spark-label for="username">Username</label>
-    <input
-      data-spark-input
-      type="text"
-      id="username"
-      placeholder="Enter your username"
-    />
+  <form
+    data-spark-form
+    [formGroup]="signInForm"
+    (ngSubmit)="onSubmit()"
+    ngNativeValidate
+  >
+    <fieldset data-spark-fieldset [attr.disabled]="loading ? '' : null">
+      <label data-spark-label for="username">Username</label>
+      <input
+        data-spark-input
+        type="text"
+        id="username"
+        placeholder="Enter your username"
+        formControlName="username"
+        required
+      />
 
-    <label data-spark-label for="password">Password</label>
-    <input
-      data-spark-input
-      type="text"
-      id="password"
-      placeholder="Enter your password"
-    />
-    <div data-spark-footer>
-      <div>
-      No account?{{' '}}
-      <span data-spark-link (click)="toSignUp()">Create Account</span>
+      <label data-spark-label for="password">Password</label>
+      <input
+        data-spark-input
+        type="password"
+        id="password"
+        placeholder="Enter your password"
+        formControlName="password"
+        required
+      />
+      <div data-spark-footer>
+        <div>
+          No account?{{ ' ' }}
+          <span data-spark-link (click)="toSignUp()">Create Account</span>
+        </div>
+        <ng-container
+          [ngTemplateOutlet]="
+            customComponents.signInButton
+              ? customComponents.signInButton
+              : defaultSignInButton
+          "
+          [ngTemplateOutletContext]="context"
+        >
+        </ng-container>
       </div>
-      <ng-container
-        [ngTemplateOutlet]="
-          customComponents.signInButton
-            ? customComponents.signInButton
-            : defaultSignInButton
-        "
-        [ngTemplateOutletContext]="context"
-      >
-      </ng-container>
-    </div>
+    </fieldset>
   </form>
 </div>

@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 import { SparkAngularComponent } from './spark-angular.component';
 import { AmplifyAuthenticatorComponent } from './components/amplify-authenticator/amplify-authenticator.component';
 import { AmplifySignInComponent } from './components/amplify-sign-in/amplify-sign-in.component';
-import { CommonModule } from '@angular/common';
 import { AmplifyContextProviderComponent } from './amplify-context-provider/amplify-context-provider.component';
 import { AmplifySignOutComponent } from './components/amplify-sign-out/amplify-sign-out.component';
 import { AmplifyOverrideDirective } from './directives/amplify-override.directive';
@@ -18,7 +19,7 @@ import { AmplifySignUpComponent } from './components/amplify-sign-up/amplify-sig
     AmplifyOverrideDirective,
     AmplifySignUpComponent,
   ],
-  imports: [CommonModule],
+  imports: [CommonModule, ReactiveFormsModule],
   exports: [
     SparkAngularComponent,
     AmplifyAuthenticatorComponent,

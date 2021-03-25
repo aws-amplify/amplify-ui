@@ -14,6 +14,12 @@
   margin-top: 0px;
 }
 
+[data-spark-theme] [data-spark-fieldset] {
+  border-style: none;
+  margin: 0;
+  padding: 0;
+}
+
 [data-spark-theme] [data-spark-container] {
   width: 22rem;
   padding: 3rem;
@@ -36,7 +42,7 @@
 
 [data-spark-theme] [data-spark-input]:focus {
   outline: none;
-  border:1px solid cornflowerblue;
+  border: 1px solid cornflowerblue;
 }
 
 [data-spark-theme] [data-spark-label] {
