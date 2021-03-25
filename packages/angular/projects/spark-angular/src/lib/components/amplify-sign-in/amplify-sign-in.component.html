@@ -2,7 +2,7 @@
   Define default contents here
 -->
 
-<ng-template #defaultSignInButton>
+<ng-template #signInButton>
   <button data-spark-button id="spark-button" type="submit">Sign In</button>
 </ng-template>
 
@@ -44,11 +44,7 @@
           <span data-spark-link (click)="toSignUp()">Create Account</span>
         </div>
         <ng-container
-          [ngTemplateOutlet]="
-            customComponents.signInButton
-              ? customComponents.signInButton
-              : defaultSignInButton
-          "
+          [ngTemplateOutlet]="customComponents.signInButton || signInButton"
           [ngTemplateOutletContext]="context"
         >
         </ng-container>
