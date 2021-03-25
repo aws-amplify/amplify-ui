@@ -62,7 +62,7 @@ export class AmplifyAuthenticatorComponent implements AfterContentInit, OnInit {
     if (!componentQuery) return {};
     const customComponents: Record<string, TemplateRef<any>> = {};
     componentQuery.forEach((component) => {
-      customComponents[component.getName] = component.template;
+      customComponents[component.name] = component.template;
     });
 
     return customComponents;
