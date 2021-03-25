@@ -7,7 +7,6 @@
   "workspaces": [
     "docs",
     "vue-docs",
-    "packages/react",
-    "packages/vue"
+    "packages/*"
   ]
 }
