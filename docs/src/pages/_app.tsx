@@ -1,13 +1,17 @@
+import * as UI from "@aws-amplify/ui-react";
 import { MDXProvider } from "@mdx-js/react";
+import { Amplify } from "aws-amplify";
 import Highlight, { defaultProps } from "prism-react-renderer";
 import theme from "prism-react-renderer/themes/nightOwl";
 import { Sandpack } from "react-smooshpack";
-import * as Spark from "@aws-amplify/spark-react";
 
 import "react-smooshpack/dist/index.css";
 import "tailwindcss/tailwind.css";
 
-import "@aws-amplify/spark-react/styles.css";
+import "@aws-amplify/ui-react/styles.css";
+
+Amplify.configure({
+});
 
 const components = {
   code({ children, className = "template-jsx", sandbox, template = "react" }) {
@@ -41,9 +45,9 @@ const components = {
     return <div>{children}</div>;
   },
 
-  ...Spark,
+  ...UI,
 
-  Spark,
+  UI,
 };
 
 function MyApp({ Component, pageProps }) {

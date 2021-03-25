@@ -1,6 +1,6 @@
-import { useSpark } from "@aws-amplify/spark-react";
+import { useAmplify, useAuth } from "@aws-amplify/ui-react";
 
-export function SignIn({ className }) {
+export function SignIn() {
   const {
     components: {
       Box,
@@ -13,48 +13,57 @@ export function SignIn({ className }) {
       Label,
       Spacer,
       Text,
-      // @ts-ignore How to tell the context that this may exist for this scope?
-      PasswordControl = SignIn.PasswordControl,
     },
-  } = useSpark("Authenticator.SignIn");
+  } = useAmplify("Authenticator.SignIn");
+
+  const [state, send] = useAuth();
+  const isPending = state.matches("signIn.pending");
 
   return (
-    // TODO Automatically add these namespaces again from `useSpark`
-    <Form data-spark-authenticator-signin="">
+    // TODO Automatically add these namespaces again from `useAmplify`
+    <Form
+      data-amplify-authenticator-signin=""
+      method="post"
+      onSubmit={(event) => {
+        event.preventDefault();
+
+        const formData = new FormData(event.target);
+
+        send({
+          type: "SUBMIT",
+          // @ts-ignore Property 'fromEntries' does not exist on type 'ObjectConstructor'. Do you need to change your target library? Try changing the `lib` compiler option to 'es2019' or later.ts(2550)
+          data: Object.fromEntries(formData),
+        });
+      }}
+    >
       <Heading level={1}>Sign in to your account</Heading>
 
-      <Fieldset>
-        <Label data-spark-username>
-          <Text>Full name</Text>
+      <Fieldset disabled={isPending}>
+        <Label data-amplify-username>
+          <Text>Username</Text>
           <Input name="username" required type="text" />
         </Label>
 
-        <PasswordControl label="Password" />
+        <Label data-amplify-password>
+          <Text>Password</Text>
+          <Input name="password" required type="password" />
+          <Box>
+            <Text>Forgot your password?</Text>{" "}
+            <Button type="button">Reset Password</Button>
+          </Box>
+        </Label>
       </Fieldset>
 
       <Footer>
-        <Text>No account?</Text> <Button>Create account</Button>
+        <Text>No account?</Text>{" "}
+        <Button onClick={() => send("SIGN_UP")} type="button">
+          Create account
+        </Button>
         <Spacer />
-        <Button type="submit">Sign In</Button>
+        <Button disabled={isPending} type="submit">
+          {isPending ? <>Signing in&hellip;</> : <>Sign In</>}
+        </Button>
       </Footer>
     </Form>
   );
 }
-
-SignIn.PasswordControl = ({ label }) => {
-  const {
-    components: { Input, Label, Text, Wrapper },
-  } = useSpark("Authenticator.SignIn.Password");
-
-  return (
-    <Wrapper data-spark-signin-password>
-      <Label>
-        <Text>{label}</Text>
-        <Input name="username" required type="password" />
-        {/* TODO This hint is only needed for SignUp, not SignIn! <Box>
-          <Text>Forgot your password?</Text> <Button>Reset Password</Button>
-        </Box> */}
-      </Label>
-    </Wrapper>
-  );
-};
