@@ -29,7 +29,7 @@ export const docRoutes: DocRoutes = [
   },
   {
     path: 'custom-form',
-    name: 'Custom Form',
+    name: 'Customizing Form',
     component: CustomFormAuthenticatorComponent,
   },
   {
