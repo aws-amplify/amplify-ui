@@ -7,8 +7,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ComponentsProviderService } from '../../services/components-provider.service';
-import { StateMachineService } from '../../services/state-machine.service';
+import { ComponentsProviderService, StateMachineService } from '../../services';
 import { Auth } from 'aws-amplify';
 import { noWhitespacesAfterTrim, SignInValidators } from '../../common';
 
@@ -72,9 +71,5 @@ export class AmplifySignInComponent implements AfterContentInit {
       inputControl.setValidators([inputControl.validator, ...validators]);
       console.log(inputControl.validator);
     }
-  }
-
-  log() {
-    console.log(this.signInForm.get('username'));
   }
 }

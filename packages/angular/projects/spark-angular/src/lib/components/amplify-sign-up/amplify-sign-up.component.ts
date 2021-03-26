@@ -5,8 +5,7 @@ import {
   Input,
   TemplateRef,
 } from '@angular/core';
-import { ComponentsProviderService } from '../../services/components-provider.service';
-import { StateMachineService } from '../../services/state-machine.service';
+import { ComponentsProviderService, StateMachineService } from '../../services';
 
 @Component({
   selector: 'amplify-sign-up',

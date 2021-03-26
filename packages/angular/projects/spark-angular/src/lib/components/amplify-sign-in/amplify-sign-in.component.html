@@ -6,6 +6,40 @@
   <button data-spark-button id="spark-button" type="submit">Sign In</button>
 </ng-template>
 
+<ng-template #signInFieldSet>
+  <fieldset data-spark-fieldset [attr.disabled]="loading ? '' : null">
+    <label data-spark-label for="username">Username</label>
+    <input
+      data-spark-input
+      type="text"
+      id="username"
+      placeholder="Enter your username"
+      formControlName="username"
+      required
+    />
+
+    <label data-spark-label for="password">Password</label>
+    <input
+      data-spark-input
+      type="password"
+      id="password"
+      placeholder="Enter your password"
+      formControlName="password"
+      required
+    />
+    <div data-spark-footer>
+      <div>
+        No account?{{ ' ' }}
+        <span data-spark-link (click)="toSignUp()">Create Account</span>
+      </div>
+      <ng-container
+        [ngTemplateOutlet]="customComponents.signInButton || signInButton"
+        [ngTemplateOutletContext]="context"
+      >
+      </ng-container>
+    </div>
+  </fieldset>
+</ng-template>
 <!-- 
   Render sign in component
 -->
@@ -13,38 +47,10 @@
 <div data-spark-container>
   <h2 data-spark-header>{{ this.headerText }}</h2>
   <form data-spark-form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
-    <fieldset data-spark-fieldset [attr.disabled]="loading ? '' : null">
-      <label data-spark-label for="username">Username</label>
-      <input
-        data-spark-input
-        type="text"
-        id="username"
-        placeholder="Enter your username"
-        formControlName="username"
-        required
-      />
-
-      <label data-spark-label for="password">Password</label>
-      <input
-        data-spark-input
-        type="password"
-        id="password"
-        placeholder="Enter your password"
-        formControlName="password"
-        required
-      />
-      <div data-spark-footer>
-        <div>
-          No account?{{ ' ' }}
-          <span data-spark-link (click)="toSignUp()">Create Account</span>
-        </div>
-        <ng-container
-          [ngTemplateOutlet]="customComponents.signInButton || signInButton"
-          [ngTemplateOutletContext]="context"
-        >
-        </ng-container>
-      </div>
-    </fieldset>
+    <ng-container
+      [ngTemplateOutlet]="customComponents.signInFieldSet || signInFieldSet"
+      [ngTemplateOutletContext]="context"
+    >
+    </ng-container>
   </form>
-  <button (click)="log()">Log</button>
 </div>
