@@ -12,12 +12,7 @@
 
 <div data-spark-container>
   <h2 data-spark-header>{{ this.headerText }}</h2>
-  <form
-    data-spark-form
-    [formGroup]="signInForm"
-    (ngSubmit)="onSubmit()"
-    ngNativeValidate
-  >
+  <form data-spark-form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
     <fieldset data-spark-fieldset [attr.disabled]="loading ? '' : null">
       <label data-spark-label for="username">Username</label>
       <input

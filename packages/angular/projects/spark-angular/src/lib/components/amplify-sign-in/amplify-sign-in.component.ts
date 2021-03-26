@@ -10,6 +10,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ComponentsProviderService } from '../../services/components-provider.service';
 import { StateMachineService } from '../../services/state-machine.service';
 import { Auth } from 'aws-amplify';
+import { noWhitespacesAfterTrim } from '../../common';
 
 @Component({
   selector: 'amplify-sign-in',
@@ -25,8 +26,8 @@ export class AmplifySignInComponent implements AfterContentInit {
     $implicit: {},
   };
   public signInForm = this.fb.group({
-    username: ['', Validators.required],
-    password: ['', Validators.required],
+    username: ['', [Validators.required, noWhitespacesAfterTrim]],
+    password: ['', [Validators.required]],
   });
 
   constructor(
@@ -44,14 +45,16 @@ export class AmplifySignInComponent implements AfterContentInit {
   }
 
   async onSubmit(): Promise<void> {
-    console.log(this.signInForm.status);
+    const usernameControl = this.signInForm.get('username');
+    const passwordControl = this.signInForm.get('password');
+    // trim password
+    usernameControl.setValue(usernameControl.value.trim());
+
     if (this.signInForm.status !== 'VALID') return;
     this.loading = true;
+
     try {
-      await Auth.signIn(
-        this.signInForm.value.username,
-        this.signInForm.value.password
-      );
+      await Auth.signIn(usernameControl.value, passwordControl.value);
       this.stateMachine.authState = 'signedIn';
     } catch (err) {
       console.error(err);
