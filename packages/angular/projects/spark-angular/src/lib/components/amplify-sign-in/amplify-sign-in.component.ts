@@ -66,6 +66,7 @@ export class AmplifySignInComponent implements AfterContentInit {
   }
 
   private attachCustomValidators(customValidators: SignInValidators) {
+    if (!customValidators) return;
     for (let [inputName, validators] of Object.entries(customValidators)) {
       const inputControl = this.formGroup.get(inputName);
       inputControl.setValidators([inputControl.validator, ...validators]);
