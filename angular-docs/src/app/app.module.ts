@@ -18,6 +18,7 @@ import { HeadlessAuthenticatorComponent } from './pages/headless-authenticator/h
 import { StyledAuthenticatorComponent } from './pages/styled-authenticator/styled-authenticator.component';
 import { CustomComponentAuthenticatorComponent } from './pages/custom-component-authenticator/custom-component-authenticator.component';
 import { CompositionAuthenticatorComponent } from './pages/composition-authenticator/composition-authenticator.component';
+import { CustomFormAuthenticatorComponent } from './pages/custom-form-authenticator/custom-form-authenticator.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { CompositionAuthenticatorComponent } from './pages/composition-authentic
     StyledAuthenticatorComponent,
     CustomComponentAuthenticatorComponent,
     CompositionAuthenticatorComponent,
+    CustomFormAuthenticatorComponent,
   ],
   imports: [
     SparkAngularModule,

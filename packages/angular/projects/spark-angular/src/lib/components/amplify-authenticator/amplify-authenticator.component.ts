@@ -13,7 +13,7 @@ import { AuthState } from '../../common/auth-types';
 import { AmplifyOverrideDirective } from '../../directives/amplify-override.directive';
 import { StateMachineService } from '../../services/state-machine.service';
 import { ComponentsProviderService } from '../../services/components-provider.service';
-import { CustomComponents } from '../../common';
+import { CustomComponents, SignInValidators } from '../../common';
 
 @Component({
   selector: 'amplify-authenticator',
@@ -23,6 +23,7 @@ import { CustomComponents } from '../../common';
 })
 export class AmplifyAuthenticatorComponent implements AfterContentInit, OnInit {
   @Input() initialAuthState: AuthState = 'signIn';
+  @Input() signInValidators: SignInValidators;
   @HostBinding('attr.data-spark-authenticator') dataAttr = '';
   @ContentChildren(AmplifyOverrideDirective)
   private customComponentQuery: QueryList<AmplifyOverrideDirective> = null;
@@ -46,6 +47,11 @@ export class AmplifyAuthenticatorComponent implements AfterContentInit, OnInit {
       this.customComponentQuery
     );
     this.customComponents = this.componentsProvider.customComponents;
+    this.componentsProvider.props = {
+      signIn: {
+        signInValidators: this.signInValidators,
+      },
+    };
   }
 
   /**

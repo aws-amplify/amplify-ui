@@ -10,7 +10,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ComponentsProviderService } from '../../services/components-provider.service';
 import { StateMachineService } from '../../services/state-machine.service';
 import { Auth } from 'aws-amplify';
-import { noWhitespacesAfterTrim } from '../../common';
+import { noWhitespacesAfterTrim, SignInValidators } from '../../common';
 
 @Component({
   selector: 'amplify-sign-in',
@@ -38,6 +38,9 @@ export class AmplifySignInComponent implements AfterContentInit {
 
   ngAfterContentInit(): void {
     this.customComponents = this.componentsProvider.customComponents;
+    const props = this.componentsProvider.props.signIn;
+    const customValidators = props?.signInValidators;
+    this.attachCustomValidators(customValidators);
   }
 
   toSignUp(): void {
@@ -61,5 +64,17 @@ export class AmplifySignInComponent implements AfterContentInit {
     } finally {
       this.loading = false;
     }
+  }
+
+  private attachCustomValidators(customValidators: SignInValidators) {
+    for (let [inputName, validators] of Object.entries(customValidators)) {
+      const inputControl = this.signInForm.get(inputName);
+      inputControl.setValidators([inputControl.validator, ...validators]);
+      console.log(inputControl.validator);
+    }
+  }
+
+  log() {
+    console.log(this.signInForm.get('username'));
   }
 }
