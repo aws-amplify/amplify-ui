@@ -8,6 +8,7 @@ import { AmplifyContextProviderComponent } from './amplify-context-provider/ampl
 import { AmplifySignOutComponent } from './components/amplify-sign-out/amplify-sign-out.component';
 import { AmplifyOverrideDirective } from './directives/amplify-override.directive';
 import { AmplifySignUpComponent } from './components/amplify-sign-up/amplify-sign-up.component';
+import { AmplifyInputComponent } from './primitives/amplify-input/amplify-input.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { AmplifySignUpComponent } from './components/amplify-sign-up/amplify-sig
     AmplifyContextProviderComponent,
     AmplifyOverrideDirective,
     AmplifySignUpComponent,
+    AmplifyInputComponent,
   ],
   imports: [CommonModule, ReactiveFormsModule],
   exports: [

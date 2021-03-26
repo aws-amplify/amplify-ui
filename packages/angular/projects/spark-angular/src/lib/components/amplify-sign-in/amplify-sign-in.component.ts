@@ -1,3 +1,4 @@
+import { Auth } from 'aws-amplify';
 import {
   AfterContentInit,
   Component,
@@ -8,7 +9,6 @@ import {
 } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ComponentsProviderService, StateMachineService } from '../../services';
-import { Auth } from 'aws-amplify';
 import { noWhitespacesAfterTrim, SignInValidators } from '../../common';
 
 @Component({
@@ -24,7 +24,7 @@ export class AmplifySignInComponent implements AfterContentInit {
   public context = {
     $implicit: {},
   };
-  public signInForm = this.fb.group({
+  public formGroup = this.fb.group({
     username: ['', [Validators.required, noWhitespacesAfterTrim]],
     password: ['', [Validators.required]],
   });
@@ -47,12 +47,12 @@ export class AmplifySignInComponent implements AfterContentInit {
   }
 
   async onSubmit(): Promise<void> {
-    const usernameControl = this.signInForm.get('username');
-    const passwordControl = this.signInForm.get('password');
+    const usernameControl = this.formGroup.get('username');
+    const passwordControl = this.formGroup.get('password');
     // trim password
     usernameControl.setValue(usernameControl.value.trim());
 
-    if (this.signInForm.status !== 'VALID') return;
+    if (this.formGroup.status !== 'VALID') return;
     this.loading = true;
 
     try {
@@ -67,7 +67,7 @@ export class AmplifySignInComponent implements AfterContentInit {
 
   private attachCustomValidators(customValidators: SignInValidators) {
     for (let [inputName, validators] of Object.entries(customValidators)) {
-      const inputControl = this.signInForm.get(inputName);
+      const inputControl = this.formGroup.get(inputName);
       inputControl.setValidators([inputControl.validator, ...validators]);
       console.log(inputControl.validator);
     }

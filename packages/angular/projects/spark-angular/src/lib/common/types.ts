@@ -9,3 +9,5 @@ export interface PropContext {
 }
 
 export type SignInValidators = Record<string, ValidatorFn[]>;
+
+export type InputType = 'text' | 'number' | 'email' | 'password';

@@ -1,56 +1,40 @@
 <!-- 
   Define default contents here
 -->
-
 <ng-template #signInButton>
   <button data-spark-button id="spark-button" type="submit">Sign In</button>
 </ng-template>
 
-<ng-template #signInFieldSet>
-  <fieldset data-spark-fieldset [attr.disabled]="loading ? '' : null">
-    <label data-spark-label for="username">Username</label>
-    <input
-      data-spark-input
-      type="text"
-      id="username"
-      placeholder="Enter your username"
-      formControlName="username"
-      required
-    />
+<ng-template #signInForm>
+  <form data-spark-form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+    <fieldset data-spark-fieldset [attr.disabled]="loading ? '' : null">
+      <amplify-input name="username"></amplify-input>
+      <amplify-input name="password" type="password"></amplify-input>
 
-    <label data-spark-label for="password">Password</label>
-    <input
-      data-spark-input
-      type="password"
-      id="password"
-      placeholder="Enter your password"
-      formControlName="password"
-      required
-    />
-    <div data-spark-footer>
-      <div>
-        No account?{{ ' ' }}
-        <span data-spark-link (click)="toSignUp()">Create Account</span>
+      <div data-spark-footer>
+        <div>
+          No account?{{ ' ' }}
+          <a data-spark-link (click)="toSignUp()">Create Account</a>
+        </div>
+        <ng-container
+          [ngTemplateOutlet]="customComponents.signInButton || signInButton"
+          [ngTemplateOutletContext]="context"
+        >
+        </ng-container>
       </div>
-      <ng-container
-        [ngTemplateOutlet]="customComponents.signInButton || signInButton"
-        [ngTemplateOutletContext]="context"
-      >
-      </ng-container>
-    </div>
-  </fieldset>
+    </fieldset>
+  </form>
 </ng-template>
+
 <!-- 
   Render sign in component
 -->
 
 <div data-spark-container>
   <h2 data-spark-header>{{ this.headerText }}</h2>
-  <form data-spark-form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
-    <ng-container
-      [ngTemplateOutlet]="customComponents.signInFieldSet || signInFieldSet"
-      [ngTemplateOutletContext]="context"
-    >
-    </ng-container>
-  </form>
+  <ng-container
+    [ngTemplateOutlet]="customComponents.signInForm || signInForm"
+    [ngTemplateOutletContext]="context"
+  >
+  </ng-container>
 </div>

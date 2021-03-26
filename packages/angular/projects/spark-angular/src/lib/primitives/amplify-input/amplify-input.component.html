@@ -1,0 +1,9 @@
+<label data-spark-label [for]="name">{{ attributeMap[name].label }}</label>
+<input
+  data-spark-input
+  [id]="name"
+  [type]="type"
+  [placeholder]="'Enter your username'"
+  [formControlName]="name"
+  [required]="required ? '' : null"
+/>
