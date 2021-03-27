@@ -8,8 +8,8 @@
 <ng-template #signInForm>
   <form data-spark-form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
     <fieldset data-spark-fieldset [attr.disabled]="loading ? '' : null">
-      <amplify-input name="username"></amplify-input>
-      <amplify-input name="password" type="password"></amplify-input>
+      <amplify-form-field name="username"></amplify-form-field>
+      <amplify-form-field name="password" type="password"></amplify-form-field>
 
       <div data-spark-footer>
         <div>

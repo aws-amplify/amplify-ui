@@ -7,14 +7,14 @@ import { AuthAttribute, InputType, getAttributeMap } from '../../common';
  * Angular Reactive Form
  */
 @Component({
-  selector: 'amplify-input',
-  templateUrl: './amplify-input.component.html',
+  selector: 'amplify-form-field',
+  templateUrl: './amplify-form-field.component.html',
   viewProviders: [
     // https://stackoverflow.com/a/46452442/10103143
     { provide: ControlContainer, useExisting: FormGroupDirective },
   ],
 })
-export class AmplifyInputComponent {
+export class AmplifyFormFieldComponent {
   @Input() name: AuthAttribute = null;
   // TODO: Separate entry for id
   @Input() type: InputType = 'text';
