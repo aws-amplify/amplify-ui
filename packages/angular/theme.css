@@ -70,3 +70,7 @@
   color: cornflowerblue;
   cursor: pointer;
 }
+
+[data-spark-theme] [data-spark-link]:hover {
+  text-decoration: underline;
+}
