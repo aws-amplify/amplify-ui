@@ -1,3 +1,4 @@
+import { Auth } from 'aws-amplify';
 import {
   AfterContentInit,
   Component,
@@ -5,6 +6,8 @@ import {
   Input,
   TemplateRef,
 } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
+import { noWhitespacesAfterTrim } from '../../common';
 import { ComponentsProviderService, StateMachineService } from '../../services';
 
 @Component({
@@ -15,6 +18,7 @@ export class AmplifySignUpComponent implements AfterContentInit {
   @Input() headerText = 'Create a new account';
   @HostBinding('attr.data-spark-sign-up') dataAttr = '';
   public customComponents: Record<string, TemplateRef<any>>;
+  public loading: boolean = false;
   public context = {
     $implicit: {
       signUp: () => {
@@ -22,7 +26,15 @@ export class AmplifySignUpComponent implements AfterContentInit {
       },
     },
   };
+  public formGroup = this.fb.group({
+    username: ['', [Validators.required, noWhitespacesAfterTrim]],
+    password: ['', [Validators.required]],
+    email: ['', [Validators.required, noWhitespacesAfterTrim]],
+    phone_number: ['', [Validators.required, noWhitespacesAfterTrim]],
+  });
+
   constructor(
+    private fb: FormBuilder,
     private stateMachine: StateMachineService,
     private componentsProvider: ComponentsProviderService
   ) {}
@@ -31,8 +43,27 @@ export class AmplifySignUpComponent implements AfterContentInit {
     this.customComponents = this.componentsProvider.customComponents;
   }
 
-  signUp(): void {
-    this.stateMachine.authState = 'signIn';
+  async onSubmit(): Promise<void> {
+    const values = this.formGroup.getRawValue();
+    console.log(values);
+    this.loading = true;
+    if (this.formGroup.status !== 'VALID') return;
+
+    try {
+      await Auth.signUp({
+        username: values.username,
+        password: values.password,
+        attributes: {
+          email: values.email,
+          phone_number: values.phone_number,
+        },
+      });
+      this.stateMachine.authState = 'signIn';
+    } catch (err) {
+      console.error(err);
+    } finally {
+      this.loading = false;
+    }
   }
 
   toSignIn(): void {

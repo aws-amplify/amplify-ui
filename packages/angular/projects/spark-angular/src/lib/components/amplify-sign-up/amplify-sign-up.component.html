@@ -1,48 +1,14 @@
-<ng-template #defaultSignInButton>
-  <button
-    data-spark-button
-    id="spark-button"
-    type="submit"
-    (click)="this.signUp(); $event.preventDefault()"
-  >
-    Sign Up
-  </button>
+<ng-template #signInButton>
+  <button data-spark-button id="spark-button" type="submit">Sign Up</button>
 </ng-template>
 
 <div data-spark-container>
   <h2 data-spark-header>{{ this.headerText }}</h2>
-  <form data-spark-form>
-    <label data-spark-label for="username">Username *</label>
-    <input
-      data-spark-input
-      type="text"
-      id="username"
-      placeholder="Enter your username"
-    />
-
-    <label data-spark-label for="password">Password *</label>
-    <input
-      data-spark-input
-      type="text"
-      id="password"
-      placeholder="Enter your password"
-    />
-
-    <label data-spark-label for="email">Email *</label>
-    <input
-      data-spark-input
-      type="email"
-      id="email"
-      placeholder="Enter your email"
-    />
-
-    <label data-spark-label for="phone">Phone Number *</label>
-    <input
-      data-spark-input
-      type="tel"
-      id="phone"
-      placeholder="Enter your phone number"
-    />
+  <form data-spark-form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+    <amplify-input name="username"></amplify-input>
+    <amplify-input name="password" type="password"></amplify-input>
+    <amplify-input name="email" type="email"></amplify-input>
+    <amplify-input name="phone_number" type="text"></amplify-input>
 
     <div data-spark-footer>
       <div>
@@ -50,11 +16,7 @@
         <span data-spark-link (click)="toSignIn()">Sign In</span>
       </div>
       <ng-container
-        [ngTemplateOutlet]="
-          customComponents.signInButton
-            ? customComponents.signInButton
-            : defaultSignInButton
-        "
+        [ngTemplateOutlet]="customComponents.signInButton || signInButton"
         [ngTemplateOutletContext]="context"
       >
       </ng-container>

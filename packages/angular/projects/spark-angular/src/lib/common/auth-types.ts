@@ -1,5 +1,5 @@
 export type AuthState = 'signIn' | 'signUp' | 'signedIn';
-export type AuthAttribute = 'username' | 'password';
+export type AuthAttribute = 'username' | 'password' | 'email' | 'phone_number';
 export interface AttributeInfo {
   label: string;
   placeholder: string;

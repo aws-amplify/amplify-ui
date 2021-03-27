@@ -10,4 +10,12 @@ export const getAttributeMap: AttributeInfoProvider = () => ({
     label: 'Password',
     placeholder: 'Enter your password',
   },
+  email: {
+    label: 'Email',
+    placeholder: 'Enter your email',
+  },
+  phone_number: {
+    label: 'Phone Number',
+    placeholder: 'Enter your phone number',
+  },
 });
