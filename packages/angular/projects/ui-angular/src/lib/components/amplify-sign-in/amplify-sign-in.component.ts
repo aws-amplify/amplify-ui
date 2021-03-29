@@ -89,6 +89,8 @@ export class AmplifySignInComponent implements AfterContentInit {
     if (!customValidators) return;
     for (const [inputName, validators] of Object.entries(customValidators)) {
       const inputControl = this.formGroup.get(inputName);
+      if (!inputControl)
+        throw new Error(`There is no FormControl for ${inputName} field.`);
       inputControl.setValidators([inputControl.validator, ...validators]);
     }
   }
