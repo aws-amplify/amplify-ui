@@ -1,0 +1,15 @@
+<markdown [src]="'markdowns/authenticator/custom-form.md'"></markdown>
+
+<amplify-context-provider>
+  <amplify-authenticator [signInValidators]="signInValidators">
+  </amplify-authenticator>
+</amplify-context-provider>
+
+<markdown
+  [src]="'markdowns/authenticator/custom-form--custom-validator.md'"
+></markdown>
+
+<amplify-context-provider>
+  <amplify-authenticator [signInValidators]="customSignInValidators">
+  </amplify-authenticator>
+</amplify-context-provider>

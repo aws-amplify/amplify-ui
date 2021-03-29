@@ -1,0 +1,48 @@
+<!-- 
+  Define default contents here
+-->
+<ng-template #signInButton>
+  <button data-ui-button id="spark-button" type="submit">Sign In</button>
+</ng-template>
+
+<ng-template #signInForm>
+  <form data-ui-form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+    <fieldset data-ui-fieldset [attr.disabled]="loading ? '' : null">
+      <amplify-form-field
+        name="username"
+        [errors]="inputErrors?.username"
+      ></amplify-form-field>
+
+      <amplify-form-field
+        name="password"
+        type="password"
+        [errors]="inputErrors?.password"
+      ></amplify-form-field>
+
+      <div data-ui-footer>
+        <div>
+          No account?{{ ' ' }}
+          <a data-ui-link (click)="toSignUp()">Create Account</a>
+        </div>
+        <ng-container
+          [ngTemplateOutlet]="customComponents.signInButton || signInButton"
+          [ngTemplateOutletContext]="context"
+        >
+        </ng-container>
+      </div>
+    </fieldset>
+  </form>
+</ng-template>
+
+<!-- 
+  Render sign in component
+-->
+
+<div data-ui-container>
+  <h2 data-ui-header>{{ this.headerText }}</h2>
+  <ng-container
+    [ngTemplateOutlet]="customComponents.signInForm || signInForm"
+    [ngTemplateOutletContext]="context"
+  >
+  </ng-container>
+</div>
