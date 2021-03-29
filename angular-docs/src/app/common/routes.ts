@@ -32,9 +32,9 @@ export const docRoutes: DocRoutes = [
     name: 'Customizing Form',
     component: CustomFormAuthenticatorComponent,
   },
-  {
-    path: 'composition',
-    name: 'Composing components',
-    component: CompositionAuthenticatorComponent,
-  },
+  // {
+  //   path: 'composition',
+  //   name: 'Composing components',
+  //   component: CompositionAuthenticatorComponent,
+  // },
 ];
