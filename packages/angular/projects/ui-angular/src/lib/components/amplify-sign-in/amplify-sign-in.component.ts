@@ -16,6 +16,7 @@ import {
 import { ComponentsProviderService, StateMachineService } from '../../services';
 import {
   AuthAttribute,
+  InputErrors,
   mapInputErrors,
   noWhitespacesAfterTrim,
   SignInValidators,
@@ -31,7 +32,7 @@ export class AmplifySignInComponent implements AfterContentInit {
   @Input() public headerText = 'Sign in to your account';
   public loading = false;
   public customComponents: Record<string, TemplateRef<any>> = {};
-  public inputErrors: Partial<Record<AuthAttribute, ValidationErrors>>;
+  public inputErrors: InputErrors;
   public context = {
     $implicit: {},
   };

@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { FormBuilder, ValidationErrors, Validators } from '@angular/forms';
 import {
-  AuthAttribute,
+  InputErrors,
   mapInputErrors,
   noWhitespacesAfterTrim,
 } from '../../common';
@@ -23,7 +23,7 @@ export class AmplifySignUpComponent implements AfterContentInit {
   @HostBinding('attr.data-ui-sign-up') dataAttr = '';
   public customComponents: Record<string, TemplateRef<any>>;
   public loading = false;
-  public inputErrors: Partial<Record<AuthAttribute, ValidationErrors>>;
+  public inputErrors: InputErrors;
   public context = {
     $implicit: {
       signUp: () => {

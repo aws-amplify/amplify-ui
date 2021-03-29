@@ -5,4 +5,5 @@ export interface AttributeInfo {
   placeholder: string;
 }
 
+// maps auth attribute to its repsective labels and placeholder
 export type AttributeInfoProvider = () => Record<AuthAttribute, AttributeInfo>;
