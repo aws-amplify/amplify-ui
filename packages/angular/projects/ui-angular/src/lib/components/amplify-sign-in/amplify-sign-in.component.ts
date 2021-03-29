@@ -16,6 +16,7 @@ import {
 import { ComponentsProviderService, StateMachineService } from '../../services';
 import {
   AuthAttribute,
+  mapInputErrors,
   noWhitespacesAfterTrim,
   SignInValidators,
 } from '../../common';
@@ -26,7 +27,7 @@ import {
   encapsulation: ViewEncapsulation.None,
 })
 export class AmplifySignInComponent implements AfterContentInit {
-  @HostBinding('attr.data-spark-sign-in') dataAttr = '';
+  @HostBinding('attr.data-ui-sign-in') dataAttr = '';
   @Input() public headerText = 'Sign in to your account';
   public loading = false;
   public customComponents: Record<string, TemplateRef<any>> = {};
@@ -73,11 +74,7 @@ export class AmplifySignInComponent implements AfterContentInit {
     // trim password
     usernameControl.setValue(usernameControl.value.trim());
 
-    // map validation errors
-    this.inputErrors = {
-      username: usernameControl.errors,
-      password: passwordControl.errors,
-    };
+    this.inputErrors = mapInputErrors(this.formGroup.controls);
 
     if (this.formGroup.status !== 'VALID') return;
     this.loading = true;

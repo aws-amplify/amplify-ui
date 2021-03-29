@@ -20,7 +20,7 @@ import { ComponentsProviderService, StateMachineService } from '../../services';
 })
 export class AmplifySignUpComponent implements AfterContentInit {
   @Input() headerText = 'Create a new account';
-  @HostBinding('attr.data-spark-sign-up') dataAttr = '';
+  @HostBinding('attr.data-ui-sign-up') dataAttr = '';
   public customComponents: Record<string, TemplateRef<any>>;
   public loading = false;
   public inputErrors: Partial<Record<AuthAttribute, ValidationErrors>>;

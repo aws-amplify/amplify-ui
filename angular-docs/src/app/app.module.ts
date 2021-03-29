@@ -12,7 +12,7 @@ import { MatListModule } from '@angular/material/list';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BasicAuthenticatorComponent } from './pages/basic-authenticator/basic-authenticator.component';
-import { SparkAngularModule } from '@aws-amplify/spark-angular';
+import { UiAngularModule } from '@aws-amplify/ui-angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeadlessAuthenticatorComponent } from './pages/headless-authenticator/headless-authenticator.component';
 import { StyledAuthenticatorComponent } from './pages/styled-authenticator/styled-authenticator.component';
@@ -31,7 +31,7 @@ import { CustomFormAuthenticatorComponent } from './pages/custom-form-authentica
     CustomFormAuthenticatorComponent,
   ],
   imports: [
-    SparkAngularModule,
+    UiAngularModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,

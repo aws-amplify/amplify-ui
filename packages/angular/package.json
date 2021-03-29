@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "@aws-amplify/spark-angular",
+  "name": "@aws-amplify/ui-angular",
   "version": "0.0.1",
   "scripts": {
     "ng": "ng",
@@ -48,5 +48,5 @@
       "@angular-devkit/build-angular"
     ]
   },
-  "typings": "./dist/spark-angular/index.d.ts"
+  "typings": "./dist/ui-angular/index.d.ts"
 }

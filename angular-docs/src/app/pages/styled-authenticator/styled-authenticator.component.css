@@ -1,21 +1,21 @@
 /* We're temporarily adding example class name or else the style will bleed into other pages. */
-.example [data-spark-sign-in] [data-spark-header] {
+.example [data-ui-sign-in] [data-ui-header] {
   width: fit-content;
   padding-bottom: 0.75rem;
   border-bottom: 1px solid cornflowerblue;
 }
 
-.example [data-spark-sign-in] [data-spark-button] {
+.example [data-ui-sign-in] [data-ui-button] {
   background-color: inherit;
   color: black;
   border-bottom: 1px solid cornflowerblue;
   border-width: 1px;
 }
 
-.example [data-spark-sign-in] [data-spark-button]:focus {
+.example [data-ui-sign-in] [data-ui-button]:focus {
   border-style: none;
 }
 
-#my-authenticator [data-spark-button] {
+#my-authenticator [data-ui-button] {
   background-color: skyblue;
 }

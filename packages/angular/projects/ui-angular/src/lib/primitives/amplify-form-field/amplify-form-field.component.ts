@@ -35,6 +35,4 @@ export class AmplifyFormFieldComponent {
   get attributeMap(): Record<AuthAttribute, AttributeInfo> {
     return getAttributeMap();
   }
-
-  private;
 }

@@ -24,7 +24,7 @@ import { CustomComponents, SignInValidators } from '../../common';
 export class AmplifyAuthenticatorComponent implements AfterContentInit, OnInit {
   @Input() initialAuthState: AuthState = 'signIn';
   @Input() signInValidators: SignInValidators;
-  @HostBinding('attr.data-spark-authenticator') dataAttr = '';
+  @HostBinding('attr.data-ui-authenticator') dataAttr = '';
   @ContentChildren(AmplifyOverrideDirective)
   private customComponentQuery: QueryList<AmplifyOverrideDirective> = null;
   public customComponents: CustomComponents = {};

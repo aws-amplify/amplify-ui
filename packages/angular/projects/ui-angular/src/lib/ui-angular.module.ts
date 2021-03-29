@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import { SparkAngularComponent } from './spark-angular.component';
 import { AmplifyAuthenticatorComponent } from './components/amplify-authenticator/amplify-authenticator.component';
 import { AmplifySignInComponent } from './components/amplify-sign-in/amplify-sign-in.component';
 import { AmplifyContextProviderComponent } from './amplify-context-provider/amplify-context-provider.component';
@@ -13,7 +12,6 @@ import { AmplifyValidationErrorComponent } from './primitives/amplify-validation
 
 @NgModule({
   declarations: [
-    SparkAngularComponent,
     AmplifyAuthenticatorComponent,
     AmplifySignInComponent,
     AmplifySignOutComponent,
@@ -25,7 +23,6 @@ import { AmplifyValidationErrorComponent } from './primitives/amplify-validation
   ],
   imports: [CommonModule, ReactiveFormsModule],
   exports: [
-    SparkAngularComponent,
     AmplifyAuthenticatorComponent,
     AmplifySignInComponent,
     AmplifySignOutComponent,
@@ -33,4 +30,4 @@ import { AmplifyValidationErrorComponent } from './primitives/amplify-validation
     AmplifyOverrideDirective,
   ],
 })
-export class SparkAngularModule {}
+export class UiAngularModule {}

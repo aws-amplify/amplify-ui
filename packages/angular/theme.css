@@ -1,26 +1,26 @@
-[data-spark-theme] {
+[data-ui-theme] {
   font-size: 14px;
   font-family: 'Amazon Ember';
 }
 
-[data-spark-theme],
-[data-spark-theme] [data-spark-authenticator],
-[data-spark-theme] [data-spark-sign-in],
-[data-spark-theme] [data-spark-sign-out] {
+[data-ui-theme],
+[data-ui-theme] [data-ui-authenticator],
+[data-ui-theme] [data-ui-sign-in],
+[data-ui-theme] [data-ui-sign-out] {
   display: inline-block;
 }
 
-[data-spark-theme] [data-spark-header] {
+[data-ui-theme] [data-ui-header] {
   margin-top: 0px;
 }
 
-[data-spark-theme] [data-spark-fieldset] {
+[data-ui-theme] [data-ui-fieldset] {
   border-style: none;
   margin: 0;
   padding: 0;
 }
 
-[data-spark-theme] [data-spark-container] {
+[data-ui-theme] [data-ui-container] {
   width: 22rem;
   padding: 3rem;
   border-style: solid;
@@ -29,7 +29,7 @@
   background-color: white;
 }
 
-[data-spark-theme] [data-spark-input] {
+[data-ui-theme] [data-ui-input] {
   border-style: solid;
   display: block;
   padding: 0.875rem;
@@ -40,17 +40,17 @@
   border-radius: 2px;
 }
 
-[data-spark-theme] [data-spark-input]:focus {
+[data-ui-theme] [data-ui-input]:focus {
   outline: none;
   border: 1px solid cornflowerblue;
 }
 
-[data-spark-theme] [data-spark-label] {
+[data-ui-theme] [data-ui-label] {
   display: block;
   margin-bottom: 0.625rem;
 }
 
-[data-spark-theme] [data-spark-footer] {
+[data-ui-theme] [data-ui-footer] {
   margin-top: 2rem;
   display: flex;
   flex-direction: row;
@@ -58,7 +58,7 @@
   justify-content: space-between;
 }
 
-[data-spark-theme] [data-spark-button] {
+[data-ui-theme] [data-ui-button] {
   background-color: black;
   padding: 0.875rem 1.5rem 0.875rem 1.5rem;
   border-style: none;
@@ -66,16 +66,19 @@
   border-radius: 2px;
 }
 
-[data-spark-theme] [data-spark-link] {
+[data-ui-theme] [data-ui-link] {
   color: cornflowerblue;
   cursor: pointer;
 }
 
-[data-spark-theme] [data-spark-link]:hover {
+[data-ui-theme] [data-ui-link]:hover {
   text-decoration: underline;
 }
 
-[data-spark-theme] [data-spark-error] {
-  color: red;
+[data-ui-theme] [data-ui-error] {
+  color: orangered;
+}
+
+[data-ui-theme] [data-ui-error]:last-child {
   margin-bottom: 1rem;
 }

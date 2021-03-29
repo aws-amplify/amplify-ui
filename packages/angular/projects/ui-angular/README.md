@@ -3,7 +3,7 @@
 ## Getting Started
 
 ```shell
-yarn add @aws-amplify/spark-angular
+yarn add @aws-amplify/ui-angular
 ```
 
 ## Usage
@@ -39,7 +39,7 @@ _app.component.html_
 _app.component.ts_
 
 ```tsx
-import Spark from '@aws-amplify/spark-angular';
+import Spark from '@aws-amplify/ui-angular';
 
 @Component({
   selector: 'my-app',

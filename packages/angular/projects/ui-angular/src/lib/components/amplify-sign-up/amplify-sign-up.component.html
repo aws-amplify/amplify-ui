@@ -1,10 +1,10 @@
 <ng-template #signInButton>
-  <button data-spark-button id="spark-button" type="submit">Sign Up</button>
+  <button data-ui-button id="spark-button" type="submit">Sign Up</button>
 </ng-template>
 
-<div data-spark-container>
-  <h2 data-spark-header>{{ this.headerText }}</h2>
-  <form data-spark-form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+<div data-ui-container>
+  <h2 data-ui-header>{{ this.headerText }}</h2>
+  <form data-ui-form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
     <amplify-form-field
       [errors]="inputErrors?.username"
       name="username"
@@ -28,10 +28,10 @@
       [errors]="inputErrors?.phone_number"
     ></amplify-form-field>
 
-    <div data-spark-footer>
+    <div data-ui-footer>
       <div>
         Have an account?{{ ' ' }}
-        <span data-spark-link (click)="toSignIn()">Sign In</span>
+        <span data-ui-link (click)="toSignIn()">Sign In</span>
       </div>
       <ng-container
         [ngTemplateOutlet]="customComponents.signInButton || signInButton"

@@ -12,14 +12,9 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "es2020",
-    "lib": [
-      "es2018",
-      "dom"
-    ],
+    "lib": ["es2018", "dom"],
     "paths": {
-      "@aws-amplify/spark-angular": [
-        "../packages/angular/dist/spark-angular/*"
-      ]
+      "@aws-amplify/ui-angular": ["../packages/angular/dist/ui-angular/*"]
     }
   },
   "angularCompilerOptions": {

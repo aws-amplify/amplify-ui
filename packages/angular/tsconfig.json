@@ -13,10 +13,7 @@
     "target": "es2015",
     "module": "es2020",
     "paths": {
-      "spark-angular": [
-        "dist/spark-angular/spark-angular",
-        "dist/spark-angular"
-      ]
+      "ui-angular": ["dist/ui-angular/ui-angular", "dist/ui-angular"]
     },
     "lib": ["es2018", "dom"]
   },

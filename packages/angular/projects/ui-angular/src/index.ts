@@ -1,10 +1,8 @@
 /*
- * Public API Surface of spark-angular
+ * Public API Surface of ui-angular
  */
 
-export * from './lib/spark-angular.service';
-export * from './lib/spark-angular.component';
-export * from './lib/spark-angular.module';
+export * from './lib/ui-angular.module';
 
 export * from './lib/components/amplify-authenticator/amplify-authenticator.component';
 export * from './lib/components/amplify-sign-in/amplify-sign-in.component';
