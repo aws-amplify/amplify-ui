@@ -7,12 +7,7 @@ import {
   TemplateRef,
   ViewEncapsulation,
 } from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  ValidationErrors,
-  Validators,
-} from '@angular/forms';
+import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { ComponentsProviderService, StateMachineService } from '../../services';
 import {
   AuthAttribute,
