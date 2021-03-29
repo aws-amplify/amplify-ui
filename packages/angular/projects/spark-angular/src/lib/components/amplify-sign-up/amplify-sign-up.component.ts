@@ -6,8 +6,12 @@ import {
   Input,
   TemplateRef,
 } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
-import { noWhitespacesAfterTrim } from '../../common';
+import { FormBuilder, ValidationErrors, Validators } from '@angular/forms';
+import {
+  AuthAttribute,
+  mapInputErrors,
+  noWhitespacesAfterTrim,
+} from '../../common';
 import { ComponentsProviderService, StateMachineService } from '../../services';
 
 @Component({
@@ -18,7 +22,8 @@ export class AmplifySignUpComponent implements AfterContentInit {
   @Input() headerText = 'Create a new account';
   @HostBinding('attr.data-spark-sign-up') dataAttr = '';
   public customComponents: Record<string, TemplateRef<any>>;
-  public loading: boolean = false;
+  public loading = false;
+  public inputErrors: Partial<Record<AuthAttribute, ValidationErrors>>;
   public context = {
     $implicit: {
       signUp: () => {
@@ -45,9 +50,10 @@ export class AmplifySignUpComponent implements AfterContentInit {
 
   async onSubmit(): Promise<void> {
     const values = this.formGroup.getRawValue();
-    console.log(values);
-    this.loading = true;
+    this.inputErrors = mapInputErrors(this.formGroup.controls);
+
     if (this.formGroup.status !== 'VALID') return;
+    this.loading = true;
 
     try {
       await Auth.signUp({

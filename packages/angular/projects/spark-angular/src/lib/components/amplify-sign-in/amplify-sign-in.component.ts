@@ -7,9 +7,18 @@ import {
   TemplateRef,
   ViewEncapsulation,
 } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  ValidationErrors,
+  Validators,
+} from '@angular/forms';
 import { ComponentsProviderService, StateMachineService } from '../../services';
-import { noWhitespacesAfterTrim, SignInValidators } from '../../common';
+import {
+  AuthAttribute,
+  noWhitespacesAfterTrim,
+  SignInValidators,
+} from '../../common';
 
 @Component({
   selector: 'amplify-sign-in',
@@ -21,13 +30,17 @@ export class AmplifySignInComponent implements AfterContentInit {
   @Input() public headerText = 'Sign in to your account';
   public loading = false;
   public customComponents: Record<string, TemplateRef<any>> = {};
+  public inputErrors: Partial<Record<AuthAttribute, ValidationErrors>>;
   public context = {
     $implicit: {},
   };
-  public formGroup = this.fb.group({
-    username: ['', [Validators.required, noWhitespacesAfterTrim]],
-    password: ['', [Validators.required]],
-  });
+  public formGroup = this.fb.group(
+    {
+      username: ['', [Validators.required, noWhitespacesAfterTrim]],
+      password: ['', [Validators.required]],
+    },
+    { updateOn: 'submit' }
+  );
 
   constructor(
     private fb: FormBuilder,
@@ -37,6 +50,8 @@ export class AmplifySignInComponent implements AfterContentInit {
 
   ngAfterContentInit(): void {
     this.customComponents = this.componentsProvider.customComponents;
+
+    // attach custom validators
     const props = this.componentsProvider.props.signIn;
     const customValidators = props?.signInValidators;
     this.attachCustomValidators(customValidators);
@@ -46,11 +61,23 @@ export class AmplifySignInComponent implements AfterContentInit {
     this.stateMachine.authState = 'signUp';
   }
 
+  getFormControl(name: AuthAttribute): AbstractControl {
+    return this.formGroup.get(name);
+  }
+
   async onSubmit(): Promise<void> {
+    console.log(this.formGroup);
     const usernameControl = this.formGroup.get('username');
     const passwordControl = this.formGroup.get('password');
+    console.log(usernameControl, passwordControl);
     // trim password
     usernameControl.setValue(usernameControl.value.trim());
+
+    // map validation errors
+    this.inputErrors = {
+      username: usernameControl.errors,
+      password: passwordControl.errors,
+    };
 
     if (this.formGroup.status !== 'VALID') return;
     this.loading = true;
@@ -65,12 +92,11 @@ export class AmplifySignInComponent implements AfterContentInit {
     }
   }
 
-  private attachCustomValidators(customValidators: SignInValidators) {
+  private attachCustomValidators(customValidators: SignInValidators): void {
     if (!customValidators) return;
-    for (let [inputName, validators] of Object.entries(customValidators)) {
+    for (const [inputName, validators] of Object.entries(customValidators)) {
       const inputControl = this.formGroup.get(inputName);
       inputControl.setValidators([inputControl.validator, ...validators]);
-      console.log(inputControl.validator);
     }
   }
 }

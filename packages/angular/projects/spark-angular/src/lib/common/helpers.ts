@@ -1,4 +1,5 @@
-import { AttributeInfoProvider } from './auth-types';
+import { AbstractControl } from '@angular/forms';
+import { AttributeInfoProvider, AuthAttribute } from './auth-types';
 
 export const getAttributeMap: AttributeInfoProvider = () => ({
   // TODO: Replace this with I18n translations
@@ -19,3 +20,11 @@ export const getAttributeMap: AttributeInfoProvider = () => ({
     placeholder: 'Enter your phone number',
   },
 });
+
+export const mapInputErrors = (controls: Record<string, AbstractControl>) => {
+  const errors = {};
+  for (const [inputName, control] of Object.entries(controls)) {
+    errors[inputName] = control.errors;
+  }
+  return errors;
+};

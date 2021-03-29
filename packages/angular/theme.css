@@ -74,3 +74,8 @@
 [data-spark-theme] [data-spark-link]:hover {
   text-decoration: underline;
 }
+
+[data-spark-theme] [data-spark-error] {
+  color: red;
+  margin-bottom: 1rem;
+}

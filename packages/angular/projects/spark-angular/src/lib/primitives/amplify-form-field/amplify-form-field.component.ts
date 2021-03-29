@@ -1,6 +1,16 @@
 import { Component, Input } from '@angular/core';
-import { ControlContainer, FormGroupDirective } from '@angular/forms';
-import { AuthAttribute, InputType, getAttributeMap } from '../../common';
+import {
+  ControlContainer,
+  FormGroup,
+  FormGroupDirective,
+  ValidationErrors,
+} from '@angular/forms';
+import {
+  AuthAttribute,
+  InputType,
+  getAttributeMap,
+  AttributeInfo,
+} from '../../common';
 
 /**
  * Contains an input element and its label. Intended to be used with
@@ -18,9 +28,13 @@ export class AmplifyFormFieldComponent {
   @Input() name: AuthAttribute = null;
   // TODO: Separate entry for id
   @Input() type: InputType = 'text';
-  @Input() required: boolean = false;
+  @Input() required = false;
+  @Input() formGroup: FormGroup;
+  @Input() errors: ValidationErrors;
 
-  get attributeMap() {
+  get attributeMap(): Record<AuthAttribute, AttributeInfo> {
     return getAttributeMap();
   }
+
+  private;
 }

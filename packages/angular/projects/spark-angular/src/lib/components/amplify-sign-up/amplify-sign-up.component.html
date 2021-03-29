@@ -5,10 +5,28 @@
 <div data-spark-container>
   <h2 data-spark-header>{{ this.headerText }}</h2>
   <form data-spark-form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
-    <amplify-form-field name="username"></amplify-form-field>
-    <amplify-form-field name="password" type="password"></amplify-form-field>
-    <amplify-form-field name="email" type="email"></amplify-form-field>
-    <amplify-form-field name="phone_number" type="text"></amplify-form-field>
+    <amplify-form-field
+      [errors]="inputErrors?.username"
+      name="username"
+    ></amplify-form-field>
+
+    <amplify-form-field
+      [errors]="inputErrors?.password"
+      name="password"
+      type="password"
+    ></amplify-form-field>
+
+    <amplify-form-field
+      name="email"
+      type="email"
+      [errors]="inputErrors?.email"
+    ></amplify-form-field>
+
+    <amplify-form-field
+      name="phone_number"
+      type="text"
+      [errors]="inputErrors?.phone_number"
+    ></amplify-form-field>
 
     <div data-spark-footer>
       <div>
