@@ -6,25 +6,27 @@ export default defineComponent({
     level: {
       type: Number,
       required: true,
-      default: 1,
-    },
+      default: 1
+    }
   },
   inheritAttrs: false,
-  setup({ level }, { slots, attrs }) {
+  setup(props, { slots, attrs }) {
     const defaultSlot = slots.default ? slots.default() : [];
     const headingI = slots.headingI ? slots.headingI() : [];
     if (headingI[0]?.children.length === 0) {
       headingI[0].children = [
-        h(`h${level}`, { "data-spark-heading": "", ...attrs }, [defaultSlot]),
+        h(`h${props.level}`, { "data-spark-heading": "", ...attrs }, [
+          defaultSlot
+        ])
       ];
     } else {
       return () =>
-        h(`h${level}`, { "data-spark-heading": "", ...attrs }, [
-          headingI[0].children,
+        h(`h${props.level}`, { "data-spark-heading": "", ...attrs }, [
+          headingI[0].children
         ]);
     }
     return () => headingI;
-  },
+  }
 });
 </script>
 

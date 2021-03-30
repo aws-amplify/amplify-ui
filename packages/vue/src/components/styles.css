@@ -65,3 +65,19 @@
   [data-spark-button]:last-of-type {
   @apply px-8 py-2 text-base text-white bg-gray-700 rounded;
 }
+
+[data-spark-theme] [data-spark-authenticator] :disabled {
+  @apply opacity-50;
+  cursor: initial;
+}
+
+[data-spark-theme] [data-spark-input] {
+  @apply block w-full mt-1 border-gray-300 rounded shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50;
+  border-width: 1px;
+  padding-top: 0.5rem;
+  padding-right: 0.75rem;
+  padding-bottom: 0.5rem;
+  padding-left: 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
+}

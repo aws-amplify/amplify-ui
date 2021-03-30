@@ -10,12 +10,11 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  mounted() {},
   inheritAttrs: false,
   setup(_, { slots }) {
     let mySlots = slots;
     return { mySlots };
-  },
+  }
 });
 </script>
 
