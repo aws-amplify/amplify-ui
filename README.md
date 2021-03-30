@@ -56,7 +56,7 @@ import 'package:amplify_authenticator/components/MaterialAuthenticator.dart';
 class MaterialThemeExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // Note: This would typically be passing into the MaterialApp() widget in a real world example
+    // Note: This would typically be passed into the MaterialApp() widget in a real world example
     ThemeData themeData = ThemeData.from(
       colorScheme: ColorScheme(
         brightness: Brightness.light,
