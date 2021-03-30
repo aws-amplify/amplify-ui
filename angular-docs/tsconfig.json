@@ -14,7 +14,8 @@
     "module": "es2020",
     "lib": ["es2018", "dom"],
     "paths": {
-      "@aws-amplify/ui-angular": ["../packages/angular/dist/ui-angular/*"]
+      "@aws-amplify/ui-angular": ["../packages/angular/dist/ui-angular/*"],
+      "@aws-amplify/ui-core": ["../packages/core/*"]
     }
   },
   "angularCompilerOptions": {

@@ -1,19 +1,20 @@
-import { Auth } from "aws-amplify";
-import { Machine, assign } from "xstate";
-import { inspect } from "@xstate/inspect";
+import { Auth } from 'aws-amplify';
+import { Machine, assign } from 'xstate';
+import { inspect } from '@xstate/inspect';
 
 // TODO What's the best way to enable this for debug-only? `XSTATE=true npm start`?
-if (typeof window !== "undefined") {
+if (typeof window !== 'undefined') {
+  console.log('test');
   inspect({
-    url: "https://statecharts.io/inspect",
+    url: 'https://statecharts.io/inspect',
     iframe: false,
   });
 }
 
 export const authMachine = Machine(
   {
-    id: "auth",
-    initial: "idle",
+    id: 'auth',
+    initial: 'idle',
     context: {
       error: undefined,
       user: undefined,
@@ -24,41 +25,41 @@ export const authMachine = Machine(
       idle: {
         invoke: {
           // TODO Wait for Auth to be configured
-          src: "getCurrentUser",
+          src: 'getCurrentUser',
           onDone: {
-            actions: "setUser",
-            target: "authenticated",
+            actions: 'setUser',
+            target: 'authenticated',
           },
-          onError: "signIn",
+          onError: 'signIn',
         },
       },
       authenticated: {
         on: {
-          SIGN_OUT: "signOut",
+          SIGN_OUT: 'signOut',
         },
       },
       signIn: {
-        initial: "idle",
-        onDone: "authenticated",
+        initial: 'idle',
+        onDone: 'authenticated',
         states: {
           idle: {
             on: {
-              SIGN_UP: "#auth.signUp",
-              SUBMIT: "pending",
+              SIGN_UP: '#auth.signUp',
+              SUBMIT: 'pending',
             },
           },
           pending: {
             invoke: {
-              src: "signIn",
+              src: 'signIn',
               onDone: {
-                actions: "setUser",
-                target: "resolved",
+                actions: 'setUser',
+                target: 'resolved',
               },
-              onError: "rejected",
+              onError: 'rejected',
             },
           },
           resolved: {
-            type: "final",
+            type: 'final',
           },
           rejected: {
             // TODO Set errors and go back to `idle`?
@@ -66,53 +67,53 @@ export const authMachine = Machine(
         },
       },
       signUp: {
-        initial: "idle",
+        initial: 'idle',
         states: {
           idle: {
             on: {
-              SIGN_IN: "#auth.signIn",
-              SUBMIT: "pending",
+              SIGN_IN: '#auth.signIn',
+              SUBMIT: 'pending',
             },
           },
           pending: {
             invoke: {
-              src: "signUp",
+              src: 'signUp',
               onDone: {
-                target: "resolved",
+                target: 'resolved',
               },
-              onError: "rejected",
+              onError: 'rejected',
             },
           },
           // TODO Set errors and go back to `idle`?
           rejected: {
-            always: "idle",
+            always: 'idle',
           },
           resolved: {
-            type: "final",
+            type: 'final',
           },
         },
       },
       signOut: {
-        initial: "pending",
-        onDone: "idle",
+        initial: 'pending',
+        onDone: 'idle',
         states: {
           pending: {
             invoke: {
-              src: "signOut",
+              src: 'signOut',
               onDone: {
-                actions: "setUser",
-                target: "resolved",
+                actions: 'setUser',
+                target: 'resolved',
               },
               // See: https://xstate.js.org/docs/guides/communication.html#the-invoke-property
-              onError: "rejected",
+              onError: 'rejected',
             },
           },
           rejected: {
             // TODO Why would signOut be rejected?
-            type: "final",
+            type: 'final',
           },
           resolved: {
-            type: "final",
+            type: 'final',
           },
         },
       },
@@ -122,7 +123,7 @@ export const authMachine = Machine(
     actions: {
       setUser: assign({
         user(context, event) {
-          return event.data;
+          return (event as any).data;
         },
       }),
     },
@@ -133,12 +134,12 @@ export const authMachine = Machine(
         return Auth.currentAuthenticatedUser();
       },
       async signIn(context, event) {
-        const { username, password } = event.data;
+        const { username, password } = (event as any).data;
 
         return Auth.signIn(username, password);
       },
       async signUp(context, event) {
-        const { username, password, ...attributes } = event.data;
+        const { username, password, ...attributes } = (event as any).data;
         const result = await Auth.signUp({ username, password, attributes });
 
         // TODO `cond`itionally transition to `signUp.confirm` or `resolved` based on result
