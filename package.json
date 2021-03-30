@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {
     "dev": "cd docs && yarn dev",
-    "dev:vue": "cd vue-docs && yarn docs:dev --port 3001",
+    "dev:vue": "cd vue-docs && yarn serve --port 3001",
     "dev:angular": "cd angular-docs && yarn start",
     "build:angular": "cd packages/angular && yarn build",
     "build:angular:watch": "cd packages/angular && yarn build --watch"

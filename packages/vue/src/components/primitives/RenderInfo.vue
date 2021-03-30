@@ -1,15 +1,15 @@
 <script lang="ts">
-import { defineComponent, h } from "vue";
+import { defineComponent } from "vue";
 
 export default defineComponent({
   props: {
     info: {
-      type: Object,
-    },
+      type: Object
+    }
   },
-  setup({ info }) {
-    return () => info;
-  },
+  setup(props) {
+    return () => props.info;
+  }
 });
 </script>
 

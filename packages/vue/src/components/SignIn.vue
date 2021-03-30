@@ -1,7 +1,7 @@
 <template>
   <slot name="signInSlotI">
     <Wrapper>
-      <Form @submit.prevent="onSignInButtonClicked">
+      <Form @submit.prevent="onSignInButtonClicked" method="post">
         <template #formt="{ slotData }">
           <slot name="form" :info="slotData"> </slot>
         </template>
@@ -12,7 +12,7 @@
           {{ signIntoAccountText }}
         </Heading>
 
-        <FieldSet>
+        <FieldSet :disabled="state.matches('signIn.pending')">
           <Label>
             <Text>
               <template #textI>
@@ -57,14 +57,18 @@
             createAccountLink
           }}</Button>
           <Spacer />
-          <Button type="submit" @click.prevent="onSignInButtonClicked">
+          <Button :disabled="state.matches('signIn.pending')">
             <template #buttont>
               <slot
                 name="sign-in-button"
                 :onSignInButtonClicked="onSignInButtonClicked"
               ></slot>
             </template>
-            {{ signInButtonText }}
+            {{
+              state.matches("signIn.pending")
+                ? signIngButtonText
+                : signInButtonText
+            }}
             <!-- Add prop too? -->
           </Button>
         </Footer>
@@ -84,6 +88,7 @@ import {
   SIGN_IN_BUTTON_TEXT,
   FORGOT_YOUR_PASSWORD_TEXT,
   PASSWORD_LABEL,
+  SIGNING_IN_BUTTON_TEXT
 } from "../defaults/DefaultTexts";
 import Footer from "./primitives/Footer.vue";
 import Wrapper from "./primitives/Wrapper.vue";
@@ -96,24 +101,26 @@ import Box from "./primitives/Box.vue";
 import Button from "./primitives/Button.vue";
 import Spacer from "./primitives/Spacer.vue";
 import Text from "./primitives/Text.vue";
-import RenderInfo from "./primitives/RenderInfo.vue";
 
-import { inject, Ref } from "vue";
+// @xstate
+import { useAuth } from "../composables/useAuth";
+
+import { inject, Ref, ref, computed, watchEffect } from "vue";
 
 export default {
   name: "Authentication",
   computed: {
-    signIntoAccountText: () => SIGN_IN_TEXT,
-    fullNameText: () => FULL_NAME_TEXT,
-    resetPasswordLink: () => RESET_PASSWORD_LINK,
-    noAccount: () => NO_ACCOUNT,
-    createAccountLink: () => CREATE_ACCOUNT_LINK,
-    signInButtonText: () => SIGN_IN_BUTTON_TEXT,
-    forgotYourPasswordText: () => FORGOT_YOUR_PASSWORD_TEXT,
-    passwordLabel: () => PASSWORD_LABEL,
+    signIntoAccountText: (): string => SIGN_IN_TEXT,
+    fullNameText: (): string => FULL_NAME_TEXT,
+    resetPasswordLink: (): string => RESET_PASSWORD_LINK,
+    noAccount: (): string => NO_ACCOUNT,
+    createAccountLink: (): string => CREATE_ACCOUNT_LINK,
+    signInButtonText: (): string => SIGN_IN_BUTTON_TEXT,
+    signIngButtonText: (): string => SIGNING_IN_BUTTON_TEXT,
+    forgotYourPasswordText: (): string => FORGOT_YOUR_PASSWORD_TEXT,
+    passwordLabel: (): string => PASSWORD_LABEL
   },
   inheritAttrs: false,
-  mounted() {},
   components: {
     Footer,
     Wrapper,
@@ -125,28 +132,46 @@ export default {
     Input,
     Box,
     Button,
-    Spacer,
-    RenderInfo,
+    Spacer
   },
   setup(
     props: Readonly<
       {
         signIntoAccountText: string;
         fullNameText: string;
-      } & {}
+      } & unknown
     >,
     { emit, attrs }
-  ) {
-    const pageInfo: Ref<string> = inject("pageInfo");
+  ): Record<string, unknown> {
+    // @Xstate Initialization
+    const username: Ref = ref("");
+    const password: Ref = ref("");
+    const { state, send } = useAuth();
+
+    const stateChanged = watchEffect(() => {
+      if (state.value.matches("signIn.rejected")) {
+        console.log("rejected");
+      }
+    });
+
+    const pageInfo: Ref<string> = inject("pageInfo", undefined);
     // Methods
 
-    const onSignInButtonClicked = (): void => {
+    const onSignInButtonClicked = (e): void => {
       attrs?.onSignInButtonClicked
         ? emit("signInButtonClicked")
         : console.log("normal event Auth Signin", attrs.onOnSignInPressed);
+
+      const formData = new FormData(e.target);
+      send({
+        type: "SUBMIT",
+        // @ts-ignore Property 'fromEntries' does not exist on type 'ObjectConstructor'. Do you need to change your target library? Try changing the `lib` compiler option to 'es2019' or later.ts(2550)
+        data: Object.fromEntries(formData)
+      });
     };
 
     const onForgotPasswordClicked = (): void => {
+      send("SIGN_OUT");
       attrs?.onForgotPasswordClicked
         ? emit("forgotPasswordClicked")
         : console.log("you clicked the reset password link");
@@ -156,7 +181,12 @@ export default {
       attrs?.onCreateAccountClicked
         ? emit("createAccountClicked")
         : console.log("create account clicked");
-      pageInfo.value = "SIGNUP";
+      if (pageInfo) {
+        pageInfo.value = "SIGNUP";
+        send({
+          type: "SIGN_UP"
+        });
+      }
     };
 
     return {
@@ -164,8 +194,11 @@ export default {
       AUTHENTICATOR,
       onForgotPasswordClicked,
       onCreateAccountClicked,
+      state,
+      username,
+      password
     };
-  },
+  }
 };
 </script>
 

@@ -6,7 +6,7 @@ import { inspect } from "@xstate/inspect";
 if (typeof window !== "undefined") {
   inspect({
     url: "https://statecharts.io/inspect",
-    iframe: false,
+    iframe: false
   });
 }
 
@@ -17,7 +17,7 @@ export const authMachine = Machine(
     context: {
       error: undefined,
       user: undefined,
-      session: undefined,
+      session: undefined
     },
     states: {
       // See: https://xstate.js.org/docs/guides/communication.html#invoking-promises
@@ -27,15 +27,15 @@ export const authMachine = Machine(
           src: "getCurrentUser",
           onDone: {
             actions: "setUser",
-            target: "authenticated",
+            target: "authenticated"
           },
-          onError: "signIn",
-        },
+          onError: "signIn"
+        }
       },
       authenticated: {
         on: {
-          SIGN_OUT: "signOut",
-        },
+          SIGN_OUT: "signOut"
+        }
       },
       signIn: {
         initial: "idle",
@@ -44,26 +44,26 @@ export const authMachine = Machine(
           idle: {
             on: {
               SIGN_UP: "#auth.signUp",
-              SUBMIT: "pending",
-            },
+              SUBMIT: "pending"
+            }
           },
           pending: {
             invoke: {
               src: "signIn",
               onDone: {
                 actions: "setUser",
-                target: "resolved",
+                target: "resolved"
               },
-              onError: "rejected",
-            },
+              onError: "rejected"
+            }
           },
           resolved: {
-            type: "final",
+            type: "final"
           },
           rejected: {
             // TODO Set errors and go back to `idle`?
-          },
-        },
+          }
+        }
       },
       signUp: {
         initial: "idle",
@@ -71,26 +71,26 @@ export const authMachine = Machine(
           idle: {
             on: {
               SIGN_IN: "#auth.signIn",
-              SUBMIT: "pending",
-            },
+              SUBMIT: "pending"
+            }
           },
           pending: {
             invoke: {
               src: "signUp",
               onDone: {
-                target: "resolved",
+                target: "resolved"
               },
-              onError: "rejected",
-            },
+              onError: "rejected"
+            }
           },
           // TODO Set errors and go back to `idle`?
           rejected: {
-            always: "idle",
+            always: "idle"
           },
           resolved: {
-            type: "final",
-          },
-        },
+            type: "final"
+          }
+        }
       },
       signOut: {
         initial: "pending",
@@ -101,30 +101,30 @@ export const authMachine = Machine(
               src: "signOut",
               onDone: {
                 actions: "setUser",
-                target: "resolved",
+                target: "resolved"
               },
               // See: https://xstate.js.org/docs/guides/communication.html#the-invoke-property
-              onError: "rejected",
-            },
+              onError: "rejected"
+            }
           },
           rejected: {
             // TODO Why would signOut be rejected?
-            type: "final",
+            type: "final"
           },
           resolved: {
-            type: "final",
-          },
-        },
-      },
-    },
+            type: "final"
+          }
+        }
+      }
+    }
   },
   {
     actions: {
       setUser: assign({
         user(context, event) {
           return event.data;
-        },
-      }),
+        }
+      })
     },
     // See: https://xstate.js.org/docs/guides/guards.html#guards-condition-functions
     guards: {},
@@ -146,7 +146,7 @@ export const authMachine = Machine(
       },
       async signOut(context, event) {
         await Auth.signOut(/* global? */);
-      },
-    },
+      }
+    }
   }
 );

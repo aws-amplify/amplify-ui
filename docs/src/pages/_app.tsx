@@ -10,9 +10,8 @@ import "tailwindcss/tailwind.css";
 
 import "@aws-amplify/ui-react/styles.css";
 
-Amplify.configure({
-});
 
+Amplify.configure({});
 const components = {
   code({ children, className = "template-jsx", sandbox, template = "react" }) {
     if (sandbox) {
@@ -47,7 +46,7 @@ const components = {
 
   ...UI,
 
-  UI,
+  UI
 };
 
 function MyApp({ Component, pageProps }) {

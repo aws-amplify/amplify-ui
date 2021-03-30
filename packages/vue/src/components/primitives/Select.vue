@@ -1,5 +1,5 @@
 <template>
-  <select>
+  <select @change="event => $emit('update:selectValue', event.target.value)">
     <option v-for="(option, idx) in options" :key="idx" :value="option.value">
       {{ option.value }}
     </option>
@@ -13,12 +13,15 @@ export default defineComponent({
   props: {
     options: {
       required: true,
-      type: Array,
+      type: Array
     },
+    selectValue: {
+      default: ""
+    }
   },
   setup() {
     return {};
-  },
+  }
 });
 </script>
 
