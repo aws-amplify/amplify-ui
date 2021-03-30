@@ -1,3 +1,4 @@
+import 'package:amplify_authenticator/stories/materialTheme/materialThemeExample.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:amplify_analytics_pinpoint/amplify_analytics_pinpoint.dart';
@@ -70,7 +71,16 @@ class AuthStories extends StatelessWidget {
                       builder: (context) => MaterialAuthenticatorExample(),
                     ),
                   ),
-                  child: const Text('Material Authenticator Example'),
+                  child: const Text('Material Default Example'),
+                ),
+                ElevatedButton(
+                  onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MaterialThemeExample(),
+                    ),
+                  ),
+                  child: const Text('Material Theme Example'),
                 ),
               ],
             ),
