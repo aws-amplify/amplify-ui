@@ -1,5 +1,5 @@
 <template>
-  <div data-spark-authenticator="">
+  <div data-amplify-authenticator="">
     <SignIn v-if="state?.matches('signIn')">
       <template #signInSlotI="{ resetPasswordClicked }">
         <slot
@@ -24,23 +24,23 @@
 </template>
 
 <script lang="ts">
-import SignIn from "./SignIn.vue";
-import SignUp from "./SignUp.vue";
-import { ref, provide } from "vue";
-import { useAuth } from "../composables/useAuth";
+import SignIn from './SignIn.vue';
+import SignUp from './SignUp.vue';
+import { ref, provide, Ref } from 'vue';
+import { useAuth } from '../composables/useAuth';
 
 export default {
   components: {
     SignIn,
     SignUp
   },
-  setup() {
-    const { state, send } = useAuth();
+  setup(): { currentPage: Ref<string>; state: Ref } {
+    const { state } = useAuth();
 
-    const currentPage = ref("SIGNIN");
-    provide("pageInfo", currentPage);
+    const currentPage = ref('SIGNIN');
+    provide('pageInfo', currentPage);
 
-    return { currentPage, state, send };
+    return { currentPage, state };
   }
 };
 </script>

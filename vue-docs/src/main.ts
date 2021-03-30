@@ -1,6 +1,9 @@
-import { createApp } from "vue";
-import App from "./App.vue";
-import "./css/tailwind.css";
-import "prismjs/themes/prism-okaidia.css";
+import { createApp } from 'vue';
+import App from './App.vue';
+import VueMarkdownIt from 'vue3-markdown-it';
+import './css/tailwind.css';
+import 'prismjs/themes/prism-okaidia.css';
 
-createApp(App).mount("#app");
+const app = createApp(App);
+app.use(VueMarkdownIt);
+app.mount('#app');

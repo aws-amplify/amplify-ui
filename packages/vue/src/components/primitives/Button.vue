@@ -1,18 +1,18 @@
 <template>
   <slot v-bind="$attrs" name="buttont">
-    <button v-bind="$attrs" data-spark-button="">
+    <button v-bind="$attrs" data-amplify-button="">
       <slot></slot>
     </button>
   </slot>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue';
 
 export default defineComponent({
   setup() {
     return {};
-  },
+  }
 });
 </script>
 
