@@ -27,19 +27,102 @@
 
 # amplify_authenticator
 
-A new Flutter project.
+## Set up
 
-## Getting Started
+- Install and set up [flutter](https://flutter.dev/docs/get-started/install) if you have not already done so
 
-This project is a starting point for a Flutter application.
+## Stories
 
-A few resources to get you started if this is your first Flutter project:
+### Basic Material Example
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+> A customer using Material design can import and authenticator and it will use the default material styles
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+See Example: [materialAuthenticatorExample.dart](./lib/stories/material/materialAuthenticatorExample.dart)
 
-> > > > > > > flutter create, amplify init
+```dart
+import 'package:amplify_authenticator/stories/viewUserInfo.dart';
+import 'package:flutter/material.dart';
+import 'package:amplify_authenticator/components/MaterialAuthenticator.dart';
+
+class MaterialAuthenticatorExample extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Material Example'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: MaterialAuthenticator(
+          onSignInSuccess: () => Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ViewUserInfo(),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+```
+
+<img src="screenshots/materialExample.png" alt="Default Material Example" width="500"/>
+
+### Custom Material Example
+
+> A customer using Material design with a custom theme can import and authenticator and it will use the appropriate styles
+
+See Example: [materialThemeExample.dart](./lib/stories/materialTheme/materialThemeExample.dart)
+
+```dart
+import 'package:amplify_authenticator/stories/viewUserInfo.dart';
+import 'package:flutter/material.dart';
+import 'package:amplify_authenticator/components/MaterialAuthenticator.dart';
+
+class MaterialThemeExample extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // Note: This would typically be passing into the MaterialApp() widget in a real world example
+    ThemeData themeData = ThemeData.from(
+      colorScheme: ColorScheme(
+        brightness: Brightness.light,
+        background: Colors.white,
+        error: Colors.red,
+        onBackground: Colors.blueGrey,
+        onError: Colors.white,
+        onPrimary: Colors.white,
+        onSecondary: Colors.black,
+        onSurface: Colors.black,
+        primary: Colors.orange,
+        primaryVariant: Colors.orange[700],
+        secondary: Colors.yellow,
+        secondaryVariant: Colors.yellow[700],
+        surface: Colors.white,
+      ),
+    );
+    return Theme(
+      data: themeData,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Material Example'),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: MaterialAuthenticator(
+            onSignInSuccess: () => Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ViewUserInfo(),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+```
+
+<img src="screenshots/materialThemeExample.png" alt="Material Theme Example" width="500"/>
