@@ -1,5 +1,5 @@
 {
   "private": true,
-  "name": "@aws-amplify/spark-vue",
+  "name": "@aws-amplify/ui-vue",
   "version": "0.0.1"
 }

@@ -1,14 +1,10 @@
 <template>
-  <h1 class="text-5xl mb-10 text-center">
-    Spark Authenticator Examples For Vue.js 3
+  <h1 class="text-6xl mb-10 text-center">
+    Amplify Authenticator Examples For Vue.js 3.0
   </h1>
-  <aside
-    class="p-6 mb-10 shadow-inner bg-gray-100 rounded w-full flex flex-col"
-  >
-    <div class="w-full text-xl mb-10 ">
-      <Prism language="html" :code="defaultExample"> </Prism>
-    </div>
-    <spark-provider defaults>
+
+  <Example :code="defaultExample">
+    <amplify-provider defaults>
       <authenticator>
         <h1 class="text-6xl mb-10">
           Welcome {{ state?.context?.user?.username }}!
@@ -20,36 +16,21 @@
           Sign Out
         </button>
       </authenticator>
-    </spark-provider>
-  </aside>
+    </amplify-provider>
+  </Example>
 
-  <h3 class="text-3xl mb-5">Overriding forgot-password</h3>
-  <aside
-    class="p-6 mb-10 shadow-inner bg-gray-100 rounded w-full flex flex-col"
-  >
-    <div class="w-full text-xl mb-10 ">
-      <Prism language="html" :code="overrideForgotPassword"> </Prism>
-    </div>
-    <spark-provider defaults>
+  <Example :title="'Overriding forgot-password'" :code="overrideForgotPassword">
+    <amplify-provider defaults>
       <authenticator>
         <template #sign-in-forgot-password-button>
           <button>New Button</button>
         </template>
       </authenticator>
-    </spark-provider>
-  </aside>
+    </amplify-provider>
+  </Example>
 
-  <!-- todo refactor to presentational component -->
-  <h3 class="text-3xl mb-5">
-    Overriding sign-in button
-  </h3>
-  <aside
-    class="p-6 mb-10 shadow-inner bg-gray-100 rounded w-full flex flex-col"
-  >
-    <div class="w-full text-xl mb-10 ">
-      <Prism language="html" :code="overrideSignInButton"> </Prism>
-    </div>
-    <spark-provider defaults>
+  <Example :title="'Overriding sign-in button'" :code="overrideSignInButton">
+    <amplify-provider defaults>
       <authenticator>
         <template #sign-in-sign-in-button>
           <button>New Sign In Button</button>
@@ -61,56 +42,129 @@
           Sign Out
         </button>
       </authenticator>
-    </spark-provider>
-  </aside>
+    </amplify-provider>
+  </Example>
+
+  <Example :title="'Headless UI Version'" :code="headless">
+    <amplify-provider>
+      <authenticator></authenticator>
+    </amplify-provider>
+  </Example>
+
+  <hr class="my-20 w-full text-black" />
+
+  <h2 class="text-3xl mb-10">Props</h2>
+
+  <div class="italic">All texts are provided by internationalizaton</div>
+  <hr class="my-20 w-full text-black" />
+  <h2 class="text-3xl mb-10">Slots</h2>
+  <vue3-markdown-it :source="slotTable" />
+
+  <hr class="my-20 w-full text-black" />
+  <h2 class="text-3xl mb-10">Events</h2>
+  <vue3-markdown-it :source="eventTable" />
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import Amplify from "aws-amplify";
-import aws_exports from "./aws-exports";
-import Prism from "./components/Prism.vue";
+import { defineComponent } from 'vue';
+import Amplify from 'aws-amplify';
+import aws_exports from './aws-exports';
+import VueMarkdownIt from 'vue3-markdown-it';
+
+import Example from './components/Example.vue';
 
 Amplify.configure(aws_exports);
-import "@aws-amplify/spark-vue/styles.css";
-import { SparkProvider, Authenticator, useAuth } from "@aws-amplify/spark-vue";
+import '@aws-amplify/ui-vue/styles.css';
+import { AmplifyProvider, Authenticator, useAuth } from '@aws-amplify/ui-vue';
 
 export default defineComponent({
-  name: "App",
+  name: 'App',
   components: {
-    SparkProvider,
+    AmplifyProvider,
     Authenticator,
-    Prism
+    Example,
+    'vue3-markdown-it': VueMarkdownIt
   },
   data: () => ({
+    // Code Examples
+
     defaultExample: `
-  <spark-provider defaults>
+  <amplify-provider defaults>
     <authenticator> </authenticator>
-  </spark-provider>
+  </amplify-provider>
+
+
+  <script setup>
+  import { Authenticator, AmplifyProvider } 
+                  from "@aws-amplify/spark-vue";
+
+  import "@aws-amplify/ui-vue/styles.css";
+  <\/script>
     `,
     overrideForgotPassword: `
-    <spark-provider defaults>
+    <amplify-provider defaults>
       <authenticator>
         <template #sign-in-forgot-password-button>
           <button>New Button</button>
         </template>
       </authenticator>
-    </spark-provider>
+    </amplify-provider>
+
+  <script setup>
+  import {  Authenticator, AmplifyProvider } 
+                  from "@aws-amplify/ui-vue";
+
+  import "@aws-amplify/ui-vue/styles.css";
+  <\/script>
     `,
-    overrideSignInButton: ` 
-    <spark-provider defaults>
+    overrideSignInButton: `
+    <amplify-provider defaults>
       <authenticator>
         <template #sign-in-sign-in-button>
           <button>New Sign In Button</button>
         </template>
       </authenticator>
-    </spark-provider>
+    </amplify-provider>
+
+  <script setup>
+  import {  Authenticator, AmplifyProvider } 
+                  from "@aws-amplify/ui-vue";
+
+  import "@aws-amplify/ui-vue/styles.css";
+  <\/script>
+    `,
+    headless: `
+    <amplify-provider> 
+      <authenticator></authenticator>
+    </amplify-provider>
+
+    <script setup>
+    import { Authenticator, AmplifyProvider }
+                  from "@aws-amplify/ui-vue";
+    <\/script>
     `
   }),
   setup() {
     const { state, send } = useAuth();
 
-    return { state, send };
+    const slotTable =
+      ' | Name                   |                  Description                   |                           Scoped Slots                           | \n' +
+      ' | ---------------------- | :--------------------------------------------: | :--------------------------------------------------------------: | \n' +
+      ' | form                   |       Replaces the **<form>** DOM Element        |            Exposes **{ slotData }** default child data              | \n' +
+      ' | full-name              | Replaces the **<span>** label text for Full name |                               None                               | \n' +
+      ' | forgot-password-button |      Replaces the forgot password button       |              Exposes  **{ onForgotPasswordClicked }**               | \n' +
+      ' | sign-in-button         |          Replaces the sign in button           |               Exposes **{ onSignInButtonClicked }**                | \n' +
+      '| heading                |           Replaces the heading text            |                               none                               | \n' +
+      '| footer                 |      Replaces the **<footer>** DOM element       | Exposes **{ onSignInButtonClicked, info, onCreateAccountClicked }** | \n';
+
+    const eventTable =
+      '| Name                    |                                                Description | \n' +
+      '| ----------------------- | :---------------------------------------------------------: | \n' +
+      '| sign-in-button-clicked  |         Emits and overrides when sign in button is clicked | \n' +
+      '| forgot-password-clicked | Emits and overrides when forgot password button is clicked | \n' +
+      '| create-account-clicked  |  Emits and overrides when create account button is clicked | \n';
+
+    return { state, send, slotTable, eventTable };
   }
 });
 </script>
@@ -123,5 +177,22 @@ export default defineComponent({
   flex-direction: column;
   align-items: center;
   padding: 20px;
+}
+
+tr > th {
+  font-size: 20px;
+  border: 1px solid black;
+}
+td {
+  border: 1px solid black;
+  padding: 11px;
+  font-size: 14px;
+}
+
+code[class*='language-'],
+pre[class*='language-'] {
+  /* white-space: normal !important; */
+  padding: 0 !important;
+  margin: 0 !important;
 }
 </style>

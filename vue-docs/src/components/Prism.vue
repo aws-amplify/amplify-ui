@@ -1,6 +1,6 @@
 <script>
-import Prism from "prismjs";
-import * as Vue from "vue";
+import Prism from 'prismjs';
+import * as Vue from 'vue';
 
 export default Vue.defineComponent({
   props: {
@@ -13,21 +13,21 @@ export default Vue.defineComponent({
     },
     language: {
       type: String,
-      default: "markup"
+      default: 'markup'
     }
   },
   setup(props, { slots, attrs }) {
     const { h } = Vue;
     const slotsData = (slots && slots.default && slots.default()) || [];
     const code =
-      props.code || (slotsData.length > 0 ? slotsData[0].children : "");
+      props.code || (slotsData.length > 0 ? slotsData[0].children : '');
     const { inline, language } = props;
     const prismLanguage = Prism.languages[language];
     const className = `language-${language}`;
 
     if (inline) {
       return () =>
-        h("code", {
+        h('code', {
           ...attrs,
           class: [attrs.class, className],
           innerHTML: Prism.highlight(code, prismLanguage)
@@ -36,8 +36,8 @@ export default Vue.defineComponent({
 
     const d = Prism.highlight(code, prismLanguage);
     return () =>
-      h("pre", { ...attrs, class: [attrs.class, className] }, [
-        h("code", {
+      h('pre', { ...attrs, class: [attrs.class, className] }, [
+        h('code', {
           class: className,
           innerHTML: d
         })
