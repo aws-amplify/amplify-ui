@@ -1,10 +1,11 @@
-import 'package:amplify_authenticator/stories/materialTheme/materialThemeExample.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:amplify_analytics_pinpoint/amplify_analytics_pinpoint.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_authenticator/stories/material/materialAuthenticatorExample.dart';
 import 'amplifyconfiguration.dart';
+
+import './stories/material/materialAuthenticatorExample.dart';
+import './stories/materialTheme/materialThemeExample.dart';
 
 void main() {
   runApp(DemoApp());
