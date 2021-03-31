@@ -19,6 +19,8 @@ If this were to actually be published as a package, it would probably make sense
 Other than continuing to support additonal customer use cases, below are some things that are not yet supported
 
 - Forgot password flow: Sign up, confirm account, and sign in all work as expected. Forgot password
+- Error handling: Gracefully handle error on signin/signup
+- localization
 - Animations: The form doesn't have any animations. Since the form is essentialy just a list of items that get removed/added, [AnimatedList](https://api.flutter.dev/flutter/widgets/AnimatedList-class.html) could probably be used. There could be some default animations, with the ability for users to provide their own.
 - Cupertino design: This is not one of the customer use cases, but it would probably be something flutter devs would want. [Cupertino](https://flutter.dev/docs/development/ui/widgets/cupertino) widgets match the design of iOS.
 
