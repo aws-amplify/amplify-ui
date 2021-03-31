@@ -1,29 +1,36 @@
-import { Auth } from 'aws-amplify';
+import { Auth, Logger } from 'aws-amplify';
 import {
   AfterContentInit,
   Component,
   HostBinding,
   Input,
+  OnDestroy,
+  OnInit,
   TemplateRef,
 } from '@angular/core';
-import { FormBuilder, ValidationErrors, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import {
   InputErrors,
   mapInputErrors,
   noWhitespacesAfterTrim,
 } from '../../common';
 import { ComponentsProviderService, StateMachineService } from '../../services';
+import { State, Subscription, Event } from 'xstate';
 
+const logger = new Logger('SignUp');
 @Component({
   selector: 'amplify-sign-up',
   templateUrl: './amplify-sign-up.component.html',
 })
-export class AmplifySignUpComponent implements AfterContentInit {
+export class AmplifySignUpComponent
+  implements AfterContentInit, OnInit, OnDestroy {
   @Input() headerText = 'Create a new account';
   @HostBinding('attr.data-ui-sign-up') dataAttr = '';
+  private authSubscription: Subscription;
   public customComponents: Record<string, TemplateRef<any>>;
   public loading = false;
   public inputErrors: InputErrors;
+  public formError: string;
   public context = {
     $implicit: {
       signUp: () => {
@@ -44,32 +51,46 @@ export class AmplifySignUpComponent implements AfterContentInit {
     private componentsProvider: ComponentsProviderService
   ) {}
 
+  ngOnInit(): void {
+    this.authSubscription = this.stateMachine.authService.subscribe((state) =>
+      this.onStateUpdate(state)
+    );
+  }
+
   ngAfterContentInit(): void {
     this.customComponents = this.componentsProvider.customComponents;
   }
 
-  async onSubmit(): Promise<void> {
-    const values = this.formGroup.getRawValue();
+  ngOnDestroy(): void {
+    this.authSubscription.unsubscribe();
+  }
+
+  private onStateUpdate(state: State<any>): void {
+    if (state.event.type.includes('error')) {
+      this.formError = (state.event as any).data.message;
+      this.loading = false;
+    }
+  }
+
+  send(event: Event<any>): void {
+    this.stateMachine.authService.send(event);
+  }
+
+  async onSubmit($event): Promise<void> {
+    const formData = new FormData($event.target);
+    const formValues = Object.fromEntries(formData.entries());
+    logger.log('Sign up form submitted with', formValues);
+
+    // map validation errors, to be shown each respective inputs
     this.inputErrors = mapInputErrors(this.formGroup.controls);
 
     if (this.formGroup.status !== 'VALID') return;
     this.loading = true;
 
-    try {
-      await Auth.signUp({
-        username: values.username,
-        password: values.password,
-        attributes: {
-          email: values.email,
-          phone_number: values.phone_number,
-        },
-      });
-      this.stateMachine.authState = 'signIn';
-    } catch (err) {
-      console.error(err);
-    } finally {
-      this.loading = false;
-    }
+    this.send({
+      type: 'SUBMIT',
+      data: formValues,
+    });
   }
 
   toSignIn(): void {

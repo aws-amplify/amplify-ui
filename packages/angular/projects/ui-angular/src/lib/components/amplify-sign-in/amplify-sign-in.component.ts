@@ -4,7 +4,6 @@ import {
   Component,
   HostBinding,
   Input,
-  OnChanges,
   OnDestroy,
   OnInit,
   TemplateRef,
@@ -58,11 +57,6 @@ export class AmplifySignInComponent
     );
   }
 
-  ngOnDestroy(): void {
-    logger.log('sign in destroyed, unsubscribing from state machine...');
-    this.authSubscription.unsubscribe();
-  }
-
   ngAfterContentInit(): void {
     this.customComponents = this.componentsProvider.customComponents;
 
@@ -70,6 +64,11 @@ export class AmplifySignInComponent
     const props = this.componentsProvider.props.signIn;
     const customValidators = props?.signInValidators;
     this.attachCustomValidators(customValidators);
+  }
+
+  ngOnDestroy(): void {
+    logger.log('sign in destroyed, unsubscribing from state machine...');
+    this.authSubscription.unsubscribe();
   }
 
   onStateUpdate(state: State<any>): void {
@@ -96,11 +95,11 @@ export class AmplifySignInComponent
     const formData = new FormData($event.target);
     const formValues = Object.fromEntries(formData.entries());
 
-    logger.log('sign up form submitted with', formValues);
+    logger.log('Sign in form submitted with', formValues);
 
     // trim input
     const usernameControl = this.formGroup.get('username');
-    this.formGroup.get('username').setValue(usernameControl.value.trim());
+    usernameControl.setValue(usernameControl.value.trim());
 
     // set validation errors, which will be rendered below each respective input
     this.inputErrors = mapInputErrors(this.formGroup.controls);
