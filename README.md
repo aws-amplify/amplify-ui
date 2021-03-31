@@ -21,6 +21,7 @@ Other than continuing to support additonal customer use cases, below are some th
 - Forgot password flow: Sign up, confirm account, and sign in all work as expected. Forgot password
 - Error handling: Gracefully handle error on signin/signup
 - localization
+- Material & Cupertino code duplication: The logic for authentication should be abstracted out and shared.
 - Animations: The form doesn't have any animations. Since the form is essentialy just a list of items that get removed/added, [AnimatedList](https://api.flutter.dev/flutter/widgets/AnimatedList-class.html) could probably be used. There could be some default animations, with the ability for users to provide their own.
 - Cupertino design: This is not one of the customer use cases, but it would probably be something flutter devs would want. [Cupertino](https://flutter.dev/docs/development/ui/widgets/cupertino) widgets match the design of iOS.
 
@@ -265,4 +266,43 @@ TODO
 
 > A customer using Cupertino design can import and authenticator and it will use the default cupertino styles
 
-TODO
+```dart
+import 'package:amplify_authenticator/authenticator/components/cupertinoAuthenticator.dart';
+import 'package:amplify_authenticator/stories/viewUserInfo.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+class CupertinoAuthenticatorExample extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return CupertinoApp(
+      home: CupertinoPageScaffold(
+        navigationBar: CupertinoNavigationBar(
+          leading: CupertinoNavigationBarBackButton(
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+          middle: Text('Cupertino Example'),
+        ),
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: CupertinoAuthenticator(
+              onSignInSuccess: () => Navigator.pushReplacement(
+                context,
+                CupertinoPageRoute(
+                  builder: (context) => ViewUserInfo(),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+```
+
+TODO: The Cupertino style widgets by default are really plain. It might make sense to have a real word example with some styling applied.
+
+<img src="screenshots/cupertinoExample.png" alt="Cupertino Theme Example" width="500"/>

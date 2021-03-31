@@ -1,9 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:amplify_analytics_pinpoint/amplify_analytics_pinpoint.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'amplifyconfiguration.dart';
 
+import 'stories/cupertino/cupertinoAuthenticatorExample.dart';
 import 'stories/material/materialAuthenticatorExample.dart';
 import 'stories/materialTheme/materialThemeExample.dart';
 import 'stories/materialCustomStyles/materialCustomStylesExample.dart';
@@ -92,6 +94,15 @@ class AuthStories extends StatelessWidget {
                     ),
                   ),
                   child: const Text('Material Custom Styles'),
+                ),
+                ElevatedButton(
+                  onPressed: () => Navigator.push(
+                    context,
+                    CupertinoPageRoute(
+                      builder: (context) => CupertinoAuthenticatorExample(),
+                    ),
+                  ),
+                  child: const Text('Cupertino Default Example'),
                 ),
               ],
             ),
