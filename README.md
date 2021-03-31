@@ -22,11 +22,27 @@ Other than continuing to support additonal customer use cases, below are some th
 - Animations: The form doesn't have any animations. Since the form is essentialy just a list of items that get removed/added, [AnimatedList](https://api.flutter.dev/flutter/widgets/AnimatedList-class.html) could probably be used. There could be some default animations, with the ability for users to provide their own.
 - Cupertino design: This is not one of the customer use cases, but it would probably be something flutter devs would want. [Cupertino](https://flutter.dev/docs/development/ui/widgets/cupertino) widgets match the design of iOS.
 
+## Theming Approach
+
+Flutter provides two libraries of widgets out of the box - [Material](https://flutter.dev/docs/development/ui/widgets/material) and [Cupertino](https://flutter.dev/docs/development/ui/widgets/cupertino). These widget libraries are built on top of a "widgets layer", which is illustrated nicely in [this flutter architecture diagram](https://flutter.dev/docs/resources/architectural-overview#architectural-layers) (can seen below as well).
+
+<img src="https://flutter.dev/images/arch-overview/archdiagram.png" alt="Default Material Example" width="500"/>
+
+Both of these widget libraries work on all platforms that flutter supports, and with some exceptions (example: [Switch.adaptive()](https://api.flutter.dev/flutter/material/Switch/Switch.adaptive.html)), they do not adapt to the platform. This means that they will look & function identically on all platforms. Flutter also easily allows developers to build their app according to their own custom design systems ("Expressive and Flexible UI" is one of the core priciples of flutter). Engineers consuming an Amplify Authenticator widget will expect that out of the box both Material and Cupertino are supported, and that the out of the box widgets can be easily extended / customized to their own design system.
+
+When it comes to custom design systems, there are two general approaches that can be taken. The first approach is to start with one of the two widget catelogs (usually material) and extend it to for the design system being used (see the notes on the material [ThemeData class](https://api.flutter.dev/flutter/material/ThemeData-class.html)). The second approach would be to build an entirely new library of widgets on top of the "widgets layer", similar to the Material or Cupertino libraries. The first approach is generally to approach that is taken because it is **far** less work and still allows developes to acheive their custom design system.
+
+For the custom theme use case, it makes sense to focus on supporting the first approach. This would involve build the Authenticator component on top of the material widgets and ensuring it properly inherits the app's ThemeData, while still ensuring that the Authenticator component works in a non material app. Below are three reasons why this approach should be followed:
+
+1. Building on top of material and using material's ThemeData to style the Authenticator widget will allow the Authenticator to inherit the apps Material theme. This means that customers that are already building their custom design system on top of material with the use of ThemeData will get an Authenticator widget that matches their design system for free.
+2. Customers that are building an entirely new widget library on top of the "widgets layer" are likley doing so to acheive a highly customized design that they have 100% control over. An out of the box authenticator component will almost certaintly not meet their needs if their design system is highly customized and requires 100% control. They would likely choose to build their authentication UI from scratch in order to meet their highly customized design.
+3. Customers that are building on top of the widgets layer, will still be able to consume an Authenticator widget that is built on top of material and consume it in their non-material app. They will be able to wrap the widget in a `Theme()` widget an provide a custom theme. These customers will just not get their custom theme applied for free. They will have to do some work to use a material ThemeData that closely matches their design system.
+
 ## Stories
 
 Each of the code snippets below depnds on amplify being configured in the clients application. In this project, that is done in `main.dart`. The configuration could in theory be done inside the Authenticator component, but it seems more straight forward to just require the consumers to configure Amplify outside of the component.
 
-### Basic Material Example
+### Material Design basic use case
 
 > A customer using Material design can import and authenticator and it will use the default material styles
 
@@ -62,7 +78,7 @@ class MaterialAuthenticatorExample extends StatelessWidget {
 
 <img src="screenshots/materialExample.png" alt="Default Material Example" width="500"/>
 
-### Custom Material Example
+### Material Design w/ custom material theme
 
 > A customer using Material design with a custom theme can import and authenticator and it will use the appropriate styles
 
@@ -119,3 +135,17 @@ class MaterialThemeExample extends StatelessWidget {
 ```
 
 <img src="screenshots/materialThemeExample.png" alt="Material Theme Example" width="500"/>
+
+### Use outside of MaterialApp or CupertinoApp
+
+> A customer that is not using the Material or Cupertino design systems as a base can still consume the Authenticor widget.
+
+> Material Authenticator can be consumed inside a non material app
+
+TODO
+
+### Cupertino Design basic use case
+
+> A customer using Cupertino design can import and authenticator and it will use the default cupertino styles
+
+TODO
