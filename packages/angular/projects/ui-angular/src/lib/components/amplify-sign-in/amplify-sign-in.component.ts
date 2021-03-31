@@ -31,7 +31,7 @@ export class AmplifySignInComponent
   @HostBinding('attr.data-ui-sign-in') dataAttr = '';
   @Input() public headerText = 'Sign in to your account';
   private authSubscription: Subscription;
-  public loading = true;
+  public loading = false;
   public customComponents: Record<string, TemplateRef<any>> = {};
   public inputErrors: InputErrors; // errors specific to each input
   public formError: string; // errors specific to the form as a whole or api error

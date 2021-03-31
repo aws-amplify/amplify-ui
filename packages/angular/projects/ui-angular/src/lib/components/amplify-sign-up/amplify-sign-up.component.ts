@@ -22,7 +22,7 @@ export class AmplifySignUpComponent implements AfterContentInit {
   @Input() headerText = 'Create a new account';
   @HostBinding('attr.data-ui-sign-up') dataAttr = '';
   public customComponents: Record<string, TemplateRef<any>>;
-  public loading = true;
+  public loading = false;
   public inputErrors: InputErrors;
   public context = {
     $implicit: {
