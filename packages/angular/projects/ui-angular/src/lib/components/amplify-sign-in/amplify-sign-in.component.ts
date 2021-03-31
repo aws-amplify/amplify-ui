@@ -1,9 +1,12 @@
-import { Auth } from 'aws-amplify';
+import { Auth, Logger } from 'aws-amplify';
 import {
   AfterContentInit,
   Component,
   HostBinding,
   Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
   TemplateRef,
   ViewEncapsulation,
 } from '@angular/core';
@@ -16,18 +19,22 @@ import {
   noWhitespacesAfterTrim,
   SignInValidators,
 } from '../../common';
-
+import { Event, State, Subscription } from 'xstate';
+const logger = new Logger('SignIn');
 @Component({
   selector: 'amplify-sign-in',
   templateUrl: './amplify-sign-in.component.html',
   encapsulation: ViewEncapsulation.None,
 })
-export class AmplifySignInComponent implements AfterContentInit {
+export class AmplifySignInComponent
+  implements AfterContentInit, OnInit, OnDestroy {
   @HostBinding('attr.data-ui-sign-in') dataAttr = '';
   @Input() public headerText = 'Sign in to your account';
-  public loading = false;
+  private authSubscription: Subscription;
+  public loading = true;
   public customComponents: Record<string, TemplateRef<any>> = {};
-  public inputErrors: InputErrors;
+  public inputErrors: InputErrors; // errors specific to each input
+  public formError: string; // errors specific to the form as a whole or api error
   public context = {
     $implicit: {},
   };
@@ -45,6 +52,17 @@ export class AmplifySignInComponent implements AfterContentInit {
     private componentsProvider: ComponentsProviderService
   ) {}
 
+  ngOnInit(): void {
+    this.authSubscription = this.stateMachine.authService.subscribe((state) =>
+      this.onStateUpdate(state)
+    );
+  }
+
+  ngOnDestroy(): void {
+    logger.log('sign in destroyed, unsubscribing from state machine...');
+    this.authSubscription.unsubscribe();
+  }
+
   ngAfterContentInit(): void {
     this.customComponents = this.componentsProvider.customComponents;
 
@@ -54,35 +72,47 @@ export class AmplifySignInComponent implements AfterContentInit {
     this.attachCustomValidators(customValidators);
   }
 
+  onStateUpdate(state: State<any>): void {
+    if (state.event.type.includes('error')) {
+      this.formError = (state.event as any).data.message;
+      this.loading = false;
+    }
+  }
+
   toSignUp(): void {
-    this.stateMachine.authState = 'signUp';
+    this.stateMachine.authService.send('SIGN_UP');
   }
 
   getFormControl(name: AuthAttribute): AbstractControl {
     return this.formGroup.get(name);
   }
 
-  async onSubmit(): Promise<void> {
-    console.log(this.formGroup);
-    const usernameControl = this.formGroup.get('username');
-    const passwordControl = this.formGroup.get('password');
-    console.log(usernameControl, passwordControl);
-    // trim password
-    usernameControl.setValue(usernameControl.value.trim());
+  send(event: Event<any>): void {
+    this.stateMachine.authService.send(event);
+  }
 
+  async onSubmit($event): Promise<void> {
+    // get form data
+    const formData = new FormData($event.target);
+    const formValues = Object.fromEntries(formData.entries());
+
+    logger.log('sign up form submitted with', formValues);
+
+    // trim input
+    const usernameControl = this.formGroup.get('username');
+    this.formGroup.get('username').setValue(usernameControl.value.trim());
+
+    // set validation errors, which will be rendered below each respective input
     this.inputErrors = mapInputErrors(this.formGroup.controls);
 
+    // return if form is still invalid
     if (this.formGroup.status !== 'VALID') return;
-    this.loading = true;
+    this.loading = true; // disable inputs
 
-    try {
-      await Auth.signIn(usernameControl.value, passwordControl.value);
-      this.stateMachine.authState = 'signedIn';
-    } catch (err) {
-      console.error(err);
-    } finally {
-      this.loading = false;
-    }
+    this.send({
+      type: 'SUBMIT',
+      data: formValues,
+    });
   }
 
   private attachCustomValidators(customValidators: SignInValidators): void {

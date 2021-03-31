@@ -62,7 +62,7 @@ export const authMachine = Machine(
             type: 'final',
           },
           rejected: {
-            // TODO Set errors and go back to `idle`?
+            always: 'idle',
           },
         },
       },

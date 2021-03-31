@@ -6,7 +6,7 @@
 </ng-template>
 
 <ng-template #signInForm>
-  <form data-ui-form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+  <form data-ui-form [formGroup]="formGroup" (ngSubmit)="onSubmit($event)">
     <fieldset data-ui-fieldset [attr.disabled]="loading ? '' : null">
       <amplify-form-field
         name="username"
@@ -30,6 +30,8 @@
         >
         </ng-container>
       </div>
+
+      <div data-ui-error *ngIf="formError">{{ formError }}</div>
     </fieldset>
   </form>
 </ng-template>

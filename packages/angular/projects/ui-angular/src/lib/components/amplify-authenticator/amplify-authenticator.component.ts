@@ -4,7 +4,6 @@ import {
   ContentChildren,
   HostBinding,
   Input,
-  OnInit,
   QueryList,
   TemplateRef,
   ViewEncapsulation,
@@ -14,6 +13,7 @@ import { AmplifyOverrideDirective } from '../../directives/amplify-override.dire
 import { StateMachineService } from '../../services/state-machine.service';
 import { ComponentsProviderService } from '../../services/components-provider.service';
 import { CustomComponents, SignInValidators } from '../../common';
+import { State } from 'xstate';
 
 @Component({
   selector: 'amplify-authenticator',
@@ -21,7 +21,7 @@ import { CustomComponents, SignInValidators } from '../../common';
   providers: [ComponentsProviderService], // make sure custom components are scoped to this authenticator only
   encapsulation: ViewEncapsulation.None,
 })
-export class AmplifyAuthenticatorComponent implements AfterContentInit, OnInit {
+export class AmplifyAuthenticatorComponent implements AfterContentInit {
   @Input() initialAuthState: AuthState = 'signIn';
   @Input() signInValidators: SignInValidators;
   @HostBinding('attr.data-ui-authenticator') dataAttr = '';
@@ -37,10 +37,6 @@ export class AmplifyAuthenticatorComponent implements AfterContentInit, OnInit {
   /**
    * Lifecycle Methods
    */
-
-  ngOnInit(): void {
-    this.stateMachine.authState = this.initialAuthState;
-  }
 
   ngAfterContentInit(): void {
     this.componentsProvider.customComponents = this.mapCustomComponents(
@@ -58,7 +54,7 @@ export class AmplifyAuthenticatorComponent implements AfterContentInit, OnInit {
    * Class Functions
    */
 
-  public getAuthState(): AuthState {
+  public getAuthState(): State<any> {
     return this.stateMachine.authState;
   }
 

@@ -22,7 +22,7 @@ export class AmplifySignUpComponent implements AfterContentInit {
   @Input() headerText = 'Create a new account';
   @HostBinding('attr.data-ui-sign-up') dataAttr = '';
   public customComponents: Record<string, TemplateRef<any>>;
-  public loading = false;
+  public loading = true;
   public inputErrors: InputErrors;
   public context = {
     $implicit: {
@@ -73,6 +73,6 @@ export class AmplifySignUpComponent implements AfterContentInit {
   }
 
   toSignIn(): void {
-    this.stateMachine.authState = 'signIn';
+    this.stateMachine.authService.send('SIGN_IN');
   }
 }

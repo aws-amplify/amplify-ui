@@ -66,6 +66,10 @@
   border-radius: 2px;
 }
 
+[data-ui-theme] [data-ui-button]:disabled {
+  display: none;
+}
+
 [data-ui-theme] [data-ui-link] {
   color: cornflowerblue;
   cursor: pointer;
