@@ -4,8 +4,9 @@ import 'package:amplify_analytics_pinpoint/amplify_analytics_pinpoint.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'amplifyconfiguration.dart';
 
-import './stories/material/materialAuthenticatorExample.dart';
-import './stories/materialTheme/materialThemeExample.dart';
+import 'stories/material/materialAuthenticatorExample.dart';
+import 'stories/materialTheme/materialThemeExample.dart';
+import 'stories/materialCustomStyles/materialCustomStylesExample.dart';
 
 void main() {
   runApp(DemoApp());
@@ -82,6 +83,15 @@ class AuthStories extends StatelessWidget {
                     ),
                   ),
                   child: const Text('Material Theme Example'),
+                ),
+                ElevatedButton(
+                  onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MaterialCustomeStylesExample(),
+                    ),
+                  ),
+                  child: const Text('Material Custom Styles'),
                 ),
               ],
             ),
