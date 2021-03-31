@@ -67,7 +67,7 @@
 }
 
 [data-ui-theme] [data-ui-button]:disabled {
-  display: none;
+  background-color: grey;
 }
 
 [data-ui-theme] [data-ui-link] {
