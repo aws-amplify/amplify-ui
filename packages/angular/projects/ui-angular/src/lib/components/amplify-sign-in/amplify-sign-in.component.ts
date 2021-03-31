@@ -7,7 +7,7 @@ import {
   OnDestroy,
   OnInit,
   TemplateRef,
-  ViewEncapsulation,
+  ViewEncapsulation
 } from '@angular/core';
 import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { ComponentsProviderService, StateMachineService } from '../../services';
@@ -16,14 +16,14 @@ import {
   InputErrors,
   mapInputErrors,
   noWhitespacesAfterTrim,
-  SignInValidators,
+  SignInValidators
 } from '../../common';
 import { Event, State, Subscription } from 'xstate';
 const logger = new Logger('SignIn');
 @Component({
   selector: 'amplify-sign-in',
   templateUrl: './amplify-sign-in.component.html',
-  encapsulation: ViewEncapsulation.None,
+  encapsulation: ViewEncapsulation.None
 })
 export class AmplifySignInComponent
   implements AfterContentInit, OnInit, OnDestroy {
@@ -35,12 +35,12 @@ export class AmplifySignInComponent
   public inputErrors: InputErrors; // errors specific to each input
   public formError: string; // errors specific to the form as a whole or api error
   public context = {
-    $implicit: {},
+    $implicit: {}
   };
   public formGroup = this.fb.group(
     {
       username: ['', [Validators.required, noWhitespacesAfterTrim]],
-      password: ['', [Validators.required]],
+      password: ['', [Validators.required]]
     },
     { updateOn: 'submit' }
   );
@@ -52,7 +52,7 @@ export class AmplifySignInComponent
   ) {}
 
   ngOnInit(): void {
-    this.authSubscription = this.stateMachine.authService.subscribe((state) =>
+    this.authSubscription = this.stateMachine.authService.subscribe(state =>
       this.onStateUpdate(state)
     );
   }
@@ -110,7 +110,7 @@ export class AmplifySignInComponent
 
     this.send({
       type: 'SUBMIT',
-      data: formValues,
+      data: formValues
     });
   }
 

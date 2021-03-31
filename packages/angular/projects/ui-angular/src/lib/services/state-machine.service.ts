@@ -9,7 +9,7 @@ const logger = new Logger('StateHachine');
  * and custom components passed by the user.
  */
 @Injectable({
-  providedIn: 'root', // ensure we have a singleton service
+  providedIn: 'root' // ensure we have a singleton service
 })
 export class StateMachineService {
   private _authState: State<any>;
@@ -29,7 +29,7 @@ export class StateMachineService {
 
   constructor() {
     this._authService = interpret(authMachine, { devTools: true })
-      .onTransition((state) => {
+      .onTransition(state => {
         logger.log('transitioned to', state, this._authService);
         this._authState = state; // send the top level service name
       })

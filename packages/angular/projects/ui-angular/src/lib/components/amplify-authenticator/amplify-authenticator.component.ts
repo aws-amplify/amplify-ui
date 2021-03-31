@@ -6,7 +6,7 @@ import {
   Input,
   QueryList,
   TemplateRef,
-  ViewEncapsulation,
+  ViewEncapsulation
 } from '@angular/core';
 import { AuthState } from '../../common/auth-types';
 import { AmplifyOverrideDirective } from '../../directives/amplify-override.directive';
@@ -19,7 +19,7 @@ import { State } from 'xstate';
   selector: 'amplify-authenticator',
   templateUrl: './amplify-authenticator.component.html',
   providers: [ComponentsProviderService], // make sure custom components are scoped to this authenticator only
-  encapsulation: ViewEncapsulation.None,
+  encapsulation: ViewEncapsulation.None
 })
 export class AmplifyAuthenticatorComponent implements AfterContentInit {
   @Input() initialAuthState: AuthState = 'signIn';
@@ -45,8 +45,8 @@ export class AmplifyAuthenticatorComponent implements AfterContentInit {
     this.customComponents = this.componentsProvider.customComponents;
     this.componentsProvider.props = {
       signIn: {
-        signInValidators: this.signInValidators,
-      },
+        signInValidators: this.signInValidators
+      }
     };
   }
 
@@ -63,7 +63,7 @@ export class AmplifyAuthenticatorComponent implements AfterContentInit {
   ): Record<string, TemplateRef<any>> {
     if (!componentQuery) return {};
     const customComponents: Record<string, TemplateRef<any>> = {};
-    componentQuery.forEach((component) => {
+    componentQuery.forEach(component => {
       customComponents[component.name] = component.template;
     });
 

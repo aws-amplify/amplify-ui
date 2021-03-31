@@ -6,13 +6,13 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  TemplateRef,
+  TemplateRef
 } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import {
   InputErrors,
   mapInputErrors,
-  noWhitespacesAfterTrim,
+  noWhitespacesAfterTrim
 } from '../../common';
 import { ComponentsProviderService, StateMachineService } from '../../services';
 import { State, Subscription, Event } from 'xstate';
@@ -20,7 +20,7 @@ import { State, Subscription, Event } from 'xstate';
 const logger = new Logger('SignUp');
 @Component({
   selector: 'amplify-sign-up',
-  templateUrl: './amplify-sign-up.component.html',
+  templateUrl: './amplify-sign-up.component.html'
 })
 export class AmplifySignUpComponent
   implements AfterContentInit, OnInit, OnDestroy {
@@ -35,14 +35,14 @@ export class AmplifySignUpComponent
     $implicit: {
       signUp: () => {
         console.log('to be implemented');
-      },
-    },
+      }
+    }
   };
   public formGroup = this.fb.group({
     username: ['', [Validators.required, noWhitespacesAfterTrim]],
     password: ['', [Validators.required]],
     email: ['', [Validators.required, noWhitespacesAfterTrim]],
-    phone_number: ['', [Validators.required, noWhitespacesAfterTrim]],
+    phone_number: ['', [Validators.required, noWhitespacesAfterTrim]]
   });
 
   constructor(
@@ -52,7 +52,7 @@ export class AmplifySignUpComponent
   ) {}
 
   ngOnInit(): void {
-    this.authSubscription = this.stateMachine.authService.subscribe((state) =>
+    this.authSubscription = this.stateMachine.authService.subscribe(state =>
       this.onStateUpdate(state)
     );
   }
@@ -89,7 +89,7 @@ export class AmplifySignUpComponent
 
     this.send({
       type: 'SUBMIT',
-      data: formValues,
+      data: formValues
     });
   }
 

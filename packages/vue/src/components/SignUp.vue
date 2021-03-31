@@ -1,5 +1,5 @@
 <template>
-  <Form @submit.prevent="onCreateAccountButtonClicked">
+  <Form @submit.prevent="onSignUpButtonClicked">
     <Heading>
       <template #headingI>
         <slot name="heading"></slot>
@@ -17,33 +17,44 @@
       </Label>
       <Label>
         <Text>Email Address</Text>
-        <Input name="Email" required type="text"></Input>
+        <Input name="email" required type="email"></Input>
       </Label>
       <Label>
         <Text>Phone Number</Text>
 
         <div class="flex">
           <Select
-            name="country-dial-code-select"
+            v-model:selectValue="phonePreFix"
+            name="phone_number"
             :options="options"
             class="border"
           />
-          <Input name="Email" class="border phone" required type="text"></Input>
+          <Input
+            v-model:textValue="phoneNumber"
+            name="phone_number"
+            class="border phone"
+            required
+            type="tel"
+            placeholder="(555) 555-1212"
+            maxlength="14"
+          ></Input>
         </div>
       </Label>
     </FieldSet>
 
     <Footer>
       <Text>Have an account?</Text
-      ><Button @click.prevent="onHaveAccountClicked"> Sign in</Button>
+      ><Button type="button" @click.prevent="onHaveAccountClicked">
+        Sign in</Button
+      >
       <Spacer />
-      <Button type="submit">CREATE ACCOUNT</Button>
+      <Button>CREATE ACCOUNT</Button>
     </Footer>
   </Form>
 </template>
 
 <script lang="ts">
-import { defineComponent, inject, Ref } from "vue";
+import { defineComponent, inject, Ref, ref, computed } from "vue";
 
 import Form from "./primitives/Form.vue";
 import Heading from "./primitives/Heading.vue";
@@ -56,6 +67,8 @@ import Spacer from "./primitives/Spacer.vue";
 import Button from "./primitives/Button.vue";
 import Select from "./primitives/Select.vue";
 
+import { useAuth } from "../composables/useAuth";
+
 export default defineComponent({
   components: {
     Form,
@@ -67,23 +80,48 @@ export default defineComponent({
     Footer,
     Spacer,
     Button,
-    Select,
+    Select
   },
   setup() {
+    const { state, send } = useAuth();
     const pageInfo = inject<Ref<string>>("pageInfo");
     const options = [{ value: "+1" }, { value: "+7" }, { value: "+20" }];
+
+    const phonePreFix = ref(options[0].value);
+    const phoneNumber = ref("");
+
+    const phone = computed(() => `${phonePreFix.value}${phoneNumber.value}`);
 
     // Methods
     const onHaveAccountClicked = (): void => {
       pageInfo.value = "SIGNIN";
+      send({
+        type: "SIGN_IN"
+      });
     };
 
-    const onCreateAccountButtonClicked = (): void => {
-      console.log("create account button clicked");
+    const onSignUpButtonClicked = (e): void => {
+      const phoneS = phone.value.replace(/[^A-Z0-9\+]/gi, "");
+      console.log("full", phoneS);
+
+      const formData = new FormData(e.target);
+
+      send({
+        type: "SUBMIT",
+        //@ts-ignore Property 'fromEntries' does not exist on type 'ObjectConstructor'. Do you need to change your target library? Try changing the `lib` compiler option to 'es2019' or later.ts(2550)
+        data: { ...Object.fromEntries(formData), phone_number: phoneS }
+      });
     };
 
-    return { options, onHaveAccountClicked, onCreateAccountButtonClicked };
-  },
+    return {
+      options,
+      onHaveAccountClicked,
+      onSignUpButtonClicked,
+      state,
+      phonePreFix,
+      phoneNumber
+    };
+  }
 });
 </script>
 
