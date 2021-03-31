@@ -125,6 +125,7 @@ class _MaterialAuthenticatorState extends State<MaterialAuthenticator> {
                   });
                 },
               ),
+              SizedBox(height: 12.0),
             ],
             if (_showEmail(_authenticationState)) ...[
               TextFormField(
@@ -142,6 +143,7 @@ class _MaterialAuthenticatorState extends State<MaterialAuthenticator> {
                   });
                 },
               ),
+              SizedBox(height: 12.0),
             ],
             if (_showPassword(_authenticationState)) ...[
               TextFormField(
@@ -162,6 +164,9 @@ class _MaterialAuthenticatorState extends State<MaterialAuthenticator> {
                 },
                 obscureText: true,
               ),
+              // don't apply the spacing if the forgot password button will be displayed
+              if (!_showForgotPassword(_authenticationState))
+                SizedBox(height: 12.0),
             ],
             if (_showForgotPassword(_authenticationState)) ...[
               Row(
@@ -179,7 +184,8 @@ class _MaterialAuthenticatorState extends State<MaterialAuthenticator> {
                     child: Text('Reset Password'),
                   )
                 ],
-              )
+              ),
+              SizedBox(height: 12.0),
             ],
             if (_showVerificationCode(_authenticationState)) ...[
               TextFormField(
@@ -200,8 +206,8 @@ class _MaterialAuthenticatorState extends State<MaterialAuthenticator> {
                 },
                 obscureText: true,
               ),
+              SizedBox(height: 12.0),
             ],
-            SizedBox(height: 8),
             Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
