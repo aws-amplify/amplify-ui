@@ -1,6 +1,6 @@
 [data-ui-theme] {
   font-size: 14px;
-  font-family: 'Amazon Ember';
+  font-family: "Amazon Ember";
 }
 
 [data-ui-theme],
@@ -64,6 +64,10 @@
   border-style: none;
   color: white;
   border-radius: 2px;
+}
+
+[data-ui-theme] [data-ui-button]:disabled {
+  background-color: grey;
 }
 
 [data-ui-theme] [data-ui-link] {

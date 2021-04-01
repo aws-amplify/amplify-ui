@@ -4,40 +4,43 @@
 
 <div data-ui-container>
   <h2 data-ui-header>{{ this.headerText }}</h2>
-  <form data-ui-form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
-    <amplify-form-field
-      [errors]="inputErrors?.username"
-      name="username"
-    ></amplify-form-field>
+  <form data-ui-form [formGroup]="formGroup" (ngSubmit)="onSubmit($event)">
+    <fieldset data-ui-fieldset [attr.disabled]="this.loading ? '' : null">
+      <amplify-form-field
+        [errors]="inputErrors?.username"
+        name="username"
+      ></amplify-form-field>
 
-    <amplify-form-field
-      [errors]="inputErrors?.password"
-      name="password"
-      type="password"
-    ></amplify-form-field>
+      <amplify-form-field
+        [errors]="inputErrors?.password"
+        name="password"
+        type="password"
+      ></amplify-form-field>
 
-    <amplify-form-field
-      name="email"
-      type="email"
-      [errors]="inputErrors?.email"
-    ></amplify-form-field>
+      <amplify-form-field
+        name="email"
+        type="email"
+        [errors]="inputErrors?.email"
+      ></amplify-form-field>
 
-    <amplify-form-field
-      name="phone_number"
-      type="text"
-      [errors]="inputErrors?.phone_number"
-    ></amplify-form-field>
+      <amplify-form-field
+        name="phone_number"
+        type="text"
+        [errors]="inputErrors?.phone_number"
+      ></amplify-form-field>
 
-    <div data-ui-footer>
-      <div>
-        Have an account?{{ ' ' }}
-        <span data-ui-link (click)="toSignIn()">Sign In</span>
+      <div data-ui-footer>
+        <div>
+          Have an account?{{ " " }}
+          <span data-ui-link (click)="toSignIn()">Sign In</span>
+        </div>
+        <ng-container
+          [ngTemplateOutlet]="customComponents.signInButton || signInButton"
+          [ngTemplateOutletContext]="context"
+        >
+        </ng-container>
       </div>
-      <ng-container
-        [ngTemplateOutlet]="customComponents.signInButton || signInButton"
-        [ngTemplateOutletContext]="context"
-      >
-      </ng-container>
-    </div>
+      <div data-ui-error *ngIf="formError">{{ formError }}</div>
+    </fieldset>
   </form>
 </div>
