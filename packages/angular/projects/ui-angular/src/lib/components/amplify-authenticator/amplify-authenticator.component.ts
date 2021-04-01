@@ -4,24 +4,24 @@ import {
   ContentChildren,
   HostBinding,
   Input,
-  OnInit,
   QueryList,
   TemplateRef,
-  ViewEncapsulation,
+  ViewEncapsulation
 } from '@angular/core';
 import { AuthState } from '../../common/auth-types';
 import { AmplifyOverrideDirective } from '../../directives/amplify-override.directive';
 import { StateMachineService } from '../../services/state-machine.service';
 import { ComponentsProviderService } from '../../services/components-provider.service';
 import { CustomComponents, SignInValidators } from '../../common';
+import { State } from 'xstate';
 
 @Component({
   selector: 'amplify-authenticator',
   templateUrl: './amplify-authenticator.component.html',
   providers: [ComponentsProviderService], // make sure custom components are scoped to this authenticator only
-  encapsulation: ViewEncapsulation.None,
+  encapsulation: ViewEncapsulation.None
 })
-export class AmplifyAuthenticatorComponent implements AfterContentInit, OnInit {
+export class AmplifyAuthenticatorComponent implements AfterContentInit {
   @Input() initialAuthState: AuthState = 'signIn';
   @Input() signInValidators: SignInValidators;
   @HostBinding('attr.data-ui-authenticator') dataAttr = '';
@@ -38,10 +38,6 @@ export class AmplifyAuthenticatorComponent implements AfterContentInit, OnInit {
    * Lifecycle Methods
    */
 
-  ngOnInit(): void {
-    this.stateMachine.authState = this.initialAuthState;
-  }
-
   ngAfterContentInit(): void {
     this.componentsProvider.customComponents = this.mapCustomComponents(
       this.customComponentQuery
@@ -49,8 +45,8 @@ export class AmplifyAuthenticatorComponent implements AfterContentInit, OnInit {
     this.customComponents = this.componentsProvider.customComponents;
     this.componentsProvider.props = {
       signIn: {
-        signInValidators: this.signInValidators,
-      },
+        signInValidators: this.signInValidators
+      }
     };
   }
 
@@ -58,7 +54,7 @@ export class AmplifyAuthenticatorComponent implements AfterContentInit, OnInit {
    * Class Functions
    */
 
-  public getAuthState(): AuthState {
+  public getAuthState(): State<any> {
     return this.stateMachine.authState;
   }
 
@@ -67,7 +63,7 @@ export class AmplifyAuthenticatorComponent implements AfterContentInit, OnInit {
   ): Record<string, TemplateRef<any>> {
     if (!componentQuery) return {};
     const customComponents: Record<string, TemplateRef<any>> = {};
-    componentQuery.forEach((component) => {
+    componentQuery.forEach(component => {
       customComponents[component.name] = component.template;
     });
 

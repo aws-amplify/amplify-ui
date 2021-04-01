@@ -13,9 +13,9 @@
     "target": "es2015",
     "module": "es2020",
     "paths": {
-      "ui-angular": ["dist/ui-angular/ui-angular", "dist/ui-angular"]
+      "ui-angular": ["dist/ui-angular"]
     },
-    "lib": ["es2018", "dom"]
+    "lib": ["dom", "es2019", "dom.iterable"]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false

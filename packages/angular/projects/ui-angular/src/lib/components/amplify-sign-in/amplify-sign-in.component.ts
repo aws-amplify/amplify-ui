@@ -1,11 +1,13 @@
-import { Auth } from 'aws-amplify';
+import { Auth, Logger } from 'aws-amplify';
 import {
   AfterContentInit,
   Component,
   HostBinding,
   Input,
+  OnDestroy,
+  OnInit,
   TemplateRef,
-  ViewEncapsulation,
+  ViewEncapsulation
 } from '@angular/core';
 import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { ComponentsProviderService, StateMachineService } from '../../services';
@@ -14,27 +16,31 @@ import {
   InputErrors,
   mapInputErrors,
   noWhitespacesAfterTrim,
-  SignInValidators,
+  SignInValidators
 } from '../../common';
-
+import { Event, State, Subscription } from 'xstate';
+const logger = new Logger('SignIn');
 @Component({
   selector: 'amplify-sign-in',
   templateUrl: './amplify-sign-in.component.html',
-  encapsulation: ViewEncapsulation.None,
+  encapsulation: ViewEncapsulation.None
 })
-export class AmplifySignInComponent implements AfterContentInit {
+export class AmplifySignInComponent
+  implements AfterContentInit, OnInit, OnDestroy {
   @HostBinding('attr.data-ui-sign-in') dataAttr = '';
   @Input() public headerText = 'Sign in to your account';
+  private authSubscription: Subscription;
   public loading = false;
   public customComponents: Record<string, TemplateRef<any>> = {};
-  public inputErrors: InputErrors;
+  public inputErrors: InputErrors; // errors specific to each input
+  public formError: string; // errors specific to the form as a whole or api error
   public context = {
-    $implicit: {},
+    $implicit: {}
   };
   public formGroup = this.fb.group(
     {
       username: ['', [Validators.required, noWhitespacesAfterTrim]],
-      password: ['', [Validators.required]],
+      password: ['', [Validators.required]]
     },
     { updateOn: 'submit' }
   );
@@ -45,6 +51,12 @@ export class AmplifySignInComponent implements AfterContentInit {
     private componentsProvider: ComponentsProviderService
   ) {}
 
+  ngOnInit(): void {
+    this.authSubscription = this.stateMachine.authService.subscribe(state =>
+      this.onStateUpdate(state)
+    );
+  }
+
   ngAfterContentInit(): void {
     this.customComponents = this.componentsProvider.customComponents;
 
@@ -54,35 +66,52 @@ export class AmplifySignInComponent implements AfterContentInit {
     this.attachCustomValidators(customValidators);
   }
 
+  ngOnDestroy(): void {
+    logger.log('sign in destroyed, unsubscribing from state machine...');
+    this.authSubscription.unsubscribe();
+  }
+
+  onStateUpdate(state: State<any>): void {
+    if (state.event.type.includes('error')) {
+      this.formError = (state.event as any).data.message;
+      this.loading = false;
+    }
+  }
+
   toSignUp(): void {
-    this.stateMachine.authState = 'signUp';
+    this.stateMachine.authService.send('SIGN_UP');
   }
 
   getFormControl(name: AuthAttribute): AbstractControl {
     return this.formGroup.get(name);
   }
 
-  async onSubmit(): Promise<void> {
-    console.log(this.formGroup);
+  send(event: Event<any>): void {
+    this.stateMachine.authService.send(event);
+  }
+
+  async onSubmit($event): Promise<void> {
+    // get form data
+    const formData = new FormData($event.target);
+    const formValues = Object.fromEntries(formData.entries());
+
+    logger.log('Sign in form submitted with', formValues);
+
+    // trim input
     const usernameControl = this.formGroup.get('username');
-    const passwordControl = this.formGroup.get('password');
-    console.log(usernameControl, passwordControl);
-    // trim password
     usernameControl.setValue(usernameControl.value.trim());
 
+    // set validation errors, which will be rendered below each respective input
     this.inputErrors = mapInputErrors(this.formGroup.controls);
 
+    // return if form is still invalid
     if (this.formGroup.status !== 'VALID') return;
-    this.loading = true;
+    this.loading = true; // disable inputs
 
-    try {
-      await Auth.signIn(usernameControl.value, passwordControl.value);
-      this.stateMachine.authState = 'signedIn';
-    } catch (err) {
-      console.error(err);
-    } finally {
-      this.loading = false;
-    }
+    this.send({
+      type: 'SUBMIT',
+      data: formValues
+    });
   }
 
   private attachCustomValidators(customValidators: SignInValidators): void {

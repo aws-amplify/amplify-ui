@@ -7,12 +7,8 @@
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav #snav [mode]="'side'" opened>
     <mat-nav-list>
-      <a
-        mat-list-item
-        *ngFor="let nav of navList"
-        [routerLink]="nav.path"
-      >
-        {{nav.name}}
+      <a mat-list-item *ngFor="let nav of navList" [routerLink]="nav.path">
+        {{ nav.name }}
       </a>
     </mat-nav-list>
   </mat-sidenav>
