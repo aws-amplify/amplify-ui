@@ -1,3 +1,5 @@
+import * as React from "react";
+
 export function Box(props) {
   return <div data-amplify-box="" {...props} />;
 }

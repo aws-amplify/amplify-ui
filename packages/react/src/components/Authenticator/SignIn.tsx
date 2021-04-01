@@ -1,4 +1,5 @@
-import { useAmplify, useAuth } from "@aws-amplify/ui-react";
+import * as React from "react";
+import { useAmplify, useAuth } from "../../hooks";
 
 export function SignIn() {
   const {
@@ -48,20 +49,20 @@ export function SignIn() {
           <Text>Password</Text>
           <Input name="password" required type="password" />
           <Box>
-            <Text>Forgot your password?</Text>{" "}
+            <Text>Forgot your password?</Text>
             <Button type="button">Reset Password</Button>
           </Box>
         </Label>
       </Fieldset>
 
       <Footer>
-        <Text>No account?</Text>{" "}
+        <Text>No account?</Text>
         <Button onClick={() => send("SIGN_UP")} type="button">
           Create account
         </Button>
         <Spacer />
         <Button disabled={isPending} type="submit">
-          {isPending ? <>Signing in&hellip;</> : <>Sign In</>}
+          {isPending ? "Signing in&hellip;" : "Sign In"}
         </Button>
       </Footer>
     </Form>

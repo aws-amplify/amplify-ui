@@ -1,4 +1,5 @@
 import * as React from "react";
+import { View } from "react-native";
 import { AmplifyContext } from "./AmplifyContext";
 
 export function AmplifyProvider({
@@ -8,7 +9,7 @@ export function AmplifyProvider({
 }) {
   return (
     <AmplifyContext.Provider value={{ components, theme }}>
-      <div data-amplify-theme="">{children}</div>
+      <View data-amplify-theme="">{children}</View>
     </AmplifyContext.Provider>
   );
 }

@@ -1,4 +1,5 @@
-import { useAmplify, useAuth } from "@aws-amplify/ui-react";
+import * as React from "react";
+import { useAmplify, useAuth } from "../../hooks";
 
 export function SignUp() {
   const {
