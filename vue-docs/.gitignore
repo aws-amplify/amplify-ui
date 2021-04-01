@@ -2,6 +2,8 @@
 node_modules
 /dist
 
+aws-exports.js
+
 
 # local env files
 .env.local
