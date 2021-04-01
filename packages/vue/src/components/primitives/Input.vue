@@ -2,17 +2,17 @@
   <input
     :value="textValue"
     @input="event => $emit('update:textValue', event.target.value)"
-    data-spark-input=""
+    data-amplify-input=""
   />
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue';
 
 export default defineComponent({
   props: {
     textValue: {
-      default: ""
+      default: ''
     }
   },
   setup() {

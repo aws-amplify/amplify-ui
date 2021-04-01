@@ -1,11 +1,10 @@
 <script lang="ts">
-import { defineComponent, h } from "vue";
+import { defineComponent, h } from 'vue';
 
 export default defineComponent({
   props: {
     level: {
       type: Number,
-      required: true,
       default: 1
     }
   },
@@ -15,13 +14,13 @@ export default defineComponent({
     const headingI = slots.headingI ? slots.headingI() : [];
     if (headingI[0]?.children.length === 0) {
       headingI[0].children = [
-        h(`h${props.level}`, { "data-spark-heading": "", ...attrs }, [
+        h(`h${props.level}`, { 'data-amplify-heading': '', ...attrs }, [
           defaultSlot
         ])
       ];
     } else {
       return () =>
-        h(`h${props.level}`, { "data-spark-heading": "", ...attrs }, [
+        h(`h${props.level}`, { 'data-amplify-heading': '', ...attrs }, [
           headingI[0].children
         ]);
     }

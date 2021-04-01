@@ -1,11 +1,11 @@
 <template>
-  <div data-spark-wrapper="">
+  <div data-amplify-wrapper="">
     <slot></slot>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent } from 'vue';
 
 export default defineComponent({
   provide() {
@@ -14,7 +14,7 @@ export default defineComponent({
   props: {},
   setup() {
     return {};
-  },
+  }
 });
 </script>
 
