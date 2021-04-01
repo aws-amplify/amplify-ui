@@ -61,9 +61,15 @@ export function SignIn() {
           Create account
         </Button>
         <Spacer />
-        <Button disabled={isPending} type="submit">
-          {isPending ? "Signing in&hellip;" : "Sign In"}
-        </Button>
+        {isPending ? (
+          <Button disabled={isPending} type="submit">
+            Signing in&hellip;
+          </Button>
+        ) : (
+          <Button disabled={isPending} type="submit">
+            Sign In
+          </Button>
+        )}
       </Footer>
     </Form>
   );
