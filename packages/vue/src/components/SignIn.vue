@@ -23,9 +23,14 @@
             <Input name="username" required type="text" />
           </Label>
 
-          <Label>
+          <Label data-amplify-password>
             <Text>{{ passwordLabel }}</Text>
             <Input name="password" required type="password" />
+            <slot
+              name="additional-fields"
+              :onSignInButtonClicked="onSignInButtonClicked"
+              :onCreateAccountClicked="onCreateAccountClicked"
+            ></slot>
 
             <Box>
               <Text> {{ forgotYourPasswordText }}</Text>
@@ -65,7 +70,7 @@
               ></slot>
             </template>
             {{
-              state.matches("signIn.pending")
+              state.matches('signIn.pending')
                 ? signIngButtonText
                 : signInButtonText
             }}
@@ -89,26 +94,26 @@ import {
   FORGOT_YOUR_PASSWORD_TEXT,
   PASSWORD_LABEL,
   SIGNING_IN_BUTTON_TEXT
-} from "../defaults/DefaultTexts";
-import Footer from "./primitives/Footer.vue";
-import Wrapper from "./primitives/Wrapper.vue";
-import Form from "./primitives/Form.vue";
-import Heading from "./primitives/Heading.vue";
-import FieldSet from "./primitives/FieldSet.vue";
-import Label from "./primitives/Label.vue";
-import Input from "./primitives/Input.vue";
-import Box from "./primitives/Box.vue";
-import Button from "./primitives/Button.vue";
-import Spacer from "./primitives/Spacer.vue";
-import Text from "./primitives/Text.vue";
+} from '../defaults/DefaultTexts';
+import Footer from './primitives/Footer.vue';
+import Wrapper from './primitives/Wrapper.vue';
+import Form from './primitives/Form.vue';
+import Heading from './primitives/Heading.vue';
+import FieldSet from './primitives/FieldSet.vue';
+import Label from './primitives/Label.vue';
+import Input from './primitives/Input.vue';
+import Box from './primitives/Box.vue';
+import Button from './primitives/Button.vue';
+import Spacer from './primitives/Spacer.vue';
+import Text from './primitives/Text.vue';
 
 // @xstate
-import { useAuth } from "../composables/useAuth";
+import { useAuth } from '../composables/useAuth';
 
-import { inject, Ref, ref, computed, watchEffect } from "vue";
+import { Ref, ref } from 'vue';
 
 export default {
-  name: "Authentication",
+  name: 'Authentication',
   computed: {
     signIntoAccountText: (): string => SIGN_IN_TEXT,
     fullNameText: (): string => FULL_NAME_TEXT,
@@ -141,50 +146,48 @@ export default {
         fullNameText: string;
       } & unknown
     >,
-    { emit, attrs }
+    {
+      emit,
+      attrs
+    }: { emit: (st, e?) => unknown; attrs: Record<string, unknown> }
   ): Record<string, unknown> {
     // @Xstate Initialization
-    const username: Ref = ref("");
-    const password: Ref = ref("");
+
+    const username: Ref = ref('');
+    const password: Ref = ref('');
     const { state, send } = useAuth();
 
-    const stateChanged = watchEffect(() => {
-      if (state.value.matches("signIn.rejected")) {
-        console.log("rejected");
-      }
-    });
-
-    const pageInfo: Ref<string> = inject("pageInfo", undefined);
     // Methods
 
     const onSignInButtonClicked = (e): void => {
-      attrs?.onSignInButtonClicked
-        ? emit("signInButtonClicked")
-        : console.log("normal event Auth Signin", attrs.onOnSignInPressed);
-
-      const formData = new FormData(e.target);
-      send({
-        type: "SUBMIT",
-        // @ts-ignore Property 'fromEntries' does not exist on type 'ObjectConstructor'. Do you need to change your target library? Try changing the `lib` compiler option to 'es2019' or later.ts(2550)
-        data: Object.fromEntries(formData)
-      });
+      if (attrs?.onSignInButtonClicked) {
+        emit('signInButtonClicked', e);
+      } else {
+        console.log('normal event Auth Signin', attrs.onOnSignInPressed);
+        const formData = new FormData(e.target);
+        send({
+          type: 'SUBMIT',
+          // @ts-ignore Property 'fromEntries' does not exist on type 'ObjectConstructor'. Do you need to change your target library? Try changing the `lib` compiler option to 'es2019' or later.ts(2550)
+          data: Object.fromEntries(formData)
+        });
+      }
     };
 
     const onForgotPasswordClicked = (): void => {
-      send("SIGN_OUT");
-      attrs?.onForgotPasswordClicked
-        ? emit("forgotPasswordClicked")
-        : console.log("you clicked the reset password link");
+      if (attrs?.onForgotPasswordClicked) {
+        emit('forgotPasswordClicked');
+      } else {
+        console.log('you clicked the reset password link');
+      }
     };
 
     const onCreateAccountClicked = (): void => {
-      attrs?.onCreateAccountClicked
-        ? emit("createAccountClicked")
-        : console.log("create account clicked");
-      if (pageInfo) {
-        pageInfo.value = "SIGNUP";
+      if (attrs?.onCreateAccountClicked) {
+        emit('createAccountClicked');
+      } else {
+        console.log('create account clicked');
         send({
-          type: "SIGN_UP"
+          type: 'SIGN_UP'
         });
       }
     };
