@@ -4,7 +4,6 @@ import { inspect } from "@xstate/inspect";
 
 // TODO What's the best way to enable this for debug-only? `XSTATE=true npm start`?
 if (typeof window !== "undefined") {
-  console.log("test");
   inspect({
     url: "https://statecharts.io/inspect",
     iframe: false
@@ -63,6 +62,7 @@ export const authMachine = Machine(
           },
           rejected: {
             // TODO Set errors and go back to `idle`?
+            always: "idle"
           }
         }
       },
