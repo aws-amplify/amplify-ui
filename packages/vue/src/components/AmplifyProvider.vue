@@ -1,23 +1,24 @@
+/* eslint-disable */
 <template>
-  <div :data-spark-theme="defaults ? '' : null">
+  <div :data-amplify-theme="defaults ? '' : null">
     <slot></slot>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue';
 
 export default defineComponent({
   props: {
     defaults: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
 
   setup() {
     return {};
-  },
+  }
 });
 </script>
 
