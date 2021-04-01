@@ -14,7 +14,7 @@ The project was created as a standard flutter app (using `flutter create`). All 
 
 I have copied the code from the stories into the readme to make it easy to view. Long term, it would probably make sense to look into something like [Dashbook](https://github.com/erickzanardo/dashbook), [storybook_flutter](https://github.com/ookami-kb/storybook_flutter), or the tooling that the flutter team uses in their own component docs which takes comments from the code and turns them into live code examples.
 
-If this were to actually be published as a package, it would probably make sense to move the code under `/lib/stories` into separate examples projects. They are included in the main project for ease of development.
+If this were to actually be published as a package, it the code under `/lib/stories` would either be broken out into a spearate project, or moved under `/example`. They are included in the main project for ease of development.
 
 ## TODO
 
