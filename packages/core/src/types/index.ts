@@ -2,8 +2,8 @@ import { CognitoUser, CognitoUserSession } from "amazon-cognito-identity-js";
 
 export interface AuthContext {
   error: string | Error; // TODO: what would this object be?
-  user: CognitoUser;
-  session: CognitoUserSession;
+  user: CognitoUser | unknown;
+  session: CognitoUserSession | unknown;
 }
 
 export type AuthEventTypes = "SIGN_IN" | "SIGN_UP" | "SIGN_OUT" | "SUBMIT";
