@@ -47,14 +47,14 @@ If this were to actually be published as a package, the code under `/lib/stories
 
 Other than continuing to support additonal customer use cases, below are some things that are not yet supported
 
-- Forgot password flow: Sign up, confirm account, and sign in all work as expected. Forgot password
-- Error handling: Gracefully handle error on signin/signup
+- Forgot password flow: Sign up, confirm account, and sign in all work as expected. Forgot password has not been implemented
+- Error handling: Gracefully handle error on signin/signup and displaying them to the user
 - localization
-- Material & Cupertino code duplication: The logic for authentication should be abstracted out and shared.
-- Animations: The form doesn't have any animations. Since the form is essentialy just a list of items that get removed/added, [AnimatedList](https://api.flutter.dev/flutter/widgets/AnimatedList-class.html) could probably be used. There could be some default animations, with the ability for users to provide their own.
-- Cupertino design: This is not one of the customer use cases, but it would probably be something flutter devs would want. [Cupertino](https://flutter.dev/docs/development/ui/widgets/cupertino) widgets match the design of iOS.
+- Material & Cupertino code duplication: The logic for authentication should be abstracted out and shared. I just copied it over for now.
+- Animations: The form doesn't have any animations. Since the form is essentialy just a list of items that get removed/added, [AnimatedList](https://api.flutter.dev/flutter/widgets/AnimatedList-class.html) could probably be used. There could be some default animations, with the ability for users to provide their own. Some thought would need to be put into how to do this in a way that allows for customizations.
+- ~~Cupertino design: This is not one of the customer use cases, but it would probably be something flutter devs would want. [Cupertino](https://flutter.dev/docs/development/ui/widgets/cupertino) widgets match the design of iOS.~~ Added to stories, although probably needs more work.
 
-## Theming Approach
+## Design & Theming Approach
 
 Flutter provides two libraries of widgets out of the box - [Material](https://flutter.dev/docs/development/ui/widgets/material) and [Cupertino](https://flutter.dev/docs/development/ui/widgets/cupertino). These widget libraries are built on top of a "widgets layer", which is illustrated nicely in [this flutter architecture diagram](https://flutter.dev/docs/resources/architectural-overview#architectural-layers) (can seen below as well).
 
