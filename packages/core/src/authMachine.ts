@@ -16,7 +16,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
     id: "auth",
     initial: "idle",
     context: {
-      error: undefined,
+      error: "",
       user: undefined,
       session: undefined
     },
@@ -146,7 +146,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
         // TODO `cond`itionally transition to `signUp.confirm` or `resolved` based on result
         return result;
       },
-      async signOut(context, event) {
+      async signOut() {
         await Auth.signOut(/* global? */);
       }
     }
