@@ -5,7 +5,6 @@ export default defineComponent({
   props: {
     level: {
       type: Number,
-      required: true,
       default: 1
     }
   },

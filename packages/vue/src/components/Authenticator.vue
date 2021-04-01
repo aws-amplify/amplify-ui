@@ -1,20 +1,92 @@
 <template>
   <div data-amplify-authenticator="">
     <SignIn v-if="state?.matches('signIn')">
-      <template #signInSlotI="{ resetPasswordClicked }">
+      <template #signInSlotI>
+        <slot name="sign-in"></slot>
+      </template>
+
+      <template #forgot-password-button="{ onForgotPasswordClicked}">
         <slot
-          name="sign-in"
-          :resetPasswordClicked="resetPasswordClicked"
-        ></slot>
+          name="authenticator-si--forgot-password-button"
+          :onForgotPasswordClicked="onForgotPasswordClicked"
+        />
       </template>
-      <template #forgot-password-button>
-        <slot name="sign-in-forgot-password-button" />
+
+      <template #sign-in-button="{ onSignInButtonClicked}">
+        <slot
+          name="authenticator-si--sign-in-button"
+          :onSignInButtonClicked="onSignInButtonClicked"
+        />
       </template>
-      <template #sign-in-button>
-        <slot name="sign-in-sign-in-button" />
+
+      <template #form="{ info }">
+        <slot name="authenticator-si--form" :info="info"></slot>
+      </template>
+
+      <template #heading>
+        <slot name="authenticator-si--heading"></slot>
+      </template>
+
+      <template #full-name>
+        <slot name="authenticator-si--full-name"></slot>
+      </template>
+
+      <template
+        #footer="{ info, onSignInButtonClicked, onCreateAccountClicked  }"
+      >
+        <slot
+          name="authenticator-si--footer"
+          :info="info"
+          :onSignInButtonClicked="onSignInButtonClicked"
+          :onCreateAccountClicked="onCreateAccountClicked"
+        >
+        </slot>
+      </template>
+
+      <template
+        #additional-fields="{ onSignInButtonClicked, onCreateAccountClicked  }"
+      >
+        <slot
+          name="authenticator-si--additional-fields"
+          :onSignInButtonClicked="onSignInButtonClicked"
+          :onCreateAccountClicked="onCreateAccountClicked"
+        >
+        </slot>
       </template>
     </SignIn>
-    <SignUp v-if="state?.matches('signUp')" />
+    <SignUp v-if="state?.matches('signUp')">
+      <template #additional-fields>
+        <slot name="authenticator-su--additional-fields"></slot>
+      </template>
+
+      <template #signUpSlotI>
+        <slot name="sign-up"></slot>
+      </template>
+
+      <template #footer-left="{ onHaveAccountClicked}">
+        <slot
+          name="authenticator-su--footer-left"
+          :onHaveAccountClicked="onHaveAccountClicked"
+        ></slot>
+      </template>
+
+      <template #footer-right="{ onSignUpButtonClicked}">
+        <slot
+          name="authenticator-su--footer-right"
+          :onSignInButtonClicked="onSignUpButtonClicked"
+        ></slot>
+      </template>
+
+      <template #footer="{ info, onHaveAccountClicked, onSignUpButtonClicked }">
+        <slot
+          name="authenticator-su--footer"
+          :info="info"
+          :onHaveAccountClicked="onHaveAccountClicked"
+          :onSignUpButtonClicked="onSignUpButtonClicked"
+        >
+        </slot>
+      </template>
+    </SignUp>
     <div v-if="state?.matches('signIn.rejected')">
       Error! Can't sign in!
     </div>
@@ -44,5 +116,3 @@ export default {
   }
 };
 </script>
-
-<style scoped></style>
