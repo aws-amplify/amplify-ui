@@ -1,6 +1,7 @@
 import { Auth } from "aws-amplify";
 import { Machine, assign } from "xstate";
 import { inspect } from "@xstate/inspect";
+import { AuthContext, AuthEvent } from "./types";
 
 // TODO What's the best way to enable this for debug-only? `XSTATE=true npm start`?
 if (typeof window !== "undefined") {
@@ -10,7 +11,7 @@ if (typeof window !== "undefined") {
   });
 }
 
-export const authMachine = Machine(
+export const authMachine = Machine<AuthContext, AuthEvent>(
   {
     id: "auth",
     initial: "idle",
@@ -123,7 +124,7 @@ export const authMachine = Machine(
     actions: {
       setUser: assign({
         user(context, event) {
-          return (event as any).data;
+          return event.data;
         }
       })
     },
@@ -134,12 +135,12 @@ export const authMachine = Machine(
         return Auth.currentAuthenticatedUser();
       },
       async signIn(context, event) {
-        const { username, password } = (event as any).data;
+        const { username, password } = event.data;
 
         return Auth.signIn(username, password);
       },
       async signUp(context, event) {
-        const { username, password, ...attributes } = (event as any).data;
+        const { username, password, ...attributes } = event.data;
         const result = await Auth.signUp({ username, password, attributes });
 
         // TODO `cond`itionally transition to `signUp.confirm` or `resolved` based on result
