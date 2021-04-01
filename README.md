@@ -55,7 +55,7 @@ See Example: [materialAuthenticatorExample.dart](./lib/stories/material/material
 ```dart
 import 'package:amplify_authenticator/stories/viewUserInfo.dart';
 import 'package:flutter/material.dart';
-import 'package:amplify_authenticator/components/MaterialAuthenticator.dart';
+import 'package:amplify_authenticator/authenticator/components/materialAuthenticator.dart';
 
 class MaterialAuthenticatorExample extends StatelessWidget {
   @override
@@ -91,7 +91,7 @@ See Example: [materialThemeExample.dart](./lib/stories/materialTheme/materialThe
 ```dart
 import 'package:amplify_authenticator/stories/viewUserInfo.dart';
 import 'package:flutter/material.dart';
-import 'package:amplify_authenticator/components/MaterialAuthenticator.dart';
+import 'package:amplify_authenticator/authenticator/components/materialAuthenticator.dart';
 
 class MaterialThemeExample extends StatelessWidget {
   @override
@@ -135,7 +135,6 @@ class MaterialThemeExample extends StatelessWidget {
     );
   }
 }
-
 ```
 
 <img src="screenshots/materialThemeExample.png" alt="Material Theme Example" width="500"/>
@@ -250,7 +249,6 @@ class MaterialCustomeStylesExample extends StatelessWidget {
     );
   }
 }
-
 ```
 
 <img src="screenshots/materialCustomStyles.png" alt="Material Theme Example" width="500"/>
