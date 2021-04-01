@@ -5,7 +5,7 @@
   <aside
     class="p-6 mb-10 shadow-inner bg-gray-100 rounded w-full flex flex-col"
   >
-    <div class="w-full text-lg mb-10 ">
+    <div class="w-full text-xl mb-10 ">
       <Prism language="html" :code="code"> </Prism>
     </div>
     <slot></slot>
