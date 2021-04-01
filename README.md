@@ -1,5 +1,7 @@
 # amplify_authenticator
 
+Flutter Amplify Authenticator UI component
+
 ## Set up
 
 - Install and set up [flutter](https://flutter.dev/docs/get-started/install) and complete platform setup for iOS or Android if you have not already done so.
