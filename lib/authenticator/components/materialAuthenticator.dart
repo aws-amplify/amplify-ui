@@ -13,6 +13,8 @@ class MaterialAuthenticator extends StatefulWidget {
 
 class _MaterialAuthenticatorState extends State<MaterialAuthenticator> {
   Future signUp(BuildContext context) async {
+    _authException = null;
+
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
       setState(() {
@@ -35,12 +37,15 @@ class _MaterialAuthenticatorState extends State<MaterialAuthenticator> {
         print(e.message);
         setState(() {
           _loading = false;
+          _authException = e;
         });
+        _formKey.currentState.validate();
       }
     }
   }
 
   Future signIn(BuildContext context) async {
+    _authException = null;
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
       setState(() {
@@ -59,14 +64,18 @@ class _MaterialAuthenticatorState extends State<MaterialAuthenticator> {
         }
       } on AuthException catch (e) {
         debugPrint(e.message);
+        if (e.message.isNotEmpty) {}
         setState(() {
-          _loading = true;
+          _loading = false;
+          _authException = e;
         });
+        _formKey.currentState.validate();
       }
     }
   }
 
   Future confirmSignUp(BuildContext context) async {
+    _authException = null;
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
       setState(() {
@@ -85,13 +94,16 @@ class _MaterialAuthenticatorState extends State<MaterialAuthenticator> {
         });
       } on AuthException catch (e) {
         setState(() {
-          _loading = true;
+          _loading = false;
+          _authException = e;
         });
+        _formKey.currentState.validate();
       }
     }
   }
 
   bool _loading = false;
+  AuthException _authException;
   String _username = '';
   String _email = '';
   String _password = '';
@@ -113,12 +125,7 @@ class _MaterialAuthenticatorState extends State<MaterialAuthenticator> {
               TextFormField(
                 key: Key('username-field'),
                 decoration: InputDecoration(labelText: 'Username'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a username.';
-                  }
-                  return null;
-                },
+                validator: _usernameValidator,
                 onSaved: (value) {
                   setState(() {
                     _username = value;
@@ -131,12 +138,7 @@ class _MaterialAuthenticatorState extends State<MaterialAuthenticator> {
               TextFormField(
                 key: Key('email-field'),
                 decoration: InputDecoration(labelText: 'Email'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter an email.';
-                  }
-                  return null;
-                },
+                validator: _emailValidator,
                 onSaved: (value) {
                   setState(() {
                     _email = value;
@@ -151,12 +153,7 @@ class _MaterialAuthenticatorState extends State<MaterialAuthenticator> {
                 decoration: InputDecoration(
                   labelText: 'Password',
                 ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a password.';
-                  }
-                  return null;
-                },
+                validator: _passwordValidator,
                 onSaved: (value) {
                   setState(() {
                     _password = value;
@@ -193,12 +190,7 @@ class _MaterialAuthenticatorState extends State<MaterialAuthenticator> {
                 decoration: InputDecoration(
                   labelText: 'Verification Code',
                 ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please the code that was sent to your email.';
-                  }
-                  return null;
-                },
+                validator: _verificationCodeValidator,
                 onSaved: (value) {
                   setState(() {
                     _verificationCode = value;
@@ -220,6 +212,68 @@ class _MaterialAuthenticatorState extends State<MaterialAuthenticator> {
         ),
       ),
     );
+  }
+
+  // Note: This is really brittle because it is just string matching and attempting to match the error to the correct field
+  // If this text were to change, it would change the functionality of this component
+  // Unfortnutely it looks like the flutter auth library doesn't return an enum or an error code at the moment
+  // There is also no default case handling (no message is matched)
+  // The error handling implementation right now is mostly just for demonstration purposed
+  bool _isAuthErrorMatch(
+      AuthException authException, List<String> authExceptionList) {
+    return authException != null &&
+        authException.message.isNotEmpty &&
+        authExceptionList.contains(authException.message);
+  }
+
+  String _usernameValidator(value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter a username.';
+    }
+    List<String> authExceptionList = [
+      'User does not exist.',
+      'User already exists'
+    ];
+    if (_isAuthErrorMatch(_authException, authExceptionList)) {
+      return _authException.message;
+    }
+    return null;
+  }
+
+  String _emailValidator(value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter an email.';
+    }
+    List<String> authExceptionList = ['Invalid email address format.'];
+    if (_isAuthErrorMatch(_authException, authExceptionList)) {
+      return _authException.message;
+    }
+    return null;
+  }
+
+  String _passwordValidator(value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter a password.';
+    }
+    List<String> authExceptionList = ['Incorrect username or password.'];
+    if (_isAuthErrorMatch(_authException, authExceptionList)) {
+      return _authException.message;
+    }
+    return null;
+  }
+
+  String _verificationCodeValidator(value) {
+    if (value == null || value.isEmpty) {
+      return 'Please the code that was sent to your email.';
+    }
+    List<String> authExceptionList = [
+      'Invalid verification code provided, please try again.'
+    ];
+    if (_isAuthErrorMatch(_authException, authExceptionList)) {
+      return _authException.message;
+    }
+
+    return null;
   }
 
   _buildPrimaryCTA() {
