@@ -15,7 +15,8 @@
     "baseUrl": ".",
     "types": ["webpack-env"],
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "@aws-amplify/ui-vue": ["../packages/vue/index.js"]
     },
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
   },
