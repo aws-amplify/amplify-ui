@@ -70,19 +70,19 @@
         ></slot>
       </template>
 
-      <template #footer-right="{ onSignUpButtonClicked}">
+      <template #footer-right="{ onSignUpSubmit }">
         <slot
           name="authenticator-su--footer-right"
-          :onSignInButtonClicked="onSignUpButtonClicked"
+          :onSignInButtonClicked="onSignUpSubmit"
         ></slot>
       </template>
 
-      <template #footer="{ info, onHaveAccountClicked, onSignUpButtonClicked }">
+      <template #footer="{ info, onHaveAccountClicked, onSignUpSubmit }">
         <slot
           name="authenticator-su--footer"
           :info="info"
           :onHaveAccountClicked="onHaveAccountClicked"
-          :onSignUpButtonClicked="onSignUpButtonClicked"
+          :onSignUpSubmit="onSignUpSubmit"
         >
         </slot>
       </template>
@@ -96,10 +96,10 @@
 </template>
 
 <script lang="ts">
-import SignIn from './SignIn.vue';
-import SignUp from './SignUp.vue';
-import { ref, provide, Ref } from 'vue';
-import { useAuth } from '../composables/useAuth';
+import SignIn from "./SignIn.vue";
+import SignUp from "./SignUp.vue";
+import { ref, provide, Ref } from "vue";
+import { useAuth } from "../composables/useAuth";
 
 export default {
   components: {
@@ -109,8 +109,8 @@ export default {
   setup(): { currentPage: Ref<string>; state: Ref } {
     const { state } = useAuth();
 
-    const currentPage = ref('SIGNIN');
-    provide('pageInfo', currentPage);
+    const currentPage = ref("SIGNIN");
+    provide("pageInfo", currentPage);
 
     return { currentPage, state };
   }
