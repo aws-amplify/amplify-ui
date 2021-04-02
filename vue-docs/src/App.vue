@@ -105,15 +105,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
-import Amplify from 'aws-amplify';
-import aws_exports from './aws-exports';
-import VueMarkdownIt from 'vue3-markdown-it';
-import ExampleSignInCSS from './components/ExampleSignInCSS.vue';
+import { defineComponent, ref } from "vue";
+import Amplify from "aws-amplify";
+import aws_exports from "./aws-exports";
+import VueMarkdownIt from "vue3-markdown-it";
+import ExampleSignInCSS from "./components/ExampleSignInCSS.vue";
 
-import Example from './components/Example.vue';
+import Example from "./components/Example.vue";
 
-import '@aws-amplify/ui-vue/styles.css';
+import "@aws-amplify/ui-vue/styles.css";
 
 import {
   AmplifyProvider,
@@ -121,12 +121,12 @@ import {
   useAuth,
   RenderInfo,
   SignUp
-} from '@aws-amplify/ui-vue';
+} from "@aws-amplify/ui-vue";
 
 Amplify.configure(aws_exports);
 
 export default defineComponent({
-  name: 'App',
+  name: "App",
   components: {
     AmplifyProvider,
     Authenticator,
@@ -134,7 +134,7 @@ export default defineComponent({
     RenderInfo,
     ExampleSignInCSS,
     SignUp,
-    'vue3-markdown-it': VueMarkdownIt
+    "vue3-markdown-it": VueMarkdownIt
   },
   data: () => ({
     // Code Examples
@@ -213,38 +213,38 @@ export default defineComponent({
     const error = ref(false);
 
     const slotTable =
-      ' | Name                   |                  Description                   |                           Scoped Slots                           |      Component              |   \n' +
-      ' | ---------------------- | :--------------------------------------------: | :--------------------------------------------------------------: | :--------------------------: | \n' +
-      ' | form                   |       Replaces the **<form>** DOM Element        |            Exposes **{ info }** default child data         | **<sign-in>**               | \n' +
-      ' | full-name              | Replaces the **<span>** label text for Full name |                               None                             | **<sign-in>**               | \n' +
-      ' | forgot-password-button |      Replaces the forgot password button       |              Exposes  **{ onForgotPasswordClicked }**            | **<sign-in>**               | \n' +
-      ' | sign-in-button         |          Replaces the sign in button           |               Exposes **{ onSignInButtonClicked }**              | **<sign-in>**               | \n' +
-      '| heading                |           Replaces the heading text            |                               none                               | **<sign-in>**                | \n' +
-      '| footer                 |      Replaces the **<footer>** DOM element       | Exposes **{ onSignInButtonClicked, info, onCreateAccountClicked }** | **<sign-in>**           | \n' +
-      ' | additional-fields      | Space below password input   |                               None                             | **<sign-in>**               | \n' +
-      ' | additional-fields      | Space below password input   |                               None                             | **<sign-up>**               | \n' +
-      ' | footer      | Replaces footer at the bottom | Exposes **{info, onHaveAccountClicked, onSignUpButtonClicked}**                             | **<sign-up>** | \n' +
-      ' | footer-left      | Replaces the footer on the left  | Exposes **{ onHaveAccountClicked }** | **<sign-up>**               | \n' +
-      ' | footer-right      | Replaces the footer on the right | Exposes **{ onSignUpButtonClicked }**   | **<sign-up>**               | \n' +
-      '| authenticator-si-sign-in-button | Replaces the sign in button                    |    Exposes **{ onSignInButtonClicked }**                        |  **<authenticator>**         | \n' +
-      '| authenticator-si--forgot-password-button | Replaces the forgot password button                    |    Exposes **{ onForgotPasswordClicked }**                        |  **<authenticator>**         | \n' +
-      '| authenticator-si--heading                |           Replaces the heading text            |                               none                               | **<authenticator>**                | \n' +
-      '| authenticator-si--footer                 |      Replaces the **<footer>** DOM element       | Exposes **{ onSignInButtonClicked, info, onCreateAccountClicked }** | **<authenticator>**           | \n' +
-      ' | authenticator-si--form                   |       Replaces the **<form>** DOM Element        |            Exposes **{ info }** default child data         | **<authenticator>**               | \n' +
-      ' | authenticator-si--full-name              | Replaces the **<span>** label text for Full name |                               None                             | **<authenticator>**               | \n' +
-      ' | authenticator-su--additional-fields      | Space below password input   |                               None                             | **<authenticator>**               | \n' +
-      ' | authenticator-su--footer      | Replaces footer at the bottom | Exposes **{info, onHaveAccountClicked, onSignUpButtonClicked}**                             | **<authenticator>** | \n' +
-      ' | authenticator-su--footer-left      | Replaces the footer on the left  | Exposes **{ onHaveAccountClicked }** | **<authenticator>**               | \n' +
-      ' | authenticator-su--footer-right      | Replaces the footer on the right | Exposes **{ onSignUpButtonClicked }**   | **<authenticator>**               | \n';
+      " | Name                   |                  Description                   |                           Scoped Slots                           |      Component              |   \n" +
+      " | ---------------------- | :--------------------------------------------: | :--------------------------------------------------------------: | :--------------------------: | \n" +
+      " | form                   |       Replaces the **<form>** DOM Element        |            Exposes **{ info }** default child data         | **<sign-in>**               | \n" +
+      " | full-name              | Replaces the **<span>** label text for Full name |                               None                             | **<sign-in>**               | \n" +
+      " | forgot-password-button |      Replaces the forgot password button       |              Exposes  **{ onForgotPasswordClicked }**            | **<sign-in>**               | \n" +
+      " | sign-in-button         |          Replaces the sign in button           |               Exposes **{ onSignInButtonClicked }**              | **<sign-in>**               | \n" +
+      "| heading                |           Replaces the heading text            |                               none                               | **<sign-in>**                | \n" +
+      "| footer                 |      Replaces the **<footer>** DOM element       | Exposes **{ onSignInButtonClicked, info, onCreateAccountClicked }** | **<sign-in>**           | \n" +
+      " | additional-fields      | Space below password input   |                               None                             | **<sign-in>**               | \n" +
+      " | additional-fields      | Space below password input   |                               None                             | **<sign-up>**               | \n" +
+      " | footer      | Replaces footer at the bottom | Exposes **{info, onHaveAccountClicked, onSignUpSubmit}**                             | **<sign-up>** | \n" +
+      " | footer-left      | Replaces the footer on the left  | Exposes **{ onHaveAccountClicked }** | **<sign-up>**               | \n" +
+      " | footer-right      | Replaces the footer on the right | Exposes **{ onSignUpSubmit }**   | **<sign-up>**               | \n" +
+      "| authenticator-si-sign-in-button | Replaces the sign in button                    |    Exposes **{ onSignInButtonClicked }**                        |  **<authenticator>**         | \n" +
+      "| authenticator-si--forgot-password-button | Replaces the forgot password button                    |    Exposes **{ onForgotPasswordClicked }**                        |  **<authenticator>**         | \n" +
+      "| authenticator-si--heading                |           Replaces the heading text            |                               none                               | **<authenticator>**                | \n" +
+      "| authenticator-si--footer                 |      Replaces the **<footer>** DOM element       | Exposes **{ onSignInButtonClicked, info, onCreateAccountClicked }** | **<authenticator>**           | \n" +
+      " | authenticator-si--form                   |       Replaces the **<form>** DOM Element        |            Exposes **{ info }** default child data         | **<authenticator>**               | \n" +
+      " | authenticator-si--full-name              | Replaces the **<span>** label text for Full name |                               None                             | **<authenticator>**               | \n" +
+      " | authenticator-su--additional-fields      | Space below password input   |                               None                             | **<authenticator>**               | \n" +
+      " | authenticator-su--footer      | Replaces footer at the bottom | Exposes **{info, onHaveAccountClicked, onSignUpSubmit}**                             | **<authenticator>** | \n" +
+      " | authenticator-su--footer-left      | Replaces the footer on the left  | Exposes **{ onHaveAccountClicked }** | **<authenticator>**               | \n" +
+      " | authenticator-su--footer-right      | Replaces the footer on the right | Exposes **{ onSignUpSubmit }**   | **<authenticator>**               | \n";
 
     const eventTable =
-      '| Name                    |                                                Description | Component | \n' +
-      '| ----------------------- | :---------------------------------------------------------: | :----------------: \n' +
-      '| sign-in-button-clicked  |         Emits and overrides when sign in button is clicked | **<sign-ip>**    | \n' +
-      '| forgot-password-clicked | Emits and overrides when forgot password button is clicked | **<sign-ip>**    |\n' +
-      '| create-account-clicked  |  Emits and overrides when create account button is clicked | **<sign-ip>**    |\n' +
-      '| sign-up-button-clicked  |  Emits and overrides when sign up button is clicked | **<sign-up>**    |\n' +
-      '| have-account-clicked    |  Emits and overrides when have account button is clicked | **<sign-up>**    |\n';
+      "| Name                    |                                                Description | Component | \n" +
+      "| ----------------------- | :---------------------------------------------------------: | :----------------: \n" +
+      "| sign-in-button-clicked  |         Emits and overrides when sign in button is clicked | **<sign-ip>**    | \n" +
+      "| forgot-password-clicked | Emits and overrides when forgot password button is clicked | **<sign-ip>**    |\n" +
+      "| create-account-clicked  |  Emits and overrides when create account button is clicked | **<sign-ip>**    |\n" +
+      "| sign-up-button-clicked  |  Emits and overrides when sign up button is clicked | **<sign-up>**    |\n" +
+      "| have-account-clicked    |  Emits and overrides when have account button is clicked | **<sign-up>**    |\n";
 
     const over = event => {
       const formData = new FormData(event.target);
@@ -256,12 +256,12 @@ export default defineComponent({
         error.value = false;
         const phoneS = `${values.phone_number_prefix}${values.phone_number}`.replace(
           /[^A-Z0-9+]/gi,
-          ''
+          ""
         );
         delete values.phone_number_prefix;
         delete values.confirm_password;
         send({
-          type: 'SUBMIT',
+          type: "SUBMIT",
           //@ts-ignore Property 'fromEntries' does not exist on type 'ObjectConstructor'. Do you need to change your target library? Try changing the `lib` compiler option to 'es2019' or later.ts(2550)
           data: { ...values, phone_number: phoneS }
         });
@@ -293,8 +293,8 @@ td {
   font-size: 14px;
 }
 
-code[class*='language-'],
-pre[class*='language-'] {
+code[class*="language-"],
+pre[class*="language-"] {
   /* white-space: normal !important; */
   padding: 0 !important;
   margin: 0 !important;
