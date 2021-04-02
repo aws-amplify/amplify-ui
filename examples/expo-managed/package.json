@@ -17,8 +17,8 @@
     "expo": "~40.0.0",
     "expo-cli": "^4.3.2",
     "expo-status-bar": "~1.0.3",
-    "react": "16.13.1",
-    "react-dom": "16.13.1",
+    "react": "latest",
+    "react-dom": "latest",
     "react-native": "https://github.com/expo/react-native/archive/sdk-40.0.1.tar.gz",
     "react-native-web": "~0.13.12"
   },
