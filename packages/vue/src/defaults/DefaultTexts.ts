@@ -9,3 +9,9 @@ export const PASSWORD_LABEL = "Password";
 
 export const SIGN_IN_TEXT = "Sign in to your account";
 export const FULL_NAME_TEXT = "Username";
+export const EMAIL_ADDRESS_LABEL = "Email";
+export const PHONE_NUMBER_LABEL = "Phone Number";
+export const CREATE_ACCOUNT_LABEL = "CREATE ACCOUNT";
+export const HAVE_ACCOUNT_LABEL = "Have an account?";
+
+export const SIGN_UP_BUTTON_TEXT = "Sign up";
