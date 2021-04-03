@@ -1,7 +1,7 @@
-import 'package:amplify_authenticator/authenticator/components/cupertinoAuthenticator.dart';
-import 'package:amplify_authenticator/stories/viewUserInfo.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:amplify_authenticator/authenticator/components/cupertinoAuthenticator.dart';
+import '../viewUserInfo.dart';
 
 class CupertinoAuthenticatorExample extends StatelessWidget {
   @override
