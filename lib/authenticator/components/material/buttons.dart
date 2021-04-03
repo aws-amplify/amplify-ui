@@ -77,15 +77,20 @@ class SignUpLink extends StatelessWidget {
 class ConfirmVerificationCodeButton extends StatelessWidget {
   const ConfirmVerificationCodeButton({
     Key key,
+    this.disabled = false,
   }) : super(key: key);
+
+  final bool disabled;
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () => AuthenticatorStateProvider.dispatch(
-        context,
-        ConfirmSignUpAction(),
-      ),
+      onPressed: disabled
+          ? null
+          : () => AuthenticatorStateProvider.dispatch(
+                context,
+                ConfirmSignUpAction(),
+              ),
       child: Text('Confirm Code'),
     );
   }
@@ -108,16 +113,25 @@ class ResetPasswordButton extends StatelessWidget {
 class SignUpButton extends StatelessWidget {
   const SignUpButton({
     Key key,
+    this.disabled = false,
   }) : super(key: key);
+  final bool disabled;
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () => AuthenticatorStateProvider.dispatch(
-        context,
-        SignUpAction(),
+      onPressed: disabled
+          ? null
+          : () => AuthenticatorStateProvider.dispatch(
+                context,
+                SignUpAction(),
+              ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text('Sign Up'),
+        ],
       ),
-      child: Text('Sign Up'),
     );
   }
 }
@@ -125,15 +139,20 @@ class SignUpButton extends StatelessWidget {
 class SignInButton extends StatelessWidget {
   const SignInButton({
     Key key,
+    this.disabled = false,
   }) : super(key: key);
+
+  final bool disabled;
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () => AuthenticatorStateProvider.dispatch(
-        context,
-        SignInAction(),
-      ),
+      onPressed: disabled
+          ? null
+          : () => AuthenticatorStateProvider.dispatch(
+                context,
+                SignInAction(),
+              ),
       child: Text('Sign In'),
     );
   }
@@ -142,20 +161,24 @@ class SignInButton extends StatelessWidget {
 class ForgotPasswordButton extends StatelessWidget {
   const ForgotPasswordButton({
     Key key,
+    this.disabled = false,
   }) : super(key: key);
 
+  final bool disabled;
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         Text('Forgot your password?'),
         TextButton(
-          onPressed: () {
-            AuthenticatorStateProvider.dispatch(
-              context,
-              NavigateToResetPasswordAction(),
-            );
-          },
+          onPressed: disabled
+              ? null
+              : () {
+                  AuthenticatorStateProvider.dispatch(
+                    context,
+                    NavigateToResetPasswordAction(),
+                  );
+                },
           child: Text('Reset Password'),
         )
       ],
