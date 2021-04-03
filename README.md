@@ -6,15 +6,17 @@ Flutter Amplify Authenticator UI component
 
 - Install and set up [flutter](https://flutter.dev/docs/get-started/install) and complete platform setup for iOS or Android if you have not already done so.
 - [Set up your IDE](https://flutter.dev/docs/get-started/editor) for flutter development if you have not already done so.
-- Run the project on an iOS simulator or Android Emulator. See info under **Run the App** in the [flutter test drive docs](https://flutter.dev/docs/get-started/test-drive?tab=androidstudio) if you are not familair with how to do this.
+- Run the _example_ project (`/example/amplify_authenticator/main.dart`) on an iOS simulator or Android Emulator. See info under **Run the App** in the [flutter test drive docs](https://flutter.dev/docs/get-started/test-drive?tab=androidstudio) if you are not familiar with how to do this.
 
 ## Project overview
 
-The project was created as a standard flutter app (using `flutter create`). All the cource code is under `/lib`. `/lib/authenticator` contains the authenitcator code that would be included in a package that customers would import and consume. `/lib/stories` contains the the customer use cases for an Authenticator widget. Each directory represents one use case. `main.dart` configures amplify auth and displays a list of buttons that will open the different use cases.
+The project was created as a standard flutter app (using `flutter create`, not `flutter create --template=package`), but has been updated to be structure closer to a package template.
 
-I have copied the code from the stories into the readme to make it easy to view. Long term, it would probably make sense to look into something like [Dashbook](https://github.com/erickzanardo/dashbook), [storybook_flutter](https://github.com/ookami-kb/storybook_flutter), or the tooling that the flutter team uses in their own component docs which takes comments from the code and turns them into live code examples.
+`/lib` contains all the code for the flutter authenticator. This is the code that would be included in a shippable flutter package. `lib/amplify_authenticator.dart` contain all the public exports for the package. The public exports are a set of (authenticator) widgets, and some types.
 
-If this were to actually be published as a package, the code under `/lib/stories` would either be broken out into a spearate project, or moved under `/example`. They are included in the main project for ease of development.
+`/example/amplify_authenticator` contains the the customer use cases for an Authenticator widget. Each directory represents one use case. `main.dart` configures amplify auth and displays a list of buttons that will open the different use cases.
+
+The code from the stories has been copied into the readme to make it easy to view. Long term, it would probably make sense to look into something like [Dashbook](https://github.com/erickzanardo/dashbook), [storybook_flutter](https://github.com/ookami-kb/storybook_flutter), or the tooling that the flutter team uses in their own component docs which takes comments from the code and turns them into live code examples.
 
 ## TODO
 
