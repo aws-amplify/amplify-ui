@@ -12,16 +12,16 @@ class AuthenticatorState {
   const AuthenticatorState({
     this.step = AuthenticatorStep.signIn,
     this.isloading = false,
-    this.usernameFormFieldState = const FormFieldState(
+    this.usernameFormFieldState = const AuthenticatorFormFieldState(
       label: 'Username',
     ),
-    this.emailFormFieldState = const FormFieldState(
+    this.emailFormFieldState = const AuthenticatorFormFieldState(
       label: 'Email',
     ),
-    this.passwordFormFieldState = const FormFieldState(
+    this.passwordFormFieldState = const AuthenticatorFormFieldState(
       label: 'Password',
     ),
-    this.verificationCodeFormFieldState = const FormFieldState(
+    this.verificationCodeFormFieldState = const AuthenticatorFormFieldState(
       label: 'Verification Code',
     ),
     @required this.onSignInSuccess,
@@ -30,21 +30,21 @@ class AuthenticatorState {
   final AuthenticatorStep step;
   final bool isloading;
   // AuthException _authException;
-  final FormFieldState usernameFormFieldState;
-  final FormFieldState emailFormFieldState;
-  final FormFieldState passwordFormFieldState;
+  final AuthenticatorFormFieldState usernameFormFieldState;
+  final AuthenticatorFormFieldState emailFormFieldState;
+  final AuthenticatorFormFieldState passwordFormFieldState;
 
-  final FormFieldState verificationCodeFormFieldState;
+  final AuthenticatorFormFieldState verificationCodeFormFieldState;
 
   final Function onSignInSuccess;
 
   AuthenticatorState copyWith({
     AuthenticatorStep step,
     bool isloading,
-    FormFieldState usernameFormFieldState,
-    FormFieldState emailFormFieldState,
-    FormFieldState passwordFormFieldState,
-    FormFieldState verificationCodeFormFieldState,
+    AuthenticatorFormFieldState usernameFormFieldState,
+    AuthenticatorFormFieldState emailFormFieldState,
+    AuthenticatorFormFieldState passwordFormFieldState,
+    AuthenticatorFormFieldState verificationCodeFormFieldState,
     Function onSignInSuccess,
   }) {
     return AuthenticatorState(
@@ -88,25 +88,25 @@ class AuthenticatorState {
 }
 
 @immutable
-class FormFieldState {
+class AuthenticatorFormFieldState {
   final String value;
   final String label;
   final String hint;
   final String validationMessage;
-  const FormFieldState({
+  const AuthenticatorFormFieldState({
     this.value = '',
     this.label = '',
     this.hint = '',
     this.validationMessage,
   });
 
-  FormFieldState copyWith({
+  AuthenticatorFormFieldState copyWith({
     String value,
     String label,
     String hint,
     String validationMessage,
   }) {
-    return FormFieldState(
+    return AuthenticatorFormFieldState(
       value: value ?? this.value,
       label: label ?? this.label,
       hint: hint ?? this.hint,
@@ -122,7 +122,7 @@ class FormFieldState {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     if (other.runtimeType != runtimeType) return false;
-    final FormFieldState otherModel = other;
+    final AuthenticatorFormFieldState otherModel = other;
     return otherModel.value == value &&
         otherModel.label == label &&
         otherModel.hint == hint &&
