@@ -1,6 +1,6 @@
-import 'package:amplify_authenticator/stories/viewUserInfo.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_authenticator/authenticator/components/materialAuthenticator.dart';
+import '../viewUserInfo.dart';
 
 const _primary = const Color(0xFFFAAAAA);
 const _secondary = const Color(0xFF5C83C9);

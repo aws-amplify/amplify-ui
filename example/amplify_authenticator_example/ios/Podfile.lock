@@ -1,0 +1,106 @@
+PODS:
+  - Amplify (1.7.0):
+    - Amplify/Default (= 1.7.0)
+  - Amplify/Default (1.7.0)
+  - amplify_analytics_pinpoint (0.0.1):
+    - Amplify
+    - amplify_core
+    - AmplifyPlugins/AWSPinpointAnalyticsPlugin
+    - Flutter
+  - amplify_auth_cognito (0.0.1):
+    - Amplify
+    - amplify_core
+    - AmplifyPlugins/AWSCognitoAuthPlugin
+    - Flutter
+    - ObjectMapper
+  - amplify_core (0.0.1):
+    - Flutter
+  - amplify_flutter (0.0.1):
+    - Amplify
+    - amplify_core
+    - AmplifyPlugins/AWSCognitoAuthPlugin
+    - AWSPluginsCore
+    - Flutter
+  - AmplifyPlugins/AWSCognitoAuthPlugin (1.7.0):
+    - AWSAuthCore (~> 2.23.0)
+    - AWSCognitoIdentityProvider (~> 2.23.0)
+    - AWSCognitoIdentityProviderASF (~> 2.23.0)
+    - AWSCore (~> 2.23.0)
+    - AWSMobileClient (~> 2.23.0)
+    - AWSPluginsCore (= 1.7.0)
+  - AmplifyPlugins/AWSPinpointAnalyticsPlugin (1.7.0):
+    - AWSCore (~> 2.23.0)
+    - AWSPinpoint (~> 2.23.0)
+    - AWSPluginsCore (= 1.7.0)
+  - AWSAuthCore (2.23.2):
+    - AWSCore (= 2.23.2)
+  - AWSCognitoIdentityProvider (2.23.2):
+    - AWSCognitoIdentityProviderASF (= 2.23.2)
+    - AWSCore (= 2.23.2)
+  - AWSCognitoIdentityProviderASF (2.23.2)
+  - AWSCore (2.23.2)
+  - AWSMobileClient (2.23.2):
+    - AWSAuthCore (= 2.23.2)
+    - AWSCognitoIdentityProvider (= 2.23.2)
+    - AWSCognitoIdentityProviderASF (= 2.23.2)
+    - AWSCore (= 2.23.2)
+  - AWSPinpoint (2.23.2):
+    - AWSCore (= 2.23.2)
+  - AWSPluginsCore (1.7.0):
+    - Amplify (= 1.7.0)
+    - AWSCore (~> 2.23.0)
+  - Flutter (1.0.0)
+  - ObjectMapper (4.2.0)
+
+DEPENDENCIES:
+  - amplify_analytics_pinpoint (from `.symlinks/plugins/amplify_analytics_pinpoint/ios`)
+  - amplify_auth_cognito (from `.symlinks/plugins/amplify_auth_cognito/ios`)
+  - amplify_core (from `.symlinks/plugins/amplify_core/ios`)
+  - amplify_flutter (from `.symlinks/plugins/amplify_flutter/ios`)
+  - Flutter (from `Flutter`)
+
+SPEC REPOS:
+  trunk:
+    - Amplify
+    - AmplifyPlugins
+    - AWSAuthCore
+    - AWSCognitoIdentityProvider
+    - AWSCognitoIdentityProviderASF
+    - AWSCore
+    - AWSMobileClient
+    - AWSPinpoint
+    - AWSPluginsCore
+    - ObjectMapper
+
+EXTERNAL SOURCES:
+  amplify_analytics_pinpoint:
+    :path: ".symlinks/plugins/amplify_analytics_pinpoint/ios"
+  amplify_auth_cognito:
+    :path: ".symlinks/plugins/amplify_auth_cognito/ios"
+  amplify_core:
+    :path: ".symlinks/plugins/amplify_core/ios"
+  amplify_flutter:
+    :path: ".symlinks/plugins/amplify_flutter/ios"
+  Flutter:
+    :path: Flutter
+
+SPEC CHECKSUMS:
+  Amplify: 4cdf0631faffa42a47dc24affa6d84c555ca2f6a
+  amplify_analytics_pinpoint: df3010eb49161ada82712a6b74d3f77296ac561e
+  amplify_auth_cognito: 2e090a788d0ba4e08f6438170b1e7aac872782b4
+  amplify_core: 8b38d20089fe4f225c14db6892f586bd03824a42
+  amplify_flutter: d64b45e3a016e491bbb2e110fee57e150daf2164
+  AmplifyPlugins: dcf678f54171ce6d6367b79d5149bda5f47d9f9e
+  AWSAuthCore: 59770d4c2c1b3dbb183b95d1867e3584b4816e54
+  AWSCognitoIdentityProvider: 5bd6988ea7c8f9ee43151e19bdd8e803558ad45f
+  AWSCognitoIdentityProviderASF: 30ccb19228b6e743805bf15a72278ca9f399bc21
+  AWSCore: 70f79e95ee30f8eefa7122391d76ace516778f22
+  AWSMobileClient: 54fd215e76e34a8edb3cb1199788a69543cebc95
+  AWSPinpoint: 029f14a743b94d105a6f41ee62cd0240346e7266
+  AWSPluginsCore: d4593ef79107b15a02597705b63c9c915a946ee9
+  Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
+  ObjectMapper: 1eb41f610210777375fa806bf161dc39fb832b81
+
+PODFILE CHECKSUM: 7368163408c647b7eb699d0d788ba6718e18fb8d
+
+COCOAPODS: 1.10.1
