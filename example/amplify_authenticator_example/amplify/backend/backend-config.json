@@ -1,0 +1,16 @@
+{
+  "auth": {
+    "amplifyauthenticatoraee3cbcc": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false
+    }
+  },
+  "analytics": {
+    "amplifyauthenticator": {
+      "service": "Pinpoint",
+      "providerPlugin": "awscloudformation"
+    }
+  }
+}

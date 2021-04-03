@@ -1,0 +1,54 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-amplifyauthenticator-dev-153649-authRole",
+      "UnauthRoleArn": "arn:aws:iam::055346554872:role/amplify-amplifyauthenticator-dev-153649-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::055346554872:role/amplify-amplifyauthenticator-dev-153649-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-amplifyauthenticator-dev-153649-deployment",
+      "UnauthRoleName": "amplify-amplifyauthenticator-dev-153649-unauthRole",
+      "StackName": "amplify-amplifyauthenticator-dev-153649",
+      "StackId": "arn:aws:cloudformation:us-east-1:055346554872:stack/amplify-amplifyauthenticator-dev-153649/46f1e1a0-918f-11eb-8f30-12312be5d5ed",
+      "AmplifyAppId": "dn09mxwsq29s6"
+    }
+  },
+  "auth": {
+    "amplifyauthenticatoraee3cbcc": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false,
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-amplifyauthenticator-dev-153649-deployment/amplify-cfn-templates/auth/amplifyauthenticatoraee3cbcc-cloudformation-template.yml",
+        "logicalId": "authamplifyauthenticatoraee3cbcc"
+      },
+      "lastPushTimeStamp": "2021-03-30T19:46:41.487Z",
+      "output": {
+        "UserPoolId": "us-east-1_gCooSMfTJ",
+        "AppClientIDWeb": "7r79jof4dt5t50jcmoe8vnkd3h",
+        "AppClientID": "49iht1tpm5uinj131kmereqdoc",
+        "IdentityPoolId": "us-east-1:b29ec648-735d-4cab-a569-d24a756310c7",
+        "IdentityPoolName": "amplifyauthenticatoraee3cbcc_identitypool_aee3cbcc__dev",
+        "UserPoolName": "amplifyauthenticatoraee3cbcc_userpool_aee3cbcc"
+      },
+      "lastPushDirHash": "4u1/A8/SKMuI106Bh+8ZxWpmEFM="
+    }
+  },
+  "analytics": {
+    "amplifyauthenticator": {
+      "service": "Pinpoint",
+      "providerPlugin": "awscloudformation",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-amplifyauthenticator-dev-153649-deployment/amplify-cfn-templates/analytics/pinpoint-cloudformation-template.json",
+        "logicalId": "analyticsamplifyauthenticator"
+      },
+      "lastPushTimeStamp": "2021-03-30T19:46:41.487Z",
+      "output": {
+        "appName": "amplifyauthenticator-dev",
+        "Region": "us-east-1",
+        "Id": "bff1f739112346cf974e5750bca9dad5"
+      },
+      "lastPushDirHash": "olq7fyMme6iihMiBTbBwSbFe3Jg="
+    }
+  }
+}
