@@ -53,8 +53,10 @@ class MaterialAuthenticatorBuilder extends StatelessWidget {
   MaterialAuthenticatorBuilder({
     @required this.onSignInSuccess,
     @required this.builder,
+    this.onStepChange,
   });
   final Function onSignInSuccess;
+  final Function(AuthenticatorStep) onStepChange;
   final Widget Function(BuildContext, AuthenticatorState) builder;
 
   @override
@@ -62,6 +64,7 @@ class MaterialAuthenticatorBuilder extends StatelessWidget {
     return AuthenticatorStateProvider(
       initialModel: AuthenticatorState(
         onSignInSuccess: this.onSignInSuccess,
+        onStepChange: this.onStepChange,
       ),
       child: Builder(
         builder: (context) {

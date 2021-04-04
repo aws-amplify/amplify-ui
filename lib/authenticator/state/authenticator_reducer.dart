@@ -218,6 +218,31 @@ Future<AuthenticatorAction> authenticatorSideEffectsHandler(
             action.authException.message);
     }
   }
+  // navigation
+  if (action is NavigateToSignInAction) {
+    if (state.onStepChange == null) {
+      return null;
+    }
+    return state.onStepChange(AuthenticatorStep.signIn);
+  }
+  if (action is NavigateToSignUpAction) {
+    if (state.onStepChange == null) {
+      return null;
+    }
+    return state.onStepChange(AuthenticatorStep.signUp);
+  }
+  if (action is NavigateToResetPasswordAction) {
+    if (state.onStepChange == null) {
+      return null;
+    }
+    return state.onStepChange(AuthenticatorStep.resetPassword);
+  }
+  if (action is SignUpSuccessAction) {
+    if (state.onStepChange == null) {
+      return null;
+    }
+    return state.onStepChange(AuthenticatorStep.confirmSignUp);
+  }
   return null;
 }
 
@@ -239,6 +264,8 @@ Map<String, AuthExceptionField> authExceptionFieldLookup = {
   'Username is required to signIn': AuthExceptionField.username,
   'Invalid email address format.': AuthExceptionField.email,
   'Incorrect username or password.': AuthExceptionField.password,
+  'Password did not conform with policy: Password not long enough':
+      AuthExceptionField.password,
   'Invalid verification code provided, please try again.':
       AuthExceptionField.verificationCode,
 };
