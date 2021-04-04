@@ -9,6 +9,7 @@ import 'stories/cupertino/cupertinoAuthenticatorExample.dart';
 import 'stories/material/materialAuthenticatorExample.dart';
 import 'stories/materialTheme/materialThemeExample.dart';
 import 'stories/materialCustomStyles/materialCustomStylesExample.dart';
+import 'stories/customWorkflow/customWorkflowExample.dart';
 
 void main() {
   runApp(DemoApp());
@@ -103,6 +104,15 @@ class AuthStories extends StatelessWidget {
                     ),
                   ),
                   child: const Text('Cupertino Default Example'),
+                ),
+                ElevatedButton(
+                  onPressed: () => Navigator.push(
+                    context,
+                    CupertinoPageRoute(
+                      builder: (context) => CustomWorkflowExample(),
+                    ),
+                  ),
+                  child: const Text('Custom Workflow Example'),
                 ),
               ],
             ),
