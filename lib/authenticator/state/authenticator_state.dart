@@ -25,6 +25,7 @@ class AuthenticatorState {
       label: 'Verification Code',
     ),
     @required this.onSignInSuccess,
+    this.onStepChange,
   });
 
   final AuthenticatorStep step;
@@ -37,6 +38,7 @@ class AuthenticatorState {
   final AuthenticatorFormFieldState verificationCodeFormFieldState;
 
   final Function onSignInSuccess;
+  final Function(AuthenticatorStep) onStepChange;
 
   AuthenticatorState copyWith({
     AuthenticatorStep step,
@@ -46,6 +48,7 @@ class AuthenticatorState {
     AuthenticatorFormFieldState passwordFormFieldState,
     AuthenticatorFormFieldState verificationCodeFormFieldState,
     Function onSignInSuccess,
+    Function(AuthenticatorStep) onStepChange,
   }) {
     return AuthenticatorState(
       step: step ?? this.step,
@@ -58,6 +61,7 @@ class AuthenticatorState {
       verificationCodeFormFieldState:
           verificationCodeFormFieldState ?? this.verificationCodeFormFieldState,
       onSignInSuccess: onSignInSuccess ?? this.onSignInSuccess,
+      onStepChange: onStepChange ?? this.onStepChange,
     );
   }
 
@@ -73,7 +77,8 @@ class AuthenticatorState {
         otherModel.passwordFormFieldState == passwordFormFieldState &&
         otherModel.verificationCodeFormFieldState ==
             verificationCodeFormFieldState &&
-        otherModel.onSignInSuccess == onSignInSuccess;
+        otherModel.onSignInSuccess == onSignInSuccess &&
+        otherModel.onStepChange == onStepChange;
   }
 
   @override
@@ -84,7 +89,8 @@ class AuthenticatorState {
       emailFormFieldState.hashCode ^
       passwordFormFieldState.hashCode ^
       verificationCodeFormFieldState.hashCode ^
-      onSignInSuccess.hashCode;
+      onSignInSuccess.hashCode ^
+      onStepChange.hashCode;
 }
 
 @immutable
