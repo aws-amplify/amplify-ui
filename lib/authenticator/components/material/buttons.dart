@@ -91,7 +91,12 @@ class ConfirmVerificationCodeButton extends StatelessWidget {
                 context,
                 ConfirmSignUpAction(),
               ),
-      child: Text('Confirm Code'),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text('Confirm Code'),
+        ],
+      ),
     );
   }
 }
@@ -105,7 +110,12 @@ class ResetPasswordButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () => print('not implemented'),
-      child: Text('Send Code'),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text('Send Code'),
+        ],
+      ),
     );
   }
 }
@@ -153,7 +163,12 @@ class SignInButton extends StatelessWidget {
                 context,
                 SignInAction(),
               ),
-      child: Text('Sign In'),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text('Sign In'),
+        ],
+      ),
     );
   }
 }
