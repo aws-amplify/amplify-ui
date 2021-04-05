@@ -12,10 +12,10 @@
         />
       </template>
 
-      <template #sign-in-button="{ onSignInButtonClicked}">
+      <template #sign-in-button="{ onSignInSubmit}">
         <slot
           name="authenticator-si--sign-in-button"
-          :onSignInButtonClicked="onSignInButtonClicked"
+          :onSignInSubmit="onSignInSubmit"
         />
       </template>
 
@@ -31,24 +31,22 @@
         <slot name="authenticator-si--full-name"></slot>
       </template>
 
-      <template
-        #footer="{ info, onSignInButtonClicked, onCreateAccountClicked  }"
-      >
+      <template #footer="{ info, onSignInSubmit, onCreateAccountClicked  }">
         <slot
           name="authenticator-si--footer"
           :info="info"
-          :onSignInButtonClicked="onSignInButtonClicked"
+          :onSignInSubmit="onSignInSubmit"
           :onCreateAccountClicked="onCreateAccountClicked"
         >
         </slot>
       </template>
 
       <template
-        #additional-fields="{ onSignInButtonClicked, onCreateAccountClicked  }"
+        #additional-fields="{ onSignInSubmit, onCreateAccountClicked  }"
       >
         <slot
           name="authenticator-si--additional-fields"
-          :onSignInButtonClicked="onSignInButtonClicked"
+          :onSignInSubmit="onSignInSubmit"
           :onCreateAccountClicked="onCreateAccountClicked"
         >
         </slot>
@@ -73,7 +71,7 @@
       <template #footer-right="{ onSignUpSubmit }">
         <slot
           name="authenticator-su--footer-right"
-          :onSignInButtonClicked="onSignUpSubmit"
+          :onSignInSubmit="onSignUpSubmit"
         ></slot>
       </template>
 

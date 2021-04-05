@@ -150,7 +150,7 @@ export default defineComponent({
 
     const onSignUpSubmit = (e): void => {
       if (attrs?.onSignUpSubmit) {
-        emit("signUpButtonClicked", e);
+        emit("signUpSubmit", e);
       } else {
         const phoneS = phone.value.replace(/[^A-Z0-9+]/gi, "");
 
