@@ -53,8 +53,8 @@
       </template>
     </SignIn>
     <SignUp v-if="state?.matches('signUp')">
-      <template #additional-fields>
-        <slot name="authenticator-su--additional-fields"></slot>
+      <template #signup-fields="{info}">
+        <slot name="authenticator-su--signup-fields" :info="info"></slot>
       </template>
 
       <template #signUpSlotI>
@@ -71,7 +71,7 @@
       <template #footer-right="{ onSignUpSubmit }">
         <slot
           name="authenticator-su--footer-right"
-          :onSignInSubmit="onSignUpSubmit"
+          :onSignUpSubmit="onSignUpSubmit"
         ></slot>
       </template>
 
