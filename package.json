@@ -1,8 +1,9 @@
 {
   "private": true,
   "scripts": {
-    "dev": "cd docs && yarn dev",
+    "docs": "yarn --cwd docs dev",
     "dev:vue": "cd vue-docs && yarn docs:dev --port 3001",
+    "expo-managed": "yarn --cwd examples/expo-managed",
     "postinstall": "expo-yarn-workspaces check-workspace-dependencies"
   },
   "workspaces": [
