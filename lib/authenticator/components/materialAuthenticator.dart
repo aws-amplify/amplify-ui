@@ -1,326 +1,77 @@
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/material.dart';
-import '../models/authenticationState.dart';
 
-class MaterialAuthenticator extends StatefulWidget {
-  MaterialAuthenticator({@required this.onSignInSuccess});
+import '../authenticator.dart';
+import 'material/confirm_sign_up_view.dart';
+import 'material/forgot_password_view.dart';
+import 'material/sign_in_view.dart';
+import 'material/sign_up_view.dart';
 
+/// MaterialAuthenticator is an authenticator widget build with Material Widgets.
+///
+/// To use it in a non-material app, be sure to wrap in in a Material() widget.
+///
+/// The widget will use the styles from the application's ThemeData.
+/// To style this widget without changing the entire app's ThemeData, wrap this widget in a
+/// Theme() widget and provide the appropriate themeData.
+class MaterialAuthenticator extends StatelessWidget {
+  MaterialAuthenticator({
+    @required this.onSignInSuccess,
+  });
   final Function onSignInSuccess;
-  @override
-  _MaterialAuthenticatorState createState() => _MaterialAuthenticatorState();
-}
-
-class _MaterialAuthenticatorState extends State<MaterialAuthenticator> {
-  Future signUp(BuildContext context) async {
-    if (_formKey.currentState.validate()) {
-      _formKey.currentState.save();
-      setState(() {
-        _loading = true;
-      });
-      try {
-        Map<String, String> userAttributes = {
-          'email': _email.trim(),
-        };
-        SignUpResult signUpResult = await Amplify.Auth.signUp(
-          username: _username.trim(),
-          password: _password,
-          options: CognitoSignUpOptions(userAttributes: userAttributes),
-        );
-        setState(() {
-          _loading = false;
-          _authenticationState = AuthenticationState.confirmSignUp;
-        });
-      } on AuthException catch (e) {
-        print(e.message);
-        setState(() {
-          _loading = false;
-        });
-      }
-    }
-  }
-
-  Future signIn(BuildContext context) async {
-    if (_formKey.currentState.validate()) {
-      _formKey.currentState.save();
-      setState(() {
-        _loading = true;
-      });
-      try {
-        SignInResult signInResult = await Amplify.Auth.signIn(
-          username: _username.trim(),
-          password: _password,
-        );
-        setState(() {
-          _loading = false;
-        });
-        if (signInResult.isSignedIn) {
-          this.widget.onSignInSuccess();
-        }
-      } on AuthException catch (e) {
-        debugPrint(e.message);
-        setState(() {
-          _loading = true;
-        });
-      }
-    }
-  }
-
-  Future confirmSignUp(BuildContext context) async {
-    if (_formKey.currentState.validate()) {
-      _formKey.currentState.save();
-      setState(() {
-        _loading = true;
-      });
-      try {
-        SignUpResult signUpResult = await Amplify.Auth.confirmSignUp(
-          username: _username.trim(),
-          confirmationCode: _verificationCode.trim(),
-        );
-        if (signUpResult.isSignUpComplete) {
-          this.signIn(context);
-        }
-        setState(() {
-          _loading = false;
-        });
-      } on AuthException catch (e) {
-        setState(() {
-          _loading = true;
-        });
-      }
-    }
-  }
-
-  bool _loading = false;
-  String _username = '';
-  String _email = '';
-  String _password = '';
-  String _verificationCode = '';
-  AuthenticationState _authenticationState = AuthenticationState.signIn;
-  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    // the Form widget is wrapped in a Material widget so that it can be used inside a non-material app
-    // this is probably not common use case and is debateble if we even want to support it
-    return Material(
-      child: Form(
-        key: _formKey,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            if (_showUsername(_authenticationState)) ...[
-              TextFormField(
-                key: Key('username-field'),
-                decoration: InputDecoration(labelText: 'Username'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a username.';
-                  }
-                  return null;
-                },
-                onSaved: (value) {
-                  setState(() {
-                    _username = value;
-                  });
-                },
-              ),
-              SizedBox(height: 12.0),
-            ],
-            if (_showEmail(_authenticationState)) ...[
-              TextFormField(
-                key: Key('email-field'),
-                decoration: InputDecoration(labelText: 'Email'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter an email.';
-                  }
-                  return null;
-                },
-                onSaved: (value) {
-                  setState(() {
-                    _email = value;
-                  });
-                },
-              ),
-              SizedBox(height: 12.0),
-            ],
-            if (_showPassword(_authenticationState)) ...[
-              TextFormField(
-                key: Key('password-field'),
-                decoration: InputDecoration(
-                  labelText: 'Password',
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a password.';
-                  }
-                  return null;
-                },
-                onSaved: (value) {
-                  setState(() {
-                    _password = value;
-                  });
-                },
-                obscureText: true,
-              ),
-              // don't apply the spacing if the forgot password button will be displayed
-              if (!_showForgotPassword(_authenticationState))
-                SizedBox(height: 12.0),
-            ],
-            if (_showForgotPassword(_authenticationState)) ...[
-              Row(
-                children: [
-                  Text('Forgot your password?'),
-                  TextButton(
-                    onPressed: () {
-                      setState(
-                        () {
-                          _authenticationState =
-                              AuthenticationState.resetPassword;
-                        },
-                      );
-                    },
-                    child: Text('Reset Password'),
-                  )
-                ],
-              ),
-              SizedBox(height: 12.0),
-            ],
-            if (_showVerificationCode(_authenticationState)) ...[
-              TextFormField(
-                key: Key('verification-code-field'),
-                decoration: InputDecoration(
-                  labelText: 'Verification Code',
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please the code that was sent to your email.';
-                  }
-                  return null;
-                },
-                onSaved: (value) {
-                  setState(() {
-                    _verificationCode = value;
-                  });
-                },
-                obscureText: true,
-              ),
-              SizedBox(height: 12.0),
-            ],
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                _buildSecondaryCTA(),
-                _buildPrimaryCTA(),
-              ],
-            )
-          ],
-        ),
-      ),
+    return MaterialAuthenticatorBuilder(
+      onSignInSuccess: this.onSignInSuccess,
+      builder: (context, state) {
+        switch (state.step) {
+          case AuthenticatorStep.signIn:
+            return MaterialSignInView();
+          case AuthenticatorStep.signUp:
+            return MaterialSignUpView();
+          case AuthenticatorStep.confirmSignUp:
+            return MaterialConfirmSignUpView();
+          case AuthenticatorStep.resetPassword:
+            return MaterialForgotPasswordView();
+          default:
+            throw ('Invalid authentication state. AuthenticatorStep must not be null');
+            return null;
+        }
+      },
     );
-  }
-
-  _buildPrimaryCTA() {
-    switch (_authenticationState) {
-      case AuthenticationState.signIn:
-        return ElevatedButton(
-          onPressed: _loading ? null : () => signIn(context),
-          child: Text('Sign In'),
-        );
-      case AuthenticationState.signUp:
-        return ElevatedButton(
-          onPressed: _loading ? null : () => signUp(context),
-          child: Text('Sign Up'),
-        );
-      case AuthenticationState.resetPassword:
-        return ElevatedButton(
-          onPressed: _loading ? null : () => print('not implemented'),
-          child: Text('Send Code'),
-        );
-      case AuthenticationState.confirmSignUp:
-        return ElevatedButton(
-          onPressed: _loading ? null : () => confirmSignUp(context),
-          child: Text('Confirm Code'),
-        );
-      default:
-        // return empty container in any other case
-        return Container();
-    }
-  }
-
-  _buildSecondaryCTA() {
-    switch (_authenticationState) {
-      case AuthenticationState.signIn:
-        return Row(
-          key: Key('sign-up-button'),
-          children: [
-            Text('No Account?'),
-            TextButton(
-              onPressed: () {
-                setState(
-                  () {
-                    _authenticationState = AuthenticationState.signUp;
-                  },
-                );
-              },
-              child: Text('Sign Up'),
-            ),
-          ],
-        );
-      case AuthenticationState.signUp:
-        return Row(
-          children: [
-            Text('Have an Account?'),
-            TextButton(
-              key: Key('sign-in-button'),
-              onPressed: () {
-                setState(
-                  () {
-                    _authenticationState = AuthenticationState.signIn;
-                  },
-                );
-              },
-              child: Text('Sign In'),
-            ),
-          ],
-        );
-      case AuthenticationState.resetPassword:
-        return TextButton(
-          // remove default material padding to left align
-          style: TextButton.styleFrom(padding: EdgeInsets.zero),
-          key: Key('back-to-sign-in-button'),
-          onPressed: () {
-            setState(
-              () {
-                _authenticationState = AuthenticationState.signIn;
-              },
-            );
-          },
-          child: Text('Back to Sign In'),
-        );
-      default:
-        // return empty container in any other case
-        return Container();
-    }
   }
 }
 
-_showUsername(AuthenticationState authenticationState) =>
-    authenticationState == AuthenticationState.signIn ||
-    authenticationState == AuthenticationState.signUp ||
-    authenticationState == AuthenticationState.resetPassword;
+/// MaterialAuthenticatorBuilder provides a more flexible way to build an authenticator widget
+///
+/// Most use cases can be met with [MaterialAuthenticator], and custom themes, but MaterialAuthenticatorBuilder
+/// can be used to build more custom authentication workflows without having to build the full
+/// flow from scratch
+///
+/// [MaterialAuthenticator] is built using MaterialAuthenticatorBuilder, and can be referenced as an example
+class MaterialAuthenticatorBuilder extends StatelessWidget {
+  MaterialAuthenticatorBuilder({
+    @required this.onSignInSuccess,
+    @required this.builder,
+    this.onStepChange,
+  });
+  final Function onSignInSuccess;
+  final Function(AuthenticatorStep) onStepChange;
+  final Widget Function(BuildContext, AuthenticatorState) builder;
 
-_showEmail(AuthenticationState authenticationState) =>
-    authenticationState == AuthenticationState.signUp;
-
-_showPassword(AuthenticationState authenticationState) =>
-    authenticationState == AuthenticationState.signIn ||
-    authenticationState == AuthenticationState.signUp;
-
-_showVerificationCode(AuthenticationState authenticationState) =>
-    authenticationState == AuthenticationState.confirmSignUp;
-
-_showForgotPassword(AuthenticationState authenticationState) =>
-    authenticationState == AuthenticationState.signIn;
+  @override
+  Widget build(BuildContext context) {
+    return AuthenticatorStateProvider(
+      initialModel: AuthenticatorState(
+        onSignInSuccess: this.onSignInSuccess,
+        onStepChange: this.onStepChange,
+      ),
+      child: Builder(
+        builder: (context) {
+          AuthenticatorState state = AuthenticatorStateProvider.of(context);
+          return builder(context, state);
+        },
+      ),
+    );
+  }
+}
