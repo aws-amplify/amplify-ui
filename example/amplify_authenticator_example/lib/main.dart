@@ -52,6 +52,17 @@ class _DemoAppState extends State<DemoApp> {
   }
 }
 
+class ExampleListTileItem {
+  final Widget view;
+  final String title;
+  final String subtitle;
+  ExampleListTileItem({
+    @required this.view,
+    @required this.title,
+    @required this.subtitle,
+  });
+}
+
 class AuthStories extends StatelessWidget {
   const AuthStories({
     Key key,
@@ -59,6 +70,43 @@ class AuthStories extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<ExampleListTileItem> exampleListTileItems = [
+      ExampleListTileItem(
+        view: MaterialAuthenticatorExample(),
+        title: 'Material Default Example',
+        subtitle: 'A simple example using the MaterialAuthenticator component.',
+      ),
+      ExampleListTileItem(
+        view: MaterialThemeExample(),
+        title: 'Material Themed Example ',
+        subtitle:
+            'An example using the MaterialAuthenticator component with a non-default material theme.',
+      ),
+      ExampleListTileItem(
+        view: MaterialCustomeStylesExample(),
+        title: 'Custom Design Example ',
+        subtitle:
+            'An example using the MaterialAuthenticator component with a more customized theme.',
+      ),
+      ExampleListTileItem(
+        view: CustomWorkflowExample(),
+        title: 'Custom Workflow ',
+        subtitle:
+            'An example using the MaterialAuthenticatorBuilder component to build a custom workflow.',
+      ),
+      ExampleListTileItem(
+        view: AnimationExample(),
+        title: 'Custom Animation Example ',
+        subtitle:
+            'An example using the MaterialAuthenticatorBuilder component to create custom animations between views.',
+      ),
+      ExampleListTileItem(
+        view: CupertinoAuthenticatorExample(),
+        title: 'Cupertino Example ',
+        subtitle:
+            'A simple example using the CupertinoAuthenticator component.',
+      ),
+    ];
     return Scaffold(
       appBar: AppBar(
         title: const Text('Authenticator Stories'),
@@ -66,57 +114,21 @@ class AuthStories extends StatelessWidget {
       body: ListView(
         padding: EdgeInsets.all(10.0),
         children: <Widget>[
-          Center(
-            child: Column(
-              children: [
-                const Padding(padding: EdgeInsets.all(5.0)),
-                ElevatedButton(
-                  onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => MaterialThemeExample(),
-                    ),
+          ...exampleListTileItems.map(
+            (exampleListTileItem) {
+              return ListTile(
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => exampleListTileItem.view,
                   ),
-                  child: const Text('Material Theme Example'),
                 ),
-                ElevatedButton(
-                  onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => MaterialCustomeStylesExample(),
-                    ),
-                  ),
-                  child: const Text('Material Custom Styles'),
-                ),
-                ElevatedButton(
-                  onPressed: () => Navigator.push(
-                    context,
-                    CupertinoPageRoute(
-                      builder: (context) => CupertinoAuthenticatorExample(),
-                    ),
-                  ),
-                  child: const Text('Cupertino Default Example'),
-                ),
-                ElevatedButton(
-                  onPressed: () => Navigator.push(
-                    context,
-                    CupertinoPageRoute(
-                      builder: (context) => CustomWorkflowExample(),
-                    ),
-                  ),
-                  child: const Text('Custom Workflow Example'),
-                ),
-                ElevatedButton(
-                  onPressed: () => Navigator.push(
-                    context,
-                    CupertinoPageRoute(
-                      builder: (context) => AnimationExample(),
-                    ),
-                  ),
-                  child: const Text('Animation Example'),
-                ),
-              ],
-            ),
+                isThreeLine: true,
+                title: Text(exampleListTileItem.title),
+                subtitle: Text(exampleListTileItem.subtitle),
+                trailing: Icon(Icons.chevron_right),
+              );
+            },
           ),
         ],
       ),
