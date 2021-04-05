@@ -1,0 +1,9 @@
+{
+  "private": true,
+  "name": "@aws-amplify/ui-react-native",
+  "version": "0.0.1",
+  "dependencies": {
+    "@aws-amplify/ui-react": "^0.0.1",
+    "tailwind-rn": "^3.0.1"
+  }
+}

@@ -9,7 +9,7 @@ import {
   Button,
   Heading,
   theme,
-} from "@aws-amplify/ui-react";
+} from "@aws-amplify/ui-react-native";
 
 Amplify.configure({
 });
