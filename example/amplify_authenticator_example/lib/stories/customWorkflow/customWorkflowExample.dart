@@ -44,7 +44,7 @@ class CustomWorkflowExample extends StatelessWidget {
               if (step == AuthenticatorStep.confirmSignUp) {
                 controller.nextPage(
                   duration: Duration(milliseconds: 250),
-                  curve: Curves.easeIn,
+                  curve: Curves.easeInOutCubic,
                 );
               }
             },
@@ -69,7 +69,7 @@ class CustomWorkflowExample extends StatelessWidget {
                       ElevatedButton(
                         onPressed: () => controller.nextPage(
                           duration: Duration(milliseconds: 250),
-                          curve: Curves.easeIn,
+                          curve: Curves.easeInOutCubic,
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -97,7 +97,7 @@ class CustomWorkflowExample extends StatelessWidget {
                             ? null
                             : () => controller.nextPage(
                                   duration: Duration(milliseconds: 250),
-                                  curve: Curves.easeIn,
+                                  curve: Curves.easeInOutCubic,
                                 ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -128,7 +128,7 @@ class CustomWorkflowExample extends StatelessWidget {
                             ? null
                             : () => controller.nextPage(
                                   duration: Duration(milliseconds: 250),
-                                  curve: Curves.easeIn,
+                                  curve: Curves.easeInOutCubic,
                                 ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -185,7 +185,7 @@ class CustomWorkflowExample extends StatelessWidget {
     return TextButton(
       onPressed: () => controller.previousPage(
         duration: Duration(milliseconds: 250),
-        curve: Curves.easeIn,
+        curve: Curves.easeInOutCubic,
       ),
       child: Text('Previous'),
     );
