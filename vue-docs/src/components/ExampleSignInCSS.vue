@@ -19,9 +19,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import { AmplifyProvider, Authenticator, useAuth } from '@aws-amplify/ui-vue';
-import Example from './Example.vue';
+import { defineComponent } from "vue";
+import { AmplifyProvider, Authenticator, useAuth } from "@aws-amplify/ui-vue";
+import Example from "./Example.vue";
 
 export default defineComponent({
   components: {
@@ -48,6 +48,13 @@ export default defineComponent({
         </authenticator>
       </amplify-provider>
     </div>
+
+
+   <script setup>
+    import { Authenticator, AmplifyProvider } from "@aws-amplify/spark-vue";
+
+    import "@aws-amplify/ui-vue/styles.css";
+   <\/script
 
     <style>
       .css-example
