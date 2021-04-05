@@ -66,12 +66,15 @@
 
   <example-sign-in-CSS> </example-sign-in-CSS>
 
-  <Example :title="'Add confirm password'">
+  <Example :title="'Add confirm password'" :code="confirmPassword">
     <amplify-provider defaults>
       <authenticator>
         <template #sign-up>
           <sign-up @sign-up-submit="over">
-            <template #additional-fields="">
+            <template #signup-fields>
+              <h4>hello world</h4>
+              <SignUpUsernameControl />
+              <SignUpPasswordControl />
               <div class="">
                 <h3>Confirm Password</h3>
                 <input
@@ -83,6 +86,8 @@
                   Passwords do not match.
                 </div>
               </div>
+              <SignUpEmailControl />
+              <SignUpPhoneControl />
             </template>
           </sign-up>
         </template>
@@ -120,7 +125,11 @@ import {
   Authenticator,
   useAuth,
   RenderInfo,
-  SignUp
+  SignUp,
+  SignUpEmailControl,
+  SignUpPasswordControl,
+  SignUpUsernameControl,
+  SignUpPhoneControl
 } from "@aws-amplify/ui-vue";
 
 Amplify.configure(aws_exports);
@@ -134,6 +143,10 @@ export default defineComponent({
     RenderInfo,
     ExampleSignInCSS,
     SignUp,
+    SignUpEmailControl,
+    SignUpPasswordControl,
+    SignUpUsernameControl,
+    SignUpPhoneControl,
     "vue3-markdown-it": VueMarkdownIt
   },
   data: () => ({
@@ -182,7 +195,7 @@ export default defineComponent({
   <\/script>
     `,
     headless: `
-    <amplify-provider> 
+    <amplify-provider>
       <authenticator></authenticator>
     </amplify-provider>
 
@@ -203,9 +216,66 @@ export default defineComponent({
     </amplify-provider
 
     <script setup>
-    import { Authenticator, AmplifyProvider, RenderInfo } from 
+    import { Authenticator, AmplifyProvider, RenderInfo } from
                                         "@aws-amplify/ui-vue";
     <\/script>
+    `,
+
+    confirmPassword: `
+    <amplify-provider defaults>
+      <authenticator>
+        <template #sign-up>
+          <sign-up @sign-up-submit="over">
+            <template #signup-fields>
+              <h4>hello world</h4>
+              <SignUpUsernameControl />
+              <SignUpPasswordControl />
+              <div class="">
+                <h3>Confirm Password</h3>
+                <input
+                  type="password"
+                  name="confirm_password"
+                  class="block w-full mt-1 border-gray-300 rounded shadow-sm border p-2"
+                />
+                <div v-if="error" class="text-red-700">
+                  Passwords do not match.
+                </div>
+              </div>
+              <SignUpEmailControl />
+              <SignUpPhoneControl />
+            </template>
+          </sign-up>
+        </template>
+      </authenticator>
+    </amplify-provider>
+
+    <script setup>
+    import { Authenticator, AmplifyProvider, SignUp,
+     SignUpUsernameControl, SignUpPasswordControl, SignUpPhoneControl,
+     SignUpEmailControl  } from "@aws-amplify/ui-vue";
+
+    const over = event => {
+      const formData = new FormData(event.target);
+      const values = Object.fromEntries(formData);
+      if (values.password !== values.confirm_password) {
+        error.value = true;
+      } else {
+       error.value = false;
+        const phoneS = \`\${values.phone_number_prefix}\${values.phone_number}\`.replace(
+          /[^A-Z0-9+]/gi,
+          ""
+        );
+        delete values.phone_number_prefix;
+        delete values.confirm_password;
+        send({
+          type: "SUBMIT",
+          data: { ...values, phone_number: phoneS }
+        });
+      }
+    };
+
+    <\/script>
+    
     `
   }),
   setup() {
@@ -222,7 +292,7 @@ export default defineComponent({
       "| heading                |           Replaces the heading text            |                               none                               | **<sign-in>**                | \n" +
       "| footer                 |      Replaces the **<footer>** DOM element       | Exposes **{ onSignInSubmit, info, onCreateAccountClicked }** | **<sign-in>**           | \n" +
       " | additional-fields      | Space below password input   |                               None                             | **<sign-in>**               | \n" +
-      " | additional-fields      | Space below password input   |                               None                             | **<sign-up>**               | \n" +
+      " | signup-fields      | Replaces Sign Up Fields|                               Exposes **{ info }** default child data                             | **<sign-up>**               | \n" +
       " | footer      | Replaces footer at the bottom | Exposes **{info, onHaveAccountClicked, onSignUpSubmit}**                             | **<sign-up>** | \n" +
       " | footer-left      | Replaces the footer on the left  | Exposes **{ onHaveAccountClicked }** | **<sign-up>**               | \n" +
       " | footer-right      | Replaces the footer on the right | Exposes **{ onSignUpSubmit }**   | **<sign-up>**               | \n" +
@@ -232,7 +302,7 @@ export default defineComponent({
       "| authenticator-si--footer                 |      Replaces the **<footer>** DOM element       | Exposes **{ onSignInSubmit, info, onCreateAccountClicked }** | **<authenticator>**           | \n" +
       " | authenticator-si--form                   |       Replaces the **<form>** DOM Element        |            Exposes **{ info }** default child data         | **<authenticator>**               | \n" +
       " | authenticator-si--full-name              | Replaces the **<span>** label text for Full name |                               None                             | **<authenticator>**               | \n" +
-      " | authenticator-su--additional-fields      | Space below password input   |                               None                             | **<authenticator>**               | \n" +
+      " | authenticator-su--signup-fields      | Replaces Sign Up fields   |                               Exposes **{ info }** default child data                             | **<authenticator>**               | \n" +
       " | authenticator-su--footer      | Replaces footer at the bottom | Exposes **{info, onHaveAccountClicked, onSignUpSubmit}**                             | **<authenticator>** | \n" +
       " | authenticator-su--footer-left      | Replaces the footer on the left  | Exposes **{ onHaveAccountClicked }** | **<authenticator>**               | \n" +
       " | authenticator-su--footer-right      | Replaces the footer on the right | Exposes **{ onSignUpSubmit }**   | **<authenticator>**               | \n";
@@ -260,6 +330,7 @@ export default defineComponent({
         );
         delete values.phone_number_prefix;
         delete values.confirm_password;
+        console.log("phoneS", phoneS);
         send({
           type: "SUBMIT",
           //@ts-ignore Property 'fromEntries' does not exist on type 'ObjectConstructor'. Do you need to change your target library? Try changing the `lib` compiler option to 'es2019' or later.ts(2550)

@@ -1,5 +1,9 @@
-export { default as SignIn } from './SignIn.vue';
-export { default as SignUp } from './SignUp.vue';
-export { default as Authenticator } from './Authenticator.vue';
-export { default as AmplifyProvider } from './AmplifyProvider.vue';
-export { default as RenderInfo } from './primitives/RenderInfo.vue';
+export { default as SignIn } from "./SignIn.vue";
+export { default as SignUp } from "./SignUp.vue";
+export { default as Authenticator } from "./Authenticator.vue";
+export { default as AmplifyProvider } from "./AmplifyProvider.vue";
+export { default as RenderInfo } from "./primitives/RenderInfo.vue";
+export { default as SignUpEmailControl } from "./SignUpEmailControl.vue";
+export { default as SignUpPasswordControl } from "./SignUpPasswordControl.vue";
+export { default as SignUpPhoneControl } from "./SignUpPhoneControl.vue";
+export { default as SignUpUsernameControl } from "./SignUpUsernameControl.vue";
