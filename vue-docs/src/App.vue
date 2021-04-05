@@ -70,7 +70,7 @@
     <amplify-provider defaults>
       <authenticator>
         <template #sign-up>
-          <sign-up @sign-up-button-clicked="over">
+          <sign-up @sign-up-submit="over">
             <template #additional-fields="">
               <div class="">
                 <h3>Confirm Password</h3>
@@ -218,18 +218,18 @@ export default defineComponent({
       " | form                   |       Replaces the **<form>** DOM Element        |            Exposes **{ info }** default child data         | **<sign-in>**               | \n" +
       " | full-name              | Replaces the **<span>** label text for Full name |                               None                             | **<sign-in>**               | \n" +
       " | forgot-password-button |      Replaces the forgot password button       |              Exposes  **{ onForgotPasswordClicked }**            | **<sign-in>**               | \n" +
-      " | sign-in-button         |          Replaces the sign in button           |               Exposes **{ onSignInButtonClicked }**              | **<sign-in>**               | \n" +
+      " | sign-in-button         |          Replaces the sign in button           |               Exposes **{ onSignInSubmit }**              | **<sign-in>**               | \n" +
       "| heading                |           Replaces the heading text            |                               none                               | **<sign-in>**                | \n" +
-      "| footer                 |      Replaces the **<footer>** DOM element       | Exposes **{ onSignInButtonClicked, info, onCreateAccountClicked }** | **<sign-in>**           | \n" +
+      "| footer                 |      Replaces the **<footer>** DOM element       | Exposes **{ onSignInSubmit, info, onCreateAccountClicked }** | **<sign-in>**           | \n" +
       " | additional-fields      | Space below password input   |                               None                             | **<sign-in>**               | \n" +
       " | additional-fields      | Space below password input   |                               None                             | **<sign-up>**               | \n" +
       " | footer      | Replaces footer at the bottom | Exposes **{info, onHaveAccountClicked, onSignUpSubmit}**                             | **<sign-up>** | \n" +
       " | footer-left      | Replaces the footer on the left  | Exposes **{ onHaveAccountClicked }** | **<sign-up>**               | \n" +
       " | footer-right      | Replaces the footer on the right | Exposes **{ onSignUpSubmit }**   | **<sign-up>**               | \n" +
-      "| authenticator-si-sign-in-button | Replaces the sign in button                    |    Exposes **{ onSignInButtonClicked }**                        |  **<authenticator>**         | \n" +
+      "| authenticator-si-sign-in-button | Replaces the sign in button                    |    Exposes **{ onSignInSubmit }**                        |  **<authenticator>**         | \n" +
       "| authenticator-si--forgot-password-button | Replaces the forgot password button                    |    Exposes **{ onForgotPasswordClicked }**                        |  **<authenticator>**         | \n" +
       "| authenticator-si--heading                |           Replaces the heading text            |                               none                               | **<authenticator>**                | \n" +
-      "| authenticator-si--footer                 |      Replaces the **<footer>** DOM element       | Exposes **{ onSignInButtonClicked, info, onCreateAccountClicked }** | **<authenticator>**           | \n" +
+      "| authenticator-si--footer                 |      Replaces the **<footer>** DOM element       | Exposes **{ onSignInSubmit, info, onCreateAccountClicked }** | **<authenticator>**           | \n" +
       " | authenticator-si--form                   |       Replaces the **<form>** DOM Element        |            Exposes **{ info }** default child data         | **<authenticator>**               | \n" +
       " | authenticator-si--full-name              | Replaces the **<span>** label text for Full name |                               None                             | **<authenticator>**               | \n" +
       " | authenticator-su--additional-fields      | Space below password input   |                               None                             | **<authenticator>**               | \n" +
@@ -240,10 +240,10 @@ export default defineComponent({
     const eventTable =
       "| Name                    |                                                Description | Component | \n" +
       "| ----------------------- | :---------------------------------------------------------: | :----------------: \n" +
-      "| sign-in-button-clicked  |         Emits and overrides when sign in button is clicked | **<sign-ip>**    | \n" +
+      "| sign-in-submit  |         Emits and overrides when sign in button is submitted | **<sign-ip>**    | \n" +
       "| forgot-password-clicked | Emits and overrides when forgot password button is clicked | **<sign-ip>**    |\n" +
       "| create-account-clicked  |  Emits and overrides when create account button is clicked | **<sign-ip>**    |\n" +
-      "| sign-up-button-clicked  |  Emits and overrides when sign up button is clicked | **<sign-up>**    |\n" +
+      "| sign-up-submit  |  Emits and overrides when sign up button is submitted | **<sign-up>**    |\n" +
       "| have-account-clicked    |  Emits and overrides when have account button is clicked | **<sign-up>**    |\n";
 
     const over = event => {
