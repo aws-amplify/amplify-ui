@@ -10,6 +10,7 @@ import 'stories/material/materialAuthenticatorExample.dart';
 import 'stories/materialTheme/materialThemeExample.dart';
 import 'stories/materialCustomStyles/materialCustomStylesExample.dart';
 import 'stories/customWorkflow/customWorkflowExample.dart';
+import 'stories/animationExample/animationExample.dart';
 
 void main() {
   runApp(DemoApp());
@@ -73,15 +74,6 @@ class AuthStories extends StatelessWidget {
                   onPressed: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => MaterialAuthenticatorExample(),
-                    ),
-                  ),
-                  child: const Text('Material Default Example'),
-                ),
-                ElevatedButton(
-                  onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
                       builder: (context) => MaterialThemeExample(),
                     ),
                   ),
@@ -113,6 +105,15 @@ class AuthStories extends StatelessWidget {
                     ),
                   ),
                   child: const Text('Custom Workflow Example'),
+                ),
+                ElevatedButton(
+                  onPressed: () => Navigator.push(
+                    context,
+                    CupertinoPageRoute(
+                      builder: (context) => AnimationExample(),
+                    ),
+                  ),
+                  child: const Text('Animation Example'),
                 ),
               ],
             ),
