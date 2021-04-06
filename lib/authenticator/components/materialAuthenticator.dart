@@ -18,13 +18,16 @@ import 'material/sign_up_view.dart';
 class MaterialAuthenticator extends StatelessWidget {
   MaterialAuthenticator({
     @required this.onSignInSuccess,
+    this.initialStep = AuthenticatorStep.signIn,
   });
   final Function onSignInSuccess;
+  final AuthenticatorStep initialStep;
 
   @override
   Widget build(BuildContext context) {
     return MaterialAuthenticatorBuilder(
       onSignInSuccess: this.onSignInSuccess,
+      initialStep: this.initialStep,
       builder: (context, state) {
         switch (state.step) {
           case AuthenticatorStep.signIn:
@@ -55,9 +58,11 @@ class MaterialAuthenticatorBuilder extends StatelessWidget {
   MaterialAuthenticatorBuilder({
     @required this.onSignInSuccess,
     @required this.builder,
+    this.initialStep = AuthenticatorStep.signIn,
   });
   final Function onSignInSuccess;
   final Widget Function(BuildContext context, AuthenticatorState state) builder;
+  final AuthenticatorStep initialStep;
 
   @override
   Widget build(BuildContext context) {
@@ -66,6 +71,7 @@ class MaterialAuthenticatorBuilder extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => AuthStateMachine(
             onSignInSuccess: this.onSignInSuccess,
+            initialStep: this.initialStep,
           ),
         ),
         ChangeNotifierProvider(

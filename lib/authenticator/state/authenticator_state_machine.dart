@@ -12,8 +12,14 @@ import 'authenticator_state.dart';
 class AuthStateMachine with ChangeNotifier {
   // callback for a successful sign in
   Function onSignInSuccess;
+  // an initial step to start on
+  AuthenticatorStep initialStep;
 
-  AuthStateMachine({@required this.onSignInSuccess, Function onStateChange}) {
+  AuthStateMachine({
+    @required this.onSignInSuccess,
+    @required this.initialStep,
+    Function onStateChange,
+  }) {
     _machine = StateMachine.StateMachine('auth');
 
     isIdle = _machine.newState('isIdle');
@@ -147,8 +153,20 @@ class AuthStateMachine with ChangeNotifier {
       debugPrint("current state: " + event.to.name);
       notifyListeners();
     });
-
-    _machine.start(isSignInIdle);
+    switch (initialStep) {
+      case AuthenticatorStep.signIn:
+        _machine.start(isSignInIdle);
+        break;
+      case AuthenticatorStep.signUp:
+        _machine.start(isSignUpIdle);
+        break;
+      case AuthenticatorStep.confirmSignUp:
+        _machine.start(isConfirmSignUpIdle);
+        break;
+      case AuthenticatorStep.resetPassword:
+        _machine.start(isResetPasswordIdle);
+        break;
+    }
   }
 
   void onSignInSubmit(event) async {
