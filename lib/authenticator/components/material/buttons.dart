@@ -2,8 +2,6 @@ import 'package:amplify_authenticator/authenticator/state/authenticator_state_ma
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../authenticator.dart';
-
 class BackToSignInLink extends StatelessWidget {
   const BackToSignInLink({
     Key key,
@@ -81,15 +79,8 @@ class ConfirmVerificationCodeButton extends StatelessWidget {
       onPressed: disabled
           ? null
           : () {
-              return context.read<AuthStateMachine>().confirmSignUpSumbit({
-                'username': context.read<UsernameFormFieldState>().value,
-                'verificationCode':
-                    context.read<VerificationCodeFormFieldState>().value,
-                // TODO: password is being passed in so that the user can be signed in
-                // after confirmation. It might make sense to change how to form field state
-                // is managed to accomplish this in a cleaner way
-                'password': context.read<PasswordFormFieldState>().value,
-              });
+              return context.read<AuthStateMachine>().confirmSignUpSumbit(
+                  StateTransitionPayload(context: context));
             },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -133,11 +124,9 @@ class SignUpButton extends StatelessWidget {
       onPressed: disabled
           ? null
           : () {
-              return context.read<AuthStateMachine>().signUpSumbit({
-                'username': context.read<UsernameFormFieldState>().value,
-                'email': context.read<EmailFormFieldState>().value,
-                'password': context.read<PasswordFormFieldState>().value,
-              });
+              return context
+                  .read<AuthStateMachine>()
+                  .signUpSumbit(StateTransitionPayload(context: context));
             },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -163,10 +152,9 @@ class SignInButton extends StatelessWidget {
       onPressed: disabled
           ? null
           : () {
-              return context.read<AuthStateMachine>().signInSumbit({
-                'username': context.read<UsernameFormFieldState>().value,
-                'password': context.read<PasswordFormFieldState>().value,
-              });
+              return context
+                  .read<AuthStateMachine>()
+                  .signInSumbit(StateTransitionPayload(context: context));
             },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
