@@ -52,27 +52,27 @@ class AuthFormFieldState with ChangeNotifier, DiagnosticableTreeMixin {
     String hint,
     String validationMessage,
   }) {
-    this._value = value;
-    this._label = label;
-    this._hint = hint;
+    this._value = value ?? '';
+    this._label = label ?? '';
+    this._hint = hint ?? '';
     this._validationMessage = validationMessage;
   }
 
-  String _value = '';
+  String _value;
   String get value => _value;
   set value(String newValue) {
     _value = newValue;
     notifyListeners();
   }
 
-  String _label = '';
+  String _label;
   String get label => _label;
   set label(String newValue) {
     _value = newValue;
     notifyListeners();
   }
 
-  String _hint = '';
+  String _hint;
   String get hint => _hint;
   set hint(String newValue) {
     _hint = newValue;
