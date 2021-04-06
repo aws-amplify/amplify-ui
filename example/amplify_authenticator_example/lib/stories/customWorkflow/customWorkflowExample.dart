@@ -40,15 +40,15 @@ class CustomWorkflowExample extends StatelessWidget {
                 builder: (context) => ViewUserInfo(),
               ),
             ),
-            onStepChange: (step) {
-              if (step == AuthenticatorStep.confirmSignUp) {
+            initialStep: AuthenticatorStep.signUp,
+            builder: (context, state) {
+              if (state.step == AuthenticatorStep.confirmSignUp &&
+                  controller.page == 3) {
                 controller.nextPage(
                   duration: Duration(milliseconds: 250),
                   curve: Curves.easeInOutCubic,
                 );
               }
-            },
-            builder: (context, state) {
               return PageView(
                 controller: controller,
                 physics: NeverScrollableScrollPhysics(),
