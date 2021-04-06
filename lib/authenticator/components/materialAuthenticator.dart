@@ -26,7 +26,6 @@ class MaterialAuthenticator extends StatelessWidget {
     return MaterialAuthenticatorBuilder(
       onSignInSuccess: this.onSignInSuccess,
       builder: (context, state) {
-        print(state.current.toString());
         if (state.isSignIn) {
           return MaterialSignInView();
         }
@@ -57,11 +56,9 @@ class MaterialAuthenticatorBuilder extends StatelessWidget {
   MaterialAuthenticatorBuilder({
     @required this.onSignInSuccess,
     @required this.builder,
-    // this.onStepChange,
   });
   final Function onSignInSuccess;
-  // final Function(AuthenticatorStep) onStepChange;
-  final Widget Function(BuildContext, AuthStateMachine) builder;
+  final Widget Function(BuildContext context, AuthStateMachine state) builder;
 
   @override
   Widget build(BuildContext context) {
