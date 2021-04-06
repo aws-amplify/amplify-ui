@@ -2,7 +2,6 @@ library amplify_authenticator;
 
 // main widgets
 export 'authenticator/components/materialAuthenticator.dart';
-export 'authenticator/components/cupertinoAuthenticator.dart';
 
 // material views
 export 'authenticator/components/material/sign_in_view.dart';

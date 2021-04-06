@@ -5,7 +5,6 @@ import 'package:amplify_analytics_pinpoint/amplify_analytics_pinpoint.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'amplifyconfiguration.dart';
 
-import 'stories/cupertino/cupertinoAuthenticatorExample.dart';
 import 'stories/material/materialAuthenticatorExample.dart';
 import 'stories/materialTheme/materialThemeExample.dart';
 import 'stories/materialCustomStyles/materialCustomStylesExample.dart';
@@ -99,12 +98,6 @@ class AuthStories extends StatelessWidget {
         title: 'Custom Animation Example ',
         subtitle:
             'An example using the MaterialAuthenticatorBuilder component to create custom animations between views.',
-      ),
-      ExampleListTileItem(
-        view: CupertinoAuthenticatorExample(),
-        title: 'Cupertino Example ',
-        subtitle:
-            'A simple example using the CupertinoAuthenticator component.',
       ),
     ];
     return Scaffold(
