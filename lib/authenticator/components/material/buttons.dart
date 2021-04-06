@@ -68,20 +68,18 @@ class SignUpLink extends StatelessWidget {
 class ConfirmVerificationCodeButton extends StatelessWidget {
   const ConfirmVerificationCodeButton({
     Key key,
-    this.disabled = false,
   }) : super(key: key);
-
-  final bool disabled;
 
   @override
   Widget build(BuildContext context) {
+    AuthStateMachine state = context.watch<AuthStateMachine>();
+    // onPressed is set to null when the current state is not isConfirmSignUpIdle the disable ot button
+    Function onPressed = state.isConfirmSignUpIdle()
+        ? () =>
+            state.confirmSignUpSumbit(StateTransitionPayload(context: context))
+        : null;
     return ElevatedButton(
-      onPressed: disabled
-          ? null
-          : () {
-              return context.read<AuthStateMachine>().confirmSignUpSumbit(
-                  StateTransitionPayload(context: context));
-            },
+      onPressed: onPressed,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -114,20 +112,17 @@ class ResetPasswordButton extends StatelessWidget {
 class SignUpButton extends StatelessWidget {
   const SignUpButton({
     Key key,
-    this.disabled = false,
   }) : super(key: key);
-  final bool disabled;
 
   @override
   Widget build(BuildContext context) {
+    AuthStateMachine state = context.watch<AuthStateMachine>();
+    // onPressed is set to null when the current state is not isSignUpIdle to disable the button
+    Function onPressed = state.isSignUpIdle()
+        ? () => state.signUpSumbit(StateTransitionPayload(context: context))
+        : null;
     return ElevatedButton(
-      onPressed: disabled
-          ? null
-          : () {
-              return context
-                  .read<AuthStateMachine>()
-                  .signUpSumbit(StateTransitionPayload(context: context));
-            },
+      onPressed: onPressed,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -141,21 +136,17 @@ class SignUpButton extends StatelessWidget {
 class SignInButton extends StatelessWidget {
   const SignInButton({
     Key key,
-    this.disabled = false,
   }) : super(key: key);
-
-  final bool disabled;
 
   @override
   Widget build(BuildContext context) {
+    AuthStateMachine state = context.watch<AuthStateMachine>();
+    // onPressed is set to null when the current state is not isSignInIdle to disable the button
+    Function onPressed = state.isSignInIdle()
+        ? () => state.signInSumbit(StateTransitionPayload(context: context))
+        : null;
     return ElevatedButton(
-      onPressed: disabled
-          ? null
-          : () {
-              return context
-                  .read<AuthStateMachine>()
-                  .signInSumbit(StateTransitionPayload(context: context));
-            },
+      onPressed: onPressed,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -169,20 +160,16 @@ class SignInButton extends StatelessWidget {
 class ForgotPasswordButton extends StatelessWidget {
   const ForgotPasswordButton({
     Key key,
-    this.disabled = false,
   }) : super(key: key);
 
-  final bool disabled;
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         Text('Forgot your password?'),
         TextButton(
-          onPressed: disabled
-              ? null
-              : () =>
-                  context.read<AuthStateMachine>().navigateToResetPassword(),
+          onPressed: () =>
+              context.read<AuthStateMachine>().navigateToResetPassword(),
           child: Text('Reset Password'),
         )
       ],
