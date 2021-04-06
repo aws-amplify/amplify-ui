@@ -1,7 +1,10 @@
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:flutter/foundation.dart';
-import 'package:state_machine/state_machine.dart';
+import 'package:flutter/widgets.dart';
+import 'package:state_machine/state_machine.dart' as StateMachine;
+import 'package:provider/provider.dart';
 import '../authenticator_service.dart' as authService;
+import 'authenticator_state.dart';
 
 // AuthStateMachine is a state machine built with the library state_machine
 // AuthStateMachine is a ChangeNotifier that will call notifyListeners() on state change
@@ -10,7 +13,7 @@ class AuthStateMachine with ChangeNotifier {
   Function onSignInSuccess;
 
   AuthStateMachine({@required this.onSignInSuccess, Function onStateChange}) {
-    _machine = StateMachine('auth');
+    _machine = StateMachine.StateMachine('auth');
 
     isIdle = _machine.newState('isIdle');
 
@@ -140,7 +143,7 @@ class AuthStateMachine with ChangeNotifier {
 
     // notify listners on state change
     _machine.onStateChange.listen((event) {
-      debugPrint(event.to.name);
+      debugPrint("current state: " + event.to.name);
       notifyListeners();
     });
 
@@ -148,18 +151,23 @@ class AuthStateMachine with ChangeNotifier {
   }
 
   void onSignInSubmit(event) async {
-    // sign in with event payload
-    String username = event.payload['username'];
-    String password = event.payload['password'];
+    // state is read via the current build context
+    StateTransitionPayload payload = event.payload;
+    BuildContext context = payload.context;
+    String username = context.read<UsernameFormFieldState>().value;
+    String password = context.read<PasswordFormFieldState>().value;
     try {
       SignInResult signInResult = await authService.signIn(
         username: username,
         password: password,
       );
       signInResolved();
-    } on AuthException catch (e) {
-      debugPrint(e.toString());
-      signInRejected(e);
+    } on AuthException catch (authException) {
+      debugPrint(authException.toString());
+      signInRejected(StateTransitionPayload(
+        context: context,
+        authException: authException,
+      ));
     }
   }
 
@@ -169,15 +177,18 @@ class AuthStateMachine with ChangeNotifier {
   }
 
   void onSignInRejected(event) async {
-    // TODO: set errors and then reset
+    StateTransitionPayload payload = event.payload;
+    setAuthExceptionField(payload.context, payload.authException);
     signInReset();
   }
 
   void onSignUpSubmit(event) async {
-    // sign up with event payload
-    String username = event.payload['username'];
-    String email = event.payload['email'];
-    String password = event.payload['password'];
+    // state is read via the current build context
+    StateTransitionPayload payload = event.payload;
+    BuildContext context = payload.context;
+    String username = context.read<UsernameFormFieldState>().value;
+    String email = context.read<EmailFormFieldState>().value;
+    String password = context.read<PasswordFormFieldState>().value;
     try {
       SignUpResult signUpResult = await authService.signUp(
         username: username,
@@ -185,9 +196,12 @@ class AuthStateMachine with ChangeNotifier {
         password: password,
       );
       signUpResolved();
-    } on AuthException catch (e) {
-      debugPrint(e.toString());
-      signUpRejected(e);
+    } on AuthException catch (authException) {
+      debugPrint(authException.toString());
+      signUpRejected(StateTransitionPayload(
+        context: context,
+        authException: authException,
+      ));
     }
   }
 
@@ -197,23 +211,29 @@ class AuthStateMachine with ChangeNotifier {
   }
 
   void onSignUpRejected(event) async {
-    // TODO: set errors and then reset
+    setAuthExceptionField(event.payload.context, event.payload.authException);
     signUpReset();
   }
 
   void onConfirmSignUpSubmit(event) async {
-    // confirm sign up with event payload
-    String username = event.payload['username'];
-    String verificationCode = event.payload['verificationCode'];
+    // state is read via the current build context
+    StateTransitionPayload payload = event.payload;
+    BuildContext context = payload.context;
+    String username = context.read<UsernameFormFieldState>().value;
+    String verificationCode =
+        context.read<VerificationCodeFormFieldState>().value;
     try {
       SignUpResult signInResult = await authService.confirmSignUp(
         username: username,
         verificationCode: verificationCode,
       );
       confirmSignUpResolved(event.payload);
-    } on AuthException catch (e) {
-      debugPrint(e.toString());
-      confirmSignUpRejected(e);
+    } on AuthException catch (authException) {
+      debugPrint(authException.toString());
+      confirmSignUpRejected(StateTransitionPayload(
+        context: context,
+        authException: authException,
+      ));
     }
   }
 
@@ -223,20 +243,20 @@ class AuthStateMachine with ChangeNotifier {
   }
 
   void onConfirmSignUpRejected(event) async {
-    // TODO: set errors and then reset
+    setAuthExceptionField(event.payload.context, event.payload.authException);
     confirmSignUpRejected();
   }
 
-  State get current => _machine.current;
+  StateMachine.State get current => _machine.current;
 
-  State isIdle;
+  StateMachine.State isIdle;
 
-  State isAuthenticated;
+  StateMachine.State isAuthenticated;
 
-  State isSignInIdle;
-  State isSignInPending;
-  State isSignInResolved;
-  State isSignInRejected;
+  StateMachine.State isSignInIdle;
+  StateMachine.State isSignInPending;
+  StateMachine.State isSignInResolved;
+  StateMachine.State isSignInRejected;
 
   bool get isSignIn =>
       isSignInIdle() ||
@@ -244,10 +264,10 @@ class AuthStateMachine with ChangeNotifier {
       isSignInResolved() ||
       isSignInRejected();
 
-  State isSignUpIdle;
-  State isSignUpPending;
-  State isSignUpResolved;
-  State isSignUpRejected;
+  StateMachine.State isSignUpIdle;
+  StateMachine.State isSignUpPending;
+  StateMachine.State isSignUpResolved;
+  StateMachine.State isSignUpRejected;
 
   bool get isSignUp =>
       isSignUpIdle() ||
@@ -255,10 +275,10 @@ class AuthStateMachine with ChangeNotifier {
       isSignUpResolved() ||
       isSignUpRejected();
 
-  State isConfirmSignUpIdle;
-  State isConfirmSignUpPending;
-  State isConfirmSignUpResolved;
-  State isConfirmSignUpRejected;
+  StateMachine.State isConfirmSignUpIdle;
+  StateMachine.State isConfirmSignUpPending;
+  StateMachine.State isConfirmSignUpResolved;
+  StateMachine.State isConfirmSignUpRejected;
 
   bool get isConfirmSignUp =>
       isConfirmSignUpIdle() ||
@@ -266,10 +286,10 @@ class AuthStateMachine with ChangeNotifier {
       isConfirmSignUpResolved() ||
       isConfirmSignUpRejected();
 
-  State isResetPasswordIdle;
-  State isResetPasswordPending;
-  State isResetPasswordResolved;
-  State isResetPasswordRejected;
+  StateMachine.State isResetPasswordIdle;
+  StateMachine.State isResetPasswordPending;
+  StateMachine.State isResetPasswordResolved;
+  StateMachine.State isResetPasswordRejected;
 
   bool get isResetPassword =>
       isResetPasswordIdle() ||
@@ -277,34 +297,90 @@ class AuthStateMachine with ChangeNotifier {
       isResetPasswordResolved() ||
       isResetPasswordRejected();
 
-  State isSignOut;
+  StateMachine.State isSignOut;
 
   // navigation transitions
-  StateTransition navigateToSignUp;
-  StateTransition navigateToSignIn;
-  StateTransition navigateToConfirmSignUp;
-  StateTransition navigateToResetPassword;
+  StateMachine.StateTransition navigateToSignUp;
+  StateMachine.StateTransition navigateToSignIn;
+  StateMachine.StateTransition navigateToConfirmSignUp;
+  StateMachine.StateTransition navigateToResetPassword;
 
   // sign in transitions
-  StateTransition signInSumbit;
-  StateTransition signInReset;
-  StateTransition signInResolved;
-  StateTransition signInRejected;
+  StateMachine.StateTransition signInSumbit;
+  StateMachine.StateTransition signInReset;
+  StateMachine.StateTransition signInResolved;
+  StateMachine.StateTransition signInRejected;
 
   // sign up transitions
-  StateTransition signUpSumbit;
-  StateTransition signUpReset;
-  StateTransition signUpResolved;
-  StateTransition signUpRejected;
+  StateMachine.StateTransition signUpSumbit;
+  StateMachine.StateTransition signUpReset;
+  StateMachine.StateTransition signUpResolved;
+  StateMachine.StateTransition signUpRejected;
 
   // confirm sign up transitions
-  StateTransition confirmSignUpSumbit;
-  StateTransition confirmSignUpReset;
-  StateTransition confirmSignUpResolved;
-  StateTransition confirmSignUpRejected;
+  StateMachine.StateTransition confirmSignUpSumbit;
+  StateMachine.StateTransition confirmSignUpReset;
+  StateMachine.StateTransition confirmSignUpResolved;
+  StateMachine.StateTransition confirmSignUpRejected;
 
-  StateMachine _machine;
+  StateMachine.StateMachine _machine;
 
   @override
   String toString() => _machine.toString();
+}
+
+enum AuthExceptionField {
+  username,
+  email,
+  password,
+  verificationCode,
+}
+
+// Note: This is really brittle because it is just string matching and attempting to match the error to the correct field
+// If this text were to change, it would change the functionality of this component
+// Unfortnutely it looks like the flutter auth library doesn't return an enum or an error code
+// There is also no default case handling (no message is matched)
+// The error handling implementation right now is mostly just for demonstration purposes and needs some more work
+Map<String, AuthExceptionField> authExceptionFieldLookup = {
+  'User does not exist.': AuthExceptionField.username,
+  'User already exists': AuthExceptionField.username,
+  'Username is required to signIn': AuthExceptionField.username,
+  'Invalid email address format.': AuthExceptionField.email,
+  'Incorrect username or password.': AuthExceptionField.password,
+  'Password did not conform with policy: Password not long enough':
+      AuthExceptionField.password,
+  'Invalid verification code provided, please try again.':
+      AuthExceptionField.verificationCode,
+};
+
+void setAuthExceptionField(BuildContext context, AuthException exception) {
+  if (exception != null && exception.message.isNotEmpty) {
+    debugPrint(exception.message);
+    AuthExceptionField authExceptionField =
+        authExceptionFieldLookup[exception.message];
+    switch (authExceptionField) {
+      case AuthExceptionField.username:
+        context.read<UsernameFormFieldState>().validationMessage =
+            exception.message;
+        break;
+      case AuthExceptionField.email:
+        context.read<EmailFormFieldState>().validationMessage =
+            exception.message;
+        break;
+      case AuthExceptionField.password:
+        context.read<PasswordFormFieldState>().validationMessage =
+            exception.message;
+        break;
+      case AuthExceptionField.verificationCode:
+        context.read<VerificationCodeFormFieldState>().validationMessage =
+            exception.message;
+        break;
+    }
+  }
+}
+
+class StateTransitionPayload {
+  BuildContext context;
+  AuthException authException;
+  StateTransitionPayload({@required this.context, this.authException});
 }
