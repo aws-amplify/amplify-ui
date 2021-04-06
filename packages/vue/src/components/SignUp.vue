@@ -115,27 +115,32 @@ export default defineComponent({
       if (attrs?.onSignUpSubmit) {
         emit("signUpSubmit", e);
       } else {
-        const phoneS = phone.value.replace(/[^A-Z0-9+]/gi, "");
-
-        const formData = new FormData(e.target);
-        //@ts-ignore Property 'fromEntries' does not exist on type 'ObjectConstructor'. Do you need to change your target library? Try changing the `lib` compiler option to 'es2019' or later.ts(2550)
-        const values = Object.fromEntries(formData);
-        delete values.phone_number_prefix;
-        console.log(values);
-
-        send({
-          type: "SUBMIT",
-          //@ts-ignore
-          data: { ...values, phone_number: phoneS }
-        });
+        submit(e);
       }
+    };
+
+    const submit = (e): void => {
+      const phoneS = phone.value.replace(/[^A-Z0-9+]/gi, "");
+
+      const formData = new FormData(e.target);
+      //@ts-ignore Property 'fromEntries' does not exist on type 'ObjectConstructor'. Do you need to change your target library? Try changing the `lib` compiler option to 'es2019' or later.ts(2550)
+      const values = Object.fromEntries(formData);
+      delete values.phone_number_prefix;
+      console.log(values);
+
+      send({
+        type: "SUBMIT",
+        //@ts-ignore
+        data: { ...values, phone_number: phoneS }
+      });
     };
 
     return {
       onHaveAccountClicked,
       onSignUpSubmit,
       state,
-      phone
+      phone,
+      submit
     };
   }
 });

@@ -95,12 +95,12 @@ import {
   PASSWORD_LABEL,
   SIGNING_IN_BUTTON_TEXT
 } from "../defaults/DefaultTexts";
+import Label from "./primitives/Label.vue";
 import Footer from "./primitives/Footer.vue";
 import Wrapper from "./primitives/Wrapper.vue";
 import Form from "./primitives/Form.vue";
 import Heading from "./primitives/Heading.vue";
 import FieldSet from "./primitives/FieldSet.vue";
-import Label from "./primitives/Label.vue";
 import Input from "./primitives/Input.vue";
 import Box from "./primitives/Box.vue";
 import Button from "./primitives/Button.vue";
@@ -163,14 +163,18 @@ export default {
       if (attrs?.onSignInSubmit) {
         emit("signInSubmit", e);
       } else {
-        console.log("normal event Auth Signin", attrs.onOnSignInPressed);
-        const formData = new FormData(e.target);
-        send({
-          type: "SUBMIT",
-          // @ts-ignore Property 'fromEntries' does not exist on type 'ObjectConstructor'. Do you need to change your target library? Try changing the `lib` compiler option to 'es2019' or later.ts(2550)
-          data: Object.fromEntries(formData)
-        });
+        submit(e);
       }
+    };
+
+    const submit = (e): void => {
+      console.log("normal event Auth Signin", attrs.onOnSignInPressed);
+      const formData = new FormData(e.target);
+      send({
+        type: "SUBMIT",
+        // @ts-ignore Property 'fromEntries' does not exist on type 'ObjectConstructor'. Do you need to change your target library? Try changing the `lib` compiler option to 'es2019' or later.ts(2550)
+        data: Object.fromEntries(formData)
+      });
     };
 
     const onForgotPasswordClicked = (): void => {
@@ -199,7 +203,8 @@ export default {
       onCreateAccountClicked,
       state,
       username,
-      password
+      password,
+      submit
     };
   }
 };

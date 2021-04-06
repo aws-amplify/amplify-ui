@@ -1,6 +1,10 @@
 <template>
   <div data-amplify-authenticator="">
-    <SignIn v-if="state?.matches('signIn')">
+    <SignIn
+      v-if="state?.matches('signIn')"
+      @sign-in-submit="onSignInSubmitI"
+      ref="signInComponent"
+    >
       <template #signInSlotI>
         <slot name="sign-in"></slot>
       </template>
@@ -52,7 +56,11 @@
         </slot>
       </template>
     </SignIn>
-    <SignUp v-if="state?.matches('signUp')">
+    <SignUp
+      v-if="state?.matches('signUp')"
+      @sign-up-submit="onSignUpSubmitI"
+      ref="signUpComponent"
+    >
       <template #signup-fields="{info}">
         <slot name="authenticator-su--signup-fields" :info="info"></slot>
       </template>
@@ -104,13 +112,54 @@ export default {
     SignIn,
     SignUp
   },
-  setup(): { currentPage: Ref<string>; state: Ref } {
+  setup(
+    _: unknown,
+    {
+      attrs,
+      emit
+    }: {
+      emit: (st, e?) => unknown;
+      attrs: Record<string, unknown>;
+    }
+  ): {
+    currentPage: Ref<string>;
+    state: Ref;
+    onSignInSubmitI: (fn) => unknown;
+    onSignUpSubmitI: (fn) => unknown;
+    signInComponent: typeof SignIn;
+    signUpComponent: typeof SignUp;
+  } {
     const { state } = useAuth();
+    const signInComponent = ref(null);
+    const signUpComponent = ref(null);
 
     const currentPage = ref("SIGNIN");
+
+    const onSignInSubmitI = e => {
+      if (attrs?.onSignInSubmit) {
+        emit("signInSubmit", e);
+      } else {
+        signInComponent.value.submit(e);
+      }
+    };
+
+    const onSignUpSubmitI = e => {
+      if (attrs?.onSignUpSubmit) {
+        emit("signUpSubmit", e);
+      } else {
+        signUpComponent.value.submit(e);
+      }
+    };
     provide("pageInfo", currentPage);
 
-    return { currentPage, state };
+    return {
+      currentPage,
+      state,
+      onSignInSubmitI,
+      signInComponent,
+      signUpComponent,
+      onSignUpSubmitI
+    };
   }
 };
 </script>

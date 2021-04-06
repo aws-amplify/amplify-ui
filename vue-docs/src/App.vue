@@ -72,7 +72,6 @@
         <template #sign-up>
           <sign-up @sign-up-submit="over">
             <template #signup-fields>
-              <h4>hello world</h4>
               <SignUpUsernameControl />
               <SignUpPasswordControl />
               <div class="">
@@ -227,7 +226,6 @@ export default defineComponent({
         <template #sign-up>
           <sign-up @sign-up-submit="over">
             <template #signup-fields>
-              <h4>hello world</h4>
               <SignUpUsernameControl />
               <SignUpPasswordControl />
               <div class="">
