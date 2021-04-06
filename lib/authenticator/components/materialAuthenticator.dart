@@ -1,8 +1,8 @@
-import 'package:amplify_authenticator/authenticator/state/authenticator_state_machine.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../authenticator.dart';
+import '../../authenticator/state/authenticator_state.dart';
+import '../../authenticator/state/authenticator_state_machine.dart';
 import 'material/confirm_sign_up_view.dart';
 import 'material/forgot_password_view.dart';
 import 'material/sign_in_view.dart';

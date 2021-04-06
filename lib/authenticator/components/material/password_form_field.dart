@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../authenticator.dart';
+import '../../../authenticator/state/authenticator_state.dart';
 
 class PasswordFormField extends StatelessWidget {
   const PasswordFormField({
