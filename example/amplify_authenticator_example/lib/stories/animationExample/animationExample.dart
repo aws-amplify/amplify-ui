@@ -24,38 +24,30 @@ class AnimationExample extends StatelessWidget {
             ),
           ),
           builder: (context, state) {
-            Widget child = MaterialSignInView();
-            Key childKey = Key('sign-in-view');
-            if (state.isSignUp) {
-              child = MaterialSignUpView();
-              childKey = Key('sign-up-view');
-            }
-            if (state.isConfirmSignUp) {
-              child = MaterialConfirmSignUpView();
-              childKey = Key('confirm-sign-up-view');
-            }
-            if (state.isResetPassword) {
-              child = MaterialForgotPasswordView();
-              childKey = Key('forgot-password-view');
-            }
+            Map<AuthenticatorStep, Widget> stepViewMap = {
+              AuthenticatorStep.signIn: MaterialSignInView(),
+              AuthenticatorStep.signUp: MaterialSignUpView(),
+              AuthenticatorStep.confirmSignUp: MaterialConfirmSignUpView(),
+              AuthenticatorStep.resetPassword: MaterialForgotPasswordView(),
+            };
             return AnimatedSwitcher(
               duration: Duration(milliseconds: 600),
               transitionBuilder: (widget, animation) => __transitionBuilder(
                 widget,
                 animation,
-                childKey,
+                Key(state.step.toString()),
               ),
               layoutBuilder: (widget, list) => Stack(
                 children: [widget, ...list],
               ),
               child: Card(
-                key: childKey,
+                key: Key(state.step.toString()),
                 color: Colors.indigo[50],
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Container(
                     height: 500,
-                    child: child,
+                    child: stepViewMap[state.step],
                   ),
                 ),
               ),

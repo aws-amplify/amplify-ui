@@ -1,5 +1,48 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
+import 'authenticator_state_machine.dart';
+
+/// AuthenticatorState is an abstraction on top of the state that is managed internally by the state machine
+/// for use by consumers of the package
+class AuthenticatorState {
+  AuthStateMachine _authStateMachine;
+  final UsernameFormFieldState usernameFormFieldState;
+  final PasswordFormFieldState passwordFormFieldState;
+  final EmailFormFieldState emailFormFieldState;
+  final VerificationCodeFormFieldState verificationCodeFormFieldState;
+  AuthenticatorState({
+    @required authStateMachine,
+    @required this.usernameFormFieldState,
+    @required this.passwordFormFieldState,
+    @required this.emailFormFieldState,
+    @required this.verificationCodeFormFieldState,
+  }) {
+    this._authStateMachine = authStateMachine;
+  }
+
+  AuthenticatorStep get step {
+    if (_authStateMachine.isSignIn) {
+      return AuthenticatorStep.signIn;
+    }
+    if (_authStateMachine.isSignUp) {
+      return AuthenticatorStep.signUp;
+    }
+    if (_authStateMachine.isConfirmSignUp) {
+      return AuthenticatorStep.confirmSignUp;
+    }
+    if (_authStateMachine.isResetPassword) {
+      return AuthenticatorStep.resetPassword;
+    }
+    return null;
+  }
+}
+
+enum AuthenticatorStep {
+  signIn,
+  signUp,
+  confirmSignUp,
+  resetPassword,
+}
 
 /// AuthFormFieldState is a ChangeNotifier that will notify listeners when any of its properties are updated
 class AuthFormFieldState with ChangeNotifier, DiagnosticableTreeMixin {
