@@ -45,16 +45,25 @@ The project was created as a standard flutter app (using `flutter create`, not `
 
 The code from the stories has been copied into the readme to make it easy to view. Long term, it would probably make sense to look into something like [Dashbook](https://github.com/erickzanardo/dashbook), [storybook_flutter](https://github.com/ookami-kb/storybook_flutter), or the tooling that the flutter team uses in their own component docs which takes comments from the code and turns them into live code examples.
 
+## State
+
+State is managed with [provider](https://pub.dev/packages/provider) and [state_machine](https://pub.dev/packages/state_machine).
+
+state_machine is used to create a finite state machine for the state (signInIdle, signInPending, signUpIdle, etc.) of the Authenticator widget. This state machine is intended to be used internally, but not exposed to the consumer.
+
+provider is a popular package to share state between multiple widgets. It is used to share the state machine between the various widgets (form fields, buttons, etc.) that need it. provider is also used to share the state within the form fields (username, email, password) in the various places that it is consumed.
+
+Because consumers will need to access the state of the Authenticator in order to build more customized flows there is class AuthenticatorState that is exposed publicly, which is just an abstraction on top of the auth state machine and the state of the various for fields. This is intended to be exposed to consumers, and will allow them to build more complex and customized auth flows without having to rebuild the entire flow from scratch.
+
 ## TODO
 
-Other than continuing to support additonal customer use cases, below are some things that are not yet supported
+Other than continuing to support additional customer use cases, below are some things that are not yet supported
 
 - Forgot password flow: Sign up, confirm account, and sign in all work as expected. Forgot password has not been implemented
-- Error handling: Gracefully handle error on signin/signup and displaying them to the user
+- Error handling: Gracefully handle error on signin/signup and displaying them to the user. This is partially handled, but needs more work. Errors are not reset once corrected.
 - localization
-- Material & Cupertino code duplication: The logic for authentication should be abstracted out and shared. I just copied it over for now.
-- Animations: The form doesn't have any animations. Since the form is essentialy just a list of items that get removed/added, [AnimatedList](https://api.flutter.dev/flutter/widgets/AnimatedList-class.html) could probably be used. There could be some default animations, with the ability for users to provide their own. Some thought would need to be put into how to do this in a way that allows for customizations.
-- ~~Cupertino design: This is not one of the customer use cases, but it would probably be something flutter devs would want. [Cupertino](https://flutter.dev/docs/development/ui/widgets/cupertino) widgets match the design of iOS.~~ Added to stories, although probably needs more work.
+- Animations: The form doesn't have any animations by default. Consumers can use MaterialAuthenticationBuilder to create animations before views, but it might make sense to make this easier.
+- Cupertino design: This is not one of the customer use cases, but it would probably be something flutter devs would want. [Cupertino](https://flutter.dev/docs/development/ui/widgets/cupertino) widgets match the design of iOS.
 
 ## Design & Theming Approach
 
@@ -64,7 +73,7 @@ Flutter provides two libraries of widgets out of the box - [Material](https://fl
 
 Both of these widget libraries work on all platforms that flutter supports, and with some exceptions (example: [Switch.adaptive()](https://api.flutter.dev/flutter/material/Switch/Switch.adaptive.html)), they do not adapt to the platform. This means that they will look & function identically on all platforms. Flutter also easily allows developers to build their app according to their own custom design systems ("Expressive and Flexible UI" is one of the core priciples of flutter). Engineers consuming an Amplify Authenticator widget will expect that out of the box both Material and Cupertino are supported, and that the out of the box widgets can be easily extended / customized to their own design system.
 
-When it comes to custom design systems, there are two general approaches that can be taken. The first approach is to start with one of the two widget catelogs (usually material) and extend it to for the design system being used (see the notes on the material [ThemeData class](https://api.flutter.dev/flutter/material/ThemeData-class.html)). The second approach would be to build an entirely new library of widgets on top of the "widgets layer", similar to the Material or Cupertino libraries. The first approach is generally the approach that is taken because it is **far** less work and still allows developes to acheive their custom design system.
+When it comes to custom design systems, there are two general approaches that can be taken. The first approach is to start with one of the two widget catalogs (usually material) and extend it to for the design system being used (see the notes on the material [ThemeData class](https://api.flutter.dev/flutter/material/ThemeData-class.html)). The second approach would be to build an entirely new library of widgets on top of the "widgets layer", similar to the Material or Cupertino libraries. The first approach is generally the approach that is taken because it is **far** less work and still allows developes to achieve their custom design system.
 
 For the custom theme use case, it makes sense to focus on supporting the first approach, but still support the second. To best support the first approach, the Authenticator widget should be built on top of the material widgets and it should inherits and use the app's material ThemeData. Below are two main reasons why this approach should be followed:
 
@@ -73,7 +82,7 @@ For the custom theme use case, it makes sense to focus on supporting the first a
 
 ## Stories
 
-Each of the code snippets below depnds on amplify being configured in the clients application. In this project, that is done in `main.dart`. The configuration could in theory be done inside the Authenticator component, but it seems more straight forward to just require the consumers to configure Amplify outside of the component.
+Each of the code snippets below depends on amplify being configured in the clients application. In this project, that is done in `main.dart`. The configuration could in theory be done inside the Authenticator component, but it seems more straight forward to just require the consumers to configure Amplify outside of the component.
 
 ### Material Design basic use case
 
@@ -284,7 +293,7 @@ class MaterialCustomeStylesExample extends StatelessWidget {
 
 ### Use outside of MaterialApp or CupertinoApp
 
-> A customer that is not using the Material or Cupertino design systems as a base can still consume the Authenticor widget.
+> A customer that is not using the Material or Cupertino design systems as a base can still consume the Authenticator widget.
 
 > Material Authenticator can be consumed inside a non material app
 
@@ -294,43 +303,4 @@ TODO
 
 > A customer using Cupertino design can import and authenticator and it will use the default cupertino styles
 
-```dart
-import 'package:amplify_authenticator/authenticator/components/cupertinoAuthenticator.dart';
-import 'package:amplify_authenticator/stories/viewUserInfo.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-
-class CupertinoAuthenticatorExample extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return CupertinoApp(
-      home: CupertinoPageScaffold(
-        navigationBar: CupertinoNavigationBar(
-          leading: CupertinoNavigationBarBackButton(
-            onPressed: () => Navigator.of(context).pop(),
-          ),
-          middle: Text('Cupertino Example'),
-        ),
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: CupertinoAuthenticator(
-              onSignInSuccess: () => Navigator.pushReplacement(
-                context,
-                CupertinoPageRoute(
-                  builder: (context) => ViewUserInfo(),
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-```
-
-TODO: The Cupertino style widgets by default are really plain. It might make sense to have a real word example with some styling applied.
-
-<img src="screenshots/cupertinoExample.png" alt="Cupertino Theme Example" width="500"/>
+TODO
