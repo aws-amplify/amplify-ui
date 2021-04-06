@@ -1,5 +1,5 @@
 <template>
-  <div data-amplify-authenticator="">
+  <div v-bind="$attrs" data-amplify-authenticator="">
     <SignIn
       v-if="state?.matches('signIn')"
       @sign-in-submit="onSignInSubmitI"
@@ -96,6 +96,8 @@
     <div v-if="state?.matches('signIn.rejected')">
       Error! Can't sign in!
     </div>
+    <!-- <ConfirmSignUp v-if="state?.matches('signIn')"></ConfirmSignUp> -->
+    <ConfirmSignUp v-if="state?.matches('confirmSignUp')"></ConfirmSignUp>
   </div>
 
   <slot v-if="state?.matches('authenticated')"></slot>
@@ -104,13 +106,16 @@
 <script lang="ts">
 import SignIn from "./SignIn.vue";
 import SignUp from "./SignUp.vue";
+import ConfirmSignUp from "./ConfirmSignUp.vue";
 import { ref, provide, Ref } from "vue";
 import { useAuth } from "../composables/useAuth";
 
 export default {
+  inheritAttrs: false,
   components: {
     SignIn,
-    SignUp
+    SignUp,
+    ConfirmSignUp
   },
   setup(
     _: unknown,

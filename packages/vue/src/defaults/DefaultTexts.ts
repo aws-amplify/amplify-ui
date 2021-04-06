@@ -15,3 +15,10 @@ export const CREATE_ACCOUNT_LABEL = "CREATE ACCOUNT";
 export const HAVE_ACCOUNT_LABEL = "Have an account?";
 
 export const SIGN_UP_BUTTON_TEXT = "Sign up";
+
+export const CONFIRM_SIGNUP_HEADING = "Confirm Sign up";
+export const CONFIRMATION_CODE_TEXT = "Confirmation Code";
+export const LOST_YOUR_CODE_TEXT = "Lost your code?";
+export const RESEND_CODE_TEXT = "Resend Code";
+export const BACK_SIGN_IN_TEXT = "Back to Sign In";
+export const CONFIRM_TEXT = "CONFIRM";

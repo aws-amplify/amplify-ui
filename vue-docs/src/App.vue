@@ -68,27 +68,23 @@
 
   <Example :title="'Add confirm password'" :code="confirmPassword">
     <amplify-provider defaults>
-      <authenticator>
-        <template #sign-up>
-          <sign-up @sign-up-submit="over">
-            <template #signup-fields>
-              <SignUpUsernameControl />
-              <SignUpPasswordControl />
-              <div class="">
-                <h3>Confirm Password</h3>
-                <input
-                  type="password"
-                  name="confirm_password"
-                  class="block w-full mt-1 border-gray-300 rounded shadow-sm border p-2"
-                />
-                <div v-if="error" class="text-red-700">
-                  Passwords do not match.
-                </div>
-              </div>
-              <SignUpEmailControl />
-              <SignUpPhoneControl />
-            </template>
-          </sign-up>
+      <authenticator @sign-up-submit="over">
+        <template #authenticator-su--signup-fields>
+          <SignUpUsernameControl />
+          <SignUpPasswordControl />
+          <div class="">
+            <h3>Confirm Password</h3>
+            <input
+              type="password"
+              name="confirm_password"
+              class="block w-full mt-1 border-gray-300 rounded shadow-sm border p-2"
+            />
+            <div v-if="error" class="text-red-700">
+              Passwords do not match.
+            </div>
+          </div>
+          <SignUpEmailControl />
+          <SignUpPhoneControl />
         </template>
       </authenticator>
     </amplify-provider>
@@ -124,7 +120,7 @@ import {
   Authenticator,
   useAuth,
   RenderInfo,
-  SignUp,
+  // SignUp,
   SignUpEmailControl,
   SignUpPasswordControl,
   SignUpUsernameControl,
@@ -141,7 +137,7 @@ export default defineComponent({
     Example,
     RenderInfo,
     ExampleSignInCSS,
-    SignUp,
+    // SignUp,
     SignUpEmailControl,
     SignUpPasswordControl,
     SignUpUsernameControl,
@@ -222,27 +218,23 @@ export default defineComponent({
 
     confirmPassword: `
     <amplify-provider defaults>
-      <authenticator>
-        <template #sign-up>
-          <sign-up @sign-up-submit="over">
-            <template #signup-fields>
-              <SignUpUsernameControl />
-              <SignUpPasswordControl />
-              <div class="">
-                <h3>Confirm Password</h3>
-                <input
-                  type="password"
-                  name="confirm_password"
-                  class="block w-full mt-1 border-gray-300 rounded shadow-sm border p-2"
-                />
-                <div v-if="error" class="text-red-700">
-                  Passwords do not match.
-                </div>
-              </div>
-              <SignUpEmailControl />
-              <SignUpPhoneControl />
-            </template>
-          </sign-up>
+      <authenticator @sign-up-submit="over">
+        <template #authenticator-su--signup-fields>
+          <SignUpUsernameControl />
+          <SignUpPasswordControl />
+          <div class="">
+            <h3>Confirm Password</h3>
+            <input
+              type="password"
+              name="confirm_password"
+              class="block w-full mt-1 border-gray-300 rounded shadow-sm border p-2"
+            />
+            <div v-if="error" class="text-red-700">
+              Passwords do not match.
+            </div>
+          </div>
+          <SignUpEmailControl />
+          <SignUpPhoneControl />
         </template>
       </authenticator>
     </amplify-provider>
@@ -308,11 +300,13 @@ export default defineComponent({
     const eventTable =
       "| Name                    |                                                Description | Component | \n" +
       "| ----------------------- | :---------------------------------------------------------: | :----------------: \n" +
-      "| sign-in-submit  |         Emits and overrides when sign in button is submitted | **<sign-ip>**    | \n" +
-      "| forgot-password-clicked | Emits and overrides when forgot password button is clicked | **<sign-ip>**    |\n" +
-      "| create-account-clicked  |  Emits and overrides when create account button is clicked | **<sign-ip>**    |\n" +
+      "| sign-in-submit  |         Emits and overrides when sign in button is submitted | **<sign-in>**    | \n" +
+      "| forgot-password-clicked | Emits and overrides when forgot password button is clicked | **<sign-in>**    |\n" +
+      "| create-account-clicked  |  Emits and overrides when create account button is clicked | **<sign-in>**    |\n" +
       "| sign-up-submit  |  Emits and overrides when sign up button is submitted | **<sign-up>**    |\n" +
-      "| have-account-clicked    |  Emits and overrides when have account button is clicked | **<sign-up>**    |\n";
+      "| have-account-clicked    |  Emits and overrides when have account button is clicked | **<sign-up>**    |\n" +
+      "| sign-in-submit  |         Emits and overrides when sign in button is submitted | **<authenticator>**    | \n" +
+      "| sign-up-submit  |  Emits and overrides when sign up button is submitted | **<authenticator>**    |\n";
 
     const over = event => {
       const formData = new FormData(event.target);
