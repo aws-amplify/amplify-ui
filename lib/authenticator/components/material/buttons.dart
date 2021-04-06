@@ -1,4 +1,6 @@
+import 'package:amplify_authenticator/authenticator/state/authenticator_state_machine.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../authenticator.dart';
 
@@ -14,10 +16,7 @@ class BackToSignInLink extends StatelessWidget {
       style: TextButton.styleFrom(padding: EdgeInsets.zero),
       key: Key('back-to-sign-in-button'),
       onPressed: () {
-        AuthenticatorStateProvider.dispatch(
-          context,
-          NavigateToSignUpAction(),
-        );
+        context.read<AuthStateMachine>().navigateToSignUp();
       },
       child: Text('Back to Sign In'),
     );
@@ -37,10 +36,7 @@ class SignInLink extends StatelessWidget {
         TextButton(
           key: Key('sign-in-button'),
           onPressed: () {
-            AuthenticatorStateProvider.dispatch(
-              context,
-              NavigateToSignInAction(),
-            );
+            context.read<AuthStateMachine>().navigateToSignIn();
           },
           child: Text('Sign In'),
         ),
@@ -62,10 +58,7 @@ class SignUpLink extends StatelessWidget {
         Text('No Account?'),
         TextButton(
           onPressed: () {
-            AuthenticatorStateProvider.dispatch(
-              context,
-              NavigateToSignUpAction(),
-            );
+            context.read<AuthStateMachine>().navigateToSignUp();
           },
           child: Text('Sign Up'),
         ),
@@ -85,12 +78,7 @@ class ConfirmVerificationCodeButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: disabled
-          ? null
-          : () => AuthenticatorStateProvider.dispatch(
-                context,
-                ConfirmSignUpAction(),
-              ),
+      onPressed: disabled ? null : () => print('not implemented'),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -132,10 +120,12 @@ class SignUpButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: disabled
           ? null
-          : () => AuthenticatorStateProvider.dispatch(
-                context,
-                SignUpAction(),
-              ),
+          : () {
+              return context.read<AuthStateMachine>().signUpSumbit({
+                'username': context.read<UsernameFormFieldState>().value,
+                'password': context.read<PasswordFormFieldState>().value,
+              });
+            },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -159,10 +149,12 @@ class SignInButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: disabled
           ? null
-          : () => AuthenticatorStateProvider.dispatch(
-                context,
-                SignInAction(),
-              ),
+          : () {
+              return context.read<AuthStateMachine>().signInSumbit({
+                'username': context.read<UsernameFormFieldState>().value,
+                'password': context.read<PasswordFormFieldState>().value,
+              });
+            },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -188,12 +180,8 @@ class ForgotPasswordButton extends StatelessWidget {
         TextButton(
           onPressed: disabled
               ? null
-              : () {
-                  AuthenticatorStateProvider.dispatch(
-                    context,
-                    NavigateToResetPasswordAction(),
-                  );
-                },
+              : () =>
+                  context.read<AuthStateMachine>().navigateToResetPassword(),
           child: Text('Reset Password'),
         )
       ],

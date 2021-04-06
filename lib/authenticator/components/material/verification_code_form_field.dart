@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../authenticator.dart';
 
@@ -9,8 +10,7 @@ class VerificationCodeFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AuthenticatorFormFieldState state =
-        AuthenticatorStateProvider.of(context).verificationCodeFormFieldState;
+    UsernameFormFieldState state = context.watch<UsernameFormFieldState>();
     return TextFormField(
       initialValue: state.value,
       decoration: InputDecoration(
@@ -18,10 +18,7 @@ class VerificationCodeFormField extends StatelessWidget {
         errorText: state.validationMessage,
       ),
       onChanged: (value) {
-        AuthenticatorStateProvider.dispatch(
-          context,
-          SetVerificationCodeAction(value),
-        );
+        state.value = value;
       },
       obscureText: true,
     );

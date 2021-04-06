@@ -1,4 +1,6 @@
+import 'package:amplify_authenticator/authenticator/state/authenticator_state_machine.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../authenticator.dart';
 import 'material/confirm_sign_up_view.dart';
@@ -24,19 +26,21 @@ class MaterialAuthenticator extends StatelessWidget {
     return MaterialAuthenticatorBuilder(
       onSignInSuccess: this.onSignInSuccess,
       builder: (context, state) {
-        switch (state.step) {
-          case AuthenticatorStep.signIn:
-            return MaterialSignInView();
-          case AuthenticatorStep.signUp:
-            return MaterialSignUpView();
-          case AuthenticatorStep.confirmSignUp:
-            return MaterialConfirmSignUpView();
-          case AuthenticatorStep.resetPassword:
-            return MaterialForgotPasswordView();
-          default:
-            throw ('Invalid authentication state. AuthenticatorStep must not be null');
-            return null;
+        print(state.current.toString());
+        if (state.isSignIn) {
+          return MaterialSignInView();
         }
+        if (state.isSignUp) {
+          return MaterialSignUpView();
+        }
+        if (state.isConfirmSignUp) {
+          return MaterialConfirmSignUpView();
+        }
+        if (state.isResetPassword) {
+          return MaterialForgotPasswordView();
+        }
+        // TODO: Determine how to handle default
+        return MaterialSignInView();
       },
     );
   }
@@ -53,22 +57,34 @@ class MaterialAuthenticatorBuilder extends StatelessWidget {
   MaterialAuthenticatorBuilder({
     @required this.onSignInSuccess,
     @required this.builder,
-    this.onStepChange,
+    // this.onStepChange,
   });
   final Function onSignInSuccess;
-  final Function(AuthenticatorStep) onStepChange;
-  final Widget Function(BuildContext, AuthenticatorState) builder;
+  // final Function(AuthenticatorStep) onStepChange;
+  final Widget Function(BuildContext, AuthStateMachine) builder;
 
   @override
   Widget build(BuildContext context) {
-    return AuthenticatorStateProvider(
-      initialModel: AuthenticatorState(
-        onSignInSuccess: this.onSignInSuccess,
-        onStepChange: this.onStepChange,
-      ),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => AuthStateMachine(
+            onSignInSuccess: this.onSignInSuccess,
+          ),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => UsernameFormFieldState(label: 'Username'),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => EmailFormFieldState(label: 'Email'),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => PasswordFormFieldState(label: 'Password'),
+        ),
+      ],
       child: Builder(
         builder: (context) {
-          AuthenticatorState state = AuthenticatorStateProvider.of(context);
+          AuthStateMachine state = context.watch<AuthStateMachine>();
           return builder(context, state);
         },
       ),
