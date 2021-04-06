@@ -95,6 +95,7 @@ import {
   PASSWORD_LABEL,
   SIGNING_IN_BUTTON_TEXT
 } from "../defaults/DefaultTexts";
+
 import Label from "./primitives/Label.vue";
 import Footer from "./primitives/Footer.vue";
 import Wrapper from "./primitives/Wrapper.vue";
