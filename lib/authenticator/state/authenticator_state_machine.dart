@@ -118,19 +118,19 @@ class AuthStateMachine with ChangeNotifier {
       'confirmSignUpSumbit',
       [isConfirmSignUpIdle],
       isConfirmSignUpPending,
-    )..stream.listen(onSignUpSubmit);
+    )..stream.listen(onConfirmSignUpSubmit);
 
     confirmSignUpResolved = _machine.newStateTransition(
       'confirmSignUpResolved',
       [isConfirmSignUpPending],
       isConfirmSignUpResolved,
-    )..stream.listen(onSignUpResolved);
+    )..stream.listen(onConfirmSignUpResolved);
 
     confirmSignUpRejected = _machine.newStateTransition(
       'confirmSignUpRejected',
       [isConfirmSignUpPending],
       isConfirmSignUpRejected,
-    )..stream.listen(onSignUpRejected);
+    )..stream.listen(onConfirmSignUpRejected);
 
     confirmSignUpReset = _machine.newStateTransition(
       'confirmSignUpReset',
@@ -140,7 +140,7 @@ class AuthStateMachine with ChangeNotifier {
 
     // notify listners on state change
     _machine.onStateChange.listen((event) {
-      print(event.to.name);
+      debugPrint(event.to.name);
       notifyListeners();
     });
 
@@ -158,6 +158,7 @@ class AuthStateMachine with ChangeNotifier {
       );
       signInResolved();
     } on AuthException catch (e) {
+      debugPrint(e.toString());
       signInRejected(e);
     }
   }
@@ -185,6 +186,7 @@ class AuthStateMachine with ChangeNotifier {
       );
       signUpResolved();
     } on AuthException catch (e) {
+      debugPrint(e.toString());
       signUpRejected(e);
     }
   }
@@ -202,7 +204,6 @@ class AuthStateMachine with ChangeNotifier {
   void onConfirmSignUpSubmit(event) async {
     // confirm sign up with event payload
     String username = event.payload['username'];
-    // String password = event.payload['password'];
     String verificationCode = event.payload['verificationCode'];
     try {
       SignUpResult signInResult = await authService.confirmSignUp(
@@ -211,13 +212,14 @@ class AuthStateMachine with ChangeNotifier {
       );
       confirmSignUpResolved(event.payload);
     } on AuthException catch (e) {
+      debugPrint(e.toString());
       confirmSignUpRejected(e);
     }
   }
 
   void onConfirmSignUpResolved(event) async {
     // TODO: Should this be a unique event instead of re-using the sign in submit?
-    signUpSumbit(event.payload);
+    signInSumbit(event.payload);
   }
 
   void onConfirmSignUpRejected(event) async {

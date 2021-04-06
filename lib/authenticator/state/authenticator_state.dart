@@ -95,3 +95,17 @@ class PasswordFormFieldState extends AuthFormFieldState {
           validationMessage: validationMessage,
         );
 }
+
+class VerificationCodeFormFieldState extends AuthFormFieldState {
+  VerificationCodeFormFieldState({
+    String value,
+    String label,
+    String hint,
+    String validationMessage,
+  }) : super(
+          value: value,
+          label: label,
+          hint: hint,
+          validationMessage: validationMessage,
+        );
+}

@@ -81,6 +81,10 @@ class MaterialAuthenticatorBuilder extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => PasswordFormFieldState(label: 'Password'),
         ),
+        ChangeNotifierProvider(
+          create: (_) =>
+              VerificationCodeFormFieldState(label: 'Verification Code'),
+        ),
       ],
       child: Builder(
         builder: (context) {
