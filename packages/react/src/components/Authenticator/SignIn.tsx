@@ -1,4 +1,5 @@
 import * as React from "react";
+import tailwind from "tailwind-rn";
 import { useAmplify, useAuth } from "../../hooks";
 
 export function SignIn() {
@@ -62,11 +63,23 @@ export function SignIn() {
         </Button>
         <Spacer />
         {isPending ? (
-          <Button disabled={isPending} type="submit">
+          <Button
+            disabled={isPending}
+            type="submit"
+            style={tailwind(
+              "px-8 py-2 text-base text-white bg-gray-700 rounded"
+            )}
+          >
             Signing in&hellip;
           </Button>
         ) : (
-          <Button disabled={isPending} type="submit">
+          <Button
+            disabled={isPending}
+            type="submit"
+            style={tailwind(
+              "px-8 py-2 text-base text-white bg-gray-700 rounded"
+            )}
+          >
             Sign In
           </Button>
         )}

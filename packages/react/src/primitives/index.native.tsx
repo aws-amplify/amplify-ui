@@ -5,8 +5,12 @@ export function Box(props) {
   return <RN.View data-amplify-box="" {...props} />;
 }
 
-export function Button({ children }) {
-  return <RN.Button data-amplify-button="" title={children} />;
+export function Button({ children, style }) {
+  return (
+    <RN.Pressable style={style}>
+      <RN.Text style={style}>{children}</RN.Text>
+    </RN.Pressable>
+  );
 }
 
 export function Fieldset(props) {

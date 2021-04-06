@@ -1,10 +1,10 @@
-import { useContext } from "react";
+import * as React from "react";
 
 import { AmplifyContext } from "../components/AmplifyProvider/AmplifyContext";
 import * as primitives from "../primitives";
 
 export function useAmplify(namespace) {
-  const { components = {}, theme } = useContext(AmplifyContext);
+  const { components = {}, theme = {} } = React.useContext(AmplifyContext);
 
   const customComponents = Object.entries(components).reduce(
     (acc, [namespaced, Component]) => {
@@ -25,28 +25,33 @@ export function useAmplify(namespace) {
   );
 
   // TODO `theme` should override `style` or `className`?
+  // TODO I'd rather this be something like `...getThemeProps` (https://github.com/downshift-js/downshift#getmenuprops)
+  const styledComponents = Object.entries(theme).reduce(
+    (acc, [namespaced, style]) => {
+      // e.g. `Authenticator.Input` || `Input`
+      // TODO Is this needed anymore? Maybe so for custom tailwind overrides!
+      const name = namespaced.split(".").pop();
+      const Primitive = primitives[name];
 
-  // const styledComponents = Object.entries(components).reduce(
-  //   (acc, [name, Component]) => {
-  //     // e.g. `Authenticator.Input` || `Input`
-  //     // TODO Is this needed anymore? Maybe so for custom tailwind overrides!
-  //     const className =
-  //       custom.theme?.[`${namespace}.${name}`] || custom.theme?.[name];
-  //     const namespaced = `${namespace}.${name}`;
+      if (!Primitive) {
+        throw new Error(
+          `Cannot set theme for unknown primitive ${JSON.stringify(name)}`
+        );
+      }
 
-  //     acc[name] =
-  //       custom.components?.[namespaced] ||
-  //       custom.components?.[name] ||
-  //       Component;
+      acc[name] = (props) => <Primitive style={style} {...props} />;
 
-  //     return acc;
-  //   },
-  //   {}
-  // );
+      return acc;
+    },
+    {}
+  );
 
   return {
     components: {
       ...primitives,
+      // Override primitives with styled versions
+      ...styledComponents,
+      // Custom components always overrided styled versions
       ...customComponents,
     },
 

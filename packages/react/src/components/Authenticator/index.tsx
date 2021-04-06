@@ -2,6 +2,8 @@
 import * as React from "react";
 import { useAmplify, useAuth } from "../../hooks";
 
+import tailwind from "tailwind-rn";
+
 import { SignIn } from "./SignIn";
 import { SignUp } from "./SignUp";
 
@@ -25,7 +27,13 @@ export function Authenticator({ className, children = (context) => null }) {
   }
 
   return (
-    <Wrapper className={className} data-amplify-authenticator="">
+    <Wrapper
+      className={className}
+      data-amplify-authenticator=""
+      style={tailwind(
+        "max-w-md mx-auto overflow-hidden text-base text-gray-700 rounded-md shadow"
+      )}
+    >
       {(() => {
         switch (true) {
           case state.matches("idle"):
