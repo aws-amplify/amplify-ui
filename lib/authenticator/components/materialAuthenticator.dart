@@ -26,20 +26,19 @@ class MaterialAuthenticator extends StatelessWidget {
     return MaterialAuthenticatorBuilder(
       onSignInSuccess: this.onSignInSuccess,
       builder: (context, state) {
-        if (state.isSignIn) {
-          return MaterialSignInView();
+        switch (state.step) {
+          case AuthenticatorStep.signIn:
+            return MaterialSignInView();
+          case AuthenticatorStep.signUp:
+            return MaterialSignUpView();
+          case AuthenticatorStep.confirmSignUp:
+            return MaterialConfirmSignUpView();
+          case AuthenticatorStep.resetPassword:
+            return MaterialForgotPasswordView();
+          default:
+            throw ('Invalid authentication state. AuthenticatorStep is not valid');
+            return null;
         }
-        if (state.isSignUp) {
-          return MaterialSignUpView();
-        }
-        if (state.isConfirmSignUp) {
-          return MaterialConfirmSignUpView();
-        }
-        if (state.isResetPassword) {
-          return MaterialForgotPasswordView();
-        }
-        // TODO: Determine how to handle default
-        return MaterialSignInView();
       },
     );
   }
@@ -58,7 +57,7 @@ class MaterialAuthenticatorBuilder extends StatelessWidget {
     @required this.builder,
   });
   final Function onSignInSuccess;
-  final Widget Function(BuildContext context, AuthStateMachine state) builder;
+  final Widget Function(BuildContext context, AuthenticatorState state) builder;
 
   @override
   Widget build(BuildContext context) {
@@ -85,8 +84,23 @@ class MaterialAuthenticatorBuilder extends StatelessWidget {
       ],
       child: Builder(
         builder: (context) {
-          AuthStateMachine state = context.watch<AuthStateMachine>();
-          return builder(context, state);
+          AuthStateMachine authStateMachine = context.watch<AuthStateMachine>();
+          UsernameFormFieldState usernameFormFieldState =
+              context.watch<UsernameFormFieldState>();
+          EmailFormFieldState emailFormFieldState =
+              context.watch<EmailFormFieldState>();
+          PasswordFormFieldState passwordFormFieldState =
+              context.watch<PasswordFormFieldState>();
+          VerificationCodeFormFieldState verificationCodeFormFieldState =
+              context.watch<VerificationCodeFormFieldState>();
+          AuthenticatorState authenticatorState = AuthenticatorState(
+            authStateMachine: authStateMachine,
+            usernameFormFieldState: usernameFormFieldState,
+            emailFormFieldState: emailFormFieldState,
+            passwordFormFieldState: passwordFormFieldState,
+            verificationCodeFormFieldState: verificationCodeFormFieldState,
+          );
+          return builder(context, authenticatorState);
         },
       ),
     );
