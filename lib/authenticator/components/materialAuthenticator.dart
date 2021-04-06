@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import '../authenticator.dart';
+import '../../authenticator/state/authenticator_state.dart';
+import '../../authenticator/state/authenticator_state_machine.dart';
 import 'material/confirm_sign_up_view.dart';
 import 'material/forgot_password_view.dart';
 import 'material/sign_in_view.dart';
@@ -16,13 +18,16 @@ import 'material/sign_up_view.dart';
 class MaterialAuthenticator extends StatelessWidget {
   MaterialAuthenticator({
     @required this.onSignInSuccess,
+    this.initialStep = AuthenticatorStep.signIn,
   });
   final Function onSignInSuccess;
+  final AuthenticatorStep initialStep;
 
   @override
   Widget build(BuildContext context) {
     return MaterialAuthenticatorBuilder(
       onSignInSuccess: this.onSignInSuccess,
+      initialStep: this.initialStep,
       builder: (context, state) {
         switch (state.step) {
           case AuthenticatorStep.signIn:
@@ -34,7 +39,7 @@ class MaterialAuthenticator extends StatelessWidget {
           case AuthenticatorStep.resetPassword:
             return MaterialForgotPasswordView();
           default:
-            throw ('Invalid authentication state. AuthenticatorStep must not be null');
+            throw ('Invalid authentication state. AuthenticatorStep is not valid');
             return null;
         }
       },
@@ -53,23 +58,55 @@ class MaterialAuthenticatorBuilder extends StatelessWidget {
   MaterialAuthenticatorBuilder({
     @required this.onSignInSuccess,
     @required this.builder,
-    this.onStepChange,
+    this.initialStep = AuthenticatorStep.signIn,
   });
   final Function onSignInSuccess;
-  final Function(AuthenticatorStep) onStepChange;
-  final Widget Function(BuildContext, AuthenticatorState) builder;
+  final Widget Function(BuildContext context, AuthenticatorState state) builder;
+  final AuthenticatorStep initialStep;
 
   @override
   Widget build(BuildContext context) {
-    return AuthenticatorStateProvider(
-      initialModel: AuthenticatorState(
-        onSignInSuccess: this.onSignInSuccess,
-        onStepChange: this.onStepChange,
-      ),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => AuthStateMachine(
+            onSignInSuccess: this.onSignInSuccess,
+            initialStep: this.initialStep,
+          ),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => UsernameFormFieldState(label: 'Username'),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => EmailFormFieldState(label: 'Email'),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => PasswordFormFieldState(label: 'Password'),
+        ),
+        ChangeNotifierProvider(
+          create: (_) =>
+              VerificationCodeFormFieldState(label: 'Verification Code'),
+        ),
+      ],
       child: Builder(
         builder: (context) {
-          AuthenticatorState state = AuthenticatorStateProvider.of(context);
-          return builder(context, state);
+          AuthStateMachine authStateMachine = context.watch<AuthStateMachine>();
+          UsernameFormFieldState usernameFormFieldState =
+              context.watch<UsernameFormFieldState>();
+          EmailFormFieldState emailFormFieldState =
+              context.watch<EmailFormFieldState>();
+          PasswordFormFieldState passwordFormFieldState =
+              context.watch<PasswordFormFieldState>();
+          VerificationCodeFormFieldState verificationCodeFormFieldState =
+              context.watch<VerificationCodeFormFieldState>();
+          AuthenticatorState authenticatorState = AuthenticatorState(
+            authStateMachine: authStateMachine,
+            usernameFormFieldState: usernameFormFieldState,
+            emailFormFieldState: emailFormFieldState,
+            passwordFormFieldState: passwordFormFieldState,
+            verificationCodeFormFieldState: verificationCodeFormFieldState,
+          );
+          return builder(context, authenticatorState);
         },
       ),
     );

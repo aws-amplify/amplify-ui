@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import '../../authenticator.dart';
+import '../../../authenticator/state/authenticator_state.dart';
 
 class PasswordFormField extends StatelessWidget {
   const PasswordFormField({
@@ -9,8 +10,7 @@ class PasswordFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AuthenticatorFormFieldState state =
-        AuthenticatorStateProvider.of(context).passwordFormFieldState;
+    PasswordFormFieldState state = context.watch<PasswordFormFieldState>();
     return TextFormField(
       initialValue: state.value,
       decoration: InputDecoration(
@@ -18,10 +18,7 @@ class PasswordFormField extends StatelessWidget {
         errorText: state.validationMessage,
       ),
       onChanged: (value) {
-        AuthenticatorStateProvider.dispatch(
-          context,
-          SetPasswordAction(value),
-        );
+        state.value = value;
       },
       obscureText: true,
     );

@@ -28,6 +28,9 @@ dependencies:
   amplify_auth_cognito: "<1.0.0"
   amplify_analytics_pinpoint: "<1.0.0"
 
+  state_machine: ^2.2.0
+  provider: ^5.0.0
+
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2

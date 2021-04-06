@@ -1,6 +1,6 @@
+import 'package:amplify_authenticator/authenticator/state/authenticator_state_machine.dart';
 import 'package:flutter/material.dart';
-
-import '../../authenticator.dart';
+import 'package:provider/provider.dart';
 
 class BackToSignInLink extends StatelessWidget {
   const BackToSignInLink({
@@ -14,10 +14,7 @@ class BackToSignInLink extends StatelessWidget {
       style: TextButton.styleFrom(padding: EdgeInsets.zero),
       key: Key('back-to-sign-in-button'),
       onPressed: () {
-        AuthenticatorStateProvider.dispatch(
-          context,
-          NavigateToSignUpAction(),
-        );
+        context.read<AuthStateMachine>().navigateToSignIn();
       },
       child: Text('Back to Sign In'),
     );
@@ -37,10 +34,7 @@ class SignInLink extends StatelessWidget {
         TextButton(
           key: Key('sign-in-button'),
           onPressed: () {
-            AuthenticatorStateProvider.dispatch(
-              context,
-              NavigateToSignInAction(),
-            );
+            context.read<AuthStateMachine>().navigateToSignIn();
           },
           child: Text('Sign In'),
         ),
@@ -62,10 +56,7 @@ class SignUpLink extends StatelessWidget {
         Text('No Account?'),
         TextButton(
           onPressed: () {
-            AuthenticatorStateProvider.dispatch(
-              context,
-              NavigateToSignUpAction(),
-            );
+            context.read<AuthStateMachine>().navigateToSignUp();
           },
           child: Text('Sign Up'),
         ),
@@ -84,13 +75,14 @@ class ConfirmVerificationCodeButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AuthStateMachine state = context.watch<AuthStateMachine>();
+    // onPressed is set to null when the current state is not isConfirmSignUpIdle the disable ot button
+    Function onPressed = state.isConfirmSignUpIdle()
+        ? () =>
+            state.confirmSignUpSumbit(StateTransitionPayload(context: context))
+        : null;
     return ElevatedButton(
-      onPressed: disabled
-          ? null
-          : () => AuthenticatorStateProvider.dispatch(
-                context,
-                ConfirmSignUpAction(),
-              ),
+      onPressed: onPressed,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -125,17 +117,18 @@ class SignUpButton extends StatelessWidget {
     Key key,
     this.disabled = false,
   }) : super(key: key);
+
   final bool disabled;
 
   @override
   Widget build(BuildContext context) {
+    AuthStateMachine state = context.watch<AuthStateMachine>();
+    // onPressed is set to null when the current state is not isSignUpIdle to disable the button
+    Function onPressed = !disabled && state.isSignUpIdle()
+        ? () => state.signUpSumbit(StateTransitionPayload(context: context))
+        : null;
     return ElevatedButton(
-      onPressed: disabled
-          ? null
-          : () => AuthenticatorStateProvider.dispatch(
-                context,
-                SignUpAction(),
-              ),
+      onPressed: onPressed,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -156,13 +149,13 @@ class SignInButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AuthStateMachine state = context.watch<AuthStateMachine>();
+    // onPressed is set to null when the current state is not isSignInIdle to disable the button
+    Function onPressed = !disabled && state.isSignInIdle()
+        ? () => state.signInSumbit(StateTransitionPayload(context: context))
+        : null;
     return ElevatedButton(
-      onPressed: disabled
-          ? null
-          : () => AuthenticatorStateProvider.dispatch(
-                context,
-                SignInAction(),
-              ),
+      onPressed: onPressed,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -176,24 +169,16 @@ class SignInButton extends StatelessWidget {
 class ForgotPasswordButton extends StatelessWidget {
   const ForgotPasswordButton({
     Key key,
-    this.disabled = false,
   }) : super(key: key);
 
-  final bool disabled;
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         Text('Forgot your password?'),
         TextButton(
-          onPressed: disabled
-              ? null
-              : () {
-                  AuthenticatorStateProvider.dispatch(
-                    context,
-                    NavigateToResetPasswordAction(),
-                  );
-                },
+          onPressed: () =>
+              context.read<AuthStateMachine>().navigateToResetPassword(),
           child: Text('Reset Password'),
         )
       ],
