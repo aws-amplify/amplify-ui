@@ -10,7 +10,8 @@ class VerificationCodeFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    UsernameFormFieldState state = context.watch<UsernameFormFieldState>();
+    VerificationCodeFormFieldState state =
+        context.watch<VerificationCodeFormFieldState>();
     return TextFormField(
       initialValue: state.value,
       decoration: InputDecoration(

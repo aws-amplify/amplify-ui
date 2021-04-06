@@ -16,7 +16,7 @@ class BackToSignInLink extends StatelessWidget {
       style: TextButton.styleFrom(padding: EdgeInsets.zero),
       key: Key('back-to-sign-in-button'),
       onPressed: () {
-        context.read<AuthStateMachine>().navigateToSignUp();
+        context.read<AuthStateMachine>().navigateToSignIn();
       },
       child: Text('Back to Sign In'),
     );
@@ -78,7 +78,19 @@ class ConfirmVerificationCodeButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: disabled ? null : () => print('not implemented'),
+      onPressed: disabled
+          ? null
+          : () {
+              return context.read<AuthStateMachine>().confirmSignUpSumbit({
+                'username': context.read<UsernameFormFieldState>().value,
+                'verificationCode':
+                    context.read<VerificationCodeFormFieldState>().value,
+                // TODO: password is being passed in so that the user can be signed in
+                // after confirmation. It might make sense to change how to form field state
+                // is managed to accomplish this in a cleaner way
+                'password': context.read<PasswordFormFieldState>().value,
+              });
+            },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -123,6 +135,7 @@ class SignUpButton extends StatelessWidget {
           : () {
               return context.read<AuthStateMachine>().signUpSumbit({
                 'username': context.read<UsernameFormFieldState>().value,
+                'email': context.read<EmailFormFieldState>().value,
                 'password': context.read<PasswordFormFieldState>().value,
               });
             },
