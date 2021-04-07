@@ -10,10 +10,9 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import { ComponentsProviderService, StateMachineService } from '../../services';
-import { AuthFormData, FormError } from '../../common';
+import { AuthFormData, FormError, OnSubmitHook } from '../../common';
 import { Event, Subscription } from 'xstate';
 import { AuthMachineState } from '@aws-amplify/ui-core';
-import { OnSubmitHook } from 'dist/ui-angular';
 
 const logger = new Logger('SignIn');
 
