@@ -35,15 +35,17 @@ Flutter Amplify Authenticator UI component
 - [Set up your IDE](https://flutter.dev/docs/get-started/editor) for flutter development if you have not already done so.
 - Run the _example_ project (`/example/amplify_authenticator/main.dart`) on an iOS simulator or Android Emulator. See info under **Run the App** in the [flutter test drive docs](https://flutter.dev/docs/get-started/test-drive?tab=androidstudio) if you are not familiar with how to do this.
 
+> NOTE: Run the app from [main.dart in the example project](./example/amplify_authenticator_example/lib/main.dart)
+
 ## Project overview
 
 The project was created as a standard flutter app (using `flutter create`, not `flutter create --template=package`), but has been updated to be structure closer to a package template.
 
-`/lib` contains all the code for the flutter authenticator. This is the code that would be included in a shippable flutter package. `lib/amplify_authenticator.dart` contain all the public exports for the package. The public exports are a set of (authenticator) widgets, and some types.
+`/lib` contains all the code for the flutter authenticator. This is the code that would be included in a shippable flutter package. [lib/amplify_authenticator.dart](./lib/amplify_authenticator.dart) contains all the public exports for the package. The public exports are a set of (authenticator) widgets, and some types.
 
-`/example/amplify_authenticator` contains the the customer use cases for an Authenticator widget. Each directory represents one use case. `main.dart` configures amplify auth and displays a list of buttons that will open the different use cases.
+`/example/amplify_authenticator/lib/stories` contains the the customer use cases for an Authenticator widget. Each directory represents one use case. [main.dart](./example/amplify_authenticator_example/lib/main.dart) configures amplify auth and displays a list of buttons that will open the different use cases.
 
-The code from the stories has been copied into the readme to make it easy to view. Long term, it would probably make sense to look into something like [Dashbook](https://github.com/erickzanardo/dashbook), [storybook_flutter](https://github.com/ookami-kb/storybook_flutter), or the tooling that the flutter team uses in their own component docs which takes comments from the code and turns them into live code examples.
+Some of the code from the stories has been copied into the readme to make it easy to view. Long term, it would probably make sense to look into something like [Dashbook](https://github.com/erickzanardo/dashbook), [storybook_flutter](https://github.com/ookami-kb/storybook_flutter), or the tooling that the flutter team uses in their own component docs which takes comments from the code and turns them into live code examples.
 
 ## State
 
@@ -51,7 +53,7 @@ State is managed with [provider](https://pub.dev/packages/provider) and [state_m
 
 state_machine is used to create a finite state machine for the state (signInIdle, signInPending, signUpIdle, etc.) of the Authenticator widget. This state machine is intended to be used internally, but not exposed to the consumer.
 
-provider is a popular package to share state between multiple widgets. It is used to share the state machine between the various widgets (form fields, buttons, etc.) that need it. provider is also used to share the state within the form fields (username, email, password) in the various places that it is consumed.
+provider is a popular package to share state between multiple widgets. It is used to share the state machine between the various widgets (form fields, buttons, etc.) that need it. provider is also used to share the state within the form fields (username, email, password) in the various places that it is consumed. The use of provider is not essential to the library, and could be swapped out with something simpler like an InheritedWidget.
 
 Because consumers will need to access the state of the Authenticator in order to build more customized flows there is class AuthenticatorState that is exposed publicly, which is just an abstraction on top of the auth state machine and the state of the various for fields. This is intended to be exposed to consumers, and will allow them to build more complex and customized auth flows without having to rebuild the entire flow from scratch.
 
@@ -60,10 +62,10 @@ Because consumers will need to access the state of the Authenticator in order to
 Other than continuing to support additional customer use cases, below are some things that are not yet supported
 
 - Forgot password flow: Sign up, confirm account, and sign in all work as expected. Forgot password has not been implemented
-- Error handling: Gracefully handle error on signin/signup and displaying them to the user. This is partially handled, but needs more work. Errors are not reset once corrected.
+- Error handling: Gracefully handle error on signin/signup and displaying them to the user. This is partially handled, but needs more work.
 - localization
 - Animations: The form doesn't have any animations by default. Consumers can use MaterialAuthenticationBuilder to create animations before views, but it might make sense to make this easier.
-- Cupertino design: This is not one of the customer use cases, but it would probably be something flutter devs would want. [Cupertino](https://flutter.dev/docs/development/ui/widgets/cupertino) widgets match the design of iOS.
+- Cupertino design: This is not one of the customer use cases, but it would probably be something customers would want. [Cupertino](https://flutter.dev/docs/development/ui/widgets/cupertino) widgets match the design of iOS. There is nothing inherently more difficult about building a Cupertino styled authenticator that a Material authenticator.
 
 ## Design & Theming Approach
 
@@ -71,7 +73,7 @@ Flutter provides two libraries of widgets out of the box - [Material](https://fl
 
 <img src="https://flutter.dev/images/arch-overview/archdiagram.png" alt="Default Material Example" width="500"/>
 
-Both of these widget libraries work on all platforms that flutter supports, and with some exceptions (example: [Switch.adaptive()](https://api.flutter.dev/flutter/material/Switch/Switch.adaptive.html)), they do not adapt to the platform. This means that they will look & function identically on all platforms. Flutter also easily allows developers to build their app according to their own custom design systems ("Expressive and Flexible UI" is one of the core priciples of flutter). Engineers consuming an Amplify Authenticator widget will expect that out of the box both Material and Cupertino are supported, and that the out of the box widgets can be easily extended / customized to their own design system.
+Both of these widget libraries work on all platforms that flutter supports, and with some exceptions (example: [Switch.adaptive()](https://api.flutter.dev/flutter/material/Switch/Switch.adaptive.html)), they do not adapt to the platform. This means that they will look & function identically on all platforms. Flutter also easily allows developers to build their app according to their own custom design systems ("Expressive and Flexible UI" is one of the core principles of flutter). Customers consuming an Amplify Authenticator widget will expect that out of the box both Material and Cupertino are supported, and that the out of the box widgets can be easily extended / customized to their own design system.
 
 When it comes to custom design systems, there are two general approaches that can be taken. The first approach is to start with one of the two widget catalogs (usually material) and extend it to for the design system being used (see the notes on the material [ThemeData class](https://api.flutter.dev/flutter/material/ThemeData-class.html)). The second approach would be to build an entirely new library of widgets on top of the "widgets layer", similar to the Material or Cupertino libraries. The first approach is generally the approach that is taken because it is **far** less work and still allows developes to achieve their custom design system.
 
