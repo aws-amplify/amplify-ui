@@ -22,7 +22,7 @@
   <Example :title="'Overriding forgot-password'" :code="overrideForgotPassword">
     <amplify-provider defaults>
       <authenticator>
-        <template #authenticator-si--forgot-password-button>
+        <template #sign-in-forgot-password-button>
           <button>New Button</button>
         </template>
       </authenticator>
@@ -32,7 +32,7 @@
   <Example :title="'Overriding sign-in button'" :code="overrideSignInButton">
     <amplify-provider defaults>
       <authenticator>
-        <template #authenticator-si--sign-in-button>
+        <template #sign-in-button>
           <button>New Sign In Button</button>
         </template>
         <button
@@ -54,7 +54,7 @@
   <Example :title="'Updating Footer And Render Information'" :code="footer">
     <amplify-provider defaults>
       <authenticator>
-        <template #authenticator-si--footer="{ info}">
+        <template #sign-in-footer="{ info}">
           <h3>New Footer Details</h3>
           <footer data-amplify-footer>
             <render-info :info="info"></render-info>
@@ -66,25 +66,25 @@
 
   <example-sign-in-CSS> </example-sign-in-CSS>
 
-  <Example :title="'Add confirm password'">
+  <Example :title="'Add confirm password'" :code="confirmPassword">
     <amplify-provider defaults>
-      <authenticator>
-        <template #sign-up>
-          <sign-up @sign-up-button-clicked="over">
-            <template #additional-fields="">
-              <div class="">
-                <h3>Confirm Password</h3>
-                <input
-                  type="password"
-                  name="confirm_password"
-                  class="block w-full mt-1 border-gray-300 rounded shadow-sm border p-2"
-                />
-                <div v-if="error" class="text-red-700">
-                  Passwords do not match.
-                </div>
-              </div>
-            </template>
-          </sign-up>
+      <authenticator @sign-up-submit="over">
+        <template #sign-up-fields>
+          <SignUpUsernameControl />
+          <SignUpPasswordControl />
+          <div class="">
+            <h3>Confirm Password</h3>
+            <input
+              type="password"
+              name="confirm_password"
+              class="block w-full mt-1 border-gray-300 rounded shadow-sm border p-2"
+            />
+            <div v-if="error" class="text-red-700">
+              Passwords do not match.
+            </div>
+          </div>
+          <SignUpEmailControl />
+          <SignUpPhoneControl />
         </template>
       </authenticator>
     </amplify-provider>
@@ -120,7 +120,11 @@ import {
   Authenticator,
   useAuth,
   RenderInfo,
-  SignUp
+  // SignUp,
+  SignUpEmailControl,
+  SignUpPasswordControl,
+  SignUpUsernameControl,
+  SignUpPhoneControl
 } from "@aws-amplify/ui-vue";
 
 Amplify.configure(aws_exports);
@@ -133,7 +137,11 @@ export default defineComponent({
     Example,
     RenderInfo,
     ExampleSignInCSS,
-    SignUp,
+    // SignUp,
+    SignUpEmailControl,
+    SignUpPasswordControl,
+    SignUpUsernameControl,
+    SignUpPhoneControl,
     "vue3-markdown-it": VueMarkdownIt
   },
   data: () => ({
@@ -154,7 +162,7 @@ export default defineComponent({
     overrideForgotPassword: `
     <amplify-provider defaults>
       <authenticator>
-        <template #authenticator-si--forgot-password-button>
+        <template #sign-in-forgot-password-button>
           <button>New Button</button>
         </template>
       </authenticator>
@@ -169,7 +177,7 @@ export default defineComponent({
     overrideSignInButton: `
     <amplify-provider defaults>
       <authenticator>
-        <template #authenticator-si--sign-in-button>
+        <template #sign-in-button>
           <button>New Sign In Button</button>
         </template>
       </authenticator>
@@ -182,7 +190,7 @@ export default defineComponent({
   <\/script>
     `,
     headless: `
-    <amplify-provider> 
+    <amplify-provider>
       <authenticator></authenticator>
     </amplify-provider>
 
@@ -193,7 +201,7 @@ export default defineComponent({
     footer: `
     <amplify-provider defaults>
       <authenticator>
-        <template #authenticator-si--footer="{ info }">
+        <template #sign-in-footer="{ info }">
           <h3>New Footer Details</h3>
           <footer data-amplify-footer>
             <render-info :info="info"></render-info>
@@ -203,9 +211,61 @@ export default defineComponent({
     </amplify-provider
 
     <script setup>
-    import { Authenticator, AmplifyProvider, RenderInfo } from 
+    import { Authenticator, AmplifyProvider, RenderInfo } from
                                         "@aws-amplify/ui-vue";
     <\/script>
+    `,
+
+    confirmPassword: `
+    <amplify-provider defaults>
+      <authenticator @sign-up-submit="over">
+        <template #sign-up-fields>
+          <SignUpUsernameControl />
+          <SignUpPasswordControl />
+          <div class="">
+            <h3>Confirm Password</h3>
+            <input
+              type="password"
+              name="confirm_password"
+              class="block w-full mt-1 border-gray-300 rounded shadow-sm border p-2"
+            />
+            <div v-if="error" class="text-red-700">
+              Passwords do not match.
+            </div>
+          </div>
+          <SignUpEmailControl />
+          <SignUpPhoneControl />
+        </template>
+      </authenticator>
+    </amplify-provider>
+
+    <script setup>
+    import { Authenticator, AmplifyProvider, SignUp,
+     SignUpUsernameControl, SignUpPasswordControl, SignUpPhoneControl,
+     SignUpEmailControl  } from "@aws-amplify/ui-vue";
+
+    const over = event => {
+      const formData = new FormData(event.target);
+      const values = Object.fromEntries(formData);
+      if (values.password !== values.confirm_password) {
+        error.value = true;
+      } else {
+       error.value = false;
+        const phoneS = \`\${values.phone_number_prefix}\${values.phone_number}\`.replace(
+          /[^A-Z0-9+]/gi,
+          ""
+        );
+        delete values.phone_number_prefix;
+        delete values.confirm_password;
+        send({
+          type: "SUBMIT",
+          data: { ...values, phone_number: phoneS }
+        });
+      }
+    };
+
+    <\/script>
+    
     `
   }),
   setup() {
@@ -218,33 +278,35 @@ export default defineComponent({
       " | form                   |       Replaces the **<form>** DOM Element        |            Exposes **{ info }** default child data         | **<sign-in>**               | \n" +
       " | full-name              | Replaces the **<span>** label text for Full name |                               None                             | **<sign-in>**               | \n" +
       " | forgot-password-button |      Replaces the forgot password button       |              Exposes  **{ onForgotPasswordClicked }**            | **<sign-in>**               | \n" +
-      " | sign-in-button         |          Replaces the sign in button           |               Exposes **{ onSignInButtonClicked }**              | **<sign-in>**               | \n" +
+      " | sign-in-button         |          Replaces the sign in button           |               Exposes **{ onSignInSubmit }**              | **<sign-in>**               | \n" +
       "| heading                |           Replaces the heading text            |                               none                               | **<sign-in>**                | \n" +
-      "| footer                 |      Replaces the **<footer>** DOM element       | Exposes **{ onSignInButtonClicked, info, onCreateAccountClicked }** | **<sign-in>**           | \n" +
+      "| footer                 |      Replaces the **<footer>** DOM element       | Exposes **{ onSignInSubmit, info, onCreateAccountClicked }** | **<sign-in>**           | \n" +
       " | additional-fields      | Space below password input   |                               None                             | **<sign-in>**               | \n" +
-      " | additional-fields      | Space below password input   |                               None                             | **<sign-up>**               | \n" +
+      " | signup-fields      | Replaces Sign Up Fields|                               Exposes **{ info }** default child data                             | **<sign-up>**               | \n" +
       " | footer      | Replaces footer at the bottom | Exposes **{info, onHaveAccountClicked, onSignUpSubmit}**                             | **<sign-up>** | \n" +
       " | footer-left      | Replaces the footer on the left  | Exposes **{ onHaveAccountClicked }** | **<sign-up>**               | \n" +
       " | footer-right      | Replaces the footer on the right | Exposes **{ onSignUpSubmit }**   | **<sign-up>**               | \n" +
-      "| authenticator-si-sign-in-button | Replaces the sign in button                    |    Exposes **{ onSignInButtonClicked }**                        |  **<authenticator>**         | \n" +
-      "| authenticator-si--forgot-password-button | Replaces the forgot password button                    |    Exposes **{ onForgotPasswordClicked }**                        |  **<authenticator>**         | \n" +
-      "| authenticator-si--heading                |           Replaces the heading text            |                               none                               | **<authenticator>**                | \n" +
-      "| authenticator-si--footer                 |      Replaces the **<footer>** DOM element       | Exposes **{ onSignInButtonClicked, info, onCreateAccountClicked }** | **<authenticator>**           | \n" +
-      " | authenticator-si--form                   |       Replaces the **<form>** DOM Element        |            Exposes **{ info }** default child data         | **<authenticator>**               | \n" +
-      " | authenticator-si--full-name              | Replaces the **<span>** label text for Full name |                               None                             | **<authenticator>**               | \n" +
-      " | authenticator-su--additional-fields      | Space below password input   |                               None                             | **<authenticator>**               | \n" +
-      " | authenticator-su--footer      | Replaces footer at the bottom | Exposes **{info, onHaveAccountClicked, onSignUpSubmit}**                             | **<authenticator>** | \n" +
-      " | authenticator-su--footer-left      | Replaces the footer on the left  | Exposes **{ onHaveAccountClicked }** | **<authenticator>**               | \n" +
-      " | authenticator-su--footer-right      | Replaces the footer on the right | Exposes **{ onSignUpSubmit }**   | **<authenticator>**               | \n";
+      "| sign-in-button | Replaces the sign in button                    |    Exposes **{ onSignInSubmit }**                        |  **<authenticator>**         | \n" +
+      "| sign-in-forgot-password-button | Replaces the forgot password button                    |    Exposes **{ onForgotPasswordClicked }**                        |  **<authenticator>**         | \n" +
+      "| sign-in-heading                |           Replaces the heading text            |                               none                               | **<authenticator>**                | \n" +
+      "| sign-in-footer                 |      Replaces the **<footer>** DOM element       | Exposes **{ onSignInSubmit, info, onCreateAccountClicked }** | **<authenticator>**           | \n" +
+      " | sign-in-form                   |       Replaces the **<form>** DOM Element        |            Exposes **{ info }** default child data         | **<authenticator>**               | \n" +
+      " | sign-in-full-name              | Replaces the **<span>** label text for Full name |                               None                             | **<authenticator>**               | \n" +
+      " | sign-up-fields      | Replaces Sign Up fields   |                               Exposes **{ info }** default child data                             | **<authenticator>**               | \n" +
+      " | sign-up-footer      | Replaces footer at the bottom | Exposes **{info, onHaveAccountClicked, onSignUpSubmit}**                             | **<authenticator>** | \n" +
+      " | sign-up-footer-left      | Replaces the footer on the left  | Exposes **{ onHaveAccountClicked }** | **<authenticator>**               | \n" +
+      " | sign-up-footer-right      | Replaces the footer on the right | Exposes **{ onSignUpSubmit }**   | **<authenticator>**               | \n";
 
     const eventTable =
       "| Name                    |                                                Description | Component | \n" +
       "| ----------------------- | :---------------------------------------------------------: | :----------------: \n" +
-      "| sign-in-button-clicked  |         Emits and overrides when sign in button is clicked | **<sign-ip>**    | \n" +
-      "| forgot-password-clicked | Emits and overrides when forgot password button is clicked | **<sign-ip>**    |\n" +
-      "| create-account-clicked  |  Emits and overrides when create account button is clicked | **<sign-ip>**    |\n" +
-      "| sign-up-button-clicked  |  Emits and overrides when sign up button is clicked | **<sign-up>**    |\n" +
-      "| have-account-clicked    |  Emits and overrides when have account button is clicked | **<sign-up>**    |\n";
+      "| sign-in-submit  |         Emits and overrides when sign in button is submitted | **<sign-in>**    | \n" +
+      "| forgot-password-clicked | Emits and overrides when forgot password button is clicked | **<sign-in>**    |\n" +
+      "| create-account-clicked  |  Emits and overrides when create account button is clicked | **<sign-in>**    |\n" +
+      "| sign-up-submit  |  Emits and overrides when sign up button is submitted | **<sign-up>**    |\n" +
+      "| have-account-clicked    |  Emits and overrides when have account button is clicked | **<sign-up>**    |\n" +
+      "| sign-in-submit  |         Emits and overrides when sign in button is submitted | **<authenticator>**    | \n" +
+      "| sign-up-submit  |  Emits and overrides when sign up button is submitted | **<authenticator>**    |\n";
 
     const over = event => {
       const formData = new FormData(event.target);
@@ -260,6 +322,7 @@ export default defineComponent({
         );
         delete values.phone_number_prefix;
         delete values.confirm_password;
+        console.log("phoneS", phoneS);
         send({
           type: "SUBMIT",
           //@ts-ignore Property 'fromEntries' does not exist on type 'ObjectConstructor'. Do you need to change your target library? Try changing the `lib` compiler option to 'es2019' or later.ts(2550)

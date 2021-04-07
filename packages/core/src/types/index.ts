@@ -6,7 +6,13 @@ export interface AuthContext {
   session: CognitoUserSession | unknown;
 }
 
-export type AuthEventTypes = "SIGN_IN" | "SIGN_UP" | "SIGN_OUT" | "SUBMIT";
+export type AuthEventTypes =
+  | "SIGN_IN"
+  | "SIGN_UP"
+  | "SIGN_OUT"
+  | "SUBMIT"
+  | "RESEND"
+  | "CONFIRM_SIGN_UP";
 
 export interface AuthEvent {
   type: AuthEventTypes;
