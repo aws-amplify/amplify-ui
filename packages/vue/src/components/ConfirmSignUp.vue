@@ -33,7 +33,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref } from "vue";
+import { defineComponent, computed } from "vue";
 import Heading from "./primitives/Heading.vue";
 import FieldSet from "./primitives/FieldSet.vue";
 import SignUpUsernameControl from "./SignUpUsernameControl.vue";
