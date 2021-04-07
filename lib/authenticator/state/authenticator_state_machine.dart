@@ -6,6 +6,7 @@ import 'package:state_machine/state_machine.dart' as StateMachine;
 import 'package:provider/provider.dart';
 import '../authenticator_service.dart' as authService;
 import 'authenticator_state.dart';
+import 'state_machine_definition.dart';
 
 // AuthStateMachine is a state machine built with the library state_machine
 // AuthStateMachine is a ChangeNotifier that will call notifyListeners() on state change
@@ -20,156 +21,73 @@ class AuthStateMachine with ChangeNotifier {
     @required this.initialStep,
     Function onStateChange,
   }) {
-    _machine = StateMachine.StateMachine('auth');
-
-    isIdle = _machine.newState('isIdle');
-
-    isAuthenticated = _machine.newState('isAuthenticated');
-
-    isSignInIdle = _machine.newState('isSignInIdle');
-    isSignInPending = _machine.newState('isSignInPending');
-    isSignInResolved = _machine.newState('isSignInResolved');
-    isSignInRejected = _machine.newState('isSignInRejected');
-
-    isSignUpIdle = _machine.newState('isSignUpIdle');
-    isSignUpPending = _machine.newState('isSignUpPending');
-    isSignUpResolved = _machine.newState('isSignUpResolved');
-    isSignUpRejected = _machine.newState('isSignUpRejected');
-
-    isConfirmSignUpIdle = _machine.newState('isConfirmSignUpIdle');
-    isConfirmSignUpPending = _machine.newState('isConfirmSignUpPending');
-    isConfirmSignUpResolved = _machine.newState('isConfirmSignUpResolved');
-    isConfirmSignUpRejected = _machine.newState('isConfirmSignUpRejected');
-
-    isResetPasswordIdle = _machine.newState('isResetPasswordIdle');
-    isResetPasswordPending = _machine.newState('isResetPasswordPending');
-    isResetPasswordResolved = _machine.newState('isResetPasswordResolved');
-    isResetPasswordRejected = _machine.newState('isResetPasswordRejected');
-
-    isSignOut = _machine.newState('signOut');
-
-    // navigation transitions
-    navigateToSignUp = _machine.newStateTransition(
-      'navigateToSignUp',
-      [isSignInIdle, isResetPasswordIdle],
-      isSignUpIdle,
-    );
-
-    navigateToSignIn = _machine.newStateTransition(
-      'navigateToSignIn',
-      [isSignUpIdle, isResetPasswordIdle],
-      isSignInIdle,
-    );
-
-    navigateToConfirmSignUp = _machine.newStateTransition(
-      'navigateToConfirmSignUp',
-      [isSignUpResolved],
-      isConfirmSignUpIdle,
-    );
-
-    navigateToResetPassword = _machine.newStateTransition(
-      'navigateToResetPassword',
-      [isSignInIdle],
-      isResetPasswordIdle,
-    );
-
-    // sign in transitions
-    signInSumbit = _machine.newStateTransition(
-      'signInSumbit',
-      [isSignInIdle, isConfirmSignUpResolved],
-      isSignInPending,
-    )..stream.listen(onSignInSubmit);
-
-    signInResolved = _machine.newStateTransition(
-      'signInResolved',
-      [isSignInPending],
-      isSignInResolved,
-    )..stream.listen(onSignInResolved);
-
-    signInRejected = _machine.newStateTransition(
-      'signInRejected',
-      [isSignInPending],
-      isSignInRejected,
-    )..stream.listen(onSignInRejected);
-
-    signInReset = _machine.newStateTransition(
-      'signInReset',
-      [isSignInResolved, isSignInRejected],
-      isSignInIdle,
-    );
-
-    // sign up transitions
-    signUpSumbit = _machine.newStateTransition(
-      'signUpSumbit',
-      [isSignUpIdle],
-      isSignUpPending,
-    )..stream.listen(onSignUpSubmit);
-
-    signUpResolved = _machine.newStateTransition(
-      'signUpResolved',
-      [isSignUpPending],
-      isSignUpResolved,
-    )..stream.listen(onSignUpResolved);
-
-    signUpRejected = _machine.newStateTransition(
-      'signUpRejected',
-      [isSignUpPending],
-      isSignUpRejected,
-    )..stream.listen(onSignUpRejected);
-
-    signUpReset = _machine.newStateTransition(
-      'signUpReset',
-      [isSignUpResolved, isSignUpRejected],
-      isSignUpIdle,
-    );
-
-    // confirm sign up transitions
-    confirmSignUpSumbit = _machine.newStateTransition(
-      'confirmSignUpSumbit',
-      [isConfirmSignUpIdle],
-      isConfirmSignUpPending,
-    )..stream.listen(onConfirmSignUpSubmit);
-
-    confirmSignUpResolved = _machine.newStateTransition(
-      'confirmSignUpResolved',
-      [isConfirmSignUpPending],
-      isConfirmSignUpResolved,
-    )..stream.listen(onConfirmSignUpResolved);
-
-    confirmSignUpRejected = _machine.newStateTransition(
-      'confirmSignUpRejected',
-      [isConfirmSignUpPending],
-      isConfirmSignUpRejected,
-    )..stream.listen(onConfirmSignUpRejected);
-
-    confirmSignUpReset = _machine.newStateTransition(
-      'confirmSignUpReset',
-      [isConfirmSignUpResolved, isConfirmSignUpRejected],
-      isConfirmSignUpIdle,
-    );
+    // minimal state definition that roughly matches xState's Json definition
+    Map<String, dynamic> jsonState = {
+      "id": "auth",
+      "initial": "signInIdle",
+      "states": {
+        "signInIdle": {
+          "on": {
+            "SIGN_UP": "signUpIdle",
+            "SUBMIT": "signInPending",
+          }
+        },
+        "signInPending": {
+          "on": {
+            "SIGN_IN_RESOLVED": "signInResolved",
+            "SIGN_IN_REJECTED": "signInRejected",
+          },
+          "invoke": {
+            "src": "signIn",
+            "onDone": {
+              "actions": "setUser",
+              "target": "SIGN_IN_RESOLVED",
+            },
+            "onError": "SIGN_IN_REJECTED"
+          }
+        },
+        "signInResolved": {},
+        "signInRejected": {
+          "always": "signInIdle",
+        },
+        "signUpIdle": {
+          "on": {
+            "SIGN_IN": "signInIdle",
+          },
+        },
+      },
+      "services": {
+        "signIn": onSignInSubmit,
+      }
+    };
+    GeneratedStateMachine generatedStateMachine =
+        generateStateMachine(jsonState);
+    _machine = generatedStateMachine.stateMachine;
+    states = generatedStateMachine.states;
+    stateTransitions = generatedStateMachine.stateTransitions;
 
     // notify listners on state change
     _machine.onStateChange.listen((event) {
       debugPrint("current state: " + event.to.name);
       notifyListeners();
+      if (event.to.name == "signInResolved") {
+        this.onSignInSuccess();
+      }
     });
-    switch (initialStep) {
-      case AuthenticatorStep.signIn:
-        _machine.start(isSignInIdle);
-        break;
-      case AuthenticatorStep.signUp:
-        _machine.start(isSignUpIdle);
-        break;
-      case AuthenticatorStep.confirmSignUp:
-        _machine.start(isConfirmSignUpIdle);
-        break;
-      case AuthenticatorStep.resetPassword:
-        _machine.start(isResetPasswordIdle);
-        break;
-    }
   }
 
-  void onSignInSubmit(event) async {
+  Map<String, StateMachine.State> states;
+  Map<String, StateMachine.StateTransition> stateTransitions;
+
+  bool send(String value, [dynamic payload]) {
+    String transitionName = _machine.current.name + '-' + value;
+    debugPrint(transitionName);
+    StateMachine.StateTransition stateTransition =
+        stateTransitions[transitionName];
+    return stateTransition(payload);
+  }
+
+  Future onSignInSubmit(event) async {
     // state is read via the current build context
     StateTransitionPayload payload = event.payload;
     BuildContext context = payload.context;
@@ -181,96 +99,93 @@ class AuthStateMachine with ChangeNotifier {
         username: username,
         password: password,
       );
-      signInResolved();
     } on AuthException catch (authException) {
       debugPrint(authException.toString());
-      signInRejected(StateTransitionPayload(
-        context: context,
-        authException: authException,
-      ));
     }
   }
 
-  void onSignInResolved(event) async {
-    // TODO: Should there be a transition to authenticated?
-    this.onSignInSuccess();
-  }
+  // void onSignInResolved(event) async {
+  //   // TODO: Should there be a transition to authenticated?
+  //   this.onSignInSuccess();
+  // }
 
-  void onSignInRejected(event) async {
-    StateTransitionPayload payload = event.payload;
-    setAuthExceptionField(payload.context, payload.authException);
-    signInReset();
-  }
+  // void onSignInRejected(event) async {
+  //   StateTransitionPayload payload = event.payload;
+  //   setAuthExceptionField(payload.context, payload.authException);
+  //   signInReset();
+  // }
 
-  void onSignUpSubmit(event) async {
-    // state is read via the current build context
-    StateTransitionPayload payload = event.payload;
-    BuildContext context = payload.context;
-    clearAuthExceptionFields(context);
-    String username = context.read<UsernameFormFieldState>().value;
-    String email = context.read<EmailFormFieldState>().value;
-    String password = context.read<PasswordFormFieldState>().value;
-    try {
-      SignUpResult signUpResult = await authService.signUp(
-        username: username,
-        email: email,
-        password: password,
-      );
-      signUpResolved();
-    } on AuthException catch (authException) {
-      debugPrint(authException.toString());
-      signUpRejected(StateTransitionPayload(
-        context: context,
-        authException: authException,
-      ));
-    }
-  }
+  // void onSignUpSubmit(event) async {
+  //   // state is read via the current build context
+  //   StateTransitionPayload payload = event.payload;
+  //   BuildContext context = payload.context;
+  //   clearAuthExceptionFields(context);
+  //   String username = context.read<UsernameFormFieldState>().value;
+  //   String email = context.read<EmailFormFieldState>().value;
+  //   String password = context.read<PasswordFormFieldState>().value;
+  //   try {
+  //     SignUpResult signUpResult = await authService.signUp(
+  //       username: username,
+  //       email: email,
+  //       password: password,
+  //     );
+  //     signUpResolved();
+  //   } on AuthException catch (authException) {
+  //     debugPrint(authException.toString());
+  //     signUpRejected(StateTransitionPayload(
+  //       context: context,
+  //       authException: authException,
+  //     ));
+  //   }
+  // }
 
-  void onSignUpResolved(event) async {
-    // TODO: transitition to confirm sign up if required
-    navigateToConfirmSignUp();
-  }
+  // void onSignUpResolved(event) async {
+  //   // TODO: transitition to confirm sign up if required
+  //   navigateToConfirmSignUp();
+  // }
 
-  void onSignUpRejected(event) async {
-    setAuthExceptionField(event.payload.context, event.payload.authException);
-    signUpReset();
-  }
+  // void onSignUpRejected(event) async {
+  //   setAuthExceptionField(event.payload.context, event.payload.authException);
+  //   signUpReset();
+  // }
 
-  void onConfirmSignUpSubmit(event) async {
-    // state is read via the current build context
-    StateTransitionPayload payload = event.payload;
-    BuildContext context = payload.context;
-    clearAuthExceptionFields(context);
-    String username = context.read<UsernameFormFieldState>().value;
-    String verificationCode =
-        context.read<VerificationCodeFormFieldState>().value;
-    try {
-      SignUpResult signInResult = await authService.confirmSignUp(
-        username: username,
-        verificationCode: verificationCode,
-      );
-      confirmSignUpResolved(event.payload);
-    } on AuthException catch (authException) {
-      debugPrint(authException.toString());
-      confirmSignUpRejected(StateTransitionPayload(
-        context: context,
-        authException: authException,
-      ));
-    }
-  }
+  // void onConfirmSignUpSubmit(event) async {
+  //   // state is read via the current build context
+  //   StateTransitionPayload payload = event.payload;
+  //   BuildContext context = payload.context;
+  //   clearAuthExceptionFields(context);
+  //   String username = context.read<UsernameFormFieldState>().value;
+  //   String verificationCode =
+  //       context.read<VerificationCodeFormFieldState>().value;
+  //   try {
+  //     SignUpResult signInResult = await authService.confirmSignUp(
+  //       username: username,
+  //       verificationCode: verificationCode,
+  //     );
+  //     confirmSignUpResolved(event.payload);
+  //   } on AuthException catch (authException) {
+  //     debugPrint(authException.toString());
+  //     confirmSignUpRejected(StateTransitionPayload(
+  //       context: context,
+  //       authException: authException,
+  //     ));
+  //   }
+  // }
 
-  void onConfirmSignUpResolved(event) async {
-    // TODO: Should this be a unique event instead of re-using the sign in submit?
-    signInSumbit(event.payload);
-  }
+  // void onConfirmSignUpResolved(event) async {
+  //   // TODO: Should this be a unique event instead of re-using the sign in submit?
+  //   signInSumbit(event.payload);
+  // }
 
-  void onConfirmSignUpRejected(event) async {
-    setAuthExceptionField(event.payload.context, event.payload.authException);
-    confirmSignUpRejected();
-  }
+  // void onConfirmSignUpRejected(event) async {
+  //   setAuthExceptionField(event.payload.context, event.payload.authException);
+  //   confirmSignUpRejected();
+  // }
 
   StateMachine.State get current => _machine.current;
 
+  // none of the state definitions are defined
+  // they are left in this poc to avoid having to update every location they are referenced
   StateMachine.State isIdle;
 
   StateMachine.State isAuthenticated;

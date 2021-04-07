@@ -34,7 +34,7 @@ class SignInLink extends StatelessWidget {
         TextButton(
           key: Key('sign-in-button'),
           onPressed: () {
-            context.read<AuthStateMachine>().navigateToSignIn();
+            context.read<AuthStateMachine>().send('SIGN_IN');
           },
           child: Text('Sign In'),
         ),
@@ -56,7 +56,7 @@ class SignUpLink extends StatelessWidget {
         Text('No Account?'),
         TextButton(
           onPressed: () {
-            context.read<AuthStateMachine>().navigateToSignUp();
+            context.read<AuthStateMachine>().send('SIGN_UP');
           },
           child: Text('Sign Up'),
         ),
@@ -123,10 +123,8 @@ class SignUpButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AuthStateMachine state = context.watch<AuthStateMachine>();
-    // onPressed is set to null when the current state is not isSignUpIdle to disable the button
-    Function onPressed = !disabled && state.isSignUpIdle()
-        ? () => state.signUpSumbit(StateTransitionPayload(context: context))
-        : null;
+    Function onPressed =
+        () => state.signUpSumbit(StateTransitionPayload(context: context));
     return ElevatedButton(
       onPressed: onPressed,
       child: Row(
@@ -150,10 +148,9 @@ class SignInButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AuthStateMachine state = context.watch<AuthStateMachine>();
-    // onPressed is set to null when the current state is not isSignInIdle to disable the button
-    Function onPressed = !disabled && state.isSignInIdle()
-        ? () => state.signInSumbit(StateTransitionPayload(context: context))
-        : null;
+    Function onPressed = () => context
+        .read<AuthStateMachine>()
+        .send('SUBMIT', StateTransitionPayload(context: context));
     return ElevatedButton(
       onPressed: onPressed,
       child: Row(
