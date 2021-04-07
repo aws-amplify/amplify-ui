@@ -1,15 +1,15 @@
-import { Component, Input } from '@angular/core';
+import { AfterContentInit, Component, Input } from '@angular/core';
 import {
   ControlContainer,
   FormGroup,
   FormGroupDirective,
-  ValidationErrors,
+  ValidationErrors
 } from '@angular/forms';
 import {
   AuthAttribute,
   InputType,
   getAttributeMap,
-  AttributeInfo,
+  AttributeInfo
 } from '../../common';
 
 /**
@@ -21,16 +21,20 @@ import {
   templateUrl: './amplify-form-field.component.html',
   viewProviders: [
     // https://stackoverflow.com/a/46452442/10103143
-    { provide: ControlContainer, useExisting: FormGroupDirective },
-  ],
+    { provide: ControlContainer, useExisting: FormGroupDirective }
+  ]
 })
-export class AmplifyFormFieldComponent {
+export class AmplifyFormFieldComponent implements AfterContentInit {
   @Input() name: AuthAttribute = null;
   // TODO: Separate entry for id
   @Input() type: InputType = 'text';
   @Input() required = false;
   @Input() formGroup: FormGroup;
   @Input() errors: ValidationErrors;
+
+  ngAfterContentInit() {
+    console.log(this.required);
+  }
 
   get attributeMap(): Record<AuthAttribute, AttributeInfo> {
     return getAttributeMap();

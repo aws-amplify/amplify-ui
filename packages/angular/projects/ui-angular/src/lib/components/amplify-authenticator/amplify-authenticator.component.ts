@@ -8,11 +8,11 @@ import {
   TemplateRef,
   ViewEncapsulation
 } from '@angular/core';
-import { AuthState } from '../../common/auth-types';
+import { AuthState } from '../../common/types';
 import { AmplifyOverrideDirective } from '../../directives/amplify-override.directive';
 import { StateMachineService } from '../../services/state-machine.service';
 import { ComponentsProviderService } from '../../services/components-provider.service';
-import { CustomComponents, SignInValidators } from '../../common';
+import { CustomComponents, OnSubmitHook } from '../../common';
 import { State } from 'xstate';
 
 @Component({
@@ -23,7 +23,8 @@ import { State } from 'xstate';
 })
 export class AmplifyAuthenticatorComponent implements AfterContentInit {
   @Input() initialAuthState: AuthState = 'signIn';
-  @Input() signInValidators: SignInValidators;
+  @Input() onSignIn: OnSubmitHook;
+  @Input() onSignUp: OnSubmitHook;
   @HostBinding('attr.data-ui-authenticator') dataAttr = '';
   @ContentChildren(AmplifyOverrideDirective)
   private customComponentQuery: QueryList<AmplifyOverrideDirective> = null;
@@ -45,7 +46,10 @@ export class AmplifyAuthenticatorComponent implements AfterContentInit {
     this.customComponents = this.componentsProvider.customComponents;
     this.componentsProvider.props = {
       signIn: {
-        signInValidators: this.signInValidators
+        onSignIn: this.onSignIn
+      },
+      signUp: {
+        onSignUp: this.onSignUp
       }
     };
   }

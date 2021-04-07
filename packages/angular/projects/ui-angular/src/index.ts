@@ -3,6 +3,7 @@
  */
 
 export * from './lib/ui-angular.module';
+export * from './lib/common/types';
 
 export * from './lib/components/amplify-authenticator/amplify-authenticator.component';
 export * from './lib/components/amplify-sign-in/amplify-sign-in.component';

@@ -1,11 +1,12 @@
-<label data-ui-label [for]="name">{{ attributeMap[name].label }}</label>
-<input
-  data-ui-input
-  [id]="name"
-  [type]="type"
-  [name]="name"
-  [placeholder]="'Enter your username'"
-  [formControlName]="name"
-  [required]="required ? '' : null"
-/>
+<label>
+  <div data-ui-label>{{ attributeMap[name].label }}</div>
+  <input
+    data-ui-input
+    [type]="type"
+    [name]="name"
+    [placeholder]="'Enter your username'"
+    [required]="required ? true : false"
+  />
+</label>
+
 <amplify-validation-error [errors]="errors"></amplify-validation-error>

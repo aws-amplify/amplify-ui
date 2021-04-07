@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
-import { authMachine } from '@aws-amplify/ui-core';
+import {
+  AuthInterpreter,
+  authMachine,
+  AuthMachineState
+} from '@aws-amplify/ui-core';
 import { Logger } from '@aws-amplify/core';
-import { Interpreter, interpret, State } from 'xstate';
+import { Interpreter, interpret } from 'xstate';
 
 const logger = new Logger('StateHachine');
 /**
@@ -12,8 +16,8 @@ const logger = new Logger('StateHachine');
   providedIn: 'root' // ensure we have a singleton service
 })
 export class StateMachineService {
-  private _authState: State<any>;
-  private _authService: Interpreter<any>;
+  private _authState: AuthMachineState;
+  private _authService: AuthInterpreter;
 
   public set authState(authState: any) {
     this._authState = authState;
@@ -23,7 +27,7 @@ export class StateMachineService {
     return this._authState;
   }
 
-  public get authService(): Interpreter<any> {
+  public get authService(): AuthInterpreter {
     return this._authService;
   }
 

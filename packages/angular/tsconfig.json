@@ -12,9 +12,7 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "es2020",
-    "paths": {
-      "ui-angular": ["dist/ui-angular"]
-    },
+    "paths": {},
     "lib": ["dom", "es2019", "dom.iterable"]
   },
   "angularCompilerOptions": {

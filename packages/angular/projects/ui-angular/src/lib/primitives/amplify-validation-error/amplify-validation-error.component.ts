@@ -5,7 +5,7 @@ import { getErrorMessage } from './validation-error-messages';
 
 @Component({
   selector: 'amplify-validation-error',
-  templateUrl: './amplify-validation-error.component.html',
+  templateUrl: './amplify-validation-error.component.html'
 })
 export class AmplifyValidationErrorComponent implements OnInit {
   @Input() errors: ValidationErrors;

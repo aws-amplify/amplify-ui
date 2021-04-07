@@ -1,4 +1,4 @@
-import { Auth, Logger } from 'aws-amplify';
+import { Logger } from 'aws-amplify';
 import {
   AfterContentInit,
   Component,
@@ -8,14 +8,10 @@ import {
   OnInit,
   TemplateRef
 } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
-import {
-  InputErrors,
-  mapInputErrors,
-  noWhitespacesAfterTrim
-} from '../../common';
+import { AuthFormData, FormError, OnSubmitHook } from '../../common';
 import { ComponentsProviderService, StateMachineService } from '../../services';
 import { State, Subscription, Event } from 'xstate';
+import { AuthMachineState } from '@aws-amplify/ui-core';
 
 const logger = new Logger('SignUp');
 @Component({
@@ -25,12 +21,13 @@ const logger = new Logger('SignUp');
 export class AmplifySignUpComponent
   implements AfterContentInit, OnInit, OnDestroy {
   @Input() headerText = 'Create a new account';
+  @Input() onSignUp: OnSubmitHook;
   @HostBinding('attr.data-ui-sign-up') dataAttr = '';
+
   private authSubscription: Subscription;
   public customComponents: Record<string, TemplateRef<any>>;
   public loading = false;
-  public inputErrors: InputErrors;
-  public formError: string;
+  public formErrors: FormError;
   public context = {
     $implicit: {
       signUp: () => {
@@ -38,15 +35,8 @@ export class AmplifySignUpComponent
       }
     }
   };
-  public formGroup = this.fb.group({
-    username: ['', [Validators.required, noWhitespacesAfterTrim]],
-    password: ['', [Validators.required]],
-    email: ['', [Validators.required, noWhitespacesAfterTrim]],
-    phone_number: ['', [Validators.required, noWhitespacesAfterTrim]]
-  });
 
   constructor(
-    private fb: FormBuilder,
     private stateMachine: StateMachineService,
     private componentsProvider: ComponentsProviderService
   ) {}
@@ -59,15 +49,16 @@ export class AmplifySignUpComponent
 
   ngAfterContentInit(): void {
     this.customComponents = this.componentsProvider.customComponents;
+    this.onSignUp = this.componentsProvider.props.signUp.onSignUp;
   }
 
   ngOnDestroy(): void {
     this.authSubscription.unsubscribe();
   }
 
-  private onStateUpdate(state: State<any>): void {
+  private onStateUpdate(state: AuthMachineState): void {
     if (state.event.type.includes('error')) {
-      this.formError = (state.event as any).data.message;
+      this.formErrors.cross_field = [state.event.data?.message];
       this.loading = false;
     }
   }
@@ -77,20 +68,33 @@ export class AmplifySignUpComponent
   }
 
   async onSubmit($event): Promise<void> {
+    $event.preventDefault();
     const formData = new FormData($event.target);
-    const formValues = Object.fromEntries(formData.entries());
+    const formValues = Object.fromEntries(formData.entries()) as AuthFormData;
     logger.log('Sign up form submitted with', formValues);
 
     // map validation errors, to be shown each respective inputs
-    this.inputErrors = mapInputErrors(this.formGroup.controls);
+    const errors: FormError = {};
 
-    if (this.formGroup.status !== 'VALID') return;
+    console.log({ ...formValues }, { ...errors });
+    this.onSignUp(formValues, errors);
+    console.log({ ...formValues }, { ...errors });
+
+    if (Object.keys(errors).length > 0) {
+      this.formErrors = errors;
+      return;
+    }
+
     this.loading = true;
 
     this.send({
       type: 'SUBMIT',
       data: formValues
     });
+  }
+
+  onChange(): void {
+    console.log('form changed');
   }
 
   toSignIn(): void {
