@@ -77,13 +77,12 @@ export class AmplifySignUpComponent
       this.formErrors = error;
       return;
     }
-    const signUpParam =
-      data && Object.keys(data).length > 0 ? data : formValues;
+    const param = data && Object.keys(data).length > 0 ? data : formValues;
 
     this.loading = true;
     this.send({
       type: 'SUBMIT',
-      data: signUpParam
+      data: param
     });
   }
 

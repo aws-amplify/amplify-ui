@@ -13,6 +13,7 @@ import { ComponentsProviderService, StateMachineService } from '../../services';
 import { AuthFormData, FormError } from '../../common';
 import { Event, Subscription } from 'xstate';
 import { AuthMachineState } from '@aws-amplify/ui-core';
+import { OnSubmitHook } from 'dist/ui-angular';
 
 const logger = new Logger('SignIn');
 
@@ -25,12 +26,15 @@ export class AmplifySignInComponent
   implements AfterContentInit, OnInit, OnDestroy {
   @HostBinding('attr.data-ui-sign-in') dataAttr = '';
   @Input() public headerText = 'Sign in to your account';
+  @Input() onSignIn: OnSubmitHook;
   public loading = false;
   public customComponents: Record<string, TemplateRef<any>> = {};
   public formError: FormError = {};
   private authSubscription: Subscription;
   public context = {
-    $implicit: {}
+    $implicit: {
+      errors: () => this.formError
+    }
   };
 
   constructor(
@@ -49,7 +53,7 @@ export class AmplifySignInComponent
 
     // attach custom validators
     const props = this.componentsProvider.props.signIn;
-    const customValidators = props?.signInValidators;
+    this.onSignIn = props.signIn.onSignIn;
   }
 
   ngOnDestroy(): void {
@@ -88,27 +92,21 @@ export class AmplifySignInComponent
     // get form data
     const formData = new FormData($event.target);
     const formValues = Object.fromEntries(formData.entries()) as AuthFormData;
-
     logger.log('Sign in form submitted with', formValues);
 
-    // trim input
-    if (formValues.username) {
-      formValues.username = formValues.username;
-      // TODO: Refelct the trimmed string in the form
+    if (!this.onSignIn) this.onSignIn = () => ({});
+    const { data, error } = this.onSignIn({ ...formValues });
+    if (error && Object.keys(error).length > 0) {
+      this.formError = error;
+      return;
     }
-
-    // validate inputs
-    this.validateInputs(formValues);
-
-    // return if form is invalid
-    console.log(this.formError);
-    if (Object.keys(this.formError).length > 0) return;
+    const param = data && Object.keys(data).length > 0 ? data : formValues;
 
     this.loading = true; // disable inputs
 
     this.send({
       type: 'SUBMIT',
-      data: formValues
+      data: param
     });
   }
 }
