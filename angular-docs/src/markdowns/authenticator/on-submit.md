@@ -8,8 +8,7 @@
 
 ```typescript
 type OnSubmitHook = (
-  formData: AuthFormData,
-  errors: FormError
+  formData: AuthFormData
 ) => {
   data?: AuthFormData;
   error?: FormError;
