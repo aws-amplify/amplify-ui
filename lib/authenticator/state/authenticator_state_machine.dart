@@ -173,6 +173,7 @@ class AuthStateMachine with ChangeNotifier {
     // state is read via the current build context
     StateTransitionPayload payload = event.payload;
     BuildContext context = payload.context;
+    clearAuthExceptionFields(context);
     String username = context.read<UsernameFormFieldState>().value;
     String password = context.read<PasswordFormFieldState>().value;
     try {
@@ -205,6 +206,7 @@ class AuthStateMachine with ChangeNotifier {
     // state is read via the current build context
     StateTransitionPayload payload = event.payload;
     BuildContext context = payload.context;
+    clearAuthExceptionFields(context);
     String username = context.read<UsernameFormFieldState>().value;
     String email = context.read<EmailFormFieldState>().value;
     String password = context.read<PasswordFormFieldState>().value;
@@ -238,6 +240,7 @@ class AuthStateMachine with ChangeNotifier {
     // state is read via the current build context
     StateTransitionPayload payload = event.payload;
     BuildContext context = payload.context;
+    clearAuthExceptionFields(context);
     String username = context.read<UsernameFormFieldState>().value;
     String verificationCode =
         context.read<VerificationCodeFormFieldState>().value;

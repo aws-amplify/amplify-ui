@@ -52,3 +52,10 @@ void setAuthExceptionField(BuildContext context, AuthException exception) {
     }
   }
 }
+
+void clearAuthExceptionFields(BuildContext context) {
+  context.read<UsernameFormFieldState>().validationMessage = null;
+  context.read<EmailFormFieldState>().validationMessage = null;
+  context.read<PasswordFormFieldState>().validationMessage = null;
+  context.read<VerificationCodeFormFieldState>().validationMessage = null;
+}
