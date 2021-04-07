@@ -69,6 +69,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
       },
       signUp: {
         initial: "idle",
+        onDone: "confirmSignUp",
         states: {
           idle: {
             on: {
@@ -80,12 +81,50 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
             invoke: {
               src: "signUp",
               onDone: {
+                actions: "setUser",
                 target: "resolved"
               },
               onError: "rejected"
             }
           },
           // TODO Set errors and go back to `idle`?
+          rejected: {
+            always: "idle"
+          },
+          resolved: {
+            type: "final"
+          }
+        }
+      },
+      confirmSignUp: {
+        initial: "idle",
+        onDone: "idle",
+        states: {
+          idle: {
+            on: {
+              CONFIRM_SIGN_UP: "#auth.confirmSignUp",
+              SUBMIT: "pending",
+              RESEND: "resend"
+            }
+          },
+          pending: {
+            invoke: {
+              src: "confirmSignUp",
+              onDone: {
+                target: "resolved"
+              },
+              onError: "rejected"
+            }
+          },
+          resend: {
+            invoke: {
+              src: "resendConfirmationCode",
+              onDone: {
+                target: "idle"
+              },
+              onError: "rejected"
+            }
+          },
           rejected: {
             always: "idle"
           },
@@ -138,6 +177,16 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
         const { username, password } = event.data;
 
         return Auth.signIn(username, password);
+      },
+      async confirmSignUp(context, event) {
+        const { username, code } = event.data;
+
+        return Auth.confirmSignUp(username, code);
+      },
+      async resendConfirmationCode(context, event) {
+        const { username } = event.data;
+
+        return Auth.resendSignUp(username);
       },
       async signUp(context, event) {
         const { username, password, ...attributes } = event.data;
