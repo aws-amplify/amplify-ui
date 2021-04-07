@@ -20,6 +20,8 @@ class AuthenticatorState {
     this._authStateMachine = authStateMachine;
   }
 
+  AuthStateMachine get stateMachine => _authStateMachine;
+
   AuthenticatorStep get step {
     if (_authStateMachine.isSignIn) {
       return AuthenticatorStep.signIn;
