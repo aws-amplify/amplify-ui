@@ -1,0 +1,39 @@
+{
+  "name": "vue-docs",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "@tailwindcss/postcss7-compat": "^2.0.4",
+    "autoprefixer": "^9",
+    "babel-loader": "^8.2.2",
+    "core-js": "^3.6.5",
+    "eslint": "7.11.0",
+    "postcss": "^7",
+    "prismjs": "^1.23.0",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat",
+    "vue": "^3.0.0",
+    "vue3-markdown-it": "^1.0.7"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.18.0",
+    "@typescript-eslint/parser": "^4.18.0",
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-plugin-typescript": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
+    "@vue/compiler-sfc": "^3.0.0",
+    "@vue/eslint-config-typescript": "^7.0.0",
+    "@xstate/inspect": "^0.4.1",
+    "@xstate/vue": "^0.5.0",
+    "aws-amplify": "^3.3.25",
+    "babel-eslint": "^10.1.0",
+    "eslint-plugin-vue": "^7.0.0",
+    "typescript": "~4.1.5",
+    "xstate": "^4.17.0"
+  }
+}
