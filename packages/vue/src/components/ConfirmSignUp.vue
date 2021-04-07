@@ -81,7 +81,6 @@ export default defineComponent({
   ) {
     const { state, send } = useAuth();
 
-    const pending = ref(true);
     //computed properties
 
     const confirmSignUpHeading = computed(() => CONFIRM_SIGNUP_HEADING);
