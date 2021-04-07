@@ -22,7 +22,7 @@
   <Example :title="'Overriding forgot-password'" :code="overrideForgotPassword">
     <amplify-provider defaults>
       <authenticator>
-        <template #authenticator-si--forgot-password-button>
+        <template #sign-in-forgot-password-button>
           <button>New Button</button>
         </template>
       </authenticator>
@@ -32,7 +32,7 @@
   <Example :title="'Overriding sign-in button'" :code="overrideSignInButton">
     <amplify-provider defaults>
       <authenticator>
-        <template #authenticator-si--sign-in-button>
+        <template #sign-in-button>
           <button>New Sign In Button</button>
         </template>
         <button
@@ -54,7 +54,7 @@
   <Example :title="'Updating Footer And Render Information'" :code="footer">
     <amplify-provider defaults>
       <authenticator>
-        <template #authenticator-si--footer="{ info}">
+        <template #sign-in-footer="{ info}">
           <h3>New Footer Details</h3>
           <footer data-amplify-footer>
             <render-info :info="info"></render-info>
@@ -69,7 +69,7 @@
   <Example :title="'Add confirm password'" :code="confirmPassword">
     <amplify-provider defaults>
       <authenticator @sign-up-submit="over">
-        <template #authenticator-su--signup-fields>
+        <template #sign-up-fields>
           <SignUpUsernameControl />
           <SignUpPasswordControl />
           <div class="">
@@ -162,7 +162,7 @@ export default defineComponent({
     overrideForgotPassword: `
     <amplify-provider defaults>
       <authenticator>
-        <template #authenticator-si--forgot-password-button>
+        <template #sign-in-forgot-password-button>
           <button>New Button</button>
         </template>
       </authenticator>
@@ -177,7 +177,7 @@ export default defineComponent({
     overrideSignInButton: `
     <amplify-provider defaults>
       <authenticator>
-        <template #authenticator-si--sign-in-button>
+        <template #sign-in-button>
           <button>New Sign In Button</button>
         </template>
       </authenticator>
@@ -201,7 +201,7 @@ export default defineComponent({
     footer: `
     <amplify-provider defaults>
       <authenticator>
-        <template #authenticator-si--footer="{ info }">
+        <template #sign-in-footer="{ info }">
           <h3>New Footer Details</h3>
           <footer data-amplify-footer>
             <render-info :info="info"></render-info>
@@ -219,7 +219,7 @@ export default defineComponent({
     confirmPassword: `
     <amplify-provider defaults>
       <authenticator @sign-up-submit="over">
-        <template #authenticator-su--signup-fields>
+        <template #sign-up-fields>
           <SignUpUsernameControl />
           <SignUpPasswordControl />
           <div class="">
@@ -286,16 +286,16 @@ export default defineComponent({
       " | footer      | Replaces footer at the bottom | Exposes **{info, onHaveAccountClicked, onSignUpSubmit}**                             | **<sign-up>** | \n" +
       " | footer-left      | Replaces the footer on the left  | Exposes **{ onHaveAccountClicked }** | **<sign-up>**               | \n" +
       " | footer-right      | Replaces the footer on the right | Exposes **{ onSignUpSubmit }**   | **<sign-up>**               | \n" +
-      "| authenticator-si-sign-in-button | Replaces the sign in button                    |    Exposes **{ onSignInSubmit }**                        |  **<authenticator>**         | \n" +
-      "| authenticator-si--forgot-password-button | Replaces the forgot password button                    |    Exposes **{ onForgotPasswordClicked }**                        |  **<authenticator>**         | \n" +
-      "| authenticator-si--heading                |           Replaces the heading text            |                               none                               | **<authenticator>**                | \n" +
-      "| authenticator-si--footer                 |      Replaces the **<footer>** DOM element       | Exposes **{ onSignInSubmit, info, onCreateAccountClicked }** | **<authenticator>**           | \n" +
-      " | authenticator-si--form                   |       Replaces the **<form>** DOM Element        |            Exposes **{ info }** default child data         | **<authenticator>**               | \n" +
-      " | authenticator-si--full-name              | Replaces the **<span>** label text for Full name |                               None                             | **<authenticator>**               | \n" +
-      " | authenticator-su--signup-fields      | Replaces Sign Up fields   |                               Exposes **{ info }** default child data                             | **<authenticator>**               | \n" +
-      " | authenticator-su--footer      | Replaces footer at the bottom | Exposes **{info, onHaveAccountClicked, onSignUpSubmit}**                             | **<authenticator>** | \n" +
-      " | authenticator-su--footer-left      | Replaces the footer on the left  | Exposes **{ onHaveAccountClicked }** | **<authenticator>**               | \n" +
-      " | authenticator-su--footer-right      | Replaces the footer on the right | Exposes **{ onSignUpSubmit }**   | **<authenticator>**               | \n";
+      "| sign-in-button | Replaces the sign in button                    |    Exposes **{ onSignInSubmit }**                        |  **<authenticator>**         | \n" +
+      "| sign-in-forgot-password-button | Replaces the forgot password button                    |    Exposes **{ onForgotPasswordClicked }**                        |  **<authenticator>**         | \n" +
+      "| sign-in-heading                |           Replaces the heading text            |                               none                               | **<authenticator>**                | \n" +
+      "| sign-in-footer                 |      Replaces the **<footer>** DOM element       | Exposes **{ onSignInSubmit, info, onCreateAccountClicked }** | **<authenticator>**           | \n" +
+      " | sign-in-form                   |       Replaces the **<form>** DOM Element        |            Exposes **{ info }** default child data         | **<authenticator>**               | \n" +
+      " | sign-in-full-name              | Replaces the **<span>** label text for Full name |                               None                             | **<authenticator>**               | \n" +
+      " | sign-up-fields      | Replaces Sign Up fields   |                               Exposes **{ info }** default child data                             | **<authenticator>**               | \n" +
+      " | sign-up-footer      | Replaces footer at the bottom | Exposes **{info, onHaveAccountClicked, onSignUpSubmit}**                             | **<authenticator>** | \n" +
+      " | sign-up-footer-left      | Replaces the footer on the left  | Exposes **{ onHaveAccountClicked }** | **<authenticator>**               | \n" +
+      " | sign-up-footer-right      | Replaces the footer on the right | Exposes **{ onSignUpSubmit }**   | **<authenticator>**               | \n";
 
     const eventTable =
       "| Name                    |                                                Description | Component | \n" +
