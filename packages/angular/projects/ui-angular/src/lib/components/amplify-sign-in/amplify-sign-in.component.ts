@@ -50,9 +50,9 @@ export class AmplifySignInComponent
   ngAfterContentInit(): void {
     this.customComponents = this.componentsProvider.customComponents;
 
-    // attach custom validators
+    // attach sign in hooks
     const props = this.componentsProvider.props.signIn;
-    this.onSignIn = props.signIn.onSignIn;
+    this.onSignIn = props.onSignIn;
   }
 
   ngOnDestroy(): void {
