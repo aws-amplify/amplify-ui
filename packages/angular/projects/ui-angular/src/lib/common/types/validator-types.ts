@@ -13,4 +13,9 @@ export type FormError = PartialRecord<AuthAttribute, ErrorMessage[]> & {
   [custom_attributes: string]: ErrorMessage[];
 };
 
-export type OnSubmitHook = (formData: AuthFormData, errors: FormError) => void;
+export type OnSubmitHookResponse = {
+  data?: AuthFormData;
+  error?: FormError;
+};
+
+export type OnSubmitHook = (formData: AuthFormData) => OnSubmitHookResponse;

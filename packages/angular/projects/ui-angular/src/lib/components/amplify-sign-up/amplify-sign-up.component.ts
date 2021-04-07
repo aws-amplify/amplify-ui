@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { AuthFormData, FormError, OnSubmitHook } from '../../common';
 import { ComponentsProviderService, StateMachineService } from '../../services';
-import { State, Subscription, Event } from 'xstate';
+import { Subscription, Event } from 'xstate';
 import { AuthMachineState } from '@aws-amplify/ui-core';
 
 const logger = new Logger('SignUp');
@@ -27,12 +27,10 @@ export class AmplifySignUpComponent
   private authSubscription: Subscription;
   public customComponents: Record<string, TemplateRef<any>>;
   public loading = false;
-  public formErrors: FormError;
+  public formErrors: FormError = {};
   public context = {
     $implicit: {
-      signUp: () => {
-        console.log('to be implemented');
-      }
+      errors: () => this.formErrors
     }
   };
 
@@ -57,7 +55,7 @@ export class AmplifySignUpComponent
   }
 
   private onStateUpdate(state: AuthMachineState): void {
-    if (state.event.type.includes('error')) {
+    if (state.event.type.includes('error.platform.signUp')) {
       this.formErrors.cross_field = [state.event.data?.message];
       this.loading = false;
     }
@@ -73,23 +71,19 @@ export class AmplifySignUpComponent
     const formValues = Object.fromEntries(formData.entries()) as AuthFormData;
     logger.log('Sign up form submitted with', formValues);
 
-    // map validation errors, to be shown each respective inputs
-    const errors: FormError = {};
-
-    console.log({ ...formValues }, { ...errors });
-    this.onSignUp(formValues, errors);
-    console.log({ ...formValues }, { ...errors });
-
-    if (Object.keys(errors).length > 0) {
-      this.formErrors = errors;
+    if (!this.onSignUp) this.onSignUp = () => ({}); // no-op
+    const { data, error } = this.onSignUp({ ...formValues });
+    if (error && Object.keys(error).length > 0) {
+      this.formErrors = error;
       return;
     }
+    const signUpParam =
+      data && Object.keys(data).length > 0 ? data : formValues;
 
     this.loading = true;
-
     this.send({
       type: 'SUBMIT',
-      data: formValues
+      data: signUpParam
     });
   }
 

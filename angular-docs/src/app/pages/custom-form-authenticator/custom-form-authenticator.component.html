@@ -1,0 +1,21 @@
+<markdown [src]="'markdowns/authenticator/custom-form.md'"></markdown>
+<amplify-context-provider>
+  <amplify-authenticator [onSignUp]="onSignUp">
+    <ng-template amplifyOverride="signUpFieldset" let-ctx>
+      <amplify-form-field name="username"></amplify-form-field>
+      <amplify-form-field
+        name="password"
+        type="password"
+        [errors]="ctx.errors()?.password"
+      ></amplify-form-field>
+      <amplify-form-field
+        name="confirm_password"
+        type="password"
+        label="Confirm Password"
+        placeholder="Re-enter your password"
+        [errors]="ctx.errors()?.confirm_password"
+      ></amplify-form-field>
+      <amplify-form-field name="email" type="email"></amplify-form-field>
+    </ng-template>
+  </amplify-authenticator>
+</amplify-context-provider>

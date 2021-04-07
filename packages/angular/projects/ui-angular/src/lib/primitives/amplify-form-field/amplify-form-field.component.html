@@ -1,10 +1,10 @@
 <label>
-  <div data-ui-label>{{ attributeMap[name].label }}</div>
+  <div data-ui-label>{{ label || attributeMap[name]?.label }}</div>
   <input
     data-ui-input
     [type]="type"
     [name]="name"
-    [placeholder]="'Enter your username'"
+    [placeholder]="placeholder || attributeMap[name]?.placeholder"
     [required]="required ? true : false"
   />
 </label>

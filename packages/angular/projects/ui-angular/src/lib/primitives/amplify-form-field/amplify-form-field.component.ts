@@ -24,17 +24,14 @@ import {
     { provide: ControlContainer, useExisting: FormGroupDirective }
   ]
 })
-export class AmplifyFormFieldComponent implements AfterContentInit {
-  @Input() name: AuthAttribute = null;
+export class AmplifyFormFieldComponent {
+  @Input() name: AuthAttribute;
   // TODO: Separate entry for id
   @Input() type: InputType = 'text';
   @Input() required = false;
-  @Input() formGroup: FormGroup;
   @Input() errors: ValidationErrors;
-
-  ngAfterContentInit() {
-    console.log(this.required);
-  }
+  @Input() placeholder: string;
+  @Input() label: string;
 
   get attributeMap(): Record<AuthAttribute, AttributeInfo> {
     return getAttributeMap();

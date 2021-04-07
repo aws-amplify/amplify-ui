@@ -5,6 +5,7 @@ import { OnSubmitAuthenticatorComponent } from '../pages/on-submit-authenticator
 import { HeadlessAuthenticatorComponent } from '../pages/headless-authenticator/headless-authenticator.component';
 import { StyledAuthenticatorComponent } from '../pages/styled-authenticator/styled-authenticator.component';
 import { DocRoutes } from './types';
+import { CustomFormAuthenticatorComponent } from '../pages/custom-form-authenticator/custom-form-authenticator.component';
 
 export const docRoutes: DocRoutes = [
   {
@@ -31,6 +32,11 @@ export const docRoutes: DocRoutes = [
     path: 'on-submit-hook',
     name: 'OnSubmit Hook',
     component: OnSubmitAuthenticatorComponent
+  },
+  {
+    path: 'custom-form',
+    name: 'Customizing Form Field',
+    component: CustomFormAuthenticatorComponent
   }
   // {
   //   path: 'composition',

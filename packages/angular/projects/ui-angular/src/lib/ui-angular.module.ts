@@ -16,10 +16,10 @@ import { AmplifyValidationErrorComponent } from './primitives/amplify-validation
     AmplifySignInComponent,
     AmplifySignOutComponent,
     AmplifyContextProviderComponent,
-    AmplifyOverrideDirective,
     AmplifySignUpComponent,
     AmplifyFormFieldComponent,
     AmplifyValidationErrorComponent,
+    AmplifyOverrideDirective
   ],
   imports: [CommonModule, ReactiveFormsModule],
   exports: [
@@ -27,7 +27,9 @@ import { AmplifyValidationErrorComponent } from './primitives/amplify-validation
     AmplifySignInComponent,
     AmplifySignOutComponent,
     AmplifyContextProviderComponent,
-    AmplifyOverrideDirective,
-  ],
+    AmplifyFormFieldComponent,
+    AmplifyValidationErrorComponent,
+    AmplifyOverrideDirective
+  ]
 })
 export class UiAngularModule {}

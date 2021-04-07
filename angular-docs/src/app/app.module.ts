@@ -19,6 +19,7 @@ import { StyledAuthenticatorComponent } from './pages/styled-authenticator/style
 import { CustomComponentAuthenticatorComponent } from './pages/custom-component-authenticator/custom-component-authenticator.component';
 import { CompositionAuthenticatorComponent } from './pages/composition-authenticator/composition-authenticator.component';
 import { OnSubmitAuthenticatorComponent } from './pages/on-submit-authenticator/on-submit-authenticator.component';
+import { CustomFormAuthenticatorComponent } from './pages/custom-form-authenticator/custom-form-authenticator.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { OnSubmitAuthenticatorComponent } from './pages/on-submit-authenticator/
     StyledAuthenticatorComponent,
     CustomComponentAuthenticatorComponent,
     CompositionAuthenticatorComponent,
-    OnSubmitAuthenticatorComponent
+    OnSubmitAuthenticatorComponent,
+    CustomFormAuthenticatorComponent
   ],
   imports: [
     UiAngularModule,

@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormError, AuthFormData } from '@aws-amplify/ui-angular';
+import {
+  FormError,
+  AuthFormData,
+  OnSubmitHookResponse
+} from '@aws-amplify/ui-angular';
 
 @Component({
   selector: 'app-custom-form-authenticator',
@@ -10,11 +14,14 @@ export class OnSubmitAuthenticatorComponent {
     formData.username = formData.username?.trim();
   }
 
-  public usernameContainsDigit(formData: AuthFormData, errors: FormError) {
+  public usernameContainsDigit(formData: AuthFormData): OnSubmitHookResponse {
     const { username } = formData;
+    const error: FormError = {};
+
     const containsDigit = /\d/.test(username);
     if (!containsDigit) {
-      errors.username = ['Username must contain a digit'];
+      error.username = ['This field should contain at least one digit.'];
     }
+    return { error };
   }
 }
