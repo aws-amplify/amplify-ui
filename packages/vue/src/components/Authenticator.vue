@@ -11,33 +11,30 @@
 
       <template #forgot-password-button="{ onForgotPasswordClicked}">
         <slot
-          name="authenticator-si--forgot-password-button"
+          name="sign-in-forgot-password-button"
           :onForgotPasswordClicked="onForgotPasswordClicked"
         />
       </template>
 
       <template #sign-in-button="{ onSignInSubmit}">
-        <slot
-          name="authenticator-si--sign-in-button"
-          :onSignInSubmit="onSignInSubmit"
-        />
+        <slot name="sign-in-button" :onSignInSubmit="onSignInSubmit" />
       </template>
 
       <template #form="{ info }">
-        <slot name="authenticator-si--form" :info="info"></slot>
+        <slot name="sign-in-form" :info="info"></slot>
       </template>
 
       <template #heading>
-        <slot name="authenticator-si--heading"></slot>
+        <slot name="sign-in-heading"></slot>
       </template>
 
       <template #full-name>
-        <slot name="authenticator-si--full-name"></slot>
+        <slot name="sign-in-full-name"></slot>
       </template>
 
       <template #footer="{ info, onSignInSubmit, onCreateAccountClicked  }">
         <slot
-          name="authenticator-si--footer"
+          name="sign-in-footer"
           :info="info"
           :onSignInSubmit="onSignInSubmit"
           :onCreateAccountClicked="onCreateAccountClicked"
@@ -49,7 +46,7 @@
         #additional-fields="{ onSignInSubmit, onCreateAccountClicked  }"
       >
         <slot
-          name="authenticator-si--additional-fields"
+          name="sign-in-additional-fields"
           :onSignInSubmit="onSignInSubmit"
           :onCreateAccountClicked="onCreateAccountClicked"
         >
@@ -62,7 +59,7 @@
       ref="signUpComponent"
     >
       <template #signup-fields="{info}">
-        <slot name="authenticator-su--signup-fields" :info="info"></slot>
+        <slot name="sign-up-fields" :info="info"></slot>
       </template>
 
       <template #signUpSlotI>
@@ -71,21 +68,21 @@
 
       <template #footer-left="{ onHaveAccountClicked}">
         <slot
-          name="authenticator-su--footer-left"
+          name="sign-up-footer-left"
           :onHaveAccountClicked="onHaveAccountClicked"
         ></slot>
       </template>
 
       <template #footer-right="{ onSignUpSubmit }">
         <slot
-          name="authenticator-su--footer-right"
+          name="sign-up-footer-right"
           :onSignUpSubmit="onSignUpSubmit"
         ></slot>
       </template>
 
       <template #footer="{ info, onHaveAccountClicked, onSignUpSubmit }">
         <slot
-          name="authenticator-su--footer"
+          name="sign-up-footer"
           :info="info"
           :onHaveAccountClicked="onHaveAccountClicked"
           :onSignUpSubmit="onSignUpSubmit"
@@ -97,7 +94,11 @@
       Error! Can't sign in!
     </div>
     <!-- <ConfirmSignUp v-if="state?.matches('signIn')"></ConfirmSignUp> -->
-    <ConfirmSignUp v-if="state?.matches('confirmSignUp')"></ConfirmSignUp>
+    <ConfirmSignUp v-if="state?.matches('confirmSignUp')">
+      <template #confirmSignUpSlotI>
+        <slot name="confirm-sign-up"></slot>
+      </template>
+    </ConfirmSignUp>
   </div>
 
   <slot v-if="state?.matches('authenticated')"></slot>
