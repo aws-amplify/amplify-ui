@@ -1,15 +1,15 @@
 <template>
-  <Label>
-    <Text>{{ phoneNumberLabel }}</Text>
+  <base-label>
+    <base-text>{{ phoneNumberLabel }}</base-text>
 
     <div class="flex">
-      <Select
+      <base-select
         v-model:selectValue="phonePreFix"
         name="phone_number_prefix"
         :options="options"
         class="border"
       />
-      <Input
+      <base-input
         v-model:textValue="phoneNumber"
         name="phone_number"
         class="border phone"
@@ -17,25 +17,25 @@
         type="tel"
         placeholder="(555) 555-1212"
         maxlength="14"
-      ></Input>
+      ></base-input>
     </div>
-  </Label>
+  </base-label>
 </template>
 
 <script lang="ts">
-import Input from "./primitives/Input.vue";
-import Text from "./primitives/Text.vue";
-import Label from "./primitives/Label.vue";
-import Select from "./primitives/Select.vue";
+import BaseInput from "./primitives/base-input.vue";
+import BaseText from "./primitives/base-text.vue";
+import BaseLabel from "./primitives/base-label.vue";
+import BaseSelect from "./primitives/base-select.vue";
 import { defineComponent, computed, ref, watchEffect } from "vue";
 import { PHONE_NUMBER_LABEL } from "../defaults/DefaultTexts";
 
 export default defineComponent({
   components: {
-    Input,
-    Text,
-    Label,
-    Select
+    BaseInput,
+    BaseText,
+    BaseLabel,
+    BaseSelect
   },
   setup(_, { emit }: { emit: (st, e?) => unknown }) {
     const phoneNumberLabel = computed(() => PHONE_NUMBER_LABEL);

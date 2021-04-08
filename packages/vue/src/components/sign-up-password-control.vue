@@ -1,23 +1,23 @@
 <template>
-  <Label>
-    <Text>{{ passwordLabel }}</Text>
-    <Input name="password" required type="password"></Input>
-  </Label>
+  <base-label>
+    <base-text>{{ passwordLabel }}</base-text>
+    <base-input name="password" required type="password"></base-input>
+  </base-label>
 </template>
 
 <script lang="ts">
 import { defineComponent, computed } from "vue";
 import { PASSWORD_LABEL } from "../defaults/DefaultTexts";
 
-import Input from "./primitives/Input.vue";
-import Text from "./primitives/Text.vue";
-import Label from "./primitives/Label.vue";
+import BaseInput from "./primitives/base-input.vue";
+import BaseText from "./primitives/base-text.vue";
+import BaseLabel from "./primitives/base-label.vue";
 
 export default defineComponent({
   components: {
-    Input,
-    Text,
-    Label
+    BaseInput,
+    BaseText,
+    BaseLabel
   },
   setup() {
     const passwordLabel = computed(() => PASSWORD_LABEL);
