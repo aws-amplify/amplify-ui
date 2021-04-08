@@ -133,6 +133,10 @@ const slotTable =
   " | footer      | Replaces footer at the bottom | Exposes **{info, onHaveAccountClicked, onSignUpSubmit}**                             | **<sign-up>** | \n" +
   " | footer-left      | Replaces the footer on the left  | Exposes **{ onHaveAccountClicked }** | **<sign-up>**               | \n" +
   " | footer-right      | Replaces the footer on the right | Exposes **{ onSignUpSubmit }**   | **<sign-up>**               | \n" +
+  " | footer      | Replaces footer at the bottom | Exposes **{info, onBackToSignInClicked, onConfirmSignUpSubmit}**                             | **<confirm-sign-up>** | \n" +
+  "| sign-in | Replaces sign-in                    |   None |  **<authenticator>**         | \n" +
+  "| sign-up | Replaces sign-up                    |    None |  **<authenticator>**         | \n" +
+  "| confirm-sign-up | Replaces confirm-sign-up                    |  None  |  **<authenticator>**         | \n" +
   "| sign-in-button | Replaces the sign in button                    |    Exposes **{ onSignInSubmit }**                        |  **<authenticator>**         | \n" +
   "| sign-in-forgot-password-button | Replaces the forgot password button                    |    Exposes **{ onForgotPasswordClicked }**                        |  **<authenticator>**         | \n" +
   "| sign-in-heading                |           Replaces the heading text            |                               none                               | **<authenticator>**                | \n" +
@@ -152,8 +156,12 @@ const eventTable =
   "| create-account-clicked  |  Emits and overrides when create account button is clicked | **<sign-in>**    |\n" +
   "| sign-up-submit  |  Emits and overrides when sign up button is submitted | **<sign-up>**    |\n" +
   "| have-account-clicked    |  Emits and overrides when have account button is clicked | **<sign-up>**    |\n" +
+  "| confirm-sign-up-submit  |  Emits and overrides when confirm sign up button is submitted | **<confirm-sign-up>**    |\n" +
+  "| back-to-sign-in-clicked  |  Emits and overrides when the back to sign in button is clicked| **<confirm-sign-up>**    |\n" +
+  "| lost-code-clicked  |  Emits and overrides when lost code button is clicked | **<confirm-sign-up>**    |\n" +
   "| sign-in-submit  |         Emits and overrides when sign in button is submitted | **<authenticator>**    | \n" +
-  "| sign-up-submit  |  Emits and overrides when sign up button is submitted | **<authenticator>**    |\n";
+  "| sign-up-submit  |  Emits and overrides when sign up button is submitted | **<authenticator>**    |\n" +
+  "| confirm-sign-up-submit  |  Emits and overrides when confirm sign up button is submitted | **<authenticator>**    |\n";
 
 const exampleSignIn = `
     <div class="css-example">

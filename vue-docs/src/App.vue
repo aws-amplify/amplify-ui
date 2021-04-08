@@ -164,9 +164,6 @@ export default defineComponent({
     SignUpPhoneControl,
     "vue3-markdown-it": VueMarkdownIt
   },
-  data: () => ({
-    // Code Examples
-  }),
   setup() {
     const { state, send } = useAuth();
     const error = ref(false);
