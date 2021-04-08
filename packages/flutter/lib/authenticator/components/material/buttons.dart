@@ -14,7 +14,9 @@ class BackToSignInLink extends StatelessWidget {
       style: TextButton.styleFrom(padding: EdgeInsets.zero),
       key: Key('back-to-sign-in-button'),
       onPressed: () {
-        context.read<AuthStateMachine>().send('SIGN_IN');
+        context
+            .read<AuthStateMachine>()
+            .send('SIGN_IN', StateTransitionPayload(context: context));
       },
       child: Text('Back to Sign In'),
     );
@@ -34,7 +36,9 @@ class SignInLink extends StatelessWidget {
         TextButton(
           key: Key('sign-in-button'),
           onPressed: () {
-            context.read<AuthStateMachine>().send('SIGN_IN');
+            context
+                .read<AuthStateMachine>()
+                .send('SIGN_IN', StateTransitionPayload(context: context));
           },
           child: Text('Sign In'),
         ),
@@ -56,7 +60,9 @@ class SignUpLink extends StatelessWidget {
         Text('No Account?'),
         TextButton(
           onPressed: () {
-            context.read<AuthStateMachine>().send('SIGN_UP');
+            context
+                .read<AuthStateMachine>()
+                .send('SIGN_UP', StateTransitionPayload(context: context));
           },
           child: Text('Sign Up'),
         ),
@@ -170,8 +176,9 @@ class ForgotPasswordButton extends StatelessWidget {
       children: [
         Text('Forgot your password?'),
         TextButton(
-          onPressed: () =>
-              context.read<AuthStateMachine>().send('RESET_PASSWORD'),
+          onPressed: () => context
+              .read<AuthStateMachine>()
+              .send('RESET_PASSWORD', StateTransitionPayload(context: context)),
           child: Text('Reset Password'),
         )
       ],

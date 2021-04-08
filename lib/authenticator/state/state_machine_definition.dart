@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:state_machine/state_machine.dart';
 
+import 'authenticator_state_machine.dart';
+
 // returns a GeneratedStateMachine (StateMachine + the associated States and StateTransitions)
 // given a json state definition
 GeneratedStateMachine generateStateMachine(
@@ -140,12 +142,16 @@ Map<String, StreamSubscription<StateChange>> createStateChangeSubscriptions(
         // state transition will have been created by createImplicitStateTransitions
         String stateTransitionName =
             state.key + "-to-" + state.value.invoke.onDone.target;
-        getStateTransition(stateTransitions, stateTransitionName)();
+        getStateTransition(stateTransitions, stateTransitionName)(event);
       }).catchError((error) {
         // state transition will have been created by createImplicitStateTransitions
         String stateTransitionName =
             state.key + "-to-" + state.value.invoke.onError;
-        getStateTransition(stateTransitions, stateTransitionName)();
+        getStateTransition(stateTransitions, stateTransitionName)(
+            StateTransitionPayload(
+          context: event.payload.context,
+          authException: error,
+        ));
       });
     });
     return MapEntry(state.key, subscription);
@@ -158,13 +164,27 @@ Map<String, StreamSubscription<StateChange>> createStateChangeSubscriptions(
     StreamSubscription<StateChange> subscription =
         getState(states, state.key).onEnter.listen((event) {
       String stateTransitionName = state.key + "-to-" + state.value.always;
-      getStateTransition(stateTransitions, stateTransitionName)();
+      getStateTransition(stateTransitions, stateTransitionName)(event);
+    });
+    return MapEntry(state.key, subscription);
+  }).toList();
+
+  // subscriptions from state.entry
+  List<MapEntry<String, StreamSubscription<StateChange>>> entrySubscriptions =
+      stateMachineDefinition.states.entries
+          .where((state) => state.value.entry != null)
+          .map((state) {
+    StreamSubscription<StateChange> subscription =
+        getState(states, state.key).onEnter.listen((event) {
+      ActionFn action = stateMachineDefinition.actions[state.value.entry];
+      action(event);
     });
     return MapEntry(state.key, subscription);
   }).toList();
   return Map<String, StreamSubscription<StateChange>>.fromEntries([
     ...invokeSubscriptions,
     ...alwaysSubscriptions,
+    ...entrySubscriptions,
   ]);
 }
 
@@ -184,12 +204,14 @@ class GeneratedStateMachine {
 // helper classes and types for parsing the json state
 
 typedef ServiceFn = Future Function(dynamic event);
+typedef ActionFn = void Function(dynamic event);
 
 class StateMachineDefinition {
   String id;
   String initial;
   Map<String, StateDefinition> states;
   Map<String, ServiceFn> services;
+  Map<String, ActionFn> actions;
   StateMachineDefinition.fromJson(Map<dynamic, dynamic> jsonState) {
     id = jsonState['id'];
     initial = jsonState['initial'];
@@ -197,6 +219,7 @@ class StateMachineDefinition {
       return MapEntry(key, StateDefinition.fromJson(value));
     });
     services = jsonState['services'];
+    actions = jsonState['actions'];
   }
 }
 
@@ -204,12 +227,14 @@ class StateDefinition {
   Map<String, String> on;
   StateDefinitionInvoke invoke;
   String always;
+  String entry;
   StateDefinition.fromJson(Map<dynamic, dynamic> jsonState) {
     on = jsonState['on'];
     invoke = jsonState['invoke'] == null
         ? null
         : StateDefinitionInvoke.fromJson(jsonState['invoke']);
     always = jsonState['always'];
+    entry = jsonState['entry'];
   }
 }
 

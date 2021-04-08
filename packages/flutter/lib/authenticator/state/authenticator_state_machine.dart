@@ -28,6 +28,8 @@ class AuthStateMachine with ChangeNotifier {
       "states": {
         "authenticated": {},
         "signInIdle": {
+          // TODO: update this to match ho js handles errors
+          "entry": "clearErrorMessages",
           "on": {
             "SIGN_UP": "signUpIdle",
             "RESET_PASSWORD": "resetPasswordIdle",
@@ -35,6 +37,7 @@ class AuthStateMachine with ChangeNotifier {
           }
         },
         "signInPending": {
+          "entry": "clearErrorMessages",
           "invoke": {
             "src": "signIn",
             "onDone": {
@@ -48,15 +51,19 @@ class AuthStateMachine with ChangeNotifier {
           "always": "authenticated",
         },
         "signInRejected": {
+          // TODO: update this to match ho js handles errors
+          "entry": "setErrorMessages",
           "always": "signInIdle",
         },
         "signUpIdle": {
+          "entry": "clearErrorMessages",
           "on": {
             "SIGN_IN": "signInIdle",
             "SUBMIT": "signUpPending",
           },
         },
         "signUpPending": {
+          "entry": "clearErrorMessages",
           "invoke": {
             "src": "signUp",
             "onDone": {
@@ -71,14 +78,17 @@ class AuthStateMachine with ChangeNotifier {
           "always": "confirmSignUpIdle"
         },
         "signUpRejected": {
+          "entry": "setErrorMessages",
           "always": "signUpIdle",
         },
         "confirmSignUpIdle": {
+          "entry": "clearErrorMessages",
           "on": {
             "SUBMIT": "confirmSignUpPending",
           },
         },
         "confirmSignUpPending": {
+          "entry": "clearErrorMessages",
           "invoke": {
             "src": "confirmSignUp",
             "onDone": {
@@ -91,9 +101,11 @@ class AuthStateMachine with ChangeNotifier {
           "always": "authenticated",
         },
         "confirmSignUpRejected": {
+          "entry": "setErrorMessages",
           "always": "confirmSignUpIdle",
         },
         "resetPasswordIdle": {
+          "entry": "clearErrorMessages",
           "on": {
             "SIGN_IN": "signInIdle",
           }
@@ -103,6 +115,20 @@ class AuthStateMachine with ChangeNotifier {
         "signIn": onSignInSubmit,
         "signUp": onSignUpSubmit,
         "confirmSignUp": onConfirmSignUpSubmit,
+      },
+      "actions": {
+        "setErrorMessages": (event) {
+          setAuthExceptionField(
+            event.payload.context,
+            event.payload.authException,
+          );
+        },
+        "clearErrorMessages": (event) {
+          // TODO: context will be null on the initial state entry
+          if (event.payload?.context != null) {
+            clearAuthExceptionFields(event.payload.context);
+          }
+        }
       }
     };
     GeneratedStateMachine generatedStateMachine =
@@ -124,7 +150,7 @@ class AuthStateMachine with ChangeNotifier {
   Map<String, StateMachine.State> states;
   Map<String, StateMachine.StateTransition> stateTransitions;
 
-  bool send(String value, [dynamic payload]) {
+  bool send(String value, StateTransitionPayload payload) {
     String transitionName = _machine.current.name + '-' + value;
     debugPrint(transitionName);
     if (stateTransitions[transitionName] == null) {
@@ -179,37 +205,6 @@ class AuthStateMachine with ChangeNotifier {
       verificationCode: verificationCode,
     );
   }
-
-  // void onSignInResolved(event) async {
-  //   // TODO: Should there be a transition to authenticated?
-  //   this.onSignInSuccess();
-  // }
-
-  // void onSignInRejected(event) async {
-  //   StateTransitionPayload payload = event.payload;
-  //   setAuthExceptionField(payload.context, payload.authException);
-  //   signInReset();
-  // }
-
-  // void onSignUpResolved(event) async {
-  //   // TODO: transitition to confirm sign up if required
-  //   navigateToConfirmSignUp();
-  // }
-
-  // void onSignUpRejected(event) async {
-  //   setAuthExceptionField(event.payload.context, event.payload.authException);
-  //   signUpReset();
-  // }
-
-  // void onConfirmSignUpResolved(event) async {
-  //   // TODO: Should this be a unique event instead of re-using the sign in submit?
-  //   signInSumbit(event.payload);
-  // }
-
-  // void onConfirmSignUpRejected(event) async {
-  //   setAuthExceptionField(event.payload.context, event.payload.authException);
-  //   confirmSignUpRejected();
-  // }
 
   StateMachine.State get current => _machine.current;
 
