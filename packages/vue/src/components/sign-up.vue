@@ -1,23 +1,23 @@
 <template>
   <slot name="signUpSlotI">
-    <Form @submit.prevent="onSignUpSubmit">
-      <Heading>
+    <base-form @submit.prevent="onSignUpSubmit">
+      <base-heading>
         <template #headingI>
           <slot name="heading"></slot>
         </template>
         {{ signUpButtonText }}
-      </Heading>
-      <FieldSet>
+      </base-heading>
+      <base-field-set>
         <template #fieldSetI=" { slotData } ">
           <slot name="signup-fields" :info="slotData"> </slot>
         </template>
-        <SignUpUsernameControl />
-        <SignUpPasswordControl />
-        <SignUpEmailControl />
-        <SignUpPhoneControl v-model:phone="phone" />
-      </FieldSet>
+        <sign-up-username-control />
+        <sign-up-password-control />
+        <sign-up-email-control />
+        <sign-up-phone-control v-model:phone="phone" />
+      </base-field-set>
 
-      <Footer>
+      <base-footer>
         <template #footert="{ slotData }">
           <slot
             name="footer"
@@ -28,34 +28,34 @@
           </slot>
         </template>
         <slot name="footer-left" :onHaveAccountClicked="onHaveAccountClicked">
-          <Text>{{ haveAccountLabel }}</Text>
-          <Button type="button" @click.prevent="onHaveAccountClicked">
-            {{ signInButtonText }}</Button
+          <base-text>{{ haveAccountLabel }}</base-text>
+          <base-button type="button" @click.prevent="onHaveAccountClicked">
+            {{ signInButtonText }}</base-button
           >
         </slot>
-        <Spacer />
+        <base-spacer />
         <slot name="footer-right" :onSignUpSubmit="onSignUpSubmit">
-          <Button>{{ createAccountLabel }}</Button>
+          <base-button>{{ createAccountLabel }}</base-button>
         </slot>
-      </Footer>
-    </Form>
+      </base-footer>
+    </base-form>
   </slot>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
 
-import Form from "./primitives/Form.vue";
-import Heading from "./primitives/Heading.vue";
-import Text from "./primitives/Text.vue";
-import FieldSet from "./primitives/FieldSet.vue";
-import Footer from "./primitives/Footer.vue";
-import Spacer from "./primitives/Spacer.vue";
-import Button from "./primitives/Button.vue";
-import SignUpEmailControl from "./SignUpEmailControl.vue";
-import SignUpPasswordControl from "./SignUpPasswordControl.vue";
-import SignUpPhoneControl from "./SignUpPhoneControl.vue";
-import SignUpUsernameControl from "./SignUpUsernameControl.vue";
+import BaseForm from "./primitives/base-form.vue";
+import BaseHeading from "./primitives/base-heading.vue";
+import BaseText from "./primitives/base-text.vue";
+import BaseFieldSet from "./primitives/base-field-set.vue";
+import BaseFooter from "./primitives/base-footer.vue";
+import BaseSpacer from "./primitives/base-spacer.vue";
+import BaseButton from "./primitives/base-button.vue";
+import SignUpEmailControl from "./sign-up-email-control.vue";
+import SignUpPasswordControl from "./sign-up-password-control.vue";
+import SignUpPhoneControl from "./sign-up-phone-control.vue";
+import SignUpUsernameControl from "./sign-up-username-control.vue";
 
 import {
   SIGN_IN_TEXT,
@@ -69,13 +69,13 @@ import { useAuth } from "../composables/useAuth";
 
 export default defineComponent({
   components: {
-    Form,
-    Heading,
-    Text,
-    FieldSet,
-    Footer,
-    Spacer,
-    Button,
+    BaseForm,
+    BaseHeading,
+    BaseText,
+    BaseFieldSet,
+    BaseFooter,
+    BaseSpacer,
+    BaseButton,
     SignUpUsernameControl,
     SignUpPhoneControl,
     SignUpPasswordControl,

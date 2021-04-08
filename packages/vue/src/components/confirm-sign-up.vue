@@ -1,51 +1,60 @@
 <template>
   <slot name="confirmSignUpSlotI">
-    <Form @submit.prevent="onConfirmSignUpSubmit">
-      <Heading>
+    <base-form @submit.prevent="onConfirmSignUpSubmit">
+      <base-heading>
         {{ confirmSignUpHeading }}
-      </Heading>
-      <FieldSet>
-        <SignUpUsernameControl
+      </base-heading>
+      <base-field-set>
+        <sign-up-username-control
           :userName="state?.context?.user?.user?.username"
           :disabled="true"
         />
-        <Label data-amplify-password>
-          <Text>{{ confirmationCodeText }}</Text>
-          <Input name="code" required type="number"></Input>
-          <Box>
-            <Text> {{ lostYourCodeText }}</Text>
-            <Button type="button" @click.prevent="onLostCodeClicked">
+        <base-label data-amplify-password>
+          <base-text>{{ confirmationCodeText }}</base-text>
+          <base-input name="code" required type="number"></base-input>
+          <base-box>
+            <base-text> {{ lostYourCodeText }}</base-text>
+            <base-button type="button" @click.prevent="onLostCodeClicked">
               {{ resendCodeText }}
-            </Button>
-          </Box>
-        </Label>
-      </FieldSet>
+            </base-button>
+          </base-box>
+        </base-label>
+      </base-field-set>
 
-      <Footer>
-        <Button type="button" @click.prevent="onBackToSignInClicked">
-          {{ backSignInText }}</Button
+      <base-footer>
+        <template #footert="{ slotData }">
+          <slot
+            name="footer"
+            :info="slotData"
+            :onBackToSignInClicked="onBackToSignInClicked"
+            :onConfirmSignUpSubmit="onConfirmSignUpSubmit"
+          >
+          </slot>
+        </template>
+        <base-button type="button" @click.prevent="onBackToSignInClicked">
+          {{ backSignInText }}</base-button
         >
-        <Spacer />
-        <Button>{{ confirmText }}</Button>
-      </Footer>
-    </Form>
+        <base-spacer />
+        <base-button>{{ confirmText }}</base-button>
+      </base-footer>
+    </base-form>
   </slot>
 </template>
 
 <script lang="ts">
 import { defineComponent, computed } from "vue";
-import Heading from "./primitives/Heading.vue";
-import FieldSet from "./primitives/FieldSet.vue";
-import SignUpUsernameControl from "./SignUpUsernameControl.vue";
-import Label from "./primitives/Label.vue";
+import BaseHeading from "./primitives/base-heading.vue";
+import BaseFieldSet from "./primitives/base-field-set.vue";
+import SignUpUsernameControl from "./sign-up-username-control.vue";
+import BaseLabel from "./primitives/base-label.vue";
 
-import Spacer from "./primitives/Spacer.vue";
-import Button from "./primitives/Button.vue";
-import Footer from "./primitives/Footer.vue";
-import Text from "./primitives/Text.vue";
-import Input from "./primitives/Input.vue";
-import Form from "./primitives/Form.vue";
-import Box from "./primitives/Box.vue";
+import BaseSpacer from "./primitives/base-spacer.vue";
+import BaseButton from "./primitives/base-button.vue";
+import BaseFooter from "./primitives/base-footer.vue";
+import BaseText from "./primitives/base-text.vue";
+import BaseInput from "./primitives/base-input.vue";
+import BaseForm from "./primitives/base-form.vue";
+import BaseBox from "./primitives/base-box.vue";
 
 import {
   CONFIRM_SIGNUP_HEADING,
@@ -59,17 +68,17 @@ import { useAuth } from "../composables/useAuth";
 
 export default defineComponent({
   components: {
-    Box,
-    Heading,
-    FieldSet,
-    Form,
+    BaseBox,
+    BaseHeading,
+    BaseFieldSet,
+    BaseForm,
     SignUpUsernameControl,
-    Label,
-    Spacer,
-    Button,
-    Footer,
-    Text,
-    Input
+    BaseLabel,
+    BaseSpacer,
+    BaseButton,
+    BaseFooter,
+    BaseText,
+    BaseInput
   },
   inheritAttrs: false,
   setup(
@@ -93,7 +102,7 @@ export default defineComponent({
     // Methods
     const onConfirmSignUpSubmit = (e): void => {
       if (attrs?.onConfirmSignUpSubmit) {
-        emit("confirmSignUpSubmit");
+        emit("confirmSignUpSubmit", e);
       } else {
         submit(e);
       }
