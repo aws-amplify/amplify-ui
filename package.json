@@ -5,7 +5,8 @@
     "dev:vue": "cd vue-docs && yarn serve --port 3001 --host localhost",
     "dev:angular": "cd angular-docs && yarn start",
     "build:angular": "cd packages/angular && yarn build",
-    "build:angular:watch": "cd packages/angular && yarn build --watch"
+    "build:angular:watch": "cd packages/angular && yarn build --watch",
+    "build:vue": "cd vue-docs && yarn build"
   },
   "workspaces": [
     "docs",
