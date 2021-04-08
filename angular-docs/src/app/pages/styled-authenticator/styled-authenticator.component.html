@@ -1,0 +1,11 @@
+<markdown [src]="'markdowns/authenticator/custom-style.md'"></markdown>
+<amplify-context-provider>
+  <!-- We're temporarily adding example class name or else the style will bleed into other pages. -->
+  <amplify-authenticator class="example"> </amplify-authenticator>
+</amplify-context-provider>
+
+<markdown [src]="'markdowns/authenticator/custom-style--override.md'"></markdown>
+<amplify-context-provider>
+  <amplify-authenticator id="my-authenticator"> </amplify-authenticator>
+</amplify-context-provider>
+
