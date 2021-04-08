@@ -86,21 +86,17 @@ class AuthStateMachine with ChangeNotifier {
     return stateTransition(payload);
   }
 
-  Future onSignInSubmit(event) async {
+  Future<SignInResult> onSignInSubmit(event) {
     // state is read via the current build context
     StateTransitionPayload payload = event.payload;
     BuildContext context = payload.context;
     clearAuthExceptionFields(context);
     String username = context.read<UsernameFormFieldState>().value;
     String password = context.read<PasswordFormFieldState>().value;
-    try {
-      SignInResult signInResult = await authService.signIn(
-        username: username,
-        password: password,
-      );
-    } on AuthException catch (authException) {
-      debugPrint(authException.toString());
-    }
+    return authService.signIn(
+      username: username,
+      password: password,
+    );
   }
 
   // void onSignInResolved(event) async {
