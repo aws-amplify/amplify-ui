@@ -24,7 +24,13 @@ GeneratedStateMachine generateStateMachine(
     states,
     stateTransitions,
   );
-  machine.start(states[stateMachineDefinition.initial]);
+  State initialState = getState(
+    states,
+    stateMachineDefinition.initial,
+    errorMessage:
+        'Invalid initial state. "${stateMachineDefinition.initial}" is not defined.',
+  );
+  machine.start(initialState);
   debugPrint('STATES:');
   states.keys.forEach((element) => debugPrint(element));
   debugPrint('STATE TRANSITIONS:');
@@ -53,13 +59,14 @@ Map<String, StateTransition> createStateTransitions(StateMachine machine,
       .where((state) => state.value.on != null)
       .map((state) {
     return state.value.on.entries.map((on) {
-      String stateTransitionKey = state.key + '-' + on.key;
-      StateTransition newStateTransition = machine.newStateTransition(
+      StateTransition newStateTransition = createStateTransiton(
+        machine,
+        states,
         state.key + '-' + on.key,
-        [states[state.key]],
-        states[on.value],
+        state.key,
+        on.value,
       );
-      return MapEntry(stateTransitionKey, newStateTransition);
+      return MapEntry(newStateTransition.name, newStateTransition);
     });
   }).reduce((value, element) => [...value, ...element]));
 }
@@ -75,15 +82,19 @@ Map<String, StateTransition> createImplicitStateTransitions(
       stateMachineDefinition.states.entries
           .where((state) => state.value.invoke != null)
           .map((state) {
-    StateTransition targetStateTransition = machine.newStateTransition(
+    StateTransition targetStateTransition = createStateTransiton(
+      machine,
+      states,
       state.key + '-to-' + state.value.invoke.onDone.target,
-      [states[state.key]],
-      states[state.value.invoke.onDone.target],
+      state.key,
+      state.value.invoke.onDone.target,
     );
-    StateTransition onErrorStateTransition = machine.newStateTransition(
+    StateTransition onErrorStateTransition = createStateTransiton(
+      machine,
+      states,
       state.key + '-to-' + state.value.invoke.onError,
-      [states[state.key]],
-      states[state.value.invoke.onError],
+      state.key,
+      state.value.invoke.onError,
     );
     return [
       MapEntry(targetStateTransition.name, targetStateTransition),
@@ -94,10 +105,12 @@ Map<String, StateTransition> createImplicitStateTransitions(
       stateMachineDefinition.states.entries
           .where((state) => state.value.always != null)
           .map((state) {
-    StateTransition newStateTransition = machine.newStateTransition(
+    StateTransition newStateTransition = createStateTransiton(
+      machine,
+      states,
       state.key + '-to-' + state.value.always,
-      [states[state.key]],
-      states[state.value.always],
+      state.key,
+      state.value.always,
     );
     return MapEntry(newStateTransition.name, newStateTransition);
   }).toList();
@@ -120,16 +133,19 @@ Map<String, StreamSubscription<StateChange>> createStateChangeSubscriptions(
           .where((state) => state.value.invoke != null)
           .map((state) {
     StreamSubscription<StateChange> subscription =
-        states[state.key].onEnter.listen((event) {
+        getState(states, state.key).onEnter.listen((event) {
       ServiceFn service =
           stateMachineDefinition.services[state.value.invoke.src];
       service(event).then((value) {
         // state transition will have been created by createImplicitStateTransitions
-        stateTransitions[
-            state.key + "-to-" + state.value.invoke.onDone.target]();
+        String stateTransitionName =
+            state.key + "-to-" + state.value.invoke.onDone.target;
+        getStateTransition(stateTransitions, stateTransitionName)();
       }).catchError((error) {
         // state transition will have been created by createImplicitStateTransitions
-        stateTransitions[state.key + "-to-" + state.value.invoke.onError]();
+        String stateTransitionName =
+            state.key + "-to-" + state.value.invoke.onError;
+        getStateTransition(stateTransitions, stateTransitionName)();
       });
     });
     return MapEntry(state.key, subscription);
@@ -140,8 +156,9 @@ Map<String, StreamSubscription<StateChange>> createStateChangeSubscriptions(
           .where((state) => state.value.always != null)
           .map((state) {
     StreamSubscription<StateChange> subscription =
-        states[state.key].onEnter.listen((event) {
-      stateTransitions[state.key + "-to-" + state.value.always]();
+        getState(states, state.key).onEnter.listen((event) {
+      String stateTransitionName = state.key + "-to-" + state.value.always;
+      getStateTransition(stateTransitions, stateTransitionName)();
     });
     return MapEntry(state.key, subscription);
   }).toList();
@@ -214,4 +231,57 @@ class StateDefinitionInvokeOnDone {
     actions = jsonState['actions'];
     target = jsonState['target'];
   }
+}
+
+State getState(Map<String, State> states, String name, {String errorMessage}) {
+  if (states[name] == null) {
+    throw InvalidStateScheme(errorMessage ?? 'State: "$name" is not defined.');
+  }
+  return states[name];
+}
+
+StateTransition getStateTransition(
+    Map<String, StateTransition> stateTransitions, String name,
+    [String reason]) {
+  if (stateTransitions[name] == null) {
+    throw InvalidStateScheme(
+        reason ?? 'StateTransition: "$name" is not not defined.');
+  }
+  return stateTransitions[name];
+}
+
+StateTransition createStateTransiton(
+  StateMachine machine,
+  Map<String, State> states,
+  String stateTransitionName,
+  String fromStateName,
+  String toStateName,
+) {
+  State fromState = getState(
+    states,
+    fromStateName,
+    errorMessage:
+        'Cannot create StateTransition with name "$stateTransitionName". From state: "$fromStateName" is not defined.',
+  );
+  State toState = getState(
+    states,
+    toStateName,
+    errorMessage:
+        'Cannot create StateTransition with name "$stateTransitionName". To state: "$toStateName" is not defined.',
+  );
+  return machine.newStateTransition(
+    stateTransitionName,
+    [fromState],
+    toState,
+  );
+}
+
+class InvalidStateScheme implements Exception {
+  String reason;
+  InvalidStateScheme(
+    this.reason,
+  );
+  String get message => 'The JSON scheme was invalid. $reason';
+  @override
+  String toString() => 'InvalidStateScheme: $message';
 }
