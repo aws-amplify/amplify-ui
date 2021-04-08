@@ -1,40 +1,43 @@
 <template>
   <slot name="signInSlotI">
-    <Wrapper>
-      <Form @submit.prevent="onSignInSubmit" method="post">
+    <base-wrapper>
+      <base-form @submit.prevent="onSignInSubmit" method="post">
         <template #formt="{ slotData }">
           <slot name="form" :info="slotData"> </slot>
         </template>
-        <Heading :level="1">
+        <base-heading :level="1">
           <template #headingI>
             <slot name="heading"></slot>
           </template>
           {{ signIntoAccountText }}
-        </Heading>
+        </base-heading>
 
-        <FieldSet :disabled="state.matches('signIn.pending')">
-          <Label>
-            <Text>
+        <base-field-Set :disabled="state.matches('signIn.pending')">
+          <base-label>
+            <base-text>
               <template #textI>
                 <slot name="full-name"></slot>
               </template>
               {{ fullNameText }}
-            </Text>
-            <Input name="username" required type="text" />
-          </Label>
+            </base-text>
+            <base-input name="username" required type="text" />
+          </base-label>
 
-          <Label data-amplify-password>
-            <Text>{{ passwordLabel }}</Text>
-            <Input name="password" required type="password" />
+          <base-label data-amplify-password>
+            <base-text>{{ passwordLabel }}</base-text>
+            <base-input name="password" required type="password" />
             <slot
               name="additional-fields"
               :onSignInSubmit="onSignInSubmit"
               :onCreateAccountClicked="onCreateAccountClicked"
             ></slot>
 
-            <Box>
-              <Text> {{ forgotYourPasswordText }}</Text>
-              <Button type="button" @click.prevent="onForgotPasswordClicked">
+            <base-box>
+              <base-text> {{ forgotYourPasswordText }}</base-text>
+              <base-button
+                type="button"
+                @click.prevent="onForgotPasswordClicked"
+              >
                 <template #buttont>
                   <slot
                     name="forgot-password-button"
@@ -43,11 +46,11 @@
                 </template>
 
                 {{ resetPasswordLink }}
-              </Button>
-            </Box>
-          </Label>
-        </FieldSet>
-        <Footer>
+              </base-button>
+            </base-box>
+          </base-label>
+        </base-field-Set>
+        <base-footer>
           <template #footert="{ slotData }">
             <slot
               name="footer"
@@ -57,12 +60,12 @@
             >
             </slot>
           </template>
-          <Text>{{ noAccount }}</Text>
-          <Button type="button" @click.prevent="onCreateAccountClicked">{{
+          <base-text>{{ noAccount }}</base-text>
+          <base-button type="button" @click.prevent="onCreateAccountClicked">{{
             createAccountLink
-          }}</Button>
-          <Spacer />
-          <Button :disabled="state.matches('signIn.pending')">
+          }}</base-button>
+          <base-spacer />
+          <base-button :disabled="state.matches('signIn.pending')">
             <template #buttont>
               <slot
                 name="sign-in-button"
@@ -75,10 +78,10 @@
                 : signInButtonText
             }}
             <!-- Add prop too? -->
-          </Button>
-        </Footer>
-      </Form>
-    </Wrapper>
+          </base-button>
+        </base-footer>
+      </base-form>
+    </base-wrapper>
   </slot>
 </template>
 
@@ -96,17 +99,17 @@ import {
   SIGNING_IN_BUTTON_TEXT
 } from "../defaults/DefaultTexts";
 
-import Label from "./primitives/Label.vue";
-import Footer from "./primitives/Footer.vue";
-import Wrapper from "./primitives/Wrapper.vue";
-import Form from "./primitives/Form.vue";
-import Heading from "./primitives/Heading.vue";
-import FieldSet from "./primitives/FieldSet.vue";
-import Input from "./primitives/Input.vue";
-import Box from "./primitives/Box.vue";
-import Button from "./primitives/Button.vue";
-import Spacer from "./primitives/Spacer.vue";
-import Text from "./primitives/Text.vue";
+import BaseLabel from "./primitives/base-label.vue";
+import BaseFooter from "./primitives/base-footer.vue";
+import BaseWrapper from "./primitives/base-wrapper.vue";
+import BaseForm from "./primitives/base-form.vue";
+import BaseHeading from "./primitives/base-heading.vue";
+import BaseFieldSet from "./primitives/base-field-set.vue";
+import BaseInput from "./primitives/base-input.vue";
+import BaseBox from "./primitives/base-box.vue";
+import BaseButton from "./primitives/base-button.vue";
+import BaseSpacer from "./primitives/base-spacer.vue";
+import BaseText from "./primitives/base-text.vue";
 
 // @xstate
 import { useAuth } from "../composables/useAuth";
@@ -128,17 +131,17 @@ export default {
   },
   inheritAttrs: false,
   components: {
-    Footer,
-    Wrapper,
-    Form,
-    Heading,
-    FieldSet,
-    Label,
-    Text,
-    Input,
-    Box,
-    Button,
-    Spacer
+    BaseFooter,
+    BaseWrapper,
+    BaseForm,
+    BaseHeading,
+    BaseFieldSet,
+    BaseLabel,
+    BaseText,
+    BaseInput,
+    BaseBox,
+    BaseButton,
+    BaseSpacer
   },
   setup(
     props: Readonly<
