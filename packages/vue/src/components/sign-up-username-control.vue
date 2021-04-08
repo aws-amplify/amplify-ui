@@ -1,21 +1,21 @@
 <template>
-  <Label>
-    <Text>{{ fullNameText }}</Text>
-    <Input
+  <base-label>
+    <base-text>{{ fullNameText }}</base-text>
+    <base-input
       name="username"
       required
       type="text"
       :disabled="disabled"
       v-model:textValue="name"
-    ></Input>
-  </Label>
+    ></base-input>
+  </base-label>
 </template>
 
 <script lang="ts">
 import { defineComponent, computed, ComputedRef, ref, Ref } from "vue";
-import Input from "./primitives/Input.vue";
-import Label from "./primitives/Label.vue";
-import Text from "./primitives/Text.vue";
+import BaseInput from "./primitives/base-input.vue";
+import BaseLabel from "./primitives/base-label.vue";
+import BaseText from "./primitives/base-text.vue";
 import { FULL_NAME_TEXT } from "../defaults/DefaultTexts";
 
 export default defineComponent({
@@ -28,9 +28,9 @@ export default defineComponent({
     }
   },
   components: {
-    Input,
-    Label,
-    Text
+    BaseInput,
+    BaseLabel,
+    BaseText
   },
   setup(props: {
     userName: string;

@@ -71,8 +71,8 @@ const confirmPassword = `
     <amplify-provider defaults>
       <authenticator @sign-up-submit="over">
         <template #sign-up-fields>
-          <SignUpUsernameControl />
-          <SignUpPasswordControl />
+          <sign-up-username-control />
+          <sign-up-password-control />
           <div class="">
             <h3>Confirm Password</h3>
             <input
@@ -84,8 +84,8 @@ const confirmPassword = `
               Passwords do not match.
             </div>
           </div>
-          <SignUpEmailControl />
-          <SignUpPhoneControl />
+          <sign-up-email-control />
+          <sign-up-phone-control />
         </template>
       </authenticator>
     </amplify-provider>
