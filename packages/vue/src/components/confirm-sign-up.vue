@@ -22,6 +22,15 @@
       </base-field-set>
 
       <base-footer>
+        <template #footert="{ slotData }">
+          <slot
+            name="footer"
+            :info="slotData"
+            :onBackToSignInClicked="onBackToSignInClicked"
+            :onConfirmSignUpSubmit="onConfirmSignUpSubmit"
+          >
+          </slot>
+        </template>
         <base-button type="button" @click.prevent="onBackToSignInClicked">
           {{ backSignInText }}</base-button
         >
@@ -93,7 +102,7 @@ export default defineComponent({
     // Methods
     const onConfirmSignUpSubmit = (e): void => {
       if (attrs?.onConfirmSignUpSubmit) {
-        emit("confirmSignUpSubmit");
+        emit("confirmSignUpSubmit", e);
       } else {
         submit(e);
       }

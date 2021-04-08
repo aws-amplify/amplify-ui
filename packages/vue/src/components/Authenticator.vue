@@ -93,10 +93,24 @@
     <div v-if="state?.matches('signIn.rejected')">
       Error! Can't sign in!
     </div>
-    <!-- <ConfirmSignUp v-if="state?.matches('signIn')"></ConfirmSignUp> -->
-    <confirm-sign-up v-if="state?.matches('confirmSignUp')">
+    <confirm-sign-up
+      v-if="state?.matches('confirmSignUp')"
+      ref="confirmSignUpComponent"
+      @confirm-sign-up-submit="onConfirmSignUpSubmitI"
+    >
       <template #confirmSignUpSlotI>
         <slot name="confirm-sign-up"></slot>
+      </template>
+      <template
+        #footer="{ info, onConfirmSignUpSubmit, onBackToSignInClicked  }"
+      >
+        <slot
+          name="sign-in-footer"
+          :info="info"
+          :onConfirmSignUpSubmit="onConfirmSignUpSubmit"
+          :onBackToSignInClicked="onBackToSignInClicked"
+        >
+        </slot>
       </template>
     </confirm-sign-up>
   </div>
@@ -132,12 +146,15 @@ export default {
     state: Ref;
     onSignInSubmitI: (fn) => unknown;
     onSignUpSubmitI: (fn) => unknown;
+    onConfirmSignUpSubmitI: (fn) => unknown;
     signInComponent: typeof SignIn;
     signUpComponent: typeof SignUp;
+    confirmSignUpComponent: typeof ConfirmSignUp;
   } {
     const { state } = useAuth();
     const signInComponent = ref(null);
     const signUpComponent = ref(null);
+    const confirmSignUpComponent = ref(null);
 
     const currentPage = ref("SIGNIN");
 
@@ -146,6 +163,14 @@ export default {
         emit("signInSubmit", e);
       } else {
         signInComponent.value.submit(e);
+      }
+    };
+
+    const onConfirmSignUpSubmitI = e => {
+      if (attrs?.onConfirmSignUpSubmit) {
+        emit("confirmSignUpSubmit", e);
+      } else {
+        confirmSignUpComponent.value.submit(e);
       }
     };
 
@@ -164,7 +189,9 @@ export default {
       onSignInSubmitI,
       signInComponent,
       signUpComponent,
-      onSignUpSubmitI
+      onSignUpSubmitI,
+      confirmSignUpComponent,
+      onConfirmSignUpSubmitI
     };
   }
 };
