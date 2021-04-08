@@ -2,6 +2,15 @@
   <button data-ui-button type="submit">Sign Up</button>
 </ng-template>
 
+<ng-template #signUpPassword>
+  <amplify-form-field
+    name="password"
+    type="password"
+    [errors]="formErrors?.password"
+    [required]="true"
+  ></amplify-form-field>
+</ng-template>
+
 <ng-template #signUpFieldset>
   <fieldset data-ui-fieldset [attr.disabled]="this.loading ? '' : null">
     <amplify-form-field
@@ -10,12 +19,10 @@
       [required]="true"
     ></amplify-form-field>
 
-    <amplify-form-field
-      name="password"
-      type="password"
-      [errors]="formErrors?.password"
-      [required]="true"
-    ></amplify-form-field>
+    <ng-container
+      [ngTemplateOutlet]="customComponents.signUpPassword || signUpPassword"
+      [ngTemplateOutletContext]="context"
+    ></ng-container>
 
     <amplify-form-field
       name="email"

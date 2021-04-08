@@ -14,16 +14,11 @@ export class CustomFormAuthenticatorComponent {
     const { password, confirm_password } = formData;
 
     if (password !== confirm_password) {
-      const error: FormError = {};
-      error.confirm_password = ['Your password must match'];
+      const error = { confirm_password: ['Your passwords must match'] };
       return { error };
+    } else {
+      delete formData['confirm_password'];
+      return { data: formData };
     }
-
-    delete formData['confirm_password'];
-    return { data: { ...formData } };
-  }
-
-  onClick(data: any) {
-    return console.log(data);
   }
 }
