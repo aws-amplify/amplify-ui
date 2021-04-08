@@ -42,7 +42,10 @@ class AuthStateMachine with ChangeNotifier {
             "onError": "signInRejected",
           }
         },
-        "signInResolved": {},
+        "signInResolved": {
+          // TODO: Does anything need to happen with this? Currently it is being ignored
+          "type": "final"
+        },
         "signInRejected": {
           "always": "signInIdle",
         },
