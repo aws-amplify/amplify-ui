@@ -14,7 +14,7 @@ class BackToSignInLink extends StatelessWidget {
       style: TextButton.styleFrom(padding: EdgeInsets.zero),
       key: Key('back-to-sign-in-button'),
       onPressed: () {
-        context.read<AuthStateMachine>().navigateToSignIn();
+        context.read<AuthStateMachine>().send('SIGN_IN');
       },
       child: Text('Back to Sign In'),
     );
@@ -75,12 +75,9 @@ class ConfirmVerificationCodeButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AuthStateMachine state = context.watch<AuthStateMachine>();
-    // onPressed is set to null when the current state is not isConfirmSignUpIdle the disable ot button
-    Function onPressed = state.isConfirmSignUpIdle()
-        ? () =>
-            state.confirmSignUpSumbit(StateTransitionPayload(context: context))
-        : null;
+    Function onPressed = () => context
+        .read<AuthStateMachine>()
+        .send('SUBMIT', StateTransitionPayload(context: context));
     return ElevatedButton(
       onPressed: onPressed,
       child: Row(
@@ -122,9 +119,9 @@ class SignUpButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AuthStateMachine state = context.watch<AuthStateMachine>();
-    Function onPressed =
-        () => state.signUpSumbit(StateTransitionPayload(context: context));
+    Function onPressed = () => context
+        .read<AuthStateMachine>()
+        .send('SUBMIT', StateTransitionPayload(context: context));
     return ElevatedButton(
       onPressed: onPressed,
       child: Row(
@@ -147,7 +144,6 @@ class SignInButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AuthStateMachine state = context.watch<AuthStateMachine>();
     Function onPressed = () => context
         .read<AuthStateMachine>()
         .send('SUBMIT', StateTransitionPayload(context: context));
@@ -175,7 +171,7 @@ class ForgotPasswordButton extends StatelessWidget {
         Text('Forgot your password?'),
         TextButton(
           onPressed: () =>
-              context.read<AuthStateMachine>().navigateToResetPassword(),
+              context.read<AuthStateMachine>().send('RESET_PASSWORD'),
           child: Text('Reset Password'),
         )
       ],

@@ -23,19 +23,19 @@ class AuthenticatorState {
   AuthStateMachine get stateMachine => _authStateMachine;
 
   AuthenticatorStep get step {
-    if (_authStateMachine.isSignIn) {
+    if (_authStateMachine.current.name.contains('signIn')) {
       return AuthenticatorStep.signIn;
     }
-    if (_authStateMachine.isSignUp) {
+    if (_authStateMachine.current.name.contains('signUp')) {
       return AuthenticatorStep.signUp;
     }
-    if (_authStateMachine.isConfirmSignUp) {
+    if (_authStateMachine.current.name.contains('confirmSignUp')) {
       return AuthenticatorStep.confirmSignUp;
     }
-    if (_authStateMachine.isResetPassword) {
+    if (_authStateMachine.current.name.contains('resetPassword')) {
       return AuthenticatorStep.resetPassword;
     }
-    return null;
+    return AuthenticatorStep.authenticated;
   }
 }
 
@@ -44,6 +44,7 @@ enum AuthenticatorStep {
   signUp,
   confirmSignUp,
   resetPassword,
+  authenticated,
 }
 
 /// AuthFormFieldState is a ChangeNotifier that will notify listeners when any of its properties are updated

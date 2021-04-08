@@ -29,14 +29,20 @@ class MaterialAuthenticator extends StatelessWidget {
       onSignInSuccess: this.onSignInSuccess,
       initialStep: this.initialStep,
       builder: (context, state) {
-        switch (state.stateMachine.current.name) {
-          case 'signInIdle':
-          case 'signInPending':
-          case 'signInResolved':
-          case 'signInRejected':
+        switch (state.step) {
+          case AuthenticatorStep.signIn:
             return MaterialSignInView();
-          case 'signUpIdle':
+          case AuthenticatorStep.signUp:
             return MaterialSignUpView();
+          case AuthenticatorStep.confirmSignUp:
+            return MaterialConfirmSignUpView();
+          case AuthenticatorStep.resetPassword:
+            return MaterialForgotPasswordView();
+          case AuthenticatorStep.authenticated:
+            // TODO What to show here
+            return Center(
+              child: CircularProgressIndicator(),
+            );
           default:
             throw ('Invalid authentication state. AuthenticatorStep is not valid');
             return null;

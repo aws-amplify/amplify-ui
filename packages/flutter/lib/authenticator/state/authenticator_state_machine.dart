@@ -26,9 +26,11 @@ class AuthStateMachine with ChangeNotifier {
       "id": "auth",
       "initial": "signInIdle",
       "states": {
+        "authenticated": {},
         "signInIdle": {
           "on": {
             "SIGN_UP": "signUpIdle",
+            "RESET_PASSWORD": "resetPasswordIdle",
             "SUBMIT": "signInPending",
           }
         },
@@ -36,15 +38,14 @@ class AuthStateMachine with ChangeNotifier {
           "invoke": {
             "src": "signIn",
             "onDone": {
-              "actions": "setUser",
+              "actions": "setUser", // TODO: Handle actions
               "target": "signInResolved",
             },
             "onError": "signInRejected",
           }
         },
         "signInResolved": {
-          // TODO: Does anything need to happen with this? Currently it is being ignored
-          "type": "final"
+          "always": "authenticated",
         },
         "signInRejected": {
           "always": "signInIdle",
@@ -52,11 +53,56 @@ class AuthStateMachine with ChangeNotifier {
         "signUpIdle": {
           "on": {
             "SIGN_IN": "signInIdle",
+            "SUBMIT": "signUpPending",
           },
+        },
+        "signUpPending": {
+          "invoke": {
+            "src": "signUp",
+            "onDone": {
+              "actions": "setUser",
+              "target": "signUpResolved",
+            },
+            "onError": "signUpRejected",
+          }
+        },
+        "signUpResolved": {
+          // TODO: There should be a condition here, it should not be always
+          "always": "confirmSignUpIdle"
+        },
+        "signUpRejected": {
+          "always": "signUpIdle",
+        },
+        "confirmSignUpIdle": {
+          "on": {
+            "SUBMIT": "confirmSignUpPending",
+          },
+        },
+        "confirmSignUpPending": {
+          "invoke": {
+            "src": "confirmSignUp",
+            "onDone": {
+              "target": "confirmSignUpResolved",
+            },
+            "onError": "confirmSignUpRejected",
+          }
+        },
+        "confirmSignUpResolved": {
+          "always": "authenticated",
+        },
+        "confirmSignUpRejected": {
+          "always": "confirmSignUpIdle",
+        },
+        "resetPasswordIdle": {
+          "on": {
+            "SIGN_IN": "signInIdle",
+          }
         },
       },
       "services": {
         "signIn": onSignInSubmit,
+        "signUp": onSignUpSubmit,
+        "confirmSignUp": onConfirmSignUpSubmit,
       }
     };
     GeneratedStateMachine generatedStateMachine =
@@ -69,7 +115,7 @@ class AuthStateMachine with ChangeNotifier {
     _machine.onStateChange.listen((event) {
       debugPrint("current state: " + event.to.name);
       notifyListeners();
-      if (event.to.name == "signInResolved") {
+      if (event.to.name == "authenticated") {
         this.onSignInSuccess();
       }
     });
@@ -81,6 +127,12 @@ class AuthStateMachine with ChangeNotifier {
   bool send(String value, [dynamic payload]) {
     String transitionName = _machine.current.name + '-' + value;
     debugPrint(transitionName);
+    if (stateTransitions[transitionName] == null) {
+      throw InvalidStateTransition(
+        _machine.current.name,
+        value,
+      );
+    }
     StateMachine.StateTransition stateTransition =
         stateTransitions[transitionName];
     return stateTransition(payload);
@@ -99,6 +151,35 @@ class AuthStateMachine with ChangeNotifier {
     );
   }
 
+  Future<SignUpResult> onSignUpSubmit(event) {
+    // state is read via the current build context
+    StateTransitionPayload payload = event.payload;
+    BuildContext context = payload.context;
+    clearAuthExceptionFields(context);
+    String username = context.read<UsernameFormFieldState>().value;
+    String email = context.read<EmailFormFieldState>().value;
+    String password = context.read<PasswordFormFieldState>().value;
+    return authService.signUp(
+      username: username,
+      email: email,
+      password: password,
+    );
+  }
+
+  Future<SignUpResult> onConfirmSignUpSubmit(event) {
+    // state is read via the current build context
+    StateTransitionPayload payload = event.payload;
+    BuildContext context = payload.context;
+    clearAuthExceptionFields(context);
+    String username = context.read<UsernameFormFieldState>().value;
+    String verificationCode =
+        context.read<VerificationCodeFormFieldState>().value;
+    return authService.confirmSignUp(
+      username: username,
+      verificationCode: verificationCode,
+    );
+  }
+
   // void onSignInResolved(event) async {
   //   // TODO: Should there be a transition to authenticated?
   //   this.onSignInSuccess();
@@ -110,30 +191,6 @@ class AuthStateMachine with ChangeNotifier {
   //   signInReset();
   // }
 
-  // void onSignUpSubmit(event) async {
-  //   // state is read via the current build context
-  //   StateTransitionPayload payload = event.payload;
-  //   BuildContext context = payload.context;
-  //   clearAuthExceptionFields(context);
-  //   String username = context.read<UsernameFormFieldState>().value;
-  //   String email = context.read<EmailFormFieldState>().value;
-  //   String password = context.read<PasswordFormFieldState>().value;
-  //   try {
-  //     SignUpResult signUpResult = await authService.signUp(
-  //       username: username,
-  //       email: email,
-  //       password: password,
-  //     );
-  //     signUpResolved();
-  //   } on AuthException catch (authException) {
-  //     debugPrint(authException.toString());
-  //     signUpRejected(StateTransitionPayload(
-  //       context: context,
-  //       authException: authException,
-  //     ));
-  //   }
-  // }
-
   // void onSignUpResolved(event) async {
   //   // TODO: transitition to confirm sign up if required
   //   navigateToConfirmSignUp();
@@ -142,29 +199,6 @@ class AuthStateMachine with ChangeNotifier {
   // void onSignUpRejected(event) async {
   //   setAuthExceptionField(event.payload.context, event.payload.authException);
   //   signUpReset();
-  // }
-
-  // void onConfirmSignUpSubmit(event) async {
-  //   // state is read via the current build context
-  //   StateTransitionPayload payload = event.payload;
-  //   BuildContext context = payload.context;
-  //   clearAuthExceptionFields(context);
-  //   String username = context.read<UsernameFormFieldState>().value;
-  //   String verificationCode =
-  //       context.read<VerificationCodeFormFieldState>().value;
-  //   try {
-  //     SignUpResult signInResult = await authService.confirmSignUp(
-  //       username: username,
-  //       verificationCode: verificationCode,
-  //     );
-  //     confirmSignUpResolved(event.payload);
-  //   } on AuthException catch (authException) {
-  //     debugPrint(authException.toString());
-  //     confirmSignUpRejected(StateTransitionPayload(
-  //       context: context,
-  //       authException: authException,
-  //     ));
-  //   }
   // }
 
   // void onConfirmSignUpResolved(event) async {
@@ -179,82 +213,6 @@ class AuthStateMachine with ChangeNotifier {
 
   StateMachine.State get current => _machine.current;
 
-  // none of the state definitions are defined
-  // they are left in this poc to avoid having to update every location they are referenced
-  StateMachine.State isIdle;
-
-  StateMachine.State isAuthenticated;
-
-  StateMachine.State isSignInIdle;
-  StateMachine.State isSignInPending;
-  StateMachine.State isSignInResolved;
-  StateMachine.State isSignInRejected;
-
-  bool get isSignIn =>
-      isSignInIdle() ||
-      isSignInPending() ||
-      isSignInResolved() ||
-      isSignInRejected();
-
-  StateMachine.State isSignUpIdle;
-  StateMachine.State isSignUpPending;
-  StateMachine.State isSignUpResolved;
-  StateMachine.State isSignUpRejected;
-
-  bool get isSignUp =>
-      isSignUpIdle() ||
-      isSignUpPending() ||
-      isSignUpResolved() ||
-      isSignUpRejected();
-
-  StateMachine.State isConfirmSignUpIdle;
-  StateMachine.State isConfirmSignUpPending;
-  StateMachine.State isConfirmSignUpResolved;
-  StateMachine.State isConfirmSignUpRejected;
-
-  bool get isConfirmSignUp =>
-      isConfirmSignUpIdle() ||
-      isConfirmSignUpPending() ||
-      isConfirmSignUpResolved() ||
-      isConfirmSignUpRejected();
-
-  StateMachine.State isResetPasswordIdle;
-  StateMachine.State isResetPasswordPending;
-  StateMachine.State isResetPasswordResolved;
-  StateMachine.State isResetPasswordRejected;
-
-  bool get isResetPassword =>
-      isResetPasswordIdle() ||
-      isResetPasswordPending() ||
-      isResetPasswordResolved() ||
-      isResetPasswordRejected();
-
-  StateMachine.State isSignOut;
-
-  // navigation transitions
-  StateMachine.StateTransition navigateToSignUp;
-  StateMachine.StateTransition navigateToSignIn;
-  StateMachine.StateTransition navigateToConfirmSignUp;
-  StateMachine.StateTransition navigateToResetPassword;
-
-  // sign in transitions
-  StateMachine.StateTransition signInSumbit;
-  StateMachine.StateTransition signInReset;
-  StateMachine.StateTransition signInResolved;
-  StateMachine.StateTransition signInRejected;
-
-  // sign up transitions
-  StateMachine.StateTransition signUpSumbit;
-  StateMachine.StateTransition signUpReset;
-  StateMachine.StateTransition signUpResolved;
-  StateMachine.StateTransition signUpRejected;
-
-  // confirm sign up transitions
-  StateMachine.StateTransition confirmSignUpSumbit;
-  StateMachine.StateTransition confirmSignUpReset;
-  StateMachine.StateTransition confirmSignUpResolved;
-  StateMachine.StateTransition confirmSignUpRejected;
-
   StateMachine.StateMachine _machine;
 
   @override
@@ -267,4 +225,17 @@ class StateTransitionPayload {
   BuildContext context;
   AuthException authException;
   StateTransitionPayload({@required this.context, this.authException});
+}
+
+class InvalidStateTransition implements Exception {
+  String currentStateName;
+  String eventName;
+  InvalidStateTransition(
+    this.currentStateName,
+    this.eventName,
+  );
+  String get message =>
+      'event: "$eventName" is not a valid event from state: "$currentStateName". No StateTransition exists for this event and state.';
+  @override
+  String toString() => 'InvalidStateTransition: $message';
 }
