@@ -14,6 +14,9 @@ GeneratedStateMachine generateStateMachine(
   Map<String, State> states = createStates(machine, stateMachineDefinition);
   Map<String, StateTransition> stateTransitions =
       createStateTransitions(machine, stateMachineDefinition, states);
+  stateTransitions.addAll(
+    createInvokeStateTransitions(machine, stateMachineDefinition, states),
+  );
   Map<String, StreamSubscription<StateChange>> stateChangeSubScriptions =
       createStateChangeSubscriptions(
     machine,
@@ -22,8 +25,10 @@ GeneratedStateMachine generateStateMachine(
     stateTransitions,
   );
   machine.start(states[stateMachineDefinition.initial]);
-  debugPrint('states: ' + states.keys.toString());
-  debugPrint('stateTransitions: ' + stateTransitions.keys.toString());
+  debugPrint('STATES:');
+  states.keys.forEach((element) => debugPrint(element));
+  debugPrint('STATE TRANSITIONS:');
+  stateTransitions.keys.forEach((element) => debugPrint(element));
   return GeneratedStateMachine(
     stateMachine: machine,
     states: states,
@@ -59,6 +64,34 @@ Map<String, StateTransition> createStateTransitions(StateMachine machine,
   }).reduce((value, element) => [...value, ...element]));
 }
 
+// invoke.onDone.target and onDone.onError can transition directly to a new state
+// in order to make this possible, the state transition needs to exist
+Map<String, StateTransition> createInvokeStateTransitions(
+  StateMachine machine,
+  StateMachineDefinition stateMachineDefinition,
+  Map<String, State> states,
+) {
+  return Map<String, StateTransition>.fromEntries(stateMachineDefinition
+      .states.entries
+      .where((state) => state.value.invoke != null)
+      .map((state) {
+    StateTransition targetStateTransition = machine.newStateTransition(
+      state.key + '-to-' + state.value.invoke.onDone.target,
+      [states[state.key]],
+      states[state.value.invoke.onDone.target],
+    );
+    StateTransition onErrorStateTransition = machine.newStateTransition(
+      state.key + '-to-' + state.value.invoke.onError,
+      [states[state.key]],
+      states[state.value.invoke.onError],
+    );
+    return [
+      MapEntry(targetStateTransition.name, targetStateTransition),
+      MapEntry(onErrorStateTransition.name, onErrorStateTransition),
+    ];
+  }).reduce((value, element) => [...value, ...element]));
+}
+
 // creates a map where the key is the state name and the value is the subscription from listenting entries to that state
 Map<String, StreamSubscription<StateChange>> createStateChangeSubscriptions(
   StateMachine machine,
@@ -75,9 +108,12 @@ Map<String, StreamSubscription<StateChange>> createStateChangeSubscriptions(
       ServiceFn service =
           stateMachineDefinition.services[state.value.invoke.src];
       service(event).then((value) {
-        stateTransitions[state.key + "-" + state.value.invoke.onDone.target]();
+        // state transition will have been created by createInvokeStateTransitions
+        stateTransitions[
+            state.key + "-to-" + state.value.invoke.onDone.target]();
       }).catchError((error) {
-        stateTransitions[state.key + "-" + state.value.invoke.onError]();
+        // state transition will have been created by createInvokeStateTransitions
+        stateTransitions[state.key + "-to-" + state.value.invoke.onError]();
       });
     });
     return MapEntry(state.key, subscription);

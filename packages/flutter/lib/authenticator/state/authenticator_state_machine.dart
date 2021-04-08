@@ -33,17 +33,13 @@ class AuthStateMachine with ChangeNotifier {
           }
         },
         "signInPending": {
-          "on": {
-            "SIGN_IN_RESOLVED": "signInResolved",
-            "SIGN_IN_REJECTED": "signInRejected",
-          },
           "invoke": {
             "src": "signIn",
             "onDone": {
               "actions": "setUser",
-              "target": "SIGN_IN_RESOLVED",
+              "target": "signInResolved",
             },
-            "onError": "SIGN_IN_REJECTED"
+            "onError": "signInRejected",
           }
         },
         "signInResolved": {},
