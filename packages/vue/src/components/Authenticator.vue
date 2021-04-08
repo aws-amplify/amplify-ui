@@ -1,6 +1,6 @@
 <template>
   <div v-bind="$attrs" data-amplify-authenticator="">
-    <SignIn
+    <sign-in
       v-if="state?.matches('signIn')"
       @sign-in-submit="onSignInSubmitI"
       ref="signInComponent"
@@ -52,8 +52,8 @@
         >
         </slot>
       </template>
-    </SignIn>
-    <SignUp
+    </sign-in>
+    <sign-up
       v-if="state?.matches('signUp')"
       @sign-up-submit="onSignUpSubmitI"
       ref="signUpComponent"
@@ -89,25 +89,25 @@
         >
         </slot>
       </template>
-    </SignUp>
+    </sign-up>
     <div v-if="state?.matches('signIn.rejected')">
       Error! Can't sign in!
     </div>
     <!-- <ConfirmSignUp v-if="state?.matches('signIn')"></ConfirmSignUp> -->
-    <ConfirmSignUp v-if="state?.matches('confirmSignUp')">
+    <confirm-sign-up v-if="state?.matches('confirmSignUp')">
       <template #confirmSignUpSlotI>
         <slot name="confirm-sign-up"></slot>
       </template>
-    </ConfirmSignUp>
+    </confirm-sign-up>
   </div>
 
   <slot v-if="state?.matches('authenticated')"></slot>
 </template>
 
 <script lang="ts">
-import SignIn from "./SignIn.vue";
-import SignUp from "./SignUp.vue";
-import ConfirmSignUp from "./ConfirmSignUp.vue";
+import SignIn from "./sign-in.vue";
+import SignUp from "./sign-up.vue";
+import ConfirmSignUp from "./confirm-sign-up.vue";
 import { ref, provide, Ref } from "vue";
 import { useAuth } from "../composables/useAuth";
 
