@@ -10,15 +10,17 @@ import {
 } from '@angular/core';
 import { AuthState } from '../../common/types';
 import { AmplifyOverrideDirective } from '../../directives/amplify-override.directive';
-import { StateMachineService } from '../../services/state-machine.service';
-import { ComponentsProviderService } from '../../services/components-provider.service';
+import {
+  StateMachineService,
+  AuthenticatorContextService
+} from '../../services';
 import { CustomComponents, OnSubmitHook } from '../../common';
 import { State } from 'xstate';
 
 @Component({
   selector: 'amplify-authenticator',
   templateUrl: './amplify-authenticator.component.html',
-  providers: [ComponentsProviderService], // make sure custom components are scoped to this authenticator only
+  providers: [AuthenticatorContextService], // make sure custom components are scoped to this authenticator only
   encapsulation: ViewEncapsulation.None
 })
 export class AmplifyAuthenticatorComponent implements AfterContentInit {
@@ -32,7 +34,7 @@ export class AmplifyAuthenticatorComponent implements AfterContentInit {
 
   constructor(
     private stateMachine: StateMachineService,
-    private componentsProvider: ComponentsProviderService
+    private context: AuthenticatorContextService
   ) {}
 
   /**
@@ -40,11 +42,11 @@ export class AmplifyAuthenticatorComponent implements AfterContentInit {
    */
 
   ngAfterContentInit(): void {
-    this.componentsProvider.customComponents = this.mapCustomComponents(
+    this.context.customComponents = this.mapCustomComponents(
       this.customComponentQuery
     );
-    this.customComponents = this.componentsProvider.customComponents;
-    this.componentsProvider.props = {
+    this.customComponents = this.context.customComponents;
+    this.context.props = {
       signIn: {
         onSignIn: this.onSignIn
       },

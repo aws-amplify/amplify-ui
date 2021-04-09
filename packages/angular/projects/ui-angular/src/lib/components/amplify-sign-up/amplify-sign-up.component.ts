@@ -9,7 +9,10 @@ import {
   TemplateRef
 } from '@angular/core';
 import { AuthFormData, FormError, OnSubmitHook } from '../../common';
-import { ComponentsProviderService, StateMachineService } from '../../services';
+import {
+  AuthenticatorContextService,
+  StateMachineService
+} from '../../services';
 import { Subscription, Event } from 'xstate';
 import { AuthMachineState } from '@aws-amplify/ui-core';
 
@@ -29,13 +32,13 @@ export class AmplifySignUpComponent
   public loading = false;
   public context = {
     $implicit: {
-      errors: () => this.componentsProvider.formError
+      errors: () => this.contextService.formError
     }
   };
 
   constructor(
     private stateMachine: StateMachineService,
-    private componentsProvider: ComponentsProviderService
+    private contextService: AuthenticatorContextService
   ) {}
 
   ngOnInit(): void {
@@ -45,9 +48,9 @@ export class AmplifySignUpComponent
   }
 
   ngAfterContentInit(): void {
-    this.componentsProvider.formError = {};
-    this.customComponents = this.componentsProvider.customComponents;
-    this.onSignUp = this.componentsProvider.props.signUp.onSignUp;
+    this.contextService.formError = {};
+    this.customComponents = this.contextService.customComponents;
+    this.onSignUp = this.contextService.props.signUp.onSignUp;
   }
 
   ngOnDestroy(): void {
@@ -58,13 +61,13 @@ export class AmplifySignUpComponent
     if (state.event.type.includes('error.platform.signUp')) {
       const message = state.event.data?.message;
       logger.info('An error was encountered while signing up:', message);
-      this.componentsProvider.formError = { cross_field: [message] };
+      this.contextService.formError = { cross_field: [message] };
       this.loading = false;
     }
   }
 
   get formError(): FormError {
-    return this.componentsProvider.formError;
+    return this.contextService.formError;
   }
 
   send(event: Event<any>): void {
@@ -72,7 +75,7 @@ export class AmplifySignUpComponent
   }
 
   async onSubmit($event): Promise<void> {
-    this.componentsProvider.formError = {};
+    this.contextService.formError = {};
     $event.preventDefault();
     const formData = new FormData($event.target);
     const formValues = Object.fromEntries(formData.entries()) as AuthFormData;
@@ -81,7 +84,7 @@ export class AmplifySignUpComponent
     if (!this.onSignUp) this.onSignUp = () => ({}); // no-op
     const { data, error } = this.onSignUp({ ...formValues });
     if (error && Object.keys(error).length > 0) {
-      this.componentsProvider.formError = error;
+      this.contextService.formError = error;
       return;
     }
     const param = data && Object.keys(data).length > 0 ? data : formValues;

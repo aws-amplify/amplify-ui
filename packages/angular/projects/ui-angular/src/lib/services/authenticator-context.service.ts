@@ -4,7 +4,7 @@ import { CustomComponents, FormError, PropContext } from '../common';
 @Injectable({
   providedIn: 'root'
 })
-export class ComponentsProviderService {
+export class AuthenticatorContextService {
   constructor() {}
   private _customComponents: CustomComponents = {};
   private _props: PropContext = {};

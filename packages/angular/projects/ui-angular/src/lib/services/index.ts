@@ -1,2 +1,2 @@
-export * from './components-provider.service';
+export * from './authenticator-context.service';
 export * from './state-machine.service';

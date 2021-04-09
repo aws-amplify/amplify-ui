@@ -13,7 +13,7 @@ import {
   isInputType,
   FormError
 } from '../../common';
-import { ComponentsProviderService } from '../../services';
+import { AuthenticatorContextService } from '../../services';
 
 /**
  * Contains an input element and its label. Intended to be used with
@@ -35,14 +35,14 @@ export class AmplifyFormFieldComponent {
   @Input() placeholder: string;
   @Input() label: string;
 
-  constructor(private context: ComponentsProviderService) {}
+  constructor(private contextService: AuthenticatorContextService) {}
 
   get attributeMap(): Record<AuthAttribute, AttributeInfo> {
     return getAttributeMap();
   }
 
   get error(): FormError {
-    return this.context.formError;
+    return this.contextService.formError;
   }
 
   // infers what the `type` of underlying input element should be.

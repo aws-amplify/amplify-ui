@@ -9,7 +9,10 @@ import {
   TemplateRef,
   ViewEncapsulation
 } from '@angular/core';
-import { ComponentsProviderService, StateMachineService } from '../../services';
+import {
+  AuthenticatorContextService,
+  StateMachineService
+} from '../../services';
 import { AuthFormData, FormError, OnSubmitHook } from '../../common';
 import { Event, Subscription } from 'xstate';
 import { AuthMachineState } from '@aws-amplify/ui-core';
@@ -31,13 +34,13 @@ export class AmplifySignInComponent
   private authSubscription: Subscription;
   public context = {
     $implicit: {
-      errors: () => this.componentsProvider.formError
+      errors: () => this.contextService.formError
     }
   };
 
   constructor(
     private stateMachine: StateMachineService,
-    private componentsProvider: ComponentsProviderService
+    private contextService: AuthenticatorContextService
   ) {}
 
   ngOnInit(): void {
@@ -47,11 +50,11 @@ export class AmplifySignInComponent
   }
 
   ngAfterContentInit(): void {
-    this.componentsProvider.formError = {};
-    this.customComponents = this.componentsProvider.customComponents;
+    this.contextService.formError = {};
+    this.customComponents = this.contextService.customComponents;
 
     // attach sign in hooks
-    const props = this.componentsProvider.props.signIn;
+    const props = this.contextService.props.signIn;
     this.onSignIn = props.onSignIn;
   }
 
@@ -64,13 +67,13 @@ export class AmplifySignInComponent
     if (state.event.type.includes('error.platform.signIn')) {
       const message = state.event.data?.message;
       logger.info('An error was encountered while signing up:', message);
-      this.componentsProvider.formError = { cross_field: [message] };
+      this.contextService.formError = { cross_field: [message] };
       this.loading = false;
     }
   }
 
   get formError(): FormError {
-    return this.componentsProvider.formError;
+    return this.contextService.formError;
   }
 
   toSignUp(): void {
@@ -82,7 +85,7 @@ export class AmplifySignInComponent
   }
 
   async onSubmit($event): Promise<void> {
-    this.componentsProvider.formError = {};
+    this.contextService.formError = {};
 
     // get form data
     const formData = new FormData($event.target);
@@ -92,7 +95,7 @@ export class AmplifySignInComponent
     if (!this.onSignIn) this.onSignIn = () => ({});
     const { data, error } = this.onSignIn({ ...formValues });
     if (error && Object.keys(error).length > 0) {
-      this.componentsProvider.formError = error;
+      this.contextService.formError = error;
       return;
     }
     const param = data && Object.keys(data).length > 0 ? data : formValues;
