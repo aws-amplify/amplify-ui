@@ -43,7 +43,7 @@ public onSignUp(formData: AuthFormData): OnSubmitHookResponse {
     const error = { confirm_password: ['Your passwords must match'] };
     return { error };
   } else {
-    // passwords match, remove
+    // passwords match, remove confirm_password
     delete formData['confirm_password'];
     return { data: formData };
   }
