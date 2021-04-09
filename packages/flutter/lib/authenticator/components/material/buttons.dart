@@ -81,9 +81,11 @@ class ConfirmVerificationCodeButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Function onPressed = () => context
-        .read<AuthStateMachine>()
-        .send('SUBMIT', StateTransitionPayload(context: context));
+    Function onPressed = disabled
+        ? null
+        : () => context
+            .read<AuthStateMachine>()
+            .send('SUBMIT', StateTransitionPayload(context: context));
     return ElevatedButton(
       onPressed: onPressed,
       child: Row(
@@ -125,9 +127,11 @@ class SignUpButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Function onPressed = () => context
-        .read<AuthStateMachine>()
-        .send('SUBMIT', StateTransitionPayload(context: context));
+    Function onPressed = disabled
+        ? null
+        : () => context
+            .read<AuthStateMachine>()
+            .send('SUBMIT', StateTransitionPayload(context: context));
     return ElevatedButton(
       onPressed: onPressed,
       child: Row(
@@ -150,9 +154,11 @@ class SignInButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Function onPressed = () => context
-        .read<AuthStateMachine>()
-        .send('SUBMIT', StateTransitionPayload(context: context));
+    Function onPressed = disabled
+        ? null
+        : () => context
+            .read<AuthStateMachine>()
+            .send('SUBMIT', StateTransitionPayload(context: context));
     return ElevatedButton(
       onPressed: onPressed,
       child: Row(

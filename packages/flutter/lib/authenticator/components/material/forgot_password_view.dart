@@ -4,7 +4,29 @@ import 'buttons.dart';
 import 'username_form_field.dart';
 
 class MaterialForgotPasswordView extends StatelessWidget {
-  MaterialForgotPasswordView();
+  MaterialForgotPasswordView({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Forgot Password'),
+      ),
+      body: Padding(
+        // TODO: allow customers to override padding
+        padding: const EdgeInsets.all(16.0),
+        child: MaterialForgotPasswordForm(),
+      ),
+    );
+  }
+}
+
+class MaterialForgotPasswordForm extends StatelessWidget {
+  const MaterialForgotPasswordForm({
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -17,36 +17,40 @@ import 'material/sign_up_view.dart';
 /// Theme() widget and provide the appropriate themeData.
 class MaterialAuthenticator extends StatelessWidget {
   MaterialAuthenticator({
-    @required this.onSignInSuccess,
-    this.initialStep = AuthenticatorStep.signIn,
+    @required this.child,
+    this.onStepChange,
+    this.initialStep,
   });
-  final Function onSignInSuccess;
-  final AuthenticatorStep initialStep;
+
+  /// the widget to show if the user is authenticated
+  final Widget child;
+
+  /// function called when the AuthenticatorStep changes
+  final Function(String step) onStepChange;
+  final String initialStep;
 
   @override
   Widget build(BuildContext context) {
     return MaterialAuthenticatorBuilder(
-      onSignInSuccess: this.onSignInSuccess,
+      onStepChange: this.onStepChange,
       initialStep: this.initialStep,
       builder: (context, state) {
-        switch (state.step) {
-          case AuthenticatorStep.signIn:
-            return MaterialSignInView();
-          case AuthenticatorStep.signUp:
-            return MaterialSignUpView();
-          case AuthenticatorStep.confirmSignUp:
-            return MaterialConfirmSignUpView();
-          case AuthenticatorStep.resetPassword:
-            return MaterialForgotPasswordView();
-          case AuthenticatorStep.authenticated:
-            // TODO What to show here
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          default:
-            throw ('Invalid authentication state. AuthenticatorStep is not valid');
-            return null;
+        if (state.isAuthenticated) {
+          return child;
         }
+        if (state.isSignIn) {
+          return MaterialSignInView();
+        }
+        if (state.isSignUp) {
+          return MaterialSignUpView();
+        }
+        if (state.isConfirmSignUp) {
+          return MaterialConfirmSignUpView();
+        }
+        if (state.isResetPassword) {
+          return MaterialForgotPasswordView();
+        }
+        throw ('Invalid authentication state. AuthenticatorStep is not valid');
       },
     );
   }
@@ -61,13 +65,13 @@ class MaterialAuthenticator extends StatelessWidget {
 /// [MaterialAuthenticator] is built using MaterialAuthenticatorBuilder, and can be referenced as an example
 class MaterialAuthenticatorBuilder extends StatelessWidget {
   MaterialAuthenticatorBuilder({
-    @required this.onSignInSuccess,
+    this.onStepChange,
     @required this.builder,
-    this.initialStep = AuthenticatorStep.signIn,
+    this.initialStep,
   });
-  final Function onSignInSuccess;
+  final Function(String step) onStepChange;
   final Widget Function(BuildContext context, AuthenticatorState state) builder;
-  final AuthenticatorStep initialStep;
+  final String initialStep;
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +79,7 @@ class MaterialAuthenticatorBuilder extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (_) => AuthStateMachine(
-            onSignInSuccess: this.onSignInSuccess,
+            onStepChange: this.onStepChange,
             initialStep: this.initialStep,
           ),
         ),

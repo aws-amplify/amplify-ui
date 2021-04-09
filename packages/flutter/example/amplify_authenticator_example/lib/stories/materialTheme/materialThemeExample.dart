@@ -6,7 +6,17 @@ class MaterialThemeExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Note: This would typically be passed into the MaterialApp() widget in a real world example
-    ThemeData themeData = ThemeData.from(
+    ThemeData themeData = _createCustomTheme();
+    return Theme(
+      data: themeData,
+      child: MaterialAuthenticator(
+        child: ViewUserInfo(),
+      ),
+    );
+  }
+
+  ThemeData _createCustomTheme() {
+    return ThemeData.from(
       colorScheme: ColorScheme(
         brightness: Brightness.light,
         background: Colors.white,
@@ -21,25 +31,6 @@ class MaterialThemeExample extends StatelessWidget {
         secondary: Colors.yellow,
         secondaryVariant: Colors.yellow[700],
         surface: Colors.white,
-      ),
-    );
-    return Theme(
-      data: themeData,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('Material Example'),
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: MaterialAuthenticator(
-            onSignInSuccess: () => Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => ViewUserInfo(),
-              ),
-            ),
-          ),
-        ),
       ),
     );
   }

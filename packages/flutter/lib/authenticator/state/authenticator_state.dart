@@ -22,29 +22,37 @@ class AuthenticatorState {
 
   AuthStateMachine get stateMachine => _authStateMachine;
 
-  AuthenticatorStep get step {
-    if (_authStateMachine.current.name.contains('signIn')) {
-      return AuthenticatorStep.signIn;
-    }
-    if (_authStateMachine.current.name.contains('signUp')) {
-      return AuthenticatorStep.signUp;
-    }
-    if (_authStateMachine.current.name.contains('confirmSignUp')) {
-      return AuthenticatorStep.confirmSignUp;
-    }
-    if (_authStateMachine.current.name.contains('resetPassword')) {
-      return AuthenticatorStep.resetPassword;
-    }
-    return AuthenticatorStep.authenticated;
-  }
-}
+  String get current => _authStateMachine.current.name;
 
-enum AuthenticatorStep {
-  signIn,
-  signUp,
-  confirmSignUp,
-  resetPassword,
-  authenticated,
+  bool get isAuthenticated => this.current == 'authenticated';
+
+  bool get isSignIn => [
+        'signInIdle',
+        'signInPending',
+        'signInResolved',
+        'signInRejected'
+      ].contains(this.current);
+
+  bool get isSignUp => [
+        'signUpIdle',
+        'signUpPending',
+        'signUpResolved',
+        'signUpRejected'
+      ].contains(this.current);
+
+  bool get isConfirmSignUp => [
+        'confirmSignUpIdle',
+        'confirmSignUpPending',
+        'confirmSignUpResolved',
+        'confirmSignUpRejected'
+      ].contains(this.current);
+
+  bool get isResetPassword => [
+        'resetPasswordIdle',
+        'resetPasswordPending',
+        'resetPasswordResolved',
+        'resetPasswordRejected'
+      ].contains(this.current);
 }
 
 /// AuthFormFieldState is a ChangeNotifier that will notify listeners when any of its properties are updated

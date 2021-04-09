@@ -13,7 +13,19 @@ class MaterialCustomeStylesExample extends StatelessWidget {
     // This is an example of how the authneticator widget will inherit and use the Material ThemeData
     // Note: these themes could (and probably should) be applied app wide (provided to MaterialApp()),
     // but can also be applied locally like in this example
-    ThemeData themeData = ThemeData.from(
+    ThemeData themeData = _createCustomTheme(context);
+    return Theme(
+      data: themeData,
+      child: Scaffold(
+        body: MaterialAuthenticator(
+          child: ViewUserInfo(),
+        ),
+      ),
+    );
+  }
+
+  ThemeData _createCustomTheme(BuildContext context) {
+    return ThemeData.from(
       colorScheme: ColorScheme(
         brightness: Brightness.light,
         background: _surface,
@@ -62,41 +74,6 @@ class MaterialCustomeStylesExample extends StatelessWidget {
           ),
           textStyle: TextStyle(
             fontSize: 18,
-          ),
-        ),
-      ),
-    );
-    return Theme(
-      data: themeData,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'Material Custom Styles',
-            style: TextStyle(color: Colors.white),
-          ),
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                elevation: 4,
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: MaterialAuthenticator(
-                    onSignInSuccess: () => Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ViewUserInfo(),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
           ),
         ),
       ),

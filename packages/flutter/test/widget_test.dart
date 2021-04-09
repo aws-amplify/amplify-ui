@@ -10,7 +10,7 @@ void main() {
     await tester.pumpWidget(MaterialApp(
       home: Scaffold(
         body: MaterialAuthenticator(
-          onSignInSuccess: () => print('success'),
+          child: Container(),
         ),
       ),
     ));

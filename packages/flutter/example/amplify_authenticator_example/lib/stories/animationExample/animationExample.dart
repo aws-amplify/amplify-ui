@@ -8,54 +8,35 @@ import '../viewUserInfo.dart';
 class AnimationExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Animation Example'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        // MaterialAuthenticatorBuilder is used instead of MaterialAuthenticator in this example to
-        // create a custom transition between each view in the authencation flow
-        child: MaterialAuthenticatorBuilder(
-          onSignInSuccess: () => Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ViewUserInfo(),
+    return Container(
+      color: Colors.white,
+      child: MaterialAuthenticatorBuilder(
+        builder: (context, state) {
+          Map<bool, Widget> stepViewMap = {
+            state.isSignIn: MaterialSignInView(),
+            state.isSignUp: MaterialSignUpView(),
+            state.isConfirmSignUp: MaterialConfirmSignUpView(),
+            state.isResetPassword: MaterialForgotPasswordView(),
+            state.isAuthenticated: ViewUserInfo(),
+          };
+          return AnimatedSwitcher(
+            duration: Duration(milliseconds: 600),
+            transitionBuilder: (widget, animation) => __transitionBuilder(
+              widget,
+              animation,
+              Key(state.current),
             ),
-          ),
-          builder: (context, state) {
-            Map<AuthenticatorStep, Widget> stepViewMap = {
-              AuthenticatorStep.signIn: MaterialSignInView(),
-              AuthenticatorStep.signUp: MaterialSignUpView(),
-              AuthenticatorStep.confirmSignUp: MaterialConfirmSignUpView(),
-              AuthenticatorStep.resetPassword: MaterialForgotPasswordView(),
-            };
-            return AnimatedSwitcher(
-              duration: Duration(milliseconds: 600),
-              transitionBuilder: (widget, animation) => __transitionBuilder(
-                widget,
-                animation,
-                Key(state.step.toString()),
-              ),
-              layoutBuilder: (widget, list) => Stack(
-                children: [widget, ...list],
-              ),
-              child: Card(
-                key: Key(state.step.toString()),
-                color: Colors.indigo[50],
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Container(
-                    height: 500,
-                    child: stepViewMap[state.step],
-                  ),
-                ),
-              ),
-              switchInCurve: Curves.easeIn,
-              switchOutCurve: Curves.easeIn.flipped,
-            );
-          },
-        ),
+            layoutBuilder: (widget, list) => Stack(
+              children: [widget, ...list],
+            ),
+            child: Container(
+              key: Key(state.current),
+              child: stepViewMap[true],
+            ),
+            switchInCurve: Curves.easeIn,
+            switchOutCurve: Curves.easeIn.flipped,
+          );
+        },
       ),
     );
   }

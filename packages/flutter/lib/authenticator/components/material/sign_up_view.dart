@@ -6,7 +6,29 @@ import 'password_form_field.dart';
 import 'username_form_field.dart';
 
 class MaterialSignUpView extends StatelessWidget {
-  MaterialSignUpView();
+  MaterialSignUpView({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Sign Up'),
+      ),
+      body: Padding(
+        // TODO: allow customers to override padding
+        padding: const EdgeInsets.all(16.0),
+        child: MaterialSignUpForm(),
+      ),
+    );
+  }
+}
+
+class MaterialSignUpForm extends StatelessWidget {
+  const MaterialSignUpForm({
+    Key key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

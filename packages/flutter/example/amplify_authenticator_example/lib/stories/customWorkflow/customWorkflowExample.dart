@@ -34,21 +34,24 @@ class CustomWorkflowExample extends StatelessWidget {
             ),
           ),
           child: MaterialAuthenticatorBuilder(
-            onSignInSuccess: () => Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => ViewUserInfo(),
-              ),
-            ),
-            initialStep: AuthenticatorStep.signUp,
-            builder: (context, state) {
-              if (state.step == AuthenticatorStep.confirmSignUp &&
-                  controller.page == 3) {
-                controller.nextPage(
+            onStepChange: (step) {
+              if (step == 'confirmSignUp') {
+                return controller.nextPage(
                   duration: Duration(milliseconds: 250),
                   curve: Curves.easeInOutCubic,
                 );
               }
+              if (step == 'authenticated') {
+                return Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ViewUserInfo(),
+                  ),
+                );
+              }
+            },
+            initialStep: 'signUpIdle',
+            builder: (context, state) {
               return PageView(
                 controller: controller,
                 physics: NeverScrollableScrollPhysics(),
