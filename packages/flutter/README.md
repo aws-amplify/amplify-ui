@@ -90,54 +90,55 @@ Each of the code snippets below depends on amplify being configured in the clien
 
 > A customer using Material design can import and authenticator and it will use the default material styles
 
-See Example: [materialAuthenticatorExample.dart](./lib/stories/material/materialAuthenticatorExample.dart)
+MaterialAuthenticator is intended to meet most use cases by simply wrapping an application’s main widget in a MaterialAuthenticator widget.
+
+See Example: [materialAuthenticatorExample.dart](./example/amplify_authenticator_example/lib/stories/material/materialAuthenticatorExample.dart)
 
 ```dart
-import 'package:amplify_authenticator/stories/viewUserInfo.dart';
+import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:flutter/material.dart';
-import 'package:amplify_authenticator/authenticator/components/materialAuthenticator.dart';
+import '../viewUserInfo.dart';
 
 class MaterialAuthenticatorExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Material Example'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: MaterialAuthenticator(
-          onSignInSuccess: () => Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ViewUserInfo(),
-            ),
-          ),
-        ),
-      ),
+    return MaterialAuthenticator(
+      child: ViewUserInfo(),
     );
   }
 }
 ```
 
-<img src="screenshots/materialExample.png" alt="Default Material Example" width="500"/>
+Below is a recording from the example in the code snippet above.
+
+![](screenshots/MaterialAuthenticatorSignIn.gif)
 
 ### Material Design w/ custom material theme
 
 > A customer using Material design with a custom material theme can import and authenticator and it will use the appropriate styles
 
-See Example: [materialThemeExample.dart](./lib/stories/materialTheme/materialThemeExample.dart)
+See Example: [materialThemeExample.dart](./example/amplify_authenticator_example/lib/stories/materialTheme/materialThemeExample.dart)
 
 ```dart
-import 'package:amplify_authenticator/stories/viewUserInfo.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_authenticator/authenticator/components/materialAuthenticator.dart';
+import '../viewUserInfo.dart';
 
 class MaterialThemeExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Note: This would typically be passed into the MaterialApp() widget in a real world example
-    ThemeData themeData = ThemeData.from(
+    ThemeData themeData = _createCustomTheme();
+    return Theme(
+      data: themeData,
+      child: MaterialAuthenticator(
+        child: ViewUserInfo(),
+      ),
+    );
+  }
+
+  ThemeData _createCustomTheme() {
+    return ThemeData.from(
       colorScheme: ColorScheme(
         brightness: Brightness.light,
         background: Colors.white,
@@ -154,134 +155,104 @@ class MaterialThemeExample extends StatelessWidget {
         surface: Colors.white,
       ),
     );
-    return Theme(
-      data: themeData,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('Material Example'),
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: MaterialAuthenticator(
-            onSignInSuccess: () => Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => ViewUserInfo(),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
   }
 }
 ```
 
-<img src="screenshots/materialThemeExample.png" alt="Material Theme Example" width="500"/>
+Below is a recording from the example in the code snippet above.
 
-### Material Design w/ custom material theme
+![](screenshots/MaterialTheme.gif)
 
-> A customer using custom design system (built on top of material) can import and authenticator and it will use the appropriate styles
+And here is an example of a more custom theme with style inputs and buttons
+
+![](screenshots/MaterialTheme2.gif)
+
+### Custom Auth flow via composition
+
+> A customer can compose the the built in widgets to create a more custom auth flow
+
+See Example: [confirmPasswordExample.dart](./example/amplify_authenticator_example/lib/stories/confirmPasswordExample/confirmPasswordExample.dart)
 
 ```dart
-import 'package:amplify_authenticator/stories/viewUserInfo.dart';
+import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_authenticator/authenticator/components/materialAuthenticator.dart';
+import '../viewUserInfo.dart';
 
-const _primary = const Color(0xFFFAAAAA);
-const _secondary = const Color(0xFF5C83C9);
-const _error = const Color(0xFFC5032B);
-const _surface = const Color(0xFFFFFBFA);
-
-class MaterialCustomeStylesExample extends StatelessWidget {
+class ConfirmPasswordExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // This is an example of how the authneticator widget will inherit and use the Material ThemeData
-    // Note: these themes could (and probably should) be applied app wide (provided to MaterialApp()),
-    // but can also be applied locally like in this example
-    ThemeData themeData = ThemeData.from(
-      colorScheme: ColorScheme(
-        brightness: Brightness.light,
-        background: _surface,
-        error: _error,
-        onBackground: Colors.blueGrey,
-        onError: Colors.white,
-        onPrimary: Colors.white,
-        onSecondary: Colors.white,
-        onSurface: Colors.black,
-        primary: _primary,
-        primaryVariant: _primary,
-        secondary: _secondary,
-        secondaryVariant: _secondary,
-        surface: _surface,
-      ),
-    ).copyWith(
-      textTheme: Theme.of(context).textTheme.copyWith(
-            bodyText2: Theme.of(context).textTheme.bodyText2.copyWith(
-                  fontSize: 18,
-                ),
-          ),
-      inputDecorationTheme: InputDecorationTheme(
-        contentPadding: EdgeInsets.all(16),
-        border: OutlineInputBorder(
-          borderRadius: const BorderRadius.all(
-            Radius.circular(30),
-          ),
-          gapPadding: 0,
-        ),
-      ),
-      textButtonTheme: TextButtonThemeData(
-        style: TextButton.styleFrom(
-          textStyle: TextStyle(
-            fontSize: 18,
-          ),
-        ),
-      ),
-      elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30),
-          ),
-          padding: EdgeInsets.symmetric(
-            horizontal: 24,
-            vertical: 8,
-          ),
-          textStyle: TextStyle(
-            fontSize: 18,
-          ),
-        ),
+    return Container(
+      color: Colors.white,
+      child: MaterialAuthenticatorBuilder(
+        builder: (context, state) {
+          if (state.isSignIn) {
+            return MaterialSignInView();
+          }
+          if (state.isSignUp) {
+            return CustomMaterialSignUpView(state: state);
+          }
+          if (state.isConfirmSignUp) {
+            return MaterialConfirmSignUpView();
+          }
+          if (state.isResetPassword) {
+            return MaterialForgotPasswordView();
+          }
+          return ViewUserInfo();
+        },
       ),
     );
-    return Theme(
-      data: themeData,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'Material Custom Styles',
-            style: TextStyle(color: Colors.white),
-          ),
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
+  }
+}
+
+class CustomMaterialSignUpView extends StatefulWidget {
+  CustomMaterialSignUpView({
+    Key key,
+    @required this.state,
+  }) : super(key: key);
+
+  final AuthenticatorState state;
+
+  @override
+  _CustomMaterialSignUpViewState createState() =>
+      _CustomMaterialSignUpViewState();
+}
+
+class _CustomMaterialSignUpViewState extends State<CustomMaterialSignUpView> {
+  final _formKey = GlobalKey<FormState>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Sign Up'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Form(
+          key: _formKey,
           child: Column(
-            children: [
-              Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                elevation: 4,
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: MaterialAuthenticator(
-                    onSignInSuccess: () => Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ViewUserInfo(),
-                      ),
-                    ),
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              UsernameFormField(),
+              SizedBox(height: 12.0),
+              EmailFormField(),
+              SizedBox(height: 12.0),
+              PasswordFormField(),
+              SizedBox(height: 12.0),
+              ConfirmPasswordFormField(state: widget.state),
+              SizedBox(height: 12.0),
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SignInLink(),
+                  CustomSignUpButton(
+                    state: widget.state,
+                    validate: () => _formKey.currentState.validate(),
                   ),
-                ),
-              ),
+                ],
+              )
             ],
           ),
         ),
@@ -289,9 +260,67 @@ class MaterialCustomeStylesExample extends StatelessWidget {
     );
   }
 }
+
+class ConfirmPasswordFormField extends StatelessWidget {
+  const ConfirmPasswordFormField({
+    Key key,
+    @required this.state,
+  }) : super(key: key);
+  final AuthenticatorState state;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      decoration: InputDecoration(
+        labelText: 'Confirm Password',
+      ),
+      validator: (value) {
+        if (value != state.passwordFormFieldState.value) {
+          return 'The two passwords do not match';
+        }
+        return null;
+      },
+      obscureText: true,
+    );
+  }
+}
+
+// TODO: if the out of the box SignUpButton allowed for a validate function to
+// be passed in, this could be accomplished without the need for a custom button
+class CustomSignUpButton extends StatelessWidget {
+  const CustomSignUpButton({
+    Key key,
+    @required this.state,
+    this.validate,
+  }) : super(key: key);
+
+  final AuthenticatorState state;
+  final bool Function() validate;
+
+  @override
+  Widget build(BuildContext context) {
+    Function onPressed = () {
+      if (validate()) {
+        return state.sumbit(context);
+      }
+    };
+    return ElevatedButton(
+      onPressed: onPressed,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text('Sign Up'),
+        ],
+      ),
+    );
+  }
+}
+
 ```
 
-<img src="screenshots/materialCustomStyles.png" alt="Material Theme Example" width="500"/>
+Below is a recording from the example in the code snippet above.
+
+![](screenshots/confirmPassword.gif)
 
 ### Use outside of MaterialApp or CupertinoApp
 
