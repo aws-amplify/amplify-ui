@@ -142,14 +142,15 @@ Map<String, StreamSubscription<StateChange>> createStateChangeSubscriptions(
         // state transition will have been created by createImplicitStateTransitions
         String stateTransitionName =
             state.key + "-to-" + state.value.invoke.onDone.target;
-        getStateTransition(stateTransitions, stateTransitionName)(event);
+        getStateTransition(stateTransitions, stateTransitionName)(
+            StateTransitionPayload.fromEvent(event));
       }).catchError((error) {
         // state transition will have been created by createImplicitStateTransitions
         String stateTransitionName =
             state.key + "-to-" + state.value.invoke.onError;
         getStateTransition(stateTransitions, stateTransitionName)(
             StateTransitionPayload(
-          context: event.payload.context,
+          context: StateTransitionPayload.fromEvent(event).context,
           authException: error,
         ));
       });
@@ -164,7 +165,8 @@ Map<String, StreamSubscription<StateChange>> createStateChangeSubscriptions(
     StreamSubscription<StateChange> subscription =
         getState(states, state.key).onEnter.listen((event) {
       String stateTransitionName = state.key + "-to-" + state.value.always;
-      getStateTransition(stateTransitions, stateTransitionName)(event);
+      getStateTransition(stateTransitions, stateTransitionName)(
+          StateTransitionPayload.fromEvent(event)); //
     });
     return MapEntry(state.key, subscription);
   }).toList();

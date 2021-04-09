@@ -26,8 +26,6 @@ class AuthStateMachine with ChangeNotifier {
       "states": {
         "authenticated": {},
         "signInIdle": {
-          // TODO: update this to match ho js handles errors
-          "entry": "clearErrorMessages",
           "on": {
             "SIGN_UP": "signUpIdle",
             "RESET_PASSWORD": "resetPasswordIdle",
@@ -54,7 +52,6 @@ class AuthStateMachine with ChangeNotifier {
           "always": "signInIdle",
         },
         "signUpIdle": {
-          "entry": "clearErrorMessages",
           "on": {
             "SIGN_IN": "signInIdle",
             "SUBMIT": "signUpPending",
@@ -80,7 +77,6 @@ class AuthStateMachine with ChangeNotifier {
           "always": "signUpIdle",
         },
         "confirmSignUpIdle": {
-          "entry": "clearErrorMessages",
           "on": {
             "SUBMIT": "confirmSignUpPending",
           },
@@ -96,14 +92,13 @@ class AuthStateMachine with ChangeNotifier {
           }
         },
         "confirmSignUpResolved": {
-          "always": "authenticated",
+          "always": "signInPending",
         },
         "confirmSignUpRejected": {
           "entry": "setErrorMessages",
           "always": "confirmSignUpIdle",
         },
         "resetPasswordIdle": {
-          "entry": "clearErrorMessages",
           "on": {
             "SIGN_IN": "signInIdle",
           }
@@ -116,15 +111,19 @@ class AuthStateMachine with ChangeNotifier {
       },
       "actions": {
         "setErrorMessages": (event) {
+          StateTransitionPayload payload =
+              StateTransitionPayload.fromEvent(event);
           setAuthExceptionField(
-            event.payload.context,
-            event.payload.authException,
+            payload.context,
+            payload.authException,
           );
         },
         "clearErrorMessages": (event) {
+          StateTransitionPayload payload =
+              StateTransitionPayload.fromEvent(event);
           // TODO: context will be null on the initial state entry
-          if (event.payload?.context != null) {
-            clearAuthExceptionFields(event.payload.context);
+          if (payload.context != null) {
+            clearAuthExceptionFields(payload.context);
           }
         }
       }
@@ -164,7 +163,7 @@ class AuthStateMachine with ChangeNotifier {
 
   Future<SignInResult> onSignInSubmit(event) {
     // state is read via the current build context
-    StateTransitionPayload payload = event.payload;
+    StateTransitionPayload payload = StateTransitionPayload.fromEvent(event);
     BuildContext context = payload.context;
     clearAuthExceptionFields(context);
     String username = context.read<UsernameFormFieldState>().value;
@@ -177,7 +176,7 @@ class AuthStateMachine with ChangeNotifier {
 
   Future<SignUpResult> onSignUpSubmit(event) {
     // state is read via the current build context
-    StateTransitionPayload payload = event.payload;
+    StateTransitionPayload payload = StateTransitionPayload.fromEvent(event);
     BuildContext context = payload.context;
     clearAuthExceptionFields(context);
     String username = context.read<UsernameFormFieldState>().value;
@@ -192,7 +191,7 @@ class AuthStateMachine with ChangeNotifier {
 
   Future<SignUpResult> onConfirmSignUpSubmit(event) {
     // state is read via the current build context
-    StateTransitionPayload payload = event.payload;
+    StateTransitionPayload payload = StateTransitionPayload.fromEvent(event);
     BuildContext context = payload.context;
     clearAuthExceptionFields(context);
     String username = context.read<UsernameFormFieldState>().value;
@@ -218,6 +217,26 @@ class StateTransitionPayload {
   BuildContext context;
   AuthException authException;
   StateTransitionPayload({@required this.context, this.authException});
+
+  // depending how the event is triggered, the StateChange payload can itself be a StateChange
+  // which means the pay load is nested
+  // TODO: There is probably a better way to handle this and will require investigating how
+  // state_machine treats different events
+  StateTransitionPayload.fromEvent(StateMachine.StateChange stateChange) {
+    if (stateChange.payload == null) {
+      context = null;
+      authException = null;
+    } else if (stateChange.payload is StateTransitionPayload) {
+      context = stateChange.payload.context;
+      authException = stateChange.payload.authException;
+    } else if (stateChange.payload is StateMachine.StateChange &&
+        stateChange.payload.payload is StateTransitionPayload) {
+      context = stateChange.payload.payload.context;
+      authException = stateChange.payload.payload.authException;
+    } else {
+      throw 'Could not create StateTransitionPayload from StateChange event';
+    }
+  }
 }
 
 class InvalidStateTransition implements Exception {
