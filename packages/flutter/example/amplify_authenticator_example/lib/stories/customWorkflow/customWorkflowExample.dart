@@ -34,14 +34,14 @@ class CustomWorkflowExample extends StatelessWidget {
             ),
           ),
           child: MaterialAuthenticatorBuilder(
-            onStepChange: (step) {
-              if (step == 'confirmSignUp') {
+            onStateChange: (state) {
+              if (state == 'confirmSignUp') {
                 return controller.nextPage(
                   duration: Duration(milliseconds: 250),
                   curve: Curves.easeInOutCubic,
                 );
               }
-              if (step == 'authenticated') {
+              if (state == 'authenticated') {
                 return Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
@@ -50,7 +50,7 @@ class CustomWorkflowExample extends StatelessWidget {
                 );
               }
             },
-            initialStep: 'signUpIdle',
+            initialState: 'signUpIdle',
             builder: (context, state) {
               return PageView(
                 controller: controller,

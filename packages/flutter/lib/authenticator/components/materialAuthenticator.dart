@@ -18,22 +18,22 @@ import 'material/sign_up_view.dart';
 class MaterialAuthenticator extends StatelessWidget {
   MaterialAuthenticator({
     @required this.child,
-    this.onStepChange,
-    this.initialStep,
+    this.onStateChange,
+    this.initialState,
   });
 
   /// the widget to show if the user is authenticated
   final Widget child;
 
   /// function called when the AuthenticatorStep changes
-  final Function(String step) onStepChange;
-  final String initialStep;
+  final Function(String state) onStateChange;
+  final String initialState;
 
   @override
   Widget build(BuildContext context) {
     return MaterialAuthenticatorBuilder(
-      onStepChange: this.onStepChange,
-      initialStep: this.initialStep,
+      onStateChange: this.onStateChange,
+      initialState: this.initialState,
       builder: (context, state) {
         if (state.isAuthenticated) {
           return child;
@@ -65,13 +65,13 @@ class MaterialAuthenticator extends StatelessWidget {
 /// [MaterialAuthenticator] is built using MaterialAuthenticatorBuilder, and can be referenced as an example
 class MaterialAuthenticatorBuilder extends StatelessWidget {
   MaterialAuthenticatorBuilder({
-    this.onStepChange,
+    this.onStateChange,
     @required this.builder,
-    this.initialStep,
+    this.initialState,
   });
-  final Function(String step) onStepChange;
+  final Function(String state) onStateChange;
   final Widget Function(BuildContext context, AuthenticatorState state) builder;
-  final String initialStep;
+  final String initialState;
 
   @override
   Widget build(BuildContext context) {
@@ -79,8 +79,8 @@ class MaterialAuthenticatorBuilder extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (_) => AuthStateMachine(
-            onStepChange: this.onStepChange,
-            initialStep: this.initialStep,
+            onStateChange: this.onStateChange,
+            initialState: this.initialState,
           ),
         ),
         ChangeNotifierProvider(

@@ -12,17 +12,16 @@ import 'state_machine_definition.dart';
 // AuthStateMachine is a ChangeNotifier that will call notifyListeners() on state change
 class AuthStateMachine with ChangeNotifier {
   // callback for a successful sign in
-  Function(String step) onStepChange;
+  Function(String state) onStateChange;
 
   AuthStateMachine({
-    @required this.onStepChange,
-    String initialStep,
-    Function onStateChange,
+    @required this.onStateChange,
+    String initialState,
   }) {
     // minimal state definition that roughly matches xState's Json definition
     Map<String, dynamic> jsonState = {
       "id": "auth",
-      "initial": initialStep ?? "signInIdle",
+      "initial": initialState ?? "signInIdle",
       "states": {
         "authenticated": {},
         "signInIdle": {
@@ -138,8 +137,8 @@ class AuthStateMachine with ChangeNotifier {
     _machine.onStateChange.listen((event) {
       debugPrint("current state: " + event.to.name);
       notifyListeners();
-      if (this.onStepChange != null) {
-        this.onStepChange(this.current.name);
+      if (this.onStateChange != null) {
+        this.onStateChange(this.current.name);
       }
     });
   }
