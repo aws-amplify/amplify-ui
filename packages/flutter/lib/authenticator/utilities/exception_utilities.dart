@@ -18,6 +18,7 @@ enum AuthExceptionField {
 Map<String, AuthExceptionField> authExceptionFieldLookup = {
   'User does not exist.': AuthExceptionField.username,
   'User already exists': AuthExceptionField.username,
+  'User is not confirmed.': AuthExceptionField.username,
   'Username is required to signIn': AuthExceptionField.username,
   'Invalid email address format.': AuthExceptionField.email,
   'Incorrect username or password.': AuthExceptionField.password,
