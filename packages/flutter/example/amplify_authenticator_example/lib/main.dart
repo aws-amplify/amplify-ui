@@ -5,6 +5,7 @@ import 'package:amplify_analytics_pinpoint/amplify_analytics_pinpoint.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'amplifyconfiguration.dart';
 
+import 'stories/confirmPasswordExample/confirmPasswordExample.dart';
 import 'stories/material/materialAuthenticatorExample.dart';
 import 'stories/materialTheme/materialThemeExample.dart';
 import 'stories/materialCustomStyles/materialCustomStylesExample.dart';
@@ -88,6 +89,12 @@ class AuthStories extends StatelessWidget {
             'An example using the MaterialAuthenticator component with a more customized theme.',
       ),
       ExampleListTileItem(
+        view: ConfirmPasswordExample(),
+        title: 'Confirm Password Example ',
+        subtitle:
+            'An example that uses a custom sign up view that requires a user re-enters their password.',
+      ),
+      ExampleListTileItem(
         view: CustomWorkflowExample(),
         title: 'Custom Workflow ',
         subtitle:
@@ -100,6 +107,7 @@ class AuthStories extends StatelessWidget {
             'An example using the MaterialAuthenticatorBuilder component to create custom animations between views.',
       ),
     ];
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Authenticator Stories'),

@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'authenticator_state_machine.dart';
+import 'package:provider/provider.dart';
 
 /// AuthenticatorState is an abstraction on top of the state that is managed internally by the state machine
 /// for use by consumers of the package
@@ -53,6 +54,13 @@ class AuthenticatorState {
         'resetPasswordResolved',
         'resetPasswordRejected'
       ].contains(this.current);
+
+  /// will submit the current form
+  ///
+  /// for example, if the user is in the signUp state, this will attempt to sign the user in
+  void sumbit(BuildContext context) => context
+      .read<AuthStateMachine>()
+      .send('SUBMIT', StateTransitionPayload(context: context));
 }
 
 /// AuthFormFieldState is a ChangeNotifier that will notify listeners when any of its properties are updated
