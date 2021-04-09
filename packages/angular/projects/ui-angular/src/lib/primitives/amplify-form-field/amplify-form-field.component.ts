@@ -10,8 +10,10 @@ import {
   InputType,
   getAttributeMap,
   AttributeInfo,
-  isInputType
+  isInputType,
+  FormError
 } from '../../common';
+import { ComponentsProviderService } from '../../services';
 
 /**
  * Contains an input element and its label. Intended to be used with
@@ -30,12 +32,17 @@ export class AmplifyFormFieldComponent {
   // TODO: Separate entry for id
   @Input() type: InputType;
   @Input() required = false;
-  @Input() errors: ValidationErrors;
   @Input() placeholder: string;
   @Input() label: string;
 
+  constructor(private context: ComponentsProviderService) {}
+
   get attributeMap(): Record<AuthAttribute, AttributeInfo> {
     return getAttributeMap();
+  }
+
+  get error(): FormError {
+    return this.context.formError;
   }
 
   // infers what the `type` of underlying input element should be.

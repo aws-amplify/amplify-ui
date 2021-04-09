@@ -28,11 +28,10 @@ export class AmplifySignInComponent
   @Input() onSignIn: OnSubmitHook;
   public loading = false;
   public customComponents: Record<string, TemplateRef<any>> = {};
-  public formError: FormError = {};
   private authSubscription: Subscription;
   public context = {
     $implicit: {
-      errors: () => this.formError
+      errors: () => this.componentsProvider.formError
     }
   };
 
@@ -48,6 +47,7 @@ export class AmplifySignInComponent
   }
 
   ngAfterContentInit(): void {
+    this.componentsProvider.formError = {};
     this.customComponents = this.componentsProvider.customComponents;
 
     // attach sign in hooks
@@ -62,19 +62,15 @@ export class AmplifySignInComponent
 
   onStateUpdate(state: AuthMachineState): void {
     if (state.event.type.includes('error.platform.signIn')) {
-      if (!this.formError.crossField) this.formError.crossField = [];
-      this.formError.crossField.push(state.event.data.message);
-
+      const message = state.event.data?.message;
+      logger.info('An error was encountered while signing up:', message);
+      this.componentsProvider.formError = { cross_field: [message] };
       this.loading = false;
     }
   }
 
-  validateInputs(formData: AuthFormData): FormError {
-    const formError: FormError = {};
-    for (const [fieldName, fieldValue] of Object.entries(formData)) {
-      console.log(fieldName, fieldValue);
-    }
-    return formError;
+  get formError(): FormError {
+    return this.componentsProvider.formError;
   }
 
   toSignUp(): void {
@@ -86,7 +82,7 @@ export class AmplifySignInComponent
   }
 
   async onSubmit($event): Promise<void> {
-    this.formError = {};
+    this.componentsProvider.formError = {};
 
     // get form data
     const formData = new FormData($event.target);
@@ -96,7 +92,7 @@ export class AmplifySignInComponent
     if (!this.onSignIn) this.onSignIn = () => ({});
     const { data, error } = this.onSignIn({ ...formValues });
     if (error && Object.keys(error).length > 0) {
-      this.formError = error;
+      this.componentsProvider.formError = error;
       return;
     }
     const param = data && Object.keys(data).length > 0 ? data : formValues;

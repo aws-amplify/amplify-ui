@@ -3,34 +3,21 @@
 </ng-template>
 
 <ng-template #signUpUsername>
-  <amplify-form-field
-    name="username"
-    [errors]="formErrors?.username"
-    [required]="true"
-  ></amplify-form-field>
+  <amplify-form-field name="username" [required]="true"></amplify-form-field>
 </ng-template>
 
 <ng-template #signUpPassword>
-  <amplify-form-field
-    name="password"
-    [errors]="formErrors?.password"
-    [required]="true"
-  ></amplify-form-field>
+  <amplify-form-field name="password" [required]="true"></amplify-form-field>
 </ng-template>
 
 <ng-template #signUpEmail>
-  <amplify-form-field
-    name="email"
-    [errors]="formErrors?.email"
-    [required]="true"
-  ></amplify-form-field>
+  <amplify-form-field name="email" [required]="true"></amplify-form-field>
 </ng-template>
 
 <ng-template #signUpPhoneNumber>
   <amplify-form-field
     name="phone_number"
     type="tel"
-    [errors]="formErrors?.phone_number"
     [required]="true"
   ></amplify-form-field>
 </ng-template>
@@ -86,7 +73,7 @@
       </ng-container>
     </div>
     <amplify-validation-error
-      [errors]="formErrors?.cross_field"
+      [errors]="formError.cross_field"
     ></amplify-validation-error>
   </form>
 </div>

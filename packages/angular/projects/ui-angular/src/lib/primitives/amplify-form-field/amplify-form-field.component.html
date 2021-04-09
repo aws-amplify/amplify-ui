@@ -9,4 +9,6 @@
   />
 </label>
 
-<amplify-validation-error [errors]="errors"></amplify-validation-error>
+<amplify-validation-error
+  [errors]="error && error[name]"
+></amplify-validation-error>

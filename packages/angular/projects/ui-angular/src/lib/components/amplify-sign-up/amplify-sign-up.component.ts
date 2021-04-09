@@ -27,10 +27,9 @@ export class AmplifySignUpComponent
   private authSubscription: Subscription;
   public customComponents: Record<string, TemplateRef<any>>;
   public loading = false;
-  public formErrors: FormError = {};
   public context = {
     $implicit: {
-      errors: () => this.formErrors
+      errors: () => this.componentsProvider.formError
     }
   };
 
@@ -46,6 +45,7 @@ export class AmplifySignUpComponent
   }
 
   ngAfterContentInit(): void {
+    this.componentsProvider.formError = {};
     this.customComponents = this.componentsProvider.customComponents;
     this.onSignUp = this.componentsProvider.props.signUp.onSignUp;
   }
@@ -56,9 +56,15 @@ export class AmplifySignUpComponent
 
   private onStateUpdate(state: AuthMachineState): void {
     if (state.event.type.includes('error.platform.signUp')) {
-      this.formErrors.cross_field = [state.event.data?.message];
+      const message = state.event.data?.message;
+      logger.info('An error was encountered while signing up:', message);
+      this.componentsProvider.formError = { cross_field: [message] };
       this.loading = false;
     }
+  }
+
+  get formError(): FormError {
+    return this.componentsProvider.formError;
   }
 
   send(event: Event<any>): void {
@@ -66,6 +72,7 @@ export class AmplifySignUpComponent
   }
 
   async onSubmit($event): Promise<void> {
+    this.componentsProvider.formError = {};
     $event.preventDefault();
     const formData = new FormData($event.target);
     const formValues = Object.fromEntries(formData.entries()) as AuthFormData;
@@ -74,7 +81,7 @@ export class AmplifySignUpComponent
     if (!this.onSignUp) this.onSignUp = () => ({}); // no-op
     const { data, error } = this.onSignUp({ ...formValues });
     if (error && Object.keys(error).length > 0) {
-      this.formErrors = error;
+      this.componentsProvider.formError = error;
       return;
     }
     const param = data && Object.keys(data).length > 0 ? data : formValues;
