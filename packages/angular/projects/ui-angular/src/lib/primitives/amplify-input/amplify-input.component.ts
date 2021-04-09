@@ -20,14 +20,14 @@ import { AuthenticatorContextService } from '../../services';
  * Angular Reactive Form
  */
 @Component({
-  selector: 'amplify-form-field',
-  templateUrl: './amplify-form-field.component.html',
+  selector: 'amplify-input',
+  templateUrl: './amplify-input.component.html',
   viewProviders: [
     // https://stackoverflow.com/a/46452442/10103143
     { provide: ControlContainer, useExisting: FormGroupDirective }
   ]
 })
-export class AmplifyFormFieldComponent {
+export class AmplifyInputComponent {
   @Input() name: AuthAttribute;
   // TODO: Separate entry for id
   @Input() type: InputType;

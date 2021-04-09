@@ -1,19 +1,14 @@
 <markdown [src]="'markdowns/authenticator/custom-form.md'"></markdown>
 <amplify-context-provider>
   <amplify-authenticator [onSignUp]="onSignUp">
-    <ng-template amplifyOverride="signUpPassword" let-ctx>
-      <amplify-form-field
-        name="password"
-        type="password"
-        [errors]="ctx.errors()?.password"
-      ></amplify-form-field>
-      <amplify-form-field
+    <ng-template amplifyOverride="signUpPassword">
+      <amplify-input name="password"></amplify-input>
+      <amplify-input
         name="confirm_password"
         type="password"
         label="Confirm Password"
         placeholder="Re-enter your password"
-        [errors]="ctx.errors()?.confirm_password"
-      ></amplify-form-field>
+      ></amplify-input>
     </ng-template>
   </amplify-authenticator>
 </amplify-context-provider>

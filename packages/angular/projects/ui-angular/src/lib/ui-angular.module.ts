@@ -7,7 +7,7 @@ import { AmplifyContextProviderComponent } from './amplify-context-provider/ampl
 import { AmplifySignOutComponent } from './components/amplify-sign-out/amplify-sign-out.component';
 import { AmplifyOverrideDirective } from './directives/amplify-override.directive';
 import { AmplifySignUpComponent } from './components/amplify-sign-up/amplify-sign-up.component';
-import { AmplifyFormFieldComponent } from './primitives/amplify-form-field/amplify-form-field.component';
+import { AmplifyInputComponent } from './primitives/amplify-input/amplify-input.component';
 import { AmplifyValidationErrorComponent } from './primitives/amplify-validation-error/amplify-validation-error.component';
 
 @NgModule({
@@ -17,7 +17,7 @@ import { AmplifyValidationErrorComponent } from './primitives/amplify-validation
     AmplifySignOutComponent,
     AmplifyContextProviderComponent,
     AmplifySignUpComponent,
-    AmplifyFormFieldComponent,
+    AmplifyInputComponent,
     AmplifyValidationErrorComponent,
     AmplifyOverrideDirective
   ],
@@ -27,7 +27,7 @@ import { AmplifyValidationErrorComponent } from './primitives/amplify-validation
     AmplifySignInComponent,
     AmplifySignOutComponent,
     AmplifyContextProviderComponent,
-    AmplifyFormFieldComponent,
+    AmplifyInputComponent,
     AmplifyValidationErrorComponent,
     AmplifyOverrideDirective
   ]

@@ -62,8 +62,8 @@ export class AmplifySignUpComponent
       const message = state.event.data?.message;
       logger.info('An error was encountered while signing up:', message);
       this.contextService.formError = { cross_field: [message] };
-      this.loading = false;
     }
+    this.loading = false;
   }
 
   get formError(): FormError {
