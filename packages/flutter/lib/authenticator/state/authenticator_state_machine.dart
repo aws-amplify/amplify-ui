@@ -36,7 +36,7 @@ class AuthStateMachine with ChangeNotifier {
           "invoke": {
             "src": "signIn",
             "onDone": {
-              "actions": "setUser", // TODO: Handle actions
+              "actions": "setUser", // TODO: Set user data
               "target": "signInResolved",
             },
             "onError": "signInRejected",
