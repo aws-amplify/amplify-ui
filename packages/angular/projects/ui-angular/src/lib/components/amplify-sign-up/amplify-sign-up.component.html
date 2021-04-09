@@ -2,41 +2,62 @@
   <button data-ui-button type="submit">Sign Up</button>
 </ng-template>
 
+<ng-template #signUpUsername>
+  <amplify-form-field
+    name="username"
+    [errors]="formErrors?.username"
+    [required]="true"
+  ></amplify-form-field>
+</ng-template>
+
 <ng-template #signUpPassword>
   <amplify-form-field
     name="password"
-    type="password"
     [errors]="formErrors?.password"
+    [required]="true"
+  ></amplify-form-field>
+</ng-template>
+
+<ng-template #signUpEmail>
+  <amplify-form-field
+    name="email"
+    [errors]="formErrors?.email"
+    [required]="true"
+  ></amplify-form-field>
+</ng-template>
+
+<ng-template #signUpPhoneNumber>
+  <amplify-form-field
+    name="phone_number"
+    type="tel"
+    [errors]="formErrors?.phone_number"
     [required]="true"
   ></amplify-form-field>
 </ng-template>
 
 <ng-template #signUpFieldset>
   <fieldset data-ui-fieldset [attr.disabled]="this.loading ? '' : null">
-    <amplify-form-field
-      name="username"
-      [errors]="formErrors?.username"
-      [required]="true"
-    ></amplify-form-field>
+    <ng-container
+      [ngTemplateOutlet]="customComponents.signUpUsername || signUpUsername"
+      [ngTemplateOutletContext]="context"
+    ></ng-container>
 
     <ng-container
       [ngTemplateOutlet]="customComponents.signUpPassword || signUpPassword"
       [ngTemplateOutletContext]="context"
     ></ng-container>
 
-    <amplify-form-field
-      name="email"
-      type="email"
-      [errors]="formErrors?.email"
-      [required]="true"
-    ></amplify-form-field>
+    <ng-container
+      [ngTemplateOutlet]="customComponents.signUpEmail || signUpEmail"
+      [ngTemplateOutletContext]="context"
+    ></ng-container>
 
-    <amplify-form-field
-      name="phone_number"
-      type="text"
-      [errors]="formErrors?.phone_number"
-      [required]="true"
-    ></amplify-form-field>
+    <ng-container
+      [ngTemplateOutlet]="
+        customComponents.signUpPhoneNumber || signUpPhoneNumber
+      "
+      [ngTemplateOutletContext]="context"
+    ></ng-container>
   </fieldset>
 </ng-template>
 

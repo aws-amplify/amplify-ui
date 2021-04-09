@@ -2,7 +2,7 @@
   <div data-ui-label>{{ label || attributeMap[name]?.label }}</div>
   <input
     data-ui-input
-    [type]="type"
+    [type]="inferInputType()"
     [name]="name"
     [placeholder]="placeholder || attributeMap[name]?.placeholder"
     [required]="required ? true : false"

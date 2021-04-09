@@ -9,7 +9,8 @@ import {
   AuthAttribute,
   InputType,
   getAttributeMap,
-  AttributeInfo
+  AttributeInfo,
+  isInputType
 } from '../../common';
 
 /**
@@ -27,7 +28,7 @@ import {
 export class AmplifyFormFieldComponent {
   @Input() name: AuthAttribute;
   // TODO: Separate entry for id
-  @Input() type: InputType = 'text';
+  @Input() type: InputType;
   @Input() required = false;
   @Input() errors: ValidationErrors;
   @Input() placeholder: string;
@@ -35,5 +36,19 @@ export class AmplifyFormFieldComponent {
 
   get attributeMap(): Record<AuthAttribute, AttributeInfo> {
     return getAttributeMap();
+  }
+
+  // infers what the `type` of underlying input element should be.
+  inferInputType(): InputType {
+    if (this.type) {
+      // if type is explicitly defined, use that.
+      return this.type;
+    } else if (this.name && isInputType(this.name)) {
+      // if the input name is also a valid input type, use that.
+      // e.g. type of <input name="password"> will be password.
+      return this.name;
+    } else {
+      return 'text';
+    }
   }
 }
