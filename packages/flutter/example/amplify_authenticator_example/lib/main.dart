@@ -47,7 +47,35 @@ class _DemoAppState extends State<DemoApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: AuthStories(),
+      // TODO: FutureBuilder is checking for an authenticated user
+      // this should be the initial state/action of the state machine, but is not yet implemented
+      // to make running these examples easier, the sign out button will show if a user in currently signed in
+      home: FutureBuilder(
+        future: Amplify.Auth.getCurrentUser(),
+        builder: (context, snapshot) {
+          // if there is an error, it is likely becasue the user is not logged in
+          if (snapshot.hasError) {
+            return AuthStories();
+          }
+          return Material(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                      'The user is already signed in. You will need to sign out for the examples to work. See TODO in main.dart for more info.'),
+                  ElevatedButton(
+                      onPressed: () {
+                        Amplify.Auth.signOut().then((value) => setState(() {}));
+                      },
+                      child: Text('Sign Out')),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 }

@@ -7,6 +7,7 @@ class ViewUserInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: Container(),
         title: Text('User Info'),
       ),
       body: Padding(
