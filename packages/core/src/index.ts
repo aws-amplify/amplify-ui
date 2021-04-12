@@ -1,2 +1,3 @@
-export { authMachine } from "./authMachine";
-export { authService } from "./authService";
+export * from "./authMachine";
+export * from "./authService";
+export * from "./types";

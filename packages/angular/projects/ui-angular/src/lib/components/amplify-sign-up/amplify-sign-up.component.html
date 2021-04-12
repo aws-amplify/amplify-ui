@@ -1,46 +1,79 @@
-<ng-template #signInButton>
-  <button data-ui-button id="spark-button" type="submit">Sign Up</button>
+<ng-template #signUpButton>
+  <button data-ui-button type="submit">Sign Up</button>
+</ng-template>
+
+<ng-template #signUpUsername>
+  <amplify-input name="username" [required]="true"></amplify-input>
+</ng-template>
+
+<ng-template #signUpPassword>
+  <amplify-input name="password" [required]="true"></amplify-input>
+</ng-template>
+
+<ng-template #signUpEmail>
+  <amplify-input name="email" [required]="true"></amplify-input>
+</ng-template>
+
+<ng-template #signUpPhoneNumber>
+  <amplify-input
+    name="phone_number"
+    type="tel"
+    [required]="true"
+  ></amplify-input>
+</ng-template>
+
+<ng-template #signUpFieldset>
+  <fieldset data-ui-fieldset [attr.disabled]="this.loading ? '' : null">
+    <ng-container
+      [ngTemplateOutlet]="customComponents.signUpUsername || signUpUsername"
+      [ngTemplateOutletContext]="context"
+    ></ng-container>
+
+    <ng-container
+      [ngTemplateOutlet]="customComponents.signUpPassword || signUpPassword"
+      [ngTemplateOutletContext]="context"
+    ></ng-container>
+
+    <ng-container
+      [ngTemplateOutlet]="customComponents.signUpEmail || signUpEmail"
+      [ngTemplateOutletContext]="context"
+    ></ng-container>
+
+    <ng-container
+      [ngTemplateOutlet]="
+        customComponents.signUpPhoneNumber || signUpPhoneNumber
+      "
+      [ngTemplateOutletContext]="context"
+    ></ng-container>
+  </fieldset>
 </ng-template>
 
 <div data-ui-container>
   <h2 data-ui-header>{{ this.headerText }}</h2>
-  <form data-ui-form [formGroup]="formGroup" (ngSubmit)="onSubmit($event)">
-    <fieldset data-ui-fieldset [attr.disabled]="this.loading ? '' : null">
-      <amplify-form-field
-        [errors]="inputErrors?.username"
-        name="username"
-      ></amplify-form-field>
+  <form
+    data-ui-form
+    (submit)="onSubmit($event)"
+    (input)="onChange()"
+    ngNativeValidate
+  >
+    <ng-container
+      [ngTemplateOutlet]="customComponents.signUpFieldset || signUpFieldset"
+      [ngTemplateOutletContext]="context"
+    ></ng-container>
 
-      <amplify-form-field
-        [errors]="inputErrors?.password"
-        name="password"
-        type="password"
-      ></amplify-form-field>
-
-      <amplify-form-field
-        name="email"
-        type="email"
-        [errors]="inputErrors?.email"
-      ></amplify-form-field>
-
-      <amplify-form-field
-        name="phone_number"
-        type="text"
-        [errors]="inputErrors?.phone_number"
-      ></amplify-form-field>
-
-      <div data-ui-footer>
-        <div>
-          Have an account?{{ " " }}
-          <span data-ui-link (click)="toSignIn()">Sign In</span>
-        </div>
-        <ng-container
-          [ngTemplateOutlet]="customComponents.signInButton || signInButton"
-          [ngTemplateOutletContext]="context"
-        >
-        </ng-container>
+    <div data-ui-footer>
+      <div>
+        Have an account?{{ " " }}
+        <span data-ui-link (click)="toSignIn()">Sign In</span>
       </div>
-      <div data-ui-error *ngIf="formError">{{ formError }}</div>
-    </fieldset>
+      <ng-container
+        [ngTemplateOutlet]="customComponents.signUpButton || signUpButton"
+        [ngTemplateOutletContext]="context"
+      >
+      </ng-container>
+    </div>
+    <amplify-validation-error
+      [errors]="formError.cross_field"
+    ></amplify-validation-error>
   </form>
 </div>

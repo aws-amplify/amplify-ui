@@ -2,22 +2,15 @@
   Define default contents here
 -->
 <ng-template #signInButton>
-  <button data-ui-button id="spark-button" type="submit">Sign In</button>
+  <button data-ui-button type="submit">Sign In</button>
 </ng-template>
 
 <ng-template #signInForm>
-  <form data-ui-form [formGroup]="formGroup" (ngSubmit)="onSubmit($event)">
+  <form data-ui-form (submit)="onSubmit($event); $event.preventDefault()">
     <fieldset data-ui-fieldset [attr.disabled]="loading ? '' : null">
-      <amplify-form-field
-        name="username"
-        [errors]="inputErrors?.username"
-      ></amplify-form-field>
+      <amplify-input name="username"></amplify-input>
 
-      <amplify-form-field
-        name="password"
-        type="password"
-        [errors]="inputErrors?.password"
-      ></amplify-form-field>
+      <amplify-input name="password" type="password"></amplify-input>
 
       <div data-ui-footer>
         <div>
@@ -31,7 +24,7 @@
         </ng-container>
       </div>
 
-      <div data-ui-error *ngIf="formError">{{ formError }}</div>
+      <div data-ui-error *ngIf="formError">{{ formError.cross_field }}</div>
     </fieldset>
   </form>
 </ng-template>

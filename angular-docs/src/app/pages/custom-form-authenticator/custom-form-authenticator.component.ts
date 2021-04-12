@@ -1,27 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, Validators } from '@angular/forms';
+import {
+  AuthFormData,
+  FormError,
+  OnSubmitHookResponse
+} from '@aws-amplify/ui-angular';
 
 @Component({
   selector: 'app-custom-form-authenticator',
-  templateUrl: './custom-form-authenticator.component.html',
+  templateUrl: './custom-form-authenticator.component.html'
 })
-export class CustomFormAuthenticatorComponent implements OnInit {
-  public signInValidators = {
-    username: [Validators.minLength(4)],
-  };
+export class CustomFormAuthenticatorComponent {
+  public onSignUp(formData: AuthFormData): OnSubmitHookResponse {
+    const { password, confirm_password } = formData;
 
-  public containsNumber(control: AbstractControl) {
-    const isValid = /\d/.test(control.value);
-    return isValid
-      ? null
-      : { containsNumber: 'This field should have at least one digit.' };
+    if (password !== confirm_password) {
+      const error = { confirm_password: ['Your passwords must match'] };
+      return { error };
+    } else {
+      delete formData['confirm_password'];
+      return { data: formData };
+    }
   }
-
-  public customSignInValidators = {
-    username: [this.containsNumber],
-  };
-
-  constructor() {}
-
-  ngOnInit(): void {}
 }
