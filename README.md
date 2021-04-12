@@ -24,3 +24,7 @@
 1. `yarn build:angular`, or `yarn build:angular:watch` for live development
 1. `yarn dev:angular`.
 1. <http://localhost:4200/>
+
+## For flutter
+
+1. see [packages/flutter/README.md](packages/flutter/README.md)
