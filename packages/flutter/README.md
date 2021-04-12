@@ -6,6 +6,7 @@ Flutter Amplify Authenticator UI component
 
 - Install and set up [flutter](https://flutter.dev/docs/get-started/install) and complete platform setup for iOS or Android if you have not already done so.
 - [Set up your IDE](https://flutter.dev/docs/get-started/editor) for flutter development if you have not already done so.
+- add a valid `amplifyconfiguration.dart` under `packages/flutter/example/amplify_authenticator_example/lib/`
 - Run the _example_ project (`/example/amplify_authenticator/main.dart`) on an iOS simulator or Android Emulator. See info under **Run the App** in the [flutter test drive docs](https://flutter.dev/docs/get-started/test-drive?tab=androidstudio) if you are not familiar with how to do this.
 
 > NOTE: Run the app from [main.dart in the example project](./example/amplify_authenticator_example/lib/main.dart)
