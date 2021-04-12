@@ -182,7 +182,6 @@ export default defineComponent({
         );
         delete values.phone_number_prefix;
         delete values.confirm_password;
-        console.log("phoneS", phoneS);
         send({
           type: "SUBMIT",
           //@ts-ignore Property 'fromEntries' does not exist on type 'ObjectConstructor'. Do you need to change your target library? Try changing the `lib` compiler option to 'es2019' or later.ts(2550)
