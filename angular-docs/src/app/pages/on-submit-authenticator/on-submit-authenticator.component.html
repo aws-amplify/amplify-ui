@@ -1,0 +1,11 @@
+<markdown [src]="'markdowns/authenticator/on-submit.md'"> </markdown>
+
+<amplify-context-provider>
+  <amplify-authenticator
+    initialAuthState="signUp"
+    [onSignUp]="usernameContainsDigit"
+  >
+  </amplify-authenticator>
+</amplify-context-provider>
+
+<markdown [src]="'markdowns/authenticator/on-submit--form-data.md'"></markdown>

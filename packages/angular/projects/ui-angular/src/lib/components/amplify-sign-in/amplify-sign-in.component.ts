@@ -1,4 +1,4 @@
-import { Auth, Logger } from 'aws-amplify';
+import { Logger } from 'aws-amplify';
 import {
   AfterContentInit,
   Component,
@@ -9,17 +9,16 @@ import {
   TemplateRef,
   ViewEncapsulation
 } from '@angular/core';
-import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
-import { ComponentsProviderService, StateMachineService } from '../../services';
 import {
-  AuthAttribute,
-  InputErrors,
-  mapInputErrors,
-  noWhitespacesAfterTrim,
-  SignInValidators
-} from '../../common';
-import { Event, State, Subscription } from 'xstate';
+  AuthenticatorContextService,
+  StateMachineService
+} from '../../services';
+import { AuthFormData, FormError, OnSubmitHook } from '../../common';
+import { Event, Subscription } from 'xstate';
+import { AuthMachineState } from '@aws-amplify/ui-core';
+
 const logger = new Logger('SignIn');
+
 @Component({
   selector: 'amplify-sign-in',
   templateUrl: './amplify-sign-in.component.html',
@@ -29,26 +28,19 @@ export class AmplifySignInComponent
   implements AfterContentInit, OnInit, OnDestroy {
   @HostBinding('attr.data-ui-sign-in') dataAttr = '';
   @Input() public headerText = 'Sign in to your account';
-  private authSubscription: Subscription;
+  @Input() onSignIn: OnSubmitHook;
   public loading = false;
   public customComponents: Record<string, TemplateRef<any>> = {};
-  public inputErrors: InputErrors; // errors specific to each input
-  public formError: string; // errors specific to the form as a whole or api error
+  private authSubscription: Subscription;
   public context = {
-    $implicit: {}
+    $implicit: {
+      errors: () => this.contextService.formError
+    }
   };
-  public formGroup = this.fb.group(
-    {
-      username: ['', [Validators.required, noWhitespacesAfterTrim]],
-      password: ['', [Validators.required]]
-    },
-    { updateOn: 'submit' }
-  );
 
   constructor(
-    private fb: FormBuilder,
     private stateMachine: StateMachineService,
-    private componentsProvider: ComponentsProviderService
+    private contextService: AuthenticatorContextService
   ) {}
 
   ngOnInit(): void {
@@ -58,12 +50,12 @@ export class AmplifySignInComponent
   }
 
   ngAfterContentInit(): void {
-    this.customComponents = this.componentsProvider.customComponents;
+    this.contextService.formError = {};
+    this.customComponents = this.contextService.customComponents;
 
-    // attach custom validators
-    const props = this.componentsProvider.props.signIn;
-    const customValidators = props?.signInValidators;
-    this.attachCustomValidators(customValidators);
+    // attach sign in hooks
+    const props = this.contextService.props.signIn;
+    this.onSignIn = props.onSignIn;
   }
 
   ngOnDestroy(): void {
@@ -71,19 +63,21 @@ export class AmplifySignInComponent
     this.authSubscription.unsubscribe();
   }
 
-  onStateUpdate(state: State<any>): void {
-    if (state.event.type.includes('error')) {
-      this.formError = (state.event as any).data.message;
+  onStateUpdate(state: AuthMachineState): void {
+    if (state.event.type.includes('error.platform.signIn')) {
+      const message = state.event.data?.message;
+      logger.info('An error was encountered while signing up:', message);
+      this.contextService.formError = { cross_field: [message] };
       this.loading = false;
     }
   }
 
-  toSignUp(): void {
-    this.stateMachine.authService.send('SIGN_UP');
+  get formError(): FormError {
+    return this.contextService.formError;
   }
 
-  getFormControl(name: AuthAttribute): AbstractControl {
-    return this.formGroup.get(name);
+  toSignUp(): void {
+    this.stateMachine.authService.send('SIGN_UP');
   }
 
   send(event: Event<any>): void {
@@ -91,36 +85,26 @@ export class AmplifySignInComponent
   }
 
   async onSubmit($event): Promise<void> {
+    this.contextService.formError = {};
+
     // get form data
     const formData = new FormData($event.target);
-    const formValues = Object.fromEntries(formData.entries());
-
+    const formValues = Object.fromEntries(formData.entries()) as AuthFormData;
     logger.log('Sign in form submitted with', formValues);
 
-    // trim input
-    const usernameControl = this.formGroup.get('username');
-    usernameControl.setValue(usernameControl.value.trim());
+    if (!this.onSignIn) this.onSignIn = () => ({});
+    const { data, error } = this.onSignIn({ ...formValues });
+    if (error && Object.keys(error).length > 0) {
+      this.contextService.formError = error;
+      return;
+    }
+    const param = data && Object.keys(data).length > 0 ? data : formValues;
 
-    // set validation errors, which will be rendered below each respective input
-    this.inputErrors = mapInputErrors(this.formGroup.controls);
-
-    // return if form is still invalid
-    if (this.formGroup.status !== 'VALID') return;
     this.loading = true; // disable inputs
 
     this.send({
       type: 'SUBMIT',
-      data: formValues
+      data: param
     });
-  }
-
-  private attachCustomValidators(customValidators: SignInValidators): void {
-    if (!customValidators) return;
-    for (const [inputName, validators] of Object.entries(customValidators)) {
-      const inputControl = this.formGroup.get(inputName);
-      if (!inputControl)
-        throw new Error(`There is no FormControl for ${inputName} field.`);
-      inputControl.setValidators([inputControl.validator, ...validators]);
-    }
   }
 }

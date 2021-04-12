@@ -1,15 +1,14 @@
 <markdown [src]="'markdowns/authenticator/custom-form.md'"></markdown>
-
 <amplify-context-provider>
-  <amplify-authenticator [signInValidators]="signInValidators">
-  </amplify-authenticator>
-</amplify-context-provider>
-
-<markdown
-  [src]="'markdowns/authenticator/custom-form--custom-validator.md'"
-></markdown>
-
-<amplify-context-provider>
-  <amplify-authenticator [signInValidators]="customSignInValidators">
+  <amplify-authenticator [onSignUp]="onSignUp">
+    <ng-template amplifyOverride="signUpPassword">
+      <amplify-input name="password"></amplify-input>
+      <amplify-input
+        name="confirm_password"
+        type="password"
+        label="Confirm Password"
+        placeholder="Re-enter your password"
+      ></amplify-input>
+    </ng-template>
   </amplify-authenticator>
 </amplify-context-provider>

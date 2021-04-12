@@ -14,11 +14,3 @@ export interface PropContext {
   signIn?: Record<string, any>; // type this
   signUp?: Record<string, any>;
 }
-
-// custom validators to be passed to the sign-in form
-export type SignInValidators = Record<string, ValidatorFn[]>;
-
-// maps validation errors to each form input
-export type InputErrors = Partial<Record<AuthAttribute, ValidationErrors>>;
-
-export type InputType = 'text' | 'number' | 'email' | 'password';
