@@ -11,8 +11,8 @@ import {
   theme,
 } from "@aws-amplify/ui-react-native";
 
-Amplify.configure({
-});
+const awsConfig = require('./aws-exports').default;
+Amplify.configure(awsConfig);
 
 export default function App() {
   return (

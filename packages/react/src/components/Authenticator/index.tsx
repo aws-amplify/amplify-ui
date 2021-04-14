@@ -7,7 +7,12 @@ import tailwind from "tailwind-rn";
 import { SignIn } from "./SignIn";
 import { SignUp } from "./SignUp";
 
-export function Authenticator({ className, children = (context) => null }) {
+type IAuthenticator = React.PropsWithChildren<{
+  className?: String;
+  children?: (props: any) => JSX.Element;
+}>;
+
+export function Authenticator({ className, children }: IAuthenticator) {
   const [state, send] = useAuth();
 
   const {
@@ -22,7 +27,7 @@ export function Authenticator({ className, children = (context) => null }) {
     },
   } = useAmplify("Authenticator");
 
-  if (state.matches("authenticated")) {
+  if (state.matches("authenticated") && typeof children === 'function') {
     return children({ state, send });
   }
 
