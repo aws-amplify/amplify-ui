@@ -13,9 +13,9 @@
   },
   "dependencies": {
     "@aws-amplify/ui-react-native": "0.0.1",
-    "@react-native-community/netinfo": "^6.0.0",
+    "@react-native-community/netinfo": "^5.9.7",
     "expo": "~40.0.0",
-    "expo-cli": "^4.3.2",
+    "expo-cli": "^4.3.5",
     "expo-status-bar": "~1.0.3",
     "react": "latest",
     "react-dom": "latest",

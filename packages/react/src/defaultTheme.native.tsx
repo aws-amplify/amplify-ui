@@ -5,6 +5,8 @@ const styles = StyleSheet.create({
     elevation: 8,
     backgroundColor: "#009688",
     borderRadius: 6,
+    padding: 2,
+    textAlign: 'center'
   },
   buttonText: {
     fontSize: 18,
@@ -13,15 +15,5 @@ const styles = StyleSheet.create({
 });
 
 export const theme = {
-  Button: {
-    style: styles.buttonContainer,
-  },
-
-  // Button({ children }) {
-  //   return (
-  //     <TouchableOpacity style={styles.buttonContainer}>
-  //       <Text style={styles.buttonText}>Howdy {children}</Text>
-  //     </TouchableOpacity>
-  //   );
-  // },
+  Button: styles.buttonContainer,
 };
