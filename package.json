@@ -1,16 +1,21 @@
 {
   "private": true,
   "scripts": {
-    "docs": "yarn --cwd docs dev",
-    "dev:vue": "cd vue-docs && yarn docs:dev --port 3001",
-    "expo-managed": "yarn --cwd examples/expo-managed",
+    "dev": "cd docs && yarn dev",
+    "dev:vue": "cd vue-docs && yarn serve --port 3001 --host localhost",
+    "dev:angular": "cd angular-docs && yarn start",
+    "dev:react-native": "cd examples/expo-managed && yarn start",
+    "build:angular": "cd packages/angular && yarn build",
+    "build:angular:watch": "cd packages/angular && yarn build --watch",
+    "build:vue": "cd vue-docs && yarn build",
     "postinstall": "expo-yarn-workspaces check-workspace-dependencies"
   },
   "workspaces": [
     "docs",
+    "vue-docs",
+    "angular-docs",
     "examples/*",
-    "packages/*",
-    "vue-docs"
+    "packages/*"
   ],
   "devDependencies": {
     "expo-yarn-workspaces": "^1.3.1"

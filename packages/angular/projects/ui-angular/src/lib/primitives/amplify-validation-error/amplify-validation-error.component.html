@@ -1,0 +1,5 @@
+<ng-container data-ui-error *ngIf="errors">
+  <ng-container *ngFor="let error of getErrorMessages()">
+    <div data-ui-error>{{ error }}</div>
+  </ng-container>
+</ng-container>

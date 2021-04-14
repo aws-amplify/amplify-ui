@@ -1,0 +1,8 @@
+<markdown [src]="'markdowns/authenticator/inserting-components.md'"></markdown>
+<amplify-context-provider>
+  <amplify-authenticator>
+    <ng-template amplifyOverride="signInButton" let-ctx>
+      <button mat-fab color="primary">Submit</button>
+    </ng-template>
+  </amplify-authenticator>
+</amplify-context-provider>
