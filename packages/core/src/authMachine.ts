@@ -3,8 +3,7 @@ import { Machine, assign } from "xstate";
 import { inspect } from "@xstate/inspect";
 import { AuthContext, AuthEvent } from "./types";
 
-// TODO What's the best way to enable this for debug-only? `XSTATE=true npm start`?
-if (typeof window !== "undefined") {
+if (typeof window !== 'undefined' && 'addEventListener' in window) {
   inspect({
     url: "https://statecharts.io/inspect",
     iframe: false
