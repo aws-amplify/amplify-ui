@@ -18,6 +18,7 @@ import { HeadlessAuthenticatorComponent } from './pages/headless-authenticator/h
 import { StyledAuthenticatorComponent } from './pages/styled-authenticator/styled-authenticator.component';
 import { CustomComponentAuthenticatorComponent } from './pages/custom-component-authenticator/custom-component-authenticator.component';
 import { CompositionAuthenticatorComponent } from './pages/composition-authenticator/composition-authenticator.component';
+import { OnSubmitAuthenticatorComponent } from './pages/on-submit-authenticator/on-submit-authenticator.component';
 import { CustomFormAuthenticatorComponent } from './pages/custom-form-authenticator/custom-form-authenticator.component';
 
 @NgModule({
@@ -28,7 +29,8 @@ import { CustomFormAuthenticatorComponent } from './pages/custom-form-authentica
     StyledAuthenticatorComponent,
     CustomComponentAuthenticatorComponent,
     CompositionAuthenticatorComponent,
-    CustomFormAuthenticatorComponent,
+    OnSubmitAuthenticatorComponent,
+    CustomFormAuthenticatorComponent
   ],
   imports: [
     UiAngularModule,
@@ -41,9 +43,9 @@ import { CustomFormAuthenticatorComponent } from './pages/custom-form-authentica
     MatButtonModule,
     MatIconModule,
     MatSidenavModule,
-    MatListModule,
+    MatListModule
   ],
   providers: [],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}

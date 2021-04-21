@@ -1,0 +1,14 @@
+<label>
+  <div data-ui-label>{{ label || attributeMap[name]?.label }}</div>
+  <input
+    data-ui-input
+    [type]="inferInputType()"
+    [name]="name"
+    [placeholder]="placeholder || attributeMap[name]?.placeholder"
+    [required]="required ? true : false"
+  />
+</label>
+
+<amplify-validation-error
+  [errors]="error && error[name]"
+></amplify-validation-error>

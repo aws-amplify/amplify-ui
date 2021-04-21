@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
-import { authMachine } from '@aws-amplify/ui-core';
+import {
+  AuthInterpreter,
+  authMachine,
+  AuthMachineState
+} from '@aws-amplify/ui-core';
 import { Logger } from '@aws-amplify/core';
-import { Interpreter, interpret, State } from 'xstate';
+import { interpret } from 'xstate';
 
 const logger = new Logger('StateHachine');
 /**
@@ -12,8 +16,9 @@ const logger = new Logger('StateHachine');
   providedIn: 'root' // ensure we have a singleton service
 })
 export class StateMachineService {
-  private _authState: State<any>;
-  private _authService: Interpreter<any>;
+  private _authState: AuthMachineState;
+  private _authService: AuthInterpreter;
+  private _user: Record<string, any>; // TODO: strongly type CognitoUser
 
   public set authState(authState: any) {
     this._authState = authState;
@@ -23,15 +28,20 @@ export class StateMachineService {
     return this._authState;
   }
 
-  public get authService(): Interpreter<any> {
+  public get authService(): AuthInterpreter {
     return this._authService;
+  }
+
+  public get user(): Record<string, any> {
+    return this._user;
   }
 
   constructor() {
     this._authService = interpret(authMachine, { devTools: true })
       .onTransition(state => {
         logger.log('transitioned to', state, this._authService);
-        this._authState = state; // send the top level service name
+        this._user = state.context?.user;
+        this._authState = state;
       })
       .start();
   }
