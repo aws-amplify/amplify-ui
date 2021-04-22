@@ -1,15 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-headless-authenticator',
-  templateUrl: './headless-authenticator.component.html',
-  styleUrls: ['./headless-authenticator.component.css']
+  templateUrl: './headless-authenticator.component.html'
 })
-export class HeadlessAuthenticatorComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-}
+export class HeadlessAuthenticatorComponent {}

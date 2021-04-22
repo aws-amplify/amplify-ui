@@ -2,8 +2,6 @@
 
 You can assign and target custom id to the authenticator to ensure that your style to give it override priority and that it only applies to your specific authenticator.
 
-Note that this style is not bleeding to the above authenticator!
-
 _app.component.html_
 
 ```html

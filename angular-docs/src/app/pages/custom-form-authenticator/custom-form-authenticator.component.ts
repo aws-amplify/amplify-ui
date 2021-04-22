@@ -1,9 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {
-  AuthFormData,
-  FormError,
-  OnSubmitHookResponse
-} from '@aws-amplify/ui-angular';
+import { Component } from '@angular/core';
+import { AuthFormData, OnSubmitHookResponse } from '@aws-amplify/ui-angular';
 
 @Component({
   selector: 'app-custom-form-authenticator',

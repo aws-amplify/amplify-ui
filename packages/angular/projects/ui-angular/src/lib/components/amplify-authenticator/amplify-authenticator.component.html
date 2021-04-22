@@ -1,13 +1,13 @@
 <!-- 
   Define default contents here.
 -->
-<ng-template #defaultSignIn>
+<ng-template #signIn>
   <amplify-sign-in></amplify-sign-in>
 </ng-template>
-<ng-template #defaultSignUp>
+<ng-template #signUp>
   <amplify-sign-up></amplify-sign-up>
 </ng-template>
-<ng-template #defaultSignedIn>
+<ng-template #authenticated>
   <p>You've signed In.</p>
   <amplify-sign-out></amplify-sign-out>
 </ng-template>
@@ -19,31 +19,27 @@
 
 <!-- signIn component -->
 <ng-container
-  [ngTemplateOutlet]="
-    customComponents.signIn ? customComponents.signIn : defaultSignIn
-  "
-  [ngTemplateOutletContext]="context"
+  [ngTemplateOutlet]="customComponents.signIn || signIn"
+  [ngTemplateOutletContext]="context()"
   *ngIf="
     getAuthState().matches('signIn') &&
-    !getAuthState().matches('signIn.resolved')
+    !getAuthState().matches('authenticated')
   "
 >
 </ng-container>
 
 <!-- signUp component -->
 <ng-container
-  [ngTemplateOutlet]="defaultSignUp"
-  [ngTemplateOutletContext]="context"
+  [ngTemplateOutlet]="customComponents.signUp || signUp"
+  [ngTemplateOutletContext]="context()"
   *ngIf="getAuthState().matches('signUp')"
 >
 </ng-container>
 
 <!-- signedIn content -->
 <ng-container
-  [ngTemplateOutlet]="
-    customComponents.signedIn ? customComponents.signedIn : defaultSignedIn
-  "
-  [ngTemplateOutletContext]="context"
+  [ngTemplateOutlet]="customComponents.authenticated || authenticated"
+  [ngTemplateOutletContext]="context()"
   *ngIf="getAuthState().matches('authenticated')"
 >
 </ng-container>

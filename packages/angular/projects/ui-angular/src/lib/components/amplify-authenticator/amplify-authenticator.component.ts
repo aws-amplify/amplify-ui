@@ -31,10 +31,14 @@ export class AmplifyAuthenticatorComponent implements AfterContentInit {
   @ContentChildren(AmplifyOverrideDirective)
   private customComponentQuery: QueryList<AmplifyOverrideDirective> = null;
   public customComponents: CustomComponents = {};
+  public context = () => ({
+    user: this.stateMachine.user,
+    username: this.stateMachine.user?.username
+  }); // use a function so that this is reevaluated whenever context is requested
 
   constructor(
     private stateMachine: StateMachineService,
-    private context: AuthenticatorContextService
+    private contextService: AuthenticatorContextService
   ) {}
 
   /**
@@ -42,11 +46,11 @@ export class AmplifyAuthenticatorComponent implements AfterContentInit {
    */
 
   ngAfterContentInit(): void {
-    this.context.customComponents = this.mapCustomComponents(
+    this.contextService.customComponents = this.mapCustomComponents(
       this.customComponentQuery
     );
-    this.customComponents = this.context.customComponents;
-    this.context.props = {
+    this.customComponents = this.contextService.customComponents;
+    this.contextService.props = {
       signIn: {
         onSignIn: this.onSignIn
       },

@@ -19,12 +19,14 @@
         </div>
         <ng-container
           [ngTemplateOutlet]="customComponents.signInButton || signInButton"
-          [ngTemplateOutletContext]="context"
+          [ngTemplateOutletContext]="context()"
         >
         </ng-container>
       </div>
 
-      <div data-ui-error *ngIf="formError">{{ formError.cross_field }}</div>
+      <amplify-validation-error
+        [errors]="formError.cross_field"
+      ></amplify-validation-error>
     </fieldset>
   </form>
 </ng-template>
@@ -37,7 +39,7 @@
   <h2 data-ui-header>{{ this.headerText }}</h2>
   <ng-container
     [ngTemplateOutlet]="customComponents.signInForm || signInForm"
-    [ngTemplateOutletContext]="context"
+    [ngTemplateOutletContext]="context()"
   >
   </ng-container>
 </div>

@@ -32,11 +32,9 @@ export class AmplifySignInComponent
   public loading = false;
   public customComponents: Record<string, TemplateRef<any>> = {};
   private authSubscription: Subscription;
-  public context = {
-    $implicit: {
-      errors: () => this.contextService.formError
-    }
-  };
+  public context = () => ({
+    errors: this.contextService.formError
+  });
 
   constructor(
     private stateMachine: StateMachineService,
@@ -94,6 +92,7 @@ export class AmplifySignInComponent
 
     if (!this.onSignIn) this.onSignIn = () => ({});
     const { data, error } = this.onSignIn({ ...formValues });
+
     if (error && Object.keys(error).length > 0) {
       this.contextService.formError = error;
       return;

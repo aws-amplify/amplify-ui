@@ -5,7 +5,7 @@ import {
   AuthMachineState
 } from '@aws-amplify/ui-core';
 import { Logger } from '@aws-amplify/core';
-import { Interpreter, interpret } from 'xstate';
+import { interpret } from 'xstate';
 
 const logger = new Logger('StateHachine');
 /**
@@ -18,6 +18,7 @@ const logger = new Logger('StateHachine');
 export class StateMachineService {
   private _authState: AuthMachineState;
   private _authService: AuthInterpreter;
+  private _user: Record<string, any>; // TODO: strongly type CognitoUser
 
   public set authState(authState: any) {
     this._authState = authState;
@@ -31,11 +32,16 @@ export class StateMachineService {
     return this._authService;
   }
 
+  public get user(): Record<string, any> {
+    return this._user;
+  }
+
   constructor() {
     this._authService = interpret(authMachine, { devTools: true })
       .onTransition(state => {
         logger.log('transitioned to', state, this._authService);
-        this._authState = state; // send the top level service name
+        this._user = state.context?.user;
+        this._authState = state;
       })
       .start();
   }

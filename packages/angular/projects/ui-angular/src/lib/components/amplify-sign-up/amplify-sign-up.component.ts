@@ -30,11 +30,9 @@ export class AmplifySignUpComponent
   private authSubscription: Subscription;
   public customComponents: Record<string, TemplateRef<any>>;
   public loading = false;
-  public context = {
-    $implicit: {
-      errors: () => this.contextService.formError
-    }
-  };
+  public context = () => ({
+    errors: this.contextService.formError
+  });
 
   constructor(
     private stateMachine: StateMachineService,
