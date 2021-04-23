@@ -4,101 +4,86 @@
   </h1>
 
   <example-wrapper :code="defaultExample">
-    <amplify-provider defaults>
-      <authenticator>
-        <h1 class="text-6xl mb-10">
-          Welcome {{ state?.context?.user?.username }}!
-        </h1>
-        <button
-          className="px-2 bg-white rounded shadow"
-          @click="send('SIGN_OUT')"
-        >
-          Sign Out
-        </button>
-      </authenticator>
-    </amplify-provider>
+    <authenticator>
+      <h1 class="text-6xl mb-10">
+        Welcome {{ state?.context?.user?.username }}!
+      </h1>
+      <button
+        className="px-2 bg-white rounded shadow"
+        @click="send('SIGN_OUT')"
+      >
+        Sign Out
+      </button>
+    </authenticator>
   </example-wrapper>
 
   <example-wrapper
     :title="'Overriding forgot-password'"
     :code="overrideForgotPassword"
   >
-    <amplify-provider defaults>
-      <authenticator>
-        <template #sign-in-forgot-password-button>
-          <button>New Button</button>
-        </template>
-      </authenticator>
-    </amplify-provider>
+    <authenticator>
+      <template #sign-in-forgot-password-button>
+        <button>New Button</button>
+      </template>
+    </authenticator>
   </example-wrapper>
 
   <example-wrapper
     :title="'Overriding sign-in button slot'"
     :code="overrideSignInButton"
   >
-    <amplify-provider defaults>
-      <authenticator>
-        <template #sign-in-button>
-          <button class="text-white p-3 rounded-sm bg-blue-600">
-            New Sign In Button
-          </button>
-        </template>
-        <button
-          className="p-3 bg-white rounded shadow"
-          @click="send('SIGN_OUT')"
-        >
-          Sign Out
+    <authenticator>
+      <template #sign-in-button>
+        <button class="text-white p-3 rounded-sm bg-blue-600">
+          New Sign In Button
         </button>
-      </authenticator>
-    </amplify-provider>
+      </template>
+      <button className="p-3 bg-white rounded shadow" @click="send('SIGN_OUT')">
+        Sign Out
+      </button>
+    </authenticator>
   </example-wrapper>
 
   <example-wrapper :title="'Headless UI Version'" :code="headless">
-    <amplify-provider>
-      <authenticator></authenticator>
-    </amplify-provider>
+    <authenticator headless></authenticator>
   </example-wrapper>
 
   <example-wrapper
     :title="'Updating Footer And Render Information'"
     :code="footer"
   >
-    <amplify-provider defaults>
-      <authenticator>
-        <template #sign-in-footer="{ info}">
-          <h3>New Footer Details</h3>
-          <footer data-amplify-footer>
-            <render-info :info="info"></render-info>
-          </footer>
-        </template>
-      </authenticator>
-    </amplify-provider>
+    <authenticator>
+      <template #sign-in-footer="{ info}">
+        <h3>New Footer Details</h3>
+        <footer data-amplify-footer>
+          <render-info :info="info"></render-info>
+        </footer>
+      </template>
+    </authenticator>
   </example-wrapper>
 
   <example-sign-in></example-sign-in>
 
   <example-wrapper :title="'Add confirm password'" :code="confirmPassword">
-    <amplify-provider defaults>
-      <authenticator @sign-up-submit="over">
-        <template #sign-up-fields>
-          <sign-up-username-control />
-          <sign-up-password-control />
-          <div class="">
-            <h3>Confirm Password</h3>
-            <input
-              type="password"
-              name="confirm_password"
-              class="block w-full mt-1 border-gray-300 rounded shadow-sm border p-2"
-            />
-            <div v-if="error" class="text-red-700">
-              Passwords do not match.
-            </div>
+    <authenticator @sign-up-submit="over">
+      <template #sign-up-fields>
+        <sign-up-username-control />
+        <sign-up-password-control />
+        <div class="">
+          <h3>Confirm Password</h3>
+          <input
+            type="password"
+            name="confirm_password"
+            class="block w-full mt-1 border-gray-300 rounded shadow-sm border p-2"
+          />
+          <div v-if="error" class="text-red-700">
+            Passwords do not match.
           </div>
-          <sign-up-email-control />
-          <sign-up-phone-control />
-        </template>
-      </authenticator>
-    </amplify-provider>
+        </div>
+        <sign-up-email-control />
+        <sign-up-phone-control />
+      </template>
+    </authenticator>
   </example-wrapper>
 
   <hr class="my-20 w-full text-black" />
@@ -127,7 +112,6 @@ import ExampleWrapper from "./components/example-wrapper.vue";
 import "@aws-amplify/ui-vue/styles.css";
 
 import {
-  AmplifyProvider,
   Authenticator,
   useAuth,
   RenderInfo,
@@ -153,7 +137,6 @@ Amplify.configure(aws_exports);
 export default defineComponent({
   name: "App",
   components: {
-    AmplifyProvider,
     Authenticator,
     ExampleWrapper,
     RenderInfo,

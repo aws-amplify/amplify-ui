@@ -1,5 +1,5 @@
 <template>
-  <div v-bind="$attrs" data-amplify-authenticator="">
+  <div :data-amplify-authenticator="headless ? null : ''">
     <sign-in
       v-if="state?.matches('signIn')"
       @sign-in-submit="onSignInSubmitI"
@@ -131,6 +131,12 @@ export default {
     SignIn,
     SignUp,
     ConfirmSignUp
+  },
+  props: {
+    headless: {
+      type: Boolean,
+      default: false
+    }
   },
   setup(
     _: unknown,

@@ -1,56 +1,47 @@
 const defaultExample = `
-  <amplify-provider defaults>
     <authenticator> </authenticator>
-  </amplify-provider>
 
 
   <script setup>
-  import { Authenticator, AmplifyProvider } from "@aws-amplify/spark-vue";
+  import { Authenticator } from "@aws-amplify/spark-vue";
 
   import "@aws-amplify/ui-vue/styles.css";
   <\/script>
     `;
 const overrideForgotPassword = `
-    <amplify-provider defaults>
       <authenticator>
         <template #sign-in-forgot-password-button>
           <button>New Button</button>
         </template>
       </authenticator>
-    </amplify-provider>
 
   <script setup>
-  import {  Authenticator, AmplifyProvider } from "@aws-amplify/ui-vue";
+  import {  Authenticator } from "@aws-amplify/ui-vue";
 
   import "@aws-amplify/ui-vue/styles.css";
   <\/script>
     `;
 const overrideSignInButton = `
-    <amplify-provider defaults>
       <authenticator>
         <template #sign-in-button>
           <button class="text-white p-3 rounded-sm bg-blue-600">New Sign In Button</button>
         </template>
       </authenticator>
-    </amplify-provider>
 
   <script setup>
-  import {  Authenticator, AmplifyProvider } from "@aws-amplify/ui-vue";
+  import {  Authenticator } from "@aws-amplify/ui-vue";
 
   import "@aws-amplify/ui-vue/styles.css";
   <\/script>
     `;
 const headless = `
-    <amplify-provider>
-      <authenticator></authenticator>
-    </amplify-provider>
+      <authenticator headless></authenticator>
 
     <script setup>
-    import { Authenticator, AmplifyProvider } from "@aws-amplify/ui-vue";
+    import { Authenticator } from "@aws-amplify/ui-vue";
     <\/script>
     `;
 const footer = `
-    <amplify-provider defaults>
       <authenticator>
         <template #sign-in-footer="{ info }">
           <h3>New Footer Details</h3>
@@ -59,16 +50,14 @@ const footer = `
           </footer>
         </template>
       </authenticator>
-    </amplify-provider
 
     <script setup>
-    import { Authenticator, AmplifyProvider, RenderInfo } from
-                                        "@aws-amplify/ui-vue";
+    import { Authenticator, RenderInfo } from
+                            "@aws-amplify/ui-vue";
     <\/script>
     `;
 
 const confirmPassword = `
-    <amplify-provider defaults>
       <authenticator @sign-up-submit="over">
         <template #sign-up-fields>
           <sign-up-username-control />
@@ -88,10 +77,9 @@ const confirmPassword = `
           <sign-up-phone-control />
         </template>
       </authenticator>
-    </amplify-provider>
 
     <script setup>
-    import { Authenticator, AmplifyProvider, SignUp,
+    import { Authenticator, SignUp,
      SignUpUsernameControl, SignUpPasswordControl, SignUpPhoneControl,
      SignUpEmailControl  } from "@aws-amplify/ui-vue";
 
@@ -165,7 +153,6 @@ const eventTable =
 
 const exampleSignIn = `
     <div class="css-example">
-      <amplify-provider defaults>
         <authenticator>
           <h1 class="text-6xl mb-10">
             Welcome {{ state?.context?.user?.username }}!
@@ -177,19 +164,17 @@ const exampleSignIn = `
             Sign Out
           </button>
         </authenticator>
-      </amplify-provider>
     </div>
 
 
    <script setup>
-    import { Authenticator, AmplifyProvider } from "@aws-amplify/spark-vue";
+    import { Authenticator } from "@aws-amplify/spark-vue";
 
     import "@aws-amplify/ui-vue/styles.css";
    <\/script
 
     <style>
       .css-example
-        [data-amplify-theme]
         [data-amplify-authenticator]
         [data-amplify-footer]
         [data-amplify-button]:last-of-type {
