@@ -1,44 +1,48 @@
 <template>
   <slot name="signUpSlotI">
-    <base-form @submit.prevent="onSignUpSubmit">
-      <base-heading>
-        <template #headingI>
-          <slot name="heading"></slot>
-        </template>
-        {{ signUpButtonText }}
-      </base-heading>
-      <base-field-set>
-        <template #fieldSetI=" { slotData } ">
-          <slot name="signup-fields" :info="slotData"> </slot>
-        </template>
-        <sign-up-username-control />
-        <sign-up-password-control />
-        <sign-up-email-control />
-        <sign-up-phone-control v-model:phone="phone" />
-      </base-field-set>
+    <base-wrapper :data-amplify-wrapper="headless ? null : ''">
+      <base-form @submit.prevent="onSignUpSubmit">
+        <base-heading>
+          <template #headingI>
+            <slot name="heading"></slot>
+          </template>
+          {{ signUpButtonText }}
+        </base-heading>
+        <base-field-set :disabled="state.matches('signUp.pending')">
+          <template #fieldSetI=" { slotData } ">
+            <slot name="signup-fields" :info="slotData"> </slot>
+          </template>
+          <sign-up-username-control />
+          <sign-up-password-control />
+          <sign-up-email-control />
+          <sign-up-phone-control v-model:phone="phone" />
+        </base-field-set>
 
-      <base-footer>
-        <template #footert="{ slotData }">
-          <slot
-            name="footer"
-            :info="slotData"
-            :onHaveAccountClicked="onHaveAccountClicked"
-            :onSignUpSubmit="onSignUpSubmit"
-          >
+        <base-footer>
+          <template #footert="{ slotData }">
+            <slot
+              name="footer"
+              :info="slotData"
+              :onHaveAccountClicked="onHaveAccountClicked"
+              :onSignUpSubmit="onSignUpSubmit"
+            >
+            </slot>
+          </template>
+          <slot name="footer-left" :onHaveAccountClicked="onHaveAccountClicked">
+            <base-text>{{ haveAccountLabel }}</base-text>
+            <base-button type="button" @click.prevent="onHaveAccountClicked">
+              {{ signInButtonText }}</base-button
+            >
           </slot>
-        </template>
-        <slot name="footer-left" :onHaveAccountClicked="onHaveAccountClicked">
-          <base-text>{{ haveAccountLabel }}</base-text>
-          <base-button type="button" @click.prevent="onHaveAccountClicked">
-            {{ signInButtonText }}</base-button
-          >
-        </slot>
-        <base-spacer />
-        <slot name="footer-right" :onSignUpSubmit="onSignUpSubmit">
-          <base-button>{{ createAccountLabel }}</base-button>
-        </slot>
-      </base-footer>
-    </base-form>
+          <base-spacer />
+          <slot name="footer-right" :onSignUpSubmit="onSignUpSubmit">
+            <base-button :disabled="state.matches('signUp.pending')">{{
+              createAccountLabel
+            }}</base-button>
+          </slot>
+        </base-footer>
+      </base-form>
+    </base-wrapper>
   </slot>
 </template>
 
@@ -66,6 +70,7 @@ import {
 } from "../defaults/DefaultTexts";
 
 import { useAuth } from "../composables/useAuth";
+import BaseWrapper from "./primitives/base-wrapper.vue";
 
 export default defineComponent({
   components: {
@@ -79,7 +84,8 @@ export default defineComponent({
     SignUpUsernameControl,
     SignUpPhoneControl,
     SignUpPasswordControl,
-    SignUpEmailControl
+    SignUpEmailControl,
+    BaseWrapper
   },
   inheritAttrs: false,
   computed: {
@@ -88,6 +94,12 @@ export default defineComponent({
     haveAccountLabel: (): string => HAVE_ACCOUNT_LABEL,
     createAccountLabel: (): string => CREATE_ACCOUNT_LABEL,
     signUpButtonText: (): string => SIGN_UP_BUTTON_TEXT
+  },
+  props: {
+    headless: {
+      default: false,
+      type: Boolean
+    }
   },
   setup(
     _,

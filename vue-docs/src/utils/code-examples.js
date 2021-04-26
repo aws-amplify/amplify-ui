@@ -110,14 +110,14 @@ const confirmPassword = `
 const slotTable =
   " | Name                   |                  Description                   |                           Scoped Slots                           |      Component              |   \n" +
   " | ---------------------- | :--------------------------------------------: | :--------------------------------------------------------------: | :--------------------------: | \n" +
-  " | form                   |       Replaces the **<form>** DOM Element        |            Exposes **{ info }** default child data         | **<sign-in>**               | \n" +
+  " | form                   |       Replaces the **<form>** DOM Element        |            Exposes **{ info, onSignInSubmit, onCreateAccountClicked, onForgotPasswordClicked }**         | **<sign-in>**               | \n" +
   " | full-name              | Replaces the **<span>** label text for Full name |                               None                             | **<sign-in>**               | \n" +
   " | forgot-password-button |      Replaces the forgot password button       |              Exposes  **{ onForgotPasswordClicked }**            | **<sign-in>**               | \n" +
   " | sign-in-button         |          Replaces the sign in button           |               Exposes **{ onSignInSubmit }**              | **<sign-in>**               | \n" +
   "| heading                |           Replaces the heading text            |                               none                               | **<sign-in>**                | \n" +
   "| footer                 |      Replaces the **<footer>** DOM element       | Exposes **{ onSignInSubmit, info, onCreateAccountClicked }** | **<sign-in>**           | \n" +
   " | additional-fields      | Space below password input   |                               None                             | **<sign-in>**               | \n" +
-  " | signup-fields      | Replaces Sign Up Fields|                               Exposes **{ info }** default child data                             | **<sign-up>**               | \n" +
+  " | signup-fields      | Replaces Sign Up Fields|                               Exposes **{ info }**                              | **<sign-up>**               | \n" +
   " | footer      | Replaces footer at the bottom | Exposes **{info, onHaveAccountClicked, onSignUpSubmit}**                             | **<sign-up>** | \n" +
   " | footer-left      | Replaces the footer on the left  | Exposes **{ onHaveAccountClicked }** | **<sign-up>**               | \n" +
   " | footer-right      | Replaces the footer on the right | Exposes **{ onSignUpSubmit }**   | **<sign-up>**               | \n" +
@@ -129,7 +129,7 @@ const slotTable =
   "| sign-in-forgot-password-button | Replaces the forgot password button                    |    Exposes **{ onForgotPasswordClicked }**                        |  **<authenticator>**         | \n" +
   "| sign-in-heading                |           Replaces the heading text            |                               none                               | **<authenticator>**                | \n" +
   "| sign-in-footer                 |      Replaces the **<footer>** DOM element       | Exposes **{ onSignInSubmit, info, onCreateAccountClicked }** | **<authenticator>**           | \n" +
-  " | sign-in-form                   |       Replaces the **<form>** DOM Element        |            Exposes **{ info }** default child data         | **<authenticator>**               | \n" +
+  " | sign-in-form                   |       Replaces the **<form>** DOM Element        |            Exposes **{ info, onSignInSubmit, onCreateAccountClicked, onForgotPasswordClicked }**         | **<authenticator>**               | \n" +
   " | sign-in-full-name              | Replaces the **<span>** label text for Full name |                               None                             | **<authenticator>**               | \n" +
   " | sign-up-fields      | Replaces Sign Up fields   |                               Exposes **{ info }** default child data                             | **<authenticator>**               | \n" +
   " | sign-up-footer      | Replaces footer at the bottom | Exposes **{info, onHaveAccountClicked, onSignUpSubmit}**                             | **<authenticator>** | \n" +
@@ -150,6 +150,14 @@ const eventTable =
   "| sign-in-submit  |         Emits and overrides when sign in button is submitted | **<authenticator>**    | \n" +
   "| sign-up-submit  |  Emits and overrides when sign up button is submitted | **<authenticator>**    |\n" +
   "| confirm-sign-up-submit  |  Emits and overrides when confirm sign up button is submitted | **<authenticator>**    |\n";
+
+const propTable =
+  "| Name                    |                                                Description | Component | \n" +
+  "| ----------------------- | :---------------------------------------------------------: | :----------------: \n" +
+  "| headless  | Removes styles | **<authenticator>**    | \n" +
+  "| headless |  Removes styles | **<sign-up>**    |\n" +
+  "| headless |  Removes styles | **<sign-in>**    |\n" +
+  "| headless |  Removes styles| **<confirm-sign-up>**    |\n";
 
 const exampleSignIn = `
     <div class="css-example">
@@ -194,5 +202,6 @@ export {
   confirmPassword,
   slotTable,
   eventTable,
-  exampleSignIn
+  exampleSignIn,
+  propTable
 };

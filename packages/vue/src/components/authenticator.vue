@@ -1,6 +1,7 @@
 <template>
-  <div :data-amplify-authenticator="headless ? null : ''">
+  <div>
     <sign-in
+      :headless="headless"
       v-if="state?.matches('signIn')"
       @sign-in-submit="onSignInSubmitI"
       ref="signInComponent"
@@ -20,8 +21,16 @@
         <slot name="sign-in-button" :onSignInSubmit="onSignInSubmit" />
       </template>
 
-      <template #form="{ info }">
-        <slot name="sign-in-form" :info="info"></slot>
+      <template
+        #form="{ info, onSignInSubmit, onCreateAccountClicked, onForgotPasswordClicked }"
+      >
+        <slot
+          name="sign-in-form"
+          :info="info"
+          :onSignInSubmit="onSignInSubmit"
+          :onCreateAccountClicked="onCreateAccountClicked"
+          :onForgotPasswordClicked="onForgotPasswordClicked"
+        ></slot>
       </template>
 
       <template #heading>
@@ -54,6 +63,7 @@
       </template>
     </sign-in>
     <sign-up
+      :headless="headless"
       v-if="state?.matches('signUp')"
       @sign-up-submit="onSignUpSubmitI"
       ref="signUpComponent"
@@ -94,6 +104,7 @@
       Error! Can't sign in!
     </div>
     <confirm-sign-up
+      :headless="headless"
       v-if="state?.matches('confirmSignUp')"
       ref="confirmSignUpComponent"
       @confirm-sign-up-submit="onConfirmSignUpSubmitI"

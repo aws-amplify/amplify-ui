@@ -1,43 +1,47 @@
 <template>
   <slot name="confirmSignUpSlotI">
-    <base-form @submit.prevent="onConfirmSignUpSubmit">
-      <base-heading>
-        {{ confirmSignUpHeading }}
-      </base-heading>
-      <base-field-set>
-        <sign-up-username-control
-          :userName="state?.context?.user?.user?.username"
-          :disabled="true"
-        />
-        <base-label data-amplify-password>
-          <base-text>{{ confirmationCodeText }}</base-text>
-          <base-input name="code" required type="number"></base-input>
-          <base-box>
-            <base-text> {{ lostYourCodeText }}</base-text>
-            <base-button type="button" @click.prevent="onLostCodeClicked">
-              {{ resendCodeText }}
-            </base-button>
-          </base-box>
-        </base-label>
-      </base-field-set>
+    <base-wrapper :data-amplify-wrapper="headless ? null : ''">
+      <base-form @submit.prevent="onConfirmSignUpSubmit">
+        <base-heading>
+          {{ confirmSignUpHeading }}
+        </base-heading>
+        <base-field-set :disabled="state.matches('confirmSignUp.pending')">
+          <sign-up-username-control
+            :userName="state?.context?.user?.user?.username"
+            :disabled="true"
+          />
+          <base-label data-amplify-password>
+            <base-text>{{ confirmationCodeText }}</base-text>
+            <base-input name="code" required type="number"></base-input>
+            <base-box>
+              <base-text> {{ lostYourCodeText }}</base-text>
+              <base-button type="button" @click.prevent="onLostCodeClicked">
+                {{ resendCodeText }}
+              </base-button>
+            </base-box>
+          </base-label>
+        </base-field-set>
 
-      <base-footer>
-        <template #footert="{ slotData }">
-          <slot
-            name="footer"
-            :info="slotData"
-            :onBackToSignInClicked="onBackToSignInClicked"
-            :onConfirmSignUpSubmit="onConfirmSignUpSubmit"
+        <base-footer>
+          <template #footert="{ slotData }">
+            <slot
+              name="footer"
+              :info="slotData"
+              :onBackToSignInClicked="onBackToSignInClicked"
+              :onConfirmSignUpSubmit="onConfirmSignUpSubmit"
+            >
+            </slot>
+          </template>
+          <base-button type="button" @click.prevent="onBackToSignInClicked">
+            {{ backSignInText }}</base-button
           >
-          </slot>
-        </template>
-        <base-button type="button" @click.prevent="onBackToSignInClicked">
-          {{ backSignInText }}</base-button
-        >
-        <base-spacer />
-        <base-button>{{ confirmText }}</base-button>
-      </base-footer>
-    </base-form>
+          <base-spacer />
+          <base-button :disabled="state.matches('confirmSignUp.pending')">{{
+            confirmText
+          }}</base-button>
+        </base-footer>
+      </base-form>
+    </base-wrapper>
   </slot>
 </template>
 
@@ -65,6 +69,7 @@ import {
   CONFIRM_TEXT
 } from "../defaults/DefaultTexts";
 import { useAuth } from "../composables/useAuth";
+import BaseWrapper from "./primitives/base-wrapper.vue";
 
 export default defineComponent({
   components: {
@@ -78,9 +83,16 @@ export default defineComponent({
     BaseButton,
     BaseFooter,
     BaseText,
-    BaseInput
+    BaseInput,
+    BaseWrapper
   },
   inheritAttrs: false,
+  props: {
+    headless: {
+      default: false,
+      type: Boolean
+    }
+  },
   setup(
     _,
     {

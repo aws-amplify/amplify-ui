@@ -65,7 +65,7 @@
   <example-sign-in></example-sign-in>
 
   <example-wrapper :title="'Add confirm password'" :code="confirmPassword">
-    <authenticator @sign-up-submit="over">
+    <authenticator @sign-up-submit="overRideSubmit">
       <template #sign-up-fields>
         <sign-up-username-control />
         <sign-up-password-control />
@@ -90,7 +90,10 @@
 
   <h2 class="text-3xl mb-10">Props</h2>
 
-  <div class="italic">All texts are provided by internationalizaton</div>
+  <vue3-markdown-it :source="propTable" />
+  <div class="italic mt-5">
+    All other texts are provided by internationalizaton
+  </div>
   <hr class="my-20 w-full text-black" />
   <h2 class="text-3xl mb-10">Slots</h2>
   <vue3-markdown-it :source="slotTable" />
@@ -129,6 +132,7 @@ import {
   footer,
   confirmPassword,
   slotTable,
+  propTable,
   eventTable
 } from "./utils/code-examples";
 
@@ -151,7 +155,7 @@ export default defineComponent({
     const { state, send } = useAuth();
     const error = ref(false);
 
-    const over = event => {
+    const overRideSubmit = event => {
       const formData = new FormData(event.target);
       //@ts-ignore Property 'fromEntries' does not exist on type 'ObjectConstructor'. Do you need to change your target library? Try changing the `lib` compiler option to 'es2019' or later.ts(2550)
       const values = Object.fromEntries(formData);
@@ -176,8 +180,9 @@ export default defineComponent({
       state,
       send,
       slotTable,
+      propTable,
       eventTable,
-      over,
+      overRideSubmit,
       error,
       defaultExample,
       overrideForgotPassword,
