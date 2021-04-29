@@ -2,7 +2,12 @@ import { PartialRecord } from './common-types';
 
 export type AuthState = 'signIn' | 'signUp' | 'signedIn';
 
-export type AuthAttribute = 'username' | 'password' | 'email' | 'phone_number';
+export type AuthAttribute =
+  | 'username'
+  | 'password'
+  | 'email'
+  | 'phone_number'
+  | 'code';
 
 export interface AttributeInfo {
   label: string;

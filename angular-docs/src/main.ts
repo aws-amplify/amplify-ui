@@ -5,8 +5,8 @@ import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 
 import Amplify, { Logger } from 'aws-amplify';
-
-Amplify.configure();
+import awsconfig from './aws-exports';
+Amplify.configure(awsconfig);
 
 Logger.LOG_LEVEL = 'DEBUG';
 
@@ -17,4 +17,3 @@ if (environment.production) {
 platformBrowserDynamic()
   .bootstrapModule(AppModule)
   .catch(err => console.error(err));
-

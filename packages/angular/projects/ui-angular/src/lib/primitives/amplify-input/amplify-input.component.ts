@@ -32,8 +32,9 @@ export class AmplifyInputComponent {
   // TODO: Separate entry for id
   @Input() type: InputType;
   @Input() required = false;
-  @Input() placeholder: string;
-  @Input() label: string;
+  @Input() placeholder = '';
+  @Input() label = '';
+  @Input() initialValue = '';
 
   constructor(private contextService: AuthenticatorContextService) {}
 

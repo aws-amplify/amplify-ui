@@ -1,0 +1,55 @@
+<!-- 
+  Define default contents here
+-->
+<ng-template #confirmSignUpButton>
+  <button data-ui-button type="submit">Confirm</button>
+</ng-template>
+
+<ng-template #confirmSignUpForm>
+  <form data-ui-form (submit)="onSubmit($event); $event.preventDefault()">
+    <fieldset data-ui-fieldset [attr.disabled]="loading ? '' : null">
+      <amplify-input
+        name="username"
+        [initialValue]="this.stateMachine.user?.username"
+        disabled
+      ></amplify-input>
+      <amplify-input name="code" type="number"></amplify-input>
+
+      <div data-ui-resend>
+        Lost your code? {{ " " }}
+        <a data-ui-link (click)="resend()">Resend Code</a>
+      </div>
+
+      <div data-ui-footer>
+        <div>
+          Back to{{ " " }}
+          <a data-ui-link (click)="toSignIn()">Sign In</a>
+        </div>
+        <ng-container
+          [ngTemplateOutlet]="
+            customComponents.confirmSignUpButton || confirmSignUpButton
+          "
+          [ngTemplateOutletContext]="context()"
+        >
+        </ng-container>
+      </div>
+
+      <amplify-validation-error
+        [errors]="formError.cross_field"
+      ></amplify-validation-error>
+    </fieldset>
+  </form>
+</ng-template>
+
+<!-- 
+    Render sign in component
+-->
+
+<div data-ui-container>
+  <h2 data-ui-header>Confirm Your Account</h2>
+  <ng-container
+    [ngTemplateOutlet]="customComponents.confirmSignUpForm || confirmSignUpForm"
+    [ngTemplateOutletContext]="context()"
+  >
+  </ng-container>
+</div>

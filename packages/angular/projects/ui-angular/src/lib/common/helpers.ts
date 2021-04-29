@@ -18,6 +18,10 @@ export const getAttributeMap: AttributeInfoProvider = () => ({
   phone_number: {
     label: 'Phone Number',
     placeholder: 'Enter your phone number'
+  },
+  code: {
+    label: 'Confirmation Code',
+    placeholder: 'Enter your confirmation code'
   }
 });
 
