@@ -9,6 +9,7 @@ import { AmplifyOverrideDirective } from './directives/amplify-override.directiv
 import { AmplifySignUpComponent } from './components/amplify-sign-up/amplify-sign-up.component';
 import { AmplifyInputComponent } from './primitives/amplify-input/amplify-input.component';
 import { AmplifyValidationErrorComponent } from './primitives/amplify-validation-error/amplify-validation-error.component';
+import { AmplifyConfirmSignUpComponent } from './components/amplify-confirm-sign-up/amplify-confirm-sign-up.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { AmplifyValidationErrorComponent } from './primitives/amplify-validation
     AmplifySignUpComponent,
     AmplifyInputComponent,
     AmplifyValidationErrorComponent,
-    AmplifyOverrideDirective
+    AmplifyOverrideDirective,
+    AmplifyConfirmSignUpComponent
   ],
   imports: [CommonModule, ReactiveFormsModule],
   exports: [

@@ -1,3 +1,5 @@
 .DS_STORE
 *.log
 node_modules
+aws-exports.js
+aws-exports.ts

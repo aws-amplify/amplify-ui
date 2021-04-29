@@ -131,6 +131,9 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
           resolved: {
             type: "final"
           }
+        },
+        on: {
+          SIGN_IN: "#auth.signIn"
         }
       },
       signOut: {
@@ -163,7 +166,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
     actions: {
       setUser: assign({
         user(context, event) {
-          return event.data;
+          return event.data?.user || event.data;
         }
       })
     },

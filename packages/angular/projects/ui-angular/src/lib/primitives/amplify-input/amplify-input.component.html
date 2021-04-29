@@ -4,8 +4,9 @@
     data-ui-input
     [type]="inferInputType()"
     [name]="name"
-    [placeholder]="placeholder || attributeMap[name]?.placeholder"
+    [placeholder]="placeholder || attributeMap[name]?.placeholder || ''"
     [required]="required ? true : false"
+    [value]="this.initialValue"
   />
 </label>
 
