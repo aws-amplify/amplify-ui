@@ -21,7 +21,7 @@ export default defineComponent({
     } else {
       return () =>
         h(`h${props.level}`, { "data-amplify-heading": "", ...attrs }, [
-          headingI[0] ? h(headingI[0].children) : h(defaultSlot[0])
+          headingI[0] ? h(headingI[0].children[0]) : h(defaultSlot[0])
         ]);
     }
     return () => headingI;

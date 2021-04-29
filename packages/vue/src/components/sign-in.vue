@@ -1,9 +1,16 @@
 <template>
   <slot name="signInSlotI">
-    <base-wrapper>
+    <base-wrapper :data-amplify-wrapper="headless ? null : ''">
       <base-form @submit.prevent="onSignInSubmit" method="post">
         <template #formt="{ slotData }">
-          <slot name="form" :info="slotData"> </slot>
+          <slot
+            name="form"
+            :info="slotData"
+            :onSignInSubmit="onSignInSubmit"
+            :onCreateAccountClicked="onCreateAccountClicked"
+            :onForgotPasswordClicked="onForgotPasswordClicked"
+          >
+          </slot>
         </template>
         <base-heading :level="1">
           <template #headingI>
@@ -143,11 +150,16 @@ export default {
     BaseButton,
     BaseSpacer
   },
+  props: {
+    headless: {
+      default: false,
+      type: Boolean
+    }
+  },
   setup(
     props: Readonly<
       {
-        signIntoAccountText: string;
-        fullNameText: string;
+        headless: boolean;
       } & unknown
     >,
     {
@@ -172,7 +184,6 @@ export default {
     };
 
     const submit = (e): void => {
-      console.log("normal event Auth Signin", attrs.onOnSignInPressed);
       const formData = new FormData(e.target);
       send({
         type: "SUBMIT",
@@ -185,6 +196,7 @@ export default {
       if (attrs?.onForgotPasswordClicked) {
         emit("forgotPasswordClicked");
       } else {
+        // Future
         console.log("you clicked the reset password link");
       }
     };
@@ -193,7 +205,6 @@ export default {
       if (attrs?.onCreateAccountClicked) {
         emit("createAccountClicked");
       } else {
-        console.log("create account clicked");
         send({
           type: "SIGN_UP"
         });
@@ -214,4 +225,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped></style>

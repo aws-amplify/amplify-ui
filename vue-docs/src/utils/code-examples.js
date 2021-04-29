@@ -1,56 +1,47 @@
 const defaultExample = `
-  <amplify-provider defaults>
     <authenticator> </authenticator>
-  </amplify-provider>
 
 
   <script setup>
-  import { Authenticator, AmplifyProvider } from "@aws-amplify/spark-vue";
+  import { Authenticator } from "@aws-amplify/spark-vue";
 
   import "@aws-amplify/ui-vue/styles.css";
   <\/script>
     `;
 const overrideForgotPassword = `
-    <amplify-provider defaults>
       <authenticator>
         <template #sign-in-forgot-password-button>
           <button>New Button</button>
         </template>
       </authenticator>
-    </amplify-provider>
 
   <script setup>
-  import {  Authenticator, AmplifyProvider } from "@aws-amplify/ui-vue";
+  import {  Authenticator } from "@aws-amplify/ui-vue";
 
   import "@aws-amplify/ui-vue/styles.css";
   <\/script>
     `;
 const overrideSignInButton = `
-    <amplify-provider defaults>
       <authenticator>
         <template #sign-in-button>
           <button class="text-white p-3 rounded-sm bg-blue-600">New Sign In Button</button>
         </template>
       </authenticator>
-    </amplify-provider>
 
   <script setup>
-  import {  Authenticator, AmplifyProvider } from "@aws-amplify/ui-vue";
+  import {  Authenticator } from "@aws-amplify/ui-vue";
 
   import "@aws-amplify/ui-vue/styles.css";
   <\/script>
     `;
 const headless = `
-    <amplify-provider>
-      <authenticator></authenticator>
-    </amplify-provider>
+      <authenticator headless></authenticator>
 
     <script setup>
-    import { Authenticator, AmplifyProvider } from "@aws-amplify/ui-vue";
+    import { Authenticator } from "@aws-amplify/ui-vue";
     <\/script>
     `;
 const footer = `
-    <amplify-provider defaults>
       <authenticator>
         <template #sign-in-footer="{ info }">
           <h3>New Footer Details</h3>
@@ -59,16 +50,14 @@ const footer = `
           </footer>
         </template>
       </authenticator>
-    </amplify-provider
 
     <script setup>
-    import { Authenticator, AmplifyProvider, RenderInfo } from
-                                        "@aws-amplify/ui-vue";
+    import { Authenticator, RenderInfo } from
+                            "@aws-amplify/ui-vue";
     <\/script>
     `;
 
 const confirmPassword = `
-    <amplify-provider defaults>
       <authenticator @sign-up-submit="over">
         <template #sign-up-fields>
           <sign-up-username-control />
@@ -88,10 +77,9 @@ const confirmPassword = `
           <sign-up-phone-control />
         </template>
       </authenticator>
-    </amplify-provider>
 
     <script setup>
-    import { Authenticator, AmplifyProvider, SignUp,
+    import { Authenticator, SignUp,
      SignUpUsernameControl, SignUpPasswordControl, SignUpPhoneControl,
      SignUpEmailControl  } from "@aws-amplify/ui-vue";
 
@@ -122,14 +110,14 @@ const confirmPassword = `
 const slotTable =
   " | Name                   |                  Description                   |                           Scoped Slots                           |      Component              |   \n" +
   " | ---------------------- | :--------------------------------------------: | :--------------------------------------------------------------: | :--------------------------: | \n" +
-  " | form                   |       Replaces the **<form>** DOM Element        |            Exposes **{ info }** default child data         | **<sign-in>**               | \n" +
+  " | form                   |       Replaces the **<form>** DOM Element        |            Exposes **{ info, onSignInSubmit, onCreateAccountClicked, onForgotPasswordClicked }**         | **<sign-in>**               | \n" +
   " | full-name              | Replaces the **<span>** label text for Full name |                               None                             | **<sign-in>**               | \n" +
   " | forgot-password-button |      Replaces the forgot password button       |              Exposes  **{ onForgotPasswordClicked }**            | **<sign-in>**               | \n" +
   " | sign-in-button         |          Replaces the sign in button           |               Exposes **{ onSignInSubmit }**              | **<sign-in>**               | \n" +
   "| heading                |           Replaces the heading text            |                               none                               | **<sign-in>**                | \n" +
   "| footer                 |      Replaces the **<footer>** DOM element       | Exposes **{ onSignInSubmit, info, onCreateAccountClicked }** | **<sign-in>**           | \n" +
   " | additional-fields      | Space below password input   |                               None                             | **<sign-in>**               | \n" +
-  " | signup-fields      | Replaces Sign Up Fields|                               Exposes **{ info }** default child data                             | **<sign-up>**               | \n" +
+  " | signup-fields      | Replaces Sign Up Fields|                               Exposes **{ info }**                              | **<sign-up>**               | \n" +
   " | footer      | Replaces footer at the bottom | Exposes **{info, onHaveAccountClicked, onSignUpSubmit}**                             | **<sign-up>** | \n" +
   " | footer-left      | Replaces the footer on the left  | Exposes **{ onHaveAccountClicked }** | **<sign-up>**               | \n" +
   " | footer-right      | Replaces the footer on the right | Exposes **{ onSignUpSubmit }**   | **<sign-up>**               | \n" +
@@ -141,7 +129,7 @@ const slotTable =
   "| sign-in-forgot-password-button | Replaces the forgot password button                    |    Exposes **{ onForgotPasswordClicked }**                        |  **<authenticator>**         | \n" +
   "| sign-in-heading                |           Replaces the heading text            |                               none                               | **<authenticator>**                | \n" +
   "| sign-in-footer                 |      Replaces the **<footer>** DOM element       | Exposes **{ onSignInSubmit, info, onCreateAccountClicked }** | **<authenticator>**           | \n" +
-  " | sign-in-form                   |       Replaces the **<form>** DOM Element        |            Exposes **{ info }** default child data         | **<authenticator>**               | \n" +
+  " | sign-in-form                   |       Replaces the **<form>** DOM Element        |            Exposes **{ info, onSignInSubmit, onCreateAccountClicked, onForgotPasswordClicked }**         | **<authenticator>**               | \n" +
   " | sign-in-full-name              | Replaces the **<span>** label text for Full name |                               None                             | **<authenticator>**               | \n" +
   " | sign-up-fields      | Replaces Sign Up fields   |                               Exposes **{ info }** default child data                             | **<authenticator>**               | \n" +
   " | sign-up-footer      | Replaces footer at the bottom | Exposes **{info, onHaveAccountClicked, onSignUpSubmit}**                             | **<authenticator>** | \n" +
@@ -163,9 +151,16 @@ const eventTable =
   "| sign-up-submit  |  Emits and overrides when sign up button is submitted | **<authenticator>**    |\n" +
   "| confirm-sign-up-submit  |  Emits and overrides when confirm sign up button is submitted | **<authenticator>**    |\n";
 
+const propTable =
+  "| Name                    |                                                Description | Component | \n" +
+  "| ----------------------- | :---------------------------------------------------------: | :----------------: \n" +
+  "| headless  | Removes styles | **<authenticator>**    | \n" +
+  "| headless |  Removes styles | **<sign-up>**    |\n" +
+  "| headless |  Removes styles | **<sign-in>**    |\n" +
+  "| headless |  Removes styles| **<confirm-sign-up>**    |\n";
+
 const exampleSignIn = `
     <div class="css-example">
-      <amplify-provider defaults>
         <authenticator>
           <h1 class="text-6xl mb-10">
             Welcome {{ state?.context?.user?.username }}!
@@ -177,19 +172,17 @@ const exampleSignIn = `
             Sign Out
           </button>
         </authenticator>
-      </amplify-provider>
     </div>
 
 
    <script setup>
-    import { Authenticator, AmplifyProvider } from "@aws-amplify/spark-vue";
+    import { Authenticator } from "@aws-amplify/spark-vue";
 
     import "@aws-amplify/ui-vue/styles.css";
    <\/script
 
     <style>
       .css-example
-        [data-amplify-theme]
         [data-amplify-authenticator]
         [data-amplify-footer]
         [data-amplify-button]:last-of-type {
@@ -209,5 +202,6 @@ export {
   confirmPassword,
   slotTable,
   eventTable,
-  exampleSignIn
+  exampleSignIn,
+  propTable
 };
