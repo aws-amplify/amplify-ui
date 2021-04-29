@@ -7,6 +7,9 @@
 <ng-template #signUp>
   <amplify-sign-up></amplify-sign-up>
 </ng-template>
+<ng-template #confirmSignUp>
+  <amplify-confirm-sign-up></amplify-confirm-sign-up>
+</ng-template>
 <ng-template #authenticated>
   <p>You've signed In.</p>
   <amplify-sign-out></amplify-sign-out>
@@ -22,8 +25,7 @@
   [ngTemplateOutlet]="customComponents.signIn || signIn"
   [ngTemplateOutletContext]="context()"
   *ngIf="
-    getAuthState().matches('signIn') &&
-    !getAuthState().matches('authenticated')
+    getAuthState().matches('signIn') && !getAuthState().matches('authenticated')
   "
 >
 </ng-container>
@@ -33,6 +35,14 @@
   [ngTemplateOutlet]="customComponents.signUp || signUp"
   [ngTemplateOutletContext]="context()"
   *ngIf="getAuthState().matches('signUp')"
+>
+</ng-container>
+
+<!-- confirmSignUp content -->
+<ng-container
+  [ngTemplateOutlet]="customComponents.confirmSignUp || confirmSignUp"
+  [ngTemplateOutletContext]="context()"
+  *ngIf="getAuthState().matches('confirmSignUp')"
 >
 </ng-container>
 

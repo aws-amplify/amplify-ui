@@ -1,4 +1,4 @@
-import { Logger } from 'aws-amplify';
+import { Logger } from '@aws-amplify/core';
 import {
   AfterContentInit,
   Component,
@@ -7,11 +7,11 @@ import {
   OnDestroy,
   OnInit,
   TemplateRef,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {
   AuthenticatorContextService,
-  StateMachineService
+  StateMachineService,
 } from '../../services';
 import { AuthFormData, FormError, OnSubmitHook } from '../../common';
 import { Event, Subscription } from 'xstate';
@@ -22,7 +22,7 @@ const logger = new Logger('SignIn');
 @Component({
   selector: 'amplify-sign-in',
   templateUrl: './amplify-sign-in.component.html',
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class AmplifySignInComponent
   implements AfterContentInit, OnInit, OnDestroy {
@@ -33,7 +33,7 @@ export class AmplifySignInComponent
   public customComponents: Record<string, TemplateRef<any>> = {};
   private authSubscription: Subscription;
   public context = () => ({
-    errors: this.contextService.formError
+    errors: this.contextService.formError,
   });
 
   constructor(
@@ -42,7 +42,7 @@ export class AmplifySignInComponent
   ) {}
 
   ngOnInit(): void {
-    this.authSubscription = this.stateMachine.authService.subscribe(state =>
+    this.authSubscription = this.stateMachine.authService.subscribe((state) =>
       this.onStateUpdate(state)
     );
   }
@@ -103,7 +103,7 @@ export class AmplifySignInComponent
 
     this.send({
       type: 'SUBMIT',
-      data: param
+      data: param,
     });
   }
 }

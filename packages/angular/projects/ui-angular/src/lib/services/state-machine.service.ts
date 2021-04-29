@@ -40,7 +40,8 @@ export class StateMachineService {
     this._authService = interpret(authMachine, { devTools: true })
       .onTransition(state => {
         logger.log('transitioned to', state, this._authService);
-        this._user = state.context?.user;
+        const user = state.context?.user;
+        if (user) this._user = user;
         this._authState = state;
       })
       .start();

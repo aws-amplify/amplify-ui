@@ -7,7 +7,7 @@
         </base-heading>
         <base-field-set :disabled="state.matches('confirmSignUp.pending')">
           <sign-up-username-control
-            :userName="state?.context?.user?.user?.username"
+            :userName="state?.context?.user?.username"
             :disabled="true"
           />
           <base-label data-amplify-password>
@@ -128,7 +128,7 @@ export default defineComponent({
         data: {
           //@ts-ignore
           ...Object.fromEntries(formData),
-          username: state?.value.context?.user?.user?.username
+          username: state?.value.context?.user?.username
         }
       });
     };
@@ -141,7 +141,7 @@ export default defineComponent({
         send({
           type: "RESEND",
           // @ts-ignore
-          data: { username: state?.value?.context?.user?.user?.username }
+          data: { username: state?.value?.context?.user?.username }
         });
       }
     };
