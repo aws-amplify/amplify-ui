@@ -6,7 +6,8 @@
           {{ confirmSignUpHeading }}
         </base-heading>
         <base-field-set :disabled="state.matches('confirmSignUp.pending')">
-          <sign-up-username-control
+          <sign-up-name-control
+            :usernameAlias="usernameAlias"
             :userName="state?.context?.user?.username"
             :disabled="true"
           />
@@ -49,7 +50,7 @@
 import { defineComponent, computed } from "vue";
 import BaseHeading from "./primitives/base-heading.vue";
 import BaseFieldSet from "./primitives/base-field-set.vue";
-import SignUpUsernameControl from "./sign-up-username-control.vue";
+import SignUpNameControl from "./sign-up-name-control.vue";
 import BaseLabel from "./primitives/base-label.vue";
 
 import BaseSpacer from "./primitives/base-spacer.vue";
@@ -77,7 +78,7 @@ export default defineComponent({
     BaseHeading,
     BaseFieldSet,
     BaseForm,
-    SignUpUsernameControl,
+    SignUpNameControl,
     BaseLabel,
     BaseSpacer,
     BaseButton,
@@ -91,6 +92,10 @@ export default defineComponent({
     headless: {
       default: false,
       type: Boolean
+    },
+    usernameAlias: {
+      default: "username",
+      type: String
     }
   },
   setup(

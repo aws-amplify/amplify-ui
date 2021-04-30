@@ -8,7 +8,7 @@ export const FORGOT_YOUR_PASSWORD_TEXT = "Forgot your password?";
 export const PASSWORD_LABEL = "Password";
 
 export const SIGN_IN_TEXT = "Sign in to your account";
-export const FULL_NAME_TEXT = "Username";
+export const LOGIN_NAME_TEXT = "Username";
 export const EMAIL_ADDRESS_LABEL = "Email";
 export const PHONE_NUMBER_LABEL = "Phone Number";
 export const CREATE_ACCOUNT_LABEL = "CREATE ACCOUNT";

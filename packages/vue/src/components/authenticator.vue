@@ -2,6 +2,7 @@
   <div>
     <sign-in
       :headless="headless"
+      :usernameAlias="usernameAlias"
       v-if="state?.matches('signIn')"
       @sign-in-submit="onSignInSubmitI"
       ref="signInComponent"
@@ -37,8 +38,8 @@
         <slot name="sign-in-heading"></slot>
       </template>
 
-      <template #full-name>
-        <slot name="sign-in-full-name"></slot>
+      <template #name>
+        <slot name="sign-in-name"></slot>
       </template>
 
       <template #footer="{ info, onSignInSubmit, onCreateAccountClicked  }">
@@ -64,6 +65,7 @@
     </sign-in>
     <sign-up
       :headless="headless"
+      :usernameAlias="usernameAlias"
       v-if="state?.matches('signUp')"
       @sign-up-submit="onSignUpSubmitI"
       ref="signUpComponent"
@@ -105,6 +107,7 @@
     </div>
     <confirm-sign-up
       :headless="headless"
+      :usernameAlias="usernameAlias"
       v-if="state?.matches('confirmSignUp')"
       ref="confirmSignUpComponent"
       @confirm-sign-up-submit="onConfirmSignUpSubmitI"
@@ -147,6 +150,10 @@ export default {
     headless: {
       type: Boolean,
       default: false
+    },
+    usernameAlias: {
+      type: String,
+      default: "username"
     }
   },
   setup(

@@ -12,7 +12,7 @@
           <template #fieldSetI=" { slotData } ">
             <slot name="signup-fields" :info="slotData"> </slot>
           </template>
-          <sign-up-username-control />
+          <sign-up-name-control :usernameAlias="usernameAlias" />
           <sign-up-password-control />
           <sign-up-email-control />
           <sign-up-phone-control v-model:phone="phone" />
@@ -59,10 +59,9 @@ import BaseButton from "./primitives/base-button.vue";
 import SignUpEmailControl from "./sign-up-email-control.vue";
 import SignUpPasswordControl from "./sign-up-password-control.vue";
 import SignUpPhoneControl from "./sign-up-phone-control.vue";
-import SignUpUsernameControl from "./sign-up-username-control.vue";
+import SignUpNameControl from "./sign-up-name-control.vue";
 
 import {
-  SIGN_IN_TEXT,
   SIGN_IN_BUTTON_TEXT,
   HAVE_ACCOUNT_LABEL,
   CREATE_ACCOUNT_LABEL,
@@ -81,7 +80,7 @@ export default defineComponent({
     BaseFooter,
     BaseSpacer,
     BaseButton,
-    SignUpUsernameControl,
+    SignUpNameControl,
     SignUpPhoneControl,
     SignUpPasswordControl,
     SignUpEmailControl,
@@ -89,7 +88,6 @@ export default defineComponent({
   },
   inheritAttrs: false,
   computed: {
-    signIntoAccountText: (): string => SIGN_IN_TEXT,
     signInButtonText: (): string => SIGN_IN_BUTTON_TEXT,
     haveAccountLabel: (): string => HAVE_ACCOUNT_LABEL,
     createAccountLabel: (): string => CREATE_ACCOUNT_LABEL,
@@ -99,6 +97,10 @@ export default defineComponent({
     headless: {
       default: false,
       type: Boolean
+    },
+    usernameAlias: {
+      default: "username",
+      type: String
     }
   },
   setup(
@@ -138,7 +140,6 @@ export default defineComponent({
       //@ts-ignore Property 'fromEntries' does not exist on type 'ObjectConstructor'. Do you need to change your target library? Try changing the `lib` compiler option to 'es2019' or later.ts(2550)
       const values = Object.fromEntries(formData);
       delete values.phone_number_prefix;
-      console.log(values);
 
       send({
         type: "SUBMIT",

@@ -1,8 +1,10 @@
 <template>
   <base-label>
-    <base-text>{{ fullNameText }}</base-text>
+    <base-text>
+      {{ signInUserNameText }}
+    </base-text>
     <base-input
-      name="username"
+      :name="usernameAlias"
       required
       type="text"
       :disabled="disabled"
@@ -16,7 +18,7 @@ import { defineComponent, computed, ComputedRef, ref, Ref } from "vue";
 import BaseInput from "./primitives/base-input.vue";
 import BaseLabel from "./primitives/base-label.vue";
 import BaseText from "./primitives/base-text.vue";
-import { FULL_NAME_TEXT } from "../defaults/DefaultTexts";
+import { useNameAlias } from "../composables/useUtils";
 
 export default defineComponent({
   props: {
@@ -25,6 +27,10 @@ export default defineComponent({
     },
     disabled: {
       default: false
+    },
+    usernameAlias: {
+      default: "username",
+      type: String
     }
   },
   components: {
@@ -35,16 +41,20 @@ export default defineComponent({
   setup(props: {
     userName: string;
     disabled: boolean;
+    usernameAlias: string;
   }): {
-    fullNameText: ComputedRef<string>;
     name: ComputedRef<string> | Ref<string>;
+    signInUserNameText: ComputedRef<string>;
   } {
-    const fullNameText = computed(() => FULL_NAME_TEXT);
+    // computed
+    const signInUserNameText = computed(() =>
+      useNameAlias(props.usernameAlias)
+    );
     let name = ref("");
     if (props.userName) {
       name = computed(() => props.userName);
     }
-    return { fullNameText, name };
+    return { name, signInUserNameText };
   }
 });
 </script>

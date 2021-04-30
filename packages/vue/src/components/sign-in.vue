@@ -23,11 +23,11 @@
           <base-label>
             <base-text>
               <template #textI>
-                <slot name="full-name"></slot>
+                <slot name="name"></slot>
               </template>
-              {{ fullNameText }}
+              {{ signInUserNameText }}
             </base-text>
-            <base-input name="username" required type="text" />
+            <base-input :name="usernameAlias" required type="text" />
           </base-label>
 
           <base-label data-amplify-password>
@@ -93,9 +93,9 @@
 </template>
 
 <script lang="ts">
+import { computed } from "vue";
 import {
   SIGN_IN_TEXT,
-  FULL_NAME_TEXT,
   AUTHENTICATOR,
   RESET_PASSWORD_LINK,
   NO_ACCOUNT,
@@ -122,12 +122,22 @@ import BaseText from "./primitives/base-text.vue";
 import { useAuth } from "../composables/useAuth";
 
 import { Ref, ref } from "vue";
+import { useNameAlias } from "../composables/useUtils";
 
 export default {
   name: "Authentication",
+  props: {
+    headless: {
+      default: false,
+      type: Boolean
+    },
+    usernameAlias: {
+      default: "username",
+      type: String
+    }
+  },
   computed: {
     signIntoAccountText: (): string => SIGN_IN_TEXT,
-    fullNameText: (): string => FULL_NAME_TEXT,
     resetPasswordLink: (): string => RESET_PASSWORD_LINK,
     noAccount: (): string => NO_ACCOUNT,
     createAccountLink: (): string => CREATE_ACCOUNT_LINK,
@@ -150,16 +160,12 @@ export default {
     BaseButton,
     BaseSpacer
   },
-  props: {
-    headless: {
-      default: false,
-      type: Boolean
-    }
-  },
+
   setup(
     props: Readonly<
       {
         headless: boolean;
+        usernameAlias: string;
       } & unknown
     >,
     {
@@ -172,6 +178,11 @@ export default {
     const username: Ref = ref("");
     const password: Ref = ref("");
     const { state, send } = useAuth();
+
+    // computed
+    const signInUserNameText = computed(() =>
+      useNameAlias(props.usernameAlias)
+    );
 
     // Methods
 
@@ -219,7 +230,8 @@ export default {
       state,
       username,
       password,
-      submit
+      submit,
+      signInUserNameText
     };
   }
 };

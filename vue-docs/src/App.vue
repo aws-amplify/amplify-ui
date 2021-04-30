@@ -67,7 +67,7 @@
   <example-wrapper :title="'Add confirm password'" :code="confirmPassword">
     <authenticator @sign-up-submit="overRideSubmit">
       <template #sign-up-fields>
-        <sign-up-username-control />
+        <sign-up-name-control />
         <sign-up-password-control />
         <div class="">
           <h3>Confirm Password</h3>
@@ -120,7 +120,7 @@ import {
   RenderInfo,
   SignUpEmailControl,
   SignUpPasswordControl,
-  SignUpUsernameControl,
+  SignUpNameControl,
   SignUpPhoneControl
 } from "@aws-amplify/ui-vue";
 
@@ -147,7 +147,7 @@ export default defineComponent({
     ExampleSignIn,
     SignUpEmailControl,
     SignUpPasswordControl,
-    SignUpUsernameControl,
+    SignUpNameControl,
     SignUpPhoneControl,
     "vue3-markdown-it": VueMarkdownIt
   },
