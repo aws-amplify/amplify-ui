@@ -14,11 +14,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ComputedRef, ref, Ref } from "vue";
+import { defineComponent, computed, ref } from "vue";
 import BaseInput from "./primitives/base-input.vue";
 import BaseLabel from "./primitives/base-label.vue";
 import BaseText from "./primitives/base-text.vue";
 import { useNameAlias } from "../composables/useUtils";
+import { SignUpNameControlTypes, SignUpNameSetupReturnTypes } from "../types";
 
 export default defineComponent({
   props: {
@@ -38,14 +39,7 @@ export default defineComponent({
     BaseLabel,
     BaseText
   },
-  setup(props: {
-    userName: string;
-    disabled: boolean;
-    usernameAlias: string;
-  }): {
-    name: ComputedRef<string> | Ref<string>;
-    signInUserNameText: ComputedRef<string>;
-  } {
+  setup(props: SignUpNameControlTypes): SignUpNameSetupReturnTypes {
     // computed
     const signInUserNameText = computed(() =>
       useNameAlias(props.usernameAlias)

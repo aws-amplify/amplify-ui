@@ -71,6 +71,7 @@ import {
 } from "../defaults/DefaultTexts";
 import { useAuth } from "../composables/useAuth";
 import BaseWrapper from "./primitives/base-wrapper.vue";
+import { ConfirmPasswordSetupReturnTypes, SetupEventContext } from "../types";
 
 export default defineComponent({
   components: {
@@ -100,11 +101,8 @@ export default defineComponent({
   },
   setup(
     _,
-    {
-      emit,
-      attrs
-    }: { emit: (st, e?) => unknown; attrs: Record<string, unknown> }
-  ) {
+    { emit, attrs }: SetupEventContext
+  ): ConfirmPasswordSetupReturnTypes {
     const { state, send } = useAuth();
 
     //computed properties

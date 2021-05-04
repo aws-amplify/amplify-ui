@@ -70,6 +70,7 @@ import {
 
 import { useAuth } from "../composables/useAuth";
 import BaseWrapper from "./primitives/base-wrapper.vue";
+import { SetupEventContext, SignUpSetupReturnTypes } from "../types";
 
 export default defineComponent({
   components: {
@@ -103,13 +104,7 @@ export default defineComponent({
       type: String
     }
   },
-  setup(
-    _,
-    {
-      emit,
-      attrs
-    }: { emit: (st, e?) => unknown; attrs: Record<string, unknown> }
-  ) {
+  setup(_, { emit, attrs }: SetupEventContext): SignUpSetupReturnTypes {
     const { state, send } = useAuth();
 
     const phone = ref("");

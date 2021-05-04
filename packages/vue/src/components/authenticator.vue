@@ -136,8 +136,12 @@
 import SignIn from "./sign-in.vue";
 import SignUp from "./sign-up.vue";
 import ConfirmSignUp from "./confirm-sign-up.vue";
-import { ref, provide, Ref } from "vue";
+import { ref, provide } from "vue";
 import { useAuth } from "../composables/useAuth";
+import {
+  AuthenticatorSetupReturnTypes,
+  SetupEventContext
+} from "../types/index";
 
 export default {
   inheritAttrs: false,
@@ -158,19 +162,8 @@ export default {
   },
   setup(
     _: unknown,
-    {
-      attrs,
-      emit
-    }: {
-      emit: (st, e?) => unknown;
-      attrs: Record<string, unknown>;
-    }
-  ): {
-    currentPage: Ref<string>;
-    state: Ref;
-    onSignInSubmitI: (fn) => unknown;
-    onSignUpSubmitI: (fn) => unknown;
-    onConfirmSignUpSubmitI: (fn) => unknown;
+    { attrs, emit }: SetupEventContext
+  ): AuthenticatorSetupReturnTypes & {
     signInComponent: typeof SignIn;
     signUpComponent: typeof SignUp;
     confirmSignUpComponent: typeof ConfirmSignUp;

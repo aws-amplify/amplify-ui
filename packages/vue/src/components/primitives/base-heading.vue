@@ -9,7 +9,7 @@ export default defineComponent({
     }
   },
   inheritAttrs: false,
-  setup(props, { slots, attrs }) {
+  setup(props, { slots, attrs }): Record<string, unknown> | (() => unknown) {
     const defaultSlot = slots.default ? slots.default() : [];
     const headingI = slots.headingI ? slots.headingI() : [];
     if (headingI[0]?.children.length === 0) {

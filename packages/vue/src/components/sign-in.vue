@@ -121,6 +121,13 @@ import BaseText from "./primitives/base-text.vue";
 // @xstate
 import { useAuth } from "../composables/useAuth";
 
+// types
+import {
+  SetupEventContext,
+  SignInEventTypeProps,
+  SignInSetupReturnTypes
+} from "../types/index";
+
 import { Ref, ref } from "vue";
 import { useNameAlias } from "../composables/useUtils";
 
@@ -162,17 +169,9 @@ export default {
   },
 
   setup(
-    props: Readonly<
-      {
-        headless: boolean;
-        usernameAlias: string;
-      } & unknown
-    >,
-    {
-      emit,
-      attrs
-    }: { emit: (st, e?) => unknown; attrs: Record<string, unknown> }
-  ): Record<string, unknown> {
+    props: Readonly<SignInEventTypeProps>,
+    { emit, attrs }: SetupEventContext
+  ): SignInSetupReturnTypes {
     // @Xstate Initialization
 
     const username: Ref = ref("");
