@@ -19,7 +19,7 @@
           {{ signIntoAccountText }}
         </base-heading>
 
-        <base-field-Set :disabled="state.matches('signIn.pending')">
+        <base-field-Set :disabled="state.matches('signIn.submit')">
           <template #fieldSetI=" { slotData } ">
             <slot name="signin-fields" :info="slotData"> </slot>
           </template>
@@ -66,7 +66,7 @@
             createAccountLink
           }}</base-button>
           <base-spacer />
-          <base-button :disabled="state.matches('signIn.pending')">
+          <base-button :disabled="state.matches('signIn.submit')">
             <template #buttont>
               <slot
                 name="sign-in-button"
@@ -74,13 +74,16 @@
               ></slot>
             </template>
             {{
-              state.matches("signIn.pending")
+              state.matches("signIn.submit")
                 ? signIngButtonText
                 : signInButtonText
             }}
             <!-- Add prop too? -->
           </base-button>
         </base-footer>
+        <base-box data-ui-error>
+          {{ state.event.data?.message }}
+        </base-box>
       </base-form>
     </base-wrapper>
   </slot>

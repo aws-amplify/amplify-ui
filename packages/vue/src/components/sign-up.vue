@@ -8,7 +8,7 @@
           </template>
           {{ signUpButtonText }}
         </base-heading>
-        <base-field-set :disabled="state.matches('signUp.pending')">
+        <base-field-set :disabled="state.matches('signUp.submit')">
           <template #fieldSetI=" { slotData } ">
             <slot name="signup-fields" :info="slotData"> </slot>
           </template>
@@ -34,13 +34,16 @@
               {{ signInButtonText }}</base-button
             >
           </slot>
-          <base-spacer />
+          <base-spajjcer />
           <slot name="footer-right" :onSignUpSubmit="onSignUpSubmit">
-            <base-button :disabled="state.matches('signUp.pending')">{{
+            <base-button :disabled="state.matches('signUp.submit')">{{
               createAccountLabel
             }}</base-button>
           </slot>
         </base-footer>
+        <base-box data-ui-error>
+          {{ state.event.data?.message }}
+        </base-box>
       </base-form>
     </base-wrapper>
   </slot>
@@ -54,7 +57,6 @@ import BaseHeading from "./primitives/base-heading.vue";
 import BaseText from "./primitives/base-text.vue";
 import BaseFieldSet from "./primitives/base-field-set.vue";
 import BaseFooter from "./primitives/base-footer.vue";
-import BaseSpacer from "./primitives/base-spacer.vue";
 import BaseButton from "./primitives/base-button.vue";
 import SignUpEmailControl from "./sign-up-email-control.vue";
 import SignUpPasswordControl from "./sign-up-password-control.vue";
@@ -79,7 +81,6 @@ export default defineComponent({
     BaseText,
     BaseFieldSet,
     BaseFooter,
-    BaseSpacer,
     BaseButton,
     SignInAndUpNameControl,
     SignUpPhoneControl,
