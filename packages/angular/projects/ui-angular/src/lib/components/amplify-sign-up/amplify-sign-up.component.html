@@ -23,7 +23,7 @@
 </ng-template>
 
 <ng-template #signUpFieldset>
-  <fieldset data-ui-fieldset [attr.disabled]="this.loading ? '' : null">
+  <fieldset data-ui-fieldset [attr.disabled]="this.isLoading() ? '' : null">
     <ng-container
       [ngTemplateOutlet]="customComponents.signUpUsername || signUpUsername"
       [ngTemplateOutletContext]="context()"
@@ -53,7 +53,7 @@
   <form
     data-ui-form
     (submit)="onSubmit($event)"
-    (input)="onChange()"
+    (input)="onInput($event)"
     ngNativeValidate
   >
     <ng-container

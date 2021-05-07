@@ -1,0 +1,9 @@
+.error {
+  color: red;
+  margin-bottom: 1rem;
+}
+
+.no-error {
+  color: green;
+  margin-bottom: 1rem;
+}

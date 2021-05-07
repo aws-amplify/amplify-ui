@@ -35,6 +35,7 @@ export class AmplifyInputComponent {
   @Input() placeholder = '';
   @Input() label = '';
   @Input() initialValue = '';
+  @Input() disabled = false;
 
   constructor(private contextService: AuthenticatorContextService) {}
 

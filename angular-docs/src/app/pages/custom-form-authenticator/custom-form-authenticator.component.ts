@@ -1,20 +1,30 @@
 import { Component } from '@angular/core';
-import { AuthFormData, OnSubmitHookResponse } from '@aws-amplify/ui-angular';
+import { StateMachineService } from '@aws-amplify/ui-angular';
 
 @Component({
   selector: 'app-custom-form-authenticator',
-  templateUrl: './custom-form-authenticator.component.html'
+  templateUrl: './custom-form-authenticator.component.html',
+  styleUrls: ['./custom-form-authenticator.component.css']
 })
 export class CustomFormAuthenticatorComponent {
-  public onSignUp(formData: AuthFormData): OnSubmitHookResponse {
-    const { password, confirm_password } = formData;
+  constructor(private authService: StateMachineService) {}
+  public error = {
+    passwordMismatch: true
+  };
 
-    if (password !== confirm_password) {
-      const error = { confirm_password: ['Your passwords must match'] };
-      return { error };
+  public onInput($event) {
+    const { password, confirm_password } = $event;
+    console.log(password, confirm_password);
+    if (!password || !confirm_password || password !== confirm_password) {
+      this.error.passwordMismatch = true;
     } else {
-      delete formData['confirm_password'];
-      return { data: formData };
+      this.error.passwordMismatch = false;
     }
+  }
+
+  public onSubmit(formData) {
+    const { submit } = this.authService.services;
+    delete formData.confirm_password;
+    if (!this.error.passwordMismatch) submit(formData);
   }
 }

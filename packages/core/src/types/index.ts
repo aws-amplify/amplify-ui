@@ -1,10 +1,12 @@
 import { CognitoUser, CognitoUserSession } from "amazon-cognito-identity-js";
 import { Interpreter, State } from "xstate";
 
+export type AuthFormData = Record<string, string>;
 export interface AuthContext {
-  error: string | Error; // TODO: what would this object be?
-  user: CognitoUser | unknown;
-  session: CognitoUserSession | unknown;
+  error?: string; // contains Cognito error
+  user?: CognitoUser;
+  session?: CognitoUserSession;
+  formValues?: AuthFormData;
 }
 
 export type AuthEventTypes =
@@ -13,7 +15,8 @@ export type AuthEventTypes =
   | "SIGN_OUT"
   | "SUBMIT"
   | "RESEND"
-  | "CONFIRM_SIGN_UP";
+  | "CONFIRM_SIGN_UP"
+  | "INPUT";
 
 export interface AuthEvent {
   type: AuthEventTypes;

@@ -2,8 +2,10 @@ import {
   AfterContentInit,
   Component,
   ContentChildren,
+  EventEmitter,
   HostBinding,
   Input,
+  Output,
   QueryList,
   TemplateRef,
   ViewEncapsulation
@@ -16,6 +18,7 @@ import {
 } from '../../services';
 import { CustomComponents, OnSubmitHook } from '../../common';
 import { State } from 'xstate';
+import { AuthFormData } from '@aws-amplify/ui-core';
 
 @Component({
   selector: 'amplify-authenticator',
@@ -24,9 +27,15 @@ import { State } from 'xstate';
   encapsulation: ViewEncapsulation.None
 })
 export class AmplifyAuthenticatorComponent implements AfterContentInit {
+  // Custom events
+  @Output() onSignInInput = new EventEmitter<AuthFormData>();
+  @Output() onSignInSubmit = new EventEmitter<AuthFormData>();
+  @Output() onSignUpInput = new EventEmitter<AuthFormData>();
+  @Output() onSignUpSubmit = new EventEmitter<AuthFormData>();
+  @Output() onConfirmSignUpInput = new EventEmitter<AuthFormData>();
+  @Output() onConfirmSignUpSubmit = new EventEmitter<AuthFormData>();
+
   @Input() initialAuthState: AuthState = 'signIn';
-  @Input() onSignIn: OnSubmitHook;
-  @Input() onSignUp: OnSubmitHook;
   @HostBinding('attr.data-ui-authenticator') dataAttr = '';
   @ContentChildren(AmplifyOverrideDirective)
   private customComponentQuery: QueryList<AmplifyOverrideDirective> = null;
@@ -44,7 +53,6 @@ export class AmplifyAuthenticatorComponent implements AfterContentInit {
   /**
    * Lifecycle Methods
    */
-
   ngAfterContentInit(): void {
     this.contextService.customComponents = this.mapCustomComponents(
       this.customComponentQuery
@@ -52,10 +60,16 @@ export class AmplifyAuthenticatorComponent implements AfterContentInit {
     this.customComponents = this.contextService.customComponents;
     this.contextService.props = {
       signIn: {
-        onSignIn: this.onSignIn
+        onSignInInput: this.onSignInInput,
+        onSignInSubmit: this.onSignInSubmit
       },
       signUp: {
-        onSignUp: this.onSignUp
+        onSignUpInput: this.onSignUpInput,
+        onSignUpSubmit: this.onSignUpSubmit
+      },
+      confirmSignUp: {
+        onConfirmSignUpInput: this.onConfirmSignUpInput,
+        onConfirmSignUpSubmit: this.onConfirmSignUpSubmit
       }
     };
   }
