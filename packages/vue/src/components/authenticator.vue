@@ -11,9 +11,9 @@
         <slot name="sign-in"></slot>
       </template>
 
-      <template #forgot-password-button="{ onForgotPasswordClicked}">
+      <template #forgot-password-section="{ onForgotPasswordClicked}">
         <slot
-          name="sign-in-forgot-password-button"
+          name="sign-in-forgot-password-section"
           :onForgotPasswordClicked="onForgotPasswordClicked"
         />
       </template>
@@ -61,6 +61,9 @@
           :onCreateAccountClicked="onCreateAccountClicked"
         >
         </slot>
+      </template>
+      <template #signin-fields="{info}">
+        <slot name="sign-in-fields" :info="info"></slot>
       </template>
     </sign-in>
     <sign-up

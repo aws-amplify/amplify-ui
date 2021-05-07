@@ -44,7 +44,7 @@ export default defineComponent({
 
 <style>
 .css-example
-  [data-amplify-authenticator]
+  [data-amplify-wrapper]
   [data-amplify-footer]
   [data-amplify-button]:last-of-type {
   background-color: orange;

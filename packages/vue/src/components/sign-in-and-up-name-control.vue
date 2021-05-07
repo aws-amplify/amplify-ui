@@ -19,7 +19,10 @@ import BaseInput from "./primitives/base-input.vue";
 import BaseLabel from "./primitives/base-label.vue";
 import BaseText from "./primitives/base-text.vue";
 import { useNameAlias } from "../composables/useUtils";
-import { SignUpNameControlTypes, SignUpNameSetupReturnTypes } from "../types";
+import {
+  SignInAndUpNameControlTypes,
+  SignUpNameSetupReturnTypes
+} from "../types";
 
 export default defineComponent({
   props: {
@@ -39,7 +42,7 @@ export default defineComponent({
     BaseLabel,
     BaseText
   },
-  setup(props: SignUpNameControlTypes): SignUpNameSetupReturnTypes {
+  setup(props: SignInAndUpNameControlTypes): SignUpNameSetupReturnTypes {
     // computed
     const signInUserNameText = computed(() =>
       useNameAlias(props.usernameAlias)

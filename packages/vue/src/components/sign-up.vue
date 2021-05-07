@@ -12,7 +12,7 @@
           <template #fieldSetI=" { slotData } ">
             <slot name="signup-fields" :info="slotData"> </slot>
           </template>
-          <sign-up-name-control :usernameAlias="usernameAlias" />
+          <sign-in-and-up-name-control :usernameAlias="usernameAlias" />
           <sign-up-password-control />
           <sign-up-email-control />
           <sign-up-phone-control v-model:phone="phone" />
@@ -59,7 +59,7 @@ import BaseButton from "./primitives/base-button.vue";
 import SignUpEmailControl from "./sign-up-email-control.vue";
 import SignUpPasswordControl from "./sign-up-password-control.vue";
 import SignUpPhoneControl from "./sign-up-phone-control.vue";
-import SignUpNameControl from "./sign-up-name-control.vue";
+import SignInAndUpNameControl from "./sign-in-and-up-name-control.vue";
 
 import {
   SIGN_IN_BUTTON_TEXT,
@@ -81,7 +81,7 @@ export default defineComponent({
     BaseFooter,
     BaseSpacer,
     BaseButton,
-    SignUpNameControl,
+    SignInAndUpNameControl,
     SignUpPhoneControl,
     SignUpPasswordControl,
     SignUpEmailControl,

@@ -45,7 +45,7 @@ export interface ConfirmPasswordSetupReturnTypes {
   send: PayloadSender<EventObject>;
 }
 
-export interface SignUpNameControlTypes {
+export interface SignInAndUpNameControlTypes {
   userName: string;
   disabled: boolean;
   usernameAlias: string;
