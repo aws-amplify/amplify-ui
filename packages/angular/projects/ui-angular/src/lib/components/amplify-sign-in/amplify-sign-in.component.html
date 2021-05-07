@@ -7,9 +7,8 @@
 
 <ng-template #signInForm>
   <form data-ui-form (submit)="onSubmit($event)" (input)="onInput($event)">
-    <fieldset data-ui-fieldset [attr.disabled]="loading ? '' : null">
+    <fieldset data-ui-fieldset [attr.disabled]="isLoading() ? '' : null">
       <amplify-input name="username"></amplify-input>
-
       <amplify-input name="password" type="password"></amplify-input>
 
       <div data-ui-footer>

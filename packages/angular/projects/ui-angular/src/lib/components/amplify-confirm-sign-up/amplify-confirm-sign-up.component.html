@@ -7,7 +7,7 @@
 
 <ng-template #confirmSignUpForm>
   <form data-ui-form (submit)="onSubmit($event); $event.preventDefault()">
-    <fieldset data-ui-fieldset [attr.disabled]="loading ? '' : null">
+    <fieldset data-ui-fieldset [attr.disabled]="isLoading() ? '' : null">
       <amplify-input
         name="username"
         [initialValue]="this.stateMachine.user?.username"

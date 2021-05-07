@@ -26,11 +26,15 @@ import { State } from 'xstate';
   encapsulation: ViewEncapsulation.None
 })
 export class AmplifyAuthenticatorComponent implements AfterContentInit {
-  @Input() initialAuthState: AuthState = 'signIn';
+  // Custom events
   @Output() onSignInInput = new EventEmitter<any>();
   @Output() onSignInSubmit = new EventEmitter<any>();
   @Output() onSignUpInput = new EventEmitter<any>();
   @Output() onSignUpSubmit = new EventEmitter<any>();
+  @Output() onConfirmSignUpInput = new EventEmitter<any>();
+  @Output() onConfirmSignUpSubmit = new EventEmitter<any>();
+
+  @Input() initialAuthState: AuthState = 'signIn';
   @HostBinding('attr.data-ui-authenticator') dataAttr = '';
   @ContentChildren(AmplifyOverrideDirective)
   private customComponentQuery: QueryList<AmplifyOverrideDirective> = null;
@@ -48,7 +52,6 @@ export class AmplifyAuthenticatorComponent implements AfterContentInit {
   /**
    * Lifecycle Methods
    */
-
   ngAfterContentInit(): void {
     this.contextService.customComponents = this.mapCustomComponents(
       this.customComponentQuery
@@ -62,6 +65,10 @@ export class AmplifyAuthenticatorComponent implements AfterContentInit {
       signUp: {
         onSignUpInput: this.onSignUpInput,
         onSignUpSubmit: this.onSignUpSubmit
+      },
+      confirmSignUp: {
+        onConfirmSignUpInput: this.onConfirmSignUpInput,
+        onConfirmSignUpSubmit: this.onConfirmSignUpSubmit
       }
     };
   }

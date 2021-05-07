@@ -2,10 +2,12 @@ import { Logger } from '@aws-amplify/core';
 import {
   AfterContentInit,
   Component,
+  EventEmitter,
   HostBinding,
   Input,
   OnDestroy,
   OnInit,
+  Output,
   TemplateRef,
   ViewEncapsulation
 } from '@angular/core';
@@ -26,9 +28,11 @@ const logger = new Logger('SignIn');
 })
 export class AmplifySignInComponent
   implements AfterContentInit, OnInit, OnDestroy {
+  // Custom events
+  @Output() onSignInInput = new EventEmitter<AuthFormData>();
+  @Output() onSignInSubmit = new EventEmitter<AuthFormData>();
   @HostBinding('attr.data-ui-sign-in') dataAttr = '';
   @Input() public headerText = 'Sign in to your account';
-  public loading = false;
   public customComponents: Record<string, TemplateRef<any>> = {};
   private authSubscription: Subscription;
   public context = () => ({
@@ -52,6 +56,10 @@ export class AmplifySignInComponent
 
     // attach sign in hooks
     const props = this.contextService.props.signIn;
+    if (props) {
+      this.onSignInInput = props.onSignInInput;
+      this.onSignInSubmit = props.onSignInSubmit;
+    }
   }
 
   ngOnDestroy(): void {
@@ -60,11 +68,13 @@ export class AmplifySignInComponent
   }
 
   onStateUpdate(state: AuthMachineState): void {
-    if (state.event.type.includes('error.platform.signIn')) {
+    const formValues = state.context.formValues;
+    if (state.event.type.includes('signIn.edit.error')) {
       const message = state.event.data?.message;
       logger.info('An error was encountered while signing up:', message);
       this.contextService.formError = { cross_field: [message] };
-      this.loading = false;
+    } else if (state.event.type === 'INPUT') {
+      this.onSignInSubmit.emit(formValues);
     }
   }
 
@@ -72,8 +82,12 @@ export class AmplifySignInComponent
     return this.contextService.formError;
   }
 
+  public isLoading(): boolean {
+    return !this.stateMachine.authState.matches('signIn.edit');
+  }
+
   toSignUp(): void {
-    this.stateMachine.authService.send('SIGN_UP');
+    this.send('SIGN_UP');
   }
 
   send(event: Event<AuthEvent>): void {
@@ -92,16 +106,16 @@ export class AmplifySignInComponent
     $event.preventDefault();
     this.contextService.formError = {};
 
-    // get form data
-    const formData = new FormData($event.target);
-    const formValues = Object.fromEntries(formData.entries()) as AuthFormData;
+    const formValues = this.stateMachine.authState.context.formValues;
     logger.log('Sign in form submitted with', formValues);
 
-    this.loading = true; // disable inputs
-
-    this.send({
-      type: 'SUBMIT',
-      data: formValues
-    });
+    if (this.onSignInSubmit.observers.length > 0) {
+      this.onSignInSubmit.emit(formValues);
+    } else {
+      this.send({
+        type: 'SUBMIT',
+        data: formValues
+      });
+    }
   }
 }

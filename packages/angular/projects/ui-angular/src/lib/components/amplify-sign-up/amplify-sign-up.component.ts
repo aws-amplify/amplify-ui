@@ -24,17 +24,17 @@ const logger = new Logger('SignUp');
 })
 export class AmplifySignUpComponent
   implements AfterContentInit, OnInit, OnDestroy {
-  @Input() headerText = 'Create a new account';
-  @HostBinding('attr.data-ui-sign-up') dataAttr = '';
+  // Custom events
+  public onSignUpInput = new EventEmitter<any>();
+  public onSignUpSubmit = new EventEmitter<any>();
 
+  @HostBinding('attr.data-ui-sign-up') dataAttr = '';
+  @Input() headerText = 'Create a new account';
   private authSubscription: Subscription;
   public customComponents: Record<string, TemplateRef<any>>;
-  public loading = false;
   public context = () => ({
     errors: this.contextService.formError
   });
-  public onSignUpInput = new EventEmitter<any>();
-  public onSignUpSubmit = new EventEmitter<any>();
 
   constructor(
     private stateMachine: StateMachineService,
@@ -50,10 +50,10 @@ export class AmplifySignUpComponent
   ngAfterContentInit(): void {
     this.contextService.formError = {};
     this.customComponents = this.contextService.customComponents;
-    if (this.contextService.props?.signUp) {
-      const signUpProps = this.contextService.props.signUp;
-      this.onSignUpInput = signUpProps.onSignUpInput;
-      this.onSignUpSubmit = signUpProps.onSignUpSubmit;
+    const props = this.contextService.props?.signUp;
+    if (props) {
+      this.onSignUpInput = props.onSignUpInput;
+      this.onSignUpSubmit = props.onSignUpSubmit;
     }
   }
 
@@ -67,12 +67,9 @@ export class AmplifySignUpComponent
       const message = state.event.data?.message;
       logger.info('An error was encountered while signing up:', message);
       this.contextService.formError = { cross_field: [message] };
-    }
-    if (state.event.type === 'INPUT') {
-      console.log(this.onSignUpInput);
+    } else if (state.event.type === 'INPUT') {
       this.onSignUpInput.emit(formValues);
     }
-    this.loading = false;
   }
 
   get formError(): FormError {
@@ -86,15 +83,12 @@ export class AmplifySignUpComponent
   async onSubmit($event): Promise<void> {
     this.contextService.formError = {};
     $event.preventDefault();
-    const formData = new FormData($event.target);
-    const formValues = Object.fromEntries(formData.entries()) as AuthFormData;
+    const formValues = this.stateMachine.authState.context.formValues;
     logger.log('Sign up form submitted with', formValues);
 
     if (this.onSignUpSubmit.observers.length > 0) {
-      const formValues = this.stateMachine.authState.context.formValues;
       this.onSignUpSubmit.emit(formValues);
     } else {
-      this.loading = true;
       this.send({
         type: 'SUBMIT',
         data: formValues

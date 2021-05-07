@@ -13,4 +13,5 @@ export type CustomComponents = Record<string, TemplateRef<any>>;
 export interface PropContext {
   signIn?: Record<string, any>; // type this
   signUp?: Record<string, any>;
+  confirmSignUp?: Record<string, any>;
 }
