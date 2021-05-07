@@ -11,7 +11,7 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   inheritAttrs: false,
-  setup(_, { slots }) {
+  setup(_, { slots }): Record<string, unknown> {
     let mySlots = slots;
     return { mySlots };
   }

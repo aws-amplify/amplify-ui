@@ -2,6 +2,7 @@
   <div>
     <sign-in
       :headless="headless"
+      :usernameAlias="usernameAlias"
       v-if="state?.matches('signIn')"
       @sign-in-submit="onSignInSubmitI"
       ref="signInComponent"
@@ -10,9 +11,9 @@
         <slot name="sign-in"></slot>
       </template>
 
-      <template #forgot-password-button="{ onForgotPasswordClicked}">
+      <template #forgot-password-section="{ onForgotPasswordClicked}">
         <slot
-          name="sign-in-forgot-password-button"
+          name="sign-in-forgot-password-section"
           :onForgotPasswordClicked="onForgotPasswordClicked"
         />
       </template>
@@ -37,8 +38,8 @@
         <slot name="sign-in-heading"></slot>
       </template>
 
-      <template #full-name>
-        <slot name="sign-in-full-name"></slot>
+      <template #name>
+        <slot name="sign-in-name"></slot>
       </template>
 
       <template #footer="{ info, onSignInSubmit, onCreateAccountClicked  }">
@@ -61,9 +62,13 @@
         >
         </slot>
       </template>
+      <template #signin-fields="{info}">
+        <slot name="sign-in-fields" :info="info"></slot>
+      </template>
     </sign-in>
     <sign-up
       :headless="headless"
+      :usernameAlias="usernameAlias"
       v-if="state?.matches('signUp')"
       @sign-up-submit="onSignUpSubmitI"
       ref="signUpComponent"
@@ -105,6 +110,7 @@
     </div>
     <confirm-sign-up
       :headless="headless"
+      :usernameAlias="usernameAlias"
       v-if="state?.matches('confirmSignUp')"
       ref="confirmSignUpComponent"
       @confirm-sign-up-submit="onConfirmSignUpSubmitI"
@@ -133,8 +139,12 @@
 import SignIn from "./sign-in.vue";
 import SignUp from "./sign-up.vue";
 import ConfirmSignUp from "./confirm-sign-up.vue";
-import { ref, provide, Ref } from "vue";
+import { ref, provide } from "vue";
 import { useAuth } from "../composables/useAuth";
+import {
+  AuthenticatorSetupReturnTypes,
+  SetupEventContext
+} from "../types/index";
 
 export default {
   inheritAttrs: false,
@@ -147,23 +157,16 @@ export default {
     headless: {
       type: Boolean,
       default: false
+    },
+    usernameAlias: {
+      type: String,
+      default: "username"
     }
   },
   setup(
     _: unknown,
-    {
-      attrs,
-      emit
-    }: {
-      emit: (st, e?) => unknown;
-      attrs: Record<string, unknown>;
-    }
-  ): {
-    currentPage: Ref<string>;
-    state: Ref;
-    onSignInSubmitI: (fn) => unknown;
-    onSignUpSubmitI: (fn) => unknown;
-    onConfirmSignUpSubmitI: (fn) => unknown;
+    { attrs, emit }: SetupEventContext
+  ): AuthenticatorSetupReturnTypes & {
     signInComponent: typeof SignIn;
     signUpComponent: typeof SignUp;
     confirmSignUpComponent: typeof ConfirmSignUp;

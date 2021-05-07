@@ -6,7 +6,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from "vue";
+import { defineComponent, computed, ComputedRef } from "vue";
 import { PASSWORD_LABEL } from "../defaults/DefaultTexts";
 
 import BaseInput from "./primitives/base-input.vue";
@@ -19,7 +19,7 @@ export default defineComponent({
     BaseText,
     BaseLabel
   },
-  setup() {
+  setup(): { passwordLabel: ComputedRef<string> } {
     const passwordLabel = computed(() => PASSWORD_LABEL);
     return { passwordLabel };
   }

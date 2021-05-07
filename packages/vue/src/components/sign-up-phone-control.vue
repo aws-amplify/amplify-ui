@@ -29,6 +29,7 @@ import BaseLabel from "./primitives/base-label.vue";
 import BaseSelect from "./primitives/base-select.vue";
 import { defineComponent, computed, ref, watchEffect } from "vue";
 import { PHONE_NUMBER_LABEL } from "../defaults/DefaultTexts";
+import { SignUpPhoneControlTypes } from "../types";
 
 export default defineComponent({
   components: {
@@ -37,7 +38,10 @@ export default defineComponent({
     BaseLabel,
     BaseSelect
   },
-  setup(_, { emit }: { emit: (st, e?) => unknown }) {
+  setup(
+    _,
+    { emit }: { emit: (eventName: string, payload?: unknown) => void }
+  ): SignUpPhoneControlTypes {
     const phoneNumberLabel = computed(() => PHONE_NUMBER_LABEL);
 
     const options = [{ value: "+1" }, { value: "+7" }, { value: "+20" }];

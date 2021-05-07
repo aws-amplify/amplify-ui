@@ -8,11 +8,11 @@
           </template>
           {{ signUpButtonText }}
         </base-heading>
-        <base-field-set :disabled="state.matches('signUp.pending')">
+        <base-field-set :disabled="state.matches('signUp.submit')">
           <template #fieldSetI=" { slotData } ">
             <slot name="signup-fields" :info="slotData"> </slot>
           </template>
-          <sign-up-username-control />
+          <sign-in-and-up-name-control :usernameAlias="usernameAlias" />
           <sign-up-password-control />
           <sign-up-email-control />
           <sign-up-phone-control v-model:phone="phone" />
@@ -34,13 +34,16 @@
               {{ signInButtonText }}</base-button
             >
           </slot>
-          <base-spacer />
+          <base-spajjcer />
           <slot name="footer-right" :onSignUpSubmit="onSignUpSubmit">
-            <base-button :disabled="state.matches('signUp.pending')">{{
+            <base-button :disabled="state.matches('signUp.submit')">{{
               createAccountLabel
             }}</base-button>
           </slot>
         </base-footer>
+        <base-box data-ui-error>
+          {{ state.event.data?.message }}
+        </base-box>
       </base-form>
     </base-wrapper>
   </slot>
@@ -54,15 +57,13 @@ import BaseHeading from "./primitives/base-heading.vue";
 import BaseText from "./primitives/base-text.vue";
 import BaseFieldSet from "./primitives/base-field-set.vue";
 import BaseFooter from "./primitives/base-footer.vue";
-import BaseSpacer from "./primitives/base-spacer.vue";
 import BaseButton from "./primitives/base-button.vue";
 import SignUpEmailControl from "./sign-up-email-control.vue";
 import SignUpPasswordControl from "./sign-up-password-control.vue";
 import SignUpPhoneControl from "./sign-up-phone-control.vue";
-import SignUpUsernameControl from "./sign-up-username-control.vue";
+import SignInAndUpNameControl from "./sign-in-and-up-name-control.vue";
 
 import {
-  SIGN_IN_TEXT,
   SIGN_IN_BUTTON_TEXT,
   HAVE_ACCOUNT_LABEL,
   CREATE_ACCOUNT_LABEL,
@@ -71,6 +72,7 @@ import {
 
 import { useAuth } from "../composables/useAuth";
 import BaseWrapper from "./primitives/base-wrapper.vue";
+import { SetupEventContext, SignUpSetupReturnTypes } from "../types";
 
 export default defineComponent({
   components: {
@@ -79,9 +81,8 @@ export default defineComponent({
     BaseText,
     BaseFieldSet,
     BaseFooter,
-    BaseSpacer,
     BaseButton,
-    SignUpUsernameControl,
+    SignInAndUpNameControl,
     SignUpPhoneControl,
     SignUpPasswordControl,
     SignUpEmailControl,
@@ -89,7 +90,6 @@ export default defineComponent({
   },
   inheritAttrs: false,
   computed: {
-    signIntoAccountText: (): string => SIGN_IN_TEXT,
     signInButtonText: (): string => SIGN_IN_BUTTON_TEXT,
     haveAccountLabel: (): string => HAVE_ACCOUNT_LABEL,
     createAccountLabel: (): string => CREATE_ACCOUNT_LABEL,
@@ -99,15 +99,13 @@ export default defineComponent({
     headless: {
       default: false,
       type: Boolean
+    },
+    usernameAlias: {
+      default: "username",
+      type: String
     }
   },
-  setup(
-    _,
-    {
-      emit,
-      attrs
-    }: { emit: (st, e?) => unknown; attrs: Record<string, unknown> }
-  ) {
+  setup(_, { emit, attrs }: SetupEventContext): SignUpSetupReturnTypes {
     const { state, send } = useAuth();
 
     const phone = ref("");
@@ -138,7 +136,6 @@ export default defineComponent({
       //@ts-ignore Property 'fromEntries' does not exist on type 'ObjectConstructor'. Do you need to change your target library? Try changing the `lib` compiler option to 'es2019' or later.ts(2550)
       const values = Object.fromEntries(formData);
       delete values.phone_number_prefix;
-      console.log(values);
 
       send({
         type: "SUBMIT",

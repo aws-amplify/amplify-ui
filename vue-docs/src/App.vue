@@ -18,11 +18,11 @@
   </example-wrapper>
 
   <example-wrapper
-    :title="'Overriding forgot-password'"
+    :title="'Overriding forgot password section'"
     :code="overrideForgotPassword"
   >
     <authenticator>
-      <template #sign-in-forgot-password-button>
+      <template #sign-in-forgot-password-section>
         <button>New Button</button>
       </template>
     </authenticator>
@@ -67,7 +67,7 @@
   <example-wrapper :title="'Add confirm password'" :code="confirmPassword">
     <authenticator @sign-up-submit="overRideSubmit">
       <template #sign-up-fields>
-        <sign-up-username-control />
+        <sign-in-and-up-name-control />
         <sign-up-password-control />
         <div class="">
           <h3>Confirm Password</h3>
@@ -82,6 +82,29 @@
         </div>
         <sign-up-email-control />
         <sign-up-phone-control />
+      </template>
+    </authenticator>
+  </example-wrapper>
+
+  <example-wrapper :title="'Customize Sign In Fields'" :code="customPassword">
+    <authenticator>
+      <button
+        className="px-2 bg-white rounded shadow"
+        @click="send('SIGN_OUT')"
+      >
+        Sign Out
+      </button>
+      <template #sign-in-fields>
+        <sign-in-and-up-name-control />
+        <div>
+          <h3>Custom Password Field</h3>
+          <input
+            type="password"
+            name="password"
+            class="block w-full mt-1 border-gray-300 rounded shadow-sm border p-4"
+            placeholder="PASSWORD PLEASE!"
+          />
+        </div>
       </template>
     </authenticator>
   </example-wrapper>
@@ -120,7 +143,7 @@ import {
   RenderInfo,
   SignUpEmailControl,
   SignUpPasswordControl,
-  SignUpUsernameControl,
+  SignInAndUpNameControl,
   SignUpPhoneControl
 } from "@aws-amplify/ui-vue";
 
@@ -133,7 +156,8 @@ import {
   confirmPassword,
   slotTable,
   propTable,
-  eventTable
+  eventTable,
+  customPassword
 } from "./utils/code-examples";
 
 Amplify.configure(aws_exports);
@@ -147,7 +171,7 @@ export default defineComponent({
     ExampleSignIn,
     SignUpEmailControl,
     SignUpPasswordControl,
-    SignUpUsernameControl,
+    SignInAndUpNameControl,
     SignUpPhoneControl,
     "vue3-markdown-it": VueMarkdownIt
   },
@@ -189,7 +213,8 @@ export default defineComponent({
       overrideSignInButton,
       headless,
       footer,
-      confirmPassword
+      confirmPassword,
+      customPassword
     };
   }
 });

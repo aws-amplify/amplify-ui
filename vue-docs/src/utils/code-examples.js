@@ -10,7 +10,7 @@ const defaultExample = `
     `;
 const overrideForgotPassword = `
       <authenticator>
-        <template #sign-in-forgot-password-button>
+        <template #sign-in-forgot-password-section>
           <button>New Button</button>
         </template>
       </authenticator>
@@ -60,7 +60,7 @@ const footer = `
 const confirmPassword = `
       <authenticator @sign-up-submit="over">
         <template #sign-up-fields>
-          <sign-up-username-control />
+          <sign-in-and-up-name-control />
           <sign-up-password-control />
           <div class="">
             <h3>Confirm Password</h3>
@@ -80,7 +80,7 @@ const confirmPassword = `
 
     <script setup>
     import { Authenticator, SignUp,
-     SignUpUsernameControl, SignUpPasswordControl, SignUpPhoneControl,
+     SignInAndUpNameControl, SignUpPasswordControl, SignUpPhoneControl,
      SignUpEmailControl  } from "@aws-amplify/ui-vue";
 
     const over = event => {
@@ -107,16 +107,41 @@ const confirmPassword = `
     
     `;
 
+const customPassword = `
+      <authenticator>
+        <template #sign-in-fields>
+          <sign-in-and-up-name-control />
+          <div>
+            <h3>Custom Password Field</h3>
+            <input
+              type="password"
+              name="password"
+              class="block w-full mt-1 border-gray-300 rounded shadow-sm border p-4"
+              placeholder="PASSWORD PLEASE!"
+            />
+          </div>
+        </template>
+      </authenticator>
+
+    <script setup>
+    import { Authenticator, 
+     SignInAndUpNameControl} from "@aws-amplify/ui-vue";
+
+    <\/script>
+    
+    `;
+
 const slotTable =
   " | Name                   |                  Description                   |                           Scoped Slots                           |      Component              |   \n" +
   " | ---------------------- | :--------------------------------------------: | :--------------------------------------------------------------: | :--------------------------: | \n" +
   " | form                   |       Replaces the **<form>** DOM Element        |            Exposes **{ info, onSignInSubmit, onCreateAccountClicked, onForgotPasswordClicked }**         | **<sign-in>**               | \n" +
-  " | full-name              | Replaces the **<span>** label text for Full name |                               None                             | **<sign-in>**               | \n" +
-  " | forgot-password-button |      Replaces the forgot password button       |              Exposes  **{ onForgotPasswordClicked }**            | **<sign-in>**               | \n" +
+  " | name              | Replaces the **<span>** label text for Username or Email or Phone Number |                               None                             | **<sign-in>**               | \n" +
+  " | forgot-password-section |      Replaces the forgot password button       |              Exposes  **{ onForgotPasswordClicked }**            | **<sign-in>**               | \n" +
   " | sign-in-button         |          Replaces the sign in button           |               Exposes **{ onSignInSubmit }**              | **<sign-in>**               | \n" +
   "| heading                |           Replaces the heading text            |                               none                               | **<sign-in>**                | \n" +
   "| footer                 |      Replaces the **<footer>** DOM element       | Exposes **{ onSignInSubmit, info, onCreateAccountClicked }** | **<sign-in>**           | \n" +
   " | additional-fields      | Space below password input   |                               None                             | **<sign-in>**               | \n" +
+  " | signin-fields      | Replaces Sign In Fields|                               Exposes **{ info }**                              | **<sign-in>**               | \n" +
   " | signup-fields      | Replaces Sign Up Fields|                               Exposes **{ info }**                              | **<sign-up>**               | \n" +
   " | footer      | Replaces footer at the bottom | Exposes **{info, onHaveAccountClicked, onSignUpSubmit}**                             | **<sign-up>** | \n" +
   " | footer-left      | Replaces the footer on the left  | Exposes **{ onHaveAccountClicked }** | **<sign-up>**               | \n" +
@@ -126,11 +151,12 @@ const slotTable =
   "| sign-up | Replaces sign-up                    |    None |  **<authenticator>**         | \n" +
   "| confirm-sign-up | Replaces confirm-sign-up                    |  None  |  **<authenticator>**         | \n" +
   "| sign-in-button | Replaces the sign in button                    |    Exposes **{ onSignInSubmit }**                        |  **<authenticator>**         | \n" +
-  "| sign-in-forgot-password-button | Replaces the forgot password button                    |    Exposes **{ onForgotPasswordClicked }**                        |  **<authenticator>**         | \n" +
+  "| sign-in-forgot-password-section | Replaces the forgot password button                    |    Exposes **{ onForgotPasswordClicked }**                        |  **<authenticator>**         | \n" +
   "| sign-in-heading                |           Replaces the heading text            |                               none                               | **<authenticator>**                | \n" +
   "| sign-in-footer                 |      Replaces the **<footer>** DOM element       | Exposes **{ onSignInSubmit, info, onCreateAccountClicked }** | **<authenticator>**           | \n" +
   " | sign-in-form                   |       Replaces the **<form>** DOM Element        |            Exposes **{ info, onSignInSubmit, onCreateAccountClicked, onForgotPasswordClicked }**         | **<authenticator>**               | \n" +
-  " | sign-in-full-name              | Replaces the **<span>** label text for Full name |                               None                             | **<authenticator>**               | \n" +
+  " | sign-in-name              | Replaces the **<span>** label text for Full name |                               None                             | **<authenticator>**               | \n" +
+  " | sign-in-fields      | Replaces Sign In fields   |                               Exposes **{ info }** default child data                             | **<authenticator>**               | \n" +
   " | sign-up-fields      | Replaces Sign Up fields   |                               Exposes **{ info }** default child data                             | **<authenticator>**               | \n" +
   " | sign-up-footer      | Replaces footer at the bottom | Exposes **{info, onHaveAccountClicked, onSignUpSubmit}**                             | **<authenticator>** | \n" +
   " | sign-up-footer-left      | Replaces the footer on the left  | Exposes **{ onHaveAccountClicked }** | **<authenticator>**               | \n" +
@@ -157,7 +183,11 @@ const propTable =
   "| headless  | Removes styles | **<authenticator>**    | \n" +
   "| headless |  Removes styles | **<sign-up>**    |\n" +
   "| headless |  Removes styles | **<sign-in>**    |\n" +
-  "| headless |  Removes styles| **<confirm-sign-up>**    |\n";
+  "| headless |  Removes styles| **<confirm-sign-up>**    |\n" +
+  "| usernameAlias|Username Alias is used to setup authentication with `username`, `email` or `phone_number`  |**<authenticator>**    |\n" +
+  "| usernameAlias|Username Alias is used to setup authentication with `username`, `email` or `phone_number`  |**<sign-in>**    |\n" +
+  "| usernameAlias|Username Alias is used to setup authentication with `username`, `email` or `phone_number`  |**<sign-up>**    |\n" +
+  "| usernameAlias|Username Alias is used to setup authentication with `username`, `email` or `phone_number`  |**<confirm-password>**    |\n";
 
 const exampleSignIn = `
     <div class="css-example">
@@ -183,7 +213,7 @@ const exampleSignIn = `
 
     <style>
       .css-example
-        [data-amplify-authenticator]
+        [data-amplify-wrapper]
         [data-amplify-footer]
         [data-amplify-button]:last-of-type {
         background-color: orange;
@@ -203,5 +233,6 @@ export {
   slotTable,
   eventTable,
   exampleSignIn,
-  propTable
+  propTable,
+  customPassword
 };

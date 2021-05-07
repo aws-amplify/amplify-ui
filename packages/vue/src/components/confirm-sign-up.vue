@@ -6,7 +6,8 @@
           {{ confirmSignUpHeading }}
         </base-heading>
         <base-field-set :disabled="state.matches('confirmSignUp.pending')">
-          <sign-up-username-control
+          <sign-in-and-up-name-control
+            :usernameAlias="usernameAlias"
             :userName="state?.context?.user?.username"
             :disabled="true"
           />
@@ -40,6 +41,9 @@
             confirmText
           }}</base-button>
         </base-footer>
+        <base-box data-ui-error>
+          {{ state.event.data?.message }}
+        </base-box>
       </base-form>
     </base-wrapper>
   </slot>
@@ -49,7 +53,7 @@
 import { defineComponent, computed } from "vue";
 import BaseHeading from "./primitives/base-heading.vue";
 import BaseFieldSet from "./primitives/base-field-set.vue";
-import SignUpUsernameControl from "./sign-up-username-control.vue";
+import SignInAndUpNameControl from "./sign-in-and-up-name-control.vue";
 import BaseLabel from "./primitives/base-label.vue";
 
 import BaseSpacer from "./primitives/base-spacer.vue";
@@ -70,6 +74,7 @@ import {
 } from "../defaults/DefaultTexts";
 import { useAuth } from "../composables/useAuth";
 import BaseWrapper from "./primitives/base-wrapper.vue";
+import { ConfirmPasswordSetupReturnTypes, SetupEventContext } from "../types";
 
 export default defineComponent({
   components: {
@@ -77,7 +82,7 @@ export default defineComponent({
     BaseHeading,
     BaseFieldSet,
     BaseForm,
-    SignUpUsernameControl,
+    SignInAndUpNameControl,
     BaseLabel,
     BaseSpacer,
     BaseButton,
@@ -91,15 +96,16 @@ export default defineComponent({
     headless: {
       default: false,
       type: Boolean
+    },
+    usernameAlias: {
+      default: "username",
+      type: String
     }
   },
   setup(
     _,
-    {
-      emit,
-      attrs
-    }: { emit: (st, e?) => unknown; attrs: Record<string, unknown> }
-  ) {
+    { emit, attrs }: SetupEventContext
+  ): ConfirmPasswordSetupReturnTypes {
     const { state, send } = useAuth();
 
     //computed properties

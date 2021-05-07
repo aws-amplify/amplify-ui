@@ -19,43 +19,37 @@
           {{ signIntoAccountText }}
         </base-heading>
 
-        <base-field-Set :disabled="state.matches('signIn.pending')">
-          <base-label>
-            <base-text>
-              <template #textI>
-                <slot name="full-name"></slot>
-              </template>
-              {{ fullNameText }}
-            </base-text>
-            <base-input name="username" required type="text" />
-          </base-label>
+        <base-field-Set :disabled="state.matches('signIn.submit')">
+          <template #fieldSetI=" { slotData } ">
+            <slot name="signin-fields" :info="slotData"> </slot>
+          </template>
+          <sign-in-and-up-name-control :usernameAlias="usernameAlias" />
 
           <base-label data-amplify-password>
-            <base-text>{{ passwordLabel }}</base-text>
-            <base-input name="password" required type="password" />
-            <slot
-              name="additional-fields"
-              :onSignInSubmit="onSignInSubmit"
-              :onCreateAccountClicked="onCreateAccountClicked"
-            ></slot>
+            <!-- <base-text>{{ passwordLabel }}</base-text>
+            <base-input name="password" required type="password" /> -->
+            <sign-in-password-control />
 
             <base-box>
-              <base-text> {{ forgotYourPasswordText }}</base-text>
-              <base-button
-                type="button"
-                @click.prevent="onForgotPasswordClicked"
+              <slot
+                name="forgot-password-section"
+                :onForgotPasswordClicked="onForgotPasswordClicked"
               >
-                <template #buttont>
-                  <slot
-                    name="forgot-password-button"
-                    :onForgotPasswordClicked="onForgotPasswordClicked"
-                  ></slot>
-                </template>
-
-                {{ resetPasswordLink }}
-              </base-button>
+                <base-text> {{ forgotYourPasswordText }}</base-text>
+                <base-button
+                  type="button"
+                  @click.prevent="onForgotPasswordClicked"
+                >
+                  {{ resetPasswordLink }}
+                </base-button>
+              </slot>
             </base-box>
           </base-label>
+          <slot
+            name="additional-fields"
+            :onSignInSubmit="onSignInSubmit"
+            :onCreateAccountClicked="onCreateAccountClicked"
+          ></slot>
         </base-field-Set>
         <base-footer>
           <template #footert="{ slotData }">
@@ -72,7 +66,7 @@
             createAccountLink
           }}</base-button>
           <base-spacer />
-          <base-button :disabled="state.matches('signIn.pending')">
+          <base-button :disabled="state.matches('signIn.submit')">
             <template #buttont>
               <slot
                 name="sign-in-button"
@@ -80,22 +74,25 @@
               ></slot>
             </template>
             {{
-              state.matches("signIn.pending")
+              state.matches("signIn.submit")
                 ? signIngButtonText
                 : signInButtonText
             }}
             <!-- Add prop too? -->
           </base-button>
         </base-footer>
+        <base-box data-ui-error>
+          {{ state.event.data?.message }}
+        </base-box>
       </base-form>
     </base-wrapper>
   </slot>
 </template>
 
 <script lang="ts">
+import { computed } from "vue";
 import {
   SIGN_IN_TEXT,
-  FULL_NAME_TEXT,
   AUTHENTICATOR,
   RESET_PASSWORD_LINK,
   NO_ACCOUNT,
@@ -112,22 +109,40 @@ import BaseWrapper from "./primitives/base-wrapper.vue";
 import BaseForm from "./primitives/base-form.vue";
 import BaseHeading from "./primitives/base-heading.vue";
 import BaseFieldSet from "./primitives/base-field-set.vue";
-import BaseInput from "./primitives/base-input.vue";
 import BaseBox from "./primitives/base-box.vue";
 import BaseButton from "./primitives/base-button.vue";
 import BaseSpacer from "./primitives/base-spacer.vue";
 import BaseText from "./primitives/base-text.vue";
+import SignInAndUpNameControl from "./sign-in-and-up-name-control.vue";
+import SignInPasswordControl from "./sign-in-password-control.vue";
 
 // @xstate
 import { useAuth } from "../composables/useAuth";
 
+// types
+import {
+  SetupEventContext,
+  SignInEventTypeProps,
+  SignInSetupReturnTypes
+} from "../types/index";
+
 import { Ref, ref } from "vue";
+import { useNameAlias } from "../composables/useUtils";
 
 export default {
   name: "Authentication",
+  props: {
+    headless: {
+      default: false,
+      type: Boolean
+    },
+    usernameAlias: {
+      default: "username",
+      type: String
+    }
+  },
   computed: {
     signIntoAccountText: (): string => SIGN_IN_TEXT,
-    fullNameText: (): string => FULL_NAME_TEXT,
     resetPasswordLink: (): string => RESET_PASSWORD_LINK,
     noAccount: (): string => NO_ACCOUNT,
     createAccountLink: (): string => CREATE_ACCOUNT_LINK,
@@ -145,33 +160,27 @@ export default {
     BaseFieldSet,
     BaseLabel,
     BaseText,
-    BaseInput,
     BaseBox,
     BaseButton,
-    BaseSpacer
+    BaseSpacer,
+    SignInAndUpNameControl,
+    SignInPasswordControl
   },
-  props: {
-    headless: {
-      default: false,
-      type: Boolean
-    }
-  },
+
   setup(
-    props: Readonly<
-      {
-        headless: boolean;
-      } & unknown
-    >,
-    {
-      emit,
-      attrs
-    }: { emit: (st, e?) => unknown; attrs: Record<string, unknown> }
-  ): Record<string, unknown> {
+    props: Readonly<SignInEventTypeProps>,
+    { emit, attrs }: SetupEventContext
+  ): SignInSetupReturnTypes {
     // @Xstate Initialization
 
     const username: Ref = ref("");
     const password: Ref = ref("");
     const { state, send } = useAuth();
+
+    // computed
+    const signInUserNameText = computed(() =>
+      useNameAlias(props.usernameAlias)
+    );
 
     // Methods
 
@@ -219,7 +228,8 @@ export default {
       state,
       username,
       password,
-      submit
+      submit,
+      signInUserNameText
     };
   }
 };

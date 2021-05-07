@@ -7,7 +7,7 @@ export default defineComponent({
       type: Object
     }
   },
-  setup(props) {
+  setup(props): () => Record<string, unknown> {
     return () => props.info;
   }
 });
