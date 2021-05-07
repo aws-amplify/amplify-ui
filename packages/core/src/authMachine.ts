@@ -132,7 +132,8 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
             on: {
               SUBMIT: "submit",
               RESEND: "resend",
-              SIGN_IN: "#auth.signIn"
+              SIGN_IN: "#auth.signIn",
+              INPUT: { actions: "handleInput" }
             }
           },
           submit: {
