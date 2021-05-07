@@ -242,12 +242,10 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
       async signUp(context, event) {
         const { username, password, ...attributes } = event.data;
         if (attributes.phone_number) {
-          console.log(attributes.phone_number);
           attributes.phone_number = attributes.phone_number.replace(
             /[^A-Z0-9+]/gi,
             ""
           );
-          console.log(attributes.phone_number);
         }
         const result = await Auth.signUp({
           username,
