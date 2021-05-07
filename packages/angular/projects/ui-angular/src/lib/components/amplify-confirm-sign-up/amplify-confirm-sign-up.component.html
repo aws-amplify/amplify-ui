@@ -6,11 +6,11 @@
 </ng-template>
 
 <ng-template #confirmSignUpForm>
-  <form data-ui-form (submit)="onSubmit($event); $event.preventDefault()">
+  <form data-ui-form (submit)="onSubmit($event)" (input)="onInput($event)">
     <fieldset data-ui-fieldset [attr.disabled]="isLoading() ? '' : null">
       <amplify-input
         name="username"
-        [initialValue]="this.stateMachine.user?.username"
+        [initialValue]="username"
         disabled
       ></amplify-input>
       <amplify-input name="code" type="number"></amplify-input>

@@ -28,6 +28,7 @@ export class AmplifyConfirmSignUpComponent {
   @HostBinding('attr.data-ui-sign-up') dataAttr = '';
   public customComponents: Record<string, TemplateRef<any>> = {};
   private authSubscription: Subscription;
+  public username: string;
   public context = () => ({
     errors: this.contextService.formError
   });
@@ -42,6 +43,9 @@ export class AmplifyConfirmSignUpComponent {
     this.authSubscription = this.stateMachine.authService.subscribe(state =>
       this.onStateUpdate(state)
     );
+    if (this.stateMachine.user?.username) {
+      this.username = this.stateMachine.user?.username;
+    }
   }
 
   ngAfterContentInit(): void {
@@ -97,7 +101,16 @@ export class AmplifyConfirmSignUpComponent {
     });
   }
 
+  onInput($event) {
+    $event.preventDefault();
+    this.send({
+      type: 'INPUT',
+      data: $event
+    });
+  }
+
   async onSubmit($event): Promise<void> {
+    $event.preventDefault();
     this.contextService.formError = {};
     // get form data
     const formValues = this.stateMachine.authState.context.formValues;

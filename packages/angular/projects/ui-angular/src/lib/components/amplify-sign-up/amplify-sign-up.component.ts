@@ -76,6 +76,10 @@ export class AmplifySignUpComponent
     return this.contextService.formError;
   }
 
+  public isLoading(): boolean {
+    return !this.stateMachine.authState.matches('signUp.edit');
+  }
+
   send(event: Event<AuthEvent>): void {
     this.stateMachine.authService.send(event);
   }

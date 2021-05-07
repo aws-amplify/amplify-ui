@@ -74,7 +74,7 @@ export class AmplifySignInComponent
       logger.info('An error was encountered while signing up:', message);
       this.contextService.formError = { cross_field: [message] };
     } else if (state.event.type === 'INPUT') {
-      this.onSignInSubmit.emit(formValues);
+      this.onSignInInput.emit(formValues);
     }
   }
 
