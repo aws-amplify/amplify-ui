@@ -5,7 +5,7 @@ import {
   Output,
   TemplateRef
 } from '@angular/core';
-import { AuthMachineState } from '@aws-amplify/ui-core';
+import { AuthEvent, AuthMachineState } from '@aws-amplify/ui-core';
 import { Logger } from '@aws-amplify/core';
 import { Event, Subscription } from 'xstate';
 import { AuthFormData, FormError } from '../../common';
@@ -43,8 +43,13 @@ export class AmplifyConfirmSignUpComponent {
     this.authSubscription = this.stateMachine.authService.subscribe(state =>
       this.onStateUpdate(state)
     );
-    if (this.stateMachine.user?.username) {
-      this.username = this.stateMachine.user?.username;
+    const username = this.stateMachine.user?.username;
+    if (username) {
+      this.username = username;
+      this.send({
+        type: 'INPUT',
+        data: { name: 'username', value: this.username }
+      });
     }
   }
 
@@ -84,7 +89,7 @@ export class AmplifyConfirmSignUpComponent {
     return this.contextService.formError;
   }
 
-  send(event: Event<any>): void {
+  send(event: Event<AuthEvent>): void {
     this.stateMachine.authService.send(event);
   }
 
@@ -103,9 +108,10 @@ export class AmplifyConfirmSignUpComponent {
 
   onInput($event) {
     $event.preventDefault();
+    const { name, value } = $event.target;
     this.send({
       type: 'INPUT',
-      data: $event
+      data: { name, value }
     });
   }
 

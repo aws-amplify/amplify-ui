@@ -96,9 +96,10 @@ export class AmplifySignInComponent
 
   onInput($event) {
     $event.preventDefault();
+    const { name, value } = $event.target;
     this.send({
       type: 'INPUT',
-      data: $event
+      data: { name, value }
     });
   }
 

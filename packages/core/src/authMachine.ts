@@ -210,9 +210,10 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
       clearError: assign({ error: "" }),
       handleInput: assign({
         formValues(context, event) {
+          const { name, value } = event.data;
           return {
             ...context.formValues,
-            [event.data.target?.name]: event.data.target?.value
+            [name]: value
           };
         }
       })
