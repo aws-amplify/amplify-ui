@@ -2,8 +2,10 @@ import {
   AfterContentInit,
   Component,
   ContentChildren,
+  EventEmitter,
   HostBinding,
   Input,
+  Output,
   QueryList,
   TemplateRef,
   ViewEncapsulation
@@ -25,8 +27,10 @@ import { State } from 'xstate';
 })
 export class AmplifyAuthenticatorComponent implements AfterContentInit {
   @Input() initialAuthState: AuthState = 'signIn';
-  @Input() onSignIn: OnSubmitHook;
-  @Input() onSignUp: OnSubmitHook;
+  @Output() onSignInInput = new EventEmitter<any>();
+  @Output() onSignInSubmit = new EventEmitter<any>();
+  @Output() onSignUpInput = new EventEmitter<any>();
+  @Output() onSignUpSubmit = new EventEmitter<any>();
   @HostBinding('attr.data-ui-authenticator') dataAttr = '';
   @ContentChildren(AmplifyOverrideDirective)
   private customComponentQuery: QueryList<AmplifyOverrideDirective> = null;
@@ -52,10 +56,12 @@ export class AmplifyAuthenticatorComponent implements AfterContentInit {
     this.customComponents = this.contextService.customComponents;
     this.contextService.props = {
       signIn: {
-        onSignIn: this.onSignIn
+        onSignInInput: this.onSignInInput,
+        onSignInSubmit: this.onSignInSubmit
       },
       signUp: {
-        onSignUp: this.onSignUp
+        onSignUpInput: this.onSignUpInput,
+        onSignUpSubmit: this.onSignUpSubmit
       }
     };
   }

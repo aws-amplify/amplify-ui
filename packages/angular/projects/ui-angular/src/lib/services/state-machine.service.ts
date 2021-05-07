@@ -20,11 +20,17 @@ export class StateMachineService {
   private _authService: AuthInterpreter;
   private _user: Record<string, any>; // TODO: strongly type CognitoUser
 
-  public set authState(authState: any) {
+  public get services() {
+    return {
+      submit: formData =>
+        this._authService.send({ type: 'SUBMIT', data: formData })
+    } as const;
+  }
+  public set authState(authState: AuthMachineState) {
     this._authState = authState;
   }
 
-  public get authState(): any {
+  public get authState(): AuthMachineState {
     return this._authState;
   }
 
