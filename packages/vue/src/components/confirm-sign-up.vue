@@ -41,6 +41,9 @@
             confirmText
           }}</base-button>
         </base-footer>
+        <base-box data-ui-error>
+          {{ state.event.data?.message }}
+        </base-box>
       </base-form>
     </base-wrapper>
   </slot>
