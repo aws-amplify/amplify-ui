@@ -18,6 +18,7 @@ import {
 } from '../../services';
 import { CustomComponents, OnSubmitHook } from '../../common';
 import { State } from 'xstate';
+import { AuthFormData } from '@aws-amplify/ui-core';
 
 @Component({
   selector: 'amplify-authenticator',
@@ -27,12 +28,12 @@ import { State } from 'xstate';
 })
 export class AmplifyAuthenticatorComponent implements AfterContentInit {
   // Custom events
-  @Output() onSignInInput = new EventEmitter<any>();
-  @Output() onSignInSubmit = new EventEmitter<any>();
-  @Output() onSignUpInput = new EventEmitter<any>();
-  @Output() onSignUpSubmit = new EventEmitter<any>();
-  @Output() onConfirmSignUpInput = new EventEmitter<any>();
-  @Output() onConfirmSignUpSubmit = new EventEmitter<any>();
+  @Output() onSignInInput = new EventEmitter<AuthFormData>();
+  @Output() onSignInSubmit = new EventEmitter<AuthFormData>();
+  @Output() onSignUpInput = new EventEmitter<AuthFormData>();
+  @Output() onSignUpSubmit = new EventEmitter<AuthFormData>();
+  @Output() onConfirmSignUpInput = new EventEmitter<AuthFormData>();
+  @Output() onConfirmSignUpSubmit = new EventEmitter<AuthFormData>();
 
   @Input() initialAuthState: AuthState = 'signIn';
   @HostBinding('attr.data-ui-authenticator') dataAttr = '';
