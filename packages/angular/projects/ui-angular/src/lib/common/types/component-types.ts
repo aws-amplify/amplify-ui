@@ -1,6 +1,5 @@
-import { TemplateRef } from '@angular/core';
-import { ValidationErrors, ValidatorFn } from '@angular/forms';
-import { AuthAttribute } from './auth-types';
+import { EventEmitter, TemplateRef } from '@angular/core';
+import { AuthFormData } from '@aws-amplify/ui-core';
 
 /**
  * Maps custom components from customer to the name of the component it's overriding.
@@ -11,6 +10,16 @@ export type CustomComponents = Record<string, TemplateRef<any>>;
  * Contains properties to be passed to each auth subcomponents.
  */
 export interface PropContext {
-  signIn?: Record<string, any>; // type this
-  signUp?: Record<string, any>;
+  signIn?: {
+    onSignInInput: EventEmitter<AuthFormData>;
+    onSignInSubmit: EventEmitter<AuthFormData>;
+  };
+  signUp?: {
+    onSignUpInput: EventEmitter<AuthFormData>;
+    onSignUpSubmit: EventEmitter<AuthFormData>;
+  };
+  confirmSignUp?: {
+    onConfirmSignUpInput: EventEmitter<AuthFormData>;
+    onConfirmSignUpSubmit: EventEmitter<AuthFormData>;
+  };
 }

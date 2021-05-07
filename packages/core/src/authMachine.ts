@@ -17,6 +17,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
     initial: "idle",
     context: {
       error: "",
+      formValues: {},
       user: undefined,
       session: undefined
     },
@@ -39,23 +40,34 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
         }
       },
       signIn: {
-        initial: "idle",
+        initial: "edit",
+        exit: ["clearFormValues", "clearError"],
         onDone: "authenticated",
         states: {
-          idle: {
+          edit: {
+            initial: "clean",
+            states: {
+              clean: {},
+              error: {}
+            },
             on: {
-              SIGN_UP: "#auth.signUp",
-              SUBMIT: "pending"
+              SUBMIT: "submit",
+              INPUT: { actions: "handleInput" },
+              SIGN_UP: "#auth.signUp"
             }
           },
-          pending: {
+          submit: {
+            entry: "clearError",
             invoke: {
               src: "signIn",
               onDone: {
                 actions: "setUser",
                 target: "resolved"
               },
-              onError: "rejected"
+              onError: {
+                actions: "setCognitoError",
+                target: "rejected"
+              }
             }
           },
           resolved: {
@@ -63,33 +75,43 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
           },
           rejected: {
             // TODO Set errors and go back to `idle`?
-            always: "idle"
+            always: "edit.error"
           }
         }
       },
       signUp: {
-        initial: "idle",
+        initial: "edit",
+        exit: ["clearFormValues", "clearError"],
         onDone: "confirmSignUp",
         states: {
-          idle: {
+          edit: {
+            initial: "clean",
+            states: {
+              clean: {},
+              error: {}
+            },
             on: {
               SIGN_IN: "#auth.signIn",
-              SUBMIT: "pending"
+              SUBMIT: "submit",
+              INPUT: { actions: "handleInput" }
             }
           },
-          pending: {
+          submit: {
+            entry: "clearError",
             invoke: {
               src: "signUp",
               onDone: {
                 actions: "setUser",
                 target: "resolved"
               },
-              onError: "rejected"
+              onError: {
+                actions: "setCognitoError",
+                target: "rejected"
+              }
             }
           },
-          // TODO Set errors and go back to `idle`?
           rejected: {
-            always: "idle"
+            always: "edit.error"
           },
           resolved: {
             type: "final"
@@ -97,43 +119,53 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
         }
       },
       confirmSignUp: {
-        initial: "idle",
+        initial: "edit",
+        exit: ["clearFormValues", "clearError"],
         onDone: "idle",
         states: {
-          idle: {
+          edit: {
+            initial: "clean",
+            states: {
+              clean: {},
+              error: {}
+            },
             on: {
-              CONFIRM_SIGN_UP: "#auth.confirmSignUp",
-              SUBMIT: "pending",
-              RESEND: "resend"
+              SUBMIT: "submit",
+              RESEND: "resend",
+              SIGN_IN: "#auth.signIn",
+              INPUT: { actions: "handleInput" }
             }
           },
-          pending: {
+          submit: {
             invoke: {
               src: "confirmSignUp",
               onDone: {
                 target: "resolved"
               },
-              onError: "rejected"
+              onError: {
+                actions: "setCognitoError",
+                target: "rejected"
+              }
             }
           },
           resend: {
             invoke: {
               src: "resendConfirmationCode",
               onDone: {
-                target: "idle"
+                target: "edit"
               },
-              onError: "rejected"
+              onError: {
+                actions: "setCognitoError",
+                target: "rejected"
+              }
             }
           },
           rejected: {
-            always: "idle"
+            always: "edit.error"
           },
           resolved: {
             type: "final"
           }
-        },
-        on: {
-          SIGN_IN: "#auth.signIn"
         }
       },
       signOut: {
@@ -165,8 +197,24 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
   {
     actions: {
       setUser: assign({
-        user(context, event) {
+        user(_, event) {
           return event.data?.user || event.data;
+        }
+      }),
+      setCognitoError: assign({
+        error(_, event) {
+          return event.data?.message || event.data;
+        }
+      }),
+      clearFormValues: assign({ formValues: {} }),
+      clearError: assign({ error: "" }),
+      handleInput: assign({
+        formValues(context, event) {
+          const { name, value } = event.data;
+          return {
+            ...context.formValues,
+            [name]: value
+          };
         }
       })
     },
@@ -193,7 +241,17 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
       },
       async signUp(context, event) {
         const { username, password, ...attributes } = event.data;
-        const result = await Auth.signUp({ username, password, attributes });
+        if (attributes.phone_number) {
+          attributes.phone_number = attributes.phone_number.replace(
+            /[^A-Z0-9+]/gi,
+            ""
+          );
+        }
+        const result = await Auth.signUp({
+          username,
+          password,
+          attributes
+        });
 
         // TODO `cond`itionally transition to `signUp.confirm` or `resolved` based on result
         return result;

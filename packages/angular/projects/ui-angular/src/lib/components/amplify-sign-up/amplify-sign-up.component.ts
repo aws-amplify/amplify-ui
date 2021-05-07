@@ -2,6 +2,7 @@ import { Logger } from 'aws-amplify';
 import {
   AfterContentInit,
   Component,
+  EventEmitter,
   HostBinding,
   Input,
   OnDestroy,
@@ -14,7 +15,7 @@ import {
   StateMachineService
 } from '../../services';
 import { Subscription, Event } from 'xstate';
-import { AuthMachineState } from '@aws-amplify/ui-core';
+import { AuthEvent, AuthMachineState } from '@aws-amplify/ui-core';
 
 const logger = new Logger('SignUp');
 @Component({
@@ -23,13 +24,14 @@ const logger = new Logger('SignUp');
 })
 export class AmplifySignUpComponent
   implements AfterContentInit, OnInit, OnDestroy {
-  @Input() headerText = 'Create a new account';
-  @Input() onSignUp: OnSubmitHook;
-  @HostBinding('attr.data-ui-sign-up') dataAttr = '';
+  // Custom events
+  public onSignUpInput = new EventEmitter<any>();
+  public onSignUpSubmit = new EventEmitter<any>();
 
+  @HostBinding('attr.data-ui-sign-up') dataAttr = '';
+  @Input() headerText = 'Create a new account';
   private authSubscription: Subscription;
   public customComponents: Record<string, TemplateRef<any>>;
-  public loading = false;
   public context = () => ({
     errors: this.contextService.formError
   });
@@ -48,7 +50,11 @@ export class AmplifySignUpComponent
   ngAfterContentInit(): void {
     this.contextService.formError = {};
     this.customComponents = this.contextService.customComponents;
-    this.onSignUp = this.contextService.props.signUp.onSignUp;
+    const props = this.contextService.props?.signUp;
+    if (props) {
+      this.onSignUpInput = props.onSignUpInput;
+      this.onSignUpSubmit = props.onSignUpSubmit;
+    }
   }
 
   ngOnDestroy(): void {
@@ -56,46 +62,51 @@ export class AmplifySignUpComponent
   }
 
   private onStateUpdate(state: AuthMachineState): void {
-    if (state.event.type.includes('error.platform.signUp')) {
+    const formValues = state.context.formValues;
+    if (state.matches('signUp.edit.error')) {
       const message = state.event.data?.message;
       logger.info('An error was encountered while signing up:', message);
       this.contextService.formError = { cross_field: [message] };
+    } else if (state.event.type === 'INPUT') {
+      this.onSignUpInput.emit(formValues);
     }
-    this.loading = false;
   }
 
   get formError(): FormError {
     return this.contextService.formError;
   }
 
-  send(event: Event<any>): void {
+  public isLoading(): boolean {
+    return !this.stateMachine.authState.matches('signUp.edit');
+  }
+
+  send(event: Event<AuthEvent>): void {
     this.stateMachine.authService.send(event);
   }
 
   async onSubmit($event): Promise<void> {
     this.contextService.formError = {};
     $event.preventDefault();
-    const formData = new FormData($event.target);
-    const formValues = Object.fromEntries(formData.entries()) as AuthFormData;
+    const formValues = this.stateMachine.authState.context.formValues;
     logger.log('Sign up form submitted with', formValues);
 
-    if (!this.onSignUp) this.onSignUp = () => ({}); // no-op
-    const { data, error } = this.onSignUp({ ...formValues });
-    if (error && Object.keys(error).length > 0) {
-      this.contextService.formError = error;
-      return;
+    if (this.onSignUpSubmit.observers.length > 0) {
+      this.onSignUpSubmit.emit(formValues);
+    } else {
+      this.send({
+        type: 'SUBMIT',
+        data: formValues
+      });
     }
-    const param = data && Object.keys(data).length > 0 ? data : formValues;
-
-    this.loading = true;
-    this.send({
-      type: 'SUBMIT',
-      data: param
-    });
   }
 
-  onChange(): void {
-    console.log('form changed');
+  onInput($event): void {
+    $event.preventDefault();
+    const { name, value } = $event.target;
+    this.send({
+      type: 'INPUT',
+      data: { name, value }
+    });
   }
 
   toSignIn(): void {

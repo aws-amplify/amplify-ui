@@ -28,14 +28,14 @@ export const docRoutes: DocRoutes = [
     name: 'Inserting Custom Components',
     component: CustomComponentAuthenticatorComponent
   },
-  {
-    path: 'on-submit-hook',
-    name: 'OnSubmit Hook',
-    component: OnSubmitAuthenticatorComponent
-  },
+  // {
+  //   path: 'on-submit-hook',
+  //   name: 'OnSubmit Hook',
+  //   component: OnSubmitAuthenticatorComponent
+  // },
   {
     path: 'custom-form',
-    name: 'Customizing Form Field',
+    name: 'Custom Form Validation',
     component: CustomFormAuthenticatorComponent
   }
   // {

@@ -2,38 +2,41 @@ import { Logger } from '@aws-amplify/core';
 import {
   AfterContentInit,
   Component,
+  EventEmitter,
   HostBinding,
   Input,
   OnDestroy,
   OnInit,
+  Output,
   TemplateRef,
-  ViewEncapsulation,
+  ViewEncapsulation
 } from '@angular/core';
 import {
   AuthenticatorContextService,
-  StateMachineService,
+  StateMachineService
 } from '../../services';
 import { AuthFormData, FormError, OnSubmitHook } from '../../common';
 import { Event, Subscription } from 'xstate';
-import { AuthMachineState } from '@aws-amplify/ui-core';
+import { AuthEvent, AuthMachineState } from '@aws-amplify/ui-core';
 
 const logger = new Logger('SignIn');
 
 @Component({
   selector: 'amplify-sign-in',
   templateUrl: './amplify-sign-in.component.html',
-  encapsulation: ViewEncapsulation.None,
+  encapsulation: ViewEncapsulation.None
 })
 export class AmplifySignInComponent
   implements AfterContentInit, OnInit, OnDestroy {
+  // Custom events
+  @Output() onSignInInput = new EventEmitter<AuthFormData>();
+  @Output() onSignInSubmit = new EventEmitter<AuthFormData>();
   @HostBinding('attr.data-ui-sign-in') dataAttr = '';
   @Input() public headerText = 'Sign in to your account';
-  @Input() onSignIn: OnSubmitHook;
-  public loading = false;
   public customComponents: Record<string, TemplateRef<any>> = {};
   private authSubscription: Subscription;
   public context = () => ({
-    errors: this.contextService.formError,
+    errors: this.contextService.formError
   });
 
   constructor(
@@ -42,7 +45,7 @@ export class AmplifySignInComponent
   ) {}
 
   ngOnInit(): void {
-    this.authSubscription = this.stateMachine.authService.subscribe((state) =>
+    this.authSubscription = this.stateMachine.authService.subscribe(state =>
       this.onStateUpdate(state)
     );
   }
@@ -53,7 +56,10 @@ export class AmplifySignInComponent
 
     // attach sign in hooks
     const props = this.contextService.props.signIn;
-    this.onSignIn = props.onSignIn;
+    if (props) {
+      this.onSignInInput = props.onSignInInput;
+      this.onSignInSubmit = props.onSignInSubmit;
+    }
   }
 
   ngOnDestroy(): void {
@@ -62,11 +68,13 @@ export class AmplifySignInComponent
   }
 
   onStateUpdate(state: AuthMachineState): void {
-    if (state.event.type.includes('error.platform.signIn')) {
+    const formValues = state.context.formValues;
+    if (state.event.type.includes('signIn.edit.error')) {
       const message = state.event.data?.message;
       logger.info('An error was encountered while signing up:', message);
       this.contextService.formError = { cross_field: [message] };
-      this.loading = false;
+    } else if (state.event.type === 'INPUT') {
+      this.onSignInInput.emit(formValues);
     }
   }
 
@@ -74,36 +82,41 @@ export class AmplifySignInComponent
     return this.contextService.formError;
   }
 
-  toSignUp(): void {
-    this.stateMachine.authService.send('SIGN_UP');
+  public isLoading(): boolean {
+    return !this.stateMachine.authState.matches('signIn.edit');
   }
 
-  send(event: Event<any>): void {
+  toSignUp(): void {
+    this.send('SIGN_UP');
+  }
+
+  send(event: Event<AuthEvent>): void {
     this.stateMachine.authService.send(event);
   }
 
+  onInput($event) {
+    $event.preventDefault();
+    const { name, value } = $event.target;
+    this.send({
+      type: 'INPUT',
+      data: { name, value }
+    });
+  }
+
   async onSubmit($event): Promise<void> {
+    $event.preventDefault();
     this.contextService.formError = {};
 
-    // get form data
-    const formData = new FormData($event.target);
-    const formValues = Object.fromEntries(formData.entries()) as AuthFormData;
+    const formValues = this.stateMachine.authState.context.formValues;
     logger.log('Sign in form submitted with', formValues);
 
-    if (!this.onSignIn) this.onSignIn = () => ({});
-    const { data, error } = this.onSignIn({ ...formValues });
-
-    if (error && Object.keys(error).length > 0) {
-      this.contextService.formError = error;
-      return;
+    if (this.onSignInSubmit.observers.length > 0) {
+      this.onSignInSubmit.emit(formValues);
+    } else {
+      this.send({
+        type: 'SUBMIT',
+        data: formValues
+      });
     }
-    const param = data && Object.keys(data).length > 0 ? data : formValues;
-
-    this.loading = true; // disable inputs
-
-    this.send({
-      type: 'SUBMIT',
-      data: param,
-    });
   }
 }
