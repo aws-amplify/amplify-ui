@@ -13,5 +13,8 @@
     "vue-docs",
     "angular-docs",
     "packages/*"
-  ]
+  ],
+  "resolutions": {
+    "@mdx-js/mdx/**/trim": "^0.0.3"
+  }
 }
