@@ -5,15 +5,15 @@
 
   <example-wrapper :code="defaultExample">
     <authenticator>
-      <h1 class="text-6xl mb-10">
-        Welcome {{ state?.context?.user?.username }}!
-      </h1>
-      <button
-        className="px-2 bg-white rounded shadow"
-        @click="send('SIGN_OUT')"
-      >
-        Sign Out
-      </button>
+      <template v-slot="{ user }">
+        <h1 class="text-6xl mb-10">Welcome {{ user.username }}!</h1>
+        <button
+          className="px-2 bg-white rounded shadow"
+          @click="send('SIGN_OUT')"
+        >
+          Sign Out
+        </button>
+      </template>
     </authenticator>
   </example-wrapper>
 

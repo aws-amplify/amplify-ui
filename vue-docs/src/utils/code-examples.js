@@ -1,9 +1,20 @@
 const defaultExample = `
-    <authenticator> </authenticator>
-
+    <authenticator>
+      <template v-slot="{ user }">
+        <h1 class="text-6xl mb-10">Welcome {{ user.username }}!</h1>
+        <button
+          className="px-2 bg-white rounded shadow"
+          @click="send('SIGN_OUT')"
+        >
+          Sign Out
+        </button>
+      </template>
+    </authenticator>
 
   <script setup>
   import { Authenticator } from "@aws-amplify/spark-vue";
+  import useAuth from "@aws-amplify/ui-vue";
+  const {  send } = useAuth();
 
   import "@aws-amplify/ui-vue/styles.css";
   <\/script>

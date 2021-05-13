@@ -66,6 +66,7 @@ export interface SignUpPhoneControlTypes {
 export interface AuthenticatorSetupReturnTypes {
   currentPage: Ref<string>;
   state: Ref<any>;
+  send: PayloadSender<EventObject>;
   onSignInSubmitI: (e: any) => void;
   onSignUpSubmitI: (e: any) => void;
   onConfirmSignUpSubmitI: (e: any) => void;

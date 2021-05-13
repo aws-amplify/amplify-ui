@@ -132,7 +132,10 @@
     </confirm-sign-up>
   </div>
 
-  <slot v-if="state?.matches('authenticated')"></slot>
+  <slot
+    v-if="state?.matches('authenticated')"
+    :user="state?.context?.user"
+  ></slot>
 </template>
 
 <script lang="ts">
@@ -171,7 +174,7 @@ export default {
     signUpComponent: typeof SignUp;
     confirmSignUpComponent: typeof ConfirmSignUp;
   } {
-    const { state } = useAuth();
+    const { state, send } = useAuth();
     const signInComponent = ref(null);
     const signUpComponent = ref(null);
     const confirmSignUpComponent = ref(null);
@@ -211,7 +214,8 @@ export default {
       signUpComponent,
       onSignUpSubmitI,
       confirmSignUpComponent,
-      onConfirmSignUpSubmitI
+      onConfirmSignUpSubmitI,
+      send
     };
   }
 };
