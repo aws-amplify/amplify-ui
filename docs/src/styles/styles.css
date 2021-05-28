@@ -1,0 +1,16 @@
+@import "prism-theme-night-owl";
+@import "tailwindcss/tailwind.css";
+
+.mdx-marker {
+  @apply pl-5 -ml-4 -mr-4 bg-gray-700 border-l-4 border-amazon;
+}
+
+pre.language-shell code.language-shell::before {
+  content: "$";
+  @apply mr-2 -ml-2 text-gray-500;
+}
+
+code.language-shell,
+.mdx-marker {
+  @apply select-all;
+}

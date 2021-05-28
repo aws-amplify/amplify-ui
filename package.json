@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "dev": "cd docs && yarn dev",
+    "dev": "yarn workspace docs dev",
     "dev:vue": "cd vue-docs && yarn serve --port 3001 --host localhost",
     "dev:angular": "cd angular-docs && yarn start",
     "build:angular": "cd packages/angular && yarn build",
