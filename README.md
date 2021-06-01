@@ -32,8 +32,8 @@ The latest documentation is found here:
 
 #### React Development
 
-3. `yarn dev`
-4. Visit <http://localhost:3000/>
+1. `yarn dev`
+1. Visit <http://localhost:3000/>
 
 #### Vue Development
 
