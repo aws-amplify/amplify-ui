@@ -432,6 +432,46 @@ export function Layout({ children, title }) {
               </li>
               <li>
                 <a
+                  href="#customizing"
+                  className="block py-2 transition-colors duration-200 transform hover:text-gray-900"
+                >
+                  Features
+                </a>
+              </li>
+              <li className="ml-4">
+                <a
+                  href="#variants"
+                  className="block py-2 transition-colors duration-200 hover:text-gray-900"
+                >
+                  Sign Up
+                </a>
+              </li>
+              <li className="ml-4">
+                <a
+                  href="#disabling"
+                  className="block py-2 transition-colors duration-200 hover:text-gray-900"
+                >
+                  Sign In
+                </a>
+              </li>
+              <li className="ml-4">
+                <a
+                  href="#disabling"
+                  className="block py-2 transition-colors duration-200 hover:text-gray-900"
+                >
+                  Social Sign In
+                </a>
+              </li>
+              <li className="ml-4">
+                <a
+                  href="#disabling"
+                  className="block py-2 transition-colors duration-200 hover:text-gray-900"
+                >
+                  Forgot Password
+                </a>
+              </li>
+              <li>
+                <a
                   href="#responsive"
                   className="block py-2 transition-colors duration-200 transform hover:text-gray-900"
                 >
