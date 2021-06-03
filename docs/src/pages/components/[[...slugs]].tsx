@@ -29,20 +29,23 @@ export default function Content({ frontmatter, mdxSource }) {
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
     // TODO Get all content for static export
-    paths: ["/"],
+    paths: ["/components/authenticator"],
     // https://nextjs.org/docs/basic-features/data-fetching#fallback-blocking for development
     fallback: "blocking",
   };
 };
 
 // https://nextjs.org/docs/basic-features/data-fetching
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const { slug = [] } = params;
+export const getStaticProps: GetStaticProps = async context => {
+  const { locale, params } = context;
+  const { slugs = [] } = params;
+  const slug = [].concat(slugs).join(path.sep);
   const contentPath = path.join(
     process.cwd(),
     "src",
     "content",
-    [].concat(slug).join(path.delimiter),
+    "components",
+    slug,
     "index.mdx"
   );
 
@@ -70,7 +73,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     props: {
       frontmatter: {
         ...data,
-        slug: [].concat(slug).join(path.delimiter),
+        slug,
       },
       mdxSource,
     },
