@@ -1,26 +1,34 @@
-## 🚧 The next major release of Amplify UI is still a work-in-progress 🚧
+<p align="center">
+  <a href="https://console.amplify.aws">
+    <img alt="Amplify" src="https://github.com/aws-amplify/community/blob/master/src/assets/images/logo-dark.png" width="60" />
+  </a>
+</p>
+<h1 align="center">
+  Amplify Admin UI Issue Tracker
+</h1>
 
-<img src="https://s3.amazonaws.com/aws-mobile-hub-images/aws-amplify-logo.png" alt="AWS Amplify" width="550">
+[![DiscordChat](https://img.shields.io/discord/308323056592486420?logo=discord")](https://discord.gg/jWVbPfC)
 
-> **Amplify UI** – Cloud-connected UI components for Android, iOS, React Native & Web
+Amplify UI Components is an open-source UI toolkit that encapsulates cloud-connected workflows inside of cross-framework UI components.
 
-[![Discord](https://img.shields.io/discord/308323056592486420?logo=discord)](https://discord.gg/jWVbPfC)
-[![GitHub](https://img.shields.io/github/license/aws-amplify/amplify-ui)](LICENSE)
 
-<!-- Enable this once we have issues opened up
-[![Open Bugs](https://img.shields.io/github/issues/aws-amplify/amplify-ui/bug?color=d73a4a&label=bugs)](https://github.com/aws-amplify/amplify-cli/issues?q=is%3Aissue+is%3Aopen+label%3Abug)
-[![Feature Requests](https://img.shields.io/github/issues/aws-amplify/amplify-ui/feature-request?color=ff9001&label=feature%20requests)](https://github.com/aws-amplify/amplify-cli/issues?q=is%3Aissue+label%3Afeature-request+is%3Aopen)
-[![Enhancements](https://img.shields.io/github/issues/aws-amplify/amplify-ui/enhancement?color=4287f5&label=enhancement)](https://github.com/aws-amplify/amplify-cli/issues?q=is%3Aissue+is%3Aopen+label%3Aenhancement)
-[![Closed Issues](https://img.shields.io/github/issues-closed/aws-amplify/amplify-ui?color=%2325CC00&label=issues%20closed)](https://github.com/aws-amplify/amplify-cli/issues?q=is%3Aissue+is%3Aclosed+)
+### Report a bug 🐛or feature request 💡[here](https://github.com/aws-amplify/amplify-ui/issues/new/)
 
--->
+### Bookmarks
 
----
+- [Official documentation](https://docs.amplify.aws/ui/)
 
-## Documentation
+### Other Amplify projects
 
-The latest documentation is found here:
-> https://docs.amplify.aws/ui
+Looking for one of our other projects?
+
+- [Amplify Console](https://github.com/aws-amplify/amplify-console/issues)
+- [Amplify JS](https://github.com/aws-amplify/amplify-js/issues)
+- [Amplify iOS](https://github.com/aws-amplify/amplify-ios/issues)
+- [Amplify Android](https://github.com/aws-amplify/amplify-android/issues)
+- [Amplify CLI](https://github.com/aws-amplify/amplify-cli/issues)
+- [Amplify Community](https://amplify.aws/community)
+
 
 ## Contributing
 
