@@ -2,7 +2,6 @@ import { Authenticator } from "@aws-amplify/ui-react";
 import { MDXProvider } from "@mdx-js/react";
 import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
 import {
-  BellIcon,
   CalendarIcon,
   HomeIcon,
   InboxIcon,
@@ -33,7 +32,13 @@ const navigation = [
   //   current: true,
   //   children: [{ name: "Authenticator", href: "#" }],
   // },
-  { name: "Changelog", href: "#", icon: InboxIcon, current: false },
+  {
+    name: "Changelog",
+    href: "#",
+    icon: InboxIcon,
+    current: false,
+    children: [],
+  },
   { name: "Roadmap", href: "#", icon: CalendarIcon, current: false },
   // { name: "Projects", href: "#", icon: FolderIcon, current: false },
   // { name: "Reports", href: "#", icon: ChartBarIcon, current: false },
@@ -188,7 +193,7 @@ export function Layout({ children, title }) {
 
                 <div className="space-y-1">
                   {navigation.map(item =>
-                    !item.children ? (
+                    !item.children?.length ? (
                       <div key={item.name}>
                         <a
                           href={item.href}
