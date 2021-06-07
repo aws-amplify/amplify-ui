@@ -9,7 +9,7 @@ export const customComponents = {
       />
     );
   },
-  "Authenticator.SignIn.Button": (props) => {
+  "Authenticator.SignIn.Button": props => {
     return props.type === "submit" ? (
       <button
         className="px-4 py-2 font-bold text-white bg-purple-500 border-b-4 border-purple-700 rounded-md shadow hover:bg-purple-600"
@@ -21,15 +21,15 @@ export const customComponents = {
       <button {...props} />
     );
   },
-  "Authenticator.SignIn.PasswordControl": ({ label }) => {
+  "Authenticator.SignUp.PasswordControl": ({ label }) => {
     return (
       <>
-        <Authenticator.SignIn.PasswordControl label={label} />
+        <Authenticator.SignUp.PasswordControl label={label} />
         <div className="flex items-center">
           <input className="mr-2" type="checkbox" /> Always remember this
           computer
         </div>
       </>
     );
-  },
+  }
 };

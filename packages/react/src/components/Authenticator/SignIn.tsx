@@ -24,7 +24,7 @@ export function SignIn() {
     <Form
       data-amplify-authenticator-signin=""
       method="post"
-      onSubmit={(event) => {
+      onSubmit={event => {
         event.preventDefault();
 
         const formData = new FormData(event.target);
@@ -56,7 +56,7 @@ export function SignIn() {
 
       <Footer>
         <Text>No account?</Text>{" "}
-        <Button onClick={() => send("SIGN_UP")} type="button">
+        <Button onClick={() => send({ type: "SIGN_UP" })} type="button">
           Create account
         </Button>
         <Spacer />

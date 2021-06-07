@@ -10,11 +10,11 @@ import "tailwindcss/tailwind.css";
 
 import "@aws-amplify/ui-react/styles.css";
 
-
 Amplify.configure({});
 const components = {
   code({ children, className = "template-jsx", sandbox, template = "react" }) {
     if (sandbox) {
+      // @ts-ignore
       return <Sandpack files={{ "/App.js": children }} template={template} />;
     }
 
@@ -22,6 +22,7 @@ const components = {
       <Highlight
         {...defaultProps}
         code={children.trim()}
+        // @ts-ignore
         language={className.split("-").pop()}
         theme={theme}
       >
