@@ -7,7 +7,7 @@ import { MDXRemote } from "next-mdx-remote";
 import { serialize } from "next-mdx-remote/serialize";
 import path from "path";
 
-import { customComponents } from "./customComponents";
+import { customComponents } from "../../components/customComponents";
 
 import { Layout } from "components/Layout";
 
