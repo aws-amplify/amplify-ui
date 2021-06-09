@@ -15,6 +15,7 @@
     "packages/*"
   ],
   "resolutions": {
-    "@mdx-js/mdx/**/trim": "^0.0.3"
+    "@mdx-js/mdx/**/trim": "^0.0.3",
+    "ws": "^7.4.6"
   }
 }
