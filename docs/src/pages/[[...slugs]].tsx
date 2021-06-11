@@ -1,15 +1,13 @@
-import { Authenticator, theme } from "@aws-amplify/ui-react";
+import { customComponents } from "@/components/customComponents";
+import { Layout } from "@/components/Layout";
+import { theme } from "@aws-amplify/ui-react";
 import { readFile } from "fs/promises";
 import matter from "gray-matter";
 import mdxPrism from "mdx-prism";
-import { GetStaticProps, GetStaticPaths, GetServerSideProps } from "next";
+import { GetStaticPaths, GetStaticProps } from "next";
 import { MDXRemote } from "next-mdx-remote";
 import { serialize } from "next-mdx-remote/serialize";
 import path from "path";
-
-import { customComponents } from "components/customComponents";
-
-import { Layout } from "components/Layout";
 
 export default function Content({ frontmatter, mdxSource }) {
   return (

@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": "src",
+    "baseUrl": ".",
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "paths": {
@@ -11,7 +11,9 @@
       "@aws-sdk/node-http-handler": [
         "./node_modules/@aws-sdk/node-http-handler/dist/es",
         "./node_modules/@aws-sdk/node-http-handler"
-      ]
+      ],
+      "@/components/*": ["src/components/*"],
+      "@/content/*": ["src/content/*"]
     },
     "allowJs": true,
     "skipLibCheck": true,
