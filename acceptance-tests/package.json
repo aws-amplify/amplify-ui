@@ -1,0 +1,21 @@
+{
+  "name": "cypress",
+  "version": "0.0.1",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "cypress:open": "TZ=UTC cypress open",
+    "cypress:run": "TZ=UTC cypress run"
+  },
+  "cypress-cucumber-preprocessor": {
+    "nonGlobalStepDefinitions": true,
+    "stepDefinitions": "cypress/tests"
+  },
+  "devDependencies": {
+    "@testing-library/cypress": "^7.0.6",
+    "@types/cypress-cucumber-preprocessor": "^4.0.0",
+    "cypress": "^7.5.0",
+    "cypress-cucumber-preprocessor": "^4.1.2",
+    "typescript": "^4.3.2"
+  }
+}
