@@ -45,29 +45,6 @@ const navigation = [
   // { name: "Reports", href: "#", icon: ChartBarIcon, current: false },
   { name: "Team", href: "#", icon: UsersIcon, current: false },
 ];
-const secondaryNavigation = [
-  {
-    name: "Connected Components",
-    children: [
-      { name: "Authenticator", href: "#", current: true },
-      { name: "Collection", href: "#" },
-      { name: "Image Uploader", href: "#" },
-    ],
-  },
-  {
-    name: "Primitives",
-    children: [
-      { name: "Badge" },
-      { name: "Box" },
-      { name: "Button" },
-      { name: "Card" },
-      { name: "Checkbox" },
-      { name: "Input" },
-      { name: "Modal" },
-      { name: "Select" },
-    ],
-  },
-];
 
 const userNavigation = [
   { name: "Your Profile", href: "#" },
@@ -79,11 +56,11 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export function Layout({ children, title }) {
+export function Layout({ children, componentPages, primitivePages, title }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="flex h-screen overflow-hidden bg-gray-100 font-amazon">
+    <div className="flex h-screen overflow-hidden bg-gray-100">
       <Transition.Root show={sidebarOpen} as={Fragment}>
         <Dialog
           as="div"
@@ -179,7 +156,10 @@ export function Layout({ children, title }) {
         <div className="flex flex-col w-64">
           {/* Sidebar component, swap this element with another sidebar if you like */}
           <div className="flex flex-col flex-1 h-0">
-            <div className="flex items-center flex-shrink-0 h-16 px-4 bg-gray-900">
+            <a
+              href="/"
+              className="flex items-center flex-shrink-0 h-16 px-4 bg-gray-900"
+            >
               <img
                 className="block w-auto h-8 pr-3"
                 src="https://docs.amplify.aws/assets/logo-dark.svg"
@@ -187,7 +167,7 @@ export function Layout({ children, title }) {
               />
 
               <h1 className="text-lg text-white">Amplify UI</h1>
-            </div>
+            </a>
             <div className="flex flex-col flex-1 overflow-y-auto">
               <nav className="flex-1 px-2 py-4 space-y-8 bg-gray-800">
                 <DropDown />
@@ -272,38 +252,72 @@ export function Layout({ children, title }) {
                     )
                   )}
                 </div>
-                {secondaryNavigation.map(item => (
-                  <div className="space-y-1">
-                    <>
-                      <h3
-                        className="px-3 text-xs font-semibold tracking-wider text-gray-400 uppercase"
-                        key={item.name}
-                      >
-                        {item.name}
-                      </h3>
-                      <div
-                        className="space-y-1"
-                        role="group"
-                        aria-labelledby="projects-headline"
-                      >
-                        {item.children.map(child => (
-                          <a
-                            key={child.name}
-                            href={child.href}
-                            className={classNames(
-                              child.current
-                                ? "bg-gray-900 text-white"
-                                : "text-gray-300 hover:text-white hover:bg-gray-700",
-                              "flex items-center px-3 py-2 text-sm font-medium  rounded-md group"
-                            )}
-                          >
-                            <span className="truncate">{child.name}</span>
-                          </a>
-                        ))}
-                      </div>
-                    </>
-                  </div>
-                ))}
+
+                <div className="space-y-1">
+                  <>
+                    <h3
+                      className="px-3 text-xs font-semibold tracking-wider text-gray-400 uppercase"
+                      key="Connected Components"
+                    >
+                      Connected Components
+                    </h3>
+                    <div
+                      className="space-y-1"
+                      role="group"
+                      aria-labelledby="projects-headline"
+                    >
+                      {componentPages.map(page => (
+                        <a
+                          key={page.frontmatter.title}
+                          href={page.href}
+                          className={classNames(
+                            page.current
+                              ? "bg-gray-900 text-white"
+                              : "text-gray-300 hover:text-white hover:bg-gray-700",
+                            "flex items-center px-3 py-2 text-sm font-medium  rounded-md group"
+                          )}
+                        >
+                          <span className="truncate">
+                            {page.frontmatter.title}
+                          </span>
+                        </a>
+                      ))}
+                    </div>
+                  </>
+                </div>
+
+                <div className="space-y-1">
+                  <>
+                    <h3
+                      className="px-3 text-xs font-semibold tracking-wider text-gray-400 uppercase"
+                      key="Primitives"
+                    >
+                      Primitives
+                    </h3>
+                    <div
+                      className="space-y-1"
+                      role="group"
+                      aria-labelledby="projects-headline"
+                    >
+                      {primitivePages.map(page => (
+                        <a
+                          key={page.frontmatter.title}
+                          href={page.href}
+                          className={classNames(
+                            page.current
+                              ? "bg-gray-900 text-white"
+                              : "text-gray-300 hover:text-white hover:bg-gray-700",
+                            "flex items-center px-3 py-2 text-sm font-medium  rounded-md group"
+                          )}
+                        >
+                          <span className="truncate">
+                            {page.frontmatter.title}
+                          </span>
+                        </a>
+                      ))}
+                    </div>
+                  </>
+                </div>
               </nav>
             </div>
           </div>
@@ -414,6 +428,7 @@ export function Layout({ children, title }) {
             </div>
           </div>
 
+          {/* TODO Replace with dynamic nav via Remark using on-page content headers */}
           <div className="sticky top-0 right-0 hidden w-64 py-8 pl-8 border-l md:block">
             <h5 className="mb-3 text-sm font-semibold tracking-wide text-gray-900 uppercase lg:text-xs">
               On this page

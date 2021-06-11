@@ -1,11 +1,14 @@
-import { serialize } from "next-mdx-remote/serialize";
-
-import path from "path";
 import { readFile } from "fs/promises";
 import matter from "gray-matter";
-import mdxPrism from "mdx-prism";
+import path from "path";
 
 export async function getPageFromSlug(slug) {
+  if (slug.startsWith("/")) {
+    slug = slug.slice(1);
+  }
+
+  const href = `/${slug}`;
+
   const contentPath = path.join(
     process.cwd(),
     "src",
@@ -21,23 +24,5 @@ export async function getPageFromSlug(slug) {
     slug,
   };
 
-  const mdxSource = await serialize(content, {
-    mdxOptions: {
-      remarkPlugins: [
-        require("remark-slug"),
-        [
-          require("remark-autolink-headings"),
-          {
-            linkProperties: {
-              className: ["anchor"],
-            },
-          },
-        ],
-        require("remark-code-titles"),
-      ],
-      rehypePlugins: [mdxPrism],
-    },
-  });
-
-  return { content, frontmatter, mdxSource };
+  return { content, frontmatter, href, slug };
 }
