@@ -29,7 +29,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     // TODO Get all content for static export
     paths: ["/"],
     // https://nextjs.org/docs/basic-features/data-fetching#fallback-blocking for development
-    fallback: "blocking",
+    fallback: false,
   };
 };
 
