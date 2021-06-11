@@ -7,7 +7,7 @@ import { MDXRemote } from "next-mdx-remote";
 import { serialize } from "next-mdx-remote/serialize";
 import path from "path";
 
-import { customComponents } from "../../components/customComponents";
+import { customComponents } from "components/customComponents";
 
 import { Layout } from "components/Layout";
 
@@ -29,22 +29,21 @@ export default function Content({ frontmatter, mdxSource }) {
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
     // TODO Get all content for static export
-    paths: ["/components/authenticator"],
+    paths: ["/"],
     // https://nextjs.org/docs/basic-features/data-fetching#fallback-blocking for development
     fallback: "blocking",
   };
 };
 
 // https://nextjs.org/docs/basic-features/data-fetching
-export const getStaticProps: GetStaticProps = async context => {
-  const { locale, params } = context;
+export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { slugs = [] } = params;
   const slug = [].concat(slugs).join(path.sep);
+
   const contentPath = path.join(
     process.cwd(),
     "src",
     "content",
-    "components",
     slug,
     "index.mdx"
   );

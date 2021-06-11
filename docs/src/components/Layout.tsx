@@ -2,6 +2,7 @@ import { Authenticator } from "@aws-amplify/ui-react";
 import { MDXProvider } from "@mdx-js/react";
 import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
 import {
+  BellIcon,
   CalendarIcon,
   HomeIcon,
   InboxIcon,
