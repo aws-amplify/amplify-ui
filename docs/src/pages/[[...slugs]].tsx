@@ -1,13 +1,10 @@
 import { customComponents } from "@/components/customComponents";
 import { Layout } from "@/components/Layout";
+import { getContentPaths } from "@/utils/getContentPaths";
+import { getPageFromSlug } from "@/utils/getPageFromSlug";
 import { theme } from "@aws-amplify/ui-react";
-import { readFile } from "fs/promises";
-import matter from "gray-matter";
-import mdxPrism from "mdx-prism";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { MDXRemote } from "next-mdx-remote";
-import { serialize } from "next-mdx-remote/serialize";
-import path from "path";
 
 export default function Content({ frontmatter, mdxSource }) {
   return (
@@ -25,9 +22,10 @@ export default function Content({ frontmatter, mdxSource }) {
 
 // https://nextjs.org/docs/messages/invalid-getstaticpaths-value
 export const getStaticPaths: GetStaticPaths = async () => {
+  const paths = await getContentPaths();
+
   return {
-    // TODO Get all content for static export
-    paths: ["/"],
+    paths,
     // https://nextjs.org/docs/basic-features/data-fetching#fallback-blocking for development
     fallback: false,
   };
@@ -36,42 +34,13 @@ export const getStaticPaths: GetStaticPaths = async () => {
 // https://nextjs.org/docs/basic-features/data-fetching
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { slugs = [] } = params;
-  const slug = [].concat(slugs).join(path.sep);
+  const slug = [].concat(slugs).join("/");
 
-  const contentPath = path.join(
-    process.cwd(),
-    "src",
-    "content",
-    slug,
-    "index.mdx"
-  );
-
-  const source = await readFile(contentPath, "utf8");
-  const { data, content } = matter(source);
-  const mdxSource = await serialize(content, {
-    mdxOptions: {
-      remarkPlugins: [
-        require("remark-slug"),
-        [
-          require("remark-autolink-headings"),
-          {
-            linkProperties: {
-              className: ["anchor"],
-            },
-          },
-        ],
-        require("remark-code-titles"),
-      ],
-      rehypePlugins: [mdxPrism],
-    },
-  });
+  const { frontmatter, mdxSource } = await getPageFromSlug(slug);
 
   return {
     props: {
-      frontmatter: {
-        ...data,
-        slug,
-      },
+      frontmatter,
       mdxSource,
     },
   };
