@@ -4,11 +4,13 @@ applications:
       phases:
         preBuild:
           commands:
+            - nvm install
             - nvm use
             - node -v
             - yarn install
         build:
           commands:
+            - nvm install
             - nvm use
             - node -v
             - yarn build
