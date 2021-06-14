@@ -4,9 +4,13 @@ applications:
       phases:
         preBuild:
           commands:
+            - nvm use
+            - node -v
             - yarn install
         build:
           commands:
+            - nvm use
+            - node -v
             - yarn build
       artifacts:
         baseDirectory: out
