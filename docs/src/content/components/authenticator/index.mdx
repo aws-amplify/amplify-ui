@@ -1,16 +1,33 @@
-import { Amplify } from "aws-amplify";
-import { AmplifyProvider, components, theme } from "@aws-amplify/ui-react";
-import { customComponents } from "../components/customComponents";
+---
+title: "Authenticator"
+---
 
-export const Example = ({ children }) => (
-  <aside className="p-6 shadow-inner bg-gray-100 rounded">
-    <div className="-mt-6">{children}</div>
-  </aside>
-);
+The `Authenticator` is a simple way to add [authentication](https://docs.amplify.aws/lib/auth/getting-started/q/platform/js)
+flows to your application.
 
-# Amplify UI (React)
+## Installation
 
-> See: [⚡️Amplify UI⚡️ – Customer Use-Cases](https://quip-amazon.com/kcDSA8GAamK1)
+Install `@aws-amplify/ui-react` with [npm](https://www.npmjs.com/):
+
+```shell
+npm install @aws-amplify/ui-react --save 
+```
+
+## Getting started
+
+The simplest way to add authentication to your app is to wrap it using `withAuthenticator`:
+
+```js{1,9}
+import { withAuthenticator } from "@aws-amplify/ui-react"
+
+function App() {
+  return (
+    ...
+  )
+}
+
+export default withAuthenticator(App)
+```
 
 ## Authenticator with Default Theme
 

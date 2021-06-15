@@ -9,7 +9,7 @@ export const customComponents = {
       />
     );
   },
-  "Authenticator.SignIn.Button": props => {
+  "Authenticator.SignUp.Button": props => {
     return props.type === "submit" ? (
       <button
         className="px-4 py-2 font-bold text-white bg-purple-500 border-b-4 border-purple-700 rounded-md shadow hover:bg-purple-600"
@@ -31,5 +31,5 @@ export const customComponents = {
         </div>
       </>
     );
-  }
+  },
 };
