@@ -2,7 +2,7 @@ import { readFile } from "fs/promises";
 import matter from "gray-matter";
 import path from "path";
 
-export async function getPageFromSlug(slug) {
+export async function getPageFromSlug(slug: string) {
   if (slug.startsWith("/")) {
     slug = slug.slice(1);
   }
