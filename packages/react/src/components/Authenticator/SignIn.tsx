@@ -4,7 +4,7 @@ export function SignIn() {
   const {
     components: {
       Box,
-      Button,
+      ButtonElement: Button,
       Fieldset,
       Footer,
       Form,
@@ -12,8 +12,8 @@ export function SignIn() {
       Input,
       Label,
       Spacer,
-      Text,
-    },
+      Text
+    }
   } = useAmplify("Authenticator.SignIn");
 
   const [state, send] = useAuth();
@@ -32,7 +32,7 @@ export function SignIn() {
         send({
           type: "SUBMIT",
           // @ts-ignore Property 'fromEntries' does not exist on type 'ObjectConstructor'. Do you need to change your target library? Try changing the `lib` compiler option to 'es2019' or later.ts(2550)
-          data: Object.fromEntries(formData),
+          data: Object.fromEntries(formData)
         });
       }}
     >

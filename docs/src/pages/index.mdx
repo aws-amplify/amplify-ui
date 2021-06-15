@@ -30,7 +30,7 @@ import "@aws-amplify/ui-react/styles.css";
     {({ state, send }) => (
       <div>
         <Heading>Welcome {state.context.user.username}!</Heading>
-        <Button
+        <ButtonElement
           className="px-2 bg-white rounded shadow"
           disabled={state.matches("signOut")}
           onClick={() => send("SIGN_OUT")}

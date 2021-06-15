@@ -1,0 +1,201 @@
+import { ButtonExample } from "./buttonDemo";
+import { ButtonElement as Button } from "@aws-amplify/ui-react";
+
+# Button primitive
+
+## Installation
+
+```
+npm install @aws-amplify/ui-react
+```
+
+## Usage
+Import the button component and styles. 
+
+```jsx live=true
+import { ButtonElement } from "@aws-amplify/ui-react";
+import "@aws-amplify/ui-react/styles.css";
+// For smaller bundle size, import just the button styling:
+import "@aws-amplify/ui-react/dist/primitives/ButtonElement/styles.css";
+
+<ButtonElement>Click me</ButtonElement>
+```
+<ButtonElement>Hello world</ButtonElement>
+
+
+### Button onClick
+Use the `onClick` prop to add a click handler to the button.
+
+```jsx
+import { ButtonElement } from "@aws-amplify/ui-react";
+import "@aws-amplify/ui-react/styles.css";
+
+<ButtonElement onClick={() => alert("👋 hello")}>Click me</ButtonElement>
+```
+<ButtonElement onClick={() => alert("👋 hello")}>Click me</ButtonElement>
+
+
+### Button sizes
+Use the `size` prop to change the button size. Available options are `large`, `medium`, and `small`.
+
+```jsx
+import { ButtonElement } from "@aws-amplify/ui-react";
+import "@aws-amplify/ui-react/styles.css";
+
+<ButtonElement size="large">Large</ButtonElement>
+<ButtonElement size="medium">Medium</ButtonElement>
+<ButtonElement size="small">Small</ButtonElement>
+```
+<ButtonElement size="large">Large</ButtonElement>
+<ButtonElement size="medium">Medium</ButtonElement>
+<ButtonElement size="small">Small</ButtonElement>
+
+
+### Button variants
+Use the `variant` prop to change the button size. Available options are `large`, `medium`, and `small`.
+
+```jsx
+import { ButtonElement } from "@aws-amplify/ui-react";
+import "@aws-amplify/ui-react/styles.css";
+
+<ButtonElement variant="primary">Primary</ButtonElement>
+<ButtonElement variant="secondary">Secondary</ButtonElement>
+<ButtonElement variant="tertiary">Tertiary</ButtonElement>
+<ButtonElement variant="link">Link</ButtonElement>
+```
+<ButtonElement variant="primary">Primary</ButtonElement>
+<ButtonElement variant="secondary">Secondary</ButtonElement>
+<ButtonElement variant="tertiary">Tertiary</ButtonElement>
+<ButtonElement variant="link">Link</ButtonElement>
+
+### Button loading state
+
+```jsx
+import { ButtonElement } from "@aws-amplify/ui-react";
+import "@aws-amplify/ui-react/styles.css";
+
+<ButtonElement loading={true} loadingText="Loading...">Hello</ButtonElement>
+```
+<ButtonElement variant="primary" loading={true} loadingText="Loading...">Hello</ButtonElement>
+
+
+### Other states
+```jsx
+import { ButtonElement } from "@aws-amplify/ui-react";
+import "@aws-amplify/ui-react/styles.css";
+
+<ButtonElement disabled={true}>Disabled</ButtonElement>
+<ButtonElement active={true}>Active</ButtonElement>
+<ButtonElement fullWidth={true}>Full width</ButtonElement>
+```
+<ButtonElement disabled={true}>Disabled</ButtonElement>
+<ButtonElement active={true}>Active</ButtonElement>
+<ButtonElement fullWidth={true}>Full width</ButtonElement>
+
+
+### Accessibility
+Accessibility 
+```jsx
+import { ButtonElement } from "@aws-amplify/ui-react";
+import "@aws-amplify/ui-react/styles.css";
+
+<ButtonElement ariaLabel="To the moon!">🚀</ButtonElement>
+```
+<ButtonElement ariaLabel="To the moon!">🚀</ButtonElement>
+
+
+### CSS Theming
+
+```jsx
+import { ButtonElement } from "@aws-amplify/ui-react";
+import "@aws-amplify/ui-react/styles.css";
+
+<ButtonElement ariaLabel="To the moon!">🚀</ButtonElement>
+```
+<ButtonElement ariaLabel="To the moon!">🚀</ButtonElement>
+
+
+## Demo
+
+This example demonstrates both Chakra and HTML button element implementations of the Amplify button primitive being used inside of a Chakra app. Use the prop controls to play with the prop interface.
+
+<ButtonExample />
+
+## Implementation comparison:
+
+Both implementations share the same external API and Theme Design Tokens. The primary difference between the implementations is in implementation and limitations around use.
+
+### Chakra Button
+
+Pros:
+
+- Custom Theming is user friendly and easy to learn
+- Works well with Style Dictionary (could generate the theme directly)
+-
+
+Cons:
+
+- Must be used used with the AmpliyUIProvider which is a wrapper around the ChakraProvider.
+- You cannot nest ChakraProviders, so if our customers are already using Chakra in their App, they will have to extend their theme with ours (we would provide helper methods).
+- Customers wouldn't be able to use our Amplify Chakra theme by itself unless we provide styling for ALL Chakra components.
+- Bundle size: If customers are not using Chakra, they have to bring all of Chakra in to benefit to use our components
+
+Raw Button
+
+```js
+export interface ButtonProps extends BaseComponentProps {
+  /**
+   * If `true`, the button will show a spinner.
+   */
+  loading?: boolean;
+
+  /**
+   * If `true`, the button will be styled in its active state.
+   */
+  active?: boolean;
+
+  /**
+   * If `true`, the button will be disabled.
+   */
+  disabled?: boolean;
+
+  /**
+   * The label to show in the button when `loading` is true
+   * If no text is passed, it only shows the spinner
+   */
+  loadingText?: string;
+
+  /**
+   * If `true`, the button will take up the full width of its container.
+   */
+  fullWidth?: boolean;
+
+  /**
+   * Button click event handler
+   */
+  onClick?: (event: React.MouseEvent) => void;
+
+  /**
+   * The html button type to use.
+   */
+  type?: ButtonTypes;
+
+  /**
+   * Changes the size of the button.
+   * @default "medium"
+   */
+  size?: "small" | "medium" | "large";
+
+  /**
+   * Changes the visual weight of the button.
+   * @default "secondary"
+   */
+  variant?: "primary" | "secondary" | "tertiary" | "link";
+
+  /**
+   * Aria label for accessibility
+   * @default undefined
+   */
+  ariaLabel?: string;
+}
+```

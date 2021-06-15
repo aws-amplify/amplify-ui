@@ -1,8 +1,16 @@
-import { useAmplify, useAuth } from "@aws-amplify/ui-react";
+import { ButtonTypes, useAmplify, useAuth } from "@aws-amplify/ui-react";
 
 export function SignUp() {
   const {
-    components: { Button, Fieldset, Footer, Form, Heading, Spacer, Text },
+    components: {
+      ButtonElement: Button,
+      Fieldset,
+      Footer,
+      Form,
+      Heading,
+      Spacer,
+      Text
+    }
   } = useAmplify("Authenticator.SignUp");
 
   const [state, send] = useAuth();
@@ -20,7 +28,7 @@ export function SignUp() {
         send({
           type: "SUBMIT",
           // @ts-ignore Property 'fromEntries' does not exist on type 'ObjectConstructor'. Do you need to change your target library? Try changing the `lib` compiler option to 'es2019' or later.ts(2550)
-          data: Object.fromEntries(formData),
+          data: Object.fromEntries(formData)
         });
       }}
     >
@@ -49,7 +57,7 @@ export function SignUp() {
 
 SignUp.UsernameControl = ({ label = "Username", name = "username" }) => {
   const {
-    components: { Input, Label, Text },
+    components: { Input, Label, Text }
   } = useAmplify("Authenticator.SignUp.Username");
 
   return (
@@ -62,7 +70,7 @@ SignUp.UsernameControl = ({ label = "Username", name = "username" }) => {
 
 SignUp.PasswordControl = ({ label = "Password", name = "password" }) => {
   const {
-    components: { Input, Label, Text },
+    components: { Input, Label, Text }
   } = useAmplify("Authenticator.SignUp.Password");
 
   return (
@@ -75,7 +83,7 @@ SignUp.PasswordControl = ({ label = "Password", name = "password" }) => {
 
 SignUp.EmailControl = ({ label = "Email address", name = "email" }) => {
   const {
-    components: { Input, Label, Text },
+    components: { Input, Label, Text }
   } = useAmplify("Authenticator.SignUp.Password");
 
   return (
@@ -88,7 +96,7 @@ SignUp.EmailControl = ({ label = "Email address", name = "email" }) => {
 
 SignUp.PhoneControl = ({ label = "Phone number", name = "phone_number" }) => {
   const {
-    components: { Input, Label, Text },
+    components: { Input, Label, Text }
   } = useAmplify("Authenticator.SignUp.Password");
 
   return (

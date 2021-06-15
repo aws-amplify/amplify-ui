@@ -1,0 +1,73 @@
+/**
+  Amplify Button styles
+*/
+@import "../shared/theme.css";
+
+.amplify-ui-button {
+  all: unset; /* protect against external styles */
+  font-weight: var(--amplify-ui-button-font-weight);
+  color: var(--amplify-ui-color-black);
+  transition: var(--amplify-ui-button-transition);
+  border-radius: var(--amplify-ui-border-radius-md);
+  box-sizing: border-box;
+}
+.amplify-ui-button:hover {
+  cursor: pointer;
+}
+.amplify-ui-button[disabled] {
+  cursor: var(--amplify-ui-button-disabled-cursor);
+}
+.amplify-ui-button[disabled] {
+  opacity: var(--amplify-ui-button-disabled-opacity);
+}
+.amplify-ui-button[data-fullwidth="true"] {
+  width: 100%;
+}
+.amplify-ui-button[data-variant="primary"] {
+  color: var(--amplify-ui-button-color-text-primary);
+  background-color: var(--amplify-ui-button-color-bg-primary);
+}
+.amplify-ui-button[data-variant="primary"][data-loading="true"] {
+  background-color: var(--amplify-ui-button-color-bg-primary-loading);
+}
+.amplify-ui-button[data-variant="primary"]:hover {
+  background-color: var(--amplify-ui-button-color-bg-primary-hover);
+}
+.amplify-ui-button[data-variant="primary"]:hover[disabled] {
+  background-color: var(--amplify-ui-button-color-bg-primary);
+}
+.amplify-ui-button[data-variant="secondary"] {
+  color: var(--amplify-ui-button-color-text-secondary);
+  border: var(--amplify-ui-button-border-secondary);
+}
+.amplify-ui-button[data-variant="secondary"]:hover {
+  background-color: var(--amplify-ui-button-color-bg-secondary-hover);
+}
+.amplify-ui-button[data-variant="tertiary"]:hover,
+.amplify-ui-button[data-variant="tertiary"][disabled] {
+  background-color: var(--amplify-ui-button-color-bg-tertiary-hover);
+}
+.amplify-ui-button[data-variant="link"] {
+  color: var(--amplify-ui-button-color-text-link);
+}
+.amplify-ui-button[data-variant="link"]:hover {
+  text-decoration: underline;
+}
+.amplify-ui-button[data-size="small"] {
+  padding: 0 var(--amplify-ui-sizes-3);
+  height: var(--amplify-ui-button-height-small);
+  font-size: var(--amplify-ui-button-font-size-small);
+  border-radius: var(--amplify-ui-border-radius-sm);
+}
+.amplify-ui-button[data-size="medium"] {
+  padding: 0 var(--amplify-ui-sizes-4);
+  height: var(--amplify-ui-button-height-medium);
+  font-size: var(--amplify-ui-button-font-size-medium);
+  border-radius: var(--amplify-ui-border-radius-md);
+}
+.amplify-ui-button[data-size="large"] {
+  padding: 0 var(--amplify-ui-sizes-5);
+  height: var(--amplify-ui-button-height-large);
+  font-size: var(--amplify-ui-button-font-size-large);
+  border-radius: var(--amplify-ui-border-radius-lg);
+}
