@@ -1,18 +1,4 @@
-[data-amplify-theme] [data-amplify-box],
-[data-amplify-theme] [data-amplify-button],
-[data-amplify-theme] [data-amplify-fieldset],
-[data-amplify-theme] [data-amplify-footer],
-[data-amplify-theme] [data-amplify-main],
-[data-amplify-theme] [data-amplify-form],
-[data-amplify-theme] [data-amplify-header],
-[data-amplify-theme] [data-amplify-heading],
-[data-amplify-theme] [data-amplify-input],
-[data-amplify-theme] [data-amplify-label],
-[data-amplify-theme] [data-amplify-spacer],
-[data-amplify-theme] [data-amplify-text],
-[data-amplify-theme] [data-amplify-wrapper] {
-  /* all: unset; */
-}
+@import "./Button/styles.css";
 
 [data-amplify-theme] [data-amplify-input] {
   @apply block w-full mt-1 border-gray-300 rounded shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50;

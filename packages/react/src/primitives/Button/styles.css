@@ -1,0 +1,120 @@
+/**
+  * Amplify Button styles
+  * @TODO: Generate this file from Style dictionary
+*/
+@import "@aws-amplify/ui-core/theme.css";
+
+.amplify-ui-button {
+  /* Button */
+  --amplify-ui-button-padding: var(--amplify-ui-sizes-4);
+  --amplify-ui-button-disabled-opacity: 0.4;
+  --amplify-ui-button-disabled-cursor: not-allowed;
+  --amplify-ui-button-transition: all 250ms;
+  --amplify-ui-button-font-weight: var(--amplify-ui-fontWeights-semibold);
+
+  --amplify-ui-button-colors-text-primary: var(--amplify-ui-colors-white);
+  --amplify-ui-button-colors-text-tertiary: var(--amplify-ui-colors-black);
+  --amplify-ui-button-colors-bg-primary: var(--amplify-ui-colors-purple-500);
+  --amplify-ui-button-colors-border-primary: var(
+    --amplify-ui-colors-purple-500
+  );
+  --amplify-ui-button-colors-bg-primary-hover: var(
+    --amplify-ui-colors-purple-400
+  );
+  --amplify-ui-button-colors-bg-primary-loading: var(
+    --amplify-ui-colors-purple-400
+  );
+  --amplify-ui-button-height-primary: var(--amplify-ui-sizes-12);
+
+  --amplify-ui-button-colors-text-secondary: #000;
+  --amplify-ui-button-colors-border-secondary: var(
+    --amplify-ui-colors-purple-200
+  );
+  --amplify-ui-button-border-secondary: 1px solid
+    var(--amplify-ui-button-colors-border-secondary);
+  --amplify-ui-button-colors-bg-secondary-hover: var(
+    --amplify-ui-colors-purple-50
+  );
+
+  --amplify-ui-button-colors-text-tertiary: var(--amplify-ui-colors-black);
+  --amplify-ui-button-colors-bg-tertiary: transparent;
+  --amplify-ui-button-colors-bg-tertiary-hover: var(
+    --amplify-ui-colors-purple-200
+  );
+
+  --amplify-ui-button-colors-text-tertiary: var(--amplify-ui-colors-black);
+  --amplify-ui-button-colors-text-link: var(--amplify-ui-colors-purple-500);
+
+  --amplify-ui-button-height-large: var(--amplify-ui-sizes-12);
+  --amplify-ui-button-height-medium: var(--amplify-ui-sizes-10);
+  --amplify-ui-button-height-small: var(--amplify-ui-sizes-8);
+
+  --amplify-ui-button-font-size-large: var(--amplify-ui-fontSizes-lg);
+  --amplify-ui-button-font-size-medium: var(--amplify-ui-fontSizes-md);
+  --amplify-ui-button-font-size-small: var(--amplify-ui-fontSizes-sm);
+
+  all: unset; /* protect against external styles */
+  font-weight: var(--amplify-ui-button-font-weight);
+  color: var(--amplify-ui-colors-black);
+  transition: var(--amplify-ui-button-transition);
+  border-radius: var(--amplify-ui-border-radius-md);
+  box-sizing: border-box;
+}
+.amplify-ui-button:hover {
+  cursor: pointer;
+}
+.amplify-ui-button[disabled] {
+  cursor: var(--amplify-ui-button-disabled-cursor);
+  opacity: var(--amplify-ui-button-disabled-opacity);
+}
+.amplify-ui-button[data-fullwidth="true"] {
+  width: 100%;
+}
+.amplify-ui-button[data-variant="primary"] {
+  color: var(--amplify-ui-button-colors-text-primary);
+  background-color: var(--amplify-ui-button-colors-bg-primary);
+}
+.amplify-ui-button[data-variant="primary"][data-loading="true"] {
+  background-color: var(--amplify-ui-button-colors-bg-primary-loading);
+}
+.amplify-ui-button[data-variant="primary"]:hover {
+  background-color: var(--amplify-ui-button-colors-bg-primary-hover);
+}
+.amplify-ui-button[data-variant="primary"]:hover[disabled] {
+  background-color: var(--amplify-ui-button-colors-bg-primary);
+}
+.amplify-ui-button[data-variant="secondary"] {
+  color: var(--amplify-ui-button-colors-text-secondary);
+  border: var(--amplify-ui-button-border-secondary);
+}
+.amplify-ui-button[data-variant="secondary"]:hover {
+  background-color: var(--amplify-ui-button-colors-bg-secondary-hover);
+}
+.amplify-ui-button[data-variant="tertiary"]:hover,
+.amplify-ui-button[data-variant="tertiary"][disabled] {
+  background-color: var(--amplify-ui-button-colors-bg-tertiary-hover);
+}
+.amplify-ui-button[data-variant="link"] {
+  color: var(--amplify-ui-button-colors-text-link);
+}
+.amplify-ui-button[data-variant="link"]:hover {
+  text-decoration: underline;
+}
+.amplify-ui-button[data-size="small"] {
+  padding: 0 var(--amplify-ui-sizes-3);
+  height: var(--amplify-ui-button-height-small);
+  font-size: var(--amplify-ui-button-font-size-small);
+  border-radius: var(--amplify-ui-border-radius-sm);
+}
+.amplify-ui-button[data-size="medium"] {
+  padding: 0 var(--amplify-ui-sizes-4);
+  height: var(--amplify-ui-button-height-medium);
+  font-size: var(--amplify-ui-button-font-size-medium);
+  border-radius: var(--amplify-ui-border-radius-md);
+}
+.amplify-ui-button[data-size="large"] {
+  padding: 0 var(--amplify-ui-sizes-5);
+  height: var(--amplify-ui-button-height-large);
+  font-size: var(--amplify-ui-button-font-size-large);
+  border-radius: var(--amplify-ui-border-radius-lg);
+}

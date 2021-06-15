@@ -1,0 +1,4 @@
+.my-custom-button {
+  --amplify-ui-button-color-bg-primary: #0057ff;
+  --amplify-ui-button-color-bg-primary-hover: #4d89fc;
+}

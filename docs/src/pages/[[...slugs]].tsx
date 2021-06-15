@@ -7,7 +7,8 @@ import mdxPrism from "mdx-prism";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { MDXRemote } from "next-mdx-remote";
 import { serialize } from "next-mdx-remote/serialize";
-
+import { primitives } from "@aws-amplify/ui-react";
+import { ButtonDemo } from "../content/primitives/button/buttonDemo";
 export default function Content({
   frontmatter,
   mdxSource,
@@ -23,6 +24,10 @@ export default function Content({
     >
       <MDXRemote
         {...mdxSource}
+        components={{
+          ...primitives,
+          ButtonDemo,
+        }}
         scope={{
           theme,
           customComponents,
@@ -54,7 +59,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   });
 
   const { content, frontmatter } = await getPageFromSlug(slug);
-
   const componentPagePaths = await getContentPaths("components/*/index.mdx");
   const componentPages = await Promise.all(
     componentPagePaths.map(getPageFromSlug).map(page => page.then(pluckMeta))

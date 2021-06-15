@@ -1,4 +1,5 @@
 import { useAmplify, useAuth } from "@aws-amplify/ui-react";
+import { ButtonTypes } from "../../primitives";
 
 export function SignIn() {
   const {
@@ -49,18 +50,21 @@ export function SignIn() {
           <Input name="password" required type="password" />
           <Box>
             <Text>Forgot your password?</Text>{" "}
-            <Button type="button">Reset Password</Button>
+            <Button type={ButtonTypes.Button}>Reset Password</Button>
           </Box>
         </Label>
       </Fieldset>
 
       <Footer>
         <Text>No account?</Text>{" "}
-        <Button onClick={() => send({ type: "SIGN_UP" })} type="button">
+        <Button
+          onClick={() => send({ type: "SIGN_UP" })}
+          type={ButtonTypes.Button}
+        >
           Create account
         </Button>
         <Spacer />
-        <Button disabled={isPending} type="submit">
+        <Button isDisabled={isPending} type={ButtonTypes.Submit}>
           {isPending ? <>Signing in&hellip;</> : <>Sign In</>}
         </Button>
       </Footer>
