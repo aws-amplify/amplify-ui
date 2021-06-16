@@ -2,7 +2,7 @@ import * as exported from "./";
 
 describe("@aws-amplify/ui-react", () => {
   describe("import * keys", () => {
-    it("should match snapshot", () => {
+    it("should contain necessary exports", () => {
       expect(Object.keys(exported)).toEqual([
         "components",
         "primitives",
