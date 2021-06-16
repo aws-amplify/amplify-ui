@@ -20,7 +20,7 @@ export type AuthEventTypes =
 
 export interface AuthEvent {
   type: AuthEventTypes;
-  data: any; // TODO: strongly type data for each AuthEventType
+  data?: any; // TODO: strongly type data for each AuthEventType
 }
 
 export type AuthMachineState = State<AuthContext, AuthEvent>;
