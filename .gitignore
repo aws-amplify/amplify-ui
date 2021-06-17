@@ -1,4 +1,4 @@
-.DS_STORE
+.DS_Store
 *.log
 node_modules
 aws-exports.js
