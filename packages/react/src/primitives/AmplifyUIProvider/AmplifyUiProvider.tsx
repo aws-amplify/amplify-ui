@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  ChakraProvider,
-  ThemeProvider,
-  toCSSVar,
-  useTheme
-} from "@chakra-ui/react";
+import { ChakraProvider } from "@chakra-ui/react";
 import { amplifyTheme } from "../shared/amplifyTheme";
 import { AMPLIFY_UI_PROVIDER } from "../shared/constants";
 

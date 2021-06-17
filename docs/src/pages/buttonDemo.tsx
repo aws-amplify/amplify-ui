@@ -126,6 +126,20 @@ export const ButtonExample = ({ children }) => {
             >
               Click me (button element)
             </ButtonElement>
+            {/* <ButtonElementEmotion
+              className="my-favorite-button"
+              disabled={disabled}
+              loading={loading}
+              loadingText={loadingText}
+              variant={variant}
+              size={size}
+              onClick={() => alert("hello")}
+              ariaLabel={ariaLabel}
+              fullWidth={fullWidth}
+              type={ButtonTypes.Button}
+            >
+              Click me (button element w/ emotion)
+            </ButtonElementEmotion> */}
           </VStack>
         </Grid>
       </Box>

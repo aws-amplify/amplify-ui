@@ -1,6 +1,7 @@
 export * from "./AmplifyUIProvider";
 export * from "./Button";
 export * from "./ButtonElement";
+export * from "./ButtonElementEmotion";
 export * from "./shared";
 
 export function Box(props) {

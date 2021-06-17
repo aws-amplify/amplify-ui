@@ -9,6 +9,7 @@ import "react-smooshpack/dist/index.css";
 import "tailwindcss/tailwind.css";
 
 import "@aws-amplify/ui-react/styles.css";
+import "./buttonStyles.css";
 
 Amplify.configure({});
 const components = {

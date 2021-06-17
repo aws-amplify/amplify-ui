@@ -1,5 +1,5 @@
 /**
-  These design tokens would be automatically generated from Style Dictionary
+  These design tokens would be automatically generated
 */
 :root {
   /* Colors */
@@ -95,7 +95,8 @@
   --amplify-ui-button-disabled-cursor: not-allowed;
   --amplify-ui-button-transition: all 250ms;
   --amplify-ui-button-font-weight: var(--amplify-ui-fontWeights-semibold);
-  --amplify-ui-button-color-text-primary: #fff;
+
+  --amplify-ui-button-color-text-primary: var(--amplify-ui-color-white);
   --amplify-ui-button-color-text-tertiary: var(--amplify-ui-color-black);
   --amplify-ui-button-color-bg-primary: var(--amplify-ui-color-purple-500);
   --amplify-ui-button-color-border-primary: var(--amplify-ui-color-purple-500);
