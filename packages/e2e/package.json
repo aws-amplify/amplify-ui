@@ -1,11 +1,11 @@
 {
-  "name": "cypress",
+  "name": "e2e",
   "version": "0.0.1",
   "license": "MIT",
   "private": true,
   "scripts": {
-    "cypress:open": "TZ=UTC cypress open",
-    "cypress:run": "TZ=UTC cypress run"
+    "dev": "TZ=UTC cypress open",
+    "test": "TZ=UTC cypress run"
   },
   "cypress-cucumber-preprocessor": {
     "nonGlobalStepDefinitions": true,
