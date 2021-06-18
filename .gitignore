@@ -1,4 +1,5 @@
 .DS_Store
+.env.local
 *.log
 node_modules
 aws-exports.js
