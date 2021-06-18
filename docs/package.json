@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@aws-amplify/ui-react-v1": "npm:@aws-amplify/ui-react",
     "@headlessui/react": "^1.2.0",
     "@heroicons/react": "^1.0.1",
     "@mdx-js/loader": "^1.5.1",
