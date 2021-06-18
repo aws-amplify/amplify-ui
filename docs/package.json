@@ -15,6 +15,7 @@
     "@moxy/next-compile-node-modules": "^2.0.2",
     "@next/mdx": "^9.1.1",
     "aws-amplify": "latest",
+    "aws-amplify-react": "latest",
     "gray-matter": "^4.0.3",
     "mdx-prism": "^0.3.3",
     "next": "latest",
