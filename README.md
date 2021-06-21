@@ -20,32 +20,5 @@
 ## Documentation
 
 The latest documentation is found here:
+
 > https://docs.amplify.aws/ui
-
-## Contributing
-
-### Getting Started
-
-1. Fork & Clone this repo
-1. [`nvm use`](https://github.com/nvm-sh/nvm)
-1. `yarn install`
-
-#### React Development
-
-1. `yarn dev`
-1. Visit <http://localhost:3000/>
-
-#### Vue Development
-
-1. `yarn dev:vue`
-1. Visit <http://localhost:3001/>
-
-#### Angular Development
-
-1. `yarn build:angular`, or `yarn build:angular:watch` for live development
-1. `yarn dev:angular`.
-1. Visit <http://localhost:4200/>
-
-#### Flutter Development
-
-1. see [packages/flutter/README.md](packages/flutter/README.md)
