@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@aws-amplify/ui-react-v1": "npm:@aws-amplify/ui-react",
     "@headlessui/react": "^1.2.0",
     "@heroicons/react": "^1.0.1",
     "@mdx-js/loader": "^1.5.1",
@@ -15,6 +16,7 @@
     "@moxy/next-compile-node-modules": "^2.0.2",
     "@next/mdx": "^9.1.1",
     "aws-amplify": "latest",
+    "aws-amplify-react": "latest",
     "gray-matter": "^4.0.3",
     "mdx-prism": "^0.3.3",
     "next": "latest",
