@@ -12,7 +12,7 @@ And("I type a password {string} that is invalid/valid", (password: string) => {
   cy.get("[data-test=sign-in-password-input]").type(Cypress.env(password));
 });
 
-And("I click the {string} button", name => {
+And("I click the {string} button", (name: string) => {
   cy.findByRole("button", { name }).click();
 });
 
