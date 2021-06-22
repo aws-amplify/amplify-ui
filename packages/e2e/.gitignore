@@ -1,3 +1,6 @@
 # testing
-acceptance-tests/cypress/screenshots
-acceptance-tests/cypress/videos
+cypress/screenshots
+cypress/videos
+
+# environment
+.env
