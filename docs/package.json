@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "@aws-amplify/ui-react-v1": "npm:@aws-amplify/ui-react",
+    "@cucumber/gherkin": "^19.0.3",
+    "@cucumber/messages": "^16.0.1",
     "@headlessui/react": "^1.2.0",
     "@heroicons/react": "^1.0.1",
     "@mdx-js/loader": "^1.5.1",
