@@ -1,6 +1,4 @@
 export function FeatureTests({ featureTests = [] }) {
-  console.log(featureTests);
-
   if (!featureTests.length) {
     return null;
   }
@@ -10,7 +8,7 @@ export function FeatureTests({ featureTests = [] }) {
       <h2>Features</h2>
 
       {featureTests.map(({ feature }) => (
-        <>
+        <section key={feature.name}>
           <h3>{feature.name}</h3>
           <p>{feature.description}</p>
 
@@ -22,7 +20,7 @@ export function FeatureTests({ featureTests = [] }) {
               </li>
             ))}
           </ul>
-        </>
+        </section>
       ))}
     </>
   );
