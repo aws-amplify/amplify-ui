@@ -1,6 +1,11 @@
 import React from "react";
 import { ComponentClassNames } from "../shared/constants";
-import { ButtonProps, ButtonSize, ButtonVariant } from "../shared/types";
+import {
+  ButtonProps,
+  ButtonSize,
+  ButtonVariant,
+  ButtonTypes,
+} from "../shared/types";
 
 export const Button: React.FC<ButtonProps> = ({
   ariaLabel,
@@ -15,6 +20,7 @@ export const Button: React.FC<ButtonProps> = ({
   onClick = () => {},
   size = ButtonSize.Medium,
   variant = ButtonVariant.Secondary,
+  type = ButtonTypes.Button,
 }) => (
   <button
     aria-label={ariaLabel}
@@ -27,6 +33,7 @@ export const Button: React.FC<ButtonProps> = ({
     data-variant={variant}
     id={id}
     onClick={onClick}
+    type={type}
   >
     {isLoading ? <span>{loadingText}</span> : children}
   </button>

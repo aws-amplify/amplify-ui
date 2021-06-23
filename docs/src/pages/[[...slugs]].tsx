@@ -7,8 +7,9 @@ import mdxPrism from "mdx-prism";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { MDXRemote } from "next-mdx-remote";
 import { serialize } from "next-mdx-remote/serialize";
-import { primitives } from "@aws-amplify/ui-react";
+import * as components from "@aws-amplify/ui-react";
 import { ButtonDemo } from "../content/primitives/button/ButtonDemo";
+
 export default function Content({
   frontmatter,
   mdxSource,
@@ -25,7 +26,7 @@ export default function Content({
       <MDXRemote
         {...mdxSource}
         components={{
-          ...primitives,
+          ...components,
           ButtonDemo,
         }}
         scope={{
