@@ -1,7 +1,10 @@
 import { customComponents } from "@/components/customComponents";
+import { FeatureTests } from "@/components/FeatureTests";
 import { Layout } from "@/components/Layout";
 import { getContentPaths } from "@/utils/getContentPaths";
+import { getFeatureTestsFromSlug } from "@/utils/getFeatureTestsFromSlug";
 import { getPageFromSlug } from "@/utils/getPageFromSlug";
+import * as components from "@aws-amplify/ui-react";
 import { theme } from "@aws-amplify/ui-react";
 import mdxPrism from "mdx-prism";
 import { GetStaticPaths, GetStaticProps } from "next";
@@ -9,6 +12,7 @@ import { MDXRemote } from "next-mdx-remote";
 import { serialize } from "next-mdx-remote/serialize";
 
 export default function Content({
+  featureTests = [],
   frontmatter,
   mdxSource,
   componentPages,
@@ -23,7 +27,12 @@ export default function Content({
     >
       <MDXRemote
         {...mdxSource}
+        components={{
+          ...components,
+          FeatureTests,
+        }}
         scope={{
+          featureTests,
           theme,
           customComponents,
         }}
@@ -54,7 +63,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   });
 
   const { content, frontmatter } = await getPageFromSlug(slug);
-
+  const featureTests = await getFeatureTestsFromSlug(slug);
   const componentPagePaths = await getContentPaths("components/*/index.mdx");
   const componentPages = await Promise.all(
     componentPagePaths.map(getPageFromSlug).map(page => page.then(pluckMeta))
@@ -86,6 +95,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     props: {
       frontmatter,
       componentPages,
+      featureTests,
       mdxSource,
       primitivePages,
     },
