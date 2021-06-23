@@ -5,7 +5,3 @@
 node_modules
 aws-exports.js
 aws-exports.ts
-
-# testing
-acceptance-tests/cypress/screenshots
-acceptance-tests/cypress/videos
