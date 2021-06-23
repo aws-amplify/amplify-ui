@@ -11,7 +11,7 @@ export const Button: React.FC<ButtonProps> = ({
   isDisabled,
   isLoading,
   id,
-  loadingText,
+  loadingText = "",
   onClick = () => {},
   size = ButtonSize.Medium,
   variant = ButtonVariant.Secondary,
