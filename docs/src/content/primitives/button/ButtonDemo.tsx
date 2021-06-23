@@ -1,36 +1,65 @@
+import React from "react";
 import {
   Button,
   ButtonSize,
   ButtonTypes,
   ButtonVariant,
 } from "@aws-amplify/ui-react";
-import "@aws-amplify/ui-react/styles.css";
-import React from "react";
 
-export const ButtonExample = ({ children }) => {
+export const ButtonDemo = ({ children }) => {
   const [disabled, setDisabled] = React.useState<boolean>(false);
   const [loading, setLoading] = React.useState<boolean>(false);
   const [fullWidth, setFullWidth] = React.useState<boolean>(false);
+  const [active, setActive] = React.useState<boolean>(false);
   const [loadingText, setLoadingText] = React.useState("Loading...");
   const [ariaLabel, setAriaLabel] = React.useState<string>("");
   const [variant, setVariant] = React.useState<ButtonVariant>(
-    ButtonVariant.Secondary
+    ButtonVariant.Primary
   );
   const [size, setSize] = React.useState<ButtonSize>(ButtonSize.Medium);
 
   return (
     <div>
       <h4>Button Props:</h4>
-      <div>
-        <input type="radio" onChange={() => setDisabled(!disabled)}>
-          disabled
-        </input>
-        <input type="radio" onChange={() => setFullWidth(!fullWidth)}>
-          fullWidth
-        </input>
-        <input type="radio" onChange={() => setLoading(!loading)}>
-          loading
-        </input>
+      <div className="flex gap-5 flex-wrap my-8">
+        <div className="flex items-center gap-1">
+          <input
+            id="disabled"
+            name="disabled"
+            type="checkbox"
+            onChange={() => setDisabled(!disabled)}
+          />
+          <label htmlFor="disabled">isDisabled</label>
+        </div>
+
+        <div className="flex items-center gap-1">
+          <input
+            id="fullwidth"
+            name="fullwidth"
+            type="checkbox"
+            onChange={() => setFullWidth(!fullWidth)}
+          />
+          <label htmlFor="fullwidth">isFullWidth</label>
+        </div>
+        <div className="flex items-center gap-1">
+          <input
+            id="loading"
+            name="loading"
+            type="checkbox"
+            onChange={() => setLoading(!loading)}
+          />
+          <label htmlFor="loading">isLoading</label>
+        </div>
+        <div className="flex items-center gap-1">
+          <input
+            id="active"
+            name="active"
+            type="checkbox"
+            onChange={() => setActive(!active)}
+          />
+          <label htmlFor="active">isActive</label>
+        </div>
+
         <input
           type="text"
           value={loadingText}
@@ -40,6 +69,7 @@ export const ButtonExample = ({ children }) => {
         />
         <input
           type="text"
+          placeholder="Set aria-label text"
           value={ariaLabel}
           onChange={(event: any) => {
             setAriaLabel(event.target.value);
@@ -71,6 +101,7 @@ export const ButtonExample = ({ children }) => {
       </div>
       <Button
         className="my-favorite-button"
+        isActive={active}
         isDisabled={disabled}
         isLoading={loading}
         loadingText={loadingText}
@@ -78,7 +109,7 @@ export const ButtonExample = ({ children }) => {
         size={size}
         onClick={() => alert("hello")}
         ariaLabel={ariaLabel}
-        fullWidth={fullWidth}
+        isFullWidth={fullWidth}
         type={ButtonTypes.Button}
       >
         Click me!
