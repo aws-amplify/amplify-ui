@@ -1,15 +1,15 @@
 import { customComponents } from "@/components/customComponents";
+import { FeatureTests } from "@/components/FeatureTests";
 import { Layout } from "@/components/Layout";
 import { getContentPaths } from "@/utils/getContentPaths";
 import { getFeatureTestsFromSlug } from "@/utils/getFeatureTestsFromSlug";
 import { getPageFromSlug } from "@/utils/getPageFromSlug";
+import * as components from "@aws-amplify/ui-react";
 import { theme } from "@aws-amplify/ui-react";
 import mdxPrism from "mdx-prism";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { MDXRemote } from "next-mdx-remote";
 import { serialize } from "next-mdx-remote/serialize";
-import { FeatureTests } from "@/components/FeatureTests";
-import * as components from "@aws-amplify/ui-react";
 
 export default function Content({
   featureTests = [],
