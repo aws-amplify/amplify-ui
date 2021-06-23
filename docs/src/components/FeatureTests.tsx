@@ -1,4 +1,10 @@
-export function FeatureTests({ featureTests = [] }) {
+import { GherkinDocument } from "@cucumber/messages";
+
+interface FeatureTestsProps {
+  featureTests: GherkinDocument[];
+}
+
+export function FeatureTests({ featureTests = [] }: FeatureTestsProps) {
   if (!featureTests.length) {
     return null;
   }
