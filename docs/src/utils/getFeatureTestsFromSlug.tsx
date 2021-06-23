@@ -16,7 +16,7 @@ const parser = new Parser(
 export async function getFeatureTestsFromSlug(slug: string) {
   const cwd = path.join(
     process.cwd(),
-    "../packages/e2e/cypress/tests/acceptance",
+    "../packages/e2e/cypress/integration",
     slug
   );
 
