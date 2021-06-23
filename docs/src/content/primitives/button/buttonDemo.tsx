@@ -24,6 +24,7 @@ export const ButtonDemo = ({ children }) => {
       <div className="flex gap-5 flex-wrap my-8">
         <div className="flex items-center gap-1">
           <input
+            id="disabled"
             name="disabled"
             type="checkbox"
             onChange={() => setDisabled(!disabled)}
@@ -33,6 +34,7 @@ export const ButtonDemo = ({ children }) => {
 
         <div className="flex items-center gap-1">
           <input
+            id="fullwidth"
             name="fullwidth"
             type="checkbox"
             onChange={() => setFullWidth(!fullWidth)}
@@ -41,6 +43,7 @@ export const ButtonDemo = ({ children }) => {
         </div>
         <div className="flex items-center gap-1">
           <input
+            id="loading"
             name="loading"
             type="checkbox"
             onChange={() => setLoading(!loading)}
@@ -49,6 +52,7 @@ export const ButtonDemo = ({ children }) => {
         </div>
         <div className="flex items-center gap-1">
           <input
+            id="active"
             name="active"
             type="checkbox"
             onChange={() => setActive(!active)}

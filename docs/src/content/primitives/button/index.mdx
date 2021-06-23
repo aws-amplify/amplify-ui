@@ -14,8 +14,8 @@ npm install @aws-amplify/ui-react
 ## Usage
 Import the button component and styles. 
 
-```jsx live=true
-import { Button } from "@aws-amplify/ui-react-primitives";
+```jsx
+import { Button } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 // For smaller bundle size, import just the button styling:
 // import "@aws-amplify/ui-react/dist/primitives/Button/styles.css";
@@ -28,7 +28,7 @@ import "@aws-amplify/ui-react/styles.css";
 Use the `onClick` prop to add a click handler to the button.
 
 ```jsx
-import { Button } from "@aws-amplify/ui-react-primitives";
+import { Button } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 
 <Button onClick={() => alert("👋 hello")}>Click me</Button>
@@ -40,7 +40,7 @@ import "@aws-amplify/ui-react/styles.css";
 Use the `size` prop to change the button size. Available options are `large`, `medium`, and `small`.
 
 ```jsx
-import { Button } from "@aws-amplify/ui-react-primitives";
+import { Button } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 
 <Button size="large">Large</Button>
@@ -56,7 +56,7 @@ import "@aws-amplify/ui-react/styles.css";
 Use the `variant` prop to change the button size. Available options are `large`, `medium`, and `small`.
 
 ```jsx
-import { Button } from "@aws-amplify/ui-react-primitives";
+import { Button } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 
 <Button variant="primary">Primary</Button>
@@ -72,32 +72,32 @@ import "@aws-amplify/ui-react/styles.css";
 ### Button loading state
 
 ```jsx
-import { Button } from "@aws-amplify/ui-react-primitives";
+import { Button } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 
-<Button loading={true} loadingText="Loading...">Hello</Button>
+<Button isLoading={true} loadingText="Loading..."variant="primary">Hello</Button>
 ```
-<Button variant="primary" loading={true} loadingText="Loading...">Hello</Button>
+<Button isLoading={true} loadingText="Loading..." variant="primary">Hello</Button>
 
 
 ### Other states
 ```jsx
-import { Button } from "@aws-amplify/ui-react-primitives";
+import { Button } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 
-<Button disabled={true}>Disabled</Button>
-<Button active={true}>Active</Button>
-<Button fullWidth={true}>Full width</Button>
+<Button isDisabled={true}>Disabled</Button>
+<Button isActive={true}>Active</Button>
+<Button isFullWidth={true}>Full width</Button>
 ```
-<Button disabled={true}>Disabled</Button>
-<Button active={true}>Active</Button>
-<Button fullWidth={true}>Full width</Button>
+<Button isDisabled={true}>Disabled</Button>
+<Button isActive={true}>Active</Button>
+<Button isFullWidth={true}>Full width</Button>
 
 
 ### Accessibility
 Accessibility 
 ```jsx
-import { Button } from "@aws-amplify/ui-react-primitives";
+import { Button } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 
 <Button ariaLabel="To the moon!">🚀</Button>
@@ -107,9 +107,9 @@ import "@aws-amplify/ui-react/styles.css";
 
 ### CSS Styling
 
-#### Override Amplify styling using the CSS variables:
+#### Override Amplify styling using the CSS variables
 
-Create a CSS file and override the CSS variables.
+Using a class and CSS file:
 
 ```css
 /* styles.css */
@@ -120,7 +120,7 @@ Create a CSS file and override the CSS variables.
 ```
 
 ```jsx
-import { Button } from "@aws-amplify/ui-react-primitives";
+import { Button } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 import "./styles.css";
 
@@ -149,8 +149,7 @@ Or override the variables inline:
 </div>
 
 #### Override styling using the classname and data attribute selectors:
-Use the `amplify-ui-button` class and data attributes to style the button.
-
+Use the `amplify-ui-button` class and data attributes to style all buttons.
 
 ```css
 /* Example: Extend all <Button> styles */
@@ -180,7 +179,7 @@ Use the `amplify-ui-button` class and data attributes to style the button.
    @apply bg-blue-500 hover:bg-blue-700 text-white;
 }
 ```
-If you want to complete replace the button styling you can unset it:
+To replace the button styling, unset it:
 ```css
 .amplify-ui-button {
   all: unset;
@@ -189,15 +188,39 @@ If you want to complete replace the button styling you can unset it:
 ```
 
 #### Styling a button instance
-To override styling on a specific button: 
+To override styling on a specific button 
 
-Using an id selector
+*Using an class selector:*
+
 ```css
-/* Example: id selector styling override */
-#comic-button {
-  font-family: Comic Sans, sans-serif;
+/* Example: class selector styling override */
+.colorful-button {
+  background: linear-gradient(90deg, #fdbb2d 0%, #22c1c3 100%);
 }
 ```
 ```jsx
-<Button id="comic-button">Click me!</Button>
+<Button className="colorful-button">I'm colorful!</Button>
 ```
+<Button className="colorful-button">I'm colorful!</Button>
+
+
+*Using an id selector:*
+
+```css
+/* Example: id selector styling override */
+#gradient-button {
+  color: white;
+  border-radius: 2rem;
+    background: rgb(2, 0, 36);
+    background: linear-gradient(
+      90deg,
+      rgba(2, 0, 36, 1) 0%,
+      rgba(9, 9, 121, 1) 35%,
+      rgba(0, 212, 255, 1) 100%
+  );
+}
+```
+```jsx
+<Button id="gradient-button">I'm beautiful!</Button>
+```
+<Button id="gradient-button">I'm beautiful!</Button>

@@ -6,6 +6,7 @@
 
 .amplify-ui-button {
   /* Button */
+  --amplify-ui-button-text-align: center;
   --amplify-ui-button-padding: var(--amplify-ui-sizes-4);
   --amplify-ui-button-disabled-opacity: 0.4;
   --amplify-ui-button-disabled-cursor: not-allowed;
@@ -59,6 +60,7 @@
   transition: var(--amplify-ui-button-transition);
   border-radius: var(--amplify-ui-border-radius-md);
   box-sizing: border-box;
+  text-align: var(--amplify-ui-button-text-align);
 }
 .amplify-ui-button:hover {
   cursor: pointer;
