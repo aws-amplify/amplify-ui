@@ -1,9 +1,4 @@
-import React from 'react';
-// Base component definition
-export interface BaseComponentProps {
-  id?: string;
-  className?: string;
-}
+import { BaseComponentProps } from "./base";
 
 export type ButtonSize = "small" | "medium" | "large";
 export type ButtonTypes = "button" | "reset" | "submit";

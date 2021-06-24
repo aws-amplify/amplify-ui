@@ -1,11 +1,6 @@
 import React from "react";
 import { ComponentClassNames } from "../shared/constants";
-import {
-  ButtonProps,
-  ButtonSize,
-  ButtonVariant,
-  ButtonTypes,
-} from "../shared/types";
+import { ButtonProps } from "../types";
 
 export const Button: React.FC<ButtonProps> = ({
   ariaLabel,
@@ -23,7 +18,7 @@ export const Button: React.FC<ButtonProps> = ({
 }) => (
   <button
     aria-label={ariaLabel}
-    className={`${ComponentClassNames.AmplifyButton} ${className}`}
+    className={`${ComponentClassNames.AmplifyButton} ${className ?? ""}`}
     disabled={isDisabled || isLoading}
     data-loading={isLoading}
     data-fullwidth={isFullWidth}

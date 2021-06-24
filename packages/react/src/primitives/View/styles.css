@@ -1,0 +1,48 @@
+:root {
+  --amplify-ui-view-width: inherit;
+  --amplify-ui-view-text-color: inherit;
+  --ampliyf-ui-view-background-color: inherit;
+  --ampliyf-ui-view-color: inherit;
+  --ampliyf-ui-view-box-shadow: inherit;
+  --ampliyf-ui-view-padding: inherit;
+  --ampliyf-ui-view-border: inherit;
+  --ampliyf-ui-view-border-radius: inherit;
+  --ampliyf-ui-view-height: inherit;
+  --ampliyf-ui-view-max-height: inherit;
+  --ampliyf-ui-view-min-height: inherit;
+  --ampliyf-ui-view-width: inherit;
+  --ampliyf-ui-view-max-width: inherit;
+  --ampliyf-ui-view-min-width: inherit;
+  --ampliyf-ui-view-opacity: inherit;
+}
+.amplify-ui-view {
+  --width: var(--amplify-ui-view-width);
+  --color: var(--amplify-ui-view-text-color);
+  --background-color: var(--amplify-ui-view-background-color);
+  --color: var(--amplify-ui-view-color);
+  --box-shadow: var(--amplify-ui-view-box-shadow);
+  --padding: var(--amplify-ui-view-padding);
+  --border: var(--amplify-ui-view-border);
+  --border-radius: var(--amplify-ui-view-border-radius);
+  --height: var(--amplify-ui-view-height);
+  --max-height: var(--amplify-ui-view-max-height);
+  --min-height: var(--amplify-ui-view-min-height);
+  --width: var(--amplify-ui-view-width);
+  --max-width: var(--amplify-ui-view-max-width);
+  --min-width: var(--amplify-ui-view-min-width);
+  --opacity: var(--amplify-ui-view-opacity);
+  width: var(--width);
+  color: var(--color);
+  background-color: var(--background-color);
+  box-shadow: var(--box-shadow);
+  padding: var(--padding);
+  border: var(--border);
+  border-radius: var(--border-radius);
+  height: var(--height);
+  max-height: var(--max-height);
+  min-height: var(--min-height);
+  width: var(--width);
+  max-width: var(--max-width);
+  min-width: var(--min-width);
+  opacity: var(--opacity);
+}

@@ -1,4 +1,5 @@
 @import "./Button/styles.css";
+@import "./View/styles.css";
 
 [data-amplify-theme] [data-amplify-input] {
   @apply block w-full mt-1 border-gray-300 rounded shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50;
