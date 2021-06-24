@@ -1,21 +1,33 @@
-# Example app with MDX
+# Amplify UI Documentation
 
-This example shows using [MDX](https://github.com/mdx-js/mdx) as top level pages for your next.js app.
+Docs are powered by [MDX](https://github.com/mdx-js/mdx) [Next.js](https://nextjs.org/).
 
-## Deploy your own
+## Getting Started
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
+1. Run `yarn install` from the _root_ of your local clone of [aws-amplify/amplify-ui](https://github.com/aws-amplify/amplify-ui)
+1. `yarn docs`
+1. Open <http://localhost:3000/>
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-mdx&project-name=with-mdx&repository-name=with-mdx)
+All imported `packages/*` are compiled automatically by Next.js for you.
 
-## How to use
+## Contributing
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
+### Pages
 
-```bash
-npx create-next-app --example with-mdx with-mdx-app
-# or
-yarn create next-app --example with-mdx with-mdx-app
+At a minimum, all MDX pages require the following basic frontmatter:
+
+```md
+---
+title: "My Title"
+---
+
+"My Title" will show up in the primary navigation now.
 ```
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+### Components
+
+Create or modify a page at `src/content/components/*/index.mdx`.
+
+### Primitives
+
+Create or modify a page at `src/content/primitives/*/index.mdx`.

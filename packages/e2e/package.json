@@ -1,0 +1,21 @@
+{
+  "name": "e2e",
+  "version": "0.0.1",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "TZ=UTC cypress open",
+    "test": "TZ=UTC cypress run"
+  },
+  "cypress-cucumber-preprocessor": {
+    "nonGlobalStepDefinitions": true
+  },
+  "devDependencies": {
+    "@testing-library/cypress": "^7.0.6",
+    "@types/cypress-cucumber-preprocessor": "^4.0.0",
+    "cypress": "^7.5.0",
+    "cypress-cucumber-preprocessor": "^4.1.2",
+    "dotenv-safe": "^8.2.0",
+    "typescript": "^4.3.2"
+  }
+}

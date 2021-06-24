@@ -21,7 +21,7 @@
     "@angular/platform-browser": "~11.2.5",
     "@angular/platform-browser-dynamic": "~11.2.5",
     "@angular/router": "~11.2.5",
-    "aws-amplify": "^3.3.25",
+    "aws-amplify": "latest",
     "ngx-markdown": "^11.1.2",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
