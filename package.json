@@ -1,12 +1,18 @@
 {
   "private": true,
   "scripts": {
-    "dev:vue": "cd vue-docs && yarn serve --port 3001 --host localhost",
-    "dev:angular": "cd angular-docs && yarn start",
-    "docs": "yarn workspace docs dev",
-    "build:angular": "cd packages/angular && yarn build",
-    "build:angular:watch": "cd packages/angular && yarn build --watch",
-    "build:vue": "cd vue-docs && yarn build"
+    "angular": "yarn workspace @aws-amplify/ui-angular",
+    "react": "yarn workspace @aws-amplify/ui-react",
+    "vue": "yarn workspace @aws-amplify/ui-vue",
+    "angular-docs": "yarn workspace angular-docs",
+    "docs": "yarn workspace docs",
+    "vue-docs": "yarn workspace vue-docs",
+    "build:angular": "yarn angular build",
+    "build:angular:watch": "yarn angular build --watch",
+    "build:vue": "yarn vue-docs build",
+    "dev": "yarn docs dev",
+    "dev:angular": "yarn angular-docs start",
+    "dev:vue": "yarn vue-docs serve --port 3001 --host localhost"
   },
   "workspaces": [
     "docs",
