@@ -35,14 +35,11 @@ export function SignUp() {
 
       <Footer>
         <Text>Have an account?</Text>{" "}
-        <Button
-          onClick={() => send({ type: "SIGN_IN" })}
-          type={ButtonTypes.Button}
-        >
+        <Button onClick={() => send({ type: "SIGN_IN" })} type="button">
           Sign in
         </Button>
         <Spacer />
-        <Button isDisabled={isPending} type={ButtonTypes.Submit}>
+        <Button isDisabled={isPending} type="submit">
           {isPending ? <>Creating account&hellip;</> : <>Create account</>}
         </Button>
       </Footer>

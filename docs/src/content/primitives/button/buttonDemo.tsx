@@ -10,13 +10,10 @@ export const ButtonDemo = ({ children }) => {
   const [disabled, setDisabled] = React.useState<boolean>(false);
   const [loading, setLoading] = React.useState<boolean>(false);
   const [fullWidth, setFullWidth] = React.useState<boolean>(false);
-  const [active, setActive] = React.useState<boolean>(false);
   const [loadingText, setLoadingText] = React.useState("Loading...");
   const [ariaLabel, setAriaLabel] = React.useState<string>("");
-  const [variant, setVariant] = React.useState<ButtonVariant>(
-    ButtonVariant.Primary
-  );
-  const [size, setSize] = React.useState<ButtonSize>(ButtonSize.Medium);
+  const [variant, setVariant] = React.useState<ButtonVariant>("primary");
+  const [size, setSize] = React.useState<ButtonSize>("medium");
 
   return (
     <div>
@@ -50,15 +47,6 @@ export const ButtonDemo = ({ children }) => {
           />
           <label htmlFor="loading">isLoading</label>
         </div>
-        <div className="flex items-center gap-1">
-          <input
-            id="active"
-            name="active"
-            type="checkbox"
-            onChange={() => setActive(!active)}
-          />
-          <label htmlFor="active">isActive</label>
-        </div>
 
         <input
           type="text"
@@ -80,28 +68,22 @@ export const ButtonDemo = ({ children }) => {
           placeholder="Select button variant"
           onChange={event => setVariant(event.target.value as ButtonVariant)}
         >
-          <option value={ButtonVariant.Primary}>{ButtonVariant.Primary}</option>
-          <option value={ButtonVariant.Secondary}>
-            {ButtonVariant.Secondary}
-          </option>
-          <option value={ButtonVariant.Tertiary}>
-            {ButtonVariant.Tertiary}
-          </option>
-          <option value={ButtonVariant.Link}>{ButtonVariant.Link}</option>
+          <option value="primary">primary</option>
+          <option value="secondary">secondary</option>
+          <option value="tertiary">tertiary</option>
+          <option value="link">link</option>
         </select>
         <select
           value={size}
-          placeholder="Select button size"
           onChange={event => setSize(event.target.value as ButtonSize)}
         >
-          <option value={ButtonSize.Small}>{ButtonSize.Small}</option>
-          <option value={ButtonSize.Medium}>{ButtonSize.Medium}</option>
-          <option value={ButtonSize.Large}>{ButtonSize.Large}</option>
+          <option value="small">small</option>
+          <option value="medium">medium</option>
+          <option value="large">large</option>
         </select>
       </div>
       <Button
         className="my-favorite-button"
-        isActive={active}
         isDisabled={disabled}
         isLoading={loading}
         loadingText={loadingText}
@@ -110,7 +92,7 @@ export const ButtonDemo = ({ children }) => {
         onClick={() => alert("hello")}
         ariaLabel={ariaLabel}
         isFullWidth={fullWidth}
-        type={ButtonTypes.Button}
+        type="button"
       >
         Click me!
       </Button>

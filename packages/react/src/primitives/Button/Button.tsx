@@ -12,15 +12,14 @@ export const Button: React.FC<ButtonProps> = ({
   className = "",
   children,
   isFullWidth = false,
-  isActive,
   isDisabled,
   isLoading,
   id,
   loadingText = "",
   onClick = () => {},
-  size = ButtonSize.Medium,
-  variant = ButtonVariant.Secondary,
-  type = ButtonTypes.Button,
+  size = "medium",
+  variant = "secondary",
+  type = "button",
 }) => (
   <button
     aria-label={ariaLabel}
@@ -28,13 +27,12 @@ export const Button: React.FC<ButtonProps> = ({
     disabled={isDisabled || isLoading}
     data-loading={isLoading}
     data-fullwidth={isFullWidth}
-    data-active={isActive}
     data-size={size}
     data-variant={variant}
     id={id}
     onClick={onClick}
     type={type}
   >
-    {isLoading ? <span>{loadingText}</span> : children}
+    {isLoading && loadingText ? <span>{loadingText}</span> : children}
   </button>
 );

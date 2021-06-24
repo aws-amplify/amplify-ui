@@ -86,16 +86,14 @@ import { Button } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 
 <Button isDisabled={true}>Disabled</Button>
-<Button isActive={true}>Active</Button>
 <Button isFullWidth={true}>Full width</Button>
 ```
 <Button isDisabled={true}>Disabled</Button>
-<Button isActive={true}>Active</Button>
 <Button isFullWidth={true}>Full width</Button>
 
 
 ### Accessibility
-Accessibility 
+Setting an `aria-label` attribute for an icon button: 
 ```jsx
 import { Button } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
@@ -211,12 +209,12 @@ To override styling on a specific button
 #gradient-button {
   color: white;
   border-radius: 2rem;
-    background: rgb(2, 0, 36);
-    background: linear-gradient(
-      90deg,
-      rgba(2, 0, 36, 1) 0%,
-      rgba(9, 9, 121, 1) 35%,
-      rgba(0, 212, 255, 1) 100%
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    90deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(9, 9, 121, 1) 35%,
+    rgba(0, 212, 255, 1) 100%
   );
 }
 ```

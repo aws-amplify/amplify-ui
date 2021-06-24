@@ -8,7 +8,7 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import { MDXRemote } from "next-mdx-remote";
 import { serialize } from "next-mdx-remote/serialize";
 import * as components from "@aws-amplify/ui-react";
-import { ButtonDemo } from "../content/primitives/button/ButtonDemo";
+import { ButtonDemo } from "../content/primitives/button/buttonDemo";
 
 export default function Content({
   frontmatter,

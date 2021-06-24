@@ -50,21 +50,18 @@ export function SignIn() {
           <Input name="password" required type="password" />
           <Box>
             <Text>Forgot your password?</Text>{" "}
-            <Button type={ButtonTypes.Button}>Reset Password</Button>
+            <Button type="button">Reset Password</Button>
           </Box>
         </Label>
       </Fieldset>
 
       <Footer>
         <Text>No account?</Text>{" "}
-        <Button
-          onClick={() => send({ type: "SIGN_UP" })}
-          type={ButtonTypes.Button}
-        >
+        <Button onClick={() => send({ type: "SIGN_UP" })} type="button">
           Create account
         </Button>
         <Spacer />
-        <Button isDisabled={isPending} type={ButtonTypes.Submit}>
+        <Button isDisabled={isPending} type="submit">
           {isPending ? <>Signing in&hellip;</> : <>Sign In</>}
         </Button>
       </Footer>

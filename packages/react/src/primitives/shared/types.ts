@@ -5,12 +5,11 @@ export interface BaseComponentProps {
   className?: string;
 }
 
-export interface ButtonProps extends BaseComponentProps {
-  /**
-   * If `true`, the button will be styled in its active state.
-   */
-  isActive?: boolean;
+export type ButtonSize = "small" | "medium" | "large";
+export type ButtonTypes = "button" | "reset" | "submit";
+export type ButtonVariant = "primary" | "secondary" | "tertiary" | "link";
 
+export interface ButtonProps extends BaseComponentProps {
   /**
    * If `true`, the button will be disabled.
    */
@@ -39,6 +38,7 @@ export interface ButtonProps extends BaseComponentProps {
 
   /**
    * Changes the button type
+   * @default "button"
    */
   type?: ButtonTypes;
 
@@ -59,23 +59,4 @@ export interface ButtonProps extends BaseComponentProps {
    * @default undefined
    */
   ariaLabel?: string;
-}
-
-export enum ButtonTypes {
-  Button = "button",
-  Reset = "reset",
-  Submit = "submit",
-}
-
-export enum ButtonVariant {
-  Primary = "primary",
-  Secondary = "secondary",
-  Tertiary = "tertiary",
-  Link = "link",
-}
-
-export enum ButtonSize {
-  Small = "small",
-  Medium = "medium",
-  Large = "large",
 }
