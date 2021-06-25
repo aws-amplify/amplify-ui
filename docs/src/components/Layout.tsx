@@ -428,7 +428,7 @@ export function Layout({ children, componentPages, primitivePages, title }) {
             </div>
           </div>
 
-          {/* TODO Replace with dynamic nav via Remark using on-page content headers */}
+          {/* TODO Replace with dynamic nav via Remark using on-page content headers
           <div className="sticky top-0 right-0 hidden w-64 py-8 pl-8 border-l md:block">
             <h5 className="mb-3 text-sm font-semibold tracking-wide text-gray-900 uppercase lg:text-xs">
               On this page
@@ -524,6 +524,7 @@ export function Layout({ children, componentPages, primitivePages, title }) {
               </li>
             </ul>
           </div>
+          */}
         </main>
       </div>
     </div>
