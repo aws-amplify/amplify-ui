@@ -9,8 +9,8 @@
 
 ## Documentation Development
 
-1. Run the documentation via `yarn docs`
-1. Visit <http://localhost:3000/>
+1. Run the documentation via `yarn docs dev`
+1. Visit <http://localhost:5000/>
 1. Create/Update content based on the URL.
 
    For example, the content for
