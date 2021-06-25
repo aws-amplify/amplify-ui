@@ -12,6 +12,7 @@
     "docs",
     "vue-docs",
     "angular-docs",
+    "examples/*",
     "packages/*"
   ],
   "resolutions": {
