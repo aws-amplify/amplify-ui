@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "PORT=5000 next-remote-watch src/content",
     "build": "next build && next export",
-    "start": "next start"
+    "start": "next start",
+    "test": "$_ run build"
   },
   "dependencies": {
     "@aws-amplify/ui-react-v1": "npm:@aws-amplify/ui-react",
