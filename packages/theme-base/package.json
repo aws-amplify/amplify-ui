@@ -1,0 +1,20 @@
+{
+  "private": true,
+  "name": "@aws-amplify/ui-theme-base",
+  "description": "Basic theme for Amplify UI components",
+  "version": "0.0.1",
+  "main": "dist/theme.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "yarn run build:sd; yarn run build:css",
+    "build:sd": "style-dictionary build --config ./sd.config.js",
+    "build:css": "cat src/css/*.css src/css/**/*.css > dist/theme.css",
+    "clean": "rimraf dist"
+  },
+  "devDependencies": {
+    "rimraf": "^3.0.2",
+    "style-dictionary": "^3.0.1"
+  }
+}
