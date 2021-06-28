@@ -1,19 +1,19 @@
 :root {
   --amplify-ui-view-width: inherit;
   --amplify-ui-view-text-color: inherit;
-  --ampliyf-ui-view-background-color: inherit;
-  --ampliyf-ui-view-color: inherit;
-  --ampliyf-ui-view-box-shadow: inherit;
-  --ampliyf-ui-view-padding: inherit;
-  --ampliyf-ui-view-border: inherit;
-  --ampliyf-ui-view-border-radius: inherit;
-  --ampliyf-ui-view-height: inherit;
-  --ampliyf-ui-view-max-height: inherit;
-  --ampliyf-ui-view-min-height: inherit;
-  --ampliyf-ui-view-width: inherit;
-  --ampliyf-ui-view-max-width: inherit;
-  --ampliyf-ui-view-min-width: inherit;
-  --ampliyf-ui-view-opacity: inherit;
+  --amplify-ui-view-background-color: inherit;
+  --amplify-ui-view-color: inherit;
+  --amplify-ui-view-box-shadow: inherit;
+  --amplify-ui-view-padding: inherit;
+  --amplify-ui-view-border: inherit;
+  --amplify-ui-view-border-radius: inherit;
+  --amplify-ui-view-height: inherit;
+  --amplify-ui-view-max-height: inherit;
+  --amplify-ui-view-min-height: inherit;
+  --amplify-ui-view-width: inherit;
+  --amplify-ui-view-max-width: inherit;
+  --amplify-ui-view-min-width: inherit;
+  --amplify-ui-view-opacity: inherit;
 }
 .amplify-ui-view {
   --width: var(--amplify-ui-view-width);
