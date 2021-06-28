@@ -39,6 +39,8 @@ export default function Content({
           customComponents,
         }}
       />
+
+      <FeatureTests featureTests={featureTests} />
     </Layout>
   );
 }
