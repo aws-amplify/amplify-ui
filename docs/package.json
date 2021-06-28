@@ -3,7 +3,7 @@
   "name": "docs",
   "version": "0.0.1",
   "scripts": {
-    "dev": "PORT=5000 next-remote-watch src/content",
+    "dev": "PORT=5000 next-remote-watch 'src/content' '../packages/e2e/**/*.feature'",
     "build": "next build && next export",
     "start": "next start",
     "test": "$_ run build"
