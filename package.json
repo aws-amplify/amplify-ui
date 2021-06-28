@@ -6,6 +6,7 @@
     "vue": "yarn workspace @aws-amplify/ui-vue",
     "angular-docs": "yarn workspace angular-docs",
     "docs": "yarn workspace docs",
+    "e2e": "yarn workspace e2e",
     "vue-docs": "yarn workspace vue-docs",
     "build:angular": "yarn angular build",
     "build:angular:watch": "yarn angular build --watch",
