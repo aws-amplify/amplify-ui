@@ -18,7 +18,7 @@ export const Button: React.FC<ButtonProps> = ({
 }) => (
   <button
     aria-label={ariaLabel}
-    className={`${ComponentClassNames.AmplifyButton} ${className ?? ""}`}
+    className={`${ComponentClassNames.Button} ${className ?? ""}`}
     disabled={isDisabled || isLoading}
     data-loading={isLoading}
     data-fullwidth={isFullWidth}

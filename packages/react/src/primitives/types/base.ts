@@ -32,6 +32,11 @@ export interface CustomProperties {
   [CustomPropertiesMap.minWidth]?: Property.MinWidth;
   [CustomPropertiesMap.opacity]?: Property.Opacity;
 }
+
+/**
+ * This is required to support passing our CSS custom properties
+ * to React's `style` prop
+ */
 declare module 'csstype' {
   interface Properties extends CustomProperties { }
 }
