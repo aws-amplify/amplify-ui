@@ -420,7 +420,7 @@ export function Layout({ children, componentPages, primitivePages, title }) {
 
             <div className="px-4 mx-auto max-w-7xl sm:px-6 md:px-8">
               {/* Replace with your content */}
-              <div className="py-4 prose md:prose-md">
+              <div className="py-4 prose md:prose-md max-w-none">
                 {/* <div className="border-4 border-gray-200 border-dashed rounded-lg h-96" /> */}
                 <MDXProvider components={components}>{children}</MDXProvider>
               </div>
