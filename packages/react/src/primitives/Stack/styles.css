@@ -1,0 +1,10 @@
+:root {
+	--amplify-ui-stack-width: inherit;
+}
+
+.amplify-ui-view {
+	--width: var(--amplify-ui-stack-width);
+
+	width: var(--width);
+}
+
