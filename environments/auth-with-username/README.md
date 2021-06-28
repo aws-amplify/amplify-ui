@@ -1,6 +1,6 @@
 # Auth with Username
 
-This backend is configured with:
+This backend is configured with Amplify Admin UI:
 
 - Authentication
 
