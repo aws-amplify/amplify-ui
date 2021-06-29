@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import React from "react";
 import { ComponentClassNames } from "../shared/constants";
 import { getStyleCssVarsFromProps } from "../shared/utils";
@@ -37,11 +38,7 @@ export const View: React.FC<ViewProps> = props => {
       style={getStyleCssVarsFromProps(props)}
       aria-label={ariaLabel}
       role={role}
-      className={
-        className
-          ? `${ComponentClassNames.View} ${className}`
-          : ComponentClassNames.View
-      }
+      className={classNames(ComponentClassNames.View, className)}
       id={id}
       disabled={isDisabled}
       {...rest}
