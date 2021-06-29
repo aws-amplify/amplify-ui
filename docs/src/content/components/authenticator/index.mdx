@@ -29,3 +29,30 @@ function App() {
 
 export default withAuthenticator(App)
 ```
+
+## Headless Usage
+
+The `Authenticator`'s UI is powered by a state machine. You can use the `useAuth` hook
+to get access to it and customizing behavior or your own UI:
+
+```js{1,4-6,10}
+import { useAuth } from "@aws-amplify/ui-react";
+
+function App() {
+  const [state, send] = useAuth();
+
+  if (state.matches("authenticated")) {
+    return (
+      <>
+        <h1>Welcome, {state.context.user.username}</h1>
+        <button onClick={() => send("SIGN_OUT")}>Sign out</button>
+      </>
+    );
+  }
+
+  ...
+}
+```
+
+<XStateInspector />
+<Authenticator />

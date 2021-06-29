@@ -11,6 +11,7 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import { MDXRemote } from "next-mdx-remote";
 import { serialize } from "next-mdx-remote/serialize";
 import { ButtonDemo } from "../content/primitives/button/buttonDemo";
+import { XStateInspector } from "@/components/XStateInspector";
 
 export default function Content({
   featureTests = [],
@@ -32,6 +33,7 @@ export default function Content({
           ...components,
           ButtonDemo,
           FeatureTests,
+          XStateInspector,
         }}
         scope={{
           featureTests,
