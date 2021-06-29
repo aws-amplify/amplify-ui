@@ -1,13 +1,15 @@
 import { useAmplify, useAuth } from "@aws-amplify/ui-react";
 import { UserNameAliasNames } from "../../primitives/shared/constants";
-export function UserNameAliasInput({ components, ...attrs }) {
+export function UserNameAlias({ components, usernameAlias = "", ...attrs }) {
   const {
     components: { Label, Text, Input },
   } = useAmplify(components);
 
   const [state] = useAuth();
   const userNameAliasConfig = state.context.config || "username";
-  const userNameAlias = UserNameAliasNames[userNameAliasConfig];
+  const userNameAlias = usernameAlias
+    ? UserNameAliasNames[usernameAlias]
+    : UserNameAliasNames[userNameAliasConfig];
 
   return (
     <Label {...attrs}>
