@@ -1,4 +1,5 @@
 import { useAmplify, useAuth } from "@aws-amplify/ui-react";
+import { ButtonTypes } from "../../primitives";
 
 export function SignIn() {
   const {
@@ -60,7 +61,7 @@ export function SignIn() {
           Create account
         </Button>
         <Spacer />
-        <Button disabled={isPending} type="submit">
+        <Button isDisabled={isPending} type="submit">
           {isPending ? <>Signing in&hellip;</> : <>Sign In</>}
         </Button>
       </Footer>

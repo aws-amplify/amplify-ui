@@ -1,9 +1,8 @@
+export * from "./Button";
+export * from "./shared";
+
 export function Box(props) {
   return <div data-amplify-box="" {...props} />;
-}
-
-export function Button(props) {
-  return <button data-amplify-button="" {...props} />;
 }
 
 export function Fieldset(props) {

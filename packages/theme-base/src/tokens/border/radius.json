@@ -1,0 +1,9 @@
+{
+  "border": {
+    "radius": {
+      "small": { "value": "3px" },
+      "medium": { "value": "4px" },
+      "large": { "value": "6px" }
+    }
+  }
+}
