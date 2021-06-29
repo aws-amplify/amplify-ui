@@ -1,4 +1,4 @@
-import { ButtonTypes, useAmplify, useAuth } from "@aws-amplify/ui-react";
+import { useAmplify, useAuth } from "@aws-amplify/ui-react";
 
 export function SignUp() {
   const {

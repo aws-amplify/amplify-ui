@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  Button,
-  ButtonSize,
-  ButtonTypes,
-  ButtonVariant,
-} from "@aws-amplify/ui-react";
+import { Button, ButtonSize, ButtonVariant } from "@aws-amplify/ui-react";
 
 export const ButtonDemo = ({ children }) => {
   const [disabled, setDisabled] = React.useState<boolean>(false);
@@ -18,7 +13,7 @@ export const ButtonDemo = ({ children }) => {
   return (
     <div>
       <h4>Button Props:</h4>
-      <div className="flex gap-5 flex-wrap my-8">
+      <div className="flex flex-wrap gap-5 my-8">
         <div className="flex items-center gap-1">
           <input
             id="disabled"
