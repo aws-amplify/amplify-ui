@@ -1,5 +1,6 @@
 export * from "./Button";
 export * from "./shared";
+export * from "./Text";
 
 export function Box(props) {
   return <div data-amplify-box="" {...props} />;
@@ -41,10 +42,6 @@ export function Label(props) {
 
 export function Spacer(props) {
   return <span data-amplify-spacer="" {...props} />;
-}
-
-export function Text(props) {
-  return <span data-amplify-text="" {...props} />;
 }
 
 export function Wrapper(props) {

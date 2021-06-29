@@ -1,0 +1,61 @@
+---
+title: Text
+---
+
+## Installation
+
+```
+npm install @aws-amplify/ui-react
+```
+
+## Demo
+
+```
+<Text>Some Text </Text>
+```
+
+## Usage
+Import the Text component and styles. 
+
+```jsx
+import { Text } from "@aws-amplify/ui-react";
+import "@aws-amplify/ui-react/styles.css";
+// For smaller bundle size, import just the button styling:
+// import "@aws-amplify/ui-react/dist/primitives/Text/styles.css";
+
+<Text>Hello world</Text>
+```
+<Text>Hello world</Text>
+
+### Text variants
+Use the `variant` prop to change the text variant. Available options are `primary`, `secondary`, `tertiary`, `danger`, `warning`, `info`, and `success`.
+
+```jsx
+import { Text } from "@aws-amplify/ui-react";
+import "@aws-amplify/ui-react/styles.css";
+
+<Text variant="primary">Primary</Text>
+<Text variant="secondary">Secondary</Text>
+<Text variant="tertiary">Tertiary</Text>
+<Text variant="danger">Danger</Text>
+<Text variant="warning">Warning</Text>
+<Text variant="info">Info</Text>
+<Text variant="success">Success</Text>
+```
+<Text variant="primary">Primary</Text>
+<Text variant="secondary">Secondary</Text>
+<Text variant="tertiary">Tertiary</Text>
+<Text variant="danger">Danger</Text>
+<Text variant="warning">Warning</Text>
+<Text variant="info">Info</Text>
+<Text variant="success">Success</Text>
+
+### Accessibility
+Setting an `aria-label` attribute for an icon text: 
+```jsx
+import { Text } from "@aws-amplify/ui-react";
+import "@aws-amplify/ui-react/styles.css";
+
+<Text ariaLabel="To the moon!">🚀</Text>
+```
+<Text ariaLabel="To the moon!">🚀</Text>

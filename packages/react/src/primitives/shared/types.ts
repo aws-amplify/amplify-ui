@@ -1,4 +1,5 @@
-import React from 'react';
+import React from "react";
+import { Property } from "csstype";
 // Base component definition
 export interface BaseComponentProps {
   id?: string;
@@ -59,4 +60,56 @@ export interface ButtonProps extends BaseComponentProps {
    * @default undefined
    */
   ariaLabel?: string;
+}
+
+const ComponentClassNames = {
+  AmplifyText: "AmplifyText",
+};
+
+export type TextVariant =
+  | "primary"
+  | "secondary"
+  | "tertiary"
+  | "danger"
+  | "warning"
+  | "info"
+  | "success";
+
+export interface TextProps {
+  /**
+   * Lower-level text styling attributes
+   * These
+   */
+  fontStyle?: Property.FontStyle;
+  textDecoration?: Property.TextDecoration;
+  fontWeight?: Property.FontWeight;
+  fontFamily?: Property.FontFamily;
+  color?: Property.Color;
+  letterSpacing?: Property.LetterSpacing;
+  lineHeight?: Property.LineHeight;
+}
+
+export interface TextOptions extends BaseComponentProps, TextProps {
+  /**
+   * This should be the primary way to handle different styles of text. Lower-level
+   * text styling attributes like color can be set directly, that should be more of an
+   * escape hatch.
+   */
+  variant?: TextVariant;
+
+  /**
+   * This will be mapped to aria-label
+   */
+  ariaLabel?: string;
+
+  /**
+   *
+   */
+  isTruncated?: boolean;
+
+  /**
+   * Any arbitrary props will be passed to the underlying element. A user could pass
+   * an onClick method if they wanted to or data-* attributes if needed.
+   */
+  [key: string]: any;
 }
