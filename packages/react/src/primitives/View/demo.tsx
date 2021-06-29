@@ -38,9 +38,7 @@ export const ViewDemo = ({ children }) => {
   );
   const [padding, setPadding] = React.useState<string>("1rem");
   const [border, setBorder] = React.useState<string>("1px solid black");
-  const [borderRadius, setBorderRadius] = React.useState<string>(
-    "1px solid black"
-  );
+  const [borderRadius, setBorderRadius] = React.useState<string>("4px");
   const [opacity, setOpacity] = React.useState<string>("100%");
   const [customAttribute, setCustomAttribute] = React.useState<string>(
     "data-demo"
