@@ -23,7 +23,7 @@ And("I type the email {string}", email => {
 });
 
 And("I type the phone number {string}", phone => {
-  cy.get("input[name=phone_line_number]").type(phone);
+  cy.get("input[name=phone_number]").type(phone);
 });
 
 And("I click the {string} button", (name: string) => {
