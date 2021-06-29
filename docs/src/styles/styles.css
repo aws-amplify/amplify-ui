@@ -1,5 +1,6 @@
 @import "prism-theme-night-owl";
 @import "tailwindcss/tailwind.css";
+@import "../content/primitives/button/buttonStyles.css";
 
 .mdx-marker {
   @apply pl-5 -ml-4 -mr-4 bg-gray-700 border-l-4 border-amazon;

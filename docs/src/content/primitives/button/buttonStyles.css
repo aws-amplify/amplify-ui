@@ -3,9 +3,10 @@
 */
 
 .my-custom-button {
-  --amplify-ui-button-color-bg-primary: #0057ff;
-  --amplify-ui-button-color-bg-primary-hover: #4d89fc;
+  --amplify-ui-button-colors-bg-primary: #0057ff;
+  --amplify-ui-button-colors-bg-primary-hover: #4d89fc;
 }
+
 #gradient-button {
   color: white;
   border-radius: 2rem;
@@ -17,6 +18,7 @@
     rgba(0, 212, 255, 1) 100%
   );
 }
+
 .colorful-button {
   background: linear-gradient(90deg, #fdbb2d 0%, #22c1c3 100%);
 }
