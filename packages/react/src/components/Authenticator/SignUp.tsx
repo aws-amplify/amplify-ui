@@ -1,4 +1,5 @@
-import { ButtonTypes, useAmplify, useAuth } from "@aws-amplify/ui-react";
+import { useAmplify, useAuth } from "@aws-amplify/ui-react";
+import { UserNameAliasInput } from "./UserNameAliasInput";
 
 export function SignUp() {
   const {
@@ -53,10 +54,10 @@ SignUp.UsernameControl = ({ label = "Username", name = "username" }) => {
   } = useAmplify("Authenticator.SignUp.Username");
 
   return (
-    <Label data-amplify-username>
-      <Text>{label}</Text>
-      <Input name={name} required type="text" />
-    </Label>
+    <UserNameAliasInput
+      data-amplify-username
+      components={"Authenticator.SignUp.Username"}
+    />
   );
 };
 

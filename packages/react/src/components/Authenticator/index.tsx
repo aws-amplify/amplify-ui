@@ -4,7 +4,7 @@ import { useAmplify, useAuth } from "@aws-amplify/ui-react";
 import { SignIn } from "./SignIn";
 import { SignUp } from "./SignUp";
 
-export function Authenticator({ className, children = (context) => null }) {
+export function Authenticator({ className, children = context => null }) {
   const [state, send] = useAuth();
 
   const {
@@ -30,7 +30,7 @@ export function Authenticator({ className, children = (context) => null }) {
           case state.matches("idle"):
             return null;
           case state.matches("signIn"):
-            return <SignIn />;
+            return <SignIn userNameAlias={state.context.config} />;
           case state.matches("signUp"):
             return <SignUp />;
           default:

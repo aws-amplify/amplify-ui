@@ -7,6 +7,7 @@ export interface AuthContext {
   user?: CognitoUser;
   session?: CognitoUserSession;
   formValues?: AuthFormData;
+  config?: string;
 }
 
 export type AuthEventTypes =

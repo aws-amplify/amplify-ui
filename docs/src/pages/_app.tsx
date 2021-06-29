@@ -3,6 +3,10 @@ import "@aws-amplify/ui/dist/style.css";
 import Head from "next/head";
 import "../content/primitives/button/buttonStyles.css";
 import "../styles/styles.css";
+import { Amplify } from "aws-amplify";
+import awsExports from "./aws-exports";
+
+Amplify.configure(awsExports);
 
 function MyApp({ Component, pageProps }) {
   return (

@@ -1,4 +1,4 @@
-import { Auth } from "aws-amplify";
+import { Auth, Amplify } from "aws-amplify";
 import { Machine, assign } from "xstate";
 // import { inspect } from "@xstate/inspect";
 import { AuthContext, AuthEvent } from "./types";
@@ -19,25 +19,33 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
       error: "",
       formValues: {},
       user: undefined,
-      session: undefined
+      session: undefined,
     },
     states: {
       // See: https://xstate.js.org/docs/guides/communication.html#invoking-promises
       idle: {
-        invoke: {
-          // TODO Wait for Auth to be configured
-          src: "getCurrentUser",
-          onDone: {
-            actions: "setUser",
-            target: "authenticated"
+        invoke: [
+          {
+            // TODO Wait for Auth to be configured
+            src: "getCurrentUser",
+            onDone: {
+              actions: "setUser",
+              target: "authenticated",
+            },
+            onError: "signIn",
           },
-          onError: "signIn"
-        }
+          {
+            src: "getCurrentConfig",
+            onDone: {
+              actions: "setUserNameAlias",
+            },
+          },
+        ],
       },
       authenticated: {
         on: {
-          SIGN_OUT: "signOut"
-        }
+          SIGN_OUT: "signOut",
+        },
       },
       signIn: {
         initial: "edit",
@@ -48,13 +56,13 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
             initial: "clean",
             states: {
               clean: {},
-              error: {}
+              error: {},
             },
             on: {
               SUBMIT: "submit",
               INPUT: { actions: "handleInput" },
-              SIGN_UP: "#auth.signUp"
-            }
+              SIGN_UP: "#auth.signUp",
+            },
           },
           submit: {
             entry: "clearError",
@@ -62,22 +70,22 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
               src: "signIn",
               onDone: {
                 actions: "setUser",
-                target: "resolved"
+                target: "resolved",
               },
               onError: {
                 actions: "setCognitoError",
-                target: "rejected"
-              }
-            }
+                target: "rejected",
+              },
+            },
           },
           resolved: {
-            type: "final"
+            type: "final",
           },
           rejected: {
             // TODO Set errors and go back to `idle`?
-            always: "edit.error"
-          }
-        }
+            always: "edit.error",
+          },
+        },
       },
       signUp: {
         initial: "edit",
@@ -88,13 +96,13 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
             initial: "clean",
             states: {
               clean: {},
-              error: {}
+              error: {},
             },
             on: {
               SIGN_IN: "#auth.signIn",
               SUBMIT: "submit",
-              INPUT: { actions: "handleInput" }
-            }
+              INPUT: { actions: "handleInput" },
+            },
           },
           submit: {
             entry: "clearError",
@@ -102,21 +110,21 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
               src: "signUp",
               onDone: {
                 actions: "setUser",
-                target: "resolved"
+                target: "resolved",
               },
               onError: {
                 actions: "setCognitoError",
-                target: "rejected"
-              }
-            }
+                target: "rejected",
+              },
+            },
           },
           rejected: {
-            always: "edit.error"
+            always: "edit.error",
           },
           resolved: {
-            type: "final"
-          }
-        }
+            type: "final",
+          },
+        },
       },
       confirmSignUp: {
         initial: "edit",
@@ -127,46 +135,46 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
             initial: "clean",
             states: {
               clean: {},
-              error: {}
+              error: {},
             },
             on: {
               SUBMIT: "submit",
               RESEND: "resend",
               SIGN_IN: "#auth.signIn",
-              INPUT: { actions: "handleInput" }
-            }
+              INPUT: { actions: "handleInput" },
+            },
           },
           submit: {
             invoke: {
               src: "confirmSignUp",
               onDone: {
-                target: "resolved"
+                target: "resolved",
               },
               onError: {
                 actions: "setCognitoError",
-                target: "rejected"
-              }
-            }
+                target: "rejected",
+              },
+            },
           },
           resend: {
             invoke: {
               src: "resendConfirmationCode",
               onDone: {
-                target: "edit"
+                target: "edit",
               },
               onError: {
                 actions: "setCognitoError",
-                target: "rejected"
-              }
-            }
+                target: "rejected",
+              },
+            },
           },
           rejected: {
-            always: "edit.error"
+            always: "edit.error",
           },
           resolved: {
-            type: "final"
-          }
-        }
+            type: "final",
+          },
+        },
       },
       signOut: {
         initial: "pending",
@@ -177,34 +185,39 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
               src: "signOut",
               onDone: {
                 actions: "setUser",
-                target: "resolved"
+                target: "resolved",
               },
               // See: https://xstate.js.org/docs/guides/communication.html#the-invoke-property
-              onError: "rejected"
-            }
+              onError: "rejected",
+            },
           },
           rejected: {
             // TODO Why would signOut be rejected?
-            type: "final"
+            type: "final",
           },
           resolved: {
-            type: "final"
-          }
-        }
-      }
-    }
+            type: "final",
+          },
+        },
+      },
+    },
   },
   {
     actions: {
       setUser: assign({
         user(_, event) {
           return event.data?.user || event.data;
-        }
+        },
+      }),
+      setUserNameAlias: assign({
+        config(_, event) {
+          return event.data.userNameAlias;
+        },
       }),
       setCognitoError: assign({
         error(_, event) {
           return event.data?.message || event.data;
-        }
+        },
       }),
       clearFormValues: assign({ formValues: {} }),
       clearError: assign({ error: "" }),
@@ -213,16 +226,19 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
           const { name, value } = event.data;
           return {
             ...context.formValues,
-            [name]: value
+            [name]: value,
           };
-        }
-      })
+        },
+      }),
     },
     // See: https://xstate.js.org/docs/guides/guards.html#guards-condition-functions
     guards: {},
     services: {
       async getCurrentUser() {
         return Auth.currentAuthenticatedUser();
+      },
+      async getCurrentConfig() {
+        return Amplify.configure();
       },
       async signIn(context, event) {
         const { username, password } = event.data;
@@ -239,6 +255,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
 
         return Auth.resendSignUp(username);
       },
+
       async signUp(context, event) {
         const { username, password, ...attributes } = event.data;
         if (attributes.phone_number) {
@@ -250,7 +267,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
         const result = await Auth.signUp({
           username,
           password,
-          attributes
+          attributes,
         });
 
         // TODO `cond`itionally transition to `signUp.confirm` or `resolved` based on result
@@ -258,7 +275,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
       },
       async signOut() {
         await Auth.signOut(/* global? */);
-      }
-    }
+      },
+    },
   }
 );
