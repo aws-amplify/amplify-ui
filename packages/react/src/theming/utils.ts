@@ -17,11 +17,13 @@ const themeWalk = (
   path: string[] = []
 ) => {
   for (const key in theme) {
+    const currentPath = [...path, key];
     const value = theme[key];
+
     if (isThemeObject(value)) {
-      themeWalk(value, predicate, [...path, key]);
+      themeWalk(value, predicate, currentPath);
     } else {
-      predicate(key, value, [...path, key]);
+      predicate(key, value, currentPath);
     }
   }
 };
@@ -46,7 +48,7 @@ export const getCSSVariables = (theme: Theme, options?: ThemeOptions) => {
 
 /**
  * Extends a theme, applying overrides to create a new theme instance.
- * Note: Original theme is not changed during merging
+ * Note: Original theme object is not changed during merging
  *
  * @param overrides Dictionary of theme tokens to override
  */
