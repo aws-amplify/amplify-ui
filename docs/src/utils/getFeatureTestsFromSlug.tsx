@@ -51,8 +51,7 @@ export async function getFeatureTestsFromSlug(slug: string) {
       );
     })
     // Strip `undefined` properties because they're not JSON-serializable by Next.js
-    .map(featureTest => JSON.stringify(featureTest))
-    .map(featureJSON => JSON.parse(featureJSON));
+    .map(featureTest => JSON.parse(JSON.stringify(featureTest)));
 
   return featureTests;
 }
