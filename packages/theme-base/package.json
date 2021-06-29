@@ -10,10 +10,11 @@
   "scripts": {
     "build": "yarn run build:sd; yarn run build:css",
     "build:sd": "style-dictionary build --config ./sd.config.js",
-    "build:css": "cat src/css/*.css src/css/**/*.css > dist/theme.css",
+    "build:css": "globcat src/css/theme.css dist/variables.css src/css/**/*.css --output dist/theme.css",
     "clean": "rimraf dist"
   },
   "devDependencies": {
+    "globcat": "^1.3.4",
     "rimraf": "^3.0.2",
     "style-dictionary": "^3.0.1"
   }

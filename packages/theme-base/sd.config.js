@@ -21,6 +21,7 @@ module.exports = {
           options: {
             selector: CSS_VARIABLE_SCOPE,
             outputReferences: true,
+            showFileHeader: false,
           },
         },
       ],
