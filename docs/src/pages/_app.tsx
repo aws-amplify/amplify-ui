@@ -1,8 +1,8 @@
-import Head from "next/head";
-
-import "../styles/styles.css";
 import "@aws-amplify/ui-react/styles.css";
+import "@aws-amplify/ui/dist/style.css";
+import Head from "next/head";
 import "../content/primitives/button/buttonStyles.css";
+import "../styles/styles.css";
 
 function MyApp({ Component, pageProps }) {
   return (
