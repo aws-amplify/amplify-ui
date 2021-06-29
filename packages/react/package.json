@@ -2,7 +2,13 @@
   "private": true,
   "name": "@aws-amplify/ui-react",
   "version": "0.0.1",
+  "scripts": {
+    "primitives:new": "hygen primitives new"
+  },
   "dependencies": {
     "@xstate/react": "^1.4.0"
+  },
+  "devDependencies": {
+    "hygen": "^6.1.0"
   }
 }

@@ -4,6 +4,7 @@
     "angular": "yarn workspace @aws-amplify/ui-angular",
     "react": "yarn workspace @aws-amplify/ui-react",
     "vue": "yarn workspace @aws-amplify/ui-vue",
+    "theme-base": "yarn workspace @aws-amplify/ui-theme-base",
     "angular-docs": "yarn workspace angular-docs",
     "docs": "yarn workspace docs",
     "next-example": "yarn workspace next-example",
@@ -12,6 +13,7 @@
     "build:angular": "yarn angular build",
     "build:angular:watch": "yarn angular build --watch",
     "build:vue": "yarn vue-docs build",
+    "build:theme-base": "yarn theme-base build",
     "dev": "yarn docs dev",
     "dev:angular": "yarn angular-docs start",
     "dev:vue": "yarn vue-docs serve --port 3001 --host localhost"
