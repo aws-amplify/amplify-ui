@@ -1,35 +1,12 @@
-import { BaseComponentProps } from "./base";
+import { AriaProps, BaseComponentProps, StyleProps } from "./base";
 import { Property } from 'csstype';
 
 export type ViewAsHTMLElementTypes = keyof JSX.IntrinsicElements;
 
-export interface ViewProps extends BaseComponentProps {
+export interface ViewProps extends BaseComponentProps, StyleProps, AriaProps {
   as?: ViewAsHTMLElementTypes;
-  id?: string;
-  backgroundColor?: Property.BackgroundColor;
-  color?: Property.Color;
-
-  boxShadow?: Property.BoxShadow;
-
-  padding?: Property.Padding;
-  border?: Property.Border;
-  borderRadius?: Property.BorderRadius;
-
-  height?: Property.Height;
-  maxHeight?: Property.MaxHeight;
-  minHeight?: Property.MinHeight;
-
-  width?: Property.Width;
-  maxWidth?: Property.MaxWidth;
-  minWidth?: Property.MinWidth;
-
-  // weight or flex-basis prop??
-
-  opacity?: Property.Opacity;
 
   role?: string;
-
-  ariaLabel?: string;
 
   isDisabled?: boolean;
 

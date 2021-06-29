@@ -1,10 +1,10 @@
-import { BaseComponentProps } from "./base";
+import { AriaProps, BaseComponentProps } from "./base";
 
 export type ButtonSize = "small" | "medium" | "large";
 export type ButtonTypes = "button" | "reset" | "submit";
 export type ButtonVariant = "primary" | "secondary" | "tertiary" | "link";
 
-export interface ButtonProps extends BaseComponentProps {
+export interface ButtonProps extends BaseComponentProps, AriaProps {
   /**
    * If `true`, the button will be disabled.
    */
@@ -32,16 +32,16 @@ export interface ButtonProps extends BaseComponentProps {
   onClick?: (event: React.MouseEvent) => void;
 
   /**
-   * Changes the button type
-   * @default "button"
-   */
-  type?: ButtonTypes;
-
-  /**
    * Changes the size of the button.
    * @default "medium"
    */
   size?: ButtonSize;
+
+  /**
+   * Changes the button type
+   * @default "button"
+   */
+  type?: ButtonTypes;
 
   /**
    * Changes the visual weight of the button.
@@ -49,9 +49,4 @@ export interface ButtonProps extends BaseComponentProps {
    */
   variant?: ButtonVariant;
 
-  /**
-   * Aria label for accessibility
-   * @default undefined
-   */
-  ariaLabel?: string;
 }

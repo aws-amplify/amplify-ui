@@ -15,6 +15,7 @@ export const ViewDemo = ({ children }) => {
   if (customAttribute) {
     customAttributes[customAttribute] = true;
   }
+
   return (
     <div>
       <h4>View Props:</h4>

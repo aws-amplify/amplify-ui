@@ -46,3 +46,29 @@ export interface BaseComponentProps {
   id?: string;
   className?: string;
 }
+
+export interface AriaProps {
+  ariaLabel?: string;
+}
+
+export interface StyleProps {
+  backgroundColor?: Property.BackgroundColor;
+  color?: Property.Color;
+
+  boxShadow?: Property.BoxShadow;
+
+  padding?: Property.Padding;
+
+  border?: Property.Border;
+  borderRadius?: Property.BorderRadius;
+
+  height?: Property.Height;
+  maxHeight?: Property.MaxHeight;
+  minHeight?: Property.MinHeight;
+
+  width?: Property.Width;
+  maxWidth?: Property.MaxWidth;
+  minWidth?: Property.MinWidth;
+
+  opacity?: Property.Opacity;
+}

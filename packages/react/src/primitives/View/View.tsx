@@ -1,16 +1,7 @@
 import React from "react";
 import { ComponentClassNames } from "../shared/constants";
-import { CustomPropertiesMap, ViewProps } from "../types/index";
-
-const getStyle = (props: ViewProps) => {
-  let style: React.CSSProperties = {};
-  Object.keys(CustomPropertiesMap).forEach(propKey => {
-    if (propKey in props) {
-      style[CustomPropertiesMap[propKey]] = props[propKey];
-    }
-  });
-  return style;
-};
+import { getStyleCssVarsFromProps } from "../shared/utils";
+import { ViewProps } from "../types/index";
 
 export const View: React.FC<ViewProps> = props => {
   const {
@@ -43,7 +34,7 @@ export const View: React.FC<ViewProps> = props => {
 
   return (
     <ViewTag
-      style={getStyle(props)}
+      style={getStyleCssVarsFromProps(props)}
       aria-label={ariaLabel}
       role={role}
       className={
