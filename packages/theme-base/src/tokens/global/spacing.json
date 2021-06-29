@@ -1,0 +1,11 @@
+{
+  "spacing": {
+    "small": { "value": "0.1rem" },
+    "medium": { "value": "0.375rem" },
+    "large": { "value": "0.6rem" }
+  },
+  "padding": {
+    "small": { "value": "{spacing.small.value}" },
+    "medium": { "value": "{spacing.medium.value}" }
+  }
+}
