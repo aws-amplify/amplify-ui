@@ -1,25 +1,7 @@
-:root {
-  --amplify-ui-view-width: inherit;
-  --amplify-ui-view-text-color: inherit;
-  --amplify-ui-view-background-color: inherit;
-  --amplify-ui-view-color: inherit;
-  --amplify-ui-view-box-shadow: inherit;
-  --amplify-ui-view-padding: inherit;
-  --amplify-ui-view-border: inherit;
-  --amplify-ui-view-border-radius: inherit;
-  --amplify-ui-view-height: inherit;
-  --amplify-ui-view-max-height: inherit;
-  --amplify-ui-view-min-height: inherit;
-  --amplify-ui-view-width: inherit;
-  --amplify-ui-view-max-width: inherit;
-  --amplify-ui-view-min-width: inherit;
-  --amplify-ui-view-opacity: inherit;
-}
 .amplify-ui-view {
   --width: var(--amplify-ui-view-width);
-  --color: var(--amplify-ui-view-text-color);
-  --background-color: var(--amplify-ui-view-background-color);
-  --color: var(--amplify-ui-view-color);
+  --background-color: var(--amplify-ui-view-colors-background);
+  --color: var(--amplify-ui-view-colors-text);
   --box-shadow: var(--amplify-ui-view-box-shadow);
   --padding: var(--amplify-ui-view-padding);
   --border: var(--amplify-ui-view-border);
