@@ -29,6 +29,16 @@ describe("View: ", () => {
     expect(view.nodeName).toBe("P");
   });
 
+  it("can render any arbitrary data-* attribute", async () => {
+    render(
+      <View as="p" data-demo="true">
+        {viewText}
+      </View>
+    );
+    const view = await screen.findByTestId(ComponentClassNames.View);
+    expect(view.dataset["demo"]).toBe("true");
+  });
+
   it("can render an aria-label for icon", async () => {
     render(
       <View as="i" ariaLabel="rocket">
