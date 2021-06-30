@@ -24,19 +24,21 @@ export async function getFeatureTestsFromSlug(slug: string) {
   const featureFiles = await Promise.all(
     featurePaths.map(async featurePath => {
       return {
-        filepath: featurePath,
+        filename: featurePath,
         contents: await readFile(path.resolve(cwd, featurePath), "utf-8"),
       };
     })
   );
 
   const featureTests = featureFiles
-    .map(({ filepath, contents }) => {
+    .map(({ filename, contents }) => {
       const document = parser.parse(contents);
+      const { name } = path.parse(filename);
 
       return {
-        filepath,
         document,
+        filename,
+        name,
       };
     })
     .filter(({ document }) => {
