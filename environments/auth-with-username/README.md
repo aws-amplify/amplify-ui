@@ -6,7 +6,13 @@ This backend is configured with Amplify Admin UI:
 
   - `Username` login mechanism
 
-    ![](screenshot.png)
+    ![SCreenshot of Username configuration](screenshot.png)
+
+  - `Preferred Username` attribute
+
+    (This was defaulted by Admin UI, not explicitly set)
+
+    ![Screenshot of Preferred Username attribute](screenshot2.png)
 
 ## Using this Backend
 

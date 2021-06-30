@@ -1,4 +1,4 @@
-# Auth with Username
+# Auth with Username (no attributes)
 
 This backend is configured with Amplify CLI:
 
