@@ -2,13 +2,14 @@ import { CustomPropertiesMap, StyleProps } from "../types/index";
 
 /**
  * Convert style props to CSS variables for React style prop
+ * Note: Will filter out undefined, null, and empty string prop values
  * @param props StyleProps
  * @returns CSSProperties styles
  */
-export const getStyleCssVarsFromProps = (props: StyleProps) => {
+export const getStyleCssVarsFromProps = (props: {}) => {
   let style: React.CSSProperties = {};
   Object.keys(CustomPropertiesMap).forEach(propKey => {
-    if (propKey in props && props[propKey].length > 0) {
+    if (propKey in props && props[propKey] != null && props[propKey].length > 0) {
       style[CustomPropertiesMap[propKey]] = props[propKey];
     }
   });
