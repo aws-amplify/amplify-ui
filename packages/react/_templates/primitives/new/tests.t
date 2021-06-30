@@ -1,5 +1,5 @@
 ---
-to: src/primitives/<%= name %>/__tests__/<%= name %>.spec.tsx
+to: src/primitives/<%= name %>/__tests__/<%= name %>.test.tsx
 ---
 import { <%= name %> } from "../<%= name %>";
 
