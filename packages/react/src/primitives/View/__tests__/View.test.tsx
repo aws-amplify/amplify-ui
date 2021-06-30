@@ -24,18 +24,22 @@ describe("View: ", () => {
   });
 
   it("can render a <p> HTML element", async () => {
-    render(<View as="p">{viewText}</View>);
-    const view = await screen.findByTestId(ComponentClassNames.View);
+    render(
+      <View as="p" id="pTagTest">
+        {viewText}
+      </View>
+    );
+    const view = await screen.findByTestId("pTagTest");
     expect(view.nodeName).toBe("P");
   });
 
   it("can render any arbitrary data-* attribute", async () => {
     render(
-      <View as="p" data-demo="true">
+      <View as="p" data-demo="true" id="dataTest">
         {viewText}
       </View>
     );
-    const view = await screen.findByTestId(ComponentClassNames.View);
+    const view = await screen.findByTestId("dataTest");
     expect(view.dataset["demo"]).toBe("true");
   });
 
@@ -69,11 +73,11 @@ describe("View: ", () => {
 
   it("can apply styling via props", async () => {
     render(
-      <View width="100%" opacity="50%" borderRadius="6px">
+      <View width="100%" opacity="50%" borderRadius="6px" id="stylingTest">
         {viewText}
       </View>
     );
-    const view = await screen.findByTestId(ComponentClassNames.View);
+    const view = await screen.findByTestId("stylingTest");
     expect(view.style.getPropertyValue(CustomPropertiesMap.width)).toBe("100%");
     expect(view.style.getPropertyValue(CustomPropertiesMap.opacity)).toBe(
       "50%"

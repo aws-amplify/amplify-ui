@@ -10,6 +10,7 @@ export const View: React.FC<ViewProps> = props => {
     className,
     children,
     role,
+    id,
     ariaLabel,
     isDisabled,
     ...rest
@@ -20,7 +21,8 @@ export const View: React.FC<ViewProps> = props => {
   return (
     <ViewTag
       style={getStyleCssVarsFromProps(props)}
-      data-testid={ComponentClassNames.View}
+      id={id}
+      data-testid={id}
       aria-label={ariaLabel}
       role={role}
       className={classNames(ComponentClassNames.View, className)}
