@@ -14,7 +14,6 @@
     "build:angular:watch": "yarn angular build --watch",
     "build:vue": "yarn vue-docs build",
     "build:theme-base": "yarn theme-base build",
-    "dev": "yarn docs dev",
     "dev:angular": "yarn angular-docs start",
     "dev:vue": "yarn vue-docs serve --port 3001 --host localhost"
   },
