@@ -33,5 +33,5 @@ amplify pull
 Internal (Amplify UI team) contributors can use this backend directly by running:
 
 ```shell
-amplify pull --appId dbffpda9986dp --envName staging --yes
+amplify pull --appId d2zuq5rjkps8u4 --envName dev --yes
 ```
