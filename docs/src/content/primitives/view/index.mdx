@@ -11,3 +11,108 @@ npm install @aws-amplify/ui-react
 ## Demo
 
 <ViewDemo />
+
+## Usage
+
+Import the View component and styles.
+
+```jsx
+import { View } from "@aws-amplify/ui-react";
+import "@aws-amplify/ui-react/styles.css";
+
+<View>Nice view! 🏔</View>;
+```
+
+<View>Nice view! 🏔</View>
+
+### Set rendered HTML element
+
+Change the HTML element rendered by View with the `as` property
+
+```jsx
+<View as="section">I'm a Section</View>
+```
+
+<View as="section">I'm a Section</View>
+
+### Disabled state
+
+```jsx
+<View
+  as="button"
+  isDisabled={true}
+  onClick={() => alert("This won't fire 🚫")}
+>
+  Disabled
+</View>
+```
+
+<View as="button" isDisabled={true} onClick={() => alert("This won't fire 🚫")}>
+  You can't click me!
+</View>
+
+### Accessibility
+
+Setting an `aria-label` attribute and `role` for an icon button
+
+```jsx
+<View
+  ariaLabel="To the moon!"
+  role="button"
+  onClick={() => alert("👋 hello")}>
+  🚀
+</View>
+```
+
+<View
+  ariaLabel="To the moon!"
+  role="button"
+  onClick={() => alert("👋 hello")}>
+  🚀
+</View>
+
+### Custom attributes
+Pass any attribute to the underlying HTML element
+
+```jsx
+<View
+  as="progress"
+  data-progress-bar
+  max="100"
+  value="50"
+/>
+
+```
+<View
+  as="progress"
+  data-progress-bar
+  max="100"
+  value="50"
+  style={{all: "revert"}}
+/>
+
+### CSS Styling
+
+#### Override Amplify styling using the CSS variables
+
+Using a custom class and CSS file:
+
+```css
+/* styles.css */
+.mountain-view {
+  background-color: #b7daf9;
+  display: block;
+  font-size: 5em;
+  text-align: center;
+}
+```
+
+```jsx
+import { View } from "@aws-amplify/ui-react";
+import "@aws-amplify/ui-react/styles.css";
+import "./styles.css";
+
+<View className="mountain-view">🏔</View>
+```
+
+<View className="mountain-view">🏔</View>
