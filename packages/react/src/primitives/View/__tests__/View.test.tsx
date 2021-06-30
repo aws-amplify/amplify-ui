@@ -3,6 +3,7 @@ import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import "@testing-library/jest-dom/extend-expect";
 import { ComponentClassNames } from "../../shared";
+import { CustomPropertiesMap } from "../../types";
 
 describe("View: ", () => {
   const viewText = "Hello from inside a view";
@@ -49,8 +50,26 @@ describe("View: ", () => {
   });
 
   it("can set an 'alert' role", async () => {
-    render(<View role="alert">Click me!</View>);
+    const alertMessage =
+      "🚨 This is a test of the emergency broadcast system 🚨";
+    render(<View role="alert">{alertMessage}</View>);
     const view = await screen.findByRole("alert");
-    expect(view).toBeDefined();
+    expect(view.innerHTML).toBe(alertMessage);
+  });
+
+  it("can apply styling via props", async () => {
+    render(
+      <View width="100%" opacity="50%" borderRadius="6px">
+        {viewText}
+      </View>
+    );
+    const view = await screen.findByTestId(ComponentClassNames.View);
+    expect(view.style.getPropertyValue(CustomPropertiesMap.width)).toBe("100%");
+    expect(view.style.getPropertyValue(CustomPropertiesMap.opacity)).toBe(
+      "50%"
+    );
+    expect(view.style.getPropertyValue(CustomPropertiesMap.borderRadius)).toBe(
+      "6px"
+    );
   });
 });
