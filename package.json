@@ -1,6 +1,8 @@
 {
   "private": true,
   "scripts": {
+    "postinstall": "$_ run build:theme-base",
+    "build": "yarn workspaces run build",
     "angular": "yarn workspace @aws-amplify/ui-angular",
     "react": "yarn workspace @aws-amplify/ui-react",
     "vue": "yarn workspace @aws-amplify/ui-vue",
