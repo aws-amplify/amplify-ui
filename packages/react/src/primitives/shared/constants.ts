@@ -1,4 +1,5 @@
 export enum ComponentClassNames {
-  AmplifyButton = 'amplify-ui-button',
   AmplifyStack = 'amplify-ui-stack',
+  Button = 'amplify-ui-button',
+  View = 'amplify-ui-view',
 }
