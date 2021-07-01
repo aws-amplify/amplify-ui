@@ -11,19 +11,19 @@ And("I click {string}", text => {
 });
 
 When("I type a new username", () => {
-  cy.get("input[name=username]").type(`test-${now}`);
+  cy.findByLabelText("Username").type(`test-${now}`);
 });
 
 And("I type the password {string}", password => {
-  cy.get("input[name=password]").type(password);
+  cy.findByLabelText("Password").type(password);
 });
 
 And("I type the email {string}", email => {
-  cy.get("input[name=email]").type(email);
+  cy.findByLabelText("Email address").type(email);
 });
 
 And("I type the phone number {string}", phone => {
-  cy.get("input[name=phone_number]").type(phone);
+  cy.findByLabelText("Phone number").type(phone);
 });
 
 And("I click the {string} button", (name: string) => {
