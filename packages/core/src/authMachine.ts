@@ -3,19 +3,6 @@ import { Machine, assign } from "xstate";
 import { AuthContext, AuthEvent } from "./types";
 import { passwordMatches, runValidators } from "./validators";
 
-/**
- * Setting inspector temporarily on to ease development.
- * Will be removed by the time the code is ready for review.
- */
-import { inspect } from "@xstate/inspect";
-
-if (typeof window !== "undefined") {
-  inspect({
-    url: "https://statecharts.io/inspect",
-    iframe: false,
-  });
-}
-
 export const authMachine = Machine<AuthContext, AuthEvent>(
   {
     id: "auth",
