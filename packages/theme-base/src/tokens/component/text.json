@@ -1,0 +1,83 @@
+{
+  "component": {
+    "text": {
+      "color": {
+        "value": "inherit",
+        "danger": {
+          "value": "something"
+        },
+        "info": {
+          "value": "something"
+        },
+        "primary": {
+          "value": "something"
+        },
+        "secondary": {
+          "value": "something"
+        },
+        "success": {
+          "value": "something"
+        },
+        "tertiary": {
+          "value": "something"
+        },
+        "warning": {
+          "value": "something"
+        }
+      },
+      "font": {
+        "family": {
+          "value": "inherit"
+        },
+        "style": {
+          "value": "inherit"
+        },
+        "weight": {
+          "value": "inherit"
+        }
+      },
+      "letter": {
+        "spacing": {
+          "value": "inherit"
+        }
+      },
+      "line": {
+        "height": {
+          "value": "inherit"
+        }
+      },
+      "margin": {
+        "value": "inherit"
+      },
+      "overflow": {
+        "value": "inherit",
+        "hidden": {
+          "value": "overflow.hidden"
+        }
+      },
+      "padding": {
+        "value": "inherit"
+      },
+      "text": {
+        "align": {
+          "value": "inherit",
+          "last": {
+            "value": "inherit"
+          }
+        },
+        "decoration": {
+          "value": "inherit"
+        },
+        "indent": {
+          "value": "inherit"
+        },
+        "overflow": {
+          "value": "inherit",
+          "ellipsis": {
+            "value": "text.overflow.ellipsis"
+          }
+        }
+      }
+    }
+  }
+}
