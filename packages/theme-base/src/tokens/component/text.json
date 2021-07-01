@@ -1,5 +1,5 @@
 {
-  "component": {
+  "components": {
     "text": {
       "color": {
         "value": "inherit",
@@ -27,6 +27,9 @@
       },
       "font": {
         "family": {
+          "value": "inherit"
+        },
+        "size": {
           "value": "inherit"
         },
         "style": {

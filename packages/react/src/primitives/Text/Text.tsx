@@ -1,27 +1,10 @@
 import React from "react";
 import { ComponentClassNames } from "../shared/constants";
-import { TextOptions } from "../shared/types";
+import { getStyleCssVarsFromProps, getNonStyleProps } from "../shared/utils";
+import { TextProps } from "../types/Text";
+import { View } from "@aws-amplify/ui-react";
 
-const getStyle = props => {
-  enum CustomPropertiesMap {
-    color = "--color",
-    fontStyle = "--font-style",
-    textDecoration = "--text-decoration",
-    fontWeight = "--font-weight",
-    letterSpacing = "--letter-spacing",
-    lineHeight = "--line-height",
-  }
-
-  let style: React.CSSProperties = {};
-  Object.keys(CustomPropertiesMap).forEach(propKey => {
-    if (propKey in props) {
-      style[CustomPropertiesMap[propKey]] = props[propKey];
-    }
-  });
-  return style;
-};
-
-export const Text: React.FC<TextOptions> = props => {
+export const Text: React.FC<TextProps> = props => {
   const {
     ariaLabel,
     className = "",
@@ -29,24 +12,20 @@ export const Text: React.FC<TextOptions> = props => {
     id,
     isTruncated,
     variant,
-    fontStyle,
-    fontFamily,
-    textDecoration,
-    fontWeight,
-    color,
-    letterSpacing,
-    lineHeight,
+    ...rest
   } = props;
   return (
-    <div
+    <View
+      as="p"
       aria-label={ariaLabel}
       className={`${ComponentClassNames.Text} ${className}`}
       data-variant={variant}
       data-truncate={isTruncated}
       id={id}
-      style={getStyle(props)}
+      style={getStyleCssVarsFromProps(props)}
+      {...getNonStyleProps(rest)}
     >
       {children}
-    </div>
+    </View>
   );
 };
