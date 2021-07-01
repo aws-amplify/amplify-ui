@@ -21,7 +21,6 @@ Internally, this content is served by a single, Next.js [optional catch all rout
 
 ## React Development
 
-1. `yarn docs` to run the development server
 1. Create or Update an example at [`examples/...`](examples)
 
    For your `aws-exports.js`, you can [reference an existing or create a new environment](environments).
@@ -39,7 +38,7 @@ Internally, this content is served by a single, Next.js [optional catch all rout
    }
    ```
 
-1. Visit your example (.e.g. <http://localhost:3000/docs/src/pages/component/authenticator/sign-up>)
+1. Visit your example (e.g. <http://localhost:3000/components/authenticator/sign-up>)
 1. Make changes to [`@aws-amplify/ui-react`](packages/react) & save.
 
    Next.js should automatically hot-reload your changes in the example.
@@ -61,7 +60,7 @@ Internally, this content is served by a single, Next.js [optional catch all rout
    ```
 
 1. Create or Update the accompanying `${slug}.feature` tests (e.g. `packages/e2e/cypress/integration/${slug}/${feature}/${feature}.ts`
-1. Run `yarn workspace e2e dev` to load Cypress
+1. Run `yarn e2e dev` to load Cypress
 1. Click on your updated `${feature}.feature` file to validate your changes
 
 #### Vue Development
