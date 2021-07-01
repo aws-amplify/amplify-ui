@@ -1,5 +1,4 @@
 import { useAmplify, useAuth } from "@aws-amplify/ui-react";
-import { ButtonTypes } from "../../primitives";
 
 export function SignIn() {
   const {

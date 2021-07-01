@@ -25,4 +25,8 @@ export interface AuthEvent {
 
 export type AuthMachineState = State<AuthContext, AuthEvent>;
 
-export type AuthInterpreter = Interpreter<AuthContext, any, AuthEvent>;
+export type AuthInterpreter = Interpreter<
+  AuthContext,
+  AuthMachineState,
+  AuthEvent
+>;
