@@ -1,4 +1,3 @@
-import React from 'react';
 import { Property } from 'csstype';
 
 export enum CustomPropertiesMap {
@@ -15,6 +14,12 @@ export enum CustomPropertiesMap {
   maxWidth = "--max-width",
   minWidth = "--min-width",
   opacity = "--opacity",
+  direction = "--flex-direction",
+  gap = "--gap",
+  justifyContent = "--justify-content",
+  alignItems = "--align-items",
+  alignContent = "--align-content",
+  wrap = "--flex-wrap",
 }
 
 export interface CustomProperties {
@@ -31,6 +36,12 @@ export interface CustomProperties {
   [CustomPropertiesMap.maxWidth]?: Property.MaxWidth;
   [CustomPropertiesMap.minWidth]?: Property.MinWidth;
   [CustomPropertiesMap.opacity]?: Property.Opacity;
+  [CustomPropertiesMap.direction]?: Property.FlexDirection;
+  [CustomPropertiesMap.gap]?: Property.Gap;
+  [CustomPropertiesMap.justifyContent]?: Property.JustifyContent;
+  [CustomPropertiesMap.alignItems]?: Property.AlignItems;
+  [CustomPropertiesMap.alignContent]?: Property.AlignContent;
+  [CustomPropertiesMap.wrap]?: Property.FlexWrap;
 }
 
 /**
@@ -71,4 +82,11 @@ export interface StyleProps {
   minWidth?: Property.MinWidth;
 
   opacity?: Property.Opacity;
+
+  direction?: Property.FlexDirection;
+  gap?: Property.Gap;
+  justifyContent?: Property.JustifyContent;
+  alignItems?: Property.AlignItems;
+  alignContent?: Property.AlignContent;
+  wrap?: Property.FlexWrap;
 }

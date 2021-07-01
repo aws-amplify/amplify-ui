@@ -38,3 +38,49 @@ import { Button } from "@aws-amplify/ui-react";
 ```
 
 <StackDemo demoType='alignItems'/>
+
+### Wrap
+Use the `wrap` prop to DO STUFF. You can explore the different options in the demo below:
+
+```jsx
+import { Button } from "@aws-amplify/ui-react";
+
+<Stack wrap="nowrap">Again, placeholder for flex items</Stack>
+```
+
+<StackDemo demoType='wrap'/>
+
+### Gap
+Use the `gap` prop to DO STUFF. Different units, as strings. 
+
+```jsx
+import { Button } from "@aws-amplify/ui-react";
+
+<Stack gap="8px">Again, placeholder for flex items</Stack>
+<Stack gap="2rem">Again, placeholder for flex items</Stack>
+<Stack gap="10%">Again, placeholder for flex items</Stack>
+```
+
+<StackDemo demoType='gap'/>
+
+### Direction
+Use the `direction` prop to DO STUFF. You can explore the different options in the demo below:
+
+```jsx
+import { Button } from "@aws-amplify/ui-react";
+
+<Stack direction="row">Again, placeholder for flex items</Stack>
+```
+
+<StackDemo demoType='direction'/>
+
+#### HStack and VStack
+
+Alternatively, you can use the `HStack` and `VStack` components to automatically set the direction to `row` and `column`, respectively. You may pass in props as usual. 
+
+```jsx
+import { Button } from "@aws-amplify/ui-react";
+
+<HStack justifyContent="center">Again, placeholder for flex items</HStack>
+```
+<StackDemo demoType='helpers'/>

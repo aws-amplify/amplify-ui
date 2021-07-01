@@ -1,32 +1,28 @@
-import React, { CSSProperties } from "react";
-import { ComponentClassNames } from '../shared/constants';
-import { StackProps } from '../shared/types';
+import classNames from "classnames";
+import React from "react";
+import { ComponentClassNames } from "../shared/constants";
+import { getStyleCssVarsFromProps, getNonStyleProps } from "../shared/utils";
+import { StackProps } from "../types";
+import { View } from "../View";
 
-export const Stack: React.FC<StackProps> = ({
-	children,
-	className = "",
-	display = "flex",
-	direction: flexDirection = "row",
-	gap = 'normal',
-	justifyContent = "flex-start",
-	alignItems = "stretch",
-	alignContent = "flex-start",
-	wrap: flexWrap = "nowrap",
-	...rest
-}) => {
-	const style: CSSProperties = {
-		display,
-		flexDirection,
-		gap,
-		justifyContent,
-		alignItems,
-		alignContent,
-		flexWrap,
-	};
+export const Stack: React.FC<StackProps> = props => {
+	const {
+		className,
+		children,
+		...rest
+	} = props;
 
   return (
-    <div className={`${ComponentClassNames.AmplifyStack} ${className ?? ""}`} style={style} {...rest}>
+    <View 
+		  className={classNames(ComponentClassNames.Stack, className)} 
+			style={getStyleCssVarsFromProps(props)} 
+			{...getNonStyleProps(rest)}
+		>
       {children} 
-    </div>
+    </View>
   );
 };
+
+export const HStack = props => <Stack direction="row" {...props}></Stack>;
+
+export const VStack = props => <Stack direction="column" {...props}></Stack>;

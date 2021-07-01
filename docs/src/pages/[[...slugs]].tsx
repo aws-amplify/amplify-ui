@@ -10,8 +10,7 @@ import mdxPrism from "mdx-prism";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { MDXRemote } from "next-mdx-remote";
 import { serialize } from "next-mdx-remote/serialize";
-import { StackDemo } from "../content/primitives/stack/stackDemo"; // move this to the line below
-import { ButtonDemo, ViewDemo } from "@aws-amplify/ui-react"; // I'll need to move some files around to export StackDemo from here
+import { ButtonDemo, ViewDemo, StackDemo } from "@aws-amplify/ui-react";
 
 export default function Content({
   featureTests = [],

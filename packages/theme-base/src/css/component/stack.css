@@ -1,0 +1,17 @@
+.amplify-ui-stack {
+  --flex-direction: var(--amplify-ui-stack-flex-direction);
+	--gap: var(--amplify-ui-stack-gap);
+	--justify-content: var(--amplify-ui-stack-justify-content);
+	--align-items: var(--amplify-ui-stack-align-items);
+	--align-content: var(--amplify-ui-stack-align-content);
+	--flex-wrap: var(--amplify-ui-stack-flex-wrap);
+
+  flex-direction: var(--flex-direction);
+	gap: var(--gap);
+	justify-content: var(--justify-content);
+	align-items: var(--align-items);
+	align-content: var(--align-content);
+	flex-wrap: var(--flex-wrap);
+
+	display: flex;
+}
