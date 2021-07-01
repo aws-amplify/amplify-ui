@@ -7,7 +7,7 @@ applications:
             - nvm install
             - nvm use
             - node -v
-            - yarn install
+            - cd .. && yarn install
         build:
           commands:
             - nvm install
@@ -15,9 +15,10 @@ applications:
             - node -v
             - yarn build
       artifacts:
-        baseDirectory: docs/out
+        baseDirectory: out
         files:
           - "**/*"
       cache:
         paths:
           - node_modules/**/*
+    appRoot: docs
