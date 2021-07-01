@@ -23,6 +23,7 @@
     "docs",
     "vue-docs",
     "angular-docs",
+    "environments/*",
     "examples/*",
     "packages/*"
   ],
