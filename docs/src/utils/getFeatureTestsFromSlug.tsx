@@ -22,15 +22,38 @@ export async function getFeatureTestsFromSlug(slug: string) {
 
   const featurePaths = glob.sync("**.feature", { cwd });
   const featureFiles = await Promise.all(
-    featurePaths.map(featurePath =>
-      readFile(path.resolve(cwd, featurePath), "utf-8")
-    )
+    featurePaths.map(async featurePath => {
+      return {
+        filename: featurePath,
+        contents: await readFile(path.resolve(cwd, featurePath), "utf-8"),
+      };
+    })
   );
 
-  const featureTests = featureFiles.map(featureFile =>
-    parser.parse(featureFile)
-  );
+  const featureTests = featureFiles
+    .map(({ filename, contents }) => {
+      const document = parser.parse(contents);
+      const { name } = path.parse(filename);
 
-  // Strip `undefined` properties because they're not JSON-serializable by Next.js
-  return JSON.parse(JSON.stringify(featureTests));
+      return {
+        document,
+        filename,
+        name,
+      };
+    })
+    .filter(({ document }) => {
+      return (
+        document.feature.children
+          // Ignore background steps for features – they'll always be applied
+          .filter(({ background }) => !background)
+          .some(({ scenario }) => {
+            // TODO Dynamically filter these based on the current page `?framework`
+            return scenario.tags?.find(({ name }) => name === "@React");
+          })
+      );
+    })
+    // Strip `undefined` properties because they're not JSON-serializable by Next.js
+    .map(featureTest => JSON.parse(JSON.stringify(featureTest)));
+
+  return featureTests;
 }

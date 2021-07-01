@@ -1,0 +1,24 @@
+{
+  "name": "next-example",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@moxy/next-compile-node-modules": "^2.1.1",
+    "@types/node": "^15.12.4",
+    "@types/react": "^17.0.11",
+    "next": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "typescript": "^4.3.4"
+  },
+  "devDependencies": {
+    "eslint": "7.29.0",
+    "eslint-config-next": "11.0.1"
+  }
+}
