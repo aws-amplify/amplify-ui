@@ -3,12 +3,23 @@
   "name": "@aws-amplify/ui-react",
   "version": "0.0.1",
   "scripts": {
-    "primitives:new": "hygen primitives new"
+    "primitives:new": "hygen primitives new",
+    "test": "yarn test:unit",
+    "test:watch": "yarn test:unit:watch",
+    "test:unit": "jest",
+    "test:unit:watch": "jest --watch"
   },
   "dependencies": {
-    "@xstate/react": "^1.4.0"
+    "@xstate/react": "^1.4.0",
+    "classnames": "^2.3.1"
   },
   "devDependencies": {
-    "hygen": "^6.1.0"
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^12.0.0",
+    "@types/jest": "^26.0.23",
+    "hygen": "^6.1.0",
+    "jest": "^27.0.4",
+    "ts-jest": "^27.0.3",
+    "typescript": "^4.3.2"
   }
 }
