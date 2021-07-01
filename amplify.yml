@@ -7,7 +7,7 @@ applications:
             - nvm install
             - nvm use
             - node -v
-            - cd .. && yarn install
+            - (cd .. && yarn install)
         build:
           commands:
             - nvm install
