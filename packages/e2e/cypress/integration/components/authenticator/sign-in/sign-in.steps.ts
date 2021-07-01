@@ -1,15 +1,15 @@
 import { And, Given, Then, When } from "cypress-cucumber-preprocessor/steps";
 
 Given("I'm at the sign in page", () => {
-  cy.visit("/components/authenticator/examples/sign-in");
+  cy.visit("/components/authenticator/sign-in");
 });
 
 When("I type an invalid username {string}", (username: string) => {
-  cy.get("[data-test=username-input]").type(Cypress.env(username));
+  cy.findByLabelText("Username").type(Cypress.env(username));
 });
 
 And("I type an invalid password {string}", (password: string) => {
-  cy.get("[data-test=sign-in-password-input]").type(Cypress.env(password));
+  cy.findByLabelText("Password").type(Cypress.env(password));
 });
 
 And("I click the {string} button", (name: string) => {
