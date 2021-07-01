@@ -6,9 +6,9 @@ This folder contains a list of pre-built Amplify backends for use with manual & 
 
 For manual & E2E testing, you need a live backend to work against and your app needs an `aws-exports.js`.
 
-Within [packages/e2e/environments](packages/e2e/environments), there are pre-built backend environments that you can re-use by either:
+Within [/environments](/environments), there are pre-built backend environments that you can re-use by either:
 
-1. Manually following the steps in the `README.md` ([example](packages/e2e/environments/auth-with-username/README.md))
+1. Manually following the steps in the `README.md` ([example](auth-with-username/README.md))
 1. Or running `amplify pull` within that folder.
 
 This will create a `src/aws-exports.js` for use in your testing.
