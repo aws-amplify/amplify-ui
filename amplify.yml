@@ -15,10 +15,9 @@ applications:
             - node -v
             - yarn build
       artifacts:
-        baseDirectory: out
+        baseDirectory: docs/out
         files:
           - "**/*"
       cache:
         paths:
           - node_modules/**/*
-    appRoot: docs
