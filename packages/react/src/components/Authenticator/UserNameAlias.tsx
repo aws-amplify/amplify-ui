@@ -7,20 +7,24 @@ export function UserNameAlias({ components, usernameAlias = "", ...attrs }) {
 
   const [state] = useAuth();
   const userNameAliasConfig = state.context.config || "username";
-  const userNameAlias = usernameAlias
+  const alias = usernameAlias
     ? UserNameAliasNames[usernameAlias]
     : UserNameAliasNames[userNameAliasConfig];
 
+  function getAliasInput() {
+    if (alias === UserNameAliasNames.email) {
+      return <Input name="username" required type="email" />;
+    } else if (alias === UserNameAliasNames.phone_number) {
+      return <Input name="username" required type="tel" />;
+    } else {
+      return <Input name="username" required type="text" />;
+    }
+  }
+
   return (
     <Label {...attrs}>
-      <Text>{userNameAlias || UserNameAliasNames.username}</Text>
-      {userNameAlias === UserNameAliasNames.email ? (
-        <Input name="email" required type="email" />
-      ) : userNameAlias === UserNameAliasNames.phone_number ? (
-        <Input name="phone_number" type="tel" />
-      ) : (
-        <Input name="username" required type="text" />
-      )}
+      <Text>{alias || UserNameAliasNames.username}</Text>
+      {getAliasInput()}
     </Label>
   );
 }

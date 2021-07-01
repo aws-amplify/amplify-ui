@@ -202,7 +202,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
       }),
       setUserNameAlias: assign({
         config(_, event) {
-          return event.data.userNameAlias;
+          return event.data.usernameAlias;
         },
       }),
       setCognitoError: assign({
@@ -237,7 +237,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
         return Auth.signIn(username, password);
       },
       async confirmSignUp(context, event) {
-        const { username, code } = event.data;
+        const { username, confirmation_code: code } = event.data;
 
         return Auth.confirmSignUp(username, code);
       },

@@ -1,7 +1,7 @@
 import { useAmplify, useAuth } from "@aws-amplify/ui-react";
 import { UserNameAlias } from "./UserNameAlias";
 
-export function SignIn() {
+export function SignIn({ usernameAlias = "" }) {
   const {
     components: {
       Box,
@@ -41,6 +41,7 @@ export function SignIn() {
 
       <Fieldset disabled={isPending}>
         <UserNameAlias
+          usernameAlias={usernameAlias}
           data-amplify-username
           components={"Authenticator.SignIn"}
         />

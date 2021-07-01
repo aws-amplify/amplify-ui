@@ -1,6 +1,7 @@
 import { useAmplify, useAuth } from "@aws-amplify/ui-react";
+import { UserNameAlias } from "./UserNameAlias";
 
-export function ConfirmSignUp() {
+export function ConfirmSignUp({ usernameAlias = "" }) {
   const {
     components: {
       Box,
@@ -39,10 +40,11 @@ export function ConfirmSignUp() {
       <Heading level={1}>Confirm Sign Up</Heading>
 
       <Fieldset disabled={isPending}>
-        <Label data-amplify-username>
-          <Text>Username</Text>
-          <Input name="username" required type="text" />
-        </Label>
+        <UserNameAlias
+          usernameAlias={usernameAlias}
+          data-amplify-username
+          components={"Authenticator.ConfirmSignUp"}
+        />
 
         <Label data-amplify-confirmationcode>
           <Text>Confirmation Code</Text>
