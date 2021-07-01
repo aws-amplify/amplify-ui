@@ -23,7 +23,7 @@
     "@vue/compiler-sfc": "3.1.0-beta.3",
     "@vue/eslint-config-typescript": "^7.0.0",
     "@xstate/inspect": "^0.4.1",
-    "@xstate/vue": "^0.5.0",
+    "@xstate/vue": "^0.6.0",
     "autoprefixer": "^10.2.5",
     "aws-amplify": "latest",
     "babel-eslint": "^10.1.0",
@@ -32,7 +32,7 @@
     "postcss": "^8.2.15",
     "tailwindcss": "^2.1.2",
     "typescript": "~4.1.5",
-    "xstate": "^4.17.0"
+    "xstate": "^4.20.1"
   },
   "eslintConfig": {
     "root": true,

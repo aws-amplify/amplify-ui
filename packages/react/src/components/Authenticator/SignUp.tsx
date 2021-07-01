@@ -41,7 +41,7 @@ export function SignUp() {
         </Button>
         <Spacer />
         <Button isDisabled={isPending} type="submit">
-          {isPending ? <>Creating account&hellip;</> : <>Create account</>}
+          {isPending ? <>Creating Account&hellip;</> : <>Create Account</>}
         </Button>
       </Footer>
     </Form>

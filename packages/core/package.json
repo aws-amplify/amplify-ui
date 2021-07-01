@@ -3,7 +3,6 @@
   "name": "@aws-amplify/ui-core",
   "version": "0.0.1",
   "dependencies": {
-    "@xstate/inspect": "0.4.1",
-    "xstate": "^4.16.2"
+    "xstate": "^4.20.1"
   }
 }

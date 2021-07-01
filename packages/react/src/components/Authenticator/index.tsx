@@ -1,16 +1,27 @@
 // @refresh reset
-import { useAmplify, useAuth } from "@aws-amplify/ui-react";
+import { authMachine } from "@aws-amplify/ui-core";
+import { useAmplify } from "@aws-amplify/ui-react";
+import { useActor, useInterpret } from "@xstate/react";
 
+import { AuthenticatorContext } from "./AuthenticatorContext";
+import { ConfirmSignUp } from "./ConfirmSignUp";
 import { SignIn } from "./SignIn";
 import { SignUp } from "./SignUp";
 
-export function Authenticator({ className, children = context => null }) {
-  const [state, send] = useAuth();
+export function Authenticator({
+  className = null,
+  children = context => null,
+}) {
+  const service = useInterpret(authMachine, {
+    devTools: process.env.NODE_ENV === "development",
+  });
+
+  const [state, send] = useActor(service);
 
   const {
     components: {
-      Button,
-      Heading,
+      // @ts-ignore How to tell the context that this may exist for this scope?
+      ConfirmSignUp = Authenticator.ConfirmSignUp,
       // @ts-ignore How to tell the context that this may exist for this scope?
       SignIn = Authenticator.SignIn,
       // @ts-ignore How to tell the context that this may exist for this scope?
@@ -24,23 +35,28 @@ export function Authenticator({ className, children = context => null }) {
   }
 
   return (
-    <Wrapper className={className} data-amplify-authenticator="">
-      {(() => {
-        switch (true) {
-          case state.matches("idle"):
-            return null;
-          case state.matches("signIn"):
-            return <SignIn userNameAlias={state.context.config} />;
-          case state.matches("signUp"):
-            return <SignUp />;
-          default:
-            console.warn("Unhandled Auth state", state);
-            return null;
-        }
-      })()}
-    </Wrapper>
+    <AuthenticatorContext.Provider value={service}>
+      <Wrapper className={className} data-amplify-authenticator="">
+        {(() => {
+          switch (true) {
+            case state.matches("idle"):
+              return null;
+            case state.matches("confirmSignUp"):
+              return <ConfirmSignUp />;
+            case state.matches("signIn"):
+              return <SignIn userNameAlias={state.context.config} />;
+            case state.matches("signUp"):
+              return <SignUp />;
+            default:
+              console.warn("Unhandled Auth state", state);
+              return null;
+          }
+        })()}
+      </Wrapper>
+    </AuthenticatorContext.Provider>
   );
 }
 
+Authenticator.ConfirmSignUp = ConfirmSignUp;
 Authenticator.SignIn = SignIn;
 Authenticator.SignUp = SignUp;
