@@ -1,14 +1,29 @@
 import { Auth } from "aws-amplify";
 import { Machine, assign } from "xstate";
 import { AuthContext, AuthEvent } from "./types";
+import { passwordMatches, runValidators } from "./validators";
+
+/**
+ * Setting inspector temporarily on to ease development.
+ * Will be removed by the time the code is ready for review.
+ */
+import { inspect } from "@xstate/inspect";
+
+if (typeof window !== "undefined") {
+  inspect({
+    url: "https://statecharts.io/inspect",
+    iframe: false,
+  });
+}
 
 export const authMachine = Machine<AuthContext, AuthEvent>(
   {
     id: "auth",
     initial: "idle",
     context: {
-      error: "",
+      remoteError: "",
       formValues: {},
+      validationError: {},
       user: undefined,
       session: undefined,
     },
@@ -71,41 +86,66 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
         },
       },
       signUp: {
-        initial: "edit",
-        exit: ["clearFormValues", "clearError"],
-        onDone: "confirmSignUp",
+        type: "parallel",
         states: {
-          edit: {
-            initial: "clean",
+          validation: {
+            initial: "pending",
             states: {
-              clean: {},
-              error: {},
+              pending: {
+                invoke: {
+                  src: "validateFields",
+                  onDone: {
+                    target: "valid",
+                    actions: "clearValidationError",
+                  },
+                  onError: {
+                    target: "invalid",
+                    actions: "setFieldErrors",
+                  },
+                },
+              },
+              valid: {},
+              invalid: {},
             },
             on: {
-              SIGN_IN: "#auth.signIn",
-              SUBMIT: "submit",
-              INPUT: { actions: "handleInput" },
-            },
-          },
-          submit: {
-            entry: "clearError",
-            invoke: {
-              src: "signUp",
-              onDone: {
-                actions: "setUser",
-                target: "resolved",
-              },
-              onError: {
-                actions: "setCognitoError",
-                target: "rejected",
+              CHANGE: {
+                actions: "handleInput",
+                target: ".pending",
               },
             },
           },
-          rejected: {
-            always: "edit.error",
-          },
-          resolved: {
-            type: "final",
+          submission: {
+            initial: "idle",
+            onDone: "#auth.confirmSignUp",
+            states: {
+              idle: {
+                on: {
+                  SUBMIT: {
+                    target: "pending",
+                    cond: "isValid",
+                  },
+                },
+              },
+              pending: {
+                invoke: {
+                  src: "signUp",
+                  onDone: "done",
+                  onError: {
+                    target: "error",
+                    actions: "setCognitoError",
+                  },
+                },
+              },
+              error: {
+                on: {
+                  SUBMIT: {
+                    target: "pending",
+                    cond: "isValid",
+                  },
+                },
+              },
+              done: { type: "final" },
+            },
           },
         },
       },
@@ -193,25 +233,38 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
         },
       }),
       setCognitoError: assign({
-        error(_, event) {
+        remoteError(_, event) {
           return event.data?.message || event.data;
         },
       }),
       clearFormValues: assign({ formValues: {} }),
-      clearError: assign({ error: "" }),
+      clearValidationError: assign({ validationError: {} }),
+      clearError: assign({ remoteError: "" }),
       handleInput: assign({
         formValues(context, event) {
           const { name, value } = event.data;
-          return {
-            ...context.formValues,
-            [name]: value,
-          };
+          return { ...context.formValues, [name]: value };
+        },
+      }),
+      setFieldErrors: assign({
+        validationError(_, event) {
+          return event.data;
         },
       }),
     },
     // See: https://xstate.js.org/docs/guides/guards.html#guards-condition-functions
-    guards: {},
+    guards: {
+      isValid: (context, _event) => {
+        // true if there are no validation errors
+        return context.validationError && context.validationError !== {};
+      },
+    },
     services: {
+      validateFields(context, _event) {
+        const { formValues } = context;
+        const validators = [passwordMatches]; // this can contain custom validators too
+        return runValidators(formValues, validators);
+      },
       async getCurrentUser() {
         return Auth.currentAuthenticatedUser();
       },
@@ -238,6 +291,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
             ""
           );
         }
+        delete attributes.confirm_password; // this shouldn't be passed to Cognito
         const result = await Auth.signUp({
           username,
           password,
