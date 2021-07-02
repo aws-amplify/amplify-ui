@@ -1,1 +1,0 @@
-export * as awsExports from "./aws-exports";
