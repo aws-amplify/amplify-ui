@@ -1,7 +1,7 @@
 import { And, Given, Then, When } from "cypress-cucumber-preprocessor/steps";
 
 Given("I'm using the example {string}", (example: string) => {
-  cy.visit(`/examples/${example}`);
+  cy.visit(example);
 });
 
 And("I click {string}", (text: string) => {

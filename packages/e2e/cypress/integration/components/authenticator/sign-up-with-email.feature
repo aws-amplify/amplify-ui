@@ -3,7 +3,7 @@ Feature: Sign Up with Email
   Create a new user in the Amazon Cognito UserPool by passing the new user’s email address and password.
 
   Background:
-    Given I'm using the example "components/authenticator"
+    Given I'm using the example "components/authenticator/sign-up/with-email"
     And I click "Create account"
 
   Scenario: Username is not a requested field
