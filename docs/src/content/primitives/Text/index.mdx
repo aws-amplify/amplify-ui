@@ -10,12 +10,11 @@ npm install @aws-amplify/ui-react
 
 ## Demo
 
-```
-<Text>Some Text </Text>
-```
+<TextDemo />
 
 ## Usage
-Import the Text component and styles. 
+
+Import the Text component and styles.
 
 ```jsx
 import { Text } from "@aws-amplify/ui-react";
@@ -23,11 +22,13 @@ import "@aws-amplify/ui-react/styles.css";
 // For smaller bundle size, import just the button styling:
 // import "@aws-amplify/ui-react/dist/primitives/Text/styles.css";
 
-<Text>Hello world</Text>
+<Text>Hello world</Text>;
 ```
+
 <Text>Hello world</Text>
 
 ### Text variants
+
 Use the `variant` prop to change the text variant. Available options are `primary`, `secondary`, `tertiary`, `danger`, `warning`, `info`, and `success`.
 
 ```jsx
@@ -42,6 +43,7 @@ import "@aws-amplify/ui-react/styles.css";
 <Text variant="info">Info</Text>
 <Text variant="success">Success</Text>
 ```
+
 <Text variant="primary">Primary</Text>
 <Text variant="secondary">Secondary</Text>
 <Text variant="tertiary">Tertiary</Text>
@@ -50,12 +52,108 @@ import "@aws-amplify/ui-react/styles.css";
 <Text variant="info">Info</Text>
 <Text variant="success">Success</Text>
 
-### Accessibility
-Setting an `aria-label` attribute for an icon text: 
+### Truncate
+
+The isTruncated prop will render an ellipsis when the text exceeds the defined width
+
 ```jsx
 import { Text } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 
-<Text ariaLabel="To the moon!">🚀</Text>
+<Text isTruncated>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+  incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+  nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+  Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
+  eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt
+  in culpa qui officia deserunt mollit anim id est laborum.
+</Text>;
 ```
+
+<Text isTruncated>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+  incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+  nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+  Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
+  eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt
+  in culpa qui officia deserunt mollit anim id est laborum.
+</Text>
+
+### Accessibility
+
+Setting an `aria-label` attribute for an icon text:
+
+```jsx
+import { Text } from "@aws-amplify/ui-react";
+import "@aws-amplify/ui-react/styles.css";
+
+<Text ariaLabel="To the moon!">🚀</Text>;
+```
+
 <Text ariaLabel="To the moon!">🚀</Text>
+
+### CSS Styling
+
+#### Override Amplify styling using a css class
+
+Using a custom class and CSS file:
+
+```css
+/* styles.css */
+.styled-text {
+  font-weight: bold;
+  color: red;
+  text-decoration: underline;
+}
+```
+
+```jsx
+import { View } from "@aws-amplify/ui-react";
+import "@aws-amplify/ui-react/styles.css";
+import "./styles.css";
+
+<Text className="styled-text">This is my styled text</Text>;
+```
+
+<Text className="styled-text">This is my styled text</Text>
+
+#### Override Amplify styling using the CSS variables
+
+Using a custom class and CSS file:
+
+```css
+/* styles.css */
+.styled-variable-text {
+  --font-weight: bold;
+  --color: red;
+  --text-decoration: underline;
+}
+```
+
+```jsx
+import { View } from "@aws-amplify/ui-react";
+import "@aws-amplify/ui-react/styles.css";
+import "./styles.css";
+
+<Text className="styled-variable-text">This is my styled text</Text>;
+```
+
+<Text className="styled-variable-text">This is my styled text</Text>
+
+#### Override Amplify styling using props
+
+Using a custom class and CSS file:
+
+```jsx
+import { View } from "@aws-amplify/ui-react";
+import "@aws-amplify/ui-react/styles.css";
+import "./styles.css";
+
+<Text fontWeight="bold" color="red" textDecoration="underline">
+  This is my styled text
+</Text>;
+```
+
+<Text fontWeight="bold" color="red" textDecoration="underline">
+  This is my styled text
+</Text>

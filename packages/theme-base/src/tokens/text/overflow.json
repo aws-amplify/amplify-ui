@@ -6,11 +6,6 @@
       },
       "ellipsis": {
         "value": "ellipsis"
-      },
-      "strings": {
-        "cutOff": {
-          "value": "cut-off"
-        }
       }
     }
   }

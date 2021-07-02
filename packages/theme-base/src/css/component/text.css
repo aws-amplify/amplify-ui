@@ -1,33 +1,35 @@
-.amplify-ui-text {
-  --color: var(--amplify-ui-text-color);
-  --color-danger: var(--amplify-ui-text-color-danger);
-  --color-info: var(--amplify-ui-text-color-info);
-  --color-primary: var(--amplify-ui-text-color-primary);
-  --color-secondary: var(--amplify-ui-text-color-secondary);
-  --color-success: var(--amplify-ui-text-color-success);
-  --color-tertiary: var(--amplify-ui-text-color-tertiary);
-  --color-warning: var(--amplify-ui-text-color-warning);
-  --font-family: var(--amplify-ui-text-font-family);
-  --font-style: var(--amplify-ui-text-font-style);
-  --font-weight: var(--amplify-ui-text-font-weight);
-  --letter-spacing: var(--amplify-ui-text-letter-spacing);
-  --line-height: var(--amplify-ui-text-line-height);
-  --margin: var(--amplify-ui-text-margin);
-  --overflow: var(--amplify-ui-text-overflow);
-  --overflow-hidden: var(--amplify-ui-text-overflow-hidden);
-  --padding: var(--amplify-ui-text-padding);
-  --text-align: var(--amplify-ui-text-text-align);
-  --text-align-last: var(--amplify-ui-text-text-align-last);
-  --text-decoration: var(--amplify-ui-text-text-decoration);
-  --text-indent: var(--amplify-ui-text-text-indent);
-  --text-overflow: var(--amplify-ui-text-text-overflow);
-  --text-overflow-ellipsis: var(--amplify-ui-text-text-overflow-ellipsis);
-  --text-transform: var(--amplify-ui-text-text-transform);
-  --white-space: var(--amplify-ui-text-white-space);
-  --white-space-nowrap: var(--amplify-ui-text-white-space-nowrap);
-  --word-break: var(--amplify-ui-text-word-break);
-  --word-wrap: var(--amplify-ui-text-word-wrap);
-  --writing-mode: var(--amplify-ui-text-writing-mode);
+.amplify-ui-text.amplify-ui-view {
+  --color: var(--amplify-ui-components-text-color);
+  --color-danger: var(--amplify-ui-components-text-color-danger);
+  --color-info: var(--amplify-ui-components-text-color-info);
+  --color-primary: var(--amplify-ui-components-text-color-primary);
+  --color-secondary: var(--amplify-ui-components-text-color-secondary);
+  --color-success: var(--amplify-ui-components-text-color-success);
+  --color-tertiary: var(--amplify-ui-components-text-color-tertiary);
+  --color-warning: var(--amplify-ui-components-text-color-warning);
+  --font-family: var(--amplify-ui-components-text-font-family);
+  --font-style: var(--amplify-ui-components-text-font-style);
+  --font-weight: var(--amplify-ui-components-text-font-weight);
+  --letter-spacing: var(--amplify-ui-components-text-letter-spacing);
+  --line-height: var(--amplify-ui-components-text-line-height);
+  --margin: var(--amplify-ui-components-text-margin);
+  --overflow: var(--amplify-ui-components-text-overflow);
+  --overflow-hidden: var(--amplify-ui-components-text-overflow-hidden);
+  --padding: var(--amplify-ui-components-text-padding);
+  --text-align: var(--amplify-ui-components-text-text-align);
+  --text-align-last: var(--amplify-ui-components-text-text-align-last);
+  --text-decoration: var(--amplify-ui-components-text-text-decoration);
+  --text-indent: var(--amplify-ui-components-text-text-indent);
+  --text-overflow: var(--amplify-ui-components-text-text-overflow);
+  --text-overflow-ellipsis: var(
+    --amplify-ui-components-text-text-overflow-ellipsis
+  );
+  --text-transform: var(--amplify-ui-components-text-text-transform);
+  --white-space: var(--amplify-ui-components-text-white-space);
+  --white-space-nowrap: var(--amplify-ui-components-text-white-space-nowrap);
+  --word-break: var(--amplify-ui-components-text-word-break);
+  --word-wrap: var(--amplify-ui-components-text-word-wrap);
+  --writing-mode: var(--amplify-ui-components-text-writing-mode);
 
   all: unset;
   color: var(--color);
@@ -55,6 +57,8 @@
   overflow: var(--overflow-hidden);
   text-overflow: var(--text-overflow-ellipsis);
   white-space: var(--white-space-nowrap);
+  display: inline-block;
+  max-width: 100%;
 }
 
 .amplify-ui-text[data-variant="primary"] {

@@ -2,7 +2,6 @@
   "components": {
     "text": {
       "color": {
-        "value": "inherit",
         "danger": {
           "value": "something"
         },
@@ -53,9 +52,8 @@
         "value": "inherit"
       },
       "overflow": {
-        "value": "inherit",
         "hidden": {
-          "value": "overflow.hidden"
+          "value": "{overflow.hidden.value}"
         }
       },
       "padding": {
@@ -63,7 +61,6 @@
       },
       "text": {
         "align": {
-          "value": "inherit",
           "last": {
             "value": "inherit"
           }
@@ -75,9 +72,15 @@
           "value": "inherit"
         },
         "overflow": {
-          "value": "inherit",
           "ellipsis": {
-            "value": "text.overflow.ellipsis"
+            "value": "{text.overflow.ellipsis.value}"
+          }
+        }
+      },
+      "white": {
+        "space": {
+          "nowrap": {
+            "value": "nowrap"
           }
         }
       }

@@ -7,6 +7,7 @@ export enum CustomPropertiesMap {
   borderRadius = "--border-radius",
   boxShadow = "--box-shadow",
   color = "--color",
+  fontFamily = "--font-family",
   fontStyle = "--font-style",
   fontWeight = "--font-weight",
   height = "--height",
@@ -28,6 +29,7 @@ export interface CustomProperties {
   [CustomPropertiesMap.borderRadius]?: Property.BorderRadius;
   [CustomPropertiesMap.boxShadow]?: Property.BoxShadow;
   [CustomPropertiesMap.color]?: Property.Color;
+  [CustomPropertiesMap.fontFamily]?: Property.FontFamily;
   [CustomPropertiesMap.fontStyle]?: Property.FontStyle;
   [CustomPropertiesMap.fontWeight]?: Property.FontWeight;
   [CustomPropertiesMap.height]?: Property.Height;

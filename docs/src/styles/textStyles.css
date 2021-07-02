@@ -1,0 +1,11 @@
+.styled-text.amplify-ui-text {
+  font-weight: bold;
+  color: red;
+  text-decoration: underline;
+}
+
+.styled-variable-text.amplify-ui-text {
+  --font-weight: bold;
+  --color: red;
+  --text-decoration: underline;
+}
