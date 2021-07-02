@@ -107,9 +107,19 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
             states: {
               idle: {
                 on: {
-                  SUBMIT: {
+                  SUBMIT: "validate",
+                },
+              },
+              validate: {
+                invoke: {
+                  src: "validateFields",
+                  onDone: {
                     target: "pending",
-                    cond: "isValid",
+                    actions: "clearValidationError",
+                  },
+                  onError: {
+                    target: "idle",
+                    actions: "setFieldErrors",
                   },
                 },
               },
@@ -118,22 +128,17 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
                   src: "signUp",
                   onDone: "done",
                   onError: {
-                    target: "error",
+                    target: "idle",
                     actions: "setCognitoError",
-                  },
-                },
-              },
-              error: {
-                on: {
-                  SUBMIT: {
-                    target: "pending",
-                    cond: "isValid",
                   },
                 },
               },
               done: { type: "final" },
             },
           },
+        },
+        on: {
+          SIGN_IN: "#auth.signIn",
         },
       },
       confirmSignUp: {
@@ -240,12 +245,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
       }),
     },
     // See: https://xstate.js.org/docs/guides/guards.html#guards-condition-functions
-    guards: {
-      isValid: (context, _event) => {
-        // true if there are no validation errors
-        return context.validationError && context.validationError !== {};
-      },
-    },
+    guards: {},
     services: {
       validateFields(context, _event) {
         const { formValues } = context;
@@ -270,8 +270,8 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
 
         return Auth.resendSignUp(username);
       },
-      async signUp(context, event) {
-        const { username, password, ...attributes } = event.data;
+      async signUp(context, _event) {
+        const { username, password, ...attributes } = context.formValues;
         if (attributes.phone_number) {
           attributes.phone_number = attributes.phone_number.replace(
             /[^A-Z0-9+]/gi,
