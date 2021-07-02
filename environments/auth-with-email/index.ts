@@ -1,1 +1,1 @@
-export * from "./src";
+export { default } from "./src/aws-exports";

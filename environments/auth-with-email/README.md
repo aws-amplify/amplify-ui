@@ -6,8 +6,6 @@ This backend is configured with Amplify Admin UI:
 
   - `Email` login mechanism
 
-    ![SCreenshot of Email configuration](screenshot.png)
-
 ## Using this Backend
 
 External contributors can re-create this backend by running:
