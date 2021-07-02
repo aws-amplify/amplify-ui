@@ -1,30 +1,33 @@
 import { useAmplify, useAuth } from "@aws-amplify/ui-react";
 import { UserNameAliasNames } from "../../primitives/shared/constants";
-export function UserNameAlias({ components, usernameAlias = "", ...attrs }) {
+export function UserNameAlias({ components, usernameAlias = null, ...attrs }) {
   const {
     components: { Label, Text, Input },
   } = useAmplify(components);
 
   const [state] = useAuth();
-  const userNameAliasConfig = state.context.config || "username";
-  const alias = usernameAlias
-    ? UserNameAliasNames[usernameAlias]
-    : UserNameAliasNames[userNameAliasConfig];
+  let alias = null;
+  if (usernameAlias) {
+    alias = Array.isArray(usernameAlias) ? usernameAlias : [usernameAlias];
+  }
 
-  function getAliasInput() {
-    if (alias === UserNameAliasNames.email) {
-      return <Input name="username" required type="email" />;
-    } else if (alias === UserNameAliasNames.phone_number) {
-      return <Input name="username" required type="tel" />;
-    } else {
-      return <Input name="username" required type="text" />;
-    }
+  const loginMechanisms = alias ?? state.context.config ?? ["username"];
+
+  let type = "text";
+  const name = loginMechanisms
+    .map(
+      v => UserNameAliasNames[v]?.name ?? UserNameAliasNames["username"].name
+    )
+    .join(" or ");
+
+  if (loginMechanisms.length === 1) {
+    type = UserNameAliasNames[loginMechanisms[0]]?.type ?? "text";
   }
 
   return (
     <Label {...attrs}>
-      <Text>{alias || UserNameAliasNames.username}</Text>
-      {getAliasInput()}
+      <Text>{name}</Text>
+      <Input name="username" required type={type} />
     </Label>
   );
 }

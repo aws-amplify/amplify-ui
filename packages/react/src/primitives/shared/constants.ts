@@ -3,8 +3,8 @@ export enum ComponentClassNames {
   View = "amplify-ui-view",
 }
 
-export enum UserNameAliasNames {
-  username = "Username",
-  email = "Email",
-  phone_number = "Phone Number",
-}
+export const UserNameAliasNames = {
+  username: { name: "Username", type: "text" },
+  email: { name: "Email", type: "email" },
+  phone_number: { name: "Phone Number", type: "tel" },
+};

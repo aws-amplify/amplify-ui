@@ -1,7 +1,7 @@
 import { useAmplify, useAuth } from "@aws-amplify/ui-react";
 import { UserNameAlias } from "./UserNameAlias";
 
-export function ConfirmSignUp({ usernameAlias = "" }) {
+export function ConfirmSignUp({ usernameAlias = null }) {
   const {
     components: {
       Box,
