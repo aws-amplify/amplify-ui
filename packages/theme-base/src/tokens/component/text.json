@@ -3,25 +3,25 @@
     "text": {
       "color": {
         "danger": {
-          "value": "something"
+          "value": "red"
         },
         "info": {
-          "value": "something"
+          "value": "grey"
         },
         "primary": {
-          "value": "something"
+          "value": "#808000"
         },
         "secondary": {
-          "value": "something"
+          "value": "blue"
         },
         "success": {
-          "value": "something"
+          "value": "green"
         },
         "tertiary": {
-          "value": "something"
+          "value": "purple"
         },
         "warning": {
-          "value": "something"
+          "value": "black"
         }
       },
       "font": {
