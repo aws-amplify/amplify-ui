@@ -118,7 +118,6 @@ const mockElements = (elements) => {
 	return arr.map((char, i) => <View style={mockStyle} key={i}>{typeof elements === "number" ? i + 1 : char}</View>);
 };
 
-
 const selectDemo = demoType => {
 	switch(demoType) {
 		case 'justifyContent':
