@@ -1,4 +1,5 @@
 import { useAmplify, useAuth } from "@aws-amplify/ui-react";
+import { UserNameAlias } from "./UserNameAlias";
 
 export function SignIn() {
   const {
@@ -39,10 +40,7 @@ export function SignIn() {
       <Heading level={1}>Sign in to your account</Heading>
 
       <Fieldset disabled={isPending}>
-        <Label data-amplify-username>
-          <Text>Username</Text>
-          <Input name="username" required type="text" />
-        </Label>
+        <UserNameAlias data-amplify-usernamealias />
 
         <Label data-amplify-password>
           <Text>Password</Text>
