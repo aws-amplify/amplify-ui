@@ -247,7 +247,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
     // See: https://xstate.js.org/docs/guides/guards.html#guards-condition-functions
     guards: {},
     services: {
-      validateFields(context, _event) {
+      async validateFields(context, _event) {
         const { formValues } = context;
         const validators = [passwordMatches]; // this can contain custom validators too
         return runValidators(formValues, validators);
