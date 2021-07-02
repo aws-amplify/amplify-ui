@@ -11,6 +11,7 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import { MDXRemote } from "next-mdx-remote";
 import { serialize } from "next-mdx-remote/serialize";
 import { ButtonDemo, ViewDemo, TextDemo } from "@aws-amplify/ui-react";
+import { XStateInspector } from "@/components/XStateInspector";
 
 export default function Content({
   featureTests = [],
@@ -34,6 +35,7 @@ export default function Content({
           TextDemo,
           ViewDemo,
           FeatureTests,
+          XStateInspector,
         }}
         scope={{
           featureTests,
@@ -41,6 +43,8 @@ export default function Content({
           customComponents,
         }}
       />
+
+      <FeatureTests featureTests={featureTests} />
     </Layout>
   );
 }

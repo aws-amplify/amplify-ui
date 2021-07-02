@@ -3,9 +3,10 @@
   "name": "docs",
   "version": "0.0.1",
   "scripts": {
-    "dev": "next-remote-watch src/content",
+    "dev": "PORT=5000 next-remote-watch 'src/content' '../packages/e2e/**/*.feature'",
     "build": "next build && next export",
-    "start": "next start"
+    "start": "next start",
+    "test": "$_ run build"
   },
   "dependencies": {
     "@aws-amplify/ui-react-v1": "npm:@aws-amplify/ui-react",
@@ -15,8 +16,9 @@
     "@heroicons/react": "^1.0.1",
     "@mdx-js/loader": "^1.5.1",
     "@mdx-js/react": "^1.6.18",
-    "@moxy/next-compile-node-modules": "^2.0.2",
+    "@moxy/next-compile-node-modules": "^2.1.1",
     "@next/mdx": "^9.1.1",
+    "@xstate/inspect": "^0.4.1",
     "aws-amplify": "latest",
     "aws-amplify-react": "latest",
     "gray-matter": "^4.0.3",

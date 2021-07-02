@@ -1,4 +1,4 @@
-import { ButtonTypes, useAmplify, useAuth } from "@aws-amplify/ui-react";
+import { useAmplify, useAuth } from "@aws-amplify/ui-react";
 
 export function SignUp() {
   const {
@@ -40,7 +40,7 @@ export function SignUp() {
         </Button>
         <Spacer />
         <Button isDisabled={isPending} type="submit">
-          {isPending ? <>Creating account&hellip;</> : <>Create account</>}
+          {isPending ? <>Creating Account&hellip;</> : <>Create Account</>}
         </Button>
       </Footer>
     </Form>
