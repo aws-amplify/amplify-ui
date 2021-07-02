@@ -58,7 +58,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
                 target: "resolved",
               },
               onError: {
-                actions: "setCognitoError",
+                actions: "setRemoteError",
                 target: "rejected",
               },
             },
@@ -129,7 +129,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
                   onDone: "done",
                   onError: {
                     target: "idle",
-                    actions: "setCognitoError",
+                    actions: "setRemoteError",
                   },
                 },
               },
@@ -166,7 +166,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
                 target: "resolved",
               },
               onError: {
-                actions: "setCognitoError",
+                actions: "setRemoteError",
                 target: "rejected",
               },
             },
@@ -178,7 +178,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
                 target: "edit",
               },
               onError: {
-                actions: "setCognitoError",
+                actions: "setRemoteError",
                 target: "rejected",
               },
             },
@@ -224,7 +224,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
           return event.data?.user || event.data;
         },
       }),
-      setCognitoError: assign({
+      setRemoteError: assign({
         remoteError(_, event) {
           return event.data?.message || event.data;
         },
