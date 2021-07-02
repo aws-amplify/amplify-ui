@@ -1,4 +1,5 @@
 import { useAmplify, useAuth } from "@aws-amplify/ui-react";
+import { UserNameAlias } from "./UserNameAlias";
 
 export function SignUp() {
   const {
@@ -71,21 +72,7 @@ export function SignUp() {
 }
 
 SignUp.UsernameControl = ({ label = "Username", name = "username" }) => {
-  const {
-    components: { Input, Label, Text, ErrorText },
-  } = useAmplify("Authenticator.SignUp.Username");
-  const [{ context }] = useAuth();
-  const error = context.validationError[name];
-
-  return (
-    <>
-      <Label data-amplify-username>
-        <Text>{label}</Text>
-        <Input name={name} required type="text" />
-      </Label>
-      <ErrorText>{error}</ErrorText>
-    </>
-  );
+  return <UserNameAlias data-amplify-usernamealias />;
 };
 
 SignUp.PasswordControl = ({ label = "Password", name = "password" }) => {

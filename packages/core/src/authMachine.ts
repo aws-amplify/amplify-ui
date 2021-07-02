@@ -1,4 +1,4 @@
-import { Auth } from "aws-amplify";
+import { Auth, Amplify } from "aws-amplify";
 import { Machine, assign } from "xstate";
 import { AuthContext, AuthEvent } from "./types";
 import { passwordMatches, runValidators } from "./validators";
@@ -17,15 +17,23 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
     states: {
       // See: https://xstate.js.org/docs/guides/communication.html#invoking-promises
       idle: {
-        invoke: {
-          // TODO Wait for Auth to be configured
-          src: "getCurrentUser",
-          onDone: {
-            actions: "setUser",
-            target: "authenticated",
+        invoke: [
+          {
+            // TODO Wait for Auth to be configured
+            src: "getCurrentUser",
+            onDone: {
+              actions: "setUser",
+              target: "authenticated",
+            },
+            onError: "signIn",
           },
-          onError: "signIn",
-        },
+          {
+            src: "getAmplifyConfig",
+            onDone: {
+              actions: "setAuthConfig",
+            },
+          },
+        ],
       },
       authenticated: {
         on: {
@@ -224,6 +232,11 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
           return event.data?.user || event.data;
         },
       }),
+      setAuthConfig: assign({
+        config(_, event) {
+          return event.data.auth;
+        },
+      }),
       setRemoteError: assign({
         remoteError(_, event) {
           return event.data?.message || event.data;
@@ -255,13 +268,16 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
       async getCurrentUser() {
         return Auth.currentAuthenticatedUser();
       },
+      async getAmplifyConfig() {
+        return Amplify.configure();
+      },
       async signIn(context, event) {
         const { username, password } = event.data;
 
         return Auth.signIn(username, password);
       },
       async confirmSignUp(context, event) {
-        const { username, code } = event.data;
+        const { username, confirmation_code: code } = event.data;
 
         return Auth.confirmSignUp(username, code);
       },
