@@ -1,5 +1,5 @@
 import { AuthFormData, Validator } from "../types";
-import { isEmptyObject } from "../util";
+import isEmpty from "lodash/isEmpty";
 
 export const passwordMatches: Validator = (formValues: AuthFormData) => {
   const { password, confirm_password } = formValues;
@@ -45,7 +45,7 @@ export const runValidators = async (
     }
   }
 
-  if (isEmptyObject(validationErrors)) {
+  if (isEmpty(validationErrors)) {
     // no errors were found
     return Promise.resolve();
   } else {

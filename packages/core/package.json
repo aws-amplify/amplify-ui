@@ -3,6 +3,10 @@
   "name": "@aws-amplify/ui-core",
   "version": "0.0.1",
   "dependencies": {
+    "lodash": "^4.17.21",
     "xstate": "^4.20.1"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.170"
   }
 }
