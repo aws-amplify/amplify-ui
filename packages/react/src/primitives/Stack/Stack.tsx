@@ -5,18 +5,14 @@ import { StackProps } from "../types";
 import { View } from "../View";
 
 export const Stack: React.FC<StackProps> = props => {
-	const {
-		className,
-		children,
-		...rest
-	} = props;
+  const { className, children, ...rest } = props;
 
   return (
-    <View 
-		  className={classNames(ComponentClassNames.Stack, className)} 
-			{...rest}
-		>
-      {children} 
+    <View
+      className={classNames(ComponentClassNames.Stack, className)}
+      {...rest}
+    >
+      {children}
     </View>
   );
 };

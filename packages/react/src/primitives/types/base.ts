@@ -1,7 +1,7 @@
-import { Property } from 'csstype';
+import { Property } from "csstype";
 
 export enum CustomPropertiesMap {
-  backgroundColor = '--background-color',
+  backgroundColor = "--background-color",
   color = "--color",
   boxShadow = "--box-shadow",
   padding = "--padding",
@@ -48,8 +48,8 @@ export interface CustomProperties {
  * This is required to support passing our CSS custom properties
  * to React's `style` prop
  */
-declare module 'csstype' {
-  interface Properties extends CustomProperties { }
+declare module "csstype" {
+  interface Properties extends CustomProperties {}
 }
 
 // Base component definition

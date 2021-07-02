@@ -9,6 +9,7 @@ npm install @aws-amplify/ui-react
 ```
 
 ## Usage
+
 Import the Stack component and styles.
 
 ```jsx
@@ -18,53 +19,58 @@ import "@aws-amplify/ui-react/styles.css";
 // import "@aws-amplify/ui-react/dist/primitives/Stack/styles.css";
 
 <Stack>
-	<div>Hello</div>
-	<div>world</div>
-</Stack>
+  <div>Hello</div>
+  <div>world</div>
+</Stack>;
 ```
+
 <Stack>
-	<div>Hello</div>
-	<div>world</div>
+  <div>Hello</div>
+  <div>world</div>
 </Stack>
 
 ### Justify Content
+
 Use the `justifyContent` prop to control where the flex items sit on the main axis. You can explore the different options in the demo below:
 
 ```jsx
 import { Stack } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 
-<Stack justifyContent="flex-start">(placeholder for flex items)</Stack>
+<Stack justifyContent="flex-start">(placeholder for flex items)</Stack>;
 ```
 
-<StackDemo demoType='justifyContent'/>
+<StackDemo demoType="justifyContent" />
 
 ### Align Items
-Use the `alignItems` prop to control where the flex items sit on the cross axis. 
+
+Use the `alignItems` prop to control where the flex items sit on the cross axis.
 
 ```jsx
 import { Stack } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 
-<Stack alignItems="flex-start">(placeholder for flex items)</Stack>
+<Stack alignItems="flex-start">(placeholder for flex items)</Stack>;
 ```
 
-<StackDemo demoType='alignItems'/>
+<StackDemo demoType="alignItems" />
 
 ### Wrap
+
 Use the `wrap` prop to control what happens when children overflow the size of the container along the main axis. By default, children are forced into a single line (which can shrink elements). If wrapping is allowed, items are wrapped into multiple lines along the main axis if needed (maps to `flex-wrap` CSS property).
 
 ```jsx
 import { Stack } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 
-<Stack wrap="nowrap">(placeholder for flex items)</Stack>
+<Stack wrap="nowrap">(placeholder for flex items)</Stack>;
 ```
 
-<StackDemo demoType='wrap'/>
+<StackDemo demoType="wrap" />
 
 ### Gap
-Use the `gap` prop to adjust the spacing between child components. `gap` accepts a string representing any unit (e.g., px, rem, %). 
+
+Use the `gap` prop to adjust the spacing between child components. `gap` accepts a string representing any unit (e.g., px, rem, %).
 
 ```jsx
 import { Stack } from "@aws-amplify/ui-react";
@@ -75,23 +81,24 @@ import "@aws-amplify/ui-react/styles.css";
 <Stack gap="10%">(placeholder for flex items)</Stack>
 ```
 
-<StackDemo demoType='gap'/>
+<StackDemo demoType="gap" />
 
 ### Direction
+
 Use the `direction` prop to set how flex items are placed in the flex container defining the main axis (maps to `flex-direction` CSS property).
 
 ```jsx
 import { Stack } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 
-<Stack direction="row">(placeholder for flex items)</Stack>
+<Stack direction="row">(placeholder for flex items)</Stack>;
 ```
 
-<StackDemo demoType='direction'/>
+<StackDemo demoType="direction" />
 
 #### HStack and VStack
 
-Alternatively, you can use the `HStack` and `VStack` components as syntactic sugar to automatically set the direction to `row` or `column`, respectively. 
+Alternatively, you can use the `HStack` and `VStack` components as syntactic sugar to automatically set the direction to `row` or `column`, respectively.
 
 ```jsx
 import { Stack } from "@aws-amplify/ui-react";
@@ -100,7 +107,8 @@ import "@aws-amplify/ui-react/styles.css";
 <HStack justifyContent="center">(placeholder for flex items)</HStack>
 <VStack></VStack>
 ```
-<StackDemo demoType='helpers'/>
+
+<StackDemo demoType="helpers" />
 
 ### CSS Styling
 
@@ -109,8 +117,8 @@ import "@aws-amplify/ui-react/styles.css";
 ```css
 /* styles.css */
 .my-custom-stack {
-	justify-content: center;
-	gap: 3rem;
+  justify-content: center;
+  gap: 3rem;
 }
 ```
 
@@ -120,12 +128,13 @@ import "@aws-amplify/ui-react/styles.css";
 import "./styles.css";
 
 <Stack className="my-custom-stack">
-	<View>1</View>
-	<View>2</View>
-	<View>3</View>
-</Stack>
+  <View>1</View>
+  <View>2</View>
+  <View>3</View>
+</Stack>;
 ```
-<Stack className="my-custom-stack"> 
+
+<Stack className="my-custom-stack">
   <View>1</View>
   <View>2</View>
   <View>3</View>
@@ -146,14 +155,14 @@ import "@aws-amplify/ui-react/styles.css";
 import "./styles.css";
 
 <Stack className="styled-stack">
-	<View>Adam</View>
-	<View>I'm</View>
-	<View>Madam</View>
-</Stack>
+  <View>Adam</View>
+  <View>I'm</View>
+  <View>Madam</View>
+</Stack>;
 ```
 
 <Stack className="styled-stack">
-	<View>Adam</View>
-	<View>I'm</View>
-	<View>Madam</View>
+  <View>Adam</View>
+  <View>I'm</View>
+  <View>Madam</View>
 </Stack>
