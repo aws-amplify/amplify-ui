@@ -49,6 +49,10 @@ export function Text(props) {
   return <span data-amplify-text="" {...props} />;
 }
 
+export function ErrorText(props) {
+  return props.children ? <span data-amplify-error="" {...props} /> : null;
+}
+
 export function Wrapper(props) {
   return <div data-amplify-wrapper="" {...props} />;
 }

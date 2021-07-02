@@ -1,13 +1,12 @@
 import { useAuth } from "@aws-amplify/ui-react";
 import { UserNameAliasNames } from "../../primitives/shared/constants";
-import { Label, Text, Input } from "../../primitives";
+import { Label, Text, Input, ErrorText } from "../../primitives";
 
 export function UserNameAlias({ ...attrs }) {
-  const [state] = useAuth();
+  const [{ context }] = useAuth();
 
-  const loginMechanisms = state.context.config?.login_mechanisms ?? [
-    "username",
-  ];
+  const error = context.validationError["username"];
+  const loginMechanisms = context.config?.login_mechanisms ?? ["username"];
 
   let type = "text";
   const name = loginMechanisms
@@ -24,6 +23,7 @@ export function UserNameAlias({ ...attrs }) {
     <Label {...attrs}>
       <Text>{name}</Text>
       <Input name="username" required type={type} />
+      <ErrorText>{error}</ErrorText>
     </Label>
   );
 }
