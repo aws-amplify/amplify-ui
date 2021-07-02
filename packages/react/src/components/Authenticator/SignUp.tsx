@@ -53,7 +53,7 @@ SignUp.UsernameControl = ({ label = "Username", name = "username" }) => {
     components: { Input, Label, Text },
   } = useAmplify("Authenticator.SignUp.Username");
 
-  return <UserNameAlias data-amplify-username />;
+  return <UserNameAlias data-amplify-usernamealias />;
 };
 
 SignUp.PasswordControl = ({ label = "Password", name = "password" }) => {

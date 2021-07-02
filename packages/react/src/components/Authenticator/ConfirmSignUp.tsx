@@ -40,7 +40,7 @@ export function ConfirmSignUp() {
       <Heading level={1}>Confirm Sign Up</Heading>
 
       <Fieldset disabled={isPending}>
-        <UserNameAlias data-amplify-username />
+        <UserNameAlias data-amplify-usernamealias />
 
         <Label data-amplify-confirmationcode>
           <Text>Confirmation Code</Text>

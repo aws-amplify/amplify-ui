@@ -40,7 +40,7 @@ export function SignIn() {
       <Heading level={1}>Sign in to your account</Heading>
 
       <Fieldset disabled={isPending}>
-        <UserNameAlias data-amplify-username />
+        <UserNameAlias data-amplify-usernamealias />
 
         <Label data-amplify-password>
           <Text>Password</Text>
