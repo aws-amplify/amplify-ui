@@ -1,5 +1,6 @@
 import { AuthFormData, Validator } from "../types";
 import isEmpty from "lodash/isEmpty";
+import merge from "lodash/merge";
 
 export const passwordMatches: Validator = (formValues: AuthFormData) => {
   const { password, confirm_password } = formValues;
@@ -36,19 +37,15 @@ export const runValidators = async (
   formData: AuthFormData,
   validators: Validator[]
 ) => {
-  let validationErrors = {};
-  for (const validator of validators) {
-    const reportedError = await validator(formData);
-    if (reportedError) {
-      // TODO: merge field errors instead of overwriting them.
-      validationErrors = { ...validationErrors, ...reportedError };
-    }
-  }
+  const errors = await Promise.all(
+    validators.map(validator => validator(formData))
+  );
+  const mergedError = merge({}, ...errors);
 
-  if (isEmpty(validationErrors)) {
+  if (isEmpty(mergedError)) {
     // no errors were found
     return Promise.resolve();
   } else {
-    return Promise.reject(validationErrors);
+    return Promise.reject(mergedError);
   }
 };
