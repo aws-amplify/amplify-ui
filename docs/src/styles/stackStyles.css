@@ -1,0 +1,8 @@
+.my-custom-stack {
+	justify-content: center;
+	gap: 3rem;
+}
+
+.styled-stack {
+  --flex-direction: column-reverse;
+}

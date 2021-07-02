@@ -9,78 +9,151 @@ npm install @aws-amplify/ui-react
 ```
 
 ## Usage
-Import the button component and styles.
+Import the Stack component and styles.
 
 ```jsx
 import { Stack } from "@aws-amplify/ui-react";
+import "@aws-amplify/ui-react/styles.css";
+// For smaller bundle size, import just the button styling:
+// import "@aws-amplify/ui-react/dist/primitives/Stack/styles.css";
 
-<Stack>Hello world</Stack>
+<Stack>
+	<div>Hello</div>
+	<div>world</div>
+</Stack>
 ```
+<Stack>
+	<div>Hello</div>
+	<div>world</div>
+</Stack>
 
 ### Justify Content
 Use the `justifyContent` prop to control where the flex items sit on the main axis. You can explore the different options in the demo below:
 
 ```jsx
-import { Button } from "@aws-amplify/ui-react";
+import { Stack } from "@aws-amplify/ui-react";
+import "@aws-amplify/ui-react/styles.css";
 
-<Stack justifyContent="flex-start"> (flex items go here) </Stack>
+<Stack justifyContent="flex-start">(placeholder for flex items)</Stack>
 ```
 
 <StackDemo demoType='justifyContent'/>
 
 ### Align Items
-Use the `alignItems` prop to control where the flex items sit on the main axis. You can explore the different options in the demo below:
+Use the `alignItems` prop to control where the flex items sit on the cross axis. 
 
 ```jsx
-import { Button } from "@aws-amplify/ui-react";
+import { Stack } from "@aws-amplify/ui-react";
+import "@aws-amplify/ui-react/styles.css";
 
-<Stack alignItems="flex-start">Again, placeholder for flex items</Stack>
+<Stack alignItems="flex-start">(placeholder for flex items)</Stack>
 ```
 
 <StackDemo demoType='alignItems'/>
 
 ### Wrap
-Use the `wrap` prop to DO STUFF. You can explore the different options in the demo below:
+Use the `wrap` prop to control what happens when children overflow the size of the container along the main axis. By default, children are forced into a single line (which can shrink elements). If wrapping is allowed, items are wrapped into multiple lines along the main axis if needed (maps to `flex-wrap` CSS property).
 
 ```jsx
-import { Button } from "@aws-amplify/ui-react";
+import { Stack } from "@aws-amplify/ui-react";
+import "@aws-amplify/ui-react/styles.css";
 
-<Stack wrap="nowrap">Again, placeholder for flex items</Stack>
+<Stack wrap="nowrap">(placeholder for flex items)</Stack>
 ```
 
 <StackDemo demoType='wrap'/>
 
 ### Gap
-Use the `gap` prop to DO STUFF. Different units, as strings. 
+Use the `gap` prop to adjust the spacing between child components. `gap` accepts a string representing any unit (e.g., px, rem, %). 
 
 ```jsx
-import { Button } from "@aws-amplify/ui-react";
+import { Stack } from "@aws-amplify/ui-react";
+import "@aws-amplify/ui-react/styles.css";
 
-<Stack gap="8px">Again, placeholder for flex items</Stack>
-<Stack gap="2rem">Again, placeholder for flex items</Stack>
-<Stack gap="10%">Again, placeholder for flex items</Stack>
+<Stack gap="8px">(placeholder for flex items)</Stack>
+<Stack gap="2rem">(placeholder for flex items)</Stack>
+<Stack gap="10%">(placeholder for flex items)</Stack>
 ```
 
 <StackDemo demoType='gap'/>
 
 ### Direction
-Use the `direction` prop to DO STUFF. You can explore the different options in the demo below:
+Use the `direction` prop to set how flex items are placed in the flex container defining the main axis (maps to `flex-direction` CSS property).
 
 ```jsx
-import { Button } from "@aws-amplify/ui-react";
+import { Stack } from "@aws-amplify/ui-react";
+import "@aws-amplify/ui-react/styles.css";
 
-<Stack direction="row">Again, placeholder for flex items</Stack>
+<Stack direction="row">(placeholder for flex items)</Stack>
 ```
 
 <StackDemo demoType='direction'/>
 
 #### HStack and VStack
 
-Alternatively, you can use the `HStack` and `VStack` components to automatically set the direction to `row` and `column`, respectively. You may pass in props as usual. 
+Alternatively, you can use the `HStack` and `VStack` components as syntactic sugar to automatically set the direction to `row` or `column`, respectively. 
 
 ```jsx
-import { Button } from "@aws-amplify/ui-react";
+import { Stack } from "@aws-amplify/ui-react";
+import "@aws-amplify/ui-react/styles.css";
 
-<HStack justifyContent="center">Again, placeholder for flex items</HStack>
+<HStack justifyContent="center">(placeholder for flex items)</HStack>
+<VStack></VStack>
 ```
 <StackDemo demoType='helpers'/>
+
+### CSS Styling
+
+#### Override Amplify styling using a CSS class
+
+```css
+/* styles.css */
+.my-custom-stack {
+	justify-content: center;
+	gap: 3rem;
+}
+```
+
+```jsx
+import { Stack, View } from "@aws-amplify/ui-react";
+import "@aws-amplify/ui-react/styles.css";
+import "./styles.css";
+
+<Stack className="my-custom-stack">
+	<View>1</View>
+	<View>2</View>
+	<View>3</View>
+</Stack>
+```
+<Stack className="my-custom-stack"> 
+  <View>1</View>
+  <View>2</View>
+  <View>3</View>
+</Stack>
+
+#### Override Amplify styling using the CSS variables
+
+```css
+/* styles.css */
+.styled-stack {
+  --flex-direction: column-reverse;
+}
+```
+
+```jsx
+import { Stack, View } from "@aws-amplify/ui-react";
+import "@aws-amplify/ui-react/styles.css";
+import "./styles.css";
+
+<Stack className="styled-stack">
+	<View>Adam</View>
+	<View>I'm</View>
+	<View>Madam</View>
+</Stack>
+```
+
+<Stack className="styled-stack">
+	<View>Adam</View>
+	<View>I'm</View>
+	<View>Madam</View>
+</Stack>

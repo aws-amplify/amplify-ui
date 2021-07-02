@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 import { 
 	Stack, 
@@ -7,46 +7,15 @@ import {
 	StackDirection, 
 	StackJustifyContent, 
 	StackAlignItems, 
-	StackAlignContent, 
 	StackWrap,
 	Button,
 	View
 } from "@aws-amplify/ui-react";
 
-const selectDemo = (demoType) => {
-	switch(demoType) {
-		case 'justifyContent':
-			return <JustifyContent/>;
-		case 'alignItems':
-			return <AlignItems/>;
-		case 'wrap':
-			return <Wrap/>;
-		case 'gap':
-			return <Gap/>;
-		case 'direction':
-			return <Direction/>;
-		case 'helpers':
-			return <Helpers/>;
-	}
-};
-
-export const StackDemo = ({ demoType }) => <View>{selectDemo(demoType)}</View>;
-
-
-// Extract the styles into a CSS file and then pass the class names
-
-// flexDirection
-// className ***
-// alignContent?
-
-const mockElements = (elements) => {
-	if (typeof elements === "number") {
-		return [...Array(elements)].map((_, i) => <View style={{width: '3rem', height: '3rem', border: '1px solid #805AD5', borderRadius: '5px', display: 'flex', justifyContent: 'center', alignItems: 'center', fontWeight: 'bold', color: 'white', backgroundColor: '#805AD5'}} key={i}>{i + 1}</View>);
-	}
-	return [...elements].map((char, i) => <View style={{width: '3rem', height: '3rem', border: '1px solid #805AD5', borderRadius: '5px', display: 'flex', justifyContent: 'center', alignItems: 'center', fontWeight: 'bold', color: 'white', backgroundColor: '#805AD5'}} key={i}>{char}</View>);	
-};
-
 const JustifyContentProps: StackJustifyContent[] = ["flex-start", "flex-end", "center", "space-between", "space-around", "space-evenly"];
+const AlignItemsProps: StackAlignItems[] = ["stretch", "flex-start", "flex-end", "center", "baseline"];
+const WrapProps: StackWrap[] = ["nowrap", "wrap", "wrap-reverse"];
+const DirectionProps: StackDirection[] = ["row", "column", "column-reverse", "row-reverse"];
 
 const JustifyContent = () => {
 	const [justifyContent, setJustifyContent] = useState<StackJustifyContent>("flex-start");
@@ -54,7 +23,7 @@ const JustifyContent = () => {
 	return (
 		<View>
 			<Stack justifyContent="space-between">
-				{JustifyContentProps.map((prop, i) => <Button onClick={() => setJustifyContent(prop)} variant={prop === justifyContent ? "primary" : "secondary"} size="small" key={i}>{prop}</Button>)}
+				{JustifyContentProps.map((prop, i) => <Button className={"test"} onClick={() => setJustifyContent(prop)} variant={prop === justifyContent ? "primary" : "secondary"} size="small" key={i}>{prop}</Button>)}
 			</Stack>
 			<br/>
 			<Stack justifyContent={justifyContent} gap="20px">
@@ -63,8 +32,6 @@ const JustifyContent = () => {
     </View>
 	);
 };
-
-const AlignItemsProps: StackAlignItems[] = ["stretch", "flex-start", "flex-end", "center", "baseline"];
 
 const AlignItems = () => {
 	const [alignItems, setAlignItems] = useState<StackAlignItems>("stretch");
@@ -83,8 +50,6 @@ const AlignItems = () => {
 		</View>
 	);
 };
-
-const WrapProps: StackWrap[] = ["nowrap", "wrap", "wrap-reverse"];
 
 const Wrap = () => {
 	const [wrap, setWrap] = useState<StackWrap>("nowrap");
@@ -112,8 +77,6 @@ const Gap = () => (
 	</View>
 );
 
-const DirectionProps: StackDirection[] = ["row", "column", "column-reverse", "row-reverse"];
-
 const Direction = () => {
 	const [direction, setDirection] = useState<StackDirection>("row");
 
@@ -121,6 +84,10 @@ const Direction = () => {
 		<View>
 			<Stack>
 				{DirectionProps.map((prop, i) => <Button onClick={() => setDirection(prop)} variant={prop === direction ? "primary" : "secondary"} size="small" key={i}>{prop}</Button>)}
+			</Stack>
+			<br/>
+			<Stack direction={direction}>
+				{mockElements(7)}
 			</Stack>
 		</View>
 	);
@@ -132,3 +99,41 @@ const Helpers = () => (
 		<VStack>{mockElements("VStack")}</VStack>
 	</View>
 );
+
+const mockStyle = {
+	width: '3rem', 
+	height: '3rem', 
+	border: '1px solid #805AD5', 
+	borderRadius: '5px', 
+	display: 'flex', 
+	justifyContent: 'center', 
+	alignItems: 'center', 
+	fontWeight: 'bold', 
+	color: 'white', 
+	backgroundColor: '#805AD5'
+};
+
+const mockElements = (elements) => {
+	const arr = typeof elements === "number" ? [...Array(elements)] : [...elements];
+	return arr.map((char, i) => <View style={mockStyle} key={i}>{typeof elements === "number" ? i + 1 : char}</View>);
+};
+
+
+const selectDemo = demoType => {
+	switch(demoType) {
+		case 'justifyContent':
+			return <JustifyContent/>;
+		case 'alignItems':
+			return <AlignItems/>;
+		case 'wrap':
+			return <Wrap/>;
+		case 'gap':
+			return <Gap/>;
+		case 'direction':
+			return <Direction/>;
+		case 'helpers':
+			return <Helpers/>;
+	}
+};
+
+export const StackDemo = ({demoType}) => <View>{selectDemo(demoType)}</View>;
