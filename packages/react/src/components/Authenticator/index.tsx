@@ -11,7 +11,6 @@ import { SignUp } from "./SignUp";
 export function Authenticator({
   className = null,
   children = context => null,
-  usernameAlias = "",
 }) {
   const service = useInterpret(authMachine, {
     devTools: process.env.NODE_ENV === "development",
@@ -43,11 +42,11 @@ export function Authenticator({
             case state.matches("idle"):
               return null;
             case state.matches("confirmSignUp"):
-              return <ConfirmSignUp usernameAlias={usernameAlias} />;
+              return <ConfirmSignUp />;
             case state.matches("signIn"):
-              return <SignIn usernameAlias={usernameAlias} />;
+              return <SignIn />;
             case state.matches("signUp"):
-              return <SignUp usernameAlias={usernameAlias} />;
+              return <SignUp />;
             default:
               console.warn("Unhandled Auth state", state);
               return null;

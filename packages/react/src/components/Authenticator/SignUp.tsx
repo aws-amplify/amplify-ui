@@ -1,7 +1,7 @@
 import { useAmplify, useAuth } from "@aws-amplify/ui-react";
 import { UserNameAlias } from "./UserNameAlias";
 
-export function SignUp({ usernameAlias = null }) {
+export function SignUp() {
   const {
     components: { Button, Fieldset, Footer, Form, Heading, Spacer, Text },
   } = useAmplify("Authenticator.SignUp");
@@ -28,7 +28,7 @@ export function SignUp({ usernameAlias = null }) {
       <Heading>Create a new account</Heading>
 
       <Fieldset>
-        <SignUp.UsernameControl usernameAlias={usernameAlias} />
+        <SignUp.UsernameControl />
         <SignUp.PasswordControl />
         <SignUp.EmailControl />
         <SignUp.PhoneControl />
@@ -48,22 +48,12 @@ export function SignUp({ usernameAlias = null }) {
   );
 }
 
-SignUp.UsernameControl = ({
-  label = "Username",
-  name = "username",
-  usernameAlias = null,
-}) => {
+SignUp.UsernameControl = ({ label = "Username", name = "username" }) => {
   const {
     components: { Input, Label, Text },
   } = useAmplify("Authenticator.SignUp.Username");
 
-  return (
-    <UserNameAlias
-      usernameAlias={usernameAlias}
-      data-amplify-username
-      components={"Authenticator.SignUp.Username"}
-    />
-  );
+  return <UserNameAlias data-amplify-username />;
 };
 
 SignUp.PasswordControl = ({ label = "Password", name = "password" }) => {

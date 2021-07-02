@@ -26,9 +26,9 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
             onError: "signIn",
           },
           {
-            src: "getCurrentConfig",
+            src: "getAmplifyConfig",
             onDone: {
-              actions: "setUserNameAlias",
+              actions: "setAuthConfig",
             },
           },
         ],
@@ -200,9 +200,9 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
           return event.data?.user || event.data;
         },
       }),
-      setUserNameAlias: assign({
+      setAuthConfig: assign({
         config(_, event) {
-          return event.data.auth?.login_mechanisms;
+          return event.data.auth;
         },
       }),
       setCognitoError: assign({
@@ -228,7 +228,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
       async getCurrentUser() {
         return Auth.currentAuthenticatedUser();
       },
-      async getCurrentConfig() {
+      async getAmplifyConfig() {
         return Amplify.configure();
       },
       async signIn(context, event) {

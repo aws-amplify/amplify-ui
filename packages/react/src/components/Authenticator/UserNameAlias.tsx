@@ -1,17 +1,13 @@
-import { useAmplify, useAuth } from "@aws-amplify/ui-react";
+import { useAuth } from "@aws-amplify/ui-react";
 import { UserNameAliasNames } from "../../primitives/shared/constants";
-export function UserNameAlias({ components, usernameAlias = null, ...attrs }) {
-  const {
-    components: { Label, Text, Input },
-  } = useAmplify(components);
+import { Label, Text, Input } from "../../primitives";
 
+export function UserNameAlias({ ...attrs }) {
   const [state] = useAuth();
-  let alias = null;
-  if (usernameAlias) {
-    alias = Array.isArray(usernameAlias) ? usernameAlias : [usernameAlias];
-  }
 
-  const loginMechanisms = alias ?? state.context.config ?? ["username"];
+  const loginMechanisms = state.context.config?.login_mechanisms ?? [
+    "username",
+  ];
 
   let type = "text";
   const name = loginMechanisms
