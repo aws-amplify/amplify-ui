@@ -10,7 +10,7 @@ export interface AuthContext {
   user?: CognitoUser;
   session?: CognitoUserSession;
   formValues?: AuthFormData;
-  config?: { login_mechanisms: string[] };
+  config?: { login_mechanisms: string[]; confirm_password: boolean };
 }
 
 export type AuthEventTypes =

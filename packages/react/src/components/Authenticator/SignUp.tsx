@@ -1,5 +1,7 @@
+import * as React from "react";
 import { useAmplify, useAuth } from "@aws-amplify/ui-react";
-import { UserNameAlias } from "./UserNameAlias";
+
+import { UserNameAliasNames } from "../../primitives/shared/constants";
 
 export function SignUp() {
   const {
@@ -19,11 +21,13 @@ export function SignUp() {
   const isPending = state.matches("signUp.pending");
   const { remoteError } = state.context;
 
+  const [primaryAlias, ...secondaryAliases] = state.context.config
+    ?.login_mechanisms ?? ["username", "email", "password"];
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     send({
       type: "CHANGE",
-      // @ts-ignore Property 'fromEntries' does not exist on type 'ObjectConstructor'. Do you need to change your target library? Try changing the `lib` compiler option to 'es2019' or later.ts(2550)
       data: { name, value },
     });
   };
@@ -40,6 +44,7 @@ export function SignUp() {
         send({
           type: "SUBMIT",
           // @ts-ignore Property 'fromEntries' does not exist on type 'ObjectConstructor'. Do you need to change your target library? Try changing the `lib` compiler option to 'es2019' or later.ts(2550)
+
           data: Object.fromEntries(formData),
         });
       }}
@@ -48,11 +53,27 @@ export function SignUp() {
       <Heading>Create a new account</Heading>
 
       <Fieldset>
-        <SignUp.UsernameControl />
+        <SignUp.AliasControl
+          label={UserNameAliasNames[primaryAlias].name}
+          name={primaryAlias}
+        />
         <SignUp.PasswordControl />
-        <SignUp.ConfirmPasswordControl />
-        <SignUp.EmailControl />
-        <SignUp.PhoneControl />
+        {state.context.config.confirm_password && (
+          <SignUp.ConfirmPasswordControl />
+        )}
+        {secondaryAliases
+          .concat(
+            ["email", "phone_number"].filter(
+              alias => ![primaryAlias, ...secondaryAliases].includes(alias)
+            )
+          )
+          .map(alias => (
+            <SignUp.AliasControl
+              key={alias}
+              label={UserNameAliasNames[alias].name}
+              name={alias}
+            />
+          ))}
       </Fieldset>
 
       <ErrorText>{remoteError}</ErrorText>
@@ -71,8 +92,27 @@ export function SignUp() {
   );
 }
 
-SignUp.UsernameControl = ({ label = "Username", name = "username" }) => {
-  return <UserNameAlias data-amplify-usernamealias />;
+SignUp.AliasControl = ({ label = "Username", name = "username" }) => {
+  const {
+    components: { Input, Label, Text, ErrorText },
+  } = useAmplify("Authenticator.SignUp.Password");
+  const [{ context }] = useAuth();
+  const error = context.validationError[name];
+
+  return (
+    <>
+      <Label>
+        <Text>{label}</Text>
+        <Input
+          name={name}
+          placeholder={label}
+          required
+          type={UserNameAliasNames[name].type}
+        />
+      </Label>
+      <ErrorText>{error}</ErrorText>
+    </>
+  );
 };
 
 SignUp.PasswordControl = ({ label = "Password", name = "password" }) => {
@@ -86,7 +126,7 @@ SignUp.PasswordControl = ({ label = "Password", name = "password" }) => {
     <>
       <Label>
         <Text>{label}</Text>
-        <Input name={name} required type="password" />
+        <Input name={name} placeholder={label} required type="password" />
       </Label>
       <ErrorText>{error}</ErrorText>
     </>
@@ -107,43 +147,7 @@ SignUp.ConfirmPasswordControl = ({
     <>
       <Label>
         <Text>{label}</Text>
-        <Input name={name} required type="password" />
-      </Label>
-      <ErrorText>{error}</ErrorText>
-    </>
-  );
-};
-
-SignUp.EmailControl = ({ label = "Email address", name = "email" }) => {
-  const {
-    components: { Input, Label, Text, ErrorText },
-  } = useAmplify("Authenticator.SignUp.Password");
-  const [{ context }] = useAuth();
-  const error = context.validationError[name];
-
-  return (
-    <>
-      <Label>
-        <Text>{label}</Text>
-        <Input name={name} type="email" />
-      </Label>
-      <ErrorText>{error}</ErrorText>
-    </>
-  );
-};
-
-SignUp.PhoneControl = ({ label = "Phone number", name = "phone_number" }) => {
-  const {
-    components: { Input, Label, Text, ErrorText },
-  } = useAmplify("Authenticator.SignUp.Password");
-  const [{ context }] = useAuth();
-  const error = context.validationError[name];
-
-  return (
-    <>
-      <Label>
-        <Text>{label}</Text>
-        <Input name={name} type="tel" />
+        <Input name={name} placeholder={label} required type="password" />
       </Label>
       <ErrorText>{error}</ErrorText>
     </>
