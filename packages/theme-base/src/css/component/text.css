@@ -33,6 +33,7 @@
 
   all: unset;
   color: var(--color);
+  display: block;
   font-family: var(--font-family);
   font-style: var(--font-style);
   font-weight: var(--font-weight);

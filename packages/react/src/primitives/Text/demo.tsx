@@ -13,11 +13,13 @@ export const TextDemo = ({ children }) => {
     <div>
       <div className="flex mb-4">
         <div className="w-1/2 text-right pr-2 text-lg mt-1">
-          <label>Displayed Text:</label>
+          <label htmlFor="display_text">Displayed Text:</label>
         </div>
         <div className="w-1/2">
           <input
             type="text"
+            id="display_text"
+            name="display_text"
             value={text}
             onChange={event => setText(event.target.value)}
           />
@@ -25,11 +27,13 @@ export const TextDemo = ({ children }) => {
       </div>
       <div className="flex mb-4">
         <div className="w-1/2 text-right pr-2 text-lg mt-1">
-          <label>Color:</label>
+          <label htmlFor="color">Color:</label>
         </div>
         <div className="w-1/2">
           <input
             type="text"
+            id="color"
+            name="color"
             value={color}
             onChange={event => setColor(event.target.value)}
           />
@@ -37,11 +41,13 @@ export const TextDemo = ({ children }) => {
       </div>
       <div className="flex mb-4">
         <div className="w-1/2 text-right pr-2 text-lg mt-1">
-          <label>Line Height:</label>
+          <label htmlFor="line_height">Line Height:</label>
         </div>
         <div className="w-1/2">
           <input
             type="text"
+            id="line_height"
+            name="line_height"
             value={lineHeight}
             onChange={event => setLineHeight(event.target.value)}
           />
@@ -49,11 +55,13 @@ export const TextDemo = ({ children }) => {
       </div>
       <div className="flex mb-4">
         <div className="w-1/2 text-right pr-2 text-lg mt-1">
-          <label>Font Wieght:</label>
+          <label htmlFor="font_weight">Font Weight:</label>
         </div>
         <div className="w-1/2">
           <input
             type="text"
+            id="font_weight"
+            name="font_weight"
             value={fontWeight}
             onChange={event => setFontWeight(event.target.value)}
           />
@@ -61,11 +69,13 @@ export const TextDemo = ({ children }) => {
       </div>
       <div className="flex mb-4">
         <div className="w-1/2 text-right pr-2 text-lg mt-1">
-          <label>Font Style:</label>
+          <label htmlFor="font_style">Font Style:</label>
         </div>
         <div className="w-1/2">
           <input
             type="text"
+            id="font_style"
+            name="font_style"
             value={fontStyle}
             onChange={event => setFontStyle(event.target.value)}
           />
@@ -73,11 +83,13 @@ export const TextDemo = ({ children }) => {
       </div>
       <div className="flex mb-4">
         <div className="w-1/2 text-right pr-2 text-lg mt-1">
-          <label>Text Decoration:</label>
+          <label htmlFor="text_decoration">Text Decoration:</label>
         </div>
         <div className="w-1/2">
           <input
             type="text"
+            id="text_decoration"
+            name="text_decoration"
             value={textDecoration}
             onChange={event => setTextDecoration(event.target.value)}
           />
@@ -86,11 +98,13 @@ export const TextDemo = ({ children }) => {
 
       <div className="flex mb-4">
         <div className="w-1/2 text-right pr-2 text-lg mt-1">
-          <label>Is Truncated</label>
+          <label htmlFor="is_truncated">Is Truncated</label>
         </div>
         <div className="w-1/2">
           <input
             type="checkbox"
+            id="is_truncated"
+            name="is_truncated"
             onChange={event => setIsTruncated(!isTruncated)}
           />
         </div>
