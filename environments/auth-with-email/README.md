@@ -1,4 +1,4 @@
-# Auth with Username
+# Auth with Email
 
 This backend is configured with Amplify Admin UI:
 
