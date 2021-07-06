@@ -2,7 +2,7 @@
   "components": {
     "text": {
       "color": {
-        "danger": {
+        "error": {
           "value": "red"
         },
         "info": {

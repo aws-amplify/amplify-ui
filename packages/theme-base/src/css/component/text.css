@@ -1,6 +1,6 @@
 .amplify-ui-text.amplify-ui-view {
   --color: var(--amplify-ui-components-text-color);
-  --color-danger: var(--amplify-ui-components-text-color-danger);
+  --color-error: var(--amplify-ui-components-text-color-error);
   --color-info: var(--amplify-ui-components-text-color-info);
   --color-primary: var(--amplify-ui-components-text-color-primary);
   --color-secondary: var(--amplify-ui-components-text-color-secondary);
@@ -73,8 +73,8 @@
   color: var(--color-tertiary);
 }
 
-.amplify-ui-text[data-variant="danger"] {
-  color: var(--color-danger);
+.amplify-ui-text[data-variant="error"] {
+  color: var(--color-error);
 }
 
 .amplify-ui-text[data-variant="info"] {

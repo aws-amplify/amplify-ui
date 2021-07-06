@@ -5,7 +5,7 @@ export type TextVariant =
   | "primary"
   | "secondary"
   | "tertiary"
-  | "danger"
+  | "error"
   | "warning"
   | "info"
   | "success";
