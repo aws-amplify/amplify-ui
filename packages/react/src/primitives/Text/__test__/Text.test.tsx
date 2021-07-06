@@ -77,7 +77,7 @@ describe("Text: ", () => {
     );
   });
 
-  it("can apply line-heiht via props", async () => {
+  it("can apply line-height via props", async () => {
     render(<Text lineHeight="1rem">{textText}</Text>);
     const text = await screen.findByText(textText);
     expect(text.style.getPropertyValue(CustomPropertiesMap.lineHeight)).toBe(
