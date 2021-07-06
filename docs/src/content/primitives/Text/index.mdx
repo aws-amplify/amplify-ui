@@ -36,17 +36,11 @@ import { Text } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 
 <Text variant="primary">Primary</Text>
-<br />
 <Text variant="secondary">Secondary</Text>
-<br />
 <Text variant="tertiary">Tertiary</Text>
-<br />
 <Text variant="danger">Danger</Text>
-<br />
 <Text variant="warning">Warning</Text>
-<br />
 <Text variant="info">Info</Text>
-<br />
 <Text variant="success">Success</Text>
 ```
 
@@ -72,7 +66,7 @@ The isTruncated prop will render an ellipsis when the text exceeds the defined w
 import { Text } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 
-<Text isTruncated>
+<Text isTruncated={true}>
   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
   incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
   nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
@@ -82,7 +76,7 @@ import "@aws-amplify/ui-react/styles.css";
 </Text>;
 ```
 
-<Text isTruncated>
+<Text isTruncated={true}>
   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
   incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
   nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
@@ -90,19 +84,6 @@ import "@aws-amplify/ui-react/styles.css";
   eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt
   in culpa qui officia deserunt mollit anim id est laborum.
 </Text>
-
-### Accessibility
-
-Setting an `aria-label` attribute for an icon text:
-
-```jsx
-import { Text } from "@aws-amplify/ui-react";
-import "@aws-amplify/ui-react/styles.css";
-
-<Text ariaLabel="To the moon!">🚀</Text>;
-```
-
-<Text ariaLabel="To the moon!">🚀</Text>
 
 ### CSS Styling
 
@@ -122,7 +103,6 @@ Using a custom class and CSS file:
 ```jsx
 import { View } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
-import "./styles.css";
 
 <Text className="styled-text">This is my styled text</Text>;
 ```
@@ -131,7 +111,7 @@ import "./styles.css";
 
 #### Override Amplify styling using the CSS variables
 
-Using a custom class and CSS file:
+Using a custom class and CSS file to override css variables:
 
 ```css
 /* styles.css */
@@ -145,21 +125,43 @@ Using a custom class and CSS file:
 ```jsx
 import { View } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
-import "./styles.css";
 
 <Text className="styled-variable-text">This is my styled text</Text>;
 ```
 
 <Text className="styled-variable-text">This is my styled text</Text>
 
-#### Override Amplify styling using props
+#### Override Amplify styling using the CSS variables
 
-Using a custom class and CSS file:
+Using a custom class and CSS file to override css variant variables:
+
+```css
+/* styles.css */
+.primary-styled-variable-text.amplify-ui-text {
+  --color-primary: red;
+}
+```
 
 ```jsx
 import { View } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
-import "./styles.css";
+
+<Text className="primary-styled-variable-text" variant="primary">
+  This is my styled text
+</Text>;
+```
+
+<Text className="primary-styled-variable-text" variant="primary">
+  This is my styled text
+</Text>
+
+#### Override Amplify styling using props
+
+Use style props to style an instance of `<Text>`
+
+```jsx
+import { View } from "@aws-amplify/ui-react";
+import "@aws-amplify/ui-react/styles.css";
 
 <Text fontWeight="bold" color="red" textDecoration="underline">
   This is my styled text

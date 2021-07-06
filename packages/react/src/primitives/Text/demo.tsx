@@ -3,7 +3,6 @@ import { Text } from "@aws-amplify/ui-react";
 
 export const TextDemo = ({ children }) => {
   const [text, setText] = React.useState<string>("Hello World!!!");
-  const [ariaLabel, setAriaLabel] = React.useState<string>("");
   const [isTruncated, setIsTruncated] = React.useState<boolean>(false);
   const [color, setColor] = React.useState<string>("black");
   const [lineHeight, setLineHeight] = React.useState<string>("1rem");
@@ -21,18 +20,6 @@ export const TextDemo = ({ children }) => {
             type="text"
             value={text}
             onChange={event => setText(event.target.value)}
-          />
-        </div>
-      </div>
-      <div className="flex mb-4">
-        <div className="w-1/2 text-right pr-2 text-lg mt-1">
-          <label>Aria Label:</label>
-        </div>
-        <div className="w-1/2">
-          <input
-            type="text"
-            value={ariaLabel}
-            onChange={event => setAriaLabel(event.target.value)}
           />
         </div>
       </div>
@@ -109,7 +96,6 @@ export const TextDemo = ({ children }) => {
         </div>
       </div>
       <Text
-        ariaLabel={ariaLabel}
         isTruncated={isTruncated}
         color={color}
         lineHeight={lineHeight}

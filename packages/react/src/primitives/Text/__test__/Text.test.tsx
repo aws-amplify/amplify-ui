@@ -6,7 +6,7 @@ import { ComponentClassNames } from "../../shared";
 import { CustomPropertiesMap } from "../../types";
 
 describe("Text: ", () => {
-  const textText = "This is a Text primative";
+  const textText = "This is a Text primitive";
 
   it("renders correct defaults", async () => {
     render(<Text>{textText}</Text>);
@@ -15,12 +15,6 @@ describe("Text: ", () => {
     expect(text.innerHTML).toBe(textText);
     expect(text.nodeName).toBe("P");
     expect(text.className).toContain(ComponentClassNames.Text);
-  });
-
-  it("can render an aria-label for Text", async () => {
-    render(<Text ariaLabel="rocket">🚀</Text>);
-    const view = await screen.findByLabelText("rocket");
-    expect(view.nodeName).toBe("P");
   });
 
   it("can render a classname for Text", async () => {
@@ -38,7 +32,7 @@ describe("Text: ", () => {
   });
 
   it("can set the data-truncate attribute", async () => {
-    render(<Text isTruncated>{textText}</Text>);
+    render(<Text isTruncated={true}>{textText}</Text>);
 
     const text = await screen.findByText(textText);
     expect(text.dataset["truncate"]).toBe("true");

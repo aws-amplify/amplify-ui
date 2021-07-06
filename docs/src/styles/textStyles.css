@@ -9,3 +9,7 @@
   --color: red;
   --text-decoration: underline;
 }
+
+.primary-styled-variable-text.amplify-ui-text {
+  --color-primary: red;
+}
