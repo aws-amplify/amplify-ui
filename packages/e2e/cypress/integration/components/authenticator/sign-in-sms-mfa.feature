@@ -4,9 +4,11 @@ Feature: Sign In with SMS MFA
   service to provide a sign in experience to your application's
   users.
 
+  Background:
+    Given I'm running the example "components/authenticator/sign-in/auth-with-sms-mfa"
+
   @React
   Scenario: Sign in using a valid phone number and SMS MFA
-    Given I'm at the sign in page
     When I type a valid phone number "VALID_PHONE_NUMBER"
     And I type a valid password "VALID_PASSWORD"
     And I click the "Sign In" button
@@ -14,7 +16,6 @@ Feature: Sign In with SMS MFA
     
   @React
   Scenario: Sign in with invalid credentials
-    Given I'm at the sign in page
     When I type an invalid username "INVALID_PHONE_NUMBER"
     And I type an invalid password "INVALID_PASSWORD"
     And I click the "Sign In" button

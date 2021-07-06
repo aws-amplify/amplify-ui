@@ -1,8 +1,8 @@
 import { And, Given, Then, When } from "cypress-cucumber-preprocessor/steps";
 
-Given("I'm at the sign in page", () => {
-  cy.visit("http://localhost:3000/");
-  cy.get("body").should("contain", "Sign in to your account");
+Given("I'm running the example {string}", (url: string) => {
+  cy.visit(url);
+  cy.get("[data-test=sign-in-header-section]").should("be.visible");
 });
 
 When("I type a valid phone number {string}", (phoneNumber: string) => {
