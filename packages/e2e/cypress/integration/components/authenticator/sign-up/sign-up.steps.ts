@@ -2,6 +2,7 @@ import { And, Given, Then, When } from "cypress-cucumber-preprocessor/steps";
 
 const now = Date.now();
 const randomNumber = window.crypto.getRandomValues(new Uint32Array(1))[0];
+const password = `test-${randomNumber}`;
 
 Given("I'm running the example {string}", url => {
   cy.visit(url);
@@ -16,7 +17,11 @@ When("I type a new username", () => {
 });
 
 And("I type a new password", password => {
-  cy.findByLabelText("Password").type(`test-${randomNumber}`);
+  cy.findByLabelText("Password").type(`${password}`);
+});
+
+And("I type a new confirm password", password => {
+  cy.findByLabelText("Confirm Password").type(`${password}`);
 });
 
 And("I type the email {string}", email => {
