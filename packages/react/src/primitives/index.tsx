@@ -1,6 +1,7 @@
 export * from "./Button";
 export * from "./View";
 export * from "./shared";
+export * from "./Text";
 export * from "./types";
 
 export function Box(props) {
@@ -43,10 +44,6 @@ export function Label(props) {
 
 export function Spacer(props) {
   return <span data-amplify-spacer="" {...props} />;
-}
-
-export function Text(props) {
-  return <span data-amplify-text="" {...props} />;
 }
 
 export function ErrorText(props) {

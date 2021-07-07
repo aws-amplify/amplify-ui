@@ -48,5 +48,4 @@ export interface ButtonProps extends BaseComponentProps, AriaProps {
    * @default "secondary"
    */
   variant?: ButtonVariant;
-
 }
