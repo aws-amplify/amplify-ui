@@ -13,15 +13,15 @@ And("I click {string}", text => {
 });
 
 When("I type a new username", () => {
-  cy.findByLabelText("Username").type(`test-${now}`);
+  cy.findByRole("textbox", { name: /username/i }).type(`test-${now}`);
 });
 
 And("I type a new password", () => {
-  cy.findByLabelText("Password").type(`${password}`);
+  cy.findByLabelText(/^password$/i).type(`${password}`);
 });
 
 And("I type a new confirm password", () => {
-  cy.findByLabelText("Confirm Password").type(`${password}`);
+  cy.findByLabelText(/^confirm password$/i).type(`${password}`);
 });
 
 And("I type the email {string}", email => {
