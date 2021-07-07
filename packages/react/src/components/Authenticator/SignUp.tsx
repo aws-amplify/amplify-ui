@@ -22,7 +22,7 @@ export function SignUp() {
   const { remoteError } = state.context;
 
   const [primaryAlias, ...secondaryAliases] = state.context.config
-    ?.login_mechanisms ?? ["username", "email", "password"];
+    ?.login_mechanisms ?? ["username", "email", "phone_number"];
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -58,9 +58,7 @@ export function SignUp() {
           name={primaryAlias}
         />
         <SignUp.PasswordControl />
-        {state.context.config.confirm_password && (
-          <SignUp.ConfirmPasswordControl />
-        )}
+        <SignUp.ConfirmPasswordControl />
         {secondaryAliases
           .concat(
             ["email", "phone_number"].filter(
