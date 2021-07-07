@@ -15,6 +15,6 @@ Feature: Sign Up with Email
   Scenario: Sign up with valid email & password
     When I type the email "VALID_EMAIL"
     And I type the password "VALID_PASSWORD"
-    And I type the phone number "VALID_PHONE"
+    And I type the phone number "VALID_PHONE_NUMBER"
     And I click the "Create Account" button
     Then I see "Confirmation Code"
