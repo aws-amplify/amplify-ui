@@ -62,6 +62,7 @@ export function SignIn() {
           {isPending ? <>Signing in&hellip;</> : <>Sign In</>}
         </Button>
       </Footer>
+      <Box data-amplify-error>{state.event.data?.message}</Box>
     </Form>
   );
 }

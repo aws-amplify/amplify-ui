@@ -11,6 +11,7 @@ Feature: Sign Up
   Scenario: Sign up with a new username & password
     When I type a new username
     And I type a new password
+    And I type a new confirm password
     And I type the email "test@example.com"
     And I type the phone number "+15558675309"
     And I click the "Create Account" button
