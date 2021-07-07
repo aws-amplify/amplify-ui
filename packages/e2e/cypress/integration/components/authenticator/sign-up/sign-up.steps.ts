@@ -16,11 +16,11 @@ When("I type a new username", () => {
   cy.findByLabelText("Username").type(`test-${now}`);
 });
 
-And("I type a new password", password => {
+And("I type a new password", () => {
   cy.findByLabelText("Password").type(`${password}`);
 });
 
-And("I type a new confirm password", password => {
+And("I type a new confirm password", () => {
   cy.findByLabelText("Confirm Password").type(`${password}`);
 });
 
