@@ -82,7 +82,11 @@ export function SignUp() {
   );
 }
 
-SignUp.AliasControl = ({ label = "Username", name = "username" }) => {
+SignUp.AliasControl = ({
+  label = "Username",
+  name = "username",
+  placeholder = label,
+}) => {
   const {
     components: { Input, Label, Text, ErrorText },
   } = useAmplify("Authenticator.SignUp.Password");
@@ -95,7 +99,7 @@ SignUp.AliasControl = ({ label = "Username", name = "username" }) => {
         <Text>{label}</Text>
         <Input
           name={name}
-          placeholder={label}
+          placeholder={placeholder}
           required
           type={UserNameAliasNames[name].type}
         />
@@ -105,7 +109,11 @@ SignUp.AliasControl = ({ label = "Username", name = "username" }) => {
   );
 };
 
-SignUp.PasswordControl = ({ label = "Password", name = "password" }) => {
+SignUp.PasswordControl = ({
+  label = "Password",
+  name = "password",
+  placeholder = label,
+}) => {
   const {
     components: { Input, Label, Text, ErrorText },
   } = useAmplify("Authenticator.SignUp.Password");
@@ -116,7 +124,7 @@ SignUp.PasswordControl = ({ label = "Password", name = "password" }) => {
     <>
       <Label>
         <Text>{label}</Text>
-        <Input name={name} placeholder={label} required type="password" />
+        <Input name={name} placeholder={placeholder} required type="password" />
       </Label>
       <ErrorText>{error}</ErrorText>
     </>
