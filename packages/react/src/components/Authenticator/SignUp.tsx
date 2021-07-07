@@ -59,19 +59,13 @@ export function SignUp() {
         />
         <SignUp.PasswordControl />
         <SignUp.ConfirmPasswordControl />
-        {secondaryAliases
-          .concat(
-            ["email", "phone_number"].filter(
-              alias => ![primaryAlias, ...secondaryAliases].includes(alias)
-            )
-          )
-          .map(alias => (
-            <SignUp.AliasControl
-              key={alias}
-              label={UserNameAliasNames[alias].name}
-              name={alias}
-            />
-          ))}
+        {secondaryAliases.map(alias => (
+          <SignUp.AliasControl
+            key={alias}
+            label={UserNameAliasNames[alias].name}
+            name={alias}
+          />
+        ))}
       </Fieldset>
 
       <ErrorText>{remoteError}</ErrorText>
