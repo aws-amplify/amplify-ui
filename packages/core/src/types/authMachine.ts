@@ -20,8 +20,16 @@ export type AuthEventTypes =
   | "SUBMIT"
   | "RESEND"
   | "CONFIRM_SIGN_UP"
+  | "CONFIRM_SIGN_IN"
   | "INPUT"
   | "CHANGE";
+
+export enum AuthChallengeNames {
+  SMS_MFA = "SMS_MFA",
+  SOFTWARE_TOKEN_MFA = "SOFTWARE_TOKEN_MFA",
+  NEW_PASSWORD_REQUIRED = "NEW_PASSWORD_REQUIRED",
+  MFA_SETUP = "MFA_SETUP",
+}
 
 export interface AuthEvent {
   type: AuthEventTypes;
