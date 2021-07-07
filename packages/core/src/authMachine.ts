@@ -1,7 +1,7 @@
-import { get, isEmpty } from 'lodash';
+import { get } from "lodash";
 import { Auth, Amplify } from "aws-amplify";
 import { Machine, assign } from "xstate";
-import { AuthContext, AuthEvent } from "./types";
+import { AuthChallengeNames, AuthContext, AuthEvent } from "./types";
 import { passwordMatches, runValidators } from "./validators";
 
 export const authMachine = Machine<AuthContext, AuthEvent>(
@@ -70,7 +70,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
                 {
                   actions: "setUser",
                   target: "resolved",
-                }
+                },
               ],
               onError: {
                 actions: "setRemoteError",
@@ -102,7 +102,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
               SUBMIT: "submit",
               SIGN_IN: "#auth.signIn",
               INPUT: { actions: "handleInput" },
-            }
+            },
           },
           submit: {
             invoke: {
@@ -115,7 +115,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
                 actions: "setRemoteError",
                 target: "rejected",
               },
-            }
+            },
           },
           rejected: {
             always: "edit.error",
@@ -305,7 +305,14 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
     // See: https://xstate.js.org/docs/guides/guards.html#guards-condition-functions
     guards: {
       shouldConfirmSignIn: (context, event) => {
-        return !isEmpty(get(event, 'data.challengeName'));
+        const challengeName = get(event, "data.challengeName");
+        const validChallengeNames = [AuthChallengeNames.SMS_MFA, AuthChallengeNames.SOFTWARE_TOKEN_MFA];
+
+        if (validChallengeNames.includes(challengeName)) {
+          return true;
+        }
+
+        return false;
       },
     },
     services: {

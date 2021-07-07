@@ -24,6 +24,13 @@ export type AuthEventTypes =
   | "INPUT"
   | "CHANGE";
 
+export enum AuthChallengeNames {
+  SMS_MFA = "SMS_MFA",
+  SOFTWARE_TOKEN_MFA = "SOFTWARE_TOKEN_MFA",
+  NEW_PASSWORD_REQUIRED = "NEW_PASSWORD_REQUIRED",
+  MFA_SETUP = "MFA_SETUP",
+}
+
 export interface AuthEvent {
   type: AuthEventTypes;
   data?: any; // TODO: strongly type data for each AuthEventType
