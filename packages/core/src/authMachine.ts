@@ -1,3 +1,4 @@
+import { get, isEmpty } from 'lodash';
 import { Auth, Amplify } from "aws-amplify";
 import { Machine, assign } from "xstate";
 import { AuthContext, AuthEvent } from "./types";
@@ -61,10 +62,16 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
             entry: "clearError",
             invoke: {
               src: "signIn",
-              onDone: {
-                actions: "setUser",
-                target: "resolved",
-              },
+              onDone: [
+                {
+                  cond: "shouldConfirmSignIn",
+                  target: "#auth.confirmSignIn",
+                },
+                {
+                  actions: "setUser",
+                  target: "resolved",
+                }
+              ],
               onError: {
                 actions: "setRemoteError",
                 target: "rejected",
@@ -77,6 +84,44 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
           rejected: {
             // TODO Set errors and go back to `idle`?
             always: "edit.error",
+          },
+        },
+      },
+      confirmSignIn: {
+        initial: "edit",
+        exit: ["clearFormValues, clearError"],
+        onDone: "idle",
+        states: {
+          edit: {
+            initial: "clean",
+            states: {
+              clean: {},
+              error: {},
+            },
+            on: {
+              SUBMIT: "submit",
+              SIGN_IN: "#auth.signIn",
+              INPUT: { actions: "handleInput" },
+            }
+          },
+          submit: {
+            invoke: {
+              src: "confirmSignIn",
+              onDone: {
+                actions: "setUser",
+                target: "resolved",
+              },
+              onError: {
+                actions: "setRemoteError",
+                target: "rejected",
+              },
+            }
+          },
+          rejected: {
+            always: "edit.error",
+          },
+          resolved: {
+            type: "final",
           },
         },
       },
@@ -258,7 +303,11 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
       }),
     },
     // See: https://xstate.js.org/docs/guides/guards.html#guards-condition-functions
-    guards: {},
+    guards: {
+      shouldConfirmSignIn: (context, event) => {
+        return !isEmpty(get(event, 'data.challengeName'));
+      },
+    },
     services: {
       async validateFields(context, _event) {
         const { formValues } = context;
@@ -275,6 +324,11 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
         const { username, password } = event.data;
 
         return Auth.signIn(username, password);
+      },
+      async confirmSignIn(context, event) {
+        const { user, confirmation_code: code } = event.data;
+
+        return Auth.confirmSignIn(user, code);
       },
       async confirmSignUp(context, event) {
         const { username, confirmation_code: code } = event.data;

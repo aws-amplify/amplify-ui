@@ -20,6 +20,7 @@ export type AuthEventTypes =
   | "SUBMIT"
   | "RESEND"
   | "CONFIRM_SIGN_UP"
+  | "CONFIRM_SIGN_IN"
   | "INPUT"
   | "CHANGE";
 
