@@ -1,4 +1,3 @@
-import * as React from "react";
 import { useAmplify, useAuth } from "@aws-amplify/ui-react";
 
 import { UserNameAliasNames } from "../../primitives/shared/constants";
@@ -44,7 +43,6 @@ export function SignUp() {
         send({
           type: "SUBMIT",
           // @ts-ignore Property 'fromEntries' does not exist on type 'ObjectConstructor'. Do you need to change your target library? Try changing the `lib` compiler option to 'es2019' or later.ts(2550)
-
           data: Object.fromEntries(formData),
         });
       }}
