@@ -295,9 +295,6 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
           );
         }
         delete attributes.confirm_password; // this shouldn't be passed to Cognito
-
-        console.log(username, attributes);
-
         const result = await Auth.signUp({
           username: username ?? attributes.email ?? attributes.phone_number,
           password,
