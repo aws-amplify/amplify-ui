@@ -56,6 +56,11 @@ declare module "csstype" {
 export interface BaseComponentProps {
   id?: string;
   className?: string;
+  /**
+   * Any arbitrary props will be passed to the underlying element. A user could pass
+   * an onClick method if they wanted to or data-* attributes if needed.
+   */
+  [key: string]: any;
 }
 
 export interface AriaProps {
@@ -82,7 +87,9 @@ export interface StyleProps {
   minWidth?: Property.MinWidth;
 
   opacity?: Property.Opacity;
+}
 
+export interface LayoutStyleProps {
   direction?: Property.FlexDirection;
   gap?: Property.Gap;
   justifyContent?: Property.JustifyContent;

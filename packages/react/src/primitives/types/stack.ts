@@ -1,64 +1,33 @@
 import { BaseComponentProps } from "./base";
 
-export type StackDirection =
-  | "row"
-  | "column"
-  | "column-reverse"
-  | "row-reverse";
-export type StackJustifyContent =
-  | "flex-start"
-  | "flex-end"
-  | "center"
-  | "space-between"
-  | "space-around"
-  | "space-evenly";
-export type StackAlignItems =
-  | "stretch"
-  | "flex-start"
-  | "flex-end"
-  | "center"
-  | "baseline";
-export type StackAlignContent =
-  | "flex-start"
-  | "flex-end"
-  | "stretch"
-  | "center"
-  | "space-between"
-  | "space-around";
-export type StackWrap = "nowrap" | "wrap" | "wrap-reverse";
+import { Property } from 'csstype';
 
 export interface StackProps extends BaseComponentProps {
   /**
-   * All React components should accept a className parameter that can be used for
-   * custom styling via CSS.
-   */
-  className?: string;
-
-  /**
-   * sets how flex items are placed in the flex container defining the main axis
+   * Sets how flex items are placed in the flex container defining the main axis
    * and the direction (normal or reversed). (maps to flex-direction CSS property)
    */
-  direction?: StackDirection;
+  direction?: Property.FlexDirection;
 
   /**
    * Spacing between child components
    */
-  gap?: string;
+  gap?: Property.Gap;
 
   /**
-   * controls where the flex items sit on the main axis.
+   * Controls where the flex items sit on the main axis.
    */
-  justifyContent?: StackJustifyContent;
+  justifyContent?: Property.JustifyContent;
 
   /**
-   * controls where the flex items sit on the cross axis.
+   * Controls where the flex items sit on the cross axis.
    */
-  alignItems?: StackAlignItems;
+  alignItems?: Property.AlignItems;
 
   /**
-   * sets the distribution of space between and around content items
+   * Sets the distribution of space between and around content items
    */
-  alignContent?: StackAlignContent;
+  alignContent?: Property.AlignContent;
 
   /**
    * The flexWrap property is set on containers and it controls what happens when
@@ -68,11 +37,5 @@ export interface StackProps extends BaseComponentProps {
    * axis if needed.
    * (maps to flex-wrap CSS property)
    */
-  wrap?: StackWrap;
-
-  /**
-   * Any arbitrary props will be passed to the underlying element. A user could pass
-   * an onClick method if they wanted to or data-* attributes if needed.
-   */
-  [key: string]: any;
+  wrap?: Property.FlexWrap;
 }

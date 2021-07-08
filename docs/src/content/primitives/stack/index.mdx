@@ -15,8 +15,6 @@ Import the Stack component and styles.
 ```jsx
 import { Stack } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
-// For smaller bundle size, import just the button styling:
-// import "@aws-amplify/ui-react/dist/primitives/Stack/styles.css";
 
 <Stack>
   <div>Hello</div>
@@ -57,7 +55,7 @@ import "@aws-amplify/ui-react/styles.css";
 
 ### Wrap
 
-Use the `wrap` prop to control what happens when children overflow the size of the container along the main axis. By default, children are forced into a single line (which can shrink elements). If wrapping is allowed, items are wrapped into multiple lines along the main axis if needed (maps to `flex-wrap` CSS property).
+Use the `wrap` prop to control what happens when children overflow the size of the container along the main axis (maps to `flex-wrap` CSS property). By default, children are forced into a single line (`nowrap`), which can shrink elements. If wrapping is allowed (`wrap`), items are wrapped into multiple lines along the main axis if needed. 
 
 ```jsx
 import { Stack } from "@aws-amplify/ui-react";
@@ -70,7 +68,7 @@ import "@aws-amplify/ui-react/styles.css";
 
 ### Gap
 
-Use the `gap` prop to adjust the spacing between child components. `gap` accepts a string representing any unit (e.g., px, rem, %).
+Use the `gap` prop to adjust the spacing between child components. `gap` accepts a string representing any unit (e.g., px, rem, %). See [MDN gap documentation](https://developer.mozilla.org/en-US/docs/Web/CSS/gap) for supported values. 
 
 ```jsx
 import { Stack } from "@aws-amplify/ui-react";
@@ -98,14 +96,14 @@ import "@aws-amplify/ui-react/styles.css";
 
 #### HStack and VStack
 
-Alternatively, you can use the `HStack` and `VStack` components as syntactic sugar to automatically set the direction to `row` or `column`, respectively.
+Alternatively, you can use the `HorizontalStack` and `VerticalStack` components to automatically set the direction to `row` or `column`, respectively.
 
 ```jsx
-import { Stack } from "@aws-amplify/ui-react";
+import { HorizontalStack, VerticalStack } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 
-<HStack justifyContent="center">(placeholder for flex items)</HStack>
-<VStack></VStack>
+<HorizontalStack justifyContent="center">(placeholder for flex items)</HorizontalStack>
+<VerticalStack>(placeholder for flex items)</VerticalStack>
 ```
 
 <StackDemo demoType="helpers" />

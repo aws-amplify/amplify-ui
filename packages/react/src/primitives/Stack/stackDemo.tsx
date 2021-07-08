@@ -1,18 +1,16 @@
 import { useState } from "react";
 
+import { Property } from 'csstype';
+
 import {
   Stack,
-  HStack,
-  VStack,
-  StackDirection,
-  StackJustifyContent,
-  StackAlignItems,
-  StackWrap,
+  HorizontalStack,
+  VerticalStack,
   Button,
   View,
 } from "@aws-amplify/ui-react";
 
-const JustifyContentProps: StackJustifyContent[] = [
+const JustifyContentProps: Property.JustifyContent[] = [
   "flex-start",
   "flex-end",
   "center",
@@ -20,15 +18,18 @@ const JustifyContentProps: StackJustifyContent[] = [
   "space-around",
   "space-evenly",
 ];
-const AlignItemsProps: StackAlignItems[] = [
+
+const AlignItemsProps: Property.AlignItems[] = [
   "stretch",
   "flex-start",
   "flex-end",
   "center",
   "baseline",
 ];
-const WrapProps: StackWrap[] = ["nowrap", "wrap", "wrap-reverse"];
-const DirectionProps: StackDirection[] = [
+
+const WrapProps: Property.FlexWrap[] = ["nowrap", "wrap", "wrap-reverse"];
+
+const DirectionProps: Property.FlexDirection[] = [
   "row",
   "column",
   "column-reverse",
@@ -36,7 +37,7 @@ const DirectionProps: StackDirection[] = [
 ];
 
 const JustifyContent = () => {
-  const [justifyContent, setJustifyContent] = useState<StackJustifyContent>(
+  const [justifyContent, setJustifyContent] = useState<Property.JustifyContent>(
     "flex-start"
   );
 
@@ -64,7 +65,7 @@ const JustifyContent = () => {
 };
 
 const AlignItems = () => {
-  const [alignItems, setAlignItems] = useState<StackAlignItems>("stretch");
+  const [alignItems, setAlignItems] = useState<Property.AlignItems>("stretch");
 
   return (
     <View>
@@ -122,7 +123,7 @@ const AlignItems = () => {
 };
 
 const Wrap = () => {
-  const [wrap, setWrap] = useState<StackWrap>("nowrap");
+  const [wrap, setWrap] = useState<Property.FlexWrap>("nowrap");
 
   return (
     <View>
@@ -155,7 +156,7 @@ const Gap = () => (
 );
 
 const Direction = () => {
-  const [direction, setDirection] = useState<StackDirection>("row");
+  const [direction, setDirection] = useState<Property.FlexDirection>("row");
 
   return (
     <View>
@@ -179,8 +180,8 @@ const Direction = () => {
 
 const Helpers = () => (
   <View>
-    <HStack justifyContent="center">{mockElements("HStack")}</HStack>
-    <VStack>{mockElements("VStack")}</VStack>
+    <HorizontalStack justifyContent="center">{mockElements("HStack")}</HorizontalStack>
+    <VerticalStack>{mockElements("VStack")}</VerticalStack>
   </View>
 );
 
