@@ -3,14 +3,16 @@ Feature: Sign Up with Email
   Create a new user in the Amazon Cognito UserPool by passing the new user’s email address and password.
 
   Background:
-    Given I'm using the example "components/authenticator/sign-up/with-email"
+    Given I'm using the example "components/authenticator/sign-up-with-email"
     And I click "Create account"
 
+@React
   Scenario: Email is the only requested alias
     Then I see "Email" as an input field
     And I don't see "Username" as an input field
     And I don't see "Phone Number" as an input field
 
+@React
   Scenario: Sign up with valid email & password
     When I type the email "VALID_EMAIL"
     And I type the password "VALID_PASSWORD"
