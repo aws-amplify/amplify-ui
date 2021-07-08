@@ -13,6 +13,8 @@ export const View: React.FC<ViewProps> = props => {
     id,
     ariaLabel,
     isDisabled,
+    htmlWidth,
+    htmlHeight,
     ...rest
   } = props;
 
@@ -27,6 +29,8 @@ export const View: React.FC<ViewProps> = props => {
       role={role}
       className={classNames(ComponentClassNames.View, className)}
       disabled={isDisabled}
+      width={htmlWidth}
+      height={htmlHeight}
       {...getNonStyleProps(rest)}
     >
       {children}
