@@ -1,0 +1,124 @@
+---
+title: Divider
+---
+
+## Installation
+
+```
+npm install @aws-amplify/ui-react
+```
+
+## Demo
+
+<DividerDemo />
+
+## Usage
+
+Import the Flex component and styles.
+
+```jsx
+import { Divider } from "@aws-amplify/ui-react";
+import "@aws-amplify/ui-react/styles.css";
+
+<Divider />;
+```
+
+<Divider />
+<br />
+
+### Orientation
+
+#### Horizontal (default)
+
+```jsx
+<View>
+  <Text>Before</Text>
+  <Divider orientation="horizontal" />
+  <Text>After</Text>
+</View>
+```
+
+<View>
+  <Text>Before</Text>
+  <Divider orientation="horizontal" />
+  <Text>After</Text>
+</View>
+
+#### Vertical
+
+```jsx
+<Flex height="100px" justifyContent="space-around">
+  <Text>Before</Text>
+  <Divider orientation="vertical" />
+  <Text>After</Text>
+</Flex>
+```
+
+<Flex height="100px" justifyContent="space-around">
+  <Text>Before</Text>
+  <Divider orientation="vertical" />
+  <Text>After</Text>
+</Flex>
+
+### Sizes
+
+Choose from `small` `medium` and `large` size options
+
+```jsx
+<Flex direction="column" gap="20px">
+  <Divider size="small" />
+  <Divider size="medium" />
+  <Divider size="large" />
+</Flex>
+```
+
+<Flex direction="column" gap="20px">
+  <Divider size="small" />
+  <Divider size="medium" />
+  <Divider size="large" />
+</Flex>
+
+### CSS Styling
+
+### Override Divider styling using the CSS variables
+
+Override border-style for all `Divider` components
+
+```css
+/* styles.css */
+:root {
+  --amplify-ui-components-divider-border-style: dashed;
+}
+/* OR */
+.amplify-ui-divider {
+  border-style: dashed;
+}
+```
+
+<Divider className="border-style-override" />
+<br />
+
+Override Divider sizes for all `Divider` components
+
+```css
+/* styles.css */
+.amplify-ui-divider {
+  --border-width-small: 2px
+  --border-width-medium: 3px;
+  --border-width-large: 6px;
+}
+```
+
+```jsx
+<Flex direction="column" gap="20px">
+  <Divider size="small" />
+  <Divider size="medium" />
+  <Divider size="large" />
+</Flex>
+```
+
+<Flex direction="column" gap="20px">
+  <Divider className="border-width-override" size="small" />
+  <Divider className="border-width-override" size="medium" />
+  <Divider className="border-width-override" size="large" />
+</Flex>
