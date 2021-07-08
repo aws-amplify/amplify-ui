@@ -1,0 +1,16 @@
+{
+  "overflow": {
+    "visible": {
+      "value": "visible"
+    },
+    "hidden": {
+      "value": "hidden"
+    },
+    "scroll": {
+      "value": "scroll"
+    },
+    "auto": {
+      "value": "auto"
+    }
+  }
+}

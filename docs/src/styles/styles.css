@@ -3,6 +3,7 @@
 @import "./buttonStyles.css";
 @import "./viewStyles.css";
 @import "./stackStyles.css";
+@import "./textStyles.css";
 
 .mdx-marker {
   @apply pl-5 -ml-4 -mr-4 bg-gray-700 border-l-4 border-amazon;
