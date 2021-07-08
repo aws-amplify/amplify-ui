@@ -1,0 +1,12 @@
+{
+  "text": {
+    "overflow": {
+      "clip": {
+        "value": "clip"
+      },
+      "ellipsis": {
+        "value": "ellipsis"
+      }
+    }
+  }
+}

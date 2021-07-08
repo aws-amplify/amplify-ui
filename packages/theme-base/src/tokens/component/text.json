@@ -1,0 +1,89 @@
+{
+  "components": {
+    "text": {
+      "color": {
+        "error": {
+          "value": "red"
+        },
+        "info": {
+          "value": "grey"
+        },
+        "primary": {
+          "value": "#808000"
+        },
+        "secondary": {
+          "value": "blue"
+        },
+        "success": {
+          "value": "green"
+        },
+        "tertiary": {
+          "value": "purple"
+        },
+        "warning": {
+          "value": "black"
+        }
+      },
+      "font": {
+        "family": {
+          "value": "inherit"
+        },
+        "size": {
+          "value": "inherit"
+        },
+        "style": {
+          "value": "inherit"
+        },
+        "weight": {
+          "value": "inherit"
+        }
+      },
+      "letter": {
+        "spacing": {
+          "value": "inherit"
+        }
+      },
+      "line": {
+        "height": {
+          "value": "inherit"
+        }
+      },
+      "margin": {
+        "value": "inherit"
+      },
+      "overflow": {
+        "hidden": {
+          "value": "{overflow.hidden.value}"
+        }
+      },
+      "padding": {
+        "value": "inherit"
+      },
+      "text": {
+        "align": {
+          "last": {
+            "value": "inherit"
+          }
+        },
+        "decoration": {
+          "value": "inherit"
+        },
+        "indent": {
+          "value": "inherit"
+        },
+        "overflow": {
+          "ellipsis": {
+            "value": "{text.overflow.ellipsis.value}"
+          }
+        }
+      },
+      "white": {
+        "space": {
+          "nowrap": {
+            "value": "nowrap"
+          }
+        }
+      }
+    }
+  }
+}

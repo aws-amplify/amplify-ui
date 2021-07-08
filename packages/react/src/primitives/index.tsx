@@ -2,6 +2,7 @@ export * from "./Button";
 export * from "./Stack";
 export * from "./View";
 export * from "./shared";
+export * from "./Text";
 export * from "./types";
 
 export function Box(props) {
@@ -46,8 +47,8 @@ export function Spacer(props) {
   return <span data-amplify-spacer="" {...props} />;
 }
 
-export function Text(props) {
-  return <span data-amplify-text="" {...props} />;
+export function ErrorText(props) {
+  return props.children ? <span data-amplify-error="" {...props} /> : null;
 }
 
 export function Wrapper(props) {
