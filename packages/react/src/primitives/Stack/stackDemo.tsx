@@ -43,10 +43,9 @@ const JustifyContent = () => {
 
   return (
     <View>
-      <Stack justifyContent="space-between">
+      <Stack>
         {JustifyContentProps.map((prop, i) => (
           <Button
-            className={"test"}
             onClick={() => setJustifyContent(prop)}
             variant={prop === justifyContent ? "primary" : "secondary"}
             size="small"
@@ -140,7 +139,7 @@ const Wrap = () => {
         ))}
       </Stack>
       <br />
-      <Stack wrap={wrap}>{mockElements(18)}</Stack>
+      <Stack wrap={wrap}>{mockElements(30)}</Stack>
     </View>
   );
 };
