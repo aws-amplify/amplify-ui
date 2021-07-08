@@ -1,7 +1,7 @@
 import { And, Given, Then, When } from "cypress-cucumber-preprocessor/steps";
 
 Given("I'm at the sign in page", () => {
-  cy.visit("/components/authenticator/sign-in/with-email");
+  cy.visit("/components/authenticator/sign-in/with-phone-number");
 });
 
 When("I type the valid phone number {string}", (phoneNumber: string) => {
