@@ -1,7 +1,12 @@
-import { get } from "lodash";
+import { get, omit } from "lodash";
 import { Auth, Amplify } from "aws-amplify";
 import { Machine, assign } from "xstate";
-import { AuthChallengeNames, AuthContext, AuthEvent } from "./types";
+import {
+  AuthChallengeNames,
+  AuthContext,
+  AuthEvent,
+  AuthFormData,
+} from "./types";
 import { passwordMatches, runValidators } from "./validators";
 
 export const authMachine = Machine<AuthContext, AuthEvent>(
@@ -306,7 +311,10 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
     guards: {
       shouldConfirmSignIn: (context, event) => {
         const challengeName = get(event, "data.challengeName");
-        const validChallengeNames = [AuthChallengeNames.SMS_MFA, AuthChallengeNames.SOFTWARE_TOKEN_MFA];
+        const validChallengeNames = [
+          AuthChallengeNames.SMS_MFA,
+          AuthChallengeNames.SOFTWARE_TOKEN_MFA,
+        ];
 
         if (validChallengeNames.includes(challengeName)) {
           return true;
@@ -348,14 +356,26 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
         return Auth.resendSignUp(username);
       },
       async signUp(context, _event) {
-        const { username, password, ...attributes } = context.formValues;
+        const {
+          formValues: { password, ...formValues },
+          config: {
+            login_mechanisms: [primaryAlias],
+          },
+        } = context;
+
+        const username = formValues[primaryAlias];
+
+        const attributes = omit<AuthFormData>(formValues, [
+          primaryAlias,
+          "confirm_password", // confirm_password field should not be sent to Cognito
+        ]);
+
         if (attributes.phone_number) {
           attributes.phone_number = attributes.phone_number.replace(
             /[^A-Z0-9+]/gi,
             ""
           );
         }
-        delete attributes.confirm_password; // this shouldn't be passed to Cognito
         const result = await Auth.signUp({
           username,
           password,
