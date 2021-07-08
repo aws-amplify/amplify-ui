@@ -1,24 +1,33 @@
 import { useAmplify, useAuth } from "@aws-amplify/ui-react";
+
+import {
+  ConfirmationCodeInput,
+  ConfirmationCodeInputProps,
+  ConfirmSignInFooter,
+  ConfirmSignInFooterProps,
+} from "./shared";
 import { UserNameAlias } from "./UserNameAlias";
 
 export function ConfirmSignUp() {
+  const amplifyNamespace = "Authenticator.ConfirmSignUp";
   const {
-    components: {
-      Box,
-      Button,
-      Fieldset,
-      Footer,
-      Form,
-      Heading,
-      Input,
-      Label,
-      Spacer,
-      Text,
-    },
-  } = useAmplify("Authenticator.ConfirmSignUp");
+    components: { Box, Button, Fieldset, Form, Heading, Label, Text },
+  } = useAmplify(amplifyNamespace);
 
   const [state, send] = useAuth();
   const isPending = state.matches("confirmSignUp.pending");
+
+  const footerProps: ConfirmSignInFooterProps = {
+    amplifyNamespace,
+    isPending,
+    send,
+  };
+
+  const confirmationCodeInputProps: ConfirmationCodeInputProps = {
+    amplifyNamespace,
+    label: "Confirmation Code",
+    placeholder: "Enter your code",
+  };
 
   return (
     // TODO Automatically add these namespaces again from `useAmplify`
@@ -43,14 +52,7 @@ export function ConfirmSignUp() {
         <UserNameAlias data-amplify-usernamealias />
 
         <Label data-amplify-confirmationcode>
-          <Text>Confirmation Code</Text>
-          <Input
-            autoComplete="one-time-code"
-            name="confirmation_code"
-            placeholder="Enter your code"
-            required
-            type="text"
-          />
+          <ConfirmationCodeInput {...confirmationCodeInputProps} />
           <Box>
             <Text>Lost your code?</Text>{" "}
             <Button type="button">Reset Code</Button>
@@ -58,15 +60,7 @@ export function ConfirmSignUp() {
         </Label>
       </Fieldset>
 
-      <Footer>
-        <Button onClick={() => send({ type: "SIGN_IN" })} type="button">
-          Back to Sign In
-        </Button>
-        <Spacer />
-        <Button isDisabled={isPending} type="submit">
-          {isPending ? <>Confirming&hellip;</> : <>Confirm</>}
-        </Button>
-      </Footer>
+      <ConfirmSignInFooter {...footerProps} />
     </Form>
   );
 }
