@@ -9,7 +9,7 @@ Amplify.configure({
   },
 });
 
-export default function AuthenticatorWithEmail() {
+export default function AuthenticatorWithPhone() {
   return (
     <>
       <Authenticator>

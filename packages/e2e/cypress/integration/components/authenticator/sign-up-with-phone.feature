@@ -3,14 +3,16 @@ Feature: Sign Up with Phone
   Create a new user in the Amazon Cognito UserPool by passing the new user’s phone number and password.
 
   Background:
-    Given I'm using the example "components/authenticator/sign-up/with-phone"
+    Given I'm using the example "components/authenticator/sign-up-with-phone/"
     And I click "Create account"
 
+@React
   Scenario: Phone Number is the only requested alias
     Then I see "Phone Number" as an input field
     And I don't see "Username" as an input field
     And I don't see "Email" as an input field
 
+@React
   Scenario: Sign up with valid phone number & password
     When I type the phone number "VALID_PHONE_NUMBER"
     And I type the password "VALID_PASSWORD"
