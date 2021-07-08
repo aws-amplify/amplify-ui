@@ -70,6 +70,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
               onDone: [
                 {
                   cond: "shouldConfirmSignIn",
+                  actions: "setUser",
                   target: "#auth.confirmSignIn",
                 },
                 {
@@ -341,7 +342,8 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
         return Auth.signIn(username, password);
       },
       async confirmSignIn(context, event) {
-        const { user, confirmation_code: code } = event.data;
+        const { user } = context;
+        const { confirmation_code: code } = event.data;
 
         return Auth.confirmSignIn(user, code);
       },
