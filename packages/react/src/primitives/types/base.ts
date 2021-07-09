@@ -1,4 +1,5 @@
 import React from "react";
+
 import { Property } from "csstype";
 
 export enum CustomPropertiesMap {
@@ -18,6 +19,12 @@ export enum CustomPropertiesMap {
   minHeight = "--min-height",
   minWidth = "--min-width",
   opacity = "--opacity",
+  direction = "--flex-direction",
+  gap = "--gap",
+  justifyContent = "--justify-content",
+  alignItems = "--align-items",
+  alignContent = "--align-content",
+  wrap = "--flex-wrap",
   padding = "--padding",
   textDecoration = "--text-decoration",
   width = "--width",
@@ -40,6 +47,12 @@ export interface CustomProperties {
   [CustomPropertiesMap.minHeight]?: Property.MinHeight;
   [CustomPropertiesMap.minWidth]?: Property.MinWidth;
   [CustomPropertiesMap.opacity]?: Property.Opacity;
+  [CustomPropertiesMap.direction]?: Property.FlexDirection;
+  [CustomPropertiesMap.gap]?: Property.Gap;
+  [CustomPropertiesMap.justifyContent]?: Property.JustifyContent;
+  [CustomPropertiesMap.alignItems]?: Property.AlignItems;
+  [CustomPropertiesMap.alignContent]?: Property.AlignContent;
+  [CustomPropertiesMap.wrap]?: Property.FlexWrap;
   [CustomPropertiesMap.padding]?: Property.Padding;
   [CustomPropertiesMap.textDecoration]?: Property.TextDecoration;
   [CustomPropertiesMap.width]?: Property.Width;
@@ -57,6 +70,11 @@ declare module "csstype" {
 export interface BaseComponentProps {
   id?: string;
   className?: string;
+  /**
+   * Any arbitrary props will be passed to the underlying element. A user could pass
+   * an onClick method if they wanted to or data-* attributes if needed.
+   */
+  [key: string]: any;
 }
 
 export interface AriaProps {

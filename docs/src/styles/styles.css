@@ -2,6 +2,7 @@
 @import "tailwindcss/tailwind.css";
 @import "./buttonStyles.css";
 @import "./viewStyles.css";
+@import "./flexStyles.css";
 @import "./textStyles.css";
 
 .mdx-marker {

@@ -1,0 +1,10 @@
+{
+  "flex": {
+    "flexDirection": { "value": "row" },
+    "gap": { "value": "{spacing.medium.value}" },
+    "justifyContent": { "value": "normal" },
+    "alignItems": { "value": "stretch" },
+    "alignContent": { "value": "normal" },
+    "flexWrap": { "value": "nowrap" }
+  }
+}

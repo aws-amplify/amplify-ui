@@ -1,0 +1,17 @@
+.amplify-ui-flex {
+  --flex-direction: var(--amplify-ui-flex-flex-direction);
+  --gap: var(--amplify-ui-flex-gap);
+  --justify-content: var(--amplify-ui-flex-justify-content);
+  --align-items: var(--amplify-ui-flex-align-items);
+  --align-content: var(--amplify-ui-flex-align-content);
+  --flex-wrap: var(--amplify-ui-flex-flex-wrap);
+
+  flex-direction: var(--flex-direction);
+  gap: var(--gap);
+  justify-content: var(--justify-content);
+  align-items: var(--align-items);
+  align-content: var(--align-content);
+  flex-wrap: var(--flex-wrap);
+
+  display: flex;
+}

@@ -1,4 +1,5 @@
 export * from "./Button";
+export * from "./Flex";
 export * from "./View";
 export * from "./shared";
 export * from "./Text";

@@ -10,7 +10,7 @@ import mdxPrism from "mdx-prism";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { MDXRemote } from "next-mdx-remote";
 import { serialize } from "next-mdx-remote/serialize";
-import { ButtonDemo, ViewDemo, TextDemo } from "@aws-amplify/ui-react";
+import { ButtonDemo, ViewDemo, FlexDemo, TextDemo } from "@aws-amplify/ui-react";
 import { XStateInspector } from "@/components/XStateInspector";
 
 export default function Content({
@@ -32,6 +32,7 @@ export default function Content({
         components={{
           ...components,
           ButtonDemo,
+          FlexDemo,
           TextDemo,
           ViewDemo,
           FeatureTests,
