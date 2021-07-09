@@ -3,7 +3,7 @@
   "name": "docs",
   "version": "0.0.1",
   "scripts": {
-    "dev": "PORT=5000 next-remote-watch 'src/content' '../packages/e2e/**/*.feature'",
+    "dev": "next dev -p 5000",
     "build": "next build && next export",
     "start": "next start",
     "test": "$_ run build"
@@ -22,10 +22,9 @@
     "amplify-docs": "github:https://github.com/aws-amplify/docs#next",
     "aws-amplify": "latest",
     "aws-amplify-react": "latest",
-    "gray-matter": "^4.0.3",
     "mdx-prism": "^0.3.3",
     "next": "latest",
-    "next-mdx-remote": "^3.0.2",
+    "next-mdx-enhanced": "^5.0.0",
     "prism-react-renderer": "^1.2.0",
     "prism-theme-night-owl": "^1.4.0",
     "raw-loader": "^4.0.2",
@@ -47,7 +46,6 @@
     "@types/node": "^14.14.31",
     "@types/react": "^17.0.2",
     "autoprefixer": "^10.2.4",
-    "next-remote-watch": "^1.0.0",
     "postcss": "^8.2.6",
     "tailwindcss": "^2.0.3",
     "typescript": "^4.2.2"
