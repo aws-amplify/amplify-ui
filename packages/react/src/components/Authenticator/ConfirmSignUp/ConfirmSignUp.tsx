@@ -2,21 +2,20 @@ import { useAmplify, useAuth } from "@aws-amplify/ui-react";
 
 import {
   ConfirmationCodeInput,
+  ConfirmationCodeInputProps,
   ConfirmSignInFooter,
   ConfirmSignInFooterProps,
-} from "./shared";
+  UserNameAlias,
+} from "../shared";
 
-/**
- * placeholder component
- */
-export const ConfirmSignIn = (): JSX.Element => {
-  const amplifyNamespace = "Authenticator.ConfirmSignIn";
+export function ConfirmSignUp() {
+  const amplifyNamespace = "Authenticator.ConfirmSignUp";
   const {
-    components: { Fieldset, Form, Heading, Label },
+    components: { Box, Button, Fieldset, Form, Heading, Label, Text },
   } = useAmplify(amplifyNamespace);
 
   const [state, send] = useAuth();
-  const isPending = state.matches("confirmSignIn.pending");
+  const isPending = state.matches("confirmSignUp.pending");
 
   const footerProps: ConfirmSignInFooterProps = {
     amplifyNamespace,
@@ -24,9 +23,16 @@ export const ConfirmSignIn = (): JSX.Element => {
     send,
   };
 
+  const confirmationCodeInputProps: ConfirmationCodeInputProps = {
+    amplifyNamespace,
+    label: "Confirmation Code",
+    placeholder: "Enter your code",
+  };
+
   return (
+    // TODO Automatically add these namespaces again from `useAmplify`
     <Form
-      data-amplify-authenticator-confirmsignin=""
+      data-amplify-authenticator-confirmsignup=""
       method="post"
       onSubmit={event => {
         event.preventDefault();
@@ -40,15 +46,21 @@ export const ConfirmSignIn = (): JSX.Element => {
         });
       }}
     >
-      <Heading level={1}>Confirm SMS Code</Heading>
+      <Heading level={1}>Confirm Sign Up</Heading>
 
       <Fieldset disabled={isPending}>
+        <UserNameAlias data-amplify-usernamealias />
+
         <Label data-amplify-confirmationcode>
-          <ConfirmationCodeInput amplifyNamespace={amplifyNamespace} />
+          <ConfirmationCodeInput {...confirmationCodeInputProps} />
+          <Box>
+            <Text>Lost your code?</Text>{" "}
+            <Button type="button">Reset Code</Button>
+          </Box>
         </Label>
       </Fieldset>
 
       <ConfirmSignInFooter {...footerProps} />
     </Form>
   );
-};
+}

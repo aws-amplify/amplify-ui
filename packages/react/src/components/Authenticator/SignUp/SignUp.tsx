@@ -1,6 +1,6 @@
 import { useAmplify, useAuth } from "@aws-amplify/ui-react";
 
-import { UserNameAliasNames } from "../../primitives/shared/constants";
+import { UserNameAliasNames } from "../../../primitives/shared/constants";
 
 export function SignUp() {
   const {

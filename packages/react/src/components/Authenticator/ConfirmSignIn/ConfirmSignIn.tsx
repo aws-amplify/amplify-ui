@@ -2,20 +2,21 @@ import { useAmplify, useAuth } from "@aws-amplify/ui-react";
 
 import {
   ConfirmationCodeInput,
-  ConfirmationCodeInputProps,
   ConfirmSignInFooter,
   ConfirmSignInFooterProps,
-} from "./shared";
-import { UserNameAlias } from "./UserNameAlias";
+} from "../shared";
 
-export function ConfirmSignUp() {
-  const amplifyNamespace = "Authenticator.ConfirmSignUp";
+/**
+ * placeholder component
+ */
+export const ConfirmSignIn = (): JSX.Element => {
+  const amplifyNamespace = "Authenticator.ConfirmSignIn";
   const {
-    components: { Box, Button, Fieldset, Form, Heading, Label, Text },
+    components: { Fieldset, Form, Heading, Label },
   } = useAmplify(amplifyNamespace);
 
   const [state, send] = useAuth();
-  const isPending = state.matches("confirmSignUp.pending");
+  const isPending = state.matches("confirmSignIn.pending");
 
   const footerProps: ConfirmSignInFooterProps = {
     amplifyNamespace,
@@ -23,16 +24,9 @@ export function ConfirmSignUp() {
     send,
   };
 
-  const confirmationCodeInputProps: ConfirmationCodeInputProps = {
-    amplifyNamespace,
-    label: "Confirmation Code",
-    placeholder: "Enter your code",
-  };
-
   return (
-    // TODO Automatically add these namespaces again from `useAmplify`
     <Form
-      data-amplify-authenticator-confirmsignup=""
+      data-amplify-authenticator-confirmsignin=""
       method="post"
       onSubmit={event => {
         event.preventDefault();
@@ -46,21 +40,15 @@ export function ConfirmSignUp() {
         });
       }}
     >
-      <Heading level={1}>Confirm Sign Up</Heading>
+      <Heading level={1}>Confirm SMS Code</Heading>
 
       <Fieldset disabled={isPending}>
-        <UserNameAlias data-amplify-usernamealias />
-
         <Label data-amplify-confirmationcode>
-          <ConfirmationCodeInput {...confirmationCodeInputProps} />
-          <Box>
-            <Text>Lost your code?</Text>{" "}
-            <Button type="button">Reset Code</Button>
-          </Box>
+          <ConfirmationCodeInput amplifyNamespace={amplifyNamespace} />
         </Label>
       </Fieldset>
 
       <ConfirmSignInFooter {...footerProps} />
     </Form>
   );
-}
+};
