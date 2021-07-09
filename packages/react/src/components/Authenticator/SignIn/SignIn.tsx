@@ -1,5 +1,6 @@
 import { useAmplify, useAuth } from "@aws-amplify/ui-react";
-import { UserNameAlias } from "./UserNameAlias";
+
+import { UserNameAlias } from "../shared";
 
 export function SignIn() {
   const {

@@ -1,6 +1,6 @@
 import { useAuth } from "@aws-amplify/ui-react";
-import { UserNameAliasNames } from "../../primitives/shared/constants";
-import { Label, Text, Input, ErrorText } from "../../primitives";
+import { UserNameAliasNames } from "../../../primitives/shared/constants";
+import { Label, Text, Input, ErrorText } from "../../../primitives";
 
 export function UserNameAlias({ ...attrs }) {
   const [{ context }] = useAuth();
