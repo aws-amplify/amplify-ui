@@ -1,6 +1,8 @@
 export enum ComponentClassNames {
   Button = "amplify-ui-button",
   View = "amplify-ui-view",
+
+  Icon = "amplify-ui-icon",
 }
 
 export const UserNameAliasNames = {
