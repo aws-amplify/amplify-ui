@@ -4,8 +4,10 @@ import { useAmplify } from "@aws-amplify/ui-react";
 import { useActor, useInterpret } from "@xstate/react";
 
 import { AuthenticatorContext } from "./AuthenticatorContext";
-import { ConfirmSignIn, SignIn } from "./SignIn";
-import { ConfirmSignUp, SignUp } from "./SignUp";
+import { ConfirmSignIn } from "./ConfirmSignIn";
+import { ConfirmSignUp } from "./ConfirmSignUp";
+import { SignIn } from "./SignIn";
+import { SignUp } from "./SignUp";
 
 export function Authenticator({
   className = null,
