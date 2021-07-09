@@ -3,9 +3,7 @@ import { useState } from "react";
 import { Property } from 'csstype';
 
 import {
-  Stack,
-  HorizontalStack,
-  VerticalStack,
+  Flex,
   Button,
   View,
 } from "@aws-amplify/ui-react";
@@ -36,130 +34,12 @@ const DirectionProps: Property.FlexDirection[] = [
   "row-reverse",
 ];
 
-const JustifyContent = () => {
-  const [justifyContent, setJustifyContent] = useState<Property.JustifyContent>(
-    "flex-start"
-  );
-
-  return (
-    <View>
-      <Stack>
-        {JustifyContentProps.map((prop, i) => (
-          <Button
-            onClick={() => setJustifyContent(prop)}
-            variant={prop === justifyContent ? "primary" : "secondary"}
-            size="small"
-            key={i}
-          >
-            {prop}
-          </Button>
-        ))}
-      </Stack>
-      <br />
-      <Stack justifyContent={justifyContent} gap="20px">
-        {mockElements(7)}
-      </Stack>
-    </View>
-  );
-};
-
-const AlignItems = () => {
-  const [alignItems, setAlignItems] = useState<Property.AlignItems>("stretch");
-
-  return (
-    <View>
-      <Stack>
-        {AlignItemsProps.map((prop, i) => (
-          <Button
-            onClick={() => setAlignItems(prop)}
-            variant={prop === alignItems ? "primary" : "secondary"}
-            size="small"
-            key={i}
-          >
-            {prop}
-          </Button>
-        ))}
-      </Stack>
-      <br />
-      <Stack alignItems={alignItems}>
-        <View
-          style={{
-            backgroundColor: "#b794f4",
-            height: "100px",
-            paddingLeft: "2rem",
-            paddingRight: "2rem",
-            color: "white",
-            fontWeight: "bold",
-          }}
-        >
-          Wow!
-        </View>
-        <View
-          style={{
-            backgroundColor: "#805AD5",
-            paddingTop: "20px",
-            paddingLeft: "2rem",
-            paddingRight: "2rem",
-            color: "white",
-            fontWeight: "bold",
-          }}
-        >
-          I love to use
-        </View>
-        <View
-          style={{
-            backgroundColor: "#322659",
-            height: "70px",
-            paddingLeft: "2rem",
-            paddingRight: "2rem",
-            color: "white",
-            fontWeight: "bold",
-          }}
-        >{`<Stack>`}</View>
-      </Stack>
-    </View>
-  );
-};
-
-const Wrap = () => {
-  const [wrap, setWrap] = useState<Property.FlexWrap>("nowrap");
-
-  return (
-    <View>
-      <Stack>
-        {WrapProps.map((prop, i) => (
-          <Button
-            onClick={() => setWrap(prop)}
-            variant={prop === wrap ? "primary" : "secondary"}
-            size="small"
-            key={i}
-          >
-            {prop}
-          </Button>
-        ))}
-      </Stack>
-      <br />
-      <Stack wrap={wrap}>{mockElements(30)}</Stack>
-    </View>
-  );
-};
-
-const Gap = () => (
-  <View>
-    <Stack gap="8px">{mockElements(6)}</Stack>
-    <br />
-    <Stack gap="2rem">{mockElements(6)}</Stack>
-    <br />
-    <Stack gap="10%">{mockElements(6)}</Stack>
-  </View>
-);
-
 const Direction = () => {
   const [direction, setDirection] = useState<Property.FlexDirection>("row");
 
   return (
     <View>
-      <Stack>
+      <Flex>
         {DirectionProps.map((prop, i) => (
           <Button
             onClick={() => setDirection(prop)}
@@ -170,24 +50,95 @@ const Direction = () => {
             {prop}
           </Button>
         ))}
-      </Stack>
+      </Flex>
       <br />
-      <Stack direction={direction}>{mockElements(7)}</Stack>
+      <Flex direction={direction}>{mockElements(3)}</Flex>
     </View>
   );
 };
 
-const Helpers = () => (
-  <View>
-    <HorizontalStack justifyContent="center">{mockElements("HStack")}</HorizontalStack>
-    <VerticalStack>{mockElements("VStack")}</VerticalStack>
-  </View>
-);
+const Gap = () => <Flex gap="3rem">{mockElements(3)}</Flex>;
+
+const JustifyContent = () => {
+  const [justifyContent, setJustifyContent] = useState<Property.JustifyContent>(
+    "flex-start"
+  );
+
+  return (
+    <View>
+      <Flex>
+        {JustifyContentProps.map((prop, i) => (
+          <Button
+            onClick={() => setJustifyContent(prop)}
+            variant={prop === justifyContent ? "primary" : "secondary"}
+            size="small"
+            key={i}
+          >
+            {prop}
+          </Button>
+        ))}
+      </Flex>
+      <br />
+      <Flex justifyContent={justifyContent} gap="20px">
+        {mockElements(3)}
+      </Flex>
+    </View>
+  );
+};
+
+const AlignItems = () => {
+  const [alignItems, setAlignItems] = useState<Property.AlignItems>("stretch");
+
+  return (
+    <View>
+      <Flex>
+        {AlignItemsProps.map((prop, i) => (
+          <Button
+            onClick={() => setAlignItems(prop)}
+            variant={prop === alignItems ? "primary" : "secondary"}
+            size="small"
+            key={i}
+          >
+            {prop}
+          </Button>
+        ))}
+      </Flex>
+      <br />
+      <Flex alignItems={alignItems}>
+        <View backgroundColor="#b794f4" height="100px" padding="2rem" color="white">Wow!</View>
+        <View backgroundColor="#805AD5" padding="10px 2rem 0 2rem" color="white">I love to use</View>
+        <View backgroundColor="#322659" height="70px" padding="2rem" color="white">Flex</View>
+      </Flex>
+    </View>
+  );
+};
+
+const Wrap = () => {
+  const [wrap, setWrap] = useState<Property.FlexWrap>("nowrap");
+
+  return (
+    <View>
+      <Flex>
+        {WrapProps.map((prop, i) => (
+          <Button
+            onClick={() => setWrap(prop)}
+            variant={prop === wrap ? "primary" : "secondary"}
+            size="small"
+            key={i}
+          >
+            {prop}
+          </Button>
+        ))}
+      </Flex>
+      <br />
+      <Flex wrap={wrap}>{mockElements(6)}</Flex>
+    </View>
+  );
+};
 
 const mockStyle = {
-  width: "3rem",
+  width: "15rem",
   height: "3rem",
-  border: "1px solid #805AD5",
   borderRadius: "5px",
   display: "flex",
   justifyContent: "center",
@@ -209,19 +160,17 @@ const mockElements = elements => {
 
 const selectDemo = demoType => {
   switch (demoType) {
+    case "direction":
+      return <Direction />;
+    case "gap":
+      return <Gap />;
     case "justifyContent":
       return <JustifyContent />;
     case "alignItems":
       return <AlignItems />;
     case "wrap":
       return <Wrap />;
-    case "gap":
-      return <Gap />;
-    case "direction":
-      return <Direction />;
-    case "helpers":
-      return <Helpers />;
   }
 };
 
-export const StackDemo = ({ demoType }) => <View>{selectDemo(demoType)}</View>;
+export const FlexDemo = ({ demoType }) => <View>{selectDemo(demoType)}</View>;

@@ -2,7 +2,7 @@ import { BaseComponentProps } from "./base";
 
 import { Property } from 'csstype';
 
-export interface StackProps extends BaseComponentProps {
+export interface FlexProps extends BaseComponentProps {
   /**
    * Sets how flex items are placed in the flex container defining the main axis
    * and the direction (normal or reversed). (maps to flex-direction CSS property)

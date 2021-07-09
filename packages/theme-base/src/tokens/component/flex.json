@@ -1,5 +1,5 @@
 {
-  "stack": {
+  "flex": {
     "flexDirection": { "value": "row" },
     "gap": { "value": "{spacing.medium.value}" },
     "justifyContent": { "value": "normal" },
