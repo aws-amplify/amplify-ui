@@ -109,12 +109,3 @@ export interface StyleProps {
   lineHeight?: Property.LineHeight;
   textDecoration?: Property.TextDecoration;
 }
-
-export interface LayoutStyleProps {
-  direction?: Property.FlexDirection;
-  gap?: Property.Gap;
-  justifyContent?: Property.JustifyContent;
-  alignItems?: Property.AlignItems;
-  alignContent?: Property.AlignContent;
-  wrap?: Property.FlexWrap;
-}
