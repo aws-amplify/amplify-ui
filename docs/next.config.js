@@ -1,8 +1,10 @@
 const { execSync } = require("child_process");
 
-const BRANCH = execSync("git rev-parse --abbrev-ref HEAD")
+const gitHead = execSync("git rev-parse --abbrev-ref HEAD")
   .toString()
   .trim();
+
+const BRANCH = gitHead === "HEAD" ? "main" : gitHead;
 
 const withCompileNodeModules = require("@moxy/next-compile-node-modules")({
   include: /[\\/]packages[\\/]/,
