@@ -2,7 +2,7 @@ import { getStyleCssVarsFromProps, getNonStyleProps } from "../utils";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import "@testing-library/jest-dom/extend-expect";
-import { CustomPropertiesMap, StyleProps, ViewProps } from "../../types";
+import { CssPropertiesMap, StyleProps, ViewProps } from "../../types";
 
 const props: ViewProps = {
   backgroundColor: "blue",
@@ -26,8 +26,8 @@ const props: ViewProps = {
 describe("getStyleCssVarsFromProps: ", () => {
   it("should convert style props to CSS vars", () => {
     const style = getStyleCssVarsFromProps(props);
-    Object.keys(CustomPropertiesMap).forEach(prop => {
-      expect(style[CustomPropertiesMap[prop]]).toBe(props[prop]);
+    Object.keys(CssPropertiesMap).forEach(prop => {
+      expect(style[prop]).toBe(props[prop]);
     });
     expect(style["--as"]).toBeUndefined();
   });
@@ -43,11 +43,11 @@ describe("getStyleCssVarsFromProps: ", () => {
     };
     const style = getStyleCssVarsFromProps(props);
 
-    expect(style[CustomPropertiesMap.backgroundColor]).toBeUndefined();
-    expect(style[CustomPropertiesMap.color]).toBeUndefined();
-    expect(style[CustomPropertiesMap.border]).toBeUndefined();
-    expect(style[CustomPropertiesMap.borderRadius]).toBe(props.borderRadius);
-    expect(style["--as"]).toBeUndefined();
+    expect(style["backgroundColor"]).toBeUndefined();
+    expect(style["color"]).toBeUndefined();
+    expect(style["border"]).toBeUndefined();
+    expect(style["borderRadius"]).toBe(props.borderRadius);
+    expect(style["as"]).toBeUndefined();
   });
 });
 

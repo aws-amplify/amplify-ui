@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import "@testing-library/jest-dom/extend-expect";
 import { ComponentClassNames } from "../../shared";
-import { CustomPropertiesMap } from "../../types";
+import { CssPropertiesMap } from "../../types";
 
 describe("Text: ", () => {
   const textText = "This is a Text primitive";
@@ -48,7 +48,7 @@ describe("Text: ", () => {
   it("can apply font-family via props", async () => {
     render(<Text fontFamily="Arial">{textText}</Text>);
     const text = await screen.findByText(textText);
-    expect(text.style.getPropertyValue(CustomPropertiesMap.fontFamily)).toBe(
+    expect(text.style.getPropertyValue(CssPropertiesMap.fontFamily)).toBe(
       "Arial"
     );
   });
@@ -56,7 +56,7 @@ describe("Text: ", () => {
   it("can apply font-style via props", async () => {
     render(<Text fontStyle="italic">{textText}</Text>);
     const text = await screen.findByText(textText);
-    expect(text.style.getPropertyValue(CustomPropertiesMap.fontStyle)).toBe(
+    expect(text.style.getPropertyValue(CssPropertiesMap.fontStyle)).toBe(
       "italic"
     );
   });
@@ -64,7 +64,7 @@ describe("Text: ", () => {
   it("can apply font-weight via props", async () => {
     render(<Text fontWeight="bold">{textText}</Text>);
     const text = await screen.findByText(textText);
-    expect(text.style.getPropertyValue(CustomPropertiesMap.fontWeight)).toBe(
+    expect(text.style.getPropertyValue(CssPropertiesMap.fontWeight)).toBe(
       "bold"
     );
   });
@@ -72,7 +72,7 @@ describe("Text: ", () => {
   it("can apply letter-spacing via props", async () => {
     render(<Text letterSpacing="1rem">{textText}</Text>);
     const text = await screen.findByText(textText);
-    expect(text.style.getPropertyValue(CustomPropertiesMap.letterSpacing)).toBe(
+    expect(text.style.getPropertyValue(CssPropertiesMap.letterSpacing)).toBe(
       "1rem"
     );
   });
@@ -80,7 +80,7 @@ describe("Text: ", () => {
   it("can apply line-height via props", async () => {
     render(<Text lineHeight="1rem">{textText}</Text>);
     const text = await screen.findByText(textText);
-    expect(text.style.getPropertyValue(CustomPropertiesMap.lineHeight)).toBe(
+    expect(text.style.getPropertyValue(CssPropertiesMap.lineHeight)).toBe(
       "1rem"
     );
   });
@@ -88,8 +88,8 @@ describe("Text: ", () => {
   it("can apply text-decoration via props", async () => {
     render(<Text textDecoration="underline">{textText}</Text>);
     const text = await screen.findByText(textText);
-    expect(
-      text.style.getPropertyValue(CustomPropertiesMap.textDecoration)
-    ).toBe("underline");
+    expect(text.style.getPropertyValue(CssPropertiesMap.textDecoration)).toBe(
+      "underline"
+    );
   });
 });
