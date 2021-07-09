@@ -29,6 +29,7 @@
   ],
   "resolutions": {
     "@mdx-js/mdx/**/trim": "^0.0.3",
+    "next": "^10.2.0",
     "ws": "^7.4.6"
   }
 }

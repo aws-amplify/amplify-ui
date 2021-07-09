@@ -19,6 +19,7 @@
     "@moxy/next-compile-node-modules": "^2.1.1",
     "@next/mdx": "^9.1.1",
     "@xstate/inspect": "^0.4.1",
+    "amplify-docs": "github:https://github.com/aws-amplify/docs#next",
     "aws-amplify": "latest",
     "aws-amplify-react": "latest",
     "gray-matter": "^4.0.3",
