@@ -2,9 +2,11 @@ import { ImageOptions, ImageProps } from "@aws-amplify/ui-react";
 import { useState } from "react";
 import { ImagePropControlsProps } from "./ImagePropControls";
 
-export const useImageProps: (
-  initialValues: ImageOptions
-) => ImagePropControlsProps = initialValues => {
+interface UseImageProps {
+  (initialValues: ImageOptions): ImagePropControlsProps;
+}
+
+export const useImageProps: UseImageProps = initialValues => {
   const [alt, setAlt] = useState<ImageOptions["alt"]>(initialValues.alt);
   const [sizes, setSizes] = useState<ImageOptions["sizes"]>(
     initialValues.sizes

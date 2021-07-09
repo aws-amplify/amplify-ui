@@ -21,9 +21,11 @@ export interface ImagePropControlsProps extends ImageOptions {
   ) => void;
 }
 
-export const ImagePropControls: (
-  props: ImagePropControlsProps
-) => JSX.Element = ({
+interface ImagePropControlsInterface {
+  (props: ImagePropControlsProps): JSX.Element;
+}
+
+export const ImagePropControls: ImagePropControlsInterface = ({
   alt,
   sizes,
   src,

@@ -2,9 +2,11 @@ import { useState, useEffect } from "react";
 import { StyleProps } from "@aws-amplify/ui-react";
 import { StylePropControlsProps } from "./StylePropControls";
 
-export const useStyleProps: (
-  initialValues: StyleProps
-) => StylePropControlsProps = initialValues => {
+interface UseStyleProps {
+  (initialValues: StyleProps): StylePropControlsProps;
+}
+
+export const useStyleProps: UseStyleProps = initialValues => {
   const [width, setWidth] = useState<StyleProps["width"]>(initialValues.width);
   const [height, setHeight] = useState<StyleProps["height"]>(
     initialValues.height

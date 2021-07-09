@@ -22,9 +22,11 @@ export interface StylePropControlsProps extends StyleProps {
   setWidth: (value: React.SetStateAction<StyleProps["width"]>) => void;
 }
 
-export const StylePropControls: (
-  props: StylePropControlsProps
-) => JSX.Element = ({
+interface StylePropControlsInterface {
+  (props: StylePropControlsProps): JSX.Element;
+}
+
+export const StylePropControls: StylePropControlsInterface = ({
   backgroundColor,
   border,
   borderRadius,
