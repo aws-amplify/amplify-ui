@@ -1,0 +1,7 @@
+.amplify-ui-card {
+  --selected-shadow: var(--amplify-ui-components-card-selected-shadow);
+}
+
+.amplify-ui-card[data-selected="true"] {
+  box-shadow: var(--selected-shadow);
+}

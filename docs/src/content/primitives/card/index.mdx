@@ -1,0 +1,56 @@
+---
+title: Card
+---
+
+## Installation
+
+```
+npm install @aws-amplify/ui-react
+```
+
+<Card maxWidth="20rem" boxShadow="3px 3px 5px 6px #ccc" borderRadius="5px">
+  <img src="https://bit.ly/2Z4KKcF" alt="Rear view of modern home with pool" />
+  <Card padding="2rem" boxShadow="none">
+    <View d="flex" alignItems="baseline" boxShadow="none" padding="none">
+      <Text
+        color="#a0aec0"
+        fontWeight="semibold"
+        letterSpacing="wide"
+        fontSize="xs"
+        textTransform="uppercase"
+        ml="2"
+        boxShadow="none"
+        padding="none"
+      >
+        3 beds &bull; 2 baths
+      </Text>
+    </View>
+    <Text isTruncated={true} boxShadow="none" fontWeight="bold" padding="none">
+      Modern home in city center in the heart of historic Los Angeles
+    </Text>
+    <View boxShadow="none" padding="none">
+      $1,900.00
+      <View as="span" fontSize="sm" boxShadow="none" padding="none">
+        / wk
+      </View>
+    </View>
+    <View d="flex" mt="2" alignItems="center" boxShadow="none" padding="none">
+      <View
+        as="span"
+        ml="2"
+        color="#a0aec0"
+        fontSize="small"
+        boxShadow="none"
+        padding="none"
+      >
+        34 reviews
+      </View>
+    </View>
+  </Card>
+</Card>
+<View padding="16px">
+  <Text> Hello World</Text>
+  <View>
+    <Text>Hello World Again</Text>
+  </View>
+</View>
