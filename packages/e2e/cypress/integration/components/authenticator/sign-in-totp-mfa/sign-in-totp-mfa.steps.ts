@@ -27,7 +27,9 @@ And("I click the {string} button", (name: string) => {
 });
 
 Then("I will be redirected to the confirm totp mfa page", () => {
-  cy.get("body").contains("Scan then enter verification code");
+  // this text will be different if the user needs to set up their TOTP app or not
+  // "TOTP" will be present no matter what, though
+  cy.get("body").contains("TOTP");
 });
 
 // TODO - this test is failing in the new Authenticator until we add in the error handling in the component

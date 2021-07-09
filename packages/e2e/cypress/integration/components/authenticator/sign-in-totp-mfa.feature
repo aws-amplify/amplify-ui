@@ -5,7 +5,7 @@ Feature: Sign In with TOTP MFA
   users.
 
   Background:
-    Given I'm running the example "components/authenticator/sign-in/auth-with-totp-mfa"
+    Given I'm running the example "components/authenticator/sign-in-totp-mfa"
 
   @React
   Scenario: Sign in using a valid email and TOTP MFA

@@ -10,6 +10,6 @@ Amplify.configure({
   },
 });
 
-export default function AuthenticatorWithTotpMfa() {
+export default function SignInTotpMfa() {
   return <Authenticator />;
 }
