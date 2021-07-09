@@ -1,0 +1,33 @@
+/*
+ * Icon base styles
+ */
+
+.amplify-ui-icon {
+  --width: var(--amplify-ui-icon-width);
+
+  --height-large: var(--amplify-ui-icon-height-large);
+  --height-medium: var(--amplify-ui-icon-height-medium);
+  --height-small: var(--amplify-ui-icon-height-small);
+
+  --line-height-large: var(--amplify-ui-icon-line-height-large);
+  --line-height-medium: var(--amplify-ui-icon-line-height-medium);
+  --line-height-small: var(--amplify-ui-icon-line-height-small);
+}
+
+.amplify-ui-icon[data-size="small"] {
+  width: var(--width);
+  height: var(--height-small);
+  line-height: var(--line-height-small);
+}
+
+.amplify-ui-icon[data-size="medium"] {
+  width: var(--width);
+  height: var(--height-medium);
+  line-height: var(--line-height-medium);
+}
+
+.amplify-ui-icon[data-size="large"] {
+  width: var(--width);
+  height: var(--height-large);
+  line-height: var(--line-height-large);
+}

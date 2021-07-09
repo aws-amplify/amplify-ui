@@ -1,0 +1,17 @@
+{
+  "icon": {
+    "height": {
+      "large": { "value": "{sizes.12.value}" },
+      "medium": { "value": "{sizes.10.value}" },
+      "small": { "value": "{sizes.8.value}" }
+    },
+    "line-height": {
+      "large": { "value": "{sizes.12.value}" },
+      "medium": { "value": "{sizes.10.value}" },
+      "small": { "value": "{sizes.8.value}" }
+    },
+    "width": {
+      "value": "auto"
+    }
+  }
+}
