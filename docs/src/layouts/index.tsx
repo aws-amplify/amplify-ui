@@ -1,39 +1,62 @@
-// This comes from "amplify-docs/src/components/Layout", with tweaks to work
-
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { traverseHeadings } from "amplify-docs/src/utils/traverseHeadings";
-import CodeBlockProvider from "amplify-docs/src/components/CodeBlockProvider";
-import TableOfContents from "amplify-docs/src/components/TableOfContents";
-import UniversalNav from "amplify-docs/src/components/UniversalNav";
-import SecondaryNav from "amplify-docs/src/components/SecondaryNav";
-import Footer from "amplify-docs/src/components/Footer";
+import { gatherFilters } from "amplify-docs/src/utils/gatherFilters";
+import CodeBlockProvider from "amplify-docs/src/components/CodeBlockProvider/index";
+import Menu from "amplify-docs/src/components/Menu/index";
+import TableOfContents from "amplify-docs/src/components/TableOfContents/index";
+import UniversalNav from "amplify-docs/src/components/UniversalNav/index";
+import SecondaryNav from "amplify-docs/src/components/SecondaryNav/index";
+import NextPrevious from "amplify-docs/src/components/NextPrevious/index";
+import Footer from "amplify-docs/src/components/Footer/index";
 import {
   ContentStyle,
   LayoutStyle,
+  ChapterTitleStyle,
 } from "amplify-docs/src/components/Layout/styles";
 import { Container } from "amplify-docs/src/components/Container";
+import { getChapterDirectory } from "amplify-docs/src/utils/getLocalDirectory";
 
 import "amplify-docs/src/styles/styles.css";
 
 export default function Layout({
   children,
-  frontMatter,
+  // amplify-docs calls it `meta`, so re-assigning to have fewer changes
+  frontmatter: meta,
 }: {
   children: any;
-  frontMatter?: any;
+  frontmatter?: any;
 }) {
   const router = useRouter();
-  const { platform = "js" } = router.query as { platform: string };
+  const { pathname } = router;
+
+  const { platform } = router.query as { platform: string };
   const headers = traverseHeadings(children, platform);
+  const filters = gatherFilters(children);
+
+  // ❗️ This causes an infinite loop when rendered outside of the aws-amplify/docs repo
+  // if (
+  //   !filters.includes(platform) &&
+  //   !pathname.includes("start") &&
+  //   !pathname.includes("404")
+  // ) {
+  //   return Custom404();
+  // }
+
+  // ❗️ We cannot depend on aws-amplify/docs' static directory, but only the local fs
+  // ❗️ UI doesn't need the chapture+title (e.g. "Authentication - Sign Out") distinction
+  // const { title: chapterTitle } = getChapterDirectory(pathname) as {
+  //   title: string;
+  // };
+
+  const chapterTitle = "Components"; // TODO – Remove or use "Primitives" depending on path
 
   const basePath = "docs.amplify.aws";
-  const meta = frontMatter;
-
   return (
     <>
       {meta && (
         <Head>
+          <title>{`${chapterTitle} - ${meta.title} - Amplify Docs`}</title>
           <meta property="og:title" content={meta.title} key="og:title" />
           <meta
             property="og:description"
@@ -84,8 +107,13 @@ export default function Layout({
           {meta
             ? metaContent({
                 title: meta.title,
+                chapterTitle,
                 headers,
                 children,
+                filters,
+                platform,
+                pathname: router.pathname,
+                href: router.asPath,
               })
             : children}
         </LayoutStyle>
@@ -96,20 +124,34 @@ export default function Layout({
   );
 }
 
-function metaContent({ title, headers, children }) {
+function metaContent({
+  title,
+  chapterTitle,
+  headers,
+  children,
+  filters,
+  platform,
+  pathname,
+  href,
+}) {
   return (
     <>
-      {/* Cannot use Menu until the Directory is dynamic, not from dynamic.ts. Otherwise these pages don't exist! */}
+      {/* ❗️ `Menu` cannot be used as it directly relies on aws-amplify/docs' static directory structure */}
       {/* <Menu
         filters={filters}
         platform={platform}
         pathname={pathname}
         href={href}
       ></Menu> */}
-
       <ContentStyle>
+        <ChapterTitleStyle>{chapterTitle}</ChapterTitleStyle>
         <h1>{title}</h1>
-        <CodeBlockProvider>{children}</CodeBlockProvider>
+        <CodeBlockProvider>
+          {children}
+
+          {/* ❗️ `NextPrevious` cannot be used as it directly relies on aws-amplify/docs' static directory structure */}
+          {/* <NextPrevious pathname={pathname} filterKey={platform} /> */}
+        </CodeBlockProvider>
       </ContentStyle>
       <TableOfContents title={title}>{headers}</TableOfContents>
     </>

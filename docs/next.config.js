@@ -17,28 +17,29 @@ const withCompileNodeModules = require("@moxy/next-compile-node-modules")({
   test: /\.(js|ts)x?/,
 });
 
-const withMdxEnhanced = require("next-mdx-enhanced")({
-  defaultLayout: true,
-  layoutPath: "src/layouts",
-  remarkPlugins: [
-    require("remark-slug"),
-    // ❗️ Cannot use this with <TableOfContents> because it expects a different structure
-    // [
-    //   require("remark-autolink-headings"),
-    //   {
-    //     linkProperties: {
-    //       className: ["anchor"],
-    //     },
-    //   },
-    // ],
-    require("amplify-docs/src/plugins/headings.tsx"),
-    require("remark-code-titles"),
-  ],
-  rehypePlugins: [require("mdx-prism")],
+const withMDX = require("@next/mdx")({
+  options: {
+    remarkPlugins: [
+      require("remark-slug"),
+      require("./src/plugins/frontmatter"),
+      // ❗️ Cannot use this with <TableOfContents> because it expects a different structure
+      // [
+      //   require("remark-autolink-headings"),
+      //   {
+      //     linkProperties: {
+      //       className: ["anchor"],
+      //     },
+      //   },
+      // ],
+      require("amplify-docs/src/plugins/headings.tsx"),
+      require("remark-code-titles"),
+    ],
+    rehypePlugins: [require("mdx-prism")],
+  },
 });
 
 module.exports = withCompileNodeModules(
-  withMdxEnhanced({
+  withMDX({
     env: { BRANCH },
 
     pageExtensions: ["mdx", "tsx"],
