@@ -38,8 +38,8 @@ const withMDX = require("@next/mdx")({
   },
 });
 
-module.exports = withCompileNodeModules(
-  withMDX({
+module.exports = withMDX(
+  withCompileNodeModules({
     env: { BRANCH },
 
     pageExtensions: ["mdx", "tsx"],
