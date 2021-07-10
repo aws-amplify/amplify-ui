@@ -5,7 +5,7 @@ export * from "./View";
 export * from "./shared";
 export * from "./Text";
 export * from "./types";
-export * from "./View";
+export * from "./Divider";
 
 export function Box(props) {
   return <div data-amplify-box="" {...props} />;
