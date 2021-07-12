@@ -1,5 +1,6 @@
 import { useAmplify, useAuth } from "@aws-amplify/ui-react";
-import { UserNameAlias } from "./UserNameAlias";
+
+import { UserNameAlias } from "../shared";
 
 export function SignIn() {
   const {
@@ -62,6 +63,7 @@ export function SignIn() {
           {isPending ? <>Signing in&hellip;</> : <>Sign In</>}
         </Button>
       </Footer>
+      <Box data-amplify-error>{state.event.data?.message}</Box>
     </Form>
   );
 }

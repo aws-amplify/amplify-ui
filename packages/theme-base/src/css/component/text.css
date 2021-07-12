@@ -1,0 +1,91 @@
+.amplify-ui-text.amplify-ui-view {
+  --color: var(--amplify-ui-components-text-color);
+  --color-error: var(--amplify-ui-components-text-color-error);
+  --color-info: var(--amplify-ui-components-text-color-info);
+  --color-primary: var(--amplify-ui-components-text-color-primary);
+  --color-secondary: var(--amplify-ui-components-text-color-secondary);
+  --color-success: var(--amplify-ui-components-text-color-success);
+  --color-tertiary: var(--amplify-ui-components-text-color-tertiary);
+  --color-warning: var(--amplify-ui-components-text-color-warning);
+  --font-family: var(--amplify-ui-components-text-font-family);
+  --font-style: var(--amplify-ui-components-text-font-style);
+  --font-weight: var(--amplify-ui-components-text-font-weight);
+  --letter-spacing: var(--amplify-ui-components-text-letter-spacing);
+  --line-height: var(--amplify-ui-components-text-line-height);
+  --margin: var(--amplify-ui-components-text-margin);
+  --overflow: var(--amplify-ui-components-text-overflow);
+  --overflow-hidden: var(--amplify-ui-components-text-overflow-hidden);
+  --padding: var(--amplify-ui-components-text-padding);
+  --text-align: var(--amplify-ui-components-text-text-align);
+  --text-align-last: var(--amplify-ui-components-text-text-align-last);
+  --text-decoration: var(--amplify-ui-components-text-text-decoration);
+  --text-indent: var(--amplify-ui-components-text-text-indent);
+  --text-overflow: var(--amplify-ui-components-text-text-overflow);
+  --text-overflow-ellipsis: var(
+    --amplify-ui-components-text-text-overflow-ellipsis
+  );
+  --text-transform: var(--amplify-ui-components-text-text-transform);
+  --white-space: var(--amplify-ui-components-text-white-space);
+  --white-space-nowrap: var(--amplify-ui-components-text-white-space-nowrap);
+  --word-break: var(--amplify-ui-components-text-word-break);
+  --word-wrap: var(--amplify-ui-components-text-word-wrap);
+  --writing-mode: var(--amplify-ui-components-text-writing-mode);
+
+  all: unset;
+  color: var(--color);
+  display: block;
+  font-family: var(--font-family);
+  font-style: var(--font-style);
+  font-weight: var(--font-weight);
+  letter-spacing: var(--letter-spacing);
+  line-height: var(--line-height);
+  margin: var(--margin);
+  overflow: var(--overflow);
+  padding: var(--padding);
+  text-align: var(--text-align);
+  text-align-last: var(--text-align-last);
+  text-decoration: var(--text-decoration);
+  text-indent: var(--text-indent);
+  text-overflow: var(--text-overflow);
+  text-transform: var(--text-transform);
+  white-space: var(--white-space);
+  word-break: var(--word-break);
+  word-wrap: var(--word-wrap);
+  writing-mode: var(--writing-mode);
+}
+
+.amplify-ui-text[data-truncate="true"] {
+  overflow: var(--overflow-hidden);
+  text-overflow: var(--text-overflow-ellipsis);
+  white-space: var(--white-space-nowrap);
+  display: inline-block;
+  max-width: 100%;
+}
+
+.amplify-ui-text[data-variant="primary"] {
+  color: var(--color-primary);
+}
+
+.amplify-ui-text[data-variant="secondary"] {
+  color: var(--color-secondary);
+}
+
+.amplify-ui-text[data-variant="tertiary"] {
+  color: var(--color-tertiary);
+}
+
+.amplify-ui-text[data-variant="error"] {
+  color: var(--color-error);
+}
+
+.amplify-ui-text[data-variant="info"] {
+  color: var(--color-info);
+}
+
+.amplify-ui-text[data-variant="success"] {
+  color: var(--color-success);
+}
+
+.amplify-ui-text[data-variant="warn"] {
+  color: var(--color-warn);
+}

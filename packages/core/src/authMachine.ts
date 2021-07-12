@@ -1,6 +1,12 @@
+import { get, omit } from "lodash";
 import { Auth, Amplify } from "aws-amplify";
 import { Machine, assign } from "xstate";
-import { AuthContext, AuthEvent } from "./types";
+import {
+  AuthChallengeNames,
+  AuthContext,
+  AuthEvent,
+  AuthFormData,
+} from "./types";
 import { passwordMatches, runValidators } from "./validators";
 
 export const authMachine = Machine<AuthContext, AuthEvent>(
@@ -61,10 +67,17 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
             entry: "clearError",
             invoke: {
               src: "signIn",
-              onDone: {
-                actions: "setUser",
-                target: "resolved",
-              },
+              onDone: [
+                {
+                  cond: "shouldConfirmSignIn",
+                  actions: "setUser",
+                  target: "#auth.confirmSignIn",
+                },
+                {
+                  actions: "setUser",
+                  target: "resolved",
+                },
+              ],
               onError: {
                 actions: "setRemoteError",
                 target: "rejected",
@@ -77,6 +90,44 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
           rejected: {
             // TODO Set errors and go back to `idle`?
             always: "edit.error",
+          },
+        },
+      },
+      confirmSignIn: {
+        initial: "edit",
+        exit: ["clearFormValues, clearError"],
+        onDone: "idle",
+        states: {
+          edit: {
+            initial: "clean",
+            states: {
+              clean: {},
+              error: {},
+            },
+            on: {
+              SUBMIT: "submit",
+              SIGN_IN: "#auth.signIn",
+              INPUT: { actions: "handleInput" },
+            },
+          },
+          submit: {
+            invoke: {
+              src: "confirmSignIn",
+              onDone: {
+                actions: "setUser",
+                target: "resolved",
+              },
+              onError: {
+                actions: "setRemoteError",
+                target: "rejected",
+              },
+            },
+          },
+          rejected: {
+            always: "edit.error",
+          },
+          resolved: {
+            type: "final",
           },
         },
       },
@@ -258,7 +309,21 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
       }),
     },
     // See: https://xstate.js.org/docs/guides/guards.html#guards-condition-functions
-    guards: {},
+    guards: {
+      shouldConfirmSignIn: (context, event) => {
+        const challengeName = get(event, "data.challengeName");
+        const validChallengeNames = [
+          AuthChallengeNames.SMS_MFA,
+          AuthChallengeNames.SOFTWARE_TOKEN_MFA,
+        ];
+
+        if (validChallengeNames.includes(challengeName)) {
+          return true;
+        }
+
+        return false;
+      },
+    },
     services: {
       async validateFields(context, _event) {
         const { formValues } = context;
@@ -276,6 +341,12 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
 
         return Auth.signIn(username, password);
       },
+      async confirmSignIn(context, event) {
+        const { user } = context;
+        const { confirmation_code: code } = event.data;
+
+        return Auth.confirmSignIn(user, code);
+      },
       async confirmSignUp(context, event) {
         const { username, confirmation_code: code } = event.data;
 
@@ -287,14 +358,26 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
         return Auth.resendSignUp(username);
       },
       async signUp(context, _event) {
-        const { username, password, ...attributes } = context.formValues;
+        const {
+          formValues: { password, ...formValues },
+          config: {
+            login_mechanisms: [primaryAlias],
+          },
+        } = context;
+
+        const username = formValues[primaryAlias];
+
+        const attributes = omit<AuthFormData>(formValues, [
+          primaryAlias,
+          "confirm_password", // confirm_password field should not be sent to Cognito
+        ]);
+
         if (attributes.phone_number) {
           attributes.phone_number = attributes.phone_number.replace(
             /[^A-Z0-9+]/gi,
             ""
           );
         }
-        delete attributes.confirm_password; // this shouldn't be passed to Cognito
         const result = await Auth.signUp({
           username,
           password,

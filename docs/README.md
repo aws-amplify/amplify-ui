@@ -17,9 +17,10 @@ These docs are published at https://docs.amplify.aws/ui and powered by the follo
 
 ## Getting Started
 
-1. Run `yarn install` from the _root_ of your local clone of [aws-amplify/amplify-ui](https://github.com/aws-amplify/amplify-ui)
-1. `yarn docs`
-1. Open <http://localhost:3000/ui>
+1. Navigate to the _root_ of your local clone of [aws-amplify/amplify-ui](https://github.com/aws-amplify/amplify-ui)
+1. Run `yarn install`
+1. Run `yarn docs dev`
+1. Open <http://localhost:5000/>
 
    (The docs root is `/ui` for consistency with https://docs.amplify.aws/ui)
 

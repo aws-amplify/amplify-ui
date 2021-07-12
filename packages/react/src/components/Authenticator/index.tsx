@@ -4,6 +4,7 @@ import { useAmplify } from "@aws-amplify/ui-react";
 import { useActor, useInterpret } from "@xstate/react";
 
 import { AuthenticatorContext } from "./AuthenticatorContext";
+import { ConfirmSignIn } from "./ConfirmSignIn";
 import { ConfirmSignUp } from "./ConfirmSignUp";
 import { SignIn } from "./SignIn";
 import { SignUp } from "./SignUp";
@@ -43,6 +44,8 @@ export function Authenticator({
               return null;
             case state.matches("confirmSignUp"):
               return <ConfirmSignUp />;
+            case state.matches("confirmSignIn"):
+              return <ConfirmSignIn />;
             case state.matches("signIn"):
               return <SignIn />;
             case state.matches("signUp"):
