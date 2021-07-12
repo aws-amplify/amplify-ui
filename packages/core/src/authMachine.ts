@@ -358,12 +358,13 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
         return Auth.resendSignUp(username);
       },
       async signUp(context, _event) {
+        console.log("config", context.formValues);
         const {
           formValues: { password, ...formValues },
-          config: {
-            login_mechanisms: [primaryAlias],
-          },
+          config,
         } = context;
+
+        const [primaryAlias] = config?.login_mechanisms ?? ["username"];
 
         const username = formValues[primaryAlias];
 

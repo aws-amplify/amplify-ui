@@ -1,13 +1,23 @@
-import { Ref, ComputedRef, VNode } from "vue";
+import { Ref, ComputedRef } from "vue";
 import { PayloadSender, EventObject } from "xstate";
-export interface SignInEventTypeProps {
-  headless: boolean;
-  usernameAlias: string;
-}
 
 export interface SetupEventContext {
   emit: (eventName: string, payload?: unknown) => void;
   attrs: Record<string, unknown>;
+}
+
+export interface UserNameAliasTypes {
+  userName: string;
+  disabled: boolean;
+  userNameAlias: boolean;
+}
+
+export interface UserNameAliasSetupReturnTypes {
+  label: string;
+  name: string;
+  type: string;
+  error: string;
+  uName: Ref<string>;
 }
 
 export interface SignInSetupReturnTypes {
@@ -19,7 +29,6 @@ export interface SignInSetupReturnTypes {
   username: Ref<string>;
   password: Ref<string>;
   submit: (e: any) => void;
-  signInUserNameText: ComputedRef<string>;
 }
 
 export interface SignUpSetupReturnTypes {
@@ -29,6 +38,13 @@ export interface SignUpSetupReturnTypes {
   state: Ref<any>;
   phone: Ref<string>;
   submit: (e: any) => void;
+  error: Ref<string>;
+  secondaryAliases: string[];
+  signInButtonText: ComputedRef<string>;
+  haveAccountLabel: ComputedRef<string>;
+  createAccountLabel: ComputedRef<string>;
+  signUpButtonText: ComputedRef<string>;
+  userNameAliasNames: ComputedRef<UserNameAliasNamesTypes>;
 }
 
 export interface ConfirmPasswordSetupReturnTypes {
@@ -44,17 +60,7 @@ export interface ConfirmPasswordSetupReturnTypes {
   onLostCodeClicked: () => void;
   state: Ref<any>;
   send: PayloadSender<EventObject>;
-}
-
-export interface SignInAndUpNameControlTypes {
-  userName: string;
-  disabled: boolean;
-  usernameAlias: string;
-}
-
-export interface SignUpNameSetupReturnTypes {
-  name: ComputedRef<string> | Ref<string>;
-  signInUserNameText: ComputedRef<string>;
+  primaryAlias: string;
 }
 
 export interface SignUpPhoneControlTypes {
@@ -71,4 +77,19 @@ export interface AuthenticatorSetupReturnTypes {
   onSignInSubmitI: (e: any) => void;
   onSignUpSubmitI: (e: any) => void;
   onConfirmSignUpSubmitI: (e: any) => void;
+}
+
+export interface AliasControlTypes {
+  userNameAliasNames: ComputedRef<UserNameAliasNamesTypes>;
+}
+
+export interface UserNameAliasNameT {
+  name: string;
+  type: string;
+  placeholder: string;
+}
+export interface UserNameAliasNamesTypes {
+  username: UserNameAliasNameT;
+  email: UserNameAliasNameT;
+  phone_number: UserNameAliasNameT;
 }

@@ -1,6 +1,6 @@
 <template>
   <slot name="signUpSlotI">
-    <base-wrapper :data-amplify-wrapper="headless ? null : ''">
+    <base-wrapper data-amplify-wrapper>
       <base-form @submit.prevent="onSignUpSubmit" @change="onChange">
         <base-heading>
           <template #headingI>
@@ -12,14 +12,19 @@
           <template #fieldSetI=" { slotData } ">
             <slot name="signup-fields" :info="slotData"> </slot>
           </template>
-          <sign-in-and-up-name-control :usernameAlias="usernameAlias" />
+          <user-name-alias />
           <sign-up-password-control />
           <sign-up-confirm-password-control />
-          <base-box data-ui-error>
-            {{ state.context.validationError["confirm_password"] }}
+          <base-box data-ui-error v-if="error">
+            {{ error }}
           </base-box>
-          <sign-up-email-control />
-          <sign-up-phone-control v-model:phone="phone" />
+          <template v-for="(alias, idx) in secondaryAliases" :key="idx">
+            <alias-control
+              :label="userNameAliasNames[alias].name"
+              :name="alias"
+              :placeholder="userNameAliasNames[alias].placeholder"
+            />
+          </template>
         </base-field-set>
         <base-spacer />
 
@@ -55,7 +60,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, watch, computed } from "vue";
 
 import BaseForm from "./primitives/base-form.vue";
 import BaseBox from "./primitives/base-box.vue";
@@ -65,21 +70,23 @@ import BaseText from "./primitives/base-text.vue";
 import BaseFieldSet from "./primitives/base-field-set.vue";
 import BaseFooter from "./primitives/base-footer.vue";
 import BaseButton from "./primitives/base-button.vue";
-import SignUpEmailControl from "./sign-up-email-control.vue";
 import SignUpPasswordControl from "./sign-up-password-control.vue";
 import SignUpConfirmPasswordControl from "./sign-up-confirm-password-control.vue";
-import SignUpPhoneControl from "./sign-up-phone-control.vue";
-import SignInAndUpNameControl from "./sign-in-and-up-name-control.vue";
+import UserNameAlias from "./user-name-alias.vue";
+import AliasControl from "./alias-control.vue";
+import BaseWrapper from "./primitives/base-wrapper.vue";
 
 import {
   SIGN_IN_BUTTON_TEXT,
   HAVE_ACCOUNT_LABEL,
   CREATE_ACCOUNT_LABEL,
   SIGN_UP_BUTTON_TEXT,
+  UserNameAliasNames,
 } from "../defaults/DefaultTexts";
 
 import { useAuth } from "../composables/useAuth";
-import BaseWrapper from "./primitives/base-wrapper.vue";
+import { useAliases } from "../composables/useUtils";
+
 import { SetupEventContext, SignUpSetupReturnTypes } from "../types";
 
 export default defineComponent({
@@ -90,38 +97,47 @@ export default defineComponent({
     BaseFieldSet,
     BaseFooter,
     BaseButton,
-    SignInAndUpNameControl,
-    SignUpPhoneControl,
     SignUpPasswordControl,
-    SignUpEmailControl,
     BaseWrapper,
     BaseBox,
     BaseSpacer,
     SignUpConfirmPasswordControl,
+    UserNameAlias,
+    AliasControl,
   },
   inheritAttrs: false,
-  computed: {
-    signInButtonText: (): string => SIGN_IN_BUTTON_TEXT,
-    haveAccountLabel: (): string => HAVE_ACCOUNT_LABEL,
-    createAccountLabel: (): string => CREATE_ACCOUNT_LABEL,
-    signUpButtonText: (): string => SIGN_UP_BUTTON_TEXT,
-  },
-  props: {
-    headless: {
-      default: false,
-      type: Boolean,
-    },
-    usernameAlias: {
-      default: "username",
-      type: String,
-    },
-  },
   setup(_, { emit, attrs }: SetupEventContext): SignUpSetupReturnTypes {
     const { state, send } = useAuth();
 
+    const {
+      value: { context },
+    } = state;
+
+    const [__, ...secondaryAliases] = useAliases(
+      context?.config?.login_mechanisms
+    );
+
+    // reactive properties
+
     const phone = ref("");
+    const error = ref("");
+
+    // computed properties
+
+    const signInButtonText = computed(() => SIGN_IN_BUTTON_TEXT);
+    const haveAccountLabel = computed(() => HAVE_ACCOUNT_LABEL);
+    const createAccountLabel = computed(() => CREATE_ACCOUNT_LABEL);
+    const signUpButtonText = computed(() => SIGN_UP_BUTTON_TEXT);
+    const userNameAliasNames = computed(() => UserNameAliasNames);
+
+    // watchers
+
+    watch(state, first => {
+      error.value = first.context.validationError["confirm_password"];
+    });
 
     // Methods
+
     const onHaveAccountClicked = (): void => {
       if (attrs?.onHaveAccountClicked) {
         emit("haveAccountClicked");
@@ -134,9 +150,9 @@ export default defineComponent({
 
     const onChange = (e: Event): void => {
       const { name, value } = <HTMLInputElement>e.target;
-      console.log("name", value);
       send({
         type: "CHANGE",
+        //@ts-ignore
         data: { name, value },
       });
     };
@@ -144,18 +160,13 @@ export default defineComponent({
       if (attrs?.onSignUpSubmit) {
         emit("signUpSubmit", e);
       } else {
-        submit(e);
+        submit();
       }
     };
 
-    const submit = (e): void => {
-      const formData = new FormData(e.target);
-      //@ts-ignore Property 'fromEntries' does not exist on type 'ObjectConstructor'. Do you need to change your target library? Try changing the `lib` compiler option to 'es2019' or later.ts(2550)
-      const values = Object.fromEntries(formData);
-
+    const submit = (): void => {
       send({
         type: "SUBMIT",
-        data: { ...values },
       });
     };
 
@@ -166,9 +177,14 @@ export default defineComponent({
       state,
       phone,
       submit,
+      error,
+      secondaryAliases,
+      signInButtonText,
+      haveAccountLabel,
+      createAccountLabel,
+      signUpButtonText,
+      userNameAliasNames,
     };
   },
 });
 </script>
-
-<style scoped></style>

@@ -1,14 +1,14 @@
 <template>
   <slot name="confirmSignUpSlotI">
-    <base-wrapper :data-amplify-wrapper="headless ? null : ''">
+    <base-wrapper data-amplify-wrapper>
       <base-form @submit.prevent="onConfirmSignUpSubmit">
         <base-heading>
           {{ confirmSignUpHeading }}
         </base-heading>
         <base-field-set :disabled="state.matches('confirmSignUp.pending')">
-          <sign-in-and-up-name-control
-            :usernameAlias="usernameAlias"
-            :userName="state?.context?.formValues?.username"
+          <user-name-alias
+            :userNameAlias="true"
+            :userName="state?.context?.formValues[primaryAlias]"
             :disabled="true"
           />
           <base-label data-amplify-password>
@@ -57,9 +57,8 @@
 import { defineComponent, computed } from "vue";
 import BaseHeading from "./primitives/base-heading.vue";
 import BaseFieldSet from "./primitives/base-field-set.vue";
-import SignInAndUpNameControl from "./sign-in-and-up-name-control.vue";
 import BaseLabel from "./primitives/base-label.vue";
-
+import UserNameAlias from "./user-name-alias.vue";
 import BaseSpacer from "./primitives/base-spacer.vue";
 import BaseButton from "./primitives/base-button.vue";
 import BaseFooter from "./primitives/base-footer.vue";
@@ -67,6 +66,7 @@ import BaseText from "./primitives/base-text.vue";
 import BaseInput from "./primitives/base-input.vue";
 import BaseForm from "./primitives/base-form.vue";
 import BaseBox from "./primitives/base-box.vue";
+import BaseWrapper from "./primitives/base-wrapper.vue";
 
 import {
   CONFIRM_SIGNUP_HEADING,
@@ -76,8 +76,10 @@ import {
   BACK_SIGN_IN_TEXT,
   CONFIRM_TEXT,
 } from "../defaults/DefaultTexts";
+
+import { useAliases } from "../composables/useUtils";
 import { useAuth } from "../composables/useAuth";
-import BaseWrapper from "./primitives/base-wrapper.vue";
+
 import { ConfirmPasswordSetupReturnTypes, SetupEventContext } from "../types";
 
 export default defineComponent({
@@ -86,7 +88,6 @@ export default defineComponent({
     BaseHeading,
     BaseFieldSet,
     BaseForm,
-    SignInAndUpNameControl,
     BaseLabel,
     BaseSpacer,
     BaseButton,
@@ -94,23 +95,20 @@ export default defineComponent({
     BaseText,
     BaseInput,
     BaseWrapper,
+    UserNameAlias,
   },
   inheritAttrs: false,
-  props: {
-    headless: {
-      default: false,
-      type: Boolean,
-    },
-    usernameAlias: {
-      default: "username",
-      type: String,
-    },
-  },
   setup(
     _,
     { emit, attrs }: SetupEventContext
   ): ConfirmPasswordSetupReturnTypes {
     const { state, send } = useAuth();
+
+    const {
+      value: { context },
+    } = state;
+
+    const [primaryAlias] = useAliases(context?.config?.login_mechanisms);
 
     //computed properties
 
@@ -132,14 +130,13 @@ export default defineComponent({
 
     const submit = (e): void => {
       const formData = new FormData(e.target);
-      console.log("heretate", state.value);
       send({
         type: "SUBMIT",
         //@ts-ignore
         data: {
           //@ts-ignore
           ...Object.fromEntries(formData),
-          username: state.value.context?.formValues?.username,
+          username: context?.formValues[primaryAlias],
         },
       });
     };
@@ -151,7 +148,8 @@ export default defineComponent({
       } else {
         send({
           type: "RESEND",
-          data: { username: state.value.context?.formValues?.username },
+          //@ts-ignore
+          data: { username: context?.formValues[primaryAlias] },
         });
       }
     };
@@ -179,9 +177,8 @@ export default defineComponent({
       onLostCodeClicked,
       state,
       send,
+      primaryAlias,
     };
   },
 });
 </script>
-
-<style scoped></style>

@@ -17,10 +17,12 @@
 </template>
 
 <script lang="ts">
+import { defineComponent, computed, ref, watchEffect } from "vue";
+
 import BaseInput from "./primitives/base-input.vue";
 import BaseText from "./primitives/base-text.vue";
 import BaseLabel from "./primitives/base-label.vue";
-import { defineComponent, computed, ref, watchEffect } from "vue";
+
 import { PHONE_NUMBER_LABEL } from "../defaults/DefaultTexts";
 import { SignUpPhoneControlTypes } from "../types";
 
