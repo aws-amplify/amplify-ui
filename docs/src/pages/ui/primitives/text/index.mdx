@@ -106,34 +106,12 @@ import "@aws-amplify/ui-react/styles.css";
 
 #### Override Amplify styling using the CSS variables
 
-Using a custom class and CSS file to override css variables:
-
-```css
-/* styles.css */
-.styled-variable-text {
-  --font-weight: bold;
-  --color: red;
-  --text-decoration: underline;
-}
-```
-
-```jsx
-import { View } from "@aws-amplify/ui-react";
-import "@aws-amplify/ui-react/styles.css";
-
-<Text className="styled-variable-text">This is my styled text</Text>;
-```
-
-<Text className="styled-variable-text">This is my styled text</Text>
-
-#### Override Amplify styling using the CSS variables
-
 Using a custom class and CSS file to override css variant variables:
 
 ```css
 /* styles.css */
 .primary-styled-variable-text.amplify-ui-text {
-  --color-primary: red;
+  --amplify-ui-components-text-color-primary: red;
 }
 ```
 

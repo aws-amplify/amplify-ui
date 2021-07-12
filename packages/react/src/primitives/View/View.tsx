@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import React from "react";
 import { ComponentClassNames } from "../shared/constants";
-import { getStyleCssVarsFromProps, getNonStyleProps } from "../shared/utils";
+import { convertStylePropsToStyleObj, getNonStyleProps } from "../shared/utils";
 import { ViewProps } from "../types/index";
 
 export const View: React.FC<ViewProps> = props => {
@@ -22,7 +22,7 @@ export const View: React.FC<ViewProps> = props => {
 
   return (
     <ViewTag
-      style={getStyleCssVarsFromProps(props)}
+      style={convertStylePropsToStyleObj(props)}
       id={id}
       data-testid={id}
       aria-label={ariaLabel}
