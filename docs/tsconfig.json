@@ -6,7 +6,6 @@
     "paths": {
       "@/components/*": ["src/components/*"],
       "@/content/*": ["src/content/*"],
-      "@/layouts/*": ["src/layouts/*"],
       "@/utils/*": ["src/utils/*"],
       "@aws-sdk/client-s3": [
         "./node_modules/@aws-sdk/client-s3/dist/es",
