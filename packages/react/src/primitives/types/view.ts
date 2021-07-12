@@ -11,7 +11,12 @@ export interface ViewProps extends BaseComponentProps, StyleProps, AriaProps {
   isDisabled?: boolean;
 
   /**
-   * Any arbitrary props will be passed to the underlying element.
+   * Intrinsic element width. Must be an integer without a unit.
    */
-  [key: string]: any;
+  htmlWidth?: string | number;
+
+  /**
+   * Intrinsic element width. Must be an integer without a unit.
+   */
+  htmlHeight?: string | number;
 }

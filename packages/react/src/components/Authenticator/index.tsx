@@ -4,7 +4,7 @@ import { useAmplify } from "@aws-amplify/ui-react";
 import { useActor, useInterpret } from "@xstate/react";
 
 import { AuthenticatorContext } from "./AuthenticatorContext";
-import { ConfirmSignIn } from './ConfirmSignIn';
+import { ConfirmSignIn } from "./ConfirmSignIn";
 import { ConfirmSignUp } from "./ConfirmSignUp";
 import { SignIn } from "./SignIn";
 import { SignUp } from "./SignUp";

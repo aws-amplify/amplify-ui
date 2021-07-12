@@ -1,6 +1,8 @@
 ---
-to: src/primitives/<%= name %>/types.ts
+to: src/primitives/types/<%= name.toLowerCase() %>.ts
 ---
-export type <%= name %>Props = {
+import { BaseComponentProps } from "./base";
+
+export interface <%= name %>Props extends BaseComponentProps {
   /* Add your own properties */
 }

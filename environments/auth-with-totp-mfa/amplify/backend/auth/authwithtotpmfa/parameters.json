@@ -1,0 +1,6 @@
+{
+  "authSelections": "userPoolOnly",
+  "resourceName": "authwithtotpmfa",
+  "serviceType": "imported",
+  "region": "us-east-1"
+}
