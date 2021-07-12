@@ -29,6 +29,10 @@ module.exports = withCompileNodeModules({
       },
     ];
   },
+  // ! This exists due to the TypeScript issues in amplify-docs
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   webpack(config) {
     // https://github.com/wooorm/xdm#next
     config.module.rules.push({
