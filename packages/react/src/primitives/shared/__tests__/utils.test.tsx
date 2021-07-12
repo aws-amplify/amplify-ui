@@ -1,4 +1,4 @@
-import { getStyleCssVarsFromProps, getNonStyleProps } from "../utils";
+import { convertStylePropsToStyleObj, getNonStyleProps } from "../utils";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import "@testing-library/jest-dom/extend-expect";
@@ -23,13 +23,13 @@ const props: ViewProps = {
   className: "my-section",
 };
 
-describe("getStyleCssVarsFromProps: ", () => {
-  it("should convert style props to CSS vars", () => {
-    const style = getStyleCssVarsFromProps(props);
+describe("convertStylePropsToStyleObj: ", () => {
+  it("should convert style props to a style object", () => {
+    const style = convertStylePropsToStyleObj(props);
     Object.keys(CssPropertiesMap).forEach(prop => {
       expect(style[prop]).toBe(props[prop]);
     });
-    expect(style["--as"]).toBeUndefined();
+    expect(style["as"]).toBeUndefined();
   });
 
   it("should ignore undefined, null or empty string style prop values", () => {
@@ -41,7 +41,7 @@ describe("getStyleCssVarsFromProps: ", () => {
       ariaLabel: "important section",
       as: "section",
     };
-    const style = getStyleCssVarsFromProps(props);
+    const style = convertStylePropsToStyleObj(props);
 
     expect(style["backgroundColor"]).toBeUndefined();
     expect(style["color"]).toBeUndefined();

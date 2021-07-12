@@ -6,7 +6,7 @@ import { CssPropertiesMap, StyleProps } from "../types/index";
  * @param props StyleProps
  * @returns CSSProperties styles
  */
-export const getStyleCssVarsFromProps = (props: {}) => {
+export const convertStylePropsToStyleObj = (props: {}) => {
   let style: React.CSSProperties = {};
   Object.keys(CssPropertiesMap).forEach(propKey => {
     if (
