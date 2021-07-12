@@ -69,6 +69,11 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
               src: "signIn",
               onDone: [
                 {
+                  cond: "shouldSetupTOTP",
+                  actions: ["setUser", "setChallengeName"],
+                  target: "#auth.setupTOTP",
+                },
+                {
                   cond: "shouldConfirmSignIn",
                   actions: ["setUser", "setChallengeName"],
                   target: "#auth.confirmSignIn",
@@ -113,6 +118,44 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
           submit: {
             invoke: {
               src: "confirmSignIn",
+              onDone: {
+                actions: ["setUser", "clearChallengeName"],
+                target: "resolved",
+              },
+              onError: {
+                actions: "setRemoteError",
+                target: "rejected",
+              },
+            },
+          },
+          rejected: {
+            always: "edit.error",
+          },
+          resolved: {
+            type: "final",
+          },
+        },
+      },
+      setupTOTP: {
+        initial: "edit",
+        exit: ["clearFormValues, clearError"],
+        onDone: "idle",
+        states: {
+          edit: {
+            initial: "clean",
+            states: {
+              clean: {},
+              error: {},
+            },
+            on: {
+              SUBMIT: "submit",
+              SIGN_IN: "#auth.signIn",
+              INPUT: { actions: "handleInput" },
+            },
+          },
+          submit: {
+            invoke: {
+              src: "verifyTotpToken",
               onDone: {
                 actions: ["setUser", "clearChallengeName"],
                 target: "resolved",
@@ -329,6 +372,15 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
 
         return false;
       },
+      shouldSetupTOTP: (context, event) => {
+        const challengeName = get(event, "data.challengeName");
+
+        if (challengeName === AuthChallengeNames.MFA_SETUP) {
+          return true;
+        }
+
+        return false;
+      },
     },
     services: {
       async validateFields(context, _event) {
@@ -360,6 +412,12 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
         }
 
         return Auth.confirmSignIn(user, code, mfaType);
+      },
+      async verifyTotpToken(context, event) {
+        const { user } = context;
+        const { confirmation_code } = event.data;
+
+        return Auth.verifyTotpToken(user, confirmation_code);
       },
       async confirmSignUp(context, event) {
         const { username, confirmation_code: code } = event.data;
