@@ -5,6 +5,7 @@ export enum ComponentClassNames {
   View = "amplify-ui-view",
   Flex = "amplify-ui-flex",
   Text = "amplify-ui-text",
+  Badge = "amplify-ui-badge",
 }
 
 export const UserNameAliasNames = {

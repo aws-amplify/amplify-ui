@@ -2,8 +2,9 @@ export * from "./Button";
 export * from "./Flex";
 export * from "./Image";
 export * from "./View";
-export * from "./shared";
 export * from "./Text";
+export * from "./Badge";
+export * from "./shared";
 export * from "./types";
 
 export function Box(props) {
