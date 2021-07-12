@@ -18,7 +18,7 @@ export const SetupTOTP = (): JSX.Element => {
 
   const amplifyNamespace = "Authenticator.ConfirmSignIn";
   const {
-    components: { Fieldset, Form, Heading, Label },
+    components: { Fieldset, Form, Heading, Image, Label },
   } = useAmplify(amplifyNamespace);
 
   const [state, send] = useAuth();
@@ -79,7 +79,7 @@ export const SetupTOTP = (): JSX.Element => {
           {isLoading ? (
             <p>Loading..</p>
           ) : (
-            <img data-amplify-qrcode src={qrCode} />
+            <Image data-amplify-qrcode src={qrCode} alt="qr code"></Image>
           )}
           <ConfirmationCodeInput amplifyNamespace={amplifyNamespace} />
         </Label>
