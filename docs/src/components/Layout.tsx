@@ -62,9 +62,13 @@ export default function Layout({
 
   React.useEffect(() => {
     const htmlHeaders = [
-      ...document.querySelectorAll("#__next > section:first-of-type h2"),
-      ...document.querySelectorAll("#__next > section:first-of-type h3"),
-    ].map(node => [node.innerHTML, node.tagName]);
+      ...document.querySelectorAll(
+        [
+          "#__next > section:first-of-type h2",
+          "#__next > section:first-of-type h3",
+        ].join(",")
+      ),
+    ].map(node => [node.innerHTML, node.tagName.toLowerCase()]);
 
     setHeaders(htmlHeaders);
   }, [children]);

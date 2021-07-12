@@ -4,6 +4,7 @@ title: Authenticator
 
 import { Authenticator } from "@aws-amplify/ui-react";
 import { XStateInspector } from "@/components/XStateInspector";
+import { Feature } from "@/components/Feature";
 
 The `Authenticator` is a simple way to add [authentication](https://docs.amplify.aws/lib/auth/getting-started/q/platform/js)
 flows to your application.
@@ -32,6 +33,36 @@ function App() {
 
 export default withAuthenticator(App)
 ```
+
+## Features
+
+### Sign Up
+
+<Feature name="sign-up" />
+
+### Sign Up with Email
+
+<Feature name="sign-up-with-email" />
+
+### Sign Up with Phone
+
+<Feature name="sign-up-with-phone" />
+
+### Confirm Sign Up
+
+<Feature name="confirm-sign-up" />
+
+### Sign In
+
+<Feature name="sign-in" />
+
+### Sign In with SMS MFA
+
+<Feature name="sign-in-sms-mfa" />
+
+### Sign In with TOTP MFA
+
+<Feature name="sign-in-totp-mfa" />
 
 ## Headless Usage
 
