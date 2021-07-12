@@ -2,77 +2,41 @@ import React from "react";
 
 import { Property } from "csstype";
 
-export enum CustomPropertiesMap {
-  backgroundColor = "--background-color",
-  border = "--border",
-  borderRadius = "--border-radius",
-  boxShadow = "--box-shadow",
-  color = "--color",
-  fontFamily = "--font-family",
-  fontStyle = "--font-style",
-  fontWeight = "--font-weight",
-  height = "--height",
-  letterSpacing = "--letter-spacing",
-  lineHeight = "--line-height",
-  maxHeight = "--max-height",
-  maxWidth = "--max-width",
-  minHeight = "--min-height",
-  minWidth = "--min-width",
-  opacity = "--opacity",
-  direction = "--flex-direction",
-  gap = "--gap",
-  justifyContent = "--justify-content",
-  alignItems = "--align-items",
-  alignContent = "--align-content",
-  wrap = "--flex-wrap",
-  padding = "--padding",
-  textDecoration = "--text-decoration",
-  width = "--width",
-}
-
-export interface CustomProperties {
-  [CustomPropertiesMap.backgroundColor]?: Property.BackgroundColor;
-  [CustomPropertiesMap.border]?: Property.Border;
-  [CustomPropertiesMap.borderRadius]?: Property.BorderRadius;
-  [CustomPropertiesMap.boxShadow]?: Property.BoxShadow;
-  [CustomPropertiesMap.color]?: Property.Color;
-  [CustomPropertiesMap.fontFamily]?: Property.FontFamily;
-  [CustomPropertiesMap.fontStyle]?: Property.FontStyle;
-  [CustomPropertiesMap.fontWeight]?: Property.FontWeight;
-  [CustomPropertiesMap.height]?: Property.Height;
-  [CustomPropertiesMap.letterSpacing]?: Property.LetterSpacing;
-  [CustomPropertiesMap.lineHeight]?: Property.LineHeight;
-  [CustomPropertiesMap.maxHeight]?: Property.MaxHeight;
-  [CustomPropertiesMap.maxWidth]?: Property.MaxWidth;
-  [CustomPropertiesMap.minHeight]?: Property.MinHeight;
-  [CustomPropertiesMap.minWidth]?: Property.MinWidth;
-  [CustomPropertiesMap.opacity]?: Property.Opacity;
-  [CustomPropertiesMap.direction]?: Property.FlexDirection;
-  [CustomPropertiesMap.gap]?: Property.Gap;
-  [CustomPropertiesMap.justifyContent]?: Property.JustifyContent;
-  [CustomPropertiesMap.alignItems]?: Property.AlignItems;
-  [CustomPropertiesMap.alignContent]?: Property.AlignContent;
-  [CustomPropertiesMap.wrap]?: Property.FlexWrap;
-  [CustomPropertiesMap.padding]?: Property.Padding;
-  [CustomPropertiesMap.textDecoration]?: Property.TextDecoration;
-  [CustomPropertiesMap.width]?: Property.Width;
-}
-
-/**
- * This is required to support passing our CSS custom properties
- * to React's `style` prop
- */
-declare module "csstype" {
-  interface Properties extends CustomProperties {}
+export enum CssPropertiesMap {
+  alignContent = "align-content",
+  alignItems = "align-items",
+  backgroundColor = "background-color",
+  border = "border",
+  borderRadius = "border-radius",
+  boxShadow = "box-shadow",
+  color = "color",
+  direction = "flex-direction",
+  fontFamily = "font-family",
+  fontStyle = "font-style",
+  fontWeight = "font-weight",
+  gap = "gap",
+  height = "height",
+  justifyContent = "justify-content",
+  letterSpacing = "letter-spacing",
+  lineHeight = "line-height",
+  maxHeight = "max-height",
+  maxWidth = "max-width",
+  minHeight = "min-height",
+  minWidth = "min-width",
+  opacity = "opacity",
+  padding = "padding",
+  textDecoration = "text-decoration",
+  width = "width",
+  wrap = "flex-wrap",
 }
 
 // Base component definition
 export interface BaseComponentProps {
   id?: string;
   className?: string;
+
   /**
-   * Any arbitrary props will be passed to the underlying element. A user could pass
-   * an onClick method if they wanted to or data-* attributes if needed.
+   * Any arbitrary props will be passed to the underlying element.
    */
   [key: string]: any;
 }
@@ -108,4 +72,9 @@ export interface StyleProps {
   letterSpacing?: Property.LetterSpacing;
   lineHeight?: Property.LineHeight;
   textDecoration?: Property.TextDecoration;
+}
+
+export interface ImageStyleProps {
+  objectFit?: Property.ObjectFit;
+  objectPosition?: Property.ObjectPosition;
 }

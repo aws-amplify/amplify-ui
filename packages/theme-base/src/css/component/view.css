@@ -1,29 +1,15 @@
 .amplify-ui-view {
-  --background-color: var(--amplify-ui-view-colors-background);
-  --border-radius: var(--amplify-ui-view-border-radius);
-  --border: var(--amplify-ui-view-border);
-  --box-shadow: var(--amplify-ui-view-box-shadow);
-  --color: var(--amplify-ui-view-colors-text);
-  --height: var(--amplify-ui-view-height);
-  --max-height: var(--amplify-ui-view-max-height);
-  --max-width: var(--amplify-ui-view-max-width);
-  --min-height: var(--amplify-ui-view-min-height);
-  --min-width: var(--amplify-ui-view-min-width);
-  --opacity: var(--amplify-ui-view-opacity);
-  --padding: var(--amplify-ui-view-padding);
-  --width: var(--amplify-ui-view-width);
-
-  background-color: var(--background-color);
-  border-radius: var(--border-radius);
-  border: var(--border);
-  box-shadow: var(--box-shadow);
-  color: var(--color);
-  height: var(--height);
-  max-height: var(--max-height);
-  max-width: var(--max-width);
-  min-height: var(--min-height);
-  min-width: var(--min-width);
-  opacity: var(--opacity);
-  padding: var(--padding);
-  width: var(--width);
+  background-color: var(--amplify-ui-view-background-color);
+  border-radius: var(--amplify-ui-view-border-radius);
+  border: var(--amplify-ui-view-border);
+  box-shadow: var(--amplify-ui-view-box-shadow);
+  color: var(--amplify-ui-view-color);
+  height: var(--amplify-ui-view-height);
+  max-height: var(--amplify-ui-view-max-height);
+  max-width: var(--amplify-ui-view-max-width);
+  min-height: var(--amplify-ui-view-min-height);
+  min-width: var(--amplify-ui-view-min-width);
+  opacity: var(--amplify-ui-view-opacity);
+  padding: var(--amplify-ui-view-padding);
+  width: var(--amplify-ui-view-width);
 }

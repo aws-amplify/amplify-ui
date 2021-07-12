@@ -1,8 +1,7 @@
 import classNames from "classnames";
 import React from "react";
 import { ComponentClassNames } from "../shared/constants";
-import { getStyleCssVarsFromProps, getNonStyleProps } from "../shared/utils";
-import { TextProps } from "../types/Text";
+import { TextProps } from "../types/text";
 import { View } from "@aws-amplify/ui-react";
 
 export const Text: React.FC<TextProps> = props => {

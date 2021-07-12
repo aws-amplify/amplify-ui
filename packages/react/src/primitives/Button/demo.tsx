@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, ButtonSize, ButtonVariant } from "@aws-amplify/ui-react";
 
-export const ButtonDemo = ({ children }) => {
+export const ButtonDemo = () => {
   const [disabled, setDisabled] = React.useState<boolean>(false);
   const [loading, setLoading] = React.useState<boolean>(false);
   const [fullWidth, setFullWidth] = React.useState<boolean>(false);
