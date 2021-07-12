@@ -70,7 +70,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
               onDone: [
                 {
                   cond: "shouldConfirmSignIn",
-                  actions: "setUser",
+                  actions: ["setUser", "setChallengeName"],
                   target: "#auth.confirmSignIn",
                 },
                 {
@@ -114,7 +114,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
             invoke: {
               src: "confirmSignIn",
               onDone: {
-                actions: "setUser",
+                actions: ["setUser", "clearChallengeName"],
                 target: "resolved",
               },
               onError: {
@@ -307,6 +307,12 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
           return event.data;
         },
       }),
+      setChallengeName: assign({
+        challengeName(_, event) {
+          return event.data?.challengeName;
+        },
+      }),
+      clearChallengeName: assign({ challengeName: undefined }),
     },
     // See: https://xstate.js.org/docs/guides/guards.html#guards-condition-functions
     guards: {
@@ -342,10 +348,18 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
         return Auth.signIn(username, password);
       },
       async confirmSignIn(context, event) {
-        const { user } = context;
+        const { challengeName, user } = context;
         const { confirmation_code: code } = event.data;
 
-        return Auth.confirmSignIn(user, code);
+        let mfaType;
+        if (
+          challengeName === AuthChallengeNames.SMS_MFA ||
+          AuthChallengeNames.SOFTWARE_TOKEN_MFA
+        ) {
+          mfaType = challengeName;
+        }
+
+        return Auth.confirmSignIn(user, code, mfaType);
       },
       async confirmSignUp(context, event) {
         const { username, confirmation_code: code } = event.data;
