@@ -20,6 +20,7 @@ const withCompileNodeModules = require("@moxy/next-compile-node-modules")({
 module.exports = withCompileNodeModules({
   env: { BRANCH },
   pageExtensions: ["mdx", "tsx"],
+  // Convenience for local development, since / will 404 by default
   redirects() {
     return [
       {
