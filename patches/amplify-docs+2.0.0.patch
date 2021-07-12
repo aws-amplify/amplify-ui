@@ -1,0 +1,13 @@
+diff --git a/node_modules/amplify-docs/src/components/SecondaryNav/index.tsx b/node_modules/amplify-docs/src/components/SecondaryNav/index.tsx
+index 5a13939..34f4c54 100644
+--- a/node_modules/amplify-docs/src/components/SecondaryNav/index.tsx
++++ b/node_modules/amplify-docs/src/components/SecondaryNav/index.tsx
+@@ -16,7 +16,7 @@ import {Container} from "../Container";
+ 
+ export default function SecondaryNav({platform, pageHasMenu}) {
+   const router = useRouter();
+-  const path = router.pathname;
++  const path = router.asPath;
+ 
+   return (
+     <SecondaryNavStyle id="secondary-nav">
