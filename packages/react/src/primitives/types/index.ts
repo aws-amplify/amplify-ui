@@ -4,3 +4,4 @@ export * from "./flex";
 export * from './divider';
 export * from './image';
 export * from './view';
+export * from './style';

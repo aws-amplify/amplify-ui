@@ -1,8 +1,8 @@
-import { BaseComponentProps } from "./base";
-
 import { Property } from 'csstype';
 
-export interface FlexProps extends BaseComponentProps {
+import { BaseComponentProps } from "./base";
+
+export interface FlexStyleProps {
   /**
    * Sets how flex items are placed in the flex container defining the main axis
    * and the direction (normal or reversed). (maps to flex-direction CSS property)
@@ -39,3 +39,5 @@ export interface FlexProps extends BaseComponentProps {
    */
   wrap?: Property.FlexWrap;
 }
+
+export interface FlexProps extends FlexStyleProps, BaseComponentProps { }
