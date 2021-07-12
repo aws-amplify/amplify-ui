@@ -27,36 +27,24 @@ These docs are published at https://docs.amplify.aws/ui and powered by the follo
 
 ### Creating a Page
 
-Page paths mirror their URLs. For example, `/ui/q/framework/react` is located at [/src/pages/ui/q/framework/react/index.mdx](src/pages/ui/q/framework/react/index.mdx).
+Page paths mirror their URLs. For example, `/ui/components/authenticator` is located at [/src/content//ui/components/authenticator/index.mdx](src/ui/components/authenticator/index.mdx).
 
 At a minimum, all MDX pages require the following basic frontmatter:
 
-```yaml
+```md
 ---
-title: "My Title"
+title: My Title
 ---
-Intro content goes here...
+
+Content goes here...
 ```
 
-_My Title_ will show up in the primary navigation now.
-
-Pages inherit the [default layout](src/layouts), but can changed with `layout` in the frontmatter:
-
-```yaml
----
-title: "My Title"
-layout: false # No layout
-layout: custom # Uses `src/layouts/custom`
----
-```
-
-For traditional `.tsx` pages, **use `index.page.tsx`** –
-the `.page.tsx` extension lets Next.js differentiate them from other `.tsx` files beside your pages.
+_My Title_ will show up in the primary navigation.
 
 #### Component Pages
 
-Create or modify a page at `src/pages/ui/components/*/index.mdx`.
+Create or modify a page at `src/content/ui/components/*/index.mdx`.
 
 #### Primitive Pages
 
-Create or modify a page at `src/pages/ui/primitives/*/index.mdx`.
+Create or modify a page at `src/content/ui/primitives/*/index.mdx`.
