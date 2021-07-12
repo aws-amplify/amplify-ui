@@ -11,7 +11,6 @@ export const DividerDemo = () => {
   const direction =
     dividerProps.orientation === "horizontal" ? "column" : "row";
 
-  console.log(dividerProps);
   return (
     <div>
       <DividerPropControls {...dividerProps} />
