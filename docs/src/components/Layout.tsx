@@ -37,18 +37,14 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import * as React from "react";
 
+import pages from "@/data/pages.preval";
+
 export default function Layout({
   children,
   frontmatter,
-  pages = [],
 }: {
   children: any;
   frontmatter?: any;
-  pages?: {
-    frontmatter: any;
-    href: string;
-    slug: string;
-  }[];
 }) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(true);
   const [headers, setHeaders] = React.useState([]);

@@ -28,7 +28,7 @@ These docs are published at https://docs.amplify.aws/ui and powered by the follo
 
 ### Creating a Page
 
-Page paths mirror their URLs. For example, `/ui/components/authenticator` is located at [/src/content//ui/components/authenticator/index.mdx](src/ui/components/authenticator/index.mdx).
+Page paths mirror their URLs. For example, `/ui/components/authenticator` is located at [/src/pages/ui/components/authenticator/index.mdx](src/pages/ui/components/authenticator/index.mdx).
 
 At a minimum, all MDX pages require the following basic frontmatter:
 
@@ -44,8 +44,8 @@ _My Title_ will show up in the primary navigation.
 
 #### Component Pages
 
-Create or modify a page at `src/content/ui/components/*/index.mdx`.
+Create or modify a page at `src/pages/ui/components/*/index.mdx`.
 
 #### Primitive Pages
 
-Create or modify a page at `src/content/ui/primitives/*/index.mdx`.
+Create or modify a page at `src/pages/ui/primitives/*/index.mdx`.

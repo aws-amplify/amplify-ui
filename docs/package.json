@@ -24,6 +24,7 @@
     "gray-matter": "^4.0.3",
     "mdx-prism": "^0.3.3",
     "next": "latest",
+    "next-plugin-preval": "^1.2.1",
     "prism-theme-night-owl": "^1.4.0",
     "raw-loader": "^4.0.2",
     "react": "latest",
