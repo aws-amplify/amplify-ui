@@ -8,7 +8,6 @@ export function XStateInspector() {
 
   return (
     <iframe
-      src="https://statecharts.io/inspect"
       data-xstate
       style={{ width: "100%", maxWidth: "100%", height: "60ch" }}
     />
