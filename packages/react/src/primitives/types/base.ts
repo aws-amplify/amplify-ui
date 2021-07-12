@@ -18,6 +18,8 @@ export enum CustomPropertiesMap {
   maxWidth = "--max-width",
   minHeight = "--min-height",
   minWidth = "--min-width",
+  objectFit = "--object-fit",
+  objectPosition = "--object-position",
   opacity = "--opacity",
   direction = "--flex-direction",
   gap = "--gap",
@@ -46,6 +48,8 @@ export interface CustomProperties {
   [CustomPropertiesMap.maxWidth]?: Property.MaxWidth;
   [CustomPropertiesMap.minHeight]?: Property.MinHeight;
   [CustomPropertiesMap.minWidth]?: Property.MinWidth;
+  [CustomPropertiesMap.objectFit]?: Property.ObjectFit;
+  [CustomPropertiesMap.objectPosition]?: Property.ObjectPosition;
   [CustomPropertiesMap.opacity]?: Property.Opacity;
   [CustomPropertiesMap.direction]?: Property.FlexDirection;
   [CustomPropertiesMap.gap]?: Property.Gap;
@@ -63,16 +67,16 @@ export interface CustomProperties {
  * to React's `style` prop
  */
 declare module "csstype" {
-  interface Properties extends CustomProperties {}
+  interface Properties extends CustomProperties { }
 }
 
 // Base component definition
 export interface BaseComponentProps {
   id?: string;
   className?: string;
+
   /**
-   * Any arbitrary props will be passed to the underlying element. A user could pass
-   * an onClick method if they wanted to or data-* attributes if needed.
+   * Any arbitrary props will be passed to the underlying element.
    */
   [key: string]: any;
 }
@@ -108,4 +112,9 @@ export interface StyleProps {
   letterSpacing?: Property.LetterSpacing;
   lineHeight?: Property.LineHeight;
   textDecoration?: Property.TextDecoration;
+}
+
+export interface ImageStyleProps {
+  objectFit?: Property.ObjectFit;
+  objectPosition?: Property.ObjectPosition;
 }

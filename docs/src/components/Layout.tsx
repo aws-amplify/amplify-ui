@@ -411,7 +411,7 @@ export function Layout({ children, componentPages, primitivePages, title }) {
         </div>
 
         <main className="relative flex overflow-y-auto focus:outline-none">
-          <div className="flex-1 py-6">
+          <div className="flex-1 py-6 w-full">
             {title && (
               <div className="px-4 pb-6 mx-auto prose border-b lg:prose-md max-w-7xl sm:px-6 md:px-8">
                 <h1>{title}</h1>
