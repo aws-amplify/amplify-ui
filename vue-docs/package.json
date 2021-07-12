@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
+    "crypto-browserify": "^3.12.0",
     "prismjs": "^1.23.0",
     "vue": "^3.0.0",
     "vue3-markdown-it": "^1.0.7"

@@ -3,20 +3,14 @@
     <base-text>{{ phoneNumberLabel }}</base-text>
 
     <div class="flex">
-      <base-select
-        v-model:selectValue="phonePreFix"
-        name="phone_number_prefix"
-        :options="options"
-        class="border"
-      />
       <base-input
         v-model:textValue="phoneNumber"
         name="phone_number"
         class="border phone"
         required
         type="tel"
-        placeholder="(555) 555-1212"
-        maxlength="14"
+        placeholder="+1 (555) 555-1212"
+        maxlength="17"
       ></base-input>
     </div>
   </base-label>
@@ -26,7 +20,6 @@
 import BaseInput from "./primitives/base-input.vue";
 import BaseText from "./primitives/base-text.vue";
 import BaseLabel from "./primitives/base-label.vue";
-import BaseSelect from "./primitives/base-select.vue";
 import { defineComponent, computed, ref, watchEffect } from "vue";
 import { PHONE_NUMBER_LABEL } from "../defaults/DefaultTexts";
 import { SignUpPhoneControlTypes } from "../types";
@@ -36,7 +29,6 @@ export default defineComponent({
     BaseInput,
     BaseText,
     BaseLabel,
-    BaseSelect
   },
   setup(
     _,
@@ -52,7 +44,7 @@ export default defineComponent({
       emit("update:phone", `${phonePreFix.value}${phoneNumber.value}`);
     });
     return { phoneNumberLabel, options, phonePreFix, phoneNumber };
-  }
+  },
 });
 </script>
 

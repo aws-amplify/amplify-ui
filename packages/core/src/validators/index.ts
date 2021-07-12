@@ -4,6 +4,7 @@ import merge from "lodash/merge";
 
 export const passwordMatches: Validator = (formValues: AuthFormData) => {
   const { password, confirm_password } = formValues;
+  console.log("here", password, confirm_password);
 
   if (!password && !confirm_password) {
     // these inputs are clean, don't complain yet

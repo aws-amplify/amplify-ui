@@ -8,12 +8,16 @@
         <base-field-set :disabled="state.matches('confirmSignUp.pending')">
           <sign-in-and-up-name-control
             :usernameAlias="usernameAlias"
-            :userName="state?.context?.user?.username"
+            :userName="state?.context?.formValues?.username"
             :disabled="true"
           />
           <base-label data-amplify-password>
             <base-text>{{ confirmationCodeText }}</base-text>
-            <base-input name="code" required type="number"></base-input>
+            <base-input
+              name="confirmation_code"
+              required
+              type="number"
+            ></base-input>
             <base-box>
               <base-text> {{ lostYourCodeText }}</base-text>
               <base-button type="button" @click.prevent="onLostCodeClicked">
@@ -70,7 +74,7 @@ import {
   LOST_YOUR_CODE_TEXT,
   RESEND_CODE_TEXT,
   BACK_SIGN_IN_TEXT,
-  CONFIRM_TEXT
+  CONFIRM_TEXT,
 } from "../defaults/DefaultTexts";
 import { useAuth } from "../composables/useAuth";
 import BaseWrapper from "./primitives/base-wrapper.vue";
@@ -89,18 +93,18 @@ export default defineComponent({
     BaseFooter,
     BaseText,
     BaseInput,
-    BaseWrapper
+    BaseWrapper,
   },
   inheritAttrs: false,
   props: {
     headless: {
       default: false,
-      type: Boolean
+      type: Boolean,
     },
     usernameAlias: {
       default: "username",
-      type: String
-    }
+      type: String,
+    },
   },
   setup(
     _,
@@ -128,14 +132,15 @@ export default defineComponent({
 
     const submit = (e): void => {
       const formData = new FormData(e.target);
+      console.log("heretate", state.value);
       send({
         type: "SUBMIT",
         //@ts-ignore
         data: {
           //@ts-ignore
           ...Object.fromEntries(formData),
-          username: state?.value.context?.user?.username
-        }
+          username: state.value.context?.formValues?.username,
+        },
       });
     };
 
@@ -146,8 +151,7 @@ export default defineComponent({
       } else {
         send({
           type: "RESEND",
-          // @ts-ignore
-          data: { username: state?.value?.context?.user?.username }
+          data: { username: state.value.context?.formValues?.username },
         });
       }
     };
@@ -157,7 +161,7 @@ export default defineComponent({
         emit("backToSignInClicked");
       } else {
         send({
-          type: "SIGN_IN"
+          type: "SIGN_IN",
         });
       }
     };
@@ -174,9 +178,9 @@ export default defineComponent({
       confirmText,
       onLostCodeClicked,
       state,
-      send
+      send,
     };
-  }
+  },
 });
 </script>
 
