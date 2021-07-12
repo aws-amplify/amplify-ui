@@ -1,6 +1,19 @@
 # Amplify UI Documentation
 
-Docs are powered by [MDX](https://github.com/mdx-js/mdx) [Next.js](https://nextjs.org/).
+These docs are published at https://docs.amplify.aws/ui and powered by the following technologies:
+
+- [aws-amplify/docs#next](https://github.com/aws-amplify/docs/tree/next) – Layout & Styling
+
+  As a GitHub dependency, this package should be **explicitly updated** using a SHA (e.g. `#33d383d`) rather than a branch (e.g. `#next`):
+
+  ```shell
+  yarn docs add amplify-docs@github:https://github.com/aws-amplify/docs#33d383d
+  ```
+
+  You can find the latest/relevant commit at https://github.com/aws-amplify/docs/commits/next.
+
+- [MDX](https://github.com/mdx-js/mdx) – Content
+- [Next.js](https://nextjs.org/) – Framework
 
 ## Getting Started
 
@@ -9,26 +22,30 @@ Docs are powered by [MDX](https://github.com/mdx-js/mdx) [Next.js](https://nextj
 1. Run `yarn docs dev`
 1. Open <http://localhost:5000/>
 
-All imported `packages/*` are compiled automatically by Next.js for you.
+   (The docs root is `/ui` for consistency with https://docs.amplify.aws/ui)
 
 ## Contributing
 
-### Pages
+### Creating a Page
+
+Page paths mirror their URLs. For example, `/ui/components/authenticator` is located at [/src/pages/ui/components/authenticator/index.mdx](src/pages/ui/components/authenticator/index.mdx).
 
 At a minimum, all MDX pages require the following basic frontmatter:
 
 ```md
 ---
-title: "My Title"
+title: My Title
 ---
 
-"My Title" will show up in the primary navigation now.
+Content goes here...
 ```
 
-### Components
+_My Title_ will show up in the primary navigation.
 
-Create or modify a page at `src/content/components/*/index.mdx`.
+#### Component Pages
 
-### Primitives
+Create or modify a page at `src/pages/ui/components/*/index.mdx`.
 
-Create or modify a page at `src/content/primitives/*/index.mdx`.
+#### Primitive Pages
+
+Create or modify a page at `src/pages/ui/primitives/*/index.mdx`.

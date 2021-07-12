@@ -1,6 +1,10 @@
 ---
 title: Flex
 ---
+
+import { Flex, Text } from "@aws-amplify/ui-react";
+import { FlexDemo } from "./demo";
+
 ### A layout container using Flexbox.
 
 ## Installation
@@ -20,7 +24,7 @@ import "@aws-amplify/ui-react/styles.css";
 <Flex>
   <Text>Hello</Text>
   <Text>world</Text>
-</Flex>
+</Flex>;
 ```
 
 <Flex>
@@ -34,26 +38,39 @@ Use the `direction` prop to set how flex items are placed in the flex container 
 
 ```jsx
 /* example element */
-const NumberBox = ({number}) => <Flex justifyContent="center" alignItems="center" width="15rem" height="3rem" borderRadius="5px" fontWeight="bold" color="white" backgroundColor="#805AD5">{number}</Flex>;
+const NumberBox = ({ number }) => (
+  <Flex
+    justifyContent="center"
+    alignItems="center"
+    width="15rem"
+    height="3rem"
+    borderRadius="5px"
+    fontWeight="bold"
+    color="white"
+    backgroundColor="#805AD5"
+  >
+    {number}
+  </Flex>
+);
 
 <Flex direction="row">
-  <NumberBox number={1}/>
-  <NumberBox number={2}/>
-  <NumberBox number={3}/>
-</Flex>
+  <NumberBox number={1} />
+  <NumberBox number={2} />
+  <NumberBox number={3} />
+</Flex>;
 ```
 
 <FlexDemo demoType="direction" />
 
 ### Gap
 
-Use the `gap` prop to adjust the spacing between child components. `gap` accepts a string representing any unit (e.g., px, rem, %). See [MDN gap documentation](https://developer.mozilla.org/en-US/docs/Web/CSS/gap) for supported values. 
+Use the `gap` prop to adjust the spacing between child components. `gap` accepts a string representing any unit (e.g., px, rem, %). See [MDN gap documentation](https://developer.mozilla.org/en-US/docs/Web/CSS/gap) for supported values.
 
 ```jsx
 <Flex gap="3rem">
-  <NumberBox number={1}/>
-  <NumberBox number={2}/>
-  <NumberBox number={3}/>
+  <NumberBox number={1} />
+  <NumberBox number={2} />
+  <NumberBox number={3} />
 </Flex>
 ```
 
@@ -65,9 +82,9 @@ Use the `justifyContent` prop to control where the flex items sit on the main ax
 
 ```jsx
 <Flex justifyContent="flex-start">
-  <NumberBox number={1}/>
-  <NumberBox number={2}/>
-  <NumberBox number={3}/>
+  <NumberBox number={1} />
+  <NumberBox number={2} />
+  <NumberBox number={3} />
 </Flex>
 ```
 
@@ -79,9 +96,15 @@ Use the `alignItems` prop to control where the flex items sit on the cross axis.
 
 ```jsx
 <Flex alignItems="stretch">
-  <View backgroundColor="#b794f4" height="100px" padding="2rem" color="white">Wow!</View>
-  <View backgroundColor="#805AD5" padding="10px 2rem 0 2rem" color="white">I love to use</View>
-  <View backgroundColor="#322659" height="70px" padding="2rem" color="white">Flex</View>
+  <View backgroundColor="#b794f4" height="100px" padding="2rem" color="white">
+    Wow!
+  </View>
+  <View backgroundColor="#805AD5" padding="10px 2rem 0 2rem" color="white">
+    I love to use
+  </View>
+  <View backgroundColor="#322659" height="70px" padding="2rem" color="white">
+    Flex
+  </View>
 </Flex>
 ```
 
@@ -89,16 +112,16 @@ Use the `alignItems` prop to control where the flex items sit on the cross axis.
 
 ### Wrap
 
-Use the `wrap` prop to control what happens when children overflow the size of the container along the main axis (maps to `flex-wrap` CSS property). By default, children are forced into a single line (`nowrap`), which can shrink elements. If wrapping is allowed (`wrap`), items are wrapped into multiple lines along the main axis if needed. 
+Use the `wrap` prop to control what happens when children overflow the size of the container along the main axis (maps to `flex-wrap` CSS property). By default, children are forced into a single line (`nowrap`), which can shrink elements. If wrapping is allowed (`wrap`), items are wrapped into multiple lines along the main axis if needed.
 
 ```jsx
 <Flex wrap="nowrap">
-  <NumberBox number={1}/>
-  <NumberBox number={2}/>
-  <NumberBox number={3}/>
-  <NumberBox number={4}/>
-  <NumberBox number={5}/>
-  <NumberBox number={6}/>
+  <NumberBox number={1} />
+  <NumberBox number={2} />
+  <NumberBox number={3} />
+  <NumberBox number={4} />
+  <NumberBox number={5} />
+  <NumberBox number={6} />
 </Flex>
 ```
 
@@ -123,7 +146,7 @@ import "./styles.css";
   <Text>1</Text>
   <Text>2</Text>
   <Text>3</Text>
-</Flex>
+</Flex>;
 ```
 
 <Flex className="my-custom-flex">
@@ -148,7 +171,7 @@ import "./styles.css";
   <Text>Adam</Text>
   <Text>I'm</Text>
   <Text>Madam</Text>
-</Flex>
+</Flex>;
 ```
 
 <Flex className="styled-flex">
