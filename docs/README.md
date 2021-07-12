@@ -19,26 +19,44 @@ These docs are published at https://docs.amplify.aws/ui and powered by the follo
 
 1. Run `yarn install` from the _root_ of your local clone of [aws-amplify/amplify-ui](https://github.com/aws-amplify/amplify-ui)
 1. `yarn docs`
-1. Open <http://localhost:3000/>
+1. Open <http://localhost:3000/ui>
+
+   (The docs root is `/ui` for consistency with https://docs.amplify.aws/ui)
 
 ## Contributing
 
-### Pages
+### Creating a Page
+
+Page paths mirror their URLs. For example, `/ui/q/framework/react` is located at [/src/pages/ui/q/framework/react/index.mdx](src/pages/ui/q/framework/react/index.mdx).
 
 At a minimum, all MDX pages require the following basic frontmatter:
 
-```md
+```yaml
 ---
 title: "My Title"
 ---
-
-"My Title" will show up in the primary navigation now.
+Intro content goes here...
 ```
 
-### Components
+_My Title_ will show up in the primary navigation now.
 
-Create or modify a page at `src/content/components/*/index.mdx`.
+Pages inherit the [default layout](src/layouts), but can changed with `layout` in the frontmatter:
 
-### Primitives
+```yaml
+---
+title: "My Title"
+layout: false # No layout
+layout: custom # Uses `src/layouts/custom`
+---
+```
 
-Create or modify a page at `src/content/primitives/*/index.mdx`.
+For traditional `.tsx` pages, **use `index.page.tsx`** –
+the `.page.tsx` extension lets Next.js differentiate them from other `.tsx` files beside your pages.
+
+#### Component Pages
+
+Create or modify a page at `src/pages/ui/components/*/index.mdx`.
+
+#### Primitive Pages
+
+Create or modify a page at `src/pages/ui/primitives/*/index.mdx`.

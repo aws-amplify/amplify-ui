@@ -17,42 +17,50 @@ const withCompileNodeModules = require("@moxy/next-compile-node-modules")({
   test: /\.(js|ts)x?/,
 });
 
-const withMDX = require("@next/mdx")({
-  options: {
-    remarkPlugins: [
-      require("remark-slug"),
-      require("./src/plugins/frontmatter"),
-      // ❗️ Cannot use this with <TableOfContents> because it expects a different structure
-      // [
-      //   require("remark-autolink-headings"),
-      //   {
-      //     linkProperties: {
-      //       className: ["anchor"],
-      //     },
-      //   },
-      // ],
-      require("amplify-docs/src/plugins/headings.tsx"),
-      require("remark-code-titles"),
-    ],
-    rehypePlugins: [require("mdx-prism")],
+module.exports = withCompileNodeModules({
+  env: { BRANCH },
+  pageExtensions: ["mdx", "tsx"],
+  redirects() {
+    return [
+      {
+        source: "/",
+        destination: "/ui",
+        permanent: true,
+      },
+    ];
+  },
+  webpack(config) {
+    // https://github.com/wooorm/xdm#next
+    config.module.rules.push({
+      test: /\.mdx$/,
+      use: [
+        {
+          loader: "xdm/webpack.cjs",
+          options: {
+            rehypePlugins: [require("mdx-prism")],
+            remarkPlugins: [
+              require("remark-gfm"),
+              require("remark-mdx-images"),
+              [
+                require("remark-github"),
+                {
+                  repository: "aws-amplify/docs",
+                },
+              ],
+              // Remove frontmatter from MDX
+              require("remark-frontmatter"),
+              // Extract to `frontmatter` export
+              [
+                require("remark-mdx-frontmatter").remarkMdxFrontmatter,
+                { name: "frontmatter" },
+              ],
+              require("amplify-docs/src/plugins/headings.tsx"),
+            ],
+          },
+        },
+      ],
+    });
+
+    return config;
   },
 });
-
-module.exports = withMDX(
-  withCompileNodeModules({
-    env: { BRANCH },
-
-    pageExtensions: ["mdx", "tsx"],
-
-    // Improve local DX, since we're working on a subset of https://docs.amplify.aws/
-    async redirects() {
-      return [
-        {
-          source: "/",
-          destination: "/ui",
-          permanent: true,
-        },
-      ];
-    },
-  })
-);
