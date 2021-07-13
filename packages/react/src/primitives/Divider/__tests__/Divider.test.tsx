@@ -23,7 +23,7 @@ describe("Divider component", () => {
     expect(divider.getAttribute("aria-orientation")).toBe("vertical");
   });
 
-  it("can render a classname for Text", async () => {
+  it("can render custom classnames", async () => {
     render(<Divider className="my-divider" />);
 
     const divider = (await screen.findByRole("separator")) as HTMLHRElement;
