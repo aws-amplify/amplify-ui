@@ -2,10 +2,15 @@
 @import "tailwindcss/tailwind.css";
 @import "./buttonStyles.css";
 @import "./viewStyles.css";
+@import "./flexStyles.css";
 @import "./textStyles.css";
 
 .mdx-marker {
-  @apply pl-5 -ml-4 -mr-4 bg-gray-700 border-l-4 border-amazon;
+  @apply pl-3 -ml-4 -mr-4 bg-gray-700 border-l-4 border-amazon;
+}
+
+pre {
+  @apply rounded;
 }
 
 pre.language-shell code.language-shell::before {
