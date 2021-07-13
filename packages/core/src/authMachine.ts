@@ -406,7 +406,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
         let mfaType;
         if (
           challengeName === AuthChallengeNames.SMS_MFA ||
-          AuthChallengeNames.SOFTWARE_TOKEN_MFA
+          challengeName === AuthChallengeNames.SOFTWARE_TOKEN_MFA
         ) {
           mfaType = challengeName;
         }
