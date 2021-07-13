@@ -33,7 +33,6 @@ export const SetupTOTP = (): JSX.Element => {
 
       setQrCode(qrCodeImageSource);
     } catch (error) {
-      logger.error("oh no! Error!");
       logger.error(error);
     } finally {
       setIsLoading(false);
