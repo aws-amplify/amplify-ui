@@ -5,11 +5,11 @@ Given("I'm at the sign in page", () => {
 });
 
 When("I type an invalid username {string}", (username: string) => {
-  cy.findByLabelText("Username").type(Cypress.env(username));
+  cy.findByRole("textbox", { name: /username/i }).type(Cypress.env(username));
 });
 
 And("I type an invalid password {string}", (password: string) => {
-  cy.findByLabelText("Password").type(Cypress.env(password));
+  cy.findByLabelText(/password/i).type(Cypress.env(password));
 });
 
 And("I click the {string} button", (name: string) => {
@@ -17,11 +17,11 @@ And("I click the {string} button", (name: string) => {
 });
 
 When("I type a valid username {string}", (username: string) => {
-  cy.get("[data-test=username-input]").type(Cypress.env(username));
+  cy.findByRole("textbox", { name: /username/i }).type(Cypress.env(username));
 });
 
 And("I type a valid password {string}", (password: string) => {
-  cy.get("[data-test=sign-in-password-input]").type(Cypress.env(password));
+  cy.findByLabelText(/password/i).type(Cypress.env(password));
 });
 
 Then("I see {string}", (message: string) => {

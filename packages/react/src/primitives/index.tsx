@@ -1,5 +1,7 @@
 export * from "./Button";
 export * from "./Card";
+export * from "./Flex";
+export * from "./Image";
 export * from "./View";
 export * from "./shared";
 export * from "./Text";

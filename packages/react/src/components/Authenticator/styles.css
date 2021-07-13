@@ -26,6 +26,10 @@
   @apply flex flex-row space-x-1;
 }
 
+[data-amplify-authenticator-sign-in] [data-amplify-error] {
+  @apply text-red-500;
+}
+
 [data-amplify-authenticator]
   [data-amplify-password]
   [data-amplify-box]
