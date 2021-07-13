@@ -1,0 +1,6 @@
+{
+  "authSelections": "userPoolOnly",
+  "resourceName": "authwithtotpandsmsmf",
+  "serviceType": "imported",
+  "region": "us-east-1"
+}
