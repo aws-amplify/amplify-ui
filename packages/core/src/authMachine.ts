@@ -365,10 +365,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
           },
         } = context;
 
-        const username = formValues[primaryAlias];
-
         const attributes = omit<AuthFormData>(formValues, [
-          primaryAlias,
           "confirm_password", // confirm_password field should not be sent to Cognito
         ]);
 
@@ -378,6 +375,10 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
             ""
           );
         }
+
+        const username = formValues[primaryAlias];
+        delete attributes[primaryAlias];
+
         const result = await Auth.signUp({
           username,
           password,
