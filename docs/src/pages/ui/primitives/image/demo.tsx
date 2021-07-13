@@ -1,9 +1,9 @@
 import React from "react";
 import { Image, View } from "@aws-amplify/ui-react";
-import { StylePropControls } from "../../../components/StylePropControls";
-import { ImagePropControls } from "../../../components/ImagePropControls";
-import { useStyleProps } from "../../../components/useStyleProps";
-import { useImageProps } from "../../../components/useImageProps";
+import { StylePropControls } from "@/components/StylePropControls";
+import { ImagePropControls } from "@/components/ImagePropControls";
+import { useStyleProps } from "@/components/useStyleProps";
+import { useImageProps } from "@/components/useImageProps";
 
 export const ImageDemo = () => {
   const styleProps = useStyleProps({

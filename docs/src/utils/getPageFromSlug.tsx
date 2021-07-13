@@ -12,7 +12,7 @@ export async function getPageFromSlug(slug: string) {
   const contentPath = path.join(
     process.cwd(),
     "src",
-    "content",
+    "pages",
     slug,
     "index.mdx"
   );

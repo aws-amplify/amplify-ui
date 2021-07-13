@@ -3,7 +3,6 @@ module.exports = {
   plugins: [require("@tailwindcss/forms"), require("@tailwindcss/typography")],
   purge: [
     "./src/pages/**/*.{js,ts,jsx,tsx}",
-    "./src/content/**/*.{js,ts,jsx,tsx}",
     "./src/components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
