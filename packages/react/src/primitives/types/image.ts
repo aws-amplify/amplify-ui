@@ -1,4 +1,12 @@
-import { BaseComponentProps, ImageStyleProps, StyleProps } from "./base";
+import { Property } from "csstype";
+
+import { BaseComponentProps } from "./base";
+import { BaseStyleProps } from "./style";
+
+export interface ImageStyleProps {
+  objectFit?: Property.ObjectFit;
+  objectPosition?: Property.ObjectPosition;
+}
 
 export interface ImageOptions extends ImageStyleProps {
   /**
@@ -45,4 +53,4 @@ export interface ImageOptions extends ImageStyleProps {
   onError?(error: string | React.SyntheticEvent<HTMLImageElement, Event>): void;
 }
 
-export interface ImageProps extends ImageOptions, BaseComponentProps, StyleProps { }
+export interface ImageProps extends ImageOptions, BaseComponentProps, BaseStyleProps { }

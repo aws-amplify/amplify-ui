@@ -3,7 +3,8 @@ import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import "@testing-library/jest-dom/extend-expect";
 import { ComponentClassNames } from "../../shared";
-import { CssPropertiesMap } from "../../types";
+import { ComponentPropsToStylePropsMap } from "../../types";
+import { kebabCase } from "lodash";
 
 describe("View: ", () => {
   const viewText = "Hello from inside a view";
@@ -78,10 +79,16 @@ describe("View: ", () => {
       </View>
     );
     const view = await screen.findByTestId("stylingTest");
-    expect(view.style.getPropertyValue(CssPropertiesMap.width)).toBe("100%");
-    expect(view.style.getPropertyValue(CssPropertiesMap.opacity)).toBe("0.5");
-    expect(view.style.getPropertyValue(CssPropertiesMap.borderRadius)).toBe(
-      "6px"
-    );
+    expect(
+      view.style.getPropertyValue(ComponentPropsToStylePropsMap.width)
+    ).toBe("100%");
+    expect(
+      view.style.getPropertyValue(ComponentPropsToStylePropsMap.opacity)
+    ).toBe("0.5");
+    expect(
+      view.style.getPropertyValue(
+        kebabCase(ComponentPropsToStylePropsMap.borderRadius)
+      )
+    ).toBe("6px");
   });
 });
