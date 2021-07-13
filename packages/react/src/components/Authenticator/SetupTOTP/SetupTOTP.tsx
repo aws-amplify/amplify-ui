@@ -57,7 +57,7 @@ export const SetupTOTP = (): JSX.Element => {
 
   return (
     <Form
-      data-amplify-authenticator-confirmsignin=""
+      data-amplify-authenticator-setup-totp=""
       method="post"
       onSubmit={event => {
         event.preventDefault();
