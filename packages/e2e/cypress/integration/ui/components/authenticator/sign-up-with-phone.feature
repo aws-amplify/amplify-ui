@@ -3,7 +3,7 @@ Feature: Sign Up with Phone
   Create a new user in the Amazon Cognito UserPool by passing the new user’s phone number and password.
 
   Background:
-    Given I'm using the example "components/authenticator/sign-up-with-phone/"
+    Given I'm using the example "ui/components/authenticator/sign-up-with-phone/"
     And I click "Create account"
 
 @React
