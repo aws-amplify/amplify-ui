@@ -20,3 +20,10 @@ Feature: Sign In with TOTP MFA
     And I type an invalid password "INVALID_PASSWORD"
     And I click the "Sign In" button
     Then I see "User does not exist"
+
+  @React
+  Scenario: Sign in with valid credentials that have not set up TOTP MFA
+    When I type a valid email "VALID_EMAIL_SETUP_MFA"
+    And I type a valid password "VALID_PASSWORD_SETUP_MFA"
+    And I click the "Sign In" button
+    Then I will be redirected to the setup mfa page

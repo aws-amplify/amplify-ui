@@ -11,6 +11,7 @@ export interface AuthContext {
   session?: CognitoUserSession;
   formValues?: AuthFormData;
   config?: { login_mechanisms: string[] };
+  challengeName?: AuthChallengeNames;
 }
 
 export type AuthEventTypes =
