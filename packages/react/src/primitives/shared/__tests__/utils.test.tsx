@@ -1,8 +1,7 @@
 import { convertStylePropsToStyleObj, getNonStyleProps } from "../utils";
-import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import "@testing-library/jest-dom/extend-expect";
-import { CssPropertiesMap, StyleProps, ViewProps } from "../../types";
+import { ComponentPropsToStylePropsMap, ViewProps } from "../../types";
 
 const props: ViewProps = {
   backgroundColor: "blue",
@@ -26,7 +25,7 @@ const props: ViewProps = {
 describe("convertStylePropsToStyleObj: ", () => {
   it("should convert style props to a style object", () => {
     const style = convertStylePropsToStyleObj(props);
-    Object.keys(CssPropertiesMap).forEach(prop => {
+    Object.keys(ComponentPropsToStylePropsMap).forEach(prop => {
       expect(style[prop]).toBe(props[prop]);
     });
     expect(style["as"]).toBeUndefined();

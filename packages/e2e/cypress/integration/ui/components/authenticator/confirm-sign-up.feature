@@ -5,7 +5,7 @@ Feature: Confirm Sign Up
   See: https://docs.amplify.aws/lib/auth/emailpassword/q/platform/js#confirm-sign-up
 
   Background:
-    Given I'm running the example "components/authenticator/confirm-sign-up"
+    Given I'm running the example "ui/components/authenticator/confirm-sign-up"
 
   @React
   Scenario: Username is disabled
