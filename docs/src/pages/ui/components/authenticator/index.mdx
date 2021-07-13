@@ -1,0 +1,92 @@
+---
+title: Authenticator
+---
+
+import { Authenticator } from "@aws-amplify/ui-react";
+import { XStateInspector } from "@/components/XStateInspector";
+import { Feature } from "@/components/Feature";
+
+The `Authenticator` is a simple way to add [authentication](https://docs.amplify.aws/lib/auth/getting-started/q/platform/js)
+flows to your application.
+
+## Installation
+
+Install `@aws-amplify/ui-react` with [npm](https://www.npmjs.com/):
+
+```shell
+npm install @aws-amplify/ui-react --save
+```
+
+## Getting started
+
+The simplest way to add authentication to your app is to wrap it using `withAuthenticator`:
+
+```js{1-2,10}
+import { withAuthenticator } from "@aws-amplify/ui-react"
+import "@aws-amplify/ui-react/styles.css";
+
+function App() {
+  return (
+    ...
+  )
+}
+
+export default withAuthenticator(App)
+```
+
+## Features
+
+### Sign Up
+
+<Feature name="sign-up" />
+
+### Sign Up with Email
+
+<Feature name="sign-up-with-email" />
+
+### Sign Up with Phone
+
+<Feature name="sign-up-with-phone" />
+
+### Confirm Sign Up
+
+<Feature name="confirm-sign-up" />
+
+### Sign In
+
+<Feature name="sign-in" />
+
+### Sign In with SMS MFA
+
+<Feature name="sign-in-sms-mfa" />
+
+### Sign In with TOTP MFA
+
+<Feature name="sign-in-totp-mfa" />
+
+## Headless Usage
+
+The `Authenticator`'s UI is powered by a state machine. You can use the `useAuth` hook
+to get access to it and customizing behavior or your own UI:
+
+```js{1,4-6,10}
+import { useAuth } from "@aws-amplify/ui-react";
+
+function App() {
+  const [state, send] = useAuth();
+
+  if (state.matches("authenticated")) {
+    return (
+      <>
+        <h1>Welcome, {state.context.user.username}</h1>
+        <button onClick={() => send("SIGN_OUT")}>Sign out</button>
+      </>
+    );
+  }
+
+  ...
+}
+```
+
+<XStateInspector />
+<Authenticator />
