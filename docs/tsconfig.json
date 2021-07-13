@@ -5,7 +5,7 @@
     "lib": ["dom", "dom.iterable", "esnext"],
     "paths": {
       "@/components/*": ["src/components/*"],
-      "@/content/*": ["src/content/*"],
+      "@/data/*": ["src/data/*"],
       "@/utils/*": ["src/utils/*"],
       "@aws-sdk/client-s3": [
         "./node_modules/@aws-sdk/client-s3/dist/es",
