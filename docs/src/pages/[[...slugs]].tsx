@@ -15,10 +15,10 @@ import {
   ViewDemo,
   FlexDemo,
   TextDemo,
-  BadgeDemo,
 } from "@aws-amplify/ui-react";
 import { XStateInspector } from "@/components/XStateInspector";
 import { ImageDemo } from "../content/primitives/image/demo";
+import { BadgeDemo } from "../content/primitives/badge/demo";
 
 export default function Content({
   featureTests = [],

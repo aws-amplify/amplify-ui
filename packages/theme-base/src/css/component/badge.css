@@ -1,88 +1,48 @@
 .amplify-ui-badge {
-  --text-align: var(--amplify-ui-badge-text-align);
-  --font-weight: var(--amplify-ui-badge-font-weight);
-
-  --padding-small: var(--amplify-ui-badge-padding-small);
-  --padding-medium: var(--amplify-ui-badge-padding-medium);
-  --padding-large: var(--amplify-ui-badge-padding-large);
-  --fullwidth: var(--amplify-ui-badge-fullwidth);
-
+  --colors-bg-info: var(--amplify-ui-badge-colors-bg-info);
+  --colors-bg-error: var(--amplify-ui-badge-colors-bg-error);
+  --colors-bg-warning: var(--amplify-ui-badge-colors-bg-warning);
+  --colors-bg-success: var(--amplify-ui-badge-colors-bg-success);
+  
   --font-size-small: var(--amplify-ui-badge-font-size-small);
   --font-size-medium: var(--amplify-ui-badge-font-size-medium);
   --font-size-large: var(--amplify-ui-badge-font-size-large);
-
-  --height-small: var(--amplify-ui-badge-height-small);
-  --height-medium: var(--amplify-ui-badge-height-medium);
-  --height-large: var(--amplify-ui-badge-height-large);
-
-  --colors-text-default: var(--amplify-ui-badge-colors-text-default);
-  --colors-text-info: var(--amplify-ui-badge-colors-text-info);
-  --colors-text-error: var(--amplify-ui-badge-colors-text-error);
-  --colors-text-warning: var(--amplify-ui-badge-colors-text-warning);
-  --colors-text-success: var(--amplify-ui-badge-colors-text-success);
-
-  --colors-border-default: var(--amplify-ui-badge-colors-border-default);
-  --colors-border-info: var(--amplify-ui-badge-colors-border-info);
-  --colors-border-error: var(--amplify-ui-badge-colors-border-error);
-  --colors-border-warning: var(--amplify-ui-badge-colors-border-warning);
-  --colors-border-success: var(--amplify-ui-badge-colors-border-success);
-
-  --border-radius: var(--border-radius-medium);
-  --border-radius-small: var(--amplify-ui-badge-border-radius-small);
-  --border-radius-medium: var(--amplify-ui-badge-border-radius-medium);
-  --border-radius-large: var(--amplify-ui-badge-border-radius-large);
-
+  
   all: unset; /* protect against external styles */
-  text-align: var(--text-align);
-  font-weight: var(--font-weight);
-  /* What is --colors-black? */
-  color: var(--colors-black); 
-  border-radius: var(--border-radius);
+  background-color: var(--amplify-ui-badge-colors-bg-default);
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
   box-sizing: border-box;
-}
-
-.amplify-ui-badge[data-variant="default"] {
-  color: var(--colors-text-default);
-  border: var(--colors-border-default);
+  font-weight: var(--amplify-ui-badge-font-weight);
+  border-radius: 9999px;
+  padding: 0 0.75rem;
 }
 
 .amplify-ui-badge[data-variant="info"] {
-  color: var(--colors-text-info);
-  border: var(--colors-border-info);
+  background-color: var(--colors-bg-info);
 }
 
 .amplify-ui-badge[data-variant="error"] {
-  color: var(--colors-text-error);
-  border: var(--colors-border-error);
+  background-color: var(--colors-bg-error);
 }
 
 .amplify-ui-badge[data-variant="warning"] {
-  color: var(--colors-text-warning);
-  border: var(--colors-border-warning);
+  background-color: var(--colors-bg-warning);
 }
 
 .amplify-ui-badge[data-variant="success"] {
-  color: var(--colors-text-success);
-  border: var(--colors-border-success);
+  background-color: var(--colors-bg-success);
 }
 
 .amplify-ui-badge[data-size="small"] {
-  padding: 0 var(--padding-small);
-  height: var(--height-small);
   font-size: var(--font-size-small);
-  border-radius: var(--border-radius-small);
 }
 
 .amplify-ui-badge[data-size="medium"] {
-  padding: 0 var(--padding-medium);
-  height: var(--height-medium);
   font-size: var(--font-size-medium);
-  border-radius: var(--border-radius-medium);
 }
 
 .amplify-ui-badge[data-size="large"] {
-  padding: 0 var(--padding-large);
-  height: var(--height-large);
   font-size: var(--font-size-large);
-  border-radius: var(--border-radius-large);
 }

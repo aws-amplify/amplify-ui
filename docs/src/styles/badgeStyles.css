@@ -1,0 +1,15 @@
+.my-custom-badge {
+  --amplify-ui-badge-colors-bg-default: pink;
+}
+
+.flagged {
+	background-color: crimson;
+	color: white;
+	border-radius: 3px;
+}
+
+#subscribers {
+	color: blue;
+	font-weight: 900;
+	border: 1px solid blue;
+}

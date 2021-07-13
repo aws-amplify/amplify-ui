@@ -11,3 +11,124 @@ npm install @aws-amplify/ui-react
 ## Demo
 <BadgeDemo/>
 
+## Usage
+Import the Badge component and styles. 
+
+```jsx
+import { Badge } from "@aws-amplify/ui-react";
+import "@aws-amplify/ui-react/styles.css";
+
+<Badge>Default badge</Badge>
+```
+<Badge>Default badge</Badge>
+
+### Badge variants
+Use the `variant` prop to change the badge variant. Available options are `default`, `info`, `error`, `warning` and `success`.
+
+```jsx
+<Badge variant="default">Default</Badge>
+<Badge variant="info">Info</Badge>
+<Badge variant="error">Error</Badge>
+<Badge variant="warning">Warning</Badge>
+<Badge variant="success">Success</Badge>
+```
+<Badge variant="default">Default</Badge>
+<Badge variant="info">Info</Badge>
+<Badge variant="error">Error</Badge>
+<Badge variant="warning">Warning</Badge>
+<Badge variant="success">Success</Badge>
+
+### Badge sizes
+Use the `size` prop to change the badge size. Available options are `small`, `medium`, and `large`.
+
+```jsx
+<Badge size="small" variant="info">Small</Badge>
+<Badge size="medium" variant="info">Medium</Badge>
+<Badge size="large" variant="info">Large</Badge>
+```
+<Badge size="small" variant="info">Small</Badge>
+<Badge size="medium" variant="info">Medium</Badge>
+<Badge size="large" variant="info">Large</Badge>
+
+### CSS Styling
+
+#### Override Amplify styling using the CSS variables
+
+Using a class and CSS file:
+
+```css
+/* styles.css */
+.my-custom-badge {
+  --amplify-ui-badge-colors-bg-default: pink;
+}
+```
+
+```jsx
+import "./styles.css";
+
+<Badge className="my-custom-badge">My badge</Badge>
+```
+<Badge className="my-custom-badge">My badge</Badge>
+
+
+#### Override styling using the classname and data attribute selectors
+Use the `amplify-ui-badge` class and data attributes to style all badges.
+
+```css
+/* Example: Extend all <Badge> styles */
+.amplify-ui-badge {
+  font-family: "Times New Roman", Times, serif;
+  font-weight: bold;
+}
+
+/* Example: Override only warning variant styles */
+.amplify-ui-badge[data-variant=warning] {
+  background-color: yellow;
+}
+
+/* Example: Override size styles */
+.amplify-ui-badge[data-size=large] {
+  border: 1px solid black;
+}
+```
+To replace the badge styling, unset it:
+```css
+.amplify-ui-badge {
+  all: unset;
+  /* Add your styling here*/
+}
+```
+
+#### Styling a badge instance
+To override styling on a specific badge 
+
+*Using a class selector:*
+
+```css
+/* Example: class selector styling override */
+.flagged {
+	background-color: crimson;
+	color: white;
+	border-radius: 3px;
+}
+```
+```jsx
+<Badge className="flagged">13</Badge>
+```
+<Badge className="flagged">13</Badge>
+
+
+*Using an id selector:*
+
+```css
+/* Example: id selector styling override */
+#subscribers {
+	color: blue;
+	font-weight: 900;
+	border: 1px solid blue;
+}
+```
+```jsx
+<Badge id="subscribers">123K</Badge>
+```
+<Badge id="subscribers">123K</Badge>
