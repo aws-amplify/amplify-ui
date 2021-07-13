@@ -1,10 +1,15 @@
 import { inspect } from "@xstate/inspect";
-
-// TODO What's the best way to enable this for debug-only? `XSTATE=true npm start`?
-if (typeof window !== "undefined") {
-  inspect();
-}
+import * as React from "react";
 
 export function XStateInspector() {
-  return <iframe data-xstate style={{ width: "100%", height: "40ch" }} />;
+  React.useLayoutEffect(() => {
+    inspect();
+  }, []);
+
+  return (
+    <iframe
+      data-xstate
+      style={{ width: "100%", maxWidth: "100%", height: "60ch" }}
+    />
+  );
 }

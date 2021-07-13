@@ -3,7 +3,8 @@ import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import "@testing-library/jest-dom/extend-expect";
 import { ComponentClassNames } from "../../shared";
-import { CustomPropertiesMap } from "../../types";
+import { ComponentPropsToStylePropsMap } from "../../types";
+import { kebabCase } from "lodash";
 
 describe("View: ", () => {
   const viewText = "Hello from inside a view";
@@ -73,17 +74,21 @@ describe("View: ", () => {
 
   it("can apply styling via props", async () => {
     render(
-      <View width="100%" opacity="50%" borderRadius="6px" id="stylingTest">
+      <View width="100%" opacity="0.5" borderRadius="6px" id="stylingTest">
         {viewText}
       </View>
     );
     const view = await screen.findByTestId("stylingTest");
-    expect(view.style.getPropertyValue(CustomPropertiesMap.width)).toBe("100%");
-    expect(view.style.getPropertyValue(CustomPropertiesMap.opacity)).toBe(
-      "50%"
-    );
-    expect(view.style.getPropertyValue(CustomPropertiesMap.borderRadius)).toBe(
-      "6px"
-    );
+    expect(
+      view.style.getPropertyValue(ComponentPropsToStylePropsMap.width)
+    ).toBe("100%");
+    expect(
+      view.style.getPropertyValue(ComponentPropsToStylePropsMap.opacity)
+    ).toBe("0.5");
+    expect(
+      view.style.getPropertyValue(
+        kebabCase(ComponentPropsToStylePropsMap.borderRadius)
+      )
+    ).toBe("6px");
   });
 });

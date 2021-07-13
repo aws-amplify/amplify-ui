@@ -1,3 +1,4 @@
+import { AuthChallengeNames } from "@aws-amplify/ui-core";
 import { useAmplify, useAuth } from "@aws-amplify/ui-react";
 
 import {
@@ -24,6 +25,14 @@ export const ConfirmSignIn = (): JSX.Element => {
     send,
   };
 
+  const { challengeName } = state.context;
+  let mfaType: string = "SMS";
+  if (challengeName === AuthChallengeNames.SOFTWARE_TOKEN_MFA) {
+    mfaType = "TOTP";
+  }
+
+  const headerText = `Confirm ${mfaType} Code`;
+
   return (
     <Form
       data-amplify-authenticator-confirmsignin=""
@@ -40,7 +49,7 @@ export const ConfirmSignIn = (): JSX.Element => {
         });
       }}
     >
-      <Heading level={1}>Confirm SMS Code</Heading>
+      <Heading level={1}>{headerText}</Heading>
 
       <Fieldset disabled={isPending}>
         <Label data-amplify-confirmationcode>

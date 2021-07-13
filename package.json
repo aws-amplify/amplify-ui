@@ -1,7 +1,8 @@
 {
   "private": true,
   "scripts": {
-    "postinstall": "yarn run build:theme-base",
+    "install": "yarn run build:theme-base",
+    "postinstall": "patch-package",
     "build": "yarn workspaces run build",
     "angular": "yarn workspace @aws-amplify/ui-angular",
     "react": "yarn workspace @aws-amplify/ui-react",
@@ -29,6 +30,12 @@
   ],
   "resolutions": {
     "@mdx-js/mdx/**/trim": "^0.0.3",
+    "fs-extra": "^10.0.0",
+    "next": "^10.2.0",
     "ws": "^7.4.6"
+  },
+  "dependencies": {
+    "patch-package": "^6.4.7",
+    "postinstall-postinstall": "^2.1.0"
   }
 }
