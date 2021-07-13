@@ -6,6 +6,7 @@ import { useActor, useInterpret } from "@xstate/react";
 import { AuthenticatorContext } from "./AuthenticatorContext";
 import { ConfirmSignIn } from "./ConfirmSignIn";
 import { ConfirmSignUp } from "./ConfirmSignUp";
+import { SetupTOTP } from "./SetupTOTP";
 import { SignIn } from "./SignIn";
 import { SignUp } from "./SignUp";
 
@@ -46,6 +47,8 @@ export function Authenticator({
               return <ConfirmSignUp />;
             case state.matches("confirmSignIn"):
               return <ConfirmSignIn />;
+            case state.matches("setupTOTP"):
+              return <SetupTOTP />;
             case state.matches("signIn"):
               return <SignIn />;
             case state.matches("signUp"):

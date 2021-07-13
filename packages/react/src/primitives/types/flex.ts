@@ -1,8 +1,18 @@
-import { BaseComponentProps } from "./base";
-
 import { Property } from 'csstype';
 
-export interface FlexProps extends BaseComponentProps {
+import { BaseComponentProps } from "./base";
+
+export interface FlexStyleProps {
+  /**
+   * Controls where the flex items sit on the cross axis.
+   */
+  alignItems?: Property.AlignItems;
+
+  /**
+  * Sets the distribution of space between and around content items
+  */
+  alignContent?: Property.AlignContent;
+
   /**
    * Sets how flex items are placed in the flex container defining the main axis
    * and the direction (normal or reversed). (maps to flex-direction CSS property)
@@ -20,16 +30,6 @@ export interface FlexProps extends BaseComponentProps {
   justifyContent?: Property.JustifyContent;
 
   /**
-   * Controls where the flex items sit on the cross axis.
-   */
-  alignItems?: Property.AlignItems;
-
-  /**
-   * Sets the distribution of space between and around content items
-   */
-  alignContent?: Property.AlignContent;
-
-  /**
    * The flexWrap property is set on containers and it controls what happens when
    * children overflow the size of the container along the main axis. By default,
    * children are forced into a single line (which can shrink elements). If
@@ -39,3 +39,5 @@ export interface FlexProps extends BaseComponentProps {
    */
   wrap?: Property.FlexWrap;
 }
+
+export interface FlexProps extends FlexStyleProps, BaseComponentProps { }

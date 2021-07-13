@@ -69,8 +69,13 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
               src: "signIn",
               onDone: [
                 {
+                  cond: "shouldSetupTOTP",
+                  actions: ["setUser", "setChallengeName"],
+                  target: "#auth.setupTOTP",
+                },
+                {
                   cond: "shouldConfirmSignIn",
-                  actions: "setUser",
+                  actions: ["setUser", "setChallengeName"],
                   target: "#auth.confirmSignIn",
                 },
                 {
@@ -114,7 +119,45 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
             invoke: {
               src: "confirmSignIn",
               onDone: {
-                actions: "setUser",
+                actions: ["setUser", "clearChallengeName"],
+                target: "resolved",
+              },
+              onError: {
+                actions: "setRemoteError",
+                target: "rejected",
+              },
+            },
+          },
+          rejected: {
+            always: "edit.error",
+          },
+          resolved: {
+            type: "final",
+          },
+        },
+      },
+      setupTOTP: {
+        initial: "edit",
+        exit: ["clearFormValues, clearError"],
+        onDone: "idle",
+        states: {
+          edit: {
+            initial: "clean",
+            states: {
+              clean: {},
+              error: {},
+            },
+            on: {
+              SUBMIT: "submit",
+              SIGN_IN: "#auth.signIn",
+              INPUT: { actions: "handleInput" },
+            },
+          },
+          submit: {
+            invoke: {
+              src: "verifyTotpToken",
+              onDone: {
+                actions: ["setUser", "clearChallengeName"],
                 target: "resolved",
               },
               onError: {
@@ -307,6 +350,12 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
           return event.data;
         },
       }),
+      setChallengeName: assign({
+        challengeName(_, event) {
+          return event.data?.challengeName;
+        },
+      }),
+      clearChallengeName: assign({ challengeName: undefined }),
     },
     // See: https://xstate.js.org/docs/guides/guards.html#guards-condition-functions
     guards: {
@@ -318,6 +367,15 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
         ];
 
         if (validChallengeNames.includes(challengeName)) {
+          return true;
+        }
+
+        return false;
+      },
+      shouldSetupTOTP: (context, event) => {
+        const challengeName = get(event, "data.challengeName");
+
+        if (challengeName === AuthChallengeNames.MFA_SETUP) {
           return true;
         }
 
@@ -342,10 +400,24 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
         return Auth.signIn(username, password);
       },
       async confirmSignIn(context, event) {
-        const { user } = context;
+        const { challengeName, user } = context;
         const { confirmation_code: code } = event.data;
 
-        return Auth.confirmSignIn(user, code);
+        let mfaType;
+        if (
+          challengeName === AuthChallengeNames.SMS_MFA ||
+          challengeName === AuthChallengeNames.SOFTWARE_TOKEN_MFA
+        ) {
+          mfaType = challengeName;
+        }
+
+        return Auth.confirmSignIn(user, code, mfaType);
+      },
+      async verifyTotpToken(context, event) {
+        const { user } = context;
+        const { confirmation_code } = event.data;
+
+        return Auth.verifyTotpToken(user, confirmation_code);
       },
       async confirmSignUp(context, event) {
         const { username, confirmation_code: code } = event.data;

@@ -1,0 +1,9 @@
+.amplify-ui-divider.border-style-override {
+  border-style: dashed;
+}
+
+.amplify-ui-divider.border-width-override {
+  --border-width-small: 2px;
+  --border-width-medium: 4px;
+  --border-width-large: 8px;
+}
