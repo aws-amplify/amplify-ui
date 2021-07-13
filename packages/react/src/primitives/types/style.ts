@@ -4,31 +4,24 @@ import { ImageStyleProps } from "./image";
 
 export interface BaseStyleProps {
   backgroundColor?: Property.BackgroundColor;
-  color?: Property.Color;
-
-  boxShadow?: Property.BoxShadow;
-
-  padding?: Property.Padding;
-
   border?: Property.Border;
   borderRadius?: Property.BorderRadius;
-
-  height?: Property.Height;
-  maxHeight?: Property.MaxHeight;
-  minHeight?: Property.MinHeight;
-
-  width?: Property.Width;
-  maxWidth?: Property.MaxWidth;
-  minWidth?: Property.MinWidth;
-
-  opacity?: Property.Opacity;
-
+  boxShadow?: Property.BoxShadow;
+  color?: Property.Color;
   fontFamily?: Property.FontFamily;
   fontStyle?: Property.FontStyle;
   fontWeight?: Property.FontWeight;
+  height?: Property.Height;
   letterSpacing?: Property.LetterSpacing;
   lineHeight?: Property.LineHeight;
+  maxHeight?: Property.MaxHeight;
+  maxWidth?: Property.MaxWidth;
+  minHeight?: Property.MinHeight;
+  minWidth?: Property.MinWidth;
+  opacity?: Property.Opacity;
+  padding?: Property.Padding;
   textDecoration?: Property.TextDecoration;
+  width?: Property.Width;
 }
 
 export interface AllStyleProps extends BaseStyleProps, ImageStyleProps, FlexStyleProps { }
