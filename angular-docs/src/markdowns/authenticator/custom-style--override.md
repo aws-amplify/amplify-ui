@@ -11,7 +11,7 @@ _app.component.html_
 _styles.css_
 
 ```css
-#my-authenticator [data-ui-button] {
+#my-authenticator [data-amplify-button] {
   background-color: skyblue;
 }
 ```

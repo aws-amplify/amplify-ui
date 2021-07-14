@@ -1,21 +1,21 @@
 /* We're temporarily adding example class name or else the style will bleed into other pages. */
-.example [data-ui-sign-in] [data-ui-header] {
+.example [data-amplify-authenticator-signin] [data-amplify-header] {
   width: fit-content;
   padding-bottom: 0.75rem;
   border-bottom: 1px solid cornflowerblue;
 }
 
-.example [data-ui-sign-in] [data-ui-button] {
+.example [data-amplify-authenticator-signin] [data-amplify-button] {
   background-color: inherit;
   color: black;
   border-bottom: 1px solid cornflowerblue;
   border-width: 1px;
 }
 
-.example [data-ui-sign-in] [data-ui-button]:focus {
+.example [data-amplify-authenticator-signin] [data-amplify-button]:focus {
   border-style: none;
 }
 
-#my-authenticator [data-ui-button] {
+#my-authenticator [data-amplify-button] {
   background-color: skyblue;
 }

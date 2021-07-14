@@ -9,7 +9,7 @@ import {
   OnInit,
   TemplateRef,
 } from '@angular/core';
-import { AuthFormData, FormError, OnSubmitHook } from '../../common';
+import { FormError } from '../../common';
 import { AuthPropService, StateMachineService } from '../../services';
 import { Subscription, Event } from 'xstate';
 import { AuthEvent, AuthMachineState } from '@aws-amplify/ui-core';
@@ -25,7 +25,7 @@ export class AmplifySignUpComponent
   public onSignUpInput = new EventEmitter<any>();
   public onSignUpSubmit = new EventEmitter<any>();
 
-  @HostBinding('attr.data-ui-sign-up') dataAttr = '';
+  @HostBinding('attr.data-amplify-authenticator-signup') dataAttr = '';
   @Input() headerText = 'Create a new account';
   private authSubscription: Subscription;
   public customComponents: Record<string, TemplateRef<any>>;

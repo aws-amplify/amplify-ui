@@ -22,7 +22,7 @@ export class AmplifyConfirmSignUpComponent {
   @Output() onConfirmSignUpInput = new EventEmitter<AuthFormData>();
   @Output() onConfirmSignUpSubmit = new EventEmitter<AuthFormData>();
 
-  @HostBinding('attr.data-ui-sign-up') dataAttr = '';
+  @HostBinding('attr.data-amplify-authenticator-confirmsignup') dataAttr = '';
   public customComponents: Record<string, TemplateRef<any>> = {};
   private authSubscription: Subscription;
   public username: string;

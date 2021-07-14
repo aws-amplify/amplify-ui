@@ -28,7 +28,7 @@ export class AmplifySignInComponent
   // Custom events
   @Output() onSignInInput = new EventEmitter<AuthFormData>();
   @Output() onSignInSubmit = new EventEmitter<AuthFormData>();
-  @HostBinding('attr.data-ui-sign-in') dataAttr = '';
+  @HostBinding('attr.data-amplify-authenticator-signin') dataAttr = '';
   @Input() public headerText = 'Sign in to your account';
   public customComponents: Record<string, TemplateRef<any>> = {};
   private authSubscription: Subscription;

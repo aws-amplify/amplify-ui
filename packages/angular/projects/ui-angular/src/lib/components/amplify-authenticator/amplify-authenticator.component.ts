@@ -33,7 +33,7 @@ export class AmplifyAuthenticatorComponent implements AfterContentInit {
   @Output() onConfirmSignUpSubmit = new EventEmitter<AuthFormData>();
 
   @Input() initialAuthState: AuthState = 'signIn';
-  @HostBinding('attr.data-ui-authenticator') dataAttr = '';
+  @HostBinding('attr.data-amplify-authenticator') dataAttr = '';
   @ContentChildren(AmplifyOverrideDirective)
   private customComponentQuery: QueryList<AmplifyOverrideDirective> = null;
   public customComponents: CustomComponents = {};
