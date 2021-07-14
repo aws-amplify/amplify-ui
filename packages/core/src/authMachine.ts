@@ -1,12 +1,7 @@
 import { get } from "lodash";
 import { Auth, Amplify } from "aws-amplify";
 import { Machine, assign } from "xstate";
-import {
-  AuthChallengeNames,
-  AuthContext,
-  AuthEvent,
-  AuthFormData,
-} from "./types";
+import { AuthChallengeNames, AuthContext, AuthEvent } from "./types";
 import { passwordMatches, runValidators } from "./validators";
 
 export const authMachine = Machine<AuthContext, AuthEvent>(
