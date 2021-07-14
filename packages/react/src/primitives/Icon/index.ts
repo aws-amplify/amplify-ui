@@ -1,2 +1,3 @@
-export * from './Icon';
-export * from '@aws-amplify/ui-theme-base/dist/react';
+export * from "./Icon";
+export * from "./demo";
+export * from "@aws-amplify/ui-theme-base/dist/react";
