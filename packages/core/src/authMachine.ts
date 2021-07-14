@@ -392,7 +392,9 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
       async signIn(context, event) {
         const { username, password } = event.data;
 
-        return Auth.signIn(username, password);
+        const loweredUsername = username.toLowerCase();
+
+        return Auth.signIn(loweredUsername, password);
       },
       async confirmSignIn(context, event) {
         const { challengeName, user } = context;
