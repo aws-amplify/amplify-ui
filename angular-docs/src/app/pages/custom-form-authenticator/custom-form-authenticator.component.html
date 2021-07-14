@@ -1,25 +1,23 @@
 <markdown src="markdowns/authenticator/custom-form.md"></markdown>
-<amplify-context-provider>
-  <amplify-authenticator
-    (onSignUpInput)="onInput($event)"
-    (onSignUpSubmit)="onSubmit($event)"
-  >
-    <ng-template amplifyOverride="signUpPassword">
-      <amplify-input name="password"></amplify-input>
-      <amplify-input
-        name="confirm_password"
-        type="password"
-        label="Confirm Password"
-        placeholder="Re-enter your password"
-      ></amplify-input>
-      <div *ngIf="error.passwordMismatch; else passwordMatch" class="error">
-        Your passwords must match.
+<amplify-authenticator
+  (onSignUpInput)="onInput($event)"
+  (onSignUpSubmit)="onSubmit($event)"
+>
+  <ng-template amplifyOverride="signUpPassword">
+    <amplify-input name="password"></amplify-input>
+    <amplify-input
+      name="confirm_password"
+      type="password"
+      label="Confirm Password"
+      placeholder="Re-enter your password"
+    ></amplify-input>
+    <div *ngIf="error.passwordMismatch; else passwordMatch" class="error">
+      Your passwords must match.
+    </div>
+    <ng-template #passwordMatch>
+      <div class="no-error">
+        Your passwords match ✅
       </div>
-      <ng-template #passwordMatch>
-        <div class="no-error">
-          Your passwords match ✅
-        </div>
-      </ng-template>
     </ng-template>
-  </amplify-authenticator>
-</amplify-context-provider>
+  </ng-template>
+</amplify-authenticator>

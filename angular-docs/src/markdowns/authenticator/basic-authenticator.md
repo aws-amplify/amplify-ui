@@ -9,13 +9,11 @@ Amplify provides simple, clean styles to get started with a great experience in 
 1. Inside your `style.css`, import the shared css module:
 
 ```css
-@import '~@aws-amplify/ui-angular/theme.css';
+@import "~@aws-amplify/ui-angular/theme.css";
 ```
 
 2. Wrap your app with `amplify-context-provider`:
 
 ```html
-<amplify-context-provider>
-  <amplify-authenticator></amplify-authenticator>
-</amplify-context-provider>
+<amplify-authenticator></amplify-authenticator>
 ```

@@ -5,9 +5,7 @@ You can assign and target custom id to the authenticator to ensure that your sty
 _app.component.html_
 
 ```html
-<amplify-context-provider>
-  <amplify-authenticator id="my-authenticator"> </amplify-authenticator>
-</amplify-context-provider>
+<amplify-authenticator id="my-authenticator"> </amplify-authenticator>
 ```
 
 _styles.css_

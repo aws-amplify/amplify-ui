@@ -2,18 +2,18 @@ import { Injectable } from '@angular/core';
 import {
   AuthInterpreter,
   authMachine,
-  AuthMachineState
+  AuthMachineState,
 } from '@aws-amplify/ui-core';
 import { Logger } from '@aws-amplify/core';
 import { interpret } from 'xstate';
 
-const logger = new Logger('StateHachine');
+const logger = new Logger('state-machine-service');
 /**
  * AmplifyContextService contains access to the xstate machine
  * and custom components passed by the user.
  */
 @Injectable({
-  providedIn: 'root' // ensure we have a singleton service
+  providedIn: 'root', // ensure we have a singleton service
 })
 export class StateMachineService {
   private _authState: AuthMachineState;
@@ -23,7 +23,7 @@ export class StateMachineService {
   public get services() {
     return {
       submit: formData =>
-        this._authService.send({ type: 'SUBMIT', data: formData })
+        this._authService.send({ type: 'SUBMIT', data: formData }),
     } as const;
   }
   public set authState(authState: AuthMachineState) {
