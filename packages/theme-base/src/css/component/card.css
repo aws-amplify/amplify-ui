@@ -1,4 +1,4 @@
-.amplify-ui-card.amplify-ui-view {
+.amplify-ui-card {
   all: unset;
   display: var(--amplify-ui-components-card-display);
   background-color: var(--amplify-ui-components-card-background-color);
