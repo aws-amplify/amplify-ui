@@ -1,0 +1,7 @@
+.amplify-ui-card.amplify-ui-card-thick-border {
+  border: 3px solid red;
+}
+
+.amplify-ui-card.custom-card-class {
+  border: 3px solid red;
+}

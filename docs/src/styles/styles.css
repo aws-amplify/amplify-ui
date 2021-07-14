@@ -5,6 +5,7 @@
 @import "./flexStyles.css";
 @import "./textStyles.css";
 @import "./dividerStyles.css";
+@import "./cardStyles.css";
 
 .mdx-marker {
   @apply pl-3 -ml-4 -mr-4 bg-gray-700 border-l-4 border-amazon;

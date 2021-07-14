@@ -1,18 +1,24 @@
 {
   "components": {
     "card": {
-      "padding": {
-        "value": "{sizes.3.value}"
-      },
       "background": {
         "color": {
-          "value": "lightgrey"
+          "value": "#fdfdfd"
         }
+      },
+      "border": {
+        "value": "1px solid black"
       },
       "box": {
         "shadow": {
-          "value": "3px 3px 5px 6px #777"
+          "value": "2px 2px 3px 3px #aaa"
         }
+      },
+      "display": {
+        "value": "inline-block"
+      },
+      "padding": {
+        "value": "{sizes.3.value}"
       }
     }
   }

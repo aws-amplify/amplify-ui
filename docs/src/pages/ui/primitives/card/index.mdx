@@ -2,7 +2,10 @@
 title: Card
 ---
 
-The Card component can be used to group similar pieces of content. The card component renders as a div by default but can be changed with the **as** prop.
+import { Card, View, Flex, Text } from "@aws-amplify/ui-react";
+import { CardSample } from "./demo.tsx";
+
+The Card component can be used to group related pieces of content. The card component renders as a div by default but can be changed with the **as** prop.
 
 ## Installation
 
@@ -12,53 +15,94 @@ npm install @aws-amplify/ui-react
 
 ## Usage
 
-```
-<Card>Hello World!!!</Card>
-```
+A card component will include basic styling but the form of the card component will come from the content passed into it.
 
-<Card maxWidth="20rem" boxShadow="3px 3px 5px 6px #ccc" borderRadius="5px">
-  <img src="https://bit.ly/2Z4KKcF" alt="Rear view of modern home with pool" />
-  <Card padding="2rem" boxShadow="none">
-    <View d="flex" alignItems="baseline" boxShadow="none" padding="none">
-      <Text
-        color="#a0aec0"
-        fontWeight="semibold"
-        letterSpacing="wide"
-        fontSize="xs"
-        textTransform="uppercase"
-        ml="2"
-        boxShadow="none"
-        padding="none"
-      >
-        3 beds &bull; 2 baths
+```jsx
+<Card maxWidth="20rem">
+  <Image
+    src="/road-to-milford-new-zealand-800w.jpg"
+    alt="Glittering stream with old log, snowy mountain peaks
+tower over a green field."
+  />
+  <View padding="1rem">
+    <Text fontWeight="bold">New Zealand</Text>
+    <View padding="1rem">
+      <Text>
+        <b>Population: </b>4.917 million
+      </Text>
+      <Text>
+        <b>Capital: </b>Wellington
+      </Text>
+      <Text>
+        <b>Size: </b>103,483 mi<sup>2</sup>
+      </Text>
+      <Text isTruncated={true}>
+        Above are pictured the snowy peaks of southern New Zealand. This view
+        was captured on the way to Milford.
       </Text>
     </View>
-    <Text isTruncated={true} boxShadow="none" fontWeight="bold" padding="none">
-      Modern home in city center in the heart of historic Los Angeles
-    </Text>
-    <View boxShadow="none" padding="none">
-      $1,900.00
-      <View as="span" fontSize="sm" boxShadow="none" padding="none">
-        / wk
-      </View>
-    </View>
-    <View d="flex" mt="2" alignItems="center" boxShadow="none" padding="none">
-      <View
-        as="span"
-        ml="2"
-        color="#a0aec0"
-        fontSize="small"
-        boxShadow="none"
-        padding="none"
-      >
-        34 reviews
-      </View>
-    </View>
-  </Card>
-</Card>
-<View padding="16px">
-  <Text> Hello World</Text>
-  <View>
-    <Text>Hello World Again</Text>
   </View>
-</View>
+</Card>
+```
+
+<CardSample />
+
+### Set rendered HTML element
+
+Change the HTML element rendered by Card with the `as` property
+
+```jsx
+<Card as="section">I'm a Section</Card>
+```
+
+<Card as="section">I'm a Section</Card>
+
+## CSS Styling
+
+There are 3 ways to style a card component. The first is by using styling props on the component itself. The second is by setting or overriding global card styling. The third is by setting local card styling on an individual card.
+
+### Override Amplify styling using props
+
+Use style props to style an instance of `<Card>`
+
+```jsx
+<Card color="red">
+  <Text>Sample Card</Text>
+</Card>
+```
+
+<Card color="red">
+  <Text>Sample Card</Text>
+</Card>
+
+### Global card styling through variables and card class
+
+set css variables or use the built in card class to set global card styling
+
+```css
+/* styles.css */
+:root {
+  --amplify-ui-components-card-border: 3px solid red;
+}
+/* OR */
+.amplify-ui-card {
+  border: 3px solid red;
+}
+```
+
+<Card className="amplify-ui-card-thick-border"> Thick Bordered Card </Card>
+
+### Local card styling with custom css class
+
+```css
+/* styles.css */
+.custom-card-class {
+  border: 3px solid red;
+}
+```
+
+```jsx
+<Card className="custom-card-class">Styled through custom class name</Card>
+```
+
+<Card className="custom-card-class">Styled through custom class name</Card>
