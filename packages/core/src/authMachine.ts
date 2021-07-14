@@ -392,11 +392,9 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
         return Amplify.configure();
       },
       async signIn(context, event) {
-        const { username = "", password } = event.data;
+        const { username, password } = event.data;
 
-        const loweredUsername = username.toLowerCase();
-
-        return Auth.signIn(loweredUsername, password);
+        return Auth.signIn(username, password);
       },
       async confirmSignIn(context, event) {
         const { challengeName, user } = context;
