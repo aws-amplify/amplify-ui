@@ -3,7 +3,7 @@ title: Text
 ---
 
 import { Text } from "@aws-amplify/ui-react";
-import { TextDemo } from "./demo";
+import { TextDemo, TextTruncatedSample, TextStylingSample } from "./demo";
 
 ## Installation
 
@@ -71,14 +71,7 @@ import "@aws-amplify/ui-react/styles.css";
 </Text>;
 ```
 
-<Text isTruncated={true}>
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-  incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-  nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-  Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
-  eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt
-  in culpa qui officia deserunt mollit anim id est laborum.
-</Text>
+<TextTruncatedSample />
 
 ### CSS Styling
 
@@ -104,7 +97,7 @@ import "@aws-amplify/ui-react/styles.css";
 
 <Text className="styled-text">This is my styled text</Text>
 
-#### Override Amplify styling using the CSS variables
+### Override Amplify styling using the CSS variables
 
 Using a custom class and CSS file to override css variant variables:
 
@@ -128,7 +121,7 @@ import "@aws-amplify/ui-react/styles.css";
   This is my styled text
 </Text>
 
-#### Override Amplify styling using props
+### Override Amplify styling using props
 
 Use style props to style an instance of `<Text>`
 
@@ -141,6 +134,4 @@ import "@aws-amplify/ui-react/styles.css";
 </Text>;
 ```
 
-<Text fontWeight="bold" color="red" textDecoration="underline">
-  This is my styled text
-</Text>
+<TextStylingSample />
