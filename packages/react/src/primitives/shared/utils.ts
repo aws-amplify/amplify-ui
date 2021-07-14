@@ -16,7 +16,7 @@ export const convertStylePropsToStyleObj = (props: AllStyleProps) => {
       (typeof stylePropValue !== 'string' || strHasLength(stylePropValue))
     ) {
       const reactStyleProp = ComponentPropsToStylePropsMap[stylePropKey];
-      style[reactStyleProp] = stylePropValue;
+      style = {...style, [reactStyleProp]: stylePropValue };
     }
   });
   return style;
