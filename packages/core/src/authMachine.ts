@@ -1,12 +1,7 @@
-import { get, omit } from "lodash";
+import { get } from "lodash";
 import { Auth, Amplify } from "aws-amplify";
 import { Machine, assign } from "xstate";
-import {
-  AuthChallengeNames,
-  AuthContext,
-  AuthEvent,
-  AuthFormData,
-} from "./types";
+import { AuthChallengeNames, AuthContext, AuthEvent } from "./types";
 import { passwordMatches, runValidators } from "./validators";
 
 export const authMachine = Machine<AuthContext, AuthEvent>(
@@ -437,23 +432,21 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
           },
         } = context;
 
-        const username = formValues[primaryAlias];
-
-        const attributes = omit<AuthFormData>(formValues, [
-          primaryAlias,
-          "confirm_password", // confirm_password field should not be sent to Cognito
-        ]);
-
-        if (attributes.phone_number) {
-          attributes.phone_number = attributes.phone_number.replace(
+        if (formValues.phone_number) {
+          formValues.phone_number = formValues.phone_number.replace(
             /[^A-Z0-9+]/gi,
             ""
           );
         }
+
+        const username = formValues[primaryAlias];
+        delete formValues[primaryAlias];
+        delete formValues.confirm_password; // confirm_password field should not be sent to Cognito
+
         const result = await Auth.signUp({
           username,
           password,
-          attributes,
+          attributes: formValues,
         });
 
         // TODO `cond`itionally transition to `signUp.confirm` or `resolved` based on result
