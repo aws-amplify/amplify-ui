@@ -1,8 +1,7 @@
-import { getStyleCssVarsFromProps, getNonStyleProps } from "../utils";
-import { render, screen } from "@testing-library/react";
+import { convertStylePropsToStyleObj, getNonStyleProps } from "../utils";
 import "@testing-library/jest-dom";
 import "@testing-library/jest-dom/extend-expect";
-import { CustomPropertiesMap, StyleProps, ViewProps } from "../../types";
+import { ComponentPropsToStylePropsMap, ViewProps } from "../../types";
 
 const props: ViewProps = {
   backgroundColor: "blue",
@@ -23,13 +22,13 @@ const props: ViewProps = {
   className: "my-section",
 };
 
-describe("getStyleCssVarsFromProps: ", () => {
-  it("should convert style props to CSS vars", () => {
-    const style = getStyleCssVarsFromProps(props);
-    Object.keys(CustomPropertiesMap).forEach(prop => {
-      expect(style[CustomPropertiesMap[prop]]).toBe(props[prop]);
+describe("convertStylePropsToStyleObj: ", () => {
+  it("should convert style props to a style object", () => {
+    const style = convertStylePropsToStyleObj(props);
+    Object.keys(ComponentPropsToStylePropsMap).forEach(prop => {
+      expect(style[prop]).toBe(props[prop]);
     });
-    expect(style["--as"]).toBeUndefined();
+    expect(style["as"]).toBeUndefined();
   });
 
   it("should ignore undefined, null or empty string style prop values", () => {
@@ -41,13 +40,13 @@ describe("getStyleCssVarsFromProps: ", () => {
       ariaLabel: "important section",
       as: "section",
     };
-    const style = getStyleCssVarsFromProps(props);
+    const style = convertStylePropsToStyleObj(props);
 
-    expect(style[CustomPropertiesMap.backgroundColor]).toBeUndefined();
-    expect(style[CustomPropertiesMap.color]).toBeUndefined();
-    expect(style[CustomPropertiesMap.border]).toBeUndefined();
-    expect(style[CustomPropertiesMap.borderRadius]).toBe(props.borderRadius);
-    expect(style["--as"]).toBeUndefined();
+    expect(style["backgroundColor"]).toBeUndefined();
+    expect(style["color"]).toBeUndefined();
+    expect(style["border"]).toBeUndefined();
+    expect(style["borderRadius"]).toBe(props.borderRadius);
+    expect(style["as"]).toBeUndefined();
   });
 });
 

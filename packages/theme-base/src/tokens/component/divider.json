@@ -1,0 +1,28 @@
+{
+  "components": {
+    "divider": {
+      "border": {
+        "style": {
+          "value": "{border.style.solid.value}"
+        },
+        "color": {
+          "value": "{colors.gray.600.value}"
+        },
+        "width": {
+          "small": {
+            "value": "{border.width.small.value}"
+          },
+          "medium": {
+            "value": "{border.width.medium.value}"
+          },
+          "large": {
+            "value": "{border.width.large.value}"
+          }
+        }
+      },
+      "opacity": {
+        "value": "{opacities.60.value}"
+      }
+    }
+  }
+}

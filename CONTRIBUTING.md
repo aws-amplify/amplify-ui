@@ -14,7 +14,7 @@
 1. Create/Update content based on the URL.
 
    For example, the content for
-   http://localhost:5000/components/authenticator is located at [`docs/src/content/components/authenticator/index.mdx`](docs/src/content/components/authenticator/index.mdx)
+   http://localhost:5000/components/authenticator is located at [`docs/src/pages/components/authenticator/index.mdx`](docs/src/pages/components/authenticator/index.mdx)
 
 Internally, this content is served by a single, Next.js [optional catch all route](https://nextjs.org/docs/routing/dynamic-routes#optional-catch-all-routes):
 [`docs/src/pages/[[...slugs]].tsx`](docs/src/pages/[[...slugs]].tsx).
