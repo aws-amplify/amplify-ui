@@ -1,9 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import "@testing-library/jest-dom/extend-expect";
-import { kebabCase } from "lodash";
 import { Badge } from "../Badge";
-import { ComponentPropsToStylePropsMap } from "../../types";
 
 describe("Badge: ", () => {
   const badgeText = "Badge primitive";
@@ -25,7 +23,7 @@ describe("Badge: ", () => {
   it("can apply a custom className", async () => {
     render(<Badge className="custom-badge">{badgeText}</Badge>);
     const badge = await screen.findByText(badgeText);
-    expect(badge.classList.contains("custom-flex")).toBe(true);
+    expect(badge.classList.contains("custom-badge")).toBe(true);
   });
 
   it("can render any arbitrary data-* attribute", async () => {
