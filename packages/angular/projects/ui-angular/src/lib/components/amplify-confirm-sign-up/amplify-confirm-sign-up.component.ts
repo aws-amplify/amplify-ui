@@ -2,7 +2,6 @@ import { Component, HostBinding, TemplateRef } from '@angular/core';
 import { AuthEvent, AuthMachineState } from '@aws-amplify/ui-core';
 import { Logger } from '@aws-amplify/core';
 import { Event, Subscription } from 'xstate';
-import { FormError } from '../../common';
 import { AuthPropService, StateMachineService } from '../../services';
 
 const logger = new Logger('ConfirmSignUp');
@@ -16,9 +15,7 @@ export class AmplifyConfirmSignUpComponent {
   public customComponents: Record<string, TemplateRef<any>> = {};
   private authSubscription: Subscription;
   public username: string;
-  public context = () => ({
-    errors: this.contextService.formError,
-  });
+  public context = () => ({});
 
   constructor(
     private stateMachine: StateMachineService,
@@ -41,7 +38,6 @@ export class AmplifyConfirmSignUpComponent {
   }
 
   ngAfterContentInit(): void {
-    this.contextService.formError = {};
     this.customComponents = this.contextService.customComponents;
   }
 
@@ -55,15 +51,10 @@ export class AmplifyConfirmSignUpComponent {
   onStateUpdate(state: AuthMachineState): void {
     const message = state.event.data?.message;
     logger.info('An error was encountered while signing up:', message);
-    this.contextService.formError = { cross_field: [message] };
   }
 
   public isLoading(): boolean {
     return !this.stateMachine.authState.matches('confirmSignUp.edit');
-  }
-
-  get formError(): FormError {
-    return this.contextService.formError;
   }
 
   send(event: Event<AuthEvent>): void {
@@ -94,7 +85,6 @@ export class AmplifyConfirmSignUpComponent {
 
   async onSubmit($event): Promise<void> {
     $event.preventDefault();
-    this.contextService.formError = {};
     // get form data
     const formValues = this.stateMachine.authState.context.formValues;
     logger.log('Confirm sign up form submitted with', formValues);

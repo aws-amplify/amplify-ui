@@ -8,7 +8,6 @@ import {
   OnInit,
   TemplateRef,
 } from '@angular/core';
-import { FormError } from '../../common';
 import { AuthPropService, StateMachineService } from '../../services';
 import { Subscription, Event } from 'xstate';
 import { AuthEvent, AuthMachineState } from '@aws-amplify/ui-core';
@@ -24,9 +23,7 @@ export class AmplifySignUpComponent
   @Input() headerText = 'Create a new account';
   private authSubscription: Subscription;
   public customComponents: Record<string, TemplateRef<any>>;
-  public context = () => ({
-    errors: this.contextService.formError,
-  });
+  public context = () => ({});
 
   constructor(
     private stateMachine: StateMachineService,
@@ -40,7 +37,6 @@ export class AmplifySignUpComponent
   }
 
   ngAfterContentInit(): void {
-    this.contextService.formError = {};
     this.customComponents = this.contextService.customComponents;
   }
 
@@ -52,12 +48,7 @@ export class AmplifySignUpComponent
     if (state.matches('signUp.edit.error')) {
       const message = state.event.data?.message;
       logger.info('An error was encountered while signing up:', message);
-      this.contextService.formError = { cross_field: [message] };
     }
-  }
-
-  get formError(): FormError {
-    return this.contextService.formError;
   }
 
   public isLoading(): boolean {
@@ -69,7 +60,6 @@ export class AmplifySignUpComponent
   }
 
   async onSubmit($event): Promise<void> {
-    this.contextService.formError = {};
     $event.preventDefault();
     const formValues = this.stateMachine.authState.context.formValues;
     logger.log('Sign up form submitted with', formValues);

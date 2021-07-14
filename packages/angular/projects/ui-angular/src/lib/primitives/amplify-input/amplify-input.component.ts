@@ -11,7 +11,6 @@ import {
   getAttributeMap,
   AttributeInfo,
   isInputType,
-  FormError,
 } from '../../common';
 import { AuthPropService } from '../../services';
 
@@ -41,10 +40,6 @@ export class AmplifyInputComponent {
 
   get attributeMap(): Record<AuthAttribute, AttributeInfo> {
     return getAttributeMap();
-  }
-
-  get error(): FormError {
-    return this.contextService.formError;
   }
 
   // infers what the `type` of underlying input element should be.

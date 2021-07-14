@@ -10,7 +10,6 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { AuthPropService, StateMachineService } from '../../services';
-import { FormError } from '../../common';
 import { Event, Subscription } from 'xstate';
 import { AuthEvent, AuthMachineState } from '@aws-amplify/ui-core';
 
@@ -27,9 +26,7 @@ export class AmplifySignInComponent
   @Input() public headerText = 'Sign in to your account';
   public customComponents: Record<string, TemplateRef<any>> = {};
   private authSubscription: Subscription;
-  public context = () => ({
-    errors: this.contextService.formError,
-  });
+  public context = () => ({});
 
   constructor(
     private stateMachine: StateMachineService,
@@ -43,7 +40,6 @@ export class AmplifySignInComponent
   }
 
   ngAfterContentInit(): void {
-    this.contextService.formError = {};
     this.customComponents = this.contextService.customComponents;
   }
 
@@ -56,12 +52,7 @@ export class AmplifySignInComponent
     if (state.event.type.includes('signIn.edit.error')) {
       const message = state.event.data?.message;
       logger.info('An error was encountered while signing up:', message);
-      this.contextService.formError = { cross_field: [message] };
     }
-  }
-
-  get formError(): FormError {
-    return this.contextService.formError;
   }
 
   public isLoading(): boolean {
@@ -87,7 +78,6 @@ export class AmplifySignInComponent
 
   async onSubmit($event): Promise<void> {
     $event.preventDefault();
-    this.contextService.formError = {};
 
     const formValues = this.stateMachine.authState.context.formValues;
     logger.log('Sign in form submitted with', formValues);
