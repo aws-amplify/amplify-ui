@@ -24,7 +24,7 @@ glob(iconSetPath, function(error, files) {
     const source = fs.readFileSync(filePath, { encoding: "utf8" });
     const outputPath = `${dirPath}${iconName}.jsx`;
 
-    // apparently there are some duplicates?
+    // apparently there are some duplicates and we start with the plain ones
     if (iconNames.indexOf(iconName) >= 0) {
       return;
     }
