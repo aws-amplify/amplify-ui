@@ -1,6 +1,6 @@
-const glob = require('glob');
-const fs = require('fs-extra');
-const {pascalCase} = require('change-case');
+const glob = require("glob");
+const fs = require("fs-extra");
+const { pascalCase } = require("change-case");
 
 const dirPath = `dist/react/`;
 fs.removeSync(dirPath); // we could also do this in an npm script with rimraf
@@ -9,32 +9,53 @@ const iconNames = [];
 
 // we should probably use path.resolve and __dirname here I think
 // in case we run the npm from the root or this package
-glob("../../material-design-icons/src/**/materialicons/*.svg", function (er, files) {
-  
+const iconSetPath = "../../material-design-icons/src/**/materialicons/*.svg";
+
+glob(iconSetPath, function(error, files) {
+  if (error) {
+    throw error;
+  }
+
   files.forEach(filePath => {
-    const iconName = `Icon${pascalCase(filePath.split('/')[5])}`;
-    const source = fs.readFileSync(filePath, {encoding:'utf8'});
+    // I am using relative for now because absolute path may vary among people
+    // which will in turn affect the index we pick after splitting the file path
+    // looking for a better solution
+    const iconName = `Icon${pascalCase(filePath.split("/")[5])}`;
+    const source = fs.readFileSync(filePath, { encoding: "utf8" });
     const outputPath = `${dirPath}${iconName}.jsx`;
 
     // apparently there are some duplicates?
     if (iconNames.indexOf(iconName) >= 0) {
       return;
     }
-    
+
     const reactCode = `import React from 'react';
-export const ${iconName} = () => {
+export const ${iconName} = (props) => {
+  const {
+    size = "medium",
+    ariaLabel,
+    ...rest
+  } = props;
   return (
-    ${source.replace('<path d="M0 0h24v24H0V0z" fill="none"/>','')}
+    ${source
+      .replace('<path d="M0 0h24v24H0z" fill="none"/>', "")
+      .replace('width="24"', 'className="amplify-ui-icon"')
+      .replace(
+        'height="24"',
+        "data-size={size} aria-label={ariaLabel} {...rest}"
+      )}
   )
-};`
+};`;
     fs.ensureDirSync(dirPath);
     fs.writeFileSync(outputPath, reactCode);
     iconNames.push(iconName);
   });
-  
-  const reactCode = iconNames.map(iconName => {
-    return `export * from './${iconName}'`;
-  }).join(`\n`);
-  
+
+  const reactCode = iconNames
+    .map(iconName => {
+      return `export * from './${iconName}'`;
+    })
+    .join(`\n`);
+
   fs.writeFileSync(`${dirPath}index.js`, reactCode);
 });
