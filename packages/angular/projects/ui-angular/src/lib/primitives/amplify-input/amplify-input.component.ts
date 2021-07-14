@@ -3,7 +3,7 @@ import {
   ControlContainer,
   FormGroup,
   FormGroupDirective,
-  ValidationErrors
+  ValidationErrors,
 } from '@angular/forms';
 import {
   AuthAttribute,
@@ -11,9 +11,9 @@ import {
   getAttributeMap,
   AttributeInfo,
   isInputType,
-  FormError
+  FormError,
 } from '../../common';
-import { AuthenticatorContextService } from '../../services';
+import { AuthPropService } from '../../services';
 
 /**
  * Contains an input element and its label. Intended to be used with
@@ -24,8 +24,8 @@ import { AuthenticatorContextService } from '../../services';
   templateUrl: './amplify-input.component.html',
   viewProviders: [
     // https://stackoverflow.com/a/46452442/10103143
-    { provide: ControlContainer, useExisting: FormGroupDirective }
-  ]
+    { provide: ControlContainer, useExisting: FormGroupDirective },
+  ],
 })
 export class AmplifyInputComponent {
   @Input() name: AuthAttribute;
@@ -37,7 +37,7 @@ export class AmplifyInputComponent {
   @Input() initialValue = '';
   @Input() disabled = false;
 
-  constructor(private contextService: AuthenticatorContextService) {}
+  constructor(private contextService: AuthPropService) {}
 
   get attributeMap(): Record<AuthAttribute, AttributeInfo> {
     return getAttributeMap();

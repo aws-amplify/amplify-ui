@@ -3,22 +3,19 @@ import {
   EventEmitter,
   HostBinding,
   Output,
-  TemplateRef
+  TemplateRef,
 } from '@angular/core';
 import { AuthEvent, AuthMachineState } from '@aws-amplify/ui-core';
 import { Logger } from '@aws-amplify/core';
 import { Event, Subscription } from 'xstate';
 import { AuthFormData, FormError } from '../../common';
-import {
-  AuthenticatorContextService,
-  StateMachineService
-} from '../../services';
+import { AuthPropService, StateMachineService } from '../../services';
 
 const logger = new Logger('ConfirmSignUp');
 
 @Component({
   selector: 'amplify-confirm-sign-up',
-  templateUrl: './amplify-confirm-sign-up.component.html'
+  templateUrl: './amplify-confirm-sign-up.component.html',
 })
 export class AmplifyConfirmSignUpComponent {
   // custom events
@@ -30,12 +27,12 @@ export class AmplifyConfirmSignUpComponent {
   private authSubscription: Subscription;
   public username: string;
   public context = () => ({
-    errors: this.contextService.formError
+    errors: this.contextService.formError,
   });
 
   constructor(
     private stateMachine: StateMachineService,
-    private contextService: AuthenticatorContextService
+    private contextService: AuthPropService
   ) {}
 
   ngOnInit(): void {
@@ -48,7 +45,7 @@ export class AmplifyConfirmSignUpComponent {
       this.username = username;
       this.send({
         type: 'INPUT',
-        data: { name: 'username', value: this.username }
+        data: { name: 'username', value: this.username },
       });
     }
   }
@@ -101,8 +98,8 @@ export class AmplifyConfirmSignUpComponent {
     this.send({
       type: 'RESEND',
       data: {
-        username: this.stateMachine.user?.username
-      }
+        username: this.stateMachine.user?.username,
+      },
     });
   }
 
@@ -111,7 +108,7 @@ export class AmplifyConfirmSignUpComponent {
     const { name, value } = $event.target;
     this.send({
       type: 'INPUT',
-      data: { name, value }
+      data: { name, value },
     });
   }
 
@@ -127,7 +124,7 @@ export class AmplifyConfirmSignUpComponent {
     } else {
       this.send({
         type: 'SUBMIT',
-        data: formValues
+        data: formValues,
       });
     }
   }

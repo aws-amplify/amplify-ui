@@ -7,20 +7,17 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  TemplateRef
+  TemplateRef,
 } from '@angular/core';
 import { AuthFormData, FormError, OnSubmitHook } from '../../common';
-import {
-  AuthenticatorContextService,
-  StateMachineService
-} from '../../services';
+import { AuthPropService, StateMachineService } from '../../services';
 import { Subscription, Event } from 'xstate';
 import { AuthEvent, AuthMachineState } from '@aws-amplify/ui-core';
 
 const logger = new Logger('SignUp');
 @Component({
   selector: 'amplify-sign-up',
-  templateUrl: './amplify-sign-up.component.html'
+  templateUrl: './amplify-sign-up.component.html',
 })
 export class AmplifySignUpComponent
   implements AfterContentInit, OnInit, OnDestroy {
@@ -33,12 +30,12 @@ export class AmplifySignUpComponent
   private authSubscription: Subscription;
   public customComponents: Record<string, TemplateRef<any>>;
   public context = () => ({
-    errors: this.contextService.formError
+    errors: this.contextService.formError,
   });
 
   constructor(
     private stateMachine: StateMachineService,
-    private contextService: AuthenticatorContextService
+    private contextService: AuthPropService
   ) {}
 
   ngOnInit(): void {
@@ -95,7 +92,7 @@ export class AmplifySignUpComponent
     } else {
       this.send({
         type: 'SUBMIT',
-        data: formValues
+        data: formValues,
       });
     }
   }
@@ -105,7 +102,7 @@ export class AmplifySignUpComponent
     const { name, value } = $event.target;
     this.send({
       type: 'INPUT',
-      data: { name, value }
+      data: { name, value },
     });
   }
 
