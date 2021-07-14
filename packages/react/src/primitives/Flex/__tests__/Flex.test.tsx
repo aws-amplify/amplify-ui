@@ -1,8 +1,10 @@
-import { Flex } from "../Flex";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import "@testing-library/jest-dom/extend-expect";
-import { CustomPropertiesMap } from "../../types";
+import { kebabCase } from "lodash";
+
+import { Flex } from "../Flex";
+import { ComponentPropsToStylePropsMap } from "../../types";
 
 describe("Flex: ", () => {
   const flexText = "Flex primitive";
@@ -21,20 +23,32 @@ describe("Flex: ", () => {
       </Flex>
     );
     const flex = await screen.findByText(flexText);
-    expect(flex.style.getPropertyValue(CustomPropertiesMap.direction)).toBe(
-      "column-reverse"
-    );
-    expect(flex.style.getPropertyValue(CustomPropertiesMap.gap)).toBe("10%");
     expect(
-      flex.style.getPropertyValue(CustomPropertiesMap.justifyContent)
+      flex.style.getPropertyValue(
+        kebabCase(ComponentPropsToStylePropsMap.direction)
+      )
+    ).toBe("column-reverse");
+    expect(flex.style.getPropertyValue(ComponentPropsToStylePropsMap.gap)).toBe(
+      "10%"
+    );
+    expect(
+      flex.style.getPropertyValue(
+        kebabCase(ComponentPropsToStylePropsMap.justifyContent)
+      )
     ).toBe("flex-end");
-    expect(flex.style.getPropertyValue(CustomPropertiesMap.alignItems)).toBe(
-      "center"
-    );
-    expect(flex.style.getPropertyValue(CustomPropertiesMap.alignContent)).toBe(
-      "space-between"
-    );
-    expect(flex.style.getPropertyValue(CustomPropertiesMap.wrap)).toBe("wrap");
+    expect(
+      flex.style.getPropertyValue(
+        kebabCase(ComponentPropsToStylePropsMap.alignItems)
+      )
+    ).toBe("center");
+    expect(
+      flex.style.getPropertyValue(
+        kebabCase(ComponentPropsToStylePropsMap.alignContent)
+      )
+    ).toBe("space-between");
+    expect(
+      flex.style.getPropertyValue(kebabCase(ComponentPropsToStylePropsMap.wrap))
+    ).toBe("wrap");
   });
 
   it("can apply a custom className", async () => {

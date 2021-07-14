@@ -3,7 +3,8 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import "@testing-library/jest-dom/extend-expect";
 import { ComponentClassNames } from "../../shared";
-import { CustomPropertiesMap } from "../../types";
+import { ComponentPropsToStylePropsMap } from "../../types";
+import { kebabCase } from "lodash";
 
 const altText = "Cool cat";
 const src = "http://localhost/cat.jpg";
@@ -90,20 +91,33 @@ describe("Image: ", () => {
         src={src}
         width="100%"
         height="auto"
-        opacity="50%"
+        opacity="0.5"
+        objectFit="cover"
+        objectPosition="top left"
         id="stylingTest"
       />
     );
 
     const image = await screen.findByTestId("stylingTest");
-    expect(image.style.getPropertyValue(CustomPropertiesMap.width)).toBe(
-      "100%"
-    );
-    expect(image.style.getPropertyValue(CustomPropertiesMap.height)).toBe(
-      "auto"
-    );
-    expect(image.style.getPropertyValue(CustomPropertiesMap.opacity)).toBe(
-      "50%"
-    );
+
+    expect(
+      image.style.getPropertyValue(ComponentPropsToStylePropsMap.width)
+    ).toBe("100%");
+    expect(
+      image.style.getPropertyValue(ComponentPropsToStylePropsMap.height)
+    ).toBe("auto");
+    expect(
+      image.style.getPropertyValue(ComponentPropsToStylePropsMap.opacity)
+    ).toBe("0.5");
+    expect(
+      image.style.getPropertyValue(
+        kebabCase(ComponentPropsToStylePropsMap.objectFit)
+      )
+    ).toBe("cover");
+    expect(
+      image.style.getPropertyValue(
+        kebabCase(ComponentPropsToStylePropsMap.objectPosition)
+      )
+    ).toBe("top left");
   });
 });

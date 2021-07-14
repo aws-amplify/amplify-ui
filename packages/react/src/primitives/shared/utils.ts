@@ -1,20 +1,22 @@
-import { CssPropertiesMap, StyleProps } from "../types/index";
+import { ComponentPropsToStylePropsMap, AllStyleProps, ComponentPropToStyleProp } from "../types/index";
+
+export const strHasLength = (str: unknown): str is string => typeof str === 'string' && str.length > 0;
 
 /**
  * Convert style props to CSS variables for React style prop
  * Note: Will filter out undefined, null, and empty string prop values
- * @param props StyleProps
  * @returns CSSProperties styles
  */
-export const convertStylePropsToStyleObj = (props: {}) => {
+export const convertStylePropsToStyleObj = (props: AllStyleProps) => {
   let style: React.CSSProperties = {};
-  Object.keys(CssPropertiesMap).forEach(propKey => {
+  (Object.keys(ComponentPropsToStylePropsMap) as Array<keyof ComponentPropToStyleProp>).forEach((stylePropKey) => {
+    const stylePropValue = props[stylePropKey];
     if (
-      propKey in props &&
-      props[propKey] != null &&
-      props[propKey].length > 0
+      stylePropValue != null &&
+      (typeof stylePropValue !== 'string' || strHasLength(stylePropValue))
     ) {
-      style[propKey] = props[propKey];
+      const reactStyleProp = ComponentPropsToStylePropsMap[stylePropKey];
+      style = {...style, [reactStyleProp]: stylePropValue };
     }
   });
   return style;
@@ -28,7 +30,7 @@ export const convertStylePropsToStyleObj = (props: {}) => {
 export const getNonStyleProps = (props: {}) => {
   const nonStyleProps = {};
   Object.keys(props).forEach(propKey => {
-    if (!(propKey in CssPropertiesMap)) {
+    if (!(propKey in ComponentPropsToStylePropsMap)) {
       nonStyleProps[propKey] = props[propKey];
     }
   });
