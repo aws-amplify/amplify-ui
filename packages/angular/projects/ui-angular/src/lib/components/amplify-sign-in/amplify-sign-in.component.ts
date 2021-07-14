@@ -2,17 +2,15 @@ import { Logger } from '@aws-amplify/core';
 import {
   AfterContentInit,
   Component,
-  EventEmitter,
   HostBinding,
   Input,
   OnDestroy,
   OnInit,
-  Output,
   TemplateRef,
   ViewEncapsulation,
 } from '@angular/core';
 import { AuthPropService, StateMachineService } from '../../services';
-import { AuthFormData, FormError, OnSubmitHook } from '../../common';
+import { FormError } from '../../common';
 import { Event, Subscription } from 'xstate';
 import { AuthEvent, AuthMachineState } from '@aws-amplify/ui-core';
 
@@ -25,9 +23,6 @@ const logger = new Logger('SignIn');
 })
 export class AmplifySignInComponent
   implements AfterContentInit, OnInit, OnDestroy {
-  // Custom events
-  @Output() onSignInInput = new EventEmitter<AuthFormData>();
-  @Output() onSignInSubmit = new EventEmitter<AuthFormData>();
   @HostBinding('attr.data-amplify-authenticator-signin') dataAttr = '';
   @Input() public headerText = 'Sign in to your account';
   public customComponents: Record<string, TemplateRef<any>> = {};
@@ -50,13 +45,6 @@ export class AmplifySignInComponent
   ngAfterContentInit(): void {
     this.contextService.formError = {};
     this.customComponents = this.contextService.customComponents;
-
-    // attach sign in hooks
-    const props = this.contextService.props.signIn;
-    if (props) {
-      this.onSignInInput = props.onSignInInput;
-      this.onSignInSubmit = props.onSignInSubmit;
-    }
   }
 
   ngOnDestroy(): void {
@@ -65,13 +53,10 @@ export class AmplifySignInComponent
   }
 
   onStateUpdate(state: AuthMachineState): void {
-    const formValues = state.context.formValues;
     if (state.event.type.includes('signIn.edit.error')) {
       const message = state.event.data?.message;
       logger.info('An error was encountered while signing up:', message);
       this.contextService.formError = { cross_field: [message] };
-    } else if (state.event.type === 'INPUT') {
-      this.onSignInInput.emit(formValues);
     }
   }
 
@@ -107,13 +92,9 @@ export class AmplifySignInComponent
     const formValues = this.stateMachine.authState.context.formValues;
     logger.log('Sign in form submitted with', formValues);
 
-    if (this.onSignInSubmit.observers.length > 0) {
-      this.onSignInSubmit.emit(formValues);
-    } else {
-      this.send({
-        type: 'SUBMIT',
-        data: formValues,
-      });
-    }
+    this.send({
+      type: 'SUBMIT',
+      data: formValues,
+    });
   }
 }

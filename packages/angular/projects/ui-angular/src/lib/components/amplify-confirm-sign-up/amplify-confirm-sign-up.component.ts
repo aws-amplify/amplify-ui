@@ -1,14 +1,8 @@
-import {
-  Component,
-  EventEmitter,
-  HostBinding,
-  Output,
-  TemplateRef,
-} from '@angular/core';
+import { Component, HostBinding, TemplateRef } from '@angular/core';
 import { AuthEvent, AuthMachineState } from '@aws-amplify/ui-core';
 import { Logger } from '@aws-amplify/core';
 import { Event, Subscription } from 'xstate';
-import { AuthFormData, FormError } from '../../common';
+import { FormError } from '../../common';
 import { AuthPropService, StateMachineService } from '../../services';
 
 const logger = new Logger('ConfirmSignUp');
@@ -18,10 +12,6 @@ const logger = new Logger('ConfirmSignUp');
   templateUrl: './amplify-confirm-sign-up.component.html',
 })
 export class AmplifyConfirmSignUpComponent {
-  // custom events
-  @Output() onConfirmSignUpInput = new EventEmitter<AuthFormData>();
-  @Output() onConfirmSignUpSubmit = new EventEmitter<AuthFormData>();
-
   @HostBinding('attr.data-amplify-authenticator-confirmsignup') dataAttr = '';
   public customComponents: Record<string, TemplateRef<any>> = {};
   private authSubscription: Subscription;
@@ -53,11 +43,6 @@ export class AmplifyConfirmSignUpComponent {
   ngAfterContentInit(): void {
     this.contextService.formError = {};
     this.customComponents = this.contextService.customComponents;
-    const props = this.contextService.props?.confirmSignUp;
-    if (props) {
-      this.onConfirmSignUpInput = props.onConfirmSignUpInput;
-      this.onConfirmSignUpSubmit = props.onConfirmSignUpSubmit;
-    }
   }
 
   ngOnDestroy(): void {
@@ -68,14 +53,9 @@ export class AmplifyConfirmSignUpComponent {
   }
 
   onStateUpdate(state: AuthMachineState): void {
-    const formValues = state.context.formValues;
-    if (state.matches('confirmSignUp.edit.error')) {
-      const message = state.event.data?.message;
-      logger.info('An error was encountered while signing up:', message);
-      this.contextService.formError = { cross_field: [message] };
-    } else if (state.event.type === 'INPUT') {
-      this.onConfirmSignUpInput.emit(formValues);
-    }
+    const message = state.event.data?.message;
+    logger.info('An error was encountered while signing up:', message);
+    this.contextService.formError = { cross_field: [message] };
   }
 
   public isLoading(): boolean {
@@ -119,13 +99,9 @@ export class AmplifyConfirmSignUpComponent {
     const formValues = this.stateMachine.authState.context.formValues;
     logger.log('Confirm sign up form submitted with', formValues);
 
-    if (this.onConfirmSignUpSubmit.observers.length > 0) {
-      this.onConfirmSignUpSubmit.emit(formValues);
-    } else {
-      this.send({
-        type: 'SUBMIT',
-        data: formValues,
-      });
-    }
+    this.send({
+      type: 'SUBMIT',
+      data: formValues,
+    });
   }
 }

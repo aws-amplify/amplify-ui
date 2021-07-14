@@ -2,10 +2,8 @@ import {
   AfterContentInit,
   Component,
   ContentChildren,
-  EventEmitter,
   HostBinding,
   Input,
-  Output,
   QueryList,
   TemplateRef,
   ViewEncapsulation,
@@ -13,9 +11,8 @@ import {
 import { AuthState } from '../../common/types';
 import { AmplifyOverrideDirective } from '../../directives/amplify-override.directive';
 import { StateMachineService, AuthPropService } from '../../services';
-import { CustomComponents, OnSubmitHook } from '../../common';
+import { CustomComponents } from '../../common';
 import { State } from 'xstate';
-import { AuthFormData } from '@aws-amplify/ui-core';
 
 @Component({
   selector: 'amplify-authenticator',
@@ -24,13 +21,9 @@ import { AuthFormData } from '@aws-amplify/ui-core';
   encapsulation: ViewEncapsulation.None,
 })
 export class AmplifyAuthenticatorComponent implements AfterContentInit {
-  // Custom events
-  @Output() onSignInInput = new EventEmitter<AuthFormData>();
-  @Output() onSignInSubmit = new EventEmitter<AuthFormData>();
-  @Output() onSignUpInput = new EventEmitter<AuthFormData>();
-  @Output() onSignUpSubmit = new EventEmitter<AuthFormData>();
-  @Output() onConfirmSignUpInput = new EventEmitter<AuthFormData>();
-  @Output() onConfirmSignUpSubmit = new EventEmitter<AuthFormData>();
+  /**
+   * TODO: Add back custom events
+   */
 
   @Input() initialAuthState: AuthState = 'signIn';
   @HostBinding('attr.data-amplify-authenticator') dataAttr = '';
@@ -55,20 +48,6 @@ export class AmplifyAuthenticatorComponent implements AfterContentInit {
       this.customComponentQuery
     );
     this.customComponents = this.contextService.customComponents;
-    this.contextService.props = {
-      signIn: {
-        onSignInInput: this.onSignInInput,
-        onSignInSubmit: this.onSignInSubmit,
-      },
-      signUp: {
-        onSignUpInput: this.onSignUpInput,
-        onSignUpSubmit: this.onSignUpSubmit,
-      },
-      confirmSignUp: {
-        onConfirmSignUpInput: this.onConfirmSignUpInput,
-        onConfirmSignUpSubmit: this.onConfirmSignUpSubmit,
-      },
-    };
   }
 
   /**
