@@ -22,6 +22,6 @@ describe("Card component", () => {
   it("can render <section> tag", async () => {
     render(<Card as="section" id="cardId"></Card>);
     const card = (await screen.findByTestId("cardId")) as HTMLHRElement;
-    expect(card.nodeName).toBe("section");
+    expect(card.nodeName).toBe("SECTION");
   });
 });
