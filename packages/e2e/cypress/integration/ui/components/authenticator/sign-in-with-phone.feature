@@ -33,7 +33,7 @@ Feature: Sign In with Phone Number
 
   @React
   Scenario: Sign in with force change password credentials
-    When I type the valid email "FORCE_CHANGE_PHONE_NUMBER"
+    When I type the valid phone number "FORCE_CHANGE_PHONE_NUMBER"
     And I type the valid password "VALID_PASSWORD"
     And I click the "Sign In" button
     Then I see "Change Password"
