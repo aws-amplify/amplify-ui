@@ -23,7 +23,7 @@ export const ConfirmSignInFooter = (
 
   return (
     <Footer>
-      {shouldHideReturnBtn && (
+      {!shouldHideReturnBtn && (
         <Button onClick={() => send({ type: "SIGN_IN" })} type="button">
           Back to Sign In
         </Button>
