@@ -6,7 +6,7 @@ import awsExports from "@environments/auth-with-phone-and-sms-mfa/src/aws-export
 Amplify.configure({
   ...awsExports,
   auth: {
-    login_mechanisms: ['phone_number'],
+    login_mechanisms: ["phone_number"],
   },
 });
 

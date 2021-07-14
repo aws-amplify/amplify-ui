@@ -58,7 +58,7 @@ export const SetupTOTP = (): JSX.Element => {
     <Form
       data-amplify-authenticator-setup-totp=""
       method="post"
-      onSubmit={event => {
+      onSubmit={(event) => {
         event.preventDefault();
 
         const formData = new FormData(event.target);

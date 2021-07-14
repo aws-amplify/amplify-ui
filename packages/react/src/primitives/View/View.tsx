@@ -4,7 +4,7 @@ import { ComponentClassNames } from "../shared/constants";
 import { convertStylePropsToStyleObj, getNonStyleProps } from "../shared/utils";
 import { ViewProps } from "../types/index";
 
-export const View: React.FC<ViewProps> = props => {
+export const View: React.FC<ViewProps> = (props) => {
   const {
     as: asElementTag,
     className,

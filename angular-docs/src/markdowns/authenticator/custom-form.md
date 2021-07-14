@@ -47,7 +47,7 @@ import { AmplifyAuthService } from "@aws-amplify/ui-angular";
 @Component({
   selector: "app-custom-form-authenticator",
   templateUrl: "./custom-form-authenticator.component.html",
-  styleUrls: ["./custom-form-authenticator.component.css"]
+  styleUrls: ["./custom-form-authenticator.component.css"],
 })
 export class CustomFormAuthenticatorComponent {
   // authService provides helper services like submit event emitters.

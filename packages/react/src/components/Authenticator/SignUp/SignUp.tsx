@@ -35,7 +35,7 @@ export function SignUp() {
     <Form
       data-amplify-authenticator-signup=""
       method="post"
-      onSubmit={event => {
+      onSubmit={(event) => {
         event.preventDefault();
 
         const formData = new FormData(event.target);
@@ -57,7 +57,7 @@ export function SignUp() {
         />
         <SignUp.PasswordControl />
         <SignUp.ConfirmPasswordControl />
-        {secondaryAliases.map(alias => (
+        {secondaryAliases.map((alias) => (
           <SignUp.AliasControl
             key={alias}
             label={UserNameAliasNames[alias].name}

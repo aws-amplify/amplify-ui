@@ -11,7 +11,7 @@ export function UserNameAlias({ ...attrs }) {
   let type = "text";
   const name = loginMechanisms
     .map(
-      v => UserNameAliasNames[v]?.name ?? UserNameAliasNames["username"].name
+      (v) => UserNameAliasNames[v]?.name ?? UserNameAliasNames["username"].name
     )
     .join(" or ");
 

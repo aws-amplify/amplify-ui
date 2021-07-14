@@ -2,8 +2,8 @@
 title: View
 ---
 
-import { View } from "@aws-amplify/ui-react"
-import { ViewDemo } from "./demo"
+import { View } from "@aws-amplify/ui-react";
+import { ViewDemo } from "./demo";
 
 ## Installation
 
@@ -41,11 +41,7 @@ Change the HTML element rendered by View with the `as` property
 ### Disabled state
 
 ```jsx
-<View
-  as="button"
-  isDisabled={true}
-  onClick={() => alert("This won't fire 🚫")}
->
+<View as="button" isDisabled={true} onClick={() => alert("This won't fire 🚫")}>
   Disabled
 </View>
 ```
@@ -59,39 +55,29 @@ Change the HTML element rendered by View with the `as` property
 Setting an `aria-label` attribute and `role` for an icon button
 
 ```jsx
-<View
-  ariaLabel="To the moon!"
-  role="button"
-  onClick={() => alert("👋 hello")}>
+<View ariaLabel="To the moon!" role="button" onClick={() => alert("👋 hello")}>
   🚀
 </View>
 ```
 
-<View
-  ariaLabel="To the moon!"
-  role="button"
-  onClick={() => alert("👋 hello")}>
+<View ariaLabel="To the moon!" role="button" onClick={() => alert("👋 hello")}>
   🚀
 </View>
 
 ### Custom attributes
+
 Pass any attribute to the underlying HTML element
 
 ```jsx
-<View
-  as="progress"
-  data-progress-bar
-  max="100"
-  value="50"
-/>
-
+<View as="progress" data-progress-bar max="100" value="50" />
 ```
+
 <View
   as="progress"
   data-progress-bar
   max="100"
   value="50"
-  style={{all: "revert"}}
+  style={{ all: "revert" }}
 />
 
 ### CSS Styling
@@ -115,7 +101,7 @@ import { View } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 import "./styles.css";
 
-<View className="mountain-view">🏔</View>
+<View className="mountain-view">🏔</View>;
 ```
 
 <View className="mountain-view">🏔</View>

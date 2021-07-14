@@ -24,11 +24,14 @@ export interface BaseStyleProps {
   width?: Property.Width;
 }
 
-export interface AllStyleProps extends BaseStyleProps, ImageStyleProps, FlexStyleProps { }
+export interface AllStyleProps
+  extends BaseStyleProps,
+    ImageStyleProps,
+    FlexStyleProps {}
 
 export type ComponentPropToStyleProp = {
-  [key in keyof AllStyleProps]: keyof React.CSSProperties
-}
+  [key in keyof AllStyleProps]: keyof React.CSSProperties;
+};
 
 /**
  * Maps from component style props to React `style` props
@@ -57,10 +60,10 @@ export const ComponentPropsToStylePropsMap: ComponentPropToStyleProp = {
   minHeight: "minHeight",
   minWidth: "minWidth",
   objectFit: "objectFit",
-  objectPosition: 'objectPosition',
+  objectPosition: "objectPosition",
   opacity: "opacity",
   padding: "padding",
   textDecoration: "textDecoration",
   width: "width",
   wrap: "flexWrap",
-}
+};

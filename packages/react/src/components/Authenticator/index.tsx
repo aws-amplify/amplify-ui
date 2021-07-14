@@ -12,7 +12,7 @@ import { SignUp } from "./SignUp";
 
 export function Authenticator({
   className = null,
-  children = context => null,
+  children = (context) => null,
 }) {
   const service = useInterpret(authMachine, {
     devTools: process.env.NODE_ENV === "development",

@@ -18,7 +18,7 @@ const parser = new Parser(
   new GherkinClassicTokenMatcher() // or GherkinInMarkdownTokenMatcher()
 );
 
-const required = message => {
+const required = (message) => {
   throw new Error(message);
 };
 
@@ -32,7 +32,7 @@ export function Feature({
   useEffect(() => {
     import(
       `raw-loader!../../../packages/e2e/cypress/integration${asPath}/${name}.feature`
-    ).then(exports => setSource(exports.default));
+    ).then((exports) => setSource(exports.default));
   }, [asPath, name]);
 
   if (!source) {
