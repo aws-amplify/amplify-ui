@@ -16,7 +16,7 @@ export const BadgeDemo = () => {
       <Flex>
         <select
           value={variant}
-          placeholder="Select button variant"
+          placeholder="Select badge variant"
           onChange={event => setVariant(event.target.value as BadgeVariant)}
         >
           <option value="default">default</option>
@@ -27,7 +27,7 @@ export const BadgeDemo = () => {
         </select>
         <select
           value={size}
-          placeholder="Select button size"
+          placeholder="Select badge size"
           onChange={event => setSize(event.target.value as BadgeSize)}
         >
           <option value="small">small</option>
