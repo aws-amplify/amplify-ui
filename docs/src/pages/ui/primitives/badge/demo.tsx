@@ -1,17 +1,17 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Badge,
   BadgeVariant,
   BadgeSize,
   Flex,
   View,
-} from "@aws-amplify/ui-react";
+} from '@aws-amplify/ui-react';
 
-import { FieldLabeler } from "../../../../components/FieldLabeler";
+import { FieldLabeler } from '../../../../components/FieldLabeler';
 
 export const BadgeDemo = () => {
-  const [variant, setVariant] = useState<BadgeVariant>("default");
-  const [size, setSize] = useState<BadgeSize>("medium");
+  const [variant, setVariant] = useState<BadgeVariant>('default');
+  const [size, setSize] = useState<BadgeSize>('medium');
 
   return (
     <div>

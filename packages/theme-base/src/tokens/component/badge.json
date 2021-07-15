@@ -29,13 +29,16 @@
       },
 
       "border": {
-        "radius": { "value": "9999px", "comment": "An arbitrarily large value to ensure that the left and right sides of the badge are perfectly rounded for any size variant" }
+        "radius": {
+          "value": "9999px",
+          "comment": "An arbitrarily large value to ensure that the left and right sides of the badge are perfectly rounded for any size variant"
+        }
       },
 
       "box": {
         "sizing": { "value": "border-box" }
       },
-      
+
       "display": { "value": "inline-flex" },
 
       "padding": { "value": "0 0.75rem" },

@@ -1,14 +1,14 @@
-import React from "react";
-import { ComponentClassNames } from "../shared/constants";
-import classNames from "classnames";
-import { BadgeProps } from "../types";
-import { View, } from "@aws-amplify/ui-react";
+import React from 'react';
+import { ComponentClassNames } from '../shared/constants';
+import classNames from 'classnames';
+import { BadgeProps } from '../types';
+import { View } from '@aws-amplify/ui-react';
 
 export const Badge: React.FC<BadgeProps> = ({
   className,
   children,
-  variant = "default",
-  size = "medium",
+  variant = 'default',
+  size = 'medium',
   ...rest
 }) => (
   <View
