@@ -2,22 +2,22 @@
  * Style Dictionary config
  */
 
-const { formatHelpers } = require("style-dictionary");
+const { formatHelpers } = require('style-dictionary');
 
-const THEME_NAME = "BaseTheme";
-const CSS_VARIABLE_PREFIX = "amplify-ui";
-const CSS_VARIABLE_SCOPE = ":root";
+const THEME_NAME = 'BaseTheme';
+const CSS_VARIABLE_PREFIX = 'amplify-ui';
+const CSS_VARIABLE_SCOPE = ':root';
 
 module.exports = {
-  source: ["src/tokens/**/*.json"],
+  source: ['src/tokens/**/*.json'],
   platforms: {
     css: {
-      transforms: ["attribute/cti", "name/cti/kebab"],
+      transforms: ['attribute/cti', 'name/cti/kebab'],
       prefix: CSS_VARIABLE_PREFIX,
       files: [
         {
-          destination: "dist/variables.css",
-          format: "css/variables",
+          destination: 'dist/variables.css',
+          format: 'css/variables',
           options: {
             selector: CSS_VARIABLE_SCOPE,
             outputReferences: true,
@@ -27,11 +27,11 @@ module.exports = {
       ],
     },
     js: {
-      transformGroup: "js",
+      transformGroup: 'js',
       files: [
         {
-          destination: "dist/theme.js",
-          format: "javascript/cjs-nested",
+          destination: 'dist/theme.js',
+          format: 'javascript/cjs-nested',
           options: { name: THEME_NAME },
         },
       ],
@@ -39,14 +39,14 @@ module.exports = {
     json: {
       files: [
         {
-          destination: "dist/theme.json",
-          format: "json/nested",
+          destination: 'dist/theme.json',
+          format: 'json/nested',
         },
       ],
     },
   },
   format: {
-    "javascript/cjs-nested": CommonJSNestedFormatter,
+    'javascript/cjs-nested': CommonJSNestedFormatter,
   },
 };
 

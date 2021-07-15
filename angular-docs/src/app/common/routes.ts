@@ -11,22 +11,22 @@ export const docRoutes: DocRoutes = [
   {
     path: 'basic-authenticator',
     name: 'Basic Authenticator',
-    component: BasicAuthenticatorComponent
+    component: BasicAuthenticatorComponent,
   },
   {
     path: 'styled-authenticator',
     name: 'Styling Components',
-    component: StyledAuthenticatorComponent
+    component: StyledAuthenticatorComponent,
   },
   {
     path: 'headless-authenticator',
     name: 'Headless Authenticator',
-    component: HeadlessAuthenticatorComponent
+    component: HeadlessAuthenticatorComponent,
   },
   {
     path: 'custom-authenticator',
     name: 'Inserting Custom Components',
-    component: CustomComponentAuthenticatorComponent
+    component: CustomComponentAuthenticatorComponent,
   },
   // {
   //   path: 'on-submit-hook',
@@ -36,8 +36,8 @@ export const docRoutes: DocRoutes = [
   {
     path: 'custom-form',
     name: 'Custom Form Validation',
-    component: CustomFormAuthenticatorComponent
-  }
+    component: CustomFormAuthenticatorComponent,
+  },
   // {
   //   path: 'composition',
   //   name: 'Composing components',

@@ -7,9 +7,7 @@
 `onSubmit` hooks have the following shape:
 
 ```typescript
-type OnSubmitHook = (
-  formData: AuthFormData
-) => {
+type OnSubmitHook = (formData: AuthFormData) => {
   data?: AuthFormData;
   error?: FormError;
 };
@@ -21,8 +19,8 @@ type OnSubmitHook = (
 
 ```ts
 const formData = {
-  username: "amplify",
-  password: "myPassword"
+  username: 'amplify',
+  password: 'myPassword',
 };
 ```
 
@@ -35,11 +33,11 @@ Your `onSubmit` hook can output either `error` or `data` object based on your ne
 - If you have any validation errors you want to report, you should return an object with `error` field. This is a map of each input name to its error messages. For example, let's create a validation hook that checks whether username has at least one digit.
 
 ```typescript
-import { OnSubmitHook, AuthFormData } from '@aws-amplify/ui-angular'
+import { OnSubmitHook, AuthFormData } from '@aws-amplify/ui-angular';
 
 const onSignUp: OnSubmitHook = (formData: AuthFormData) => {
   const { username } = formData;
-  const error: FormError = {}
+  const error: FormError = {};
 
   const containsDigit = /\d/.test(username);
   if (!containsDigit) {

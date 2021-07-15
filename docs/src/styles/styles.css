@@ -1,10 +1,10 @@
-@import "prism-theme-night-owl";
-@import "tailwindcss/tailwind.css";
-@import "./buttonStyles.css";
-@import "./viewStyles.css";
-@import "./flexStyles.css";
-@import "./textStyles.css";
-@import "./dividerStyles.css";
+@import 'prism-theme-night-owl';
+@import 'tailwindcss/tailwind.css';
+@import './buttonStyles.css';
+@import './viewStyles.css';
+@import './flexStyles.css';
+@import './textStyles.css';
+@import './dividerStyles.css';
 
 .mdx-marker {
   @apply pl-3 -ml-4 -mr-4 bg-gray-700 border-l-4 border-amazon;
@@ -15,7 +15,7 @@ pre {
 }
 
 pre.language-shell code.language-shell::before {
-  content: "$";
+  content: '$';
   @apply mr-2 -ml-2 text-gray-500;
 }
 

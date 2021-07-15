@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { CustomComponents, FormError, PropContext } from '../common';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthenticatorContextService {
   constructor() {}
