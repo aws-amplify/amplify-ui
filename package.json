@@ -43,7 +43,8 @@
   "devDependencies": {
     "husky": ">=6",
     "lint-staged": ">=10",
-    "prettier": "2.3.2"
+    "prettier": "2.3.2",
+    "wait-on": "^6.0.0"
   },
   "lint-staged": {
     "*.{ts,tsx,js,css,md,mdx}": "prettier --write"
