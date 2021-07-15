@@ -7,7 +7,7 @@ export type BadgeSize = 'small' | 'medium' | 'large';
 
 export interface BadgeProps extends BaseComponentProps, BaseStyleProps {
   /**
-   * The varient property will affect the background color of the badge.
+   * The variant property will affect the background color of the badge.
   */
   variant?: BadgeVariant;
   /**
