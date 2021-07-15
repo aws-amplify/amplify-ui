@@ -15,6 +15,7 @@ Feature: Sign In
 
 
  
+  @Vue
   @React
   Scenario: Sign in with valid credentials
     Given I'm at the sign in page
@@ -23,11 +24,4 @@ Feature: Sign In
     And I click the "Sign In" button
     Then I see "Hello VALID_USERNAME"
 
-  @Vue
-  Scenario: Sign in with valid credentials
-    Given I'm at the sign in page
-    When I type a valid username "VALID_USERNAME"
-    And I type a valid password "VALID_PASSWORD"
-    And I click the "Sign In" button
-    Then I see "Hello VALID_USERNAME"
-
+  

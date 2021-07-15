@@ -15,9 +15,9 @@ export const PHONE_NUMBER_LABEL = "Phone Number";
 export const CREATE_ACCOUNT_LABEL = "Create Account";
 export const HAVE_ACCOUNT_LABEL = "Have an account?";
 
-export const SIGN_UP_BUTTON_TEXT = "Sign up";
+export const SIGN_UP_BUTTON_TEXT = "Create a new account";
 
-export const CONFIRM_SIGNUP_HEADING = "Confirm Sign up";
+export const CONFIRM_SIGNUP_HEADING = "Confirm Sign Up";
 export const CONFIRMATION_CODE_TEXT = "Confirmation Code";
 export const LOST_YOUR_CODE_TEXT = "Lost your code?";
 export const RESEND_CODE_TEXT = "Resend Code";
