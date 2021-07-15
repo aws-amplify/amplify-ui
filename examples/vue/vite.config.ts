@@ -6,7 +6,7 @@ import voie from "vite-plugin-voie";
 export default defineConfig({
   plugins: [vue(), voie()],
   server: {
-    port: 3000,
+    port: 3001,
     fs: {
       strict: true,
     },
