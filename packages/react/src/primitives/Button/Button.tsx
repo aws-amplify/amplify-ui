@@ -1,21 +1,21 @@
-import React from "react";
-import { ComponentClassNames } from "../shared/constants";
-import { ButtonProps } from "../types";
-import classNames from "classnames";
+import React from 'react';
+import { ComponentClassNames } from '../shared/constants';
+import { ButtonProps } from '../types';
+import classNames from 'classnames';
 
 export const Button: React.FC<ButtonProps> = ({
   ariaLabel,
-  className = "",
+  className = '',
   children,
   isFullWidth = false,
   isDisabled,
   isLoading,
   id,
-  loadingText = "",
+  loadingText = '',
   onClick = () => {},
-  size = "medium",
-  variant = "secondary",
-  type = "button",
+  size = 'medium',
+  variant = 'secondary',
+  type = 'button',
 }) => (
   <button
     aria-label={ariaLabel}

@@ -5,5 +5,3 @@ If you do not have the top level `amplify-context-provider`, you will get a _hea
 ```html
 <amplify-authenticator></amplify-authenticator>
 ```
-
-

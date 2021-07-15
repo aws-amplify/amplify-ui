@@ -21,7 +21,7 @@ import { AmplifyConfirmSignUpComponent } from './components/amplify-confirm-sign
     AmplifyInputComponent,
     AmplifyValidationErrorComponent,
     AmplifyOverrideDirective,
-    AmplifyConfirmSignUpComponent
+    AmplifyConfirmSignUpComponent,
   ],
   imports: [CommonModule, ReactiveFormsModule],
   exports: [
@@ -31,7 +31,7 @@ import { AmplifyConfirmSignUpComponent } from './components/amplify-confirm-sign
     AmplifyContextProviderComponent,
     AmplifyInputComponent,
     AmplifyValidationErrorComponent,
-    AmplifyOverrideDirective
-  ]
+    AmplifyOverrideDirective,
+  ],
 })
 export class UiAngularModule {}

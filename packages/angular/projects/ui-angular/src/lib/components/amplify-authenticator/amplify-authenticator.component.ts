@@ -8,13 +8,13 @@ import {
   Output,
   QueryList,
   TemplateRef,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import { AuthState } from '../../common/types';
 import { AmplifyOverrideDirective } from '../../directives/amplify-override.directive';
 import {
   StateMachineService,
-  AuthenticatorContextService
+  AuthenticatorContextService,
 } from '../../services';
 import { CustomComponents, OnSubmitHook } from '../../common';
 import { State } from 'xstate';
@@ -24,7 +24,7 @@ import { AuthFormData } from '@aws-amplify/ui-core';
   selector: 'amplify-authenticator',
   templateUrl: './amplify-authenticator.component.html',
   providers: [AuthenticatorContextService], // make sure custom components are scoped to this authenticator only
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class AmplifyAuthenticatorComponent implements AfterContentInit {
   // Custom events
@@ -42,7 +42,7 @@ export class AmplifyAuthenticatorComponent implements AfterContentInit {
   public customComponents: CustomComponents = {};
   public context = () => ({
     user: this.stateMachine.user,
-    username: this.stateMachine.user?.username
+    username: this.stateMachine.user?.username,
   }); // use a function so that this is reevaluated whenever context is requested
 
   constructor(
@@ -61,16 +61,16 @@ export class AmplifyAuthenticatorComponent implements AfterContentInit {
     this.contextService.props = {
       signIn: {
         onSignInInput: this.onSignInInput,
-        onSignInSubmit: this.onSignInSubmit
+        onSignInSubmit: this.onSignInSubmit,
       },
       signUp: {
         onSignUpInput: this.onSignUpInput,
-        onSignUpSubmit: this.onSignUpSubmit
+        onSignUpSubmit: this.onSignUpSubmit,
       },
       confirmSignUp: {
         onConfirmSignUpInput: this.onConfirmSignUpInput,
-        onConfirmSignUpSubmit: this.onConfirmSignUpSubmit
-      }
+        onConfirmSignUpSubmit: this.onConfirmSignUpSubmit,
+      },
     };
   }
 
@@ -87,7 +87,7 @@ export class AmplifyAuthenticatorComponent implements AfterContentInit {
   ): Record<string, TemplateRef<any>> {
     if (!componentQuery) return {};
     const customComponents: Record<string, TemplateRef<any>> = {};
-    componentQuery.forEach(component => {
+    componentQuery.forEach((component) => {
       customComponents[component.name] = component.template;
     });
 

@@ -9,11 +9,11 @@ import {
   OnInit,
   Output,
   TemplateRef,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import {
   AuthenticatorContextService,
-  StateMachineService
+  StateMachineService,
 } from '../../services';
 import { AuthFormData, FormError, OnSubmitHook } from '../../common';
 import { Event, Subscription } from 'xstate';
@@ -24,10 +24,11 @@ const logger = new Logger('SignIn');
 @Component({
   selector: 'amplify-sign-in',
   templateUrl: './amplify-sign-in.component.html',
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class AmplifySignInComponent
-  implements AfterContentInit, OnInit, OnDestroy {
+  implements AfterContentInit, OnInit, OnDestroy
+{
   // Custom events
   @Output() onSignInInput = new EventEmitter<AuthFormData>();
   @Output() onSignInSubmit = new EventEmitter<AuthFormData>();
@@ -36,7 +37,7 @@ export class AmplifySignInComponent
   public customComponents: Record<string, TemplateRef<any>> = {};
   private authSubscription: Subscription;
   public context = () => ({
-    errors: this.contextService.formError
+    errors: this.contextService.formError,
   });
 
   constructor(
@@ -45,7 +46,7 @@ export class AmplifySignInComponent
   ) {}
 
   ngOnInit(): void {
-    this.authSubscription = this.stateMachine.authService.subscribe(state =>
+    this.authSubscription = this.stateMachine.authService.subscribe((state) =>
       this.onStateUpdate(state)
     );
   }
@@ -99,7 +100,7 @@ export class AmplifySignInComponent
     const { name, value } = $event.target;
     this.send({
       type: 'INPUT',
-      data: { name, value }
+      data: { name, value },
     });
   }
 
@@ -115,7 +116,7 @@ export class AmplifySignInComponent
     } else {
       this.send({
         type: 'SUBMIT',
-        data: formValues
+        data: formValues,
       });
     }
   }

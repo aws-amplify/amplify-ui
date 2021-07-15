@@ -1,14 +1,14 @@
-import React from "react";
-import { Button, ButtonSize, ButtonVariant } from "@aws-amplify/ui-react";
+import React from 'react';
+import { Button, ButtonSize, ButtonVariant } from '@aws-amplify/ui-react';
 
 export const ButtonDemo = () => {
   const [disabled, setDisabled] = React.useState<boolean>(false);
   const [loading, setLoading] = React.useState<boolean>(false);
   const [fullWidth, setFullWidth] = React.useState<boolean>(false);
-  const [loadingText, setLoadingText] = React.useState("Loading...");
-  const [ariaLabel, setAriaLabel] = React.useState<string>("");
-  const [variant, setVariant] = React.useState<ButtonVariant>("primary");
-  const [size, setSize] = React.useState<ButtonSize>("medium");
+  const [loadingText, setLoadingText] = React.useState('Loading...');
+  const [ariaLabel, setAriaLabel] = React.useState<string>('');
+  const [variant, setVariant] = React.useState<ButtonVariant>('primary');
+  const [size, setSize] = React.useState<ButtonSize>('medium');
 
   return (
     <div>
@@ -61,7 +61,7 @@ export const ButtonDemo = () => {
         <select
           value={variant}
           placeholder="Select button variant"
-          onChange={event => setVariant(event.target.value as ButtonVariant)}
+          onChange={(event) => setVariant(event.target.value as ButtonVariant)}
         >
           <option value="primary">primary</option>
           <option value="secondary">secondary</option>
@@ -70,7 +70,7 @@ export const ButtonDemo = () => {
         </select>
         <select
           value={size}
-          onChange={event => setSize(event.target.value as ButtonSize)}
+          onChange={(event) => setSize(event.target.value as ButtonSize)}
         >
           <option value="small">small</option>
           <option value="medium">medium</option>
@@ -84,7 +84,7 @@ export const ButtonDemo = () => {
         loadingText={loadingText}
         variant={variant}
         size={size}
-        onClick={() => alert("hello")}
+        onClick={() => alert('hello')}
         ariaLabel={ariaLabel}
         isFullWidth={fullWidth}
         type="button"

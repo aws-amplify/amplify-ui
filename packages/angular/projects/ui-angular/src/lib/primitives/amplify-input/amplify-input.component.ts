@@ -3,7 +3,7 @@ import {
   ControlContainer,
   FormGroup,
   FormGroupDirective,
-  ValidationErrors
+  ValidationErrors,
 } from '@angular/forms';
 import {
   AuthAttribute,
@@ -11,7 +11,7 @@ import {
   getAttributeMap,
   AttributeInfo,
   isInputType,
-  FormError
+  FormError,
 } from '../../common';
 import { AuthenticatorContextService } from '../../services';
 
@@ -24,8 +24,8 @@ import { AuthenticatorContextService } from '../../services';
   templateUrl: './amplify-input.component.html',
   viewProviders: [
     // https://stackoverflow.com/a/46452442/10103143
-    { provide: ControlContainer, useExisting: FormGroupDirective }
-  ]
+    { provide: ControlContainer, useExisting: FormGroupDirective },
+  ],
 })
 export class AmplifyInputComponent {
   @Input() name: AuthAttribute;

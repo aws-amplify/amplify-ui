@@ -22,7 +22,7 @@
   writing-mode: var(--amplify-ui-components-text-writing-mode);
 }
 
-.amplify-ui-text[data-truncate="true"] {
+.amplify-ui-text[data-truncate='true'] {
   overflow: var(--amplify-ui-components-text-overflow-hidden);
   text-overflow: var(--amplify-ui-components-text-text-overflow-ellipsis);
   white-space: var(--amplify-ui-components-text-white-space-nowrap);
@@ -30,30 +30,30 @@
   max-width: 100%;
 }
 
-.amplify-ui-text[data-variant="primary"] {
+.amplify-ui-text[data-variant='primary'] {
   color: var(--amplify-ui-components-text-color-primary);
 }
 
-.amplify-ui-text[data-variant="secondary"] {
+.amplify-ui-text[data-variant='secondary'] {
   color: var(--amplify-ui-components-text-color-secondary);
 }
 
-.amplify-ui-text[data-variant="tertiary"] {
+.amplify-ui-text[data-variant='tertiary'] {
   color: var(--amplify-ui-components-text-color-tertiary);
 }
 
-.amplify-ui-text[data-variant="error"] {
+.amplify-ui-text[data-variant='error'] {
   color: var(--amplify-ui-components-text-color-error);
 }
 
-.amplify-ui-text[data-variant="info"] {
+.amplify-ui-text[data-variant='info'] {
   color: var(--amplify-ui-components-text-color-info);
 }
 
-.amplify-ui-text[data-variant="success"] {
+.amplify-ui-text[data-variant='success'] {
   color: var(--amplify-ui-components-text-color-success);
 }
 
-.amplify-ui-text[data-variant="warn"] {
+.amplify-ui-text[data-variant='warn'] {
   color: var(--amplify-ui-components-text-color-warn);
 }

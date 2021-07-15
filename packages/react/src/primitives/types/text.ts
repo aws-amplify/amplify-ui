@@ -1,14 +1,14 @@
-import { BaseComponentProps } from "./base";
-import { BaseStyleProps } from "./style";
+import { BaseComponentProps } from './base';
+import { BaseStyleProps } from './style';
 
 export type TextVariant =
-  | "primary"
-  | "secondary"
-  | "tertiary"
-  | "error"
-  | "warning"
-  | "info"
-  | "success";
+  | 'primary'
+  | 'secondary'
+  | 'tertiary'
+  | 'error'
+  | 'warning'
+  | 'info'
+  | 'success';
 
 export interface TextProps extends BaseComponentProps, BaseStyleProps {
   /**

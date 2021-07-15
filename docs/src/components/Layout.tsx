@@ -1,43 +1,43 @@
 // This is large copy-pasta from `amplify-docs/src/Layout` & modified to work outside of that repo
 
-import CodeBlockProvider from "amplify-docs/src/components/CodeBlockProvider/index";
-import { Container } from "amplify-docs/src/components/Container";
-import ExternalLink from "amplify-docs/src/components/ExternalLink";
-import Footer from "amplify-docs/src/components/Footer/index";
+import CodeBlockProvider from 'amplify-docs/src/components/CodeBlockProvider/index';
+import { Container } from 'amplify-docs/src/components/Container';
+import ExternalLink from 'amplify-docs/src/components/ExternalLink';
+import Footer from 'amplify-docs/src/components/Footer/index';
 import {
   ChapterTitleStyle,
   ContentStyle,
   LayoutStyle,
-} from "amplify-docs/src/components/Layout/styles";
+} from 'amplify-docs/src/components/Layout/styles';
 import {
   DirectoryGroupHeaderStyle,
   DirectoryGroupItemStyle,
   DirectoryLinksStyle,
   ProductRootLinkStyle,
-} from "amplify-docs/src/components/Menu/Directory/styles";
-import MenuCloseButton from "amplify-docs/src/components/Menu/MenuCloseButton";
-import MenuOpenButton from "amplify-docs/src/components/Menu/MenuOpenButton";
-import RepoActions from "amplify-docs/src/components/Menu/RepoActions";
+} from 'amplify-docs/src/components/Menu/Directory/styles';
+import MenuCloseButton from 'amplify-docs/src/components/Menu/MenuCloseButton';
+import MenuOpenButton from 'amplify-docs/src/components/Menu/MenuOpenButton';
+import RepoActions from 'amplify-docs/src/components/Menu/RepoActions';
 import {
   DiscordLinkStyle,
   MenuBodyStyle,
   MenuBreakStyle,
   MenuHeaderStyle,
   MenuStyle,
-} from "amplify-docs/src/components/Menu/styles";
-import SecondaryNav from "amplify-docs/src/components/SecondaryNav/index";
-import TableOfContents from "amplify-docs/src/components/TableOfContents/index";
-import UniversalNav from "amplify-docs/src/components/UniversalNav/index";
-import { DISCORD } from "amplify-docs/src/constants/img";
-import "amplify-docs/src/styles/styles.css";
-import capitalize from "lodash/capitalize";
-import groupBy from "lodash/groupBy";
-import Head from "next/head";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import * as React from "react";
+} from 'amplify-docs/src/components/Menu/styles';
+import SecondaryNav from 'amplify-docs/src/components/SecondaryNav/index';
+import TableOfContents from 'amplify-docs/src/components/TableOfContents/index';
+import UniversalNav from 'amplify-docs/src/components/UniversalNav/index';
+import { DISCORD } from 'amplify-docs/src/constants/img';
+import 'amplify-docs/src/styles/styles.css';
+import capitalize from 'lodash/capitalize';
+import groupBy from 'lodash/groupBy';
+import Head from 'next/head';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import * as React from 'react';
 
-import pages from "@/data/pages.preval";
+import pages from '@/data/pages.preval';
 
 export default function Layout({
   children,
@@ -54,8 +54,8 @@ export default function Layout({
   const { platform } = router.query as { platform: string };
 
   const groupedPages = Object.entries(
-    groupBy(pages, page => {
-      const [, folder = ""] = page.slug.split("/");
+    groupBy(pages, (page) => {
+      const [, folder = ''] = page.slug.split('/');
       return folder;
     })
   );
@@ -64,18 +64,18 @@ export default function Layout({
     const htmlHeaders = [
       ...document.querySelectorAll(
         [
-          "#__next > section:first-of-type h2",
-          "#__next > section:first-of-type h3",
-        ].join(",")
+          '#__next > section:first-of-type h2',
+          '#__next > section:first-of-type h3',
+        ].join(',')
       ),
-    ].map(node => [node.innerHTML, node.tagName.toLowerCase()]);
+    ].map((node) => [node.innerHTML, node.tagName.toLowerCase()]);
 
     setHeaders(htmlHeaders);
   }, [children]);
 
-  const chapterTitle = "Components"; // TODO – Remove or use "Primitives" depending on path
+  const chapterTitle = 'Components'; // TODO – Remove or use "Primitives" depending on path
 
-  const basePath = "docs.amplify.aws";
+  const basePath = 'docs.amplify.aws';
   return (
     <>
       {frontmatter && (
@@ -149,7 +149,7 @@ export default function Layout({
                           </DirectoryGroupHeaderStyle>
                         )}
                         <DirectoryLinksStyle>
-                          {pages.map(page =>
+                          {pages.map((page) =>
                             folder ? (
                               <DirectoryGroupItemStyle
                                 isActive={href === page.href}

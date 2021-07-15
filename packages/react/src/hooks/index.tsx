@@ -1,2 +1,2 @@
-export { useAmplify } from "./useAmplify";
-export { useAuth } from "./useAuth";
+export { useAmplify } from './useAmplify';
+export { useAuth } from './useAuth';

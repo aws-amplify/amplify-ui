@@ -1,5 +1,5 @@
-import React from "react";
-import { View, ViewAsHTMLElementTypes } from "@aws-amplify/ui-react";
+import React from 'react';
+import { View, ViewAsHTMLElementTypes } from '@aws-amplify/ui-react';
 
 const FieldSet: React.FC<{
   id: string;
@@ -9,9 +9,9 @@ const FieldSet: React.FC<{
 }> = ({
   children,
   id,
-  direction = "flex-col",
-  order = "order-first",
-  alignItems = "",
+  direction = 'flex-col',
+  order = 'order-first',
+  alignItems = '',
 }) => (
   <fieldset className={`flex gap-1 ${direction} ${alignItems}`}>
     <label className={`pr-2 ${order}`} htmlFor={id}>
@@ -23,27 +23,26 @@ const FieldSet: React.FC<{
 
 export const ViewDemo = ({ children }) => {
   const [disabled, setDisabled] = React.useState<boolean>(false);
-  const [ariaLabel, setAriaLabel] = React.useState<string>("");
-  const [width, setWidth] = React.useState<string>("20em");
-  const [height, setHeight] = React.useState<string>("4rem");
-  const [maxHeight, setMaxHeight] = React.useState<string>("");
-  const [minHeight, setMinHeight] = React.useState<string>("");
-  const [maxWidth, setMaxWidth] = React.useState<string>("");
-  const [minWidth, setMinWidth] = React.useState<string>("");
-  const [color, setColor] = React.useState<string>("blue");
-  const [role, setAriaRole] = React.useState<string>("");
-  const [backgroundColor, setBackgroundColor] = React.useState<string>("white");
+  const [ariaLabel, setAriaLabel] = React.useState<string>('');
+  const [width, setWidth] = React.useState<string>('20em');
+  const [height, setHeight] = React.useState<string>('4rem');
+  const [maxHeight, setMaxHeight] = React.useState<string>('');
+  const [minHeight, setMinHeight] = React.useState<string>('');
+  const [maxWidth, setMaxWidth] = React.useState<string>('');
+  const [minWidth, setMinWidth] = React.useState<string>('');
+  const [color, setColor] = React.useState<string>('blue');
+  const [role, setAriaRole] = React.useState<string>('');
+  const [backgroundColor, setBackgroundColor] = React.useState<string>('white');
   const [boxShadow, setBoxShadow] = React.useState<string>(
-    "3px 3px 5px 6px #ccc"
+    '3px 3px 5px 6px #ccc'
   );
-  const [padding, setPadding] = React.useState<string>("1rem");
-  const [border, setBorder] = React.useState<string>("1px solid black");
-  const [borderRadius, setBorderRadius] = React.useState<string>("4px");
-  const [opacity, setOpacity] = React.useState<string>("100%");
-  const [customAttribute, setCustomAttribute] = React.useState<string>(
-    "data-demo"
-  );
-  const [asElementType, setAs] = React.useState<ViewAsHTMLElementTypes>("div");
+  const [padding, setPadding] = React.useState<string>('1rem');
+  const [border, setBorder] = React.useState<string>('1px solid black');
+  const [borderRadius, setBorderRadius] = React.useState<string>('4px');
+  const [opacity, setOpacity] = React.useState<string>('100%');
+  const [customAttribute, setCustomAttribute] =
+    React.useState<string>('data-demo');
+  const [asElementType, setAs] = React.useState<ViewAsHTMLElementTypes>('div');
   const customAttributes = {};
   if (customAttribute) {
     customAttributes[customAttribute] = true;
@@ -58,7 +57,7 @@ export const ViewDemo = ({ children }) => {
             id="as"
             value={asElementType}
             placeholder="As element type"
-            onChange={event =>
+            onChange={(event) =>
               setAs(event.target.value as ViewAsHTMLElementTypes)
             }
           >
@@ -275,7 +274,7 @@ export const ViewDemo = ({ children }) => {
         maxWidth={maxWidth}
         minHeight={minHeight}
         minWidth={minWidth}
-        onClick={() => alert("🏔 What a beautiful <View>! 🔭")}
+        onClick={() => alert('🏔 What a beautiful <View>! 🔭')}
         opacity={opacity}
         padding={padding}
         role={role}
