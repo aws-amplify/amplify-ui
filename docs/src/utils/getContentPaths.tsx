@@ -1,15 +1,15 @@
-import glob from "glob";
-import path from "path";
+import glob from 'glob';
+import path from 'path';
 
-const cwd = path.resolve(process.cwd(), "src/pages");
+const cwd = path.resolve(process.cwd(), 'src/pages');
 
 /**
  * List of all public content URL paths
  */
-export async function getContentPaths(pattern = "**/index.mdx") {
+export async function getContentPaths(pattern = '**/index.mdx') {
   return glob
     .sync(pattern, { cwd })
-    .map(contentPath => {
+    .map((contentPath) => {
       return path.normalize(`/${path.dirname(contentPath)}`);
     })
     .sort();

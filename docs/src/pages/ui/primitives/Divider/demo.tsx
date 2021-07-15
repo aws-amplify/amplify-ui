@@ -1,15 +1,15 @@
-import React from "react";
-import { Divider, Flex, Text } from "@aws-amplify/ui-react";
-import { DividerPropControls } from "../../../../components/DividerPropControls";
-import { useDividerProps } from "@/components/useDividerProps";
+import React from 'react';
+import { Divider, Flex, Text } from '@aws-amplify/ui-react';
+import { DividerPropControls } from '../../../../components/DividerPropControls';
+import { useDividerProps } from '@/components/useDividerProps';
 
 export const DividerDemo = () => {
   const dividerProps = useDividerProps({
-    size: "small",
-    orientation: "horizontal",
+    size: 'small',
+    orientation: 'horizontal',
   });
   const direction =
-    dividerProps.orientation === "horizontal" ? "column" : "row";
+    dividerProps.orientation === 'horizontal' ? 'column' : 'row';
 
   return (
     <div>

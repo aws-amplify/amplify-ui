@@ -1,4 +1,4 @@
-import { AuthFormData } from "./authMachine";
+import { AuthFormData } from './authMachine';
 
 export type ValidationError = Record<string, string>;
 

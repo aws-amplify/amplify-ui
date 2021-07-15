@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 export const FieldLabeler: React.FC<{
   alignItems?: string;
@@ -8,13 +8,13 @@ export const FieldLabeler: React.FC<{
   labelPadding?: string;
   order?: string;
 }> = ({
-  alignItems = "",
+  alignItems = '',
   children,
-  direction = "flex-col",
-  gap = "gap-1",
+  direction = 'flex-col',
+  gap = 'gap-1',
   id,
-  labelPadding = "pr-2",
-  order = "order-first",
+  labelPadding = 'pr-2',
+  order = 'order-first',
 }) => (
   <div className={`flex ${gap} ${direction} ${alignItems}`}>
     <label className={`${labelPadding} ${order}`} htmlFor={id}>

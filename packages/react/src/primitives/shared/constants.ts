@@ -1,14 +1,15 @@
 export enum ComponentClassNames {
-  Button = "amplify-ui-button",
-  Divider = "amplify-ui-divider",
-  Flex = "amplify-ui-flex",
-  Image = "amplify-ui-image",
-  Text = "amplify-ui-text",
-  View = "amplify-ui-view",
+  Badge = 'amplify-ui-badge',
+  Button = 'amplify-ui-button',
+  Divider = 'amplify-ui-divider',
+  Flex = 'amplify-ui-flex',
+  Image = 'amplify-ui-image',
+  Text = 'amplify-ui-text',
+  View = 'amplify-ui-view',
 }
 
 export const UserNameAliasNames = {
-  username: { name: "Username", type: "text" },
-  email: { name: "Email", type: "email" },
-  phone_number: { name: "Phone Number", type: "tel" },
+  username: { name: 'Username', type: 'text' },
+  email: { name: 'Email', type: 'email' },
+  phone_number: { name: 'Phone Number', type: 'tel' },
 };

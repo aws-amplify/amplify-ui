@@ -1,8 +1,8 @@
-import { BaseComponentProps } from "./base";
-import { BaseStyleProps } from "./style";
+import { BaseComponentProps } from './base';
+import { BaseStyleProps } from './style';
 
-export type DividerOrientation = "horizontal" | "vertical";
-export type DividerSize = "small" | "medium" | "large";
+export type DividerOrientation = 'horizontal' | 'vertical';
+export type DividerSize = 'small' | 'medium' | 'large';
 
 export interface DividerOptions {
   /**
@@ -18,4 +18,7 @@ export interface DividerOptions {
   size?: DividerSize;
 }
 
-export interface DividerProps extends DividerOptions, BaseComponentProps, BaseStyleProps { }
+export interface DividerProps
+  extends DividerOptions,
+    BaseComponentProps,
+    BaseStyleProps {}

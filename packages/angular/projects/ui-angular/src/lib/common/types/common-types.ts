@@ -8,13 +8,13 @@ export const supportedInputTypes = [
   'button',
   'submit',
   'radio',
-  'tel'
+  'tel',
 ] as const;
 
 export type InputType = typeof supportedInputTypes[number];
 
 export const isInputType = (value: string): value is InputType => {
-  return supportedInputTypes.find(inputType => inputType === value)
+  return supportedInputTypes.find((inputType) => inputType === value)
     ? true
     : false;
 };

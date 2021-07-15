@@ -2,16 +2,16 @@ import {
   AstBuilder,
   GherkinClassicTokenMatcher,
   Parser,
-} from "@cucumber/gherkin";
-import { IdGenerator } from "@cucumber/messages";
+} from '@cucumber/gherkin';
+import { IdGenerator } from '@cucumber/messages';
 import {
   ClipboardCheckIcon,
   CodeIcon,
   ExternalLinkIcon,
-} from "@heroicons/react/solid";
-import { useRouter } from "next/router";
-import * as React from "react";
-import { useEffect } from "react";
+} from '@heroicons/react/solid';
+import { useRouter } from 'next/router';
+import * as React from 'react';
+import { useEffect } from 'react';
 
 const parser = new Parser(
   new AstBuilder(IdGenerator.uuid()),
@@ -23,14 +23,14 @@ const required = message => {
 };
 
 export function Feature({
-  framework = "react",
-  exampleFolder = "next",
-  name = required("Missing feature name"),
+  framework = 'react',
+  exampleFolder = 'next',
+  name = required('Missing feature name'),
   port = 3000,
 }) {
   const [source, setSource] = React.useState(null);
   let { asPath } = useRouter();
-  asPath = asPath.split("-")[0];
+  asPath = asPath.split('-')[0];
 
   useEffect(() => {
     import(
@@ -65,7 +65,7 @@ export function Feature({
           <thead>
             <tr className="text-sm text-left text-gray-600">
               <th className="sr-only">Example</th>
-              {process.env.NODE_ENV === "development" && <td>Demo</td>}
+              {process.env.NODE_ENV === 'development' && <td>Demo</td>}
               <td>Source</td>
               <td>Test</td>
             </tr>
@@ -73,11 +73,11 @@ export function Feature({
           <tbody className="shadow">
             {scenarios.map(({ scenario }, i) => (
               <tr
-                className={i % 2 === 0 ? "bg-white" : "bg-gray-50"}
+                className={i % 2 === 0 ? 'bg-white' : 'bg-gray-50'}
                 key={scenario.name}
               >
                 <td className="p-1 px-2">{scenario.name}</td>
-                {process.env.NODE_ENV === "development" && (
+                {process.env.NODE_ENV === 'development' && (
                   <td>
                     <a
                       href={`http://localhost:${port}${asPath}/${name}`}

@@ -1,5 +1,5 @@
-import { Ref, ComputedRef } from "vue";
-import { PayloadSender, EventObject } from "xstate";
+import { Ref, ComputedRef } from 'vue';
+import { PayloadSender, EventObject } from 'xstate';
 
 export interface SetupEventContext {
   emit: (eventName: string, payload?: unknown) => void;

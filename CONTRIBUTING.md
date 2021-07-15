@@ -27,9 +27,9 @@ Internally, this content is served by a single, Next.js [optional catch all rout
 
    ```js
    // examples/next/pages/components/authenticator/sign-up.tsx
-   import { Authenticator } from "@aws-amplify/ui-react";
-   import { Amplify } from "aws-amplify";
-   import awsExports from "../../../../../environments/auth-with-username-no-attributes/src/aws-exports";
+   import { Authenticator } from '@aws-amplify/ui-react';
+   import { Amplify } from 'aws-amplify';
+   import awsExports from '../../../../../environments/auth-with-username-no-attributes/src/aws-exports';
 
    Amplify.configure(awsExports);
 

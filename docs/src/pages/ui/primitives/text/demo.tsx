@@ -1,14 +1,14 @@
-import React from "react";
-import { Text } from "@aws-amplify/ui-react";
+import React from 'react';
+import { Text } from '@aws-amplify/ui-react';
 
 export const TextDemo = ({ children }) => {
-  const [text, setText] = React.useState<string>("Hello World!!!");
+  const [text, setText] = React.useState<string>('Hello World!!!');
   const [isTruncated, setIsTruncated] = React.useState<boolean>(false);
-  const [color, setColor] = React.useState<string>("black");
-  const [lineHeight, setLineHeight] = React.useState<string>("1rem");
-  const [fontWeight, setFontWeight] = React.useState<any>("normal");
-  const [fontStyle, setFontStyle] = React.useState<string>("normal");
-  const [textDecoration, setTextDecoration] = React.useState<string>("none");
+  const [color, setColor] = React.useState<string>('black');
+  const [lineHeight, setLineHeight] = React.useState<string>('1rem');
+  const [fontWeight, setFontWeight] = React.useState<any>('normal');
+  const [fontStyle, setFontStyle] = React.useState<string>('normal');
+  const [textDecoration, setTextDecoration] = React.useState<string>('none');
   return (
     <div>
       <div className="flex mb-4">
@@ -21,7 +21,7 @@ export const TextDemo = ({ children }) => {
             id="display_text"
             name="display_text"
             value={text}
-            onChange={event => setText(event.target.value)}
+            onChange={(event) => setText(event.target.value)}
           />
         </div>
       </div>
@@ -35,7 +35,7 @@ export const TextDemo = ({ children }) => {
             id="color"
             name="color"
             value={color}
-            onChange={event => setColor(event.target.value)}
+            onChange={(event) => setColor(event.target.value)}
           />
         </div>
       </div>
@@ -49,7 +49,7 @@ export const TextDemo = ({ children }) => {
             id="line_height"
             name="line_height"
             value={lineHeight}
-            onChange={event => setLineHeight(event.target.value)}
+            onChange={(event) => setLineHeight(event.target.value)}
           />
         </div>
       </div>
@@ -63,7 +63,7 @@ export const TextDemo = ({ children }) => {
             id="font_weight"
             name="font_weight"
             value={fontWeight}
-            onChange={event => setFontWeight(event.target.value)}
+            onChange={(event) => setFontWeight(event.target.value)}
           />
         </div>
       </div>
@@ -77,7 +77,7 @@ export const TextDemo = ({ children }) => {
             id="font_style"
             name="font_style"
             value={fontStyle}
-            onChange={event => setFontStyle(event.target.value)}
+            onChange={(event) => setFontStyle(event.target.value)}
           />
         </div>
       </div>
@@ -91,7 +91,7 @@ export const TextDemo = ({ children }) => {
             id="text_decoration"
             name="text_decoration"
             value={textDecoration}
-            onChange={event => setTextDecoration(event.target.value)}
+            onChange={(event) => setTextDecoration(event.target.value)}
           />
         </div>
       </div>
@@ -105,7 +105,7 @@ export const TextDemo = ({ children }) => {
             type="checkbox"
             id="is_truncated"
             name="is_truncated"
-            onChange={event => setIsTruncated(!isTruncated)}
+            onChange={(event) => setIsTruncated(!isTruncated)}
           />
         </div>
       </div>
