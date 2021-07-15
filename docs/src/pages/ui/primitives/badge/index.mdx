@@ -62,7 +62,7 @@ Using a class and CSS file:
 ```css
 /* styles.css */
 .my-custom-badge {
-  --amplify-ui-badge-colors-bg-default: pink;
+  --colors-bg-default: pink;
 }
 ```
 
@@ -73,7 +73,6 @@ import "./styles.css";
 ```
 <Badge className="my-custom-badge">My badge</Badge>
 
-&nbsp;
 #### Override styling using the classname and data attribute selectors
 Use the `amplify-ui-badge` class and data attributes to style all badges.
 
@@ -84,9 +83,9 @@ Use the `amplify-ui-badge` class and data attributes to style all badges.
   font-weight: bold;
 }
 
-/* Example: Override only warning variant styles */
-.amplify-ui-badge[data-variant=warning] {
-  background-color: yellow;
+/* Example: Override only info variant styles */
+.amplify-ui-badge {
+  --colors-bg-info: rebeccapurple;
 }
 
 /* Example: Override size styles */
@@ -102,7 +101,6 @@ To replace the badge styling, unset it:
 }
 ```
 
-&nbsp;
 #### Styling a badge instance
 To override styling on a specific badge 
 
@@ -111,25 +109,25 @@ To override styling on a specific badge
 ```css
 /* Example: class selector styling override */
 .flagged {
-	background-color: crimson;
-	color: white;
-	border-radius: 3px;
+  color: white;
+  background-color: crimson;
+  border-radius: 3px;
 }
 ```
 ```jsx
 <Badge className="flagged">13</Badge>
 ```
 <Badge className="flagged">13</Badge>
-&nbsp;
 
 *Using an id selector:*
 
 ```css
 /* Example: id selector styling override */
 #subscribers {
-	color: blue;
-	font-weight: 900;
-	border: 1px solid blue;
+  color: blue;
+  background-color: white;
+  font-weight: 900;
+  border: 1px solid blue;
 }
 ```
 ```jsx

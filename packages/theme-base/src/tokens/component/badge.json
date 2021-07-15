@@ -1,21 +1,47 @@
 {
-  "badge": {
-    "colors": {
-      "bg": {
-        "default": { "value": "#eaeded" },
-        "info": { "value": "#9fe9f2" },
-        "error": { "value": "#ffa1b0" },
-        "warning": { "value": "#ffb6a2" },
-        "success": { "value": "#b4fba4" }
-      }
-    },
+  "components": {
+    "badge": {
+      "colors": {
+        "bg": {
+          "default": { "value": "{colors.gray.200.value}" },
+          "info": { "value": "{colors.blue.400.value}" },
+          "error": { "value": "{colors.red.400.value}" },
+          "warning": { "value": "{colors.orange.400.value}" },
+          "success": { "value": "{colors.green.400.value}" }
+        }
+      },
 
-    "font": {
-      "weight": { "value": "{font.weight.semibold.value}" },
-      "size": {
-        "small": { "value": "{font.size.small.value}" },
-        "medium": { "value": "{font.size.medium.value}" },
-        "large": { "value": "{font.size.large.value}" }
+      "background": {
+        "color": { "value": "{colors.gray.200.value}" }
+      },
+
+      "font": {
+        "weight": { "value": "{font.weight.semibold.value}" },
+        "size": {
+          "small": { "value": "{font.size.small.value}" },
+          "medium": { "value": "{font.size.medium.value}" },
+          "large": { "value": "{font.size.large.value}" }
+        }
+      },
+
+      "align": {
+        "items": { "value": "center" }
+      },
+
+      "border": {
+        "radius": { "value": "9999px", "comment": "An arbitrarily large value to ensure that the left and right sides of the badge are perfectly rounded for any size variant" }
+      },
+
+      "box": {
+        "sizing": { "value": "border-box" }
+      },
+      
+      "display": { "value": "inline-flex" },
+
+      "padding": { "value": "0 0.75rem" },
+
+      "text": {
+        "align": { "value": "center" }
       }
     }
   }

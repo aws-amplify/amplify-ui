@@ -5,7 +5,7 @@ import { BadgeProps } from "../types";
 import { View, } from "@aws-amplify/ui-react";
 
 export const Badge: React.FC<BadgeProps> = ({
-  className = "",
+  className,
   children,
   variant = "default",
   size = "medium",

@@ -1,48 +1,57 @@
 .amplify-ui-badge {
-  --colors-bg-info: var(--amplify-ui-badge-colors-bg-info);
-  --colors-bg-error: var(--amplify-ui-badge-colors-bg-error);
-  --colors-bg-warning: var(--amplify-ui-badge-colors-bg-warning);
-  --colors-bg-success: var(--amplify-ui-badge-colors-bg-success);
+  --colors-bg-default: var(--amplify-ui-components-badge-colors-bg-default);
+  --colors-bg-info: var(--amplify-ui-components-badge-colors-bg-info);
+  --colors-bg-error: var(--amplify-ui-components-badge-colors-bg-error);
+  --colors-bg-warning: var(--amplify-ui-components-badge-colors-bg-warning);
+  --colors-bg-success: var(--amplify-ui-components-badge-colors-bg-success);
   
-  --font-size-small: var(--amplify-ui-badge-font-size-small);
-  --font-size-medium: var(--amplify-ui-badge-font-size-medium);
-  --font-size-large: var(--amplify-ui-badge-font-size-large);
-  
+  --font-size-small: var(--amplify-ui-components-badge-font-size-small);
+  --font-size-medium: var(--amplify-ui-components-badge-font-size-medium);
+  --font-size-large: var(--amplify-ui-components-badge-font-size-large);
+
+  --background-color: var(--colors-bg-default);
+  --font-size: var(--font-size-medium);
+
   all: unset; /* protect against external styles */
-  background-color: var(--amplify-ui-badge-colors-bg-default);
-  text-align: center;
-  display: inline-flex;
-  align-items: center;
-  box-sizing: border-box;
-  font-weight: var(--amplify-ui-badge-font-weight);
-  border-radius: 9999px;
-  padding: 0 0.75rem;
+  align-items: var(--amplify-ui-components-badge-align-items);
+  background-color: var(--background-color);
+  border-radius: var(--amplify-ui-components-badge-border-radius);
+  box-sizing: var(--amplify-ui-components-badge-box-sizing);
+  display: var(--amplify-ui-components-badge-display);
+  font-size: var(--font-size);
+  font-weight: var(--amplify-ui-components-badge-font-weight);
+  padding: var(--amplify-ui-components-badge-padding);
+  text-align: var(--amplify-ui-components-badge-text-align);
+}
+
+.amplify-ui-badge[data-variant="default"] {
+  --background-color: var(--colors-bg-default);
 }
 
 .amplify-ui-badge[data-variant="info"] {
-  background-color: var(--colors-bg-info);
+  --background-color: var(--colors-bg-info);
 }
 
 .amplify-ui-badge[data-variant="error"] {
-  background-color: var(--colors-bg-error);
+  --background-color: var(--colors-bg-error);
 }
 
 .amplify-ui-badge[data-variant="warning"] {
-  background-color: var(--colors-bg-warning);
+  --background-color: var(--colors-bg-warning);
 }
 
 .amplify-ui-badge[data-variant="success"] {
-  background-color: var(--colors-bg-success);
+  --background-color: var(--colors-bg-success);
 }
 
 .amplify-ui-badge[data-size="small"] {
-  font-size: var(--font-size-small);
+  --font-size: var(--font-size-small);
 }
 
 .amplify-ui-badge[data-size="medium"] {
-  font-size: var(--font-size-medium);
+  --font-size: var(--font-size-medium);
 }
 
 .amplify-ui-badge[data-size="large"] {
-  font-size: var(--font-size-large);
+  --font-size: var(--font-size-large);
 }
