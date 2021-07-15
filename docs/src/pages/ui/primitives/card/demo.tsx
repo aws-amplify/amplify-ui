@@ -8,6 +8,7 @@ export const CardSample = () => {
         src="/road-to-milford-new-zealand-800w.jpg"
         alt="Glittering stream with old log, snowy mountain peaks
     tower over a green field."
+        objectFit="cover"
       />
       <View padding="1rem">
         <Text fontWeight="bold">New Zealand</Text>

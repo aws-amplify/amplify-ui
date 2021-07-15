@@ -3,11 +3,11 @@
     "card": {
       "background": {
         "color": {
-          "value": "#fdfdfd"
+          "value": "{colors.gray.50.value}"
         }
       },
       "border": {
-        "value": "1px solid black"
+        "value": "{borders.thin.solid.black.value}"
       },
       "box": {
         "shadow": {

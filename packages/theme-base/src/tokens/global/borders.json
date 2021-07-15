@@ -1,0 +1,11 @@
+{
+  "borders": {
+    "thin": {
+      "solid": {
+        "black": {
+          "value": "1px solid black"
+        }
+      }
+    }
+  }
+}
