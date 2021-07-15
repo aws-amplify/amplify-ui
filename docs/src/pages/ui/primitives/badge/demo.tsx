@@ -22,6 +22,8 @@ export const BadgeDemo = () => {
               value={variant}
               placeholder="Select badge variant"
               onChange={event => setVariant(event.target.value as BadgeVariant)}
+              id="variant"
+              name="variant"
             >
               <option value="default">default</option>
               <option value="info">info</option>
@@ -36,6 +38,8 @@ export const BadgeDemo = () => {
               value={size}
               placeholder="Select badge size"
               onChange={event => setSize(event.target.value as BadgeSize)}
+              id="size"
+              name="size"
             >
               <option value="small">small</option>
               <option value="medium">medium</option>
