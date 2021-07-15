@@ -1,4 +1,5 @@
 export enum ComponentClassNames {
+  Badge = 'amplify-ui-badge',
   Button = 'amplify-ui-button',
   Divider = 'amplify-ui-divider',
   Flex = 'amplify-ui-flex',
