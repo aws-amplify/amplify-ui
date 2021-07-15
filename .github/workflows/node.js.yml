@@ -24,8 +24,10 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-          cache: "yarn"
+          cache: 'yarn'
       - run: yarn --frozen-lockfile
       - run: node environments/write-exports-files.js
+        env:
+          ENVIRONMENT_AWS_EXPORTS: ${{ secrets.ENVIRONMENT_AWS_EXPORTS }}
       - run: yarn next-example dev & wait-on http://localhost:3000
       - run: yarn test
