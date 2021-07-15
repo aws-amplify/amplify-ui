@@ -1,7 +1,7 @@
-import { ref, readonly } from "vue";
+import { ref, readonly } from 'vue';
 
 // State
-const currentPage = ref("SIGNIN");
+const currentPage = ref('SIGNIN');
 
 //mutatation
 

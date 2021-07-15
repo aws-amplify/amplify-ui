@@ -1,6 +1,6 @@
-import { CognitoUser, CognitoUserSession } from "amazon-cognito-identity-js";
-import { Interpreter, State } from "xstate";
-import { ValidationError } from "./validator";
+import { CognitoUser, CognitoUserSession } from 'amazon-cognito-identity-js';
+import { Interpreter, State } from 'xstate';
+import { ValidationError } from './validator';
 
 export type AuthFormData = Record<string, string>;
 
@@ -15,21 +15,21 @@ export interface AuthContext {
 }
 
 export type AuthEventTypes =
-  | "SIGN_IN"
-  | "SIGN_UP"
-  | "SIGN_OUT"
-  | "SUBMIT"
-  | "RESEND"
-  | "CONFIRM_SIGN_UP"
-  | "CONFIRM_SIGN_IN"
-  | "INPUT"
-  | "CHANGE";
+  | 'SIGN_IN'
+  | 'SIGN_UP'
+  | 'SIGN_OUT'
+  | 'SUBMIT'
+  | 'RESEND'
+  | 'CONFIRM_SIGN_UP'
+  | 'CONFIRM_SIGN_IN'
+  | 'INPUT'
+  | 'CHANGE';
 
 export enum AuthChallengeNames {
-  SMS_MFA = "SMS_MFA",
-  SOFTWARE_TOKEN_MFA = "SOFTWARE_TOKEN_MFA",
-  NEW_PASSWORD_REQUIRED = "NEW_PASSWORD_REQUIRED",
-  MFA_SETUP = "MFA_SETUP",
+  SMS_MFA = 'SMS_MFA',
+  SOFTWARE_TOKEN_MFA = 'SOFTWARE_TOKEN_MFA',
+  NEW_PASSWORD_REQUIRED = 'NEW_PASSWORD_REQUIRED',
+  MFA_SETUP = 'MFA_SETUP',
 }
 
 export interface AuthEvent {

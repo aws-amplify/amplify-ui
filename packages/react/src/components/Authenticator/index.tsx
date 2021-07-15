@@ -1,21 +1,21 @@
 // @refresh reset
-import { authMachine } from "@aws-amplify/ui-core";
-import { useAmplify } from "@aws-amplify/ui-react";
-import { useActor, useInterpret } from "@xstate/react";
+import { authMachine } from '@aws-amplify/ui-core';
+import { useAmplify } from '@aws-amplify/ui-react';
+import { useActor, useInterpret } from '@xstate/react';
 
-import { AuthenticatorContext } from "./AuthenticatorContext";
-import { ConfirmSignIn } from "./ConfirmSignIn";
-import { ConfirmSignUp } from "./ConfirmSignUp";
-import { SetupTOTP } from "./SetupTOTP";
-import { SignIn } from "./SignIn";
-import { SignUp } from "./SignUp";
+import { AuthenticatorContext } from './AuthenticatorContext';
+import { ConfirmSignIn } from './ConfirmSignIn';
+import { ConfirmSignUp } from './ConfirmSignUp';
+import { SetupTOTP } from './SetupTOTP';
+import { SignIn } from './SignIn';
+import { SignUp } from './SignUp';
 
 export function Authenticator({
   className = null,
   children = (context) => null,
 }) {
   const service = useInterpret(authMachine, {
-    devTools: process.env.NODE_ENV === "development",
+    devTools: process.env.NODE_ENV === 'development',
   });
 
   const [state, send] = useActor(service);
@@ -30,9 +30,9 @@ export function Authenticator({
       SignUp = Authenticator.SignUp,
       Wrapper,
     },
-  } = useAmplify("Authenticator");
+  } = useAmplify('Authenticator');
 
-  if (state.matches("authenticated")) {
+  if (state.matches('authenticated')) {
     return children({ state, send });
   }
 
@@ -41,20 +41,20 @@ export function Authenticator({
       <Wrapper className={className} data-amplify-authenticator="">
         {(() => {
           switch (true) {
-            case state.matches("idle"):
+            case state.matches('idle'):
               return null;
-            case state.matches("confirmSignUp"):
+            case state.matches('confirmSignUp'):
               return <ConfirmSignUp />;
-            case state.matches("confirmSignIn"):
+            case state.matches('confirmSignIn'):
               return <ConfirmSignIn />;
-            case state.matches("setupTOTP"):
+            case state.matches('setupTOTP'):
               return <SetupTOTP />;
-            case state.matches("signIn"):
+            case state.matches('signIn'):
               return <SignIn />;
-            case state.matches("signUp"):
+            case state.matches('signUp'):
               return <SignUp />;
             default:
-              console.warn("Unhandled Auth state", state);
+              console.warn('Unhandled Auth state', state);
               return null;
           }
         })()}

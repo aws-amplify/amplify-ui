@@ -1,27 +1,27 @@
 // See https://astexplorer.net/ for converting JSX to AST
 
 module.exports = () => (ast) => {
-  const layoutUrl = "@/components/Layout";
+  const layoutUrl = '@/components/Layout';
 
   // import Layout from "@/components/Layout";
   ast.children.unshift({
-    type: "mdxjsEsm",
+    type: 'mdxjsEsm',
     data: {
       estree: {
-        type: "Program",
-        sourceType: "module",
+        type: 'Program',
+        sourceType: 'module',
         body: [
           {
-            type: "ImportDeclaration",
+            type: 'ImportDeclaration',
             source: {
-              type: "Literal",
+              type: 'Literal',
               value: layoutUrl,
               raw: JSON.stringify(layoutUrl),
             },
             specifiers: [
               {
-                type: "ImportDefaultSpecifier",
-                local: { type: "Identifier", name: "Layout" },
+                type: 'ImportDefaultSpecifier',
+                local: { type: 'Identifier', name: 'Layout' },
               },
             ],
           },
@@ -34,74 +34,74 @@ module.exports = () => (ast) => {
   //   <Layout frontmatter={frontmatter}>{children}</Layout>
   // );
   ast.children.push({
-    type: "mdxjsEsm",
+    type: 'mdxjsEsm',
     data: {
       estree: {
-        type: "Program",
-        sourceType: "module",
+        type: 'Program',
+        sourceType: 'module',
         body: [
           {
-            type: "ExportDefaultDeclaration",
+            type: 'ExportDefaultDeclaration',
             declaration: {
-              type: "ArrowFunctionExpression",
+              type: 'ArrowFunctionExpression',
               params: [
                 {
-                  type: "ObjectPattern",
+                  type: 'ObjectPattern',
                   properties: [
                     {
-                      type: "Property",
+                      type: 'Property',
                       shorthand: true,
                       key: {
-                        type: "Identifier",
-                        name: "children",
+                        type: 'Identifier',
+                        name: 'children',
                       },
-                      kind: "init",
+                      kind: 'init',
                       value: {
-                        type: "Identifier",
-                        name: "children",
+                        type: 'Identifier',
+                        name: 'children',
                       },
                     },
                   ],
                 },
               ],
               body: {
-                type: "JSXElement",
+                type: 'JSXElement',
                 openingElement: {
-                  type: "JSXOpeningElement",
+                  type: 'JSXOpeningElement',
                   attributes: [
                     {
-                      type: "JSXAttribute",
+                      type: 'JSXAttribute',
                       name: {
-                        type: "JSXIdentifier",
-                        name: "frontmatter",
+                        type: 'JSXIdentifier',
+                        name: 'frontmatter',
                       },
                       value: {
-                        type: "JSXExpressionContainer",
+                        type: 'JSXExpressionContainer',
                         expression: {
-                          type: "Identifier",
-                          name: "frontmatter",
+                          type: 'Identifier',
+                          name: 'frontmatter',
                         },
                       },
                     },
                   ],
                   name: {
-                    type: "JSXIdentifier",
-                    name: "Layout",
+                    type: 'JSXIdentifier',
+                    name: 'Layout',
                   },
                 },
                 closingElement: {
-                  type: "JSXClosingElement",
+                  type: 'JSXClosingElement',
                   name: {
-                    type: "JSXIdentifier",
-                    name: "Layout",
+                    type: 'JSXIdentifier',
+                    name: 'Layout',
                   },
                 },
                 children: [
                   {
-                    type: "JSXExpressionContainer",
+                    type: 'JSXExpressionContainer',
                     expression: {
-                      type: "Identifier",
-                      name: "children",
+                      type: 'Identifier',
+                      name: 'children',
                     },
                   },
                 ],

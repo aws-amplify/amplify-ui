@@ -1,4 +1,4 @@
-import { Authenticator } from "@aws-amplify/ui-react";
+import { Authenticator } from '@aws-amplify/ui-react';
 
 export const customComponents = {
   Input(props) {
@@ -9,8 +9,8 @@ export const customComponents = {
       />
     );
   },
-  "Authenticator.SignUp.Button": (props) => {
-    return props.type === "submit" ? (
+  'Authenticator.SignUp.Button': (props) => {
+    return props.type === 'submit' ? (
       <button
         className="px-4 py-2 font-bold text-white bg-purple-500 border-b-4 border-purple-700 rounded-md shadow hover:bg-purple-600"
         {...props}
@@ -21,7 +21,7 @@ export const customComponents = {
       <button {...props} />
     );
   },
-  "Authenticator.SignUp.PasswordControl": ({ label }) => {
+  'Authenticator.SignUp.PasswordControl': ({ label }) => {
     return (
       <>
         <Authenticator.SignUp.PasswordControl label={label} />

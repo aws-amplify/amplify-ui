@@ -1,6 +1,6 @@
-import { getContentPaths } from "@/utils/getContentPaths";
-import { getPageFromSlug } from "@/utils/getPageFromSlug";
-import preval from "next-plugin-preval";
+import { getContentPaths } from '@/utils/getContentPaths';
+import { getPageFromSlug } from '@/utils/getPageFromSlug';
+import preval from 'next-plugin-preval';
 
 function pluckMeta({ frontmatter, href, slug }) {
   return { frontmatter, href, slug };

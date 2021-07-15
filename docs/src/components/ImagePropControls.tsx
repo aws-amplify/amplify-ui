@@ -1,23 +1,23 @@
-import React from "react";
-import { ImageOptions } from "@aws-amplify/ui-react";
-import { FieldLabeler } from "./FieldLabeler";
+import React from 'react';
+import { ImageOptions } from '@aws-amplify/ui-react';
+import { FieldLabeler } from './FieldLabeler';
 
 export interface ImagePropControlsProps extends ImageOptions {
-  setAlt: (value: React.SetStateAction<ImageOptions["alt"]>) => void;
-  setSizes: (value: React.SetStateAction<ImageOptions["sizes"]>) => void;
-  setSrc: (value: React.SetStateAction<ImageOptions["src"]>) => void;
-  setSrcSet: (value: React.SetStateAction<ImageOptions["srcSet"]>) => void;
+  setAlt: (value: React.SetStateAction<ImageOptions['alt']>) => void;
+  setSizes: (value: React.SetStateAction<ImageOptions['sizes']>) => void;
+  setSrc: (value: React.SetStateAction<ImageOptions['src']>) => void;
+  setSrcSet: (value: React.SetStateAction<ImageOptions['srcSet']>) => void;
   setHtmlHeight: (
-    value: React.SetStateAction<ImageOptions["htmlHeight"]>
+    value: React.SetStateAction<ImageOptions['htmlHeight']>
   ) => void;
   setHtmlWidth: (
-    value: React.SetStateAction<ImageOptions["htmlWidth"]>
+    value: React.SetStateAction<ImageOptions['htmlWidth']>
   ) => void;
   setObjectFit: (
-    value: React.SetStateAction<ImageOptions["objectFit"]>
+    value: React.SetStateAction<ImageOptions['objectFit']>
   ) => void;
   setObjectPosition: (
-    value: React.SetStateAction<ImageOptions["objectPosition"]>
+    value: React.SetStateAction<ImageOptions['objectPosition']>
   ) => void;
 }
 

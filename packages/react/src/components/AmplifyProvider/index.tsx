@@ -1,4 +1,4 @@
-import { AmplifyContext } from "./AmplifyContext";
+import { AmplifyContext } from './AmplifyContext';
 
 export function AmplifyProvider({ children, components, theme }) {
   return (

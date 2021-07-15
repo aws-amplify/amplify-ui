@@ -1,8 +1,8 @@
-import { AriaProps, BaseComponentProps } from "./base";
+import { AriaProps, BaseComponentProps } from './base';
 
-export type ButtonSize = "small" | "medium" | "large";
-export type ButtonTypes = "button" | "reset" | "submit";
-export type ButtonVariant = "primary" | "secondary" | "tertiary" | "link";
+export type ButtonSize = 'small' | 'medium' | 'large';
+export type ButtonTypes = 'button' | 'reset' | 'submit';
+export type ButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'link';
 
 export interface ButtonProps extends BaseComponentProps, AriaProps {
   /**

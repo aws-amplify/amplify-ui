@@ -56,7 +56,7 @@
 
 [data-amplify-authenticator]
   [data-amplify-footer]
-  [data-amplify-button][type="submit"] {
+  [data-amplify-button][type='submit'] {
   @apply px-8 py-2 text-base text-white bg-gray-700 rounded;
 }
 

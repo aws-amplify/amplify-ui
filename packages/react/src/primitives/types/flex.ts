@@ -1,6 +1,6 @@
-import { Property } from "csstype";
+import { Property } from 'csstype';
 
-import { BaseComponentProps } from "./base";
+import { BaseComponentProps } from './base';
 
 export interface FlexStyleProps {
   /**

@@ -2,10 +2,10 @@ import {
   ComponentPropsToStylePropsMap,
   AllStyleProps,
   ComponentPropToStyleProp,
-} from "../types/index";
+} from '../types/index';
 
 export const strHasLength = (str: unknown): str is string =>
-  typeof str === "string" && str.length > 0;
+  typeof str === 'string' && str.length > 0;
 
 /**
  * Convert style props to CSS variables for React style prop
@@ -22,7 +22,7 @@ export const convertStylePropsToStyleObj = (props: AllStyleProps) => {
     const stylePropValue = props[stylePropKey];
     if (
       stylePropValue != null &&
-      (typeof stylePropValue !== "string" || strHasLength(stylePropValue))
+      (typeof stylePropValue !== 'string' || strHasLength(stylePropValue))
     ) {
       const reactStyleProp = ComponentPropsToStylePropsMap[stylePropKey];
       style = { ...style, [reactStyleProp]: stylePropValue };

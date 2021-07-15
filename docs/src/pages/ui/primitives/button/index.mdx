@@ -2,8 +2,8 @@
 title: Button
 ---
 
-import { Button } from "@aws-amplify/ui-react";
-import { ButtonDemo } from "./demo";
+import { Button } from '@aws-amplify/ui-react';
+import { ButtonDemo } from './demo';
 
 ## Installation
 
@@ -20,8 +20,8 @@ npm install @aws-amplify/ui-react
 Import the button component and styles.
 
 ```jsx
-import { Button } from "@aws-amplify/ui-react";
-import "@aws-amplify/ui-react/styles.css";
+import { Button } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
 // For smaller bundle size, import just the button styling:
 // import "@aws-amplify/ui-react/dist/primitives/Button/styles.css";
 
@@ -35,13 +35,13 @@ import "@aws-amplify/ui-react/styles.css";
 Use the `onClick` prop to add a click handler to the button.
 
 ```jsx
-import { Button } from "@aws-amplify/ui-react";
-import "@aws-amplify/ui-react/styles.css";
+import { Button } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
 
-<Button onClick={() => alert("👋 hello")}>Click me</Button>;
+<Button onClick={() => alert('👋 hello')}>Click me</Button>;
 ```
 
-<Button onClick={() => alert("👋 hello")}>Click me</Button>
+<Button onClick={() => alert('👋 hello')}>Click me</Button>
 
 ### Button sizes
 
@@ -82,8 +82,8 @@ import "@aws-amplify/ui-react/styles.css";
 ### Button loading state
 
 ```jsx
-import { Button } from "@aws-amplify/ui-react";
-import "@aws-amplify/ui-react/styles.css";
+import { Button } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
 
 <Button isLoading={true} loadingText="Loading..." variant="primary">
   Hello
@@ -112,8 +112,8 @@ import "@aws-amplify/ui-react/styles.css";
 Setting an `aria-label` attribute for an icon button:
 
 ```jsx
-import { Button } from "@aws-amplify/ui-react";
-import "@aws-amplify/ui-react/styles.css";
+import { Button } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
 
 <Button ariaLabel="To the moon!">🚀</Button>;
 ```
@@ -135,9 +135,9 @@ Using a class and CSS file:
 ```
 
 ```jsx
-import { Button } from "@aws-amplify/ui-react";
-import "@aws-amplify/ui-react/styles.css";
-import "./styles.css";
+import { Button } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+import './styles.css';
 
 <Button className="my-custom-button" variant="primary">
   My button
@@ -153,8 +153,8 @@ Or override the variables inline:
 ```jsx
 <div
   style={{
-    "--amplify-ui-button-colors-bg-primary": "#0057ff",
-    "--amplify-ui-button-colors-bg-primary-hover": "#4d89fc",
+    '--amplify-ui-button-colors-bg-primary': '#0057ff',
+    '--amplify-ui-button-colors-bg-primary-hover': '#4d89fc',
   }}
 >
   <Button variant="primary">My button</Button>
@@ -163,8 +163,8 @@ Or override the variables inline:
 
 <div
   style={{
-    "--amplify-ui-button-colors-bg-primary": "#0057ff",
-    "--amplify-ui-button-colors-bg-primary-hover": "#4d89fc",
+    '--amplify-ui-button-colors-bg-primary': '#0057ff',
+    '--amplify-ui-button-colors-bg-primary-hover': '#4d89fc',
   }}
 >
   <Button variant="primary">My button</Button>
@@ -177,23 +177,23 @@ Use the `amplify-ui-button` class and data attributes to style all buttons.
 ```css
 /* Example: Extend all <Button> styles */
 .amplify-ui-button {
-  font-family: "My Custom Font", "Comic Sans MS", sans-serif;
+  font-family: 'My Custom Font', 'Comic Sans MS', sans-serif;
   font-weight: bold;
 }
 
 /* Example: Override only primary variant styles */
-.amplify-ui-button[data-variant="primary"] {
+.amplify-ui-button[data-variant='primary'] {
   background-color: teal;
   color: white;
 }
 
 /* Example: Override loading styles */
-.amplify-ui-button[data-loading="true"] {
+.amplify-ui-button[data-loading='true'] {
   opacity: 0.8;
 }
 
 /* Example: Override disabled styles */
-.amplify-ui-button[disabled="true"] {
+.amplify-ui-button[disabled='true'] {
   opacity: 0.8;
 }
 

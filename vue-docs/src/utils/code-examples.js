@@ -143,62 +143,62 @@ const customPassword = `
     `;
 
 const slotTable =
-  " | Name                   |                  Description                   |                           Scoped Slots                           |      Component              |   \n" +
-  " | ---------------------- | :--------------------------------------------: | :--------------------------------------------------------------: | :--------------------------: | \n" +
-  " | form                   |       Replaces the **<form>** DOM Element        |            Exposes **{ info, onSignInSubmit, onCreateAccountClicked, onForgotPasswordClicked }**         | **<sign-in>**               | \n" +
-  " | name              | Replaces the **<span>** label text for Username or Email or Phone Number |                               None                             | **<sign-in>**               | \n" +
-  " | forgot-password-section |      Replaces the forgot password button       |              Exposes  **{ onForgotPasswordClicked }**            | **<sign-in>**               | \n" +
-  " | sign-in-button         |          Replaces the sign in button           |               Exposes **{ onSignInSubmit }**              | **<sign-in>**               | \n" +
-  "| heading                |           Replaces the heading text            |                               none                               | **<sign-in>**                | \n" +
-  "| footer                 |      Replaces the **<footer>** DOM element       | Exposes **{ onSignInSubmit, info, onCreateAccountClicked }** | **<sign-in>**           | \n" +
-  " | additional-fields      | Space below password input   |                               None                             | **<sign-in>**               | \n" +
-  " | signin-fields      | Replaces Sign In Fields|                               Exposes **{ info }**                              | **<sign-in>**               | \n" +
-  " | signup-fields      | Replaces Sign Up Fields|                               Exposes **{ info }**                              | **<sign-up>**               | \n" +
-  " | footer      | Replaces footer at the bottom | Exposes **{info, onHaveAccountClicked, onSignUpSubmit}**                             | **<sign-up>** | \n" +
-  " | footer-left      | Replaces the footer on the left  | Exposes **{ onHaveAccountClicked }** | **<sign-up>**               | \n" +
-  " | footer-right      | Replaces the footer on the right | Exposes **{ onSignUpSubmit }**   | **<sign-up>**               | \n" +
-  " | footer      | Replaces footer at the bottom | Exposes **{info, onBackToSignInClicked, onConfirmSignUpSubmit}**                             | **<confirm-sign-up>** | \n" +
-  "| sign-in | Replaces sign-in                    |   None |  **<authenticator>**         | \n" +
-  "| sign-up | Replaces sign-up                    |    None |  **<authenticator>**         | \n" +
-  "| confirm-sign-up | Replaces confirm-sign-up                    |  None  |  **<authenticator>**         | \n" +
-  "| sign-in-button | Replaces the sign in button                    |    Exposes **{ onSignInSubmit }**                        |  **<authenticator>**         | \n" +
-  "| sign-in-forgot-password-section | Replaces the forgot password button                    |    Exposes **{ onForgotPasswordClicked }**                        |  **<authenticator>**         | \n" +
-  "| sign-in-heading                |           Replaces the heading text            |                               none                               | **<authenticator>**                | \n" +
-  "| sign-in-footer                 |      Replaces the **<footer>** DOM element       | Exposes **{ onSignInSubmit, info, onCreateAccountClicked }** | **<authenticator>**           | \n" +
-  " | sign-in-form                   |       Replaces the **<form>** DOM Element        |            Exposes **{ info, onSignInSubmit, onCreateAccountClicked, onForgotPasswordClicked }**         | **<authenticator>**               | \n" +
-  " | sign-in-name              | Replaces the **<span>** label text for Full name |                               None                             | **<authenticator>**               | \n" +
-  " | sign-in-fields      | Replaces Sign In fields   |                               Exposes **{ info }** default child data                             | **<authenticator>**               | \n" +
-  " | sign-up-fields      | Replaces Sign Up fields   |                               Exposes **{ info }** default child data                             | **<authenticator>**               | \n" +
-  " | sign-up-footer      | Replaces footer at the bottom | Exposes **{info, onHaveAccountClicked, onSignUpSubmit}**                             | **<authenticator>** | \n" +
-  " | sign-up-footer-left      | Replaces the footer on the left  | Exposes **{ onHaveAccountClicked }** | **<authenticator>**               | \n" +
-  " | sign-up-footer-right      | Replaces the footer on the right | Exposes **{ onSignUpSubmit }**   | **<authenticator>**               | \n";
+  ' | Name                   |                  Description                   |                           Scoped Slots                           |      Component              |   \n' +
+  ' | ---------------------- | :--------------------------------------------: | :--------------------------------------------------------------: | :--------------------------: | \n' +
+  ' | form                   |       Replaces the **<form>** DOM Element        |            Exposes **{ info, onSignInSubmit, onCreateAccountClicked, onForgotPasswordClicked }**         | **<sign-in>**               | \n' +
+  ' | name              | Replaces the **<span>** label text for Username or Email or Phone Number |                               None                             | **<sign-in>**               | \n' +
+  ' | forgot-password-section |      Replaces the forgot password button       |              Exposes  **{ onForgotPasswordClicked }**            | **<sign-in>**               | \n' +
+  ' | sign-in-button         |          Replaces the sign in button           |               Exposes **{ onSignInSubmit }**              | **<sign-in>**               | \n' +
+  '| heading                |           Replaces the heading text            |                               none                               | **<sign-in>**                | \n' +
+  '| footer                 |      Replaces the **<footer>** DOM element       | Exposes **{ onSignInSubmit, info, onCreateAccountClicked }** | **<sign-in>**           | \n' +
+  ' | additional-fields      | Space below password input   |                               None                             | **<sign-in>**               | \n' +
+  ' | signin-fields      | Replaces Sign In Fields|                               Exposes **{ info }**                              | **<sign-in>**               | \n' +
+  ' | signup-fields      | Replaces Sign Up Fields|                               Exposes **{ info }**                              | **<sign-up>**               | \n' +
+  ' | footer      | Replaces footer at the bottom | Exposes **{info, onHaveAccountClicked, onSignUpSubmit}**                             | **<sign-up>** | \n' +
+  ' | footer-left      | Replaces the footer on the left  | Exposes **{ onHaveAccountClicked }** | **<sign-up>**               | \n' +
+  ' | footer-right      | Replaces the footer on the right | Exposes **{ onSignUpSubmit }**   | **<sign-up>**               | \n' +
+  ' | footer      | Replaces footer at the bottom | Exposes **{info, onBackToSignInClicked, onConfirmSignUpSubmit}**                             | **<confirm-sign-up>** | \n' +
+  '| sign-in | Replaces sign-in                    |   None |  **<authenticator>**         | \n' +
+  '| sign-up | Replaces sign-up                    |    None |  **<authenticator>**         | \n' +
+  '| confirm-sign-up | Replaces confirm-sign-up                    |  None  |  **<authenticator>**         | \n' +
+  '| sign-in-button | Replaces the sign in button                    |    Exposes **{ onSignInSubmit }**                        |  **<authenticator>**         | \n' +
+  '| sign-in-forgot-password-section | Replaces the forgot password button                    |    Exposes **{ onForgotPasswordClicked }**                        |  **<authenticator>**         | \n' +
+  '| sign-in-heading                |           Replaces the heading text            |                               none                               | **<authenticator>**                | \n' +
+  '| sign-in-footer                 |      Replaces the **<footer>** DOM element       | Exposes **{ onSignInSubmit, info, onCreateAccountClicked }** | **<authenticator>**           | \n' +
+  ' | sign-in-form                   |       Replaces the **<form>** DOM Element        |            Exposes **{ info, onSignInSubmit, onCreateAccountClicked, onForgotPasswordClicked }**         | **<authenticator>**               | \n' +
+  ' | sign-in-name              | Replaces the **<span>** label text for Full name |                               None                             | **<authenticator>**               | \n' +
+  ' | sign-in-fields      | Replaces Sign In fields   |                               Exposes **{ info }** default child data                             | **<authenticator>**               | \n' +
+  ' | sign-up-fields      | Replaces Sign Up fields   |                               Exposes **{ info }** default child data                             | **<authenticator>**               | \n' +
+  ' | sign-up-footer      | Replaces footer at the bottom | Exposes **{info, onHaveAccountClicked, onSignUpSubmit}**                             | **<authenticator>** | \n' +
+  ' | sign-up-footer-left      | Replaces the footer on the left  | Exposes **{ onHaveAccountClicked }** | **<authenticator>**               | \n' +
+  ' | sign-up-footer-right      | Replaces the footer on the right | Exposes **{ onSignUpSubmit }**   | **<authenticator>**               | \n';
 
 const eventTable =
-  "| Name                    |                                                Description | Component | \n" +
-  "| ----------------------- | :---------------------------------------------------------: | :----------------: \n" +
-  "| sign-in-submit  |         Emits and overrides when sign in button is submitted | **<sign-in>**    | \n" +
-  "| forgot-password-clicked | Emits and overrides when forgot password button is clicked | **<sign-in>**    |\n" +
-  "| create-account-clicked  |  Emits and overrides when create account button is clicked | **<sign-in>**    |\n" +
-  "| sign-up-submit  |  Emits and overrides when sign up button is submitted | **<sign-up>**    |\n" +
-  "| have-account-clicked    |  Emits and overrides when have account button is clicked | **<sign-up>**    |\n" +
-  "| confirm-sign-up-submit  |  Emits and overrides when confirm sign up button is submitted | **<confirm-sign-up>**    |\n" +
-  "| back-to-sign-in-clicked  |  Emits and overrides when the back to sign in button is clicked| **<confirm-sign-up>**    |\n" +
-  "| lost-code-clicked  |  Emits and overrides when lost code button is clicked | **<confirm-sign-up>**    |\n" +
-  "| sign-in-submit  |         Emits and overrides when sign in button is submitted | **<authenticator>**    | \n" +
-  "| sign-up-submit  |  Emits and overrides when sign up button is submitted | **<authenticator>**    |\n" +
-  "| confirm-sign-up-submit  |  Emits and overrides when confirm sign up button is submitted | **<authenticator>**    |\n";
+  '| Name                    |                                                Description | Component | \n' +
+  '| ----------------------- | :---------------------------------------------------------: | :----------------: \n' +
+  '| sign-in-submit  |         Emits and overrides when sign in button is submitted | **<sign-in>**    | \n' +
+  '| forgot-password-clicked | Emits and overrides when forgot password button is clicked | **<sign-in>**    |\n' +
+  '| create-account-clicked  |  Emits and overrides when create account button is clicked | **<sign-in>**    |\n' +
+  '| sign-up-submit  |  Emits and overrides when sign up button is submitted | **<sign-up>**    |\n' +
+  '| have-account-clicked    |  Emits and overrides when have account button is clicked | **<sign-up>**    |\n' +
+  '| confirm-sign-up-submit  |  Emits and overrides when confirm sign up button is submitted | **<confirm-sign-up>**    |\n' +
+  '| back-to-sign-in-clicked  |  Emits and overrides when the back to sign in button is clicked| **<confirm-sign-up>**    |\n' +
+  '| lost-code-clicked  |  Emits and overrides when lost code button is clicked | **<confirm-sign-up>**    |\n' +
+  '| sign-in-submit  |         Emits and overrides when sign in button is submitted | **<authenticator>**    | \n' +
+  '| sign-up-submit  |  Emits and overrides when sign up button is submitted | **<authenticator>**    |\n' +
+  '| confirm-sign-up-submit  |  Emits and overrides when confirm sign up button is submitted | **<authenticator>**    |\n';
 
 const propTable =
-  "| Name                    |                                                Description | Component | \n" +
-  "| ----------------------- | :---------------------------------------------------------: | :----------------: \n" +
-  "| headless  | Removes styles | **<authenticator>**    | \n" +
-  "| headless |  Removes styles | **<sign-up>**    |\n" +
-  "| headless |  Removes styles | **<sign-in>**    |\n" +
-  "| headless |  Removes styles| **<confirm-sign-up>**    |\n" +
-  "| usernameAlias|Username Alias is used to setup authentication with `username`, `email` or `phone_number`  |**<authenticator>**    |\n" +
-  "| usernameAlias|Username Alias is used to setup authentication with `username`, `email` or `phone_number`  |**<sign-in>**    |\n" +
-  "| usernameAlias|Username Alias is used to setup authentication with `username`, `email` or `phone_number`  |**<sign-up>**    |\n" +
-  "| usernameAlias|Username Alias is used to setup authentication with `username`, `email` or `phone_number`  |**<confirm-password>**    |\n";
+  '| Name                    |                                                Description | Component | \n' +
+  '| ----------------------- | :---------------------------------------------------------: | :----------------: \n' +
+  '| headless  | Removes styles | **<authenticator>**    | \n' +
+  '| headless |  Removes styles | **<sign-up>**    |\n' +
+  '| headless |  Removes styles | **<sign-in>**    |\n' +
+  '| headless |  Removes styles| **<confirm-sign-up>**    |\n' +
+  '| usernameAlias|Username Alias is used to setup authentication with `username`, `email` or `phone_number`  |**<authenticator>**    |\n' +
+  '| usernameAlias|Username Alias is used to setup authentication with `username`, `email` or `phone_number`  |**<sign-in>**    |\n' +
+  '| usernameAlias|Username Alias is used to setup authentication with `username`, `email` or `phone_number`  |**<sign-up>**    |\n' +
+  '| usernameAlias|Username Alias is used to setup authentication with `username`, `email` or `phone_number`  |**<confirm-password>**    |\n';
 
 const exampleSignIn = `
     <div class="css-example">
