@@ -1,4 +1,5 @@
 const fs = require('fs/promises');
+require('dotenv').config();
 
 (async function writeExportsFiles() {
   if (!process.env.ENVIRONMENT_AWS_EXPORTS)
@@ -20,9 +21,7 @@ const fs = require('fs/promises');
     const exportsPath = `${__dirname}/${environment}/src`;
     try {
       await fs.mkdir(exportsPath, { recursive: true });
-      console.log(
-        `Writing to ${environment}: ${environmentExports[environment]}`
-      );
+      console.log(`Writing to ${exportsPath}`);
       await fs.writeFile(
         `${exportsPath}/aws-exports.json`,
         JSON.stringify(environmentExports[environment])
