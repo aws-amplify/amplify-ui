@@ -1,5 +1,5 @@
 .my-custom-badge {
-  --colors-bg-default: pink;
+  --badge-colors-bg-default: yellow;
 }
 
 .flagged {
