@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import { useAmplify, useAuth } from "@aws-amplify/ui-react";
 
 import {
@@ -9,6 +11,7 @@ import {
 } from "../shared";
 
 export function ConfirmSignUp() {
+  const [usernameAlias, setUsernameAlias] = useState<string>("");
   const amplifyNamespace = "Authenticator.ConfirmSignUp";
   const {
     components: { Box, Button, Fieldset, Form, Heading, Label, Text },
@@ -20,6 +23,7 @@ export function ConfirmSignUp() {
   const footerProps: ConfirmSignInFooterProps = {
     amplifyNamespace,
     isPending,
+    shouldHideReturnBtn: true,
     send,
   };
 
@@ -27,6 +31,10 @@ export function ConfirmSignUp() {
     amplifyNamespace,
     label: "Confirmation Code",
     placeholder: "Enter your code",
+  };
+
+  const handleUsernameInputChange = (event): void => {
+    setUsernameAlias(event.target.value);
   };
 
   return (
@@ -49,13 +57,28 @@ export function ConfirmSignUp() {
       <Heading level={1}>Confirm Sign Up</Heading>
 
       <Fieldset disabled={isPending}>
-        <UserNameAlias data-amplify-usernamealias />
+        <UserNameAlias
+          handleInputChange={handleUsernameInputChange}
+          data-amplify-usernamealias
+        />
 
         <Label data-amplify-confirmationcode>
           <ConfirmationCodeInput {...confirmationCodeInputProps} />
           <Box>
             <Text>Lost your code?</Text>{" "}
-            <Button type="button">Reset Code</Button>
+            <Button
+              onClick={() => {
+                send({
+                  type: "RESEND",
+                  data: {
+                    username: usernameAlias,
+                  },
+                });
+              }}
+              type="button"
+            >
+              Reset Code
+            </Button>
           </Box>
         </Label>
       </Fieldset>

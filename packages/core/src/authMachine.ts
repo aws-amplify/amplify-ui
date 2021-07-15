@@ -78,10 +78,17 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
                   target: "resolved",
                 },
               ],
-              onError: {
-                actions: "setRemoteError",
-                target: "rejected",
-              },
+              onError: [
+                {
+                  cond: "shouldRedirectToConfirmSignUp",
+                  actions: ["setUser"],
+                  target: "#auth.confirmSignUp",
+                },
+                {
+                  actions: "setRemoteError",
+                  target: "rejected",
+                },
+              ],
             },
           },
           resolved: {
@@ -361,20 +368,15 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
           AuthChallengeNames.SOFTWARE_TOKEN_MFA,
         ];
 
-        if (validChallengeNames.includes(challengeName)) {
-          return true;
-        }
-
-        return false;
+        return validChallengeNames.includes(challengeName);
       },
       shouldSetupTOTP: (context, event) => {
         const challengeName = get(event, "data.challengeName");
 
-        if (challengeName === AuthChallengeNames.MFA_SETUP) {
-          return true;
-        }
-
-        return false;
+        return challengeName === AuthChallengeNames.MFA_SETUP;
+      },
+      shouldRedirectToConfirmSignUp: (context, event) => {
+        return event.data.code === "UserNotConfirmedException";
       },
     },
     services: {
@@ -390,11 +392,9 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
         return Amplify.configure();
       },
       async signIn(context, event) {
-        const { username = "", password } = event.data;
+        const { username, password } = event.data;
 
-        const loweredUsername = username.toLowerCase();
-
-        return Auth.signIn(loweredUsername, password);
+        return Auth.signIn(username, password);
       },
       async confirmSignIn(context, event) {
         const { challengeName, user } = context;

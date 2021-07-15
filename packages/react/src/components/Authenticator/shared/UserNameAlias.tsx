@@ -2,7 +2,13 @@ import { useAuth } from "@aws-amplify/ui-react";
 import { UserNameAliasNames } from "../../../primitives/shared/constants";
 import { Label, Text, Input, ErrorText } from "../../../primitives";
 
-export function UserNameAlias({ ...attrs }) {
+export interface UserNameAliasProps {
+  handleInputChange?(event): void;
+  [key: string]: any;
+}
+
+export function UserNameAlias(props: UserNameAliasProps) {
+  const { handleInputChange, ...attrs } = props;
   const [{ context }] = useAuth();
 
   const error = context.validationError["username"];
@@ -22,7 +28,12 @@ export function UserNameAlias({ ...attrs }) {
   return (
     <Label {...attrs}>
       <Text>{name}</Text>
-      <Input name="username" required type={type} />
+      <Input
+        onChange={handleInputChange}
+        name="username"
+        required
+        type={type}
+      />
       <ErrorText>{error}</ErrorText>
     </Label>
   );
