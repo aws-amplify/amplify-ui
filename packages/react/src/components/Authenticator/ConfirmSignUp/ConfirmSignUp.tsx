@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import { useAmplify, useAuth } from "@aws-amplify/ui-react";
+import { useAmplify, useAuth } from '@aws-amplify/ui-react';
 
 import {
   ConfirmationCodeInput,
@@ -8,17 +8,17 @@ import {
   ConfirmSignInFooter,
   ConfirmSignInFooterProps,
   UserNameAlias,
-} from "../shared";
+} from '../shared';
 
 export function ConfirmSignUp() {
-  const [usernameAlias, setUsernameAlias] = useState<string>("");
-  const amplifyNamespace = "Authenticator.ConfirmSignUp";
+  const [usernameAlias, setUsernameAlias] = useState<string>('');
+  const amplifyNamespace = 'Authenticator.ConfirmSignUp';
   const {
     components: { Box, Button, Fieldset, Form, Heading, Label, Text },
   } = useAmplify(amplifyNamespace);
 
   const [state, send] = useAuth();
-  const isPending = state.matches("confirmSignUp.pending");
+  const isPending = state.matches('confirmSignUp.pending');
 
   const footerProps: ConfirmSignInFooterProps = {
     amplifyNamespace,
@@ -29,8 +29,8 @@ export function ConfirmSignUp() {
 
   const confirmationCodeInputProps: ConfirmationCodeInputProps = {
     amplifyNamespace,
-    label: "Confirmation Code",
-    placeholder: "Enter your code",
+    label: 'Confirmation Code',
+    placeholder: 'Enter your code',
   };
 
   const handleUsernameInputChange = (event): void => {
@@ -48,7 +48,7 @@ export function ConfirmSignUp() {
         const formData = new FormData(event.target);
 
         send({
-          type: "SUBMIT",
+          type: 'SUBMIT',
           // @ts-ignore Property 'fromEntries' does not exist on type 'ObjectConstructor'. Do you need to change your target library? Try changing the `lib` compiler option to 'es2019' or later.ts(2550)
           data: Object.fromEntries(formData),
         });
@@ -65,11 +65,11 @@ export function ConfirmSignUp() {
         <Label data-amplify-confirmationcode>
           <ConfirmationCodeInput {...confirmationCodeInputProps} />
           <Box>
-            <Text>Lost your code?</Text>{" "}
+            <Text>Lost your code?</Text>{' '}
             <Button
               onClick={() => {
                 send({
-                  type: "RESEND",
+                  type: 'RESEND',
                   data: {
                     username: usernameAlias,
                   },

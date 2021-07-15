@@ -1,14 +1,14 @@
-import React from "react";
-import { Button, ButtonSize, ButtonVariant } from "@aws-amplify/ui-react";
+import React from 'react';
+import { Button, ButtonSize, ButtonVariant } from '@aws-amplify/ui-react';
 
 export const ButtonDemo = () => {
   const [disabled, setDisabled] = React.useState<boolean>(false);
   const [loading, setLoading] = React.useState<boolean>(false);
   const [fullWidth, setFullWidth] = React.useState<boolean>(false);
-  const [loadingText, setLoadingText] = React.useState("Loading...");
-  const [ariaLabel, setAriaLabel] = React.useState<string>("");
-  const [variant, setVariant] = React.useState<ButtonVariant>("primary");
-  const [size, setSize] = React.useState<ButtonSize>("medium");
+  const [loadingText, setLoadingText] = React.useState('Loading...');
+  const [ariaLabel, setAriaLabel] = React.useState<string>('');
+  const [variant, setVariant] = React.useState<ButtonVariant>('primary');
+  const [size, setSize] = React.useState<ButtonSize>('medium');
 
   return (
     <div>
@@ -84,7 +84,7 @@ export const ButtonDemo = () => {
         loadingText={loadingText}
         variant={variant}
         size={size}
-        onClick={() => alert("hello")}
+        onClick={() => alert('hello')}
         ariaLabel={ariaLabel}
         isFullWidth={fullWidth}
         type="button"

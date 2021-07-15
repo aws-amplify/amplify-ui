@@ -1,4 +1,4 @@
-import { useAmplify } from "@aws-amplify/ui-react";
+import { useAmplify } from '@aws-amplify/ui-react';
 
 export interface ConfirmSignInFooterProps {
   amplifyNamespace: string;
@@ -24,7 +24,7 @@ export const ConfirmSignInFooter = (
   return (
     <Footer>
       {!shouldHideReturnBtn && (
-        <Button onClick={() => send({ type: "SIGN_IN" })} type="button">
+        <Button onClick={() => send({ type: 'SIGN_IN' })} type="button">
           Back to Sign In
         </Button>
       )}

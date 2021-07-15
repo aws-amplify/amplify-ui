@@ -1,5 +1,5 @@
-import { Ref, ComputedRef, VNode } from "vue";
-import { PayloadSender, EventObject } from "xstate";
+import { Ref, ComputedRef, VNode } from 'vue';
+import { PayloadSender, EventObject } from 'xstate';
 export interface SignInEventTypeProps {
   headless: boolean;
   usernameAlias: string;

@@ -2,8 +2,8 @@
 title: View
 ---
 
-import { View } from "@aws-amplify/ui-react";
-import { ViewDemo } from "./demo";
+import { View } from '@aws-amplify/ui-react';
+import { ViewDemo } from './demo';
 
 ## Installation
 
@@ -20,8 +20,8 @@ npm install @aws-amplify/ui-react
 Import the View component and styles.
 
 ```jsx
-import { View } from "@aws-amplify/ui-react";
-import "@aws-amplify/ui-react/styles.css";
+import { View } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
 
 <View>Nice view! 🏔</View>;
 ```
@@ -55,12 +55,12 @@ Change the HTML element rendered by View with the `as` property
 Setting an `aria-label` attribute and `role` for an icon button
 
 ```jsx
-<View ariaLabel="To the moon!" role="button" onClick={() => alert("👋 hello")}>
+<View ariaLabel="To the moon!" role="button" onClick={() => alert('👋 hello')}>
   🚀
 </View>
 ```
 
-<View ariaLabel="To the moon!" role="button" onClick={() => alert("👋 hello")}>
+<View ariaLabel="To the moon!" role="button" onClick={() => alert('👋 hello')}>
   🚀
 </View>
 
@@ -77,7 +77,7 @@ Pass any attribute to the underlying HTML element
   data-progress-bar
   max="100"
   value="50"
-  style={{ all: "revert" }}
+  style={{ all: 'revert' }}
 />
 
 ### CSS Styling
@@ -97,9 +97,9 @@ Using a custom class and CSS file:
 ```
 
 ```jsx
-import { View } from "@aws-amplify/ui-react";
-import "@aws-amplify/ui-react/styles.css";
-import "./styles.css";
+import { View } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+import './styles.css';
 
 <View className="mountain-view">🏔</View>;
 ```

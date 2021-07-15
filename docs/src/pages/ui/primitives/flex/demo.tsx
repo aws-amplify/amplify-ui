@@ -1,37 +1,37 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import { Property } from "csstype";
+import { Property } from 'csstype';
 
-import { Flex, Button, View } from "@aws-amplify/ui-react";
+import { Flex, Button, View } from '@aws-amplify/ui-react';
 
 const JustifyContentProps: Property.JustifyContent[] = [
-  "flex-start",
-  "flex-end",
-  "center",
-  "space-between",
-  "space-around",
-  "space-evenly",
+  'flex-start',
+  'flex-end',
+  'center',
+  'space-between',
+  'space-around',
+  'space-evenly',
 ];
 
 const AlignItemsProps: Property.AlignItems[] = [
-  "stretch",
-  "flex-start",
-  "flex-end",
-  "center",
-  "baseline",
+  'stretch',
+  'flex-start',
+  'flex-end',
+  'center',
+  'baseline',
 ];
 
-const WrapProps: Property.FlexWrap[] = ["nowrap", "wrap", "wrap-reverse"];
+const WrapProps: Property.FlexWrap[] = ['nowrap', 'wrap', 'wrap-reverse'];
 
 const DirectionProps: Property.FlexDirection[] = [
-  "row",
-  "column",
-  "column-reverse",
-  "row-reverse",
+  'row',
+  'column',
+  'column-reverse',
+  'row-reverse',
 ];
 
 const Direction = () => {
-  const [direction, setDirection] = useState<Property.FlexDirection>("row");
+  const [direction, setDirection] = useState<Property.FlexDirection>('row');
 
   return (
     <View>
@@ -39,7 +39,7 @@ const Direction = () => {
         {DirectionProps.map((prop, i) => (
           <Button
             onClick={() => setDirection(prop)}
-            variant={prop === direction ? "primary" : "secondary"}
+            variant={prop === direction ? 'primary' : 'secondary'}
             size="small"
             key={i}
           >
@@ -57,7 +57,7 @@ const Gap = () => <Flex gap="3rem">{mockElements(3)}</Flex>;
 
 const JustifyContent = () => {
   const [justifyContent, setJustifyContent] =
-    useState<Property.JustifyContent>("flex-start");
+    useState<Property.JustifyContent>('flex-start');
 
   return (
     <View>
@@ -65,7 +65,7 @@ const JustifyContent = () => {
         {JustifyContentProps.map((prop, i) => (
           <Button
             onClick={() => setJustifyContent(prop)}
-            variant={prop === justifyContent ? "primary" : "secondary"}
+            variant={prop === justifyContent ? 'primary' : 'secondary'}
             size="small"
             key={i}
           >
@@ -82,7 +82,7 @@ const JustifyContent = () => {
 };
 
 const AlignItems = () => {
-  const [alignItems, setAlignItems] = useState<Property.AlignItems>("stretch");
+  const [alignItems, setAlignItems] = useState<Property.AlignItems>('stretch');
 
   return (
     <View>
@@ -90,7 +90,7 @@ const AlignItems = () => {
         {AlignItemsProps.map((prop, i) => (
           <Button
             onClick={() => setAlignItems(prop)}
-            variant={prop === alignItems ? "primary" : "secondary"}
+            variant={prop === alignItems ? 'primary' : 'secondary'}
             size="small"
             key={i}
           >
@@ -129,7 +129,7 @@ const AlignItems = () => {
 };
 
 const Wrap = () => {
-  const [wrap, setWrap] = useState<Property.FlexWrap>("nowrap");
+  const [wrap, setWrap] = useState<Property.FlexWrap>('nowrap');
 
   return (
     <View>
@@ -137,7 +137,7 @@ const Wrap = () => {
         {WrapProps.map((prop, i) => (
           <Button
             onClick={() => setWrap(prop)}
-            variant={prop === wrap ? "primary" : "secondary"}
+            variant={prop === wrap ? 'primary' : 'secondary'}
             size="small"
             key={i}
           >
@@ -152,38 +152,38 @@ const Wrap = () => {
 };
 
 const mockStyle = {
-  width: "15rem",
-  height: "3rem",
-  borderRadius: "5px",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  fontWeight: "bold",
-  color: "white",
-  backgroundColor: "#805AD5",
+  width: '15rem',
+  height: '3rem',
+  borderRadius: '5px',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  fontWeight: 'bold',
+  color: 'white',
+  backgroundColor: '#805AD5',
 };
 
 const mockElements = (elements) => {
   const arr =
-    typeof elements === "number" ? [...Array(elements)] : [...elements];
+    typeof elements === 'number' ? [...Array(elements)] : [...elements];
   return arr.map((char, i) => (
     <View style={mockStyle} key={i}>
-      {typeof elements === "number" ? i + 1 : char}
+      {typeof elements === 'number' ? i + 1 : char}
     </View>
   ));
 };
 
 const selectDemo = (demoType) => {
   switch (demoType) {
-    case "direction":
+    case 'direction':
       return <Direction />;
-    case "gap":
+    case 'gap':
       return <Gap />;
-    case "justifyContent":
+    case 'justifyContent':
       return <JustifyContent />;
-    case "alignItems":
+    case 'alignItems':
       return <AlignItems />;
-    case "wrap":
+    case 'wrap':
       return <Wrap />;
   }
 };

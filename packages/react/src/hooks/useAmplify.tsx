@@ -1,7 +1,7 @@
-import { useContext } from "react";
+import { useContext } from 'react';
 
-import { AmplifyContext } from "../components/AmplifyProvider/AmplifyContext";
-import * as primitives from "../primitives";
+import { AmplifyContext } from '../components/AmplifyProvider/AmplifyContext';
+import * as primitives from '../primitives';
 
 export function useAmplify(namespace) {
   const { components = {}, theme } = useContext(AmplifyContext);
@@ -9,7 +9,7 @@ export function useAmplify(namespace) {
   const customComponents = Object.entries(components).reduce(
     (acc, [namespaced, Component]) => {
       // `Authenticator.SignIn.Button` => `Button`
-      const name = namespaced.split(".").pop();
+      const name = namespaced.split('.').pop();
 
       // TODO `Authenticator.Button` should also override `Authenticator.SignIn.Button`? Maybe not...
       // But wait, `Input` should override `Authenticator.Input`!

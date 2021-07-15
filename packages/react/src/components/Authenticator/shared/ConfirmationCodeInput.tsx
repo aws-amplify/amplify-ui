@@ -1,4 +1,4 @@
-import { useAmplify } from "@aws-amplify/ui-react";
+import { useAmplify } from '@aws-amplify/ui-react';
 
 export interface ConfirmationCodeInputProps {
   amplifyNamespace: string;
@@ -12,8 +12,8 @@ export const ConfirmationCodeInput = (
 ): JSX.Element => {
   const {
     amplifyNamespace,
-    label = "Code *",
-    placeholder = "Code",
+    label = 'Code *',
+    placeholder = 'Code',
     required = true,
   } = props;
   const {

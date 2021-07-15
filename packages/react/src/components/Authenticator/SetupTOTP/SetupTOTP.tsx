@@ -1,33 +1,33 @@
-import { useEffect, useState } from "react";
-import QRCode from "qrcode";
+import { useEffect, useState } from 'react';
+import QRCode from 'qrcode';
 
-import { useAmplify, useAuth } from "@aws-amplify/ui-react";
-import { Auth, Logger } from "aws-amplify";
+import { useAmplify, useAuth } from '@aws-amplify/ui-react';
+import { Auth, Logger } from 'aws-amplify';
 
 import {
   ConfirmationCodeInput,
   ConfirmSignInFooter,
   ConfirmSignInFooterProps,
-} from "../shared";
+} from '../shared';
 
-const logger = new Logger("SetupTOTP-logger");
+const logger = new Logger('SetupTOTP-logger');
 
 export const SetupTOTP = (): JSX.Element => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [qrCode, setQrCode] = useState<string>();
 
-  const amplifyNamespace = "Authenticator.ConfirmSignIn";
+  const amplifyNamespace = 'Authenticator.ConfirmSignIn';
   const {
     components: { Fieldset, Form, Heading, Image, Label },
   } = useAmplify(amplifyNamespace);
 
   const [state, send] = useAuth();
-  const isPending = state.matches("confirmSignIn.pending");
+  const isPending = state.matches('confirmSignIn.pending');
 
   const generateQRCode = async (user): Promise<void> => {
     try {
       const secretKey = await Auth.setupTOTP(user);
-      const issuer = "AWSCognito";
+      const issuer = 'AWSCognito';
       const totpCode = `otpauth://totp/${issuer}:${user.username}?secret=${secretKey}&issuer=${issuer}`;
       const qrCodeImageSource = await QRCode.toDataURL(totpCode);
 
@@ -64,7 +64,7 @@ export const SetupTOTP = (): JSX.Element => {
         const formData = new FormData(event.target);
 
         send({
-          type: "SUBMIT",
+          type: 'SUBMIT',
           // @ts-ignore Property 'fromEntries' does not exist on type 'ObjectConstructor'. Do you need to change your target library? Try changing the `lib` compiler option to 'es2019' or later.ts(2550)
           data: Object.fromEntries(formData),
         });

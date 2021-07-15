@@ -1,5 +1,5 @@
-import { inspect } from "@xstate/inspect";
-import * as React from "react";
+import { inspect } from '@xstate/inspect';
+import * as React from 'react';
 
 export function XStateInspector() {
   React.useLayoutEffect(() => {
@@ -9,7 +9,7 @@ export function XStateInspector() {
   return (
     <iframe
       data-xstate
-      style={{ width: "100%", maxWidth: "100%", height: "60ch" }}
+      style={{ width: '100%', maxWidth: '100%', height: '60ch' }}
     />
   );
 }

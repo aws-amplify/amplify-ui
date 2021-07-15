@@ -1,31 +1,31 @@
-import { ImageOptions, ImageProps } from "@aws-amplify/ui-react";
-import { useState } from "react";
-import { ImagePropControlsProps } from "./ImagePropControls";
+import { ImageOptions, ImageProps } from '@aws-amplify/ui-react';
+import { useState } from 'react';
+import { ImagePropControlsProps } from './ImagePropControls';
 
 interface UseImageProps {
   (initialValues: ImageOptions): ImagePropControlsProps;
 }
 
 export const useImageProps: UseImageProps = (initialValues) => {
-  const [alt, setAlt] = useState<ImageOptions["alt"]>(initialValues.alt);
-  const [sizes, setSizes] = useState<ImageOptions["sizes"]>(
+  const [alt, setAlt] = useState<ImageOptions['alt']>(initialValues.alt);
+  const [sizes, setSizes] = useState<ImageOptions['sizes']>(
     initialValues.sizes
   );
-  const [src, setSrc] = useState<ImageOptions["src"]>(initialValues.src);
-  const [srcSet, setSrcSet] = useState<ImageOptions["srcSet"]>(
+  const [src, setSrc] = useState<ImageOptions['src']>(initialValues.src);
+  const [srcSet, setSrcSet] = useState<ImageOptions['srcSet']>(
     initialValues.srcSet
   );
-  const [htmlHeight, setHtmlHeight] = useState<ImageOptions["htmlHeight"]>(
+  const [htmlHeight, setHtmlHeight] = useState<ImageOptions['htmlHeight']>(
     initialValues.htmlHeight
   );
-  const [htmlWidth, setHtmlWidth] = useState<ImageOptions["htmlWidth"]>(
+  const [htmlWidth, setHtmlWidth] = useState<ImageOptions['htmlWidth']>(
     initialValues.htmlWidth
   );
-  const [objectFit, setObjectFit] = useState<ImageOptions["objectFit"]>(
+  const [objectFit, setObjectFit] = useState<ImageOptions['objectFit']>(
     initialValues.objectFit
   );
   const [objectPosition, setObjectPosition] = useState<
-    ImageOptions["objectPosition"]
+    ImageOptions['objectPosition']
   >(initialValues.objectPosition);
 
   return {

@@ -1,1 +1,1 @@
-export * from "./DefaultTexts";
+export * from './DefaultTexts';

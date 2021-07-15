@@ -1,6 +1,6 @@
-import { AuthFormData, Validator } from "../types";
-import isEmpty from "lodash/isEmpty";
-import merge from "lodash/merge";
+import { AuthFormData, Validator } from '../types';
+import isEmpty from 'lodash/isEmpty';
+import merge from 'lodash/merge';
 
 export const passwordMatches: Validator = (formValues: AuthFormData) => {
   const { password, confirm_password } = formValues;
@@ -12,7 +12,7 @@ export const passwordMatches: Validator = (formValues: AuthFormData) => {
     // if one of the fields have been filled, or if both fields have been filled
     // but do not match, return error.
     return {
-      confirm_password: "Your passwords must match",
+      confirm_password: 'Your passwords must match',
     };
   }
 };

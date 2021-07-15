@@ -1,4 +1,4 @@
-import "@aws-amplify/ui-react/styles.css";
+import '@aws-amplify/ui-react/styles.css';
 
 export default function MyApp({ Component, pageProps }) {
   return <Component {...pageProps} />;

@@ -1,23 +1,23 @@
-import { AuthChallengeNames } from "@aws-amplify/ui-core";
-import { useAmplify, useAuth } from "@aws-amplify/ui-react";
+import { AuthChallengeNames } from '@aws-amplify/ui-core';
+import { useAmplify, useAuth } from '@aws-amplify/ui-react';
 
 import {
   ConfirmationCodeInput,
   ConfirmSignInFooter,
   ConfirmSignInFooterProps,
-} from "../shared";
+} from '../shared';
 
 /**
  * placeholder component
  */
 export const ConfirmSignIn = (): JSX.Element => {
-  const amplifyNamespace = "Authenticator.ConfirmSignIn";
+  const amplifyNamespace = 'Authenticator.ConfirmSignIn';
   const {
     components: { Fieldset, Form, Heading, Label },
   } = useAmplify(amplifyNamespace);
 
   const [state, send] = useAuth();
-  const isPending = state.matches("confirmSignIn.pending");
+  const isPending = state.matches('confirmSignIn.pending');
 
   const footerProps: ConfirmSignInFooterProps = {
     amplifyNamespace,
@@ -26,9 +26,9 @@ export const ConfirmSignIn = (): JSX.Element => {
   };
 
   const { challengeName } = state.context;
-  let mfaType: string = "SMS";
+  let mfaType: string = 'SMS';
   if (challengeName === AuthChallengeNames.SOFTWARE_TOKEN_MFA) {
-    mfaType = "TOTP";
+    mfaType = 'TOTP';
   }
 
   const headerText = `Confirm ${mfaType} Code`;
@@ -43,7 +43,7 @@ export const ConfirmSignIn = (): JSX.Element => {
         const formData = new FormData(event.target);
 
         send({
-          type: "SUBMIT",
+          type: 'SUBMIT',
           // @ts-ignore Property 'fromEntries' does not exist on type 'ObjectConstructor'. Do you need to change your target library? Try changing the `lib` compiler option to 'es2019' or later.ts(2550)
           data: Object.fromEntries(formData),
         });

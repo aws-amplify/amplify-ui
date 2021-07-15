@@ -1,7 +1,7 @@
-import { Property } from "csstype";
+import { Property } from 'csstype';
 
-import { BaseComponentProps } from "./base";
-import { BaseStyleProps } from "./style";
+import { BaseComponentProps } from './base';
+import { BaseStyleProps } from './style';
 
 export interface ImageStyleProps {
   objectFit?: Property.ObjectFit;
@@ -13,34 +13,34 @@ export interface ImageOptions extends ImageStyleProps {
    * Alternative text description of the image (required)
    * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#attr-alt
    */
-  alt: React.ImgHTMLAttributes<HTMLImageElement>["alt"];
+  alt: React.ImgHTMLAttributes<HTMLImageElement>['alt'];
 
   /**
    * Set of image source sizes
    * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#attr-sizes
    */
-  sizes?: React.ImgHTMLAttributes<HTMLImageElement>["sizes"];
+  sizes?: React.ImgHTMLAttributes<HTMLImageElement>['sizes'];
 
   /**
    * URl source for image (required)
    */
-  src: React.ImgHTMLAttributes<HTMLImageElement>["src"];
+  src: React.ImgHTMLAttributes<HTMLImageElement>['src'];
 
   /**
    * Possible image sources for the browser to use
    * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#attr-srcset
    */
-  srcSet?: React.ImgHTMLAttributes<HTMLImageElement>["srcSet"];
+  srcSet?: React.ImgHTMLAttributes<HTMLImageElement>['srcSet'];
 
   /**
    * Intrinsic image width. Must be an integer without a unit.
    */
-  htmlWidth?: React.ImgHTMLAttributes<HTMLImageElement>["width"];
+  htmlWidth?: React.ImgHTMLAttributes<HTMLImageElement>['width'];
 
   /**
    * Intrinsic image height. Must be an integer without a unit.
    */
-  htmlHeight?: React.ImgHTMLAttributes<HTMLImageElement>["height"];
+  htmlHeight?: React.ImgHTMLAttributes<HTMLImageElement>['height'];
 
   /**
    * Handles loading event on image

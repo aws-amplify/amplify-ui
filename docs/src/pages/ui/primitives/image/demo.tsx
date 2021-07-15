@@ -1,37 +1,37 @@
-import React from "react";
-import { Image, View } from "@aws-amplify/ui-react";
-import { StylePropControls } from "@/components/StylePropControls";
-import { ImagePropControls } from "@/components/ImagePropControls";
-import { useStyleProps } from "@/components/useStyleProps";
-import { useImageProps } from "@/components/useImageProps";
+import React from 'react';
+import { Image, View } from '@aws-amplify/ui-react';
+import { StylePropControls } from '@/components/StylePropControls';
+import { ImagePropControls } from '@/components/ImagePropControls';
+import { useStyleProps } from '@/components/useStyleProps';
+import { useImageProps } from '@/components/useImageProps';
 
 export const ImageDemo = () => {
   const styleProps = useStyleProps({
-    width: "100%",
-    height: "100%",
-    backgroundColor: "initial",
-    border: "initial",
-    borderRadius: "initial",
-    boxShadow: "initial",
-    color: "initial",
-    maxHeight: "initial",
-    maxWidth: "initial",
-    minHeight: "initial",
-    minWidth: "initial",
-    opacity: "100%",
-    padding: "0",
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'initial',
+    border: 'initial',
+    borderRadius: 'initial',
+    boxShadow: 'initial',
+    color: 'initial',
+    maxHeight: 'initial',
+    maxWidth: 'initial',
+    minHeight: 'initial',
+    minWidth: 'initial',
+    opacity: '100%',
+    padding: '0',
   });
   const imageProps = useImageProps({
-    src: "https://docs.amplify.aws/assets/logo-dark.svg",
-    alt: "Amplify logo",
-    htmlHeight: "",
-    htmlWidth: "",
-    objectFit: "fill",
-    objectPosition: "initial",
+    src: 'https://docs.amplify.aws/assets/logo-dark.svg',
+    alt: 'Amplify logo',
+    htmlHeight: '',
+    htmlWidth: '',
+    objectFit: 'fill',
+    objectPosition: 'initial',
     onError: () => {},
     onLoad: () => {},
-    sizes: "",
-    srcSet: "",
+    sizes: '',
+    srcSet: '',
   });
 
   return (
@@ -55,7 +55,7 @@ export const ImageDemo = () => {
           maxWidth={styleProps.maxWidth}
           minHeight={styleProps.minHeight}
           minWidth={styleProps.minWidth}
-          onClick={() => alert("📸 Say cheese!")}
+          onClick={() => alert('📸 Say cheese!')}
           opacity={styleProps.opacity}
           padding={styleProps.padding}
           width={styleProps.width}

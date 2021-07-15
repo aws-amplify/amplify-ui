@@ -1,14 +1,14 @@
-import React from "react";
-import { Text } from "@aws-amplify/ui-react";
+import React from 'react';
+import { Text } from '@aws-amplify/ui-react';
 
 export const TextDemo = ({ children }) => {
-  const [text, setText] = React.useState<string>("Hello World!!!");
+  const [text, setText] = React.useState<string>('Hello World!!!');
   const [isTruncated, setIsTruncated] = React.useState<boolean>(false);
-  const [color, setColor] = React.useState<string>("black");
-  const [lineHeight, setLineHeight] = React.useState<string>("1rem");
-  const [fontWeight, setFontWeight] = React.useState<any>("normal");
-  const [fontStyle, setFontStyle] = React.useState<string>("normal");
-  const [textDecoration, setTextDecoration] = React.useState<string>("none");
+  const [color, setColor] = React.useState<string>('black');
+  const [lineHeight, setLineHeight] = React.useState<string>('1rem');
+  const [fontWeight, setFontWeight] = React.useState<any>('normal');
+  const [fontStyle, setFontStyle] = React.useState<string>('normal');
+  const [textDecoration, setTextDecoration] = React.useState<string>('none');
   return (
     <div>
       <div className="flex mb-4">
