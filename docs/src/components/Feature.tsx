@@ -2,29 +2,29 @@ import {
   AstBuilder,
   GherkinClassicTokenMatcher,
   Parser,
-} from "@cucumber/gherkin";
-import { IdGenerator } from "@cucumber/messages";
+} from '@cucumber/gherkin';
+import { IdGenerator } from '@cucumber/messages';
 import {
   ClipboardCheckIcon,
   CodeIcon,
   ExternalLinkIcon,
-} from "@heroicons/react/solid";
-import { useRouter } from "next/router";
-import * as React from "react";
-import { useEffect } from "react";
+} from '@heroicons/react/solid';
+import { useRouter } from 'next/router';
+import * as React from 'react';
+import { useEffect } from 'react';
 
 const parser = new Parser(
   new AstBuilder(IdGenerator.uuid()),
   new GherkinClassicTokenMatcher() // or GherkinInMarkdownTokenMatcher()
 );
 
-const required = message => {
+const required = (message) => {
   throw new Error(message);
 };
 
 export function Feature({
-  framework = "react",
-  name = required("Missing feature name"),
+  framework = 'react',
+  name = required('Missing feature name'),
 }) {
   const [source, setSource] = React.useState(null);
   const { asPath } = useRouter();
@@ -32,7 +32,7 @@ export function Feature({
   useEffect(() => {
     import(
       `raw-loader!../../../packages/e2e/cypress/integration${asPath}/${name}.feature`
-    ).then(exports => setSource(exports.default));
+    ).then((exports) => setSource(exports.default));
   }, [asPath, name]);
 
   if (!source) {
@@ -62,7 +62,7 @@ export function Feature({
           <thead>
             <tr className="text-sm text-left text-gray-600">
               <th className="sr-only">Example</th>
-              {process.env.NODE_ENV === "development" && <td>Demo</td>}
+              {process.env.NODE_ENV === 'development' && <td>Demo</td>}
               <td>Source</td>
               <td>Test</td>
             </tr>
@@ -70,11 +70,11 @@ export function Feature({
           <tbody className="shadow">
             {scenarios.map(({ scenario }, i) => (
               <tr
-                className={i % 2 === 0 ? "bg-white" : "bg-gray-50"}
+                className={i % 2 === 0 ? 'bg-white' : 'bg-gray-50'}
                 key={scenario.name}
               >
                 <td className="p-1 px-2">{scenario.name}</td>
-                {process.env.NODE_ENV === "development" && (
+                {process.env.NODE_ENV === 'development' && (
                   <td>
                     <a
                       href={`http://localhost:3000${asPath}/${name}`}

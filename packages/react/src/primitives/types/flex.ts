@@ -1,6 +1,6 @@
 import { Property } from 'csstype';
 
-import { BaseComponentProps } from "./base";
+import { BaseComponentProps } from './base';
 
 export interface FlexStyleProps {
   /**
@@ -9,8 +9,8 @@ export interface FlexStyleProps {
   alignItems?: Property.AlignItems;
 
   /**
-  * Sets the distribution of space between and around content items
-  */
+   * Sets the distribution of space between and around content items
+   */
   alignContent?: Property.AlignContent;
 
   /**
@@ -40,4 +40,4 @@ export interface FlexStyleProps {
   wrap?: Property.FlexWrap;
 }
 
-export interface FlexProps extends FlexStyleProps, BaseComponentProps { }
+export interface FlexProps extends FlexStyleProps, BaseComponentProps {}

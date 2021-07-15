@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import {
   FormError,
   AuthFormData,
-  OnSubmitHookResponse
+  OnSubmitHookResponse,
 } from '@aws-amplify/ui-angular';
 
 @Component({
   selector: 'app-custom-form-authenticator',
-  templateUrl: './on-submit-authenticator.component.html'
+  templateUrl: './on-submit-authenticator.component.html',
 })
 export class OnSubmitAuthenticatorComponent {
   public trimUsername(formData: AuthFormData): void {

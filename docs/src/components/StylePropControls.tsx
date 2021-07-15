@@ -1,25 +1,25 @@
-import React from "react";
-import { StyleProps } from "@aws-amplify/ui-react";
-import { FieldLabeler } from "./FieldLabeler";
+import React from 'react';
+import { StyleProps } from '@aws-amplify/ui-react';
+import { FieldLabeler } from './FieldLabeler';
 
 export interface StylePropControlsProps extends StyleProps {
   setBackgroundColor: (
-    value: React.SetStateAction<StyleProps["backgroundColor"]>
+    value: React.SetStateAction<StyleProps['backgroundColor']>
   ) => void;
-  setBorder: (value: React.SetStateAction<StyleProps["border"]>) => void;
+  setBorder: (value: React.SetStateAction<StyleProps['border']>) => void;
   setBorderRadius: (
-    value: React.SetStateAction<StyleProps["borderRadius"]>
+    value: React.SetStateAction<StyleProps['borderRadius']>
   ) => void;
-  setBoxShadow: (value: React.SetStateAction<StyleProps["boxShadow"]>) => void;
-  setColor: (value: React.SetStateAction<StyleProps["color"]>) => void;
-  setHeight: (value: React.SetStateAction<StyleProps["height"]>) => void;
-  setMaxHeight: (value: React.SetStateAction<StyleProps["maxHeight"]>) => void;
-  setMaxWidth: (value: React.SetStateAction<StyleProps["maxWidth"]>) => void;
-  setMinHeight: (value: React.SetStateAction<StyleProps["minHeight"]>) => void;
-  setMinWidth: (value: React.SetStateAction<StyleProps["minWidth"]>) => void;
-  setOpacity: (value: React.SetStateAction<StyleProps["opacity"]>) => void;
-  setPadding: (value: React.SetStateAction<StyleProps["padding"]>) => void;
-  setWidth: (value: React.SetStateAction<StyleProps["width"]>) => void;
+  setBoxShadow: (value: React.SetStateAction<StyleProps['boxShadow']>) => void;
+  setColor: (value: React.SetStateAction<StyleProps['color']>) => void;
+  setHeight: (value: React.SetStateAction<StyleProps['height']>) => void;
+  setMaxHeight: (value: React.SetStateAction<StyleProps['maxHeight']>) => void;
+  setMaxWidth: (value: React.SetStateAction<StyleProps['maxWidth']>) => void;
+  setMinHeight: (value: React.SetStateAction<StyleProps['minHeight']>) => void;
+  setMinWidth: (value: React.SetStateAction<StyleProps['minWidth']>) => void;
+  setOpacity: (value: React.SetStateAction<StyleProps['opacity']>) => void;
+  setPadding: (value: React.SetStateAction<StyleProps['padding']>) => void;
+  setWidth: (value: React.SetStateAction<StyleProps['width']>) => void;
 }
 
 interface StylePropControlsInterface {

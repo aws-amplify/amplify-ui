@@ -4,12 +4,12 @@ import { StateMachineService } from '@aws-amplify/ui-angular';
 @Component({
   selector: 'app-custom-form-authenticator',
   templateUrl: './custom-form-authenticator.component.html',
-  styleUrls: ['./custom-form-authenticator.component.css']
+  styleUrls: ['./custom-form-authenticator.component.css'],
 })
 export class CustomFormAuthenticatorComponent {
   constructor(private authService: StateMachineService) {}
   public error = {
-    passwordMismatch: true
+    passwordMismatch: true,
   };
 
   public onInput($event) {

@@ -30,7 +30,7 @@ import { CustomFormAuthenticatorComponent } from './pages/custom-form-authentica
     CustomComponentAuthenticatorComponent,
     CompositionAuthenticatorComponent,
     OnSubmitAuthenticatorComponent,
-    CustomFormAuthenticatorComponent
+    CustomFormAuthenticatorComponent,
   ],
   imports: [
     UiAngularModule,
@@ -43,9 +43,9 @@ import { CustomFormAuthenticatorComponent } from './pages/custom-form-authentica
     MatButtonModule,
     MatIconModule,
     MatSidenavModule,
-    MatListModule
+    MatListModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
