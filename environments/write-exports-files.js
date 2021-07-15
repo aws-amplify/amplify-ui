@@ -20,6 +20,9 @@ const fs = require('fs/promises');
     const exportsPath = `${__dirname}/${environment}/src`;
     try {
       await fs.mkdir(exportsPath, { recursive: true });
+      console.log(
+        `Writing to ${environment}: ${environmentExports[environment]}`
+      );
       await fs.writeFile(
         `${exportsPath}/aws-exports.json`,
         JSON.stringify(environmentExports[environment])
