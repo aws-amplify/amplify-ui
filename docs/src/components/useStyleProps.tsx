@@ -6,7 +6,7 @@ interface UseStyleProps {
   (initialValues: StyleProps): StylePropControlsProps;
 }
 
-export const useStyleProps: UseStyleProps = initialValues => {
+export const useStyleProps: UseStyleProps = (initialValues) => {
   const [width, setWidth] = useState<StyleProps["width"]>(initialValues.width);
   const [height, setHeight] = useState<StyleProps["height"]>(
     initialValues.height

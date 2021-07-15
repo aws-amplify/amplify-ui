@@ -6,7 +6,7 @@ interface UseImageProps {
   (initialValues: ImageOptions): ImagePropControlsProps;
 }
 
-export const useImageProps: UseImageProps = initialValues => {
+export const useImageProps: UseImageProps = (initialValues) => {
   const [alt, setAlt] = useState<ImageOptions["alt"]>(initialValues.alt);
   const [sizes, setSizes] = useState<ImageOptions["sizes"]>(
     initialValues.sizes

@@ -40,9 +40,8 @@ export const ViewDemo = ({ children }) => {
   const [border, setBorder] = React.useState<string>("1px solid black");
   const [borderRadius, setBorderRadius] = React.useState<string>("4px");
   const [opacity, setOpacity] = React.useState<string>("100%");
-  const [customAttribute, setCustomAttribute] = React.useState<string>(
-    "data-demo"
-  );
+  const [customAttribute, setCustomAttribute] =
+    React.useState<string>("data-demo");
   const [asElementType, setAs] = React.useState<ViewAsHTMLElementTypes>("div");
   const customAttributes = {};
   if (customAttribute) {
@@ -58,7 +57,7 @@ export const ViewDemo = ({ children }) => {
             id="as"
             value={asElementType}
             placeholder="As element type"
-            onChange={event =>
+            onChange={(event) =>
               setAs(event.target.value as ViewAsHTMLElementTypes)
             }
           >

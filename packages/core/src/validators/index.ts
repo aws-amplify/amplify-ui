@@ -22,7 +22,7 @@ export const minLength: (fieldName: string, minLength: number) => Validator = (
   fieldName,
   minLength = 4
 ) => {
-  return formData => {
+  return (formData) => {
     const fieldValue: string = formData[fieldName];
     if (fieldValue.length < minLength) {
       return {
@@ -38,7 +38,7 @@ export const runValidators = async (
   validators: Validator[]
 ) => {
   const errors = await Promise.all(
-    validators.map(validator => validator(formData))
+    validators.map((validator) => validator(formData))
   );
   const mergedError = merge({}, ...errors);
 

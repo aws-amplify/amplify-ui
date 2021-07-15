@@ -53,4 +53,7 @@ export interface ImageOptions extends ImageStyleProps {
   onError?(error: string | React.SyntheticEvent<HTMLImageElement, Event>): void;
 }
 
-export interface ImageProps extends ImageOptions, BaseComponentProps, BaseStyleProps { }
+export interface ImageProps
+  extends ImageOptions,
+    BaseComponentProps,
+    BaseStyleProps {}

@@ -9,7 +9,7 @@ function pluckMeta({ frontmatter, href, slug }) {
 async function getPagesManifest() {
   const paths = await getContentPaths();
   const pages = await Promise.all(
-    paths.map(getPageFromSlug).map(page => page.then(pluckMeta))
+    paths.map(getPageFromSlug).map((page) => page.then(pluckMeta))
   );
 
   return pages;

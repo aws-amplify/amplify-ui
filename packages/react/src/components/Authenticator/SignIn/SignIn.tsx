@@ -26,7 +26,7 @@ export function SignIn() {
     <Form
       data-amplify-authenticator-signin=""
       method="post"
-      onSubmit={event => {
+      onSubmit={(event) => {
         event.preventDefault();
 
         const formData = new FormData(event.target);

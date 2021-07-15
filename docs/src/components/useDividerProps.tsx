@@ -10,7 +10,7 @@ interface UseDividerProps {
   (initialValues: DividerOptions): DividerPropControlsProps;
 }
 
-export const useDividerProps: UseDividerProps = initialValues => {
+export const useDividerProps: UseDividerProps = (initialValues) => {
   const [size, setSize] = useState<DividerOptions["size"]>(initialValues.size);
   const [orientation, setOrientation] = useState<DividerOptions["orientation"]>(
     initialValues.orientation

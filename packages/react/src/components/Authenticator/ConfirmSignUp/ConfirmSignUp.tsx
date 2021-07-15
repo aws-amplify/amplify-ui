@@ -42,7 +42,7 @@ export function ConfirmSignUp() {
     <Form
       data-amplify-authenticator-confirmsignup=""
       method="post"
-      onSubmit={event => {
+      onSubmit={(event) => {
         event.preventDefault();
 
         const formData = new FormData(event.target);

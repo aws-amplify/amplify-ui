@@ -4,7 +4,7 @@ import { ComponentClassNames } from "../shared";
 import { DividerProps } from "../types";
 import { View } from "../View";
 
-export const Divider: React.FC<DividerProps> = props => {
+export const Divider: React.FC<DividerProps> = (props) => {
   const {
     className,
     orientation = "horizontal",

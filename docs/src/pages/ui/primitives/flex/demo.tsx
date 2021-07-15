@@ -1,12 +1,8 @@
 import { useState } from "react";
 
-import { Property } from 'csstype';
+import { Property } from "csstype";
 
-import {
-  Flex,
-  Button,
-  View,
-} from "@aws-amplify/ui-react";
+import { Flex, Button, View } from "@aws-amplify/ui-react";
 
 const JustifyContentProps: Property.JustifyContent[] = [
   "flex-start",
@@ -60,9 +56,8 @@ const Direction = () => {
 const Gap = () => <Flex gap="3rem">{mockElements(3)}</Flex>;
 
 const JustifyContent = () => {
-  const [justifyContent, setJustifyContent] = useState<Property.JustifyContent>(
-    "flex-start"
-  );
+  const [justifyContent, setJustifyContent] =
+    useState<Property.JustifyContent>("flex-start");
 
   return (
     <View>
@@ -105,9 +100,29 @@ const AlignItems = () => {
       </Flex>
       <br />
       <Flex alignItems={alignItems}>
-        <View backgroundColor="#b794f4" height="100px" padding="2rem" color="white">Wow!</View>
-        <View backgroundColor="#805AD5" padding="10px 2rem 0 2rem" color="white">I love to use</View>
-        <View backgroundColor="#322659" height="70px" padding="2rem" color="white">Flex</View>
+        <View
+          backgroundColor="#b794f4"
+          height="100px"
+          padding="2rem"
+          color="white"
+        >
+          Wow!
+        </View>
+        <View
+          backgroundColor="#805AD5"
+          padding="10px 2rem 0 2rem"
+          color="white"
+        >
+          I love to use
+        </View>
+        <View
+          backgroundColor="#322659"
+          height="70px"
+          padding="2rem"
+          color="white"
+        >
+          Flex
+        </View>
       </Flex>
     </View>
   );
@@ -148,7 +163,7 @@ const mockStyle = {
   backgroundColor: "#805AD5",
 };
 
-const mockElements = elements => {
+const mockElements = (elements) => {
   const arr =
     typeof elements === "number" ? [...Array(elements)] : [...elements];
   return arr.map((char, i) => (
@@ -158,7 +173,7 @@ const mockElements = elements => {
   ));
 };
 
-const selectDemo = demoType => {
+const selectDemo = (demoType) => {
   switch (demoType) {
     case "direction":
       return <Direction />;

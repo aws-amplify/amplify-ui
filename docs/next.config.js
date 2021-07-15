@@ -1,9 +1,7 @@
 const { execSync } = require("child_process");
 const path = require("path");
 
-const gitHead = execSync("git rev-parse --abbrev-ref HEAD")
-  .toString()
-  .trim();
+const gitHead = execSync("git rev-parse --abbrev-ref HEAD").toString().trim();
 
 const BRANCH = gitHead === "HEAD" ? "main" : gitHead;
 

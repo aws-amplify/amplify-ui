@@ -1,6 +1,6 @@
 // See https://astexplorer.net/ for converting JSX to AST
 
-module.exports = () => ast => {
+module.exports = () => (ast) => {
   const layoutUrl = "@/components/Layout";
 
   // import Layout from "@/components/Layout";

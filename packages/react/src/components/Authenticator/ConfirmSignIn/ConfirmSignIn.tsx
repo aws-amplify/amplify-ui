@@ -37,7 +37,7 @@ export const ConfirmSignIn = (): JSX.Element => {
     <Form
       data-amplify-authenticator-confirmsignin=""
       method="post"
-      onSubmit={event => {
+      onSubmit={(event) => {
         event.preventDefault();
 
         const formData = new FormData(event.target);

@@ -245,5 +245,5 @@ export {
   eventTable,
   exampleSignIn,
   propTable,
-  customPassword
+  customPassword,
 };

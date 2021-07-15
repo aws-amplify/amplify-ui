@@ -9,7 +9,7 @@ const cwd = path.resolve(process.cwd(), "src/pages");
 export async function getContentPaths(pattern = "**/index.mdx") {
   return glob
     .sync(pattern, { cwd })
-    .map(contentPath => {
+    .map((contentPath) => {
       return path.normalize(`/${path.dirname(contentPath)}`);
     })
     .sort();

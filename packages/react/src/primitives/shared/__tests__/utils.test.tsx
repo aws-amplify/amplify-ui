@@ -25,7 +25,7 @@ const props: ViewProps = {
 describe("convertStylePropsToStyleObj: ", () => {
   it("should convert style props to a style object", () => {
     const style = convertStylePropsToStyleObj(props);
-    Object.keys(ComponentPropsToStylePropsMap).forEach(prop => {
+    Object.keys(ComponentPropsToStylePropsMap).forEach((prop) => {
       expect(style[prop]).toBe(props[prop]);
     });
     expect(style["as"]).toBeUndefined();

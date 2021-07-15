@@ -2,6 +2,6 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-headless-authenticator',
-  templateUrl: './headless-authenticator.component.html'
+  templateUrl: './headless-authenticator.component.html',
 })
 export class HeadlessAuthenticatorComponent {}

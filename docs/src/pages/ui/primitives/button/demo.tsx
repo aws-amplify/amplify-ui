@@ -61,7 +61,7 @@ export const ButtonDemo = () => {
         <select
           value={variant}
           placeholder="Select button variant"
-          onChange={event => setVariant(event.target.value as ButtonVariant)}
+          onChange={(event) => setVariant(event.target.value as ButtonVariant)}
         >
           <option value="primary">primary</option>
           <option value="secondary">secondary</option>
@@ -70,7 +70,7 @@ export const ButtonDemo = () => {
         </select>
         <select
           value={size}
-          onChange={event => setSize(event.target.value as ButtonSize)}
+          onChange={(event) => setSize(event.target.value as ButtonSize)}
         >
           <option value="small">small</option>
           <option value="medium">medium</option>

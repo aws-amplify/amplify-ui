@@ -28,7 +28,7 @@ export const DividerPropControls: DividerPropControlsInterface = ({
             name="size"
             id="size"
             value={size}
-            onChange={event =>
+            onChange={(event) =>
               setSize(event.target.value as DividerOptions["size"])
             }
           >
@@ -43,7 +43,7 @@ export const DividerPropControls: DividerPropControlsInterface = ({
             name="orientation"
             id="orientation"
             value={orientation}
-            onChange={event =>
+            onChange={(event) =>
               setOrientation(
                 event.target.value as DividerOptions["orientation"]
               )

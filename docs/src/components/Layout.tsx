@@ -54,7 +54,7 @@ export default function Layout({
   const { platform } = router.query as { platform: string };
 
   const groupedPages = Object.entries(
-    groupBy(pages, page => {
+    groupBy(pages, (page) => {
       const [, folder = ""] = page.slug.split("/");
       return folder;
     })
@@ -68,7 +68,7 @@ export default function Layout({
           "#__next > section:first-of-type h3",
         ].join(",")
       ),
-    ].map(node => [node.innerHTML, node.tagName.toLowerCase()]);
+    ].map((node) => [node.innerHTML, node.tagName.toLowerCase()]);
 
     setHeaders(htmlHeaders);
   }, [children]);
@@ -149,7 +149,7 @@ export default function Layout({
                           </DirectoryGroupHeaderStyle>
                         )}
                         <DirectoryLinksStyle>
-                          {pages.map(page =>
+                          {pages.map((page) =>
                             folder ? (
                               <DirectoryGroupItemStyle
                                 isActive={href === page.href}
