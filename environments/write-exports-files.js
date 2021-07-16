@@ -1,7 +1,7 @@
 const fs = require('fs/promises');
 
 (async function writeExportsFiles() {
-  if (process.NODE_ENV !== 'ci' || !process.env.ENVIRONMENT_AWS_EXPORTS)
+  if (process.env.NODE_ENV !== 'ci' || !process.env.ENVIRONMENT_AWS_EXPORTS)
     throw new Error(
       'This script should only be run in the continuous integration environment.'
     );
