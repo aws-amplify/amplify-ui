@@ -10,6 +10,8 @@ Feature: Sign In with Email
   Background:
     Given I'm at the sign in page
 
+
+  @Vue
   @React
   Scenario: Sign in with unknown credentials
     When I type the valid email "UNKNOWN_EMAIL"
@@ -24,12 +26,14 @@ Feature: Sign In with Email
     And I click the "Sign In" button
     Then I see "Confirmation Code"
 
+  @Vue
   @React
   Scenario: Sign in with confirmed credentials
     When I type the valid email "CONFIRMED_EMAIL"
     And I type the valid password "VALID_PASSWORD"
     And I click the "Sign In" button
     Then I see "Sign out"
+
 
   @React
   Scenario: Sign in with force change password credentials

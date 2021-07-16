@@ -7,21 +7,23 @@
 
 <script lang="ts">
 import { defineComponent, computed, ComputedRef } from "vue";
-import { EMAIL_ADDRESS_LABEL } from "../defaults/DefaultTexts";
+
 import BaseInput from "./primitives/base-input.vue";
 import BaseLabel from "./primitives/base-label.vue";
 import BaseText from "./primitives/base-text.vue";
+
+import { EMAIL_ADDRESS_LABEL } from "../defaults/DefaultTexts";
 
 export default defineComponent({
   components: {
     BaseInput,
     BaseLabel,
-    BaseText
+    BaseText,
   },
   setup(): { emailAddressLabel: ComputedRef<string> } {
     const emailAddressLabel = computed(() => EMAIL_ADDRESS_LABEL);
     return { emailAddressLabel };
-  }
+  },
 });
 </script>
 

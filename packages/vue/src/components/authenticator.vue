@@ -1,8 +1,6 @@
 <template>
   <div>
     <sign-in
-      :headless="headless"
-      :usernameAlias="usernameAlias"
       v-if="state?.matches('signIn')"
       @sign-in-submit="onSignInSubmitI"
       ref="signInComponent"
@@ -67,8 +65,6 @@
       </template>
     </sign-in>
     <sign-up
-      :headless="headless"
-      :usernameAlias="usernameAlias"
       v-if="state?.matches('signUp')"
       @sign-up-submit="onSignUpSubmitI"
       ref="signUpComponent"
@@ -109,11 +105,9 @@
       Error! Can't sign in!
     </div>
     <confirm-sign-up
-      :headless="headless"
-      :usernameAlias="usernameAlias"
       v-if="state?.matches('confirmSignUp')"
-      ref="confirmSignUpComponent"
       @confirm-sign-up-submit="onConfirmSignUpSubmitI"
+      ref="confirmSignUpComponent"
     >
       <template #confirmSignUpSlotI>
         <slot name="confirm-sign-up"></slot>
@@ -139,14 +133,16 @@
 </template>
 
 <script lang="ts">
+import { ref, provide } from "vue";
+
 import SignIn from "./sign-in.vue";
 import SignUp from "./sign-up.vue";
 import ConfirmSignUp from "./confirm-sign-up.vue";
-import { ref, provide } from "vue";
+
 import { useAuth } from "../composables/useAuth";
 import {
   AuthenticatorSetupReturnTypes,
-  SetupEventContext
+  SetupEventContext,
 } from "../types/index";
 
 export default {
@@ -154,20 +150,10 @@ export default {
   components: {
     SignIn,
     SignUp,
-    ConfirmSignUp
-  },
-  props: {
-    headless: {
-      type: Boolean,
-      default: false
-    },
-    usernameAlias: {
-      type: String,
-      default: "username"
-    }
+    ConfirmSignUp,
   },
   setup(
-    _: unknown,
+    _,
     { attrs, emit }: SetupEventContext
   ): AuthenticatorSetupReturnTypes & {
     signInComponent: typeof SignIn;
@@ -180,6 +166,8 @@ export default {
     const confirmSignUpComponent = ref(null);
 
     const currentPage = ref("SIGNIN");
+
+    //methods
 
     const onSignInSubmitI = e => {
       if (attrs?.onSignInSubmit) {
@@ -215,8 +203,8 @@ export default {
       onSignUpSubmitI,
       confirmSignUpComponent,
       onConfirmSignUpSubmitI,
-      send
+      send,
     };
-  }
+  },
 };
 </script>

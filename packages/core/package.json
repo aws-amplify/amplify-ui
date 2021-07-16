@@ -2,6 +2,7 @@
   "private": true,
   "name": "@aws-amplify/ui-core",
   "version": "0.0.1",
+  "module": "index.ts",
   "dependencies": {
     "lodash": "^4.17.21",
     "xstate": "^4.20.1"
