@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ValidationErrors } from '@angular/forms';
-import { AttributeInfo, AuthAttribute, getAttributeMap } from '../../common';
+import { AttributeInfo, getAttributeMap } from '../../common';
 import { getErrorMessage } from './validation-error-messages';
 
 @Component({
@@ -11,7 +11,7 @@ export class AmplifyValidationErrorComponent implements OnInit {
   @Input() errors: ValidationErrors;
   constructor() {}
 
-  get attributeMap(): Record<AuthAttribute, AttributeInfo> {
+  get attributeMap(): Record<string, AttributeInfo> {
     return getAttributeMap();
   }
 

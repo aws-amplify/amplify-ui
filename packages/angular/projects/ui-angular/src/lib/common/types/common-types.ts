@@ -1,5 +1,3 @@
-export type PartialRecord<K extends keyof any, T> = Partial<Record<K, T>>;
-
 export const supportedInputTypes = [
   'text',
   'number',
@@ -14,7 +12,7 @@ export const supportedInputTypes = [
 export type InputType = typeof supportedInputTypes[number];
 
 export const isInputType = (value: string): value is InputType => {
-  return supportedInputTypes.find(inputType => inputType === value)
+  return supportedInputTypes.find((inputType) => inputType === value)
     ? true
     : false;
 };
