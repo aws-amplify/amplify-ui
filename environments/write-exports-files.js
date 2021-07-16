@@ -1,12 +1,10 @@
 const fs = require('fs/promises');
 
 (async function writeExportsFiles() {
-  if (!process.env.ENVIRONMENT_AWS_EXPORTS)
+  if (process.NODE_ENV !== 'ci' || !process.env.ENVIRONMENT_AWS_EXPORTS)
     throw new Error(
-      'aws-exports files must be included in environment variables.'
+      'This script should only be run in the continuous integration environment.'
     );
-
-  console.log(JSON.stringify(JSON.parse(process.env.TEST_SECURITY).key));
 
   const environmentExports = JSON.parse(process.env.ENVIRONMENT_AWS_EXPORTS);
 
