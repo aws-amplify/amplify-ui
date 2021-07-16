@@ -2,7 +2,8 @@
 
 ## Getting Started
 
-To build: 
+To build:
+
 ```bash
 yarn build
 ```

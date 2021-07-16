@@ -8,7 +8,7 @@ export const supportedInputTypes = [
   'button',
   'submit',
   'radio',
-  'tel'
+  'tel',
 ] as const;
 
 export type InputType = typeof supportedInputTypes[number];
