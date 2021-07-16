@@ -2,8 +2,8 @@
 title: Card
 ---
 
-import { Card, View, Flex, Text } from "@aws-amplify/ui-react";
-import { CardSample } from "./demo.tsx";
+import { Card, View, Flex, Text } from '@aws-amplify/ui-react';
+import { CardSample } from './demo.tsx';
 
 The Card component can be used to group related pieces of content. The card component renders as a `div` by default but can be changed with the **as** prop.
 
@@ -22,25 +22,24 @@ A card component will include basic styling but the form of the card component w
   <Image
     src="/road-to-milford-new-zealand-800w.jpg"
     alt="Glittering stream with old log, snowy mountain peaks
-tower over a green field."
+    tower over a green field."
     objectFit="cover"
   />
   <View padding="1rem">
-    <Text fontWeight="bold">New Zealand</Text>
-    <View padding="1rem">
-      <Text>
-        <b>Population: </b>4.917 million
+    <Flex>
+      <Badge backgroundColor="lightgreen">Plus</Badge>
+      <Badge backgroundColor="lightblue">Verified</Badge>
+    </Flex>
+    <Divider padding="1rem 0 0 0" />
+    <Heading level={3}>
+      <b>New Zealand White Water Outdoor Adventure</b>
+    </Heading>
+    <View padding="0 1rem">
+      <Text padding="0 0 1rem 0" isTruncated={true}>
+        Join us on this beautiful outdoor adventure through the glittering
+        rivers through the snowy peaks on New Zealand.
       </Text>
-      <Text>
-        <b>Capital: </b>Wellington
-      </Text>
-      <Text>
-        <b>Size: </b>103,483 mi<sup>2</sup>
-      </Text>
-      <Text isTruncated={true}>
-        Above are pictured the snowy peaks of southern New Zealand. This view
-        was captured on the way to Milford.
-      </Text>
+      <Button isFullWidth={true}>Book it</Button>
     </View>
   </View>
 </Card>

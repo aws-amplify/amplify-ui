@@ -11,7 +11,7 @@
       },
       "box": {
         "shadow": {
-          "value": "2px 2px 3px 3px #aaa"
+          "value": "{box.shadow.gray.value}"
         }
       },
       "display": {
