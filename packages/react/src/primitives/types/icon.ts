@@ -1,5 +1,6 @@
-import { BaseComponentProps, StyleProps, AriaProps } from "./base";
-import { Property } from "csstype";
+import { BaseComponentProps, AriaProps } from './base';
+import { BaseStyleProps } from './style';
+import { Property } from 'csstype';
 
 export interface ViewBox {
   minX?: number;
@@ -8,9 +9,12 @@ export interface ViewBox {
   height?: number;
 }
 
-export type IconSize = "small" | "medium" | "large";
+export type IconSize = 'small' | 'medium' | 'large';
 
-export interface IconProps extends BaseComponentProps, StyleProps, AriaProps {
+export interface IconProps
+  extends BaseComponentProps,
+    BaseStyleProps,
+    AriaProps {
   /**
    * This defines the shape of the <path> SVG element(the 'd' attribute).
    * @link https://developer.mozilla.org/en-US/docs/Web/SVG/Element/path
