@@ -6,12 +6,6 @@ const fs = require('fs/promises');
       'aws-exports files must be included in environment variables.'
     );
 
-  console.log(Buffer.from(process.env.TEST_SECURITY, 'base64').toString());
-
-  const environmentExports = JSON.parse(
-    Buffer.from(process.env.ENVIRONMENT_AWS_EXPORTS, 'base64')
-  );
-
   const environments = [
     ...(await fs.readdir(__dirname, { withFileTypes: true })),
   ]
@@ -24,7 +18,7 @@ const fs = require('fs/promises');
       await fs.mkdir(exportsPath, { recursive: true });
       await fs.writeFile(
         `${exportsPath}/aws-exports.json`,
-        JSON.stringify(environmentExports[environment])
+        JSON.stringify(process.env.ENVIRONMENT_AWS_EXPORTS[environment])
       );
     } catch (err) {
       throw err;
