@@ -432,7 +432,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
           config,
         } = context;
 
-        const [primaryAlias] = config?.login_mechanisms ?? ['username'];
+        const [primaryAlias] = config?.login_mechanisms ?? ["username"];
 
         if (formValues.phone_number) {
           formValues.phone_number = formValues.phone_number.replace(

@@ -4,11 +4,11 @@ const now = Date.now();
 const randomNumber = window.crypto.getRandomValues(new Uint32Array(1))[0];
 const password = `test-${randomNumber}`;
 
-Given("I'm running the example {string}", (url) => {
+Given("I'm running the example {string}", url => {
   cy.visit(url);
 });
 
-And('I click {string}', (text) => {
+And('I click {string}', text => {
   cy.findByText(text).click();
 });
 
@@ -24,11 +24,11 @@ And('I type a new confirm password', () => {
   cy.findByLabelText(/^confirm password$/i).type(`${password}`);
 });
 
-And('I type the email {string}', (email) => {
+And('I type the email {string}', email => {
   cy.findByLabelText('Email').type(email);
 });
 
-And('I type the phone number {string}', (phone) => {
+And('I type the phone number {string}', phone => {
   cy.findByLabelText('Phone Number').type(phone);
 });
 
