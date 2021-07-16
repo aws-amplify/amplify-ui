@@ -10,6 +10,9 @@ npm install @aws-amplify/ui-react
 
 ## Demo
 
+import { Icon } from '@aws-amplify/ui-react';
+import { IconDemo } from './demo';
+
 <IconDemo />
 
 ## Usage
@@ -17,8 +20,8 @@ npm install @aws-amplify/ui-react
 Import the Icon component and styles.
 
 ```jsx
-import { Icon } from "@aws-amplify/ui-react";
-import "@aws-amplify/ui-react/styles.css";
+import { Icon } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
 
 // This is a favorite icon
 <Icon
@@ -46,8 +49,8 @@ import "@aws-amplify/ui-react/styles.css";
 Use a default icon from the [Material Design icons](http://google.github.io/material-design-icons/).
 
 ```jsx
-import { IconDone } from "@aws-amplify/ui-react";
-import "@aws-amplify/ui-react/styles.css";
+import { IconDone } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
 
 <IconDone />;
 ```
@@ -59,8 +62,8 @@ import "@aws-amplify/ui-react/styles.css";
 Create a custom icon using a path. Provide the `d` attribute in svg to `pathData` prop.
 
 ```jsx
-import { Icon } from "@aws-amplify/ui-react";
-import "@aws-amplify/ui-react/styles.css";
+import { Icon } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
 
 // This is a thumbup icon
 const ThumbsUpIcon = () => {
@@ -87,8 +90,8 @@ const ThumbsUpIcon = () => {
 Use the `size` prop to change the icon size. Available options are `large`, `medium`, and `small`.
 
 ```jsx
-import { IconAdd } from "@aws-amplify/ui-react";
-import "@aws-amplify/ui-react/styles.css";
+import { IconAdd } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
 
 <IconAdd size="small" />;
 <IconAdd size="medium" />;
@@ -104,8 +107,8 @@ import "@aws-amplify/ui-react/styles.css";
 Use the `fill` prop to change the icon color. By default the icon color is set to [`currentColor`](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value#currentcolor_keyword)(inherits color from current font color).
 
 ```jsx
-import { IconStar } from "@aws-amplify/ui-react";
-import "@aws-amplify/ui-react/styles.css";
+import { IconStar } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
 
 <IconStar fill="orange" />;
 ```
@@ -117,8 +120,8 @@ import "@aws-amplify/ui-react/styles.css";
 Use the `viewBox` prop to change the SVG [`viewBox`](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox). Both `width` and `height` default to `24`.
 
 ```jsx
-import { Icon } from "@aws-amplify/ui-react";
-import "@aws-amplify/ui-react/styles.css";
+import { Icon } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
 
 // This is a camera icon
 <Icon
@@ -139,8 +142,8 @@ import "@aws-amplify/ui-react/styles.css";
 Set an `aria-label` attribute for an icon.
 
 ```jsx
-import { IconClose } from "@aws-amplify/ui-react";
-import "@aws-amplify/ui-react/styles.css";
+import { IconClose } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
 
 <IconClose ariaLabel="Close" />;
 ```
@@ -152,8 +155,8 @@ import "@aws-amplify/ui-react/styles.css";
 Use third-party icon libraries like react-icons.
 
 ```jsx
-import { FaBeer } from "react-icons/fa";
-import { Button } from "@aws-amplify/ui";
+import { FaBeer } from 'react-icons/fa';
+import { Button } from '@aws-amplify/ui';
 
 export default function MyButton() {
   return (
