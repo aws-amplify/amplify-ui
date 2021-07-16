@@ -25,11 +25,11 @@ And('I type a new confirm password', () => {
 });
 
 And('I type the email {string}', (email) => {
-  cy.findByLabelText('Email address').type(email);
+  cy.findByLabelText('Email').type(email);
 });
 
 And('I type the phone number {string}', (phone) => {
-  cy.findByLabelText('Phone number').type(phone);
+  cy.findByLabelText('Phone Number').type(phone);
 });
 
 And('I click the {string} button', (name: string) => {

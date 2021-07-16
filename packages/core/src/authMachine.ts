@@ -429,10 +429,10 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
       async signUp(context, _event) {
         const {
           formValues: { password, ...formValues },
-          config: {
-            login_mechanisms: [primaryAlias],
-          },
+          config,
         } = context;
+
+        const [primaryAlias] = config?.login_mechanisms ?? ['username'];
 
         if (formValues.phone_number) {
           formValues.phone_number = formValues.phone_number.replace(

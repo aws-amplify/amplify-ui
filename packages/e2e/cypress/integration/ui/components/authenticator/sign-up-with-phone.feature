@@ -6,12 +6,15 @@ Feature: Sign Up with Phone
     Given I'm using the example "ui/components/authenticator/sign-up-with-phone/"
     And I click "Create account"
 
+
+@Vue
 @React
   Scenario: Phone Number is the only requested alias
     Then I see "Phone Number" as an input field
     And I don't see "Username" as an input field
     And I don't see "Email" as an input field
 
+@Vue
 @React @skip
   Scenario: Sign up with valid phone number & password
     When I type the phone number "VALID_PHONE_NUMBER"

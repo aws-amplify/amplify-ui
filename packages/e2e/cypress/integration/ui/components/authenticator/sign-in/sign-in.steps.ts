@@ -1,7 +1,7 @@
 import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 
 Given("I'm at the sign in page", () => {
-  cy.visit('/components/authenticator/sign-in');
+  cy.visit('ui/components/authenticator/sign-in');
 });
 
 When('I type an invalid username {string}', (username: string) => {

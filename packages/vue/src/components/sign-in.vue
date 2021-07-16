@@ -1,6 +1,6 @@
 <template>
   <slot name="signInSlotI">
-    <base-wrapper :data-amplify-wrapper="headless ? null : ''">
+    <base-wrapper data-amplify-wrapper>
       <base-form @submit.prevent="onSignInSubmit" method="post">
         <template #formt="{ slotData }">
           <slot
@@ -23,11 +23,9 @@
           <template #fieldSetI=" { slotData } ">
             <slot name="signin-fields" :info="slotData"> </slot>
           </template>
-          <sign-in-and-up-name-control :usernameAlias="usernameAlias" />
+          <user-name-alias :userNameAlias="true" />
 
           <base-label data-amplify-password>
-            <!-- <base-text>{{ passwordLabel }}</base-text>
-            <base-input name="password" required type="password" /> -->
             <sign-in-password-control />
 
             <base-box>
@@ -90,18 +88,7 @@
 </template>
 
 <script lang="ts">
-import { computed } from "vue";
-import {
-  SIGN_IN_TEXT,
-  AUTHENTICATOR,
-  RESET_PASSWORD_LINK,
-  NO_ACCOUNT,
-  CREATE_ACCOUNT_LINK,
-  SIGN_IN_BUTTON_TEXT,
-  FORGOT_YOUR_PASSWORD_TEXT,
-  PASSWORD_LABEL,
-  SIGNING_IN_BUTTON_TEXT
-} from "../defaults/DefaultTexts";
+import { Ref, ref } from "vue";
 
 import BaseLabel from "./primitives/base-label.vue";
 import BaseFooter from "./primitives/base-footer.vue";
@@ -113,34 +100,29 @@ import BaseBox from "./primitives/base-box.vue";
 import BaseButton from "./primitives/base-button.vue";
 import BaseSpacer from "./primitives/base-spacer.vue";
 import BaseText from "./primitives/base-text.vue";
-import SignInAndUpNameControl from "./sign-in-and-up-name-control.vue";
 import SignInPasswordControl from "./sign-in-password-control.vue";
+import UserNameAlias from "./user-name-alias.vue";
+
+import {
+  SIGN_IN_TEXT,
+  AUTHENTICATOR,
+  RESET_PASSWORD_LINK,
+  NO_ACCOUNT,
+  CREATE_ACCOUNT_LINK,
+  SIGN_IN_BUTTON_TEXT,
+  FORGOT_YOUR_PASSWORD_TEXT,
+  PASSWORD_LABEL,
+  SIGNING_IN_BUTTON_TEXT,
+} from "../defaults/DefaultTexts";
 
 // @xstate
 import { useAuth } from "../composables/useAuth";
 
 // types
-import {
-  SetupEventContext,
-  SignInEventTypeProps,
-  SignInSetupReturnTypes
-} from "../types/index";
-
-import { Ref, ref } from "vue";
-import { useNameAlias } from "../composables/useUtils";
+import { SetupEventContext, SignInSetupReturnTypes } from "../types/index";
 
 export default {
   name: "Authentication",
-  props: {
-    headless: {
-      default: false,
-      type: Boolean
-    },
-    usernameAlias: {
-      default: "username",
-      type: String
-    }
-  },
   computed: {
     signIntoAccountText: (): string => SIGN_IN_TEXT,
     resetPasswordLink: (): string => RESET_PASSWORD_LINK,
@@ -149,7 +131,7 @@ export default {
     signInButtonText: (): string => SIGN_IN_BUTTON_TEXT,
     signIngButtonText: (): string => SIGNING_IN_BUTTON_TEXT,
     forgotYourPasswordText: (): string => FORGOT_YOUR_PASSWORD_TEXT,
-    passwordLabel: (): string => PASSWORD_LABEL
+    passwordLabel: (): string => PASSWORD_LABEL,
   },
   inheritAttrs: false,
   components: {
@@ -163,24 +145,15 @@ export default {
     BaseBox,
     BaseButton,
     BaseSpacer,
-    SignInAndUpNameControl,
-    SignInPasswordControl
+    UserNameAlias,
+    SignInPasswordControl,
   },
 
-  setup(
-    props: Readonly<SignInEventTypeProps>,
-    { emit, attrs }: SetupEventContext
-  ): SignInSetupReturnTypes {
-    // @Xstate Initialization
+  setup(_, { emit, attrs }: SetupEventContext): SignInSetupReturnTypes {
+    const { state, send } = useAuth();
 
     const username: Ref = ref("");
     const password: Ref = ref("");
-    const { state, send } = useAuth();
-
-    // computed
-    const signInUserNameText = computed(() =>
-      useNameAlias(props.usernameAlias)
-    );
 
     // Methods
 
@@ -197,7 +170,7 @@ export default {
       send({
         type: "SUBMIT",
         // @ts-ignore Property 'fromEntries' does not exist on type 'ObjectConstructor'. Do you need to change your target library? Try changing the `lib` compiler option to 'es2019' or later.ts(2550)
-        data: Object.fromEntries(formData)
+        data: Object.fromEntries(formData),
       });
     };
 
@@ -215,7 +188,7 @@ export default {
         emit("createAccountClicked");
       } else {
         send({
-          type: "SIGN_UP"
+          type: "SIGN_UP",
         });
       }
     };
@@ -229,9 +202,8 @@ export default {
       username,
       password,
       submit,
-      signInUserNameText
     };
-  }
+  },
 };
 </script>
 

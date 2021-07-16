@@ -24,10 +24,13 @@ const required = (message) => {
 
 export function Feature({
   framework = 'react',
+  exampleFolder = 'next',
   name = required('Missing feature name'),
+  port = 3000,
 }) {
   const [source, setSource] = React.useState(null);
-  const { asPath } = useRouter();
+  let { asPath } = useRouter();
+  asPath = asPath.split('-')[0];
 
   useEffect(() => {
     import(
@@ -77,7 +80,7 @@ export function Feature({
                 {process.env.NODE_ENV === 'development' && (
                   <td>
                     <a
-                      href={`http://localhost:3000${asPath}/${name}`}
+                      href={`http://localhost:${port}${asPath}/${name}`}
                       target="_blank"
                     >
                       <span className="sr-only">Demo</span>
@@ -87,7 +90,7 @@ export function Feature({
                 )}
                 <td>
                   <a
-                    href={`https://github.com/aws-amplify/amplify-ui/tree/${process.env.BRANCH}/examples/next/pages${asPath}/${name}`}
+                    href={`https://github.com/aws-amplify/amplify-ui/tree/${process.env.BRANCH}/examples/${exampleFolder}/pages${asPath}/${name}`}
                     target="_blank"
                   >
                     <span className="sr-only">Source</span>
