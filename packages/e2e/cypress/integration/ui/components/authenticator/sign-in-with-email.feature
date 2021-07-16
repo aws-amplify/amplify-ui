@@ -19,7 +19,6 @@ Feature: Sign In with Email
     And I click the "Sign In" button
     Then I see "User does not exist"
 
-  @Vue
   @React
   Scenario: Sign in with unconfirmed credentials
     When I type the valid email "UNCONFIRMED_EMAIL"
@@ -36,7 +35,6 @@ Feature: Sign In with Email
     Then I see "Sign out"
 
 
-  @Vue
   @React
   Scenario: Sign in with force change password credentials
     When I type the valid email "FORCE_CHANGE_EMAIL"

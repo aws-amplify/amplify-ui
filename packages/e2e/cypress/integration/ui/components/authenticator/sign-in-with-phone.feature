@@ -19,7 +19,6 @@ Feature: Sign In with Phone Number
     Then I see "User does not exist"
 
 
-  @Vue
   @React
   Scenario: Sign in with unconfirmed credentials
     When I type the valid phone number "UNCONFIRMED_PHONE_NUMBER"
@@ -37,7 +36,6 @@ Feature: Sign In with Phone Number
     Then I see "Sign out"
 
 
-  @Vue
   @React
   Scenario: Sign in with force change password credentials
     When I type the valid phone number "FORCE_CHANGE_PHONE_NUMBER"
