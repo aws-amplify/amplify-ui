@@ -6,7 +6,7 @@ const fs = require('fs/promises');
       'aws-exports files must be included in environment variables.'
     );
 
-  console.log(Buffer.from(process.env.SECURITY_TEST, 'base64'));
+  console.log(Buffer.from(process.env.TEST_SECURITY, 'base64'));
 
   const environmentExports = JSON.parse(
     Buffer.from(process.env.ENVIRONMENT_AWS_EXPORTS, 'base64')

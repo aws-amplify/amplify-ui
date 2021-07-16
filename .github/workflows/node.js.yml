@@ -31,7 +31,7 @@ jobs:
       - run: node environments/write-exports-files.js
         env:
           ENVIRONMENT_AWS_EXPORTS: ${{ secrets.ENVIRONMENT_AWS_EXPORTS }}
-          SECURITY_TEST: ${{ secrets.SECURITY_TEST }}
+          TEST_SECURITY: ${{ secrets.TEST_SECURITY }}
       - run: yarn next-example dev & npx wait-on http://localhost:3000/ui/components/authenticator/sign-in
       - run: yarn test
         env:
