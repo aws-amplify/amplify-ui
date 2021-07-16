@@ -4,8 +4,8 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "TZ=UTC cypress open",
-    "test": "TZ=UTC cypress run"
+    "dev": "TZ=UTC cypress open -e 'TAGS=not @skip'",
+    "test": "TZ=UTC cypress run -e 'TAGS=not @skip'"
   },
   "cypress-cucumber-preprocessor": {
     "nonGlobalStepDefinitions": true

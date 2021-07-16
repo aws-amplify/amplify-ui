@@ -31,7 +31,7 @@ Feature: Sign In with Phone Number
     And I click the "Sign In" button
     Then I see "Sign out"
 
-  @React
+  @React @skip
   Scenario: Sign in with force change password credentials
     When I type the valid phone number "FORCE_CHANGE_PHONE_NUMBER"
     And I type the valid password "VALID_PASSWORD"

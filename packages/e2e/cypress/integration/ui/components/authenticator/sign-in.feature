@@ -1,3 +1,4 @@
+@skip
 Feature: Sign In
 
   Amplify's SignIn component uses AWS Cognito's authentication
