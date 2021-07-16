@@ -1,5 +1,8 @@
 {
   "baseUrl": "http://localhost:3000/",
   "defaultCommandTimeout": 15000,
+  "env": {
+    "TAGS": "not @skip"
+  },
   "testFiles": "**/*.feature"
 }
