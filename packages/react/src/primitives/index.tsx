@@ -1,11 +1,14 @@
+export * from './Badge';
 export * from './Button';
+export * from './Card';
+export * from './Divider';
 export * from './Flex';
 export * from './Image';
-export * from './View';
-export * from './shared';
 export * from './Text';
+export * from './View';
+
+export * from './shared';
 export * from './types';
-export * from './Divider';
 
 export function Box(props) {
   return <div data-amplify-box="" {...props} />;

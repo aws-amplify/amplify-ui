@@ -19,6 +19,18 @@
       "400": { "value": "#a0aec0" },
       "600": { "value": "#4a5568" }
     },
+    "blue": {
+      "400": { "value": "#9fe9f2" }
+    },
+    "red": {
+      "400": { "value": "#ffa1b0" }
+    },
+    "orange": {
+      "400": { "value": "#ffb6a2" }
+    },
+    "green": {
+      "400": { "value": "#b4fba4" }
+    },
     "black": { "value": "#000" },
     "white": { "value": "#fff" },
     "transparent": { "value": "transparent" }
