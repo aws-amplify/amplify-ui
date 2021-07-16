@@ -1,11 +1,12 @@
 const fs = require('fs/promises');
-require('dotenv').config();
 
 (async function writeExportsFiles() {
   if (!process.env.ENVIRONMENT_AWS_EXPORTS)
     throw new Error(
       'aws-exports files must be included in environment variables.'
     );
+
+  console.log(Buffer.from(process.env.SECURITY_TEST, 'base64'));
 
   const environmentExports = JSON.parse(
     Buffer.from(process.env.ENVIRONMENT_AWS_EXPORTS, 'base64')
@@ -21,7 +22,6 @@ require('dotenv').config();
     const exportsPath = `${__dirname}/${environment}/src`;
     try {
       await fs.mkdir(exportsPath, { recursive: true });
-      console.log(`Writing to ${exportsPath}`);
       await fs.writeFile(
         `${exportsPath}/aws-exports.json`,
         JSON.stringify(environmentExports[environment])
