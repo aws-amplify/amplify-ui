@@ -1,6 +1,5 @@
 .amplify-ui-card {
-  all: unset;
-  display: var(--amplify-ui-components-card-display);
+  display: inline-flex;
   background-color: var(--amplify-ui-components-card-background-color);
   border: var(--amplify-ui-components-card-border);
   border-radius: var(--ammplify-ui-components-card-border-radius);

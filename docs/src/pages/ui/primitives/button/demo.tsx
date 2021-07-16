@@ -64,8 +64,7 @@ export const ButtonDemo = () => {
           onChange={(event) => setVariant(event.target.value as ButtonVariant)}
         >
           <option value="primary">primary</option>
-          <option value="secondary">secondary</option>
-          <option value="tertiary">tertiary</option>
+          <option value="default">default</option>
           <option value="link">link</option>
         </select>
         <select

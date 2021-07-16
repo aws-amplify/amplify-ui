@@ -14,7 +14,7 @@ export const Button: React.FC<ButtonProps> = ({
   loadingText = '',
   onClick = () => {},
   size = 'medium',
-  variant = 'secondary',
+  variant = 'default',
   type = 'button',
 }) => (
   <button
