@@ -1,20 +1,15 @@
-import { get, omit } from "lodash";
-import { Auth, Amplify } from "aws-amplify";
-import { Machine, assign } from "xstate";
-import {
-  AuthChallengeNames,
-  AuthContext,
-  AuthEvent,
-  AuthFormData,
-} from "./types";
-import { passwordMatches, runValidators } from "./validators";
+import { get } from 'lodash';
+import { Auth, Amplify } from 'aws-amplify';
+import { Machine, assign } from 'xstate';
+import { AuthChallengeNames, AuthContext, AuthEvent } from './types';
+import { passwordMatches, runValidators } from './validators';
 
 export const authMachine = Machine<AuthContext, AuthEvent>(
   {
-    id: "auth",
-    initial: "idle",
+    id: 'auth',
+    initial: 'idle',
     context: {
-      remoteError: "",
+      remoteError: '',
       formValues: {},
       validationError: {},
       user: undefined,
@@ -26,170 +21,177 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
         invoke: [
           {
             // TODO Wait for Auth to be configured
-            src: "getCurrentUser",
+            src: 'getCurrentUser',
             onDone: {
-              actions: "setUser",
-              target: "authenticated",
+              actions: 'setUser',
+              target: 'authenticated',
             },
-            onError: "signIn",
+            onError: 'signIn',
           },
           {
-            src: "getAmplifyConfig",
+            src: 'getAmplifyConfig',
             onDone: {
-              actions: "setAuthConfig",
+              actions: 'setAuthConfig',
             },
           },
         ],
       },
       authenticated: {
         on: {
-          SIGN_OUT: "signOut",
+          SIGN_OUT: 'signOut',
         },
       },
       signIn: {
-        initial: "edit",
-        exit: ["clearFormValues", "clearError"],
-        onDone: "authenticated",
+        initial: 'edit',
+        exit: ['clearFormValues', 'clearError'],
+        onDone: 'authenticated',
         states: {
           edit: {
-            initial: "clean",
+            initial: 'clean',
             states: {
               clean: {},
               error: {},
             },
             on: {
-              SUBMIT: "submit",
-              INPUT: { actions: "handleInput" },
-              SIGN_UP: "#auth.signUp",
+              SUBMIT: 'submit',
+              INPUT: { actions: 'handleInput' },
+              SIGN_UP: '#auth.signUp',
             },
           },
           submit: {
-            entry: "clearError",
+            entry: 'clearError',
             invoke: {
-              src: "signIn",
+              src: 'signIn',
               onDone: [
                 {
-                  cond: "shouldSetupTOTP",
-                  actions: ["setUser", "setChallengeName"],
-                  target: "#auth.setupTOTP",
+                  cond: 'shouldSetupTOTP',
+                  actions: ['setUser', 'setChallengeName'],
+                  target: '#auth.setupTOTP',
                 },
                 {
-                  cond: "shouldConfirmSignIn",
-                  actions: ["setUser", "setChallengeName"],
-                  target: "#auth.confirmSignIn",
+                  cond: 'shouldConfirmSignIn',
+                  actions: ['setUser', 'setChallengeName'],
+                  target: '#auth.confirmSignIn',
                 },
                 {
-                  actions: "setUser",
-                  target: "resolved",
+                  actions: 'setUser',
+                  target: 'resolved',
                 },
               ],
-              onError: {
-                actions: "setRemoteError",
-                target: "rejected",
-              },
+              onError: [
+                {
+                  cond: 'shouldRedirectToConfirmSignUp',
+                  actions: ['setUser'],
+                  target: '#auth.confirmSignUp',
+                },
+                {
+                  actions: 'setRemoteError',
+                  target: 'rejected',
+                },
+              ],
             },
           },
           resolved: {
-            type: "final",
+            type: 'final',
           },
           rejected: {
             // TODO Set errors and go back to `idle`?
-            always: "edit.error",
+            always: 'edit.error',
           },
         },
       },
       confirmSignIn: {
-        initial: "edit",
-        exit: ["clearFormValues, clearError"],
-        onDone: "idle",
+        initial: 'edit',
+        exit: ['clearFormValues, clearError'],
+        onDone: 'idle',
         states: {
           edit: {
-            initial: "clean",
+            initial: 'clean',
             states: {
               clean: {},
               error: {},
             },
             on: {
-              SUBMIT: "submit",
-              SIGN_IN: "#auth.signIn",
-              INPUT: { actions: "handleInput" },
+              SUBMIT: 'submit',
+              SIGN_IN: '#auth.signIn',
+              INPUT: { actions: 'handleInput' },
             },
           },
           submit: {
             invoke: {
-              src: "confirmSignIn",
+              src: 'confirmSignIn',
               onDone: {
-                actions: ["setUser", "clearChallengeName"],
-                target: "resolved",
+                actions: ['setUser', 'clearChallengeName'],
+                target: 'resolved',
               },
               onError: {
-                actions: "setRemoteError",
-                target: "rejected",
+                actions: 'setRemoteError',
+                target: 'rejected',
               },
             },
           },
           rejected: {
-            always: "edit.error",
+            always: 'edit.error',
           },
           resolved: {
-            type: "final",
+            type: 'final',
           },
         },
       },
       setupTOTP: {
-        initial: "edit",
-        exit: ["clearFormValues, clearError"],
-        onDone: "idle",
+        initial: 'edit',
+        exit: ['clearFormValues, clearError'],
+        onDone: 'idle',
         states: {
           edit: {
-            initial: "clean",
+            initial: 'clean',
             states: {
               clean: {},
               error: {},
             },
             on: {
-              SUBMIT: "submit",
-              SIGN_IN: "#auth.signIn",
-              INPUT: { actions: "handleInput" },
+              SUBMIT: 'submit',
+              SIGN_IN: '#auth.signIn',
+              INPUT: { actions: 'handleInput' },
             },
           },
           submit: {
             invoke: {
-              src: "verifyTotpToken",
+              src: 'verifyTotpToken',
               onDone: {
-                actions: ["setUser", "clearChallengeName"],
-                target: "resolved",
+                actions: ['setUser', 'clearChallengeName'],
+                target: 'resolved',
               },
               onError: {
-                actions: "setRemoteError",
-                target: "rejected",
+                actions: 'setRemoteError',
+                target: 'rejected',
               },
             },
           },
           rejected: {
-            always: "edit.error",
+            always: 'edit.error',
           },
           resolved: {
-            type: "final",
+            type: 'final',
           },
         },
       },
       signUp: {
-        type: "parallel",
+        type: 'parallel',
         states: {
           validation: {
-            initial: "pending",
+            initial: 'pending',
             states: {
               pending: {
                 invoke: {
-                  src: "validateFields",
+                  src: 'validateFields',
                   onDone: {
-                    target: "valid",
-                    actions: "clearValidationError",
+                    target: 'valid',
+                    actions: 'clearValidationError',
                   },
                   onError: {
-                    target: "invalid",
-                    actions: "setFieldErrors",
+                    target: 'invalid',
+                    actions: 'setFieldErrors',
                   },
                 },
               },
@@ -198,122 +200,122 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
             },
             on: {
               CHANGE: {
-                actions: "handleInput",
-                target: ".pending",
+                actions: 'handleInput',
+                target: '.pending',
               },
             },
           },
           submission: {
-            initial: "idle",
-            onDone: "#auth.confirmSignUp",
+            initial: 'idle',
+            onDone: '#auth.confirmSignUp',
             states: {
               idle: {
                 on: {
-                  SUBMIT: "validate",
+                  SUBMIT: 'validate',
                 },
               },
               validate: {
                 invoke: {
-                  src: "validateFields",
+                  src: 'validateFields',
                   onDone: {
-                    target: "pending",
-                    actions: "clearValidationError",
+                    target: 'pending',
+                    actions: 'clearValidationError',
                   },
                   onError: {
-                    target: "idle",
-                    actions: "setFieldErrors",
+                    target: 'idle',
+                    actions: 'setFieldErrors',
                   },
                 },
               },
               pending: {
                 invoke: {
-                  src: "signUp",
-                  onDone: "done",
+                  src: 'signUp',
+                  onDone: 'done',
                   onError: {
-                    target: "idle",
-                    actions: "setRemoteError",
+                    target: 'idle',
+                    actions: 'setRemoteError',
                   },
                 },
               },
-              done: { type: "final" },
+              done: { type: 'final' },
             },
           },
         },
         on: {
-          SIGN_IN: "#auth.signIn",
+          SIGN_IN: '#auth.signIn',
         },
       },
       confirmSignUp: {
-        initial: "edit",
-        exit: ["clearFormValues", "clearError"],
-        onDone: "idle",
+        initial: 'edit',
+        exit: ['clearFormValues', 'clearError'],
+        onDone: 'idle',
         states: {
           edit: {
-            initial: "clean",
+            initial: 'clean',
             states: {
               clean: {},
               error: {},
             },
             on: {
-              SUBMIT: "submit",
-              RESEND: "resend",
-              SIGN_IN: "#auth.signIn",
-              INPUT: { actions: "handleInput" },
+              SUBMIT: 'submit',
+              RESEND: 'resend',
+              SIGN_IN: '#auth.signIn',
+              INPUT: { actions: 'handleInput' },
             },
           },
           submit: {
             invoke: {
-              src: "confirmSignUp",
+              src: 'confirmSignUp',
               onDone: {
-                target: "resolved",
+                target: 'resolved',
               },
               onError: {
-                actions: "setRemoteError",
-                target: "rejected",
+                actions: 'setRemoteError',
+                target: 'rejected',
               },
             },
           },
           resend: {
             invoke: {
-              src: "resendConfirmationCode",
+              src: 'resendConfirmationCode',
               onDone: {
-                target: "edit",
+                target: 'edit',
               },
               onError: {
-                actions: "setRemoteError",
-                target: "rejected",
+                actions: 'setRemoteError',
+                target: 'rejected',
               },
             },
           },
           rejected: {
-            always: "edit.error",
+            always: 'edit.error',
           },
           resolved: {
-            type: "final",
+            type: 'final',
           },
         },
       },
       signOut: {
-        initial: "pending",
-        onDone: "idle",
+        initial: 'pending',
+        onDone: 'idle',
         states: {
           pending: {
             invoke: {
-              src: "signOut",
+              src: 'signOut',
               onDone: {
-                actions: "setUser",
-                target: "resolved",
+                actions: 'setUser',
+                target: 'resolved',
               },
               // See: https://xstate.js.org/docs/guides/communication.html#the-invoke-property
-              onError: "rejected",
+              onError: 'rejected',
             },
           },
           rejected: {
             // TODO Why would signOut be rejected?
-            type: "final",
+            type: 'final',
           },
           resolved: {
-            type: "final",
+            type: 'final',
           },
         },
       },
@@ -338,7 +340,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
       }),
       clearFormValues: assign({ formValues: {} }),
       clearValidationError: assign({ validationError: {} }),
-      clearError: assign({ remoteError: "" }),
+      clearError: assign({ remoteError: '' }),
       handleInput: assign({
         formValues(context, event) {
           const { name, value } = event.data;
@@ -360,26 +362,21 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
     // See: https://xstate.js.org/docs/guides/guards.html#guards-condition-functions
     guards: {
       shouldConfirmSignIn: (context, event) => {
-        const challengeName = get(event, "data.challengeName");
+        const challengeName = get(event, 'data.challengeName');
         const validChallengeNames = [
           AuthChallengeNames.SMS_MFA,
           AuthChallengeNames.SOFTWARE_TOKEN_MFA,
         ];
 
-        if (validChallengeNames.includes(challengeName)) {
-          return true;
-        }
-
-        return false;
+        return validChallengeNames.includes(challengeName);
       },
       shouldSetupTOTP: (context, event) => {
-        const challengeName = get(event, "data.challengeName");
+        const challengeName = get(event, 'data.challengeName');
 
-        if (challengeName === AuthChallengeNames.MFA_SETUP) {
-          return true;
-        }
-
-        return false;
+        return challengeName === AuthChallengeNames.MFA_SETUP;
+      },
+      shouldRedirectToConfirmSignUp: (context, event) => {
+        return event.data.code === 'UserNotConfirmedException';
       },
     },
     services: {
@@ -437,23 +434,21 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
           },
         } = context;
 
-        const username = formValues[primaryAlias];
-
-        const attributes = omit<AuthFormData>(formValues, [
-          primaryAlias,
-          "confirm_password", // confirm_password field should not be sent to Cognito
-        ]);
-
-        if (attributes.phone_number) {
-          attributes.phone_number = attributes.phone_number.replace(
+        if (formValues.phone_number) {
+          formValues.phone_number = formValues.phone_number.replace(
             /[^A-Z0-9+]/gi,
-            ""
+            ''
           );
         }
+
+        const username = formValues[primaryAlias];
+        delete formValues[primaryAlias];
+        delete formValues.confirm_password; // confirm_password field should not be sent to Cognito
+
         const result = await Auth.signUp({
           username,
           password,
-          attributes,
+          attributes: formValues,
         });
 
         // TODO `cond`itionally transition to `signUp.confirm` or `resolved` based on result

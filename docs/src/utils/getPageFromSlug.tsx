@@ -1,9 +1,9 @@
-import { readFile } from "fs/promises";
-import matter from "gray-matter";
-import path from "path";
+import { readFile } from 'fs/promises';
+import matter from 'gray-matter';
+import path from 'path';
 
 export async function getPageFromSlug(slug: string) {
-  if (slug.startsWith("/")) {
+  if (slug.startsWith('/')) {
     slug = slug.slice(1);
   }
 
@@ -11,13 +11,13 @@ export async function getPageFromSlug(slug: string) {
 
   const contentPath = path.join(
     process.cwd(),
-    "src",
-    "pages",
+    'src',
+    'pages',
     slug,
-    "index.mdx"
+    'index.mdx'
   );
 
-  const source = await readFile(contentPath, "utf8");
+  const source = await readFile(contentPath, 'utf8');
   const { data, content } = matter(source);
   const frontmatter = {
     ...data,

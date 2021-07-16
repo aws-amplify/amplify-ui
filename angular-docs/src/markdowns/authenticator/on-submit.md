@@ -7,9 +7,7 @@
 `onSubmit` hooks have the following shape:
 
 ```typescript
-type OnSubmitHook = (
-  formData: AuthFormData
-) => {
+type OnSubmitHook = (formData: AuthFormData) => {
   data?: AuthFormData;
   error?: FormError;
 };

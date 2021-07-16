@@ -1,11 +1,11 @@
-import React from "react";
-import { DividerOptions, ImageOptions } from "@aws-amplify/ui-react";
-import { FieldLabeler } from "./FieldLabeler";
+import React from 'react';
+import { DividerOptions, ImageOptions } from '@aws-amplify/ui-react';
+import { FieldLabeler } from './FieldLabeler';
 
 export interface DividerPropControlsProps extends DividerOptions {
-  setSize: (value: React.SetStateAction<DividerOptions["size"]>) => void;
+  setSize: (value: React.SetStateAction<DividerOptions['size']>) => void;
   setOrientation: (
-    value: React.SetStateAction<DividerOptions["orientation"]>
+    value: React.SetStateAction<DividerOptions['orientation']>
   ) => void;
 }
 
@@ -28,8 +28,8 @@ export const DividerPropControls: DividerPropControlsInterface = ({
             name="size"
             id="size"
             value={size}
-            onChange={event =>
-              setSize(event.target.value as DividerOptions["size"])
+            onChange={(event) =>
+              setSize(event.target.value as DividerOptions['size'])
             }
           >
             <option value="small">small</option>
@@ -43,9 +43,9 @@ export const DividerPropControls: DividerPropControlsInterface = ({
             name="orientation"
             id="orientation"
             value={orientation}
-            onChange={event =>
+            onChange={(event) =>
               setOrientation(
-                event.target.value as DividerOptions["orientation"]
+                event.target.value as DividerOptions['orientation']
               )
             }
           >

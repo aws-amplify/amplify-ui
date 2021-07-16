@@ -1,6 +1,6 @@
-import { useAmplify, useAuth } from "@aws-amplify/ui-react";
+import { useAmplify, useAuth } from '@aws-amplify/ui-react';
 
-import { UserNameAliasNames } from "../../../primitives/shared/constants";
+import { UserNameAliasNames } from '../../../primitives/shared/constants';
 
 export function SignUp() {
   const {
@@ -14,19 +14,19 @@ export function SignUp() {
       Text,
       ErrorText,
     },
-  } = useAmplify("Authenticator.SignUp");
+  } = useAmplify('Authenticator.SignUp');
 
   const [state, send] = useAuth();
-  const isPending = state.matches("signUp.pending");
+  const isPending = state.matches('signUp.pending');
   const { remoteError } = state.context;
 
   const [primaryAlias, ...secondaryAliases] = state.context.config
-    ?.login_mechanisms ?? ["username", "email", "phone_number"];
+    ?.login_mechanisms ?? ['username', 'email', 'phone_number'];
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     send({
-      type: "CHANGE",
+      type: 'CHANGE',
       data: { name, value },
     });
   };
@@ -35,13 +35,13 @@ export function SignUp() {
     <Form
       data-amplify-authenticator-signup=""
       method="post"
-      onSubmit={event => {
+      onSubmit={(event) => {
         event.preventDefault();
 
         const formData = new FormData(event.target);
 
         send({
-          type: "SUBMIT",
+          type: 'SUBMIT',
           // @ts-ignore Property 'fromEntries' does not exist on type 'ObjectConstructor'. Do you need to change your target library? Try changing the `lib` compiler option to 'es2019' or later.ts(2550)
           data: Object.fromEntries(formData),
         });
@@ -57,7 +57,7 @@ export function SignUp() {
         />
         <SignUp.PasswordControl />
         <SignUp.ConfirmPasswordControl />
-        {secondaryAliases.map(alias => (
+        {secondaryAliases.map((alias) => (
           <SignUp.AliasControl
             key={alias}
             label={UserNameAliasNames[alias].name}
@@ -69,8 +69,8 @@ export function SignUp() {
       <ErrorText>{remoteError}</ErrorText>
 
       <Footer>
-        <Text>Have an account?</Text>{" "}
-        <Button onClick={() => send({ type: "SIGN_IN" })} type="button">
+        <Text>Have an account?</Text>{' '}
+        <Button onClick={() => send({ type: 'SIGN_IN' })} type="button">
           Sign in
         </Button>
         <Spacer />
@@ -83,13 +83,13 @@ export function SignUp() {
 }
 
 SignUp.AliasControl = ({
-  label = "Username",
-  name = "username",
+  label = 'Username',
+  name = 'username',
   placeholder = label,
 }) => {
   const {
     components: { Input, Label, Text, ErrorText },
-  } = useAmplify("Authenticator.SignUp.Password");
+  } = useAmplify('Authenticator.SignUp.Password');
   const [{ context }] = useAuth();
   const error = context.validationError[name];
 
@@ -110,13 +110,13 @@ SignUp.AliasControl = ({
 };
 
 SignUp.PasswordControl = ({
-  label = "Password",
-  name = "password",
+  label = 'Password',
+  name = 'password',
   placeholder = label,
 }) => {
   const {
     components: { Input, Label, Text, ErrorText },
-  } = useAmplify("Authenticator.SignUp.Password");
+  } = useAmplify('Authenticator.SignUp.Password');
   const [{ context }] = useAuth();
   const error = context.validationError[name];
 
@@ -132,12 +132,12 @@ SignUp.PasswordControl = ({
 };
 
 SignUp.ConfirmPasswordControl = ({
-  label = "Confirm Password",
-  name = "confirm_password",
+  label = 'Confirm Password',
+  name = 'confirm_password',
 }) => {
   const {
     components: { Input, Label, Text, ErrorText },
-  } = useAmplify("Authenticator.SignUp.Password");
+  } = useAmplify('Authenticator.SignUp.Password');
   const [{ context }] = useAuth();
   const error = context.validationError[name];
 

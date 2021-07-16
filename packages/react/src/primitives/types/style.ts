@@ -1,6 +1,6 @@
-import { Property } from "csstype";
-import { FlexStyleProps } from "./flex";
-import { ImageStyleProps } from "./image";
+import { Property } from 'csstype';
+import { FlexStyleProps } from './flex';
+import { ImageStyleProps } from './image';
 
 export interface BaseStyleProps {
   backgroundColor?: Property.BackgroundColor;
@@ -24,11 +24,14 @@ export interface BaseStyleProps {
   width?: Property.Width;
 }
 
-export interface AllStyleProps extends BaseStyleProps, ImageStyleProps, FlexStyleProps { }
+export interface AllStyleProps
+  extends BaseStyleProps,
+    ImageStyleProps,
+    FlexStyleProps {}
 
 export type ComponentPropToStyleProp = {
-  [key in keyof AllStyleProps]: keyof React.CSSProperties
-}
+  [key in keyof AllStyleProps]: keyof React.CSSProperties;
+};
 
 /**
  * Maps from component style props to React `style` props
@@ -36,31 +39,31 @@ export type ComponentPropToStyleProp = {
  * such as wrap => flexWrap and direction => flexDirection
  */
 export const ComponentPropsToStylePropsMap: ComponentPropToStyleProp = {
-  alignContent: "alignContent",
-  alignItems: "alignItems",
-  backgroundColor: "backgroundColor",
-  border: "border",
-  borderRadius: "borderRadius",
-  boxShadow: "boxShadow",
-  color: "color",
-  direction: "flexDirection",
-  fontFamily: "fontFamily",
-  fontStyle: "fontStyle",
-  fontWeight: "fontWeight",
-  gap: "gap",
-  height: "height",
-  justifyContent: "justifyContent",
-  letterSpacing: "letterSpacing",
-  lineHeight: "lineHeight",
-  maxHeight: "maxHeight",
-  maxWidth: "maxWidth",
-  minHeight: "minHeight",
-  minWidth: "minWidth",
-  objectFit: "objectFit",
+  alignContent: 'alignContent',
+  alignItems: 'alignItems',
+  backgroundColor: 'backgroundColor',
+  border: 'border',
+  borderRadius: 'borderRadius',
+  boxShadow: 'boxShadow',
+  color: 'color',
+  direction: 'flexDirection',
+  fontFamily: 'fontFamily',
+  fontStyle: 'fontStyle',
+  fontWeight: 'fontWeight',
+  gap: 'gap',
+  height: 'height',
+  justifyContent: 'justifyContent',
+  letterSpacing: 'letterSpacing',
+  lineHeight: 'lineHeight',
+  maxHeight: 'maxHeight',
+  maxWidth: 'maxWidth',
+  minHeight: 'minHeight',
+  minWidth: 'minWidth',
+  objectFit: 'objectFit',
   objectPosition: 'objectPosition',
-  opacity: "opacity",
-  padding: "padding",
-  textDecoration: "textDecoration",
-  width: "width",
-  wrap: "flexWrap",
-}
+  opacity: 'opacity',
+  padding: 'padding',
+  textDecoration: 'textDecoration',
+  width: 'width',
+  wrap: 'flexWrap',
+};

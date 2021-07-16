@@ -1,6 +1,6 @@
-import { useAmplify, useAuth } from "@aws-amplify/ui-react";
+import { useAmplify, useAuth } from '@aws-amplify/ui-react';
 
-import { UserNameAlias } from "../shared";
+import { UserNameAlias } from '../shared';
 
 export function SignIn() {
   const {
@@ -16,23 +16,23 @@ export function SignIn() {
       Spacer,
       Text,
     },
-  } = useAmplify("Authenticator.SignIn");
+  } = useAmplify('Authenticator.SignIn');
 
   const [state, send] = useAuth();
-  const isPending = state.matches("signIn.pending");
+  const isPending = state.matches('signIn.pending');
 
   return (
     // TODO Automatically add these namespaces again from `useAmplify`
     <Form
       data-amplify-authenticator-signin=""
       method="post"
-      onSubmit={event => {
+      onSubmit={(event) => {
         event.preventDefault();
 
         const formData = new FormData(event.target);
 
         send({
-          type: "SUBMIT",
+          type: 'SUBMIT',
           // @ts-ignore Property 'fromEntries' does not exist on type 'ObjectConstructor'. Do you need to change your target library? Try changing the `lib` compiler option to 'es2019' or later.ts(2550)
           data: Object.fromEntries(formData),
         });
@@ -47,15 +47,15 @@ export function SignIn() {
           <Text>Password</Text>
           <Input name="password" required type="password" />
           <Box>
-            <Text>Forgot your password?</Text>{" "}
+            <Text>Forgot your password?</Text>{' '}
             <Button type="button">Reset Password</Button>
           </Box>
         </Label>
       </Fieldset>
 
       <Footer>
-        <Text>No account?</Text>{" "}
-        <Button onClick={() => send({ type: "SIGN_UP" })} type="button">
+        <Text>No account?</Text>{' '}
+        <Button onClick={() => send({ type: 'SIGN_UP' })} type="button">
           Create account
         </Button>
         <Spacer />

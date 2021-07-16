@@ -7,9 +7,9 @@
 // https://on.cypress.io/plugins-guide
 // ***********************************************************
 
-const cucumber = require("cypress-cucumber-preprocessor").default;
-const resolve = require("resolve");
-require("dotenv-safe").config();
+const cucumber = require('cypress-cucumber-preprocessor').default;
+const resolve = require('resolve');
+require('dotenv-safe').config();
 
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
@@ -19,11 +19,11 @@ require("dotenv-safe").config();
  */
 module.exports = (on, config) => {
   const options = {
-    typescript: resolve.sync("typescript", { baseDir: config.projectRoot }),
+    typescript: resolve.sync('typescript', { baseDir: config.projectRoot }),
   };
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
-  on("file:preprocessor", cucumber(options));
+  on('file:preprocessor', cucumber(options));
 
   // Assign .env variables to Cypress config
   Object.assign(config.env, process.env);

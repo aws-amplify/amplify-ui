@@ -18,7 +18,8 @@
     "build:vue": "yarn vue-docs build",
     "build:theme-base": "yarn theme-base build",
     "dev:angular": "yarn angular-docs start",
-    "dev:vue": "yarn vue-docs serve --port 3001 --host localhost"
+    "dev:vue": "yarn vue-docs serve --port 3001 --host localhost",
+    "prepare": "husky install"
   },
   "workspaces": [
     "docs",
@@ -37,5 +38,13 @@
   "dependencies": {
     "patch-package": "^6.4.7",
     "postinstall-postinstall": "^2.1.0"
+  },
+  "devDependencies": {
+    "husky": ">=6",
+    "lint-staged": ">=10",
+    "prettier": "2.3.2"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,css,md,mdx}": "prettier --write"
   }
 }
