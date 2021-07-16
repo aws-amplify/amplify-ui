@@ -1,15 +1,14 @@
+import { ComponentClassNames } from "@aws-amplify/ui-react";
+
 const glob = require("glob");
 const fs = require("fs-extra");
 const { pascalCase } = require("change-case");
 
 const dirPath = `dist/react/`;
-fs.removeSync(dirPath); // we could also do this in an npm script with rimraf
-
-const iconNames = [];
-
 // we should probably use path.resolve and __dirname here I think
 // in case we run the npm from the root or this package
 const iconSetPath = "../../material-design-icons/src/**/materialicons/*.svg";
+const iconNames = [];
 
 glob(iconSetPath, function(error, files) {
   if (error) {
@@ -29,20 +28,21 @@ glob(iconSetPath, function(error, files) {
       return;
     }
 
-    const reactCode = `import React from 'react';
+    const reactIconComponent = `import React from 'react';
 export const ${iconName} = (props) => {
   const {
     size = "medium",
+    fill = "currentColor",
     ariaLabel,
     ...rest
   } = props;
   return (
     ${source
       .replace('<path d="M0 0h24v24H0z" fill="none"/>', "")
-      .replace('width="24"', 'className="amplify-ui-icon"')
+      .replace('width="24"', `className=${ComponentClassNames.Icon}`)
       .replace(
         'height="24"',
-        "data-size={size} aria-label={ariaLabel} {...rest}"
+        "data-size={size} aria-label={ariaLabel} fill={fill} {...rest}"
       )}
   )
 };`;
@@ -51,7 +51,7 @@ export const ${iconName} = (props) => {
     iconNames.push(iconName);
   });
 
-  const reactCode = iconNames
+  const iconExportsFile = iconNames
     .map(iconName => {
       return `export * from './${iconName}'`;
     })

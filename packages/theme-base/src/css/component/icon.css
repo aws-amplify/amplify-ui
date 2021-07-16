@@ -3,31 +3,29 @@
  */
 
 .amplify-ui-icon {
-  --width: var(--amplify-ui-icon-width);
+  --icon-height-large: var(--amplify-ui-icon-height-large);
+  --icon-height-medium: var(--amplify-ui-icon-height-medium);
+  --icon-height-small: var(--amplify-ui-icon-height-small);
 
-  --height-large: var(--amplify-ui-icon-height-large);
-  --height-medium: var(--amplify-ui-icon-height-medium);
-  --height-small: var(--amplify-ui-icon-height-small);
+  --icon-line-height-large: var(--amplify-ui-icon-line-height-large);
+  --icon-line-height-medium: var(--amplify-ui-icon-line-height-medium);
+  --icon-line-height-small: var(--amplify-ui-icon-line-height-small);
 
-  --line-height-large: var(--amplify-ui-icon-line-height-large);
-  --line-height-medium: var(--amplify-ui-icon-line-height-medium);
-  --line-height-small: var(--amplify-ui-icon-line-height-small);
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .amplify-ui-icon[data-size="small"] {
-  width: var(--width);
-  height: var(--height-small);
-  line-height: var(--line-height-small);
+  height: var(--icon-height-small);
+  line-height: var(--icon-line-height-small);
 }
 
 .amplify-ui-icon[data-size="medium"] {
-  width: var(--width);
-  height: var(--height-medium);
-  line-height: var(--line-height-medium);
+  height: var(--icon-height-medium);
+  line-height: var(--icon-line-height-medium);
 }
 
 .amplify-ui-icon[data-size="large"] {
-  width: var(--width);
-  height: var(--height-large);
-  line-height: var(--line-height-large);
+  height: var(--icon-height-large);
+  line-height: var(--icon-line-height-large);
 }

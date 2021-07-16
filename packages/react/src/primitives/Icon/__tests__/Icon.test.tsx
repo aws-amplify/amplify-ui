@@ -12,7 +12,7 @@ describe("Icon component", () => {
   19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z`;
 
   it("should render <svg> with default attributes", async () => {
-    render(<Icon id={iconTestId} pathData={pathData} />);
+    render(<Icon id={iconTestId} pathData={pathData} ariaLabel="Search" />);
 
     const icon = await screen.findByTestId(iconTestId);
     expect(icon.id).toBe(iconTestId);
@@ -23,7 +23,7 @@ describe("Icon component", () => {
   });
 
   it("should render <path> with provided path data", async () => {
-    render(<Icon id={iconTestId} pathData={pathData} />);
+    render(<Icon id={iconTestId} pathData={pathData} ariaLabel="Search" />);
 
     const icon = await screen.findByTestId(iconTestId);
     expect(icon.childNodes.length).toBe(1);
@@ -34,16 +34,29 @@ describe("Icon component", () => {
 
   it("should render a classname for Icon", async () => {
     render(
-      <Icon id={iconTestId} pathData={pathData} className="my-icon-component" />
+      <Icon
+        id={iconTestId}
+        pathData={pathData}
+        className="my-icon-component"
+        ariaLabel="Search"
+      />
     );
 
     const icon = await screen.findByTestId(iconTestId);
     expect(icon.classList.length).toBe(2);
+    expect(icon.classList[0]).toContain(ComponentClassNames.Icon);
     expect(icon.classList[1]).toContain("my-icon-component");
   });
 
   it("can set data-size attribute", async () => {
-    render(<Icon id={iconTestId} pathData={pathData} size="small" />);
+    render(
+      <Icon
+        id={iconTestId}
+        pathData={pathData}
+        size="small"
+        ariaLabel="Search"
+      />
+    );
 
     const icon = await screen.findByTestId(iconTestId);
     expect(icon.dataset["size"]).toBe("small");
@@ -55,6 +68,7 @@ describe("Icon component", () => {
         id={iconTestId}
         pathData={pathData}
         viewBox={{ minX: 0, minY: 0, width: 100, height: 100 }}
+        ariaLabel="Search"
       />
     );
 

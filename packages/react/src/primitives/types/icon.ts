@@ -1,4 +1,4 @@
-import { ViewProps } from "./view";
+import { BaseComponentProps, StyleProps, AriaProps } from "./base";
 import { Property } from "csstype";
 
 export interface ViewBox {
@@ -10,26 +10,34 @@ export interface ViewBox {
 
 export type IconSize = "small" | "medium" | "large";
 
-export interface IconProps extends ViewProps {
+export interface IconProps extends BaseComponentProps, StyleProps, AriaProps {
   /**
-   * Custom icons can be built by providing a path's data (the 'd' attribute in SVG)
-   * This will allow customers to create their own icons in code or potentially
-   * from a Figma export.
+   * This defines the shape of the <path> SVG element(the 'd' attribute).
+   * @link https://developer.mozilla.org/en-US/docs/Web/SVG/Element/path
    */
-  pathData?: string;
+  pathData: string;
 
+  /**
+   * This is used to define a string that labels the current element.
+   * @link https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_aria-label_attribute
+   */
+  ariaLabel: string;
+
+  /**
+   * This defines the position and dimension, in user space, of an SVG viewport.
+   * @link https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox
+   */
   viewBox?: ViewBox;
 
   /**
-   * By default this will be `currentColor` to match what is generally expected
+   * By default this will be "currentColor" to match what is generally expected
    * of icons (they inherit their color from current font color).
+   * @link https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/fill
    */
   fill?: Property.Color;
 
   /**
-   *
-   * Note: icons will inherit their size based on current font size. This will
-   * be used to set a size directly.
+   * This is used to change the icon size. Available options are "large", "medium", and "small".
    */
   size?: IconSize;
 }
