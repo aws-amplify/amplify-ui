@@ -5,6 +5,9 @@ const { pascalCase } = require('change-case');
 const dirPath = `dist/react-icons/`;
 const iconSetPath = '../../material-design-icons/svg/**/materialicons/*.svg';
 const iconNames = [];
+// Material icon set has 2 icons(addchart and add_chart) that only differ in casing
+// Pick one to filter out afterwards
+const iconFilter = ['IconAddchart'];
 
 glob(iconSetPath, function (error, files) {
   if (error) {
@@ -16,7 +19,7 @@ glob(iconSetPath, function (error, files) {
     const outputPath = `${dirPath}${iconName}.tsx`;
 
     // apparently there are some duplicates and we start with the plain ones
-    if (iconNames.indexOf(iconName) >= 0) {
+    if (iconFilter.includes(iconName) || iconNames.includes(iconName)) {
       return;
     }
 
