@@ -3,7 +3,7 @@ const fs = require('fs-extra');
 const { pascalCase } = require('change-case');
 
 const dirPath = `dist/react-icons/`;
-const iconSetPath = '../../material-design-icons/src/**/materialicons/*.svg';
+const iconSetPath = '../../material-design-icons/svg/**/materialicons/*.svg';
 const iconNames = [];
 
 glob(iconSetPath, function (error, files) {
