@@ -1,19 +1,23 @@
 <template>
   <slot name="confirmSignUpSlotI">
-    <base-wrapper :data-amplify-wrapper="headless ? null : ''">
+    <base-wrapper data-amplify-wrapper>
       <base-form @submit.prevent="onConfirmSignUpSubmit">
         <base-heading>
           {{ confirmSignUpHeading }}
         </base-heading>
         <base-field-set :disabled="state.matches('confirmSignUp.pending')">
-          <sign-in-and-up-name-control
-            :usernameAlias="usernameAlias"
-            :userName="state?.context?.user?.username"
+          <user-name-alias
+            :userNameAlias="true"
+            :userName="state?.context?.formValues[primaryAlias]"
             :disabled="true"
           />
           <base-label data-amplify-password>
             <base-text>{{ confirmationCodeText }}</base-text>
-            <base-input name="code" required type="number"></base-input>
+            <base-input
+              name="confirmation_code"
+              required
+              type="number"
+            ></base-input>
             <base-box>
               <base-text> {{ lostYourCodeText }}</base-text>
               <base-button type="button" @click.prevent="onLostCodeClicked">
@@ -53,9 +57,8 @@
 import { defineComponent, computed } from "vue";
 import BaseHeading from "./primitives/base-heading.vue";
 import BaseFieldSet from "./primitives/base-field-set.vue";
-import SignInAndUpNameControl from "./sign-in-and-up-name-control.vue";
 import BaseLabel from "./primitives/base-label.vue";
-
+import UserNameAlias from "./user-name-alias.vue";
 import BaseSpacer from "./primitives/base-spacer.vue";
 import BaseButton from "./primitives/base-button.vue";
 import BaseFooter from "./primitives/base-footer.vue";
@@ -63,6 +66,7 @@ import BaseText from "./primitives/base-text.vue";
 import BaseInput from "./primitives/base-input.vue";
 import BaseForm from "./primitives/base-form.vue";
 import BaseBox from "./primitives/base-box.vue";
+import BaseWrapper from "./primitives/base-wrapper.vue";
 
 import {
   CONFIRM_SIGNUP_HEADING,
@@ -70,10 +74,12 @@ import {
   LOST_YOUR_CODE_TEXT,
   RESEND_CODE_TEXT,
   BACK_SIGN_IN_TEXT,
-  CONFIRM_TEXT
+  CONFIRM_TEXT,
 } from "../defaults/DefaultTexts";
+
+import { useAliases } from "../composables/useUtils";
 import { useAuth } from "../composables/useAuth";
-import BaseWrapper from "./primitives/base-wrapper.vue";
+
 import { ConfirmPasswordSetupReturnTypes, SetupEventContext } from "../types";
 
 export default defineComponent({
@@ -82,31 +88,27 @@ export default defineComponent({
     BaseHeading,
     BaseFieldSet,
     BaseForm,
-    SignInAndUpNameControl,
     BaseLabel,
     BaseSpacer,
     BaseButton,
     BaseFooter,
     BaseText,
     BaseInput,
-    BaseWrapper
+    BaseWrapper,
+    UserNameAlias,
   },
   inheritAttrs: false,
-  props: {
-    headless: {
-      default: false,
-      type: Boolean
-    },
-    usernameAlias: {
-      default: "username",
-      type: String
-    }
-  },
   setup(
     _,
     { emit, attrs }: SetupEventContext
   ): ConfirmPasswordSetupReturnTypes {
     const { state, send } = useAuth();
+
+    const {
+      value: { context },
+    } = state;
+
+    const [primaryAlias] = useAliases(context?.config?.login_mechanisms);
 
     //computed properties
 
@@ -134,8 +136,8 @@ export default defineComponent({
         data: {
           //@ts-ignore
           ...Object.fromEntries(formData),
-          username: state?.value.context?.user?.username
-        }
+          username: context?.formValues[primaryAlias],
+        },
       });
     };
 
@@ -146,8 +148,8 @@ export default defineComponent({
       } else {
         send({
           type: "RESEND",
-          // @ts-ignore
-          data: { username: state?.value?.context?.user?.username }
+          //@ts-ignore
+          data: { username: context?.formValues[primaryAlias] },
         });
       }
     };
@@ -157,7 +159,7 @@ export default defineComponent({
         emit("backToSignInClicked");
       } else {
         send({
-          type: "SIGN_IN"
+          type: "SIGN_IN",
         });
       }
     };
@@ -174,10 +176,9 @@ export default defineComponent({
       confirmText,
       onLostCodeClicked,
       state,
-      send
+      send,
+      primaryAlias,
     };
-  }
+  },
 });
 </script>
-
-<style scoped></style>

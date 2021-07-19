@@ -44,10 +44,6 @@
     </authenticator>
   </example-wrapper>
 
-  <example-wrapper :title="'Headless UI Version'" :code="headless">
-    <authenticator headless></authenticator>
-  </example-wrapper>
-
   <example-wrapper
     :title="'Updating Footer And Render Information'"
     :code="footer"
@@ -64,28 +60,6 @@
 
   <example-sign-in></example-sign-in>
 
-  <example-wrapper :title="'Add confirm password'" :code="confirmPassword">
-    <authenticator @sign-up-submit="overRideSubmit">
-      <template #sign-up-fields>
-        <sign-in-and-up-name-control />
-        <sign-up-password-control />
-        <div class="">
-          <h3>Confirm Password</h3>
-          <input
-            type="password"
-            name="confirm_password"
-            class="block w-full mt-1 border-gray-300 rounded shadow-sm border p-2"
-          />
-          <div v-if="error" class="text-red-700">
-            Passwords do not match.
-          </div>
-        </div>
-        <sign-up-email-control />
-        <sign-up-phone-control />
-      </template>
-    </authenticator>
-  </example-wrapper>
-
   <example-wrapper :title="'Customize Sign In Fields'" :code="customPassword">
     <authenticator>
       <button
@@ -95,7 +69,7 @@
         Sign Out
       </button>
       <template #sign-in-fields>
-        <sign-in-and-up-name-control />
+        <user-name-alias />
         <div>
           <h3>Custom Password Field</h3>
           <input
@@ -129,7 +103,7 @@
 <script lang="ts">
 import { defineComponent, ref } from "vue";
 import Amplify from "aws-amplify";
-import aws_exports from "./aws-exports";
+import aws_exports from "../../environments/auth-with-phone-number/src/aws-exports";
 import VueMarkdownIt from "vue3-markdown-it";
 import ExampleSignIn from "./components/example-sign-in.vue";
 
@@ -141,26 +115,26 @@ import {
   Authenticator,
   useAuth,
   RenderInfo,
-  SignUpEmailControl,
-  SignUpPasswordControl,
-  SignInAndUpNameControl,
-  SignUpPhoneControl
+  UserNameAlias,
 } from "@aws-amplify/ui-vue";
 
 import {
   defaultExample,
   overrideForgotPassword,
   overrideSignInButton,
-  headless,
   footer,
-  confirmPassword,
   slotTable,
   propTable,
   eventTable,
-  customPassword
+  customPassword,
 } from "./utils/code-examples";
 
-Amplify.configure(aws_exports);
+Amplify.configure({
+  ...aws_exports,
+  auth: {
+    login_mechanisms: ["phone_number"],
+  },
+});
 
 export default defineComponent({
   name: "App",
@@ -169,54 +143,27 @@ export default defineComponent({
     ExampleWrapper,
     RenderInfo,
     ExampleSignIn,
-    SignUpEmailControl,
-    SignUpPasswordControl,
-    SignInAndUpNameControl,
-    SignUpPhoneControl,
-    "vue3-markdown-it": VueMarkdownIt
+    UserNameAlias,
+    "vue3-markdown-it": VueMarkdownIt,
   },
   setup() {
     const { state, send } = useAuth();
     const error = ref(false);
 
-    const overRideSubmit = event => {
-      const formData = new FormData(event.target);
-      //@ts-ignore Property 'fromEntries' does not exist on type 'ObjectConstructor'. Do you need to change your target library? Try changing the `lib` compiler option to 'es2019' or later.ts(2550)
-      const values = Object.fromEntries(formData);
-      if (values.password !== values.confirm_password) {
-        error.value = true;
-      } else {
-        error.value = false;
-        const phoneS = `${values.phone_number_prefix}${values.phone_number}`.replace(
-          /[^A-Z0-9+]/gi,
-          ""
-        );
-        delete values.phone_number_prefix;
-        delete values.confirm_password;
-        send({
-          type: "SUBMIT",
-          //@ts-ignore Property 'fromEntries' does not exist on type 'ObjectConstructor'. Do you need to change your target library? Try changing the `lib` compiler option to 'es2019' or later.ts(2550)
-          data: { ...values, phone_number: phoneS }
-        });
-      }
-    };
     return {
       state,
       send,
       slotTable,
       propTable,
       eventTable,
-      overRideSubmit,
       error,
       defaultExample,
       overrideForgotPassword,
       overrideSignInButton,
-      headless,
       footer,
-      confirmPassword,
-      customPassword
+      customPassword,
     };
-  }
+  },
 });
 </script>
 
