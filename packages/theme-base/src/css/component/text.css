@@ -1,6 +1,6 @@
 .amplify-ui-text.amplify-ui-view {
   all: unset;
-  color: var(--amplify-ui-colors-font-primary);
+  color: var(--amplify-ui-components-text-color);
   display: block;
 }
 
@@ -13,29 +13,29 @@
 }
 
 .amplify-ui-text[data-variant="primary"] {
-  color: var(--amplify-ui-colors-font-primary);
+  color: var(--amplify-ui-components-text-primary-color);
 }
 
 .amplify-ui-text[data-variant="secondary"] {
-  color: var(--amplify-ui-colors-font-secondary);
+  color: var(--amplify-ui-components-text-secondary-color);
 }
 
 .amplify-ui-text[data-variant="tertiary"] {
-  color: var(--amplify-ui-colors-font-tertiary);
+  color: var(--amplify-ui-components-text-tertiary-color);
 }
 
 .amplify-ui-text[data-variant="error"] {
-  color: var(--amplify-ui-colors-font-error);
+  color: var(--amplify-ui-components-text-error-color);
 }
 
 .amplify-ui-text[data-variant="info"] {
-  color: var(--amplify-ui-colors-font-info);
+  color: var(--amplify-ui-components-text-info-color);
 }
 
 .amplify-ui-text[data-variant="success"] {
-  color: var(--amplify-ui-colors-font-success);
+  color: var(--amplify-ui-components-text-success-color);
 }
 
-.amplify-ui-text[data-variant="warn"] {
-  color: var(--amplify-ui-colors-font-warn);
+.amplify-ui-text[data-variant="warning"] {
+  color: var(--amplify-ui-components-text-warning-color);
 }

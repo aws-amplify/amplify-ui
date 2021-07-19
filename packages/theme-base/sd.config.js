@@ -9,7 +9,7 @@ const CSS_VARIABLE_PREFIX = 'amplify-ui';
 const CSS_VARIABLE_SCOPE = ':root';
 
 module.exports = {
-  source: ["src/tokens/**/*.@(json|js)"],
+  source: ["src/tokens/index.js"],
   transform: {
     cssPadding: {
       type: 'value',
