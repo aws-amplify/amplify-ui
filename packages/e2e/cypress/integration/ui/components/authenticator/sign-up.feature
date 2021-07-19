@@ -8,7 +8,7 @@ Feature: Sign Up
     Then I see "Create a new account"
 
   @Vue
-  @React
+  @React @skip
   Scenario: Sign up with a new username & password
     When I type a new username
     And I type a new password

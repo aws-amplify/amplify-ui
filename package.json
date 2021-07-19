@@ -19,6 +19,7 @@
     "build:theme-base": "yarn theme-base build",
     "dev:angular": "yarn angular-docs start",
     "dev:vue": "yarn vue-docs serve --port 3001 --host localhost",
+    "test": "yarn react test && yarn e2e test",
     "prepare": "husky install"
   },
   "workspaces": [
@@ -42,7 +43,8 @@
   "devDependencies": {
     "husky": ">=6",
     "lint-staged": ">=10",
-    "prettier": "2.3.2"
+    "prettier": "2.3.2",
+    "wait-on": "^6.0.0"
   },
   "lint-staged": {
     "*.{ts,tsx,js,css,md,mdx}": "prettier --write"

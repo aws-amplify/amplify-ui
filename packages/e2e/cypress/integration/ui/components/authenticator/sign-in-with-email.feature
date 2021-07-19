@@ -34,8 +34,7 @@ Feature: Sign In with Email
     And I click the "Sign In" button
     Then I see "Sign out"
 
-
-  @React
+  @React @skip
   Scenario: Sign in with force change password credentials
     When I type the valid email "FORCE_CHANGE_EMAIL"
     And I type the valid password "VALID_PASSWORD"

@@ -1,0 +1,57 @@
+# This workflow will do a clean install of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Node.js CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    environment: ci
+    env:
+      NODE_ENV: CI
+
+    strategy:
+      matrix:
+        node-version: [14.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'yarn'
+      - run: yarn --frozen-lockfile
+      - run: node environments/write-exports-files.js
+        env:
+          ENVIRONMENT_AWS_EXPORTS: ${{ secrets.ENVIRONMENT_AWS_EXPORTS }}
+      - run: yarn next-example build
+      - run: yarn next-example start & npx wait-on http://localhost:3000/ui/components/authenticator/sign-in
+      - run: yarn test
+        env:
+          INVALID_USERNAME: ${{ secrets.INVALID_USERNAME }}
+          VALID_USERNAME: ${{ secrets.VALID_USERNAME }}
+          CONFIRMED_EMAIL: ${{ secrets.CONFIRMED_EMAIL }}
+          FORCE_CHANGE_EMAIL: ${{ secrets.FORCE_CHANGE_EMAIL }}
+          INVALID_EMAIL: ${{ secrets.INVALID_EMAIL }}
+          UNCONFIRMED_EMAIL: ${{ secrets.UNCONFIRMED_EMAIL }}
+          UNKNOWN_EMAIL: ${{ secrets.UNKNOWN_EMAIL }}
+          VALID_EMAIL: ${{ secrets.VALID_EMAIL }}
+          CONFIRMED_PHONE_NUMBER: ${{ secrets.CONFIRMED_PHONE_NUMBER }}
+          FORCE_CHANGE_PHONE_NUMBER: ${{ secrets.FORCE_CHANGE_PHONE_NUMBER }}
+          INVALID_PHONE_NUMBER: ${{ secrets.INVALID_PHONE_NUMBER }}
+          UNCONFIRMED_PHONE_NUMBER: ${{ secrets.UNCONFIRMED_PHONE_NUMBER }}
+          UNKNOWN_PHONE_NUMBER: ${{ secrets.UNKNOWN_PHONE_NUMBER }}
+          VALID_PHONE_NUMBER: ${{ secrets.VALID_PHONE_NUMBER }}
+          INVALID_PASSWORD: ${{ secrets.INVALID_PASSWORD }}
+          VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
+          VALID_EMAIL_SETUP_MFA: ${{ secrets.VALID_EMAIL_SETUP_MFA }}
+          VALID_PASSWORD_SETUP_MFA: ${{ secrets.VALID_PASSWORD_SETUP_MFA }}
