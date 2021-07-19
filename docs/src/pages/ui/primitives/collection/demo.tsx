@@ -38,7 +38,7 @@ export const CollectionDemo = () => {
     <div>
       <Collection
         items={list}
-        display="list"
+        type="list"
         direction="row"
         gap="20px"
         justifyContent="space-between"

@@ -8,7 +8,7 @@ export const Collection = <CollectionItemType,>({
   children,
   className,
   direction,
-  type,
+  type = 'list',
   ...rest
 }: CollectionProps<CollectionItemType>): JSX.Element => {
   return (

@@ -19,10 +19,10 @@ export interface CollectionBaseProps<CollectionItemType>
     AriaProps,
     BaseStyleProps {
   /*
-   * Collection type. This will be used to determine collection wrapper component
-   *   e.g List = Stack/Flex
+   * Collection type. This will be used to determine collection wrapper component.
+   * @default 'list'
    */
-  type: CollectionType;
+  type?: CollectionType;
 
   /*
    * Data source. Items to be repeated over the collection.
@@ -38,7 +38,7 @@ export interface CollectionBaseProps<CollectionItemType>
 
 // @TODO Add GridCollectionProps and TableCollectionProps
 export type ListCollectionProps<CollectionType> =
-  CollectionBaseProps<CollectionType> & FlexStyleProps & { display: 'list' };
+  CollectionBaseProps<CollectionType> & FlexStyleProps & { type: 'list' };
 
 export type CollectionProps<CollectionType> =
   ListCollectionProps<CollectionType>;
