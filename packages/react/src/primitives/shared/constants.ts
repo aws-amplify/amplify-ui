@@ -4,6 +4,7 @@ export enum ComponentClassNames {
   Card = 'amplify-ui-card',
   Divider = 'amplify-ui-divider',
   Flex = 'amplify-ui-flex',
+  Heading = 'amplify-ui-heading',
   Image = 'amplify-ui-image',
   Text = 'amplify-ui-text',
   View = 'amplify-ui-view',
