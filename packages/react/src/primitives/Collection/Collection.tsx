@@ -1,40 +1,23 @@
 import classNames from 'classnames';
 import { ComponentClassNames } from '../shared';
-import {
-  CollectionProps,
-  CollectionDisplayTypeMap,
-  CollectionDisplayType,
-} from '../types';
+import { CollectionProps } from '../types';
 import { Flex } from '../Flex';
 
-const getCollectionWrapper = (type: CollectionDisplayType) => {
-  switch (type) {
-    case CollectionDisplayTypeMap.LIST:
-      return Flex;
-    case CollectionDisplayTypeMap.GRID:
-    case CollectionDisplayTypeMap.TABLE:
-    default:
-      return Flex;
-  }
-};
-
-export const Collection = <CardCollectionType,>({
+export const Collection = <CollectionItemType,>({
   items,
   children,
   className,
   direction,
   type,
   ...rest
-}: CollectionProps<CardCollectionType>): JSX.Element => {
-  const CollectionWrapper = getCollectionWrapper(type);
-
+}: CollectionProps<CollectionItemType>): JSX.Element => {
   return (
-    <CollectionWrapper
+    <Flex
       direction={direction ?? 'column'}
       className={classNames(ComponentClassNames.Collection, className)}
       {...rest}
     >
       {items.map(children)}
-    </CollectionWrapper>
+    </Flex>
   );
 };
