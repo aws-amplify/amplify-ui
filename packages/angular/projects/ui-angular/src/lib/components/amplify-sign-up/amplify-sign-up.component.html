@@ -1,5 +1,5 @@
 <ng-template #signUpButton>
-  <button data-ui-button type="submit">Sign Up</button>
+  <button data-amplify-button type="submit">Sign Up</button>
 </ng-template>
 
 <ng-template #signUpUsername>
@@ -23,7 +23,10 @@
 </ng-template>
 
 <ng-template #signUpFieldset>
-  <fieldset data-ui-fieldset [attr.disabled]="this.isLoading() ? '' : null">
+  <fieldset
+    data-amplify-fieldset
+    [attr.disabled]="this.isLoading() ? '' : null"
+  >
     <ng-container
       [ngTemplateOutlet]="customComponents.signUpUsername || signUpUsername"
       [ngTemplateOutletContext]="context()"
@@ -48,10 +51,10 @@
   </fieldset>
 </ng-template>
 
-<div data-ui-container>
-  <h2 data-ui-header>{{ this.headerText }}</h2>
+<div data-amplify-container>
+  <h2 data-amplify-header>{{ this.headerText }}</h2>
   <form
-    data-ui-form
+    data-amplify-form
     (submit)="onSubmit($event)"
     (input)="onInput($event)"
     ngNativeValidate
@@ -61,10 +64,10 @@
       [ngTemplateOutletContext]="context()"
     ></ng-container>
 
-    <div data-ui-footer>
+    <div data-amplify-footer>
       <div>
-        Have an account?{{ " " }}
-        <span data-ui-link (click)="toSignIn()">Sign In</span>
+        Have an account?{{ ' ' }}
+        <span data-amplify-link (click)="toSignIn()">Sign In</span>
       </div>
       <ng-container
         [ngTemplateOutlet]="customComponents.signUpButton || signUpButton"
@@ -72,8 +75,5 @@
       >
       </ng-container>
     </div>
-    <amplify-validation-error
-      [errors]="formError.cross_field"
-    ></amplify-validation-error>
   </form>
 </div>

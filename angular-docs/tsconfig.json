@@ -13,6 +13,7 @@
     "target": "es2015",
     "module": "es2020",
     "lib": ["es2018", "dom"],
+    "esModuleInterop": true,
     "paths": {
       "@aws-amplify/ui-angular": ["../packages/angular/dist/ui-angular/*"],
       "@aws-amplify/ui-core": ["../packages/core/*"]
