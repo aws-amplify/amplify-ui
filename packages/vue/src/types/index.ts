@@ -25,6 +25,7 @@ export interface SignInSetupReturnTypes {
   AUTHENTICATOR: string;
   onForgotPasswordClicked: (e: any) => void;
   onCreateAccountClicked: (e: any) => void;
+  onInput: (e: any) => void;
   state: Ref<any>;
   username: Ref<string>;
   password: Ref<string>;
