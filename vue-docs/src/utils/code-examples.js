@@ -45,13 +45,6 @@ const overrideSignInButton = `
   import "@aws-amplify/ui-vue/styles.css";
   <\/script>
     `;
-const headless = `
-      <authenticator headless></authenticator>
-
-    <script setup>
-    import { Authenticator } from "@aws-amplify/ui-vue";
-    <\/script>
-    `;
 const footer = `
       <authenticator>
         <template #sign-in-footer="{ info }">
@@ -68,60 +61,10 @@ const footer = `
     <\/script>
     `;
 
-const confirmPassword = `
-      <authenticator @sign-up-submit="over">
-        <template #sign-up-fields>
-          <sign-in-and-up-name-control />
-          <sign-up-password-control />
-          <div class="">
-            <h3>Confirm Password</h3>
-            <input
-              type="password"
-              name="confirm_password"
-              class="block w-full mt-1 border-gray-300 rounded shadow-sm border p-2"
-            />
-            <div v-if="error" class="text-red-700">
-              Passwords do not match.
-            </div>
-          </div>
-          <sign-up-email-control />
-          <sign-up-phone-control />
-        </template>
-      </authenticator>
-
-    <script setup>
-    import { Authenticator, SignUp,
-     SignInAndUpNameControl, SignUpPasswordControl, SignUpPhoneControl,
-     SignUpEmailControl  } from "@aws-amplify/ui-vue";
-
-    const over = event => {
-      const formData = new FormData(event.target);
-      const values = Object.fromEntries(formData);
-      if (values.password !== values.confirm_password) {
-        error.value = true;
-      } else {
-       error.value = false;
-        const phoneS = \`\${values.phone_number_prefix}\${values.phone_number}\`.replace(
-          /[^A-Z0-9+]/gi,
-          ""
-        );
-        delete values.phone_number_prefix;
-        delete values.confirm_password;
-        send({
-          type: "SUBMIT",
-          data: { ...values, phone_number: phoneS }
-        });
-      }
-    };
-
-    <\/script>
-    
-    `;
-
 const customPassword = `
       <authenticator>
         <template #sign-in-fields>
-          <sign-in-and-up-name-control />
+          <user-name-alias />
           <div>
             <h3>Custom Password Field</h3>
             <input
@@ -136,7 +79,7 @@ const customPassword = `
 
     <script setup>
     import { Authenticator, 
-     SignInAndUpNameControl} from "@aws-amplify/ui-vue";
+     UserNameAlias} from "@aws-amplify/ui-vue";
 
     <\/script>
     
@@ -191,10 +134,6 @@ const eventTable =
 const propTable =
   '| Name                    |                                                Description | Component | \n' +
   '| ----------------------- | :---------------------------------------------------------: | :----------------: \n' +
-  '| headless  | Removes styles | **<authenticator>**    | \n' +
-  '| headless |  Removes styles | **<sign-up>**    |\n' +
-  '| headless |  Removes styles | **<sign-in>**    |\n' +
-  '| headless |  Removes styles| **<confirm-sign-up>**    |\n' +
   '| usernameAlias|Username Alias is used to setup authentication with `username`, `email` or `phone_number`  |**<authenticator>**    |\n' +
   '| usernameAlias|Username Alias is used to setup authentication with `username`, `email` or `phone_number`  |**<sign-in>**    |\n' +
   '| usernameAlias|Username Alias is used to setup authentication with `username`, `email` or `phone_number`  |**<sign-up>**    |\n' +
@@ -238,9 +177,7 @@ export {
   defaultExample,
   overrideForgotPassword,
   overrideSignInButton,
-  headless,
   footer,
-  confirmPassword,
   slotTable,
   eventTable,
   exampleSignIn,

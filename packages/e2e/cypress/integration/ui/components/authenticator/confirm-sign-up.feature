@@ -1,3 +1,4 @@
+@skip
 Feature: Confirm Sign Up
 
   If you enabled multi-factor auth, confirm the sign-up after retrieving a confirmation code from the user.
