@@ -1,0 +1,15 @@
+.amplify-icon-demo div {
+  margin: 5px auto;
+}
+
+.amplify-icon-demo label {
+  display: block;
+}
+
+.amplify-icon-demo select {
+  width: 194px;
+}
+
+.amplify-icon-demo .icon-demo-search {
+  margin-top: 10px;
+}
