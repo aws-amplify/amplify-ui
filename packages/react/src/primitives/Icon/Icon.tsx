@@ -1,19 +1,19 @@
-import React from "react";
-import classNames from "classnames";
+import React from 'react';
+import classNames from 'classnames';
 
-import { IconProps } from "../types";
-import { ComponentClassNames } from "../shared";
+import { IconProps } from '../types';
+import { ComponentClassNames } from '../shared';
 
 const defaultViewBox = { minX: 0, minY: 0, width: 24, height: 24 };
-export const Icon: React.FC<IconProps> = props => {
+export const Icon: React.FC<IconProps> = (props) => {
   const {
     id,
     className,
     ariaLabel,
-    pathData, // We should have a fallback icon
-    fill = "currentColor",
+    pathData,
+    fill = 'currentColor',
     viewBox = defaultViewBox,
-    size = "medium",
+    size = 'medium',
     ...rest
   } = props;
 

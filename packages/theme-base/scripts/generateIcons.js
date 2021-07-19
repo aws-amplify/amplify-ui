@@ -2,9 +2,7 @@ const glob = require('glob');
 const fs = require('fs-extra');
 const { pascalCase } = require('change-case');
 
-const dirPath = `dist/react/`;
-// we should probably use path.resolve and __dirname here I think
-// in case we run the npm from the root or this package
+const dirPath = `dist/react-icons/`;
 const iconSetPath = '../../material-design-icons/src/**/materialicons/*.svg';
 const iconNames = [];
 
@@ -13,9 +11,6 @@ glob(iconSetPath, function (error, files) {
     throw error;
   }
   files.forEach((filePath) => {
-    // I am using relative for now because absolute path may vary among people
-    // which will in turn affect the index we pick after splitting the file path
-    // looking for a better solution
     const iconName = `Icon${pascalCase(filePath.split('/')[5])}`;
     const source = fs.readFileSync(filePath, { encoding: 'utf8' });
     const outputPath = `${dirPath}${iconName}.tsx`;
@@ -35,6 +30,8 @@ export const ${iconName} = (props) => {
 	} = props;
 	return (
 		${source
+      .replace('class="st0"', '')
+      .replace(/style="fill:none"/g, '')
       .replace('<path d="M0 0h24v24H0z" fill="none"/>', '')
       .replace('width="24"', `className="amplify-ui-icon"`)
       .replace(
@@ -54,5 +51,5 @@ export const ${iconName} = (props) => {
     })
     .join(`\n`);
   fs.ensureDirSync(dirPath);
-  fs.writeFileSync(`${dirPath}index.js`, iconExportsFile);
+  fs.writeFileSync(`${dirPath}index.tsx`, iconExportsFile);
 });

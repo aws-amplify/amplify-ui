@@ -1,7 +1,7 @@
 import React from 'react';
 import { Property } from 'csstype';
 
-import { Icon, IconSize } from '@aws-amplify/ui-react';
+import { Icon, IconSize, Flex } from '@aws-amplify/ui-react';
 
 export const IconDemo = () => {
   const [width, setWidth] = React.useState<number>(24);
@@ -16,64 +16,89 @@ export const IconDemo = () => {
   );
 
   return (
-    <div>
-      <h4>Icon Props:</h4>
-      <div className="flex flex-wrap gap-5 my-8">
-        <input
-          type="text"
-          placeholder="Set viewBox width"
-          value={width}
-          onChange={(event: any) => {
-            setWidth(event.target.value);
-          }}
-        />
-        <input
-          type="text"
-          placeholder="Set viewBox height"
-          value={height}
-          onChange={(event: any) => {
-            setHeight(event.target.value);
-          }}
-        />
-        <input
-          type="text"
-          placeholder="Set icon path data"
-          value={pathData}
-          onChange={(event: any) => {
-            setPathData(event.target.value);
-          }}
-        />
-        <input
-          type="text"
-          placeholder="Set fill color"
-          value={fill}
-          onChange={(event: any) => {
-            setFill(event.target.value);
-          }}
-        />
-        <input
-          type="text"
-          placeholder="Set aria-label text"
-          value={ariaLabel}
-          onChange={(event: any) => {
-            setAriaLabel(event.target.value);
-          }}
-        />
-        <select
-          value={size}
-          onChange={(event) => setSize(event.target.value as IconSize)}
-        >
-          <option value="small">small</option>
-          <option value="medium">medium</option>
-          <option value="large">large</option>
-        </select>
-      </div>
+    <div className="amplify-icon-demo">
+      <h3>Icon Props:</h3>
+      <Flex gap="5" wrap="wrap">
+        <div>
+          <label htmlFor="icon-demo-viewBox-width">ViewBox width</label>
+          <input
+            id="icon-demo-viewBox-width"
+            type="text"
+            placeholder="Set viewBox width"
+            value={width}
+            onChange={(event: any) => {
+              setWidth(event.target.value);
+            }}
+          />
+        </div>
+        <div>
+          <label htmlFor="icon-demo-viewBox-height">ViewBox height</label>
+          <input
+            id="icon-demo-viewBox-height"
+            type="text"
+            placeholder="Set viewBox height"
+            value={height}
+            onChange={(event: any) => {
+              setHeight(event.target.value);
+            }}
+          />
+        </div>
+        <div>
+          <label htmlFor="icon-demo-path-data">PathData</label>
+          <input
+            id="icon-demo-path-data"
+            type="text"
+            placeholder="Set icon path data"
+            value={pathData}
+            onChange={(event: any) => {
+              setPathData(event.target.value);
+            }}
+          />
+        </div>
+        <div>
+          <label htmlFor="icon-demo-fill">fill</label>
+          <input
+            id="icon-demo-fill"
+            type="text"
+            placeholder="Set fill color"
+            value={fill}
+            onChange={(event: any) => {
+              setFill(event.target.value);
+            }}
+          />
+        </div>
+        <div>
+          <label htmlFor="icon-demo-aria-label">ariaLabel</label>
+          <input
+            id="icon-demo-aria-label"
+            type="text"
+            placeholder="Set aria-label text"
+            value={ariaLabel}
+            onChange={(event: any) => {
+              setAriaLabel(event.target.value);
+            }}
+          />
+        </div>
+        <div>
+          <label htmlFor="icon-demo-size">Size</label>
+          <select
+            id="icon-demo-size"
+            value={size}
+            onChange={(event) => setSize(event.target.value as IconSize)}
+          >
+            <option value="small">small</option>
+            <option value="medium">medium</option>
+            <option value="large">large</option>
+          </select>
+        </div>
+      </Flex>
       <Icon
         pathData={pathData}
         viewBox={{ width, height }}
         fill={fill}
         size={size}
         ariaLabel={ariaLabel}
+        className="icon-demo-search"
       />
     </div>
   );
