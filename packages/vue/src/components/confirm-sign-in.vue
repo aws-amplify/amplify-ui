@@ -1,7 +1,10 @@
 <template>
   <slot name="confirmSignInSlotI">
     <base-wrapper data-amplify-wrapper>
-      <base-form @submit.prevent="onConfirmSignInSubmit">
+      <base-form
+        data-amplify-authenticator-confirmsignin
+        @submit.prevent="onConfirmSignInSubmit"
+      >
         <base-heading>
           {{ confirmSignInHeading }}
         </base-heading>
