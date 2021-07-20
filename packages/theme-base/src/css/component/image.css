@@ -1,11 +1,7 @@
 .amplify-ui-view.amplify-ui-image {
-  --height: var(--amplify-ui-image-height);
-  --max-width: var(--amplify-ui-image-max-width);
-  --object-fit: var(--amplify-ui-image-object-fit);
-  --object-position: var(--amplify-ui-image-object-position);
   all: unset;
-  height: var(--height);
-  max-width: var(--max-width);
-  object-fit: var(--object-fit);
-  object-position: var(--object-position);
+  height: var(--amplify-ui-components-image-height);
+  max-width: var(--amplify-ui-components-image-max-width);
+  object-fit: var(--amplify-ui-components-image-object-fit);
+  object-position: var(--amplify-ui-components-image-object-position);
 }
