@@ -124,6 +124,27 @@
         </slot>
       </template>
     </confirm-sign-up>
+
+    <confirm-sign-in
+      v-if="state?.matches('confirmSignIn')"
+      @confirm-sign-in-submit="onConfirmSignInSubmitI"
+      ref="confirmSignInComponent"
+    >
+      <template #confirmSignInSlotI>
+        <slot name="confirm-sign-in"></slot>
+      </template>
+      <template
+        #footer="{ info, onConfirmSignInSubmit, onBackToSignInClicked  }"
+      >
+        <slot
+          name="sign-in-footer"
+          :info="info"
+          :onConfirmSignInSubmit="onConfirmSignInSubmit"
+          :onBackToSignInClicked="onBackToSignInClicked"
+        >
+        </slot>
+      </template>
+    </confirm-sign-in>
   </div>
 
   <slot
@@ -133,17 +154,18 @@
 </template>
 
 <script lang="ts">
-import { ref, provide } from "vue";
+import { ref, provide } from 'vue';
 
-import SignIn from "./sign-in.vue";
-import SignUp from "./sign-up.vue";
-import ConfirmSignUp from "./confirm-sign-up.vue";
+import SignIn from './sign-in.vue';
+import SignUp from './sign-up.vue';
+import ConfirmSignUp from './confirm-sign-up.vue';
+import ConfirmSignIn from './confirm-sign-in.vue';
 
-import { useAuth } from "../composables/useAuth";
+import { useAuth } from '../composables/useAuth';
 import {
   AuthenticatorSetupReturnTypes,
   SetupEventContext,
-} from "../types/index";
+} from '../types/index';
 
 export default {
   inheritAttrs: false,
@@ -151,6 +173,7 @@ export default {
     SignIn,
     SignUp,
     ConfirmSignUp,
+    ConfirmSignIn,
   },
   setup(
     _,
@@ -159,19 +182,21 @@ export default {
     signInComponent: typeof SignIn;
     signUpComponent: typeof SignUp;
     confirmSignUpComponent: typeof ConfirmSignUp;
+    confirmSignInComponent: typeof ConfirmSignIn;
   } {
     const { state, send } = useAuth();
     const signInComponent = ref(null);
     const signUpComponent = ref(null);
     const confirmSignUpComponent = ref(null);
+    const confirmSignInComponent = ref(null);
 
-    const currentPage = ref("SIGNIN");
+    const currentPage = ref('SIGNIN');
 
     //methods
 
     const onSignInSubmitI = e => {
       if (attrs?.onSignInSubmit) {
-        emit("signInSubmit", e);
+        emit('signInSubmit', e);
       } else {
         signInComponent.value.submit(e);
       }
@@ -179,20 +204,28 @@ export default {
 
     const onConfirmSignUpSubmitI = e => {
       if (attrs?.onConfirmSignUpSubmit) {
-        emit("confirmSignUpSubmit", e);
+        emit('confirmSignUpSubmit', e);
       } else {
         confirmSignUpComponent.value.submit(e);
       }
     };
 
+    const onConfirmSignInSubmitI = e => {
+      if (attrs?.onConfirmSignInSubmit) {
+        emit('confirmSignInSubmit', e);
+      } else {
+        confirmSignInComponent.value.submit(e);
+      }
+    };
+
     const onSignUpSubmitI = e => {
       if (attrs?.onSignUpSubmit) {
-        emit("signUpSubmit", e);
+        emit('signUpSubmit', e);
       } else {
         signUpComponent.value.submit(e);
       }
     };
-    provide("pageInfo", currentPage);
+    provide('pageInfo', currentPage);
 
     return {
       currentPage,
@@ -202,6 +235,8 @@ export default {
       signUpComponent,
       onSignUpSubmitI,
       confirmSignUpComponent,
+      confirmSignInComponent,
+      onConfirmSignInSubmitI,
       onConfirmSignUpSubmitI,
       send,
     };

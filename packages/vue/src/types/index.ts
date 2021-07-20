@@ -63,6 +63,16 @@ export interface ConfirmPasswordSetupReturnTypes {
   primaryAlias: string;
 }
 
+export interface ConfirmSignInSetupReturnTypes {
+  confirmSignInHeading: string;
+  onConfirmSignInSubmit: (e: any) => void;
+  onBackToSignInClicked: () => void;
+  submit: (e: any) => void;
+  backSignInText: ComputedRef<string>;
+  confirmText: ComputedRef<string>;
+  state: Ref<any>;
+}
+
 export interface SignUpPhoneControlTypes {
   phoneNumberLabel: ComputedRef<string>;
   options: Array<{ value: string }>;
@@ -77,6 +87,7 @@ export interface AuthenticatorSetupReturnTypes {
   onSignInSubmitI: (e: any) => void;
   onSignUpSubmitI: (e: any) => void;
   onConfirmSignUpSubmitI: (e: any) => void;
+  onConfirmSignInSubmitI: (e: any) => void;
 }
 
 export interface AliasControlTypes {
