@@ -12,6 +12,11 @@ export type TextVariant =
 
 export interface TextProps extends BaseComponentProps, BaseStyleProps {
   /**
+   * HTML allowed tags
+   */
+  as?: 'p' | 'span' | 'strong' | 'em';
+
+  /**
    * This should be the primary way to handle different styles of text. Lower-level
    * text styling attributes like color can be set directly, that should be more of an
    * escape hatch.

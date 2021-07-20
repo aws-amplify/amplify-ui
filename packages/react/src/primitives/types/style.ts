@@ -9,6 +9,7 @@ export interface BaseStyleProps {
   boxShadow?: Property.BoxShadow;
   color?: Property.Color;
   fontFamily?: Property.FontFamily;
+  fontSize?: Property.FontSize;
   fontStyle?: Property.FontStyle;
   fontWeight?: Property.FontWeight;
   height?: Property.Height;
@@ -48,6 +49,7 @@ export const ComponentPropsToStylePropsMap: ComponentPropToStyleProp = {
   color: 'color',
   direction: 'flexDirection',
   fontFamily: 'fontFamily',
+  fontSize: 'fontSize',
   fontStyle: 'fontStyle',
   fontWeight: 'fontWeight',
   gap: 'gap',

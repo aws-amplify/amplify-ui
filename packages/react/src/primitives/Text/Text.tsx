@@ -5,10 +5,18 @@ import { TextProps } from '../types/text';
 import { View } from '@aws-amplify/ui-react';
 
 export const Text: React.FC<TextProps> = (props) => {
-  const { className, children, id, isTruncated, variant, ...rest } = props;
+  const {
+    as: asElementTag = 'p',
+    className,
+    children,
+    id,
+    isTruncated,
+    variant,
+    ...rest
+  } = props;
   return (
     <View
-      as="p"
+      as={asElementTag}
       className={classNames(ComponentClassNames.Text, className)}
       data-variant={variant}
       data-truncate={isTruncated}
