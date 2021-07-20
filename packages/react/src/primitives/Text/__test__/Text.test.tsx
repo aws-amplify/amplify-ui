@@ -56,6 +56,16 @@ describe('Text: ', () => {
     ).toBe('Arial');
   });
 
+  it('can apply font-size via props', async () => {
+    render(<Text fontSize="24px">{textText}</Text>);
+    const text = await screen.findByText(textText);
+    expect(
+      text.style.getPropertyValue(
+        kebabCase(ComponentPropsToStylePropsMap.fontSize)
+      )
+    ).toBe('24px');
+  });
+
   it('can apply font-style via props', async () => {
     render(<Text fontStyle="italic">{textText}</Text>);
     const text = await screen.findByText(textText);
