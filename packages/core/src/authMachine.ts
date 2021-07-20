@@ -43,7 +43,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
       },
       signIn: {
         initial: 'edit',
-        exit: ['clearFormValues', 'clearError'],
+        exit: ['clearError'],
         onDone: 'authenticated',
         states: {
           edit: {
@@ -92,6 +92,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
             },
           },
           resolved: {
+            exit: ['clearFormValues'],
             type: 'final',
           },
           rejected: {
@@ -432,7 +433,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
           config,
         } = context;
 
-        const [primaryAlias] = config?.login_mechanisms ?? ["username"];
+        const [primaryAlias] = config?.login_mechanisms ?? ['username'];
 
         if (formValues.phone_number) {
           formValues.phone_number = formValues.phone_number.replace(

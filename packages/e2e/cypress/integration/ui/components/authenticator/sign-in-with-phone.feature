@@ -18,7 +18,7 @@ Feature: Sign In with Phone Number
     And I click the "Sign In" button
     Then I see "User does not exist"
 
-
+  @Vue
   @React
   Scenario: Sign in with unconfirmed credentials
     When I type the valid phone number "UNCONFIRMED_PHONE_NUMBER"
