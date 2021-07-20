@@ -93,11 +93,7 @@ export const CollectionDemo = () => {
       >
         {(item, index) => (
           <Card key={index}>
-            <Image
-              src={item.imageSrc}
-              alt="Glittering stream with old log, snowy mountain peaks
-            tower over a green field."
-            />
+            <Image src={item.imageSrc} alt={item.imageAlt} />
             <View padding="1rem">
               <Flex>
                 {item.badges.map((badge) => (
