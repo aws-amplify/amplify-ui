@@ -1,4 +1,5 @@
 export enum ComponentClassNames {
+<<<<<<< HEAD
   Badge = 'amplify-badge',
   Button = 'amplify-button',
   Card = 'amplify-card',
@@ -7,6 +8,7 @@ export enum ComponentClassNames {
   Heading = 'amplify-heading',
   Icon = 'amplify-icon',
   Image = 'amplify-image',
+  Pagination = 'amplify-pagination',
   Placeholder = 'amplify-placeholder',
   Rating = 'amplify-rating',
   Text = 'amplify-text',
