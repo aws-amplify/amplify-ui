@@ -1,6 +1,9 @@
+import { includes } from 'lodash';
+
 import { useAmplify, useAuth } from '@aws-amplify/ui-react';
 
 import { UserNameAliasNames } from '../../../primitives/shared/constants';
+import { socialProviderLoginMechanisms } from '../types';
 
 export function SignUp() {
   const {
@@ -35,7 +38,7 @@ export function SignUp() {
     <Form
       data-amplify-authenticator-signup=""
       method="post"
-      onSubmit={(event) => {
+      onSubmit={event => {
         event.preventDefault();
 
         const formData = new FormData(event.target);
@@ -57,13 +60,15 @@ export function SignUp() {
         />
         <SignUp.PasswordControl />
         <SignUp.ConfirmPasswordControl />
-        {secondaryAliases.map((alias) => (
-          <SignUp.AliasControl
-            key={alias}
-            label={UserNameAliasNames[alias].name}
-            name={alias}
-          />
-        ))}
+        {secondaryAliases
+          .filter(alias => !includes(socialProviderLoginMechanisms, alias))
+          .map(alias => (
+            <SignUp.AliasControl
+              key={alias}
+              label={UserNameAliasNames[alias].name}
+              name={alias}
+            />
+          ))}
       </Fieldset>
 
       <ErrorText>{remoteError}</ErrorText>
