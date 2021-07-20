@@ -98,7 +98,7 @@ export default defineComponent({
     const confirmText = computed(() => CONFIRM_TEXT);
 
     // Methods
-    const onConfirmSignInSubmit = (e): void => {
+    const onConfirmSignInSubmit = (e: Event): void => {
       if (attrs?.onConfirmSignInSubmit) {
         emit('confirmSignInSubmit', e);
       } else {

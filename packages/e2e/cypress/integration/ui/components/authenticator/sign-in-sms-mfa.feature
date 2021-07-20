@@ -5,7 +5,7 @@ Feature: Sign In with SMS MFA
   users.
 
   Background:
-    Given I'm running the example "ui/components/authenticator/sign-in-auth-with-sms-mfa"
+    Given I'm running the example "ui/components/authenticator/sign-in-sms-mfa"
 
   @Vue
   @React @skip 
