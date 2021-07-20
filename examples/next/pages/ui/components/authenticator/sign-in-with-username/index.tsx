@@ -12,7 +12,7 @@ Amplify.configure({
 
 export default function AuthenticatorWithUsername() {
   return (
-    <Authenticator usernameAttributes="username">
+    <Authenticator>
       {({ send }) => <button onClick={() => send('SIGN_OUT')}>Sign out</button>}
     </Authenticator>
   );
