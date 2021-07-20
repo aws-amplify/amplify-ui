@@ -1,6 +1,6 @@
 .amplify-ui-badge {
   all: unset; /* protect against external styles */
-  background-color: var(--amplify-ui-components-badge-colors-bg-default);
+  background-color: var(--amplify-ui-components-badge-background-color);
   border-radius: var(--amplify-ui-components-badge-border-radius);
   box-sizing: var(--amplify-ui-components-badge-box-sizing);
   display: inline-flex;
