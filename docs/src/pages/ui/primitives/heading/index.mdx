@@ -51,3 +51,56 @@ Use the `level` prop to change the heading level (e.g., `h1 - h6`). Available op
 <Heading>Default heading (level 6)</Heading>
 
 ### CSS Styling
+
+#### Styling a heading instance
+To override styling on a specific heading
+
+*Using props:*
+```jsx
+<Heading level={2} color="green">This should be green</Heading>
+```
+<Heading level={2} color="green">This should be green</Heading>
+
+*Using a class selector:*
+
+```css
+/* Example: class selector styling override */
+.custom-heading {
+  color: red;
+  font-weight: bold;
+  font-size: 2rem;
+}
+```
+```jsx
+<Heading className="custom-heading">Customized!</Heading>
+```
+<Heading className="custom-heading">Customized!</Heading>
+
+*Using an id selector:*
+
+```css
+/* Example: id selector styling override */
+#subscribe {
+	color: darkblue;
+	font-style: italic;
+}
+```
+```jsx
+<Heading id="subscribe">Suscribe now!</Heading>
+```
+<Heading id="subscribe">Suscribe now!</Heading>
+
+*Using CSS variables:*
+
+```css
+/* styles.css */
+.blue {
+  --amplify-ui-components-heading-color: blue;
+}
+```
+```jsx
+import './styles.css';
+
+<Heading className="blue">Should be blue</Heading>
+```
+<Heading className="blue">Should be blue</Heading>

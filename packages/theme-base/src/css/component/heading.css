@@ -1,0 +1,8 @@
+.amplify-ui-heading {
+  color: var(--amplify-ui-components-heading-color);
+  font-family: var(--amplify-ui-components-heading-font-family);
+  /* font-size: var(--amplify-ui-components-heading-font-size); */
+  font-style: var(--amplify-ui-components-heading-font-style);
+  font-weight: var(--amplify-ui-components-heading-font-weight);
+  line-height: var(--amplify-ui-components-heading-line-height);
+}
