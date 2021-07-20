@@ -56,6 +56,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
               SUBMIT: 'submit',
               INPUT: { actions: 'handleInput' },
               SIGN_UP: '#auth.signUp',
+              FEDERATED_SIGN_IN: 'federatedSignIn',
             },
           },
           submit: {
@@ -84,6 +85,42 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
                   actions: ['setUser'],
                   target: '#auth.confirmSignUp',
                 },
+                {
+                  actions: 'setRemoteError',
+                  target: 'rejected',
+                },
+              ],
+            },
+          },
+          federatedSignIn: {
+            entry: 'clearError',
+            invoke: {
+              src: 'federatedSignIn',
+              onDone: [
+                {
+                  actions: 'setUser',
+                  target: 'confirmFederatedSignIn',
+                },
+              ],
+              onError: [
+                {
+                  actions: 'setRemoteError',
+                  target: 'rejected',
+                },
+              ],
+            },
+          },
+          confirmFederatedSignIn: {
+            entry: 'clearError',
+            invoke: {
+              src: 'confirmFederatedSignIn',
+              onDone: [
+                {
+                  actions: 'setUser',
+                  target: 'resolved',
+                },
+              ],
+              onError: [
                 {
                   actions: 'setRemoteError',
                   target: 'rejected',
@@ -410,6 +447,17 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
         }
 
         return Auth.confirmSignIn(user, code, mfaType);
+      },
+      async federatedSignIn(context, event) {
+        const { provider } = event.data;
+        const result = await Auth.federatedSignIn({ provider });
+
+        return result;
+      },
+      async confirmFederatedSignIn(context, event) {
+        const result = await Auth.currentAuthenticatedUser();
+
+        return result;
       },
       async verifyTotpToken(context, event) {
         const { user } = context;

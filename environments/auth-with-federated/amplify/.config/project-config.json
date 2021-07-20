@@ -1,6 +1,8 @@
 {
-  "providers": ["awscloudformation"],
-  "projectName": "authwithfacebook",
+  "providers": [
+    "awscloudformation"
+  ],
+  "projectName": "authwithfederated",
   "version": "3.1",
   "frontend": "javascript",
   "javascript": {

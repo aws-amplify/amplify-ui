@@ -1,4 +1,4 @@
-import { Given } from 'cypress-cucumber-preprocessor/steps';
+import { And, Given } from 'cypress-cucumber-preprocessor/steps';
 
 /**
  * This test file is super sparse, but I cannot get it to do anything
@@ -14,5 +14,11 @@ import { Given } from 'cypress-cucumber-preprocessor/steps';
 
 Given("I'm running the example {string}", (url: string) => {
   cy.visit(url);
-  cy.get('[data-test="sign-in-header-section"]').should('be.visible');
+  cy.get('[data-amplify-authenticator-signin]').should('be.visible');
+});
+
+And('I see the {string} sign in button', (provider: string) => {
+  cy.findByRole('button', { name: `Sign in with ${provider}` }).should(
+    'be.visible'
+  );
 });

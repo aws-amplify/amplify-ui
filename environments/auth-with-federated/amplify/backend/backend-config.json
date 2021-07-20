@@ -1,6 +1,6 @@
 {
   "auth": {
-    "authwithfacebook": {
+    "authwithfederated": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
