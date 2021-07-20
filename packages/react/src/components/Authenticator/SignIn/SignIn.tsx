@@ -1,5 +1,6 @@
 import { useAmplify, useAuth } from '@aws-amplify/ui-react';
 
+import { FederatedSignIn } from '../FederatedSignIn';
 import { UserNameAlias } from '../shared';
 
 export function SignIn() {
@@ -26,7 +27,7 @@ export function SignIn() {
     <Form
       data-amplify-authenticator-signin=""
       method="post"
-      onSubmit={(event) => {
+      onSubmit={event => {
         event.preventDefault();
 
         const formData = new FormData(event.target);
@@ -39,6 +40,8 @@ export function SignIn() {
       }}
     >
       <Heading level={1}>Sign in to your account</Heading>
+
+      <FederatedSignIn />
 
       <Fieldset disabled={isPending}>
         <UserNameAlias data-amplify-usernamealias />

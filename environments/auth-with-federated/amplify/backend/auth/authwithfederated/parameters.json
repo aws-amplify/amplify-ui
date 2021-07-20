@@ -1,8 +1,8 @@
 {
     "identityPoolName": "testAuthIdentityPool",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "authwi25b61e1e",
-    "userPoolName": "authwithfacebook",
+    "resourceNameTruncated": "authwiaec7314d",
+    "userPoolName": "authwithfederated",
     "autoVerifiedAttributes": [
         "email"
     ],
@@ -29,10 +29,10 @@
     "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [],
     "userpoolClientReadAttributes": [],
-    "userpoolClientLambdaRole": "authwi25b61e1e_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "authwiaec7314d_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "25b61e1e",
-    "resourceName": "authwithfacebook",
+    "sharedId": "aec7314d",
+    "resourceName": "authwithfederated",
     "authSelections": "identityPoolAndUserPool",
     "authRoleArn": {
         "Fn::GetAtt": [
@@ -57,13 +57,14 @@
     "thirdPartyAuth": false,
     "authProviders": [],
     "hostedUI": true,
-    "hostedUIDomainName": "txrsdg1946iw",
+    "hostedUIDomainName": "atnf369h6diz",
     "authProvidersUserPool": [
         "Facebook",
-        "Google"
+        "Google",
+        "LoginWithAmazon"
     ],
-    "hostedUIProviderMeta": "[{\"ProviderName\":\"Facebook\",\"authorize_scopes\":\"email,public_profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"id\"}},{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"sub\"}}]",
+    "hostedUIProviderMeta": "[{\"ProviderName\":\"Facebook\",\"authorize_scopes\":\"email,public_profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"id\"}},{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"sub\"}},{\"ProviderName\":\"LoginWithAmazon\",\"authorize_scopes\":\"profile profile:user_id\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"user_id\"}}]",
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000/ui/components/authenticator/sign-in-federated\"],\"LogoutURLs\":[\"http://localhost:3000/ui/components/authenticator/sign-in-federated\"]}",
     "usernameCaseSensitive": false,
-    "dependsOn": [],
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000/ui/components/authenticator/sign-in-facebook\"],\"LogoutURLs\":[\"http://localhost:3000/ui/components/authenticator/sign-in-facebook\"]}"
+    "dependsOn": []
 }

@@ -10,7 +10,9 @@ export interface AuthContext {
   user?: CognitoUser;
   session?: CognitoUserSession;
   formValues?: AuthFormData;
-  config?: { login_mechanisms: string[] };
+  config?: {
+    login_mechanisms: string[];
+  };
   challengeName?: AuthChallengeNames;
 }
 
@@ -23,7 +25,8 @@ export type AuthEventTypes =
   | 'CONFIRM_SIGN_UP'
   | 'CONFIRM_SIGN_IN'
   | 'INPUT'
-  | 'CHANGE';
+  | 'CHANGE'
+  | 'FEDERATED_SIGN_IN';
 
 export enum AuthChallengeNames {
   SMS_MFA = 'SMS_MFA',
