@@ -2,7 +2,6 @@
   all: unset; /* protect against external styles */
   background-color: var(--amplify-ui-components-badge-background-color);
   border-radius: var(--amplify-ui-components-badge-border-radius);
-  box-sizing: var(--amplify-ui-components-badge-box-sizing);
   display: inline-flex;
   font-size: var(--amplify-ui-components-badge-font-size);
   font-weight: var(--amplify-ui-components-badge-font-weight);
