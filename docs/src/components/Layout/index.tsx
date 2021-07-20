@@ -1,5 +1,6 @@
 // This is large copy-pasta from `amplify-docs/src/Layout` & modified to work outside of that repo
 
+import pages from '@/data/pages.preval';
 import CodeBlockProvider from 'amplify-docs/src/components/CodeBlockProvider/index';
 import { Container } from 'amplify-docs/src/components/Container';
 import ExternalLink from 'amplify-docs/src/components/ExternalLink';
@@ -36,8 +37,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import * as React from 'react';
-
-import pages from '@/data/pages.preval';
+import { PlatformSelect } from './PlatformSelect';
 
 export default function Layout({
   children,
@@ -51,10 +51,10 @@ export default function Layout({
   const router = useRouter();
   const pathname = router.pathname;
   const href = router.asPath;
-  const { platform } = router.query as { platform: string };
+  const { platform = 'next' } = router.query as { platform: string };
 
   const groupedPages = Object.entries(
-    groupBy(pages, (page) => {
+    groupBy(pages, page => {
       const [, folder = ''] = page.slug.split('/');
       return folder;
     })
@@ -68,7 +68,7 @@ export default function Layout({
           '#__next > section:first-of-type h3',
         ].join(',')
       ),
-    ].map((node) => [node.innerHTML, node.tagName.toLowerCase()]);
+    ].map(node => [node.innerHTML, node.tagName.toLowerCase()]);
 
     setHeaders(htmlHeaders);
   }, [children]);
@@ -129,7 +129,12 @@ export default function Layout({
         brandIcon="/assets/logo-light.svg"
         blend={false}
       />
-      <SecondaryNav platform={platform} pageHasMenu={false} />
+      <SecondaryNav
+        platform={
+          undefined /* This is an external site, so this is all nav links can be made external */
+        }
+        pageHasMenu={false}
+      />
       <Container backgroundColor="bg-color-tertiary">
         <LayoutStyle>
           {isMenuOpen ? (
@@ -138,6 +143,12 @@ export default function Layout({
                 <div>
                   <MenuHeaderStyle>
                     <MenuCloseButton closeMenu={() => setIsMenuOpen(false)} />
+                    <PlatformSelect
+                      // TODO – Can the available frameworks come from the pages? Or should this be hard-coded based on public support?
+                      filters={['next', 'vue']}
+                      platform={platform}
+                      pathname={pathname}
+                    />
                   </MenuHeaderStyle>
                   <MenuBodyStyle>
                     {groupedPages.map(([folder, pages]) => (
@@ -149,7 +160,7 @@ export default function Layout({
                           </DirectoryGroupHeaderStyle>
                         )}
                         <DirectoryLinksStyle>
-                          {pages.map((page) =>
+                          {pages.map(page =>
                             folder ? (
                               <DirectoryGroupItemStyle
                                 isActive={href === page.href}
@@ -160,7 +171,7 @@ export default function Layout({
                                 </Link>
                               </DirectoryGroupItemStyle>
                             ) : (
-                              <Link href={page.href} key={page.href}>
+                              <Link href={`${page.href}`} key={page.href}>
                                 <ProductRootLinkStyle
                                   isActive={href === page.href}
                                 >
