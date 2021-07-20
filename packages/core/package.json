@@ -3,6 +3,15 @@
   "name": "@aws-amplify/ui-core",
   "version": "0.0.1",
   "module": "index.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/*.{js,ts}",
+    "dist/**/*.{js,ts}"
+  ],
+  "scripts": {
+    "build": "tsc"
+  },
   "dependencies": {
     "lodash": "^4.17.21",
     "xstate": "^4.20.1"
