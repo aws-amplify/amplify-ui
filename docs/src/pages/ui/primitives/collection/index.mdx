@@ -2,8 +2,8 @@
 title: Collection
 ---
 
-import { Card, Collection } from '@aws-amplify/ui-react';
-import { CollectionDemo } from './demo';
+import { Card, Collection, View, Text, Heading } from '@aws-amplify/ui-react';
+import { CollectionDemo, ListCollectionExample } from './demo';
 
 ## Installation
 
@@ -14,3 +14,132 @@ npm install @aws-amplify/ui-react
 ## Demo
 
 <CollectionDemo />
+
+## Usage
+
+Import the `Collection` component and styles and provide your own repeating component as a function. Here's an example using the `list` collection `type`.
+
+```jsx
+import { Collection, Card, Heading, Text } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+const visitNewZealand = [
+  {
+    title: 'Fiordland National Park',
+    description:
+      'This national park includes the famous fjords of Milford, Dusky and Doubtful Sounds.',
+  },
+  {
+    title: 'Bay of Islands, North Island',
+    description:
+      'Three hours north of Auckland, this area features over 144 islands to explore.',
+  },
+  {
+    title: 'Queenstown, South Island',
+    description:
+      "This hopping town is New Zealand's adventure capital and is located right on Lake Wakatipu.",
+  },
+];
+<Collection type="list" items={visitNewZealand} gap="1.5rem">
+  {(item, index) => (
+    <Card key={index} padding="1rem">
+      <Heading level={4}>{item.title}</Heading>
+      <Text>{item.description}</Text>
+    </Card>
+  )}
+</Collection>;
+```
+
+<Collection
+  type="list"
+  items={[
+    {
+      title: 'Fiordland National Park',
+      description:
+        'This national park includes the famous fjords of Milford, Dusky and Doubtful Sounds.',
+    },
+    {
+      title: 'Bay of Islands, North Island',
+      description:
+        'Three hours north of Auckland, this area features over 144 islands to explore.',
+    },
+    {
+      title: 'Queenstown, South Island',
+      description:
+        "This hopping town is New Zealand's adventure capital and is located right on Lake Wakatipu.",
+    },
+  ]}
+  gap="1.5rem"
+>
+  {(item, index) => (
+    <Card key={index} padding="1rem">
+      <Heading level={4}>{item.title}</Heading>
+      <Text>{item.description}</Text>
+    </Card>
+  )}
+</Collection>
+
+### Collection types
+
+Collection `type` options include `list`, `grid`, and `table`.
+
+#### List collection type
+
+The `list` collection type can be customized with any of following Flex props: `alignItems`, `alignContent`, `direction`, `gap`, `justifyContent`, `wrap`.
+
+```jsx
+<Collection
+  type="list"
+  items={visitNewZealand}
+  gap="1.5rem"
+  direction="row"
+  justifyContent="space-between"
+  wrap="wrap"
+>
+  {(item, index) => (
+    <Card key={index} padding="1rem">
+      <Heading level={4}>{item.title}</Heading>
+      <Text>{item.description}</Text>
+    </Card>
+  )}
+</Collection>
+```
+
+<Collection
+  type="list"
+  items={[
+    {
+      title: 'Fiordland National Park',
+      description:
+        'This national park includes the famous fjords of Milford, Dusky and Doubtful Sounds.',
+    },
+    {
+      title: 'Bay of Islands, North Island',
+      description:
+        'Three hours north of Auckland, this area features over 144 islands to explore.',
+    },
+    {
+      title: 'Queenstown, South Island',
+      description:
+        "This hopping town is New Zealand's adventure capital and is located right on Lake Wakatipu.",
+    },
+  ]}
+  direction="row"
+  justifyContent="space-between"
+  wrap="wrap"
+>
+  {(item, index) => (
+    <Card key={index} padding="1rem" maxWidth="180px" fontSize="0.5em">
+      <Heading level={4}>{item.title}</Heading>
+      <Text>{item.description}</Text>
+    </Card>
+  )}
+</Collection>
+
+#### Grid collection type
+
+TBD
+
+#### Table collection type
+
+TBD
