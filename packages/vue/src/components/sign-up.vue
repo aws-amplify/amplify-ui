@@ -9,7 +9,7 @@
           {{ signUpButtonText }}
         </base-heading>
         <base-field-set :disabled="state.matches('signUp.submit')">
-          <template #fieldSetI=" { slotData } ">
+          <template #fieldSetI="{ slotData }">
             <slot name="signup-fields" :info="slotData"> </slot>
           </template>
           <user-name-alias />
@@ -60,21 +60,21 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch, computed } from "vue";
+import { defineComponent, ref, watch, computed } from 'vue';
 
-import BaseForm from "./primitives/base-form.vue";
-import BaseBox from "./primitives/base-box.vue";
-import BaseSpacer from "./primitives/base-spacer.vue";
-import BaseHeading from "./primitives/base-heading.vue";
-import BaseText from "./primitives/base-text.vue";
-import BaseFieldSet from "./primitives/base-field-set.vue";
-import BaseFooter from "./primitives/base-footer.vue";
-import BaseButton from "./primitives/base-button.vue";
-import SignUpPasswordControl from "./sign-up-password-control.vue";
-import SignUpConfirmPasswordControl from "./sign-up-confirm-password-control.vue";
-import UserNameAlias from "./user-name-alias.vue";
-import AliasControl from "./alias-control.vue";
-import BaseWrapper from "./primitives/base-wrapper.vue";
+import BaseForm from './primitives/base-form.vue';
+import BaseBox from './primitives/base-box.vue';
+import BaseSpacer from './primitives/base-spacer.vue';
+import BaseHeading from './primitives/base-heading.vue';
+import BaseText from './primitives/base-text.vue';
+import BaseFieldSet from './primitives/base-field-set.vue';
+import BaseFooter from './primitives/base-footer.vue';
+import BaseButton from './primitives/base-button.vue';
+import SignUpPasswordControl from './sign-up-password-control.vue';
+import SignUpConfirmPasswordControl from './sign-up-confirm-password-control.vue';
+import UserNameAlias from './user-name-alias.vue';
+import AliasControl from './alias-control.vue';
+import BaseWrapper from './primitives/base-wrapper.vue';
 
 import {
   SIGN_IN_BUTTON_TEXT,
@@ -82,12 +82,12 @@ import {
   CREATE_ACCOUNT_LABEL,
   SIGN_UP_BUTTON_TEXT,
   UserNameAliasNames,
-} from "../defaults/DefaultTexts";
+} from '../defaults/DefaultTexts';
 
-import { useAuth } from "../composables/useAuth";
-import { useAliases } from "../composables/useUtils";
+import { useAuth } from '../composables/useAuth';
+import { useAliases } from '../composables/useUtils';
 
-import { SetupEventContext, SignUpSetupReturnTypes } from "../types";
+import { SetupEventContext, SignUpSetupReturnTypes } from '../types';
 
 export default defineComponent({
   components: {
@@ -119,8 +119,8 @@ export default defineComponent({
 
     // reactive properties
 
-    const phone = ref("");
-    const error = ref("");
+    const phone = ref('');
+    const error = ref('');
 
     // computed properties
 
@@ -132,18 +132,18 @@ export default defineComponent({
 
     // watchers
 
-    watch(state, first => {
-      error.value = first.context.validationError["confirm_password"];
+    watch(state, (first) => {
+      error.value = first.context.validationError['confirm_password'];
     });
 
     // Methods
 
     const onHaveAccountClicked = (): void => {
       if (attrs?.onHaveAccountClicked) {
-        emit("haveAccountClicked");
+        emit('haveAccountClicked');
       } else {
         send({
-          type: "SIGN_IN",
+          type: 'SIGN_IN',
         });
       }
     };
@@ -151,14 +151,14 @@ export default defineComponent({
     const onChange = (e: Event): void => {
       const { name, value } = <HTMLInputElement>e.target;
       send({
-        type: "CHANGE",
+        type: 'CHANGE',
         //@ts-ignore
         data: { name, value },
       });
     };
-    const onSignUpSubmit = (e): void => {
+    const onSignUpSubmit = (e: Event): void => {
       if (attrs?.onSignUpSubmit) {
-        emit("signUpSubmit", e);
+        emit('signUpSubmit', e);
       } else {
         submit();
       }
@@ -166,7 +166,7 @@ export default defineComponent({
 
     const submit = (): void => {
       send({
-        type: "SUBMIT",
+        type: 'SUBMIT',
       });
     };
 

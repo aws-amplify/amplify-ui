@@ -9,19 +9,24 @@
         <slot name="sign-in"></slot>
       </template>
 
-      <template #forgot-password-section="{ onForgotPasswordClicked}">
+      <template #forgot-password-section="{ onForgotPasswordClicked }">
         <slot
           name="sign-in-forgot-password-section"
           :onForgotPasswordClicked="onForgotPasswordClicked"
         />
       </template>
 
-      <template #sign-in-button="{ onSignInSubmit}">
+      <template #sign-in-button="{ onSignInSubmit }">
         <slot name="sign-in-button" :onSignInSubmit="onSignInSubmit" />
       </template>
 
       <template
-        #form="{ info, onSignInSubmit, onCreateAccountClicked, onForgotPasswordClicked }"
+        #form="{
+          info,
+          onSignInSubmit,
+          onCreateAccountClicked,
+          onForgotPasswordClicked,
+        }"
       >
         <slot
           name="sign-in-form"
@@ -40,7 +45,7 @@
         <slot name="sign-in-name"></slot>
       </template>
 
-      <template #footer="{ info, onSignInSubmit, onCreateAccountClicked  }">
+      <template #footer="{ info, onSignInSubmit, onCreateAccountClicked }">
         <slot
           name="sign-in-footer"
           :info="info"
@@ -50,9 +55,7 @@
         </slot>
       </template>
 
-      <template
-        #additional-fields="{ onSignInSubmit, onCreateAccountClicked  }"
-      >
+      <template #additional-fields="{ onSignInSubmit, onCreateAccountClicked }">
         <slot
           name="sign-in-additional-fields"
           :onSignInSubmit="onSignInSubmit"
@@ -60,7 +63,7 @@
         >
         </slot>
       </template>
-      <template #signin-fields="{info}">
+      <template #signin-fields="{ info }">
         <slot name="sign-in-fields" :info="info"></slot>
       </template>
     </sign-in>
@@ -69,7 +72,7 @@
       @sign-up-submit="onSignUpSubmitI"
       ref="signUpComponent"
     >
-      <template #signup-fields="{info}">
+      <template #signup-fields="{ info }">
         <slot name="sign-up-fields" :info="info"></slot>
       </template>
 
@@ -77,7 +80,7 @@
         <slot name="sign-up"></slot>
       </template>
 
-      <template #footer-left="{ onHaveAccountClicked}">
+      <template #footer-left="{ onHaveAccountClicked }">
         <slot
           name="sign-up-footer-left"
           :onHaveAccountClicked="onHaveAccountClicked"
@@ -101,9 +104,7 @@
         </slot>
       </template>
     </sign-up>
-    <div v-if="state?.matches('signIn.rejected')">
-      Error! Can't sign in!
-    </div>
+    <div v-if="state?.matches('signIn.rejected')">Error! Can't sign in!</div>
     <confirm-sign-up
       v-if="state?.matches('confirmSignUp')"
       @confirm-sign-up-submit="onConfirmSignUpSubmitI"
@@ -113,7 +114,7 @@
         <slot name="confirm-sign-up"></slot>
       </template>
       <template
-        #footer="{ info, onConfirmSignUpSubmit, onBackToSignInClicked  }"
+        #footer="{ info, onConfirmSignUpSubmit, onBackToSignInClicked }"
       >
         <slot
           name="sign-in-footer"
@@ -134,7 +135,7 @@
         <slot name="confirm-sign-in"></slot>
       </template>
       <template
-        #footer="{ info, onConfirmSignInSubmit, onBackToSignInClicked  }"
+        #footer="{ info, onConfirmSignInSubmit, onBackToSignInClicked }"
       >
         <slot
           name="sign-in-footer"
@@ -194,7 +195,7 @@ export default {
 
     //methods
 
-    const onSignInSubmitI = e => {
+    const onSignInSubmitI = (e: Event) => {
       if (attrs?.onSignInSubmit) {
         emit('signInSubmit', e);
       } else {
@@ -202,7 +203,7 @@ export default {
       }
     };
 
-    const onConfirmSignUpSubmitI = e => {
+    const onConfirmSignUpSubmitI = (e: Event) => {
       if (attrs?.onConfirmSignUpSubmit) {
         emit('confirmSignUpSubmit', e);
       } else {
@@ -210,7 +211,7 @@ export default {
       }
     };
 
-    const onConfirmSignInSubmitI = e => {
+    const onConfirmSignInSubmitI = (e: Event) => {
       if (attrs?.onConfirmSignInSubmit) {
         emit('confirmSignInSubmit', e);
       } else {
@@ -218,7 +219,7 @@ export default {
       }
     };
 
-    const onSignUpSubmitI = e => {
+    const onSignUpSubmitI = (e: Event) => {
       if (attrs?.onSignUpSubmit) {
         emit('signUpSubmit', e);
       } else {

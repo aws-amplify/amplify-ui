@@ -21,23 +21,24 @@ export interface UserNameAliasSetupReturnTypes {
 }
 
 export interface SignInSetupReturnTypes {
-  onSignInSubmit: (e: any) => void;
+  onSignInSubmit: (e: Event) => void;
   AUTHENTICATOR: string;
-  onForgotPasswordClicked: (e: any) => void;
-  onCreateAccountClicked: (e: any) => void;
-  state: Ref<any>;
+  onForgotPasswordClicked: () => void;
+  onCreateAccountClicked: () => void;
+  onInput: (e: Event) => void;
   username: Ref<string>;
   password: Ref<string>;
-  submit: (e: any) => void;
+  submit: (e: Event) => void;
+  state: Ref;
 }
 
 export interface SignUpSetupReturnTypes {
   onHaveAccountClicked: () => void;
-  onSignUpSubmit: (e: any) => void;
+  onSignUpSubmit: (e: Event) => void;
   onChange: (e: Event) => void;
-  state: Ref<any>;
+  state: Ref;
   phone: Ref<string>;
-  submit: (e: any) => void;
+  submit: () => void;
   error: Ref<string>;
   secondaryAliases: string[];
   signInButtonText: ComputedRef<string>;
@@ -48,9 +49,9 @@ export interface SignUpSetupReturnTypes {
 }
 
 export interface ConfirmPasswordSetupReturnTypes {
-  onConfirmSignUpSubmit: (e: any) => void;
+  onConfirmSignUpSubmit: (e: Event) => void;
   onBackToSignInClicked: () => void;
-  submit: (e: any) => void;
+  submit: (e: Event) => void;
   confirmSignUpHeading: ComputedRef<string>;
   confirmationCodeText: ComputedRef<string>;
   lostYourCodeText: ComputedRef<string>;
@@ -58,19 +59,19 @@ export interface ConfirmPasswordSetupReturnTypes {
   backSignInText: ComputedRef<string>;
   confirmText: ComputedRef<string>;
   onLostCodeClicked: () => void;
-  state: Ref<any>;
+  state: Ref;
   send: PayloadSender<EventObject>;
   primaryAlias: string;
 }
 
 export interface ConfirmSignInSetupReturnTypes {
   confirmSignInHeading: string;
-  onConfirmSignInSubmit: (e: any) => void;
+  onConfirmSignInSubmit: (e: Event) => void;
   onBackToSignInClicked: () => void;
-  submit: (e: any) => void;
+  submit: (e: Event) => void;
   backSignInText: ComputedRef<string>;
   confirmText: ComputedRef<string>;
-  state: Ref<any>;
+  state: Ref;
 }
 
 export interface SignUpPhoneControlTypes {
@@ -82,12 +83,12 @@ export interface SignUpPhoneControlTypes {
 
 export interface AuthenticatorSetupReturnTypes {
   currentPage: Ref<string>;
-  state: Ref<any>;
+  state: Ref;
   send: PayloadSender<EventObject>;
-  onSignInSubmitI: (e: any) => void;
-  onSignUpSubmitI: (e: any) => void;
-  onConfirmSignUpSubmitI: (e: any) => void;
-  onConfirmSignInSubmitI: (e: any) => void;
+  onSignInSubmitI: (e: Event) => void;
+  onSignUpSubmitI: (e: Event) => void;
+  onConfirmSignUpSubmitI: (e: Event) => void;
+  onConfirmSignInSubmitI: (e: Event) => void;
 }
 
 export interface AliasControlTypes {
