@@ -61,9 +61,6 @@ describe('Collection component', () => {
     );
     const collection = await screen.findByTestId(testList);
     expect(collection.classList.contains('custom-collection')).toBe(true);
-    expect(collection.classList.contains(ComponentClassNames.Collection)).toBe(
-      true
-    );
   });
 
   it('can render any arbitrary data-* attribute', async () => {
