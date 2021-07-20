@@ -4,6 +4,10 @@
   "version": "0.0.1",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist/*.{js,ts}",
+    "dist/**/*.{js,ts}"
+  ],
   "scripts": {
     "build": "tsc",
     "clean": "rimraf dist",
