@@ -24,7 +24,7 @@
         </base-heading>
 
         <base-field-Set :disabled="state.matches('signIn.submit')">
-          <template #fieldSetI=" { slotData } ">
+          <template #fieldSetI="{ slotData }">
             <slot name="signin-fields" :info="slotData"> </slot>
           </template>
           <user-name-alias :userNameAlias="true" />
@@ -161,7 +161,7 @@ export default {
 
     // Methods
 
-    const onInput = (e): void => {
+    const onInput = (e: Event): void => {
       const { name, value } = <HTMLInputElement>e.target;
       send({
         type: 'INPUT',
@@ -170,7 +170,7 @@ export default {
       });
     };
 
-    const onSignInSubmit = (e): void => {
+    const onSignInSubmit = (e: Event): void => {
       if (attrs?.onSignInSubmit) {
         emit('signInSubmit', e);
       } else {
@@ -178,8 +178,8 @@ export default {
       }
     };
 
-    const submit = (e): void => {
-      const formData = new FormData(e.target);
+    const submit = (e: Event): void => {
+      const formData = new FormData(<HTMLFormElement>e.target);
       send({
         type: 'SUBMIT',
         // @ts-ignore Property 'fromEntries' does not exist on type 'ObjectConstructor'. Do you need to change your target library? Try changing the `lib` compiler option to 'es2019' or later.ts(2550)
@@ -220,5 +220,3 @@ export default {
   },
 };
 </script>
-
-<style scoped></style>
