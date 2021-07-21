@@ -1,8 +1,9 @@
-.amplify-ui-text.amplify-ui-view {
+.amplify-ui-text {
   all: unset;
   color: var(--amplify-ui-components-text-color);
   display: block;
   font-family: var(--amplify-ui-components-text-font-family);
+  font-size: var(--amplify-ui-components-text-font-size);
   font-style: var(--amplify-ui-components-text-font-style);
   font-weight: var(--amplify-ui-components-text-font-weight);
   letter-spacing: var(--amplify-ui-components-text-letter-spacing);

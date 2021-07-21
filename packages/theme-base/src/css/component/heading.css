@@ -1,8 +1,34 @@
-.amplify-ui-heading {
-  color: var(--amplify-ui-components-heading-color);
-  font-family: var(--amplify-ui-components-heading-font-family);
-  /* font-size: var(--amplify-ui-components-heading-font-size); */
-  font-style: var(--amplify-ui-components-heading-font-style);
-  font-weight: var(--amplify-ui-components-heading-font-weight);
-  line-height: var(--amplify-ui-components-heading-line-height);
+h1.amplify-ui-heading {
+	/* --amplify-ui-components-text-font-size: var(--amplify-ui-font-size-4xl); */
+	color: var(--amplify-ui-colors-black);
+	font-size: var(--amplify-ui-font-size-4xl);
+	font-weight: var(--amplify-ui-font-weight-bold);
+	/* line-height: var(--amplify-ui-line-height); */
 }
+
+h2.amplify-ui-heading {
+	font-size: var(--amplify-ui-font-size-3xl);
+}
+
+h3.amplify-ui-heading {
+	font-size: var(--amplify-ui-font-size-2xl);
+}
+
+h4.amplify-ui-heading {
+	font-size: var(--amplify-ui-font-size-xl);
+}
+
+h5.amplify-ui-heading {
+	font-size: var(--amplify-ui-font-size-large);
+}
+
+h6.amplify-ui-heading {
+	font-size: var(--amplify-ui-font-size-medium);
+}
+
+/* 
+font-size
+font-weight
+line-height (this should solve the overlapping problem)
+color
+*/

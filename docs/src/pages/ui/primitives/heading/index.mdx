@@ -81,8 +81,8 @@ To override styling on a specific heading
 ```css
 /* Example: id selector styling override */
 #subscribe {
-	color: darkblue;
-	font-style: italic;
+  color: darkblue;
+  font-style: italic;
 }
 ```
 ```jsx
@@ -95,12 +95,13 @@ To override styling on a specific heading
 ```css
 /* styles.css */
 .blue {
-  --amplify-ui-components-heading-color: blue;
+  --amplify-ui-components-text-color: blue;
+  --amplify-ui-components-text-font-weight: bold;
 }
 ```
 ```jsx
 import './styles.css';
 
-<Heading className="blue">Should be blue</Heading>
+<Heading className="blue">Should be blue and bold</Heading>
 ```
-<Heading className="blue">Should be blue</Heading>
+<Heading className="blue">Should be blue and bold</Heading>
