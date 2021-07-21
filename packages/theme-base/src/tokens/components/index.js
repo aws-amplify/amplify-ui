@@ -5,5 +5,6 @@ module.exports = {
   divider: require('./divider'),
   flex: require('./flex'),
   image: require('./image'),
+  icon: require('./icon'),
   text: require('./text'),
-}
+};
