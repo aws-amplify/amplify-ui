@@ -1,29 +1,37 @@
+.amplify-ui-heading {
+  /* all: unset; */
+  color: var(--amplify-ui-components-heading-color);
+  line-height: var(--amplify-ui-components-heading-line-height);
+}
+
 h1.amplify-ui-heading {
-	/* --amplify-ui-components-text-font-size: var(--amplify-ui-font-size-4xl); */
-	color: var(--amplify-ui-colors-black);
-	font-size: var(--amplify-ui-font-size-4xl);
-	font-weight: var(--amplify-ui-font-weight-bold);
-	/* line-height: var(--amplify-ui-line-height); */
+  font-size: var(--amplify-ui-components-heading-1-font-size);
+  font-weight: var(--amplify-ui-components-heading-1-font-weight);
 }
 
 h2.amplify-ui-heading {
-	font-size: var(--amplify-ui-font-size-3xl);
+  font-size: var(--amplify-ui-components-heading-2-font-size);
+  font-weight: var(--amplify-ui-components-heading-2-font-weight);
 }
 
 h3.amplify-ui-heading {
-	font-size: var(--amplify-ui-font-size-2xl);
+  font-size: var(--amplify-ui-components-heading-3-font-size);
+  font-weight: var(--amplify-ui-components-heading-3-font-weight);
 }
 
 h4.amplify-ui-heading {
-	font-size: var(--amplify-ui-font-size-xl);
+  font-size: var(--amplify-ui-components-heading-4-font-size);
+  font-weight: var(--amplify-ui-components-heading-4-font-weight);
 }
 
 h5.amplify-ui-heading {
-	font-size: var(--amplify-ui-font-size-large);
+  font-size: var(--amplify-ui-components-heading-5-font-size);
+  font-weight: var(--amplify-ui-components-heading-5-font-weight);
 }
 
 h6.amplify-ui-heading {
-	font-size: var(--amplify-ui-font-size-medium);
+  font-size: var(--amplify-ui-components-heading-6-font-size);
+  font-weight: var(--amplify-ui-components-heading-6-font-weight);
 }
 
 /* 

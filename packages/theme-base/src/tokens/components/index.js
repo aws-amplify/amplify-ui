@@ -4,6 +4,7 @@ module.exports = {
   card: require('./card'),
   divider: require('./divider'),
   flex: require('./flex'),
+  heading: require('./heading'),
   image: require('./image'),
   icon: require('./icon'),
   text: require('./text'),
