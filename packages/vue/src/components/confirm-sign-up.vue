@@ -108,7 +108,10 @@ export default defineComponent({
       value: { context },
     } = state;
 
-    const [primaryAlias] = useAliases(context?.config?.login_mechanisms);
+    let [primaryAlias] = useAliases(context?.config?.login_mechanisms);
+    if (!context?.formValues?.confirm_password) {
+      primaryAlias = 'username';
+    }
 
     //computed properties
 
