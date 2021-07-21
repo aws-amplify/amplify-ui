@@ -13,6 +13,8 @@ Within [/environments](/environments), there are pre-built backend environments 
 
 This will create a `src/aws-exports.js` for use in your testing.
 
+_Note: If you are taken to a sign in screen when pulling an environment with `amplify pull`, you can workaround this by first visiting the Amplify Admin UI for that environment ([example](https://us-east-1.admin.amplifyapp.com/admin/dbffpda9986dp/staging/home))and then attempting to pull it again._
+
 ## Creating a Backend Environment
 
 When an existing backend doesn't match your needs (or requires changes), you can create a new backend via the [Amplify Admin](https://console.aws.amazon.com/amplify/home?region=us-east-1#/) or the [Amplify CLI](https://docs.amplify.aws/cli).
