@@ -1,6 +1,8 @@
 module.exports = {
-  "line-height": { "value": 2 },
-	"color": { "value": "red" }, // changed from "{colors.font.primary.value}" in order to see if these styles are getting applied (currently they're not getting applied)
+	// Color property not getting applied, issue with build order (Text built after Heading, alphabetically). Will solve later using SCSS. 
+	"color": { "value": "{colors.font.primary.value}" },
+  "line-height": { "value": 1.25 },
+	
 	"1": {
 		"font-size": { "value": "{fontSizes.4xl.value}" },
 		"font-weight": { "value": "{fontWeights.light.value}" }

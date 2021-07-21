@@ -1,5 +1,4 @@
 .amplify-ui-heading {
-  /* all: unset; */
   color: var(--amplify-ui-components-heading-color);
   line-height: var(--amplify-ui-components-heading-line-height);
 }
@@ -33,10 +32,3 @@ h6.amplify-ui-heading {
   font-size: var(--amplify-ui-components-heading-6-font-size);
   font-weight: var(--amplify-ui-components-heading-6-font-weight);
 }
-
-/* 
-font-size
-font-weight
-line-height (this should solve the overlapping problem)
-color
-*/
