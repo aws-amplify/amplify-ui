@@ -1,18 +1,18 @@
 module.exports = {
-  'border-style': { value: 'solid' },
-  'border-color': { value: '{colors.border.primary.value}' },
-  'border-width': { value: '{borderWidths.medium.value}' },
+  borderStyle: { value: 'solid' },
+  borderColor: { value: '{colors.border.primary.value}' },
+  borderWidth: { value: '{borderWidths.medium.value}' },
 
   small: {
-    'border-width': { value: '{borderWidths.small.value}' },
+    borderWidth: { value: '{borderWidths.small.value}' },
   },
 
   medium: {
-    'border-width': { value: '{borderWidths.medium.value}' },
+    borderWidth: { value: '{borderWidths.medium.value}' },
   },
 
   large: {
-    'border-width': { value: '{borderWidths.large.value}' },
+    borderWidth: { value: '{borderWidths.large.value}' },
   },
 
   opacity: {

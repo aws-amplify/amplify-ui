@@ -5,6 +5,6 @@ module.exports = {
   medium: { value: '1rem' },
   large: { value: '1.5rem' },
   xl: { value: '2.0rem' },
-  '2xl': { value: '3.0rem' },
-  '3xl': { value: '4.5rem' },
+  xxl: { value: '3.0rem' },
+  xxxl: { value: '4.5rem' },
 };

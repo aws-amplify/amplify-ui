@@ -1,12 +1,12 @@
 module.exports = {
   // Default styles
-  'font-weight': { value: '{fontWeights.semibold.value}' },
-  'font-size': { value: '{fontSizes.small.value}' },
-  'text-align': { value: 'center' },
+  fontWeight: { value: '{fontWeights.semibold.value}' },
+  fontSize: { value: '{fontSizes.small.value}' },
+  textAlign: { value: 'center' },
   padding: { value: ['{space.2xs.value}', '{space.small.value}'] },
-  'background-color': { value: '{colors.background.tertiary.value}' },
+  backgroundColor: { value: '{colors.background.tertiary.value}' },
   // An arbitrarily large value to ensure that the left and right sides of the badge are perfectly rounded for any size variant
-  'border-radius': { value: '9999px' },
+  borderRadius: { value: '9999px' },
 
   // Variations
   info: {
