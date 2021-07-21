@@ -76,6 +76,18 @@ describe('Text: ', () => {
     ).toBe('bold');
   });
 
+  it('can apply font-size via props', async () => {
+    const fontSize = '1.2rem';
+
+    render(<Text fontSize={fontSize}>{textText}</Text>);
+    const text = await screen.findByText(textText);
+    expect(
+      text.style.getPropertyValue(
+        kebabCase(ComponentPropsToStylePropsMap.fontSize)
+      )
+    ).toBe(fontSize);
+  });
+
   it('can apply letter-spacing via props', async () => {
     render(<Text letterSpacing="1rem">{textText}</Text>);
     const text = await screen.findByText(textText);

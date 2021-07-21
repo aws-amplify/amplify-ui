@@ -7,6 +7,7 @@ export const TextDemo = ({ children }) => {
   const [color, setColor] = React.useState<string>('black');
   const [lineHeight, setLineHeight] = React.useState<string>('1rem');
   const [fontWeight, setFontWeight] = React.useState<any>('normal');
+  const [fontSize, setFontSize] = React.useState<string>('1rem');
   const [fontStyle, setFontStyle] = React.useState<string>('normal');
   const [textDecoration, setTextDecoration] = React.useState<string>('none');
   return (
@@ -69,6 +70,20 @@ export const TextDemo = ({ children }) => {
       </div>
       <div className="flex mb-4">
         <div className="w-1/2 text-right pr-2 text-lg mt-1">
+          <label htmlFor="font_size">Font Size:</label>
+        </div>
+        <div className="w-1/2">
+          <input
+            type="text"
+            id="font_size"
+            name="font_size"
+            value={fontSize}
+            onChange={(event) => setFontSize(event.target.value)}
+          />
+        </div>
+      </div>
+      <div className="flex mb-4">
+        <div className="w-1/2 text-right pr-2 text-lg mt-1">
           <label htmlFor="font_style">Font Style:</label>
         </div>
         <div className="w-1/2">
@@ -115,6 +130,7 @@ export const TextDemo = ({ children }) => {
         lineHeight={lineHeight}
         fontWeight={fontWeight}
         fontStyle={fontStyle}
+        fontSize={fontSize}
         textDecoration={textDecoration}
       >
         {text}
@@ -139,7 +155,7 @@ export const TextTruncatedSample = () => {
 
 export const TextStylingSample = () => {
   return (
-    <Text fontWeight="bold" color="red" textDecoration="underline">
+    <Text fontWeight="bold" color="red" textDecoration="underline" as="span">
       This is my styled text
     </Text>
   );
