@@ -23,13 +23,3 @@ export const LOST_YOUR_CODE_TEXT = 'Lost your code?';
 export const RESEND_CODE_TEXT = 'Resend Code';
 export const BACK_SIGN_IN_TEXT = 'Back to Sign In';
 export const CONFIRM_TEXT = 'CONFIRM';
-
-export const UserNameAliasNames = {
-  username: { name: 'Username', type: 'text', placeholder: 'Username' },
-  email: { name: 'Email', type: 'email', placeholder: 'Email' },
-  phone_number: {
-    name: 'Phone Number',
-    type: 'tel',
-    placeholder: '+1 (555) 555-1212',
-  },
-};

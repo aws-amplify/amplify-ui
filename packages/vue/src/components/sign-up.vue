@@ -61,6 +61,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, watch, computed } from 'vue';
+import { UserNameAliasNames } from '@aws-amplify/ui-core';
 
 import BaseForm from './primitives/base-form.vue';
 import BaseBox from './primitives/base-box.vue';
@@ -81,7 +82,6 @@ import {
   HAVE_ACCOUNT_LABEL,
   CREATE_ACCOUNT_LABEL,
   SIGN_UP_BUTTON_TEXT,
-  UserNameAliasNames,
 } from '../defaults/DefaultTexts';
 
 import { useAuth } from '../composables/useAuth';

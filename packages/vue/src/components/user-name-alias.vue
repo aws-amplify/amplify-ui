@@ -17,6 +17,8 @@
 
 <script lang="ts">
 import { defineComponent, ref, computed } from "vue";
+import { UserNameAliasNames } from "@aws-amplify/ui-core";
+
 import BaseInput from "./primitives/base-input.vue";
 import BaseLabel from "./primitives/base-label.vue";
 import BaseText from "./primitives/base-text.vue";
@@ -24,7 +26,6 @@ import BaseText from "./primitives/base-text.vue";
 import { useAuth } from "../composables/useAuth";
 import { useAliases } from "../composables/useUtils";
 
-import { UserNameAliasNames } from "../defaults/DefaultTexts";
 import { UserNameAliasTypes, UserNameAliasSetupReturnTypes } from "../types";
 
 export default defineComponent({

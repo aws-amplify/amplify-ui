@@ -1,12 +1,25 @@
 import { includes } from 'lodash';
 import { AuthContext } from '..';
+import {} from '../types';
 
 export const socialProviderLoginMechanisms = ['amazon', 'google', 'facebook'];
 
 export const UserNameAliasNames = {
-  username: { name: 'Username', type: 'text' },
-  email: { name: 'Email', type: 'email' },
-  phone_number: { name: 'Phone Number', type: 'tel' },
+  username: {
+    name: 'Username',
+    type: 'text',
+    placeholder: '+1 (555) 555-1212',
+  },
+  email: {
+    name: 'Email',
+    type: 'email',
+    placeholder: 'Enter your email',
+  },
+  phone_number: {
+    name: 'Phone Number',
+    type: 'tel',
+    placeholder: 'Enter your phone number',
+  },
 };
 
 /**
