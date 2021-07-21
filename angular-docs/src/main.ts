@@ -5,7 +5,14 @@ import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 
 import Amplify, { Logger } from 'aws-amplify';
-Amplify.configure({});
+import awsExports from '@environments/auth-with-email/src/aws-exports';
+
+Amplify.configure({
+  ...awsExports,
+  auth: {
+    login_mechanisms: ['email'],
+  },
+});
 
 Logger.LOG_LEVEL = 'DEBUG';
 
