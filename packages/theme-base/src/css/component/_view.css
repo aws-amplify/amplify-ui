@@ -1,15 +1,3 @@
 .amplify-ui-view {
-  background-color: var(--amplify-ui-view-background-color);
-  border-radius: var(--amplify-ui-view-border-radius);
-  border: var(--amplify-ui-view-border);
-  box-shadow: var(--amplify-ui-view-box-shadow);
-  color: var(--amplify-ui-view-color);
-  height: var(--amplify-ui-view-height);
-  max-height: var(--amplify-ui-view-max-height);
-  max-width: var(--amplify-ui-view-max-width);
-  min-height: var(--amplify-ui-view-min-height);
-  min-width: var(--amplify-ui-view-min-width);
-  opacity: var(--amplify-ui-view-opacity);
-  padding: var(--amplify-ui-view-padding);
-  width: var(--amplify-ui-view-width);
+
 }

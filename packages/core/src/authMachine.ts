@@ -43,7 +43,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
       },
       signIn: {
         initial: 'edit',
-        exit: ['clearFormValues', 'clearError'],
+        exit: ['clearError'],
         onDone: 'authenticated',
         states: {
           edit: {
@@ -56,6 +56,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
               SUBMIT: 'submit',
               INPUT: { actions: 'handleInput' },
               SIGN_UP: '#auth.signUp',
+              FEDERATED_SIGN_IN: 'federatedSignIn',
             },
           },
           submit: {
@@ -91,7 +92,44 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
               ],
             },
           },
+          federatedSignIn: {
+            entry: 'clearError',
+            invoke: {
+              src: 'federatedSignIn',
+              onDone: [
+                {
+                  actions: 'setUser',
+                  target: 'confirmFederatedSignIn',
+                },
+              ],
+              onError: [
+                {
+                  actions: 'setRemoteError',
+                  target: 'rejected',
+                },
+              ],
+            },
+          },
+          confirmFederatedSignIn: {
+            entry: 'clearError',
+            invoke: {
+              src: 'confirmFederatedSignIn',
+              onDone: [
+                {
+                  actions: 'setUser',
+                  target: 'resolved',
+                },
+              ],
+              onError: [
+                {
+                  actions: 'setRemoteError',
+                  target: 'rejected',
+                },
+              ],
+            },
+          },
           resolved: {
+            exit: ['clearFormValues'],
             type: 'final',
           },
           rejected: {
@@ -410,6 +448,17 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
 
         return Auth.confirmSignIn(user, code, mfaType);
       },
+      async federatedSignIn(context, event) {
+        const { provider } = event.data;
+        const result = await Auth.federatedSignIn({ provider });
+
+        return result;
+      },
+      async confirmFederatedSignIn(context, event) {
+        const result = await Auth.currentAuthenticatedUser();
+
+        return result;
+      },
       async verifyTotpToken(context, event) {
         const { user } = context;
         const { confirmation_code } = event.data;
@@ -432,7 +481,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
           config,
         } = context;
 
-        const [primaryAlias] = config?.login_mechanisms ?? ["username"];
+        const [primaryAlias] = config?.login_mechanisms ?? ['username'];
 
         if (formValues.phone_number) {
           formValues.phone_number = formValues.phone_number.replace(

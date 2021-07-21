@@ -1,11 +1,5 @@
-.amplify-ui-view.amplify-ui-divider {
-  --border-width-small: var(--amplify-ui-components-divider-border-width-small);
-  --border-width-medium: var(
-    --amplify-ui-components-divider-border-width-medium
-  );
-  --border-width-large: var(--amplify-ui-components-divider-border-width-large);
-
-  border: 0;
+.amplify-ui-divider {
+  border-width: 0;
   margin: 0;
   padding: 0;
 
@@ -13,27 +7,28 @@
   border-color: var(--amplify-ui-components-divider-border-color);
   border-style: var(--amplify-ui-components-divider-border-style);
 }
-.amplify-ui-view.amplify-ui-divider[aria-orientation='horizontal'] {
+
+.amplify-ui-divider[aria-orientation='horizontal'] {
   width: 100%;
 }
-.amplify-ui-view.amplify-ui-divider[aria-orientation='horizontal'][data-size='small'] {
-  border-bottom-width: var(--border-width-small);
+.amplify-ui-divider[aria-orientation='horizontal'][data-size='small'] {
+  border-bottom-width: var(--amplify-ui-components-divider-small-border-width);
 }
-.amplify-ui-view.amplify-ui-divider[aria-orientation='horizontal'][data-size='medium'] {
-  border-bottom-width: var(--border-width-medium);
+.amplify-ui-divider[aria-orientation='horizontal'][data-size='medium'] {
+  border-bottom-width: var(--amplify-ui-components-divider-medium-border-width);
 }
-.amplify-ui-view.amplify-ui-divider[aria-orientation='horizontal'][data-size='large'] {
-  border-bottom-width: var(--border-width-large);
+.amplify-ui-divider[aria-orientation='horizontal'][data-size='large'] {
+  border-bottom-width: var(--amplify-ui-components-divider-large-border-width);
 }
-.amplify-ui-view.amplify-ui-divider[aria-orientation='vertical'] {
+.amplify-ui-divider[aria-orientation='vertical'] {
   height: 100%;
 }
-.amplify-ui-view.amplify-ui-divider[aria-orientation='vertical'][data-size='small'] {
+.amplify-ui-divider[aria-orientation='vertical'][data-size='small'] {
   border-left-width: var(--border-width-small);
 }
-.amplify-ui-view.amplify-ui-divider[aria-orientation='vertical'][data-size='medium'] {
-  border-left-width: var(--border-width-medium);
+.amplify-ui-divider[aria-orientation='vertical'][data-size='medium'] {
+  border-left-width: var(--amplify-ui-components-divider-medium-border-width);
 }
-.amplify-ui-view.amplify-ui-divider[aria-orientation='vertical'][data-size='large'] {
-  border-left-width: var(--border-width-large);
+.amplify-ui-divider[aria-orientation='vertical'][data-size='large'] {
+  border-left-width: var(--amplify-ui-components-divider-large-border-width);
 }
