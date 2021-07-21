@@ -13,11 +13,15 @@ export const Pagination: React.FC<PaginationProps> = (props) => {
     onNext,
     onPrevious,
     onChange,
+    ariaLabel = 'Pagination Navigation',
+    role = 'navigation',
     ...rest
   } = props;
   return (
     <View
       as="ul"
+      role={role}
+      aria-label={ariaLabel}
       className={classNames(ComponentClassNames.Pagination, className)}
       {...rest}
     >
