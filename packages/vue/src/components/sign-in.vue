@@ -2,6 +2,7 @@
   <slot name="signInSlotI">
     <base-wrapper data-amplify-wrapper>
       <base-form
+        data-amplify-authenticator-signin
         @submit.prevent="onSignInSubmit"
         @input="onInput"
         method="post"
@@ -27,7 +28,7 @@
           <template #fieldSetI="{ slotData }">
             <slot name="signin-fields" :info="slotData"> </slot>
           </template>
-          <user-name-alias :userNameAlias="true" />
+          <user-name-alias data-amplify-usernamealias :userNameAlias="true" />
 
           <base-label data-amplify-password>
             <sign-in-password-control />
