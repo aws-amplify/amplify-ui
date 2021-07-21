@@ -1,19 +1,11 @@
-import { AfterContentInit, Component, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { ControlContainer, FormGroupDirective } from '@angular/forms';
 import {
-  ControlContainer,
-  FormGroup,
-  FormGroupDirective,
-  ValidationErrors,
-} from '@angular/forms';
-import {
-  AuthAttribute,
   InputType,
   getAttributeMap,
   AttributeInfo,
   isInputType,
-  FormError,
 } from '../../common';
-import { AuthenticatorContextService } from '../../services';
 
 /**
  * Contains an input element and its label. Intended to be used with
@@ -28,7 +20,7 @@ import { AuthenticatorContextService } from '../../services';
   ],
 })
 export class AmplifyInputComponent {
-  @Input() name: AuthAttribute;
+  @Input() name: string;
   // TODO: Separate entry for id
   @Input() type: InputType;
   @Input() required = false;
@@ -37,14 +29,10 @@ export class AmplifyInputComponent {
   @Input() initialValue = '';
   @Input() disabled = false;
 
-  constructor(private contextService: AuthenticatorContextService) {}
+  constructor() {}
 
-  get attributeMap(): Record<AuthAttribute, AttributeInfo> {
+  get attributeMap(): Record<string, AttributeInfo> {
     return getAttributeMap();
-  }
-
-  get error(): FormError {
-    return this.contextService.formError;
   }
 
   // infers what the `type` of underlying input element should be.

@@ -1,1 +1,1 @@
-export * from './FacebookSignInButton';
+export * from './FederatedSignInButton';

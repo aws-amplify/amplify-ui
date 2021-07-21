@@ -12,6 +12,7 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "es2020",
+    "esModuleInterop": true,
     "paths": {},
     "lib": ["dom", "es2019", "dom.iterable"]
   },

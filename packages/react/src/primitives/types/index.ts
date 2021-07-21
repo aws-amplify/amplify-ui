@@ -7,3 +7,4 @@ export * from './heading';
 export * from './image';
 export * from './style';
 export * from './view';
+export * from "./icon";

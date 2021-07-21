@@ -7,11 +7,9 @@ You can insert your own components with `ng-template` and `amplifyOverride` dire
 1. Finally, fill the content within `ng-template` to whatever you wish!
 
 ```html
-<amplify-context-provider>
-  <amplify-authenticator>
-    <ng-template amplifyOverride="signInButton">
-      <button mat-fab color="primary">Submit</button>
-    </ng-template>
-  </amplify-authenticator>
-</amplify-context-provider>
+<amplify-authenticator>
+  <ng-template amplifyOverride="signInButton">
+    <button mat-fab color="primary">Submit</button>
+  </ng-template>
+</amplify-authenticator>
 ```

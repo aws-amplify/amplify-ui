@@ -1,8 +1,13 @@
 {
   "compilerOptions": {
+    "declaration": true,
     "esModuleInterop": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "outDir": "./dist",
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "target": "es5"
   },
   "exclude": ["node_modules"],
-  "include": ["**/*.ts", "**/*.tsx"]
+  "include": ["src/**/*.ts", "src/**/*.tsx"]
 }

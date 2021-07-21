@@ -8,6 +8,7 @@
 @import './headingStyles.css';
 @import './textStyles.css';
 @import './viewStyles.css';
+@import './iconStyles.css';
 
 .mdx-marker {
   @apply pl-3 -ml-4 -mr-4 bg-gray-700 border-l-4 border-amazon;

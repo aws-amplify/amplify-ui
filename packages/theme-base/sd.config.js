@@ -9,10 +9,24 @@ const CSS_VARIABLE_PREFIX = 'amplify-ui';
 const CSS_VARIABLE_SCOPE = ':root';
 
 module.exports = {
-  source: ['src/tokens/**/*.json'],
+  source: ["src/tokens/index.js"],
+  transform: {
+    cssPadding: {
+      type: 'value',
+      transitive: true,
+      matcher: (token) => token.path[token.path.length-1] === 'padding',
+      transformer: (token) => {
+        if (Array.isArray(token.value)) {
+          return token.value.join(' ');
+        } else {
+          return token.value;
+        }
+      }
+    }
+  },
   platforms: {
     css: {
-      transforms: ['attribute/cti', 'name/cti/kebab'],
+      transforms: ["attribute/cti", "name/cti/kebab", "cssPadding"],
       prefix: CSS_VARIABLE_PREFIX,
       files: [
         {
@@ -37,10 +51,11 @@ module.exports = {
       ],
     },
     json: {
+      transforms: ["attribute/cti","name/cti/kebab"],
       files: [
         {
-          destination: 'dist/theme.json',
-          format: 'json/nested',
+          destination: "dist/theme.json",
+          format: "json",
         },
       ],
     },

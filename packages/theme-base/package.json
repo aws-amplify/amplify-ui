@@ -8,12 +8,17 @@
     "dist"
   ],
   "scripts": {
-    "build": "yarn run build:sd; yarn run build:css",
+    "build": "yarn run build:sd; yarn run build:css; yarn run build:icons",
+    "build:icons": "yarn run clean:icons && node scripts/generateIcons.js",
     "build:sd": "style-dictionary build --config ./sd.config.js",
     "build:css": "globcat src/css/theme.css dist/variables.css src/css/**/*.css --output dist/theme.css",
-    "clean": "rimraf dist"
+    "clean": "rimraf dist",
+    "clean:icons": "rimraf dist/react-icons"
   },
   "devDependencies": {
+    "change-case": "^4.1.2",
+    "fs-extra": "^10.0.0",
+    "glob": "^7.1.7",
     "globcat": "^1.3.4",
     "rimraf": "^3.0.2",
     "style-dictionary": "^3.0.1"
