@@ -1,6 +1,6 @@
 import {
-  ComponentPropsToStylePropsMap,
   AllStyleProps,
+  ComponentPropsToStylePropsMap,
   ComponentPropToStyleProp,
 } from '../types/index';
 

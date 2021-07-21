@@ -1,6 +1,4 @@
-import classNames from 'classnames';
 import React from 'react';
-import { ComponentClassNames } from '../shared/constants';
 import { convertStylePropsToStyleObj, getNonStyleProps } from '../shared/utils';
 import { ViewProps } from '../types/index';
 
@@ -22,15 +20,15 @@ export const View: React.FC<ViewProps> = (props) => {
 
   return (
     <ViewTag
-      style={convertStylePropsToStyleObj(props)}
-      id={id}
-      data-testid={id}
       aria-label={ariaLabel}
-      role={role}
-      className={classNames(ComponentClassNames.View, className)}
+      className={className}
+      data-testid={id}
       disabled={isDisabled}
-      width={htmlWidth}
       height={htmlHeight}
+      id={id}
+      role={role}
+      style={convertStylePropsToStyleObj(props)}
+      width={htmlWidth}
       {...getNonStyleProps(rest)}
     >
       {children}
