@@ -2,7 +2,7 @@ import React from 'react';
 import { ComponentClassNames } from '../shared/constants';
 import classNames from 'classnames';
 import { HeadingProps } from '../types';
-import { Text } from '@aws-amplify/ui-react';
+import { View } from '@aws-amplify/ui-react';
 
 interface HeadingLevels {
   [key: number]: keyof JSX.IntrinsicElements;
@@ -23,11 +23,11 @@ export const Heading: React.FC<HeadingProps> = ({
   level,
   ...rest
 }) => (
-  <Text
+  <View
     as={headingLevels[level] || headingLevels[6]}
     className={classNames(ComponentClassNames.Heading, className)}
     {...rest}
   >
     {children}
-  </Text>
+  </View>
 );

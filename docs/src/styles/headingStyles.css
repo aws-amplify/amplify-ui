@@ -1,15 +1,9 @@
-.blue {
-  --amplify-ui-components-text-color: blue;
-  --amplify-ui-components-text-font-weight: bold;
-}
-
-.custom-heading {
-  color: red;
-  font-weight: bold;
-  font-size: 2rem;
+.amplify-ui-heading.font-weight-override {
+  font-weight: normal;
 }
 
 #subscribe {
   color: darkblue;
   font-style: italic;
+  font-size: 1.5rem;
 }

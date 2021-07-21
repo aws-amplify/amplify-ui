@@ -52,29 +52,56 @@ Use the `level` prop to change the heading level (e.g., `h1 - h6`). Available op
 
 ### CSS Styling
 
+### Override Heading styling using the CSS variables
+
+Override color for all `Heading` components
+
+```css
+/* styles.css */
+:root {
+  --amplify-ui-components-heading-font-color: gray;
+}
+/* OR */
+.amplify-ui-heading {
+  color: gray;
+}
+```
+
+<br />
+
+Override styles for any `Heading` component `h1 - h6`
+
+```css
+/* styles.css */
+h1.amplify-ui-heading {
+  font-size: 1rem;
+  font-style: italic;
+}
+
+h6.amplify-ui-heading {
+  font-size: 2rem;
+  font-weight: bold;
+}
+```
+```jsx
+import './styles.css';
+
+<Heading level={1}>Small and italic</Heading>
+<Heading>Big and bold</Heading>
+```
+<Heading fontSize="1rem" fontStyle="italic">Small and italic</Heading>
+<Heading fontSize="2rem" fontWeight="bold">Big and bold</Heading>
+
+<br />
+
 #### Styling a heading instance
 To override styling on a specific heading
 
 *Using props:*
 ```jsx
-<Heading level={2} color="green">This should be green</Heading>
+<Heading level={3} color="green" fontWeight="bold">Save the environment</Heading>
 ```
-<Heading level={2} color="green">This should be green</Heading>
-
-*Using a class selector:*
-
-```css
-/* Example: class selector styling override */
-.custom-heading {
-  color: red;
-  font-weight: bold;
-  font-size: 2rem;
-}
-```
-```jsx
-<Heading className="custom-heading">Customized!</Heading>
-```
-<Heading className="custom-heading">Customized!</Heading>
+<Heading level={3} color="green" fontWeight="bold">Save the environment</Heading>
 
 *Using an id selector:*
 
@@ -83,25 +110,10 @@ To override styling on a specific heading
 #subscribe {
   color: darkblue;
   font-style: italic;
+  font-size: 1.5rem;
 }
 ```
 ```jsx
 <Heading id="subscribe">Suscribe now!</Heading>
 ```
 <Heading id="subscribe">Suscribe now!</Heading>
-
-*Using CSS variables:*
-
-```css
-/* styles.css */
-.blue {
-  --amplify-ui-components-text-color: blue;
-  --amplify-ui-components-text-font-weight: bold;
-}
-```
-```jsx
-import './styles.css';
-
-<Heading className="blue">Should be blue and bold</Heading>
-```
-<Heading className="blue">Should be blue and bold</Heading>
