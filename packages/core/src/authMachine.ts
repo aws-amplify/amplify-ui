@@ -1,6 +1,7 @@
 import { get } from 'lodash';
 import { Auth, Amplify } from 'aws-amplify';
 import { Machine, assign } from 'xstate';
+import { inspect } from '@xstate/inspect';
 import { AuthChallengeNames, AuthContext, AuthEvent } from './types';
 import { passwordMatches, runValidators } from './validators';
 
@@ -429,8 +430,8 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
       async getAmplifyConfig() {
         return Amplify.configure();
       },
-      async signIn(context, event) {
-        const { username, password } = event.data;
+      async signIn(context, _event) {
+        const { username, password } = context.formValues;
 
         return Auth.signIn(username, password);
       },
