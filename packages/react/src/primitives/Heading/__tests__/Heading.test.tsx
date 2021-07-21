@@ -16,6 +16,32 @@ describe('Heading: ', () => {
     expect(heading.nodeName).toBe('H6');
   });
 
+	it('renders h1-h6 tags by passing level prop', async () => {
+		render(
+		<div>
+			<Heading level={1}>H1</Heading>
+			<Heading level={2}>H2</Heading>
+			<Heading level={3}>H3</Heading>
+			<Heading level={4}>H4</Heading>
+			<Heading level={5}>H5</Heading>
+			<Heading level={6}>H6</Heading>
+		</div>);
+
+    const h1 = await screen.findByText('H1');
+		const h2 = await screen.findByText('H2');
+		const h3 = await screen.findByText('H3');
+		const h4 = await screen.findByText('H4');
+		const h5 = await screen.findByText('H5');
+		const h6 = await screen.findByText('H6');
+
+		expect(h1.nodeName).toBe('H1');
+		expect(h2.nodeName).toBe('H2');
+		expect(h3.nodeName).toBe('H3');
+		expect(h4.nodeName).toBe('H4');
+		expect(h5.nodeName).toBe('H5');
+		expect(h6.nodeName).toBe('H6');
+	});
+
   it('can apply styling via props', async () => {
     render(
       <Heading level={3} fontStyle="italic">

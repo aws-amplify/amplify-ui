@@ -20,11 +20,11 @@ const headingLevels: HeadingLevels = {
 export const Heading: React.FC<HeadingProps> = ({
   className,
   children,
-  level,
+  level = 6,
   ...rest
 }) => (
   <View
-    as={headingLevels[level] || headingLevels[6]}
+    as={headingLevels[level]}
     className={classNames(ComponentClassNames.Heading, className)}
     {...rest}
   >

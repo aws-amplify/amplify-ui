@@ -1,5 +1,5 @@
 .amplify-ui-text {
-  /* all: unset; */
+  all: unset;
   color: var(--amplify-ui-components-text-color);
   display: block;
 }

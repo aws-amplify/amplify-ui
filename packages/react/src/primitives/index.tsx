@@ -36,12 +36,6 @@ export function Header(props) {
   return <header data-amplify-header="" {...props} />;
 }
 
-// export function Heading({ level = 1, ...props }) {
-//   const H = `h${level}`;
-
-//   return <H data-amplify-heading="" {...props} />;
-// }
-
 export function Input(props) {
   return <input data-amplify-input="" {...props} />;
 }
