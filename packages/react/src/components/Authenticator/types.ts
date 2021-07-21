@@ -3,5 +3,3 @@ export enum FederatedIdentityProviders {
   Facebook = 'Facebook',
   Google = 'Google',
 }
-
-export const socialProviderLoginMechanisms = ['amazon', 'google', 'facebook'];
