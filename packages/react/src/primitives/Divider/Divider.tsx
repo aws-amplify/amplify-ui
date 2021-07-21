@@ -13,10 +13,10 @@ export const Divider: React.FC<DividerProps> = (props) => {
   } = props;
   return (
     <View
+      aria-orientation={orientation}
       as="hr"
       className={classNames(ComponentClassNames.Divider, className)}
       data-size={size}
-      aria-orientation={orientation}
       {...rest}
     />
   );

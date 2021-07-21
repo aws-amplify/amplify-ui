@@ -1,10 +1,9 @@
 .amplify-ui-flex {
+  align-content: var(--amplify-ui-components-flex-align-content);
+  align-items: var(--amplify-ui-components-flex-align-items);
+  display: flex;
   flex-direction: var(--amplify-ui-components-flex-flex-direction);
+  flex-wrap: var(--amplify-ui-components-flex-flex-wrap);
   gap: var(--amplify-ui-components-flex-gap);
   justify-content: var(--amplify-ui-components-flex-justify-content);
-  align-items: var(--amplify-ui-components-flex-align-items);
-  align-content: var(--amplify-ui-components-flex-align-content);
-  flex-wrap: var(--amplify-ui-components-flex-flex-wrap);
-
-  display: flex;
 }

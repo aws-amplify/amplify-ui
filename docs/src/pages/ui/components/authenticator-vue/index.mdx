@@ -2,14 +2,14 @@
 title: Authenticator Vue
 ---
 
-import { Authenticator } from "@aws-amplify/ui-react";
-import { XStateInspector } from "@/components/XStateInspector";
-import { Feature } from "@/components/Feature";
+import { Authenticator } from '@aws-amplify/ui-react';
+import { XStateInspector } from '@/components/XStateInspector';
+import { Feature } from '@/components/Feature';
 
 export const vueProps = {
-  framework: "vue",
-  port: "3001",
-  exampleFolder: "vue/src",
+  framework: 'vue',
+  port: '3001',
+  exampleFolder: 'vue/src',
 };
 
 The `Authenticator` is a simple way to add [authentication](https://docs.amplify.aws/lib/auth/getting-started/q/platform/js)
@@ -49,11 +49,11 @@ import "@aws-amplify/ui-vue/styles.css";
 
 ### Sign Up with Email
 
-<Feature framework="vue" port="3001" name="sign-up-with-email" />
+<Feature {...vueProps} name="sign-up-with-email" />
 
 ### Sign Up with Phone
 
-<Feature framework="vue" port="3001" name="sign-up-with-phone" />
+<Feature {...vueProps} name="sign-up-with-phone" />
 
 ### Sign In
 
@@ -66,6 +66,10 @@ import "@aws-amplify/ui-vue/styles.css";
 ### Sign In with Phone
 
 <Feature {...vueProps} name="sign-in-with-phone" />
+
+### Sign In with SMS and MFA
+
+<Feature {...vueProps} name="sign-in-sms-mfa" />
 
 ## Headless Usage
 

@@ -1,21 +1,21 @@
 module.exports = {
-  "border-style": { "value": "solid" },
-  "border-color": { "value": "{colors.border.primary.value}" },
-  "border-width": { "value": "{borderWidths.medium.value}" },
-  
-  "small": {
-    "border-width": { "value": "{borderWidths.small.value}" }
+  borderStyle: { value: 'solid' },
+  borderColor: { value: '{colors.border.primary.value}' },
+  borderWidth: { value: '{borderWidths.medium.value}' },
+
+  small: {
+    borderWidth: { value: '{borderWidths.small.value}' },
   },
-  
-  "medium": {
-    "border-width": { "value": "{borderWidths.medium.value}" }
+
+  medium: {
+    borderWidth: { value: '{borderWidths.medium.value}' },
   },
-  
-  "large": {
-    "border-width": { "value": "{borderWidths.large.value}" }
+
+  large: {
+    borderWidth: { value: '{borderWidths.large.value}' },
   },
-  
-  "opacity": {
-    "value": "{opacities.60.value}"
-  }
-}
+
+  opacity: {
+    value: '{opacities.60.value}',
+  },
+};

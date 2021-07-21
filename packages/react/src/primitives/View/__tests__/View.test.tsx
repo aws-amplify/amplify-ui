@@ -2,7 +2,6 @@ import { View } from '../View';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import '@testing-library/jest-dom/extend-expect';
-import { ComponentClassNames } from '../../shared';
 import { ComponentPropsToStylePropsMap } from '../../types';
 import { kebabCase } from 'lodash';
 
@@ -15,7 +14,6 @@ describe('View: ', () => {
     const view = await screen.findByText(viewText);
     expect(view.innerHTML).toBe(viewText);
     expect(view.nodeName).toBe('DIV');
-    expect(view.className).toBe(ComponentClassNames.View);
   });
 
   it('can render a <button> HTML element', async () => {

@@ -1,29 +1,23 @@
 <template>
-  <slot name="confirmSignUpSlotI">
+  <slot name="confirmSignInSlotI">
     <base-wrapper data-amplify-wrapper>
-      <base-form @submit.prevent="onConfirmSignUpSubmit">
+      <base-form
+        data-amplify-authenticator-confirmsignin
+        @submit.prevent="onConfirmSignInSubmit"
+      >
         <base-heading>
-          {{ confirmSignUpHeading }}
+          {{ confirmSignInHeading }}
         </base-heading>
-        <base-field-set :disabled="state.matches('confirmSignUp.pending')">
-          <user-name-alias
-            :userNameAlias="true"
-            :userName="state?.context?.formValues[primaryAlias]"
-            :disabled="true"
-          />
+        <base-field-set :disabled="state.matches('confirmSignIn.pending')">
           <base-label data-amplify-password>
-            <base-text>{{ confirmationCodeText }}</base-text>
+            <base-text>Code *</base-text>
             <base-input
               name="confirmation_code"
+              placeholder="Code"
+              autocomplete="one-time-code"
               required
-              type="number"
+              type="text"
             ></base-input>
-            <base-box>
-              <base-text> {{ lostYourCodeText }}</base-text>
-              <base-button type="button" @click.prevent="onLostCodeClicked">
-                {{ resendCodeText }}
-              </base-button>
-            </base-box>
           </base-label>
         </base-field-set>
 
@@ -33,7 +27,7 @@
               name="footer"
               :info="slotData"
               :onBackToSignInClicked="onBackToSignInClicked"
-              :onConfirmSignUpSubmit="onConfirmSignUpSubmit"
+              :onConfirmSignInSubmit="onConfirmSignInSubmit"
             >
             </slot>
           </template>
@@ -41,7 +35,7 @@
             {{ backSignInText }}</base-button
           >
           <base-spacer />
-          <base-button :disabled="state.matches('confirmSignUp.pending')">{{
+          <base-button :disabled="state.matches('confirmSignIn.pending')">{{
             confirmText
           }}</base-button>
         </base-footer>
@@ -58,7 +52,6 @@ import { defineComponent, computed } from 'vue';
 import BaseHeading from './primitives/base-heading.vue';
 import BaseFieldSet from './primitives/base-field-set.vue';
 import BaseLabel from './primitives/base-label.vue';
-import UserNameAlias from './user-name-alias.vue';
 import BaseSpacer from './primitives/base-spacer.vue';
 import BaseButton from './primitives/base-button.vue';
 import BaseFooter from './primitives/base-footer.vue';
@@ -68,19 +61,11 @@ import BaseForm from './primitives/base-form.vue';
 import BaseBox from './primitives/base-box.vue';
 import BaseWrapper from './primitives/base-wrapper.vue';
 
-import {
-  CONFIRM_SIGNUP_HEADING,
-  CONFIRMATION_CODE_TEXT,
-  LOST_YOUR_CODE_TEXT,
-  RESEND_CODE_TEXT,
-  BACK_SIGN_IN_TEXT,
-  CONFIRM_TEXT,
-} from '../defaults/DefaultTexts';
-
-import { useAliases } from '../composables/useUtils';
 import { useAuth } from '../composables/useAuth';
 
-import { ConfirmPasswordSetupReturnTypes, SetupEventContext } from '../types';
+import { BACK_SIGN_IN_TEXT, CONFIRM_TEXT } from '../defaults/DefaultTexts';
+import { ConfirmSignInSetupReturnTypes, SetupEventContext } from '../types';
+import { AuthChallengeNames } from '@aws-amplify/ui-core/src/types';
 
 export default defineComponent({
   components: {
@@ -95,66 +80,42 @@ export default defineComponent({
     BaseText,
     BaseInput,
     BaseWrapper,
-    UserNameAlias,
   },
   inheritAttrs: false,
-  setup(
-    _,
-    { emit, attrs }: SetupEventContext
-  ): ConfirmPasswordSetupReturnTypes {
+  setup(_, { emit, attrs }: SetupEventContext): ConfirmSignInSetupReturnTypes {
     const { state, send } = useAuth();
+    const { challengeName } = state.value.context;
 
-    const {
-      value: { context },
-    } = state;
+    let mfaType: string = 'SMS';
 
-    let [primaryAlias] = useAliases(context?.config?.login_mechanisms);
-    if (!context?.formValues?.confirm_password) {
-      primaryAlias = 'username';
+    if (challengeName === AuthChallengeNames.SOFTWARE_TOKEN_MFA) {
+      mfaType = 'TOTP';
     }
+    const confirmSignInHeading = `Confirm ${mfaType} Code`;
 
-    //computed properties
-
-    const confirmSignUpHeading = computed(() => CONFIRM_SIGNUP_HEADING);
-    const confirmationCodeText = computed(() => CONFIRMATION_CODE_TEXT);
-    const lostYourCodeText = computed(() => LOST_YOUR_CODE_TEXT);
-    const resendCodeText = computed(() => RESEND_CODE_TEXT);
+    // Computed Properties
     const backSignInText = computed(() => BACK_SIGN_IN_TEXT);
     const confirmText = computed(() => CONFIRM_TEXT);
 
     // Methods
-    const onConfirmSignUpSubmit = (e: Event): void => {
-      if (attrs?.onConfirmSignUpSubmit) {
-        emit('confirmSignUpSubmit', e);
+    const onConfirmSignInSubmit = (e: Event): void => {
+      if (attrs?.onConfirmSignInSubmit) {
+        emit('confirmSignInSubmit', e);
       } else {
         submit(e);
       }
     };
 
-    const submit = (e: Event): void => {
-      const formData = new FormData(<HTMLFormElement>e.target);
+    const submit = (e): void => {
+      const formData = new FormData(e.target);
       send({
         type: 'SUBMIT',
         //@ts-ignore
         data: {
           //@ts-ignore
           ...Object.fromEntries(formData),
-          username: context?.formValues[primaryAlias],
         },
       });
-    };
-
-    const onLostCodeClicked = (): void => {
-      // do something
-      if (attrs?.onLostCodeClicked) {
-        emit('lostCodeClicked');
-      } else {
-        send({
-          type: 'RESEND',
-          //@ts-ignore
-          data: { username: context?.formValues[primaryAlias] },
-        });
-      }
     };
 
     const onBackToSignInClicked = (): void => {
@@ -168,19 +129,13 @@ export default defineComponent({
     };
 
     return {
-      onConfirmSignUpSubmit,
+      confirmSignInHeading,
+      onConfirmSignInSubmit,
       onBackToSignInClicked,
       submit,
-      confirmSignUpHeading,
-      confirmationCodeText,
-      lostYourCodeText,
-      resendCodeText,
       backSignInText,
       confirmText,
-      onLostCodeClicked,
       state,
-      send,
-      primaryAlias,
     };
   },
 });

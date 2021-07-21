@@ -4,44 +4,58 @@
 
 .amplify-ui-button {
   all: unset; /* protect against external styles */
-  font-weight: var(--amplify-ui-components-button-font-weight);
-  transition: all var(--amplify-ui-components-button-transition-duration);
   border-radius: var(--amplify-ui-components-button-border-radius);
   box-sizing: border-box;
+  font-weight: var(--amplify-ui-components-button-font-weight);
   text-align: var(--amplify-ui-components-button-text-align);
+  transition: all var(--amplify-ui-components-button-transition-duration);
 }
 
-.amplify-ui-button[data-variant="default"] {
+.amplify-ui-button[data-variant='default'] {
+  border: var(--amplify-ui-components-button-default-border-width)
+    var(--amplify-ui-components-button-default-border-style)
+    var(--amplify-ui-components-button-default-border-color);
   color: var(--amplify-ui-components-button-default-color);
-  border: var(--amplify-ui-components-button-default-border-width) var(--amplify-ui-components-button-default-border-style) var(--amplify-ui-components-button-default-border-color);
 }
 
-.amplify-ui-button[data-variant="default"]:hover {
+.amplify-ui-button[data-variant='default']:hover {
+  background-color: var(
+    --amplify-ui-components-button-default-hover-background-color
+  );
   border-color: var(--amplify-ui-components-button-default-hover-border-color);
-  background-color: var(--amplify-ui-components-button-default-hover-background-color);
   color: var(--amplify-ui-components-button-default-hover-color);
 }
 
-.amplify-ui-button[data-variant="default"]:focus {
+.amplify-ui-button[data-variant='default']:focus {
   border-color: var(--amplify-ui-components-button-default-focus-border-color);
   color: var(--amplify-ui-components-button-default-focus-color);
 }
 
-.amplify-ui-button[data-variant="default"]:active {
+.amplify-ui-button[data-variant='default']:active {
+  background-color: var(
+    --amplify-ui-components-button-default-active-background-color
+  );
   border-color: var(--amplify-ui-components-button-default-active-border-color);
-  background-color: var(--amplify-ui-components-button-default-active-background-color);
   color: var(--amplify-ui-components-button-default-active-color);
 }
 
-.amplify-ui-button[data-variant="default"][disabled] {
-  border-color: var(--amplify-ui-components-button-default-disabled-border-color);
-  background-color: var(--amplify-ui-components-button-default-disabled-background-color);
+.amplify-ui-button[data-variant='default'][disabled] {
+  background-color: var(
+    --amplify-ui-components-button-default-disabled-background-color
+  );
+  border-color: var(
+    --amplify-ui-components-button-default-disabled-border-color
+  );
   color: var(--amplify-ui-components-button-default-disabled-color);
 }
 
-.amplify-ui-button[data-variant="default"][data-loading="true"] {
-  border-color: var(--amplify-ui-components-button-default-loading-border-color);
-  background-color: var(--amplify-ui-components-button-default-loading-background-color);
+.amplify-ui-button[data-variant='default'][data-loading='true'] {
+  background-color: var(
+    --amplify-ui-components-button-default-loading-background-color
+  );
+  border-color: var(
+    --amplify-ui-components-button-default-loading-border-color
+  );
   color: var(--amplify-ui-components-button-default-loading-color);
 }
 
@@ -53,78 +67,90 @@
   cursor: not-allowed;
 }
 
-.amplify-ui-button[data-fullwidth="true"] {
+.amplify-ui-button[data-fullwidth='true'] {
   width: 100%;
 }
 
-.amplify-ui-button[data-variant="primary"] {
+.amplify-ui-button[data-variant='primary'] {
+  background-color: var(
+    --amplify-ui-components-button-primary-background-color
+  );
   color: var(--amplify-ui-components-button-primary-color);
-  background-color: var(--amplify-ui-components-button-primary-background-color);
 }
 
-.amplify-ui-button[data-variant="primary"]:hover {
-  background-color: var(--amplify-ui-components-button-primary-hover-background-color);
+.amplify-ui-button[data-variant='primary']:hover {
+  background-color: var(
+    --amplify-ui-components-button-primary-hover-background-color
+  );
 }
 
-.amplify-ui-button[data-variant="primary"]:focus {
-  background-color: var(--amplify-ui-components-button-primary-focus-background-color);
+.amplify-ui-button[data-variant='primary']:focus {
+  background-color: var(
+    --amplify-ui-components-button-primary-focus-background-color
+  );
 }
 
-.amplify-ui-button[data-variant="primary"]:active {
-  background-color: var(--amplify-ui-components-button-primary-active-background-color);
+.amplify-ui-button[data-variant='primary']:active {
+  background-color: var(
+    --amplify-ui-components-button-primary-active-background-color
+  );
 }
 
-.amplify-ui-button[data-variant="primary"][data-loading="true"] {
-  background-color: var(--amplify-ui-components-button-primary-loading-background-color);
+.amplify-ui-button[data-variant='primary'][data-loading='true'] {
+  background-color: var(
+    --amplify-ui-components-button-primary-loading-background-color
+  );
   color: var(--amplify-ui-components-button-primary-loading-color);
 }
 
-.amplify-ui-button[data-variant="primary"][disabled] {
-  background-color: var(--amplify-ui-components-button-primary-disabled-background-color);
+.amplify-ui-button[data-variant='primary'][disabled] {
+  background-color: var(
+    --amplify-ui-components-button-primary-disabled-background-color
+  );
   color: var(--amplify-ui-components-button-primary-disabled-color);
 }
 
-.amplify-ui-button[data-variant="link"] {
+.amplify-ui-button[data-variant='link'] {
   color: var(--amplify-ui-components-button-link-color);
 }
 
-.amplify-ui-button[data-variant="link"]:hover {
+.amplify-ui-button[data-variant='link']:hover {
   color: var(--amplify-ui-components-button-link-hover-color);
   text-decoration: underline;
 }
 
-.amplify-ui-button[data-variant="link"][disabled] {
+.amplify-ui-button[data-variant='link'][disabled] {
   color: var(--amplify-ui-components-button-link-disabled-color);
   text-decoration: none;
 }
 
-.amplify-ui-button[data-variant="link"][data-loading="true"] {
+.amplify-ui-button[data-variant='link'][data-loading='true'] {
   color: var(--amplify-ui-components-button-link-loading-color);
   text-decoration: none;
 }
 
-.amplify-ui-button[data-variant="link"]:focus {
+.amplify-ui-button[data-variant='link']:focus {
   color: var(--amplify-ui-components-button-link-focus-color);
 }
 
-.amplify-ui-button[data-variant="link"]:active {
+.amplify-ui-button[data-variant='link']:active {
   color: var(--amplify-ui-components-button-link-active-color);
 }
 
-.amplify-ui-button[data-size="small"] {
-  padding: var(--amplify-ui-components-button-small-padding);
-  font-size: var(--amplify-ui-components-button-small-font-size);
+.amplify-ui-button[data-size='small'] {
   border-radius: var(--amplify-ui-components-button-small-border-radius);
+  font-size: var(--amplify-ui-components-button-small-font-size);
+  padding: var(--amplify-ui-components-button-small-padding);
 }
 
-.amplify-ui-button[data-size="medium"] {
-  padding: var(--amplify-ui-components-button-medium-padding);
-  font-size: var(--amplify-ui-components-button-medium-font-size);
+.amplify-ui-button[data-size='medium'] {
   border-radius: var(--amplify-ui-components-button-medium-border-radius);
+  font-size: var(--amplify-ui-components-button-medium-font-size);
+  padding: var(--amplify-ui-components-button-medium-padding);
 }
 
-.amplify-ui-button[data-size="large"] {
-  padding: var(--amplify-ui-components-button-large-padding);
-  font-size: var(--amplify-ui-components-button-large-font-size);
+.amplify-ui-button[data-size='large'] {
   border-radius: var(--amplify-ui-components-button-large-border-radius);
+  font-size: var(--amplify-ui-components-button-large-font-size);
+  padding: var(--amplify-ui-components-button-large-padding);
 }
