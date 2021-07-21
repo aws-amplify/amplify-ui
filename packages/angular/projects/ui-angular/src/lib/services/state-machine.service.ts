@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import {
+  AuthContext,
+  AuthEvent,
   AuthInterpreter,
   authMachine,
   AuthMachineState,
 } from '@aws-amplify/ui-core';
 import { Logger } from '@aws-amplify/core';
-import { interpret } from 'xstate';
+import { interpret, Event } from 'xstate';
 
 const logger = new Logger('state-machine-service');
 /**
@@ -22,7 +24,7 @@ export class StateMachineService {
 
   public get services() {
     return {
-      submit: formData =>
+      submit: (formData) =>
         this._authService.send({ type: 'SUBMIT', data: formData }),
     } as const;
   }
@@ -42,9 +44,17 @@ export class StateMachineService {
     return this._user;
   }
 
+  public get context(): AuthContext {
+    return this._authState.context;
+  }
+
+  public send(event: Event<AuthEvent>) {
+    this.authService.send(event);
+  }
+
   constructor() {
     this._authService = interpret(authMachine, { devTools: true })
-      .onTransition(state => {
+      .onTransition((state) => {
         logger.log('transitioned to', state, this._authService);
         const user = state.context?.user;
         if (user) this._user = user;

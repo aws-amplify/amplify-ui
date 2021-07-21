@@ -10,8 +10,8 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { AuthPropService, StateMachineService } from '../../services';
-import { Event, Subscription } from 'xstate';
-import { AuthEvent, AuthMachineState } from '@aws-amplify/ui-core';
+import { Subscription } from 'xstate';
+import { AuthMachineState } from '@aws-amplify/ui-core';
 
 const logger = new Logger('SignIn');
 
@@ -21,10 +21,13 @@ const logger = new Logger('SignIn');
   encapsulation: ViewEncapsulation.None,
 })
 export class AmplifySignInComponent
-  implements AfterContentInit, OnInit, OnDestroy {
+  implements AfterContentInit, OnInit, OnDestroy
+{
   @HostBinding('attr.data-amplify-authenticator-signin') dataAttr = '';
   @Input() public headerText = 'Sign in to your account';
   public customComponents: Record<string, TemplateRef<any>> = {};
+  public remoteError = '';
+  public isPending = false;
   private authSubscription: Subscription;
   public context = () => ({});
 
@@ -34,7 +37,7 @@ export class AmplifySignInComponent
   ) {}
 
   ngOnInit(): void {
-    this.authSubscription = this.stateMachine.authService.subscribe(state =>
+    this.authSubscription = this.stateMachine.authService.subscribe((state) =>
       this.onStateUpdate(state)
     );
   }
@@ -49,10 +52,8 @@ export class AmplifySignInComponent
   }
 
   onStateUpdate(state: AuthMachineState): void {
-    if (state.event.type.includes('signIn.edit.error')) {
-      const message = state.event.data?.message;
-      logger.info('An error was encountered while signing up:', message);
-    }
+    this.remoteError = state.context.remoteError;
+    this.isPending = state.matches('signIn.pending');
   }
 
   public isLoading(): boolean {
@@ -60,17 +61,13 @@ export class AmplifySignInComponent
   }
 
   toSignUp(): void {
-    this.send('SIGN_UP');
+    this.stateMachine.send('SIGN_UP');
   }
 
-  send(event: Event<AuthEvent>): void {
-    this.stateMachine.authService.send(event);
-  }
-
-  onInput($event) {
-    $event.preventDefault();
-    const { name, value } = $event.target;
-    this.send({
+  onInput(event: Event) {
+    event.preventDefault();
+    const { name, value } = event.target as HTMLInputElement;
+    this.stateMachine.send({
       type: 'INPUT',
       data: { name, value },
     });
@@ -82,9 +79,6 @@ export class AmplifySignInComponent
     const formValues = this.stateMachine.authState.context.formValues;
     logger.log('Sign in form submitted with', formValues);
 
-    this.send({
-      type: 'SUBMIT',
-      data: formValues,
-    });
+    this.stateMachine.send('SUBMIT');
   }
 }
