@@ -1,11 +1,11 @@
 import { Component, Input } from '@angular/core';
-import { ControlContainer, FormGroupDirective } from '@angular/forms';
 import {
   InputType,
   getAttributeMap,
   AttributeInfo,
   isInputType,
 } from '../../common';
+import { StateMachineService } from '../../services';
 
 /**
  * Contains an input element and its label. Intended to be used with
@@ -14,10 +14,6 @@ import {
 @Component({
   selector: 'amplify-input',
   templateUrl: './amplify-input.component.html',
-  viewProviders: [
-    // https://stackoverflow.com/a/46452442/10103143
-    { provide: ControlContainer, useExisting: FormGroupDirective },
-  ],
 })
 export class AmplifyInputComponent {
   @Input() name: string;
@@ -29,10 +25,15 @@ export class AmplifyInputComponent {
   @Input() initialValue = '';
   @Input() disabled = false;
 
-  constructor() {}
+  constructor(private stateMachine: StateMachineService) {}
 
   get attributeMap(): Record<string, AttributeInfo> {
     return getAttributeMap();
+  }
+
+  get error(): string {
+    const { validationError } = this.stateMachine.context;
+    return validationError[this.name];
   }
 
   // infers what the `type` of underlying input element should be.

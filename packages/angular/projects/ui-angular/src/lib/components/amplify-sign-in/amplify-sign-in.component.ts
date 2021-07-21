@@ -25,11 +25,13 @@ export class AmplifySignInComponent
 {
   @HostBinding('attr.data-amplify-authenticator-signin') dataAttr = '';
   @Input() public headerText = 'Sign in to your account';
+
   public customComponents: Record<string, TemplateRef<any>> = {};
   public remoteError = '';
   public isPending = false;
-  private authSubscription: Subscription;
   public context = () => ({});
+
+  private authSubscription: Subscription;
 
   constructor(
     private stateMachine: StateMachineService,
@@ -66,7 +68,7 @@ export class AmplifySignInComponent
 
   onInput(event: Event) {
     event.preventDefault();
-    const { name, value } = event.target as HTMLInputElement;
+    const { name, value } = <HTMLInputElement>event.target;
     this.stateMachine.send({
       type: 'INPUT',
       data: { name, value },

@@ -7,7 +7,7 @@ import { AmplifySignOutComponent } from './components/amplify-sign-out/amplify-s
 import { AmplifyOverrideDirective } from './directives/amplify-override.directive';
 import { AmplifySignUpComponent } from './components/amplify-sign-up/amplify-sign-up.component';
 import { AmplifyInputComponent } from './primitives/amplify-input/amplify-input.component';
-import { AmplifyValidationErrorComponent } from './primitives/amplify-validation-error/amplify-validation-error.component';
+import { AmplifyErrorComponent } from './primitives/amplify-error/amplify-error.component';
 import { AmplifyConfirmSignUpComponent } from './components/amplify-confirm-sign-up/amplify-confirm-sign-up.component';
 
 @NgModule({
@@ -17,7 +17,7 @@ import { AmplifyConfirmSignUpComponent } from './components/amplify-confirm-sign
     AmplifySignOutComponent,
     AmplifySignUpComponent,
     AmplifyInputComponent,
-    AmplifyValidationErrorComponent,
+    AmplifyErrorComponent,
     AmplifyOverrideDirective,
     AmplifyConfirmSignUpComponent,
   ],
@@ -27,7 +27,7 @@ import { AmplifyConfirmSignUpComponent } from './components/amplify-confirm-sign
     AmplifySignInComponent,
     AmplifySignOutComponent,
     AmplifyInputComponent,
-    AmplifyValidationErrorComponent,
+    AmplifyErrorComponent,
     AmplifyOverrideDirective,
   ],
 })

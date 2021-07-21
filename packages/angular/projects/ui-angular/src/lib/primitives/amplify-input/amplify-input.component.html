@@ -9,4 +9,7 @@
     [value]="this.initialValue"
     [attr.disabled]="disabled ? '' : null"
   />
+  <amplify-error *ngIf="error">
+    {{ error }}
+  </amplify-error>
 </label>
