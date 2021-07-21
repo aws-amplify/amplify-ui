@@ -1,4 +1,3 @@
-@skip
 Feature: Sign In with Username
 
   Amplify's SignIn component uses AWS Cognito's authentication
@@ -34,7 +33,7 @@ Feature: Sign In with Username
     And I click the "Sign In" button
     Then I see "Sign out"
 
-  @React @skip
+  @React
   Scenario: Sign in with force change password credentials
     When I type the valid username "FORCE_CHANGE_USERNAME"
     And I type the valid password "VALID_PASSWORD"
