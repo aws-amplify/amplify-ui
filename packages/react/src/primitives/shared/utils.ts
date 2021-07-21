@@ -45,3 +45,14 @@ export const getNonStyleProps = (props: {}) => {
   });
   return nonStyleProps;
 };
+
+/**
+ * Create a consecutive integer array from start value to end value.
+ * @param start start value
+ * @param end end value
+ * @returns an integer array with elements from start to end consecutively
+ */
+export const getConsecutiveIntArray = (start: number, end: number) => {
+  const length = end - start + 1;
+  return Array.from({ length }, (_, idx) => idx + start);
+};
