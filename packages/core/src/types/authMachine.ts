@@ -7,13 +7,17 @@ export type AuthFormData = Record<string, string>;
 export interface AuthContext {
   remoteError?: string; // contains Amplify or Cognito error
   validationError?: ValidationError; // contains validation error for each input
-  user?: CognitoUser;
+  user?: CognitoUserAmplify;
   session?: CognitoUserSession;
   formValues?: AuthFormData;
   config?: {
     login_mechanisms: string[];
   };
   challengeName?: AuthChallengeNames;
+}
+
+interface CognitoUserAmplify extends CognitoUser {
+  username?: string;
 }
 
 export type AuthEventTypes =
