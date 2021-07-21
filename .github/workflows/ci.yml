@@ -37,7 +37,11 @@ jobs:
       - run: yarn next-example start & npx wait-on http://localhost:3000/ui/components/authenticator/sign-in-with-username
       - run: yarn test
         env:
+          CONFIRMED_USERNAME: ${{ secrets.CONFIRMED_USERNAME }}
+          FORCE_CHANGE_USERNAME: ${{ secrets.FORCE_CHANGE_USERNAME }}
           INVALID_USERNAME: ${{ secrets.INVALID_USERNAME }}
+          UNCONFIRMED_USERNAME: ${{ secrets.UNCONFIRMED_USERNAME }}
+          UNKNOWN_USERNAME: ${{ secrets.UNKNOWN_USERNAME }}
           VALID_USERNAME: ${{ secrets.VALID_USERNAME }}
           CONFIRMED_EMAIL: ${{ secrets.CONFIRMED_EMAIL }}
           FORCE_CHANGE_EMAIL: ${{ secrets.FORCE_CHANGE_EMAIL }}
