@@ -33,9 +33,3 @@ export const UserNameAliasNames = {
     placeholder: '+1 (555) 555-1212',
   },
 };
-export enum AuthChallengeNames {
-  SMS_MFA = 'SMS_MFA',
-  SOFTWARE_TOKEN_MFA = 'SOFTWARE_TOKEN_MFA',
-  NEW_PASSWORD_REQUIRED = 'NEW_PASSWORD_REQUIRED',
-  MFA_SETUP = 'MFA_SETUP',
-}

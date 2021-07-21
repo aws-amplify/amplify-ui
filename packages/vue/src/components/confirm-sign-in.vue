@@ -62,10 +62,10 @@ import BaseBox from './primitives/base-box.vue';
 import BaseWrapper from './primitives/base-wrapper.vue';
 
 import { useAuth } from '../composables/useAuth';
-import { AuthChallengeNames } from '../defaults/DefaultTexts';
 
 import { BACK_SIGN_IN_TEXT, CONFIRM_TEXT } from '../defaults/DefaultTexts';
 import { ConfirmSignInSetupReturnTypes, SetupEventContext } from '../types';
+import { AuthChallengeNames } from '@aws-amplify/ui-core/src/types';
 
 export default defineComponent({
   components: {
