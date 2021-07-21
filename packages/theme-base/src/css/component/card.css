@@ -1,9 +1,9 @@
 .amplify-ui-card {
   all: unset;
-  display: inline-block;
   background-color: var(--amplify-ui-components-card-background-color);
-  border: var(--amplify-ui-components-card-border);
   border-radius: var(--ammplify-ui-components-card-border-radius);
+  border: var(--amplify-ui-components-card-border);
   box-shadow: var(--amplify-ui-components-card-box-shadow);
+  display: inline-block;
   padding: var(--amplify-ui-components-card-padding);
 }
