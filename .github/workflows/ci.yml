@@ -15,7 +15,7 @@ jobs:
 
     environment: ci
     env:
-      NODE_ENV: CI
+      NODE_ENV: test
 
     strategy:
       matrix:
@@ -34,7 +34,7 @@ jobs:
         env:
           ENVIRONMENT_AWS_EXPORTS: ${{ secrets.ENVIRONMENT_AWS_EXPORTS }}
       - run: yarn next-example build
-      - run: yarn next-example start & npx wait-on http://localhost:3000/ui/components/authenticator/sign-in
+      - run: yarn next-example start & npx wait-on http://localhost:3000/ui/components/authenticator/sign-in-with-username
       - run: yarn test
         env:
           INVALID_USERNAME: ${{ secrets.INVALID_USERNAME }}
