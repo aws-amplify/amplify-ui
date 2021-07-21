@@ -1,8 +1,8 @@
 module.exports = {
-  "background-color": {"value": "{colors.background.primary.value}" },
-  "border-width": { "value": "{borderWidths.small.value}" },
-  "border-style": { "value": "solid" },
-  "border-color": { "value": "{colors.border.primary.value}" },
-  "box-shadow": { "value": "{shadows.medium.value}" },
-  "padding": { "value": "{space.medium.value}" }
-}
+  backgroundColor: { value: '{colors.background.primary.value}' },
+  borderWidth: { value: '{borderWidths.small.value}' },
+  borderStyle: { value: 'solid' },
+  borderColor: { value: '{colors.border.primary.value}' },
+  boxShadow: { value: '{shadows.medium.value}' },
+  padding: { value: '{space.medium.value}' },
+};

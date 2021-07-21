@@ -125,6 +125,27 @@
         </slot>
       </template>
     </confirm-sign-up>
+
+    <confirm-sign-in
+      v-if="state?.matches('confirmSignIn')"
+      @confirm-sign-in-submit="onConfirmSignInSubmitI"
+      ref="confirmSignInComponent"
+    >
+      <template #confirmSignInSlotI>
+        <slot name="confirm-sign-in"></slot>
+      </template>
+      <template
+        #footer="{ info, onConfirmSignInSubmit, onBackToSignInClicked }"
+      >
+        <slot
+          name="sign-in-footer"
+          :info="info"
+          :onConfirmSignInSubmit="onConfirmSignInSubmit"
+          :onBackToSignInClicked="onBackToSignInClicked"
+        >
+        </slot>
+      </template>
+    </confirm-sign-in>
   </div>
 
   <slot
@@ -139,6 +160,7 @@ import { ref, provide } from 'vue';
 import SignIn from './sign-in.vue';
 import SignUp from './sign-up.vue';
 import ConfirmSignUp from './confirm-sign-up.vue';
+import ConfirmSignIn from './confirm-sign-in.vue';
 
 import { useAuth } from '../composables/useAuth';
 import {
@@ -152,6 +174,7 @@ export default {
     SignIn,
     SignUp,
     ConfirmSignUp,
+    ConfirmSignIn,
   },
   setup(
     _,
@@ -160,11 +183,13 @@ export default {
     signInComponent: typeof SignIn;
     signUpComponent: typeof SignUp;
     confirmSignUpComponent: typeof ConfirmSignUp;
+    confirmSignInComponent: typeof ConfirmSignIn;
   } {
     const { state, send } = useAuth();
     const signInComponent = ref(null);
     const signUpComponent = ref(null);
     const confirmSignUpComponent = ref(null);
+    const confirmSignInComponent = ref(null);
 
     const currentPage = ref('SIGNIN');
 
@@ -186,6 +211,14 @@ export default {
       }
     };
 
+    const onConfirmSignInSubmitI = (e: Event) => {
+      if (attrs?.onConfirmSignInSubmit) {
+        emit('confirmSignInSubmit', e);
+      } else {
+        confirmSignInComponent.value.submit(e);
+      }
+    };
+
     const onSignUpSubmitI = (e: Event) => {
       if (attrs?.onSignUpSubmit) {
         emit('signUpSubmit', e);
@@ -203,6 +236,8 @@ export default {
       signUpComponent,
       onSignUpSubmitI,
       confirmSignUpComponent,
+      confirmSignInComponent,
+      onConfirmSignInSubmitI,
       onConfirmSignUpSubmitI,
       send,
     };

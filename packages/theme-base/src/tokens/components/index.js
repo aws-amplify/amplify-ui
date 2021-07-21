@@ -5,7 +5,7 @@ module.exports = {
   divider: require('./divider'),
   flex: require('./flex'),
   heading: require('./heading'),
-  image: require('./image'),
   icon: require('./icon'),
+  image: require('./image'),
   text: require('./text'),
 };

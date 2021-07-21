@@ -4,7 +4,7 @@ module.exports = {
     medium: { value: '{fontSizes.medium.value}' },
     small: { value: '{fontSizes.small.value}' },
   },
-  'line-height': {
+  lineHeight: {
     large: { value: '{fontSizes.large.value}' },
     medium: { value: '{fontSizes.medium.value}' },
     small: { value: '{fontSizes.small.value}' },

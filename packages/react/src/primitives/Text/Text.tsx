@@ -18,8 +18,8 @@ export const Text: React.FC<TextProps> = (props) => {
     <View
       as={asElementTag}
       className={classNames(ComponentClassNames.Text, className)}
-      data-variant={variant}
       data-truncate={isTruncated}
+      data-variant={variant}
       id={id}
       {...rest}
     >

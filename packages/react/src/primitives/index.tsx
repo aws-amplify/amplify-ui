@@ -1,13 +1,14 @@
 export * from './Badge';
 export * from './Button';
 export * from './Card';
+export * from './Collection';
 export * from './Divider';
 export * from './Flex';
 export * from './Heading';
 export * from './Image';
 export * from './Text';
 export * from './View';
-export * from "./Icon";
+export * from './Icon';
 
 export * from './shared';
 export * from './types';

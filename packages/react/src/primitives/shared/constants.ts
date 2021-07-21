@@ -5,10 +5,10 @@ export enum ComponentClassNames {
   Divider = 'amplify-ui-divider',
   Flex = 'amplify-ui-flex',
   Heading = 'amplify-ui-heading',
+  Icon = 'amplify-ui-icon',
   Image = 'amplify-ui-image',
   Text = 'amplify-ui-text',
   View = 'amplify-ui-view',
-	Icon = "amplify-ui-icon",
 }
 
 export const UserNameAliasNames = {
