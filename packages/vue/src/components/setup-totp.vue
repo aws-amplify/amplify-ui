@@ -96,7 +96,6 @@ export default defineComponent({
   },
   inheritAttrs: false,
   setup(_, { emit, attrs }: SetupEventContext) {
-    const logger = new Logger('SetupTOTP-logger');
     const { state, send } = useAuth();
 
     const {
@@ -111,6 +110,7 @@ export default defineComponent({
     // lifecycle hooks
 
     onMounted(async () => {
+      const logger = new Logger('SetupTOTP-logger');
       const { user } = context;
       if (!user) {
         return;
