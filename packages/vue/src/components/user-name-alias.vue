@@ -16,17 +16,17 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed } from "vue";
-import { UserNameAliasNames } from "@aws-amplify/ui-core";
+import { defineComponent, ref, computed } from 'vue';
+import { authInputAttributes } from '@aws-amplify/ui-core';
 
-import BaseInput from "./primitives/base-input.vue";
-import BaseLabel from "./primitives/base-label.vue";
-import BaseText from "./primitives/base-text.vue";
+import BaseInput from './primitives/base-input.vue';
+import BaseLabel from './primitives/base-label.vue';
+import BaseText from './primitives/base-text.vue';
 
-import { useAuth } from "../composables/useAuth";
-import { useAliases } from "../composables/useUtils";
+import { useAuth } from '../composables/useAuth';
+import { useAliases } from '../composables/useUtils';
 
-import { UserNameAliasTypes, UserNameAliasSetupReturnTypes } from "../types";
+import { UserNameAliasTypes, UserNameAliasSetupReturnTypes } from '../types';
 
 export default defineComponent({
   components: {
@@ -39,7 +39,7 @@ export default defineComponent({
       default: false,
     },
     userName: {
-      default: "",
+      default: '',
     },
     disabled: {
       default: false,
@@ -51,36 +51,37 @@ export default defineComponent({
       value: { context },
     } = state;
 
-    let uName = ref("");
+    let uName = ref('');
 
     if (props.userName) {
       uName = computed(() => props.userName);
     }
 
-    const error = context.validationError["username"];
-    const loginMechanisms = context.config?.login_mechanisms ?? ["username"];
+    const error = context.validationError['username'];
+    const loginMechanisms = context.config?.login_mechanisms ?? ['username'];
 
     const [primaryAlias] = useAliases(context?.config?.login_mechanisms);
 
     let name = primaryAlias;
-    let label = UserNameAliasNames[primaryAlias].name;
-    let type = UserNameAliasNames[name].type;
+    let label = authInputAttributes[primaryAlias].label;
+    let type = authInputAttributes[name].type;
 
     // Only show for Sign In
     if (props.userNameAlias) {
       label = loginMechanisms
         .map(
-          v =>
-            UserNameAliasNames[v]?.name ?? UserNameAliasNames["username"].name
+          (v) =>
+            authInputAttributes[v]?.label ??
+            authInputAttributes['username'].label
         )
-        .join(" or ");
+        .join(' or ');
 
       if (loginMechanisms.length === 1) {
-        type = UserNameAliasNames[loginMechanisms[0]]?.type ?? "text";
+        type = authInputAttributes[loginMechanisms[0]]?.type ?? 'text';
       } else {
-        type = "text";
+        type = 'text';
       }
-      name = "username";
+      name = 'username';
     }
 
     return { label, name, type, error, uName };

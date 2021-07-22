@@ -3,7 +3,7 @@ import { includes } from 'lodash';
 import { useAmplify, useAuth } from '@aws-amplify/ui-react';
 
 import {
-  UserNameAliasNames,
+  authInputAttributes,
   socialProviderLoginMechanisms,
 } from '@aws-amplify/ui-core';
 
@@ -57,7 +57,7 @@ export function SignUp() {
 
       <Fieldset>
         <SignUp.AliasControl
-          label={UserNameAliasNames[primaryAlias].name}
+          label={authInputAttributes[primaryAlias].label}
           name={primaryAlias}
         />
         <SignUp.PasswordControl />
@@ -67,7 +67,7 @@ export function SignUp() {
           .map((alias) => (
             <SignUp.AliasControl
               key={alias}
-              label={UserNameAliasNames[alias].name}
+              label={authInputAttributes[alias].label}
               name={alias}
             />
           ))}
@@ -108,7 +108,7 @@ SignUp.AliasControl = ({
           name={name}
           placeholder={placeholder}
           required
-          type={UserNameAliasNames[name].type}
+          type={authInputAttributes[name].type}
         />
       </Label>
       <ErrorText>{error}</ErrorText>

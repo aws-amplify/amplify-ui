@@ -1,24 +1,34 @@
 import { includes } from 'lodash';
 import { AuthContext } from '..';
-import {} from '../types';
+import { AuthInputAttributes, userNameAliasArray } from '../types';
 
 export const socialProviderLoginMechanisms = ['amazon', 'google', 'facebook'];
 
-export const UserNameAliasNames = {
+export const authInputAttributes: AuthInputAttributes = {
   username: {
-    name: 'Username',
+    label: 'Username',
     type: 'text',
     placeholder: '+1 (555) 555-1212',
   },
   email: {
-    name: 'Email',
+    label: 'Email',
     type: 'email',
     placeholder: 'Enter your email',
   },
   phone_number: {
-    name: 'Phone Number',
+    label: 'Phone Number',
     type: 'tel',
     placeholder: 'Enter your phone number',
+  },
+  code: {
+    label: 'Confirmation Code',
+    placeholder: 'Enter your confirmation code',
+    type: 'number',
+  },
+  password: {
+    label: 'Password',
+    placeholder: 'Enter your password',
+    type: 'password',
   },
 };
 
@@ -32,14 +42,15 @@ export const getAliasInfoFromContext = (context: AuthContext) => {
 
   let type = 'text';
   const label = loginMechanisms
-    .filter((mechanism) => !includes(socialProviderLoginMechanisms, mechanism))
+    .filter((mechanism) => includes(userNameAliasArray, mechanism))
     .map(
-      (v) => UserNameAliasNames[v]?.name ?? UserNameAliasNames['username'].name
+      (v) =>
+        authInputAttributes[v]?.label ?? authInputAttributes['username'].label
     )
     .join(' or ');
 
   if (loginMechanisms.length === 1) {
-    type = UserNameAliasNames[loginMechanisms[0]]?.type ?? 'text';
+    type = authInputAttributes[loginMechanisms[0]]?.type ?? 'text';
   }
 
   return { label, type, error };

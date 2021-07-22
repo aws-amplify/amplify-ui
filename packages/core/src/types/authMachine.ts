@@ -35,6 +35,25 @@ export enum AuthChallengeNames {
   MFA_SETUP = 'MFA_SETUP',
 }
 
+export interface InputAttributes {
+  label: string;
+  type: string;
+  placeholder: string;
+}
+
+export const userNameAliasArray = [
+  'username',
+  'email',
+  'phone_number',
+] as const;
+
+export type UserNameAlias = typeof userNameAliasArray[number];
+
+// other non-alias inputs that Cognito would require
+export type AuthInputNames = UserNameAlias | 'code' | 'password';
+
+export type AuthInputAttributes = Record<AuthInputNames, InputAttributes>;
+
 export interface AuthEvent {
   type: AuthEventTypes;
   data?: any; // TODO: strongly type data for each AuthEventType

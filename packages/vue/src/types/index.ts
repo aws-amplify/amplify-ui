@@ -1,5 +1,6 @@
 import { Ref, ComputedRef } from 'vue';
 import { PayloadSender, EventObject } from 'xstate';
+import { AuthInputAttributes } from '../../../core';
 
 export interface SetupEventContext {
   emit: (eventName: string, payload?: unknown) => void;
@@ -45,7 +46,7 @@ export interface SignUpSetupReturnTypes {
   haveAccountLabel: ComputedRef<string>;
   createAccountLabel: ComputedRef<string>;
   signUpButtonText: ComputedRef<string>;
-  userNameAliasNames: ComputedRef<UserNameAliasNamesTypes>;
+  authInputAttributes: ComputedRef<AuthInputAttributes>;
 }
 
 export interface ConfirmPasswordSetupReturnTypes {
@@ -92,16 +93,5 @@ export interface AuthenticatorSetupReturnTypes {
 }
 
 export interface AliasControlTypes {
-  userNameAliasNames: ComputedRef<UserNameAliasNamesTypes>;
-}
-
-export interface UserNameAliasNameT {
-  name: string;
-  type: string;
-  placeholder: string;
-}
-export interface UserNameAliasNamesTypes {
-  username: UserNameAliasNameT;
-  email: UserNameAliasNameT;
-  phone_number: UserNameAliasNameT;
+  authInputAttributes: ComputedRef<AuthInputAttributes>;
 }
