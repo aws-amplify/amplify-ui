@@ -44,9 +44,7 @@ export default defineComponent({
   },
   setup(): AliasControlTypes {
     //computed
-    const authInputAttributes = computed(() => authInputAttributes);
-
-    return { authInputAttributes };
+    return { authInputAttributes: computed(() => authInputAttributes) };
   },
 });
 </script>
