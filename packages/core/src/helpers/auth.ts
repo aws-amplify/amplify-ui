@@ -32,6 +32,12 @@ export const authInputAttributes: AuthInputAttributes = {
   },
 };
 
+export enum FederatedIdentityProviders {
+  Amazon = 'LoginWithAmazon',
+  Facebook = 'Facebook',
+  Google = 'Google',
+}
+
 /**
  * Given xstate context from AuthMachine, this returns the input label, type,
  * and error attributes of the configured login_mechanisms.
