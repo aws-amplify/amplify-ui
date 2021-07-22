@@ -1,4 +1,5 @@
 import { Property } from 'csstype';
+import React from 'react';
 import { FlexStyleProps } from './flex';
 import { ImageStyleProps } from './image';
 

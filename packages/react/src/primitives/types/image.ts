@@ -1,4 +1,5 @@
 import { Property } from 'csstype';
+import React from 'react';
 
 import { BaseComponentProps } from './base';
 import { BaseStyleProps } from './style';

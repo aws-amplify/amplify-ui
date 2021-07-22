@@ -1,5 +1,3 @@
-import React from 'react';
-
 // Base component definition
 export interface BaseComponentProps {
   id?: string;

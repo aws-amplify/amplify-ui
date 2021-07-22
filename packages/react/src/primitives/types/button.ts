@@ -1,3 +1,4 @@
+import React from 'react';
 import { AriaProps, BaseComponentProps } from './base';
 
 export type ButtonSize = 'small' | 'medium' | 'large';
