@@ -38,7 +38,7 @@ export default defineComponent({
       type: String,
     },
     placeholder: {
-      default: (props) => props.label,
+      default: props => props.label,
       type: String,
     },
   },

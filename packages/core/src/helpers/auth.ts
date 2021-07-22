@@ -42,9 +42,9 @@ export const getAliasInfoFromContext = (context: AuthContext) => {
 
   let type = 'text';
   const label = loginMechanisms
-    .filter((mechanism) => includes(userNameAliasArray, mechanism))
+    .filter(mechanism => includes(userNameAliasArray, mechanism))
     .map(
-      (v) =>
+      v =>
         authInputAttributes[v]?.label ?? authInputAttributes['username'].label
     )
     .join(' or ');
