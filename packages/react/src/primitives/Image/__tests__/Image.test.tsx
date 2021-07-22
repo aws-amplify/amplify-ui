@@ -27,7 +27,7 @@ describe('Image: ', () => {
     const htmlWidth = 480;
     render(
       <Image
-        id="dataTest"
+        testId="dataTest"
         alt={altText}
         src={src}
         srcSet={srcSet}
@@ -79,7 +79,7 @@ describe('Image: ', () => {
   });
 
   it('can render any arbitrary data-* attribute', async () => {
-    render(<Image data-cat="true" id="dataTest" alt={altText} src={src} />);
+    render(<Image data-cat="true" testId="dataTest" alt={altText} src={src} />);
     const image = await screen.findByTestId('dataTest');
     expect(image.dataset['cat']).toBe('true');
   });
@@ -94,7 +94,7 @@ describe('Image: ', () => {
         opacity="0.5"
         objectFit="cover"
         objectPosition="top left"
-        id="stylingTest"
+        testId="stylingTest"
       />
     );
 
