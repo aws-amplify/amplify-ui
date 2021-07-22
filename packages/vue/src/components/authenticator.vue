@@ -146,6 +146,25 @@
         </slot>
       </template>
     </confirm-sign-in>
+
+    <setup-totp
+      v-if="state?.matches('setupTOTP')"
+      @confirm-setup-totp-submit="onConfirmSetupTOTPSubmitI"
+      ref="confirmSetupTOTPComponent"
+    >
+      <template #confirmSetupTOTPI>
+        <slot name="confirm-setup-totp"></slot>
+      </template>
+      <template #footer="{ info, onSetupTOTPSubmit, onBackToSignInClicked }">
+        <slot
+          name="sign-in-footer"
+          :info="info"
+          :onSetupTOTPSubmit="onSetupTOTPSubmit"
+          :onBackToSignInClicked="onBackToSignInClicked"
+        >
+        </slot>
+      </template>
+    </setup-totp>
   </div>
 
   <slot
@@ -161,6 +180,7 @@ import SignIn from './sign-in.vue';
 import SignUp from './sign-up.vue';
 import ConfirmSignUp from './confirm-sign-up.vue';
 import ConfirmSignIn from './confirm-sign-in.vue';
+import SetupTotp from './setup-totp.vue';
 
 import { useAuth } from '../composables/useAuth';
 import {
@@ -175,6 +195,7 @@ export default {
     SignUp,
     ConfirmSignUp,
     ConfirmSignIn,
+    SetupTotp,
   },
   setup(
     _,
@@ -184,12 +205,14 @@ export default {
     signUpComponent: typeof SignUp;
     confirmSignUpComponent: typeof ConfirmSignUp;
     confirmSignInComponent: typeof ConfirmSignIn;
+    confirmSetupTOTPComponent: typeof SetupTotp;
   } {
     const { state, send } = useAuth();
     const signInComponent = ref(null);
     const signUpComponent = ref(null);
     const confirmSignUpComponent = ref(null);
     const confirmSignInComponent = ref(null);
+    const confirmSetupTOTPComponent = ref(null);
 
     const currentPage = ref('SIGNIN');
 
@@ -219,6 +242,14 @@ export default {
       }
     };
 
+    const onConfirmSetupTOTPSubmitI = (e: Event) => {
+      if (attrs?.onConfirmSetupTOTPSubmit) {
+        emit('confirmSetupTOTPSubmit', e);
+      } else {
+        confirmSetupTOTPComponent.value.submit(e);
+      }
+    };
+
     const onSignUpSubmitI = (e: Event) => {
       if (attrs?.onSignUpSubmit) {
         emit('signUpSubmit', e);
@@ -237,8 +268,10 @@ export default {
       onSignUpSubmitI,
       confirmSignUpComponent,
       confirmSignInComponent,
+      confirmSetupTOTPComponent,
       onConfirmSignInSubmitI,
       onConfirmSignUpSubmitI,
+      onConfirmSetupTOTPSubmitI,
       send,
     };
   },
