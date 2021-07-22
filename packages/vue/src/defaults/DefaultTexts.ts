@@ -23,6 +23,7 @@ export const LOST_YOUR_CODE_TEXT = 'Lost your code?';
 export const RESEND_CODE_TEXT = 'Resend Code';
 export const BACK_SIGN_IN_TEXT = 'Back to Sign In';
 export const CONFIRM_TEXT = 'CONFIRM';
+export const SETUP_TOTP_TEXT = 'Setup TOTP';
 
 export const UserNameAliasNames = {
   username: { name: 'Username', type: 'text', placeholder: 'Username' },
