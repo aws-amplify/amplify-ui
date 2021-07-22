@@ -6,7 +6,7 @@ export const authInputAttributes: AuthInputAttributes = {
   username: {
     label: 'Username',
     type: 'text',
-    placeholder: '+1 (555) 555-1212',
+    placeholder: 'Enter your username',
   },
   email: {
     label: 'Email',
@@ -46,9 +46,9 @@ export const getAliasInfoFromContext = (context: AuthContext) => {
 
   let type = 'text';
   const label = loginMechanisms
-    .filter(mechanism => includes(userNameAliasArray, mechanism))
+    .filter((mechanism) => includes(userNameAliasArray, mechanism))
     .map(
-      v =>
+      (v) =>
         authInputAttributes[v]?.label ?? authInputAttributes['username'].label
     )
     .join(' or ');
