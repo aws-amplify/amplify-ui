@@ -157,6 +157,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
             },
           },
           submit: {
+            entry: 'clearError',
             invoke: {
               src: 'confirmSignIn',
               onDone: {
