@@ -17,7 +17,10 @@
 
 <script lang="ts">
 import { defineComponent, ref, computed } from 'vue';
-import { authInputAttributes } from '@aws-amplify/ui-core';
+import {
+  authInputAttributes,
+  getAliasInfoFromContext,
+} from '@aws-amplify/ui-core';
 
 import BaseInput from './primitives/base-input.vue';
 import BaseLabel from './primitives/base-label.vue';
@@ -58,7 +61,6 @@ export default defineComponent({
     }
 
     const error = context.validationError['username'];
-    const loginMechanisms = context.config?.login_mechanisms ?? ['username'];
 
     const [primaryAlias] = useAliases(context?.config?.login_mechanisms);
 
@@ -68,19 +70,9 @@ export default defineComponent({
 
     // Only show for Sign In
     if (props.userNameAlias) {
-      label = loginMechanisms
-        .map(
-          (v) =>
-            authInputAttributes[v]?.label ??
-            authInputAttributes['username'].label
-        )
-        .join(' or ');
-
-      if (loginMechanisms.length === 1) {
-        type = authInputAttributes[loginMechanisms[0]]?.type ?? 'text';
-      } else {
-        type = 'text';
-      }
+      const aliasInfo = getAliasInfoFromContext(context);
+      label = aliasInfo.label;
+      type = aliasInfo.type;
       name = 'username';
     }
 
