@@ -67,3 +67,15 @@ This environment was created differently than others due to a bug in the Amplify
 1. Copy the command and paste it in your terminal when you are ready to pull down the app. NOTE - do not pass the `--yes` flag to this command like other environments in this package will tell you to do. There is a bug in the CLI here that can cause failures if you do so. Instead, manually configure each step of the process, and when you get to the step that asks `Do you plan on modifying this backend?`, enter `Y`.
 
 ![screenshot of command being run](screenshots/cli-command.png)
+
+External contributors can re-create this backend by running:
+
+```shell
+amplify pull
+```
+
+Internal (Amplify UI team) contributors can use this backend directly by running:
+
+```shell
+amplify pull --appId d3cbhlqhrq2d8 --envName staging
+```

@@ -89,6 +89,7 @@ export interface AuthenticatorSetupReturnTypes {
   onSignUpSubmitI: (e: Event) => void;
   onConfirmSignUpSubmitI: (e: Event) => void;
   onConfirmSignInSubmitI: (e: Event) => void;
+  onConfirmSetupTOTPSubmitI: (e: Event) => void;
 }
 
 export interface AliasControlTypes {
