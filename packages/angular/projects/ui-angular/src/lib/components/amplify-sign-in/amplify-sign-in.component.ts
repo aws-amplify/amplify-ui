@@ -39,7 +39,7 @@ export class AmplifySignInComponent
   ) {}
 
   ngOnInit(): void {
-    this.authSubscription = this.stateMachine.authService.subscribe((state) =>
+    this.authSubscription = this.stateMachine.authService.subscribe(state =>
       this.onStateUpdate(state)
     );
   }
@@ -77,6 +77,12 @@ export class AmplifySignInComponent
 
   async onSubmit(event: Event): Promise<void> {
     event.preventDefault();
-    this.stateMachine.send('SUBMIT');
+    const formValues = this.stateMachine.authState.context.formValues;
+    logger.log('Sign in form submitted with', formValues);
+
+    this.stateMachine.send({
+      type: 'SUBMIT',
+      data: formValues,
+    });
   }
 }

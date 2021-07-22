@@ -431,8 +431,8 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
       async getAmplifyConfig() {
         return Amplify.configure();
       },
-      async signIn(context, _event) {
-        const { username, password } = context.formValues;
+      async signIn(_context, event) {
+        const { username, password } = event.data;
 
         return Auth.signIn(username, password);
       },
