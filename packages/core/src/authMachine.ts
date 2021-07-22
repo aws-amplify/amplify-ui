@@ -75,6 +75,11 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
                   target: '#auth.confirmSignIn',
                 },
                 {
+                  cond: 'shouldForceChangePassword',
+                  actions: ['setUser', 'setChallengeName'],
+                  target: '#auth.forceNewPassword',
+                },
+                {
                   actions: 'setUser',
                   target: 'resolved',
                 },
@@ -135,6 +140,45 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
           rejected: {
             // TODO Set errors and go back to `idle`?
             always: 'edit.error',
+          },
+        },
+      },
+      forceNewPassword: {
+        initial: 'edit',
+        exit: ['clearFormValues, clearError'],
+        onDone: 'idle',
+        states: {
+          edit: {
+            initial: 'clean',
+            states: {
+              clean: {},
+              error: {},
+            },
+            on: {
+              SUBMIT: 'submit',
+              SIGN_IN: '#auth.signIn',
+              INPUT: { actions: 'handleInput' },
+            },
+          },
+          submit: {
+            entry: 'clearError',
+            invoke: {
+              src: 'forceNewPassword',
+              onDone: {
+                actions: ['setUser', 'clearChallengeName'],
+                target: 'resolved',
+              },
+              onError: {
+                actions: 'setRemoteError',
+                target: 'rejected',
+              },
+            },
+          },
+          rejected: {
+            always: 'edit.error',
+          },
+          resolved: {
+            type: 'final',
           },
         },
       },
@@ -400,7 +444,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
     },
     // See: https://xstate.js.org/docs/guides/guards.html#guards-condition-functions
     guards: {
-      shouldConfirmSignIn: (context, event) => {
+      shouldConfirmSignIn: (context, event): boolean => {
         const challengeName = get(event, 'data.challengeName');
         const validChallengeNames = [
           AuthChallengeNames.SMS_MFA,
@@ -409,13 +453,18 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
 
         return validChallengeNames.includes(challengeName);
       },
-      shouldSetupTOTP: (context, event) => {
+      shouldSetupTOTP: (context, event): boolean => {
         const challengeName = get(event, 'data.challengeName');
 
         return challengeName === AuthChallengeNames.MFA_SETUP;
       },
-      shouldRedirectToConfirmSignUp: (context, event) => {
+      shouldRedirectToConfirmSignUp: (context, event): boolean => {
         return event.data.code === 'UserNotConfirmedException';
+      },
+      shouldForceChangePassword: (context, event): boolean => {
+        const challengeName = get(event, 'data.challengeName');
+
+        return challengeName === AuthChallengeNames.NEW_PASSWORD_REQUIRED;
       },
     },
     services: {
@@ -506,6 +555,14 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
       },
       async signOut() {
         await Auth.signOut(/* global? */);
+      },
+      async forceNewPassword(context, event) {
+        const { user } = context;
+        const password = get(event, 'data.password');
+
+        const result = await Auth.completeNewPassword(user, password);
+
+        return result;
       },
     },
   }
