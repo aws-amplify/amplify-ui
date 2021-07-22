@@ -1,7 +1,7 @@
 import { AriaProps, BaseComponentProps } from './base';
 import { BaseStyleProps } from './style';
 import { Property } from 'csstype';
-
+import { AriaRole } from 'react';
 export type ViewAsHTMLElementTypes = keyof JSX.IntrinsicElements;
 
 export interface ViewProps
@@ -10,7 +10,7 @@ export interface ViewProps
     AriaProps {
   as?: ViewAsHTMLElementTypes;
 
-  role?: string;
+  role?: AriaRole;
 
   isDisabled?: boolean;
 

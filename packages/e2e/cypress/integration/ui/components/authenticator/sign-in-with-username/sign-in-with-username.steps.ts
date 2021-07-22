@@ -5,11 +5,11 @@ Given("I'm at the sign in page", () => {
 });
 
 When('I type the valid username {string}', (username: string) => {
-  cy.findByRole('textbox').type(Cypress.env(username));
+  cy.findByRole('textbox', { name: /username/i }).type(Cypress.env(username));
 });
 
 And('I type the valid password {string}', (password: string) => {
-  cy.findByPlaceholderText(/enter your password/i).type(Cypress.env(password));
+  cy.findByLabelText(/password/i).type(Cypress.env(password));
 });
 
 And('I click the {string} button', (name: string) => {

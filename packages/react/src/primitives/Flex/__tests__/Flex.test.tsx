@@ -59,7 +59,7 @@ describe('Flex: ', () => {
 
   it('can render any arbitrary data-* attribute', async () => {
     render(
-      <Flex data-demo="true" id="dataTest">
+      <Flex data-demo="true" testId="dataTest">
         {flexText}
       </Flex>
     );

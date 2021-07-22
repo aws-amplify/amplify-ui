@@ -4,6 +4,7 @@ export * from './Card';
 export * from './Collection';
 export * from './Divider';
 export * from './Flex';
+export * from './Heading';
 export * from './Image';
 export * from './Text';
 export * from './View';
@@ -34,12 +35,6 @@ export function Form(props) {
 
 export function Header(props) {
   return <header data-amplify-header="" {...props} />;
-}
-
-export function Heading({ level = 1, ...props }) {
-  const H = `h${level}`;
-
-  return <H data-amplify-heading="" {...props} />;
 }
 
 export function Input(props) {

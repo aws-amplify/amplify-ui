@@ -1,17 +1,44 @@
 import { includes } from 'lodash';
 import { AuthContext } from '..';
+import { AuthInputAttributes, userNameAliasArray } from '../types';
 
-export const socialProviderLoginMechanisms = ['amazon', 'google', 'facebook'];
-
-export const UserNameAliasNames = {
-  username: { name: 'Username', type: 'text' },
-  email: { name: 'Email', type: 'email' },
-  phone_number: { name: 'Phone Number', type: 'tel' },
+export const authInputAttributes: AuthInputAttributes = {
+  username: {
+    label: 'Username',
+    type: 'text',
+    placeholder: 'Enter your username',
+  },
+  email: {
+    label: 'Email',
+    type: 'email',
+    placeholder: 'Enter your email',
+  },
+  phone_number: {
+    label: 'Phone Number',
+    type: 'tel',
+    placeholder: 'Enter your phone number',
+  },
+  code: {
+    label: 'Confirmation Code',
+    placeholder: 'Enter your confirmation code',
+    type: 'number',
+  },
+  password: {
+    label: 'Password',
+    placeholder: 'Enter your password',
+    type: 'password',
+  },
 };
 
+export enum FederatedIdentityProviders {
+  Amazon = 'LoginWithAmazon',
+  Facebook = 'Facebook',
+  Google = 'Google',
+}
+
 /**
- * Given xstate context from AuthMachine, returns proper input type, label, and
- * associated error.
+ * Given xstate context from AuthMachine, this returns the input label, type,
+ * and error attributes of the configured login_mechanisms.
  */
 export const getAliasInfoFromContext = (context: AuthContext) => {
   const loginMechanisms = context.config?.login_mechanisms ?? ['username'];
@@ -19,14 +46,15 @@ export const getAliasInfoFromContext = (context: AuthContext) => {
 
   let type = 'text';
   const label = loginMechanisms
-    .filter((mechanism) => !includes(socialProviderLoginMechanisms, mechanism))
+    .filter((mechanism) => includes(userNameAliasArray, mechanism))
     .map(
-      (v) => UserNameAliasNames[v]?.name ?? UserNameAliasNames['username'].name
+      (v) =>
+        authInputAttributes[v]?.label ?? authInputAttributes['username'].label
     )
     .join(' or ');
 
   if (loginMechanisms.length === 1) {
-    type = UserNameAliasNames[loginMechanisms[0]]?.type ?? 'text';
+    type = authInputAttributes[loginMechanisms[0]]?.type ?? 'text';
   }
 
   return { label, type, error };

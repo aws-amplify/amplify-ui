@@ -1,10 +1,6 @@
 import { Component, Input } from '@angular/core';
-import {
-  InputType,
-  getAttributeMap,
-  AttributeInfo,
-  isInputType,
-} from '../../common';
+import { AuthInputAttributes } from '@aws-amplify/ui-core';
+import { getAttributeMap } from '../../common';
 import { StateMachineService } from '../../services';
 
 /**
@@ -18,7 +14,7 @@ import { StateMachineService } from '../../services';
 export class AmplifyInputComponent {
   @Input() name: string;
   // TODO: Separate entry for id
-  @Input() type: InputType;
+  @Input() type: string;
   @Input() required = false;
   @Input() placeholder = '';
   @Input() label = '';
@@ -27,7 +23,7 @@ export class AmplifyInputComponent {
 
   constructor(private stateMachine: StateMachineService) {}
 
-  get attributeMap(): Record<string, AttributeInfo> {
+  get attributeMap(): AuthInputAttributes {
     return getAttributeMap();
   }
 
@@ -37,16 +33,7 @@ export class AmplifyInputComponent {
   }
 
   // infers what the `type` of underlying input element should be.
-  inferInputType(): InputType {
-    if (this.type) {
-      // if type is explicitly defined, use that.
-      return this.type;
-    } else if (this.name && isInputType(this.name)) {
-      // if the input name is also a valid input type, use that.
-      // e.g. type of <input name="password"> will be password.
-      return this.name;
-    } else {
-      return 'text';
-    }
+  inferInputType(): string {
+    return this.attributeMap[this.name]?.type ?? 'text';
   }
 }

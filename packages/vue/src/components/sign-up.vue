@@ -20,9 +20,9 @@
           </base-box>
           <template v-for="(alias, idx) in secondaryAliases" :key="idx">
             <alias-control
-              :label="userNameAliasNames[alias].name"
+              :label="inputAttributes[alias].label"
               :name="alias"
-              :placeholder="userNameAliasNames[alias].placeholder"
+              :placeholder="inputAttributes[alias].placeholder"
             />
           </template>
         </base-field-set>
@@ -61,6 +61,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, watch, computed } from 'vue';
+import { authInputAttributes } from '@aws-amplify/ui-core';
 
 import BaseForm from './primitives/base-form.vue';
 import BaseBox from './primitives/base-box.vue';
@@ -81,7 +82,6 @@ import {
   HAVE_ACCOUNT_LABEL,
   CREATE_ACCOUNT_LABEL,
   SIGN_UP_BUTTON_TEXT,
-  UserNameAliasNames,
 } from '../defaults/DefaultTexts';
 
 import { useAuth } from '../composables/useAuth';
@@ -128,7 +128,7 @@ export default defineComponent({
     const haveAccountLabel = computed(() => HAVE_ACCOUNT_LABEL);
     const createAccountLabel = computed(() => CREATE_ACCOUNT_LABEL);
     const signUpButtonText = computed(() => SIGN_UP_BUTTON_TEXT);
-    const userNameAliasNames = computed(() => UserNameAliasNames);
+    const inputAttributes = computed(() => authInputAttributes);
 
     // watchers
 
@@ -183,7 +183,7 @@ export default defineComponent({
       haveAccountLabel,
       createAccountLabel,
       signUpButtonText,
-      userNameAliasNames,
+      inputAttributes,
     };
   },
 });

@@ -4,7 +4,7 @@
     <base-input
       :name="name"
       required
-      :type="userNameAliasNames[name].type"
+      :type="inputAttributes[name].type"
       :placeholder="placeholder"
     ></base-input>
   </base-label>
@@ -12,12 +12,12 @@
 
 <script lang="ts">
 import { defineComponent, computed } from "vue";
+import { authInputAttributes } from "@aws-amplify/ui-core";
 
 import BaseInput from "./primitives/base-input.vue";
 import BaseText from "./primitives/base-text.vue";
 import BaseLabel from "./primitives/base-label.vue";
 
-import { UserNameAliasNames } from "../defaults/DefaultTexts";
 import { AliasControlTypes } from "../types";
 
 export default defineComponent({
@@ -44,9 +44,9 @@ export default defineComponent({
   },
   setup(): AliasControlTypes {
     //computed
-    const userNameAliasNames = computed(() => UserNameAliasNames);
+    const inputAttributes = computed(() => authInputAttributes);
 
-    return { userNameAliasNames };
+    return { inputAttributes };
   },
 });
 </script>

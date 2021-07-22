@@ -7,6 +7,7 @@ Feature: Sign In with TOTP MFA
   Background:
     Given I'm running the example "ui/components/authenticator/sign-in-totp-mfa"
 
+  @Vue
   @React @skip
   Scenario: Sign in using a valid email and TOTP MFA
     When I type a valid email "VALID_EMAIL"
@@ -14,6 +15,7 @@ Feature: Sign In with TOTP MFA
     And I click the "Sign In" button
     Then I will be redirected to the confirm totp mfa page
     
+  @Vue
   @React
   Scenario: Sign in with invalid credentials
     When I type an invalid email "INVALID_EMAIL"
@@ -21,6 +23,7 @@ Feature: Sign In with TOTP MFA
     And I click the "Sign In" button
     Then I see "User does not exist"
 
+  @Vue
   @React @skip
   Scenario: Sign in with valid credentials that have not set up TOTP MFA
     When I type a valid email "VALID_EMAIL_SETUP_MFA"

@@ -22,6 +22,10 @@
   @apply space-y-2;
 }
 
+[data-amplify-confirmationcode] {
+  @apply grid;
+}
+
 [data-amplify-wrapper] [data-amplify-password] [data-amplify-box] {
   @apply flex flex-row space-x-1;
 }
