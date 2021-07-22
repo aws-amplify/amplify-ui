@@ -33,8 +33,8 @@ export const authInputAttributes: AuthInputAttributes = {
 };
 
 /**
- * Given xstate context from AuthMachine, returns proper input type, label, and
- * associated error.
+ * Given xstate context from AuthMachine, this returns the input label, type,
+ * and error attributes of the configured login_mechanisms.
  */
 export const getAliasInfoFromContext = (context: AuthContext) => {
   const loginMechanisms = context.config?.login_mechanisms ?? ['username'];
