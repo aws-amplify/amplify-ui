@@ -128,7 +128,7 @@ export default defineComponent({
     const haveAccountLabel = computed(() => HAVE_ACCOUNT_LABEL);
     const createAccountLabel = computed(() => CREATE_ACCOUNT_LABEL);
     const signUpButtonText = computed(() => SIGN_UP_BUTTON_TEXT);
-    const authInputAttributes = computed(() => authInputAttributes);
+    const inputAttributes = computed(() => authInputAttributes);
 
     // watchers
 
@@ -183,7 +183,7 @@ export default defineComponent({
       haveAccountLabel,
       createAccountLabel,
       signUpButtonText,
-      authInputAttributes,
+      inputAttributes,
     };
   },
 });
