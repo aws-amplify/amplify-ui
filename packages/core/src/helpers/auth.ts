@@ -2,8 +2,6 @@ import { includes } from 'lodash';
 import { AuthContext } from '..';
 import { AuthInputAttributes, userNameAliasArray } from '../types';
 
-export const socialProviderLoginMechanisms = ['amazon', 'google', 'facebook'];
-
 export const authInputAttributes: AuthInputAttributes = {
   username: {
     label: 'Username',

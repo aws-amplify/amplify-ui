@@ -3,7 +3,6 @@ import { Interpreter, State } from 'xstate';
 import { ValidationError } from './validator';
 
 export type AuthFormData = Record<string, string>;
-
 export interface AuthContext {
   remoteError?: string; // contains Amplify or Cognito error
   validationError?: ValidationError; // contains validation error for each input
@@ -48,6 +47,8 @@ export const userNameAliasArray = [
 ] as const;
 
 export type UserNameAlias = typeof userNameAliasArray[number];
+
+export const socialProviderLoginMechanisms = ['amazon', 'google', 'facebook'];
 
 // other non-alias inputs that Cognito would require
 export type AuthInputNames = UserNameAlias | 'code' | 'password';
