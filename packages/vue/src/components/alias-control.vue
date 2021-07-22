@@ -4,7 +4,7 @@
     <base-input
       :name="name"
       required
-      :type="authInputAttributes[name].type"
+      :type="inputAttributes[name].type"
       :placeholder="placeholder"
     ></base-input>
   </base-label>

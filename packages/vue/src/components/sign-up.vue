@@ -20,9 +20,9 @@
           </base-box>
           <template v-for="(alias, idx) in secondaryAliases" :key="idx">
             <alias-control
-              :label="authInputAttributes[alias].label"
+              :label="inputAttributes[alias].label"
               :name="alias"
-              :placeholder="authInputAttributes[alias].placeholder"
+              :placeholder="inputAttributes[alias].placeholder"
             />
           </template>
         </base-field-set>
