@@ -1,6 +1,6 @@
-import { Ref, ComputedRef } from "vue";
-import { PayloadSender, EventObject } from "xstate";
-import { AuthInputAttributes } from "../../../core";
+import { Ref, ComputedRef } from 'vue';
+import { PayloadSender, EventObject } from 'xstate';
+import { AuthInputAttributes } from '@aws-amplify/ui-core';
 
 export interface SetupEventContext {
   emit: (eventName: string, payload?: unknown) => void;
