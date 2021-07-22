@@ -27,7 +27,7 @@ describe('Collection component', () => {
 
   it('should render Flex when rendering list collection', async () => {
     render(
-      <Collection id={testList} type="list" items={emojis}>
+      <Collection testId={testList} type="list" items={emojis}>
         {(item, index) => (
           <div key={index} aria-label={item.title}>
             {item.emoji}
@@ -48,7 +48,7 @@ describe('Collection component', () => {
     render(
       <Collection
         className="custom-collection"
-        id={testList}
+        testId={testList}
         type="list"
         items={emojis}
       >
@@ -68,7 +68,7 @@ describe('Collection component', () => {
       <Collection
         className="custom-collection"
         data-demo={true}
-        id={testList}
+        testId={testList}
         type="list"
         items={emojis}
       >

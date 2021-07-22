@@ -9,6 +9,7 @@ export const View: React.FC<ViewProps> = (props) => {
     children,
     role,
     id,
+    testId,
     ariaLabel,
     isDisabled,
     htmlWidth,
@@ -22,7 +23,7 @@ export const View: React.FC<ViewProps> = (props) => {
     <ViewTag
       aria-label={ariaLabel}
       className={className}
-      data-testid={id}
+      data-testid={testId}
       disabled={isDisabled}
       height={htmlHeight}
       id={id}
