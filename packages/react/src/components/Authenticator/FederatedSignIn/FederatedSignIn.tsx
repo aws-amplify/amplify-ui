@@ -1,9 +1,9 @@
 import { get, includes } from 'lodash';
 
 import { useAmplify, useAuth } from '@aws-amplify/ui-react';
+import { FederatedIdentityProviders } from '@aws-amplify/ui-core';
 
 import { FederatedSignInButton } from './FederatedSignInButtons';
-import { FederatedIdentityProviders } from '../types';
 
 export const FederatedSignIn = (): JSX.Element => {
   const [{ context }] = useAuth();

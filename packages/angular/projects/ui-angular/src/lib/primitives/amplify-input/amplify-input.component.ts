@@ -1,11 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { ControlContainer, FormGroupDirective } from '@angular/forms';
-import {
-  InputType,
-  getAttributeMap,
-  AttributeInfo,
-  isInputType,
-} from '../../common';
+import { AuthInputAttributes } from '@aws-amplify/ui-core';
+import { getAttributeMap } from '../../common';
 
 /**
  * Contains an input element and its label. Intended to be used with
@@ -22,7 +18,7 @@ import {
 export class AmplifyInputComponent {
   @Input() name: string;
   // TODO: Separate entry for id
-  @Input() type: InputType;
+  @Input() type: string;
   @Input() required = false;
   @Input() placeholder = '';
   @Input() label = '';
@@ -31,21 +27,12 @@ export class AmplifyInputComponent {
 
   constructor() {}
 
-  get attributeMap(): Record<string, AttributeInfo> {
+  get attributeMap(): AuthInputAttributes {
     return getAttributeMap();
   }
 
   // infers what the `type` of underlying input element should be.
-  inferInputType(): InputType {
-    if (this.type) {
-      // if type is explicitly defined, use that.
-      return this.type;
-    } else if (this.name && isInputType(this.name)) {
-      // if the input name is also a valid input type, use that.
-      // e.g. type of <input name="password"> will be password.
-      return this.name;
-    } else {
-      return 'text';
-    }
+  inferInputType(): string {
+    return this.attributeMap[this.name]?.type ?? 'text';
   }
 }
