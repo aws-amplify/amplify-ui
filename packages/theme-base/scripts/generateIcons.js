@@ -2,7 +2,7 @@ const glob = require('glob');
 const fs = require('fs-extra');
 const { pascalCase } = require('change-case');
 
-const dirPath = `dist/react-icons/`;
+const dirPath = `../react/src/primitives/Icon/icons/`; // build to @aws-amplify/ui-react package
 const iconSetPath = '../../material-design-icons/svg/**/materialicons/*.svg';
 const iconNames = [];
 // Material icon set has 2 icons(addchart and add_chart) that only differ in casing
@@ -54,5 +54,5 @@ export const ${iconName} = (props) => {
     })
     .join(`\n`);
   fs.ensureDirSync(dirPath);
-  fs.writeFileSync(`${dirPath}index.tsx`, iconExportsFile);
+  fs.writeFileSync(`${dirPath}index.ts`, iconExportsFile);
 });
