@@ -1,4 +1,4 @@
-import { AuthChallengeNames } from '@aws-amplify/ui-core';
+import { AuthChallengeNames } from '@aws-amplify/ui-core/dist';
 import { useAmplify, useAuth } from '@aws-amplify/ui-react';
 
 import {

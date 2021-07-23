@@ -1,7 +1,7 @@
 import { get, includes } from 'lodash';
 
 import { useAmplify, useAuth } from '@aws-amplify/ui-react';
-import { FederatedIdentityProviders } from '@aws-amplify/ui-core';
+import { FederatedIdentityProviders } from '@aws-amplify/ui-core/dist';
 
 import { FederatedSignInButton } from './FederatedSignInButtons';
 

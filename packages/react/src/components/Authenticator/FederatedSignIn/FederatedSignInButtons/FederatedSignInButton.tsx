@@ -1,5 +1,5 @@
 import { useAmplify, useAuth } from '@aws-amplify/ui-react';
-import { FederatedIdentityProviders } from '@aws-amplify/ui-core';
+import { FederatedIdentityProviders } from '@aws-amplify/ui-core/dist';
 
 export interface FederatedSignInButtonProps {
   provider: FederatedIdentityProviders;
