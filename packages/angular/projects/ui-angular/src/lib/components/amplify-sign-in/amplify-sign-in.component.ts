@@ -73,8 +73,7 @@ export class AmplifySignInComponent
 
   async onSubmit(event: Event): Promise<void> {
     event.preventDefault();
-    const formValues = this.stateMachine.authState.context.formValues;
-    logger.log('Sign in form submitted with', formValues);
+    const formValues = this.stateMachine.context.formValues;
 
     this.stateMachine.send({
       type: 'SUBMIT',
