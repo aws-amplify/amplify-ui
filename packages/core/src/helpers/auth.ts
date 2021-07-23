@@ -18,7 +18,7 @@ export const authInputAttributes: AuthInputAttributes = {
     type: 'tel',
     placeholder: 'Enter your phone number',
   },
-  code: {
+  confirmation_code: {
     label: 'Confirmation Code',
     placeholder: 'Enter your confirmation code',
     type: 'number',
@@ -46,9 +46,9 @@ export const getAliasInfoFromContext = (context: AuthContext) => {
 
   let type = 'text';
   const label = loginMechanisms
-    .filter((mechanism) => includes(userNameAliasArray, mechanism))
+    .filter(mechanism => includes(userNameAliasArray, mechanism))
     .map(
-      (v) =>
+      v =>
         authInputAttributes[v]?.label ?? authInputAttributes['username'].label
     )
     .join(' or ');
