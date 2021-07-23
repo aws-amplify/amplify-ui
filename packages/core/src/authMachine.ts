@@ -1,15 +1,8 @@
 import { get } from 'lodash';
 import { Auth, Amplify } from 'aws-amplify';
 import { Machine, assign } from 'xstate';
-import { inspect } from '@xstate/inspect';
 import { AuthChallengeNames, AuthContext, AuthEvent } from './types';
 import { passwordMatches, runValidators } from './validators';
-
-inspect({
-  // options
-  // url: 'https://statecharts.io/inspect', // (default)
-  iframe: false, // open in new window
-});
 
 export const authMachine = Machine<AuthContext, AuthEvent>(
   {
