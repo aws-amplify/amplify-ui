@@ -1,5 +1,5 @@
 import Amplify from 'aws-amplify';
-import awsExports from '@environments/react-primitives-example-environment/src/aws-exports';
+// import awsExports from '@environments/react-primitives-example-environment/src/aws-exports';
 
 import './App.css';
 import {
@@ -15,7 +15,7 @@ import {
   Button,
 } from '@aws-amplify/ui-react/dist';
 import '@aws-amplify/ui-react/styles.css';
-Amplify.configure(awsExports);
+// Amplify.configure(awsExports);
 
 function App() {
   return (
