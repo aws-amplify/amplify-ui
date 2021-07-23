@@ -1,7 +1,7 @@
 import { useAuth } from '@aws-amplify/ui-react';
 
 import { Label, Text, Input, ErrorText } from '../../../primitives';
-import { getAliasInfoFromContext } from '@aws-amplify/ui-core';
+import { getAliasInfoFromContext } from '@aws-amplify/ui-core/dist';
 
 export interface UserNameAliasProps {
   handleInputChange?(event): void;

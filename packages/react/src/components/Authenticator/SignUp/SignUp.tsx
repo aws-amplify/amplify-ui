@@ -5,7 +5,7 @@ import { useAmplify, useAuth } from '@aws-amplify/ui-react';
 import {
   authInputAttributes,
   socialProviderLoginMechanisms,
-} from '@aws-amplify/ui-core';
+} from '@aws-amplify/ui-core/dist';
 import { FederatedSignIn } from '../FederatedSignIn';
 
 export function SignUp() {

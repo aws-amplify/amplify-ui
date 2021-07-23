@@ -1,5 +1,5 @@
 // @refresh reset
-import { authMachine } from '@aws-amplify/ui-core';
+import { authMachine } from '@aws-amplify/ui-core/dist';
 import { useAmplify } from '@aws-amplify/ui-react';
 import { useActor, useInterpret } from '@xstate/react';
 
