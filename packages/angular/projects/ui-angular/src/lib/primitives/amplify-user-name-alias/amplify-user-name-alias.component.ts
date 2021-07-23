@@ -8,6 +8,8 @@ import { getAliasInfoFromContext } from '@aws-amplify/ui-core';
 })
 export class AmplifyUserNameAliasComponent implements OnInit {
   @Input() name: string = 'username';
+  @Input() disabled: boolean = false;
+  @Input() initialValue: string = '';
   public label: string;
   public type: string;
   public error: string;

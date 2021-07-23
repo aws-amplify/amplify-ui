@@ -8,11 +8,10 @@
 <ng-template #confirmSignUpForm>
   <form data-amplify-form (submit)="onSubmit($event)" (input)="onInput($event)">
     <fieldset data-amplify-fieldset [attr.disabled]="isPending ? '' : null">
-      <amplify-input
-        name="username"
+      <amplify-user-name-alias
         [initialValue]="username"
         [disabled]="true"
-      ></amplify-input>
+      ></amplify-user-name-alias>
       <amplify-input name="confirmation_code" type="number"></amplify-input>
 
       <div data-amplify-resend>
@@ -34,7 +33,7 @@
         </ng-container>
       </div>
     </fieldset>
-    
+
     <amplify-error *ngIf="remoteError">
       {{ remoteError }}
     </amplify-error>
