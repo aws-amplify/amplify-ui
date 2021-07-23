@@ -217,6 +217,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
       },
       signUp: {
         type: 'parallel',
+        exit: ['clearError'],
         states: {
           validation: {
             initial: 'pending',
