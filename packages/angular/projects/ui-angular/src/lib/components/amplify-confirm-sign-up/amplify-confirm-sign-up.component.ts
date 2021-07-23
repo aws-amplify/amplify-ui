@@ -15,6 +15,8 @@ export class AmplifyConfirmSignUpComponent {
   public customComponents: Record<string, TemplateRef<any>> = {};
   private authSubscription: Subscription;
   public username: string;
+  public remoteError = '';
+  public isPending = false;
   public context = () => ({});
 
   constructor(
@@ -24,7 +26,7 @@ export class AmplifyConfirmSignUpComponent {
 
   ngOnInit(): void {
     // TODO: alias for subscribe
-    this.authSubscription = this.stateMachine.authService.subscribe(state =>
+    this.authSubscription = this.stateMachine.authService.subscribe((state) =>
       this.onStateUpdate(state)
     );
     const username = this.stateMachine.user?.username;
@@ -49,12 +51,8 @@ export class AmplifyConfirmSignUpComponent {
   }
 
   onStateUpdate(state: AuthMachineState): void {
-    const message = state.event.data?.message;
-    logger.info('An error was encountered while signing up:', message);
-  }
-
-  public isLoading(): boolean {
-    return !this.stateMachine.authState.matches('confirmSignUp.edit');
+    this.remoteError = state.context.remoteError;
+    this.isPending = !state.matches('confirmSignUp.edit');
   }
 
   send(event: Event<AuthEvent>): void {

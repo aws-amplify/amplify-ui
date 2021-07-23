@@ -7,7 +7,7 @@
 
 <ng-template #confirmSignUpForm>
   <form data-amplify-form (submit)="onSubmit($event)" (input)="onInput($event)">
-    <fieldset data-amplify-fieldset [attr.disabled]="isLoading() ? '' : null">
+    <fieldset data-amplify-fieldset [attr.disabled]="isPending ? '' : null">
       <amplify-input
         name="username"
         [initialValue]="username"

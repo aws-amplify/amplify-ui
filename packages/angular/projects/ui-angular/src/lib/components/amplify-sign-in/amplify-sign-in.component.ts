@@ -39,7 +39,7 @@ export class AmplifySignInComponent
   ) {}
 
   ngOnInit(): void {
-    this.authSubscription = this.stateMachine.authService.subscribe(state =>
+    this.authSubscription = this.stateMachine.authService.subscribe((state) =>
       this.onStateUpdate(state)
     );
   }
@@ -55,11 +55,7 @@ export class AmplifySignInComponent
 
   onStateUpdate(state: AuthMachineState): void {
     this.remoteError = state.context.remoteError;
-    this.isPending = state.matches('signIn.pending');
-  }
-
-  public isLoading(): boolean {
-    return !this.stateMachine.authState.matches('signIn.edit');
+    this.isPending = !state.matches('signIn.edit');
   }
 
   toSignUp(): void {
