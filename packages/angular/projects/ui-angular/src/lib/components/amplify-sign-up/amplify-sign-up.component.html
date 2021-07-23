@@ -7,7 +7,11 @@
 </ng-template>
 
 <ng-template #signUpPassword>
-  <amplify-input name="password" [required]="true"></amplify-input>
+  <amplify-input
+    name="password"
+    [required]="true"
+    autocomplete="new-password"
+  ></amplify-input>
 </ng-template>
 
 <ng-template #signUpConfirmPassword>
@@ -17,6 +21,7 @@
     placeholder="Re-enter your password."
     [required]="true"
     type="password"
+    autocomplete="new-password"
   ></amplify-input>
 </ng-template>
 

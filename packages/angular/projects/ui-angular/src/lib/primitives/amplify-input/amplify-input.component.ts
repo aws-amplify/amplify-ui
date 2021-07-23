@@ -20,6 +20,7 @@ export class AmplifyInputComponent {
   @Input() label = '';
   @Input() initialValue = '';
   @Input() disabled = false;
+  @Input() autocomplete = '';
 
   constructor(private stateMachine: StateMachineService) {}
 
