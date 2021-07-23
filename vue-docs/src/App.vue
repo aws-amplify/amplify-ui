@@ -49,7 +49,7 @@
     :code="footer"
   >
     <authenticator>
-      <template #sign-in-footer="{ info}">
+      <template #sign-in-footer="{ info }">
         <h3>New Footer Details</h3>
         <footer data-amplify-footer>
           <render-info :info="info"></render-info>
@@ -75,7 +75,16 @@
           <input
             type="password"
             name="password"
-            class="block w-full mt-1 border-gray-300 rounded shadow-sm border p-4"
+            class="
+              block
+              w-full
+              mt-1
+              border-gray-300
+              rounded
+              shadow-sm
+              border
+              p-4
+            "
             placeholder="PASSWORD PLEASE!"
           />
         </div>
@@ -101,22 +110,23 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
-import Amplify from "aws-amplify";
-import aws_exports from "../../environments/auth-with-phone-number/src/aws-exports";
-import VueMarkdownIt from "vue3-markdown-it";
-import ExampleSignIn from "./components/example-sign-in.vue";
+import { defineComponent, ref } from 'vue';
+import Amplify from 'aws-amplify';
+// import aws_exports from "../../environments/auth-with-phone-number/src/aws-exports";
+const aws_exports = {};
+import VueMarkdownIt from 'vue3-markdown-it';
+import ExampleSignIn from './components/example-sign-in.vue';
 
-import ExampleWrapper from "./components/example-wrapper.vue";
+import ExampleWrapper from './components/example-wrapper.vue';
 
-import "@aws-amplify/ui-vue/styles.css";
+import '@aws-amplify/ui-vue/styles.css';
 
 import {
   Authenticator,
   useAuth,
   RenderInfo,
   UserNameAlias,
-} from "@aws-amplify/ui-vue";
+} from '@aws-amplify/ui-vue';
 
 import {
   defaultExample,
@@ -127,24 +137,24 @@ import {
   propTable,
   eventTable,
   customPassword,
-} from "./utils/code-examples";
+} from './utils/code-examples';
 
 Amplify.configure({
   ...aws_exports,
   auth: {
-    login_mechanisms: ["phone_number"],
+    login_mechanisms: ['phone_number'],
   },
 });
 
 export default defineComponent({
-  name: "App",
+  name: 'App',
   components: {
     Authenticator,
     ExampleWrapper,
     RenderInfo,
     ExampleSignIn,
     UserNameAlias,
-    "vue3-markdown-it": VueMarkdownIt,
+    'vue3-markdown-it': VueMarkdownIt,
   },
   setup() {
     const { state, send } = useAuth();
@@ -188,8 +198,8 @@ td {
   font-size: 14px;
 }
 
-code[class*="language-"],
-pre[class*="language-"] {
+code[class*='language-'],
+pre[class*='language-'] {
   /* white-space: normal !important; */
   padding: 0 !important;
   margin: 0 !important;
