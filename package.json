@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "install": "yarn run build:theme-base",
+    "install": "yarn run theme-base build:all",
     "postinstall": "patch-package",
     "build": "yarn workspaces run build",
     "angular": "yarn workspace @aws-amplify/ui-angular",
