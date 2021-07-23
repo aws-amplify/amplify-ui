@@ -4,7 +4,7 @@ import { BaseStyleProps } from './style';
 
 export type CollectionType = 'list' | 'grid' | 'table';
 
-interface CollectionTypeMapInterface {
+export interface CollectionTypeMapInterface {
   [key: string]: CollectionType;
 }
 
