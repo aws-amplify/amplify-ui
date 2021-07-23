@@ -34,6 +34,10 @@
         </ng-container>
       </div>
     </fieldset>
+    
+    <amplify-error *ngIf="remoteError">
+      {{ remoteError }}
+    </amplify-error>
   </form>
 </ng-template>
 

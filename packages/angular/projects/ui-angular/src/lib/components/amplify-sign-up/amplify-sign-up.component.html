@@ -43,6 +43,10 @@
       <amplify-input [name]="secondaryAlias"></amplify-input>
     </ng-container>
   </fieldset>
+
+  <amplify-error *ngIf="remoteError">
+    {{ remoteError }}
+  </amplify-error>
 </ng-template>
 
 <div data-amplify-container>
