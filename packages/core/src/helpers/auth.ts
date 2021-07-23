@@ -46,9 +46,9 @@ export const getAliasInfoFromContext = (context: AuthContext) => {
 
   let type = 'text';
   const label = loginMechanisms
-    .filter(mechanism => includes(userNameAliasArray, mechanism))
+    .filter((mechanism) => includes(userNameAliasArray, mechanism))
     .map(
-      v =>
+      (v) =>
         authInputAttributes[v]?.label ?? authInputAttributes['username'].label
     )
     .join(' or ');
@@ -58,4 +58,15 @@ export const getAliasInfoFromContext = (context: AuthContext) => {
   }
 
   return { label, type, error };
+};
+
+/**
+ * Given xstate context from AuthMachine, returns the primaryAlias and
+ * secondaryAliases.
+ */
+export const getConfiguredAliases = (context: AuthContext) => {
+  const [primaryAlias, ...secondaryAliases] = context.config
+    ?.login_mechanisms ?? ['username', 'email', 'phone_number'];
+
+  return { primaryAlias, secondaryAliases };
 };

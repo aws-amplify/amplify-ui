@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { AuthPropService, StateMachineService } from '../../services';
 import { Subscription } from 'xstate';
-import { AuthMachineState } from '@aws-amplify/ui-core';
+import { AuthMachineState, getConfiguredAliases } from '@aws-amplify/ui-core';
 
 const logger = new Logger('SignUp');
 @Component({
@@ -37,12 +37,12 @@ export class AmplifySignUpComponent
   ) {}
 
   ngOnInit(): void {
-    this.authSubscription = this.stateMachine.authService.subscribe(state =>
+    this.authSubscription = this.stateMachine.authService.subscribe((state) =>
       this.onStateUpdate(state)
     );
 
-    const [primaryAlias, ...secondaryAliases] = this.stateMachine.context.config
-      ?.login_mechanisms ?? ['username', 'email', 'phone_number'];
+    const context = this.stateMachine.context;
+    const { primaryAlias, secondaryAliases } = getConfiguredAliases(context);
 
     this.primaryAlias = primaryAlias;
     this.secondaryAliases = secondaryAliases;
