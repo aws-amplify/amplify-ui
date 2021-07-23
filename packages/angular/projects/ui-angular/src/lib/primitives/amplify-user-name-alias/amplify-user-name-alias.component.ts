@@ -20,7 +20,7 @@ export class AmplifyUserNameAliasComponent implements OnInit {
   ngOnInit(): void {
     const context = this.stateMachine.context;
     const { label, type } = getAliasInfoFromContext(context);
-    console.log({ label, type });
+
     this.label = label;
     this.type = type;
     this.placeholder = `Enter your ${label.toLowerCase()}`;
