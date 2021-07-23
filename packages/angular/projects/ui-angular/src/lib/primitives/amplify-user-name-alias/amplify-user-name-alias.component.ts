@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { StateMachineService } from '../../services';
 import { getAliasInfoFromContext } from '@aws-amplify/ui-core';
 
@@ -7,6 +7,7 @@ import { getAliasInfoFromContext } from '@aws-amplify/ui-core';
   templateUrl: './amplify-user-name-alias.component.html',
 })
 export class AmplifyUserNameAliasComponent implements OnInit {
+  @Input() name: string = 'username';
   public label: string;
   public type: string;
   public error: string;

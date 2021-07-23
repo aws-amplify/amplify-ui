@@ -34,6 +34,6 @@ export class AmplifyInputComponent {
 
   // infers what the `type` of underlying input element should be.
   inferInputType(): string {
-    return this.attributeMap[this.name]?.type ?? 'text';
+    return this.type ?? this.attributeMap[this.name]?.type ?? 'text';
   }
 }

@@ -9,8 +9,8 @@ import {
   TemplateRef,
 } from '@angular/core';
 import { AuthPropService, StateMachineService } from '../../services';
-import { Subscription, Event } from 'xstate';
-import { AuthEvent, AuthMachineState } from '@aws-amplify/ui-core';
+import { Subscription } from 'xstate';
+import { AuthMachineState } from '@aws-amplify/ui-core';
 
 const logger = new Logger('SignUp');
 @Component({
@@ -18,12 +18,18 @@ const logger = new Logger('SignUp');
   templateUrl: './amplify-sign-up.component.html',
 })
 export class AmplifySignUpComponent
-  implements AfterContentInit, OnInit, OnDestroy {
+  implements AfterContentInit, OnInit, OnDestroy
+{
   @HostBinding('attr.data-amplify-authenticator-signup') dataAttr = '';
   @Input() headerText = 'Create a new account';
-  private authSubscription: Subscription;
   public customComponents: Record<string, TemplateRef<any>>;
   public context = () => ({});
+  public remoteError = '';
+  public isPending = false;
+  public primaryAlias = '';
+  public secondaryAliases: string[] = [];
+
+  private authSubscription: Subscription;
 
   constructor(
     private stateMachine: StateMachineService,
@@ -34,6 +40,12 @@ export class AmplifySignUpComponent
     this.authSubscription = this.stateMachine.authService.subscribe(state =>
       this.onStateUpdate(state)
     );
+
+    const [primaryAlias, ...secondaryAliases] = this.stateMachine.context.config
+      ?.login_mechanisms ?? ['username', 'email', 'phone_number'];
+
+    this.primaryAlias = primaryAlias;
+    this.secondaryAliases = secondaryAliases;
   }
 
   ngAfterContentInit(): void {
@@ -45,41 +57,29 @@ export class AmplifySignUpComponent
   }
 
   private onStateUpdate(state: AuthMachineState): void {
-    if (state.matches('signUp.edit.error')) {
-      const message = state.event.data?.message;
-      logger.info('An error was encountered while signing up:', message);
-    }
-  }
-
-  public isLoading(): boolean {
-    return !this.stateMachine.authState.matches('signUp.edit');
-  }
-
-  send(event: Event<AuthEvent>): void {
-    this.stateMachine.authService.send(event);
+    this.remoteError = state.context.remoteError;
+    this.isPending = state.matches({
+      signUp: {
+        submission: 'valid',
+      },
+    });
   }
 
   async onSubmit($event): Promise<void> {
     $event.preventDefault();
-    const formValues = this.stateMachine.authState.context.formValues;
-    logger.log('Sign up form submitted with', formValues);
-
-    this.send({
-      type: 'SUBMIT',
-      data: formValues,
-    });
+    this.stateMachine.send('SUBMIT');
   }
 
-  onInput($event): void {
-    $event.preventDefault();
-    const { name, value } = $event.target;
-    this.send({
-      type: 'INPUT',
+  onInput(event: Event): void {
+    event.preventDefault();
+    const { name, value } = <HTMLInputElement>event.target;
+    this.stateMachine.send({
+      type: 'CHANGE',
       data: { name, value },
     });
   }
 
   toSignIn(): void {
-    this.stateMachine.authService.send('SIGN_IN');
+    this.stateMachine.send('SIGN_IN');
   }
 }

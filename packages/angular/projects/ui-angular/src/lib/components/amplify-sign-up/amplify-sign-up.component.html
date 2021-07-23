@@ -3,30 +3,25 @@
 </ng-template>
 
 <ng-template #signUpUsername>
-  <amplify-input name="username" [required]="true"></amplify-input>
+  <amplify-user-name-alias [name]="primaryAlias"></amplify-user-name-alias>
 </ng-template>
 
 <ng-template #signUpPassword>
   <amplify-input name="password" [required]="true"></amplify-input>
 </ng-template>
 
-<ng-template #signUpEmail>
-  <amplify-input name="email" [required]="true"></amplify-input>
-</ng-template>
-
-<ng-template #signUpPhoneNumber>
+<ng-template #signUpConfirmPassword>
   <amplify-input
-    name="phone_number"
-    type="tel"
+    name="confirm_password"
+    label="Confirm Password"
+    placeholder="Re-enter your password."
     [required]="true"
+    type="password"
   ></amplify-input>
 </ng-template>
 
 <ng-template #signUpFieldset>
-  <fieldset
-    data-amplify-fieldset
-    [attr.disabled]="this.isLoading() ? '' : null"
-  >
+  <fieldset data-amplify-fieldset [attr.disabled]="isPending ? '' : null">
     <ng-container
       [ngTemplateOutlet]="customComponents.signUpUsername || signUpUsername"
       [ngTemplateOutletContext]="context()"
@@ -38,16 +33,15 @@
     ></ng-container>
 
     <ng-container
-      [ngTemplateOutlet]="customComponents.signUpEmail || signUpEmail"
-      [ngTemplateOutletContext]="context()"
-    ></ng-container>
-
-    <ng-container
       [ngTemplateOutlet]="
-        customComponents.signUpPhoneNumber || signUpPhoneNumber
+        customComponents.signUpConfirmPassword || signUpConfirmPassword
       "
       [ngTemplateOutletContext]="context()"
     ></ng-container>
+
+    <ng-container *ngFor="let secondaryAlias of secondaryAliases">
+      <amplify-input [name]="secondaryAlias"></amplify-input>
+    </ng-container>
   </fieldset>
 </ng-template>
 

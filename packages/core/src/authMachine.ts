@@ -5,6 +5,12 @@ import { inspect } from '@xstate/inspect';
 import { AuthChallengeNames, AuthContext, AuthEvent } from './types';
 import { passwordMatches, runValidators } from './validators';
 
+inspect({
+  // options
+  // url: 'https://statecharts.io/inspect', // (default)
+  iframe: false, // open in new window
+});
+
 export const authMachine = Machine<AuthContext, AuthEvent>(
   {
     id: 'auth',
@@ -270,7 +276,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
               pending: {
                 invoke: {
                   src: 'signUp',
-                  onDone: 'done',
+                  onDone: { target: 'done', actions: 'setUser' },
                   onError: {
                     target: 'idle',
                     actions: 'setRemoteError',
