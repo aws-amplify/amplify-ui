@@ -9,8 +9,7 @@
     "dist/**/*.{js,ts}"
   ],
   "scripts": {
-    "build": "tsc",
-    "build:icons": "yarn run clean:icons && node scripts/generateIcons.js",
+    "build": "yarn clean && tsc",
     "clean": "rimraf dist",
     "clean:icons": "rimraf ./src/primitives/Icon/icons",
     "primitives:new": "hygen primitives new",
@@ -20,6 +19,8 @@
     "test:unit:watch": "jest --watch"
   },
   "dependencies": {
+    "@aws-amplify/ui-core": "*",
+    "@aws-amplify/ui-theme-base": "*",
     "@xstate/react": "^1.4.0",
     "classnames": "^2.3.1",
     "qrcode": "^1.4.4"
