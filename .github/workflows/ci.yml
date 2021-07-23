@@ -31,6 +31,8 @@ jobs:
           cache: 'yarn'
       - name: Install packages
         run: yarn --frozen-lockfile
+      - name: Add Amplify CLI
+        run: yarn global add @aws-amplify/cli
       - name: Pull down AWS environments
         run: sh ./.github/pull-environments.sh
         env:
