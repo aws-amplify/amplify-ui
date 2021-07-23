@@ -5,14 +5,7 @@ import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 
 import Amplify, { Logger } from 'aws-amplify';
-import awsExports from '@environments/auth-with-email/src/aws-exports';
-
-Amplify.configure({
-  ...awsExports,
-  auth: {
-    login_mechanisms: ['email'],
-  },
-});
+Amplify.configure({});
 
 Logger.LOG_LEVEL = 'DEBUG';
 
@@ -22,4 +15,4 @@ if (environment.production) {
 
 platformBrowserDynamic()
   .bootstrapModule(AppModule)
-  .catch((err) => console.error(err));
+  .catch(err => console.error(err));
