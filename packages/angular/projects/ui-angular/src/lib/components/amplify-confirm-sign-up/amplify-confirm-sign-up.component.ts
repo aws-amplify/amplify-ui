@@ -1,7 +1,7 @@
 import { Component, HostBinding, TemplateRef } from '@angular/core';
-import { AuthEvent, AuthMachineState } from '@aws-amplify/ui-core';
+import { AuthMachineState } from '@aws-amplify/ui-core';
 import { Logger } from '@aws-amplify/core';
-import { Event, Subscription } from 'xstate';
+import { Subscription } from 'xstate';
 import { AuthPropService, StateMachineService } from '../../services';
 
 const logger = new Logger('ConfirmSignUp');
@@ -32,7 +32,7 @@ export class AmplifyConfirmSignUpComponent {
     const username = this.stateMachine.user?.username;
     if (username) {
       this.username = username;
-      this.send({
+      this.stateMachine.send({
         type: 'INPUT',
         data: { name: 'username', value: this.username },
       });
@@ -55,16 +55,12 @@ export class AmplifyConfirmSignUpComponent {
     this.isPending = !state.matches('confirmSignUp.edit');
   }
 
-  send(event: Event<AuthEvent>): void {
-    this.stateMachine.authService.send(event);
-  }
-
   toSignIn(): void {
-    this.send('SIGN_IN');
+    this.stateMachine.send('SIGN_IN');
   }
 
   resend(): void {
-    this.send({
+    this.stateMachine.send({
       type: 'RESEND',
       data: {
         username: this.stateMachine.user?.username,
@@ -75,19 +71,19 @@ export class AmplifyConfirmSignUpComponent {
   onInput($event) {
     $event.preventDefault();
     const { name, value } = $event.target;
-    this.send({
+    this.stateMachine.send({
       type: 'INPUT',
       data: { name, value },
     });
   }
 
-  async onSubmit(event): Promise<void> {
+  async onSubmit(event: Event): Promise<void> {
     event.preventDefault();
     const formValues = this.stateMachine.context.formValues;
     // get form data
     const { username, confirmation_code } = formValues;
 
-    this.send({
+    this.stateMachine.send({
       type: 'SUBMIT',
       data: { username, confirmation_code },
     });
