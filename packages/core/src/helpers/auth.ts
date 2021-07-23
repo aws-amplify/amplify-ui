@@ -65,8 +65,13 @@ export const getAliasInfoFromContext = (context: AuthContext) => {
  * secondaryAliases.
  */
 export const getConfiguredAliases = (context: AuthContext) => {
-  const [primaryAlias, ...secondaryAliases] = context.config
-    ?.login_mechanisms ?? ['username', 'email', 'phone_number'];
+  const login_mechanisms = context.config?.login_mechanisms ?? [
+    ...userNameAliasArray,
+  ];
+  const aliases = login_mechanisms.filter((mechanism) => {
+    includes(userNameAliasArray, mechanism);
+  });
 
+  const [primaryAlias, ...secondaryAliases] = aliases;
   return { primaryAlias, secondaryAliases };
 };
