@@ -53,14 +53,6 @@ export interface PaginationItemProps extends BaseComponentProps, AriaProps {
    */
   totalPages?: number;
 
-  // /**
-  //  * A 'page' item is considered to be focused when it is the current page.
-  //  */
-  // isFocused?: boolean;
-  // /**
-  //  * The 'next' or 'previosu' item will be disabled when the current page reaches the first or the last page.
-  //  */
-  // isDisabled?: boolean;
   /**
    * Triggered every time the item is clicked.
    */
