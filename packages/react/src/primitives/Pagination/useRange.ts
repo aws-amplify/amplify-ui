@@ -6,7 +6,7 @@ export const ELLIPSIS = '...';
 
 /**
  * This hook will be used to determine the range of page numbers to be rendered,
- * including ellipsis dots(e.g., an array like [1, ..., 4, 5, 6, ..., 10].
+ * including ellipsis dots(e.g., an array like [1, ..., 4, 5, 6, ..., 10]).
  * @param currentPage current page number
  * @param totalPages total number of pages
  * @returns an array that contains the range of numbers to be rendered

@@ -1,7 +1,7 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import classNames from 'classnames';
 
-import { useRange, ELLIPSIS } from './useRange';
+import { usePaginationItems } from './usePaginationItems';
 import { PaginationItem } from './PaginationItem';
 import { View } from '../View';
 import { PaginationProps } from '../types';
@@ -19,34 +19,9 @@ export const Pagination: React.FC<PaginationProps> = (props) => {
     role = 'navigation',
     ...rest
   } = props;
-  // To get the range of page numbers to be rendered in the pagination primitive
-  const range = useRange(currentPage, totalPages);
 
-  const pages = useMemo(
-    () =>
-      range.map((item, idx) => {
-        if (item === ELLIPSIS) {
-          return (
-            <PaginationItem
-              type="ellipsis"
-              key={idx === 1 ? 'start-ellipsis' : 'end-ellipsis'}
-            />
-          );
-        }
-        return (
-          // Note: Do NOT use index for `key` and instead use page number
-          // otherwise, react cannot update the component correctly with its diff mechanism
-          <PaginationItem
-            key={item}
-            type="page"
-            page={item as number}
-            currentPage={currentPage}
-            onClick={onChange}
-          />
-        );
-      }),
-    [currentPage, onChange]
-  );
+  // invoke usePages hook to get pagination items
+  const pages = usePaginationItems(currentPage, totalPages, onChange);
 
   return (
     <View
