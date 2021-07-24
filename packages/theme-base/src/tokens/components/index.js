@@ -10,4 +10,5 @@ module.exports = {
   placeholder: require('./placeholder'),
   rating: require('./rating'),
   text: require('./text'),
+  pagination: require('./pagination'),
 };

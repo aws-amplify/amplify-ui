@@ -24,17 +24,24 @@ export const Pagination: React.FC<PaginationProps> = (props) => {
 
   const pages = useMemo(
     () =>
-      range.map((item) => {
+      range.map((item, idx) => {
         if (item === ELLIPSIS) {
-          return <PaginationItem type="ellipsis" />;
+          return (
+            <PaginationItem
+              type="ellipsis"
+              key={idx === 1 ? 'start-ellipsis' : 'end-ellipsis'}
+            />
+          );
         }
         return (
+          // Note: Do NOT use index for `key` and instead use page number
+          // otherwise, react cannot update the component correctly with its diff mechanism
           <PaginationItem
+            key={item}
             type="page"
             page={item as number}
             currentPage={currentPage}
             onClick={onChange}
-            isActive={item == currentPage}
           />
         );
       }),
@@ -52,15 +59,15 @@ export const Pagination: React.FC<PaginationProps> = (props) => {
       <PaginationItem
         type="previous"
         currentPage={currentPage}
+        totalPages={totalPages}
         onClick={onPrevious}
-        isDisabled={currentPage == 1}
       />
       {pages}
       <PaginationItem
         type="next"
         currentPage={currentPage}
+        totalPages={totalPages}
         onClick={onNext}
-        isDisabled={currentPage == totalPages}
       />
     </View>
   );
