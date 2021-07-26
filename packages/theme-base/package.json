@@ -9,8 +9,7 @@
   ],
   "scripts": {
     "build": "yarn run build:sd; yarn run build:css",
-    "build:all": "yarn run build; yarn run build:icons",
-    "build:icons": "node scripts/generateIcons.js",
+    "build:all": "yarn run build",
     "build:sd": "style-dictionary build --config ./sd.config.js",
     "build:css": "globcat src/css/theme.css dist/variables.css src/css/**/*.css --output dist/theme.css",
     "clean": "rimraf dist"
