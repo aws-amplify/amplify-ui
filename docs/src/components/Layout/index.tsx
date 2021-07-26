@@ -1,5 +1,6 @@
 // This is large copy-pasta from `amplify-docs/src/Layout` & modified to work outside of that repo
 
+import debounce from 'lodash/debounce';
 import pages from '@/data/pages.preval';
 import CodeBlockProvider from 'amplify-docs/src/components/CodeBlockProvider/index';
 import { Container } from 'amplify-docs/src/components/Container';
@@ -51,26 +52,44 @@ export default function Layout({
   const router = useRouter();
   const pathname = router.pathname;
   const href = router.asPath;
-  const { platform = 'next' } = router.query as { platform: string };
+  const { platform = 'react' } = router.query as { platform: string };
 
   const groupedPages = Object.entries(
-    groupBy(pages, page => {
+    groupBy(pages, (page) => {
       const [, folder = ''] = page.slug.split('/');
       return folder;
     })
   );
 
   React.useEffect(() => {
-    const htmlHeaders = [
-      ...document.querySelectorAll(
-        [
-          '#__next > section:first-of-type h2',
-          '#__next > section:first-of-type h3',
-        ].join(',')
-      ),
-    ].map(node => [node.innerHTML, node.tagName.toLowerCase()]);
+    const updateHeaders = debounce(
+      () => {
+        const htmlHeaders = [
+          ...document.querySelectorAll(
+            [
+              '#__next > section:first-of-type h2',
+              '#__next > section:first-of-type h3',
+            ].join(',')
+          ),
+        ].map((node) => [node.innerHTML, node.tagName.toLowerCase()]);
 
-    setHeaders(htmlHeaders);
+        setHeaders(htmlHeaders);
+      },
+      0,
+      {
+        leading: false,
+        trailing: true,
+      }
+    );
+
+    const observer = new MutationObserver(updateHeaders);
+
+    observer.observe(document.querySelector('#__next'), {
+      childList: true,
+      subtree: true,
+    });
+
+    return () => observer.disconnect();
   }, [children]);
 
   const chapterTitle = 'Components'; // TODO – Remove or use "Primitives" depending on path
@@ -145,7 +164,7 @@ export default function Layout({
                     <MenuCloseButton closeMenu={() => setIsMenuOpen(false)} />
                     <PlatformSelect
                       // TODO – Can the available frameworks come from the pages? Or should this be hard-coded based on public support?
-                      filters={['next', 'vue']}
+                      filters={['angular', 'next', 'react', 'vue']}
                       platform={platform}
                       pathname={pathname}
                     />
@@ -160,7 +179,7 @@ export default function Layout({
                           </DirectoryGroupHeaderStyle>
                         )}
                         <DirectoryLinksStyle>
-                          {pages.map(page =>
+                          {pages.map((page) =>
                             folder ? (
                               <DirectoryGroupItemStyle
                                 isActive={href === page.href}
