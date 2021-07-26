@@ -4,7 +4,6 @@
 
 const { formatHelpers } = require('style-dictionary');
 
-const THEME_NAME = 'BaseTheme';
 const CSS_VARIABLE_PREFIX = 'amplify-ui';
 const CSS_VARIABLE_SCOPE = ':root';
 
@@ -41,21 +40,11 @@ module.exports = {
       ],
     },
     js: {
-      transformGroup: 'js',
+      transforms: ['attribute/cti', 'name/cti/kebab'],
       files: [
         {
           destination: 'dist/theme.js',
           format: 'javascript/cjs-nested',
-          options: { name: THEME_NAME },
-        },
-      ],
-    },
-    json: {
-      transforms: ['attribute/cti', 'name/cti/kebab'],
-      files: [
-        {
-          destination: 'dist/theme.json',
-          format: 'json',
         },
       ],
     },
@@ -70,15 +59,10 @@ module.exports = {
  * Exports a theme (minified) as a named export
  */
 function CommonJSNestedFormatter({ dictionary, options, file }) {
-  const { fileHeader, minifyDictionary } = formatHelpers;
-  const themeName = options.name;
-
-  const moduleExports = {
-    [themeName]: minifyDictionary(dictionary.tokens),
-  };
+  const { fileHeader } = formatHelpers;
 
   return (
     fileHeader({ file }) +
-    `module.exports = ${JSON.stringify(moduleExports, null, 2)};`
+    `module.exports = ${JSON.stringify(dictionary.tokens, null, 2)};`
   );
 }
