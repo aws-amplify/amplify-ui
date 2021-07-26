@@ -1,0 +1,37 @@
+.amplify-ui-placeholder[data-loaded='false'] {
+  border-radius: var(--amplify-ui-components-placeholder-border-radius);
+  width: 100%;
+
+  animation-name: loading;
+  animation-duration: var(
+    --amplify-ui-components-placeholder-transition-duration
+  );
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+/* How should I name the variables */
+@keyframes loading {
+  0% {
+    background-color: var(
+      --amplify-ui-components-placeholder-background-color-secondary
+    );
+  }
+  100% {
+    background-color: var(
+      --amplify-ui-components-placeholder-background-color-tertiary
+    );
+  }
+}
+
+.amplify-ui-placeholder[data-size='small'][data-loaded='false'] {
+  height: var(--amplify-ui-components-placeholder-small-height);
+}
+
+.amplify-ui-placeholder[data-size='medium'][data-loaded='false'] {
+  height: var(--amplify-ui-components-placeholder-medium-height);
+}
+
+.amplify-ui-placeholder[data-size='large'][data-loaded='false'] {
+  height: var(--amplify-ui-components-placeholder-large-height);
+}
