@@ -1,5 +1,5 @@
 import Amplify from 'aws-amplify';
-import awsExports from '@environments/react-primitives-example-environment/src/aws-exports';
+import awsExports from 'react-primitives-example-environment/src/aws-exports';
 
 import './App.css';
 import {
