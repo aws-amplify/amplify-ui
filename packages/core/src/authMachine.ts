@@ -43,7 +43,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
       },
       signIn: {
         initial: 'edit',
-        exit: ['clearFormValues', 'clearError'],
+        exit: ['clearError'],
         onDone: 'authenticated',
         states: {
           edit: {
@@ -56,6 +56,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
               SUBMIT: 'submit',
               INPUT: { actions: 'handleInput' },
               SIGN_UP: '#auth.signUp',
+              FEDERATED_SIGN_IN: 'federatedSignIn',
             },
           },
           submit: {
@@ -91,7 +92,44 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
               ],
             },
           },
+          federatedSignIn: {
+            entry: 'clearError',
+            invoke: {
+              src: 'federatedSignIn',
+              onDone: [
+                {
+                  actions: 'setUser',
+                  target: 'confirmFederatedSignIn',
+                },
+              ],
+              onError: [
+                {
+                  actions: 'setRemoteError',
+                  target: 'rejected',
+                },
+              ],
+            },
+          },
+          confirmFederatedSignIn: {
+            entry: 'clearError',
+            invoke: {
+              src: 'confirmFederatedSignIn',
+              onDone: [
+                {
+                  actions: 'setUser',
+                  target: 'resolved',
+                },
+              ],
+              onError: [
+                {
+                  actions: 'setRemoteError',
+                  target: 'rejected',
+                },
+              ],
+            },
+          },
           resolved: {
+            exit: ['clearFormValues'],
             type: 'final',
           },
           rejected: {
@@ -118,6 +156,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
             },
           },
           submit: {
+            entry: 'clearError',
             invoke: {
               src: 'confirmSignIn',
               onDone: {
@@ -178,6 +217,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
       },
       signUp: {
         type: 'parallel',
+        exit: ['clearError'],
         states: {
           validation: {
             initial: 'pending',
@@ -230,7 +270,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
               pending: {
                 invoke: {
                   src: 'signUp',
-                  onDone: 'done',
+                  onDone: { target: 'done', actions: 'setUser' },
                   onError: {
                     target: 'idle',
                     actions: 'setRemoteError',
@@ -391,7 +431,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
       async getAmplifyConfig() {
         return Amplify.configure();
       },
-      async signIn(context, event) {
+      async signIn(_context, event) {
         const { username, password } = event.data;
 
         return Auth.signIn(username, password);
@@ -409,6 +449,17 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
         }
 
         return Auth.confirmSignIn(user, code, mfaType);
+      },
+      async federatedSignIn(context, event) {
+        const { provider } = event.data;
+        const result = await Auth.federatedSignIn({ provider });
+
+        return result;
+      },
+      async confirmFederatedSignIn(context, event) {
+        const result = await Auth.currentAuthenticatedUser();
+
+        return result;
       },
       async verifyTotpToken(context, event) {
         const { user } = context;
@@ -432,7 +483,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
           config,
         } = context;
 
-        const [primaryAlias] = config?.login_mechanisms ?? ["username"];
+        const [primaryAlias] = config?.login_mechanisms ?? ['username'];
 
         if (formValues.phone_number) {
           formValues.phone_number = formValues.phone_number.replace(

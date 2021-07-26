@@ -5,9 +5,9 @@ Feature: Sign In with SMS MFA
   users.
 
   Background:
-    Given I'm running the example "ui/components/authenticator/sign-in/auth-with-sms-mfa"
+    Given I'm running the example "ui/components/authenticator/sign-in-sms-mfa"
 
-  @Next @React @skip
+  @Next @React @Vue @skip
   Scenario: Sign in using a valid phone number and SMS MFA
     When I type a valid phone number "VALID_PHONE_NUMBER"
     And I type a valid password "VALID_PASSWORD"

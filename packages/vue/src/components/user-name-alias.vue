@@ -17,6 +17,11 @@
 
 <script lang="ts">
 import { defineComponent, ref, computed } from "vue";
+import {
+  authInputAttributes,
+  getAliasInfoFromContext,
+} from "@aws-amplify/ui-core";
+
 import BaseInput from "./primitives/base-input.vue";
 import BaseLabel from "./primitives/base-label.vue";
 import BaseText from "./primitives/base-text.vue";
@@ -24,7 +29,6 @@ import BaseText from "./primitives/base-text.vue";
 import { useAuth } from "../composables/useAuth";
 import { useAliases } from "../composables/useUtils";
 
-import { UserNameAliasNames } from "../defaults/DefaultTexts";
 import { UserNameAliasTypes, UserNameAliasSetupReturnTypes } from "../types";
 
 export default defineComponent({
@@ -57,28 +61,18 @@ export default defineComponent({
     }
 
     const error = context.validationError["username"];
-    const loginMechanisms = context.config?.login_mechanisms ?? ["username"];
 
     const [primaryAlias] = useAliases(context?.config?.login_mechanisms);
 
     let name = primaryAlias;
-    let label = UserNameAliasNames[primaryAlias].name;
-    let type = UserNameAliasNames[name].type;
+    let label = authInputAttributes[primaryAlias].label;
+    let type = authInputAttributes[name].type;
 
     // Only show for Sign In
     if (props.userNameAlias) {
-      label = loginMechanisms
-        .map(
-          v =>
-            UserNameAliasNames[v]?.name ?? UserNameAliasNames["username"].name
-        )
-        .join(" or ");
-
-      if (loginMechanisms.length === 1) {
-        type = UserNameAliasNames[loginMechanisms[0]]?.type ?? "text";
-      } else {
-        type = "text";
-      }
+      const aliasInfo = getAliasInfoFromContext(context);
+      label = aliasInfo.label;
+      type = aliasInfo.type;
       name = "username";
     }
 

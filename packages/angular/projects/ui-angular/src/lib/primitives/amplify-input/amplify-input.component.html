@@ -1,16 +1,16 @@
 <label>
-  <div data-ui-label>{{ label || attributeMap[name]?.label }}</div>
+  <div data-amplify-label>{{ label || attributeMap[name]?.label }}</div>
   <input
-    data-ui-input
+    data-amplify-input
     [type]="inferInputType()"
     [name]="name"
     [placeholder]="placeholder || attributeMap[name]?.placeholder || ''"
     [required]="required ? true : false"
     [value]="this.initialValue"
     [attr.disabled]="disabled ? '' : null"
+    [autocomplete]="autocomplete"
   />
+  <amplify-error *ngIf="error">
+    {{ error }}
+  </amplify-error>
 </label>
-
-<amplify-validation-error
-  [errors]="error && error[name]"
-></amplify-validation-error>

@@ -27,7 +27,7 @@ describe('Badge: ', () => {
 
   it('can render any arbitrary data-* attribute', async () => {
     render(
-      <Badge data-demo="true" id="dataTest">
+      <Badge data-demo="true" testId="dataTest">
         {badgeText}
       </Badge>
     );

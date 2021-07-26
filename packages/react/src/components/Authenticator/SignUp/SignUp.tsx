@@ -1,6 +1,11 @@
+import { includes } from 'lodash';
+
 import { useAmplify, useAuth } from '@aws-amplify/ui-react';
 
-import { UserNameAliasNames } from '../../../primitives/shared/constants';
+import {
+  authInputAttributes,
+  socialProviderLoginMechanisms,
+} from '@aws-amplify/ui-core';
 
 export function SignUp() {
   const {
@@ -52,18 +57,20 @@ export function SignUp() {
 
       <Fieldset>
         <SignUp.AliasControl
-          label={UserNameAliasNames[primaryAlias].name}
+          label={authInputAttributes[primaryAlias].label}
           name={primaryAlias}
         />
         <SignUp.PasswordControl />
         <SignUp.ConfirmPasswordControl />
-        {secondaryAliases.map((alias) => (
-          <SignUp.AliasControl
-            key={alias}
-            label={UserNameAliasNames[alias].name}
-            name={alias}
-          />
-        ))}
+        {secondaryAliases
+          .filter((alias) => !includes(socialProviderLoginMechanisms, alias))
+          .map((alias) => (
+            <SignUp.AliasControl
+              key={alias}
+              label={authInputAttributes[alias].label}
+              name={alias}
+            />
+          ))}
       </Fieldset>
 
       <ErrorText>{remoteError}</ErrorText>
@@ -101,7 +108,7 @@ SignUp.AliasControl = ({
           name={name}
           placeholder={placeholder}
           required
-          type={UserNameAliasNames[name].type}
+          type={authInputAttributes[name].type}
         />
       </Label>
       <ErrorText>{error}</ErrorText>

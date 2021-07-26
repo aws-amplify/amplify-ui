@@ -1,5 +1,6 @@
 import { useAmplify, useAuth } from '@aws-amplify/ui-react';
 
+import { FederatedSignIn } from '../FederatedSignIn';
 import { UserNameAlias } from '../shared';
 
 export function SignIn() {
@@ -39,6 +40,8 @@ export function SignIn() {
       }}
     >
       <Heading level={1}>Sign in to your account</Heading>
+
+      <FederatedSignIn />
 
       <Fieldset disabled={isPending}>
         <UserNameAlias data-amplify-usernamealias />

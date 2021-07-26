@@ -2,19 +2,23 @@
   Define default contents here
 -->
 <ng-template #signInButton>
-  <button data-ui-button type="submit">Sign In</button>
+  <button data-amplify-button type="submit">Sign In</button>
 </ng-template>
 
 <ng-template #signInForm>
-  <form data-ui-form (submit)="onSubmit($event)" (input)="onInput($event)">
-    <fieldset data-ui-fieldset [attr.disabled]="isLoading() ? '' : null">
-      <amplify-input name="username"></amplify-input>
-      <amplify-input name="password" type="password"></amplify-input>
+  <form data-amplify-form (submit)="onSubmit($event)" (input)="onInput($event)">
+    <fieldset data-amplify-fieldset [attr.disabled]="isPending ? '' : null">
+      <amplify-user-name-alias></amplify-user-name-alias>
+      <amplify-input
+        name="password"
+        type="password"
+        autocomplete="current-password"
+      ></amplify-input>
 
-      <div data-ui-footer>
+      <div data-amplify-footer>
         <div>
-          No account?{{ " " }}
-          <a data-ui-link (click)="toSignUp()">Create Account</a>
+          No account?{{ ' ' }}
+          <a data-amplify-link (click)="toSignUp()">Create Account</a>
         </div>
         <ng-container
           [ngTemplateOutlet]="customComponents.signInButton || signInButton"
@@ -22,11 +26,11 @@
         >
         </ng-container>
       </div>
-
-      <amplify-validation-error
-        [errors]="formError.cross_field"
-      ></amplify-validation-error>
     </fieldset>
+
+    <amplify-error *ngIf="remoteError">
+      {{ remoteError }}
+    </amplify-error>
   </form>
 </ng-template>
 
@@ -34,8 +38,8 @@
   Render sign in component
 -->
 
-<div data-ui-container>
-  <h2 data-ui-header>{{ this.headerText }}</h2>
+<div data-amplify-container>
+  <h2 data-amplify-header>{{ this.headerText }}</h2>
   <ng-container
     [ngTemplateOutlet]="customComponents.signInForm || signInForm"
     [ngTemplateOutletContext]="context()"

@@ -2,41 +2,31 @@ import {
   AfterContentInit,
   Component,
   ContentChildren,
-  EventEmitter,
   HostBinding,
   Input,
-  Output,
   QueryList,
   TemplateRef,
   ViewEncapsulation,
 } from '@angular/core';
 import { AuthState } from '../../common/types';
 import { AmplifyOverrideDirective } from '../../directives/amplify-override.directive';
-import {
-  StateMachineService,
-  AuthenticatorContextService,
-} from '../../services';
-import { CustomComponents, OnSubmitHook } from '../../common';
+import { StateMachineService, AuthPropService } from '../../services';
+import { CustomComponents } from '../../common';
 import { State } from 'xstate';
-import { AuthFormData } from '@aws-amplify/ui-core';
 
 @Component({
   selector: 'amplify-authenticator',
   templateUrl: './amplify-authenticator.component.html',
-  providers: [AuthenticatorContextService], // make sure custom components are scoped to this authenticator only
+  providers: [AuthPropService], // make sure custom components are scoped to this authenticator only
   encapsulation: ViewEncapsulation.None,
 })
 export class AmplifyAuthenticatorComponent implements AfterContentInit {
-  // Custom events
-  @Output() onSignInInput = new EventEmitter<AuthFormData>();
-  @Output() onSignInSubmit = new EventEmitter<AuthFormData>();
-  @Output() onSignUpInput = new EventEmitter<AuthFormData>();
-  @Output() onSignUpSubmit = new EventEmitter<AuthFormData>();
-  @Output() onConfirmSignUpInput = new EventEmitter<AuthFormData>();
-  @Output() onConfirmSignUpSubmit = new EventEmitter<AuthFormData>();
+  /**
+   * TODO: Add back custom events
+   */
 
   @Input() initialAuthState: AuthState = 'signIn';
-  @HostBinding('attr.data-ui-authenticator') dataAttr = '';
+  @HostBinding('attr.data-amplify-authenticator') dataAttr = '';
   @ContentChildren(AmplifyOverrideDirective)
   private customComponentQuery: QueryList<AmplifyOverrideDirective> = null;
   public customComponents: CustomComponents = {};
@@ -47,7 +37,7 @@ export class AmplifyAuthenticatorComponent implements AfterContentInit {
 
   constructor(
     private stateMachine: StateMachineService,
-    private contextService: AuthenticatorContextService
+    private contextService: AuthPropService
   ) {}
 
   /**
@@ -58,20 +48,6 @@ export class AmplifyAuthenticatorComponent implements AfterContentInit {
       this.customComponentQuery
     );
     this.customComponents = this.contextService.customComponents;
-    this.contextService.props = {
-      signIn: {
-        onSignInInput: this.onSignInInput,
-        onSignInSubmit: this.onSignInSubmit,
-      },
-      signUp: {
-        onSignUpInput: this.onSignUpInput,
-        onSignUpSubmit: this.onSignUpSubmit,
-      },
-      confirmSignUp: {
-        onConfirmSignUpInput: this.onConfirmSignUpInput,
-        onConfirmSignUpSubmit: this.onConfirmSignUpSubmit,
-      },
-    };
   }
 
   /**

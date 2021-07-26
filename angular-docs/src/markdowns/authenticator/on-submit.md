@@ -51,9 +51,7 @@ const onSignUp: OnSubmitHook = (formData: AuthFormData) => {
 _app.component.html_
 
 ```html
-<amplify-context-provider>
-  <amplify-authenticator [onSignUp]="onSignUp"> </amplify-authenticator>
-</amplify-context-provider>
+<amplify-authenticator [onSignUp]="onSignUp"> </amplify-authenticator>
 ```
 
 Now, try signing up with a username that has an invalid username. You should see an error message under the username input.

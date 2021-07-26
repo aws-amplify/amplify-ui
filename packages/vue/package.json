@@ -1,5 +1,8 @@
 {
   "private": true,
   "name": "@aws-amplify/ui-vue",
-  "version": "0.0.1"
+  "version": "0.0.1",
+  "dependencies": {
+    "qrcode": "^1.4.4"
+  }
 }

@@ -15,7 +15,5 @@ Amplify provides simple, clean styles to get started with a great experience in 
 2. Wrap your app with `amplify-context-provider`:
 
 ```html
-<amplify-context-provider>
-  <amplify-authenticator></amplify-authenticator>
-</amplify-context-provider>
+<amplify-authenticator></amplify-authenticator>
 ```

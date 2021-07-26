@@ -1,29 +1,32 @@
 <ng-template #signUpButton>
-  <button data-ui-button type="submit">Sign Up</button>
+  <button data-amplify-button type="submit">Sign Up</button>
 </ng-template>
 
 <ng-template #signUpUsername>
-  <amplify-input name="username" [required]="true"></amplify-input>
+  <amplify-user-name-alias [name]="primaryAlias"></amplify-user-name-alias>
 </ng-template>
 
 <ng-template #signUpPassword>
-  <amplify-input name="password" [required]="true"></amplify-input>
-</ng-template>
-
-<ng-template #signUpEmail>
-  <amplify-input name="email" [required]="true"></amplify-input>
-</ng-template>
-
-<ng-template #signUpPhoneNumber>
   <amplify-input
-    name="phone_number"
-    type="tel"
+    name="password"
     [required]="true"
+    autocomplete="new-password"
+  ></amplify-input>
+</ng-template>
+
+<ng-template #signUpConfirmPassword>
+  <amplify-input
+    name="confirm_password"
+    label="Confirm Password"
+    placeholder="Re-enter your password."
+    [required]="true"
+    type="password"
+    autocomplete="new-password"
   ></amplify-input>
 </ng-template>
 
 <ng-template #signUpFieldset>
-  <fieldset data-ui-fieldset [attr.disabled]="this.isLoading() ? '' : null">
+  <fieldset data-amplify-fieldset [attr.disabled]="isPending ? '' : null">
     <ng-container
       [ngTemplateOutlet]="customComponents.signUpUsername || signUpUsername"
       [ngTemplateOutletContext]="context()"
@@ -35,23 +38,26 @@
     ></ng-container>
 
     <ng-container
-      [ngTemplateOutlet]="customComponents.signUpEmail || signUpEmail"
-      [ngTemplateOutletContext]="context()"
-    ></ng-container>
-
-    <ng-container
       [ngTemplateOutlet]="
-        customComponents.signUpPhoneNumber || signUpPhoneNumber
+        customComponents.signUpConfirmPassword || signUpConfirmPassword
       "
       [ngTemplateOutletContext]="context()"
     ></ng-container>
+
+    <ng-container *ngFor="let secondaryAlias of secondaryAliases">
+      <amplify-input [name]="secondaryAlias"></amplify-input>
+    </ng-container>
   </fieldset>
+
+  <amplify-error *ngIf="remoteError">
+    {{ remoteError }}
+  </amplify-error>
 </ng-template>
 
-<div data-ui-container>
-  <h2 data-ui-header>{{ this.headerText }}</h2>
+<div data-amplify-container>
+  <h2 data-amplify-header>{{ this.headerText }}</h2>
   <form
-    data-ui-form
+    data-amplify-form
     (submit)="onSubmit($event)"
     (input)="onInput($event)"
     ngNativeValidate
@@ -61,10 +67,10 @@
       [ngTemplateOutletContext]="context()"
     ></ng-container>
 
-    <div data-ui-footer>
+    <div data-amplify-footer>
       <div>
-        Have an account?{{ " " }}
-        <span data-ui-link (click)="toSignIn()">Sign In</span>
+        Have an account?{{ ' ' }}
+        <span data-amplify-link (click)="toSignIn()">Sign In</span>
       </div>
       <ng-container
         [ngTemplateOutlet]="customComponents.signUpButton || signUpButton"
@@ -72,8 +78,5 @@
       >
       </ng-container>
     </div>
-    <amplify-validation-error
-      [errors]="formError.cross_field"
-    ></amplify-validation-error>
   </form>
 </div>

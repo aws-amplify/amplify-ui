@@ -1,18 +1,8 @@
-import {
-  Component,
-  EventEmitter,
-  HostBinding,
-  Output,
-  TemplateRef,
-} from '@angular/core';
-import { AuthEvent, AuthMachineState } from '@aws-amplify/ui-core';
+import { Component, HostBinding, TemplateRef } from '@angular/core';
+import { AuthMachineState } from '@aws-amplify/ui-core';
 import { Logger } from '@aws-amplify/core';
-import { Event, Subscription } from 'xstate';
-import { AuthFormData, FormError } from '../../common';
-import {
-  AuthenticatorContextService,
-  StateMachineService,
-} from '../../services';
+import { Subscription } from 'xstate';
+import { AuthPropService, StateMachineService } from '../../services';
 
 const logger = new Logger('ConfirmSignUp');
 
@@ -21,21 +11,17 @@ const logger = new Logger('ConfirmSignUp');
   templateUrl: './amplify-confirm-sign-up.component.html',
 })
 export class AmplifyConfirmSignUpComponent {
-  // custom events
-  @Output() onConfirmSignUpInput = new EventEmitter<AuthFormData>();
-  @Output() onConfirmSignUpSubmit = new EventEmitter<AuthFormData>();
-
-  @HostBinding('attr.data-ui-sign-up') dataAttr = '';
+  @HostBinding('attr.data-amplify-authenticator-confirmsignup') dataAttr = '';
   public customComponents: Record<string, TemplateRef<any>> = {};
   private authSubscription: Subscription;
   public username: string;
-  public context = () => ({
-    errors: this.contextService.formError,
-  });
+  public remoteError = '';
+  public isPending = false;
+  public context = () => ({});
 
   constructor(
     private stateMachine: StateMachineService,
-    private contextService: AuthenticatorContextService
+    private contextService: AuthPropService
   ) {}
 
   ngOnInit(): void {
@@ -46,7 +32,7 @@ export class AmplifyConfirmSignUpComponent {
     const username = this.stateMachine.user?.username;
     if (username) {
       this.username = username;
-      this.send({
+      this.stateMachine.send({
         type: 'INPUT',
         data: { name: 'username', value: this.username },
       });
@@ -54,13 +40,7 @@ export class AmplifyConfirmSignUpComponent {
   }
 
   ngAfterContentInit(): void {
-    this.contextService.formError = {};
     this.customComponents = this.contextService.customComponents;
-    const props = this.contextService.props?.confirmSignUp;
-    if (props) {
-      this.onConfirmSignUpInput = props.onConfirmSignUpInput;
-      this.onConfirmSignUpSubmit = props.onConfirmSignUpSubmit;
-    }
   }
 
   ngOnDestroy(): void {
@@ -71,34 +51,16 @@ export class AmplifyConfirmSignUpComponent {
   }
 
   onStateUpdate(state: AuthMachineState): void {
-    const formValues = state.context.formValues;
-    if (state.matches('confirmSignUp.edit.error')) {
-      const message = state.event.data?.message;
-      logger.info('An error was encountered while signing up:', message);
-      this.contextService.formError = { cross_field: [message] };
-    } else if (state.event.type === 'INPUT') {
-      this.onConfirmSignUpInput.emit(formValues);
-    }
-  }
-
-  public isLoading(): boolean {
-    return !this.stateMachine.authState.matches('confirmSignUp.edit');
-  }
-
-  get formError(): FormError {
-    return this.contextService.formError;
-  }
-
-  send(event: Event<AuthEvent>): void {
-    this.stateMachine.authService.send(event);
+    this.remoteError = state.context.remoteError;
+    this.isPending = !state.matches('confirmSignUp.edit');
   }
 
   toSignIn(): void {
-    this.send('SIGN_IN');
+    this.stateMachine.send('SIGN_IN');
   }
 
   resend(): void {
-    this.send({
+    this.stateMachine.send({
       type: 'RESEND',
       data: {
         username: this.stateMachine.user?.username,
@@ -109,26 +71,21 @@ export class AmplifyConfirmSignUpComponent {
   onInput($event) {
     $event.preventDefault();
     const { name, value } = $event.target;
-    this.send({
+    this.stateMachine.send({
       type: 'INPUT',
       data: { name, value },
     });
   }
 
-  async onSubmit($event): Promise<void> {
-    $event.preventDefault();
-    this.contextService.formError = {};
+  async onSubmit(event: Event): Promise<void> {
+    event.preventDefault();
+    const formValues = this.stateMachine.context.formValues;
     // get form data
-    const formValues = this.stateMachine.authState.context.formValues;
-    logger.log('Confirm sign up form submitted with', formValues);
+    const { username, confirmation_code } = formValues;
 
-    if (this.onConfirmSignUpSubmit.observers.length > 0) {
-      this.onConfirmSignUpSubmit.emit(formValues);
-    } else {
-      this.send({
-        type: 'SUBMIT',
-        data: formValues,
-      });
-    }
+    this.stateMachine.send({
+      type: 'SUBMIT',
+      data: { username, confirmation_code },
+    });
   }
 }

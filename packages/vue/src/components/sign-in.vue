@@ -1,7 +1,12 @@
 <template>
   <slot name="signInSlotI">
     <base-wrapper data-amplify-wrapper>
-      <base-form @submit.prevent="onSignInSubmit" method="post">
+      <base-form
+        data-amplify-authenticator-signin
+        @submit.prevent="onSignInSubmit"
+        @input="onInput"
+        method="post"
+      >
         <template #formt="{ slotData }">
           <slot
             name="form"
@@ -20,10 +25,10 @@
         </base-heading>
 
         <base-field-Set :disabled="state.matches('signIn.submit')">
-          <template #fieldSetI=" { slotData } ">
+          <template #fieldSetI="{ slotData }">
             <slot name="signin-fields" :info="slotData"> </slot>
           </template>
-          <user-name-alias :userNameAlias="true" />
+          <user-name-alias data-amplify-usernamealias :userNameAlias="true" />
 
           <base-label data-amplify-password>
             <sign-in-password-control />
@@ -72,7 +77,7 @@
               ></slot>
             </template>
             {{
-              state.matches("signIn.submit")
+              state.matches('signIn.submit')
                 ? signIngButtonText
                 : signInButtonText
             }}
@@ -88,20 +93,20 @@
 </template>
 
 <script lang="ts">
-import { Ref, ref } from "vue";
+import { Ref, ref } from 'vue';
 
-import BaseLabel from "./primitives/base-label.vue";
-import BaseFooter from "./primitives/base-footer.vue";
-import BaseWrapper from "./primitives/base-wrapper.vue";
-import BaseForm from "./primitives/base-form.vue";
-import BaseHeading from "./primitives/base-heading.vue";
-import BaseFieldSet from "./primitives/base-field-set.vue";
-import BaseBox from "./primitives/base-box.vue";
-import BaseButton from "./primitives/base-button.vue";
-import BaseSpacer from "./primitives/base-spacer.vue";
-import BaseText from "./primitives/base-text.vue";
-import SignInPasswordControl from "./sign-in-password-control.vue";
-import UserNameAlias from "./user-name-alias.vue";
+import BaseLabel from './primitives/base-label.vue';
+import BaseFooter from './primitives/base-footer.vue';
+import BaseWrapper from './primitives/base-wrapper.vue';
+import BaseForm from './primitives/base-form.vue';
+import BaseHeading from './primitives/base-heading.vue';
+import BaseFieldSet from './primitives/base-field-set.vue';
+import BaseBox from './primitives/base-box.vue';
+import BaseButton from './primitives/base-button.vue';
+import BaseSpacer from './primitives/base-spacer.vue';
+import BaseText from './primitives/base-text.vue';
+import SignInPasswordControl from './sign-in-password-control.vue';
+import UserNameAlias from './user-name-alias.vue';
 
 import {
   SIGN_IN_TEXT,
@@ -113,16 +118,16 @@ import {
   FORGOT_YOUR_PASSWORD_TEXT,
   PASSWORD_LABEL,
   SIGNING_IN_BUTTON_TEXT,
-} from "../defaults/DefaultTexts";
+} from '../defaults/DefaultTexts';
 
 // @xstate
-import { useAuth } from "../composables/useAuth";
+import { useAuth } from '../composables/useAuth';
 
 // types
-import { SetupEventContext, SignInSetupReturnTypes } from "../types/index";
+import { SetupEventContext, SignInSetupReturnTypes } from '../types/index';
 
 export default {
-  name: "Authentication",
+  name: 'Authentication',
   computed: {
     signIntoAccountText: (): string => SIGN_IN_TEXT,
     resetPasswordLink: (): string => RESET_PASSWORD_LINK,
@@ -152,23 +157,32 @@ export default {
   setup(_, { emit, attrs }: SetupEventContext): SignInSetupReturnTypes {
     const { state, send } = useAuth();
 
-    const username: Ref = ref("");
-    const password: Ref = ref("");
+    const username: Ref = ref('');
+    const password: Ref = ref('');
 
     // Methods
 
-    const onSignInSubmit = (e): void => {
+    const onInput = (e: Event): void => {
+      const { name, value } = <HTMLInputElement>e.target;
+      send({
+        type: 'INPUT',
+        //@ts-ignore
+        data: { name, value },
+      });
+    };
+
+    const onSignInSubmit = (e: Event): void => {
       if (attrs?.onSignInSubmit) {
-        emit("signInSubmit", e);
+        emit('signInSubmit', e);
       } else {
         submit(e);
       }
     };
 
-    const submit = (e): void => {
-      const formData = new FormData(e.target);
+    const submit = (e: Event): void => {
+      const formData = new FormData(<HTMLFormElement>e.target);
       send({
-        type: "SUBMIT",
+        type: 'SUBMIT',
         // @ts-ignore Property 'fromEntries' does not exist on type 'ObjectConstructor'. Do you need to change your target library? Try changing the `lib` compiler option to 'es2019' or later.ts(2550)
         data: Object.fromEntries(formData),
       });
@@ -176,19 +190,19 @@ export default {
 
     const onForgotPasswordClicked = (): void => {
       if (attrs?.onForgotPasswordClicked) {
-        emit("forgotPasswordClicked");
+        emit('forgotPasswordClicked');
       } else {
         // Future
-        console.log("you clicked the reset password link");
+        console.log('you clicked the reset password link');
       }
     };
 
     const onCreateAccountClicked = (): void => {
       if (attrs?.onCreateAccountClicked) {
-        emit("createAccountClicked");
+        emit('createAccountClicked');
       } else {
         send({
-          type: "SIGN_UP",
+          type: 'SIGN_UP',
         });
       }
     };
@@ -198,6 +212,7 @@ export default {
       AUTHENTICATOR,
       onForgotPasswordClicked,
       onCreateAccountClicked,
+      onInput,
       state,
       username,
       password,
@@ -206,5 +221,3 @@ export default {
   },
 };
 </script>
-
-<style scoped></style>

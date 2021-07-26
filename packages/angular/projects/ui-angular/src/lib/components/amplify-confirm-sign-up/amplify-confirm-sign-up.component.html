@@ -2,28 +2,31 @@
   Define default contents here
 -->
 <ng-template #confirmSignUpButton>
-  <button data-ui-button type="submit">Confirm</button>
+  <button data-amplify-button type="submit">Confirm</button>
 </ng-template>
 
 <ng-template #confirmSignUpForm>
-  <form data-ui-form (submit)="onSubmit($event)" (input)="onInput($event)">
-    <fieldset data-ui-fieldset [attr.disabled]="isLoading() ? '' : null">
-      <amplify-input
-        name="username"
+  <form data-amplify-form (submit)="onSubmit($event)" (input)="onInput($event)">
+    <fieldset data-amplify-fieldset [attr.disabled]="isPending ? '' : null">
+      <amplify-user-name-alias
         [initialValue]="username"
         [disabled]="true"
+      ></amplify-user-name-alias>
+      <amplify-input
+        name="confirmation_code"
+        type="number"
+        autocomplete="one-time-code"
       ></amplify-input>
-      <amplify-input name="code" type="number"></amplify-input>
 
-      <div data-ui-resend>
-        Lost your code? {{ " " }}
-        <a data-ui-link (click)="resend()">Resend Code</a>
+      <div data-amplify-resend>
+        Lost your code? {{ ' ' }}
+        <a data-amplify-link (click)="resend()">Resend Code</a>
       </div>
 
-      <div data-ui-footer>
+      <div data-amplify-footer>
         <div>
-          Back to{{ " " }}
-          <a data-ui-link (click)="toSignIn()">Sign In</a>
+          Back to{{ ' ' }}
+          <a data-amplify-link (click)="toSignIn()">Sign In</a>
         </div>
         <ng-container
           [ngTemplateOutlet]="
@@ -33,11 +36,11 @@
         >
         </ng-container>
       </div>
-
-      <amplify-validation-error
-        [errors]="formError.cross_field"
-      ></amplify-validation-error>
     </fieldset>
+
+    <amplify-error *ngIf="remoteError">
+      {{ remoteError }}
+    </amplify-error>
   </form>
 </ng-template>
 
@@ -45,8 +48,8 @@
     Render sign in component
 -->
 
-<div data-ui-container>
-  <h2 data-ui-header>Confirm Your Account</h2>
+<div data-amplify-container>
+  <h2 data-amplify-header>Confirm Your Account</h2>
   <ng-container
     [ngTemplateOutlet]="customComponents.confirmSignUpForm || confirmSignUpForm"
     [ngTemplateOutletContext]="context()"
