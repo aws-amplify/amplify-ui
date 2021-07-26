@@ -31,6 +31,7 @@
     "react-dom": "latest",
     "react-smooshpack": "^1.0.0-alpha-31",
     "rehype": "^11.0.0",
+    "remark-code-import": "^0.3.0",
     "remark-frontmatter": "^3.0.0",
     "remark-gfm": "^1.0.0",
     "remark-github": "^10.1.0",
