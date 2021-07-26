@@ -108,6 +108,7 @@
     <confirm-sign-up
       v-if="state?.matches('confirmSignUp')"
       @confirm-sign-up-submit="onConfirmSignUpSubmitI"
+      :shouldHideReturnBtn="true"
       ref="confirmSignUpComponent"
     >
       <template #confirmSignUpSlotI>
