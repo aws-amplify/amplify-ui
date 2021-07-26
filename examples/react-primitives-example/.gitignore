@@ -1,5 +1,10 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+# Required to fix build error with babel-loader
+# by allowing a .env file with SKIP_PREFLIGHT_CHECK=true
+# See: https://github.com/facebook/create-react-app/issues/10123
+!.env
+
 # dependencies
 /node_modules
 /.pnp
