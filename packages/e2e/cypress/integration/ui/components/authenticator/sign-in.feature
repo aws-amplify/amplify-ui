@@ -5,8 +5,7 @@ Feature: Sign In
   service to provide a sign in experience to your application's
   users.
 
-  @Vue
-  @React
+  @Next @React @Vue
   Scenario: Sign in with invalid credentials
     Given I'm at the sign in page
     When I type an invalid username "INVALID_USERNAME"
@@ -14,10 +13,7 @@ Feature: Sign In
     And I click the "Sign In" button
     Then I see "User does not exist"
 
-
- 
-  @Vue
-  @React
+  @Next @React @Vue
   Scenario: Sign in with valid credentials
     Given I'm at the sign in page
     When I type a valid username "VALID_USERNAME"
