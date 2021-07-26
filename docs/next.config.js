@@ -19,7 +19,9 @@ const withCompileNodeModules = require('@moxy/next-compile-node-modules')({
 module.exports = withNextPluginPreval(
   withCompileNodeModules({
     env: { BRANCH },
-    pageExtensions: ['mdx', 'page.tsx'],
+    // Differentiate pages with frontmatter & layout vs. normal MD(X)
+    pageExtensions: ['page.mdx', 'page.tsx'],
+
     // Convenience for local development, since / will 404 by default
     redirects() {
       return [
@@ -37,7 +39,7 @@ module.exports = withNextPluginPreval(
     webpack(config) {
       // https://github.com/wooorm/xdm#next
       config.module.rules.push({
-        test: /\.mdx$/,
+        test: /\.page.mdx$/,
         use: [
           {
             loader: 'xdm/webpack.cjs',
