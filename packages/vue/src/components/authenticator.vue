@@ -108,7 +108,7 @@
     <confirm-sign-up
       v-if="state?.matches('confirmSignUp')"
       @confirm-sign-up-submit="onConfirmSignUpSubmitI"
-      :shouldHideReturnBtn="true"
+      :shouldHideReturnBtn="shouldHideReturnBtn"
       ref="confirmSignUpComponent"
     >
       <template #confirmSignUpSlotI>
@@ -198,6 +198,13 @@ export default {
     ConfirmSignIn,
     SetupTotp,
   },
+  props: {
+    shouldHideReturnBtn: {
+      default: true,
+      type: Boolean,
+    },
+  },
+
   setup(
     _,
     { attrs, emit }: SetupEventContext
