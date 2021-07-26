@@ -6,6 +6,7 @@ import {
   authInputAttributes,
   socialProviderLoginMechanisms,
 } from '@aws-amplify/ui-core';
+import { FederatedSignIn } from '../FederatedSignIn';
 
 export function SignUp() {
   const {
@@ -40,7 +41,7 @@ export function SignUp() {
     <Form
       data-amplify-authenticator-signup=""
       method="post"
-      onSubmit={event => {
+      onSubmit={(event) => {
         event.preventDefault();
 
         const formData = new FormData(event.target);
@@ -55,6 +56,8 @@ export function SignUp() {
     >
       <Heading>Create a new account</Heading>
 
+      <FederatedSignIn />
+
       <Fieldset>
         <SignUp.AliasControl
           label={authInputAttributes[primaryAlias].label}
@@ -63,8 +66,8 @@ export function SignUp() {
         <SignUp.PasswordControl />
         <SignUp.ConfirmPasswordControl />
         {secondaryAliases
-          .filter(alias => !includes(socialProviderLoginMechanisms, alias))
-          .map(alias => (
+          .filter((alias) => !includes(socialProviderLoginMechanisms, alias))
+          .map((alias) => (
             <SignUp.AliasControl
               key={alias}
               label={authInputAttributes[alias].label}
