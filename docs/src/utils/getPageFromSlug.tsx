@@ -14,7 +14,7 @@ export async function getPageFromSlug(slug: string) {
     'src',
     'pages',
     slug,
-    'index.mdx'
+    'index.page.mdx'
   );
 
   const source = await readFile(contentPath, 'utf8');
