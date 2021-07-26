@@ -29,7 +29,9 @@ interface FilterOptionMetadata {
 }
 
 // https://github.com/aws-amplify/docs/blob/c5a98ecd72bb7c3ccfab669f2ddb195096d25053/src/utils/filter-data.ts
-export const filterMetadataByOption: FilterMetadataByOption<typeof FILTER_OPTIONS> = {
+export const filterMetadataByOption: FilterMetadataByOption<
+  typeof FILTER_OPTIONS
+> = {
   js: {
     label: 'JavaScript',
     graphicURI: '/assets/integrations/js.svg',
@@ -124,7 +126,7 @@ export class PlatformSelect extends React.Component<
   };
 
   toggleVis = () => {
-    this.setState(oldState => {
+    this.setState((oldState) => {
       return { isOpen: !oldState.isOpen };
     });
   };
@@ -143,7 +145,7 @@ export class PlatformSelect extends React.Component<
           </a>
         </CurrentlySelectedStyle>
         <DropdownStyle shouldDisplay={this.state.isOpen}>
-          {this.props.filters.map(name => {
+          {this.props.filters.map((name) => {
             if (name === this.props.platform) return;
             return (
               <Link
@@ -152,6 +154,7 @@ export class PlatformSelect extends React.Component<
                   query: { platform: name },
                 }}
                 key={name}
+                scroll={false}
               >
                 <a onClick={this.toggleVis}>
                   <Image
