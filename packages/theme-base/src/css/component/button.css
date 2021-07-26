@@ -11,14 +11,14 @@
   transition: all var(--amplify-ui-components-button-transition-duration);
 }
 
-.amplify-ui-button[data-variant='default'] {
+.amplify-ui-button[data-variation='default'] {
   border: var(--amplify-ui-components-button-default-border-width)
     var(--amplify-ui-components-button-default-border-style)
     var(--amplify-ui-components-button-default-border-color);
   color: var(--amplify-ui-components-button-default-color);
 }
 
-.amplify-ui-button[data-variant='default']:hover {
+.amplify-ui-button[data-variation='default']:hover {
   background-color: var(
     --amplify-ui-components-button-default-hover-background-color
   );
@@ -26,12 +26,12 @@
   color: var(--amplify-ui-components-button-default-hover-color);
 }
 
-.amplify-ui-button[data-variant='default']:focus {
+.amplify-ui-button[data-variation='default']:focus {
   border-color: var(--amplify-ui-components-button-default-focus-border-color);
   color: var(--amplify-ui-components-button-default-focus-color);
 }
 
-.amplify-ui-button[data-variant='default']:active {
+.amplify-ui-button[data-variation='default']:active {
   background-color: var(
     --amplify-ui-components-button-default-active-background-color
   );
@@ -39,7 +39,7 @@
   color: var(--amplify-ui-components-button-default-active-color);
 }
 
-.amplify-ui-button[data-variant='default'][disabled] {
+.amplify-ui-button[data-variation='default'][disabled] {
   background-color: var(
     --amplify-ui-components-button-default-disabled-background-color
   );
@@ -49,7 +49,7 @@
   color: var(--amplify-ui-components-button-default-disabled-color);
 }
 
-.amplify-ui-button[data-variant='default'][data-loading='true'] {
+.amplify-ui-button[data-variation='default'][data-loading='true'] {
   background-color: var(
     --amplify-ui-components-button-default-loading-background-color
   );
@@ -71,69 +71,69 @@
   width: 100%;
 }
 
-.amplify-ui-button[data-variant='primary'] {
+.amplify-ui-button[data-variation='primary'] {
   background-color: var(
     --amplify-ui-components-button-primary-background-color
   );
   color: var(--amplify-ui-components-button-primary-color);
 }
 
-.amplify-ui-button[data-variant='primary']:hover {
+.amplify-ui-button[data-variation='primary']:hover {
   background-color: var(
     --amplify-ui-components-button-primary-hover-background-color
   );
 }
 
-.amplify-ui-button[data-variant='primary']:focus {
+.amplify-ui-button[data-variation='primary']:focus {
   background-color: var(
     --amplify-ui-components-button-primary-focus-background-color
   );
 }
 
-.amplify-ui-button[data-variant='primary']:active {
+.amplify-ui-button[data-variation='primary']:active {
   background-color: var(
     --amplify-ui-components-button-primary-active-background-color
   );
 }
 
-.amplify-ui-button[data-variant='primary'][data-loading='true'] {
+.amplify-ui-button[data-variation='primary'][data-loading='true'] {
   background-color: var(
     --amplify-ui-components-button-primary-loading-background-color
   );
   color: var(--amplify-ui-components-button-primary-loading-color);
 }
 
-.amplify-ui-button[data-variant='primary'][disabled] {
+.amplify-ui-button[data-variation='primary'][disabled] {
   background-color: var(
     --amplify-ui-components-button-primary-disabled-background-color
   );
   color: var(--amplify-ui-components-button-primary-disabled-color);
 }
 
-.amplify-ui-button[data-variant='link'] {
+.amplify-ui-button[data-variation='link'] {
   color: var(--amplify-ui-components-button-link-color);
 }
 
-.amplify-ui-button[data-variant='link']:hover {
+.amplify-ui-button[data-variation='link']:hover {
   color: var(--amplify-ui-components-button-link-hover-color);
   text-decoration: underline;
 }
 
-.amplify-ui-button[data-variant='link'][disabled] {
+.amplify-ui-button[data-variation='link'][disabled] {
   color: var(--amplify-ui-components-button-link-disabled-color);
   text-decoration: none;
 }
 
-.amplify-ui-button[data-variant='link'][data-loading='true'] {
+.amplify-ui-button[data-variation='link'][data-loading='true'] {
   color: var(--amplify-ui-components-button-link-loading-color);
   text-decoration: none;
 }
 
-.amplify-ui-button[data-variant='link']:focus {
+.amplify-ui-button[data-variation='link']:focus {
   color: var(--amplify-ui-components-button-link-focus-color);
 }
 
-.amplify-ui-button[data-variant='link']:active {
+.amplify-ui-button[data-variation='link']:active {
   color: var(--amplify-ui-components-button-link-active-color);
 }
 

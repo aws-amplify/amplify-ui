@@ -2,14 +2,14 @@ import { BaseComponentProps } from './base';
 
 import { BaseStyleProps } from './style';
 
-export type BadgeVariant = 'default' | 'info' | 'error' | 'warning' | 'success';
+export type BadgeVariation = 'default' | 'info' | 'error' | 'warning' | 'success';
 export type BadgeSize = 'small' | 'medium' | 'large';
 
 export interface BadgeProps extends BaseComponentProps, BaseStyleProps {
   /**
-   * The variant property will affect the background color of the badge.
+   * The variation property will affect the background color of the badge.
   */
-  variant?: BadgeVariant;
+  variation?: BadgeVariation;
   /**
    * The size property will affect the font size of the badge.
    */

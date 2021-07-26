@@ -42,7 +42,7 @@ import { BaseTheme } from '@aws-amplify/ui-theme-base';
 
 const ThemedApp = (
   <ThemeProvider theme={BaseTheme}>
-    <Button variant="primary">Click me!</Button>
+    <Button variation="primary">Click me!</Button>
   </ThemeProvider>
 );
 ```
@@ -55,7 +55,7 @@ import { BaseTheme } from '@aws-amplify/ui-theme-base';
 
 const ThemedApp = withTheme(
   BaseTheme,
-  <Button variant="primary">Click me!</Button>
+  <Button variation="primary">Click me!</Button>
 );
 ```
 
@@ -65,7 +65,7 @@ const ThemedApp = withTheme(
 import '@aws-amplify/ui-theme-base/dist/theme.css';
 
 const ThemedApp = (
-  <button class="amplify-ui-button" data-size="large" data-variant="primary">
+  <button class="amplify-ui-button" data-size="large" data-variation="primary">
     Click me!
   </button>
 );

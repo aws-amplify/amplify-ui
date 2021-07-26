@@ -15,7 +15,7 @@ export const Button: React.FC<ButtonProps> = ({
   loadingText = '',
   onClick = () => {},
   size = 'medium',
-  variant = 'default',
+  variation = 'default',
   type = 'button',
 }) => (
   <View
@@ -25,7 +25,7 @@ export const Button: React.FC<ButtonProps> = ({
     data-fullwidth={isFullWidth}
     data-loading={isLoading}
     data-size={size}
-    data-variant={variant}
+    data-variation={variation}
     disabled={isDisabled || isLoading}
     id={id}
     onClick={onClick}

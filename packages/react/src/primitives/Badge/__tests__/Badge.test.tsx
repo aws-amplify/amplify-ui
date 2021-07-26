@@ -9,12 +9,12 @@ describe('Badge: ', () => {
 
   it('can apply styling via props', async () => {
     render(
-      <Badge variant="success" size="large">
+      <Badge variation="success" size="large">
         {badgeText}
       </Badge>
     );
     const badge = await screen.findByText(badgeText);
-    expect(badge.dataset['variant']).toBe('success');
+    expect(badge.dataset['variation']).toBe('success');
     expect(badge.dataset['size']).toBe('large');
   });
 
