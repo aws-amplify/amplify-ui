@@ -16,7 +16,8 @@
     "esModuleInterop": true,
     "paths": {
       "@aws-amplify/ui-angular": ["../packages/angular/dist/ui-angular/*"],
-      "@aws-amplify/ui-core": ["../packages/core/*"]
+      "@aws-amplify/ui-core": ["../packages/core/*"],
+      "@environments/*": ["../environments/*"]
     }
   },
   "angularCompilerOptions": {

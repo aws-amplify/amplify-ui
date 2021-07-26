@@ -217,6 +217,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
       },
       signUp: {
         type: 'parallel',
+        exit: ['clearError'],
         states: {
           validation: {
             initial: 'pending',
@@ -269,7 +270,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
               pending: {
                 invoke: {
                   src: 'signUp',
-                  onDone: 'done',
+                  onDone: { target: 'done', actions: 'setUser' },
                   onError: {
                     target: 'idle',
                     actions: 'setRemoteError',
@@ -430,7 +431,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
       async getAmplifyConfig() {
         return Amplify.configure();
       },
-      async signIn(context, event) {
+      async signIn(_context, event) {
         const { username, password } = event.data;
 
         return Auth.signIn(username, password);
