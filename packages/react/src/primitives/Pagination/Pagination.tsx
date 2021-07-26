@@ -2,7 +2,6 @@ import React from 'react';
 import classNames from 'classnames';
 
 import { usePaginationItems } from './usePaginationItems';
-import { PaginationItem } from './PaginationItem';
 import { View } from '../View';
 import { PaginationProps } from '../types';
 import { ComponentClassNames } from '../shared/constants';
@@ -21,7 +20,13 @@ export const Pagination: React.FC<PaginationProps> = (props) => {
   } = props;
 
   // invoke usePages hook to get pagination items
-  const pages = usePaginationItems(currentPage, totalPages, onChange);
+  const paginationItems = usePaginationItems(
+    currentPage,
+    totalPages,
+    onNext,
+    onPrevious,
+    onChange
+  );
 
   return (
     <View
@@ -31,19 +36,7 @@ export const Pagination: React.FC<PaginationProps> = (props) => {
       className={classNames(ComponentClassNames.Pagination, className)}
       {...rest}
     >
-      <PaginationItem
-        type="previous"
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onClick={onPrevious}
-      />
-      {pages}
-      <PaginationItem
-        type="next"
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onClick={onNext}
-      />
+      {paginationItems}
     </View>
   );
 };
