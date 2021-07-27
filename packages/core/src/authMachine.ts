@@ -3,6 +3,13 @@ import { Auth, Amplify } from 'aws-amplify';
 import { Machine, assign } from 'xstate';
 import { AuthChallengeNames, AuthContext, AuthEvent } from './types';
 import { passwordMatches, runValidators } from './validators';
+import { inspect } from '@xstate/inspect';
+
+if (typeof window !== 'undefined') {
+  inspect({
+    iframe: false,
+  });
+}
 
 export const authMachine = Machine<AuthContext, AuthEvent>(
   {
