@@ -61,7 +61,10 @@
 
 <script lang="ts">
 import { defineComponent, ref, watch, computed } from 'vue';
-import { authInputAttributes } from '@aws-amplify/ui-core';
+import {
+  authInputAttributes,
+  socialProviderLoginMechanisms,
+} from '@aws-amplify/ui-core';
 
 import BaseForm from './primitives/base-form.vue';
 import BaseBox from './primitives/base-box.vue';
@@ -113,8 +116,12 @@ export default defineComponent({
       value: { context },
     } = state;
 
-    const [__, ...secondaryAliases] = useAliases(
+    let [__, ...secondaryAliases] = useAliases(
       context?.config?.login_mechanisms
+    );
+
+    secondaryAliases = secondaryAliases.filter(
+      (alias) => !socialProviderLoginMechanisms.includes(alias)
     );
 
     // reactive properties
