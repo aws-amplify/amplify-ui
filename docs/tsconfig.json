@@ -6,6 +6,7 @@
     "paths": {
       "@/components/*": ["src/components/*"],
       "@/data/*": ["src/data/*"],
+      "@/features/*": ["../packages/e2e/cypress/integration/*"],
       "@/utils/*": ["src/utils/*"],
       "@aws-sdk/client-s3": [
         "./node_modules/@aws-sdk/client-s3/dist/es",

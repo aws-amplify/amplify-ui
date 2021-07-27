@@ -23,7 +23,7 @@ Import the Heading component and styles.
 import { Heading } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
-<Heading>Hello world</Heading>
+<Heading>Hello world</Heading>;
 ```
 
 <Heading>Hello world</Heading>
@@ -83,27 +83,40 @@ h6.amplify-ui-heading {
   font-weight: bold;
 }
 ```
+
 ```jsx
 import './styles.css';
 
 <Heading level={1}>Small and italic</Heading>
 <Heading>Big and bold</Heading>
 ```
-<Heading fontSize="1rem" fontStyle="italic">Small and italic</Heading>
-<Heading fontSize="2rem" fontWeight="bold">Big and bold</Heading>
+
+<Heading fontSize="1rem" fontStyle="italic">
+  Small and italic
+</Heading>
+<Heading fontSize="2rem" fontWeight="bold">
+  Big and bold
+</Heading>
 
 <br />
 
 #### Styling a heading instance
+
 To override styling on a specific heading
 
-*Using props:*
-```jsx
-<Heading level={3} color="green" fontWeight="bold">Save the environment</Heading>
-```
-<Heading level={3} color="green" fontWeight="bold">Save the environment</Heading>
+_Using props:_
 
-*Using an id selector:*
+```jsx
+<Heading level={3} color="green" fontWeight="bold">
+  Save the environment
+</Heading>
+```
+
+<Heading level={3} color="green" fontWeight="bold">
+  Save the environment
+</Heading>
+
+_Using an id selector:_
 
 ```css
 /* Example: id selector styling override */
@@ -113,7 +126,9 @@ To override styling on a specific heading
   font-size: 1.5rem;
 }
 ```
+
 ```jsx
 <Heading id="subscribe">Suscribe now!</Heading>
 ```
+
 <Heading id="subscribe">Suscribe now!</Heading>

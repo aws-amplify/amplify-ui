@@ -27,3 +27,13 @@ code.language-shell,
 .mdx-marker {
   @apply select-all;
 }
+
+a > h2::before {
+  content: '#';
+  @apply absolute -ml-6 text-amazon;
+}
+
+a > h3::before {
+  content: '#';
+  @apply absolute -ml-5 text-amazon;
+}

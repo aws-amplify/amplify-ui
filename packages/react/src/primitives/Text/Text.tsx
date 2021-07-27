@@ -11,7 +11,7 @@ export const Text: React.FC<TextProps> = (props) => {
     children,
     id,
     isTruncated,
-    variant,
+    variation,
     ...rest
   } = props;
   return (
@@ -19,7 +19,7 @@ export const Text: React.FC<TextProps> = (props) => {
       as={asElementTag}
       className={classNames(ComponentClassNames.Text, className)}
       data-truncate={isTruncated}
-      data-variant={variant}
+      data-variation={variation}
       id={id}
       {...rest}
     >
