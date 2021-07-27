@@ -24,8 +24,9 @@ export const usePaginationItems = (
       type="previous"
       key="previous"
       currentPage={currentPage}
-      totalPages={totalPages}
       onClick={onPrevious}
+      ariaLabel="Go to previous page"
+      ariaDisabled={currentPage === 1}
     />
   );
 
@@ -34,8 +35,9 @@ export const usePaginationItems = (
       type="next"
       key="next"
       currentPage={currentPage}
-      totalPages={totalPages}
       onClick={onNext}
+      ariaLabel="Go to next page"
+      ariaDisabled={currentPage === totalPages}
     />
   );
   // To get the range of page numbers to be rendered in the pagination primitive
@@ -49,6 +51,7 @@ export const usePaginationItems = (
             <PaginationItem
               type="ellipsis"
               key={idx === 1 ? 'start-ellipsis' : 'end-ellipsis'}
+              ariaLabel="ellipsis"
             />
           );
         }
@@ -61,6 +64,8 @@ export const usePaginationItems = (
             page={item as number}
             currentPage={currentPage}
             onClick={onChange}
+            ariaLabel={`Go to page ${item}`}
+            ariaCurrent={item === currentPage ? 'page' : undefined}
           />
         );
       }),

@@ -4,19 +4,28 @@ import { IconChevronLeft, IconChevronRight } from '../Icon';
 import { PaginationItemProps } from '../types/pagination';
 
 export const PaginationItem: React.FC<PaginationItemProps> = (props) => {
-  const { type, page, currentPage, totalPages, onClick } = props;
+  const {
+    type,
+    page,
+    currentPage,
+    onClick,
+    ariaLabel,
+    ariaDisabled,
+    ariaCurrent,
+    ...rest
+  } = props;
 
   switch (type) {
     case 'page':
       const onChange = useCallback(() => {
         onClick(page, currentPage);
       }, [page, currentPage]);
-      const ariaCurrent = page === currentPage ? 'page' : undefined;
       return (
         <li
-          aria-label={`Go to page ${page}`}
+          aria-label={ariaLabel}
           aria-current={ariaCurrent}
           onClick={onChange}
+          {...rest}
         >
           <a>{page}</a>
         </li>
@@ -27,9 +36,10 @@ export const PaginationItem: React.FC<PaginationItemProps> = (props) => {
       }, [currentPage]);
       return (
         <li
-          aria-label="Go to next page"
-          aria-disabled={currentPage === totalPages}
+          aria-label={ariaLabel}
+          aria-disabled={ariaDisabled}
           onClick={onNext}
+          {...rest}
         >
           <a>
             <IconChevronRight size="large" />
@@ -42,9 +52,10 @@ export const PaginationItem: React.FC<PaginationItemProps> = (props) => {
       }, [currentPage]);
       return (
         <li
-          aria-label="Go to previous page"
-          aria-disabled={currentPage === 1}
+          aria-label={ariaLabel}
+          aria-disabled={ariaDisabled}
           onClick={onPrevious}
+          {...rest}
         >
           <a>
             <IconChevronLeft size="large" />
@@ -52,7 +63,11 @@ export const PaginationItem: React.FC<PaginationItemProps> = (props) => {
         </li>
       );
     case 'ellipsis':
-      return <li aria-label="ellipsis">...</li>;
+      return (
+        <li aria-label={ariaLabel} {...rest}>
+          ...
+        </li>
+      );
     default:
     // No match type found
   }

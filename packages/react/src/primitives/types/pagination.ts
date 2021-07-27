@@ -33,7 +33,10 @@ export interface PaginationProps
   onChange: (newPageIndex: number, prevPageIndex: number) => void;
 }
 
-export interface PaginationItemProps extends BaseComponentProps, AriaProps {
+export interface PaginationItemProps
+  extends BaseComponentProps,
+    BaseStyleProps,
+    AriaProps {
   /**
    * Available item type are 'page', 'next', 'previous' and 'ellipsis'.
    */
@@ -47,11 +50,6 @@ export interface PaginationItemProps extends BaseComponentProps, AriaProps {
    * The index of current page.
    */
   currentPage?: number;
-
-  /**
-   * Total number of available pages.
-   */
-  totalPages?: number;
 
   /**
    * Triggered every time the item is clicked.
