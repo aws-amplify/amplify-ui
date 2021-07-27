@@ -6,6 +6,7 @@ import {
   authInputAttributes,
   socialProviderLoginMechanisms,
 } from '@aws-amplify/ui-core';
+import { FederatedSignIn } from '../FederatedSignIn';
 
 export function SignUp() {
   const {
@@ -54,6 +55,8 @@ export function SignUp() {
       onChange={handleChange}
     >
       <Heading>Create a new account</Heading>
+
+      <FederatedSignIn />
 
       <Fieldset>
         <SignUp.AliasControl

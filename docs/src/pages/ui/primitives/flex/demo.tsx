@@ -39,7 +39,7 @@ const Direction = () => {
         {DirectionProps.map((prop, i) => (
           <Button
             onClick={() => setDirection(prop)}
-            variant={prop === direction ? 'primary' : 'secondary'}
+            variation={prop === direction ? 'primary' : 'secondary'}
             size="small"
             key={i}
           >
@@ -65,7 +65,7 @@ const JustifyContent = () => {
         {JustifyContentProps.map((prop, i) => (
           <Button
             onClick={() => setJustifyContent(prop)}
-            variant={prop === justifyContent ? 'primary' : 'secondary'}
+            variation={prop === justifyContent ? 'primary' : 'secondary'}
             size="small"
             key={i}
           >
@@ -90,7 +90,7 @@ const AlignItems = () => {
         {AlignItemsProps.map((prop, i) => (
           <Button
             onClick={() => setAlignItems(prop)}
-            variant={prop === alignItems ? 'primary' : 'secondary'}
+            variation={prop === alignItems ? 'primary' : 'secondary'}
             size="small"
             key={i}
           >
@@ -137,7 +137,7 @@ const Wrap = () => {
         {WrapProps.map((prop, i) => (
           <Button
             onClick={() => setWrap(prop)}
-            variant={prop === wrap ? 'primary' : 'secondary'}
+            variation={prop === wrap ? 'primary' : 'secondary'}
             size="small"
             key={i}
           >

@@ -9,12 +9,10 @@
   ],
   "scripts": {
     "build": "yarn run build:sd; yarn run build:css",
-    "build:all": "yarn run build; yarn run build:icons",
-    "build:icons": "yarn run clean:icons && node scripts/generateIcons.js",
+    "build:all": "yarn run build",
     "build:sd": "style-dictionary build --config ./sd.config.js",
     "build:css": "globcat src/css/theme.css dist/variables.css src/css/**/*.css --output dist/theme.css",
-    "clean": "rimraf dist",
-    "clean:icons": "rimraf dist/react-icons"
+    "clean": "rimraf dist"
   },
   "devDependencies": {
     "change-case": "^4.1.2",

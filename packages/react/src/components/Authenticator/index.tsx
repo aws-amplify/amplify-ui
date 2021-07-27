@@ -3,6 +3,7 @@ import { useAmplify } from '@aws-amplify/ui-react';
 import { useActor, useInterpret } from '@xstate/react';
 
 import { AuthenticatorContext } from './AuthenticatorContext';
+import { ForceNewPassword } from './ForceNewPassword';
 import { ConfirmSignIn } from './ConfirmSignIn';
 import { ConfirmSignUp } from './ConfirmSignUp';
 import { SetupTOTP } from './SetupTOTP';
@@ -52,6 +53,8 @@ export function Authenticator({
               return <SignIn />;
             case state.matches('signUp'):
               return <SignUp />;
+            case state.matches('forceNewPassword'):
+              return <ForceNewPassword />;
             default:
               console.warn('Unhandled Auth state', state);
               return null;
