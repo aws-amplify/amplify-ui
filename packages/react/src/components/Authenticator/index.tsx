@@ -68,3 +68,11 @@ export function Authenticator({
 Authenticator.ConfirmSignUp = ConfirmSignUp;
 Authenticator.SignIn = SignIn;
 Authenticator.SignUp = SignUp;
+
+export function withAuthenticator(Component) {
+  return function WrappedWithAuthenticator() {
+    return (
+      <Authenticator>{(context) => <Component {...context} />}</Authenticator>
+    );
+  };
+}
