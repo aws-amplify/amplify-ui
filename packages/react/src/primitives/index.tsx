@@ -3,10 +3,11 @@ export * from './Button';
 export * from './Card';
 export * from './Divider';
 export * from './Flex';
+export * from './Icon';
 export * from './Image';
+export * from './Rating';
 export * from './Text';
 export * from './View';
-export * from "./Icon";
 
 export * from './shared';
 export * from './types';

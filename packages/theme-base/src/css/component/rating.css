@@ -1,0 +1,43 @@
+.amplify-ui-rating {
+  display: inline-flex;
+  position: relative;
+  text-align: left;
+  font-size: var(--amplify-ui-components-rating-size-medium);
+}
+
+.amplify-ui-rating-filled {
+  fill: currentColor;
+  display: inline-block;
+  flex-shrink: 0;
+  width: 1em;
+  height: 1em;
+}
+
+.amplify-ui-rating-icon-container {
+  position: relative;
+  height: 1em;
+  width: 1em;
+}
+
+.amplify-ui-rating-label {
+  position: absolute;
+  overflow: hidden;
+  height: 1em;
+  width: 1em;
+}
+
+.amplify-ui-rating-icon {
+  width: 1em;
+  height: 1em;
+  display: flex;
+}
+
+.amplify-ui-rating[data-size='small'] {
+  font-size: var(--amplify-ui-components-rating-size-small);
+  line-height: var(--amplify-ui-components-rating-size-small);
+}
+
+.amplify-ui-rating[data-size='large'] {
+  font-size: var(--amplify-ui-components-rating-size-large);
+  line-height: var(--amplify-ui-components-rating-size-large);
+}

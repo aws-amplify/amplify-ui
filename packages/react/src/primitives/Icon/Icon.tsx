@@ -5,7 +5,7 @@ import { IconProps } from '../types';
 import { ComponentClassNames } from '../shared';
 
 const defaultViewBox = { minX: 0, minY: 0, width: 24, height: 24 };
-export const Icon: React.FC<IconProps> = (props) => {
+export const Icon: React.FC<IconProps> = props => {
   const {
     id,
     className,
@@ -13,7 +13,7 @@ export const Icon: React.FC<IconProps> = (props) => {
     pathData,
     fill = 'currentColor',
     viewBox = defaultViewBox,
-    size = 'medium',
+    size = 'small',
     ...rest
   } = props;
 
