@@ -2,10 +2,9 @@ module.exports = {
   transitionDuration: { value: '{time.transition.long.value}' },
 
   borderRadius: { value: '{radii.medium.value}' },
-  backgroundColor: {
-    secondary: { value: '{colors.background.secondary.value}' },
-    tertiary: { value: '{colors.background.tertiary.value}' },
-  },
+
+  startColor: { value: '{colors.background.secondary.value}' },
+  endColor: { value: '{colors.background.tertiary.value}' },
 
   // sizes
   small: {

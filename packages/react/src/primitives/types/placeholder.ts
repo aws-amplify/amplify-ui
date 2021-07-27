@@ -11,8 +11,6 @@ export interface PlaceholderProps extends BaseComponentProps {
   /**
    * The placeholder can be used as a wrapper component.
    */
-  // Or is it better to use React.ReactNode?
-  children?: React.ReactChild | React.ReactChildren;
 
   size?: PlaceholderSize;
 }

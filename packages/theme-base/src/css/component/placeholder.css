@@ -1,4 +1,4 @@
-.amplify-ui-placeholder[data-loaded='false'] {
+.amplify-ui-placeholder {
   border-radius: var(--amplify-ui-components-placeholder-border-radius);
   width: 100%;
 
@@ -10,28 +10,24 @@
   animation-direction: alternate;
 }
 
-/* How should I name the variables */
+/* How should we name the variables? */
 @keyframes loading {
   0% {
-    background-color: var(
-      --amplify-ui-components-placeholder-background-color-secondary
-    );
+    background-color: var(--amplify-ui-components-placeholder-start-color);
   }
   100% {
-    background-color: var(
-      --amplify-ui-components-placeholder-background-color-tertiary
-    );
+    background-color: var(--amplify-ui-components-placeholder-end-color);
   }
 }
 
-.amplify-ui-placeholder[data-size='small'][data-loaded='false'] {
+.amplify-ui-placeholder[data-size='small'] {
   height: var(--amplify-ui-components-placeholder-small-height);
 }
 
-.amplify-ui-placeholder[data-size='medium'][data-loaded='false'] {
+.amplify-ui-placeholder[data-size='medium'] {
   height: var(--amplify-ui-components-placeholder-medium-height);
 }
 
-.amplify-ui-placeholder[data-size='large'][data-loaded='false'] {
+.amplify-ui-placeholder[data-size='large'] {
   height: var(--amplify-ui-components-placeholder-large-height);
 }
