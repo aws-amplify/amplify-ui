@@ -1,5 +1,6 @@
 .amplify-ui-placeholder {
   border-radius: var(--amplify-ui-components-placeholder-border-radius);
+  height: var(--amplify-ui-components-placeholder-medium-height);
   width: 100%;
 
   animation-name: loading;
@@ -8,15 +9,18 @@
   );
   animation-iteration-count: infinite;
   animation-direction: alternate;
+
+  --start-color: var(--amplify-ui-components-placeholder-start-color);
+  --end-color: var(--amplify-ui-components-placeholder-end-color);
 }
 
 /* How should we name the variables? */
 @keyframes loading {
   0% {
-    background-color: var(--amplify-ui-components-placeholder-start-color);
+    background-color: var(--start-color);
   }
   100% {
-    background-color: var(--amplify-ui-components-placeholder-end-color);
+    background-color: var(--end-color);
   }
 }
 
@@ -24,9 +28,10 @@
   height: var(--amplify-ui-components-placeholder-small-height);
 }
 
-.amplify-ui-placeholder[data-size='medium'] {
-  height: var(--amplify-ui-components-placeholder-medium-height);
-}
+/* .amplify-ui-placeholder[data-size='medium'] {
+  So that the default doesn't have more specificity than a customer's custom class
+  height: var(--height);
+} */
 
 .amplify-ui-placeholder[data-size='large'] {
   height: var(--amplify-ui-components-placeholder-large-height);

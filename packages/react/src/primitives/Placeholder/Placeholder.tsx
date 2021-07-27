@@ -1,5 +1,6 @@
 import React from 'react';
 import { ComponentClassNames } from '../shared';
+import classNames from 'classnames';
 import { PlaceholderProps } from '../types';
 import { View } from '../View';
 
@@ -15,7 +16,7 @@ export const Placeholder: React.FC<PlaceholderProps> = ({
       children
     ) : (
       <View
-        className={ComponentClassNames.Placeholder}
+        className={classNames(ComponentClassNames.Placeholder, className)}
         data-size={size}
         {...rest}
       ></View>

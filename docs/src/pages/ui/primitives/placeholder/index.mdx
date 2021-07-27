@@ -2,7 +2,7 @@
 title: Placeholder
 ---
 
-import { Placeholder, View } from '@aws-amplify/ui-react';
+import { Placeholder, View, Flex } from '@aws-amplify/ui-react';
 import { PlaceholderDemo, TwoWays } from './demo';
 
 ## Installation
@@ -17,22 +17,38 @@ npm install @aws-amplify/ui-react
 
 ## Usage
 
-Import the Placeholder component and styles. There are two ways you can use the Placeholder component:
+Import the Placeholder component and styles.
+
+```jsx
+import { Placeholder, Flex } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<Flex direction="column">
+  <Placeholder />
+  <Placeholder />
+  <Placeholder />
+</Flex>
+);
+```
+
+<Flex direction="column">
+  <Placeholder />
+  <Placeholder />
+  <Placeholder />
+</Flex>
+
+### There are two ways you can use the Placeholder component:
 
 1. Use conditional rendering (e.g., ternary operator)
 2. Pass your loading state to the `isLoaded` prop.
 
 ```jsx
-import { Placeholder } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
 let isLoaded = false;
 
-const PlaceholderDemo = () => (
-  <View>
-    {isLoaded ? 'First way' : <Placeholder />}
-    <Placeholder isLoaded={isLoaded}>Second Way</Placeholder>
-  </View>
+<View>
+  {isLoaded ? 'First way' : <Placeholder />}
+  <Placeholder isLoaded={isLoaded}>Second Way</Placeholder>
+</View>
 );
 ```
 
@@ -46,9 +62,37 @@ Use the `size` prop to change the placeholder size. Available options are `small
 import { Placeholder } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
-<Placeholder size="small"></Placeholder>;
+<Placeholder size="large" />;
 ```
 
-<Placeholder size="small"></Placeholder>
+<Placeholder size="large" />
 
 ### CSS Styling
+
+Set the starting and ending colors using a custom CSS class with CSS variables:
+
+```css
+/* styles.css */
+.custom-placeholder {
+  --start-color: purple;
+  --end-color: blue;
+}
+```
+
+```jsx
+import './styles.css';
+
+<Placeholder className="custom-placeholder" />;
+```
+
+<Placeholder className="custom-placeholder" />
+
+### Override Amplify styling using props
+
+Use style props to style an instance of `<Placeholder>`
+
+```jsx
+<Placeholder height="123px" width="50%" />
+```
+
+<Placeholder height="123px" width="50%" />
