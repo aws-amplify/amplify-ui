@@ -3,29 +3,21 @@
  */
 
 .amplify-ui-icon {
-  --icon-height-large: var(--amplify-ui-icon-height-large);
-  --icon-height-medium: var(--amplify-ui-icon-height-medium);
-  --icon-height-small: var(--amplify-ui-icon-height-small);
-
-  --icon-line-height-large: var(--amplify-ui-icon-line-height-large);
-  --icon-line-height-medium: var(--amplify-ui-icon-line-height-medium);
-  --icon-line-height-small: var(--amplify-ui-icon-line-height-small);
-
   display: inline-block;
   vertical-align: middle;
 }
 
-.amplify-ui-icon[data-size="small"] {
-  height: var(--icon-height-small);
-  line-height: var(--icon-line-height-small);
+.amplify-ui-icon[data-size='small'] {
+  height: var(--amplify-ui-components-icon-height-small);
+  line-height: var(--amplify-ui-components-icon-line-height-small);
 }
 
-.amplify-ui-icon[data-size="medium"] {
-  height: var(--icon-height-medium);
-  line-height: var(--icon-line-height-medium);
+.amplify-ui-icon[data-size='medium'] {
+  height: var(--amplify-ui-components-icon-height-medium);
+  line-height: var(--amplify-ui-components-icon-line-height-medium);
 }
 
-.amplify-ui-icon[data-size="large"] {
-  height: var(--icon-height-large);
-  line-height: var(--icon-line-height-large);
+.amplify-ui-icon[data-size='large'] {
+  height: var(--amplify-ui-components-icon-height-large);
+  line-height: var(--amplify-ui-components-icon-line-height-large);
 }

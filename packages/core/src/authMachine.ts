@@ -43,7 +43,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
       },
       signIn: {
         initial: 'edit',
-        exit: ['clearFormValues', 'clearError'],
+        exit: ['clearError'],
         onDone: 'authenticated',
         states: {
           edit: {
@@ -56,6 +56,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
               SUBMIT: 'submit',
               INPUT: { actions: 'handleInput' },
               SIGN_UP: '#auth.signUp',
+              FEDERATED_SIGN_IN: 'federatedSignIn',
             },
           },
           submit: {
@@ -72,6 +73,11 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
                   cond: 'shouldConfirmSignIn',
                   actions: ['setUser', 'setChallengeName'],
                   target: '#auth.confirmSignIn',
+                },
+                {
+                  cond: 'shouldForceChangePassword',
+                  actions: ['setUser', 'setChallengeName'],
+                  target: '#auth.forceNewPassword',
                 },
                 {
                   actions: 'setUser',
@@ -91,12 +97,88 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
               ],
             },
           },
+          federatedSignIn: {
+            entry: 'clearError',
+            invoke: {
+              src: 'federatedSignIn',
+              onDone: [
+                {
+                  actions: 'setUser',
+                  target: 'confirmFederatedSignIn',
+                },
+              ],
+              onError: [
+                {
+                  actions: 'setRemoteError',
+                  target: 'rejected',
+                },
+              ],
+            },
+          },
+          confirmFederatedSignIn: {
+            entry: 'clearError',
+            invoke: {
+              src: 'confirmFederatedSignIn',
+              onDone: [
+                {
+                  actions: 'setUser',
+                  target: 'resolved',
+                },
+              ],
+              onError: [
+                {
+                  actions: 'setRemoteError',
+                  target: 'rejected',
+                },
+              ],
+            },
+          },
           resolved: {
+            exit: ['clearFormValues'],
             type: 'final',
           },
           rejected: {
             // TODO Set errors and go back to `idle`?
             always: 'edit.error',
+          },
+        },
+      },
+      forceNewPassword: {
+        initial: 'edit',
+        exit: ['clearFormValues, clearError'],
+        onDone: 'idle',
+        states: {
+          edit: {
+            initial: 'clean',
+            states: {
+              clean: {},
+              error: {},
+            },
+            on: {
+              SUBMIT: 'submit',
+              SIGN_IN: '#auth.signIn',
+              INPUT: { actions: 'handleInput' },
+            },
+          },
+          submit: {
+            entry: 'clearError',
+            invoke: {
+              src: 'forceNewPassword',
+              onDone: {
+                actions: ['setUser', 'clearChallengeName'],
+                target: 'resolved',
+              },
+              onError: {
+                actions: 'setRemoteError',
+                target: 'rejected',
+              },
+            },
+          },
+          rejected: {
+            always: 'edit.error',
+          },
+          resolved: {
+            type: 'final',
           },
         },
       },
@@ -118,6 +200,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
             },
           },
           submit: {
+            entry: 'clearError',
             invoke: {
               src: 'confirmSignIn',
               onDone: {
@@ -178,6 +261,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
       },
       signUp: {
         type: 'parallel',
+        exit: ['clearError'],
         states: {
           validation: {
             initial: 'pending',
@@ -230,7 +314,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
               pending: {
                 invoke: {
                   src: 'signUp',
-                  onDone: 'done',
+                  onDone: { target: 'done', actions: 'setUser' },
                   onError: {
                     target: 'idle',
                     actions: 'setRemoteError',
@@ -361,7 +445,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
     },
     // See: https://xstate.js.org/docs/guides/guards.html#guards-condition-functions
     guards: {
-      shouldConfirmSignIn: (context, event) => {
+      shouldConfirmSignIn: (context, event): boolean => {
         const challengeName = get(event, 'data.challengeName');
         const validChallengeNames = [
           AuthChallengeNames.SMS_MFA,
@@ -370,13 +454,18 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
 
         return validChallengeNames.includes(challengeName);
       },
-      shouldSetupTOTP: (context, event) => {
+      shouldSetupTOTP: (context, event): boolean => {
         const challengeName = get(event, 'data.challengeName');
 
         return challengeName === AuthChallengeNames.MFA_SETUP;
       },
-      shouldRedirectToConfirmSignUp: (context, event) => {
+      shouldRedirectToConfirmSignUp: (context, event): boolean => {
         return event.data.code === 'UserNotConfirmedException';
+      },
+      shouldForceChangePassword: (context, event): boolean => {
+        const challengeName = get(event, 'data.challengeName');
+
+        return challengeName === AuthChallengeNames.NEW_PASSWORD_REQUIRED;
       },
     },
     services: {
@@ -391,7 +480,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
       async getAmplifyConfig() {
         return Amplify.configure();
       },
-      async signIn(context, event) {
+      async signIn(_context, event) {
         const { username, password } = event.data;
 
         return Auth.signIn(username, password);
@@ -409,6 +498,17 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
         }
 
         return Auth.confirmSignIn(user, code, mfaType);
+      },
+      async federatedSignIn(context, event) {
+        const { provider } = event.data;
+        const result = await Auth.federatedSignIn({ provider });
+
+        return result;
+      },
+      async confirmFederatedSignIn(context, event) {
+        const result = await Auth.currentAuthenticatedUser();
+
+        return result;
       },
       async verifyTotpToken(context, event) {
         const { user } = context;
@@ -432,7 +532,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
           config,
         } = context;
 
-        const [primaryAlias] = config?.login_mechanisms ?? ["username"];
+        const [primaryAlias] = config?.login_mechanisms ?? ['username'];
 
         if (formValues.phone_number) {
           formValues.phone_number = formValues.phone_number.replace(
@@ -456,6 +556,14 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
       },
       async signOut() {
         await Auth.signOut(/* global? */);
+      },
+      async forceNewPassword(context, event) {
+        const { user } = context;
+        const password = get(event, 'data.password');
+
+        const result = await Auth.completeNewPassword(user, password);
+
+        return result;
       },
     },
   }

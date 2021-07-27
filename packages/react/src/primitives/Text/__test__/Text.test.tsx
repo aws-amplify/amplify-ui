@@ -39,11 +39,11 @@ describe('Text: ', () => {
     expect(text.dataset['truncate']).toBe('true');
   });
 
-  it('can set the data-variant attribute', async () => {
-    render(<Text variant="primary">{textText}</Text>);
+  it('can set the data-variation attribute', async () => {
+    render(<Text variation="primary">{textText}</Text>);
 
     const text = await screen.findByText(textText);
-    expect(text.dataset['variant']).toBe('primary');
+    expect(text.dataset['variation']).toBe('primary');
   });
 
   it('can apply font-family via props', async () => {
@@ -74,6 +74,18 @@ describe('Text: ', () => {
         kebabCase(ComponentPropsToStylePropsMap.fontWeight)
       )
     ).toBe('bold');
+  });
+
+  it('can apply font-size via props', async () => {
+    const fontSize = '1.2rem';
+
+    render(<Text fontSize={fontSize}>{textText}</Text>);
+    const text = await screen.findByText(textText);
+    expect(
+      text.style.getPropertyValue(
+        kebabCase(ComponentPropsToStylePropsMap.fontSize)
+      )
+    ).toBe(fontSize);
   });
 
   it('can apply letter-spacing via props', async () => {

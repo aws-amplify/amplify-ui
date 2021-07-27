@@ -4,15 +4,10 @@ export enum ComponentClassNames {
   Card = 'amplify-ui-card',
   Divider = 'amplify-ui-divider',
   Flex = 'amplify-ui-flex',
+  Heading = 'amplify-ui-heading',
+  Icon = 'amplify-ui-icon',
   Image = 'amplify-ui-image',
   Rating = 'amplify-ui-rating',
   Text = 'amplify-ui-text',
   View = 'amplify-ui-view',
-  Icon = 'amplify-ui-icon',
 }
-
-export const UserNameAliasNames = {
-  username: { name: 'Username', type: 'text' },
-  email: { name: 'Email', type: 'email' },
-  phone_number: { name: 'Phone Number', type: 'tel' },
-};

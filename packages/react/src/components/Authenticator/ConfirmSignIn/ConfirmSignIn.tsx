@@ -25,7 +25,7 @@ export const ConfirmSignIn = (): JSX.Element => {
     send,
   };
 
-  const { challengeName } = state.context;
+  const { challengeName, remoteError } = state.context;
   let mfaType: string = 'SMS';
   if (challengeName === AuthChallengeNames.SOFTWARE_TOKEN_MFA) {
     mfaType = 'TOTP';
@@ -53,7 +53,10 @@ export const ConfirmSignIn = (): JSX.Element => {
 
       <Fieldset disabled={isPending}>
         <Label data-amplify-confirmationcode>
-          <ConfirmationCodeInput amplifyNamespace={amplifyNamespace} />
+          <ConfirmationCodeInput
+            amplifyNamespace={amplifyNamespace}
+            errorText={remoteError}
+          />
         </Label>
       </Fieldset>
 

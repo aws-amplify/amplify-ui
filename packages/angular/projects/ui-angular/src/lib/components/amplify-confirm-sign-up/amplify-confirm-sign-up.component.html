@@ -7,13 +7,16 @@
 
 <ng-template #confirmSignUpForm>
   <form data-amplify-form (submit)="onSubmit($event)" (input)="onInput($event)">
-    <fieldset data-amplify-fieldset [attr.disabled]="isLoading() ? '' : null">
-      <amplify-input
-        name="username"
+    <fieldset data-amplify-fieldset [attr.disabled]="isPending ? '' : null">
+      <amplify-user-name-alias
         [initialValue]="username"
         [disabled]="true"
+      ></amplify-user-name-alias>
+      <amplify-input
+        name="confirmation_code"
+        type="number"
+        autocomplete="one-time-code"
       ></amplify-input>
-      <amplify-input name="code" type="number"></amplify-input>
 
       <div data-amplify-resend>
         Lost your code? {{ ' ' }}
@@ -34,6 +37,10 @@
         </ng-container>
       </div>
     </fieldset>
+
+    <amplify-error *ngIf="remoteError">
+      {{ remoteError }}
+    </amplify-error>
   </form>
 </ng-template>
 

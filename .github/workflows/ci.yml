@@ -15,7 +15,7 @@ jobs:
 
     environment: ci
     env:
-      NODE_ENV: CI
+      NODE_ENV: test
 
     strategy:
       matrix:
@@ -34,10 +34,14 @@ jobs:
         env:
           ENVIRONMENT_AWS_EXPORTS: ${{ secrets.ENVIRONMENT_AWS_EXPORTS }}
       - run: yarn next-example build
-      - run: yarn next-example start & npx wait-on http://localhost:3000/ui/components/authenticator/sign-in
+      - run: yarn next-example start & npx wait-on http://localhost:3000/ui/components/authenticator/sign-in-with-username
       - run: yarn test
         env:
+          CONFIRMED_USERNAME: ${{ secrets.CONFIRMED_USERNAME }}
+          FORCE_CHANGE_USERNAME: ${{ secrets.FORCE_CHANGE_USERNAME }}
           INVALID_USERNAME: ${{ secrets.INVALID_USERNAME }}
+          UNCONFIRMED_USERNAME: ${{ secrets.UNCONFIRMED_USERNAME }}
+          UNKNOWN_USERNAME: ${{ secrets.UNKNOWN_USERNAME }}
           VALID_USERNAME: ${{ secrets.VALID_USERNAME }}
           CONFIRMED_EMAIL: ${{ secrets.CONFIRMED_EMAIL }}
           FORCE_CHANGE_EMAIL: ${{ secrets.FORCE_CHANGE_EMAIL }}
@@ -52,6 +56,8 @@ jobs:
           UNKNOWN_PHONE_NUMBER: ${{ secrets.UNKNOWN_PHONE_NUMBER }}
           VALID_PHONE_NUMBER: ${{ secrets.VALID_PHONE_NUMBER }}
           INVALID_PASSWORD: ${{ secrets.INVALID_PASSWORD }}
+          INVALID_NEW_PASSWORD: ${{ secrets.INVALID_NEW_PASSWORD }}
+          NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
           VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
           VALID_EMAIL_SETUP_MFA: ${{ secrets.VALID_EMAIL_SETUP_MFA }}
           VALID_PASSWORD_SETUP_MFA: ${{ secrets.VALID_PASSWORD_SETUP_MFA }}

@@ -2,7 +2,7 @@ import { AriaProps, BaseComponentProps } from './base';
 
 export type ButtonSize = 'small' | 'medium' | 'large';
 export type ButtonTypes = 'button' | 'reset' | 'submit';
-export type ButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'link';
+export type ButtonVariation = 'primary' | 'default' | 'link';
 
 export interface ButtonProps extends BaseComponentProps, AriaProps {
   /**
@@ -45,7 +45,7 @@ export interface ButtonProps extends BaseComponentProps, AriaProps {
 
   /**
    * Changes the visual weight of the button.
-   * @default "secondary"
+   * @default "default"
    */
-  variant?: ButtonVariant;
+  variation?: ButtonVariation;
 }

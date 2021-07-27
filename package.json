@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "install": "yarn run build:theme-base",
+    "install": "yarn run theme-base build:all",
     "postinstall": "patch-package",
     "build": "yarn workspaces run build",
     "angular": "yarn workspace @aws-amplify/ui-angular",
@@ -13,6 +13,7 @@
     "next-example": "yarn workspace next-example",
     "e2e": "yarn workspace e2e",
     "vue-docs": "yarn workspace vue-docs",
+    "build:icons": "yarn react build:icons",
     "build:angular": "yarn angular build",
     "build:angular:watch": "yarn angular build --watch",
     "build:vue": "yarn vue-docs build",

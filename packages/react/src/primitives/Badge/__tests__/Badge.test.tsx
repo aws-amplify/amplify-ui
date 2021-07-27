@@ -9,12 +9,12 @@ describe('Badge: ', () => {
 
   it('can apply styling via props', async () => {
     render(
-      <Badge variant="success" size="large">
+      <Badge variation="success" size="large">
         {badgeText}
       </Badge>
     );
     const badge = await screen.findByText(badgeText);
-    expect(badge.dataset['variant']).toBe('success');
+    expect(badge.dataset['variation']).toBe('success');
     expect(badge.dataset['size']).toBe('large');
   });
 
@@ -27,7 +27,7 @@ describe('Badge: ', () => {
 
   it('can render any arbitrary data-* attribute', async () => {
     render(
-      <Badge data-demo="true" id="dataTest">
+      <Badge data-demo="true" testId="dataTest">
         {badgeText}
       </Badge>
     );

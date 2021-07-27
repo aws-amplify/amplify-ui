@@ -60,24 +60,22 @@ import "@aws-amplify/ui-react/styles.css";
 <Button size="medium">Medium</Button>
 <Button size="small">Small</Button>
 
-### Button variants
+### Button variations
 
-Use the `variant` prop to change the button variant. Available options are `primary`, `secondary`, `tertiary` and `link`.
+Use the `variation` prop to change the button variation. Available options are `primary`, `secondary`, `tertiary` and `link`.
 
 ```jsx
 import { Button } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 
-<Button variant="primary">Primary</Button>
-<Button variant="secondary">Secondary</Button>
-<Button variant="tertiary">Tertiary</Button>
-<Button variant="link">Link</Button>
+<Button variation="primary">Primary</Button>
+<Button variation="default">Default</Button>
+<Button variation="link">Link</Button>
 ```
 
-<Button variant="primary">Primary</Button>
-<Button variant="secondary">Secondary</Button>
-<Button variant="tertiary">Tertiary</Button>
-<Button variant="link">Link</Button>
+<Button variation="primary">Primary</Button>
+<Button variation="default">Default</Button>
+<Button variation="link">Link</Button>
 
 ### Button loading state
 
@@ -85,12 +83,12 @@ import "@aws-amplify/ui-react/styles.css";
 import { Button } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
-<Button isLoading={true} loadingText="Loading..." variant="primary">
+<Button isLoading={true} loadingText="Loading..." variation="primary">
   Hello
 </Button>;
 ```
 
-<Button isLoading={true} loadingText="Loading..." variant="primary">
+<Button isLoading={true} loadingText="Loading..." variation="primary">
   Hello
 </Button>
 
@@ -139,12 +137,12 @@ import { Button } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import './styles.css';
 
-<Button className="my-custom-button" variant="primary">
+<Button className="my-custom-button" variation="primary">
   My button
 </Button>;
 ```
 
-<Button className="my-custom-button" variant="primary">
+<Button className="my-custom-button" variation="primary">
   My button
 </Button>
 
@@ -157,7 +155,7 @@ Or override the variables inline:
     '--amplify-ui-button-colors-bg-primary-hover': '#4d89fc',
   }}
 >
-  <Button variant="primary">My button</Button>
+  <Button variation="primary">My button</Button>
 </div>
 ```
 
@@ -167,7 +165,7 @@ Or override the variables inline:
     '--amplify-ui-button-colors-bg-primary-hover': '#4d89fc',
   }}
 >
-  <Button variant="primary">My button</Button>
+  <Button variation="primary">My button</Button>
 </div>
 
 #### Override styling using the classname and data attribute selectors:
@@ -181,8 +179,8 @@ Use the `amplify-ui-button` class and data attributes to style all buttons.
   font-weight: bold;
 }
 
-/* Example: Override only primary variant styles */
-.amplify-ui-button[data-variant='primary'] {
+/* Example: Override only primary variation styles */
+.amplify-ui-button[data-variation='primary'] {
   background-color: teal;
   color: white;
 }

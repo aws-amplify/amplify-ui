@@ -2,7 +2,6 @@ import { View } from '../View';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import '@testing-library/jest-dom/extend-expect';
-import { ComponentClassNames } from '../../shared';
 import { ComponentPropsToStylePropsMap } from '../../types';
 import { kebabCase } from 'lodash';
 
@@ -10,12 +9,19 @@ describe('View: ', () => {
   const viewText = 'Hello from inside a view';
 
   it('renders correct defaults', async () => {
-    render(<View>{viewText}</View>);
+    const viewId = 'viewId';
+    const viewTestId = 'viewTestId';
+    render(
+      <View id={viewId} testId={viewTestId}>
+        {viewText}
+      </View>
+    );
 
     const view = await screen.findByText(viewText);
+    expect(view.id).toBe(viewId);
+    expect(view.dataset['testid']).toBe(viewTestId);
     expect(view.innerHTML).toBe(viewText);
     expect(view.nodeName).toBe('DIV');
-    expect(view.className).toBe(ComponentClassNames.View);
   });
 
   it('can render a <button> HTML element', async () => {
@@ -26,7 +32,7 @@ describe('View: ', () => {
 
   it('can render a <p> HTML element', async () => {
     render(
-      <View as="p" id="pTagTest">
+      <View as="p" testId="pTagTest">
         {viewText}
       </View>
     );
@@ -36,7 +42,7 @@ describe('View: ', () => {
 
   it('can render any arbitrary data-* attribute', async () => {
     render(
-      <View as="p" data-demo="true" id="dataTest">
+      <View as="p" data-demo="true" testId="dataTest">
         {viewText}
       </View>
     );
@@ -74,7 +80,7 @@ describe('View: ', () => {
 
   it('can apply styling via props', async () => {
     render(
-      <View width="100%" opacity="0.5" borderRadius="6px" id="stylingTest">
+      <View width="100%" opacity="0.5" borderRadius="6px" testId="stylingTest">
         {viewText}
       </View>
     );

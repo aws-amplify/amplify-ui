@@ -42,7 +42,7 @@ import { BaseTheme } from '@aws-amplify/ui-theme-base';
 
 const ThemedApp = (
   <ThemeProvider theme={BaseTheme}>
-    <Button variant="primary">Click me!</Button>
+    <Button variation="primary">Click me!</Button>
   </ThemeProvider>
 );
 ```
@@ -55,7 +55,7 @@ import { BaseTheme } from '@aws-amplify/ui-theme-base';
 
 const ThemedApp = withTheme(
   BaseTheme,
-  <Button variant="primary">Click me!</Button>
+  <Button variation="primary">Click me!</Button>
 );
 ```
 
@@ -65,8 +65,13 @@ const ThemedApp = withTheme(
 import '@aws-amplify/ui-theme-base/dist/theme.css';
 
 const ThemedApp = (
-  <button class="amplify-ui-button" data-size="large" data-variant="primary">
+  <button class="amplify-ui-button" data-size="large" data-variation="primary">
     Click me!
   </button>
 );
 ```
+
+
+## Structure
+
+The structure of the Amplify UI theme object follows the [System-UI Theme Specification](https://system-ui.com/theme/). There are global design tokens that are under the top-level namespaces like `colors`, `fontSizes`, `space`, etc. Then there are component design tokens under the `components` namespace.

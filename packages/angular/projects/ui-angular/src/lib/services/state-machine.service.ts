@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import {
+  AuthContext,
+  AuthEvent,
   AuthInterpreter,
   authMachine,
   AuthMachineState,
 } from '@aws-amplify/ui-core';
 import { Logger } from '@aws-amplify/core';
-import { interpret } from 'xstate';
+import { interpret, Event } from 'xstate';
 
 const logger = new Logger('state-machine-service');
 /**
@@ -40,6 +42,14 @@ export class StateMachineService {
 
   public get user(): Record<string, any> {
     return this._user;
+  }
+
+  public get context(): AuthContext {
+    return this._authState.context;
+  }
+
+  public send(event: Event<AuthEvent>) {
+    this.authService.send(event);
   }
 
   constructor() {
