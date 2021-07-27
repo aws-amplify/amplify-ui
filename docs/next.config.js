@@ -90,6 +90,15 @@ module.exports = withNextPluginPreval(
         ],
       });
 
+      config.module.rules.push({
+        test: /\.feature$/,
+        use: [
+          {
+            loader: 'raw-loader',
+          },
+        ],
+      });
+
       return config;
     },
   })
