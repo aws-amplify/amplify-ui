@@ -12,6 +12,7 @@ import {
   Badge,
   Divider,
   Button,
+  IconStar,
 } from '@aws-amplify/ui-react';
 
 Amplify.configure(awsExports);
@@ -62,6 +63,10 @@ function App() {
               <Flex>
                 <Badge backgroundColor="lightgreen">Plus</Badge>
                 <Badge backgroundColor="lightblue">Verified</Badge>
+                <IconStar color="rebeccapurple"></IconStar>
+                <IconStar color="rebeccapurple"></IconStar>
+                <IconStar color="rebeccapurple"></IconStar>
+                <IconStar color="rebeccapurple"></IconStar>
               </Flex>
               <Divider padding="1rem 0 0 0" />
               <Heading level={3}>
