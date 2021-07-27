@@ -23,6 +23,10 @@ const parser = new Parser(
   new GherkinClassicTokenMatcher() // or GherkinInMarkdownTokenMatcher()
 );
 
+function required(message) {
+  throw new Error(message);
+}
+
 function getPortForPlatform(platform) {
   switch (platform) {
     case 'next':
@@ -45,20 +49,18 @@ function getGitHubUrlForExample(platform) {
   }
 }
 
-export function Feature({ children }) {
+export function Feature({ name = required('Missing feature name') }) {
   const [source, setSource] = React.useState(null);
   const { pathname, query } = useRouter();
   const { platform = 'react' } = query;
 
   const port = getPortForPlatform(platform);
 
-  if (!children) {
-    throw new Error('Missing dynamic import to .feature');
-  }
-
   useEffect(() => {
-    children().then((exports) => setSource(exports.default));
-  }, [children]);
+    import(
+      `../../../packages/e2e/cypress/integration${pathname}/${name}.feature`
+    ).then((exports) => setSource(exports.default));
+  }, [name, pathname]);
 
   if (!source) {
     return false;
