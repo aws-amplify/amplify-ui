@@ -10,6 +10,7 @@ import { AmplifyInputComponent } from './primitives/amplify-input/amplify-input.
 import { AmplifyErrorComponent } from './primitives/amplify-error/amplify-error.component';
 import { AmplifyConfirmSignUpComponent } from './components/amplify-confirm-sign-up/amplify-confirm-sign-up.component';
 import { AmplifyUserNameAliasComponent } from './primitives/amplify-user-name-alias/amplify-user-name-alias.component';
+import { AmplifyConfirmSignInComponent } from './components/amplify-confirm-sign-in/amplify-confirm-sign-in.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { AmplifyUserNameAliasComponent } from './primitives/amplify-user-name-al
     AmplifyOverrideDirective,
     AmplifyConfirmSignUpComponent,
     AmplifyUserNameAliasComponent,
+    AmplifyConfirmSignInComponent,
   ],
   imports: [CommonModule, ReactiveFormsModule],
   exports: [
