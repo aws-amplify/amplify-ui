@@ -1,5 +1,7 @@
 // This is large copy-pasta from `amplify-docs/src/Layout` & modified to work outside of that repo
 
+import debounce from 'lodash/debounce';
+import pages from '@/data/pages.preval';
 import CodeBlockProvider from 'amplify-docs/src/components/CodeBlockProvider/index';
 import { Container } from 'amplify-docs/src/components/Container';
 import ExternalLink from 'amplify-docs/src/components/ExternalLink';
@@ -36,8 +38,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import * as React from 'react';
-
-import pages from '@/data/pages.preval';
+import { PlatformSelect } from './PlatformSelect';
 
 export default function Layout({
   children,
@@ -51,7 +52,7 @@ export default function Layout({
   const router = useRouter();
   const pathname = router.pathname;
   const href = router.asPath;
-  const { platform } = router.query as { platform: string };
+  const { platform = 'react' } = router.query as { platform: string };
 
   const groupedPages = Object.entries(
     groupBy(pages, (page) => {
@@ -61,16 +62,34 @@ export default function Layout({
   );
 
   React.useEffect(() => {
-    const htmlHeaders = [
-      ...document.querySelectorAll(
-        [
-          '#__next > section:first-of-type h2',
-          '#__next > section:first-of-type h3',
-        ].join(',')
-      ),
-    ].map((node) => [node.innerHTML, node.tagName.toLowerCase()]);
+    const updateHeaders = debounce(
+      () => {
+        const htmlHeaders = [
+          ...document.querySelectorAll(
+            [
+              '#__next > section:first-of-type h2',
+              '#__next > section:first-of-type h3',
+            ].join(',')
+          ),
+        ].map((node) => [node.innerHTML, node.tagName.toLowerCase()]);
 
-    setHeaders(htmlHeaders);
+        setHeaders(htmlHeaders);
+      },
+      0,
+      {
+        leading: false,
+        trailing: true,
+      }
+    );
+
+    const observer = new MutationObserver(updateHeaders);
+
+    observer.observe(document.querySelector('#__next'), {
+      childList: true,
+      subtree: true,
+    });
+
+    return () => observer.disconnect();
   }, [children]);
 
   const chapterTitle = 'Components'; // TODO – Remove or use "Primitives" depending on path
@@ -129,7 +148,12 @@ export default function Layout({
         brandIcon="/assets/logo-light.svg"
         blend={false}
       />
-      <SecondaryNav platform={platform} pageHasMenu={false} />
+      <SecondaryNav
+        platform={
+          undefined /* This is an external site, so this is all nav links can be made external */
+        }
+        pageHasMenu={false}
+      />
       <Container backgroundColor="bg-color-tertiary">
         <LayoutStyle>
           {isMenuOpen ? (
@@ -138,6 +162,12 @@ export default function Layout({
                 <div>
                   <MenuHeaderStyle>
                     <MenuCloseButton closeMenu={() => setIsMenuOpen(false)} />
+                    <PlatformSelect
+                      // TODO – Can the available frameworks come from the pages? Or should this be hard-coded based on public support?
+                      filters={['angular', 'next', 'react', 'vue']}
+                      platform={platform}
+                      pathname={pathname}
+                    />
                   </MenuHeaderStyle>
                   <MenuBodyStyle>
                     {groupedPages.map(([folder, pages]) => (
@@ -160,7 +190,7 @@ export default function Layout({
                                 </Link>
                               </DirectoryGroupItemStyle>
                             ) : (
-                              <Link href={page.href} key={page.href}>
+                              <Link href={`${page.href}`} key={page.href}>
                                 <ProductRootLinkStyle
                                   isActive={href === page.href}
                                 >

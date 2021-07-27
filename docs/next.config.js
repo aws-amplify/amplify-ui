@@ -20,7 +20,9 @@ const withCompileNodeModules = require('@moxy/next-compile-node-modules')({
 module.exports = withNextPluginPreval(
   withCompileNodeModules({
     env: { BRANCH },
-    pageExtensions: ['mdx', 'page.tsx'],
+    // Differentiate pages with frontmatter & layout vs. normal MD(X)
+    pageExtensions: ['page.mdx', 'page.tsx'],
+
     // Convenience for local development, since / will 404 by default
     redirects() {
       return [
@@ -36,23 +38,30 @@ module.exports = withNextPluginPreval(
       ignoreBuildErrors: true,
     },
     webpack(config) {
-      // https://github.com/wooorm/xdm#next
+      const defaultRehypePlugins = [require('mdx-prism')];
+      const defaultRemarkPlugins = [
+        require('remark-code-import'),
+        require('remark-gfm'),
+        require('remark-mdx-images'),
+        [
+          require('remark-github'),
+          {
+            repository: 'aws-amplify/amplify-ui',
+          },
+        ],
+        require('amplify-docs/src/plugins/headings.tsx'),
+      ];
+
+      // See: https://github.com/wooorm/xdm#next
       config.module.rules.push({
-        test: /\.mdx$/,
+        test: /\.page.mdx$/,
         use: [
           {
             loader: 'xdm/webpack.cjs',
             options: {
-              rehypePlugins: [require('mdx-prism')],
-              remarkPlugins: [
-                require('remark-gfm'),
-                require('remark-mdx-images'),
-                [
-                  require('remark-github'),
-                  {
-                    repository: 'aws-amplify/docs',
-                  },
-                ],
+              rehypePlugins: defaultRehypePlugins,
+              // Pages have reqiure layout & frontmatter
+              remarkPlugins: defaultRemarkPlugins.concat([
                 // Remove frontmatter from MDX
                 require('remark-frontmatter'),
                 // Extract to `frontmatter` export
@@ -60,10 +69,32 @@ module.exports = withNextPluginPreval(
                   require('remark-mdx-frontmatter').remarkMdxFrontmatter,
                   { name: 'frontmatter' },
                 ],
-                require('amplify-docs/src/plugins/headings.tsx'),
                 require('./src/plugins/remark-layout'),
-              ],
+              ]),
             },
+          },
+        ],
+      });
+
+      config.module.rules.push({
+        exclude: /\.page.mdx$/,
+        test: /\.mdx?$/,
+        use: [
+          {
+            loader: 'xdm/webpack.cjs',
+            options: {
+              rehypePlugins: defaultRehypePlugins,
+              remarkPlugins: defaultRemarkPlugins,
+            },
+          },
+        ],
+      });
+
+      config.module.rules.push({
+        test: /\.feature$/,
+        use: [
+          {
+            loader: 'raw-loader',
           },
         ],
       });
