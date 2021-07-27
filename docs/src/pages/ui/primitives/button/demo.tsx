@@ -7,8 +7,8 @@ export const ButtonDemo = () => {
   const [fullWidth, setFullWidth] = React.useState<boolean>(false);
   const [loadingText, setLoadingText] = React.useState('Loading...');
   const [ariaLabel, setAriaLabel] = React.useState<string>('');
-  const [variation, setVariation] = React.useState<ButtonVariation>('primary');
-  const [size, setSize] = React.useState<ButtonSize>('medium');
+  const [variation, setVariation] = React.useState<ButtonVariation>();
+  const [size, setSize] = React.useState<ButtonSize>();
 
   return (
     <div>
@@ -61,18 +61,20 @@ export const ButtonDemo = () => {
         <select
           value={variation}
           placeholder="Select button variation"
-          onChange={(event) => setVariation(event.target.value as ButtonVariation)}
+          onChange={(event) =>
+            setVariation(event.target.value as ButtonVariation)
+          }
         >
+          <option></option>
           <option value="primary">primary</option>
-          <option value="default">default</option>
           <option value="link">link</option>
         </select>
         <select
           value={size}
           onChange={(event) => setSize(event.target.value as ButtonSize)}
         >
+          <option></option>
           <option value="small">small</option>
-          <option value="medium">medium</option>
           <option value="large">large</option>
         </select>
       </div>

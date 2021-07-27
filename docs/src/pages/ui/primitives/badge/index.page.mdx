@@ -2,8 +2,8 @@
 title: Badge
 ---
 
-import { Badge } from "@aws-amplify/ui-react";
-import { BadgeDemo } from "./demo";
+import { Badge } from '@aws-amplify/ui-react';
+import { BadgeDemo } from './demo';
 
 ## Installation
 
@@ -12,20 +12,24 @@ npm install @aws-amplify/ui-react
 ```
 
 ## Demo
-<BadgeDemo/>
+
+<BadgeDemo />
 
 ## Usage
-Import the Badge component and styles. 
+
+Import the Badge component and styles.
 
 ```jsx
-import { Badge } from "@aws-amplify/ui-react";
-import "@aws-amplify/ui-react/styles.css";
+import { Badge } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
 
-<Badge>Default badge</Badge>
+<Badge>Default badge</Badge>;
 ```
+
 <Badge>Default badge</Badge>
 
 ### Badge variations
+
 Use the `variation` prop to change the badge variation. Available options are `default`, `info`, `error`, `warning` and `success`.
 
 ```jsx
@@ -35,6 +39,7 @@ Use the `variation` prop to change the badge variation. Available options are `d
 <Badge variation="warning">Warning</Badge>
 <Badge variation="success">Success</Badge>
 ```
+
 <Badge variation="default">Default</Badge>
 <Badge variation="info">Info</Badge>
 <Badge variation="error">Error</Badge>
@@ -42,16 +47,18 @@ Use the `variation` prop to change the badge variation. Available options are `d
 <Badge variation="success">Success</Badge>
 
 ### Badge sizes
+
 Use the `size` prop to change the badge size. Available options are `small`, `medium`, and `large`.
 
 ```jsx
-<Badge size="small" variation="info">Small</Badge>
-<Badge size="medium" variation="info">Medium</Badge>
-<Badge size="large" variation="info">Large</Badge>
+<Badge size="small">Small</Badge>
+<Badge>Default</Badge>
+<Badge size="large">Large</Badge>
 ```
-<Badge size="small" variation="info">Small</Badge>
-<Badge size="medium" variation="info">Medium</Badge>
-<Badge size="large" variation="info">Large</Badge>
+
+<Badge size="small">Small</Badge>
+<Badge>Default</Badge>
+<Badge size="large">Large</Badge>
 
 ### CSS Styling
 
@@ -67,33 +74,37 @@ Using a class and CSS file:
 ```
 
 ```jsx
-import "./styles.css";
+import './styles.css';
 
-<Badge className="my-custom-badge">My badge</Badge>
+<Badge className="my-custom-badge">My badge</Badge>;
 ```
+
 <Badge className="my-custom-badge">My badge</Badge>
 
 #### Override styling using the classname and data attribute selectors
+
 Use the `amplify-ui-badge` class and data attributes to style all badges.
 
 ```css
 /* Example: Extend all <Badge> styles */
 .amplify-ui-badge {
-  font-family: "Times New Roman", Times, serif;
+  font-family: 'Times New Roman', Times, serif;
   font-weight: bold;
 }
 
 /* Example: Override only info variation styles */
-.amplify-ui-badge {
-  --badge-colors-bg-info: rebeccapurple;
+.amplify-ui-badge[data-variation='info'] {
+  background-color: rebeccapurple;
 }
 
 /* Example: Override size styles */
-.amplify-ui-badge[data-size=large] {
+.amplify-ui-badge[data-size='large'] {
   border: 1px solid black;
 }
 ```
+
 To replace the badge styling, unset it:
+
 ```css
 .amplify-ui-badge {
   all: unset;
@@ -102,9 +113,10 @@ To replace the badge styling, unset it:
 ```
 
 #### Styling a badge instance
-To override styling on a specific badge 
 
-*Using a class selector:*
+To override styling on a specific badge
+
+_Using a class selector:_
 
 ```css
 /* Example: class selector styling override */
@@ -114,12 +126,14 @@ To override styling on a specific badge
   border-radius: 3px;
 }
 ```
+
 ```jsx
 <Badge className="flagged">13</Badge>
 ```
+
 <Badge className="flagged">13</Badge>
 
-*Using an id selector:*
+_Using an id selector:_
 
 ```css
 /* Example: id selector styling override */
@@ -130,7 +144,9 @@ To override styling on a specific badge
   border: 1px solid blue;
 }
 ```
+
 ```jsx
 <Badge id="subscribers">123K</Badge>
 ```
+
 <Badge id="subscribers">123K</Badge>

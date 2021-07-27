@@ -1,12 +1,11 @@
 module.exports = {
-  height: {
-    large: { value: '{fontSizes.large.value}' },
-    medium: { value: '{fontSizes.medium.value}' },
-    small: { value: '{fontSizes.small.value}' },
+  lineHeight: { value: 1 },
+  height: { value: '{fontSizes.medium.value}' },
+
+  large: {
+    height: { value: '{fontSizes.large.value}' },
   },
-  lineHeight: {
-    large: { value: '{fontSizes.large.value}' },
-    medium: { value: '{fontSizes.medium.value}' },
-    small: { value: '{fontSizes.small.value}' },
+  small: {
+    height: { value: '{fontSizes.small.value}' },
   },
 };

@@ -11,7 +11,7 @@
     "build": "yarn run build:sd; yarn run build:css",
     "build:all": "yarn run build",
     "build:sd": "style-dictionary build --config ./sd.config.js",
-    "build:css": "globcat src/css/theme.css dist/variables.css src/css/**/*.css --output dist/theme.css",
+    "build:css": "node scripts/generateCSS.js",
     "clean": "rimraf dist"
   },
   "devDependencies": {
@@ -20,6 +20,7 @@
     "glob": "^7.1.7",
     "globcat": "^1.3.4",
     "rimraf": "^3.0.2",
+    "sass": "^1.35.2",
     "style-dictionary": "^3.0.1"
   }
 }

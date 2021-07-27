@@ -69,12 +69,12 @@ import { Button } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 
 <Button variation="primary">Primary</Button>
-<Button variation="default">Default</Button>
+<Button>Default</Button>
 <Button variation="link">Link</Button>
 ```
 
 <Button variation="primary">Primary</Button>
-<Button variation="default">Default</Button>
+<Button>Default</Button>
 <Button variation="link">Link</Button>
 
 ### Button loading state
@@ -127,8 +127,8 @@ Using a class and CSS file:
 ```css
 /* styles.css */
 .my-custom-button {
-  --amplify-ui-button-color-bg-primary: #0057ff;
-  --amplify-ui-button-color-bg-primary-hover: #4d89fc;
+  --amplify-ui-components-button-primary-background-color: #0057ff;
+  --amplify-ui-components-button-primary-hover-background-color: #4d89fc;
 }
 ```
 
@@ -151,8 +151,8 @@ Or override the variables inline:
 ```jsx
 <div
   style={{
-    '--amplify-ui-button-colors-bg-primary': '#0057ff',
-    '--amplify-ui-button-colors-bg-primary-hover': '#4d89fc',
+    '--amplify-ui-components-button-primary-background-color': '#0057ff',
+    '--amplify-ui-components-button-primary-hover-background-color': '#4d89fc',
   }}
 >
   <Button variation="primary">My button</Button>
@@ -161,8 +161,8 @@ Or override the variables inline:
 
 <div
   style={{
-    '--amplify-ui-button-colors-bg-primary': '#0057ff',
-    '--amplify-ui-button-colors-bg-primary-hover': '#4d89fc',
+    '--amplify-ui-components-button-primary-background-color': '#0057ff',
+    '--amplify-ui-components-button-primary-hover-background-color': '#4d89fc',
   }}
 >
   <Button variation="primary">My button</Button>

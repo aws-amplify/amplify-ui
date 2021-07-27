@@ -1,0 +1,148 @@
+/*
+ * Button base styles
+ */
+
+.amplify-button {
+  border-radius: var(--amplify-components-button-border-radius);
+  box-sizing: border-box;
+  font-weight: var(--amplify-components-button-font-weight);
+  text-align: var(--amplify-components-button-text-align);
+  transition: all var(--amplify-components-button-transition-duration);
+  border-width: var(--amplify-components-button-border-width);
+  border-style: var(--amplify-components-button-border-style);
+  border-color: var(--amplify-components-button-border-color);
+  border-radius: var(--amplify-components-button-border-radius);
+  color: var(--amplify-components-button-color);
+  font-size: var(--amplify-components-button-font-size);
+  padding: var(--amplify-components-button-padding);
+  
+  &:hover {
+    background-color: var(--amplify-components-button-hover-background-color);
+    border-color: var(--amplify-components-button-hover-border-color);
+    color: var(--amplify-components-button-hover-color);
+    cursor: pointer;
+  }
+  
+  &:focus {
+    border-color: var(--amplify-components-button-focus-border-color);
+    color: var(--amplify-components-button-focus-color);
+  }
+  
+  &:active {
+    background-color: var(--amplify-components-button-active-background-color);
+    border-color: var(--amplify-components-button-active-border-color);
+    color: var(--amplify-components-button-active-color);
+  }
+  
+  &[disabled] {
+    background-color: var(
+      --amplify-components-button-disabled-background-color
+    );
+    border-color: var(
+      --amplify-components-button-disabled-border-color
+    );
+    color: var(--amplify-components-button-disabled-color);
+    cursor: not-allowed;
+  }
+  
+  &[data-loading='true'] {
+    background-color: var(
+      --amplify-components-button-loading-background-color
+    );
+    border-color: var(
+      --amplify-components-button-loading-border-color
+    );
+    color: var(--amplify-components-button-loading-color);
+  }
+  
+  &[data-fullwidth='true'] {
+    width: 100%;
+  }
+  
+  &[data-variation='primary'] {
+    border-width: var(--amplify-components-button-primary-border-width);
+    background-color: var(
+      --amplify-components-button-primary-background-color
+    );
+    color: var(--amplify-components-button-primary-color);
+    
+    &:hover {
+      background-color: var(
+        --amplify-components-button-primary-hover-background-color
+      );
+    }
+    
+    &:focus {
+      background-color: var(
+        --amplify-components-button-primary-focus-background-color
+      );
+    }
+    
+    &:active {
+      background-color: var(
+        --amplify-components-button-primary-active-background-color
+      );
+    }
+    
+    &[data-loading='true'] {
+      background-color: var(
+        --amplify-components-button-primary-loading-background-color
+      );
+      color: var(--amplify-components-button-primary-loading-color);
+    }
+    
+    &[disabled] {
+      background-color: var(
+        --amplify-components-button-primary-disabled-background-color
+      );
+      color: var(--amplify-components-button-primary-disabled-color);
+    }
+  }
+  
+  &[data-variation='link'] {
+    border-width: var(--amplify-components-button-link-border-width);
+    background-color: var(--amplify-components-button-link-background-color);
+    color: var(--amplify-components-button-link-color);
+    
+    &:hover {
+      color: var(--amplify-components-button-link-hover-color);
+      text-decoration: underline;
+    }
+    
+    &:focus {
+      color: var(--amplify-components-button-link-focus-color);
+    }
+    
+    &:active {
+      color: var(--amplify-components-button-link-active-color);
+    }
+    
+    &[disabled] {
+      color: var(--amplify-components-button-link-disabled-color);
+      text-decoration: none;
+    }
+    
+    &[data-loading='true'] {
+      color: var(--amplify-components-button-link-loading-color);
+      text-decoration: none;
+    }
+  }
+  
+  &[data-size='small'] {
+    border-radius: var(--amplify-components-button-small-border-radius);
+    font-size: var(--amplify-components-button-small-font-size);
+    padding: var(--amplify-components-button-small-padding);
+  }
+  
+  // &[data-size='medium'] {
+  //   border-radius: var(--amplify-components-button-medium-border-radius);
+  //   font-size: var(--amplify-components-button-medium-font-size);
+  //   padding: var(--amplify-components-button-medium-padding);
+  // }
+  
+  &[data-size='large'] {
+    border-radius: var(--amplify-components-button-large-border-radius);
+    font-size: var(--amplify-components-button-large-font-size);
+    padding: var(--amplify-components-button-large-padding);
+  }
+}

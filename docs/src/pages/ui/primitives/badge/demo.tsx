@@ -10,8 +10,8 @@ import {
 import { FieldLabeler } from '../../../../components/FieldLabeler';
 
 export const BadgeDemo = () => {
-  const [variation, setVariation] = useState<BadgeVariation>('default');
-  const [size, setSize] = useState<BadgeSize>('medium');
+  const [variation, setVariation] = useState<BadgeVariation>();
+  const [size, setSize] = useState<BadgeSize>();
 
   return (
     <div>
@@ -21,11 +21,13 @@ export const BadgeDemo = () => {
             <select
               value={variation}
               placeholder="Select badge variation"
-              onChange={event => setVariation(event.target.value as BadgeVariation)}
+              onChange={(event) =>
+                setVariation(event.target.value as BadgeVariation)
+              }
               id="variation"
               name="variation"
             >
-              <option value="default">default</option>
+              <option></option>
               <option value="info">info</option>
               <option value="error">error</option>
               <option value="warning">warning</option>
@@ -37,12 +39,12 @@ export const BadgeDemo = () => {
             <select
               value={size}
               placeholder="Select badge size"
-              onChange={event => setSize(event.target.value as BadgeSize)}
+              onChange={(event) => setSize(event.target.value as BadgeSize)}
               id="size"
               name="size"
             >
+              <option></option>
               <option value="small">small</option>
-              <option value="medium">medium</option>
               <option value="large">large</option>
             </select>
           </FieldLabeler>
