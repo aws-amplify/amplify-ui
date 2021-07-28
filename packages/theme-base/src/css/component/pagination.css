@@ -82,6 +82,10 @@
   justify-content: var(--amplify-ui-components-pagination-item-justify-content);
 }
 
+.amplify-ui-pagination li[aria-current='page'] a {
+  color: var(--amplify-ui-components-pagination-item-current-color);
+}
+
 .amplify-ui-pagination li a:hover {
   text-decoration: var(
     --amplify-ui-components-pagination-item-hover-text-decoration

@@ -21,11 +21,12 @@ module.exports = {
     transition: {
       value: 'background-color {time.transition.medium.value}',
     },
-    hover: {
-      backgroundColor: { value: 'rgba(0, 0, 0, 0.04)' },
-    },
     current: {
-      backgroundColor: { value: 'rgba(0, 0, 0, 0.08)' },
+      color: { value: '{colors.white.value}' },
+      backgroundColor: { value: 'rgba(0, 0, 0, 0.3)' },
+    },
+    hover: {
+      backgroundColor: { value: 'rgba(0, 0, 0, 0.1)' },
     },
     disabled: {
       opacity: { value: '{opacities.40.value}' },
@@ -42,6 +43,9 @@ module.exports = {
     width: { value: '{fontSizes.large.value}' },
     alignItems: { value: 'center' },
     justifyContent: { value: 'center' },
+    current: {
+      color: { value: '{colors.white.value}' },
+    },
     hover: {
       textDecoration: { value: 'none' },
     },

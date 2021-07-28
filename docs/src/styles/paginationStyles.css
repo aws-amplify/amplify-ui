@@ -12,7 +12,3 @@
     0.5
   );
 }
-
-.my-custom-pagination li[aria-current='page'] {
-  --amplify-ui-components-pagination-item-color: #fff;
-}
