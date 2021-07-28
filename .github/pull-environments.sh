@@ -31,6 +31,7 @@ PROVIDERS="{\
 # Pull the backend for each environment
 for dir in environments/*/ ; do
   if ! [ -f "$dir/app-id" ]; then
+    echo "If $dir is an environment, ensure the file 'app-id' containing the environment's Amplify app id exists."
     continue
   fi
 
