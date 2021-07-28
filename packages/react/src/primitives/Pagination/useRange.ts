@@ -16,6 +16,11 @@ export const useRange = (
   totalPages: number
 ): (string | number)[] => {
   const range = useMemo(() => {
+    // The current page should not be less than 1
+    currentPage = Math.max(currentPage, 1);
+    // The total pages should be always greater than current page
+    totalPages = Math.max(currentPage, totalPages);
+
     // Note: 1-based index will be used for page value.
     const firstPage = 1;
     const lastPage = totalPages;

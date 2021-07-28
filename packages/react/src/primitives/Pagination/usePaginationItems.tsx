@@ -26,7 +26,7 @@ export const usePaginationItems = (
       currentPage={currentPage}
       onClick={onPrevious}
       ariaLabel="Go to previous page"
-      ariaDisabled={currentPage === 1}
+      ariaDisabled={currentPage <= 1}
     />
   );
 
@@ -37,7 +37,7 @@ export const usePaginationItems = (
       currentPage={currentPage}
       onClick={onNext}
       ariaLabel="Go to next page"
-      ariaDisabled={currentPage === totalPages}
+      ariaDisabled={currentPage >= totalPages}
     />
   );
   // To get the range of page numbers to be rendered in the pagination primitive
@@ -69,7 +69,7 @@ export const usePaginationItems = (
           />
         );
       }),
-    [currentPage, onChange]
+    [range, currentPage, onChange]
   );
   return [previousItem, ...pages, nextItem];
 };

@@ -1,0 +1,18 @@
+.my-custom-pagination {
+  --amplify-ui-components-pagination-item-container-current-background-color: rgba(
+    0,
+    181,
+    204,
+    0.8
+  );
+  --amplify-ui-components-pagination-item-container-hover-background-color: rgba(
+    0,
+    181,
+    204,
+    0.5
+  );
+}
+
+.my-custom-pagination li[aria-current='page'] {
+  --amplify-ui-components-pagination-item-color: #fff;
+}

@@ -44,15 +44,15 @@
   transition: var(--amplify-ui-components-pagination-item-container-transition);
 }
 
-.amplify-ui-pagination li:hover {
-  background-color: var(
-    --amplify-ui-components-pagination-item-container-hover-background-color
-  );
-}
-
 .amplify-ui-pagination li[aria-current='page'] {
   background-color: var(
     --amplify-ui-components-pagination-item-container-current-background-color
+  );
+}
+
+.amplify-ui-pagination li:hover {
+  background-color: var(
+    --amplify-ui-components-pagination-item-container-hover-background-color
   );
 }
 
