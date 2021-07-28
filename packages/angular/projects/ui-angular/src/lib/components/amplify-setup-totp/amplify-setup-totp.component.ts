@@ -7,7 +7,7 @@ import {
   TemplateRef,
 } from '@angular/core';
 import { Subscription } from 'xstate';
-import { QRCode } from 'qrcode';
+import QRCode from 'qrcode';
 import { Logger } from '@aws-amplify/core';
 import { AuthMachineState } from '@aws-amplify/ui-core';
 import Auth from '@aws-amplify/auth';
@@ -16,7 +16,7 @@ import { AuthPropService, StateMachineService } from '../../services';
 const logger = new Logger('SetupTotp');
 
 @Component({
-  selector: 'amplify-amplify-setup-totp',
+  selector: 'amplify-setup-totp',
   templateUrl: './amplify-setup-totp.component.html',
 })
 export class AmplifySetupTotpComponent
@@ -40,6 +40,7 @@ export class AmplifySetupTotpComponent
     this.authSubscription = this.stateMachine.authService.subscribe(state => {
       this.onStateUpdate(state);
     });
+    this.generateQRCode();
   }
 
   ngAfterContentInit(): void {
@@ -58,10 +59,16 @@ export class AmplifySetupTotpComponent
   async generateQRCode() {
     // TODO: This should be handled in core.
     const { user } = this.stateMachine.context;
-    const secretKey = await Auth.setupTOTP(user);
-    const issuer = 'AWSCognito';
-    const totpCode = `otpauth://totp/${issuer}:${user.username}?secret=${secretKey}&issuer=${issuer}`;
-    this.qrCodeSource = await QRCode.toDataURL(totpCode);
+    try {
+      const secretKey = await Auth.setupTOTP(user);
+      const issuer = 'AWSCognito';
+      const totpCode = `otpauth://totp/${issuer}:${user.username}?secret=${secretKey}&issuer=${issuer}`;
+
+      logger.info('totp code was generated:', totpCode);
+      this.qrCodeSource = await QRCode.toDataURL(totpCode);
+    } catch (err) {
+      throw err;
+    }
   }
 
   onInput(event: Event) {
