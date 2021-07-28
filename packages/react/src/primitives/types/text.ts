@@ -1,7 +1,7 @@
 import { BaseComponentProps } from './base';
 import { BaseStyleProps } from './style';
 
-export type TextVariant =
+export type TextVariation =
   | 'primary'
   | 'secondary'
   | 'tertiary'
@@ -21,7 +21,7 @@ export interface TextProps extends BaseComponentProps, BaseStyleProps {
    * text styling attributes like color can be set directly, that should be more of an
    * escape hatch.
    */
-  variant?: TextVariant;
+  variation?: TextVariation;
 
   /**
    * This attribute will be used to indicate if the text component should truncate text

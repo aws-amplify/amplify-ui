@@ -12,7 +12,7 @@ These docs are published at https://docs.amplify.aws/ui and powered by the follo
 
   You can find the latest/relevant commit at https://github.com/aws-amplify/docs/commits/next.
 
-- [MDX](https://github.com/mdx-js/mdx) – Content
+- [XDM](https://github.com/wooorm/xdm) – Content
 - [Next.js](https://nextjs.org/) – Framework
 
 ## Getting Started
@@ -28,9 +28,11 @@ These docs are published at https://docs.amplify.aws/ui and powered by the follo
 
 ### Creating a Page
 
-Page paths mirror their URLs. For example, `/ui/components/authenticator` is located at [/src/pages/ui/components/authenticator/index.mdx](src/pages/ui/components/authenticator/index.mdx).
+Page paths mirror their URLs. For example, `/ui/components/authenticator` is located at [/src/pages/ui/components/authenticator/index.page.mdx](src/pages/ui/components/authenticator/index.page.mdx).
 
-At a minimum, all MDX pages require the following basic frontmatter:
+Component & primitive pages are located at `src/pages/ui/components/*/index.page.mdx` and `src/pages/ui/primitives/*/index.page.mdx`, respectively.
+
+At a minimum, all `.page.mdx` files require the following basic frontmatter:
 
 ```md
 ---
@@ -40,12 +42,11 @@ title: My Title
 Content goes here...
 ```
 
-_My Title_ will show up in the primary navigation.
+_My Title_ will show up in the sidebar navigation, while contenet will be statically generated & indexed.
 
-#### Component Pages
+Note that _dynamic content_ (e.g. `import Page from "${slug}.mdx"`) is **not** statically generated
+and harder to index. Because of this, ensure indexable content _always_ exists and only supplemental
+content & demos are loaded asynchronously.
 
-Create or modify a page at `src/pages/ui/components/*/index.mdx`.
-
-#### Primitive Pages
-
-Create or modify a page at `src/pages/ui/primitives/*/index.mdx`.
+Pages **must** end with `.page.(mdx|tsx)` to differentiate them supplemental
+`.mdx` fragments or `.tsx` utilities.

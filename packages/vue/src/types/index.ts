@@ -1,6 +1,9 @@
 import { Ref, ComputedRef } from 'vue';
 import { PayloadSender, EventObject } from 'xstate';
-import { AuthInputAttributes } from '@aws-amplify/ui-core';
+import {
+  AuthInputAttributes,
+  FederatedIdentityProviders,
+} from '@aws-amplify/ui-core';
 
 export interface SetupEventContext {
   emit: (eventName: string, payload?: unknown) => void;
@@ -19,6 +22,9 @@ export interface UserNameAliasSetupReturnTypes {
   type: string;
   error: string;
   uName: Ref<string>;
+}
+export interface FederatedSignInButtonReturnTypes {
+  onClick: (e: Event) => void;
 }
 
 export interface SignInSetupReturnTypes {
@@ -95,4 +101,13 @@ export interface AuthenticatorSetupReturnTypes {
 
 export interface AliasControlTypes {
   inputAttributes: ComputedRef<AuthInputAttributes>;
+}
+
+export interface FederatedSignInReturnTypes {
+  loginMechanisms: string[];
+  fp: ComputedRef<typeof FederatedIdentityProviders>;
+  includeFacebook: boolean;
+  includeGoogle: boolean;
+  includeAmazon: boolean;
+  shouldShowFederatedSignIn: boolean;
 }

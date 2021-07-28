@@ -2,19 +2,19 @@ import React from 'react';
 import { ComponentClassNames } from '../shared/constants';
 import classNames from 'classnames';
 import { BadgeProps } from '../types';
-import { View } from '@aws-amplify/ui-react';
+import { View } from '../View';
 
 export const Badge: React.FC<BadgeProps> = ({
   className,
   children,
-  variant = 'default',
+  variation = 'default',
   size = 'medium',
   ...rest
 }) => (
   <View
     as="span"
     className={classNames(ComponentClassNames.Badge, className)}
-    data-variant={variant}
+    data-variation={variation}
     data-size={size}
     {...rest}
   >

@@ -18,7 +18,7 @@ export const authInputAttributes: AuthInputAttributes = {
     type: 'tel',
     placeholder: 'Enter your phone number',
   },
-  code: {
+  confirmation_code: {
     label: 'Confirmation Code',
     placeholder: 'Enter your confirmation code',
     type: 'number',
@@ -47,10 +47,11 @@ export const getAliasInfoFromContext = (context: AuthContext) => {
   let type = 'text';
   const label = loginMechanisms
     .filter((mechanism) => includes(userNameAliasArray, mechanism))
-    .map(
-      (v) =>
+    .map((v) => {
+      return (
         authInputAttributes[v]?.label ?? authInputAttributes['username'].label
-    )
+      );
+    })
     .join(' or ');
 
   if (loginMechanisms.length === 1) {
@@ -58,4 +59,20 @@ export const getAliasInfoFromContext = (context: AuthContext) => {
   }
 
   return { label, type, error };
+};
+
+/**
+ * Given xstate context from AuthMachine, returns the primaryAlias and
+ * secondaryAliases.
+ */
+export const getConfiguredAliases = (context: AuthContext) => {
+  const login_mechanisms = context.config?.login_mechanisms ?? [
+    ...userNameAliasArray,
+  ];
+  const aliases = login_mechanisms.filter((mechanism) => {
+    includes(userNameAliasArray, mechanism);
+  });
+
+  const [primaryAlias, ...secondaryAliases] = aliases;
+  return { primaryAlias, secondaryAliases };
 };

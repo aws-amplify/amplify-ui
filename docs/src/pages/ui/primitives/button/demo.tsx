@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, ButtonSize, ButtonVariant } from '@aws-amplify/ui-react';
+import { Button, ButtonSize, ButtonVariation } from '@aws-amplify/ui-react';
 
 export const ButtonDemo = () => {
   const [disabled, setDisabled] = React.useState<boolean>(false);
@@ -7,7 +7,7 @@ export const ButtonDemo = () => {
   const [fullWidth, setFullWidth] = React.useState<boolean>(false);
   const [loadingText, setLoadingText] = React.useState('Loading...');
   const [ariaLabel, setAriaLabel] = React.useState<string>('');
-  const [variant, setVariant] = React.useState<ButtonVariant>('primary');
+  const [variation, setVariation] = React.useState<ButtonVariation>('primary');
   const [size, setSize] = React.useState<ButtonSize>('medium');
 
   return (
@@ -59,9 +59,9 @@ export const ButtonDemo = () => {
           }}
         />
         <select
-          value={variant}
-          placeholder="Select button variant"
-          onChange={(event) => setVariant(event.target.value as ButtonVariant)}
+          value={variation}
+          placeholder="Select button variation"
+          onChange={(event) => setVariation(event.target.value as ButtonVariation)}
         >
           <option value="primary">primary</option>
           <option value="default">default</option>
@@ -81,7 +81,7 @@ export const ButtonDemo = () => {
         isDisabled={disabled}
         isLoading={loading}
         loadingText={loadingText}
-        variant={variant}
+        variation={variation}
         size={size}
         onClick={() => alert('hello')}
         ariaLabel={ariaLabel}

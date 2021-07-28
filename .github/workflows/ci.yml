@@ -61,6 +61,8 @@ jobs:
           UNKNOWN_PHONE_NUMBER: ${{ secrets.UNKNOWN_PHONE_NUMBER }}
           VALID_PHONE_NUMBER: ${{ secrets.VALID_PHONE_NUMBER }}
           INVALID_PASSWORD: ${{ secrets.INVALID_PASSWORD }}
+          INVALID_NEW_PASSWORD: ${{ secrets.INVALID_NEW_PASSWORD }}
+          NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
           VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
           VALID_EMAIL_SETUP_MFA: ${{ secrets.VALID_EMAIL_SETUP_MFA }}
           VALID_PASSWORD_SETUP_MFA: ${{ secrets.VALID_PASSWORD_SETUP_MFA }}

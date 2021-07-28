@@ -9,19 +9,19 @@
   text-align: var(--amplify-ui-components-badge-text-align);
 }
 
-.amplify-ui-badge[data-variant='info'] {
+.amplify-ui-badge[data-variation='info'] {
   background-color: var(--amplify-ui-components-badge-info-background-color);
 }
 
-.amplify-ui-badge[data-variant='error'] {
+.amplify-ui-badge[data-variation='error'] {
   background-color: var(--amplify-ui-components-badge-error-background-color);
 }
 
-.amplify-ui-badge[data-variant='warning'] {
+.amplify-ui-badge[data-variation='warning'] {
   background-color: var(--amplify-ui-components-badge-warning-background-color);
 }
 
-.amplify-ui-badge[data-variant='success'] {
+.amplify-ui-badge[data-variation='success'] {
   background-color: var(--amplify-ui-components-badge-success-background-color);
 }
 

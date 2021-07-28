@@ -37,7 +37,11 @@
             >
             </slot>
           </template>
-          <base-button type="button" @click.prevent="onBackToSignInClicked">
+          <base-button
+            v-if="!shouldHideReturnBtn"
+            type="button"
+            @click.prevent="onBackToSignInClicked"
+          >
             {{ backSignInText }}</base-button
           >
           <base-spacer />
@@ -96,6 +100,12 @@ export default defineComponent({
     BaseInput,
     BaseWrapper,
     UserNameAlias,
+  },
+  props: {
+    shouldHideReturnBtn: {
+      default: false,
+      type: Boolean,
+    },
   },
   inheritAttrs: false,
   setup(

@@ -7,9 +7,13 @@
 
 <ng-template #signInForm>
   <form data-amplify-form (submit)="onSubmit($event)" (input)="onInput($event)">
-    <fieldset data-amplify-fieldset [attr.disabled]="isLoading() ? '' : null">
-      <amplify-input name="username"></amplify-input>
-      <amplify-input name="password" type="password"></amplify-input>
+    <fieldset data-amplify-fieldset [attr.disabled]="isPending ? '' : null">
+      <amplify-user-name-alias></amplify-user-name-alias>
+      <amplify-input
+        name="password"
+        type="password"
+        autocomplete="current-password"
+      ></amplify-input>
 
       <div data-amplify-footer>
         <div>
@@ -23,6 +27,10 @@
         </ng-container>
       </div>
     </fieldset>
+
+    <amplify-error *ngIf="remoteError">
+      {{ remoteError }}
+    </amplify-error>
   </form>
 </ng-template>
 

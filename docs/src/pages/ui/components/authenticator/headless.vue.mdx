@@ -1,0 +1,19 @@
+The `Authenticator`'s UI is powered by a state machine. You can use the `useAuth`composable
+to get access to it and customizing behavior or your own UI:
+
+```html
+<template>
+  <div v-if="state.matches('authenticated')">
+    <h1>Welcome, {state.context.user.username}</h1>
+    <button onClick={() => send("SIGN_OUT")}>Sign out</button>
+  </div>
+</template>
+
+<script setup>
+  import { useAuth } from "@aws-amplify/ui-vue";
+
+  ...
+
+  const { state, send } = useAuth();
+</script>
+```
