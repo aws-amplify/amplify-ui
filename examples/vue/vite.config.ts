@@ -7,6 +7,7 @@ const path = require('path');
 export default defineConfig({
   plugins: [vue(), voie()],
   server: {
+    port: 3001,
     fs: {
       strict: true,
     },
