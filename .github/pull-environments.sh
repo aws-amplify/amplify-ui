@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 set -e
 IFS='|'
 
@@ -30,7 +30,7 @@ PROVIDERS="{\
 
 # Pull the backend for each environment
 for dir in environments/*/ ; do
-  if ! [[ -f "$dir/app-id" ]]; then
+  if ! [ -f "$dir/app-id" ]; then
     continue
   fi
 
