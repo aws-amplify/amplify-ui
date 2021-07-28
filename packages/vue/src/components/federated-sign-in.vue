@@ -23,6 +23,9 @@
     >
     </federated-sign-in-button>
   </base-wrapper>
+  <base-box data-amplify-strike>
+    <base-spacer>or</base-spacer>
+  </base-box>
 </template>
 
 <script lang="ts">
@@ -31,10 +34,12 @@ import { FederatedIdentityProviders } from '@aws-amplify/ui-core';
 import { useAuth } from '../composables/useAuth';
 import FederatedSignInButton from './federated-sign-in-button.vue';
 import BaseWrapper from './primitives/base-wrapper.vue';
+import BaseSpacer from './primitives/base-spacer.vue';
+import BaseBox from './primitives/base-box.vue';
 import { FederatedSignInReturnTypes } from '../types';
 
 export default defineComponent({
-  components: { FederatedSignInButton, BaseWrapper },
+  components: { FederatedSignInButton, BaseWrapper, BaseBox, BaseSpacer },
   setup(): FederatedSignInReturnTypes {
     const { state } = useAuth();
     const {

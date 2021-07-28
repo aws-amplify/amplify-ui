@@ -8,17 +8,17 @@ Feature: Confirm Sign Up
   Background:
     Given I'm running the example "ui/components/authenticator/confirm-sign-up"
 
-  @Next @React 
+  @Next @React
   Scenario: Username is disabled
     When I see "Confirm Sign Up"
     Then The input "username" is disabled
 
-  @Next @React 
+  @Next @React
   Scenario: Navigating back to "Sign In"
     When I click "Back to Sign In"
     Then I see "Sign In"
 
-  @Next @React 
+  @Next @React
   Scenario: Resending Code
     When I click "Resend Code"
     Then A new code is sent
@@ -29,7 +29,7 @@ Feature: Confirm Sign Up
     And I click the "Confirm" button
     Then I am logged in
 
-  @Next @React 
+  @Next @React
   Scenario: Sign up with a new username & password
     When I type a new username
     And I type the password "test-password"
