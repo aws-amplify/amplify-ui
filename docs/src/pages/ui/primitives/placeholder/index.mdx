@@ -39,7 +39,7 @@ import '@aws-amplify/ui-react/styles.css';
 
 ### There are two ways you can use the Placeholder component:
 
-1. Pass your loading state to the `isLoaded` prop.
+1. Pass your loading state to the `isLoaded` prop (suggested)
 2. Use conditional rendering (e.g., ternary operator)
 
 ```jsx
@@ -80,8 +80,8 @@ Set the starting and ending colors using a custom CSS class with CSS variables:
 ```css
 /* styles.css */
 .custom-placeholder {
-  --start-color: purple;
-  --end-color: blue;
+  --amplify-ui-components-placeholder-start-color: purple;
+  --amplify-ui-components-placeholder-end-color: blue;
 }
 ```
 

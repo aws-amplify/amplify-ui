@@ -1,4 +1,4 @@
 .custom-placeholder {
-  --start-color: purple;
-  --end-color: blue;
+  --amplify-ui-components-placeholder-start-color: purple;
+  --amplify-ui-components-placeholder-end-color: blue;
 }

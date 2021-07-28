@@ -4,8 +4,6 @@ import '@testing-library/jest-dom/extend-expect';
 import { Placeholder } from '../Placeholder';
 import { Text } from '../../Text';
 import { ComponentClassNames } from '../../shared';
-import { ComponentPropsToStylePropsMap } from '../../types';
-import { kebabCase } from 'lodash';
 
 describe('Placeholder: ', () => {
   it('renders correct defaults', async () => {
