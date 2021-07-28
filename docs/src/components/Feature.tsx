@@ -27,6 +27,8 @@ function getPortForPlatform(platform) {
   switch (platform) {
     case 'next':
     case 'react':
+    case 'vue':
+      return 3001;
     default:
       return 3000;
   }

@@ -8,28 +8,28 @@ Feature: Confirm Sign Up
   Background:
     Given I'm running the example "ui/components/authenticator/confirm-sign-up"
 
-  @Next @React
+  @Next @React @Vue
   Scenario: Username is disabled
     When I see "Confirm Sign Up"
     Then The input "username" is disabled
 
-  @Next @React
+  @Next @React @Vue
   Scenario: Navigating back to "Sign In"
     When I click "Back to Sign In"
     Then I see "Sign In"
 
-  @Next @React
+  @Next @React @Vue
   Scenario: Resending Code
     When I click "Resend Code"
     Then A new code is sent
 
-  @Next @React
+  @Next @React @Vue
   Scenario: Confirming a Code
     When I type the confirmation code
     And I click the "Confirm" button
     Then I am logged in
 
-  @Next @React
+  @Next @React @Vue
   Scenario: Sign up with a new username & password
     When I type a new username
     And I type the password "test-password"
@@ -39,7 +39,7 @@ Feature: Confirm Sign Up
     Then I see "Confirm Sign Up"
     And I see "Confirmation Code"
 
-  @Next @React
+  @Next @React @Vue
   Scenario: Supports "One-Time Code"
 
     See: https://developer.apple.com/documentation/security/password_autofill/enabling_password_autofill_on_an_html_input_element
