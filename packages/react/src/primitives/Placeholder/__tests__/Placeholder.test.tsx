@@ -2,90 +2,112 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import '@testing-library/jest-dom/extend-expect';
 import { Placeholder } from '../Placeholder';
+import { Text } from '../../Text';
 import { ComponentClassNames } from '../../shared';
 import { ComponentPropsToStylePropsMap } from '../../types';
 import { kebabCase } from 'lodash';
 
-/*
-
-Tests:
-- Can render one or multiple children
-- Test the two ways you can use the placeholder
-- Can you pass the string 'true' to the isLoaded prop? (No, because it takes a boolean)
-- Can you render different sizes through the size prop?
-
-*/
-
-/*
 describe('Placeholder: ', () => {
-  it('renders an h6 tag by default', async () => {
-    render(<Heading testId="headingId"></Heading>);
+  it('renders correct defaults', async () => {
+    render(<Placeholder testId="placeholderId" />);
 
-    const heading = await screen.findByTestId('headingId');
-    expect(heading.nodeName).toBe('H6');
+    const placeholder = await screen.findByTestId('placeholderId');
+    expect(
+      placeholder.classList.contains(ComponentClassNames.Placeholder)
+    ).toBe(true);
+    expect(placeholder.dataset['size']).toBe('medium');
   });
 
-  it('renders h1-h6 tags by passing level prop', async () => {
+  it('renders based on isLoaded prop', async () => {
     render(
       <div>
-        <Heading level={1} testId="h1">
-          H1
-        </Heading>
-        <Heading level={2} testId="h2">
-          H2
-        </Heading>
-        <Heading level={3} testId="h3">
-          H3
-        </Heading>
-        <Heading level={4} testId="h4">
-          H4
-        </Heading>
-        <Heading level={5} testId="h5">
-          H5
-        </Heading>
-        <Heading level={6} testId="h6">
-          H6
-        </Heading>
+        <Placeholder testId="p1">
+          <Text testId="t1">Should not render</Text>
+        </Placeholder>
+        <Placeholder isLoaded={true} testId="p2">
+          <Text testId="t2">Should render</Text>
+        </Placeholder>
       </div>
     );
 
-    const h1 = await screen.findByTestId('h1');
-    const h2 = await screen.findByTestId('h2');
-    const h3 = await screen.findByTestId('h3');
-    const h4 = await screen.findByTestId('h4');
-    const h5 = await screen.findByTestId('h5');
-    const h6 = await screen.findByTestId('h6');
+    const p1 = await screen.queryByTestId('p1');
+    const t1 = await screen.queryByTestId('t1');
+    const p2 = await screen.queryByTestId('p2');
+    const t2 = await screen.queryByTestId('t2');
 
-    expect(h1.nodeName).toBe('H1');
-    expect(h2.nodeName).toBe('H2');
-    expect(h3.nodeName).toBe('H3');
-    expect(h4.nodeName).toBe('H4');
-    expect(h5.nodeName).toBe('H5');
-    expect(h6.nodeName).toBe('H6');
+    expect(p1).toBeTruthy();
+    expect(t1).toBeNull();
+    expect(p2).toBeNull();
+    expect(t2).toBeTruthy();
+  });
+
+  it('renders conditionally', async () => {
+    const isLoaded = false;
+    render(
+      <div>
+        {isLoaded ? (
+          <Text testId="t1">Should not render</Text>
+        ) : (
+          <Placeholder testId="p1" />
+        )}
+        {!isLoaded ? (
+          <Text testId="t2">Should render</Text>
+        ) : (
+          <Placeholder testId="p2" />
+        )}
+      </div>
+    );
+
+    const p1 = await screen.queryByTestId('p1');
+    const t1 = await screen.queryByTestId('t1');
+    const p2 = await screen.queryByTestId('p2');
+    const t2 = await screen.queryByTestId('t2');
+
+    expect(p1).toBeTruthy();
+    expect(t1).toBeNull();
+    expect(p2).toBeNull();
+    expect(t2).toBeTruthy();
+  });
+
+  it('renders different sizes by passing size prop', async () => {
+    render(
+      <div>
+        <Placeholder size="small" testId="p1" />
+        <Placeholder size="medium" testId="p2" />
+        <Placeholder size="large" testId="p3" />
+      </div>
+    );
+
+    const p1 = await screen.findByTestId('p1');
+    const p2 = await screen.findByTestId('p2');
+    const p3 = await screen.findByTestId('p3');
+
+    expect(p1.dataset['size']).toBe('small');
+    expect(p2.dataset['size']).toBe('medium');
+    expect(p3.dataset['size']).toBe('large');
   });
 
   it('can apply styling via props', async () => {
-    render(<Heading level={3} fontStyle="italic" testId="headingId"></Heading>);
-    const heading = await screen.findByTestId('headingId');
-    expect(heading.nodeName).toBe('H3');
-    expect(
-      heading.style.getPropertyValue(
-        kebabCase(ComponentPropsToStylePropsMap.fontStyle)
-      )
-    ).toBe('italic');
+    render(<Placeholder height="123px" width="50%" testId="placeholderId" />);
+    const placeholder = await screen.findByTestId('placeholderId');
+    expect(placeholder.style.getPropertyValue('height')).toBe('123px');
+    expect(placeholder.style.getPropertyValue('width')).toBe('50%');
   });
 
   it('can apply a custom className', async () => {
-    render(<Heading className="custom-heading" testId="headingId"></Heading>);
-    const heading = await screen.findByTestId('headingId');
-    expect(heading.classList.contains('custom-heading')).toBe(true);
-    expect(heading.classList.contains(ComponentClassNames.Heading)).toBe(true);
+    render(
+      <Placeholder className="custom-placeholder" testId="placeholderId" />
+    );
+    const placeholder = await screen.findByTestId('placeholderId');
+    expect(placeholder.classList.contains('custom-placeholder')).toBe(true);
+    expect(
+      placeholder.classList.contains(ComponentClassNames.Placeholder)
+    ).toBe(true);
   });
 
   it('can render any arbitrary data-* attribute', async () => {
-    render(<Heading data-demo="true" testId="dataTest"></Heading>);
+    render(<Placeholder data-demo="true" testId="dataTest" />);
     const heading = await screen.findByTestId('dataTest');
     expect(heading.dataset['demo']).toBe('true');
   });
 });
-*/

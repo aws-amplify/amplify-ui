@@ -55,8 +55,8 @@ export const TwoWays = () => {
   let isLoaded = false;
   return (
     <Flex direction="column" gap="1rem">
-      {isLoaded ? 'First way' : <Placeholder />}
-      <Placeholder isLoaded={isLoaded}>Second Way</Placeholder>
+      <Placeholder isLoaded={isLoaded}>First way</Placeholder>
+      {isLoaded ? 'Second way' : <Placeholder />}
     </Flex>
   );
 };

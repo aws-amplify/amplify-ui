@@ -39,15 +39,15 @@ import '@aws-amplify/ui-react/styles.css';
 
 ### There are two ways you can use the Placeholder component:
 
-1. Use conditional rendering (e.g., ternary operator)
-2. Pass your loading state to the `isLoaded` prop.
+1. Pass your loading state to the `isLoaded` prop.
+2. Use conditional rendering (e.g., ternary operator)
 
 ```jsx
 let isLoaded = false;
 
 <View>
-  {isLoaded ? 'First way' : <Placeholder />}
-  <Placeholder isLoaded={isLoaded}>Second Way</Placeholder>
+  <Placeholder isLoaded={isLoaded}>First way</Placeholder>
+  {isLoaded ? 'Second way' : <Placeholder />}
 </View>
 );
 ```
@@ -62,10 +62,16 @@ Use the `size` prop to change the placeholder size. Available options are `small
 import { Placeholder } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
-<Placeholder size="large" />;
+<Placeholder size="small" />
+<Placeholder size="medium" />
+<Placeholder size="large" />
 ```
 
-<Placeholder size="large" />
+<Flex direction="column">
+  <Placeholder size="small" />
+  <Placeholder size="medium" />
+  <Placeholder size="large" />
+</Flex>
 
 ### CSS Styling
 

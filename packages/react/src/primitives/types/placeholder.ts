@@ -8,9 +8,5 @@ export interface PlaceholderProps extends BaseComponentProps {
    */
   isLoaded?: boolean;
 
-  /**
-   * The placeholder can be used as a wrapper component.
-   */
-
   size?: PlaceholderSize;
 }
