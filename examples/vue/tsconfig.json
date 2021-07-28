@@ -12,7 +12,11 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "noImplicitAny": false,
-    "lib": ["esnext", "dom"]
+    "lib": ["esnext", "dom"],
+    "baseUrl": "./",
+    "paths": {
+      "@environments/*": ["../../environments/*"]
+    }
   },
   "include": [
     "src/**/*.ts",
