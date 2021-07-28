@@ -1,23 +1,33 @@
-import { Component, HostBinding, OnInit, TemplateRef } from '@angular/core';
-import { Logger } from '@aws-amplify/core';
-import { AuthPropService, StateMachineService } from '../../services';
+import {
+  AfterContentInit,
+  Component,
+  HostBinding,
+  OnDestroy,
+  OnInit,
+  TemplateRef,
+} from '@angular/core';
 import { Subscription } from 'xstate';
-import { AuthChallengeNames, AuthMachineState } from '@aws-amplify/ui-core';
+import { QRCode } from 'qrcode';
+import { Logger } from '@aws-amplify/core';
+import { AuthMachineState } from '@aws-amplify/ui-core';
+import Auth from '@aws-amplify/auth';
+import { AuthPropService, StateMachineService } from '../../services';
 
-const logger = new Logger('ConfirmSignIn');
+const logger = new Logger('SetupTotp');
 
 @Component({
-  selector: 'amplify-confirm-sign-in',
-  templateUrl: './amplify-confirm-sign-in.component.html',
+  selector: 'amplify-amplify-setup-totp',
+  templateUrl: './amplify-setup-totp.component.html',
 })
-export class AmplifyConfirmSignInComponent implements OnInit {
-  @HostBinding('attr.data-amplify-authenticator-confirmsignin') dataAttr = '';
-
+export class AmplifySetupTotpComponent
+  implements OnInit, AfterContentInit, OnDestroy {
+  @HostBinding('attr.data-amplify-authenticator-setup-totp')
   public customComponents: Record<string, TemplateRef<any>> = {};
   public remoteError = '';
   public isPending = false;
   public context = () => ({});
-  public headerText = '';
+  public headerText = 'Setup TOTP';
+  public qrCodeSource = '';
 
   private authSubscription: Subscription;
 
@@ -30,7 +40,6 @@ export class AmplifyConfirmSignInComponent implements OnInit {
     this.authSubscription = this.stateMachine.authService.subscribe(state => {
       this.onStateUpdate(state);
     });
-    this.setHeaderText();
   }
 
   ngAfterContentInit(): void {
@@ -41,24 +50,18 @@ export class AmplifyConfirmSignInComponent implements OnInit {
     this.authSubscription.unsubscribe();
   }
 
-  setHeaderText(): void {
-    const { challengeName } = this.stateMachine.context;
-    switch (challengeName) {
-      case AuthChallengeNames.SOFTWARE_TOKEN_MFA:
-        // TODO: this string should be centralized and translated from ui-core.
-        this.headerText = 'Confirm TOTP Code';
-        break;
-      case AuthChallengeNames.SMS_MFA:
-        this.headerText = 'Confirm SMS Code';
-        break;
-      default:
-        logger.error('Unexpected challengeName', challengeName);
-    }
-  }
-
   onStateUpdate(state: AuthMachineState): void {
     this.remoteError = state.context.remoteError;
-    this.isPending = !state.matches('confirmSignIn.edit');
+    this.isPending = !state.matches('setupTOTP.edit');
+  }
+
+  async generateQRCode() {
+    // TODO: This should be handled in core.
+    const { user } = this.stateMachine.context;
+    const secretKey = await Auth.setupTOTP(user);
+    const issuer = 'AWSCognito';
+    const totpCode = `otpauth://totp/${issuer}:${user.username}?secret=${secretKey}&issuer=${issuer}`;
+    this.qrCodeSource = await QRCode.toDataURL(totpCode);
   }
 
   onInput(event: Event) {
@@ -78,9 +81,5 @@ export class AmplifyConfirmSignInComponent implements OnInit {
       type: 'SUBMIT',
       data: Object.fromEntries(formData),
     });
-  }
-
-  toSignIn() {
-    this.stateMachine.send('SIGN_IN');
   }
 }

@@ -1,13 +1,15 @@
 <!-- 
   Define default contents here
 -->
-<ng-template #confirmSignInButton>
+<ng-template #setupTotpButton>
   <button data-amplify-button type="submit">Confirm</button>
 </ng-template>
 
-<ng-template #confirmSignInForm>
+<ng-template #setupTotpForm>
   <form data-amplify-form (submit)="onSubmit($event)" (input)="onInput($event)">
     <fieldset data-amplify-fieldset [attr.disabled]="isPending ? '' : null">
+      <p *ngIf="isPending">Loading...</p>
+      <img *ngIf="!isPending" [src]="qrCodeSource" alt="qr code" />
       <amplify-input
         name="confirmation_code"
         type="number"
@@ -18,7 +20,7 @@
         <a data-amplify-link (click)="toSignIn()">Back to Sign In</a>
         <ng-container
           [ngTemplateOutlet]="
-            customComponents.confirmSignInButton || confirmSignInButton
+            customComponents.setupTotpButton || setupTotpButton
           "
           [ngTemplateOutletContext]="context()"
         >
@@ -35,11 +37,10 @@
 <!-- 
   Render sign in component
 -->
-
 <div data-amplify-container>
   <h2 data-amplify-header>{{ this.headerText }}</h2>
   <ng-container
-    [ngTemplateOutlet]="customComponents.signInForm || confirmSignInForm"
+    [ngTemplateOutlet]="customComponents.setupTotpForm || setupTotpForm"
     [ngTemplateOutletContext]="context()"
   >
   </ng-container>

@@ -11,6 +11,7 @@ import { AmplifyErrorComponent } from './primitives/amplify-error/amplify-error.
 import { AmplifyConfirmSignUpComponent } from './components/amplify-confirm-sign-up/amplify-confirm-sign-up.component';
 import { AmplifyUserNameAliasComponent } from './primitives/amplify-user-name-alias/amplify-user-name-alias.component';
 import { AmplifyConfirmSignInComponent } from './components/amplify-confirm-sign-in/amplify-confirm-sign-in.component';
+import { AmplifySetupTotpComponent } from './components/amplify-setup-totp/amplify-setup-totp.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { AmplifyConfirmSignInComponent } from './components/amplify-confirm-sign
     AmplifyConfirmSignUpComponent,
     AmplifyUserNameAliasComponent,
     AmplifyConfirmSignInComponent,
+    AmplifySetupTotpComponent,
   ],
   imports: [CommonModule, ReactiveFormsModule],
   exports: [
