@@ -3,7 +3,7 @@ title: Rating
 ---
 
 import { Rating, IconAdd, IconStarBorder } from '@aws-amplify/ui-react';
-import { RatingDemo } from './demo';
+import { RatingDemo, MyCoolSvg } from './demo';
 
 ## Installation
 
@@ -86,7 +86,7 @@ import '@aws-amplify/ui-react/styles.css';
 
 ### Custom Icon
 
-A custom icon can be used in the rating component using the icon prop
+A custom icon can be used in the rating component using the icon prop. The rating component works well with all major icon sets and these icons can be substituted in using this icon prop.
 
 ```jsx
 import { Rating, IconAdd } from '@aws-amplify/ui-react';
@@ -96,6 +96,35 @@ import '@aws-amplify/ui-react/styles.css';
 ```
 
 <Rating value={2.5} icon={<IconAdd />}/>
+
+### Custom SVG Icon
+
+A custom SVG may be used with the rating component. The color props on the rating component rely on the svg icon being used inheriting the color property and setting the svg fill to `currentColor`.
+
+```css
+.my-cool-svg {
+  fill: currentColor;
+}
+```
+
+```jsx
+const MyCoolSvg = () => {
+  return (
+    <svg className="my-cool-svg">
+      <g>
+        <path d="M0,0h24v24H0V0z" fill="none" />
+      </g>
+      <g>
+        <g>
+          <path d="M14.5,17c0,1.65-1.35,3-3,3s-3-1.35-3-3h2c0,0.55,0.45,1,1,1s1-0.45,1-1s-0.45-1-1-1H2v-2h9.5 C13.15,14,14.5,15.35,14.5,17z M19,6.5C19,4.57,17.43,3,15.5,3S12,4.57,12,6.5h2C14,5.67,14.67,5,15.5,5S17,5.67,17,6.5 S16.33,8,15.5,8H2v2h13.5C17.43,10,19,8.43,19,6.5z M18.5,11H2v2h16.5c0.83,0,1.5,0.67,1.5,1.5S19.33,16,18.5,16v2 c1.93,0,3.5-1.57,3.5-3.5S20.43,11,18.5,11z" />
+        </g>
+      </g>
+    </svg>
+  );
+};
+```
+
+<Rating value={2.5} icon={<MyCoolSvg />}/>
 
 ### Custom Empty Icon
 
@@ -109,3 +138,95 @@ import '@aws-amplify/ui-react/styles.css';
 ```
 
 <Rating value={2.5} emptyIcon={<IconStarBorder />}/>
+
+## CSS Styling
+
+### component level overrides
+
+The rating component styling props can be overriden using a custom class name and the built in css classes.
+
+#### Filled and empty icon colors
+
+The empty and filled icon colors can be overridden using a custom css class on your rating component and with the `.amplify-rating-icon-filled` and `.amplify-rating-icon-empty` classes
+
+```css
+.my-rating-component .amplify-rating-icon-filled {
+  color: purple;
+}
+
+.my-rating-component .amplify-rating-icon-empty {
+  color: black;
+}
+```
+
+```jsx
+import { Rating } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<Rating value={2.5} className="my-rating-component" />;
+```
+
+<Rating value={2.5} className="my-rating-component" />
+
+#### Sizes
+
+The size variations on the rating component can be overriden at the individual component level
+
+```css
+.large-rating[data-size='small'] {
+  font-size: 40px;
+  line-height: 40px;
+}
+```
+
+```jsx
+import { Rating } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<Rating value={2.5} className="large-rating" size="small" />;
+```
+
+<Rating value={2.5} className="large-rating" size="small" />
+
+### Application wide styling
+
+All rating components within an application can be styled using css variables at the root level
+
+#### Filled and empty icon colors
+
+The empty and filled icon colors can be overridden using css variables
+
+```css
+:root {
+  --amplify-ui-components-rating-color-filled: purple;
+  --amplify-ui-components-rating-color-empty: black;
+}
+```
+
+```jsx
+import { Rating } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<Rating value={2.5} className="application-color-override" />;
+```
+
+<Rating value={2.5} className="application-color-override" />
+
+#### Sizes
+
+The size variations on the rating component can be overriden at the application level using css variables
+
+```css
+:root {
+  --amplify-ui-components-rating-size-small: 40px;
+}
+```
+
+```jsx
+import { Rating } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<Rating value={2.5} className="application-size-override" size="small" />;
+```
+
+<Rating value={2.5} className="application-size-override" size="small" />

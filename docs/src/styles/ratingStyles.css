@@ -1,0 +1,25 @@
+.my-cool-svg {
+  fill: currentColor;
+}
+
+.my-rating-component .amplify-rating-icon-filled {
+  color: purple;
+}
+
+.my-rating-component .amplify-rating-icon-empty {
+  color: black;
+}
+
+.large-rating[data-size='small'] {
+  font-size: 60px;
+  line-height: 60px;
+}
+
+.application-color-override {
+  --amplify-ui-components-rating-color-filled: purple;
+  --amplify-ui-components-rating-color-empty: black;
+}
+
+.application-size-override {
+  --amplify-ui-components-rating-size-small: 60px;
+}
