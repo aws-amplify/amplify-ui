@@ -17,6 +17,9 @@
   <p>You've signed In.</p>
   <amplify-sign-out></amplify-sign-out>
 </ng-template>
+<ng-template #setupTOTP>
+  <amplify-setup-totp></amplify-setup-totp>
+</ng-template>
 
 <!-- 
   Next, we render respective auth subcomponent respective to the current authState.
@@ -49,11 +52,19 @@
 >
 </ng-container>
 
-<!-- confirmSignUp content -->
+<!-- confirmSignIn content -->
 <ng-container
-  [ngTemplateOutlet]="customComponents.confirmSignUp || confirmSignUp"
+  [ngTemplateOutlet]="customComponents.confirmSignIn || confirmSignIn"
   [ngTemplateOutletContext]="context()"
   *ngIf="getAuthState().matches('confirmSignIn')"
+>
+</ng-container>
+
+<!-- setupTotp content -->
+<ng-container
+  [ngTemplateOutlet]="customComponents.setupTOTP || setupTOTP"
+  [ngTemplateOutletContext]="context()"
+  *ngIf="getAuthState().matches('setupTOTP')"
 >
 </ng-container>
 
