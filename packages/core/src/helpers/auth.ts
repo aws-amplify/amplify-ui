@@ -46,9 +46,9 @@ export const getAliasInfoFromContext = (context: AuthContext) => {
 
   let type = 'text';
   const label = loginMechanisms
-    .filter(mechanism => includes(userNameAliasArray, mechanism))
+    .filter((mechanism) => includes(userNameAliasArray, mechanism))
     .map(
-      v =>
+      (v) =>
         authInputAttributes[v]?.label ?? authInputAttributes['username'].label
     )
     .join(' or ');
@@ -68,7 +68,7 @@ export const getConfiguredAliases = (context: AuthContext) => {
   const login_mechanisms = context.config?.login_mechanisms ?? [
     ...userNameAliasArray,
   ];
-  const aliases = login_mechanisms.filter(mechanism =>
+  const aliases = login_mechanisms.filter((mechanism) =>
     includes(userNameAliasArray, mechanism)
   );
 
