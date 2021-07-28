@@ -1,21 +1,17 @@
-@React
 Feature: withAuthenticator
 
-  `withAuthenticator` is an easy way to wrap your entire application with authentiation.
+  Higher-Order Component gates an application with the Authenticator
 
-  ```js{1,9}
-  import { withAuthenticator } from "@aws-amplify/ui-react"
+  Background:
+    Given I'm running the example "/ui/components/authenticator/withAuthenticator"
 
-  function App() {
-  return (
-  ...
-  )
-  }
+  @Next @React
+  Scenario: Application is wrapped with Authenticator
+    Then I see "Sign in to your account"
 
-  export default withAuthenticator(App)
-  ```
-
-  Example: Show the "Sign In" screen by default
-    Given an application wrapped with withAuthenticator
-    When I am not authenticated
-    Then I see a "Sign In" button
+  @focus @Next @React @Vue
+  Scenario: Application renders when signed in
+    When I type a valid username "VALID_USERNAME"
+    And I type a valid password "VALID_PASSWORD"
+    And I click the "Sign In" button
+    Then I see "Sign out"

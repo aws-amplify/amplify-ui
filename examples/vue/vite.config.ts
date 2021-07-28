@@ -1,6 +1,7 @@
-import { defineConfig } from "vite";
-import vue from "@vitejs/plugin-vue";
-import voie from "vite-plugin-voie";
+import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
+import voie from 'vite-plugin-voie';
+const path = require('path');
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -14,8 +15,12 @@ export default defineConfig({
   resolve: {
     alias: [
       {
-        find: "./runtimeConfig",
-        replacement: "./runtimeConfig.browser",
+        find: './runtimeConfig',
+        replacement: './runtimeConfig.browser',
+      },
+      {
+        find: '@environments',
+        replacement: path.resolve(__dirname, '../../environments/'),
       },
     ],
   },

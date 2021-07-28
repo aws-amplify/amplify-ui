@@ -14,7 +14,7 @@ export const HeadingDemo = () => {
           <select
             value={level}
             placeholder="Select heading level"
-            onChange={event => setLevel(+event.target.value as HeadingLevel)}
+            onChange={(event) => setLevel(+event.target.value as HeadingLevel)}
             id="level"
             name="level"
           >

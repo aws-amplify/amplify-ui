@@ -24,7 +24,7 @@ export class StateMachineService {
 
   public get services() {
     return {
-      submit: formData =>
+      submit: (formData) =>
         this._authService.send({ type: 'SUBMIT', data: formData }),
     } as const;
   }
@@ -54,7 +54,7 @@ export class StateMachineService {
 
   constructor() {
     this._authService = interpret(authMachine, { devTools: true })
-      .onTransition(state => {
+      .onTransition((state) => {
         logger.log('transitioned to', state, this._authService);
         const user = state.context?.user;
         if (user) this._user = user;

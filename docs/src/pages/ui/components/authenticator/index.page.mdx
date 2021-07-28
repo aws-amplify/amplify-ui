@@ -1,0 +1,118 @@
+---
+title: Authenticator
+---
+
+import { Authenticator } from '@aws-amplify/ui-react';
+import { Feature } from '@/components/Feature';
+import { Fragment } from '@/components/Fragment';
+import { XStateInspector } from '@/components/XStateInspector';
+
+The `Authenticator` is a simple way to add
+[authentication flows](https://docs.amplify.aws/lib/auth/getting-started/q/platform/js)
+to your application.
+
+<div className="shadow-inner rounded bg-gray-100 bg-gradient-to-b from-gray-100 to-gray-50 p-6">
+  <Authenticator />
+
+  <p className="text-sm text-center mt-6 text-gray-500 italic">
+    <strong>Note</strong>: This example isn't fully functional until configured
+    with an Amplify backend.
+  </p>
+</div>
+
+## Installation
+
+<Fragment>
+  {({ platform }) => import(`./installation.${platform}.mdx`)}
+</Fragment>
+
+## Getting started
+
+> Preqrequisite: [Create an Authentication backend](https://docs.amplify.aws/lib/auth/getting-started/q/platform/js)
+
+The simplest way to get started is by wrapping your application with the `Authenticator`.
+This will introduce complete flows for user sign-in and registration and render your app
+when users authenticate.
+
+<Fragment>
+  {({ platform }) => import(`./getting-started.${platform}.mdx`)}
+</Fragment>
+
+## Features
+
+### Sign Up
+
+By default, `Authenticator` creates new users in the Amazon Cognito UserPool
+based on a unique `username` using [`Auth.signUp`](https://docs.amplify.aws/lib/auth/emailpassword/q/platform/js).
+
+<Feature name="sign-up" />
+
+### Sign Up with Email
+
+The `Authenticator` automatically infers [`email` as a login mechanism](https://docs.amplify.aws/console/auth/authentication#to-configure-how-users-log-in-to-an-app).
+
+You can explicitly configure Amplify to match your backend via:
+
+```js{4-10} file=../../../../../../examples/next/pages/ui/components/authenticator/sign-up-with-email/index.tsx#L2-L10
+
+```
+
+<Feature name="sign-up-with-email" />
+
+### Sign Up with Phone
+
+The `Authenticator` automatically infers [`phone_number` as a login mechanism](https://docs.amplify.aws/console/auth/authentication#to-configure-how-users-log-in-to-an-app).
+
+You can explicitly configure Amplify to match your backend via:
+
+```js{4-10} file=../../../../../../examples/next/pages/ui/components/authenticator/sign-up-with-phone/index.tsx#L2-L10
+
+```
+
+<Feature name="sign-up-with-phone" />
+
+### Confirm Sign Up
+
+If your backend has multi-factor authentication enabled, new sign-ups will [receive a confirmation code](https://docs.amplify.aws/lib/auth/emailpassword/q/platform/js#confirm-sign-up).
+
+<Feature name="confirm-sign-up" />
+
+### Sign In
+
+Users who have registered with their `username`, `email`, or `phone_number` are signed in via [`Auth.signIn`](https://docs.amplify.aws/lib/auth/emailpassword/q/platform/js#sign-in).
+
+<Feature name="sign-in-with-username" />
+
+### Sign In with SMS MFA
+
+If your backend has [Multi-Factor Authentication (MFA) enabled with `SMS`](https://docs.amplify.aws/console/auth/authentication#to-configure-how-users-log-in-to-an-app),
+sign-ins will need to verify before authentication.
+
+<Feature name="sign-in-sms-mfa" />
+
+### Sign In with TOTP MFA
+
+If your backend has [Multi-Factor Authentication (MFA) enabled with `TOTP` (Time-based One-Time Password)](https://docs.amplify.aws/console/auth/authentication#to-configure-how-users-log-in-to-an-app),
+sign-ins will need to verify before authentication.
+
+<Feature name="sign-in-totp-mfa" />
+
+### Sign In with Social Sign-in
+
+If your backend has [Social Sign-in](https://docs.amplify.aws/lib/auth/social/q/platform/js), users
+can sign in with Google, Amazon or Facebook.
+
+<Feature name="sign-in-federated" />
+
+## Headless Usage
+
+The `Authenticator`'s UI is powered by a state machine that you can hook into to customize behavior or create your own API.
+
+<details className="mb-4">
+  <summary>View Authenticator State Machine</summary>
+
+  <XStateInspector />
+  <Authenticator className="hidden" />
+</details>
+
+<Fragment>{({ platform }) => import(`./headless.${platform}.mdx`)}</Fragment>

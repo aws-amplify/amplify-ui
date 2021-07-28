@@ -7,15 +7,13 @@ Feature: Sign Up with Phone
     And I click "Create account"
 
 
-@Vue
-@React
-  Scenario: Phone Number is the only requested alias
+@Next @React @Vue
+  Scenario: Login mechanism set to "phone_number"
     Then I see "Phone Number" as an input field
     And I don't see "Username" as an input field
     And I don't see "Email" as an input field
 
-@Vue
-@React @skip
+@Next @React @Vue @skip
   Scenario: Sign up with valid phone number & password
     When I type the phone number "VALID_PHONE_NUMBER"
     And I type the password "VALID_PASSWORD"
