@@ -45,9 +45,7 @@ when users authenticate.
 By default, `Authenticator` creates new users in the Amazon Cognito UserPool
 based on a unique `username` using [`Auth.signUp`](https://docs.amplify.aws/lib/auth/emailpassword/q/platform/js).
 
-<Feature>
-  {() => import('@/features/ui/components/authenticator/sign-up.feature')}
-</Feature>
+<Feature name="sign-up" />
 
 ### Sign Up with Email
 
@@ -59,11 +57,7 @@ You can explicitly configure Amplify to match your backend via:
 
 ```
 
-<Feature>
-  {() =>
-    import('@/features/ui/components/authenticator/sign-up-with-email.feature')
-  }
-</Feature>
+<Feature name="sign-up-with-email" />
 
 ### Sign Up with Phone
 
@@ -75,55 +69,33 @@ You can explicitly configure Amplify to match your backend via:
 
 ```
 
-<Feature>
-  {() =>
-    import('@/features/ui/components/authenticator/sign-up-with-phone.feature')
-  }
-</Feature>
+<Feature name="sign-up-with-phone" />
 
 ### Confirm Sign Up
 
 If your backend has multi-factor authentication enabled, new sign-ups will [receive a confirmation code](https://docs.amplify.aws/lib/auth/emailpassword/q/platform/js#confirm-sign-up).
 
-<Feature>
-  {() =>
-    import('@/features/ui/components/authenticator/confirm-sign-up.feature')
-  }
-</Feature>
+<Feature name="confirm-sign-up" />
 
 ### Sign In
 
 Users who have registered with their `username`, `email`, or `phone_number` are signed in via [`Auth.signIn`](https://docs.amplify.aws/lib/auth/emailpassword/q/platform/js#sign-in).
 
-<Feature>
-  {() =>
-    import(
-      '@/features/ui/components/authenticator/sign-in-with-username.feature'
-    )
-  }
-</Feature>
+<Feature name="sign-in-with-username" />
 
 ### Sign In with SMS MFA
 
 If your backend has [Multi-Factor Authentication (MFA) enabled with `SMS`](https://docs.amplify.aws/console/auth/authentication#to-configure-how-users-log-in-to-an-app),
 sign-ins will need to verify before authentication.
 
-<Feature>
-  {() =>
-    import('@/features/ui/components/authenticator/sign-in-sms-mfa.feature')
-  }
-</Feature>
+<Feature name="sign-in-sms-mfa" />
 
 ### Sign In with TOTP MFA
 
 If your backend has [Multi-Factor Authentication (MFA) enabled with `TOTP` (Time-based One-Time Password)](https://docs.amplify.aws/console/auth/authentication#to-configure-how-users-log-in-to-an-app),
 sign-ins will need to verify before authentication.
 
-<Feature>
-  {() =>
-    import('@/features/ui/components/authenticator/sign-in-totp-mfa.feature')
-  }
-</Feature>
+<Feature name="sign-in-totp-mfa" />
 
 ### Sign In with Federated Login
 
