@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {
   Badge,
-  BadgeVariant,
+  BadgeVariation,
   BadgeSize,
   Flex,
   View,
@@ -10,20 +10,20 @@ import {
 import { FieldLabeler } from '../../../../components/FieldLabeler';
 
 export const BadgeDemo = () => {
-  const [variant, setVariant] = useState<BadgeVariant>('default');
+  const [variation, setVariation] = useState<BadgeVariation>('default');
   const [size, setSize] = useState<BadgeSize>('medium');
 
   return (
     <div>
       <Flex direction="column" gap="1rem">
         <Flex>
-          <FieldLabeler id="variant">
+          <FieldLabeler id="variation">
             <select
-              value={variant}
-              placeholder="Select badge variant"
-              onChange={event => setVariant(event.target.value as BadgeVariant)}
-              id="variant"
-              name="variant"
+              value={variation}
+              placeholder="Select badge variation"
+              onChange={event => setVariation(event.target.value as BadgeVariation)}
+              id="variation"
+              name="variation"
             >
               <option value="default">default</option>
               <option value="info">info</option>
@@ -48,7 +48,7 @@ export const BadgeDemo = () => {
           </FieldLabeler>
         </Flex>
         <View>
-          <Badge variant={variant} size={size}>
+          <Badge variation={variation} size={size}>
             Badge
           </Badge>
         </View>

@@ -8,5 +8,9 @@
     [required]="required ? true : false"
     [value]="this.initialValue"
     [attr.disabled]="disabled ? '' : null"
+    [autocomplete]="autocomplete"
   />
+  <amplify-error *ngIf="error">
+    {{ error }}
+  </amplify-error>
 </label>

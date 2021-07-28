@@ -77,7 +77,7 @@ export function ConfirmSignUp() {
               }}
               type="button"
             >
-              Reset Code
+              Resend Code
             </Button>
           </Box>
         </Label>

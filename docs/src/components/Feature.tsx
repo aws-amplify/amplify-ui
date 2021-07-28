@@ -7,36 +7,60 @@ import { IdGenerator } from '@cucumber/messages';
 import {
   ClipboardCheckIcon,
   CodeIcon,
+  ExclamationIcon,
   ExternalLinkIcon,
 } from '@heroicons/react/solid';
+import remarkHeadings from 'amplify-docs/src/plugins/headings';
 import { useRouter } from 'next/router';
 import * as React from 'react';
 import { useEffect } from 'react';
+import * as runtime from 'react/jsx-runtime';
+import remarkGfm from 'remark-gfm';
+import { evaluateSync } from 'xdm';
 
 const parser = new Parser(
   new AstBuilder(IdGenerator.uuid()),
   new GherkinClassicTokenMatcher() // or GherkinInMarkdownTokenMatcher()
 );
 
-const required = message => {
+function required(message) {
   throw new Error(message);
-};
+}
 
-export function Feature({
-  framework = 'react',
-  exampleFolder = 'next',
-  name = required('Missing feature name'),
-  port = 3000,
-}) {
+function getPortForPlatform(platform) {
+  switch (platform) {
+    case 'next':
+    case 'react':
+    default:
+      return 3000;
+  }
+}
+
+function getGitHubUrlForExample(platform) {
+  switch (platform) {
+    case 'next':
+    case 'react':
+      return `https://github.com/aws-amplify/amplify-ui/tree/${process.env.BRANCH}/examples/next/pages`;
+    case 'vue':
+      return `https://github.com/aws-amplify/amplify-ui/tree/${process.env.BRANCH}/examples/vue/src/pages`;
+
+    default:
+      throw new Error(`Examples folder not defined for ${platform}`);
+  }
+}
+
+export function Feature({ name = required('Missing feature name') }) {
   const [source, setSource] = React.useState(null);
-  let { asPath } = useRouter();
-  asPath = asPath.split('-')[0];
+  const { pathname, query } = useRouter();
+  const { platform = 'react' } = query;
+
+  const port = getPortForPlatform(platform);
 
   useEffect(() => {
     import(
-      `raw-loader!../../../packages/e2e/cypress/integration${asPath}/${name}.feature`
-    ).then(exports => setSource(exports.default));
-  }, [asPath, name]);
+      `../../../packages/e2e/cypress/integration${pathname}/${name}.feature`
+    ).then((exports) => setSource(exports.default));
+  }, [name, pathname]);
 
   if (!source) {
     return false;
@@ -48,15 +72,48 @@ export function Feature({
     .filter(({ background }) => !background)
     .filter(({ scenario }) => {
       return scenario.tags?.find(
-        ({ name }) => name.toLowerCase() === `@${framework}`
+        ({ name }) => name.toLowerCase() === `@${platform}`
       );
     });
 
+  // TODO Don't show content if there aren't any supported scenarios
+  if (!scenarios.length) {
+    return (
+      <div className="p-4 rounded-md bg-yellow-50">
+        <div className="flex">
+          <div className="flex-shrink-0">
+            <ExclamationIcon
+              className="w-5 h-5 text-yellow-400"
+              aria-hidden="true"
+            />
+          </div>
+          <div className="ml-3">
+            <p className="m-0 text-sm font-medium text-yellow-800">
+              This feature is not supported for this platform.{' '}
+              <a href="https://github.com/aws-amplify/amplify-ui/issues/new/choose">
+                Open an issue
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  const { default: About } = evaluateSync(
+    document.feature.description,
+    // @ts-ignore because react/jsx-runtime doesn't export types
+    {
+      ...runtime,
+      rehypePlugins: [],
+      remarkPlugins: [remarkHeadings, remarkGfm],
+    }
+  );
+
   return (
     <React.Fragment key={document.feature.name}>
-      {/* Hidden, as these aren't rendered with  */}
-      {/* <h3>{document.feature.name}</h3> */}
-      {/* <p>{document.feature.description}</p> */}
+      {/* TODO Should this get rendered at all if it's redundant with the docs? */}
+      {/* <About /> */}
 
       <details>
         <summary className="cursor-pointer">Examples</summary>
@@ -80,7 +137,7 @@ export function Feature({
                 {process.env.NODE_ENV === 'development' && (
                   <td>
                     <a
-                      href={`http://localhost:${port}${asPath}/${name}`}
+                      href={`http://localhost:${port}${pathname}/${name}`}
                       target="_blank"
                     >
                       <span className="sr-only">Demo</span>
@@ -90,7 +147,9 @@ export function Feature({
                 )}
                 <td>
                   <a
-                    href={`https://github.com/aws-amplify/amplify-ui/tree/${process.env.BRANCH}/examples/${exampleFolder}/pages${asPath}/${name}`}
+                    href={`${getGitHubUrlForExample(
+                      platform
+                    )}${pathname}/${name}`}
                     target="_blank"
                   >
                     <span className="sr-only">Source</span>
@@ -99,7 +158,7 @@ export function Feature({
                 </td>
                 <td>
                   <a
-                    href={`https://github.com/aws-amplify/amplify-ui/blob/${process.env.BRANCH}/packages/e2e/cypress/integration${asPath}/${name}.feature#L${scenario.location.line}`}
+                    href={`https://github.com/aws-amplify/amplify-ui/blob/${process.env.BRANCH}/packages/e2e/cypress/integration${pathname}/${name}.feature#L${scenario.location.line}`}
                     target="_blank"
                   >
                     <span className="sr-only">Test</span>

@@ -55,7 +55,7 @@ export type UserNameAlias = typeof userNameAliasArray[number];
 export const socialProviderLoginMechanisms = ['amazon', 'google', 'facebook'];
 
 // other non-alias inputs that Cognito would require
-export type AuthInputNames = UserNameAlias | 'code' | 'password';
+export type AuthInputNames = UserNameAlias | 'confirmation_code' | 'password';
 
 export type AuthInputAttributes = Record<AuthInputNames, InputAttributes>;
 
