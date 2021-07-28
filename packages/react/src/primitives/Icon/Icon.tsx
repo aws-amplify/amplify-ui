@@ -6,7 +6,7 @@ import { ComponentClassNames } from '../shared';
 import { View } from '../View';
 
 const defaultViewBox = { minX: 0, minY: 0, width: 24, height: 24 };
-export const Icon: React.FC<IconProps> = props => {
+export const Icon: React.FC<IconProps> = (props) => {
   const {
     className,
     fill = 'currentColor',
