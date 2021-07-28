@@ -32,6 +32,14 @@
   display: flex;
 }
 
+.amplify-rating-icon-filled {
+  color: var(--amplify-ui-components-rating-color-filled);
+}
+
+.amplify-rating-icon-empty {
+  color: var(--amplify-ui-components-rating-color-empty);
+}
+
 .amplify-ui-rating[data-size='small'] {
   font-size: var(--amplify-ui-components-rating-size-small);
   line-height: var(--amplify-ui-components-rating-size-small);

@@ -2,7 +2,7 @@
 title: Rating
 ---
 
-import { Rating, IconAdd } from '@aws-amplify/ui-react';
+import { Rating, IconAdd, IconStarBorder } from '@aws-amplify/ui-react';
 import { RatingDemo } from './demo';
 
 ## Installation
@@ -11,6 +11,101 @@ import { RatingDemo } from './demo';
 npm install @aws-amplify/ui-react
 ```
 
-<Rating value={2.3} emptyIcon={
-<IconAdd />}
-size="small"/>
+## Demo
+
+<RatingDemo />
+
+## Usage
+
+Import rating component and styles
+
+```jsx
+import { Rating } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<Rating />;
+```
+
+<Rating />
+
+### Rating Value
+
+Pass in a value prop to set the rating value
+
+```jsx
+import { Rating } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<Rating value={3.7} />;
+```
+
+<Rating value={3.7} />
+
+### Max Value
+
+Pass in a maxValue prop to set the maximum value of the rating component
+
+```jsx
+import { Rating } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<Rating value={6.3} maxValue={10} />;
+```
+
+<Rating value={6.3} maxValue={10} />
+
+### Size
+
+Use the size property to adjust the rating component the default size is medium, other options include small and large
+
+```jsx
+import { Rating } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<Rating value={2.5} size="small" />;
+<Rating value={2.5} />;
+<Rating value={2.5} size="large" />;
+```
+
+<Rating value={2.5} size="small" />
+<Rating value={2.5} />
+<Rating value={2.5} size="large" />
+
+### Colors
+
+The fill color and empty color can both be selected using the fillColor and emptyColor props
+
+```jsx
+import { Rating } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<Rating value={2.5} fillColor="red" emptyColor="green" />;
+```
+
+<Rating value={2.5} fillColor="red" emptyColor="green" />
+
+### Custom Icon
+
+A custom icon can be used in the rating component using the icon prop
+
+```jsx
+import { Rating, IconAdd } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<Rating value={2.5} icon={<IconAdd />} />;
+```
+
+<Rating value={2.5} icon={<IconAdd />}/>
+
+### Custom Empty Icon
+
+A custom empty icon can be used in the rating component using the emptyIcon prop
+
+```jsx
+import { Rating, IconStarBorder } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<Rating value={2.5} emptyIcon={<IconStarBorder />} />;
+```
+
+<Rating value={2.5} emptyIcon={<IconStarBorder />}/>

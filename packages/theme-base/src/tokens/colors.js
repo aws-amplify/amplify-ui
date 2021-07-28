@@ -154,4 +154,8 @@ module.exports = {
   black: { value: '#000' },
   white: { value: '#fff' },
   transparent: { value: 'transparent' },
+  icon: {
+    filled: { value: '#ffb400' },
+    empty: { value: '#A2A2A2' },
+  },
 };

@@ -4,11 +4,13 @@ import { ComponentClassNames } from '../shared/constants';
 import { RatingProps } from '../types';
 import { Flex, View, IconStar, Text } from '@aws-amplify/ui-react';
 
-const createIcon = (icon, fill) => {
+const createIcon = (icon, fill, className) => {
   return (
     <View as="span" className={classNames(`amplify-ui-rating-icon-container`)}>
-      <View as="label" className={`absolute`} color={fill}>
-        <span className={`flex`}>{icon}</span>
+      <View as="label" className={classNames(`amplify-ui-rating-label`)}>
+        <View as="span" className={classNames(`flex`, className)} color={fill}>
+          {icon}
+        </View>
       </View>
     </View>
   );
@@ -18,22 +20,33 @@ const mixedIcon = (fillIcon, emptyIcon, value, fillColor, emptyColor) => {
   const widthPercentage = `${(value % 1) * 100}%`;
   return (
     <View as="span" className={classNames(`amplify-ui-rating-icon-container`)}>
-      <View
-        as="label"
-        className={classNames(`amplify-ui-rating-label`)}
-        color={emptyColor}
-      >
-        <span className={classNames(`amplify-ui-rating-icon`)}>
+      <View as="label" className={classNames(`amplify-ui-rating-label`)}>
+        <View
+          as="span"
+          className={classNames(
+            `amplify-ui-rating-icon`,
+            `amplify-rating-icon-empty`
+          )}
+          color={emptyColor}
+        >
           {emptyIcon}
-        </span>
+        </View>
       </View>
       <View
         as="label"
         className={classNames(`amplify-ui-rating-label`)}
-        color={fillColor}
         width={widthPercentage}
       >
-        <span className={classNames(`amplify-ui-rating-icon`)}>{fillIcon}</span>
+        <View
+          as="span"
+          className={classNames(
+            `amplify-ui-rating-icon`,
+            `amplify-rating-icon-filled`
+          )}
+          color={fillColor}
+        >
+          {fillIcon}
+        </View>
       </View>
       <span className={`hidden`}>{`${value} stars`}</span>
     </View>
@@ -43,24 +56,26 @@ const mixedIcon = (fillIcon, emptyIcon, value, fillColor, emptyColor) => {
 export const Rating: React.FC<RatingProps> = props => {
   const {
     className,
-    children,
     icon = React.createElement(IconStar),
     emptyIcon,
     size,
-    fillColor = '#ffb400',
-    emptyColor = '#A2A2A2',
-    value = 4,
-    max = 5,
-    ...rest
+    fillColor,
+    emptyColor,
+    value = 0,
+    maxValue = 5,
   } = props;
-  const items = new Array(max).fill(1).map((val, idx) => {
+  const items = new Array(maxValue).fill(1).map((val, idx) => {
     if (idx + 1 <= value) return 'filled';
     if (idx + 1 > value && idx < value) return 'partial';
     return 'empty';
   });
   const nodes = {
-    filled: createIcon(icon, fillColor),
-    empty: createIcon(emptyIcon || icon, emptyColor),
+    filled: createIcon(icon, fillColor, 'amplify-rating-icon-filled'),
+    empty: createIcon(
+      emptyIcon || icon,
+      emptyColor,
+      'amplify-rating-icon-empty'
+    ),
   };
   return (
     <Flex
@@ -79,6 +94,9 @@ export const Rating: React.FC<RatingProps> = props => {
           );
         return nodes[val];
       })}
+      <Text className="sr-only">
+        {value} out of {maxValue} rating
+      </Text>
     </Flex>
   );
 };

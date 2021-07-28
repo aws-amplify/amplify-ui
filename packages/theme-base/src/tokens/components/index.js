@@ -7,5 +7,6 @@ module.exports = {
   heading: require('./heading'),
   icon: require('./icon'),
   image: require('./image'),
+  rating: require('./rating'),
   text: require('./text'),
 };
