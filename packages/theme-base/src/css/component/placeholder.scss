@@ -24,3 +24,13 @@
     background-color: var(--amplify-components-placeholder-end-color);
   }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .amplify-placeholder {
+    animation: none;
+    background-color: var(--amplify-components-placeholder-end-color);
+    border-radius: var(--amplify-components-placeholder-border-radius);
+    height: var(--amplify-components-placeholder-medium-height);
+    width: 100%;
+  }
+}
