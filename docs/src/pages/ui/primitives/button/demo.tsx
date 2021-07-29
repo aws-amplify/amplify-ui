@@ -46,6 +46,7 @@ export const ButtonDemo = () => {
 
         <FieldLabeler id="loadingText">
           <input
+            id="loadingText"
             type="text"
             value={loadingText}
             onChange={(event: any) => {
@@ -56,6 +57,7 @@ export const ButtonDemo = () => {
 
         <FieldLabeler id="ariaLabel">
           <input
+            id="ariaLabel"
             type="text"
             placeholder="Set aria-label text"
             value={ariaLabel}
@@ -66,6 +68,7 @@ export const ButtonDemo = () => {
         </FieldLabeler>
         <FieldLabeler id="variation">
           <select
+            id="variation"
             value={variation}
             placeholder="Select button variation"
             onChange={(event) =>
@@ -79,6 +82,7 @@ export const ButtonDemo = () => {
         </FieldLabeler>
         <FieldLabeler id="size">
           <select
+            id="size"
             value={size}
             onChange={(event) => setSize(event.target.value as ButtonSize)}
           >
