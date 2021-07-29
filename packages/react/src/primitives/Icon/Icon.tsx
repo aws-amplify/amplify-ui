@@ -11,7 +11,7 @@ export const Icon: React.FC<IconProps> = (props) => {
     className,
     fill = 'currentColor',
     pathData,
-    size = 'medium',
+    size,
     viewBox = defaultViewBox,
     ...rest
   } = props;

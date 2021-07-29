@@ -6,7 +6,7 @@ import { Icon, IconSize, Flex } from '@aws-amplify/ui-react';
 export const IconDemo = () => {
   const [width, setWidth] = React.useState<number>(24);
   const [height, setHeight] = React.useState<number>(24);
-  const [size, setSize] = React.useState<IconSize>('medium');
+  const [size, setSize] = React.useState<IconSize>();
   const [fill, setFill] = React.useState<Property.Color>('currentColor');
   const [ariaLabel, setAriaLabel] = React.useState<string>('search');
   const [pathData, setPathData] = React.useState<string>(
@@ -86,8 +86,8 @@ export const IconDemo = () => {
             value={size}
             onChange={(event) => setSize(event.target.value as IconSize)}
           >
+            <option value="">default</option>
             <option value="small">small</option>
-            <option value="medium">medium</option>
             <option value="large">large</option>
           </select>
         </div>

@@ -5,7 +5,6 @@ import { useDividerProps } from '@/components/useDividerProps';
 
 export const DividerDemo = () => {
   const dividerProps = useDividerProps({
-    size: 'small',
     orientation: 'horizontal',
   });
   const direction =
