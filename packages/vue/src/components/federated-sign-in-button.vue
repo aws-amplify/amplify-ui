@@ -24,9 +24,7 @@ export default defineComponent({
       required: true,
     },
   },
-  setup(props: {
-    provider: FederatedIdentityProviders;
-  }): FederatedSignInButtonReturnTypes {
+  setup(props): FederatedSignInButtonReturnTypes {
     const { send } = useAuth();
 
     // Methods
