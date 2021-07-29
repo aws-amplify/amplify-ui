@@ -8,7 +8,7 @@ export const Placeholder: React.FC<PlaceholderProps> = ({
   className,
   children,
   isLoaded,
-  size = 'medium',
+  size,
   ...rest
 }) => (
   <>

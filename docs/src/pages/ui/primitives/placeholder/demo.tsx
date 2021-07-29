@@ -9,8 +9,8 @@ import {
 import { FieldLabeler } from '../../../../components/FieldLabeler';
 
 export const PlaceholderDemo = () => {
-  const [loaded, setLoaded] = useState<boolean>(false);
-  const [size, setSize] = useState<PlaceholderSize>('medium');
+  const [loaded, setLoaded] = useState<boolean>();
+  const [size, setSize] = useState<PlaceholderSize>();
 
   return (
     <div>
@@ -35,8 +35,8 @@ export const PlaceholderDemo = () => {
               id="size"
               name="size"
             >
+              <option>(default)</option>
               <option value="small">small</option>
-              <option value="medium">medium</option>
               <option value="large">large</option>
             </select>
           </FieldLabeler>

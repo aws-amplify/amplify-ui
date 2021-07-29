@@ -13,76 +13,48 @@ describe('Placeholder: ', () => {
     expect(
       placeholder.classList.contains(ComponentClassNames.Placeholder)
     ).toBe(true);
-    expect(placeholder.dataset['size']).toBe('medium');
+    expect(placeholder.dataset['size']).toBeUndefined();
   });
 
   it('renders based on isLoaded prop', async () => {
     render(
       <div>
-        <Placeholder testId="p1">
-          <Text testId="t1">Should not render</Text>
+        <Placeholder testId="placeholder1">
+          <Text testId="text1">Should not render</Text>
         </Placeholder>
-        <Placeholder isLoaded={true} testId="p2">
-          <Text testId="t2">Should render</Text>
+        <Placeholder isLoaded={true} testId="placeholder2">
+          <Text testId="text2">Should render</Text>
         </Placeholder>
       </div>
     );
 
-    const p1 = await screen.queryByTestId('p1');
-    const t1 = await screen.queryByTestId('t1');
-    const p2 = await screen.queryByTestId('p2');
-    const t2 = await screen.queryByTestId('t2');
+    const placeholder1 = await screen.queryByTestId('placeholder1');
+    const text1 = await screen.queryByTestId('text1');
+    const placeholder2 = await screen.queryByTestId('placeholder2');
+    const text2 = await screen.queryByTestId('text2');
 
-    expect(p1).toBeTruthy();
-    expect(t1).toBeNull();
-    expect(p2).toBeNull();
-    expect(t2).toBeTruthy();
-  });
-
-  it('renders conditionally', async () => {
-    const isLoaded = false;
-    render(
-      <div>
-        {isLoaded ? (
-          <Text testId="t1">Should not render</Text>
-        ) : (
-          <Placeholder testId="p1" />
-        )}
-        {!isLoaded ? (
-          <Text testId="t2">Should render</Text>
-        ) : (
-          <Placeholder testId="p2" />
-        )}
-      </div>
-    );
-
-    const p1 = await screen.queryByTestId('p1');
-    const t1 = await screen.queryByTestId('t1');
-    const p2 = await screen.queryByTestId('p2');
-    const t2 = await screen.queryByTestId('t2');
-
-    expect(p1).toBeTruthy();
-    expect(t1).toBeNull();
-    expect(p2).toBeNull();
-    expect(t2).toBeTruthy();
+    expect(placeholder1).toBeTruthy();
+    expect(text1).toBeNull();
+    expect(placeholder2).toBeNull();
+    expect(text2).toBeTruthy();
   });
 
   it('renders different sizes by passing size prop', async () => {
     render(
       <div>
-        <Placeholder size="small" testId="p1" />
-        <Placeholder size="medium" testId="p2" />
-        <Placeholder size="large" testId="p3" />
+        <Placeholder size="small" testId="placeholder1" />
+        <Placeholder size="medium" testId="placeholder2" />
+        <Placeholder size="large" testId="placeholder3" />
       </div>
     );
 
-    const p1 = await screen.findByTestId('p1');
-    const p2 = await screen.findByTestId('p2');
-    const p3 = await screen.findByTestId('p3');
+    const placeholder1 = await screen.findByTestId('placeholder1');
+    const placeholder2 = await screen.findByTestId('placeholder2');
+    const placeholder3 = await screen.findByTestId('placeholder3');
 
-    expect(p1.dataset['size']).toBe('small');
-    expect(p2.dataset['size']).toBe('medium');
-    expect(p3.dataset['size']).toBe('large');
+    expect(placeholder1.dataset['size']).toBe('small');
+    expect(placeholder2.dataset['size']).toBe('medium');
+    expect(placeholder3.dataset['size']).toBe('large');
   });
 
   it('can apply styling via props', async () => {
