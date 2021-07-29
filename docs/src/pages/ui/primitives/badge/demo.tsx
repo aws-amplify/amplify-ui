@@ -27,7 +27,7 @@ export const BadgeDemo = () => {
               id="variation"
               name="variation"
             >
-              <option></option>
+              <option value="">default</option>
               <option value="info">info</option>
               <option value="error">error</option>
               <option value="warning">warning</option>
@@ -43,7 +43,7 @@ export const BadgeDemo = () => {
               id="size"
               name="size"
             >
-              <option></option>
+              <option value="">default</option>
               <option value="small">small</option>
               <option value="large">large</option>
             </select>

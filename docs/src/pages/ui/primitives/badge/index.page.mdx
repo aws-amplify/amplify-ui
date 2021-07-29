@@ -33,14 +33,14 @@ import '@aws-amplify/ui-react/styles.css';
 Use the `variation` prop to change the badge variation. Available options are `default`, `info`, `error`, `warning` and `success`.
 
 ```jsx
-<Badge variation="default">Default</Badge>
+<Badge>Default</Badge>
 <Badge variation="info">Info</Badge>
 <Badge variation="error">Error</Badge>
 <Badge variation="warning">Warning</Badge>
 <Badge variation="success">Success</Badge>
 ```
 
-<Badge variation="default">Default</Badge>
+<Badge>Default</Badge>
 <Badge variation="info">Info</Badge>
 <Badge variation="error">Error</Badge>
 <Badge variation="warning">Warning</Badge>
@@ -68,8 +68,12 @@ Using a class and CSS file:
 
 ```css
 /* styles.css */
+:root {
+  --amplify-components-badge-background-color: yellow;
+}
+/* OR */
 .my-custom-badge {
-  --badge-colors-bg-default: yellow;
+  background-color: yellow;
 }
 ```
 
@@ -83,22 +87,22 @@ import './styles.css';
 
 #### Override styling using the classname and data attribute selectors
 
-Use the `amplify-ui-badge` class and data attributes to style all badges.
+Use the `amplify-badge` class and data attributes to style all badges.
 
 ```css
 /* Example: Extend all <Badge> styles */
-.amplify-ui-badge {
+.amplify-badge {
   font-family: 'Times New Roman', Times, serif;
   font-weight: bold;
 }
 
 /* Example: Override only info variation styles */
-.amplify-ui-badge[data-variation='info'] {
+.amplify-badge[data-variation='info'] {
   background-color: rebeccapurple;
 }
 
 /* Example: Override size styles */
-.amplify-ui-badge[data-size='large'] {
+.amplify-badge[data-size='large'] {
   border: 1px solid black;
 }
 ```
@@ -106,7 +110,7 @@ Use the `amplify-ui-badge` class and data attributes to style all badges.
 To replace the badge styling, unset it:
 
 ```css
-.amplify-ui-badge {
+.amplify-badge {
   all: unset;
   /* Add your styling here*/
 }

@@ -32,8 +32,8 @@ export const DividerPropControls: DividerPropControlsInterface = ({
               setSize(event.target.value as DividerOptions['size'])
             }
           >
+            <option value="">default</option>
             <option value="small">small</option>
-            <option value="medium">medium</option>
             <option value="large">large</option>
           </select>
         </FieldLabeler>

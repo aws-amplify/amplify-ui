@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, ButtonSize, ButtonVariation } from '@aws-amplify/ui-react';
+import { FieldLabeler } from '@/components/FieldLabeler';
 
 export const ButtonDemo = () => {
   const [disabled, setDisabled] = React.useState<boolean>(false);
@@ -43,40 +44,49 @@ export const ButtonDemo = () => {
           <label htmlFor="loading">isLoading</label>
         </div>
 
-        <input
-          type="text"
-          value={loadingText}
-          onChange={(event: any) => {
-            setLoadingText(event.target.value);
-          }}
-        />
-        <input
-          type="text"
-          placeholder="Set aria-label text"
-          value={ariaLabel}
-          onChange={(event: any) => {
-            setAriaLabel(event.target.value);
-          }}
-        />
-        <select
-          value={variation}
-          placeholder="Select button variation"
-          onChange={(event) =>
-            setVariation(event.target.value as ButtonVariation)
-          }
-        >
-          <option></option>
-          <option value="primary">primary</option>
-          <option value="link">link</option>
-        </select>
-        <select
-          value={size}
-          onChange={(event) => setSize(event.target.value as ButtonSize)}
-        >
-          <option></option>
-          <option value="small">small</option>
-          <option value="large">large</option>
-        </select>
+        <FieldLabeler id="loadingText">
+          <input
+            type="text"
+            value={loadingText}
+            onChange={(event: any) => {
+              setLoadingText(event.target.value);
+            }}
+          />
+        </FieldLabeler>
+
+        <FieldLabeler id="ariaLabel">
+          <input
+            type="text"
+            placeholder="Set aria-label text"
+            value={ariaLabel}
+            onChange={(event: any) => {
+              setAriaLabel(event.target.value);
+            }}
+          />
+        </FieldLabeler>
+        <FieldLabeler id="variation">
+          <select
+            value={variation}
+            placeholder="Select button variation"
+            onChange={(event) =>
+              setVariation(event.target.value as ButtonVariation)
+            }
+          >
+            <option value="">default</option>
+            <option value="primary">primary</option>
+            <option value="link">link</option>
+          </select>
+        </FieldLabeler>
+        <FieldLabeler id="size">
+          <select
+            value={size}
+            onChange={(event) => setSize(event.target.value as ButtonSize)}
+          >
+            <option value="">default</option>
+            <option value="small">small</option>
+            <option value="large">large</option>
+          </select>
+        </FieldLabeler>
       </div>
       <Button
         className="my-favorite-button"

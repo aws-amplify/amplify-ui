@@ -31,10 +31,7 @@ module.exports = {
     fontSize: { value: '{fontSizes.xs.value}' },
     padding: { value: ['{space.xxs.value}', '{space.xs.value}'] },
   },
-  // medium: {
-  //   fontSize: { value: '{fontSizes.small.value}' },
-  //   padding: { value: ['{space.xxs.value}', '{space.xs.value}'] },
-  // },
+  // medium is the default size
   large: {
     fontSize: { value: '{fontSizes.medium.value}' },
     padding: { value: ['{space.small.value}', '{space.medium.value}'] },

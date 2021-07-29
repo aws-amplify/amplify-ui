@@ -134,12 +134,6 @@
     padding: var(--amplify-components-button-small-padding);
   }
   
-  // &[data-size='medium'] {
-  //   border-radius: var(--amplify-components-button-medium-border-radius);
-  //   font-size: var(--amplify-components-button-medium-font-size);
-  //   padding: var(--amplify-components-button-medium-padding);
-  // }
-  
   &[data-size='large'] {
     border-radius: var(--amplify-components-button-large-border-radius);
     font-size: var(--amplify-components-button-large-font-size);
