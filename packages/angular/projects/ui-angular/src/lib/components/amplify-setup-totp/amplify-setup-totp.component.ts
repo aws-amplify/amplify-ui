@@ -68,7 +68,8 @@ export class AmplifySetupTotpComponent
       logger.info('totp code was generated:', totpCode);
       this.qrCodeSource = await QRCode.toDataURL(totpCode);
     } catch (err) {
-      throw err;
+      this.remoteError = err.message ?? err;
+      logger.error(err);
     }
   }
 
