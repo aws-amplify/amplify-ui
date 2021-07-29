@@ -26,7 +26,7 @@
 </ng-template>
 
 <ng-template #signUpFieldset>
-  <fieldset data-amplify-fieldset [attr.disabled]="isPending ? '' : null">
+  <fieldset data-amplify-fieldset [disabled]="isPending">
     <ng-container
       [ngTemplateOutlet]="customComponents.signUpUsername || signUpUsername"
       [ngTemplateOutletContext]="context()"
