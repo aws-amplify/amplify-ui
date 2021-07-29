@@ -1,38 +1,39 @@
 module.exports = {
   // Default styles
+  lineHeight: { value: 1 },
   fontWeight: { value: '{fontWeights.semibold.value}' },
   fontSize: { value: '{fontSizes.small.value}' },
   textAlign: { value: 'center' },
-  padding: { value: ['{space.2xs.value}', '{space.small.value}'] },
+  padding: { value: ['{space.xs.value}', '{space.small.value}'] },
   backgroundColor: { value: '{colors.background.tertiary.value}' },
-  // An arbitrarily large value to ensure that the left and right sides of the badge are perfectly rounded for any size variant
+  // An arbitrarily large value to ensure that the left and right sides of the badge are perfectly rounded for any size variation
   borderRadius: { value: '9999px' },
 
   // Variations
   info: {
-    'background-color': { value: '{colors.background.info.value}' },
+    backgroundColor: { value: '{colors.background.info.value}' },
   },
 
   warning: {
-    'background-color': { value: '{colors.background.warning.value}' },
+    backgroundColor: { value: '{colors.background.warning.value}' },
   },
 
   success: {
-    'background-color': { value: '{colors.background.success.value}' },
+    backgroundColor: { value: '{colors.background.success.value}' },
   },
 
   error: {
-    'background-color': { value: '{colors.background.error.value}' },
+    backgroundColor: { value: '{colors.background.error.value}' },
   },
 
   // Sizes
   small: {
-    'font-size': { value: '{fontSizes.xs.value}' },
+    fontSize: { value: '{fontSizes.xs.value}' },
+    padding: { value: ['{space.xxs.value}', '{space.xs.value}'] },
   },
-  medium: {
-    'font-size': { value: '{fontSizes.small.value}' },
-  },
+  // medium is the default size
   large: {
-    'font-size': { value: '{fontSizes.medium.value}' },
+    fontSize: { value: '{fontSizes.medium.value}' },
+    padding: { value: ['{space.small.value}', '{space.medium.value}'] },
   },
 };

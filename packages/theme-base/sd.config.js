@@ -4,7 +4,7 @@
 
 const { formatHelpers } = require('style-dictionary');
 
-const CSS_VARIABLE_PREFIX = 'amplify-ui';
+const CSS_VARIABLE_PREFIX = 'amplify';
 const CSS_VARIABLE_SCOPE = ':root';
 
 module.exports = {
@@ -29,7 +29,7 @@ module.exports = {
       prefix: CSS_VARIABLE_PREFIX,
       files: [
         {
-          destination: 'dist/variables.css',
+          destination: 'dist/variables.scss',
           format: 'css/variables',
           options: {
             selector: CSS_VARIABLE_SCOPE,

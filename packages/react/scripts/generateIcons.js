@@ -28,7 +28,7 @@ glob(iconSetPath, function (error, files) {
 import React from 'react';
 export const ${iconName} = (props) => {
 	const {
-		size = "medium",
+		size,
 		fill = "currentColor",
 		ariaLabel,
 		...rest
@@ -38,7 +38,7 @@ export const ${iconName} = (props) => {
       .replace('class="st0"', '')
       .replace(/style="fill:none"/g, '')
       .replace('<path d="M0 0h24v24H0z" fill="none"/>', '')
-      .replace('width="24"', `className="amplify-ui-icon"`)
+      .replace('width="24"', `className="amplify-icon"`)
       .replace(
         'height="24"',
         'data-size={size} aria-label={ariaLabel} fill={fill} {...rest}'

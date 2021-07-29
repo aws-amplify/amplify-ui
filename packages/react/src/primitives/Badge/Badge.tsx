@@ -7,8 +7,8 @@ import { View } from '../View';
 export const Badge: React.FC<BadgeProps> = ({
   className,
   children,
-  variation = 'default',
-  size = 'medium',
+  variation,
+  size,
   ...rest
 }) => (
   <View

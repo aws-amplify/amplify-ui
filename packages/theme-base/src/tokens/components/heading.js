@@ -1,5 +1,4 @@
 module.exports = {
-  // Color property not getting applied, issue with build order (Text built after Heading, alphabetically). Will solve later using SCSS.
   color: { value: '{colors.font.primary.value}' },
   lineHeight: { value: 1.25 },
 

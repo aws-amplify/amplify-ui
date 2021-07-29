@@ -7,7 +7,7 @@
 
 <ng-template #signInForm>
   <form data-amplify-form (submit)="onSubmit($event)" (input)="onInput($event)">
-    <fieldset data-amplify-fieldset [attr.disabled]="isPending ? '' : null">
+    <fieldset data-amplify-fieldset [disabled]="isPending">
       <amplify-user-name-alias></amplify-user-name-alias>
       <amplify-input
         name="password"

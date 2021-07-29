@@ -14,8 +14,8 @@ export const Button: React.FC<ButtonProps> = ({
   id,
   loadingText = '',
   onClick = () => {},
-  size = 'medium',
-  variation = 'default',
+  size,
+  variation,
   type = 'button',
 }) => (
   <View

@@ -29,7 +29,16 @@ export class AmplifyConfirmSignUpComponent {
     this.authSubscription = this.stateMachine.authService.subscribe((state) =>
       this.onStateUpdate(state)
     );
-    const username = this.stateMachine.user?.username;
+    this.setUsername();
+  }
+
+  setUsername() {
+    const { user, formValues } = this.stateMachine.context;
+    /**
+     * TODO (cross-framework): look for ways to persist username without
+     * persisting formValues across auth states.
+     */
+    const username = user?.username ?? formValues.username;
     if (username) {
       this.username = username;
       this.stateMachine.send({
@@ -63,7 +72,7 @@ export class AmplifyConfirmSignUpComponent {
     this.stateMachine.send({
       type: 'RESEND',
       data: {
-        username: this.stateMachine.user?.username,
+        username: this.username,
       },
     });
   }

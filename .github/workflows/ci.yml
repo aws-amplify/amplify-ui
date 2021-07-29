@@ -29,10 +29,15 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'yarn'
-      - run: yarn --frozen-lockfile
-      - run: node environments/write-exports-files.js
+      - name: Install packages
+        run: yarn --frozen-lockfile
+      - name: Add Amplify CLI
+        run: yarn global add @aws-amplify/cli
+      - name: Pull down AWS environments
+        run: sh ./.github/pull-environments.sh
         env:
-          ENVIRONMENT_AWS_EXPORTS: ${{ secrets.ENVIRONMENT_AWS_EXPORTS }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       - run: yarn next-example build
       - run: yarn next-example start & npx wait-on http://localhost:3000/ui/components/authenticator/sign-in-with-username
       - run: yarn test
