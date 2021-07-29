@@ -12,7 +12,7 @@ export const Placeholder: React.FC<PlaceholderProps> = ({
   ...rest
 }) => {
   if (isLoaded) {
-    return <>children</>;
+    return <>{children}</>;
   }
 
   return (
