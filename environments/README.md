@@ -81,7 +81,17 @@ When an existing backend doesn't match your needs (or requires changes), you can
 
 🎉 You now have a local `amplify` & `src/aws-exports.js` environment!
 
-## Commiting a Backend Environment
+### Add the Amplify Application ID
+
+In the directory where you pulled your environment, create the file `app-id` and add the Amplify Application ID used for pulling the environment. For example:
+
+```shell
+echo "YOUR_APP_ID" > environments/auth-with-username/app-id
+```
+
+`app-id` files are used by our continuous integration GitHub Action to pull down each environment to run end-to-end tests.
+
+## Committing a Backend Environment
 
 After creating & `amplify pull`ing a backend environment down for local development, it can be useful to commit that for future use in testing or for collaboration.
 
