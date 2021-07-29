@@ -20,7 +20,8 @@ const logger = new Logger('SetupTotp');
   templateUrl: './amplify-setup-totp.component.html',
 })
 export class AmplifySetupTotpComponent
-  implements OnInit, AfterContentInit, OnDestroy {
+  implements OnInit, AfterContentInit, OnDestroy
+{
   @HostBinding('attr.data-amplify-authenticator-setup-totp')
   public customComponents: Record<string, TemplateRef<any>> = {};
   public remoteError = '';
@@ -37,7 +38,7 @@ export class AmplifySetupTotpComponent
   ) {}
 
   ngOnInit(): void {
-    this.authSubscription = this.stateMachine.authService.subscribe(state => {
+    this.authSubscription = this.stateMachine.authService.subscribe((state) => {
       this.onStateUpdate(state);
     });
     this.generateQRCode();

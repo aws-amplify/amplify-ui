@@ -1,4 +1,11 @@
-import { Component, HostBinding, OnInit, TemplateRef } from '@angular/core';
+import {
+  AfterContentInit,
+  Component,
+  HostBinding,
+  OnDestroy,
+  OnInit,
+  TemplateRef,
+} from '@angular/core';
 import { Logger } from '@aws-amplify/core';
 import { AuthPropService, StateMachineService } from '../../services';
 import { Subscription } from 'xstate';
@@ -10,7 +17,9 @@ const logger = new Logger('ConfirmSignIn');
   selector: 'amplify-confirm-sign-in',
   templateUrl: './amplify-confirm-sign-in.component.html',
 })
-export class AmplifyConfirmSignInComponent implements OnInit {
+export class AmplifyConfirmSignInComponent
+  implements OnInit, OnDestroy, AfterContentInit
+{
   @HostBinding('attr.data-amplify-authenticator-confirmsignin') dataAttr = '';
 
   public customComponents: Record<string, TemplateRef<any>> = {};
@@ -27,7 +36,7 @@ export class AmplifyConfirmSignInComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.authSubscription = this.stateMachine.authService.subscribe(state => {
+    this.authSubscription = this.stateMachine.authService.subscribe((state) => {
       this.onStateUpdate(state);
     });
     this.setHeaderText();
