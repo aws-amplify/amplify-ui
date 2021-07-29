@@ -10,7 +10,7 @@
     <fieldset data-amplify-fieldset [disabled]="isPending">
       <amplify-user-name-alias
         [initialValue]="username"
-        [disabled]="true"
+        [disabled]="!!username"
       ></amplify-user-name-alias>
       <amplify-input
         name="confirmation_code"
