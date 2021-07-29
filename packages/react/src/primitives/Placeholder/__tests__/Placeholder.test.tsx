@@ -43,7 +43,7 @@ describe('Placeholder: ', () => {
     render(
       <div>
         <Placeholder size="small" testId="placeholder1" />
-        <Placeholder size="medium" testId="placeholder2" />
+        <Placeholder testId="placeholder2" />
         <Placeholder size="large" testId="placeholder3" />
       </div>
     );
@@ -53,7 +53,7 @@ describe('Placeholder: ', () => {
     const placeholder3 = await screen.findByTestId('placeholder3');
 
     expect(placeholder1.dataset['size']).toBe('small');
-    expect(placeholder2.dataset['size']).toBe('medium');
+    expect(placeholder2.dataset['size']).toBeUndefined();
     expect(placeholder3.dataset['size']).toBe('large');
   });
 
