@@ -1,0 +1,26 @@
+.amplify-ui-placeholder {
+  animation-direction: alternate;
+  animation-duration: var(--amplify-components-placeholder-transition-duration);
+  animation-iteration-count: infinite;
+  animation-name: loading;
+  border-radius: var(--amplify-components-placeholder-border-radius);
+  height: var(--amplify-components-placeholder-medium-height);
+  width: 100%;
+
+  &[data-size='small'] {
+    height: var(--amplify-components-placeholder-small-height);
+  }
+
+  &[data-size='large'] {
+    height: var(--amplify-components-placeholder-large-height);
+  }
+}
+
+@keyframes loading {
+  0% {
+    background-color: var(--amplify-components-placeholder-start-color);
+  }
+  100% {
+    background-color: var(--amplify-components-placeholder-end-color);
+  }
+}
