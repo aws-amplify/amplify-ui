@@ -9,11 +9,11 @@ const iconNames = [];
 // Pick one to filter out afterwards
 const iconFilter = ['IconAddchart'];
 
-glob(iconSetPath, function (error, files) {
+glob(iconSetPath, function(error, files) {
   if (error) {
     throw error;
   }
-  files.forEach((filePath) => {
+  files.forEach(filePath => {
     const iconName = `Icon${pascalCase(filePath.split('/')[5])}`;
     const source = fs.readFileSync(filePath, { encoding: 'utf8' });
     const outputPath = `${dirPath}${iconName}.tsx`;
@@ -28,7 +28,7 @@ glob(iconSetPath, function (error, files) {
 import React from 'react';
 export const ${iconName} = (props) => {
 	const {
-		size = "medium",
+		size,
 		fill = "currentColor",
 		ariaLabel,
 		...rest
@@ -38,7 +38,7 @@ export const ${iconName} = (props) => {
       .replace('class="st0"', '')
       .replace(/style="fill:none"/g, '')
       .replace('<path d="M0 0h24v24H0z" fill="none"/>', '')
-      .replace('width="24"', `className="amplify-ui-icon"`)
+      .replace('width="24"', `className="amplify-icon"`)
       .replace(
         'height="24"',
         'data-size={size} aria-label={ariaLabel} fill={fill} {...rest}'
@@ -51,7 +51,7 @@ export const ${iconName} = (props) => {
   });
 
   const iconExportsFile = iconNames
-    .map((iconName) => {
+    .map(iconName => {
       return `export * from './${iconName}';`;
     })
     .join(`\n`);
