@@ -7,10 +7,6 @@ module.exports = {
     borderWidth: { value: '{borderWidths.small.value}' },
   },
 
-  medium: {
-    borderWidth: { value: '{borderWidths.medium.value}' },
-  },
-
   large: {
     borderWidth: { value: '{borderWidths.large.value}' },
   },

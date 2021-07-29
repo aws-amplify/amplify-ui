@@ -1,5 +1,5 @@
 module.exports = {
-  '2xs': { value: '0.25rem' },
+  xxs: { value: '0.25rem' },
   xs: { value: '0.5rem' },
   small: { value: '0.75rem' },
   medium: { value: '1rem' },

@@ -3,8 +3,8 @@
 */
 
 .my-custom-button {
-  --amplify-ui-button-colors-bg-primary: #0057ff;
-  --amplify-ui-button-colors-bg-primary-hover: #4d89fc;
+  --amplify-ui-components-button-primary-background-color: #0057ff;
+  --amplify-ui-components-button-primary-hover-background-color: #4d89fc;
 }
 
 #gradient-button {

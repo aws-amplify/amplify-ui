@@ -52,29 +52,29 @@ import { Button } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 
 <Button size="large">Large</Button>
-<Button size="medium">Medium</Button>
+<Button>Default</Button>
 <Button size="small">Small</Button>
 ```
 
 <Button size="large">Large</Button>
-<Button size="medium">Medium</Button>
+<Button>Default</Button>
 <Button size="small">Small</Button>
 
 ### Button variations
 
-Use the `variation` prop to change the button variation. Available options are `primary`, `secondary`, `tertiary` and `link`.
+Use the `variation` prop to change the button variation. Available options are `primary`, `link`, and none (default).
 
 ```jsx
 import { Button } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 
 <Button variation="primary">Primary</Button>
-<Button variation="default">Default</Button>
+<Button>Default</Button>
 <Button variation="link">Link</Button>
 ```
 
 <Button variation="primary">Primary</Button>
-<Button variation="default">Default</Button>
+<Button>Default</Button>
 <Button variation="link">Link</Button>
 
 ### Button loading state
@@ -126,9 +126,16 @@ Using a class and CSS file:
 
 ```css
 /* styles.css */
+:root {
+  --amplify-components-button-primary-background-color: #0057ff;
+  --amplify-components-button-primary-hover-background-color: #4d89fc;
+}
+/* OR */
 .my-custom-button {
-  --amplify-ui-button-color-bg-primary: #0057ff;
-  --amplify-ui-button-color-bg-primary-hover: #4d89fc;
+  background-color: #0057ff;
+}
+.my-custom-button:hover {
+  background-color: #4d89fc;
 }
 ```
 
@@ -151,8 +158,8 @@ Or override the variables inline:
 ```jsx
 <div
   style={{
-    '--amplify-ui-button-colors-bg-primary': '#0057ff',
-    '--amplify-ui-button-colors-bg-primary-hover': '#4d89fc',
+    '--amplify-components-button-primary-background-color': '#0057ff',
+    '--amplify-components-button-primary-hover-background-color': '#4d89fc',
   }}
 >
   <Button variation="primary">My button</Button>
@@ -161,8 +168,8 @@ Or override the variables inline:
 
 <div
   style={{
-    '--amplify-ui-button-colors-bg-primary': '#0057ff',
-    '--amplify-ui-button-colors-bg-primary-hover': '#4d89fc',
+    '--amplify-components-button-primary-background-color': '#0057ff',
+    '--amplify-components-button-primary-hover-background-color': '#4d89fc',
   }}
 >
   <Button variation="primary">My button</Button>
@@ -170,33 +177,33 @@ Or override the variables inline:
 
 #### Override styling using the classname and data attribute selectors:
 
-Use the `amplify-ui-button` class and data attributes to style all buttons.
+Use the `amplify-button` class and data attributes to style all buttons.
 
 ```css
 /* Example: Extend all <Button> styles */
-.amplify-ui-button {
+.amplify-button {
   font-family: 'My Custom Font', 'Comic Sans MS', sans-serif;
   font-weight: bold;
 }
 
 /* Example: Override only primary variation styles */
-.amplify-ui-button[data-variation='primary'] {
+.amplify-button[data-variation='primary'] {
   background-color: teal;
   color: white;
 }
 
 /* Example: Override loading styles */
-.amplify-ui-button[data-loading='true'] {
+.amplify-button[data-loading='true'] {
   opacity: 0.8;
 }
 
 /* Example: Override disabled styles */
-.amplify-ui-button[disabled='true'] {
+.amplify-button[disabled='true'] {
   opacity: 0.8;
 }
 
 /* Example: Override button styles using Tailwind CSS */
-.amplify-ui-button {
+.amplify-button {
   @apply bg-blue-500 hover:bg-blue-700 text-white;
 }
 ```
@@ -204,7 +211,7 @@ Use the `amplify-ui-button` class and data attributes to style all buttons.
 To replace the button styling, unset it:
 
 ```css
-.amplify-ui-button {
+.amplify-button {
   all: unset;
   /* Add your styling here*/
 }
