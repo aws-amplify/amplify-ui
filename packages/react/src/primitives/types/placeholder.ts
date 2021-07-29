@@ -1,6 +1,6 @@
 import { BaseComponentProps } from './base';
 
-export type PlaceholderSize = 'small' | 'medium' | 'large';
+export type PlaceholderSize = 'small' | 'large';
 
 export interface PlaceholderProps extends BaseComponentProps {
   /**
