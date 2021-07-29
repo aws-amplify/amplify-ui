@@ -23,7 +23,7 @@
           </template>
           {{ signIntoAccountText }}
         </base-heading>
-
+        <federated-sign-in></federated-sign-in>
         <base-field-Set :disabled="state.matches('signIn.submit')">
           <template #fieldSetI="{ slotData }">
             <slot name="signin-fields" :info="slotData"> </slot>
@@ -107,6 +107,7 @@ import BaseSpacer from './primitives/base-spacer.vue';
 import BaseText from './primitives/base-text.vue';
 import SignInPasswordControl from './sign-in-password-control.vue';
 import UserNameAlias from './user-name-alias.vue';
+import FederatedSignIn from './federated-sign-in.vue';
 
 import {
   SIGN_IN_TEXT,
@@ -152,6 +153,7 @@ export default {
     BaseSpacer,
     UserNameAlias,
     SignInPasswordControl,
+    FederatedSignIn,
   },
 
   setup(_, { emit, attrs }: SetupEventContext): SignInSetupReturnTypes {

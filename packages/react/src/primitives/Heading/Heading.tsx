@@ -2,7 +2,7 @@ import React from 'react';
 import { ComponentClassNames } from '../shared/constants';
 import classNames from 'classnames';
 import { HeadingProps } from '../types';
-import { View } from '@aws-amplify/ui-react';
+import { View } from '../View';
 
 interface HeadingLevels {
   [key: number]: keyof JSX.IntrinsicElements;
