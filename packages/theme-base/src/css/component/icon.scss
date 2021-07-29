@@ -1,0 +1,18 @@
+/*
+ * Icon base styles
+ */
+
+.amplify-icon {
+  display: inline-block;
+  vertical-align: middle;
+  height: var(--amplify-components-icon-height);
+  line-height: var(--amplify-components-icon-line-height);
+  
+  &[data-size='small'] {
+    height: var(--amplify-components-icon-small-height);
+  }
+  
+  &[data-size='large'] {
+    height: var(--amplify-components-icon-large-height);
+  }
+}

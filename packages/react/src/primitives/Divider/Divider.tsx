@@ -5,12 +5,7 @@ import { DividerProps } from '../types';
 import { View } from '../View';
 
 export const Divider: React.FC<DividerProps> = (props) => {
-  const {
-    className,
-    orientation = 'horizontal',
-    size = 'small',
-    ...rest
-  } = props;
+  const { className, orientation = 'horizontal', size, ...rest } = props;
   return (
     <View
       aria-orientation={orientation}

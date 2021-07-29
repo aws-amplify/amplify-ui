@@ -1,5 +1,5 @@
 .my-custom-badge {
-  --badge-colors-bg-default: yellow;
+  background-color: yellow;
 }
 
 .flagged {
