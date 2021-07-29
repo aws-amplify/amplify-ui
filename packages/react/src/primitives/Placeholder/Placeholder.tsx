@@ -10,16 +10,16 @@ export const Placeholder: React.FC<PlaceholderProps> = ({
   isLoaded,
   size,
   ...rest
-}) => (
-  <>
-    {isLoaded ? (
-      children
-    ) : (
-      <View
-        className={classNames(ComponentClassNames.Placeholder, className)}
-        data-size={size}
-        {...rest}
-      ></View>
-    )}
-  </>
-);
+}) => {
+  if (isLoaded) {
+    return <>children</>;
+  }
+
+  return (
+    <View
+      className={classNames(ComponentClassNames.Placeholder, className)}
+      data-size={size}
+      {...rest}
+    ></View>
+  );
+};

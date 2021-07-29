@@ -2,7 +2,7 @@
   animation-direction: alternate;
   animation-duration: var(--amplify-components-placeholder-transition-duration);
   animation-iteration-count: infinite;
-  animation-name: loading;
+  animation-name: amplify-placeholder-loading;
   border-radius: var(--amplify-components-placeholder-border-radius);
   height: var(--amplify-components-placeholder-default-height);
   width: 100%;
@@ -16,7 +16,7 @@
   }
 }
 
-@keyframes loading {
+@keyframes amplify-placeholder-loading {
   0% {
     background-color: var(--amplify-components-placeholder-start-color);
   }
@@ -29,8 +29,5 @@
   .amplify-placeholder {
     animation: none;
     background-color: var(--amplify-components-placeholder-end-color);
-    border-radius: var(--amplify-components-placeholder-border-radius);
-    height: var(--amplify-components-placeholder-default-height);
-    width: 100%;
   }
 }
