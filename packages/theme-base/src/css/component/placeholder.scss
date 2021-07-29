@@ -4,7 +4,7 @@
   animation-iteration-count: infinite;
   animation-name: loading;
   border-radius: var(--amplify-components-placeholder-border-radius);
-  height: var(--amplify-components-placeholder-medium-height);
+  height: var(--amplify-components-placeholder-default-height);
   width: 100%;
 
   &[data-size='small'] {
@@ -30,7 +30,7 @@
     animation: none;
     background-color: var(--amplify-components-placeholder-end-color);
     border-radius: var(--amplify-components-placeholder-border-radius);
-    height: var(--amplify-components-placeholder-medium-height);
+    height: var(--amplify-components-placeholder-default-height);
     width: 100%;
   }
 }

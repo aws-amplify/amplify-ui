@@ -9,7 +9,7 @@ module.exports = {
   small: {
     height: { value: '{space.small.value}' },
   },
-  medium: {
+  default: {
     height: { value: '{space.medium.value}' },
   },
   large: {
