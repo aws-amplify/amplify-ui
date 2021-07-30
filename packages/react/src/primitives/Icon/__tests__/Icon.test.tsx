@@ -24,7 +24,7 @@ describe('Icon component', () => {
     const icon = await screen.findByTestId(iconTestId);
     expect(icon.id).toBe(iconTestId);
     expect(icon.nodeName).toBe('svg');
-    expect(icon.dataset['size']).toBe('medium');
+    expect(icon.dataset['size']).toBeUndefined();
     expect(icon.getAttribute('viewBox')).toBe('0 0 24 24');
     expect(icon.classList[0]).toContain(ComponentClassNames.Icon);
   });
