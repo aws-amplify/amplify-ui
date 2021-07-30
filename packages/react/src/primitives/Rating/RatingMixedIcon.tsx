@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { View } from '@aws-amplify/ui-react';
+import { View } from '../View';
 import { Property } from 'csstype';
 
 export const createMixedIcon = (
@@ -11,12 +11,12 @@ export const createMixedIcon = (
 ) => {
   const widthPercentage = `${(value % 1) * 100}%`;
   return (
-    <View as="span" className={classNames(`amplify-ui-rating-icon-container`)}>
-      <View as="label" className={classNames(`amplify-ui-rating-label`)}>
+    <View as="span" className={classNames(`amplify-rating-icon-container`)}>
+      <View as="label" className={classNames(`amplify-rating-label`)}>
         <View
           as="span"
           className={classNames(
-            `amplify-ui-rating-icon`,
+            `amplify-rating-icon`,
             `amplify-rating-icon-empty`
           )}
           color={emptyColor}
@@ -26,13 +26,13 @@ export const createMixedIcon = (
       </View>
       <View
         as="label"
-        className={classNames(`amplify-ui-rating-label`)}
+        className={classNames(`amplify-rating-label`)}
         width={widthPercentage}
       >
         <View
           as="span"
           className={classNames(
-            `amplify-ui-rating-icon`,
+            `amplify-rating-icon`,
             `amplify-rating-icon-filled`
           )}
           color={fillColor}

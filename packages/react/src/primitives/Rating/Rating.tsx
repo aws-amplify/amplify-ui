@@ -4,21 +4,26 @@ import { ComponentClassNames } from '../shared/constants';
 import { RatingProps } from '../types';
 import { createIcon } from './RatingIcon';
 import { createMixedIcon } from './RatingMixedIcon';
-import { Flex, IconStar, Text } from '@aws-amplify/ui-react';
+import { Flex } from '../Flex';
+import { Text } from '../Text';
+import { IconStar } from '../Icon';
 
-export const Rating: React.FC<RatingProps> = props => {
+const RATING_DEFAULT_MAX_VALUE = 5;
+const RATING_DEFAULT_VALUE = 0;
+
+export const Rating: React.FC<RatingProps> = (props) => {
   const {
     className,
     emptyColor,
     emptyIcon,
     fillColor,
-    icon = React.createElement(IconStar),
-    maxValue = 5,
+    icon = <IconStar />,
+    maxValue = RATING_DEFAULT_MAX_VALUE,
     size,
-    value = 0,
+    value = RATING_DEFAULT_VALUE,
     ...rest
   } = props;
-  const items = new Array(maxValue).fill(1).map((val, idx) => {
+  const items = new Array(Math.ceil(maxValue)).fill(1).map((val, idx) => {
     if (idx + 1 <= value) return 'filled';
     if (idx + 1 > value && idx < value) return 'partial';
     return 'empty';
@@ -38,7 +43,7 @@ export const Rating: React.FC<RatingProps> = props => {
       data-size={size}
       {...rest}
     >
-      {items.map(val => {
+      {items.map((val) => {
         if (val === 'partial')
           return createMixedIcon(
             icon,

@@ -2,18 +2,19 @@
  * Amplify UI Basic Theme
  */
 
-@import "../../dist/variables.scss";
+@import '../../dist/variables.scss';
 
-[class*="amplify"] {
+[class*='amplify'] {
   all: unset; /* protect against external styles */
 }
 
-@import "./component/badge.scss";
-@import "./component/button.scss";
-@import "./component/card.scss";
-@import "./component/divider.scss";
-@import "./component/flex.scss";
-@import "./component/heading.scss";
-@import "./component/icon.scss";
-@import "./component/image.scss";
-@import "./component/text.scss";
+@import './component/badge.scss';
+@import './component/button.scss';
+@import './component/card.scss';
+@import './component/divider.scss';
+@import './component/flex.scss';
+@import './component/heading.scss';
+@import './component/icon.scss';
+@import './component/image.scss';
+@import './component/rating.scss';
+@import './component/text.scss';

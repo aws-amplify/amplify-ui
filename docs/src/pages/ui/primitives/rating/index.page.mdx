@@ -73,7 +73,7 @@ import '@aws-amplify/ui-react/styles.css';
 
 ### Colors
 
-The fill color and empty color can both be selected using the fillColor and emptyColor props
+The fill color and empty color can be set using the `fillColor` and `emptyColor` props
 
 ```jsx
 import { Rating } from '@aws-amplify/ui-react';
@@ -95,7 +95,7 @@ import '@aws-amplify/ui-react/styles.css';
 <Rating value={2.5} icon={<IconAdd />} />;
 ```
 
-<Rating value={2.5} icon={<IconAdd />}/>
+<Rating value={2.5} icon={<IconAdd />} />
 
 ### Custom SVG Icon
 
@@ -124,7 +124,7 @@ const MyCoolSvg = () => {
 };
 ```
 
-<Rating value={2.5} icon={<MyCoolSvg />}/>
+<Rating value={2.5} icon={<MyCoolSvg />} />
 
 ### Custom Empty Icon
 
@@ -137,17 +137,17 @@ import '@aws-amplify/ui-react/styles.css';
 <Rating value={2.5} emptyIcon={<IconStarBorder />} />;
 ```
 
-<Rating value={2.5} emptyIcon={<IconStarBorder />}/>
+<Rating value={2.5} emptyIcon={<IconStarBorder />} />
 
 ## CSS Styling
 
 ### component level overrides
 
-The rating component styling props can be overriden using a custom class name and the built in css classes.
+The rating component styling props can be overridden using a custom class name and the built-in CSS classes.
 
 #### Filled and empty icon colors
 
-The empty and filled icon colors can be overridden using a custom css class on your rating component and with the `.amplify-rating-icon-filled` and `.amplify-rating-icon-empty` classes
+The empty and filled icon colors can be overridden using a custom CSS class on your rating component and with the `.amplify-rating-icon-filled` and `.amplify-rating-icon-empty` classes
 
 ```css
 .my-rating-component .amplify-rating-icon-filled {
@@ -170,7 +170,7 @@ import '@aws-amplify/ui-react/styles.css';
 
 #### Sizes
 
-The size variations on the rating component can be overriden at the individual component level
+The size variations on the rating component can be overridden at the individual component level
 
 ```css
 .large-rating[data-size='small'] {
@@ -190,7 +190,7 @@ import '@aws-amplify/ui-react/styles.css';
 
 ### Application wide styling
 
-All rating components within an application can be styled using css variables at the root level
+All rating components within an application can be styled using CSS variables at the root level
 
 #### Filled and empty icon colors
 
@@ -214,7 +214,7 @@ import '@aws-amplify/ui-react/styles.css';
 
 #### Sizes
 
-The size variations on the rating component can be overriden at the application level using css variables
+The size variations on the rating component can be overridden at the application level using css variables
 
 ```css
 :root {
@@ -226,7 +226,7 @@ The size variations on the rating component can be overriden at the application 
 import { Rating } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
-<Rating value={2.5} className="application-size-override" size="small" />;
+<Rating value={2.5} size="small" />;
 ```
 
 <Rating value={2.5} className="application-size-override" size="small" />
