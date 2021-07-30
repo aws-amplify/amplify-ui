@@ -48,6 +48,7 @@ export const RatingPropControls = ({
             value={size}
             onChange={(event) => setSize(event.target.value)}
           >
+            <option value=" "></option>
             <option value="small">small</option>
             <option value="medium">medium</option>
             <option value="large">large</option>

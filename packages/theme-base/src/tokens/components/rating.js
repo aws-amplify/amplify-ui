@@ -1,11 +1,7 @@
 module.exports = {
-  size: {
-    large: { value: '{fontSizes.xxxl.value}' },
-    medium: { value: '{fontSizes.xl.value}' },
-    small: { value: '{fontSizes.small.value}' },
-  },
-  color: {
-    filled: { value: '{colors.icon.filled.value}' },
-    empty: { value: '{colors.icon.empty.value}' },
-  },
+  large: { size: { value: '{fontSizes.xxxl.value}' } },
+  default: { size: { value: '{fontSizes.xl.value}' } },
+  small: { size: { value: '{fontSizes.small.value}' } },
+  filled: { color: { value: '{colors.icon.filled.value}' } },
+  empty: { color: { value: '{colors.icon.empty.value}' } },
 };
