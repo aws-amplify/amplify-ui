@@ -86,7 +86,7 @@ import '@aws-amplify/ui-react/styles.css';
 
 ### Custom Icon
 
-A custom icon can be used in the rating component using the icon prop. The rating component works well with all major icon sets and these icons can be substituted in using this icon prop.
+A custom icon can be used in the rating component using the icon prop. The rating component works well with all major icon sets and these icons can be substituted in using this icon prop. The icon prop will override both the filled and empty icons unless a specific empty icon is also passed in.
 
 ```jsx
 import { Rating, IconAdd } from '@aws-amplify/ui-react';
@@ -128,7 +128,7 @@ const MyCoolSvg = () => {
 
 ### Custom Empty Icon
 
-A custom empty icon can be used in the rating component using the emptyIcon prop
+A custom empty icon can be used in the rating component using the emptyIcon prop. The emptyIcon prop will only effect the empty icon being rendered and by passing in an empty icon there will be different icons being rendered for the empty icons and filled icons. This is in contrast to the icon prop which will override both the empty and filled icons being used.
 
 ```jsx
 import { Rating, IconStarBorder } from '@aws-amplify/ui-react';

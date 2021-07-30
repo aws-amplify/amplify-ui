@@ -2,13 +2,21 @@ import classNames from 'classnames';
 import { View } from '../View';
 import { Property } from 'csstype';
 
-export const createMixedIcon = (
-  fillIcon: JSX.Element,
-  emptyIcon: JSX.Element,
-  value: number,
-  fillColor: Property.Color,
-  emptyColor: Property.Color
-) => {
+interface RatingMixedIconProps {
+  emptyColor: Property.Color;
+  emptyIcon: JSX.Element;
+  fillColor: Property.Color;
+  fillIcon: JSX.Element;
+  value: number;
+}
+
+export const RatingMixedIcon: React.FC<RatingMixedIconProps> = ({
+  emptyColor,
+  emptyIcon,
+  fillColor,
+  fillIcon,
+  value,
+}) => {
   const widthPercentage = `${(value % 1) * 100}%`;
   return (
     <View as="span" className={classNames(`amplify-rating-icon-container`)}>
@@ -40,7 +48,6 @@ export const createMixedIcon = (
           {fillIcon}
         </View>
       </View>
-      <span className={`hidden`}>{`${value} stars`}</span>
     </View>
   );
 };
