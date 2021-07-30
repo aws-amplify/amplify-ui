@@ -155,7 +155,7 @@ module.exports = {
   white: { value: '#fff' },
   transparent: { value: 'transparent' },
   icon: {
-    filled: { value: '#ffb400' },
-    empty: { value: '#A2A2A2' },
+    filled: { value: '{colors.orange.40.value}' },
+    empty: { value: '{colors.neutral.60.value}' },
   },
 };
