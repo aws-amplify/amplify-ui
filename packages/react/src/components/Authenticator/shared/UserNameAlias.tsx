@@ -1,4 +1,4 @@
-import { useAuth } from '@aws-amplify/ui-react';
+import { useAuth } from '../../../hooks';
 
 import { Label, Text, Input, ErrorText } from '../../../primitives';
 import { getAliasInfoFromContext } from '@aws-amplify/ui-core';

@@ -1,5 +1,5 @@
 import { AuthChallengeNames } from '@aws-amplify/ui-core';
-import { useAmplify, useAuth } from '@aws-amplify/ui-react';
+import { useAmplify, useAuth } from '../../../hooks';
 
 import {
   ConfirmationCodeInput,

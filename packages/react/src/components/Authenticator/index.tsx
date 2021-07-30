@@ -1,5 +1,5 @@
 import { authMachine } from '@aws-amplify/ui-core';
-import { useAmplify } from '@aws-amplify/ui-react';
+import { useAmplify } from '../../hooks';
 import { useActor, useInterpret } from '@xstate/react';
 
 import { AuthenticatorContext } from './AuthenticatorContext';
