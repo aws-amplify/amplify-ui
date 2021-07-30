@@ -9,7 +9,7 @@ Feature: withAuthenticator
   Scenario: Application is wrapped with Authenticator
     Then I see "Sign in to your account"
 
-  @focus @Next @React @Vue
+  @focus @Next @React @Vue @skip
   Scenario: Application renders when signed in
     When I type a valid username "VALID_USERNAME"
     And I type a valid password "VALID_PASSWORD"

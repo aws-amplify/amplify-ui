@@ -2,7 +2,6 @@ import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 
 Given("I'm running the example {string}", (url: string) => {
   cy.visit(url);
-  cy.get('.amplify-heading').should('be.visible');
 });
 
 When('I type a valid email {string}', (email: string) => {
