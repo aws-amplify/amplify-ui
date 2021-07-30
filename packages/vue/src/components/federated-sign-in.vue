@@ -23,7 +23,7 @@
     >
     </federated-sign-in-button>
   </base-wrapper>
-  <base-box data-amplify-strike>
+  <base-box data-amplify-strike v-if="shouldShowFederatedSignIn">
     <base-spacer>or</base-spacer>
   </base-box>
 </template>
