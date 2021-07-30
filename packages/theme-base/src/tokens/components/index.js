@@ -8,5 +8,6 @@ module.exports = {
   icon: require('./icon'),
   image: require('./image'),
   placeholder: require('./placeholder'),
+  rating: require('./rating'),
   text: require('./text'),
 };

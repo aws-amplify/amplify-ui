@@ -8,6 +8,7 @@ export enum ComponentClassNames {
   Icon = 'amplify-icon',
   Image = 'amplify-image',
   Placeholder = 'amplify-placeholder',
+  Rating = 'amplify-rating',
   Text = 'amplify-text',
   View = 'amplify-view',
 }
