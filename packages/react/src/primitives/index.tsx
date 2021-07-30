@@ -5,10 +5,11 @@ export * from './Collection';
 export * from './Divider';
 export * from './Flex';
 export * from './Heading';
+export * from './Icon';
 export * from './Image';
+export * from './Placeholder';
 export * from './Text';
 export * from './View';
-export * from './Icon';
 
 export * from './shared';
 export * from './types';
