@@ -4,7 +4,7 @@
 
 @import '../../dist/variables.scss';
 
-[class*='amplify'] {
+[class*='amplify-'] {
   all: unset; /* protect against external styles */
 }
 

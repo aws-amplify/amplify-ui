@@ -31,12 +31,10 @@ describe('Placeholder: ', () => {
     const placeholder1 = await screen.queryByTestId('placeholder1');
     const text1 = await screen.queryByTestId('text1');
     const placeholder2 = await screen.queryByTestId('placeholder2');
-    // const text2 = await screen.queryByTestId('text2');
 
     expect(placeholder1).toBeTruthy();
     expect(text1).toBeNull();
     expect(placeholder2).toBeNull();
-    // expect(text2).toBeTruthy();
   });
 
   it('renders different sizes by passing size prop', async () => {

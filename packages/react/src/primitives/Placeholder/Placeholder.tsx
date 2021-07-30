@@ -20,6 +20,6 @@ export const Placeholder: React.FC<PlaceholderProps> = ({
       className={classNames(ComponentClassNames.Placeholder, className)}
       data-size={size}
       {...rest}
-    ></View>
+    />
   );
 };
