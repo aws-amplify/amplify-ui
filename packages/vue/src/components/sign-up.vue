@@ -8,6 +8,7 @@
           </template>
           {{ signUpButtonText }}
         </base-heading>
+        <federated-sign-in></federated-sign-in>
         <base-field-set :disabled="state.matches('signUp.submit')">
           <template #fieldSetI="{ slotData }">
             <slot name="signup-fields" :info="slotData"> </slot>
@@ -79,6 +80,7 @@ import SignUpConfirmPasswordControl from './sign-up-confirm-password-control.vue
 import UserNameAlias from './user-name-alias.vue';
 import AliasControl from './alias-control.vue';
 import BaseWrapper from './primitives/base-wrapper.vue';
+import FederatedSignIn from './federated-sign-in.vue';
 
 import {
   SIGN_IN_BUTTON_TEXT,
@@ -107,6 +109,7 @@ export default defineComponent({
     SignUpConfirmPasswordControl,
     UserNameAlias,
     AliasControl,
+    FederatedSignIn,
   },
   inheritAttrs: false,
   setup(_, { emit, attrs }: SetupEventContext): SignUpSetupReturnTypes {
