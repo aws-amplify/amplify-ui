@@ -7,6 +7,8 @@ export const SIGNING_IN_BUTTON_TEXT = 'Signing in';
 export const FORGOT_YOUR_PASSWORD_TEXT = 'Forgot your password?';
 export const PASSWORD_LABEL = 'Password';
 export const CONFIRM_PASSWORD_LABEL = 'Confirm Password';
+export const CHANGE_PASSWORD_LABEL = 'Change password';
+export const CHANGING_PASSWORD_LABEL = 'Changing';
 
 export const SIGN_IN_TEXT = 'Sign in to your account';
 export const LOGIN_NAME_TEXT = 'Username';

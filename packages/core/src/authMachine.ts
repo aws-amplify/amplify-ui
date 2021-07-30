@@ -36,11 +36,69 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
           },
         ],
       },
+      federatedSignIn: {
+        initial: 'federatedSignIn',
+        entry: 'clearError',
+
+        states: {
+          federatedSignIn: {
+            invoke: {
+              src: 'federatedSignIn',
+              onDone: [
+                {
+                  actions: 'setUser',
+                  target: 'confirmFederatedSignIn',
+                },
+              ],
+              onError: [
+                {
+                  actions: 'setRemoteError',
+                  target: 'rejected',
+                },
+              ],
+            },
+          },
+          edit: {
+            initial: 'clean',
+            states: {
+              clean: {},
+              error: {},
+            },
+          },
+          confirmFederatedSignIn: {
+            entry: 'clearError',
+            invoke: {
+              src: 'confirmFederatedSignIn',
+              onDone: [
+                {
+                  actions: 'setUser',
+                  target: 'resolved',
+                },
+              ],
+              onError: [
+                {
+                  actions: 'setRemoteError',
+                  target: 'rejected',
+                },
+              ],
+            },
+          },
+          rejected: {
+            // TODO Set errors and go back ?
+            always: 'edit.error',
+          },
+          resolved: {
+            type: 'final',
+          },
+        },
+      },
+
       authenticated: {
         on: {
           SIGN_OUT: 'signOut',
         },
       },
+
       signIn: {
         initial: 'edit',
         exit: ['clearError'],
@@ -56,7 +114,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
               SUBMIT: 'submit',
               INPUT: { actions: 'handleInput' },
               SIGN_UP: '#auth.signUp',
-              FEDERATED_SIGN_IN: 'federatedSignIn',
+              FEDERATED_SIGN_IN: '#auth.federatedSignIn',
             },
           },
           submit: {
@@ -97,42 +155,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
               ],
             },
           },
-          federatedSignIn: {
-            entry: 'clearError',
-            invoke: {
-              src: 'federatedSignIn',
-              onDone: [
-                {
-                  actions: 'setUser',
-                  target: 'confirmFederatedSignIn',
-                },
-              ],
-              onError: [
-                {
-                  actions: 'setRemoteError',
-                  target: 'rejected',
-                },
-              ],
-            },
-          },
-          confirmFederatedSignIn: {
-            entry: 'clearError',
-            invoke: {
-              src: 'confirmFederatedSignIn',
-              onDone: [
-                {
-                  actions: 'setUser',
-                  target: 'resolved',
-                },
-              ],
-              onError: [
-                {
-                  actions: 'setRemoteError',
-                  target: 'rejected',
-                },
-              ],
-            },
-          },
+
           resolved: {
             exit: ['clearFormValues'],
             type: 'final',
@@ -327,6 +350,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
         },
         on: {
           SIGN_IN: '#auth.signIn',
+          FEDERATED_SIGN_IN: '#auth.federatedSignIn',
         },
       },
       confirmSignUp: {

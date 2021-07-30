@@ -41,10 +41,6 @@
         <slot name="sign-in-heading"></slot>
       </template>
 
-      <template #name>
-        <slot name="sign-in-name"></slot>
-      </template>
-
       <template #footer="{ info, onSignInSubmit, onCreateAccountClicked }">
         <slot
           name="sign-in-footer"
@@ -166,6 +162,27 @@
         </slot>
       </template>
     </setup-totp>
+
+    <force-new-password
+      v-if="state?.matches('forceNewPassword')"
+      @force-new-password-submit="onForceNewPasswordSubmitI"
+      ref="forceNewPasswordComponent"
+    >
+      <template #forceNewPasswordI>
+        <slot name="force-new-password"></slot>
+      </template>
+      <template
+        #footer="{ info, onHaveAccountClicked, onForceNewPasswordSubmit }"
+      >
+        <slot
+          name="sign-in-footer"
+          :info="info"
+          :onForceNewPasswordSubmit="onForceNewPasswordSubmit"
+          :onBackToSignInClicked="onHaveAccountClicked"
+        >
+        </slot>
+      </template>
+    </force-new-password>
   </div>
 
   <slot
@@ -182,6 +199,7 @@ import SignUp from './sign-up.vue';
 import ConfirmSignUp from './confirm-sign-up.vue';
 import ConfirmSignIn from './confirm-sign-in.vue';
 import SetupTotp from './setup-totp.vue';
+import ForceNewPassword from './force-new-password.vue';
 
 import { useAuth } from '../composables/useAuth';
 import {
@@ -197,6 +215,7 @@ export default {
     ConfirmSignUp,
     ConfirmSignIn,
     SetupTotp,
+    ForceNewPassword,
   },
   props: {
     shouldHideReturnBtn: {
@@ -214,6 +233,7 @@ export default {
     confirmSignUpComponent: typeof ConfirmSignUp;
     confirmSignInComponent: typeof ConfirmSignIn;
     confirmSetupTOTPComponent: typeof SetupTotp;
+    forceNewPasswordComponent: typeof ForceNewPassword;
   } {
     const { state, send } = useAuth();
     const signInComponent = ref(null);
@@ -221,6 +241,7 @@ export default {
     const confirmSignUpComponent = ref(null);
     const confirmSignInComponent = ref(null);
     const confirmSetupTOTPComponent = ref(null);
+    const forceNewPasswordComponent = ref(null);
 
     const currentPage = ref('SIGNIN');
 
@@ -251,10 +272,18 @@ export default {
     };
 
     const onConfirmSetupTOTPSubmitI = (e: Event) => {
-      if (attrs?.onConfirmSetupTOTPSubmit) {
-        emit('confirmSetupTOTPSubmit', e);
+      if (attrs?.onForceNewPasswordSubmit) {
+        emit('mSetupTOTPSubmit', e);
       } else {
         confirmSetupTOTPComponent.value.submit(e);
+      }
+    };
+
+    const onForceNewPasswordSubmitI = (e: Event) => {
+      if (attrs?.onForceNewPasswordSubmit) {
+        emit('forceNewPasswordSubmit', e);
+      } else {
+        forceNewPasswordComponent.value.submit(e);
       }
     };
 
@@ -273,6 +302,7 @@ export default {
       onSignInSubmitI,
       signInComponent,
       signUpComponent,
+      forceNewPasswordComponent,
       onSignUpSubmitI,
       confirmSignUpComponent,
       confirmSignInComponent,
@@ -280,6 +310,7 @@ export default {
       onConfirmSignInSubmitI,
       onConfirmSignUpSubmitI,
       onConfirmSetupTOTPSubmitI,
+      onForceNewPasswordSubmitI,
       send,
     };
   },

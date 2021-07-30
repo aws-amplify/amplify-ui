@@ -97,6 +97,7 @@ export interface AuthenticatorSetupReturnTypes {
   onConfirmSignUpSubmitI: (e: Event) => void;
   onConfirmSignInSubmitI: (e: Event) => void;
   onConfirmSetupTOTPSubmitI: (e: Event) => void;
+  onForceNewPasswordSubmitI: (e: Event) => void;
 }
 
 export interface AliasControlTypes {
@@ -110,4 +111,15 @@ export interface FederatedSignInReturnTypes {
   includeGoogle: boolean;
   includeAmazon: boolean;
   shouldShowFederatedSignIn: boolean;
+}
+
+export interface ForceNewPasswordReturnTypes {
+  changePasswordLabel: ComputedRef<string>;
+  changingPasswordLabel: ComputedRef<string>;
+  submit: (e: Event) => void;
+  onForceNewPasswordSubmit: (e: Event) => void;
+  state: Ref;
+  onHaveAccountClicked: () => void;
+  signInButtonText: ComputedRef<string>;
+  haveAccountLabel: ComputedRef<string>;
 }

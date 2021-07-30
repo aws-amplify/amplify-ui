@@ -7,6 +7,7 @@ export * from './flex';
 export * from './heading';
 export * from './icon';
 export * from './image';
+export * from './placeholder';
 export * from './rating';
 export * from './style';
 export * from './view';
