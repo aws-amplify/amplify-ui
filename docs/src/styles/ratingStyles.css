@@ -16,10 +16,10 @@
 }
 
 .application-color-override {
-  --amplify-ui-components-rating-color-filled: purple;
-  --amplify-ui-components-rating-color-empty: black;
+  --amplify-components-rating-filled-color: purple;
+  --amplify-components-rating-empty-color: black;
 }
 
 .application-size-override {
-  --amplify-ui-components-rating-size-small: 60px;
+  --amplify-components-rating-small-size: 60px;
 }
