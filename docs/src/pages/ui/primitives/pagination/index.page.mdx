@@ -27,6 +27,7 @@ import '@aws-amplify/ui-react/styles.css';
 <Pagination
   currentPage={1}
   totalPages={10}
+  siblingCount={1}
   onChange={this.onChange}
   onNext={this.onNext}
   onPrevious={this.onPrevious}
@@ -45,17 +46,17 @@ Using a class and CSS file:
 ```css
 /* styles.css */
 .my-custom-pagination {
-  --amplify-ui-components-pagination-item-container-current-background-color: rgba(
+  --amplify-components-pagination-current-background-color: rgba(
     0,
     181,
     204,
     0.8
   );
-  --amplify-ui-components-pagination-item-container-hover-background-color: rgba(
+  --amplify-components-pagination-button-hover-background-color: rgba(
     0,
     181,
     204,
-    0.4
+    0.3
   );
 }
 ```
@@ -92,10 +93,10 @@ import '@aws-amplify/ui-react/styles.css';
   onNext={this.onNext}
   onPrevious={this.onPrevious}
   style={{
-    '--amplify-ui-components-pagination-item-container-current-background-color':
+    '--amplify-components-pagination-current-background-color':
       'rgba(219, 10, 91, 0.8)',
-    '--amplify-ui-components-pagination-item-container-hover-background-color':
-      'rgba(219, 10, 91, 0.5)',
+    '--amplify-components-pagination-button-hover-background-color':
+      'rgba(219, 10, 91, 0.3)',
   }}
 />;
 ```
@@ -103,29 +104,13 @@ import '@aws-amplify/ui-react/styles.css';
 <PaginationDemo
   isDemo={false}
   style={{
-    '--amplify-ui-components-pagination-item-container-current-background-color':
+    '--amplify-components-pagination-current-background-color':
       'rgba(219, 10, 91, 0.8)',
-    '--amplify-ui-components-pagination-item-container-hover-background-color':
-      'rgba(219, 10, 91, 0.5)',
+    '--amplify-components-pagination-button-hover-background-color':
+      'rgba(219, 10, 91, 0.3)',
   }}
 />
 
 ## Accessibility
 
-By default, the root node has a role of "navigation" and aria-label "pagination navigation". You could override them via `role` and `ariaLabel`.
-Also, each page item has an aria-label that identifies the purpose of the item ("Go to previous page", "Go to next page", "Go to page 1" etc.).
-
-```jsx
-import { Pagination } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-// override the pre-set aria-label
-<Pagination
-  currentPage={1}
-  totalPages={10}
-  onChange={this.onChange}
-  onNext={this.onNext}
-  onPrevious={this.onPrevious}
-  ariaLabel="This is a pagination"
-/>;
-```
+By default, the root node has a role of "navigation" and each page item has an aria-label that identifies the purpose of the item ("Go to previous page", "Go to next page", "Go to page 1" etc.).

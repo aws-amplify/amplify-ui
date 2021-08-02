@@ -4,16 +4,16 @@
 }
 
 .my-custom-pagination {
-  --amplify-ui-components-pagination-item-container-current-background-color: rgba(
+  --amplify-components-pagination-current-background-color: rgba(
     0,
     181,
     204,
     0.8
   );
-  --amplify-ui-components-pagination-item-container-hover-background-color: rgba(
+  --amplify-components-pagination-button-hover-background-color: rgba(
     0,
     181,
     204,
-    0.5
+    0.3
   );
 }
