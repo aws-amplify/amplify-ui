@@ -5,7 +5,7 @@ import awsExports from '@environments/auth-with-email-and-phone/src/aws-exports'
 Amplify.configure({
   ...awsExports,
   auth: {
-    login_mechanisms: ['email', 'phone'],
+    login_mechanisms: ['email', 'phone_number'],
   },
 });
 
