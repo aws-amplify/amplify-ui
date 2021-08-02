@@ -6,6 +6,7 @@ name: Unit Tests
 on:
   push:
     branches: [main]
+
   pull_request:
     branches: [main]
 
@@ -18,7 +19,6 @@ jobs:
     strategy:
       matrix:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-        node-version: [14.x]
         package:
           - '@aws-amplify/ui-core'
           - '@aws-amplify/ui-angular'
@@ -29,10 +29,10 @@ jobs:
       - name: Checkout Amplify UI
         uses: actions/checkout@v2
 
-      - name: Setup Node.js ${{ matrix.node-version }}
+      - name: Setup Node.js LTS
         uses: actions/setup-node@v2
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: lts/*
           cache: 'yarn'
 
       - name: Install packages
