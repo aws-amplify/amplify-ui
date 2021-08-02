@@ -3,6 +3,16 @@ import { Auth, Amplify } from 'aws-amplify';
 import { Machine, assign } from 'xstate';
 import { AuthChallengeNames, AuthContext, AuthEvent } from './types';
 import { passwordMatches, runValidators } from './validators';
+import { inspect } from '@xstate/inspect';
+
+// TODO: Remove this before it's merged.
+if (typeof window !== 'undefined') {
+  inspect({
+    // options
+    // url: 'https://statecharts.io/inspect', // (default)
+    iframe: false, // open in new window
+  });
+}
 
 export const authMachine = Machine<AuthContext, AuthEvent>(
   {
