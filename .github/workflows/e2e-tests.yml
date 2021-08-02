@@ -19,7 +19,9 @@ jobs:
 
     strategy:
       matrix:
-        example: ['next-example', 'vue-example']
+        example:
+          - 'next-example'
+          - 'vue-example'
 
     steps:
       - name: Checkout Amplify UI
