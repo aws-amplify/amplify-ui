@@ -1,93 +1,50 @@
-.amplify-ui-pagination {
-  all: unset;
-  display: var(--amplify-ui-components-pagination-display);
-  list-style-type: var(--amplify-ui-components-pagination-list-style-type);
-}
-
 .amplify-ui-pagination li {
-  display: var(--amplify-ui-components-pagination-item-container-display);
-  height: var(--amplify-ui-components-pagination-item-container-height);
-  min-width: var(--amplify-ui-components-pagination-item-container-min-width);
-  margin-top: var(--amplify-ui-components-pagination-item-container-margin-top);
-  margin-right: var(
-    --amplify-ui-components-pagination-item-container-margin-right
-  );
-  margin-bottom: var(
-    --amplify-ui-components-pagination-item-container-margin-bottom
-  );
-  margin-left: var(
-    --amplify-ui-components-pagination-item-container-margin-left
-  );
-  padding-top: var(
-    --amplify-ui-components-pagination-item-container-padding-top
-  );
-  padding-right: var(
-    --amplify-ui-components-pagination-item-container-padding-right
-  );
-  padding-bottom: var(
-    --amplify-ui-components-pagination-item-container-padding-bottom
-  );
-  padding-left: var(
-    --amplify-ui-components-pagination-item-container-padding-left
-  );
-  border-radius: var(
-    --amplify-ui-components-pagination-item-container-border-radius
-  );
-  font-size: var(--amplify-ui-components-pagination-item-container-font-size);
-  align-items: var(
-    --amplify-ui-components-pagination-item-container-align-items
-  );
-  justify-content: var(
-    --amplify-ui-components-pagination-item-container-justify-content
-  );
-  box-sizing: var(--amplify-ui-components-pagination-item-container-box-sizing);
-  transition: var(--amplify-ui-components-pagination-item-container-transition);
+  margin-left: 4px;
+  margin-right: 4px;
 }
 
-.amplify-ui-pagination li[aria-current='page'] {
-  background-color: var(
-    --amplify-ui-components-pagination-item-container-current-background-color
-  );
+.amplify-ui-pagination .amplify-ui-button[data-variation='link'] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
+  font-weight: inherit;
+  height: 2rem;
+  min-width: 2rem;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 6px;
+  padding-right: 6px;
+  border-radius: 1rem;
+  transition: background-color 250ms;
 }
 
-.amplify-ui-pagination li:hover {
-  background-color: var(
-    --amplify-ui-components-pagination-item-container-hover-background-color
-  );
+.amplify-ui-pagination .amplify-ui-button[data-variation='link']:hover {
+  text-decoration: none;
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
-.amplify-ui-pagination li[aria-disabled='true'] {
-  opacity: var(
-    --amplify-ui-components-pagination-item-container-disabled-opacity
-  );
-  cursor: var(
-    --amplify-ui-components-pagination-item-container-disabled-cursor
-  );
-  pointer-events: var(
-    --amplify-ui-components-pagination-item-container-disabled-pointer-events
-  );
+.amplify-ui-pagination .amplify-ui-button[data-variation='link'][disabled] {
+  opacity: 0.4;
+  cursor: default;
+  pointer-events: none;
 }
 
-.amplify-ui-pagination li[aria-label='ellipsis']:hover {
-  background-color: var(
-    --amplify-ui-components-pagination-item-container-ellipsis-background-color
-  );
+.amplify-ui-pagination .current {
+  height: 2rem;
+  min-width: 2rem;
+  font-size: 0.875rem;
+  border-radius: 1rem;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
-.amplify-ui-pagination li a {
-  display: var(--amplify-ui-components-pagination-item-display);
-  color: var(--amplify-ui-components-pagination-item-color);
-  width: var(--amplify-ui-components-pagination-item-width);
-  align-items: var(--amplify-ui-components-pagination-item-align-items);
-  justify-content: var(--amplify-ui-components-pagination-item-justify-content);
+.amplify-ui-pagination .visuallyhidden {
+  position: absolute;
+  visibility: hidden;
 }
 
-.amplify-ui-pagination li[aria-current='page'] a {
-  color: var(--amplify-ui-components-pagination-item-current-color);
-}
-
-.amplify-ui-pagination li a:hover {
-  text-decoration: var(
-    --amplify-ui-components-pagination-item-hover-text-decoration
-  );
+.amplify-ui-pagination .ellipsis {
+  padding-left: 8px;
+  padding-right: 8px;
 }

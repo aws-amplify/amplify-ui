@@ -1,3 +1,8 @@
+.amplify-pagination-demo input {
+  width: 150px;
+  font-size: 0.875rem;
+}
+
 .my-custom-pagination {
   --amplify-ui-components-pagination-item-container-current-background-color: rgba(
     0,

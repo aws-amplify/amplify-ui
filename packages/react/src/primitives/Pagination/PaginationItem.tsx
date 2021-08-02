@@ -1,19 +1,15 @@
 import React, { useCallback } from 'react';
 
+import { Button } from '../Button';
+import { Flex } from '../Flex';
+import { Text } from '../Text';
+import { View } from '../View';
 import { IconChevronLeft, IconChevronRight } from '../Icon';
 import { PaginationItemProps } from '../types/pagination';
 
 export const PaginationItem: React.FC<PaginationItemProps> = (props) => {
-  const {
-    type,
-    page,
-    currentPage,
-    onClick,
-    ariaLabel,
-    ariaDisabled,
-    ariaCurrent,
-    ...rest
-  } = props;
+  const { type, page, currentPage, isDisabled, onClick, ariaLabel, ...rest } =
+    props;
 
   switch (type) {
     case 'page':
@@ -21,55 +17,90 @@ export const PaginationItem: React.FC<PaginationItemProps> = (props) => {
         onClick(page, currentPage);
       }, [page, currentPage]);
       return (
-        <li
-          aria-label={ariaLabel}
-          aria-current={ariaCurrent}
-          onClick={onChange}
-          {...rest}
-        >
-          <a>{page}</a>
-        </li>
+        <View as="li">
+          {page === currentPage ? (
+            <Flex
+              as="span"
+              className="current"
+              justifyContent="center"
+              alignItems="center"
+              {...rest}
+            >
+              {/**
+               * Use markup to indicate the current item of a menu, such as the current page on a website, to improve orientation in the menu.
+               * @link https://www.w3.org/WAI/tutorials/menus/structure/#indicate-the-current-item
+               */}
+              <Text as="span" className="visuallyhidden">
+                Current Page:
+              </Text>
+              {page}
+            </Flex>
+          ) : (
+            <Button
+              size="small"
+              variation="link"
+              onClick={onChange}
+              ariaLabel={ariaLabel}
+              {...rest}
+            >
+              {page}
+            </Button>
+          )}
+        </View>
       );
     case 'next':
       const onNext = useCallback(() => {
         onClick(currentPage + 1);
       }, [currentPage]);
       return (
-        <li
-          aria-label={ariaLabel}
-          aria-disabled={ariaDisabled}
-          onClick={onNext}
-          {...rest}
-        >
-          <a>
+        <View as="li">
+          <Button
+            size="small"
+            variation="link"
+            isDisabled={isDisabled}
+            onClick={onNext}
+            ariaLabel={ariaLabel}
+            {...rest}
+          >
             <IconChevronRight size="large" />
-          </a>
-        </li>
+          </Button>
+        </View>
       );
     case 'previous':
       const onPrevious = useCallback(() => {
         onClick(currentPage - 1);
       }, [currentPage]);
       return (
-        <li
-          aria-label={ariaLabel}
-          aria-disabled={ariaDisabled}
-          onClick={onPrevious}
-          {...rest}
-        >
-          <a>
+        <View as="li">
+          <Button
+            size="small"
+            variation="link"
+            isDisabled={isDisabled}
+            onClick={onPrevious}
+            ariaLabel={ariaLabel}
+            {...rest}
+          >
             <IconChevronLeft size="large" />
-          </a>
-        </li>
+          </Button>
+        </View>
       );
     case 'ellipsis':
       return (
-        <li aria-label={ariaLabel} {...rest}>
-          ...
-        </li>
+        <View as="li">
+          <Flex
+            as="span"
+            className="ellipsis"
+            testId="ellipsis"
+            alignItems="baseline"
+            justifyContent="center"
+            {...rest}
+          >
+            &#8230;
+          </Flex>
+        </View>
       );
     default:
     // No match type found
   }
-  return <li></li>;
+  return <View as="li" />;
 };

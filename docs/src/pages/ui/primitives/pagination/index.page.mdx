@@ -14,7 +14,7 @@ import { Flex } from '@aws-amplify/ui-react';
 
 import { PaginationDemo } from './demo.tsx';
 
-<PaginationDemo defaultCurrentPage="1" defaultTotalPages="10" />
+<PaginationDemo />
 
 ## Usage
 
@@ -33,7 +33,7 @@ import '@aws-amplify/ui-react/styles.css';
 />;
 ```
 
-<PaginationDemo defaultCurrentPage="1" defaultTotalPages="10" isDemo={false} />
+<PaginationDemo isDemo={false} />
 
 ## CSS styling
 
@@ -75,12 +75,7 @@ import './styles.css';
 />;
 ```
 
-<PaginationDemo
-  defaultCurrentPage="1"
-  defaultTotalPages="10"
-  isDemo={false}
-  className="my-custom-pagination"
-/>
+<PaginationDemo isDemo={false} className="my-custom-pagination" />
 
 <br />
 
@@ -106,8 +101,6 @@ import '@aws-amplify/ui-react/styles.css';
 ```
 
 <PaginationDemo
-  defaultCurrentPage="1"
-  defaultTotalPages="10"
   isDemo={false}
   style={{
     '--amplify-ui-components-pagination-item-container-current-background-color':

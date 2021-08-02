@@ -1,10 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import '@testing-library/jest-dom';
-import '@testing-library/jest-dom/extend-expect';
 
 import { Pagination } from '../Pagination';
-import { ELLIPSIS } from '../useRange';
 import { ComponentClassNames } from '../../shared';
 import { PaginationItem } from '../PaginationItem';
 
@@ -24,21 +21,16 @@ describe('Pagination component test suite', () => {
       );
       const pagination = await screen.findByRole('navigation');
       expect(pagination.id).toBe(id);
-      expect(pagination.nodeName).toBe('UL');
-      expect(pagination.getAttribute('aria-label')).toBe(
-        'Pagination Navigation'
-      );
-      expect(pagination.childNodes.length).toBe(6);
-      expect(pagination.classList[0]).toBe(ComponentClassNames.Pagination);
+      expect(pagination.nodeName).toBe('NAV');
+      expect(pagination.childNodes.length).toBe(1);
+      expect(pagination).toHaveClass(ComponentClassNames.Pagination);
 
-      const firstPage = await screen.findByLabelText('Go to page 1');
-      expect(firstPage.getAttribute('aria-current')).toBe('page');
-      expect(firstPage.childNodes.length).toBe(1);
-      expect(firstPage.childNodes[0].textContent).toBe('1');
+      const firstPage = await screen.findByText('1');
+      expect(firstPage).toHaveClass('current');
 
       const lastPage = await screen.findByLabelText('Go to page 5');
       expect(lastPage.childNodes.length).toBe(1);
-      expect(lastPage.childNodes[0].textContent).toBe('5');
+      expect(lastPage).toHaveTextContent('5');
     });
 
     it('should disable previous page button but enable next page button if current page is the first page', async () => {
@@ -54,12 +46,14 @@ describe('Pagination component test suite', () => {
       );
 
       const previous = await screen.findByLabelText('Go to previous page');
+      expect(previous.nodeName).toBe('BUTTON');
       expect(previous.childNodes.length).toBe(1);
-      expect(previous.getAttribute('aria-disabled')).toBe('true');
+      expect(previous).toBeDisabled();
 
       const next = await screen.findByLabelText('Go to next page');
+      expect(next.nodeName).toBe('BUTTON');
       expect(next.childNodes.length).toBe(1);
-      expect(next.getAttribute('aria-disabled')).toBe('false');
+      expect(next).not.toBeDisabled();
     });
 
     it('should enable previous page button but disable next page button if current page is the last page', async () => {
@@ -76,11 +70,11 @@ describe('Pagination component test suite', () => {
 
       const previous = await screen.findByLabelText('Go to previous page');
       expect(previous.childNodes.length).toBe(1);
-      expect(previous.getAttribute('aria-disabled')).toBe('false');
+      expect(previous).not.toBeDisabled();
 
       const next = await screen.findByLabelText('Go to next page');
       expect(next.childNodes.length).toBe(1);
-      expect(next.getAttribute('aria-disabled')).toBe('true');
+      expect(next).toBeDisabled();
     });
 
     it('should enable both previous page button and next page button if current page is neither the first or last page', async () => {
@@ -97,11 +91,11 @@ describe('Pagination component test suite', () => {
 
       const previous = await screen.findByLabelText('Go to previous page');
       expect(previous.childNodes.length).toBe(1);
-      expect(previous.getAttribute('aria-disabled')).toBe('false');
+      expect(previous).not.toBeDisabled();
 
       const next = await screen.findByLabelText('Go to next page');
       expect(next.childNodes.length).toBe(1);
-      expect(next.getAttribute('aria-disabled')).toBe('false');
+      expect(next).not.toBeDisabled();
     });
 
     it('should invoke related callback function if click on corresponding button', async () => {
@@ -125,16 +119,16 @@ describe('Pagination component test suite', () => {
       expect(mockOnChange).toHaveBeenCalledTimes(1);
       expect(mockOnChange).toHaveBeenCalledWith(2, 3);
 
-      // click on page 3
-      const pageThree = await screen.findByLabelText('Go to page 3');
+      // current page
+      const pageThree = await screen.findByText('3');
       userEvent.click(pageThree);
-      expect(mockOnChange).toHaveBeenCalledTimes(2);
-      expect(mockOnChange).toHaveBeenCalledWith(3, 3);
+      expect(mockOnChange).toHaveBeenCalledTimes(1);
+      expect(mockOnChange).toHaveBeenLastCalledWith(2, 3);
 
       // click on page 4
       const pageFour = await screen.findByLabelText('Go to page 4');
       userEvent.click(pageFour);
-      expect(mockOnChange).toHaveBeenCalledTimes(3);
+      expect(mockOnChange).toHaveBeenCalledTimes(2);
       expect(mockOnChange).toHaveBeenCalledWith(4, 3);
 
       // click on previous page button
@@ -149,6 +143,50 @@ describe('Pagination component test suite', () => {
       expect(mockOnNext).toHaveBeenCalledTimes(1);
       expect(mockOnNext).toHaveBeenCalledWith(4);
     });
+
+    it('should render 11 items if sibling count is set to 2', async () => {
+      render(
+        <Pagination
+          id={id}
+          currentPage={1}
+          totalPages={10}
+          siblingCount={2}
+          onChange={() => {}}
+          onNext={() => {}}
+          onPrevious={() => {}}
+        />
+      );
+
+      const pagination = await screen.findByRole('navigation');
+      expect(pagination.childNodes.length).toBe(1);
+      const paginationItemList = pagination.childNodes[0];
+      // To avoid resizing the component during interaction, the constant length should be
+      // 1(first page) + 1(last page) + 1(current page) + 2 * siblingCount + 2(ellipses)
+      expect(paginationItemList.childNodes.length).toBe(11);
+    });
+
+    it('should render 4 siblings around current page with 2 sibling count', async () => {
+      render(
+        <Pagination
+          id={id}
+          currentPage={5}
+          totalPages={10}
+          siblingCount={2}
+          onChange={() => {}}
+          onNext={() => {}}
+          onPrevious={() => {}}
+        />
+      );
+      const pagination = await screen.findByRole('navigation');
+      // curent page
+      expect(pagination).toHaveTextContent('Current Page:');
+      expect(pagination).toHaveTextContent('5');
+      // sibling pages
+      expect(pagination).toHaveTextContent('3');
+      expect(pagination).toHaveTextContent('4');
+      expect(pagination).toHaveTextContent('6');
+      expect(pagination).toHaveTextContent('7');
+    });
   });
 
   describe('Test PaginationItem', () => {
@@ -158,25 +196,20 @@ describe('Pagination component test suite', () => {
         <PaginationItem
           type="page"
           page={1}
-          ariaCurrent="page"
           ariaLabel="Go to page 1"
           currentPage={1}
           onClick={mockOnClick}
         />
       );
-
-      const pageItem = await screen.findByLabelText('Go to page 1');
-      expect(pageItem.nodeName).toBe('LI');
-      expect(pageItem.getAttribute('aria-current')).toBe('page');
-      const textContainer = await screen.findByText('1');
-      expect(textContainer.nodeName).toBe('A');
-      expect(textContainer.innerHTML).toBe('1');
+      const pageItem = await screen.findByText('1');
+      expect(pageItem.nodeName).toBe('SPAN');
+      expect(pageItem).toHaveClass('current');
+      const invisibleLabel = await screen.findByText('Current Page:');
+      expect(invisibleLabel).toHaveClass('visuallyhidden');
 
       userEvent.click(pageItem);
-      expect(mockOnClick).toHaveBeenCalledTimes(1);
-      expect(mockOnClick).toHaveBeenCalledWith(1, 1);
+      expect(mockOnClick).not.toHaveBeenCalled();
     });
-
     it('should render previous page button with provided porps', async () => {
       const mockOnClick = jest.fn();
       render(
@@ -188,16 +221,13 @@ describe('Pagination component test suite', () => {
           onClick={mockOnClick}
         />
       );
-
       const previous = await screen.findByLabelText('Go to previous page');
-      expect(previous.nodeName).toBe('LI');
-      expect(previous.getAttribute('aria-disabled')).toBe('false');
-
+      expect(previous.nodeName).toBe('BUTTON');
+      expect(previous).not.toBeDisabled();
       userEvent.click(previous);
       expect(mockOnClick).toHaveBeenCalledTimes(1);
       expect(mockOnClick).toHaveBeenCalledWith(1);
     });
-
     it('should render next page button with provided porps', async () => {
       const mockOnClick = jest.fn();
       render(
@@ -209,22 +239,19 @@ describe('Pagination component test suite', () => {
           onClick={mockOnClick}
         />
       );
-
       const previous = await screen.findByLabelText('Go to next page');
-      expect(previous.nodeName).toBe('LI');
-      expect(previous.getAttribute('aria-disabled')).toBe('false');
-
+      expect(previous.nodeName).toBe('BUTTON');
+      expect(previous).not.toBeDisabled();
       userEvent.click(previous);
       expect(mockOnClick).toHaveBeenCalledTimes(1);
       expect(mockOnClick).toHaveBeenCalledWith(3);
     });
-
     it('should render ellipsis item with provided porps', async () => {
       render(<PaginationItem type="ellipsis" ariaLabel="ellipsis" />);
-
-      const ellipsis = await screen.findByLabelText('ellipsis');
-      expect(ellipsis.nodeName).toBe('LI');
-      expect(ellipsis.innerHTML).toBe(ELLIPSIS);
+      const ellipsis = await screen.findByTestId('ellipsis');
+      expect(ellipsis.nodeName).toBe('SPAN');
+      expect(ellipsis).toHaveClass('ellipsis');
+      expect(ellipsis.innerHTML).toBe('\u2026');
     });
   });
 });

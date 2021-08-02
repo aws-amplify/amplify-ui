@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 
+import { i18n } from './i18n';
 import { useRange, ELLIPSIS } from './useRange';
 import { PaginationItem } from './PaginationItem';
 
@@ -7,6 +8,7 @@ import { PaginationItem } from './PaginationItem';
  * This hook will be used to get the pagination items to be rendered in the pagination primitive
  * @param currentPage current page number
  * @param totalPages total number of pages
+ * @param siblingCount the number of siblings on each side of
  * @param onNext callback function triggered when the next-page button is pressed
  * @param onPrevious callback function triggered when the prev-page button is pressed
  * @param onChange callback function triggered every time the page changes
@@ -15,6 +17,7 @@ import { PaginationItem } from './PaginationItem';
 export const usePaginationItems = (
   currentPage: number,
   totalPages: number,
+  siblingCount: number,
   onNext: (newPageIdx: number) => void,
   onPrevious: (newPageIdx: number) => void,
   onChange: (newPageIdx: number, prevPageIdx) => void
@@ -25,8 +28,8 @@ export const usePaginationItems = (
       key="previous"
       currentPage={currentPage}
       onClick={onPrevious}
-      ariaLabel="Go to previous page"
-      ariaDisabled={currentPage <= 1}
+      isDisabled={currentPage <= 1}
+      ariaLabel={i18n.PaginationItem.PreviousItem.ariaLabel}
     />
   );
 
@@ -36,14 +39,14 @@ export const usePaginationItems = (
       key="next"
       currentPage={currentPage}
       onClick={onNext}
-      ariaLabel="Go to next page"
-      ariaDisabled={currentPage >= totalPages}
+      isDisabled={currentPage >= totalPages}
+      ariaLabel={i18n.PaginationItem.NextItem.ariaLabel}
     />
   );
   // To get the range of page numbers to be rendered in the pagination primitive
-  const range = useRange(currentPage, totalPages);
+  const range = useRange(currentPage, totalPages, siblingCount);
 
-  const pages = useMemo(
+  const pageItems = useMemo(
     () =>
       range.map((item, idx) => {
         if (item === ELLIPSIS) {
@@ -51,7 +54,6 @@ export const usePaginationItems = (
             <PaginationItem
               type="ellipsis"
               key={idx === 1 ? 'start-ellipsis' : 'end-ellipsis'}
-              ariaLabel="ellipsis"
             />
           );
         }
@@ -65,11 +67,10 @@ export const usePaginationItems = (
             currentPage={currentPage}
             onClick={onChange}
             ariaLabel={`Go to page ${item}`}
-            ariaCurrent={item === currentPage ? 'page' : undefined}
           />
         );
       }),
     [range, currentPage, onChange]
   );
-  return [previousItem, ...pages, nextItem];
+  return [previousItem, ...pageItems, nextItem];
 };

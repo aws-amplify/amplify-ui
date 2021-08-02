@@ -18,6 +18,11 @@ export interface PaginationProps
   totalPages: number;
 
   /**
+   * The number of siblings on each side of current page.
+   */
+  siblingCount?: number;
+
+  /**
    * Callback function triggered when the next-page button is pressed
    */
   onNext: (newPageIndex: number) => void;
@@ -50,6 +55,11 @@ export interface PaginationItemProps
    * The index of current page.
    */
   currentPage?: number;
+
+  /**
+   * An item is not clickable if disabled
+   */
+  isDisabled?: boolean;
 
   /**
    * Triggered every time the item is clicked.

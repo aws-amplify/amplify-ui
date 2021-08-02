@@ -1,8 +1,9 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import { usePaginationItems } from './usePaginationItems';
+import { Flex } from '../Flex';
 import { View } from '../View';
+import { usePaginationItems } from './usePaginationItems';
 import { PaginationProps } from '../types';
 import { ComponentClassNames } from '../shared/constants';
 
@@ -11,18 +12,17 @@ export const Pagination: React.FC<PaginationProps> = (props) => {
     className,
     currentPage,
     totalPages,
+    siblingCount,
     onNext,
     onPrevious,
     onChange,
-    ariaLabel = 'Pagination Navigation',
-    role = 'navigation',
     ...rest
   } = props;
 
-  // invoke usePages hook to get pagination items
   const paginationItems = usePaginationItems(
     currentPage,
     totalPages,
+    siblingCount,
     onNext,
     onPrevious,
     onChange
@@ -30,13 +30,13 @@ export const Pagination: React.FC<PaginationProps> = (props) => {
 
   return (
     <View
-      as="ul"
-      role={role}
-      ariaLabel={ariaLabel}
+      as="nav"
       className={classNames(ComponentClassNames.Pagination, className)}
       {...rest}
     >
-      {paginationItems}
+      <Flex as="ol" justifyContent="center" alignItems="center" gap="inherit">
+        {paginationItems}
+      </Flex>
     </View>
   );
 };
