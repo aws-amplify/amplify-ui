@@ -1,6 +1,4 @@
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import '@testing-library/jest-dom/extend-expect';
 import { kebabCase } from 'lodash';
 
 import { Collection } from '../Collection';

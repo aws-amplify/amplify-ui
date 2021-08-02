@@ -1,6 +1,4 @@
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import '@testing-library/jest-dom/extend-expect';
 import { Placeholder } from '../Placeholder';
 import { Text } from '../../Text';
 import { ComponentClassNames } from '../../shared';

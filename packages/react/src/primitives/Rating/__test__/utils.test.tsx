@@ -1,6 +1,4 @@
 import { isIconEmpty, isIconFilled, isIconMixed } from '../utils';
-import '@testing-library/jest-dom';
-import '@testing-library/jest-dom/extend-expect';
 
 describe('isIconFilled', () => {
   /**
