@@ -19,6 +19,7 @@ jobs:
 
     strategy:
       matrix:
+        example: ['next-example', 'vue-example']
 
     steps:
       - name: Checkout Amplify UI
@@ -29,18 +30,28 @@ jobs:
         with:
           node-version: lts/*
           cache: 'yarn'
+
       - name: Install packages
         run: yarn --frozen-lockfile
+
       - name: Add Amplify CLI
         run: yarn global add @aws-amplify/cli
+
       - name: Pull down AWS environments
         run: sh ./.github/pull-environments.sh
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      - run: yarn next-example build
-      - run: yarn next-example start & npx wait-on http://localhost:3000/ui/components/authenticator/sign-in-with-username
+
+      - name: Build ${{ matrix.example }}
+        run: yarn workspace ${{ matrix.example }} build
+
+      - name: Start ${{ matrix.example }}
+      - run: yarn ${{ matrix.example }} start & npx wait-on http://localhost:3000/ui/components/authenticator/sign-in-with-username
+
+      - name: Run E2E tests against ${{ matrix.example }}
       - run: yarn test
+
         env:
           CONFIRMED_USERNAME: ${{ secrets.CONFIRMED_USERNAME }}
           FORCE_CHANGE_USERNAME: ${{ secrets.FORCE_CHANGE_USERNAME }}
