@@ -49,11 +49,10 @@ jobs:
         run: yarn workspace ${{ matrix.example }} build
 
       - name: Start ${{ matrix.example }}
-      - run: yarn ${{ matrix.example }} start & npx wait-on http://localhost:3000/ui/components/authenticator/sign-in-with-username
+        run: yarn ${{ matrix.example }} start & npx wait-on http://localhost:3000/ui/components/authenticator/sign-in-with-username
 
       - name: Run E2E tests against ${{ matrix.example }}
-      - run: yarn test
-
+        run: yarn test
         env:
           CONFIRMED_USERNAME: ${{ secrets.CONFIRMED_USERNAME }}
           FORCE_CHANGE_USERNAME: ${{ secrets.FORCE_CHANGE_USERNAME }}
