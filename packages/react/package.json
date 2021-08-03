@@ -10,6 +10,7 @@
   ],
   "scripts": {
     "build": "tsc",
+    "update:icons": "node scripts/updateIcons.js",
     "build:icons": "yarn run clean:icons && node scripts/generateIcons.js",
     "clean": "rimraf dist",
     "clean:icons": "rimraf ./src/primitives/Icon/icons",
@@ -39,6 +40,7 @@
     "hygen": "^6.1.0",
     "jest": "^27.0.4",
     "rimraf": "^3.0.2",
+    "shelljs": "^0.8.4",
     "ts-jest": "^27.0.3",
     "typescript": "^4.3.2"
   }
