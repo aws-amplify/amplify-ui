@@ -1,10 +1,12 @@
-import { assign, spawn, createMachine } from 'xstate';
+import { assign, spawn, createMachine, forwardTo } from 'xstate';
 import { Auth, Amplify } from 'aws-amplify';
 import { get } from 'lodash';
 import { AuthChallengeNames, AuthContext, AuthEvent } from '../types';
 import { passwordMatches, runValidators } from '../validators';
 import { inspect } from '@xstate/inspect';
 import { signInMachine } from './actors';
+import { stop } from 'xstate/lib/actions';
+import { spawnActor } from './actions';
 
 // TODO: Remove this before it's merged.
 if (typeof window !== 'undefined') {
@@ -47,13 +49,19 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
           },
         ],
       },
-      federatedSignIn: {},
-
       signIn: {
-        entry: assign({
-          actorRef: () => spawn(signInMachine, 'signIn'),
-        }),
+        entry: spawnActor(signInMachine, 'signIn'),
+        exit: 'stopActor',
+        on: {
+          SIGN_UP: 'signUp',
+        },
       },
+      signUp: {
+        on: {
+          SIGN_IN: 'signIn',
+        },
+      },
+      federatedSignIn: {},
       authenticated: {
         on: {
           SIGN_OUT: 'signOut',
@@ -62,7 +70,6 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
       forceNewPassword: {},
       confirmSignIn: {},
       setupTOTP: {},
-      signUp: {},
       confirmSignUp: {},
       signOut: {
         initial: 'pending',
@@ -89,9 +96,15 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
         },
       },
     },
+    on: {
+      '*': {
+        actions: forwardTo((context) => context.actorRef),
+      },
+    },
   },
   {
     actions: {
+      stopActor: stop((context) => context.actorRef),
       setUser: assign({
         user(_, event) {
           return event.data?.user || event.data;

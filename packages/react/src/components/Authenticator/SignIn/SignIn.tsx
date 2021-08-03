@@ -22,6 +22,14 @@ export function SignIn() {
   const [state, send] = useAuth();
   const isPending = state.matches('signIn.pending');
 
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    send({
+      type: 'CHANGE',
+      data: { name, value },
+    });
+  };
+
   return (
     // TODO Automatically add these namespaces again from `useAmplify`
     <Form
@@ -38,6 +46,7 @@ export function SignIn() {
           data: Object.fromEntries(formData),
         });
       }}
+      onChange={handleChange}
     >
       <Heading level={1}>Sign in to your account</Heading>
 
