@@ -1,0 +1,48 @@
+:root {
+  --amplify-components-rating-filled-color: var(
+    --amplify-colors-brand-secondary-60
+  );
+  --amplify-components-rating-empty-color: var(
+    --amplify-colors-border-tertiary
+  );
+
+  --amplify-components-icon-large-height: var(--amplify-font-sizes-xxl);
+}
+
+body {
+  font-family: 'Inter var';
+  background-color: var(--amplify-colors-background-tertiary);
+  padding: 0;
+  margin: 0;
+}
+
+.amplify-rating {
+  gap: var(--amplify-space-xs);
+  align-items: center;
+}
+
+.amplify-divider {
+  display: block; /* because of all: unset */
+  margin: 1rem 0; /* margin doesn't work in React for divider */
+}
+
+.amplify-heading {
+  display: block;
+}
+
+h1.amplify-heading {
+  font-weight: 200;
+}
+
+h3.amplify-heading {
+  font-weight: 600;
+}
+
+h6.amplify-heading {
+  font-weight: 900;
+}
+
+.listing-app-header {
+  background-color: var(--amplify-colors-background-primary);
+  padding: var(--amplify-space-medium);
+}
