@@ -17,12 +17,11 @@ describe('Image: ', () => {
     expect(image.className).toContain(ComponentClassNames.Image);
   });
 
-  it('can set sizes, srcset, htmlWidth, and htmlHeight attributes', async () => {
+  it('can set sizes and srcset attributes', async () => {
     const srcSet = 'cat-480w.jpg 480w, cat-800w.jpg 800w';
     const sizes = '(max-width: 600px) 480px, 800px';
     const src = 'cat-800w.jpg';
-    const htmlHeight = 220;
-    const htmlWidth = 480;
+
     render(
       <Image
         testId="dataTest"
@@ -30,8 +29,6 @@ describe('Image: ', () => {
         src={src}
         srcSet={srcSet}
         sizes={sizes}
-        htmlHeight={htmlHeight}
-        htmlWidth={htmlWidth}
       />
     );
     const image = (await screen.findByTestId('dataTest')) as HTMLImageElement;
@@ -39,8 +36,6 @@ describe('Image: ', () => {
     expect(image).toBeDefined();
     expect(image.sizes).toBe(sizes);
     expect(image.srcset).toBe(srcSet);
-    expect(image.height).toBe(htmlHeight);
-    expect(image.width).toBe(htmlWidth);
   });
 
   it('can set onLoad event handler', () => {

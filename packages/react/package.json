@@ -25,6 +25,10 @@
     "classnames": "^2.3.1",
     "qrcode": "^1.4.4"
   },
+  "peerDependencies": {
+    "@aws-amplify/ui-core": "^0.0.1",
+    "@aws-amplify/ui-theme-base": "^0.0.1"
+  },
   "workspaces": {
     "nohoist": [
       "@types/testing-library__jest-dom",
