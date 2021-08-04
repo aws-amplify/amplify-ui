@@ -40,3 +40,8 @@ a > h3::before {
   content: '#';
   @apply absolute -ml-5 text-amazon;
 }
+
+/* Overriding tailwind styles */
+img {
+  display: initial;
+}

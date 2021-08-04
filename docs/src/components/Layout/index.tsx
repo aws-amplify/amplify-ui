@@ -6,11 +6,11 @@ import CodeBlockProvider from 'amplify-docs/src/components/CodeBlockProvider/ind
 import { Container } from 'amplify-docs/src/components/Container';
 import ExternalLink from 'amplify-docs/src/components/ExternalLink';
 import Footer from 'amplify-docs/src/components/Footer/index';
+import { LayoutStyle } from 'amplify-docs/src/components/Layout/styles';
 import {
   ChapterTitleStyle,
   ContentStyle,
-  LayoutStyle,
-} from 'amplify-docs/src/components/Layout/styles';
+} from 'amplify-docs/src/components/Page/styles';
 import {
   DirectoryGroupHeaderStyle,
   DirectoryGroupItemStyle,
@@ -27,6 +27,7 @@ import {
   MenuHeaderStyle,
   MenuStyle,
 } from 'amplify-docs/src/components/Menu/styles';
+import FilterSelect from 'amplify-docs/src/components/Menu/FilterSelect';
 import SecondaryNav from 'amplify-docs/src/components/SecondaryNav/index';
 import TableOfContents from 'amplify-docs/src/components/TableOfContents/index';
 import UniversalNav from 'amplify-docs/src/components/UniversalNav/index';
@@ -38,7 +39,6 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import * as React from 'react';
-import { PlatformSelect } from './PlatformSelect';
 
 export default function Layout({
   children,
@@ -52,7 +52,33 @@ export default function Layout({
   const router = useRouter();
   const pathname = router.pathname;
   const href = router.asPath;
-  const { platform = 'react' } = router.query as { platform: string };
+
+  let filterKey = '',
+    filterKind = '',
+    filterKeys = {} as {
+      platform?: string;
+      integration?: string;
+      framework?: string;
+    };
+
+  // taken from amplify-docs/src/Component/Page/index.tsx
+  if (typeof localStorage !== 'undefined') {
+    filterKeys = JSON.parse(localStorage.getItem('filterKeys')) || {};
+    if ('platform' in router.query) {
+      filterKey = router.query.platform as string;
+      filterKeys.platform = filterKey;
+      filterKind = 'platform';
+    } else if ('integration' in router.query) {
+      filterKey = router.query.integration as string;
+      filterKeys.integration = filterKey;
+      filterKind = 'integration';
+    } else if ('framework' in router.query) {
+      filterKey = router.query.framework as string;
+      filterKeys.framework = filterKey;
+      filterKind = 'framework';
+    }
+    localStorage.setItem('filterKeys', JSON.stringify(filterKeys));
+  }
 
   const groupedPages = Object.entries(
     groupBy(pages, (page) => {
@@ -71,7 +97,7 @@ export default function Layout({
               '#__next > section:first-of-type h3',
             ].join(',')
           ),
-        ].map((node) => [node.innerHTML, node.tagName.toLowerCase()]);
+        ].map((node) => [node.innerHTML, node.id, node.tagName.toLowerCase()]);
 
         setHeaders(htmlHeaders);
       },
@@ -148,12 +174,7 @@ export default function Layout({
         brandIcon="/assets/logo-light.svg"
         blend={false}
       />
-      <SecondaryNav
-        platform={
-          undefined /* This is an external site, so this is all nav links can be made external */
-        }
-        pageHasMenu={false}
-      />
+      <SecondaryNav />
       <Container backgroundColor="bg-color-tertiary">
         <LayoutStyle>
           {isMenuOpen ? (
@@ -162,10 +183,10 @@ export default function Layout({
                 <div>
                   <MenuHeaderStyle>
                     <MenuCloseButton closeMenu={() => setIsMenuOpen(false)} />
-                    <PlatformSelect
+                    <FilterSelect
                       // TODO – Can the available frameworks come from the pages? Or should this be hard-coded based on public support?
                       filters={['angular', 'next', 'react', 'vue']}
-                      platform={platform}
+                      filterKey={filterKeys.framework || 'react'}
                       pathname={pathname}
                     />
                   </MenuHeaderStyle>

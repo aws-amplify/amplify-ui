@@ -412,12 +412,27 @@
     qrcode "^1.4.4"
     uuid "^8.2.0"
 
+"@aws-amplify/ui-components@1.7.1":
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/ui-components/-/ui-components-1.7.1.tgz#d31bcdf0754f1e0bb59f5221e1424954c621b820"
+  integrity sha512-MVqjGq6S5eOtChENAdsLnIb8BE0FOJ/tszV1kp+dR9DEtwD1Ksdc8BGdtZF1GdzfAiPmj4l3LtF7WSs1/ogrxg==
+  dependencies:
+    qrcode "^1.4.4"
+    uuid "^8.2.0"
+
 "@aws-amplify/ui-react-v1@npm:@aws-amplify/ui-react":
   version "1.2.6"
   resolved "https://registry.yarnpkg.com/@aws-amplify/ui-react/-/ui-react-1.2.6.tgz#02328c97121d2709e3a8cc515cc7201149ac52fb"
   integrity sha512-kB58+W++Xq82N08kvMrFMjKrVlnMJVoPm4+thyEYfEW6AKoBszt25/ND+TofpcLZHiwAc6SEIKL2B3rbNZKNgA==
   dependencies:
     "@aws-amplify/ui-components" "1.6.2"
+
+"@aws-amplify/ui-react@^1.2.5":
+  version "1.2.8"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/ui-react/-/ui-react-1.2.8.tgz#8b2ceac758b4206beac4453a3928bab1eed8d8f1"
+  integrity sha512-k0fEQs1h1hFGQxHCUhHw+i9Q7hGyhOvXHbdoijvIUSiDUrLYTauoG5LhcjvPLRE9M/t+XCbryXr0bPSJQwjtuw==
+  dependencies:
+    "@aws-amplify/ui-components" "1.7.1"
 
 "@aws-amplify/ui@2.0.3":
   version "2.0.3"
@@ -5755,11 +5770,12 @@ amazon-cognito-identity-js@5.0.5:
     isomorphic-unfetch "^3.0.0"
     js-cookie "^2.2.1"
 
-"amplify-docs@github:https://github.com/aws-amplify/docs#33d383d":
+"amplify-docs@github:https://github.com/aws-amplify/docs#d81eefd":
   version "2.0.0"
-  resolved "https://codeload.github.com/aws-amplify/docs/tar.gz/33d383db5ea8df2691abff3c8090588a388f7fca"
+  resolved "https://codeload.github.com/aws-amplify/docs/tar.gz/d81eefd6ba8b843ce23db84c425af5ac3955bfab"
   dependencies:
     "@aws-amplify/ui-components" latest
+    "@aws-amplify/ui-react" "^1.2.5"
     "@emotion/react" "^11.1.5"
     "@emotion/styled" "^11.3.0"
     array-flatten "^3.0.0"
