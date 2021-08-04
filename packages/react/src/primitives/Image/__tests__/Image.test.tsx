@@ -1,7 +1,5 @@
 import { Image } from '../Image';
 import { fireEvent, render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import '@testing-library/jest-dom/extend-expect';
 import { ComponentClassNames } from '../../shared';
 import { ComponentPropsToStylePropsMap } from '../../types';
 import { kebabCase } from 'lodash';

@@ -1,6 +1,8 @@
-import { convertStylePropsToStyleObj, getNonStyleProps } from '../utils';
-import '@testing-library/jest-dom';
-import '@testing-library/jest-dom/extend-expect';
+import {
+  convertStylePropsToStyleObj,
+  getNonStyleProps,
+  getConsecutiveIntArray,
+} from '../utils';
 import { ComponentPropsToStylePropsMap, ViewProps } from '../../types';
 
 const props: ViewProps = {
@@ -57,5 +59,12 @@ describe('getNonStyleProps: ', () => {
     expect(nonStyleProps['as']).toBe(props.as);
     expect(nonStyleProps['ariaLabel']).toBe(props.ariaLabel);
     expect(nonStyleProps['className']).toBe(props.className);
+  });
+});
+
+describe('getConsecutiveIntArray: ', () => {
+  it('should return an array of consecutive integer', () => {
+    const array = getConsecutiveIntArray(1, 5);
+    expect(array).toEqual([1, 2, 3, 4, 5]);
   });
 });

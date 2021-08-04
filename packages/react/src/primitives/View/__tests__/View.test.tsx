@@ -1,7 +1,5 @@
 import { View } from '../View';
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import '@testing-library/jest-dom/extend-expect';
 import { ComponentPropsToStylePropsMap } from '../../types';
 import { kebabCase } from 'lodash';
 

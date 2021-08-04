@@ -9,11 +9,11 @@ const iconNames = [];
 // Pick one to filter out afterwards
 const iconFilter = ['IconAddchart'];
 
-glob(iconSetPath, function(error, files) {
+glob(iconSetPath, function (error, files) {
   if (error) {
     throw error;
   }
-  files.forEach(filePath => {
+  files.forEach((filePath) => {
     const iconName = `Icon${pascalCase(filePath.split('/')[5])}`;
     const source = fs.readFileSync(filePath, { encoding: 'utf8' });
     const outputPath = `${dirPath}${iconName}.tsx`;
@@ -51,7 +51,7 @@ export const ${iconName} = (props) => {
   });
 
   const iconExportsFile = iconNames
-    .map(iconName => {
+    .map((iconName) => {
       return `export * from './${iconName}';`;
     })
     .join(`\n`);

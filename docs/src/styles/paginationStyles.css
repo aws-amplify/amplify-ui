@@ -1,0 +1,19 @@
+.amplify-pagination-demo input {
+  width: 150px;
+  font-size: 0.875rem;
+}
+
+.my-custom-pagination {
+  --amplify-components-pagination-current-background-color: rgba(
+    0,
+    181,
+    204,
+    0.8
+  );
+  --amplify-components-pagination-button-hover-background-color: rgba(
+    0,
+    181,
+    204,
+    0.3
+  );
+}

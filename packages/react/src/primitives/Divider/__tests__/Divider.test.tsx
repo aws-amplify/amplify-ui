@@ -1,7 +1,5 @@
 import { Divider } from '../Divider';
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import '@testing-library/jest-dom/extend-expect';
 import { ComponentClassNames } from '../../shared';
 
 describe('Divider component', () => {
@@ -12,7 +10,7 @@ describe('Divider component', () => {
     const divider = (await screen.findByRole('separator')) as HTMLHRElement;
     expect(divider.nodeName).toBe('HR');
     expect(divider.id).toBe(dividerTestId);
-    expect(divider.dataset['size']).toBe('small');
+    expect(divider.dataset['size']).toBeUndefined();
     expect(divider.getAttribute('aria-orientation')).toBe('horizontal');
     expect(divider.className).toContain(ComponentClassNames.Divider);
   });
