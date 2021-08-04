@@ -14,21 +14,11 @@ try {
   );
 } catch (e) {
   console.log(
-    `${e.message}. The script requires svn installed. Fallback to use git instead.`
+    `${e.message}. The script requires svn installed. Fallback to use degit instead.`
   );
-  execSync('mkdir tmp');
-  chdir('./tmp');
-  execSync('git init -b master');
-  execSync(
-    'git remote add origin git@github.com:google/material-design-icons.git'
-  );
-  execSync('git config core.sparseCheckout true');
-  execSync('echo "src/*" >> .git/info/sparse-checkout');
-  execSync('git fetch origin master');
-  execSync('git merge origin/master');
-  const destDirPath = `../${dirPath}/svg`;
+  const destDirPath = `${dirPath}/svg`;
   fs.ensureDirSync(destDirPath);
-  execSync(`cp -R src/* ${destDirPath}`);
-  execSync('rm -rf ../tmp');
-  console.log('Please install svn to reduce the script runtime.');
+  execSync(
+    `degit --force git@github.com:google/material-design-icons/src ${destDirPath}`
+  );
 }
