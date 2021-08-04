@@ -81,7 +81,7 @@ jobs:
         run: yarn workspace ${{ matrix.example }} build
 
       - name: Start ${{ matrix.example }}
-        run: yarn ${{ matrix.example }} start & npx wait-on http://localhost:3000/ui/components/authenticator/sign-in-with-username
+        run: yarn ${{ matrix.example }} start & npx wait-on -t 30000 http://localhost:3000/ui/components/authenticator/sign-in-with-username
 
       - name: Run E2E tests against ${{ matrix.example }}
         run: yarn workspace e2e test
