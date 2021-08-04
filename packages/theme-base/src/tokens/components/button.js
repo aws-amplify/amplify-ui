@@ -5,7 +5,8 @@ module.exports = {
   borderRadius: { value: '{radii.medium.value}' },
   transitionDuration: { value: '{time.transition.medium.value}' },
   fontSize: { value: '{fontSizes.medium.value}' },
-  padding: { value: ['{space.small.value}', '{space.medium.value}'] },
+  paddingVertical: { value: '{space.small.value}' },
+  paddingHorizontal: { value: '{space.medium.value}' },
   borderColor: { value: '{colors.brand.primary.20.value}' },
   borderWidth: { value: '{borderWidths.small.value}' },
   borderStyle: { value: 'solid' },
@@ -84,12 +85,14 @@ module.exports = {
   // sizes
   small: {
     fontSize: { value: '{fontSizes.small.value}' },
-    padding: { value: ['{space.xs.value}', '{space.small.value}'] },
+    paddingVertical: { value: '{space.xs.value}' },
+    paddingHorizontal: { value: '{space.small.value}' },
     borderRadius: { value: '{radii.medium.value}' },
   },
   large: {
     fontSize: { value: '{fontSizes.large.value}' },
-    padding: { value: ['{space.medium.value}', '{space.large.value}'] },
+    paddingVertical: { value: '{space.medium.value}' },
+    paddingHorizontal: { value: '{space.large.value}' },
     borderRadius: { value: '{radii.medium.value}' },
   },
 };

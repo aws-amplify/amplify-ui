@@ -14,7 +14,8 @@
   border-radius: var(--amplify-components-button-border-radius);
   color: var(--amplify-components-button-color);
   font-size: var(--amplify-components-button-font-size);
-  padding: var(--amplify-components-button-padding);
+  padding: var(--amplify-components-button-padding-vertical)
+    var(--amplify-components-button-padding-horizontal);
   
   &:hover {
     background-color: var(--amplify-components-button-hover-background-color);
@@ -131,12 +132,14 @@
   &[data-size='small'] {
     border-radius: var(--amplify-components-button-small-border-radius);
     font-size: var(--amplify-components-button-small-font-size);
-    padding: var(--amplify-components-button-small-padding);
+    padding: var(--amplify-components-button-small-padding-vertical)
+      var(--amplify-components-button-small-padding-horizontal);
   }
   
   &[data-size='large'] {
     border-radius: var(--amplify-components-button-large-border-radius);
     font-size: var(--amplify-components-button-large-font-size);
-    padding: var(--amplify-components-button-large-padding);
+    padding: var(--amplify-components-button-large-padding-vertical)
+      var(--amplify-components-button-large-padding-horizontal);
   }
 }
