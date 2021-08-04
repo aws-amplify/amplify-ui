@@ -10,28 +10,28 @@ Feature: Sign In with Username
   Background:
     Given I'm at the sign in page
 
-  @Next @React @Vue
+  @next @react @vue
   Scenario: Sign in with unknown credentials
     When I type the valid username "UNKNOWN_USERNAME"
     And I type the valid password "VALID_PASSWORD"
     And I click the "Sign In" button
     Then I see "User does not exist"
 
-  @Next @React
+  @next @react
   Scenario: Sign in with unconfirmed credentials
     When I type the valid username "UNCONFIRMED_USERNAME"
     And I type the valid password "VALID_PASSWORD"
     And I click the "Sign In" button
     Then I see "Confirmation Code"
 
-  @Next @Vue @React
+  @next @vue @react
   Scenario: Sign in with confirmed credentials
     When I type the valid username "CONFIRMED_USERNAME"
     And I type the valid password "VALID_PASSWORD"
     And I click the "Sign In" button
     Then I see "Sign out"
 
-  @Next @React @skip
+  @next @react @skip
   Scenario: Sign in with force change password credentials
     When I type the valid username "FORCE_CHANGE_USERNAME"
     And I type the valid password "VALID_PASSWORD"
