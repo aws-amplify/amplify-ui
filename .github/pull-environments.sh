@@ -14,12 +14,13 @@ FRONTEND="{\
 \"config\":$FRONTENDCONFIG\
 }"
 AMPLIFY="{\
-\"defaultEditor\":\"code\"\
+\"defaultEditor\":\"code\",\
 \"envName\":\"staging\"\
 }"
 AWSCLOUDFORMATIONCONFIG="{\
 \"configLevel\":\"project\",\
-\"useProfile\":false,\
+\"useProfile\":true,\
+\"profileName\":\"$AWS_PROFILE\",\
 \"accessKeyId\":\"$AWS_ACCESS_KEY_ID\",\
 \"secretAccessKey\":\"$AWS_SECRET_ACCESS_KEY\",\
 \"region\":\"us-east-1\"\
