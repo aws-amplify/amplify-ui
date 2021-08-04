@@ -7,12 +7,6 @@ export interface ImagePropControlsProps extends ImageOptions {
   setSizes: (value: React.SetStateAction<ImageOptions['sizes']>) => void;
   setSrc: (value: React.SetStateAction<ImageOptions['src']>) => void;
   setSrcSet: (value: React.SetStateAction<ImageOptions['srcSet']>) => void;
-  setHtmlHeight: (
-    value: React.SetStateAction<ImageOptions['htmlHeight']>
-  ) => void;
-  setHtmlWidth: (
-    value: React.SetStateAction<ImageOptions['htmlWidth']>
-  ) => void;
   setObjectFit: (
     value: React.SetStateAction<ImageOptions['objectFit']>
   ) => void;
@@ -30,15 +24,11 @@ export const ImagePropControls: ImagePropControlsInterface = ({
   sizes,
   src,
   srcSet,
-  htmlHeight,
-  htmlWidth,
   objectFit,
   objectPosition,
   setAlt,
   setSizes,
   setSrcSet,
-  setHtmlHeight,
-  setHtmlWidth,
   setObjectFit,
   setObjectPosition,
 }) => {
@@ -85,28 +75,6 @@ export const ImagePropControls: ImagePropControlsInterface = ({
             value={srcSet}
             onChange={(event: any) => {
               setSrcSet(event.target.value);
-            }}
-          />
-        </FieldLabeler>
-
-        <FieldLabeler id="htmlHeight">
-          <input
-            type="text"
-            placeholder="Set htmlHeight"
-            value={htmlHeight}
-            onChange={(event: any) => {
-              setHtmlHeight(event.target.value);
-            }}
-          />
-        </FieldLabeler>
-
-        <FieldLabeler id="htmlWidth">
-          <input
-            type="text"
-            placeholder="Set htmlWidth"
-            value={htmlWidth}
-            onChange={(event: any) => {
-              setHtmlWidth(event.target.value);
             }}
           />
         </FieldLabeler>

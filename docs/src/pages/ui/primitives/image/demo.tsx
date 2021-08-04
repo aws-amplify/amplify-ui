@@ -24,8 +24,6 @@ export const ImageDemo = () => {
   const imageProps = useImageProps({
     src: 'https://docs.amplify.aws/assets/logo-dark.svg',
     alt: 'Amplify logo',
-    htmlHeight: '',
-    htmlWidth: '',
     objectFit: 'fill',
     objectPosition: 'initial',
     onError: () => {},
@@ -59,8 +57,6 @@ export const ImageDemo = () => {
           opacity={styleProps.opacity}
           padding={styleProps.padding}
           width={styleProps.width}
-          htmlWidth={imageProps.htmlWidth}
-          htmlHeight={imageProps.htmlHeight}
           objectFit={imageProps.objectFit}
           objectPosition={imageProps.objectPosition}
         />

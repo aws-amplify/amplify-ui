@@ -10,6 +10,7 @@
   ],
   "scripts": {
     "build": "tsc",
+    "update:icons": "node scripts/updateIcons.js",
     "build:icons": "yarn run clean:icons && node scripts/generateIcons.js",
     "clean": "rimraf dist",
     "clean:icons": "rimraf ./src/primitives/Icon/icons",
@@ -24,6 +25,10 @@
     "classnames": "^2.3.1",
     "qrcode": "^1.4.4"
   },
+  "peerDependencies": {
+    "@aws-amplify/ui-core": "^0.0.1",
+    "@aws-amplify/ui-theme-base": "^0.0.1"
+  },
   "workspaces": {
     "nohoist": [
       "@types/testing-library__jest-dom",
@@ -33,6 +38,7 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",
+    "@testing-library/user-event": "^13.2.1",
     "@types/jest": "^26.0.23",
     "@types/testing-library__jest-dom": "^5.14.1",
     "hygen": "^6.1.0",
