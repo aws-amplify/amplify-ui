@@ -33,16 +33,6 @@ export interface ImageOptions extends ImageStyleProps {
   srcSet?: React.ImgHTMLAttributes<HTMLImageElement>['srcSet'];
 
   /**
-   * Intrinsic image width. Must be an integer without a unit.
-   */
-  htmlWidth?: React.ImgHTMLAttributes<HTMLImageElement>['width'];
-
-  /**
-   * Intrinsic image height. Must be an integer without a unit.
-   */
-  htmlHeight?: React.ImgHTMLAttributes<HTMLImageElement>['height'];
-
-  /**
    * Handles loading event on image
    */
   onLoad?(event: React.SyntheticEvent<HTMLImageElement, Event>): void;

@@ -1,4 +1,4 @@
-import { useAmplify, useAuth } from '@aws-amplify/ui-react';
+import { useAmplify, useAuth } from '../../../hooks';
 
 import { FederatedSignIn } from '../FederatedSignIn';
 import { UserNameAlias } from '../shared';

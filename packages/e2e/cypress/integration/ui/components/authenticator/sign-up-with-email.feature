@@ -7,13 +7,13 @@ Feature: Sign Up with Email
     And I click "Create account"
 
 
-@Next @React @Vue
+@next @react @vue
   Scenario: Login mechanism set to "email"
     Then I see "Email" as an input field
     And I don't see "Username" as an input field
     And I don't see "Phone Number" as an input field
 
-@Next @React @Vue
+@next @react @vue
   Scenario: Sign up with valid email & password
     When I type the email "VALID_EMAIL"
     And I type the password "VALID_PASSWORD"
