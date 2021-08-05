@@ -1,0 +1,133 @@
+import { Divider, View, Flex, Text } from '@aws-amplify/ui-react';
+import { DividerDemo } from './demo';
+
+## Installation
+
+```
+npm install @aws-amplify/ui-react
+```
+
+## Demo
+
+<DividerDemo />
+
+## Usage
+
+Import the Divider component and styles.
+
+```jsx
+import { Divider } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<Divider />;
+```
+
+<Divider />
+<br />
+
+### Orientation
+
+#### Horizontal (default)
+
+```jsx
+<View>
+  <Text>Before</Text>
+  <Divider orientation="horizontal" />
+  <Text>After</Text>
+</View>
+```
+
+<View>
+  <Text>Before</Text>
+  <Divider orientation="horizontal" />
+  <Text>After</Text>
+</View>
+
+#### Vertical
+
+```jsx
+<Flex height="100px" justifyContent="space-around">
+  <Text>Before</Text>
+  <Divider orientation="vertical" />
+  <Text>After</Text>
+</Flex>
+```
+
+<Flex height="100px" justifyContent="space-around">
+  <Text>Before</Text>
+  <Divider orientation="vertical" />
+  <Text>After</Text>
+</Flex>
+
+### Sizes
+
+Choose from `small` `medium` and `large` size options
+
+```jsx
+<Flex direction="column" gap="20px">
+  <Divider size="small" />
+  <Divider size="medium" />
+  <Divider size="large" />
+</Flex>
+```
+
+<Flex direction="column" gap="20px">
+  <Divider size="small" />
+  <Divider size="medium" />
+  <Divider size="large" />
+</Flex>
+
+### CSS Styling
+
+### Override Divider styling using the CSS variables
+
+Override border-style for all `Divider` components
+
+```css
+/* styles.css */
+:root {
+  --amplify-components-divider-border-style: dashed;
+}
+/* OR */
+.amplify-divider {
+  border-style: dashed;
+}
+```
+
+<Divider className="border-style-override" />
+<br />
+
+Override Divider sizes for all `Divider` components
+
+```css
+/* styles.css */
+:root {
+  --amplify-components-divider-small-border-width: 2px;
+  --amplify-components-divider-border-width: 3px;
+  --amplify-components-divider-large-border-width: 6px;
+}
+/* OR */
+.amplify-divider {
+  border-width: 3px;
+}
+.amplify-divider[data-size='small'] {
+  border-width: 2px;
+}
+.amplify-divider[data-size='large'] {
+  border-width: 6px;
+}
+```
+
+```jsx
+<Flex direction="column" gap="20px">
+  <Divider size="small" />
+  <Divider size="medium" />
+  <Divider size="large" />
+</Flex>
+```
+
+<Flex direction="column" gap="20px">
+  <Divider className="border-width-override" size="small" />
+  <Divider className="border-width-override" size="medium" />
+  <Divider className="border-width-override" size="large" />
+</Flex>
