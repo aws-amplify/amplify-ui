@@ -3,6 +3,7 @@ title: Badge
 ---
 
 import { Badge } from '@aws-amplify/ui-react';
+import { Example } from '@/components/Example';
 import { BadgeDemo } from './demo';
 
 ## Installation
@@ -13,7 +14,9 @@ npm install @aws-amplify/ui-react
 
 ## Demo
 
-<BadgeDemo />
+<Example>
+  <BadgeDemo />
+</Example>
 
 ## Usage
 
@@ -26,7 +29,9 @@ import '@aws-amplify/ui-react/styles.css';
 <Badge>Default badge</Badge>;
 ```
 
-<Badge>Default badge</Badge>
+<Example>
+  <Badge>Default badge</Badge>
+</Example>
 
 ### Badge variations
 
@@ -40,11 +45,13 @@ Use the `variation` prop to change the badge variation. Available options are `d
 <Badge variation="success">Success</Badge>
 ```
 
-<Badge>Default</Badge>
-<Badge variation="info">Info</Badge>
-<Badge variation="error">Error</Badge>
-<Badge variation="warning">Warning</Badge>
-<Badge variation="success">Success</Badge>
+<Example>
+  <Badge>Default</Badge>
+  <Badge variation="info">Info</Badge>
+  <Badge variation="error">Error</Badge>
+  <Badge variation="warning">Warning</Badge>
+  <Badge variation="success">Success</Badge>
+</Example>
 
 ### Badge sizes
 
@@ -56,9 +63,11 @@ Use the `size` prop to change the badge size. Available options are `small`, `me
 <Badge size="large">Large</Badge>
 ```
 
-<Badge size="small">Small</Badge>
-<Badge>Default</Badge>
-<Badge size="large">Large</Badge>
+<Example>
+  <Badge size="small">Small</Badge>
+  <Badge>Default</Badge>
+  <Badge size="large">Large</Badge>
+</Example>
 
 ### CSS Styling
 
@@ -83,7 +92,10 @@ import './styles.css';
 <Badge className="my-custom-badge">My badge</Badge>;
 ```
 
-<Badge className="my-custom-badge">My badge</Badge>
+<Example>
+  <style>{`.my-custom-badge { background-color: yellow; } `}</style>
+  <Badge className="my-custom-badge">My badge</Badge>
+</Example>
 
 #### Override styling using the classname and data attribute selectors
 
@@ -135,7 +147,10 @@ _Using a class selector:_
 <Badge className="flagged">13</Badge>
 ```
 
-<Badge className="flagged">13</Badge>
+<Example>
+  <style>{`.flagged { color: white; background-color: crimson; border-radius: 3px; }`}</style>
+  <Badge className="flagged">13</Badge>
+</Example>
 
 _Using an id selector:_
 
@@ -153,4 +168,7 @@ _Using an id selector:_
 <Badge id="subscribers">123K</Badge>
 ```
 
-<Badge id="subscribers">123K</Badge>
+<Example>
+  <style>{`#subscribers { color: blue; background-color: white; font-weight: 900; border: 1px solid blue; }`}</style>
+  <Badge id="subscribers">123K</Badge>
+</Example>
