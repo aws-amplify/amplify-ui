@@ -17,12 +17,14 @@
 
 # Amplify UI
 
+Amplify UI is an open-source design system with cloud-connected workflows and components that make it easy to build accessible, performant, and beautiful applications on multiple frameworks. Amplify UI consists of:
+
 1. Connected components, like Authenticator, that encapsulate complex cloud-connected workflows.
 2. Primitive components, like Buttons and Badges, that create consistency across Amplify UI and allow you to build complete applications that fit your brand.
 3. Data bound components, like Collections, that make it easy to display sets of data by querying DataStore.
 4. Theming capabilities to customize the appearance of Amplify UI.
 
-This is a very early preview and a work-in-progress
+This is a very early preview and a work-in-progress for the upcoming version of Amplify UI.
 
 ## Features
 
@@ -44,15 +46,13 @@ Good components are fast and use native styling systems when possible, adding le
 
 ## Getting started
 
-> This new version of Amplify UI is not published yet, we will let you know when it will be ready to test.
-
 We will be publishing versions of these packages under the `@next` tag in npm when they are ready:
 
 - @aws-amplify/ui-react
 - @aws-amplify/ui-angular
 - @aws-amplify/ui-vue
 
-We will be publishing regular updates to these packages under the `@next` tag as we go. Bug fixes to the existing stable release of the ui packages will happen on the [aws-amplify/amplify-js](https://github.com/aws-amplify/amplify-js) repository.
+Bug fixes to the existing stable release of the ui packages will happen on the [aws-amplify/amplify-js](https://github.com/aws-amplify/amplify-js) repository.
 
 ## Usage
 
@@ -116,17 +116,15 @@ Improving our documentation and providing better and more interactive sample cod
 
 **Why are you doing this?**
 
-Yes, we are doing another re-write of Amplify UI. We learned a lot from the current version of Amplify UI that there were a number of blockers especially related to theming and customization. Also, the developer experience could be greatly improved. We are taking this opportunity to learn from these issues and provide a better and more flexible experience using Amplify UI.
+Yes, we are doing another re-write of Amplify UI. We learned a lot from the current version of Amplify UI that there were a number of blockers especially related to theming and customization. We also wanted to improve the developer experience within each framework so working in React, Angular, or Vue feels comfortable. We are taking this opportunity to learn from the issues and discussions and provide a better and more flexible experience using Amplify UI.
 
 **Aside from the Authenticator, what can I do with this?**
 
-You can create entire front-end applications including UI! To provide a better default experience building UIs with Amplify UI and to make our connected components more integrated and customizable, we are building primitive components like Buttons, Badges, and Cards. These primitive components will be used in the connected components like Authenticator, plus you can theme them and use them to build your UI.
+You can create entire front-end applications including UI! To provide a better default experience building UIs with Amplify UI and to make our connected components more integrated and customizable, we are building primitive components like Buttons, Badges, and Cards. These primitive components will be used in the connected components like Authenticator, plus you can theme them and use them to build your UI. _We are not publishing these packages yet, but will soon!_
 
 **How does this compare to other UI libraries like Tailwind, Chakra, Supabase, or Material-UI?**
 
-Our aim with Amplify UI is to respect the platform and framework
-
-We are taking heavy inspiration from many open source frameworks like Chakra, Radix, Adobe Spectrum, and others. In fact, one of the core ideas with the new Amplify UI is the ability to integrate seamlessly into _any_ application. For example, you can use Tailwind or Chakra with Amplify UI! We don't want to replace any of these great open source UI libraries, but rather provide a default set of components that work specifically for Amplify. If you want to use them great, but you can bring any
+Amplify UI consists of both primitive components like buttons, badges, and cards, as well as cloud-connected and data-bound components like the Authenticator. We are taking heavy inspiration from open source frameworks like Tailwind, Chakra, Supabase, Radix, Adobe Spectrum, Material-UI, and others. In fact, one of the core ideas with the new Amplify UI is the ability to integrate seamlessly into _any_ application, including ones using those UI frameworks. For example, you can use Tailwind or Chakra with Amplify UI! We don't want to replace any of these great open source UI libraries, but rather provide a default set of components that work specifically for Amplify.
 
 **What is the plan for the amplify-js repository?**
 
@@ -172,8 +170,6 @@ This is a very early preview of the work we are doing. Currently, these packages
 | TextField      |           |             |
 | Toggle         |           |             |
 | View           |    ✅     |             |
-
-[Something missing? Let us know]()
 
 ## Looking for other products?
 
