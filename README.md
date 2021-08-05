@@ -34,7 +34,7 @@ Amplify UI takes the approach of layered customizations so that you never reach 
 
 **Accessible and usable by default**
 
-Amplify UI components work on screen readers and follow industry standards and best practices. (e.g WCAG 2.1AA for Web, Apple HIG for iOS). The default UI will be generic enough to fit into most applications, polished enough to not require immediate replacement. Many people did not like the look of the existing Amplify UI components and certain elements did not meet accessibility guidelines like color contrast. This next version fixes those issues.
+Amplify UI components work on screen readers and follow industry standards and best practices. The default UI will be generic enough to fit into most applications, polished enough to not require immediate replacement. Many people did not like the look of the existing Amplify UI components and certain elements did not meet accessibility guidelines like color contrast. This next version fixes those issues.
 
 **Respectful to the platform and framework**
 
@@ -80,6 +80,8 @@ export default function App() {
 }
 ```
 
+[Head over to the docs for more information on React usage](https://ui.docs.amplify.aws/ui/components/authenticator?platform=react)
+
 ### Vue
 
 ```js
@@ -96,6 +98,8 @@ export default function App() {
 </authenticator>
 ```
 
+[Head over to the docs for more information on Angular usage](https://ui.docs.amplify.aws/ui/components/authenticator?platform=vue)
+
 ### Angular
 
 ```html
@@ -104,7 +108,7 @@ export default function App() {
 </amplify-authenticator>
 ```
 
-[Head to the docs for full getting started guides](https://ui.docs.amplify.aws)
+[Head over to the docs for more information on Angular usage](https://ui.docs.amplify.aws/ui/components/authenticator?platform=angular)
 
 ## Documentation
 
@@ -124,11 +128,11 @@ You can create entire front-end applications including UI! To provide a better d
 
 **How does this compare to other UI libraries like Tailwind, Chakra, Supabase, or Material-UI?**
 
-Amplify UI consists of both primitive components like buttons, badges, and cards, as well as cloud-connected and data-bound components like the Authenticator. We are taking heavy inspiration from open source frameworks like Tailwind, Chakra, Supabase, Radix, Adobe Spectrum, Material-UI, and others. In fact, one of the core ideas with the new Amplify UI is the ability to integrate seamlessly into _any_ application, including ones using those UI frameworks. For example, you can use Tailwind or Chakra with Amplify UI! We don't want to replace any of these great open source UI libraries, but rather provide a default set of components that work specifically for Amplify.
+Amplify UI consists of both primitive components like buttons, badges, and cards, as well as cloud-connected and data-bound components like the Authenticator. We are taking heavy inspiration from open source frameworks like [Tailwind](https://tailwindcss.com/), [Chakra](https://chakra-ui.com/), [Supabase](https://ui.supabase.io/), [Radix](https://www.radix-ui.com/), [Adobe Spectrum](https://react-spectrum.adobe.com/), [Material-UI](https://material-ui.com/), and others. In fact, one of the core ideas with the new Amplify UI is the ability to integrate seamlessly into _any_ application, including ones using those UI frameworks. For example, you can use Tailwind or Chakra with Amplify UI! We don't want to replace any of these great open source UI libraries, but rather provide a default set of components that work specifically for Amplify.
 
 **What is the plan for the amplify-js repository?**
 
-As we continue to work on the new Amplify UI we will move UI-related issues in the amplify-js repository over here to work on them. The eventual end-state would be to keep the platform-based library packages and repositories as-is (amplify-js, amplify-ios, amplify-android, amplify-flutter) and have amplify-ui be the home for Amplify UI components. We will continue to maintain major bug and security fixes for all existing UI packages and versions. New development for UI components will happen in this repository and eventually be published under the `@next` npm tag.
+As we continue to work on the new Amplify UI we will move UI-related issues in the amplify-js repository over here to work on them. The eventual end-state would be to keep the platform-based library packages and repositories as-is ([amplify-js](https://github.com/aws-amplify/amplify-js), [amplify-ios](https://github.com/aws-amplify/amplify-ios), [amplify-android](https://github.com/aws-amplify/amplify-android), [amplify-flutter](https://github.com/aws-amplify/amplify-flutter)) and have amplify-ui be the home for Amplify UI components. We will continue to maintain major bug and security fixes for all existing UI packages and versions. New development for UI components will happen in this repository and eventually be published under the `@next` npm tag.
 
 ## Contributing
 
@@ -136,7 +140,7 @@ Right now the best way to contribute is to try out the new Amplify UI and give u
 
 ## Status
 
-This is a very early preview of the work we are doing. Currently, these packages are not being published to npm yet. We will let you know when they become available.
+This is a very early preview of the work we are doing. Currently, these packages are not being published to npm yet. We will let you know when they become available. TThis is currently what we are working on:
 
 | **Component**  | **React** | **Angular** | **Vue** |
 | :------------- | :-------: | :---------: | :-----: |
