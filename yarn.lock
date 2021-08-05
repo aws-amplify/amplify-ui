@@ -4120,6 +4120,13 @@
     "@babel/runtime" "^7.12.5"
     "@testing-library/dom" "^8.0.0"
 
+"@testing-library/user-event@^13.2.1":
+  version "13.2.1"
+  resolved "https://registry.yarnpkg.com/@testing-library/user-event/-/user-event-13.2.1.tgz#7a71a39e50b4a733afbe2916fa2b99966e941f98"
+  integrity sha512-cczlgVl+krjOb3j1625usarNEibI0IFRJrSWX9UsJ1HKYFgCQv9Nb7QAipUDXl3Xdz8NDTsiS78eAkPSxlzTlw==
+  dependencies:
+    "@babel/runtime" "^7.12.5"
+
 "@theme-ui/color-modes@0.7.5":
   version "0.7.5"
   resolved "https://registry.yarnpkg.com/@theme-ui/color-modes/-/color-modes-0.7.5.tgz#e0fcfbd3847cc35f3e9dd7b9068a4ee3203a0a15"
@@ -8974,6 +8981,11 @@ defined@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/defined/-/defined-1.0.0.tgz#c98d9bcef75674188e110969151199e39b1fa693"
   integrity sha1-yY2bzvdWdBiOEQlpFRGZ45sfppM=
+
+degit@^2.8.4:
+  version "2.8.4"
+  resolved "https://registry.yarnpkg.com/degit/-/degit-2.8.4.tgz#3bb9c5c00f157c44724dd4a50724e4aa75a54d38"
+  integrity sha512-vqYuzmSA5I50J882jd+AbAhQtgK6bdKUJIex1JNfEUPENCgYsxugzKVZlFyMwV4i06MmnV47/Iqi5Io86zf3Ng==
 
 del@^2.2.0:
   version "2.2.2"

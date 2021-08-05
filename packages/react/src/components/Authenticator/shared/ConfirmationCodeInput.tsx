@@ -1,4 +1,4 @@
-import { useAmplify } from '@aws-amplify/ui-react';
+import { useAmplify } from '../../../hooks';
 
 export interface ConfirmationCodeInputProps {
   amplifyNamespace: string;

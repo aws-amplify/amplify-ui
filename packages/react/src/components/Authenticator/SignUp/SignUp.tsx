@@ -1,6 +1,6 @@
 import { includes } from 'lodash';
 
-import { useAmplify, useAuth } from '@aws-amplify/ui-react';
+import { useAmplify, useAuth } from '../../../hooks';
 
 import {
   authInputAttributes,

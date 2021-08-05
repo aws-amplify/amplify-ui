@@ -19,7 +19,7 @@
 Internally, this content is served by a single, Next.js [optional catch all route](https://nextjs.org/docs/routing/dynamic-routes#optional-catch-all-routes):
 [`docs/src/pages/[[...slugs]].tsx`](docs/src/pages/[[...slugs]].tsx).
 
-## React Development
+## Next/React Development
 
 1. Create or Update an example at [`examples/...`](examples)
 
@@ -52,6 +52,7 @@ Internally, this content is served by a single, Next.js [optional catch all rout
 
      Documentation-friendly description of this feature, why it exists, & how to use it.
 
+     @react
      Scenario: Example scenario using this feature
        Given some "STARTING_POINT"
        When I DO "SOMETHING"
@@ -62,6 +63,7 @@ Internally, this content is served by a single, Next.js [optional catch all rout
 1. Create or Update the accompanying `${slug}.feature` tests (e.g. `packages/e2e/cypress/integration/${slug}/${feature}/${feature}.ts`
 1. Run `yarn e2e dev` to load Cypress
 1. Click on your updated `${feature}.feature` file to validate your changes
+1. Add tags (e.g. `@react`, `@vue`, `@angular`, `@skip`, or `@focus`) above your `Scenario` to indicate which platform(s) to test against
 
 #### Vue Development
 

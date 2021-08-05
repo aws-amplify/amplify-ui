@@ -11,31 +11,31 @@ Feature: Sign In with Email
     Given I'm at the sign in page
 
 
-  @Vue
-  @React
+  @vue
+  @react
   Scenario: Sign in with unknown credentials
     When I type the valid email "UNKNOWN_EMAIL"
     And I type the valid password "VALID_PASSWORD"
     And I click the "Sign In" button
     Then I see "User does not exist"
 
-  @Vue
-  @React
+  @vue
+  @react
   Scenario: Sign in with unconfirmed credentials
     When I type the valid email "UNCONFIRMED_EMAIL"
     And I type the valid password "VALID_PASSWORD"
     And I click the "Sign In" button
     Then I see "Confirmation Code"
 
-  @Vue
-  @React
+  @vue
+  @react
   Scenario: Sign in with confirmed credentials
     When I type the valid email "CONFIRMED_EMAIL"
     And I type the valid password "VALID_PASSWORD"
     And I click the "Sign In" button
     Then I see "Sign out"
 
-  @React @skip
+  @react @skip
   Scenario: Sign in with force change password credentials
     When I type the valid email "FORCE_CHANGE_EMAIL"
     And I type the valid password "VALID_PASSWORD"

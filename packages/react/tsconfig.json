@@ -3,9 +3,11 @@
     "declaration": true,
     "esModuleInterop": true,
     "jsx": "react-jsx",
+    "rootDir": "./src",
     "outDir": "./dist",
     "skipLibCheck": true,
     "sourceMap": true,
+    "module": "commonjs",
     "target": "es5"
   },
   "exclude": ["node_modules"],

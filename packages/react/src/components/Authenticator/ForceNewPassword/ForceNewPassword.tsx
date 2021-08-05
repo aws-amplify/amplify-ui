@@ -1,4 +1,4 @@
-import { useAmplify, useAuth } from '@aws-amplify/ui-react';
+import { useAmplify, useAuth } from '../../../hooks';
 
 export const ForceNewPassword = (): JSX.Element => {
   const amplifyNamespace = 'Authenticator.ForceNewPassword';
