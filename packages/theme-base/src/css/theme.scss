@@ -3,6 +3,20 @@
  */
 
 @import '../../dist/variables.scss';
+@import '~@fontsource/inter/index.css';
+@import '~@fontsource/inter/variable.css';
+
+html {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue',
+    'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif;
+}
+@supports (font-variation-settings: normal) {
+  html {
+    font-family: 'InterVariable', -apple-system, BlinkMacSystemFont,
+      'Helvetica Neue', 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans',
+      sans-serif;
+  }
+}
 
 [class*='amplify'] {
   all: unset; /* protect against external styles */
