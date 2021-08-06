@@ -17,7 +17,7 @@ export default defineComponent({
   },
   setup(_, { emit }): { onInput: (event) => void } {
     const onInput = (e: Event): void => {
-      emit('update:selectValue', (<HTMLInputElement>e.target).value);
+      emit('update:textValue', (<HTMLInputElement>e.target).value);
     };
 
     return { onInput };
