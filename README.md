@@ -140,7 +140,7 @@ Right now the best way to contribute is to try out the new Amplify UI and give u
 
 ## Status
 
-This is a very early preview of the work we are doing. Currently, these packages are not being published to npm yet. We will let you know when they become available. TThis is currently what we are working on:
+This is a very early preview of the work we are doing. Currently, these packages are not being published to npm yet. We will let you know when they become available. This is currently what we are working on:
 
 | **Component**  | **React** | **Angular** | **Vue** |
 | :------------- | :-------: | :---------: | :-----: |
