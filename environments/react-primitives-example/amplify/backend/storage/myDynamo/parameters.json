@@ -1,5 +1,0 @@
-{
-    "tableName": "myDynamo",
-    "partitionKeyName": "id",
-    "partitionKeyType": "S"
-}

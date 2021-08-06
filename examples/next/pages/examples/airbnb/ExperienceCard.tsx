@@ -1,4 +1,4 @@
-import { Card, Text, View, Image } from '@aws-amplify/ui-react';
+import { Card, Image, Text } from '@aws-amplify/ui-react';
 
 import theme from '@aws-amplify/ui-theme-base';
 

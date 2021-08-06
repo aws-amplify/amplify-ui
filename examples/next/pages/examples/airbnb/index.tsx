@@ -1,6 +1,4 @@
 import { useState, useEffect } from 'react';
-// import Amplify from 'aws-amplify';
-// import awsExports from 'react-primitives-example-environment/src/aws-exports';
 
 import {
   Collection,
@@ -9,14 +7,12 @@ import {
   Button,
   IconAccountCircle,
 } from '@aws-amplify/ui-react';
-
 import theme from '@aws-amplify/ui-theme-base';
+
 import { ListingCard } from './ListingCard';
 import { ExperienceCard } from './ExperienceCard';
 import { SectionHeading } from './SectionHeading';
 import { experiences, places } from './data';
-
-// Amplify.configure(awsExports);
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -49,7 +45,7 @@ function App() {
           padding={`0 0 ${theme.space.xxl} 0`}
           items={experiences}
         >
-          {(item, index) => (
+          {(item) => (
             <ListingCard {...item} key={item.title} isLoaded={loaded} />
           )}
         </Collection>
@@ -65,8 +61,12 @@ function App() {
           padding={`0 0 ${theme.space.xxl} 0`}
           items={places}
         >
-          {(item, index) => (
-            <ExperienceCard img={item.img} title={item.title} />
+          {(item) => (
+            <ExperienceCard
+              key={item.title}
+              img={item.img}
+              title={item.title}
+            />
           )}
         </Collection>
       </View>
