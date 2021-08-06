@@ -2,6 +2,7 @@ module.exports = {
   components: require('./components'),
   borderWidths: require('./borderWidths'),
   colors: require('./colors'),
+  fonts: require('./fonts'),
   fontSizes: require('./fontSizes'),
   fontWeights: require('./fontWeights'),
   lineHeights: require('./lineHeights'),
