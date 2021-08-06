@@ -3,6 +3,7 @@ title: Authenticator
 ---
 
 import { Authenticator } from '@aws-amplify/ui-react';
+import { Example } from '@/components/Example';
 import { Feature } from '@/components/Feature';
 import { Fragment } from '@/components/Fragment';
 import { XStateInspector } from '@/components/XStateInspector';
@@ -11,14 +12,14 @@ The `Authenticator` is a simple way to add
 [authentication flows](https://docs.amplify.aws/lib/auth/getting-started/q/platform/js)
 to your application.
 
-<div className="shadow-inner rounded bg-gray-100 bg-gradient-to-b from-gray-100 to-gray-50 p-6">
+<Example>
   <Authenticator />
 
   <p className="text-sm text-center mt-6 text-gray-500 italic">
     <strong>Note</strong>: This example isn't fully functional until configured
     with an Amplify backend.
   </p>
-</div>
+</Example>
 
 ## Installation
 

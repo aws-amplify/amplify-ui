@@ -67,11 +67,14 @@ export default function Layout({
         const htmlHeaders = [
           ...document.querySelectorAll(
             [
-              '#__next > section:first-of-type h2',
-              '#__next > section:first-of-type h3',
+              '#__next > section:first-of-type a > h2[id]',
+              '#__next > section:first-of-type a > h3[id]',
             ].join(',')
           ),
-        ].map((node) => [node.innerHTML, node.tagName.toLowerCase()]);
+        ].map((node: HTMLHeadingElement) => [
+          node.innerText,
+          node.tagName.toLowerCase(),
+        ]);
 
         setHeaders(htmlHeaders);
       },
