@@ -1,4 +1,4 @@
-import { assign, spawn, createMachine, forwardTo } from 'xstate';
+import { assign, createMachine, forwardTo } from 'xstate';
 import { Auth, Amplify } from 'aws-amplify';
 import { get } from 'lodash';
 import { AuthChallengeNames, AuthContext, AuthEvent } from '../types';
@@ -52,8 +52,25 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
       signIn: {
         entry: spawnActor(signInMachine, 'signIn'),
         exit: 'stopActor',
+        // {
+        //   cond: 'shouldSetupTOTP',
+        //   actions: ['setUser', 'setChallengeName'],
+        //   target: '#auth.setupTOTP',
+        // },
+        // {
+        //   cond: 'shouldConfirmSignIn',
+        //   actions: ['setUser', 'setChallengeName'],
+        //   target: '#auth.confirmSignIn',
+        // },
+        // {
+        //   cond: 'shouldForceChangePassword',
+        //   actions: ['setUser', 'setChallengeName'],
+        //   target: '#auth.forceNewPassword',
+        // },
         on: {
           SIGN_UP: 'signUp',
+          FEDERATED_SIGN_IN: 'federatedSignIn',
+          CONFIRM_SIGN_UP: 'confirmSignUp',
         },
       },
       signUp: {
@@ -97,7 +114,10 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
       },
     },
     on: {
-      '*': {
+      CHANGE: {
+        actions: forwardTo((context) => context.actorRef),
+      },
+      SUBMIT: {
         actions: forwardTo((context) => context.actorRef),
       },
     },
@@ -177,11 +197,6 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
       },
       async getAmplifyConfig() {
         return Amplify.configure();
-      },
-      async signIn(_context, event) {
-        const { username, password } = event.data;
-
-        return Auth.signIn(username, password);
       },
       async confirmSignIn(context, event) {
         const { challengeName, user } = context;
