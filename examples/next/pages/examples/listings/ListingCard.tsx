@@ -25,8 +25,19 @@ export const ListingCard = ({
   img,
   plus,
   verified,
-  description,
   hot,
+  description,
+}: {
+  title?: string;
+  rating?: number;
+  ratingCount?: number;
+  price?: number;
+  isLoaded?: boolean;
+  img?: string;
+  plus?: boolean;
+  verified?: boolean;
+  hot?: boolean;
+  description?: string;
 }) => (
   <Card
     padding={theme.space.medium}
