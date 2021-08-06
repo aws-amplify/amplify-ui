@@ -30,7 +30,7 @@ This is a very early preview and a work-in-progress for the upcoming version of 
 
 **Customizable and extensible**
 
-Amplify UI takes the approach of layered customizations so that you never reach a point to have to eject completely. The default Amplify UI is accessible and looks great on any device - use it to get started and build an awesome interface. You can then tweak a few broad theming options to change the overall look-and-feel of your application. Customize every detail of each component, extend them to add functionality, and even replace some components with your own if you want to. We don’t want to get in your way, but instead empower you with a great foundation and default implementation that you can make your own. Amplify UI is built on the idea of loosely coupled parts that work great on their own, but work better together. You can use Amplify UI primitive components without using connected components or Amplify libraries, you can use connected components with your own set of primitives, and everything in-between.
+Amplify UI offers many layers of customization, so that you never reach a point to have to eject completely. The default Amplify UI is accessible and looks great on any device - use it to get started and build an awesome interface. You can then tweak a few broad theming options to change the overall look-and-feel of your application. Customize every detail of each component, extend them to add functionality, and even replace some components with your own if you want to. We don’t want to get in your way, but instead empower you with a great foundation and default implementation that you can make your own. Amplify UI is built on the idea of loosely coupled parts that work great on their own, but work better together. You can use Amplify UI primitive components without using connected components or Amplify libraries, you can use connected components with your own set of primitives, and everything in-between.
 
 **Accessible and usable by default**
 
@@ -38,7 +38,7 @@ Amplify UI components work on screen readers and follow industry standards and b
 
 **Respectful to the platform and framework**
 
-We want to share as much as possible between platforms and frameworks, but we also want to respect their identities and rules when possible (e.g following name conventions and language patterns). We are spending a lot of time crafting the developer experience in each platform and framework so that Amplify UI is familiar and consistent with common, best-practices. This is why we are building the components in each framework—to give you the best experience building applications in the framework of your choice.
+We want to share as much as possible between platforms and frameworks, but we also want to respect their identities and rules when possible (e.g following name conventions and language patterns). We are spending a lot of time crafting the developer experience in each platform and framework so that Amplify UI is familiar and consistent with common, best-practices. This is why we are building the components in each framework — to give you the best experience building applications in the framework of your choice.
 
 **Minimal footprint**
 
@@ -114,7 +114,7 @@ export default function App() {
 
 While this is still in a technical preview state, you can find the documentation for the new version of Amplify UI here: [ui.docs.amplify.aws](https://ui.docs.amplify.aws). Once this is ready for a GA release, the docs will live at the canonical documentation site: [docs.amplify.aws/ui/](https://docs.amplify.aws/ui)
 
-Improving our documentation and providing better and more interactive sample code is one of the focuses of the new Amplify UI. We also wanted to make it easier to keep our docs in sync with the UI code so now this repository will have both documentation, UI code, and end-to-end tests to ensure the correctness of the docs.
+Improving our documentation and providing better and more interactive sample code is one of the focuses of the new Amplify UI. We also wanted to make it easier to keep our docs in sync with the UI code so now this repository will contain all the documentation, UI code, and end-to-end tests to ensure the correctness of the documentation.
 
 ## Frequently asked questions
 
@@ -128,7 +128,7 @@ You can create entire front-end applications including UI! To provide a better d
 
 **How does this compare to other UI libraries like Tailwind, Chakra, Supabase, or Material-UI?**
 
-Amplify UI consists of both primitive components like buttons, badges, and cards, as well as cloud-connected and data-bound components like the Authenticator. We are taking heavy inspiration from open source frameworks like [Tailwind](https://tailwindcss.com/), [Chakra](https://chakra-ui.com/), [Supabase](https://ui.supabase.io/), [Radix](https://www.radix-ui.com/), [Adobe Spectrum](https://react-spectrum.adobe.com/), [Material-UI](https://material-ui.com/), and others. In fact, one of the core ideas with the new Amplify UI is the ability to integrate seamlessly into _any_ application, including ones using those UI frameworks. For example, you can use Tailwind or Chakra with Amplify UI! We don't want to replace any of these great open source UI libraries, but rather provide a default set of components that work specifically for Amplify.
+Amplify UI consists of both primitive components like Buttons, Badges, and Cards, as well as cloud-connected and data-bound components like the Authenticator. We are taking heavy inspiration from open source frameworks like [Tailwind](https://tailwindcss.com/), [Chakra](https://chakra-ui.com/), [Supabase](https://ui.supabase.io/), [Radix](https://www.radix-ui.com/), [Adobe Spectrum](https://react-spectrum.adobe.com/), [Material-UI](https://material-ui.com/), and others. In fact, one of the core ideas with the new Amplify UI is the ability to integrate seamlessly into _any_ application, including ones using those UI frameworks. For example, you can use Tailwind or Chakra with Amplify UI! We don't want to replace any of these great open source UI libraries, but rather provide a default set of components that work specifically for Amplify.
 
 **What is the plan for the amplify-js repository?**
 
