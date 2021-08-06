@@ -57,17 +57,19 @@ module.exports = {
     },
     reactNative: {
       transforms: [
-        'RNfontWeight',
-        'RNfontSize',
-        'RNborderRadius',
-        'RNborderWidth',
-        'RNspace',
-        'RNopacity',
+        'RNFontWeight',
+        'RNFontSize',
+        'RNBorderRadius',
+        'RNBorderWidth',
+        'RNSpace',
+        'RNOpacity',
       ],
       files: [
         {
           destination: 'dist/react-native/theme.js',
           format: 'RNFormat',
+          filter: (token) =>
+            !token.path.some((p) => ['_hover', '_focus'].includes(p)),
         },
       ],
     },

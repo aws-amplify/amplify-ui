@@ -8,7 +8,7 @@ const {
 } = require('../../utils/matchers');
 
 module.exports = {
-  RNfontWeight: {
+  RNFontWeight: {
     type: 'value',
     matcher: isFontWeight,
     transformer: (token) => {
@@ -20,35 +20,37 @@ module.exports = {
       }
     },
   },
-  RNfontSize: {
+  RNFontSize: {
     type: 'value',
     matcher: isFontSize,
     transformer: (token) => {
       return Math.floor(parseFloat(token.value) * 16);
     },
   },
-  RNborderRadius: {
+  RNBorderRadius: {
     type: 'value',
     matcher: isRadius,
     transformer: (token) => {
       return Math.floor(parseFloat(token.value) * 16);
     },
   },
-  RNborderWidth: {
+  RNBorderWidth: {
     type: 'value',
     matcher: isBorderWidth,
     transformer: (token) => {
       return parseInt(token.value, 10);
     },
   },
-  RNspace: {
+  RNSpace: {
     type: 'value',
     matcher: isSpace,
     transformer: (token) => {
-      return Math.floor(parseFloat(token.value) * 16);
+      // Note: we are multiplying values by 8 instead of 16 because
+      // we want the mobile spacing to be smaller.
+      return Math.floor(parseFloat(token.value) * 8);
     },
   },
-  RNopacity: {
+  RNOpacity: {
     type: 'value',
     matcher: isOpacity,
     transformer: (token) => {

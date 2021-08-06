@@ -1,6 +1,6 @@
 module.exports = {
   color: { value: '{colors.font.primary.value}' },
-  lineHeight: { value: 1.25 },
+  lineHeight: { value: '{lineHeights.medium.value}' },
 
   1: {
     fontSize: { value: '{fontSizes.xxxxl.value}' },
