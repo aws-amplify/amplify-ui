@@ -1,9 +1,10 @@
 import { BaseComponentProps, AriaProps } from './base';
 import { BaseStyleProps } from './style';
 
-export type PaginationItemType = 'page' | 'next' | 'previous' | 'ellipsis';
+export type PaginationItemTypes = 'page' | 'next' | 'previous' | 'ellipsis';
+export type PaginationCallbackTypes = 'onNext' | 'onPrevious' | 'onChange';
 
-export interface UsePaginationProps {
+interface BasePaginationProps {
   /**
    * Index of the current page. (starting from 1)
    */
@@ -22,28 +23,6 @@ export interface UsePaginationProps {
   /**
    * Callback function triggered when the next-page button is pressed
    */
-  onNext?: (newPageIndex: number) => void;
-
-  /**
-   * Callback function triggered when the prev-page button is pressed
-   */
-  onPrevious?: (newPageIndex: number) => void;
-
-  /**
-   * Callback function triggered every time the page changes
-   */
-  onChange?: (newPageIndex: number, prevPageIndex: number) => void;
-}
-
-export interface UsePaginationResult extends UsePaginationProps {
-  /**
-   * The number of siblings on each side of current page.
-   */
-  siblingCount: number;
-
-  /**
-   * Callback function triggered when the next-page button is pressed
-   */
   onNext: (newPageIndex: number) => void;
 
   /**
@@ -58,25 +37,15 @@ export interface UsePaginationResult extends UsePaginationProps {
 }
 
 export interface PaginationProps
-  extends UsePaginationProps,
+  extends BasePaginationProps,
     BaseComponentProps,
     BaseStyleProps,
-    AriaProps {
-  /**
-   * Callback function triggered when the next-page button is pressed
-   */
-  onNext: (newPageIndex: number) => void;
+    AriaProps {}
 
-  /**
-   * Callback function triggered when the prev-page button is pressed
-   */
-  onPrevious: (newPageIndex: number) => void;
+export interface UsePaginationProps
+  extends Omit<BasePaginationProps, PaginationCallbackTypes> {}
 
-  /**
-   * Callback function triggered every time the page changes
-   */
-  onChange: (newPageIndex: number, prevPageIndex: number) => void;
-}
+export interface UsePaginationResult extends Required<BasePaginationProps> {}
 
 export interface PaginationItemProps
   extends BaseComponentProps,
@@ -85,7 +54,7 @@ export interface PaginationItemProps
   /**
    * Available item type are 'page', 'next', 'previous' and 'ellipsis'.
    */
-  type: PaginationItemType;
+  type: PaginationItemTypes;
   /**
    * For 'page' item, this is the page number to be rendered.
    */

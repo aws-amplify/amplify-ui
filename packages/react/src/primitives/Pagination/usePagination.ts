@@ -3,9 +3,9 @@ import { useCallback, useReducer } from 'react';
 import { UsePaginationProps, UsePaginationResult } from '../types/pagination';
 
 enum ActionType {
-  onNext = 'onNext',
-  onPrevious = 'onPrevious',
-  onChange = 'onChange',
+  onNext = 'ON_NEXT',
+  onPrevious = 'ON_PREVIOUS',
+  onChange = 'ON_CHANGE',
 }
 
 interface Action {
@@ -39,6 +39,7 @@ const reducer = (state: State, action: Action): State => {
   }
   return { currentPage };
 };
+
 export const usePagination = (
   props: UsePaginationProps
 ): UsePaginationResult => {
@@ -50,9 +51,11 @@ export const usePagination = (
   const onNext = useCallback((newPage: number) => {
     dispatch(actionCreator(ActionType.onNext));
   }, []);
+
   const onPrevious = useCallback((newPage: number) => {
     dispatch(actionCreator(ActionType.onPrevious));
   }, []);
+
   const onChange = useCallback((newPage: number, prevPage: number) => {
     dispatch(actionCreator(ActionType.onChange, newPage));
   }, []);
