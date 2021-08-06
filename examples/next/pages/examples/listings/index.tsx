@@ -10,10 +10,10 @@ import {
 } from '@aws-amplify/ui-react';
 import theme from '@aws-amplify/ui-theme-base';
 
-import { ListingCard } from './ListingCard';
-import { ExperienceCard } from './ExperienceCard';
-import { SectionHeading } from './SectionHeading';
-import { experiences, places } from './data';
+import { ListingCard } from '../../../components/listings/ListingCard';
+import { ExperienceCard } from '../../../components/listings/ExperienceCard';
+import { SectionHeading } from '../../../components/listings/SectionHeading';
+import { experiences, places } from '../../../data/listings/data';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
