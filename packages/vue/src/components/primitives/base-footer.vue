@@ -5,13 +5,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { PrimitiveSlotReturnType } from '../../types';
+import { defineComponent } from 'vue';
 
 export default defineComponent({
-  setup(_, { slots }): Record<string, unknown> {
+  setup(_, { slots }): PrimitiveSlotReturnType {
     let mySlots = slots;
     return { mySlots };
-  }
+  },
 });
 </script>
 
