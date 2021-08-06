@@ -4,6 +4,7 @@ import {
   Collection,
   Text,
   View,
+  Image,
   Button,
   IconAccountCircle,
 } from '@aws-amplify/ui-react';
@@ -24,7 +25,7 @@ function App() {
   return (
     <>
       <header className="listing-app-header">
-        <img src="/listing-logo.svg" />
+        <Image src="/listing-logo.svg" alt="lystifying" />
 
         <input type="search" placeholder="search" />
 
