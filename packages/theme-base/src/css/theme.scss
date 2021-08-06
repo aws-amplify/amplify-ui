@@ -7,14 +7,11 @@
 @import '~@fontsource/inter/variable.css';
 
 html {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue',
-    'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif;
+  font-family: var(--amplify-fonts-default-static);
 }
 @supports (font-variation-settings: normal) {
   html {
-    font-family: 'InterVariable', -apple-system, BlinkMacSystemFont,
-      'Helvetica Neue', 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans',
-      sans-serif;
+    font-family: var(--amplify-fonts-default-variable);
   }
 }
 
