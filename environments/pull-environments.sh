@@ -5,6 +5,14 @@ IFS='|'
 # In development, AWS_PROFILE should be set. In CI, it's not.
 [ "$AWS_PROFILE" ] && useProfile="true" || useProfile="false";
 
+# -limit tag limits pulling to single environment
+# e.g. sh environments/pull-environments.sh -limit auth-with-email
+environments=environments/*/
+while getopts "limit:" opt
+do
+  environments=environments/$OPTARG
+done
+
 FRONTENDCONFIG="{\
 \"SourceDir\":\"src\",\
 \"DistributionDir\":\"dist\",\
@@ -33,20 +41,21 @@ PROVIDERS="{\
 }"
 
 # Pull the backend for each environment
-for dir in environments/*/ ; do
+for dir in $environments ; do
   if ! [ -f "$dir/app-id" ]; then
     echo "If $dir is an environment, ensure the file 'app-id' containing the environment's Amplify app id exists."
     continue
   fi
 
-  cd "$dir"
+  cd $dir
 
-  # 'echo n' is used to answer "No" to the prompt "Do you plan on modifying this backend?"
+  # 'echo y' is used to answer "Yes" to the prompt "Do you plan on modifying this backend?"
   # See https://github.com/aws-amplify/amplify-cli/issues/5275
-  echo n | amplify pull \
-  --appId `cat app-id` \
-  --amplify $AMPLIFY \
-  --frontend $FRONTEND \
-  --providers $PROVIDERS \
-  && cd -
+  echo y | amplify pull \
+    --appId `cat app-id` \
+    --amplify $AMPLIFY \
+    --frontend $FRONTEND \
+    --providers $PROVIDERS
+
+  cd -
 done

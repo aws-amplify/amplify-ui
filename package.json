@@ -21,7 +21,8 @@
     "dev:angular": "yarn angular-docs start",
     "dev:vue": "yarn vue-docs serve --port 3001 --host localhost",
     "test": "yarn react test && yarn e2e test",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "pull-environments": "echo \"Pass -limit {ENVIRONMENT} to pull a single environment\" && sh environments/pull-environments.sh"
   },
   "workspaces": [
     "docs",
