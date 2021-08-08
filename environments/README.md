@@ -15,6 +15,20 @@ This will create a `src/aws-exports.js` for use in your testing.
 
 _Note: If you are taken to a sign in screen when pulling an environment with `amplify pull`, you can workaround this by first visiting the Amplify Admin UI for that environment ([example](https://us-east-1.admin.amplifyapp.com/admin/dbffpda9986dp/staging/home)) and then attempting to pull it again._
 
+### Pulling Environments for Internal Contributors
+
+The internal Amplify team uses shared backend environments. We use a shared access account with read/list access to be able to pull all environments. Internal contributors can follow the steps below to pull all environments for the project:
+
+1. Set the internal `github-action` IAM user as a local AWS profile.
+1. Run the `yarn` script to pull all environments passing the `github-action` profile you created in the step above as the environment variable `AWS_PROFILE`.
+   ```sh
+   AWS_PROFILE=github-action yarn pull-environments
+   ```
+   If you want to limit to pulling a single environment, you can pass the `-limit {ENVIRONMENT}` tag to the pull script:
+   ```sh
+   AWS_PROFILE=github-action yarn pull-environments -limit auth-with-email
+   ```
+
 ## Creating a Backend Environment
 
 When an existing backend doesn't match your needs (or requires changes), you can create a new backend via the [Amplify Admin](https://console.aws.amazon.com/amplify/home?region=us-east-1#/) or the [Amplify CLI](https://docs.amplify.aws/cli).
