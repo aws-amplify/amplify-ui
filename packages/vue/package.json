@@ -2,6 +2,9 @@
   "private": true,
   "name": "@aws-amplify/ui-vue",
   "version": "0.0.1",
+  "scripts": {
+    "test": "echo \"Skipped: no test specified\""
+  },
   "dependencies": {
     "qrcode": "^1.4.4"
   }

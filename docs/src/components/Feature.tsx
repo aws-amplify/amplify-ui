@@ -73,9 +73,7 @@ export function Feature({ name = required('Missing feature name') }) {
     // Ignore background steps for features – they'll always be applied
     .filter(({ background }) => !background)
     .filter(({ scenario }) => {
-      return scenario.tags?.find(
-        ({ name }) => name.toLowerCase() === `@${platform}`
-      );
+      return scenario.tags?.find(({ name }) => name === `@${platform}`);
     });
 
   // TODO Don't show content if there aren't any supported scenarios

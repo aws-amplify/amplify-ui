@@ -1,47 +1,101 @@
 # This workflow will do a clean install of node dependencies, cache/restore them, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: Node.js CI
+name: Tests
 
 on:
   push:
     branches: [main]
+
   pull_request:
     branches: [main]
 
 jobs:
-  build:
+  unit:
     runs-on: ubuntu-latest
+    env:
+      NODE_ENV: test
 
+    strategy:
+      matrix:
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+        package:
+          - '@aws-amplify/ui-core'
+          - '@aws-amplify/ui-angular'
+          - '@aws-amplify/ui-vue'
+          - '@aws-amplify/ui-react'
+
+    steps:
+      - name: Checkout Amplify UI
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js LTS
+        uses: actions/setup-node@v2
+        with:
+          node-version: lts/*
+          cache: 'yarn'
+
+      - name: Install packages
+        run: yarn --frozen-lockfile
+
+      - name: Run ${{ matrix.package }} tests
+        run: yarn workspace ${{ matrix.package}} test
+
+  e2e:
+    # Only run e2e tests if unit tests pass
+    needs: unit
+    runs-on: ubuntu-latest
     environment: ci
     env:
       NODE_ENV: test
 
     strategy:
       matrix:
-        node-version: [14.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+        framework:
+          - 'next'
+          - 'vue'
 
     steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Checkout Amplify UI
+        uses: actions/checkout@v2
+
+      - name: Next.js Cache
+        uses: actions/cache@v2
+        with:
+          path: ${{ github.workspace }}/.next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Setup Node.js LTS
         uses: actions/setup-node@v2
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: lts/*
           cache: 'yarn'
+
       - name: Install packages
         run: yarn --frozen-lockfile
+
       - name: Add Amplify CLI
         run: yarn global add @aws-amplify/cli
+
       - name: Pull down AWS environments
         run: sh ./.github/pull-environments.sh
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      - run: yarn next-example build
-      - run: yarn next-example start & npx wait-on http://localhost:3000/ui/components/authenticator/sign-in-with-username
-      - run: yarn test
+
+      - name: Build ${{ matrix.framework }} example
+        run: yarn workspace ${{ matrix.framework }}-example build
+
+      - name: Start ${{ matrix.framework }} example
+        run: yarn workspace ${{ matrix.framework }}-example start & npx wait-on -t 30000 http://localhost:3000/ui/components/authenticator/sign-in-with-username
+
+      - name: Run E2E tests against ${{ matrix.framework }} example
+        run: yarn workspace e2e test
         env:
+          # Override on the default value in `cypress.json` with `@react and not @skip`
+          TAGS: '@${{ matrix.framework }} and not @skip'
+
+          # Env values for testing flows
           CONFIRMED_USERNAME: ${{ secrets.CONFIRMED_USERNAME }}
           FORCE_CHANGE_USERNAME: ${{ secrets.FORCE_CHANGE_USERNAME }}
           INVALID_USERNAME: ${{ secrets.INVALID_USERNAME }}

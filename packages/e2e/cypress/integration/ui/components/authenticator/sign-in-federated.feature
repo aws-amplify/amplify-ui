@@ -7,7 +7,7 @@ Feature: Sign In with Federation
   Background:
     Given I'm running the example "ui/components/authenticator/sign-in-federated"
 
-  @React @Vue
+  @react @vue
   Scenario: Sign in using OAUTH
 		And I see the "Google" sign in button
 		And I see the "Facebook" sign in button
