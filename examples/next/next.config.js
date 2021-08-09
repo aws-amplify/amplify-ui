@@ -6,5 +6,5 @@ const withCompileNodeModules = require('@moxy/next-compile-node-modules')({
 
 module.exports = withCompileNodeModules({
   reactStrictMode: true,
-  pageExtensions: ['page.mdx', 'page.tsx'],
+  pageExtensions: ['page.tsx'],
 });
