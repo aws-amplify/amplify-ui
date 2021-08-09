@@ -34,6 +34,16 @@ import '@aws-amplify/ui-react/styles.css';
 />;
 ```
 
+Or create with the built-in usePagination hook.
+
+```jsx
+import { Pagination, usePagination } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+const pagination = usePagination({ currentPage: 1, totalPages: 10, siblingCount: 1 })
+<Pagination {...pagination} />;
+```
+
 <PaginationDemo isDemo={false} />
 
 ## CSS styling
@@ -77,7 +87,6 @@ import './styles.css';
 ```
 
 <PaginationDemo isDemo={false} className="my-custom-pagination" />
-
 <br />
 
 Or override the variables inline:
