@@ -11,20 +11,14 @@ import { FederatedIdentityProviders } from '@aws-amplify/ui-core';
   selector: 'amplify-federated-sign-in',
   templateUrl: './amplify-federated-sign-in.component.html',
 })
-export class AmplifyFederatedSignInComponent
-  implements OnInit, AfterContentInit
-{
+export class AmplifyFederatedSignInComponent implements OnInit {
   public FederatedProviders = FederatedIdentityProviders;
-  public customComponents: Record<string, TemplateRef<any>> = {};
   public includeFacebook: boolean = false;
   public includeGoogle: boolean = false;
   public includeAmazon: boolean = false;
   public shouldShowFederatedSignIn = false;
 
-  constructor(
-    private stateMachine: StateMachineService,
-    private contextService: AuthPropService
-  ) {}
+  constructor(private stateMachine: StateMachineService) {}
 
   ngOnInit(): void {
     const loginMechanisms = this.stateMachine.context?.config?.login_mechanisms;
@@ -35,9 +29,5 @@ export class AmplifyFederatedSignInComponent
 
     this.shouldShowFederatedSignIn =
       this.includeFacebook || this.includeGoogle || this.includeAmazon;
-  }
-
-  ngAfterContentInit(): void {
-    this.customComponents = this.contextService.customComponents;
   }
 }
