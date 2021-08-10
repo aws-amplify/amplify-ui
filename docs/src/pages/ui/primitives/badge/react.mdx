@@ -1,33 +1,16 @@
 import { Badge } from '@aws-amplify/ui-react';
-import { Example } from '@/components/Example';
-import Block from 'amplify-docs/src/components/Block';
-import BlockSwitcher from 'amplify-docs/src/components/BlockSwitcher';
 import { BadgeDemo } from './demo';
+import { Example } from '@/components/Example';
 
-## Installation
-
-<BlockSwitcher>
-<Block name="npm">
-
-```shell
-npm install @aws-amplify/ui-react
-```
-
-</Block>
-<Block name="yarn">
-
-```shell
-yarn add @aws-amplify/ui-react
-```
-
-</Block>
-</BlockSwitcher>
+<Example>
+  A badge is a small visual element to denote a status or message about an item.
+  A small, color-coded visual element that contains letters or numbers, that you
+  can use to label, categorize, or organize items.
+</Example>
 
 ## Demo
 
-<Example>
-  <BadgeDemo />
-</Example>
+<BadgeDemo />
 
 ## Usage
 
@@ -80,7 +63,9 @@ Use the `size` prop to change the badge size. Available options are `small` and 
   <Badge size="large">Large</Badge>
 </Example>
 
-### CSS Styling
+## CSS Styling
+
+### Styling all badges
 
 #### Override Amplify styling using the CSS variables
 
@@ -130,16 +115,7 @@ Use the `amplify-badge` class and data attributes to style all badges.
 }
 ```
 
-To replace the badge styling, unset it:
-
-```css
-.amplify-badge {
-  all: unset;
-  /* Add your styling here*/
-}
-```
-
-#### Styling a badge instance
+### Styling a badge instance
 
 To override styling on a specific badge
 
