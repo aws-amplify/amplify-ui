@@ -22,7 +22,9 @@
   },
   "dependencies": {
     "@xstate/react": "^1.4.0",
+    "autoprefixer": "^10.3.1",
     "classnames": "^2.3.1",
+    "postcss-js": "^3.0.3",
     "qrcode": "^1.4.4"
   },
   "peerDependencies": {

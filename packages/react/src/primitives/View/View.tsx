@@ -1,8 +1,12 @@
 import React from 'react';
 import { convertStylePropsToStyleObj, getNonStyleProps } from '../shared/utils';
 import { ViewProps } from '../types/index';
+import postcssJs from 'postcss-js';
+import autoprefixer from 'autoprefixer';
 
-export const View: React.FC<ViewProps> = (props) => {
+const prefixer = postcssJs.sync([autoprefixer]);
+
+export const View: React.FC<ViewProps> = props => {
   const {
     as: asElementTag,
     className,
@@ -25,7 +29,7 @@ export const View: React.FC<ViewProps> = (props) => {
       disabled={isDisabled}
       id={id}
       role={role}
-      style={convertStylePropsToStyleObj(props)}
+      style={prefixer(convertStylePropsToStyleObj(props))}
       {...getNonStyleProps(rest)}
     >
       {children}
