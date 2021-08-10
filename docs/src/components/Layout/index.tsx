@@ -39,6 +39,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import * as React from 'react';
 import { PlatformSelect } from './PlatformSelect';
+import { Banner } from './Banner';
 
 export default function Layout({
   children,
@@ -146,6 +147,7 @@ export default function Layout({
           />
         </Head>
       )}
+      <Banner />
       <UniversalNav
         heading="Amplify Docs"
         brandIcon="/assets/logo-light.svg"
