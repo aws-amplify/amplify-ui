@@ -1,7 +1,99 @@
 {
   "version": 2,
-  "projects": {},
+  "projects": {
+    "next-example": {
+      "root": "apps/next-example",
+      "sourceRoot": "apps/next-example",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/next:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "root": "apps/next-example",
+            "outputPath": "dist/apps/next-example"
+          },
+          "configurations": {
+            "production": {}
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/next:server",
+          "options": {
+            "buildTarget": "next-example:build",
+            "dev": true
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "next-example:build:production",
+              "dev": false
+            }
+          }
+        },
+        "export": {
+          "executor": "@nrwl/next:export",
+          "options": {
+            "buildTarget": "next-example:build:production"
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/next-example"],
+          "options": {
+            "jestConfig": "apps/next-example/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/next-example/**/*.{ts,tsx,js,jsx}"]
+          }
+        }
+      }
+    },
+    "next-example-e2e": {
+      "root": "apps/next-example-e2e",
+      "sourceRoot": "apps/next-example-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/next-example-e2e/cypress.json",
+            "tsConfig": "apps/next-example-e2e/tsconfig.e2e.json",
+            "devServerTarget": "next-example:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "next-example:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/next-example-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    }
+  },
   "cli": {
-    "defaultCollection": "@nrwl/workspace"
-  }
+    "defaultCollection": "@nrwl/next"
+  },
+  "generators": {
+    "@nrwl/react": {
+      "application": {
+        "babel": true
+      }
+    },
+    "@nrwl/next": {
+      "application": {
+        "style": "css",
+        "linter": "eslint"
+      }
+    }
+  },
+  "defaultProject": "next-example"
 }

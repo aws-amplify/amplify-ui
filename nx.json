@@ -1,7 +1,7 @@
 {
   "npmScope": "amplify-ui",
   "affected": {
-    "defaultBase": "master"
+    "defaultBase": "main"
   },
   "implicitDependencies": {
     "package.json": {
@@ -26,9 +26,17 @@
       }
     ]
   },
-  "projects": {},
+  "projects": {
+    "next-example": {
+      "tags": []
+    },
+    "next-example-e2e": {
+      "tags": [],
+      "implicitDependencies": ["next-example"]
+    }
+  },
   "workspaceLayout": {
-    "appsDir": "packages",
-    "libsDir": "packages"
+    "appsDir": "apps",
+    "libsDir": "libs"
   }
 }
