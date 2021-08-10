@@ -1,11 +1,29 @@
 import { Text } from '@aws-amplify/ui-react';
 import { TextDemo, TextTruncatedSample, TextStylingSample } from './demo';
+import { Example } from '@/components/Example';
+import Block from 'amplify-docs/src/components/Block';
+import BlockSwitcher from 'amplify-docs/src/components/BlockSwitcher';
+
+The Text primitive is used to display simple strings of text in an interface.
 
 ## Installation
 
-```
+<BlockSwitcher>
+<Block name="npm">
+
+```shell
 npm install @aws-amplify/ui-react
 ```
+
+</Block>
+<Block name="yarn">
+
+```shell
+yarn add @aws-amplify/ui-react
+```
+
+</Block>
+</BlockSwitcher>
 
 ## Demo
 
@@ -22,7 +40,9 @@ import '@aws-amplify/ui-react/styles.css';
 <Text>Hello world</Text>;
 ```
 
-<Text>Hello world</Text>
+<Example>
+  <Text>Hello world</Text>
+</Example>
 
 ### Text variations
 
@@ -41,13 +61,15 @@ import "@aws-amplify/ui-react/styles.css";
 <Text variation="success">Success</Text>
 ```
 
-<Text variation="primary">Primary</Text>
-<Text variation="secondary">Secondary</Text>
-<Text variation="tertiary">Tertiary</Text>
-<Text variation="error">Error</Text>
-<Text variation="warning">Warning</Text>
-<Text variation="info">Info</Text>
-<Text variation="success">Success</Text>
+<Example>
+  <Text variation="primary">Primary</Text>
+  <Text variation="secondary">Secondary</Text>
+  <Text variation="tertiary">Tertiary</Text>
+  <Text variation="error">Error</Text>
+  <Text variation="warning">Warning</Text>
+  <Text variation="info">Info</Text>
+  <Text variation="success">Success</Text>
+</Example>
 
 ### Truncate
 
@@ -67,11 +89,13 @@ import '@aws-amplify/ui-react/styles.css';
 </Text>;
 ```
 
-<TextTruncatedSample />
+<Example>
+  <TextTruncatedSample />
+</Example>
 
-### CSS Styling
+## CSS Styling
 
-#### Override Amplify styling using a css class
+### Override Amplify styling using a css class
 
 Using a custom class and CSS file:
 
@@ -91,7 +115,9 @@ import '@aws-amplify/ui-react/styles.css';
 <Text className="styled-text">This is my styled text</Text>;
 ```
 
-<Text className="styled-text">This is my styled text</Text>
+<Example>
+  <Text className="styled-text">This is my styled text</Text>
+</Example>
 
 ### Override Amplify styling using the CSS variables
 
@@ -113,9 +139,11 @@ import '@aws-amplify/ui-react/styles.css';
 </Text>;
 ```
 
-<Text className="primary-styled-variable-text" variation="primary">
-  This is my styled text
-</Text>
+<Example>
+  <Text className="primary-styled-variable-text" variation="primary">
+    This is my styled text
+  </Text>
+</Example>
 
 ### Override Amplify styling using props
 
@@ -130,4 +158,6 @@ import '@aws-amplify/ui-react/styles.css';
 </Text>;
 ```
 
-<TextStylingSample />
+<Example>
+  <TextStylingSample />
+</Example>

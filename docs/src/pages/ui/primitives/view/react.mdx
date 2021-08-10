@@ -1,11 +1,29 @@
 import { View } from '@aws-amplify/ui-react';
 import { ViewDemo } from './demo';
+import { Example } from '@/components/Example';
+import Block from 'amplify-docs/src/components/Block';
+import BlockSwitcher from 'amplify-docs/src/components/BlockSwitcher';
+
+View is a container that contains stuff. View is the most abstract component on top of which all other components live.
 
 ## Installation
 
-```
+<BlockSwitcher>
+<Block name="npm">
+
+```shell
 npm install @aws-amplify/ui-react
 ```
+
+</Block>
+<Block name="yarn">
+
+```shell
+yarn add @aws-amplify/ui-react
+```
+
+</Block>
+</BlockSwitcher>
 
 ## Demo
 
@@ -22,7 +40,9 @@ import '@aws-amplify/ui-react/styles.css';
 <View>Nice view! 🏔</View>;
 ```
 
-<View>Nice view! 🏔</View>
+<Example>
+  <View>Nice view! 🏔</View>
+</Example>
 
 ### Set rendered HTML element
 
@@ -32,7 +52,9 @@ Change the HTML element rendered by View with the `as` property
 <View as="section">I'm a Section</View>
 ```
 
-<View as="section">I'm a Section</View>
+<Example>
+  <View as="section">I'm a Section</View>
+</Example>
 
 ### Disabled state
 
@@ -42,9 +64,15 @@ Change the HTML element rendered by View with the `as` property
 </View>
 ```
 
-<View as="button" isDisabled={true} onClick={() => alert("This won't fire 🚫")}>
-  You can't click me!
-</View>
+<Example>
+  <View
+    as="button"
+    isDisabled={true}
+    onClick={() => alert("This won't fire 🚫")}
+  >
+    You can't click me!
+  </View>
+</Example>
 
 ### Accessibility
 
@@ -56,9 +84,15 @@ Setting an `aria-label` attribute and `role` for an icon button
 </View>
 ```
 
-<View ariaLabel="To the moon!" role="button" onClick={() => alert('👋 hello')}>
-  🚀
-</View>
+<Example>
+  <View
+    ariaLabel="To the moon!"
+    role="button"
+    onClick={() => alert('👋 hello')}
+  >
+    🚀
+  </View>
+</Example>
 
 ### Custom attributes
 
@@ -68,17 +102,19 @@ Pass any attribute to the underlying HTML element
 <View as="progress" data-progress-bar max="100" value="50" />
 ```
 
-<View
-  as="progress"
-  data-progress-bar
-  max="100"
-  value="50"
-  style={{ all: 'revert' }}
-/>
+<Example>
+  <View
+    as="progress"
+    data-progress-bar
+    max="100"
+    value="50"
+    style={{ all: 'revert' }}
+  />
+</Example>
 
-### CSS Styling
+## CSS Styling
 
-#### Override Amplify styling using the CSS variables
+### Override Amplify styling using the CSS variables
 
 Using a custom class and CSS file:
 
@@ -100,4 +136,6 @@ import './styles.css';
 <View className="mountain-view">🏔</View>;
 ```
 
-<View className="mountain-view">🏔</View>
+<Example>
+  <View className="mountain-view">🏔</View>
+</Example>
