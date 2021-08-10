@@ -13,6 +13,7 @@ Feature: Sign In with Email
 
   @vue
   @react
+  @angular
   Scenario: Sign in with unknown credentials
     When I type the valid email "UNKNOWN_EMAIL"
     And I type the valid password "VALID_PASSWORD"
