@@ -1,11 +1,29 @@
 import { Placeholder, View, Flex } from '@aws-amplify/ui-react';
 import { PlaceholderDemo, TwoWays } from './demo';
+import { Example } from '@/components/Example';
+import Block from 'amplify-docs/src/components/Block';
+import BlockSwitcher from 'amplify-docs/src/components/BlockSwitcher';
+
+Placeholder is used to fill out the interface while content is loaded asynchronously.
 
 ## Installation
 
-```
+<BlockSwitcher>
+<Block name="npm">
+
+```shell
 npm install @aws-amplify/ui-react
 ```
+
+</Block>
+<Block name="yarn">
+
+```shell
+yarn add @aws-amplify/ui-react
+```
+
+</Block>
+</BlockSwitcher>
 
 ## Demo
 
@@ -33,7 +51,7 @@ import '@aws-amplify/ui-react/styles.css';
   <Placeholder />
 </Flex>
 
-### There are two ways you can use the Placeholder component:
+There are two ways you can use the Placeholder component:
 
 1. Pass your loading state to the `isLoaded` prop (suggested)
 2. Use conditional rendering (e.g., ternary operator)
@@ -69,9 +87,9 @@ import '@aws-amplify/ui-react/styles.css';
   <Placeholder size="large" />
 </Flex>
 
-### CSS Styling
+## CSS Styling
 
-Set the starting and ending colors using a custom CSS class with CSS variables:
+### Set the starting and ending colors using a custom CSS class with CSS variables:
 
 ```css
 /* styles.css */
