@@ -7,15 +7,15 @@ interface UseBadgeProps {
 }
 
 export const useBadgeProps: UseBadgeProps = (initialValues) => {
-  const [size, setSize] = useState<BadgeProps['size']>(initialValues.size);
   const [variation, setVariation] = useState<BadgeProps['variation']>(
     initialValues.variation
   );
+  const [size, setSize] = useState<BadgeProps['size']>(initialValues.size);
 
   return {
-    size,
-    setSize,
     variation,
     setVariation,
+    size,
+    setSize,
   };
 };
