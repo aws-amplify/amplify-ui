@@ -1,13 +1,29 @@
 import { Card, View, Flex, Text } from '@aws-amplify/ui-react';
 import { CardSample } from './demo.tsx';
+import { Example } from '@/components/Example';
+import Block from 'amplify-docs/src/components/Block';
+import BlockSwitcher from 'amplify-docs/src/components/BlockSwitcher';
 
 The Card component can be used to group related pieces of content. The card component renders as a `div` by default but can be changed with the **as** prop.
 
 ## Installation
 
-```
+<BlockSwitcher>
+<Block name="npm">
+
+```shell
 npm install @aws-amplify/ui-react
 ```
+
+</Block>
+<Block name="yarn">
+
+```shell
+yarn add @aws-amplify/ui-react
+```
+
+</Block>
+</BlockSwitcher>
 
 ## Usage
 
@@ -41,7 +57,9 @@ A card component will include basic styling but the form of the card component w
 </Card>
 ```
 
-<CardSample />
+<Example>
+  <CardSample />
+</Example>
 
 ### Set rendered HTML element
 
@@ -51,7 +69,9 @@ Change the HTML element rendered by Card with the `as` property
 <Card as="section">I'm a Section</Card>
 ```
 
-<Card as="section">I'm a Section</Card>
+<Example>
+  <Card as="section">I'm a Section</Card>
+</Example>
 
 ## CSS Styling
 
@@ -67,13 +87,15 @@ Use style props to style an instance of `<Card>`
 </Card>
 ```
 
-<Card color="red">
-  <Text>Sample Card</Text>
-</Card>
+<Example>
+  <Card color="red">
+    <Text>Sample Card</Text>
+  </Card>
+</Example>
 
 ### Global card styling through variables and card class
 
-set css variables or use the built in card class to set global card styling
+Set CSS variables or use the built in `.amplify-card` class to set global card styling
 
 ```css
 /* styles.css */
@@ -86,9 +108,11 @@ set css variables or use the built in card class to set global card styling
 }
 ```
 
-<Card className="amplify-ui-card-thick-border"> Thick Bordered Card </Card>
+<Example>
+  <Card className="amplify-ui-card-thick-border"> Thick Bordered Card </Card>
+</Example>
 
-### Local card styling with custom css class
+### Local card styling with custom CSS class
 
 ```css
 /* styles.css */
@@ -101,4 +125,6 @@ set css variables or use the built in card class to set global card styling
 <Card className="custom-card-class">Styled through custom class name</Card>
 ```
 
-<Card className="custom-card-class">Styled through custom class name</Card>
+<Example>
+  <Card className="custom-card-class">Styled through custom class name</Card>
+</Example>
