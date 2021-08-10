@@ -7,10 +7,8 @@ module.exports = {
   button: {
     color: { value: 'inherit' },
     fontWeight: { value: 'inherit' },
-    paddingTop: { value: '0' },
-    paddingRight: { value: '{space.xs.value}' },
-    paddingBottom: { value: '0' },
-    paddingLeft: { value: '{space.xs.value}' },
+    paddingVertical: { value: '0' },
+    paddingHorizontal: { value: '{space.xs.value}' },
     transitionDuration: { value: '{time.transition.medium.value}' },
     hover: {
       backgroundColor: { value: 'rgba(0, 0, 0, 0.1)' },
@@ -20,12 +18,10 @@ module.exports = {
     },
   },
   ellipsis: {
-    paddingRight: { value: '{space.xs.value}' },
-    paddingLeft: { value: '{space.xs.value}' },
+    paddingHorizontal: { value: '{space.xs.value}' },
   },
   itemContainer: {
-    marginLeft: { value: '4px' },
-    marginRight: { value: '4px' },
+    marginHorizontal: { value: '{space.xxs.value}' },
   },
   itemShared: {
     height: { value: '{fontSizes.xxl.value}' },

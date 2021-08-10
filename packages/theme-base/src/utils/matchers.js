@@ -17,4 +17,8 @@ module.exports = {
   isOpacity: (token) =>
     token.path[0] === 'opacities' ||
     token.path[token.path.length - 1] === 'opacity',
+  isTime: (token) =>
+    token.path[0] === 'time' ||
+    token.path[token.path.length - 1] === 'transitionDuration',
+  isShadow: (token) => token.path[0] === 'shadows',
 };

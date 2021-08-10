@@ -9,10 +9,10 @@
 
   li {
     margin-left: var(
-      --amplify-components-pagination-item-container-margin-left
+      --amplify-components-pagination-item-container-margin-horizontal
     );
     margin-right: var(
-      --amplify-components-pagination-item-container-margin-right
+      --amplify-components-pagination-item-container-margin-horizontal
     );
   }
 
@@ -32,8 +32,8 @@
   }
 
   .ellipsis {
-    padding-left: var(--amplify-components-pagination-ellipsis-padding-left);
-    padding-right: var(--amplify-components-pagination-ellipsis-padding-right);
+    padding-left: var(--amplify-components-pagination-ellipsis-padding-horizontal);
+    padding-right: var(--amplify-components-pagination-ellipsis-padding-horizontal);
   }
 
   .amplify-button {
@@ -45,12 +45,12 @@
       justify-content: center;
       color: var(--amplify-components-pagination-button-color);
       font-weight: var(--amplify-components-pagination-button-font-weight);
-      padding-top: var(--amplify-components-pagination-button-padding-top);
-      padding-right: var(--amplify-components-pagination-button-padding-right);
+      padding-top: var(--amplify-components-pagination-button-padding-vertical);
+      padding-right: var(--amplify-components-pagination-button-padding-horizontal);
       padding-bottom: var(
-        --amplify-components-pagination-button-padding-bottom
+        --amplify-components-pagination-button-padding-vertical
       );
-      padding-left: var(--amplify-components-pagination-button-padding-left);
+      padding-left: var(--amplify-components-pagination-button-padding-horizontal);
       transition: background-color var(--amplify-components-pagination-button-transition-duration);
 
       &:hover {

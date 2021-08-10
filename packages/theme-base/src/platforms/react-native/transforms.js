@@ -5,6 +5,8 @@ const {
   isRadius,
   isBorderWidth,
   isOpacity,
+  isTime,
+  isShadow,
 } = require('../../utils/matchers');
 
 module.exports = {
@@ -55,6 +57,34 @@ module.exports = {
     matcher: isOpacity,
     transformer: (token) => {
       return parseFloat(token.value);
+    },
+  },
+  RNTime: {
+    type: 'value',
+    matcher: isTime,
+    transformer: (token) => {
+      return parseInt(token.value, 10);
+    },
+  },
+  RNShadow: {
+    type: 'value',
+    matcher: isShadow,
+    transitive: true,
+    transformer: (token) => {
+      const {
+        offsetX = '',
+        offsetY = '',
+        blurRadius = '',
+        color = '',
+      } = token.value;
+      return {
+        shadowColor: color,
+        shadowOffset: {
+          width: parseInt(offsetX, 10),
+          height: parseInt(offsetY, 10),
+        },
+        shadowRadius: parseInt(blurRadius, 10),
+      };
     },
   },
 };

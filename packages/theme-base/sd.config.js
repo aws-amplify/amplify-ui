@@ -5,6 +5,7 @@
 const { formatHelpers } = require('style-dictionary');
 const ReactNativeTransforms = require('./src/platforms/react-native/transforms');
 const ReactNativeFormats = require('./src/platforms/react-native/formats');
+const WebTransforms = require('./src/platforms/web/transforms');
 
 const CSS_VARIABLE_PREFIX = 'amplify';
 const CSS_VARIABLE_SCOPE = ':root';
@@ -16,23 +17,12 @@ module.exports = {
     ...ReactNativeFormats,
   },
   transform: {
-    cssPadding: {
-      type: 'value',
-      transitive: true,
-      matcher: (token) => token.path[token.path.length - 1] === 'padding',
-      transformer: (token) => {
-        if (Array.isArray(token.value)) {
-          return token.value.join(' ');
-        } else {
-          return token.value;
-        }
-      },
-    },
     ...ReactNativeTransforms,
+    ...WebTransforms,
   },
   platforms: {
     css: {
-      transforms: ['attribute/cti', 'name/cti/kebab', 'cssPadding'],
+      transforms: ['attribute/cti', 'name/cti/kebab', 'CSSBoxShadow'],
       prefix: CSS_VARIABLE_PREFIX,
       files: [
         {
@@ -63,13 +53,15 @@ module.exports = {
         'RNBorderWidth',
         'RNSpace',
         'RNOpacity',
+        'RNTime',
+        'RNShadow',
       ],
       files: [
         {
           destination: 'dist/react-native/theme.js',
           format: 'RNFormat',
           filter: (token) =>
-            !token.path.some((p) => ['_hover', '_focus'].includes(p)),
+            !token.path.some((p) => ['hover', 'focus'].includes(p)),
         },
       ],
     },

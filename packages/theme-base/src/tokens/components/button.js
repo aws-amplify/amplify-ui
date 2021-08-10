@@ -12,26 +12,26 @@ module.exports = {
   borderStyle: { value: 'solid' },
   color: { value: '{colors.brand.primary.80.value}' },
 
-  _hover: {
+  hover: {
     color: { value: '{colors.brand.primary.90.value}' },
     backgroundColor: { value: '{colors.brand.primary.10.value}' },
     borderColor: { value: '{colors.brand.primary.60.value}' },
   },
-  _focus: {
+  focus: {
     color: { value: '{colors.brand.primary.90.value}' },
     borderColor: { value: '{colors.brand.primary.90.value}' },
   },
-  _active: {
+  active: {
     color: { value: '{colors.font.inverse.value}' },
     backgroundColor: { value: '{colors.brand.primary.100.value}' },
     borderColor: { value: '{colors.brand.primary.100.value}' },
   },
-  _loading: {
+  loading: {
     color: { value: '{colors.font.tertiary.value}' },
     backgroundColor: { value: 'transparent' },
     borderColor: { value: '{colors.border.tertiary.value}' },
   },
-  _disabled: {
+  disabled: {
     color: { value: '{colors.font.tertiary.value}' },
     backgroundColor: { value: 'transparent' },
     borderColor: { value: '{colors.border.tertiary.value}' },
@@ -42,21 +42,21 @@ module.exports = {
     borderWidth: { value: 0 },
     backgroundColor: { value: '{colors.brand.primary.80.value}' },
     color: { value: '{colors.font.inverse.value}' },
-    _disabled: {
+    disabled: {
       backgroundColor: { value: '{colors.background.tertiary.value}' },
       color: { value: '{colors.font.tertiary.value}' },
     },
-    _loading: {
+    loading: {
       backgroundColor: { value: '{colors.background.tertiary.value}' },
       color: { value: '{colors.font.tertiary.value}' },
     },
-    _hover: {
+    hover: {
       backgroundColor: { value: '{colors.brand.primary.90.value}' },
     },
-    _focus: {
+    focus: {
       backgroundColor: { value: '{colors.brand.primary.90.value}' },
     },
-    _active: {
+    active: {
       backgroundColor: { value: '{colors.brand.primary.100.value}' },
     },
   },
@@ -65,19 +65,19 @@ module.exports = {
     borderWidth: { value: 0 },
     backgroundColor: { value: 'transparent' },
     color: { value: '{colors.font.interactive.value}' },
-    _hover: {
+    hover: {
       color: { value: '{colors.font.hover.value}' },
     },
-    _focus: {
+    focus: {
       color: { value: '{colors.font.focus.value}' },
     },
-    _active: {
+    active: {
       color: { value: '{colors.font.active.value}' },
     },
-    _disabled: {
+    disabled: {
       color: { value: '{colors.font.tertiary.value}' },
     },
-    _loading: {
+    loading: {
       color: { value: '{colors.font.tertiary.value}' },
     },
   },

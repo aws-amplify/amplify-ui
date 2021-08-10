@@ -1,7 +1,32 @@
 module.exports = {
   // TODO: update these to use an object rather than a string for cross-platform
   // transformations
-  small: { value: '0 2px 4px {colors.shadow.tertiary.value}' },
-  medium: { value: '0 2px 6px {colors.shadow.secondary.value}' },
-  large: { value: '0 4px 12px {colors.shadow.primary.value}' },
+  small: {
+    value: {
+      // https://github.com/amzn/style-dictionary/issues/678
+      offsetX: '0',
+      offsetY: '2',
+      blurRadius: '4',
+      color: '{colors.shadow.tertiary.value}',
+      elevation: '1', // Android only
+    },
+  },
+  medium: {
+    value: {
+      offsetX: '0',
+      offsetY: '2',
+      blurRadius: '6',
+      color: '{colors.shadow.secondary.value}',
+      elevation: '2', // Android only
+    },
+  },
+  large: {
+    value: {
+      offsetX: '0',
+      offsetY: '4',
+      blurRadius: '12',
+      color: '{colors.shadow.primary.value}',
+      elevation: '4', // Android only
+    },
+  },
 };

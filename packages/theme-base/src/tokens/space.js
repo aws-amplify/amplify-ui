@@ -1,4 +1,5 @@
 module.exports = {
+  xxxs: { value: '0.125rem' },
   xxs: { value: '0.25rem' },
   xs: { value: '0.5rem' },
   small: { value: '0.75rem' },
