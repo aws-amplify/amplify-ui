@@ -15,12 +15,14 @@ export const DividerDemo = () => {
     <div>
       <DividerPropControls {...dividerProps} />
       <Flex direction={direction} className="pt-2">
-        <Text>Before</Text>
-        <Divider
-          size={dividerProps.size}
-          orientation={dividerProps.orientation}
-        />
-        <Text>After</Text>
+        <Example>
+          <Text>Before</Text>
+          <Divider
+            size={dividerProps.size}
+            orientation={dividerProps.orientation}
+          />
+          <Text>After</Text>
+        </Example>
       </Flex>
     </div>
   );

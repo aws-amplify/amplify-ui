@@ -4,7 +4,7 @@ import { Example } from '@/components/Example';
 import Block from 'amplify-docs/src/components/Block';
 import BlockSwitcher from 'amplify-docs/src/components/BlockSwitcher';
 
-<Example>A divider creates separations in content.</Example>
+A divider creates separations in content.
 
 ## Installation
 
@@ -40,8 +40,9 @@ import '@aws-amplify/ui-react/styles.css';
 <Divider />;
 ```
 
-<Divider />
-<br />
+<Example>
+  <Divider />
+</Example>
 
 ### Orientation
 
@@ -55,11 +56,13 @@ import '@aws-amplify/ui-react/styles.css';
 </View>
 ```
 
-<View>
-  <Text>Before</Text>
-  <Divider orientation="horizontal" />
-  <Text>After</Text>
-</View>
+<Example>
+  <View>
+    <Text>Before</Text>
+    <Divider orientation="horizontal" />
+    <Text>After</Text>
+  </View>
+</Example>
 
 #### Vertical
 
@@ -71,31 +74,36 @@ import '@aws-amplify/ui-react/styles.css';
 </Flex>
 ```
 
-<Flex height="100px" justifyContent="space-around">
-  <Text>Before</Text>
-  <Divider orientation="vertical" />
-  <Text>After</Text>
-</Flex>
+<Example>
+  <Flex height="100px" justifyContent="space-around">
+    <Text>Before</Text>
+    <Divider orientation="vertical" />
+    <Text>After</Text>
+  </Flex>
+</Example>
 
 ### Sizes
 
-Choose from `small` `medium` and `large` size options
+Choose from `small` and `large` size options
 
 ```jsx
 <Flex direction="column" gap="20px">
   <Divider size="small" />
-  <Divider size="medium" />
+  {/* Default */}
+  <Divider />
   <Divider size="large" />
 </Flex>
 ```
 
-<Flex direction="column" gap="20px">
-  <Divider size="small" />
-  <Divider size="medium" />
-  <Divider size="large" />
-</Flex>
+<Example>
+  <Flex direction="column" gap="20px">
+    <Divider size="small" />
+    <Divider />
+    <Divider size="large" />
+  </Flex>
+</Example>
 
-### CSS Styling
+## CSS Styling
 
 ### Override Divider styling using the CSS variables
 
@@ -112,8 +120,9 @@ Override border-style for all `Divider` components
 }
 ```
 
-<Divider className="border-style-override" />
-<br />
+<Example>
+  <Divider className="border-style-override" />
+</Example>
 
 Override Divider sizes for all `Divider` components
 
@@ -144,8 +153,10 @@ Override Divider sizes for all `Divider` components
 </Flex>
 ```
 
-<Flex direction="column" gap="20px">
-  <Divider className="border-width-override" size="small" />
-  <Divider className="border-width-override" size="medium" />
-  <Divider className="border-width-override" size="large" />
-</Flex>
+<Example>
+  <Flex direction="column" gap="20px">
+    <Divider className="border-width-override" size="small" />
+    <Divider className="border-width-override" size="medium" />
+    <Divider className="border-width-override" size="large" />
+  </Flex>
+</Example>
