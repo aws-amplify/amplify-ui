@@ -30,12 +30,12 @@ describe('usePagination test suite', () => {
     );
 
     act(() => {
-      result.current.onNext(2);
+      result.current.onNext();
     });
     expect(result.current.currentPage).toBe(2);
 
     act(() => {
-      result.current.onPrevious(1);
+      result.current.onPrevious();
     });
     expect(result.current.currentPage).toBe(1);
 

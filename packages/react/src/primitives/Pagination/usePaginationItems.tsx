@@ -18,8 +18,8 @@ export const usePaginationItems = (
   currentPage: number,
   totalPages: number,
   siblingCount: number,
-  onNext: (newPageIdx: number) => void,
-  onPrevious: (newPageIdx: number) => void,
+  onNext: () => void,
+  onPrevious: () => void,
   onChange: (newPageIdx: number, prevPageIdx) => void
 ) => {
   const previousItem = (

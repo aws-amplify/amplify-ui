@@ -48,11 +48,11 @@ export const usePagination = (
   const initialState = { currentPage: initialPage };
   const [{ currentPage }, dispatch] = useReducer(reducer, initialState);
 
-  const onNext = useCallback((newPage: number) => {
+  const onNext = useCallback(() => {
     dispatch(actionCreator(ActionType.onNext));
   }, []);
 
-  const onPrevious = useCallback((newPage: number) => {
+  const onPrevious = useCallback(() => {
     dispatch(actionCreator(ActionType.onPrevious));
   }, []);
 
