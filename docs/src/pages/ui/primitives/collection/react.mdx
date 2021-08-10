@@ -1,11 +1,29 @@
 import { Card, Collection, View, Text, Heading } from '@aws-amplify/ui-react';
 import { CollectionDemo, ListCollectionExample } from './demo';
+import { Example } from '@/components/Example';
+import Block from 'amplify-docs/src/components/Block';
+import BlockSwitcher from 'amplify-docs/src/components/BlockSwitcher';
+
+A Collection will wrap Flex and Grid components, and provide a way to display items in a collection from a data source. They come in `paginated` and `infiniteScrolling` versions. Both versions need paginated data.
 
 ## Installation
 
-```
+<BlockSwitcher>
+<Block name="npm">
+
+```shell
 npm install @aws-amplify/ui-react
 ```
+
+</Block>
+<Block name="yarn">
+
+```shell
+yarn add @aws-amplify/ui-react
+```
+
+</Block>
+</BlockSwitcher>
 
 ## Demo
 
@@ -46,34 +64,36 @@ const visitNewZealand = [
 </Collection>;
 ```
 
-<Collection
-  type="list"
-  items={[
-    {
-      title: 'Fiordland National Park',
-      description:
-        'This national park includes the famous fjords of Milford, Dusky and Doubtful Sounds.',
-    },
-    {
-      title: 'Bay of Islands, North Island',
-      description:
-        'Three hours north of Auckland, this area features over 144 islands to explore.',
-    },
-    {
-      title: 'Queenstown, South Island',
-      description:
-        "This hopping town is New Zealand's adventure capital and is located right on Lake Wakatipu.",
-    },
-  ]}
-  gap="1.5rem"
->
-  {(item, index) => (
-    <Card key={index} padding="1rem">
-      <Heading level={4}>{item.title}</Heading>
-      <Text>{item.description}</Text>
-    </Card>
-  )}
-</Collection>
+<Example>
+  <Collection
+    type="list"
+    items={[
+      {
+        title: 'Fiordland National Park',
+        description:
+          'This national park includes the famous fjords of Milford, Dusky and Doubtful Sounds.',
+      },
+      {
+        title: 'Bay of Islands, North Island',
+        description:
+          'Three hours north of Auckland, this area features over 144 islands to explore.',
+      },
+      {
+        title: 'Queenstown, South Island',
+        description:
+          "This hopping town is New Zealand's adventure capital and is located right on Lake Wakatipu.",
+      },
+    ]}
+    gap="1.5rem"
+  >
+    {(item, index) => (
+      <Card key={index} padding="1rem">
+        <Heading level={4}>{item.title}</Heading>
+        <Text>{item.description}</Text>
+      </Card>
+    )}
+  </Collection>
+</Example>
 
 ### Collection types
 
@@ -101,36 +121,38 @@ The `list` collection type can be customized with any of following Flex props: `
 </Collection>
 ```
 
-<Collection
-  type="list"
-  items={[
-    {
-      title: 'Fiordland National Park',
-      description:
-        'This national park includes the famous fjords of Milford, Dusky and Doubtful Sounds.',
-    },
-    {
-      title: 'Bay of Islands, North Island',
-      description:
-        'Three hours north of Auckland, this area features over 144 islands to explore.',
-    },
-    {
-      title: 'Queenstown, South Island',
-      description:
-        "This hopping town is New Zealand's adventure capital and is located right on Lake Wakatipu.",
-    },
-  ]}
-  direction="row"
-  justifyContent="space-between"
-  wrap="wrap"
->
-  {(item, index) => (
-    <Card key={index} padding="1rem" maxWidth="180px" fontSize="0.5em">
-      <Heading level={4}>{item.title}</Heading>
-      <Text>{item.description}</Text>
-    </Card>
-  )}
-</Collection>
+<Example>
+  <Collection
+    type="list"
+    items={[
+      {
+        title: 'Fiordland National Park',
+        description:
+          'This national park includes the famous fjords of Milford, Dusky and Doubtful Sounds.',
+      },
+      {
+        title: 'Bay of Islands, North Island',
+        description:
+          'Three hours north of Auckland, this area features over 144 islands to explore.',
+      },
+      {
+        title: 'Queenstown, South Island',
+        description:
+          "This hopping town is New Zealand's adventure capital and is located right on Lake Wakatipu.",
+      },
+    ]}
+    direction="row"
+    justifyContent="space-between"
+    wrap="wrap"
+  >
+    {(item, index) => (
+      <Card key={index} padding="1rem" maxWidth="180px" fontSize="0.5em">
+        <Heading level={4}>{item.title}</Heading>
+        <Text>{item.description}</Text>
+      </Card>
+    )}
+  </Collection>
+</Example>
 
 #### Grid collection type
 
