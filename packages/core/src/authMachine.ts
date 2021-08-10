@@ -337,7 +337,10 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
               pending: {
                 invoke: {
                   src: 'signUp',
-                  onDone: { target: 'done', actions: 'setUser' },
+                  onDone: {
+                    target: 'done',
+                    actions: ['setUser'],
+                  },
                   onError: {
                     target: 'idle',
                     actions: 'setRemoteError',
@@ -356,7 +359,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
       confirmSignUp: {
         initial: 'edit',
         exit: ['clearFormValues', 'clearError'],
-        onDone: 'idle',
+        onDone: 'authenticated',
         states: {
           edit: {
             initial: 'clean',
@@ -374,6 +377,18 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
           submit: {
             invoke: {
               src: 'confirmSignUp',
+              onDone: {
+                target: 'confirmedSignIn',
+              },
+              onError: {
+                actions: 'setRemoteError',
+                target: 'rejected',
+              },
+            },
+          },
+          confirmedSignIn: {
+            invoke: {
+              src: 'signIn',
               onDone: {
                 target: 'resolved',
               },
@@ -505,9 +520,22 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
         return Amplify.configure();
       },
       async signIn(_context, event) {
-        const { username, password } = event.data;
+        /**
+         * SignIn could be called from both the SignIn page and the ConfirmSignUp page.
+         * Depending on where it is called from, username and password might live in
+         * different places - either in the event payload, or the `formValues` in Xstate's
+         * context.
+         */
+        const username = event.data.username
+          ? event.data.username
+          : _context.formValues.username;
+        const password = event.data.password
+          ? event.data.password
+          : _context.formValues.password;
 
-        return Auth.signIn(username, password);
+        const result = await Auth.signIn(username, password);
+
+        return result;
       },
       async confirmSignIn(context, event) {
         const { challengeName, user } = context;
