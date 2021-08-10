@@ -38,7 +38,7 @@ Amplify UI components work on screen readers and follow industry standards and b
 
 **Respectful to the platform and framework**
 
-We want to share as much as possible between platforms and frameworks, but we also want to respect their identities and rules when possible (e.g following name conventions and language patterns). We are spending a lot of time crafting the developer experience in each platform and framework so that Amplify UI is familiar and consistent with common, best-practices. This is why we are building the components in each framework — to give you the best experience building applications in the framework of your choice.
+We want to share as much as possible between platforms and frameworks, but we also want to respect their identities and rules when possible (e.g following name conventions and language patterns). We are spending a lot of time crafting the developer experience in each platform and framework so that Amplify UI is familiar and consistent with best-practices. This is why we are building the components in each framework — to give you the best experience building applications in the framework of your choice.
 
 **Minimal footprint**
 
