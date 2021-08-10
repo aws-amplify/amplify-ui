@@ -2,6 +2,7 @@ import React from 'react';
 import { Divider, Flex, Text } from '@aws-amplify/ui-react';
 import { DividerPropControls } from '../../../../components/DividerPropControls';
 import { useDividerProps } from '@/components/useDividerProps';
+import { Example } from '@/components/Example';
 
 export const DividerDemo = () => {
   const dividerProps = useDividerProps({
@@ -13,7 +14,7 @@ export const DividerDemo = () => {
   return (
     <div>
       <DividerPropControls {...dividerProps} />
-      <Flex direction={direction} height="50px" className="pt-2">
+      <Flex direction={direction} className="pt-2">
         <Text>Before</Text>
         <Divider
           size={dividerProps.size}
