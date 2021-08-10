@@ -1,13 +1,29 @@
 import { Flex, Text } from '@aws-amplify/ui-react';
 import { FlexDemo } from './demo';
+import { Example } from '@/components/Example';
+import Block from 'amplify-docs/src/components/Block';
+import BlockSwitcher from 'amplify-docs/src/components/BlockSwitcher';
 
-### A layout container using Flexbox.
+A layout container using Flexbox.
 
 ## Installation
 
-```
+<BlockSwitcher>
+<Block name="npm">
+
+```shell
 npm install @aws-amplify/ui-react
 ```
+
+</Block>
+<Block name="yarn">
+
+```shell
+yarn add @aws-amplify/ui-react
+```
+
+</Block>
+</BlockSwitcher>
 
 ## Usage
 
@@ -123,9 +139,9 @@ Use the `wrap` prop to control what happens when children overflow the size of t
 
 <FlexDemo demoType="wrap" />
 
-### CSS Styling
+## CSS Styling
 
-#### Override Amplify styling using a CSS class
+### Override Amplify styling using a CSS class
 
 ```css
 /* styles.css */
@@ -151,7 +167,7 @@ import './styles.css';
   <Text>3</Text>
 </Flex>
 
-#### Override Amplify styling using the CSS variables
+### Override Amplify styling using the CSS variables
 
 ```css
 /* styles.css */
