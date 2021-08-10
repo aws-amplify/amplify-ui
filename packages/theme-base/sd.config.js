@@ -41,6 +41,11 @@ module.exports = {
       files: [
         {
           destination: 'dist/theme.js',
+          minified: true,
+          format: 'javascript/cjs-nested',
+        },
+        {
+          destination: 'dist/theme-unminified.js',
           format: 'javascript/cjs-nested',
         },
       ],
@@ -73,10 +78,11 @@ module.exports = {
  * Exports a theme (minified) as a named export
  */
 function CommonJSNestedFormatter({ dictionary, options, file }) {
-  const { fileHeader } = formatHelpers;
-
+  const { fileHeader, minifyDictionary } = formatHelpers;
+  const theme = file.minified
+    ? minifyDictionary(dictionary.tokens)
+    : dictionary.tokens;
   return (
-    fileHeader({ file }) +
-    `module.exports = ${JSON.stringify(dictionary.tokens, null, 2)};`
+    fileHeader({ file }) + `module.exports = ${JSON.stringify(theme, null, 2)};`
   );
 }
