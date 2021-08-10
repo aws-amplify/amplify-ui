@@ -3,7 +3,7 @@ import { StateMachineService } from '../../services/state-machine.service';
 @Component({
   selector: 'amplify-sign-out',
   templateUrl: './amplify-sign-out.component.html',
-  styleUrls: []
+  styleUrls: [],
 })
 export class AmplifySignOutComponent {
   constructor(private stateMachine: StateMachineService) {}

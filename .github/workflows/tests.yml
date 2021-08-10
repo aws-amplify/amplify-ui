@@ -1,0 +1,122 @@
+# This workflow will do a clean install of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Tests
+
+on:
+  push:
+    branches: [main]
+
+  pull_request:
+    branches: [main]
+
+jobs:
+  unit:
+    runs-on: ubuntu-latest
+    env:
+      NODE_ENV: test
+
+    strategy:
+      matrix:
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+        package:
+          - '@aws-amplify/ui-core'
+          - '@aws-amplify/ui-angular'
+          - '@aws-amplify/ui-vue'
+          - '@aws-amplify/ui-react'
+
+    steps:
+      - name: Checkout Amplify UI
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js LTS
+        uses: actions/setup-node@v2
+        with:
+          node-version: lts/*
+          cache: 'yarn'
+
+      - name: Install packages
+        run: yarn --frozen-lockfile
+
+      - name: Run ${{ matrix.package }} tests
+        run: yarn workspace ${{ matrix.package}} test
+
+  e2e:
+    # Only run e2e tests if unit tests pass
+    needs: unit
+    runs-on: ubuntu-latest
+    environment: ci
+    env:
+      NODE_ENV: test
+
+    strategy:
+      matrix:
+        framework:
+          - 'next'
+          - 'vue'
+
+    steps:
+      - name: Checkout Amplify UI
+        uses: actions/checkout@v2
+
+      - name: Next.js Cache
+        uses: actions/cache@v2
+        with:
+          path: ${{ github.workspace }}/.next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Setup Node.js LTS
+        uses: actions/setup-node@v2
+        with:
+          node-version: lts/*
+          cache: 'yarn'
+
+      - name: Install packages
+        run: yarn --frozen-lockfile
+
+      - name: Add Amplify CLI
+        run: yarn global add @aws-amplify/cli
+
+      - name: Pull down AWS environments
+        run: sh ./.github/pull-environments.sh
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Build ${{ matrix.framework }} example
+        run: yarn workspace ${{ matrix.framework }}-example build
+
+      - name: Start ${{ matrix.framework }} example
+        run: yarn workspace ${{ matrix.framework }}-example start & npx wait-on -t 30000 http://localhost:3000/ui/components/authenticator/sign-in-with-username
+
+      - name: Run E2E tests against ${{ matrix.framework }} example
+        run: yarn workspace e2e test
+        env:
+          # Override on the default value in `cypress.json` with `@react and not @skip`
+          TAGS: '@${{ matrix.framework }} and not @skip'
+
+          # Env values for testing flows
+          CONFIRMED_USERNAME: ${{ secrets.CONFIRMED_USERNAME }}
+          FORCE_CHANGE_USERNAME: ${{ secrets.FORCE_CHANGE_USERNAME }}
+          INVALID_USERNAME: ${{ secrets.INVALID_USERNAME }}
+          UNCONFIRMED_USERNAME: ${{ secrets.UNCONFIRMED_USERNAME }}
+          UNKNOWN_USERNAME: ${{ secrets.UNKNOWN_USERNAME }}
+          VALID_USERNAME: ${{ secrets.VALID_USERNAME }}
+          CONFIRMED_EMAIL: ${{ secrets.CONFIRMED_EMAIL }}
+          FORCE_CHANGE_EMAIL: ${{ secrets.FORCE_CHANGE_EMAIL }}
+          INVALID_EMAIL: ${{ secrets.INVALID_EMAIL }}
+          UNCONFIRMED_EMAIL: ${{ secrets.UNCONFIRMED_EMAIL }}
+          UNKNOWN_EMAIL: ${{ secrets.UNKNOWN_EMAIL }}
+          VALID_EMAIL: ${{ secrets.VALID_EMAIL }}
+          CONFIRMED_PHONE_NUMBER: ${{ secrets.CONFIRMED_PHONE_NUMBER }}
+          FORCE_CHANGE_PHONE_NUMBER: ${{ secrets.FORCE_CHANGE_PHONE_NUMBER }}
+          INVALID_PHONE_NUMBER: ${{ secrets.INVALID_PHONE_NUMBER }}
+          UNCONFIRMED_PHONE_NUMBER: ${{ secrets.UNCONFIRMED_PHONE_NUMBER }}
+          UNKNOWN_PHONE_NUMBER: ${{ secrets.UNKNOWN_PHONE_NUMBER }}
+          VALID_PHONE_NUMBER: ${{ secrets.VALID_PHONE_NUMBER }}
+          INVALID_PASSWORD: ${{ secrets.INVALID_PASSWORD }}
+          INVALID_NEW_PASSWORD: ${{ secrets.INVALID_NEW_PASSWORD }}
+          NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
+          VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
+          VALID_EMAIL_SETUP_MFA: ${{ secrets.VALID_EMAIL_SETUP_MFA }}
+          VALID_PASSWORD_SETUP_MFA: ${{ secrets.VALID_PASSWORD_SETUP_MFA }}

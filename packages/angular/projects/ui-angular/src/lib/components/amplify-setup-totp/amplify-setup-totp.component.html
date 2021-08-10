@@ -1,0 +1,47 @@
+<!-- 
+  Define default contents here
+-->
+<ng-template #setupTotpButton>
+  <button data-amplify-button type="submit">Confirm</button>
+</ng-template>
+
+<ng-template #setupTotpForm>
+  <form data-amplify-form (submit)="onSubmit($event)" (input)="onInput($event)">
+    <fieldset data-amplify-fieldset [disabled]="isPending">
+      <p *ngIf="!qrCodeSource">Loading...</p>
+      <img *ngIf="qrCodeSource" [src]="qrCodeSource" alt="qr code" />
+      <amplify-input
+        name="confirmation_code"
+        type="number"
+        autocomplete="one-time-code"
+      ></amplify-input>
+
+      <div data-amplify-footer>
+        <a data-amplify-link (click)="toSignIn()">Back to Sign In</a>
+        <ng-container
+          [ngTemplateOutlet]="
+            customComponents.setupTotpButton || setupTotpButton
+          "
+          [ngTemplateOutletContext]="context()"
+        >
+        </ng-container>
+      </div>
+    </fieldset>
+
+    <amplify-error *ngIf="remoteError">
+      {{ remoteError }}
+    </amplify-error>
+  </form>
+</ng-template>
+
+<!-- 
+  Render sign in component
+-->
+<div data-amplify-container>
+  <h2 data-amplify-header>{{ this.headerText }}</h2>
+  <ng-container
+    [ngTemplateOutlet]="customComponents.setupTotpForm || setupTotpForm"
+    [ngTemplateOutletContext]="context()"
+  >
+  </ng-container>
+</div>

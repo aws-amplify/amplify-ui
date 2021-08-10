@@ -1,6 +1,8 @@
-import { useService } from "@xstate/react";
-import { authService } from "@aws-amplify/ui-core";
+import { useActor } from '@xstate/react';
+import { useContext } from 'react';
+
+import { AuthenticatorContext } from '../components/Authenticator/AuthenticatorContext';
 
 export function useAuth() {
-  return useService(authService);
+  return useActor(useContext(AuthenticatorContext));
 }

@@ -1,39 +1,64 @@
-import { Ref, ComputedRef, VNode } from "vue";
-import { PayloadSender, EventObject } from "xstate";
-export interface SignInEventTypeProps {
-  headless: boolean;
-  usernameAlias: string;
-}
+import { Ref, ComputedRef, Slot } from 'vue';
+import { PayloadSender, EventObject } from 'xstate';
+import {
+  AuthInputAttributes,
+  FederatedIdentityProviders,
+} from '@aws-amplify/ui-core';
 
 export interface SetupEventContext {
   emit: (eventName: string, payload?: unknown) => void;
   attrs: Record<string, unknown>;
 }
 
+export interface UserNameAliasTypes {
+  userName: string;
+  disabled: boolean;
+  userNameAlias: boolean;
+}
+
+export interface UserNameAliasSetupReturnTypes {
+  label: string;
+  name: string;
+  type: string;
+  error: string;
+  uName: Ref<string>;
+}
+export interface FederatedSignInButtonReturnTypes {
+  onClick: (e: Event) => void;
+}
+
 export interface SignInSetupReturnTypes {
-  onSignInSubmit: (e: any) => void;
+  onSignInSubmit: (e: Event) => void;
   AUTHENTICATOR: string;
-  onForgotPasswordClicked: (e: any) => void;
-  onCreateAccountClicked: (e: any) => void;
-  state: Ref<any>;
+  onForgotPasswordClicked: () => void;
+  onCreateAccountClicked: () => void;
+  onInput: (e: Event) => void;
   username: Ref<string>;
   password: Ref<string>;
-  submit: (e: any) => void;
-  signInUserNameText: ComputedRef<string>;
+  submit: (e: Event) => void;
+  state: Ref;
 }
 
 export interface SignUpSetupReturnTypes {
   onHaveAccountClicked: () => void;
-  onSignUpSubmit: (e: any) => void;
-  state: Ref<any>;
+  onSignUpSubmit: (e: Event) => void;
+  onChange: (e: Event) => void;
+  state: Ref;
   phone: Ref<string>;
-  submit: (e: any) => void;
+  submit: () => void;
+  error: Ref<string>;
+  secondaryAliases: string[];
+  signInButtonText: ComputedRef<string>;
+  haveAccountLabel: ComputedRef<string>;
+  createAccountLabel: ComputedRef<string>;
+  signUpButtonText: ComputedRef<string>;
+  inputAttributes: ComputedRef<AuthInputAttributes>;
 }
 
 export interface ConfirmPasswordSetupReturnTypes {
-  onConfirmSignUpSubmit: (e: any) => void;
+  onConfirmSignUpSubmit: (e: Event) => void;
   onBackToSignInClicked: () => void;
-  submit: (e: any) => void;
+  submit: (e: Event) => void;
   confirmSignUpHeading: ComputedRef<string>;
   confirmationCodeText: ComputedRef<string>;
   lostYourCodeText: ComputedRef<string>;
@@ -41,19 +66,19 @@ export interface ConfirmPasswordSetupReturnTypes {
   backSignInText: ComputedRef<string>;
   confirmText: ComputedRef<string>;
   onLostCodeClicked: () => void;
-  state: Ref<any>;
+  state: Ref;
   send: PayloadSender<EventObject>;
+  primaryAlias: string;
 }
 
-export interface SignInAndUpNameControlTypes {
-  userName: string;
-  disabled: boolean;
-  usernameAlias: string;
-}
-
-export interface SignUpNameSetupReturnTypes {
-  name: ComputedRef<string> | Ref<string>;
-  signInUserNameText: ComputedRef<string>;
+export interface ConfirmSignInSetupReturnTypes {
+  confirmSignInHeading: string;
+  onConfirmSignInSubmit: (e: Event) => void;
+  onBackToSignInClicked: () => void;
+  submit: (e: Event) => void;
+  backSignInText: ComputedRef<string>;
+  confirmText: ComputedRef<string>;
+  state: Ref;
 }
 
 export interface SignUpPhoneControlTypes {
@@ -65,9 +90,44 @@ export interface SignUpPhoneControlTypes {
 
 export interface AuthenticatorSetupReturnTypes {
   currentPage: Ref<string>;
-  state: Ref<any>;
+  state: Ref;
   send: PayloadSender<EventObject>;
-  onSignInSubmitI: (e: any) => void;
-  onSignUpSubmitI: (e: any) => void;
-  onConfirmSignUpSubmitI: (e: any) => void;
+  onSignInSubmitI: (e: Event) => void;
+  onSignUpSubmitI: (e: Event) => void;
+  onConfirmSignUpSubmitI: (e: Event) => void;
+  onConfirmSignInSubmitI: (e: Event) => void;
+  onConfirmSetupTOTPSubmitI: (e: Event) => void;
+  onForceNewPasswordSubmitI: (e: Event) => void;
+}
+
+export interface AliasControlTypes {
+  inputAttributes: ComputedRef<AuthInputAttributes>;
+}
+
+export interface FederatedSignInReturnTypes {
+  loginMechanisms: string[];
+  fp: ComputedRef<typeof FederatedIdentityProviders>;
+  includeFacebook: boolean;
+  includeGoogle: boolean;
+  includeAmazon: boolean;
+  shouldShowFederatedSignIn: boolean;
+}
+
+export interface ForceNewPasswordReturnTypes {
+  changePasswordLabel: ComputedRef<string>;
+  changingPasswordLabel: ComputedRef<string>;
+  submit: (e: Event) => void;
+  onForceNewPasswordSubmit: (e: Event) => void;
+  state: Ref;
+  onHaveAccountClicked: () => void;
+  signInButtonText: ComputedRef<string>;
+  haveAccountLabel: ComputedRef<string>;
+}
+
+export type InternalSlots = {
+  [name: string]: Slot | undefined;
+};
+
+export interface PrimitiveSlotReturnType {
+  mySlots: Readonly<InternalSlots>;
 }

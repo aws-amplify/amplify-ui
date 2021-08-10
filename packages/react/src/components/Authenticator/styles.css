@@ -1,73 +1,65 @@
-[data-amplify-theme] [data-amplify-authenticator] {
+[data-amplify-authenticator] {
   @apply max-w-md mx-auto overflow-hidden text-base text-gray-700 rounded-md shadow;
 }
 
-[data-amplify-theme] [data-amplify-authenticator] [data-amplify-heading] {
+[data-amplify-authenticator] [data-amplify-heading] {
   @apply mb-0 text-xl;
 }
 
-[data-amplify-theme] [data-amplify-authenticator] [data-amplify-form] {
+[data-amplify-authenticator] [data-amplify-form] {
   @apply grid gap-6 p-8 bg-white;
 }
 
-[data-amplify-theme] [data-amplify-authenticator] [data-amplify-footer] {
+[data-amplify-authenticator] [data-amplify-footer] {
   @apply flex flex-row items-center space-x-1;
 }
 
-[data-amplify-theme] [data-amplify-authenticator] [data-amplify-fieldset] {
+[data-amplify-authenticator] [data-amplify-fieldset] {
   @apply grid gap-6;
 }
 
-[data-amplify-theme] [data-amplify-authenticator] [data-amplify-label] {
+[data-amplify-authenticator] [data-amplify-label] {
   @apply space-y-2;
 }
 
-[data-amplify-theme]
-  [data-amplify-authenticator]
-  [data-amplify-password]
-  [data-amplify-box] {
+[data-amplify-authenticator] [data-amplify-password] [data-amplify-box] {
   @apply flex flex-row space-x-1;
 }
 
-[data-amplify-theme]
-  [data-amplify-authenticator]
+[data-amplify-authenticator-sign-in] [data-amplify-error] {
+  @apply text-red-500;
+}
+
+[data-amplify-authenticator]
   [data-amplify-password]
   [data-amplify-box]
   [data-amplify-text] {
   @apply text-sm text-gray-500;
 }
 
-[data-amplify-theme]
-  [data-amplify-authenticator]
+[data-amplify-authenticator]
   [data-amplify-password]
   [data-amplify-box]
   [data-amplify-button] {
   @apply text-sm text-blue-500;
 }
 
-[data-amplify-theme]
-  [data-amplify-authenticator]
-  [data-amplify-footer]
-  [data-amplify-text] {
+[data-amplify-authenticator] [data-amplify-footer] [data-amplify-text] {
   @apply text-sm text-gray-500;
 }
 
-[data-amplify-theme]
-  [data-amplify-authenticator]
+[data-amplify-authenticator]
   [data-amplify-footer]
   [data-amplify-button]:first-of-type {
   @apply text-sm text-blue-500;
 }
 
-[data-amplify-theme]
-  [data-amplify-authenticator]
+[data-amplify-authenticator]
   [data-amplify-footer]
-  [data-amplify-button][type="submit"] {
+  [data-amplify-button][type='submit'] {
   @apply px-8 py-2 text-base text-white bg-gray-700 rounded;
 }
 
-[data-amplify-theme]
-  [data-amplify-authenticator]
-  :disabled {
-    @apply opacity-50;
-  }
+[data-amplify-authenticator] :disabled {
+  @apply opacity-50;
+}

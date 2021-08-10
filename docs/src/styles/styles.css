@@ -1,0 +1,41 @@
+@import 'prism-theme-night-owl';
+@import 'tailwindcss/tailwind.css';
+@import './buttonStyles.css';
+@import './cardStyles.css';
+@import './dividerStyles.css';
+@import './flexStyles.css';
+@import './headingStyles.css';
+@import './iconStyles.css';
+@import './paginationStyles.css';
+@import './placeholderStyles.css';
+@import './ratingStyles.css';
+@import './textStyles.css';
+@import './viewStyles.css';
+
+.mdx-marker {
+  @apply pl-3 -ml-4 -mr-4 bg-gray-700 border-l-4 border-amazon;
+}
+
+pre {
+  @apply rounded;
+}
+
+pre.language-shell code.language-shell::before {
+  content: '$';
+  @apply mr-2 -ml-2 text-gray-500;
+}
+
+code.language-shell,
+.mdx-marker {
+  @apply select-all;
+}
+
+a > h2::before {
+  content: '#';
+  @apply absolute -ml-6 text-amazon;
+}
+
+a > h3::before {
+  content: '#';
+  @apply absolute -ml-5 text-amazon;
+}

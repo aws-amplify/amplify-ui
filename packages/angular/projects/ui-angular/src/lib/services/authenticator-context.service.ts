@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
-import { CustomComponents, FormError, PropContext } from '../common';
+import { CustomComponents, PropContext } from '../common';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class AuthenticatorContextService {
+export class AuthPropService {
   constructor() {}
   private _customComponents: CustomComponents = {};
   private _props: PropContext = {};
-  private _formError: FormError = {};
 
   public get customComponents(): CustomComponents {
     return this._customComponents;
@@ -24,13 +23,5 @@ export class AuthenticatorContextService {
 
   public set props(props: PropContext) {
     this._props = { ...this._props, ...props };
-  }
-
-  public get formError(): FormError {
-    return this._formError;
-  }
-
-  public set formError(formError: FormError) {
-    this._formError = formError;
   }
 }

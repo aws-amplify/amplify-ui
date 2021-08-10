@@ -1,8 +1,6 @@
 <template>
   <div>
     <sign-in
-      :headless="headless"
-      :usernameAlias="usernameAlias"
       v-if="state?.matches('signIn')"
       @sign-in-submit="onSignInSubmitI"
       ref="signInComponent"
@@ -11,19 +9,24 @@
         <slot name="sign-in"></slot>
       </template>
 
-      <template #forgot-password-section="{ onForgotPasswordClicked}">
+      <template #forgot-password-section="{ onForgotPasswordClicked }">
         <slot
           name="sign-in-forgot-password-section"
           :onForgotPasswordClicked="onForgotPasswordClicked"
         />
       </template>
 
-      <template #sign-in-button="{ onSignInSubmit}">
+      <template #sign-in-button="{ onSignInSubmit }">
         <slot name="sign-in-button" :onSignInSubmit="onSignInSubmit" />
       </template>
 
       <template
-        #form="{ info, onSignInSubmit, onCreateAccountClicked, onForgotPasswordClicked }"
+        #form="{
+          info,
+          onSignInSubmit,
+          onCreateAccountClicked,
+          onForgotPasswordClicked,
+        }"
       >
         <slot
           name="sign-in-form"
@@ -38,11 +41,7 @@
         <slot name="sign-in-heading"></slot>
       </template>
 
-      <template #name>
-        <slot name="sign-in-name"></slot>
-      </template>
-
-      <template #footer="{ info, onSignInSubmit, onCreateAccountClicked  }">
+      <template #footer="{ info, onSignInSubmit, onCreateAccountClicked }">
         <slot
           name="sign-in-footer"
           :info="info"
@@ -52,9 +51,7 @@
         </slot>
       </template>
 
-      <template
-        #additional-fields="{ onSignInSubmit, onCreateAccountClicked  }"
-      >
+      <template #additional-fields="{ onSignInSubmit, onCreateAccountClicked }">
         <slot
           name="sign-in-additional-fields"
           :onSignInSubmit="onSignInSubmit"
@@ -62,18 +59,16 @@
         >
         </slot>
       </template>
-      <template #signin-fields="{info}">
+      <template #signin-fields="{ info }">
         <slot name="sign-in-fields" :info="info"></slot>
       </template>
     </sign-in>
     <sign-up
-      :headless="headless"
-      :usernameAlias="usernameAlias"
       v-if="state?.matches('signUp')"
       @sign-up-submit="onSignUpSubmitI"
       ref="signUpComponent"
     >
-      <template #signup-fields="{info}">
+      <template #signup-fields="{ info }">
         <slot name="sign-up-fields" :info="info"></slot>
       </template>
 
@@ -81,7 +76,7 @@
         <slot name="sign-up"></slot>
       </template>
 
-      <template #footer-left="{ onHaveAccountClicked}">
+      <template #footer-left="{ onHaveAccountClicked }">
         <slot
           name="sign-up-footer-left"
           :onHaveAccountClicked="onHaveAccountClicked"
@@ -105,21 +100,18 @@
         </slot>
       </template>
     </sign-up>
-    <div v-if="state?.matches('signIn.rejected')">
-      Error! Can't sign in!
-    </div>
+    <div v-if="state?.matches('signIn.rejected')">Error! Can't sign in!</div>
     <confirm-sign-up
-      :headless="headless"
-      :usernameAlias="usernameAlias"
       v-if="state?.matches('confirmSignUp')"
-      ref="confirmSignUpComponent"
       @confirm-sign-up-submit="onConfirmSignUpSubmitI"
+      :shouldHideReturnBtn="shouldHideReturnBtn"
+      ref="confirmSignUpComponent"
     >
       <template #confirmSignUpSlotI>
         <slot name="confirm-sign-up"></slot>
       </template>
       <template
-        #footer="{ info, onConfirmSignUpSubmit, onBackToSignInClicked  }"
+        #footer="{ info, onConfirmSignUpSubmit, onBackToSignInClicked }"
       >
         <slot
           name="sign-in-footer"
@@ -130,6 +122,67 @@
         </slot>
       </template>
     </confirm-sign-up>
+
+    <confirm-sign-in
+      v-if="state?.matches('confirmSignIn')"
+      @confirm-sign-in-submit="onConfirmSignInSubmitI"
+      ref="confirmSignInComponent"
+    >
+      <template #confirmSignInSlotI>
+        <slot name="confirm-sign-in"></slot>
+      </template>
+      <template
+        #footer="{ info, onConfirmSignInSubmit, onBackToSignInClicked }"
+      >
+        <slot
+          name="sign-in-footer"
+          :info="info"
+          :onConfirmSignInSubmit="onConfirmSignInSubmit"
+          :onBackToSignInClicked="onBackToSignInClicked"
+        >
+        </slot>
+      </template>
+    </confirm-sign-in>
+
+    <setup-totp
+      v-if="state?.matches('setupTOTP')"
+      @confirm-setup-totp-submit="onConfirmSetupTOTPSubmitI"
+      ref="confirmSetupTOTPComponent"
+    >
+      <template #confirmSetupTOTPI>
+        <slot name="confirm-setup-totp"></slot>
+      </template>
+      <template #footer="{ info, onSetupTOTPSubmit, onBackToSignInClicked }">
+        <slot
+          name="sign-in-footer"
+          :info="info"
+          :onSetupTOTPSubmit="onSetupTOTPSubmit"
+          :onBackToSignInClicked="onBackToSignInClicked"
+        >
+        </slot>
+      </template>
+    </setup-totp>
+
+    <force-new-password
+      v-if="state?.matches('forceNewPassword')"
+      @force-new-password-submit="onForceNewPasswordSubmitI"
+      ref="forceNewPasswordComponent"
+    >
+      <template #forceNewPasswordI>
+        <slot name="force-new-password"></slot>
+      </template>
+      <template
+        #footer="{ info, onHaveAccountClicked, onForceNewPasswordSubmit }"
+      >
+        <slot
+          name="sign-in-footer"
+          :info="info"
+          :onForceNewPasswordSubmit="onForceNewPasswordSubmit"
+          :onBackToSignInClicked="onHaveAccountClicked"
+        >
+        </slot>
+      </template>
+    </force-new-password>
   </div>
 
   <slot
@@ -139,72 +192,109 @@
 </template>
 
 <script lang="ts">
-import SignIn from "./sign-in.vue";
-import SignUp from "./sign-up.vue";
-import ConfirmSignUp from "./confirm-sign-up.vue";
-import { ref, provide } from "vue";
-import { useAuth } from "../composables/useAuth";
+import { ref, provide, defineComponent } from 'vue';
+
+import SignIn from './sign-in.vue';
+import SignUp from './sign-up.vue';
+import ConfirmSignUp from './confirm-sign-up.vue';
+import ConfirmSignIn from './confirm-sign-in.vue';
+import SetupTotp from './setup-totp.vue';
+import ForceNewPassword from './force-new-password.vue';
+
+import { useAuth } from '../composables/useAuth';
 import {
   AuthenticatorSetupReturnTypes,
-  SetupEventContext
-} from "../types/index";
+  SetupEventContext,
+} from '../types/index';
 
-export default {
+export default defineComponent({
   inheritAttrs: false,
   components: {
     SignIn,
     SignUp,
-    ConfirmSignUp
+    ConfirmSignUp,
+    ConfirmSignIn,
+    SetupTotp,
+    ForceNewPassword,
   },
   props: {
-    headless: {
+    shouldHideReturnBtn: {
+      default: true,
       type: Boolean,
-      default: false
     },
-    usernameAlias: {
-      type: String,
-      default: "username"
-    }
   },
+
   setup(
-    _: unknown,
+    _,
     { attrs, emit }: SetupEventContext
   ): AuthenticatorSetupReturnTypes & {
     signInComponent: typeof SignIn;
     signUpComponent: typeof SignUp;
     confirmSignUpComponent: typeof ConfirmSignUp;
+    confirmSignInComponent: typeof ConfirmSignIn;
+    confirmSetupTOTPComponent: typeof SetupTotp;
+    forceNewPasswordComponent: typeof ForceNewPassword;
   } {
     const { state, send } = useAuth();
     const signInComponent = ref(null);
     const signUpComponent = ref(null);
     const confirmSignUpComponent = ref(null);
+    const confirmSignInComponent = ref(null);
+    const confirmSetupTOTPComponent = ref(null);
+    const forceNewPasswordComponent = ref(null);
 
-    const currentPage = ref("SIGNIN");
+    const currentPage = ref('SIGNIN');
 
-    const onSignInSubmitI = e => {
+    //methods
+
+    const onSignInSubmitI = (e: Event) => {
       if (attrs?.onSignInSubmit) {
-        emit("signInSubmit", e);
+        emit('signInSubmit', e);
       } else {
         signInComponent.value.submit(e);
       }
     };
 
-    const onConfirmSignUpSubmitI = e => {
+    const onConfirmSignUpSubmitI = (e: Event) => {
       if (attrs?.onConfirmSignUpSubmit) {
-        emit("confirmSignUpSubmit", e);
+        emit('confirmSignUpSubmit', e);
       } else {
         confirmSignUpComponent.value.submit(e);
       }
     };
 
-    const onSignUpSubmitI = e => {
+    const onConfirmSignInSubmitI = (e: Event) => {
+      if (attrs?.onConfirmSignInSubmit) {
+        emit('confirmSignInSubmit', e);
+      } else {
+        confirmSignInComponent.value.submit(e);
+      }
+    };
+
+    const onConfirmSetupTOTPSubmitI = (e: Event) => {
+      if (attrs?.onForceNewPasswordSubmit) {
+        emit('mSetupTOTPSubmit', e);
+      } else {
+        confirmSetupTOTPComponent.value.submit(e);
+      }
+    };
+
+    const onForceNewPasswordSubmitI = (e: Event) => {
+      if (attrs?.onForceNewPasswordSubmit) {
+        emit('forceNewPasswordSubmit', e);
+      } else {
+        forceNewPasswordComponent.value.submit(e);
+      }
+    };
+
+    const onSignUpSubmitI = (e: Event) => {
       if (attrs?.onSignUpSubmit) {
-        emit("signUpSubmit", e);
+        emit('signUpSubmit', e);
       } else {
         signUpComponent.value.submit(e);
       }
     };
-    provide("pageInfo", currentPage);
+    provide('pageInfo', currentPage);
 
     return {
       currentPage,
@@ -212,11 +302,17 @@ export default {
       onSignInSubmitI,
       signInComponent,
       signUpComponent,
+      forceNewPasswordComponent,
       onSignUpSubmitI,
       confirmSignUpComponent,
+      confirmSignInComponent,
+      confirmSetupTOTPComponent,
+      onConfirmSignInSubmitI,
       onConfirmSignUpSubmitI,
-      send
+      onConfirmSetupTOTPSubmitI,
+      onForceNewPasswordSubmitI,
+      send,
     };
-  }
-};
+  },
+});
 </script>

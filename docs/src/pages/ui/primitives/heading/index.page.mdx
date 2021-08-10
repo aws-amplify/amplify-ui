@@ -1,0 +1,134 @@
+---
+title: Heading
+---
+
+import { Heading } from '@aws-amplify/ui-react';
+import { HeadingDemo } from './demo';
+
+## Installation
+
+```
+npm install @aws-amplify/ui-react
+```
+
+## Demo
+
+<HeadingDemo />
+
+## Usage
+
+Import the Heading component and styles.
+
+```jsx
+import { Heading } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<Heading>Hello world</Heading>;
+```
+
+<Heading>Hello world</Heading>
+
+### Heading levels
+
+Use the `level` prop to change the heading level (e.g., `h1 - h6`). Available options are `1`, `2`, `3`, `4`, `5` and `6`.
+
+```jsx
+<Heading level={1}>Heading 1</Heading>
+<Heading level={2}>Heading 2</Heading>
+<Heading level={3}>Heading 3</Heading>
+<Heading level={4}>Heading 4</Heading>
+<Heading level={5}>Heading 5</Heading>
+<Heading level={6}>Heading 6</Heading>
+<Heading>Default heading (level 6)</Heading>
+```
+
+<Heading level={1}>Heading 1</Heading>
+<Heading level={2}>Heading 2</Heading>
+<Heading level={3}>Heading 3</Heading>
+<Heading level={4}>Heading 4</Heading>
+<Heading level={5}>Heading 5</Heading>
+<Heading level={6}>Heading 6</Heading>
+<Heading>Default heading (level 6)</Heading>
+
+### CSS Styling
+
+### Override Heading styling using the CSS variables
+
+Override color for all `Heading` components
+
+```css
+/* styles.css */
+:root {
+  --amplify-components-heading-color: gray;
+}
+/* OR */
+.amplify-heading {
+  color: gray;
+}
+```
+
+<br />
+
+Override styles for any `Heading` component `h1 - h6`
+
+```css
+/* styles.css */
+h1.amplify-heading {
+  font-size: 1rem;
+  font-style: italic;
+}
+
+h6.amplify-heading {
+  font-size: 2rem;
+  font-weight: bold;
+}
+```
+
+```jsx
+import './styles.css';
+
+<Heading level={1}>Small and italic</Heading>
+<Heading>Big and bold</Heading>
+```
+
+<Heading fontSize="1rem" fontStyle="italic">
+  Small and italic
+</Heading>
+<Heading fontSize="2rem" fontWeight="bold">
+  Big and bold
+</Heading>
+
+<br />
+
+#### Styling a heading instance
+
+To override styling on a specific heading
+
+_Using props:_
+
+```jsx
+<Heading level={3} color="green" fontWeight="bold">
+  Save the environment
+</Heading>
+```
+
+<Heading level={3} color="green" fontWeight="bold">
+  Save the environment
+</Heading>
+
+_Using an id selector:_
+
+```css
+/* Example: id selector styling override */
+#subscribe {
+  color: darkblue;
+  font-style: italic;
+  font-size: 1.5rem;
+}
+```
+
+```jsx
+<Heading id="subscribe">Suscribe now!</Heading>
+```
+
+<Heading id="subscribe">Suscribe now!</Heading>

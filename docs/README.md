@@ -1,21 +1,52 @@
-# Example app with MDX
+# Amplify UI Documentation
 
-This example shows using [MDX](https://github.com/mdx-js/mdx) as top level pages for your next.js app.
+These docs are published at https://docs.amplify.aws/ui and powered by the following technologies:
 
-## Deploy your own
+- [aws-amplify/docs#next](https://github.com/aws-amplify/docs/tree/next) – Layout & Styling
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
+  As a GitHub dependency, this package should be **explicitly updated** using a SHA (e.g. `#33d383d`) rather than a branch (e.g. `#next`):
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-mdx&project-name=with-mdx&repository-name=with-mdx)
+  ```shell
+  yarn docs add amplify-docs@github:https://github.com/aws-amplify/docs#33d383d
+  ```
 
-## How to use
+  You can find the latest/relevant commit at https://github.com/aws-amplify/docs/commits/next.
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
+- [XDM](https://github.com/wooorm/xdm) – Content
+- [Next.js](https://nextjs.org/) – Framework
 
-```bash
-npx create-next-app --example with-mdx with-mdx-app
-# or
-yarn create next-app --example with-mdx with-mdx-app
+## Getting Started
+
+1. Navigate to the _root_ of your local clone of [aws-amplify/amplify-ui](https://github.com/aws-amplify/amplify-ui)
+1. Run `yarn install`
+1. Run `yarn docs dev`
+1. Open <http://localhost:5000/>
+
+   (The docs root is `/ui` for consistency with https://docs.amplify.aws/ui)
+
+## Contributing
+
+### Creating a Page
+
+Page paths mirror their URLs. For example, `/ui/components/authenticator` is located at [/src/pages/ui/components/authenticator/index.page.mdx](src/pages/ui/components/authenticator/index.page.mdx).
+
+Component & primitive pages are located at `src/pages/ui/components/*/index.page.mdx` and `src/pages/ui/primitives/*/index.page.mdx`, respectively.
+
+At a minimum, all `.page.mdx` files require the following basic frontmatter:
+
+```md
+---
+title: My Title
+---
+
+Content goes here...
 ```
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+_My Title_ will show up in the sidebar navigation, while contenet will be statically generated & indexed.
+
+Note that _dynamic content_ (e.g. `import Page from "${slug}.mdx"`) is **not** statically generated
+and harder to index. Because of this, ensure indexable content _always_ exists and only supplemental
+content & demos are loaded asynchronously.
+
+Pages **must** end with `.page.(mdx|tsx)` to differentiate them supplemental
+`.mdx` fragments or `.tsx` utilities.

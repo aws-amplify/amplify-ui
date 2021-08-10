@@ -1,21 +1,51 @@
 {
   "private": true,
   "scripts": {
-    "dev": "cd docs && yarn dev",
-    "dev:vue": "cd vue-docs && yarn serve --port 3001 --host localhost",
-    "dev:angular": "cd angular-docs && yarn start",
-    "build:angular": "cd packages/angular && yarn build",
-    "build:angular:watch": "cd packages/angular && yarn build --watch",
-    "build:vue": "cd vue-docs && yarn build"
+    "install": "yarn run theme-base build:all",
+    "postinstall": "patch-package",
+    "build": "yarn workspaces run build",
+    "angular": "yarn workspace @aws-amplify/ui-angular",
+    "react": "yarn workspace @aws-amplify/ui-react",
+    "core": "yarn workspace @aws-amplify/ui-core",
+    "vue": "yarn workspace @aws-amplify/ui-vue",
+    "theme-base": "yarn workspace @aws-amplify/ui-theme-base",
+    "angular-docs": "yarn workspace angular-docs",
+    "docs": "yarn workspace docs",
+    "next-example": "yarn workspace next-example",
+    "vue-example": "yarn workspace vue-exmaple",
+    "e2e": "yarn workspace e2e",
+    "build:icons": "yarn react build:icons",
+    "build:angular": "yarn angular build",
+    "build:angular:watch": "yarn angular build --watch",
+    "build:theme-base": "yarn theme-base build",
+    "dev:angular": "yarn angular-docs start",
+    "test": "yarn react test && yarn e2e test",
+    "prepare": "husky install"
   },
   "workspaces": [
     "docs",
-    "vue-docs",
     "angular-docs",
+    "environments/*",
+    "examples/*",
     "packages/*"
   ],
   "resolutions": {
     "@mdx-js/mdx/**/trim": "^0.0.3",
+    "fs-extra": "^10.0.0",
+    "next": "^11.0.1",
     "ws": "^7.4.6"
+  },
+  "dependencies": {
+    "patch-package": "^6.4.7",
+    "postinstall-postinstall": "^2.1.0"
+  },
+  "devDependencies": {
+    "husky": ">=6",
+    "lint-staged": ">=10",
+    "prettier": "2.3.2",
+    "wait-on": "^6.0.0"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,css,md,mdx}": "prettier --write"
   }
 }

@@ -2,8 +2,23 @@
   "private": true,
   "name": "@aws-amplify/ui-core",
   "version": "0.0.1",
+  "module": "index.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/*.{js,ts}",
+    "dist/**/*.{js,ts}"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Skipped: no test specified\""
+  },
   "dependencies": {
-    "@xstate/inspect": "0.4.1",
-    "xstate": "^4.16.2"
+    "lodash": "^4.17.21",
+    "xstate": "^4.20.1"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.170",
+    "tslib": "^2.3.0"
   }
 }

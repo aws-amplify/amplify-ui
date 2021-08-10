@@ -1,26 +1,20 @@
-[data-ui-theme] {
+[data-amplify-authenticator] {
   font-size: 14px;
-  font-family: "Amazon Ember";
-}
-
-[data-ui-theme],
-[data-ui-theme] [data-ui-authenticator],
-[data-ui-theme] [data-ui-sign-in],
-[data-ui-theme] [data-ui-sign-out] {
+  font-family: 'Amazon Ember';
   display: inline-block;
 }
 
-[data-ui-theme] [data-ui-header] {
+[data-amplify-header] {
   margin-top: 0px;
 }
 
-[data-ui-theme] [data-ui-fieldset] {
+[data-amplify-fieldset] {
   border-style: none;
   margin: 0;
   padding: 0;
 }
 
-[data-ui-theme] [data-ui-container] {
+[data-amplify-container] {
   width: 22rem;
   padding: 3rem;
   border-style: solid;
@@ -29,7 +23,7 @@
   background-color: white;
 }
 
-[data-ui-theme] [data-ui-input] {
+[data-amplify-input] {
   border-style: solid;
   display: block;
   padding: 0.875rem;
@@ -40,17 +34,17 @@
   border-radius: 2px;
 }
 
-[data-ui-theme] [data-ui-input]:focus {
+[data-amplify-input]:focus {
   outline: none;
   border: 1px solid cornflowerblue;
 }
 
-[data-ui-theme] [data-ui-label] {
+[data-amplify-label] {
   display: block;
   margin-bottom: 0.625rem;
 }
 
-[data-ui-theme] [data-ui-footer] {
+[data-amplify-footer] {
   margin-top: 2rem;
   display: flex;
   flex-direction: row;
@@ -58,31 +52,48 @@
   justify-content: space-between;
 }
 
-[data-ui-theme] [data-ui-button] {
+[data-amplify-button] {
   background-color: black;
   padding: 0.875rem 1.5rem 0.875rem 1.5rem;
   border-style: none;
   color: white;
   border-radius: 2px;
+  border-width: 1px;
+  margin: 0.25rem;
 }
 
-[data-ui-theme] [data-ui-button]:disabled {
+[data-amplify-federated] [data-amplify-button] {
+  background-color: white;
+  color: black;
+  border-style: solid;
+  border-radius: 2px;
+  border-color: rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+[data-amplify-button]:disabled {
   background-color: grey;
 }
 
-[data-ui-theme] [data-ui-link] {
+[data-amplify-link] {
   color: cornflowerblue;
   cursor: pointer;
 }
 
-[data-ui-theme] [data-ui-link]:hover {
+[data-amplify-link]:hover {
   text-decoration: underline;
 }
 
-[data-ui-theme] [data-ui-error] {
+[data-amplify-error] {
   color: orangered;
 }
 
-[data-ui-theme] [data-ui-error]:last-child {
+[data-amplify-error]:last-child {
+  margin-bottom: 1rem;
+}
+
+[data-amplify-federated] {
+  display: flex;
+  flex-direction: column;
   margin-bottom: 1rem;
 }

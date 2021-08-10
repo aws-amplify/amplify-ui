@@ -43,17 +43,4 @@ Looking for one of our other projects?
 1. `yarn dev`
 1. Visit <http://localhost:3000/>
 
-#### Vue Development
-
-1. `yarn dev:vue`
-1. Visit <http://localhost:3001/>
-
-#### Angular Development
-
-1. `yarn build:angular`, or `yarn build:angular:watch` for live development
-1. `yarn dev:angular`.
-1. Visit <http://localhost:4200/>
-
-#### Flutter Development
-
-1. see [packages/flutter/README.md](packages/flutter/README.md)
+> https://docs.amplify.aws/ui

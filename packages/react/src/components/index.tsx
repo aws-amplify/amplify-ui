@@ -1,2 +1,2 @@
-export { AmplifyProvider } from "./AmplifyProvider";
-export { Authenticator } from "./Authenticator";
+export { AmplifyProvider } from './AmplifyProvider';
+export * from './Authenticator';
