@@ -43,18 +43,29 @@ const reducer = (state: State, action: Action): State => {
 export const usePagination = (
   props: UsePaginationProps
 ): UsePaginationResult => {
-  const { currentPage: initialPage, totalPages, siblingCount = 1 } = props;
+  let { currentPage: initialPage, totalPages, siblingCount = 1 } = props;
+
+  // The current page should not be less than 1
+  initialPage = Math.max(initialPage, 1);
+  // The sibling count should not be less than 1
+  siblingCount = Math.max(siblingCount, 1);
+  // The total pages should be always greater than current page
+  totalPages = Math.max(initialPage, totalPages);
 
   const initialState = { currentPage: initialPage };
   const [{ currentPage }, dispatch] = useReducer(reducer, initialState);
 
   const onNext = useCallback(() => {
-    dispatch(actionCreator(ActionType.onNext));
-  }, []);
+    if (currentPage < totalPages) {
+      dispatch(actionCreator(ActionType.onNext));
+    }
+  }, [currentPage, totalPages]);
 
   const onPrevious = useCallback(() => {
-    dispatch(actionCreator(ActionType.onPrevious));
-  }, []);
+    if (currentPage > 1) {
+      dispatch(actionCreator(ActionType.onPrevious));
+    }
+  }, [currentPage]);
 
   const onChange = useCallback((newPage: number, prevPage: number) => {
     dispatch(actionCreator(ActionType.onChange, newPage));

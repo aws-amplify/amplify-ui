@@ -22,7 +22,7 @@ export const PaginationItem: React.FC<PaginationItemProps> = props => {
     case 'page':
       const onChange = useCallback(() => {
         onClick(page, currentPage);
-      }, [page, currentPage]);
+      }, [page, currentPage, onClick]);
       return (
         <View as="li">
           {page === currentPage ? (
@@ -58,7 +58,7 @@ export const PaginationItem: React.FC<PaginationItemProps> = props => {
     case 'next':
       const onNext = useCallback(() => {
         onClick();
-      }, [currentPage]);
+      }, [onClick]);
       return (
         <View as="li">
           <Button
@@ -76,7 +76,7 @@ export const PaginationItem: React.FC<PaginationItemProps> = props => {
     case 'previous':
       const onPrevious = useCallback(() => {
         onClick();
-      }, [currentPage]);
+      }, [onClick]);
       return (
         <View as="li">
           <Button
