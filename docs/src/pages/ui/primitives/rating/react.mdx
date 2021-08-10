@@ -1,11 +1,29 @@
 import { Rating, IconAdd, IconStarBorder } from '@aws-amplify/ui-react';
 import { RatingDemo, MyCoolSvg } from './demo';
+import { Example } from '@/components/Example';
+import Block from 'amplify-docs/src/components/Block';
+import BlockSwitcher from 'amplify-docs/src/components/BlockSwitcher';
+
+Rating shows users a star rating of a product or service (currently read-only).
 
 ## Installation
 
-```
+<BlockSwitcher>
+<Block name="npm">
+
+```shell
 npm install @aws-amplify/ui-react
 ```
+
+</Block>
+<Block name="yarn">
+
+```shell
+yarn add @aws-amplify/ui-react
+```
+
+</Block>
+</BlockSwitcher>
 
 ## Demo
 
@@ -13,7 +31,7 @@ npm install @aws-amplify/ui-react
 
 ## Usage
 
-Import rating component and styles
+Import Rating component and styles
 
 ```jsx
 import { Rating } from '@aws-amplify/ui-react';
@@ -22,11 +40,13 @@ import '@aws-amplify/ui-react/styles.css';
 <Rating />;
 ```
 
-<Rating />
+<Example>
+  <Rating />
+</Example>
 
 ### Rating Value
 
-Pass in a value prop to set the rating value
+Pass in a `value` prop to set the rating value
 
 ```jsx
 import { Rating } from '@aws-amplify/ui-react';
@@ -35,11 +55,13 @@ import '@aws-amplify/ui-react/styles.css';
 <Rating value={3.7} />;
 ```
 
-<Rating value={3.7} />
+<Example>
+  <Rating value={3.7} />
+</Example>
 
 ### Max Value
 
-Pass in a maxValue prop to set the maximum value of the rating component
+Pass in a `maxValue` prop to set the maximum value of the rating component
 
 ```jsx
 import { Rating } from '@aws-amplify/ui-react';
@@ -48,11 +70,13 @@ import '@aws-amplify/ui-react/styles.css';
 <Rating value={6.3} maxValue={10} />;
 ```
 
-<Rating value={6.3} maxValue={10} />
+<Example>
+  <Rating value={6.3} maxValue={10} />
+</Example>
 
 ### Size
 
-Use the size property to adjust the rating component the default size is medium, other options include small and large
+Use the `size` property to adjust the rating component. Options include `small` and `large`.
 
 ```jsx
 import { Rating } from '@aws-amplify/ui-react';
@@ -63,9 +87,11 @@ import '@aws-amplify/ui-react/styles.css';
 <Rating value={2.5} size="large" />;
 ```
 
-<Rating value={2.5} size="small" />
-<Rating value={2.5} />
-<Rating value={2.5} size="large" />
+<Example>
+  <Rating value={2.5} size="small" />
+  <Rating value={2.5} />
+  <Rating value={2.5} size="large" />
+</Example>
 
 ### Colors
 
@@ -82,7 +108,7 @@ import '@aws-amplify/ui-react/styles.css';
 
 ### Custom Icon
 
-A custom icon can be used in the rating component using the icon prop. The rating component works well with all major icon sets and these icons can be substituted in using this icon prop. The icon prop will override both the filled and empty icons unless a specific empty icon is also passed in.
+A custom icon can be used in the rating component using the `icon` prop. The rating component works well with all major icon sets and these icons can be substituted in using this `icon` prop. The `icon` prop will override both the filled and empty icons unless a specific empty icon is also passed in.
 
 ```jsx
 import { Rating, IconAdd } from '@aws-amplify/ui-react';
@@ -91,7 +117,9 @@ import '@aws-amplify/ui-react/styles.css';
 <Rating value={2.5} icon={<IconAdd />} />;
 ```
 
-<Rating value={2.5} icon={<IconAdd />} />
+<Example>
+  <Rating value={2.5} icon={<IconAdd />} />
+</Example>
 
 ### Custom SVG Icon
 
@@ -117,7 +145,9 @@ const MyCoolSvg = () => {
 };
 ```
 
-<Rating value={2.5} icon={<MyCoolSvg />} />
+<Example>
+  <Rating value={2.5} icon={<MyCoolSvg />} />
+</Example>
 
 ### Custom Empty Icon
 
@@ -130,15 +160,17 @@ import '@aws-amplify/ui-react/styles.css';
 <Rating value={2.5} emptyIcon={<IconStarBorder />} />;
 ```
 
-<Rating value={2.5} emptyIcon={<IconStarBorder />} />
+<Example>
+  <Rating value={2.5} emptyIcon={<IconStarBorder />} />
+</Example>
 
 ## CSS Styling
 
-### component level overrides
+### Component level overrides
 
 The rating component styling props can be overridden using a custom class name and the built-in CSS classes.
 
-#### Filled and empty icon colors
+### Filled and empty icon colors
 
 The empty and filled icon colors can be overridden using a custom CSS class on your rating component and with the `.amplify-rating-icon-filled` and `.amplify-rating-icon-empty` classes
 
@@ -159,7 +191,9 @@ import '@aws-amplify/ui-react/styles.css';
 <Rating value={2.5} className="my-rating-component" />;
 ```
 
-<Rating value={2.5} className="my-rating-component" />
+<Example>
+  <Rating value={2.5} className="my-rating-component" />
+</Example>
 
 #### Sizes
 
@@ -179,7 +213,9 @@ import '@aws-amplify/ui-react/styles.css';
 <Rating value={2.5} className="large-rating" size="small" />;
 ```
 
-<Rating value={2.5} className="large-rating" size="small" />
+<Example>
+  <Rating value={2.5} className="large-rating" size="small" />
+</Example>
 
 ### Application wide styling
 
@@ -203,11 +239,13 @@ import '@aws-amplify/ui-react/styles.css';
 <Rating value={2.5} className="application-color-override" />;
 ```
 
-<Rating value={2.5} className="application-color-override" />
+<Example>
+  <Rating value={2.5} className="application-color-override" />
+</Example>
 
-#### Sizes
+### Sizes
 
-The size variations on the rating component can be overridden at the application level using css variables
+The size variations on the rating component can be overridden at the application level using CSS variables
 
 ```css
 :root {
@@ -222,4 +260,6 @@ import '@aws-amplify/ui-react/styles.css';
 <Rating value={2.5} size="small" />;
 ```
 
-<Rating value={2.5} className="application-size-override" size="small" />
+<Example>
+  <Rating value={2.5} className="application-size-override" size="small" />
+</Example>
