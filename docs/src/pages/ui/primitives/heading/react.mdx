@@ -1,11 +1,29 @@
 import { Heading } from '@aws-amplify/ui-react';
 import { HeadingDemo } from './demo';
+import { Example } from '@/components/Example';
+import Block from 'amplify-docs/src/components/Block';
+import BlockSwitcher from 'amplify-docs/src/components/BlockSwitcher';
+
+This is a separate primitive from Text for semantic purposes. The Heading primitive maps to an `<h*>` tag, and Text maps to a `<p>` tag.
 
 ## Installation
 
-```
+<BlockSwitcher>
+<Block name="npm">
+
+```shell
 npm install @aws-amplify/ui-react
 ```
+
+</Block>
+<Block name="yarn">
+
+```shell
+yarn add @aws-amplify/ui-react
+```
+
+</Block>
+</BlockSwitcher>
 
 ## Demo
 
@@ -22,7 +40,9 @@ import '@aws-amplify/ui-react/styles.css';
 <Heading>Hello world</Heading>;
 ```
 
-<Heading>Hello world</Heading>
+<Example>
+  <Heading>Hello world</Heading>
+</Example>
 
 ### Heading levels
 
@@ -35,18 +55,20 @@ Use the `level` prop to change the heading level (e.g., `h1 - h6`). Available op
 <Heading level={4}>Heading 4</Heading>
 <Heading level={5}>Heading 5</Heading>
 <Heading level={6}>Heading 6</Heading>
-<Heading>Default heading (level 6)</Heading>
+<Heading>Default (level 6)</Heading>
 ```
 
-<Heading level={1}>Heading 1</Heading>
-<Heading level={2}>Heading 2</Heading>
-<Heading level={3}>Heading 3</Heading>
-<Heading level={4}>Heading 4</Heading>
-<Heading level={5}>Heading 5</Heading>
-<Heading level={6}>Heading 6</Heading>
-<Heading>Default heading (level 6)</Heading>
+<Example>
+  <Heading level={1}>Heading 1</Heading>
+  <Heading level={2}>Heading 2</Heading>
+  <Heading level={3}>Heading 3</Heading>
+  <Heading level={4}>Heading 4</Heading>
+  <Heading level={5}>Heading 5</Heading>
+  <Heading level={6}>Heading 6</Heading>
+  <Heading>Default (level 6)</Heading>
+</Example>
 
-### CSS Styling
+## CSS Styling
 
 ### Override Heading styling using the CSS variables
 
@@ -63,9 +85,7 @@ Override color for all `Heading` components
 }
 ```
 
-<br />
-
-Override styles for any `Heading` component `h1 - h6`
+### Override styles for any `Heading` component `h1 - h6`
 
 ```css
 /* styles.css */
@@ -87,16 +107,16 @@ import './styles.css';
 <Heading>Big and bold</Heading>
 ```
 
-<Heading fontSize="1rem" fontStyle="italic">
-  Small and italic
-</Heading>
-<Heading fontSize="2rem" fontWeight="bold">
-  Big and bold
-</Heading>
+<Example>
+  <Heading fontSize="1rem" fontStyle="italic">
+    Small and italic
+  </Heading>
+  <Heading fontSize="2rem" fontWeight="bold">
+    Big and bold
+  </Heading>
+</Example>
 
-<br />
-
-#### Styling a heading instance
+### Styling a heading instance
 
 To override styling on a specific heading
 
@@ -108,9 +128,11 @@ _Using props:_
 </Heading>
 ```
 
-<Heading level={3} color="green" fontWeight="bold">
-  Save the environment
-</Heading>
+<Example>
+  <Heading level={3} color="green" fontWeight="bold">
+    Save the environment
+  </Heading>
+</Example>
 
 _Using an id selector:_
 
@@ -127,4 +149,6 @@ _Using an id selector:_
 <Heading id="subscribe">Suscribe now!</Heading>
 ```
 
-<Heading id="subscribe">Suscribe now!</Heading>
+<Example>
+  <Heading id="subscribe">Suscribe now!</Heading>
+</Example>
