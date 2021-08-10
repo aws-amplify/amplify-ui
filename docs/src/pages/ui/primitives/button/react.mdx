@@ -1,11 +1,33 @@
 import { Button } from '@aws-amplify/ui-react';
 import { ButtonDemo } from './demo';
+import { Example } from '@/components/Example';
+import Block from 'amplify-docs/src/components/Block';
+import BlockSwitcher from 'amplify-docs/src/components/BlockSwitcher';
+
+<Example>
+  The Button primitive is used to trigger an action or event, such as submitting
+  a form, opening a dialog, canceling an action, or performing a delete
+  operation.
+</Example>
 
 ## Installation
 
-```
+<BlockSwitcher>
+<Block name="npm">
+
+```shell
 npm install @aws-amplify/ui-react
 ```
+
+</Block>
+<Block name="yarn">
+
+```shell
+yarn add @aws-amplify/ui-react
+```
+
+</Block>
+</BlockSwitcher>
 
 ## Demo
 
@@ -18,13 +40,13 @@ Import the button component and styles.
 ```jsx
 import { Button } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
-// For smaller bundle size, import just the button styling:
-// import "@aws-amplify/ui-react/dist/primitives/Button/styles.css";
 
 <Button>Hello world</Button>;
 ```
 
-<Button>Hello world</Button>
+<Example>
+  <Button>Hello world</Button>
+</Example>
 
 ### Button onClick
 
@@ -37,11 +59,13 @@ import '@aws-amplify/ui-react/styles.css';
 <Button onClick={() => alert('👋 hello')}>Click me</Button>;
 ```
 
-<Button onClick={() => alert('👋 hello')}>Click me</Button>
+<Example>
+  <Button onClick={() => alert('👋 hello')}>Click me</Button>
+</Example>
 
 ### Button sizes
 
-Use the `size` prop to change the button size. Available options are `large`, `medium`, and `small`.
+Use the `size` prop to change the button size. Available options are `large` and `small`.
 
 ```jsx
 import { Button } from "@aws-amplify/ui-react";
@@ -52,9 +76,11 @@ import "@aws-amplify/ui-react/styles.css";
 <Button size="small">Small</Button>
 ```
 
-<Button size="large">Large</Button>
-<Button>Default</Button>
-<Button size="small">Small</Button>
+<Example>
+  <Button size="large">Large</Button>
+  <Button>Default</Button>
+  <Button size="small">Small</Button>
+</Example>
 
 ### Button variations
 
@@ -69,9 +95,11 @@ import "@aws-amplify/ui-react/styles.css";
 <Button variation="link">Link</Button>
 ```
 
-<Button variation="primary">Primary</Button>
-<Button>Default</Button>
-<Button variation="link">Link</Button>
+<Example>
+  <Button variation="primary">Primary</Button>
+  <Button>Default</Button>
+  <Button variation="link">Link</Button>
+</Example>
 
 ### Button loading state
 
@@ -84,9 +112,11 @@ import '@aws-amplify/ui-react/styles.css';
 </Button>;
 ```
 
-<Button isLoading={true} loadingText="Loading..." variation="primary">
-  Hello
-</Button>
+<Example>
+  <Button isLoading={true} loadingText="Loading..." variation="primary">
+    Hello
+  </Button>
+</Example>
 
 ### Other states
 
@@ -98,8 +128,10 @@ import "@aws-amplify/ui-react/styles.css";
 <Button isFullWidth={true}>Full width</Button>
 ```
 
-<Button isDisabled={true}>Disabled</Button>
-<Button isFullWidth={true}>Full width</Button>
+<Example>
+  <Button isDisabled={true}>Disabled</Button>
+  <Button isFullWidth={true}>Full width</Button>
+</Example>
 
 ### Accessibility
 
@@ -112,9 +144,13 @@ import '@aws-amplify/ui-react/styles.css';
 <Button ariaLabel="To the moon!">🚀</Button>;
 ```
 
-<Button ariaLabel="To the moon!">🚀</Button>
+<Example>
+  <Button ariaLabel="To the moon!">🚀</Button>
+</Example>
 
-### CSS Styling
+## CSS Styling
+
+### Styling all buttons
 
 #### Override Amplify styling using the CSS variables
 
@@ -145,33 +181,13 @@ import './styles.css';
 </Button>;
 ```
 
-<Button className="my-custom-button" variation="primary">
-  My button
-</Button>
+<Example>
+  <Button className="my-custom-button" variation="primary">
+    My button
+  </Button>
+</Example>
 
-Or override the variables inline:
-
-```jsx
-<div
-  style={{
-    '--amplify-components-button-primary-background-color': '#0057ff',
-    '--amplify-components-button-primary-hover-background-color': '#4d89fc',
-  }}
->
-  <Button variation="primary">My button</Button>
-</div>
-```
-
-<div
-  style={{
-    '--amplify-components-button-primary-background-color': '#0057ff',
-    '--amplify-components-button-primary-hover-background-color': '#4d89fc',
-  }}
->
-  <Button variation="primary">My button</Button>
-</div>
-
-#### Override styling using the classname and data attribute selectors:
+#### Override styling using the classname and data attribute selectors
 
 Use the `amplify-button` class and data attributes to style all buttons.
 
@@ -197,27 +213,13 @@ Use the `amplify-button` class and data attributes to style all buttons.
 .amplify-button[disabled='true'] {
   opacity: 0.8;
 }
-
-/* Example: Override button styles using Tailwind CSS */
-.amplify-button {
-  @apply bg-blue-500 hover:bg-blue-700 text-white;
-}
 ```
 
-To replace the button styling, unset it:
-
-```css
-.amplify-button {
-  all: unset;
-  /* Add your styling here*/
-}
-```
-
-#### Styling a button instance
+### Styling a button instance
 
 To override styling on a specific button
 
-_Using an class selector:_
+_Using a class selector:_
 
 ```css
 /* Example: class selector styling override */
@@ -230,7 +232,9 @@ _Using an class selector:_
 <Button className="colorful-button">I'm colorful!</Button>
 ```
 
-<Button className="colorful-button">I'm colorful!</Button>
+<Example>
+  <Button className="colorful-button">I'm colorful!</Button>
+</Example>
 
 _Using an id selector:_
 
@@ -253,4 +257,6 @@ _Using an id selector:_
 <Button id="gradient-button">I'm beautiful!</Button>
 ```
 
-<Button id="gradient-button">I'm beautiful!</Button>
+<Example>
+  <Button id="gradient-button">I'm beautiful!</Button>
+</Example>
