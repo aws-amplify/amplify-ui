@@ -12,6 +12,9 @@ import { AmplifyConfirmSignUpComponent } from './components/amplify-confirm-sign
 import { AmplifyUserNameAliasComponent } from './primitives/amplify-user-name-alias/amplify-user-name-alias.component';
 import { AmplifyConfirmSignInComponent } from './components/amplify-confirm-sign-in/amplify-confirm-sign-in.component';
 import { AmplifySetupTotpComponent } from './components/amplify-setup-totp/amplify-setup-totp.component';
+import { AmplifyForceNewPasswordComponent } from './components/amplify-force-new-password/amplify-force-new-password.component';
+import { AmplifyFederatedSignInComponent } from './components/amplify-federated-sign-in/amplify-federated-sign-in.component';
+import { AmplifyFederatedSignInButtonComponent } from './components/amplify-federated-sign-in-button/amplify-federated-sign-in-button.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +29,9 @@ import { AmplifySetupTotpComponent } from './components/amplify-setup-totp/ampli
     AmplifyUserNameAliasComponent,
     AmplifyConfirmSignInComponent,
     AmplifySetupTotpComponent,
+    AmplifyForceNewPasswordComponent,
+    AmplifyFederatedSignInComponent,
+    AmplifyFederatedSignInButtonComponent,
   ],
   imports: [CommonModule, ReactiveFormsModule],
   exports: [

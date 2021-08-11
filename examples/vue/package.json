@@ -1,12 +1,14 @@
 {
-  "version": "0.0.0",
+  "version": "0.1.0",
   "name": "vue-example",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "start": "vite preview --port 3000"
   },
   "dependencies": {
+    "@aws-amplify/ui-vue": "0.0.1",
     "aws-amplify": "^4.1.3",
     "vue": "^3.0.5",
     "vue-router": "4"

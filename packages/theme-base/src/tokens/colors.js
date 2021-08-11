@@ -80,7 +80,6 @@ module.exports = {
   },
 
   neutral: {
-    0: { value: 'hsl(210, 0%, 100%)' },
     10: { value: 'hsl(210, 5%, 95%)' },
     20: { value: 'hsl(210, 5%, 90%)' },
     40: { value: 'hsl(210, 5%, 80%)' },
@@ -130,8 +129,8 @@ module.exports = {
 
   background: {
     primary: { value: '{colors.white.value}' },
-    secondary: { value: '{colors.neutral.0.value}' },
-    tertiary: { value: '{colors.neutral.10.value}' },
+    secondary: { value: '{colors.neutral.10.value}' },
+    tertiary: { value: '{colors.neutral.20.value}' },
 
     info: { value: '{colors.blue.20.value}' },
     warning: { value: '{colors.orange.20.value}' },
