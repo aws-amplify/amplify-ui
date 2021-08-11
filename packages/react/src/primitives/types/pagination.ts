@@ -2,11 +2,9 @@ import { BaseComponentProps, AriaProps } from './base';
 import { BaseStyleProps } from './style';
 
 export type PaginationItemType = 'page' | 'next' | 'previous' | 'ellipsis';
+export type PaginationCallbackType = 'onNext' | 'onPrevious' | 'onChange';
 
-export interface PaginationProps
-  extends BaseComponentProps,
-    BaseStyleProps,
-    AriaProps {
+interface BasePaginationProps {
   /**
    * Index of the current page. (starting from 1)
    */
@@ -25,18 +23,29 @@ export interface PaginationProps
   /**
    * Callback function triggered when the next-page button is pressed
    */
-  onNext: (newPageIndex: number) => void;
+  onNext: () => void;
 
   /**
    * Callback function triggered when the prev-page button is pressed
    */
-  onPrevious: (newPageIndex: number) => void;
+  onPrevious: () => void;
 
   /**
    * Callback function triggered every time the page changes
    */
   onChange: (newPageIndex: number, prevPageIndex: number) => void;
 }
+
+export interface PaginationProps
+  extends BasePaginationProps,
+    BaseComponentProps,
+    BaseStyleProps,
+    AriaProps {}
+
+export interface UsePaginationProps
+  extends Omit<BasePaginationProps, PaginationCallbackType> {}
+
+export interface UsePaginationResult extends Required<BasePaginationProps> {}
 
 export interface PaginationItemProps
   extends BaseComponentProps,
@@ -64,5 +73,5 @@ export interface PaginationItemProps
   /**
    * Triggered every time the item is clicked.
    */
-  onClick?: (newPageIndex: number, prevPageIndex?: number) => void;
+  onClick?: (newPageIndex?: number, prevPageIndex?: number) => void;
 }
