@@ -31,7 +31,7 @@ yarn add @aws-amplify/ui-react
 
 ## Usage
 
-Import the button component and styles.
+Import the Button primitive and styles.
 
 ```jsx
 import { Button } from '@aws-amplify/ui-react';
@@ -44,68 +44,56 @@ import '@aws-amplify/ui-react/styles.css';
   <Button>Hello world</Button>
 </Example>
 
-### Button onClick
+### onClick
 
-Use the `onClick` prop to add a click handler to the button.
+Use the `onClick` prop to add a click handler to the Button.
 
 ```jsx
-import { Button } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-<Button onClick={() => alert('👋 hello')}>Click me</Button>;
+<Button onClick={() => alert('👋 hello')}>Click me</Button>
 ```
 
 <Example>
   <Button onClick={() => alert('👋 hello')}>Click me</Button>
 </Example>
 
-### Button sizes
+### Sizes
 
-Use the `size` prop to change the button size. Available options are `large` and `small`.
+Use the `size` prop to change the Button size. Available options are `small`, `large`, and none (default).
 
 ```jsx
-import { Button } from "@aws-amplify/ui-react";
-import "@aws-amplify/ui-react/styles.css";
-
-<Button size="large">Large</Button>
-<Button>Default</Button>
 <Button size="small">Small</Button>
+<Button>Default</Button>
+<Button size="large">Large</Button>
 ```
 
 <Example>
-  <Button size="large">Large</Button>
-  <Button>Default</Button>
   <Button size="small">Small</Button>
+  <Button>Default</Button>
+  <Button size="large">Large</Button>
 </Example>
 
-### Button variations
+### Variations
 
-Use the `variation` prop to change the button variation. Available options are `primary`, `link`, and none (default).
+Use the `variation` prop to change the Button variation. Available options are `primary`, `link`, and none (default).
 
 ```jsx
-import { Button } from "@aws-amplify/ui-react";
-import "@aws-amplify/ui-react/styles.css";
-
 <Button variation="primary">Primary</Button>
-<Button>Default</Button>
 <Button variation="link">Link</Button>
+<Button>Default</Button>
 ```
 
 <Example>
   <Button variation="primary">Primary</Button>
-  <Button>Default</Button>
   <Button variation="link">Link</Button>
+  <Button>Default</Button>
 </Example>
 
-### Button loading state
+### Loading state
 
 ```jsx
-import { Button } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
 <Button isLoading={true} loadingText="Loading..." variation="primary">
   Hello
-</Button>;
+</Button>
 ```
 
 <Example>
@@ -117,9 +105,6 @@ import '@aws-amplify/ui-react/styles.css';
 ### Other states
 
 ```jsx
-import { Button } from "@aws-amplify/ui-react";
-import "@aws-amplify/ui-react/styles.css";
-
 <Button isDisabled={true}>Disabled</Button>
 <Button isFullWidth={true}>Full width</Button>
 ```
@@ -131,13 +116,10 @@ import "@aws-amplify/ui-react/styles.css";
 
 ### Accessibility
 
-Setting an `aria-label` attribute for an icon button:
+Setting an `aria-label` attribute for an icon Button:
 
 ```jsx
-import { Button } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-<Button ariaLabel="To the moon!">🚀</Button>;
+<Button ariaLabel="To the moon!">🚀</Button>
 ```
 
 <Example>
@@ -146,11 +128,9 @@ import '@aws-amplify/ui-react/styles.css';
 
 ## CSS Styling
 
-### Styling all buttons
+### Global styling
 
-#### Override Amplify styling using the CSS variables
-
-Using a class and CSS file:
+To override styling on all Buttons, you can set the Amplify CSS variables or use the built-in `.amplify-button` class.
 
 ```css
 /* styles.css */
@@ -159,61 +139,26 @@ Using a class and CSS file:
   --amplify-components-button-primary-hover-background-color: #4d89fc;
 }
 /* OR */
-.my-custom-button {
+.amplify-button {
   background-color: #0057ff;
 }
-.my-custom-button:hover {
+.amplify-button:hover {
   background-color: #4d89fc;
 }
 ```
 
-```jsx
-import { Button } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-import './styles.css';
-
-<Button className="my-custom-button" variation="primary">
-  My button
-</Button>;
-```
-
-<Example>
-  <Button className="my-custom-button" variation="primary">
-    My button
-  </Button>
-</Example>
-
-#### Override styling using the classname and data attribute selectors
-
-Use the `amplify-button` class and data attributes to style all buttons.
+To replace the Button styling, unset it:
 
 ```css
-/* Example: Extend all <Button> styles */
 .amplify-button {
-  font-family: 'My Custom Font', 'Comic Sans MS', sans-serif;
-  font-weight: bold;
-}
-
-/* Example: Override only primary variation styles */
-.amplify-button[data-variation='primary'] {
-  background-color: teal;
-  color: white;
-}
-
-/* Example: Override loading styles */
-.amplify-button[data-loading='true'] {
-  opacity: 0.8;
-}
-
-/* Example: Override disabled styles */
-.amplify-button[disabled='true'] {
-  opacity: 0.8;
+  all: unset;
+  /* Add your styling here*/
 }
 ```
 
-### Styling a button instance
+### Local styling
 
-To override styling on a specific button
+To override styling on a specific Button, you can use (in order of increasing specificity): a class selector, data attributes, or style props.
 
 _Using a class selector:_
 
@@ -225,34 +170,57 @@ _Using a class selector:_
 ```
 
 ```jsx
-<Button className="colorful-button">I'm colorful!</Button>
+import './styles.css';
+
+<Button className="colorful-button">I'm colorful!</Button>;
 ```
 
 <Example>
   <Button className="colorful-button">I'm colorful!</Button>
 </Example>
 
-_Using an id selector:_
+_Using data attributes:_
 
 ```css
-/* Example: id selector styling override */
-#gradient-button {
+/* styles.css */
+/* Override only primary variation styles */
+.amplify-button[data-variation='primary'] {
+  background-color: teal;
   color: white;
-  border-radius: 2rem;
-  background: rgb(2, 0, 36);
-  background: linear-gradient(
-    90deg,
-    rgba(2, 0, 36, 1) 0%,
-    rgba(9, 9, 121, 1) 35%,
-    rgba(0, 212, 255, 1) 100%
-  );
+}
+
+/* Override loading styles */
+.amplify-button[data-loading='true'] {
+  opacity: 0.8;
+}
+
+/* Override disabled styles */
+.amplify-button[disabled='true'] {
+  opacity: 0.8;
 }
 ```
 
 ```jsx
-<Button id="gradient-button">I'm beautiful!</Button>
+import './styles.css';
+
+<Button variation="primary">Teal background</Button>
+<Button isLoading={true}>Loading...</Button>
+<Button isDisabled={true}>Lighter opacity</Button>
+```
+
+_Using style props:_
+
+```jsx
+<Button style={{ backgroundColor: 'green', color: 'white' }}>Green</Button>;
+{
+  /* OR */
+}
+<Button backgroundColor="purple" color="white">
+  Purple
+</Button>;
 ```
 
 <Example>
-  <Button id="gradient-button">I'm beautiful!</Button>
+  <Button style={{ backgroundColor: 'green' }}>Green</Button>
+  <Button backgroundColor="purple">Purple</Button>
 </Example>

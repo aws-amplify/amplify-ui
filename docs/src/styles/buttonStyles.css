@@ -1,22 +1,6 @@
-/**
-  These styles demonstrate how customers can override the button default styling
-*/
-
 .my-custom-button {
   --amplify-ui-components-button-primary-background-color: #0057ff;
   --amplify-ui-components-button-primary-hover-background-color: #4d89fc;
-}
-
-#gradient-button {
-  color: white;
-  border-radius: 2rem;
-  background: rgb(2, 0, 36);
-  background: linear-gradient(
-    90deg,
-    rgba(2, 0, 36, 1) 0%,
-    rgba(9, 9, 121, 1) 35%,
-    rgba(0, 212, 255, 1) 100%
-  );
 }
 
 .colorful-button {

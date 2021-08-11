@@ -31,7 +31,7 @@ yarn add @aws-amplify/ui-react
 
 ## Usage
 
-Import the Badge component and styles.
+Import the Badge primitive and styles.
 
 ```jsx
 import { Badge } from '@aws-amplify/ui-react';
@@ -46,27 +46,27 @@ import '@aws-amplify/ui-react/styles.css';
 
 ### Variations
 
-Use the `variation` prop to change the Badge variation. In addition to the default, available options are `info`, `error`, `warning` and `success`.
+Use the `variation` prop to change the Badge variation. Available options are `info`, `error`, `warning`, `success`, and none (default).
 
 ```jsx
-<Badge>Default</Badge>
 <Badge variation="info">Info</Badge>
 <Badge variation="error">Error</Badge>
 <Badge variation="warning">Warning</Badge>
 <Badge variation="success">Success</Badge>
+<Badge>Default</Badge>
 ```
 
 <Example>
-  <Badge>Default</Badge>
   <Badge variation="info">Info</Badge>
   <Badge variation="error">Error</Badge>
   <Badge variation="warning">Warning</Badge>
   <Badge variation="success">Success</Badge>
+  <Badge>Default</Badge>
 </Example>
 
 ### Sizes
 
-Use the `size` prop to change the Badge size. In addition to the default, available options are `small` and `large`.
+Use the `size` prop to change the Badge size. Available options are `small`, `large`, and none (default).
 
 ```jsx
 <Badge size="small">Small</Badge>
