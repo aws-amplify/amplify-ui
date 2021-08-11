@@ -12,8 +12,10 @@ export const strHasLength = (str: unknown): str is string =>
  * Note: Will filter out undefined, null, and empty string prop values
  * @returns CSSProperties styles
  */
-export const convertStylePropsToStyleObj = (props: AllStyleProps) => {
-  let style: React.CSSProperties = {};
+export const convertStylePropsToStyleObj = (
+  props: AllStyleProps,
+  style: React.CSSProperties = {}
+) => {
   (
     Object.keys(ComponentPropsToStylePropsMap) as Array<
       keyof ComponentPropToStyleProp
