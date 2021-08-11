@@ -7,7 +7,7 @@ Feature: Sign Up with Phone
     And I click "Create account"
 
 
-@next @react @vue
+@next @react @vue @angular
   Scenario: Login mechanism set to "phone_number"
     Then I see "Phone Number" as an input field
     And I don't see "Username" as an input field

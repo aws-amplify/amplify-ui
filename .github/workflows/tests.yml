@@ -54,6 +54,7 @@ jobs:
         framework:
           - 'next'
           - 'vue'
+          - 'angular'
 
     steps:
       - name: Checkout Amplify UI

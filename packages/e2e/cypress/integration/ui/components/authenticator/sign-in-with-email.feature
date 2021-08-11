@@ -22,6 +22,7 @@ Feature: Sign In with Email
 
   @vue
   @react
+  @angular
   Scenario: Sign in with unconfirmed credentials
     When I type the valid email "UNCONFIRMED_EMAIL"
     And I type the valid password "VALID_PASSWORD"
@@ -30,6 +31,7 @@ Feature: Sign In with Email
 
   @vue
   @react
+  @angular
   Scenario: Sign in with confirmed credentials
     When I type the valid email "CONFIRMED_EMAIL"
     And I type the valid password "VALID_PASSWORD"

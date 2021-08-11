@@ -12,6 +12,7 @@ Feature: Sign In with Phone Number
 
   @vue
   @react
+  @angular
   Scenario: Sign in with unknown credentials
     When I type the valid phone number "UNKNOWN_PHONE_NUMBER"
     And I type the valid password "VALID_PASSWORD"
@@ -20,6 +21,7 @@ Feature: Sign In with Phone Number
 
   @vue
   @react
+  @angular
   Scenario: Sign in with unconfirmed credentials
     When I type the valid phone number "UNCONFIRMED_PHONE_NUMBER"
     And I type the valid password "VALID_PASSWORD"
@@ -29,6 +31,7 @@ Feature: Sign In with Phone Number
 
   @vue
   @react
+  @angular
   Scenario: Sign in with confirmed credentials
     When I type the valid phone number "CONFIRMED_PHONE_NUMBER"
     And I type the valid password "VALID_PASSWORD"
