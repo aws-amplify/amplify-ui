@@ -1,7 +1,7 @@
 import {
-  AllStyleProps,
   ComponentPropsToStylePropsMap,
   ComponentPropToStyleProp,
+  ViewProps,
 } from '../types/index';
 
 export const strHasLength = (str: unknown): str is string =>
@@ -13,7 +13,7 @@ export const strHasLength = (str: unknown): str is string =>
  * @returns CSSProperties styles
  */
 export const convertStylePropsToStyleObj = (
-  props: AllStyleProps,
+  props: ViewProps,
   style: React.CSSProperties = {}
 ) => {
   (
@@ -38,7 +38,7 @@ export const convertStylePropsToStyleObj = (
  * @param props
  * @returns non styled props
  */
-export const getNonStyleProps = (props: {}) => {
+export const getNonStyleProps = (props: ViewProps) => {
   const nonStyleProps = {};
   Object.keys(props).forEach((propKey) => {
     if (!(propKey in ComponentPropsToStylePropsMap)) {

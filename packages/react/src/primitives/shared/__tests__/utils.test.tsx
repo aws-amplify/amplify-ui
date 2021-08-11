@@ -93,7 +93,7 @@ describe('getNonStyleProps: ', () => {
   });
 
   it('should return an empty object if only style props are passed in', () => {
-    const allStyleProps = {
+    const allStyleProps: ViewProps = {
       color: 'red',
       backgroundColor: 'blue',
       fontWeight: 'bold',
@@ -103,7 +103,7 @@ describe('getNonStyleProps: ', () => {
   });
 
   it('should return a copy of the original object if all non style props are passed in', () => {
-    const noStyleProps = {
+    const noStyleProps: ViewProps = {
       ['data-variation']: 'primary',
       ariaLabel: props.ariaLabel,
       as: props.as,
