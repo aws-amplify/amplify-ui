@@ -7,15 +7,22 @@ import { View } from '../View';
 import { IconChevronLeft, IconChevronRight } from '../Icon';
 import { PaginationItemProps } from '../types/pagination';
 
-export const PaginationItem: React.FC<PaginationItemProps> = (props) => {
-  const { type, page, currentPage, isDisabled, onClick, ariaLabel, ...rest } =
-    props;
+export const PaginationItem: React.FC<PaginationItemProps> = props => {
+  const {
+    type,
+    page,
+    currentPage,
+    isDisabled,
+    onClick,
+    ariaLabel,
+    ...rest
+  } = props;
 
   switch (type) {
     case 'page':
       const onChange = useCallback(() => {
         onClick(page, currentPage);
-      }, [page, currentPage]);
+      }, [page, currentPage, onClick]);
       return (
         <View as="li">
           {page === currentPage ? (
@@ -50,8 +57,8 @@ export const PaginationItem: React.FC<PaginationItemProps> = (props) => {
       );
     case 'next':
       const onNext = useCallback(() => {
-        onClick(currentPage + 1);
-      }, [currentPage]);
+        onClick();
+      }, [onClick]);
       return (
         <View as="li">
           <Button
@@ -68,8 +75,8 @@ export const PaginationItem: React.FC<PaginationItemProps> = (props) => {
       );
     case 'previous':
       const onPrevious = useCallback(() => {
-        onClick(currentPage - 1);
-      }, [currentPage]);
+        onClick();
+      }, [onClick]);
       return (
         <View as="li">
           <Button
