@@ -8,7 +8,7 @@ interface PaginationDemoProps {
   defaultTotalPages?: number;
   defaultSiblingCount?: number;
 }
-export const PaginationDemo: React.FC<PaginationDemoProps> = props => {
+export const PaginationDemo: React.FC<PaginationDemoProps> = (props) => {
   const {
     isDemo = true,
     defaultCurrentPage = 1,
@@ -47,7 +47,7 @@ export const PaginationDemo: React.FC<PaginationDemoProps> = props => {
               id="current-page"
               value={currentPage}
               placeholder="Enter current page"
-              onChange={e => {
+              onChange={(e) => {
                 const newCurrentPage = isNaN(Number(e.target.value))
                   ? defaultCurrentPage
                   : Number(e.target.value);
@@ -62,7 +62,7 @@ export const PaginationDemo: React.FC<PaginationDemoProps> = props => {
               id="total-pages"
               value={totalPages}
               placeholder="Enter total pages"
-              onChange={e => {
+              onChange={(e) => {
                 const newTotalPages = isNaN(Number(e.target.value))
                   ? defaultTotalPages
                   : Number(e.target.value);
@@ -77,7 +77,7 @@ export const PaginationDemo: React.FC<PaginationDemoProps> = props => {
               id="sibling-count"
               value={siblingCount}
               placeholder="Enter sibling count"
-              onChange={e => {
+              onChange={(e) => {
                 const newSiblingCount = isNaN(Number(e.target.value))
                   ? defaultSiblingCount
                   : Number(e.target.value);
