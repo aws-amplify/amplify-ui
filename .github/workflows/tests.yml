@@ -84,6 +84,9 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
+      - name: Build Angular Package
+        run: yarn workspace @aws-amplify/ui-angular build
+
       - name: Build ${{ matrix.framework }} example
         run: yarn workspace ${{ matrix.framework }}-example build
 
