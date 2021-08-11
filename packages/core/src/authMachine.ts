@@ -523,19 +523,15 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
         /**
          * SignIn could be called from both the SignIn page and the ConfirmSignUp page.
          * Depending on where it is called from, username and password might live in
-         * different places - either in the event payload, or the `formValues` in Xstate's
+         * different places - either in the event payload, or the `user/formValues` in Xstate's
          * context.
          */
-        const username = event.data.username
-          ? event.data.username
-          : _context.formValues.username;
-        const password = event.data.password
-          ? event.data.password
-          : _context.formValues.password;
+        const {
+          username = _context.user.username,
+          password = _context.formValues.password,
+        } = event.data;
 
-        const result = await Auth.signIn(username, password);
-
-        return result;
+        return Auth.signIn(username, password);
       },
       async confirmSignIn(context, event) {
         const { challengeName, user } = context;
