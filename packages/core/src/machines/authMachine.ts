@@ -51,7 +51,7 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
         exit: stopActor('signInActor'),
         on: {
           SIGN_UP: 'signUp',
-          DONE: 'signUp',
+          DONE: 'authenticated',
         },
       },
       signUp: {
