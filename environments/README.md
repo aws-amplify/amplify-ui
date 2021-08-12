@@ -137,7 +137,7 @@ After creating a new backend environment for local development, it can be useful
 
 1. Stage all changes in the new environment as you normally would and commit the changes:
 
-   ```sh
+   ```shell
    # Within environments/my-custom-environment:
    git add .
 
