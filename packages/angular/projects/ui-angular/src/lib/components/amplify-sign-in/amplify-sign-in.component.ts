@@ -55,7 +55,7 @@ export class AmplifySignInComponent
 
   onStateUpdate(state: AuthMachineState): void {
     this.remoteError = state.context.remoteError;
-    this.isPending = !state.matches('signIn.edit');
+    this.isPending = !state.matches('signIn');
   }
 
   toSignUp(): void {
