@@ -1,12 +1,10 @@
 import { assign, createMachine, forwardTo } from 'xstate';
 import { Auth, Amplify } from 'aws-amplify';
-import { get } from 'lodash';
-import { AuthChallengeNames, AuthContext, AuthEvent } from '../types';
-import { passwordMatches, runValidators } from '../validators';
+import { AuthContext, AuthEvent } from '../types';
 import { inspect } from '@xstate/inspect';
-import { signInMachine } from './actors';
+import { signInMachine, signUpMachine } from './actors';
 import { stop } from 'xstate/lib/actions';
-import { spawnActor } from './actions';
+import { spawnActor, stopActor } from './actions';
 
 // TODO: Remove this before it's merged.
 if (typeof window !== 'undefined') {
@@ -50,13 +48,16 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
         ],
       },
       signIn: {
-        entry: spawnActor(signInMachine, 'signIn'),
-        exit: 'stopActor',
+        entry: spawnActor(signInMachine, 'signInActor'),
+        exit: stopActor('signInActor'),
         on: {
+          SIGN_UP: 'signUp',
           DONE: 'signUp',
         },
       },
       signUp: {
+        entry: spawnActor(signUpMachine, 'signUpActor'),
+        exit: stopActor('signUpActor'),
         on: {
           SIGN_IN: 'signIn',
         },
@@ -94,16 +95,19 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
     },
     on: {
       CHANGE: {
-        actions: forwardTo((context) => context.actorRef),
+        actions: 'forwardToActor',
       },
       SUBMIT: {
-        actions: forwardTo((context) => context.actorRef),
+        actions: 'forwardToActor',
+      },
+      FEDERATED_SIGN_IN: {
+        actions: 'forwardToActor',
       },
     },
   },
   {
     actions: {
-      stopActor: stop((context) => context.actorRef),
+      forwardToActor: forwardTo((context) => context.actorRef),
       setUser: assign({
         user(_, event) {
           return event.data?.user || event.data;
@@ -114,75 +118,13 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
           return event.data.auth;
         },
       }),
-      setRemoteError: assign({
-        remoteError(_, event) {
-          return event.data?.message || event.data;
-        },
-      }),
-      clearFormValues: assign({ formValues: {} }),
-      clearValidationError: assign({ validationError: {} }),
-      clearError: assign({ remoteError: '' }),
-      handleInput: assign({
-        formValues(context, event) {
-          const { name, value } = event.data;
-          return { ...context.formValues, [name]: value };
-        },
-      }),
-      setFieldErrors: assign({
-        validationError(_, event) {
-          return event.data;
-        },
-      }),
     },
     services: {
-      async validateFields(context, _event) {
-        const { formValues } = context;
-        const validators = [passwordMatches]; // this can contain custom validators too
-        return runValidators(formValues, validators);
-      },
       async getCurrentUser() {
         return Auth.currentAuthenticatedUser();
       },
       async getAmplifyConfig() {
         return Amplify.configure();
-      },
-      async confirmSignUp(context, event) {
-        const { username, confirmation_code: code } = event.data;
-
-        return Auth.confirmSignUp(username, code);
-      },
-      async resendConfirmationCode(context, event) {
-        const { username } = event.data;
-
-        return Auth.resendSignUp(username);
-      },
-      async signUp(context, _event) {
-        const {
-          formValues: { password, ...formValues },
-          config,
-        } = context;
-
-        const [primaryAlias] = config?.login_mechanisms ?? ['username'];
-
-        if (formValues.phone_number) {
-          formValues.phone_number = formValues.phone_number.replace(
-            /[^A-Z0-9+]/gi,
-            ''
-          );
-        }
-
-        const username = formValues[primaryAlias];
-        delete formValues[primaryAlias];
-        delete formValues.confirm_password; // confirm_password field should not be sent to Cognito
-
-        const result = await Auth.signUp({
-          username,
-          password,
-          attributes: formValues,
-        });
-
-        // TODO `cond`itionally transition to `signUp.confirm` or `resolved` based on result
-        return result;
       },
       async signOut() {
         await Auth.signOut(/* global? */);
