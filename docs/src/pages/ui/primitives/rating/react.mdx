@@ -46,13 +46,10 @@ import '@aws-amplify/ui-react/styles.css';
 
 ### Rating Value
 
-Pass in a `value` prop to set the rating value
+Pass in a `value` prop to set the Rating value.
 
 ```jsx
-import { Rating } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-<Rating value={3.7} />;
+<Rating value={3.7} />
 ```
 
 <Example>
@@ -61,13 +58,10 @@ import '@aws-amplify/ui-react/styles.css';
 
 ### Max Value
 
-Pass in a `maxValue` prop to set the maximum value of the rating component
+Pass in a `maxValue` prop to set the maximum value of the Rating component.
 
 ```jsx
-import { Rating } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-<Rating value={6.3} maxValue={10} />;
+<Rating value={6.3} maxValue={10} />
 ```
 
 <Example>
@@ -76,12 +70,9 @@ import '@aws-amplify/ui-react/styles.css';
 
 ### Size
 
-Use the `size` property to adjust the rating component. Options include `small` and `large`.
+Use the `size` prop to adjust the size of the Rating component. Options include `small`, `large`, and none (default).
 
 ```jsx
-import { Rating } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
 <Rating value={2.5} size="small" />;
 <Rating value={2.5} />;
 <Rating value={2.5} size="large" />;
@@ -95,20 +86,17 @@ import '@aws-amplify/ui-react/styles.css';
 
 ### Colors
 
-The fill color and empty color can be set using the `fillColor` and `emptyColor` props
+The fill color and empty color can be set using the `fillColor` and `emptyColor` props.
 
 ```jsx
-import { Rating } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-<Rating value={2.5} fillColor="red" emptyColor="green" />;
+<Rating value={2.5} fillColor="red" emptyColor="green" />
 ```
 
 <Rating value={2.5} fillColor="red" emptyColor="green" />
 
 ### Custom Icon
 
-A custom icon can be used in the rating component using the `icon` prop. The rating component works well with all major icon sets and these icons can be substituted in using this `icon` prop. The `icon` prop will override both the filled and empty icons unless a specific empty icon is also passed in.
+A custom icon can be used in the Rating component using the `icon` prop. The Rating component works well with all major icon sets and these icons can be substituted in using this `icon` prop. The `icon` prop will override both the filled and empty icons unless a specific empty icon is also passed in.
 
 ```jsx
 import { Rating, IconAdd } from '@aws-amplify/ui-react';
@@ -123,15 +111,18 @@ import '@aws-amplify/ui-react/styles.css';
 
 ### Custom SVG Icon
 
-A custom SVG may be used with the rating component. The color props on the rating component rely on the svg icon being used inheriting the color property and setting the svg fill to `currentColor`.
+A custom SVG may be used with the Rating component. The color props on the Rating component rely on the svg icon being used inheriting the color property and setting the svg fill to `currentColor`.
 
 ```css
+/* styles.css */
 .my-cool-svg {
   fill: currentColor;
 }
 ```
 
 ```jsx
+import './styles.css';
+
 const MyCoolSvg = () => {
   return (
     <svg className="my-cool-svg">
@@ -151,7 +142,7 @@ const MyCoolSvg = () => {
 
 ### Custom Empty Icon
 
-A custom empty icon can be used in the rating component using the emptyIcon prop. The emptyIcon prop will only effect the empty icon being rendered and by passing in an empty icon there will be different icons being rendered for the empty icons and filled icons. This is in contrast to the icon prop which will override both the empty and filled icons being used.
+A custom empty icon can be used in the Rating component using the `emptyIcon` prop. The `emptyIcon` prop will only affect the empty icon being rendered and by passing in an empty icon there will be different icons being rendered for the empty icons and filled icons. This is in contrast to the icon prop which will override both the empty and filled icons being used.
 
 ```jsx
 import { Rating, IconStarBorder } from '@aws-amplify/ui-react';
@@ -168,11 +159,11 @@ import '@aws-amplify/ui-react/styles.css';
 
 ### Component level overrides
 
-The rating component styling props can be overridden using a custom class name and the built-in CSS classes.
+The Rating component styling props can be overridden using a custom class name and the built-in CSS classes.
 
 ### Filled and empty icon colors
 
-The empty and filled icon colors can be overridden using a custom CSS class on your rating component and with the `.amplify-rating-icon-filled` and `.amplify-rating-icon-empty` classes
+The empty and filled icon colors can be overridden using a custom CSS class on your Rating component and with the `.amplify-rating-icon-filled` and `.amplify-rating-icon-empty` classes
 
 ```css
 .my-rating-component .amplify-rating-icon-filled {
@@ -197,9 +188,10 @@ import '@aws-amplify/ui-react/styles.css';
 
 #### Sizes
 
-The size variations on the rating component can be overridden at the individual component level
+The size variations on the Rating component can be overridden at the individual component level
 
 ```css
+/* styles.css */
 .large-rating[data-size='small'] {
   font-size: 40px;
   line-height: 40px;
@@ -207,8 +199,7 @@ The size variations on the rating component can be overridden at the individual 
 ```
 
 ```jsx
-import { Rating } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
+import './styles.css';
 
 <Rating value={2.5} className="large-rating" size="small" />;
 ```
@@ -219,7 +210,7 @@ import '@aws-amplify/ui-react/styles.css';
 
 ### Application wide styling
 
-All rating components within an application can be styled using CSS variables at the root level
+All Rating components within an application can be styled using CSS variables at the root level
 
 #### Filled and empty icon colors
 
@@ -245,7 +236,7 @@ import '@aws-amplify/ui-react/styles.css';
 
 ### Sizes
 
-The size variations on the rating component can be overridden at the application level using CSS variables
+The size variations on the Rating component can be overridden at the application level using CSS variables
 
 ```css
 :root {

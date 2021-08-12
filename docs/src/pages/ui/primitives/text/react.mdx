@@ -31,7 +31,7 @@ yarn add @aws-amplify/ui-react
 
 ## Usage
 
-Import the Text component and styles.
+Import the Text primitive and styles.
 
 ```jsx
 import { Text } from '@aws-amplify/ui-react';
@@ -44,9 +44,9 @@ import '@aws-amplify/ui-react/styles.css';
   <Text>Hello world</Text>
 </Example>
 
-### Text variations
+### Variations
 
-Use the `variation` prop to change the text variation. Available options are `primary`, `secondary`, `tertiary`, `error`, `warning`, `info`, and `success`.
+Use the `variation` prop to change the Text variation. Available options are `primary`, `secondary`, `tertiary`, `error`, `warning`, `info`, and `success`.
 
 ```jsx
 import { Text } from "@aws-amplify/ui-react";
@@ -59,6 +59,7 @@ import "@aws-amplify/ui-react/styles.css";
 <Text variation="warning">Warning</Text>
 <Text variation="info">Info</Text>
 <Text variation="success">Success</Text>
+<Text>Default</Text>
 ```
 
 <Example>
@@ -69,16 +70,14 @@ import "@aws-amplify/ui-react/styles.css";
   <Text variation="warning">Warning</Text>
   <Text variation="info">Info</Text>
   <Text variation="success">Success</Text>
+  <Text>Default</Text>
 </Example>
 
 ### Truncate
 
-The isTruncated prop will render an ellipsis when the text exceeds the defined width
+The `isTruncated` prop will render an ellipsis when the text exceeds the defined width.
 
 ```jsx
-import { Text } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
 <Text isTruncated={true}>
   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
   incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
@@ -86,7 +85,7 @@ import '@aws-amplify/ui-react/styles.css';
   Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
   eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt
   in culpa qui officia deserunt mollit anim id est laborum.
-</Text>;
+</Text>
 ```
 
 <Example>
@@ -95,33 +94,11 @@ import '@aws-amplify/ui-react/styles.css';
 
 ## CSS Styling
 
-### Override Amplify styling using a css class
+### Global styling
 
-Using a custom class and CSS file:
+To override styling on all Text, you can set the Amplify CSS variables or use the built-in `.amplify-text` class.
 
-```css
-/* styles.css */
-.styled-text {
-  font-weight: bold;
-  color: red;
-  text-decoration: underline;
-}
-```
-
-```jsx
-import { View } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-<Text className="styled-text">This is my styled text</Text>;
-```
-
-<Example>
-  <Text className="styled-text">This is my styled text</Text>
-</Example>
-
-### Override Amplify styling using the CSS variables
-
-Using a custom class and CSS file to override css variation variables:
+(Revise this example)
 
 ```css
 /* styles.css */
@@ -145,17 +122,46 @@ import '@aws-amplify/ui-react/styles.css';
   </Text>
 </Example>
 
-### Override Amplify styling using props
+To replace the Text styling, unset it:
 
-Use style props to style an instance of `<Text>`
+```css
+.amplify-text {
+  all: unset;
+  /* Add your styling here*/
+}
+```
+
+### Local styling
+
+To override styling on a specific Text, you can use a class selector or style props.
+
+_Using a class selector:_
+
+```css
+/* styles.css */
+.styled-text {
+  font-weight: bold;
+  color: red;
+  text-decoration: underline;
+}
+```
 
 ```jsx
-import { View } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
+import './styles.css';
 
+<Text className="styled-text">This is my styled text</Text>;
+```
+
+<Example>
+  <Text className="styled-text">This is my styled text</Text>
+</Example>
+
+_Using style props:_
+
+```jsx
 <Text fontWeight="bold" color="red" textDecoration="underline">
   This is my styled text
-</Text>;
+</Text>
 ```
 
 <Example>
