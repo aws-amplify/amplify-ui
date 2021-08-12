@@ -6,7 +6,7 @@ import {
   ValidationError,
   AuthEvent,
   CognitoUserAmplify,
-  AuthAttributeContext,
+  PassedContext,
 } from '../../../types';
 import { Auth } from 'aws-amplify';
 
@@ -18,19 +18,25 @@ interface SignUpContext {
   config?: {
     login_mechanisms: string[];
   };
-  authAttributes?: AuthAttributeContext;
+  passedContext?: PassedContext;
 }
 
 export const signUpActor = createMachine<SignUpContext, AuthEvent>(
   {
     id: 'signUpActor',
-    initial: 'signUp',
+    initial: 'init',
     context: {
       remoteError: '',
       formValues: {},
       validationError: {},
     },
     states: {
+      init: {
+        always: [
+          { target: 'confirmSignUp', cond: 'shouldInitConfirmSignUp' },
+          { target: 'signUp' },
+        ],
+      },
       signUp: {
         type: 'parallel',
         exit: 'clearError',
@@ -94,14 +100,16 @@ export const signUpActor = createMachine<SignUpContext, AuthEvent>(
               pending: {
                 invoke: {
                   src: 'signUp',
-                  onDone: { target: 'done', actions: 'setUser' },
+                  onDone: {
+                    target: '#signUpActor.confirmSignUp',
+                    actions: 'setUser',
+                  },
                   onError: {
                     target: 'idle',
                     actions: 'setRemoteError',
                   },
                 },
               },
-              done: { type: 'final' },
             },
           },
         },
@@ -139,10 +147,16 @@ export const signUpActor = createMachine<SignUpContext, AuthEvent>(
     },
   },
   {
+    guards: {
+      shouldInitConfirmSignUp: (context) => {
+        const intent = context.passedContext?.intent;
+        return intent && intent === 'confirmSignUp';
+      },
+    },
     actions: {
       reportDone: sendParent((context) => ({
         type: 'DONE',
-        data: { authAttributes: context.authAttributes },
+        data: { passedContext: context.passedContext },
       })),
       setUser: assign({
         user: (_, event) => event.data,

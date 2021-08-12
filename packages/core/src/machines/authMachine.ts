@@ -52,6 +52,7 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
         on: {
           SIGN_UP: 'signUp',
           DONE: 'authenticated',
+          'ERROR.CONFIRM_SIGN_UP': 'signUp',
         },
       },
       signUp: {
@@ -66,7 +67,6 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
           SIGN_OUT: 'signOut',
         },
       },
-      confirmSignUp: {},
       signOut: {
         initial: 'pending',
         onDone: 'idle',
@@ -120,16 +120,16 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
       spawnSignInActor: assign({
         actorRef: (_context, event) => {
           const actor = signInActor.withContext({
-            authAttributes: event.data?.authAttributes,
+            ...event.data,
           });
           return spawn(actor, 'signInActor');
         },
       }),
       spawnSignUpActor: assign({
         actorRef: (context, event) => {
+          signUpActor;
           const actor = signUpActor.withContext({
-            authAttributes: event.data?.authAttributes,
-            config: context.config,
+            ...event.data,
           });
           return spawn(actor, 'signUpActor');
         },

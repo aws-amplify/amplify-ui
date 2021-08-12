@@ -30,7 +30,7 @@ export type AuthEventTypes =
   | 'CHANGE'
   | 'FEDERATED_SIGN_IN'
   | 'DONE'
-  | 'ERROR';
+  | 'ERROR.CONFIRM_SIGN_UP';
 
 export enum AuthChallengeNames {
   SMS_MFA = 'SMS_MFA',
@@ -44,9 +44,14 @@ export enum AuthChallengeNames {
  * signing in a signed up user require `username` and `password` to be
  * transferred. This types provides an interface for it.
  */
-export interface AuthAttributeContext {
+export interface PassedContext {
   username?: string;
   password?: string;
+  /**
+   * intent for creating this actor. For example, set this to `confirmSignUp`
+   * if you want an actor to go directly to `confirmSignUp`.
+   */
+  intent?: string;
 }
 
 export interface InputAttributes {

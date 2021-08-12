@@ -7,7 +7,7 @@ import {
   AuthEvent,
   CognitoUserAmplify,
   AuthChallengeNames,
-  AuthAttributeContext,
+  PassedContext,
 } from '../../../types';
 import { Auth } from 'aws-amplify';
 
@@ -17,7 +17,7 @@ interface SignInContext {
   formValues?: AuthFormData;
   user?: CognitoUserAmplify;
   challengeName?: string;
-  authAttributes?: AuthAttributeContext;
+  passedContext?: PassedContext;
 }
 
 export const signInActor = createMachine<SignInContext, AuthEvent>(
@@ -184,10 +184,10 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
       redirectToConfirmSignUp: sendParent((context, event) => ({
         type: 'ERROR.CONFIRM_SIGN_UP',
         data: {
-          authAttributes: {
+          passedContext: {
             username: context.formValues?.username,
+            intent: 'confirmSignUp',
           },
-          errorCode: event.data.code,
         },
       })),
       setUser: assign({
