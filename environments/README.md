@@ -2,32 +2,63 @@
 
 This folder contains a list of pre-built Amplify backends for use with manual & automated testing.
 
-## Re-using a Backend Environment
+## Using an Existing Backend Environment
 
-For manual & E2E testing, you need a live backend to work against and your app needs an `aws-exports.js`.
+For manual and end-to-end testing, example applications will use a particular backend environment by pulling the `aws-exports.js` file from the `environments/{BACKEND_ENVIRONMENT}/src` directory. To use an existing backend environment, please use the following instructions.
 
-Within [/environments](/environments), there are pre-built backend environments that you can re-use by either:
+### External Contributors
 
-1. Manually following the steps in the `README.md` ([example](auth-with-username/README.md))
-1. Or running `amplify pull` within that folder.
-
-This will create a `src/aws-exports.js` for use in your testing.
-
-_Note: If you are taken to a sign in screen when pulling an environment with `amplify pull`, you can workaround this by first visiting the Amplify Admin UI for that environment ([example](https://us-east-1.admin.amplifyapp.com/admin/dbffpda9986dp/staging/home)) and then attempting to pull it again._
-
-### Pulling Environments for Internal Contributors
-
-The internal Amplify team uses shared backend environments. We use a shared access account with read/list access to be able to pull all environments. Internal contributors can follow the steps below to pull all environments for the project:
-
-1. Set the internal `github-action` IAM user as a local AWS profile.
-1. Run the `yarn` script to pull all environments passing the `github-action` profile you created in the step above as the environment variable `AWS_PROFILE`.
+1. You will need an AWS account and the Amplify CLI installed and configured to use your AWS profile. Follow the "[Amplify Getting Started: Prerequisites](https://docs.amplify.aws/start/getting-started/installation/q/integration/js)" tutorial to set up your AWS account and configure the Amplify CLI tool. _Note: Only follow the "Prerequisites" tutorial. Do not move on to the "Set up fullstack project" tutorial._
+1. In a terminal, `cd` into the environment you want to use for testing your changes and initialize the environment using your own AWS account with `amplify init`. For example:
    ```sh
-   AWS_PROFILE=github-action yarn pull-environments
+   $ cd environments/auth-with-email && amplify init
    ```
-   If you want to limit to pulling a single environment, you can pass the `-limit {ENVIRONMENT}` tag to the pull script:
+   - You will be asked a couple of questions by the `amplify` interactive prompt. For `Enter a name for the environment` and `Choose your default editor`, you can answer them as you prefer.
+   - For `Select the authentication method you want to use`, select `AWS profile` and choose the profile you configured in step 1.
+1. Run the following command to push up the local environment configuration to the environment you just initialized in your AWS account:
    ```sh
-   AWS_PROFILE=github-action yarn pull-environments -limit auth-with-email
+   $ amplify push
    ```
+   - Answer `Yes` to the prompt `Are you sure you want to continue?`. This command may take several minutes to complete.
+1. Run the following command to open the Amplify Admin UI to see your environment:
+   ```sh
+   $ amplify console
+   ```
+   - Answer `Amplify admin UI` to the prompt `Which site do you want to open?`. Your environment is now configured for local testing.
+     _Note: Following the above steps may generate some changes in the environment's directory. You are safe to `git checkout` those changes._
+
+### Internal Contributors
+
+The internal Amplify team uses shared backend environments which are also used for our automated end-to-end testing. The following steps will walk you through pulling the environments locally:
+
+1. Ensure you have the Amplify CLI tool installed as well as the internal `isengardcli` tool installed (check the internal Amazon wiki).
+1. In a new terminal window, use `isengardcli` to assume the shared `aws-amplify-ui` account and manually set your region to `us-east-1`:
+   ```sh
+   $ isengardcli assume aws-amplify-ui -region us-east-1
+   ```
+   This will configure a local AWS profile which uses temporary access keys from our shared `aws-amplify-ui` account that can be used for accessing our shared environments.
+1. In the root directory of the project, pull all environments with the following yarn script:
+   ```sh
+   $ yarn environments pull-all
+   ```
+   If you want to pull a single environment, you can append the `-limit` tag to the yarn script:
+   ```sh
+   $ yarn environments pull-all -limit auth-with-email
+   ```
+
+All of the environments should now be pulled down and each of their `aws-exports.js` files available for testing locally.
+
+_Note: Following the above steps may generate some changes in the environments' directories. You are safe to `git checkout` those changes._
+
+```sh
+AWS_PROFILE=github-action yarn pull-environments
+```
+
+If you want to limit to pulling a single environment, you can pass the `-limit {ENVIRONMENT}` tag to the pull script:
+
+```sh
+AWS_PROFILE=github-action yarn pull-environments -limit auth-with-email
+```
 
 ## Creating a Backend Environment
 
@@ -88,7 +119,7 @@ When an existing backend doesn't match your needs (or requires changes), you can
 1. Run the `amplify pull ...` command from Admin UI:
 
    ```shell
-   amplify pull --appId ... --envName staging --yes
+   $ amplify pull --appId ... --envName staging --yes
    ```
 
    (Passing `--yes` will skip `amplify init` props and select defaults automatically)
@@ -97,24 +128,22 @@ When an existing backend doesn't match your needs (or requires changes), you can
 
 ## Committing a Backend Environment
 
-After creating & `amplify pull`ing a backend environment down for local development, it can be useful to commit that for future use in testing or for collaboration.
+After initializing a backend environment (or pulling an existing environment) for local development, it can be useful to commit the configuration for future use in testing or collaboration.
 
 1. First, create a `README.md` that describes what makes this backend unique ([example](auth-with-username/README.md))
+1. The following configuration files for the environment should be committed:
 
-1. Include your environment's application ID in a file called `app-id`:
+   - `amplify/.config/project-config.json`
+   - `amplify/backend/**/{YOUR_ENVIRONTMENT}/{YOUR_ENVIRONMENT}-cloudformation-template.yml`
+   - `amplify/backend/**/{YOUR_ENVIRONMENT}/parameters.json`
+   - `amplify/backend/backend-config.json`
+   - `amplify/backend/tags.json`
+   - `amplify/cli.json`
+
+1. **Internal contributors**: to have this environment be used by CI and the `yarn environments pull-all` script, add the app ID for the environment configured using the team's shared `aws-amplify-ui` account to the environment's directory:
 
    ```shell
-   echo "YOUR_APP_ID" > environments/auth-with-username/app-id
+   $ echo "YOUR_APP_ID" > environments/{YOUR_ENVIRONMENT}/app-id
    ```
 
-   _This file is used by our continuous integration GitHub Action to pull each environment for end-to-end tests._
-
-1. Then, use git to stage, commit, & push your changes as you normally would:
-
-   ```shell
-   # Within environments/my-custom-environment:
-   git add .
-
-   # This will add `amplify`, `src`, and `.gitignore` generated by `amplify pull`
-   git commit -m "Add my-custom-environment backend"
-   ```
+1. Then, use git to commit and push your changes as you normally would:
