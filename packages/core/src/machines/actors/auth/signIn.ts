@@ -1,82 +1,216 @@
-import { handleInput } from '../../actions';
-import { createMachine, sendParent, sendUpdate } from 'xstate';
-import { AuthFormData, ValidationError, AuthEvent } from '../../../types';
+import { createMachine, sendParent, assign } from 'xstate';
+import { get } from 'lodash';
+
+import {
+  AuthFormData,
+  ValidationError,
+  AuthEvent,
+  CognitoUserAmplify,
+  AuthChallengeNames,
+} from '../../../types';
 import { Auth } from 'aws-amplify';
 
-type SignInContext = {
-  remoteError: string;
-  formValues: AuthFormData;
-  validationError: ValidationError;
-};
+interface SignInContext {
+  remoteError?: string;
+  validationError?: ValidationError;
+  formValues?: AuthFormData;
+  user?: CognitoUserAmplify;
+  challengeName?: string;
+}
 
 export const signInMachine = createMachine<SignInContext, AuthEvent>(
   {
-    initial: 'edit',
+    initial: 'signIn',
+    id: 'signInActor',
     context: {
       remoteError: '',
       formValues: {},
       validationError: {},
     },
-    id: 'signIn',
     states: {
-      edit: {
-        initial: 'clean',
+      signIn: {
+        initial: 'edit',
         states: {
-          clean: {},
-          error: {},
-        },
-        on: {
-          SUBMIT: 'submit',
-          CHANGE: {
-            actions: handleInput as any, // TODO: type this
+          edit: {
+            on: {
+              SUBMIT: 'submit',
+              CHANGE: { actions: 'handleInput' },
+              FEDERATED_SIGN_IN: 'federatedSignIn',
+            },
+          },
+          federatedSignIn: {
+            invoke: {
+              src: 'federatedSignIn',
+              onDone: '#signInActor.resolved',
+              onError: { actions: 'setRemoteError' },
+            },
+          },
+          submit: {
+            entry: 'clearError',
+            invoke: {
+              src: 'signIn',
+              onDone: [
+                {
+                  cond: 'shouldSetupTOTP',
+                  target: '#signInActor.setupTOTP',
+                },
+                {
+                  cond: 'shouldConfirmSignIn',
+                  target: '#signInActor.confirmSignIn',
+                },
+                {
+                  cond: 'shouldForceChangePassword',
+                  target: '#signInActor.forceNewPassword',
+                },
+                {
+                  actions: 'setUser',
+                  target: '#signInActor.resolved',
+                },
+              ],
+              onError: [
+                {
+                  cond: 'shouldRedirectToConfirmSignUp',
+                  // actions: send ConfirmSignUp signal to parent
+                },
+                {
+                  actions: 'setRemoteError',
+                  target: 'edit',
+                },
+              ],
+            },
           },
         },
       },
-      submit: {
-        entry: 'clearError',
-        invoke: {
-          src: 'signIn',
-          onDone: {
-            actions: 'reportDone',
-            target: 'resolved',
+      confirmSignIn: {
+        initial: 'edit',
+        states: {
+          edit: {
+            on: {
+              SUBMIT: 'submit',
+              SIGN_IN: '#signInActor.signIn',
+              CHANGE: { actions: 'handleInput' },
+            },
           },
-          onError: [
-            {
-              cond: 'shouldRedirectToConfirmSignUp',
-              actions: 'reportError',
-              target: 'rejected',
+          submit: {
+            entry: 'clearError',
+            invoke: {
+              src: 'confirmSignIn',
+              onDone: {
+                target: '#signInActor.resolved',
+                actions: ['setUser', 'clearChallengeName'],
+              },
+              onError: {
+                target: 'edit',
+                actions: 'setRemoteError',
+              },
             },
-            {
-              actions: sendUpdate(),
-              target: 'edit.error',
+          },
+        },
+      },
+      forceNewPassword: {
+        initial: 'edit',
+        states: {
+          edit: {
+            on: {
+              SUBMIT: 'submit',
+              SIGN_IN: '#signInActor.signIn',
+              CHANGE: { actions: 'handleInput' },
             },
-          ],
+          },
+          submit: {
+            entry: 'clearError',
+            invoke: {
+              src: 'forceNewPassword',
+              onDone: {
+                actions: ['setUser', 'clearChallengeName'],
+                target: '#signInActor.resolved',
+              },
+              onError: {
+                actions: 'setRemoteError',
+                target: 'edit',
+              },
+            },
+          },
+        },
+      },
+      setupTOTP: {
+        initial: 'edit',
+        states: {
+          edit: {
+            on: {
+              SUBMIT: 'submit',
+              SIGN_IN: '#signInActor.signIn',
+              CHANGE: { actions: 'handleInput' },
+            },
+          },
+          submit: {
+            invoke: {
+              src: 'verifyTotpToken',
+              onDone: {
+                actions: ['setUser', 'clearChallengeName'],
+                target: '#signInActor.resolved',
+              },
+              onError: {
+                actions: 'setRemoteError',
+                target: 'edit',
+              },
+            },
+          },
         },
       },
       resolved: {
         type: 'final',
-      },
-      rejected: {
-        type: 'final',
+        entry: 'reportDone',
       },
     },
   },
   {
     actions: {
+      handleInput: assign({
+        formValues(context, event) {
+          const { name, value } = event.data;
+          return { ...context.formValues, [name]: value };
+        },
+      }),
       reportDone: sendParent((_context, event) => ({
         type: 'DONE',
-        data: {
-          user: event.data,
+        data: {},
+      })),
+      setUser: assign({
+        user(_, event) {
+          return event.data?.user || event.data;
         },
-      })),
-      reportError: sendParent((context, event) => ({
-        type: 'ERROR',
-        data: { ...event.data, username: context.formValues?.username },
-      })),
+      }),
+      setChallengeName: assign({
+        challengeName(_, event) {
+          return event.data?.challengeName;
+        },
+      }),
+      clearChallengeName: assign({ challengeName: undefined }),
+      clearError: assign({ remoteError: '' }),
     },
     guards: {
+      shouldConfirmSignIn: (context, event): boolean => {
+        const challengeName = get(event, 'data.challengeName');
+        const validChallengeNames = [
+          AuthChallengeNames.SMS_MFA,
+          AuthChallengeNames.SOFTWARE_TOKEN_MFA,
+        ];
+
+        return validChallengeNames.includes(challengeName);
+      },
       shouldRedirectToConfirmSignUp: (_context, event): boolean => {
         return event.data.code === 'UserNotConfirmedException';
+      },
+      shouldSetupTOTP: (context, event): boolean => {
+        const challengeName = get(event, 'data.challengeName');
+
+        return challengeName === AuthChallengeNames.MFA_SETUP;
+      },
+      shouldForceChangePassword: (context, event): boolean => {
+        const challengeName = get(event, 'data.challengeName');
+
+        return challengeName === AuthChallengeNames.NEW_PASSWORD_REQUIRED;
       },
     },
     services: {
@@ -84,6 +218,38 @@ export const signInMachine = createMachine<SignInContext, AuthEvent>(
         const { username, password } = event.data;
 
         return Auth.signIn(username, password);
+      },
+      async confirmSignIn(context, event) {
+        const { challengeName, user } = context;
+        const { confirmation_code: code } = event.data;
+
+        let mfaType;
+        if (
+          challengeName === AuthChallengeNames.SMS_MFA ||
+          challengeName === AuthChallengeNames.SOFTWARE_TOKEN_MFA
+        ) {
+          mfaType = challengeName;
+        }
+
+        return Auth.confirmSignIn(user, code, mfaType);
+      },
+      async forceNewPassword(context, event) {
+        const { user } = context;
+        const password = get(event, 'data.password');
+
+        return Auth.completeNewPassword(user, password);
+      },
+      async verifyTotpToken(context, event) {
+        const { user } = context;
+        const { confirmation_code } = event.data;
+
+        return Auth.verifyTotpToken(user, confirmation_code);
+      },
+      async federatedSignIn(context, event) {
+        const { provider } = event.data;
+        const result = await Auth.federatedSignIn({ provider });
+
+        return result;
       },
     },
   }

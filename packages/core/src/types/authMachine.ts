@@ -3,6 +3,7 @@ import { Interpreter, State } from 'xstate';
 import { ValidationError } from './validator';
 
 export type AuthFormData = Record<string, string>;
+
 export interface AuthContext {
   remoteError?: string; // contains Amplify or Cognito error
   validationError?: ValidationError; // contains validation error for each input
@@ -16,7 +17,7 @@ export interface AuthContext {
   actorRef?: any; // TODO (pre-merge): type this
 }
 
-interface CognitoUserAmplify extends CognitoUser {
+export interface CognitoUserAmplify extends CognitoUser {
   username?: string;
 }
 
@@ -30,6 +31,7 @@ export type AuthEventTypes =
   | 'CONFIRM_SIGN_IN'
   | 'INPUT'
   | 'CHANGE'
+  | 'DONE'
   | 'FEDERATED_SIGN_IN';
 
 export enum AuthChallengeNames {
