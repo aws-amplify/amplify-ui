@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "@types/lodash": "^4.14.170",
+    "@types/webpack-env": "^1.16.2",
     "tslib": "^2.3.0"
   }
 }

@@ -36,6 +36,10 @@ jobs:
           cache: 'yarn'
 
       - name: Install packages
+
+      - name: Build {{ matrix.package }} package
+        run: yarn workspace {{ matrix.package }} build 
+
         run: yarn --frozen-lockfile
 
       - name: Run ${{ matrix.package }} tests
@@ -84,14 +88,11 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-      - name: Build Angular Package
-        run: yarn workspace @aws-amplify/ui-angular build
-
-      - name: Build ${{ matrix.framework }} example
+     - name: Build ${{ matrix.framework }} example
         run: yarn workspace ${{ matrix.framework }}-example build
 
       - name: Start ${{ matrix.framework }} example
-        run: yarn workspace ${{ matrix.framework }}-example start & npx wait-on -t 30000 http://localhost:3000/ui/components/authenticator/sign-in-with-username
+        run: yarn workspace ${{ matrix.framework }}-example start & npx wait-on -t 60000 http://localhost:3000/ui/components/authenticator/sign-in-with-username
 
       - name: Run E2E tests against ${{ matrix.framework }} example
         run: yarn workspace e2e test
