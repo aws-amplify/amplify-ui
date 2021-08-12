@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --port 3000 --prod",
-    "build": "yarn build:package && ng build",
+    "start": "ng serve --port 3000",
+    "build": "yarn build:package && ng build --prod",
     "build:package": "yarn --cwd ../../ workspace @aws-amplify/ui-angular build",
     "test": "ng test",
     "lint": "ng lint",
