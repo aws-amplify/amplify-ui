@@ -246,7 +246,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
       },
       confirmResetPassword: {
         initial: 'edit',
-        exit: ['clearFormValues', 'clearError'],
+        exit: ['clearFormValues', 'clearError', 'clearUsername'],
         onDone: 'signIn',
         states: {
           edit: {
