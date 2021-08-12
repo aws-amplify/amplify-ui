@@ -7,10 +7,10 @@ IFS='|'
 
 # -limit tag limits pulling to single environment
 # e.g. sh environments/pull-environments.sh -limit auth-with-email
-environments=environments/*/
+environments=./*/
 while getopts "limit:" opt
 do
-  environments=environments/$OPTARG
+  environments=./$OPTARG
 done
 
 FRONTENDCONFIG="{\

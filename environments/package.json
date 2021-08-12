@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "name": "environments",
+  "version": "0.0.1",
+  "scripts": {
+    "pull-all": "sh pull-environments.sh"
+  }
+}

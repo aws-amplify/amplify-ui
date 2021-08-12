@@ -12,6 +12,7 @@
     "docs": "yarn workspace docs",
     "next-example": "yarn workspace next-example",
     "e2e": "yarn workspace e2e",
+    "environments": "yarn workspace environments",
     "vue-docs": "yarn workspace vue-docs",
     "build:icons": "yarn react build:icons",
     "build:angular": "yarn angular build",
@@ -21,14 +22,13 @@
     "dev:angular": "yarn angular-docs start",
     "dev:vue": "yarn vue-docs serve --port 3001 --host localhost",
     "test": "yarn react test && yarn e2e test",
-    "prepare": "husky install",
-    "pull-environments": "sh environments/pull-environments.sh"
+    "prepare": "husky install"
   },
   "workspaces": [
     "docs",
     "vue-docs",
     "angular-docs",
-    "environments/*",
+    "environments",
     "examples/*",
     "packages/*"
   ],
