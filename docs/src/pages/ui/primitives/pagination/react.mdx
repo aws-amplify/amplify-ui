@@ -51,9 +51,26 @@ import '@aws-amplify/ui-react/styles.css';
 
 ## CSS styling
 
-### Override Amplify styling using the CSS variables
+### Global styling
 
-Using a class and CSS file:
+To override styling on all Pagination components, you can set the Amplify CSS variables or use the built-in `.amplify-pagination` class.
+
+(Example needed)
+
+To replace the Pagination styling, unset it:
+
+```css
+.amplify-pagination {
+  all: unset;
+  /* Add your styling here*/
+}
+```
+
+### Local styling
+
+To override styling on a specific Pagination component, you can use a class selector or style props.
+
+_Using a class selector:_
 
 ```css
 /* styles.css */
@@ -90,7 +107,9 @@ import './styles.css';
 
 <PaginationDemo isDemo={false} className="my-custom-pagination" />
 
-### REPLACE THIS EXAMPLE: Or override the variables inline:
+_Using style props:_
+
+**Modify this example to show how to use style props (no inline CSS variables)**
 
 ```jsx
 import { Pagination } from '@aws-amplify/ui-react';
