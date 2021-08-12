@@ -1,9 +1,9 @@
-import { assign, createMachine, forwardTo } from 'xstate';
+import { assign, createMachine, forwardTo, spawn } from 'xstate';
 import { Auth, Amplify } from 'aws-amplify';
 import { AuthContext, AuthEvent } from '../types';
 import { inspect } from '@xstate/inspect';
-import { signInMachine, signUpMachine } from './actors';
-import { spawnActor, stopActor } from './actions';
+import { signInActor, signUpActor } from './actors';
+import { stopActor } from './actions';
 
 // TODO: Remove this before it's merged.
 if (typeof window !== 'undefined') {
@@ -47,7 +47,7 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
         ],
       },
       signIn: {
-        entry: spawnActor(signInMachine, 'signInActor'),
+        entry: 'spawnSignInActor',
         exit: stopActor('signInActor'),
         on: {
           SIGN_UP: 'signUp',
@@ -55,7 +55,7 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
         },
       },
       signUp: {
-        entry: spawnActor(signUpMachine, 'signUpActor'),
+        entry: 'spawnSignUpActor',
         exit: stopActor('signUpActor'),
         on: {
           SIGN_IN: 'signIn',
@@ -115,6 +115,23 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
       setAuthConfig: assign({
         config(_, event) {
           return event.data.auth;
+        },
+      }),
+      spawnSignInActor: assign({
+        actorRef: (_context, event) => {
+          const actor = signInActor.withContext({
+            authAttributes: event.data?.authAttributes,
+          });
+          return spawn(actor, 'signInActor');
+        },
+      }),
+      spawnSignUpActor: assign({
+        actorRef: (context, event) => {
+          const actor = signUpActor.withContext({
+            authAttributes: event.data?.authAttributes,
+            config: context.config,
+          });
+          return spawn(actor, 'signUpActor');
         },
       }),
     },

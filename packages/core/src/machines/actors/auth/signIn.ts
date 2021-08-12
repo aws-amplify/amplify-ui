@@ -7,6 +7,7 @@ import {
   AuthEvent,
   CognitoUserAmplify,
   AuthChallengeNames,
+  AuthAttributeContext,
 } from '../../../types';
 import { Auth } from 'aws-amplify';
 
@@ -16,9 +17,10 @@ interface SignInContext {
   formValues?: AuthFormData;
   user?: CognitoUserAmplify;
   challengeName?: string;
+  authAttributes?: AuthAttributeContext;
 }
 
-export const signInMachine = createMachine<SignInContext, AuthEvent>(
+export const signInActor = createMachine<SignInContext, AuthEvent>(
   {
     initial: 'signIn',
     id: 'signInActor',
@@ -172,25 +174,21 @@ export const signInMachine = createMachine<SignInContext, AuthEvent>(
           return { ...context.formValues, [name]: value };
         },
       }),
-      reportDone: sendParent((_context, event) => ({
+      reportDone: sendParent((context) => ({
         type: 'DONE',
-        data: {},
+        data: { authAttributes: context.authAttributes },
       })),
       setUser: assign({
-        user(_, event) {
-          return event.data?.user || event.data;
-        },
+        user: (_, event) => event.data,
       }),
       setChallengeName: assign({
-        challengeName(_, event) {
-          return event.data?.challengeName;
-        },
+        challengeName: (_, event) => event.data?.challengeName,
       }),
       clearChallengeName: assign({ challengeName: undefined }),
       clearError: assign({ remoteError: '' }),
     },
     guards: {
-      shouldConfirmSignIn: (context, event): boolean => {
+      shouldConfirmSignIn: (_, event): boolean => {
         const challengeName = get(event, 'data.challengeName');
         const validChallengeNames = [
           AuthChallengeNames.SMS_MFA,
@@ -199,22 +197,22 @@ export const signInMachine = createMachine<SignInContext, AuthEvent>(
 
         return validChallengeNames.includes(challengeName);
       },
-      shouldRedirectToConfirmSignUp: (_context, event): boolean => {
+      shouldRedirectToConfirmSignUp: (_, event): boolean => {
         return event.data.code === 'UserNotConfirmedException';
       },
-      shouldSetupTOTP: (context, event): boolean => {
+      shouldSetupTOTP: (_, event): boolean => {
         const challengeName = get(event, 'data.challengeName');
 
         return challengeName === AuthChallengeNames.MFA_SETUP;
       },
-      shouldForceChangePassword: (context, event): boolean => {
+      shouldForceChangePassword: (_, event): boolean => {
         const challengeName = get(event, 'data.challengeName');
 
         return challengeName === AuthChallengeNames.NEW_PASSWORD_REQUIRED;
       },
     },
     services: {
-      async signIn(_context, event) {
+      async signIn(_, event) {
         const { username, password } = event.data;
 
         return Auth.signIn(username, password);
@@ -245,7 +243,7 @@ export const signInMachine = createMachine<SignInContext, AuthEvent>(
 
         return Auth.verifyTotpToken(user, confirmation_code);
       },
-      async federatedSignIn(context, event) {
+      async federatedSignIn(_, event) {
         const { provider } = event.data;
         const result = await Auth.federatedSignIn({ provider });
 

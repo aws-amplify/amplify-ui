@@ -41,6 +41,16 @@ export enum AuthChallengeNames {
   MFA_SETUP = 'MFA_SETUP',
 }
 
+/**
+ * Any context that needs to be transferred between actors. e.g. automatically
+ * signing in a signed up user require `username` and `password` to be
+ * transferred. This types provides an interface for it.
+ */
+export interface AuthAttributeContext {
+  username?: string;
+  password?: string;
+}
+
 export interface InputAttributes {
   label: string;
   type: string;

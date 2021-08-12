@@ -6,6 +6,7 @@ import {
   ValidationError,
   AuthEvent,
   CognitoUserAmplify,
+  AuthAttributeContext,
 } from '../../../types';
 import { Auth } from 'aws-amplify';
 
@@ -17,9 +18,10 @@ interface SignUpContext {
   config?: {
     login_mechanisms: string[];
   };
+  authAttributes?: AuthAttributeContext;
 }
 
-export const signUpMachine = createMachine<SignUpContext, AuthEvent>(
+export const signUpActor = createMachine<SignUpContext, AuthEvent>(
   {
     id: 'signUpActor',
     initial: 'signUp',
@@ -103,7 +105,6 @@ export const signUpMachine = createMachine<SignUpContext, AuthEvent>(
             },
           },
         },
-        on: {},
       },
       confirmSignUp: {
         initial: 'edit',
@@ -133,33 +134,37 @@ export const signUpMachine = createMachine<SignUpContext, AuthEvent>(
       },
       resolved: {
         type: 'final',
+        entry: 'reportDone',
       },
     },
   },
   {
     actions: {
-      clearError: assign({ remoteError: '' }),
-      setRemoteError: assign({
-        remoteError(_, event) {
-          return event.data?.message || event.data;
-        },
+      reportDone: sendParent((context) => ({
+        type: 'DONE',
+        data: { authAttributes: context.authAttributes },
+      })),
+      setUser: assign({
+        user: (_, event) => event.data,
       }),
-      clearFormValues: assign({ formValues: {} }),
-      clearValidationError: assign({ validationError: {} }),
+      setRemoteError: assign({
+        remoteError: (_, event) => event.data?.message || event.data,
+      }),
+      setFieldErrors: assign({
+        validationError: (_, event) => event.data,
+      }),
       handleInput: assign({
-        formValues(context, event) {
+        formValues: (context, event) => {
           const { name, value } = event.data;
           return { ...context.formValues, [name]: value };
         },
       }),
-      setFieldErrors: assign({
-        validationError(_, event) {
-          return event.data;
-        },
-      }),
+      clearError: assign({ remoteError: '' }),
+      clearFormValues: assign({ formValues: {} }),
+      clearValidationError: assign({ validationError: {} }),
     },
     services: {
-      async confirmSignUp(context, event) {
+      async confirmSignUp(_, event) {
         const { username, confirmation_code: code } = event.data;
 
         return Auth.confirmSignUp(username, code);
