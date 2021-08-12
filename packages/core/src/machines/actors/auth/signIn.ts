@@ -212,8 +212,8 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
       },
     },
     services: {
-      async signIn(_, event) {
-        const { username, password } = event.data;
+      async signIn(context) {
+        const { username, password } = context.formValues;
 
         return Auth.signIn(username, password);
       },
