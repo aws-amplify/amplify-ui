@@ -4,7 +4,7 @@ import { Example } from '@/components/Example';
 import Block from 'amplify-docs/src/components/Block';
 import BlockSwitcher from 'amplify-docs/src/components/BlockSwitcher';
 
-The Card component can be used to group related pieces of content. The card component renders as a `div` by default but can be changed with the **as** prop.
+The Card component can be used to group related pieces of content.
 
 ## Installation
 
@@ -27,7 +27,7 @@ yarn add @aws-amplify/ui-react
 
 ## Usage
 
-A card component will include basic styling but the form of the card component will come from the content passed into it.
+The Card component will include basic styling but the form of the Card component will come from the content passed into it.
 
 ```jsx
 <Card maxWidth="20rem">
@@ -63,7 +63,7 @@ A card component will include basic styling but the form of the card component w
 
 ### Set rendered HTML element
 
-Change the HTML element rendered by Card with the `as` property
+The Card component renders as a `div` by default. You can change the HTML element rendered by Card with the `as` property.
 
 ```jsx
 <Card as="section">I'm a Section</Card>
@@ -75,27 +75,9 @@ Change the HTML element rendered by Card with the `as` property
 
 ## CSS Styling
 
-There are 3 ways to style a card component. The first is by using styling props on the component itself. The second is by setting or overriding global card styling. The third is by setting local card styling on an individual card.
+### Global styling
 
-### Override Amplify styling using props
-
-Use style props to style an instance of `<Card>`
-
-```jsx
-<Card color="red">
-  <Text>Sample Card</Text>
-</Card>
-```
-
-<Example>
-  <Card color="red">
-    <Text>Sample Card</Text>
-  </Card>
-</Example>
-
-### Global card styling through variables and card class
-
-Set CSS variables or use the built in `.amplify-card` class to set global card styling
+To override styling on all Cards, you can set the Amplify CSS variables or use the built-in `.amplify-card` class.
 
 ```css
 /* styles.css */
@@ -112,7 +94,20 @@ Set CSS variables or use the built in `.amplify-card` class to set global card s
   <Card className="amplify-ui-card-thick-border"> Thick Bordered Card </Card>
 </Example>
 
-### Local card styling with custom CSS class
+To replace the Card styling, unset it:
+
+```css
+.amplify-card {
+  all: unset;
+  /* Add your styling here*/
+}
+```
+
+### Local styling
+
+To override styling on a specific Card, you can use a class selector or style props.
+
+_Using a class selector:_
 
 ```css
 /* styles.css */
@@ -127,4 +122,18 @@ Set CSS variables or use the built in `.amplify-card` class to set global card s
 
 <Example>
   <Card className="custom-card-class">Styled through custom class name</Card>
+</Example>
+
+_Using style props:_
+
+```jsx
+<Card color="red">
+  <Text>Sample Card</Text>
+</Card>
+```
+
+<Example>
+  <Card color="red">
+    <Text>Sample Card</Text>
+  </Card>
 </Example>
