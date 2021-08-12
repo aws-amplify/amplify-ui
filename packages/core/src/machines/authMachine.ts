@@ -3,7 +3,6 @@ import { Auth, Amplify } from 'aws-amplify';
 import { AuthContext, AuthEvent } from '../types';
 import { inspect } from '@xstate/inspect';
 import { signInMachine, signUpMachine } from './actors';
-import { stop } from 'xstate/lib/actions';
 import { spawnActor, stopActor } from './actions';
 
 // TODO: Remove this before it's merged.
