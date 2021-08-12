@@ -1,1 +1,8 @@
-{"private":true,"name":"auth-with-phone-number-environment","version":"0.0.1","scripts":{"dev":"amplify pull --appId d1eu44alh31kyw --envName staging"}}
+{
+  "private": true,
+  "name": "auth-with-phone-number-environment",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "amplify pull --appId d1eu44alh31kyw --envName staging"
+  }
+}
