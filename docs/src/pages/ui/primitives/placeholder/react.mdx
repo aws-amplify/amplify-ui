@@ -4,7 +4,7 @@ import { Example } from '@/components/Example';
 import Block from 'amplify-docs/src/components/Block';
 import BlockSwitcher from 'amplify-docs/src/components/BlockSwitcher';
 
-Placeholder is used to fill out the interface while content is loaded asynchronously.
+The Placeholder component is used to fill out the interface while content is loaded asynchronously.
 
 ## Installation
 
@@ -68,14 +68,11 @@ let isLoaded = false;
 
 <TwoWays />
 
-### Placeholder sizes
+### Sizes
 
-Use the `size` prop to change the placeholder size. Available options are `small` and `large`.
+Use the `size` prop to change the Placeholder size. Available options are `small`, `large`, and none (default).
 
 ```jsx
-import { Placeholder } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
 <Placeholder size="small" />
 <Placeholder />
 <Placeholder size="large" />
@@ -89,7 +86,22 @@ import '@aws-amplify/ui-react/styles.css';
 
 ## CSS Styling
 
-### Set the starting and ending colors using a custom CSS class with CSS variables:
+### Global styling
+
+To override styling on all Placeholder components, you can set the Amplify CSS variables or use the built-in `.amplify-placeholder` class.
+
+(Example needed)
+
+To replace the Placeholder styling, unset it:
+
+```css
+.amplify-placeholder {
+  all: unset;
+  /* Add your styling here*/
+}
+```
+
+Set the starting and ending colors for the Placeholder animation using a custom CSS class with the Amplify CSS variables:
 
 ```css
 /* styles.css */
@@ -109,9 +121,15 @@ import './styles.css';
   <Placeholder className="custom-placeholder" />
 </Flex>
 
-### Override Amplify styling using props
+### Local styling
 
-Use style props to style an instance of `<Placeholder>`
+To override styling on a specific Placeholder, you can use a class selector or style props.
+
+_Using a class selector:_
+
+(Example needed )
+
+_Using style props:_
 
 ```jsx
 <Placeholder height="123px" width="50%" />
