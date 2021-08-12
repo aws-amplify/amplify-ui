@@ -2,8 +2,6 @@
 
 <img src="https://s3.amazonaws.com/aws-mobile-hub-images/aws-amplify-logo.png" alt="AWS Amplify" width="550">
 
-> **Amplify UI** – Cloud-connected UI components for Android, iOS, React Native & Web
-
 [![Discord](https://img.shields.io/discord/308323056592486420?logo=discord)](https://discord.gg/jWVbPfC)
 [![GitHub](https://img.shields.io/github/license/aws-amplify/amplify-ui)](LICENSE)
 
@@ -17,7 +15,7 @@
 
 # Amplify UI 2.0
 
-Amplify UI 2.0 is an open-source UI library with cloud-connected components that are endlessly customizable, accessible, and can integrate into any application. Amplify UI consists of:
+Amplify UI 2.0 is an open-source UI library with cloud-connected components that are endlessly customizable, accessible, and can integrate into _any_ application. Amplify UI consists of:
 
 1. Connected components that simplify complex cloud-connected workflows, like Authenticator.
 2. Primitive components that create consistency across Amplify UI and allow you to build complete applications that fit your brand, like Buttons and Badges.
