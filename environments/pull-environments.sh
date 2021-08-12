@@ -5,14 +5,6 @@ IFS='|'
 # In development, AWS_PROFILE should be set. In CI, it's not.
 [ "$AWS_PROFILE" ] && useProfile="true" || useProfile="false";
 
-# -limit tag limits pulling to single environment
-# e.g. sh environments/pull-environments.sh -limit auth-with-email
-environments=./*/
-while getopts "limit:" opt
-do
-  environments=./$OPTARG
-done
-
 FRONTENDCONFIG="{\
 \"SourceDir\":\"src\",\
 \"DistributionDir\":\"dist\",\
@@ -26,7 +18,6 @@ FRONTEND="{\
 }"
 AMPLIFY="{\
 \"defaultEditor\":\"code\",\
-\"envName\":\"staging\"\
 }"
 AWSCLOUDFORMATIONCONFIG="{\
 \"configLevel\":\"project\",\
@@ -41,9 +32,9 @@ PROVIDERS="{\
 }"
 
 # Pull the backend for each environment
-for dir in $environments ; do
-  if ! [ -f "$dir/app-id" ]; then
-    echo "If $dir is an environment, ensure the file 'app-id' containing the environment's Amplify app id exists."
+for dir in ./*/ ; do
+  if ! [ -f "$dir/package.json" ]; then
+    echo "If $dir is an environment, ensure the a package.json file exists with a \"dev\" command that pulls the environment (see the README)."
     continue
   fi
 
@@ -52,7 +43,6 @@ for dir in $environments ; do
   # 'echo y' is used to answer "Yes" to the prompt "Do you plan on modifying this backend?"
   # See https://github.com/aws-amplify/amplify-cli/issues/5275
   echo y | amplify pull \
-    --appId `cat app-id` \
     --amplify $AMPLIFY \
     --frontend $FRONTEND \
     --providers $PROVIDERS

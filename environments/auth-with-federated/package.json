@@ -1,0 +1,1 @@
+{"private":true,"name":"auth-with-federated-environment","version":"0.0.1","scripts":{"dev":"amplify pull --appId d1nsdyzry4zj8u --envName staging"}}
