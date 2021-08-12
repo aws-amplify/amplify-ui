@@ -38,8 +38,8 @@ jobs:
       - name: Install packages
         run: yarn --frozen-lockfile
 
-      - name: Build {{ matrix.package }} package
-        run: yarn workspace {{ matrix.package }} build
+      - name: Build ${{ matrix.package }} package
+        run: yarn workspace ${{ matrix.package }} build
 
       - name: Run ${{ matrix.package }} tests
         run: yarn workspace ${{ matrix.package}} test
