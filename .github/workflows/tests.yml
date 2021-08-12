@@ -91,11 +91,11 @@ jobs:
         run: yarn workspace ${{ matrix.framework }}-example build
 
       - name: Start ${{ matrix.framework }} example
-        if: ${{ matrix.framework !== 'angular'}}
+        if: ${{ matrix.framework != 'angular'}}
         run: yarn workspace ${{ matrix.framework }}-example start & npx wait-on -t 120000 http://localhost:3000/ui/components/authenticator/sign-in-with-username
 
       - name: Start ${{ matrix.framework }} example
-        if: ${{ matrix.framework === 'angular'}}
+        if: ${{ matrix.framework == 'angular'}}
         run: yarn workspace ${{ matrix.framework }}-example start & npx wait-on -c waitOnConfig.json -t 80000 http://localhost:3000/ui/components/authenticator/sign-in-with-username
 
       - name: Run E2E tests against ${{ matrix.framework }} example
