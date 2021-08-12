@@ -54,14 +54,17 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
               onDone: [
                 {
                   cond: 'shouldSetupTOTP',
+                  actions: ['setUser', 'setChallengeName'],
                   target: '#signInActor.setupTOTP',
                 },
                 {
                   cond: 'shouldConfirmSignIn',
+                  actions: ['setUser', 'setChallengeName'],
                   target: '#signInActor.confirmSignIn',
                 },
                 {
                   cond: 'shouldForceChangePassword',
+                  actions: ['setUser', 'setChallengeName'],
                   target: '#signInActor.forceNewPassword',
                 },
                 {
@@ -72,7 +75,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
               onError: [
                 {
                   cond: 'shouldRedirectToConfirmSignUp',
-                  // actions: send ConfirmSignUp signal to parent
+                  actions: ['redirectToConfirmSignUp'],
                 },
                 {
                   actions: 'setRemoteError',
@@ -176,10 +179,22 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
       }),
       reportDone: sendParent((context) => ({
         type: 'DONE',
-        data: { authAttributes: context.authAttributes },
+        data: { user: context.user },
+      })),
+      redirectToConfirmSignUp: sendParent((context, event) => ({
+        type: 'ERROR.CONFIRM_SIGN_UP',
+        data: {
+          authAttributes: {
+            username: context.formValues?.username,
+          },
+          errorCode: event.data.code,
+        },
       })),
       setUser: assign({
         user: (_, event) => event.data,
+      }),
+      setRemoteError: assign({
+        remoteError: (_, event) => event.data?.message || event.data,
       }),
       setChallengeName: assign({
         challengeName: (_, event) => event.data?.challengeName,
