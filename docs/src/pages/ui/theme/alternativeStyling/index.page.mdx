@@ -9,16 +9,29 @@ One of the goals of amplify is to be a good citizen of the environment it exists
 
 ## CSS In JS
 
-There are many CSS in JS libraries out there that give a number of benefits. Amplify does not use a CSS In JS library to implement its theming system but operates well with the major CSS In JS libraries out there.
+There are many CSS in JS libraries out there that give a number of benefits. Amplify does not use a CSS In JS library to implement its theming system but operates well with the major CSS In JS libraries out there. Below are a few of the CSS In JS libraries out there and a description of how they interact with amplify's theming system.
 
 <BlockSwitcher>
 <Block name="Styled Components">
+[Styled Components](https://github.com/styled-components/styled-components) allows you to create visual primitives with actual CSS code directly tied to components.
 
-</Block>
-<Block name="Emotion">
+### Usage
+
+```
+import styled from "styled-components";
+import { View } from '@aws-amplify/ui-react';
+
+const StyledView = styled(View)`
+  background-color: black;
+  font-size: 32px;
+`;
+```
 
 </Block>
 <Block name="JSS">
+
+</Block>
+<Block name="Emotion">
 
 </Block>
 <Block name="Aphrodite">
