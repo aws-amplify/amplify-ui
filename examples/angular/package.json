@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --port 3000 --prod",
-    "build": "yarn build:package && ng build --prod",
+    "build": "yarn build:package && ng build",
     "build:package": "yarn --cwd ../../ workspace @aws-amplify/ui-angular build",
     "test": "ng test",
     "lint": "ng lint",
