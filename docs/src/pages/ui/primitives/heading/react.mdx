@@ -31,7 +31,7 @@ yarn add @aws-amplify/ui-react
 
 ## Usage
 
-Import the Heading component and styles.
+Import the Heading primitive and styles.
 
 ```jsx
 import { Heading } from '@aws-amplify/ui-react';
@@ -70,9 +70,9 @@ Use the `level` prop to change the heading level (e.g., `h1 - h6`). Available op
 
 ## CSS Styling
 
-### Override Heading styling using the CSS variables
+### Global styling
 
-Override color for all `Heading` components
+To override styling on all Headings, you can set the Amplify CSS variables or use the built-in `.amplify-heading` class.
 
 ```css
 /* styles.css */
@@ -85,7 +85,16 @@ Override color for all `Heading` components
 }
 ```
 
-### Override styles for any `Heading` component `h1 - h6`
+To replace the Heading styling, unset it:
+
+```css
+.amplify-heading {
+  all: unset;
+  /* Add your styling here*/
+}
+```
+
+Override styles for any `Heading` component `h1 - h6`
 
 ```css
 /* styles.css */
@@ -116,11 +125,15 @@ import './styles.css';
   </Heading>
 </Example>
 
-### Styling a heading instance
+### Local styling
 
-To override styling on a specific heading
+To override styling on a specific Heading, you can use a class selector or style props.
 
-_Using props:_
+_Using a class selector:_
+
+(Example needed)
+
+_Using style props:_
 
 ```jsx
 <Heading level={3} color="green" fontWeight="bold">
@@ -132,23 +145,4 @@ _Using props:_
   <Heading level={3} color="green" fontWeight="bold">
     Save the environment
   </Heading>
-</Example>
-
-_Using an id selector:_
-
-```css
-/* Example: id selector styling override */
-#subscribe {
-  color: darkblue;
-  font-style: italic;
-  font-size: 1.5rem;
-}
-```
-
-```jsx
-<Heading id="subscribe">Suscribe now!</Heading>
-```
-
-<Example>
-  <Heading id="subscribe">Suscribe now!</Heading>
 </Example>
