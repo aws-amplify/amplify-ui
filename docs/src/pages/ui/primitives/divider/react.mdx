@@ -4,7 +4,7 @@ import { Example } from '@/components/Example';
 import Block from 'amplify-docs/src/components/Block';
 import BlockSwitcher from 'amplify-docs/src/components/BlockSwitcher';
 
-A divider creates separations in content.
+A Divider creates separations in content.
 
 ## Installation
 
@@ -46,7 +46,7 @@ import '@aws-amplify/ui-react/styles.css';
 
 ### Orientation
 
-#### Horizontal (default)
+**Horizontal (default)**
 
 ```jsx
 <View>
@@ -64,7 +64,7 @@ import '@aws-amplify/ui-react/styles.css';
   </View>
 </Example>
 
-#### Vertical
+**Vertical**
 
 ```jsx
 <Flex height="100px" justifyContent="space-around">
@@ -84,12 +84,11 @@ import '@aws-amplify/ui-react/styles.css';
 
 ### Sizes
 
-Choose from `small` and `large` size options
+Available options are `small`, `large`, and none (default).
 
 ```jsx
 <Flex direction="column" gap="20px">
   <Divider size="small" />
-  {/* Default */}
   <Divider />
   <Divider size="large" />
 </Flex>
@@ -105,9 +104,9 @@ Choose from `small` and `large` size options
 
 ## CSS Styling
 
-### Override Divider styling using the CSS variables
+### Global styling
 
-Override border-style for all `Divider` components
+To override styling on all Dividers, you can set the Amplify CSS variables or use the built-in `.amplify-divider` class.
 
 ```css
 /* styles.css */
@@ -124,19 +123,27 @@ Override border-style for all `Divider` components
   <Divider className="border-style-override" />
 </Example>
 
-Override Divider sizes for all `Divider` components
+To replace the Divider styling, unset it:
+
+```css
+.amplify-divider {
+  all: unset;
+  /* Add your styling here*/
+}
+```
+
+### Local styling
+
+To override styling on a specific Divider, you can use (in order of increasing specificity): a class selector, data attributes, or style props.
+
+_Using a class selector:_
+
+(Example needed)
+
+_Using data attributes:_
 
 ```css
 /* styles.css */
-:root {
-  --amplify-components-divider-small-border-width: 2px;
-  --amplify-components-divider-border-width: 3px;
-  --amplify-components-divider-large-border-width: 6px;
-}
-/* OR */
-.amplify-divider {
-  border-width: 3px;
-}
 .amplify-divider[data-size='small'] {
   border-width: 2px;
 }
@@ -148,7 +155,7 @@ Override Divider sizes for all `Divider` components
 ```jsx
 <Flex direction="column" gap="20px">
   <Divider size="small" />
-  <Divider size="medium" />
+  <Divider />
   <Divider size="large" />
 </Flex>
 ```
@@ -156,7 +163,11 @@ Override Divider sizes for all `Divider` components
 <Example>
   <Flex direction="column" gap="20px">
     <Divider className="border-width-override" size="small" />
-    <Divider className="border-width-override" size="medium" />
+    <Divider className="border-width-override" />
     <Divider className="border-width-override" size="large" />
   </Flex>
 </Example>
+
+_Using style props:_
+
+(Example needed)
