@@ -27,12 +27,10 @@ export type AuthEventTypes =
   | 'SIGN_OUT'
   | 'SUBMIT'
   | 'RESEND'
-  | 'CONFIRM_SIGN_UP'
-  | 'CONFIRM_SIGN_IN'
-  | 'INPUT'
   | 'CHANGE'
+  | 'FEDERATED_SIGN_IN'
   | 'DONE'
-  | 'FEDERATED_SIGN_IN';
+  | 'ERROR';
 
 export enum AuthChallengeNames {
   SMS_MFA = 'SMS_MFA',

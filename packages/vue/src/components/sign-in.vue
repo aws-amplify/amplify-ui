@@ -167,7 +167,7 @@ export default {
     const onInput = (e: Event): void => {
       const { name, value } = <HTMLInputElement>e.target;
       send({
-        type: 'INPUT',
+        type: 'CHANGE',
         //@ts-ignore
         data: { name, value },
       });

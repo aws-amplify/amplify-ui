@@ -77,7 +77,7 @@ export class AmplifySetupTotpComponent
     event.preventDefault();
     const { name, value } = <HTMLInputElement>event.target;
     this.stateMachine.send({
-      type: 'INPUT',
+      type: 'CHANGE',
       data: { name, value },
     });
   }

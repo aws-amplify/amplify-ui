@@ -42,7 +42,7 @@ export class AmplifyConfirmSignUpComponent {
     if (username) {
       this.username = username;
       this.stateMachine.send({
-        type: 'INPUT',
+        type: 'CHANGE',
         data: { name: 'username', value: this.username },
       });
     }
@@ -81,7 +81,7 @@ export class AmplifyConfirmSignUpComponent {
     $event.preventDefault();
     const { name, value } = $event.target;
     this.stateMachine.send({
-      type: 'INPUT',
+      type: 'CHANGE',
       data: { name, value },
     });
   }
