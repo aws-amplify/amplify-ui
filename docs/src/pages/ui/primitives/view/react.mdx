@@ -46,7 +46,7 @@ import '@aws-amplify/ui-react/styles.css';
 
 ### Set rendered HTML element
 
-Change the HTML element rendered by View with the `as` property
+Change the HTML element rendered by View with the `as` property.
 
 ```jsx
 <View as="section">I'm a Section</View>
@@ -96,7 +96,7 @@ Setting an `aria-label` attribute and `role` for an icon button
 
 ### Custom attributes
 
-Pass any attribute to the underlying HTML element
+Pass any attribute to the underlying HTML element.
 
 ```jsx
 <View as="progress" data-progress-bar max="100" value="50" />
@@ -114,9 +114,11 @@ Pass any attribute to the underlying HTML element
 
 ## CSS Styling
 
-### Override Amplify styling using the CSS variables
+### Local styling
 
-Using a custom class and CSS file:
+To override styling on a specific View, you can use a class selector or style props.
+
+_Using a class selector:_
 
 ```css
 /* styles.css */
@@ -129,8 +131,6 @@ Using a custom class and CSS file:
 ```
 
 ```jsx
-import { View } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
 import './styles.css';
 
 <View className="mountain-view">🏔</View>;
@@ -139,3 +139,7 @@ import './styles.css';
 <Example>
   <View className="mountain-view">🏔</View>
 </Example>
+
+_Using style props:_
+
+(Example needed)
