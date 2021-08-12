@@ -1,7 +1,7 @@
 <template>
   <input
     :value="textValue"
-    @input="event => $emit('update:textValue', event.target.value)"
+    @input="(event) => onInput(event)"
     data-amplify-input=""
   />
 </template>
@@ -12,13 +12,15 @@ import { defineComponent } from 'vue';
 export default defineComponent({
   props: {
     textValue: {
-      default: ''
-    }
+      default: '',
+    },
   },
-  setup() {
-    return {};
-  }
+  setup(_, { emit }): { onInput: (event) => void } {
+    const onInput = (e: Event): void => {
+      emit('update:textValue', (<HTMLInputElement>e.target).value);
+    };
+
+    return { onInput };
+  },
 });
 </script>
-
-<style scoped></style>
