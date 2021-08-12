@@ -66,18 +66,16 @@ export class AmplifySignInComponent
     event.preventDefault();
     const { name, value } = <HTMLInputElement>event.target;
     this.stateMachine.send({
-      type: 'INPUT',
+      type: 'CHANGE',
       data: { name, value },
     });
   }
 
   async onSubmit(event: Event): Promise<void> {
     event.preventDefault();
-    const formValues = this.stateMachine.context.formValues;
 
     this.stateMachine.send({
       type: 'SUBMIT',
-      data: formValues,
     });
   }
 }
