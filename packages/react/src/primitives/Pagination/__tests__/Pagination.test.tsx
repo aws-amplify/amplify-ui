@@ -135,13 +135,13 @@ describe('Pagination component test suite', () => {
       const previous = await screen.findByLabelText('Go to previous page');
       userEvent.click(previous);
       expect(mockOnPrevious).toHaveBeenCalledTimes(1);
-      expect(mockOnPrevious).toHaveBeenCalledWith(2);
+      expect(mockOnPrevious).toHaveBeenCalledWith();
 
       // click on next page button
       const next = await screen.findByLabelText('Go to next page');
       userEvent.click(next);
       expect(mockOnNext).toHaveBeenCalledTimes(1);
-      expect(mockOnNext).toHaveBeenCalledWith(4);
+      expect(mockOnNext).toHaveBeenCalledWith();
     });
 
     it('should render 11 items if sibling count is set to 2', async () => {
@@ -226,7 +226,7 @@ describe('Pagination component test suite', () => {
       expect(previous).not.toBeDisabled();
       userEvent.click(previous);
       expect(mockOnClick).toHaveBeenCalledTimes(1);
-      expect(mockOnClick).toHaveBeenCalledWith(1);
+      expect(mockOnClick).toHaveBeenCalledWith();
     });
     it('should render next page button with provided porps', async () => {
       const mockOnClick = jest.fn();
@@ -244,7 +244,7 @@ describe('Pagination component test suite', () => {
       expect(previous).not.toBeDisabled();
       userEvent.click(previous);
       expect(mockOnClick).toHaveBeenCalledTimes(1);
-      expect(mockOnClick).toHaveBeenCalledWith(3);
+      expect(mockOnClick).toHaveBeenCalledWith();
     });
     it('should render ellipsis item with provided porps', async () => {
       render(<PaginationItem type="ellipsis" ariaLabel="ellipsis" />);

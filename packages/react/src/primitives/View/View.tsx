@@ -6,7 +6,7 @@ import autoprefixer from 'autoprefixer';
 
 const prefixer = postcssJs.sync([autoprefixer]);
 
-export const View: React.FC<ViewProps> = props => {
+export const View: React.FC<ViewProps> = (props) => {
   const {
     as: asElementTag,
     className,
@@ -16,6 +16,7 @@ export const View: React.FC<ViewProps> = props => {
     testId,
     ariaLabel,
     isDisabled,
+    style,
     ...rest
   } = props;
 
@@ -29,7 +30,7 @@ export const View: React.FC<ViewProps> = props => {
       disabled={isDisabled}
       id={id}
       role={role}
-      style={prefixer(convertStylePropsToStyleObj(props))}
+      style={prefixer(convertStylePropsToStyleObj(props, style))}
       {...getNonStyleProps(rest)}
     >
       {children}
