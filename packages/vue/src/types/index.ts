@@ -1,4 +1,4 @@
-import { Ref, ComputedRef } from 'vue';
+import { Ref, ComputedRef, Slot } from 'vue';
 import { PayloadSender, EventObject } from 'xstate';
 import {
   AuthInputAttributes,
@@ -122,4 +122,12 @@ export interface ForceNewPasswordReturnTypes {
   onHaveAccountClicked: () => void;
   signInButtonText: ComputedRef<string>;
   haveAccountLabel: ComputedRef<string>;
+}
+
+export type InternalSlots = {
+  [name: string]: Slot | undefined;
+};
+
+export interface PrimitiveSlotReturnType {
+  mySlots: Readonly<InternalSlots>;
 }

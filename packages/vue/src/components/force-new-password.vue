@@ -8,7 +8,7 @@
         <base-heading>
           {{ changePasswordLabel }}
         </base-heading>
-        <base-field-set :disabled="state.matches('forceNewPassword.pending')">
+        <base-field-set :disabled="!state.matches('forceNewPassword.edit')">
           <base-label data-amplify-forcenewpassword-label>
             <base-text>{{ changePasswordLabel }}</base-text>
             <base-input
@@ -45,7 +45,7 @@
             :onForceNewPasswordSubmit="onForceNewPasswordSubmit"
           >
             <base-button :disabled="state.matches('signUp.submit')">{{
-              state.matches('forceNewPassword.pending')
+              !state.matches('forceNewPassword.edit')
                 ? changingPasswordLabel + '&hellip;'
                 : changePasswordLabel
             }}</base-button>
