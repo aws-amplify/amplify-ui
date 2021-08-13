@@ -40,8 +40,8 @@ export const signUpActor = createMachine<SignUpContext, AuthEvent>(
                   },
                 },
               },
-              valid: {},
-              invalid: {},
+              valid: { entry: sendUpdate() },
+              invalid: { entry: sendUpdate() },
             },
             on: {
               CHANGE: {
