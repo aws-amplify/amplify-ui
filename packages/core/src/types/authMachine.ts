@@ -30,7 +30,8 @@ export type AuthEventTypes =
   | 'CHANGE'
   | 'FEDERATED_SIGN_IN'
   | 'DONE'
-  | 'ERROR.CONFIRM_SIGN_UP';
+  | 'ERROR.CONFIRM_SIGN_UP'
+  | 'done.invoke.signOutActor';
 
 export enum AuthChallengeNames {
   SMS_MFA = 'SMS_MFA',

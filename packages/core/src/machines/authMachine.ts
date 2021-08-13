@@ -2,7 +2,7 @@ import { assign, createMachine, forwardTo, spawn } from 'xstate';
 import { Auth, Amplify } from 'aws-amplify';
 import { AuthContext, AuthEvent } from '../types';
 import { inspect } from '@xstate/inspect';
-import { signInActor, signUpActor } from './actors';
+import { signInActor, signUpActor, signOutActor } from './actors';
 import { stopActor } from './actions';
 
 // TODO: Remove this before it's merged.
@@ -51,8 +51,8 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
         exit: stopActor('signInActor'),
         on: {
           SIGN_UP: 'signUp',
-          DONE: 'authenticated',
           'ERROR.CONFIRM_SIGN_UP': 'signUp',
+          DONE: { target: 'authenticated', actions: 'setUser' },
         },
       },
       signUp: {
@@ -60,37 +60,16 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
         exit: stopActor('signUpActor'),
         on: {
           SIGN_IN: 'signIn',
-          DONE: 'authenticated',
-        },
-      },
-      authenticated: {
-        on: {
-          SIGN_OUT: 'signOut',
+          DONE: 'signIn',
         },
       },
       signOut: {
-        initial: 'pending',
-        onDone: 'idle',
-        states: {
-          pending: {
-            invoke: {
-              src: 'signOut',
-              onDone: {
-                actions: 'setUser',
-                target: 'resolved',
-              },
-              // See: https://xstate.js.org/docs/guides/communication.html#the-invoke-property
-              onError: 'rejected',
-            },
-          },
-          rejected: {
-            // TODO Why would signOut be rejected?
-            type: 'final',
-          },
-          resolved: {
-            type: 'final',
-          },
-        },
+        entry: 'spawnSignOutActor',
+        exit: stopActor('signOutActor'),
+        on: { 'done.invoke.signOutActor': 'idle' },
+      },
+      authenticated: {
+        on: { SIGN_OUT: 'signOut' },
       },
     },
     on: {
@@ -98,15 +77,14 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
       SUBMIT: { actions: 'forwardToActor' },
       FEDERATED_SIGN_IN: { actions: 'forwardToActor' },
       RESEND: { actions: 'forwardToActor' },
+      SIGN_OUT: { actions: 'forwardToActor' },
     },
   },
   {
     actions: {
       forwardToActor: forwardTo((context) => context.actorRef),
       setUser: assign({
-        user(_, event) {
-          return event.data?.user || event.data;
-        },
+        user: (_, event) => event.data.user || event.data,
       }),
       setAuthConfig: assign({
         config(_, event) {
@@ -124,11 +102,18 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
       }),
       spawnSignUpActor: assign({
         actorRef: (_, event) => {
-          signUpActor;
           const actor = signUpActor.withContext({
             passedContext: event.data?.passedContext,
           });
           return spawn(actor, { name: 'signUpActor', sync: true });
+        },
+      }),
+      spawnSignOutActor: assign({
+        actorRef: (context, event) => {
+          const actor = signOutActor.withContext({
+            user: context.user,
+          });
+          return spawn(actor, { name: 'signOutActor', sync: true });
         },
       }),
     },
@@ -138,9 +123,6 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
       },
       async getAmplifyConfig() {
         return Amplify.configure();
-      },
-      async signOut() {
-        await Auth.signOut(/* global? */);
       },
     },
   }

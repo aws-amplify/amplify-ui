@@ -53,8 +53,12 @@ export class AmplifyAuthenticatorComponent implements AfterContentInit {
   /**
    * Class Functions
    */
-  public getAuthState() {
+  public get actorState() {
     return getActorState(this.stateMachine.authState);
+  }
+
+  public get authenticatorState() {
+    return this.stateMachine.authState;
   }
 
   private mapCustomComponents(

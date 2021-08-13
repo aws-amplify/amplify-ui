@@ -191,7 +191,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
         },
       })),
       setUser: assign({
-        user: (_, event) => event.data,
+        user: (_, event) => event.data.user || event.data,
       }),
       setRemoteError: assign({
         remoteError: (_, event) => event.data?.message || event.data,

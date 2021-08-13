@@ -30,9 +30,7 @@
 <ng-container
   [ngTemplateOutlet]="customComponents.signIn || signIn"
   [ngTemplateOutletContext]="context()"
-  *ngIf="
-    getAuthState().matches('signIn') && !getAuthState().matches('authenticated')
-  "
+  *ngIf="actorState?.matches('signIn')"
 >
 </ng-container>
 
@@ -40,7 +38,7 @@
 <ng-container
   [ngTemplateOutlet]="customComponents.signUp || signUp"
   [ngTemplateOutletContext]="context()"
-  *ngIf="getAuthState().matches('signUp')"
+  *ngIf="actorState?.matches('signUp')"
 >
 </ng-container>
 
@@ -48,7 +46,7 @@
 <ng-container
   [ngTemplateOutlet]="customComponents.confirmSignUp || confirmSignUp"
   [ngTemplateOutletContext]="context()"
-  *ngIf="getAuthState().matches('confirmSignUp')"
+  *ngIf="actorState?.matches('confirmSignUp')"
 >
 </ng-container>
 
@@ -56,7 +54,7 @@
 <ng-container
   [ngTemplateOutlet]="customComponents.confirmSignIn || confirmSignIn"
   [ngTemplateOutletContext]="context()"
-  *ngIf="getAuthState().matches('confirmSignIn')"
+  *ngIf="actorState?.matches('confirmSignIn')"
 >
 </ng-container>
 
@@ -64,14 +62,15 @@
 <ng-container
   [ngTemplateOutlet]="customComponents.setupTOTP || setupTOTP"
   [ngTemplateOutletContext]="context()"
-  *ngIf="getAuthState().matches('setupTOTP')"
+  *ngIf="actorState?.matches('setupTOTP')"
 >
 </ng-container>
 
+<!-- TODO: Remove signedIn component and handle it from app -->
 <!-- signedIn content -->
 <ng-container
   [ngTemplateOutlet]="customComponents.authenticated || authenticated"
   [ngTemplateOutletContext]="context()"
-  *ngIf="getAuthState().matches('authenticated')"
+  *ngIf="authenticatorState.matches('authenticated')"
 >
 </ng-container>
