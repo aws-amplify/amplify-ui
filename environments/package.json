@@ -3,6 +3,6 @@
   "name": "environments",
   "version": "0.0.1",
   "scripts": {
-    "dev": "chmod +x pull-environments.sh && ./pull-environments.sh"
+    "pull": "chmod +x pull-environments.sh && ./pull-environments.sh"
   }
 }

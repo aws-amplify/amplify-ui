@@ -3,6 +3,6 @@
   "name": "auth-with-username-environment",
   "version": "0.0.1",
   "scripts": {
-    "dev": "amplify pull --appId dbffpda9986dp --envName staging"
+    "pull": "amplify pull --appId dbffpda9986dp --envName staging"
   }
 }

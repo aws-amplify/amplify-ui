@@ -39,11 +39,11 @@ The internal Amplify team uses shared backend environments which are also used f
    This will configure a local AWS profile which uses temporary access keys from our shared `aws-amplify-ui` account that can be used for accessing our shared environments.
 1. In the root directory of the project, pull all environments with the following yarn script:
    ```shell
-   yarn environments dev
+   yarn environments pull
    ```
-   If you want to pull a single environment, you can call `yarn dev` in that specific environment's directory:
+   If you want to pull a single environment, you can call `yarn pull` in that specific environment's directory:
    ```shell
-   cd environments/auth-with-email && yarn dev
+   cd environments/auth-with-email && yarn pull
    ```
 
 All of the environments should now be pulled down and each of their `aws-exports.js` files available for testing locally.
@@ -121,7 +121,7 @@ When an existing backend doesn't match your needs (or requires changes), you can
 After creating a new backend environment for local development, it can be useful to commit the configuration for future use in testing or collaboration.
 
 1. First, create a `README.md` that describes what makes this backend unique ([example](auth-with-username/README.md))
-1. Create a `package.json` file for the environment with a `yarn dev` script that uses the pull command from step 8 above:
+1. Create a `package.json` file for the environment with a `yarn pull` script that uses the pull command from step 8 above:
 
    ```json
    // environments/auth-with-username/package.json
@@ -130,7 +130,7 @@ After creating a new backend environment for local development, it can be useful
      "name": "my-custom-environment",
      "version": "0.0.1",
      "scripts": {
-       "dev": "amplify pull --appId bdggpca8876dp --envName staging"
+       "pull": "amplify pull --appId bdggpca8876dp --envName staging"
      }
    }
    ```
