@@ -46,7 +46,7 @@ export enum FederatedIdentityProviders {
  */
 export const getAliasInfoFromContext = (context: AuthContext) => {
   const loginMechanisms = context.config?.login_mechanisms ?? ['username'];
-  const error = context.validationError['username'];
+  const error = context.actorRef?.context?.validationError['username'];
 
   let type = 'text';
   const label = loginMechanisms
