@@ -31,7 +31,7 @@ For manual and end-to-end testing, example applications will use a particular ba
 
 The internal Amplify team uses shared backend environments which are also used for our automated end-to-end testing. The following steps will walk you through pulling the environments locally:
 
-1. Ensure you have the Amplify CLI tool installed as well as the internal `isengardcli` tool installed (check the internal Amazon wiki).
+1. Ensure you have the Amplify CLI tool installed as well as the internal `isengardcli` tool installed.
 1. In a new terminal window, use `isengardcli` to assume the shared `aws-amplify-ui` account and manually set your region to `us-east-1`:
    ```shell
    isengardcli assume aws-amplify-ui --region us-east-1
