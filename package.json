@@ -14,6 +14,7 @@
     "next-example": "yarn workspace next-example",
     "vue-example": "yarn workspace vue-example",
     "e2e": "yarn workspace e2e",
+    "environments": "yarn workspace environments",
     "build:icons": "yarn react build:icons",
     "build:angular": "yarn angular build",
     "build:angular:watch": "yarn angular build --watch",
@@ -25,7 +26,7 @@
   "workspaces": [
     "docs",
     "angular-docs",
-    "environments/*",
+    "environments",
     "examples/*",
     "packages/*"
   ],
