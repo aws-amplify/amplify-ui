@@ -1,19 +1,19 @@
 <div data-amplify-federated>
   <amplify-federated-sign-in-button
     *ngIf="includeFacebook"
-    text="Sign In with Facebook"
+    text="Sign in with Facebook"
     [provider]="FederatedProviders.Facebook"
   ></amplify-federated-sign-in-button>
 
   <amplify-federated-sign-in-button
     *ngIf="includeGoogle"
-    text="Sign In with Google"
+    text="Sign in with Google"
     [provider]="FederatedProviders.Google"
   ></amplify-federated-sign-in-button>
 
   <amplify-federated-sign-in-button
     *ngIf="includeAmazon"
-    text="Sign In with Amazon"
+    text="Sign in with Amazon"
     [provider]="FederatedProviders.Amazon"
   ></amplify-federated-sign-in-button>
 </div>
