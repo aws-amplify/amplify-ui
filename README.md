@@ -22,7 +22,7 @@ Amplify UI 2.0 is an open-source UI library with cloud-connected components that
 3. Data-bound components that make it easy to display dynamic data, like DataStoreCollections.
 4. Theming capabilities that allow you to customize the appearance of Amplify UI to match your brand.
 
-**This is a very early preview and a work-in-progress for the upcoming version of Amplify UI.**
+**This is an early preview of the upcoming Amplify UI 2.0 release.**
 
 ## Getting started
 
@@ -103,7 +103,7 @@ Improving our documentation and providing better and more interactive sample cod
 
 - **Better developer experience** Connected-components like Authenticator are being written with framework-specific implementations so that they follow framework conventions and are easier to integrate into your application.
 - **Endlessly customizable** Every detail of Amplify UI is customizable to match your brand. Style all of Amplify UI with themes, override components with your own, or build your own UI and use Amplify for complex state management.
-- **Accessibility** Amplify UI components follow [WCAG](https://www.w3.org/WAI/standards-guidelines/wcag/) and [WAI-ARIA](https://www.w3.org/TR/wai-aria-1.2/) best practices and guidelines such as color contrast, keyboard navigation, accessible labels, and focus management.
+- **Accessible** Amplify UI components follow [WCAG](https://www.w3.org/WAI/standards-guidelines/wcag/) and [WAI-ARIA](https://www.w3.org/TR/wai-aria-1.2/) best practices and guidelines such as color contrast, keyboard navigation, accessible labels, and focus management.
 - **Primitive components (React only right now)** Primitive components are used in the connected components, like Authenticator, you can also customize them and use them to build the rest of your UI.
 
 **Why are you building primitives?**
