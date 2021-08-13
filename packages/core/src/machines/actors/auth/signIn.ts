@@ -42,7 +42,8 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
             entry: [sendUpdate(), 'clearError'],
             invoke: {
               src: 'federatedSignIn',
-              onDone: '#signInActor.resolved',
+              // getting navigated out anyway, only track errors.
+              // onDone: '#signInActor.resolved',
               onError: { actions: 'setRemoteError' },
             },
           },
