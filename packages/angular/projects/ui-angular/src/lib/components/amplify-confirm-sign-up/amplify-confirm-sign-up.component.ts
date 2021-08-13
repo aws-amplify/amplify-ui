@@ -88,10 +88,9 @@ export class AmplifyConfirmSignUpComponent {
     });
   }
 
-  async onSubmit(event: Event): Promise<void> {
+  onSubmit(event: Event) {
     event.preventDefault();
     const { formValues } = getActorContext(this.stateMachine.authState);
-    // get form data
     const { username, confirmation_code } = formValues;
 
     this.stateMachine.send({
