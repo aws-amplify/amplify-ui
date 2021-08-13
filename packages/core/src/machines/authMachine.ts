@@ -99,6 +99,7 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
           const actor = signInActor.withContext({
             authAttributes: event.data?.authAttributes,
             user: event.data?.user,
+            intent: event.data?.intent,
           });
           return spawn(actor, { name: 'signInActor', sync: true });
         },

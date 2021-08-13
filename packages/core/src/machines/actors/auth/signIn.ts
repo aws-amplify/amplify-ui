@@ -17,11 +17,12 @@ interface SignInContext {
   user?: CognitoUserAmplify;
   challengeName?: string;
   authAttributes?: Record<string, any>;
+  intent?: string;
 }
 
 export const signInActor = createMachine<SignInContext, AuthEvent>(
   {
-    initial: 'signIn',
+    initial: 'init',
     id: 'signInActor',
     context: {
       remoteError: '',
@@ -29,6 +30,19 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
       validationError: {},
     },
     states: {
+      init: {
+        always: [
+          { target: 'autoSignIn', cond: 'shouldAutoSignIn' },
+          { target: 'signIn' },
+        ],
+      },
+      autoSignIn: {
+        invoke: {
+          src: 'signIn',
+          onDone: { actions: 'setUser', target: '#signInActor.resolved' },
+          onError: '#signInActor.signIn',
+        },
+      },
       signIn: {
         initial: 'edit',
         states: {
@@ -226,11 +240,16 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
 
         return challengeName === AuthChallengeNames.NEW_PASSWORD_REQUIRED;
       },
+      shouldAutoSignIn: (context) => {
+        return !!(context.intent && context.intent === 'autoSignIn');
+      },
     },
     services: {
       async signIn(context) {
-        const { username, password } = context.formValues;
-
+        const source = !!(context.intent && context.intent === 'autoSignIn')
+          ? context.authAttributes
+          : context.formValues;
+        const { username, password } = source;
         return Auth.signIn(username, password);
       },
       async confirmSignIn(context, event) {
