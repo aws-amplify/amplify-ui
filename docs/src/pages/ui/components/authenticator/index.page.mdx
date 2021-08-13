@@ -3,6 +3,7 @@ title: Authenticator
 ---
 
 import { Authenticator } from '@aws-amplify/ui-react';
+import { Example } from '@/components/Example';
 import { Feature } from '@/components/Feature';
 import { Fragment } from '@/components/Fragment';
 import { XStateInspector } from '@/components/XStateInspector';
@@ -11,14 +12,14 @@ The `Authenticator` is a simple way to add
 [authentication flows](https://docs.amplify.aws/lib/auth/getting-started/q/platform/js)
 to your application.
 
-<div className="shadow-inner rounded bg-gray-100 bg-gradient-to-b from-gray-100 to-gray-50 p-6">
+<Example>
   <Authenticator />
 
   <p className="text-sm text-center mt-6 text-gray-500 italic">
     <strong>Note</strong>: This example isn't fully functional until configured
     with an Amplify backend.
   </p>
-</div>
+</Example>
 
 ## Installation
 
@@ -53,7 +54,7 @@ The `Authenticator` automatically infers [`email` as a login mechanism](https://
 
 You can explicitly configure Amplify to match your backend via:
 
-```js{4-10} file=../../../../../../examples/next/pages/ui/components/authenticator/sign-up-with-email/index.tsx#L2-L10
+```js{4-10} file=../../../../../../examples/next/pages/ui/components/authenticator/sign-up-with-email/index.page.tsx#L2-L10
 
 ```
 
@@ -65,7 +66,7 @@ The `Authenticator` automatically infers [`phone_number` as a login mechanism](h
 
 You can explicitly configure Amplify to match your backend via:
 
-```js{4-10} file=../../../../../../examples/next/pages/ui/components/authenticator/sign-up-with-phone/index.tsx#L2-L10
+```js{4-10} file=../../../../../../examples/next/pages/ui/components/authenticator/sign-up-with-phone/index.page.tsx#L2-L10
 
 ```
 

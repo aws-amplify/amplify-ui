@@ -1,7 +1,7 @@
 import {
-  AllStyleProps,
   ComponentPropsToStylePropsMap,
   ComponentPropToStyleProp,
+  ViewProps,
 } from '../types/index';
 
 export const strHasLength = (str: unknown): str is string =>
@@ -12,8 +12,10 @@ export const strHasLength = (str: unknown): str is string =>
  * Note: Will filter out undefined, null, and empty string prop values
  * @returns CSSProperties styles
  */
-export const convertStylePropsToStyleObj = (props: AllStyleProps) => {
-  let style: React.CSSProperties = {};
+export const convertStylePropsToStyleObj = (
+  props: ViewProps,
+  style: React.CSSProperties = {}
+) => {
   (
     Object.keys(ComponentPropsToStylePropsMap) as Array<
       keyof ComponentPropToStyleProp
@@ -36,7 +38,7 @@ export const convertStylePropsToStyleObj = (props: AllStyleProps) => {
  * @param props
  * @returns non styled props
  */
-export const getNonStyleProps = (props: {}) => {
+export const getNonStyleProps = (props: ViewProps) => {
   const nonStyleProps = {};
   Object.keys(props).forEach((propKey) => {
     if (!(propKey in ComponentPropsToStylePropsMap)) {
@@ -44,4 +46,15 @@ export const getNonStyleProps = (props: {}) => {
     }
   });
   return nonStyleProps;
+};
+
+/**
+ * Create a consecutive integer array from start value to end value.
+ * @param start start value
+ * @param end end value
+ * @returns an integer array with elements from start to end consecutively
+ */
+export const getConsecutiveIntArray = (start: number, end: number) => {
+  const length = end - start + 1;
+  return Array.from({ length }, (_, idx) => idx + start);
 };

@@ -192,7 +192,7 @@
 </template>
 
 <script lang="ts">
-import { ref, provide } from 'vue';
+import { ref, provide, defineComponent } from 'vue';
 
 import SignIn from './sign-in.vue';
 import SignUp from './sign-up.vue';
@@ -207,7 +207,7 @@ import {
   SetupEventContext,
 } from '../types/index';
 
-export default {
+export default defineComponent({
   inheritAttrs: false,
   components: {
     SignIn,
@@ -314,5 +314,5 @@ export default {
       send,
     };
   },
-};
+});
 </script>

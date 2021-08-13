@@ -7,13 +7,13 @@ Feature: Sign Up with Phone
     And I click "Create account"
 
 
-@Next @React @Vue
+@next @react @vue
   Scenario: Login mechanism set to "phone_number"
     Then I see "Phone Number" as an input field
     And I don't see "Username" as an input field
     And I don't see "Email" as an input field
 
-@Next @React @Vue @skip
+@next @react @vue @skip
   Scenario: Sign up with valid phone number & password
     When I type the phone number "VALID_PHONE_NUMBER"
     And I type the password "VALID_PASSWORD"

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import QRCode from 'qrcode';
 
-import { useAmplify, useAuth } from '@aws-amplify/ui-react';
+import { useAmplify, useAuth } from '../../../hooks';
 import { Auth, Logger } from 'aws-amplify';
 
 import {

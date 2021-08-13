@@ -3,6 +3,7 @@ import { FlexStyleProps } from './flex';
 import { ImageStyleProps } from './image';
 
 export interface BaseStyleProps {
+  alignSelf?: Property.AlignSelf;
   backgroundColor?: Property.BackgroundColor;
   border?: Property.Border;
   borderRadius?: Property.BorderRadius;
@@ -42,6 +43,7 @@ export type ComponentPropToStyleProp = {
 export const ComponentPropsToStylePropsMap: ComponentPropToStyleProp = {
   alignContent: 'alignContent',
   alignItems: 'alignItems',
+  alignSelf: 'alignSelf',
   backgroundColor: 'backgroundColor',
   border: 'border',
   borderRadius: 'borderRadius',

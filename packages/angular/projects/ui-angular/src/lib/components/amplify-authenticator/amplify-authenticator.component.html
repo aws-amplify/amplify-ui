@@ -20,6 +20,9 @@
 <ng-template #setupTOTP>
   <amplify-setup-totp></amplify-setup-totp>
 </ng-template>
+<ng-template #forceNewPassword>
+  <amplify-force-new-password></amplify-force-new-password>
+</ng-template>
 
 <!-- 
   Next, we render respective auth subcomponent respective to the current authState.
@@ -66,7 +69,14 @@
 >
 </ng-container>
 
-<!-- TODO: Remove signedIn component and handle it from app -->
+<!-- forceNewPassword content -->
+<ng-container
+  [ngTemplateOutlet]="customComponents.forceNewPassword || forceNewPassword"
+  [ngTemplateOutletContext]="context()"
+  *ngIf="actorState().matches('forceNewPassword')"
+>
+</ng-container>
+
 <!-- signedIn content -->
 <ng-container
   [ngTemplateOutlet]="customComponents.authenticated || authenticated"

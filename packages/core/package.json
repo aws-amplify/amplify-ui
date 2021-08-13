@@ -10,7 +10,8 @@
     "dist/**/*.{js,ts}"
   ],
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "test": "echo \"Skipped: no test specified\""
   },
   "dependencies": {
     "lodash": "^4.17.21",

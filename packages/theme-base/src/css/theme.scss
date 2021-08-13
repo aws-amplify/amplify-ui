@@ -3,6 +3,17 @@
  */
 
 @import '../../dist/variables.scss';
+@import '~@fontsource/inter/index.css';
+@import '~@fontsource/inter/variable.css';
+
+html {
+  font-family: var(--amplify-fonts-default-static);
+}
+@supports (font-variation-settings: normal) {
+  html {
+    font-family: var(--amplify-fonts-default-variable);
+  }
+}
 
 [class*='amplify'] {
   all: unset; /* protect against external styles */
@@ -28,6 +39,7 @@
 @import './component/heading.scss';
 @import './component/icon.scss';
 @import './component/image.scss';
+@import './component/pagination.scss';
 @import './component/placeholder.scss';
 @import './component/rating.scss';
 @import './component/text.scss';
