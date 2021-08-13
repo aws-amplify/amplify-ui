@@ -14,7 +14,7 @@ Feature: Sign In with TOTP MFA
     And I click the "Sign In" button
     Then I will be redirected to the confirm totp mfa page
     
-  @next @react @vue
+  @next @react @vue @angular
   Scenario: Sign in with invalid credentials
     When I type an invalid email "INVALID_EMAIL"
     And I type an invalid password "INVALID_PASSWORD"

@@ -12,7 +12,7 @@
     "angular-docs": "yarn workspace angular-docs",
     "docs": "yarn workspace docs",
     "next-example": "yarn workspace next-example",
-    "vue-example": "yarn workspace vue-exmaple",
+    "vue-example": "yarn workspace vue-example",
     "e2e": "yarn workspace e2e",
     "environments": "yarn workspace environments",
     "build:icons": "yarn react build:icons",

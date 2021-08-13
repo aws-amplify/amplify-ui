@@ -115,6 +115,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
               INPUT: { actions: 'handleInput' },
               SIGN_UP: '#auth.signUp',
               FEDERATED_SIGN_IN: '#auth.federatedSignIn',
+              RESET_PASSWORD: '#auth.resetPassword',
             },
           },
           submit: {
@@ -168,7 +169,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
       },
       forceNewPassword: {
         initial: 'edit',
-        exit: ['clearFormValues, clearError'],
+        exit: ['clearFormValues', 'clearError'],
         onDone: 'idle',
         states: {
           edit: {
@@ -189,6 +190,97 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
               src: 'forceNewPassword',
               onDone: {
                 actions: ['setUser', 'clearChallengeName'],
+                target: 'resolved',
+              },
+              onError: {
+                actions: 'setRemoteError',
+                target: 'rejected',
+              },
+            },
+          },
+          rejected: {
+            always: 'edit.error',
+          },
+          resolved: {
+            type: 'final',
+          },
+        },
+      },
+      resetPassword: {
+        initial: 'edit',
+        exit: ['clearFormValues', 'clearError'],
+        onDone: 'confirmResetPassword',
+        states: {
+          edit: {
+            initial: 'clean',
+            states: {
+              clean: {},
+              error: {},
+            },
+            on: {
+              SUBMIT: 'submit',
+              SIGN_IN: '#auth.signIn',
+              INPUT: { actions: 'handleInput' },
+            },
+          },
+          submit: {
+            entry: 'clearError',
+            invoke: {
+              src: 'resetPassword',
+              onDone: {
+                target: 'resolved',
+              },
+              onError: {
+                actions: ['setRemoteError', 'clearUsername'],
+                target: 'rejected',
+              },
+            },
+          },
+          rejected: {
+            always: 'edit.error',
+          },
+          resolved: {
+            type: 'final',
+          },
+        },
+      },
+      confirmResetPassword: {
+        initial: 'edit',
+        exit: ['clearFormValues', 'clearError', 'clearUsername'],
+        onDone: 'signIn',
+        states: {
+          edit: {
+            initial: 'clean',
+            states: {
+              clean: {},
+              error: {},
+            },
+            on: {
+              SUBMIT: 'submit',
+              SIGN_IN: '#auth.signIn',
+              RESEND: 'resendCode',
+              INPUT: { actions: 'handleInput' },
+            },
+          },
+          resendCode: {
+            entry: 'clearError',
+            invoke: {
+              src: 'resetPassword',
+              onDone: {
+                target: 'edit',
+              },
+              onError: {
+                actions: 'setRemoteError',
+                target: 'rejected',
+              },
+            },
+          },
+          submit: {
+            entry: 'clearError',
+            invoke: {
+              src: 'confirmResetPassword',
+              onDone: {
+                actions: ['clearUsername'],
                 target: 'resolved',
               },
               onError: {
@@ -451,6 +543,7 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
           return event.data?.user || event.data;
         },
       }),
+      clearUsername: assign({ username: undefined }),
       setAuthConfig: assign({
         config(_, event) {
           return event.data.auth;
@@ -612,6 +705,18 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
         const result = await Auth.completeNewPassword(user, password);
 
         return result;
+      },
+      async resetPassword(context, event) {
+        const { username } = event.data;
+        context.username = username;
+
+        return Auth.forgotPassword(username);
+      },
+      async confirmResetPassword(context, event) {
+        const { username } = context;
+        const { confirmation_code: code, password } = event.data;
+
+        return Auth.forgotPasswordSubmit(username, code, password);
       },
     },
   }
