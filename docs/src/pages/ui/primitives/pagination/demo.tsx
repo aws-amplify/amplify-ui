@@ -16,17 +16,22 @@ export const PaginationDemo: React.FC<PaginationDemoProps> = (props) => {
     defaultSiblingCount = 1,
     ...rest
   } = props;
+
   const [currentPage, setCurrentPage] = useState(defaultCurrentPage);
   const [totalPages, setTotalPages] = useState(defaultTotalPages);
   const [siblingCount, setSiblingCount] = useState(defaultSiblingCount);
 
-  const onNext = useCallback((newPage) => {
-    setCurrentPage(newPage);
-  }, []);
+  const onNext = useCallback(() => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  }, [currentPage, totalPages]);
 
-  const onPrev = useCallback((newPage) => {
-    setCurrentPage(newPage);
-  }, []);
+  const onPrev = useCallback(() => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  }, [currentPage]);
 
   const onChange = useCallback((newPage, prevPage) => {
     setCurrentPage(newPage);

@@ -11,5 +11,15 @@ Amplify.configure({
 });
 
 export default function SignInTotpMfa() {
-  return <Authenticator />;
+  return (
+    <Authenticator>
+      {({ send }) => {
+        return (
+          <>
+            <button onClick={() => send('SIGN_OUT')}>Sign out</button>
+          </>
+        );
+      }}
+    </Authenticator>
+  );
 }
