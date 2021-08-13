@@ -6,7 +6,7 @@ import {
   ValidationError,
   AuthEvent,
   CognitoUserAmplify,
-  PassedContext,
+  AuthError,
 } from '../../../types';
 import { Auth } from 'aws-amplify';
 
@@ -18,7 +18,8 @@ interface SignUpContext {
   config?: {
     login_mechanisms: string[];
   };
-  passedContext?: PassedContext;
+  passedError?: AuthError;
+  authAttributes?: Record<string, any>;
 }
 
 export const signUpActor = createMachine<SignUpContext, AuthEvent>(
@@ -30,7 +31,6 @@ export const signUpActor = createMachine<SignUpContext, AuthEvent>(
       formValues: {},
       validationError: {},
     },
-    onDone: { actions: 'reportDone' },
     states: {
       init: {
         always: [
@@ -70,7 +70,6 @@ export const signUpActor = createMachine<SignUpContext, AuthEvent>(
           },
           submission: {
             initial: 'idle',
-            // onDone: '#auth.confirmSignUp',
             states: {
               idle: {
                 on: {
@@ -145,28 +144,24 @@ export const signUpActor = createMachine<SignUpContext, AuthEvent>(
       },
       resolved: {
         type: 'final',
-        entry: 'reportDone',
+        data: (context) => ({
+          user: context.user,
+          authAttributes: {
+            username: context.formValues.username,
+            password: context.formValues.password,
+          },
+        }),
       },
     },
   },
   {
     guards: {
       shouldInitConfirmSignUp: (context) => {
-        const intent = context.passedContext?.intent;
-        return intent && intent === 'confirmSignUp';
+        const error = context.passedError;
+        return error && error.code === 'UserNotConfirmedException';
       },
     },
     actions: {
-      reportDone: sendParent((context) => ({
-        type: 'DONE',
-        data: {
-          user: context.user,
-          passedContext: {
-            username: context.formValues.username,
-            password: context.formValues.password,
-          },
-        },
-      })),
       setUser: assign({
         user: (_, event) => event.data.user ?? event.data,
       }),

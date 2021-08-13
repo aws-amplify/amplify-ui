@@ -7,7 +7,6 @@ import {
   AuthEvent,
   CognitoUserAmplify,
   AuthChallengeNames,
-  PassedContext,
 } from '../../../types';
 import { Auth } from 'aws-amplify';
 
@@ -17,7 +16,7 @@ interface SignInContext {
   formValues?: AuthFormData;
   user?: CognitoUserAmplify;
   challengeName?: string;
-  passedContext?: PassedContext;
+  authAttributes?: Record<string, any>;
 }
 
 export const signInActor = createMachine<SignInContext, AuthEvent>(
@@ -75,7 +74,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
               onError: [
                 {
                   cond: 'shouldRedirectToConfirmSignUp',
-                  actions: ['redirectToConfirmSignUp'],
+                  target: '#signInActor.rejected',
                 },
                 {
                   actions: 'setRemoteError',
@@ -165,7 +164,18 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
       },
       resolved: {
         type: 'final',
-        entry: 'reportDone',
+        data: (context) => ({
+          user: context.user,
+        }),
+      },
+      rejected: {
+        type: 'final',
+        data: (context, event) => ({
+          error: { ...event.data },
+          authAttributes: {
+            username: context.formValues.username,
+          },
+        }),
       },
     },
   },
@@ -180,15 +190,6 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
       reportDone: sendParent((context) => ({
         type: 'DONE',
         data: { user: context.user },
-      })),
-      redirectToConfirmSignUp: sendParent((context, event) => ({
-        type: 'ERROR.CONFIRM_SIGN_UP',
-        data: {
-          passedContext: {
-            username: context.formValues?.username,
-            intent: 'confirmSignUp',
-          },
-        },
       })),
       setUser: assign({
         user: (_, event) => event.data.user || event.data,

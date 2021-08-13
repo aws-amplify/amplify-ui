@@ -51,8 +51,10 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
         exit: stopActor('signInActor'),
         on: {
           SIGN_UP: 'signUp',
-          'ERROR.CONFIRM_SIGN_UP': 'signUp',
-          DONE: { target: 'authenticated', actions: 'setUser' },
+          'done.invoke.signInActor': [
+            { target: 'signUp', cond: 'shouldRedirectToSignUp' },
+            { target: 'authenticated' },
+          ],
         },
       },
       signUp: {
@@ -60,7 +62,7 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
         exit: stopActor('signUpActor'),
         on: {
           SIGN_IN: 'signIn',
-          DONE: 'signIn',
+          'done.invoke.signUpActor': 'signIn',
         },
       },
       signOut: {
@@ -94,7 +96,7 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
       spawnSignInActor: assign({
         actorRef: (_, event) => {
           const actor = signInActor.withContext({
-            passedContext: event.data?.passedContext,
+            authAttributes: event.data?.authAttributes,
             user: event.data?.user,
           });
           return spawn(actor, { name: 'signInActor', sync: true });
@@ -103,7 +105,8 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
       spawnSignUpActor: assign({
         actorRef: (_, event) => {
           const actor = signUpActor.withContext({
-            passedContext: event.data?.passedContext,
+            authAttributes: event.data?.authAttributes,
+            passedError: event.data?.error,
           });
           return spawn(actor, { name: 'signUpActor', sync: true });
         },
@@ -116,6 +119,11 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
           return spawn(actor, { name: 'signOutActor', sync: true });
         },
       }),
+    },
+    guards: {
+      shouldRedirectToSignUp: (_, event): boolean => {
+        return event.data?.error?.code === 'UserNotConfirmedException' ?? false;
+      },
     },
     services: {
       async getCurrentUser() {

@@ -11,7 +11,6 @@ export const signOutActor = createMachine<SignOutContext, AuthEvent>(
   {
     initial: 'pending',
     id: 'signOutActor',
-    onDone: { actions: 'reportDone' },
     states: {
       pending: {
         invoke: {

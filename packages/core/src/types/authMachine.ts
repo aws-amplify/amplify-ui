@@ -5,6 +5,7 @@ import { ValidationError } from './validator';
 export type AuthFormData = Record<string, string>;
 
 export interface AuthContext {
+  // TODO (pre-merge): remove unneeded ones
   remoteError?: string; // contains Amplify or Cognito error
   validationError?: ValidationError; // contains validation error for each input
   user?: CognitoUserAmplify;
@@ -29,8 +30,8 @@ export type AuthEventTypes =
   | 'RESEND'
   | 'CHANGE'
   | 'FEDERATED_SIGN_IN'
-  | 'DONE'
-  | 'ERROR.CONFIRM_SIGN_UP'
+  | 'done.invoke.signInActor'
+  | 'done.invoke.signUpActor'
   | 'done.invoke.signOutActor';
 
 export enum AuthChallengeNames {
@@ -38,21 +39,6 @@ export enum AuthChallengeNames {
   SOFTWARE_TOKEN_MFA = 'SOFTWARE_TOKEN_MFA',
   NEW_PASSWORD_REQUIRED = 'NEW_PASSWORD_REQUIRED',
   MFA_SETUP = 'MFA_SETUP',
-}
-
-/**
- * Any context that needs to be transferred between actors. e.g. automatically
- * signing in a signed up user require `username` and `password` to be
- * transferred. This types provides an interface for it.
- */
-export interface PassedContext {
-  username?: string;
-  password?: string;
-  /**
-   * intent for creating this actor. For example, set this to `confirmSignUp`
-   * if you want an actor to go directly to `confirmSignUp`.
-   */
-  intent?: string;
 }
 
 export interface InputAttributes {
@@ -75,10 +61,17 @@ export const socialProviderLoginMechanisms = ['amazon', 'google', 'facebook'];
 export type AuthInputNames = UserNameAlias | 'confirmation_code' | 'password';
 
 export type AuthInputAttributes = Record<AuthInputNames, InputAttributes>;
-
+export interface AuthError {
+  name: string;
+  code?: string;
+  message?: string;
+}
 export interface AuthEvent {
   type: AuthEventTypes;
-  data?: any; // TODO: strongly type data for each AuthEventType
+  data?: {
+    error?: AuthError;
+    [key: string]: any;
+  };
 }
 
 export type AuthMachineState = State<AuthContext, AuthEvent>;
