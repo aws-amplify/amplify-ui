@@ -9,7 +9,11 @@ import {
 import { Logger } from '@aws-amplify/core';
 import { AuthPropService, StateMachineService } from '../../services';
 import { Subscription } from 'xstate';
-import { AuthChallengeNames, AuthMachineState } from '@aws-amplify/ui-core';
+import {
+  AuthChallengeNames,
+  AuthMachineState,
+  getActorState,
+} from '@aws-amplify/ui-core';
 
 const logger = new Logger('ConfirmSignIn');
 
@@ -66,8 +70,9 @@ export class AmplifyConfirmSignInComponent
   }
 
   onStateUpdate(state: AuthMachineState): void {
-    this.remoteError = state.context.remoteError;
-    this.isPending = !state.matches('confirmSignIn.edit');
+    const actorState = getActorState(state);
+    this.remoteError = actorState.context.remoteError;
+    this.isPending = !actorState.matches('confirmSignIn.edit');
   }
 
   onInput(event: Event) {
