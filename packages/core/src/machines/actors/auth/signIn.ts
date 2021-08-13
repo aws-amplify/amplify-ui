@@ -1,24 +1,8 @@
 import { createMachine, sendParent, assign } from 'xstate';
 import { get } from 'lodash';
 
-import {
-  AuthFormData,
-  ValidationError,
-  AuthEvent,
-  CognitoUserAmplify,
-  AuthChallengeNames,
-} from '../../../types';
+import { AuthEvent, AuthChallengeNames, SignInContext } from '../../../types';
 import { Auth } from 'aws-amplify';
-
-interface SignInContext {
-  remoteError?: string;
-  validationError?: ValidationError;
-  formValues?: AuthFormData;
-  user?: CognitoUserAmplify;
-  challengeName?: string;
-  authAttributes?: Record<string, any>;
-  intent?: string;
-}
 
 export const signInActor = createMachine<SignInContext, AuthEvent>(
   {

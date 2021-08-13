@@ -1,25 +1,8 @@
-import { createMachine, sendParent, assign, sendUpdate } from 'xstate';
+import { createMachine, assign } from 'xstate';
 import { passwordMatches, runValidators } from '../../../validators';
 
-import {
-  AuthFormData,
-  ValidationError,
-  AuthEvent,
-  CognitoUserAmplify,
-} from '../../../types';
+import { AuthEvent, SignUpContext } from '../../../types';
 import { Auth } from 'aws-amplify';
-
-interface SignUpContext {
-  remoteError?: string;
-  validationError?: ValidationError;
-  formValues?: AuthFormData;
-  user?: CognitoUserAmplify;
-  config?: {
-    login_mechanisms: string[];
-  };
-  intent?: string;
-  authAttributes?: Record<string, any>;
-}
 
 export const signUpActor = createMachine<SignUpContext, AuthEvent>(
   {

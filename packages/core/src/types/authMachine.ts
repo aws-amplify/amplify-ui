@@ -1,5 +1,6 @@
 import { CognitoUser, CognitoUserSession } from 'amazon-cognito-identity-js';
 import { Interpreter, State } from 'xstate';
+import { ValidationError } from './validator';
 
 export type AuthFormData = Record<string, string>;
 
@@ -9,6 +10,32 @@ export interface AuthContext {
     login_mechanisms: string[];
   };
   actorRef?: any;
+}
+
+export interface SignInContext {
+  remoteError?: string;
+  validationError?: ValidationError;
+  formValues?: AuthFormData;
+  user?: CognitoUserAmplify;
+  challengeName?: string;
+  authAttributes?: Record<string, any>;
+  intent?: string;
+}
+
+export interface SignUpContext {
+  remoteError?: string;
+  validationError?: ValidationError;
+  formValues?: AuthFormData;
+  user?: CognitoUserAmplify;
+  config?: {
+    login_mechanisms: string[];
+  };
+  intent?: string;
+  authAttributes?: Record<string, any>;
+}
+
+export interface SignOutContext {
+  user?: CognitoUserAmplify;
 }
 
 export interface CognitoUserAmplify extends CognitoUser {

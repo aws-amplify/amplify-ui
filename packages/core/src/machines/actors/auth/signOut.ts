@@ -1,11 +1,7 @@
-import { createMachine, sendParent } from 'xstate';
+import { createMachine } from 'xstate';
 
-import { CognitoUserAmplify, AuthEvent } from '../../../types';
+import { AuthEvent, SignOutContext } from '../../../types';
 import { Auth } from 'aws-amplify';
-
-interface SignOutContext {
-  user?: CognitoUserAmplify;
-}
 
 export const signOutActor = createMachine<SignOutContext, AuthEvent>(
   {
