@@ -54,17 +54,10 @@ export const socialProviderLoginMechanisms = ['amazon', 'google', 'facebook'];
 export type AuthInputNames = UserNameAlias | 'confirmation_code' | 'password';
 
 export type AuthInputAttributes = Record<AuthInputNames, InputAttributes>;
-export interface AuthError {
-  name: string;
-  code?: string;
-  message?: string;
-}
+
 export interface AuthEvent {
   type: AuthEventTypes;
-  data?: {
-    error?: AuthError;
-    [key: string]: any;
-  };
+  data?: any;
 }
 
 export type AuthMachineState = State<AuthContext, AuthEvent>;

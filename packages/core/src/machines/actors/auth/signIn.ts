@@ -170,8 +170,8 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
       },
       rejected: {
         type: 'final',
-        data: (context, event) => ({
-          error: { ...event.data },
+        data: (context) => ({
+          intent: 'confirmSignUp',
           authAttributes: {
             username: context.formValues.username,
           },

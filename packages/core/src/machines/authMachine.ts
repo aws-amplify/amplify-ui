@@ -1,5 +1,6 @@
 import { assign, createMachine, forwardTo, spawn } from 'xstate';
 import { Auth, Amplify } from 'aws-amplify';
+import { CognitoUser } from 'amazon-cognito-identity-js';
 import { AuthContext, AuthEvent } from '../types';
 import { inspect } from '@xstate/inspect';
 import { signInActor, signUpActor, signOutActor } from './actors';
@@ -18,6 +19,7 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
   {
     id: 'auth',
     initial: 'idle',
+    context: {},
     states: {
       // See: https://xstate.js.org/docs/guides/communication.html#invoking-promises
       idle: {
@@ -45,8 +47,14 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
         on: {
           SIGN_UP: 'signUp',
           'done.invoke.signInActor': [
-            { target: 'signUp', cond: 'shouldRedirectToSignUp' },
-            { target: 'authenticated' },
+            {
+              target: 'signUp',
+              cond: 'shouldRedirectToSignUp',
+            },
+            {
+              target: 'authenticated',
+              actions: 'setUser',
+            },
           ],
         },
       },
@@ -99,7 +107,7 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
         actorRef: (_, event) => {
           const actor = signUpActor.withContext({
             authAttributes: event.data?.authAttributes,
-            passedError: event.data?.error,
+            intent: event.data?.intent,
           });
           return spawn(actor, { name: 'signUpActor', sync: true });
         },
@@ -115,7 +123,8 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
     },
     guards: {
       shouldRedirectToSignUp: (_, event): boolean => {
-        return event.data?.error?.code === 'UserNotConfirmedException' ?? false;
+        if (!event.data?.intent) return false;
+        return event.data.intent === 'confirmSignUp';
       },
     },
     services: {

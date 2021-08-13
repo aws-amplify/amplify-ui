@@ -6,7 +6,6 @@ import {
   ValidationError,
   AuthEvent,
   CognitoUserAmplify,
-  AuthError,
 } from '../../../types';
 import { Auth } from 'aws-amplify';
 
@@ -18,7 +17,7 @@ interface SignUpContext {
   config?: {
     login_mechanisms: string[];
   };
-  passedError?: AuthError;
+  intent?: string;
   authAttributes?: Record<string, any>;
 }
 
@@ -157,8 +156,7 @@ export const signUpActor = createMachine<SignUpContext, AuthEvent>(
   {
     guards: {
       shouldInitConfirmSignUp: (context) => {
-        const error = context.passedError;
-        return error && error.code === 'UserNotConfirmedException';
+        return context.intent && context.intent === 'confirmSignUp';
       },
     },
     actions: {
