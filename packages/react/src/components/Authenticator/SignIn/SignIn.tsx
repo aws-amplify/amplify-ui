@@ -1,3 +1,4 @@
+import { getActorState } from '@aws-amplify/ui-core';
 import { useAmplify, useAuth } from '../../../hooks';
 
 import { FederatedSignIn } from '../FederatedSignIn';
@@ -20,7 +21,8 @@ export function SignIn() {
   } = useAmplify('Authenticator.SignIn');
 
   const [state, send] = useAuth();
-  const isPending = state.matches('signIn.pending');
+  const actorState = getActorState(state);
+  const isPending = actorState.matches('signIn.pending');
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;

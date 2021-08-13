@@ -9,6 +9,7 @@ import {
   ConfirmSignInFooter,
   ConfirmSignInFooterProps,
 } from '../shared';
+import { getActorState } from '../../../../../core';
 
 const logger = new Logger('SetupTOTP-logger');
 
@@ -22,7 +23,8 @@ export const SetupTOTP = (): JSX.Element => {
   } = useAmplify(amplifyNamespace);
 
   const [state, send] = useAuth();
-  const isPending = state.matches('confirmSignIn.pending');
+  const actorState = getActorState(state);
+  const isPending = actorState.matches('confirmSignIn.pending');
 
   const generateQRCode = async (user): Promise<void> => {
     try {
@@ -40,7 +42,7 @@ export const SetupTOTP = (): JSX.Element => {
   };
 
   useEffect(() => {
-    const { user } = state.context;
+    const { user } = actorState.context;
     if (!user) {
       return;
     }

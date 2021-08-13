@@ -1,3 +1,4 @@
+import { getActorState } from '../../../../../core';
 import { useAmplify, useAuth } from '../../../hooks';
 
 export const ForceNewPassword = (): JSX.Element => {
@@ -17,8 +18,9 @@ export const ForceNewPassword = (): JSX.Element => {
   } = useAmplify(amplifyNamespace);
 
   const [state, send] = useAuth();
-  const { remoteError } = state.context;
-  const isPending = state.matches('forceNewPassword.pending');
+  const actorState = getActorState(state);
+  const { remoteError } = actorState.context;
+  const isPending = actorState.matches('forceNewPassword.pending');
 
   const headerText = 'Change Password';
 

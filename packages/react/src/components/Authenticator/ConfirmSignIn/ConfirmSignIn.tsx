@@ -1,4 +1,8 @@
-import { AuthChallengeNames } from '@aws-amplify/ui-core';
+import {
+  AuthChallengeNames,
+  getActorState,
+  SignInContext,
+} from '@aws-amplify/ui-core';
 import { useAmplify, useAuth } from '../../../hooks';
 
 import {
@@ -17,7 +21,8 @@ export const ConfirmSignIn = (): JSX.Element => {
   } = useAmplify(amplifyNamespace);
 
   const [state, send] = useAuth();
-  const isPending = state.matches('confirmSignIn.pending');
+  const actorState = getActorState(state);
+  const isPending = actorState.matches('confirmSignIn.pending');
 
   const footerProps: ConfirmSignInFooterProps = {
     amplifyNamespace,
@@ -25,7 +30,7 @@ export const ConfirmSignIn = (): JSX.Element => {
     send,
   };
 
-  const { challengeName, remoteError } = state.context;
+  const { challengeName, remoteError } = actorState.context as SignInContext;
   let mfaType: string = 'SMS';
   if (challengeName === AuthChallengeNames.SOFTWARE_TOKEN_MFA) {
     mfaType = 'TOTP';

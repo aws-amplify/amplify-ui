@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import { getActorState } from '@aws-amplify/ui-core';
 import { useAmplify, useAuth } from '../../../hooks';
 
 import {
@@ -18,7 +19,8 @@ export function ConfirmSignUp() {
   } = useAmplify(amplifyNamespace);
 
   const [state, send] = useAuth();
-  const isPending = state.matches('confirmSignUp.pending');
+  const actorState = getActorState(state);
+  const isPending = actorState.matches('confirmSignUp.pending');
 
   const footerProps: ConfirmSignInFooterProps = {
     amplifyNamespace,

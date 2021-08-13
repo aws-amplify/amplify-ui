@@ -4,6 +4,8 @@ import { useAmplify, useAuth } from '../../../hooks';
 
 import {
   authInputAttributes,
+  getActorContext,
+  getActorState,
   socialProviderLoginMechanisms,
 } from '@aws-amplify/ui-core';
 import { FederatedSignIn } from '../FederatedSignIn';
@@ -23,8 +25,9 @@ export function SignUp() {
   } = useAmplify('Authenticator.SignUp');
 
   const [state, send] = useAuth();
-  const isPending = state.matches('signUp.pending');
-  const { remoteError } = state.context;
+  const actorState = getActorState(state);
+  const isPending = actorState.matches('signUp.pending');
+  const { remoteError } = actorState.context;
 
   const [primaryAlias, ...secondaryAliases] = state.context.config
     ?.login_mechanisms ?? ['username', 'email', 'phone_number'];
@@ -100,8 +103,9 @@ SignUp.AliasControl = ({
   const {
     components: { Input, Label, Text, ErrorText },
   } = useAmplify('Authenticator.SignUp.Password');
-  const [{ context }] = useAuth();
-  const error = context.validationError[name];
+  const [state] = useAuth();
+  const { validationError } = getActorContext(state);
+  const error = validationError[name];
 
   return (
     <>
@@ -127,8 +131,9 @@ SignUp.PasswordControl = ({
   const {
     components: { Input, Label, Text, ErrorText },
   } = useAmplify('Authenticator.SignUp.Password');
-  const [{ context }] = useAuth();
-  const error = context.validationError[name];
+  const [state] = useAuth();
+  const { validationError } = getActorContext(state);
+  const error = validationError[name];
 
   return (
     <>
@@ -148,8 +153,9 @@ SignUp.ConfirmPasswordControl = ({
   const {
     components: { Input, Label, Text, ErrorText },
   } = useAmplify('Authenticator.SignUp.Password');
-  const [{ context }] = useAuth();
-  const error = context.validationError[name];
+  const [state] = useAuth();
+  const { validationError } = getActorContext(state);
+  const error = validationError[name];
 
   return (
     <>
