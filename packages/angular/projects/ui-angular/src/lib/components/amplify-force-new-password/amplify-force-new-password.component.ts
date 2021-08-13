@@ -9,7 +9,11 @@ import {
 } from '@angular/core';
 import { Subscription } from 'xstate';
 import { Logger } from '@aws-amplify/core';
-import { AuthMachineState } from '@aws-amplify/ui-core';
+import {
+  AuthMachineState,
+  getActorContext,
+  getActorState,
+} from '@aws-amplify/ui-core';
 import { AuthPropService, StateMachineService } from '../../services';
 
 const logger = new Logger('ForceNewPassword');
@@ -53,8 +57,9 @@ export class AmplifyForceNewPasswordComponent
   }
 
   onStateUpdate(state: AuthMachineState): void {
-    this.remoteError = state.context.remoteError;
-    this.isPending = !state.matches('forceNewPassword.edit');
+    const actorState = getActorState(state);
+    this.remoteError = actorState.context.remoteError;
+    this.isPending = !actorState.matches('forceNewPassword.edit');
   }
 
   toSignIn(): void {
@@ -65,14 +70,14 @@ export class AmplifyForceNewPasswordComponent
     event.preventDefault();
     const { name, value } = <HTMLInputElement>event.target;
     this.stateMachine.send({
-      type: 'INPUT',
+      type: 'CHANGE',
       data: { name, value },
     });
   }
 
   onSubmit(event: Event) {
     event.preventDefault();
-    const formValues = this.stateMachine.context.formValues;
+    const { formValues } = getActorContext(this.stateMachine.authState);
 
     this.stateMachine.send({
       type: 'SUBMIT',
