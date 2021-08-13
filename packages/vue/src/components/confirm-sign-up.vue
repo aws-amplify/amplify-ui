@@ -5,10 +5,10 @@
         <base-heading>
           {{ confirmSignUpHeading }}
         </base-heading>
-        <base-field-set :disabled="state.matches('confirmSignUp.pending')">
+        <base-field-set :disabled="actorState.matches('confirmSignUp.pending')">
           <user-name-alias
             :userNameAlias="true"
-            :userName="state?.context?.formValues[primaryAlias]"
+            :userName="actorState?.context?.formValues[primaryAlias]"
             :disabled="true"
           />
           <base-label data-amplify-password>
@@ -45,12 +45,12 @@
             {{ backSignInText }}</base-button
           >
           <base-spacer />
-          <base-button :disabled="state.matches('confirmSignUp.pending')">{{
-            confirmText
-          }}</base-button>
+          <base-button :disabled="actorState.matches('confirmSignUp.pending')">
+            {{ confirmText }}
+          </base-button>
         </base-footer>
         <base-box data-ui-error>
-          {{ state.event.data?.message }}
+          {{ actorState?.context?.remoteError }}
         </base-box>
       </base-form>
     </base-wrapper>
@@ -85,6 +85,7 @@ import { useAliases } from '../composables/useUtils';
 import { useAuth } from '../composables/useAuth';
 
 import { ConfirmPasswordSetupReturnTypes, SetupEventContext } from '../types';
+import { getActorState } from '@aws-amplify/ui-core';
 
 export default defineComponent({
   components: {
@@ -117,9 +118,11 @@ export default defineComponent({
     const {
       value: { context },
     } = state;
+    const actorState = computed(() => getActorState(state.value));
+    const actorContext = actorState?.value.context;
 
     let [primaryAlias] = useAliases(context?.config?.login_mechanisms);
-    if (!context?.formValues?.confirm_password) {
+    if (!actorContext.formValues?.confirm_password) {
       primaryAlias = 'username';
     }
 
@@ -143,13 +146,15 @@ export default defineComponent({
 
     const submit = (e: Event): void => {
       const formData = new FormData(<HTMLFormElement>e.target);
+      const { user, authAttributes } = actorContext;
+      const username = user?.username ?? authAttributes?.username;
       send({
         type: 'SUBMIT',
         //@ts-ignore
         data: {
           //@ts-ignore
           ...Object.fromEntries(formData),
-          username: context?.formValues[primaryAlias],
+          username: username,
         },
       });
     };
@@ -189,6 +194,7 @@ export default defineComponent({
       confirmText,
       onLostCodeClicked,
       state,
+      actorState,
       send,
       primaryAlias,
     };

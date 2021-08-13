@@ -8,7 +8,9 @@
         <base-heading>
           {{ changePasswordLabel }}
         </base-heading>
-        <base-field-set :disabled="!state.matches('forceNewPassword.edit')">
+        <base-field-set
+          :disabled="!actorState.matches('forceNewPassword.edit')"
+        >
           <base-label data-amplify-forcenewpassword-label>
             <base-text>{{ changePasswordLabel }}</base-text>
             <base-input
@@ -21,7 +23,7 @@
           </base-label>
         </base-field-set>
         <base-box data-ui-error class="forceNewPasswordErrorText">
-          {{ state.context.remoteError }}
+          {{ actorState.context.remoteError }}
         </base-box>
         <base-footer>
           <template #footert="{ slotData }">
@@ -44,8 +46,8 @@
             name="footer-right"
             :onForceNewPasswordSubmit="onForceNewPasswordSubmit"
           >
-            <base-button :disabled="state.matches('signUp.submit')">{{
-              !state.matches('forceNewPassword.edit')
+            <base-button :disabled="actorState.matches('signUp.submit')">{{
+              !actorState.matches('forceNewPassword.edit')
                 ? changingPasswordLabel + '&hellip;'
                 : changePasswordLabel
             }}</base-button>
@@ -81,6 +83,7 @@ import {
   HAVE_ACCOUNT_LABEL,
   SIGN_IN_BUTTON_TEXT,
 } from '../defaults/DefaultTexts';
+import { getActorState } from '@aws-amplify/ui-core';
 
 export default defineComponent({
   components: {
@@ -99,6 +102,7 @@ export default defineComponent({
   inheritAttrs: false,
   setup(_, { emit, attrs }: SetupEventContext): ForceNewPasswordReturnTypes {
     const { state, send } = useAuth();
+    const actorState = computed(() => getActorState(state.value));
 
     // computed properties
     const changePasswordLabel = computed(() => CHANGE_PASSWORD_LABEL);
@@ -142,6 +146,7 @@ export default defineComponent({
       submit,
       onForceNewPasswordSubmit,
       state,
+      actorState,
       onHaveAccountClicked,
       signInButtonText,
       haveAccountLabel,

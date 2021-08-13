@@ -19,6 +19,7 @@
 import { defineComponent, ref, computed } from 'vue';
 import {
   authInputAttributes,
+  getActorContext,
   getAliasInfoFromContext,
 } from '@aws-amplify/ui-core';
 
@@ -53,6 +54,7 @@ export default defineComponent({
     const {
       value: { context },
     } = state;
+    const actorContext = getActorContext(state.value);
 
     let uName = ref('');
 
@@ -60,7 +62,7 @@ export default defineComponent({
       uName = computed(() => props.userName);
     }
 
-    const error = context.validationError['username'];
+    const error = actorContext.validationError['username'];
 
     const [primaryAlias] = useAliases(context?.config?.login_mechanisms);
 

@@ -8,7 +8,7 @@
         <base-heading>
           {{ setupTOTPText }}
         </base-heading>
-        <base-field-set :disabled="state.matches('confirmSignIn.pending')">
+        <base-field-set :disabled="actorState.matches('confirmSignIn.pending')">
           <base-label data-amplify-confirmationcode>
             <template v-if="isLoading">
               <p>Loading...</p>
@@ -41,12 +41,12 @@
             {{ backSignInText }}</base-button
           >
           <base-spacer />
-          <base-button :disabled="state.matches('confirmSignIn.pending')">{{
-            confirmText
-          }}</base-button>
+          <base-button :disabled="actorState.matches('confirmSignIn.pending')">
+            {{ confirmText }}
+          </base-button>
         </base-footer>
         <base-box data-ui-error>
-          {{ state.event.data?.message }}
+          {{ actorState.context.remoteError }}
         </base-box>
       </base-form>
     </base-wrapper>
@@ -79,6 +79,7 @@ import {
 import { Auth, Logger } from 'aws-amplify';
 import QRCode from 'qrcode';
 import { SetupEventContext } from '../types';
+import { getActorState } from '@aws-amplify/ui-core';
 
 export default defineComponent({
   components: {
@@ -101,6 +102,7 @@ export default defineComponent({
     const {
       value: { context },
     } = state;
+    const actorState = computed(() => getActorState(state.value));
 
     let qrCode = reactive({
       qrCodeImageSource: null,
@@ -166,6 +168,7 @@ export default defineComponent({
     return {
       ...toRefs(qrCode),
       state,
+      actorState,
       onSetupTOTPSubmit,
       onBackToSignInClicked,
       submit,

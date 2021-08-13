@@ -9,7 +9,7 @@
           {{ signUpButtonText }}
         </base-heading>
         <federated-sign-in></federated-sign-in>
-        <base-field-set :disabled="state.matches('signUp.submit')">
+        <base-field-set :disabled="actorState.matches('signUp.submit')">
           <template #fieldSetI="{ slotData }">
             <slot name="signup-fields" :info="slotData"> </slot>
           </template>
@@ -30,7 +30,7 @@
         <base-spacer />
 
         <base-box data-ui-error>
-          {{ state.context.remoteError }}
+          {{ actorState.context.remoteError }}
         </base-box>
 
         <base-footer>
@@ -50,7 +50,7 @@
             >
           </slot>
           <slot name="footer-right" :onSignUpSubmit="onSignUpSubmit">
-            <base-button :disabled="state.matches('signUp.submit')">{{
+            <base-button :disabled="actorState.matches('signUp.submit')">{{
               createAccountLabel
             }}</base-button>
           </slot>
@@ -64,6 +64,8 @@
 import { defineComponent, ref, watch, computed } from 'vue';
 import {
   authInputAttributes,
+  getActorContext,
+  getActorState,
   socialProviderLoginMechanisms,
 } from '@aws-amplify/ui-core';
 
@@ -118,6 +120,7 @@ export default defineComponent({
     const {
       value: { context },
     } = state;
+    const actorState = computed(() => getActorState(state.value));
 
     let [__, ...secondaryAliases] = useAliases(
       context?.config?.login_mechanisms
@@ -140,12 +143,9 @@ export default defineComponent({
     const signUpButtonText = computed(() => SIGN_UP_BUTTON_TEXT);
     const inputAttributes = computed(() => authInputAttributes);
 
-    // watchers
-
     watch(state, (first) => {
-      error.value = first.context.validationError['confirm_password'];
+      error.value = getActorContext(first).validationError?.confirm_password;
     });
-
     // Methods
 
     const onHaveAccountClicked = (): void => {
@@ -185,6 +185,7 @@ export default defineComponent({
       onSignUpSubmit,
       onChange,
       state,
+      actorState,
       phone,
       submit,
       error,

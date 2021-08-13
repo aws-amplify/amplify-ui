@@ -8,7 +8,7 @@
         <base-heading>
           {{ confirmSignInHeading }}
         </base-heading>
-        <base-field-set :disabled="state.matches('confirmSignIn.pending')">
+        <base-field-set :disabled="actorState.matches('confirmSignIn.pending')">
           <base-label data-amplify-password>
             <base-text>Code *</base-text>
             <base-input
@@ -35,12 +35,13 @@
             {{ backSignInText }}</base-button
           >
           <base-spacer />
-          <base-button :disabled="state.matches('confirmSignIn.pending')">{{
-            confirmText
-          }}</base-button>
+          <base-button
+            :disabled="actorState.matches('confirmSignIn.pending')"
+            >{{ confirmText }}</base-button
+          >
         </base-footer>
         <base-box data-ui-error>
-          {{ state.event.data?.message }}
+          {{ actorState?.context?.remoteError }}
         </base-box>
       </base-form>
     </base-wrapper>
@@ -66,6 +67,7 @@ import { useAuth } from '../composables/useAuth';
 import { BACK_SIGN_IN_TEXT, CONFIRM_TEXT } from '../defaults/DefaultTexts';
 import { ConfirmSignInSetupReturnTypes, SetupEventContext } from '../types';
 import { AuthChallengeNames } from '@aws-amplify/ui-core/src/types';
+import { getActorState } from '@aws-amplify/ui-core';
 
 export default defineComponent({
   components: {
@@ -84,7 +86,8 @@ export default defineComponent({
   inheritAttrs: false,
   setup(_, { emit, attrs }: SetupEventContext): ConfirmSignInSetupReturnTypes {
     const { state, send } = useAuth();
-    const { challengeName } = state.value.context;
+    const actorState = computed(() => getActorState(state.value));
+    const { challengeName } = actorState.value.context;
 
     let mfaType: string = 'SMS';
 
@@ -136,6 +139,7 @@ export default defineComponent({
       backSignInText,
       confirmText,
       state,
+      actorState,
     };
   },
 });

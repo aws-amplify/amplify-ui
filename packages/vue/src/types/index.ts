@@ -1,6 +1,7 @@
 import { Ref, ComputedRef, Slot } from 'vue';
 import { PayloadSender, EventObject } from 'xstate';
 import {
+  AuthEvent,
   AuthInputAttributes,
   FederatedIdentityProviders,
 } from '@aws-amplify/ui-core';
@@ -37,6 +38,7 @@ export interface SignInSetupReturnTypes {
   password: Ref<string>;
   submit: (e: Event) => void;
   state: Ref;
+  actorState: ComputedRef;
 }
 
 export interface SignUpSetupReturnTypes {
@@ -44,6 +46,7 @@ export interface SignUpSetupReturnTypes {
   onSignUpSubmit: (e: Event) => void;
   onChange: (e: Event) => void;
   state: Ref;
+  actorState: ComputedRef;
   phone: Ref<string>;
   submit: () => void;
   error: Ref<string>;
@@ -67,7 +70,8 @@ export interface ConfirmPasswordSetupReturnTypes {
   confirmText: ComputedRef<string>;
   onLostCodeClicked: () => void;
   state: Ref;
-  send: PayloadSender<EventObject>;
+  actorState: Ref;
+  send: PayloadSender<AuthEvent>;
   primaryAlias: string;
 }
 
@@ -79,6 +83,7 @@ export interface ConfirmSignInSetupReturnTypes {
   backSignInText: ComputedRef<string>;
   confirmText: ComputedRef<string>;
   state: Ref;
+  actorState: ComputedRef;
 }
 
 export interface SignUpPhoneControlTypes {
@@ -91,7 +96,8 @@ export interface SignUpPhoneControlTypes {
 export interface AuthenticatorSetupReturnTypes {
   currentPage: Ref<string>;
   state: Ref;
-  send: PayloadSender<EventObject>;
+  actorState: ComputedRef;
+  send: PayloadSender<AuthEvent>;
   onSignInSubmitI: (e: Event) => void;
   onSignUpSubmitI: (e: Event) => void;
   onConfirmSignUpSubmitI: (e: Event) => void;
@@ -119,6 +125,7 @@ export interface ForceNewPasswordReturnTypes {
   submit: (e: Event) => void;
   onForceNewPasswordSubmit: (e: Event) => void;
   state: Ref;
+  actorState: ComputedRef;
   onHaveAccountClicked: () => void;
   signInButtonText: ComputedRef<string>;
   haveAccountLabel: ComputedRef<string>;
