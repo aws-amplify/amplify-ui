@@ -75,6 +75,8 @@ export default function App() {
 
 [Head over to the docs for more information on Vue usage](https://ui.docs.amplify.aws/ui/components/authenticator?platform=vue)
 
+> Note: primitives not available for Vue yet
+
 ### Angular
 
 ```html
@@ -87,6 +89,8 @@ export default function App() {
 ```
 
 [Head over to the docs for more information on Angular usage](https://ui.docs.amplify.aws/ui/components/authenticator?platform=angular)
+
+> Note: primitives not available for Angular yet
 
 ## Documentation
 
