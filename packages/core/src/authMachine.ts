@@ -258,7 +258,21 @@ export const authMachine = Machine<AuthContext, AuthEvent>(
             on: {
               SUBMIT: 'submit',
               SIGN_IN: '#auth.signIn',
+              RESEND: 'resendCode',
               INPUT: { actions: 'handleInput' },
+            },
+          },
+          resendCode: {
+            entry: 'clearError',
+            invoke: {
+              src: 'resetPassword',
+              onDone: {
+                target: 'edit',
+              },
+              onError: {
+                actions: 'setRemoteError',
+                target: 'rejected',
+              },
             },
           },
           submit: {
