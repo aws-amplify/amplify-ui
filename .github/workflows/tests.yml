@@ -38,6 +38,9 @@ jobs:
       - name: Install packages
         run: yarn --frozen-lockfile
 
+      - name: Build ${{ matrix.package }} package
+        run: yarn workspace ${{ matrix.package }} build
+
       - name: Run ${{ matrix.package }} tests
         run: yarn workspace ${{ matrix.package}} test
 
@@ -54,6 +57,7 @@ jobs:
         framework:
           - 'next'
           - 'vue'
+          - 'angular'
 
     steps:
       - name: Checkout Amplify UI
@@ -87,7 +91,7 @@ jobs:
         run: yarn workspace ${{ matrix.framework }}-example build
 
       - name: Start ${{ matrix.framework }} example
-        run: yarn workspace ${{ matrix.framework }}-example start & npx wait-on -t 30000 http://localhost:3000/ui/components/authenticator/sign-in-with-username
+        run: yarn workspace ${{ matrix.framework }}-example start & npx wait-on -c waitOnConfig.json -t 80000 http-get://localhost:3000/ui/components/authenticator/sign-in-with-username
 
       - name: Run E2E tests against ${{ matrix.framework }} example
         run: yarn workspace e2e test

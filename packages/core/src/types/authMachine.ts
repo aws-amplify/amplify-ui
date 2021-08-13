@@ -50,6 +50,7 @@ export type AuthEventTypes =
   | 'RESEND'
   | 'CHANGE'
   | 'FEDERATED_SIGN_IN'
+  | 'RESET_PASSWORD'
   | 'done.invoke.signInActor'
   | 'done.invoke.signUpActor'
   | 'done.invoke.signOutActor';

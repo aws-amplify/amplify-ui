@@ -14,7 +14,7 @@ Feature: Sign In with SMS MFA
     And I click the "Sign In" button
     Then I will be redirected to the confirm sms mfa page
     
-  @next @react
+  @next @react @angular
   Scenario: Sign in with invalid credentials
     When I type an invalid username "INVALID_PHONE_NUMBER"
     And I type an invalid password "INVALID_PASSWORD"

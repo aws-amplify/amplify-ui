@@ -11,6 +11,7 @@
     <fieldset data-amplify-fieldset [disabled]="isPending">
       <amplify-user-name-alias></amplify-user-name-alias>
       <amplify-input
+        data-amplify-password
         name="password"
         type="password"
         autocomplete="current-password"
@@ -19,7 +20,7 @@
       <div data-amplify-footer>
         <div>
           No account?{{ ' ' }}
-          <a data-amplify-link (click)="toSignUp()">Create Account</a>
+          <a data-amplify-link (click)="toSignUp()">Create account</a>
         </div>
         <ng-container
           [ngTemplateOutlet]="customComponents.signInButton || signInButton"

@@ -3,9 +3,10 @@ import { useAmplify } from '../../hooks';
 import { useActor, useInterpret } from '@xstate/react';
 
 import { AuthenticatorContext } from './AuthenticatorContext';
-import { ForceNewPassword } from './ForceNewPassword';
 import { ConfirmSignIn } from './ConfirmSignIn';
 import { ConfirmSignUp } from './ConfirmSignUp';
+import { ForceNewPassword } from './ForceNewPassword';
+import { ConfirmResetPassword, ResetPassword } from './ResetPassword';
 import { SetupTOTP } from './SetupTOTP';
 import { SignIn } from './SignIn';
 import { SignUp } from './SignUp';
@@ -56,6 +57,10 @@ export function Authenticator({
               return <SignUp />;
             case actorState?.matches('forceNewPassword'):
               return <ForceNewPassword />;
+            case state.matches('resetPassword'):
+              return <ResetPassword />;
+            case state.matches('confirmResetPassword'):
+              return <ConfirmResetPassword />;
             default:
               console.warn('Unhandled Auth state', state.value);
               return null;
