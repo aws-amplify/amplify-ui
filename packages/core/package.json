@@ -2,23 +2,31 @@
   "private": true,
   "name": "@aws-amplify/ui-core",
   "version": "0.0.1",
-  "module": "index.ts",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "type": "module",
+  "source": "src/index.ts",
+  "exports": "./dist/ui-core.modern.js",
+  "main": "./dist/ui-core.cjs",
+  "module": "./dist/ui-core.module.js",
+  "unpkg": "./dist/ui-core.umd.js",
+  "types": "dist/ui-core.d.ts",
   "files": [
-    "dist/*.{js,ts}",
-    "dist/**/*.{js,ts}"
+    "dist"
   ],
   "scripts": {
-    "build": "tsc",
+    "build": "microbundle",
+    "dev": "microbundle watch",
     "test": "echo \"Skipped: no test specified\""
   },
   "dependencies": {
-    "lodash": "^4.17.21",
+    "lodash-es": "^4.17.21",
     "xstate": "^4.20.1"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.170",
-    "tslib": "^2.3.0"
+    "microbundle": "^0.13.3",
+    "tslib": "^2.3.1"
+  },
+  "peerDependencies": {
+    "aws-amplify": "3.x.x || 4.x.x"
   }
 }

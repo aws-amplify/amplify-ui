@@ -1,6 +1,6 @@
 import { AuthFormData, Validator } from '../types';
-import isEmpty from 'lodash/isEmpty';
-import merge from 'lodash/merge';
+import { isEmpty } from 'lodash-es';
+import { merge } from 'lodash-es';
 
 export const passwordMatches: Validator = (formValues: AuthFormData) => {
   const { password, confirm_password } = formValues;

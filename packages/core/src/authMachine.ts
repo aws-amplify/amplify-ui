@@ -1,4 +1,4 @@
-import { get } from 'lodash';
+import { get } from 'lodash-es';
 import { Auth, Amplify } from 'aws-amplify';
 import { Machine, assign } from 'xstate';
 import { AuthChallengeNames, AuthContext, AuthEvent } from './types';
