@@ -7,16 +7,9 @@ import { View } from '../View';
 import { IconChevronLeft, IconChevronRight } from '../Icon';
 import { PaginationItemProps } from '../types/pagination';
 
-export const PaginationItem: React.FC<PaginationItemProps> = props => {
-  const {
-    type,
-    page,
-    currentPage,
-    isDisabled,
-    onClick,
-    ariaLabel,
-    ...rest
-  } = props;
+export const PaginationItem: React.FC<PaginationItemProps> = (props) => {
+  const { type, page, currentPage, isDisabled, onClick, ariaLabel, ...rest } =
+    props;
 
   switch (type) {
     case 'page':

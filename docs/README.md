@@ -42,7 +42,7 @@ title: My Title
 Content goes here...
 ```
 
-_My Title_ will show up in the sidebar navigation, while contenet will be statically generated & indexed.
+_My Title_ will show up in the sidebar navigation, while content will be statically generated & indexed.
 
 Note that _dynamic content_ (e.g. `import Page from "${slug}.mdx"`) is **not** statically generated
 and harder to index. Because of this, ensure indexable content _always_ exists and only supplemental
