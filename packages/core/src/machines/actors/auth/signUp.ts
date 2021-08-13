@@ -1,4 +1,4 @@
-import { createMachine, sendParent, assign } from 'xstate';
+import { createMachine, sendParent, assign, sendUpdate } from 'xstate';
 import { passwordMatches, runValidators } from '../../../validators';
 
 import {
@@ -30,6 +30,7 @@ export const signUpActor = createMachine<SignUpContext, AuthEvent>(
       formValues: {},
       validationError: {},
     },
+    onDone: { actions: 'reportDone' },
     states: {
       init: {
         always: [
@@ -122,20 +123,22 @@ export const signUpActor = createMachine<SignUpContext, AuthEvent>(
               SUBMIT: 'submit',
               SIGN_IN: '#signUpActor.signUp',
               CHANGE: { actions: 'handleInput' },
+              RESEND: 'resend',
+            },
+          },
+          resend: {
+            invoke: {
+              src: 'resendConfirmationCode',
+              onDone: { target: 'edit' },
+              onError: { target: 'edit', actions: 'setRemoteError' },
             },
           },
           submit: {
             entry: 'clearError',
             invoke: {
               src: 'confirmSignUp',
-              onDone: {
-                target: '#signUpActor.resolved',
-                actions: ['setUser'],
-              },
-              onError: {
-                target: 'edit',
-                actions: 'setRemoteError',
-              },
+              onDone: { target: '#signUpActor.resolved', actions: 'setUser' },
+              onError: { target: 'edit', actions: 'setRemoteError' },
             },
           },
         },
@@ -156,10 +159,16 @@ export const signUpActor = createMachine<SignUpContext, AuthEvent>(
     actions: {
       reportDone: sendParent((context) => ({
         type: 'DONE',
-        data: { passedContext: context.passedContext },
+        data: {
+          user: context.user,
+          passedContext: {
+            username: context.formValues.username,
+            password: context.formValues.password,
+          },
+        },
       })),
       setUser: assign({
-        user: (_, event) => event.data,
+        user: (_, event) => event.data.user ?? event.data,
       }),
       setRemoteError: assign({
         remoteError: (_, event) => event.data?.message || event.data,

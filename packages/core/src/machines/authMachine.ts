@@ -60,6 +60,7 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
         exit: stopActor('signUpActor'),
         on: {
           SIGN_IN: 'signIn',
+          DONE: 'authenticated',
         },
       },
       authenticated: {
@@ -93,15 +94,10 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
       },
     },
     on: {
-      CHANGE: {
-        actions: 'forwardToActor',
-      },
-      SUBMIT: {
-        actions: 'forwardToActor',
-      },
-      FEDERATED_SIGN_IN: {
-        actions: 'forwardToActor',
-      },
+      CHANGE: { actions: 'forwardToActor' },
+      SUBMIT: { actions: 'forwardToActor' },
+      FEDERATED_SIGN_IN: { actions: 'forwardToActor' },
+      RESEND: { actions: 'forwardToActor' },
     },
   },
   {
@@ -118,20 +114,21 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
         },
       }),
       spawnSignInActor: assign({
-        actorRef: (_context, event) => {
+        actorRef: (_, event) => {
           const actor = signInActor.withContext({
-            ...event.data,
+            passedContext: event.data?.passedContext,
+            user: event.data?.user,
           });
-          return spawn(actor, 'signInActor');
+          return spawn(actor, { name: 'signInActor', sync: true });
         },
       }),
       spawnSignUpActor: assign({
-        actorRef: (context, event) => {
+        actorRef: (_, event) => {
           signUpActor;
           const actor = signUpActor.withContext({
-            ...event.data,
+            passedContext: event.data?.passedContext,
           });
-          return spawn(actor, 'signUpActor');
+          return spawn(actor, { name: 'signUpActor', sync: true });
         },
       }),
     },
