@@ -39,10 +39,6 @@ export class AmplifyConfirmSignUpComponent {
   setUsername() {
     const actorContext = getActorContext(this.stateMachine.authState);
     const { user, authAttributes } = actorContext;
-    /**
-     * TODO (cross-framework): look for ways to persist username without
-     * persisting formValues across auth states.
-     */
     const username = user?.username ?? authAttributes?.username;
     if (username) {
       this.username = username;
