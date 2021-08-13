@@ -1,11 +1,9 @@
 import { CognitoUser, CognitoUserSession } from 'amazon-cognito-identity-js';
 import { Interpreter, State } from 'xstate';
-import { ValidationError } from './validator';
 
 export type AuthFormData = Record<string, string>;
 
 export interface AuthContext {
-  // TODO (pre-merge): remove unneeded ones
   user?: CognitoUserAmplify;
   config?: {
     login_mechanisms: string[];
