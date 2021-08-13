@@ -12,7 +12,7 @@ import { AuthState } from '../../common/types';
 import { AmplifyOverrideDirective } from '../../directives/amplify-override.directive';
 import { StateMachineService, AuthPropService } from '../../services';
 import { CustomComponents } from '../../common';
-import { State } from 'xstate';
+import { getActorState } from '@aws-amplify/ui-core';
 
 @Component({
   selector: 'amplify-authenticator',
@@ -53,9 +53,8 @@ export class AmplifyAuthenticatorComponent implements AfterContentInit {
   /**
    * Class Functions
    */
-
-  public getAuthState(): State<any> {
-    return this.stateMachine.authState;
+  public getAuthState() {
+    return getActorState(this.stateMachine.authState);
   }
 
   private mapCustomComponents(

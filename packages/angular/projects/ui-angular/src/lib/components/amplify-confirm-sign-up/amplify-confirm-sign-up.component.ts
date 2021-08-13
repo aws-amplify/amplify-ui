@@ -1,5 +1,9 @@
 import { Component, HostBinding, TemplateRef } from '@angular/core';
-import { AuthMachineState } from '@aws-amplify/ui-core';
+import {
+  AuthMachineState,
+  getActorContext,
+  getActorState,
+} from '@aws-amplify/ui-core';
 import { Logger } from '@aws-amplify/core';
 import { Subscription } from 'xstate';
 import { AuthPropService, StateMachineService } from '../../services';
@@ -33,12 +37,13 @@ export class AmplifyConfirmSignUpComponent {
   }
 
   setUsername() {
-    const { user, formValues } = this.stateMachine.context;
+    const actorContext = getActorContext(this.stateMachine.authState);
+    const { user, passedContext } = actorContext;
     /**
      * TODO (cross-framework): look for ways to persist username without
      * persisting formValues across auth states.
      */
-    const username = user?.username ?? formValues.username;
+    const username = user?.username ?? passedContext?.username;
     if (username) {
       this.username = username;
       this.stateMachine.send({
@@ -60,8 +65,9 @@ export class AmplifyConfirmSignUpComponent {
   }
 
   onStateUpdate(state: AuthMachineState): void {
-    this.remoteError = state.context.remoteError;
-    this.isPending = !state.matches('confirmSignUp.edit');
+    const actorState = getActorState(state);
+    this.remoteError = actorState.context.remoteError;
+    this.isPending = !actorState.matches('confirmSignUp.edit');
   }
 
   toSignIn(): void {
@@ -88,7 +94,7 @@ export class AmplifyConfirmSignUpComponent {
 
   async onSubmit(event: Event): Promise<void> {
     event.preventDefault();
-    const formValues = this.stateMachine.context.formValues;
+    const { formValues } = getActorContext(this.stateMachine.authState);
     // get form data
     const { username, confirmation_code } = formValues;
 

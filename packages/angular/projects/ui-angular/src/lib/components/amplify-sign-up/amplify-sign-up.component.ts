@@ -10,7 +10,11 @@ import {
 } from '@angular/core';
 import { AuthPropService, StateMachineService } from '../../services';
 import { Subscription } from 'xstate';
-import { AuthMachineState, getConfiguredAliases } from '@aws-amplify/ui-core';
+import {
+  AuthMachineState,
+  getActorState,
+  getConfiguredAliases,
+} from '@aws-amplify/ui-core';
 
 const logger = new Logger('SignUp');
 @Component({
@@ -57,10 +61,11 @@ export class AmplifySignUpComponent
   }
 
   private onStateUpdate(state: AuthMachineState): void {
-    this.remoteError = state.context.remoteError;
-    this.isPending = state.matches({
+    const actorState = getActorState(state);
+    this.remoteError = actorState.context.remoteError;
+    this.isPending = !actorState.matches({
       signUp: {
-        submission: 'valid',
+        submission: 'idle',
       },
     });
   }

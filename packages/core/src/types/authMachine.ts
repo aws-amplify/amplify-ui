@@ -14,7 +14,7 @@ export interface AuthContext {
     login_mechanisms: string[];
   };
   challengeName?: AuthChallengeNames;
-  actorRef?: any; // TODO (pre-merge): type this
+  actorRef?: any;
 }
 
 export interface CognitoUserAmplify extends CognitoUser {

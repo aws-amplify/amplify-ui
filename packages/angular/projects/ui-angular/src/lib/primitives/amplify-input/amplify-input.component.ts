@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { AuthInputAttributes } from '@aws-amplify/ui-core';
+import { AuthInputAttributes, getActorContext } from '@aws-amplify/ui-core';
 import { getAttributeMap } from '../../common';
 import { StateMachineService } from '../../services';
 
@@ -29,8 +29,8 @@ export class AmplifyInputComponent {
   }
 
   get error(): string {
-    const { validationError } = this.stateMachine.context;
-    return validationError[this.name];
+    const { validationError } = getActorContext(this.stateMachine.authState);
+    return validationError && validationError[this.name];
   }
 
   // infers what the `type` of underlying input element should be.
