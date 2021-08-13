@@ -8,7 +8,7 @@
   "main": "./dist/ui-core.cjs",
   "module": "./dist/ui-core.module.js",
   "unpkg": "./dist/ui-core.umd.js",
-  "types": "dist/ui-core.d.ts",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist"
   ],
