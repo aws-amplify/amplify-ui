@@ -135,7 +135,7 @@ export const signUpActor = createMachine<SignUpContext, AuthEvent>(
             entry: 'clearError',
             invoke: {
               src: 'confirmSignUp',
-              onDone: { target: '#signUpActor.resolved', actions: 'setUser' },
+              onDone: { target: '#signUpActor.resolved' },
               onError: { target: 'edit', actions: 'setRemoteError' },
             },
           },
@@ -143,13 +143,15 @@ export const signUpActor = createMachine<SignUpContext, AuthEvent>(
       },
       resolved: {
         type: 'final',
-        data: (context) => ({
-          user: context.user,
-          authAttributes: {
-            username: context.formValues.username,
-            password: context.formValues.password,
-          },
-        }),
+        data: (context) => {
+          const { username, password } = context.formValues;
+          const canAutoSignIn = !!(username && password);
+          return {
+            user: context.user,
+            intent: canAutoSignIn ? 'autoSignIn' : null,
+            authAttributes: { username, password },
+          };
+        },
       },
     },
   },
