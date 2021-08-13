@@ -18,13 +18,6 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
   {
     id: 'auth',
     initial: 'idle',
-    context: {
-      remoteError: '',
-      formValues: {},
-      validationError: {},
-      user: undefined,
-      session: undefined,
-    },
     states: {
       // See: https://xstate.js.org/docs/guides/communication.html#invoking-promises
       idle: {

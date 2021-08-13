@@ -6,15 +6,10 @@ export type AuthFormData = Record<string, string>;
 
 export interface AuthContext {
   // TODO (pre-merge): remove unneeded ones
-  remoteError?: string; // contains Amplify or Cognito error
-  validationError?: ValidationError; // contains validation error for each input
   user?: CognitoUserAmplify;
-  session?: CognitoUserSession;
-  formValues?: AuthFormData;
   config?: {
     login_mechanisms: string[];
   };
-  challengeName?: AuthChallengeNames;
   actorRef?: any;
 }
 
