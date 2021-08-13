@@ -64,16 +64,11 @@ export default function App() {
 
 ### Vue
 
-```js
+```html
 <authenticator>
   <template v-slot="{ user }">
-  <h1 class="text-6xl mb-10">Welcome {{ user.username }}!</h1>
-  <button
-    className="px-2 bg-white rounded shadow"
-    @click="send('SIGN_OUT')"
-  >
-    Sign Out
-  </button>
+    <h1>Welcome {{ user.username }}!</h1>
+    <button @click="send('SIGN_OUT')">Sign Out</button>
   </template>
 </authenticator>
 ```
@@ -84,7 +79,10 @@ export default function App() {
 
 ```html
 <amplify-authenticator>
-  <ng-template let-user="user"> Welcome, {{ user.username }}! </ng-template>
+  <ng-template amplifyOverride="authenticated" let-username="username">
+    <h1>Welcome, {{username}}!</h1>
+    <amplify-sign-out></amplify-sign-out>
+  </ng-template>
 </amplify-authenticator>
 ```
 
