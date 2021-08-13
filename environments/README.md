@@ -91,7 +91,7 @@ When an existing backend doesn't match your needs (or requires changes), you can
 1. Finally, you'll have "Local setup instructions" in the top-right:
 
    ```shell
-   amplify pull --appId bdggpca8876dp --envName staging
+   amplify pull --appId dbffpda9986p --envName staging
    ```
 
    ![](screenshot.7.png)
@@ -109,7 +109,7 @@ When an existing backend doesn't match your needs (or requires changes), you can
 1. Run the `amplify pull ...` command from Admin UI:
 
    ```shell
-   amplify pull --appId bdggpca8876dp --envName staging --yes
+   amplify pull --appId dbffpda9986p --envName staging --yes
    ```
 
    (Passing `--yes` will skip `amplify init` props and select defaults automatically)
@@ -130,7 +130,7 @@ After creating a new backend environment for local development, it can be useful
      "name": "my-custom-environment",
      "version": "0.0.1",
      "scripts": {
-       "pull": "amplify pull --appId bdggpca8876dp --envName staging"
+       "pull": "amplify pull --appId dbffpda9986p --envName staging"
      }
    }
    ```
