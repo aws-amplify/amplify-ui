@@ -100,8 +100,10 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
             authAttributes: event.data?.authAttributes,
             user: event.data?.user,
             intent: event.data?.intent,
+            formValues: {},
+            validationError: {},
           });
-          return spawn(actor, { name: 'signInActor', sync: true });
+          return spawn(actor, { name: 'signInActor' });
         },
       }),
       spawnSignUpActor: assign({
@@ -109,8 +111,10 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
           const actor = signUpActor.withContext({
             authAttributes: event.data?.authAttributes,
             intent: event.data?.intent,
+            formValues: {},
+            validationError: {},
           });
-          return spawn(actor, { name: 'signUpActor', sync: true });
+          return spawn(actor, { name: 'signUpActor' });
         },
       }),
       spawnSignOutActor: assign({
@@ -118,7 +122,7 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
           const actor = signOutActor.withContext({
             user: context.user,
           });
-          return spawn(actor, { name: 'signOutActor', sync: true });
+          return spawn(actor, { name: 'signOutActor' });
         },
       }),
     },

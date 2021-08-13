@@ -1,4 +1,4 @@
-import { createMachine, assign } from 'xstate';
+import { createMachine, assign, sendUpdate } from 'xstate';
 import { passwordMatches, runValidators } from '../../../validators';
 
 import { AuthEvent, SignUpContext } from '../../../types';
@@ -54,12 +54,14 @@ export const signUpActor = createMachine<SignUpContext, AuthEvent>(
             initial: 'idle',
             states: {
               idle: {
+                entry: sendUpdate(),
                 on: {
                   SUBMIT: 'validate',
                   FEDERATED_SIGN_IN: 'federatedSignIn',
                 },
               },
               federatedSignIn: {
+                entry: [sendUpdate(), 'clearError'],
                 invoke: {
                   src: 'federatedSignIn',
                   onDone: '#signUpActor.resolved',
@@ -67,6 +69,7 @@ export const signUpActor = createMachine<SignUpContext, AuthEvent>(
                 },
               },
               validate: {
+                entry: sendUpdate(),
                 invoke: {
                   src: 'validateFields',
                   onDone: {
@@ -80,6 +83,7 @@ export const signUpActor = createMachine<SignUpContext, AuthEvent>(
                 },
               },
               pending: {
+                entry: sendUpdate(),
                 invoke: {
                   src: 'signUp',
                   onDone: {
@@ -100,6 +104,7 @@ export const signUpActor = createMachine<SignUpContext, AuthEvent>(
         initial: 'edit',
         states: {
           edit: {
+            entry: sendUpdate(),
             on: {
               SUBMIT: 'submit',
               SIGN_IN: '#signUpActor.signUp',
@@ -108,6 +113,7 @@ export const signUpActor = createMachine<SignUpContext, AuthEvent>(
             },
           },
           resend: {
+            entry: sendUpdate(),
             invoke: {
               src: 'resendConfirmationCode',
               onDone: { target: 'edit' },
@@ -115,7 +121,7 @@ export const signUpActor = createMachine<SignUpContext, AuthEvent>(
             },
           },
           submit: {
-            entry: 'clearError',
+            entry: [sendUpdate(), 'clearError'],
             invoke: {
               src: 'confirmSignUp',
               onDone: { target: '#signUpActor.resolved' },

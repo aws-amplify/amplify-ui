@@ -94,5 +94,5 @@ export const getActorState = (state: AuthMachineState) => {
  * like remoteError.
  */
 export const getActorContext = (state: AuthMachineState) => {
-  return getActorState(state).context;
+  return getActorState(state)?.context;
 };

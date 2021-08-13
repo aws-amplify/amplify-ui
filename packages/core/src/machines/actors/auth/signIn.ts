@@ -1,4 +1,4 @@
-import { createMachine, sendParent, assign } from 'xstate';
+import { createMachine, sendParent, assign, sendUpdate } from 'xstate';
 import { get } from 'lodash';
 
 import { AuthEvent, AuthChallengeNames, SignInContext } from '../../../types';
@@ -31,6 +31,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
         initial: 'edit',
         states: {
           edit: {
+            entry: sendUpdate(),
             on: {
               SUBMIT: 'submit',
               CHANGE: { actions: 'handleInput' },
@@ -38,6 +39,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
             },
           },
           federatedSignIn: {
+            entry: [sendUpdate(), 'clearError'],
             invoke: {
               src: 'federatedSignIn',
               onDone: '#signInActor.resolved',
@@ -45,7 +47,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
             },
           },
           submit: {
-            entry: 'clearError',
+            entry: ['clearError', sendUpdate()],
             invoke: {
               src: 'signIn',
               onDone: [
@@ -87,6 +89,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
         initial: 'edit',
         states: {
           edit: {
+            entry: sendUpdate(),
             on: {
               SUBMIT: 'submit',
               SIGN_IN: '#signInActor.signIn',
@@ -94,7 +97,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
             },
           },
           submit: {
-            entry: 'clearError',
+            entry: ['clearError', sendUpdate()],
             invoke: {
               src: 'confirmSignIn',
               onDone: {
@@ -113,6 +116,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
         initial: 'edit',
         states: {
           edit: {
+            entry: sendUpdate(),
             on: {
               SUBMIT: 'submit',
               SIGN_IN: '#signInActor.signIn',
@@ -139,6 +143,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
         initial: 'edit',
         states: {
           edit: {
+            entry: sendUpdate(),
             on: {
               SUBMIT: 'submit',
               SIGN_IN: '#signInActor.signIn',
@@ -146,6 +151,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
             },
           },
           submit: {
+            entry: [sendUpdate(), 'clearError'],
             invoke: {
               src: 'verifyTotpToken',
               onDone: {
