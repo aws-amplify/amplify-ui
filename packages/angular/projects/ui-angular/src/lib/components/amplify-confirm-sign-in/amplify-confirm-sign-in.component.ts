@@ -12,6 +12,7 @@ import { Subscription } from 'xstate';
 import {
   AuthChallengeNames,
   AuthMachineState,
+  getActorContext,
   getActorState,
 } from '@aws-amplify/ui-core';
 
@@ -55,7 +56,7 @@ export class AmplifyConfirmSignInComponent
   }
 
   setHeaderText(): void {
-    const { challengeName } = this.stateMachine.context;
+    const { challengeName } = getActorContext(this.stateMachine.authState);
     switch (challengeName) {
       case AuthChallengeNames.SOFTWARE_TOKEN_MFA:
         // TODO: this string should be centralized and translated from ui-core.
