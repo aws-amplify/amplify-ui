@@ -14,7 +14,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import aws_exports from 'environments/auth-with-email/src/aws-exports';
+import aws_exports from '@environments/auth-with-email/src/aws-exports';
 
 import Amplify from 'aws-amplify';
 import '@aws-amplify/ui-vue/styles.css';
