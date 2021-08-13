@@ -12,6 +12,7 @@ export const View: React.FC<ViewProps> = (props) => {
     testId,
     ariaLabel,
     isDisabled,
+    style,
     ...rest
   } = props;
 
@@ -25,7 +26,7 @@ export const View: React.FC<ViewProps> = (props) => {
       disabled={isDisabled}
       id={id}
       role={role}
-      style={convertStylePropsToStyleObj(props)}
+      style={convertStylePropsToStyleObj(props, style)}
       {...getNonStyleProps(rest)}
     >
       {children}
