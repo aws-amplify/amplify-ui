@@ -145,7 +145,6 @@ export default defineComponent({
       changePasswordLabel,
       submit,
       onForceNewPasswordSubmit,
-      state,
       actorState,
       onHaveAccountClicked,
       signInButtonText,

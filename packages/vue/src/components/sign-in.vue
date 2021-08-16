@@ -217,7 +217,6 @@ export default {
       onForgotPasswordClicked,
       onCreateAccountClicked,
       onInput,
-      state,
       actorState,
       username,
       password,

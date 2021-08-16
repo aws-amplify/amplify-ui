@@ -167,7 +167,6 @@ export default defineComponent({
 
     return {
       ...toRefs(qrCode),
-      state,
       actorState,
       onSetupTOTPSubmit,
       onBackToSignInClicked,

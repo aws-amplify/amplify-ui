@@ -138,7 +138,6 @@ export default defineComponent({
       submit,
       backSignInText,
       confirmText,
-      state,
       actorState,
     };
   },

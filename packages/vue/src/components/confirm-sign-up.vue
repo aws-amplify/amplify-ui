@@ -188,7 +188,6 @@ export default defineComponent({
       backSignInText,
       confirmText,
       onLostCodeClicked,
-      state,
       actorState,
       send,
       username,
