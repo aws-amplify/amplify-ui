@@ -30,7 +30,7 @@ export class AmplifyInputComponent {
 
   get error(): string {
     const { validationError } = getActorContext(this.stateMachine.authState);
-    return validationError && validationError[this.name];
+    return validationError[this.name];
   }
 
   // infers what the `type` of underlying input element should be.
