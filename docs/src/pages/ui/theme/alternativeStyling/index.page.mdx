@@ -9,7 +9,7 @@ One of the goals of Amplify is to be a good citizen of the environment it exists
 
 ## CSS In JS
 
-There are many CSS In JS libraries out there that give a number of benefits. Amplify does not use a CSS In JS library to implement its theming system but operates well with the major CSS In JS libraries out there. Below are a few of the CSS In JS libraries out there and a description of how they interact with Amplify's theming system.
+There are many CSS In JS libraries out there that give a number of benefits. Amplify does not use a CSS In JS library to implement its theming system but operates well with the major CSS In JS libraries out there. Below are a few of the libraries with descriptions of how they work with Amplify's theming system.
 
 <BlockSwitcher>
 <Block name="Styled Components">
@@ -57,7 +57,7 @@ In the example above, the color of the view will be set to `red` because of the 
 
 ##### Amplify variation props
 
-These are Amplify props that are added to certain Amplify components to change the look and/or behavior of the Amplify component. Examples of these variation props are `size` or `variation`.
+These props change the look and/or behavior of certain Amplify components. Examples include `size` and `variation`.
 
 ```jsx
 import React from 'react';
@@ -126,7 +126,7 @@ In the example above, the button color will be set to `blue` because the Styled 
 </Block>
 
 <Block name="JSS">
-[JSS](https://github.com/cssinjs/jss/tree/master/packages/react-jss) is a lib for generating Style Sheets with Javascript.
+[JSS](https://github.com/cssinjs/jss/tree/master/packages/react-jss) is a library for generating Style Sheets with Javascript.
 
 #### Usage
 
@@ -169,7 +169,7 @@ const useStyles = createUseStyles({
 const classes = useStyles();
 
 <Text className={classes.styledText} color="red">
-  This is my JSS Text{' '}
+  This is my JSS Text
 </Text>;
 ```
 
@@ -177,7 +177,7 @@ In the example above, the color of the view will be set to `red` because of the 
 
 ##### Amplify variation props
 
-These are Amplify props that are added to certain Amplify components to change the look and/or behavior of the Amplify component. Examples of these variation props are `size` or `variation`.
+These props change the look and/or behavior of certain Amplify components. Examples include `size` and `variation`.
 
 ```jsx
 import React from 'react';
@@ -296,7 +296,7 @@ const styles = {
 };
 
 <Text css={css(styles)} color="red">
-  This is my Emotion Text{' '}
+  This is my Emotion Text
 </Text>;
 ```
 
@@ -304,7 +304,7 @@ In the example above, the color of the view will be set to `red` because of the 
 
 ##### Amplify variation props
 
-These are Amplify props that are added to certain Amplify components to change the look and/or behavior of the Amplify component. Examples of these variation props are `size` or `variation`.
+These props change the look and/or behavior of certain Amplify components. Examples include `size` and `variation`.
 
 ```jsx
 /** @jsxImportSource @emotion/react */
@@ -336,7 +336,7 @@ const styles = {
 };
 
 <Text css={css(styles)} className="my-styled-text">
-  This is my Emotion Text{' '}
+  This is my Emotion Text
 </Text>;
 ```
 
@@ -422,7 +422,7 @@ In the example above, the color of the view will be set to `blue` because of the
 
 ##### Amplify variation props
 
-These are Amplify props that are added to certain Amplify components to change the look and/or behavior of the Amplify component. Examples of these variation props are `size` or `variation`.
+These props change the look and/or behavior of certain Amplify components. Examples include `size` and `variation`.
 
 ```jsx
 import { StyleSheet, css } from 'aphrodite';
