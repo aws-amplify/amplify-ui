@@ -73,6 +73,7 @@ export interface ConfirmPasswordSetupReturnTypes {
   actorState: Ref;
   send: PayloadSender<AuthEvent>;
   primaryAlias: string;
+  username: string;
 }
 
 export interface ConfirmSignInSetupReturnTypes {

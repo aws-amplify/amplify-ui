@@ -8,7 +8,10 @@
         <base-field-set :disabled="actorState.matches('confirmSignUp.pending')">
           <user-name-alias
             :userNameAlias="true"
-            :userName="actorState?.context?.authAttributes?.username"
+            :userName="
+              actorState?.context?.user?.username ||
+              actorState?.context?.authAttributes?.username
+            "
             :disabled="true"
           />
           <base-label data-amplify-password>
@@ -85,7 +88,7 @@ import { useAliases } from '../composables/useUtils';
 import { useAuth } from '../composables/useAuth';
 
 import { ConfirmPasswordSetupReturnTypes, SetupEventContext } from '../types';
-import { getActorState } from '@aws-amplify/ui-core';
+import { getActorState, SignUpContext } from '@aws-amplify/ui-core';
 
 export default defineComponent({
   components: {
@@ -119,12 +122,14 @@ export default defineComponent({
       value: { context },
     } = state;
     const actorState = computed(() => getActorState(state.value));
-    const actorContext = actorState?.value.context;
+    const actorContext: SignUpContext = actorState?.value.context;
 
     let [primaryAlias] = useAliases(context?.config?.login_mechanisms);
     if (!actorContext.formValues?.confirm_password) {
       primaryAlias = 'username';
     }
+    const username =
+      actorContext.user?.username ?? actorContext.authAttributes?.username;
 
     //computed properties
 
@@ -197,6 +202,7 @@ export default defineComponent({
       actorState,
       send,
       primaryAlias,
+      username,
     };
   },
 });
