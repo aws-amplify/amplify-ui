@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { Heading } from '../Heading';
 import { ComponentClassNames } from '../../shared';
 import { ComponentPropsToStylePropsMap } from '../../types';
-import { kebabCase } from 'lodash';
+import { kebabCase } from 'lodash-es';
 
 describe('Heading: ', () => {
   it('renders an h6 tag by default', async () => {

@@ -2,7 +2,7 @@ import { Text } from '../Text';
 import { render, screen } from '@testing-library/react';
 import { ComponentClassNames } from '../../shared';
 import { ComponentPropsToStylePropsMap } from '../../types';
-import { kebabCase } from 'lodash';
+import { kebabCase } from 'lodash-es';
 
 describe('Text: ', () => {
   const textText = 'This is a Text primitive';

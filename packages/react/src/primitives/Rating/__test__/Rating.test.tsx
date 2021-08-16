@@ -1,7 +1,7 @@
 import { Rating } from '../Rating';
 import { render, screen } from '@testing-library/react';
 import { ComponentClassNames } from '../../shared';
-import { kebabCase } from 'lodash';
+import { kebabCase } from 'lodash-es';
 
 describe('Rating: ', () => {
   let customIcon;

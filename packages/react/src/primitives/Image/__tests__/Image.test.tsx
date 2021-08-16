@@ -2,7 +2,7 @@ import { Image } from '../Image';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { ComponentClassNames } from '../../shared';
 import { ComponentPropsToStylePropsMap } from '../../types';
-import { kebabCase } from 'lodash';
+import { kebabCase } from 'lodash-es';
 
 const altText = 'Cool cat';
 const src = 'http://localhost/cat.jpg';

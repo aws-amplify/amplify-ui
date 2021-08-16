@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { kebabCase } from 'lodash';
+import { kebabCase } from 'lodash-es';
 
 import { Collection } from '../Collection';
 import { ComponentPropsToStylePropsMap } from '../../types';

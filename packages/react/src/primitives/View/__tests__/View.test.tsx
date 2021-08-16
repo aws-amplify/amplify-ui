@@ -1,7 +1,7 @@
 import { View } from '../View';
 import { render, screen } from '@testing-library/react';
 import { ComponentPropsToStylePropsMap } from '../../types';
-import { kebabCase } from 'lodash';
+import { kebabCase } from 'lodash-es';
 
 describe('View: ', () => {
   const viewText = 'Hello from inside a view';
