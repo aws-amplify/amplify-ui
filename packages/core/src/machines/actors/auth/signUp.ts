@@ -103,7 +103,6 @@ export const signUpActor = createMachine<SignUpContext, AuthEvent>(
             entry: sendUpdate(),
             on: {
               SUBMIT: 'submit',
-              SIGN_IN: '#signUpActor.signUp',
               CHANGE: { actions: 'handleInput' },
               RESEND: 'resend',
             },
