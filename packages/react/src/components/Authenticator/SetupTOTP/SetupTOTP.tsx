@@ -22,8 +22,8 @@ export const SetupTOTP = (): JSX.Element => {
     components: { Fieldset, Form, Heading, Image, Label },
   } = useAmplify(amplifyNamespace);
 
-  const [state, send] = useAuth();
-  const actorState = getActorState(state);
+  const [_state, send] = useAuth();
+  const actorState = getActorState(_state);
   const isPending = actorState.matches('confirmSignIn.pending');
 
   const generateQRCode = async (user): Promise<void> => {

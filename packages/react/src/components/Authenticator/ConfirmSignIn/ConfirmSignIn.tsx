@@ -20,8 +20,8 @@ export const ConfirmSignIn = (): JSX.Element => {
     components: { Fieldset, Form, Heading, Label },
   } = useAmplify(amplifyNamespace);
 
-  const [state, send] = useAuth();
-  const actorState = getActorState(state);
+  const [_state, send] = useAuth();
+  const actorState = getActorState(_state);
   const isPending = actorState.matches('confirmSignIn.pending');
 
   const footerProps: ConfirmSignInFooterProps = {

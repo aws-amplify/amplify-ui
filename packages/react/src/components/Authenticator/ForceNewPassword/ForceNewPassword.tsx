@@ -17,8 +17,8 @@ export const ForceNewPassword = (): JSX.Element => {
     },
   } = useAmplify(amplifyNamespace);
 
-  const [state, send] = useAuth();
-  const actorState = getActorState(state);
+  const [_state, send] = useAuth();
+  const actorState = getActorState(_state);
   const { remoteError } = actorState.context;
   const isPending = actorState.matches('forceNewPassword.pending');
 

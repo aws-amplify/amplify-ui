@@ -18,8 +18,8 @@ export function ConfirmSignUp() {
     components: { Box, Button, Fieldset, Form, Heading, Label, Text },
   } = useAmplify(amplifyNamespace);
 
-  const [state, send] = useAuth();
-  const actorState = getActorState(state);
+  const [_state, send] = useAuth();
+  const actorState = getActorState(_state);
   const isPending = actorState.matches('confirmSignUp.pending');
 
   const footerProps: ConfirmSignInFooterProps = {

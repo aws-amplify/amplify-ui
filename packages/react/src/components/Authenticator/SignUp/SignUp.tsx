@@ -24,12 +24,12 @@ export function SignUp() {
     },
   } = useAmplify('Authenticator.SignUp');
 
-  const [state, send] = useAuth();
-  const actorState = getActorState(state);
+  const [_state, send] = useAuth();
+  const actorState = getActorState(_state);
   const isPending = actorState.matches('signUp.pending');
   const { remoteError } = actorState.context;
 
-  const [primaryAlias, ...secondaryAliases] = state.context.config
+  const [primaryAlias, ...secondaryAliases] = _state.context.config
     ?.login_mechanisms ?? ['username', 'email', 'phone_number'];
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -103,8 +103,8 @@ SignUp.AliasControl = ({
   const {
     components: { Input, Label, Text, ErrorText },
   } = useAmplify('Authenticator.SignUp.Password');
-  const [state] = useAuth();
-  const { validationError } = getActorContext(state);
+  const [_state] = useAuth();
+  const { validationError } = getActorContext(_state);
   const error = validationError[name];
 
   return (
@@ -131,8 +131,8 @@ SignUp.PasswordControl = ({
   const {
     components: { Input, Label, Text, ErrorText },
   } = useAmplify('Authenticator.SignUp.Password');
-  const [state] = useAuth();
-  const { validationError } = getActorContext(state);
+  const [_state] = useAuth();
+  const { validationError } = getActorContext(_state);
   const error = validationError[name];
 
   return (

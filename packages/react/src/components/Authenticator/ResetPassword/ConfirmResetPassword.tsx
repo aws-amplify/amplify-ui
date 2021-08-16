@@ -12,8 +12,8 @@ export const ConfirmResetPassword = (): JSX.Element => {
     components: { Box, Button, Fieldset, Form, Heading, Input, Label, Text },
   } = useAmplify(amplifyNamespace);
 
-  const [state, send] = useAuth();
-  const isPending = state.matches('confirmResetPassword.pending');
+  const [_state, send] = useAuth();
+  const isPending = _state.matches('confirmResetPassword.pending');
 
   const headerText = 'Reset your Password';
 

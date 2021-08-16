@@ -11,8 +11,8 @@ export const ErrorText = (props: ErrorTextProps): JSX.Element => {
     components: { Text },
   } = useAmplify(amplifyNamespace);
 
-  const [state] = useAuth();
-  const actorState = getActorState(state);
+  const [_state] = useAuth();
+  const actorState = getActorState(_state);
   const { remoteError } = actorState?.context;
 
   return (

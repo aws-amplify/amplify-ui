@@ -21,8 +21,8 @@ export function SignIn() {
     },
   } = useAmplify(amplifyNamespace);
 
-  const [state, send] = useAuth();
-  const actorState = getActorState(state);
+  const [_state, send] = useAuth();
+  const actorState = getActorState(_state);
   const isPending = actorState.matches('signIn.pending');
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -83,7 +83,7 @@ export function SignIn() {
           {isPending ? <>Signing in&hellip;</> : <>Sign In</>}
         </Button>
       </Footer>
-      <Box data-amplify-error>{state.event.data?.message}</Box>
+      <Box data-amplify-error>{actorState.context.remoteError}</Box>
       <ErrorText amplifyNamespace={amplifyNamespace} />
     </Form>
   );
