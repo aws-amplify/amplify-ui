@@ -92,7 +92,7 @@ export type AuthInputAttributes = Record<AuthInputNames, InputAttributes>;
 
 export interface AuthEvent {
   type: AuthEventTypes;
-  data?: any;
+  data?: Record<PropertyKey, any>;
 }
 
 export type AuthMachineState = State<AuthContext, AuthEvent>;
