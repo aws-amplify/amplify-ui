@@ -8,7 +8,7 @@
         <base-field-set :disabled="actorState.matches('confirmSignUp.pending')">
           <user-name-alias
             :userNameAlias="true"
-            :userName="actorState?.context?.formValues[primaryAlias]"
+            :userName="actorState?.context?.authAttributes?.username"
             :disabled="true"
           />
           <base-label data-amplify-password>
