@@ -87,8 +87,8 @@ export const signUpActor = createMachine<SignUpContext, AuthEvent>(
                 invoke: {
                   src: 'signUp',
                   onDone: {
-                    target: '#signUpActor.confirmSignUp',
-                    actions: 'setUser',
+                    target: 'resolved',
+                    actions: ['setUser', 'setCredentials'],
                   },
                   onError: {
                     target: 'idle',
@@ -96,6 +96,7 @@ export const signUpActor = createMachine<SignUpContext, AuthEvent>(
                   },
                 },
               },
+              resolved: { type: 'final', always: '#signUpActor.confirmSignUp' },
             },
           },
         },
@@ -133,7 +134,7 @@ export const signUpActor = createMachine<SignUpContext, AuthEvent>(
       resolved: {
         type: 'final',
         data: (context) => {
-          const { username, password } = context.formValues;
+          const { username, password } = context.authAttributes;
           const canAutoSignIn = !!(username && password);
           return {
             user: context.user,
@@ -159,6 +160,15 @@ export const signUpActor = createMachine<SignUpContext, AuthEvent>(
       }),
       setFieldErrors: assign({
         validationError: (_, event) => event.data,
+      }),
+      // stores username and password from signUp
+      setCredentials: assign({
+        authAttributes: (context) => {
+          const [primaryAlias] = context.login_mechanisms ?? ['username'];
+          const username = context.formValues[primaryAlias];
+          const password = context.formValues?.password;
+          return { username, password };
+        },
       }),
       handleInput: assign({
         formValues: (context, event) => {
