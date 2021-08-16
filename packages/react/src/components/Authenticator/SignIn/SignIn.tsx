@@ -2,9 +2,10 @@ import { getActorState } from '@aws-amplify/ui-core';
 import { useAmplify, useAuth } from '../../../hooks';
 
 import { FederatedSignIn } from '../FederatedSignIn';
-import { UserNameAlias } from '../shared';
+import { ErrorText, UserNameAlias } from '../shared';
 
 export function SignIn() {
+  const amplifyNamespace = 'Authenticator.SignIn';
   const {
     components: {
       Box,
@@ -18,7 +19,7 @@ export function SignIn() {
       Spacer,
       Text,
     },
-  } = useAmplify('Authenticator.SignIn');
+  } = useAmplify(amplifyNamespace);
 
   const [state, send] = useAuth();
   const actorState = getActorState(state);
@@ -83,6 +84,7 @@ export function SignIn() {
         </Button>
       </Footer>
       <Box data-amplify-error>{state.event.data?.message}</Box>
+      <ErrorText amplifyNamespace={amplifyNamespace} />
     </Form>
   );
 }
