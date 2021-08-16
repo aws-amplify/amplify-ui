@@ -6,7 +6,6 @@ import {
   authMachine,
   AuthMachineState,
 } from '@aws-amplify/ui-core';
-import { Logger } from '@aws-amplify/core';
 import { interpret, Event } from 'xstate';
 
 /**

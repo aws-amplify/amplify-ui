@@ -1,5 +1,5 @@
 import { Ref, ComputedRef, Slot } from 'vue';
-import { PayloadSender, EventObject } from 'xstate';
+import { PayloadSender } from 'xstate';
 import {
   AuthEvent,
   AuthInputAttributes,
