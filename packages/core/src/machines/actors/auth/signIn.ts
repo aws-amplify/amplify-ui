@@ -29,6 +29,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
       },
       signIn: {
         initial: 'edit',
+        exit: 'clearFormValues',
         states: {
           edit: {
             entry: sendUpdate(),
@@ -88,6 +89,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
       },
       confirmSignIn: {
         initial: 'edit',
+        exit: ['clearFormValues', 'clearError'],
         states: {
           edit: {
             entry: sendUpdate(),
@@ -115,6 +117,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
       },
       forceNewPassword: {
         initial: 'edit',
+        exit: ['clearFormValues', 'clearError'],
         states: {
           edit: {
             entry: sendUpdate(),
@@ -142,6 +145,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
       },
       setupTOTP: {
         initial: 'edit',
+        exit: ['clearFormValues', 'clearError'],
         states: {
           edit: {
             entry: sendUpdate(),
@@ -192,10 +196,6 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
           return { ...context.formValues, [name]: value };
         },
       }),
-      reportDone: sendParent((context) => ({
-        type: 'DONE',
-        data: { user: context.user },
-      })),
       setUser: assign({
         user: (_, event) => event.data.user || event.data,
       }),
@@ -207,6 +207,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
       }),
       clearChallengeName: assign({ challengeName: undefined }),
       clearError: assign({ remoteError: '' }),
+      clearFormValues: assign({ formValues: {} }),
     },
     guards: {
       shouldConfirmSignIn: (_, event): boolean => {
