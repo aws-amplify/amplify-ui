@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "name": "environments",
+  "version": "0.0.1",
+  "scripts": {
+    "pull": "chmod +x pull-environments.sh && ./pull-environments.sh"
+  }
+}
