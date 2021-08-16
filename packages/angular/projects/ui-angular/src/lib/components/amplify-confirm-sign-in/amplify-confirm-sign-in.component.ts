@@ -14,6 +14,8 @@ import {
   AuthMachineState,
   getActorContext,
   getActorState,
+  SignInContext,
+  SignInState,
 } from '@aws-amplify/ui-core';
 
 const logger = new Logger('ConfirmSignIn');
@@ -56,7 +58,9 @@ export class AmplifyConfirmSignInComponent
   }
 
   setHeaderText(): void {
-    const { challengeName } = getActorContext(this.stateMachine.authState);
+    const state = this.stateMachine.authState;
+    const actorContext: SignInContext = getActorContext(state);
+    const { challengeName } = actorContext;
     switch (challengeName) {
       case AuthChallengeNames.SOFTWARE_TOKEN_MFA:
         // TODO: this string should be centralized and translated from ui-core.
@@ -71,7 +75,7 @@ export class AmplifyConfirmSignInComponent
   }
 
   onStateUpdate(state: AuthMachineState): void {
-    const actorState = getActorState(state);
+    const actorState: SignInState = getActorState(state);
     this.remoteError = actorState.context.remoteError;
     this.isPending = !actorState.matches('confirmSignIn.edit');
   }

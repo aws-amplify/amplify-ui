@@ -14,6 +14,7 @@ import {
   AuthMachineState,
   getActorState,
   getConfiguredAliases,
+  SignUpState,
 } from '@aws-amplify/ui-core';
 
 const logger = new Logger('SignUp');
@@ -61,7 +62,7 @@ export class AmplifySignUpComponent
   }
 
   private onStateUpdate(state: AuthMachineState): void {
-    const actorState = getActorState(state);
+    const actorState: SignUpState = getActorState(state);
     this.remoteError = actorState.context.remoteError;
     this.isPending = !actorState.matches({
       signUp: {

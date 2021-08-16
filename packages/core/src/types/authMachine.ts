@@ -1,5 +1,5 @@
 import { CognitoUser } from 'amazon-cognito-identity-js';
-import { Interpreter, State } from 'xstate';
+import { Actor, Interpreter, State, StateMachine } from 'xstate';
 import { ValidationError } from './validator';
 
 export type AuthFormData = Record<string, string>;
@@ -41,6 +41,16 @@ export interface SignOutContext {
   user?: CognitoUserAmplify;
 }
 
+export type SignInState = State<SignInContext, AuthEvent>;
+export type SignUpState = State<SignUpContext, AuthEvent>;
+export type SignOutState = State<SignOutContext, AuthEvent>;
+export type ResetPasswordState = State<ResetPasswordContext, AuthEvent>;
+export type AuthActorContext =
+  | SignInContext
+  | SignUpContext
+  | SignOutContext
+  | ResetPasswordContext;
+export type AuthActorState = State<AuthActorContext, AuthEvent>;
 export interface CognitoUserAmplify extends CognitoUser {
   username?: string;
 }

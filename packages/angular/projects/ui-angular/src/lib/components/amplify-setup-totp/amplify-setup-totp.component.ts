@@ -9,7 +9,11 @@ import {
 import { Subscription } from 'xstate';
 import QRCode from 'qrcode';
 import { Auth, Logger } from 'aws-amplify';
-import { AuthMachineState, getActorState } from '@aws-amplify/ui-core';
+import {
+  AuthMachineState,
+  getActorState,
+  SignInState,
+} from '@aws-amplify/ui-core';
 import { AuthPropService, StateMachineService } from '../../services';
 
 const logger = new Logger('SetupTotp');
@@ -52,7 +56,7 @@ export class AmplifySetupTotpComponent
   }
 
   onStateUpdate(state: AuthMachineState): void {
-    const actorState = getActorState(state);
+    const actorState: SignInState = getActorState(state);
     this.remoteError = actorState.context.remoteError;
     this.isPending = !actorState.matches('setupTOTP.edit');
   }

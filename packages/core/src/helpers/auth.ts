@@ -1,6 +1,9 @@
 import { includes } from 'lodash';
+import { State } from 'xstate';
 import { AuthContext } from '..';
 import {
+  AuthActorContext,
+  AuthActorState,
   AuthInputAttributes,
   AuthMachineState,
   userNameAliasArray,
@@ -85,7 +88,7 @@ export const getConfiguredAliases = (context: AuthContext) => {
  * Get the state of current actor. This is useful for checking which screen
  * to render: e.g. `getActorState(state).matches('confirmSignUp.edit').
  */
-export const getActorState = (state: AuthMachineState) => {
+export const getActorState = (state: AuthMachineState): AuthActorState => {
   return state.context.actorRef?.getSnapshot();
 };
 
@@ -93,6 +96,6 @@ export const getActorState = (state: AuthMachineState) => {
  * Get the context of current actor. Useful for getting any nested context
  * like remoteError.
  */
-export const getActorContext = (state: AuthMachineState) => {
+export const getActorContext = (state: AuthMachineState): AuthActorContext => {
   return getActorState(state)?.context;
 };

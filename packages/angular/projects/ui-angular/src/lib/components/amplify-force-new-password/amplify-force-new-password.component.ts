@@ -13,6 +13,8 @@ import {
   AuthMachineState,
   getActorContext,
   getActorState,
+  SignInContext,
+  SignInState,
 } from '@aws-amplify/ui-core';
 import { AuthPropService, StateMachineService } from '../../services';
 
@@ -57,7 +59,7 @@ export class AmplifyForceNewPasswordComponent
   }
 
   onStateUpdate(state: AuthMachineState): void {
-    const actorState = getActorState(state);
+    const actorState: SignInState = getActorState(state);
     this.remoteError = actorState.context.remoteError;
     this.isPending = !actorState.matches('forceNewPassword.edit');
   }
@@ -77,7 +79,10 @@ export class AmplifyForceNewPasswordComponent
 
   onSubmit(event: Event) {
     event.preventDefault();
-    const { formValues } = getActorContext(this.stateMachine.authState);
+    // consider stateMachine directly providing actorState / actorContext
+    const state = this.stateMachine.authState;
+    const actorState: SignInContext = getActorContext(state);
+    const { formValues } = actorState;
 
     this.stateMachine.send({
       type: 'SUBMIT',

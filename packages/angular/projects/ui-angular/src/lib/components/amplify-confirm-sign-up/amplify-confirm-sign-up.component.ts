@@ -3,6 +3,8 @@ import {
   AuthMachineState,
   getActorContext,
   getActorState,
+  SignUpContext,
+  SignUpState,
 } from '@aws-amplify/ui-core';
 import { Logger } from '@aws-amplify/core';
 import { Subscription } from 'xstate';
@@ -37,7 +39,8 @@ export class AmplifyConfirmSignUpComponent {
   }
 
   setUsername() {
-    const actorContext = getActorContext(this.stateMachine.authState);
+    const state = this.stateMachine.authState;
+    const actorContext: SignUpContext = getActorContext(state);
     const { user, authAttributes } = actorContext;
     const username = user?.username ?? authAttributes?.username;
     if (username) {
@@ -61,7 +64,7 @@ export class AmplifyConfirmSignUpComponent {
   }
 
   onStateUpdate(state: AuthMachineState): void {
-    const actorState = getActorState(state);
+    const actorState: SignUpState = getActorState(state);
     this.remoteError = actorState.context.remoteError;
     this.isPending = !actorState.matches('confirmSignUp.edit');
   }
@@ -90,7 +93,9 @@ export class AmplifyConfirmSignUpComponent {
 
   onSubmit(event: Event) {
     event.preventDefault();
-    const { formValues } = getActorContext(this.stateMachine.authState);
+    const state = this.stateMachine.authState;
+    const actorContext: SignUpContext = getActorContext(state);
+    const { formValues } = actorContext;
     const { username, confirmation_code } = formValues;
 
     this.stateMachine.send({

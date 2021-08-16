@@ -11,7 +11,11 @@ import {
 } from '@angular/core';
 import { AuthPropService, StateMachineService } from '../../services';
 import { Subscription } from 'xstate';
-import { AuthMachineState, getActorState } from '@aws-amplify/ui-core';
+import {
+  AuthMachineState,
+  getActorState,
+  SignInState,
+} from '@aws-amplify/ui-core';
 
 const logger = new Logger('SignIn');
 
@@ -54,7 +58,7 @@ export class AmplifySignInComponent
   }
 
   onStateUpdate(state: AuthMachineState): void {
-    const actorState = getActorState(state);
+    const actorState: SignInState = getActorState(state);
     this.remoteError = actorState.context.remoteError;
     this.isPending = !actorState.matches('signIn.edit');
   }
