@@ -65,13 +65,14 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
                 },
                 {
                   actions: 'setUser',
-                  target: '#signInActor.resolved',
+                  target: 'resolved',
                 },
               ],
               onError: [
                 {
                   cond: 'shouldRedirectToConfirmSignUp',
-                  target: '#signInActor.rejected',
+                  actions: 'setUsername',
+                  target: 'rejected',
                 },
                 {
                   actions: 'setRemoteError',
@@ -80,6 +81,8 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
               ],
             },
           },
+          resolved: { always: '#signInActor.resolved' },
+          rejected: { always: '#signInActor.rejected' },
         },
       },
       confirmSignIn: {
@@ -176,9 +179,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
         type: 'final',
         data: (context) => ({
           intent: 'confirmSignUp',
-          authAttributes: {
-            username: context.formValues.username,
-          },
+          authAttributes: context.authAttributes,
         }),
       },
     },
@@ -193,6 +194,11 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
       }),
       setUser: assign({
         user: (_, event) => event.data.user || event.data,
+      }),
+      setUsername: assign({
+        authAttributes: (context) => ({
+          username: context.formValues.username,
+        }),
       }),
       setRemoteError: assign({
         remoteError: (_, event) => event.data?.message || event.data,
