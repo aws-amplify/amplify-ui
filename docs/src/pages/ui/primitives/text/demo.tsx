@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Text } from '@aws-amplify/ui-react';
 
 export const TextDemo = ({ children }) => {

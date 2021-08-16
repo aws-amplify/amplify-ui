@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import * as React from 'react';
 
 import { Button } from '../Button';
 import { Flex } from '../Flex';
@@ -13,7 +13,7 @@ export const PaginationItem: React.FC<PaginationItemProps> = (props) => {
 
   switch (type) {
     case 'page':
-      const onChange = useCallback(() => {
+      const onChange = React.useCallback(() => {
         onClick(page, currentPage);
       }, [page, currentPage]);
       return (
@@ -49,7 +49,7 @@ export const PaginationItem: React.FC<PaginationItemProps> = (props) => {
         </View>
       );
     case 'next':
-      const onNext = useCallback(() => {
+      const onNext = React.useCallback(() => {
         onClick(currentPage + 1);
       }, [currentPage]);
       return (
@@ -67,7 +67,7 @@ export const PaginationItem: React.FC<PaginationItemProps> = (props) => {
         </View>
       );
     case 'previous':
-      const onPrevious = useCallback(() => {
+      const onPrevious = React.useCallback(() => {
         onClick(currentPage - 1);
       }, [currentPage]);
       return (

@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React from 'react';
+import * as React from 'react';
 import { ComponentClassNames } from '../shared/constants';
 import { FlexProps } from '../types';
 import { View } from '../View';

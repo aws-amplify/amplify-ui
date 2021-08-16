@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import * as React from 'react';
 import { Placeholder, PlaceholderSize, Flex } from '@aws-amplify/ui-react';
 
 import { FieldLabeler } from '../../../../components/FieldLabeler';
 
 export const PlaceholderDemo = () => {
-  const [loaded, setLoaded] = useState<boolean>();
-  const [size, setSize] = useState<PlaceholderSize>();
+  const [loaded, setLoaded] = React.useState<boolean>();
+  const [size, setSize] = React.useState<PlaceholderSize>();
 
   return (
     <Flex direction="column" gap="1rem">

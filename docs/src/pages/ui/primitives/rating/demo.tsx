@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Rating } from '@aws-amplify/ui-react';
 import { RatingPropControls } from '@/components/RatingPropControls';
 

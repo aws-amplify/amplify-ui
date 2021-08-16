@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { ComponentClassNames } from '../shared/constants';
 import classNames from 'classnames';
 import { HeadingProps } from '../types';

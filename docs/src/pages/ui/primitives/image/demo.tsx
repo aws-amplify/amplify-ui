@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Image, View } from '@aws-amplify/ui-react';
 import { StylePropControls } from '@/components/StylePropControls';
 import { ImagePropControls } from '@/components/ImagePropControls';

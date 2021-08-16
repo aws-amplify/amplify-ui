@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { View, ViewAsHTMLElementTypes } from '@aws-amplify/ui-react';
 
 const FieldSet: React.FC<{

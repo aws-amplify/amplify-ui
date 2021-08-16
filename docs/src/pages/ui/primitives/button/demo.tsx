@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Button, ButtonSize, ButtonVariation } from '@aws-amplify/ui-react';
 import { FieldLabeler } from '@/components/FieldLabeler';
 

@@ -1,4 +1,4 @@
-import React, { AriaAttributes } from 'react';
+import * as React from 'react';
 
 // Base component definition
 export interface BaseComponentProps {
@@ -24,7 +24,7 @@ export interface BaseComponentProps {
 }
 
 export interface AriaProps {
-  ariaLabel?: AriaAttributes['aria-label'];
-  ariaCurrent?: AriaAttributes['aria-current'];
-  ariaDisabled?: AriaAttributes['aria-disabled'];
+  ariaLabel?: React.AriaAttributes['aria-label'];
+  ariaCurrent?: React.AriaAttributes['aria-current'];
+  ariaDisabled?: React.AriaAttributes['aria-disabled'];
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Property } from 'csstype';
 
 import { Icon, IconSize, Flex } from '@aws-amplify/ui-react';

@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import * as React from 'react';
 
 import { Heading, HeadingLevel, Flex, View } from '@aws-amplify/ui-react';
 
 import { FieldLabeler } from '../../../../components/FieldLabeler';
 
 export const HeadingDemo = () => {
-  const [level, setLevel] = useState<HeadingLevel>(6);
+  const [level, setLevel] = React.useState<HeadingLevel>(6);
 
   return (
     <Flex direction="column" gap="1rem">

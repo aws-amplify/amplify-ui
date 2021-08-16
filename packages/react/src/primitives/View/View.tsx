@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { convertStylePropsToStyleObj, getNonStyleProps } from '../shared/utils';
 import { ViewProps } from '../types/index';
 

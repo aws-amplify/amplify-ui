@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { ComponentClassNames } from '../shared/constants';
 import { ButtonProps } from '../types';
 import classNames from 'classnames';

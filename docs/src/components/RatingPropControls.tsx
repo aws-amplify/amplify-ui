@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { RatingProps } from '@aws-amplify/ui-react';
 import { FieldLabeler } from './FieldLabeler';
 

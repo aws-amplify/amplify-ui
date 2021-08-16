@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import * as React from 'react';
 import {
   Badge,
   BadgeVariation,
@@ -10,8 +10,8 @@ import {
 import { FieldLabeler } from '../../../../components/FieldLabeler';
 
 export const BadgeDemo = () => {
-  const [variation, setVariation] = useState<BadgeVariation>();
-  const [size, setSize] = useState<BadgeSize>();
+  const [variation, setVariation] = React.useState<BadgeVariation>();
+  const [size, setSize] = React.useState<BadgeSize>();
 
   return (
     <div>

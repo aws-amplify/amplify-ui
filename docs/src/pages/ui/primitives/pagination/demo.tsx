@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import * as React from 'react';
 
 import { Flex, Pagination } from '@aws-amplify/ui-react';
 
@@ -16,19 +16,19 @@ export const PaginationDemo: React.FC<PaginationDemoProps> = (props) => {
     defaultSiblingCount = 1,
     ...rest
   } = props;
-  const [currentPage, setCurrentPage] = useState(defaultCurrentPage);
-  const [totalPages, setTotalPages] = useState(defaultTotalPages);
-  const [siblingCount, setSiblingCount] = useState(defaultSiblingCount);
+  const [currentPage, setCurrentPage] = React.useState(defaultCurrentPage);
+  const [totalPages, setTotalPages] = React.useState(defaultTotalPages);
+  const [siblingCount, setSiblingCount] = React.useState(defaultSiblingCount);
 
-  const onNext = useCallback((newPage) => {
+  const onNext = React.useCallback((newPage) => {
     setCurrentPage(newPage);
   }, []);
 
-  const onPrev = useCallback((newPage) => {
+  const onPrev = React.useCallback((newPage) => {
     setCurrentPage(newPage);
   }, []);
 
-  const onChange = useCallback((newPage, prevPage) => {
+  const onChange = React.useCallback((newPage, prevPage) => {
     setCurrentPage(newPage);
   }, []);
   return (

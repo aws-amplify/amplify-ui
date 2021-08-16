@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import * as React from 'react';
 
 import { i18n } from './i18n';
 import { useRange, ELLIPSIS } from './useRange';
@@ -46,7 +46,7 @@ export const usePaginationItems = (
   // To get the range of page numbers to be rendered in the pagination primitive
   const range = useRange(currentPage, totalPages, siblingCount);
 
-  const pageItems = useMemo(
+  const pageItems = React.useMemo(
     () =>
       range.map((item, idx) => {
         if (item === ELLIPSIS) {
