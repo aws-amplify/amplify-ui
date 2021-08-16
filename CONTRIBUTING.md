@@ -79,17 +79,3 @@ Internally, this content is served by a single, Next.js [optional catch all rout
 #### Flutter Development
 
 1. see [packages/flutter/README.md](packages/flutter/README.md)
-
-## Updating Icons
-
-If material design icon svg files are updated [upstream](https://github.com/google/material-design-icons/), follow these steps to update our icons components for all frameworks:
-
-1. Copy [material-design-icons repo](https://github.com/google/material-design-icons/) svg icons to `material-design-icons` folder (TODO: create script for this step)
-1. Update components for all frameworks by runing the following command at root:
-
-```
-yarn build:icons
-```
-
-1. Review and commit changes to icons
-1. Submit PR for review
