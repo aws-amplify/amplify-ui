@@ -1,4 +1,4 @@
-import { createMachine, sendParent, assign, sendUpdate } from 'xstate';
+import { createMachine, assign, sendUpdate } from 'xstate';
 import { get } from 'lodash';
 
 import { AuthEvent, AuthChallengeNames, SignInContext } from '../../../types';
