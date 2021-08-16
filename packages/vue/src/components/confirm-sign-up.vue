@@ -117,17 +117,9 @@ export default defineComponent({
     { emit, attrs }: SetupEventContext
   ): ConfirmPasswordSetupReturnTypes {
     const { state, send } = useAuth();
-
-    const {
-      value: { context },
-    } = state;
     const actorState = computed(() => getActorState(state.value));
     const actorContext: SignUpContext = actorState?.value.context;
 
-    let [primaryAlias] = useAliases(context?.config?.login_mechanisms);
-    if (!actorContext.formValues?.confirm_password) {
-      primaryAlias = 'username';
-    }
     const username =
       actorContext.user?.username ?? actorContext.authAttributes?.username;
 
@@ -151,15 +143,13 @@ export default defineComponent({
 
     const submit = (e: Event): void => {
       const formData = new FormData(<HTMLFormElement>e.target);
-      const { user, authAttributes } = actorContext;
-      const username = user?.username ?? authAttributes?.username;
       send({
         type: 'SUBMIT',
         //@ts-ignore
         data: {
           //@ts-ignore
           ...Object.fromEntries(formData),
-          username: username,
+          username,
         },
       });
     };
@@ -172,7 +162,7 @@ export default defineComponent({
         send({
           type: 'RESEND',
           //@ts-ignore
-          data: { username: context?.formValues[primaryAlias] },
+          data: { username },
         });
       }
     };
@@ -201,7 +191,6 @@ export default defineComponent({
       state,
       actorState,
       send,
-      primaryAlias,
       username,
     };
   },

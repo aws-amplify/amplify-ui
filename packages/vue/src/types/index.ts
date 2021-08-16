@@ -72,7 +72,6 @@ export interface ConfirmPasswordSetupReturnTypes {
   state: Ref;
   actorState: Ref;
   send: PayloadSender<AuthEvent>;
-  primaryAlias: string;
   username: string;
 }
 
