@@ -7,6 +7,7 @@ export interface AuthContext {
   remoteError?: string; // contains Amplify or Cognito error
   validationError?: ValidationError; // contains validation error for each input
   user?: CognitoUserAmplify;
+  username?: string;
   session?: CognitoUserSession;
   formValues?: AuthFormData;
   config?: {
@@ -29,7 +30,8 @@ export type AuthEventTypes =
   | 'CONFIRM_SIGN_IN'
   | 'INPUT'
   | 'CHANGE'
-  | 'FEDERATED_SIGN_IN';
+  | 'FEDERATED_SIGN_IN'
+  | 'RESET_PASSWORD';
 
 export enum AuthChallengeNames {
   SMS_MFA = 'SMS_MFA',

@@ -51,7 +51,12 @@ export function SignIn() {
           <Input name="password" required type="password" />
           <Box>
             <Text>Forgot your password?</Text>{' '}
-            <Button type="button">Reset Password</Button>
+            <Button
+              onClick={() => send({ type: 'RESET_PASSWORD' })}
+              type="button"
+            >
+              Reset Password
+            </Button>
           </Box>
         </Label>
       </Fieldset>
