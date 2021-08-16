@@ -15,7 +15,7 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "microbundle",
-    "dev": "microbundle watch",
+    "dev": "microbundle watch --no-compress --raw",
     "test": "echo \"Skipped: no test specified\""
   },
   "dependencies": {

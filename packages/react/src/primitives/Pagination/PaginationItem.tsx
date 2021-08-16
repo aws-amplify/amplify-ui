@@ -4,6 +4,7 @@ import { Button } from '../Button';
 import { Flex } from '../Flex';
 import { Text } from '../Text';
 import { View } from '../View';
+// TODO Import directly from @material-ui/icons
 import { IconChevronLeft, IconChevronRight } from '../Icon';
 import { PaginationItemProps } from '../types/pagination';
 
@@ -62,7 +63,7 @@ export const PaginationItem: React.FC<PaginationItemProps> = (props) => {
             ariaLabel={ariaLabel}
             {...rest}
           >
-            <IconChevronRight size="large" />
+            <IconChevronRight data-size="large" />
           </Button>
         </View>
       );
@@ -80,7 +81,7 @@ export const PaginationItem: React.FC<PaginationItemProps> = (props) => {
             ariaLabel={ariaLabel}
             {...rest}
           >
-            <IconChevronLeft size="large" />
+            <IconChevronLeft data-size="large" />
           </Button>
         </View>
       );

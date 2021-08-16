@@ -2,50 +2,61 @@
   "private": true,
   "name": "@aws-amplify/ui-react",
   "version": "0.0.1",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "type": "module",
+  "main": "./dist/ui-react.js",
+  "module": "./dist/ui-react.esm.js",
+  "unpkg": "./dist/ui-react.umd.js",
+  "exports": {
+    ".": "./dist/ui-react.modern.js",
+    "./styles.css": "./dist/ui-react.css"
+  },
   "files": [
-    "dist/*.{js,ts}",
-    "dist/**/*.{js,ts}"
+    "dist"
   ],
   "scripts": {
-    "build": "tsc",
-    "update:icons": "node scripts/updateIcons.js",
-    "build:icons": "yarn run clean:icons && node scripts/generateIcons.js",
-    "clean": "rimraf dist",
-    "clean:icons": "rimraf ./src/primitives/Icon/icons",
+    "prebuild": "rimraf dist",
+    "build": "microbundle --jsx 'React.createElement' --jsxImportSource react --globals react/jsx-runtime=jsx",
+    "predev": "rimraf dist",
+    "dev": "yarn build watch --no-compress --raw",
     "primitives:new": "hygen primitives new",
-    "test": "yarn test:unit",
-    "test:watch": "yarn test:unit:watch",
-    "test:unit": "jest",
-    "test:unit:watch": "jest --watch"
+    "test": "jest"
   },
   "dependencies": {
+    "@aws-amplify/ui-core": "^0.0.1",
+    "@aws-amplify/ui-theme-base": "^0.0.1",
+    "@material-ui/core": "^4.12.3",
+    "@material-ui/icons": "^4.11.2",
     "@xstate/react": "^1.4.0",
     "classnames": "^2.3.1",
     "qrcode": "^1.4.4"
   },
   "peerDependencies": {
-    "@aws-amplify/ui-core": "^0.0.1",
-    "@aws-amplify/ui-theme-base": "^0.0.1"
+    "aws-amplify": "3.x.x || 4.x.x",
+    "react": ">= 16.8.0",
+    "react-dom": ">= 16.8.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/forms": "^0.2.1",
+    "@tailwindcss/typography": "^0.4.0",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^12.0.0",
+    "@testing-library/user-event": "^13.2.1",
+    "@types/jest": "^26.0.23",
+    "@types/react": "^17.0.2",
+    "@types/testing-library__jest-dom": "^5.14.1",
+    "autoprefixer": "^10.2.4",
+    "hygen": "^6.1.0",
+    "jest": "^27.0.4",
+    "microbundle": "^0.13.3",
+    "rimraf": "^3.0.2",
+    "tailwindcss": "^2.0.3",
+    "ts-jest": "^27.0.3",
+    "typescript": "^4.3.2"
   },
   "workspaces": {
     "nohoist": [
       "@types/testing-library__jest-dom",
       "@types/testing-library__jest-dom/**"
     ]
-  },
-  "devDependencies": {
-    "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^12.0.0",
-    "@testing-library/user-event": "^13.2.1",
-    "@types/jest": "^26.0.23",
-    "@types/testing-library__jest-dom": "^5.14.1",
-    "degit": "^2.8.4",
-    "hygen": "^6.1.0",
-    "jest": "^27.0.4",
-    "rimraf": "^3.0.2",
-    "ts-jest": "^27.0.3",
-    "typescript": "^4.3.2"
   }
 }

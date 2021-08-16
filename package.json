@@ -5,7 +5,7 @@
     "postinstall": "patch-package",
     "build": "yarn workspaces run build",
     "angular": "yarn workspace @aws-amplify/ui-angular",
-    "react": "yarn workspace @aws-amplify/ui-react",
+    "react": "yarn wsrun --exclude-missing --package @aws-amplify/ui-react --recursive",
     "core": "yarn workspace @aws-amplify/ui-core",
     "vue": "yarn workspace @aws-amplify/ui-vue",
     "theme-base": "yarn workspace @aws-amplify/ui-theme-base",
@@ -37,7 +37,8 @@
   },
   "dependencies": {
     "patch-package": "^6.4.7",
-    "postinstall-postinstall": "^2.1.0"
+    "postinstall-postinstall": "^2.1.0",
+    "wsrun": "^5.2.4"
   },
   "devDependencies": {
     "husky": ">=6",
