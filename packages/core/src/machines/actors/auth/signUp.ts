@@ -22,7 +22,7 @@ export const signUpActor = createMachine<SignUpContext, AuthEvent>(
       },
       signUp: {
         type: 'parallel',
-        exit: 'clearError',
+        exit: ['clearError', 'clearFormValues'],
         states: {
           validation: {
             initial: 'pending',
@@ -83,7 +83,7 @@ export const signUpActor = createMachine<SignUpContext, AuthEvent>(
                 },
               },
               pending: {
-                entry: sendUpdate(),
+                entry: [sendUpdate(), 'clearError'],
                 invoke: {
                   src: 'signUp',
                   onDone: {
@@ -184,10 +184,10 @@ export const signUpActor = createMachine<SignUpContext, AuthEvent>(
       async signUp(context, _event) {
         const {
           formValues: { password, ...formValues },
-          config,
+          login_mechanisms,
         } = context;
 
-        const [primaryAlias] = config?.login_mechanisms ?? ['username'];
+        const [primaryAlias] = login_mechanisms ?? ['username'];
 
         if (formValues.phone_number) {
           formValues.phone_number = formValues.phone_number.replace(

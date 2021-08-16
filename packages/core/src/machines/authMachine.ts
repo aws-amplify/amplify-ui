@@ -126,12 +126,13 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
         },
       }),
       spawnSignUpActor: assign({
-        actorRef: (_, event) => {
+        actorRef: (context, event) => {
           const actor = signUpActor.withContext({
             authAttributes: event.data?.authAttributes,
             intent: event.data?.intent,
             formValues: {},
             validationError: {},
+            login_mechanisms: context.config?.login_mechanisms,
           });
           return spawn(actor, { name: 'signUpActor' });
         },

@@ -27,9 +27,7 @@ export interface SignUpContext {
   validationError?: ValidationError;
   formValues?: AuthFormData;
   user?: CognitoUserAmplify;
-  config?: {
-    login_mechanisms: string[];
-  };
+  login_mechanisms?: string[];
   intent?: string;
   authAttributes?: Record<string, any>;
 }
