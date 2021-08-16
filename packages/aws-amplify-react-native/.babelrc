@@ -1,0 +1,7 @@
+{
+	"presets": ["@babel/preset-react", "@babel/env", "@babel/preset-typescript"],
+	"plugins": [
+		"@babel/plugin-transform-typescript",
+		"@babel/proposal-object-rest-spread"
+	]
+}
