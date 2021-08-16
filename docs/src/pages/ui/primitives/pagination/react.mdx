@@ -1,29 +1,8 @@
 import { Flex } from '@aws-amplify/ui-react';
 import { PaginationDemo } from './demo.tsx';
 import { Example } from '@/components/Example';
-import Block from 'amplify-docs/src/components/Block';
-import BlockSwitcher from 'amplify-docs/src/components/BlockSwitcher';
 
 Pagination provides navigation to allow customers to move between large sets of content that are distributed across multiple pages.
-
-## Installation
-
-<BlockSwitcher>
-<Block name="npm">
-
-```shell
-npm install @aws-amplify/ui-react
-```
-
-</Block>
-<Block name="yarn">
-
-```shell
-yarn add @aws-amplify/ui-react
-```
-
-</Block>
-</BlockSwitcher>
 
 ## Demo
 
@@ -45,6 +24,18 @@ import '@aws-amplify/ui-react/styles.css';
   onNext={this.onNext}
   onPrevious={this.onPrevious}
 />;
+```
+
+<PaginationDemo isDemo={false} />
+
+Or create with the built-in usePagination hook.
+
+```jsx
+import { Pagination, usePagination } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+const pagination = usePagination({ currentPage: 1, totalPages: 10, siblingCount: 1 })
+<Pagination {...pagination} />;
 ```
 
 <PaginationDemo isDemo={false} />

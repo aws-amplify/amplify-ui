@@ -1,29 +1,8 @@
 import { Badge } from '@aws-amplify/ui-react';
 import { BadgeDemo } from './demo';
 import { Example } from '@/components/Example';
-import Block from 'amplify-docs/src/components/Block';
-import BlockSwitcher from 'amplify-docs/src/components/BlockSwitcher';
 
 A Badge is a small visual element to denote a status or message about an item. A small, color-coded visual element that contains letters or numbers, that you can use to label, categorize, or organize items.
-
-## Installation
-
-<BlockSwitcher>
-<Block name="npm">
-
-```shell
-npm install @aws-amplify/ui-react
-```
-
-</Block>
-<Block name="yarn">
-
-```shell
-yarn add @aws-amplify/ui-react
-```
-
-</Block>
-</BlockSwitcher>
 
 ## Demo
 
@@ -166,6 +145,8 @@ _Using style props:_
 ```
 
 <Example>
-  <Badge style={{ backgroundColor: 'green' }}>Green</Badge>
-  <Badge backgroundColor="purple">Purple</Badge>
+  <Badge style={{ backgroundColor: 'green', color: 'white' }}>Green</Badge>
+  <Badge backgroundColor="purple" color="white">
+    Purple
+  </Badge>
 </Example>
