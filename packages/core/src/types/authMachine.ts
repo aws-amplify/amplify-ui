@@ -34,6 +34,11 @@ export interface SignUpContext {
   authAttributes?: Record<string, any>;
 }
 
+export interface ResetPasswordContext {
+  remoteError?: string;
+  formValues?: ValidationError;
+  username?: string;
+}
 export interface SignOutContext {
   user?: CognitoUserAmplify;
 }
@@ -53,7 +58,8 @@ export type AuthEventTypes =
   | 'RESET_PASSWORD'
   | 'done.invoke.signInActor'
   | 'done.invoke.signUpActor'
-  | 'done.invoke.signOutActor';
+  | 'done.invoke.signOutActor'
+  | 'done.invoke.resetPasswordActor';
 
 export enum AuthChallengeNames {
   SMS_MFA = 'SMS_MFA',

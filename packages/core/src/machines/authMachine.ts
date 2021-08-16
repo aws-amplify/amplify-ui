@@ -1,9 +1,13 @@
 import { assign, createMachine, forwardTo, spawn } from 'xstate';
 import { Auth, Amplify } from 'aws-amplify';
-import { CognitoUser } from 'amazon-cognito-identity-js';
 import { AuthContext, AuthEvent } from '../types';
 import { inspect } from '@xstate/inspect';
-import { signInActor, signUpActor, signOutActor } from './actors';
+import {
+  signInActor,
+  signUpActor,
+  signOutActor,
+  resetPasswordActor,
+} from './actors';
 import { stopActor } from './actions';
 
 // TODO: Remove this before it's merged.
@@ -46,6 +50,7 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
         exit: stopActor('signInActor'),
         on: {
           SIGN_UP: 'signUp',
+          RESET_PASSWORD: 'resetPassword',
           'done.invoke.signInActor': [
             {
               target: 'signUp',
@@ -63,12 +68,23 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
         exit: stopActor('signUpActor'),
         on: {
           SIGN_IN: 'signIn',
-          'done.invoke.signUpActor': 'signIn',
+          'done.invoke.signUpActor': {
+            target: 'signIn',
+            actions: 'setUser',
+          },
+        },
+      },
+      resetPassword: {
+        entry: 'spawnResetPasswordActor',
+        exit: stopActor('resetPasswordActor'),
+        on: {
+          SIGN_IN: 'signIn',
+          'done.invoke.resetPasswordActor': 'signIn',
         },
       },
       signOut: {
         entry: 'spawnSignOutActor',
-        exit: stopActor('signOutActor'),
+        exit: [stopActor('signOutActor'), 'clearUser'],
         on: { 'done.invoke.signOutActor': 'idle' },
       },
       authenticated: {
@@ -88,6 +104,9 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
       forwardToActor: forwardTo((context) => context.actorRef),
       setUser: assign({
         user: (_, event) => event.data.user || event.data,
+      }),
+      clearUser: assign({
+        user: undefined,
       }),
       setAuthConfig: assign({
         config(_, event) {
@@ -117,8 +136,16 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
           return spawn(actor, { name: 'signUpActor' });
         },
       }),
-      spawnSignOutActor: assign({
+      spawnResetPasswordActor: assign({
         actorRef: (context, event) => {
+          const actor = resetPasswordActor.withContext({
+            formValues: {},
+          });
+          return spawn(actor, { name: 'resetPasswordActor' });
+        },
+      }),
+      spawnSignOutActor: assign({
+        actorRef: (context) => {
           const actor = signOutActor.withContext({
             user: context.user,
           });

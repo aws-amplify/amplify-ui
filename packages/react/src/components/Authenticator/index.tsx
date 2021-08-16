@@ -57,9 +57,9 @@ export function Authenticator({
               return <SignUp />;
             case actorState?.matches('forceNewPassword'):
               return <ForceNewPassword />;
-            case state.matches('resetPassword'):
+            case actorState?.matches('resetPassword'):
               return <ResetPassword />;
-            case state.matches('confirmResetPassword'):
+            case actorState?.matches('confirmResetPassword'):
               return <ConfirmResetPassword />;
             default:
               console.warn('Unhandled Auth state', state.value);
