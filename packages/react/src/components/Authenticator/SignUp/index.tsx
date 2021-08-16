@@ -1,4 +1,4 @@
-import { includes } from 'lodash';
+import { includes } from 'lodash-es';
 
 import { useAmplify, useAuth } from '../../../hooks';
 
