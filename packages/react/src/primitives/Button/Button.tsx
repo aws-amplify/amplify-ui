@@ -17,6 +17,7 @@ export const Button: React.FC<ButtonProps> = ({
   size,
   variation,
   type = 'button',
+  ...rest
 }) => (
   <View
     aria-label={ariaLabel}
@@ -30,6 +31,7 @@ export const Button: React.FC<ButtonProps> = ({
     id={id}
     onClick={onClick}
     type={type}
+    {...rest}
   >
     {isLoading && loadingText ? <span>{loadingText}</span> : children}
   </View>
