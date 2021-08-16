@@ -17,6 +17,14 @@ export const ConfirmResetPassword = (): JSX.Element => {
 
   const headerText = 'Reset your Password';
 
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    send({
+      type: 'CHANGE',
+      data: { name, value },
+    });
+  };
+
   return (
     <Form
       data-amplify-authenticator-confirmresetpassword=""
@@ -32,6 +40,7 @@ export const ConfirmResetPassword = (): JSX.Element => {
           data: Object.fromEntries(formData),
         });
       }}
+      onChange={handleChange}
     >
       <Heading level={1}>{headerText}</Heading>
 
@@ -53,9 +62,6 @@ export const ConfirmResetPassword = (): JSX.Element => {
             onClick={() => {
               send({
                 type: 'RESEND',
-                data: {
-                  username: state.context.username,
-                },
               });
             }}
             type="button"

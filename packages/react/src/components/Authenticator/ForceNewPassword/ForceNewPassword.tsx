@@ -1,4 +1,4 @@
-import { getActorState } from '../../../../../core';
+import { getActorState } from '@aws-amplify/ui-core';
 import { useAmplify, useAuth } from '../../../hooks';
 
 export const ForceNewPassword = (): JSX.Element => {

@@ -9,7 +9,7 @@ import {
   ConfirmSignInFooter,
   ConfirmSignInFooterProps,
 } from '../shared';
-import { getActorState } from '../../../../../core';
+import { getActorState } from '@aws-amplify/ui-core';
 
 const logger = new Logger('SetupTOTP-logger');
 

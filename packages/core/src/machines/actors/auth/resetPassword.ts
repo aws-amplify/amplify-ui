@@ -98,15 +98,15 @@ export const resetPasswordActor = createMachine<
       clearUsername: assign({ username: undefined }),
     },
     services: {
-      async resetPassword(context, event) {
+      async resetPassword(context) {
         const { username } = context.formValues;
         context.username = username;
 
         return Auth.forgotPassword(username);
       },
-      async confirmResetPassword(context, event) {
+      async confirmResetPassword(context) {
         const { username } = context;
-        const { confirmation_code: code, password } = event.data;
+        const { confirmation_code: code, password } = context.formValues;
 
         return Auth.forgotPasswordSubmit(username, code, password);
       },
