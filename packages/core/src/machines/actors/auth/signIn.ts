@@ -8,11 +8,6 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
   {
     initial: 'init',
     id: 'signInActor',
-    context: {
-      remoteError: '',
-      formValues: {},
-      validationError: {},
-    },
     states: {
       init: {
         always: [
