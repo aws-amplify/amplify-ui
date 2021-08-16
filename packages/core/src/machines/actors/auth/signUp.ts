@@ -185,6 +185,11 @@ export const signUpActor = createMachine<SignUpContext, AuthEvent>(
 
         return Auth.resendSignUp(username);
       },
+      async federatedSignIn(_, event) {
+        const { provider } = event.data;
+        const result = await Auth.federatedSignIn({ provider });
+        return result;
+      },
       async signUp(context, _event) {
         const {
           formValues: { password, ...formValues },
