@@ -1,5 +1,4 @@
 import { includes } from 'lodash';
-import { State } from 'xstate';
 import { AuthContext } from '..';
 import {
   AuthActorContext,

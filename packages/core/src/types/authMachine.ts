@@ -1,5 +1,5 @@
 import { CognitoUser } from 'amazon-cognito-identity-js';
-import { Actor, Interpreter, State, StateMachine } from 'xstate';
+import { Interpreter, State } from 'xstate';
 import { ValidationError } from './validator';
 
 export type AuthFormData = Record<string, string>;
