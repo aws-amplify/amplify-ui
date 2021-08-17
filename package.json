@@ -9,7 +9,7 @@
     "core": "yarn workspace @aws-amplify/ui-core",
     "vue": "yarn workspace @aws-amplify/ui-vue",
     "theme-base": "yarn workspace @aws-amplify/ui-theme-base",
-    "angular-example": "yarn workspace angular-example",
+    "angular-docs": "yarn workspace angular-docs",
     "docs": "yarn workspace docs",
     "next-example": "yarn workspace next-example",
     "vue-example": "yarn workspace vue-example",
@@ -19,6 +19,7 @@
     "build:angular": "yarn angular build",
     "build:angular:watch": "yarn angular build --watch",
     "build:theme-base": "yarn theme-base build",
+    "dev:angular": "yarn angular-docs start",
     "test": "yarn react test && yarn e2e test",
     "prepare": "husky install"
   },
