@@ -84,7 +84,6 @@ import {
   CONFIRM_TEXT,
 } from '../defaults/DefaultTexts';
 
-import { useAliases } from '../composables/useUtils';
 import { useAuth } from '../composables/useAuth';
 
 import { ConfirmPasswordSetupReturnTypes, SetupEventContext } from '../types';
@@ -118,13 +117,11 @@ export default defineComponent({
   ): ConfirmPasswordSetupReturnTypes {
     const { state, send } = useAuth();
     const actorState = computed(() => getActorState(state.value));
-    const actorContext: SignUpContext = actorState?.value.context;
 
-    const username =
-      actorContext.user?.username ?? actorContext.authAttributes?.username;
+    const context: SignUpContext = actorState.value.context;
+    const username = context.user?.username ?? context.authAttributes?.username;
 
     //computed properties
-
     const confirmSignUpHeading = computed(() => CONFIRM_SIGNUP_HEADING);
     const confirmationCodeText = computed(() => CONFIRMATION_CODE_TEXT);
     const lostYourCodeText = computed(() => LOST_YOUR_CODE_TEXT);

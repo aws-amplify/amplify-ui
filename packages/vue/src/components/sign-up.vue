@@ -66,6 +66,7 @@ import {
   authInputAttributes,
   getActorContext,
   getActorState,
+  SignUpContext,
   socialProviderLoginMechanisms,
 } from '@aws-amplify/ui-core';
 
@@ -144,7 +145,8 @@ export default defineComponent({
     const inputAttributes = computed(() => authInputAttributes);
 
     watch(state, (first) => {
-      error.value = getActorContext(first).validationError?.confirm_password;
+      const actorContext: SignUpContext = getActorContext(first);
+      error.value = actorContext.validationError?.confirm_password;
     });
     // Methods
 

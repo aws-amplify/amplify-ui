@@ -33,6 +33,7 @@ export interface SignUpContext {
 }
 
 export interface ResetPasswordContext {
+  validationError?: ValidationError;
   remoteError?: string;
   formValues?: ValidationError;
   username?: string;
@@ -40,6 +41,12 @@ export interface ResetPasswordContext {
 export interface SignOutContext {
   user?: CognitoUserAmplify;
 }
+
+// actors that have forms. Has `formValues, remoteErrror, and validationError in common.
+export type ActorContextWithForms =
+  | SignInContext
+  | SignUpContext
+  | ResetPasswordContext;
 
 export type SignInState = State<SignInContext, AuthEvent>;
 export type SignUpState = State<SignUpContext, AuthEvent>;

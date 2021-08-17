@@ -16,11 +16,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed } from 'vue';
+import { defineComponent, ref, computed, ComputedRef } from 'vue';
 import {
   authInputAttributes,
   getActorContext,
   getAliasInfoFromContext,
+  ActorContextWithForms,
 } from '@aws-amplify/ui-core';
 
 import BaseInput from './primitives/base-input.vue';
@@ -54,7 +55,9 @@ export default defineComponent({
     const {
       value: { context },
     } = state;
-    const actorContext = getActorContext(state.value);
+    const actorContext: ComputedRef<ActorContextWithForms> = computed(() =>
+      getActorContext(state.value)
+    );
 
     let uName = ref('');
 
@@ -62,7 +65,7 @@ export default defineComponent({
       uName = computed(() => props.userName);
     }
 
-    const error = actorContext.validationError['username'];
+    const error = actorContext.value.validationError['username'];
 
     const [primaryAlias] = useAliases(context?.config?.login_mechanisms);
 
