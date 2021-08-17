@@ -4,6 +4,10 @@ import { useAmplify, useAuth } from '../../../hooks';
 
 import {
   authInputAttributes,
+  getActorContext,
+  getActorState,
+  SignUpContext,
+  SignUpState,
   socialProviderLoginMechanisms,
 } from '@aws-amplify/ui-core';
 import { FederatedSignIn } from '../FederatedSignIn';
@@ -22,11 +26,12 @@ export function SignUp() {
     },
   } = useAmplify('Authenticator.SignUp');
 
-  const [state, send] = useAuth();
-  const isPending = state.matches('signUp.pending');
-  const { remoteError } = state.context;
+  const [_state, send] = useAuth();
+  const actorState: SignUpState = getActorState(_state);
+  const isPending = actorState.matches('signUp.pending');
+  const { remoteError } = actorState.context;
 
-  const [primaryAlias, ...secondaryAliases] = state.context.config
+  const [primaryAlias, ...secondaryAliases] = _state.context.config
     ?.login_mechanisms ?? ['username', 'email', 'phone_number'];
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -100,8 +105,9 @@ SignUp.AliasControl = ({
   const {
     components: { Input, Label, Text, ErrorText },
   } = useAmplify('Authenticator.SignUp.Password');
-  const [{ context }] = useAuth();
-  const error = context.validationError[name];
+  const [_state] = useAuth();
+  const { validationError } = getActorContext(_state) as SignUpContext;
+  const error = validationError[name];
 
   return (
     <>
@@ -127,8 +133,9 @@ SignUp.PasswordControl = ({
   const {
     components: { Input, Label, Text, ErrorText },
   } = useAmplify('Authenticator.SignUp.Password');
-  const [{ context }] = useAuth();
-  const error = context.validationError[name];
+  const [_state] = useAuth();
+  const { validationError } = getActorContext(_state) as SignUpContext;
+  const error = validationError[name];
 
   return (
     <>
@@ -148,8 +155,9 @@ SignUp.ConfirmPasswordControl = ({
   const {
     components: { Input, Label, Text, ErrorText },
   } = useAmplify('Authenticator.SignUp.Password');
-  const [{ context }] = useAuth();
-  const error = context.validationError[name];
+  const [state] = useAuth();
+  const { validationError } = getActorContext(state) as SignUpContext;
+  const error = validationError[name];
 
   return (
     <>

@@ -24,7 +24,7 @@
           {{ signIntoAccountText }}
         </base-heading>
         <federated-sign-in></federated-sign-in>
-        <base-field-Set :disabled="state.matches('signIn.submit')">
+        <base-field-Set :disabled="actorState.matches('signIn.submit')">
           <template #fieldSetI="{ slotData }">
             <slot name="signin-fields" :info="slotData"> </slot>
           </template>
@@ -69,7 +69,7 @@
             createAccountLink
           }}</base-button>
           <base-spacer />
-          <base-button :disabled="state.matches('signIn.submit')">
+          <base-button :disabled="actorState.matches('signIn.submit')">
             <template #buttont>
               <slot
                 name="sign-in-button"
@@ -77,7 +77,7 @@
               ></slot>
             </template>
             {{
-              state.matches('signIn.submit')
+              actorState.matches('signIn.submit')
                 ? signIngButtonText
                 : signInButtonText
             }}
@@ -85,7 +85,7 @@
           </base-button>
         </base-footer>
         <base-box data-ui-error>
-          {{ state.event.data?.message }}
+          {{ actorState.context.remoteError }}
         </base-box>
       </base-form>
     </base-wrapper>
@@ -93,7 +93,7 @@
 </template>
 
 <script lang="ts">
-import { Ref, ref } from 'vue';
+import { Ref, ref, computed, ComputedRef } from 'vue';
 
 import BaseLabel from './primitives/base-label.vue';
 import BaseFooter from './primitives/base-footer.vue';
@@ -126,6 +126,7 @@ import { useAuth } from '../composables/useAuth';
 
 // types
 import { SetupEventContext, SignInSetupReturnTypes } from '../types/index';
+import { getActorState, SignInState } from '@aws-amplify/ui-core';
 
 export default {
   name: 'Authentication',
@@ -158,6 +159,9 @@ export default {
 
   setup(_, { emit, attrs }: SetupEventContext): SignInSetupReturnTypes {
     const { state, send } = useAuth();
+    const actorState: ComputedRef<SignInState> = computed(() =>
+      getActorState(state.value)
+    );
 
     const username: Ref = ref('');
     const password: Ref = ref('');
@@ -167,7 +171,7 @@ export default {
     const onInput = (e: Event): void => {
       const { name, value } = <HTMLInputElement>e.target;
       send({
-        type: 'INPUT',
+        type: 'CHANGE',
         //@ts-ignore
         data: { name, value },
       });
@@ -215,7 +219,7 @@ export default {
       onForgotPasswordClicked,
       onCreateAccountClicked,
       onInput,
-      state,
+      actorState,
       username,
       password,
       submit,

@@ -1,9 +1,11 @@
+import { getActorState, SignInState } from '@aws-amplify/ui-core';
 import { useAmplify, useAuth } from '../../../hooks';
 
 import { FederatedSignIn } from '../FederatedSignIn';
-import { UserNameAlias } from '../shared';
+import { ErrorText, UserNameAlias } from '../shared';
 
 export function SignIn() {
+  const amplifyNamespace = 'Authenticator.SignIn';
   const {
     components: {
       Box,
@@ -17,10 +19,19 @@ export function SignIn() {
       Spacer,
       Text,
     },
-  } = useAmplify('Authenticator.SignIn');
+  } = useAmplify(amplifyNamespace);
 
-  const [state, send] = useAuth();
-  const isPending = state.matches('signIn.pending');
+  const [_state, send] = useAuth();
+  const actorState: SignInState = getActorState(_state);
+  const isPending = actorState.matches('signIn.pending');
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    send({
+      type: 'CHANGE',
+      data: { name, value },
+    });
+  };
 
   return (
     // TODO Automatically add these namespaces again from `useAmplify`
@@ -38,6 +49,7 @@ export function SignIn() {
           data: Object.fromEntries(formData),
         });
       }}
+      onChange={handleChange}
     >
       <Heading level={1}>Sign in to your account</Heading>
 
@@ -71,7 +83,7 @@ export function SignIn() {
           {isPending ? <>Signing in&hellip;</> : <>Sign In</>}
         </Button>
       </Footer>
-      <Box data-amplify-error>{state.event.data?.message}</Box>
+      <ErrorText amplifyNamespace={amplifyNamespace} />
     </Form>
   );
 }

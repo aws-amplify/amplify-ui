@@ -9,7 +9,7 @@
   <form data-amplify-form (submit)="onSubmit($event)" (input)="onInput($event)">
     <fieldset data-amplify-fieldset [disabled]="isPending">
       <amplify-user-name-alias
-        [initialValue]="username"
+        [initialValue]="username ? username : null"
         [disabled]="!!username"
       ></amplify-user-name-alias>
       <amplify-input
