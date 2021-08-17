@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "@aws-amplify/ui-angular-new",
+  "name": "@aws-amplify/ui-angular",
   "version": "0.0.1",
   "scripts": {
     "ng": "ng",

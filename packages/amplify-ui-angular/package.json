@@ -1,5 +1,5 @@
 {
-  "name": "@aws-amplify/ui-angular",
+  "name": "@aws-amplify/ui-angular-legacy",
   "version": "1.0.18",
   "description": "Angular specific wrapper for @aws-amplify/ui-components",
   "publishConfig": {

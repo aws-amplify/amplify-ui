@@ -7,5 +7,6 @@
   "typescript.tsdk": "node_modules/typescript/lib",
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  },
+  "angular.enable-strict-mode-prompt": false
 }
