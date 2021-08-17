@@ -97,6 +97,7 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
       FEDERATED_SIGN_IN: { actions: 'forwardToActor' },
       RESEND: { actions: 'forwardToActor' },
       SIGN_OUT: { actions: 'forwardToActor' },
+      SIGN_IN: { actions: 'forwardToActor' },
     },
   },
   {
