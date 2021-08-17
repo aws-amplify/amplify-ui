@@ -6,6 +6,7 @@ import {
   authInputAttributes,
   getActorContext,
   getActorState,
+  SignUpContext,
   SignUpState,
   socialProviderLoginMechanisms,
 } from '@aws-amplify/ui-core';
@@ -105,7 +106,7 @@ SignUp.AliasControl = ({
     components: { Input, Label, Text, ErrorText },
   } = useAmplify('Authenticator.SignUp.Password');
   const [_state] = useAuth();
-  const { validationError } = getActorContext(_state);
+  const { validationError } = getActorContext(_state) as SignUpContext;
   const error = validationError[name];
 
   return (
@@ -133,7 +134,7 @@ SignUp.PasswordControl = ({
     components: { Input, Label, Text, ErrorText },
   } = useAmplify('Authenticator.SignUp.Password');
   const [_state] = useAuth();
-  const { validationError } = getActorContext(_state);
+  const { validationError } = getActorContext(_state) as SignUpContext;
   const error = validationError[name];
 
   return (
@@ -155,7 +156,7 @@ SignUp.ConfirmPasswordControl = ({
     components: { Input, Label, Text, ErrorText },
   } = useAmplify('Authenticator.SignUp.Password');
   const [state] = useAuth();
-  const { validationError } = getActorContext(state);
+  const { validationError } = getActorContext(state) as SignUpContext;
   const error = validationError[name];
 
   return (
