@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PhoneField render correctly 1`] = `
-<Component
+<FormField
   key="phone_number"
   theme={
     Object {
@@ -43,7 +43,7 @@ exports[`PhoneField render correctly 1`] = `
     }
   }
 >
-  <Component
+  <InputLabel
     theme={
       Object {
         "a": Object {},
@@ -86,8 +86,8 @@ exports[`PhoneField render correctly 1`] = `
   >
     Phone Number
      *
-  </Component>
-  <Component
+  </InputLabel>
+  <SelectInput
     theme={
       Object {
         "a": Object {},
@@ -1371,7 +1371,7 @@ exports[`PhoneField render correctly 1`] = `
         +998
       </option>
     </select>
-    <Component
+    <Input
       data-test="phone-number-input"
       id="phone_line_number"
       key="phone_line_number"
@@ -1419,6 +1419,6 @@ exports[`PhoneField render correctly 1`] = `
       }
       type="tel"
     />
-  </Component>
-</Component>
+  </SelectInput>
+</FormField>
 `;

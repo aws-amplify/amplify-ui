@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ConfirmSignIn normal case render correctly with Props confirmSignUp 1`] = `
-<Component
+<FormSection
   data-test="confirm-sign-up-section"
   theme={
     Object {
@@ -246,7 +246,7 @@ exports[`ConfirmSignIn normal case render correctly with Props confirmSignUp 1`]
     }
   }
 >
-  <Component
+  <SectionHeader
     data-test="confirm-sign-up-header-section"
     theme={
       Object {
@@ -492,8 +492,8 @@ exports[`ConfirmSignIn normal case render correctly with Props confirmSignUp 1`]
     }
   >
     Confirm Sign Up
-  </Component>
-  <Component
+  </SectionHeader>
+  <SectionBody
     data-test="confirm-sign-up-body-section"
     theme={
       Object {
@@ -738,7 +738,7 @@ exports[`ConfirmSignIn normal case render correctly with Props confirmSignUp 1`]
       }
     }
   >
-    <Component
+    <FormField
       theme={
         Object {
           "a": Object {
@@ -982,7 +982,7 @@ exports[`ConfirmSignIn normal case render correctly with Props confirmSignUp 1`]
         }
       }
     >
-      <Component
+      <InputLabel
         theme={
           Object {
             "a": Object {
@@ -1228,8 +1228,8 @@ exports[`ConfirmSignIn normal case render correctly with Props confirmSignUp 1`]
       >
         Username
          *
-      </Component>
-      <Component
+      </InputLabel>
+      <Input
         data-test="confirm-sign-up-username-input"
         disabled=""
         key="username"
@@ -1480,8 +1480,8 @@ exports[`ConfirmSignIn normal case render correctly with Props confirmSignUp 1`]
         }
         value=""
       />
-    </Component>
-    <Component
+    </FormField>
+    <FormField
       theme={
         Object {
           "a": Object {
@@ -1725,7 +1725,7 @@ exports[`ConfirmSignIn normal case render correctly with Props confirmSignUp 1`]
         }
       }
     >
-      <Component
+      <InputLabel
         theme={
           Object {
             "a": Object {
@@ -1971,8 +1971,8 @@ exports[`ConfirmSignIn normal case render correctly with Props confirmSignUp 1`]
       >
         Confirmation Code
          *
-      </Component>
-      <Component
+      </InputLabel>
+      <Input
         autoComplete="off"
         autoFocus={true}
         data-test="confirm-sign-up-confirmation-code-input"
@@ -2223,7 +2223,7 @@ exports[`ConfirmSignIn normal case render correctly with Props confirmSignUp 1`]
           }
         }
       />
-      <Component
+      <Hint
         theme={
           Object {
             "a": Object {
@@ -2468,7 +2468,7 @@ exports[`ConfirmSignIn normal case render correctly with Props confirmSignUp 1`]
         }
       >
         Lost your code? 
-        <Component
+        <Link
           data-test="confirm-sign-up-resend-code-link"
           onClick={[Function]}
           theme={
@@ -2715,11 +2715,11 @@ exports[`ConfirmSignIn normal case render correctly with Props confirmSignUp 1`]
           }
         >
           Resend Code
-        </Component>
-      </Component>
-    </Component>
-  </Component>
-  <Component
+        </Link>
+      </Hint>
+    </FormField>
+  </SectionBody>
+  <SectionFooter
     theme={
       Object {
         "a": Object {
@@ -2963,7 +2963,7 @@ exports[`ConfirmSignIn normal case render correctly with Props confirmSignUp 1`]
       }
     }
   >
-    <Component
+    <SectionFooterPrimaryContent
       theme={
         Object {
           "a": Object {
@@ -3207,7 +3207,7 @@ exports[`ConfirmSignIn normal case render correctly with Props confirmSignUp 1`]
         }
       }
     >
-      <Component
+      <Button
         data-test="confirm-sign-up-confirm-button"
         onClick={[Function]}
         theme={
@@ -3454,9 +3454,9 @@ exports[`ConfirmSignIn normal case render correctly with Props confirmSignUp 1`]
         }
       >
         Confirm
-      </Component>
-    </Component>
-    <Component
+      </Button>
+    </SectionFooterPrimaryContent>
+    <SectionFooterSecondaryContent
       theme={
         Object {
           "a": Object {
@@ -3700,7 +3700,7 @@ exports[`ConfirmSignIn normal case render correctly with Props confirmSignUp 1`]
         }
       }
     >
-      <Component
+      <Link
         data-test="confirm-sign-up-back-to-sign-in-link"
         onClick={[Function]}
         theme={
@@ -3947,10 +3947,10 @@ exports[`ConfirmSignIn normal case render correctly with Props confirmSignUp 1`]
         }
       >
         Back to Sign In
-      </Component>
-    </Component>
-  </Component>
-</Component>
+      </Link>
+    </SectionFooterSecondaryContent>
+  </SectionFooter>
+</FormSection>
 `;
 
 exports[`ConfirmSignIn normal case render correctly with hide 1`] = `""`;

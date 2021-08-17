@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`signUp with signUpConfig render correctly with authState signUp 1`] = `
-<Component
+<FormSection
   data-test="sign-up-section"
   theme={
     Object {
@@ -246,7 +246,7 @@ exports[`signUp with signUpConfig render correctly with authState signUp 1`] = `
     }
   }
 >
-  <Component
+  <SectionHeader
     data-test="sign-up-header-section"
     theme={
       Object {
@@ -492,8 +492,8 @@ exports[`signUp with signUpConfig render correctly with authState signUp 1`] = `
     }
   >
     Create a new account
-  </Component>
-  <Component
+  </SectionHeader>
+  <SectionBody
     data-test="sign-up-body-section"
     theme={
       Object {
@@ -738,7 +738,7 @@ exports[`signUp with signUpConfig render correctly with authState signUp 1`] = `
       }
     }
   >
-    <Component
+    <FormField
       key="username"
       theme={
         Object {
@@ -983,7 +983,7 @@ exports[`signUp with signUpConfig render correctly with authState signUp 1`] = `
         }
       }
     >
-      <Component
+      <InputLabel
         theme={
           Object {
             "a": Object {
@@ -1229,8 +1229,8 @@ exports[`signUp with signUpConfig render correctly with authState signUp 1`] = `
       >
         Username
          *
-      </Component>
-      <Component
+      </InputLabel>
+      <Input
         autoFocus={true}
         data-test="sign-up-non-phone-number-input"
         key="username"
@@ -1480,8 +1480,8 @@ exports[`signUp with signUpConfig render correctly with authState signUp 1`] = `
           }
         }
       />
-    </Component>
-    <Component
+    </FormField>
+    <FormField
       key="password"
       theme={
         Object {
@@ -1726,7 +1726,7 @@ exports[`signUp with signUpConfig render correctly with authState signUp 1`] = `
         }
       }
     >
-      <Component
+      <InputLabel
         theme={
           Object {
             "a": Object {
@@ -1972,8 +1972,8 @@ exports[`signUp with signUpConfig render correctly with authState signUp 1`] = `
       >
         Password
          *
-      </Component>
-      <Component
+      </InputLabel>
+      <Input
         autoFocus={false}
         data-test="sign-up-non-phone-number-input"
         key="password"
@@ -2224,8 +2224,8 @@ exports[`signUp with signUpConfig render correctly with authState signUp 1`] = `
         }
         type="password"
       />
-    </Component>
-    <Component
+    </FormField>
+    <FormField
       key="email"
       theme={
         Object {
@@ -2470,7 +2470,7 @@ exports[`signUp with signUpConfig render correctly with authState signUp 1`] = `
         }
       }
     >
-      <Component
+      <InputLabel
         theme={
           Object {
             "a": Object {
@@ -2716,8 +2716,8 @@ exports[`signUp with signUpConfig render correctly with authState signUp 1`] = `
       >
         Email
          *
-      </Component>
-      <Component
+      </InputLabel>
+      <Input
         autoFocus={false}
         data-test="sign-up-non-phone-number-input"
         key="email"
@@ -2968,7 +2968,7 @@ exports[`signUp with signUpConfig render correctly with authState signUp 1`] = `
         }
         type="email"
       />
-    </Component>
+    </FormField>
     <PhoneField
       defaultDialCode="+1"
       key="phone_number"
@@ -3219,7 +3219,7 @@ exports[`signUp with signUpConfig render correctly with authState signUp 1`] = `
         }
       }
     />
-    <Component
+    <FormField
       key="address"
       theme={
         Object {
@@ -3464,7 +3464,7 @@ exports[`signUp with signUpConfig render correctly with authState signUp 1`] = `
         }
       }
     >
-      <Component
+      <InputLabel
         theme={
           Object {
             "a": Object {
@@ -3710,8 +3710,8 @@ exports[`signUp with signUpConfig render correctly with authState signUp 1`] = `
       >
         Address
          *
-      </Component>
-      <Component
+      </InputLabel>
+      <Input
         autoFocus={false}
         data-test="sign-up-non-phone-number-input"
         key="address"
@@ -3960,9 +3960,9 @@ exports[`signUp with signUpConfig render correctly with authState signUp 1`] = `
           }
         }
       />
-    </Component>
-  </Component>
-  <Component
+    </FormField>
+  </SectionBody>
+  <SectionFooter
     data-test="sign-up-footer-section"
     theme={
       Object {
@@ -4207,7 +4207,7 @@ exports[`signUp with signUpConfig render correctly with authState signUp 1`] = `
       }
     }
   >
-    <Component
+    <SectionFooterPrimaryContent
       theme={
         Object {
           "a": Object {
@@ -4451,7 +4451,7 @@ exports[`signUp with signUpConfig render correctly with authState signUp 1`] = `
         }
       }
     >
-      <Component
+      <Button
         data-test="sign-up-create-account-button"
         disabled={false}
         onClick={[Function]}
@@ -4699,9 +4699,9 @@ exports[`signUp with signUpConfig render correctly with authState signUp 1`] = `
         }
       >
         Create Account
-      </Component>
-    </Component>
-    <Component
+      </Button>
+    </SectionFooterPrimaryContent>
+    <SectionFooterSecondaryContent
       theme={
         Object {
           "a": Object {
@@ -4946,7 +4946,7 @@ exports[`signUp with signUpConfig render correctly with authState signUp 1`] = `
       }
     >
       Have an account? 
-      <Component
+      <Link
         data-test="sign-up-sign-in-link"
         onClick={[Function]}
         theme={
@@ -5193,16 +5193,16 @@ exports[`signUp with signUpConfig render correctly with authState signUp 1`] = `
         }
       >
         Sign in
-      </Component>
-    </Component>
-  </Component>
-</Component>
+      </Link>
+    </SectionFooterSecondaryContent>
+  </SectionFooter>
+</FormSection>
 `;
 
 exports[`signUp with signUpConfig render correctly with hide 1`] = `""`;
 
 exports[`signUp without signUpConfig prop normal case render correctly with authState signUp 1`] = `
-<Component
+<FormSection
   data-test="sign-up-section"
   theme={
     Object {
@@ -5447,7 +5447,7 @@ exports[`signUp without signUpConfig prop normal case render correctly with auth
     }
   }
 >
-  <Component
+  <SectionHeader
     data-test="sign-up-header-section"
     theme={
       Object {
@@ -5693,8 +5693,8 @@ exports[`signUp without signUpConfig prop normal case render correctly with auth
     }
   >
     Create a new account
-  </Component>
-  <Component
+  </SectionHeader>
+  <SectionBody
     data-test="sign-up-body-section"
     theme={
       Object {
@@ -5939,7 +5939,7 @@ exports[`signUp without signUpConfig prop normal case render correctly with auth
       }
     }
   >
-    <Component
+    <FormField
       key="username"
       theme={
         Object {
@@ -6184,7 +6184,7 @@ exports[`signUp without signUpConfig prop normal case render correctly with auth
         }
       }
     >
-      <Component
+      <InputLabel
         theme={
           Object {
             "a": Object {
@@ -6430,8 +6430,8 @@ exports[`signUp without signUpConfig prop normal case render correctly with auth
       >
         Username
          *
-      </Component>
-      <Component
+      </InputLabel>
+      <Input
         autoFocus={true}
         data-test="sign-up-non-phone-number-input"
         key="username"
@@ -6681,8 +6681,8 @@ exports[`signUp without signUpConfig prop normal case render correctly with auth
           }
         }
       />
-    </Component>
-    <Component
+    </FormField>
+    <FormField
       key="password"
       theme={
         Object {
@@ -6927,7 +6927,7 @@ exports[`signUp without signUpConfig prop normal case render correctly with auth
         }
       }
     >
-      <Component
+      <InputLabel
         theme={
           Object {
             "a": Object {
@@ -7173,8 +7173,8 @@ exports[`signUp without signUpConfig prop normal case render correctly with auth
       >
         Password
          *
-      </Component>
-      <Component
+      </InputLabel>
+      <Input
         autoFocus={false}
         data-test="sign-up-non-phone-number-input"
         key="password"
@@ -7425,8 +7425,8 @@ exports[`signUp without signUpConfig prop normal case render correctly with auth
         }
         type="password"
       />
-    </Component>
-    <Component
+    </FormField>
+    <FormField
       key="email"
       theme={
         Object {
@@ -7671,7 +7671,7 @@ exports[`signUp without signUpConfig prop normal case render correctly with auth
         }
       }
     >
-      <Component
+      <InputLabel
         theme={
           Object {
             "a": Object {
@@ -7917,8 +7917,8 @@ exports[`signUp without signUpConfig prop normal case render correctly with auth
       >
         Email
          *
-      </Component>
-      <Component
+      </InputLabel>
+      <Input
         autoFocus={false}
         data-test="sign-up-non-phone-number-input"
         key="email"
@@ -8169,7 +8169,7 @@ exports[`signUp without signUpConfig prop normal case render correctly with auth
         }
         type="email"
       />
-    </Component>
+    </FormField>
     <PhoneField
       defaultDialCode="+1"
       key="phone_number"
@@ -8420,8 +8420,8 @@ exports[`signUp without signUpConfig prop normal case render correctly with auth
         }
       }
     />
-  </Component>
-  <Component
+  </SectionBody>
+  <SectionFooter
     data-test="sign-up-footer-section"
     theme={
       Object {
@@ -8666,7 +8666,7 @@ exports[`signUp without signUpConfig prop normal case render correctly with auth
       }
     }
   >
-    <Component
+    <SectionFooterPrimaryContent
       theme={
         Object {
           "a": Object {
@@ -8910,7 +8910,7 @@ exports[`signUp without signUpConfig prop normal case render correctly with auth
         }
       }
     >
-      <Component
+      <Button
         data-test="sign-up-create-account-button"
         disabled={false}
         onClick={[Function]}
@@ -9158,9 +9158,9 @@ exports[`signUp without signUpConfig prop normal case render correctly with auth
         }
       >
         Create Account
-      </Component>
-    </Component>
-    <Component
+      </Button>
+    </SectionFooterPrimaryContent>
+    <SectionFooterSecondaryContent
       theme={
         Object {
           "a": Object {
@@ -9405,7 +9405,7 @@ exports[`signUp without signUpConfig prop normal case render correctly with auth
       }
     >
       Have an account? 
-      <Component
+      <Link
         data-test="sign-up-sign-in-link"
         onClick={[Function]}
         theme={
@@ -9652,10 +9652,10 @@ exports[`signUp without signUpConfig prop normal case render correctly with auth
         }
       >
         Sign in
-      </Component>
-    </Component>
-  </Component>
-</Component>
+      </Link>
+    </SectionFooterSecondaryContent>
+  </SectionFooter>
+</FormSection>
 `;
 
 exports[`signUp without signUpConfig prop normal case render correctly with hide 1`] = `""`;

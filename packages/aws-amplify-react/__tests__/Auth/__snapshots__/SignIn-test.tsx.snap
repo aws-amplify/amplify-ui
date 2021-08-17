@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SignIn normal case render correctly with Props signIn, signedOut or signedUp 1`] = `
-<Component
+<FormSection
   data-test="sign-in-section"
   theme={
     Object {
@@ -246,7 +246,7 @@ exports[`SignIn normal case render correctly with Props signIn, signedOut or sig
     }
   }
 >
-  <Component
+  <SectionHeader
     data-test="sign-in-header-section"
     theme={
       Object {
@@ -492,7 +492,7 @@ exports[`SignIn normal case render correctly with Props signIn, signedOut or sig
     }
   >
     Sign in to your account
-  </Component>
+  </SectionHeader>
   <FederatedButtons
     authState="signIn"
     theme={
@@ -741,7 +741,7 @@ exports[`SignIn normal case render correctly with Props signIn, signedOut or sig
   <form
     onSubmit={[Function]}
   >
-    <Component
+    <SectionBody
       theme={
         Object {
           "a": Object {
@@ -985,7 +985,7 @@ exports[`SignIn normal case render correctly with Props signIn, signedOut or sig
         }
       }
     >
-      <Component
+      <FormField
         theme={
           Object {
             "a": Object {
@@ -1229,7 +1229,7 @@ exports[`SignIn normal case render correctly with Props signIn, signedOut or sig
           }
         }
       >
-        <Component
+        <InputLabel
           theme={
             Object {
               "a": Object {
@@ -1475,8 +1475,8 @@ exports[`SignIn normal case render correctly with Props signIn, signedOut or sig
         >
           Username
            *
-        </Component>
-        <Component
+        </InputLabel>
+        <Input
           autoFocus={true}
           data-test="username-input"
           key="username"
@@ -1726,8 +1726,8 @@ exports[`SignIn normal case render correctly with Props signIn, signedOut or sig
             }
           }
         />
-      </Component>
-      <Component
+      </FormField>
+      <FormField
         theme={
           Object {
             "a": Object {
@@ -1971,7 +1971,7 @@ exports[`SignIn normal case render correctly with Props signIn, signedOut or sig
           }
         }
       >
-        <Component
+        <InputLabel
           theme={
             Object {
               "a": Object {
@@ -2217,8 +2217,8 @@ exports[`SignIn normal case render correctly with Props signIn, signedOut or sig
         >
           Password
            *
-        </Component>
-        <Component
+        </InputLabel>
+        <Input
           data-test="sign-in-password-input"
           key="password"
           name="password"
@@ -2468,7 +2468,7 @@ exports[`SignIn normal case render correctly with Props signIn, signedOut or sig
           }
           type="password"
         />
-        <Component
+        <Hint
           theme={
             Object {
               "a": Object {
@@ -2713,7 +2713,7 @@ exports[`SignIn normal case render correctly with Props signIn, signedOut or sig
           }
         >
           Forgot your password? 
-          <Component
+          <Link
             data-test="sign-in-forgot-password-link"
             onClick={[Function]}
             theme={
@@ -2960,11 +2960,11 @@ exports[`SignIn normal case render correctly with Props signIn, signedOut or sig
             }
           >
             Reset password
-          </Component>
-        </Component>
-      </Component>
-    </Component>
-    <Component
+          </Link>
+        </Hint>
+      </FormField>
+    </SectionBody>
+    <SectionFooter
       data-test="sign-in-footer-section"
       theme={
         Object {
@@ -3209,7 +3209,7 @@ exports[`SignIn normal case render correctly with Props signIn, signedOut or sig
         }
       }
     >
-      <Component
+      <SectionFooterPrimaryContent
         theme={
           Object {
             "a": Object {
@@ -3453,7 +3453,7 @@ exports[`SignIn normal case render correctly with Props signIn, signedOut or sig
           }
         }
       >
-        <Component
+        <Button
           data-test="sign-in-sign-in-button"
           theme={
             Object {
@@ -3700,9 +3700,9 @@ exports[`SignIn normal case render correctly with Props signIn, signedOut or sig
           type="submit"
         >
           Sign In
-        </Component>
-      </Component>
-      <Component
+        </Button>
+      </SectionFooterPrimaryContent>
+      <SectionFooterSecondaryContent
         theme={
           Object {
             "a": Object {
@@ -3947,7 +3947,7 @@ exports[`SignIn normal case render correctly with Props signIn, signedOut or sig
         }
       >
         No account? 
-        <Component
+        <Link
           data-test="sign-in-create-account-link"
           onClick={[Function]}
           theme={
@@ -4194,15 +4194,15 @@ exports[`SignIn normal case render correctly with Props signIn, signedOut or sig
           }
         >
           Create account
-        </Component>
-      </Component>
-    </Component>
+        </Link>
+      </SectionFooterSecondaryContent>
+    </SectionFooter>
   </form>
-</Component>
+</FormSection>
 `;
 
 exports[`SignIn normal case render correctly with Props signIn, signedOut or signedUp 2`] = `
-<Component
+<FormSection
   data-test="sign-in-section"
   theme={
     Object {
@@ -4447,7 +4447,7 @@ exports[`SignIn normal case render correctly with Props signIn, signedOut or sig
     }
   }
 >
-  <Component
+  <SectionHeader
     data-test="sign-in-header-section"
     theme={
       Object {
@@ -4693,7 +4693,7 @@ exports[`SignIn normal case render correctly with Props signIn, signedOut or sig
     }
   >
     Sign in to your account
-  </Component>
+  </SectionHeader>
   <FederatedButtons
     authState="signedUp"
     theme={
@@ -4942,7 +4942,7 @@ exports[`SignIn normal case render correctly with Props signIn, signedOut or sig
   <form
     onSubmit={[Function]}
   >
-    <Component
+    <SectionBody
       theme={
         Object {
           "a": Object {
@@ -5186,7 +5186,7 @@ exports[`SignIn normal case render correctly with Props signIn, signedOut or sig
         }
       }
     >
-      <Component
+      <FormField
         theme={
           Object {
             "a": Object {
@@ -5430,7 +5430,7 @@ exports[`SignIn normal case render correctly with Props signIn, signedOut or sig
           }
         }
       >
-        <Component
+        <InputLabel
           theme={
             Object {
               "a": Object {
@@ -5676,8 +5676,8 @@ exports[`SignIn normal case render correctly with Props signIn, signedOut or sig
         >
           Username
            *
-        </Component>
-        <Component
+        </InputLabel>
+        <Input
           autoFocus={true}
           data-test="username-input"
           key="username"
@@ -5927,8 +5927,8 @@ exports[`SignIn normal case render correctly with Props signIn, signedOut or sig
             }
           }
         />
-      </Component>
-      <Component
+      </FormField>
+      <FormField
         theme={
           Object {
             "a": Object {
@@ -6172,7 +6172,7 @@ exports[`SignIn normal case render correctly with Props signIn, signedOut or sig
           }
         }
       >
-        <Component
+        <InputLabel
           theme={
             Object {
               "a": Object {
@@ -6418,8 +6418,8 @@ exports[`SignIn normal case render correctly with Props signIn, signedOut or sig
         >
           Password
            *
-        </Component>
-        <Component
+        </InputLabel>
+        <Input
           data-test="sign-in-password-input"
           key="password"
           name="password"
@@ -6669,7 +6669,7 @@ exports[`SignIn normal case render correctly with Props signIn, signedOut or sig
           }
           type="password"
         />
-        <Component
+        <Hint
           theme={
             Object {
               "a": Object {
@@ -6914,7 +6914,7 @@ exports[`SignIn normal case render correctly with Props signIn, signedOut or sig
           }
         >
           Forgot your password? 
-          <Component
+          <Link
             data-test="sign-in-forgot-password-link"
             onClick={[Function]}
             theme={
@@ -7161,11 +7161,11 @@ exports[`SignIn normal case render correctly with Props signIn, signedOut or sig
             }
           >
             Reset password
-          </Component>
-        </Component>
-      </Component>
-    </Component>
-    <Component
+          </Link>
+        </Hint>
+      </FormField>
+    </SectionBody>
+    <SectionFooter
       data-test="sign-in-footer-section"
       theme={
         Object {
@@ -7410,7 +7410,7 @@ exports[`SignIn normal case render correctly with Props signIn, signedOut or sig
         }
       }
     >
-      <Component
+      <SectionFooterPrimaryContent
         theme={
           Object {
             "a": Object {
@@ -7654,7 +7654,7 @@ exports[`SignIn normal case render correctly with Props signIn, signedOut or sig
           }
         }
       >
-        <Component
+        <Button
           data-test="sign-in-sign-in-button"
           theme={
             Object {
@@ -7901,9 +7901,9 @@ exports[`SignIn normal case render correctly with Props signIn, signedOut or sig
           type="submit"
         >
           Sign In
-        </Component>
-      </Component>
-      <Component
+        </Button>
+      </SectionFooterPrimaryContent>
+      <SectionFooterSecondaryContent
         theme={
           Object {
             "a": Object {
@@ -8148,7 +8148,7 @@ exports[`SignIn normal case render correctly with Props signIn, signedOut or sig
         }
       >
         No account? 
-        <Component
+        <Link
           data-test="sign-in-create-account-link"
           onClick={[Function]}
           theme={
@@ -8395,15 +8395,15 @@ exports[`SignIn normal case render correctly with Props signIn, signedOut or sig
           }
         >
           Create account
-        </Component>
-      </Component>
-    </Component>
+        </Link>
+      </SectionFooterSecondaryContent>
+    </SectionFooter>
   </form>
-</Component>
+</FormSection>
 `;
 
 exports[`SignIn normal case render correctly with Props signIn, signedOut or signedUp 3`] = `
-<Component
+<FormSection
   data-test="sign-in-section"
   theme={
     Object {
@@ -8648,7 +8648,7 @@ exports[`SignIn normal case render correctly with Props signIn, signedOut or sig
     }
   }
 >
-  <Component
+  <SectionHeader
     data-test="sign-in-header-section"
     theme={
       Object {
@@ -8894,7 +8894,7 @@ exports[`SignIn normal case render correctly with Props signIn, signedOut or sig
     }
   >
     Sign in to your account
-  </Component>
+  </SectionHeader>
   <FederatedButtons
     authState="signedOut"
     theme={
@@ -9143,7 +9143,7 @@ exports[`SignIn normal case render correctly with Props signIn, signedOut or sig
   <form
     onSubmit={[Function]}
   >
-    <Component
+    <SectionBody
       theme={
         Object {
           "a": Object {
@@ -9387,7 +9387,7 @@ exports[`SignIn normal case render correctly with Props signIn, signedOut or sig
         }
       }
     >
-      <Component
+      <FormField
         theme={
           Object {
             "a": Object {
@@ -9631,7 +9631,7 @@ exports[`SignIn normal case render correctly with Props signIn, signedOut or sig
           }
         }
       >
-        <Component
+        <InputLabel
           theme={
             Object {
               "a": Object {
@@ -9877,8 +9877,8 @@ exports[`SignIn normal case render correctly with Props signIn, signedOut or sig
         >
           Username
            *
-        </Component>
-        <Component
+        </InputLabel>
+        <Input
           autoFocus={true}
           data-test="username-input"
           key="username"
@@ -10128,8 +10128,8 @@ exports[`SignIn normal case render correctly with Props signIn, signedOut or sig
             }
           }
         />
-      </Component>
-      <Component
+      </FormField>
+      <FormField
         theme={
           Object {
             "a": Object {
@@ -10373,7 +10373,7 @@ exports[`SignIn normal case render correctly with Props signIn, signedOut or sig
           }
         }
       >
-        <Component
+        <InputLabel
           theme={
             Object {
               "a": Object {
@@ -10619,8 +10619,8 @@ exports[`SignIn normal case render correctly with Props signIn, signedOut or sig
         >
           Password
            *
-        </Component>
-        <Component
+        </InputLabel>
+        <Input
           data-test="sign-in-password-input"
           key="password"
           name="password"
@@ -10870,7 +10870,7 @@ exports[`SignIn normal case render correctly with Props signIn, signedOut or sig
           }
           type="password"
         />
-        <Component
+        <Hint
           theme={
             Object {
               "a": Object {
@@ -11115,7 +11115,7 @@ exports[`SignIn normal case render correctly with Props signIn, signedOut or sig
           }
         >
           Forgot your password? 
-          <Component
+          <Link
             data-test="sign-in-forgot-password-link"
             onClick={[Function]}
             theme={
@@ -11362,11 +11362,11 @@ exports[`SignIn normal case render correctly with Props signIn, signedOut or sig
             }
           >
             Reset password
-          </Component>
-        </Component>
-      </Component>
-    </Component>
-    <Component
+          </Link>
+        </Hint>
+      </FormField>
+    </SectionBody>
+    <SectionFooter
       data-test="sign-in-footer-section"
       theme={
         Object {
@@ -11611,7 +11611,7 @@ exports[`SignIn normal case render correctly with Props signIn, signedOut or sig
         }
       }
     >
-      <Component
+      <SectionFooterPrimaryContent
         theme={
           Object {
             "a": Object {
@@ -11855,7 +11855,7 @@ exports[`SignIn normal case render correctly with Props signIn, signedOut or sig
           }
         }
       >
-        <Component
+        <Button
           data-test="sign-in-sign-in-button"
           theme={
             Object {
@@ -12102,9 +12102,9 @@ exports[`SignIn normal case render correctly with Props signIn, signedOut or sig
           type="submit"
         >
           Sign In
-        </Component>
-      </Component>
-      <Component
+        </Button>
+      </SectionFooterPrimaryContent>
+      <SectionFooterSecondaryContent
         theme={
           Object {
             "a": Object {
@@ -12349,7 +12349,7 @@ exports[`SignIn normal case render correctly with Props signIn, signedOut or sig
         }
       >
         No account? 
-        <Component
+        <Link
           data-test="sign-in-create-account-link"
           onClick={[Function]}
           theme={
@@ -12596,11 +12596,11 @@ exports[`SignIn normal case render correctly with Props signIn, signedOut or sig
           }
         >
           Create account
-        </Component>
-      </Component>
-    </Component>
+        </Link>
+      </SectionFooterSecondaryContent>
+    </SectionFooter>
   </form>
-</Component>
+</FormSection>
 `;
 
 exports[`SignIn normal case render correctly with Props signIn, signedOut or signedUp 4`] = `""`;

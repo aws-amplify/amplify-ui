@@ -1,1 +1,0 @@
-{"version":3,"file":"i18n.js","sourceRoot":"","sources":["../../../src/primitives/Pagination/i18n.ts"],"names":[],"mappings":";;;AAAa,QAAA,IAAI,GAAG;IAClB,cAAc,EAAE;QACd,YAAY,EAAE;YACZ,SAAS,EAAE,qBAAqB;SACjC;QACD,QAAQ,EAAE;YACR,SAAS,EAAE,iBAAiB;SAC7B;KACF;CACF,CAAC"}

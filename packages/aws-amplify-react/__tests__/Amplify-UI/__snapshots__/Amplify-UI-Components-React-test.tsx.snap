@@ -28,14 +28,14 @@ exports[`AmplifyUi test render Input correctly 1`] = `
 `;
 
 exports[`AmplifyUi test render InputRow correctly 1`] = `
-<Component
+<FormRow
   theme="theme"
 >
   <input
     className="Input__input___3e_bf"
     style={Object {}}
   />
-</Component>
+</FormRow>
 `;
 
 exports[`AmplifyUi test render Radio correctly 1`] = `
@@ -47,18 +47,18 @@ exports[`AmplifyUi test render Radio correctly 1`] = `
 `;
 
 exports[`AmplifyUi test render RadioRow correctly 1`] = `
-<Component
+<FormRow
   theme="theme"
 >
-  <Component
+  <Radio
     id="_undefined"
     theme="theme"
   />
-  <Component
+  <Label
     htmlFor="_undefined"
     theme="theme"
   />
-</Component>
+</FormRow>
 `;
 
 exports[`AmplifyUi test render SectionBody correctly 1`] = `
@@ -94,7 +94,7 @@ exports[`AmplifyUi test render SectionHeader correctly 1`] = `
   className="Section__sectionHeader___2djyg"
   style={Object {}}
 >
-  <Component
+  <SectionHeaderContent
     theme="theme"
   />
 </div>
@@ -119,7 +119,7 @@ exports[`AmplifyUi test render Strike correctly 1`] = `
   className="Strike__strike___1XV1b"
   style={Object {}}
 >
-  <Component
+  <StrikeContent
     theme="theme"
   />
 </div>

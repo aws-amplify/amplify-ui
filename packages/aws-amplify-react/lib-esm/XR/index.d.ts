@@ -1,1 +1,0 @@
-export { SumerianScene } from './SumerianScene';

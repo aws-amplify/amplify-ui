@@ -19,7 +19,7 @@ exports[`FederatedButtons test render test render with correct authState 1`] = `
   <div />
   <div />
   <div />
-  <Component
+  <Strike
     theme={
       Object {
         "a": Object {},
@@ -61,7 +61,7 @@ exports[`FederatedButtons test render test render with correct authState 1`] = `
     }
   >
     or
-  </Component>
+  </Strike>
 </div>
 `;
 
@@ -76,7 +76,7 @@ exports[`FederatedButtons test render test render with correct authState and onl
   <div />
   <div />
   <div />
-  <Component
+  <Strike
     theme={
       Object {
         "a": Object {},
@@ -118,7 +118,7 @@ exports[`FederatedButtons test render test render with correct authState and onl
     }
   >
     or
-  </Component>
+  </Strike>
 </div>
 `;
 
@@ -133,7 +133,7 @@ exports[`FederatedButtons test render test render with correct authState and onl
   <div />
   <div />
   <div />
-  <Component
+  <Strike
     theme={
       Object {
         "a": Object {},
@@ -175,14 +175,14 @@ exports[`FederatedButtons test render test render with correct authState and onl
     }
   >
     or
-  </Component>
+  </Strike>
 </div>
 `;
 
 exports[`FederatedSignIn test render test render nothing with incorrect authState 1`] = `""`;
 
 exports[`FederatedSignIn test render test render nothing with no federated prop 1`] = `
-<Component
+<FormSection
   data-test="federated-sign-in-section"
   theme={
     Object {
@@ -224,7 +224,7 @@ exports[`FederatedSignIn test render test render nothing with no federated prop 
     }
   }
 >
-  <Component
+  <SectionBody
     data-test="federated-sign-in-body-section"
     theme={
       Object {
@@ -311,12 +311,12 @@ exports[`FederatedSignIn test render test render nothing with no federated prop 
         }
       }
     />
-  </Component>
-</Component>
+  </SectionBody>
+</FormSection>
 `;
 
 exports[`FederatedSignIn test render test render with correct authState 1`] = `
-<Component
+<FormSection
   data-test="federated-sign-in-section"
   theme={
     Object {
@@ -358,7 +358,7 @@ exports[`FederatedSignIn test render test render with correct authState 1`] = `
     }
   }
 >
-  <Component
+  <SectionBody
     data-test="federated-sign-in-body-section"
     theme={
       Object {
@@ -445,6 +445,6 @@ exports[`FederatedSignIn test render test render with correct authState 1`] = `
         }
       }
     />
-  </Component>
-</Component>
+  </SectionBody>
+</FormSection>
 `;

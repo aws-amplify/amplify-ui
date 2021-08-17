@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PhotoPicker test render test render with previewSrc 1`] = `
-<Component
+<FormSection
   theme={
     Object {
       "a": Object {},
@@ -42,7 +42,7 @@ exports[`PhotoPicker test render test render with previewSrc 1`] = `
     }
   }
 >
-  <Component
+  <SectionHeader
     hint="Add your photos by clicking below"
     theme={
       Object {
@@ -85,8 +85,8 @@ exports[`PhotoPicker test render test render with previewSrc 1`] = `
     }
   >
     Photos
-  </Component>
-  <Component
+  </SectionHeader>
+  <SectionBody
     theme={
       Object {
         "a": Object {},
@@ -128,7 +128,7 @@ exports[`PhotoPicker test render test render with previewSrc 1`] = `
     }
   >
     The image has been selected
-  </Component>
+  </SectionBody>
   <Picker
     accept="image/*"
     onPick={[Function]}
@@ -173,11 +173,11 @@ exports[`PhotoPicker test render test render with previewSrc 1`] = `
     }
     title="Select a Photo"
   />
-</Component>
+</FormSection>
 `;
 
 exports[`PhotoPicker test render test render without previewSrc 1`] = `
-<Component
+<FormSection
   theme={
     Object {
       "a": Object {},
@@ -218,7 +218,7 @@ exports[`PhotoPicker test render test render without previewSrc 1`] = `
     }
   }
 >
-  <Component
+  <SectionHeader
     hint="Add your photos by clicking below"
     theme={
       Object {
@@ -261,8 +261,8 @@ exports[`PhotoPicker test render test render without previewSrc 1`] = `
     }
   >
     Photos
-  </Component>
-  <Component
+  </SectionHeader>
+  <SectionBody
     theme={
       Object {
         "a": Object {},
@@ -303,7 +303,7 @@ exports[`PhotoPicker test render test render without previewSrc 1`] = `
       }
     }
   >
-    <Component
+    <PhotoPlaceholder
       theme={
         Object {
           "a": Object {},
@@ -344,7 +344,7 @@ exports[`PhotoPicker test render test render without previewSrc 1`] = `
         }
       }
     />
-  </Component>
+  </SectionBody>
   <Picker
     accept="image/*"
     onPick={[Function]}
@@ -389,5 +389,5 @@ exports[`PhotoPicker test render test render without previewSrc 1`] = `
     }
     title="Select a Photo"
   />
-</Component>
+</FormSection>
 `;

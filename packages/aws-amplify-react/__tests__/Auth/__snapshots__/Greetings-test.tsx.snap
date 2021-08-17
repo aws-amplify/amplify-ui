@@ -1,24 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Greetings normal case render correctly with authState signedIn 1`] = `
-<Component
+<NavBar
   data-test="greetings-nav-bar"
   theme="theme"
 >
-  <Component
+  <Nav
     data-test="greetings-nav"
     theme="theme"
   >
-    <Component
+    <NavRight
       data-test="greetings-nav-right"
       theme="theme"
     >
       <span>
-        <Component
+        <NavItem
           theme="theme"
         >
           Hello username
-        </Component>
+        </NavItem>
         <SignOut
           authData={
             Object {
@@ -31,9 +31,9 @@ exports[`Greetings normal case render correctly with authState signedIn 1`] = `
           theme="theme"
         />
       </span>
-    </Component>
-  </Component>
-</Component>
+    </NavRight>
+  </Nav>
+</NavBar>
 `;
 
 exports[`Greetings normal case render correctly with hide 1`] = `""`;

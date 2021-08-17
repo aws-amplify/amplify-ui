@@ -3,7 +3,7 @@
 exports[`ConfirmSignIn render test hidden if hide include confirmSignIn 1`] = `""`;
 
 exports[`ConfirmSignIn render test render correctly with Props confirmSignIn 1`] = `
-<Component
+<FormSection
   data-test="confirm-sign-in-section"
   theme={
     Object {
@@ -248,7 +248,7 @@ exports[`ConfirmSignIn render test render correctly with Props confirmSignIn 1`]
     }
   }
 >
-  <Component
+  <SectionHeader
     data-test="confirm-sign-in-header-section"
     theme={
       Object {
@@ -494,12 +494,12 @@ exports[`ConfirmSignIn render test render correctly with Props confirmSignIn 1`]
     }
   >
     Confirm SMS Code
-  </Component>
+  </SectionHeader>
   <form
     data-test="confirm-sign-in-body-section"
     onSubmit={[Function]}
   >
-    <Component
+    <SectionBody
       theme={
         Object {
           "a": Object {
@@ -743,7 +743,7 @@ exports[`ConfirmSignIn render test render correctly with Props confirmSignIn 1`]
         }
       }
     >
-      <Component
+      <FormField
         theme={
           Object {
             "a": Object {
@@ -987,7 +987,7 @@ exports[`ConfirmSignIn render test render correctly with Props confirmSignIn 1`]
           }
         }
       >
-        <Component
+        <InputLabel
           theme={
             Object {
               "a": Object {
@@ -1233,8 +1233,8 @@ exports[`ConfirmSignIn render test render correctly with Props confirmSignIn 1`]
         >
           Code
            *
-        </Component>
-        <Component
+        </InputLabel>
+        <Input
           autoComplete="off"
           autoFocus={true}
           data-test="confirm-sign-in-code-input"
@@ -1485,9 +1485,9 @@ exports[`ConfirmSignIn render test render correctly with Props confirmSignIn 1`]
             }
           }
         />
-      </Component>
-    </Component>
-    <Component
+      </FormField>
+    </SectionBody>
+    <SectionFooter
       theme={
         Object {
           "a": Object {
@@ -1731,7 +1731,7 @@ exports[`ConfirmSignIn render test render correctly with Props confirmSignIn 1`]
         }
       }
     >
-      <Component
+      <SectionFooterPrimaryContent
         data-test="confirm-sign-in-confirm-button"
         theme={
           Object {
@@ -1976,7 +1976,7 @@ exports[`ConfirmSignIn render test render correctly with Props confirmSignIn 1`]
           }
         }
       >
-        <Component
+        <Button
           theme={
             Object {
               "a": Object {
@@ -2222,9 +2222,9 @@ exports[`ConfirmSignIn render test render correctly with Props confirmSignIn 1`]
           type="submit"
         >
           Confirm
-        </Component>
-      </Component>
-      <Component
+        </Button>
+      </SectionFooterPrimaryContent>
+      <SectionFooterSecondaryContent
         theme={
           Object {
             "a": Object {
@@ -2468,7 +2468,7 @@ exports[`ConfirmSignIn render test render correctly with Props confirmSignIn 1`]
           }
         }
       >
-        <Component
+        <Link
           data-test="confirm-sign-in-back-to-sign-in-link"
           onClick={[Function]}
           theme={
@@ -2715,11 +2715,11 @@ exports[`ConfirmSignIn render test render correctly with Props confirmSignIn 1`]
           }
         >
           Back to Sign In
-        </Component>
-      </Component>
-    </Component>
+        </Link>
+      </SectionFooterSecondaryContent>
+    </SectionFooter>
   </form>
-</Component>
+</FormSection>
 `;
 
 exports[`ConfirmSignIn render test render corrently with other authstate 1`] = `""`;
