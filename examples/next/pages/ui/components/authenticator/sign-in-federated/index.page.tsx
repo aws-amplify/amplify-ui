@@ -10,7 +10,7 @@ Amplify.configure({
   },
 });
 
-I18n.setLanguage('ja');
+I18n.setLanguage('en');
 
 export default function AuthenticatorWithFacebook() {
   return (
