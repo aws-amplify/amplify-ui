@@ -122,7 +122,7 @@ export default defineComponent({
 
     onMounted(async () => {
       const logger = new Logger('SetupTOTP-logger');
-      const { user } = context;
+      const { user } = actorState.value.context;
       if (!user) {
         return;
       }
