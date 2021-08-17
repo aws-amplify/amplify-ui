@@ -1,0 +1,2736 @@
+yarn run v1.22.10
+$ tslint 'src/**/*.ts' && jest -w 1 --coverage --maxWorkers 2
+● Deprecation Warning:
+
+  Option "setupTestFrameworkScriptFile" was replaced by configuration "setupFilesAfterEnv", which supports multiple paths.
+
+  Please update your configuration.
+
+  Configuration Documentation:
+  https://jestjs.io/docs/configuration.html
+
+● Deprecation Warning:
+
+  Option "setupTestFrameworkScriptFile" was replaced by configuration "setupFilesAfterEnv", which supports multiple paths.
+
+  Please update your configuration.
+
+  Configuration Documentation:
+  https://jestjs.io/docs/configuration.html
+
+ts-jest[config] (WARN) The option `tsConfig` is deprecated and will be removed in ts-jest 27, use `tsconfig` instead
+FAIL __tests__/Analytics/trackLifecycle-test.tsx
+  ● trackLifecycle test › track when mounting
+
+    TypeError: Cannot read property 'child' of undefined
+
+      36 |     };
+      37 |     const CompWithAuth = trackLifecycle(MockComp, 'trackername');
+    > 38 |     const wrapper = mount(<CompWithAuth />);
+         |                     ^
+      39 |
+      40 |     expect(spyon.mock.calls.length).toBe(2);
+      41 |
+
+      at getFiber (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:15:35)
+      at detectFiberTags (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:76:15)
+      at ReactSixteenAdapter.createMountRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:466:19)
+      at ReactSixteenAdapter.createRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:846:51)
+      at new ReactWrapper (../../node_modules/enzyme/src/ReactWrapper.js:113:32)
+      at mount (../../node_modules/enzyme/src/mount.js:10:10)
+      at Object.<anonymous> (__tests__/Analytics/trackLifecycle-test.tsx:38:21)
+
+FAIL __tests__/Storage/S3Text-test.tsx
+  ● Console
+
+    console.warn
+      [WARN] 41:47.791 AWSS3Provider - ensure credentials error No Cognito Identity pool provided for unauthenticated access
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:125:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.warn (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:164:12)
+      at AWSS3Provider.<anonymous> (node_modules/@aws-amplify/storage/src/providers/AWSS3Provider.ts:591:11)
+      at step (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:44:23)
+      at Object.throw (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:25:53)
+      at rejected (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:17:65)
+
+    console.warn
+      [WARN] 41:47.803 AWSS3Provider - ensure credentials error No Cognito Identity pool provided for unauthenticated access
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:125:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.warn (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:164:12)
+      at AWSS3Provider.<anonymous> (node_modules/@aws-amplify/storage/src/providers/AWSS3Provider.ts:591:11)
+      at step (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:44:23)
+      at Object.throw (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:25:53)
+      at rejected (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:17:65)
+
+    console.warn
+      [WARN] 41:47.805 AWSS3Provider - ensure credentials error No Cognito Identity pool provided for unauthenticated access
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:125:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.warn (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:164:12)
+      at AWSS3Provider.<anonymous> (node_modules/@aws-amplify/storage/src/providers/AWSS3Provider.ts:591:11)
+      at step (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:44:23)
+      at Object.throw (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:25:53)
+      at rejected (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:17:65)
+
+    console.warn
+      [WARN] 41:47.806 AWSS3Provider - ensure credentials error No Cognito Identity pool provided for unauthenticated access
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:125:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.warn (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:164:12)
+      at AWSS3Provider.<anonymous> (node_modules/@aws-amplify/storage/src/providers/AWSS3Provider.ts:591:11)
+      at step (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:44:23)
+      at Object.throw (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:25:53)
+      at rejected (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:17:65)
+
+    console.warn
+      [WARN] 41:47.806 AWSS3Provider - ensure credentials error No Cognito Identity pool provided for unauthenticated access
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:125:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.warn (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:164:12)
+      at AWSS3Provider.<anonymous> (node_modules/@aws-amplify/storage/src/providers/AWSS3Provider.ts:591:11)
+      at step (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:44:23)
+      at Object.throw (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:25:53)
+      at rejected (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:17:65)
+
+    console.warn
+      [WARN] 41:47.807 AWSS3Provider - ensure credentials error No Cognito Identity pool provided for unauthenticated access
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:125:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.warn (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:164:12)
+      at AWSS3Provider.<anonymous> (node_modules/@aws-amplify/storage/src/providers/AWSS3Provider.ts:591:11)
+      at step (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:44:23)
+      at Object.throw (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:25:53)
+      at rejected (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:17:65)
+
+    console.warn
+      [WARN] 41:47.808 AWSS3Provider - ensure credentials error No Cognito Identity pool provided for unauthenticated access
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:125:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.warn (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:164:12)
+      at AWSS3Provider.<anonymous> (node_modules/@aws-amplify/storage/src/providers/AWSS3Provider.ts:591:11)
+      at step (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:44:23)
+      at Object.throw (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:25:53)
+      at rejected (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:17:65)
+
+    console.warn
+      [WARN] 41:47.809 AWSS3Provider - ensure credentials error No Cognito Identity pool provided for unauthenticated access
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:125:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.warn (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:164:12)
+      at AWSS3Provider.<anonymous> (node_modules/@aws-amplify/storage/src/providers/AWSS3Provider.ts:591:11)
+      at step (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:44:23)
+      at Object.throw (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:25:53)
+      at rejected (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:17:65)
+
+    console.warn
+      [WARN] 41:47.810 AWSS3Provider - ensure credentials error No Cognito Identity pool provided for unauthenticated access
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:125:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.warn (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:164:12)
+      at AWSS3Provider.<anonymous> (node_modules/@aws-amplify/storage/src/providers/AWSS3Provider.ts:591:11)
+      at step (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:44:23)
+      at Object.throw (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:25:53)
+      at rejected (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:17:65)
+
+    console.warn
+      [WARN] 41:47.811 AWSS3Provider - ensure credentials error No Cognito Identity pool provided for unauthenticated access
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:125:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.warn (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:164:12)
+      at AWSS3Provider.<anonymous> (node_modules/@aws-amplify/storage/src/providers/AWSS3Provider.ts:591:11)
+      at step (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:44:23)
+      at Object.throw (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:25:53)
+      at rejected (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:17:65)
+
+  ● S3Text test › componentDidmount test › happy case
+
+    TypeError: Cannot read property 'child' of undefined
+
+      310 |       const spyon = jest.spyOn(S3Text.prototype, 'load');
+      311 |
+    > 312 |       const wrapper = mount(<S3Text />);
+          |                       ^
+      313 |
+      314 |       expect(spyon).toBeCalled();
+      315 |       spyon.mockClear();
+
+      at getFiber (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:15:35)
+      at detectFiberTags (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:76:15)
+      at ReactSixteenAdapter.createMountRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:466:19)
+      at ReactSixteenAdapter.createRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:846:51)
+      at new ReactWrapper (../../node_modules/enzyme/src/ReactWrapper.js:113:32)
+      at mount (../../node_modules/enzyme/src/mount.js:10:10)
+      at Object.<anonymous> (__tests__/Storage/S3Text-test.tsx:312:23)
+
+FAIL __tests__/Storage/S3Album-test.tsx
+  ● Console
+
+    console.warn
+      [WARN] 41:48.187 AWSS3Provider - ensure credentials error No Auth module registered in Amplify
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:125:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.warn (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:164:12)
+      at AWSS3Provider.<anonymous> (node_modules/@aws-amplify/storage/src/providers/AWSS3Provider.ts:591:11)
+      at step (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:44:23)
+      at Object.throw (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:25:53)
+      at rejected (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:17:65)
+
+    console.warn
+      [WARN] 41:48.187 Storage.S3Album Error: No credentials
+          at AWSS3Provider.<anonymous> (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/src/providers/AWSS3Provider.ts:528:10)
+          at step (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:44:23)
+          at Object.next (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:25:53)
+          at fulfilled (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:16:58)
+
+      211 |       })
+      212 |       .catch((err) => {
+    > 213 |         logger.warn(err);
+          |                ^
+      214 |         return [];
+      215 |       });
+      216 |   }
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:118:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.warn (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:164:12)
+      at src/Storage/S3Album.tsx:213:16
+
+    console.warn
+      [WARN] 41:48.212 AWSS3Provider - ensure credentials error No Auth module registered in Amplify
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:125:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.warn (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:164:12)
+      at AWSS3Provider.<anonymous> (node_modules/@aws-amplify/storage/src/providers/AWSS3Provider.ts:591:11)
+      at step (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:44:23)
+      at Object.throw (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:25:53)
+      at rejected (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:17:65)
+
+    console.warn
+      [WARN] 41:48.212 Storage.S3Album Error: No credentials
+          at AWSS3Provider.<anonymous> (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/src/providers/AWSS3Provider.ts:528:10)
+          at step (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:44:23)
+          at Object.next (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:25:53)
+          at fulfilled (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:16:58)
+
+      211 |       })
+      212 |       .catch((err) => {
+    > 213 |         logger.warn(err);
+          |                ^
+      214 |         return [];
+      215 |       });
+      216 |   }
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:118:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.warn (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:164:12)
+      at src/Storage/S3Album.tsx:213:16
+
+    console.warn
+      [WARN] 41:48.218 AWSS3Provider - ensure credentials error No Auth module registered in Amplify
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:125:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.warn (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:164:12)
+      at AWSS3Provider.<anonymous> (node_modules/@aws-amplify/storage/src/providers/AWSS3Provider.ts:591:11)
+      at step (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:44:23)
+      at Object.throw (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:25:53)
+      at rejected (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:17:65)
+
+    console.warn
+      [WARN] 41:48.218 Storage.S3Album Error: No credentials
+          at AWSS3Provider.<anonymous> (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/src/providers/AWSS3Provider.ts:528:10)
+          at step (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:44:23)
+          at Object.next (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:25:53)
+          at fulfilled (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:16:58)
+
+      211 |       })
+      212 |       .catch((err) => {
+    > 213 |         logger.warn(err);
+          |                ^
+      214 |         return [];
+      215 |       });
+      216 |   }
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:118:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.warn (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:164:12)
+      at src/Storage/S3Album.tsx:213:16
+
+    console.warn
+      [WARN] 41:48.219 AWSS3Provider - ensure credentials error No Auth module registered in Amplify
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:125:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.warn (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:164:12)
+      at AWSS3Provider.<anonymous> (node_modules/@aws-amplify/storage/src/providers/AWSS3Provider.ts:591:11)
+      at step (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:44:23)
+      at Object.throw (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:25:53)
+      at rejected (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:17:65)
+
+    console.warn
+      [WARN] 41:48.219 Storage.S3Album Error: No credentials
+          at AWSS3Provider.<anonymous> (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/src/providers/AWSS3Provider.ts:528:10)
+          at step (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:44:23)
+          at Object.next (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:25:53)
+          at fulfilled (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:16:58)
+
+      211 |       })
+      212 |       .catch((err) => {
+    > 213 |         logger.warn(err);
+          |                ^
+      214 |         return [];
+      215 |       });
+      216 |   }
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:118:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.warn (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:164:12)
+      at src/Storage/S3Album.tsx:213:16
+
+    console.warn
+      [WARN] 41:48.220 AWSS3Provider - ensure credentials error No Auth module registered in Amplify
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:125:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.warn (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:164:12)
+      at AWSS3Provider.<anonymous> (node_modules/@aws-amplify/storage/src/providers/AWSS3Provider.ts:591:11)
+      at step (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:44:23)
+      at Object.throw (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:25:53)
+      at rejected (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:17:65)
+
+    console.warn
+      [WARN] 41:48.221 Storage.S3Album Error: No credentials
+          at AWSS3Provider.<anonymous> (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/src/providers/AWSS3Provider.ts:528:10)
+          at step (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:44:23)
+          at Object.next (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:25:53)
+          at fulfilled (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:16:58)
+
+      211 |       })
+      212 |       .catch((err) => {
+    > 213 |         logger.warn(err);
+          |                ^
+      214 |         return [];
+      215 |       });
+      216 |   }
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:118:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.warn (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:164:12)
+      at src/Storage/S3Album.tsx:213:16
+
+    console.warn
+      [WARN] 41:48.222 AWSS3Provider - ensure credentials error No Auth module registered in Amplify
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:125:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.warn (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:164:12)
+      at AWSS3Provider.<anonymous> (node_modules/@aws-amplify/storage/src/providers/AWSS3Provider.ts:591:11)
+      at step (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:44:23)
+      at Object.throw (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:25:53)
+      at rejected (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:17:65)
+
+    console.warn
+      [WARN] 41:48.222 Storage.S3Album Error: No credentials
+          at AWSS3Provider.<anonymous> (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/src/providers/AWSS3Provider.ts:528:10)
+          at step (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:44:23)
+          at Object.next (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:25:53)
+          at fulfilled (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:16:58)
+
+      211 |       })
+      212 |       .catch((err) => {
+    > 213 |         logger.warn(err);
+          |                ^
+      214 |         return [];
+      215 |       });
+      216 |   }
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:118:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.warn (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:164:12)
+      at src/Storage/S3Album.tsx:213:16
+
+    console.warn
+      [WARN] 41:48.224 AWSS3Provider - ensure credentials error No Auth module registered in Amplify
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:125:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.warn (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:164:12)
+      at AWSS3Provider.<anonymous> (node_modules/@aws-amplify/storage/src/providers/AWSS3Provider.ts:591:11)
+      at step (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:44:23)
+      at Object.throw (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:25:53)
+      at rejected (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:17:65)
+
+    console.warn
+      [WARN] 41:48.224 AWSS3Provider - ensure credentials error No Auth module registered in Amplify
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:125:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.warn (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:164:12)
+      at AWSS3Provider.<anonymous> (node_modules/@aws-amplify/storage/src/providers/AWSS3Provider.ts:591:11)
+      at step (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:44:23)
+      at Object.throw (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:25:53)
+      at rejected (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:17:65)
+
+    console.warn
+      [WARN] 41:48.224 Storage.S3Album Error: No credentials
+          at AWSS3Provider.<anonymous> (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/src/providers/AWSS3Provider.ts:528:10)
+          at step (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:44:23)
+          at Object.next (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:25:53)
+          at fulfilled (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:16:58)
+
+      211 |       })
+      212 |       .catch((err) => {
+    > 213 |         logger.warn(err);
+          |                ^
+      214 |         return [];
+      215 |       });
+      216 |   }
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:118:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.warn (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:164:12)
+      at src/Storage/S3Album.tsx:213:16
+
+    console.warn
+      [WARN] 41:48.225 Storage.S3Album Error: No credentials
+          at AWSS3Provider.<anonymous> (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/src/providers/AWSS3Provider.ts:528:10)
+          at step (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:44:23)
+          at Object.next (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:25:53)
+          at fulfilled (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:16:58)
+
+      211 |       })
+      212 |       .catch((err) => {
+    > 213 |         logger.warn(err);
+          |                ^
+      214 |         return [];
+      215 |       });
+      216 |   }
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:118:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.warn (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:164:12)
+      at src/Storage/S3Album.tsx:213:16
+
+    console.warn
+      [WARN] 41:48.226 AWSS3Provider - ensure credentials error No Auth module registered in Amplify
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:125:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.warn (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:164:12)
+      at AWSS3Provider.<anonymous> (node_modules/@aws-amplify/storage/src/providers/AWSS3Provider.ts:591:11)
+      at step (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:44:23)
+      at Object.throw (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:25:53)
+      at rejected (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:17:65)
+
+    console.warn
+      [WARN] 41:48.226 AWSS3Provider - ensure credentials error No Auth module registered in Amplify
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:125:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.warn (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:164:12)
+      at AWSS3Provider.<anonymous> (node_modules/@aws-amplify/storage/src/providers/AWSS3Provider.ts:591:11)
+      at step (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:44:23)
+      at Object.throw (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:25:53)
+      at rejected (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:17:65)
+
+    console.warn
+      [WARN] 41:48.227 Storage.S3Album Error: No credentials
+          at AWSS3Provider.<anonymous> (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/src/providers/AWSS3Provider.ts:528:10)
+          at step (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:44:23)
+          at Object.next (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:25:53)
+          at fulfilled (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:16:58)
+
+      211 |       })
+      212 |       .catch((err) => {
+    > 213 |         logger.warn(err);
+          |                ^
+      214 |         return [];
+      215 |       });
+      216 |   }
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:118:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.warn (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:164:12)
+      at src/Storage/S3Album.tsx:213:16
+
+    console.warn
+      [WARN] 41:48.227 Storage.S3Album Error: No credentials
+          at AWSS3Provider.<anonymous> (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/src/providers/AWSS3Provider.ts:528:10)
+          at step (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:44:23)
+          at Object.next (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:25:53)
+          at fulfilled (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:16:58)
+
+      211 |       })
+      212 |       .catch((err) => {
+    > 213 |         logger.warn(err);
+          |                ^
+      214 |         return [];
+      215 |       });
+      216 |   }
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:118:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.warn (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:164:12)
+      at src/Storage/S3Album.tsx:213:16
+
+    console.warn
+      [WARN] 41:48.228 AWSS3Provider - ensure credentials error No Auth module registered in Amplify
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:125:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.warn (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:164:12)
+      at AWSS3Provider.<anonymous> (node_modules/@aws-amplify/storage/src/providers/AWSS3Provider.ts:591:11)
+      at step (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:44:23)
+      at Object.throw (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:25:53)
+      at rejected (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:17:65)
+
+    console.warn
+      [WARN] 41:48.229 AWSS3Provider - ensure credentials error No Auth module registered in Amplify
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:125:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.warn (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:164:12)
+      at AWSS3Provider.<anonymous> (node_modules/@aws-amplify/storage/src/providers/AWSS3Provider.ts:591:11)
+      at step (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:44:23)
+      at Object.throw (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:25:53)
+      at rejected (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:17:65)
+
+    console.warn
+      [WARN] 41:48.229 Storage.S3Album Error: No credentials
+          at AWSS3Provider.<anonymous> (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/src/providers/AWSS3Provider.ts:528:10)
+          at step (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:44:23)
+          at Object.next (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:25:53)
+          at fulfilled (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:16:58)
+
+      211 |       })
+      212 |       .catch((err) => {
+    > 213 |         logger.warn(err);
+          |                ^
+      214 |         return [];
+      215 |       });
+      216 |   }
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:118:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.warn (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:164:12)
+      at src/Storage/S3Album.tsx:213:16
+
+    console.warn
+      [WARN] 41:48.229 Storage.S3Album Error: No credentials
+          at AWSS3Provider.<anonymous> (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/src/providers/AWSS3Provider.ts:528:10)
+          at step (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:44:23)
+          at Object.next (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:25:53)
+          at fulfilled (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:16:58)
+
+      211 |       })
+      212 |       .catch((err) => {
+    > 213 |         logger.warn(err);
+          |                ^
+      214 |         return [];
+      215 |       });
+      216 |   }
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:118:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.warn (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:164:12)
+      at src/Storage/S3Album.tsx:213:16
+
+    console.warn
+      [WARN] 41:48.234 AWSS3Provider - ensure credentials error No Auth module registered in Amplify
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:125:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.warn (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:164:12)
+      at AWSS3Provider.<anonymous> (node_modules/@aws-amplify/storage/src/providers/AWSS3Provider.ts:591:11)
+      at step (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:44:23)
+      at Object.throw (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:25:53)
+      at rejected (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:17:65)
+
+    console.warn
+      [WARN] 41:48.234 Storage.S3Album Error: No credentials
+          at AWSS3Provider.<anonymous> (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/src/providers/AWSS3Provider.ts:528:10)
+          at step (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:44:23)
+          at Object.next (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:25:53)
+          at fulfilled (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:16:58)
+
+      211 |       })
+      212 |       .catch((err) => {
+    > 213 |         logger.warn(err);
+          |                ^
+      214 |         return [];
+      215 |       });
+      216 |   }
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:118:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.warn (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:164:12)
+      at src/Storage/S3Album.tsx:213:16
+
+    console.warn
+      [WARN] 41:48.238 AWSS3Provider - ensure credentials error No Auth module registered in Amplify
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:125:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.warn (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:164:12)
+      at AWSS3Provider.<anonymous> (node_modules/@aws-amplify/storage/src/providers/AWSS3Provider.ts:591:11)
+      at step (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:44:23)
+      at Object.throw (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:25:53)
+      at rejected (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:17:65)
+
+    console.warn
+      [WARN] 41:48.238 Storage.S3Album Error: No credentials
+          at AWSS3Provider.<anonymous> (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/src/providers/AWSS3Provider.ts:528:10)
+          at step (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:44:23)
+          at Object.next (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:25:53)
+          at fulfilled (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:16:58)
+
+      211 |       })
+      212 |       .catch((err) => {
+    > 213 |         logger.warn(err);
+          |                ^
+      214 |         return [];
+      215 |       });
+      216 |   }
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:118:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.warn (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:164:12)
+      at src/Storage/S3Album.tsx:213:16
+
+    console.warn
+      [WARN] 41:48.243 AWSS3Provider - ensure credentials error No Auth module registered in Amplify
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:125:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.warn (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:164:12)
+      at AWSS3Provider.<anonymous> (node_modules/@aws-amplify/storage/src/providers/AWSS3Provider.ts:591:11)
+      at step (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:44:23)
+      at Object.throw (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:25:53)
+      at rejected (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:17:65)
+
+    console.warn
+      [WARN] 41:48.244 Storage.S3Album Error: No credentials
+          at AWSS3Provider.<anonymous> (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/src/providers/AWSS3Provider.ts:528:10)
+          at step (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:44:23)
+          at Object.next (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:25:53)
+          at fulfilled (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:16:58)
+
+      211 |       })
+      212 |       .catch((err) => {
+    > 213 |         logger.warn(err);
+          |                ^
+      214 |         return [];
+      215 |       });
+      216 |   }
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:118:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.warn (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:164:12)
+      at src/Storage/S3Album.tsx:213:16
+
+    console.warn
+      [WARN] 41:48.245 Storage.S3Album TypeError: list.forEach is not a function
+          at S3Album.marshal (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/src/Storage/S3Album.tsx:224:10)
+          at S3Album.<anonymous> (/Users/ehhanche/programming/work/spark/amplify-ui/node_modules/jest-mock/build/index.js:845:25)
+          at /Users/ehhanche/programming/work/spark/amplify-ui/node_modules/jest-mock/build/index.js:444:39
+          at S3Album.<anonymous> (/Users/ehhanche/programming/work/spark/amplify-ui/node_modules/jest-mock/build/index.js:452:13)
+          at S3Album.mockConstructor [as marshal] (/Users/ehhanche/programming/work/spark/amplify-ui/node_modules/jest-mock/build/index.js:166:19)
+          at /Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/src/Storage/S3Album.tsx:210:14
+
+      211 |       })
+      212 |       .catch((err) => {
+    > 213 |         logger.warn(err);
+          |                ^
+      214 |         return [];
+      215 |       });
+      216 |   }
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:118:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.warn (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:164:12)
+      at src/Storage/S3Album.tsx:213:16
+
+    console.warn
+      [WARN] 41:48.278 AWSS3Provider - ensure credentials error No Auth module registered in Amplify
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:125:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.warn (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:164:12)
+      at AWSS3Provider.<anonymous> (node_modules/@aws-amplify/storage/src/providers/AWSS3Provider.ts:591:11)
+      at step (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:44:23)
+      at Object.throw (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:25:53)
+      at rejected (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:17:65)
+
+    console.warn
+      [WARN] 41:48.278 Storage.S3Album Error: No credentials
+          at AWSS3Provider.<anonymous> (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/src/providers/AWSS3Provider.ts:528:10)
+          at step (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:44:23)
+          at Object.next (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:25:53)
+          at fulfilled (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:16:58)
+
+      211 |       })
+      212 |       .catch((err) => {
+    > 213 |         logger.warn(err);
+          |                ^
+      214 |         return [];
+      215 |       });
+      216 |   }
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:118:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.warn (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:164:12)
+      at src/Storage/S3Album.tsx:213:16
+
+    console.warn
+      [WARN] 41:48.279 Storage.S3Album TypeError: list.forEach is not a function
+          at S3Album.marshal (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/src/Storage/S3Album.tsx:224:10)
+          at S3Album.<anonymous> (/Users/ehhanche/programming/work/spark/amplify-ui/node_modules/jest-mock/build/index.js:845:25)
+          at /Users/ehhanche/programming/work/spark/amplify-ui/node_modules/jest-mock/build/index.js:444:39
+          at S3Album.<anonymous> (/Users/ehhanche/programming/work/spark/amplify-ui/node_modules/jest-mock/build/index.js:452:13)
+          at S3Album.mockConstructor [as marshal] (/Users/ehhanche/programming/work/spark/amplify-ui/node_modules/jest-mock/build/index.js:166:19)
+          at /Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/src/Storage/S3Album.tsx:210:14
+
+      211 |       })
+      212 |       .catch((err) => {
+    > 213 |         logger.warn(err);
+          |                ^
+      214 |         return [];
+      215 |       });
+      216 |   }
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:118:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.warn (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:164:12)
+      at src/Storage/S3Album.tsx:213:16
+
+    console.warn
+      [WARN] 41:48.280 Storage.S3Album - err
+
+      211 |       })
+      212 |       .catch((err) => {
+    > 213 |         logger.warn(err);
+          |                ^
+      214 |         return [];
+      215 |       });
+      216 |   }
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:115:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.warn (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:164:12)
+      at src/Storage/S3Album.tsx:213:16
+
+    console.warn
+      [WARN] 41:48.280 AWSS3Provider - ensure credentials error No Auth module registered in Amplify
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:125:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.warn (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:164:12)
+      at AWSS3Provider.<anonymous> (node_modules/@aws-amplify/storage/src/providers/AWSS3Provider.ts:591:11)
+      at step (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:44:23)
+      at Object.throw (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:25:53)
+      at rejected (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:17:65)
+
+    console.warn
+      [WARN] 41:48.281 Storage.S3Album Error: No credentials
+          at AWSS3Provider.<anonymous> (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/src/providers/AWSS3Provider.ts:528:10)
+          at step (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:44:23)
+          at Object.next (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:25:53)
+          at fulfilled (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:16:58)
+
+      211 |       })
+      212 |       .catch((err) => {
+    > 213 |         logger.warn(err);
+          |                ^
+      214 |         return [];
+      215 |       });
+      216 |   }
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:118:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.warn (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:164:12)
+      at src/Storage/S3Album.tsx:213:16
+
+    console.warn
+      [WARN] 41:48.282 AWSS3Provider - ensure credentials error No Auth module registered in Amplify
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:125:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.warn (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:164:12)
+      at AWSS3Provider.<anonymous> (node_modules/@aws-amplify/storage/src/providers/AWSS3Provider.ts:591:11)
+      at step (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:44:23)
+      at Object.throw (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:25:53)
+      at rejected (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:17:65)
+
+    console.warn
+      [WARN] 41:48.282 Storage.S3Album Error: No credentials
+          at AWSS3Provider.<anonymous> (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/src/providers/AWSS3Provider.ts:528:10)
+          at step (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:44:23)
+          at Object.next (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:25:53)
+          at fulfilled (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:16:58)
+
+      211 |       })
+      212 |       .catch((err) => {
+    > 213 |         logger.warn(err);
+          |                ^
+      214 |         return [];
+      215 |       });
+      216 |   }
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:118:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.warn (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:164:12)
+      at src/Storage/S3Album.tsx:213:16
+
+  ● S3Album test › marshal test › happy case with contentType string
+
+    TypeError: Cannot read property 'child' of undefined
+
+      561 |         });
+      562 |       });
+    > 563 |       const wrapper = await mount(<S3Album contentType="string" />);
+          |                             ^
+      564 |
+      565 |       expect(wrapper.state('items')).toEqual([
+      566 |         { contentType: 'string', data: 'data', key: 'data-1' },
+
+      at getFiber (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:15:35)
+      at detectFiberTags (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:76:15)
+      at ReactSixteenAdapter.createMountRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:466:19)
+      at ReactSixteenAdapter.createRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:846:51)
+      at new ReactWrapper (../../node_modules/enzyme/src/ReactWrapper.js:113:32)
+      at mount (../../node_modules/enzyme/src/mount.js:10:10)
+      at __tests__/Storage/S3Album-test.tsx:563:29
+      at step (__tests__/Storage/S3Album-test.tsx:44:23)
+      at Object.next (__tests__/Storage/S3Album-test.tsx:25:53)
+      at __tests__/Storage/S3Album-test.tsx:19:71
+      at Object.<anonymous>.__awaiter (__tests__/Storage/S3Album-test.tsx:15:12)
+      at Object.<anonymous> (__tests__/Storage/S3Album-test.tsx:557:48)
+
+FAIL __tests__/Storage/S3Image-test.tsx
+  ● Console
+
+    console.warn
+      [WARN] 41:48.673 AWSS3Provider - ensure credentials error No Cognito Identity pool provided for unauthenticated access
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:125:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.warn (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:164:12)
+      at AWSS3Provider.<anonymous> (node_modules/@aws-amplify/storage/src/providers/AWSS3Provider.ts:591:11)
+      at step (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:44:23)
+      at Object.throw (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:25:53)
+      at rejected (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:17:65)
+
+    console.warn
+      [WARN] 41:48.674 AWSS3Provider - ensure credentials error No Cognito Identity pool provided for unauthenticated access
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:125:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.warn (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:164:12)
+      at AWSS3Provider.<anonymous> (node_modules/@aws-amplify/storage/src/providers/AWSS3Provider.ts:591:11)
+      at step (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:44:23)
+      at Object.throw (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:25:53)
+      at rejected (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:17:65)
+
+    console.warn
+      [WARN] 41:48.676 AWSS3Provider - ensure credentials error No Cognito Identity pool provided for unauthenticated access
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:125:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.warn (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:164:12)
+      at AWSS3Provider.<anonymous> (node_modules/@aws-amplify/storage/src/providers/AWSS3Provider.ts:591:11)
+      at step (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:44:23)
+      at Object.throw (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:25:53)
+      at rejected (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:17:65)
+
+    console.warn
+      [WARN] 41:48.677 AWSS3Provider - ensure credentials error No Cognito Identity pool provided for unauthenticated access
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:125:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.warn (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:164:12)
+      at AWSS3Provider.<anonymous> (node_modules/@aws-amplify/storage/src/providers/AWSS3Provider.ts:591:11)
+      at step (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:44:23)
+      at Object.throw (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:25:53)
+      at rejected (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:17:65)
+
+    console.warn
+      [WARN] 41:48.677 AWSS3Provider - ensure credentials error No Cognito Identity pool provided for unauthenticated access
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:125:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.warn (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:164:12)
+      at AWSS3Provider.<anonymous> (node_modules/@aws-amplify/storage/src/providers/AWSS3Provider.ts:591:11)
+      at step (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:44:23)
+      at Object.throw (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:25:53)
+      at rejected (node_modules/@aws-amplify/storage/lib/providers/AWSS3Provider.js:17:65)
+
+  ● S3Image › componentDidmount test › happy case
+
+    TypeError: Cannot read property 'child' of undefined
+
+      318 |       const spyon = jest.spyOn(S3Image.prototype, 'load');
+      319 |
+    > 320 |       const wrapper = mount(<S3Image />);
+          |                       ^
+      321 |
+      322 |       expect(spyon).toBeCalled();
+      323 |       spyon.mockClear();
+
+      at getFiber (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:15:35)
+      at detectFiberTags (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:76:15)
+      at ReactSixteenAdapter.createMountRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:466:19)
+      at ReactSixteenAdapter.createRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:846:51)
+      at new ReactWrapper (../../node_modules/enzyme/src/ReactWrapper.js:113:32)
+      at mount (../../node_modules/enzyme/src/mount.js:10:10)
+      at Object.<anonymous> (__tests__/Storage/S3Image-test.tsx:320:23)
+
+FAIL __tests__/Auth/Authenticator-test.tsx
+  ● Console
+
+    console.error
+      [ERROR] 41:49.90 AuthError - 
+                  Error: Amplify has not been configured correctly. 
+                  The configuration object is missing required auth properties.
+                  This error is typically caused by one of the following scenarios:
+      
+                  1. Did you run `amplify push` after adding auth via `amplify add auth`?
+                      See https://aws-amplify.github.io/docs/js/authentication#amplify-project-setup for more information
+      
+                  2. This could also be caused by multiple conflicting versions of amplify packages, see (https://docs.amplify.aws/lib/troubleshooting/upgrading/q/platform/js) for help upgrading Amplify packages.
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:115:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.error (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:174:12)
+      at NoUserPoolError.AuthError [as constructor] (node_modules/@aws-amplify/auth/src/Errors.ts:34:10)
+      at new NoUserPoolError (node_modules/@aws-amplify/auth/src/Errors.ts:40:3)
+      at AuthClass.Object.<anonymous>.AuthClass.rejectNoUserPool (node_modules/@aws-amplify/auth/src/Auth.ts:2246:25)
+      at AuthClass.Object.<anonymous>.AuthClass.currentUserPoolUser (node_modules/@aws-amplify/auth/src/Auth.ts:1234:16)
+      at AuthClass.<anonymous> (node_modules/@aws-amplify/auth/src/Auth.ts:1400:23)
+      at step (node_modules/@aws-amplify/auth/lib/Auth.js:56:23)
+
+    console.error
+      [ERROR] 41:49.112 AuthError - 
+                  Error: Amplify has not been configured correctly. 
+                  The configuration object is missing required auth properties.
+                  This error is typically caused by one of the following scenarios:
+      
+                  1. Did you run `amplify push` after adding auth via `amplify add auth`?
+                      See https://aws-amplify.github.io/docs/js/authentication#amplify-project-setup for more information
+      
+                  2. This could also be caused by multiple conflicting versions of amplify packages, see (https://docs.amplify.aws/lib/troubleshooting/upgrading/q/platform/js) for help upgrading Amplify packages.
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:115:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.error (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:174:12)
+      at NoUserPoolError.AuthError [as constructor] (node_modules/@aws-amplify/auth/src/Errors.ts:34:10)
+      at new NoUserPoolError (node_modules/@aws-amplify/auth/src/Errors.ts:40:3)
+      at AuthClass.Object.<anonymous>.AuthClass.rejectNoUserPool (node_modules/@aws-amplify/auth/src/Auth.ts:2246:25)
+      at AuthClass.Object.<anonymous>.AuthClass.currentUserPoolUser (node_modules/@aws-amplify/auth/src/Auth.ts:1234:16)
+      at AuthClass.<anonymous> (node_modules/@aws-amplify/auth/src/Auth.ts:1400:23)
+      at step (node_modules/@aws-amplify/auth/lib/Auth.js:56:23)
+
+    console.error
+      [ERROR] 41:49.122 AuthError - 
+                  Error: Amplify has not been configured correctly. 
+                  The configuration object is missing required auth properties.
+                  This error is typically caused by one of the following scenarios:
+      
+                  1. Did you run `amplify push` after adding auth via `amplify add auth`?
+                      See https://aws-amplify.github.io/docs/js/authentication#amplify-project-setup for more information
+      
+                  2. This could also be caused by multiple conflicting versions of amplify packages, see (https://docs.amplify.aws/lib/troubleshooting/upgrading/q/platform/js) for help upgrading Amplify packages.
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:115:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.error (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:174:12)
+      at NoUserPoolError.AuthError [as constructor] (node_modules/@aws-amplify/auth/src/Errors.ts:34:10)
+      at new NoUserPoolError (node_modules/@aws-amplify/auth/src/Errors.ts:40:3)
+      at AuthClass.Object.<anonymous>.AuthClass.rejectNoUserPool (node_modules/@aws-amplify/auth/src/Auth.ts:2246:25)
+      at AuthClass.Object.<anonymous>.AuthClass.currentUserPoolUser (node_modules/@aws-amplify/auth/src/Auth.ts:1234:16)
+      at AuthClass.<anonymous> (node_modules/@aws-amplify/auth/src/Auth.ts:1400:23)
+      at step (node_modules/@aws-amplify/auth/lib/Auth.js:56:23)
+
+    console.error
+      [ERROR] 41:49.124 AuthError - 
+                  Error: Amplify has not been configured correctly. 
+                  The configuration object is missing required auth properties.
+                  This error is typically caused by one of the following scenarios:
+      
+                  1. Did you run `amplify push` after adding auth via `amplify add auth`?
+                      See https://aws-amplify.github.io/docs/js/authentication#amplify-project-setup for more information
+      
+                  2. This could also be caused by multiple conflicting versions of amplify packages, see (https://docs.amplify.aws/lib/troubleshooting/upgrading/q/platform/js) for help upgrading Amplify packages.
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:115:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.error (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:174:12)
+      at NoUserPoolError.AuthError [as constructor] (node_modules/@aws-amplify/auth/src/Errors.ts:34:10)
+      at new NoUserPoolError (node_modules/@aws-amplify/auth/src/Errors.ts:40:3)
+      at AuthClass.Object.<anonymous>.AuthClass.rejectNoUserPool (node_modules/@aws-amplify/auth/src/Auth.ts:2246:25)
+      at AuthClass.Object.<anonymous>.AuthClass.currentUserPoolUser (node_modules/@aws-amplify/auth/src/Auth.ts:1234:16)
+      at AuthClass.<anonymous> (node_modules/@aws-amplify/auth/src/Auth.ts:1400:23)
+      at step (node_modules/@aws-amplify/auth/lib/Auth.js:56:23)
+
+  ● Authenticator › container component › use provided Container component if this.props.container is truthy
+
+    TypeError: Cannot read property 'child' of undefined
+
+      160 |         return <div className="custom-container">{children}</div>;
+      161 |       };
+    > 162 |       const wrapper = mount(<Authenticator container={CustomContainer} />);
+          |                       ^
+      163 |       expect(wrapper.childAt(0).type()).toBe(CustomContainer);
+      164 |     });
+      165 |
+
+      at getFiber (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:15:35)
+      at detectFiberTags (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:76:15)
+      at ReactSixteenAdapter.createMountRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:466:19)
+      at ReactSixteenAdapter.createRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:846:51)
+      at new ReactWrapper (../../node_modules/enzyme/src/ReactWrapper.js:113:32)
+      at mount (../../node_modules/enzyme/src/mount.js:10:10)
+      at Object.<anonymous> (__tests__/Auth/Authenticator-test.tsx:162:23)
+
+  ● Authenticator › container component › use AWS Amplify UI Container if this.props.container is undefined
+
+    TypeError: Cannot read property 'child' of undefined
+
+      165 |
+      166 |     test('use AWS Amplify UI Container if this.props.container is undefined', () => {
+    > 167 |       const wrapper = mount(<Authenticator />);
+          |                       ^
+      168 |       expect(wrapper.childAt(0).type()).toBe(Container);
+      169 |     });
+      170 |
+
+      at getFiber (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:15:35)
+      at detectFiberTags (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:76:15)
+      at ReactSixteenAdapter.createMountRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:466:19)
+      at ReactSixteenAdapter.createRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:846:51)
+      at new ReactWrapper (../../node_modules/enzyme/src/ReactWrapper.js:113:32)
+      at mount (../../node_modules/enzyme/src/mount.js:10:10)
+      at Object.<anonymous> (__tests__/Auth/Authenticator-test.tsx:167:23)
+
+  ● Authenticator › container component › use EmptyContainer if this.props.container is falsey
+
+    TypeError: Cannot read property 'child' of undefined
+
+      170 |
+      171 |     test('use EmptyContainer if this.props.container is falsey', () => {
+    > 172 |       const wrapper = mount(<Authenticator container="" />);
+          |                       ^
+      173 |       expect(wrapper.childAt(0).type()).toBe(EmptyContainer);
+      174 |     });
+      175 |   });
+
+      at getFiber (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:15:35)
+      at detectFiberTags (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:76:15)
+      at ReactSixteenAdapter.createMountRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:466:19)
+      at ReactSixteenAdapter.createRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:846:51)
+      at new ReactWrapper (../../node_modules/enzyme/src/ReactWrapper.js:113:32)
+      at mount (../../node_modules/enzyme/src/mount.js:10:10)
+      at Object.<anonymous> (__tests__/Auth/Authenticator-test.tsx:172:23)
+
+FAIL __tests__/Auth/SignOut-test.tsx
+  ● Console
+
+    console.error
+      [ERROR] 41:49.434 AuthError - 
+                  Error: Amplify has not been configured correctly. 
+                  The configuration object is missing required auth properties.
+                  This error is typically caused by one of the following scenarios:
+      
+                  1. Did you run `amplify push` after adding auth via `amplify add auth`?
+                      See https://aws-amplify.github.io/docs/js/authentication#amplify-project-setup for more information
+      
+                  2. This could also be caused by multiple conflicting versions of amplify packages, see (https://docs.amplify.aws/lib/troubleshooting/upgrading/q/platform/js) for help upgrading Amplify packages.
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:115:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.error (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:174:12)
+      at NoUserPoolError.AuthError [as constructor] (node_modules/@aws-amplify/auth/src/Errors.ts:34:10)
+      at new NoUserPoolError (node_modules/@aws-amplify/auth/src/Errors.ts:40:3)
+      at AuthClass.Object.<anonymous>.AuthClass.rejectNoUserPool (node_modules/@aws-amplify/auth/src/Auth.ts:2246:25)
+      at AuthClass.Object.<anonymous>.AuthClass.currentUserPoolUser (node_modules/@aws-amplify/auth/src/Auth.ts:1234:16)
+      at AuthClass.<anonymous> (node_modules/@aws-amplify/auth/src/Auth.ts:1400:23)
+      at step (node_modules/@aws-amplify/auth/lib/Auth.js:56:23)
+
+    console.error
+      [ERROR] 41:49.434 SignOut - The user is not authenticated
+
+      71 |           });
+      72 |         })
+    > 73 |         .catch((err) => logger.error(err));
+         |                                ^
+      74 |     } else if (this.props.stateFromStorage) {
+      75 |       this.setState({
+      76 |         stateFromStorage: true,
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:115:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.error (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:174:12)
+      at src/Auth/SignOut.tsx:73:32
+
+    console.error
+      [ERROR] 41:49.441 AuthError - 
+                  Error: Amplify has not been configured correctly. 
+                  The configuration object is missing required auth properties.
+                  This error is typically caused by one of the following scenarios:
+      
+                  1. Did you run `amplify push` after adding auth via `amplify add auth`?
+                      See https://aws-amplify.github.io/docs/js/authentication#amplify-project-setup for more information
+      
+                  2. This could also be caused by multiple conflicting versions of amplify packages, see (https://docs.amplify.aws/lib/troubleshooting/upgrading/q/platform/js) for help upgrading Amplify packages.
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:115:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.error (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:174:12)
+      at NoUserPoolError.AuthError [as constructor] (node_modules/@aws-amplify/auth/src/Errors.ts:34:10)
+      at new NoUserPoolError (node_modules/@aws-amplify/auth/src/Errors.ts:40:3)
+      at AuthClass.Object.<anonymous>.AuthClass.rejectNoUserPool (node_modules/@aws-amplify/auth/src/Auth.ts:2246:25)
+      at AuthClass.Object.<anonymous>.AuthClass.currentUserPoolUser (node_modules/@aws-amplify/auth/src/Auth.ts:1234:16)
+      at AuthClass.<anonymous> (node_modules/@aws-amplify/auth/src/Auth.ts:1400:23)
+      at step (node_modules/@aws-amplify/auth/lib/Auth.js:56:23)
+
+    console.error
+      [ERROR] 41:49.441 SignOut - The user is not authenticated
+
+      71 |           });
+      72 |         })
+    > 73 |         .catch((err) => logger.error(err));
+         |                                ^
+      74 |     } else if (this.props.stateFromStorage) {
+      75 |       this.setState({
+      76 |         stateFromStorage: true,
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:115:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.error (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:174:12)
+      at src/Auth/SignOut.tsx:73:32
+
+    console.error
+      [ERROR] 41:49.442 AuthError - 
+                  Error: Amplify has not been configured correctly. 
+                  The configuration object is missing required auth properties.
+                  This error is typically caused by one of the following scenarios:
+      
+                  1. Did you run `amplify push` after adding auth via `amplify add auth`?
+                      See https://aws-amplify.github.io/docs/js/authentication#amplify-project-setup for more information
+      
+                  2. This could also be caused by multiple conflicting versions of amplify packages, see (https://docs.amplify.aws/lib/troubleshooting/upgrading/q/platform/js) for help upgrading Amplify packages.
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:115:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.error (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:174:12)
+      at NoUserPoolError.AuthError [as constructor] (node_modules/@aws-amplify/auth/src/Errors.ts:34:10)
+      at new NoUserPoolError (node_modules/@aws-amplify/auth/src/Errors.ts:40:3)
+      at AuthClass.Object.<anonymous>.AuthClass.rejectNoUserPool (node_modules/@aws-amplify/auth/src/Auth.ts:2246:25)
+      at AuthClass.Object.<anonymous>.AuthClass.currentUserPoolUser (node_modules/@aws-amplify/auth/src/Auth.ts:1234:16)
+      at AuthClass.<anonymous> (node_modules/@aws-amplify/auth/src/Auth.ts:1400:23)
+      at step (node_modules/@aws-amplify/auth/lib/Auth.js:56:23)
+
+    console.error
+      [ERROR] 41:49.443 SignOut - The user is not authenticated
+
+      71 |           });
+      72 |         })
+    > 73 |         .catch((err) => logger.error(err));
+         |                                ^
+      74 |     } else if (this.props.stateFromStorage) {
+      75 |       this.setState({
+      76 |         stateFromStorage: true,
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:115:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.error (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:174:12)
+      at src/Auth/SignOut.tsx:73:32
+
+    console.error
+      [ERROR] 41:49.446 AuthError - 
+                  Error: Amplify has not been configured correctly. 
+                  The configuration object is missing required auth properties.
+                  This error is typically caused by one of the following scenarios:
+      
+                  1. Did you run `amplify push` after adding auth via `amplify add auth`?
+                      See https://aws-amplify.github.io/docs/js/authentication#amplify-project-setup for more information
+      
+                  2. This could also be caused by multiple conflicting versions of amplify packages, see (https://docs.amplify.aws/lib/troubleshooting/upgrading/q/platform/js) for help upgrading Amplify packages.
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:115:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.error (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:174:12)
+      at NoUserPoolError.AuthError [as constructor] (node_modules/@aws-amplify/auth/src/Errors.ts:34:10)
+      at new NoUserPoolError (node_modules/@aws-amplify/auth/src/Errors.ts:40:3)
+      at AuthClass.Object.<anonymous>.AuthClass.rejectNoUserPool (node_modules/@aws-amplify/auth/src/Auth.ts:2246:25)
+      at AuthClass.Object.<anonymous>.AuthClass.currentUserPoolUser (node_modules/@aws-amplify/auth/src/Auth.ts:1234:16)
+      at AuthClass.<anonymous> (node_modules/@aws-amplify/auth/src/Auth.ts:1400:23)
+      at step (node_modules/@aws-amplify/auth/lib/Auth.js:56:23)
+
+    console.error
+      [ERROR] 41:49.446 SignOut - The user is not authenticated
+
+      71 |           });
+      72 |         })
+    > 73 |         .catch((err) => logger.error(err));
+         |                                ^
+      74 |     } else if (this.props.stateFromStorage) {
+      75 |       this.setState({
+      76 |         stateFromStorage: true,
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:115:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.error (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:174:12)
+      at src/Auth/SignOut.tsx:73:32
+
+    console.error
+      [ERROR] 41:49.447 AuthError - 
+                  Error: Amplify has not been configured correctly. 
+                  The configuration object is missing required auth properties.
+                  This error is typically caused by one of the following scenarios:
+      
+                  1. Did you run `amplify push` after adding auth via `amplify add auth`?
+                      See https://aws-amplify.github.io/docs/js/authentication#amplify-project-setup for more information
+      
+                  2. This could also be caused by multiple conflicting versions of amplify packages, see (https://docs.amplify.aws/lib/troubleshooting/upgrading/q/platform/js) for help upgrading Amplify packages.
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:115:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.error (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:174:12)
+      at NoUserPoolError.AuthError [as constructor] (node_modules/@aws-amplify/auth/src/Errors.ts:34:10)
+      at new NoUserPoolError (node_modules/@aws-amplify/auth/src/Errors.ts:40:3)
+      at AuthClass.Object.<anonymous>.AuthClass.rejectNoUserPool (node_modules/@aws-amplify/auth/src/Auth.ts:2246:25)
+      at AuthClass.Object.<anonymous>.AuthClass.currentUserPoolUser (node_modules/@aws-amplify/auth/src/Auth.ts:1234:16)
+      at AuthClass.<anonymous> (node_modules/@aws-amplify/auth/src/Auth.ts:1400:23)
+      at step (node_modules/@aws-amplify/auth/lib/Auth.js:56:23)
+
+    console.error
+      [ERROR] 41:49.448 SignOut - The user is not authenticated
+
+      71 |           });
+      72 |         })
+    > 73 |         .catch((err) => logger.error(err));
+         |                                ^
+      74 |     } else if (this.props.stateFromStorage) {
+      75 |       this.setState({
+      76 |         stateFromStorage: true,
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:115:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.error (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:174:12)
+      at src/Auth/SignOut.tsx:73:32
+
+    console.error
+      [ERROR] 41:49.448 AuthError - 
+                  Error: Amplify has not been configured correctly. 
+                  The configuration object is missing required auth properties.
+                  This error is typically caused by one of the following scenarios:
+      
+                  1. Did you run `amplify push` after adding auth via `amplify add auth`?
+                      See https://aws-amplify.github.io/docs/js/authentication#amplify-project-setup for more information
+      
+                  2. This could also be caused by multiple conflicting versions of amplify packages, see (https://docs.amplify.aws/lib/troubleshooting/upgrading/q/platform/js) for help upgrading Amplify packages.
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:115:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.error (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:174:12)
+      at NoUserPoolError.AuthError [as constructor] (node_modules/@aws-amplify/auth/src/Errors.ts:34:10)
+      at new NoUserPoolError (node_modules/@aws-amplify/auth/src/Errors.ts:40:3)
+      at AuthClass.Object.<anonymous>.AuthClass.rejectNoUserPool (node_modules/@aws-amplify/auth/src/Auth.ts:2246:25)
+      at AuthClass.Object.<anonymous>.AuthClass.currentUserPoolUser (node_modules/@aws-amplify/auth/src/Auth.ts:1234:16)
+      at AuthClass.<anonymous> (node_modules/@aws-amplify/auth/src/Auth.ts:1400:23)
+      at step (node_modules/@aws-amplify/auth/lib/Auth.js:56:23)
+
+    console.error
+      [ERROR] 41:49.449 SignOut - The user is not authenticated
+
+      71 |           });
+      72 |         })
+    > 73 |         .catch((err) => logger.error(err));
+         |                                ^
+      74 |     } else if (this.props.stateFromStorage) {
+      75 |       this.setState({
+      76 |         stateFromStorage: true,
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:115:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.error (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:174:12)
+      at src/Auth/SignOut.tsx:73:32
+
+    console.error
+      [ERROR] 41:49.450 AuthError - 
+                  Error: Amplify has not been configured correctly. 
+                  The configuration object is missing required auth properties.
+                  This error is typically caused by one of the following scenarios:
+      
+                  1. Did you run `amplify push` after adding auth via `amplify add auth`?
+                      See https://aws-amplify.github.io/docs/js/authentication#amplify-project-setup for more information
+      
+                  2. This could also be caused by multiple conflicting versions of amplify packages, see (https://docs.amplify.aws/lib/troubleshooting/upgrading/q/platform/js) for help upgrading Amplify packages.
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:115:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.error (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:174:12)
+      at NoUserPoolError.AuthError [as constructor] (node_modules/@aws-amplify/auth/src/Errors.ts:34:10)
+      at new NoUserPoolError (node_modules/@aws-amplify/auth/src/Errors.ts:40:3)
+      at AuthClass.Object.<anonymous>.AuthClass.rejectNoUserPool (node_modules/@aws-amplify/auth/src/Auth.ts:2246:25)
+      at AuthClass.Object.<anonymous>.AuthClass.currentUserPoolUser (node_modules/@aws-amplify/auth/src/Auth.ts:1234:16)
+      at AuthClass.<anonymous> (node_modules/@aws-amplify/auth/src/Auth.ts:1400:23)
+      at step (node_modules/@aws-amplify/auth/lib/Auth.js:56:23)
+
+    console.error
+      [ERROR] 41:49.450 SignOut - The user is not authenticated
+
+      71 |           });
+      72 |         })
+    > 73 |         .catch((err) => logger.error(err));
+         |                                ^
+      74 |     } else if (this.props.stateFromStorage) {
+      75 |       this.setState({
+      76 |         stateFromStorage: true,
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:115:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.error (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:174:12)
+      at src/Auth/SignOut.tsx:73:32
+
+    console.error
+      [ERROR] 41:49.498 AuthError - 
+                  Error: Amplify has not been configured correctly. 
+                  The configuration object is missing required auth properties.
+                  This error is typically caused by one of the following scenarios:
+      
+                  1. Did you run `amplify push` after adding auth via `amplify add auth`?
+                      See https://aws-amplify.github.io/docs/js/authentication#amplify-project-setup for more information
+      
+                  2. This could also be caused by multiple conflicting versions of amplify packages, see (https://docs.amplify.aws/lib/troubleshooting/upgrading/q/platform/js) for help upgrading Amplify packages.
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:115:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.error (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:174:12)
+      at NoUserPoolError.AuthError [as constructor] (node_modules/@aws-amplify/auth/src/Errors.ts:34:10)
+      at new NoUserPoolError (node_modules/@aws-amplify/auth/src/Errors.ts:40:3)
+      at AuthClass.Object.<anonymous>.AuthClass.rejectNoUserPool (node_modules/@aws-amplify/auth/src/Auth.ts:2246:25)
+      at AuthClass.Object.<anonymous>.AuthClass.currentUserPoolUser (node_modules/@aws-amplify/auth/src/Auth.ts:1234:16)
+      at AuthClass.<anonymous> (node_modules/@aws-amplify/auth/src/Auth.ts:1400:23)
+      at step (node_modules/@aws-amplify/auth/lib/Auth.js:56:23)
+
+    console.error
+      [ERROR] 41:49.499 SignOut - The user is not authenticated
+
+      71 |           });
+      72 |         })
+    > 73 |         .catch((err) => logger.error(err));
+         |                                ^
+      74 |     } else if (this.props.stateFromStorage) {
+      75 |       this.setState({
+      76 |         stateFromStorage: true,
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:115:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.error (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:174:12)
+      at src/Auth/SignOut.tsx:73:32
+
+    console.error
+      [ERROR] 41:49.502 AuthError - 
+                  Error: Amplify has not been configured correctly. 
+                  The configuration object is missing required auth properties.
+                  This error is typically caused by one of the following scenarios:
+      
+                  1. Did you run `amplify push` after adding auth via `amplify add auth`?
+                      See https://aws-amplify.github.io/docs/js/authentication#amplify-project-setup for more information
+      
+                  2. This could also be caused by multiple conflicting versions of amplify packages, see (https://docs.amplify.aws/lib/troubleshooting/upgrading/q/platform/js) for help upgrading Amplify packages.
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:115:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.error (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:174:12)
+      at NoUserPoolError.AuthError [as constructor] (node_modules/@aws-amplify/auth/src/Errors.ts:34:10)
+      at new NoUserPoolError (node_modules/@aws-amplify/auth/src/Errors.ts:40:3)
+      at AuthClass.Object.<anonymous>.AuthClass.rejectNoUserPool (node_modules/@aws-amplify/auth/src/Auth.ts:2246:25)
+      at AuthClass.Object.<anonymous>.AuthClass.currentUserPoolUser (node_modules/@aws-amplify/auth/src/Auth.ts:1234:16)
+      at AuthClass.<anonymous> (node_modules/@aws-amplify/auth/src/Auth.ts:1400:23)
+      at step (node_modules/@aws-amplify/auth/lib/Auth.js:56:23)
+
+    console.error
+      [ERROR] 41:49.503 SignOut - The user is not authenticated
+
+      71 |           });
+      72 |         })
+    > 73 |         .catch((err) => logger.error(err));
+         |                                ^
+      74 |     } else if (this.props.stateFromStorage) {
+      75 |       this.setState({
+      76 |         stateFromStorage: true,
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:115:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.error (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:174:12)
+      at src/Auth/SignOut.tsx:73:32
+
+  ● SignOut › onHubCapsule tests › onHubCapsule is present
+
+    TypeError: Cannot read property 'child' of undefined
+
+      117 |   describe('onHubCapsule tests', () => {
+      118 |     test('onHubCapsule is present', () => {
+    > 119 |       const signOut = mount(<SignOut />).instance();
+          |                       ^
+      120 |       expect(signOut.onHubCapsule).toBeTruthy();
+      121 |     });
+      122 |     test('onHubCapsule is called on a Hub event', () => {
+
+      at getFiber (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:15:35)
+      at detectFiberTags (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:76:15)
+      at ReactSixteenAdapter.createMountRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:466:19)
+      at ReactSixteenAdapter.createRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:846:51)
+      at new ReactWrapper (../../node_modules/enzyme/src/ReactWrapper.js:113:32)
+      at mount (../../node_modules/enzyme/src/mount.js:10:10)
+      at Object.<anonymous> (__tests__/Auth/SignOut-test.tsx:119:23)
+
+  ● SignOut › onHubCapsule tests › onHubCapsule is called on a Hub event
+
+    TypeError: Cannot read property 'child' of undefined
+
+      122 |     test('onHubCapsule is called on a Hub event', () => {
+      123 |       const spy = jest.spyOn(SignOut.prototype, 'onHubCapsule');
+    > 124 |       mount(<SignOut />).instance();
+          |       ^
+      125 |       Hub.dispatch('auth', { event: 'test' });
+      126 |       expect(spy).toHaveBeenCalled();
+      127 |       spy.mockClear();
+
+      at getFiber (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:15:35)
+      at detectFiberTags (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:76:15)
+      at ReactSixteenAdapter.createMountRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:466:19)
+      at ReactSixteenAdapter.createRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:846:51)
+      at new ReactWrapper (../../node_modules/enzyme/src/ReactWrapper.js:113:32)
+      at mount (../../node_modules/enzyme/src/mount.js:10:10)
+      at Object.<anonymous> (__tests__/Auth/SignOut-test.tsx:124:7)
+
+  ● SignOut › onHubCapsule tests › onHubCapsule should setState with authState = "signedIn" when "signIn" auth event fires
+
+    TypeError: Cannot read property 'child' of undefined
+
+      129 |     test('onHubCapsule should setState with authState = "signedIn" when "signIn" auth event fires', () => {
+      130 |       const spy = jest.spyOn(SignOut.prototype, 'setState');
+    > 131 |       mount(<SignOut />).instance();
+          |       ^
+      132 |       Hub.dispatch('auth', { event: 'signIn', data: { foo: 'bar' } });
+      133 |       expect(spy).toHaveBeenCalledWith({
+      134 |         authState: 'signedIn',
+
+      at getFiber (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:15:35)
+      at detectFiberTags (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:76:15)
+      at ReactSixteenAdapter.createMountRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:466:19)
+      at ReactSixteenAdapter.createRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:846:51)
+      at new ReactWrapper (../../node_modules/enzyme/src/ReactWrapper.js:113:32)
+      at mount (../../node_modules/enzyme/src/mount.js:10:10)
+      at Object.<anonymous> (__tests__/Auth/SignOut-test.tsx:131:7)
+
+  ● SignOut › onHubCapsule tests › onHubCapsule should setState with authState = "signIn" when "customSignOut" auth event fires
+
+    TypeError: Cannot read property 'child' of undefined
+
+      139 |     test('onHubCapsule should setState with authState = "signIn" when "customSignOut" auth event fires', () => {
+      140 |       const spy = jest.spyOn(SignOut.prototype, 'setState');
+    > 141 |       mount(<SignOut />).instance();
+          |       ^
+      142 |       Hub.dispatch('auth', { event: 'signOut' });
+      143 |       expect(spy).toHaveBeenCalledWith({
+      144 |         authState: 'signIn',
+
+      at getFiber (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:15:35)
+      at detectFiberTags (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:76:15)
+      at ReactSixteenAdapter.createMountRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:466:19)
+      at ReactSixteenAdapter.createRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:846:51)
+      at new ReactWrapper (../../node_modules/enzyme/src/ReactWrapper.js:113:32)
+      at mount (../../node_modules/enzyme/src/mount.js:10:10)
+      at Object.<anonymous> (__tests__/Auth/SignOut-test.tsx:141:7)
+
+  ● SignOut › findState tests › findState is called
+
+    TypeError: Cannot read property 'child' of undefined
+
+      151 |     test('findState is called', () => {
+      152 |       const spy = jest.spyOn(SignOut.prototype, 'findState');
+    > 153 |       mount(<SignOut />).instance();
+          |       ^
+      154 |       expect(spy).toHaveBeenCalled();
+      155 |       spy.mockClear();
+      156 |     });
+
+      at getFiber (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:15:35)
+      at detectFiberTags (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:76:15)
+      at ReactSixteenAdapter.createMountRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:466:19)
+      at ReactSixteenAdapter.createRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:846:51)
+      at new ReactWrapper (../../node_modules/enzyme/src/ReactWrapper.js:113:32)
+      at mount (../../node_modules/enzyme/src/mount.js:10:10)
+      at Object.<anonymous> (__tests__/Auth/SignOut-test.tsx:153:7)
+
+  ● SignOut › SignOut lifecycle › componentDidMount
+
+    TypeError: Cannot read property 'child' of undefined
+
+      205 |     test('componentDidMount', async () => {
+      206 |       const spy = jest.spyOn(SignOut.prototype, 'componentDidMount');
+    > 207 |       const signOut = mount(<SignOut />).instance();
+          |                       ^
+      208 |       signOut.componentDidMount();
+      209 |       expect(signOut._isMounted).toBeTruthy();
+      210 |       expect(spy).toHaveBeenCalled();
+
+      at getFiber (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:15:35)
+      at detectFiberTags (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:76:15)
+      at ReactSixteenAdapter.createMountRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:466:19)
+      at ReactSixteenAdapter.createRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:846:51)
+      at new ReactWrapper (../../node_modules/enzyme/src/ReactWrapper.js:113:32)
+      at mount (../../node_modules/enzyme/src/mount.js:10:10)
+      at __tests__/Auth/SignOut-test.tsx:207:23
+      at step (__tests__/Auth/SignOut-test.tsx:44:23)
+      at Object.next (__tests__/Auth/SignOut-test.tsx:25:53)
+      at __tests__/Auth/SignOut-test.tsx:19:71
+      at Object.<anonymous>.__awaiter (__tests__/Auth/SignOut-test.tsx:15:12)
+      at Object.<anonymous> (__tests__/Auth/SignOut-test.tsx:205:31)
+
+FAIL __tests__/Auth/Greetings-test.tsx
+  ● Console
+
+    console.error
+      [ERROR] 41:49.758 AuthError - 
+                  Error: Amplify has not been configured correctly. 
+                  The configuration object is missing required auth properties.
+                  This error is typically caused by one of the following scenarios:
+      
+                  1. Did you run `amplify push` after adding auth via `amplify add auth`?
+                      See https://aws-amplify.github.io/docs/js/authentication#amplify-project-setup for more information
+      
+                  2. This could also be caused by multiple conflicting versions of amplify packages, see (https://docs.amplify.aws/lib/troubleshooting/upgrading/q/platform/js) for help upgrading Amplify packages.
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:115:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.error (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:174:12)
+      at NoUserPoolError.AuthError [as constructor] (node_modules/@aws-amplify/auth/src/Errors.ts:34:10)
+      at new NoUserPoolError (node_modules/@aws-amplify/auth/src/Errors.ts:40:3)
+      at AuthClass.Object.<anonymous>.AuthClass.rejectNoUserPool (node_modules/@aws-amplify/auth/src/Auth.ts:2246:25)
+      at AuthClass.Object.<anonymous>.AuthClass.currentUserPoolUser (node_modules/@aws-amplify/auth/src/Auth.ts:1234:16)
+      at AuthClass.<anonymous> (node_modules/@aws-amplify/auth/src/Auth.ts:1400:23)
+      at step (node_modules/@aws-amplify/auth/lib/Auth.js:56:23)
+
+    console.error
+      [ERROR] 41:49.760 AuthError - 
+                  Error: Amplify has not been configured correctly. 
+                  The configuration object is missing required auth properties.
+                  This error is typically caused by one of the following scenarios:
+      
+                  1. Did you run `amplify push` after adding auth via `amplify add auth`?
+                      See https://aws-amplify.github.io/docs/js/authentication#amplify-project-setup for more information
+      
+                  2. This could also be caused by multiple conflicting versions of amplify packages, see (https://docs.amplify.aws/lib/troubleshooting/upgrading/q/platform/js) for help upgrading Amplify packages.
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:115:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.error (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:174:12)
+      at NoUserPoolError.AuthError [as constructor] (node_modules/@aws-amplify/auth/src/Errors.ts:34:10)
+      at new NoUserPoolError (node_modules/@aws-amplify/auth/src/Errors.ts:40:3)
+      at AuthClass.Object.<anonymous>.AuthClass.rejectNoUserPool (node_modules/@aws-amplify/auth/src/Auth.ts:2246:25)
+      at AuthClass.Object.<anonymous>.AuthClass.currentUserPoolUser (node_modules/@aws-amplify/auth/src/Auth.ts:1234:16)
+      at AuthClass.<anonymous> (node_modules/@aws-amplify/auth/src/Auth.ts:1400:23)
+      at step (node_modules/@aws-amplify/auth/lib/Auth.js:56:23)
+
+    console.error
+      [ERROR] 41:49.793 AuthError - 
+                  Error: Amplify has not been configured correctly. 
+                  The configuration object is missing required auth properties.
+                  This error is typically caused by one of the following scenarios:
+      
+                  1. Did you run `amplify push` after adding auth via `amplify add auth`?
+                      See https://aws-amplify.github.io/docs/js/authentication#amplify-project-setup for more information
+      
+                  2. This could also be caused by multiple conflicting versions of amplify packages, see (https://docs.amplify.aws/lib/troubleshooting/upgrading/q/platform/js) for help upgrading Amplify packages.
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:115:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.error (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:174:12)
+      at NoUserPoolError.AuthError [as constructor] (node_modules/@aws-amplify/auth/src/Errors.ts:34:10)
+      at new NoUserPoolError (node_modules/@aws-amplify/auth/src/Errors.ts:40:3)
+      at AuthClass.Object.<anonymous>.AuthClass.rejectNoUserPool (node_modules/@aws-amplify/auth/src/Auth.ts:2246:25)
+      at AuthClass.Object.<anonymous>.AuthClass.currentUserPoolUser (node_modules/@aws-amplify/auth/src/Auth.ts:1234:16)
+      at AuthClass.<anonymous> (node_modules/@aws-amplify/auth/src/Auth.ts:1400:23)
+      at step (node_modules/@aws-amplify/auth/lib/Auth.js:56:23)
+
+    console.error
+      [ERROR] 41:49.838 AuthError - 
+                  Error: Amplify has not been configured correctly. 
+                  The configuration object is missing required auth properties.
+                  This error is typically caused by one of the following scenarios:
+      
+                  1. Did you run `amplify push` after adding auth via `amplify add auth`?
+                      See https://aws-amplify.github.io/docs/js/authentication#amplify-project-setup for more information
+      
+                  2. This could also be caused by multiple conflicting versions of amplify packages, see (https://docs.amplify.aws/lib/troubleshooting/upgrading/q/platform/js) for help upgrading Amplify packages.
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:115:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.error (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:174:12)
+      at NoUserPoolError.AuthError [as constructor] (node_modules/@aws-amplify/auth/src/Errors.ts:34:10)
+      at new NoUserPoolError (node_modules/@aws-amplify/auth/src/Errors.ts:40:3)
+      at AuthClass.Object.<anonymous>.AuthClass.rejectNoUserPool (node_modules/@aws-amplify/auth/src/Auth.ts:2246:25)
+      at AuthClass.Object.<anonymous>.AuthClass.currentUserPoolUser (node_modules/@aws-amplify/auth/src/Auth.ts:1234:16)
+      at AuthClass.<anonymous> (node_modules/@aws-amplify/auth/src/Auth.ts:1400:23)
+      at step (node_modules/@aws-amplify/auth/lib/Auth.js:56:23)
+
+    console.error
+      [ERROR] 41:49.841 AuthError - 
+                  Error: Amplify has not been configured correctly. 
+                  The configuration object is missing required auth properties.
+                  This error is typically caused by one of the following scenarios:
+      
+                  1. Did you run `amplify push` after adding auth via `amplify add auth`?
+                      See https://aws-amplify.github.io/docs/js/authentication#amplify-project-setup for more information
+      
+                  2. This could also be caused by multiple conflicting versions of amplify packages, see (https://docs.amplify.aws/lib/troubleshooting/upgrading/q/platform/js) for help upgrading Amplify packages.
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:115:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.error (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:174:12)
+      at NoUserPoolError.AuthError [as constructor] (node_modules/@aws-amplify/auth/src/Errors.ts:34:10)
+      at new NoUserPoolError (node_modules/@aws-amplify/auth/src/Errors.ts:40:3)
+      at AuthClass.Object.<anonymous>.AuthClass.rejectNoUserPool (node_modules/@aws-amplify/auth/src/Auth.ts:2246:25)
+      at AuthClass.Object.<anonymous>.AuthClass.currentUserPoolUser (node_modules/@aws-amplify/auth/src/Auth.ts:1234:16)
+      at AuthClass.<anonymous> (node_modules/@aws-amplify/auth/src/Auth.ts:1400:23)
+      at step (node_modules/@aws-amplify/auth/lib/Auth.js:56:23)
+
+  ● Greetings › Greetings lifecycle › componentDidMount
+
+    TypeError: Cannot read property 'child' of undefined
+
+      64 |     test('componentDidMount', async () => {
+      65 |       const spy = jest.spyOn(Greetings.prototype, 'componentDidMount');
+    > 66 |       const greetings = mount(<Greetings />).instance();
+         |                         ^
+      67 |       greetings.componentDidMount();
+      68 |       expect(greetings._isMounted).toBeTruthy();
+      69 |       expect(spy).toHaveBeenCalled();
+
+      at getFiber (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:15:35)
+      at detectFiberTags (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:76:15)
+      at ReactSixteenAdapter.createMountRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:466:19)
+      at ReactSixteenAdapter.createRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:846:51)
+      at new ReactWrapper (../../node_modules/enzyme/src/ReactWrapper.js:113:32)
+      at mount (../../node_modules/enzyme/src/mount.js:10:10)
+      at __tests__/Auth/Greetings-test.tsx:66:25
+      at step (__tests__/Auth/Greetings-test.tsx:44:23)
+      at Object.next (__tests__/Auth/Greetings-test.tsx:25:53)
+      at __tests__/Auth/Greetings-test.tsx:19:71
+      at Object.<anonymous>.__awaiter (__tests__/Auth/Greetings-test.tsx:15:12)
+      at Object.<anonymous> (__tests__/Auth/Greetings-test.tsx:64:31)
+
+  ● Greetings › findState tests › findState is called
+
+    TypeError: Cannot read property 'child' of undefined
+
+      86 |     test('findState is called', () => {
+      87 |       const spy = jest.spyOn(Greetings.prototype, 'findState');
+    > 88 |       const greetings = mount(<Greetings />).instance();
+         |                         ^
+      89 |       expect(spy).toHaveBeenCalled();
+      90 |       spy.mockClear();
+      91 |     });
+
+      at getFiber (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:15:35)
+      at detectFiberTags (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:76:15)
+      at ReactSixteenAdapter.createMountRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:466:19)
+      at ReactSixteenAdapter.createRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:846:51)
+      at new ReactWrapper (../../node_modules/enzyme/src/ReactWrapper.js:113:32)
+      at mount (../../node_modules/enzyme/src/mount.js:10:10)
+      at Object.<anonymous> (__tests__/Auth/Greetings-test.tsx:88:25)
+
+  ● Greetings › onHubCapsule tests › onHubCapsule is present
+
+    TypeError: Cannot read property 'child' of undefined
+
+      139 |   describe('onHubCapsule tests', () => {
+      140 |     test('onHubCapsule is present', () => {
+    > 141 |       const greetings = mount(<Greetings />).instance();
+          |                         ^
+      142 |       expect(greetings.onHubCapsule).toBeTruthy();
+      143 |     });
+      144 |     test('onHubCapsule is called on a Hub event', () => {
+
+      at getFiber (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:15:35)
+      at detectFiberTags (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:76:15)
+      at ReactSixteenAdapter.createMountRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:466:19)
+      at ReactSixteenAdapter.createRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:846:51)
+      at new ReactWrapper (../../node_modules/enzyme/src/ReactWrapper.js:113:32)
+      at mount (../../node_modules/enzyme/src/mount.js:10:10)
+      at Object.<anonymous> (__tests__/Auth/Greetings-test.tsx:141:25)
+
+  ● Greetings › onHubCapsule tests › onHubCapsule is called on a Hub event
+
+    TypeError: Cannot read property 'child' of undefined
+
+      144 |     test('onHubCapsule is called on a Hub event', () => {
+      145 |       const spy = jest.spyOn(Greetings.prototype, 'onHubCapsule');
+    > 146 |       const greetings = mount(<Greetings />).instance();
+          |                         ^
+      147 |       Hub.dispatch('auth', { event: 'test' });
+      148 |       expect(spy).toHaveBeenCalled();
+      149 |       spy.mockClear();
+
+      at getFiber (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:15:35)
+      at detectFiberTags (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:76:15)
+      at ReactSixteenAdapter.createMountRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:466:19)
+      at ReactSixteenAdapter.createRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:846:51)
+      at new ReactWrapper (../../node_modules/enzyme/src/ReactWrapper.js:113:32)
+      at mount (../../node_modules/enzyme/src/mount.js:10:10)
+      at Object.<anonymous> (__tests__/Auth/Greetings-test.tsx:146:25)
+
+  ● Greetings › onHubCapsule tests › onHubCapsule should setState with authState = "signedIn" when "signIn" auth event fires
+
+    TypeError: Cannot read property 'child' of undefined
+
+      151 |     test('onHubCapsule should setState with authState = "signedIn" when "signIn" auth event fires', () => {
+      152 |       const spy = jest.spyOn(Greetings.prototype, 'setState');
+    > 153 |       const greetings = mount(<Greetings />).instance();
+          |                         ^
+      154 |       Hub.dispatch('auth', { event: 'signIn', data: { foo: 'bar' } });
+      155 |       expect(spy).toHaveBeenCalledWith({
+      156 |         authState: 'signedIn',
+
+      at getFiber (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:15:35)
+      at detectFiberTags (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:76:15)
+      at ReactSixteenAdapter.createMountRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:466:19)
+      at ReactSixteenAdapter.createRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:846:51)
+      at new ReactWrapper (../../node_modules/enzyme/src/ReactWrapper.js:113:32)
+      at mount (../../node_modules/enzyme/src/mount.js:10:10)
+      at Object.<anonymous> (__tests__/Auth/Greetings-test.tsx:153:25)
+
+  ● Greetings › onHubCapsule tests › onHubCapsule should setState with authState = "signIn" when "customSignOut" auth event fires
+
+    TypeError: Cannot read property 'child' of undefined
+
+      161 |     test('onHubCapsule should setState with authState = "signIn" when "customSignOut" auth event fires', () => {
+      162 |       const spy = jest.spyOn(Greetings.prototype, 'setState');
+    > 163 |       const greetings = mount(<Greetings />).instance();
+          |                         ^
+      164 |       Hub.dispatch('auth', { event: 'signOut' });
+      165 |       expect(spy).toHaveBeenCalledWith({
+      166 |         authState: 'signIn',
+
+      at getFiber (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:15:35)
+      at detectFiberTags (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:76:15)
+      at ReactSixteenAdapter.createMountRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:466:19)
+      at ReactSixteenAdapter.createRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:846:51)
+      at new ReactWrapper (../../node_modules/enzyme/src/ReactWrapper.js:113:32)
+      at mount (../../node_modules/enzyme/src/mount.js:10:10)
+      at Object.<anonymous> (__tests__/Auth/Greetings-test.tsx:163:25)
+
+FAIL __tests__/XR/SumerianScene-test.tsx
+  ● Console
+
+    console.error
+      [ERROR] 41:50.218 SumerianProvider - DOM element id, scene-dom-id not found
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:115:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.error (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:174:12)
+      at SumerianProvider.<anonymous> (node_modules/@aws-amplify/xr/src/Providers/SumerianProvider.ts:82:11)
+      at step (node_modules/@aws-amplify/xr/lib/Providers/SumerianProvider.js:57:23)
+      at Object.next (node_modules/@aws-amplify/xr/lib/Providers/SumerianProvider.js:38:53)
+      at node_modules/@aws-amplify/xr/lib/Providers/SumerianProvider.js:32:71
+      at Object.<anonymous>.__awaiter (node_modules/@aws-amplify/xr/lib/Providers/SumerianProvider.js:28:12)
+
+    console.error
+      [ERROR] 41:50.220 SumerianScene - Failed to load scene Error: DOM element id, scene-dom-id not found
+          at XRNoDomElement.XRError [as constructor] (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/xr/lib/Errors.js:31:42)
+          at new XRNoDomElement (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/xr/lib/Errors.js:63:42)
+          at SumerianProvider.<anonymous> (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/xr/src/Providers/SumerianProvider.ts:83:10)
+          at step (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/xr/lib/Providers/SumerianProvider.js:57:23)
+          at Object.next (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/xr/lib/Providers/SumerianProvider.js:38:53)
+          at /Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/xr/lib/Providers/SumerianProvider.js:32:71
+          at new Promise (<anonymous>)
+          at Object.<anonymous>.__awaiter (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/xr/lib/Providers/SumerianProvider.js:28:12)
+          at SumerianProvider.Object.<anonymous>.SumerianProvider.loadScene (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/xr/lib/Providers/SumerianProvider.js:118:16)
+          at XRClass.<anonymous> (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/xr/src/XR.ts:89:43)
+          at step (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/xr/lib/XR.js:33:23)
+          at Object.next (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/xr/lib/XR.js:14:53)
+          at /Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/xr/lib/XR.js:8:71
+          at new Promise (<anonymous>)
+          at Object.<anonymous>.__awaiter (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/xr/lib/XR.js:4:12)
+          at XRClass.Object.<anonymous>.XRClass.loadScene (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/node_modules/@aws-amplify/xr/lib/XR.js:128:16)
+          at XRClass.<anonymous> (/Users/ehhanche/programming/work/spark/amplify-ui/node_modules/jest-mock/build/index.js:845:25)
+          at /Users/ehhanche/programming/work/spark/amplify-ui/node_modules/jest-mock/build/index.js:444:39
+          at XRClass.<anonymous> (/Users/ehhanche/programming/work/spark/amplify-ui/node_modules/jest-mock/build/index.js:452:13)
+          at XRClass.mockConstructor [as loadScene] (/Users/ehhanche/programming/work/spark/amplify-ui/node_modules/jest-mock/build/index.js:166:19)
+          at SumerianScene.<anonymous> (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/src/XR/SumerianScene.tsx:115:16)
+          at step (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/src/XR/SumerianScene.tsx:5741:19)
+          at Object.next (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/src/XR/SumerianScene.tsx:5471:14)
+          at /Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/src/XR/SumerianScene.tsx:5399:40
+          at new Promise (<anonymous>)
+          at Object.<anonymous>.__awaiter (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/src/XR/SumerianScene.tsx:5342:10)
+          at SumerianScene.loadAndSetupScene (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/src/XR/SumerianScene.tsx:5951:12)
+          at SumerianScene.<anonymous> (/Users/ehhanche/programming/work/spark/amplify-ui/node_modules/jest-mock/build/index.js:845:25)
+          at /Users/ehhanche/programming/work/spark/amplify-ui/node_modules/jest-mock/build/index.js:444:39
+          at SumerianScene.<anonymous> (/Users/ehhanche/programming/work/spark/amplify-ui/node_modules/jest-mock/build/index.js:452:13)
+          at SumerianScene.mockConstructor [as loadAndSetupScene] (/Users/ehhanche/programming/work/spark/amplify-ui/node_modules/jest-mock/build/index.js:166:19)
+          at SumerianScene.componentDidMount (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/src/XR/SumerianScene.tsx:84:10)
+          at fn (/Users/ehhanche/programming/work/spark/amplify-ui/node_modules/enzyme/src/ShallowWrapper.js:429:22)
+          at Object.batchedUpdates (/Users/ehhanche/programming/work/spark/amplify-ui/node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:807:16)
+          at new ShallowWrapper (/Users/ehhanche/programming/work/spark/amplify-ui/node_modules/enzyme/src/ShallowWrapper.js:428:26)
+          at shallow (/Users/ehhanche/programming/work/spark/amplify-ui/node_modules/enzyme/src/shallow.js:10:10)
+          at Object.<anonymous> (/Users/ehhanche/programming/work/spark/amplify-ui/packages/aws-amplify-react/__tests__/XR/SumerianScene-test.tsx:30:5)
+          at Object.asyncJestTest (/Users/ehhanche/programming/work/spark/amplify-ui/node_modules/jest-jasmine2/build/jasmineAsyncInstall.js:106:37)
+          at /Users/ehhanche/programming/work/spark/amplify-ui/node_modules/jest-jasmine2/build/queueRunner.js:45:12
+          at new Promise (<anonymous>)
+          at mapper (/Users/ehhanche/programming/work/spark/amplify-ui/node_modules/jest-jasmine2/build/queueRunner.js:28:19)
+          at /Users/ehhanche/programming/work/spark/amplify-ui/node_modules/jest-jasmine2/build/queueRunner.js:75:41
+
+      119 |         error: e,
+      120 |       };
+    > 121 |       logger.error(sceneError.displayText, sceneError.error);
+          |              ^
+      122 |       this.setStateAsync({ sceneError });
+      123 |       return;
+      124 |     }
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:125:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.error (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:174:12)
+      at SumerianScene.<anonymous> (src/XR/SumerianScene.tsx:121:14)
+      at step (src/XR/SumerianScene.tsx:5741:19)
+      at Object.throw (src/XR/SumerianScene.tsx:5471:14)
+      at rejected (src/XR/SumerianScene.tsx:5374:32)
+
+  ● SumerianScene › renders successfully
+
+    TypeError: Cannot read property 'child' of undefined
+
+      16 | describe('SumerianScene', () => {
+      17 |   test('renders successfully', () => {
+    > 18 |     const wrapper = mount(<SumerianScene sceneName="TestSceneName" />);
+         |                     ^
+      19 |     expect(wrapper).toMatchSnapshot();
+      20 |   });
+      21 |
+
+      at getFiber (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:15:35)
+      at detectFiberTags (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:76:15)
+      at ReactSixteenAdapter.createMountRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:466:19)
+      at ReactSixteenAdapter.createRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:846:51)
+      at new ReactWrapper (../../node_modules/enzyme/src/ReactWrapper.js:113:32)
+      at mount (../../node_modules/enzyme/src/mount.js:10:10)
+      at Object.<anonymous> (__tests__/XR/SumerianScene-test.tsx:18:21)
+
+  ● SumerianScene › loadAndSetupScene is called when component is mounted
+
+    TypeError: Cannot read property 'child' of undefined
+
+      22 |   test('loadAndSetupScene is called when component is mounted', () => {
+      23 |     const spy = jest.spyOn(SumerianScene.prototype, 'loadAndSetupScene');
+    > 24 |     mount(<SumerianScene sceneName="TestSceneName" />);
+         |     ^
+      25 |     expect(spy).toHaveBeenCalled();
+      26 |   });
+      27 |
+
+      at getFiber (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:15:35)
+      at detectFiberTags (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:76:15)
+      at ReactSixteenAdapter.createMountRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:466:19)
+      at ReactSixteenAdapter.createRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:846:51)
+      at new ReactWrapper (../../node_modules/enzyme/src/ReactWrapper.js:113:32)
+      at mount (../../node_modules/enzyme/src/mount.js:10:10)
+      at Object.<anonymous> (__tests__/XR/SumerianScene-test.tsx:24:5)
+
+FAIL __tests__/XR/Tooltip-test.tsx
+  ● Tooltip › renders successfully with no props
+
+    TypeError: Cannot read property 'child' of undefined
+
+      4 | describe('Tooltip', () => {
+      5 |   test('renders successfully with no props', () => {
+    > 6 |     const wrapper = mount(<Tooltip />);
+        |                     ^
+      7 |     expect(wrapper).toMatchSnapshot();
+      8 |   });
+      9 |
+
+      at getFiber (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:15:35)
+      at detectFiberTags (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:76:15)
+      at ReactSixteenAdapter.createMountRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:466:19)
+      at ReactSixteenAdapter.createRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:846:51)
+      at new ReactWrapper (../../node_modules/enzyme/src/ReactWrapper.js:113:32)
+      at mount (../../node_modules/enzyme/src/mount.js:10:10)
+      at Object.<anonymous> (__tests__/XR/Tooltip-test.tsx:6:21)
+
+  ● Tooltip › renders successfully with text
+
+    TypeError: Cannot read property 'child' of undefined
+
+       9 |
+      10 |   test('renders successfully with text', () => {
+    > 11 |     const wrapper = mount(<Tooltip text="Test Tooltip" />);
+         |                     ^
+      12 |     expect(wrapper).toMatchSnapshot();
+      13 |   });
+      14 | });
+
+      at getFiber (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:15:35)
+      at detectFiberTags (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:76:15)
+      at ReactSixteenAdapter.createMountRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:466:19)
+      at ReactSixteenAdapter.createRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:846:51)
+      at new ReactWrapper (../../node_modules/enzyme/src/ReactWrapper.js:113:32)
+      at mount (../../node_modules/enzyme/src/mount.js:10:10)
+      at Object.<anonymous> (__tests__/XR/Tooltip-test.tsx:11:21)
+
+FAIL __tests__/Auth/Provider/withOAuth-test.tsx
+  ● withOAuth test › signIn test › happy case with connected response
+
+    TypeError: Cannot assign to read only property 'assign' of object '[object Location]'
+
+      26 |     test('happy case with connected response', () => {
+      27 |       const mockFn = jest.fn();
+    > 28 |       window.location.assign = mockFn;
+         |                             ^
+      29 |       const MockComp = class extends React.Component {
+      30 |         render() {
+      31 |           return <div />;
+
+      at Object.<anonymous> (__tests__/Auth/Provider/withOAuth-test.tsx:28:29)
+
+  ● withOAuth test › signIn test › Passing in a social provider
+
+    TypeError: Cannot read property 'child' of undefined
+
+      55 |
+      56 |       const Comp = withOAuth(MockComp);
+    > 57 |       const wrapper = mount(<Comp />);
+         |                       ^
+      58 |       const comp = wrapper.instance();
+      59 |
+      60 |       comp.signIn(expect.anything(), 'Facebook');
+
+      at getFiber (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:15:35)
+      at detectFiberTags (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:76:15)
+      at ReactSixteenAdapter.createMountRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:466:19)
+      at ReactSixteenAdapter.createRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:846:51)
+      at new ReactWrapper (../../node_modules/enzyme/src/ReactWrapper.js:113:32)
+      at mount (../../node_modules/enzyme/src/mount.js:10:10)
+      at Object.<anonymous> (__tests__/Auth/Provider/withOAuth-test.tsx:57:23)
+
+FAIL __tests__/XR/IconButton-test.tsx
+  ● IconButton › renders successfully with no variant
+
+    TypeError: Cannot read property 'child' of undefined
+
+      4 | describe('IconButton', () => {
+      5 |   test('renders successfully with no variant', () => {
+    > 6 |     const wrapper = mount(<IconButton />);
+        |                     ^
+      7 |     expect(wrapper).toMatchSnapshot();
+      8 |   });
+      9 |
+
+      at getFiber (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:15:35)
+      at detectFiberTags (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:76:15)
+      at ReactSixteenAdapter.createMountRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:466:19)
+      at ReactSixteenAdapter.createRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:846:51)
+      at new ReactWrapper (../../node_modules/enzyme/src/ReactWrapper.js:113:32)
+      at mount (../../node_modules/enzyme/src/mount.js:10:10)
+      at Object.<anonymous> (__tests__/XR/IconButton-test.tsx:6:21)
+
+  ● IconButton › renders successfully with variant
+
+    TypeError: Cannot read property 'child' of undefined
+
+       9 |
+      10 |   test('renders successfully with variant', () => {
+    > 11 |     const wrapper = mount(<IconButton variant="maximize" />);
+         |                     ^
+      12 |     expect(wrapper).toMatchSnapshot();
+      13 |   });
+      14 | });
+
+      at getFiber (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:15:35)
+      at detectFiberTags (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:76:15)
+      at ReactSixteenAdapter.createMountRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:466:19)
+      at ReactSixteenAdapter.createRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:846:51)
+      at new ReactWrapper (../../node_modules/enzyme/src/ReactWrapper.js:113:32)
+      at mount (../../node_modules/enzyme/src/mount.js:10:10)
+      at Object.<anonymous> (__tests__/XR/IconButton-test.tsx:11:21)
+
+FAIL __tests__/XR/Loading-test.tsx
+  ● Loading › renders successfully with no props
+
+    TypeError: Cannot read property 'child' of undefined
+
+      4 | describe('Loading', () => {
+      5 |   test('renders successfully with no props', () => {
+    > 6 |     const wrapper = mount(<Loading />);
+        |                     ^
+      7 |     expect(wrapper).toMatchSnapshot();
+      8 |   });
+      9 |
+
+      at getFiber (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:15:35)
+      at detectFiberTags (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:76:15)
+      at ReactSixteenAdapter.createMountRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:466:19)
+      at ReactSixteenAdapter.createRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:846:51)
+      at new ReactWrapper (../../node_modules/enzyme/src/ReactWrapper.js:113:32)
+      at mount (../../node_modules/enzyme/src/mount.js:10:10)
+      at Object.<anonymous> (__tests__/XR/Loading-test.tsx:6:21)
+
+  ● Loading › renders successfully with percentage
+
+    TypeError: Cannot read property 'child' of undefined
+
+       9 |
+      10 |   test('renders successfully with percentage', () => {
+    > 11 |     const wrapper = mount(<Loading percentage="0" />);
+         |                     ^
+      12 |     expect(wrapper).toMatchSnapshot();
+      13 |   });
+      14 | });
+
+      at getFiber (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:15:35)
+      at detectFiberTags (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:76:15)
+      at ReactSixteenAdapter.createMountRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:466:19)
+      at ReactSixteenAdapter.createRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:846:51)
+      at new ReactWrapper (../../node_modules/enzyme/src/ReactWrapper.js:113:32)
+      at mount (../../node_modules/enzyme/src/mount.js:10:10)
+      at Object.<anonymous> (__tests__/XR/Loading-test.tsx:11:21)
+
+PASS __tests__/AmplifyUI-test.tsx
+PASS __tests__/Auth/SignUp-test.tsx
+  ● Console
+
+    console.error
+      [ERROR] 41:51.736 AuthError - 
+                  Error: Amplify has not been configured correctly. 
+                  The configuration object is missing required auth properties.
+                  This error is typically caused by one of the following scenarios:
+      
+                  1. Did you run `amplify push` after adding auth via `amplify add auth`?
+                      See https://aws-amplify.github.io/docs/js/authentication#amplify-project-setup for more information
+      
+                  2. This could also be caused by multiple conflicting versions of amplify packages, see (https://docs.amplify.aws/lib/troubleshooting/upgrading/q/platform/js) for help upgrading Amplify packages.
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:115:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.error (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:174:12)
+      at NoUserPoolError.AuthError [as constructor] (node_modules/@aws-amplify/auth/src/Errors.ts:34:10)
+      at new NoUserPoolError (node_modules/@aws-amplify/auth/src/Errors.ts:40:3)
+      at AuthClass.Object.<anonymous>.AuthClass.rejectNoUserPool (node_modules/@aws-amplify/auth/src/Auth.ts:2246:25)
+      at AuthClass.Object.<anonymous>.AuthClass.signUp (node_modules/@aws-amplify/auth/src/Auth.ts:289:16)
+
+PASS __tests__/Auth/SignIn-test.tsx
+PASS __tests__/Auth/ForgotPassword-test.tsx
+PASS __tests__/Auth/index-test.tsx
+PASS __tests__/Widget/TOTPSetupComp-test.tsx
+  ● Console
+
+    console.error
+      Warning: React.createElement: type is invalid -- expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.
+
+      153 |       <div>
+      154 |         <div className={totpQrcode}>
+    > 155 |           <QRCode value={code} />
+          |           ^
+      156 |         </div>
+      157 |         <InputLabel theme={theme}>
+      158 |           {I18n.get('Enter Security Code:')}
+
+      at printWarning (../../node_modules/react/cjs/react.development.js:220:30)
+      at error (../../node_modules/react/cjs/react.development.js:196:5)
+      at Object.createElementWithValidation [as createElement] (../../node_modules/react/cjs/react.development.js:2215:7)
+      at TOTPSetupComp.showSecretCode (src/Widget/TOTPSetupComp.tsx:155:11)
+      at TOTPSetupComp.render (src/Widget/TOTPSetupComp.tsx:184:17)
+      at ReactShallowRenderer._updateClassComponent (../../node_modules/react-test-renderer/cjs/react-test-renderer-shallow.development.js:948:39)
+      at ReactShallowRenderer.render (../../node_modules/react-test-renderer/cjs/react-test-renderer-shallow.development.js:781:12)
+      at Updater.enqueueSetState (../../node_modules/react-test-renderer/cjs/react-test-renderer-shallow.development.js:382:20)
+
+    console.error
+      Warning: React.createElement: type is invalid -- expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.
+
+      153 |       <div>
+      154 |         <div className={totpQrcode}>
+    > 155 |           <QRCode value={code} />
+          |           ^
+      156 |         </div>
+      157 |         <InputLabel theme={theme}>
+      158 |           {I18n.get('Enter Security Code:')}
+
+      at printWarning (../../node_modules/react/cjs/react.development.js:220:30)
+      at error (../../node_modules/react/cjs/react.development.js:196:5)
+      at Object.createElementWithValidation [as createElement] (../../node_modules/react/cjs/react.development.js:2215:7)
+      at TOTPSetupComp.showSecretCode (src/Widget/TOTPSetupComp.tsx:155:11)
+      at TOTPSetupComp.render (src/Widget/TOTPSetupComp.tsx:184:17)
+      at ReactShallowRenderer._updateClassComponent (../../node_modules/react-test-renderer/cjs/react-test-renderer-shallow.development.js:948:39)
+      at ReactShallowRenderer.render (../../node_modules/react-test-renderer/cjs/react-test-renderer-shallow.development.js:781:12)
+      at Updater.enqueueSetState (../../node_modules/react-test-renderer/cjs/react-test-renderer-shallow.development.js:382:20)
+
+    console.error
+      Warning: React.createElement: type is invalid -- expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.
+
+      153 |       <div>
+      154 |         <div className={totpQrcode}>
+    > 155 |           <QRCode value={code} />
+          |           ^
+      156 |         </div>
+      157 |         <InputLabel theme={theme}>
+      158 |           {I18n.get('Enter Security Code:')}
+
+      at printWarning (../../node_modules/react/cjs/react.development.js:220:30)
+      at error (../../node_modules/react/cjs/react.development.js:196:5)
+      at Object.createElementWithValidation [as createElement] (../../node_modules/react/cjs/react.development.js:2215:7)
+      at TOTPSetupComp.showSecretCode (src/Widget/TOTPSetupComp.tsx:155:11)
+      at TOTPSetupComp.render (src/Widget/TOTPSetupComp.tsx:184:17)
+      at ReactShallowRenderer._updateClassComponent (../../node_modules/react-test-renderer/cjs/react-test-renderer-shallow.development.js:948:39)
+      at ReactShallowRenderer.render (../../node_modules/react-test-renderer/cjs/react-test-renderer-shallow.development.js:781:12)
+      at Updater.enqueueSetState (../../node_modules/react-test-renderer/cjs/react-test-renderer-shallow.development.js:382:20)
+
+    console.error
+      [ERROR] 41:53.339 TOTPSetupComp undefined
+
+      144 |       .catch((err) => {
+      145 |         this.setState({ setupMessage: 'Setup TOTP failed!' });
+    > 146 |         logger.error(err);
+          |                ^
+      147 |       });
+      148 |   }
+      149 |
+
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger._log (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:118:4)
+      at ConsoleLogger.Object.<anonymous>.ConsoleLogger.error (node_modules/@aws-amplify/core/src/Logger/ConsoleLogger.ts:174:12)
+      at src/Widget/TOTPSetupComp.tsx:146:16
+
+PASS __tests__/Auth/RequireNewPassword-test.tsx
+PASS __tests__/Auth/VerifyContact-test.tsx
+PASS __tests__/Amplify-UI/Amplify-UI-Components-React-test.tsx
+PASS __tests__/Auth/ConfirmSignUp-test.tsx
+PASS __tests__/Widget/SelectMFAType-test.tsx
+(node:19351) UnhandledPromiseRejectionWarning: TypeError: user.getSession is not a function
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:19351) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). To terminate the node process on unhandled promise rejection, use the CLI flag `--unhandled-rejections=strict` (see https://nodejs.org/api/cli.html#cli_unhandled_rejections_mode). (rejection id: 107)
+(node:19351) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+(node:19351) UnhandledPromiseRejectionWarning: TypeError: user.getSession is not a function
+(node:19351) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). To terminate the node process on unhandled promise rejection, use the CLI flag `--unhandled-rejections=strict` (see https://nodejs.org/api/cli.html#cli_unhandled_rejections_mode). (rejection id: 109)
+PASS __tests__/Auth/ConfirmSignIn-test.tsx
+PASS __tests__/AmplifyMessageMap-test.tsx
+PASS __tests__/Auth/PhoneField-test.tsx
+PASS __tests__/Auth/FederatedSignIn-test.tsx
+PASS __tests__/Auth/Provider/index-test.tsx
+PASS __tests__/Auth/Provider/withAmazon-test.tsx
+PASS __tests__/Auth/Provider/withAuth0-test.tsx
+PASS __tests__/Widget/PhotoPicker-test.tsx
+PASS __tests__/Auth/Provider/withGoogle-test.tsx
+PASS __tests__/Auth/Provider/withFacebook-test.tsx
+(node:19351) UnhandledPromiseRejectionWarning: TypeError: user.getSession is not a function
+(node:19351) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). To terminate the node process on unhandled promise rejection, use the CLI flag `--unhandled-rejections=strict` (see https://nodejs.org/api/cli.html#cli_unhandled_rejections_mode). (rejection id: 111)
+PASS __tests__/Auth/TOTPSetup-test.tsx
+PASS __tests__/Auth/AuthPiece-test.tsx
+PASS __tests__/Widget/Picker-test.tsx
+PASS __tests__/Widget/TextPicker-test.tsx
+PASS __tests__/Storage/Common-test.tsx
+----------------------------------|---------|----------|---------|---------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+File                              | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s                                                                                                                                                           
+----------------------------------|---------|----------|---------|---------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+All files                         |   84.32 |    67.65 |   74.26 |   83.29 |                                                                                                                                                                             
+ src                              |    96.2 |     87.8 |   94.29 |   95.57 |                                                                                                                                                                             
+  AmplifyMessageMap.tsx           |     100 |      100 |     100 |     100 |                                                                                                                                                                             
+  AmplifyTheme.tsx                |     100 |      100 |     100 |     100 |                                                                                                                                                                             
+  AmplifyUI.tsx                   |   95.31 |    87.18 |   93.94 |   94.34 | 67-69,220-221,366,382-384                                                                                                                                                   
+ src/Amplify-UI                   |   70.96 |    44.32 |   44.74 |   66.38 |                                                                                                                                                                             
+  Amplify-UI-Components-React.tsx |   63.59 |    44.32 |   44.74 |   56.11 | 31-33,92-94,113-116,204-207,215-219,232-235,247-251,259-262,270-272,280-283,291-294,302-304,312-314,322-325,333-336,344-347,355-358,366-369,377-380,395,399-401,426,442-444 
+  Amplify-UI-Theme.tsx            |     100 |      100 |     100 |     100 |                                                                                                                                                                             
+  data-test-attributes.tsx        |     100 |      100 |     100 |     100 |                                                                                                                                                                             
+ src/Analytics                    |   79.07 |       80 |   56.25 |   78.05 |                                                                                                                                                                             
+  trackLifecycle.tsx              |   79.07 |       80 |   56.25 |   78.05 | 51,71,75,79-80,84,88,92,96                                                                                                                                                  
+ src/Auth                         |   86.05 |    67.89 |   78.39 |      86 |                                                                                                                                                                             
+  AuthPiece.tsx                   |    89.8 |    70.69 |   93.33 |   89.89 | 75-80,89-91,104,120,227                                                                                                                                                     
+  Authenticator.tsx               |   73.43 |    46.38 |   59.09 |   73.85 | 91,108,112,119,125,131,138,144-154,165-172,177-180,192,197,209,214-217,241,258,282,330                                                                                      
+  ConfirmSignIn.tsx               |   91.84 |    76.92 |      90 |   93.02 | 57,81,90                                                                                                                                                                    
+  ConfirmSignUp.tsx               |    87.8 |       75 |      70 |   86.11 | 51,58,64,70,145                                                                                                                                                             
+  FederatedSignIn.tsx             |   76.04 |    64.81 |     100 |   78.21 | 72-73,86-87,100-101,119,128,132,143,177,186,190,201,205-209                                                                                                                 
+  ForgotPassword.tsx              |    91.8 |     77.5 |      75 |   89.58 | 62,71,80,90,180                                                                                                                                                             
+  Greetings.tsx                   |   84.31 |    58.82 |   92.86 |   86.81 | 80-95,123-128                                                                                                                                                               
+  Loading.tsx                     |    62.5 |        0 |   33.33 |   57.14 | 27-29,33-38                                                                                                                                                                 
+  PhoneField.tsx                  |     100 |       60 |     100 |     100 | 39-68                                                                                                                                                                       
+  RequireNewPassword.tsx          |   95.16 |    83.33 |     100 |   94.74 | 50,71,168                                                                                                                                                                   
+  SignIn.tsx                      |   83.95 |    81.63 |      60 |   82.43 | 64,70,88,100-101,106-107,123-124,147,150,182-207                                                                                                                            
+  SignOut.tsx                     |   69.66 |    43.64 |   91.67 |   70.51 | 75,82-104,116,126-141,147                                                                                                                                                   
+  SignUp.tsx                      |   93.23 |    84.35 |      95 |   92.86 | 83,85,149,180-185,219,264,346                                                                                                                                               
+  TOTPSetup.tsx                   |   97.14 |    81.25 |     100 |   96.88 | 35                                                                                                                                                                          
+  VerifyContact.tsx               |   97.01 |    84.38 |     100 |   96.55 | 63,80                                                                                                                                                                       
+  index.tsx                       |   95.83 |    60.53 |      32 |   94.23 | 57,70,134                                                                                                                                                                   
+ src/Auth/Provider                |   85.12 |    61.81 |   73.56 |   86.38 |                                                                                                                                                                             
+  index.tsx                       |     100 |      100 |   42.86 |     100 |                                                                                                                                                                             
+  withAmazon.tsx                  |   88.61 |    66.67 |   86.67 |   90.67 | 60,92,130-134                                                                                                                                                               
+  withAuth0.tsx                   |   77.91 |    48.72 |   73.33 |   78.95 | 47,73-74,98,106,127-134,144,149-156                                                                                                                                         
+  withFacebook.tsx                |   83.33 |    67.74 |   80.95 |   84.71 | 56,100,124-125,133,163-164,168-174                                                                                                                                          
+  withGoogle.tsx                  |    85.9 |    72.97 |   86.67 |    87.5 | 58,83,112-113,131-135                                                                                                                                                       
+  withOAuth.tsx                   |   85.71 |       25 |   57.14 |   89.47 | 33,45                                                                                                                                                                       
+ src/Auth/common                  |     100 |      100 |     100 |     100 |                                                                                                                                                                             
+  constants.tsx                   |     100 |      100 |     100 |     100 |                                                                                                                                                                             
+  country-dial-codes.tsx          |     100 |      100 |     100 |     100 |                                                                                                                                                                             
+  default-sign-up-fields.tsx      |     100 |      100 |     100 |     100 |                                                                                                                                                                             
+  types.ts                        |     100 |      100 |     100 |     100 |                                                                                                                                                                             
+ src/Storage                      |   88.62 |    72.27 |   85.94 |   86.82 |                                                                                                                                                                             
+  Common.tsx                      |     100 |      100 |     100 |     100 |                                                                                                                                                                             
+  S3Album.tsx                     |      80 |    57.47 |      80 |   76.81 | 110,173,189,199,225-238,243-244,248-271                                                                                                                                     
+  S3Image.tsx                     |   94.96 |    77.78 |   89.47 |   94.06 | 72,101,150,164,180,229                                                                                                                                                      
+  S3Text.tsx                      |    93.1 |    81.69 |   89.47 |   91.75 | 74,88-91,113,155,168,184                                                                                                                                                    
+ src/Widget                       |    93.1 |    83.33 |   83.72 |   91.93 |                                                                                                                                                                             
+  PhotoPicker.tsx                 |   90.48 |     87.5 |      80 |   89.19 | 73-77                                                                                                                                                                       
+  Picker.tsx                      |   96.67 |       90 |     100 |    96.3 | 46                                                                                                                                                                          
+  SelectMFAType.tsx               |   93.94 |    75.68 |   88.89 |   92.73 | 100,125-126,150                                                                                                                                                             
+  TOTPSetupComp.tsx               |   93.15 |       84 |   93.33 |   92.19 | 92,109,126,140-141                                                                                                                                                          
+  TextPicker.tsx                  |      90 |    88.89 |      80 |   88.57 | 67-71                                                                                                                                                                       
+  index.tsx                       |     100 |      100 |      40 |     100 |                                                                                                                                                                             
+ src/XR                           |    44.6 |    13.51 |   26.92 |   41.67 |                                                                                                                                                                             
+  IconButton.tsx                  |   27.27 |        0 |       0 |   23.81 | 19-137                                                                                                                                                                      
+  Loading.tsx                     |   85.71 |        0 |       0 |   83.33 | 19                                                                                                                                                                          
+  SumerianScene.tsx               |   44.55 |    19.23 |   30.43 |   42.27 | 88-100,110-111,126-138,143-149,153-154,158-159,163-169,174-184,195-257                                                                                                      
+  Tooltip.tsx                     |   55.56 |        0 |       0 |      50 | 17-23                                                                                                                                                                       
+----------------------------------|---------|----------|---------|---------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Jest: "global" coverage threshold for branches (70%) not met: 67.65%
+Jest: "global" coverage threshold for functions (75%) not met: 74.26%
+
+Summary of all failing tests
+FAIL __tests__/Analytics/trackLifecycle-test.tsx
+  ● trackLifecycle test › track when mounting
+
+    TypeError: Cannot read property 'child' of undefined
+
+      36 |     };
+      37 |     const CompWithAuth = trackLifecycle(MockComp, 'trackername');
+    > 38 |     const wrapper = mount(<CompWithAuth />);
+         |                     ^
+      39 |
+      40 |     expect(spyon.mock.calls.length).toBe(2);
+      41 |
+
+      at getFiber (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:15:35)
+      at detectFiberTags (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:76:15)
+      at ReactSixteenAdapter.createMountRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:466:19)
+      at ReactSixteenAdapter.createRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:846:51)
+      at new ReactWrapper (../../node_modules/enzyme/src/ReactWrapper.js:113:32)
+      at mount (../../node_modules/enzyme/src/mount.js:10:10)
+      at Object.<anonymous> (__tests__/Analytics/trackLifecycle-test.tsx:38:21)
+
+FAIL __tests__/Storage/S3Text-test.tsx
+  ● S3Text test › componentDidmount test › happy case
+
+    TypeError: Cannot read property 'child' of undefined
+
+      310 |       const spyon = jest.spyOn(S3Text.prototype, 'load');
+      311 |
+    > 312 |       const wrapper = mount(<S3Text />);
+          |                       ^
+      313 |
+      314 |       expect(spyon).toBeCalled();
+      315 |       spyon.mockClear();
+
+      at getFiber (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:15:35)
+      at detectFiberTags (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:76:15)
+      at ReactSixteenAdapter.createMountRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:466:19)
+      at ReactSixteenAdapter.createRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:846:51)
+      at new ReactWrapper (../../node_modules/enzyme/src/ReactWrapper.js:113:32)
+      at mount (../../node_modules/enzyme/src/mount.js:10:10)
+      at Object.<anonymous> (__tests__/Storage/S3Text-test.tsx:312:23)
+
+FAIL __tests__/Storage/S3Album-test.tsx
+  ● S3Album test › marshal test › happy case with contentType string
+
+    TypeError: Cannot read property 'child' of undefined
+
+      561 |         });
+      562 |       });
+    > 563 |       const wrapper = await mount(<S3Album contentType="string" />);
+          |                             ^
+      564 |
+      565 |       expect(wrapper.state('items')).toEqual([
+      566 |         { contentType: 'string', data: 'data', key: 'data-1' },
+
+      at getFiber (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:15:35)
+      at detectFiberTags (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:76:15)
+      at ReactSixteenAdapter.createMountRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:466:19)
+      at ReactSixteenAdapter.createRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:846:51)
+      at new ReactWrapper (../../node_modules/enzyme/src/ReactWrapper.js:113:32)
+      at mount (../../node_modules/enzyme/src/mount.js:10:10)
+      at __tests__/Storage/S3Album-test.tsx:563:29
+      at step (__tests__/Storage/S3Album-test.tsx:44:23)
+      at Object.next (__tests__/Storage/S3Album-test.tsx:25:53)
+      at __tests__/Storage/S3Album-test.tsx:19:71
+      at Object.<anonymous>.__awaiter (__tests__/Storage/S3Album-test.tsx:15:12)
+      at Object.<anonymous> (__tests__/Storage/S3Album-test.tsx:557:48)
+
+FAIL __tests__/Storage/S3Image-test.tsx
+  ● S3Image › componentDidmount test › happy case
+
+    TypeError: Cannot read property 'child' of undefined
+
+      318 |       const spyon = jest.spyOn(S3Image.prototype, 'load');
+      319 |
+    > 320 |       const wrapper = mount(<S3Image />);
+          |                       ^
+      321 |
+      322 |       expect(spyon).toBeCalled();
+      323 |       spyon.mockClear();
+
+      at getFiber (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:15:35)
+      at detectFiberTags (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:76:15)
+      at ReactSixteenAdapter.createMountRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:466:19)
+      at ReactSixteenAdapter.createRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:846:51)
+      at new ReactWrapper (../../node_modules/enzyme/src/ReactWrapper.js:113:32)
+      at mount (../../node_modules/enzyme/src/mount.js:10:10)
+      at Object.<anonymous> (__tests__/Storage/S3Image-test.tsx:320:23)
+
+FAIL __tests__/Auth/Authenticator-test.tsx
+  ● Authenticator › container component › use provided Container component if this.props.container is truthy
+
+    TypeError: Cannot read property 'child' of undefined
+
+      160 |         return <div className="custom-container">{children}</div>;
+      161 |       };
+    > 162 |       const wrapper = mount(<Authenticator container={CustomContainer} />);
+          |                       ^
+      163 |       expect(wrapper.childAt(0).type()).toBe(CustomContainer);
+      164 |     });
+      165 |
+
+      at getFiber (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:15:35)
+      at detectFiberTags (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:76:15)
+      at ReactSixteenAdapter.createMountRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:466:19)
+      at ReactSixteenAdapter.createRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:846:51)
+      at new ReactWrapper (../../node_modules/enzyme/src/ReactWrapper.js:113:32)
+      at mount (../../node_modules/enzyme/src/mount.js:10:10)
+      at Object.<anonymous> (__tests__/Auth/Authenticator-test.tsx:162:23)
+
+  ● Authenticator › container component › use AWS Amplify UI Container if this.props.container is undefined
+
+    TypeError: Cannot read property 'child' of undefined
+
+      165 |
+      166 |     test('use AWS Amplify UI Container if this.props.container is undefined', () => {
+    > 167 |       const wrapper = mount(<Authenticator />);
+          |                       ^
+      168 |       expect(wrapper.childAt(0).type()).toBe(Container);
+      169 |     });
+      170 |
+
+      at getFiber (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:15:35)
+      at detectFiberTags (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:76:15)
+      at ReactSixteenAdapter.createMountRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:466:19)
+      at ReactSixteenAdapter.createRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:846:51)
+      at new ReactWrapper (../../node_modules/enzyme/src/ReactWrapper.js:113:32)
+      at mount (../../node_modules/enzyme/src/mount.js:10:10)
+      at Object.<anonymous> (__tests__/Auth/Authenticator-test.tsx:167:23)
+
+  ● Authenticator › container component › use EmptyContainer if this.props.container is falsey
+
+    TypeError: Cannot read property 'child' of undefined
+
+      170 |
+      171 |     test('use EmptyContainer if this.props.container is falsey', () => {
+    > 172 |       const wrapper = mount(<Authenticator container="" />);
+          |                       ^
+      173 |       expect(wrapper.childAt(0).type()).toBe(EmptyContainer);
+      174 |     });
+      175 |   });
+
+      at getFiber (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:15:35)
+      at detectFiberTags (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:76:15)
+      at ReactSixteenAdapter.createMountRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:466:19)
+      at ReactSixteenAdapter.createRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:846:51)
+      at new ReactWrapper (../../node_modules/enzyme/src/ReactWrapper.js:113:32)
+      at mount (../../node_modules/enzyme/src/mount.js:10:10)
+      at Object.<anonymous> (__tests__/Auth/Authenticator-test.tsx:172:23)
+
+FAIL __tests__/Auth/SignOut-test.tsx
+  ● SignOut › onHubCapsule tests › onHubCapsule is present
+
+    TypeError: Cannot read property 'child' of undefined
+
+      117 |   describe('onHubCapsule tests', () => {
+      118 |     test('onHubCapsule is present', () => {
+    > 119 |       const signOut = mount(<SignOut />).instance();
+          |                       ^
+      120 |       expect(signOut.onHubCapsule).toBeTruthy();
+      121 |     });
+      122 |     test('onHubCapsule is called on a Hub event', () => {
+
+      at getFiber (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:15:35)
+      at detectFiberTags (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:76:15)
+      at ReactSixteenAdapter.createMountRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:466:19)
+      at ReactSixteenAdapter.createRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:846:51)
+      at new ReactWrapper (../../node_modules/enzyme/src/ReactWrapper.js:113:32)
+      at mount (../../node_modules/enzyme/src/mount.js:10:10)
+      at Object.<anonymous> (__tests__/Auth/SignOut-test.tsx:119:23)
+
+  ● SignOut › onHubCapsule tests › onHubCapsule is called on a Hub event
+
+    TypeError: Cannot read property 'child' of undefined
+
+      122 |     test('onHubCapsule is called on a Hub event', () => {
+      123 |       const spy = jest.spyOn(SignOut.prototype, 'onHubCapsule');
+    > 124 |       mount(<SignOut />).instance();
+          |       ^
+      125 |       Hub.dispatch('auth', { event: 'test' });
+      126 |       expect(spy).toHaveBeenCalled();
+      127 |       spy.mockClear();
+
+      at getFiber (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:15:35)
+      at detectFiberTags (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:76:15)
+      at ReactSixteenAdapter.createMountRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:466:19)
+      at ReactSixteenAdapter.createRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:846:51)
+      at new ReactWrapper (../../node_modules/enzyme/src/ReactWrapper.js:113:32)
+      at mount (../../node_modules/enzyme/src/mount.js:10:10)
+      at Object.<anonymous> (__tests__/Auth/SignOut-test.tsx:124:7)
+
+  ● SignOut › onHubCapsule tests › onHubCapsule should setState with authState = "signedIn" when "signIn" auth event fires
+
+    TypeError: Cannot read property 'child' of undefined
+
+      129 |     test('onHubCapsule should setState with authState = "signedIn" when "signIn" auth event fires', () => {
+      130 |       const spy = jest.spyOn(SignOut.prototype, 'setState');
+    > 131 |       mount(<SignOut />).instance();
+          |       ^
+      132 |       Hub.dispatch('auth', { event: 'signIn', data: { foo: 'bar' } });
+      133 |       expect(spy).toHaveBeenCalledWith({
+      134 |         authState: 'signedIn',
+
+      at getFiber (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:15:35)
+      at detectFiberTags (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:76:15)
+      at ReactSixteenAdapter.createMountRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:466:19)
+      at ReactSixteenAdapter.createRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:846:51)
+      at new ReactWrapper (../../node_modules/enzyme/src/ReactWrapper.js:113:32)
+      at mount (../../node_modules/enzyme/src/mount.js:10:10)
+      at Object.<anonymous> (__tests__/Auth/SignOut-test.tsx:131:7)
+
+  ● SignOut › onHubCapsule tests › onHubCapsule should setState with authState = "signIn" when "customSignOut" auth event fires
+
+    TypeError: Cannot read property 'child' of undefined
+
+      139 |     test('onHubCapsule should setState with authState = "signIn" when "customSignOut" auth event fires', () => {
+      140 |       const spy = jest.spyOn(SignOut.prototype, 'setState');
+    > 141 |       mount(<SignOut />).instance();
+          |       ^
+      142 |       Hub.dispatch('auth', { event: 'signOut' });
+      143 |       expect(spy).toHaveBeenCalledWith({
+      144 |         authState: 'signIn',
+
+      at getFiber (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:15:35)
+      at detectFiberTags (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:76:15)
+      at ReactSixteenAdapter.createMountRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:466:19)
+      at ReactSixteenAdapter.createRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:846:51)
+      at new ReactWrapper (../../node_modules/enzyme/src/ReactWrapper.js:113:32)
+      at mount (../../node_modules/enzyme/src/mount.js:10:10)
+      at Object.<anonymous> (__tests__/Auth/SignOut-test.tsx:141:7)
+
+  ● SignOut › findState tests › findState is called
+
+    TypeError: Cannot read property 'child' of undefined
+
+      151 |     test('findState is called', () => {
+      152 |       const spy = jest.spyOn(SignOut.prototype, 'findState');
+    > 153 |       mount(<SignOut />).instance();
+          |       ^
+      154 |       expect(spy).toHaveBeenCalled();
+      155 |       spy.mockClear();
+      156 |     });
+
+      at getFiber (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:15:35)
+      at detectFiberTags (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:76:15)
+      at ReactSixteenAdapter.createMountRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:466:19)
+      at ReactSixteenAdapter.createRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:846:51)
+      at new ReactWrapper (../../node_modules/enzyme/src/ReactWrapper.js:113:32)
+      at mount (../../node_modules/enzyme/src/mount.js:10:10)
+      at Object.<anonymous> (__tests__/Auth/SignOut-test.tsx:153:7)
+
+  ● SignOut › SignOut lifecycle › componentDidMount
+
+    TypeError: Cannot read property 'child' of undefined
+
+      205 |     test('componentDidMount', async () => {
+      206 |       const spy = jest.spyOn(SignOut.prototype, 'componentDidMount');
+    > 207 |       const signOut = mount(<SignOut />).instance();
+          |                       ^
+      208 |       signOut.componentDidMount();
+      209 |       expect(signOut._isMounted).toBeTruthy();
+      210 |       expect(spy).toHaveBeenCalled();
+
+      at getFiber (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:15:35)
+      at detectFiberTags (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:76:15)
+      at ReactSixteenAdapter.createMountRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:466:19)
+      at ReactSixteenAdapter.createRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:846:51)
+      at new ReactWrapper (../../node_modules/enzyme/src/ReactWrapper.js:113:32)
+      at mount (../../node_modules/enzyme/src/mount.js:10:10)
+      at __tests__/Auth/SignOut-test.tsx:207:23
+      at step (__tests__/Auth/SignOut-test.tsx:44:23)
+      at Object.next (__tests__/Auth/SignOut-test.tsx:25:53)
+      at __tests__/Auth/SignOut-test.tsx:19:71
+      at Object.<anonymous>.__awaiter (__tests__/Auth/SignOut-test.tsx:15:12)
+      at Object.<anonymous> (__tests__/Auth/SignOut-test.tsx:205:31)
+
+FAIL __tests__/Auth/Greetings-test.tsx
+  ● Greetings › Greetings lifecycle › componentDidMount
+
+    TypeError: Cannot read property 'child' of undefined
+
+      64 |     test('componentDidMount', async () => {
+      65 |       const spy = jest.spyOn(Greetings.prototype, 'componentDidMount');
+    > 66 |       const greetings = mount(<Greetings />).instance();
+         |                         ^
+      67 |       greetings.componentDidMount();
+      68 |       expect(greetings._isMounted).toBeTruthy();
+      69 |       expect(spy).toHaveBeenCalled();
+
+      at getFiber (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:15:35)
+      at detectFiberTags (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:76:15)
+      at ReactSixteenAdapter.createMountRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:466:19)
+      at ReactSixteenAdapter.createRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:846:51)
+      at new ReactWrapper (../../node_modules/enzyme/src/ReactWrapper.js:113:32)
+      at mount (../../node_modules/enzyme/src/mount.js:10:10)
+      at __tests__/Auth/Greetings-test.tsx:66:25
+      at step (__tests__/Auth/Greetings-test.tsx:44:23)
+      at Object.next (__tests__/Auth/Greetings-test.tsx:25:53)
+      at __tests__/Auth/Greetings-test.tsx:19:71
+      at Object.<anonymous>.__awaiter (__tests__/Auth/Greetings-test.tsx:15:12)
+      at Object.<anonymous> (__tests__/Auth/Greetings-test.tsx:64:31)
+
+  ● Greetings › findState tests › findState is called
+
+    TypeError: Cannot read property 'child' of undefined
+
+      86 |     test('findState is called', () => {
+      87 |       const spy = jest.spyOn(Greetings.prototype, 'findState');
+    > 88 |       const greetings = mount(<Greetings />).instance();
+         |                         ^
+      89 |       expect(spy).toHaveBeenCalled();
+      90 |       spy.mockClear();
+      91 |     });
+
+      at getFiber (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:15:35)
+      at detectFiberTags (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:76:15)
+      at ReactSixteenAdapter.createMountRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:466:19)
+      at ReactSixteenAdapter.createRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:846:51)
+      at new ReactWrapper (../../node_modules/enzyme/src/ReactWrapper.js:113:32)
+      at mount (../../node_modules/enzyme/src/mount.js:10:10)
+      at Object.<anonymous> (__tests__/Auth/Greetings-test.tsx:88:25)
+
+  ● Greetings › onHubCapsule tests › onHubCapsule is present
+
+    TypeError: Cannot read property 'child' of undefined
+
+      139 |   describe('onHubCapsule tests', () => {
+      140 |     test('onHubCapsule is present', () => {
+    > 141 |       const greetings = mount(<Greetings />).instance();
+          |                         ^
+      142 |       expect(greetings.onHubCapsule).toBeTruthy();
+      143 |     });
+      144 |     test('onHubCapsule is called on a Hub event', () => {
+
+      at getFiber (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:15:35)
+      at detectFiberTags (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:76:15)
+      at ReactSixteenAdapter.createMountRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:466:19)
+      at ReactSixteenAdapter.createRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:846:51)
+      at new ReactWrapper (../../node_modules/enzyme/src/ReactWrapper.js:113:32)
+      at mount (../../node_modules/enzyme/src/mount.js:10:10)
+      at Object.<anonymous> (__tests__/Auth/Greetings-test.tsx:141:25)
+
+  ● Greetings › onHubCapsule tests › onHubCapsule is called on a Hub event
+
+    TypeError: Cannot read property 'child' of undefined
+
+      144 |     test('onHubCapsule is called on a Hub event', () => {
+      145 |       const spy = jest.spyOn(Greetings.prototype, 'onHubCapsule');
+    > 146 |       const greetings = mount(<Greetings />).instance();
+          |                         ^
+      147 |       Hub.dispatch('auth', { event: 'test' });
+      148 |       expect(spy).toHaveBeenCalled();
+      149 |       spy.mockClear();
+
+      at getFiber (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:15:35)
+      at detectFiberTags (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:76:15)
+      at ReactSixteenAdapter.createMountRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:466:19)
+      at ReactSixteenAdapter.createRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:846:51)
+      at new ReactWrapper (../../node_modules/enzyme/src/ReactWrapper.js:113:32)
+      at mount (../../node_modules/enzyme/src/mount.js:10:10)
+      at Object.<anonymous> (__tests__/Auth/Greetings-test.tsx:146:25)
+
+  ● Greetings › onHubCapsule tests › onHubCapsule should setState with authState = "signedIn" when "signIn" auth event fires
+
+    TypeError: Cannot read property 'child' of undefined
+
+      151 |     test('onHubCapsule should setState with authState = "signedIn" when "signIn" auth event fires', () => {
+      152 |       const spy = jest.spyOn(Greetings.prototype, 'setState');
+    > 153 |       const greetings = mount(<Greetings />).instance();
+          |                         ^
+      154 |       Hub.dispatch('auth', { event: 'signIn', data: { foo: 'bar' } });
+      155 |       expect(spy).toHaveBeenCalledWith({
+      156 |         authState: 'signedIn',
+
+      at getFiber (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:15:35)
+      at detectFiberTags (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:76:15)
+      at ReactSixteenAdapter.createMountRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:466:19)
+      at ReactSixteenAdapter.createRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:846:51)
+      at new ReactWrapper (../../node_modules/enzyme/src/ReactWrapper.js:113:32)
+      at mount (../../node_modules/enzyme/src/mount.js:10:10)
+      at Object.<anonymous> (__tests__/Auth/Greetings-test.tsx:153:25)
+
+  ● Greetings › onHubCapsule tests › onHubCapsule should setState with authState = "signIn" when "customSignOut" auth event fires
+
+    TypeError: Cannot read property 'child' of undefined
+
+      161 |     test('onHubCapsule should setState with authState = "signIn" when "customSignOut" auth event fires', () => {
+      162 |       const spy = jest.spyOn(Greetings.prototype, 'setState');
+    > 163 |       const greetings = mount(<Greetings />).instance();
+          |                         ^
+      164 |       Hub.dispatch('auth', { event: 'signOut' });
+      165 |       expect(spy).toHaveBeenCalledWith({
+      166 |         authState: 'signIn',
+
+      at getFiber (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:15:35)
+      at detectFiberTags (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:76:15)
+      at ReactSixteenAdapter.createMountRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:466:19)
+      at ReactSixteenAdapter.createRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:846:51)
+      at new ReactWrapper (../../node_modules/enzyme/src/ReactWrapper.js:113:32)
+      at mount (../../node_modules/enzyme/src/mount.js:10:10)
+      at Object.<anonymous> (__tests__/Auth/Greetings-test.tsx:163:25)
+
+FAIL __tests__/XR/SumerianScene-test.tsx
+  ● SumerianScene › renders successfully
+
+    TypeError: Cannot read property 'child' of undefined
+
+      16 | describe('SumerianScene', () => {
+      17 |   test('renders successfully', () => {
+    > 18 |     const wrapper = mount(<SumerianScene sceneName="TestSceneName" />);
+         |                     ^
+      19 |     expect(wrapper).toMatchSnapshot();
+      20 |   });
+      21 |
+
+      at getFiber (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:15:35)
+      at detectFiberTags (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:76:15)
+      at ReactSixteenAdapter.createMountRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:466:19)
+      at ReactSixteenAdapter.createRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:846:51)
+      at new ReactWrapper (../../node_modules/enzyme/src/ReactWrapper.js:113:32)
+      at mount (../../node_modules/enzyme/src/mount.js:10:10)
+      at Object.<anonymous> (__tests__/XR/SumerianScene-test.tsx:18:21)
+
+  ● SumerianScene › loadAndSetupScene is called when component is mounted
+
+    TypeError: Cannot read property 'child' of undefined
+
+      22 |   test('loadAndSetupScene is called when component is mounted', () => {
+      23 |     const spy = jest.spyOn(SumerianScene.prototype, 'loadAndSetupScene');
+    > 24 |     mount(<SumerianScene sceneName="TestSceneName" />);
+         |     ^
+      25 |     expect(spy).toHaveBeenCalled();
+      26 |   });
+      27 |
+
+      at getFiber (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:15:35)
+      at detectFiberTags (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:76:15)
+      at ReactSixteenAdapter.createMountRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:466:19)
+      at ReactSixteenAdapter.createRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:846:51)
+      at new ReactWrapper (../../node_modules/enzyme/src/ReactWrapper.js:113:32)
+      at mount (../../node_modules/enzyme/src/mount.js:10:10)
+      at Object.<anonymous> (__tests__/XR/SumerianScene-test.tsx:24:5)
+
+FAIL __tests__/XR/Tooltip-test.tsx
+  ● Tooltip › renders successfully with no props
+
+    TypeError: Cannot read property 'child' of undefined
+
+      4 | describe('Tooltip', () => {
+      5 |   test('renders successfully with no props', () => {
+    > 6 |     const wrapper = mount(<Tooltip />);
+        |                     ^
+      7 |     expect(wrapper).toMatchSnapshot();
+      8 |   });
+      9 |
+
+      at getFiber (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:15:35)
+      at detectFiberTags (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:76:15)
+      at ReactSixteenAdapter.createMountRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:466:19)
+      at ReactSixteenAdapter.createRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:846:51)
+      at new ReactWrapper (../../node_modules/enzyme/src/ReactWrapper.js:113:32)
+      at mount (../../node_modules/enzyme/src/mount.js:10:10)
+      at Object.<anonymous> (__tests__/XR/Tooltip-test.tsx:6:21)
+
+  ● Tooltip › renders successfully with text
+
+    TypeError: Cannot read property 'child' of undefined
+
+       9 |
+      10 |   test('renders successfully with text', () => {
+    > 11 |     const wrapper = mount(<Tooltip text="Test Tooltip" />);
+         |                     ^
+      12 |     expect(wrapper).toMatchSnapshot();
+      13 |   });
+      14 | });
+
+      at getFiber (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:15:35)
+      at detectFiberTags (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:76:15)
+      at ReactSixteenAdapter.createMountRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:466:19)
+      at ReactSixteenAdapter.createRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:846:51)
+      at new ReactWrapper (../../node_modules/enzyme/src/ReactWrapper.js:113:32)
+      at mount (../../node_modules/enzyme/src/mount.js:10:10)
+      at Object.<anonymous> (__tests__/XR/Tooltip-test.tsx:11:21)
+
+FAIL __tests__/Auth/Provider/withOAuth-test.tsx
+  ● withOAuth test › signIn test › happy case with connected response
+
+    TypeError: Cannot assign to read only property 'assign' of object '[object Location]'
+
+      26 |     test('happy case with connected response', () => {
+      27 |       const mockFn = jest.fn();
+    > 28 |       window.location.assign = mockFn;
+         |                             ^
+      29 |       const MockComp = class extends React.Component {
+      30 |         render() {
+      31 |           return <div />;
+
+      at Object.<anonymous> (__tests__/Auth/Provider/withOAuth-test.tsx:28:29)
+
+  ● withOAuth test › signIn test › Passing in a social provider
+
+    TypeError: Cannot read property 'child' of undefined
+
+      55 |
+      56 |       const Comp = withOAuth(MockComp);
+    > 57 |       const wrapper = mount(<Comp />);
+         |                       ^
+      58 |       const comp = wrapper.instance();
+      59 |
+      60 |       comp.signIn(expect.anything(), 'Facebook');
+
+      at getFiber (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:15:35)
+      at detectFiberTags (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:76:15)
+      at ReactSixteenAdapter.createMountRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:466:19)
+      at ReactSixteenAdapter.createRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:846:51)
+      at new ReactWrapper (../../node_modules/enzyme/src/ReactWrapper.js:113:32)
+      at mount (../../node_modules/enzyme/src/mount.js:10:10)
+      at Object.<anonymous> (__tests__/Auth/Provider/withOAuth-test.tsx:57:23)
+
+FAIL __tests__/XR/IconButton-test.tsx
+  ● IconButton › renders successfully with no variant
+
+    TypeError: Cannot read property 'child' of undefined
+
+      4 | describe('IconButton', () => {
+      5 |   test('renders successfully with no variant', () => {
+    > 6 |     const wrapper = mount(<IconButton />);
+        |                     ^
+      7 |     expect(wrapper).toMatchSnapshot();
+      8 |   });
+      9 |
+
+      at getFiber (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:15:35)
+      at detectFiberTags (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:76:15)
+      at ReactSixteenAdapter.createMountRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:466:19)
+      at ReactSixteenAdapter.createRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:846:51)
+      at new ReactWrapper (../../node_modules/enzyme/src/ReactWrapper.js:113:32)
+      at mount (../../node_modules/enzyme/src/mount.js:10:10)
+      at Object.<anonymous> (__tests__/XR/IconButton-test.tsx:6:21)
+
+  ● IconButton › renders successfully with variant
+
+    TypeError: Cannot read property 'child' of undefined
+
+       9 |
+      10 |   test('renders successfully with variant', () => {
+    > 11 |     const wrapper = mount(<IconButton variant="maximize" />);
+         |                     ^
+      12 |     expect(wrapper).toMatchSnapshot();
+      13 |   });
+      14 | });
+
+      at getFiber (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:15:35)
+      at detectFiberTags (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:76:15)
+      at ReactSixteenAdapter.createMountRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:466:19)
+      at ReactSixteenAdapter.createRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:846:51)
+      at new ReactWrapper (../../node_modules/enzyme/src/ReactWrapper.js:113:32)
+      at mount (../../node_modules/enzyme/src/mount.js:10:10)
+      at Object.<anonymous> (__tests__/XR/IconButton-test.tsx:11:21)
+
+FAIL __tests__/XR/Loading-test.tsx
+  ● Loading › renders successfully with no props
+
+    TypeError: Cannot read property 'child' of undefined
+
+      4 | describe('Loading', () => {
+      5 |   test('renders successfully with no props', () => {
+    > 6 |     const wrapper = mount(<Loading />);
+        |                     ^
+      7 |     expect(wrapper).toMatchSnapshot();
+      8 |   });
+      9 |
+
+      at getFiber (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:15:35)
+      at detectFiberTags (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:76:15)
+      at ReactSixteenAdapter.createMountRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:466:19)
+      at ReactSixteenAdapter.createRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:846:51)
+      at new ReactWrapper (../../node_modules/enzyme/src/ReactWrapper.js:113:32)
+      at mount (../../node_modules/enzyme/src/mount.js:10:10)
+      at Object.<anonymous> (__tests__/XR/Loading-test.tsx:6:21)
+
+  ● Loading › renders successfully with percentage
+
+    TypeError: Cannot read property 'child' of undefined
+
+       9 |
+      10 |   test('renders successfully with percentage', () => {
+    > 11 |     const wrapper = mount(<Loading percentage="0" />);
+         |                     ^
+      12 |     expect(wrapper).toMatchSnapshot();
+      13 |   });
+      14 | });
+
+      at getFiber (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:15:35)
+      at detectFiberTags (../../node_modules/enzyme-adapter-react-16/src/detectFiberTags.js:76:15)
+      at ReactSixteenAdapter.createMountRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:466:19)
+      at ReactSixteenAdapter.createRenderer (../../node_modules/enzyme-adapter-react-16/src/ReactSixteenAdapter.js:846:51)
+      at new ReactWrapper (../../node_modules/enzyme/src/ReactWrapper.js:113:32)
+      at mount (../../node_modules/enzyme/src/mount.js:10:10)
+      at Object.<anonymous> (__tests__/XR/Loading-test.tsx:11:21)
+
+
+Test Suites: 12 failed, 26 passed, 38 total
+Tests:       29 failed, 6 skipped, 322 passed, 357 total
+Snapshots:   198 passed, 198 total
+Time:        13.376 s
+Ran all test suites.
+error Command failed with exit code 1.
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.

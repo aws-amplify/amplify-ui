@@ -25,7 +25,6 @@ describe('withOAuth test', () => {
   describe('signIn test', () => {
     test('happy case with connected response', () => {
       const mockFn = jest.fn();
-      window.location.assign = mockFn;
       const MockComp = class extends React.Component {
         render() {
           return <div />;

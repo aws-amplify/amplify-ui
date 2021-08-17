@@ -1,5 +1,11 @@
 import 'jest-preset-angular';
 
+declare global {
+  interface Window {
+    URL: any;
+  }
+}
+
 window.alert = (msg) => {
   console.log(msg);
 };

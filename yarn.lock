@@ -24344,7 +24344,7 @@ react-docgen@^5.0.0:
     node-dir "^0.1.10"
     strip-indent "^3.0.0"
 
-react-dom@^16.0.2, react-dom@^16.8.3, react-dom@^17.0.2, react-dom@latest:
+react-dom@^16.14.0, react-dom@^16.8.3, react-dom@^17.0.2, react-dom@latest:
   version "16.14.0"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.14.0.tgz#7ad838ec29a777fb3c75c3a190f661cf92ab8b89"
   integrity sha512-1gCeQXDLoIqMgqD3IO2Ah9bnf0w9kzhwN5q4FGnHZ67hBm9yePzB5JJAIQCc8x3pFnNlwFq4RidZggNAAkzWWw==
@@ -24639,7 +24639,7 @@ react-transition-group@^4.3.0:
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
 
-react@^16.0.0, react@^16.0.2, react@^16.8.3, react@^17.0.2, react@latest:
+react@^16.0.0, react@^16.14.0, react@^16.8.3, react@^17.0.2, react@latest:
   version "16.14.0"
   resolved "https://registry.yarnpkg.com/react/-/react-16.14.0.tgz#94d776ddd0aaa37da3eda8fc5b6b18a4c9a3114d"
   integrity sha512-0X2CImDkJGApiAlcf0ODKIneSwBPhqJawOa5wCtKbu7ZECrmS26NvtSILynQ66cgkT/RJ4LidJOc3bUESwmU8g==
@@ -28109,7 +28109,7 @@ ts-dedent@^1.1.0:
   resolved "https://registry.yarnpkg.com/ts-dedent/-/ts-dedent-1.2.0.tgz#6aa2229d837159bb6d635b6b233002423b91e0b0"
   integrity sha512-6zSJp23uQI+Txyz5LlXMXAHpUhY4Hi0oluXny0OgIR7g/Cromq4vDBnhtbBdyIV34g0pgwxUvnvg+jLJe4c1NA==
 
-ts-jest@^24.0.0, ts-jest@^24.x.x, ts-jest@^26.5.6:
+ts-jest@^24.0.0, ts-jest@^24.x.x, ts-jest@^26.5.6, ts-jest@^27.0.3:
   version "26.5.6"
   resolved "https://registry.yarnpkg.com/ts-jest/-/ts-jest-26.5.6.tgz#c32e0746425274e1dfe333f43cd3c800e014ec35"
   integrity sha512-rua+rCP8DxpA8b4DQD/6X2HQS8Zy/xzViVYfEs2OQu68tkCuKLV0Md8pmX55+W24uRIyAsf/BajRfxOs+R2MKA==
@@ -29210,12 +29210,7 @@ vue2-filters@^0.7.2:
   resolved "https://registry.yarnpkg.com/vue2-filters/-/vue2-filters-0.7.2.tgz#762e8b24c9ccaa152ac43b06c21c3e41ed6c13eb"
   integrity sha512-7I74isiBUQFGaNbVv57NzHGqh54cLe0JNJmJmu66wxP5eOK/CqHN4iqHMgwPPPvPbgbFbpI/GjbHiIx8tNruwg==
 
-vue@^2.5.17:
-  version "2.6.14"
-  resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.14.tgz#e51aa5250250d569a3fbad3a8a5a687d6036e235"
-  integrity sha512-x2284lgYvjOMj3Za7kqzRcUSxBboHqtgRE2zlos1qWaOye5yUmHn42LB1250NJBLRwEcdrB0JRwyPTEPhfQjiQ==
-
-vue@^3.0.5:
+vue@^2.5.17, vue@^3.0.5:
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/vue/-/vue-3.2.2.tgz#11715cb71a02baefd0f6e6552dc623680eb1bf32"
   integrity sha512-D/LuzAV30CgNJYGyNheE/VUs5N4toL2IgmS6c9qeOxvyh0xyn4exyRqizpXIrsvfx34zG9x5gCI2tdRHCGvF9w==

@@ -8,6 +8,7 @@ import Vue from 'vue';
 // package. The regex assumes all components names are prefixed
 // 'amplify-'
 if (Vue) {
+  //@ts-ignore
   Vue.config.ignoredElements = [/amplify-\w*/];
 } else {
   throw new Error(
