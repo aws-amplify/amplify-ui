@@ -2,6 +2,7 @@ import React from 'react';
 import { Property } from 'csstype';
 
 import { Icon, IconSize, Flex } from '@aws-amplify/ui-react';
+import { Example } from '@/components/Example';
 
 export const IconDemo = () => {
   const [width, setWidth] = React.useState<number>(24);
@@ -92,14 +93,16 @@ export const IconDemo = () => {
           </select>
         </div>
       </Flex>
-      <Icon
-        pathData={pathData}
-        viewBox={{ width, height }}
-        fill={fill}
-        size={size}
-        ariaLabel={ariaLabel}
-        className="icon-demo-search"
-      />
+      <Example>
+        <Icon
+          pathData={pathData}
+          viewBox={{ width, height }}
+          fill={fill}
+          size={size}
+          ariaLabel={ariaLabel}
+          className="icon-demo-search"
+        />
+      </Example>
     </div>
   );
 };
