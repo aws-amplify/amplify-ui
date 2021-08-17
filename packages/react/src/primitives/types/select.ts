@@ -1,4 +1,4 @@
-import React, { FormEvent } from 'react';
+import * as React from 'react';
 
 import { AriaProps, BaseComponentProps } from './base';
 import { BaseStyleProps } from './style';
@@ -11,6 +11,10 @@ export interface SelectProps
   extends BaseComponentProps,
     BaseStyleProps,
     AriaProps {
+  name?: string;
+
+  defaultValue?: string;
+
   size?: SelectSize;
 
   variation?: SelectVariation;
@@ -23,5 +27,5 @@ export interface SelectProps
 
   isRequired?: boolean;
 
-  onChange?: (e: FormEvent<HTMLSelectElement>) => void;
+  onChange?: React.ChangeEventHandler<HTMLSelectElement>;
 }
