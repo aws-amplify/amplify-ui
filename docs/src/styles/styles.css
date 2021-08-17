@@ -1,6 +1,5 @@
 @import 'prism-theme-night-owl';
 @import 'tailwindcss/tailwind.css';
-@import './badgeStyles.css';
 @import './buttonStyles.css';
 @import './cardStyles.css';
 @import './dividerStyles.css';
@@ -39,4 +38,12 @@ a > h2::before {
 a > h3::before {
   content: '#';
   @apply absolute -ml-5 text-amazon;
+}
+
+.developer-preview-banner {
+  padding: 2rem;
+  background-color: var(--color-ink-hv);
+  color: white;
+  font-size: 1.5rem;
+  line-height: 1.5;
 }
