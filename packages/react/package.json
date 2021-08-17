@@ -36,6 +36,7 @@
     "react-dom": ">= 16.8.0"
   },
   "devDependencies": {
+    "@csstools/postcss-sass": "https://github.com/sinankeskin/postcss-sass.git",
     "@tailwindcss/forms": "^0.2.1",
     "@tailwindcss/typography": "^0.4.0",
     "@testing-library/jest-dom": "^5.14.1",
@@ -48,6 +49,7 @@
     "hygen": "^6.1.0",
     "jest": "^27.0.4",
     "microbundle": "^0.13.3",
+    "postcss-easy-import": "^3.0.0",
     "rimraf": "^3.0.2",
     "tailwindcss": "^2.0.3",
     "ts-jest": "^27.0.3",
