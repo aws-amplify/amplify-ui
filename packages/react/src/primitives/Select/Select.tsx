@@ -1,6 +1,24 @@
-import React from 'react';
-import { SelectProps } from '../types';
+import React, { FormEvent } from 'react';
+import classNames from 'classnames';
 
-export const Select: React.FC<SelectProps> = ({ children }) => {
-  return <div>Hello!, I'm a Select component</div>;
+import { View } from '../View';
+import { SelectProps } from '../types';
+import { ComponentClassNames } from '../shared';
+
+export const Select: React.FC<SelectProps> = (props) => {
+  const { className, children, placeholder, ...rest } = props;
+  return (
+    <View
+      as="select"
+      className={classNames(ComponentClassNames.Select, className)}
+      {...rest}
+    >
+      {placeholder && (
+        <option value="" disabled selected>
+          {placeholder}
+        </option>
+      )}
+      {children}
+    </View>
+  );
 };
