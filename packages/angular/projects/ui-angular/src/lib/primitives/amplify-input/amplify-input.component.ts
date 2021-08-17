@@ -1,5 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { AuthInputAttributes, getActorContext } from '@aws-amplify/ui-core';
+import {
+  ActorContextWithForms,
+  AuthInputAttributes,
+  getActorContext,
+} from '@aws-amplify/ui-core';
 import { getAttributeMap } from '../../common';
 import { StateMachineService } from '../../services';
 
@@ -29,7 +33,10 @@ export class AmplifyInputComponent {
   }
 
   get error(): string {
-    const { validationError } = getActorContext(this.stateMachine.authState);
+    const formContext: ActorContextWithForms = getActorContext(
+      this.stateMachine.authState
+    );
+    const { validationError } = formContext;
     return validationError[this.name];
   }
 
