@@ -21,6 +21,7 @@ Internally, this content is served by a single, Next.js [optional catch all rout
 
 ## Next/React Development
 
+1. Run `yarn react dev` to nuild & watch `@aws-amplify/ui-react` & its dependencies.
 1. Create or Update an example at [`examples/...`](examples)
 
    For your `aws-exports.js`, you can [reference an existing or create a new environment](environments).
