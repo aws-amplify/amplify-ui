@@ -12,8 +12,8 @@ module.exports = {
     libraryTarget: 'umd',
     umdNamedDefine: true,
     globalObject: 'this',
-    devtoolModuleFilenameTemplate: require('../aws-amplify/webpack-utils')
-      .devtoolModuleFilenameTemplate,
+    devtoolModuleFilenameTemplate:
+      require('./webpack-utils').devtoolModuleFilenameTemplate,
   },
   // Enable sourcemaps for debugging webpack's output.
   devtool: 'source-map',

@@ -76,7 +76,7 @@ describe('ConfirmSignInComponentCore: ', () => {
       state: 'test-state',
     };
     const callingAuthState = component.onConfirm();
-    expect(service.auth().confirmSignIn).toBeCalled();
+    expect(service.auth().confirmSignIn).toHaveBeenCalled();
   });
 
   it('...should have an onSignIn method', () => {
@@ -85,7 +85,7 @@ describe('ConfirmSignInComponentCore: ', () => {
 
   it('...should call setAuthState within the onSignIn method', () => {
     const callingAuthState = component.onSignIn();
-    expect(service.setAuthState).toBeCalled();
+    expect(service.setAuthState).toHaveBeenCalled();
   });
 
   it('...should have a _setError method', () => {

@@ -62,7 +62,7 @@ describe('SignInComponentIonic: ', () => {
   it('...should call setAuthState within the onForgotPassword method', () => {
     component.username = 'test-username2';
     const callingAuthState = component.onForgotPassword();
-    expect(service.setAuthState).toBeCalled();
+    expect(service.setAuthState).toHaveBeenCalled();
     setAuthStateSpy.mockRestore();
   });
 
@@ -74,7 +74,7 @@ describe('SignInComponentIonic: ', () => {
     component.username = 'test-username3';
     component.password = 'test-password3';
     const callingAuthState = component.onSignIn();
-    expect(signInSpy).toBeCalled();
+    expect(signInSpy).toHaveBeenCalled();
   });
 
   it('...should have an onSignUp method', () => {
@@ -84,7 +84,7 @@ describe('SignInComponentIonic: ', () => {
   it('...should call setAuthState within the onSignUp method', () => {
     component.username = 'test-username2';
     const callingAuthState = component.onSignUp();
-    expect(service.setAuthState).toBeCalled();
+    expect(service.setAuthState).toHaveBeenCalled();
     setAuthStateSpy.mockRestore();
   });
 

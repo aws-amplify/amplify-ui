@@ -71,7 +71,7 @@ export const config: Config = {
     }),
     reactOutputTarget({
       componentCorePackage: '@aws-amplify/ui-components',
-      proxiesFile: '../amplify-ui-react/src/components.ts',
+      proxiesFile: '../amplify-ui-react/src/components-legacy.ts',
     }),
     { type: 'dist' },
     { type: 'dist-custom-elements-bundle', dir: 'dist/components' },

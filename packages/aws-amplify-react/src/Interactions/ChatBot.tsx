@@ -30,6 +30,7 @@ const styles: { [pname: string]: React.CSSProperties } = {
     height: '300px',
     overflow: 'auto',
   },
+  // @ts-ignore
   textInput: Object.assign({}, Input, {
     display: 'inline-block',
     width: 'calc(100% - 90px - 15px)',
@@ -104,6 +105,7 @@ export class ChatBot extends React.Component<IChatBotProps, IChatBotState> {
     }
     if (!this.props.textEnabled && this.props.voiceEnabled) {
       STATES.INITIAL.MESSAGE = 'Click the mic button';
+      //@ts-ignore
       styles.textInput = Object.assign({}, Input, {
         display: 'inline-block',
         width: 'calc(100% - 40px - 15px)',
@@ -111,6 +113,7 @@ export class ChatBot extends React.Component<IChatBotProps, IChatBotState> {
     }
     if (this.props.textEnabled && !this.props.voiceEnabled) {
       STATES.INITIAL.MESSAGE = 'Type a message';
+      //@ts-ignore
       styles.textInput = Object.assign({}, Input, {
         display: 'inline-block',
         width: 'calc(100% - 60px - 15px)',
@@ -345,6 +348,7 @@ export class ChatBot extends React.Component<IChatBotProps, IChatBotState> {
             { message: this.state.inputText, from: 'me' },
           ],
         },
+        //@ts-ignore
         resolve
       )
     );

@@ -1,12 +1,14 @@
 module.exports = {
+  preset: 'ts-jest',
+  testEnvironment: 'jsdom',
+  setupFilesAfterEnv: ['./jest.setup.ts'],
+  modulePathIgnorePatterns: [
+    '<rootDir>/dist/',
+    '<rootDir>/src/react-component-lib',
+  ],
   globals: {
     'ts-jest': {
-      tsConfig: {
-        esModuleInterop: true,
-        jsx: 'react',
-      },
+      tsconfig: 'tsconfig.json',
     },
   },
-  preset: 'ts-jest',
-  testEnvironment: 'node',
 };

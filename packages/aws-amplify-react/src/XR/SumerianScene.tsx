@@ -58,6 +58,7 @@ export class SumerianScene extends React.Component<
 
   setStateAsync(state) {
     return new Promise((resolve) => {
+      //@ts-ignore
       this.setState(state, resolve);
     });
   }
@@ -162,10 +163,10 @@ export class SumerianScene extends React.Component<
     const doc = document;
     if (doc.exitFullscreen) {
       doc.exitFullscreen();
-    } else if (doc.mozCancelFullScreen) {
-      doc.mozCancelFullScreen();
-    } else if (doc.webkitExitFullscreen) {
-      doc.webkitExitFullscreen();
+    } else if ((doc as any).mozCancelFullScreen) {
+      (doc as any).mozCancelFullScreen();
+    } else if ((doc as any).webkitExitFullscreen) {
+      (doc as any).webkitExitFullscreen();
     }
   }
 

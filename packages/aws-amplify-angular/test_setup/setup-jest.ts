@@ -17,6 +17,7 @@ class MockWorker implements Worker {
   addEventListener = noOp;
   removeEventListener = noOp;
   onerror = noOp;
+  onmessageerror = noOp;
   dispatchEvent(event: Event): boolean {
     throw new Error('Method not implemented.');
   }
