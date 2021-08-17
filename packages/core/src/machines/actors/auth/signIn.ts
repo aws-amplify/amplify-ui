@@ -11,16 +11,9 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
     states: {
       init: {
         always: [
-          { target: 'autoSignIn', cond: 'shouldAutoSignIn' },
+          { target: 'signIn.submit', cond: 'shouldAutoSignIn' },
           { target: 'signIn' },
         ],
-      },
-      autoSignIn: {
-        invoke: {
-          src: 'signIn',
-          onDone: { actions: 'setUser', target: '#signInActor.resolved' },
-          onError: '#signInActor.signIn',
-        },
       },
       signIn: {
         initial: 'edit',
