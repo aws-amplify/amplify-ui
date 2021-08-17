@@ -1,4 +1,4 @@
-import { getActorState } from '@aws-amplify/ui-core';
+import { getActorState, ResetPasswordState } from '@aws-amplify/ui-core';
 import { useAmplify, useAuth } from '../../../hooks';
 import { ErrorText, SignInOrSubmitFooter } from '../shared';
 
@@ -9,7 +9,7 @@ export const ResetPassword = (): JSX.Element => {
   } = useAmplify(amplifyNamespace);
 
   const [state, send] = useAuth();
-  const actorState = getActorState(state);
+  const actorState = getActorState(state) as ResetPasswordState;
   const isPending = actorState.matches('resetPassword.submit');
 
   const headerText = 'Reset your Password';

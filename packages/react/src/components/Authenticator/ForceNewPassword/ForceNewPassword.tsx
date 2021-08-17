@@ -1,4 +1,4 @@
-import { getActorState } from '@aws-amplify/ui-core';
+import { getActorState, SignInState } from '@aws-amplify/ui-core';
 import { useAmplify, useAuth } from '../../../hooks';
 
 export const ForceNewPassword = (): JSX.Element => {
@@ -18,7 +18,7 @@ export const ForceNewPassword = (): JSX.Element => {
   } = useAmplify(amplifyNamespace);
 
   const [_state, send] = useAuth();
-  const actorState = getActorState(_state);
+  const actorState: SignInState = getActorState(_state);
   const { remoteError } = actorState.context;
   const isPending = actorState.matches('forceNewPassword.pending');
 

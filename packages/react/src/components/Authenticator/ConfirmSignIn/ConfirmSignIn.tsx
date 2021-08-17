@@ -2,6 +2,7 @@ import {
   AuthChallengeNames,
   getActorState,
   SignInContext,
+  SignInState,
 } from '@aws-amplify/ui-core';
 import { useAmplify, useAuth } from '../../../hooks';
 
@@ -21,7 +22,7 @@ export const ConfirmSignIn = (): JSX.Element => {
   } = useAmplify(amplifyNamespace);
 
   const [_state, send] = useAuth();
-  const actorState = getActorState(_state);
+  const actorState: SignInState = getActorState(_state);
   const isPending = actorState.matches('confirmSignIn.pending');
 
   const footerProps: ConfirmSignInFooterProps = {

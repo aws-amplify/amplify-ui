@@ -9,7 +9,7 @@ import {
   ConfirmSignInFooter,
   ConfirmSignInFooterProps,
 } from '../shared';
-import { getActorState } from '@aws-amplify/ui-core';
+import { getActorState, SignInState } from '@aws-amplify/ui-core';
 
 const logger = new Logger('SetupTOTP-logger');
 
@@ -23,7 +23,7 @@ export const SetupTOTP = (): JSX.Element => {
   } = useAmplify(amplifyNamespace);
 
   const [_state, send] = useAuth();
-  const actorState = getActorState(_state);
+  const actorState = getActorState(_state) as SignInState;
   const isPending = actorState.matches('confirmSignIn.pending');
 
   const generateQRCode = async (user): Promise<void> => {

@@ -6,6 +6,7 @@ import {
   authInputAttributes,
   getActorContext,
   getActorState,
+  SignUpState,
   socialProviderLoginMechanisms,
 } from '@aws-amplify/ui-core';
 import { FederatedSignIn } from '../FederatedSignIn';
@@ -25,7 +26,7 @@ export function SignUp() {
   } = useAmplify('Authenticator.SignUp');
 
   const [_state, send] = useAuth();
-  const actorState = getActorState(_state);
+  const actorState: SignUpState = getActorState(_state);
   const isPending = actorState.matches('signUp.pending');
   const { remoteError } = actorState.context;
 
