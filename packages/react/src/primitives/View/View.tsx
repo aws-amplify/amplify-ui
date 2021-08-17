@@ -1,10 +1,10 @@
 import React from 'react';
-import { convertStylePropsToStyleObj, getNonStyleProps } from '../shared/utils';
+import {
+  convertStylePropsToStyleObj,
+  getNonStyleProps,
+  prefixer,
+} from '../shared/utils';
 import { ViewProps } from '../types/index';
-import postcssJs from 'postcss-js';
-import autoprefixer from 'autoprefixer';
-
-const prefixer = postcssJs.sync([autoprefixer]);
 
 export const View: React.FC<ViewProps> = (props) => {
   const {

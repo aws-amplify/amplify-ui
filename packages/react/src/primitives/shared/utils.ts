@@ -3,6 +3,10 @@ import {
   ComponentPropToStyleProp,
   ViewProps,
 } from '../types/index';
+import postcssJs from 'postcss-js';
+import autoprefixer from 'autoprefixer';
+
+export const prefixer = postcssJs.sync([autoprefixer]);
 
 export const strHasLength = (str: unknown): str is string =>
   typeof str === 'string' && str.length > 0;
