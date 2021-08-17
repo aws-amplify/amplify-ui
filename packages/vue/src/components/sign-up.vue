@@ -61,12 +61,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch, computed } from 'vue';
+import { defineComponent, ref, watch, computed, ComputedRef } from 'vue';
 import {
   authInputAttributes,
   getActorContext,
   getActorState,
   SignUpContext,
+  SignUpState,
   socialProviderLoginMechanisms,
 } from '@aws-amplify/ui-core';
 
@@ -121,7 +122,9 @@ export default defineComponent({
     const {
       value: { context },
     } = state;
-    const actorState = computed(() => getActorState(state.value));
+    const actorState: ComputedRef<SignUpState> = computed(() =>
+      getActorState(state.value)
+    );
 
     let [__, ...secondaryAliases] = useAliases(
       context?.config?.login_mechanisms

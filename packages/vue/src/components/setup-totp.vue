@@ -54,7 +54,14 @@
 </template>
 
 <script lang="ts">
-import { onMounted, defineComponent, reactive, toRefs, computed } from 'vue';
+import {
+  onMounted,
+  defineComponent,
+  reactive,
+  toRefs,
+  computed,
+  ComputedRef,
+} from 'vue';
 
 import BaseHeading from './primitives/base-heading.vue';
 import BaseFieldSet from './primitives/base-field-set.vue';
@@ -79,7 +86,7 @@ import {
 import { Auth, Logger } from 'aws-amplify';
 import QRCode from 'qrcode';
 import { SetupEventContext } from '../types';
-import { getActorState } from '@aws-amplify/ui-core';
+import { getActorState, SignInState } from '@aws-amplify/ui-core';
 
 export default defineComponent({
   components: {
@@ -102,7 +109,9 @@ export default defineComponent({
     const {
       value: { context },
     } = state;
-    const actorState = computed(() => getActorState(state.value));
+    const actorState: ComputedRef<SignInState> = computed(() =>
+      getActorState(state.value)
+    );
 
     let qrCode = reactive({
       qrCodeImageSource: null,

@@ -93,7 +93,7 @@
 </template>
 
 <script lang="ts">
-import { Ref, ref, computed } from 'vue';
+import { Ref, ref, computed, ComputedRef } from 'vue';
 
 import BaseLabel from './primitives/base-label.vue';
 import BaseFooter from './primitives/base-footer.vue';
@@ -126,7 +126,7 @@ import { useAuth } from '../composables/useAuth';
 
 // types
 import { SetupEventContext, SignInSetupReturnTypes } from '../types/index';
-import { getActorState } from '@aws-amplify/ui-core';
+import { getActorState, SignInState } from '@aws-amplify/ui-core';
 
 export default {
   name: 'Authentication',
@@ -159,7 +159,9 @@ export default {
 
   setup(_, { emit, attrs }: SetupEventContext): SignInSetupReturnTypes {
     const { state, send } = useAuth();
-    const actorState = computed(() => getActorState(state.value));
+    const actorState: ComputedRef<SignInState> = computed(() =>
+      getActorState(state.value)
+    );
 
     const username: Ref = ref('');
     const password: Ref = ref('');

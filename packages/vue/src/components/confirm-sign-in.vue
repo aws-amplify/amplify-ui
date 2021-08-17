@@ -49,7 +49,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue';
+import { defineComponent, computed, ComputedRef } from 'vue';
 import BaseHeading from './primitives/base-heading.vue';
 import BaseFieldSet from './primitives/base-field-set.vue';
 import BaseLabel from './primitives/base-label.vue';
@@ -86,8 +86,8 @@ export default defineComponent({
   inheritAttrs: false,
   setup(_, { emit, attrs }: SetupEventContext): ConfirmSignInSetupReturnTypes {
     const { state, send } = useAuth();
-    const actorState = computed(
-      () => getActorState(state.value) as SignInState
+    const actorState: ComputedRef<SignInState> = computed(() =>
+      getActorState(state.value)
     );
     const { challengeName } = actorState.value.context;
 

@@ -59,7 +59,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue';
+import { defineComponent, computed, ComputedRef } from 'vue';
 
 import { SetupEventContext, ForceNewPasswordReturnTypes } from '../types';
 
@@ -83,7 +83,7 @@ import {
   HAVE_ACCOUNT_LABEL,
   SIGN_IN_BUTTON_TEXT,
 } from '../defaults/DefaultTexts';
-import { getActorState } from '@aws-amplify/ui-core';
+import { getActorState, SignInState } from '@aws-amplify/ui-core';
 
 export default defineComponent({
   components: {
@@ -102,7 +102,9 @@ export default defineComponent({
   inheritAttrs: false,
   setup(_, { emit, attrs }: SetupEventContext): ForceNewPasswordReturnTypes {
     const { state, send } = useAuth();
-    const actorState = computed(() => getActorState(state.value));
+    const actorState: ComputedRef<SignInState> = computed(() =>
+      getActorState(state.value)
+    );
 
     // computed properties
     const changePasswordLabel = computed(() => CHANGE_PASSWORD_LABEL);
