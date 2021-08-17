@@ -1,8 +1,9 @@
 import React from 'react';
 import { Rating } from '@aws-amplify/ui-react';
 import { RatingPropControls } from '@/components/RatingPropControls';
+import { Example } from '@/components/Example';
 
-export const RatingDemo = ({ children }) => {
+export const RatingDemo = () => {
   const [fillColor, setFillColor] = React.useState<string>();
   const [emptyColor, setEmptyColor] = React.useState<string>();
   const [size, setSize] = React.useState();
@@ -25,13 +26,15 @@ export const RatingDemo = ({ children }) => {
   return (
     <>
       <RatingPropControls {...ratingProps} />
-      <Rating
-        fillColor={fillColor}
-        emptyColor={emptyColor}
-        size={size}
-        value={value}
-        maxValue={maxValue}
-      />
+      <Example>
+        <Rating
+          fillColor={fillColor}
+          emptyColor={emptyColor}
+          size={size}
+          value={value}
+          maxValue={maxValue}
+        />
+      </Example>
     </>
   );
 };
