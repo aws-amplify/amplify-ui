@@ -23,7 +23,11 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
   {
     id: 'auth',
     initial: 'idle',
-    context: {},
+    context: {
+      user: undefined,
+      config: undefined,
+      actorRef: undefined,
+    },
     states: {
       // See: https://xstate.js.org/docs/guides/communication.html#invoking-promises
       idle: {
