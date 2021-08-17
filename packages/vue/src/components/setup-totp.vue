@@ -105,10 +105,6 @@ export default defineComponent({
   inheritAttrs: false,
   setup(_, { emit, attrs }: SetupEventContext) {
     const { state, send } = useAuth();
-
-    const {
-      value: { context },
-    } = state;
     const actorState: ComputedRef<SignInState> = computed(() =>
       getActorState(state.value)
     );

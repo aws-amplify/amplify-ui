@@ -1,4 +1,4 @@
-import { getActorContext, getActorState } from '@aws-amplify/ui-core';
+import { getActorContext } from '@aws-amplify/ui-core';
 import { ActorContextWithForms } from '@aws-amplify/ui-core/src/types/authMachine';
 import { useAmplify, useAuth } from '../../../hooks';
 
