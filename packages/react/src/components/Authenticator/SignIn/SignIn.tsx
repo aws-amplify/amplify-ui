@@ -23,17 +23,6 @@ export function SignIn() {
   const [state, send] = useAuth();
   const isPending = state.matches('signIn.pending');
 
-  const translations = {
-    headerText: I18n.get('Sign in to your account'),
-    passwordLabel: I18n.get('Password'),
-    forgotPasswordText: I18n.get('Forgot your password? '),
-    resetPasswordText: I18n.get('Reset password'),
-    noAccountText: I18n.get('No account? '),
-    createAccountText: I18n.get('Create account'),
-    signInPendingText: I18n.get('Signing in'),
-    signInText: I18n.get('Sign in'),
-  };
-
   return (
     // TODO Automatically add these namespaces again from `useAmplify`
     <Form
@@ -51,7 +40,7 @@ export function SignIn() {
         });
       }}
     >
-      <Heading level={1}>{translations.headerText}</Heading>
+      <Heading level={1}>{I18n.get('Sign in to your account')}</Heading>
 
       <FederatedSignIn />
 
@@ -59,31 +48,31 @@ export function SignIn() {
         <UserNameAlias data-amplify-usernamealias />
 
         <Label data-amplify-password>
-          <Text>{translations.passwordLabel}</Text>
+          <Text>{I18n.get('Password')}</Text>
           <Input name="password" required type="password" />
           <Box>
-            <Text>{translations.forgotPasswordText}</Text>
+            <Text>{I18n.get('Forgot your password? ')}</Text>
             <Button
               onClick={() => send({ type: 'RESET_PASSWORD' })}
               type="button"
             >
-              {translations.resetPasswordText}
+              {I18n.get('Reset password')}
             </Button>
           </Box>
         </Label>
       </Fieldset>
 
       <Footer>
-        <Text>{translations.noAccountText}</Text>
+        <Text>{I18n.get('No account? ')}</Text>
         <Button onClick={() => send({ type: 'SIGN_UP' })} type="button">
-          {translations.createAccountText}
+          {I18n.get('Create account')}
         </Button>
         <Spacer />
         <Button isDisabled={isPending} type="submit">
           {isPending ? (
-            <>{translations.signInPendingText}&hellip;</>
+            <>{I18n.get('Signing in')}&hellip;</>
           ) : (
-            <>{translations.signInText}</>
+            <>{I18n.get('Sign in')}</>
           )}
         </Button>
       </Footer>

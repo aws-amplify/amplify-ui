@@ -10,12 +10,6 @@ export const FederatedSignIn = (): JSX.Element => {
   const [{ context }] = useAuth();
   const loginMechanisms = get(context, 'config.login_mechanisms');
 
-  const translations = {
-    facebook: I18n.get('Sign In with Facebook'),
-    google: I18n.get('Sign In with Google'),
-    amazon: I18n.get('Sign In with Amazon'),
-  };
-
   const amplifyNamespace = 'Authenticator.FederatedSignIn';
   const {
     components: { Flex },
@@ -23,19 +17,19 @@ export const FederatedSignIn = (): JSX.Element => {
 
   const facebookButton = includes(loginMechanisms, 'facebook') ? (
     <FederatedSignInButton
-      text={translations.facebook}
+      text={I18n.get('Sign In with Facebook')}
       provider={FederatedIdentityProviders.Facebook}
     />
   ) : null;
   const googleButton = includes(loginMechanisms, 'google') ? (
     <FederatedSignInButton
-      text={translations.google}
+      text={I18n.get('Sign In with Google')}
       provider={FederatedIdentityProviders.Google}
     />
   ) : null;
   const amazonButton = includes(loginMechanisms, 'amazon') ? (
     <FederatedSignInButton
-      text={translations.amazon}
+      text={I18n.get('Sign In with Amazon')}
       provider={FederatedIdentityProviders.Amazon}
     />
   ) : null;

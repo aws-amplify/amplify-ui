@@ -15,13 +15,9 @@ export function UserNameAlias(props: UserNameAliasProps) {
 
   const { label, type, error } = getAliasInfoFromContext(context);
 
-  const translations = {
-    label: I18n.get(label),
-  };
-
   return (
     <Label {...attrs}>
-      <Text>{translations.label}</Text>
+      <Text>{I18n.get(label)}</Text>
       <Input
         onChange={handleInputChange}
         name="username"
