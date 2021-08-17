@@ -1,5 +1,6 @@
-import { useAmplify, useAuth } from '../../../hooks';
+import { I18n } from '@aws-amplify/core';
 
+import { useAmplify, useAuth } from '../../../hooks';
 import { FederatedSignIn } from '../FederatedSignIn';
 import { UserNameAlias } from '../shared';
 
@@ -22,6 +23,17 @@ export function SignIn() {
   const [state, send] = useAuth();
   const isPending = state.matches('signIn.pending');
 
+  const translations = {
+    headerText: I18n.get('Sign in to your account'),
+    passwordLabel: I18n.get('Password'),
+    forgotPasswordText: I18n.get('Forgot your password? '),
+    resetPasswordText: I18n.get('Reset password'),
+    noAccountText: I18n.get('No account? '),
+    createAccountText: I18n.get('Create account'),
+    signInPendingText: I18n.get('Signing in'),
+    signInText: I18n.get('Sign in'),
+  };
+
   return (
     // TODO Automatically add these namespaces again from `useAmplify`
     <Form
@@ -39,7 +51,7 @@ export function SignIn() {
         });
       }}
     >
-      <Heading level={1}>Sign in to your account</Heading>
+      <Heading level={1}>{translations.headerText}</Heading>
 
       <FederatedSignIn />
 
@@ -47,28 +59,32 @@ export function SignIn() {
         <UserNameAlias data-amplify-usernamealias />
 
         <Label data-amplify-password>
-          <Text>Password</Text>
+          <Text>{translations.passwordLabel}</Text>
           <Input name="password" required type="password" />
           <Box>
-            <Text>Forgot your password?</Text>{' '}
+            <Text>{translations.forgotPasswordText}</Text>
             <Button
               onClick={() => send({ type: 'RESET_PASSWORD' })}
               type="button"
             >
-              Reset Password
+              {translations.resetPasswordText}
             </Button>
           </Box>
         </Label>
       </Fieldset>
 
       <Footer>
-        <Text>No account?</Text>{' '}
+        <Text>{translations.noAccountText}</Text>
         <Button onClick={() => send({ type: 'SIGN_UP' })} type="button">
-          Create account
+          {translations.createAccountText}
         </Button>
         <Spacer />
         <Button isDisabled={isPending} type="submit">
-          {isPending ? <>Signing in&hellip;</> : <>Sign In</>}
+          {isPending ? (
+            <>{translations.signInPendingText}&hellip;</>
+          ) : (
+            <>{translations.signInText}</>
+          )}
         </Button>
       </Footer>
       <Box data-amplify-error>{state.event.data?.message}</Box>
