@@ -5,10 +5,13 @@
         <base-heading>
           {{ confirmSignUpHeading }}
         </base-heading>
-        <base-field-set :disabled="state.matches('confirmSignUp.pending')">
+        <base-field-set :disabled="actorState.matches('confirmSignUp.pending')">
           <user-name-alias
             :userNameAlias="true"
-            :userName="state?.context?.formValues[primaryAlias]"
+            :userName="
+              actorState?.context?.user?.username ||
+              actorState?.context?.authAttributes?.username
+            "
             :disabled="true"
           />
           <base-label data-amplify-password>
@@ -45,12 +48,12 @@
             {{ backSignInText }}</base-button
           >
           <base-spacer />
-          <base-button :disabled="state.matches('confirmSignUp.pending')">{{
-            confirmText
-          }}</base-button>
+          <base-button :disabled="actorState.matches('confirmSignUp.pending')">
+            {{ confirmText }}
+          </base-button>
         </base-footer>
         <base-box data-ui-error>
-          {{ state.event.data?.message }}
+          {{ actorState?.context?.remoteError }}
         </base-box>
       </base-form>
     </base-wrapper>
@@ -81,10 +84,10 @@ import {
   CONFIRM_TEXT,
 } from '../defaults/DefaultTexts';
 
-import { useAliases } from '../composables/useUtils';
 import { useAuth } from '../composables/useAuth';
 
 import { ConfirmPasswordSetupReturnTypes, SetupEventContext } from '../types';
+import { getActorState, SignUpContext } from '@aws-amplify/ui-core';
 
 export default defineComponent({
   components: {
@@ -113,18 +116,12 @@ export default defineComponent({
     { emit, attrs }: SetupEventContext
   ): ConfirmPasswordSetupReturnTypes {
     const { state, send } = useAuth();
+    const actorState = computed(() => getActorState(state.value));
 
-    const {
-      value: { context },
-    } = state;
-
-    let [primaryAlias] = useAliases(context?.config?.login_mechanisms);
-    if (!context?.formValues?.confirm_password) {
-      primaryAlias = 'username';
-    }
+    const context: SignUpContext = actorState.value.context;
+    const username = context.user?.username ?? context.authAttributes?.username;
 
     //computed properties
-
     const confirmSignUpHeading = computed(() => CONFIRM_SIGNUP_HEADING);
     const confirmationCodeText = computed(() => CONFIRMATION_CODE_TEXT);
     const lostYourCodeText = computed(() => LOST_YOUR_CODE_TEXT);
@@ -149,7 +146,7 @@ export default defineComponent({
         data: {
           //@ts-ignore
           ...Object.fromEntries(formData),
-          username: context?.formValues[primaryAlias],
+          username,
         },
       });
     };
@@ -162,7 +159,7 @@ export default defineComponent({
         send({
           type: 'RESEND',
           //@ts-ignore
-          data: { username: context?.formValues[primaryAlias] },
+          data: { username },
         });
       }
     };
@@ -188,9 +185,9 @@ export default defineComponent({
       backSignInText,
       confirmText,
       onLostCodeClicked,
-      state,
+      actorState,
       send,
-      primaryAlias,
+      username,
     };
   },
 });

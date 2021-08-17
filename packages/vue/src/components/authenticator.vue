@@ -1,7 +1,7 @@
 <template>
   <div>
     <sign-in
-      v-if="state?.matches('signIn')"
+      v-if="actorState?.matches('signIn')"
       @sign-in-submit="onSignInSubmitI"
       ref="signInComponent"
     >
@@ -64,7 +64,7 @@
       </template>
     </sign-in>
     <sign-up
-      v-if="state?.matches('signUp')"
+      v-if="actorState?.matches('signUp')"
       @sign-up-submit="onSignUpSubmitI"
       ref="signUpComponent"
     >
@@ -100,9 +100,11 @@
         </slot>
       </template>
     </sign-up>
-    <div v-if="state?.matches('signIn.rejected')">Error! Can't sign in!</div>
+    <div v-if="actorState?.matches('signIn.rejected')">
+      Error! Can't sign in!
+    </div>
     <confirm-sign-up
-      v-if="state?.matches('confirmSignUp')"
+      v-if="actorState?.matches('confirmSignUp')"
       @confirm-sign-up-submit="onConfirmSignUpSubmitI"
       :shouldHideReturnBtn="shouldHideReturnBtn"
       ref="confirmSignUpComponent"
@@ -124,7 +126,7 @@
     </confirm-sign-up>
 
     <confirm-sign-in
-      v-if="state?.matches('confirmSignIn')"
+      v-if="actorState?.matches('confirmSignIn')"
       @confirm-sign-in-submit="onConfirmSignInSubmitI"
       ref="confirmSignInComponent"
     >
@@ -145,7 +147,7 @@
     </confirm-sign-in>
 
     <setup-totp
-      v-if="state?.matches('setupTOTP')"
+      v-if="actorState?.matches('setupTOTP')"
       @confirm-setup-totp-submit="onConfirmSetupTOTPSubmitI"
       ref="confirmSetupTOTPComponent"
     >
@@ -164,7 +166,7 @@
     </setup-totp>
 
     <force-new-password
-      v-if="state?.matches('forceNewPassword')"
+      v-if="actorState?.matches('forceNewPassword')"
       @force-new-password-submit="onForceNewPasswordSubmitI"
       ref="forceNewPasswordComponent"
     >
@@ -192,7 +194,8 @@
 </template>
 
 <script lang="ts">
-import { ref, provide, defineComponent } from 'vue';
+import { ref, provide, defineComponent, computed } from 'vue';
+import { getActorState } from '@aws-amplify/ui-core';
 
 import SignIn from './sign-in.vue';
 import SignUp from './sign-up.vue';
@@ -236,6 +239,7 @@ export default defineComponent({
     forceNewPasswordComponent: typeof ForceNewPassword;
   } {
     const { state, send } = useAuth();
+    const actorState = computed(() => getActorState(state.value));
     const signInComponent = ref(null);
     const signUpComponent = ref(null);
     const confirmSignUpComponent = ref(null);
@@ -299,6 +303,7 @@ export default defineComponent({
     return {
       currentPage,
       state,
+      actorState,
       onSignInSubmitI,
       signInComponent,
       signUpComponent,

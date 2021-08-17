@@ -11,7 +11,11 @@ import {
 } from '@angular/core';
 import { AuthPropService, StateMachineService } from '../../services';
 import { Subscription } from 'xstate';
-import { AuthMachineState } from '@aws-amplify/ui-core';
+import {
+  AuthMachineState,
+  getActorState,
+  SignInState,
+} from '@aws-amplify/ui-core';
 
 const logger = new Logger('SignIn');
 
@@ -54,8 +58,9 @@ export class AmplifySignInComponent
   }
 
   onStateUpdate(state: AuthMachineState): void {
-    this.remoteError = state.context.remoteError;
-    this.isPending = !state.matches('signIn.edit');
+    const actorState: SignInState = getActorState(state);
+    this.remoteError = actorState.context.remoteError;
+    this.isPending = !actorState.matches('signIn.edit');
   }
 
   toSignUp(): void {
@@ -66,18 +71,16 @@ export class AmplifySignInComponent
     event.preventDefault();
     const { name, value } = <HTMLInputElement>event.target;
     this.stateMachine.send({
-      type: 'INPUT',
+      type: 'CHANGE',
       data: { name, value },
     });
   }
 
   async onSubmit(event: Event): Promise<void> {
     event.preventDefault();
-    const formValues = this.stateMachine.context.formValues;
 
     this.stateMachine.send({
       type: 'SUBMIT',
-      data: formValues,
     });
   }
 }

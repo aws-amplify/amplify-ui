@@ -1,8 +1,12 @@
 import { Ref, ComputedRef, Slot } from 'vue';
-import { PayloadSender, EventObject } from 'xstate';
+import { PayloadSender } from 'xstate';
 import {
+  AuthActorState,
+  AuthEvent,
   AuthInputAttributes,
   FederatedIdentityProviders,
+  SignInState,
+  SignUpState,
 } from '@aws-amplify/ui-core';
 
 export interface SetupEventContext {
@@ -36,7 +40,7 @@ export interface SignInSetupReturnTypes {
   username: Ref<string>;
   password: Ref<string>;
   submit: (e: Event) => void;
-  state: Ref;
+  actorState: ComputedRef<SignInState>;
 }
 
 export interface SignUpSetupReturnTypes {
@@ -44,6 +48,7 @@ export interface SignUpSetupReturnTypes {
   onSignUpSubmit: (e: Event) => void;
   onChange: (e: Event) => void;
   state: Ref;
+  actorState: ComputedRef<SignUpState>;
   phone: Ref<string>;
   submit: () => void;
   error: Ref<string>;
@@ -66,9 +71,9 @@ export interface ConfirmPasswordSetupReturnTypes {
   backSignInText: ComputedRef<string>;
   confirmText: ComputedRef<string>;
   onLostCodeClicked: () => void;
-  state: Ref;
-  send: PayloadSender<EventObject>;
-  primaryAlias: string;
+  actorState: ComputedRef<SignUpState>;
+  send: PayloadSender<AuthEvent>;
+  username: string;
 }
 
 export interface ConfirmSignInSetupReturnTypes {
@@ -78,7 +83,7 @@ export interface ConfirmSignInSetupReturnTypes {
   submit: (e: Event) => void;
   backSignInText: ComputedRef<string>;
   confirmText: ComputedRef<string>;
-  state: Ref;
+  actorState: ComputedRef<SignInState>;
 }
 
 export interface SignUpPhoneControlTypes {
@@ -91,7 +96,8 @@ export interface SignUpPhoneControlTypes {
 export interface AuthenticatorSetupReturnTypes {
   currentPage: Ref<string>;
   state: Ref;
-  send: PayloadSender<EventObject>;
+  actorState: ComputedRef<AuthActorState>;
+  send: PayloadSender<AuthEvent>;
   onSignInSubmitI: (e: Event) => void;
   onSignUpSubmitI: (e: Event) => void;
   onConfirmSignUpSubmitI: (e: Event) => void;
@@ -118,7 +124,7 @@ export interface ForceNewPasswordReturnTypes {
   changingPasswordLabel: ComputedRef<string>;
   submit: (e: Event) => void;
   onForceNewPasswordSubmit: (e: Event) => void;
-  state: Ref;
+  actorState: ComputedRef<SignInState>;
   onHaveAccountClicked: () => void;
   signInButtonText: ComputedRef<string>;
   haveAccountLabel: ComputedRef<string>;
