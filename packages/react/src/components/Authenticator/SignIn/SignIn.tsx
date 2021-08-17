@@ -83,7 +83,6 @@ export function SignIn() {
           {isPending ? <>Signing in&hellip;</> : <>Sign In</>}
         </Button>
       </Footer>
-      <Box data-amplify-error>{actorState.context.remoteError}</Box>
       <ErrorText amplifyNamespace={amplifyNamespace} />
     </Form>
   );
