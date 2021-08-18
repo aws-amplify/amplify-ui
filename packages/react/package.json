@@ -22,6 +22,7 @@
     "build:icons": "yarn run clean:icons && node scripts/generateIcons.js",
     "clean": "rimraf dist",
     "clean:icons": "rimraf ./src/primitives/Icon/icons",
+    "postinstall": "patch-package",
     "primitives:new": "hygen primitives new",
     "test": "yarn test:unit",
     "test:watch": "yarn test:unit:watch",
