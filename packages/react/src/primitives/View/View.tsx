@@ -1,5 +1,9 @@
 import React from 'react';
-import { convertStylePropsToStyleObj, getNonStyleProps } from '../shared/utils';
+import {
+  convertStylePropsToStyleObj,
+  getNonStyleProps,
+  prefixer,
+} from '../shared/utils';
 import { ViewProps } from '../types/index';
 
 export const View: React.FC<ViewProps> = (props) => {
@@ -26,7 +30,7 @@ export const View: React.FC<ViewProps> = (props) => {
       disabled={isDisabled}
       id={id}
       role={role}
-      style={convertStylePropsToStyleObj(props, style)}
+      style={prefixer(convertStylePropsToStyleObj(props, style))}
       {...getNonStyleProps(rest)}
     >
       {children}
