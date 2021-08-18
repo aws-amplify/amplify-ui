@@ -3,6 +3,6 @@
   "name": "auth-with-multi-alias-environment",
   "version": "0.0.1",
   "scripts": {
-    "pull": "amplify pull --appId d3s96danxzaf8m --envName staging"
+    "pull": "amplify pull --appId d3ljin3rxrrmr1 --envName staging"
   }
 }
