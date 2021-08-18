@@ -4,20 +4,12 @@ Given("I'm running the example {string}", (url: string) => {
   cy.visit(url);
 });
 
-When('I click on the {string} button', (name: string) => {
-  cy.findByRole('button', { name }).click();
-});
-
 And('I type a valid username {string}', (username: string) => {
   cy.findByRole('textbox', { name: /username/i }).type(Cypress.env(username));
 });
 
 And('I type an invalid username {string}', (username: string) => {
   cy.findByRole('textbox', { name: /username/i }).type(Cypress.env(username));
-});
-
-And('I click the {string} button', (name: string) => {
-  cy.findByRole('button', { name }).click();
 });
 
 Then('I will be redirected to the confirm forgot password page', () => {

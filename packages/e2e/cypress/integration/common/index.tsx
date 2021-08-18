@@ -16,7 +16,7 @@ And('I type a valid password {string}', (password: string) => {
 });
 
 And('I click the {string} button', (name: string) => {
-  cy.findByRole('button', { name }).click();
+  cy.findByRole('button', { name: new RegExp(name, 'i') }).click();
 });
 
 Then('I see {string}', (message: string) => {
