@@ -1,0 +1,207 @@
+import { Button } from '@aws-amplify/ui-react';
+import { ButtonDemo } from './demo';
+import { Example } from '@/components/Example';
+
+The Button primitive is used to trigger an action or event, such as submitting a form, opening a dialog, canceling an action, or performing a delete operation.
+
+## Demo
+
+<ButtonDemo />
+
+## Usage
+
+Import the Button primitive and styles.
+
+```jsx
+import { Button } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<Button>Hello world</Button>;
+```
+
+<Example>
+  <Button>Hello world</Button>
+</Example>
+
+### onClick
+
+Use the `onClick` prop to add a click handler to the Button.
+
+```jsx
+<Button onClick={() => alert('👋 hello')}>Click me</Button>
+```
+
+<Example>
+  <Button onClick={() => alert('👋 hello')}>Click me</Button>
+</Example>
+
+### Sizes
+
+Use the `size` prop to change the Button size. Available options are `small`, `large`, and none (default).
+
+```jsx
+<Button size="small">Small</Button>
+<Button>Default</Button>
+<Button size="large">Large</Button>
+```
+
+<Example>
+  <Button size="small">Small</Button>
+  <Button>Default</Button>
+  <Button size="large">Large</Button>
+</Example>
+
+### Variations
+
+Use the `variation` prop to change the Button variation. Available options are `primary`, `link`, and none (default).
+
+```jsx
+<Button variation="primary">Primary</Button>
+<Button variation="link">Link</Button>
+<Button>Default</Button>
+```
+
+<Example>
+  <Button variation="primary">Primary</Button>
+  <Button variation="link">Link</Button>
+  <Button>Default</Button>
+</Example>
+
+### Loading state
+
+```jsx
+<Button isLoading={true} loadingText="Loading..." variation="primary">
+  Hello
+</Button>
+```
+
+<Example>
+  <Button isLoading={true} loadingText="Loading..." variation="primary">
+    Hello
+  </Button>
+</Example>
+
+### Other states
+
+```jsx
+<Button isDisabled={true}>Disabled</Button>
+<Button isFullWidth={true}>Full width</Button>
+```
+
+<Example>
+  <Button isDisabled={true}>Disabled</Button>
+  <Button isFullWidth={true}>Full width</Button>
+</Example>
+
+### Accessibility
+
+Setting an `aria-label` attribute for an icon Button:
+
+```jsx
+<Button ariaLabel="To the moon!">🚀</Button>
+```
+
+<Example>
+  <Button ariaLabel="To the moon!">🚀</Button>
+</Example>
+
+## CSS Styling
+
+### Global styling
+
+To override styling on all Buttons, you can set the Amplify CSS variables or use the built-in `.amplify-button` class.
+
+```css
+/* styles.css */
+:root {
+  --amplify-components-button-primary-background-color: #0057ff;
+  --amplify-components-button-primary-hover-background-color: #4d89fc;
+}
+/* OR */
+.amplify-button {
+  background-color: #0057ff;
+}
+.amplify-button:hover {
+  background-color: #4d89fc;
+}
+```
+
+To replace the Button styling, unset it:
+
+```css
+.amplify-button {
+  all: unset;
+  /* Add your styling here*/
+}
+```
+
+### Local styling
+
+To override styling on a specific Button, you can use (in order of increasing specificity): a class selector, data attributes, or style props.
+
+_Using a class selector:_
+
+```css
+/* Example: class selector styling override */
+.colorful-button {
+  background: linear-gradient(90deg, #fdbb2d 0%, #22c1c3 100%);
+}
+```
+
+```jsx
+import './styles.css';
+
+<Button className="colorful-button">I'm colorful!</Button>;
+```
+
+<Example>
+  <Button className="colorful-button">I'm colorful!</Button>
+</Example>
+
+_Using data attributes:_
+
+```css
+/* styles.css */
+/* Override only primary variation styles */
+.amplify-button[data-variation='primary'] {
+  background-color: teal;
+  color: white;
+}
+
+/* Override loading styles */
+.amplify-button[data-loading='true'] {
+  opacity: 0.8;
+}
+
+/* Override disabled styles */
+.amplify-button[disabled='true'] {
+  opacity: 0.8;
+}
+```
+
+```jsx
+import './styles.css';
+
+<Button variation="primary">Teal background</Button>
+<Button isLoading={true}>Loading...</Button>
+<Button isDisabled={true}>Lighter opacity</Button>
+```
+
+_Using style props:_
+
+```jsx
+<Button style={{ backgroundColor: 'green', color: 'white' }}>Green</Button>;
+{
+  /* OR */
+}
+<Button backgroundColor="purple" color="white">
+  Purple
+</Button>;
+```
+
+<Example>
+  <Button style={{ backgroundColor: 'green', color: 'white' }}>Green</Button>
+  <Button backgroundColor="purple" color="white">
+    Purple
+  </Button>
+</Example>
