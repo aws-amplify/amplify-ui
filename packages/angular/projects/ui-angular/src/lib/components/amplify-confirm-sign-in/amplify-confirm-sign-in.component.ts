@@ -9,7 +9,14 @@ import {
 import { Logger } from '@aws-amplify/core';
 import { AuthPropService, StateMachineService } from '../../services';
 import { Subscription } from 'xstate';
-import { AuthChallengeNames, AuthMachineState } from '@aws-amplify/ui-core';
+import {
+  AuthChallengeNames,
+  AuthMachineState,
+  getActorContext,
+  getActorState,
+  SignInContext,
+  SignInState,
+} from '@aws-amplify/ui-core';
 
 const logger = new Logger('ConfirmSignIn');
 
@@ -51,7 +58,9 @@ export class AmplifyConfirmSignInComponent
   }
 
   setHeaderText(): void {
-    const { challengeName } = this.stateMachine.context;
+    const state = this.stateMachine.authState;
+    const actorContext: SignInContext = getActorContext(state);
+    const { challengeName } = actorContext;
     switch (challengeName) {
       case AuthChallengeNames.SOFTWARE_TOKEN_MFA:
         // TODO: this string should be centralized and translated from ui-core.
@@ -66,15 +75,16 @@ export class AmplifyConfirmSignInComponent
   }
 
   onStateUpdate(state: AuthMachineState): void {
-    this.remoteError = state.context.remoteError;
-    this.isPending = !state.matches('confirmSignIn.edit');
+    const actorState: SignInState = getActorState(state);
+    this.remoteError = actorState.context.remoteError;
+    this.isPending = !actorState.matches('confirmSignIn.edit');
   }
 
   onInput(event: Event) {
     event.preventDefault();
     const { name, value } = <HTMLInputElement>event.target;
     this.stateMachine.send({
-      type: 'INPUT',
+      type: 'CHANGE',
       data: { name, value },
     });
   }

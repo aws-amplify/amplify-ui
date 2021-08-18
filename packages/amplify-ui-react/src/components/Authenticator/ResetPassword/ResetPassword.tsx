@@ -1,3 +1,4 @@
+import { getActorState, ResetPasswordState } from '@aws-amplify/ui-core';
 import { useAmplify, useAuth } from '../../../hooks';
 import { ErrorText, SignInOrSubmitFooter } from '../shared';
 
@@ -8,15 +9,25 @@ export const ResetPassword = (): JSX.Element => {
   } = useAmplify(amplifyNamespace);
 
   const [state, send] = useAuth();
-  const isPending = state.matches('resetPassword.pending');
+  const actorState = getActorState(state) as ResetPasswordState;
+  const isPending = actorState.matches('resetPassword.submit');
 
   const headerText = 'Reset your Password';
   const submitText = isPending ? <>Sending&hellip;</> : <>Send code</>;
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    send({
+      type: 'CHANGE',
+      data: { name, value },
+    });
+  };
 
   return (
     <Form
       data-amplify-authenticator-resetpassword=""
       method="post"
+      onChange={handleChange}
       onSubmit={(event) => {
         event.preventDefault();
 

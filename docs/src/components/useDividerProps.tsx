@@ -1,8 +1,4 @@
-import {
-  DividerOptions,
-  ImageOptions,
-  ImageProps,
-} from '@aws-amplify/ui-react';
+import { DividerOptions } from '@aws-amplify/ui-react';
 import { useState } from 'react';
 import { DividerPropControlsProps } from './DividerPropControls';
 

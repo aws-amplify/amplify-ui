@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text } from '@aws-amplify/ui-react';
+import { Example } from '@/components/Example';
 
 export const TextDemo = ({ children }) => {
   const [text, setText] = React.useState<string>('Hello World!!!');
@@ -124,17 +125,19 @@ export const TextDemo = ({ children }) => {
           />
         </div>
       </div>
-      <Text
-        isTruncated={isTruncated}
-        color={color}
-        lineHeight={lineHeight}
-        fontWeight={fontWeight}
-        fontStyle={fontStyle}
-        fontSize={fontSize}
-        textDecoration={textDecoration}
-      >
-        {text}
-      </Text>
+      <Example>
+        <Text
+          isTruncated={isTruncated}
+          color={color}
+          lineHeight={lineHeight}
+          fontWeight={fontWeight}
+          fontStyle={fontStyle}
+          fontSize={fontSize}
+          textDecoration={textDecoration}
+        >
+          {text}
+        </Text>
+      </Example>
     </div>
   );
 };
