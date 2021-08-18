@@ -7,7 +7,7 @@ export type AlertVariation = 'info' | 'error' | 'warning' | 'success';
 export interface AlertProps extends BaseComponentProps, BaseStyleProps {
   variation?: AlertVariation;
 
-  dismissible?: boolean; // default false
+  isDismissible?: boolean; // default false
 
   onDismiss?: () => void;
 
