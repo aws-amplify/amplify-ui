@@ -12,7 +12,14 @@ export const AlertDemo = () => {
     <Flex direction="column" gap="0.5rem">
       <AlertPropControls {...alertProps} />
       <Example>
-        <Alert variation={alertProps.variation}>Alert</Alert>
+        <Alert
+          variation={alertProps.variation}
+          isDismissible={alertProps.isDismissible}
+          withIcon={alertProps.withIcon}
+          title={alertProps.title}
+        >
+          Alert
+        </Alert>
       </Example>
     </Flex>
   );
