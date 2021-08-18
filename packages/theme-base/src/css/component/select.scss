@@ -1,0 +1,61 @@
+.amplify-select-wrapper {
+  display: block;
+  position: relative;
+  cursor: pointer;
+
+  .amplify-select {
+    width: 100%;
+    min-width: 8rem;
+    line-height: 2.25;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    box-sizing: border-box;
+    border-radius: 0.25rem;
+    border-width: 1px;
+    border-style: solid;
+    border-color: hsl(210, 5%, 90%);
+
+    &:focus {
+      border-color: hsl(220, 50%, 50%);
+      box-shadow: 0 0 1px 2px hsl(220, 50%, 50%);
+    }
+
+    &[data-size='small'] {
+      font-size: 0.875rem;
+      line-height: 2;
+    }
+
+    &[data-size='large'] {
+      font-size: 1.25rem;
+      line-height: 2.5;
+    }
+
+    &[data-variation='filled'] {
+      background-color: hsl(210, 5%, 90%);
+    }
+
+    &[data-variation='flushed'] {
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      border-radius: 0;
+      &:focus {
+        box-shadow: 0 4px 2px -2px hsl(220, 50%, 50%);
+      }
+    }
+
+    &[disabled] {
+      cursor: not-allowed;
+      border-color: transparent;
+      background-color: hsl(210, 5%, 95%);
+    }
+  }
+
+  .amplify-select-icon-wrapper {
+    position: absolute;
+    top: 25%;
+    height: 50%;
+    right: 0.75rem;
+    pointer-events: none;
+  }
+}

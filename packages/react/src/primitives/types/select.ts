@@ -5,7 +5,7 @@ import { BaseStyleProps } from './style';
 
 export type SelectSize = 'small' | 'large';
 
-export type SelectVariation = 'outline' | 'unstyled' | 'filled' | 'flushed';
+export type SelectVariation = 'filled' | 'flushed';
 
 export interface SelectProps
   extends BaseComponentProps,
@@ -14,6 +14,8 @@ export interface SelectProps
   name?: string;
 
   defaultValue?: string;
+
+  value?: string;
 
   size?: SelectSize;
 

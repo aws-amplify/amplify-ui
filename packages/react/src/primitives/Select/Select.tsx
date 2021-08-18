@@ -12,14 +12,14 @@ export const Select: React.FC<SelectProps> = (props) => {
     className,
     size,
     variation,
-    icon = <IconExpandMore />,
+    icon = <IconExpandMore size="large" />,
     children,
     placeholder,
     isRequired,
     ...rest
   } = props;
   return (
-    <Flex className="amplify-select-wrapper">
+    <View className="amplify-select-wrapper">
       <View
         as="select"
         required={isRequired}
@@ -35,7 +35,13 @@ export const Select: React.FC<SelectProps> = (props) => {
         )}
         {children}
       </View>
-      <Flex alignItems="center">{icon}</Flex>
-    </Flex>
+      <Flex
+        className="amplify-select-icon-wrapper"
+        alignItems="center"
+        justifyContent="center"
+      >
+        {icon}
+      </Flex>
+    </View>
   );
 };
