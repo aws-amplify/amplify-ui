@@ -1,6 +1,7 @@
+import { I18n } from '@aws-amplify/core';
 import { getActorState, SignInState } from '@aws-amplify/ui-core';
-import { useAmplify, useAuth } from '../../../hooks';
 
+import { useAmplify, useAuth } from '../../../hooks';
 import { FederatedSignIn } from '../FederatedSignIn';
 import { ErrorText, UserNameAlias } from '../shared';
 
@@ -51,7 +52,7 @@ export function SignIn() {
       }}
       onChange={handleChange}
     >
-      <Heading level={1}>Sign in to your account</Heading>
+      <Heading level={1}>{I18n.get('Sign in to your account')}</Heading>
 
       <FederatedSignIn />
 
@@ -59,28 +60,32 @@ export function SignIn() {
         <UserNameAlias data-amplify-usernamealias />
 
         <Label data-amplify-password>
-          <Text>Password</Text>
+          <Text>{I18n.get('Password')}</Text>
           <Input name="password" required type="password" />
           <Box>
-            <Text>Forgot your password?</Text>{' '}
+            <Text>{I18n.get('Forgot your password? ')}</Text>
             <Button
               onClick={() => send({ type: 'RESET_PASSWORD' })}
               type="button"
             >
-              Reset Password
+              {I18n.get('Reset password')}
             </Button>
           </Box>
         </Label>
       </Fieldset>
 
       <Footer>
-        <Text>No account?</Text>{' '}
+        <Text>{I18n.get('No account? ')}</Text>
         <Button onClick={() => send({ type: 'SIGN_UP' })} type="button">
-          Create account
+          {I18n.get('Create account')}
         </Button>
         <Spacer />
         <Button isDisabled={isPending} type="submit">
-          {isPending ? <>Signing in&hellip;</> : <>Sign In</>}
+          {isPending ? (
+            <>{I18n.get('Signing in')}&hellip;</>
+          ) : (
+            <>{I18n.get('Sign in')}</>
+          )}
         </Button>
       </Footer>
       <ErrorText amplifyNamespace={amplifyNamespace} />

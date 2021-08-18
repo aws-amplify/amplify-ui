@@ -9,14 +9,14 @@ Feature: Reset Password
 
   @next @react
   Scenario: Reset Password with valid username
-    When I click on the "Reset Password" button
+    When I click on the "Reset password" button
     And I type a valid username "VALID_USERNAME"
     And I click the "Send code" button
     Then I will be redirected to the confirm forgot password page
     
   @next @react
   Scenario: Reset Password with invalid username
-    When I click on the "Reset Password" button
+    When I click on the "Reset password" button
     And I type an invalid username "INVALID_USERNAME"
     And I click the "Send code" button
     Then I see "Username/client id combination not found."
