@@ -76,10 +76,6 @@ Internally, this content is served by a single, Next.js [optional catch all rout
 1. `yarn dev:angular`.
 1. Visit <http://localhost:4200/>
 
-#### Flutter Development
-
-1. see [packages/flutter/README.md](packages/flutter/README.md)
-
 ## Updating Icons
 
 If material design icon svg files are updated [upstream](https://github.com/google/material-design-icons/), follow these steps to update our icons components for all frameworks:
