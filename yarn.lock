@@ -553,6 +553,13 @@
   dependencies:
     "@aws-amplify/ui-components" "1.7.1"
 
+"@aws-amplify/ui-react-v1@npm:@aws-amplify/ui-react@1.2.9":
+  version "1.2.9"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/ui-react/-/ui-react-1.2.9.tgz#bcaa93f021afc801f9d8e6aa98558128b2cb173f"
+  integrity sha512-JvvIkzK0fjwnNZj5Oq9LfGgpkxgzXu0pzzUyIaDZjLmIWaJ5SzR9PazRAX1i5FS/b8DufxEvPq18EwrLbFh4FA==
+  dependencies:
+    "@aws-amplify/ui-components" "1.7.2"
+
 "@aws-amplify/ui-react@0.2.38":
   version "0.2.38"
   resolved "https://registry.yarnpkg.com/@aws-amplify/ui-react/-/ui-react-0.2.38.tgz#d38ce24b4ede0858483fc9471ab968a3c209373f"
