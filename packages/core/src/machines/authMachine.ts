@@ -1,7 +1,6 @@
 import { assign, createMachine, forwardTo, spawn } from 'xstate';
 import { Auth, Amplify } from 'aws-amplify';
 import { AuthContext, AuthEvent } from '../types';
-import { inspect } from '@xstate/inspect';
 import {
   signInActor,
   signUpActor,
@@ -9,15 +8,6 @@ import {
   resetPasswordActor,
 } from './actors';
 import { stopActor } from './actions';
-
-// TODO: Remove this before it's merged.
-if (typeof window !== 'undefined') {
-  inspect({
-    // options
-    // url: 'https://statecharts.io/inspect', // (default)
-    iframe: false, // open in new window
-  });
-}
 
 export const authMachine = createMachine<AuthContext, AuthEvent>(
   {
