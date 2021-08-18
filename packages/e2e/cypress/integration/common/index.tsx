@@ -15,7 +15,7 @@ And('I type a valid password {string}', (password: string) => {
   cy.findByLabelText(/password/i).type(Cypress.env(password));
 });
 
-And('I click the {string} button', (name: string) => {
+When('I click the {string} button', (name: string) => {
   cy.findByRole('button', { name: new RegExp(name, 'i') }).click();
 });
 
