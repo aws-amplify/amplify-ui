@@ -20,6 +20,8 @@ export interface SignInContext {
   challengeName?: string;
   authAttributes?: Record<string, any>;
   intent?: string;
+  unverifiedAttributes?: Record<string, string>;
+  attributeToVerify?: string;
 }
 
 export interface SignUpContext {
@@ -73,6 +75,7 @@ export type AuthEventTypes =
   | 'CHANGE'
   | 'FEDERATED_SIGN_IN'
   | 'RESET_PASSWORD'
+  | 'SKIP'
   | InvokeActorEventTypes;
 
 export enum AuthChallengeNames {
