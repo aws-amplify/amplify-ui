@@ -1,0 +1,44 @@
+import { Alert } from '@aws-amplify/ui-react';
+import { AlertDemo } from './demo';
+import { Example } from '@/components/Example';
+
+An Alert is an element that displays a brief, important message in a way that attracts the user's attention without interrupting the user's task. Alerts are typically intended by read out dynamically by a screen reader.
+
+## Demo
+
+<AlertDemo />
+
+## Usage
+
+Import the Alert primitive and styles.
+
+```jsx
+import { Alert } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<Alert>Default Alert</Alert>;
+```
+
+<Example>
+  <Alert>Default Alert</Alert>
+</Example>
+
+### Variations
+
+Use the `variation` prop to change the Alert variation. Available options are `info`, `error`, `warning`, `success`, and none (default).
+
+```jsx
+<Alert variation="info">Info</Alert>
+<Alert variation="error">Error</Alert>
+<Alert variation="warning">Warning</Alert>
+<Alert variation="success">Success</Alert>
+<Alert>Default</Alert>
+```
+
+<Example>
+  <Alert variation="info">Info</Alert>
+  <Alert variation="error">Error</Alert>
+  <Alert variation="warning">Warning</Alert>
+  <Alert variation="success">Success</Alert>
+  <Alert>Default</Alert>
+</Example>

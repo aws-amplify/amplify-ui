@@ -31,6 +31,7 @@ html {
   border-width: 0 !important;
 }
 
+@import './component/alert.scss';
 @import './component/badge.scss';
 @import './component/button.scss';
 @import './component/card.scss';

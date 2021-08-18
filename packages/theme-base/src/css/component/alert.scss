@@ -1,0 +1,26 @@
+.amplify-alert {
+  background-color: var(--amplify-components-alert-background-color);
+  // border-radius: var(--amplify-components-alert-border-radius);
+  // display: inline-flex;
+  // font-size: var(--amplify-components-alert-font-size);
+  // font-weight: var(--amplify-components-alert-font-weight);
+  // padding: var(--amplify-components-alert-padding);
+  // text-align: var(--amplify-components-alert-text-align);
+  // line-height: var(--amplify-components-alert-line-height);
+
+  &[data-variation='info'] {
+    background-color: var(--amplify-components-alert-info-background-color);
+  }
+
+  &[data-variation='error'] {
+    background-color: var(--amplify-components-alert-error-background-color);
+  }
+
+  &[data-variation='warning'] {
+    background-color: var(--amplify-components-alert-warning-background-color);
+  }
+
+  &[data-variation='success'] {
+    background-color: var(--amplify-components-alert-success-background-color);
+  }
+}

@@ -1,4 +1,5 @@
 export enum ComponentClassNames {
+  Alert = 'amplify-alert',
   Badge = 'amplify-badge',
   Button = 'amplify-button',
   Card = 'amplify-card',
