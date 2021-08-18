@@ -1,6 +1,6 @@
-import { useService } from "@xstate/vue";
-import { authService } from "@aws-amplify/ui-core";
+import { useActor } from '@xstate/vue';
+import { authService } from '@aws-amplify/ui-core';
 
 export const useAuth = () => {
-  return useService(authService);
+  return useActor(authService);
 };

@@ -1,24 +1,68 @@
-import { CognitoUser, CognitoUserSession } from 'amazon-cognito-identity-js';
+import { CognitoUser } from 'amazon-cognito-identity-js';
 import { Interpreter, State } from 'xstate';
 import { ValidationError } from './validator';
 
 export type AuthFormData = Record<string, string>;
+
 export interface AuthContext {
-  remoteError?: string; // contains Amplify or Cognito error
-  validationError?: ValidationError; // contains validation error for each input
   user?: CognitoUserAmplify;
-  username?: string;
-  session?: CognitoUserSession;
-  formValues?: AuthFormData;
   config?: {
     login_mechanisms: string[];
   };
-  challengeName?: AuthChallengeNames;
+  actorRef?: any;
 }
 
-interface CognitoUserAmplify extends CognitoUser {
+export interface SignInContext {
+  remoteError?: string;
+  validationError?: ValidationError;
+  formValues?: AuthFormData;
+  user?: CognitoUserAmplify;
+  challengeName?: string;
+  authAttributes?: Record<string, any>;
+  intent?: string;
+}
+
+export interface SignUpContext {
+  remoteError?: string;
+  validationError?: ValidationError;
+  formValues?: AuthFormData;
+  user?: CognitoUserAmplify;
+  login_mechanisms?: string[];
+  intent?: string;
+  authAttributes?: Record<string, any>;
+}
+
+export interface ResetPasswordContext {
+  validationError?: ValidationError;
+  remoteError?: string;
+  formValues?: ValidationError;
   username?: string;
 }
+export interface SignOutContext {
+  user?: CognitoUserAmplify;
+}
+
+// actors that have forms. Has `formValues, remoteErrror, and validationError in common.
+export type ActorContextWithForms =
+  | SignInContext
+  | SignUpContext
+  | ResetPasswordContext;
+
+export type SignInState = State<SignInContext, AuthEvent>;
+export type SignUpState = State<SignUpContext, AuthEvent>;
+export type SignOutState = State<SignOutContext, AuthEvent>;
+export type ResetPasswordState = State<ResetPasswordContext, AuthEvent>;
+export type AuthActorContext = ActorContextWithForms | SignOutContext;
+export type AuthActorState = State<AuthActorContext, AuthEvent>;
+export interface CognitoUserAmplify extends CognitoUser {
+  username?: string;
+}
+
+export type InvokeActorEventTypes =
+  | 'done.invoke.signInActor'
+  | 'done.invoke.signUpActor'
+  | 'done.invoke.signOutActor'
+  | 'done.invoke.resetPasswordActor';
 
 export type AuthEventTypes =
   | 'SIGN_IN'
@@ -26,12 +70,10 @@ export type AuthEventTypes =
   | 'SIGN_OUT'
   | 'SUBMIT'
   | 'RESEND'
-  | 'CONFIRM_SIGN_UP'
-  | 'CONFIRM_SIGN_IN'
-  | 'INPUT'
   | 'CHANGE'
   | 'FEDERATED_SIGN_IN'
-  | 'RESET_PASSWORD';
+  | 'RESET_PASSWORD'
+  | InvokeActorEventTypes;
 
 export enum AuthChallengeNames {
   SMS_MFA = 'SMS_MFA',
@@ -63,7 +105,7 @@ export type AuthInputAttributes = Record<AuthInputNames, InputAttributes>;
 
 export interface AuthEvent {
   type: AuthEventTypes;
-  data?: any; // TODO: strongly type data for each AuthEventType
+  data?: Record<PropertyKey, any>;
 }
 
 export type AuthMachineState = State<AuthContext, AuthEvent>;

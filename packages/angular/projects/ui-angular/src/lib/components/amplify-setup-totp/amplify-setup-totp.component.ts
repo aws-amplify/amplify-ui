@@ -8,9 +8,12 @@ import {
 } from '@angular/core';
 import { Subscription } from 'xstate';
 import QRCode from 'qrcode';
-import { Logger } from '@aws-amplify/core';
-import { AuthMachineState } from '@aws-amplify/ui-core';
-import Auth from '@aws-amplify/auth';
+import { Auth, Logger } from 'aws-amplify';
+import {
+  AuthMachineState,
+  getActorState,
+  SignInState,
+} from '@aws-amplify/ui-core';
 import { AuthPropService, StateMachineService } from '../../services';
 
 const logger = new Logger('SetupTotp');
@@ -53,8 +56,9 @@ export class AmplifySetupTotpComponent
   }
 
   onStateUpdate(state: AuthMachineState): void {
-    this.remoteError = state.context.remoteError;
-    this.isPending = !state.matches('setupTOTP.edit');
+    const actorState: SignInState = getActorState(state);
+    this.remoteError = actorState.context.remoteError;
+    this.isPending = !actorState.matches('setupTOTP.edit');
   }
 
   async generateQRCode() {
@@ -77,7 +81,7 @@ export class AmplifySetupTotpComponent
     event.preventDefault();
     const { name, value } = <HTMLInputElement>event.target;
     this.stateMachine.send({
-      type: 'INPUT',
+      type: 'CHANGE',
       data: { name, value },
     });
   }
