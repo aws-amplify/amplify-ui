@@ -16,7 +16,7 @@ Feature: Reset Password
     
   @next @react
   Scenario: Reset Password with invalid username
-    When I click on the "Reset password" button
+    When I click the "Reset password" button
     And I type an invalid username "INVALID_USERNAME"
     And I click the "Send code" button
     Then I see "Username/client id combination not found."
