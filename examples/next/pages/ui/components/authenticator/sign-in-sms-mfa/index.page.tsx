@@ -1,5 +1,6 @@
 import { Authenticator } from '@aws-amplify/ui-react';
-import { Amplify } from 'aws-amplify';
+import { dict } from '@aws-amplify/ui-core';
+import { Amplify, I18n } from 'aws-amplify';
 
 import awsExports from '@environments/auth-with-phone-and-sms-mfa/src/aws-exports';
 
@@ -9,6 +10,8 @@ Amplify.configure({
     login_mechanisms: ['phone_number'],
   },
 });
+
+I18n.putVocabularies(dict);
 
 export default function AuthenticatorWithSmsMfa() {
   return (

@@ -5,6 +5,7 @@ import {
   SignInContext,
   authInputAttributes,
 } from '@aws-amplify/ui-core';
+import { I18n } from '@aws-amplify/core';
 
 import { useAmplify, useAuth } from '../../../hooks';
 import { ErrorText, TwoButtonSubmitFooter } from '../shared';
@@ -18,7 +19,7 @@ const generateRadioGroup = (
     const radio = (
       <label key={key}>
         <input type="radio" name="unverifiedAttr" value={key} />
-        {authInputAttributes[key].label}
+        {I18n.get(authInputAttributes[key].label)}
       </label>
     );
 
@@ -39,8 +40,14 @@ export const VerifyUser = (): JSX.Element => {
   const context = getActorContext(_state) as SignInContext;
   const isPending = actorState.matches('verifyUser.pending');
 
-  const headerText = 'Account recovery requires verified contact information';
-  const footerSubmitText = isPending ? <>Verifying&hellip;</> : <>Verify</>;
+  const headerText = I18n.get(
+    'Account recovery requires verified contact information'
+  );
+  const footerSubmitText = isPending ? (
+    <>Verifying&hellip;</>
+  ) : (
+    <>{I18n.get('Verify')}</>
+  );
 
   const verificationRadioGroup = (
     <Fieldset disabled={isPending}>
@@ -73,7 +80,7 @@ export const VerifyUser = (): JSX.Element => {
       <TwoButtonSubmitFooter
         amplifyNamespace={amplifyNamespace}
         isPending={isPending}
-        cancelButtonText="Skip"
+        cancelButtonText={I18n.get('Skip')}
         cancelButtonSendType="SKIP"
         submitButtonText={footerSubmitText}
       />

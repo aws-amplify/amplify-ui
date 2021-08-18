@@ -1,4 +1,5 @@
 import { getActorState, SignInState } from '@aws-amplify/ui-core';
+import { I18n } from '@aws-amplify/core';
 
 import { useAmplify, useAuth } from '../../../hooks';
 import {
@@ -17,7 +18,9 @@ export const ConfirmVerifyUser = (): JSX.Element => {
   const actorState: SignInState = getActorState(_state);
   const isPending = actorState.matches('confirmVerifyUser.pending');
 
-  const headerText = 'Account recovery requires verified contact information';
+  const headerText = I18n.get(
+    'Account recovery requires verified contact information'
+  );
 
   return (
     <Form
@@ -46,7 +49,7 @@ export const ConfirmVerifyUser = (): JSX.Element => {
       <TwoButtonSubmitFooter
         amplifyNamespace={amplifyNamespace}
         isPending={isPending}
-        cancelButtonText="Skip"
+        cancelButtonText={I18n.get('Skip')}
         cancelButtonSendType="SKIP"
       />
     </Form>
