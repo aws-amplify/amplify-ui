@@ -1,4 +1,4 @@
-import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { And, Given, Then } from 'cypress-cucumber-preprocessor/steps';
 
 Given("I'm running the example {string}", (url: string) => {
   cy.visit(url);
