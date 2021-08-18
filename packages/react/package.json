@@ -26,8 +26,6 @@
     "qrcode": "^1.4.4"
   },
   "peerDependencies": {
-    "@aws-amplify/ui-core": "^0.0.1",
-    "@aws-amplify/ui-theme-base": "^0.0.1"
   },
   "workspaces": {
     "nohoist": [
@@ -36,6 +34,8 @@
     ]
   },
   "devDependencies": {
+    "@aws-amplify/ui-core": "^0.0.1",
+    "@aws-amplify/ui-theme-base": "^0.0.1",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",
     "@testing-library/react-hooks": "^7.0.1",
