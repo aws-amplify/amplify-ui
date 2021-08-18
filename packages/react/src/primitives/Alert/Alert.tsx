@@ -3,6 +3,8 @@ import { ComponentClassNames } from '../shared/constants';
 import classNames from 'classnames';
 import { AlertProps } from '../types';
 import { View } from '../View';
+import { Flex } from '../FLex';
+import { Heading } from '../Heading';
 import { AlertIcon } from './AlertIcon';
 import { IconClose } from '../Icon';
 
@@ -10,32 +12,39 @@ export const Alert: React.FC<AlertProps> = ({
   className,
   children,
   variation,
-  isDismissible = false, // change to 'false' after testing
+  isDismissible = false,
   onDismiss = () => {},
   withIcon = true,
-  title = null,
+  title,
   ...rest
 }) => {
   const [dismissed, setDismissed] = useState(false);
 
   const dismissAlert = () => {
-    console.log('clicked dismiss');
     setDismissed(!dismissed);
     onDismiss();
   };
 
   return (
     !dismissed && (
-      <View
+      <Flex
+        justifyContent="space-between"
+        alignItems="center"
         className={classNames(ComponentClassNames.Alert, className)}
         data-variation={variation}
         {...rest}
       >
-        {withIcon && <AlertIcon variation={variation} />}
-        {title}
-        {children}
-        {isDismissible && <IconClose onClick={dismissAlert} />}
-      </View>
+        <Flex alignItems="center">
+          {withIcon && <AlertIcon variation={variation} />}
+          <View>
+            {title && <Heading>{title}</Heading>}
+            {children}
+          </View>
+        </Flex>
+        <View>
+          {isDismissible && <IconClose size="large" onClick={dismissAlert} />}
+        </View>
+      </Flex>
     )
   );
 };

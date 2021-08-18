@@ -1,7 +1,6 @@
 import React from 'react';
-import { IconInfo, IconError, IconWarning, IconCheckCircle } from '../Icon';
-
 import { AlertVariation } from '../types/alert';
+import { IconInfo, IconError, IconWarning, IconCheckCircle } from '../Icon';
 
 interface AlertIconProps {
   variation: AlertVariation;
@@ -10,13 +9,13 @@ interface AlertIconProps {
 export const AlertIcon: React.FC<AlertIconProps> = ({ variation }) => {
   switch (variation) {
     case 'info':
-      return <IconInfo />;
+      return <IconInfo size="large" />;
     case 'error':
-      return <IconError />;
+      return <IconError size="large" />;
     case 'warning':
-      return <IconWarning />;
+      return <IconWarning size="large" />;
     case 'success':
-      return <IconCheckCircle />;
+      return <IconCheckCircle size="large" />;
     default:
       return null;
   }

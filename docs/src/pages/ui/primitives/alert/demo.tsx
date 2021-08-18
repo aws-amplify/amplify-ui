@@ -18,7 +18,7 @@ export const AlertDemo = () => {
           withIcon={alertProps.withIcon}
           title={alertProps.title}
         >
-          Alert
+          This is the Alert message.
         </Alert>
       </Example>
     </Flex>
