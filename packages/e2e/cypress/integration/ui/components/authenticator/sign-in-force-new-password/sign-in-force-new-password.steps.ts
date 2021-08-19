@@ -13,10 +13,6 @@ And('I type in the password {string}', (password: string) => {
   cy.findByLabelText(/password/i).type(Cypress.env(password));
 });
 
-And('I click the {string} button', (name: string) => {
-  cy.findByRole('button', { name }).click();
-});
-
 Then('I should see the Force Change Password screen', () => {
   cy.findByRole('document').contains(new RegExp('Change Password', 'i'));
 });
