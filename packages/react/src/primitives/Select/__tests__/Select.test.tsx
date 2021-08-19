@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { Select } from '../Select';
+import { IconExpandMore } from '../../Icon';
 import { ComponentClassNames } from '../../shared';
 
 describe('Select primitive test suite', () => {
@@ -180,5 +181,23 @@ describe('Select primitive test suite', () => {
     expect(document.body).toHaveFocus();
     userEvent.tab();
     expect(select).not.toHaveFocus();
+  });
+
+  it('should render a icon to the right correctly', async () => {
+    const testIcon = <IconExpandMore data-testid="test-icon" />;
+    render(
+      <Select testId={testId} icon={testIcon}>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+      </Select>
+    );
+
+    const select = (await screen.findByTestId(
+      'test-select'
+    )) as HTMLSelectElement;
+
+    const icon = await screen.findByTestId('test-icon');
+    expect(select.parentElement).toContainElement(icon);
   });
 });
