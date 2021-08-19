@@ -10,6 +10,7 @@
     "lint": "ng lint"
   },
   "dependencies": {
+    "@aws-amplify/ui-components": "^1.7.0",
     "@angular/animations": "~11.2.4",
     "@angular/common": "~11.2.4",
     "@angular/compiler": "~11.2.4",

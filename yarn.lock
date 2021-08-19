@@ -388,14 +388,6 @@
     events "^3.1.0"
     sinon "^7.5.0"
 
-"@aws-amplify/ui-components@1.7.1", "@aws-amplify/ui-components@latest":
-  version "1.7.1"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/ui-components/-/ui-components-1.7.1.tgz#d31bcdf0754f1e0bb59f5221e1424954c621b820"
-  integrity sha512-MVqjGq6S5eOtChENAdsLnIb8BE0FOJ/tszV1kp+dR9DEtwD1Ksdc8BGdtZF1GdzfAiPmj4l3LtF7WSs1/ogrxg==
-  dependencies:
-    qrcode "^1.4.4"
-    uuid "^8.2.0"
-
 "@aws-amplify/ui-components@1.7.2", "@aws-amplify/ui-components@^1.7.0":
   version "1.7.2"
   resolved "https://registry.yarnpkg.com/@aws-amplify/ui-components/-/ui-components-1.7.2.tgz#9523b05d7ca819fc941b296e36e21c2139bdfde4"
@@ -404,14 +396,15 @@
     qrcode "^1.4.4"
     uuid "^8.2.0"
 
-"@aws-amplify/ui-react-v1@npm:@aws-amplify/ui-react":
-  version "1.2.8"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/ui-react/-/ui-react-1.2.8.tgz#8b2ceac758b4206beac4453a3928bab1eed8d8f1"
-  integrity sha512-k0fEQs1h1hFGQxHCUhHw+i9Q7hGyhOvXHbdoijvIUSiDUrLYTauoG5LhcjvPLRE9M/t+XCbryXr0bPSJQwjtuw==
+"@aws-amplify/ui-components@latest":
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/ui-components/-/ui-components-1.7.1.tgz#d31bcdf0754f1e0bb59f5221e1424954c621b820"
+  integrity sha512-MVqjGq6S5eOtChENAdsLnIb8BE0FOJ/tszV1kp+dR9DEtwD1Ksdc8BGdtZF1GdzfAiPmj4l3LtF7WSs1/ogrxg==
   dependencies:
-    "@aws-amplify/ui-components" "1.7.1"
+    qrcode "^1.4.4"
+    uuid "^8.2.0"
 
-"@aws-amplify/ui-react-v1@npm:@aws-amplify/ui-react@1.2.9":
+"@aws-amplify/ui-react-v1@npm:@aws-amplify/ui-react", "@aws-amplify/ui-react-v1@npm:@aws-amplify/ui-react@1.2.9":
   version "1.2.9"
   resolved "https://registry.yarnpkg.com/@aws-amplify/ui-react/-/ui-react-1.2.9.tgz#bcaa93f021afc801f9d8e6aa98558128b2cb173f"
   integrity sha512-JvvIkzK0fjwnNZj5Oq9LfGgpkxgzXu0pzzUyIaDZjLmIWaJ5SzR9PazRAX1i5FS/b8DufxEvPq18EwrLbFh4FA==
@@ -3878,11 +3871,6 @@
   version "0.7.1"
   resolved "https://registry.yarnpkg.com/@sinonjs/text-encoding/-/text-encoding-0.7.1.tgz#8da5c6530915653f3a1f38fd5f101d8c3f8079c5"
   integrity sha512-+iTbntw2IZPb/anVDbypzfQa+ay64MW0Zo8aJ8gZPWMMK6/OubMVb6lUPMagqjOPnmtauXnFCACVl3O7ogjeqQ==
-
-"@stencil/core@^2.6.0":
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/@stencil/core/-/core-2.6.0.tgz#29da96d8b6fc83e689b9f297ef3e8b59b90a676a"
-  integrity sha512-QsxWayZyusnqSZrlCl81R71rA3KqFjVVQSH4E0rGN15F1GdQaFonKlHLyCOLKLig1zzC+DQkLLiUuocexuvdeQ==
 
 "@styled-system/background@^5.1.2":
   version "5.1.2"

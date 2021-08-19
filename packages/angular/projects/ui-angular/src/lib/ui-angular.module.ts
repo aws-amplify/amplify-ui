@@ -16,8 +16,35 @@ import { AmplifyForceNewPasswordComponent } from './components/amplify-force-new
 import { AmplifyFederatedSignInComponent } from './components/amplify-federated-sign-in/amplify-federated-sign-in.component';
 import { AmplifyFederatedSignInButtonComponent } from './components/amplify-federated-sign-in-button/amplify-federated-sign-in-button.component';
 
+import {
+  AmplifyButton,
+  AmplifyInput,
+  AmplifyToast,
+  AmplifyChatbot,
+  AmplifyS3Album,
+  AmplifyS3ImagePicker,
+  AmplifyS3Text,
+  AmplifyS3TextPicker,
+  AmplifyS3Image,
+  AmplifyPicker,
+  AmplifyPhotoPicker,
+} from '@aws-amplify/ui-components/dist/components';
+import { defineCustomElements } from '@aws-amplify/ui-components/dist';
+
+defineCustomElements(window);
 @NgModule({
   declarations: [
+    AmplifyButton,
+    AmplifyInput,
+    AmplifyToast,
+    AmplifyS3Album,
+    AmplifyS3ImagePicker,
+    AmplifyS3Text,
+    AmplifyS3TextPicker,
+    AmplifyS3Image,
+    AmplifyPicker,
+    AmplifyPhotoPicker,
+    AmplifyChatbot,
     AmplifyAuthenticatorComponent,
     AmplifySignInComponent,
     AmplifySignOutComponent,
@@ -35,12 +62,24 @@ import { AmplifyFederatedSignInButtonComponent } from './components/amplify-fede
   ],
   imports: [CommonModule, ReactiveFormsModule],
   exports: [
+    AmplifyButton,
+    AmplifyInput,
+    AmplifyToast,
+    AmplifyS3Album,
+    AmplifyS3ImagePicker,
+    AmplifyS3Text,
+    AmplifyS3TextPicker,
+    AmplifyS3Image,
+    AmplifyPicker,
+    AmplifyPhotoPicker,
+    AmplifyChatbot,
     AmplifyAuthenticatorComponent,
     AmplifySignInComponent,
     AmplifySignOutComponent,
     AmplifyInputComponent,
     AmplifyErrorComponent,
     AmplifyOverrideDirective,
+    AmplifyChatbot,
   ],
 })
 export class UiAngularModule {}
