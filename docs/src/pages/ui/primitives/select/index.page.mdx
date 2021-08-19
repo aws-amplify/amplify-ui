@@ -2,7 +2,7 @@
 title: Select
 ---
 
-import { Flex, Select } from '@aws-amplify/ui-react';
+import { Flex, Select, IconArrowDropDown } from '@aws-amplify/ui-react';
 import { SelectDemo, ControlledSelect } from './demo.tsx';
 import { Example } from '@/components/Example';
 
@@ -163,6 +163,39 @@ import '@aws-amplify/ui-react/styles.css';
   </Flex>
 </Example>
 
+### Icon
+
+You can change the expand icon used in the select. Simply pass the the `icon` prop. Also, you can change the icon color by passing the `iconColor` prop.
+
+```jsx
+import { Select } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<Select
+  defaultValue=""
+  placeholder="Please select a fruit"
+  icon={<IconArrowDropDown />}
+  iconColor="purple"
+>
+  <option value="apple">Apple</option>
+  <option value="banana">Banana</option>
+  <option value="orange">Orange</option>
+</Select>;
+```
+
+<Example>
+  <Select
+    defaultValue=""
+    placeholder="Please select a fruit"
+    icon={<IconArrowDropDown />}
+    iconColor="purple"
+  >
+    <option value="apple">Apple</option>
+    <option value="banana">Banana</option>
+    <option value="orange">Orange</option>
+  </Select>
+</Example>
+
 ## CSS Styling
 
 ### Global styling
@@ -259,13 +292,13 @@ import './styles.css';
 _Using style props:_
 
 ```jsx
-<Select defaultValue="" placeholder="Please select a fruit" style={{backgroundColor: 'rebeccapurple'}}>
+<Select defaultValue="" placeholder="Please select a fruit" style={{backgroundColor: 'plum'}}>
   <option value="apple">Apple</option>
   <option value="banana">Banana</option>
   <option value="orange">Orange</option>
 </Select>
 /* OR */
-<Select defaultValue="" placeholder="Please select a fruit" backgroundColor="rebeccapurple">
+<Select defaultValue="" placeholder="Please select a fruit" backgroundColor="plum">
   <option value="apple">Apple</option>
   <option value="banana">Banana</option>
   <option value="orange">Orange</option>
@@ -276,7 +309,7 @@ _Using style props:_
   <Select
     defaultValue=""
     placeholder="Please select a fruit"
-    style={{ backgroundColor: 'rebeccapurple' }}
+    style={{ backgroundColor: 'plum' }}
   >
     <option value="apple">Apple</option>
     <option value="banana">Banana</option>
@@ -285,7 +318,7 @@ _Using style props:_
   <Select
     defaultValue=""
     placeholder="Please select a fruit"
-    backgroundColor="rebeccapurple"
+    backgroundColor="plum"
   >
     <option value="apple">Apple</option>
     <option value="banana">Banana</option>
