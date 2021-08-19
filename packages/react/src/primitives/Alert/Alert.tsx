@@ -37,11 +37,11 @@ export const Alert: React.FC<AlertProps> = ({
         <Flex alignItems="center">
           {withIcon && <AlertIcon variation={variation} />}
           <View>
-            {title && <Heading>{title}</Heading>}
+            {title && <Heading color="inherit">{title}</Heading>}
             {children}
           </View>
         </Flex>
-        <View>
+        <View className="amplify-alert-icon-close">
           {isDismissible && <IconClose size="large" onClick={dismissAlert} />}
         </View>
       </Flex>

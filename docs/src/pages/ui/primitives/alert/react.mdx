@@ -1,4 +1,4 @@
-import { Alert } from '@aws-amplify/ui-react';
+import { Alert, Flex } from '@aws-amplify/ui-react';
 import { AlertDemo } from './demo';
 import { Example } from '@/components/Example';
 
@@ -41,4 +41,221 @@ Use the `variation` prop to change the Alert variation. Available options are `i
   <Alert variation="warning">Warning</Alert>
   <Alert variation="success">Success</Alert>
   <Alert>Default</Alert>
+</Example>
+
+### Title
+
+Use the `title` prop to pass a title to the Alert.
+
+```jsx
+<Alert variation="warning">This Alert does not have a title</Alert>
+<Alert variation="success" title="This is the title"> ^ This Alert has a title</Alert>
+```
+
+<Example>
+  <Flex direction="column" gap="1rem">
+    <Alert variation="warning">This Alert does not have a title</Alert>
+    <Alert variation="success" title="This is the title">
+      ^ Check out that title!
+    </Alert>
+  </Flex>
+</Example>
+
+### Icon
+
+Use the `withIcon` prop to change whether the Alert includes an icon. Defaults to `true` (includes icon).
+
+```jsx
+<Alert variation="info">This Alert shows an icon by default</Alert>
+<Alert variation="error" withIcon={false}>This Alert does not have an icon</Alert>
+```
+
+<Example>
+  <Flex direction="column" gap="1rem">
+    <Alert variation="info">{`<==`} This Alert shows an icon by default</Alert>
+    <Alert variation="error" withIcon={false}>
+      This Alert does not have an icon
+    </Alert>
+  </Flex>
+</Example>
+
+### Dismissible
+
+Use the `isDismissible` prop to control whether the user can dismiss the Alert. Defaults to `false` (not dismissible).
+
+```jsx
+<Alert>This Alert is not dismissible by default</Alert>
+<Alert isDismissible={true}>Click the X to dismiss this Alert</Alert>
+```
+
+<Example>
+  <Flex direction="column" gap="1rem">
+    <Alert>This Alert is not dismissible by default</Alert>
+    <Alert isDismissible={true}>Click the X to dismiss this Alert</Alert>
+  </Flex>
+</Example>
+
+### onDismiss
+
+Use the `onDismiss` prop to pass a function that will run when the Alert is dismissed. Note that `isDismissible` must be set to `true`.
+
+```jsx
+<Alert
+  onDismiss={() => alert('Alert dismissed, user metric recorded')}
+  isDismissible={true}
+>
+  Run a function on dismiss (click the X)
+</Alert>
+```
+
+<Example>
+  <Alert
+    onDismiss={() => alert('Alert dismissed, user metric recorded')}
+    isDismissible={true}
+  >
+    Run a function on dismiss (click the X)
+  </Alert>
+</Example>
+
+## CSS Styling
+
+### Global styling
+
+To override styling on all Alerts, you can set the Amplify CSS variables or use the built-in `.amplify-alert` class.
+
+```css
+/* styles.css */
+:root {
+  --amplify-components-alert-background-color: yellow;
+}
+/* OR */
+.amplify-alert {
+  background-color: yellow;
+}
+```
+
+```jsx
+import './styles.css';
+
+<Alert>Change the default Alert to yellow</Alert>;
+```
+
+<Alert backgroundColor="yellow">Change the default Alert to yellow</Alert>
+
+To replace the Alert styling, unset it:
+
+```css
+.amplify-alert {
+  all: unset;
+  /* Add your styling here*/
+}
+```
+
+### Local styling
+
+To override styling on a specific Alert, you can use (in order of increasing specificity): a class selector, data attributes, or style props.
+
+_Using a class selector:_
+
+```css
+/* styles.css */
+.purple-alert {
+  color: white;
+  background-color: rebeccapurple;
+}
+```
+
+```jsx
+import './styles.css';
+
+<Alert className="purple-alert" title="Attention">
+  This is a purple Alert
+</Alert>;
+```
+
+<Example>
+  <Alert className="purple-alert" title="Attention">
+    This is a purple Alert
+  </Alert>
+</Example>
+
+_Using data attributes:_
+
+```css
+/* styles.css */
+/* Override only error variation styles */
+.amplify-alert[data-variation='error'] {
+  color: white;
+  background-color: crimson;
+}
+```
+
+```jsx
+import './styles.css';
+
+<Alert variation="error" title="System Error">Red Alert!</Alert>
+<Alert>Default Alert styling unaffected</Alert>
+```
+
+<Example>
+  <Flex direction="column" gap="1rem">
+    <Alert
+      variation="error"
+      color="white"
+      backgroundColor="crimson"
+      title="System Error"
+    >
+      Red Alert!
+    </Alert>
+    <Alert>Default Alert styling unaffected</Alert>
+  </Flex>
+</Example>
+
+_Using style props:_
+
+```jsx
+<Alert
+  style={{
+    backgroundColor: 'rgba(255, 153, 0, 1)',
+    color: 'white',
+    fontWeight: 'bold',
+  }}
+>
+  Using inline styles
+</Alert>;
+{
+  /* OR */
+}
+<Alert
+  backgroundColor="white"
+  color="rgba(255, 153, 0, 1)"
+  fontWeight="bold"
+  border="1px solid rgba(255, 153, 0, 1)"
+  borderRadius="10px"
+>
+  Passing props directly
+</Alert>;
+```
+
+<Example>
+  <Flex direction="column" gap="1rem">
+    <Alert
+      style={{
+        backgroundColor: 'rgba(255, 153, 0, 1)',
+        color: 'white',
+        fontWeight: 'bold',
+      }}
+    >
+      Using inline styles
+    </Alert>
+    <Alert
+      backgroundColor="white"
+      color="rgba(255, 153, 0, 1)"
+      fontWeight="bold"
+      border="1px solid rgba(255, 153, 0, 1)"
+      borderRadius="10px"
+    >
+      Passing props directly
+    </Alert>
+  </Flex>
 </Example>
