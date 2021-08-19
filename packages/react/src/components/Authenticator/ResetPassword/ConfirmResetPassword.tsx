@@ -1,4 +1,6 @@
+import { I18n } from '@aws-amplify/core';
 import { getActorState, ResetPasswordState } from '@aws-amplify/ui-core';
+
 import { useAmplify, useAuth } from '../../../hooks';
 import {
   ConfirmationCodeInput,
@@ -17,7 +19,7 @@ export const ConfirmResetPassword = (): JSX.Element => {
   const actorState = getActorState(_state) as ResetPasswordState;
   const isPending = actorState.matches('confirmResetPassword.pending');
 
-  const headerText = 'Reset your Password';
+  const headerText = I18n.get('Reset your Password');
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -54,12 +56,12 @@ export const ConfirmResetPassword = (): JSX.Element => {
         <Label data-amplify-confirmresetpasswordnew-label="">
           <PasswordInput
             amplifyNamespace={amplifyNamespace}
-            label="New password"
+            label={I18n.get('New password')}
           />
         </Label>
 
         <Box>
-          <Text>Lost your code?</Text>{' '}
+          <Text>{I18n.get('Lost your code? ')}</Text>
           <Button
             onClick={() => {
               send({
@@ -68,7 +70,7 @@ export const ConfirmResetPassword = (): JSX.Element => {
             }}
             type="button"
           >
-            Resend Code
+            {I18n.get('Resend Code')}
           </Button>
         </Box>
       </Fieldset>
@@ -76,7 +78,7 @@ export const ConfirmResetPassword = (): JSX.Element => {
       <ErrorText amplifyNamespace={amplifyNamespace} />
       <TwoButtonSubmitFooter
         cancelButtonSendType="SIGN_IN"
-        cancelButtonText="Sign in"
+        cancelButtonText={I18n.get('Sign in')}
         amplifyNamespace={amplifyNamespace}
         isPending={isPending}
       />

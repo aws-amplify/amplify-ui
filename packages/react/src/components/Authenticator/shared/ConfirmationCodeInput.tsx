@@ -1,3 +1,5 @@
+import { I18n } from '@aws-amplify/core';
+
 import { useAmplify } from '../../../hooks';
 
 export interface ConfirmationCodeInputProps {
@@ -14,8 +16,8 @@ export const ConfirmationCodeInput = (
   const {
     amplifyNamespace,
     errorText,
-    label = 'Code *',
-    placeholder = 'Code',
+    label = I18n.get('Code *'),
+    placeholder = I18n.get('Code'),
     required = true,
   } = props;
   const {
