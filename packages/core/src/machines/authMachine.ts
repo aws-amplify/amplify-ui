@@ -92,6 +92,7 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
       RESEND: { actions: 'forwardToActor' },
       SIGN_OUT: { actions: 'forwardToActor' },
       SIGN_IN: { actions: 'forwardToActor' },
+      SKIP: { actions: 'forwardToActor' },
     },
   },
   {

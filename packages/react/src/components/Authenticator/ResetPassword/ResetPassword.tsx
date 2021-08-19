@@ -1,6 +1,6 @@
 import { getActorState, ResetPasswordState } from '@aws-amplify/ui-core';
 import { useAmplify, useAuth } from '../../../hooks';
-import { ErrorText, SignInOrSubmitFooter } from '../shared';
+import { ErrorText, TwoButtonSubmitFooter } from '../shared';
 
 export const ResetPassword = (): JSX.Element => {
   const amplifyNamespace = 'Authenticator.ResetPassword';
@@ -56,8 +56,11 @@ export const ResetPassword = (): JSX.Element => {
       </Fieldset>
 
       <ErrorText amplifyNamespace={amplifyNamespace} />
-      <SignInOrSubmitFooter
+      <TwoButtonSubmitFooter
         amplifyNamespace={amplifyNamespace}
+        cancelButtonText="Sign in"
+        cancelButtonSendType="SIGN_IN"
+        isPending={isPending}
         submitButtonText={submitText}
       />
     </Form>
