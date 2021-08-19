@@ -1,7 +1,6 @@
 import { includes } from 'lodash';
 
-import { useAmplify, useAuth } from '../../../hooks';
-
+import { I18n } from '@aws-amplify/core';
 import {
   authInputAttributes,
   getActorContext,
@@ -10,6 +9,8 @@ import {
   SignUpState,
   socialProviderLoginMechanisms,
 } from '@aws-amplify/ui-core';
+
+import { useAmplify, useAuth } from '../../../hooks';
 import { FederatedSignIn } from '../FederatedSignIn';
 
 export function SignUp() {
@@ -59,13 +60,13 @@ export function SignUp() {
       }}
       onChange={handleChange}
     >
-      <Heading>Create a new account</Heading>
+      <Heading>{I18n.get('Create a new account')}</Heading>
 
       <FederatedSignIn />
 
       <Fieldset>
         <SignUp.AliasControl
-          label={authInputAttributes[primaryAlias].label}
+          label={I18n.get(authInputAttributes[primaryAlias].label)}
           name={primaryAlias}
         />
         <SignUp.PasswordControl />
@@ -75,7 +76,7 @@ export function SignUp() {
           .map((alias) => (
             <SignUp.AliasControl
               key={alias}
-              label={authInputAttributes[alias].label}
+              label={I18n.get(authInputAttributes[alias].label)}
               name={alias}
             />
           ))}
@@ -84,13 +85,17 @@ export function SignUp() {
       <ErrorText>{remoteError}</ErrorText>
 
       <Footer>
-        <Text>Have an account?</Text>{' '}
+        <Text>{I18n.get('Have an account? ')}</Text>
         <Button onClick={() => send({ type: 'SIGN_IN' })} type="button">
-          Sign in
+          {I18n.get('Sign in')}
         </Button>
         <Spacer />
         <Button isDisabled={isPending} type="submit">
-          {isPending ? <>Creating Account&hellip;</> : <>Create Account</>}
+          {isPending ? (
+            <>{I18n.get('Creating Account')}&hellip;</>
+          ) : (
+            <>{I18n.get('Create Account')}</>
+          )}
         </Button>
       </Footer>
     </Form>
@@ -98,7 +103,7 @@ export function SignUp() {
 }
 
 SignUp.AliasControl = ({
-  label = 'Username',
+  label = I18n.get('Username'),
   name = 'username',
   placeholder = label,
 }) => {
@@ -126,7 +131,7 @@ SignUp.AliasControl = ({
 };
 
 SignUp.PasswordControl = ({
-  label = 'Password',
+  label = I18n.get('Password'),
   name = 'password',
   placeholder = label,
 }) => {
@@ -149,7 +154,7 @@ SignUp.PasswordControl = ({
 };
 
 SignUp.ConfirmPasswordControl = ({
-  label = 'Confirm Password',
+  label = I18n.get('Confirm Password'),
   name = 'confirm_password',
 }) => {
   const {

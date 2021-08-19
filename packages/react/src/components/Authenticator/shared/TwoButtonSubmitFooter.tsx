@@ -1,3 +1,4 @@
+import { I18n } from '@aws-amplify/core';
 import { AuthEventTypes } from '@aws-amplify/ui-core';
 
 import { useAmplify, useAuth } from '../../../hooks';
@@ -27,7 +28,11 @@ export const TwoButtonSubmitFooter = (
 
   const [state, send] = useAuth();
 
-  const defaultSubmitText = isPending ? <>Submitting&hellip;</> : <>Submit</>;
+  const defaultSubmitText = isPending ? (
+    <>{I18n.get('Submitting')}&hellip;</>
+  ) : (
+    <>{I18n.get('Submit')}</>
+  );
   const submitText = submitButtonText || defaultSubmitText;
 
   return (

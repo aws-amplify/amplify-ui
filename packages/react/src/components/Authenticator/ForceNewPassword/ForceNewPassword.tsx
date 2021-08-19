@@ -1,4 +1,6 @@
+import { I18n } from '@aws-amplify/core';
 import { getActorState, SignInState } from '@aws-amplify/ui-core';
+
 import { useAmplify, useAuth } from '../../../hooks';
 
 export const ForceNewPassword = (): JSX.Element => {
@@ -44,7 +46,7 @@ export const ForceNewPassword = (): JSX.Element => {
 
       <Fieldset disabled={isPending}>
         <Label data-amplify-forcenewpassword-label="">
-          <Text>Change password</Text>
+          <Text>{I18n.get('Change Password')}</Text>
           <Input
             autoComplete="password"
             name="password"
@@ -61,11 +63,15 @@ export const ForceNewPassword = (): JSX.Element => {
 
       <Footer>
         <Button onClick={() => send({ type: 'SIGN_IN' })} type="button">
-          Back to Sign In
+          {I18n.get('Back to Sign In')}
         </Button>
         <Spacer />
         <Button isDisabled={isPending} type="submit">
-          {isPending ? <>Changing&hellip;</> : <>Change password</>}
+          {isPending ? (
+            <>{I18n.get('Changing')}&hellip;</>
+          ) : (
+            <>{I18n.get('Change Password')}</>
+          )}
         </Button>
       </Footer>
     </Form>

@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
 import QRCode from 'qrcode';
 
-import { useAmplify, useAuth } from '../../../hooks';
-import { Auth, Logger } from 'aws-amplify';
+import { Auth, Logger, I18n } from 'aws-amplify';
+import { getActorState, SignInState } from '@aws-amplify/ui-core';
 
+import { useAmplify, useAuth } from '../../../hooks';
 import {
   ConfirmationCodeInput,
   ConfirmSignInFooter,
   ConfirmSignInFooterProps,
 } from '../shared';
-import { getActorState, SignInState } from '@aws-amplify/ui-core';
 
 const logger = new Logger('SetupTOTP-logger');
 
@@ -78,7 +78,7 @@ export const SetupTOTP = (): JSX.Element => {
         <Label data-amplify-confirmationcode>
           {/* TODO: Add spinner here instead of loading text... */}
           {isLoading ? (
-            <p>Loading..</p>
+            <p>{I18n.get('Loading')}&hellip;</p>
           ) : (
             <Image data-amplify-qrcode src={qrCode} alt="qr code"></Image>
           )}

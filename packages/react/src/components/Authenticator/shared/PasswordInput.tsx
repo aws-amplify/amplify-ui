@@ -1,3 +1,5 @@
+import { I18n } from '@aws-amplify/core';
+
 import { useAmplify } from '../../../hooks';
 
 export interface PasswordInputProps {
@@ -10,8 +12,8 @@ export interface PasswordInputProps {
 export const PasswordInput = (props: PasswordInputProps): JSX.Element => {
   const {
     amplifyNamespace,
-    label = 'Password',
-    placeholder = 'Password',
+    label = I18n.get('Password'),
+    placeholder = I18n.get('Password'),
     required = true,
   } = props;
   const {
