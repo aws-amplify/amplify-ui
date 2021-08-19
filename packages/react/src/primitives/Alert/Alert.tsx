@@ -18,7 +18,7 @@ export const Alert: React.FC<AlertProps> = ({
   title,
   ...rest
 }) => {
-  const [dismissed, setDismissed] = useState(false);
+  const [dismissed, setDismissed] = useState<boolean>(false);
 
   const dismissAlert = () => {
     setDismissed(!dismissed);
