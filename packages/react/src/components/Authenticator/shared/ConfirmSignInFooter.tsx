@@ -1,3 +1,5 @@
+import { I18n } from '@aws-amplify/core';
+
 import { useAmplify } from '../../../hooks';
 
 export interface ConfirmSignInFooterProps {
@@ -25,12 +27,16 @@ export const ConfirmSignInFooter = (
     <Footer>
       {!shouldHideReturnBtn && (
         <Button onClick={() => send({ type: 'SIGN_IN' })} type="button">
-          Back to Sign In
+          {I18n.get('Back to Sign In')}
         </Button>
       )}
       <Spacer />
       <Button isDisabled={isPending} type="submit">
-        {isPending ? <>Confirming&hellip;</> : <>Confirm</>}
+        {isPending ? (
+          <>{I18n.get('Confirming')}&hellip;</>
+        ) : (
+          <>{I18n.get('Confirm')}</>
+        )}
       </Button>
     </Footer>
   );
