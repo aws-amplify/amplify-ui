@@ -14,7 +14,7 @@ export const SelectDemo = () => {
         <Select
           name="fruits"
           defaultValue=""
-          placeholder="Select a fruit."
+          placeholder="Please select a fruit"
           size={selectProps.size}
           variation={selectProps.variation}
           isDisabled={selectProps.isDisabled}
@@ -25,5 +25,20 @@ export const SelectDemo = () => {
         </Select>
       </View>
     </View>
+  );
+};
+
+export const ControlledSelect = () => {
+  const [value, setState] = useState('');
+  return (
+    <Select
+      value={value}
+      placeholder="Please select a fruit"
+      onChange={(e) => setState(e.target.value)}
+    >
+      <option value="apple">Apple</option>
+      <option value="banana">Banana</option>
+      <option value="orange">Orange</option>
+    </Select>
   );
 };
