@@ -28,10 +28,6 @@ And('I confirm the password {string}', (password: string) => {
   cy.findByLabelText(/confirm password/i).type(Cypress.env(password));
 });
 
-And('I click the {string} button', (name: string) => {
-  cy.findByRole('button', { name }).click();
-});
-
 Then('I see {string}', (message: string) => {
   cy.findByRole('document').contains(message);
 });
