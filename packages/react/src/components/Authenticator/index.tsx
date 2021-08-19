@@ -10,6 +10,7 @@ import { ConfirmResetPassword, ResetPassword } from './ResetPassword';
 import { SetupTOTP } from './SetupTOTP';
 import { SignIn } from './SignIn';
 import { SignUp } from './SignUp';
+import { ConfirmVerifyUser, VerifyUser } from './VerifyUser';
 
 export function Authenticator({
   className = null,
@@ -61,6 +62,10 @@ export function Authenticator({
               return <ResetPassword />;
             case actorState?.matches('confirmResetPassword'):
               return <ConfirmResetPassword />;
+            case actorState?.matches('verifyUser'):
+              return <VerifyUser />;
+            case actorState?.matches('confirmVerifyUser'):
+              return <ConfirmVerifyUser />;
             default:
               console.warn('Unhandled Auth state', state.value);
               return null;

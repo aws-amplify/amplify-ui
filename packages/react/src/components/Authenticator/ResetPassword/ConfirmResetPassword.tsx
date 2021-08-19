@@ -4,7 +4,7 @@ import {
   ConfirmationCodeInput,
   ErrorText,
   PasswordInput,
-  SignInOrSubmitFooter,
+  TwoButtonSubmitFooter,
 } from '../shared';
 
 export const ConfirmResetPassword = (): JSX.Element => {
@@ -74,7 +74,12 @@ export const ConfirmResetPassword = (): JSX.Element => {
       </Fieldset>
 
       <ErrorText amplifyNamespace={amplifyNamespace} />
-      <SignInOrSubmitFooter amplifyNamespace={amplifyNamespace} />
+      <TwoButtonSubmitFooter
+        cancelButtonSendType="SIGN_IN"
+        cancelButtonText="Sign in"
+        amplifyNamespace={amplifyNamespace}
+        isPending={isPending}
+      />
     </Form>
   );
 };
