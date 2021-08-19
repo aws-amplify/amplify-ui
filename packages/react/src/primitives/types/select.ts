@@ -23,6 +23,8 @@ export interface SelectProps
 
   icon?: React.ReactElement;
 
+  iconColor?: string;
+
   placeholder?: string;
 
   isDisabled?: boolean;

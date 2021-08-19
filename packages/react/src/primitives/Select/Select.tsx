@@ -13,6 +13,7 @@ export const Select: React.FC<SelectProps> = (props) => {
     size,
     variation,
     icon = <IconExpandMore size="large" />,
+    iconColor,
     children,
     placeholder,
     isRequired,
@@ -39,6 +40,7 @@ export const Select: React.FC<SelectProps> = (props) => {
         className="amplify-select-icon-wrapper"
         alignItems="center"
         justifyContent="center"
+        color={iconColor}
       >
         {icon}
       </Flex>
