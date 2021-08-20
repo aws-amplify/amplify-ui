@@ -15,37 +15,10 @@
 }
 
 .amplify-select {
+  @extend %amplify-field;
   width: var(--amplify-components-select-width);
-  min-width: var(--amplify-components-select-min-width);
-  padding: field.$padding;
-  box-sizing: field.$box-sizing;
-  font-size: field.$font-size;
-  line-height: field.$line-height;
-  border-radius: field.$border-radius;
-  border-width: field.$border-width;
-  border-style: field.$border-style;
-  border-color: field.$border-color;
-  outline-color: field.$outline-color;
-  outline-style: field.$outline-style;
-  outline-width: field.$outline-width;
-  outline-offset: field.$outline-offset;
   transition-property: var(--amplify-components-select-transition-property);
   transition-duration: var(--amplify-components-select-transition-duration);
-
-  &:focus {
-    border-color: field.$focus-border-color;
-    box-shadow: field.$focus-box-shadow;
-  }
-
-  &[data-size='small'] {
-    font-size: field.$small-font-size;
-    line-height: field.$small-line-height;
-  }
-
-  &[data-size='large'] {
-    font-size: field.$large-font-size;
-    line-height: field.$large-line-height;
-  }
 
   &[data-variation='filled'] {
     border-color: var(--amplify-components-select-filled-border-color);
@@ -65,11 +38,5 @@
     &:focus {
       box-shadow: var(--amplify-components-select-flushed-focus-box-shadow);
     }
-  }
-
-  &[disabled] {
-    cursor: field.$disabled-cursor;
-    border-color: field.$disabled-border-color;
-    background-color: field.$disabled-background-color;
   }
 }

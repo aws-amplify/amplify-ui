@@ -1,6 +1,5 @@
 module.exports = {
   width: { value: '100%' },
-  minWidth: { value: '8rem' },
   transitionProperty: { value: 'background-color' },
   transitionDuration: { value: '{time.transition.medium.value}' },
   //variation
