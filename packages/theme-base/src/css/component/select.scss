@@ -1,61 +1,75 @@
+@use 'field';
+
 .amplify-select-wrapper {
-  display: block;
-  position: relative;
-  cursor: pointer;
+  display: var(--amplify-components-select-wrapper-display);
+  position: var(--amplify-components-select-wrapper-position);
+  cursor: var(--amplify-components-select-wrapper-cursor);
+}
 
-  .amplify-select {
-    width: 100%;
-    min-width: 8rem;
-    line-height: 2.25;
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
-    box-sizing: border-box;
-    border-radius: 0.25rem;
-    border-width: 1px;
-    border-style: solid;
-    border-color: hsl(210, 5%, 90%);
+.amplify-select-icon-wrapper {
+  position: var(--amplify-components-select-icon-wrapper-position);
+  height: var(--amplify-components-select-icon-wrapper-height);
+  top: var(--amplify-components-select-icon-wrapper-top);
+  right: var(--amplify-components-select-icon-wrapper-right);
+  pointer-events: var(--amplify-components-select-icon-wrapper-pointer-events);
+}
 
-    &:focus {
-      border-color: hsl(220, 50%, 50%);
-      box-shadow: 0 0 1px 2px hsl(220, 50%, 50%);
-    }
+.amplify-select {
+  width: var(--amplify-components-select-width);
+  min-width: var(--amplify-components-select-min-width);
+  padding: field.$padding;
+  box-sizing: field.$box-sizing;
+  font-size: field.$font-size;
+  line-height: field.$line-height;
+  border-radius: field.$border-radius;
+  border-width: field.$border-width;
+  border-style: field.$border-style;
+  border-color: field.$border-color;
+  outline-color: field.$outline-color;
+  outline-style: field.$outline-style;
+  outline-width: field.$outline-width;
+  outline-offset: field.$outline-offset;
+  transition-property: var(--amplify-components-select-transition-property);
+  transition-duration: var(--amplify-components-select-transition-duration);
 
-    &[data-size='small'] {
-      font-size: 0.875rem;
-      line-height: 2;
-    }
+  &:focus {
+    border-color: field.$focus-border-color;
+    box-shadow: field.$focus-box-shadow;
+  }
 
-    &[data-size='large'] {
-      font-size: 1.25rem;
-      line-height: 2.5;
-    }
+  &[data-size='small'] {
+    font-size: field.$small-font-size;
+    line-height: field.$small-line-height;
+  }
 
-    &[data-variation='filled'] {
-      background-color: hsl(210, 5%, 90%);
-    }
+  &[data-size='large'] {
+    font-size: field.$large-font-size;
+    line-height: field.$large-line-height;
+  }
 
-    &[data-variation='flushed'] {
-      border-top: none;
-      border-left: none;
-      border-right: none;
-      border-radius: 0;
-      &:focus {
-        box-shadow: 0 4px 2px -2px hsl(220, 50%, 50%);
-      }
-    }
-
-    &[disabled] {
-      cursor: not-allowed;
-      border-color: transparent;
-      background-color: hsl(210, 5%, 95%);
+  &[data-variation='filled'] {
+    border-color: var(--amplify-components-select-filled-border-color);
+    background-color: var(--amplify-components-select-filled-background-color);
+    &:hover {
+      background-color: var(
+        --amplify-components-select-filled-hover-background-color
+      );
     }
   }
 
-  .amplify-select-icon-wrapper {
-    position: absolute;
-    top: 25%;
-    height: 50%;
-    right: 0.75rem;
-    pointer-events: none;
+  &[data-variation='flushed'] {
+    border-top: var(--amplify-components-select-flushed-border-top);
+    border-left: var(--amplify-components-select-flushed-border-left);
+    border-right: var(--amplify-components-select-flushed-border-right);
+    border-radius: var(--amplify-components-select-flushed-border-radius);
+    &:focus {
+      box-shadow: var(--amplify-components-select-flushed-focus-box-shadow);
+    }
+  }
+
+  &[disabled] {
+    cursor: field.$disabled-cursor;
+    border-color: field.$disabled-border-color;
+    background-color: field.$disabled-background-color;
   }
 }
