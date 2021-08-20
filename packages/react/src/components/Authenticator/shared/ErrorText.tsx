@@ -1,3 +1,5 @@
+import { getActorContext } from '@aws-amplify/ui-core';
+import { ActorContextWithForms } from '@aws-amplify/ui-core/src/types/authMachine';
 import { useAmplify, useAuth } from '../../../hooks';
 
 export interface ErrorTextProps {
@@ -10,8 +12,9 @@ export const ErrorText = (props: ErrorTextProps): JSX.Element => {
     components: { Text },
   } = useAmplify(amplifyNamespace);
 
-  const [state] = useAuth();
-  const { remoteError } = state.context;
+  const [_state] = useAuth();
+  const actorContext: ActorContextWithForms = getActorContext(_state);
+  const { remoteError } = actorContext;
 
   return (
     <Text className="errorText" variant="error">

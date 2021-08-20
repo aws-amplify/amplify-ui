@@ -1,7 +1,8 @@
-import { useAuth } from '../../../hooks';
-
-import { Label, Text, Input, ErrorText } from '../../../primitives';
+import { I18n } from '@aws-amplify/core';
 import { getAliasInfoFromContext } from '@aws-amplify/ui-core';
+
+import { useAuth } from '../../../hooks';
+import { Label, Text, Input, ErrorText } from '../../../primitives';
 
 export interface UserNameAliasProps {
   handleInputChange?(event): void;
@@ -16,7 +17,7 @@ export function UserNameAlias(props: UserNameAliasProps) {
 
   return (
     <Label {...attrs}>
-      <Text>{label}</Text>
+      <Text>{I18n.get(label)}</Text>
       <Input
         onChange={handleInputChange}
         name="username"

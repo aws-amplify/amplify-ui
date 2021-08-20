@@ -1,5 +1,8 @@
 import { useState } from 'react';
 
+import { getActorState, SignUpState } from '@aws-amplify/ui-core';
+import { I18n } from '@aws-amplify/core';
+
 import { useAmplify, useAuth } from '../../../hooks';
 
 import {
@@ -17,8 +20,9 @@ export function ConfirmSignUp() {
     components: { Box, Button, Fieldset, Form, Heading, Label, Text },
   } = useAmplify(amplifyNamespace);
 
-  const [state, send] = useAuth();
-  const isPending = state.matches('confirmSignUp.pending');
+  const [_state, send] = useAuth();
+  const actorState: SignUpState = getActorState(_state);
+  const isPending = actorState.matches('confirmSignUp.pending');
 
   const footerProps: ConfirmSignInFooterProps = {
     amplifyNamespace,
@@ -29,8 +33,8 @@ export function ConfirmSignUp() {
 
   const confirmationCodeInputProps: ConfirmationCodeInputProps = {
     amplifyNamespace,
-    label: 'Confirmation Code',
-    placeholder: 'Enter your code',
+    label: I18n.get('Confirmation Code'),
+    placeholder: I18n.get('Enter your code'),
   };
 
   const handleUsernameInputChange = (event): void => {
@@ -54,7 +58,7 @@ export function ConfirmSignUp() {
         });
       }}
     >
-      <Heading level={1}>Confirm Sign Up</Heading>
+      <Heading level={1}>{I18n.get('Confirm Sign Up')}</Heading>
 
       <Fieldset disabled={isPending}>
         <UserNameAlias
@@ -65,7 +69,7 @@ export function ConfirmSignUp() {
         <Label data-amplify-confirmationcode>
           <ConfirmationCodeInput {...confirmationCodeInputProps} />
           <Box>
-            <Text>Lost your code?</Text>{' '}
+            <Text>{I18n.get('Lost your code? ')}</Text>
             <Button
               onClick={() => {
                 send({
@@ -77,7 +81,7 @@ export function ConfirmSignUp() {
               }}
               type="button"
             >
-              Resend Code
+              {I18n.get('Resend Code')}
             </Button>
           </Box>
         </Label>

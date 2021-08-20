@@ -1,8 +1,9 @@
 import { get, includes } from 'lodash';
 
-import { useAmplify, useAuth } from '../../../hooks';
+import { I18n } from '@aws-amplify/core';
 import { FederatedIdentityProviders } from '@aws-amplify/ui-core';
 
+import { useAmplify, useAuth } from '../../../hooks';
 import { FederatedSignInButton } from './FederatedSignInButtons';
 
 export const FederatedSignIn = (): JSX.Element => {
@@ -16,19 +17,19 @@ export const FederatedSignIn = (): JSX.Element => {
 
   const facebookButton = includes(loginMechanisms, 'facebook') ? (
     <FederatedSignInButton
-      text="Sign in with Facebook"
+      text={I18n.get('Sign In with Facebook')}
       provider={FederatedIdentityProviders.Facebook}
     />
   ) : null;
   const googleButton = includes(loginMechanisms, 'google') ? (
     <FederatedSignInButton
-      text="Sign in with Google"
+      text={I18n.get('Sign In with Google')}
       provider={FederatedIdentityProviders.Google}
     />
   ) : null;
   const amazonButton = includes(loginMechanisms, 'amazon') ? (
     <FederatedSignInButton
-      text="Sign in with Amazon"
+      text={I18n.get('Sign In with Amazon')}
       provider={FederatedIdentityProviders.Amazon}
     />
   ) : null;

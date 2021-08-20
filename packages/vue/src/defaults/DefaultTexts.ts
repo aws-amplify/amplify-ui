@@ -1,5 +1,5 @@
 export const AUTHENTICATOR = 'Authenticator';
-export const RESET_PASSWORD_LINK = 'Reset Password';
+export const RESET_PASSWORD_LINK = 'Reset password';
 export const NO_ACCOUNT = 'No account?';
 export const CREATE_ACCOUNT_LINK = 'Create account';
 export const SIGN_IN_BUTTON_TEXT = 'Sign In';
