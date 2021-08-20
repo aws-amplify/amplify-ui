@@ -124,3 +124,4 @@ jobs:
           VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
           VALID_EMAIL_SETUP_MFA: ${{ secrets.VALID_EMAIL_SETUP_MFA }}
           VALID_PASSWORD_SETUP_MFA: ${{ secrets.VALID_PASSWORD_SETUP_MFA }}
+          UNVERIFIED_EMAIL: ${{ secrets.UNVERIFIED_EMAIL }}

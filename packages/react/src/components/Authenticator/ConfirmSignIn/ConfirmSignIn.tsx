@@ -1,11 +1,12 @@
+import { I18n } from '@aws-amplify/core';
 import {
   AuthChallengeNames,
   getActorState,
   SignInContext,
   SignInState,
 } from '@aws-amplify/ui-core';
-import { useAmplify, useAuth } from '../../../hooks';
 
+import { useAmplify, useAuth } from '../../../hooks';
 import {
   ConfirmationCodeInput,
   ConfirmSignInFooter,
@@ -37,7 +38,7 @@ export const ConfirmSignIn = (): JSX.Element => {
     mfaType = 'TOTP';
   }
 
-  const headerText = `Confirm ${mfaType} Code`;
+  const headerText = I18n.get(`Confirm ${mfaType} Code`);
 
   return (
     <Form

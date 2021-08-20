@@ -58,7 +58,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
                 },
                 {
                   actions: 'setUser',
-                  target: 'resolved',
+                  target: 'verifying',
                 },
               ],
               onError: [
@@ -72,6 +72,25 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
                   target: 'edit',
                 },
               ],
+            },
+          },
+          verifying: {
+            entry: ['clearError', sendUpdate()],
+            invoke: {
+              src: 'checkVerifiedContact',
+              onDone: [
+                {
+                  cond: 'shouldRequestVerification',
+                  target: '#signInActor.verifyUser',
+                },
+                {
+                  target: 'resolved',
+                },
+              ],
+              onError: {
+                actions: 'setRemoteError',
+                target: 'edit',
+              },
             },
           },
           resolved: { always: '#signInActor.resolved' },
@@ -162,6 +181,65 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
           },
         },
       },
+      verifyUser: {
+        initial: 'edit',
+        exit: ['clearFormValues', 'clearError'],
+        states: {
+          edit: {
+            entry: sendUpdate(),
+            on: {
+              SUBMIT: 'submit',
+              SKIP: '#signInActor.resolved',
+              CHANGE: { actions: 'handleInput' },
+            },
+          },
+          submit: {
+            entry: 'clearError',
+            invoke: {
+              src: 'verifyUser',
+              onDone: {
+                target: '#signInActor.confirmVerifyUser',
+              },
+              onError: {
+                actions: 'setRemoteError',
+                target: 'edit',
+              },
+            },
+          },
+        },
+      },
+      confirmVerifyUser: {
+        initial: 'edit',
+        exit: [
+          'clearFormValues',
+          'clearError',
+          'clearUnverifiedAttributes',
+          'clearAttributeToVerify',
+        ],
+        states: {
+          edit: {
+            entry: sendUpdate(),
+            on: {
+              SUBMIT: 'submit',
+              SKIP: '#signInActor.resolved',
+              CHANGE: { actions: 'handleInput' },
+            },
+          },
+          submit: {
+            entry: 'clearError',
+            invoke: {
+              src: 'confirmVerifyUser',
+              onDone: {
+                target: '#signInActor.resolved',
+              },
+              onError: {
+                actions: 'setRemoteError',
+                target: 'edit',
+              },
+            },
+          },
+        },
+      },
       resolved: {
         type: 'final',
         data: (context) => ({
@@ -202,6 +280,8 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
       clearChallengeName: assign({ challengeName: undefined }),
       clearError: assign({ remoteError: '' }),
       clearFormValues: assign({ formValues: {} }),
+      clearUnverifiedAttributes: assign({ unverifiedAttributes: undefined }),
+      clearAttributeToVerify: assign({ attributeToVerify: undefined }),
     },
     guards: {
       shouldConfirmSignIn: (_, event): boolean => {
@@ -228,6 +308,17 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
       },
       shouldAutoSignIn: (context) => {
         return !!(context.intent && context.intent === 'autoSignIn');
+      },
+      shouldRequestVerification: (context, event): boolean => {
+        const { unverified } = event.data;
+
+        if (Object.keys(unverified).length > 0) {
+          context.unverifiedAttributes = unverified;
+
+          return true;
+        }
+
+        return false;
       },
     },
     services: {
@@ -267,6 +358,32 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
       async federatedSignIn(_, event) {
         const { provider } = event.data;
         const result = await Auth.federatedSignIn({ provider });
+
+        return result;
+      },
+      async checkVerifiedContact(context, event) {
+        const { user } = context;
+        const result = await Auth.verifiedContact(user);
+
+        return result;
+      },
+      async verifyUser(context, event) {
+        const result = await Auth.verifyCurrentUserAttribute(
+          event.data.unverifiedAttr
+        );
+
+        context.attributeToVerify = event.data.unverifiedAttr;
+
+        return result;
+      },
+      async confirmVerifyUser(context, event) {
+        const { attributeToVerify } = context;
+        const { confirmation_code: code } = event.data;
+
+        const result = await Auth.verifyCurrentUserAttributeSubmit(
+          attributeToVerify,
+          code
+        );
 
         return result;
       },

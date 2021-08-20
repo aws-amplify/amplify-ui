@@ -1,6 +1,8 @@
+import { I18n } from '@aws-amplify/core';
 import { getActorState, ResetPasswordState } from '@aws-amplify/ui-core';
+
 import { useAmplify, useAuth } from '../../../hooks';
-import { ErrorText, SignInOrSubmitFooter } from '../shared';
+import { ErrorText, TwoButtonSubmitFooter } from '../shared';
 
 export const ResetPassword = (): JSX.Element => {
   const amplifyNamespace = 'Authenticator.ResetPassword';
@@ -12,8 +14,12 @@ export const ResetPassword = (): JSX.Element => {
   const actorState = getActorState(state) as ResetPasswordState;
   const isPending = actorState.matches('resetPassword.submit');
 
-  const headerText = 'Reset your Password';
-  const submitText = isPending ? <>Sending&hellip;</> : <>Send code</>;
+  const headerText = I18n.get('Reset your password');
+  const submitText = isPending ? (
+    <>{I18n.get('Sending')}&hellip;</>
+  ) : (
+    <>{I18n.get('Send code')}</>
+  );
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -44,11 +50,11 @@ export const ResetPassword = (): JSX.Element => {
 
       <Fieldset disabled={isPending}>
         <Label data-amplify-resetpassword-label="">
-          <Text>Username</Text>
+          <Text>{I18n.get('Username')}</Text>
           <Input
             autoComplete="username"
             name="username"
-            placeholder="Enter your username"
+            placeholder={I18n.get('Enter your username')}
             required={true}
             type="username"
           />
@@ -56,8 +62,11 @@ export const ResetPassword = (): JSX.Element => {
       </Fieldset>
 
       <ErrorText amplifyNamespace={amplifyNamespace} />
-      <SignInOrSubmitFooter
+      <TwoButtonSubmitFooter
         amplifyNamespace={amplifyNamespace}
+        cancelButtonText={I18n.get('Sign in')}
+        cancelButtonSendType="SIGN_IN"
+        isPending={isPending}
         submitButtonText={submitText}
       />
     </Form>
