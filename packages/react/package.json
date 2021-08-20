@@ -16,7 +16,7 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "tsup --minify",
-    "dev": "tsup --watch",
+    "dev": "tsup --watch src",
     "update:icons": "node scripts/updateIcons.js",
     "build:icons": "yarn run clean:icons && node scripts/generateIcons.js",
     "clean": "rimraf dist",
