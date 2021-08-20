@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "moduleResolution": "node",
+    "baseUrl": ".",
     "declaration": true,
     "esModuleInterop": true,
     "jsx": "react-jsx",
@@ -7,8 +9,8 @@
     "outDir": "./dist",
     "skipLibCheck": true,
     "sourceMap": true,
-    "module": "commonjs",
-    "target": "es5"
+    "module": "esnext",
+    "target": "es2015"
   },
   "exclude": ["node_modules"],
   "include": ["src/**/*.ts", "src/**/*.tsx"]
