@@ -37,7 +37,8 @@
   },
   "dependencies": {
     "patch-package": "^6.4.7",
-    "postinstall-postinstall": "^2.1.0"
+    "postinstall-postinstall": "^2.1.0",
+    "tsup": "^4.14.0"
   },
   "devDependencies": {
     "husky": ">=6",

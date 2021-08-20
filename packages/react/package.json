@@ -22,7 +22,6 @@
     "build:icons": "yarn run clean:icons && node scripts/generateIcons.js",
     "clean": "rimraf dist",
     "clean:icons": "rimraf ./src/primitives/Icon/icons",
-    "postinstall": "patch-package",
     "primitives:new": "hygen primitives new",
     "test": "yarn test:unit",
     "test:watch": "yarn test:unit:watch",
@@ -59,7 +58,6 @@
     "jest": "^27.0.4",
     "rimraf": "^3.0.2",
     "ts-jest": "^27.0.3",
-    "tsup": "^4.14.0",
     "typescript": "^4.3.2"
   }
 }
