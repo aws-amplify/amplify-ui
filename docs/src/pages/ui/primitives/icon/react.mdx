@@ -1,0 +1,182 @@
+import {
+  Icon,
+  Flex,
+  IconAdd,
+  IconDone,
+  IconStar,
+  IconClose,
+} from '@aws-amplify/ui-react';
+import { IconDemo } from './demo';
+import { Example } from '@/components/Example';
+
+Icons should be thought of as plain text; they inherit the size and color of their context or can be set directly. Icons themselves do not have any state or handlers, those should be at a higher level like a button. Amplify uses the [Google Material icon set](https://github.com/google/material-design-icons) as the default because it meets the needs above and uses an approved license (Apache-2).
+
+## Demo
+
+<IconDemo />
+
+## Usage
+
+Import the Icon component and styles.
+
+```jsx
+import { Icon } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+// This is a favorite icon
+<Icon
+  size="small"
+  ariaLabel="Favorite"
+  viewBox={{ width: 24, height: 24 }}
+  pathData="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 
+  3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+/>;
+```
+
+<Example>
+  <Flex gap="2">
+    <span>Hello, Icon!</span>
+    <Icon
+      size="small"
+      ariaLabel="Favorite"
+      viewBox={{ width: 24, height: 24 }}
+      pathData="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 
+    3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+    />
+  </Flex>
+</Example>
+
+### Built-in iconset
+
+Use a default icon from the [Material Design icons](http://google.github.io/material-design-icons/).
+
+```jsx
+import { IconDone } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<IconDone />;
+```
+
+<Example>
+  <IconDone />
+</Example>
+
+### Custom icon
+
+Create a custom icon using a path. Provide the `d` attribute in svg to `pathData` prop.
+
+```jsx
+import { Icon } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+// This is a thumbs up icon
+const ThumbsUpIcon = () => {
+  return (
+    <Icon
+      ariaLabel="Thumbs up"
+      pathData="M9 21h9c.83 0 1.54-.5 
+1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 
+1 7.58 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2zM9 9l4.34-4.34L12 10h9v2l-3 7H9V9zM1 9h4v12H1z"
+    />
+  );
+};
+```
+
+<Example>
+  <Icon
+    ariaLabel="Thumbs up"
+    pathData="M9 21h9c.83 0 1.54-.5 
+  1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 
+  1 7.58 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2zM9 9l4.34-4.34L12 10h9v2l-3 7H9V9zM1 9h4v12H1z"
+  />
+</Example>
+
+### Sizes
+
+Use the `size` prop to change the Icon size. Available options are `small`, `large`, and none (default).
+
+```jsx
+import { IconAdd } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<IconAdd size="small" />;
+<IconAdd />;
+<IconAdd size="large" />;
+```
+
+<Example>
+  <IconAdd size="small" />
+  <IconAdd />
+  <IconAdd size="large" />
+</Example>
+
+### Color
+
+Use the `fill` prop to change the Icon color. By default the Icon color is set to [`currentColor`](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value#currentcolor_keyword)(inherits color from current font color).
+
+```jsx
+import { IconStar } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<IconStar fill="orange" />;
+```
+
+<Example>
+  <IconStar fill="orange" />
+</Example>
+
+### viewBox
+
+Use the `viewBox` prop to change the SVG [`viewBox`](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox). Both `width` and `height` default to `24`.
+
+```jsx
+import { Icon } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+// This is a camera icon
+<Icon
+  ariaLabel="Camera"
+  viewBox={{ width: 30, height: 30 }}
+  pathData="M10 8v8l5-4-5-4zm9-5H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14z"
+/>;
+```
+
+<Example>
+  <Icon
+    ariaLabel="Camera"
+    viewBox={{ width: 30, height: 30 }}
+    pathData="M10 8v8l5-4-5-4zm9-5H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14z"
+  />
+</Example>
+
+### Accessibility
+
+Set an `aria-label` attribute for an Icon.
+
+```jsx
+import { IconClose } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<IconClose ariaLabel="Close" />;
+```
+
+<Example>
+  <IconClose ariaLabel="Close" />
+</Example>
+
+### Third-party icon library
+
+Use third-party icon libraries like react-icons.
+
+```jsx
+import { FaBeer } from 'react-icons/fa';
+import { Button } from '@aws-amplify/ui';
+
+export default function MyButton() {
+  return (
+    <Button>
+      <FaBeer />
+    </Button>
+  );
+}
+```

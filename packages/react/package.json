@@ -22,7 +22,9 @@
   },
   "dependencies": {
     "@xstate/react": "^1.4.0",
+    "autoprefixer": "^10.3.1",
     "classnames": "^2.3.1",
+    "postcss-js": "^3.0.3",
     "qrcode": "^1.4.4"
   },
   "peerDependencies": {
@@ -38,6 +40,7 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",
+    "@testing-library/react-hooks": "^7.0.1",
     "@testing-library/user-event": "^13.2.1",
     "@types/jest": "^26.0.23",
     "@types/testing-library__jest-dom": "^5.14.1",

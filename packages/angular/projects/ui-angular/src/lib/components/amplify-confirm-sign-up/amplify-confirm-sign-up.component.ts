@@ -1,5 +1,11 @@
 import { Component, HostBinding, TemplateRef } from '@angular/core';
-import { AuthMachineState } from '@aws-amplify/ui-core';
+import {
+  AuthMachineState,
+  getActorContext,
+  getActorState,
+  SignUpContext,
+  SignUpState,
+} from '@aws-amplify/ui-core';
 import { Logger } from '@aws-amplify/core';
 import { Subscription } from 'xstate';
 import { AuthPropService, StateMachineService } from '../../services';
@@ -33,16 +39,14 @@ export class AmplifyConfirmSignUpComponent {
   }
 
   setUsername() {
-    const { user, formValues } = this.stateMachine.context;
-    /**
-     * TODO (cross-framework): look for ways to persist username without
-     * persisting formValues across auth states.
-     */
-    const username = user?.username ?? formValues.username;
+    const state = this.stateMachine.authState;
+    const actorContext: SignUpContext = getActorContext(state);
+    const { user, authAttributes } = actorContext;
+    const username = user?.username ?? authAttributes?.username;
     if (username) {
       this.username = username;
       this.stateMachine.send({
-        type: 'INPUT',
+        type: 'CHANGE',
         data: { name: 'username', value: this.username },
       });
     }
@@ -60,8 +64,9 @@ export class AmplifyConfirmSignUpComponent {
   }
 
   onStateUpdate(state: AuthMachineState): void {
-    this.remoteError = state.context.remoteError;
-    this.isPending = !state.matches('confirmSignUp.edit');
+    const actorState: SignUpState = getActorState(state);
+    this.remoteError = actorState.context.remoteError;
+    this.isPending = !actorState.matches('confirmSignUp.edit');
   }
 
   toSignIn(): void {
@@ -81,15 +86,16 @@ export class AmplifyConfirmSignUpComponent {
     $event.preventDefault();
     const { name, value } = $event.target;
     this.stateMachine.send({
-      type: 'INPUT',
+      type: 'CHANGE',
       data: { name, value },
     });
   }
 
-  async onSubmit(event: Event): Promise<void> {
+  onSubmit(event: Event) {
     event.preventDefault();
-    const formValues = this.stateMachine.context.formValues;
-    // get form data
+    const state = this.stateMachine.authState;
+    const actorContext: SignUpContext = getActorContext(state);
+    const { formValues } = actorContext;
     const { username, confirmation_code } = formValues;
 
     this.stateMachine.send({
