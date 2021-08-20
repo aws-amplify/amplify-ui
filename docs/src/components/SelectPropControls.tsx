@@ -33,6 +33,7 @@ export const SelectPropControls: SelectPropControlsInterface = ({
             onChange={(event) =>
               setSize(event.target.value as SelectProps['size'])
             }
+            width="8rem"
           >
             <option value="">default</option>
             <option value="small">small</option>
@@ -47,6 +48,7 @@ export const SelectPropControls: SelectPropControlsInterface = ({
             onChange={(event) =>
               setVariation(event.target.value as SelectProps['variation'])
             }
+            width="8rem"
           >
             <option value="">default</option>
             <option value="filled">filled</option>
@@ -54,7 +56,7 @@ export const SelectPropControls: SelectPropControlsInterface = ({
           </Select>
         </FieldLabeler>
         <FieldLabeler id="isDisabled">
-          <Flex justifyContent="center" className="mt-3">
+          <Flex justifyContent="center" className="mt-5">
             <input
               type="checkbox"
               name="isDisabled"
