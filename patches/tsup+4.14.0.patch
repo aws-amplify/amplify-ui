@@ -6,7 +6,7 @@ index 1fd3ea9..8f84cf0 100644
        jsxFactory: options.jsxFactory,
        jsxFragment: options.jsxFragment,
        sourcemap: options.sourcemap,
-+      inject: ['./src/react-shim.js'],
++      inject: ['./src/globals.js'],
        target: options.target === "es5" ? "es2016" : options.target,
        plugins: [
          externalPlugin({
