@@ -1,0 +1,38 @@
+%amplify-field {
+  padding: var(--amplify-components-field-padding);
+  font-size: var(--amplify-components-field-font-size);
+  line-height: var(--amplify-components-field-line-height);
+  box-sizing: var(--amplify-components-field-box-sizing);
+  // for border
+  border-color: var(--amplify-components-field-border-color);
+  border-radius: var(--amplify-components-field-border-radius);
+  border-style: var(--amplify-components-field-border-style);
+  border-width: var(--amplify-components-field-border-width);
+
+  // for focus styles
+  outline-color: var(--amplify-components-field-outline-color);
+  outline-style: var(--amplify-components-field-outline-style);
+  outline-width: var(--amplify-components-field-outline-width);
+  outline-offset: var(--amplify-components-field-outline-offset);
+  &:focus {
+    box-shadow: var(--amplify-components-field-focus-box-shadow);
+    border-color: var(--amplify-components-field-focus-border-color);
+  }
+
+  &[data-size='small'] {
+    font-size: var(--amplify-components-field-small-font-size);
+    line-height: var(--amplify-components-field-small-line-height);
+  }
+
+  &[data-size='large'] {
+    font-size: var(--amplify-components-field-large-font-size);
+    line-height: var(--amplify-components-field-large-line-height);
+  }
+
+  // for disabled styles
+  &[disabled] {
+    cursor: var(--amplify-components-field-disabled-cursor);
+    border-color: var(--amplify-components-field-disabled-border-color);
+    background-color: var(--amplify-components-field-disabled-background-color);
+  }
+}
