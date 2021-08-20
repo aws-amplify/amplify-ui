@@ -24,9 +24,11 @@
     border-color: var(--amplify-components-select-filled-border-color);
     background-color: var(--amplify-components-select-filled-background-color);
     &:hover {
-      background-color: var(
-        --amplify-components-select-filled-hover-background-color
-      );
+      &:not(:disabled) {
+        background-color: var(
+          --amplify-components-select-filled-hover-background-color
+        );
+      }
     }
   }
 
