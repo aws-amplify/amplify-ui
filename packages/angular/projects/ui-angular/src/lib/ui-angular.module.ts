@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AmplifyAuthenticatorComponent } from './components/amplify-authenticator/amplify-authenticator.component';
@@ -17,10 +17,6 @@ import { AmplifyFederatedSignInComponent } from './components/amplify-federated-
 import { AmplifyFederatedSignInButtonComponent } from './components/amplify-federated-sign-in-button/amplify-federated-sign-in-button.component';
 
 import {
-  AmplifyButton,
-  AmplifyInput,
-  AmplifyToast,
-  AmplifyChatbot,
   AmplifyS3Album,
   AmplifyS3ImagePicker,
   AmplifyS3Text,
@@ -28,15 +24,28 @@ import {
   AmplifyS3Image,
   AmplifyPicker,
   AmplifyPhotoPicker,
-} from '@aws-amplify/ui-components/dist/components';
-import { defineCustomElements } from '@aws-amplify/ui-components/dist';
+  AmplifyChatbot as chatbot,
+  AmplifyToast as toast,
+  AmplifyInput as input,
+  AmplifyButton as button,
+} from './directives/proxies';
 
-defineCustomElements(window);
+import {
+  AmplifyChatbot,
+  AmplifyButton,
+  AmplifyInput,
+  AmplifyToast,
+} from '@aws-amplify/ui-components/dist/components';
+customElements.define('amplify-button', AmplifyButton);
+customElements.define('amplify-input', AmplifyInput);
+customElements.define('amplify-toast', AmplifyToast);
+customElements.define('amplify-chatbot', AmplifyChatbot);
 @NgModule({
   declarations: [
-    AmplifyButton,
-    AmplifyInput,
-    AmplifyToast,
+    chatbot,
+    toast,
+    input,
+    button,
     AmplifyS3Album,
     AmplifyS3ImagePicker,
     AmplifyS3Text,
@@ -44,7 +53,6 @@ defineCustomElements(window);
     AmplifyS3Image,
     AmplifyPicker,
     AmplifyPhotoPicker,
-    AmplifyChatbot,
     AmplifyAuthenticatorComponent,
     AmplifySignInComponent,
     AmplifySignOutComponent,
@@ -62,9 +70,10 @@ defineCustomElements(window);
   ],
   imports: [CommonModule, ReactiveFormsModule],
   exports: [
-    AmplifyButton,
-    AmplifyInput,
-    AmplifyToast,
+    chatbot,
+    toast,
+    input,
+    button,
     AmplifyS3Album,
     AmplifyS3ImagePicker,
     AmplifyS3Text,
@@ -72,14 +81,13 @@ defineCustomElements(window);
     AmplifyS3Image,
     AmplifyPicker,
     AmplifyPhotoPicker,
-    AmplifyChatbot,
     AmplifyAuthenticatorComponent,
     AmplifySignInComponent,
     AmplifySignOutComponent,
     AmplifyInputComponent,
     AmplifyErrorComponent,
     AmplifyOverrideDirective,
-    AmplifyChatbot,
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class UiAngularModule {}

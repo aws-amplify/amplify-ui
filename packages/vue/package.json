@@ -1,6 +1,17 @@
 {
   "private": true,
   "name": "@aws-amplify/ui-vue",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/my-lib.es.js",
+      "require": "./dist/my-lib.umd.js"
+    }
+  },
+  "main": "./dist/my-lib.umd.js",
+  "module": "./dist/my-lib.es.js",
   "version": "0.0.1",
   "scripts": {
     "build": "echo \"Skipped\"",
@@ -10,5 +21,20 @@
     "@aws-amplify/ui-components": "^1.7.0",
     "@xstate/vue": "^0.8.0",
     "qrcode": "^1.4.4"
+  },
+  "devDependencies": {
+    "@rollup/plugin-dynamic-import-vars": "^1.4.0",
+    "@stencil/core": "^2.7.0",
+    "@vitejs/plugin-vue": "^1.2.5",
+    "@vue/compiler-sfc": "^3.0.5",
+    "rollup-plugin-analyzer": "^4.0.0",
+    "typescript": "^4.3.2",
+    "vite": "^2.4.2",
+    "vite-plugin-voie": "^0.7.3",
+    "vue-tsc": "^0.0.24"
+  },
+  "peerDependencies": {
+    "aws-amplify": "3.x.x || 4.x.x",
+    "vue": "^3.0.0"
   }
 }

@@ -15,7 +15,7 @@ import { CustomComponents } from '../../common';
 import { getActorState } from '@aws-amplify/ui-core';
 
 @Component({
-  selector: 'amplify-authenticator',
+  selector: 'authenticator',
   templateUrl: './amplify-authenticator.component.html',
   providers: [AuthPropService], // make sure custom components are scoped to this authenticator only
   encapsulation: ViewEncapsulation.None,
@@ -38,7 +38,9 @@ export class AmplifyAuthenticatorComponent implements AfterContentInit {
   constructor(
     private stateMachine: StateMachineService,
     private contextService: AuthPropService
-  ) {}
+  ) {
+    console.log('hi');
+  }
 
   /**
    * Lifecycle Methods

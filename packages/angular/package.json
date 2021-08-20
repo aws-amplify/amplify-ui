@@ -10,7 +10,6 @@
     "lint": "ng lint"
   },
   "dependencies": {
-    "@aws-amplify/ui-components": "^1.7.0",
     "@angular/animations": "~11.2.4",
     "@angular/common": "~11.2.4",
     "@angular/compiler": "~11.2.4",
@@ -19,6 +18,8 @@
     "@angular/platform-browser": "~11.2.4",
     "@angular/platform-browser-dynamic": "~11.2.4",
     "@angular/router": "~11.2.4",
+    "@aws-amplify/ui-components": "^1.7.0",
+    "@stencil/core": "^2.7.0",
     "qrcode": "^1.4.4",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",

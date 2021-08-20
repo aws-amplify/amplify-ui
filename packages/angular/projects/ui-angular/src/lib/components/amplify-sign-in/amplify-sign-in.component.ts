@@ -20,7 +20,7 @@ import {
 const logger = new Logger('SignIn');
 
 @Component({
-  selector: 'amplify-sign-in',
+  selector: 'sign-in',
   templateUrl: './amplify-sign-in.component.html',
   encapsulation: ViewEncapsulation.None,
 })
@@ -40,7 +40,9 @@ export class AmplifySignInComponent
   constructor(
     private stateMachine: StateMachineService,
     private contextService: AuthPropService
-  ) {}
+  ) {
+    console.log('sign in component reporting');
+  }
 
   ngOnInit(): void {
     this.authSubscription = this.stateMachine.authService.subscribe((state) =>
