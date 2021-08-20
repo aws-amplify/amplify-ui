@@ -12,5 +12,6 @@ module.exports = {
   placeholder: require('./placeholder'),
   rating: require('./rating'),
   select: require('./select'),
+  textfield: require('./textField'),
   text: require('./text'),
 };
