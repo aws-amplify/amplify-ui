@@ -11,5 +11,10 @@ export enum ComponentClassNames {
   Placeholder = 'amplify-placeholder',
   Rating = 'amplify-rating',
   Text = 'amplify-text',
+  TextField = 'amplify-textfield',
+  TextFieldInput = 'amplify-textfield__input',
+  FieldWrapper = 'amplify-field-wrapper',
+  TextFieldLabel = 'amplify-textfield__label',
+  TextFieldDescription = 'amplify-textfield__description',
   View = 'amplify-view',
 }

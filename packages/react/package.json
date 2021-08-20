@@ -21,6 +21,7 @@
     "test:unit:watch": "jest --watch"
   },
   "dependencies": {
+    "@react-aria/textfield": "^3.3.1",
     "@xstate/react": "^1.4.0",
     "classnames": "^2.3.1",
     "qrcode": "^1.4.4"
