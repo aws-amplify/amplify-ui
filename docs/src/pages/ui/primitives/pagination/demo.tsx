@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
 
 import { Flex, Pagination } from '@aws-amplify/ui-react';
+import { Example } from '@/components/Example';
 
 interface PaginationDemoProps {
   isDemo?: boolean;
@@ -89,15 +90,17 @@ export const PaginationDemo: React.FC<PaginationDemoProps> = (props) => {
       ) : null}
       <br />
       <Flex justifyContent="center">
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          siblingCount={siblingCount}
-          onNext={onNext}
-          onPrevious={onPrev}
-          onChange={onChange}
-          {...rest}
-        />
+        <Example>
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            siblingCount={siblingCount}
+            onNext={onNext}
+            onPrevious={onPrev}
+            onChange={onChange}
+            {...rest}
+          />
+        </Example>
       </Flex>
     </div>
   );

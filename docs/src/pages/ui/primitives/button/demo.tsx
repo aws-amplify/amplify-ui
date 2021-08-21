@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, ButtonSize, ButtonVariation } from '@aws-amplify/ui-react';
 import { FieldLabeler } from '@/components/FieldLabeler';
+import { Example } from '@/components/Example';
 
 export const ButtonDemo = () => {
   const [disabled, setDisabled] = React.useState<boolean>(false);
@@ -92,20 +93,22 @@ export const ButtonDemo = () => {
           </select>
         </FieldLabeler>
       </div>
-      <Button
-        className="my-favorite-button"
-        isDisabled={disabled}
-        isLoading={loading}
-        loadingText={loadingText}
-        variation={variation}
-        size={size}
-        onClick={() => alert('hello')}
-        ariaLabel={ariaLabel}
-        isFullWidth={fullWidth}
-        type="button"
-      >
-        Click me!
-      </Button>
+      <Example>
+        <Button
+          className="my-favorite-button"
+          isDisabled={disabled}
+          isLoading={loading}
+          loadingText={loadingText}
+          variation={variation}
+          size={size}
+          onClick={() => alert('hello')}
+          ariaLabel={ariaLabel}
+          isFullWidth={fullWidth}
+          type="button"
+        >
+          Click me!
+        </Button>
+      </Example>
     </div>
   );
 };

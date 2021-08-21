@@ -1,11 +1,16 @@
 import { includes } from 'lodash';
 
-import { useAmplify, useAuth } from '../../../hooks';
-
+import { I18n } from '@aws-amplify/core';
 import {
   authInputAttributes,
+  getActorContext,
+  getActorState,
+  SignUpContext,
+  SignUpState,
   socialProviderLoginMechanisms,
 } from '@aws-amplify/ui-core';
+
+import { useAmplify, useAuth } from '../../../hooks';
 import { FederatedSignIn } from '../FederatedSignIn';
 
 export function SignUp() {
@@ -22,11 +27,12 @@ export function SignUp() {
     },
   } = useAmplify('Authenticator.SignUp');
 
-  const [state, send] = useAuth();
-  const isPending = state.matches('signUp.pending');
-  const { remoteError } = state.context;
+  const [_state, send] = useAuth();
+  const actorState: SignUpState = getActorState(_state);
+  const isPending = actorState.matches('signUp.pending');
+  const { remoteError } = actorState.context;
 
-  const [primaryAlias, ...secondaryAliases] = state.context.config
+  const [primaryAlias, ...secondaryAliases] = _state.context.config
     ?.login_mechanisms ?? ['username', 'email', 'phone_number'];
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -54,13 +60,13 @@ export function SignUp() {
       }}
       onChange={handleChange}
     >
-      <Heading>Create a new account</Heading>
+      <Heading>{I18n.get('Create a new account')}</Heading>
 
       <FederatedSignIn />
 
       <Fieldset>
         <SignUp.AliasControl
-          label={authInputAttributes[primaryAlias].label}
+          label={I18n.get(authInputAttributes[primaryAlias].label)}
           name={primaryAlias}
         />
         <SignUp.PasswordControl />
@@ -70,7 +76,7 @@ export function SignUp() {
           .map((alias) => (
             <SignUp.AliasControl
               key={alias}
-              label={authInputAttributes[alias].label}
+              label={I18n.get(authInputAttributes[alias].label)}
               name={alias}
             />
           ))}
@@ -79,13 +85,17 @@ export function SignUp() {
       <ErrorText>{remoteError}</ErrorText>
 
       <Footer>
-        <Text>Have an account?</Text>{' '}
+        <Text>{I18n.get('Have an account? ')}</Text>
         <Button onClick={() => send({ type: 'SIGN_IN' })} type="button">
-          Sign in
+          {I18n.get('Sign in')}
         </Button>
         <Spacer />
         <Button isDisabled={isPending} type="submit">
-          {isPending ? <>Creating Account&hellip;</> : <>Create Account</>}
+          {isPending ? (
+            <>{I18n.get('Creating Account')}&hellip;</>
+          ) : (
+            <>{I18n.get('Create Account')}</>
+          )}
         </Button>
       </Footer>
     </Form>
@@ -93,15 +103,16 @@ export function SignUp() {
 }
 
 SignUp.AliasControl = ({
-  label = 'Username',
+  label = I18n.get('Username'),
   name = 'username',
   placeholder = label,
 }) => {
   const {
     components: { Input, Label, Text, ErrorText },
   } = useAmplify('Authenticator.SignUp.Password');
-  const [{ context }] = useAuth();
-  const error = context.validationError[name];
+  const [_state] = useAuth();
+  const { validationError } = getActorContext(_state) as SignUpContext;
+  const error = validationError[name];
 
   return (
     <>
@@ -120,15 +131,16 @@ SignUp.AliasControl = ({
 };
 
 SignUp.PasswordControl = ({
-  label = 'Password',
+  label = I18n.get('Password'),
   name = 'password',
   placeholder = label,
 }) => {
   const {
     components: { Input, Label, Text, ErrorText },
   } = useAmplify('Authenticator.SignUp.Password');
-  const [{ context }] = useAuth();
-  const error = context.validationError[name];
+  const [_state] = useAuth();
+  const { validationError } = getActorContext(_state) as SignUpContext;
+  const error = validationError[name];
 
   return (
     <>
@@ -142,14 +154,15 @@ SignUp.PasswordControl = ({
 };
 
 SignUp.ConfirmPasswordControl = ({
-  label = 'Confirm Password',
+  label = I18n.get('Confirm Password'),
   name = 'confirm_password',
 }) => {
   const {
     components: { Input, Label, Text, ErrorText },
   } = useAmplify('Authenticator.SignUp.Password');
-  const [{ context }] = useAuth();
-  const error = context.validationError[name];
+  const [state] = useAuth();
+  const { validationError } = getActorContext(state) as SignUpContext;
+  const error = validationError[name];
 
   return (
     <>

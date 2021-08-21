@@ -15,6 +15,7 @@ import {
 
 import { useFlexStyleProps } from '../../../../components/useFlexStyleProps';
 import { GetFieldControls } from '../../../../components/GetFieldControls';
+import { Example } from '../../../../components/Example';
 
 export const CollectionDemo = () => {
   const flexStyleProps = useFlexStyleProps({
@@ -81,35 +82,37 @@ export const CollectionDemo = () => {
     <View width="100%">
       {PropControls}
       <Divider margin="0.5rem 0.5rem" />
-      <Collection
-        items={list}
-        type="list"
-        alignContent={alignContent as FlexStyleProps['alignContent']}
-        alignItems={alignItems as FlexStyleProps['alignItems']}
-        direction={direction as FlexStyleProps['direction']}
-        gap={gap as FlexStyleProps['gap']}
-        justifyContent={justifyContent as FlexStyleProps['justifyContent']}
-        wrap={wrap as FlexStyleProps['wrap']}
-      >
-        {(item, index) => (
-          <Card key={index}>
-            <Image src={item.imageSrc} alt={item.imageAlt} />
-            <View padding="1rem">
-              <Flex>
-                {item.badges.map((badge) => (
-                  <Badge key={badge.text} backgroundColor={badge.color}>
-                    {badge.text}
-                  </Badge>
-                ))}
-              </Flex>
-              <Divider padding="1rem 0 0 0" />
-              <Heading level={3}>{item.title}</Heading>
-              <Text padding="0 0 1rem 0">{item.description}</Text>
-              <Button isFullWidth={true}>Book it</Button>
-            </View>
-          </Card>
-        )}
-      </Collection>
+      <Example>
+        <Collection
+          items={list}
+          type="list"
+          alignContent={alignContent as FlexStyleProps['alignContent']}
+          alignItems={alignItems as FlexStyleProps['alignItems']}
+          direction={direction as FlexStyleProps['direction']}
+          gap={gap as FlexStyleProps['gap']}
+          justifyContent={justifyContent as FlexStyleProps['justifyContent']}
+          wrap={wrap as FlexStyleProps['wrap']}
+        >
+          {(item, index) => (
+            <Card key={index}>
+              <Image src={item.imageSrc} alt={item.imageAlt} />
+              <View padding="1rem">
+                <Flex>
+                  {item.badges.map((badge) => (
+                    <Badge key={badge.text} backgroundColor={badge.color}>
+                      {badge.text}
+                    </Badge>
+                  ))}
+                </Flex>
+                <Divider padding="1rem 0 0 0" />
+                <Heading level={3}>{item.title}</Heading>
+                <Text padding="0 0 1rem 0">{item.description}</Text>
+                <Button isFullWidth={true}>Book it</Button>
+              </View>
+            </Card>
+          )}
+        </Collection>
+      </Example>
     </View>
   );
 };

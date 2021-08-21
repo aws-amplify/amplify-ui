@@ -1,0 +1,12 @@
+diff --git a/node_modules/tsup/dist/index.js b/node_modules/tsup/dist/index.js
+index 1fd3ea9..8f84cf0 100644
+--- a/node_modules/tsup/dist/index.js
++++ b/node_modules/tsup/dist/index.js
+@@ -13633,6 +13633,7 @@ async function runEsbuild(options, { format, css }) {
+       jsxFactory: options.jsxFactory,
+       jsxFragment: options.jsxFragment,
+       sourcemap: options.sourcemap,
++      inject: ['./src/globals.js'],
+       target: options.target === "es5" ? "es2016" : options.target,
+       plugins: [
+         externalPlugin({

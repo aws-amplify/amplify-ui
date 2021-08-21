@@ -21,10 +21,6 @@ And('I type a valid password {string}', (password: string) => {
   cy.get('[data-amplify-password]').type(Cypress.env(password));
 });
 
-And('I click the {string} button', (name: string) => {
-  cy.findByRole('button', { name }).click();
-});
-
 Then('I will be redirected to the confirm sms mfa page', () => {
   cy.get('[data-amplify-authenticator-confirmsignin]').should('be.visible');
 });
