@@ -2,7 +2,8 @@
   "name": "@aws-amplify/ui-angular",
   "version": "0.0.1",
   "scripts": {
-    "build": "yarn --cwd ../../ build"
+    "build": "yarn --cwd ../../ build",
+    "test": "yarn --cwd ../../ test"
   },
   "peerDependencies": {
     "@angular/common": "^11.2.4",
