@@ -3,7 +3,7 @@ import { ComponentClassNames } from '../shared/constants';
 import classNames from 'classnames';
 import { AlertProps } from '../types';
 import { View } from '../View';
-import { Flex } from '../FLex';
+import { Flex } from '../Flex';
 import { Heading } from '../Heading';
 import { AlertIcon } from './AlertIcon';
 import { IconClose } from '../Icon';
