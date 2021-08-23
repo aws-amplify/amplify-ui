@@ -12,7 +12,7 @@ import { StateMachineService } from '../../services/state-machine.service';
  * Angular Reactive Form
  */
 @Component({
-  selector: 'amplify-input',
+  selector: 'amplify-form-input',
   templateUrl: './amplify-input.component.html',
 })
 export class AmplifyInputComponent {
