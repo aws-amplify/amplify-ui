@@ -23,3 +23,11 @@ package-lock.json
 build
 coverage
 Config
+legacy/*/node_modules/**
+legacy/**/lib/
+legacy/**/lib-esm/
+legacy/**/dist/
+legacy/**/es/
+legacy/**/esm/
+legacy/**/cjs/
+
