@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@xstate/vue": "^0.8.0",
-    "qrcode": "^1.4.4"
+    "qrcode": "^1.4.4",
+    "@aws-amplify/ui-components": "^1.7.0"
   }
 }
