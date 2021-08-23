@@ -28,7 +28,6 @@ import {
   AmplifyToast as toast,
   AmplifyInput as input,
   AmplifyButton as button,
-  // } from '@aws-amplify/ui-angular-v1';
 } from './directives/proxies';
 
 import {

@@ -22,8 +22,7 @@
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.3",
-    "@aws-amplify/ui-components": "^1.7.0",
-    "@aws-amplify/ui-angular-v1": "npm:@aws-amplify/ui-angular@1.0.19"
+    "@aws-amplify/ui-components": "^1.7.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1102.3",
