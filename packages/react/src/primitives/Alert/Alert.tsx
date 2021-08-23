@@ -41,9 +41,13 @@ export const Alert: React.FC<AlertProps> = ({
             {children}
           </View>
         </Flex>
-        <View className="amplify-alert-icon-close">
-          {isDismissible && <IconClose size="large" onClick={dismissAlert} />}
-        </View>
+        {isDismissible && (
+          <IconClose
+            className="amplify-alert-icon-close"
+            size="large"
+            onClick={dismissAlert}
+          />
+        )}
       </Flex>
     )
   );

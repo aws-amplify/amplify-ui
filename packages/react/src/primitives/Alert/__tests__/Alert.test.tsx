@@ -5,7 +5,7 @@ import { ComponentPropsToStylePropsMap } from '../../types';
 import { kebabCase } from 'lodash';
 
 describe('Alert: ', () => {
-  it('renders an Alert by default', async () => {
+  it('can render Alert variations', async () => {
     render(
       <div>
         <Alert variation="info" testId="info">
@@ -100,27 +100,6 @@ describe('Alert: ', () => {
 
     expect(isDismissible.lastElementChild.childElementCount).toBe(1);
     expect(notDismissible.lastElementChild.childElementCount).toBe(0);
-  });
-
-  it('can pass a callback to onDismiss', async () => {
-    render(
-      <div>
-        <Alert
-          onDismiss={() => console.log('testing123')}
-          isDismissible={true}
-          testId="callback"
-        >
-          Callback
-        </Alert>
-        <Alert isDismissible={true} testId="noCallback">
-          No callback
-        </Alert>
-      </div>
-    );
-
-    const callback = await screen.findByTestId('callback');
-    const noCallback = await screen.findByTestId('noCallback');
-    console.log(noCallback.lastElementChild.firstElementChild);
   });
 
   it('can apply styling via props', async () => {
