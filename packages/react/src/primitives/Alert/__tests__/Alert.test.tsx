@@ -3,6 +3,7 @@ import { Alert } from '../Alert';
 import { ComponentClassNames } from '../../shared';
 import { ComponentPropsToStylePropsMap } from '../../types';
 import { kebabCase } from 'lodash';
+import { createPortal } from 'react-dom';
 
 describe('Alert: ', () => {
   it('can render Alert variations', async () => {
@@ -98,8 +99,8 @@ describe('Alert: ', () => {
     const notDismissible = await screen.findByTestId('notDismissible');
     const isDismissible = await screen.findByTestId('isDismissible');
 
-    expect(isDismissible.lastElementChild.childElementCount).toBe(1);
-    expect(notDismissible.lastElementChild.childElementCount).toBe(0);
+    expect(notDismissible.childElementCount).toBe(1);
+    expect(isDismissible.childElementCount).toBe(2);
   });
 
   it('can apply styling via props', async () => {
