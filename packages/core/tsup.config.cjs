@@ -5,6 +5,6 @@ module.exports = {
   dts: true,
   entryPoints: ['src/index.ts'],
   format: ['cjs', 'esm'],
-  sourcemap: 'both',
+  sourcemap: 'external',
   splitting: false,
 };
