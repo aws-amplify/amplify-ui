@@ -28,7 +28,7 @@ import {
   AmplifyToast as toast,
   AmplifyInput as input,
   AmplifyButton as button,
-} from './directives/proxies';
+} from './proxies';
 
 import {
   AmplifyChatbot,
