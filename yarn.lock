@@ -388,6 +388,13 @@
     events "^3.1.0"
     sinon "^7.5.0"
 
+"@aws-amplify/ui-angular-v1@npm:@aws-amplify/ui-angular@1.0.19":
+  version "1.0.19"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/ui-angular/-/ui-angular-1.0.19.tgz#39567b4580723f0358dc203fe088353950f267c5"
+  integrity sha512-G6kmxT1TeIWGkSa3wC9L4HJ0qCs53Wuu8QUBcJ7YwIjV+z6saN3D8prL8MFemaqam8BsivtKrICguXjoOynNZw==
+  dependencies:
+    "@aws-amplify/ui-components" "1.7.3"
+
 "@aws-amplify/ui-components@1.7.1", "@aws-amplify/ui-components@latest":
   version "1.7.1"
   resolved "https://registry.yarnpkg.com/@aws-amplify/ui-components/-/ui-components-1.7.1.tgz#d31bcdf0754f1e0bb59f5221e1424954c621b820"
@@ -400,6 +407,14 @@
   version "1.7.2"
   resolved "https://registry.yarnpkg.com/@aws-amplify/ui-components/-/ui-components-1.7.2.tgz#9523b05d7ca819fc941b296e36e21c2139bdfde4"
   integrity sha512-PrDG5o/svbZm87XModXvzBQ+HflHSmxse4S0yKcFRPuUmLkspzdBcwFmjb1SCqmXKtTVKVkCHJ38rZiO/WFNfw==
+  dependencies:
+    qrcode "^1.4.4"
+    uuid "^8.2.0"
+
+"@aws-amplify/ui-components@1.7.3", "@aws-amplify/ui-components@^1.7.0":
+  version "1.7.3"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/ui-components/-/ui-components-1.7.3.tgz#13de179f5db7ec6effe15033ea5bbdbe2c9f3d9c"
+  integrity sha512-ct4RchooHaqMyJXT1bUTo57OVZWVTtBI8bEvuK6JBlDhtWqNBLoojZCchW9qctMwl5Wl5dRq5TQD+yaa6yZhCA==
   dependencies:
     qrcode "^1.4.4"
     uuid "^8.2.0"
