@@ -10,4 +10,3 @@ export * from './lib/primitives';
 export * from './lib/services/authenticator-context.service';
 export * from './lib/services/state-machine.service';
 export * from './lib/directives/amplify-override.directive';
-export * from './lib/proxies';
