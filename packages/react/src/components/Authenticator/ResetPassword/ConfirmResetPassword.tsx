@@ -1,9 +1,12 @@
+import { I18n } from '@aws-amplify/core';
+import { getActorState, ResetPasswordState } from '@aws-amplify/ui-core';
+
 import { useAmplify, useAuth } from '../../../hooks';
 import {
   ConfirmationCodeInput,
   ErrorText,
   PasswordInput,
-  SignInOrSubmitFooter,
+  TwoButtonSubmitFooter,
 } from '../shared';
 
 export const ConfirmResetPassword = (): JSX.Element => {
@@ -12,10 +15,19 @@ export const ConfirmResetPassword = (): JSX.Element => {
     components: { Box, Button, Fieldset, Form, Heading, Input, Label, Text },
   } = useAmplify(amplifyNamespace);
 
-  const [state, send] = useAuth();
-  const isPending = state.matches('confirmResetPassword.pending');
+  const [_state, send] = useAuth();
+  const actorState = getActorState(_state) as ResetPasswordState;
+  const isPending = actorState.matches('confirmResetPassword.pending');
 
-  const headerText = 'Reset your Password';
+  const headerText = I18n.get('Reset your Password');
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    send({
+      type: 'CHANGE',
+      data: { name, value },
+    });
+  };
 
   return (
     <Form
@@ -32,6 +44,7 @@ export const ConfirmResetPassword = (): JSX.Element => {
           data: Object.fromEntries(formData),
         });
       }}
+      onChange={handleChange}
     >
       <Heading level={1}>{headerText}</Heading>
 
@@ -43,30 +56,32 @@ export const ConfirmResetPassword = (): JSX.Element => {
         <Label data-amplify-confirmresetpasswordnew-label="">
           <PasswordInput
             amplifyNamespace={amplifyNamespace}
-            label="New password"
+            label={I18n.get('New password')}
           />
         </Label>
 
         <Box>
-          <Text>Lost your code?</Text>{' '}
+          <Text>{I18n.get('Lost your code? ')}</Text>
           <Button
             onClick={() => {
               send({
                 type: 'RESEND',
-                data: {
-                  username: state.context.username,
-                },
               });
             }}
             type="button"
           >
-            Resend Code
+            {I18n.get('Resend Code')}
           </Button>
         </Box>
       </Fieldset>
 
       <ErrorText amplifyNamespace={amplifyNamespace} />
-      <SignInOrSubmitFooter amplifyNamespace={amplifyNamespace} />
+      <TwoButtonSubmitFooter
+        cancelButtonSendType="SIGN_IN"
+        cancelButtonText={I18n.get('Sign in')}
+        amplifyNamespace={amplifyNamespace}
+        isPending={isPending}
+      />
     </Form>
   );
 };

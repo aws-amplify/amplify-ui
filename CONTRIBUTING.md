@@ -19,7 +19,17 @@
 Internally, this content is served by a single, Next.js [optional catch all route](https://nextjs.org/docs/routing/dynamic-routes#optional-catch-all-routes):
 [`docs/src/pages/[[...slugs]].tsx`](docs/src/pages/[[...slugs]].tsx).
 
-## Next/React Development
+## `@aws-amplify/core`
+
+- `yarn core build` to rebuild for production.
+- `yarn core dev` to watch & rebuild for development.
+
+## `@aws-amplify/ui-react`
+
+- `yarn react build` to rebuild for production.
+- `yarn react dev` to watch & rebuild for development.
+
+## Next Examples Development
 
 1. Create or Update an example at [`examples/...`](examples)
 
@@ -43,7 +53,7 @@ Internally, this content is served by a single, Next.js [optional catch all rout
 
    Next.js should automatically hot-reload your changes in the example.
 
-### Documentation & Testing
+### E2E Testing
 
 1. Create or Update a `${feature}.feature` file (using [Gherkin](https://cucumber.io/docs/gherkin/reference/)) describing the behavior in [`packages/e2e/cypress/integration/${slug}`](packages/e2e/cypress/integration).
 
@@ -61,6 +71,7 @@ Internally, this content is served by a single, Next.js [optional catch all rout
    ```
 
 1. Create or Update the accompanying `${slug}.feature` tests (e.g. `packages/e2e/cypress/integration/${slug}/${feature}/${feature}.ts`
+1. Start one of the [examples](examples).
 1. Run `yarn e2e dev` to load Cypress
 1. Click on your updated `${feature}.feature` file to validate your changes
 1. Add tags (e.g. `@react`, `@vue`, `@angular`, `@skip`, or `@focus`) above your `Scenario` to indicate which platform(s) to test against
@@ -75,10 +86,6 @@ Internally, this content is served by a single, Next.js [optional catch all rout
 1. `yarn build:angular`, or `yarn build:angular:watch` for live development
 1. `yarn dev:angular`.
 1. Visit <http://localhost:4200/>
-
-#### Flutter Development
-
-1. see [packages/flutter/README.md](packages/flutter/README.md)
 
 ## Updating Icons
 

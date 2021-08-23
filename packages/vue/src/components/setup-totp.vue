@@ -8,7 +8,7 @@
         <base-heading>
           {{ setupTOTPText }}
         </base-heading>
-        <base-field-set :disabled="state.matches('confirmSignIn.pending')">
+        <base-field-set :disabled="actorState.matches('confirmSignIn.pending')">
           <base-label data-amplify-confirmationcode>
             <template v-if="isLoading">
               <p>Loading...</p>
@@ -41,12 +41,12 @@
             {{ backSignInText }}</base-button
           >
           <base-spacer />
-          <base-button :disabled="state.matches('confirmSignIn.pending')">{{
-            confirmText
-          }}</base-button>
+          <base-button :disabled="actorState.matches('confirmSignIn.pending')">
+            {{ confirmText }}
+          </base-button>
         </base-footer>
         <base-box data-ui-error>
-          {{ state.event.data?.message }}
+          {{ actorState.context.remoteError }}
         </base-box>
       </base-form>
     </base-wrapper>
@@ -54,7 +54,14 @@
 </template>
 
 <script lang="ts">
-import { onMounted, defineComponent, reactive, toRefs, computed } from 'vue';
+import {
+  onMounted,
+  defineComponent,
+  reactive,
+  toRefs,
+  computed,
+  ComputedRef,
+} from 'vue';
 
 import BaseHeading from './primitives/base-heading.vue';
 import BaseFieldSet from './primitives/base-field-set.vue';
@@ -79,6 +86,7 @@ import {
 import { Auth, Logger } from 'aws-amplify';
 import QRCode from 'qrcode';
 import { SetupEventContext } from '../types';
+import { getActorState, SignInState } from '@aws-amplify/ui-core';
 
 export default defineComponent({
   components: {
@@ -97,10 +105,9 @@ export default defineComponent({
   inheritAttrs: false,
   setup(_, { emit, attrs }: SetupEventContext) {
     const { state, send } = useAuth();
-
-    const {
-      value: { context },
-    } = state;
+    const actorState: ComputedRef<SignInState> = computed(() =>
+      getActorState(state.value)
+    );
 
     let qrCode = reactive({
       qrCodeImageSource: null,
@@ -111,7 +118,7 @@ export default defineComponent({
 
     onMounted(async () => {
       const logger = new Logger('SetupTOTP-logger');
-      const { user } = context;
+      const { user } = actorState.value.context;
       if (!user) {
         return;
       }
@@ -165,7 +172,7 @@ export default defineComponent({
 
     return {
       ...toRefs(qrCode),
-      state,
+      actorState,
       onSetupTOTPSubmit,
       onBackToSignInClicked,
       submit,

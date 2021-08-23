@@ -2,15 +2,17 @@
   "private": true,
   "name": "@aws-amplify/ui-core",
   "version": "0.0.1",
-  "module": "index.ts",
-  "main": "dist/index.js",
+  "type": "module",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
-    "dist/*.{js,ts}",
-    "dist/**/*.{js,ts}"
+    "dist"
   ],
   "scripts": {
-    "build": "tsc",
+    "prebuild": "rimraf dist",
+    "build": "tsup --minify",
+    "dev": "tsup --watch src",
     "test": "echo \"Skipped: no test specified\""
   },
   "dependencies": {
@@ -21,5 +23,8 @@
     "@types/lodash": "^4.14.170",
     "@types/webpack-env": "^1.16.2",
     "tslib": "^2.3.0"
+  },
+  "peerDependencies": {
+    "aws-amplify": "3.x.x || 4.x.x"
   }
 }

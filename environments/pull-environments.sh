@@ -34,7 +34,7 @@ PROVIDERS="{\
 # Pull the backend for each environment
 for dir in ./*/ ; do
   if ! [ -f "$dir/package.json" ]; then
-    echo "If $dir is an environment, ensure the a package.json file exists with a \"dev\" command that pulls the environment (see the README)."
+    echo "If $dir is an environment, ensure the a package.json file exists with a \"pull\" command that pulls the environment (see the README)."
     continue
   fi
 

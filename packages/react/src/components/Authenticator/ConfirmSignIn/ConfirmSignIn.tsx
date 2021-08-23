@@ -1,6 +1,12 @@
-import { AuthChallengeNames } from '@aws-amplify/ui-core';
-import { useAmplify, useAuth } from '../../../hooks';
+import { I18n } from '@aws-amplify/core';
+import {
+  AuthChallengeNames,
+  getActorState,
+  SignInContext,
+  SignInState,
+} from '@aws-amplify/ui-core';
 
+import { useAmplify, useAuth } from '../../../hooks';
 import {
   ConfirmationCodeInput,
   ConfirmSignInFooter,
@@ -16,8 +22,9 @@ export const ConfirmSignIn = (): JSX.Element => {
     components: { Fieldset, Form, Heading, Label },
   } = useAmplify(amplifyNamespace);
 
-  const [state, send] = useAuth();
-  const isPending = state.matches('confirmSignIn.pending');
+  const [_state, send] = useAuth();
+  const actorState: SignInState = getActorState(_state);
+  const isPending = actorState.matches('confirmSignIn.pending');
 
   const footerProps: ConfirmSignInFooterProps = {
     amplifyNamespace,
@@ -25,13 +32,13 @@ export const ConfirmSignIn = (): JSX.Element => {
     send,
   };
 
-  const { challengeName, remoteError } = state.context;
+  const { challengeName, remoteError } = actorState.context as SignInContext;
   let mfaType: string = 'SMS';
   if (challengeName === AuthChallengeNames.SOFTWARE_TOKEN_MFA) {
     mfaType = 'TOTP';
   }
 
-  const headerText = `Confirm ${mfaType} Code`;
+  const headerText = I18n.get(`Confirm ${mfaType} Code`);
 
   return (
     <Form

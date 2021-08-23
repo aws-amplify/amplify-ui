@@ -1,4 +1,4 @@
-import { authMachine } from '@aws-amplify/ui-core';
+import { authMachine, getActorState } from '@aws-amplify/ui-core';
 import { useAmplify } from '../../hooks';
 import { useActor, useInterpret } from '@xstate/react';
 
@@ -10,6 +10,7 @@ import { ConfirmResetPassword, ResetPassword } from './ResetPassword';
 import { SetupTOTP } from './SetupTOTP';
 import { SignIn } from './SignIn';
 import { SignUp } from './SignUp';
+import { ConfirmVerifyUser, VerifyUser } from './VerifyUser';
 
 export function Authenticator({
   className = null,
@@ -36,6 +37,7 @@ export function Authenticator({
   if (state.matches('authenticated')) {
     return children({ state, send });
   }
+  const actorState = getActorState(state);
 
   return (
     <AuthenticatorContext.Provider value={service}>
@@ -44,24 +46,28 @@ export function Authenticator({
           switch (true) {
             case state.matches('idle'):
               return null;
-            case state.matches('confirmSignUp'):
+            case actorState?.matches('confirmSignUp'):
               return <ConfirmSignUp />;
-            case state.matches('confirmSignIn'):
+            case actorState?.matches('confirmSignIn'):
               return <ConfirmSignIn />;
-            case state.matches('setupTOTP'):
+            case actorState?.matches('setupTOTP'):
               return <SetupTOTP />;
-            case state.matches('signIn'):
+            case actorState?.matches('signIn'):
               return <SignIn />;
-            case state.matches('signUp'):
+            case actorState?.matches('signUp'):
               return <SignUp />;
-            case state.matches('forceNewPassword'):
+            case actorState?.matches('forceNewPassword'):
               return <ForceNewPassword />;
-            case state.matches('resetPassword'):
+            case actorState?.matches('resetPassword'):
               return <ResetPassword />;
-            case state.matches('confirmResetPassword'):
+            case actorState?.matches('confirmResetPassword'):
               return <ConfirmResetPassword />;
+            case actorState?.matches('verifyUser'):
+              return <VerifyUser />;
+            case actorState?.matches('confirmVerifyUser'):
+              return <ConfirmVerifyUser />;
             default:
-              console.warn('Unhandled Auth state', state);
+              console.warn('Unhandled Auth state', state.value);
               return null;
           }
         })()}

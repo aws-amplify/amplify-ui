@@ -124,9 +124,6 @@ You can also use the above link to report a bug or a feature request for previou
 
 As we continue to work on the new Amplify UI we will move UI-related issues in the amplify-js repository over here to work on them. We will continue to maintain major bug and security fixes for all existing UI packages and versions. New development for UI components will happen in this repository and eventually be published under the `@next` npm tag.
 
-**Why is this a new repository?**
-
-We are planning to build more cloud-connected components across multiple frameworks and platforms and it makes more sense to have a unified UI repository with components for all frameworks and platforms.
 
 ## Contributing
 
