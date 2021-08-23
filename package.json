@@ -27,7 +27,8 @@
     "angular-docs",
     "environments",
     "examples/*",
-    "packages/*"
+    "packages/*",
+    "legacy/*"
   ],
   "resolutions": {
     "@mdx-js/mdx/**/trim": "^0.0.3",

@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "@aws-amplify/ui-react",
+  "name": "@aws-amplify/ui-react-next",
   "version": "0.0.1",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

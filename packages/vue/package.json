@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "@aws-amplify/ui-vue",
+  "name": "@aws-amplify/ui-vue-next",
   "version": "0.0.1",
   "scripts": {
     "build": "echo \"Skipped\"",

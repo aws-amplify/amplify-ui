@@ -9,7 +9,7 @@
     "test": "$_ run build"
   },
   "dependencies": {
-    "@aws-amplify/ui-react-v1": "npm:@aws-amplify/ui-react",
+    "@aws-amplify/ui-react-v1": "npm:@aws-amplify/ui-react@1.2.10",
     "@cucumber/gherkin": "^19.0.3",
     "@cucumber/messages": "^16.0.1",
     "@headlessui/react": "^1.2.0",
