@@ -5,7 +5,7 @@ import {
   getActorContext,
 } from '@aws-amplify/ui-core';
 import { getAttributeMap } from '../../common';
-import { StateMachineService } from '../../services';
+import { StateMachineService } from '../../services/state-machine.service';
 
 /**
  * Contains an input element and its label. Intended to be used with
