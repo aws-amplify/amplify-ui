@@ -30,6 +30,24 @@
     line-height: var(--amplify-components-field-large-line-height);
   }
 
+  // variation styles
+  &[data-variation='quiet'] {
+    border-block-start: var(
+      --amplify-components-field-quiet-border-block-start
+    );
+    border-inline-start: var(
+      --amplify-components-field-quiet-border-inline-start
+    );
+    border-inline-end: var(--amplify-components-field-quiet-border-inline-end);
+    border-radius: var(--amplify-components-field-quiet-border-radius);
+    &:focus {
+      border-block-end-color: var(
+        --amplify-components-field-quiet-focus-border-block-end-color
+      );
+      box-shadow: var(--amplify-components-field-quiet-focus-box-shadow);
+    }
+  }
+
   // for disabled styles
   &[disabled] {
     cursor: var(--amplify-components-field-disabled-cursor);
