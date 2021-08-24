@@ -28,7 +28,6 @@
 .amplify-textfield__input {
   @extend %amplify-field;
   padding: var(--amplify-components-textfield-padding);
-  flex-grow: 1;
   border-radius: var(--amplify-components-field-border-radius);
 
   /* Required to override tailwind default styling */
