@@ -96,7 +96,8 @@ export function Feature({ name = required('Missing feature name') }) {
               This feature is not supported for this platform.{' '}
               <a href="https://github.com/aws-amplify/amplify-ui/issues/new/choose">
                 Open an issue
-              </a>
+              </a>{' '}
+              if you would like to see it added.
             </p>
           </div>
         </div>
