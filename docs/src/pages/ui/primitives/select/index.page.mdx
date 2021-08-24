@@ -110,19 +110,13 @@ import '@aws-amplify/ui-react/styles.css';
 
 ### Variation
 
-Select comes in 3 variants, `filled`, `flushed` and none(default). Pass the `variation` prop and set it to either of these values.
+Select comes in 2 variants, `flushed` and none(default). Pass the `variation` prop and set it to either of these values.
 
 ```jsx
 import { Select } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
 <Select defaultValue="" placeholder="Please select a fruit">
-  <option value="apple">Apple</option>
-  <option value="banana">Banana</option>
-  <option value="orange">Orange</option>
-</Select>;
-
-<Select defaultValue="" placeholder="Please select a fruit" variation="filled">
   <option value="apple">Apple</option>
   <option value="banana">Banana</option>
   <option value="orange">Orange</option>
@@ -145,15 +139,6 @@ import '@aws-amplify/ui-react/styles.css';
     <Select
       defaultValue=""
       placeholder="Please select a fruit"
-      variation="filled"
-    >
-      <option value="apple">Apple</option>
-      <option value="banana">Banana</option>
-      <option value="orange">Orange</option>
-    </Select>
-    <Select
-      defaultValue=""
-      placeholder="Please select a fruit"
       variation="flushed"
     >
       <option value="apple">Apple</option>
@@ -163,9 +148,52 @@ import '@aws-amplify/ui-react/styles.css';
   </Flex>
 </Example>
 
+### Placeholder
+
+You can set a placeholder option out of box via the `placeholder` props. The value for the placeholder option will set to empty string `""`. If you would like to pass your own placeholder with a custom value, then just simply leave it off and pass your custom one.
+
+```jsx
+import { Select } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+import { Select } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+// use the placeholder out of box
+<Select defaultValue="" placeholder="Please select a fruit">
+  <option value="apple">Apple</option>
+  <option value="banana">Banana</option>
+  <option value="orange">Orange</option>
+</Select>;
+
+// or pass a custom placeholder
+<Select defaultValue="">
+  <option value="DEFAULT">Please select a fruit</option>
+  <option value="apple">Apple</option>
+  <option value="banana">Banana</option>
+  <option value="orange">Orange</option>
+</Select>;
+```
+
+<Example>
+  <Flex direction="column">
+    <Select defaultValue="" placeholder="Please select a fruit">
+      <option value="apple">Apple</option>
+      <option value="banana">Banana</option>
+      <option value="orange">Orange</option>
+    </Select>
+    <Select defaultValue="">
+      <option value="DEFAULT">Please select a fruit</option>
+      <option value="apple">Apple</option>
+      <option value="banana">Banana</option>
+      <option value="orange">Orange</option>
+    </Select>
+  </Flex>
+</Example>
+
 ### Icon
 
-You can change the expand icon used in the select. Simply pass the the `icon` prop. Also, you can change the icon color by passing the `iconColor` prop.
+You can change the expand icon used in the select. Simply pass the `icon` prop. Also, you can change the icon color by passing the `iconColor` prop.
 
 ```jsx
 import { Select } from '@aws-amplify/ui-react';

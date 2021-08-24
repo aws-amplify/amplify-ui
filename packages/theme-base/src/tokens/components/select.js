@@ -3,13 +3,6 @@ module.exports = {
   transitionProperty: { value: 'background-color' },
   transitionDuration: { value: '{time.transition.medium.value}' },
   //variation
-  filled: {
-    borderColor: { value: '{colors.transparent.value}' },
-    backgroundColor: { value: '{colors.background.secondary.value}' },
-    _hover: {
-      backgroundColor: { value: '{colors.background.tertiary.value}' },
-    },
-  },
   flushed: {
     borderTop: { value: 'none' },
     borderLeft: { value: 'none' },

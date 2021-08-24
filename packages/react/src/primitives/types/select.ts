@@ -8,9 +8,9 @@ export type SelectSize = 'small' | 'large';
 export type SelectVariation = 'filled' | 'flushed';
 
 export interface SelectProps
-  extends BaseComponentProps,
-    BaseStyleProps,
-    AriaProps {
+  extends AriaProps,
+    BaseComponentProps,
+    BaseStyleProps {
   name?: string;
 
   defaultValue?: string;

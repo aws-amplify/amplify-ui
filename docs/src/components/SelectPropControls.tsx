@@ -4,7 +4,7 @@ import { Flex, Select, SelectProps } from '@aws-amplify/ui-react';
 
 import { FieldLabeler } from './FieldLabeler';
 
-export interface SelectPropContorlsProps extends SelectProps {
+export interface SelectPropControlsProps extends SelectProps {
   setSize: (value: React.SetStateAction<SelectProps['size']>) => void;
   setVariation: (value: React.SetStateAction<SelectProps['variation']>) => void;
   setIsDisabled: (
@@ -13,7 +13,7 @@ export interface SelectPropContorlsProps extends SelectProps {
 }
 
 interface SelectPropControlsInterface {
-  (props: SelectPropContorlsProps): JSX.Element;
+  (props: SelectPropControlsProps): JSX.Element;
 }
 
 export const SelectPropControls: SelectPropControlsInterface = ({
@@ -51,7 +51,6 @@ export const SelectPropControls: SelectPropControlsInterface = ({
             width="8rem"
           >
             <option value="">default</option>
-            <option value="filled">filled</option>
             <option value="flushed">flushed</option>
           </Select>
         </FieldLabeler>

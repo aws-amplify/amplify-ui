@@ -19,26 +19,4 @@
   width: var(--amplify-components-select-width);
   transition-property: var(--amplify-components-select-transition-property);
   transition-duration: var(--amplify-components-select-transition-duration);
-
-  &[data-variation='filled'] {
-    border-color: var(--amplify-components-select-filled-border-color);
-    background-color: var(--amplify-components-select-filled-background-color);
-    &:hover {
-      &:not(:disabled) {
-        background-color: var(
-          --amplify-components-select-filled-hover-background-color
-        );
-      }
-    }
-  }
-
-  &[data-variation='flushed'] {
-    border-top: var(--amplify-components-select-flushed-border-top);
-    border-left: var(--amplify-components-select-flushed-border-left);
-    border-right: var(--amplify-components-select-flushed-border-right);
-    border-radius: var(--amplify-components-select-flushed-border-radius);
-    &:focus {
-      box-shadow: var(--amplify-components-select-flushed-focus-box-shadow);
-    }
-  }
 }
