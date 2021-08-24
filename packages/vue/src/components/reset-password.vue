@@ -109,7 +109,6 @@ export default defineComponent({
 
     const submit = (e: Event): void => {
       const formData = new FormData(<HTMLFormElement>e.target);
-      console.log(Object.fromEntries(formData));
       send({
         type: 'SUBMIT',
         data: Object.fromEntries(formData),
