@@ -15,4 +15,12 @@ export type TextFieldType =
 
 export interface TextFieldProps extends InputProps, FieldProps, FlexStyleProps {
   type?: TextFieldType;
+  /**
+   * If value is provided, this will be a controlled TextField
+   */
+  value?: string;
+  /**
+   * Use this to provide a default value for an uncontrolled TextField
+   */
+  defaultValue?: string;
 }

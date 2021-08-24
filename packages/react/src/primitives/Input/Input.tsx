@@ -16,6 +16,13 @@ export const Input: React.FC<InputProps> = ({
   type = 'text',
   hasError,
   value,
+  onChange,
+  onBeforeInput,
+  onCopy,
+  onCut,
+  onInput,
+  onPaste,
+  onSelect,
   ...rest
 }) => (
   <View
@@ -31,6 +38,13 @@ export const Input: React.FC<InputProps> = ({
     required={isRequired}
     type={type}
     value={value}
+    onChange={onChange}
+    onBeforeInput={onBeforeInput}
+    onCopy={onCopy}
+    onCut={onCut}
+    onInput={onInput}
+    onPaste={onPaste}
+    onSelect={onSelect}
     {...rest}
   />
 );
