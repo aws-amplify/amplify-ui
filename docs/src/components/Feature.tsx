@@ -49,7 +49,9 @@ function getGitHubUrlForExample(platform) {
       return `https://github.com/aws-amplify/amplify-ui/tree/${process.env.BRANCH}/examples/vue/src/pages`;
 
     default:
-      throw new Error(`Examples folder not defined for ${platform}`);
+      console.error(
+        `Examples folder not defined for ${platform}. Please open an issue: https://github.com/aws-amplify/amplify-ui/issues/choose`
+      );
   }
 }
 
