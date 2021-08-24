@@ -27,14 +27,27 @@ export const Fragment = ({ children }) => {
       loading({ error, isLoading }) {
         if (error) {
           return (
-            <div className="px-4 py-1 my-6 rounded-md bg-yellow-50">
-              <h3 className="text-sm font-medium text-yellow-800">
-                {error.message.includes('Cannot find module') ? (
-                  <>Missing content for {platform}</>
-                ) : (
-                  error.message
-                )}
-              </h3>
+            <div className="p-4 rounded-md bg-yellow-50">
+              <div className="flex">
+                <div className="flex-shrink-0">
+                  <ExclamationIcon
+                    className="w-5 h-5 text-yellow-400"
+                    aria-hidden="true"
+                  />
+                </div>
+                <div className="ml-3">
+                  <p className="m-0 text-sm font-medium text-yellow-800">
+                    {error.message.includes('Cannot find module') ? (
+                      <>Content missing for {platform}.</>
+                    ) : (
+                      error.message
+                    )}{' '}
+                    <a href="https://github.com/aws-amplify/amplify-ui/issues/new/choose">
+                      Please open an issue.
+                    </a>
+                  </p>
+                </div>
+              </div>
             </div>
           );
         }

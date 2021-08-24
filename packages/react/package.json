@@ -2,14 +2,21 @@
   "private": true,
   "name": "@aws-amplify/ui-react",
   "version": "0.0.1",
-  "main": "dist/index.js",
+  "type": "module",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "exports": {
+    ".": "./dist/index.js",
+    "./styles.css": "./dist/index.css"
+  },
   "types": "dist/index.d.ts",
   "files": [
-    "dist/*.{js,ts}",
-    "dist/**/*.{js,ts}"
+    "dist"
   ],
   "scripts": {
-    "build": "tsc",
+    "prebuild": "rimraf dist",
+    "build": "tsup --minify",
+    "dev": "tsup --watch src",
     "update:icons": "node scripts/updateIcons.js",
     "build:icons": "yarn run clean:icons && node scripts/generateIcons.js",
     "clean": "rimraf dist",
@@ -21,15 +28,19 @@
     "test:unit:watch": "jest --watch"
   },
   "dependencies": {
+    "@aws-amplify/ui-core": "^0.0.1",
+    "@aws-amplify/ui-theme-base": "^0.0.1",
     "@xstate/react": "^1.4.0",
     "autoprefixer": "^10.3.1",
     "classnames": "^2.3.1",
     "postcss-js": "^3.0.3",
-    "qrcode": "^1.4.4"
+    "qrcode": "^1.4.4",
+    "@aws-amplify/ui-react-v1": "npm:@aws-amplify/ui-react@1.2.9"
   },
   "peerDependencies": {
-    "@aws-amplify/ui-core": "^0.0.1",
-    "@aws-amplify/ui-theme-base": "^0.0.1"
+    "aws-amplify": "3.x.x || 4.x.x",
+    "react": ">= 16.8.0",
+    "react-dom": ">= 16.8.0"
   },
   "workspaces": {
     "nohoist": [

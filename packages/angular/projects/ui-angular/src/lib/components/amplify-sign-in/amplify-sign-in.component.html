@@ -10,12 +10,12 @@
   <form data-amplify-form (submit)="onSubmit($event)" (input)="onInput($event)">
     <fieldset data-amplify-fieldset [disabled]="isPending">
       <amplify-user-name-alias></amplify-user-name-alias>
-      <amplify-input
+      <amplify-form-input
         data-amplify-password
         name="password"
         type="password"
         autocomplete="current-password"
-      ></amplify-input>
+      ></amplify-form-input>
 
       <div data-amplify-footer>
         <div>
