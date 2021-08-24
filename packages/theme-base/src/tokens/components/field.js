@@ -3,7 +3,6 @@ module.exports = {
   borderColor: { value: '{colors.border.primary.value}' },
   borderWidth: { value: '{borderWidths.small.value}' },
   borderRadius: { value: '{radii.medium.value}' },
-  boxSizing: { value: 'border-box' },
   padding: { value: ['{space.xs.value}', '{space.medium.value}'] },
   fontSize: { value: '{fontSizes.medium.value}' },
   lineHeight: { value: '{lineHeights.medium.value}' },
@@ -24,8 +23,14 @@ module.exports = {
   },
 
   _focus: {
-    borderColor: { value: 'hsl(220, 50%, 50%)' },
-    boxShadow: { value: '0 0 1px 2px hsl(220, 50%, 50%)' },
+    // These focus styles have been calibrated to create
+    // highly visible focus indicator per WCAG 2.1 guidliness:
+    // See: https://www.w3.org/WAI/WCAG21/Techniques/general/G195.html
+    // * Focus indicator area is at least the 1 CSS px border around the component.
+    // * contrast of the indicator between focused and unfocused states has a ratio of 3:1 for the minimum focus indicator area.
+
+    borderColor: { value: '{colors.focus.value}' },
+    boxShadow: { value: '{colors.focus.value} 0px 0px 0px 1px' },
   },
   _disabled: {
     cursor: { value: 'not-allowed' },

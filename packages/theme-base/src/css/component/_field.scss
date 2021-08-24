@@ -1,8 +1,9 @@
 %amplify-field {
-  padding: var(--amplify-components-field-padding);
+  box-sizing: border-box;
   font-size: var(--amplify-components-field-font-size);
   line-height: var(--amplify-components-field-line-height);
-  box-sizing: var(--amplify-components-field-box-sizing);
+  padding: var(--amplify-components-field-padding);
+
   // for border
   border-color: var(--amplify-components-field-border-color);
   border-radius: var(--amplify-components-field-border-radius);
@@ -15,8 +16,8 @@
   outline-width: var(--amplify-components-field-outline-width);
   outline-offset: var(--amplify-components-field-outline-offset);
   &:focus {
-    box-shadow: var(--amplify-components-field-focus-box-shadow);
     border-color: var(--amplify-components-field-focus-border-color);
+    box-shadow: var(--amplify-components-field-focus-box-shadow);
   }
 
   &[data-size='small'] {
