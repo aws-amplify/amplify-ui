@@ -1,11 +1,11 @@
 {
   "private": true,
-  "name": "@aws-amplify/ui-angular",
+  "name": "amplify-ui-angular-mono",
   "version": "0.0.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --prod",
     "test": "echo \"Skipped: ng test\"",
     "lint": "ng lint"
   },
@@ -18,9 +18,6 @@
     "@angular/platform-browser": "~11.2.4",
     "@angular/platform-browser-dynamic": "~11.2.4",
     "@angular/router": "~11.2.4",
-    "@aws-amplify/ui-components": "^1.7.0",
-    "@stencil/core": "^2.7.0",
-    "qrcode": "^1.4.4",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.3"
@@ -43,13 +40,15 @@
     "protractor": "~7.0.0",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
-    "typescript": "~4.1.5",
-    "xstate": "^4.20.1"
+    "typescript": "~4.1.5"
   },
   "workspaces": {
     "nohoist": [
       "@angular-devkit/build-angular"
     ]
   },
-  "typings": "./dist/ui-angular/index.d.ts"
+  "typings": "./dist/ui-angular/index.d.ts",
+  "publishConfig": {
+    "directory": "dist/ui-angular"
+  }
 }

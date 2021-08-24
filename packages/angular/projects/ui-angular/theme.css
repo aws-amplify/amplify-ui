@@ -23,7 +23,7 @@
   background-color: white;
 }
 
-[data-amplify-input] {
+[data-amplify-form-input] {
   border-style: solid;
   display: block;
   padding: 0.875rem;
@@ -34,7 +34,7 @@
   border-radius: 2px;
 }
 
-[data-amplify-input]:focus {
+[data-amplify-form-input]:focus {
   outline: none;
   border: 1px solid cornflowerblue;
 }
