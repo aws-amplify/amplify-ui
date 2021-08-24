@@ -26,3 +26,8 @@ export const RESEND_CODE_TEXT = 'Resend Code';
 export const BACK_SIGN_IN_TEXT = 'Back to Sign In';
 export const CONFIRM_TEXT = 'CONFIRM';
 export const SETUP_TOTP_TEXT = 'Setup TOTP';
+
+export const RESET_PASSWORD_HEADING = 'Reset your Password';
+export const RESET_PASSWORD_TEXT = 'Send Code';
+export const CONFIRM_RESET_PASSWORD_HEADING = 'Reset your Password';
+export const CONFIRM_RESET_PASSWORD_TEXT = 'Submit';
