@@ -1,26 +1,23 @@
 import classNames from 'classnames';
 import * as React from 'react';
 import { ComponentClassNames } from '../shared';
-import { InputProps } from '../types';
+import { InputProps } from '../types/input';
 import { View } from '../View';
 
-export const Input: React.FC<InputProps> = (
-  {
-    autoComplete,
-    className,
-    defaultValue,
-    id,
-    isDisabled,
-    isReadOnly,
-    isRequired,
-    size,
-    type = 'text',
-    hasError,
-    value,
-    ...rest
-  },
-  ref
-) => (
+export const Input: React.FC<InputProps> = ({
+  autoComplete,
+  className,
+  defaultValue,
+  id,
+  isDisabled,
+  isReadOnly,
+  isRequired,
+  size,
+  type = 'text',
+  hasError,
+  value,
+  ...rest
+}) => (
   <View
     as="input"
     aria-invalid={hasError}
