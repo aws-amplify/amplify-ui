@@ -29,13 +29,14 @@
   },
   "dependencies": {
     "@aws-amplify/ui-core": "^0.0.1",
+    "@aws-amplify/ui-react-v1": "npm:@aws-amplify/ui-react@1.2.9",
     "@aws-amplify/ui-theme-base": "^0.0.1",
+    "@radix-ui/react-tabs": "0.0.16",
     "@xstate/react": "^1.4.0",
     "autoprefixer": "^10.3.1",
     "classnames": "^2.3.1",
     "postcss-js": "^3.0.3",
-    "qrcode": "^1.4.4",
-    "@aws-amplify/ui-react-v1": "npm:@aws-amplify/ui-react@1.2.9"
+    "qrcode": "^1.4.4"
   },
   "peerDependencies": {
     "aws-amplify": "3.x.x || 4.x.x",

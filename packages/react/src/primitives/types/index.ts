@@ -11,4 +11,5 @@ export * from './pagination';
 export * from './placeholder';
 export * from './rating';
 export * from './style';
+export * from './tabs';
 export * from './view';

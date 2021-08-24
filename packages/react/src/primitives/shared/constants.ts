@@ -10,6 +10,7 @@ export enum ComponentClassNames {
   Pagination = 'amplify-pagination',
   Placeholder = 'amplify-placeholder',
   Rating = 'amplify-rating',
+  Tabs = 'amplify-tabs',
   Text = 'amplify-text',
   View = 'amplify-view',
 }
