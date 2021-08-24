@@ -27,6 +27,7 @@
   &:focus {
     border-color: var(--amplify-components-button-focus-border-color);
     color: var(--amplify-components-button-focus-color);
+    box-shadow: var(--amplify-components-button-focus-box-shadow);
   }
 
   &:active {
@@ -122,14 +123,12 @@
   }
 
   &[data-size='small'] {
-    border-radius: var(--amplify-components-button-small-border-radius);
     font-size: var(--amplify-components-button-small-font-size);
     line-height: var(--amplify-components-button-small-font-size);
     padding: var(--amplify-components-button-small-padding);
   }
 
   &[data-size='large'] {
-    border-radius: var(--amplify-components-button-large-border-radius);
     font-size: var(--amplify-components-button-large-font-size);
     line-height: var(--amplify-components-button-large-font-size);
     padding: var(--amplify-components-button-large-padding);

@@ -13,13 +13,14 @@ module.exports = {
   color: { value: '{colors.brand.primary.80.value}' },
 
   _hover: {
-    color: { value: '{colors.brand.primary.90.value}' },
+    color: { value: '{colors.focus.value}' },
     backgroundColor: { value: '{colors.brand.primary.10.value}' },
     borderColor: { value: '{colors.brand.primary.60.value}' },
   },
   _focus: {
-    color: { value: '{colors.brand.primary.90.value}' },
-    borderColor: { value: '{colors.brand.primary.90.value}' },
+    color: { value: '{colors.focus.value}' },
+    borderColor: { value: '{colors.focus.value}' },
+    boxShadow: { value: '{colors.focus.value} 0px 0px 0px 1px' },
   },
   _active: {
     color: { value: '{colors.font.inverse.value}' },
@@ -87,12 +88,10 @@ module.exports = {
     fontSize: { value: '{components.field.small.fontSize.value}' },
     lineHeight: { value: '{components.field.small.fontSize.value}' },
     padding: { value: '{components.field.small.padding.value}' },
-    borderRadius: { value: '{components.field.small.borderRadius.value}' },
   },
   large: {
     fontSize: { value: '{components.field.large.fontSize.value}' },
     lineHeight: { value: '{components.field.large.fontSize.value}' },
     padding: { value: '{components.field.large.padding.value}' },
-    borderRadius: { value: '{components.field.large.borderRadius.value}' },
   },
 };
