@@ -1,8 +1,8 @@
 #!/bin/sh
-branch="$(git rev-parse --abbrev-ref HEAD)"
+branch="$(git branch --show-current)"
 
 if [ "$branch" = "main" ]; then
-  echo "You can't commit directly to main branch"
+  echo "Direct commits to main branch is not allowed."
   exit 1
 fi
 
