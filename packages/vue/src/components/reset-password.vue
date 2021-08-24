@@ -71,7 +71,7 @@ import {
   RESET_PASSWORD_TEXT,
 } from '../defaults/DefaultTexts';
 import { ResetPasswordSetupReturnTypes, SetupEventContext } from '../types';
-import { getActorState, SignInState } from '@aws-amplify/ui-core';
+import { getActorState, ResetPasswordState } from '@aws-amplify/ui-core';
 
 export default defineComponent({
   components: {
@@ -90,9 +90,9 @@ export default defineComponent({
   inheritAttrs: false,
   setup(_, { emit, attrs }: SetupEventContext): ResetPasswordSetupReturnTypes {
     const { state, send } = useAuth();
-    const actorState: ComputedRef<SignInState> = computed(() =>
+    const actorState: ComputedRef<ResetPasswordState> = computed(() =>
       getActorState(state.value)
-    );
+    ) as ComputedRef<ResetPasswordState>;
     // Computed Properties
     const backSignInText = computed(() => BACK_SIGN_IN_TEXT);
     const resetPasswordHeading = computed(() => RESET_PASSWORD_HEADING);

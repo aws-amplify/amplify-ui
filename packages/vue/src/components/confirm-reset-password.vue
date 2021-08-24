@@ -98,7 +98,7 @@ import {
   ConfirmResetPasswordSetupReturnTypes,
   SetupEventContext,
 } from '../types';
-import { getActorState, SignInState } from '@aws-amplify/ui-core';
+import { getActorState, ResetPasswordState } from '@aws-amplify/ui-core';
 
 export default defineComponent({
   components: {
@@ -120,9 +120,9 @@ export default defineComponent({
     { emit, attrs }: SetupEventContext
   ): ConfirmResetPasswordSetupReturnTypes {
     const { state, send } = useAuth();
-    const actorState: ComputedRef<SignInState> = computed(() =>
+    const actorState: ComputedRef<ResetPasswordState> = computed(() =>
       getActorState(state.value)
-    );
+    ) as ComputedRef<ResetPasswordState>;
     // Computed Properties
     const backSignInText = computed(() => BACK_SIGN_IN_TEXT);
     const lostYourCodeText = computed(() => LOST_YOUR_CODE_TEXT);

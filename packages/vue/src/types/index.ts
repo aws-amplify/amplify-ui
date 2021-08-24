@@ -5,6 +5,7 @@ import {
   AuthEvent,
   AuthInputAttributes,
   FederatedIdentityProviders,
+  ResetPasswordState,
   SignInState,
   SignUpState,
 } from '@aws-amplify/ui-core';
@@ -148,7 +149,7 @@ export interface ResetPasswordSetupReturnTypes {
   resetPasswordText: ComputedRef<string>;
   resetPasswordHeading: ComputedRef<string>;
   backSignInText: ComputedRef<string>;
-  actorState: ComputedRef<SignInState>;
+  actorState: ComputedRef<ResetPasswordState>;
 }
 
 export interface ConfirmResetPasswordSetupReturnTypes {
@@ -157,7 +158,7 @@ export interface ConfirmResetPasswordSetupReturnTypes {
   submit: (e: Event) => void;
   onLostYourCodeClicked: () => void;
   onChange: (e: Event) => void;
-  actorState: ComputedRef<SignInState>;
+  actorState: ComputedRef<ResetPasswordState>;
   backSignInText: ComputedRef<string>;
   lostYourCodeText: ComputedRef<string>;
   resendCodeText: ComputedRef<string>;
