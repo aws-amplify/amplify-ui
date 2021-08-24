@@ -26,7 +26,7 @@ export interface InputProps
   /**
    * Use this to provide a default value for an uncontrolled field
    */
-  defaultValue?: string;
+  defaultValue?: string | number | readonly string[];
 
   /**
    * Indicates that Field is in error state
@@ -63,20 +63,39 @@ export interface InputProps
    */
   name?: string;
 
-  // /**
-  //  * Input change event handler
-  //  */
-  // onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  /**
+   * Input change event handler
+   */
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  /**
+   *
+   */
+  onInput?: React.FormEventHandler<HTMLInputElement>;
 
-  // /**
-  //  * Input blur event handler
-  //  */
-  // onBlur?: React.ChangeEventHandler<HTMLInputElement>;
+  /**
+   *
+   */
+  onBeforeInput?: React.FormEventHandler<HTMLInputElement>;
 
-  // /**
-  //  * Input focus event handler
-  //  */
-  onFocus?: React.FocusEventHandler<HTMLInputElement>;
+  /**
+   * Copy clipboard event
+   */
+  onCopy?: React.ClipboardEventHandler<HTMLInputElement>;
+
+  /**
+   * Cut clipboard event
+   */
+  onCut?: React.ClipboardEventHandler<HTMLInputElement>;
+
+  /**
+   * Paste clipboard event
+   */
+  onPaste?: React.ClipboardEventHandler<HTMLInputElement>;
+
+  /**
+   * Selection event
+   */
+  onSelect?: React.FormEventHandler<HTMLInputElement>;
 
   /**
    * Placeholder text shown when field is empty
@@ -89,7 +108,7 @@ export interface InputProps
   /**
    * Changes the font-size, padding, and height of the field.
    */
-  size?: Sizes;
+  visualSize?: Sizes;
 
   /**
    * Input type
@@ -98,9 +117,9 @@ export interface InputProps
   type?: string;
 
   /**
-   * If value is provided, this will be a controlled TextField
+   * If value is provided, this will be a controlled field
    */
-  value?: string;
+  value?: string | number | readonly string[];
 
   /**
    * Variants
