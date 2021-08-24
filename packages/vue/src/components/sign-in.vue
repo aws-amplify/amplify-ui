@@ -198,8 +198,7 @@ export default {
       if (attrs?.onForgotPasswordClicked) {
         emit('forgotPasswordClicked');
       } else {
-        // Future
-        console.log('you clicked the reset password link');
+        send({ type: 'RESET_PASSWORD' });
       }
     };
 

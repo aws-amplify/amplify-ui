@@ -104,6 +104,8 @@ export interface AuthenticatorSetupReturnTypes {
   onConfirmSignInSubmitI: (e: Event) => void;
   onConfirmSetupTOTPSubmitI: (e: Event) => void;
   onForceNewPasswordSubmitI: (e: Event) => void;
+  onResetPasswordSubmitI: (e: Event) => void;
+  onConfirmResetPasswordSubmitI: (e: Event) => void;
 }
 
 export interface AliasControlTypes {
@@ -136,4 +138,30 @@ export type InternalSlots = {
 
 export interface PrimitiveSlotReturnType {
   mySlots: Readonly<InternalSlots>;
+}
+
+export interface ResetPasswordSetupReturnTypes {
+  onResetPasswordSubmit: (e: Event) => void;
+  onBackToSignInClicked: () => void;
+  submit: (e: Event) => void;
+  onChange: (e: Event) => void;
+  resetPasswordText: ComputedRef<string>;
+  resetPasswordHeading: ComputedRef<string>;
+  backSignInText: ComputedRef<string>;
+  actorState: ComputedRef<SignInState>;
+}
+
+export interface ConfirmResetPasswordSetupReturnTypes {
+  onConfirmResetPasswordSubmit: (e: Event) => void;
+  onBackToSignInClicked: () => void;
+  submit: (e: Event) => void;
+  onLostYourCodeClicked: () => void;
+  onChange: (e: Event) => void;
+  actorState: ComputedRef<SignInState>;
+  backSignInText: ComputedRef<string>;
+  lostYourCodeText: ComputedRef<string>;
+  resendCodeText: ComputedRef<string>;
+  confirmationCodeText: ComputedRef<string>;
+  confirmResetPasswordText: ComputedRef<string>;
+  confirmResetPasswordHeading: ComputedRef<string>;
 }
