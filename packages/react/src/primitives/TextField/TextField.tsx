@@ -1,16 +1,15 @@
 import classNames from 'classnames';
-import React from 'react';
+import * as React from 'react';
 import { Flex } from '../Flex';
 import { Label } from '../Label';
 import { ComponentClassNames } from '../shared';
 import { TextFieldProps } from '../types';
-import { View } from '../View';
 import { Text } from '../Text';
-import { useTextField } from '@react-aria/textfield';
+import { Input } from '../Input';
+import { nanoid } from 'nanoid';
 
 export const TextField: React.FC<TextFieldProps> = (props) => {
   let {
-    id,
     alignContent,
     alignItems,
     autoComplete,
@@ -19,26 +18,34 @@ export const TextField: React.FC<TextFieldProps> = (props) => {
     descriptiveText,
     direction = 'column',
     gap,
-    hasError,
+    hasError = false,
+    id,
     isDisabled,
     isReadOnly,
     isRequired,
     justifyContent,
     label,
     labelHidden = false,
-    // onBlur,
-    // onChange,
-    // onFocus,
-    size,
     type = 'text',
     value,
+    visualSize,
+    onChange,
+    onBeforeInput,
+    onCopy,
+    onCut,
+    onInput,
+    onPaste,
+    onSelect,
     wrap,
     ...rest
   } = props;
-  let ref = React.useRef<HTMLInputElement>();
-  let textField = useTextField(props, ref);
-  let inputProps =
-    textField.inputProps as React.InputHTMLAttributes<HTMLInputElement>;
+
+  const fieldId = React.useMemo(() => {
+    if (id) {
+      return id;
+    }
+    return `amplify-field-${nanoid()}`;
+  }, []);
 
   return (
     <Flex
@@ -48,40 +55,41 @@ export const TextField: React.FC<TextFieldProps> = (props) => {
       data-disabled={isDisabled}
       data-readonly={isReadOnly}
       data-required={isRequired}
-      data-size={size}
+      data-size={visualSize}
       direction={direction}
       gap={gap}
       justifyContent={justifyContent}
       wrap={wrap}
     >
-      {labelHidden ? null : (
-        <Label htmlFor={id} {...textField.labelProps}>
-          {label}
-        </Label>
-      )}
-      {descriptiveText ? (
+      <Label
+        htmlFor={fieldId}
+        className={classNames({ 'sr-only': labelHidden })}
+      >
+        {label}
+      </Label>
+      {!labelHidden && descriptiveText ? (
         <Text className={ComponentClassNames.TextFieldDescription}>
           {descriptiveText}
         </Text>
       ) : null}
       <Flex className={ComponentClassNames.FieldWrapper}>
-        <input
-          id={id}
-          ref={ref}
-          autoComplete={autoComplete}
-          aria-label={labelHidden ? label.toString() : null}
+        <Input
           className={ComponentClassNames.TextFieldInput}
           defaultValue={defaultValue}
-          disabled={isDisabled}
-          // onBlur={onBlur}
-          // onChange={onChange}
-          // onFocus={onFocus}
-          readOnly={isReadOnly}
-          required={isRequired}
-          type={type}
+          hasError={hasError}
+          id={fieldId}
+          isDisabled={isDisabled}
+          isReadOnly={isReadOnly}
+          isRequired={isRequired}
+          visualSize={visualSize}
           value={value}
-          data-size={size}
-          {...inputProps}
+          onChange={onChange}
+          onBeforeInput={onBeforeInput}
+          onCopy={onCopy}
+          onCut={onCut}
+          onInput={onInput}
+          onPaste={onPaste}
+          onSelect={onSelect}
           {...rest}
         />
       </Flex>
