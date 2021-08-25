@@ -69,6 +69,7 @@ export const getConsecutiveIntArray = (start: number, end: number) => {
   const length = end - start + 1;
   return Array.from({ length }, (_, idx) => idx + start);
 };
+
 /**
  * Create a uuid to use with amplify fields unless
  * an id is already defined

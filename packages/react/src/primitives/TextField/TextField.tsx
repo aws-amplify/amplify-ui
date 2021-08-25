@@ -57,7 +57,9 @@ export const TextField: React.FC<TextFieldProps> = (props) => {
     >
       <Label
         htmlFor={fieldId}
-        className={classNames({ 'sr-only': labelHidden })}
+        className={classNames(ComponentClassNames.FieldLabel, {
+          'sr-only': labelHidden,
+        })}
       >
         {label}
       </Label>
