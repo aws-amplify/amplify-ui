@@ -4,5 +4,6 @@
   "env": {
     "TAGS": "not @skip"
   },
-  "testFiles": "**/*.feature"
+  "integrationFolder": "features",
+  "testFiles": "**/*.{feature,features}"
 }

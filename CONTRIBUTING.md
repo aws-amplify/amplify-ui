@@ -55,7 +55,7 @@ Internally, this content is served by a single, Next.js [optional catch all rout
 
 ### E2E Testing
 
-1. Create or Update a `${feature}.feature` file (using [Gherkin](https://cucumber.io/docs/gherkin/reference/)) describing the behavior in [`packages/e2e/cypress/integration/${slug}`](packages/e2e/cypress/integration).
+1. Create or Update a `${feature}.feature` file (using [Gherkin](https://cucumber.io/docs/gherkin/reference/)) describing the behavior in [`packages/e2e/features/${slug}`](packages/e2e/features).
 
    ```gherkin
    Feature: My new feature
@@ -70,7 +70,7 @@ Internally, this content is served by a single, Next.js [optional catch all rout
        Then I see "THE DESIRED BEHAVIOR"
    ```
 
-1. Create or Update the accompanying `${slug}.feature` tests (e.g. `packages/e2e/cypress/integration/${slug}/${feature}/${feature}.ts`
+1. Create or Update the accompanying `${slug}.feature` tests (e.g. `packages/e2e/cypress/integration/${slug}/${feature}/${feature}.steps.ts`
 1. Start one of the [examples](examples).
 1. Run `yarn e2e dev` to load Cypress
 1. Click on your updated `${feature}.feature` file to validate your changes
