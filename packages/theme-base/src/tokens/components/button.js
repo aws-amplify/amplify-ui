@@ -3,7 +3,7 @@ module.exports = {
   fontWeight: { value: 'bold' },
   textAlign: { value: 'center' },
   borderRadius: { value: '{components.field.borderRadius.value}' },
-  transitionDuration: { value: '{time.transition.medium.value}' },
+  transitionDuration: { value: '{components.field.transitionDuration.value}' },
   fontSize: { value: '{components.field.fontSize.value}' },
   lineHeight: { value: '{components.field.fontSize.value}' },
   padding: { value: ['{space.small.value}', '{space.medium.value}'] },

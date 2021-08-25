@@ -134,3 +134,9 @@
     padding: var(--amplify-components-button-large-padding);
   }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .amplify-button {
+    transition: none;
+  }
+}

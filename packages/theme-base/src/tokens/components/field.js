@@ -6,6 +6,7 @@ module.exports = {
   padding: { value: ['{space.xs.value}', '{space.medium.value}'] },
   fontSize: { value: '{fontSizes.medium.value}' },
   lineHeight: { value: '{lineHeights.medium.value}' },
+  transitionDuration: { value: '{time.transition.medium.value}' },
   outlineColor: { value: '{colors.transparent.value}' },
   outlineStyle: { value: 'solid' },
   outlineWidth: { value: '{outlineWidths.medium.value}' },
@@ -31,6 +32,12 @@ module.exports = {
       borderBlockEndColor: { value: '{colors.focus.value}' },
       boxShadow: { value: '0 1px {colors.focus.value}' },
     },
+    _error: {
+      borderBlockEndColor: { value: '{colors.error.value}' },
+      _focus: {
+        boxShadow: { value: '0 1px {colors.error.value}' },
+      },
+    },
   },
 
   _focus: {
@@ -50,5 +57,11 @@ module.exports = {
     cursor: { value: 'not-allowed' },
     borderColor: { value: '{colors.transparent.value}' },
     backgroundColor: { value: '{colors.background.tertiary.value}' },
+  },
+  _error: {
+    borderColor: { value: '{colors.error.value}' },
+    _focus: {
+      boxShadow: { value: '0px 0px 0px 1px {colors.error.value}' },
+    },
   },
 };

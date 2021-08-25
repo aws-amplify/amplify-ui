@@ -14,10 +14,10 @@ export const Input: React.FC<InputProps> = ({
   isRequired,
   size,
   type = 'text',
-  hasError,
+  hasError = false,
   value,
+  variation,
   onChange,
-  onBeforeInput,
   onCopy,
   onCut,
   onInput,
@@ -26,25 +26,25 @@ export const Input: React.FC<InputProps> = ({
   ...rest
 }) => (
   <View
-    as="input"
     aria-invalid={hasError}
+    as="input"
     autoComplete={autoComplete}
     className={classNames(ComponentClassNames.TextFieldInput, className)}
     data-size={size}
+    data-variation={variation}
     defaultValue={defaultValue}
     disabled={isDisabled}
     id={id}
-    readOnly={isReadOnly}
-    required={isRequired}
-    type={type}
-    value={value}
     onChange={onChange}
-    onBeforeInput={onBeforeInput}
     onCopy={onCopy}
     onCut={onCut}
     onInput={onInput}
     onPaste={onPaste}
     onSelect={onSelect}
+    readOnly={isReadOnly}
+    required={isRequired}
+    type={type}
+    value={value}
     {...rest}
   />
 );

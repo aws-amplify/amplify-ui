@@ -73,11 +73,6 @@ export interface InputProps
   onInput?: React.FormEventHandler<HTMLInputElement>;
 
   /**
-   *
-   */
-  onBeforeInput?: React.FormEventHandler<HTMLInputElement>;
-
-  /**
    * Copy clipboard event
    */
   onCopy?: React.ClipboardEventHandler<HTMLInputElement>;
@@ -108,7 +103,7 @@ export interface InputProps
   /**
    * Changes the font-size, padding, and height of the field.
    */
-  visualSize?: Sizes;
+  size?: Sizes;
 
   /**
    * Input type
@@ -124,5 +119,5 @@ export interface InputProps
   /**
    * Variants
    */
-  variations?: FieldVariations;
+  variation?: FieldVariations;
 }

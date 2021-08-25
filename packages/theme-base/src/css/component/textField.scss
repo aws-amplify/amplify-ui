@@ -15,13 +15,10 @@
   // Required to override docs styling
   // css-s90uia p { margin-bottom: 1rem; }
   // @TODO: remove styling from docs
-  .amplify-textfield__description {
+  .amplify-field__description,
+  .amplify-field__error-message {
     margin: 0;
   }
-}
-.amplify-textfield__description {
-  font-style: italic;
-  font-size: 0.8rem;
 }
 // This is required to increase specificity to override Tailwind styles in Docs
 // TODO: unnest this class once Tailwind is removed

@@ -17,6 +17,7 @@ export const TextField: React.FC<TextFieldProps> = (props) => {
     defaultValue,
     descriptiveText,
     direction = 'column',
+    errorMessage,
     gap,
     hasError = false,
     id,
@@ -28,9 +29,8 @@ export const TextField: React.FC<TextFieldProps> = (props) => {
     labelHidden = false,
     type = 'text',
     value,
-    visualSize,
+    size,
     onChange,
-    onBeforeInput,
     onCopy,
     onCut,
     onInput,
@@ -55,7 +55,7 @@ export const TextField: React.FC<TextFieldProps> = (props) => {
       data-disabled={isDisabled}
       data-readonly={isReadOnly}
       data-required={isRequired}
-      data-size={visualSize}
+      data-size={size}
       direction={direction}
       gap={gap}
       justifyContent={justifyContent}
@@ -68,12 +68,13 @@ export const TextField: React.FC<TextFieldProps> = (props) => {
         {label}
       </Label>
       {!labelHidden && descriptiveText ? (
-        <Text className={ComponentClassNames.TextFieldDescription}>
+        <Text className={ComponentClassNames.FieldDescription}>
           {descriptiveText}
         </Text>
       ) : null}
       <Flex className={ComponentClassNames.FieldWrapper}>
         <Input
+          aria-labeledby={fieldId}
           className={ComponentClassNames.TextFieldInput}
           defaultValue={defaultValue}
           hasError={hasError}
@@ -81,10 +82,10 @@ export const TextField: React.FC<TextFieldProps> = (props) => {
           isDisabled={isDisabled}
           isReadOnly={isReadOnly}
           isRequired={isRequired}
-          visualSize={visualSize}
+          size={size}
+          type={type}
           value={value}
           onChange={onChange}
-          onBeforeInput={onBeforeInput}
           onCopy={onCopy}
           onCut={onCut}
           onInput={onInput}
@@ -93,6 +94,11 @@ export const TextField: React.FC<TextFieldProps> = (props) => {
           {...rest}
         />
       </Flex>
+      {hasError && errorMessage ? (
+        <Text className={ComponentClassNames.FieldErrorMessage}>
+          {errorMessage}
+        </Text>
+      ) : null}
     </Flex>
   );
 };

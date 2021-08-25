@@ -15,6 +15,7 @@ export enum ComponentClassNames {
   TextFieldInput = 'amplify-textfield__input',
   FieldWrapper = 'amplify-textfield-wrapper',
   TextFieldLabel = 'amplify-textfield__label',
-  TextFieldDescription = 'amplify-textfield__description',
+  FieldDescription = 'amplify-field__description',
+  FieldErrorMessage = 'amplify-field__error-message',
   View = 'amplify-view',
 }
