@@ -1,0 +1,22 @@
+.track {
+  display: inline-flex;
+  justify-content: flex-start;
+  box-sizing: content-box;
+  cursor: pointer;
+  border-radius: 9999px;
+  padding: 2px;
+  width: 2rem;
+  height: 1rem;
+  transition-duration: 150ms;
+  background: #cbd5e0;
+}
+
+.thumb {
+  background: #fff;
+  transition-duration: 200ms;
+  border-radius: inherit;
+  width: 1rem;
+  height: 1rem;
+  border-color: #e2e8f0;
+  overflow-wrap: break-word;
+}

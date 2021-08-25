@@ -11,6 +11,7 @@ export * from './Pagination';
 export * from './Placeholder';
 export * from './Rating';
 export * from './Select';
+export * from './Switch';
 export * from './Text';
 export * from './TextField';
 export * from './View';
