@@ -8,12 +8,12 @@
     "next-example": "0.1.0",
     "vue-example": "0.1.0",
     "amplify-ui-angular-mono": "0.0.1",
-    "@aws-amplify/ui-angular": "0.0.1",
+    "@aws-amplify/ui-angular": "2.0.1",
     "@aws-amplify/ui-core": "0.0.1",
     "e2e": "0.0.1",
-    "@aws-amplify/ui-react": "0.0.1",
+    "@aws-amplify/ui-react": "2.0.1",
     "@aws-amplify/ui-theme-base": "0.0.1",
-    "@aws-amplify/ui-vue": "0.0.1"
+    "@aws-amplify/ui-vue": "2.0.1"
   },
   "changesets": []
 }

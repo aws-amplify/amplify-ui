@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-vue",
-  "version": "0.0.1",
+  "version": "2.0.1",
   "scripts": {
     "build": "echo \"Skipped\"",
     "test": "echo \"Skipped: no test specified\""
