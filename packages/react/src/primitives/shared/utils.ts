@@ -69,8 +69,13 @@ export const getConsecutiveIntArray = (start: number, end: number) => {
   const length = end - start + 1;
   return Array.from({ length }, (_, idx) => idx + start);
 };
-
-export const useAmplifyFieldID = (id) => {
+/**
+ * Create a uuid to use with amplify fields unless
+ * an id is already defined
+ * @param id user specified id or undefined
+ * @returns string
+ */
+export const useAmplifyFieldID = (id?: string) => {
   return React.useMemo(() => {
     if (id) {
       return id;
