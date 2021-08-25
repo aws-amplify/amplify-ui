@@ -110,7 +110,7 @@ import '@aws-amplify/ui-react/styles.css';
 
 ### Variation
 
-Select comes in 2 variants, `flushed` and none(default). Pass the `variation` prop and set it to either of these values.
+Select comes in 2 variants, `quiet` and none(default). Pass the `variation` prop and set it to either of these values.
 
 ```jsx
 import { Select } from '@aws-amplify/ui-react';
@@ -122,7 +122,7 @@ import '@aws-amplify/ui-react/styles.css';
   <option value="orange">Orange</option>
 </Select>;
 
-<Select defaultValue="" placeholder="Please select a fruit" variation="flushed">
+<Select defaultValue="" placeholder="Please select a fruit" variation="quiet">
   <option value="apple">Apple</option>
   <option value="banana">Banana</option>
   <option value="orange">Orange</option>
@@ -139,7 +139,7 @@ import '@aws-amplify/ui-react/styles.css';
     <Select
       defaultValue=""
       placeholder="Please select a fruit"
-      variation="flushed"
+      variation="quiet"
     >
       <option value="apple">Apple</option>
       <option value="banana">Banana</option>
@@ -167,7 +167,7 @@ import '@aws-amplify/ui-react/styles.css';
 </Select>;
 
 // or pass a custom placeholder
-<Select defaultValue="">
+<Select defaultValue="DEFAULT">
   <option value="DEFAULT">Please select a fruit</option>
   <option value="apple">Apple</option>
   <option value="banana">Banana</option>

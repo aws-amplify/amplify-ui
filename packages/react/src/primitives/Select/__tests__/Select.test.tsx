@@ -10,7 +10,7 @@ describe('Select primitive test suite', () => {
   const testId = 'test-select';
   const name = 'select-number';
   const size = 'small';
-  const variation = 'filled';
+  const variation = 'quiet';
   const placeholder = 'Please select your option';
   const SelectControlled = () => {
     const [value, setValue] = useState('');

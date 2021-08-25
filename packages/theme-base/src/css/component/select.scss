@@ -17,6 +17,7 @@
 .amplify-select {
   @extend %amplify-field;
   width: var(--amplify-components-select-width);
+  padding-inline-end: var(--amplify-components-select-padding-inline-end);
   transition-property: var(--amplify-components-select-transition-property);
   transition-duration: var(--amplify-components-select-transition-duration);
 }

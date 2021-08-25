@@ -33,7 +33,6 @@ export const SelectPropControls: SelectPropControlsInterface = ({
             onChange={(event) =>
               setSize(event.target.value as SelectProps['size'])
             }
-            width="8rem"
           >
             <option value="">default</option>
             <option value="small">small</option>
@@ -48,10 +47,9 @@ export const SelectPropControls: SelectPropControlsInterface = ({
             onChange={(event) =>
               setVariation(event.target.value as SelectProps['variation'])
             }
-            width="8rem"
           >
             <option value="">default</option>
-            <option value="flushed">flushed</option>
+            <option value="quiet">quiet</option>
           </Select>
         </FieldLabeler>
         <FieldLabeler id="isDisabled">

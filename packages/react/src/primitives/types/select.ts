@@ -5,7 +5,7 @@ import { BaseStyleProps } from './style';
 
 export type SelectSize = 'small' | 'large';
 
-export type SelectVariation = 'filled' | 'flushed';
+export type SelectVariation = 'quiet';
 
 export interface SelectProps
   extends AriaProps,
