@@ -7,6 +7,7 @@ export * from './Flex';
 export * from './Heading';
 export * from './Icon';
 export * from './Image';
+export * from './Link';
 export * from './Pagination';
 export * from './Placeholder';
 export * from './Rating';

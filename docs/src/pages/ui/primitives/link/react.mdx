@@ -1,0 +1,135 @@
+import { Link as AmplifyLink } from '@aws-amplify/ui-react';
+import { Example } from '@/components/Example';
+
+Links are customizable and themable elements used for Navigation. By default Links render an anchor tag but can be configured to be used with routing libraries.
+
+## Usage
+
+```jsx
+import { Link } from '@aws-amplify/ui-react';
+
+<Link>My Link</Link>;
+```
+
+<Example>
+  <AmplifyLink>My Link</AmplifyLink>
+</Example>
+
+## External Links
+
+External Links should use the `isExternal` prop to add the appropriate rel attribute to the created anchor tag.
+
+```jsx
+import { Link } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<Link href="https://www.myOtherAwesomeWebsite.com" isExternal={true}>
+  Link To My Awesome Website
+</Link>;
+```
+
+<Example>
+  <AmplifyLink href="https://www.myOtherAwesomeWebsite.com" isExternal={true}>
+    Link To My Awesome Website
+  </AmplifyLink>
+</Example>
+
+## Routing Libraries
+
+The Link component can be used with react routing libraries by passing in routing components to the `as` prop on a Link
+
+```jsx
+import { Link } from '@aws-amplify/ui-react';
+import {
+  BrowserRouter as Router,
+  Link as ReactRouterLink,
+} from 'react-router-dom';
+
+/* React Router Example */
+<Router>
+  <Link as={ReactRouterLink} to="/home">
+    Home
+  </Link>
+</Router>;
+```
+
+```jsx
+import { Link } from '@aws-amplify/ui-react';
+import { Link as ReachLink } from '@reach/router';
+
+<Link as={ReachLink} to="/home">
+  Home
+</Link>;
+```
+
+## CSS Styling
+
+### CSS Pseudo Classes
+
+The Link component primarily uses four css pseudo classes. These are `:active`, `:focus`, `:hover`, and `:visited`. Styling the Link component while in one of these states can also be accomplished using the folowing techniques in conjunction with the appropriate pseudo class selector.
+
+### Global Styling
+
+To override styling on all Links, you can set the Amplify CSS variables or use the built in `.amplify-link` class.
+
+```css
+/* styles.css */
+:root {
+  --amplify-components-link-color: red;
+}
+/* OR */
+.amplify-link {
+  color: red;
+}
+```
+
+To replace Link styling, unset it:
+
+```css
+.amplify-link {
+  all: unset;
+  /* Add your styling here */
+}
+```
+
+### Local Styling
+
+To override styling on a specific Link, you can use (in order of increasing specificity): a class selector or style props.
+
+_Using a class selector:_
+
+```css
+/* styles.css */
+.custom-link {
+  color: red;
+  font-weight: bold;
+}
+```
+
+```jsx
+import './styles.css';
+
+<Link className="custom-link">My Custom Link</Link>;
+```
+
+<Example>
+  <AmplifyLink className="custom-link">My Custom Link</AmplifyLink>
+</Example>
+
+_Using style props:_
+
+```jsx
+<Link style={{ color: 'red', fontWeight: 'bold' }}>Styled Link</Link>
+
+/*  OR */
+
+<Link color="red" fontWeight="bold">Styled Link</Link>
+```
+
+<Example>
+  <AmplifyLink style={{ color: 'red', fontWeight: 'bold' }}>Styled Link</AmplifyLink>
+
+  <AmplifyLink color="red" fontWeight="bold">
+    Styled Link
+  </AmplifyLink>
+</Example>

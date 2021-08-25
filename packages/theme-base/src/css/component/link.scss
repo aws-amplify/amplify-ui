@@ -1,0 +1,30 @@
+.amplify-link {
+  background-color: var(--amplify-components-link-background-color);
+  color: var(--amplify-components-link-color);
+  font-weight: var(--amplify-components-link-font-weight);
+  text-decoration: var(--amplify-components-link-text-decoration);
+  &:active {
+    background-color: var(--amplify-components-link-active-background-color);
+    color: var(--amplify-components-link-active-color);
+    font-weight: var(--amplify-components-link-active-font-weight);
+    text-decoration: var(--amplify-components-link-active-text-decoration);
+  }
+  &:focus {
+    background-color: var(--amplify-components-link-focus-background-color);
+    color: var(--amplify-components-link-focus-color);
+    font-weight: var(--amplify-components-link-focus-font-weight);
+    text-decoration: var(--amplify-components-link-focus-text-decoration);
+  }
+  &:hover {
+    background-color: var(--amplify-components-link-hover-background-color);
+    color: var(--amplify-components-link-hover-color);
+    font-weight: var(--amplify-components-link-hover-font-weight);
+    text-decoration: var(--amplify-components-link-hover-text-decoration);
+  }
+  &:visited {
+    background-color: var(--amplify-components-link-visited-background-color);
+    color: var(--amplify-components-link-visited-color);
+    font-weight: var(--amplify-components-link-visited-font-weight);
+    text-decoration: var(--amplify-components-link-visited-text-decoration);
+  }
+}

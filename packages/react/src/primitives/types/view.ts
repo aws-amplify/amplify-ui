@@ -1,8 +1,8 @@
 import { AriaProps, BaseComponentProps } from './base';
 import { BaseStyleProps } from './style';
-import { AriaRole } from 'react';
+import React, { AriaRole } from 'react';
 
-export type ViewAsHTMLElementTypes = keyof JSX.IntrinsicElements;
+export type ViewAsHTMLElementTypes = keyof JSX.IntrinsicElements | React.FC;
 
 export interface ViewProps
   extends BaseComponentProps,
