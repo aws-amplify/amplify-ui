@@ -4,6 +4,83 @@ title: Theme
 
 import { Colors } from './colors';
 
-# Theme
+### Style with theme object
 
-<Colors />
+The theme object is where you define tokens for color palette, font stacks, spacing, and more. Amplify UI provides a `defaultTheme` object but you can customize it to fit your design.
+
+```jsx
+import { AmplifyProvider, defaultTheme } from '@aws-amplify/ui-react';
+// Step 1: Pass a theme object through the `AmplifyProvider`
+const App = (
+  <AmplifyProvider theme={{ themeObject: defaultTheme }}>
+    <MyComponent>/* AmplifyUI */</MyComponent>
+  </AmplifyProvider>
+);
+
+// Step 2: Use it to look up theme properties for styling
+import React from 'react';
+import { Text, useTheme } from '@aws-amplify/ui-react';
+
+const MyComponent = ({ children }) => {
+  const { themeObject } = useTheme();
+  return <Text color={themeObject.colors.font.tertiary}>{children}</Text>;
+};
+```
+
+To extend or override a token in the default theme with `extendTheme`
+
+```jsx
+import { extendTheme } from '@aws-amplify/ui-react';
+
+// Step 1: Use `extendTheme` and pass your custom values
+const theme = extendTheme({
+  colors: {
+    brand: {
+      tertiary: '#008080',
+      // ...
+    },
+  },
+});
+
+// Step 2: Pass the new theme to `AmplifyProvider`
+<AmplifyProvider theme={theme}>
+  <App />
+</AmplifyProvider>;
+
+// Step 3: Now you can use these colors in your components
+const MyComponent = ({ children }) => {
+  const { themeObject } = useTheme();
+  return <Text color={themeObject.colors.brand.tertiary}>{children}</Text>;
+};
+```
+
+You can also generate CSS variables from the theme object and inject them into your app container
+
+```jsx
+import {
+  AmplifyProvider,
+  defaultTheme,
+  getCSSVariablesFromTheme,
+} from '@aws-amplify/ui-react';
+
+// Step 1: Generate the CSS variables object and pass it through the `AmplifyProvider`
+const App = (
+  <AmplifyProvider
+    theme={{
+      themeObject: defaultTheme,
+      CSSVariables: getCSSVariablesFromTheme(defaultTheme),
+    }}
+  >
+    <MyComponent>/* AmplifyUI */</MyComponent>
+  </AmplifyProvider>
+);
+
+// Step 2: Inject it into your app container
+import React from 'react';
+import { View, useTheme } from '@aws-amplify/ui-react';
+
+const MyComponent = ({ children }) => {
+  const { CSSVariables } = useTheme();
+  return <View style={CSSVariables}>/* AmplifyUI */</View>;
+};
+```
