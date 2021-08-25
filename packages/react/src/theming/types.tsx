@@ -1,6 +1,4 @@
-export interface Styles {
-  [key: string]: string | number;
-}
+export const CSSPrefix = 'amplify-ui';
 
 export interface Theme {
   components: {

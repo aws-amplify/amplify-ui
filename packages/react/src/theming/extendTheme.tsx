@@ -1,8 +1,9 @@
 import merge from 'deepmerge';
 
-import { Theme } from './types';
-import { defaultTheme } from './defaultTheme';
+import { getCSSVariablesFromTheme } from './utils';
 
-export const extendTheme = <T,>(override: T) => {
-  return merge<Theme, T>(defaultTheme, override);
+export const extendTheme = <T, K>(themeObject: T, override: K) => {
+  const customTheme = merge<T, K>(themeObject, override);
+  const CSSVariables = getCSSVariablesFromTheme(customTheme);
+  return { themeObject: customTheme, CSSVariables };
 };

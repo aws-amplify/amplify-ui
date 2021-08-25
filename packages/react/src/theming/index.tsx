@@ -1,4 +1,5 @@
 export * from './defaultTheme';
 export * from './extendTheme';
 export * from './types';
-// export * from './utils';
+export * from './useTheme';
+export * from './utils';

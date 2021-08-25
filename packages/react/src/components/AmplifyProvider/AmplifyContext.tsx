@@ -1,8 +1,19 @@
 import { createContext } from 'react';
 
-import { defaultTheme } from '../../theming';
+import { defaultTheme, Theme } from '../../theming';
+import { getCSSVariablesFromTheme } from '../../theming';
 
-export const AmplifyContext = createContext({
+interface AmplifyContextType {
+  components: any;
+  theme: {
+    themeObject: unknown;
+    CSSVariables?: {};
+  };
+}
+export const AmplifyContext = createContext<AmplifyContextType>({
   components: undefined,
-  theme: defaultTheme,
+  theme: {
+    themeObject: defaultTheme,
+    CSSVariables: getCSSVariablesFromTheme(defaultTheme),
+  },
 });
