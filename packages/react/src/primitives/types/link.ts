@@ -2,10 +2,7 @@ import React from 'react';
 import { BaseComponentProps, AriaProps } from './base';
 import { BaseStyleProps } from './style';
 
-export interface LinkProps
-  extends BaseComponentProps,
-    AriaProps,
-    BaseStyleProps {
+export interface LinkOptions {
   /**
    * Boolean value indicating an external link
    * sets the rel attribute to "noopener noreferrer"
@@ -23,3 +20,9 @@ export interface LinkProps
    */
   children: React.ReactNode;
 }
+
+export interface LinkProps
+  extends BaseComponentProps,
+    AriaProps,
+    BaseStyleProps,
+    LinkOptions {}
