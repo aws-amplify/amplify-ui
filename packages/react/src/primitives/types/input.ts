@@ -70,7 +70,7 @@ export interface InputProps
   /**
    *
    */
-  onInput?: React.FormEventHandler<HTMLInputElement>;
+  onInput?: React.ChangeEventHandler<HTMLInputElement>;
 
   /**
    * Copy clipboard event
