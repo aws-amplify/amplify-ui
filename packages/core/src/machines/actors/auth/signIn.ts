@@ -68,6 +68,11 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
                   target: 'rejected',
                 },
                 {
+                  cond: 'shouldRedirectToConfirmResetPassword',
+                  actions: 'setUsername',
+                  target: 'rejected',
+                },
+                {
                   actions: 'setRemoteError',
                   target: 'edit',
                 },
@@ -248,10 +253,12 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
       },
       rejected: {
         type: 'final',
-        data: (context) => ({
-          intent: 'confirmSignUp',
-          authAttributes: context.authAttributes,
-        }),
+        data: (context, event) => {
+          return {
+            intent: context.redirectIntent,
+            authAttributes: context.authAttributes,
+          };
+        },
       },
     },
   },
@@ -293,8 +300,26 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
 
         return validChallengeNames.includes(challengeName);
       },
-      shouldRedirectToConfirmSignUp: (_, event): boolean => {
-        return event.data.code === 'UserNotConfirmedException';
+      shouldRedirectToConfirmSignUp: (context, event): boolean => {
+        const shouldRedirect = event.data.code === 'UserNotConfirmedException';
+        if (shouldRedirect) {
+          context.redirectIntent = 'confirmSignUp';
+
+          return true;
+        }
+
+        return false;
+      },
+      shouldRedirectToConfirmResetPassword: (context, event): boolean => {
+        const shouldRedirect =
+          event.data.code === 'PasswordResetRequiredException';
+        if (shouldRedirect) {
+          context.redirectIntent = 'confirmPasswordReset';
+
+          return true;
+        }
+
+        return false;
       },
       shouldSetupTOTP: (_, event): boolean => {
         const challengeName = get(event, 'data.challengeName');
