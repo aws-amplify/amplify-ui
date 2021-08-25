@@ -8,7 +8,9 @@
     "test": "TZ=UTC cypress run"
   },
   "cypress-cucumber-preprocessor": {
-    "nonGlobalStepDefinitions": true
+    "nonGlobalStepDefinitions": true,
+    "nonGlobalStepBaseDir": "cypress/integration",
+    "stepDefinitions": "features"
   },
   "devDependencies": {
     "@testing-library/cypress": "^7.0.6",
