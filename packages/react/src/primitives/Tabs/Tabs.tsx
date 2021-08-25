@@ -5,10 +5,21 @@ import {
   Trigger as RadixTab,
   Content as Panel,
 } from '@radix-ui/react-tabs';
-import { TabsProps } from '../types';
+import { TabsProps, TabItemProps } from '../types';
 import { Flex } from '../Flex';
 import { ComponentClassNames } from '../shared/constants';
 import classNames from 'classnames';
+
+export const isTabsType = (
+  child: any
+): child is React.Component<TabItemProps> => {
+  return (
+    typeof child === 'object' &&
+    child.hasOwnProperty('props') &&
+    child.props.title != null &&
+    child.props.children != null
+  );
+};
 
 export const Tabs: React.FC<TabsProps> = ({
   className,
@@ -18,9 +29,10 @@ export const Tabs: React.FC<TabsProps> = ({
   ...rest
 }) => {
   const tabs = React.Children.map(children, (child) => {
+    if (!isTabsType(child)) return null; // console.warn, only pass TabItem's
     return {
-      tab: child['props'].title,
-      panel: child['props'].children,
+      title: child.props.title,
+      panel: child.props.children,
     };
   });
 
@@ -28,25 +40,23 @@ export const Tabs: React.FC<TabsProps> = ({
     <Root defaultValue={`${defaultTabIndex}`}>
       <List aria-label={ariaLabel} style={{ borderBottom: '1px solid gray' }}>
         <Flex>
-          {tabs.map((x, i) => (
+          {tabs.map((tab, index) => (
             <RadixTab
-              value={`${i}`}
+              value={`${index}`}
               className={classNames(ComponentClassNames.Tabs, className)}
             >
-              {x.tab}
+              {tab.title}
             </RadixTab>
           ))}
         </Flex>
       </List>
-      {tabs.map((x, i) => (
-        <Panel value={`${i}`}>{x.panel}</Panel>
+      {tabs.map((tab, index) => (
+        <Panel value={`${index}`}>{tab.panel}</Panel>
       ))}
     </Root>
   );
 };
 
-interface TabProps {
-  title: React.ReactNode;
-}
-
-export const Tab: React.FC<TabProps> = () => <></>;
+// Rename to TabItem, syntactic sugar
+// In the docs, explain that TabItem contains both Tab and it's corresponding Panel
+export const TabItem: React.FC<TabItemProps> = () => null;

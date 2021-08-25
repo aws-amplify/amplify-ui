@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tabs, Tab } from '@aws-amplify/ui-react';
+import { Tabs, TabItem, Text } from '@aws-amplify/ui-react';
 import { BadgeDemo } from '../badge/demo';
 
 // import { BadgePropControls } from '@/components/BadgePropControls';
@@ -9,12 +9,11 @@ import { BadgeDemo } from '../badge/demo';
 export const TabsDemo = () => {
   return (
     <Tabs ariaLabel="fruit tabs">
-      <Tab title="Apples">Information about apples</Tab>
-      <Tab title="Bananas">You should eat more bananas</Tab>
-      <Tab title="Cherries">I love cherries!</Tab>
-      <Tab title="Badge Demo">
-        <BadgeDemo />
-      </Tab>
+      <TabItem title="yay">Hello</TabItem>
+      <TabItem title="boo">Yah</TabItem>
+      <TabItem title={<Text color="red">Red Text</Text>}>Cool stuff</TabItem>
     </Tabs>
   );
 };
+
+// Show that another component can be passed to `title` as a way of styling (e.g., title={<Text color="red"><Red Text/Text>})
