@@ -1,7 +1,7 @@
 <template>
   <slot name="signUpSlotI">
     <base-wrapper data-amplify-wrapper>
-      <base-form @submit.prevent="onSignUpSubmit" @change="onChange">
+      <base-form @submit.prevent="onSignUpSubmit" @input="onInput">
         <base-heading>
           <template #headingI>
             <slot name="heading"></slot>
@@ -163,7 +163,7 @@ export default defineComponent({
       }
     };
 
-    const onChange = (e: Event): void => {
+    const onInput = (e: Event): void => {
       const { name, value } = <HTMLInputElement>e.target;
       send({
         type: 'CHANGE',
@@ -188,7 +188,7 @@ export default defineComponent({
     return {
       onHaveAccountClicked,
       onSignUpSubmit,
-      onChange,
+      onInput,
       state,
       actorState,
       phone,
