@@ -37,8 +37,13 @@ export const TextFieldDemo = () => {
     isReadOnly: false,
     isRequired: false,
     label: 'Last name',
+    labelHidden: false,
     name: 'last_name',
     placeholder: 'Baggins',
+    size: '',
+    type: 'text',
+    value: null,
+    variation: '',
   });
   const FlexPropControls = GetFieldControls({
     typeName: 'Flex',
@@ -58,7 +63,7 @@ export const TextFieldDemo = () => {
   ] = flexStyleProps;
   const [
     [autoComplete],
-    [defaultValue],
+    [defaultValue], // leave unused `defaultValue` since destructuring order is important
     [descriptiveText],
     [errorMessage],
     [hasError],
@@ -86,10 +91,10 @@ export const TextFieldDemo = () => {
               alignContent={alignContent as FlexStyleProps['alignContent']}
               alignItems={alignItems as FlexStyleProps['alignItems']}
               autoComplete={autoComplete as TextFieldProps['autoComplete']}
-              defaultValue={defaultValue as TextFieldProps['defaultValue']}
               descriptiveText={
-                descriptiveText as TextFieldProps['defaultValue']
+                descriptiveText as TextFieldProps['descriptiveText']
               }
+              defaultValue={defaultValue as TextFieldProps['defaultValue']}
               direction={direction as FlexStyleProps['direction']}
               errorMessage={errorMessage as TextFieldProps['errorMessage']}
               gap={gap as FlexStyleProps['gap']}
@@ -110,11 +115,26 @@ export const TextFieldDemo = () => {
               value={value as TextFieldProps['value']}
               variation={variation as TextFieldProps['variation']}
               wrap={wrap as FlexStyleProps['wrap']}
-              onChange={(e) => console.info(e.target.value)}
-              onInput={(e) => console.info('input fired:', e)}
-              onCopy={(e) => console.info('input fired:', e)}
-              onCut={(e) => console.info('input fired:', e)}
-              onPaste={(e) => console.info('input fired:', e)}
+              onChange={(e) => console.info(e.currentTarget.value)}
+              onInput={(e) =>
+                console.info('input fired:', e.currentTarget.value)
+              }
+              onCopy={(e) =>
+                console.info('onCopy fired:', e.currentTarget.value)
+              }
+              onCut={(e) => console.info('onCut fired:', e.currentTarget.value)}
+              onPaste={(e) =>
+                console.info('onPaste fired:', e.currentTarget.value)
+              }
+              onSelect={(e) =>
+                console.info(
+                  'onSelect fired:',
+                  e.currentTarget.value.substring(
+                    e.currentTarget.selectionStart,
+                    e.currentTarget.selectionEnd
+                  )
+                )
+              }
             />
           </Flex>
         </View>
@@ -137,6 +157,7 @@ export const DescriptiveTextFieldExample = () => {
             fontSize="0.8rem"
           >
             Password length must be greater than 8 characters
+            <input />
           </Text>
         }
       />
