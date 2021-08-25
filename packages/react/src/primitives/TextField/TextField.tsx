@@ -2,11 +2,10 @@ import classNames from 'classnames';
 import * as React from 'react';
 import { Flex } from '../Flex';
 import { Label } from '../Label';
-import { ComponentClassNames } from '../shared';
+import { ComponentClassNames, useAmplifyFieldID } from '../shared';
 import { TextFieldProps } from '../types';
 import { Text } from '../Text';
 import { Input } from '../Input';
-import { nanoid } from 'nanoid';
 
 export const TextField: React.FC<TextFieldProps> = (props) => {
   let {
@@ -40,12 +39,7 @@ export const TextField: React.FC<TextFieldProps> = (props) => {
     ...rest
   } = props;
 
-  const fieldId = React.useMemo(() => {
-    if (id) {
-      return id;
-    }
-    return `amplify-field-${nanoid()}`;
-  }, []);
+  const fieldId = useAmplifyFieldID(id);
 
   return (
     <Flex
