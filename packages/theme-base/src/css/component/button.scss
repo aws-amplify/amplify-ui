@@ -105,10 +105,13 @@
 
     &:focus {
       color: var(--amplify-components-button-link-focus-color);
+      text-decoration: underline;
+      box-shadow: none;
     }
 
     &:active {
       color: var(--amplify-components-button-link-active-color);
+      text-decoration: underline;
     }
 
     &[disabled] {
