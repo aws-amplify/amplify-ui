@@ -63,9 +63,9 @@ export function Feature({ name = required('Missing feature name') }) {
   const port = getPortForPlatform(platform);
 
   useEffect(() => {
-    import(
-      `../../../packages/e2e/cypress/integration${pathname}/${name}.feature`
-    ).then((exports) => setSource(exports.default));
+    import(`../../../packages/e2e/features${pathname}/${name}.feature`).then(
+      (exports) => setSource(exports.default)
+    );
   }, [name, pathname]);
 
   if (!source) {
@@ -163,7 +163,7 @@ export function Feature({ name = required('Missing feature name') }) {
                 </td>
                 <td>
                   <a
-                    href={`https://github.com/aws-amplify/amplify-ui/blob/${process.env.BRANCH}/packages/e2e/cypress/integration${pathname}/${name}.feature#L${scenario.location.line}`}
+                    href={`https://github.com/aws-amplify/amplify-ui/blob/${process.env.BRANCH}/packages/e2e/features${pathname}/${name}.feature#L${scenario.location.line}`}
                     target="_blank"
                   >
                     <span className="sr-only">Test</span>
