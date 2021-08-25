@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "TZ=UTC cypress open",
-    "test": "TZ=UTC cypress run"
+    "test": "TZ=UTC cypress run --spec **/*.features"
   },
   "cypress-cucumber-preprocessor": {
     "nonGlobalStepDefinitions": true,

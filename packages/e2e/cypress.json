@@ -5,5 +5,5 @@
     "TAGS": "not @skip"
   },
   "integrationFolder": "features",
-  "testFiles": "**/*.feature"
+  "testFiles": "**/*.{feature,features}"
 }
