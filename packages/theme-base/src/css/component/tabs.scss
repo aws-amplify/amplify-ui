@@ -1,5 +1,8 @@
 .amplify-tabs {
+  padding: 10px 20px;
+
   &[data-state='active'] {
-    border-bottom: 3px solid blue;
+    color: #7e62ff;
+    border-bottom: 3px solid #7e62ff;
   }
 }

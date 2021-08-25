@@ -9,9 +9,9 @@ import { BadgeDemo } from '../badge/demo';
 export const TabsDemo = () => {
   return (
     <Tabs ariaLabel="fruit tabs">
-      <Tab title="apple">Information about apples</Tab>
-      <Tab title="banana">You should eat more bananas</Tab>
-      <Tab title="cherries">I love cherries!</Tab>
+      <Tab title="Apples">Information about apples</Tab>
+      <Tab title="Bananas">You should eat more bananas</Tab>
+      <Tab title="Cherries">I love cherries!</Tab>
       <Tab title="Badge Demo">
         <BadgeDemo />
       </Tab>
