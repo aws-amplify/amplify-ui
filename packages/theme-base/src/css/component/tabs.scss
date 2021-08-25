@@ -1,0 +1,5 @@
+.amplify-tabs {
+  &[data-state='active'] {
+    border-bottom: 3px solid blue;
+  }
+}
