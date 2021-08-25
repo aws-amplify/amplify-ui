@@ -2,7 +2,12 @@ import * as React from 'react';
 import { DetailedHTMLProps, InputHTMLAttributes } from 'react';
 import { FieldLabeler } from './FieldLabeler';
 import classNames from 'classnames';
-import { Button } from 'aws-amplify-react';
+import {
+  Button,
+  Divider,
+  IconKeyboardArrowDown,
+  IconKeyboardArrowUp,
+} from '@aws-amplify/ui-react';
 
 type FieldValue = DetailedHTMLProps<
   InputHTMLAttributes<HTMLInputElement>,
@@ -22,22 +27,37 @@ export interface GetFieldControlsProps {
 export const GetFieldControls = ({
   typeName,
   fields,
-  startCollapsed = false,
+  startCollapsed = true,
 }: GetFieldControlsProps) => {
   const [collapsed, toggleCollapsed] = React.useState(startCollapsed);
 
   return (
-    <fieldset className="p-4 border-2 border-current border-solid">
+    <fieldset className="">
       <legend
         onClick={() => toggleCollapsed(!collapsed)}
-        className="font-bold p-1"
+        className="font-bold p-1 w-full text-left"
       >
-        {collapsed ? (
-          <Button> Show {typeName} props</Button>
-        ) : (
-          <>{typeName} props:</>
-        )}
+        <Button
+          variation="link"
+          isFullWidth={true}
+          style={{ textAlign: 'left' }}
+        >
+          {collapsed ? (
+            <>
+              <IconKeyboardArrowDown
+                style={{ width: '2rem', height: '2rem' }}
+              />
+              Show {typeName} props
+            </>
+          ) : (
+            <>
+              <IconKeyboardArrowUp style={{ width: '2rem', height: '2rem' }} />
+              {typeName} props
+            </>
+          )}
+        </Button>
       </legend>
+      <Divider />
       <div
         className={classNames(
           'grid grid-col-1 md:grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-5 flex-wrap my-2',

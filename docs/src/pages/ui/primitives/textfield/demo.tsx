@@ -43,12 +43,10 @@ export const TextFieldDemo = () => {
   const FlexPropControls = GetFieldControls({
     typeName: 'Flex',
     fields: flexStyleProps,
-    startCollapsed: true,
   });
   const TextFieldPropControls = GetFieldControls({
     typeName: 'TextField',
     fields: textFieldProps,
-    startCollapsed: false,
   });
   const [
     [alignItems],
