@@ -1,6 +1,7 @@
 {
   "version": "0.1.0",
   "name": "vue-example",
+  "private": "true",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",

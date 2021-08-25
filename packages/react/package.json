@@ -1,5 +1,4 @@
 {
-  "private": true,
   "name": "@aws-amplify/ui-react",
   "version": "0.0.1",
   "type": "module",
