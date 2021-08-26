@@ -59,27 +59,25 @@ export const TextField: React.FC<TextFieldProps> = ({
         labelHidden={labelHidden}
         descriptiveText={descriptiveText}
       />
-      <Flex className={ComponentClassNames.FieldWrapper}>
-        <Input
-          aria-labelledby={fieldId}
-          defaultValue={defaultValue}
-          hasError={hasError}
-          id={fieldId}
-          isDisabled={isDisabled}
-          isReadOnly={isReadOnly}
-          isRequired={isRequired}
-          size={size}
-          type={type}
-          value={value}
-          onChange={onChange}
-          onCopy={onCopy}
-          onCut={onCut}
-          onInput={onInput}
-          onPaste={onPaste}
-          onSelect={onSelect}
-          {...rest}
-        />
-      </Flex>
+      <Input
+        aria-labelledby={fieldId}
+        defaultValue={defaultValue}
+        hasError={hasError}
+        id={fieldId}
+        isDisabled={isDisabled}
+        isReadOnly={isReadOnly}
+        isRequired={isRequired}
+        size={size}
+        type={type}
+        value={value}
+        onChange={onChange}
+        onCopy={onCopy}
+        onCut={onCut}
+        onInput={onInput}
+        onPaste={onPaste}
+        onSelect={onSelect}
+        {...rest}
+      />
       <FieldErrorMessage hasError={hasError} errorMessage={errorMessage} />
     </Flex>
   );
