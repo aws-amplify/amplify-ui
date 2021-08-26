@@ -16,7 +16,10 @@
         type="password"
         autocomplete="current-password"
       ></amplify-form-input>
-
+      <div>
+        Forgot your password?
+        <a data-amplify-link (click)="toResetPassword()">Reset password</a>
+      </div>
       <div data-amplify-footer>
         <div>
           No account?{{ ' ' }}

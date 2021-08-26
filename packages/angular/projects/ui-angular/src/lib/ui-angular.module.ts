@@ -15,6 +15,7 @@ import { AmplifySetupTotpComponent } from './components/amplify-setup-totp/ampli
 import { AmplifyForceNewPasswordComponent } from './components/amplify-force-new-password/amplify-force-new-password.component';
 import { AmplifyFederatedSignInComponent } from './components/amplify-federated-sign-in/amplify-federated-sign-in.component';
 import { AmplifyFederatedSignInButtonComponent } from './components/amplify-federated-sign-in-button/amplify-federated-sign-in-button.component';
+import { AmplifyResetPasswordComponent } from './components/amplify-reset-password/amplify-reset-password.component';
 
 import {
   AmplifyS3Album as S3Album,
@@ -83,6 +84,7 @@ customElements.define('amplify-photo-picker', AmplifyPhotoPicker);
     AmplifyForceNewPasswordComponent,
     AmplifyFederatedSignInComponent,
     AmplifyFederatedSignInButtonComponent,
+    AmplifyResetPasswordComponent,
   ],
   imports: [CommonModule, ReactiveFormsModule],
   exports: [
