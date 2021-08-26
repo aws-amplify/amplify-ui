@@ -26,7 +26,7 @@ export interface InputProps
   /**
    * Use this to provide a default value for an uncontrolled field
    */
-  defaultValue?: string | number | readonly string[];
+  defaultValue?: string | number | readonly string[] | boolean;
 
   /**
    * Indicates that Field is in error state
@@ -119,7 +119,7 @@ export interface InputProps
   /**
    * If value is provided, this will be a controlled field
    */
-  value?: string | number | readonly string[];
+  value?: string | number | readonly string[] | boolean;
 
   /**
    * Variants
