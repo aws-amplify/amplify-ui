@@ -5,7 +5,6 @@ export enum ComponentClassNames {
   Divider = 'amplify-divider',
   FieldDescription = 'amplify-field__description',
   FieldErrorMessage = 'amplify-field__error-message',
-  FieldWrapper = 'amplify-textfield-wrapper',
   Flex = 'amplify-flex',
   Heading = 'amplify-heading',
   Icon = 'amplify-icon',
