@@ -6,6 +6,7 @@ import { ComponentClassNames, useAmplifyFieldID } from '../shared';
 import { TextFieldProps } from '../types';
 import { Text } from '../Text';
 import { Input } from '../Input';
+import { FieldDescription, FieldErrorMessage } from '../Field';
 
 export const TextField: React.FC<TextFieldProps> = (props) => {
   let {
@@ -53,19 +54,13 @@ export const TextField: React.FC<TextFieldProps> = (props) => {
       testId={testId}
       wrap={wrap}
     >
-      <Label
-        htmlFor={fieldId}
-        className={classNames(ComponentClassNames.FieldLabel, {
-          'sr-only': labelHidden,
-        })}
-      >
+      <Label htmlFor={fieldId} visuallyHidden={labelHidden}>
         {label}
       </Label>
-      {!labelHidden && descriptiveText ? (
-        <Text className={ComponentClassNames.FieldDescription}>
-          {descriptiveText}
-        </Text>
-      ) : null}
+      <FieldDescription
+        labelHidden={labelHidden}
+        descriptiveText={descriptiveText}
+      />
       <Flex className={ComponentClassNames.FieldWrapper}>
         <Input
           aria-labelledby={fieldId}
@@ -88,11 +83,7 @@ export const TextField: React.FC<TextFieldProps> = (props) => {
           {...rest}
         />
       </Flex>
-      {hasError && errorMessage ? (
-        <Text className={ComponentClassNames.FieldErrorMessage}>
-          {errorMessage}
-        </Text>
-      ) : null}
+      <FieldErrorMessage hasError={hasError} errorMessage={errorMessage} />
     </Flex>
   );
 };

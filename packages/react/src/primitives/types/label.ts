@@ -10,4 +10,9 @@ export interface LabelProps extends BaseComponentProps, AriaProps {
    * Inner text of the label
    */
   children: React.ReactNode;
+
+  /**
+   * Whether label should be visually hidden
+   */
+  visuallyHidden?: boolean;
 }
