@@ -1,5 +1,5 @@
 import { createMachine, assign, sendUpdate } from 'xstate';
-import { get } from 'lodash';
+import { get, isEmpty } from 'lodash';
 
 import { AuthEvent, AuthChallengeNames, SignInContext } from '../../../types';
 import { Auth } from 'aws-amplify';
@@ -290,6 +290,9 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
       setConfirmResetPasswordIntent: assign({
         redirectIntent: 'confirmPasswordReset',
       }),
+      setUnverifiedAttributes: assign({
+        unverifiedAttributes: (_, event) => event.data.unverified,
+      }),
       clearChallengeName: assign({ challengeName: undefined }),
       clearError: assign({ remoteError: '' }),
       clearFormValues: assign({ formValues: {} }),
@@ -325,16 +328,10 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
       shouldAutoSignIn: (context) => {
         return !!(context.intent && context.intent === 'autoSignIn');
       },
-      shouldRequestVerification: (context, event): boolean => {
-        const { unverified } = event.data;
+      shouldRequestVerification: (_, event): boolean => {
+        const { unverified, verified } = event.data;
 
-        if (Object.keys(unverified).length > 0) {
-          context.unverifiedAttributes = unverified;
-
-          return true;
-        }
-
-        return false;
+        return isEmpty(verified) && !isEmpty(unverified);
       },
     },
     services: {
