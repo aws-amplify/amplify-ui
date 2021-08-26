@@ -64,12 +64,12 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
               onError: [
                 {
                   cond: 'shouldRedirectToConfirmSignUp',
-                  actions: 'setUsername',
+                  actions: ['setUsername', 'setConfirmSignUpIntent'],
                   target: 'rejected',
                 },
                 {
                   cond: 'shouldRedirectToConfirmResetPassword',
-                  actions: 'setUsername',
+                  actions: ['setUsername', 'setConfirmResetPasswordIntent'],
                   target: 'rejected',
                 },
                 {
@@ -284,6 +284,12 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
       setChallengeName: assign({
         challengeName: (_, event) => event.data?.challengeName,
       }),
+      setConfirmSignUpIntent: assign({
+        redirectIntent: 'confirmSignUp',
+      }),
+      setConfirmResetPasswordIntent: assign({
+        redirectIntent: 'confirmPasswordReset',
+      }),
       clearChallengeName: assign({ challengeName: undefined }),
       clearError: assign({ remoteError: '' }),
       clearFormValues: assign({ formValues: {} }),
@@ -300,26 +306,11 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
 
         return validChallengeNames.includes(challengeName);
       },
-      shouldRedirectToConfirmSignUp: (context, event): boolean => {
-        const shouldRedirect = event.data.code === 'UserNotConfirmedException';
-        if (shouldRedirect) {
-          context.redirectIntent = 'confirmSignUp';
-
-          return true;
-        }
-
-        return false;
+      shouldRedirectToConfirmSignUp: (_, event): boolean => {
+        return event.data.code === 'UserNotConfirmedException';
       },
-      shouldRedirectToConfirmResetPassword: (context, event): boolean => {
-        const shouldRedirect =
-          event.data.code === 'PasswordResetRequiredException';
-        if (shouldRedirect) {
-          context.redirectIntent = 'confirmPasswordReset';
-
-          return true;
-        }
-
-        return false;
+      shouldRedirectToConfirmResetPassword: (_, event): boolean => {
+        return event.data.code === 'PasswordResetRequiredException';
       },
       shouldSetupTOTP: (_, event): boolean => {
         const challengeName = get(event, 'data.challengeName');
