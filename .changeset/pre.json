@@ -15,5 +15,7 @@
     "@aws-amplify/ui-theme-base": "0.0.0",
     "@aws-amplify/ui-vue": "2.0.0"
   },
-  "changesets": []
+  "changesets": [
+    "gentle-shirts-press"
+  ]
 }
