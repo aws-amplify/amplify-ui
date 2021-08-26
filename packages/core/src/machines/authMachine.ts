@@ -51,6 +51,10 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
               cond: 'shouldRedirectToSignUp',
             },
             {
+              target: 'resetPassword',
+              cond: 'shouldRedirectToResetPassword',
+            },
+            {
               target: 'authenticated',
               actions: 'setUser',
             },
@@ -137,6 +141,8 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
         actorRef: (context, event) => {
           const actor = resetPasswordActor.withContext({
             formValues: {},
+            intent: event.data?.intent,
+            username: event.data?.authAttributes?.username,
           });
           return spawn(actor, { name: 'resetPasswordActor' });
         },
@@ -154,6 +160,10 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
       shouldRedirectToSignUp: (_, event): boolean => {
         if (!event.data?.intent) return false;
         return event.data.intent === 'confirmSignUp';
+      },
+      shouldRedirectToResetPassword: (_, event): boolean => {
+        if (!event.data?.intent) return false;
+        return event.data.intent === 'confirmPasswordReset';
       },
     },
     services: {
