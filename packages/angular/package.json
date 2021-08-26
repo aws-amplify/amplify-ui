@@ -4,6 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "ng": "ng",
+    "dev": "ng build --watch",
     "start": "ng serve",
     "build": "ng build --prod",
     "test": "echo \"Skipped: ng test\"",
