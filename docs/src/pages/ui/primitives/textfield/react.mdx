@@ -38,7 +38,7 @@ import '@aws-amplify/ui-react/styles.css';
 
 ### Accessibility / Label behavior
 
-The TextField primitive is accessibile by default. A matching `label` HTML element is rendered with the `TextField` by default,
+The TextField primitive is accessible by default. A matching `label` HTML element is rendered with the `TextField` by default,
 all that is required is to provide a `label` prop with a `string` or `ReactNode`. If no `id` is provided, one will be automatically
 generated and connected to both `label` and `input` elements.
 
@@ -136,7 +136,7 @@ To provide additional descriptive text of requirements of the field, use the `de
 
 ### States
 
-TextField states include `isDisabled` and `isReadonly`. Note that a field with isReadOnly
+The available TextField states include `isDisabled` and `isReadonly`. A disabled field will be not be focusable not mutable and will not be submitted with form data. A readonly field cannot be edited by the user.
 
 ```jsx
 <TextField label="Disabled" defaultValue="Disabled" isDisabled={true} />

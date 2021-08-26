@@ -8,39 +8,37 @@ import { Text } from '../Text';
 import { Input } from '../Input';
 import { FieldDescription, FieldErrorMessage } from '../Field';
 
-export const TextField: React.FC<TextFieldProps> = (props) => {
-  let {
-    alignContent,
-    alignItems,
-    autoComplete,
-    className,
-    defaultValue,
-    descriptiveText,
-    direction = 'column',
-    errorMessage,
-    gap,
-    hasError = false,
-    id,
-    isDisabled,
-    isReadOnly,
-    isRequired,
-    justifyContent,
-    label,
-    labelHidden = false,
-    onChange,
-    onCopy,
-    onCut,
-    onInput,
-    onPaste,
-    onSelect,
-    size,
-    testId,
-    type = 'text',
-    value,
-    wrap,
-    ...rest
-  } = props;
-
+export const TextField: React.FC<TextFieldProps> = ({
+  alignContent,
+  alignItems,
+  autoComplete,
+  className,
+  defaultValue,
+  descriptiveText,
+  direction = 'column',
+  errorMessage,
+  gap,
+  hasError = false,
+  id,
+  isDisabled,
+  isReadOnly,
+  isRequired,
+  justifyContent,
+  label,
+  labelHidden = false,
+  onChange,
+  onCopy,
+  onCut,
+  onInput,
+  onPaste,
+  onSelect,
+  size,
+  testId,
+  type = 'text',
+  value,
+  wrap,
+  ...rest
+}) => {
   const fieldId = useAmplifyFieldID(id);
 
   return (
