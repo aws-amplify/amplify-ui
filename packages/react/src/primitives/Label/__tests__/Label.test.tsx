@@ -1,5 +1,6 @@
-import { Label } from '../Label';
 import { render, screen } from '@testing-library/react';
+
+import { Label } from '../Label';
 
 describe('Label component', () => {
   it('should render default and custom classname for TextField wrapper', async () => {
@@ -10,7 +11,7 @@ describe('Label component', () => {
     );
 
     const label = (await screen.findByText('My label')) as HTMLLabelElement;
-    expect(label.className).toContain('my-test-label');
+    expect(label).toHaveClass('my-test-label');
     expect(label.htmlFor).toBe('my-label');
   });
 });

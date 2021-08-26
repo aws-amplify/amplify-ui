@@ -82,5 +82,5 @@ export const useAmplifyFieldID = (id?: string) => {
       return id;
     }
     return `amplify-field-${nanoid()}`;
-  }, []);
+  }, [id]);
 };

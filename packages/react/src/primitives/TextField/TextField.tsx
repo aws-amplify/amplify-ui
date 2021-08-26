@@ -1,12 +1,12 @@
 import classNames from 'classnames';
 import * as React from 'react';
-import { Flex } from '../Flex';
-import { Label } from '../Label';
+
 import { ComponentClassNames, useAmplifyFieldID } from '../shared';
-import { TextFieldProps } from '../types';
-import { Text } from '../Text';
-import { Input } from '../Input';
 import { FieldDescription, FieldErrorMessage } from '../Field';
+import { Flex } from '../Flex';
+import { Input } from '../Input';
+import { Label } from '../Label';
+import { TextFieldProps } from '../types';
 
 export const TextField: React.FC<TextFieldProps> = ({
   alignContent,

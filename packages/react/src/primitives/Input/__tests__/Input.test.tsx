@@ -9,8 +9,8 @@ describe('Input component', () => {
     render(<Input className="custom-class" />);
 
     const input = (await screen.findByRole('textbox')) as HTMLInputElement;
-    expect(input.className).toContain('custom-class');
-    expect(input.className).toContain(ComponentClassNames.Input);
+    expect(input).toHaveClass('custom-class');
+    expect(input).toHaveClass(ComponentClassNames.Input);
   });
   it('should render expected classname, id Input field', async () => {
     render(
@@ -23,7 +23,7 @@ describe('Input component', () => {
     );
 
     const input = await screen.findByRole('textbox');
-    expect(input.className).toContain('my-input');
+    expect(input).toHaveClass('my-input');
     expect(input.id).toBe('testField');
   });
 
@@ -31,9 +31,9 @@ describe('Input component', () => {
     render(<Input size="small" hasError isDisabled isReadOnly isRequired />);
 
     const input = await screen.findByRole('textbox');
-    expect(input.getAttribute('disabled')).toBeDefined();
-    expect(input.getAttribute('readonly')).toBeDefined();
-    expect(input.getAttribute('required')).toBeDefined();
+    expect(input).toHaveAttribute('disabled');
+    expect(input).toHaveAttribute('readonly');
+    expect(input).toHaveAttribute('required');
   });
 
   it('should set size and variation data attributes', async () => {
@@ -61,7 +61,7 @@ describe('Input component', () => {
   it('show add aria-invalid attribute to input when hasError', async () => {
     render(<Input id="testField" hasError={true} />);
     const input = (await screen.findByRole('textbox')) as HTMLInputElement;
-    expect(input.getAttribute('aria-invalid')).toBeDefined();
+    expect(input).toHaveAttribute('aria-invalid');
   });
 
   it('should fire event handlers', async () => {

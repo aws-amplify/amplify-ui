@@ -7,7 +7,6 @@ module.exports = {
   fontSize: { value: '{fontSizes.medium.value}' },
   lineHeight: { value: '{lineHeights.medium.value}' },
   transitionDuration: { value: '{time.transition.medium.value}' },
-  boxSizing: { value: 'border-box' },
   outlineColor: { value: '{colors.transparent.value}' },
   outlineStyle: { value: 'solid' },
   outlineWidth: { value: '{outlineWidths.medium.value}' },

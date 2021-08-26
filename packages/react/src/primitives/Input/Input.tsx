@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import * as React from 'react';
+
 import { ComponentClassNames } from '../shared';
 import { InputProps } from '../types/input';
 import { View } from '../View';
@@ -33,7 +34,7 @@ export const Input: React.FC<InputProps> = ({
     data-size={size}
     data-variation={variation}
     defaultValue={defaultValue}
-    disabled={isDisabled}
+    isDisabled={isDisabled}
     id={id}
     onChange={onChange}
     onCopy={onCopy}

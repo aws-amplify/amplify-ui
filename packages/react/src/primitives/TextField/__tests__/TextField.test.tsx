@@ -1,11 +1,12 @@
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
 import { ComponentClassNames } from '../../shared';
 import { TextField } from '../TextField';
 import {
   testFlexProps,
   expectFlexStyleProps,
 } from '../../Flex/__tests__/Flex.test';
-import userEvent from '@testing-library/user-event';
 
 describe('TextField component', () => {
   describe('wrapper Flex', () => {
@@ -20,8 +21,8 @@ describe('TextField component', () => {
       );
 
       const field = await screen.findByTestId('testId');
-      expect(field.className).toContain('my-textfield');
-      expect(field.className).toContain(ComponentClassNames.TextField);
+      expect(field).toHaveClass('my-textfield');
+      expect(field).toHaveClass(ComponentClassNames.TextField);
     });
 
     it('should render all flex style props', async () => {
@@ -36,14 +37,14 @@ describe('TextField component', () => {
       render(<TextField label="Field" />);
 
       const label = (await screen.findByText('Field')) as HTMLLabelElement;
-      expect(label.className).toContain(ComponentClassNames.Label);
+      expect(label).toHaveClass(ComponentClassNames.Label);
     });
 
     it('should have `sr-only` class when labelHidden is true', async () => {
       render(<TextField label="Search" labelHidden={true} />);
 
       const label = await screen.findByText('Search');
-      expect(label.className).toContain('sr-only');
+      expect(label).toHaveClass('sr-only');
     });
   });
 
@@ -60,9 +61,9 @@ describe('TextField component', () => {
       );
 
       const field = await screen.findByRole('textbox');
-      expect(field.className).toContain(ComponentClassNames.Input);
+      expect(field).toHaveClass(ComponentClassNames.Input);
       expect(field.id).toBe('testField');
-      expect(field.getAttribute('aria-labelledby')).toBe('testField');
+      expect(field).toHaveAttribute('aria-labelledby', 'testField');
     });
 
     it('should render the state attributes', async () => {
@@ -79,9 +80,9 @@ describe('TextField component', () => {
       );
 
       const field = await screen.findByRole('textbox');
-      expect(field.getAttribute('disabled')).toBeDefined();
-      expect(field.getAttribute('readonly')).toBeDefined();
-      expect(field.getAttribute('required')).toBeDefined();
+      expect(field).toHaveAttribute('disabled');
+      expect(field).toHaveAttribute('readonly');
+      expect(field).toHaveAttribute('required');
     });
 
     it('should set size and variation data attributes', async () => {
@@ -109,7 +110,7 @@ describe('TextField component', () => {
         />
       );
       const field = (await screen.findByRole('textbox')) as HTMLInputElement;
-      expect(field.getAttribute('aria-invalid')).toBeDefined();
+      expect(field).toHaveAttribute('aria-invalid');
     });
 
     it('should fire event handlers', async () => {
