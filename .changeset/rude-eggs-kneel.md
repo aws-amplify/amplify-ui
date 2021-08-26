@@ -1,0 +1,9 @@
+---
+'@aws-amplify/ui-angular': patch
+'@aws-amplify/ui-react': patch
+'@aws-amplify/ui-theme-base': patch
+'@aws-amplify/ui-vue': patch
+'@aws-amplify/ui-core': patch
+---
+
+Enter next prerelease
