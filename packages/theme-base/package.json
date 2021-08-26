@@ -1,5 +1,6 @@
 {
   "name": "@aws-amplify/ui-theme-base",
+  "private": true,
   "description": "Basic theme for Amplify UI components",
   "version": "0.0.1-next.0",
   "main": "dist/theme.js",
