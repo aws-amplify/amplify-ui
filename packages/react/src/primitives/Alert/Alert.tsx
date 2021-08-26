@@ -5,6 +5,7 @@ import { AlertProps } from '../types';
 import { View } from '../View';
 import { Flex } from '../Flex';
 import { Heading } from '../Heading';
+import { Button } from '../Button';
 import { AlertIcon } from './AlertIcon';
 import { IconClose } from '../Icon';
 
@@ -42,11 +43,9 @@ export const Alert: React.FC<AlertProps> = ({
           </View>
         </Flex>
         {isDismissible && (
-          <IconClose
-            className="amplify-alert-icon-close"
-            size="large"
-            onClick={dismissAlert}
-          />
+          <Button variation="link" onClick={dismissAlert}>
+            <IconClose size="large" />
+          </Button>
         )}
       </Flex>
     )
