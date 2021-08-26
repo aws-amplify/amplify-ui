@@ -7,6 +7,7 @@ module.exports = {
   fontSize: { value: '{fontSizes.medium.value}' },
   lineHeight: { value: '{lineHeights.medium.value}' },
   transitionDuration: { value: '{time.transition.medium.value}' },
+  boxSizing: { value: 'border-box' },
   outlineColor: { value: '{colors.transparent.value}' },
   outlineStyle: { value: 'solid' },
   outlineWidth: { value: '{outlineWidths.medium.value}' },
@@ -24,6 +25,10 @@ module.exports = {
   },
 
   quiet: {
+    borderStyle: { value: 'none' },
+    borderBlockEnd: {
+      value: '{borderWidths.small.value} solid {colors.border.primary.value}',
+    },
     borderInlineStart: { value: 'none' },
     borderInlineEnd: { value: 'none' },
     borderBlockStart: { value: 'none' },
@@ -39,7 +44,6 @@ module.exports = {
       },
     },
   },
-
   _focus: {
     // These focus styles have been calibrated to create
     // a highly visible focus indicator per WCAG 2.1 guidliness:

@@ -11,6 +11,7 @@ export * from './label';
 export * from './pagination';
 export * from './placeholder';
 export * from './rating';
+export * from './select';
 export * from './style';
 export * from './textField';
 export * from './view';
