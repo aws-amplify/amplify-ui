@@ -1,6 +1,6 @@
 {
   "name": "angular-example",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "scripts": {
     "ng": "ng",
     "dev": "ng serve --port 3000",
