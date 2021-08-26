@@ -10,7 +10,8 @@ import {
 } from '@angular/core';
 import { AuthState } from '../../common/types';
 import { AmplifyOverrideDirective } from '../../directives/amplify-override.directive';
-import { StateMachineService, AuthPropService } from '../../services';
+import { StateMachineService } from '../../services/state-machine.service';
+import { AuthPropService } from '../../services/authenticator-context.service';
 import { CustomComponents } from '../../common';
 import { getActorState } from '@aws-amplify/ui-core';
 

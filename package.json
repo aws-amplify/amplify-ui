@@ -16,8 +16,6 @@
     "e2e": "yarn workspace e2e",
     "environments": "yarn workspace environments",
     "build:icons": "yarn react build:icons",
-    "build:angular": "yarn angular build",
-    "build:angular:watch": "yarn angular build --watch",
     "build:theme-base": "yarn theme-base build",
     "test": "yarn react test && yarn e2e test",
     "prepare": "husky install"
@@ -27,7 +25,8 @@
     "angular-docs",
     "environments",
     "examples/*",
-    "packages/*"
+    "packages/*",
+    "packages/angular/projects/ui-angular"
   ],
   "resolutions": {
     "@mdx-js/mdx/**/trim": "^0.0.3",

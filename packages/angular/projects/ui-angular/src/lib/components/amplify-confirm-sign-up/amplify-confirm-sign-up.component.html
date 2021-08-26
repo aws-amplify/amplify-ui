@@ -12,11 +12,11 @@
         [initialValue]="username ? username : null"
         [disabled]="!!username"
       ></amplify-user-name-alias>
-      <amplify-input
+      <amplify-form-input
         name="confirmation_code"
         type="number"
         autocomplete="one-time-code"
-      ></amplify-input>
+      ></amplify-form-input>
 
       <div data-amplify-resend>
         Lost your code? {{ ' ' }}

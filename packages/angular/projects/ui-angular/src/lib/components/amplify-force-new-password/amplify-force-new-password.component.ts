@@ -16,7 +16,8 @@ import {
   SignInContext,
   SignInState,
 } from '@aws-amplify/ui-core';
-import { AuthPropService, StateMachineService } from '../../services';
+import { StateMachineService } from '../../services/state-machine.service';
+import { AuthPropService } from '../../services/authenticator-context.service';
 
 const logger = new Logger('ForceNewPassword');
 
