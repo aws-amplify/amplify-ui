@@ -1,6 +1,5 @@
 import React from 'react';
 import { Tabs, TabItem, Text } from '@aws-amplify/ui-react';
-import { BadgeDemo } from '../badge/demo';
 
 // import { BadgePropControls } from '@/components/BadgePropControls';
 // import { useBadgeProps } from '@/components/useBadgeProps';

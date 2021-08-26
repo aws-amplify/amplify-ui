@@ -57,6 +57,5 @@ export const Tabs: React.FC<TabsProps> = ({
   );
 };
 
-// Rename to TabItem, syntactic sugar
 // In the docs, explain that TabItem contains both Tab and it's corresponding Panel
 export const TabItem: React.FC<TabItemProps> = () => null;
