@@ -1,6 +1,6 @@
 {
   "name": "next-example",
-  "version": "0.0.2-next.0",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "^2.0.1-next.0",
+    "@aws-amplify/ui-react": "^2.0.0",
     "@types/node": "^15.12.4",
     "@types/react": "^17.0.11",
     "next": "latest",
