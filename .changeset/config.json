@@ -6,5 +6,13 @@
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": []
+  "ignore": [
+    "docs",
+    "environments",
+    "angular-example",
+    "next-example",
+    "vue-example",
+    "amplify-ui-angular-mono",
+    "e2e"
+  ]
 }
