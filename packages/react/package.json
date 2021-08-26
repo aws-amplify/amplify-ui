@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react",
-  "version": "2.0.0",
+  "version": "2.0.1-next.0",
   "type": "module",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
@@ -27,8 +27,8 @@
     "test:unit:watch": "jest --watch"
   },
   "dependencies": {
-    "@aws-amplify/ui-core": "^0.0.1",
-    "@aws-amplify/ui-theme-base": "^0.0.1",
+    "@aws-amplify/ui-core": "^0.0.2-next.0",
+    "@aws-amplify/ui-theme-base": "^0.0.2-next.0",
     "@xstate/react": "^1.4.0",
     "autoprefixer": "^10.3.1",
     "classnames": "^2.3.1",
