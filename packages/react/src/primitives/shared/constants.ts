@@ -18,7 +18,6 @@ export enum ComponentClassNames {
   TextFieldLabel = 'amplify-textfield__label',
   FieldDescription = 'amplify-field__description',
   FieldLabel = 'amplify-field__label',
-  FieldLabelRequired = 'amplify-field__label--required',
   FieldErrorMessage = 'amplify-field__error-message',
   View = 'amplify-view',
 }
