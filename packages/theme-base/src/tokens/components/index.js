@@ -3,6 +3,7 @@ module.exports = {
   button: require('./button'),
   card: require('./card'),
   divider: require('./divider'),
+  field: require('./field'),
   flex: require('./flex'),
   heading: require('./heading'),
   icon: require('./icon'),
@@ -10,5 +11,6 @@ module.exports = {
   pagination: require('./pagination'),
   placeholder: require('./placeholder'),
   rating: require('./rating'),
+  select: require('./select'),
   text: require('./text'),
 };

@@ -10,6 +10,7 @@ export * from './Image';
 export * from './Pagination';
 export * from './Placeholder';
 export * from './Rating';
+export * from './Select';
 export * from './Text';
 export * from './View';
 
