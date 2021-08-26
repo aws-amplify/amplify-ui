@@ -62,3 +62,60 @@ export const getConsecutiveIntArray = (start: number, end: number) => {
   const length = end - start + 1;
   return Array.from({ length }, (_, idx) => idx + start);
 };
+
+/**
+ * This method is used to parse through all of the overrides and
+ * only pass the relevant child overrides for a given component.
+ * @param overrides escape hatch props
+ * @param elementHierarchy
+ * @returns overrides only for specified element
+ */
+export const findChildOverrides = (
+  overrides: EscapeHatchProps | null | undefined,
+  elementHierarchy: string
+) => {
+  if (!overrides) {
+    return null;
+  }
+
+  const filteredOverrides = Object.entries(overrides).filter((m) =>
+    m[0].startsWith(elementHierarchy)
+  );
+
+  return Object.assign(
+    {},
+    ...Array.from(filteredOverrides, ([k, v]) => ({
+      [k.replace(elementHierarchy, '')]: v,
+    }))
+  );
+};
+
+/**
+ * This helper method is used to get the overrides
+ * that will be applied to a component
+ * @param overrides escape hatch props
+ * @param elementHierarchy
+ * @returns component overrides
+ */
+export const getOverrideProps = (
+  overrides: EscapeHatchProps | null | undefined,
+  elementHierarchy: string
+) => {
+  if (!overrides) {
+    return null;
+  }
+
+  const componentOverrides = Object.entries(overrides)
+    .filter((m) => m[0] === elementHierarchy)
+    .flatMap((m) => {
+      const values = Object.entries(m[1]);
+      return [values[0], values[1]];
+    })
+    .filter((m) => m?.[0]);
+
+  return Object.fromEntries(componentOverrides);
+};
+
+export type EscapeHatchProps = {
+  [elementHierarchy: string]: Record<string, string>;
+};

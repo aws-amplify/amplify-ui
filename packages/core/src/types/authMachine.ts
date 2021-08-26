@@ -20,6 +20,7 @@ export interface SignInContext {
   challengeName?: string;
   authAttributes?: Record<string, any>;
   intent?: string;
+  redirectIntent?: string;
   unverifiedAttributes?: Record<string, string>;
   attributeToVerify?: string;
 }
@@ -39,6 +40,7 @@ export interface ResetPasswordContext {
   remoteError?: string;
   formValues?: ValidationError;
   username?: string;
+  intent?: string;
 }
 export interface SignOutContext {
   user?: CognitoUserAmplify;
@@ -82,6 +84,7 @@ export enum AuthChallengeNames {
   SMS_MFA = 'SMS_MFA',
   SOFTWARE_TOKEN_MFA = 'SOFTWARE_TOKEN_MFA',
   NEW_PASSWORD_REQUIRED = 'NEW_PASSWORD_REQUIRED',
+  RESET_REQUIRED = 'RESET_REQUIRED',
   MFA_SETUP = 'MFA_SETUP',
 }
 
