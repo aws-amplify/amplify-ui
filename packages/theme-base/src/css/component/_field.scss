@@ -25,11 +25,13 @@
   &[data-size='small'] {
     font-size: var(--amplify-components-field-small-font-size);
     line-height: var(--amplify-components-field-small-line-height);
+    padding: var(--amplify-components-field-small-padding);
   }
 
   &[data-size='large'] {
     font-size: var(--amplify-components-field-large-font-size);
     line-height: var(--amplify-components-field-large-line-height);
+    padding: var(--amplify-components-field-large-padding);
   }
 
   // Error styling

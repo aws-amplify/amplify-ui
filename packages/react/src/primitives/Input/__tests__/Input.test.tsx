@@ -8,8 +8,9 @@ describe('Input component', () => {
   it('should render custom classname for Input', async () => {
     render(<Input className="custom-class" />);
 
-    const label = (await screen.findByRole('textbox')) as HTMLInputElement;
-    expect(label.className).toContain('custom-class');
+    const input = (await screen.findByRole('textbox')) as HTMLInputElement;
+    expect(input.className).toContain('custom-class');
+    expect(input.className).toContain(ComponentClassNames.Input);
   });
   it('should render expected classname, id Input field', async () => {
     render(
@@ -21,46 +22,46 @@ describe('Input component', () => {
       />
     );
 
-    const field = await screen.findByRole('textbox');
-    expect(field.className).toContain('my-input');
-    expect(field.id).toBe('testField');
+    const input = await screen.findByRole('textbox');
+    expect(input.className).toContain('my-input');
+    expect(input.id).toBe('testField');
   });
 
   it('should render the state attributes', async () => {
     render(<Input size="small" hasError isDisabled isReadOnly isRequired />);
 
-    const field = await screen.findByRole('textbox');
-    expect(field.getAttribute('disabled')).toBeDefined();
-    expect(field.getAttribute('readonly')).toBeDefined();
-    expect(field.getAttribute('required')).toBeDefined();
+    const input = await screen.findByRole('textbox');
+    expect(input.getAttribute('disabled')).toBeDefined();
+    expect(input.getAttribute('readonly')).toBeDefined();
+    expect(input.getAttribute('required')).toBeDefined();
   });
 
   it('should set size and variation data attributes', async () => {
     render(<Input size="small" variation="quiet" />);
 
-    const field = await screen.findByRole('textbox');
-    expect(field.dataset['size']).toBe('small');
-    expect(field.dataset['variation']).toBe('quiet');
+    const input = await screen.findByRole('textbox');
+    expect(input.dataset['size']).toBe('small');
+    expect(input.dataset['variation']).toBe('quiet');
   });
 
   it('can set defaultValue (uncontrolled)', async () => {
     render(<Input defaultValue="test" />);
 
-    const field = (await screen.findByRole('textbox')) as HTMLInputElement;
-    expect(field.value).toBe('test');
+    const input = (await screen.findByRole('textbox')) as HTMLInputElement;
+    expect(input.value).toBe('test');
   });
 
   it('can set value (controlled component)', async () => {
     render(<Input value="test" />);
 
-    const field = (await screen.findByRole('textbox')) as HTMLInputElement;
-    expect(field.value).toBe('test');
+    const input = (await screen.findByRole('textbox')) as HTMLInputElement;
+    expect(input.value).toBe('test');
   });
 
   it('show add aria-invalid attribute to input when hasError', async () => {
     render(<Input id="testField" hasError={true} />);
-    const field = (await screen.findByRole('textbox')) as HTMLInputElement;
-    expect(field.getAttribute('aria-invalid')).toBeDefined();
+    const input = (await screen.findByRole('textbox')) as HTMLInputElement;
+    expect(input.getAttribute('aria-invalid')).toBeDefined();
   });
 
   it('should fire event handlers', async () => {
@@ -68,9 +69,9 @@ describe('Input component', () => {
     const onInput = jest.fn();
     const onPaste = jest.fn();
     render(<Input onChange={onChange} onInput={onInput} onPaste={onPaste} />);
-    const field = (await screen.findByRole('textbox')) as HTMLInputElement;
-    userEvent.type(field, 'hello');
-    userEvent.paste(field, 'there');
+    const input = (await screen.findByRole('textbox')) as HTMLInputElement;
+    userEvent.type(input, 'hello');
+    userEvent.paste(input, 'there');
     expect(onChange).toHaveBeenCalled();
     expect(onInput).toHaveBeenCalled();
     expect(onPaste).toHaveBeenCalled();

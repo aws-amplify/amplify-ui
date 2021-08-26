@@ -62,7 +62,6 @@ export const TextField: React.FC<TextFieldProps> = ({
       <Flex className={ComponentClassNames.FieldWrapper}>
         <Input
           aria-labelledby={fieldId}
-          className={ComponentClassNames.TextFieldInput}
           defaultValue={defaultValue}
           hasError={hasError}
           id={fieldId}

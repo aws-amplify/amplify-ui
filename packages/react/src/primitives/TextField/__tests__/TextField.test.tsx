@@ -36,7 +36,7 @@ describe('TextField component', () => {
       render(<TextField label="Field" />);
 
       const label = (await screen.findByText('Field')) as HTMLLabelElement;
-      expect(label.className).toContain(ComponentClassNames.FieldLabel);
+      expect(label.className).toContain(ComponentClassNames.Label);
     });
 
     it('should have `sr-only` class when labelHidden is true', async () => {
@@ -60,7 +60,7 @@ describe('TextField component', () => {
       );
 
       const field = await screen.findByRole('textbox');
-      expect(field.className).toContain(ComponentClassNames.TextFieldInput);
+      expect(field.className).toContain(ComponentClassNames.Input);
       expect(field.id).toBe('testField');
       expect(field.getAttribute('aria-labelledby')).toBe('testField');
     });

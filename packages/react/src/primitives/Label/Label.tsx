@@ -14,7 +14,7 @@ export const Label: React.FC<LabelProps> = ({
     <View
       as="label"
       htmlFor={htmlFor}
-      className={classNames(ComponentClassNames.FieldLabel, {
+      className={classNames(ComponentClassNames.Label, {
         'sr-only': visuallyHidden,
       })}
       {...rest}
