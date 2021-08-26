@@ -47,7 +47,7 @@ export interface SignInSetupReturnTypes {
 export interface SignUpSetupReturnTypes {
   onHaveAccountClicked: () => void;
   onSignUpSubmit: (e: Event) => void;
-  onChange: (e: Event) => void;
+  onInput: (e: Event) => void;
   state: Ref;
   actorState: ComputedRef<SignUpState>;
   phone: Ref<string>;
