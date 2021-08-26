@@ -7,34 +7,16 @@ Feature: Sign In with Email
   Amplify can be configured to allow a user to use their email
   when signing into your application.
 
-  Background:
-    Given I'm at the sign in page
-
-
-  @vue @react @angular
-  Scenario: Sign in with unknown credentials
-    When I type the valid email "UNKNOWN_EMAIL"
-    And I type the valid password "VALID_PASSWORD"
+  Scenario Outline: Sign In with <status>
+    Given I'm at the url "/ui/components/authenticator/sign-in-with-email"
+    When I type my "email" with status <status>
+    And I type my password
     And I click the "Sign In" button
-    Then I see "User does not exist"
+    Then I see <result>
 
-  @vue @react @angular
-  Scenario: Sign in with unconfirmed credentials
-    When I type the valid email "UNCONFIRMED_EMAIL"
-    And I type the valid password "VALID_PASSWORD"
-    And I click the "Sign In" button
-    Then I see "Confirmation Code"
-
-  @vue @react @angular
-  Scenario: Sign in with confirmed credentials
-    When I type the valid email "CONFIRMED_EMAIL"
-    And I type the valid password "VALID_PASSWORD"
-    And I click the "Sign In" button
-    Then I see "Sign out"
-
-  @react @skip
-  Scenario: Sign in with force change password credentials
-    When I type the valid email "FORCE_CHANGE_EMAIL"
-    And I type the valid password "VALID_PASSWORD"
-    And I click the "Sign In" button
-    Then I see "Change Password"
+    Scenarios:
+      | status                  | result                |
+      | "UNKNOWN"               | "User does not exist" |
+      | "UNCONFIRMED"           | "Confirmation Code"   |
+      | "CONFIRMED"             | "Sign out"            |
+      | "FORCE_CHANGE_PASSWORD" | "Change Password"     |
