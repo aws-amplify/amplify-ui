@@ -4,7 +4,6 @@ import { Text } from '../Text';
 import { ComponentClassNames } from '../shared/constants';
 
 export const FieldDescription: React.FC<FieldDescriptionProps> = ({
-  children,
   descriptiveText,
   labelHidden,
   ...rest

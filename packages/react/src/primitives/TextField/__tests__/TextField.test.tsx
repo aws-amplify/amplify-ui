@@ -122,7 +122,6 @@ describe('TextField component', () => {
           onChange={onChange}
           onInput={onInput}
           onPaste={onPaste}
-          on
         />
       );
       const field = (await screen.findByRole('textbox')) as HTMLInputElement;
