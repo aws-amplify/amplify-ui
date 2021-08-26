@@ -6,6 +6,7 @@
     "test": "echo \"Skipped: no test specified\""
   },
   "dependencies": {
+    "@aws-amplify/ui-core": "0.0.0",
     "@xstate/vue": "^0.8.0",
     "qrcode": "^1.4.4"
   }
