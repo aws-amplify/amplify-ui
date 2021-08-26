@@ -26,15 +26,16 @@ export const TextField: React.FC<TextFieldProps> = (props) => {
     justifyContent,
     label,
     labelHidden = false,
-    type = 'text',
-    value,
-    size,
     onChange,
     onCopy,
     onCut,
     onInput,
     onPaste,
     onSelect,
+    size,
+    testId,
+    type = 'text',
+    value,
     wrap,
     ...rest
   } = props;
@@ -46,13 +47,10 @@ export const TextField: React.FC<TextFieldProps> = (props) => {
       alignContent={alignContent}
       alignItems={alignItems}
       className={classNames(ComponentClassNames.TextField, className)}
-      data-disabled={isDisabled}
-      data-readonly={isReadOnly}
-      data-required={isRequired}
-      data-size={size}
       direction={direction}
       gap={gap}
       justifyContent={justifyContent}
+      testId={testId}
       wrap={wrap}
     >
       <Label

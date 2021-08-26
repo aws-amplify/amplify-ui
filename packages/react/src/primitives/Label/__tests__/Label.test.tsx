@@ -1,6 +1,5 @@
 import { Label } from '../Label';
 import { render, screen } from '@testing-library/react';
-import { ComponentClassNames } from '../../shared';
 
 describe('Label component', () => {
   it('should render default and custom classname for TextField wrapper', async () => {
