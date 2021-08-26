@@ -144,6 +144,8 @@ module.exports = {
     tertiary: { value: '{colors.neutral.20.value}' },
   },
 
+  focus: { value: '{colors.brand.primary.100.value}' },
+
   shadow: {
     primary: { value: 'hsl(210, 50%, 10%, 0.25)' },
     secondary: { value: 'hsl(210, 50%, 10%, 0.15)' },

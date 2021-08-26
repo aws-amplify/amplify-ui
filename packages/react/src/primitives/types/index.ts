@@ -11,5 +11,6 @@ export * from './image';
 export * from './pagination';
 export * from './placeholder';
 export * from './rating';
+export * from './select';
 export * from './style';
 export * from './view';

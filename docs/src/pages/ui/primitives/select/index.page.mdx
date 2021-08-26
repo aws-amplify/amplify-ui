@@ -1,0 +1,357 @@
+---
+title: Select
+---
+
+import { Flex, Select, IconArrowDropDown } from '@aws-amplify/ui-react';
+import { SelectDemo, ControlledSelect } from './demo.tsx';
+import { Example } from '@/components/Example';
+
+A Select component allows you to create a drop-down list. The `<option>` tags nested inside the component define the available options in the drop-down list.
+
+## Demo
+
+<Example>
+  <SelectDemo />
+</Example>
+
+## Usage
+
+Import the Select primitive and styles.
+
+```jsx
+import { Select } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<Select defaultValue="" placeholder="Please select a fruit">
+  <option value="apple">Apple</option>
+  <option value="banana">Banana</option>
+  <option value="orange">Orange</option>
+</Select>;
+```
+
+<Example>
+  <Select defaultValue="" placeholder="Please select a fruit">
+    <option value="apple">Apple</option>
+    <option value="banana">Banana</option>
+    <option value="orange">Orange</option>
+  </Select>
+</Example>
+
+### Controlled component
+
+```jsx
+import { useState } from 'react';
+import { Select } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+const [value, setState] = useState('');
+
+<Select
+  value={value}
+  placeholder="Please select a fruit"
+  onChange={(e) => setState(e.target.value)}
+>
+  <option value="apple">Apple</option>
+  <option value="banana">Banana</option>
+  <option value="orange">Orange</option>
+</Select>;
+```
+
+<Example>
+  <ControlledSelect />
+</Example>
+
+### Sizes
+
+Use the `size` prop to change the Select size. Available options are `small`, `large`, and none (default).
+
+```jsx
+import { Select } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<Select defaultValue="" placeholder="Please select a fruit" size="small">
+  <option value="apple">Apple</option>
+  <option value="banana">Banana</option>
+  <option value="orange">Orange</option>
+</Select>;
+
+<Select defaultValue="" placeholder="Please select a fruit">
+  <option value="apple">Apple</option>
+  <option value="banana">Banana</option>
+  <option value="orange">Orange</option>
+</Select>;
+
+<Select defaultValue="" placeholder="Please select a fruit" size="large">
+  <option value="apple">Apple</option>
+  <option value="banana">Banana</option>
+  <option value="orange">Orange</option>
+</Select>;
+```
+
+<Example>
+  <Flex direction="column">
+    <Select defaultValue="" placeholder="Please select a fruit" size="small">
+      <option value="apple">Apple</option>
+      <option value="banana">Banana</option>
+      <option value="orange">Orange</option>
+    </Select>
+    <Select defaultValue="" placeholder="Please select a fruit">
+      <option value="apple">Apple</option>
+      <option value="banana">Banana</option>
+      <option value="orange">Orange</option>
+    </Select>
+    <Select defaultValue="" placeholder="Please select a fruit" size="large">
+      <option value="apple">Apple</option>
+      <option value="banana">Banana</option>
+      <option value="orange">Orange</option>
+    </Select>
+  </Flex>
+</Example>
+
+### Variation
+
+Select comes in 2 variants, `quiet` and none(default). Pass the `variation` prop and set it to either of these values.
+
+```jsx
+import { Select } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<Select defaultValue="" placeholder="Please select a fruit">
+  <option value="apple">Apple</option>
+  <option value="banana">Banana</option>
+  <option value="orange">Orange</option>
+</Select>;
+
+<Select defaultValue="" placeholder="Please select a fruit" variation="quiet">
+  <option value="apple">Apple</option>
+  <option value="banana">Banana</option>
+  <option value="orange">Orange</option>
+</Select>;
+```
+
+<Example>
+  <Flex direction="column">
+    <Select defaultValue="" placeholder="Please select a fruit">
+      <option value="apple">Apple</option>
+      <option value="banana">Banana</option>
+      <option value="orange">Orange</option>
+    </Select>
+    <Select
+      defaultValue=""
+      placeholder="Please select a fruit"
+      variation="quiet"
+    >
+      <option value="apple">Apple</option>
+      <option value="banana">Banana</option>
+      <option value="orange">Orange</option>
+    </Select>
+  </Flex>
+</Example>
+
+### Placeholder
+
+You can set a placeholder option out of box via the `placeholder` props. The value for the placeholder option will set to empty string `""`. If you would like to pass your own placeholder with a custom value, then just simply leave it off and pass your custom one.
+
+```jsx
+import { Select } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+import { Select } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+// use the placeholder out of box
+<Select defaultValue="" placeholder="Please select a fruit">
+  <option value="apple">Apple</option>
+  <option value="banana">Banana</option>
+  <option value="orange">Orange</option>
+</Select>;
+
+// or pass a custom placeholder
+<Select defaultValue="DEFAULT">
+  <option value="DEFAULT">Please select a fruit</option>
+  <option value="apple">Apple</option>
+  <option value="banana">Banana</option>
+  <option value="orange">Orange</option>
+</Select>;
+```
+
+<Example>
+  <Flex direction="column">
+    <Select defaultValue="" placeholder="Please select a fruit">
+      <option value="apple">Apple</option>
+      <option value="banana">Banana</option>
+      <option value="orange">Orange</option>
+    </Select>
+    <Select defaultValue="">
+      <option value="DEFAULT">Please select a fruit</option>
+      <option value="apple">Apple</option>
+      <option value="banana">Banana</option>
+      <option value="orange">Orange</option>
+    </Select>
+  </Flex>
+</Example>
+
+### Icon
+
+You can change the expand icon used in the select. Simply pass the `icon` prop. Also, you can change the icon color by passing the `iconColor` prop.
+
+```jsx
+import { Select } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<Select
+  defaultValue=""
+  placeholder="Please select a fruit"
+  icon={<IconArrowDropDown />}
+  iconColor="purple"
+>
+  <option value="apple">Apple</option>
+  <option value="banana">Banana</option>
+  <option value="orange">Orange</option>
+</Select>;
+```
+
+<Example>
+  <Select
+    defaultValue=""
+    placeholder="Please select a fruit"
+    icon={<IconArrowDropDown />}
+    iconColor="purple"
+  >
+    <option value="apple">Apple</option>
+    <option value="banana">Banana</option>
+    <option value="orange">Orange</option>
+  </Select>
+</Example>
+
+## CSS Styling
+
+### Global styling
+
+To override styling on all Selects, you can set the Amplify CSS variables or use the built-in `.amplify-select` class.
+
+```css
+/* styles.css */
+:root {
+  --amplify-components-select-background-color: yellow;
+}
+/* OR */
+.amplify-select {
+  background-color: yellow;
+}
+```
+
+To replace the Select styling, unset it:
+
+```css
+.amplify-select {
+  all: unset;
+  /* Add your styling here*/
+}
+```
+
+### Local styling
+
+To override styling on a specific Select, you can use (in order of increasing specificity): a class selector, data attributes, or style props.
+
+_Using a class selector:_
+
+```css
+/* styles.css */
+.my-custom-select {
+  background-color: cyan;
+}
+```
+
+```jsx
+import './styles.css';
+
+<Select
+  className="my-custom-select"
+  defaultValue=""
+  placeholder="Please select a fruit"
+>
+  <option value="apple">Apple</option>
+  <option value="banana">Banana</option>
+  <option value="orange">Orange</option>
+</Select>;
+```
+
+<Example>
+  <Select
+    className="my-custom-select"
+    defaultValue=""
+    placeholder="Please select a fruit"
+  >
+    <option value="apple">Apple</option>
+    <option value="banana">Banana</option>
+    <option value="orange">Orange</option>
+  </Select>
+</Example>
+
+```css
+/* styles.css */
+/* Override only large size styles */
+.amplify-select[data-size='large'] {
+  border: 1px solid black;
+}
+
+/* Override only info variation styles */
+.amplify-select[data-variation='filled'] {
+  background-color: rebeccapurple;
+}
+```
+
+```jsx
+import './styles.css';
+
+<Select defaultValue="" placeholder="Please select a fruit" size="large">
+  <option value="apple">Apple</option>
+  <option value="banana">Banana</option>
+  <option value="orange">Orange</option>
+</Select>
+<Select defaultValue="" placeholder="Please select a fruit" variation="filled">
+  <option value="apple">Apple</option>
+  <option value="banana">Banana</option>
+  <option value="orange">Orange</option>
+</Select>
+```
+
+_Using style props:_
+
+```jsx
+<Select defaultValue="" placeholder="Please select a fruit" style={{backgroundColor: 'plum'}}>
+  <option value="apple">Apple</option>
+  <option value="banana">Banana</option>
+  <option value="orange">Orange</option>
+</Select>
+/* OR */
+<Select defaultValue="" placeholder="Please select a fruit" backgroundColor="plum">
+  <option value="apple">Apple</option>
+  <option value="banana">Banana</option>
+  <option value="orange">Orange</option>
+</Select>
+```
+
+<Example>
+  <Flex direction="column">
+    <Select
+      defaultValue=""
+      placeholder="Please select a fruit"
+      style={{ backgroundColor: 'plum' }}
+    >
+      <option value="apple">Apple</option>
+      <option value="banana">Banana</option>
+      <option value="orange">Orange</option>
+    </Select>
+    <Select
+      defaultValue=""
+      placeholder="Please select a fruit"
+      backgroundColor="plum"
+    >
+      <option value="apple">Apple</option>
+      <option value="banana">Banana</option>
+      <option value="orange">Orange</option>
+    </Select>
+  </Flex>
+</Example>
