@@ -5,6 +5,7 @@ module.exports = {
   card: require('./card'),
   divider: require('./divider'),
   field: require('./field'),
+  fieldmessages: require('./fieldMessages'),
   flex: require('./flex'),
   heading: require('./heading'),
   icon: require('./icon'),
@@ -12,6 +13,7 @@ module.exports = {
   pagination: require('./pagination'),
   placeholder: require('./placeholder'),
   rating: require('./rating'),
+  textfield: require('./textField'),
   select: require('./select'),
   text: require('./text'),
 };

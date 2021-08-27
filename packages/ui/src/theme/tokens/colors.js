@@ -145,6 +145,7 @@ module.exports = {
   },
 
   focus: { value: '{colors.brand.primary.100.value}' },
+  error: { value: '{colors.red.80.value}' },
 
   shadow: {
     primary: { value: 'hsl(210, 50%, 10%, 0.25)' },
