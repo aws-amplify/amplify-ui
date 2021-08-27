@@ -12,6 +12,7 @@ export * from './Placeholder';
 export * from './Rating';
 export * from './Select';
 export * from './Text';
+export * from './TextField';
 export * from './View';
 
 export * from './shared';

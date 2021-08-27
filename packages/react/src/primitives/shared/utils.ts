@@ -1,5 +1,12 @@
-import postcssJs from 'postcss-js';
+import * as React from 'react';
 import autoprefixer from 'autoprefixer';
+import postcssJs from 'postcss-js';
+
+// Note: this makes nanoid more performant, not less secure
+// @see https://www.npmjs.com/package/nanoid#user-content-non-secure
+import { customAlphabet } from 'nanoid/non-secure';
+const nanoid = customAlphabet('1234567890abcdef', 12);
+
 import {
   ComponentPropsToStylePropsMap,
   ComponentPropToStyleProp,
@@ -61,4 +68,19 @@ export const getNonStyleProps = (props: ViewProps) => {
 export const getConsecutiveIntArray = (start: number, end: number) => {
   const length = end - start + 1;
   return Array.from({ length }, (_, idx) => idx + start);
+};
+
+/**
+ * Create a uuid to use with amplify fields unless
+ * an id is already defined
+ * @param id user specified id or undefined
+ * @returns string
+ */
+export const useAmplifyFieldID = (id?: string) => {
+  return React.useMemo(() => {
+    if (id) {
+      return id;
+    }
+    return `amplify-field-${nanoid()}`;
+  }, [id]);
 };
