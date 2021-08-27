@@ -63,11 +63,12 @@ Use the `title` prop to pass a title to the Alert.
 
 ### Icon
 
-Use the `hasIcon` prop to change whether the Alert includes an icon. Defaults to `true` (includes icon).
+Use the `hasIcon` prop to change whether the Alert includes an icon. Defaults to `true` (includes icon). Use the `iconSize` prop to change the size of the icon. Available options include `small`, (default), and `large`.
 
 ```jsx
 <Alert variation="info">This Alert shows an icon by default</Alert>
 <Alert variation="error" hasIcon={false}>This Alert does not have an icon</Alert>
+<Alert variation="success" iconSize="large">This Alert has a large icon</Alert>
 ```
 
 <Example>
@@ -75,6 +76,9 @@ Use the `hasIcon` prop to change whether the Alert includes an icon. Defaults to
     <Alert variation="info">This Alert shows an icon by default</Alert>
     <Alert variation="error" hasIcon={false}>
       This Alert does not have an icon
+    </Alert>
+    <Alert variation="success" iconSize="large">
+      This Alert has a large icon
     </Alert>
   </Flex>
 </Example>

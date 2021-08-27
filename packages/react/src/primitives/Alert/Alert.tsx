@@ -13,6 +13,7 @@ export const Alert: React.FC<AlertProps> = ({
   children,
   className,
   hasIcon = true,
+  iconSize,
   isDismissible = false,
   onDismiss = () => {},
   title,
@@ -36,7 +37,7 @@ export const Alert: React.FC<AlertProps> = ({
         {...rest}
       >
         <Flex alignItems="center">
-          {hasIcon && <AlertIcon variation={variation} />}
+          {hasIcon && <AlertIcon variation={variation} iconSize={iconSize} />}
           <View>
             {title && <Heading color="inherit">{title}</Heading>}
             {children}
@@ -44,7 +45,7 @@ export const Alert: React.FC<AlertProps> = ({
         </Flex>
         {isDismissible && (
           <Button variation="link" onClick={dismissAlert}>
-            <IconClose size="large" />
+            <IconClose size={iconSize} />
           </Button>
         )}
       </Flex>

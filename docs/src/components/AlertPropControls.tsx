@@ -8,6 +8,7 @@ export interface AlertPropControlsProps extends AlertProps {
   setIsDismissible: (
     value: React.SetStateAction<AlertProps['isDismissible']>
   ) => void;
+  setIconSize: (value: React.SetStateAction<AlertProps['iconSize']>) => void;
   setHasIcon: (value: React.SetStateAction<AlertProps['hasIcon']>) => void;
   setTitle: (value: React.SetStateAction<AlertProps['title']>) => void;
 }
@@ -21,6 +22,8 @@ export const AlertPropControls: AlertPropControlsInterface = ({
   setVariation,
   isDismissible,
   setIsDismissible,
+  iconSize,
+  setIconSize,
   hasIcon,
   setHasIcon,
   title,
@@ -69,6 +72,21 @@ export const AlertPropControls: AlertPropControlsInterface = ({
             setHasIcon(event.target.checked as AlertProps['hasIcon'])
           }
         />
+      </FieldLabeler>
+
+      <FieldLabeler id="iconSize">
+        <select
+          name="iconSize"
+          id="iconSize"
+          value={iconSize}
+          onChange={(event) =>
+            setIconSize(event.target.value as AlertProps['iconSize'])
+          }
+        >
+          <option value="">default</option>
+          <option value="small">small</option>
+          <option value="large">large</option>
+        </select>
       </FieldLabeler>
 
       <FieldLabeler id="title">

@@ -10,6 +10,7 @@ export const AlertDemo = () => {
     variation: 'info',
     isDismissible: false,
     hasIcon: true,
+    iconSize: 'large',
     title: 'Alert title',
   });
 
@@ -21,6 +22,7 @@ export const AlertDemo = () => {
           variation={alertProps.variation}
           isDismissible={alertProps.isDismissible}
           hasIcon={alertProps.hasIcon}
+          iconSize={alertProps.iconSize}
           title={alertProps.title}
         >
           This is the Alert message.

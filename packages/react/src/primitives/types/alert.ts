@@ -2,6 +2,8 @@ import { BaseComponentProps } from './base';
 
 import { BaseStyleProps } from './style';
 
+import { IconSize } from './icon';
+
 export type AlertVariation = 'info' | 'error' | 'warning' | 'success';
 
 export interface AlertProps extends BaseComponentProps, BaseStyleProps {
@@ -12,6 +14,8 @@ export interface AlertProps extends BaseComponentProps, BaseStyleProps {
   onDismiss?: () => void;
 
   hasIcon?: boolean; // default true
+
+  iconSize?: IconSize;
 
   title?: string;
 }

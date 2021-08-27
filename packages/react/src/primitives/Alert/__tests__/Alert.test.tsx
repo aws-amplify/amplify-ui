@@ -3,7 +3,6 @@ import { Alert } from '../Alert';
 import { ComponentClassNames } from '../../shared';
 import { ComponentPropsToStylePropsMap } from '../../types';
 import { kebabCase } from 'lodash';
-import { createPortal } from 'react-dom';
 
 describe('Alert: ', () => {
   it('can render Alert variations', async () => {
