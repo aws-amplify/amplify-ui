@@ -26,6 +26,9 @@
 <ng-template #resetPassword>
   <amplify-reset-password></amplify-reset-password>
 </ng-template>
+<ng-template #confirmResetPassword>
+  <amplify-confirm-reset-password></amplify-confirm-reset-password>
+</ng-template>
 
 <!-- 
   Next, we render respective auth subcomponent respective to the current authState.
@@ -85,6 +88,16 @@
   [ngTemplateOutlet]="customComponents.resetPassword || resetPassword"
   [ngTemplateOutletContext]="context()"
   *ngIf="actorState?.matches('resetPassword')"
+>
+</ng-container>
+
+<!-- confirmResetPassword content -->
+<ng-container
+  [ngTemplateOutlet]="
+    customComponents.confirmResetPassword || confirmResetPassword
+  "
+  [ngTemplateOutletContext]="context()"
+  *ngIf="actorState?.matches('confirmResetPassword')"
 >
 </ng-container>
 
