@@ -61,9 +61,7 @@
 import { defineComponent, ref, computed, ComputedRef } from 'vue';
 import {
   authInputAttributes,
-  getActorContext,
   getActorState,
-  SignUpContext,
   SignUpState,
   socialProviderLoginMechanisms,
 } from '@aws-amplify/ui-core';
@@ -143,10 +141,6 @@ export default defineComponent({
     const signUpButtonText = computed(() => SIGN_UP_BUTTON_TEXT);
     const inputAttributes = computed(() => authInputAttributes);
 
-    // watch(state, (first) => {
-    // const actorContext: SignUpContext = getActorContext(first);
-    // error.value = actorContext.validationError?.confirm_password;
-    // });
     // Methods
 
     const onHaveAccountClicked = (): void => {
