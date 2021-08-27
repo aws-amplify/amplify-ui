@@ -3,6 +3,8 @@
   font-size: var(--amplify-components-field-font-size);
   line-height: var(--amplify-components-field-line-height);
   padding: var(--amplify-components-field-padding);
+  transition: all var(--amplify-components-button-transition-duration);
+  width: 100%;
 
   // for border
   border-color: var(--amplify-components-field-border-color);
@@ -23,20 +25,21 @@
   &[data-size='small'] {
     font-size: var(--amplify-components-field-small-font-size);
     line-height: var(--amplify-components-field-small-line-height);
+    padding: var(--amplify-components-field-small-padding);
   }
 
   &[data-size='large'] {
     font-size: var(--amplify-components-field-large-font-size);
     line-height: var(--amplify-components-field-large-line-height);
+    padding: var(--amplify-components-field-large-padding);
   }
 
-  &[data-variation='quiet'] {
-    border-style: var(--amplify-components-field-quiet-border-style);
-    border-block-end: var(--amplify-components-field-quiet-border-block-end);
-    border-radius: var(--amplify-components-field-quiet-border-radius);
+  // Error styling
+  &[aria-invalid='true'] {
+    border-color: var(--amplify-components-field-error-border-color);
     &:focus {
-      border-color: var(--amplify-components-field-quiet-focus-border-color);
-      box-shadow: var(--amplify-components-field-quiet-focus-box-shadow);
+      border-color: var(--amplify-components-field-error-border-color);
+      box-shadow: var(--amplify-components-field-error-focus-box-shadow);
     }
   }
 
@@ -45,5 +48,33 @@
     cursor: var(--amplify-components-field-disabled-cursor);
     border-color: var(--amplify-components-field-disabled-border-color);
     background-color: var(--amplify-components-field-disabled-background-color);
+  }
+
+  // variation styles
+  &[data-variation='quiet'] {
+    border-block-start: var(
+      --amplify-components-field-quiet-border-block-start
+    );
+    border-inline-start: var(
+      --amplify-components-field-quiet-border-inline-start
+    );
+    border-inline-end: var(--amplify-components-field-quiet-border-inline-end);
+    border-radius: var(--amplify-components-field-quiet-border-radius);
+    &:focus {
+      border-block-end-color: var(
+        --amplify-components-field-quiet-focus-border-block-end-color
+      );
+      box-shadow: var(--amplify-components-field-quiet-focus-box-shadow);
+    }
+    &[aria-invalid='true'] {
+      border-block-end-color: var(
+        --amplify-components-field-quiet-error-border-block-end-color
+      );
+      &:focus {
+        box-shadow: var(
+          --amplify-components-field-quiet-error-focus-box-shadow
+        );
+      }
+    }
   }
 }

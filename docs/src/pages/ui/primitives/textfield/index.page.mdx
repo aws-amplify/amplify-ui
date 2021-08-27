@@ -2,7 +2,6 @@
 title: TextField
 ---
 
-import { TextField } from '@aws-amplify/ui-react';
-import { TextFieldDemo } from './demo';
+import { Fragment } from '@/components/Fragment';
 
-<TextFieldDemo />
+<Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>

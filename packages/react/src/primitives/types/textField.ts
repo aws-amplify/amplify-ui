@@ -1,5 +1,3 @@
-import { AriaProps, BaseComponentProps, Sizes } from './base';
-import { BaseStyleProps } from './style';
 import { FlexStyleProps } from './flex';
 import { InputProps } from './input';
 import { FieldProps } from './field';

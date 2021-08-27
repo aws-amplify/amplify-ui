@@ -1,3 +1,5 @@
+import { InputProps } from './input';
+
 /**
  * Shared type across all field types
  */
@@ -25,5 +27,11 @@ export interface FieldProps {
    */
   labelHidden?: boolean;
 }
+
+export interface FieldDescriptionProps
+  extends Pick<FieldProps, 'descriptiveText' | 'labelHidden'> {}
+export interface FieldErrorMessageProps
+  extends Pick<FieldProps, 'errorMessage'>,
+    Pick<InputProps, 'hasError'> {}
 
 export type FieldVariations = 'quiet';

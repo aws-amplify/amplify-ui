@@ -15,30 +15,8 @@
   // Required to override docs styling
   // css-s90uia p { margin-bottom: 1rem; }
   // @TODO: remove styling from docs
-  .amplify-textfield__description {
+  .amplify-field__description,
+  .amplify-field__error-message {
     margin: 0;
-  }
-}
-.amplify-textfield__description {
-  font-style: italic;
-  font-size: 0.8rem;
-}
-// This is required to increase specificity to override Tailwind styles in Docs
-// TODO: unnest this class once Tailwind is removed
-.amplify-textfield__input {
-  @extend %amplify-field;
-  padding: var(--amplify-components-textfield-padding);
-  border-radius: var(--amplify-components-field-border-radius);
-
-  /* Required to override tailwind default styling */
-  &[data-size='small'] {
-    font-size: var(--amplify-components-textfield-small-font-size);
-    line-height: var(--amplify-components-textfield-small-font-size);
-    padding: var(--amplify-components-textfield-small-padding);
-  }
-  &[data-size='large'] {
-    font-size: var(--amplify-components-textfield-large-font-size);
-    line-height: var(--amplify-components-textfield-large-font-size);
-    padding: var(--amplify-components-textfield-large-padding);
   }
 }

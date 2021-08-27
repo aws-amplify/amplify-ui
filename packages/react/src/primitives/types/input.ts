@@ -26,7 +26,7 @@ export interface InputProps
   /**
    * Use this to provide a default value for an uncontrolled field
    */
-  defaultValue?: string | number | readonly string[] | boolean;
+  defaultValue?: string | number | readonly string[];
 
   /**
    * Indicates that Field is in error state
@@ -70,12 +70,7 @@ export interface InputProps
   /**
    *
    */
-  onInput?: React.FormEventHandler<HTMLInputElement>;
-
-  /**
-   *
-   */
-  onBeforeInput?: React.FormEventHandler<HTMLInputElement>;
+  onInput?: React.ChangeEventHandler<HTMLInputElement>;
 
   /**
    * Copy clipboard event
@@ -108,7 +103,7 @@ export interface InputProps
   /**
    * Changes the font-size, padding, and height of the field.
    */
-  visualSize?: Sizes;
+  size?: Sizes;
 
   /**
    * Input type
@@ -119,10 +114,10 @@ export interface InputProps
   /**
    * If value is provided, this will be a controlled field
    */
-  value?: string | number | readonly string[] | boolean;
+  value?: string | number | readonly string[];
 
   /**
    * Variants
    */
-  variations?: FieldVariations;
+  variation?: FieldVariations;
 }

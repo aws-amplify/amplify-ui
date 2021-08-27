@@ -105,10 +105,13 @@
 
     &:focus {
       color: var(--amplify-components-button-link-focus-color);
+      text-decoration: underline;
+      box-shadow: none;
     }
 
     &:active {
       color: var(--amplify-components-button-link-active-color);
+      text-decoration: underline;
     }
 
     &[disabled] {
@@ -132,5 +135,11 @@
     font-size: var(--amplify-components-button-large-font-size);
     line-height: var(--amplify-components-button-large-font-size);
     padding: var(--amplify-components-button-large-padding);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .amplify-button {
+    transition: none;
   }
 }
