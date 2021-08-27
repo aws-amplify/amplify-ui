@@ -6,6 +6,7 @@ import { InputProps } from '../types/input';
 import { View } from '../View';
 
 export const Input: React.FC<InputProps> = ({
+  autoComplete,
   className,
   defaultValue,
   id,
@@ -28,6 +29,7 @@ export const Input: React.FC<InputProps> = ({
   <View
     aria-invalid={hasError}
     as="input"
+    autoComplete={autoComplete}
     className={classNames(
       ComponentClassNames.Input,
       ComponentClassNames.FieldGroupControl,

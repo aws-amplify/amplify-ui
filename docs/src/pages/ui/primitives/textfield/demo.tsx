@@ -6,11 +6,8 @@ import {
   Flex,
   Button,
   View,
-  Heading,
-  Divider,
   FlexStyleProps,
   TextFieldProps,
-  Select,
 } from '@aws-amplify/ui-react';
 
 import { Example } from '@/components/Example';

@@ -1,7 +1,8 @@
+import React from 'react';
+
 import { FlexStyleProps } from './flex';
 import { InputProps } from './input';
 import { FieldProps } from './field';
-import React from 'react';
 
 export type TextFieldType =
   | 'email'
