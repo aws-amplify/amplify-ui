@@ -6,7 +6,12 @@ import { useAlertProps } from '@/components/useAlertProps';
 import { Example } from '@/components/Example';
 
 export const AlertDemo = () => {
-  const alertProps = useAlertProps({ variation: 'info' }); // set the defaults
+  const alertProps = useAlertProps({
+    variation: 'info',
+    isDismissible: false,
+    hasIcon: true,
+    title: 'Alert title',
+  });
 
   return (
     <Flex direction="column" gap="0.5rem">
