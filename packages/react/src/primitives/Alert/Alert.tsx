@@ -10,13 +10,13 @@ import { AlertIcon } from './AlertIcon';
 import { IconClose } from '../Icon';
 
 export const Alert: React.FC<AlertProps> = ({
-  className,
   children,
-  variation,
+  className,
+  hasIcon = true,
   isDismissible = false,
   onDismiss = () => {},
-  hasIcon = true,
   title,
+  variation,
   ...rest
 }) => {
   const [dismissed, setDismissed] = useState<boolean>(false);
