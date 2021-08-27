@@ -24,7 +24,7 @@ export class ConfirmResetPasswordComponent
   implements OnInit, AfterContentInit, OnDestroy
 {
   @HostBinding('attr.data-amplify-authenticator-confirmsignin') dataAttr = '';
-  @Input() public headerText = 'Sign in to your account';
+  @Input() public headerText = 'Reset your password';
 
   public customComponents: Record<string, TemplateRef<any>> = {};
   public remoteError = '';

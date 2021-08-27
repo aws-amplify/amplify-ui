@@ -29,7 +29,7 @@ export class AmplifySignInComponent
   implements AfterContentInit, OnInit, OnDestroy
 {
   @HostBinding('attr.data-amplify-authenticator-signin') dataAttr = '';
-  @Input() public headerText = 'Reset your password';
+  @Input() public headerText = 'Sign in to your account';
 
   public customComponents: Record<string, TemplateRef<any>> = {};
   public remoteError = '';
