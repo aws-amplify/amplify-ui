@@ -1,4 +1,4 @@
-import { includes } from 'lodash';
+import { includes, isEmpty } from 'lodash';
 
 import { I18n } from '@aws-amplify/core';
 import {
@@ -34,6 +34,16 @@ export function SignUp() {
 
   const [primaryAlias, ...secondaryAliases] = _state.context.config
     ?.login_mechanisms ?? ['username', 'email', 'phone_number'];
+
+  /**
+   * If the login_mechanisms are configured to use ONLY username, we need
+   * to ask for some sort of secondary contact information in order to
+   * verify the user for Cognito. Currently matching this to how Vue is
+   * set up.
+   */
+  if (primaryAlias === 'username' && isEmpty(secondaryAliases)) {
+    secondaryAliases.push('email', 'phone_number');
+  }
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -109,7 +119,7 @@ SignUp.AliasControl = ({
 }) => {
   const {
     components: { Input, Label, Text, ErrorText },
-  } = useAmplify('Authenticator.SignUp.Password');
+  } = useAmplify('Authenticator.SignUp.Alias');
   const [_state] = useAuth();
   const { validationError } = getActorContext(_state) as SignUpContext;
   const error = validationError[name];
