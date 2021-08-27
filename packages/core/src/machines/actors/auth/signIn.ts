@@ -87,6 +87,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
                 {
                   cond: 'shouldRequestVerification',
                   target: '#signInActor.verifyUser',
+                  actions: 'setUnverifiedAttributes',
                 },
                 {
                   target: 'resolved',
