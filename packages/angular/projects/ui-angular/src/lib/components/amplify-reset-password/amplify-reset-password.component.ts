@@ -74,7 +74,6 @@ export class AmplifyResetPasswordComponent
 
   onStateUpdate(state: AuthMachineState): void {
     const actorState: SignInState = getActorState(state);
-    console.log(actorState.context);
     this.remoteError = actorState.context.remoteError;
     this.isPending = !actorState.matches('resetPassword.edit');
   }
