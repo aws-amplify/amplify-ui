@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { ComponentClassNames } from '../shared/constants';
 import classNames from 'classnames';
 import { AlertProps } from '../types';
@@ -10,36 +10,55 @@ import { AlertIcon } from './AlertIcon';
 import { IconClose } from '../Icon';
 
 export const Alert: React.FC<AlertProps> = ({
+  alignContent,
+  alignItems = 'center',
   children,
   className,
+  direction,
+  gap,
   hasIcon = true,
+  heading,
+  headingLevel,
   iconSize,
   isDismissible = false,
+  justifyContent = 'space-between',
   onDismiss = () => {},
-  title,
   variation,
+  wrap,
   ...rest
 }) => {
   const [dismissed, setDismissed] = useState<boolean>(false);
 
-  const dismissAlert = () => {
+  const dismissAlert = useCallback(() => {
     setDismissed(!dismissed);
     onDismiss();
-  };
+  }, [setDismissed, onDismiss]);
 
   return (
     !dismissed && (
       <Flex
-        justifyContent="space-between"
-        alignItems="center"
+        alignContent={alignContent}
+        alignItems={alignItems}
         className={classNames(ComponentClassNames.Alert, className)}
         data-variation={variation}
+        direction={direction}
+        gap={gap}
+        justifyContent={justifyContent}
+        wrap={wrap}
         {...rest}
       >
+        {/* Make a className, put alignItems="center" into a CSS variable */}
         <Flex alignItems="center">
           {hasIcon && <AlertIcon variation={variation} iconSize={iconSize} />}
           <View>
-            {title && <Heading color="inherit">{title}</Heading>}
+            {heading && (
+              <Heading
+                className={ComponentClassNames.AlertHeading}
+                level={headingLevel}
+              >
+                {heading}
+              </Heading>
+            )}
             {children}
           </View>
         </Flex>

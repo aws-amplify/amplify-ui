@@ -11,7 +11,8 @@ export const AlertDemo = () => {
     isDismissible: false,
     hasIcon: true,
     iconSize: 'large',
-    title: 'Alert title',
+    heading: 'Alert heading',
+    headingLevel: 6,
   });
 
   return (
@@ -23,7 +24,8 @@ export const AlertDemo = () => {
           isDismissible={alertProps.isDismissible}
           hasIcon={alertProps.hasIcon}
           iconSize={alertProps.iconSize}
-          title={alertProps.title}
+          heading={alertProps.heading}
+          headingLevel={alertProps.headingLevel}
         >
           This is the Alert message.
         </Alert>

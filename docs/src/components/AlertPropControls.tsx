@@ -10,7 +10,10 @@ export interface AlertPropControlsProps extends AlertProps {
   ) => void;
   setIconSize: (value: React.SetStateAction<AlertProps['iconSize']>) => void;
   setHasIcon: (value: React.SetStateAction<AlertProps['hasIcon']>) => void;
-  setTitle: (value: React.SetStateAction<AlertProps['title']>) => void;
+  setHeading: (value: React.SetStateAction<AlertProps['heading']>) => void;
+  setHeadingLevel: (
+    value: React.SetStateAction<AlertProps['headingLevel']>
+  ) => void;
 }
 
 interface AlertPropControlsInterface {
@@ -26,8 +29,10 @@ export const AlertPropControls: AlertPropControlsInterface = ({
   setIconSize,
   hasIcon,
   setHasIcon,
-  title,
-  setTitle,
+  heading,
+  setHeading,
+  headingLevel,
+  setHeadingLevel,
 }) => {
   return (
     <DemoBox primitiveName="Alert">
@@ -89,16 +94,34 @@ export const AlertPropControls: AlertPropControlsInterface = ({
         </select>
       </FieldLabeler>
 
-      <FieldLabeler id="title">
+      <FieldLabeler id="heading">
         <input
-          name="title"
-          id="title"
+          name="heading"
+          id="heading"
           type="text"
-          value={title}
+          value={heading}
           onChange={(event) =>
-            setTitle(event.target.value as AlertProps['title'])
+            setHeading(event.target.value as AlertProps['heading'])
           }
         />
+      </FieldLabeler>
+
+      <FieldLabeler id="headingLevel">
+        <select
+          name="headingLevel"
+          id="headingLevel"
+          value={headingLevel}
+          onChange={(event) =>
+            setHeadingLevel(+event.target.value as AlertProps['headingLevel'])
+          }
+        >
+          <option value={1}>1</option>
+          <option value={2}>2</option>
+          <option value={3}>3</option>
+          <option value={4}>4</option>
+          <option value={5}>5</option>
+          <option value={6}>6</option>
+        </select>
       </FieldLabeler>
     </DemoBox>
   );

@@ -19,7 +19,12 @@ export const useAlertProps: UseAlertProps = (initialValues) => {
   const [hasIcon, setHasIcon] = useState<AlertProps['hasIcon']>(
     initialValues.hasIcon
   );
-  const [title, setTitle] = useState<AlertProps['title']>(initialValues.title);
+  const [heading, setHeading] = useState<AlertProps['heading']>(
+    initialValues.heading
+  );
+  const [headingLevel, setHeadingLevel] = useState<AlertProps['headingLevel']>(
+    initialValues.headingLevel
+  );
 
   return {
     variation,
@@ -30,7 +35,9 @@ export const useAlertProps: UseAlertProps = (initialValues) => {
     setIconSize,
     hasIcon,
     setHasIcon,
-    title,
-    setTitle,
+    heading,
+    setHeading,
+    headingLevel,
+    setHeadingLevel,
   };
 };

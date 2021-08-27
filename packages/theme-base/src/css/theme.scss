@@ -29,16 +29,21 @@ html {
   border-width: 0 !important;
 }
 
-@import './component/alert.scss';
-@import './component/badge.scss';
+// <View>-only components
+@import './component/text.scss';
 @import './component/button.scss';
-@import './component/card.scss';
-@import './component/divider.scss';
-@import './component/flex.scss';
 @import './component/heading.scss';
+@import './component/badge.scss';
 @import './component/icon.scss';
 @import './component/image.scss';
-@import './component/pagination.scss';
 @import './component/placeholder.scss';
+
+// Composed components
+@import './component/card.scss';
+@import './component/divider.scss';
+@import './component/pagination.scss';
 @import './component/rating.scss';
-@import './component/text.scss';
+@import './component/alert.scss';
+
+// Layout
+@import './component/flex.scss';
