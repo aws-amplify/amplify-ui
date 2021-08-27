@@ -2,7 +2,7 @@
  * Style Dictionary config
  */
 
-const { formatHelpers } = require('style-dictionary');
+const { formatHelpers, fileHeader } = require('style-dictionary');
 
 const CSS_VARIABLE_PREFIX = 'amplify';
 const CSS_VARIABLE_SCOPE = ':root';
@@ -51,11 +51,16 @@ module.exports = {
           destination: 'dist/theme-unminified.js',
           format: 'javascript/cjs-nested',
         },
+        {
+          destination: 'dist/AmplifyTheme.ts',
+          format: 'themeType',
+        },
       ],
     },
   },
   format: {
     'javascript/cjs-nested': CommonJSNestedFormatter,
+    themeType: ThemeTypeFormatter,
   },
 };
 
@@ -71,4 +76,27 @@ function CommonJSNestedFormatter({ dictionary, options, file }) {
   return (
     fileHeader({ file }) + `module.exports = ${JSON.stringify(theme, null, 2)};`
   );
+}
+
+function ThemeTypeFormatter({ dictionary, file }) {
+  const { fileHeader } = formatHelpers;
+  return (
+    fileHeader({ file }) +
+    `export interface AmplifyTheme {${ThemeToTypes(dictionary.tokens, 1)}\n}`
+  );
+}
+
+function ThemeToTypes(obj, depth = 0) {
+  let output = ``;
+  for (const key in obj) {
+    const value = obj[key];
+    const indent = [...Array(depth).keys()].map(() => `  `).join('');
+    output += `\n${indent}${key}?: `;
+    if (typeof value.value === 'undefined') {
+      output += `{${ThemeToTypes(value, depth + 1)}\n${indent}}`;
+    } else {
+      output += `string;`;
+    }
+  }
+  return output;
 }
