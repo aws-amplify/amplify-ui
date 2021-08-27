@@ -6,7 +6,6 @@ import {
   OnDestroy,
   OnInit,
   TemplateRef,
-  ViewEncapsulation,
 } from '@angular/core';
 import { StateMachineService } from '../../services/state-machine.service';
 import { AuthPropService } from '../../services/authenticator-context.service';
