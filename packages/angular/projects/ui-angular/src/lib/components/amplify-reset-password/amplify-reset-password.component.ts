@@ -9,9 +9,7 @@ import {
 } from '@angular/core';
 import {
   AuthMachineState,
-  getActorContext,
   getActorState,
-  ResetPasswordContext,
   SignInState,
 } from '@aws-amplify/ui-core';
 import { Subscription } from 'xstate';
