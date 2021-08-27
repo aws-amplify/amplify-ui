@@ -3,10 +3,10 @@ module.exports = {
   borderColor: { value: '{colors.border.primary.value}' },
   borderWidth: { value: '{borderWidths.small.value}' },
   borderRadius: { value: '{radii.medium.value}' },
-  boxSizing: { value: 'border-box' },
   padding: { value: ['{space.xs.value}', '{space.medium.value}'] },
   fontSize: { value: '{fontSizes.medium.value}' },
   lineHeight: { value: '{lineHeights.medium.value}' },
+  transitionDuration: { value: '{time.transition.medium.value}' },
   outlineColor: { value: '{colors.transparent.value}' },
   outlineStyle: { value: 'solid' },
   outlineWidth: { value: '{outlineWidths.medium.value}' },
@@ -23,32 +23,48 @@ module.exports = {
     lineHeight: { value: '{lineHeights.large.value}' },
   },
 
-  // for variation
   quiet: {
     borderStyle: { value: 'none' },
     borderBlockEnd: {
       value: '{borderWidths.small.value} solid {colors.border.primary.value}',
     },
+    borderInlineStart: { value: 'none' },
+    borderInlineEnd: { value: 'none' },
+    borderBlockStart: { value: 'none' },
     borderRadius: { value: '0' },
     _focus: {
-      borderColor: { value: '{colors.focus.value}' },
-      boxShadow: { value: '{colors.focus.value} 0px 2px 0px -1px' },
+      borderBlockEndColor: { value: '{colors.focus.value}' },
+      boxShadow: { value: '0 1px {colors.focus.value}' },
+    },
+    _error: {
+      borderBlockEndColor: { value: '{colors.error.value}' },
+      _focus: {
+        boxShadow: { value: '0 1px {colors.error.value}' },
+      },
     },
   },
-
   _focus: {
     // These focus styles have been calibrated to create
-    // highly visible focus indicator per WCAG 2.1 guidliness:
+    // a highly visible focus indicator per WCAG 2.1 guidliness:
     // See: https://www.w3.org/WAI/WCAG21/Techniques/general/G195.html
+    //
+    // Key features:
     // * Focus indicator area is at least the 1 CSS px border around the component.
-    // * contrast of the indicator between focused and unfocused states has a ratio of 3:1 for the minimum focus indicator area.
-
+    // * Contrast between focused and unfocused states has a ratio of 3:1
+    //
+    // IMPORTANT: Must recalibrate if `colors.border.primary` or `colors.focus` are changed
     borderColor: { value: '{colors.focus.value}' },
-    boxShadow: { value: '{colors.focus.value} 0px 0px 0px 1px' },
+    boxShadow: { value: '0px 0px 0px 1px {colors.focus.value}' },
   },
   _disabled: {
     cursor: { value: 'not-allowed' },
     borderColor: { value: '{colors.transparent.value}' },
     backgroundColor: { value: '{colors.background.tertiary.value}' },
+  },
+  _error: {
+    borderColor: { value: '{colors.error.value}' },
+    _focus: {
+      boxShadow: { value: '0px 0px 0px 1px {colors.error.value}' },
+    },
   },
 };
