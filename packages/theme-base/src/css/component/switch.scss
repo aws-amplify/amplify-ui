@@ -1,3 +1,13 @@
+.amplify-switchfield {
+  &[data-size='small'] {
+    font-size: 0.75rem;
+  }
+
+  &[data-size='large'] {
+    font-size: 1.5rem;
+  }
+}
+
 .track {
   display: inline-flex;
   justify-content: flex-start;
@@ -5,18 +15,25 @@
   cursor: pointer;
   border-radius: 9999px;
   padding: 2px;
-  width: 2rem;
-  height: 1rem;
+  width: 2em;
+  height: 1em;
   transition-duration: 150ms;
   background: #cbd5e0;
+  &[data-checked='true'] {
+    background: blue;
+  }
 }
 
 .thumb {
   background: #fff;
   transition-duration: 200ms;
   border-radius: inherit;
-  width: 1rem;
-  height: 1rem;
+  width: 1em;
+  height: 1em;
   border-color: #e2e8f0;
   overflow-wrap: break-word;
+  cursor: pointer;
+  &[data-checked='true'] {
+    transform: translateX(1em);
+  }
 }

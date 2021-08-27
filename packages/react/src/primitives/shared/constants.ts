@@ -11,6 +11,7 @@ export enum ComponentClassNames {
   Placeholder = 'amplify-placeholder',
   Rating = 'amplify-rating',
   Select = 'amplify-select',
+  SwitchField = 'amplify-switchfield',
   Text = 'amplify-text',
   TextField = 'amplify-textfield',
   TextFieldInput = 'amplify-textfield__input',
