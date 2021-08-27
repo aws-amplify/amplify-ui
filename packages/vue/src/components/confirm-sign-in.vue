@@ -67,7 +67,11 @@ import { useAuth } from '../composables/useAuth';
 import { BACK_SIGN_IN_TEXT, CONFIRM_TEXT } from '../defaults/DefaultTexts';
 import { ConfirmSignInSetupReturnTypes, SetupEventContext } from '../types';
 import { AuthChallengeNames } from '@aws-amplify/ui-core/src/types';
-import { getActorState, SignInState } from '@aws-amplify/ui-core';
+import {
+  getActorState,
+  SignInContext,
+  SignInState,
+} from '@aws-amplify/ui-core';
 
 export default defineComponent({
   components: {
@@ -89,7 +93,7 @@ export default defineComponent({
     const actorState: ComputedRef<SignInState> = computed(() =>
       getActorState(state.value)
     );
-    const { challengeName } = actorState.value.context;
+    const { challengeName } = actorState.value.context as SignInContext;
 
     let mfaType: string = 'SMS';
 

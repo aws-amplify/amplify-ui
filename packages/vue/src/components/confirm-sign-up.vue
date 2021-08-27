@@ -118,7 +118,7 @@ export default defineComponent({
     const { state, send } = useAuth();
     const actorState = computed(() => getActorState(state.value));
 
-    const context: SignUpContext = actorState.value.context;
+    const context = actorState.value.context as SignUpContext;
     const username = context.user?.username ?? context.authAttributes?.username;
 
     //computed properties

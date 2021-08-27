@@ -2,19 +2,36 @@
 
 import { defineConfig } from 'vite';
 import dynamicImportVars from '@rollup/plugin-dynamic-import-vars';
-import path, { resolve } from 'path';
+import path from 'path';
 import vue from '@vitejs/plugin-vue';
+import typescript2 from 'rollup-plugin-typescript2';
 
 const resolvePath = (str: string) => path.resolve(__dirname, str);
 
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [
+    vue(),
+
+    typescript2({
+      check: true,
+      tsconfig: path.resolve(__dirname, 'tsconfig.json'),
+      tsconfigOverride: {
+        compilerOptions: {
+          sourceMap: false,
+          declaration: true,
+          declarationMap: true,
+        },
+        exclude: ['vite.config.ts'],
+      },
+    }),
+  ],
   build: {
     cssCodeSplit: false,
     lib: {
-      entry: resolve(__dirname, './src/index.ts'),
+      entry: resolvePath('./src/index.ts'),
+      formats: ['es', 'cjs'],
       name: 'ui-vue',
-      fileName: (format) => `index.${format}.js`,
+      fileName: (format) => (format === 'es' ? 'index.js' : `index.${format}`),
     },
     rollupOptions: {
       plugins: [dynamicImportVars],
