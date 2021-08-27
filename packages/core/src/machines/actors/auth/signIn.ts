@@ -1,5 +1,5 @@
 import { createMachine, assign, sendUpdate } from 'xstate';
-import { get } from 'lodash';
+import { get, isEmpty } from 'lodash';
 
 import { AuthEvent, AuthChallengeNames, SignInContext } from '../../../types';
 import { Auth } from 'aws-amplify';
@@ -64,7 +64,12 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
               onError: [
                 {
                   cond: 'shouldRedirectToConfirmSignUp',
-                  actions: 'setUsername',
+                  actions: ['setUsername', 'setConfirmSignUpIntent'],
+                  target: 'rejected',
+                },
+                {
+                  cond: 'shouldRedirectToConfirmResetPassword',
+                  actions: ['setUsername', 'setConfirmResetPasswordIntent'],
                   target: 'rejected',
                 },
                 {
@@ -82,6 +87,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
                 {
                   cond: 'shouldRequestVerification',
                   target: '#signInActor.verifyUser',
+                  actions: 'setUnverifiedAttributes',
                 },
                 {
                   target: 'resolved',
@@ -248,10 +254,12 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
       },
       rejected: {
         type: 'final',
-        data: (context) => ({
-          intent: 'confirmSignUp',
-          authAttributes: context.authAttributes,
-        }),
+        data: (context, event) => {
+          return {
+            intent: context.redirectIntent,
+            authAttributes: context.authAttributes,
+          };
+        },
       },
     },
   },
@@ -277,6 +285,15 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
       setChallengeName: assign({
         challengeName: (_, event) => event.data?.challengeName,
       }),
+      setConfirmSignUpIntent: assign({
+        redirectIntent: 'confirmSignUp',
+      }),
+      setConfirmResetPasswordIntent: assign({
+        redirectIntent: 'confirmPasswordReset',
+      }),
+      setUnverifiedAttributes: assign({
+        unverifiedAttributes: (_, event) => event.data.unverified,
+      }),
       clearChallengeName: assign({ challengeName: undefined }),
       clearError: assign({ remoteError: '' }),
       clearFormValues: assign({ formValues: {} }),
@@ -296,6 +313,9 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
       shouldRedirectToConfirmSignUp: (_, event): boolean => {
         return event.data.code === 'UserNotConfirmedException';
       },
+      shouldRedirectToConfirmResetPassword: (_, event): boolean => {
+        return event.data.code === 'PasswordResetRequiredException';
+      },
       shouldSetupTOTP: (_, event): boolean => {
         const challengeName = get(event, 'data.challengeName');
 
@@ -309,16 +329,10 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
       shouldAutoSignIn: (context) => {
         return !!(context.intent && context.intent === 'autoSignIn');
       },
-      shouldRequestVerification: (context, event): boolean => {
-        const { unverified } = event.data;
+      shouldRequestVerification: (_, event): boolean => {
+        const { unverified, verified } = event.data;
 
-        if (Object.keys(unverified).length > 0) {
-          context.unverifiedAttributes = unverified;
-
-          return true;
-        }
-
-        return false;
+        return isEmpty(verified) && !isEmpty(unverified);
       },
     },
     services: {

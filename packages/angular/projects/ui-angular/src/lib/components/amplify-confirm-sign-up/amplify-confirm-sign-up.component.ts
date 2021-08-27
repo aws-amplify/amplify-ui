@@ -8,7 +8,8 @@ import {
 } from '@aws-amplify/ui-core';
 import { Logger } from '@aws-amplify/core';
 import { Subscription } from 'xstate';
-import { AuthPropService, StateMachineService } from '../../services';
+import { StateMachineService } from '../../services/state-machine.service';
+import { AuthPropService } from '../../services/authenticator-context.service';
 
 const logger = new Logger('ConfirmSignUp');
 

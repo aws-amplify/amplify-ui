@@ -9,7 +9,8 @@ import {
   TemplateRef,
   ViewEncapsulation,
 } from '@angular/core';
-import { AuthPropService, StateMachineService } from '../../services';
+import { StateMachineService } from '../../services/state-machine.service';
+import { AuthPropService } from '../../services/authenticator-context.service';
 import { Subscription } from 'xstate';
 import {
   AuthMachineState,

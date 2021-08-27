@@ -7,4 +7,8 @@ export { default as SignUpPasswordControl } from './sign-up-password-control.vue
 export { default as SignInPasswordControl } from './sign-in-password-control.vue';
 export { default as UserNameAlias } from './user-name-alias.vue';
 export { default as ForceNewPassword } from './force-new-password.vue';
+export { default as ResetPassword } from './reset-password.vue';
+export { default as ConfirmResetPassword } from './confirm-reset-password.vue';
+export { default as ConfirmSignUp } from './confirm-sign-up.vue';
+export { default as ConfirmSignIn } from './confirm-sign-in.vue';
 export * from '../types';
