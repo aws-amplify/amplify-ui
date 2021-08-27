@@ -73,7 +73,7 @@
 <ng-container
   [ngTemplateOutlet]="customComponents.forceNewPassword || forceNewPassword"
   [ngTemplateOutletContext]="context()"
-  *ngIf="actorState.matches('forceNewPassword')"
+  *ngIf="actorState?.matches('forceNewPassword')"
 >
 </ng-container>
 

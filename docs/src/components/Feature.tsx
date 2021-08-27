@@ -40,6 +40,8 @@ function getPortForPlatform(platform) {
 
 function getGitHubUrlForExample(platform) {
   switch (platform) {
+    case 'angular':
+      return `https://github.com/aws-amplify/amplify-ui/tree/${process.env.BRANCH}/examples/angular/src`;
     case 'next':
     case 'react':
       return `https://github.com/aws-amplify/amplify-ui/tree/${process.env.BRANCH}/examples/next/pages`;
@@ -47,7 +49,9 @@ function getGitHubUrlForExample(platform) {
       return `https://github.com/aws-amplify/amplify-ui/tree/${process.env.BRANCH}/examples/vue/src/pages`;
 
     default:
-      throw new Error(`Examples folder not defined for ${platform}`);
+      console.error(
+        `Examples folder not defined for ${platform}. Please open an issue: https://github.com/aws-amplify/amplify-ui/issues/choose`
+      );
   }
 }
 
@@ -59,9 +63,9 @@ export function Feature({ name = required('Missing feature name') }) {
   const port = getPortForPlatform(platform);
 
   useEffect(() => {
-    import(
-      `../../../packages/e2e/cypress/integration${pathname}/${name}.feature`
-    ).then((exports) => setSource(exports.default));
+    import(`../../../packages/e2e/features${pathname}/${name}.feature`).then(
+      (exports) => setSource(exports.default)
+    );
   }, [name, pathname]);
 
   if (!source) {
@@ -92,7 +96,8 @@ export function Feature({ name = required('Missing feature name') }) {
               This feature is not supported for this platform.{' '}
               <a href="https://github.com/aws-amplify/amplify-ui/issues/new/choose">
                 Open an issue
-              </a>
+              </a>{' '}
+              if you would like to see it added.
             </p>
           </div>
         </div>
@@ -158,7 +163,7 @@ export function Feature({ name = required('Missing feature name') }) {
                 </td>
                 <td>
                   <a
-                    href={`https://github.com/aws-amplify/amplify-ui/blob/${process.env.BRANCH}/packages/e2e/cypress/integration${pathname}/${name}.feature#L${scenario.location.line}`}
+                    href={`https://github.com/aws-amplify/amplify-ui/blob/${process.env.BRANCH}/packages/e2e/features${pathname}/${name}.feature#L${scenario.location.line}`}
                     target="_blank"
                   >
                     <span className="sr-only">Test</span>

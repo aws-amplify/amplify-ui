@@ -4,7 +4,7 @@ import {
   OnInit,
   TemplateRef,
 } from '@angular/core';
-import { StateMachineService, AuthPropService } from '../../services';
+import { StateMachineService } from '../../services/state-machine.service';
 import { FederatedIdentityProviders } from '@aws-amplify/ui-core';
 
 @Component({
