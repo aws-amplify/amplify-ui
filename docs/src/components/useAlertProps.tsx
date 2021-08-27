@@ -13,7 +13,7 @@ export const useAlertProps: UseAlertProps = (initialValues) => {
   const [isDismissible, setIsDismissible] = useState<
     AlertProps['isDismissible']
   >(initialValues.isDismissible);
-  const [withIcon, setWithIcon] = useState<AlertProps['withIcon']>(true);
+  const [hasIcon, setHasIcon] = useState<AlertProps['hasIcon']>(true);
   const [title, setTitle] = useState<AlertProps['title']>('Alert title');
 
   return {
@@ -21,8 +21,8 @@ export const useAlertProps: UseAlertProps = (initialValues) => {
     setVariation,
     isDismissible,
     setIsDismissible,
-    withIcon,
-    setWithIcon,
+    hasIcon,
+    setHasIcon,
     title,
     setTitle,
   };

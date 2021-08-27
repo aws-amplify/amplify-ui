@@ -11,7 +11,7 @@ export interface AlertProps extends BaseComponentProps, BaseStyleProps {
 
   onDismiss?: () => void;
 
-  withIcon?: boolean; // default true
+  hasIcon?: boolean; // default true
 
   title?: string;
 }

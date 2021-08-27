@@ -8,7 +8,7 @@ export interface AlertPropControlsProps extends AlertProps {
   setIsDismissible: (
     value: React.SetStateAction<AlertProps['isDismissible']>
   ) => void;
-  setWithIcon: (value: React.SetStateAction<AlertProps['withIcon']>) => void;
+  setHasIcon: (value: React.SetStateAction<AlertProps['hasIcon']>) => void;
   setTitle: (value: React.SetStateAction<AlertProps['title']>) => void;
 }
 
@@ -21,8 +21,8 @@ export const AlertPropControls: AlertPropControlsInterface = ({
   setVariation,
   isDismissible,
   setIsDismissible,
-  withIcon,
-  setWithIcon,
+  hasIcon,
+  setHasIcon,
   title,
   setTitle,
 }) => {
@@ -59,14 +59,14 @@ export const AlertPropControls: AlertPropControlsInterface = ({
         />
       </FieldLabeler>
 
-      <FieldLabeler id="withIcon">
+      <FieldLabeler id="hasIcon">
         <input
-          name="withIcon"
-          id="withIcon"
+          name="hasIcon"
+          id="hasIcon"
           type="checkbox"
-          checked={withIcon}
+          checked={hasIcon}
           onChange={(event) =>
-            setWithIcon(event.target.checked as AlertProps['withIcon'])
+            setHasIcon(event.target.checked as AlertProps['hasIcon'])
           }
         />
       </FieldLabeler>

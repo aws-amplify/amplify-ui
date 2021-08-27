@@ -63,17 +63,17 @@ Use the `title` prop to pass a title to the Alert.
 
 ### Icon
 
-Use the `withIcon` prop to change whether the Alert includes an icon. Defaults to `true` (includes icon).
+Use the `hasIcon` prop to change whether the Alert includes an icon. Defaults to `true` (includes icon).
 
 ```jsx
 <Alert variation="info">This Alert shows an icon by default</Alert>
-<Alert variation="error" withIcon={false}>This Alert does not have an icon</Alert>
+<Alert variation="error" hasIcon={false}>This Alert does not have an icon</Alert>
 ```
 
 <Example>
   <Flex direction="column" gap="1rem">
     <Alert variation="info">This Alert shows an icon by default</Alert>
-    <Alert variation="error" withIcon={false}>
+    <Alert variation="error" hasIcon={false}>
       This Alert does not have an icon
     </Alert>
   </Flex>

@@ -15,7 +15,7 @@ export const AlertDemo = () => {
         <Alert
           variation={alertProps.variation}
           isDismissible={alertProps.isDismissible}
-          withIcon={alertProps.withIcon}
+          hasIcon={alertProps.hasIcon}
           title={alertProps.title}
         >
           This is the Alert message.

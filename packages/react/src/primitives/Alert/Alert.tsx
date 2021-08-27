@@ -15,7 +15,7 @@ export const Alert: React.FC<AlertProps> = ({
   variation,
   isDismissible = false,
   onDismiss = () => {},
-  withIcon = true,
+  hasIcon = true,
   title,
   ...rest
 }) => {
@@ -36,7 +36,7 @@ export const Alert: React.FC<AlertProps> = ({
         {...rest}
       >
         <Flex alignItems="center">
-          {withIcon && <AlertIcon variation={variation} />}
+          {hasIcon && <AlertIcon variation={variation} />}
           <View>
             {title && <Heading color="inherit">{title}</Heading>}
             {children}
