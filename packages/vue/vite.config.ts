@@ -17,7 +17,7 @@ export default defineConfig({
       tsconfig: path.resolve(__dirname, 'tsconfig.json'),
       tsconfigOverride: {
         compilerOptions: {
-          sourceMap: false,
+          sourceMap: true,
           declaration: true,
           declarationMap: true,
         },

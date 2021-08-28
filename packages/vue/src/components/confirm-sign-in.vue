@@ -93,7 +93,7 @@ export default defineComponent({
     const actorState: ComputedRef<SignInState> = computed(() =>
       getActorState(state.value)
     );
-    const { challengeName } = actorState.value.context as SignInContext;
+    const challengeName = actorState.value.context.challengeName;
 
     let mfaType: string = 'SMS';
 

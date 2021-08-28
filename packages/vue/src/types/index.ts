@@ -70,7 +70,7 @@ export interface ConfirmPasswordSetupReturnTypes {
   backSignInText: ComputedRef<string>;
   confirmText: ComputedRef<string>;
   onLostCodeClicked: () => void;
-  actorState: ComputedRef<AuthActorState>;
+  actorState: ComputedRef<SignUpState>;
   send: PayloadSender<AuthEvent>;
   username: string;
 }
