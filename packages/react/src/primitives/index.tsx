@@ -9,6 +9,7 @@ export * from './Icon';
 export * from './Image';
 export * from './Pagination';
 export * from './Placeholder';
+export * from './PasswordField';
 export * from './Rating';
 export * from './Select';
 export * from './Text';

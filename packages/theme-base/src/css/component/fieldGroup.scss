@@ -1,0 +1,16 @@
+.amplify-field-group {
+  gap: var(--amplify-components-fieldgroup-gap);
+  .amplify-field-group__field {
+    // No CSS variables exist for these border radius values
+    // because I don't see anyone needing to adding border radius
+    // between input fields
+    &:nth-child(1) {
+      border-end-end-radius: 0;
+      border-start-end-radius: 0;
+    }
+    &:nth-child(2) {
+      border-start-start-radius: 0;
+      border-end-start-radius: 0;
+    }
+  }
+}
