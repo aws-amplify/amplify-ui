@@ -12,18 +12,10 @@ Amplify.configure({
 
 I18n.putVocabularies(dict);
 
-export default function AuthenticatorWithPhoneNumber() {
+export default function AuthenticatorWithPhone() {
   return (
-    <>
-      <Authenticator>
-        {({ send }) => {
-          return (
-            <>
-              <button onClick={() => send('SIGN_OUT')}>Sign out</button>
-            </>
-          );
-        }}
-      </Authenticator>
-    </>
+    <Authenticator>
+      {({ send }) => <button onClick={() => send('SIGN_OUT')}>Sign out</button>}
+    </Authenticator>
   );
 }

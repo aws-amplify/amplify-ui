@@ -7,13 +7,8 @@ Amplify.configure(awsExports);
 
 I18n.putVocabularies(dict);
 
-function App({ state, send }) {
-  return (
-    <>
-      <h1>Hello {state.context.user.username}</h1>
-      <button onClick={() => send('SIGN_OUT')}>Sign out</button>
-    </>
-  );
+function AppWithAuthenticator({ send }) {
+  return <button onClick={() => send('SIGN_OUT')}>Sign out</button>;
 }
 
-export default withAuthenticator(App);
+export default withAuthenticator(AppWithAuthenticator);

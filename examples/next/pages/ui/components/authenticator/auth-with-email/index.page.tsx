@@ -14,16 +14,8 @@ I18n.putVocabularies(dict);
 
 export default function AuthenticatorWithEmail() {
   return (
-    <>
-      <Authenticator>
-        {({ send }) => {
-          return (
-            <>
-              <button onClick={() => send('SIGN_OUT')}>Sign out</button>
-            </>
-          );
-        }}
-      </Authenticator>
-    </>
+    <Authenticator>
+      {({ send }) => <button onClick={() => send('SIGN_OUT')}>Sign out</button>}
+    </Authenticator>
   );
 }
