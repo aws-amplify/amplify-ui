@@ -1,7 +1,9 @@
-import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
+/// <reference types="@testing-library/cypress" />
+/// <reference types="cypress" />
+import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 
-Given("I'm at the url {string}", (url: string) => {
-  cy.visit(url);
+Given("I'm using the example {string}", (example: string) => {
+  cy.visit(`/ui/components/authenticator/${example}`);
 });
 
 When(
@@ -13,7 +15,15 @@ When(
         'DOMAIN'
       )}`;
     } else if (loginMechanism === 'phone number') {
-      loginAlias = Cypress.env('PHONE_NUMBER');
+      let countryCode;
+      if (status === 'CONFIRMED') {
+        countryCode = '1';
+      } else if (status === 'UNKNOWN') {
+        countryCode = '2';
+      } else if (status === 'UNCONFIRMED') {
+        countryCode = '3';
+      }
+      loginAlias = `+${countryCode}${Cypress.env('PHONE_NUMBER')}`;
     } else {
       loginAlias = `${Cypress.env('USERNAME')}+${status}`;
     }
@@ -27,8 +37,8 @@ When('I type my password', () => {
   cy.findByLabelText(/password/i).type(Cypress.env('PASSWORD'));
 });
 
-When('I click the {string} button', (name: string) => {
-  cy.findByRole('button', { name: new RegExp(name, 'i') }).click();
+When('I click the Sign in button', () => {
+  cy.findByRole('button', { name: /Sign in/i }).click();
 });
 
 Then('I see {string}', (message: string) => {
