@@ -6,3 +6,7 @@
 [data-amplify-spacer] {
   @apply flex-1;
 }
+
+[data-amplify-lostcode] {
+  @apply flex flex-col items-start;
+}

@@ -6,29 +6,29 @@
   font-weight: var(--amplify-components-badge-font-weight);
   padding: var(--amplify-components-badge-padding);
   text-align: var(--amplify-components-badge-text-align);
-  line-height: var(--amplify-components-badge-line-height);;
-  
+  line-height: var(--amplify-components-badge-line-height);
+
   &[data-variation='info'] {
     background-color: var(--amplify-components-badge-info-background-color);
   }
-  
+
   &[data-variation='error'] {
     background-color: var(--amplify-components-badge-error-background-color);
   }
-  
+
   &[data-variation='warning'] {
     background-color: var(--amplify-components-badge-warning-background-color);
   }
-  
+
   &[data-variation='success'] {
     background-color: var(--amplify-components-badge-success-background-color);
   }
-  
+
   &[data-size='small'] {
     font-size: var(--amplify-components-badge-small-font-size);
     padding: var(--amplify-components-badge-small-padding);
   }
-  
+
   &[data-size='large'] {
     font-size: var(--amplify-components-badge-large-font-size);
     padding: var(--amplify-components-badge-large-padding);
