@@ -1,0 +1,21 @@
+{
+  "mode": "pre",
+  "tag": "next",
+  "initialVersions": {
+    "docs": "0.0.1",
+    "environments": "0.0.1",
+    "angular-example": "0.0.1",
+    "next-example": "0.0.1",
+    "vue-example": "0.0.1",
+    "amplify-ui-angular-mono": "0.0.1",
+    "@aws-amplify/ui-angular": "2.0.0",
+    "@aws-amplify/ui-core": "0.0.0",
+    "e2e": "0.0.1",
+    "@aws-amplify/ui-react": "2.0.0",
+    "@aws-amplify/ui-theme-base": "0.0.0",
+    "@aws-amplify/ui-vue": "2.0.0"
+  },
+  "changesets": [
+    "gentle-shirts-press"
+  ]
+}

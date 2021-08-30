@@ -1,12 +1,12 @@
 {
-  "private": true,
   "name": "@aws-amplify/ui-vue",
-  "version": "0.0.1",
+  "version": "2.0.1-next.0",
   "scripts": {
     "build": "echo \"Skipped\"",
     "test": "echo \"Skipped: no test specified\""
   },
   "dependencies": {
+    "@aws-amplify/ui-core": "0.0.1-next.0",
     "@xstate/vue": "^0.8.0",
     "qrcode": "^1.4.4"
   }
