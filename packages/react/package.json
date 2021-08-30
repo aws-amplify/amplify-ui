@@ -1,9 +1,8 @@
 {
   "name": "@aws-amplify/ui-react",
   "version": "2.0.1-next.0",
-  "type": "module",
-  "main": "dist/index.cjs",
-  "module": "dist/index.js",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
   "exports": {
     ".": "./dist/index.js",
     "./styles.css": "./dist/index.css"
