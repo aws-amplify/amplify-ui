@@ -1,0 +1,11 @@
+.globally-styled-switchfield {
+  font-size: 0.75rem;
+}
+
+.my-custom-switchfield {
+  font-size: 0.75rem;
+}
+
+.my-custom-switchfield[data-size='large'] {
+  font-size: 2.5rem;
+}

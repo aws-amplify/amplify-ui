@@ -12,8 +12,8 @@ module.exports = {
   pagination: require('./pagination'),
   placeholder: require('./placeholder'),
   rating: require('./rating'),
-  textfield: require('./textField'),
   select: require('./select'),
+  switchfield: require('./switchField'),
   textfield: require('./textField'),
   text: require('./text'),
 };

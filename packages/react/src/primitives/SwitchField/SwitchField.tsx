@@ -23,6 +23,7 @@ export const SwitchField = (props) => {
     onChange,
     defaultChecked,
     value,
+    className,
     ...rest
   } = props;
   const { isOn, changeHandler } = useSwitch({
@@ -41,9 +42,10 @@ export const SwitchField = (props) => {
 
   return (
     <Label
-      className={ComponentClassNames.SwitchField}
+      className={classNames(ComponentClassNames.SwitchField, className)}
       htmlFor={fieldId}
       data-size={size}
+      {...rest}
     >
       <View
         as={'span'}
