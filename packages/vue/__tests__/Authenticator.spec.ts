@@ -1,9 +1,9 @@
-import { shallowMount } from '@vue/test-utils';
-import { SignIn } from '../src/components/index';
+import { mount } from '@vue/test-utils';
+import { Authenticator } from '../src/components/index';
 
 describe('Authenticator', () => {
   it('Authenticator Exists', () => {
-    const wrapper = shallowMount(SignIn);
+    const wrapper = mount(Authenticator);
 
     expect(wrapper).toBeTruthy();
   });
