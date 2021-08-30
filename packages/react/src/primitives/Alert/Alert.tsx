@@ -47,7 +47,6 @@ export const Alert: React.FC<AlertProps> = ({
         wrap={wrap}
         {...rest}
       >
-        {/* Make a className, put alignItems="center" into a CSS variable */}
         <Flex alignItems="center">
           {hasIcon && <AlertIcon variation={variation} iconSize={iconSize} />}
           <View>

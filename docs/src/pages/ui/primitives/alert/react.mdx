@@ -240,3 +240,21 @@ _Using style props:_
     Passing props directly
   </Alert>
 </Example>
+
+## Accessibility
+
+According to [MDN](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Alert_Role): "The `alert` role can be used to tell the user an element has been dynamically updated. Screen readers will instantly start reading out the updated content when the role is added.
+
+The most important thing to know about the `alert` role is that it is for dynamic content. It is perfect for situations such as when a user fills out a form and JavaScript is used to add an error message - the alert would immediately read out the message. It should not be used on HTML where the user hasn't interacted with it."
+
+For Amplify UI, the `alert` ARIA role is not built-in because it depends on your use case. For example, if you're using the `error` variation, then you should consider passing in ARIA `role="alert"` as a prop:
+
+```jsx
+<Alert role="alert" variation="error">
+  ARIA: alert role
+</Alert>
+```
+
+However, if you're just displaying some information that isn't critical or time sensitive, then we would not recommend passing in the `alert` role.
+
+For more information, check out the [MDN Documentation](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Alert_Role).
