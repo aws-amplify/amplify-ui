@@ -10,6 +10,7 @@ export const Link: React.FC<LinkProps> = ({
   children,
   className,
   isExternal,
+  size,
   ...rest
 }) => {
   const linkTag = as || 'a';
@@ -18,6 +19,8 @@ export const Link: React.FC<LinkProps> = ({
       as={linkTag}
       className={classNames(ComponentClassNames.Link, className)}
       rel={isExternal ? 'noopener noreferrer' : undefined}
+      target={isExternal ? '_blank' : '_self'}
+      data-size={size}
       {...rest}
     >
       {children}

@@ -22,7 +22,7 @@ import { Link } from '@aws-amplify/ui-react';
 
 ## External Links
 
-External Links should use the `isExternal` prop to add the appropriate rel attribute to the created anchor tag.
+External Links should use the `isExternal` prop to add the appropriate rel attribute to the created anchor tag. The `isExternal` prop will also set `target="_blank"` when set to true.
 
 ```jsx
 import { Link } from '@aws-amplify/ui-react';
@@ -71,7 +71,7 @@ import { Link as ReachLink } from '@reach/router';
 
 ### CSS Pseudo Classes
 
-The Link component primarily uses four css pseudo classes. These are `:active`, `:focus`, `:hover`, and `:visited`. Styling the Link component while in one of these states can also be accomplished using the folowing techniques in conjunction with the appropriate pseudo class selector.
+The Link component primarily uses four css pseudo classes. These are `:active`, `:focus`, `:hover`, and `:visited`. Styling the Link component while in one of these states can also be accomplished using the following techniques in conjunction with the appropriate pseudo class selector.
 
 ### Global Styling
 
@@ -107,6 +107,16 @@ _Using a class selector:_
 /* styles.css */
 .custom-link {
   color: red;
+  font-weight: bold;
+}
+
+.custom-link:hover {
+  color: blue;
+  font-weight: bold;
+}
+
+.custom-link:focus {
+  color: green;
   font-weight: bold;
 }
 ```

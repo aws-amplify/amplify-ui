@@ -8,6 +8,7 @@ export const LinkDemo = () => {
   const linkProps = useLinkProps({
     isExternal: false,
     color: '#007EB9',
+    size: '',
     textDecoration: 'none',
   });
 
@@ -19,6 +20,7 @@ export const LinkDemo = () => {
           color={linkProps.color}
           isExternal={linkProps.isExternal}
           textDecoration={linkProps.textDecoration}
+          size={linkProps.size}
         >
           My Demo Link
         </Link>

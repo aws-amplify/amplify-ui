@@ -1,8 +1,10 @@
 import { AriaProps, BaseComponentProps } from './base';
 import { BaseStyleProps } from './style';
-import React, { AriaRole } from 'react';
+import * as React from 'react';
 
-export type ViewAsHTMLElementTypes = keyof JSX.IntrinsicElements | React.FC;
+export type ViewAsHTMLElementTypes =
+  | keyof JSX.IntrinsicElements
+  | React.ComponentType;
 
 export interface ViewProps
   extends BaseComponentProps,
@@ -10,7 +12,7 @@ export interface ViewProps
     AriaProps {
   as?: ViewAsHTMLElementTypes;
 
-  role?: AriaRole;
+  role?: React.AriaRole;
 
   isDisabled?: boolean;
 }

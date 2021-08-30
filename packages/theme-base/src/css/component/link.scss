@@ -27,4 +27,10 @@
     font-weight: var(--amplify-components-link-visited-font-weight);
     text-decoration: var(--amplify-components-link-visited-text-decoration);
   }
+  &[data-size='small'] {
+    font-size: var(--amplify-components-link-small-font-size);
+  }
+  &[data-size='large'] {
+    font-size: var(--amplify-components-link-large-font-size);
+  }
 }

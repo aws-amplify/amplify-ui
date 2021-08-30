@@ -2,6 +2,7 @@ import React from 'react';
 import { BaseComponentProps, AriaProps } from './base';
 import { BaseStyleProps } from './style';
 
+type LinkSize = 'small' | 'large';
 export interface LinkOptions {
   /**
    * Boolean value indicating an external link
@@ -10,10 +11,17 @@ export interface LinkOptions {
   isExternal?: boolean;
 
   /**
+   *
+   * This will set the font size of the link text
+   * Default css value is medium
+   */
+  size?: LinkSize;
+
+  /**
    * React component to use instead of an anchor tag
    * This is used for react routing libraries that have routing components
    */
-  as?: React.FC;
+  as?: React.ComponentType;
 
   /**
    * Children to be rendered inside the Link component
