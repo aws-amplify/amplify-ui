@@ -37,14 +37,14 @@ describe('Alert: ', () => {
     expect(defaultAlert.dataset['variation']).toBe(undefined);
   });
 
-  it('can render a title for the alert', async () => {
+  it('can render a heading for the alert', async () => {
     render(
-      <Alert title="Test title" testId="alertTitle">
-        Testing the alert title
+      <Alert heading="Test heading" testId="alertHeading">
+        Testing the alert heading
       </Alert>
     );
 
-    const alert = await screen.findByText('Test title');
+    const alert = await screen.findByText('Test heading');
     expect(alert.nodeName).toBe('H6');
     expect(
       alert.parentElement.parentElement.parentElement.classList.contains(
@@ -53,33 +53,33 @@ describe('Alert: ', () => {
     ).toBe(true);
   });
 
-  it('can render an icon via the withIcon prop', async () => {
+  it('can render an icon via the hasIcon prop', async () => {
     render(
       <div>
-        <Alert variation="info" testId="withIcon">
-          With Icon
+        <Alert variation="info" testId="hasIcon">
+          Has Icon
         </Alert>
-        <Alert variation="info" withIcon={false} testId="withoutIcon">
-          Without Icon
+        <Alert variation="info" hasIcon={false} testId="noIcon">
+          No Icon
         </Alert>
         <Alert testId="default">Default Alert Without Icon</Alert>
       </div>
     );
 
-    const withIcon = await screen.findByTestId('withIcon');
-    const withoutIcon = await screen.findByTestId('withoutIcon');
+    const hasIcon = await screen.findByTestId('hasIcon');
+    const noIcon = await screen.findByTestId('noIcon');
     const defaultAlert = await screen.findByTestId('default');
 
-    expect(withIcon.firstElementChild.childElementCount).toBe(2);
-    expect(withoutIcon.firstElementChild.childElementCount).toBe(1);
+    expect(hasIcon.firstElementChild.childElementCount).toBe(2);
+    expect(noIcon.firstElementChild.childElementCount).toBe(1);
     expect(defaultAlert.firstElementChild.childElementCount).toBe(1);
     expect(
-      withIcon.firstElementChild.firstElementChild.classList.contains(
+      hasIcon.firstElementChild.firstElementChild.classList.contains(
         ComponentClassNames.Icon
       )
     ).toBe(true);
     expect(
-      withoutIcon.firstElementChild.firstElementChild.classList.contains(
+      noIcon.firstElementChild.firstElementChild.classList.contains(
         ComponentClassNames.Icon
       )
     ).toBe(false);
