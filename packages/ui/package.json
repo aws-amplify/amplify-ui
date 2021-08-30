@@ -4,6 +4,10 @@
   "version": "0.0.1-next.0",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
+  "exports": {
+    ".": "./dist/index.mjs",
+    "./theme.css": "./dist/theme.css"
+  },
   "types": "dist/index.d.ts",
   "files": [
     "dist"
