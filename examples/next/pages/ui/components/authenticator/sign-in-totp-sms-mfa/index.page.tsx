@@ -1,8 +1,7 @@
-import { Authenticator } from 'aws-amplify-react';
-import { dict } from '@aws-amplify/ui';
-import { Amplify, I18n } from 'aws-amplify';
-
+import { translations } from '@aws-amplify/ui-react';
 import awsExports from '@environments/auth-with-totp-and-sms-mfa/src/aws-exports';
+import { Amplify, I18n } from 'aws-amplify';
+import { Authenticator } from 'aws-amplify-react';
 
 Amplify.configure({
   ...awsExports,
@@ -11,7 +10,7 @@ Amplify.configure({
   },
 });
 
-I18n.putVocabularies(dict);
+I18n.putVocabularies(translations);
 
 export default function SignInTotpSmsMfa() {
   return <Authenticator />;
