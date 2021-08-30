@@ -1,4 +1,4 @@
-import { getActorState, SignInState } from '@aws-amplify/ui-core';
+import { getActorState, SignInState } from '@aws-amplify/ui';
 import { I18n } from '@aws-amplify/core';
 
 import { useAmplify, useAuth } from '../../../hooks';

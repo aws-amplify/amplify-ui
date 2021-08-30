@@ -4,7 +4,7 @@ import {
   getActorState,
   SignInContext,
   SignInState,
-} from '@aws-amplify/ui-core';
+} from '@aws-amplify/ui';
 
 import { useAmplify, useAuth } from '../../../hooks';
 import {

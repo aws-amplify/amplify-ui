@@ -71,7 +71,7 @@ import {
   RESET_PASSWORD_TEXT,
 } from '../defaults/DefaultTexts';
 import { ResetPasswordSetupReturnTypes, SetupEventContext } from '../types';
-import { getActorState, ResetPasswordState } from '@aws-amplify/ui-core';
+import { getActorState, ResetPasswordState } from '@aws-amplify/ui';
 
 export default defineComponent({
   components: {

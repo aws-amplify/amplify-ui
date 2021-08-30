@@ -15,7 +15,7 @@ import {
   getActorState,
   SignInContext,
   SignInState,
-} from '@aws-amplify/ui-core';
+} from '@aws-amplify/ui';
 import { StateMachineService } from '../../services/state-machine.service';
 import { AuthPropService } from '../../services/authenticator-context.service';
 

@@ -17,7 +17,7 @@ import {
   getActorState,
   SignInContext,
   SignInState,
-} from '@aws-amplify/ui-core';
+} from '@aws-amplify/ui';
 
 const logger = new Logger('ConfirmSignIn');
 
@@ -64,7 +64,7 @@ export class AmplifyConfirmSignInComponent
     const { challengeName } = actorContext;
     switch (challengeName) {
       case AuthChallengeNames.SOFTWARE_TOKEN_MFA:
-        // TODO: this string should be centralized and translated from ui-core.
+        // TODO: this string should be centralized and translated from ui.
         this.headerText = 'Confirm TOTP Code';
         break;
       case AuthChallengeNames.SMS_MFA:

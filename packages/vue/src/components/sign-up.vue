@@ -69,7 +69,7 @@ import {
   SignUpContext,
   SignUpState,
   socialProviderLoginMechanisms,
-} from '@aws-amplify/ui-core';
+} from '@aws-amplify/ui';
 
 import BaseForm from './primitives/base-form.vue';
 import BaseBox from './primitives/base-box.vue';

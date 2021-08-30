@@ -66,8 +66,10 @@ import { useAuth } from '../composables/useAuth';
 
 import { BACK_SIGN_IN_TEXT, CONFIRM_TEXT } from '../defaults/DefaultTexts';
 import { ConfirmSignInSetupReturnTypes, SetupEventContext } from '../types';
-import { AuthChallengeNames } from '@aws-amplify/ui-core/src/types';
-import { getActorState, SignInState } from '@aws-amplify/ui-core';
+
+// TODO Replace with public type export instead of /src
+import { AuthChallengeNames } from '@aws-amplify/ui/src/types';
+import { getActorState, SignInState } from '@aws-amplify/ui';
 
 export default defineComponent({
   components: {

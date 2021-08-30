@@ -5,7 +5,7 @@ import {
   getActorState,
   SignUpContext,
   SignUpState,
-} from '@aws-amplify/ui-core';
+} from '@aws-amplify/ui';
 import { Logger } from '@aws-amplify/core';
 import { Subscription } from 'xstate';
 import { StateMachineService } from '../../services/state-machine.service';

@@ -1,12 +1,12 @@
 {
   "private": true,
   "scripts": {
-    "install": "yarn run theme-base build:all && yarn core build && yarn react build",
+    "install": "yarn run theme-base build:all && yarn ui build && yarn react build",
     "postinstall": "patch-package",
     "build": "yarn workspaces run build",
     "angular": "yarn workspace @aws-amplify/ui-angular",
     "react": "yarn workspace @aws-amplify/ui-react",
-    "core": "yarn workspace @aws-amplify/ui-core",
+    "ui": "yarn workspace @aws-amplify/ui",
     "vue": "yarn workspace @aws-amplify/ui-vue",
     "theme-base": "yarn workspace @aws-amplify/ui-theme-base",
     "angular-example": "yarn workspace angular-example",

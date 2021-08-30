@@ -1,5 +1,6 @@
-import { getActorContext } from '@aws-amplify/ui-core';
-import { ActorContextWithForms } from '@aws-amplify/ui-core/src/types/authMachine';
+import { getActorContext } from '@aws-amplify/ui';
+// TODO This needs to be replaced with a helper to get the current error
+import { ActorContextWithForms } from '@aws-amplify/ui/src/types/authMachine';
 import { useAmplify, useAuth } from '../../../hooks';
 
 export interface ErrorTextProps {

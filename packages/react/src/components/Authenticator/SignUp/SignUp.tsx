@@ -8,7 +8,7 @@ import {
   SignUpContext,
   SignUpState,
   socialProviderLoginMechanisms,
-} from '@aws-amplify/ui-core';
+} from '@aws-amplify/ui';
 
 import { useAmplify, useAuth } from '../../../hooks';
 import { FederatedSignIn } from '../FederatedSignIn';

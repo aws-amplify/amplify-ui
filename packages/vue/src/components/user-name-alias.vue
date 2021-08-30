@@ -22,7 +22,7 @@ import {
   getActorContext,
   getAliasInfoFromContext,
   ActorContextWithForms,
-} from '@aws-amplify/ui-core';
+} from '@aws-amplify/ui';
 
 import BaseInput from './primitives/base-input.vue';
 import BaseLabel from './primitives/base-label.vue';

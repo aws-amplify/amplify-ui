@@ -87,7 +87,7 @@ import {
 import { useAuth } from '../composables/useAuth';
 
 import { ConfirmPasswordSetupReturnTypes, SetupEventContext } from '../types';
-import { getActorState, SignUpContext } from '@aws-amplify/ui-core';
+import { getActorState, SignUpContext } from '@aws-amplify/ui';
 
 export default defineComponent({
   components: {

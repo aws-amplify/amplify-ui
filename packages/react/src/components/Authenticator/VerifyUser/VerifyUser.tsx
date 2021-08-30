@@ -4,7 +4,7 @@ import {
   SignInState,
   SignInContext,
   authInputAttributes,
-} from '@aws-amplify/ui-core';
+} from '@aws-amplify/ui';
 import { I18n } from '@aws-amplify/core';
 
 import { useAmplify, useAuth } from '../../../hooks';

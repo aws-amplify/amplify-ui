@@ -8,7 +8,7 @@ import {
   ResetPasswordState,
   SignInState,
   SignUpState,
-} from '@aws-amplify/ui-core';
+} from '@aws-amplify/ui';
 
 export interface SetupEventContext {
   emit: (eventName: string, payload?: unknown) => void;

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { getActorState, SignUpState } from '@aws-amplify/ui-core';
+import { getActorState, SignUpState } from '@aws-amplify/ui';
 import { I18n } from '@aws-amplify/core';
 
 import { useAmplify, useAuth } from '../../../hooks';

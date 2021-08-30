@@ -3,7 +3,7 @@ import {
   ActorContextWithForms,
   AuthInputAttributes,
   getActorContext,
-} from '@aws-amplify/ui-core';
+} from '@aws-amplify/ui';
 import { getAttributeMap } from '../../common';
 import { StateMachineService } from '../../services/state-machine.service';
 

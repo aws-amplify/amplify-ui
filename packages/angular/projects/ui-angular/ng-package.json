@@ -11,7 +11,7 @@
     }
   },
   "allowedNonPeerDependencies": [
-    "@aws-amplify/ui-core",
+    "@aws-amplify/ui",
     "qrcode",
     "xstate",
     "@stencil/core",
