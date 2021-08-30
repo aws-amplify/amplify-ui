@@ -1,5 +1,5 @@
 import React from 'react';
-import { SwitchField, Flex } from '@aws-amplify/ui-react';
+import { SwitchField, Flex, Text } from '@aws-amplify/ui-react';
 
 import { SwitchPropControls } from '@/components/SwitchPropControls';
 import { useSwitchProps } from '@/components/useSwitchProps';
@@ -21,6 +21,7 @@ export const SwitchDemo = () => {
       <SwitchPropControls {...switchProps} />
       <Example>
         <SwitchField
+          isChecked={switchProps.isChecked}
           thumbColor={switchProps.thumbColor}
           trackColor={switchProps.trackColor}
           trackCheckedColor={switchProps.trackCheckedColor}
@@ -29,6 +30,11 @@ export const SwitchDemo = () => {
           label={switchProps.label}
           isLabelHidden={switchProps.isLabelHidden}
         />
+        {typeof switchProps.isChecked !== 'undefined' && (
+          <Text>
+            <sup>*</sup>This component is in a controlled state
+          </Text>
+        )}
       </Example>
     </Flex>
   );

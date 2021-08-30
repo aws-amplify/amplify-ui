@@ -7,3 +7,65 @@ Switch is a toggle switch
 ## Demo
 
 <SwitchDemo />
+
+## Usage
+
+The most basic usage simply includes a switchField component passing in a required label prop.
+
+```jsx
+import { SwitchField } from '@aws-amplify/ui-react';
+
+<SwitchField label={'This is a switch'} />;
+```
+
+<Example>
+  <SwitchField label={'This is a switch'} />
+</Example>
+
+## isChecked
+
+The `isChecked` property is a `boolean` value and defines if the switch is on or off. This is a boolean property and being set to either true or false will change this into a controlled switchField which can only be switched on or off using this controlled value.
+
+## defaultChecked
+
+The `defaultChecked` property is a `boolean` value and will define the starting value for an uncontrolled switchField.
+
+## thumbColor
+
+The `thumbColor` property is a CSS color value and will define the color of the thumb in the switchField.
+
+## trackColor
+
+The `trackColor` property is a CSS color value that will define the color of the track of the switchField while in the off position.
+
+## checkedTrackColor
+
+The `checkedTrackColor` property is a CSS color value that will define the color of the track of the switchField while in the on position.
+
+## isDisabled
+
+The `isDisabled` property is a `boolean` value that when set to true will disable the switchField from being toggled to on or off.
+
+## name
+
+The `name` property is a `string` that defines the name of the field that will be submitted with the form as a name/value pair.
+
+## size
+
+The `size` property is an `enum` value that modifies the size of the switchField component. The available sizes are `small`, (default), and `large`.
+
+## label
+
+The `label` property is a required `string` or `ReactNode` that will display next to the switchField component and wrapped in an html label tag.
+
+## isLabelHidden
+
+The `isLabelHidden` property is a `boolean` value that will visually hide the label.
+
+## value
+
+The `value` property is a `string` value that defines the value of the field that will be submitted with the form as a name/value pair.
+
+## onChange
+
+The `onChange` property is a callback `function` that will be called with a change event to the switchField.

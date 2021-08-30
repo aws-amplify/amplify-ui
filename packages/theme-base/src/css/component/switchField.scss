@@ -8,7 +8,7 @@
   }
 }
 
-.track {
+.amplify-switch-track {
   display: inline-flex;
   justify-content: flex-start;
   box-sizing: content-box;
@@ -24,7 +24,7 @@
   }
 }
 
-.thumb {
+.amplify-switch-thumb {
   background: #fff;
   transition-duration: 200ms;
   border-radius: inherit;
@@ -36,4 +36,8 @@
   &[data-checked='true'] {
     transform: translateX(1em);
   }
+}
+
+.amplify-switch-label {
+  padding: 6px;
 }

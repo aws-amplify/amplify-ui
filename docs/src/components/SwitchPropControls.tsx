@@ -21,6 +21,9 @@ export interface SwitchPropControlsProps extends SwitchFieldProps {
   setIsLabelHidden: (
     value: React.SetStateAction<SwitchFieldProps['isLabelHidden']>
   ) => void;
+  setIsChecked: (
+    value: React.SetStateAction<SwitchFieldProps['isChecked']>
+  ) => void;
 }
 
 interface SwitchPropControlsInterface {
@@ -42,6 +45,8 @@ export const SwitchPropControls: SwitchPropControlsInterface = ({
   setLabel,
   isLabelHidden,
   setIsLabelHidden,
+  isChecked,
+  setIsChecked,
 }) => {
   return (
     <DemoBox primitiveName="SwichField">
@@ -130,6 +135,19 @@ export const SwitchPropControls: SwitchPropControlsInterface = ({
             );
           }}
         />
+      </FieldLabeler>
+      <FieldLabeler id="isChecked">
+        <input
+          type="checkbox"
+          name="isChecked"
+          id="isChecked"
+          onChange={(event) => {
+            setIsChecked(
+              Boolean(event.target.checked) as SwitchFieldProps['isChecked']
+            );
+          }}
+        />
+        <a onClick={() => setIsChecked(undefined)}>Unset</a>
       </FieldLabeler>
     </DemoBox>
   );

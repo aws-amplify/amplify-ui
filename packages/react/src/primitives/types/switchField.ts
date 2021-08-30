@@ -4,18 +4,19 @@ import { InputProps } from './input';
 import { FieldProps } from './field';
 import { Property } from 'csstype';
 
+export type labelPosition = '';
 export interface SwitchFieldProps
   extends InputProps,
     FieldProps,
     BaseStyleProps {
   /**
-   * If value is provided, this will be a controlled SwitchField
+   * If isChecked is provided, this will be a controlled SwitchField
    */
-  value?: boolean;
+  isChecked?: boolean;
   /**
-   * Use this to provide a default value for an uncontrolled SwitchField
+   * Use this to provide a default checked value for an uncontrolled SwitchField
    */
-  defaultValue?: boolean;
+  defaultChecked?: boolean;
 
   /**
    * This property will change the color of the thumb in the switch component
@@ -58,4 +59,14 @@ export interface SwitchFieldProps
    * @default false
    */
   isLabelHidden?: boolean;
+
+  /**
+   * This is the value of the switch input and will be submitted with a form submission
+   */
+  value?: string | number;
+
+  /**
+   * Assign an onChange event to the switch field
+   */
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
 }

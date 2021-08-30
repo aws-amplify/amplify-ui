@@ -1,16 +1,29 @@
 import React, { ChangeEvent, useCallback, useState } from 'react';
 
 export const useSwitch = (props) => {
-  const { changeEvent } = props;
-  const [isChecked, setIsChecked] = useState(false);
+  const { onChange, isChecked, defaultChecked, isDisabled } = props;
+  const isControlled = typeof isChecked !== 'undefined';
+  const [isOn, setIsOn] = useState(isControlled ? isChecked : defaultChecked);
+
   const changeHandler = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
-      setIsChecked(event.target.checked);
+      if (isDisabled) {
+        event.preventDefault();
+        return;
+      }
+      if (!isControlled) {
+        typeof onChange === 'function' && onChange(event);
+        setIsOn(event.target.checked);
+      }
     },
-    [changeEvent]
+    [onChange, isChecked]
   );
+
+  if (isControlled && isOn !== isChecked) {
+    setIsOn(isChecked);
+  }
   return {
-    isChecked,
+    isOn,
     changeHandler,
   };
 };

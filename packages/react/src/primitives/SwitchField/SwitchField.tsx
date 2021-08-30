@@ -19,9 +19,18 @@ export const SwitchField = (props) => {
     size,
     label,
     isLabelHidden,
+    isChecked,
+    onChange,
+    defaultChecked,
+    value,
     ...rest
   } = props;
-  const { isChecked, changeHandler } = useSwitch({});
+  const { isOn, changeHandler } = useSwitch({
+    onChange,
+    isChecked,
+    defaultChecked,
+    isDisabled,
+  });
 
   const fieldId = React.useMemo(() => {
     if (id) {
@@ -38,9 +47,12 @@ export const SwitchField = (props) => {
     >
       <View
         as={'span'}
-        className={classNames({
-          'sr-only': isLabelHidden,
-        })}
+        className={classNames(
+          {
+            'sr-only': isLabelHidden,
+          },
+          'amplify-switch-label'
+        )}
       >
         {label}
       </View>
@@ -51,17 +63,19 @@ export const SwitchField = (props) => {
         className="sr-only"
         disabled={isDisabled}
         name={name}
+        checked={isOn}
+        value={value}
       />
       <View
         as={'span'}
-        className={'track'}
-        data-checked={isChecked}
-        backgroundColor={isChecked ? trackCheckedColor : trackColor}
+        className={'amplify-switch-track'}
+        data-checked={isOn}
+        backgroundColor={isOn ? trackCheckedColor : trackColor}
       >
         <View
           as={'span'}
-          className={'thumb'}
-          data-checked={isChecked}
+          className={'amplify-switch-thumb'}
+          data-checked={isOn}
           backgroundColor={thumbColor}
         ></View>
       </View>
