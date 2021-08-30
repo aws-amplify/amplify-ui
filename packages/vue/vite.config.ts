@@ -21,7 +21,7 @@ export default defineConfig({
           declaration: true,
           declarationMap: true,
         },
-        exclude: ['vite.config.ts'],
+        exclude: ['vite.config.ts', '__tests__'],
       },
     }),
   ],
