@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tabs, TabItem, Text } from '@aws-amplify/ui-react';
+import { Tabs, TabItem, Button } from '@aws-amplify/ui-react';
 
 // import { BadgePropControls } from '@/components/BadgePropControls';
 // import { useBadgeProps } from '@/components/useBadgeProps';
@@ -8,9 +8,12 @@ import { Tabs, TabItem, Text } from '@aws-amplify/ui-react';
 export const TabsDemo = () => {
   return (
     <Tabs ariaLabel="fruit tabs">
-      <TabItem title="yay">Hello</TabItem>
-      <TabItem title="boo">Yah</TabItem>
-      <TabItem title={<Text color="red">Red Text</Text>}>Cool stuff</TabItem>
+      <TabItem title="foo">
+        <Button>Hello</Button>
+      </TabItem>
+      <TabItem title="bar">Yah</TabItem>
+      <TabItem title="testing">123</TabItem>
+      {/* <TabItem title={<Text color="red">Red Text</Text>}>Cool stuff</TabItem> */}
     </Tabs>
   );
 };

@@ -1,11 +1,72 @@
-.amplify-tabs {
-  padding: 10px 20px;
-
+.amplify-tab {
+  // Radix
   &[data-state='active'] {
     color: #7e62ff;
-    border-bottom: 3px solid #7e62ff;
+    border-bottom: 2px solid #7e62ff;
+  }
+
+  border-bottom: 2px solid gray;
+
+  // border-radius: var(--amplify-components-tabs-border-radius);
+  box-sizing: border-box;
+  font-weight: var(--amplify-components-tabs-font-weight);
+  text-align: var(--amplify-components-tabs-text-align);
+  // transition: all var(--amplify-components-tabs-transition-duration);
+  // border-width: var(--amplify-components-tabs-border-width);
+  // border-style: var(--amplify-components-tabs-border-style);
+  // border-color: var(--amplify-components-tabs-border-color);
+  color: var(--amplify-components-tabs-color);
+  font-size: var(--amplify-components-tabs-font-size);
+  padding: var(--amplify-components-tabs-padding);
+
+  &:hover {
+    background-color: var(--amplify-components-tabs-hover-background-color);
+    // border-color: var(--amplify-components-tabs-hover-border-color);
+    // color: var(--amplify-components-tabs-hover-color);
+    color: #7e62ff;
+    cursor: pointer;
+  }
+
+  &:focus {
+    outline: 1px solid black;
+    // border-color: var(--amplify-components-tabs-focus-border-color);
+    // color: var(--amplify-components-tabs-focus-color);
+  }
+
+  // &:focus-visible {
+  //   outline: 2px solid black;
+  // }
+
+  &:active {
+    background-color: var(--amplify-components-tabs-active-background-color);
+    border-color: var(--amplify-components-tabs-active-border-color);
+    color: var(--amplify-components-tabs-active-color);
+  }
+
+  &[disabled] {
+    background-color: var(--amplify-components-tabs-disabled-background-color);
+    border-color: var(--amplify-components-tabs-disabled-border-color);
+    color: var(--amplify-components-tabs-disabled-color);
+    cursor: not-allowed;
+  }
+
+  &[data-size='small'] {
+    border-radius: var(--amplify-components-tabs-small-border-radius);
+    font-size: var(--amplify-components-tabs-small-font-size);
+    padding: var(--amplify-components-tabs-small-padding);
+  }
+
+  &[data-size='large'] {
+    border-radius: var(--amplify-components-tabs-large-border-radius);
+    font-size: var(--amplify-components-tabs-large-font-size);
+    padding: var(--amplify-components-tabs-large-padding);
   }
 }
 
-// Add &focus
-// cursor: pointer on tabs
+.amplify-tabs {
+  // border-bottom: 1px solid gray;
+  margin-bottom: 1rem;
+}
+
+// Radix:
+// [data-state='active']

@@ -38,12 +38,12 @@ export const Tabs: React.FC<TabsProps> = ({
 
   return (
     <Root defaultValue={`${defaultTabIndex}`}>
-      <List aria-label={ariaLabel} style={{ borderBottom: '1px solid gray' }}>
-        <Flex>
+      <List aria-label={ariaLabel}>
+        <Flex gap="0" className={ComponentClassNames.Tabs}>
           {tabs.map((tab, index) => (
             <RadixTab
               value={`${index}`}
-              className={classNames(ComponentClassNames.Tabs, className)}
+              className={classNames(ComponentClassNames.Tab, className)}
             >
               {tab.title}
             </RadixTab>
