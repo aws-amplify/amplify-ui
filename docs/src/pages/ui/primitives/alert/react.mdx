@@ -1,0 +1,260 @@
+import { Alert, Flex } from '@aws-amplify/ui-react';
+import { AlertDemo } from './demo';
+import { Example } from '@/components/Example';
+
+An Alert displays a brief, important message in a way that attracts the user's attention without interrupting the user's task. Alerts are typically intended to be read out dynamically by a screen reader.
+
+## Demo
+
+<AlertDemo />
+
+## Usage
+
+Import the Alert component and styles.
+
+```jsx
+import { Alert } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<Alert>Default Alert</Alert>;
+```
+
+<Example>
+  <Alert>Default Alert</Alert>
+</Example>
+
+### Variations
+
+Use the `variation` prop to change the Alert variation. Available options are `info`, `error`, `warning`, `success`, and none (default).
+
+```jsx
+<Alert variation="info">Info</Alert>
+<Alert variation="error">Error</Alert>
+<Alert variation="warning">Warning</Alert>
+<Alert variation="success">Success</Alert>
+<Alert>Default</Alert>
+```
+
+<Example>
+  <Alert variation="info">Info</Alert>
+  <Alert variation="error">Error</Alert>
+  <Alert variation="warning">Warning</Alert>
+  <Alert variation="success">Success</Alert>
+  <Alert>Default</Alert>
+</Example>
+
+### Heading
+
+Use the `heading` prop to pass a heading to the Alert.
+
+```jsx
+<Alert variation="warning">This Alert does not have a heading</Alert>
+<Alert variation="success" heading="This is the heading">Cool heading!</Alert>
+```
+
+<Example>
+  <Flex direction="column" gap="1rem">
+    <Alert variation="warning">This Alert does not have a heading</Alert>
+    <Alert variation="success" heading="This is the heading">
+      Cool heading!
+    </Alert>
+  </Flex>
+</Example>
+
+### Icon
+
+Use the `hasIcon` prop to change whether the Alert includes an icon. Defaults to `true` (includes icon). Use the `iconSize` prop to change the size of the icon. Available options include `small`, (default), and `large`.
+
+```jsx
+<Alert variation="info">This Alert shows an icon by default</Alert>
+<Alert variation="error" hasIcon={false}>This Alert does not have an icon</Alert>
+<Alert variation="success" iconSize="large">This Alert has a large icon</Alert>
+```
+
+<Example>
+  <Flex direction="column" gap="1rem">
+    <Alert variation="info">This Alert shows an icon by default</Alert>
+    <Alert variation="error" hasIcon={false}>
+      This Alert does not have an icon
+    </Alert>
+    <Alert variation="success" iconSize="large">
+      This Alert has a large icon
+    </Alert>
+  </Flex>
+</Example>
+
+### Dismissible
+
+Use the `isDismissible` prop to control whether the user can dismiss the Alert. Defaults to `false` (not dismissible).
+
+```jsx
+<Alert>This Alert is not dismissible by default</Alert>
+<Alert isDismissible={true}>Click the X to dismiss this Alert</Alert>
+```
+
+<Example>
+  <Flex direction="column" gap="1rem">
+    <Alert>This Alert is not dismissible by default</Alert>
+    <Alert isDismissible={true}>Click the X to dismiss this Alert</Alert>
+  </Flex>
+</Example>
+
+### onDismiss
+
+Use the `onDismiss` prop to pass a function that will run when the Alert is dismissed. Note that `isDismissible` must be set to `true`.
+
+```jsx
+<Alert
+  onDismiss={() => alert('Alert dismissed, user metric recorded')}
+  isDismissible={true}
+>
+  Run a function on dismiss (click the X)
+</Alert>
+```
+
+<Example>
+  <Alert
+    onDismiss={() => alert('Alert dismissed, user metric recorded')}
+    isDismissible={true}
+  >
+    Run a function on dismiss (click the X)
+  </Alert>
+</Example>
+
+## CSS Styling
+
+### Global styling
+
+To override styling on all Alerts, you can set the Amplify CSS variables or use the built-in `.amplify-alert` class.
+
+```css
+/* styles.css */
+:root {
+  --amplify-components-alert-background-color: yellow;
+}
+/* OR */
+.amplify-alert {
+  background-color: yellow;
+}
+```
+
+```jsx
+import './styles.css';
+
+<Alert>Change the default Alert to yellow</Alert>;
+```
+
+<Alert backgroundColor="yellow">Change the default Alert to yellow</Alert>
+
+To replace the Alert styling, unset it:
+
+```css
+.amplify-alert {
+  all: unset;
+  /* Add your styling here*/
+}
+```
+
+### Local styling
+
+To override styling on a specific Alert, you can use (in order of increasing specificity): a class selector, data attributes, or style props.
+
+_Using a class selector:_
+
+```css
+/* styles.css */
+.purple-alert {
+  color: white;
+  background-color: rebeccapurple;
+}
+```
+
+```jsx
+import './styles.css';
+
+<Alert className="purple-alert" heading="Attention">
+  This is a purple Alert
+</Alert>;
+```
+
+<Example>
+  <Alert className="purple-alert" heading="Attention">
+    This is a purple Alert
+  </Alert>
+</Example>
+
+_Using data attributes:_
+
+```css
+/* styles.css */
+/* Override only error variation styles */
+.amplify-alert[data-variation='error'] {
+  color: white;
+  background-color: crimson;
+}
+```
+
+```jsx
+import './styles.css';
+
+<Alert variation="error" heading="System Error">Red Alert!</Alert>
+<Alert>Default Alert styling unaffected</Alert>
+```
+
+<Example>
+  <Flex direction="column" gap="1rem">
+    <Alert
+      variation="error"
+      color="white"
+      backgroundColor="crimson"
+      heading="System Error"
+    >
+      Red Alert!
+    </Alert>
+    <Alert>Default Alert styling unaffected</Alert>
+  </Flex>
+</Example>
+
+_Using style props:_
+
+```jsx
+<Alert
+  backgroundColor="white"
+  color="rgba(255, 153, 0, 1)"
+  fontWeight="bold"
+  border="1px solid rgba(255, 153, 0, 1)"
+  borderRadius="10px"
+>
+  Passing props directly
+</Alert>
+```
+
+<Example>
+  <Alert
+    backgroundColor="white"
+    color="rgba(255, 153, 0, 1)"
+    fontWeight="bold"
+    border="1px solid rgba(255, 153, 0, 1)"
+    borderRadius="10px"
+  >
+    Passing props directly
+  </Alert>
+</Example>
+
+## Accessibility
+
+According to [MDN](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Alert_Role): "The `alert` role can be used to tell the user an element has been dynamically updated. Screen readers will instantly start reading out the updated content when the role is added.
+
+The most important thing to know about the `alert` role is that it is for dynamic content. It is perfect for situations such as when a user fills out a form and JavaScript is used to add an error message - the alert would immediately read out the message. It should not be used on HTML where the user hasn't interacted with it."
+
+For Amplify UI, the `alert` ARIA role is not built-in because it depends on your use case. For example, if you're using the `error` variation, then you should consider passing in ARIA `role="alert"` as a prop:
+
+```jsx
+<Alert role="alert" variation="error">
+  ARIA: alert role
+</Alert>
+```
+
+However, if you're just displaying some information that isn't critical or time sensitive, then we would not recommend passing in the `alert` role.
+
+For more information, check out the [MDN Documentation](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Alert_Role).
