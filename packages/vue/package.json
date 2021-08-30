@@ -17,7 +17,10 @@
     "build": "vite build",
     "dev": "vite build --watch",
     "clean": "rimraf dist",
-    "test": "jest __tests__"
+    "test": "yarn test:unit",
+    "test:watch": "yarn test:unit:watch",
+    "test:unit": "jest",
+    "test:unit:watch": "jest --watch"
   },
   "dependencies": {
     "@aws-amplify/ui-core": "0.0.1-next.0",
