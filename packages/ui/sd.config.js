@@ -8,7 +8,7 @@ const CSS_VARIABLE_PREFIX = 'amplify';
 const CSS_VARIABLE_SCOPE = ':root';
 
 module.exports = {
-  source: ['src/tokens/index.js'],
+  source: ['src/theme/tokens/index.js'],
   transform: {
     cssPadding: {
       type: 'value',
@@ -29,12 +29,11 @@ module.exports = {
       prefix: CSS_VARIABLE_PREFIX,
       files: [
         {
-          destination: 'dist/variables.scss',
+          destination: 'src/theme/css/variables.scss',
           format: 'css/variables',
           options: {
             selector: CSS_VARIABLE_SCOPE,
             outputReferences: true,
-            showFileHeader: false,
           },
         },
       ],
