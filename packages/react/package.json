@@ -27,7 +27,6 @@
   },
   "dependencies": {
     "@aws-amplify/ui": "0.0.1-next.0",
-    "@aws-amplify/ui-theme-base": "0.0.1-next.0",
     "@xstate/react": "^1.4.0",
     "autoprefixer": "^10.3.1",
     "classnames": "^2.3.1",
