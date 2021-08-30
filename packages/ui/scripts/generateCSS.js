@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const sass = require('sass');
 const fs = require('fs-extra');
 const autoprefixer = require('autoprefixer');

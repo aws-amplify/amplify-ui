@@ -11,6 +11,7 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "tsup --minify",
+    "build:css": "./scripts/generateCSS.js",
     "dev": "tsup --watch src",
     "test": "echo \"Skipped: no test specified\""
   },
