@@ -1,4 +1,4 @@
-# Amplify UI Base Theme
+# Amplify UI Design Tokens
 
 ## Design Tokens
 
