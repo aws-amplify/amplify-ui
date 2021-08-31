@@ -38,7 +38,7 @@ json
 
 ```jsx
 import { ThemeProvider, Button } from '@aws-amplify/ui-react';
-import { BaseTheme } from '@aws-amplify/ui';
+import { theme } from '@aws-amplify/ui';
 
 const ThemedApp = (
   <ThemeProvider theme={BaseTheme}>
@@ -51,7 +51,7 @@ or using a utility function:
 
 ```jsx
 import { withTheme, Button } from '@aws-amplify/ui-react';
-import { BaseTheme } from '@aws-amplify/ui';
+import { theme } from '@aws-amplify/ui';
 
 const ThemedApp = withTheme(
   BaseTheme,
