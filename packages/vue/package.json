@@ -1,13 +1,49 @@
 {
-  "private": true,
   "name": "@aws-amplify/ui-vue",
-  "version": "0.0.1",
+  "version": "2.0.1-next.0",
+  "type": "module",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "exports": {
+    ".": "./dist/index.js",
+    "./styles.css": "./dist/style.css"
+  },
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "build": "echo \"Skipped\"",
-    "test": "echo \"Skipped: no test specified\""
+    "prebuild": "rimraf dist",
+    "build": "vite build",
+    "dev": "vite build --watch",
+    "clean": "rimraf dist",
+    "test": "yarn test:unit",
+    "test:watch": "yarn test:unit:watch",
+    "test:unit": "jest",
+    "test:unit:watch": "jest --watch"
   },
   "dependencies": {
+    "@aws-amplify/ui-core": "0.0.1-next.0",
     "@xstate/vue": "^0.8.0",
     "qrcode": "^1.4.4"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-unit-jest": "5.0.0-beta.2",
+    "@rollup/plugin-dynamic-import-vars": "^1.4.0",
+    "@rollup/plugin-typescript": "^8.2.5",
+    "@types/jest": "^27.0.1",
+    "@vitejs/plugin-vue": "^1.6.0",
+    "@vue/test-utils": "^2.0.0-rc.12",
+    "jest": "^26.6.3",
+    "rimraf": "^3.0.2",
+    "rollup-plugin-typescript2": "^0.30.0",
+    "ts-jest": "^27.0.5",
+    "typescript": "^4.4.2",
+    "vite": "^2.5.1",
+    "vue-jest": "^5.0.0-alpha.10",
+    "vue-tsc": "^0.3.0"
+  },
+  "peerDependencies": {
+    "aws-amplify": "^4.2.2"
   }
 }

@@ -1,7 +1,7 @@
 <template>
   <slot name="signUpSlotI">
     <base-wrapper data-amplify-wrapper>
-      <base-form @submit.prevent="onSignUpSubmit" @change="onChange">
+      <base-form @submit.prevent="onSignUpSubmit" @input="onInput">
         <base-heading>
           <template #headingI>
             <slot name="heading"></slot>
@@ -16,9 +16,6 @@
           <user-name-alias />
           <sign-up-password-control />
           <sign-up-confirm-password-control />
-          <base-box data-ui-error v-if="error">
-            {{ error }}
-          </base-box>
           <template v-for="(alias, idx) in secondaryAliases" :key="idx">
             <alias-control
               :label="inputAttributes[alias].label"
@@ -61,12 +58,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch, computed, ComputedRef } from 'vue';
+import { defineComponent, ref, computed, ComputedRef } from 'vue';
 import {
   authInputAttributes,
-  getActorContext,
   getActorState,
-  SignUpContext,
   SignUpState,
   socialProviderLoginMechanisms,
 } from '@aws-amplify/ui-core';
@@ -137,7 +132,6 @@ export default defineComponent({
     // reactive properties
 
     const phone = ref('');
-    const error = ref('');
 
     // computed properties
 
@@ -147,10 +141,6 @@ export default defineComponent({
     const signUpButtonText = computed(() => SIGN_UP_BUTTON_TEXT);
     const inputAttributes = computed(() => authInputAttributes);
 
-    watch(state, (first) => {
-      const actorContext: SignUpContext = getActorContext(first);
-      error.value = actorContext.validationError?.confirm_password;
-    });
     // Methods
 
     const onHaveAccountClicked = (): void => {
@@ -163,7 +153,7 @@ export default defineComponent({
       }
     };
 
-    const onChange = (e: Event): void => {
+    const onInput = (e: Event): void => {
       const { name, value } = <HTMLInputElement>e.target;
       send({
         type: 'CHANGE',
@@ -188,12 +178,11 @@ export default defineComponent({
     return {
       onHaveAccountClicked,
       onSignUpSubmit,
-      onChange,
+      onInput,
       state,
       actorState,
       phone,
       submit,
-      error,
       secondaryAliases,
       signInButtonText,
       haveAccountLabel,

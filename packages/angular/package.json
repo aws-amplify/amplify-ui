@@ -4,6 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "ng": "ng",
+    "dev": "ng build --watch",
     "start": "ng serve",
     "build": "ng build --prod",
     "test": "echo \"Skipped: ng test\"",
@@ -44,7 +45,8 @@
   },
   "workspaces": {
     "nohoist": [
-      "@angular-devkit/build-angular"
+      "@angular-devkit/build-angular",
+      "@types/jasmine"
     ]
   },
   "typings": "./dist/ui-angular/index.d.ts",

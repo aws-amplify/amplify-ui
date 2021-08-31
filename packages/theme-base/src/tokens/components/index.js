@@ -1,4 +1,5 @@
 module.exports = {
+  alert: require('./alert'),
   badge: require('./badge'),
   button: require('./button'),
   card: require('./card'),

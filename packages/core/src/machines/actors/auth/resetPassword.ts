@@ -9,8 +9,14 @@ export const resetPasswordActor = createMachine<
 >(
   {
     id: 'resetPasswordActor',
-    initial: 'resetPassword',
+    initial: 'init',
     states: {
+      init: {
+        always: [
+          { target: 'confirmResetPassword', cond: 'shouldAutoConfirmReset' },
+          { target: 'resetPassword' },
+        ],
+      },
       resetPassword: {
         initial: 'edit',
         exit: ['clearFormValues', 'clearError'],
@@ -97,10 +103,14 @@ export const resetPasswordActor = createMachine<
       clearError: assign({ remoteError: '' }),
       clearUsername: assign({ username: undefined }),
     },
+    guards: {
+      shouldAutoConfirmReset: (context, event): boolean => {
+        return !!(context.intent && context.intent === 'confirmPasswordReset');
+      },
+    },
     services: {
       async resetPassword(context) {
         const username = context.formValues?.username ?? context.username;
-        context.username = username;
 
         return Auth.forgotPassword(username);
       },

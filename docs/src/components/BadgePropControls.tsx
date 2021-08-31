@@ -4,7 +4,7 @@ import { FieldLabeler } from './FieldLabeler';
 import { DemoBox } from './DemoBox';
 
 export interface BadgePropControlsProps extends BadgeProps {
-  setVariation: (value: React.SetStateAction<BadgeProps['variationn']>) => void;
+  setVariation: (value: React.SetStateAction<BadgeProps['variation']>) => void;
   setSize: (value: React.SetStateAction<BadgeProps['size']>) => void;
 }
 

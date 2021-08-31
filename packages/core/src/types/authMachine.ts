@@ -20,6 +20,7 @@ export interface SignInContext {
   challengeName?: string;
   authAttributes?: Record<string, any>;
   intent?: string;
+  redirectIntent?: string;
   unverifiedAttributes?: Record<string, string>;
   attributeToVerify?: string;
 }
@@ -32,6 +33,7 @@ export interface SignUpContext {
   login_mechanisms?: string[];
   intent?: string;
   authAttributes?: Record<string, any>;
+  challengeName?: string;
 }
 
 export interface ResetPasswordContext {
@@ -39,9 +41,16 @@ export interface ResetPasswordContext {
   remoteError?: string;
   formValues?: ValidationError;
   username?: string;
+  intent?: string;
+  user?: CognitoUserAmplify;
+  authAttributes?: Record<string, any>;
+  challengeName?: string;
 }
+
 export interface SignOutContext {
   user?: CognitoUserAmplify;
+  authAttributes?: Record<string, any>;
+  challengeName?: string;
 }
 
 // actors that have forms. Has `formValues, remoteErrror, and validationError in common.
@@ -82,6 +91,7 @@ export enum AuthChallengeNames {
   SMS_MFA = 'SMS_MFA',
   SOFTWARE_TOKEN_MFA = 'SOFTWARE_TOKEN_MFA',
   NEW_PASSWORD_REQUIRED = 'NEW_PASSWORD_REQUIRED',
+  RESET_REQUIRED = 'RESET_REQUIRED',
   MFA_SETUP = 'MFA_SETUP',
 }
 
