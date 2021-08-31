@@ -1,32 +1,13 @@
 module.exports = {
   active: {
-    backgroundColor: { value: null },
-    color: { value: null },
-    font: {
-      weight: { value: null },
-    },
-    textDecoration: { value: null },
+    color: { value: '{colors.font.active.value}' },
   },
-  backgroundColor: { value: null },
-  color: { value: null },
+  color: { value: '{colors.font.interactive.value}' },
   focus: {
-    backgroundColor: { value: null },
-    color: { value: null },
-    font: {
-      weight: { value: null },
-    },
-    textDecoration: { value: null },
-  },
-  font: {
-    weight: { value: null },
+    color: { value: '{colors.font.focus.value}' },
   },
   hover: {
-    backgroundColor: { value: null },
-    color: { value: null },
-    font: {
-      weight: { value: null },
-    },
-    textDecoration: { value: null },
+    color: { value: '{colors.font.hover.value}' },
   },
   large: {
     fontSize: { value: '{fontSizes.large.value}' },
@@ -34,13 +15,7 @@ module.exports = {
   small: {
     fontSize: { value: '{fontSizes.small.value}' },
   },
-  textDecoration: { value: null },
   visited: {
-    backgroundColor: { value: null },
-    color: { value: null },
-    font: {
-      weight: { value: null },
-    },
-    textDecoration: { value: null },
+    color: { value: '{colors.font.tertiary.value}' },
   },
 };

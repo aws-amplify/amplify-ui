@@ -19,7 +19,7 @@ export const Link: React.FC<LinkProps> = ({
       as={linkTag}
       className={classNames(ComponentClassNames.Link, className)}
       rel={isExternal ? 'noopener noreferrer' : undefined}
-      target={isExternal ? '_blank' : '_self'}
+      target={isExternal ? '_blank' : undefined}
       data-size={size}
       {...rest}
     >
