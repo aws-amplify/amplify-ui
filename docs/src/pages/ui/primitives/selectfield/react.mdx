@@ -19,7 +19,11 @@ Import the SelectField primitive and styles.
 import { SelectField } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
-<SelectField placeholder="Please select a fruit">
+<SelectField
+  label="Fruit"
+  labelHidden={true}
+  placeholder="Please select a fruit"
+>
   <option value="apple">Apple</option>
   <option value="banana">Banana</option>
   <option value="orange">Orange</option>
@@ -27,7 +31,11 @@ import '@aws-amplify/ui-react/styles.css';
 ```
 
 <Example>
-  <SelectField placeholder="Please select a fruit">
+  <SelectField
+    label="Fruit"
+    labelHidden={true}
+    placeholder="Please select a fruit"
+  >
     <option value="apple">Apple</option>
     <option value="banana">Banana</option>
     <option value="orange">Orange</option>
@@ -58,6 +66,42 @@ const [value, setValue] = useState('');
 
 <Example>
   <ControlledSelect />
+</Example>
+
+### Accessibility / Label behavior
+
+The SelectField primitive is accessible by default. A matching `label` HTML element is rendered with the `SelectField` by default,
+all that is required is to provide a `label` prop with a `string` or `ReactNode`. If no `id` is provided, one will be automatically
+generated and connected to both `label` and `select` elements.
+
+#### How can I visually hide the label while maintaining accessibility?
+
+In some applications it may be desirable to hide the label when the field purpose is visually apparent such as a search field with button.
+The `labelHidden` prop can be used to visually hide the label while still keeping the label visible for screenreaders. UX Tip: refrain from doing this
+if it would hide important information needed by the user to fill out the field.
+
+```jsx
+<SelectField
+  label="Fruit"
+  labelHidden={true}
+  placeholder="Please select a fruit"
+>
+  <option value="apple">Apple</option>
+  <option value="banana">Banana</option>
+  <option value="orange">Orange</option>
+</SelectField>
+```
+
+<Example>
+  <SelectField
+    label="Fruit"
+    labelHidden={true}
+    placeholder="Please select a fruit"
+  >
+    <option value="apple">Apple</option>
+    <option value="banana">Banana</option>
+    <option value="orange">Orange</option>
+  </SelectField>
 </Example>
 
 ### Sizes
