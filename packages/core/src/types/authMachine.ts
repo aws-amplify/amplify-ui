@@ -5,55 +5,44 @@ import { ValidationError } from './validator';
 export type AuthFormData = Record<string, string>;
 
 export interface AuthContext {
-  user?: CognitoUserAmplify;
+  actorRef?: any;
   config?: {
     login_mechanisms: string[];
   };
-  actorRef?: any;
+  user?: CognitoUserAmplify;
 }
 
-export interface SignInContext {
-  remoteError?: string;
-  validationError?: ValidationError;
-  formValues?: AuthFormData;
-  user?: CognitoUserAmplify;
-  challengeName?: string;
+interface BaseFormContext {
   authAttributes?: Record<string, any>;
+  challengeName?: string;
+  formValues?: AuthFormData;
   intent?: string;
+  remoteError?: string;
+  user?: CognitoUserAmplify;
+  validationError?: ValidationError;
+}
+
+export interface SignInContext extends BaseFormContext {
+  attributeToVerify?: string;
   redirectIntent?: string;
   unverifiedAttributes?: Record<string, string>;
-  attributeToVerify?: string;
 }
 
-export interface SignUpContext {
-  remoteError?: string;
-  validationError?: ValidationError;
-  formValues?: AuthFormData;
-  user?: CognitoUserAmplify;
+export interface SignUpContext extends BaseFormContext {
   login_mechanisms?: string[];
-  intent?: string;
-  authAttributes?: Record<string, any>;
-  challengeName?: string;
   unverifiedAttributes?: Record<string, string>;
 }
 
-export interface ResetPasswordContext {
-  validationError?: ValidationError;
-  remoteError?: string;
-  formValues?: ValidationError;
+export interface ResetPasswordContext extends BaseFormContext {
   username?: string;
-  intent?: string;
-  user?: CognitoUserAmplify;
-  authAttributes?: Record<string, any>;
-  challengeName?: string;
   unverifiedAttributes?: Record<string, string>;
 }
 
 export interface SignOutContext {
-  user?: CognitoUserAmplify;
   authAttributes?: Record<string, any>;
   challengeName?: string;
   unverifiedAttributes?: Record<string, string>;
+  user?: CognitoUserAmplify;
 }
 
 // actors that have forms. Has `formValues, remoteErrror, and validationError in common.
