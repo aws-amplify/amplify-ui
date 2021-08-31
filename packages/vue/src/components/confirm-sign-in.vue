@@ -49,8 +49,11 @@
 </template>
 
 <script lang="ts">
-import { getActorState, SignInState } from '@aws-amplify/ui';
-import { AuthChallengeNames } from '@aws-amplify/ui/src/types';
+import {
+  AuthChallengeNames,
+  getActorState,
+  SignInState,
+} from '@aws-amplify/ui';
 import { computed, ComputedRef, defineComponent } from 'vue';
 import { useAuth } from '../composables/useAuth';
 import { BACK_SIGN_IN_TEXT, CONFIRM_TEXT } from '../defaults/DefaultTexts';
