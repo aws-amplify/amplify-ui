@@ -67,7 +67,7 @@ import {
   CONFIRMATION_CODE_TEXT,
 } from '../defaults/DefaultTexts';
 import { ConfirmVerifyUserSetupReturnTypes, SetupEventContext } from '../types';
-import { getActorState, SignInState } from '@aws-amplify/ui-core';
+import { getActorState, SignInState } from '@aws-amplify/ui';
 
 export default defineComponent({
   components: {
