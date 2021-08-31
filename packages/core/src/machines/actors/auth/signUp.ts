@@ -1,8 +1,19 @@
-import { createMachine, assign, sendUpdate } from 'xstate';
-import { passwordMatches, runValidators } from '../../../validators';
+import { createMachine, sendUpdate } from 'xstate';
 
-import { AuthEvent, SignUpContext } from '../../../types';
 import { Auth } from 'aws-amplify';
+
+import { passwordMatches, runValidators } from '../../../validators';
+import { AuthEvent, SignUpContext } from '../../../types';
+import {
+  clearError,
+  clearFormValues,
+  clearValidationError,
+  handleInput,
+  setCredentials,
+  setFieldErrors,
+  setRemoteError,
+  setUser,
+} from '../../actions';
 
 export const signUpActor = createMachine<SignUpContext, AuthEvent>(
   {
@@ -146,33 +157,14 @@ export const signUpActor = createMachine<SignUpContext, AuthEvent>(
       },
     },
     actions: {
-      setUser: assign({
-        user: (_, event) => event.data.user ?? event.data,
-      }),
-      setRemoteError: assign({
-        remoteError: (_, event) => event.data?.message || event.data,
-      }),
-      setFieldErrors: assign({
-        validationError: (_, event) => event.data,
-      }),
-      // stores username and password from signUp
-      setCredentials: assign({
-        authAttributes: (context) => {
-          const [primaryAlias] = context.login_mechanisms ?? ['username'];
-          const username = context.formValues[primaryAlias];
-          const password = context.formValues?.password;
-          return { username, password };
-        },
-      }),
-      handleInput: assign({
-        formValues: (context, event) => {
-          const { name, value } = event.data;
-          return { ...context.formValues, [name]: value };
-        },
-      }),
-      clearError: assign({ remoteError: '' }),
-      clearFormValues: assign({ formValues: {} }),
-      clearValidationError: assign({ validationError: {} }),
+      clearError,
+      clearFormValues,
+      clearValidationError,
+      handleInput,
+      setCredentials,
+      setFieldErrors,
+      setRemoteError,
+      setUser,
     },
     services: {
       async confirmSignUp(_, event) {

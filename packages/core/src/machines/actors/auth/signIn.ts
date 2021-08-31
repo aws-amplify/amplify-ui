@@ -1,8 +1,24 @@
-import { createMachine, assign, sendUpdate } from 'xstate';
 import { get, isEmpty } from 'lodash';
+import { createMachine, sendUpdate } from 'xstate';
 
-import { AuthEvent, AuthChallengeNames, SignInContext } from '../../../types';
 import { Auth } from 'aws-amplify';
+
+import {
+  clearAttributeToVerify,
+  clearChallengeName,
+  clearError,
+  clearFormValues,
+  clearUnverifiedAttributes,
+  handleInput,
+  setChallengeName,
+  setConfirmResetPasswordIntent,
+  setConfirmSignUpIntent,
+  setRemoteError,
+  setUnverifiedAttributes,
+  setUser,
+  setUsernameAuthAttributes,
+} from '../../actions';
+import { AuthEvent, AuthChallengeNames, SignInContext } from '../../../types';
 
 export const signInActor = createMachine<SignInContext, AuthEvent>(
   {
@@ -64,12 +80,18 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
               onError: [
                 {
                   cond: 'shouldRedirectToConfirmSignUp',
-                  actions: ['setUsername', 'setConfirmSignUpIntent'],
+                  actions: [
+                    'setUsernameAuthAttributes',
+                    'setConfirmSignUpIntent',
+                  ],
                   target: 'rejected',
                 },
                 {
                   cond: 'shouldRedirectToConfirmResetPassword',
-                  actions: ['setUsername', 'setConfirmResetPasswordIntent'],
+                  actions: [
+                    'setUsernameAuthAttributes',
+                    'setConfirmResetPasswordIntent',
+                  ],
                   target: 'rejected',
                 },
                 {
@@ -265,40 +287,19 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
   },
   {
     actions: {
-      handleInput: assign({
-        formValues(context, event) {
-          const { name, value } = event.data;
-          return { ...context.formValues, [name]: value };
-        },
-      }),
-      setUser: assign({
-        user: (_, event) => event.data.user || event.data,
-      }),
-      setUsername: assign({
-        authAttributes: (context) => ({
-          username: context.formValues.username,
-        }),
-      }),
-      setRemoteError: assign({
-        remoteError: (_, event) => event.data?.message || event.data,
-      }),
-      setChallengeName: assign({
-        challengeName: (_, event) => event.data?.challengeName,
-      }),
-      setConfirmSignUpIntent: assign({
-        redirectIntent: 'confirmSignUp',
-      }),
-      setConfirmResetPasswordIntent: assign({
-        redirectIntent: 'confirmPasswordReset',
-      }),
-      setUnverifiedAttributes: assign({
-        unverifiedAttributes: (_, event) => event.data.unverified,
-      }),
-      clearChallengeName: assign({ challengeName: undefined }),
-      clearError: assign({ remoteError: '' }),
-      clearFormValues: assign({ formValues: {} }),
-      clearUnverifiedAttributes: assign({ unverifiedAttributes: undefined }),
-      clearAttributeToVerify: assign({ attributeToVerify: undefined }),
+      clearAttributeToVerify,
+      clearChallengeName,
+      clearError,
+      clearFormValues,
+      clearUnverifiedAttributes,
+      handleInput,
+      setChallengeName,
+      setConfirmResetPasswordIntent,
+      setConfirmSignUpIntent,
+      setRemoteError,
+      setUnverifiedAttributes,
+      setUser,
+      setUsernameAuthAttributes,
     },
     guards: {
       shouldConfirmSignIn: (_, event): boolean => {
