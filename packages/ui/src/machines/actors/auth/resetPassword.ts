@@ -1,7 +1,16 @@
-import { createMachine, assign, sendUpdate } from 'xstate';
+import { createMachine, sendUpdate } from 'xstate';
+
+import { Auth } from 'aws-amplify';
 
 import { AuthEvent, ResetPasswordContext } from '../../../types';
-import { Auth } from 'aws-amplify';
+import {
+  clearError,
+  clearFormValues,
+  clearUsername,
+  handleInput,
+  setRemoteError,
+  setUsername,
+} from '../../actions';
 
 export const resetPasswordActor = createMachine<
   ResetPasswordContext,
@@ -87,21 +96,12 @@ export const resetPasswordActor = createMachine<
   },
   {
     actions: {
-      setRemoteError: assign({
-        remoteError: (_, event) => event.data?.message || event.data,
-      }),
-      setUsername: assign({
-        username: (context) => context.formValues.username,
-      }),
-      handleInput: assign({
-        formValues: (context, event) => {
-          const { name, value } = event.data;
-          return { ...context.formValues, [name]: value };
-        },
-      }),
-      clearFormValues: assign({ formValues: {} }),
-      clearError: assign({ remoteError: '' }),
-      clearUsername: assign({ username: undefined }),
+      clearError,
+      clearFormValues,
+      clearUsername,
+      handleInput,
+      setRemoteError,
+      setUsername,
     },
     guards: {
       shouldAutoConfirmReset: (context, event): boolean => {
