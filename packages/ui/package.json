@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@aws-amplify/ui",
-  "version": "0.0.1-next.0",
+  "version": "3.0.1-next.0",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "exports": {
