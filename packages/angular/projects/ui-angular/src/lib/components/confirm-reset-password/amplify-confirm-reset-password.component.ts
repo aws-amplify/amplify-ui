@@ -1,4 +1,3 @@
-import { Logger } from '@aws-amplify/core';
 import {
   AfterContentInit,
   Component,
@@ -7,7 +6,6 @@ import {
   OnDestroy,
   OnInit,
   TemplateRef,
-  ViewEncapsulation,
 } from '@angular/core';
 import { StateMachineService } from '../../services/state-machine.service';
 import { AuthPropService } from '../../services/authenticator-context.service';
@@ -18,24 +16,20 @@ import {
   SignInState,
 } from '@aws-amplify/ui-core';
 
-const logger = new Logger('SignIn');
-
 @Component({
-  selector: 'amplify-sign-in',
-  templateUrl: './amplify-sign-in.component.html',
-  encapsulation: ViewEncapsulation.None,
+  selector: 'amplify-confirm-reset-password',
+  templateUrl: './amplify-confirm-reset-password.component.html',
 })
-export class AmplifySignInComponent
-  implements AfterContentInit, OnInit, OnDestroy
+export class ConfirmResetPasswordComponent
+  implements OnInit, AfterContentInit, OnDestroy
 {
-  @HostBinding('attr.data-amplify-authenticator-signin') dataAttr = '';
-  @Input() public headerText = 'Sign in to your account';
+  @HostBinding('attr.data-amplify-authenticator-confirmsignin') dataAttr = '';
+  @Input() public headerText = 'Reset your password';
 
   public customComponents: Record<string, TemplateRef<any>> = {};
   public remoteError = '';
   public isPending = false;
   public context = () => ({});
-
   private authSubscription: Subscription;
 
   constructor(
@@ -49,27 +43,26 @@ export class AmplifySignInComponent
     );
   }
 
-  ngAfterContentInit(): void {
+  ngAfterContentInit() {
     this.customComponents = this.contextService.customComponents;
   }
 
-  ngOnDestroy(): void {
-    logger.log('sign in destroyed, unsubscribing from state machine...');
+  ngOnDestroy() {
     this.authSubscription.unsubscribe();
   }
 
   onStateUpdate(state: AuthMachineState): void {
     const actorState: SignInState = getActorState(state);
     this.remoteError = actorState.context.remoteError;
-    this.isPending = !actorState.matches('signIn.edit');
+    this.isPending = !actorState.matches('confirmResetPassword.edit');
   }
 
-  toSignUp(): void {
-    this.stateMachine.send('SIGN_UP');
+  toSignIn(): void {
+    this.stateMachine.send('SIGN_IN');
   }
 
-  toResetPassword(): void {
-    this.stateMachine.send('RESET_PASSWORD');
+  resend() {
+    this.stateMachine.send('RESEND');
   }
 
   onInput(event: Event) {
@@ -83,9 +76,6 @@ export class AmplifySignInComponent
 
   async onSubmit(event: Event): Promise<void> {
     event.preventDefault();
-
-    this.stateMachine.send({
-      type: 'SUBMIT',
-    });
+    this.stateMachine.send('SUBMIT');
   }
 }
