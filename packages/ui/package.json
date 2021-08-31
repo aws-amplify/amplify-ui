@@ -1,5 +1,4 @@
 {
-  "private": true,
   "name": "@aws-amplify/ui",
   "version": "3.0.1-next.0",
   "main": "dist/index.js",
