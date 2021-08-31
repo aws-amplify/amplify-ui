@@ -29,7 +29,7 @@ module.exports = {
       prefix: CSS_VARIABLE_PREFIX,
       files: [
         {
-          destination: 'src/theme/css/variables.scss',
+          destination: 'dist/theme.css',
           format: 'css/variables',
           options: {
             selector: CSS_VARIABLE_SCOPE,

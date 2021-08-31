@@ -49,27 +49,23 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ComputedRef } from 'vue';
-import BaseHeading from './primitives/base-heading.vue';
-import BaseFieldSet from './primitives/base-field-set.vue';
-import BaseLabel from './primitives/base-label.vue';
-import BaseSpacer from './primitives/base-spacer.vue';
-import BaseButton from './primitives/base-button.vue';
-import BaseFooter from './primitives/base-footer.vue';
-import BaseText from './primitives/base-text.vue';
-import BaseInput from './primitives/base-input.vue';
-import BaseForm from './primitives/base-form.vue';
-import BaseBox from './primitives/base-box.vue';
-import BaseWrapper from './primitives/base-wrapper.vue';
-
+import { getActorState, SignInState } from '@aws-amplify/ui';
+import { AuthChallengeNames } from '@aws-amplify/ui/src/types';
+import { computed, ComputedRef, defineComponent } from 'vue';
 import { useAuth } from '../composables/useAuth';
-
 import { BACK_SIGN_IN_TEXT, CONFIRM_TEXT } from '../defaults/DefaultTexts';
 import { ConfirmSignInSetupReturnTypes, SetupEventContext } from '../types';
-
-// TODO Replace with public type export instead of /src
-import { AuthChallengeNames } from '@aws-amplify/ui/src/types';
-import { getActorState, SignInState } from '@aws-amplify/ui';
+import BaseBox from './primitives/base-box.vue';
+import BaseButton from './primitives/base-button.vue';
+import BaseFieldSet from './primitives/base-field-set.vue';
+import BaseFooter from './primitives/base-footer.vue';
+import BaseForm from './primitives/base-form.vue';
+import BaseHeading from './primitives/base-heading.vue';
+import BaseInput from './primitives/base-input.vue';
+import BaseLabel from './primitives/base-label.vue';
+import BaseSpacer from './primitives/base-spacer.vue';
+import BaseText from './primitives/base-text.vue';
+import BaseWrapper from './primitives/base-wrapper.vue';
 
 export default defineComponent({
   components: {
@@ -91,7 +87,7 @@ export default defineComponent({
     const actorState: ComputedRef<SignInState> = computed(() =>
       getActorState(state.value)
     );
-    const { challengeName } = actorState.value.context;
+    const challengeName = actorState.value.context.challengeName;
 
     let mfaType: string = 'SMS';
 

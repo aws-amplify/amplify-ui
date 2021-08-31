@@ -3,6 +3,7 @@
   "version": "2.0.1-next.0",
   "scripts": {
     "build": "yarn --cwd ../../ build",
+    "dev": "yarn --cwd ../../ dev",
     "test": "yarn --cwd ../../ test"
   },
   "peerDependencies": {

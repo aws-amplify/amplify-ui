@@ -1,5 +1,6 @@
 @import 'prism-theme-night-owl';
 @import 'tailwindcss/tailwind.css';
+@import './alertStyles.css';
 @import './badgeStyles.css';
 @import './buttonStyles.css';
 @import './cardStyles.css';

@@ -25,7 +25,6 @@ export interface UserNameAliasSetupReturnTypes {
   label: string;
   name: string;
   type: string;
-  error: string;
   uName: Ref<string>;
 }
 export interface FederatedSignInButtonReturnTypes {
@@ -52,7 +51,6 @@ export interface SignUpSetupReturnTypes {
   actorState: ComputedRef<SignUpState>;
   phone: Ref<string>;
   submit: () => void;
-  error: Ref<string>;
   secondaryAliases: string[];
   signInButtonText: ComputedRef<string>;
   haveAccountLabel: ComputedRef<string>;

@@ -143,6 +143,7 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
             formValues: {},
             intent: event.data?.intent,
             username: event.data?.authAttributes?.username,
+            validationError: {},
           });
           return spawn(actor, { name: 'resetPasswordActor' });
         },

@@ -7,14 +7,14 @@ Feature: Reset Password
   Background:
     Given I'm running the example "ui/components/authenticator/sign-in-totp-mfa"
 
-  @next @react
+  @next @react @vue @angular
   Scenario: Reset Password with valid username
     When I click the "Reset password" button
     And I type a valid username "VALID_USERNAME"
     And I click the "Send code" button
     Then I will be redirected to the confirm forgot password page
     
-  @next @react
+  @next @react @vue @angular
   Scenario: Reset Password with invalid username
     When I click the "Reset password" button
     And I type an invalid username "INVALID_USERNAME"

@@ -111,7 +111,6 @@ export const resetPasswordActor = createMachine<
     services: {
       async resetPassword(context) {
         const username = context.formValues?.username ?? context.username;
-        context.username = username;
 
         return Auth.forgotPassword(username);
       },

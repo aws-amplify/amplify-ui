@@ -61,7 +61,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue';
+import { defineComponent, computed, ComputedRef } from 'vue';
 import BaseHeading from './primitives/base-heading.vue';
 import BaseFieldSet from './primitives/base-field-set.vue';
 import BaseLabel from './primitives/base-label.vue';
@@ -116,9 +116,11 @@ export default defineComponent({
     { emit, attrs }: SetupEventContext
   ): ConfirmPasswordSetupReturnTypes {
     const { state, send } = useAuth();
-    const actorState = computed(() => getActorState(state.value));
+    const actorState = computed(() =>
+      getActorState(state.value)
+    ) as ComputedRef<any>;
 
-    const context: SignUpContext = actorState.value.context;
+    const context = actorState.value.context as SignUpContext;
     const username = context.user?.username ?? context.authAttributes?.username;
 
     //computed properties
