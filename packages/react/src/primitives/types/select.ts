@@ -27,6 +27,8 @@ export interface SelectProps
 
   placeholder?: string;
 
+  hasError?: boolean;
+
   isDisabled?: boolean;
 
   isRequired?: boolean;

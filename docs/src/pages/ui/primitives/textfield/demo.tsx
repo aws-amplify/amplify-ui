@@ -155,7 +155,6 @@ export const DescriptiveTextFieldExample = () => {
             fontSize="0.8rem"
           >
             Password length must be greater than 8 characters
-            <input />
           </Text>
         }
       />

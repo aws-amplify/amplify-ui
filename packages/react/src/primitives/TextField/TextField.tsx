@@ -48,7 +48,8 @@ export const TextField: React.FC<TextFieldProps> = ({
     <Flex
       alignContent={alignContent}
       alignItems={alignItems}
-      className={classNames(ComponentClassNames.TextField, className)}
+      className={classNames(ComponentClassNames.Field, className)}
+      data-size={size}
       direction={direction}
       gap={gap}
       justifyContent={justifyContent}

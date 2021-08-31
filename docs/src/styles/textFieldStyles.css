@@ -1,5 +1,5 @@
-.globally-styled-textfield.amplify-textfield {
-  --amplify-components-field-border-color: rebeccapurple;
+.globally-styled-textfield.amplify-field {
+  --amplify-components-field-control-border-color: rebeccapurple;
 }
 .custom-textfield-class .amplify-input {
   border-radius: 0;

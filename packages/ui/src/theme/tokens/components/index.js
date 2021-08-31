@@ -16,5 +16,4 @@ module.exports = {
   rating: require('./rating'),
   select: require('./select'),
   text: require('./text'),
-  textfield: require('./textField'),
 };

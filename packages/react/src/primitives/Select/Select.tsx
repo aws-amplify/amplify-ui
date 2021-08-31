@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { Flex } from '../Flex';
 import { View } from '../View';
 import { IconExpandMore } from '../Icon';
-import { SelectProps } from '../types';
+import { SelectProps } from '../types/select';
 import { ComponentClassNames } from '../shared';
 
 export const Select: React.FC<SelectProps> = (props) => {
@@ -14,6 +14,7 @@ export const Select: React.FC<SelectProps> = (props) => {
     variation,
     value,
     defaultValue,
+    hasError,
     icon = <IconExpandMore size="large" />,
     iconColor,
     children,
@@ -23,11 +24,16 @@ export const Select: React.FC<SelectProps> = (props) => {
     ...rest
   } = props;
   return (
-    <View className="amplify-select-wrapper">
+    <View className={ComponentClassNames.SelectWrapper}>
       <View
+        aria-invalid={hasError}
         as="select"
         value={value}
-        defaultValue={defaultValue}
+        defaultValue={
+          value === undefined && defaultValue === undefined && placeholder
+            ? ''
+            : defaultValue
+        }
         isDisabled={isDisabled}
         required={isRequired}
         data-size={size}
@@ -43,7 +49,7 @@ export const Select: React.FC<SelectProps> = (props) => {
         {children}
       </View>
       <Flex
-        className="amplify-select-icon-wrapper"
+        className={ComponentClassNames.SelectIconWrapper}
         alignItems="center"
         justifyContent="center"
         color={iconColor}
