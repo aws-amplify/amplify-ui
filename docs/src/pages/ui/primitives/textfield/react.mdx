@@ -1,9 +1,10 @@
-import { TextField, Flex, Button } from '@aws-amplify/ui-react';
+import { TextField, Flex, PasswordField, Button } from '@aws-amplify/ui-react';
 import {
   TextFieldDemo,
   DescriptiveTextFieldExample,
   RequiredTextFieldExample,
   TextFieldStyledPropsExample,
+  TextFieldStartEndComponentsExample,
 } from './demo';
 import { Example } from '@/components/Example';
 
@@ -114,6 +115,42 @@ There are two variation styles available: default and `quiet`.
   <TextField label="Quiet" variation="quiet" />
 </Example>
 
+### Start and End components
+
+Compose field components such as `Button` and `Select` at the start or end of an TextField input using the `inputStartComponents` or `inputEndComponents` props.
+
+```jsx
+<Flex gap="1rem" direction="column">
+  <TextField label="Start" inputStartComponents={<Button>Start</Button>} />
+  <TextField
+    label="Start and End"
+    inputStartComponents={<Button>Start</Button>}
+    inputEndComponents={<Button>End</Button>}
+  />
+  <TextField label="End" inputEndComponents={<Button>End</Button>} />
+  <TextField
+    label="Multiple End"
+    inputEndComponents={
+      <>
+        <Button>End</Button>
+        <Button>End</Button>
+      </>
+    }
+  />
+  <TextField
+    label="Multiple Start"
+    inputStartComponents={
+      <>
+        <Button>Start</Button>
+        <Button>Start</Button>
+      </>
+    }
+  />
+</Flex>
+```
+
+<TextFieldStartEndComponentsExample />
+
 ### Descriptive text
 
 To provide additional descriptive text of requirements of the field, use the `descriptiveText` field:
@@ -156,7 +193,7 @@ The available TextField states include `isDisabled` and `isReadonly`. A disabled
 
 ### Required fields
 
-Use the `isRequired` prop to specify a required field and add your own Label component with indicator:
+Use the `isRequired` prop to specify a required field.
 
 ```jsx
 <Flex as="form" direction="column" width="20rem">
