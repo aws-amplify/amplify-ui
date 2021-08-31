@@ -77,7 +77,7 @@ import {
   getActorState,
   SignInState,
   authInputAttributes,
-} from '@aws-amplify/ui-core';
+} from '@aws-amplify/ui';
 
 export default defineComponent({
   components: {
