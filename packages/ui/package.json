@@ -2,9 +2,9 @@
   "name": "@aws-amplify/ui",
   "version": "3.0.1-next.0",
   "main": "dist/index.js",
-  "module": "dist/index.mjs",
+  "module": "dist/esm/index.js",
   "exports": {
-    ".": "./dist/index.mjs",
+    ".": "./dist/esm/index.js",
     "./styles.css": "./dist/styles.css",
     "./theme.css": "./dist/theme.css"
   },
