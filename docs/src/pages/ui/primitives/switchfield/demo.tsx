@@ -7,12 +7,13 @@ import { Example } from '@/components/Example';
 
 export const SwitchDemo = () => {
   const switchProps = useSwitchProps({
-    thumbColor: 'white',
-    trackColor: 'blue',
-    trackCheckedColor: 'red',
+    thumbColor: '#fff',
+    trackColor: 'hsl(210, 5%, 80%)',
+    trackCheckedColor: 'hsl(220, 70%, 70%)',
     isDisabled: false,
     size: '',
     label: 'SwitchField',
+    labelPosition: 'start',
     isLabelHidden: false,
   });
 
@@ -28,6 +29,7 @@ export const SwitchDemo = () => {
           isDisabled={switchProps.isDisabled}
           size={switchProps.size}
           label={switchProps.label}
+          labelPosition={switchProps.labelPosition}
           isLabelHidden={switchProps.isLabelHidden}
         />
         {typeof switchProps.isChecked !== 'undefined' && (

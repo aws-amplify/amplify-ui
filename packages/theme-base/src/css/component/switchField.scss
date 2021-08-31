@@ -1,10 +1,23 @@
 .amplify-switchfield {
+  display: inline-flex;
+  align-items: center;
   &[data-size='small'] {
-    font-size: 0.75rem;
+    font-size: var(--amplify-components-switchfield-small-font-size);
   }
-
   &[data-size='large'] {
-    font-size: 1.5rem;
+    font-size: var(--amplify-components-switchfield-large-font-size);
+  }
+  &[data-label-position='start'] {
+    flex-direction: row;
+  }
+  &[data-label-position='end'] {
+    flex-direction: row-reverse;
+  }
+  &[data-label-position='top'] {
+    flex-direction: column;
+  }
+  &[data-label-position='bottom'] {
+    flex-direction: column-reverse;
   }
 }
 
@@ -14,30 +27,44 @@
   box-sizing: content-box;
   cursor: pointer;
   border-radius: 9999px;
-  padding: 2px;
-  width: 2em;
-  height: 1em;
-  transition-duration: 150ms;
-  background: #cbd5e0;
-  &[data-checked='true'] {
-    background: blue;
+  padding: var(--amplify-components-switchfield-track-padding);
+  width: var(--amplify-components-switchfield-track-width);
+  height: var(--amplify-components-switchfield-track-height);
+  transition-duration: var(
+    --amplify-components-switchfield-track-transition-duration
+  );
+  background: var(--amplify-components-switchfield-track-background);
+  &[data-checked] {
+    background: var(--amplify-components-switchfield-track-checked-background);
+  }
+  &[data-disabled] {
+    opacity: var(--amplify-components-switchfield-disabled-opacity);
+    cursor: default;
+  }
+  &[data-focused] {
+    box-shadow: var(--amplify-components-switchfield-focused-shadow);
   }
 }
 
 .amplify-switch-thumb {
-  background: #fff;
-  transition-duration: 200ms;
+  background: var(--amplify-components-switchfield-thumb-background);
+  transition-duration: var(
+    --amplify-components-switchfield-thumb-transition-duration
+  );
   border-radius: inherit;
-  width: 1em;
-  height: 1em;
-  border-color: #e2e8f0;
+  width: var(--amplify-components-switchfield-thumb-width);
+  height: var(--amplify-components-switchfield-thumb-width);
+  border-color: var(--amplify-components-switchfield-thumb-border-color);
   overflow-wrap: break-word;
   cursor: pointer;
-  &[data-checked='true'] {
-    transform: translateX(1em);
+  &[data-checked] {
+    transform: var(--amplify-components-switchfield-thumb-checked-transform);
+  }
+  &[data-disabled] {
+    cursor: default;
   }
 }
 
 .amplify-switch-label {
-  padding: 6px;
+  padding: var(--amplify-components-switchfield-label-padding);
 }

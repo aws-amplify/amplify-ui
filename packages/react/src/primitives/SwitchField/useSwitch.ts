@@ -4,6 +4,7 @@ export const useSwitch = (props) => {
   const { onChange, isChecked, defaultChecked, isDisabled } = props;
   const isControlled = typeof isChecked !== 'undefined';
   const [isOn, setIsOn] = useState(isControlled ? isChecked : defaultChecked);
+  const [isFocused, setIsFocused] = useState(false);
 
   const changeHandler = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
@@ -25,5 +26,7 @@ export const useSwitch = (props) => {
   return {
     isOn,
     changeHandler,
+    isFocused,
+    setIsFocused,
   };
 };

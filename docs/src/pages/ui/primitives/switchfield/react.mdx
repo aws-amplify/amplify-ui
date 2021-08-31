@@ -2,7 +2,7 @@ import { Example } from '@/components/Example';
 import { SwitchField } from '@aws-amplify/ui-react';
 import { SwitchDemo, SwitchExample, ChangeExample } from './demo.tsx';
 
-Switch is a toggle switch
+The `SwitchField` form primitive is a toggleable input type with a checked (on) and unchecked (off) state.
 
 ## Demo
 
@@ -148,6 +148,24 @@ import { SwitchField } from '@aws-amplify/ui-react';
   <SwitchField label={'This is a string label'} />
   <SwitchField label={<span>This is a JSX label</span>} />
 </Example>
+
+### labelPosition
+
+The `labelPosition` property is an `enum` value that defines the label's position in relation to the switchField. Available values are `start`, `end`, `top`, and `bottom`.
+
+```jsx
+import { SwitchField } from '@aws-amplify/ui-react';
+
+<SwitchField label={'This is a switch'} labelPosition={'start'}/>
+<SwitchField label={'This is a switch'} labelPosition={'end'}/>
+<SwitchField label={'This is a switch'} labelPosition={'top'}/>
+<SwitchField label={'This is a switch'} labelPosition={'bottom'}/>
+```
+
+<SwitchExample labelPosition={'start'} />
+<SwitchExample labelPosition={'end'} />
+<SwitchExample labelPosition={'top'} />
+<SwitchExample labelPosition={'bottom'} />
 
 ### isLabelHidden
 

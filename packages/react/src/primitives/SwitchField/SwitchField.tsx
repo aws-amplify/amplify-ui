@@ -5,46 +5,45 @@ import { useSwitch } from './useSwitch';
 import { Label } from '../Label';
 import { Input } from '../Input';
 import { View } from '../View';
-import { ComponentClassNames } from '../shared';
+import { ComponentClassNames, useAmplifyFieldID } from '../shared';
 import classNames from 'classnames';
+
+const addAttr = (active: boolean) => (active ? '' : undefined);
 
 export const SwitchField = (props) => {
   const {
+    className,
+    defaultChecked,
     id,
+    isChecked,
+    isDisabled,
+    isLabelHidden,
+    label,
+    labelPosition,
+    name,
+    onChange,
+    size,
     thumbColor,
     trackColor,
     trackCheckedColor,
-    isDisabled,
-    name,
-    size,
-    label,
-    isLabelHidden,
-    isChecked,
-    onChange,
-    defaultChecked,
     value,
-    className,
     ...rest
   } = props;
-  const { isOn, changeHandler } = useSwitch({
+  const { isOn, changeHandler, isFocused, setIsFocused } = useSwitch({
     onChange,
     isChecked,
     defaultChecked,
     isDisabled,
   });
 
-  const fieldId = React.useMemo(() => {
-    if (id) {
-      return id;
-    }
-    return `amplify-field-${nanoid()}`;
-  }, []);
+  const fieldId = useAmplifyFieldID(id);
 
   return (
     <Label
       className={classNames(ComponentClassNames.SwitchField, className)}
       htmlFor={fieldId}
       data-size={size}
+      data-label-position={labelPosition}
       {...rest}
     >
       <View
@@ -53,7 +52,7 @@ export const SwitchField = (props) => {
           {
             'sr-only': isLabelHidden,
           },
-          'amplify-switch-label'
+          ComponentClassNames.SwitchLabel
         )}
       >
         {label}
@@ -62,22 +61,31 @@ export const SwitchField = (props) => {
         type="checkbox"
         id={fieldId}
         onChange={changeHandler}
-        className="sr-only"
+        className={'sr-only'}
         disabled={isDisabled}
         name={name}
         checked={isOn}
         value={value}
+        onFocus={() => {
+          setIsFocused(true);
+        }}
+        onBlur={() => {
+          setIsFocused(false);
+        }}
       />
       <View
         as={'span'}
-        className={'amplify-switch-track'}
-        data-checked={isOn}
+        className={ComponentClassNames.SwitchTrack}
+        data-checked={addAttr(isOn)}
+        data-disabled={addAttr(isDisabled)}
+        data-focused={addAttr(isFocused)}
         backgroundColor={isOn ? trackCheckedColor : trackColor}
       >
         <View
           as={'span'}
-          className={'amplify-switch-thumb'}
-          data-checked={isOn}
+          className={ComponentClassNames.SwitchThumb}
+          data-checked={addAttr(isOn)}
+          data-disabled={addAttr(isDisabled)}
           backgroundColor={thumbColor}
         ></View>
       </View>

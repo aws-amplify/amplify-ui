@@ -27,6 +27,9 @@ export const useSwitchProps = (initialValues) => {
   const [isChecked, setIsChecked] = useState<SwitchFieldProps['isChecked']>(
     initialValues.isChecked
   );
+  const [labelPosition, setLabelPosition] = useState<
+    SwitchFieldProps['labelPosition']
+  >(initialValues.labelPosition);
 
   return {
     thumbColor,
@@ -41,6 +44,8 @@ export const useSwitchProps = (initialValues) => {
     setSize,
     label,
     setLabel,
+    labelPosition,
+    setLabelPosition,
     isLabelHidden,
     setIsLabelHidden,
     isChecked,

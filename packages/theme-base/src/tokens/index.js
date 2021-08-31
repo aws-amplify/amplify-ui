@@ -13,4 +13,5 @@ module.exports = {
   shadows: require('./shadows'),
   space: require('./space'),
   time: require('./time'),
+  transforms: require('./transforms'),
 };

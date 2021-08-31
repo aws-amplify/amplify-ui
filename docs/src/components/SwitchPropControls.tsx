@@ -24,6 +24,9 @@ export interface SwitchPropControlsProps extends SwitchFieldProps {
   setIsChecked: (
     value: React.SetStateAction<SwitchFieldProps['isChecked']>
   ) => void;
+  setLabelPosition: (
+    value: React.SetStateAction<SwitchFieldProps['labelPosition']>
+  ) => void;
 }
 
 interface SwitchPropControlsInterface {
@@ -43,6 +46,8 @@ export const SwitchPropControls: SwitchPropControlsInterface = ({
   setSize,
   label,
   setLabel,
+  labelPosition,
+  setLabelPosition,
   isLabelHidden,
   setIsLabelHidden,
   isChecked,
@@ -86,18 +91,6 @@ export const SwitchPropControls: SwitchPropControlsInterface = ({
           }}
         />
       </FieldLabeler>
-      <FieldLabeler id="isDisabled">
-        <input
-          type="checkbox"
-          name="isDisabled"
-          id="isDisabled"
-          onChange={(event) => {
-            setIsDisabled(
-              Boolean(event.target.checked) as SwitchFieldProps['isDisabled']
-            );
-          }}
-        />
-      </FieldLabeler>
       <FieldLabeler id="size">
         <select
           name="size"
@@ -124,6 +117,23 @@ export const SwitchPropControls: SwitchPropControlsInterface = ({
           }}
         />
       </FieldLabeler>
+      <FieldLabeler id="labelPosition">
+        <select
+          name="labelPosition"
+          id="labelPosition"
+          value={labelPosition}
+          onChange={(event) =>
+            setLabelPosition(
+              event.target.value as SwitchFieldProps['labelPosition']
+            )
+          }
+        >
+          <option value="start">start</option>
+          <option value="end">end</option>
+          <option value="top">top</option>
+          <option value="bottom">bottom</option>
+        </select>
+      </FieldLabeler>
       <FieldLabeler id="isLabelHidden">
         <input
           type="checkbox"
@@ -132,6 +142,18 @@ export const SwitchPropControls: SwitchPropControlsInterface = ({
           onChange={(event) => {
             setIsLabelHidden(
               Boolean(event.target.checked) as SwitchFieldProps['isLabelHidden']
+            );
+          }}
+        />
+      </FieldLabeler>
+      <FieldLabeler id="isDisabled">
+        <input
+          type="checkbox"
+          name="isDisabled"
+          id="isDisabled"
+          onChange={(event) => {
+            setIsDisabled(
+              Boolean(event.target.checked) as SwitchFieldProps['isDisabled']
             );
           }}
         />

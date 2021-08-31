@@ -4,7 +4,7 @@ import { InputProps } from './input';
 import { FieldProps } from './field';
 import { Property } from 'csstype';
 
-export type labelPosition = '';
+export type labelPositions = 'start' | 'end' | 'top' | 'bottom';
 export interface SwitchFieldProps
   extends InputProps,
     FieldProps,
@@ -52,6 +52,11 @@ export interface SwitchFieldProps
    * Label text for field (required)
    */
   label: React.ReactNode;
+
+  /**
+   * Position of label in relation to the switchfield
+   */
+  labelPosition?: labelPositions;
 
   /**
    * Hide label and use `aria-label` attribute instead. Common use case
