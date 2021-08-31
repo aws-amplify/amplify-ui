@@ -161,7 +161,7 @@ export interface VerifyUserSetupReturnTypes {
   verifyHeading: ComputedRef<string>;
   skipText: ComputedRef<string>;
   verifyText: ComputedRef<string>;
-  authInputAttributes: typeof AuthInputAttributes;
+  authInputAttributes: AuthInputAttributes;
 }
 
 export interface ConfirmVerifyUserSetupReturnTypes {
