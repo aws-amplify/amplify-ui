@@ -31,3 +31,9 @@ export const RESET_PASSWORD_HEADING = 'Reset your Password';
 export const RESET_PASSWORD_TEXT = 'Send Code';
 export const CONFIRM_RESET_PASSWORD_HEADING = 'Reset your Password';
 export const CONFIRM_RESET_PASSWORD_TEXT = 'Submit';
+
+export const VERIFY_HEADING =
+  'Account recovery requires verified contact information';
+
+export const SKIP_TEXT = 'Skip';
+export const VERIFY_TEXT = 'Verify';

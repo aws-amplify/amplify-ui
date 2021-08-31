@@ -34,6 +34,7 @@ export interface SignUpContext {
   intent?: string;
   authAttributes?: Record<string, any>;
   challengeName?: string;
+  unverifiedAttributes?: Record<string, string>;
 }
 
 export interface ResetPasswordContext {
@@ -45,12 +46,14 @@ export interface ResetPasswordContext {
   user?: CognitoUserAmplify;
   authAttributes?: Record<string, any>;
   challengeName?: string;
+  unverifiedAttributes?: Record<string, string>;
 }
 
 export interface SignOutContext {
   user?: CognitoUserAmplify;
   authAttributes?: Record<string, any>;
   challengeName?: string;
+  unverifiedAttributes?: Record<string, string>;
 }
 
 // actors that have forms. Has `formValues, remoteErrror, and validationError in common.
