@@ -1,0 +1,45 @@
+{
+  "name": "@aws-amplify/ui",
+  "version": "3.0.1-next.0",
+  "main": "dist/index.js",
+  "module": "dist/esm/index.js",
+  "exports": {
+    ".": "./dist/esm/index.js",
+    "./styles.css": "./dist/styles.css",
+    "./theme.css": "./dist/theme.css"
+  },
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "run-s build:sd build:css build:js --print-label",
+    "build:css": "./scripts/generateCSS.js",
+    "build:js": "tsup --minify",
+    "build:sd": "style-dictionary build --config ./sd.config.js",
+    "dev": "tsup --watch src",
+    "test": "echo \"Skipped: no test specified\""
+  },
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "xstate": "^4.20.1"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.170",
+    "@types/webpack-env": "^1.16.2",
+    "autoprefixer": "^10.3.1",
+    "change-case": "^4.1.2",
+    "fs-extra": "^10.0.0",
+    "glob": "^7.1.7",
+    "globcat": "^1.3.4",
+    "postcss": "^8.3.6",
+    "rimraf": "^3.0.2",
+    "sass": "^1.35.2",
+    "style-dictionary": "^3.0.1",
+    "tslib": "^2.3.0"
+  },
+  "peerDependencies": {
+    "aws-amplify": "3.x.x || 4.x.x"
+  }
+}

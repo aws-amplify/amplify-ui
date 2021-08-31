@@ -1,10 +1,10 @@
-import { I18n } from '@aws-amplify/core';
+import { I18n } from 'aws-amplify';
 import {
   AuthChallengeNames,
   getActorState,
   SignInContext,
   SignInState,
-} from '@aws-amplify/ui-core';
+} from '@aws-amplify/ui';
 
 import { useAmplify, useAuth } from '../../../hooks';
 import {
