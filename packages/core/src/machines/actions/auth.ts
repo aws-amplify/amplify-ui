@@ -1,6 +1,6 @@
 import { assign, stop } from 'xstate/lib/actions';
 
-import { ActorContextWithForms, AuthEvent, SignUpContext } from '@/types';
+import { ActorContextWithForms, AuthEvent, SignUpContext } from '../../types';
 
 export const stopActor = (machineId: string) => {
   return stop(machineId);
