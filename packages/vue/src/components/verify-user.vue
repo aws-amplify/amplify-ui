@@ -132,9 +132,7 @@ export default defineComponent({
       if (attrs?.onSkipClicked) {
         emit('skipClicked');
       } else {
-        send({
-          type: 'SKIP',
-        });
+        send('SKIP');
       }
     };
 
