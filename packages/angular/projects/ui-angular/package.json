@@ -11,7 +11,7 @@
     "@angular/core": "^11.2.4"
   },
   "dependencies": {
-    "@aws-amplify/ui": "0.0.1-next.0",
+    "@aws-amplify/ui": "3.0.1-next.0",
     "@aws-amplify/ui-components": "^1.7.0",
     "@stencil/core": "^2.7.0",
     "tslib": "^2.0.0",
