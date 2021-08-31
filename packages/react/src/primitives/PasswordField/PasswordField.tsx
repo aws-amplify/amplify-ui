@@ -4,18 +4,19 @@ import { ShowPasswordButton } from './ShowPasswordButton';
 
 import { ComponentClassNames } from '../shared/constants';
 import { TextField } from '../TextField';
-import { PasswordFieldProps, TextFieldType } from '../types';
+import { PasswordFieldProps, PasswordFieldType } from '../types';
 
 export const PasswordField: React.FC<PasswordFieldProps> = ({
+  autoComplete = 'current-password',
   label,
   className,
   hideShowPassword = false,
+  size,
   ...rest
 }) => {
-  const [type, setType] = React.useState<TextFieldType>('password');
+  const [type, setType] = React.useState<PasswordFieldType>('password');
 
   const showPasswordOnClick = React.useCallback(() => {
-    console.log('hello from showpassword click', type);
     if (type === 'password') {
       setType('text');
     } else {
@@ -25,11 +26,17 @@ export const PasswordField: React.FC<PasswordFieldProps> = ({
 
   return (
     <TextField
-      inputEndComponent={
+      autoComplete={autoComplete}
+      inputEndComponents={
         hideShowPassword ? null : (
-          <ShowPasswordButton onClick={showPasswordOnClick} />
+          <ShowPasswordButton
+            fieldType={type}
+            onClick={showPasswordOnClick}
+            size={size}
+          />
         )
       }
+      size={size}
       type={type}
       label={label}
       className={classNames(ComponentClassNames.PasswordField, className)}

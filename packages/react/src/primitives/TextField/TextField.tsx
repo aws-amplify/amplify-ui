@@ -27,8 +27,8 @@ export const TextField: React.FC<TextFieldProps> = ({
   justifyContent,
   label,
   labelHidden = false,
-  hideShowPassword = true,
-  inputEndComponent,
+  inputEndComponents,
+  inputStartComponents,
   onChange,
   onCopy,
   onCut,
@@ -62,10 +62,13 @@ export const TextField: React.FC<TextFieldProps> = ({
         labelHidden={labelHidden}
         descriptiveText={descriptiveText}
       />
-      <FieldGroup>
+      <FieldGroup
+        startComponents={inputStartComponents}
+        endComponents={inputEndComponents}
+      >
         <Input
           aria-labelledby={fieldId}
-          className={ComponentClassNames.FieldGroupField}
+          autoComplete={autoComplete}
           defaultValue={defaultValue}
           hasError={hasError}
           id={fieldId}
@@ -83,7 +86,6 @@ export const TextField: React.FC<TextFieldProps> = ({
           value={value}
           {...rest}
         />
-        {inputEndComponent}
       </FieldGroup>
       <FieldErrorMessage hasError={hasError} errorMessage={errorMessage} />
     </Flex>

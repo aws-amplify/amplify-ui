@@ -2,23 +2,34 @@ import * as React from 'react';
 import { ShowPasswordButtonProps } from '../types/';
 import { Button } from '../Button';
 import { ComponentClassNames } from '../shared/constants';
-import { IconVisibility } from '../Icon';
+import { IconVisibility, IconVisibilityOff } from '../Icon';
 import { Text } from '../Text';
 import classNames from 'classnames';
+import { SharedText } from '../shared/i18n';
+
+const ariaLabelText = SharedText.ShowPasswordButton.ariaLabel;
 
 export const ShowPasswordButton: React.FC<ShowPasswordButtonProps> = ({
+  fieldType,
+  size,
   onClick = () => {},
 }) => {
   return (
     <Button
-      className={classNames(
-        ComponentClassNames.FieldShowPassword,
-        ComponentClassNames.FieldGroupField
-      )}
+      className={classNames(ComponentClassNames.FieldShowPassword)}
       onClick={onClick}
+      size={size}
+      ariaLabel={
+        fieldType === 'password'
+          ? ariaLabelText.showPassword
+          : ariaLabelText.hidePassword
+      }
     >
-      <Text className="sr-only">Show password</Text>
-      <IconVisibility size="large" alt="" />
+      {fieldType === 'password' ? (
+        <IconVisibility size={size} />
+      ) : (
+        <IconVisibilityOff size={size} />
+      )}
     </Button>
   );
 };

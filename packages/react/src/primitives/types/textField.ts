@@ -10,7 +10,8 @@ export type TextFieldType =
   | 'search'
   | 'tel'
   | 'text'
-  | 'url';
+  | 'url'
+  | string;
 
 export interface TextFieldProps extends InputProps, FieldProps, FlexStyleProps {
   /**
@@ -18,5 +19,13 @@ export interface TextFieldProps extends InputProps, FieldProps, FlexStyleProps {
    */
   type?: TextFieldType;
 
-  inputEndComponent?: React.ReactNode;
+  /**
+   * Component(s) to show after input
+   */
+  inputEndComponents?: React.ReactNode;
+
+  /**
+   * Component(s) to show before input
+   */
+  inputStartComponents?: React.ReactNode;
 }
