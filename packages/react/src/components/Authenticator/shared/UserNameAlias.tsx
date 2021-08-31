@@ -1,4 +1,4 @@
-import { I18n } from '@aws-amplify/core';
+import { I18n } from 'aws-amplify';
 import { getAliasInfoFromContext } from '@aws-amplify/ui';
 
 import { useAuth } from '../../../hooks';

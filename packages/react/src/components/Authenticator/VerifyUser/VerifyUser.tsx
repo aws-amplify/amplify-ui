@@ -5,7 +5,7 @@ import {
   SignInContext,
   authInputAttributes,
 } from '@aws-amplify/ui';
-import { I18n } from '@aws-amplify/core';
+import { I18n } from 'aws-amplify';
 
 import { useAmplify, useAuth } from '../../../hooks';
 import { ErrorText, TwoButtonSubmitFooter } from '../shared';

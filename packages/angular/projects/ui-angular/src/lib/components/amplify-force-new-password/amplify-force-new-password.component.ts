@@ -8,7 +8,7 @@ import {
   TemplateRef,
 } from '@angular/core';
 import { Subscription } from 'xstate';
-import { Logger } from '@aws-amplify/core';
+import { Logger } from 'aws-amplify';
 import {
   AuthMachineState,
   getActorContext,

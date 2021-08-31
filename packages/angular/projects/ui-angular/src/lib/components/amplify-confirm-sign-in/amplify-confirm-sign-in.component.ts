@@ -6,7 +6,7 @@ import {
   OnInit,
   TemplateRef,
 } from '@angular/core';
-import { Logger } from '@aws-amplify/core';
+import { Logger } from 'aws-amplify';
 import { StateMachineService } from '../../services/state-machine.service';
 import { AuthPropService } from '../../services/authenticator-context.service';
 import { Subscription } from 'xstate';

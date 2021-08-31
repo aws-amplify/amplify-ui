@@ -6,8 +6,7 @@
     "entryFile": "src/index.ts",
     "umdModuleIds": {
       "xstate": "xstate",
-      "aws-amplify": "aws-amplify",
-      "@aws-amplify/core": "@aws-amplify/core"
+      "aws-amplify": "aws-amplify"
     }
   },
   "allowedNonPeerDependencies": [

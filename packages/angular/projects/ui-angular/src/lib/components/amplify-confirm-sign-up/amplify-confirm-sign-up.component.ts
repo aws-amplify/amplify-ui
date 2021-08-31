@@ -6,7 +6,7 @@ import {
   SignUpContext,
   SignUpState,
 } from '@aws-amplify/ui';
-import { Logger } from '@aws-amplify/core';
+import { Logger } from 'aws-amplify';
 import { Subscription } from 'xstate';
 import { StateMachineService } from '../../services/state-machine.service';
 import { AuthPropService } from '../../services/authenticator-context.service';

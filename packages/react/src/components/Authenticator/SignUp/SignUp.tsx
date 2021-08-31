@@ -1,6 +1,6 @@
 import { includes, isEmpty } from 'lodash';
 
-import { I18n } from '@aws-amplify/core';
+import { I18n } from 'aws-amplify';
 import {
   authInputAttributes,
   getActorContext,
