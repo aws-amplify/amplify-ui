@@ -7,7 +7,7 @@ import { Tabs, TabItem, Button } from '@aws-amplify/ui-react';
 
 export const TabsDemo = () => {
   return (
-    <Tabs ariaLabel="fruit tabs">
+    <Tabs ariaLabel="test tabs" className="danny" justifyContent="center">
       <TabItem title="foo">
         <Button>Hello</Button>
       </TabItem>

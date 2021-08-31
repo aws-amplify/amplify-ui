@@ -9,7 +9,7 @@ module.exports = {
   borderColor: { value: '{colors.brand.primary.20.value}' },
   borderWidth: { value: '{borderWidths.small.value}' },
   borderStyle: { value: 'solid' },
-  color: { value: '{colors.brand.primary.80.value}' },
+  color: { value: 'gray' },
 
   _hover: {
     color: { value: '{colors.brand.primary.90.value}' },

@@ -1,26 +1,26 @@
-.amplify-tab {
-  // Radix
-  &[data-state='active'] {
-    color: #7e62ff;
-    border-bottom: 2px solid #7e62ff;
-  }
-
-  border-bottom: 2px solid gray;
-
+.amplify-tabs {
   // border-radius: var(--amplify-components-tabs-border-radius);
   box-sizing: border-box;
   font-weight: var(--amplify-components-tabs-font-weight);
   text-align: var(--amplify-components-tabs-text-align);
-  // transition: all var(--amplify-components-tabs-transition-duration);
+  transition: all var(--amplify-components-tabs-transition-duration);
   // border-width: var(--amplify-components-tabs-border-width);
   // border-style: var(--amplify-components-tabs-border-style);
   // border-color: var(--amplify-components-tabs-border-color);
   color: var(--amplify-components-tabs-color);
   font-size: var(--amplify-components-tabs-font-size);
   padding: var(--amplify-components-tabs-padding);
+  flex: 1 1 0;
+
+  // Radix
+  &[data-state='active'] {
+    color: #7e62ff;
+    border-bottom: 2px solid #7e62ff;
+    transition-property: none;
+  }
 
   &:hover {
-    background-color: var(--amplify-components-tabs-hover-background-color);
+    // background-color: var(--amplify-components-tabs-hover-background-color);
     // border-color: var(--amplify-components-tabs-hover-border-color);
     // color: var(--amplify-components-tabs-hover-color);
     color: #7e62ff;
@@ -28,19 +28,22 @@
   }
 
   &:focus {
-    outline: 1px solid black;
+    // outline: 1px solid black;
     // border-color: var(--amplify-components-tabs-focus-border-color);
-    // color: var(--amplify-components-tabs-focus-color);
+    // color: red;
+    // background: yellow;
+    background-color: #e8e8e8;
   }
 
-  // &:focus-visible {
-  //   outline: 2px solid black;
-  // }
+  &:focus-visible {
+    outline: 1px solid black;
+  }
 
   &:active {
-    background-color: var(--amplify-components-tabs-active-background-color);
-    border-color: var(--amplify-components-tabs-active-border-color);
-    color: var(--amplify-components-tabs-active-color);
+    // background-color: var(--amplify-components-tabs-active-background-color);
+    // border-color: var(--amplify-components-tabs-active-border-color);
+    color: #7e62ff;
+    background-color: #d6d6d6;
   }
 
   &[disabled] {
@@ -63,10 +66,8 @@
   }
 }
 
-.amplify-tabs {
-  // border-bottom: 1px solid gray;
+.amplify-tab-list {
+  box-shadow: inset 0 -2px rgb(201, 201, 201);
   margin-bottom: 1rem;
+  background-color: rgb(245, 245, 245);
 }
-
-// Radix:
-// [data-state='active']

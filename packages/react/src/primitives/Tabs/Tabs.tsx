@@ -21,11 +21,21 @@ export const isTabsType = (
   );
 };
 
-export const Tabs: React.FC<TabsProps> = ({
-  className,
-  children,
+export interface Tabs {
+  (props: TabsProps): React.ReactElement<any, any> | null;
+}
+
+export const Tabs: Tabs = ({
+  alignContent,
+  alignItems,
   ariaLabel,
+  children,
+  className,
   defaultTabIndex = 0,
+  direction,
+  gap = '0',
+  justifyContent,
+  wrap,
   ...rest
 }) => {
   const tabs = React.Children.map(children, (child) => {
@@ -39,11 +49,19 @@ export const Tabs: React.FC<TabsProps> = ({
   return (
     <Root defaultValue={`${defaultTabIndex}`}>
       <List aria-label={ariaLabel}>
-        <Flex gap="0" className={ComponentClassNames.Tabs}>
+        <Flex
+          alignContent={alignContent}
+          alignItems={alignItems}
+          className={ComponentClassNames.TabList}
+          direction={direction}
+          gap={gap}
+          justifyContent={justifyContent}
+          wrap={wrap}
+        >
           {tabs.map((tab, index) => (
             <RadixTab
               value={`${index}`}
-              className={classNames(ComponentClassNames.Tab, className)}
+              className={classNames(ComponentClassNames.Tabs, className)}
             >
               {tab.title}
             </RadixTab>
@@ -58,4 +76,4 @@ export const Tabs: React.FC<TabsProps> = ({
 };
 
 // In the docs, explain that TabItem contains both Tab and it's corresponding Panel
-export const TabItem: React.FC<TabItemProps> = () => null;
+export const TabItem: React.FC<TabItemProps> = () => <></>;
