@@ -20,6 +20,8 @@ export enum ComponentClassNames {
   Text = 'amplify-text',
   TextField = 'amplify-textfield',
   FieldGroup = 'amplify-field-group',
-  FieldGroupField = 'amplify-field-group__field',
+  FieldGroupControl = 'amplify-field-group__control',
+  FieldGroupStart = 'amplify-field-group__start',
+  FieldGroupEnd = 'amplify-field-group__end',
   View = 'amplify-view',
 }

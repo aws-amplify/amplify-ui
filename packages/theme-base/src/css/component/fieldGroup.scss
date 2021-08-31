@@ -1,16 +1,77 @@
+%remove-start-radii {
+  border-start-start-radius: 0;
+  border-end-start-radius: 0;
+}
+%remove-end-radii {
+  border-end-end-radius: 0;
+  border-start-end-radius: 0;
+}
+
 .amplify-field-group {
   gap: var(--amplify-components-fieldgroup-gap);
-  .amplify-field-group__field {
-    // No CSS variables exist for these border radius values
-    // because I don't see anyone needing to adding border radius
-    // between input fields
-    &:nth-child(1) {
-      border-end-end-radius: 0;
-      border-start-end-radius: 0;
+
+  // Input styling
+  .amplify-input:not(:last-child) {
+    @extend %remove-end-radii;
+  }
+  .amplify-input:not(:first-child) {
+    @extend %remove-start-radii;
+  }
+
+  .amplify-field-group__start,
+  .amplify-field-group__end {
+    display: flex;
+    .amplify-field-group__control {
+      height: 100%;
     }
-    &:nth-child(2) {
-      border-start-start-radius: 0;
-      border-end-start-radius: 0;
+  }
+
+  .amplify-field-group__start {
+    .amplify-field-group__control {
+      @extend %remove-end-radii;
+
+      // This targets non first-child controls
+      // when there are multiple controls
+      &:not(:first-child) {
+        @extend %remove-start-radii;
+        @extend %remove-end-radii;
+      }
+    }
+    // Select requires special rules due to icon
+    .amplify-select-wrapper {
+      .amplify-select {
+        @extend %remove-end-radii;
+      }
+      &:not(:first-child) {
+        .amplify-select {
+          @extend %remove-start-radii;
+          @extend %remove-end-radii;
+        }
+      }
+    }
+  }
+  .amplify-field-group__end {
+    .amplify-field-group__control:not(.amplify-select) {
+      @extend %remove-start-radii;
+
+      // This targets non last-child controls
+      // where there are multiple controls
+      &:not(:last-child) {
+        @extend %remove-start-radii;
+        @extend %remove-end-radii;
+      }
+    }
+    // Select requires special rules due to icon
+    .amplify-select-wrapper {
+      .amplify-select {
+        @extend %remove-start-radii;
+      }
+      &:not(:last-child) {
+        .amplify-select {
+          @extend %remove-start-radii;
+          @extend %remove-end-radii;
+        }
+      }
     }
   }
 }

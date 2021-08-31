@@ -7,4 +7,6 @@ export interface FieldGroupOptions
     BaseStyleProps,
     FlexStyleProps {
   children?: React.ReactNode;
+  endComponents?: React.ReactNode;
+  startComponents?: React.ReactNode;
 }
