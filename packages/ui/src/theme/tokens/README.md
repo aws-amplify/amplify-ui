@@ -1,4 +1,4 @@
-# Amplify UI Base Theme
+# Amplify UI Design Tokens
 
 ## Design Tokens
 
@@ -38,7 +38,7 @@ json
 
 ```jsx
 import { ThemeProvider, Button } from '@aws-amplify/ui-react';
-import { BaseTheme } from '@aws-amplify/ui-theme-base';
+import { theme } from '@aws-amplify/ui';
 
 const ThemedApp = (
   <ThemeProvider theme={BaseTheme}>
@@ -51,7 +51,7 @@ or using a utility function:
 
 ```jsx
 import { withTheme, Button } from '@aws-amplify/ui-react';
-import { BaseTheme } from '@aws-amplify/ui-theme-base';
+import { theme } from '@aws-amplify/ui';
 
 const ThemedApp = withTheme(
   BaseTheme,
@@ -62,7 +62,7 @@ const ThemedApp = withTheme(
 ### Other CSS-supported platforms
 
 ```jsx
-import '@aws-amplify/ui-theme-base/dist/theme.css';
+import '@aws-amplify/ui/dist/theme.css';
 
 const ThemedApp = (
   <button class="amplify-ui-button" data-size="large" data-variation="primary">

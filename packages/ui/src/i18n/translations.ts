@@ -11,7 +11,7 @@
  * and limitations under the License.
  */
 
-export const dict = {
+export const translations = {
   de: {
     'Account recovery requires verified contact information':
       'Zurücksetzen des Account benötigt einen verifizierten Account',

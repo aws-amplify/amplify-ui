@@ -1,7 +1,6 @@
-import { Authenticator } from '@aws-amplify/ui-react';
-import { dict } from '@aws-amplify/ui-core';
-import { Amplify, I18n } from 'aws-amplify';
+import { Authenticator, translations } from '@aws-amplify/ui-react';
 import awsExports from '@environments/auth-with-email/src/aws-exports';
+import { Amplify, I18n } from 'aws-amplify';
 
 Amplify.configure({
   ...awsExports,
@@ -10,7 +9,7 @@ Amplify.configure({
   },
 });
 
-I18n.putVocabularies(dict);
+I18n.putVocabularies(translations);
 
 export default function AuthenticatorWithEmail() {
   return <Authenticator />;

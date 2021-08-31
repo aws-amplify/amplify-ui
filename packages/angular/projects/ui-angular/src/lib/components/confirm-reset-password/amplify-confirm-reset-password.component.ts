@@ -7,14 +7,10 @@ import {
   OnInit,
   TemplateRef,
 } from '@angular/core';
-import { StateMachineService } from '../../services/state-machine.service';
-import { AuthPropService } from '../../services/authenticator-context.service';
+import { AuthMachineState, getActorState, SignInState } from '@aws-amplify/ui';
 import { Subscription } from 'xstate';
-import {
-  AuthMachineState,
-  getActorState,
-  SignInState,
-} from '@aws-amplify/ui-core';
+import { AuthPropService } from '../../services/authenticator-context.service';
+import { StateMachineService } from '../../services/state-machine.service';
 
 @Component({
   selector: 'amplify-confirm-reset-password',

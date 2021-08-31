@@ -1,14 +1,13 @@
 {
   "private": true,
   "scripts": {
-    "install": "yarn run theme-base build:all && yarn core build && yarn react build",
+    "install": "yarn ui build && yarn react build",
     "postinstall": "patch-package",
     "build": "yarn workspaces run build",
     "angular": "yarn workspace @aws-amplify/ui-angular",
     "react": "yarn workspace @aws-amplify/ui-react",
-    "core": "yarn workspace @aws-amplify/ui-core",
+    "ui": "yarn workspace @aws-amplify/ui",
     "vue": "yarn workspace @aws-amplify/ui-vue",
-    "theme-base": "yarn workspace @aws-amplify/ui-theme-base",
     "angular-example": "yarn workspace angular-example",
     "docs": "yarn workspace docs",
     "next-example": "yarn workspace next-example",
@@ -16,7 +15,6 @@
     "e2e": "yarn workspace e2e",
     "environments": "yarn workspace environments",
     "build:icons": "yarn react build:icons",
-    "build:theme-base": "yarn theme-base build",
     "test": "yarn react test && yarn e2e test",
     "prepare": "husky install"
   },
@@ -37,6 +35,7 @@
     "ts-jest": "^26.5.6"
   },
   "dependencies": {
+    "npm-run-all": "^4.1.5",
     "patch-package": "^6.4.7",
     "postinstall-postinstall": "^2.1.0",
     "tsup": "^4.14.0"

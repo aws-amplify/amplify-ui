@@ -30,7 +30,7 @@
 
 <script lang="ts">
 import { defineComponent, computed } from 'vue';
-import { FederatedIdentityProviders } from '@aws-amplify/ui-core';
+import { FederatedIdentityProviders } from '@aws-amplify/ui';
 import { useAuth } from '../composables/useAuth';
 import FederatedSignInButton from './federated-sign-in-button.vue';
 import BaseWrapper from './primitives/base-wrapper.vue';

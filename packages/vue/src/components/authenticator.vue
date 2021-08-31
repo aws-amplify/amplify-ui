@@ -276,7 +276,7 @@
 
 <script lang="ts">
 import { ref, provide, defineComponent, computed } from 'vue';
-import { getActorState } from '@aws-amplify/ui-core';
+import { getActorState } from '@aws-amplify/ui';
 
 import SignIn from './sign-in.vue';
 import SignUp from './sign-up.vue';

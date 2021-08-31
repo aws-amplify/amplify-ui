@@ -8,7 +8,7 @@ const CSS_VARIABLE_PREFIX = 'amplify';
 const CSS_VARIABLE_SCOPE = ':root';
 
 module.exports = {
-  source: ['src/tokens/index.js'],
+  source: ['src/theme/tokens/index.js'],
   transform: {
     cssPadding: {
       type: 'value',
@@ -29,12 +29,11 @@ module.exports = {
       prefix: CSS_VARIABLE_PREFIX,
       files: [
         {
-          destination: 'dist/variables.scss',
+          destination: 'dist/theme.css',
           format: 'css/variables',
           options: {
             selector: CSS_VARIABLE_SCOPE,
             outputReferences: true,
-            showFileHeader: false,
           },
         },
       ],
@@ -43,32 +42,28 @@ module.exports = {
       transforms: ['attribute/cti', 'name/cti/kebab'],
       files: [
         {
-          destination: 'dist/theme.js',
+          destination: 'src/theme/theme.ts',
           minified: true,
-          format: 'javascript/cjs-nested',
-        },
-        {
-          destination: 'dist/theme-unminified.js',
-          format: 'javascript/cjs-nested',
+          format: 'application/typescript',
         },
       ],
     },
   },
   format: {
-    'javascript/cjs-nested': CommonJSNestedFormatter,
+    'application/typescript': TypeScriptNestedFormatter,
   },
 };
 
 /*
- * CommonJS + Nested formatter
+ * TypeScript + Nested formatter
  * Exports a theme (minified) as a named export
  */
-function CommonJSNestedFormatter({ dictionary, options, file }) {
+function TypeScriptNestedFormatter({ dictionary, options, file }) {
   const { fileHeader, minifyDictionary } = formatHelpers;
   const theme = file.minified
     ? minifyDictionary(dictionary.tokens)
     : dictionary.tokens;
   return (
-    fileHeader({ file }) + `module.exports = ${JSON.stringify(theme, null, 2)};`
+    fileHeader({ file }) + `export default ${JSON.stringify(theme, null, 2)};`
   );
 }

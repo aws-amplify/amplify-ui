@@ -7,11 +7,7 @@ import {
   OnInit,
   TemplateRef,
 } from '@angular/core';
-import {
-  AuthMachineState,
-  getActorState,
-  SignInState,
-} from '@aws-amplify/ui-core';
+import { AuthMachineState, getActorState, SignInState } from '@aws-amplify/ui';
 import { Subscription } from 'xstate';
 import { AuthPropService } from '../../services/authenticator-context.service';
 import { StateMachineService } from '../../services/state-machine.service';
