@@ -4,6 +4,7 @@ import * as React from 'react';
 import { ComponentClassNames, useAmplifyFieldID } from '../shared';
 import { FieldDescription, FieldErrorMessage } from '../Field';
 import { Flex } from '../Flex';
+import { FieldGroup } from '../FieldGroup';
 import { Input } from '../Input';
 import { Label } from '../Label';
 import { TextFieldProps } from '../types';
@@ -26,6 +27,8 @@ export const TextField: React.FC<TextFieldProps> = ({
   justifyContent,
   label,
   labelHidden = false,
+  inputEndComponents,
+  inputStartComponents,
   onChange,
   onCopy,
   onCut,
@@ -59,25 +62,31 @@ export const TextField: React.FC<TextFieldProps> = ({
         labelHidden={labelHidden}
         descriptiveText={descriptiveText}
       />
-      <Input
-        aria-labelledby={fieldId}
-        defaultValue={defaultValue}
-        hasError={hasError}
-        id={fieldId}
-        isDisabled={isDisabled}
-        isReadOnly={isReadOnly}
-        isRequired={isRequired}
-        size={size}
-        type={type}
-        value={value}
-        onChange={onChange}
-        onCopy={onCopy}
-        onCut={onCut}
-        onInput={onInput}
-        onPaste={onPaste}
-        onSelect={onSelect}
-        {...rest}
-      />
+      <FieldGroup
+        startComponents={inputStartComponents}
+        endComponents={inputEndComponents}
+      >
+        <Input
+          aria-labelledby={fieldId}
+          autoComplete={autoComplete}
+          defaultValue={defaultValue}
+          hasError={hasError}
+          id={fieldId}
+          isDisabled={isDisabled}
+          isReadOnly={isReadOnly}
+          isRequired={isRequired}
+          onChange={onChange}
+          onCopy={onCopy}
+          onCut={onCut}
+          onInput={onInput}
+          onPaste={onPaste}
+          onSelect={onSelect}
+          size={size}
+          type={type}
+          value={value}
+          {...rest}
+        />
+      </FieldGroup>
       <FieldErrorMessage hasError={hasError} errorMessage={errorMessage} />
     </Flex>
   );
