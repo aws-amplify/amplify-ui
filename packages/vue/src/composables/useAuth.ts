@@ -1,6 +1,10 @@
-import { useActor } from '@xstate/vue';
-import { authService } from '@aws-amplify/ui';
+import { authMachine } from '@aws-amplify/ui';
+import { useActor, useInterpret } from '@xstate/vue';
 
 export const useAuth = () => {
-  return useActor(authService);
+  const service = useInterpret(authMachine, {
+    devTools: process.env.NODE_ENV === 'development',
+  });
+
+  return useActor(service);
 };
