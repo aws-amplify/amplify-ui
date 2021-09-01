@@ -1,22 +1,22 @@
 import {
+  Button,
   Flex,
+  Heading,
   PasswordField,
   TextField,
-  Button,
-  Heading,
 } from '@aws-amplify/ui-react';
+import { PasswordFieldDemo } from './demo';
 import {
-  PasswordFieldDemo,
-  LoginFormExample,
-  SignUpFormExample,
   ChangePasswordFormExample,
   DescriptiveTextExample,
-  RequiredPasswordFieldExample,
+  LoginFormExample,
   PasswordFieldStyledPropsExample,
-} from './demo';
+  RequiredPasswordFieldExample,
+  SignUpFormExample,
+} from './examples';
 import { Example } from '@/components/Example';
 
-The PasswordField primitive can be used allow users to input passwords.
+The PasswordField primitive allows users to input passwords. It also features full password manager support and an optional show/hide password button for user convenience.
 
 ## Demo
 
@@ -45,16 +45,14 @@ Use the `hideShowPassword` prop to hide the show password button.
 <PasswordField label="Password" name="password" hideShowPassword={true} />
 ```
 
-<PasswordField label="Password" name="password" hideShowPassword={true} />
-
+<Example>
+  <PasswordField label="Password" name="password" hideShowPassword={true} />
+</Example>
 ### Autocomplete - supporting password managers
 
 Use the `autoComplete` prop to tell browser how to populate a password field. Options for `autoComplete` are `current-password` (default) and `new-password`.
 
-#### How to choose an `autoComplete` option
-
-If customers are logging in, you don't need to do set `autoComplete` because `current-password` is already the default.
-If customers are signing up for a new account, set `autoComplete` to `new-password`.
+If customers are logging in, setting `autoComplete` is not required because `current-password` is the default. If customers are signing up for a new account, set `autoComplete` to `new-password`.
 
 See [MDN for more information on autocomplete](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete).
 
@@ -91,9 +89,7 @@ _Login form example: `current-password` (default)_
     name="password"
     autoComplete="current-password"
   />
-  <Button type="submit" onClick={(e) => e.preventDefault()}>
-    Login
-  </Button>
+  <Button type="submit">Login</Button>
 </Flex>
 ```
 
@@ -134,7 +130,7 @@ _Change password example: `current-password` and `new-password`_
 
 ### Accessibility / Label behavior
 
-The PasswordField primitive is accessible by default. A matching `label` HTML element is rendered with the `PasswordField` by default,
+The PasswordField primitive is accessible by default. A matching `label` HTML element is rendered with the `PasswordField`,
 all that is required is to provide a `label` prop with a `string` or `ReactNode`. If no `id` is provided, one will be automatically
 generated and connected to both `label` and `input` elements.
 
@@ -322,7 +318,7 @@ _Using a class selector:_
 
 _Using style props:_
 
-Flex styling props will be applied to the PasswordField wrapping Flex component, whereas other style props will be applied to the field. This allows us to change the layout of the label and field, while also styling the input field.
+Flex styling props will be applied to the PasswordField wrapping Flex component, whereas other style props will be applied to the input field. This allows us to change the layout of the label and input field, while also styling the input field directly.
 
 ```jsx
 <PasswordField
