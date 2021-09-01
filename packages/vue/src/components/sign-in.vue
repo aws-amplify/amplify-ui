@@ -126,7 +126,7 @@ import { useAuth } from '../composables/useAuth';
 
 // types
 import { SetupEventContext, SignInSetupReturnTypes } from '../types/index';
-import { getActorState, SignInState } from '@aws-amplify/ui-core';
+import { getActorState, SignInState } from '@aws-amplify/ui';
 
 export default {
   name: 'Authentication',

@@ -1,5 +1,5 @@
-import { I18n } from '@aws-amplify/core';
-import { getActorState, ResetPasswordState } from '@aws-amplify/ui-core';
+import { I18n } from 'aws-amplify';
+import { getActorState, ResetPasswordState } from '@aws-amplify/ui';
 
 import { useAmplify, useAuth } from '../../../hooks';
 import {

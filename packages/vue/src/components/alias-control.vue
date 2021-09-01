@@ -11,14 +11,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from "vue";
-import { authInputAttributes } from "@aws-amplify/ui-core";
+import { defineComponent, computed } from 'vue';
+import { authInputAttributes } from '@aws-amplify/ui';
 
-import BaseInput from "./primitives/base-input.vue";
-import BaseText from "./primitives/base-text.vue";
-import BaseLabel from "./primitives/base-label.vue";
+import BaseInput from './primitives/base-input.vue';
+import BaseText from './primitives/base-text.vue';
+import BaseLabel from './primitives/base-label.vue';
 
-import { AliasControlTypes } from "../types";
+import { AliasControlTypes } from '../types';
 
 export default defineComponent({
   components: {
@@ -28,17 +28,17 @@ export default defineComponent({
   },
   props: {
     label: {
-      default: "Username",
+      default: 'Username',
       required: true,
       type: String,
     },
     name: {
-      default: "username",
+      default: 'username',
       required: true,
       type: String,
     },
     placeholder: {
-      default: props => props.label,
+      default: (props) => props.label,
       type: String,
     },
   },

@@ -228,6 +228,44 @@
         </slot>
       </template>
     </force-new-password>
+
+    <verify-user
+      v-if="actorState?.matches('verifyUser')"
+      @verify-user-submit="onVerifyUserSubmitI"
+      ref="verifyUserComponent"
+    >
+      <template #verifyUserSlotI>
+        <slot name="verify-user"></slot>
+      </template>
+      <template #footer="{ info, onVerifyUserSubmit, onSkipClicked }">
+        <slot
+          name="sign-in-footer"
+          :info="info"
+          :onVerifyUserSubmit="onVerifyUserSubmit"
+          :onSkipClicked="onSkipClicked"
+        >
+        </slot>
+      </template>
+    </verify-user>
+
+    <confirm-verify-user
+      v-if="actorState?.matches('confirmVerifyUser')"
+      @confirm-verify-user-submit="onConfirmVerifyUserSubmitI"
+      ref="confirmVerifyUserComponent"
+    >
+      <template #confirmVerifyUserSlotI>
+        <slot name="confirm-verify-user"></slot>
+      </template>
+      <template #footer="{ info, onConfirmVerifyUserSubmit, onSkipClicked }">
+        <slot
+          name="sign-in-footer"
+          :info="info"
+          :onConfirmVerifyUserSubmit="onConfirmVerifyUserSubmit"
+          :onSkipClicked="onSkipClicked"
+        >
+        </slot>
+      </template>
+    </confirm-verify-user>
   </div>
 
   <slot
@@ -238,7 +276,7 @@
 
 <script lang="ts">
 import { ref, provide, defineComponent, computed } from 'vue';
-import { getActorState } from '@aws-amplify/ui-core';
+import { getActorState } from '@aws-amplify/ui';
 
 import SignIn from './sign-in.vue';
 import SignUp from './sign-up.vue';
@@ -248,6 +286,8 @@ import SetupTotp from './setup-totp.vue';
 import ForceNewPassword from './force-new-password.vue';
 import ResetPassword from './reset-password.vue';
 import ConfirmResetPassword from './confirm-reset-password.vue';
+import VerifyUser from './verify-user.vue';
+import ConfirmVerifyUser from './confirm-verify-user.vue';
 
 import { useAuth } from '../composables/useAuth';
 import {
@@ -266,6 +306,8 @@ export default defineComponent({
     ForceNewPassword,
     ResetPassword,
     ConfirmResetPassword,
+    VerifyUser,
+    ConfirmVerifyUser,
   },
   props: {
     shouldHideReturnBtn: {
@@ -286,6 +328,8 @@ export default defineComponent({
     forceNewPasswordComponent: typeof ForceNewPassword;
     resetPasswordComponent: typeof ResetPassword;
     confirmResetPasswordComponent: typeof ConfirmResetPassword;
+    verifyUserComponent: typeof VerifyUser;
+    confirmVerifyUserComponent: typeof ConfirmVerifyUser;
   } {
     const { state, send } = useAuth();
     const actorState = computed(() => getActorState(state.value));
@@ -297,6 +341,8 @@ export default defineComponent({
     const forceNewPasswordComponent = ref(null);
     const resetPasswordComponent = ref(null);
     const confirmResetPasswordComponent = ref(null);
+    const verifyUserComponent = ref(null);
+    const confirmVerifyUserComponent = ref(null);
 
     const currentPage = ref('SIGNIN');
 
@@ -365,6 +411,23 @@ export default defineComponent({
         signUpComponent.value.submit(e);
       }
     };
+
+    const onVerifyUserSubmitI = (e: Event) => {
+      if (attrs?.onVerifyUserSubmit) {
+        emit('verifyUserSubmit', e);
+      } else {
+        verifyUserComponent.value.submit(e);
+      }
+    };
+
+    const onConfirmVerifyUserSubmitI = (e: Event) => {
+      if (attrs?.onConfirmVerifyUserSubmit) {
+        emit('confirmVerifyUserSubmit', e);
+      } else {
+        confirmVerifyUserComponent.value.submit(e);
+      }
+    };
+
     provide('pageInfo', currentPage);
 
     return {
@@ -381,12 +444,16 @@ export default defineComponent({
       confirmSetupTOTPComponent,
       resetPasswordComponent,
       confirmResetPasswordComponent,
+      verifyUserComponent,
+      confirmVerifyUserComponent,
       onConfirmSignInSubmitI,
       onResetPasswordSubmitI,
       onConfirmSignUpSubmitI,
       onConfirmSetupTOTPSubmitI,
       onForceNewPasswordSubmitI,
       onConfirmResetPasswordSubmitI,
+      onVerifyUserSubmitI,
+      onConfirmVerifyUserSubmitI,
       send,
     };
   },

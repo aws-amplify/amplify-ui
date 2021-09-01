@@ -3,14 +3,16 @@
   "version": "2.0.1-next.0",
   "scripts": {
     "build": "yarn --cwd ../../ build",
+    "dev": "yarn --cwd ../../ dev",
     "test": "yarn --cwd ../../ test"
   },
   "peerDependencies": {
     "@angular/common": "^11.2.4",
-    "@angular/core": "^11.2.4"
+    "@angular/core": "^11.2.4",
+    "aws-amplify": "3.x.x || 4.x.x"
   },
   "dependencies": {
-    "@aws-amplify/ui-core": "0.0.1-next.0",
+    "@aws-amplify/ui": "3.0.1-next.0",
     "@aws-amplify/ui-components": "^1.7.0",
     "@stencil/core": "^2.7.0",
     "tslib": "^2.0.0",

@@ -1,0 +1,17 @@
+export { default as SignIn } from './sign-in.vue';
+export { default as SignUp } from './sign-up.vue';
+export { default as FederatedSignIn } from './federated-sign-in.vue';
+export { default as Authenticator } from './authenticator.vue';
+export { default as RenderInfo } from './primitives/render-info.vue';
+export { default as SignUpPasswordControl } from './sign-up-password-control.vue';
+export { default as SignInPasswordControl } from './sign-in-password-control.vue';
+export { default as UserNameAlias } from './user-name-alias.vue';
+export { default as ForceNewPassword } from './force-new-password.vue';
+export { default as ResetPassword } from './reset-password.vue';
+export { default as ConfirmResetPassword } from './confirm-reset-password.vue';
+export { default as ConfirmSignUp } from './confirm-sign-up.vue';
+export { default as ConfirmSignIn } from './confirm-sign-in.vue';
+export { default as VerifyUser } from './verify-user.vue';
+export { default as ConfirmVerifyUser } from './confirm-verify-user.vue';
+export * from '../types';
+export * from '../types';

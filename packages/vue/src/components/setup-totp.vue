@@ -86,7 +86,7 @@ import {
 import { Auth, Logger } from 'aws-amplify';
 import QRCode from 'qrcode';
 import { SetupEventContext } from '../types';
-import { getActorState, SignInState } from '@aws-amplify/ui-core';
+import { getActorState, SignInState } from '@aws-amplify/ui';
 
 export default defineComponent({
   components: {

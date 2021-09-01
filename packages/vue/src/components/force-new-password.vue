@@ -83,7 +83,7 @@ import {
   HAVE_ACCOUNT_LABEL,
   SIGN_IN_BUTTON_TEXT,
 } from '../defaults/DefaultTexts';
-import { getActorState, SignInState } from '@aws-amplify/ui-core';
+import { getActorState, SignInState } from '@aws-amplify/ui';
 
 export default defineComponent({
   components: {

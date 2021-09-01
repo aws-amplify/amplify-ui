@@ -98,7 +98,7 @@ import {
   ConfirmResetPasswordSetupReturnTypes,
   SetupEventContext,
 } from '../types';
-import { getActorState, ResetPasswordState } from '@aws-amplify/ui-core';
+import { getActorState, ResetPasswordState } from '@aws-amplify/ui';
 
 export default defineComponent({
   components: {

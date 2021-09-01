@@ -1,17 +1,15 @@
-import { useState, useEffect } from 'react';
-
 import {
-  Collection,
-  Text,
-  View,
-  Image,
   Button,
+  Collection,
   IconAccountCircle,
+  Image,
+  Text,
+  theme,
+  View,
 } from '@aws-amplify/ui-react';
-import theme from '@aws-amplify/ui-theme-base';
-
-import { ListingCard } from '../../../components/listings/ListingCard';
+import { useEffect, useState } from 'react';
 import { ExperienceCard } from '../../../components/listings/ExperienceCard';
+import { ListingCard } from '../../../components/listings/ListingCard';
 import { SectionHeading } from '../../../components/listings/SectionHeading';
 import { experiences, places } from '../../../data/listings/data';
 

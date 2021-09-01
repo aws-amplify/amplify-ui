@@ -1,6 +1,6 @@
 import { includes, isEmpty } from 'lodash';
 
-import { I18n } from '@aws-amplify/core';
+import { I18n } from 'aws-amplify';
 import {
   authInputAttributes,
   getActorContext,
@@ -8,7 +8,7 @@ import {
   SignUpContext,
   SignUpState,
   socialProviderLoginMechanisms,
-} from '@aws-amplify/ui-core';
+} from '@aws-amplify/ui';
 
 import { useAmplify, useAuth } from '../../../hooks';
 import { FederatedSignIn } from '../FederatedSignIn';

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { StateMachineService } from '../../services/state-machine.service';
-import { getAliasInfoFromContext } from '@aws-amplify/ui-core';
+import { getAliasInfoFromContext } from '@aws-amplify/ui';
 
 @Component({
   selector: 'amplify-user-name-alias',

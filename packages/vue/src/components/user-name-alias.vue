@@ -11,7 +11,6 @@
       :disabled="disabled"
       :type="type"
     ></base-input>
-    <base-text> {{ error }}</base-text>
   </base-label>
 </template>
 
@@ -22,7 +21,7 @@ import {
   getActorContext,
   getAliasInfoFromContext,
   ActorContextWithForms,
-} from '@aws-amplify/ui-core';
+} from '@aws-amplify/ui';
 
 import BaseInput from './primitives/base-input.vue';
 import BaseLabel from './primitives/base-label.vue';
@@ -65,8 +64,6 @@ export default defineComponent({
       uName = computed(() => props.userName);
     }
 
-    const error = actorContext.value.validationError['username'];
-
     const [primaryAlias] = useAliases(context?.config?.login_mechanisms);
 
     let name = primaryAlias;
@@ -84,7 +81,7 @@ export default defineComponent({
       name = 'username';
     }
 
-    return { label, name, type, error, uName };
+    return { label, name, type, uName };
   },
 });
 </script>

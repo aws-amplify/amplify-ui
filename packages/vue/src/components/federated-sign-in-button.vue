@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import { FederatedIdentityProviders } from '@aws-amplify/ui-core';
+import { FederatedIdentityProviders } from '@aws-amplify/ui';
 import { defineComponent, PropType } from 'vue';
 // @xstate
 import { useAuth } from '../composables/useAuth';
