@@ -1,0 +1,25 @@
+import { Button, IconDone, VisuallyHidden } from '@aws-amplify/ui-react';
+import { Example } from '@/components/Example';
+
+`VisuallyHidden` is a common techinique used in web accessibility to hide content from the visual client, but keep it readable for screen readers.
+
+## Usage
+
+Import the `VisuallyHidden` primitive and styles.
+
+```jsx
+import { Button, IconDone, VisuallyHidden } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<Button variation="primary">
+  <VisuallyHidden>Donemark</VisuallyHidden>
+  <IconDone size="large" />
+</Button>;
+```
+
+<Example>
+  <Button variation="primary">
+    <VisuallyHidden>Donemark</VisuallyHidden>
+    <IconDone size="large" />
+  </Button>
+</Example>

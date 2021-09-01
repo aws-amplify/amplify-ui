@@ -13,6 +13,7 @@ export * from './Placeholder';
 export * from './Rating';
 export * from './Text';
 export * from './View';
+export * from './VisuallyHidden';
 
 export * from './shared';
 export * from './types';
