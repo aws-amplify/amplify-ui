@@ -12,7 +12,5 @@ export interface ViewProps
     AriaProps {
   as?: ViewAsHTMLElementTypes;
 
-  role?: React.AriaRole;
-
   isDisabled?: boolean;
 }
