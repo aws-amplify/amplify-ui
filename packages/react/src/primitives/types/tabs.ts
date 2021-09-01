@@ -1,9 +1,10 @@
 import { BaseComponentProps, AriaProps } from './base';
-import { TabItem } from '../Tabs';
 
 import { BaseStyleProps } from './style';
 import { FlexStyleProps } from './flex';
 import React from 'react';
+
+export type TabsGrow = 'equal' | 'relative';
 
 export interface TabsProps
   extends BaseComponentProps,
@@ -15,8 +16,12 @@ export interface TabsProps
    */
   defaultTabIndex?: number;
 
+  grow?: TabsGrow;
+
+  disabledTabs: number[];
+
   // Is there a way to do this such that a customer can create a custom component that returns a TabItem?
-  children: React.ReactElement;
+  children: React.ReactElement | React.ReactElement[];
 }
 
 export interface TabItemProps {

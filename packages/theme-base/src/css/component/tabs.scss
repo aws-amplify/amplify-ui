@@ -10,7 +10,6 @@
   color: var(--amplify-components-tabs-color);
   font-size: var(--amplify-components-tabs-font-size);
   padding: var(--amplify-components-tabs-padding);
-  flex: 1 1 0;
 
   // Radix
   &[data-state='active'] {
@@ -46,23 +45,19 @@
     background-color: #d6d6d6;
   }
 
-  &[disabled] {
+  &[data-disabled] {
     background-color: var(--amplify-components-tabs-disabled-background-color);
     border-color: var(--amplify-components-tabs-disabled-border-color);
     color: var(--amplify-components-tabs-disabled-color);
     cursor: not-allowed;
   }
 
-  &[data-size='small'] {
-    border-radius: var(--amplify-components-tabs-small-border-radius);
-    font-size: var(--amplify-components-tabs-small-font-size);
-    padding: var(--amplify-components-tabs-small-padding);
+  &[data-grow='equal'] {
+    flex: 1 1 0;
   }
 
-  &[data-size='large'] {
-    border-radius: var(--amplify-components-tabs-large-border-radius);
-    font-size: var(--amplify-components-tabs-large-font-size);
-    padding: var(--amplify-components-tabs-large-padding);
+  &[data-grow='relative'] {
+    flex-grow: 1;
   }
 }
 

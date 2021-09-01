@@ -22,7 +22,10 @@ export const isTabsType = (
 };
 
 export interface Tabs {
-  (props: TabsProps): React.ReactElement<any, any> | null;
+  (props: TabsProps):
+    | React.ReactElement<any, any>
+    | React.ReactElement[]
+    | null;
 }
 
 export const Tabs: Tabs = ({
@@ -33,7 +36,9 @@ export const Tabs: Tabs = ({
   className,
   defaultTabIndex = 0,
   direction,
+  disabledTabs,
   gap = '0',
+  grow,
   justifyContent,
   wrap,
   ...rest
@@ -60,8 +65,10 @@ export const Tabs: Tabs = ({
         >
           {tabs.map((tab, index) => (
             <RadixTab
-              value={`${index}`}
               className={classNames(ComponentClassNames.Tabs, className)}
+              data-grow={grow}
+              disabled={disabledTabs && disabledTabs.includes(index)}
+              value={`${index}`}
             >
               {tab.title}
             </RadixTab>
