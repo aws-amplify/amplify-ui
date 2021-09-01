@@ -1,6 +1,7 @@
 import { FlexStyleProps } from './flex';
 import { InputProps } from './input';
 import { FieldProps } from './field';
+import React from 'react';
 
 export type TextFieldType =
   | 'email'
@@ -9,16 +10,22 @@ export type TextFieldType =
   | 'search'
   | 'tel'
   | 'text'
-  | 'url';
+  | 'url'
+  | string;
 
 export interface TextFieldProps extends InputProps, FieldProps, FlexStyleProps {
+  /**
+   * Input field type
+   */
   type?: TextFieldType;
+
   /**
-   * If value is provided, this will be a controlled TextField
+   * Component(s) to show after input
    */
-  value?: string;
+  inputEndComponents?: React.ReactNode;
+
   /**
-   * Use this to provide a default value for an uncontrolled TextField
+   * Component(s) to show before input
    */
-  defaultValue?: string;
+  inputStartComponents?: React.ReactNode;
 }

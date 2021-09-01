@@ -10,6 +10,7 @@ import {
   Divider,
   FlexStyleProps,
   TextFieldProps,
+  Select,
 } from '@aws-amplify/ui-react';
 
 import { Example } from '@/components/Example';
@@ -171,12 +172,7 @@ export const RequiredTextFieldExample = () => (
       label={
         <Text>
           Email
-          <Text
-            as="span"
-            fontSize="0.8rem"
-            color="red"
-            style={{ display: 'inline' }}
-          >
+          <Text as="span" fontSize="0.8rem" color="red">
             {' '}
             (required)
           </Text>
@@ -215,4 +211,34 @@ export const TextFieldStyledPropsExample = () => (
     color="#000"
     width="400px"
   />
+);
+
+export const TextFieldStartEndComponentsExample = () => (
+  <Flex gap="1rem" direction="column">
+    <TextField label="Start" inputStartComponents={<Button>Start</Button>} />
+    <TextField
+      label="Start and End"
+      inputStartComponents={<Button>Start</Button>}
+      inputEndComponents={<Button>End</Button>}
+    />
+    <TextField label="End" inputEndComponents={<Button>End</Button>} />
+    <TextField
+      label="Multiple End"
+      inputEndComponents={
+        <>
+          <Button>End</Button>
+          <Button>End</Button>
+        </>
+      }
+    />
+    <TextField
+      label="Multiple Start"
+      inputStartComponents={
+        <>
+          <Button>Start</Button>
+          <Button>Start</Button>
+        </>
+      }
+    />
+  </Flex>
 );
