@@ -12,9 +12,9 @@ describe('Text: ', () => {
     render(<Link>{linkText}</Link>);
 
     const link = await screen.findByText(linkText);
-    expect(link.innerHTML).toBe(linkText);
+    expect(link).toContainHTML(linkText);
     expect(link.nodeName).toBe('A');
-    expect(link.className).toContain(ComponentClassNames.Link);
+    expect(link).toHaveClass(ComponentClassNames.Link);
   });
 
   it('can render a classname for Link', async () => {

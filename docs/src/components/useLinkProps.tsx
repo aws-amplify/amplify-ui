@@ -11,7 +11,6 @@ export const useLinkProps: UseLinkProps = (initialValues) => {
     initialValues.isExternal
   );
   const [color, setColor] = useState<LinkOptions['color']>(initialValues.color);
-  const [size, setSize] = useState<LinkOptions['size']>(initialValues.size);
   const [textDecoration, setTextDecoration] = useState<
     LinkOptions['textDecoration']
   >(initialValues.textDecoration);
@@ -21,8 +20,6 @@ export const useLinkProps: UseLinkProps = (initialValues) => {
     setIsExternal,
     color,
     setColor,
-    size,
-    setSize,
     textDecoration,
     setTextDecoration,
   };

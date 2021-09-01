@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, Text } from '@aws-amplify/ui-react';
+import { Link, Text, View } from '@aws-amplify/ui-react';
 import { LinkPropControls } from '../../../../components/LinkPropControls';
 import { useLinkProps } from '@/components/useLinkProps';
 import { Example } from '@/components/Example';
@@ -8,12 +8,11 @@ export const LinkDemo = () => {
   const linkProps = useLinkProps({
     isExternal: false,
     color: '#007EB9',
-    size: '',
     textDecoration: 'none',
   });
 
   return (
-    <div>
+    <View>
       <LinkPropControls {...linkProps} />
       <Example>
         <Link
@@ -29,6 +28,6 @@ export const LinkDemo = () => {
           {linkProps.isExternal ? 'noopener noreferrer' : ''}
         </Text>
       </Example>
-    </div>
+    </View>
   );
 };

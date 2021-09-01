@@ -8,7 +8,6 @@ export interface LinkPropControlsProps extends LinkOptions, BaseStyleProps {
   setIsExternal: (
     value: React.SetStateAction<LinkOptions['isExternal']>
   ) => void;
-  setSize: (value: React.SetStateAction<LinkOptions['size']>) => void;
   setTextDecoration: (
     value: React.SetStateAction<LinkOptions['textDecoration']>
   ) => void;
@@ -23,8 +22,6 @@ export const LinkPropControls: LinkPropControlsInterface = ({
   setColor,
   isExternal,
   setIsExternal,
-  size,
-  setSize,
   textDecoration,
   setTextDecoration,
 }) => {
@@ -40,20 +37,6 @@ export const LinkPropControls: LinkPropControlsInterface = ({
             setIsExternal(event.target.checked as LinkOptions['isExternal'])
           }
         />
-      </FieldLabeler>
-      <FieldLabeler id="size">
-        <select
-          name="size"
-          id="size"
-          value={size}
-          onChange={(event) =>
-            setSize(event.target.value as LinkOptions['size'])
-          }
-        >
-          <option value="">default</option>
-          <option value="small">small</option>
-          <option value="large">large</option>
-        </select>
       </FieldLabeler>
 
       <FieldLabeler id="color">
