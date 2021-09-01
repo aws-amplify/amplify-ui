@@ -12,6 +12,8 @@ import {
   ConfirmResetPassword,
   ConfirmSignUp,
   ConfirmSignIn,
+  ConfirmVerifyUser,
+  VerifyUser,
 } from './components/index';
 
 import './styles.css';
@@ -31,6 +33,8 @@ export default {
     app.component('ConfirmResetPassword', ConfirmResetPassword);
     app.component('ConfirmSignUp', ConfirmSignUp);
     app.component('ConfirmSignIn', ConfirmSignIn);
+    app.component('VerifyUser', VerifyUser);
+    app.component('ConfirmVerifyUser', ConfirmVerifyUser);
   },
 };
 
@@ -47,6 +51,8 @@ export {
   ConfirmResetPassword,
   ConfirmSignUp,
   ConfirmSignIn,
+  ConfirmVerifyUser,
+  VerifyUser,
 };
 
 export { useAuth } from './composables';

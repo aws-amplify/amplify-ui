@@ -2,7 +2,7 @@ export const AUTHENTICATOR = 'Authenticator';
 export const RESET_PASSWORD_LINK = 'Reset password';
 export const NO_ACCOUNT = 'No account?';
 export const CREATE_ACCOUNT_LINK = 'Create account';
-export const SIGN_IN_BUTTON_TEXT = 'Sign In';
+export const SIGN_IN_BUTTON_TEXT = 'Sign in';
 export const SIGNING_IN_BUTTON_TEXT = 'Signing in';
 export const FORGOT_YOUR_PASSWORD_TEXT = 'Forgot your password?';
 export const PASSWORD_LABEL = 'Password';
@@ -31,3 +31,9 @@ export const RESET_PASSWORD_HEADING = 'Reset your Password';
 export const RESET_PASSWORD_TEXT = 'Send Code';
 export const CONFIRM_RESET_PASSWORD_HEADING = 'Reset your Password';
 export const CONFIRM_RESET_PASSWORD_TEXT = 'Submit';
+
+export const VERIFY_HEADING =
+  'Account recovery requires verified contact information';
+
+export const SKIP_TEXT = 'Skip';
+export const VERIFY_TEXT = 'Verify';
