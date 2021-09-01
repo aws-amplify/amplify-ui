@@ -11,6 +11,9 @@ export const useTabsProps: UseTabsProps = (initialValues) => {
     initialValues.defaultTab
   );
   const [grow, setGrow] = useState<TabsProps['grow']>(initialValues.grow);
+  const [justifyContent, setJustifyContent] = useState<
+    TabsProps['justifyContent']
+  >(initialValues.justifyContent);
   const children = initialValues.children;
 
   return {
@@ -19,5 +22,7 @@ export const useTabsProps: UseTabsProps = (initialValues) => {
     grow,
     setGrow,
     children,
+    justifyContent,
+    setJustifyContent,
   };
 };

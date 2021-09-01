@@ -1,4 +1,4 @@
-import { Tabs } from '@aws-amplify/ui-react';
+import { Tabs, TabItem, Flex, Text } from '@aws-amplify/ui-react';
 import { TabsDemo } from './demo';
 import { Example } from '@/components/Example';
 
@@ -7,3 +7,165 @@ Tabs organize content into multiple sections and allow users to navigate between
 ## Demo
 
 <TabsDemo />
+
+## Usage
+
+Import the `Tabs` and `TabItem` components and styles.
+
+```jsx
+import { Tabs, TabItem } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<Tabs>
+  <TabItem title="Tab 1">Tab 1 Content</TabItem>
+  <TabItem title="Tab 2">Tab 2 Content</TabItem>
+</Tabs>;
+```
+
+<Example>
+  <Tabs>
+    <TabItem title="Tab 1">Tab 1 Content</TabItem>
+    <TabItem title="Tab 2">Tab 2 Content</TabItem>
+  </Tabs>
+</Example>
+
+The `Tabs` component accepts `TabItems` as children. Each `TabItem` contains both the Tab's `title` and its corresponding content panel (children). Children passed to `TabItem` must be responsible for their own styling.
+
+### Default Tab
+
+In the `Tabs` component, use the `defaultTab` prop to change which Tab content is initially displayed. Pass in the index of the Tab you wish to show. The default is index 0 (the first tab).
+
+```jsx
+<Tabs defaultTab={1}>
+  <TabItem title="First">Content of the first tab</TabItem>
+  <TabItem title="Second">Content of the second tab</TabItem>
+</Tabs>
+```
+
+<Example>
+  <Tabs defaultTab={1}>
+    <TabItem title="First">Content of the first tab</TabItem>
+    <TabItem title="Second">
+      The content of the second tab is initially shown because we passed in
+      index 1 to defaultTab (notice that the tabs are zero-indexed).
+    </TabItem>
+  </Tabs>
+</Example>
+
+### Grow
+
+In the `Tabs` component, use the `grow` prop to control how Tabs take up the remaining space. Pass `equal` to make each tab take up the same amount of space, and `relative` to make each tab take up space relative to the size of its title.
+
+```jsx
+<Tabs grow="equal">
+  <TabItem title="First">Content of the first tab</TabItem>
+  <TabItem title="This is the second tab">Content of the second tab</TabItem>
+  <TabItem title="Really long title for demonstration">Content of the third tab</TabItem>
+</Tabs>
+
+<Tabs grow="relative">
+  <TabItem title="First">Content of the first tab</TabItem>
+  <TabItem title="This is the second tab">Content of the second tab</TabItem>
+  <TabItem title="Really long title for demonstration">Content of the third tab</TabItem>
+</Tabs>
+```
+
+<Example>
+<Flex direction="column" gap="2rem">
+<Tabs grow="equal">
+  <TabItem title="First">Content of the first tab</TabItem>
+  <TabItem title="This is the second tab">Content of the second tab</TabItem>
+  <TabItem title="Really long title for demonstration">Content of the third tab</TabItem>
+</Tabs>
+
+<Tabs grow="relative">
+  <TabItem title="First">Content of the first tab</TabItem>
+  <TabItem title="This is the second tab">Content of the second tab</TabItem>
+  <TabItem title="Really long title for demonstration">Content of the third tab</TabItem>
+</Tabs>
+</Flex>
+</Example>
+
+### Justify Content
+
+In the `Tabs` component, use the `justifyContent` prop to control how space is distributed between and around the Tabs. Available options include `flex-start` (default), `flex-end`, `center`, `space-between`, `space-around`, and `space-evenly`.
+
+```jsx
+<Tabs justifyContent="center">
+  <TabItem title="First">Tabs are centered</TabItem>
+  <TabItem title="Second">Content of the second tab</TabItem>
+  <TabItem title="Third">Content of the third tab</TabItem>
+</Tabs>
+
+<Tabs justifyContent="flex-end">
+  <TabItem title="First">Tabs are stacked to the right</TabItem>
+  <TabItem title="Second">Content of the second tab</TabItem>
+  <TabItem title="Third">Content of the third tab</TabItem>
+</Tabs>
+```
+
+<Example>
+<Flex direction="column" gap="2rem">
+<Tabs justifyContent="center">
+  <TabItem title="First">Tabs are centered</TabItem>
+  <TabItem title="Second">Content of the second tab</TabItem>
+  <TabItem title="Third">Content of the third tab</TabItem>
+</Tabs>
+
+<Tabs justifyContent="flex-end">
+  <TabItem title="First">Tabs are stacked to the right</TabItem>
+  <TabItem title="Second">Content of the second tab</TabItem>
+  <TabItem title="Third">Content of the third tab</TabItem>
+</Tabs>
+</Flex>
+</Example>
+
+### Title
+
+In the `TabItem` component, use the **required** `title` prop to change the title corresponding with each Tab's content. For styling purposes, you may pass your own custom component if you wish.
+
+```jsx
+<Tabs>
+  <TabItem title="This is the first title">Content of the first tab</TabItem>
+  <TabItem title={<Text color="red">Custom Red Title</Text>}>
+    Content of the second tab
+  </TabItem>
+</Tabs>
+```
+
+<Example>
+  <Tabs>
+    <TabItem title="This is the first title">Content of the first tab</TabItem>
+    <TabItem title={<Text color="red">Custom Red Title</Text>}>
+      Content of the second tab
+    </TabItem>
+  </Tabs>
+</Example>
+
+### isDisabled
+
+In the `TabItem` component, use the `isDisabled` prop to make a Tab not clickable and its content not visible to the user.
+
+```jsx
+<Tabs>
+  <Tabs>
+    <TabItem title="Tab 1">Tab 1 Content</TabItem>
+    <TabItem title="Tab 2">Tab 2 Content</TabItem>
+    <TabItem title="Tab 3" isDisabled={true}>
+      This Tab is not clickable and will not display the Tab's content to the
+      user.
+    </TabItem>
+  </Tabs>
+</Tabs>
+```
+
+<Example>
+  <Tabs>
+    <TabItem title="Tab 1">Tab 1 Content</TabItem>
+    <TabItem title="Tab 2">Tab 2 Content</TabItem>
+    <TabItem title="Tab 3" isDisabled={true}>
+      This Tab is not clickable and will not display the Tab's content to the
+      user.
+    </TabItem>
+  </Tabs>
+</Example>
