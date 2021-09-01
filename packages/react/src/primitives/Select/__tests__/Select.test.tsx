@@ -53,7 +53,7 @@ describe('Select primitive test suite', () => {
     expect(select).toHaveAttribute('name', name);
     expect(select).toHaveAttribute('data-size', size);
     expect(select).toHaveAttribute('data-variation', variation);
-    expect(select).toHaveAttribute('class', ComponentClassNames.Select);
+    expect(select).toHaveClass(ComponentClassNames.Select);
     expect(select).not.toBeDisabled();
     expect(select).not.toBeRequired();
   });
