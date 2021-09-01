@@ -30,15 +30,18 @@ export interface SignInContext extends BaseFormContext {
 
 export interface SignUpContext extends BaseFormContext {
   login_mechanisms?: string[];
+  unverifiedAttributes?: Record<string, string>;
 }
 
 export interface ResetPasswordContext extends BaseFormContext {
   username?: string;
+  unverifiedAttributes?: Record<string, string>;
 }
 
 export interface SignOutContext {
   authAttributes?: Record<string, any>;
   challengeName?: string;
+  unverifiedAttributes?: Record<string, string>;
   user?: CognitoUserAmplify;
 }
 
