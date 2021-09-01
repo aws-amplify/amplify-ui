@@ -82,6 +82,7 @@ export interface ConfirmSignInSetupReturnTypes {
   submit: (e: Event) => void;
   backSignInText: ComputedRef<string>;
   confirmText: ComputedRef<string>;
+  codeText: ComputedRef<string>;
   actorState: ComputedRef<SignInState>;
 }
 
@@ -130,6 +131,7 @@ export interface ForceNewPasswordReturnTypes {
   actorState: ComputedRef<SignInState>;
   onHaveAccountClicked: () => void;
   signInButtonText: ComputedRef<string>;
+  passwordText: ComputedRef<string>;
   haveAccountLabel: ComputedRef<string>;
 }
 
@@ -149,6 +151,7 @@ export interface ResetPasswordSetupReturnTypes {
   resetPasswordText: ComputedRef<string>;
   resetPasswordHeading: ComputedRef<string>;
   backSignInText: ComputedRef<string>;
+  enterUsernameText: ComputedRef<string>;
   actorState: ComputedRef<ResetPasswordState>;
 }
 

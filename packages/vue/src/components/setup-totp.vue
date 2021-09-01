@@ -18,7 +18,7 @@
               <base-text>Code *</base-text>
               <base-input
                 name="confirmation_code"
-                placeholder="Code"
+                :placeholder="codeText"
                 autocomplete="one-time-code"
                 required
                 type="text"
@@ -63,6 +63,8 @@ import {
   ComputedRef,
 } from 'vue';
 
+import { I18n } from 'aws-amplify';
+
 import BaseHeading from './primitives/base-heading.vue';
 import BaseFieldSet from './primitives/base-field-set.vue';
 import BaseLabel from './primitives/base-label.vue';
@@ -81,6 +83,7 @@ import {
   BACK_SIGN_IN_TEXT,
   CONFIRM_TEXT,
   SETUP_TOTP_TEXT,
+  CODE_TEXT,
 } from '../defaults/DefaultTexts';
 
 import { Auth, Logger } from 'aws-amplify';
@@ -135,9 +138,10 @@ export default defineComponent({
     });
 
     // Computed Properties
-    const backSignInText = computed(() => BACK_SIGN_IN_TEXT);
-    const confirmText = computed(() => CONFIRM_TEXT);
-    const setupTOTPText = computed(() => SETUP_TOTP_TEXT);
+    const backSignInText = computed(() => I18n.get(BACK_SIGN_IN_TEXT));
+    const confirmText = computed(() => I18n.get(CONFIRM_TEXT));
+    const setupTOTPText = computed(() => I18n.get(SETUP_TOTP_TEXT));
+    const codeText = computed(() => I18n.get(CODE_TEXT));
 
     // Methods
     const onSetupTOTPSubmit = (e: Event): void => {
@@ -178,6 +182,7 @@ export default defineComponent({
       submit,
       backSignInText,
       confirmText,
+      codeText,
       setupTOTPText,
     };
   },
