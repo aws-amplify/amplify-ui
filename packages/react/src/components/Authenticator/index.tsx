@@ -1,4 +1,4 @@
-import { authMachine, getActorState } from '@aws-amplify/ui-core';
+import { authMachine, getActorState } from '@aws-amplify/ui';
 import { useAmplify } from '../../hooks';
 import { useActor, useInterpret } from '@xstate/react';
 

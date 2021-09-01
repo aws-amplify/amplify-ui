@@ -13,7 +13,7 @@ import { AmplifyOverrideDirective } from '../../directives/amplify-override.dire
 import { StateMachineService } from '../../services/state-machine.service';
 import { AuthPropService } from '../../services/authenticator-context.service';
 import { CustomComponents } from '../../common';
-import { getActorState } from '@aws-amplify/ui-core';
+import { getActorState } from '@aws-amplify/ui';
 
 @Component({
   selector: 'amplify-authenticator',

@@ -1,19 +1,17 @@
-import { useState, useEffect } from 'react';
-
 import {
-  Collection,
-  Text,
-  View,
-  Image,
   Button,
+  Collection,
   IconAccountCircle,
+  Image,
+  Text,
+  theme,
+  View,
 } from '@aws-amplify/ui-react';
-import theme from '@aws-amplify/ui-theme-base';
-
-import { ListingCard } from './ListingCard';
-import { ExperienceCard } from './ExperienceCard';
-import { SectionHeading } from './SectionHeading';
+import { useEffect, useState } from 'react';
 import { experiences, places } from './data';
+import { ExperienceCard } from './ExperienceCard';
+import { ListingCard } from './ListingCard';
+import { SectionHeading } from './SectionHeading';
 
 function App() {
   const [loaded, setLoaded] = useState(false);

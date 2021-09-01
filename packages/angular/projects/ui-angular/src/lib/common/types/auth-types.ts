@@ -1,4 +1,4 @@
-import { AuthInputAttributes } from '@aws-amplify/ui-core';
+import { AuthInputAttributes } from '@aws-amplify/ui';
 
 /**
  * TODO: This should be typed from core

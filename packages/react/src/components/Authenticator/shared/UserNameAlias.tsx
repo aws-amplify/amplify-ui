@@ -1,5 +1,5 @@
-import { I18n } from '@aws-amplify/core';
-import { getAliasInfoFromContext } from '@aws-amplify/ui-core';
+import { I18n } from 'aws-amplify';
+import { getAliasInfoFromContext } from '@aws-amplify/ui';
 
 import { useAuth } from '../../../hooks';
 import { Label, Text, Input, ErrorText } from '../../../primitives';

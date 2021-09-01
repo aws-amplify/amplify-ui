@@ -1,20 +1,19 @@
 import {
-  Card,
-  Heading,
-  Text,
-  View,
-  Image,
-  Flex,
   Badge,
   Button,
-  Rating,
-  Placeholder,
-  IconWhatshot,
+  Card,
+  Flex,
+  Heading,
   IconCheckCircle,
   IconFavorite,
+  IconWhatshot,
+  Image,
+  Placeholder,
+  Rating,
+  Text,
+  theme,
+  View,
 } from '@aws-amplify/ui-react';
-
-import theme from '@aws-amplify/ui-theme-base';
 
 export const ListingCard = ({
   title,

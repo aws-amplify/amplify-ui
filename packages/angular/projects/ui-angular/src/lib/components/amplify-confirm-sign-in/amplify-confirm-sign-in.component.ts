@@ -6,7 +6,7 @@ import {
   OnInit,
   TemplateRef,
 } from '@angular/core';
-import { Logger } from '@aws-amplify/core';
+import { Logger } from 'aws-amplify';
 import { StateMachineService } from '../../services/state-machine.service';
 import { AuthPropService } from '../../services/authenticator-context.service';
 import { Subscription } from 'xstate';
@@ -17,7 +17,7 @@ import {
   getActorState,
   SignInContext,
   SignInState,
-} from '@aws-amplify/ui-core';
+} from '@aws-amplify/ui';
 
 const logger = new Logger('ConfirmSignIn');
 
@@ -64,7 +64,7 @@ export class AmplifyConfirmSignInComponent
     const { challengeName } = actorContext;
     switch (challengeName) {
       case AuthChallengeNames.SOFTWARE_TOKEN_MFA:
-        // TODO: this string should be centralized and translated from ui-core.
+        // TODO: this string should be centralized and translated from ui.
         this.headerText = 'Confirm TOTP Code';
         break;
       case AuthChallengeNames.SMS_MFA:
