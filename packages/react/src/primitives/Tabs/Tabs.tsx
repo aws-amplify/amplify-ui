@@ -34,9 +34,8 @@ export const Tabs: Tabs = ({
   ariaLabel,
   children,
   className,
-  defaultTabIndex = 0,
+  defaultTab = 0,
   direction,
-  disabledTabs,
   gap = '0',
   grow,
   justifyContent,
@@ -48,11 +47,12 @@ export const Tabs: Tabs = ({
     return {
       title: child.props.title,
       panel: child.props.children,
+      isDisabled: child.props.isDisabled,
     };
   });
 
   return (
-    <Root defaultValue={`${defaultTabIndex}`}>
+    <Root defaultValue={`${defaultTab}`}>
       <List aria-label={ariaLabel}>
         <Flex
           alignContent={alignContent}
@@ -67,7 +67,7 @@ export const Tabs: Tabs = ({
             <RadixTab
               className={classNames(ComponentClassNames.Tabs, className)}
               data-grow={grow}
-              disabled={disabledTabs && disabledTabs.includes(index)}
+              disabled={tab.isDisabled}
               value={`${index}`}
             >
               {tab.title}

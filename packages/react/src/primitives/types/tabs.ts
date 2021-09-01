@@ -11,19 +11,28 @@ export interface TabsProps
     AriaProps,
     BaseStyleProps,
     FlexStyleProps {
+  // Is there a way to do this such that a customer can create a custom component that returns a TabItem?
+  children: React.ReactElement | React.ReactElement[];
+
   /**
    * Explain. Defaults to zero (0). Index of active tab.
    */
-  defaultTabIndex?: number;
+  defaultTab?: number;
 
+  /**
+   * Explain.
+   */
   grow?: TabsGrow;
-
-  disabledTabs: number[];
-
-  // Is there a way to do this such that a customer can create a custom component that returns a TabItem?
-  children: React.ReactElement | React.ReactElement[];
 }
 
 export interface TabItemProps {
+  /**
+   * Explain.
+   */
   title: React.ReactNode;
+
+  /**
+   * Explain.
+   */
+  isDisabled?: boolean;
 }

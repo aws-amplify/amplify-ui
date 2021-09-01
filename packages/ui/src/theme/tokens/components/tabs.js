@@ -35,16 +35,4 @@ module.exports = {
     backgroundColor: { value: 'transparent' },
     borderColor: { value: '{colors.border.tertiary.value}' },
   },
-
-  // sizes
-  small: {
-    fontSize: { value: '{fontSizes.small.value}' },
-    padding: { value: ['{space.xs.value}', '{space.small.value}'] },
-    borderRadius: { value: '{radii.medium.value}' },
-  },
-  large: {
-    fontSize: { value: '{fontSizes.large.value}' },
-    padding: { value: ['{space.medium.value}', '{space.large.value}'] },
-    borderRadius: { value: '{radii.medium.value}' },
-  },
 };
