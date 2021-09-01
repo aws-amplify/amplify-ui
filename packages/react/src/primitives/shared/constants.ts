@@ -14,4 +14,5 @@ export enum ComponentClassNames {
   Rating = 'amplify-rating',
   Text = 'amplify-text',
   View = 'amplify-view',
+  VisuallyHidden = 'amplify-visually-hidden',
 }

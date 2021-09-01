@@ -1857,6 +1857,7 @@ Array [
   "Spacer",
   "Text",
   "View",
+  "VisuallyHidden",
   "Wrapper",
   "components",
   "convertStylePropsToStyleObj",
