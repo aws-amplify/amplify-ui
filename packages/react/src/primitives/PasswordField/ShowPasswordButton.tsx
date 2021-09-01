@@ -12,7 +12,7 @@ const ariaLabelText = SharedText.ShowPasswordButton.ariaLabel;
 export const ShowPasswordButton: React.FC<ShowPasswordButtonProps> = ({
   fieldType,
   size,
-  onClick = () => {},
+  onClick,
 }) => {
   return (
     <Button
