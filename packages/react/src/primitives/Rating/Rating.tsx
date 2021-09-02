@@ -5,8 +5,8 @@ import { RatingProps } from '../types';
 import { RatingIcon } from './RatingIcon';
 import { RatingMixedIcon } from './RatingMixedIcon';
 import { Flex } from '../Flex';
-import { Text } from '../Text';
 import { IconStar } from '../Icon';
+import { VisuallyHidden } from '../VisuallyHidden';
 import { isIconFilled, isIconEmpty, isIconMixed } from './utils';
 
 const RATING_DEFAULT_MAX_VALUE = 5;
@@ -63,9 +63,9 @@ export const Rating: React.FC<RatingProps> = (props) => {
       {...rest}
     >
       {items}
-      <Text className="sr-only">
+      <VisuallyHidden>
         {value} out of {maxValue} rating
-      </Text>
+      </VisuallyHidden>
     </Flex>
   );
 };

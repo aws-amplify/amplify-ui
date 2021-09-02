@@ -26,11 +26,6 @@
     );
   }
 
-  .visuallyhidden {
-    position: absolute;
-    visibility: hidden;
-  }
-
   .ellipsis {
     padding-left: var(--amplify-components-pagination-ellipsis-padding-left);
     padding-right: var(--amplify-components-pagination-ellipsis-padding-right);

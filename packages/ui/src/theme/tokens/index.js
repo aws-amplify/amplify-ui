@@ -7,6 +7,8 @@ module.exports = {
   fontWeights: require('./fontWeights'),
   lineHeights: require('./lineHeights'),
   opacities: require('./opacities'),
+  outlineOffsets: require('./outlineOffsets'),
+  outlineWidths: require('./outlineWidths'),
   radii: require('./radii'),
   shadows: require('./shadows'),
   space: require('./space'),

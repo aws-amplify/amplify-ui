@@ -1,0 +1,351 @@
+import { TextField, Flex, PasswordField, Button } from '@aws-amplify/ui-react';
+import {
+  TextFieldDemo,
+  DescriptiveTextFieldExample,
+  RequiredTextFieldExample,
+  TextFieldStyledPropsExample,
+  TextFieldStartEndComponentsExample,
+} from './demo';
+import { Example } from '@/components/Example';
+
+The `TextField` form primitive can be used allow users to input text content.
+
+## Demo
+
+<TextFieldDemo />
+
+## Usage
+
+Import the `TextField` component and styles and provide a `label` for accessibility/usability.
+
+```jsx
+import { TextField } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<TextField
+  label="Name"
+  placeholder="Galadriel"
+  descriptiveText="Please enter valid name"
+/>;
+```
+
+<Example>
+  <TextField
+    label="Name"
+    placeholder="Galadriel"
+    descriptiveText="Please enter valid name"
+  />
+</Example>
+
+### Accessibility / Label behavior
+
+The TextField primitive is accessible by default. A matching `label` HTML element is rendered with the `TextField`,
+all that is required is to provide a `label` prop with a `string` or `ReactNode`. If no `id` is provided, one will be automatically
+generated and connected to both `label` and `input` elements.
+
+#### How can I visually hide the label while maintaining accessibility?
+
+In some applications it may be desirable to hide the label when the field purpose is visually apparent such as a search field with button.
+The `labelHidden` prop can be used to visually hide the label while still keeping the label visible for screenreaders. UX Tip: refrain from doing this
+if it would hide important information needed by the user to fill out the field.
+
+```jsx
+<Flex>
+  <TextField label="Search" labelHidden={true} />
+  <Button>Search</Button>
+</Flex>
+```
+
+<Example>
+  <Flex>
+    <TextField label="Search" labelHidden={true} />
+    <Button>Search</Button>
+  </Flex>
+</Example>
+
+### Sizes
+
+TextField sizes are designed to match styling of other field components such as buttons. There are three sizes: small, (default), and large.
+
+```jsx
+<Flex>
+  <TextField label="Small" size="small" labelHidden/>
+  <Button size="small">Small</Button>
+</Flex>
+
+<Flex>
+  <TextField label="Default" labelHidden/>
+  <Button>Default</Button>
+</Flex>
+
+<Flex>
+  <TextField label="Large" size="large" labelHidden/>
+  <Button size="large">Large</Button>
+</Flex>
+```
+
+<Example>
+  <Flex direction="column" gap="1rem">
+    <Flex>
+      <TextField label="Small" size="small" labelHidden />
+      <Button size="small">Small</Button>
+    </Flex>
+    <Flex>
+      <TextField label="Default" labelHidden />
+      <Button>Default</Button>
+    </Flex>
+    <Flex>
+      <TextField label="Large" size="large" labelHidden />
+      <Button size="large">Large</Button>
+    </Flex>
+  </Flex>
+</Example>
+
+### Variations
+
+There are two variation styles available: default and `quiet`.
+
+```jsx
+<TextField label="Default" />
+<TextField label="Quiet"  variation="quiet"/>
+```
+
+<Example>
+  <TextField label="Default" />
+  <TextField label="Quiet" variation="quiet" />
+</Example>
+
+### Start and End components
+
+Compose field components such as `Button` and `Select` at the start or end of an TextField input using the `inputStartComponents` or `inputEndComponents` props.
+
+```jsx
+<Flex gap="1rem" direction="column">
+  <TextField label="Start" inputStartComponents={<Button>Start</Button>} />
+  <TextField
+    label="Start and End"
+    inputStartComponents={<Button>Start</Button>}
+    inputEndComponents={<Button>End</Button>}
+  />
+  <TextField label="End" inputEndComponents={<Button>End</Button>} />
+  <TextField
+    label="Multiple End"
+    inputEndComponents={
+      <>
+        <Button>End</Button>
+        <Button>End</Button>
+      </>
+    }
+  />
+  <TextField
+    label="Multiple Start"
+    inputStartComponents={
+      <>
+        <Button>Start</Button>
+        <Button>Start</Button>
+      </>
+    }
+  />
+</Flex>
+```
+
+<TextFieldStartEndComponentsExample />
+
+### Descriptive text
+
+To provide additional descriptive text of requirements of the field, use the `descriptiveText` field:
+
+```jsx
+<TextField
+  type="password"
+  label="Password"
+  descriptiveText={
+    <Text as="span" color="rebeccapurple" fontStyle="italic" fontSize="0.8rem">
+      Password length must be greater than 8 characters
+    </Text>
+  }
+/>
+```
+
+<Example>
+  <DescriptiveTextFieldExample />
+</Example>
+
+### States
+
+The available TextField states include `isDisabled` and `isReadonly`. A disabled field will be not be focusable not mutable and will not be submitted with form data. A readonly field cannot be edited by the user.
+
+```jsx
+<TextField label="Disabled" defaultValue="Disabled" isDisabled={true} />
+<TextField label="Readonly" defaultValue="You can't edit me!" isReadOnly={true} />
+```
+
+<Example>
+  <Flex direction="column" gap="1rem">
+    <TextField label="Disabled" defaultValue="Disabled" isDisabled={true} />
+    <TextField
+      label="Readonly"
+      defaultValue="You can't edit me!"
+      isReadOnly={true}
+    />
+  </Flex>
+</Example>
+
+### Required fields
+
+Use the `isRequired` prop to specify a required field.
+
+```jsx
+<Flex as="form" direction="column" width="20rem">
+  <TextField label="Email" type="email" isRequired={true} />
+  <Button type="submit">Submit</Button>
+</Flex>
+```
+
+<Example>
+  <Flex as="form" direction="column" width="20rem">
+    <TextField label="Email" type="email" isRequired={true} />
+    <Button type="submit">Submit</Button>
+  </Flex>
+</Example>
+
+There is no default styling for required fields. Customize the `label` or `descriptiveText` to instruct the form user of the required field.
+
+```jsx
+<Flex as="form" direction="column" width="20rem">
+  <TextField
+    label={
+      <Text>
+        Email
+        <Text as="span" fontSize="0.8rem" color="red">
+          {' '}
+          (required)
+        </Text>
+      </Text>
+    }
+    type="email"
+    isRequired={true}
+  />
+  <TextField
+    label="Password"
+    type="password"
+    descriptiveText={
+      <Text as="span" fontSize="0.8rem" color="red" fontStyle="italic">
+        Required
+      </Text>
+    }
+    type="email"
+    isRequired={true}
+  />
+  <Button type="submit">Submit</Button>
+</Flex>
+```
+
+<Example>
+  <RequiredTextFieldExample />
+</Example>
+
+### Validation error styling
+
+Use the `hasError` and `errorMessage` fields to mark a TextField as having an validation error.
+
+```jsx
+<TextField
+  label="Password"
+  defaultValue="1234"
+  hasError={true}
+  errorMessage="Password should not be 1234! 😱"
+/>
+<TextField
+  label="Password"
+  defaultValue="1234"
+  hasError={true}
+  variation="quiet"
+  errorMessage="Password should not be 1234! 😱"
+/>
+```
+
+<Example>
+  <Flex gap="1rem" direction="column">
+    <TextField
+      label="Password"
+      type="password"
+      defaultValue="1234"
+      hasError={true}
+      errorMessage="Password should not be 1234! 😱"
+    />
+    <TextField
+      label="Password"
+      type="password"
+      defaultValue="1234"
+      hasError={true}
+      variation="quiet"
+      errorMessage="Password should not be 1234! 😱"
+    />
+  </Flex>
+</Example>
+
+## CSS Styling
+
+### Global styling
+
+To override styling on all TextField primitives, you can set the Amplify CSS variables or use the built-in `.amplify-textfield` class.
+
+```css
+/* styles.css */
+:root {
+  --amplify-components-field-border-color: rebeccapurple;
+}
+/* OR */
+.amplify-textfield {
+  --amplify-components-field-border-color: rebeccapurple;
+}
+```
+
+<Example>
+  <TextField
+    label="Globally styled field"
+    className="globally-styled-textfield"
+  />
+</Example>
+
+### Local styling
+
+To override styling on a specific TextField, you can use a class selector or style props.
+
+_Using a class selector:_
+
+```css
+/* styles.css */
+.custom-textfield-class .amplify-input {
+  border-radius: 0;
+}
+```
+
+<Example>
+  <TextField className="custom-textfield-class" label="Square field" />
+</Example>
+
+_Using style props:_
+
+Flex styling props will be applied to the TextField wrapping Flex component, whereas other style props will be applied to the field. This allows us to change the layout of the label and field, while also styling the input field.
+
+```jsx
+<TextField
+  direction="row"
+  alignItems="baseline"
+  label={
+    <Text fontWeight="bold" fontSize="1.5rem">
+      Name:
+    </Text>
+  }
+  fontSize="1.5rem"
+  backgroundColor="#fff1e7"
+  color="#000"
+  width="400px"
+/>
+```
+
+<Example>
+  <TextFieldStyledPropsExample />
+</Example>

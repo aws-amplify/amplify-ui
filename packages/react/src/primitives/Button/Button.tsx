@@ -22,7 +22,11 @@ export const Button: React.FC<ButtonProps> = ({
   <View
     aria-label={ariaLabel}
     as="button"
-    className={classNames(ComponentClassNames.Button, className)}
+    className={classNames(
+      ComponentClassNames.Button,
+      ComponentClassNames.FieldGroupControl,
+      className
+    )}
     data-fullwidth={isFullWidth}
     data-loading={isLoading}
     data-size={size}

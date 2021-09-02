@@ -1,0 +1,23 @@
+@use 'field';
+
+.amplify-select-wrapper {
+  display: var(--amplify-components-select-wrapper-display);
+  position: var(--amplify-components-select-wrapper-position);
+  cursor: var(--amplify-components-select-wrapper-cursor);
+}
+
+.amplify-select-icon-wrapper {
+  position: var(--amplify-components-select-icon-wrapper-position);
+  height: var(--amplify-components-select-icon-wrapper-height);
+  top: var(--amplify-components-select-icon-wrapper-top);
+  right: var(--amplify-components-select-icon-wrapper-right);
+  pointer-events: var(--amplify-components-select-icon-wrapper-pointer-events);
+}
+
+.amplify-select {
+  @extend %amplify-field;
+  width: var(--amplify-components-select-width);
+  padding-inline-end: var(--amplify-components-select-padding-inline-end);
+  transition-property: var(--amplify-components-select-transition-property);
+  transition-duration: var(--amplify-components-select-transition-duration);
+}
