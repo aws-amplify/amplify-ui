@@ -24,6 +24,14 @@ export default defineConfig({
       },
     }),
   ],
+  resolve: {
+    alias: [
+      {
+        find: './runtimeConfig',
+        replacement: './runtimeConfig.browser',
+      },
+    ],
+  },
   build: {
     cssCodeSplit: false,
     lib: {

@@ -46,6 +46,8 @@
 
 <script lang="ts">
 import { defineComponent, computed, ComputedRef } from 'vue';
+import { I18n } from 'aws-amplify';
+
 import BaseHeading from './primitives/base-heading.vue';
 import BaseFieldSet from './primitives/base-field-set.vue';
 import BaseLabel from './primitives/base-label.vue';
@@ -94,10 +96,12 @@ export default defineComponent({
     );
 
     // Computed Properties
-    const verifyHeading = computed(() => VERIFY_HEADING);
-    const skipText = computed(() => SKIP_TEXT);
-    const verifyText = computed(() => VERIFY_TEXT);
-    const confirmationCodeText = computed(() => CONFIRMATION_CODE_TEXT);
+    const verifyHeading = computed(() => I18n.get(VERIFY_HEADING));
+    const skipText = computed(() => I18n.get(SKIP_TEXT));
+    const verifyText = computed(() => I18n.get(VERIFY_TEXT));
+    const confirmationCodeText = computed(() =>
+      I18n.get(CONFIRMATION_CODE_TEXT)
+    );
 
     // Methods
     const onConfirmVerifyUserSubmit = (e: Event): void => {

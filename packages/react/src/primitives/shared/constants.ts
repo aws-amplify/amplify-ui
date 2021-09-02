@@ -14,6 +14,7 @@ export enum ComponentClassNames {
   Image = 'amplify-image',
   Input = 'amplify-input',
   Label = 'amplify-label',
+  Link = 'amplify-link',
   Pagination = 'amplify-pagination',
   PasswordField = 'amplify-passwordfield',
   Placeholder = 'amplify-placeholder',

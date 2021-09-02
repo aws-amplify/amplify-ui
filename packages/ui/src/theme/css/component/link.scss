@@ -1,0 +1,26 @@
+.amplify-link {
+  color: var(--amplify-components-link-color);
+  text-decoration: var(--amplify-components-link-text-decoration);
+  &:active {
+    color: var(--amplify-components-link-active-color);
+    text-decoration: var(--amplify-components-link-active-text-decoration);
+  }
+  &:focus {
+    color: var(--amplify-components-link-focus-color);
+    text-decoration: var(--amplify-components-link-focus-text-decoration);
+  }
+  &:hover {
+    color: var(--amplify-components-link-hover-color);
+    text-decoration: var(--amplify-components-link-hover-text-decoration);
+  }
+  &:visited {
+    color: var(--amplify-components-link-visited-color);
+    text-decoration: var(--amplify-components-link-visited-text-decoration);
+  }
+  &[data-size='small'] {
+    font-size: var(--amplify-components-link-small-font-size);
+  }
+  &[data-size='large'] {
+    font-size: var(--amplify-components-link-large-font-size);
+  }
+}

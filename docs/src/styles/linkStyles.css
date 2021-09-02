@@ -1,0 +1,14 @@
+.custom-link {
+  color: red;
+  font-weight: bold;
+}
+
+.custom-link:hover {
+  color: blue;
+  font-weight: bold;
+}
+
+.custom-link:focus {
+  color: green;
+  font-weight: bold;
+}

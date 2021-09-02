@@ -10,6 +10,7 @@ export * from './heading';
 export * from './icon';
 export * from './image';
 export * from './label';
+export * from './link';
 export * from './pagination';
 export * from './placeholder';
 export * from './rating';
