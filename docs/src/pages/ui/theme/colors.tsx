@@ -1,6 +1,5 @@
+import { Flex, theme, View } from '@aws-amplify/ui-react';
 import React from 'react';
-import { View, Flex } from '@aws-amplify/ui-react';
-import theme from '@aws-amplify/ui-theme-base';
 
 const baseColors = [
   'red',

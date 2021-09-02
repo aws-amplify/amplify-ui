@@ -20,7 +20,7 @@ jobs:
       matrix:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
         package:
-          - '@aws-amplify/ui-core'
+          - '@aws-amplify/ui'
           - '@aws-amplify/ui-angular'
           - '@aws-amplify/ui-vue'
           - '@aws-amplify/ui-react'

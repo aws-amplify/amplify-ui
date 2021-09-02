@@ -1,5 +1,4 @@
-import { getActorContext } from '@aws-amplify/ui-core';
-import { ActorContextWithForms } from '@aws-amplify/ui-core/src/types/authMachine';
+import { ActorContextWithForms, getActorContext } from '@aws-amplify/ui';
 import { useAmplify, useAuth } from '../../../hooks';
 
 export interface ErrorTextProps {

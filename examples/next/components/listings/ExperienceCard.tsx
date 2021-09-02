@@ -1,6 +1,4 @@
-import { Card, Image, Text } from '@aws-amplify/ui-react';
-
-import theme from '@aws-amplify/ui-theme-base';
+import { Card, Image, Text, theme } from '@aws-amplify/ui-react';
 
 export const ExperienceCard = ({ img, title }) => (
   <Card

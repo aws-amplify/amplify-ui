@@ -5,7 +5,7 @@ import {
   TemplateRef,
 } from '@angular/core';
 import { StateMachineService } from '../../services/state-machine.service';
-import { FederatedIdentityProviders } from '@aws-amplify/ui-core';
+import { FederatedIdentityProviders } from '@aws-amplify/ui';
 
 @Component({
   selector: 'amplify-federated-sign-in',

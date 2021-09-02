@@ -11,4 +11,7 @@ export { default as ResetPassword } from './reset-password.vue';
 export { default as ConfirmResetPassword } from './confirm-reset-password.vue';
 export { default as ConfirmSignUp } from './confirm-sign-up.vue';
 export { default as ConfirmSignIn } from './confirm-sign-in.vue';
+export { default as VerifyUser } from './verify-user.vue';
+export { default as ConfirmVerifyUser } from './confirm-verify-user.vue';
+export * from '../types';
 export * from '../types';

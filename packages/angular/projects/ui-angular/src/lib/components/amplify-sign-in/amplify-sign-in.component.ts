@@ -1,4 +1,4 @@
-import { Logger } from '@aws-amplify/core';
+import { Logger } from 'aws-amplify';
 import {
   AfterContentInit,
   Component,
@@ -12,11 +12,7 @@ import {
 import { StateMachineService } from '../../services/state-machine.service';
 import { AuthPropService } from '../../services/authenticator-context.service';
 import { Subscription } from 'xstate';
-import {
-  AuthMachineState,
-  getActorState,
-  SignInState,
-} from '@aws-amplify/ui-core';
+import { AuthMachineState, getActorState, SignInState } from '@aws-amplify/ui';
 
 const logger = new Logger('SignIn');
 
