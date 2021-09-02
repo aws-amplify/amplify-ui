@@ -17,6 +17,7 @@ Then("I don't see {string} as an input field", (name: string) => {
 });
 
 When('I type the phone number {string}', (phone: string) => {
+  cy.findByRole('combobox', { name: /country code/i }).select('+1');
   cy.findByRole('textbox', { name: /phone number/i }).type(Cypress.env(phone));
 });
 
