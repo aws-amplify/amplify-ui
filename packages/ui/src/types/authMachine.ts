@@ -1,5 +1,5 @@
 import { CognitoUser } from 'amazon-cognito-identity-js';
-import { Interpreter, Sender, State } from 'xstate';
+import { Interpreter, State } from 'xstate';
 import { ValidationError } from './validator';
 
 export type AuthFormData = Record<string, string>;
@@ -109,6 +109,7 @@ export type AuthInputNames = UserNameAlias | 'confirmation_code' | 'password';
 export type AuthInputAttributes = Record<AuthInputNames, InputAttributes>;
 
 export type AuthEventData = Record<PropertyKey, any>; // TODO: this should be typed further
+
 export interface AuthEvent {
   type: AuthEventTypes;
   data?: AuthEventData;
