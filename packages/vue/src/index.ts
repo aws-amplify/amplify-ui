@@ -54,5 +54,3 @@ export {
   ConfirmVerifyUser,
   VerifyUser,
 };
-
-export { useAuth } from './composables';

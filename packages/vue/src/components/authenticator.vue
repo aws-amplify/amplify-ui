@@ -271,12 +271,17 @@
   <slot
     v-if="state?.matches('authenticated')"
     :user="state?.context?.user"
+    :state="state"
+    :send="send"
   ></slot>
 </template>
 
 <script lang="ts">
 import { ref, provide, defineComponent, computed } from 'vue';
 import { getActorState } from '@aws-amplify/ui';
+
+import { authMachine } from '@aws-amplify/ui';
+import { useActor, useInterpret } from '@xstate/vue';
 
 import SignIn from './sign-in.vue';
 import SignUp from './sign-up.vue';
@@ -289,7 +294,6 @@ import ConfirmResetPassword from './confirm-reset-password.vue';
 import VerifyUser from './verify-user.vue';
 import ConfirmVerifyUser from './confirm-verify-user.vue';
 
-import { useAuth } from '../composables/useAuth';
 import {
   AuthenticatorSetupReturnTypes,
   SetupEventContext,
@@ -331,8 +335,17 @@ export default defineComponent({
     verifyUserComponent: typeof VerifyUser;
     confirmVerifyUserComponent: typeof ConfirmVerifyUser;
   } {
-    const { state, send } = useAuth();
+    //Setup XState Provide / Inject
+    const service = ref(
+      useInterpret(authMachine, {
+        devTools: process.env.NODE_ENV === 'development',
+      })
+    );
+
+    provide('service', service.value);
+    const { state, send } = useActor(service.value);
     const actorState = computed(() => getActorState(state.value));
+
     const signInComponent = ref(null);
     const signUpComponent = ref(null);
     const confirmSignUpComponent = ref(null);
