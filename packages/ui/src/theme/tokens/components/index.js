@@ -12,6 +12,7 @@ module.exports = {
   heading: require('./heading'),
   icon: require('./icon'),
   image: require('./image'),
+  link: require('./link'),
   pagination: require('./pagination'),
   placeholder: require('./placeholder'),
   rating: require('./rating'),

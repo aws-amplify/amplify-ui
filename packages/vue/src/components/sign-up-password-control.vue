@@ -11,13 +11,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ComputedRef } from "vue";
+import { defineComponent, computed, ComputedRef } from 'vue';
+import { I18n } from 'aws-amplify';
 
-import BaseInput from "./primitives/base-input.vue";
-import BaseText from "./primitives/base-text.vue";
-import BaseLabel from "./primitives/base-label.vue";
+import BaseInput from './primitives/base-input.vue';
+import BaseText from './primitives/base-text.vue';
+import BaseLabel from './primitives/base-label.vue';
 
-import { PASSWORD_LABEL } from "../defaults/DefaultTexts";
+import { PASSWORD_LABEL } from '../defaults/DefaultTexts';
 
 export default defineComponent({
   components: {
@@ -26,7 +27,7 @@ export default defineComponent({
     BaseLabel,
   },
   setup(): { passwordLabel: ComputedRef<string> } {
-    const passwordLabel = computed(() => PASSWORD_LABEL);
+    const passwordLabel = computed(() => I18n.get(PASSWORD_LABEL));
     return { passwordLabel };
   },
 });
