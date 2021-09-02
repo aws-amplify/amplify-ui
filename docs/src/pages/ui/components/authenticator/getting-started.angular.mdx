@@ -31,7 +31,11 @@ export class AppModule {}
 
 ```html
 <amplify-authenticator>
-  <ng-template amplifySlot="authenticated" let-user="user">
+  <ng-template
+    amplifyOverride="authenticated"
+    let-user="user"
+    let-signOut="signOut"
+  >
     <h1>Welcome {user.username}!</h1>
     <button (click)="signOut()">Sign Out</button>
   </ng-template>
