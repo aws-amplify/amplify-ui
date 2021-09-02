@@ -38,7 +38,7 @@
       }
     }
     // Select requires special rules due to icon
-    .amplify-select-wrapper {
+    .amplify-select__wrapper {
       .amplify-select {
         @extend %remove-end-radii;
       }
@@ -62,7 +62,7 @@
       }
     }
     // Select requires special rules due to icon
-    .amplify-select-wrapper {
+    .amplify-select__wrapper {
       .amplify-select {
         @extend %remove-start-radii;
       }
