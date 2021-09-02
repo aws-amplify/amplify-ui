@@ -5,7 +5,7 @@ import {
   AuthInterpreter,
   authMachine,
   AuthMachineState,
-  getSendAliases,
+  getSendEventAliases,
 } from '@aws-amplify/ui';
 import { interpret, Event } from 'xstate';
 
@@ -20,7 +20,7 @@ export class StateMachineService {
   private _authState: AuthMachineState;
   private _authService: AuthInterpreter;
   private _user: Record<string, any>; // TODO: strongly type CognitoUser
-  private _services: ReturnType<typeof getSendAliases>;
+  private _services: ReturnType<typeof getSendEventAliases>;
 
   constructor() {
     const interpreter = interpret(authMachine, { devTools: true })
@@ -29,7 +29,7 @@ export class StateMachineService {
         this._authState = state;
       })
       .start();
-    this._services = getSendAliases(interpreter.send);
+    this._services = getSendEventAliases(interpreter.send);
     this._authService = interpreter;
   }
 

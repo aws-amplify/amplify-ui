@@ -110,7 +110,7 @@ export const getActorContext = (state: AuthMachineState): AuthActorContext => {
  *
  * ```
  * const [state, send] = useActor(...);
- * const { submit } = getSendAliases(send);
+ * const { submit } = getSendEventAliases(send);
  * submit({ username, password})
  * ```
  */
