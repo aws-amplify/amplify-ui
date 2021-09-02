@@ -18,6 +18,5 @@ module.exports = {
   rating: require('./rating'),
   select: require('./select'),
   switchfield: require('./switchField'),
-  textfield: require('./textField'),
   text: require('./text'),
 };
