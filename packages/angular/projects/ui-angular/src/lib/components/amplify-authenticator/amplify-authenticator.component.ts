@@ -31,10 +31,6 @@ export class AmplifyAuthenticatorComponent implements AfterContentInit {
   @ContentChildren(AmplifyOverrideDirective)
   private customComponentQuery: QueryList<AmplifyOverrideDirective> = null;
   public customComponents: CustomComponents = {};
-  public context = () => ({
-    user: this.stateMachine.user,
-    username: this.stateMachine.user?.username,
-  }); // use a function so that this is reevaluated whenever context is requested
 
   constructor(
     private stateMachine: StateMachineService,
@@ -60,6 +56,12 @@ export class AmplifyAuthenticatorComponent implements AfterContentInit {
 
   public get authenticatorState() {
     return this.stateMachine.authState;
+  }
+
+  public get context() {
+    const user = this.stateMachine.user;
+    const { signOut } = this.stateMachine.services;
+    return { user, signOut };
   }
 
   private mapCustomComponents(

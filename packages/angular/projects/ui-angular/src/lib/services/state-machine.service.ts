@@ -5,6 +5,7 @@ import {
   AuthInterpreter,
   authMachine,
   AuthMachineState,
+  getSendAliases,
 } from '@aws-amplify/ui';
 import { interpret, Event } from 'xstate';
 
@@ -19,15 +20,21 @@ export class StateMachineService {
   private _authState: AuthMachineState;
   private _authService: AuthInterpreter;
   private _user: Record<string, any>; // TODO: strongly type CognitoUser
+  private _services: ReturnType<typeof getSendAliases>;
+
+  constructor() {
+    const interpreter = interpret(authMachine, { devTools: true })
+      .onTransition((state) => {
+        this._user = state.context.user;
+        this._authState = state;
+      })
+      .start();
+    this._services = getSendAliases(interpreter.send);
+    this._authService = interpreter;
+  }
 
   public get services() {
-    return {
-      submit: (formData) =>
-        this._authService.send({ type: 'SUBMIT', data: formData }),
-    } as const;
-  }
-  public set authState(authState: AuthMachineState) {
-    this._authState = authState;
+    return this._services;
   }
 
   public get authState(): AuthMachineState {
@@ -48,14 +55,5 @@ export class StateMachineService {
 
   public send(event: Event<AuthEvent>) {
     this.authService.send(event);
-  }
-
-  constructor() {
-    this._authService = interpret(authMachine, { devTools: true })
-      .onTransition((state) => {
-        this._user = state.context.user;
-        this._authState = state;
-      })
-      .start();
   }
 }

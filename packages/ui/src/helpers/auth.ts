@@ -1,8 +1,12 @@
-import { includes } from 'lodash';
+import { includes, camelCase, isEmpty } from 'lodash';
+import { Sender } from 'xstate';
 import { AuthContext } from '..';
 import {
   AuthActorContext,
   AuthActorState,
+  AuthEvent,
+  AuthEventData,
+  AuthEventTypes,
   AuthInputAttributes,
   AuthMachineState,
   userNameAliasArray,
@@ -97,4 +101,33 @@ export const getActorState = (state: AuthMachineState): AuthActorState => {
  */
 export const getActorContext = (state: AuthMachineState): AuthActorContext => {
   return getActorState(state)?.context;
+};
+
+/**
+ * Creates public facing auth helpers that abstracts out xstate implementation
+ * detail. Each framework implementation can export these helpers so that
+ * developers can send events without having to learn internals.
+ *
+ * ```
+ * const [state, send] = useActor(...);
+ * const { submit } = getSendAliases(send);
+ * submit({ username, password})
+ * ```
+ */
+export const getSendAliases = (send: Sender<AuthEvent>) => {
+  const sendToMachine = (type: AuthEventTypes) => {
+    return (data?: AuthEventData) => send({ type, data });
+  };
+
+  return {
+    change: sendToMachine('CHANGE'),
+    federatedSignIn: sendToMachine('FEDERATED_SIGN_IN'),
+    resend: sendToMachine('RESEND'),
+    resetPassword: sendToMachine('RESET_PASSWORD'),
+    signIn: sendToMachine('SIGN_IN'),
+    signOut: sendToMachine('SIGN_OUT'),
+    signUp: sendToMachine('SIGN_UP'),
+    skip: sendToMachine('SKIP'),
+    submit: sendToMachine('SUBMIT'),
+  } as const;
 };

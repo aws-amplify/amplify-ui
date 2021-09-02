@@ -1,5 +1,5 @@
 import { CognitoUser } from 'amazon-cognito-identity-js';
-import { Interpreter, State } from 'xstate';
+import { Interpreter, Sender, State } from 'xstate';
 import { ValidationError } from './validator';
 
 export type AuthFormData = Record<string, string>;
@@ -68,15 +68,15 @@ export type InvokeActorEventTypes =
   | 'done.invoke.resetPasswordActor';
 
 export type AuthEventTypes =
-  | 'SIGN_IN'
-  | 'SIGN_UP'
-  | 'SIGN_OUT'
-  | 'SUBMIT'
-  | 'RESEND'
   | 'CHANGE'
   | 'FEDERATED_SIGN_IN'
+  | 'RESEND'
   | 'RESET_PASSWORD'
+  | 'SIGN_IN'
+  | 'SIGN_OUT'
+  | 'SIGN_UP'
   | 'SKIP'
+  | 'SUBMIT'
   | InvokeActorEventTypes;
 
 export enum AuthChallengeNames {
@@ -108,9 +108,10 @@ export type AuthInputNames = UserNameAlias | 'confirmation_code' | 'password';
 
 export type AuthInputAttributes = Record<AuthInputNames, InputAttributes>;
 
+export type AuthEventData = Record<PropertyKey, any>; // TODO: this should be typed further
 export interface AuthEvent {
   type: AuthEventTypes;
-  data?: Record<PropertyKey, any>;
+  data?: AuthEventData;
 }
 
 export type AuthMachineState = State<AuthContext, AuthEvent>;
