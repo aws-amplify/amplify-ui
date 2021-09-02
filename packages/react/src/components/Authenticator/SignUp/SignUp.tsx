@@ -12,6 +12,7 @@ import {
 
 import { useAmplify, useAuth } from '../../../hooks';
 import { FederatedSignIn } from '../FederatedSignIn';
+import { countryDialCodes } from '../../common/country-dial-codes';
 
 export function SignUp() {
   const {
@@ -118,25 +119,39 @@ SignUp.AliasControl = ({
   placeholder = label,
 }) => {
   const {
-    components: { Input, Label, Text, ErrorText },
+    components: { Input, Flex, Label, ErrorText },
   } = useAmplify('Authenticator.SignUp.Alias');
   const [_state] = useAuth();
-  const { validationError } = getActorContext(_state) as SignUpContext;
+  const { validationError, formValues } = getActorContext(
+    _state
+  ) as SignUpContext;
   const error = validationError[name];
 
   return (
-    <>
-      <Label>
-        <Text>{label}</Text>
-        <Input
-          name={name}
-          placeholder={placeholder}
-          required
-          type={authInputAttributes[name].type}
-        />
-      </Label>
+    <Flex direction="column">
+      <Label htmlFor={name}>{label}</Label>
+      {name === 'phone_number' && (
+        <select
+          aria-label="country code"
+          name="country_code"
+          defaultValue={formValues.country_code}
+        >
+          {countryDialCodes.map((dialCode) => (
+            <option key={dialCode} value={dialCode}>
+              {dialCode}
+            </option>
+          ))}
+        </select>
+      )}
+      <Input
+        id={name}
+        name={name}
+        placeholder={placeholder}
+        required
+        type={authInputAttributes[name].type}
+      />
       <ErrorText>{error}</ErrorText>
-    </>
+    </Flex>
   );
 };
 
@@ -146,20 +161,24 @@ SignUp.PasswordControl = ({
   placeholder = label,
 }) => {
   const {
-    components: { Input, Label, Text, ErrorText },
+    components: { Input, Flex, Label, ErrorText },
   } = useAmplify('Authenticator.SignUp.Password');
   const [_state] = useAuth();
   const { validationError } = getActorContext(_state) as SignUpContext;
   const error = validationError[name];
 
   return (
-    <>
-      <Label>
-        <Text>{label}</Text>
-        <Input name={name} placeholder={placeholder} required type="password" />
-      </Label>
+    <Flex direction="column">
+      <Label htmlFor={name}>{label}</Label>
+      <Input
+        id={name}
+        name={name}
+        placeholder={placeholder}
+        required
+        type="password"
+      />
       <ErrorText>{error}</ErrorText>
-    </>
+    </Flex>
   );
 };
 
@@ -168,19 +187,23 @@ SignUp.ConfirmPasswordControl = ({
   name = 'confirm_password',
 }) => {
   const {
-    components: { Input, Label, Text, ErrorText },
+    components: { Input, Flex, Label, ErrorText },
   } = useAmplify('Authenticator.SignUp.Password');
   const [state] = useAuth();
   const { validationError } = getActorContext(state) as SignUpContext;
   const error = validationError[name];
 
   return (
-    <>
-      <Label>
-        <Text>{label}</Text>
-        <Input name={name} placeholder={label} required type="password" />
-      </Label>
+    <Flex direction="column">
+      <Label htmlFor={name}>{label}</Label>
+      <Input
+        id={name}
+        name={name}
+        placeholder={label}
+        required
+        type="password"
+      />
       <ErrorText>{error}</ErrorText>
-    </>
+    </Flex>
   );
 };
