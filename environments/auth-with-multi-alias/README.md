@@ -15,7 +15,7 @@ To configure your application's `auth` backend to allow multiple sign in aliases
 1. When prompted `Do you want to use the default authentication and security configuration?`, select `Manual configuration`
 1. When prompted `How do you want users to be able to sign in?`, select the aliases you would like users to be able to use to sign in to your application:
 
-    > ![](multi-alias-config.png)
+   > ![](multi-alias-config.png)
 
    _Note: a username is still required when a user creates an account and is treated as a sign in alias regardless of if it was selected as an option._
 

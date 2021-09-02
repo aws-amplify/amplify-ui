@@ -3,6 +3,7 @@
  */
 
 .amplify-button {
+  display: inline-block;
   border-radius: var(--amplify-components-button-border-radius);
   box-sizing: border-box;
   font-weight: var(--amplify-components-button-font-weight);
@@ -14,6 +15,7 @@
   border-radius: var(--amplify-components-button-border-radius);
   color: var(--amplify-components-button-color);
   font-size: var(--amplify-components-button-font-size);
+  line-height: var(--amplify-components-button-font-size);
   padding: var(--amplify-components-button-padding);
 
   &:hover {
@@ -26,6 +28,7 @@
   &:focus {
     border-color: var(--amplify-components-button-focus-border-color);
     color: var(--amplify-components-button-focus-color);
+    box-shadow: var(--amplify-components-button-focus-box-shadow);
   }
 
   &:active {
@@ -103,6 +106,8 @@
 
     &:focus {
       color: var(--amplify-components-button-link-focus-color);
+      text-decoration: underline;
+      box-shadow: none;
     }
 
     &:focus-visible {
@@ -111,6 +116,7 @@
 
     &:active {
       color: var(--amplify-components-button-link-active-color);
+      text-decoration: underline;
     }
 
     &[disabled] {
@@ -125,14 +131,20 @@
   }
 
   &[data-size='small'] {
-    border-radius: var(--amplify-components-button-small-border-radius);
     font-size: var(--amplify-components-button-small-font-size);
+    line-height: var(--amplify-components-button-small-font-size);
     padding: var(--amplify-components-button-small-padding);
   }
 
   &[data-size='large'] {
-    border-radius: var(--amplify-components-button-large-border-radius);
     font-size: var(--amplify-components-button-large-font-size);
+    line-height: var(--amplify-components-button-large-font-size);
     padding: var(--amplify-components-button-large-padding);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .amplify-button {
+    transition: none;
   }
 }
