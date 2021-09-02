@@ -1850,6 +1850,7 @@ describe('@aws-amplify/ui-react', () => {
           "Image",
           "Input",
           "Label",
+          "Link",
           "Main",
           "Pagination",
           "PasswordField",
