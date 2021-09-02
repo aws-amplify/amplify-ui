@@ -13,7 +13,7 @@ export enum ComponentClassNames {
   Placeholder = 'amplify-placeholder',
   Rating = 'amplify-rating',
   Tabs = 'amplify-tabs',
-  TabList = 'amplify-tab-list',
+  TabItems = 'amplify-tabs-item',
   Text = 'amplify-text',
   View = 'amplify-view',
 }

@@ -169,3 +169,215 @@ In the `TabItem` component, use the `isDisabled` prop to make a Tab not clickabl
     </TabItem>
   </Tabs>
 </Example>
+
+## CSS Styling
+
+### Global styling
+
+To override styling on all `Tabs` or `TabItems`, you can set the Amplify CSS variables, use the built-in `.amplify-tabs` or `.amplify-tabs-items`classes, or use pseudo-classes.
+
+```css
+/* styles.css */
+:root {
+  --amplify-components-tabs-background-color: rebeccapurple;
+  --amplify-components-tabs-items-background-color: lightblue;
+}
+/* OR */
+.amplify-tabs {
+  background-color: rebeccapurple;
+}
+
+.amplify-tabs-items {
+  background-color: lightblue;
+}
+```
+
+```jsx
+import './styles.css';
+
+<Tabs>
+  <TabItem title="Tab 1">Content of Tab 1</TabItem>
+  <TabItem title="Tab 2">Content of Tab 2</TabItem>
+</Tabs>;
+```
+
+<Example>
+  <Tabs backgroundColor="rebeccapurple">
+    <TabItem title="Tab 1" backgroundColor="lightblue">
+      Content of Tab 1
+    </TabItem>
+    <TabItem title="Tab 2" backgroundColor="lightblue">
+      Content of Tab 2
+    </TabItem>
+  </Tabs>
+</Example>
+
+_Using pseudo-classes:_
+
+```css
+/* styles.css */
+.amplify-tabs-item:hover {
+  background-color: red;
+}
+
+/* Between mouse down and mouse up on a Tab */
+.amplify-tabs-item:active {
+  background-color: orange;
+}
+
+.amplify-tabs-item:focus {
+  background-color: blue;
+}
+
+.amplify-tabs-item:focus-visible {
+  background-color: green;
+}
+```
+
+```jsx
+import './styles.css';
+
+<Tabs>
+  <TabItem title="Tab 1">
+    Hover over, click on, and manually tab through the Tabs on your keyboard to
+    see the styling effects.
+  </TabItem>
+  <TabItem title="Tab 2">
+    Hover over, click on, and manually tab through the Tabs on your keyboard to
+    see the styling effects.
+  </TabItem>
+</Tabs>;
+```
+
+<Example>
+  <Tabs>
+    <TabItem title="Tab 1" className="pseudo-demo">
+      Hover over, click on, and manually tab through the Tabs on your keyboard
+      to see the styling effects.
+    </TabItem>
+    <TabItem title="Tab 2" className="pseudo-demo">
+      Hover over, click on, and manually tab through the Tabs on your keyboard
+      to see the styling effects.
+    </TabItem>
+  </Tabs>
+</Example>
+
+To replace the Tabs styling, unset it:
+
+```css
+.amplify-tabs {
+  all: unset;
+  /* Add your styling here*/
+}
+
+.amplify-tabs-items {
+  all: unset;
+  /* Add your styling here*/
+}
+```
+
+### Local styling
+
+To override styling on a specific `Tabs` or `TabItem` component, you can use (in order of increasing specificity): a class selector, data attributes, or style props.
+
+_Using a class selector:_
+
+```css
+/* styles.css */
+.custom-tabs {
+  background-color: lightblue;
+  justify-content: center;
+}
+
+.custom-tab-item {
+  background-color: white;
+  border-radius: 10px;
+}
+```
+
+```jsx
+import './styles.css';
+
+<Tabs className="custom-tabs">
+  <TabItem title="Tab 1" className="custom-tab-item">
+    Content of Tab 1
+  </TabItem>
+  <TabItem title="Tab 2" className="custom-tab-item">
+    Content of Tab 2
+  </TabItem>
+</Tabs>;
+```
+
+<Example>
+  <Tabs className="custom-tabs">
+    <TabItem title="Tab 1" className="custom-tab-item">
+      Content of Tab 1
+    </TabItem>
+    <TabItem title="Tab 2" className="custom-tab-item">
+      Content of Tab 2
+    </TabItem>
+  </Tabs>
+</Example>
+
+_Using data attributes:_
+
+```css
+/* styles.css */
+/* When a Tab is selected and displaying its corresponding content panel */
+.amplify-tabs-item[data-state='active'] {
+  background-color: yellow;
+}
+
+/* When a Tab is disabled */
+.amplify-tabs-item[data-disabled] {
+  background-color: black;
+}
+```
+
+```jsx
+import './styles.css';
+
+<Tabs>
+  <TabItem title="Tab 1" backgroundColor="yellow">
+    Content of Tab 1
+  </TabItem>
+  <TabItem title="Tab 2" isDisabled={true} backgroundColor="black">
+    Content of Tab 2
+  </TabItem>
+</Tabs>;
+```
+
+<Example>
+  <Tabs>
+    <TabItem title="Tab 1" backgroundColor="yellow">
+      Content of Tab 1
+    </TabItem>
+    <TabItem title="Tab 2" isDisabled={true} backgroundColor="black">
+      Content of Tab 2
+    </TabItem>
+  </Tabs>
+</Example>
+
+_Using style props:_
+
+```jsx
+<Tabs backgroundColor="lightgray">
+  <TabItem title="Tab 1" color="white" backgroundColor="orange">
+    Content of Tab 1
+  </TabItem>
+  <TabItem title="Tab 2" color="white" backgroundColor="orange">
+    Content of Tab 2
+  </TabItem>
+</Tabs>
+```
+
+<Tabs backgroundColor="lightgray">
+  <TabItem title="Tab 1" color="white" backgroundColor="orange">
+    Content of Tab 1
+  </TabItem>
+  <TabItem title="Tab 2" color="white" backgroundColor="orange">
+    Content of Tab 2
+  </TabItem>
+</Tabs>
+
+## Accessibility

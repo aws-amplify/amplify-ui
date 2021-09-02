@@ -9,6 +9,7 @@ import { TabsProps, TabItemProps } from '../types';
 import { Flex } from '../Flex';
 import { ComponentClassNames } from '../shared/constants';
 import classNames from 'classnames';
+import { convertStylePropsToStyleObj, prefixer } from '../shared/utils';
 
 export const isTabsType = (
   child: any
@@ -43,12 +44,11 @@ export const Tabs: Tabs = ({
   ...rest
 }) => {
   const tabs = React.Children.map(children, (child) => {
-    if (!isTabsType(child)) return null; // console.warn, only pass TabItem's
-    return {
-      title: child.props.title,
-      panel: child.props.children,
-      isDisabled: child.props.isDisabled,
-    };
+    if (!isTabsType(child)) {
+      return null; // console.warn, only pass TabItem's
+    }
+
+    return child.props;
   });
 
   return (
@@ -57,30 +57,32 @@ export const Tabs: Tabs = ({
         <Flex
           alignContent={alignContent}
           alignItems={alignItems}
-          className={ComponentClassNames.TabList}
+          className={classNames(ComponentClassNames.Tabs, className)}
           direction={direction}
           gap={gap}
           justifyContent={justifyContent}
           wrap={wrap}
+          {...rest}
         >
-          {tabs.map((tab, index) => (
+          {tabs.map(({ className, isDisabled, title, ...rest }, index) => (
             <RadixTab
-              className={classNames(ComponentClassNames.Tabs, className)}
+              className={classNames(ComponentClassNames.TabItems, className)}
               data-grow={grow}
-              disabled={tab.isDisabled}
+              disabled={isDisabled}
               value={`${index}`}
+              style={prefixer(convertStylePropsToStyleObj(rest, {}))}
             >
-              {tab.title}
+              {title}
             </RadixTab>
           ))}
         </Flex>
       </List>
       {tabs.map((tab, index) => (
-        <Panel value={`${index}`}>{tab.panel}</Panel>
+        <Panel value={`${index}`}>{tab.children}</Panel>
       ))}
     </Root>
   );
 };
 
-// In the docs, explain that TabItem contains both Tab and it's corresponding Panel
+// In the docs, explain that TabItem contains both Tab and its corresponding Panel
 export const TabItem: React.FC<TabItemProps> = () => <></>;

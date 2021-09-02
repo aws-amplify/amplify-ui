@@ -1,0 +1,25 @@
+.custom-tabs {
+  background-color: lightblue;
+  justify-content: center;
+}
+
+.custom-tab-item {
+  background-color: white;
+  border-radius: 10px;
+}
+
+.pseudo-demo:hover {
+  background-color: red;
+}
+
+.pseudo-demo:active {
+  background-color: orange;
+}
+
+.pseudo-demo:focus {
+  background-color: blue;
+}
+
+.pseudo-demo:focus-visible {
+  background-color: green;
+}

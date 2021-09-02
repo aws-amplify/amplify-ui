@@ -12,6 +12,7 @@
 @import './placeholderStyles.css';
 @import './ratingStyles.css';
 @import './textStyles.css';
+@import './tabsStyles.css';
 @import './viewStyles.css';
 
 .mdx-marker {
