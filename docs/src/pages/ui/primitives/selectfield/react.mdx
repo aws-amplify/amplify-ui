@@ -281,6 +281,70 @@ import '@aws-amplify/ui-react/styles.css';
   </Flex>
 </Example>
 
+### Descriptive text
+
+To provide additional descriptive text of requirements of the field, use the `descriptiveText` field. It will only be visible when `label` is not hidden.
+
+```jsx
+import { SelectField } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<SelectField
+  label="Fruit"
+  descriptiveText="A fruit of your choice"
+  placeholder="Please select a fruit"
+>
+  <option value="apple">Apple</option>
+  <option value="banana">Banana</option>
+  <option value="orange">Orange</option>
+</SelectField>;
+```
+
+<Example>
+  <SelectField
+    label="Fruit"
+    descriptiveText="A fruit of your choice"
+    placeholder="Please select a fruit"
+  >
+    <option value="apple">Apple</option>
+    <option value="banana">Banana</option>
+    <option value="orange">Orange</option>
+  </SelectField>
+</Example>
+
+### State
+
+`isDisabled` is the only available state for SelectField. A disabled field will be not be focusable not mutable and will not be submitted with form data.
+
+```jsx
+import { SelectField } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<SelectField
+  isDisabled={true}
+  label="Fruit"
+  labelHidden={true}
+  placeholder="Please select a fruit"
+>
+  <option value="apple">Apple</option>
+  <option value="banana">Banana</option>
+  <option value="orange">Orange</option>
+</SelectField>;
+```
+
+<Example>
+  <SelectField
+    isDisabled={true}
+    label="Fruit"
+    labelHidden={true}
+    placeholder="Please select a fruit"
+  >
+    <option value="apple">Apple</option>
+    <option value="banana">Banana</option>
+    <option value="orange">Orange</option>
+  </SelectField>
+</Example>
+
 ### Icon
 
 You can change the expand icon used in the select. Simply pass the `icon` prop. Also, you can change the icon color by passing the `iconColor` prop.
@@ -320,23 +384,19 @@ import '@aws-amplify/ui-react/styles.css';
 
 ### Global styling
 
-To override styling on all SelectFields, you can set the Amplify CSS variables or use the built-in `.amplify-select` class.
+To override styling on all SelectFields, you can set the Amplify CSS variables with the built-in `.amplify-selectfield` class.
 
 ```css
 /* styles.css */
-:root {
-  --amplify-components-select-background-color: yellow;
-}
-/* OR */
-.amplify-select {
-  background-color: yellow;
+.amplify-selectfield {
+  --amplify-components-field-control-border-color: rebeccapurple;
 }
 ```
 
 To replace the SelectField styling, unset it:
 
 ```css
-.amplify-select {
+.amplify-selectfield {
   all: unset;
   /* Add your styling here*/
 }
@@ -350,7 +410,7 @@ _Using a class selector:_
 
 ```css
 /* styles.css */
-.my-custom-select {
+.my-custom-selectfield .amplify-select {
   background-color: cyan;
 }
 ```
@@ -361,7 +421,7 @@ import './styles.css';
 <SelectField
   label="Fruit"
   labelHidden={true}
-  className="my-custom-select"
+  className="my-custom-selectfield"
   placeholder="Please select a fruit"
 >
   <option value="apple">Apple</option>
@@ -374,7 +434,7 @@ import './styles.css';
   <SelectField
     label="Fruit"
     labelHidden={true}
-    className="my-custom-select"
+    className="my-custom-selectfield"
     placeholder="Please select a fruit"
   >
     <option value="apple">Apple</option>
@@ -383,6 +443,8 @@ import './styles.css';
   </SelectField>
 </Example>
 
+_Using data attributes:_
+
 ```css
 /* styles.css */
 /* Override only large size styles */
@@ -390,35 +452,10 @@ import './styles.css';
   border: 1px solid black;
 }
 
-/* Override only info variation styles */
+/* Override only quiet variation styles */
 .amplify-select[data-variation='quiet'] {
-  background-color: rebeccapurple;
+  background-color: blue;
 }
-```
-
-```jsx
-import './styles.css';
-
-<SelectField
-  label="Fruit"
-  labelHidden={true}
-  placeholder="Please select a fruit"
-  size="large"
->
-  <option value="apple">Apple</option>
-  <option value="banana">Banana</option>
-  <option value="orange">Orange</option>
-</SelectField>
-<SelectField
-  label="Fruit"
-  labelHidden={true}
-  placeholder="Please select a fruit"
-  variation="filled"
->
-  <option value="apple">Apple</option>
-  <option value="banana">Banana</option>
-  <option value="orange">Orange</option>
-</SelectField>
 ```
 
 _Using style props:_

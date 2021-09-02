@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React from 'react';
 
 import { ComponentClassNames, useAmplifyFieldID } from '../shared';
-import { FieldErrorMessage } from '../Field';
+import { FieldErrorMessage, FieldDescription } from '../Field';
 import { Flex } from '../Flex';
 import { Select } from '../Select';
 import { Label } from '../Label';
@@ -12,9 +12,11 @@ export const SelectField: React.FC<SelectFieldProps> = (props) => {
   const {
     alignContent,
     alignItems,
+    autoComplete,
     children,
     className,
     defaultValue,
+    descriptiveText,
     direction = 'column',
     errorMessage,
     gap,
@@ -43,7 +45,11 @@ export const SelectField: React.FC<SelectFieldProps> = (props) => {
     <Flex
       alignContent={alignContent}
       alignItems={alignItems}
-      className={classNames(ComponentClassNames.Field, className)}
+      className={classNames(
+        ComponentClassNames.Field,
+        ComponentClassNames.SelectField,
+        className
+      )}
       data-size={size}
       direction={direction}
       gap={gap}
@@ -54,8 +60,13 @@ export const SelectField: React.FC<SelectFieldProps> = (props) => {
       <Label htmlFor={fieldId} visuallyHidden={labelHidden}>
         {label}
       </Label>
+      <FieldDescription
+        labelHidden={labelHidden}
+        descriptiveText={descriptiveText}
+      />
       <Select
         aria-labelledby={fieldId}
+        autoComplete={autoComplete}
         defaultValue={defaultValue}
         hasError={hasError}
         icon={icon}

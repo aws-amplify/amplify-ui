@@ -11,6 +11,7 @@ export interface SelectProps
   extends AriaProps,
     BaseComponentProps,
     BaseStyleProps {
+  autoComplete?: string;
   name?: string;
 
   defaultValue?: string;

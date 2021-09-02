@@ -289,16 +289,12 @@ Use the `hasError` and `errorMessage` fields to mark a TextField as having an va
 
 ### Global styling
 
-To override styling on all TextField primitives, you can set the Amplify CSS variables or use the built-in `.amplify-field` class.
+To override styling on all TextField primitives, you can set the Amplify CSS variables with the built-in `.amplify-textfield` class.
 
 ```css
 /* styles.css */
-:root {
-  --amplify-components-field-control-border-color: rebeccapurple;
-}
-/* OR */
-.amplify-field {
-  --amplify-components-field-control-border-color: rebeccapurple;
+.amplify-textfield {
+  --amplify-components-fieldcontrol-border-color: rebeccapurple;
 }
 ```
 

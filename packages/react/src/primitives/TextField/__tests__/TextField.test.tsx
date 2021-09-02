@@ -23,6 +23,7 @@ describe('TextField component', () => {
       const field = await screen.findByTestId('testId');
       expect(field).toHaveClass('my-textfield');
       expect(field).toHaveClass(ComponentClassNames.Field);
+      expect(field).toHaveClass(ComponentClassNames.TextField);
     });
 
     it('should render all flex style props', async () => {

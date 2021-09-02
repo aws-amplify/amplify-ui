@@ -24,6 +24,7 @@ export enum ComponentClassNames {
   Placeholder = 'amplify-placeholder',
   Rating = 'amplify-rating',
   Select = 'amplify-select',
+  SelectField = 'amplify-selectfield',
   SelectWrapper = 'amplify-select__wrapper',
   SelectIconWrapper = 'amplify-select__icon-wrapper',
   Text = 'amplify-text',

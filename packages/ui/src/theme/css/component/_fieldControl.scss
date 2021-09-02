@@ -1,86 +1,82 @@
 %amplify-field-control {
   box-sizing: border-box;
-  font-size: var(--amplify-components-field-control-font-size);
-  line-height: var(--amplify-components-field-control-line-height);
-  padding: var(--amplify-components-field-control-padding);
-  transition: all var(--amplify-components-field-control-transition-duration);
+  font-size: var(--amplify-components-fieldcontrol-font-size);
+  line-height: var(--amplify-components-fieldcontrol-line-height);
+  padding: var(--amplify-components-fieldcontrol-padding);
+  transition: all var(--amplify-components-fieldcontrol-transition-duration);
   width: 100%;
 
   // for border
-  border-color: var(--amplify-components-field-control-border-color);
-  border-radius: var(--amplify-components-field-control-border-radius);
-  border-style: var(--amplify-components-field-control-border-style);
-  border-width: var(--amplify-components-field-control-border-width);
+  border-color: var(--amplify-components-fieldcontrol-border-color);
+  border-radius: var(--amplify-components-fieldcontrol-border-radius);
+  border-style: var(--amplify-components-fieldcontrol-border-style);
+  border-width: var(--amplify-components-fieldcontrol-border-width);
 
   // for focus styles
-  outline-color: var(--amplify-components-field-control-outline-color);
-  outline-style: var(--amplify-components-field-control-outline-style);
-  outline-width: var(--amplify-components-field-control-outline-width);
-  outline-offset: var(--amplify-components-field-control-outline-offset);
+  outline-color: var(--amplify-components-fieldcontrol-outline-color);
+  outline-style: var(--amplify-components-fieldcontrol-outline-style);
+  outline-width: var(--amplify-components-fieldcontrol-outline-width);
+  outline-offset: var(--amplify-components-fieldcontrol-outline-offset);
   &:focus {
-    border-color: var(--amplify-components-field-control-focus-border-color);
-    box-shadow: var(--amplify-components-field-control-focus-box-shadow);
+    border-color: var(--amplify-components-fieldcontrol-focus-border-color);
+    box-shadow: var(--amplify-components-fieldcontrol-focus-box-shadow);
   }
 
   &[data-size='small'] {
-    font-size: var(--amplify-components-field-control-small-font-size);
-    line-height: var(--amplify-components-field-control-small-line-height);
-    padding: var(--amplify-components-field-control-small-padding);
+    font-size: var(--amplify-components-fieldcontrol-small-font-size);
+    line-height: var(--amplify-components-fieldcontrol-small-line-height);
+    padding: var(--amplify-components-fieldcontrol-small-padding);
   }
 
   &[data-size='large'] {
-    font-size: var(--amplify-components-field-control-large-font-size);
-    line-height: var(--amplify-components-field-control-large-line-height);
-    padding: var(--amplify-components-field-control-large-padding);
+    font-size: var(--amplify-components-fieldcontrol-large-font-size);
+    line-height: var(--amplify-components-fieldcontrol-large-line-height);
+    padding: var(--amplify-components-fieldcontrol-large-padding);
   }
 
   // Error styling
   &[aria-invalid='true'] {
-    border-color: var(--amplify-components-field-control-error-border-color);
+    border-color: var(--amplify-components-fieldcontrol-error-border-color);
     &:focus {
-      border-color: var(--amplify-components-field-control-error-border-color);
-      box-shadow: var(
-        --amplify-components-field-control-error-focus-box-shadow
-      );
+      border-color: var(--amplify-components-fieldcontrol-error-border-color);
+      box-shadow: var(--amplify-components-fieldcontrol-error-focus-box-shadow);
     }
   }
 
   // for disabled styles
   &[disabled] {
-    cursor: var(--amplify-components-field-control-disabled-cursor);
-    border-color: var(--amplify-components-field-control-disabled-border-color);
+    cursor: var(--amplify-components-fieldcontrol-disabled-cursor);
+    border-color: var(--amplify-components-fieldcontrol-disabled-border-color);
     background-color: var(
-      --amplify-components-field-control-disabled-background-color
+      --amplify-components-fieldcontrol-disabled-background-color
     );
   }
 
   // variation styles
   &[data-variation='quiet'] {
     border-block-start: var(
-      --amplify-components-field-control-quiet-border-block-start
+      --amplify-components-fieldcontrol-quiet-border-block-start
     );
     border-inline-start: var(
-      --amplify-components-field-control-quiet-border-inline-start
+      --amplify-components-fieldcontrol-quiet-border-inline-start
     );
     border-inline-end: var(
-      --amplify-components-field-control-quiet-border-inline-end
+      --amplify-components-fieldcontrol-quiet-border-inline-end
     );
-    border-radius: var(--amplify-components-field-control-quiet-border-radius);
+    border-radius: var(--amplify-components-fieldcontrol-quiet-border-radius);
     &:focus {
       border-block-end-color: var(
-        --amplify-components-field-control-quiet-focus-border-block-end-color
+        --amplify-components-fieldcontrol-quiet-focus-border-block-end-color
       );
-      box-shadow: var(
-        --amplify-components-field-control-quiet-focus-box-shadow
-      );
+      box-shadow: var(--amplify-components-fieldcontrol-quiet-focus-box-shadow);
     }
     &[aria-invalid='true'] {
       border-block-end-color: var(
-        --amplify-components-field-control-quiet-error-border-block-end-color
+        --amplify-components-fieldcontrol-quiet-error-border-block-end-color
       );
       &:focus {
         box-shadow: var(
-          --amplify-components-field-control-quiet-error-focus-box-shadow
+          --amplify-components-fieldcontrol-quiet-error-focus-box-shadow
         );
       }
     }

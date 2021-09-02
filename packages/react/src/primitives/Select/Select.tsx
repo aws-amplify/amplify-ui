@@ -9,6 +9,7 @@ import { ComponentClassNames } from '../shared';
 
 export const Select: React.FC<SelectProps> = (props) => {
   const {
+    autoComplete,
     className,
     size,
     variation,
@@ -23,15 +24,20 @@ export const Select: React.FC<SelectProps> = (props) => {
     isRequired,
     ...rest
   } = props;
+  const DEFAULT_PLACEHOLDER_VALUE = '';
+  // value === undefined is to make sure that component is used in uncontrolled way so that setting defaultValue is valid
+  const shouldSetDefaultPlaceholderValue =
+    value === undefined && defaultValue === undefined && placeholder;
   return (
     <View className={ComponentClassNames.SelectWrapper}>
       <View
         aria-invalid={hasError}
         as="select"
+        autoComplete={autoComplete}
         value={value}
         defaultValue={
-          value === undefined && defaultValue === undefined && placeholder
-            ? ''
+          shouldSetDefaultPlaceholderValue
+            ? DEFAULT_PLACEHOLDER_VALUE
             : defaultValue
         }
         isDisabled={isDisabled}

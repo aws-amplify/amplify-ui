@@ -10,8 +10,10 @@ import {
 
 describe('SelectField test suite', () => {
   const className = 'my-select';
+  const descriptiveText = 'This is a descriptive text';
   const id = 'my-select';
   const label = 'Number';
+  const role = 'combobox';
   const testId = 'test-select';
   const errorMessage = 'This is an error message';
   describe('Flex wrapper', () => {
@@ -27,6 +29,7 @@ describe('SelectField test suite', () => {
       const selectField = await screen.findByTestId(testId);
       expect(selectField).toHaveClass(className);
       expect(selectField).toHaveClass(ComponentClassNames.Field);
+      expect(selectField).toHaveClass(ComponentClassNames.SelectField);
     });
 
     it('should render all flex style props', async () => {
@@ -45,7 +48,7 @@ describe('SelectField test suite', () => {
   describe('Label', () => {
     it('should render expected field classname', async () => {
       render(
-        <SelectField label={label} testId={testId}>
+        <SelectField label={label}>
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
@@ -58,9 +61,24 @@ describe('SelectField test suite', () => {
       expect(labelElelment).toHaveClass(ComponentClassNames.Label);
     });
 
+    it('should match select id', async () => {
+      render(
+        <SelectField label={label}>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+        </SelectField>
+      );
+      const labelElelment = (await screen.findByText(
+        label
+      )) as HTMLLabelElement;
+      const select = await screen.findByRole(role);
+      expect(labelElelment).toHaveAttribute('for', select.id);
+    });
+
     it('should have `sr-only` class when labelHidden is true', async () => {
       render(
-        <SelectField label={label} testId={testId} labelHidden>
+        <SelectField label={label} labelHidden>
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
@@ -75,15 +93,14 @@ describe('SelectField test suite', () => {
   describe('Select control', () => {
     it('should render expected id and aria-labelledby for select control', async () => {
       render(
-        <SelectField id={id} label={label} testId={testId}>
+        <SelectField id={id} label={label}>
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
         </SelectField>
       );
 
-      const selectField = await screen.findByTestId(testId);
-      const select = selectField.childNodes[1].childNodes[0];
+      const select = await screen.findByRole(role);
       expect(select).toHaveAttribute('id', id);
       expect(select).toHaveAttribute('aria-labelledby', id);
     });
@@ -91,21 +108,14 @@ describe('SelectField test suite', () => {
 
   it('should render the state attributes', async () => {
     render(
-      <SelectField
-        label={label}
-        testId={testId}
-        className={className}
-        isDisabled
-        isRequired
-      >
+      <SelectField label={label} className={className} isDisabled isRequired>
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
       </SelectField>
     );
 
-    const selectField = await screen.findByTestId(testId);
-    const select = selectField.childNodes[1].childNodes[0];
+    const select = await screen.findByRole(role);
     expect(select).toBeDisabled();
     expect(select).toBeRequired();
   });
@@ -120,57 +130,69 @@ describe('SelectField test suite', () => {
     );
 
     const selectField = await screen.findByTestId(testId);
-    const select = selectField.childNodes[1].childNodes[0];
+    const select = await screen.findByRole(role);
     expect(selectField).toHaveAttribute('data-size', 'small');
     expect(select).toHaveAttribute('data-variation', 'quiet');
   });
 
   it('can set defaultValue', async () => {
     render(
-      <SelectField label={label} testId={testId} defaultValue="1">
+      <SelectField label={label} defaultValue="1">
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
       </SelectField>
     );
 
-    const selectField = await screen.findByTestId(testId);
-    const select = selectField.childNodes[1].childNodes[0];
+    const select = await screen.findByRole(role);
     expect(select).toHaveValue('1');
   });
 
-  it('show add aria-invalid attribute to select when hasError', async () => {
+  it('has aria-invalid attribute when hasError is true', async () => {
     render(
-      <SelectField label={label} testId={testId} hasError errorMessage="error">
+      <SelectField label={label} hasError errorMessage="error">
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
       </SelectField>
     );
-    const selectField = await screen.findByTestId(testId);
-    const select = selectField.childNodes[1].childNodes[0];
+    const select = await screen.findByRole('combobox');
     expect(select).toHaveAttribute('aria-invalid');
   });
 
   it('should fire event handlers', async () => {
     const onChange = jest.fn();
     render(
-      <SelectField label={label} testId={testId} value="1" onChange={onChange}>
+      <SelectField label={label} value="1" onChange={onChange}>
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
       </SelectField>
     );
-    const selectField = await screen.findByTestId(testId);
-    const select = selectField.childNodes[1].childNodes[0] as HTMLSelectElement;
+    const select = await screen.findByRole(role);
     userEvent.selectOptions(select, '2');
     expect(onChange).toHaveBeenCalled();
+  });
+
+  describe('Descriptive message', () => {
+    it('renders when descriptiveText is provided', async () => {
+      render(
+        <SelectField label={label} descriptiveText={descriptiveText}>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+        </SelectField>
+      );
+
+      const descriptiveField = await screen.queryByText(descriptiveText);
+      expect(descriptiveField).toContainHTML(descriptiveText);
+    });
   });
 
   describe('Error messages', () => {
     it("don't show when hasError is false", async () => {
       render(
-        <SelectField label={label} testId={testId} errorMessage={errorMessage}>
+        <SelectField label={label} errorMessage={errorMessage}>
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
@@ -183,12 +205,7 @@ describe('SelectField test suite', () => {
 
     it('show when hasError and errorMessage', async () => {
       render(
-        <SelectField
-          label={label}
-          testId={testId}
-          errorMessage={errorMessage}
-          hasError
-        >
+        <SelectField label={label} errorMessage={errorMessage} hasError>
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>

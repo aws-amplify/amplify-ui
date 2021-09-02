@@ -4,7 +4,7 @@ module.exports = {
   borderWidth: { value: '{borderWidths.small.value}' },
   borderRadius: { value: '{radii.medium.value}' },
   padding: { value: ['{space.xs.value}', '{space.medium.value}'] },
-  fontSize: { value: '{fontSizes.medium.value}' },
+  fontSize: { value: '{components.field.fontSize.value}' },
   lineHeight: { value: '{lineHeights.medium.value}' },
   transitionDuration: { value: '{time.transition.medium.value}' },
   outlineColor: { value: '{colors.transparent.value}' },
@@ -13,12 +13,12 @@ module.exports = {
   outlineOffset: { value: '{outlineOffsets.medium.value}' },
 
   small: {
-    fontSize: { value: '{fontSizes.small.value}' },
+    fontSize: { value: '{components.field.small.fontSize.value}' },
     padding: { value: ['{space.xs.value}', '{space.small.value}'] },
     lineHeight: { value: '{lineHeights.small.value}' },
   },
   large: {
-    fontSize: { value: '{fontSizes.large.value}' },
+    fontSize: { value: '{components.field.large.fontSize.value}' },
     padding: { value: ['{space.medium.value}', '{space.large.value}'] },
     lineHeight: { value: '{lineHeights.large.value}' },
   },

@@ -5,6 +5,7 @@ module.exports = {
   card: require('./card'),
   divider: require('./divider'),
   field: require('./field'),
+  fieldcontrol: require('./fieldControl'),
   fieldgroup: require('./fieldGroup'),
   fieldmessages: require('./fieldMessages'),
   flex: require('./flex'),

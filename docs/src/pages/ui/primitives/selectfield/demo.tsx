@@ -17,6 +17,7 @@ export const SelectDemo = () => {
       <View className="mt-8">
         <SelectField
           name="fruits"
+          descriptiveText={selectProps.descriptiveText}
           errorMessage={selectProps.errorMessage}
           hasError={selectProps.hasError}
           isDisabled={selectProps.isDisabled}

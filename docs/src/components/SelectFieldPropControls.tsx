@@ -11,6 +11,9 @@ import { DemoBox } from './DemoBox';
 import { FieldLabeler } from './FieldLabeler';
 
 export interface SelectFieldPropControlsProps extends SelectFieldProps {
+  setDescriptiveText: (
+    value: React.SetStateAction<SelectFieldProps['descriptiveText']>
+  ) => void;
   setErrorMessage: (
     value: React.SetStateAction<SelectFieldProps['errorMessage']>
   ) => void;
@@ -35,6 +38,7 @@ interface SelectFieldPropControlsInterface {
 }
 
 export const SelectFieldPropControls: SelectFieldPropControlsInterface = ({
+  setDescriptiveText,
   setErrorMessage,
   setHasError,
   setIsDisabled,
@@ -75,6 +79,17 @@ export const SelectFieldPropControls: SelectFieldPropControlsInterface = ({
         placeholder="Specify a label"
         onChange={(event) =>
           setLabel(event.target.value as SelectFieldProps['label'])
+        }
+      />
+      <TextField
+        label="descriptiveText"
+        name="descriptiveText"
+        id="descriptiveText"
+        placeholder="Provide a descriptive text"
+        onChange={(event) =>
+          setDescriptiveText(
+            event.target.value as SelectFieldProps['descriptiveText']
+          )
         }
       />
       <TextField

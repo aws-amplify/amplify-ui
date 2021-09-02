@@ -7,28 +7,33 @@ interface UseSelectFieldProps {
 }
 
 export const useSelectFieldProps: UseSelectFieldProps = (initialValues) => {
-  const [size, setSize] = useState<SelectFieldProps['size']>(
-    initialValues.size
-  );
-  const [variation, setVariation] = useState<SelectFieldProps['variation']>(
-    initialValues.variation
-  );
-  const [label, setLabel] = useState<SelectFieldProps['label']>(
-    initialValues.label
-  );
+  const [descriptiveText, setDescriptiveText] = useState<
+    SelectFieldProps['descriptiveText']
+  >(initialValues.descriptiveText);
   const [errorMessage, setErrorMessage] = useState<
     SelectFieldProps['errorMessage']
   >(initialValues.errorMessage);
   const [hasError, setHasError] = useState<SelectFieldProps['hasError']>(
     initialValues.hasError
   );
-  const [labelHidden, setLabelHidden] = useState<
-    SelectFieldProps['labelHidden']
-  >(initialValues.labelHidden);
   const [isDisabled, setIsDisabled] = useState<SelectFieldProps['isDisabled']>(
     initialValues.isDisabled
   );
+  const [label, setLabel] = useState<SelectFieldProps['label']>(
+    initialValues.label
+  );
+  const [labelHidden, setLabelHidden] = useState<
+    SelectFieldProps['labelHidden']
+  >(initialValues.labelHidden);
+  const [size, setSize] = useState<SelectFieldProps['size']>(
+    initialValues.size
+  );
+  const [variation, setVariation] = useState<SelectFieldProps['variation']>(
+    initialValues.variation
+  );
+
   return {
+    descriptiveText,
     errorMessage,
     hasError,
     label,
@@ -36,6 +41,7 @@ export const useSelectFieldProps: UseSelectFieldProps = (initialValues) => {
     size,
     variation,
     isDisabled,
+    setDescriptiveText,
     setErrorMessage,
     setHasError,
     setIsDisabled,

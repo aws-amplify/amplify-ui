@@ -2,12 +2,12 @@ module.exports = {
   // shared styles
   fontWeight: { value: 'bold' },
   textAlign: { value: 'center' },
-  borderRadius: { value: '{components.fieldControl.borderRadius.value}' },
+  borderRadius: { value: '{components.fieldcontrol.borderRadius.value}' },
   transitionDuration: {
-    value: '{components.fieldControl.transitionDuration.value}',
+    value: '{components.fieldcontrol.transitionDuration.value}',
   },
-  fontSize: { value: '{components.fieldControl.fontSize.value}' },
-  lineHeight: { value: '{components.fieldControl.fontSize.value}' },
+  fontSize: { value: '{components.fieldcontrol.fontSize.value}' },
+  lineHeight: { value: '{components.fieldcontrol.fontSize.value}' },
   padding: { value: ['{space.small.value}', '{space.medium.value}'] },
   borderColor: { value: '{colors.brand.primary.20.value}' },
   borderWidth: { value: '{borderWidths.small.value}' },
@@ -87,13 +87,13 @@ module.exports = {
 
   // sizes
   small: {
-    fontSize: { value: '{components.fieldControl.small.fontSize.value}' },
-    lineHeight: { value: '{components.fieldControl.small.fontSize.value}' },
-    padding: { value: '{components.fieldControl.small.padding.value}' },
+    fontSize: { value: '{components.fieldcontrol.small.fontSize.value}' },
+    lineHeight: { value: '{components.fieldcontrol.small.fontSize.value}' },
+    padding: { value: '{components.fieldcontrol.small.padding.value}' },
   },
   large: {
-    fontSize: { value: '{components.fieldControl.large.fontSize.value}' },
-    lineHeight: { value: '{components.fieldControl.large.fontSize.value}' },
-    padding: { value: '{components.fieldControl.large.padding.value}' },
+    fontSize: { value: '{components.fieldcontrol.large.fontSize.value}' },
+    lineHeight: { value: '{components.fieldcontrol.large.fontSize.value}' },
+    padding: { value: '{components.fieldcontrol.large.padding.value}' },
   },
 };
