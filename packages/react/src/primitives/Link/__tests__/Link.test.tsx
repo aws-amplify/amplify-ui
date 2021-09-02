@@ -35,7 +35,7 @@ describe('Text: ', () => {
     render(<Link as={Text}>{linkText}</Link>);
 
     const link = await screen.findByText(linkText);
-    expect(link.className).toContain(ComponentClassNames.Text);
+    expect(link).toHaveClass(ComponentClassNames.Text);
     expect(link.nodeName).toBe('P');
   });
 
