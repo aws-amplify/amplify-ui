@@ -17,7 +17,8 @@
   // Radix data attribute
   &[data-state='active'] {
     color: var(--amplify-components-tabs-item-color-active);
-    border-bottom: 2px var(--amplify-components-tabs-item-border-style)
+    border-bottom: var(--amplify-components-tabs-item-border-width)
+      var(--amplify-components-tabs-item-border-style)
       var(--amplify-components-tabs-item-color-active);
     transition-property: none;
   }
@@ -28,7 +29,9 @@
   }
 
   &:focus {
-    background-color: #e8e8e8;
+    background-color: var(
+      --amplify-components-tabs-item-focus-background-color
+    );
   }
 
   &:focus-visible {
@@ -38,7 +41,9 @@
   }
 
   &:active {
-    background-color: #d6d6d6;
+    background-color: var(
+      --amplify-components-tabs-item-active-background-color
+    );
     color: var(--amplify-components-tabs-item-color-active);
   }
 

@@ -5,7 +5,11 @@
 
 .custom-tab-item {
   background-color: white;
-  border-radius: 10px;
+}
+
+.custom-tab-item[data-state='active'] {
+  color: crimson;
+  border-bottom: 2px solid crimson;
 }
 
 .pseudo-demo:hover {

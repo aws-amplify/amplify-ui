@@ -45,7 +45,10 @@ export const Tabs: Tabs = ({
 }) => {
   const tabs = React.Children.map(children, (child) => {
     if (!isTabsType(child)) {
-      return null; // console.warn, only pass TabItem's
+      console.warn(
+        'Amplify UI: <Tabs> component only accepts <TabItem> as children.'
+      );
+      return null;
     }
 
     return child.props;

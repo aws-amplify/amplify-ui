@@ -38,7 +38,10 @@ In the `Tabs` component, use the `defaultTab` prop to change which Tab content i
 ```jsx
 <Tabs defaultTab={1}>
   <TabItem title="First">Content of the first tab</TabItem>
-  <TabItem title="Second">Content of the second tab</TabItem>
+  <TabItem title="Second">
+    The content of the second tab is initially shown because we passed in index
+    1 to defaultTab (notice that the tabs are zero-indexed).
+  </TabItem>
 </Tabs>
 ```
 
@@ -176,6 +179,8 @@ In the `TabItem` component, use the `isDisabled` prop to make a Tab not clickabl
 
 To override styling on all `Tabs` or `TabItems`, you can set the Amplify CSS variables, use the built-in `.amplify-tabs` or `.amplify-tabs-items`classes, or use pseudo-classes.
 
+Note that children of `TabItem` must be responsible for their own styling.
+
 ```css
 /* styles.css */
 :root {
@@ -291,7 +296,11 @@ _Using a class selector:_
 
 .custom-tab-item {
   background-color: white;
-  border-radius: 10px;
+}
+
+.custom-tab-item[data-state='active'] {
+  color: crimson;
+  border-bottom: 2px solid crimson;
 }
 ```
 
@@ -381,3 +390,31 @@ _Using style props:_
 </Tabs>
 
 ## Accessibility
+
+Adheres to the [Tabs WAI-ARIA design pattern](https://www.w3.org/TR/wai-aria-practices-1.1/#tabpanel).
+
+We recommend passing an `ariaLabel` prop to help enable assistive technology.
+
+```jsx
+<Tabs ariaLabel="fruits">
+  <TabItem title="Apples">
+    Play with the Tab and Arrow keys to engage with this component.
+  </TabItem>
+  <TabItem title="Bananas">
+    Notice how an outline is added when the :focus-visible pseudo-class is
+    applied.
+  </TabItem>
+</Tabs>
+```
+
+<Example>
+  <Tabs ariaLabel="fruits">
+    <TabItem title="Apples">
+      Play with the Tab and Arrow keys to engage with this component.
+    </TabItem>
+    <TabItem title="Bananas">
+      Notice how an outline is added when the :focus-visible pseudo-class is
+      applied.
+    </TabItem>
+  </Tabs>
+</Example>
