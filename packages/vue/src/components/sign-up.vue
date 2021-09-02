@@ -59,6 +59,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, computed, ComputedRef } from 'vue';
+import { I18n } from 'aws-amplify';
 import {
   authInputAttributes,
   getActorState,
@@ -135,10 +136,10 @@ export default defineComponent({
 
     // computed properties
 
-    const signInButtonText = computed(() => SIGN_IN_BUTTON_TEXT);
-    const haveAccountLabel = computed(() => HAVE_ACCOUNT_LABEL);
-    const createAccountLabel = computed(() => CREATE_ACCOUNT_LABEL);
-    const signUpButtonText = computed(() => SIGN_UP_BUTTON_TEXT);
+    const signInButtonText = computed(() => I18n.get(SIGN_IN_BUTTON_TEXT));
+    const haveAccountLabel = computed(() => I18n.get(HAVE_ACCOUNT_LABEL));
+    const createAccountLabel = computed(() => I18n.get(CREATE_ACCOUNT_LABEL));
+    const signUpButtonText = computed(() => I18n.get(SIGN_UP_BUTTON_TEXT));
     const inputAttributes = computed(() => authInputAttributes);
 
     // Methods

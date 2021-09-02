@@ -16,7 +16,7 @@
             <base-input
               autocomplete="password"
               name="password"
-              placeholder="Password"
+              :placeholder="passwordText"
               required
               type="password"
             ></base-input>
@@ -60,6 +60,7 @@
 
 <script lang="ts">
 import { defineComponent, computed, ComputedRef } from 'vue';
+import { I18n } from 'aws-amplify';
 
 import { SetupEventContext, ForceNewPasswordReturnTypes } from '../types';
 
@@ -82,6 +83,7 @@ import {
   CHANGING_PASSWORD_LABEL,
   HAVE_ACCOUNT_LABEL,
   SIGN_IN_BUTTON_TEXT,
+  PASSWORD_TEXT,
 } from '../defaults/DefaultTexts';
 import { getActorState, SignInState } from '@aws-amplify/ui';
 
@@ -107,10 +109,13 @@ export default defineComponent({
     );
 
     // computed properties
-    const changePasswordLabel = computed(() => CHANGE_PASSWORD_LABEL);
-    const changingPasswordLabel = computed(() => CHANGING_PASSWORD_LABEL);
-    const haveAccountLabel = computed(() => HAVE_ACCOUNT_LABEL);
-    const signInButtonText = computed(() => SIGN_IN_BUTTON_TEXT);
+    const changePasswordLabel = computed(() => I18n.get(CHANGE_PASSWORD_LABEL));
+    const changingPasswordLabel = computed(() =>
+      I18n.get(CHANGING_PASSWORD_LABEL)
+    );
+    const haveAccountLabel = computed(() => I18n.get(HAVE_ACCOUNT_LABEL));
+    const signInButtonText = computed(() => I18n.get(SIGN_IN_BUTTON_TEXT));
+    const passwordText = computed(() => I18n.get(PASSWORD_TEXT));
     // Methods
 
     const onHaveAccountClicked = (): void => {
@@ -150,6 +155,7 @@ export default defineComponent({
       actorState,
       onHaveAccountClicked,
       signInButtonText,
+      passwordText,
       haveAccountLabel,
       changingPasswordLabel,
     };
