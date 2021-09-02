@@ -7,8 +7,10 @@ import awsExports from '@environments/auth-with-username-no-attributes/src/aws-e
   selector: 'sign-up',
   templateUrl: 'sign-up.component.html',
 })
-export class SignUpComponent {
+export class SignUpComponent implements OnInit {
   constructor() {
     Amplify.configure(awsExports);
   }
+
+  ngOnInit() {}
 }
