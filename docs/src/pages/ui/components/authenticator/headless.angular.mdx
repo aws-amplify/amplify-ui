@@ -1,0 +1,33 @@
+The `Authenticator`'s UI is powered by a state machine. You can use the `StateMachineService`composable
+to get access to it and customizing behavior or your own UI:
+
+_app.component.ts_
+
+```ts
+import { StateMachineService } from '@aws-amplify/ui-angular';
+
+export class AppComponent {
+  constructor(private stateMachine: StateMachineService) {}
+
+  signOut() {
+    this.stateMachine.services.signOut();
+  }
+
+  get user() {
+    return this.stateMachine.context.user;
+  }
+
+  get state() {
+    return this.stateMachine.authState;
+  }
+}
+```
+
+_app.component.html_
+
+```html
+<div *ngIf="state.matches("authenticated")">
+  <h1>Welcome {user.username}!</h1>
+  <button (click)="signOut()">Sign Out</button>
+</div>
+```
