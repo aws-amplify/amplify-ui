@@ -1,10 +1,14 @@
 import { authMachine } from '@aws-amplify/ui';
-import { useActor, useInterpret } from '@xstate/vue';
+import { useActor } from '@xstate/vue';
+import { interpret } from 'xstate';
+import { ref } from 'vue';
+
+const service = ref(
+  interpret(authMachine, {
+    devTools: process.env.NODE_ENV === 'development',
+  }).start()
+);
 
 export const useAuth = () => {
-  const service = useInterpret(authMachine, {
-    devTools: process.env.NODE_ENV === 'development',
-  });
-
-  return useActor(service);
+  return useActor(service.value);
 };
