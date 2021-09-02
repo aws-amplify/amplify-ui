@@ -114,7 +114,7 @@ export const getActorContext = (state: AuthMachineState): AuthActorContext => {
  * submit({ username, password})
  * ```
  */
-export const getSendAliases = (send: Sender<AuthEvent>) => {
+export const getSendEventAliases = (send: Sender<AuthEvent>) => {
   const sendToMachine = (type: AuthEventTypes) => {
     return (data?: AuthEventData) => send({ type, data });
   };
