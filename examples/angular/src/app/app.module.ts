@@ -5,6 +5,7 @@ import { SignInWithEmailComponent } from 'src/pages/ui/components/authenticator/
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+// TODO: Rename UiAngularModule to AmplifyUiAngularModule
 import { UiAngularModule } from '@aws-amplify/ui-angular';
 import { SignInFederatedComponent } from 'src/pages/ui/components/authenticator/sign-in-federated/sign-in-federated.component';
 import { SignInSMSMFAComponent } from 'src/pages/ui/components/authenticator/sign-in-sms-mfa/sign-in-sms-mfa.component';

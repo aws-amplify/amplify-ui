@@ -72,6 +72,8 @@
 
 <script lang="ts">
 import { defineComponent, computed, ComputedRef } from 'vue';
+import { I18n } from 'aws-amplify';
+
 import BaseHeading from './primitives/base-heading.vue';
 import BaseFieldSet from './primitives/base-field-set.vue';
 import BaseLabel from './primitives/base-label.vue';
@@ -124,15 +126,17 @@ export default defineComponent({
       getActorState(state.value)
     ) as ComputedRef<ResetPasswordState>;
     // Computed Properties
-    const backSignInText = computed(() => BACK_SIGN_IN_TEXT);
-    const lostYourCodeText = computed(() => LOST_YOUR_CODE_TEXT);
-    const resendCodeText = computed(() => RESEND_CODE_TEXT);
-    const confirmationCodeText = computed(() => CONFIRMATION_CODE_TEXT);
-    const confirmResetPasswordHeading = computed(
-      () => CONFIRM_RESET_PASSWORD_HEADING
+    const backSignInText = computed(() => I18n.get(BACK_SIGN_IN_TEXT));
+    const lostYourCodeText = computed(() => I18n.get(LOST_YOUR_CODE_TEXT));
+    const resendCodeText = computed(() => I18n.get(RESEND_CODE_TEXT));
+    const confirmationCodeText = computed(() =>
+      I18n.get(CONFIRMATION_CODE_TEXT)
     );
-    const confirmResetPasswordText = computed(
-      () => CONFIRM_RESET_PASSWORD_TEXT
+    const confirmResetPasswordHeading = computed(() =>
+      I18n.get(CONFIRM_RESET_PASSWORD_HEADING)
+    );
+    const confirmResetPasswordText = computed(() =>
+      I18n.get(CONFIRM_RESET_PASSWORD_TEXT)
     );
 
     // Methods
