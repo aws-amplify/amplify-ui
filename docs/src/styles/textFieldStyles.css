@@ -1,0 +1,6 @@
+.globally-styled-textfield.amplify-textfield {
+  --amplify-components-field-border-color: rebeccapurple;
+}
+.custom-textfield-class .amplify-input {
+  border-radius: 0;
+}

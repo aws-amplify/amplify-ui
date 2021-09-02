@@ -124,7 +124,6 @@ You can also use the above link to report a bug or a feature request for previou
 
 As we continue to work on the new Amplify UI we will move UI-related issues in the amplify-js repository over here to work on them. We will continue to maintain major bug and security fixes for all existing UI packages and versions. New development for UI components will happen in this repository and eventually be published under the `@next` npm tag.
 
-
 ## Contributing
 
 Right now the best way to contribute is to try out the new Amplify UI and give us feedback. We want to make sure we are building the right tools for you to build amazing applications easily.

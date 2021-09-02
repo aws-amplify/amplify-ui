@@ -28,3 +28,5 @@ export interface AriaProps {
   ariaCurrent?: AriaAttributes['aria-current'];
   ariaDisabled?: AriaAttributes['aria-disabled'];
 }
+
+export type Sizes = 'small' | 'large';
