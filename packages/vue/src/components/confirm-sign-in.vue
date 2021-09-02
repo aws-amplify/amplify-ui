@@ -13,7 +13,7 @@
             <base-text>Code *</base-text>
             <base-input
               name="confirmation_code"
-              placeholder="Code"
+              :placeholder="codeText"
               autocomplete="one-time-code"
               required
               type="text"
@@ -55,8 +55,14 @@ import {
   SignInState,
 } from '@aws-amplify/ui';
 import { computed, ComputedRef, defineComponent } from 'vue';
+import { I18n } from 'aws-amplify';
+
 import { useAuth } from '../composables/useAuth';
-import { BACK_SIGN_IN_TEXT, CONFIRM_TEXT } from '../defaults/DefaultTexts';
+import {
+  BACK_SIGN_IN_TEXT,
+  CONFIRM_TEXT,
+  CODE_TEXT,
+} from '../defaults/DefaultTexts';
 import { ConfirmSignInSetupReturnTypes, SetupEventContext } from '../types';
 import BaseBox from './primitives/base-box.vue';
 import BaseButton from './primitives/base-button.vue';
@@ -100,8 +106,9 @@ export default defineComponent({
     const confirmSignInHeading = `Confirm ${mfaType} Code`;
 
     // Computed Properties
-    const backSignInText = computed(() => BACK_SIGN_IN_TEXT);
-    const confirmText = computed(() => CONFIRM_TEXT);
+    const backSignInText = computed(() => I18n.get(BACK_SIGN_IN_TEXT));
+    const confirmText = computed(() => I18n.get(CONFIRM_TEXT));
+    const codeText = computed(() => I18n.get(CODE_TEXT));
 
     // Methods
     const onConfirmSignInSubmit = (e: Event): void => {
@@ -141,6 +148,7 @@ export default defineComponent({
       submit,
       backSignInText,
       confirmText,
+      codeText,
       actorState,
     };
   },
