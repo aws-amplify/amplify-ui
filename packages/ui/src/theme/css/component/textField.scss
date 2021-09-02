@@ -1,0 +1,22 @@
+@use 'field';
+
+.amplify-textfield {
+  font-size: var(--amplify-components-textfield-font-size);
+  gap: var(--amplify-components-textfield-gap);
+  &[data-size='small'] {
+    font-size: var(--amplify-components-textfield-small-font-size);
+    gap: var(--amplify-components-textfield-small-gap);
+  }
+  &[data-size='large'] {
+    font-size: var(--amplify-components-textfield-large-font-size);
+    gap: var(--amplify-components-textfield-large-gap);
+  }
+
+  // Required to override docs styling
+  // css-s90uia p { margin-bottom: 1rem; }
+  // @TODO: remove styling from docs
+  .amplify-field__description,
+  .amplify-field__error-message {
+    margin: 0;
+  }
+}

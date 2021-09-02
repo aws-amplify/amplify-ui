@@ -11,9 +11,13 @@ export * from './Image';
 export * from './Link';
 export * from './Pagination';
 export * from './Placeholder';
+export * from './PasswordField';
 export * from './Rating';
+export * from './Select';
 export * from './Text';
+export * from './TextField';
 export * from './View';
+export * from './VisuallyHidden';
 
 export * from './shared';
 export * from './types';

@@ -29,3 +29,5 @@ export interface AriaProps {
   ariaDisabled?: AriaAttributes['aria-disabled'];
   role?: React.AriaRole;
 }
+
+export type Sizes = 'small' | 'large';
