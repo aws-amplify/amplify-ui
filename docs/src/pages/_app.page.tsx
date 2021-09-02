@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import '@aws-amplify/ui/dist/style.css';
 import '../styles/styles.css';
 import '@aws-amplify/ui-react/styles.css';
 import '../styles/primitivesStyles.css';
