@@ -205,7 +205,7 @@ describe('Pagination component test suite', () => {
       expect(pageItem.nodeName).toBe('SPAN');
       expect(pageItem).toHaveClass('current');
       const invisibleLabel = await screen.findByText('Current Page:');
-      expect(invisibleLabel).toHaveClass('visuallyhidden');
+      expect(invisibleLabel).toHaveClass(ComponentClassNames.VisuallyHidden);
 
       userEvent.click(pageItem);
       expect(mockOnClick).not.toHaveBeenCalled();

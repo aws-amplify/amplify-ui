@@ -16,7 +16,7 @@ import {
   getActorState,
   getConfiguredAliases,
   SignUpState,
-} from '@aws-amplify/ui-core';
+} from '@aws-amplify/ui';
 
 const logger = new Logger('SignUp');
 @Component({

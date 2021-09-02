@@ -1,0 +1,25 @@
+.amplify-alert {
+  background-color: var(--amplify-components-alert-background-color);
+  padding: var(--amplify-components-alert-padding);
+  display: block;
+
+  &[data-variation='info'] {
+    background-color: var(--amplify-components-alert-info-background-color);
+  }
+
+  &[data-variation='error'] {
+    background-color: var(--amplify-components-alert-error-background-color);
+  }
+
+  &[data-variation='warning'] {
+    background-color: var(--amplify-components-alert-warning-background-color);
+  }
+
+  &[data-variation='success'] {
+    background-color: var(--amplify-components-alert-success-background-color);
+  }
+}
+
+.amplify-alert-heading {
+  color: inherit;
+}

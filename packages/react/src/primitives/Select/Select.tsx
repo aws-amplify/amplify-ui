@@ -32,7 +32,11 @@ export const Select: React.FC<SelectProps> = (props) => {
         required={isRequired}
         data-size={size}
         data-variation={variation}
-        className={classNames(ComponentClassNames.Select, className)}
+        className={classNames(
+          ComponentClassNames.Select,
+          ComponentClassNames.FieldGroupControl,
+          className
+        )}
         {...rest}
       >
         {placeholder && <option value="">{placeholder}</option>}

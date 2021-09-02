@@ -29,7 +29,11 @@ export const Input: React.FC<InputProps> = ({
     aria-invalid={hasError}
     as="input"
     autoComplete={autoComplete}
-    className={classNames(ComponentClassNames.Input, className)}
+    className={classNames(
+      ComponentClassNames.Input,
+      ComponentClassNames.FieldGroupControl,
+      className
+    )}
     data-size={size}
     data-variation={variation}
     defaultValue={defaultValue}

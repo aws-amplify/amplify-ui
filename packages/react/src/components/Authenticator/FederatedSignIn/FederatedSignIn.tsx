@@ -1,7 +1,7 @@
 import { get, includes } from 'lodash';
 
-import { I18n } from '@aws-amplify/core';
-import { FederatedIdentityProviders } from '@aws-amplify/ui-core';
+import { I18n } from 'aws-amplify';
+import { FederatedIdentityProviders } from '@aws-amplify/ui';
 
 import { useAmplify, useAuth } from '../../../hooks';
 import { FederatedSignInButton } from './FederatedSignInButtons';

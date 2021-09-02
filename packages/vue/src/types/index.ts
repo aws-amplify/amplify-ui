@@ -8,7 +8,7 @@ import {
   ResetPasswordState,
   SignInState,
   SignUpState,
-} from '@aws-amplify/ui-core';
+} from '@aws-amplify/ui';
 
 export interface SetupEventContext {
   emit: (eventName: string, payload?: unknown) => void;
@@ -25,7 +25,6 @@ export interface UserNameAliasSetupReturnTypes {
   label: string;
   name: string;
   type: string;
-  error: string;
   uName: Ref<string>;
 }
 export interface FederatedSignInButtonReturnTypes {
@@ -52,7 +51,6 @@ export interface SignUpSetupReturnTypes {
   actorState: ComputedRef<SignUpState>;
   phone: Ref<string>;
   submit: () => void;
-  error: Ref<string>;
   secondaryAliases: string[];
   signInButtonText: ComputedRef<string>;
   haveAccountLabel: ComputedRef<string>;
@@ -84,6 +82,7 @@ export interface ConfirmSignInSetupReturnTypes {
   submit: (e: Event) => void;
   backSignInText: ComputedRef<string>;
   confirmText: ComputedRef<string>;
+  codeText: ComputedRef<string>;
   actorState: ComputedRef<SignInState>;
 }
 
@@ -107,6 +106,8 @@ export interface AuthenticatorSetupReturnTypes {
   onForceNewPasswordSubmitI: (e: Event) => void;
   onResetPasswordSubmitI: (e: Event) => void;
   onConfirmResetPasswordSubmitI: (e: Event) => void;
+  onVerifyUserSubmitI: (e: Event) => void;
+  onConfirmVerifyUserSubmitI: (e: Event) => void;
 }
 
 export interface AliasControlTypes {
@@ -130,6 +131,7 @@ export interface ForceNewPasswordReturnTypes {
   actorState: ComputedRef<SignInState>;
   onHaveAccountClicked: () => void;
   signInButtonText: ComputedRef<string>;
+  passwordText: ComputedRef<string>;
   haveAccountLabel: ComputedRef<string>;
 }
 
@@ -149,7 +151,31 @@ export interface ResetPasswordSetupReturnTypes {
   resetPasswordText: ComputedRef<string>;
   resetPasswordHeading: ComputedRef<string>;
   backSignInText: ComputedRef<string>;
+  enterUsernameText: ComputedRef<string>;
   actorState: ComputedRef<ResetPasswordState>;
+}
+
+export interface VerifyUserSetupReturnTypes {
+  onVerifyUserSubmit: (e: Event) => void;
+  onSkipClicked: () => void;
+  submit: (e: Event) => void;
+  actorState: ComputedRef<SignInState>;
+  unverifiedAttributes: Record<string, string>;
+  verifyHeading: ComputedRef<string>;
+  skipText: ComputedRef<string>;
+  verifyText: ComputedRef<string>;
+  authInputAttributes: AuthInputAttributes;
+}
+
+export interface ConfirmVerifyUserSetupReturnTypes {
+  onConfirmVerifyUserSubmit: (e: Event) => void;
+  onSkipClicked: () => void;
+  submit: (e: Event) => void;
+  actorState: ComputedRef<SignInState>;
+  verifyHeading: ComputedRef<string>;
+  skipText: ComputedRef<string>;
+  verifyText: ComputedRef<string>;
+  confirmationCodeText: ComputedRef<string>;
 }
 
 export interface ConfirmResetPasswordSetupReturnTypes {

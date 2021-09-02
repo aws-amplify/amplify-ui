@@ -61,7 +61,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue';
+import { defineComponent, computed, ComputedRef } from 'vue';
+import { I18n } from 'aws-amplify';
+
 import BaseHeading from './primitives/base-heading.vue';
 import BaseFieldSet from './primitives/base-field-set.vue';
 import BaseLabel from './primitives/base-label.vue';
@@ -87,7 +89,7 @@ import {
 import { useAuth } from '../composables/useAuth';
 
 import { ConfirmPasswordSetupReturnTypes, SetupEventContext } from '../types';
-import { getActorState, SignUpContext } from '@aws-amplify/ui-core';
+import { getActorState, SignUpContext } from '@aws-amplify/ui';
 
 export default defineComponent({
   components: {
@@ -116,18 +118,24 @@ export default defineComponent({
     { emit, attrs }: SetupEventContext
   ): ConfirmPasswordSetupReturnTypes {
     const { state, send } = useAuth();
-    const actorState = computed(() => getActorState(state.value));
+    const actorState = computed(() =>
+      getActorState(state.value)
+    ) as ComputedRef<any>;
 
-    const context: SignUpContext = actorState.value.context;
+    const context = actorState.value.context as SignUpContext;
     const username = context.user?.username ?? context.authAttributes?.username;
 
     //computed properties
-    const confirmSignUpHeading = computed(() => CONFIRM_SIGNUP_HEADING);
-    const confirmationCodeText = computed(() => CONFIRMATION_CODE_TEXT);
-    const lostYourCodeText = computed(() => LOST_YOUR_CODE_TEXT);
-    const resendCodeText = computed(() => RESEND_CODE_TEXT);
-    const backSignInText = computed(() => BACK_SIGN_IN_TEXT);
-    const confirmText = computed(() => CONFIRM_TEXT);
+    const confirmSignUpHeading = computed(() =>
+      I18n.get(CONFIRM_SIGNUP_HEADING)
+    );
+    const confirmationCodeText = computed(() =>
+      I18n.get(CONFIRMATION_CODE_TEXT)
+    );
+    const lostYourCodeText = computed(() => I18n.get(LOST_YOUR_CODE_TEXT));
+    const resendCodeText = computed(() => I18n.get(RESEND_CODE_TEXT));
+    const backSignInText = computed(() => I18n.get(BACK_SIGN_IN_TEXT));
+    const confirmText = computed(() => I18n.get(CONFIRM_TEXT));
 
     // Methods
     const onConfirmSignUpSubmit = (e: Event): void => {

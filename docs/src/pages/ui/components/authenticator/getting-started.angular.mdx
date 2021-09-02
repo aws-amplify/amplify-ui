@@ -1,0 +1,43 @@
+For Angular,
+
+1. Register and configure Amplify inside `app.module.ts`
+
+```ts{3,12}
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';;
+import { UiAngularModule } from '@aws-amplify/ui-angular';
+
+import { AppComponent } from './app.component';
+import awsconfig from '../aws-exports';
+
+Amplify.configure(awsconfig);
+
+@NgModule({
+  declarations: [AppComponent],
+  imports: [BrowserModule, UiAngularModule],
+  providers: [],
+  bootstrap: [AppComponent],
+})
+export class AppModule {}
+```
+
+2. Import Authenticator style inside `styles.css`
+
+```css
+@import '~@aws-amplify/ui-angular/theme.css';
+```
+
+3. Wrap your template with `amplify-authenticator` inside `app.component.html`
+
+```html
+<amplify-authenticator>
+  <ng-template
+    amplifyOverride="authenticated"
+    let-user="user"
+    let-signOut="signOut"
+  >
+    <h1>Welcome {user.username}!</h1>
+    <button (click)="signOut()">Sign Out</button>
+  </ng-template>
+</amplify-authenticator>
+```

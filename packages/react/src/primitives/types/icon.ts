@@ -9,7 +9,7 @@ export interface ViewBox {
   height?: number;
 }
 
-export type IconSize = 'small' | 'medium' | 'large';
+export type IconSize = 'small' | 'large';
 
 export interface IconProps
   extends BaseComponentProps,

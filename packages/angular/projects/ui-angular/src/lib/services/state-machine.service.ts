@@ -5,7 +5,7 @@ import {
   AuthInterpreter,
   authMachine,
   AuthMachineState,
-} from '@aws-amplify/ui-core';
+} from '@aws-amplify/ui';
 import { interpret, Event } from 'xstate';
 
 /**

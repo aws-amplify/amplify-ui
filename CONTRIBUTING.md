@@ -19,10 +19,10 @@
 Internally, this content is served by a single, Next.js [optional catch all route](https://nextjs.org/docs/routing/dynamic-routes#optional-catch-all-routes):
 [`docs/src/pages/[[...slugs]].tsx`](docs/src/pages/[[...slugs]].tsx).
 
-## `@aws-amplify/core`
+## `@aws-amplify/ui`
 
-- `yarn core build` to rebuild for production.
-- `yarn core dev` to watch & rebuild for development.
+- `yarn ui build` to rebuild for production.
+- `yarn ui dev` to watch & rebuild for development.
 
 ## `@aws-amplify/ui-react`
 

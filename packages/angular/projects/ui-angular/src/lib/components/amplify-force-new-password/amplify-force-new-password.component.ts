@@ -8,14 +8,14 @@ import {
   TemplateRef,
 } from '@angular/core';
 import { Subscription } from 'xstate';
-import { Logger } from '@aws-amplify/core';
+import { Logger } from 'aws-amplify';
 import {
   AuthMachineState,
   getActorContext,
   getActorState,
   SignInContext,
   SignInState,
-} from '@aws-amplify/ui-core';
+} from '@aws-amplify/ui';
 import { StateMachineService } from '../../services/state-machine.service';
 import { AuthPropService } from '../../services/authenticator-context.service';
 
