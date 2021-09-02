@@ -199,15 +199,17 @@ export const signUpActor = createMachine<SignUpContext, AuthEvent>(
         const [primaryAlias] = login_mechanisms ?? ['username'];
 
         if (formValues.phone_number) {
-          formValues.phone_number = formValues.phone_number.replace(
-            /[^A-Z0-9+]/gi,
-            ''
-          );
+          formValues.phone_number =
+            `${formValues.country_code}${formValues.phone_number}`.replace(
+              /[^A-Z0-9+]/gi,
+              ''
+            );
         }
 
         const username = formValues[primaryAlias];
         delete formValues[primaryAlias];
         delete formValues.confirm_password; // confirm_password field should not be sent to Cognito
+        delete formValues.country_code;
 
         const result = await Auth.signUp({
           username,
