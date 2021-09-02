@@ -2,9 +2,9 @@ import React, { useCallback } from 'react';
 
 import { Button } from '../Button';
 import { Flex } from '../Flex';
-import { Text } from '../Text';
-import { View } from '../View';
 import { IconChevronLeft, IconChevronRight } from '../Icon';
+import { View } from '../View';
+import { VisuallyHidden } from '../VisuallyHidden';
 import { PaginationItemProps } from '../types/pagination';
 
 export const PaginationItem: React.FC<PaginationItemProps> = (props) => {
@@ -30,9 +30,7 @@ export const PaginationItem: React.FC<PaginationItemProps> = (props) => {
                * Use markup to indicate the current item of a menu, such as the current page on a website, to improve orientation in the menu.
                * @link https://www.w3.org/WAI/tutorials/menus/structure/#indicate-the-current-item
                */}
-              <Text as="span" className="visuallyhidden">
-                Current Page:
-              </Text>
+              <VisuallyHidden>Current Page:</VisuallyHidden>
               {page}
             </Flex>
           ) : (

@@ -1,4 +1,4 @@
-import { Logger } from '@aws-amplify/core';
+import { Logger } from 'aws-amplify';
 import {
   AfterContentInit,
   Component,
@@ -9,13 +9,10 @@ import {
   TemplateRef,
   ViewEncapsulation,
 } from '@angular/core';
-import { AuthPropService, StateMachineService } from '../../services';
+import { StateMachineService } from '../../services/state-machine.service';
+import { AuthPropService } from '../../services/authenticator-context.service';
 import { Subscription } from 'xstate';
-import {
-  AuthMachineState,
-  getActorState,
-  SignInState,
-} from '@aws-amplify/ui-core';
+import { AuthMachineState, getActorState, SignInState } from '@aws-amplify/ui';
 
 const logger = new Logger('SignIn');
 
@@ -65,6 +62,10 @@ export class AmplifySignInComponent
 
   toSignUp(): void {
     this.stateMachine.send('SIGN_UP');
+  }
+
+  toResetPassword(): void {
+    this.stateMachine.send('RESET_PASSWORD');
   }
 
   onInput(event: Event) {

@@ -1,7 +1,4 @@
-import * as react from 'react';
-import { Heading, Text, View } from '@aws-amplify/ui-react';
-
-import theme from '@aws-amplify/ui-theme-base';
+import { Heading, Text, theme, View } from '@aws-amplify/ui-react';
 
 export const SectionHeading = ({ title, subtitle }) => (
   <View padding={`0 0 ${theme.space.large} 0`}>

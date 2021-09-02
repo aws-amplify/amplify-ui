@@ -13,7 +13,7 @@
             <base-text>Code *</base-text>
             <base-input
               name="confirmation_code"
-              placeholder="Code"
+              :placeholder="codeText"
               autocomplete="one-time-code"
               required
               type="text"
@@ -49,25 +49,32 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ComputedRef } from 'vue';
-import BaseHeading from './primitives/base-heading.vue';
-import BaseFieldSet from './primitives/base-field-set.vue';
-import BaseLabel from './primitives/base-label.vue';
-import BaseSpacer from './primitives/base-spacer.vue';
-import BaseButton from './primitives/base-button.vue';
-import BaseFooter from './primitives/base-footer.vue';
-import BaseText from './primitives/base-text.vue';
-import BaseInput from './primitives/base-input.vue';
-import BaseForm from './primitives/base-form.vue';
-import BaseBox from './primitives/base-box.vue';
-import BaseWrapper from './primitives/base-wrapper.vue';
+import {
+  AuthChallengeNames,
+  getActorState,
+  SignInState,
+} from '@aws-amplify/ui';
+import { computed, ComputedRef, defineComponent } from 'vue';
+import { I18n } from 'aws-amplify';
 
 import { useAuth } from '../composables/useAuth';
-
-import { BACK_SIGN_IN_TEXT, CONFIRM_TEXT } from '../defaults/DefaultTexts';
+import {
+  BACK_SIGN_IN_TEXT,
+  CONFIRM_TEXT,
+  CODE_TEXT,
+} from '../defaults/DefaultTexts';
 import { ConfirmSignInSetupReturnTypes, SetupEventContext } from '../types';
-import { AuthChallengeNames } from '@aws-amplify/ui-core/src/types';
-import { getActorState, SignInState } from '@aws-amplify/ui-core';
+import BaseBox from './primitives/base-box.vue';
+import BaseButton from './primitives/base-button.vue';
+import BaseFieldSet from './primitives/base-field-set.vue';
+import BaseFooter from './primitives/base-footer.vue';
+import BaseForm from './primitives/base-form.vue';
+import BaseHeading from './primitives/base-heading.vue';
+import BaseInput from './primitives/base-input.vue';
+import BaseLabel from './primitives/base-label.vue';
+import BaseSpacer from './primitives/base-spacer.vue';
+import BaseText from './primitives/base-text.vue';
+import BaseWrapper from './primitives/base-wrapper.vue';
 
 export default defineComponent({
   components: {
@@ -89,7 +96,7 @@ export default defineComponent({
     const actorState: ComputedRef<SignInState> = computed(() =>
       getActorState(state.value)
     );
-    const { challengeName } = actorState.value.context;
+    const challengeName = actorState.value.context.challengeName;
 
     let mfaType: string = 'SMS';
 
@@ -99,8 +106,9 @@ export default defineComponent({
     const confirmSignInHeading = `Confirm ${mfaType} Code`;
 
     // Computed Properties
-    const backSignInText = computed(() => BACK_SIGN_IN_TEXT);
-    const confirmText = computed(() => CONFIRM_TEXT);
+    const backSignInText = computed(() => I18n.get(BACK_SIGN_IN_TEXT));
+    const confirmText = computed(() => I18n.get(CONFIRM_TEXT));
+    const codeText = computed(() => I18n.get(CODE_TEXT));
 
     // Methods
     const onConfirmSignInSubmit = (e: Event): void => {
@@ -140,6 +148,7 @@ export default defineComponent({
       submit,
       backSignInText,
       confirmText,
+      codeText,
       actorState,
     };
   },

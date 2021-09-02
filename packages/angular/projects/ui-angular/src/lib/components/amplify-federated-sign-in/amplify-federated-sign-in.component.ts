@@ -4,8 +4,8 @@ import {
   OnInit,
   TemplateRef,
 } from '@angular/core';
-import { StateMachineService, AuthPropService } from '../../services';
-import { FederatedIdentityProviders } from '@aws-amplify/ui-core';
+import { StateMachineService } from '../../services/state-machine.service';
+import { FederatedIdentityProviders } from '@aws-amplify/ui';
 
 @Component({
   selector: 'amplify-federated-sign-in',

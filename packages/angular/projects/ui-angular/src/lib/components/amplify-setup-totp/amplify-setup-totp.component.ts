@@ -9,12 +9,9 @@ import {
 import { Subscription } from 'xstate';
 import QRCode from 'qrcode';
 import { Auth, Logger } from 'aws-amplify';
-import {
-  AuthMachineState,
-  getActorState,
-  SignInState,
-} from '@aws-amplify/ui-core';
-import { AuthPropService, StateMachineService } from '../../services';
+import { AuthMachineState, getActorState, SignInState } from '@aws-amplify/ui';
+import { StateMachineService } from '../../services/state-machine.service';
+import { AuthPropService } from '../../services/authenticator-context.service';
 
 const logger = new Logger('SetupTotp');
 

@@ -7,22 +7,22 @@
 </ng-template>
 
 <ng-template #signUpPassword>
-  <amplify-input
+  <amplify-form-input
     name="password"
     [required]="true"
     autocomplete="new-password"
-  ></amplify-input>
+  ></amplify-form-input>
 </ng-template>
 
 <ng-template #signUpConfirmPassword>
-  <amplify-input
+  <amplify-form-input
     name="confirm_password"
     label="Confirm Password"
     placeholder="Re-enter your password."
     [required]="true"
     type="password"
     autocomplete="new-password"
-  ></amplify-input>
+  ></amplify-form-input>
 </ng-template>
 
 <ng-template #signUpFieldset>
@@ -45,7 +45,7 @@
     ></ng-container>
 
     <ng-container *ngFor="let secondaryAlias of secondaryAliases">
-      <amplify-input [name]="secondaryAlias"></amplify-input>
+      <amplify-form-input [name]="secondaryAlias"></amplify-form-input>
     </ng-container>
   </fieldset>
 

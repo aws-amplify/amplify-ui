@@ -107,3 +107,11 @@
   font-size: 14px;
   font-weight: 500;
 }
+
+[data-amplify-wrapper] [data-amplify-verify-label] {
+  display: flex;
+}
+
+[data-amplify-wrapper] [data-amplify-verify-input] {
+  width: initial;
+}

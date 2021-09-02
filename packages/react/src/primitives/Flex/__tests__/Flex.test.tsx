@@ -2,51 +2,53 @@ import { render, screen } from '@testing-library/react';
 import { kebabCase } from 'lodash';
 
 import { Flex } from '../Flex';
-import { ComponentPropsToStylePropsMap } from '../../types';
+import { ComponentPropsToStylePropsMap, FlexStyleProps } from '../../types';
+export const testFlexProps: FlexStyleProps = {
+  direction: 'column-reverse',
+  gap: '10%',
+  justifyContent: 'flex-end',
+  alignItems: 'center',
+  alignContent: 'space-between',
+  wrap: 'wrap',
+};
+export const expectFlexStyleProps = (element: HTMLElement): void => {
+  expect(
+    element.style.getPropertyValue(
+      kebabCase(ComponentPropsToStylePropsMap.direction)
+    )
+  ).toBe(testFlexProps.direction);
+  expect(
+    element.style.getPropertyValue(ComponentPropsToStylePropsMap.gap)
+  ).toBe(testFlexProps.gap);
+  expect(
+    element.style.getPropertyValue(
+      kebabCase(ComponentPropsToStylePropsMap.justifyContent)
+    )
+  ).toBe(testFlexProps.justifyContent);
+  expect(
+    element.style.getPropertyValue(
+      kebabCase(ComponentPropsToStylePropsMap.alignItems)
+    )
+  ).toBe(testFlexProps.alignItems);
+  expect(
+    element.style.getPropertyValue(
+      kebabCase(ComponentPropsToStylePropsMap.alignContent)
+    )
+  ).toBe(testFlexProps.alignContent);
+  expect(
+    element.style.getPropertyValue(
+      kebabCase(ComponentPropsToStylePropsMap.wrap)
+    )
+  ).toBe(testFlexProps.wrap);
+};
 
 describe('Flex: ', () => {
   const flexText = 'Flex primitive';
 
   it('can apply styling via props', async () => {
-    render(
-      <Flex
-        direction="column-reverse"
-        gap="10%"
-        justifyContent="flex-end"
-        alignItems="center"
-        alignContent="space-between"
-        wrap="wrap"
-      >
-        {flexText}
-      </Flex>
-    );
+    render(<Flex {...testFlexProps}>{flexText}</Flex>);
     const flex = await screen.findByText(flexText);
-    expect(
-      flex.style.getPropertyValue(
-        kebabCase(ComponentPropsToStylePropsMap.direction)
-      )
-    ).toBe('column-reverse');
-    expect(flex.style.getPropertyValue(ComponentPropsToStylePropsMap.gap)).toBe(
-      '10%'
-    );
-    expect(
-      flex.style.getPropertyValue(
-        kebabCase(ComponentPropsToStylePropsMap.justifyContent)
-      )
-    ).toBe('flex-end');
-    expect(
-      flex.style.getPropertyValue(
-        kebabCase(ComponentPropsToStylePropsMap.alignItems)
-      )
-    ).toBe('center');
-    expect(
-      flex.style.getPropertyValue(
-        kebabCase(ComponentPropsToStylePropsMap.alignContent)
-      )
-    ).toBe('space-between');
-    expect(
-      flex.style.getPropertyValue(kebabCase(ComponentPropsToStylePropsMap.wrap))
-    ).toBe('wrap');
+    expectFlexStyleProps(flex);
   });
 
   it('can apply a custom className', async () => {

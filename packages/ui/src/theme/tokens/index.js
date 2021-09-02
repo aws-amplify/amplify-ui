@@ -1,0 +1,16 @@
+module.exports = {
+  components: require('./components'),
+  borderWidths: require('./borderWidths'),
+  colors: require('./colors'),
+  fonts: require('./fonts'),
+  fontSizes: require('./fontSizes'),
+  fontWeights: require('./fontWeights'),
+  lineHeights: require('./lineHeights'),
+  opacities: require('./opacities'),
+  outlineOffsets: require('./outlineOffsets'),
+  outlineWidths: require('./outlineWidths'),
+  radii: require('./radii'),
+  shadows: require('./shadows'),
+  space: require('./space'),
+  time: require('./time'),
+};

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import QRCode from 'qrcode';
 
 import { Auth, Logger, I18n } from 'aws-amplify';
-import { getActorState, SignInState } from '@aws-amplify/ui-core';
+import { getActorState, SignInState } from '@aws-amplify/ui';
 
 import { useAmplify, useAuth } from '../../../hooks';
 import {

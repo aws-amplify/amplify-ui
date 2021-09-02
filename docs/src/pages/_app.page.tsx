@@ -1,8 +1,7 @@
-import '@aws-amplify/ui-react/styles.css';
-import '@aws-amplify/ui/dist/style.css';
 import Head from 'next/head';
-
 import '../styles/styles.css';
+import '@aws-amplify/ui-react/styles.css';
+import '../styles/primitivesStyles.css';
 
 function MyApp({ Component, pageProps }) {
   return (

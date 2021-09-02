@@ -10,11 +10,11 @@
     <fieldset data-amplify-fieldset [disabled]="isPending">
       <p *ngIf="!qrCodeSource">Loading...</p>
       <img *ngIf="qrCodeSource" [src]="qrCodeSource" alt="qr code" />
-      <amplify-input
+      <amplify-form-input
         name="confirmation_code"
         type="number"
         autocomplete="one-time-code"
-      ></amplify-input>
+      ></amplify-form-input>
 
       <div data-amplify-footer>
         <a data-amplify-link (click)="toSignIn()">Back to Sign In</a>

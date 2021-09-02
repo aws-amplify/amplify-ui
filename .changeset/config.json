@@ -1,0 +1,18 @@
+{
+  "$schema": "https://unpkg.com/@changesets/config@1.6.0/schema.json",
+  "changelog": false,
+  "commit": false,
+  "linked": [],
+  "access": "public",
+  "baseBranch": "main",
+  "updateInternalDependencies": "patch",
+  "ignore": [
+    "docs",
+    "environments",
+    "angular-example",
+    "next-example",
+    "vue-example",
+    "amplify-ui-angular-mono",
+    "e2e"
+  ]
+}

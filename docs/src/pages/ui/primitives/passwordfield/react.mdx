@@ -1,0 +1,341 @@
+import {
+  Button,
+  Flex,
+  Heading,
+  PasswordField,
+  TextField,
+} from '@aws-amplify/ui-react';
+import { PasswordFieldDemo } from './demo';
+import {
+  ChangePasswordFormExample,
+  DescriptiveTextExample,
+  LoginFormExample,
+  PasswordFieldStyledPropsExample,
+  RequiredPasswordFieldExample,
+  SignUpFormExample,
+} from './examples';
+import { Example } from '@/components/Example';
+
+The PasswordField primitive allows users to input passwords. It also features full password manager support and an optional show/hide password button for user convenience.
+
+## Demo
+
+<PasswordFieldDemo />
+
+## Usage
+
+Import the `PasswordField` component and styles and provide a `label` for accessibility/usability.
+
+```jsx
+import { PasswordField } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<PasswordField label="Password" name="password" />;
+```
+
+<Example>
+  <PasswordField label="Password" name="password" />
+</Example>
+
+### Hiding the show password button
+
+Use the `hideShowPassword` prop to hide the show password button.
+
+```jsx
+<PasswordField label="Password" name="password" hideShowPassword={true} />
+```
+
+<Example>
+  <PasswordField label="Password" name="password" hideShowPassword={true} />
+</Example>
+### Autocomplete - supporting password managers
+
+Use the `autoComplete` prop to tell browser how to populate a password field. Options for `autoComplete` are `current-password` (default) and `new-password`.
+
+If customers are logging in, setting `autoComplete` is not required because `current-password` is the default. If customers are signing up for a new account, set `autoComplete` to `new-password`.
+
+See [MDN for more information on autocomplete](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete).
+
+_Signup form example: `new-password`_
+
+```jsx
+<form>
+  <Flex as="form" direction="column" gap="1rem">
+    <Heading level={3}>Sign Up</Heading>
+    <TextField label="Username" name="username" autoComplete="username" />
+    <PasswordField
+      label="Password"
+      name="password"
+      autoComplete="new-password"
+      descriptiveText="Password must be at least 8 characters"
+    />
+    <Button type="submit">Sign Up</Button>
+  </Flex>
+</form>
+```
+
+<Example>
+  <SignUpFormExample />
+</Example>
+
+_Login form example: `current-password` (default)_
+
+```jsx
+<Flex as="form" direction="column" gap="1rem">
+  <Heading level={3}>Login</Heading>
+  <TextField label="Username" name="username" autoComplete="username" />
+  <PasswordField
+    label="Password"
+    name="password"
+    autoComplete="current-password"
+  />
+  <Button type="submit">Login</Button>
+</Flex>
+```
+
+<Example>
+  <LoginFormExample />
+</Example>
+
+_Change password example: `current-password` and `new-password`_
+
+```jsx
+<Flex as="form" direction="column" gap="1rem">
+  <Heading level={3}>Change Password</Heading>
+  <TextField label="Username" name="username" autoComplete="username" />
+  <PasswordField
+    label="Current password"
+    name="current_password"
+    autoComplete="current-password"
+    descriptiveText="Password must be at least 8 characters"
+  />
+  <PasswordField
+    label="New password"
+    name="new_password"
+    autoComplete="new-password"
+    descriptiveText="Password must be at least 8 characters"
+  />
+  <PasswordField
+    label="Confirm password"
+    name="confirm_password"
+    autoComplete="new-password"
+  />
+  <Button type="submit">Submit</Button>
+</Flex>
+```
+
+<Example>
+  <ChangePasswordFormExample />
+</Example>
+
+### Accessibility / Label behavior
+
+The PasswordField primitive is accessible by default. A matching `label` HTML element is rendered with the `PasswordField`,
+all that is required is to provide a `label` prop with a `string` or `ReactNode`. If no `id` is provided, one will be automatically
+generated and connected to both `label` and `input` elements.
+
+### Sizes
+
+Use the `size` prop to change the visual size of the PasswordField. Three sizes are available: `small`, (default), and `large`.
+
+```jsx
+<Flex direction="column" gap="1rem">
+  <PasswordField label="Password" name="password" size="small" />
+  <PasswordField label="Password" name="password" />
+  <PasswordField label="Password" name="password" size="large" />
+</Flex>
+```
+
+<Example>
+  <Flex direction="column" gap="1rem">
+    <PasswordField label="Password" name="password" size="small" />
+    <PasswordField label="Password" name="password" />
+    <PasswordField label="Password" name="password" size="large" />
+  </Flex>
+</Example>
+
+### Variations
+
+There are two variation styles available: default and `quiet`.
+
+```jsx
+<Flex direction="column" gap="1rem">
+  <PasswordField label="Password" name="password" />
+  <PasswordField label="Password" name="password" variation="quiet" />
+</Flex>
+```
+
+<Example>
+  <Flex direction="column" gap="1rem">
+    <PasswordField label="Password" name="password" />
+    <PasswordField label="Password" name="password" variation="quiet" />
+  </Flex>
+</Example>
+
+### Descriptive text
+
+To provide additional descriptive text of requirements of the field, use the `descriptiveText` field.
+
+```jsx
+<PasswordField
+  label="Password"
+  name="password"
+  descriptiveText={
+    <Text as="span" color="rebeccapurple" fontStyle="italic" fontSize="0.8rem">
+      Password length must be greater than 8 characters
+    </Text>
+  }
+/>
+```
+
+<Example>
+  <DescriptiveTextExample />
+</Example>
+
+### Required fields
+
+Use the `isRequired` prop to specify a required field.
+
+```jsx
+<Flex as="form" direction="column" width="20rem">
+  <PasswordField label="Password" name="password" isRequired={true} />
+  <Button type="submit">Submit</Button>
+</Flex>
+```
+
+<Example>
+  <Flex as="form" direction="column" width="20rem">
+    <PasswordField label="Password" name="password" isRequired={true} />
+    <Button type="submit">Submit</Button>
+  </Flex>
+</Example>
+
+There is no default styling for required fields. Customize the `label` or `descriptiveText` to instruct the form user of the required field.
+
+```jsx
+<Flex as="form" direction="column" width="20rem">
+  <PasswordField
+    label={
+      <Text>
+        Password
+        <Text as="span" fontSize="0.8rem" color="red">
+          {' '}
+          (required)
+        </Text>
+      </Text>
+    }
+    name="password"
+    isRequired={true}
+  />
+  <PasswordField
+    label="Password"
+    descriptiveText={
+      <Text as="span" fontSize="0.8rem" color="red" fontStyle="italic">
+        Required
+      </Text>
+    }
+    name="password"
+    isRequired={true}
+  />
+  <Button type="submit">Submit</Button>
+</Flex>
+```
+
+<Example>
+  <RequiredPasswordFieldExample />
+</Example>
+
+### Validation error styling
+
+Use the `hasError` and `errorMessage` fields to mark a PasswordField as having an validation error.
+
+```jsx
+<PasswordField
+  label="Password"
+  defaultValue="1234"
+  hasError={true}
+  errorMessage="Password should not be 1234! 😱"
+/>
+```
+
+<Example>
+  <Flex gap="1rem" direction="column">
+    <PasswordField
+      label="Password"
+      defaultValue="1234"
+      hasError={true}
+      errorMessage="Password should not be 1234! 😱"
+    />
+  </Flex>
+</Example>
+
+## CSS Styling
+
+### Global styling
+
+To override styling on all TextField primitives, you can set the Amplify CSS variables or use the built-in `.amplify-textfield` class.
+
+```css
+/* styles.css */
+:root {
+  --amplify-components-field-border-color: rebeccapurple;
+}
+/* OR */
+.amplify-passwordfield {
+  --amplify-components-field-border-color: rebeccapurple;
+}
+```
+
+<Example>
+  <PasswordField
+    label="Globally styled password field"
+    name="password"
+    className="globally-styled-textfield"
+  />
+</Example>
+
+### Local styling
+
+To override styling on a specific TextField, you can use a class selector or style props.
+
+_Using a class selector:_
+
+```css
+/* styles.css */
+.custom-passwordfield-class .amplify-input,
+.custom-passwordfield-class .amplify-button {
+  border-radius: 0;
+}
+```
+
+<Example>
+  <PasswordField
+    className="custom-passwordfield-class"
+    label="Square password field"
+    name="password"
+  />
+</Example>
+
+_Using style props:_
+
+Flex styling props will be applied to the PasswordField wrapping Flex component, whereas other style props will be applied to the input field. This allows us to change the layout of the label and input field, while also styling the input field directly.
+
+```jsx
+<PasswordField
+  direction="row"
+  alignItems="baseline"
+  label={
+    <Text fontWeight="bold" fontSize="1.5rem">
+      Password:
+    </Text>
+  }
+  fontSize="1.5rem"
+  backgroundColor="#fff1e7"
+  color="#000"
+  width="400px"
+/>
+```
+
+<Example>
+  <PasswordFieldStyledPropsExample />
+</Example>

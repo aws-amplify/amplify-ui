@@ -1,7 +1,7 @@
 <template>
   <slot name="signUpSlotI">
     <base-wrapper data-amplify-wrapper>
-      <base-form @submit.prevent="onSignUpSubmit" @change="onChange">
+      <base-form @submit.prevent="onSignUpSubmit" @input="onInput">
         <base-heading>
           <template #headingI>
             <slot name="heading"></slot>
@@ -16,9 +16,6 @@
           <user-name-alias />
           <sign-up-password-control />
           <sign-up-confirm-password-control />
-          <base-box data-ui-error v-if="error">
-            {{ error }}
-          </base-box>
           <template v-for="(alias, idx) in secondaryAliases" :key="idx">
             <alias-control
               :label="inputAttributes[alias].label"
@@ -61,15 +58,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch, computed, ComputedRef } from 'vue';
+import { defineComponent, ref, computed, ComputedRef } from 'vue';
+import { I18n } from 'aws-amplify';
 import {
   authInputAttributes,
-  getActorContext,
   getActorState,
-  SignUpContext,
   SignUpState,
   socialProviderLoginMechanisms,
-} from '@aws-amplify/ui-core';
+} from '@aws-amplify/ui';
 
 import BaseForm from './primitives/base-form.vue';
 import BaseBox from './primitives/base-box.vue';
@@ -137,20 +133,15 @@ export default defineComponent({
     // reactive properties
 
     const phone = ref('');
-    const error = ref('');
 
     // computed properties
 
-    const signInButtonText = computed(() => SIGN_IN_BUTTON_TEXT);
-    const haveAccountLabel = computed(() => HAVE_ACCOUNT_LABEL);
-    const createAccountLabel = computed(() => CREATE_ACCOUNT_LABEL);
-    const signUpButtonText = computed(() => SIGN_UP_BUTTON_TEXT);
+    const signInButtonText = computed(() => I18n.get(SIGN_IN_BUTTON_TEXT));
+    const haveAccountLabel = computed(() => I18n.get(HAVE_ACCOUNT_LABEL));
+    const createAccountLabel = computed(() => I18n.get(CREATE_ACCOUNT_LABEL));
+    const signUpButtonText = computed(() => I18n.get(SIGN_UP_BUTTON_TEXT));
     const inputAttributes = computed(() => authInputAttributes);
 
-    watch(state, (first) => {
-      const actorContext: SignUpContext = getActorContext(first);
-      error.value = actorContext.validationError?.confirm_password;
-    });
     // Methods
 
     const onHaveAccountClicked = (): void => {
@@ -163,7 +154,7 @@ export default defineComponent({
       }
     };
 
-    const onChange = (e: Event): void => {
+    const onInput = (e: Event): void => {
       const { name, value } = <HTMLInputElement>e.target;
       send({
         type: 'CHANGE',
@@ -188,12 +179,11 @@ export default defineComponent({
     return {
       onHaveAccountClicked,
       onSignUpSubmit,
-      onChange,
+      onInput,
       state,
       actorState,
       phone,
       submit,
-      error,
       secondaryAliases,
       signInButtonText,
       haveAccountLabel,
