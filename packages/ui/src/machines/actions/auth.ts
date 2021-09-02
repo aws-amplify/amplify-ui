@@ -1,6 +1,6 @@
 import { assign, stop } from 'xstate/lib/actions';
 
-import { ActorContextWithForms, AuthEvent, SignUpContext } from '../../types';
+import { MachineContextWithForms, AuthEvent, SignUpContext } from '../../types';
 
 export const stopActor = (machineId: string) => {
   return stop(machineId);
@@ -85,11 +85,12 @@ export const setUser = assign({
 });
 
 export const setUsername = assign({
-  username: (context: ActorContextWithForms, _) => context.formValues.username,
+  username: (context: MachineContextWithForms, _) =>
+    context.formValues.username,
 });
 
 export const setUsernameAuthAttributes = assign({
-  authAttributes: (context: ActorContextWithForms, _) => ({
+  authAttributes: (context: MachineContextWithForms, _) => ({
     username: context.formValues.username,
   }),
 });

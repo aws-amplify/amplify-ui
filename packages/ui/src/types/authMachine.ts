@@ -61,11 +61,11 @@ export interface CognitoUserAmplify extends CognitoUser {
   username?: string;
 }
 
-export type InvokeActorEventTypes =
-  | 'done.invoke.signInActor'
-  | 'done.invoke.signUpActor'
-  | 'done.invoke.signOutActor'
-  | 'done.invoke.resetPasswordActor';
+export type InvokeMachineEventTypes =
+  | 'done.invoke.signInMachine'
+  | 'done.invoke.signUpMachine'
+  | 'done.invoke.signOutMachine'
+  | 'done.invoke.resetPasswordMachine';
 
 export type AuthEventTypes =
   | 'SIGN_IN'
@@ -77,7 +77,7 @@ export type AuthEventTypes =
   | 'FEDERATED_SIGN_IN'
   | 'RESET_PASSWORD'
   | 'SKIP'
-  | InvokeActorEventTypes;
+  | InvokeMachineEventTypes;
 
 export enum AuthChallengeNames {
   SMS_MFA = 'SMS_MFA',

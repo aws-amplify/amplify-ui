@@ -20,10 +20,10 @@ import {
 } from '../../actions';
 import { AuthEvent, AuthChallengeNames, SignInContext } from '../../../types';
 
-export const signInActor = createMachine<SignInContext, AuthEvent>(
+export const signInMachine = createMachine<SignInContext, AuthEvent>(
   {
     initial: 'init',
-    id: 'signInActor',
+    id: 'signIn',
     states: {
       init: {
         always: [
@@ -48,7 +48,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
             invoke: {
               src: 'federatedSignIn',
               // getting navigated out anyway, only track errors.
-              // onDone: '#signInActor.resolved',
+              // onDone: '#signInMachine.resolved',
               onError: { actions: 'setRemoteError' },
             },
           },
@@ -60,17 +60,17 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
                 {
                   cond: 'shouldSetupTOTP',
                   actions: ['setUser', 'setChallengeName'],
-                  target: '#signInActor.setupTOTP',
+                  target: '#signInMachine.setupTOTP',
                 },
                 {
                   cond: 'shouldConfirmSignIn',
                   actions: ['setUser', 'setChallengeName'],
-                  target: '#signInActor.confirmSignIn',
+                  target: '#signInMachine.confirmSignIn',
                 },
                 {
                   cond: 'shouldForceChangePassword',
                   actions: ['setUser', 'setChallengeName'],
-                  target: '#signInActor.forceNewPassword',
+                  target: '#signInMachine.forceNewPassword',
                 },
                 {
                   actions: 'setUser',
@@ -108,7 +108,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
               onDone: [
                 {
                   cond: 'shouldRequestVerification',
-                  target: '#signInActor.verifyUser',
+                  target: '#signInMachine.verifyUser',
                   actions: 'setUnverifiedAttributes',
                 },
                 {
@@ -121,8 +121,8 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
               },
             },
           },
-          resolved: { always: '#signInActor.resolved' },
-          rejected: { always: '#signInActor.rejected' },
+          resolved: { always: '#signInMachine.resolved' },
+          rejected: { always: '#signInMachine.rejected' },
         },
       },
       confirmSignIn: {
@@ -133,7 +133,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
             entry: sendUpdate(),
             on: {
               SUBMIT: 'submit',
-              SIGN_IN: '#signInActor.signIn',
+              SIGN_IN: '#signInMachine.signIn',
               CHANGE: { actions: 'handleInput' },
             },
           },
@@ -142,7 +142,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
             invoke: {
               src: 'confirmSignIn',
               onDone: {
-                target: '#signInActor.resolved',
+                target: '#signInMachine.resolved',
                 actions: ['setUser', 'clearChallengeName'],
               },
               onError: {
@@ -161,7 +161,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
             entry: sendUpdate(),
             on: {
               SUBMIT: 'submit',
-              SIGN_IN: '#signInActor.signIn',
+              SIGN_IN: '#signInMachine.signIn',
               CHANGE: { actions: 'handleInput' },
             },
           },
@@ -171,7 +171,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
               src: 'forceNewPassword',
               onDone: {
                 actions: ['setUser', 'clearChallengeName'],
-                target: '#signInActor.resolved',
+                target: '#signInMachine.resolved',
               },
               onError: {
                 actions: 'setRemoteError',
@@ -189,7 +189,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
             entry: sendUpdate(),
             on: {
               SUBMIT: 'submit',
-              SIGN_IN: '#signInActor.signIn',
+              SIGN_IN: '#signInMachine.signIn',
               CHANGE: { actions: 'handleInput' },
             },
           },
@@ -199,7 +199,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
               src: 'verifyTotpToken',
               onDone: {
                 actions: ['setUser', 'clearChallengeName'],
-                target: '#signInActor.resolved',
+                target: '#signInMachine.resolved',
               },
               onError: {
                 actions: 'setRemoteError',
@@ -217,7 +217,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
             entry: sendUpdate(),
             on: {
               SUBMIT: 'submit',
-              SKIP: '#signInActor.resolved',
+              SKIP: '#signInMachine.resolved',
               CHANGE: { actions: 'handleInput' },
             },
           },
@@ -226,7 +226,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
             invoke: {
               src: 'verifyUser',
               onDone: {
-                target: '#signInActor.confirmVerifyUser',
+                target: '#signInMachine.confirmVerifyUser',
               },
               onError: {
                 actions: 'setRemoteError',
@@ -249,7 +249,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
             entry: sendUpdate(),
             on: {
               SUBMIT: 'submit',
-              SKIP: '#signInActor.resolved',
+              SKIP: '#signInMachine.resolved',
               CHANGE: { actions: 'handleInput' },
             },
           },
@@ -258,7 +258,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
             invoke: {
               src: 'confirmVerifyUser',
               onDone: {
-                target: '#signInActor.resolved',
+                target: '#signInMachine.resolved',
               },
               onError: {
                 actions: 'setRemoteError',

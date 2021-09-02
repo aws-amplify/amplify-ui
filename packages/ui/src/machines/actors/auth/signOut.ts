@@ -3,10 +3,10 @@ import { createMachine } from 'xstate';
 import { AuthEvent, SignOutContext } from '../../../types';
 import { Auth } from 'aws-amplify';
 
-export const signOutActor = createMachine<SignOutContext, AuthEvent>(
+export const signOutMachine = createMachine<SignOutContext, AuthEvent>(
   {
     initial: 'pending',
-    id: 'signOutActor',
+    id: 'signOut',
     states: {
       pending: {
         invoke: {

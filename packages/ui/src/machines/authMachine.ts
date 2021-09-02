@@ -2,10 +2,10 @@ import { assign, createMachine, forwardTo, spawn } from 'xstate';
 import { Auth, Amplify } from 'aws-amplify';
 import { AuthContext, AuthEvent } from '../types';
 import {
-  signInActor,
-  signUpActor,
-  signOutActor,
-  resetPasswordActor,
+  signInMachine,
+  signUpMachine,
+  signOutMachine,
+  resetPasswordMachine,
 } from './actors';
 import { stopActor } from './actions';
 
@@ -40,12 +40,12 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
         ],
       },
       signIn: {
-        entry: 'spawnSignInActor',
-        exit: stopActor('signInActor'),
+        entry: 'spawnSignInMachine',
+        exit: stopActor('signInMachine'),
         on: {
           SIGN_UP: 'signUp',
           RESET_PASSWORD: 'resetPassword',
-          'done.invoke.signInActor': [
+          'done.invoke.signInMachine': [
             {
               target: 'signUp',
               cond: 'shouldRedirectToSignUp',
@@ -62,28 +62,28 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
         },
       },
       signUp: {
-        entry: 'spawnSignUpActor',
-        exit: stopActor('signUpActor'),
+        entry: 'spawnSignUpMachine',
+        exit: stopActor('signUpMachine'),
         on: {
           SIGN_IN: 'signIn',
-          'done.invoke.signUpActor': {
+          'done.invoke.signUpMachine': {
             target: 'signIn',
             actions: 'setUser',
           },
         },
       },
       resetPassword: {
-        entry: 'spawnResetPasswordActor',
-        exit: stopActor('resetPasswordActor'),
+        entry: 'spawnResetPasswordMachine',
+        exit: stopActor('resetPasswordMachine'),
         on: {
           SIGN_IN: 'signIn',
-          'done.invoke.resetPasswordActor': 'signIn',
+          'done.invoke.resetPasswordMachine': 'signIn',
         },
       },
       signOut: {
-        entry: 'spawnSignOutActor',
-        exit: [stopActor('signOutActor'), 'clearUser'],
-        on: { 'done.invoke.signOutActor': 'idle' },
+        entry: 'spawnSignOutMachine',
+        exit: [stopActor('signOutMachine'), 'clearUser'],
+        on: { 'done.invoke.signOutMachine': 'idle' },
       },
       authenticated: {
         on: { SIGN_OUT: 'signOut' },
@@ -113,47 +113,47 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
           return event.data.auth;
         },
       }),
-      spawnSignInActor: assign({
+      spawnSignInMachine: assign({
         actorRef: (_, event) => {
-          const actor = signInActor.withContext({
+          const actor = signInMachine.withContext({
             authAttributes: event.data?.authAttributes,
             user: event.data?.user,
             intent: event.data?.intent,
             formValues: {},
             validationError: {},
           });
-          return spawn(actor, { name: 'signInActor' });
+          return spawn(actor, { name: 'signInMachine' });
         },
       }),
-      spawnSignUpActor: assign({
+      spawnSignUpMachine: assign({
         actorRef: (context, event) => {
-          const actor = signUpActor.withContext({
+          const actor = signUpMachine.withContext({
             authAttributes: event.data?.authAttributes ?? {},
             intent: event.data?.intent,
             formValues: {},
             validationError: {},
             login_mechanisms: context.config?.login_mechanisms,
           });
-          return spawn(actor, { name: 'signUpActor' });
+          return spawn(actor, { name: 'signUpMachine' });
         },
       }),
-      spawnResetPasswordActor: assign({
+      spawnResetPasswordMachine: assign({
         actorRef: (context, event) => {
-          const actor = resetPasswordActor.withContext({
+          const actor = resetPasswordMachine.withContext({
             formValues: {},
             intent: event.data?.intent,
             username: event.data?.authAttributes?.username,
             validationError: {},
           });
-          return spawn(actor, { name: 'resetPasswordActor' });
+          return spawn(actor, { name: 'resetPasswordMachine' });
         },
       }),
-      spawnSignOutActor: assign({
+      spawnSignOutMachine: assign({
         actorRef: (context) => {
-          const actor = signOutActor.withContext({
+          const actor = signOutMachine.withContext({
             user: context.user,
           });
-          return spawn(actor, { name: 'signOutActor' });
+          return spawn(actor, { name: 'signOutMachine' });
         },
       }),
     },

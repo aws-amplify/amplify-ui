@@ -12,12 +12,12 @@ import {
   setUsername,
 } from '../../actions';
 
-export const resetPasswordActor = createMachine<
+export const resetPasswordMachine = createMachine<
   ResetPasswordContext,
   AuthEvent
 >(
   {
-    id: 'resetPasswordActor',
+    id: 'resetPassword',
     initial: 'init',
     states: {
       init: {
@@ -42,7 +42,7 @@ export const resetPasswordActor = createMachine<
             invoke: {
               src: 'resetPassword',
               onDone: {
-                target: '#resetPasswordActor.confirmResetPassword',
+                target: '#resetPasswordMachine.confirmResetPassword',
               },
               onError: {
                 actions: ['setRemoteError'],
@@ -81,7 +81,7 @@ export const resetPasswordActor = createMachine<
               src: 'confirmResetPassword',
               onDone: {
                 actions: 'clearUsername',
-                target: '#resetPasswordActor.resolved',
+                target: '#resetPasswordMachine.resolved',
               },
               onError: {
                 actions: 'setRemoteError',

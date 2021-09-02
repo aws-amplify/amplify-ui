@@ -15,9 +15,9 @@ import {
   setUser,
 } from '../../actions';
 
-export const signUpActor = createMachine<SignUpContext, AuthEvent>(
+export const signUpMachine = createMachine<SignUpContext, AuthEvent>(
   {
-    id: 'signUpActor',
+    id: 'signUpMachine',
     initial: 'init',
     states: {
       init: {
@@ -70,7 +70,7 @@ export const signUpActor = createMachine<SignUpContext, AuthEvent>(
                 entry: [sendUpdate(), 'clearError'],
                 invoke: {
                   src: 'federatedSignIn',
-                  onDone: '#signUpActor.resolved',
+                  onDone: '#signUpMachine.resolved',
                   onError: { actions: 'setRemoteError' },
                 },
               },
@@ -102,7 +102,10 @@ export const signUpActor = createMachine<SignUpContext, AuthEvent>(
                   },
                 },
               },
-              resolved: { type: 'final', always: '#signUpActor.confirmSignUp' },
+              resolved: {
+                type: 'final',
+                always: '#signUpMachine.confirmSignUp',
+              },
             },
           },
         },
@@ -130,7 +133,7 @@ export const signUpActor = createMachine<SignUpContext, AuthEvent>(
             entry: [sendUpdate(), 'clearError'],
             invoke: {
               src: 'confirmSignUp',
-              onDone: { target: '#signUpActor.resolved' },
+              onDone: { target: '#signUpMachine.resolved' },
               onError: { target: 'edit', actions: 'setRemoteError' },
             },
           },
