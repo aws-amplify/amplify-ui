@@ -14,6 +14,7 @@ import {
   ViewProps,
 } from '../types/index';
 
+//@TODO: consume from theme
 const breakpoints = {
   base: 0,
   small: 480,
@@ -22,6 +23,7 @@ const breakpoints = {
   xl: 1280,
   xxl: 1536,
 };
+const breakpointKeys = Object.keys(breakpoints);
 
 export const prefixer = postcssJs.sync([autoprefixer]);
 
@@ -36,14 +38,19 @@ export const usePropStyles = (props: ViewProps, style: any, breakpoint) => {
 };
 
 const getValueAtCurrentBreakpoint = (
-  values: Record<string, any>,
+  values: Record<string, any> | string[],
   breakpoint
 ) => {
+  let breakpointCompatValues = {};
   if (Array.isArray(values)) {
-    //TODO: convert to object form
+    values.map((value, index) => {
+      breakpointCompatValues[breakpointKeys[index]] = value;
+    });
+  } else {
+    breakpointCompatValues = values;
   }
 
-  return getClosestValueByBreakpoint(values, breakpoint);
+  return getClosestValueByBreakpoint(breakpointCompatValues, breakpoint);
 };
 
 const getClosestValueByBreakpoint = (values, breakpoint) => {
@@ -55,16 +62,12 @@ const getClosestValueByBreakpoint = (values, breakpoint) => {
   // Otherwise use a lower breakpoint value
   const keys = Object.keys(breakpoints).reverse();
   const lowerKeys = keys.slice(keys.indexOf(breakpoint));
-  console.log(lowerKeys);
   for (let key of lowerKeys) {
-    console.log('values', values);
     if (values.hasOwnProperty(key)) {
-      console.log('values hasOwnProperty', key, values[key]);
       return values[key];
     }
   }
 
-  // No value provided at or below breakpoint
   return null;
 };
 
