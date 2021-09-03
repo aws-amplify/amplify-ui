@@ -94,6 +94,7 @@
 
 <script lang="ts">
 import { Ref, ref, computed, ComputedRef } from 'vue';
+import { I18n } from 'aws-amplify';
 
 import BaseLabel from './primitives/base-label.vue';
 import BaseFooter from './primitives/base-footer.vue';
@@ -129,16 +130,16 @@ import { SetupEventContext, SignInSetupReturnTypes } from '../types/index';
 import { getActorState, SignInState } from '@aws-amplify/ui';
 
 export default {
-  name: 'Authentication',
+  name: 'Sign In',
   computed: {
-    signIntoAccountText: (): string => SIGN_IN_TEXT,
-    resetPasswordLink: (): string => RESET_PASSWORD_LINK,
-    noAccount: (): string => NO_ACCOUNT,
-    createAccountLink: (): string => CREATE_ACCOUNT_LINK,
-    signInButtonText: (): string => SIGN_IN_BUTTON_TEXT,
-    signIngButtonText: (): string => SIGNING_IN_BUTTON_TEXT,
-    forgotYourPasswordText: (): string => FORGOT_YOUR_PASSWORD_TEXT,
-    passwordLabel: (): string => PASSWORD_LABEL,
+    signIntoAccountText: (): string => I18n.get(SIGN_IN_TEXT),
+    resetPasswordLink: (): string => I18n.get(RESET_PASSWORD_LINK),
+    noAccount: (): string => I18n.get(NO_ACCOUNT),
+    createAccountLink: (): string => I18n.get(CREATE_ACCOUNT_LINK),
+    signInButtonText: (): string => I18n.get(SIGN_IN_BUTTON_TEXT),
+    signIngButtonText: (): string => I18n.get(SIGNING_IN_BUTTON_TEXT),
+    forgotYourPasswordText: (): string => I18n.get(FORGOT_YOUR_PASSWORD_TEXT),
+    passwordLabel: (): string => I18n.get(PASSWORD_LABEL),
   },
   inheritAttrs: false,
   components: {
@@ -156,7 +157,6 @@ export default {
     SignInPasswordControl,
     FederatedSignIn,
   },
-
   setup(_, { emit, attrs }: SetupEventContext): SignInSetupReturnTypes {
     const { state, send } = useAuth();
     const actorState: ComputedRef<SignInState> = computed(() =>

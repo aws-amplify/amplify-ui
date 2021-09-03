@@ -4,16 +4,18 @@ import classNames from 'classnames';
 import { Flex } from '../Flex';
 import { View } from '../View';
 import { IconExpandMore } from '../Icon';
-import { SelectProps } from '../types';
+import { SelectProps } from '../types/select';
 import { ComponentClassNames } from '../shared';
 
 export const Select: React.FC<SelectProps> = (props) => {
   const {
+    autoComplete,
     className,
     size,
     variation,
     value,
     defaultValue,
+    hasError,
     icon = <IconExpandMore size="large" />,
     iconColor,
     children,
@@ -22,12 +24,22 @@ export const Select: React.FC<SelectProps> = (props) => {
     isRequired,
     ...rest
   } = props;
+  const DEFAULT_PLACEHOLDER_VALUE = '';
+  // value === undefined is to make sure that component is used in uncontrolled way so that setting defaultValue is valid
+  const shouldSetDefaultPlaceholderValue =
+    value === undefined && defaultValue === undefined && placeholder;
   return (
-    <View className="amplify-select-wrapper">
+    <View className={ComponentClassNames.SelectWrapper}>
       <View
+        aria-invalid={hasError}
         as="select"
+        autoComplete={autoComplete}
         value={value}
-        defaultValue={defaultValue}
+        defaultValue={
+          shouldSetDefaultPlaceholderValue
+            ? DEFAULT_PLACEHOLDER_VALUE
+            : defaultValue
+        }
         isDisabled={isDisabled}
         required={isRequired}
         data-size={size}
@@ -43,7 +55,7 @@ export const Select: React.FC<SelectProps> = (props) => {
         {children}
       </View>
       <Flex
-        className="amplify-select-icon-wrapper"
+        className={ComponentClassNames.SelectIconWrapper}
         alignItems="center"
         justifyContent="center"
         color={iconColor}

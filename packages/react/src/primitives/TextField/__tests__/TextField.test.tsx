@@ -22,6 +22,7 @@ describe('TextField component', () => {
 
       const field = await screen.findByTestId('testId');
       expect(field).toHaveClass('my-textfield');
+      expect(field).toHaveClass(ComponentClassNames.Field);
       expect(field).toHaveClass(ComponentClassNames.TextField);
     });
 
@@ -86,11 +87,19 @@ describe('TextField component', () => {
     });
 
     it('should set size and variation data attributes', async () => {
-      render(<TextField label="Field" size="small" variation="quiet" />);
+      render(
+        <TextField
+          label="Field"
+          size="small"
+          testId="testField"
+          variation="quiet"
+        />
+      );
 
-      const field = await screen.findByRole('textbox');
-      expect(field.dataset['size']).toBe('small');
-      expect(field.dataset['variation']).toBe('quiet');
+      const textField = await screen.findByTestId('testField');
+      const input = await screen.findByRole('textbox');
+      expect(textField).toHaveAttribute('data-size', 'small');
+      expect(input).toHaveAttribute('data-variation', 'quiet');
     });
 
     it('can set defaultValue', async () => {
