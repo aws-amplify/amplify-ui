@@ -297,6 +297,8 @@ import ConfirmVerifyUser from './confirm-verify-user.vue';
 import {
   AuthenticatorSetupReturnTypes,
   SetupEventContext,
+  INTERPRET_SERVICE,
+  InterpretService,
 } from '../types/index';
 
 export default defineComponent({
@@ -336,13 +338,12 @@ export default defineComponent({
     confirmVerifyUserComponent: typeof ConfirmVerifyUser;
   } {
     //Setup XState Provide / Inject
-    const service = ref(
-      useInterpret(authMachine, {
-        devTools: process.env.NODE_ENV === 'development',
-      })
-    );
+    const s = useInterpret(authMachine, {
+      devTools: process.env.NODE_ENV === 'development',
+    });
+    const service = ref(s);
 
-    provide('service', service.value);
+    provide(INTERPRET_SERVICE, <InterpretService>service.value);
     const { state, send } = useActor(service.value);
     const actorState = computed(() => getActorState(state.value));
 
