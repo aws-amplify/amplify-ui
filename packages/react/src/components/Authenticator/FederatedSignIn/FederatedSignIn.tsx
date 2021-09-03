@@ -38,7 +38,7 @@ export const FederatedSignIn = (): JSX.Element => {
     facebookButton || googleButton || amazonButton;
 
   const component = shouldShowFederatedSignIn ? (
-    <Flex direction="column">
+    <Flex direction="column" className="federated-sign-in-container">
       {googleButton}
       {facebookButton}
       {amazonButton}

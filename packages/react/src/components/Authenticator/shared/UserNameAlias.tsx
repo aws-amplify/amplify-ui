@@ -2,7 +2,7 @@ import { I18n } from 'aws-amplify';
 import { getAliasInfoFromContext } from '@aws-amplify/ui';
 
 import { useAuth } from '../../../hooks';
-import { Label, Text, Input, ErrorText } from '../../../primitives';
+import { TextField } from '../../../primitives';
 
 export interface UserNameAliasProps {
   handleInputChange?(event): void;
@@ -14,17 +14,18 @@ export function UserNameAlias(props: UserNameAliasProps) {
   const [{ context }] = useAuth();
 
   const { label, type, error } = getAliasInfoFromContext(context);
+  const i18nLabel = I18n.get(label);
 
   return (
-    <Label {...attrs}>
-      <Text>{I18n.get(label)}</Text>
-      <Input
-        onChange={handleInputChange}
-        name="username"
-        required
-        type={type}
-      />
-      <ErrorText>{error}</ErrorText>
-    </Label>
+    <TextField
+      type={type}
+      onChange={handleInputChange}
+      name="username"
+      required
+      placeholder={i18nLabel}
+      label={i18nLabel}
+      labelHidden={true}
+      errorMessage={error}
+    />
   );
 }

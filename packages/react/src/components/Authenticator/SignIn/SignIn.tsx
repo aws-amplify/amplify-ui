@@ -9,15 +9,14 @@ export function SignIn() {
   const amplifyNamespace = 'Authenticator.SignIn';
   const {
     components: {
-      Box,
       Button,
-      Fieldset,
+      Divider,
+      FieldGroup,
+      Flex,
       Footer,
       Form,
       Heading,
-      Input,
-      Label,
-      Spacer,
+      PasswordField,
       Text,
     },
   } = useAmplify(amplifyNamespace);
@@ -52,43 +51,60 @@ export function SignIn() {
       }}
       onChange={handleChange}
     >
-      <Heading level={1}>{I18n.get('Sign in to your account')}</Heading>
+      <Flex direction="column">
+        <Heading level={3}>{I18n.get('Sign in to your account')}</Heading>
+
+        <FieldGroup disabled={isPending} direction="column">
+          <UserNameAlias data-amplify-usernamealias />
+          <PasswordField
+            className="password-field"
+            placeholder={I18n.get('Password')}
+            required
+            name="password"
+          />
+        </FieldGroup>
+
+        <Button
+          borderRadius={0}
+          isDisabled={isPending}
+          isFullWidth={true}
+          type="submit"
+          variation="primary"
+          isLoading={isPending}
+          loadingText={I18n.get('Signing in')}
+          fontWeight="normal"
+        >
+          {I18n.get('Sign in')}
+        </Button>
+
+        <Button
+          onClick={() => send({ type: 'RESET_PASSWORD' })}
+          type="button"
+          variation="link"
+          size="small"
+          fontWeight="normal"
+        >
+          {I18n.get('Forgot your password? ')}
+        </Button>
+
+        <Footer>
+          <Text fontWeight="normal">{I18n.get('No account? ')}</Text>
+          <Button
+            onClick={() => send({ type: 'SIGN_UP' })}
+            type="button"
+            variation="link"
+            fontWeight="normal"
+          >
+            {I18n.get('Create account')}
+          </Button>
+        </Footer>
+      </Flex>
+
+      <ErrorText amplifyNamespace={amplifyNamespace} />
+
+      <Divider size="small" />
 
       <FederatedSignIn />
-
-      <Fieldset disabled={isPending}>
-        <UserNameAlias data-amplify-usernamealias />
-
-        <Label data-amplify-password>
-          <Text>{I18n.get('Password')}</Text>
-          <Input name="password" required type="password" />
-          <Box>
-            <Text>{I18n.get('Forgot your password? ')}</Text>
-            <Button
-              onClick={() => send({ type: 'RESET_PASSWORD' })}
-              type="button"
-            >
-              {I18n.get('Reset password')}
-            </Button>
-          </Box>
-        </Label>
-      </Fieldset>
-
-      <Footer>
-        <Text>{I18n.get('No account? ')}</Text>
-        <Button onClick={() => send({ type: 'SIGN_UP' })} type="button">
-          {I18n.get('Create account')}
-        </Button>
-        <Spacer />
-        <Button isDisabled={isPending} type="submit">
-          {isPending ? (
-            <>{I18n.get('Signing in')}&hellip;</>
-          ) : (
-            <>{I18n.get('Sign in')}</>
-          )}
-        </Button>
-      </Footer>
-      <ErrorText amplifyNamespace={amplifyNamespace} />
     </Form>
   );
 }
