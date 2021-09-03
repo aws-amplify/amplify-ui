@@ -215,7 +215,6 @@ describe('Pagination component test suite', () => {
       render(
         <PaginationItem
           type="previous"
-          ariaDisabled={false}
           ariaLabel="Go to previous page"
           currentPage={2}
           onClick={mockOnClick}
@@ -233,7 +232,6 @@ describe('Pagination component test suite', () => {
       render(
         <PaginationItem
           type="next"
-          ariaDisabled={false}
           ariaLabel="Go to next page"
           currentPage={2}
           onClick={mockOnClick}

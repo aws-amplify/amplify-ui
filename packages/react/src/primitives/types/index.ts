@@ -14,7 +14,7 @@ export * from './link';
 export * from './pagination';
 export * from './placeholder';
 export * from './rating';
-export * from './select';
+export * from './selectField';
 export * from './style';
 export * from './textField';
 export * from './passwordField';
