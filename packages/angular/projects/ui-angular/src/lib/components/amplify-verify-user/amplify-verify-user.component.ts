@@ -56,7 +56,7 @@ export class AmplifyVerifyUserComponent
     const actorState: SignInState = getActorState(state);
     this.unverifiedAttributes = actorState.context.unverifiedAttributes;
     this.remoteError = actorState.context.remoteError;
-    this.isPending = actorState.matches('verifyUser.pending');
+    this.isPending = !actorState.matches('verifyUser.edit');
   }
 
   skipVerify(): void {

@@ -18,6 +18,7 @@ import { AmplifyFederatedSignInButtonComponent } from './components/amplify-fede
 import { AmplifyResetPasswordComponent } from './components/amplify-reset-password/amplify-reset-password.component';
 import { AmplifyVerifyUserComponent } from './components/amplify-verify-user/amplify-verify-user.component';
 import { ConfirmResetPasswordComponent } from './components/confirm-reset-password/amplify-confirm-reset-password.component';
+import { ConfirmVerifyUserComponent } from './components/confirm-verify-user/amplify-confirm-verify-user.component';
 
 import {
   AmplifyS3Album as S3Album,
@@ -89,6 +90,7 @@ customElements.define('amplify-photo-picker', AmplifyPhotoPicker);
     AmplifyResetPasswordComponent,
     AmplifyVerifyUserComponent,
     ConfirmResetPasswordComponent,
+    ConfirmVerifyUserComponent,
   ],
   imports: [CommonModule, ReactiveFormsModule],
   exports: [

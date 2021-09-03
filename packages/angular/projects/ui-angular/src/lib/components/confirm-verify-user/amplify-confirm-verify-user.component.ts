@@ -13,8 +13,8 @@ import { AuthPropService } from '../../services/authenticator-context.service';
 import { StateMachineService } from '../../services/state-machine.service';
 
 @Component({
-  selector: 'amplify-confirm-reset-password',
-  templateUrl: './amplify-confirm-reset-password.component.html',
+  selector: 'amplify-confirm-verify-user',
+  templateUrl: './amplify-confirm-verify-user.component.html',
 })
 export class ConfirmVerifyUserComponent
   implements OnInit, AfterContentInit, OnDestroy
@@ -52,24 +52,19 @@ export class ConfirmVerifyUserComponent
   onStateUpdate(state: AuthMachineState): void {
     const actorState: SignInState = getActorState(state);
     this.remoteError = actorState.context.remoteError;
-    this.isPending = !actorState.matches('confirmVerifyUser.pending');
+    this.isPending = !actorState.matches('confirmVerifyUser.edit');
   }
 
   skipVerify(): void {
     this.stateMachine.send('SKIP');
   }
 
-  onInput(event: Event) {
-    event.preventDefault();
-    const { name, value } = <HTMLInputElement>event.target;
-    this.stateMachine.send({
-      type: 'CHANGE',
-      data: { name, value },
-    });
-  }
-
   async onSubmit(event: Event): Promise<void> {
     event.preventDefault();
-    this.stateMachine.send('SUBMIT');
+    const formData = new FormData(event.target as HTMLFormElement);
+    this.stateMachine.send({
+      type: 'SUBMIT',
+      data: Object.fromEntries(formData),
+    });
   }
 }
