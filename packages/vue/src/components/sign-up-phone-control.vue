@@ -17,14 +17,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref, watchEffect } from "vue";
+import { defineComponent, computed, ref, watchEffect } from 'vue';
+import { I18n } from 'aws-amplify';
 
-import BaseInput from "./primitives/base-input.vue";
-import BaseText from "./primitives/base-text.vue";
-import BaseLabel from "./primitives/base-label.vue";
+import BaseInput from './primitives/base-input.vue';
+import BaseText from './primitives/base-text.vue';
+import BaseLabel from './primitives/base-label.vue';
 
-import { PHONE_NUMBER_LABEL } from "../defaults/DefaultTexts";
-import { SignUpPhoneControlTypes } from "../types";
+import { PHONE_NUMBER_LABEL } from '../defaults/DefaultTexts';
+import { SignUpPhoneControlTypes } from '../types';
 
 export default defineComponent({
   components: {
@@ -36,14 +37,14 @@ export default defineComponent({
     _,
     { emit }: { emit: (eventName: string, payload?: unknown) => void }
   ): SignUpPhoneControlTypes {
-    const phoneNumberLabel = computed(() => PHONE_NUMBER_LABEL);
+    const phoneNumberLabel = computed(() => I18n.get(PHONE_NUMBER_LABEL));
 
-    const options = [{ value: "+1" }, { value: "+7" }, { value: "+20" }];
+    const options = [{ value: '+1' }, { value: '+7' }, { value: '+20' }];
     const phonePreFix = ref(options[0].value);
-    const phoneNumber = ref("");
+    const phoneNumber = ref('');
 
     watchEffect(() => {
-      emit("update:phone", `${phonePreFix.value}${phoneNumber.value}`);
+      emit('update:phone', `${phonePreFix.value}${phoneNumber.value}`);
     });
     return { phoneNumberLabel, options, phonePreFix, phoneNumber };
   },

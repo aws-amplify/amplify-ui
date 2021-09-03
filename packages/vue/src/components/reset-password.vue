@@ -14,7 +14,7 @@
             <base-text>Username</base-text>
             <base-input
               name="username"
-              placeholder="Enter your username"
+              :placeholder="enterUsernameText"
               autocomplete="username"
               required
               type="username"
@@ -51,6 +51,8 @@
 
 <script lang="ts">
 import { defineComponent, computed, ComputedRef } from 'vue';
+import { I18n } from 'aws-amplify';
+
 import BaseHeading from './primitives/base-heading.vue';
 import BaseFieldSet from './primitives/base-field-set.vue';
 import BaseLabel from './primitives/base-label.vue';
@@ -69,6 +71,7 @@ import {
   BACK_SIGN_IN_TEXT,
   RESET_PASSWORD_HEADING,
   RESET_PASSWORD_TEXT,
+  ENTER_USERNAME_TEXT,
 } from '../defaults/DefaultTexts';
 import { ResetPasswordSetupReturnTypes, SetupEventContext } from '../types';
 import { getActorState, ResetPasswordState } from '@aws-amplify/ui';
@@ -94,9 +97,12 @@ export default defineComponent({
       getActorState(state.value)
     ) as ComputedRef<ResetPasswordState>;
     // Computed Properties
-    const backSignInText = computed(() => BACK_SIGN_IN_TEXT);
-    const resetPasswordHeading = computed(() => RESET_PASSWORD_HEADING);
-    const resetPasswordText = computed(() => RESET_PASSWORD_TEXT);
+    const backSignInText = computed(() => I18n.get(BACK_SIGN_IN_TEXT));
+    const resetPasswordHeading = computed(() =>
+      I18n.get(RESET_PASSWORD_HEADING)
+    );
+    const resetPasswordText = computed(() => I18n.get(RESET_PASSWORD_TEXT));
+    const enterUsernameText = computed(() => I18n.get(ENTER_USERNAME_TEXT));
 
     // Methods
     const onResetPasswordSubmit = (e: Event): void => {
@@ -140,6 +146,7 @@ export default defineComponent({
       resetPasswordText,
       resetPasswordHeading,
       backSignInText,
+      enterUsernameText,
       actorState,
       onChange,
     };
