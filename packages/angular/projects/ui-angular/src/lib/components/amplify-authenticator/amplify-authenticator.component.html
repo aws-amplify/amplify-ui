@@ -32,6 +32,9 @@
 <ng-template #verifyUser>
   <amplify-verify-user></amplify-verify-user>
 </ng-template>
+<ng-template #confirmVerifyUser>
+  <amplify-confirm-verify-user></amplify-confirm-verify-user>
+</ng-template>
 
 <!-- 
   Next, we render respective auth subcomponent respective to the current authState.
@@ -109,6 +112,14 @@
   [ngTemplateOutlet]="customComponents.verifyUser || verifyUser"
   [ngTemplateOutletContext]="context()"
   *ngIf="actorState?.matches('verifyUser')"
+>
+</ng-container>
+
+<!-- confirmVerifyUser content -->
+<ng-container
+  [ngTemplateOutlet]="customComponents.confirmVerifyUser || confirmVerifyUser"
+  [ngTemplateOutletContext]="context()"
+  *ngIf="actorState?.matches('confirmVerifyUser')"
 >
 </ng-container>
 
