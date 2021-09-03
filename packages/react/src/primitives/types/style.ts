@@ -2,28 +2,30 @@ import { Property } from 'csstype';
 import { FlexStyleProps } from './flex';
 import { ImageStyleProps } from './image';
 
+type StyleProperty<PropertyType> = PropertyType | PropertyType[];
+
 export interface BaseStyleProps {
-  alignSelf?: Property.AlignSelf;
-  backgroundColor?: Property.BackgroundColor;
-  border?: Property.Border;
-  borderRadius?: Property.BorderRadius;
-  boxShadow?: Property.BoxShadow;
-  color?: Property.Color;
-  fontFamily?: Property.FontFamily;
-  fontSize?: Property.FontSize;
-  fontStyle?: Property.FontStyle;
-  fontWeight?: Property.FontWeight;
-  height?: Property.Height;
-  letterSpacing?: Property.LetterSpacing;
-  lineHeight?: Property.LineHeight;
-  maxHeight?: Property.MaxHeight;
-  maxWidth?: Property.MaxWidth;
-  minHeight?: Property.MinHeight;
-  minWidth?: Property.MinWidth;
-  opacity?: Property.Opacity;
-  padding?: Property.Padding;
-  textDecoration?: Property.TextDecoration;
-  width?: Property.Width;
+  alignSelf?: StyleProperty<Property.AlignSelf>;
+  backgroundColor?: StyleProperty<Property.BackgroundColor>;
+  border?: StyleProperty<Property.Border>;
+  borderRadius?: StyleProperty<Property.BorderRadius>;
+  boxShadow?: StyleProperty<Property.BoxShadow>;
+  color?: StyleProperty<Property.Color>;
+  fontFamily?: StyleProperty<Property.FontFamily>;
+  fontSize?: StyleProperty<Property.FontSize>;
+  fontStyle?: StyleProperty<Property.FontStyle>;
+  fontWeight?: StyleProperty<Property.FontWeight>;
+  height?: StyleProperty<Property.Height>;
+  letterSpacing?: StyleProperty<Property.LetterSpacing>;
+  lineHeight?: StyleProperty<Property.LineHeight>;
+  maxHeight?: StyleProperty<Property.MaxHeight>;
+  maxWidth?: StyleProperty<Property.MaxWidth>;
+  minHeight?: StyleProperty<Property.MinHeight>;
+  minWidth?: StyleProperty<Property.MinWidth>;
+  opacity?: StyleProperty<Property.Opacity>;
+  padding?: StyleProperty<Property.Padding>;
+  textDecoration?: StyleProperty<Property.TextDecoration>;
+  width?: StyleProperty<Property.Width>;
 }
 
 export interface AllStyleProps

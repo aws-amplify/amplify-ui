@@ -1,6 +1,7 @@
 import * as React from 'react';
 import autoprefixer from 'autoprefixer';
 import postcssJs from 'postcss-js';
+import useBreakpoint from 'use-breakpoint';
 
 // Note: this makes nanoid more performant, not less secure
 // @see https://www.npmjs.com/package/nanoid#user-content-non-secure
@@ -13,10 +14,59 @@ import {
   ViewProps,
 } from '../types/index';
 
+const breakpoints = {
+  base: 0,
+  small: 480,
+  medium: 768,
+  large: 992,
+  xl: 1280,
+  xxl: 1536,
+};
+
 export const prefixer = postcssJs.sync([autoprefixer]);
 
 export const strHasLength = (str: unknown): str is string =>
   typeof str === 'string' && str.length > 0;
+
+export const usePropStyles = (props: ViewProps, style: any, breakpoint) => {
+  return React.useMemo(
+    () => prefixer(convertStylePropsToStyleObj(props, style, breakpoint)),
+    [props, style, breakpoint]
+  );
+};
+
+const getValueAtCurrentBreakpoint = (
+  values: Record<string, any>,
+  breakpoint
+) => {
+  if (Array.isArray(values)) {
+    //TODO: convert to object form
+  }
+
+  return getClosestValueByBreakpoint(values, breakpoint);
+};
+
+const getClosestValueByBreakpoint = (values, breakpoint) => {
+  // Use exact match
+  if (values.hasOwnProperty(breakpoint)) {
+    return values[breakpoint];
+  }
+
+  // Otherwise use a lower breakpoint value
+  const keys = Object.keys(breakpoints).reverse();
+  const lowerKeys = keys.slice(keys.indexOf(breakpoint));
+  console.log(lowerKeys);
+  for (let key of lowerKeys) {
+    console.log('values', values);
+    if (values.hasOwnProperty(key)) {
+      console.log('values hasOwnProperty', key, values[key]);
+      return values[key];
+    }
+  }
+
+  // No value provided at or below breakpoint
+  return null;
+};
 
 /**
  * Convert style props to CSS variables for React style prop
@@ -25,18 +75,27 @@ export const strHasLength = (str: unknown): str is string =>
  */
 export const convertStylePropsToStyleObj = (
   props: ViewProps,
-  style: React.CSSProperties = {}
+  style: React.CSSProperties = {},
+  breakpoint
 ) => {
+  console.count('convertStylePropsToStyle');
   (
     Object.keys(ComponentPropsToStylePropsMap) as Array<
       keyof ComponentPropToStyleProp
     >
   ).forEach((stylePropKey) => {
-    const stylePropValue = props[stylePropKey];
+    let stylePropValue = props[stylePropKey];
+
     if (
       stylePropValue != null &&
       (typeof stylePropValue !== 'string' || strHasLength(stylePropValue))
     ) {
+      if (typeof stylePropValue !== 'string' || Array.isArray(stylePropValue)) {
+        stylePropValue = getValueAtCurrentBreakpoint(
+          stylePropValue,
+          breakpoint
+        );
+      }
       const reactStyleProp = ComponentPropsToStylePropsMap[stylePropKey];
       style = { ...style, [reactStyleProp]: stylePropValue };
     }
@@ -49,14 +108,17 @@ export const convertStylePropsToStyleObj = (
  * @param props
  * @returns non styled props
  */
-export const getNonStyleProps = (props: ViewProps) => {
-  const nonStyleProps = {};
-  Object.keys(props).forEach((propKey) => {
-    if (!(propKey in ComponentPropsToStylePropsMap)) {
-      nonStyleProps[propKey] = props[propKey];
-    }
-  });
-  return nonStyleProps;
+export const useNonStyleProps = (props: ViewProps) => {
+  const getNonStyleProps = React.useCallback(() => {
+    const nonStyleProps = {};
+    Object.keys(props).forEach((propKey) => {
+      if (!(propKey in ComponentPropsToStylePropsMap)) {
+        nonStyleProps[propKey] = props[propKey];
+      }
+    });
+    return nonStyleProps;
+  }, [props]);
+  return getNonStyleProps();
 };
 
 /**
