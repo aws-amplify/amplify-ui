@@ -297,7 +297,7 @@ import ConfirmVerifyUser from './confirm-verify-user.vue';
 import {
   AuthenticatorSetupReturnTypes,
   SetupEventContext,
-  INTERPRET_SERVICE,
+  InterpretServiceInjectionKeyTypes,
   InterpretService,
 } from '../types/index';
 
@@ -343,7 +343,7 @@ export default defineComponent({
     });
     const service = ref(s);
 
-    provide(INTERPRET_SERVICE, <InterpretService>service.value);
+    provide(InterpretServiceInjectionKeyTypes, <InterpretService>service.value);
     const { state, send } = useActor(service.value);
     const actorState = computed(() => getActorState(state.value));
 
