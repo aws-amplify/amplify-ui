@@ -10,7 +10,7 @@ And('I type in the phone number {string}', (phone: string) => {
 });
 
 And('I type in the password {string}', (password: string) => {
-  cy.findByLabelText(/password/i).type(Cypress.env(password));
+  cy.findByPlaceholderText(/password/i).type(Cypress.env(password));
 });
 
 Then('I should see the Force Change Password screen', () => {
