@@ -32,6 +32,7 @@ export enum ComponentClassNames {
   SwitchLabel = 'amplify-switch-label',
   SwitchThumb = 'amplify-switch-thumb',
   SwitchTrack = 'amplify-switch-track',
+  SwitchWrapper = 'amplify-switch__wrapper',
   Text = 'amplify-text',
   TextField = 'amplify-textfield',
   View = 'amplify-view',

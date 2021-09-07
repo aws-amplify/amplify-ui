@@ -10,17 +10,55 @@ export interface SwitchFieldProps
     FieldProps,
     BaseStyleProps {
   /**
-   * If isChecked is provided, this will be a controlled SwitchField
-   */
-  isChecked?: boolean;
-  /**
    * Use this to provide a default checked value for an uncontrolled SwitchField
    */
   defaultChecked?: boolean;
 
   /**
+   * If isChecked is provided, this will be a controlled SwitchField
+   */
+  isChecked?: boolean;
+
+  /**
+   * This property will set the switch to disabled
+   */
+  isDisabled?: boolean;
+
+  /**
+   * Visually hide the label, but the associated label text will still be required for accessibility.
+   * @default false
+   */
+  isLabelHidden?: boolean;
+
+  /**
+   * Label text for field (required)
+   */
+  label: React.ReactNode;
+
+  /**
+   * Position of label in relation to the switchfield
+   */
+  labelPosition?: labelPositions;
+
+  /**
+   * This prop adds a name attribute to the input element
+   */
+  name?: string;
+
+  /**
+   * Assign an onChange event to the switch field
+   */
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
+
+  /**
+   * This prop adjusts the size of the switch component
+   */
+  size?: Sizes;
+
+  /**
    * This property will change the color of the thumb in the switch component
    */
+
   thumbColor?: Property.Color;
 
   /**
@@ -34,44 +72,7 @@ export interface SwitchFieldProps
   trackCheckedColor?: Property.Color;
 
   /**
-   * This property will set the switch to disabled
-   */
-  isDisabled?: boolean;
-
-  /**
-   * This prop adds a name attribute to the input element
-   */
-  name?: string;
-
-  /**
-   * This prop adjusts the size of the switch component
-   */
-  size?: Sizes;
-
-  /**
-   * Label text for field (required)
-   */
-  label: React.ReactNode;
-
-  /**
-   * Position of label in relation to the switchfield
-   */
-  labelPosition?: labelPositions;
-
-  /**
-   * Hide label and use `aria-label` attribute instead. Common use case
-   * is a search field.
-   * @default false
-   */
-  isLabelHidden?: boolean;
-
-  /**
    * This is the value of the switch input and will be submitted with a form submission
    */
   value?: string | number;
-
-  /**
-   * Assign an onChange event to the switch field
-   */
-  onChange?: React.ChangeEventHandler<HTMLInputElement>;
 }
