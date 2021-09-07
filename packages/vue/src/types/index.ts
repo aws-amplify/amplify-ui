@@ -10,6 +10,13 @@ import {
   SignUpState,
 } from '@aws-amplify/ui';
 
+import { useActor } from '@xstate/vue';
+import { inject, InjectionKey } from 'vue';
+import { authMachine } from '@aws-amplify/ui';
+import { AuthContext, getActorState } from '@aws-amplify/ui';
+import { useInterpret } from '@xstate/vue';
+import { Interpreter } from 'xstate';
+
 export interface SetupEventContext {
   emit: (eventName: string, payload?: unknown) => void;
   attrs: Record<string, unknown>;
@@ -192,3 +199,16 @@ export interface ConfirmResetPasswordSetupReturnTypes {
   confirmResetPasswordText: ComputedRef<string>;
   confirmResetPasswordHeading: ComputedRef<string>;
 }
+
+export type InterpretService = Interpreter<
+  AuthContext,
+  any,
+  AuthEvent,
+  {
+    value: any;
+    context: AuthContext;
+  }
+>;
+
+export const InterpretServiceInjectionKeyTypes: InjectionKey<InterpretService> =
+  Symbol('interpret.service');
