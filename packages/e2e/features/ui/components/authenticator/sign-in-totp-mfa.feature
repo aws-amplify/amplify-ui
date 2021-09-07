@@ -27,3 +27,12 @@ Feature: Sign In with TOTP MFA
     And I type a valid password "VALID_PASSWORD_SETUP_MFA"
     And I click the "Sign In" button
     Then I will be redirected to the setup mfa page
+
+  # This feature is not yet implemented
+  @skip
+  Scenario: Expired TOTP code
+    When I type a valid pone number "VALID_PHONE_NUMBER"
+    And I type a valid password "VALID_PASSWORD"
+    And I click the "Sign In" button
+    And I enter my confirmation code after some delay
+    Then I see 'Resend Code'
