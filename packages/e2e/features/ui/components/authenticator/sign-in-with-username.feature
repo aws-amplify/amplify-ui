@@ -8,32 +8,32 @@ Feature: Sign In with Username
   username when signing into your application.
 
   Background:
-    Given I'm at the sign in page
+    Given I'm running the example "/ui/components/authenticator/sign-in-with-username"
 
   @next @react @vue @angular
   Scenario: Sign in with unknown credentials
-    When I type the valid username "UNKNOWN_USERNAME"
-    And I type the valid password "VALID_PASSWORD"
-    And I click the "Sign In" button
+    When I type my "username" with status "UNKNOWN"
+    And I type my password
+    And I click the "Sign in" button
     Then I see "User does not exist"
 
   @next @react @angular
   Scenario: Sign in with unconfirmed credentials
-    When I type the valid username "UNCONFIRMED_USERNAME"
-    And I type the valid password "VALID_PASSWORD"
-    And I click the "Sign In" button
+    When I type my "username" with status "UNCONFIRMED"
+    And I type my password
+    And I click the "Sign in" button
     Then I see "Confirmation Code"
 
   @next @vue @react @angular
   Scenario: Sign in with confirmed credentials
-    When I type the valid username "CONFIRMED_USERNAME"
-    And I type the valid password "VALID_PASSWORD"
-    And I click the "Sign In" button
+    When I type my "username" with status "CONFIRMED"
+    And I type my password
+    And I click the "Sign in" button
     Then I see "Sign out"
 
   @next @react @skip
   Scenario: Sign in with force change password credentials
-    When I type the valid username "FORCE_CHANGE_USERNAME"
-    And I type the valid password "VALID_PASSWORD"
-    And I click the "Sign In" button
+    When I type my "username" with status "FORCE_CHANGE_PASSWORD"
+    And I type my password
+    And I click the "Sign in" button
     Then I see "Change Password"
