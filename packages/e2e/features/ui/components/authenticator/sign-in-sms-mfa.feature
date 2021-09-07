@@ -9,14 +9,14 @@ Feature: Sign In with SMS MFA
 
   @next @react @vue @skip
   Scenario: Sign in using a valid phone number and SMS MFA
-    When I type a valid phone number "VALID_PHONE_NUMBER"
-    And I type a valid password "VALID_PASSWORD"
-    And I click the "Sign In" button
+    When I type my "phone_number" with status "UNCONFIRMED"
+    And I type my password
+    And I click the "Sign in" button
     Then I will be redirected to the confirm sms mfa page
     
   @next @react @angular
   Scenario: Sign in with invalid credentials
-    When I type an invalid username "INVALID_PHONE_NUMBER"
-    And I type an invalid password "INVALID_PASSWORD"
-    And I click the "Sign In" button
+    When I type my "username" with status "UNKNOWN"
+    And I type my password
+    And I click the "Sign in" button
     Then I see "User does not exist"
