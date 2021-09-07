@@ -1,8 +1,5 @@
 module.exports = {
-  width: { value: '100%' },
   paddingInlineEnd: { value: '{space.xxl.value}' },
-  transitionProperty: { value: 'background-color' },
-  transitionDuration: { value: '{time.transition.medium.value}' },
   // wrappers
   wrapper: {
     display: { value: 'block' },

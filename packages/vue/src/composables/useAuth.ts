@@ -1,6 +1,8 @@
+import { InterpretServiceInjectionKeyTypes } from '../types';
 import { useActor } from '@xstate/vue';
-import { authService } from '@aws-amplify/ui';
+import { inject } from 'vue';
 
 export const useAuth = () => {
-  return useActor(authService);
+  const service = inject(InterpretServiceInjectionKeyTypes);
+  return useActor(service);
 };

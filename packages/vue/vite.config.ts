@@ -13,8 +13,7 @@ export default defineConfig({
     vue(),
 
     typescript2({
-      check: true,
-      tsconfig: path.resolve(__dirname, 'tsconfig.json'),
+      check: false,
       tsconfigOverride: {
         compilerOptions: {
           sourceMap: true,
@@ -25,6 +24,14 @@ export default defineConfig({
       },
     }),
   ],
+  resolve: {
+    alias: [
+      {
+        find: './runtimeConfig',
+        replacement: './runtimeConfig.browser',
+      },
+    ],
+  },
   build: {
     cssCodeSplit: false,
     lib: {

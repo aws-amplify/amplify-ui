@@ -10,6 +10,13 @@ import {
   SignUpState,
 } from '@aws-amplify/ui';
 
+import { useActor } from '@xstate/vue';
+import { inject, InjectionKey } from 'vue';
+import { authMachine } from '@aws-amplify/ui';
+import { AuthContext, getActorState } from '@aws-amplify/ui';
+import { useInterpret } from '@xstate/vue';
+import { Interpreter } from 'xstate';
+
 export interface SetupEventContext {
   emit: (eventName: string, payload?: unknown) => void;
   attrs: Record<string, unknown>;
@@ -82,6 +89,7 @@ export interface ConfirmSignInSetupReturnTypes {
   submit: (e: Event) => void;
   backSignInText: ComputedRef<string>;
   confirmText: ComputedRef<string>;
+  codeText: ComputedRef<string>;
   actorState: ComputedRef<SignInState>;
 }
 
@@ -130,6 +138,7 @@ export interface ForceNewPasswordReturnTypes {
   actorState: ComputedRef<SignInState>;
   onHaveAccountClicked: () => void;
   signInButtonText: ComputedRef<string>;
+  passwordText: ComputedRef<string>;
   haveAccountLabel: ComputedRef<string>;
 }
 
@@ -149,6 +158,7 @@ export interface ResetPasswordSetupReturnTypes {
   resetPasswordText: ComputedRef<string>;
   resetPasswordHeading: ComputedRef<string>;
   backSignInText: ComputedRef<string>;
+  enterUsernameText: ComputedRef<string>;
   actorState: ComputedRef<ResetPasswordState>;
 }
 
@@ -189,3 +199,16 @@ export interface ConfirmResetPasswordSetupReturnTypes {
   confirmResetPasswordText: ComputedRef<string>;
   confirmResetPasswordHeading: ComputedRef<string>;
 }
+
+export type InterpretService = Interpreter<
+  AuthContext,
+  any,
+  AuthEvent,
+  {
+    value: any;
+    context: AuthContext;
+  }
+>;
+
+export const InterpretServiceInjectionKeyTypes: InjectionKey<InterpretService> =
+  Symbol('interpret.service');

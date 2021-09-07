@@ -41,7 +41,7 @@ function getPortForPlatform(platform) {
 function getGitHubUrlForExample(platform) {
   switch (platform) {
     case 'angular':
-      return `https://github.com/aws-amplify/amplify-ui/tree/${process.env.BRANCH}/examples/angular/src`;
+      return `https://github.com/aws-amplify/amplify-ui/tree/${process.env.BRANCH}/examples/angular/src/pages`;
     case 'next':
     case 'react':
       return `https://github.com/aws-amplify/amplify-ui/tree/${process.env.BRANCH}/examples/next/pages`;

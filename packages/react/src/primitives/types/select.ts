@@ -11,6 +11,7 @@ export interface SelectProps
   extends AriaProps,
     BaseComponentProps,
     BaseStyleProps {
+  autoComplete?: string;
   name?: string;
 
   defaultValue?: string;
@@ -26,6 +27,8 @@ export interface SelectProps
   iconColor?: string;
 
   placeholder?: string;
+
+  hasError?: boolean;
 
   isDisabled?: boolean;
 

@@ -55,4 +55,4 @@ export {
   VerifyUser,
 };
 
-export { useAuth } from './composables';
+export { translations } from '@aws-amplify/ui';
