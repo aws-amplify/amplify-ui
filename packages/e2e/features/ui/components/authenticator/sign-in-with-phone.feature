@@ -8,33 +8,33 @@ Feature: Sign In with Phone Number
   number when signing into your application.
 
   Background:
-    Given I'm at the sign in page
+    Given I'm running the example "ui/components/authenticator/sign-in-with-phone"
 
   @vue @react @angular
   Scenario: Sign in with unknown credentials
-    When I type the valid phone number "UNKNOWN_PHONE_NUMBER"
-    And I type the valid password "VALID_PASSWORD"
-    And I click the "Sign In" button
+    When I type my "phone_number" with status "UNKNOWN"
+    And I type my password
+    And I click the "Sign in" button
     Then I see "User does not exist"
 
   @vue @react @angular
   Scenario: Sign in with unconfirmed credentials
-    When I type the valid phone number "UNCONFIRMED_PHONE_NUMBER"
-    And I type the valid password "VALID_PASSWORD"
-    And I click the "Sign In" button
+    When I type my "phone_number" with status "UNCONFIRMED"
+    And I type my password
+    And I click the "Sign in" button
     Then I see "Confirmation Code"
 
 
   @vue @react @angular
   Scenario: Sign in with confirmed credentials
-    When I type the valid phone number "CONFIRMED_PHONE_NUMBER"
-    And I type the valid password "VALID_PASSWORD"
-    And I click the "Sign In" button
+    When I type my "phone_number" with status "CONFIRMED"
+    And I type my password
+    And I click the "Sign in" button
     Then I see "Sign out"
 
   @react @skip
   Scenario: Sign in with force change password credentials
-    When I type the valid phone number "FORCE_CHANGE_PHONE_NUMBER"
-    And I type the valid password "VALID_PASSWORD"
-    And I click the "Sign In" button
+    When I type my "phone_number" with status "FORCE_CHANGE_PASSWORD"
+    And I type my password
+    And I click the "Sign in" button
     Then I see "Change Password"
