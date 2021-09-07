@@ -18,3 +18,8 @@ Feature: Sign Up
     And I click the "Create Account" button
     Then I see "Confirm Sign Up"
     And I see "Confirmation Code"
+
+  @angular @next @vue
+  Scenario: Redirect to Sign In
+    When I click the "Sign in" button
+    Then I see "Sign in to your account"
