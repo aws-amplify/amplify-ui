@@ -55,7 +55,6 @@ export const translations = {
     'Sign in to your account': 'Melden Sie sich mit Ihrem Account an',
     'Sign Out': 'Abmelden',
     'Sign Up': 'Registrieren',
-    'Signing in': 'Signing in',
     Skip: 'Überspringen',
     Submit: 'Abschicken',
     'User already exists': 'Dieser Benutzer existiert bereits',

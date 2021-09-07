@@ -26,6 +26,7 @@ describe('@aws-amplify/ui-react', () => {
           "ComponentPropsToStylePropsMap",
           "Divider",
           "ErrorText",
+          "FieldGroup",
           "Fieldset",
           "Flex",
           "Footer",
@@ -1866,6 +1867,9 @@ describe('@aws-amplify/ui-react', () => {
           "Wrapper",
           "components",
           "convertStylePropsToStyleObj",
+          "defaultCSSVariables",
+          "defaultTheme",
+          "extendTheming",
           "findChildOverrides",
           "getConsecutiveIntArray",
           "getNonStyleProps",
@@ -1879,6 +1883,7 @@ describe('@aws-amplify/ui-react', () => {
           "useAmplifyFieldID",
           "useAuth",
           "usePagination",
+          "useTheming",
           "withAuthenticator",
         ]
       `);

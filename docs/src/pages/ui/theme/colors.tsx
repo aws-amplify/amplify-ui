@@ -16,7 +16,7 @@ export const Colors = () => {
   return (
     <>
       {baseColors.map((baseColor) => (
-        <Flex direction="row" style={{ marginBottom: theme.space.large.value }}>
+        <Flex direction="row" style={{ marginBottom: theme.space.large }}>
           {Object.values(theme.colors[baseColor]).map(({ name, value }) => (
             <View
               key={name}
