@@ -3,6 +3,7 @@ import { includes, isEmpty } from 'lodash';
 import { I18n } from 'aws-amplify';
 import {
   authInputAttributes,
+  countryDialCodes,
   getActorContext,
   getActorState,
   SignUpContext,
@@ -12,8 +13,6 @@ import {
 
 import { useAmplify, useAuth } from '../../../hooks';
 import { FederatedSignIn } from '../FederatedSignIn';
-import { countryDialCodes } from '../../common/country-dial-codes';
-
 export function SignUp() {
   const {
     components: {
