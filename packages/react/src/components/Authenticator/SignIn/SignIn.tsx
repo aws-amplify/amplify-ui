@@ -62,6 +62,8 @@ export function SignIn() {
             placeholder={I18n.get('Password')}
             required
             name="password"
+            label={I18n.get('Password')}
+            labelHidden={true}
           />
         </FieldGroup>
 
