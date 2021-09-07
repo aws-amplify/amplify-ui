@@ -8,9 +8,8 @@ export const extendTheming = (...allOverrideTokens: DeepPartial<Theme>[]) => {
   const cloneTokens = { ...defaultTokens };
   const overrideTokens = merge.all(allOverrideTokens) as DeepPartial<Theme>;
   const newTokens = extendTokens(cloneTokens, overrideTokens) as Tokens;
+  // TODO: Need too scope the usage of this fuction because it is not used by React Native
   const CSSVariables = getCSSVariablesFromTokens(newTokens);
   const theme = merge(defaultTheme, overrideTokens) as Theme;
-  // TODO: Need too scope the usage of this fuction because it is not used by React Native
-  // const CSSVariables = getCSSVariablesFromTheme(theme);
   return { theme, CSSVariables };
 };

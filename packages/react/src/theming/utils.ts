@@ -44,8 +44,8 @@ function flattenProperties(properties, to_ret = []) {
 
 /**
  * Update tokens with overrideTokens
- * @param tokens Theme object
- * @param overrideTokens tokens to override
+ * @param tokens Tokens object
+ * @param overrideTokens Tokens to override
  */
 export const extendTokens = (tokens, overrideTokens) => {
   for (const [key, value] of Object.entries(overrideTokens)) {
