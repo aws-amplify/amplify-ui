@@ -1,0 +1,19 @@
+// describe custom Cypress commands in this file
+
+// load the global Cypress types
+/// <reference types="cypress" />
+
+declare namespace Cypress {
+  interface Chainable {
+    /**
+     * Custom command to build an authentication alias based on
+     * the 'loginMechanism' and 'status' which will then be typed
+     * into a previously selected input element.
+     * @example cy.typeAliasWithStatus('email', 'CONFIRMED') -> cy.type('sample_email+CONFIMRED@example.com')
+     */
+    typeAliasWithStatus(
+      loginMechanism: string,
+      status: string
+    ): Chainable<Element>;
+  }
+}
