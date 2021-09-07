@@ -1,8 +1,6 @@
 import { useAmplify, useAuth } from '../../../../hooks';
 import { FederatedIdentityProviders } from '@aws-amplify/ui';
 
-import { IconFacebook } from '../../../../primitives';
-
 export interface FederatedSignInButtonProps {
   icon?: 'facebook' | 'google' | 'amazon';
   provider: FederatedIdentityProviders;
@@ -32,10 +30,10 @@ export const FederatedSignInButton = (
   };
 
   // TODO - get Google and Amazon icons
-  let iconComponent;
-  if (icon === 'facebook') {
-    iconComponent = <IconFacebook />;
-  }
+  // let iconComponent;
+  // if (icon === 'facebook') {
+  //   iconComponent = <IconFacebook />;
+  // }
 
   return (
     <Button
@@ -43,7 +41,6 @@ export const FederatedSignInButton = (
       className="federated-sign-in-button"
       fontWeight="normal"
     >
-      {iconComponent}
       {text}
     </Button>
   );
