@@ -91,7 +91,7 @@ export function SignIn() {
         </Button>
 
         <Footer>
-          <Text fontWeight="normal">{I18n.get('No account? ')}</Text>
+          <Text>{I18n.get('No account? ')}</Text>
           <Button
             onClick={() => send({ type: 'SIGN_UP' })}
             type="button"
