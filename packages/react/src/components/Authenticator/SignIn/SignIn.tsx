@@ -57,6 +57,7 @@ export function SignIn() {
         <FieldGroup disabled={isPending} direction="column">
           <UserNameAlias data-amplify-usernamealias />
           <PasswordField
+            data-amplify-password
             className="password-field"
             placeholder={I18n.get('Password')}
             required

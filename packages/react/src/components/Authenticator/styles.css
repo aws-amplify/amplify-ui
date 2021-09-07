@@ -1,5 +1,36 @@
 [data-amplify-authenticator] {
   @apply max-w-md mx-auto overflow-hidden text-base text-gray-700 rounded-md shadow;
+
+  /* primary button colors */
+  --amplify-components-button-primary-background-color: #7256ff;
+  --amplify-components-button-primary-border-color: #7256ff;
+
+  --amplify-components-button-primary-hover-background-color: #8e7bfa;
+  --amplify-components-button-primary-hover-border-color: #7256ff;
+
+  --amplify-components-button-primary-active-background-color: #8e7bfa;
+  --amplify-components-button-primary-active-border-color: #7256ff;
+
+  --amplify-components-button-primary-focus-background-color: #8e7bfa;
+  --amplify-components-button-primary-focus-border-color: #7256ff;
+
+  --amplify-components-button-primary-loading-background-color: #8e7bfa;
+  --amplify-components-button-primary-loading-border-color: #7256ff;
+
+  /* link button colors */
+  --amplify-components-button-link-color: #7256ff;
+  --amplify-components-button-link-hover-color: #8e7bfa;
+  --amplify-components-button-link-active-color: #8e7bfa;
+  --amplify-components-button-link-focus-color: #8e7bfa;
+  --amplify-components-button-link-loading-color: #8e7bfa;
+
+  /* default button colors */
+  --amplify-components-button-color: #7256ff;
+  --amplify-components-button-border-color: #7256ff;
+
+  --amplify-components-button-hover-color: white;
+  --amplify-components-button-hover-background-color: #8e7bfa;
+  --amplify-components-button-hover-border-color: #7256ff;
 }
 
 [data-amplify-authenticator] [data-amplify-heading] {
@@ -62,39 +93,6 @@
 
 [data-amplify-authenticator] :disabled {
   @apply opacity-50;
-}
-
-:root {
-  /* primary button colors */
-  --amplify-components-button-primary-background-color: #7256ff;
-  --amplify-components-button-primary-border-color: #7256ff;
-
-  --amplify-components-button-primary-hover-background-color: #8e7bfa;
-  --amplify-components-button-primary-hover-border-color: #7256ff;
-
-  --amplify-components-button-primary-active-background-color: #8e7bfa;
-  --amplify-components-button-primary-active-border-color: #7256ff;
-
-  --amplify-components-button-primary-focus-background-color: #8e7bfa;
-  --amplify-components-button-primary-focus-border-color: #7256ff;
-
-  --amplify-components-button-primary-loading-background-color: #8e7bfa;
-  --amplify-components-button-primary-loading-border-color: #7256ff;
-
-  /* link button colors */
-  --amplify-components-button-link-color: #7256ff;
-  --amplify-components-button-link-hover-color: #8e7bfa;
-  --amplify-components-button-link-active-color: #8e7bfa;
-  --amplify-components-button-link-focus-color: #8e7bfa;
-  --amplify-components-button-link-loading-color: #8e7bfa;
-
-  /* default button colors */
-  --amplify-components-button-color: #7256ff;
-  --amplify-components-button-border-color: #7256ff;
-
-  --amplify-components-button-hover-color: white;
-  --amplify-components-button-hover-background-color: #8e7bfa;
-  --amplify-components-button-hover-border-color: #7256ff;
 }
 
 .federated-sign-in-container {
