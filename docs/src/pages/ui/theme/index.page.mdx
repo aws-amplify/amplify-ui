@@ -66,10 +66,8 @@ const MyApp = ({ children }) => {
   return <View style={CSSVariables}>{children}</View>;
 };
 
-// Step 2: Use it to style your componets
-
+// Step 2: Use it to style your components
 const MyComponent = ({ children }) => {
-  const { theme } = useTheming();
   return <Text color="var(--amplify-colors-white)">{children}</Text>;
 };
 ```
