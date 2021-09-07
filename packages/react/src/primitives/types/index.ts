@@ -15,7 +15,7 @@ export * from './pagination';
 export * from './passwordField';
 export * from './placeholder';
 export * from './rating';
-export * from './select';
+export * from './selectField';
 export * from './style';
 export * from './tabs';
 export * from './textField';
