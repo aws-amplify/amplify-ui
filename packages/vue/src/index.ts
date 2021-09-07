@@ -56,5 +56,3 @@ export {
 };
 
 export { translations } from '@aws-amplify/ui';
-
-export { useAuth } from './composables';
