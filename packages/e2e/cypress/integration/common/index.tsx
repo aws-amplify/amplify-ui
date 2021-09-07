@@ -2,6 +2,7 @@
 /// <reference types="cypress" />
 
 import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { escapeRegExp } from 'lodash';
 
 Given("I'm running the example {string}", (url) => {
   cy.visit(url);
@@ -16,7 +17,10 @@ And('I type a valid password {string}', (password: string) => {
 });
 
 When('I click the {string} button', (name: string) => {
-  cy.findByRole('button', { name: new RegExp(`^${name}$`, 'i') }).click();
+  cy.findByRole('button', {
+    // Template literals in a regex must have special characters escaped
+    name: new RegExp(`^${escapeRegExp(name)}$`, 'i'),
+  }).click();
 });
 
 Then('I see {string}', (message: string) => {
