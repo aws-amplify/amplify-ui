@@ -9,21 +9,21 @@ Feature: Sign In with TOTP MFA
 
   @next @react @vue @skip
   Scenario: Sign in using a valid email and TOTP MFA
-    When I type a valid email "VALID_EMAIL"
-    And I type a valid password "VALID_PASSWORD"
-    And I click the "Sign In" button
+    When I type my "email" with status "UNCONFIRMED"
+    And I type my password
+    And I click the "Sign in" button
     Then I will be redirected to the confirm totp mfa page
     
   @next @react @vue @angular
-  Scenario: Sign in with invalid credentials
-    When I type an invalid email "INVALID_EMAIL"
-    And I type an invalid password "INVALID_PASSWORD"
-    And I click the "Sign In" button
+  Scenario: Sign in with uknown credentials
+    When I type my "email" with status "UNKNOWN"
+    And I type my password
+    And I click the "Sign in" button
     Then I see "User does not exist"
 
   @next @react @vue @skip
   Scenario: Sign in with valid credentials that have not set up TOTP MFA
-    When I type a valid email "VALID_EMAIL_SETUP_MFA"
-    And I type a valid password "VALID_PASSWORD_SETUP_MFA"
-    And I click the "Sign In" button
+    When I type my "email" with status "CONFIRMED"
+    And I type my password
+    And I click the "Sign in" button
     Then I will be redirected to the setup mfa page
