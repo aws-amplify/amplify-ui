@@ -21,12 +21,8 @@ export const isTabsType = (
     child.props.children != null
   );
 };
-
 export interface Tabs {
-  (props: TabsProps):
-    | React.ReactElement<any, any>
-    | React.ReactElement[]
-    | null;
+  (props: TabsProps): React.ReactComponentElement<any>;
 }
 
 export const Tabs: Tabs = ({
@@ -72,8 +68,9 @@ export const Tabs: Tabs = ({
               className={classNames(ComponentClassNames.TabItems, className)}
               data-grow={grow}
               disabled={isDisabled}
-              value={`${index}`}
+              key={index}
               style={prefixer(convertStylePropsToStyleObj(rest, {}))}
+              value={`${index}`}
             >
               {title}
             </RadixTab>
@@ -81,11 +78,12 @@ export const Tabs: Tabs = ({
         </Flex>
       </List>
       {tabs.map((tab, index) => (
-        <Panel value={`${index}`}>{tab.children}</Panel>
+        <Panel key={index} value={`${index}`}>
+          {tab.children}
+        </Panel>
       ))}
     </Root>
   );
 };
 
-// In the docs, explain that TabItem contains both Tab and its corresponding Panel
 export const TabItem: React.FC<TabItemProps> = () => <></>;

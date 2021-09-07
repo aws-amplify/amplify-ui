@@ -1859,6 +1859,8 @@ describe('@aws-amplify/ui-react', () => {
           "Select",
           "SharedText",
           "Spacer",
+          "TabItem",
+          "Tabs",
           "Text",
           "TextField",
           "View",
