@@ -11,9 +11,7 @@ import { ComponentClassNames } from '../shared/constants';
 import classNames from 'classnames';
 import { convertStylePropsToStyleObj, prefixer } from '../shared/utils';
 
-export const isTabsType = (
-  child: any
-): child is React.Component<TabItemProps> => {
+const isTabsType = (child: any): child is React.Component<TabItemProps> => {
   return (
     typeof child === 'object' &&
     child.hasOwnProperty('props') &&
