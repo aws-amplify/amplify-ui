@@ -26,6 +26,7 @@ export function UserNameAlias(props: UserNameAliasProps) {
       label={i18nLabel}
       labelHidden={true}
       errorMessage={error}
+      {...attrs}
     />
   );
 }
