@@ -28,8 +28,6 @@ export enum ComponentClassNames {
   SelectField = 'amplify-selectfield',
   SelectWrapper = 'amplify-select__wrapper',
   SelectIconWrapper = 'amplify-select__icon-wrapper',
-  Tabs = 'amplify-tabs',
-  TabItems = 'amplify-tabs-item',
   Text = 'amplify-text',
   TextField = 'amplify-textfield',
   View = 'amplify-view',
