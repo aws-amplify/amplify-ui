@@ -19,5 +19,4 @@ module.exports = {
   select: require('./select'),
   tabs: require('./tabs'),
   text: require('./text'),
-  textfield: require('./textField'),
 };
