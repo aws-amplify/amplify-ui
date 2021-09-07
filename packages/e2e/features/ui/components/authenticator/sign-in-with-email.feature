@@ -32,6 +32,8 @@ Feature: Sign In with Email
     And I click the "Sign In" button
     Then I see "Sign out"
 
+  # FORCE_CHANGE_PASSWORD tests are skipped as the temporary passwords used for these
+  # test accounts will expire in Cognito.
   @react @skip
   Scenario: Sign in with force change password credentials
     When I type the valid email "FORCE_CHANGE_EMAIL"

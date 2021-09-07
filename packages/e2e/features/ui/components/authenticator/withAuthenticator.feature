@@ -9,9 +9,9 @@ Feature: withAuthenticator
   Scenario: Application is wrapped with Authenticator
     Then I see "Sign in to your account"
 
-  @focus @next @react @vue @skip
+  @next @react @vue @skip
   Scenario: Application renders when signed in
-    When I type a valid username "VALID_USERNAME"
+    When I type a valid username "CONFIRMED_USERNAME"
     And I type a valid password "VALID_PASSWORD"
     And I click the "Sign In" button
     Then I see "Sign out"

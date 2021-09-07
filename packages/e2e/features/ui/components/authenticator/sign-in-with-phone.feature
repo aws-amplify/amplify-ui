@@ -10,14 +10,14 @@ Feature: Sign In with Phone Number
   Background:
     Given I'm at the sign in page
 
-  @vue @react @angular
+  @angular @next @react @vue
   Scenario: Sign in with unknown credentials
     When I type the valid phone number "UNKNOWN_PHONE_NUMBER"
     And I type the valid password "VALID_PASSWORD"
     And I click the "Sign In" button
     Then I see "User does not exist"
 
-  @vue @react @angular
+  @angular @next @react @vue
   Scenario: Sign in with unconfirmed credentials
     When I type the valid phone number "UNCONFIRMED_PHONE_NUMBER"
     And I type the valid password "VALID_PASSWORD"
@@ -25,14 +25,16 @@ Feature: Sign In with Phone Number
     Then I see "Confirmation Code"
 
 
-  @vue @react @angular
+  @angular @next @react @vue
   Scenario: Sign in with confirmed credentials
     When I type the valid phone number "CONFIRMED_PHONE_NUMBER"
     And I type the valid password "VALID_PASSWORD"
     And I click the "Sign In" button
     Then I see "Sign out"
 
-  @react @skip
+  # FORCE_CHANGE_PASSWORD tests are skipped as the temporary passwords used for these
+  # test accounts will expire in Cognito.
+  @angular @next @react @vue @skip
   Scenario: Sign in with force change password credentials
     When I type the valid phone number "FORCE_CHANGE_PHONE_NUMBER"
     And I type the valid password "VALID_PASSWORD"

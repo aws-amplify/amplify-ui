@@ -1,3 +1,4 @@
+# Sign up tests are skipped due to SES limits
 @skip
 Feature: Confirm Sign Up
 

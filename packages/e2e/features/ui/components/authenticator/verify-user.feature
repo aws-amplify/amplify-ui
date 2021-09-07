@@ -7,7 +7,8 @@ Feature: Verify User
   Background:
     Given I'm running the example "ui/components/authenticator/sign-in-federated"
 
-  @next @react @vue @skip
+  # Veriy tests skipped due to SES limits
+  @angular @next @react @vue @skip
   Scenario: Verify User with valid but unverified email
     When I type a valid but unverified email "UNVERIFIED_EMAIL"
     And I type a valid password "VALID_PASSWORD"

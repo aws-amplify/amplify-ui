@@ -10,25 +10,25 @@ Feature: Sign In with Multiple Aliases
   Background:
     Given I'm at the sign in page
 
-  @react
+  @next @react
   Scenario: Multiple login mechanisms
     Then I see "Username or Email or Phone Number"
 
-  @react
+  @next @react
   Scenario: Sign in with confirmed username
     When I type the valid login mechanism "CONFIRMED_USERNAME"
     And I type the valid password "VALID_PASSWORD"
     And I click the "Sign In" button
     Then I see "Sign Out"
 
-  @react
+  @next @react
   Scenario: Sign in with confirmed email
     When I type the valid login mechanism "CONFIRMED_EMAIL"
     And I type the valid password "VALID_PASSWORD"
     And I click the "Sign In" button
     Then I see "Sign Out"
 
-  @react
+  @next @react
   Scenario: Sign in with confirmed phone number
     When I type the valid login mechanism "CONFIRMED_PHONE_NUMBER"
     And I type the valid password "VALID_PASSWORD"
