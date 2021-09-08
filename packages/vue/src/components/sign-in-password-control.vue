@@ -4,6 +4,7 @@
     <base-input
       name="password"
       autocomplete="current-password"
+      placeholder="{{ passwordLabel }}"
       required
       type="password"
     />
@@ -11,10 +12,10 @@
 </template>
 
 <script lang="ts">
-import BaseText from "./primitives/base-text.vue";
-import BaseInput from "./primitives/base-input.vue";
+import BaseText from './primitives/base-text.vue';
+import BaseInput from './primitives/base-input.vue';
 
-import { PASSWORD_LABEL } from "../defaults/DefaultTexts";
+import { PASSWORD_LABEL } from '../defaults/DefaultTexts';
 export default {
   components: {
     BaseText,
