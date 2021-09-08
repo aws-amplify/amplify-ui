@@ -118,7 +118,7 @@ SignUp.AliasControl = ({
   placeholder = label,
 }) => {
   const {
-    components: { Input, Flex, Label, ErrorText },
+    components: { Input, Flex, Label, SelectField, ErrorText },
   } = useAmplify('Authenticator.SignUp.Alias');
   const [_state] = useAuth();
   const { validationError, formValues } = getActorContext(
@@ -130,9 +130,10 @@ SignUp.AliasControl = ({
     <Flex direction="column">
       <Label htmlFor={name}>{label}</Label>
       {name === 'phone_number' && (
-        <select
-          aria-label="country code"
+        <SelectField
           name="country_code"
+          label="country code"
+          labelHidden={true}
           defaultValue={formValues.country_code}
         >
           {countryDialCodes.map((dialCode) => (
@@ -140,7 +141,7 @@ SignUp.AliasControl = ({
               {dialCode}
             </option>
           ))}
-        </select>
+        </SelectField>
       )}
       <Input
         id={name}
