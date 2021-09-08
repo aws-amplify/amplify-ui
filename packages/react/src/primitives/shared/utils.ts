@@ -1,12 +1,13 @@
 import * as React from 'react';
 import autoprefixer from 'autoprefixer';
 import postcssJs from 'postcss-js';
-import useBreakpoint from 'use-breakpoint';
-
+// import useBreakpoint from 'use-breakpoint';
 // Note: this makes nanoid more performant, not less secure
 // @see https://www.npmjs.com/package/nanoid#user-content-non-secure
 import { customAlphabet } from 'nanoid/non-secure';
 const nanoid = customAlphabet('1234567890abcdef', 12);
+
+import { theme } from '@aws-amplify/ui';
 
 import {
   ComponentPropsToStylePropsMap,
@@ -14,61 +15,34 @@ import {
   ViewProps,
 } from '../types/index';
 
-//@TODO: consume from theme
-const breakpoints = {
-  base: 0,
-  small: 480,
-  medium: 768,
-  large: 992,
-  xl: 1280,
-  xxl: 1536,
-};
-const breakpointKeys = Object.keys(breakpoints);
+import { getValueAtCurrentBreakpoint } from './responsive/utils';
+import { useBreakpoint } from './responsive/useBreakpoint';
 
 export const prefixer = postcssJs.sync([autoprefixer]);
+
+const {
+  values: breakpoints,
+  unit: breakpointUnit,
+  default: defaultBreakpoint,
+} = theme.breakpoints;
 
 export const strHasLength = (str: unknown): str is string =>
   typeof str === 'string' && str.length > 0;
 
-export const usePropStyles = (props: ViewProps, style: any, breakpoint) => {
+export const usePropStyles = (props: ViewProps, style: any) => {
+  const breakpoint = useBreakpoint({
+    breakpoints,
+    breakpointUnit,
+    defaultBreakpoint,
+  });
+
   return React.useMemo(
-    () => prefixer(convertStylePropsToStyleObj(props, style, breakpoint)),
-    [props, style, breakpoint]
+    () =>
+      prefixer(
+        convertStylePropsToStyleObj(props, style, breakpoint, breakpoints)
+      ),
+    [props, style, breakpoints, breakpoint]
   );
-};
-
-const getValueAtCurrentBreakpoint = (
-  values: Record<string, any> | string[],
-  breakpoint
-) => {
-  let breakpointCompatValues = {};
-  if (Array.isArray(values)) {
-    values.map((value, index) => {
-      breakpointCompatValues[breakpointKeys[index]] = value;
-    });
-  } else {
-    breakpointCompatValues = values;
-  }
-
-  return getClosestValueByBreakpoint(breakpointCompatValues, breakpoint);
-};
-
-const getClosestValueByBreakpoint = (values, breakpoint) => {
-  // Use exact match
-  if (values.hasOwnProperty(breakpoint)) {
-    return values[breakpoint];
-  }
-
-  // Otherwise use a lower breakpoint value
-  const keys = Object.keys(breakpoints).reverse();
-  const lowerKeys = keys.slice(keys.indexOf(breakpoint));
-  for (let key of lowerKeys) {
-    if (values.hasOwnProperty(key)) {
-      return values[key];
-    }
-  }
-
-  return null;
 };
 
 /**
@@ -79,9 +53,9 @@ const getClosestValueByBreakpoint = (values, breakpoint) => {
 export const convertStylePropsToStyleObj = (
   props: ViewProps,
   style: React.CSSProperties = {},
-  breakpoint
+  breakpoint,
+  breakpoints
 ) => {
-  console.count('convertStylePropsToStyle');
   (
     Object.keys(ComponentPropsToStylePropsMap) as Array<
       keyof ComponentPropToStyleProp
@@ -96,7 +70,8 @@ export const convertStylePropsToStyleObj = (
       if (typeof stylePropValue !== 'string' || Array.isArray(stylePropValue)) {
         stylePropValue = getValueAtCurrentBreakpoint(
           stylePropValue,
-          breakpoint
+          breakpoint,
+          breakpoints
         );
       }
       const reactStyleProp = ComponentPropsToStylePropsMap[stylePropKey];
