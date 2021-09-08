@@ -17,13 +17,14 @@ export function SignUp() {
   const {
     components: {
       Button,
-      Fieldset,
+      Divider,
+      FieldGroup,
+      Flex,
       Footer,
       Form,
       Heading,
-      Spacer,
+      PasswordField,
       Text,
-      ErrorText,
     },
   } = useAmplify('Authenticator.SignUp');
 
@@ -31,6 +32,7 @@ export function SignUp() {
   const actorState: SignUpState = getActorState(_state);
   const isPending = actorState.matches('signUp.pending');
   const { remoteError } = actorState.context;
+  const { validationError } = getActorContext(_state) as SignUpContext;
 
   const [primaryAlias, ...secondaryAliases] = _state.context.config
     ?.login_mechanisms ?? ['username', 'email', 'phone_number'];
@@ -53,6 +55,10 @@ export function SignUp() {
     });
   };
 
+  const passwordLabel = I18n.get('Password');
+  const confirmPasswordLabel = I18n.get('Confirm Password');
+  const passwordFieldClass = 'password-field';
+
   return (
     <Form
       data-amplify-authenticator-signup=""
@@ -70,44 +76,81 @@ export function SignUp() {
       }}
       onChange={handleChange}
     >
-      <Heading>{I18n.get('Create a new account')}</Heading>
+      <Flex direction="column">
+        <Heading level={3}>{I18n.get('Create a new account')}</Heading>
 
-      <FederatedSignIn />
+        <FieldGroup disabled={isPending} direction="column">
+          <SignUp.AliasControl
+            label={I18n.get(authInputAttributes[primaryAlias].label)}
+            name={primaryAlias}
+          />
+          <PasswordField
+            data-amplify-password
+            className={passwordFieldClass}
+            placeholder={passwordLabel}
+            required
+            name="password"
+            label={passwordLabel}
+            labelHidden={true}
+            hasError={!!validationError['confirm_password']}
+          />
+          <PasswordField
+            data-amplify-confirmpassword
+            className={passwordFieldClass}
+            placeholder={confirmPasswordLabel}
+            required
+            name="confirm_password"
+            label={confirmPasswordLabel}
+            labelHidden={true}
+            hasError={!!validationError['confirm_password']}
+          />
 
-      <Fieldset>
-        <SignUp.AliasControl
-          label={I18n.get(authInputAttributes[primaryAlias].label)}
-          name={primaryAlias}
-        />
-        <SignUp.PasswordControl />
-        <SignUp.ConfirmPasswordControl />
-        {secondaryAliases
-          .filter((alias) => !includes(socialProviderLoginMechanisms, alias))
-          .map((alias) => (
-            <SignUp.AliasControl
-              key={alias}
-              label={I18n.get(authInputAttributes[alias].label)}
-              name={alias}
-            />
-          ))}
-      </Fieldset>
-
-      <ErrorText>{remoteError}</ErrorText>
-
-      <Footer>
-        <Text>{I18n.get('Have an account? ')}</Text>
-        <Button onClick={() => send({ type: 'SIGN_IN' })} type="button">
-          {I18n.get('Sign in')}
-        </Button>
-        <Spacer />
-        <Button isDisabled={isPending} type="submit">
-          {isPending ? (
-            <>{I18n.get('Creating Account')}&hellip;</>
-          ) : (
-            <>{I18n.get('Create Account')}</>
+          {!!validationError['confirm_password'] && (
+            <Text variation="error">{validationError['confirm_password']}</Text>
           )}
+
+          {secondaryAliases
+            .filter((alias) => !includes(socialProviderLoginMechanisms, alias))
+            .map((alias) => (
+              <SignUp.AliasControl
+                key={alias}
+                label={I18n.get(authInputAttributes[alias].label)}
+                name={alias}
+              />
+            ))}
+
+          {!!remoteError && <Text variation="error">{remoteError}</Text>}
+        </FieldGroup>
+
+        <Button
+          borderRadius={0}
+          isDisabled={isPending}
+          isFullWidth={true}
+          type="submit"
+          variation="primary"
+          isLoading={isPending}
+          loadingText={I18n.get('Creating Account')}
+          fontWeight="normal"
+        >
+          {I18n.get('Create Account')}
         </Button>
-      </Footer>
+
+        {/* TODO - This part will be removed once tabs are ready */}
+        <Footer>
+          <Text>{I18n.get('Have an account? ')}</Text>
+          <Button
+            onClick={() => send({ type: 'SIGN_IN' })}
+            type="button"
+            variation="link"
+          >
+            {I18n.get('Sign in')}
+          </Button>
+        </Footer>
+
+        <Divider size="small" />
+
+        <FederatedSignIn />
+      </Flex>
     </Form>
   );
 }
@@ -118,69 +161,21 @@ SignUp.AliasControl = ({
   placeholder = label,
 }) => {
   const {
-    components: { Input, Label, Text, ErrorText },
+    components: { TextField },
   } = useAmplify('Authenticator.SignUp.Alias');
   const [_state] = useAuth();
   const { validationError } = getActorContext(_state) as SignUpContext;
   const error = validationError[name];
 
   return (
-    <>
-      <Label>
-        <Text>{label}</Text>
-        <Input
-          name={name}
-          placeholder={placeholder}
-          required
-          type={authInputAttributes[name].type}
-        />
-      </Label>
-      <ErrorText>{error}</ErrorText>
-    </>
-  );
-};
-
-SignUp.PasswordControl = ({
-  label = I18n.get('Password'),
-  name = 'password',
-  placeholder = label,
-}) => {
-  const {
-    components: { Input, Label, Text, ErrorText },
-  } = useAmplify('Authenticator.SignUp.Password');
-  const [_state] = useAuth();
-  const { validationError } = getActorContext(_state) as SignUpContext;
-  const error = validationError[name];
-
-  return (
-    <>
-      <Label>
-        <Text>{label}</Text>
-        <Input name={name} placeholder={placeholder} required type="password" />
-      </Label>
-      <ErrorText>{error}</ErrorText>
-    </>
-  );
-};
-
-SignUp.ConfirmPasswordControl = ({
-  label = I18n.get('Confirm Password'),
-  name = 'confirm_password',
-}) => {
-  const {
-    components: { Input, Label, Text, ErrorText },
-  } = useAmplify('Authenticator.SignUp.Password');
-  const [state] = useAuth();
-  const { validationError } = getActorContext(state) as SignUpContext;
-  const error = validationError[name];
-
-  return (
-    <>
-      <Label>
-        <Text>{label}</Text>
-        <Input name={name} placeholder={label} required type="password" />
-      </Label>
-      <ErrorText>{error}</ErrorText>
-    </>
+    <TextField
+      type={authInputAttributes[name].type}
+      name={name}
+      required
+      placeholder={placeholder}
+      label={label}
+      labelHidden={true}
+      errorMessage={error}
+    />
   );
 };
