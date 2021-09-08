@@ -27,7 +27,3 @@ And('I type the password {string}', (password: string) => {
 And('I confirm the password {string}', (password: string) => {
   cy.findByPlaceholderText(/confirm password/i).type(Cypress.env(password));
 });
-
-Then('I see {string}', (message: string) => {
-  cy.findByRole('document').contains(message);
-});
