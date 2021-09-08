@@ -1,19 +1,12 @@
 <template>
   <slot name="footert" :slotData="mySlots.default()">
-    <footer data-amplify-footer=""><slot></slot></footer>
+    <footer v-bind="$attrs" data-amplify-footer=""><slot></slot></footer>
   </slot>
 </template>
 
-<script lang="ts">
-import { PrimitiveSlotReturnType } from '../../types';
-import { defineComponent } from 'vue';
+<script setup lang="ts">
+import { InternalSlots } from '../../types';
+import { useSlots } from 'vue';
 
-export default defineComponent({
-  setup(_, { slots }): PrimitiveSlotReturnType {
-    let mySlots = slots;
-    return { mySlots };
-  },
-});
+let mySlots: Readonly<InternalSlots> = useSlots();
 </script>
-
-<style scoped></style>

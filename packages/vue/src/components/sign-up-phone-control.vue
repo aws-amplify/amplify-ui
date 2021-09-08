@@ -4,7 +4,7 @@
 
     <div class="flex">
       <base-input
-        v-model:textValue="phoneNumber"
+        :textValue="phoneNumber"
         name="phone_number"
         class="border phone"
         required

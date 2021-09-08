@@ -1,34 +1,17 @@
 <template>
   <select @change="(event) => onChange(event)">
-    <option v-for="(option, idx) in options" :key="idx" :value="option.value">
-      {{ option.value }}
+    <option v-for="(option, idx) in options" :key="idx" :value="option">
+      {{ option }}
     </option>
   </select>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType } from 'vue';
+<script setup lang="ts">
+const { options } = withDefaults(defineProps<{ options: string[] }>(), {});
 
-interface SelectProp {
-  value: string;
-}
+const emit = defineEmits(['update:selectValue']);
 
-export default defineComponent({
-  props: {
-    options: {
-      required: true,
-      type: Array as PropType<SelectProp[]>,
-    },
-    selectValue: {
-      default: '',
-    },
-  },
-  setup(_, { emit }): { onChange: (event) => void } {
-    const onChange = (e: Event): void => {
-      emit('update:selectValue', (<HTMLInputElement>e.target).value);
-    };
-
-    return { onChange };
-  },
-});
+const onChange = (e: Event): void => {
+  emit('update:selectValue', (<HTMLInputElement>e.target).value);
+};
 </script>

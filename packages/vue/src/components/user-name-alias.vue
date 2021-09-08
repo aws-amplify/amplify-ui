@@ -4,7 +4,7 @@
       {{ label }}
     </base-text>
     <base-input
-      v-model:textValue="uName"
+      :textValue="uName"
       :autocomplete="name"
       required
       :name="name"
