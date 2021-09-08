@@ -15,8 +15,3 @@ And('I type an invalid username {string}', (username: string) => {
 Then('I will be redirected to the confirm forgot password page', () => {
   cy.findByRole('textbox', { label: 'New password' }).should('exist');
 });
-
-Then('I see {string}', (message: string) => {
-  const [messageString, username] = message.split(' ');
-  cy.get('body').contains([messageString, Cypress.env(username)].join(' '));
-});
