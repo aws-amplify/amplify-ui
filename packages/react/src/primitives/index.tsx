@@ -12,6 +12,8 @@ export * from './Link';
 export * from './Pagination';
 export * from './Placeholder';
 export * from './PasswordField';
+export * from './Radio';
+export * from './RadioGroup';
 export * from './Rating';
 export * from './Select';
 export * from './SelectField';

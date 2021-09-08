@@ -24,6 +24,16 @@ export interface InputProps
   autoComplete?: string;
 
   /**
+   * If checked is provided, this will be a controlled checkbox or radio
+   */
+  checked?: boolean;
+
+  /**
+   * Use this to initialize an uncontrolled checkbox or radio
+   */
+  defaultChecked?: boolean;
+
+  /**
    * Use this to provide a default value for an uncontrolled field
    */
   defaultValue?: string | number | readonly string[];

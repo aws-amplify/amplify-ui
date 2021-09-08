@@ -23,6 +23,8 @@ export enum ComponentClassNames {
   Pagination = 'amplify-pagination',
   PasswordField = 'amplify-passwordfield',
   Placeholder = 'amplify-placeholder',
+  Radio = 'amplify-radio',
+  RadioGroup = 'amplify-radio-group',
   Rating = 'amplify-rating',
   Select = 'amplify-select',
   SelectField = 'amplify-selectfield',
