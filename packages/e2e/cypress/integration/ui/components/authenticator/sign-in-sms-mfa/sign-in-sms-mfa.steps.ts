@@ -24,9 +24,3 @@ And('I type a valid password {string}', (password: string) => {
 Then('I will be redirected to the confirm sms mfa page', () => {
   cy.get('[data-amplify-authenticator-confirmsignin]').should('be.visible');
 });
-
-// TODO - this test is failing in the new Authenticator until we add in the error handling in the component
-Then('I see {string}', (message: string) => {
-  const [messageString, username] = message.split(' ');
-  cy.get('body').contains([messageString, Cypress.env(username)].join(' '));
-});

@@ -31,7 +31,3 @@ And('I type the email {string}', (email) => {
 And('I type the phone number {string}', (phone) => {
   cy.findByLabelText('Phone Number').type(phone);
 });
-
-Then('I see {string}', (message: string) => {
-  cy.get('body').contains(message);
-});

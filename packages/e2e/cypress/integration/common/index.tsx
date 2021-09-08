@@ -18,11 +18,10 @@ And('I type a valid password {string}', (password: string) => {
 
 When('I click the {string} button', (name: string) => {
   cy.findByRole('button', {
-    // Template literals in a regex must have special characters escaped
     name: new RegExp(`^${escapeRegExp(name)}$`, 'i'),
   }).click();
 });
 
 Then('I see {string}', (message: string) => {
-  cy.findByRole('document').contains(new RegExp(message, 'i'));
+  cy.findByRole('document').contains(new RegExp(escapeRegExp(message), 'i'));
 });

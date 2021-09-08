@@ -27,8 +27,3 @@ Then('I will be redirected to the verify user page', () => {
 Then('I will be redirected to the confirm verify user page', () => {
   cy.findByRole('document').contains(new RegExp('Code *', 'i'));
 });
-
-Then('I see {string}', (message: string) => {
-  const [messageString, username] = message.split(' ');
-  cy.get('body').contains([messageString, Cypress.env(username)].join(' '));
-});
