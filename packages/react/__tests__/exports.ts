@@ -6,6 +6,7 @@ describe('@aws-amplify/ui-react', () => {
       expect(Object.keys(exported)).toMatchInlineSnapshot(`
         Array [
           "Alert",
+          "AmplifyAuthenticator",
           "AmplifyChatbot",
           "AmplifyPhotoPicker",
           "AmplifyPicker",

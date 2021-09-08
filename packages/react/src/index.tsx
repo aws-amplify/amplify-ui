@@ -11,6 +11,10 @@ export * as primitives from './primitives';
 export { theme, translations } from '@aws-amplify/ui';
 
 export {
+  /**
+   * @deprecated `AmplifyAuthenticator` is the v1 release. Prefer `Authenticator` for continued support.
+   */
+  AmplifyAuthenticator,
   AmplifyChatbot,
   AmplifyPhotoPicker,
   AmplifyPicker,
