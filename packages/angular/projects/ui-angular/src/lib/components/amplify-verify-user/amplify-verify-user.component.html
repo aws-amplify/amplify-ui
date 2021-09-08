@@ -1,0 +1,49 @@
+<!-- 
+  Define default contents here
+-->
+<ng-template #verifyUserFooter>
+  <div data-amplify-footer>
+    <button data-amplify-button (click)="skipVerify()">Skip</button>
+    <button data-amplify-button type="submit">Verify</button>
+  </div>
+</ng-template>
+
+<ng-template #verifyUserForm>
+  <form data-amplify-form (submit)="onSubmit($event)">
+    <fieldset data-amplify-fieldset [disabled]="isPending">
+      <ng-container
+        *ngFor="let unverifiedAttribute of unverifiedAttributes | keyvalue"
+      >
+        <input
+          name="unverifiedAttr"
+          type="radio"
+          [value]="unverifiedAttribute.key"
+        />
+        <amplify-label>{{ unverifiedAttribute.key }}</amplify-label>
+      </ng-container>
+      <ng-container
+        [ngTemplateOutlet]="
+          customComponents.verifyUserFooter || verifyUserFooter
+        "
+        [ngTemplateOutletContext]="context()"
+      >
+      </ng-container>
+    </fieldset>
+
+    <amplify-error *ngIf="remoteError">
+      {{ remoteError }}
+    </amplify-error>
+  </form>
+</ng-template>
+
+<!-- 
+  Render verify user component
+-->
+<div data-amplify-container>
+  <h2 data-amplify-header>{{ this.headerText }}</h2>
+  <ng-container
+    [ngTemplateOutlet]="customComponents.verifyUserForm || verifyUserForm"
+    [ngTemplateOutletContext]="context()"
+  >
+  </ng-container>
+</div>
