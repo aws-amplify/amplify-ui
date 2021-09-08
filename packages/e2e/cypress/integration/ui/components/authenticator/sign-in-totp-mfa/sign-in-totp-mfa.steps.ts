@@ -27,9 +27,3 @@ Then('I will be redirected to the confirm totp mfa page', () => {
 Then('I will be redirected to the setup mfa page', () => {
   cy.get('[data-amplify-qrcode]').should('be.visible');
 });
-
-// TODO - this test is failing in the new Authenticator until we add in the error handling in the component
-Then('I see {string}', (message: string) => {
-  const [messageString, username] = message.split(' ');
-  cy.get('body').contains([messageString, Cypress.env(username)].join(' '));
-});

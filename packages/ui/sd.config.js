@@ -38,12 +38,16 @@ module.exports = {
         },
       ],
     },
-    js: {
-      transforms: ['attribute/cti', 'name/cti/kebab'],
+    ts: {
+      transforms: ['attribute/cti', 'name/cti/kebab', 'cssPadding'],
       files: [
         {
           destination: 'src/theme/theme.ts',
           minified: true,
+          format: 'application/typescript',
+        },
+        {
+          destination: 'src/theme/tokens.ts',
           format: 'application/typescript',
         },
       ],
