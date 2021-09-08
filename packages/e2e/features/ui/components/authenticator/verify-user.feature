@@ -7,7 +7,7 @@ Feature: Verify User
   Background:
     Given I'm running the example "ui/components/authenticator/sign-in-federated"
 
-  @next @react @vue @skip
+  @angular @next @react @vue @skip
   Scenario: Verify User with valid but unverified email
     When I type my "email" with status "UNVERIFIED"
     And I type my password

@@ -101,11 +101,7 @@ jobs:
 
           # Env values for testing flows
           DOMAIN: ${{ secrets.DOMAIN }}
-<<<<<<< Updated upstream
           PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
-=======
-          PASSWORD: ${{ secrets.PASSWORD }}
->>>>>>> Stashed changes
           USERNAME: ${{ secrets.USERNAME }}
           CONFIRMED_USERNAME: ${{ secrets.CONFIRMED_USERNAME }}
           FORCE_CHANGE_USERNAME: ${{ secrets.FORCE_CHANGE_USERNAME }}
