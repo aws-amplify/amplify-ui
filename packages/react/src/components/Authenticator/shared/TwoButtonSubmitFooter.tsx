@@ -23,7 +23,7 @@ export const TwoButtonSubmitFooter = (
   } = props;
 
   const {
-    components: { Button, Flex, Spacer },
+    components: { Button, Flex },
   } = useAmplify(amplifyNamespace);
 
   const [state, send] = useAuth();
