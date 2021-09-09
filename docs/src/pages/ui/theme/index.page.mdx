@@ -4,6 +4,70 @@ title: Theme
 
 import { Colors } from './colors';
 
-# Theme
+### Style with theme object
 
-<Colors />
+The theme object is where you define tokens for color palette, font stacks, spacing, and more. Amplify UI provides a `defaultTheme` object but you can customize it to fit your design.
+
+```jsx
+import { AmplifyProvider } from '@aws-amplify/ui-react';
+// Step 1: Wrap your APP with `AmplifyProvider`
+const App = (
+  <AmplifyProvider>
+    <MyApp>/* AmplifyUI */</MyApp>
+  </AmplifyProvider>
+);
+
+// Step 2: Get the theme object through useTheming hook and style components with it
+import React from 'react';
+import { Text, useTheming } from '@aws-amplify/ui-react';
+
+const MyComponent = ({ children }) => {
+  const { theme } = useTheming();
+  return <Text color={theme.colors.font.tertiary}>{children}</Text>;
+};
+```
+
+To extend or override a token in the default theme with `extendTheming`
+
+```jsx
+import { extendTheming } from '@aws-amplify/ui-react';
+
+// Step 1: Use `extendTheme` and pass your custom values
+const theming = extendTheming({
+  colors: {
+    brand: {
+      primary: '#008080',
+      // ...
+    },
+  },
+});
+
+// Step 2: Pass the new theme to `AmplifyProvider`
+<AmplifyProvider theming={theming}>
+  <App />
+</AmplifyProvider>;
+
+// Step 3: Now you can use these colors in your components
+const MyComponent = ({ children }) => {
+  const { theme } = useTheming();
+  return <Text color={theme.colors.brand.primary}>{children}</Text>;
+};
+```
+
+The theming also comes with a CSSVariables object, so you can easily inject them into your app container if you need
+
+```jsx
+import React from 'react';
+import { View, useTheming } from '@aws-amplify/ui-react';
+
+// Step 1: Inject CSS variables into your app container
+const MyApp = ({ children }) => {
+  const { CSSVariables } = useTheming();
+  return <View style={CSSVariables}>{children}</View>;
+};
+
+// Step 2: Use it to style your components
+const MyComponent = ({ children }) => {
+  return <Text color="var(--amplify-colors-white)">{children}</Text>;
+};
+```

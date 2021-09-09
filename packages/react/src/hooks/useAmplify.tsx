@@ -4,7 +4,7 @@ import { AmplifyContext } from '../components/AmplifyProvider/AmplifyContext';
 import * as primitives from '../primitives';
 
 export function useAmplify(namespace) {
-  const { components = {}, theme } = useContext(AmplifyContext);
+  const { components = {}, theming } = useContext(AmplifyContext);
 
   const customComponents = Object.entries(components).reduce(
     (acc, [namespaced, Component]) => {
@@ -50,6 +50,6 @@ export function useAmplify(namespace) {
       ...customComponents,
     },
 
-    theme,
+    theming,
   };
 }

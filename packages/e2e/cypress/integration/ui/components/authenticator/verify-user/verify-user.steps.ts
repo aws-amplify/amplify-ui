@@ -16,10 +16,6 @@ And('I type a valid password {string}', (password: string) => {
   cy.findByLabelText(/password/i).type(Cypress.env(password));
 });
 
-And('I click the {string} button', (name: string) => {
-  cy.findByRole('button', { name }).click();
-});
-
 And('I click on the first radio button', () => {
   cy.findByRole('radio').click();
 });
@@ -30,9 +26,4 @@ Then('I will be redirected to the verify user page', () => {
 
 Then('I will be redirected to the confirm verify user page', () => {
   cy.findByRole('document').contains(new RegExp('Code *', 'i'));
-});
-
-Then('I see {string}', (message: string) => {
-  const [messageString, username] = message.split(' ');
-  cy.get('body').contains([messageString, Cypress.env(username)].join(' '));
 });

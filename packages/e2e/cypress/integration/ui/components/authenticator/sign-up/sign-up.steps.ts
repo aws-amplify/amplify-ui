@@ -17,11 +17,11 @@ When('I type a new username', () => {
 });
 
 And('I type a new password', () => {
-  cy.findByLabelText(/^password$/i).type(`${password}`);
+  cy.findByPlaceholderText(/^password$/i).type(`${password}`);
 });
 
 And('I type a new confirm password', () => {
-  cy.findByLabelText(/^confirm password$/i).type(`${password}`);
+  cy.findByPlaceholderText(/^confirm password$/i).type(`${password}`);
 });
 
 And('I type the email {string}', (email) => {
@@ -30,8 +30,4 @@ And('I type the email {string}', (email) => {
 
 And('I type the phone number {string}', (phone) => {
   cy.findByLabelText('Phone Number').type(phone);
-});
-
-Then('I see {string}', (message: string) => {
-  cy.get('body').contains(message);
 });

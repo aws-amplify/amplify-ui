@@ -15,7 +15,8 @@ Feature: Sign Up with Phone
 
 @next @react @vue @skip
   Scenario: Sign up with valid phone number & password
-    When I type the phone number "VALID_PHONE_NUMBER"
+    When I select the country code "+1"
+    And I type the phone number "VALID_PHONE_NUMBER"
     And I type the password "VALID_PASSWORD"
     And I confirm the password "VALID_PASSWORD"
     And I click the "Create Account" button
