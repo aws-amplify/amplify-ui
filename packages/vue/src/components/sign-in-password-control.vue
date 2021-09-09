@@ -4,7 +4,7 @@
     <base-input
       name="password"
       autocomplete="current-password"
-      placeholder="{{ passwordLabel }}"
+      :placeholder="passwordLabel"
       required
       type="password"
     />
