@@ -25,9 +25,9 @@ And('I type the phone number {string}', (phone: string) => {
 });
 
 And('I type the password {string}', (password: string) => {
-  cy.findByLabelText(/^password$/i).type(Cypress.env(password));
+  cy.findByPlaceholderText(/^password$/i).type(Cypress.env(password));
 });
 
 And('I confirm the password {string}', (password: string) => {
-  cy.findByLabelText(/confirm password/i).type(Cypress.env(password));
+  cy.findByPlaceholderText(/confirm password/i).type(Cypress.env(password));
 });
