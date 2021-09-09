@@ -1,3 +1,4 @@
+import { get } from 'lodash';
 import { createMachine, sendUpdate } from 'xstate';
 
 import { Auth } from 'aws-amplify';
@@ -139,6 +140,7 @@ export const signUpActor = createMachine<SignUpContext, AuthEvent>(
       resolved: {
         type: 'final',
         data: (context) => {
+          console.log(context);
           const { username, password } = context.authAttributes;
           const canAutoSignIn = !!(username && password);
           return {
@@ -167,13 +169,19 @@ export const signUpActor = createMachine<SignUpContext, AuthEvent>(
       setUser,
     },
     services: {
-      async confirmSignUp(_, event) {
-        const { username, confirmation_code: code } = event.data;
+      async confirmSignUp(context, event) {
+        const { user, authAttributes } = context;
+        const { confirmation_code: code } = event.data;
+
+        const username =
+          get(user, 'username') || get(authAttributes, 'username');
 
         return Auth.confirmSignUp(username, code);
       },
       async resendConfirmationCode(context, event) {
-        const { username } = event.data;
+        const { user, authAttributes } = context;
+        const username =
+          get(user, 'username') || get(authAttributes, 'username');
 
         return Auth.resendSignUp(username);
       },

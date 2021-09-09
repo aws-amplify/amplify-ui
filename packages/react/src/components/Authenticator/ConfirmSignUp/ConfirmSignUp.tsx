@@ -17,7 +17,7 @@ export function ConfirmSignUp() {
   const [usernameAlias, setUsernameAlias] = useState<string>('');
   const amplifyNamespace = 'Authenticator.ConfirmSignUp';
   const {
-    components: { Box, Button, Fieldset, Form, Heading, Label, Text },
+    components: { Box, Button, FieldGroup, Flex, Form, Heading, Label, Text },
   } = useAmplify(amplifyNamespace);
 
   const [_state, send] = useAuth();
@@ -37,10 +37,6 @@ export function ConfirmSignUp() {
     placeholder: I18n.get('Enter your code'),
   };
 
-  const handleUsernameInputChange = (event): void => {
-    setUsernameAlias(event.target.value);
-  };
-
   return (
     // TODO Automatically add these namespaces again from `useAmplify`
     <Form
@@ -58,36 +54,37 @@ export function ConfirmSignUp() {
         });
       }}
     >
-      <Heading level={1}>{I18n.get('Confirm Sign Up')}</Heading>
+      <Flex direction="column">
+        <Heading level={3}>{I18n.get('Confirm Sign Up')}</Heading>
 
-      <Fieldset disabled={isPending}>
-        <UserNameAlias
-          handleInputChange={handleUsernameInputChange}
-          data-amplify-usernamealias
-        />
-
-        <Label data-amplify-confirmationcode>
+        <FieldGroup direction="column" disabled={isPending}>
           <ConfirmationCodeInput {...confirmationCodeInputProps} />
-          <Box>
-            <Text>{I18n.get('Lost your code? ')}</Text>
-            <Button
-              onClick={() => {
-                send({
-                  type: 'RESEND',
-                  data: {
-                    username: usernameAlias,
-                  },
-                });
-              }}
-              type="button"
-            >
-              {I18n.get('Resend Code')}
-            </Button>
-          </Box>
-        </Label>
-      </Fieldset>
 
-      <ConfirmSignInFooter {...footerProps} />
+          <Button
+            variation="primary"
+            isDisabled={isPending}
+            type="submit"
+            loadingText={I18n.get('Confirming')}
+            isLoading={isPending}
+          >
+            {I18n.get('Confirm')}
+          </Button>
+
+          <Button
+            variation="default"
+            onClick={() => {
+              send({
+                type: 'RESEND',
+              });
+            }}
+            type="button"
+          >
+            {I18n.get('Resend Code')}
+          </Button>
+        </FieldGroup>
+
+        {/* <ConfirmSignInFooter {...footerProps} /> */}
+      </Flex>
     </Form>
   );
 }
