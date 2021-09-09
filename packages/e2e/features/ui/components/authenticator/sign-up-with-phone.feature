@@ -14,7 +14,8 @@ Feature: Sign Up with Phone
 
   @next @react @vue @angular @skip
   Scenario: Sign up with valid phone number & password
-    When I type my "phone_number" with status "UNCONFIRMED"
+    When I select the country code "+1"
+    And I type my "phone_number" with status "UNCONFIRMED"
     And I type my password
     And I confirm my password
     And I click the "Create Account" button
