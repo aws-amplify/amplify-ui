@@ -1,7 +1,7 @@
 import * as React from 'react';
 import autoprefixer from 'autoprefixer';
 import postcssJs from 'postcss-js';
-// import useBreakpoint from 'use-breakpoint';
+
 // Note: this makes nanoid more performant, not less secure
 // @see https://www.npmjs.com/package/nanoid#user-content-non-secure
 import { customAlphabet } from 'nanoid/non-secure';
@@ -23,7 +23,7 @@ export const prefixer = postcssJs.sync([autoprefixer]);
 const {
   values: breakpoints,
   unit: breakpointUnit,
-  default: defaultBreakpoint,
+  defaultBreakpoint,
 } = theme.breakpoints;
 
 export const strHasLength = (str: unknown): str is string =>

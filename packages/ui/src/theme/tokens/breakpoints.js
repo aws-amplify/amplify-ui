@@ -1,6 +1,6 @@
 module.exports = {
   values: {
-    base: { value: 0 }, // 480px (16px base)
+    base: { value: 0 },
     small: { value: 30 }, // 480px (16px base)
     medium: { value: 48 }, // 768px
     large: { value: 62 }, // 992px
@@ -10,7 +10,7 @@ module.exports = {
   unit: {
     value: 'em',
   },
-  default: {
+  defaultBreakpoint: {
     value: 'base',
   },
 };
