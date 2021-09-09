@@ -16,18 +16,18 @@ Then("I don't see {string} as an input field", (name: string) => {
   cy.findByRole('textbox', { name }).should('not.exist');
 });
 
-When('I type the phone number {string}', (phone: string) => {
+When('I select the country code {string}', (countryCode: string) => {
+  cy.findByRole('combobox', { name: /country code/i }).select(countryCode);
+});
+
+And('I type the phone number {string}', (phone: string) => {
   cy.findByRole('textbox', { name: /phone number/i }).type(Cypress.env(phone));
 });
 
 And('I type the password {string}', (password: string) => {
-  cy.findByLabelText(/^password$/i).type(Cypress.env(password));
+  cy.findByPlaceholderText(/^password$/i).type(Cypress.env(password));
 });
 
 And('I confirm the password {string}', (password: string) => {
-  cy.findByLabelText(/confirm password/i).type(Cypress.env(password));
-});
-
-Then('I see {string}', (message: string) => {
-  cy.findByRole('document').contains(message);
+  cy.findByPlaceholderText(/confirm password/i).type(Cypress.env(password));
 });

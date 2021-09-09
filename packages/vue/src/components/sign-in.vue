@@ -38,12 +38,11 @@
                 name="forgot-password-section"
                 :onForgotPasswordClicked="onForgotPasswordClicked"
               >
-                <base-text> {{ forgotYourPasswordText }}</base-text>
                 <base-button
                   type="button"
                   @click.prevent="onForgotPasswordClicked"
                 >
-                  {{ resetPasswordLink }}
+                  {{ forgotYourPasswordLink }}
                 </base-button>
               </slot>
             </base-box>
@@ -113,11 +112,10 @@ import FederatedSignIn from './federated-sign-in.vue';
 import {
   SIGN_IN_TEXT,
   AUTHENTICATOR,
-  RESET_PASSWORD_LINK,
   NO_ACCOUNT,
   CREATE_ACCOUNT_LINK,
+  FORGOT_YOUR_PASSWORD_LINK,
   SIGN_IN_BUTTON_TEXT,
-  FORGOT_YOUR_PASSWORD_TEXT,
   PASSWORD_LABEL,
   SIGNING_IN_BUTTON_TEXT,
 } from '../defaults/DefaultTexts';
@@ -133,12 +131,11 @@ export default {
   name: 'Sign In',
   computed: {
     signIntoAccountText: (): string => I18n.get(SIGN_IN_TEXT),
-    resetPasswordLink: (): string => I18n.get(RESET_PASSWORD_LINK),
     noAccount: (): string => I18n.get(NO_ACCOUNT),
     createAccountLink: (): string => I18n.get(CREATE_ACCOUNT_LINK),
+    forgotYourPasswordLink: (): string => I18n.get(FORGOT_YOUR_PASSWORD_LINK),
     signInButtonText: (): string => I18n.get(SIGN_IN_BUTTON_TEXT),
     signIngButtonText: (): string => I18n.get(SIGNING_IN_BUTTON_TEXT),
-    forgotYourPasswordText: (): string => I18n.get(FORGOT_YOUR_PASSWORD_TEXT),
     passwordLabel: (): string => I18n.get(PASSWORD_LABEL),
   },
   inheritAttrs: false,
