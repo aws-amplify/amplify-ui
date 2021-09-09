@@ -1,15 +1,18 @@
 <template>
-  <base-label>
-    <base-text>{{ label }}</base-text>
+  <base-label v-if="name === 'phone_number'">
+    <base-text>{{ 'Country Code' }}</base-text>
     <base-select
       data-amplify-select
       aria-label="country code"
       name="country_code"
       :options="dialCodes"
       :select-value="defaultDialCode"
-      v-if="name === 'phone_number'"
     >
     </base-select>
+  </base-label>
+  <base-label>
+    <base-text>{{ label }}</base-text>
+
     <base-input
       :name="name"
       required

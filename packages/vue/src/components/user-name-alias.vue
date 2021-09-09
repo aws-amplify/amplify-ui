@@ -1,17 +1,22 @@
 <template>
-  <base-label data-amplify-alias-label>
-    <base-text>
-      {{ label }}
-    </base-text>
+  <base-label data-amplify-alias-label v-if="name === 'phone_number'">
+    <base-label>
+      {{ 'Country Code' }}
+    </base-label>
     <base-select
       data-amplify-select
       aria-label="country code"
       name="country_code"
       :options="dialCodes"
       :selectValue="defaultDialCode"
-      v-if="name === 'phone_number'"
     >
     </base-select>
+  </base-label>
+
+  <base-label data-amplify-alias-label>
+    <base-text>
+      {{ label }}
+    </base-text>
     <base-input
       v-model:textValue="uName"
       :placeholder="label"
