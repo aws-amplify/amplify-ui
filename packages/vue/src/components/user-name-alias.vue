@@ -5,7 +5,7 @@
     </base-text>
     <base-input
       v-model:textValue="uName"
-      :autocomplete="name"
+      autocomplete="username"
       required
       :name="name"
       :disabled="disabled"
