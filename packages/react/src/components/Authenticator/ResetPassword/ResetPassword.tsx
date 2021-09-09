@@ -7,7 +7,7 @@ import { ErrorText, TwoButtonSubmitFooter } from '../shared';
 export const ResetPassword = (): JSX.Element => {
   const amplifyNamespace = 'Authenticator.ResetPassword';
   const {
-    components: { Fieldset, Footer, Form, Heading, Input, Label, Text },
+    components: { FieldGroup, Flex, Form, Heading, TextField },
   } = useAmplify(amplifyNamespace);
 
   const [state, send] = useAuth();
@@ -29,6 +29,8 @@ export const ResetPassword = (): JSX.Element => {
     });
   };
 
+  const inputLabel = I18n.get('Enter your username');
+
   return (
     <Form
       data-amplify-authenticator-resetpassword=""
@@ -46,29 +48,30 @@ export const ResetPassword = (): JSX.Element => {
         });
       }}
     >
-      <Heading level={1}>{headerText}</Heading>
+      <Flex direction="column">
+        <Heading level={3}>{headerText}</Heading>
 
-      <Fieldset disabled={isPending}>
-        <Label data-amplify-resetpassword-label="">
-          <Text>{I18n.get('Username')}</Text>
-          <Input
+        <FieldGroup direction="column" disabled={isPending}>
+          <TextField
             autoComplete="username"
             name="username"
-            placeholder={I18n.get('Enter your username')}
+            placeholder={inputLabel}
+            label={inputLabel}
+            labelHidden={true}
             required={true}
             type="username"
           />
-        </Label>
-      </Fieldset>
+        </FieldGroup>
 
-      <ErrorText amplifyNamespace={amplifyNamespace} />
-      <TwoButtonSubmitFooter
-        amplifyNamespace={amplifyNamespace}
-        cancelButtonText={I18n.get('Sign in')}
-        cancelButtonSendType="SIGN_IN"
-        isPending={isPending}
-        submitButtonText={submitText}
-      />
+        <ErrorText amplifyNamespace={amplifyNamespace} />
+        <TwoButtonSubmitFooter
+          amplifyNamespace={amplifyNamespace}
+          cancelButtonText={I18n.get('Back to Sign In')}
+          cancelButtonSendType="SIGN_IN"
+          isPending={isPending}
+          submitButtonText={submitText}
+        />
+      </Flex>
     </Form>
   );
 };

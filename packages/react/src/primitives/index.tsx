@@ -15,6 +15,7 @@ export * from './Placeholder';
 export * from './PasswordField';
 export * from './Rating';
 export * from './SelectField';
+export * from './SwitchField';
 export * from './Text';
 export * from './TextField';
 export * from './View';
