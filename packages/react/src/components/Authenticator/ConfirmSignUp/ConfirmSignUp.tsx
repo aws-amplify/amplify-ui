@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import { getActorState, SignUpState } from '@aws-amplify/ui';
 import { I18n } from 'aws-amplify';
 
@@ -8,28 +6,18 @@ import { useAmplify, useAuth } from '../../../hooks';
 import {
   ConfirmationCodeInput,
   ConfirmationCodeInputProps,
-  ConfirmSignInFooter,
   ConfirmSignInFooterProps,
-  UserNameAlias,
 } from '../shared';
 
 export function ConfirmSignUp() {
-  const [usernameAlias, setUsernameAlias] = useState<string>('');
   const amplifyNamespace = 'Authenticator.ConfirmSignUp';
   const {
-    components: { Box, Button, FieldGroup, Flex, Form, Heading, Label, Text },
+    components: { Button, FieldGroup, Flex, Form, Heading },
   } = useAmplify(amplifyNamespace);
 
   const [_state, send] = useAuth();
   const actorState: SignUpState = getActorState(_state);
   const isPending = actorState.matches('confirmSignUp.pending');
-
-  const footerProps: ConfirmSignInFooterProps = {
-    amplifyNamespace,
-    isPending,
-    shouldHideReturnBtn: true,
-    send,
-  };
 
   const confirmationCodeInputProps: ConfirmationCodeInputProps = {
     amplifyNamespace,
@@ -82,8 +70,6 @@ export function ConfirmSignUp() {
             {I18n.get('Resend Code')}
           </Button>
         </FieldGroup>
-
-        {/* <ConfirmSignInFooter {...footerProps} /> */}
       </Flex>
     </Form>
   );
