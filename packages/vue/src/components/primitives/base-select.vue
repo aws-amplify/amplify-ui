@@ -1,6 +1,11 @@
 <template>
   <select @change="(event) => onChange(event)">
-    <option v-for="(option, idx) in options" :key="idx" :value="option">
+    <option
+      v-for="(option, idx) in options"
+      :key="idx"
+      :value="option"
+      :selected="option == selectValue ? true : null"
+    >
       {{ option }}
     </option>
   </select>
@@ -16,15 +21,18 @@ export default defineComponent({
       type: Array as PropType<string[]>,
     },
     selectValue: {
+      type: String,
       default: '',
     },
   },
-  setup(_, { emit }): { onChange: (event) => void } {
+  setup(props, { emit }): { onChange: (event) => void; selectValue: string } {
     const onChange = (e: Event): void => {
       emit('update:selectValue', (<HTMLInputElement>e.target).value);
     };
 
-    return { onChange };
+    const selectValue = props.selectValue;
+
+    return { onChange, selectValue };
   },
 });
 </script>

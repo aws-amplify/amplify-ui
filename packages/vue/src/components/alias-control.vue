@@ -1,6 +1,15 @@
 <template>
   <base-label>
     <base-text>{{ label }}</base-text>
+    <base-select
+      data-amplify-select
+      aria-label="country code"
+      name="country_code"
+      :options="dialCodes"
+      :select-value="defaultDialCode"
+      v-if="name === 'phone_number'"
+    >
+    </base-select>
     <base-input
       :name="name"
       required
@@ -11,20 +20,28 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue';
-import { authInputAttributes } from '@aws-amplify/ui';
+import { defineComponent, computed, ComputedRef } from 'vue';
+import {
+  ActorContextWithForms,
+  authInputAttributes,
+  countryDialCodes,
+  getActorContext,
+} from '@aws-amplify/ui';
 
 import BaseInput from './primitives/base-input.vue';
 import BaseText from './primitives/base-text.vue';
 import BaseLabel from './primitives/base-label.vue';
+import BaseSelect from './primitives/base-select.vue';
 
 import { AliasControlTypes } from '../types';
+import { useAuth } from '../composables/useAuth';
 
 export default defineComponent({
   components: {
     BaseInput,
     BaseText,
     BaseLabel,
+    BaseSelect,
   },
   props: {
     label: {
@@ -43,10 +60,21 @@ export default defineComponent({
     },
   },
   setup(): AliasControlTypes {
+    const { state } = useAuth();
+    const {
+      value: { context },
+    } = state;
     //computed
     const inputAttributes = computed(() => authInputAttributes);
+    const actorContext: ComputedRef<ActorContextWithForms> = computed(() =>
+      getActorContext(state.value)
+    );
 
-    return { inputAttributes };
+    const defaultDialCode = actorContext.value.formValues?.country_code;
+
+    const dialCodes = computed(() => countryDialCodes);
+
+    return { inputAttributes, dialCodes, defaultDialCode };
   },
 });
 </script>
