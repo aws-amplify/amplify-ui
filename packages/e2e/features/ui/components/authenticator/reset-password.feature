@@ -10,7 +10,7 @@ Feature: Reset Password
   @next @react @vue @angular
   Scenario: Reset Password with valid username
     When I click the "Forgot your password?" button
-    And I type a valid username "VALID_USERNAME"
+    And I type my "username" with status "CONFIRMED"
     And I click the "Send code" button
     Then I will be redirected to the confirm forgot password page
     
@@ -18,5 +18,6 @@ Feature: Reset Password
   Scenario: Reset Password with invalid username
     When I click the "Forgot your password?" button
     And I type an invalid username "INVALID_USERNAME"
+    And I type my "username" with status "UNKNOWN"
     And I click the "Send code" button
     Then I see "Username/client id combination not found."

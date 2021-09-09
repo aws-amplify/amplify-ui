@@ -13,9 +13,9 @@ When(
 );
 
 When('I type my password', () => {
-  cy.findByLabelText(/password/i).type(Cypress.env('VALID_PASSWORD'));
+  cy.findByPlaceholderText(/password/i).type(Cypress.env('VALID_PASSWORD'));
 });
 
 When('I type an invalid password', () => {
-  cy.findByLabelText(/password/i).type('invalidpass');
+  cy.findByPlaceholderText(/password/i).type('invalidpass');
 });

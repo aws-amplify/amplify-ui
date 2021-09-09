@@ -6,17 +6,16 @@ Feature: Sign Up with Phone
     Given I'm using the example "ui/components/authenticator/sign-up-with-phone/"
     And I click "Create account"
 
-
-@next @react @vue @angular
+  @next @react @vue @angular
   Scenario: Login mechanism set to "phone_number"
     Then I see "Phone Number" as an input field
     And I don't see "Username" as an input field
     And I don't see "Email" as an input field
 
-@next @react @vue @skip
+  @next @react @vue @angular @skip
   Scenario: Sign up with valid phone number & password
-    When I type the phone number "VALID_PHONE_NUMBER"
-    And I type the password "VALID_PASSWORD"
-    And I confirm the password "VALID_PASSWORD"
+    When I type my "phone_number" with status "UNCONFIRMED"
+    And I type my password
+    And I confirm my password
     And I click the "Create Account" button
     Then I see "Confirmation Code"
