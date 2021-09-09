@@ -5,4 +5,8 @@ import { InputProps } from './input';
 export interface RadioGroupProps
   extends FieldProps,
     FlexStyleProps,
-    InputProps {}
+    InputProps {
+  name: string;
+  value?: string;
+  defaultValue?: string;
+}
