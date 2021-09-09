@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import * as React from 'react';
+
 import { ComponentClassNames } from '../shared';
 import { InputProps } from '../types/input';
 import { View } from '../View';

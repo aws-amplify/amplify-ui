@@ -37,7 +37,7 @@ describe('Switch Field', () => {
       );
 
       const wrapper = container.getElementsByClassName(
-        ComponentClassNames.SwitchField
+        ComponentClassNames.SwitchWrapper
       )[0];
       expect(wrapper).toHaveAttribute('for', 'my-switch');
     });
@@ -72,7 +72,7 @@ describe('Switch Field', () => {
       expect(field).toHaveTextContent('Element Label');
     });
 
-    it('should hide the label using the sr-only class when the isLabelHidden flag is passed in', async () => {
+    it('should hide the label using the visually hidden component when the isLabelHidden flag is passed in', async () => {
       const { container } = render(
         <SwitchField label={label} isLabelHidden={true} />
       );
@@ -80,7 +80,7 @@ describe('Switch Field', () => {
       const field = container.getElementsByClassName(
         ComponentClassNames.SwitchLabel
       )[0];
-      expect(field).toHaveClass('sr-only');
+      expect(field).toHaveClass('amplify-visually-hidden');
     });
   });
 
@@ -92,11 +92,11 @@ describe('Switch Field', () => {
       expect(field).toHaveAttribute('type', 'checkbox');
     });
 
-    it('should hide the input with the sr-only class', async () => {
+    it('should hide the input with the visually hidden component', async () => {
       const { container } = render(<SwitchField label={label} />);
 
-      const field = container.getElementsByTagName('input')[0];
-      expect(field).toHaveClass('sr-only');
+      const field = container.getElementsByTagName('input')[0].parentElement;
+      expect(field).toHaveClass('amplify-visually-hidden');
     });
 
     it('should pass through the name and value properties to the checkbox', async () => {
@@ -128,7 +128,7 @@ describe('Switch Field', () => {
       );
 
       const field = container.getElementsByTagName('input')[0];
-      expect(field).toHaveProperty('checked', true);
+      expect(field).toBeChecked();
     });
 
     it('should set the input to checked with the defaultChecked prop', async () => {
@@ -137,7 +137,7 @@ describe('Switch Field', () => {
       );
 
       const field = container.getElementsByTagName('input')[0];
-      expect(field).toHaveProperty('checked', true);
+      expect(field).toBeChecked();
     });
 
     it('should fire the onChange function with a checkbox change event', async () => {

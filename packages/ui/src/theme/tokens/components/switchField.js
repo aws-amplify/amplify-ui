@@ -6,7 +6,7 @@ module.exports = {
     shadow: { value: '{shadows.switch.value}' },
   },
   label: {
-    padding: { value: '{space.xxs.value}' },
+    padding: { value: '{space.xs.value}' },
   },
   large: {
     font: {
@@ -22,6 +22,7 @@ module.exports = {
     background: { value: '{colors.white.value}' },
     border: {
       color: { value: '{colors.neutral.20.value}' },
+      radius: { value: '{radii.xxxl.value}' },
     },
     checked: {
       transform: { value: '{transforms.slideX.medium.value}' },
@@ -33,6 +34,9 @@ module.exports = {
   },
   track: {
     background: { value: '{colors.neutral.40.value}' },
+    border: {
+      radius: { value: '{radii.xxxl.value}' },
+    },
     checked: {
       background: { value: '{colors.blue.40.value}' },
     },

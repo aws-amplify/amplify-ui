@@ -29,8 +29,7 @@
   display: inline-flex;
   justify-content: flex-start;
   box-sizing: content-box;
-  cursor: pointer;
-  border-radius: 9999px;
+  border-radius: var(--amplify-components-switchfield-track-border-radius);
   padding: var(--amplify-components-switchfield-track-padding);
   width: var(--amplify-components-switchfield-track-width);
   height: var(--amplify-components-switchfield-track-height);
@@ -55,12 +54,11 @@
   transition-duration: var(
     --amplify-components-switchfield-thumb-transition-duration
   );
-  border-radius: inherit;
+  border-radius: var(--amplify-components-switchfield-thumb-border-radius);
   width: var(--amplify-components-switchfield-thumb-width);
   height: var(--amplify-components-switchfield-thumb-width);
   border-color: var(--amplify-components-switchfield-thumb-border-color);
   overflow-wrap: break-word;
-  cursor: pointer;
   &[data-checked='true'] {
     transform: var(--amplify-components-switchfield-thumb-checked-transform);
   }
@@ -71,4 +69,5 @@
 
 .amplify-switch-label {
   padding: var(--amplify-components-switchfield-label-padding);
+  cursor: pointer;
 }

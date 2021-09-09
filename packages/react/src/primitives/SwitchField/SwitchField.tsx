@@ -8,9 +8,10 @@ import { View } from '../View';
 import { Flex } from '../Flex';
 import { VisuallyHidden } from '../VisuallyHidden';
 import { ComponentClassNames, useAmplifyFieldID } from '../shared';
+import { SwitchFieldProps } from '../types';
 import classNames from 'classnames';
 
-export const SwitchField = ({
+export const SwitchField: React.FC<SwitchFieldProps> = ({
   className,
   defaultChecked,
   id,
@@ -43,7 +44,6 @@ export const SwitchField = ({
       className={classNames(ComponentClassNames.SwitchField, className)}
       data-size={size}
       data-label-position={labelPosition}
-      {...rest}
     >
       <VisuallyHidden>
         <Input
@@ -52,7 +52,7 @@ export const SwitchField = ({
           onChange={changeHandler}
           disabled={isDisabled}
           name={name}
-          isChecked={isOn}
+          checked={isOn}
           value={value}
           onFocus={() => {
             setIsFocused(true);
@@ -66,6 +66,7 @@ export const SwitchField = ({
         htmlFor={fieldId}
         className={ComponentClassNames.SwitchWrapper}
         data-label-position={labelPosition}
+        {...rest}
       >
         <LabelType as="span" className={ComponentClassNames.SwitchLabel}>
           {label}
