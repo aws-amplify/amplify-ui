@@ -1,5 +1,9 @@
 <template>
-  <base-label data-amplify-alias-label v-if="name === 'phone_number'">
+  <base-label
+    v-bind="$attrs"
+    data-amplify-alias-label
+    v-if="name === 'phone_number'"
+  >
     <base-label>
       {{ 'Country Code' }}
     </base-label>
@@ -13,7 +17,7 @@
     </base-select>
   </base-label>
 
-  <base-label data-amplify-alias-label>
+  <base-label v-bind="$attrs" data-amplify-alias-label>
     <base-text>
       {{ label }}
     </base-text>
@@ -67,6 +71,7 @@ export default defineComponent({
       default: false,
     },
   },
+  inheritAttrs: false,
   setup(props: UserNameAliasTypes): UserNameAliasSetupReturnTypes {
     const { state } = useAuth();
     const {

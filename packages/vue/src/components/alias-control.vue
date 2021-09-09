@@ -1,5 +1,5 @@
 <template>
-  <base-label v-if="name === 'phone_number'">
+  <base-label v-bind="$attrs" v-if="name === 'phone_number'">
     <base-text>{{ 'Country Code' }}</base-text>
     <base-select
       data-amplify-select
@@ -10,7 +10,7 @@
     >
     </base-select>
   </base-label>
-  <base-label>
+  <base-label v-bind="$attrs">
     <base-text>{{ label }}</base-text>
 
     <base-input
@@ -62,6 +62,7 @@ export default defineComponent({
       type: String,
     },
   },
+  inheritAttrs: false,
   setup(): AliasControlTypes {
     const { state } = useAuth();
     const {
