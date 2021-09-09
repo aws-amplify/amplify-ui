@@ -13,6 +13,7 @@ import {
   setChallengeName,
   setConfirmResetPasswordIntent,
   setConfirmSignUpIntent,
+  setCredentials,
   setRemoteError,
   setUnverifiedAttributes,
   setUser,
@@ -80,10 +81,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
               onError: [
                 {
                   cond: 'shouldRedirectToConfirmSignUp',
-                  actions: [
-                    'setUsernameAuthAttributes',
-                    'setConfirmSignUpIntent',
-                  ],
+                  actions: ['setCredentials', 'setConfirmSignUpIntent'],
                   target: 'rejected',
                 },
                 {
@@ -296,6 +294,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
       setChallengeName,
       setConfirmResetPasswordIntent,
       setConfirmSignUpIntent,
+      setCredentials,
       setRemoteError,
       setUnverifiedAttributes,
       setUser,
