@@ -18,7 +18,7 @@ export const ConfirmResetPassword = (): JSX.Element => {
   const actorState = getActorState(_state) as ResetPasswordState;
   const isPending = actorState.matches('confirmResetPassword.pending');
 
-  const headerText = I18n.get('Reset your Password');
+  const headerText = I18n.get('Reset your password');
   const passwordText = I18n.get('New password');
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
