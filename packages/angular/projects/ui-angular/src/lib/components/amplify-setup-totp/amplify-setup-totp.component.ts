@@ -59,8 +59,9 @@ export class AmplifySetupTotpComponent
 
   public get context() {
     const { change, submit } = this.stateMachine.services;
+    const remoteError = this.remoteError;
     const user = this.stateMachine.user;
-    return { change, submit, user };
+    return { change, remoteError, submit, user };
   }
 
   async generateQRCode() {

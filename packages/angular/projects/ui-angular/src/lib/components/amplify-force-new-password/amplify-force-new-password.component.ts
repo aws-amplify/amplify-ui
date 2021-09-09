@@ -67,7 +67,8 @@ export class AmplifyForceNewPasswordComponent
   public get context() {
     const { change, signIn, submit } = this.stateMachine.services;
     const user = this.stateMachine.user;
-    return { change, signIn, submit, user };
+    const remoteError = this.remoteError;
+    return { change, remoteError, signIn, submit, user };
   }
 
   toSignIn(): void {

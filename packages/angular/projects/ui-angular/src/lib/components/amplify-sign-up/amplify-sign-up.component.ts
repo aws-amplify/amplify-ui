@@ -16,7 +16,10 @@ import {
   getActorState,
   getConfiguredAliases,
   SignUpState,
+  ValidationError,
 } from '@aws-amplify/ui';
+import { getActorContext } from '@aws-amplify/ui';
+import { SignUpContext } from '@aws-amplify/ui';
 
 @Component({
   selector: 'amplify-sign-up',
@@ -32,6 +35,7 @@ export class AmplifySignUpComponent
   public isPending = false;
   public primaryAlias = '';
   public secondaryAliases: string[] = [];
+  public validationError: ValidationError = {};
 
   private authSubscription: Subscription;
 
@@ -42,7 +46,16 @@ export class AmplifySignUpComponent
 
   public get context() {
     const { change, signIn, submit } = this.stateMachine.services;
-    return { change, signIn, submit };
+    const remoteError = this.remoteError;
+    const validationError = this.validationError;
+
+    return {
+      change,
+      remoteError,
+      signIn,
+      submit,
+      validationError,
+    };
   }
 
   ngOnInit(): void {
@@ -67,7 +80,9 @@ export class AmplifySignUpComponent
 
   private onStateUpdate(state: AuthMachineState): void {
     const actorState: SignUpState = getActorState(state);
-    this.remoteError = actorState.context.remoteError;
+    const actorContext: SignUpContext = getActorContext(state);
+    this.remoteError = actorContext.remoteError;
+    this.validationError = actorContext.validationError;
     this.isPending = !actorState.matches({
       signUp: {
         submission: 'idle',

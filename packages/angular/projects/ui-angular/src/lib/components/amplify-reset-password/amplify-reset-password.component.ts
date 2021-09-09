@@ -55,7 +55,8 @@ export class AmplifyResetPasswordComponent
 
   public get context() {
     const { change, signIn, submit } = this.stateMachine.services;
-    return { change, signIn, submit };
+    const remoteError = this.remoteError;
+    return { change, remoteError, signIn, submit };
   }
 
   toSignIn(): void {

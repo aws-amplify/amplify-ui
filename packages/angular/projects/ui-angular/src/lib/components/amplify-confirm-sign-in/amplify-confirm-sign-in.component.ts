@@ -59,7 +59,8 @@ export class AmplifyConfirmSignInComponent
 
   public get context() {
     const { change, signIn, submit } = this.stateMachine.services;
-    return { change, signIn, submit };
+    const remoteError = this.remoteError;
+    return { change, remoteError, signIn, submit };
   }
 
   setHeaderText(): void {
