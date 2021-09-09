@@ -8,6 +8,7 @@ module.exports = {
   xxl: { value: '3.0rem' },
   xxxl: { value: '4.5rem' },
   relative: {
+    //creating a second set of sizes using em which will be sized relative to a parent instead of the root
     xxs: { value: '0.25em' },
     xs: { value: '0.5em' },
     small: { value: '0.75em' },
