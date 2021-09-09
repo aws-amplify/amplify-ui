@@ -1,12 +1,10 @@
-import { AmplifyAuthenticator, translations } from '@aws-amplify/ui-react';
+import { AmplifyAuthenticator } from '@aws-amplify/ui-react/legacy';
 import awsExports from '@environments/auth-with-email/src/aws-exports';
-import { Amplify, I18n } from 'aws-amplify';
+import { Amplify } from 'aws-amplify';
 
 Amplify.configure(awsExports);
 
-I18n.putVocabularies(translations);
-
-export default function AuthenticatorWithUsername() {
+export default function AuthenticatorWithEmail() {
   return (
     <AmplifyAuthenticator usernameAlias="email">
       <h1>Welcome!</h1>
