@@ -5,3 +5,4 @@
 node_modules
 aws-exports.js
 aws-exports.ts
+.npmrc
