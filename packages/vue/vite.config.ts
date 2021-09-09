@@ -5,12 +5,16 @@ import dynamicImportVars from '@rollup/plugin-dynamic-import-vars';
 import path from 'path';
 import vue from '@vitejs/plugin-vue';
 import typescript2 from 'rollup-plugin-typescript2';
+import Components from 'unplugin-vue-components/vite';
 
 const resolvePath = (str: string) => path.resolve(__dirname, str);
 
 export default defineConfig({
   plugins: [
     vue(),
+    Components({
+      dirs: ['src/components/primitives'],
+    }),
 
     typescript2({
       check: false,
@@ -38,7 +42,7 @@ export default defineConfig({
       entry: resolvePath('./src/index.ts'),
       formats: ['es', 'cjs'],
       name: 'ui-vue',
-      fileName: (format) => (format === 'es' ? 'index.js' : `index.${format}`),
+      fileName: format => (format === 'es' ? 'index.js' : `index.${format}`),
     },
     rollupOptions: {
       plugins: [dynamicImportVars],
