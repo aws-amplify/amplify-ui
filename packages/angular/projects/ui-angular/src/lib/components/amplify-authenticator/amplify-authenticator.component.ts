@@ -50,9 +50,9 @@ export class AmplifyAuthenticatorComponent implements AfterContentInit {
    * Class Functions
    */
   public get context() {
-    const user = this.stateMachine.user;
     const { signOut } = this.stateMachine.services;
-    return { user, signOut };
+    const user = this.stateMachine.user;
+    return { signOut, user };
   }
 
   public get actorState() {
