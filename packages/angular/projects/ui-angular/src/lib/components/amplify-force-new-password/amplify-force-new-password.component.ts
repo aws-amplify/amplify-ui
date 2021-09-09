@@ -35,7 +35,6 @@ export class AmplifyForceNewPasswordComponent
   public customComponents: Record<string, TemplateRef<any>> = {};
   public remoteError = '';
   public isPending = false;
-  public context = () => ({});
 
   private authSubscription: Subscription;
 
@@ -63,6 +62,12 @@ export class AmplifyForceNewPasswordComponent
     const actorState: SignInState = getActorState(state);
     this.remoteError = actorState.context.remoteError;
     this.isPending = !actorState.matches('forceNewPassword.edit');
+  }
+
+  public get context() {
+    const { change, signIn, submit } = this.stateMachine.services;
+    const user = this.stateMachine.user;
+    return { change, signIn, submit, user };
   }
 
   toSignIn(): void {

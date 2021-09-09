@@ -49,6 +49,12 @@ export class AmplifyAuthenticatorComponent implements AfterContentInit {
   /**
    * Class Functions
    */
+  public get context() {
+    const user = this.stateMachine.user;
+    const { signOut } = this.stateMachine.services;
+    return { user, signOut };
+  }
+
   public get actorState() {
     return getActorState(this.stateMachine.authState);
   }
@@ -67,11 +73,5 @@ export class AmplifyAuthenticatorComponent implements AfterContentInit {
     });
 
     return customComponents;
-  }
-
-  public get context() {
-    const user = this.stateMachine.user;
-    const { signOut } = this.stateMachine.services;
-    return { user, signOut };
   }
 }

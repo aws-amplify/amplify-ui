@@ -25,7 +25,6 @@ export class AmplifyResetPasswordComponent
   public customComponents: Record<string, TemplateRef<any>> = {};
   public remoteError = '';
   public isPending = false;
-  public context = () => ({});
 
   private authSubscription: Subscription;
 
@@ -48,6 +47,17 @@ export class AmplifyResetPasswordComponent
     this.authSubscription.unsubscribe();
   }
 
+  onStateUpdate(state: AuthMachineState): void {
+    const actorState: SignInState = getActorState(state);
+    this.remoteError = actorState.context.remoteError;
+    this.isPending = !actorState.matches('resetPassword.edit');
+  }
+
+  public get context() {
+    const { change, signIn, submit } = this.stateMachine.services;
+    return { change, signIn, submit };
+  }
+
   toSignIn(): void {
     this.stateMachine.send('SIGN_IN');
   }
@@ -64,11 +74,5 @@ export class AmplifyResetPasswordComponent
   onSubmit(event: Event) {
     event.preventDefault();
     this.stateMachine.send('SUBMIT');
-  }
-
-  onStateUpdate(state: AuthMachineState): void {
-    const actorState: SignInState = getActorState(state);
-    this.remoteError = actorState.context.remoteError;
-    this.isPending = !actorState.matches('resetPassword.edit');
   }
 }

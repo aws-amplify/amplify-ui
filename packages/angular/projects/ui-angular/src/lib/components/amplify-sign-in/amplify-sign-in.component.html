@@ -29,7 +29,7 @@
         </div>
         <ng-container
           [ngTemplateOutlet]="customComponents.signInButton || signInButton"
-          [ngTemplateOutletContext]="context()"
+          [ngTemplateOutletContext]="context"
         >
         </ng-container>
       </div>
@@ -49,7 +49,7 @@
   <h2 data-amplify-header>{{ this.headerText }}</h2>
   <ng-container
     [ngTemplateOutlet]="customComponents.signInForm || signInForm"
-    [ngTemplateOutletContext]="context()"
+    [ngTemplateOutletContext]="context"
   >
   </ng-container>
 </div>

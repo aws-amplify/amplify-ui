@@ -18,7 +18,6 @@ import {
   SignUpState,
 } from '@aws-amplify/ui';
 
-const logger = new Logger('SignUp');
 @Component({
   selector: 'amplify-sign-up',
   templateUrl: './amplify-sign-up.component.html',
@@ -29,7 +28,6 @@ export class AmplifySignUpComponent
   @HostBinding('attr.data-amplify-authenticator-signup') dataAttr = '';
   @Input() headerText = 'Create a new account';
   public customComponents: Record<string, TemplateRef<any>>;
-  public context = () => ({});
   public remoteError = '';
   public isPending = false;
   public primaryAlias = '';
@@ -41,6 +39,11 @@ export class AmplifySignUpComponent
     private stateMachine: StateMachineService,
     private contextService: AuthPropService
   ) {}
+
+  public get context() {
+    const { change, signIn, submit } = this.stateMachine.services;
+    return { change, signIn, submit };
+  }
 
   ngOnInit(): void {
     this.authSubscription = this.stateMachine.authService.subscribe((state) =>

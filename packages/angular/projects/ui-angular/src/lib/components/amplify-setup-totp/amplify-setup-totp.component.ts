@@ -26,7 +26,6 @@ export class AmplifySetupTotpComponent
   public customComponents: Record<string, TemplateRef<any>> = {};
   public remoteError = '';
   public isPending = false;
-  public context = () => ({});
   public headerText = 'Setup TOTP';
   public qrCodeSource = '';
 
@@ -56,6 +55,12 @@ export class AmplifySetupTotpComponent
     const actorState: SignInState = getActorState(state);
     this.remoteError = actorState.context.remoteError;
     this.isPending = !actorState.matches('setupTOTP.edit');
+  }
+
+  public get context() {
+    const { change, submit } = this.stateMachine.services;
+    const user = this.stateMachine.user;
+    return { change, submit, user };
   }
 
   async generateQRCode() {

@@ -33,7 +33,6 @@ export class AmplifyConfirmSignInComponent
   public customComponents: Record<string, TemplateRef<any>> = {};
   public remoteError = '';
   public isPending = false;
-  public context = () => ({});
   public headerText = '';
 
   private authSubscription: Subscription;
@@ -56,6 +55,11 @@ export class AmplifyConfirmSignInComponent
 
   ngOnDestroy(): void {
     this.authSubscription.unsubscribe();
+  }
+
+  public get context() {
+    const { change, signIn, submit } = this.stateMachine.services;
+    return { change, signIn, submit };
   }
 
   setHeaderText(): void {

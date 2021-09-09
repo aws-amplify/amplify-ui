@@ -30,7 +30,6 @@ export class AmplifySignInComponent
   public customComponents: Record<string, TemplateRef<any>> = {};
   public remoteError = '';
   public isPending = false;
-  public context = () => ({});
 
   private authSubscription: Subscription;
 
@@ -58,6 +57,12 @@ export class AmplifySignInComponent
     const actorState: SignInState = getActorState(state);
     this.remoteError = actorState.context.remoteError;
     this.isPending = !actorState.matches('signIn.edit');
+  }
+
+  public get context() {
+    const { change, resetPassword, signUp, submit } =
+      this.stateMachine.services;
+    return { change, resetPassword, signUp, submit };
   }
 
   toSignUp(): void {
