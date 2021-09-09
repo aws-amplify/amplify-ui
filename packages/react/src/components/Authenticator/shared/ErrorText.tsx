@@ -16,8 +16,6 @@ export const ErrorText = (props: ErrorTextProps): JSX.Element => {
   const { remoteError } = actorContext;
 
   return (
-    <Text className="errorText" variant="error">
-      {remoteError}
-    </Text>
+    <>{remoteError ? <Text variation="error">{remoteError}</Text> : null}</>
   );
 };

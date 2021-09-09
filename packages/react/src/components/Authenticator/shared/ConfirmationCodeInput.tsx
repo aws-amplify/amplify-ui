@@ -21,26 +21,19 @@ export const ConfirmationCodeInput = (
     required = true,
   } = props;
   const {
-    components: { Input, Text },
+    components: { TextField },
   } = useAmplify(amplifyNamespace);
 
-  const errorTextComponent = errorText ? (
-    <Text data-amplify-confirmation-code-error-text variant="error">
-      {errorText}
-    </Text>
-  ) : null;
-
   return (
-    <>
-      <Text>{label}</Text>
-      <Input
-        autoComplete="one-time-code"
-        name="confirmation_code"
-        placeholder={placeholder}
-        required={required}
-        type="text"
-      />
-      {errorTextComponent}
-    </>
+    <TextField
+      name="confirmation_code"
+      label={label}
+      labelHidden={true}
+      placeholder={placeholder}
+      required={required}
+      autoComplete="one-time-code"
+      errorMessage={errorText}
+      hasError={!!errorText}
+    />
   );
 };

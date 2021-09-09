@@ -1,13 +1,23 @@
 <template>
   <select @change="(event) => onChange(event)">
-    <option v-for="(option, idx) in options" :key="idx" :value="option">
+    <option
+      v-for="(option, idx) in options"
+      :key="idx"
+      :value="option"
+      :selected="option == selectValue ? true : null"
+    >
       {{ option }}
     </option>
   </select>
 </template>
 
 <script setup lang="ts">
-const { options } = withDefaults(defineProps<{ options: string[] }>(), {});
+const { options, selectValue } = withDefaults(
+  defineProps<{ selectValue: string; options: string[] }>(),
+  {
+    selectValue: '',
+  }
+);
 
 const emit = defineEmits(['update:selectValue']);
 

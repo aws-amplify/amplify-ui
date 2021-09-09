@@ -14,7 +14,7 @@
   ],
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": "vite build",
+    "build": "vue-tsc --noEmit && vite build",
     "dev": "vite build --watch",
     "clean": "rimraf dist",
     "test": "yarn test:unit",
