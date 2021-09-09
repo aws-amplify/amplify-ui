@@ -71,8 +71,7 @@ export class AmplifyConfirmSignUpComponent {
 
   public get context() {
     const { change, resend, signIn, submit } = this.stateMachine.services;
-    const user = this.stateMachine.user;
-    return { change, resend, signIn, submit, user };
+    return { change, resend, signIn, submit };
   }
 
   toSignIn(): void {
