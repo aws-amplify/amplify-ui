@@ -1,6 +1,6 @@
 import { AriaProps, BaseComponentProps } from './base';
 import { BaseStyleProps } from './style';
-import { CSSProperties } from 'react';
+import * as React from 'react';
 
 export type ViewAsHTMLElementTypes =
   | keyof JSX.IntrinsicElements
@@ -14,5 +14,5 @@ export interface ViewProps
 
   isDisabled?: boolean;
 
-  style?: CSSProperties;
+  style?: React.CSSProperties;
 }

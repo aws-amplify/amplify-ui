@@ -1872,7 +1872,6 @@ describe('@aws-amplify/ui-react', () => {
           "extendTheming",
           "findChildOverrides",
           "getConsecutiveIntArray",
-          "getNonStyleProps",
           "getOverrideProps",
           "prefixer",
           "primitives",
@@ -1882,7 +1881,9 @@ describe('@aws-amplify/ui-react', () => {
           "useAmplify",
           "useAmplifyFieldID",
           "useAuth",
+          "useNonStyleProps",
           "usePagination",
+          "usePropStyles",
           "useTheming",
           "withAuthenticator",
         ]

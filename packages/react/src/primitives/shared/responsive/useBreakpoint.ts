@@ -1,6 +1,5 @@
 // Inspiration for getMediaQueries and useBreakpoint
 // comes from https://github.com/iiroj/use-breakpoint/
-// License MIT, Copyright (c) 2019 Iiro Jäppinen
 
 import * as React from 'react';
 import { Breakpoint, UseBreakpoint } from '../../types/responsive';
@@ -23,9 +22,8 @@ export const useBreakpoint: UseBreakpoint = ({
     [breakpoints]
   );
 
-  const [breakpoint, setBreakpoint] = React.useState<Breakpoint>(() => {
-    return defaultBreakpoint;
-  });
+  const [breakpoint, setBreakpoint] =
+    React.useState<Breakpoint>(defaultBreakpoint);
 
   const updateBreakpoint = React.useCallback(
     (matches: boolean, breakpoint: Breakpoint) => {

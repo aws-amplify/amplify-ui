@@ -1,14 +1,18 @@
 import { Property } from 'csstype';
 import { FlexStyleProps } from './flex';
 import { ImageStyleProps } from './image';
+import { theme } from '@aws-amplify/ui';
 
-interface ResponsiveObject<PropertyType> {
+export interface ResponsiveObject<PropertyType> {
   base?: PropertyType;
   small?: PropertyType;
   medium?: PropertyType;
+  large?: PropertyType;
+  xl?: PropertyType;
+  xxl?: PropertyType;
 }
 
-type ResponsiveStyle<PropertyType> =
+export type ResponsiveStyle<PropertyType> =
   | PropertyType
   | PropertyType[]
   | ResponsiveObject<PropertyType>;

@@ -1,6 +1,5 @@
 // Inspiration for getMediaQueries and useBreakpoint
 // comes from https://github.com/iiroj/use-breakpoint/
-// License MIT, Copyright (c) 2019 Iiro Jäppinen
 
 import { Breakpoint, GetMediaQueries } from '../../types/responsive';
 

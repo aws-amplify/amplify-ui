@@ -17,6 +17,7 @@ import {
 
 import { getValueAtCurrentBreakpoint } from './responsive/utils';
 import { useBreakpoint } from './responsive/useBreakpoint';
+import { Breakpoint, Breakpoints } from '../types/responsive';
 
 export const prefixer = postcssJs.sync([autoprefixer]);
 
@@ -33,51 +34,61 @@ export const usePropStyles = (props: ViewProps, style: any) => {
   const breakpoint = useBreakpoint({
     breakpoints,
     breakpointUnit,
-    defaultBreakpoint,
+    defaultBreakpoint: defaultBreakpoint as Breakpoint,
   });
 
   return React.useMemo(
     () =>
       prefixer(
-        convertStylePropsToStyleObj(props, style, breakpoint, breakpoints)
+        convertStylePropsToStyleObj({ props, style, breakpoint, breakpoints })
       ),
     [props, style, breakpoints, breakpoint]
   );
 };
+
+const filterOutNullOrEmptyStringValues = (value) =>
+  value != null && (typeof value !== 'string' || strHasLength(value));
+
+interface convertStylePropsToStyleObjParams {
+  props: ViewProps;
+  style?: React.CSSProperties;
+  breakpoint: Breakpoint;
+  breakpoints: Breakpoints;
+}
+export interface ConvertStylePropsToStyleObj {
+  (params: convertStylePropsToStyleObjParams);
+}
 
 /**
  * Convert style props to CSS variables for React style prop
  * Note: Will filter out undefined, null, and empty string prop values
  * @returns CSSProperties styles
  */
-export const convertStylePropsToStyleObj = (
-  props: ViewProps,
-  style: React.CSSProperties = {},
+export const convertStylePropsToStyleObj: ConvertStylePropsToStyleObj = ({
+  props,
+  style = {},
   breakpoint,
-  breakpoints
-) => {
+  breakpoints,
+}) => {
   (
     Object.keys(ComponentPropsToStylePropsMap) as Array<
       keyof ComponentPropToStyleProp
     >
-  ).forEach((stylePropKey) => {
-    let stylePropValue = props[stylePropKey];
+  )
+    .filter((stylePropKey) => {
+      let value = props[stylePropKey];
+      return filterOutNullOrEmptyStringValues(value);
+    })
+    .forEach((stylePropKey) => {
+      let value = props[stylePropKey];
 
-    if (
-      stylePropValue != null &&
-      (typeof stylePropValue !== 'string' || strHasLength(stylePropValue))
-    ) {
-      if (typeof stylePropValue !== 'string' || Array.isArray(stylePropValue)) {
-        stylePropValue = getValueAtCurrentBreakpoint(
-          stylePropValue,
-          breakpoint,
-          breakpoints
-        );
+      // Get style at current breakpoint for Object / Array syntax
+      if (typeof value !== 'string' || Array.isArray(value)) {
+        value = getValueAtCurrentBreakpoint(value, breakpoint, breakpoints);
       }
       const reactStyleProp = ComponentPropsToStylePropsMap[stylePropKey];
-      style = { ...style, [reactStyleProp]: stylePropValue };
-    }
-  });
+      style = { ...style, [reactStyleProp]: value };
+    });
   return style;
 };
 
@@ -87,7 +98,7 @@ export const convertStylePropsToStyleObj = (
  * @returns non styled props
  */
 export const useNonStyleProps = (props: ViewProps) => {
-  const getNonStyleProps = React.useCallback(() => {
+  return React.useMemo(() => {
     const nonStyleProps = {};
     Object.keys(props).forEach((propKey) => {
       if (!(propKey in ComponentPropsToStylePropsMap)) {
@@ -96,7 +107,6 @@ export const useNonStyleProps = (props: ViewProps) => {
     });
     return nonStyleProps;
   }, [props]);
-  return getNonStyleProps();
 };
 
 /**
