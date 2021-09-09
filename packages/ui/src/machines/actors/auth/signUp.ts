@@ -140,7 +140,6 @@ export const signUpActor = createMachine<SignUpContext, AuthEvent>(
       resolved: {
         type: 'final',
         data: (context) => {
-          console.log(context);
           const { username, password } = context.authAttributes;
           const canAutoSignIn = !!(username && password);
           return {
