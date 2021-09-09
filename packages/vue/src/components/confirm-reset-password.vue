@@ -1,6 +1,6 @@
 <template>
-  <slot name="confirmResetPasswordSlotI">
-    <base-wrapper data-amplify-wrapper>
+  <slot v-bind="$attrs" name="confirmResetPasswordSlotI">
+    <base-wrapper v-bind="$attrs" data-amplify-wrapper>
       <base-form
         data-amplify-authenticator-confirmResetpassword
         @submit.prevent="onConfirmResetPasswordSubmit"
@@ -70,22 +70,15 @@
   </slot>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed, ComputedRef } from 'vue';
+<script setup lang="ts">
+import {
+  defineComponent,
+  computed,
+  ComputedRef,
+  useAttrs,
+  defineEmits,
+} from 'vue';
 import { I18n } from 'aws-amplify';
-
-import BaseHeading from './primitives/base-heading.vue';
-import BaseFieldSet from './primitives/base-field-set.vue';
-import BaseLabel from './primitives/base-label.vue';
-import BaseSpacer from './primitives/base-spacer.vue';
-import BaseButton from './primitives/base-button.vue';
-import BaseFooter from './primitives/base-footer.vue';
-import BaseText from './primitives/base-text.vue';
-import BaseInput from './primitives/base-input.vue';
-import BaseForm from './primitives/base-form.vue';
-import BaseBox from './primitives/base-box.vue';
-import BaseWrapper from './primitives/base-wrapper.vue';
-
 import { useAuth } from '../composables/useAuth';
 
 import {
@@ -96,108 +89,71 @@ import {
   CONFIRM_RESET_PASSWORD_HEADING,
   CONFIRMATION_CODE_TEXT,
 } from '../defaults/DefaultTexts';
-import {
-  ConfirmResetPasswordSetupReturnTypes,
-  SetupEventContext,
-} from '../types';
+
 import { getActorState, ResetPasswordState } from '@aws-amplify/ui';
+const { state, send } = useAuth();
 
-export default defineComponent({
-  components: {
-    BaseBox,
-    BaseHeading,
-    BaseFieldSet,
-    BaseForm,
-    BaseLabel,
-    BaseSpacer,
-    BaseButton,
-    BaseFooter,
-    BaseText,
-    BaseInput,
-    BaseWrapper,
-  },
-  inheritAttrs: false,
-  setup(
-    _,
-    { emit, attrs }: SetupEventContext
-  ): ConfirmResetPasswordSetupReturnTypes {
-    const { state, send } = useAuth();
-    const actorState: ComputedRef<ResetPasswordState> = computed(() =>
-      getActorState(state.value)
-    ) as ComputedRef<ResetPasswordState>;
-    // Computed Properties
-    const backSignInText = computed(() => I18n.get(BACK_SIGN_IN_TEXT));
-    const lostYourCodeText = computed(() => I18n.get(LOST_YOUR_CODE_TEXT));
-    const resendCodeText = computed(() => I18n.get(RESEND_CODE_TEXT));
-    const confirmationCodeText = computed(() =>
-      I18n.get(CONFIRMATION_CODE_TEXT)
-    );
-    const confirmResetPasswordHeading = computed(() =>
-      I18n.get(CONFIRM_RESET_PASSWORD_HEADING)
-    );
-    const confirmResetPasswordText = computed(() =>
-      I18n.get(CONFIRM_RESET_PASSWORD_TEXT)
-    );
+const attrs = useAttrs();
+const emit = defineEmits(['confirmResetPasswordSubmit', 'backToSignInClicked']);
 
-    // Methods
-    const onConfirmResetPasswordSubmit = (e: Event): void => {
-      if (attrs?.onConfirmResetPasswordSubmit) {
-        emit('confirmResetPasswordSubmit', e);
-      } else {
-        submit(e);
-      }
-    };
+const actorState: ComputedRef<ResetPasswordState> = computed(() =>
+  getActorState(state.value)
+) as ComputedRef<ResetPasswordState>;
 
-    const submit = (e: Event): void => {
-      const formData = new FormData(<HTMLFormElement>e.target);
-      send({
-        type: 'SUBMIT',
-        //@ts-ignore
-        data: {
-          //@ts-ignore
-          ...Object.fromEntries(formData),
-        },
-      });
-    };
+// Computed Properties
+const backSignInText = computed(() => I18n.get(BACK_SIGN_IN_TEXT));
+const lostYourCodeText = computed(() => I18n.get(LOST_YOUR_CODE_TEXT));
+const resendCodeText = computed(() => I18n.get(RESEND_CODE_TEXT));
+const confirmationCodeText = computed(() => I18n.get(CONFIRMATION_CODE_TEXT));
+const confirmResetPasswordHeading = computed(() =>
+  I18n.get(CONFIRM_RESET_PASSWORD_HEADING)
+);
+const confirmResetPasswordText = computed(() =>
+  I18n.get(CONFIRM_RESET_PASSWORD_TEXT)
+);
 
-    const onLostYourCodeClicked = (): void => {
-      send({
-        type: 'RESEND',
-      });
-    };
+// Methods
+const onConfirmResetPasswordSubmit = (e: Event): void => {
+  if (attrs?.onConfirmResetPasswordSubmit) {
+    emit('confirmResetPasswordSubmit', e);
+  } else {
+    submit(e);
+  }
+};
 
-    const onBackToSignInClicked = (): void => {
-      if (attrs?.onBackToSignInClicked) {
-        emit('backToSignInClicked');
-      } else {
-        send({
-          type: 'SIGN_IN',
-        });
-      }
-    };
+const submit = (e: Event): void => {
+  const formData = new FormData(<HTMLFormElement>e.target);
+  send({
+    type: 'SUBMIT',
+    //@ts-ignore
+    data: {
+      //@ts-ignore
+      ...Object.fromEntries(formData),
+    },
+  });
+};
 
-    const onChange = (e: Event) => {
-      const { name, value } = <HTMLInputElement>e.target;
-      send({
-        type: 'CHANGE',
-        data: { name, value },
-      });
-    };
+const onLostYourCodeClicked = (): void => {
+  send({
+    type: 'RESEND',
+  });
+};
 
-    return {
-      onConfirmResetPasswordSubmit,
-      onBackToSignInClicked,
-      submit,
-      onLostYourCodeClicked,
-      onChange,
-      backSignInText,
-      actorState,
-      lostYourCodeText,
-      resendCodeText,
-      confirmationCodeText,
-      confirmResetPasswordText,
-      confirmResetPasswordHeading,
-    };
-  },
-});
+const onBackToSignInClicked = (): void => {
+  if (attrs?.onBackToSignInClicked) {
+    emit('backToSignInClicked');
+  } else {
+    send({
+      type: 'SIGN_IN',
+    });
+  }
+};
+
+const onChange = (e: Event) => {
+  const { name, value } = <HTMLInputElement>e.target;
+  send({
+    type: 'CHANGE',
+    data: { name, value },
+  });
+};
 </script>

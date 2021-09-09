@@ -68,7 +68,7 @@ import {
   authInputAttributes,
 } from '@aws-amplify/ui';
 
-let attrs = useAttrs();
+const attrs = useAttrs();
 const emit = defineEmits(['verifyUserSubmit', 'skipClicked']);
 
 const { state, send } = useAuth();

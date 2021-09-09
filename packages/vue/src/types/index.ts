@@ -17,11 +17,6 @@ import { AuthContext, getActorState } from '@aws-amplify/ui';
 import { useInterpret } from '@xstate/vue';
 import { Interpreter } from 'xstate';
 
-export interface SetupEventContext {
-  emit: (eventName: string, payload?: unknown) => void;
-  attrs: Record<string, unknown>;
-}
-
 export interface UserNameAliasTypes {
   userName: string;
   disabled: boolean;
@@ -35,21 +30,6 @@ export interface UserNameAliasSetupReturnTypes {
   uName: Ref<string>;
   dialCodes: Ref<string[]>;
   defaultDialCode: string;
-}
-export interface FederatedSignInButtonReturnTypes {
-  onClick: (e: Event) => void;
-}
-
-export interface SignInSetupReturnTypes {
-  onSignInSubmit: (e: Event) => void;
-  AUTHENTICATOR: string;
-  onForgotPasswordClicked: () => void;
-  onCreateAccountClicked: () => void;
-  onInput: (e: Event) => void;
-  username: Ref<string>;
-  password: Ref<string>;
-  submit: (e: Event) => void;
-  actorState: ComputedRef<SignInState>;
 }
 
 export interface SignUpSetupReturnTypes {
@@ -66,33 +46,6 @@ export interface SignUpSetupReturnTypes {
   createAccountLabel: ComputedRef<string>;
   signUpButtonText: ComputedRef<string>;
   inputAttributes: ComputedRef<AuthInputAttributes>;
-}
-
-export interface ConfirmPasswordSetupReturnTypes {
-  onConfirmSignUpSubmit: (e: Event) => void;
-  onBackToSignInClicked: () => void;
-  submit: (e: Event) => void;
-  confirmSignUpHeading: ComputedRef<string>;
-  confirmationCodeText: ComputedRef<string>;
-  lostYourCodeText: ComputedRef<string>;
-  resendCodeText: ComputedRef<string>;
-  backSignInText: ComputedRef<string>;
-  confirmText: ComputedRef<string>;
-  onLostCodeClicked: () => void;
-  actorState: ComputedRef<SignUpState>;
-  send: PayloadSender<AuthEvent>;
-  username: string;
-}
-
-export interface ConfirmSignInSetupReturnTypes {
-  confirmSignInHeading: string;
-  onConfirmSignInSubmit: (e: Event) => void;
-  onBackToSignInClicked: () => void;
-  submit: (e: Event) => void;
-  backSignInText: ComputedRef<string>;
-  confirmText: ComputedRef<string>;
-  codeText: ComputedRef<string>;
-  actorState: ComputedRef<SignInState>;
 }
 
 export interface SignUpPhoneControlTypes {
@@ -119,51 +72,12 @@ export interface AuthenticatorSetupReturnTypes {
   onConfirmVerifyUserSubmitI: (e: Event) => void;
 }
 
-export interface AliasControlTypes {
-  inputAttributes: ComputedRef<AuthInputAttributes>;
-  dialCodes: ComputedRef<string[]>;
-  defaultDialCode: string;
-}
-
-export interface FederatedSignInReturnTypes {
-  loginMechanisms: string[];
-  fp: ComputedRef<typeof FederatedIdentityProviders>;
-  includeFacebook: boolean;
-  includeGoogle: boolean;
-  includeAmazon: boolean;
-  shouldShowFederatedSignIn: boolean;
-}
-
-export interface ForceNewPasswordReturnTypes {
-  changePasswordLabel: ComputedRef<string>;
-  changingPasswordLabel: ComputedRef<string>;
-  submit: (e: Event) => void;
-  onForceNewPasswordSubmit: (e: Event) => void;
-  actorState: ComputedRef<SignInState>;
-  onHaveAccountClicked: () => void;
-  signInButtonText: ComputedRef<string>;
-  passwordText: ComputedRef<string>;
-  haveAccountLabel: ComputedRef<string>;
-}
-
 export type InternalSlots = {
   [name: string]: Slot | undefined;
 };
 
 export interface PrimitiveSlotReturnType {
   mySlots: Readonly<InternalSlots>;
-}
-
-export interface ResetPasswordSetupReturnTypes {
-  onResetPasswordSubmit: (e: Event) => void;
-  onBackToSignInClicked: () => void;
-  submit: (e: Event) => void;
-  onChange: (e: Event) => void;
-  resetPasswordText: ComputedRef<string>;
-  resetPasswordHeading: ComputedRef<string>;
-  backSignInText: ComputedRef<string>;
-  enterUsernameText: ComputedRef<string>;
-  actorState: ComputedRef<ResetPasswordState>;
 }
 
 export interface VerifyUserSetupReturnTypes {
@@ -176,32 +90,6 @@ export interface VerifyUserSetupReturnTypes {
   skipText: ComputedRef<string>;
   verifyText: ComputedRef<string>;
   authInputAttributes: AuthInputAttributes;
-}
-
-export interface ConfirmVerifyUserSetupReturnTypes {
-  onConfirmVerifyUserSubmit: (e: Event) => void;
-  onSkipClicked: () => void;
-  submit: (e: Event) => void;
-  actorState: ComputedRef<SignInState>;
-  verifyHeading: ComputedRef<string>;
-  skipText: ComputedRef<string>;
-  verifyText: ComputedRef<string>;
-  confirmationCodeText: ComputedRef<string>;
-}
-
-export interface ConfirmResetPasswordSetupReturnTypes {
-  onConfirmResetPasswordSubmit: (e: Event) => void;
-  onBackToSignInClicked: () => void;
-  submit: (e: Event) => void;
-  onLostYourCodeClicked: () => void;
-  onChange: (e: Event) => void;
-  actorState: ComputedRef<ResetPasswordState>;
-  backSignInText: ComputedRef<string>;
-  lostYourCodeText: ComputedRef<string>;
-  resendCodeText: ComputedRef<string>;
-  confirmationCodeText: ComputedRef<string>;
-  confirmResetPasswordText: ComputedRef<string>;
-  confirmResetPasswordHeading: ComputedRef<string>;
 }
 
 export type InterpretService = Interpreter<

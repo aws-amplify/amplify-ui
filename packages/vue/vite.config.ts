@@ -42,7 +42,7 @@ export default defineConfig({
       entry: resolvePath('./src/index.ts'),
       formats: ['es', 'cjs'],
       name: 'ui-vue',
-      fileName: format => (format === 'es' ? 'index.js' : `index.${format}`),
+      fileName: (format) => (format === 'es' ? 'index.js' : `index.${format}`),
     },
     rollupOptions: {
       plugins: [dynamicImportVars],
