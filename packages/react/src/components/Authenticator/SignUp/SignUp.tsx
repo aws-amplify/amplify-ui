@@ -194,6 +194,7 @@ SignUp.AliasControl = ({
         placeholder={placeholder}
         label={label}
         labelHidden={true}
+        autoComplete="username"
         errorMessage={error}
       ></TextField>
     </>
