@@ -3,6 +3,7 @@ import { includes, isEmpty } from 'lodash';
 import { I18n } from 'aws-amplify';
 import {
   authInputAttributes,
+  countryDialCodes,
   getActorContext,
   getActorState,
   SignUpContext,
@@ -12,7 +13,6 @@ import {
 
 import { useAmplify, useAuth } from '../../../hooks';
 import { FederatedSignIn } from '../FederatedSignIn';
-
 export function SignUp() {
   const {
     components: {
@@ -161,21 +161,39 @@ SignUp.AliasControl = ({
   placeholder = label,
 }) => {
   const {
-    components: { TextField },
+    components: { SelectField, TextField },
   } = useAmplify('Authenticator.SignUp.Alias');
   const [_state] = useAuth();
-  const { validationError } = getActorContext(_state) as SignUpContext;
+  const { validationError, formValues } = getActorContext(
+    _state
+  ) as SignUpContext;
   const error = validationError[name];
 
   return (
-    <TextField
-      type={authInputAttributes[name].type}
-      name={name}
-      required
-      placeholder={placeholder}
-      label={label}
-      labelHidden={true}
-      errorMessage={error}
-    />
+    <>
+      {name === 'phone_number' && (
+        <SelectField
+          name="country_code"
+          label="country code"
+          labelHidden={true}
+          defaultValue={formValues.country_code}
+        >
+          {countryDialCodes.map((dialCode) => (
+            <option key={dialCode} value={dialCode}>
+              {dialCode}
+            </option>
+          ))}
+        </SelectField>
+      )}
+      <TextField
+        type={authInputAttributes[name].type}
+        name={name}
+        required
+        placeholder={placeholder}
+        label={label}
+        labelHidden={true}
+        errorMessage={error}
+      ></TextField>
+    </>
   );
 };

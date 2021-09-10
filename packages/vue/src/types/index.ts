@@ -33,6 +33,8 @@ export interface UserNameAliasSetupReturnTypes {
   name: string;
   type: string;
   uName: Ref<string>;
+  dialCodes: Ref<string[]>;
+  defaultDialCode: string;
 }
 export interface FederatedSignInButtonReturnTypes {
   onClick: (e: Event) => void;
@@ -119,6 +121,8 @@ export interface AuthenticatorSetupReturnTypes {
 
 export interface AliasControlTypes {
   inputAttributes: ComputedRef<AuthInputAttributes>;
+  dialCodes: ComputedRef<string[]>;
+  defaultDialCode: string;
 }
 
 export interface FederatedSignInReturnTypes {

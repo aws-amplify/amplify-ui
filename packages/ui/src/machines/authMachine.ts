@@ -130,7 +130,7 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
           const actor = signUpActor.withContext({
             authAttributes: event.data?.authAttributes ?? {},
             intent: event.data?.intent,
-            formValues: {},
+            formValues: { country_code: '+1' },
             validationError: {},
             login_mechanisms: context.config?.login_mechanisms,
           });

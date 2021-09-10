@@ -1,10 +1,29 @@
 <template>
-  <base-label>
+  <base-label
+    v-bind="$attrs"
+    data-amplify-alias-label
+    v-if="name === 'phone_number'"
+  >
+    <base-label>
+      {{ 'Country Code' }}
+    </base-label>
+    <base-select
+      data-amplify-select
+      aria-label="country code"
+      name="country_code"
+      :options="dialCodes"
+      :selectValue="defaultDialCode"
+    >
+    </base-select>
+  </base-label>
+
+  <base-label v-bind="$attrs" data-amplify-alias-label>
     <base-text>
       {{ label }}
     </base-text>
     <base-input
       v-model:textValue="uName"
+      :placeholder="label"
       :autocomplete="name"
       required
       :name="name"
@@ -21,11 +40,13 @@ import {
   getActorContext,
   getAliasInfoFromContext,
   ActorContextWithForms,
+  countryDialCodes,
 } from '@aws-amplify/ui';
 
 import BaseInput from './primitives/base-input.vue';
 import BaseLabel from './primitives/base-label.vue';
 import BaseText from './primitives/base-text.vue';
+import BaseSelect from './primitives/base-select.vue';
 
 import { useAuth } from '../composables/useAuth';
 import { useAliases } from '../composables/useUtils';
@@ -37,6 +58,7 @@ export default defineComponent({
     BaseInput,
     BaseLabel,
     BaseText,
+    BaseSelect,
   },
   props: {
     userNameAlias: {
@@ -49,20 +71,26 @@ export default defineComponent({
       default: false,
     },
   },
+  inheritAttrs: false,
   setup(props: UserNameAliasTypes): UserNameAliasSetupReturnTypes {
     const { state } = useAuth();
     const {
       value: { context },
     } = state;
+
     const actorContext: ComputedRef<ActorContextWithForms> = computed(() =>
       getActorContext(state.value)
     );
+
+    const defaultDialCode = actorContext.value.formValues?.country_code;
 
     let uName = ref('');
 
     if (props.userName) {
       uName = computed(() => props.userName);
     }
+
+    const dialCodes = computed(() => countryDialCodes);
 
     const [primaryAlias] = useAliases(context?.config?.login_mechanisms);
 
@@ -81,7 +109,7 @@ export default defineComponent({
       name = 'username';
     }
 
-    return { label, name, type, uName };
+    return { label, name, type, uName, dialCodes, defaultDialCode };
   },
 });
 </script>
