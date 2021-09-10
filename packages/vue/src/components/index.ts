@@ -14,4 +14,3 @@ export { default as ConfirmSignIn } from './confirm-sign-in.vue';
 export { default as VerifyUser } from './verify-user.vue';
 export { default as ConfirmVerifyUser } from './confirm-verify-user.vue';
 export * from '../types';
-export * from '../types';

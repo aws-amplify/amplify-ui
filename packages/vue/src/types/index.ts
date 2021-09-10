@@ -10,6 +10,13 @@ import {
   SignUpState,
 } from '@aws-amplify/ui';
 
+import { useActor } from '@xstate/vue';
+import { inject, InjectionKey } from 'vue';
+import { authMachine } from '@aws-amplify/ui';
+import { AuthContext, getActorState } from '@aws-amplify/ui';
+import { useInterpret } from '@xstate/vue';
+import { Interpreter } from 'xstate';
+
 export interface SetupEventContext {
   emit: (eventName: string, payload?: unknown) => void;
   attrs: Record<string, unknown>;
@@ -26,6 +33,8 @@ export interface UserNameAliasSetupReturnTypes {
   name: string;
   type: string;
   uName: Ref<string>;
+  dialCodes: Ref<string[]>;
+  defaultDialCode: string;
 }
 export interface FederatedSignInButtonReturnTypes {
   onClick: (e: Event) => void;
@@ -112,6 +121,8 @@ export interface AuthenticatorSetupReturnTypes {
 
 export interface AliasControlTypes {
   inputAttributes: ComputedRef<AuthInputAttributes>;
+  dialCodes: ComputedRef<string[]>;
+  defaultDialCode: string;
 }
 
 export interface FederatedSignInReturnTypes {
@@ -192,3 +203,16 @@ export interface ConfirmResetPasswordSetupReturnTypes {
   confirmResetPasswordText: ComputedRef<string>;
   confirmResetPasswordHeading: ComputedRef<string>;
 }
+
+export type InterpretService = Interpreter<
+  AuthContext,
+  any,
+  AuthEvent,
+  {
+    value: any;
+    context: AuthContext;
+  }
+>;
+
+export const InterpretServiceInjectionKeyTypes: InjectionKey<InterpretService> =
+  Symbol('interpret.service');

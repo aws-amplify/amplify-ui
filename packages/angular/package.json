@@ -49,8 +49,5 @@
       "@types/jasmine"
     ]
   },
-  "typings": "./dist/ui-angular/index.d.ts",
-  "publishConfig": {
-    "directory": "dist/ui-angular"
-  }
+  "typings": "./dist/ui-angular/index.d.ts"
 }

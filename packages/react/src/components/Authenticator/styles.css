@@ -7,7 +7,7 @@
 }
 
 [data-amplify-authenticator] [data-amplify-form] {
-  @apply grid gap-6 p-8 bg-white;
+  @apply grid p-8 bg-white;
 }
 
 [data-amplify-authenticator] [data-amplify-footer] {
@@ -62,4 +62,14 @@
 
 [data-amplify-authenticator] :disabled {
   @apply opacity-50;
+}
+
+.federated-sign-in-container {
+  margin-top: var(--amplify-space-medium);
+}
+
+.federated-sign-in-button {
+  border-color: black;
+  border-radius: 0;
+  color: black;
 }

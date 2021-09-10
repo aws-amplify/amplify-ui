@@ -4,6 +4,7 @@
     <base-input
       autocomplete="new-password"
       name="confirm_password"
+      :placeholder="confirmPasswordLabel"
       required
       type="password"
     ></base-input>
