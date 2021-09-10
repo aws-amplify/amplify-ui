@@ -96,8 +96,8 @@ jobs:
       - name: Run E2E tests against ${{ matrix.framework }} example
         run: yarn workspace e2e test
         env:
-          # Override on the default value in `cypress.json` with `@react and not @skip`
-          TAGS: '@${{ matrix.framework }} and not @skip'
+          # Override on the default value in `cypress.json` with framework tag e.g. `@angular`
+          TAGS: '@${{ matrix.framework }}'
 
           # Env values for testing flows
           DOMAIN: ${{ secrets.DOMAIN }}
