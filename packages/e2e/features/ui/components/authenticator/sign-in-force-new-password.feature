@@ -21,5 +21,6 @@ Feature: Sign In with Force New Password flow
 		And I click the "Sign In" button
 		Then I should see the Force Change Password screen
     And I type in the password "INVALID_NEW_PASSWORD"
+    And I confirm the password "INVALID_NEW_PASSWORD"
     And I click the "Change password" button
     Then I should see error text

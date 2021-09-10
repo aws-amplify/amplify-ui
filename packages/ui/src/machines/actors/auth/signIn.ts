@@ -3,17 +3,20 @@ import { createMachine, sendUpdate } from 'xstate';
 
 import { Auth } from 'aws-amplify';
 
+import { passwordMatches, runValidators } from '@/validators';
 import {
   clearAttributeToVerify,
   clearChallengeName,
   clearError,
   clearFormValues,
   clearUnverifiedAttributes,
+  clearValidationError,
   handleInput,
   setChallengeName,
   setConfirmResetPasswordIntent,
   setConfirmSignUpIntent,
   setCredentials,
+  setFieldErrors,
   setRemoteError,
   setUnverifiedAttributes,
   setUser,
@@ -152,29 +155,74 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
         },
       },
       forceNewPassword: {
-        initial: 'edit',
+        type: 'parallel',
         exit: ['clearFormValues', 'clearError'],
         states: {
-          edit: {
-            entry: sendUpdate(),
+          validation: {
+            initial: 'pending',
+            states: {
+              pending: {
+                invoke: {
+                  src: 'validateFields',
+                  onDone: {
+                    target: 'valid',
+                    actions: 'clearValidationError',
+                  },
+                  onError: {
+                    target: 'invalid',
+                    actions: 'setFieldErrors',
+                  },
+                },
+              },
+              valid: { entry: sendUpdate() },
+              invalid: { entry: sendUpdate() },
+            },
             on: {
-              SUBMIT: 'submit',
-              SIGN_IN: '#signInActor.signIn',
-              CHANGE: { actions: 'handleInput' },
+              CHANGE: {
+                actions: 'handleInput',
+                target: '.pending',
+              },
             },
           },
           submit: {
+            initial: 'idle',
             entry: 'clearError',
-            invoke: {
-              src: 'forceNewPassword',
-              onDone: {
-                actions: ['setUser', 'clearChallengeName'],
-                target: '#signInActor.resolved',
+            states: {
+              idle: {
+                entry: sendUpdate(),
+                on: {
+                  SUBMIT: 'validate',
+                },
               },
-              onError: {
-                actions: 'setRemoteError',
-                target: 'edit',
+              validate: {
+                entry: sendUpdate(),
+                invoke: {
+                  src: 'validateFields',
+                  onDone: {
+                    target: 'pending',
+                    actions: 'clearValidationError',
+                  },
+                  onError: {
+                    target: 'idle',
+                    actions: 'setFieldErrors',
+                  },
+                },
               },
+              pending: {
+                entry: [sendUpdate(), 'clearError'],
+                invoke: {
+                  src: 'forceNewPassword',
+                  onDone: {
+                    target: 'resolved',
+                    actions: ['setUser', 'setCredentials'],
+                  },
+                  onError: {
+                    target: 'idle',
+                    actions: 'setRemoteError',
+                  },
+                },
+              },
+              resolved: { type: 'final', always: '#signInActor.resolved' },
             },
           },
         },
@@ -290,11 +338,13 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
       clearError,
       clearFormValues,
       clearUnverifiedAttributes,
+      clearValidationError,
       handleInput,
       setChallengeName,
       setConfirmResetPasswordIntent,
       setConfirmSignUpIntent,
       setCredentials,
+      setFieldErrors,
       setRemoteError,
       setUnverifiedAttributes,
       setUser,
@@ -358,8 +408,8 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
         return Auth.confirmSignIn(user, code, mfaType);
       },
       async forceNewPassword(context, event) {
-        const { user } = context;
-        const password = get(event, 'data.password');
+        const { user, formValues } = context;
+        const { password } = formValues;
 
         return Auth.completeNewPassword(user, password);
       },
@@ -400,6 +450,11 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
         );
 
         return result;
+      },
+      async validateFields(context, _event) {
+        const { formValues } = context;
+        const validators = [passwordMatches]; // this can contain custom validators too
+        return runValidators(formValues, validators);
       },
     },
   }
