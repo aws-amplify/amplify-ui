@@ -1,20 +1,12 @@
 /// <reference types="@testing-library/cypress" />
 /// <reference types="cypress" />
-/// <reference types="../../support" />
+/// <reference types="../../support/commands" />
 
-import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 import { escapeRegExp } from 'lodash';
 
-Given("I'm running the example {string}", (url) => {
-  cy.visit(url);
-});
-
-When('I type a valid username {string}', (username: string) => {
-  cy.findByRole('textbox', { name: /username/i }).type(Cypress.env(username));
-});
-
-And('I type a valid password {string}', (password: string) => {
-  cy.findByLabelText(/^password$/i).type(Cypress.env(password));
+Given("I'm running the example {string}", (example: string) => {
+  cy.visit(example);
 });
 
 When('I click the {string} button', (name: string) => {
@@ -27,7 +19,7 @@ Then('I see {string}', (message: string) => {
   cy.findByRole('document').contains(new RegExp(escapeRegExp(message), 'i'));
 });
 
-And(
+Then(
   '{string} field autocompletes {string}',
   (fieldName: string, autocomplete: string) => {
     cy.findInputField(fieldName)

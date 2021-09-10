@@ -1,5 +1,5 @@
 [data-amplify-authenticator] {
-  @apply max-w-md mx-auto overflow-hidden text-base text-gray-700 rounded-md shadow;
+  @apply max-w-xl mx-auto overflow-hidden text-base text-gray-700 rounded-md shadow;
 }
 
 [data-amplify-authenticator] [data-amplify-heading] {

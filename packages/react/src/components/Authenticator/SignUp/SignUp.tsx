@@ -13,7 +13,9 @@ import {
 
 import { useAmplify, useAuth } from '../../../hooks';
 import { FederatedSignIn } from '../FederatedSignIn';
+import { RemoteErrorMessage } from '../shared';
 export function SignUp() {
+  const amplifyNamespace = 'Authenticator.SignUp';
   const {
     components: {
       Button,
@@ -26,7 +28,7 @@ export function SignUp() {
       PasswordField,
       Text,
     },
-  } = useAmplify('Authenticator.SignUp');
+  } = useAmplify(amplifyNamespace);
 
   const [_state, send] = useAuth();
   const actorState: SignUpState = getActorState(_state);
@@ -121,7 +123,7 @@ export function SignUp() {
               />
             ))}
 
-          {!!remoteError && <Text variation="error">{remoteError}</Text>}
+          <RemoteErrorMessage amplifyNamespace={amplifyNamespace} />
         </FieldGroup>
 
         <Button
