@@ -32,7 +32,7 @@
           [ngTemplateOutlet]="
             customComponents.confirmSignUpButton || confirmSignUpButton
           "
-          [ngTemplateOutletContext]="context()"
+          [ngTemplateOutletContext]="context"
         >
         </ng-container>
       </div>
@@ -52,7 +52,7 @@
   <h2 data-amplify-header>Confirm Your Account</h2>
   <ng-container
     [ngTemplateOutlet]="customComponents.confirmSignUpForm || confirmSignUpForm"
-    [ngTemplateOutletContext]="context()"
+    [ngTemplateOutletContext]="context"
   >
   </ng-container>
 </div>
