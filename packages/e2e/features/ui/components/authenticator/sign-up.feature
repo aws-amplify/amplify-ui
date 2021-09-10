@@ -17,3 +17,12 @@ Feature: Sign Up
     And I click the "Create Account" button
     Then I see "Confirm Sign Up"
     And I see "Confirmation Code"
+
+  @next @react @vue @angular
+  Scenario: Username field autocompletes username
+    And "Username" field autocompletes "username"
+
+  @next @react @vue @angular
+  Scenario: Password fields autocomplete "new-password"
+    And "Password" field autocompletes "new-password"
+    And "Confirm Password" field autocompletes "new-password"

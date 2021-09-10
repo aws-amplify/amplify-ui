@@ -24,7 +24,6 @@ Feature: Sign In with Phone Number
     And I click the "Sign In" button
     Then I see "Confirmation Code"
 
-
   @vue @react @angular
   Scenario: Sign in with confirmed credentials
     When I type the valid phone number "CONFIRMED_PHONE_NUMBER"
@@ -38,3 +37,15 @@ Feature: Sign In with Phone Number
     And I type the valid password "VALID_PASSWORD"
     And I click the "Sign In" button
     Then I see "Change Password"
+
+  @next @react @vue @angular
+  Scenario: Phone number field autocompletes phone number
+  
+  On sign in form, autocomplete prefers usage of username instead of phone number. 
+  See https://www.chromium.org/developers/design-documents/form-styles-that-chromium-understands.
+
+    And "Phone Number" field autocompletes "username"
+
+  @next @react @vue @angular
+  Scenario: Password fields autocomplete "new-password"
+    And "Password" field autocompletes "current-password"
