@@ -1,4 +1,4 @@
-import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { And, Given, When } from 'cypress-cucumber-preprocessor/steps';
 
 const now = Date.now();
 const randomNumber = window.crypto.getRandomValues(new Uint32Array(1))[0];

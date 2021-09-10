@@ -1,4 +1,4 @@
-import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { And, Given, When } from 'cypress-cucumber-preprocessor/steps';
 
 Given("I'm at the sign in page", () => {
   cy.visit('/ui/components/authenticator/auth-with-multi-alias');

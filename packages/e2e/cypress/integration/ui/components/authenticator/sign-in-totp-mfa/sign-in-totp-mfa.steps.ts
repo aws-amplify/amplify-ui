@@ -1,4 +1,4 @@
-import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { Then } from 'cypress-cucumber-preprocessor/steps';
 
 Then('I will be redirected to the confirm totp mfa page', () => {
   cy.get('body').contains('TOTP');
