@@ -54,6 +54,7 @@ export function ConfirmSignUp() {
             type="submit"
             loadingText={I18n.get('Confirming')}
             isLoading={isPending}
+            fontWeight="normal"
           >
             {I18n.get('Confirm')}
           </Button>
@@ -66,6 +67,7 @@ export function ConfirmSignUp() {
               });
             }}
             type="button"
+            fontWeight="normal"
           >
             {I18n.get('Resend Code')}
           </Button>
