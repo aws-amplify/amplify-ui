@@ -40,9 +40,9 @@ Feature: Sign In with Email
     Then I see "Change Password"
 
   @next @react @vue @angular
-    Scenario: Email field autocompletes username
-      And "Email" field autocompletes "username"
+  Scenario: Email field autocompletes username
+    And "Email" field autocompletes "username"
 
   @next @react @vue @angular
-    Scenario: Password fields autocomplete "current-password"
-      And "Password" field autocompletes "current-password"
+  Scenario: Password fields autocomplete "current-password"
+    And "Password" field autocompletes "current-password"

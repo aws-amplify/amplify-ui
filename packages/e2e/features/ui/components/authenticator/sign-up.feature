@@ -19,10 +19,10 @@ Feature: Sign Up
     And I see "Confirmation Code"
 
   @next @react @vue @angular
-    Scenario: Username field autocompletes username
-      And "Username" field autocompletes "username"
+  Scenario: Username field autocompletes username
+    And "Username" field autocompletes "username"
 
   @next @react @vue @angular
-    Scenario: Password fields autocomplete "new-password"
-      And "Password" field autocompletes "new-password"
-      And "Confirm Password" field autocompletes "new-password"
+  Scenario: Password fields autocomplete "new-password"
+    And "Password" field autocompletes "new-password"
+    And "Confirm Password" field autocompletes "new-password"
