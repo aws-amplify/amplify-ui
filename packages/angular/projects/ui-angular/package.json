@@ -18,5 +18,8 @@
     "tslib": "^2.0.0",
     "qrcode": "^1.4.4",
     "xstate": "^4.20.1"
+  },
+  "publishConfig": {
+    "directory": "../../dist/ui-angular"
   }
 }

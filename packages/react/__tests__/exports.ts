@@ -1,4 +1,7 @@
-import * as exported from '..';
+// Jest doesn't support `exports` maps, so we have to reference `dist` directly.
+// See: https://github.com/facebook/jest/issues/9771
+import * as exported from '../dist';
+import * as legacy from '../dist/legacy';
 
 describe('@aws-amplify/ui-react', () => {
   describe('exports', () => {
@@ -6,15 +9,7 @@ describe('@aws-amplify/ui-react', () => {
       expect(Object.keys(exported)).toMatchInlineSnapshot(`
         Array [
           "Alert",
-          "AmplifyChatbot",
-          "AmplifyPhotoPicker",
-          "AmplifyPicker",
           "AmplifyProvider",
-          "AmplifyS3Album",
-          "AmplifyS3Image",
-          "AmplifyS3ImagePicker",
-          "AmplifyS3Text",
-          "AmplifyS3TextPicker",
           "Authenticator",
           "Badge",
           "Box",
@@ -1860,6 +1855,7 @@ describe('@aws-amplify/ui-react', () => {
           "SelectField",
           "SharedText",
           "Spacer",
+          "SwitchField",
           "Text",
           "TextField",
           "View",
@@ -1884,6 +1880,27 @@ describe('@aws-amplify/ui-react', () => {
           "useAuth",
           "usePagination",
           "useTheming",
+          "withAuthenticator",
+        ]
+      `);
+    });
+  });
+});
+
+describe('@aws-amplify/ui-react/legacy', () => {
+  describe('exports', () => {
+    it('should match snapshot', () => {
+      expect(Object.keys(legacy)).toMatchInlineSnapshot(`
+        Array [
+          "AmplifyAuthenticator",
+          "AmplifyChatbot",
+          "AmplifyPhotoPicker",
+          "AmplifyPicker",
+          "AmplifyS3Album",
+          "AmplifyS3Image",
+          "AmplifyS3ImagePicker",
+          "AmplifyS3Text",
+          "AmplifyS3TextPicker",
           "withAuthenticator",
         ]
       `);
