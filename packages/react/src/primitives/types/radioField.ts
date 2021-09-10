@@ -2,7 +2,7 @@ import { FlexStyleProps } from './flex';
 import { FieldProps } from './field';
 import { InputProps } from './input';
 
-export interface RadioGroupProps
+export interface RadioFieldProps
   extends FieldProps,
     FlexStyleProps,
     InputProps {

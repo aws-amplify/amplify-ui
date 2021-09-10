@@ -6,15 +6,17 @@ export interface RadioGroupContextType {
   size?: string;
   defaultValue?: string;
   hasError?: boolean;
-  isReadOnly?: boolean;
   isRequired?: boolean;
+  isReadOnly?: boolean;
   isGroupDisabled?: boolean;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
 }
 
-export const RadioGroupContext =
-  React.createContext<RadioGroupContextType>(null);
+const defaultValue: RadioGroupContextType = { name: 'default' };
 
-export const useRadioGroupContext = (): RadioGroupContextType => {
+export const RadioGroupContext =
+  React.createContext<RadioGroupContextType>(defaultValue);
+
+export const useRadioGroupContext = () => {
   return useContext(RadioGroupContext);
 };

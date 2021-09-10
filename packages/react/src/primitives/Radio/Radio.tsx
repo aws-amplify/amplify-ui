@@ -3,7 +3,7 @@ import React from 'react';
 
 import { Flex } from '../Flex';
 import { Input } from '../Input';
-import { useRadioGroupContext } from '../RadioGroup/context';
+import { useRadioGroupContext } from '../RadioField/context';
 import { Text } from '../Text';
 import { VisuallyHidden } from '../VisuallyHidden';
 import { RadioProps } from '../types';
@@ -23,26 +23,34 @@ export const Radio: React.FC<RadioProps> = ({
     name,
     hasError,
     isGroupDisabled,
-    isReadOnly,
     isRequired,
+    isReadOnly,
     onChange,
     size,
   } = useRadioGroupContext();
 
-  const shouldDisabled = isDisabled || isGroupDisabled;
+  const shouldDisabled =
+    isGroupDisabled || isDisabled || (isReadOnly && defaultValue !== value);
+
+  // for controlled component
+  const checked =
+    currentValue !== undefined ? value === currentValue : undefined;
+
+  // for uncontrolled component
+  const defaultChecked =
+    defaultValue !== undefined ? value === defaultValue : undefined;
   return (
     <Flex
       as="label"
       alignItems="center"
       className={classNames(ComponentClassNames.Radio, className)}
-      gap="0.5rem"
       justifyContent="flex-start"
     >
       <VisuallyHidden
         as={Input}
-        checked={value === currentValue}
+        checked={checked}
         className={ComponentClassNames.RadioInput}
-        defaultChecked={value === defaultValue}
+        defaultChecked={defaultChecked}
         hasError={hasError}
         id={id}
         isDisabled={shouldDisabled}
@@ -58,15 +66,15 @@ export const Radio: React.FC<RadioProps> = ({
         aria-hidden="true"
         as="span"
         className={ComponentClassNames.RadioButton}
-        justifyContent="center"
         data-size={size}
+        justifyContent="center"
         {...rest}
       />
       {children && (
         <Text
           as="span"
           className={ComponentClassNames.RadioLabel}
-          data-size={size}
+          data-disabled={shouldDisabled}
         >
           {children}
         </Text>

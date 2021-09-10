@@ -5,10 +5,10 @@ import { RadioGroupContext, RadioGroupContextType } from './context';
 import { FieldErrorMessage, FieldDescription } from '../Field';
 import { Flex } from '../Flex';
 import { Label } from '../Label';
-import { RadioGroupProps } from '../types';
+import { RadioFieldProps } from '../types';
 import { ComponentClassNames, useAmplifyFieldID } from '../shared';
 
-export const RadioGroup: React.FC<RadioGroupProps> = ({
+export const RadioField: React.FC<RadioFieldProps> = ({
   alignContent,
   alignItems,
   children,
@@ -21,8 +21,8 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
   hasError = false,
   id,
   isDisabled,
-  isReadOnly,
   isRequired,
+  isReadOnly,
   justifyContent,
   label,
   labelHidden = false,
@@ -39,8 +39,8 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
       currentValue: value,
       defaultValue,
       hasError,
-      isReadOnly,
       isRequired,
+      isReadOnly,
       isGroupDisabled: isDisabled,
       onChange,
       size,
@@ -50,8 +50,8 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
       defaultValue,
       hasError,
       isDisabled,
-      isReadOnly,
       isRequired,
+      isReadOnly,
       onChange,
       size,
       name,
@@ -62,12 +62,15 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
     <Flex
       alignContent={alignContent}
       alignItems={alignItems}
-      aria-labelledby={fieldId}
-      className={classNames(ComponentClassNames.RadioGroup, className)}
+      className={classNames(
+        ComponentClassNames.Field,
+        ComponentClassNames.RadioField,
+        className
+      )}
+      data-size={size}
       direction={direction}
       gap={gap}
       justifyContent={justifyContent}
-      role="radiogroup"
       wrap={wrap}
       {...rest}
     >
@@ -78,9 +81,15 @@ export const RadioGroup: React.FC<RadioGroupProps> = ({
         labelHidden={labelHidden}
         descriptiveText={descriptiveText}
       />
-      <RadioGroupContext.Provider value={radioGroupContextValue}>
-        {children}
-      </RadioGroupContext.Provider>
+      <Flex
+        aria-labelledby={fieldId}
+        className={ComponentClassNames.RadioGroup}
+        role="radiogroup"
+      >
+        <RadioGroupContext.Provider value={radioGroupContextValue}>
+          {children}
+        </RadioGroupContext.Provider>
+      </Flex>
       <FieldErrorMessage hasError={hasError} errorMessage={errorMessage} />
     </Flex>
   );

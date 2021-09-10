@@ -14,7 +14,7 @@ export * from './Pagination';
 export * from './Placeholder';
 export * from './PasswordField';
 export * from './Radio';
-export * from './RadioGroup';
+export * from './RadioField';
 export * from './Rating';
 export * from './SelectField';
 export * from './Text';
