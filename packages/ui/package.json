@@ -14,7 +14,7 @@
   ],
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": "run-s build:sd build:css build:js --print-label",
+    "build": "yarn build:sd && yarn build:css && yarn build:js",
     "build:css": "./scripts/generateCSS.js",
     "build:js": "tsup --minify",
     "build:sd": "style-dictionary build --config ./sd.config.js",
