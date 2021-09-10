@@ -34,3 +34,4 @@ Feature: Sign In with Multiple Aliases
     And I type my password
     And I click the "Sign in" button
     Then I see "Sign Out"
+

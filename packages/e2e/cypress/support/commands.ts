@@ -20,7 +20,7 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 import '@testing-library/cypress/add-commands';
-import { cond, constant, eq } from 'lodash/fp';
+import { cond, constant, eq, escapeRegExp } from 'lodash/fp';
 
 /**
  * Using Date.now() for UNKNOWN status gives us a unique and unused
@@ -65,3 +65,17 @@ Cypress.Commands.add(
     return cy.wrap(inputField).type(buildAlias(loginMechanism));
   }
 );
+
+Cypress.Commands.add('findInputField', (field: string) => {
+  const passwordFieldNames = ['password', 'confirm password'];
+  const isPasswordField = passwordFieldNames.includes(field.toLowerCase());
+  const regexString = `^${escapeRegExp(field)}$`;
+  const regex = new RegExp(regexString, 'i');
+
+  if (isPasswordField) {
+    // TODO: we should use cy.findByLabelText once our dom is cleaned up
+    return cy.findByPlaceholderText(regex);
+  } else {
+    return cy.findByRole('textbox', { name: regex });
+  }
+});

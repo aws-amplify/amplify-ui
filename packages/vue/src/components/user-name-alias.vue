@@ -23,8 +23,8 @@
     </base-text>
     <base-input
       v-model:textValue="uName"
+      autocomplete="username"
       :placeholder="label"
-      :autocomplete="name"
       required
       :name="name"
       :disabled="disabled"

@@ -36,3 +36,11 @@ Feature: Sign In with Username
     And I type my password
     And I click the "Sign in" button
     Then I see "Change Password"
+
+  @next @react @vue @angular
+  Scenario: Username field autocompletes username
+    And "Username" field autocompletes "username"
+
+  @next @react @vue @angular
+  Scenario: Password fields autocomplete "current-password"
+    And "Password" field autocompletes "current-password"

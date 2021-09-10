@@ -19,4 +19,12 @@ Feature: Sign Up
     And I type my "email" with status "UNCONFIRMED"
     And I type my "phone number" with status "UNCONFIRMED"
     And I click the "Create Account" button
-    Then I see "Confirmation Code"
+    Then I see "Confirm Sign Up"
+    And I see "Confirmation Code"
+
+  Scenario: Username field autocompletes username
+    Then "Username" field autocompletes "username"
+
+  Scenario: Password fields autocomplete "new-password"
+    Then "Password" field autocompletes "new-password"
+    And "Confirm Password" field autocompletes "new-password"
