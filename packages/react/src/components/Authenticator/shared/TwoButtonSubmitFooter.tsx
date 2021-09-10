@@ -23,7 +23,7 @@ export const TwoButtonSubmitFooter = (
   } = props;
 
   const {
-    components: { Button, Footer, Spacer },
+    components: { Button, Flex },
   } = useAmplify(amplifyNamespace);
 
   const [state, send] = useAuth();
@@ -36,17 +36,25 @@ export const TwoButtonSubmitFooter = (
   const submitText = submitButtonText || defaultSubmitText;
 
   return (
-    <Footer>
+    <Flex direction="column">
+      <Button
+        fontWeight="normal"
+        variation="primary"
+        isDisabled={isPending}
+        type="submit"
+      >
+        {submitText}
+      </Button>
+
       <Button
         onClick={() => send({ type: cancelButtonSendType })}
         type="button"
+        variation="link"
+        fontWeight="normal"
+        size="small"
       >
         {cancelButtonText}
       </Button>
-      <Spacer />
-      <Button isDisabled={isPending} type="submit">
-        {submitText}
-      </Button>
-    </Footer>
+    </Flex>
   );
 };

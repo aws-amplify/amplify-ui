@@ -1,0 +1,73 @@
+.amplify-switchfield {
+  display: inline-block;
+  &[data-size='small'] {
+    font-size: var(--amplify-components-switchfield-small-font-size);
+  }
+  &[data-size='large'] {
+    font-size: var(--amplify-components-switchfield-large-font-size);
+  }
+}
+
+.amplify-switch__wrapper {
+  display: inline-flex;
+  align-items: center;
+  &[data-label-position='start'] {
+    flex-direction: row;
+  }
+  &[data-label-position='end'] {
+    flex-direction: row-reverse;
+  }
+  &[data-label-position='top'] {
+    flex-direction: column;
+  }
+  &[data-label-position='bottom'] {
+    flex-direction: column-reverse;
+  }
+}
+
+.amplify-switch-track {
+  display: inline-flex;
+  justify-content: flex-start;
+  box-sizing: content-box;
+  border-radius: var(--amplify-components-switchfield-track-border-radius);
+  padding: var(--amplify-components-switchfield-track-padding);
+  width: var(--amplify-components-switchfield-track-width);
+  height: var(--amplify-components-switchfield-track-height);
+  transition-duration: var(
+    --amplify-components-switchfield-track-transition-duration
+  );
+  background: var(--amplify-components-switchfield-track-background);
+  &[data-checked='true'] {
+    background: var(--amplify-components-switchfield-track-checked-background);
+  }
+  &[data-disabled='true'] {
+    opacity: var(--amplify-components-switchfield-disabled-opacity);
+    cursor: not-allowed;
+  }
+  &[data-focused='true'] {
+    box-shadow: var(--amplify-components-switchfield-focused-shadow);
+  }
+}
+
+.amplify-switch-thumb {
+  background: var(--amplify-components-switchfield-thumb-background);
+  transition-duration: var(
+    --amplify-components-switchfield-thumb-transition-duration
+  );
+  border-radius: var(--amplify-components-switchfield-thumb-border-radius);
+  width: var(--amplify-components-switchfield-thumb-width);
+  height: var(--amplify-components-switchfield-thumb-width);
+  border-color: var(--amplify-components-switchfield-thumb-border-color);
+  overflow-wrap: break-word;
+  &[data-checked='true'] {
+    transform: var(--amplify-components-switchfield-thumb-checked-transform);
+  }
+  &[data-disabled='true'] {
+    cursor: not-allowed;
+  }
+}
+
+.amplify-switch-label {
+  padding: var(--amplify-components-switchfield-label-padding);
+  cursor: pointer;
+}
