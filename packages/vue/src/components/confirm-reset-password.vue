@@ -71,13 +71,7 @@
 </template>
 
 <script setup lang="ts">
-import {
-  defineComponent,
-  computed,
-  ComputedRef,
-  useAttrs,
-  defineEmits,
-} from 'vue';
+import { computed, ComputedRef, useAttrs, defineEmits } from 'vue';
 import { I18n } from 'aws-amplify';
 import { useAuth } from '../composables/useAuth';
 
