@@ -24,7 +24,6 @@ Feature: Sign In with Phone Number
     And I click the "Sign In" button
     Then I see "Confirmation Code"
 
-
   @vue @react @angular
   Scenario: Sign in with confirmed credentials
     When I type the valid phone number "CONFIRMED_PHONE_NUMBER"
@@ -38,3 +37,11 @@ Feature: Sign In with Phone Number
     And I type the valid password "VALID_PASSWORD"
     And I click the "Sign In" button
     Then I see "Change Password"
+
+  @next @react @vue @angular
+    Scenario: Phone number field autocompletes username
+      And "Username" field autocompletes "username"
+
+  @next @react @vue @angular
+    Scenario: Password fields autocomplete "new-password"
+      And "password" field autocompletes "new-password"

@@ -21,3 +21,13 @@ Feature: Sign Up with Phone
     And I confirm the password "VALID_PASSWORD"
     And I click the "Create Account" button
     Then I see "Confirmation Code"
+
+@next @react @vue @angular
+  Scenario: Phone number field autocompletes username
+    And "Phone Number" field autocompletes "username"
+
+@next @react @vue @angular
+  Scenario: Password fields autocomplete "new-password"
+    And "password" field autocompletes "new-password"
+    And "confirm password" field autocompletes "new-password"
+    

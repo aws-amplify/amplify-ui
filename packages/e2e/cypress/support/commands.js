@@ -19,4 +19,17 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+import { escapeRegExp } from 'lodash';
+Cypress.Commands.add('getInputField', (fieldName, options) => {
+  const regexString = `^${escapeRegExp(fieldName)}$`;
+  const regex = new RegExp(regexString, 'i');
+
+  if (options?.password) {
+    return cy.findByPlaceholderText(regex);
+  } else {
+    return cy.findByRole('textbox', { name: regex });
+  }
+});
+
 import '@testing-library/cypress/add-commands';

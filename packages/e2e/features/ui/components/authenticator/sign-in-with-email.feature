@@ -38,3 +38,11 @@ Feature: Sign In with Email
     And I type the valid password "VALID_PASSWORD"
     And I click the "Sign In" button
     Then I see "Change Password"
+
+  @next @react @vue @angular
+    Scenario: Email field autocompletes username
+      And "Email" field autocompletes "username"
+
+  @next @react @vue @angular
+    Scenario: Password fields autocomplete "current-password"
+      And "password" field autocompletes "current-password"
