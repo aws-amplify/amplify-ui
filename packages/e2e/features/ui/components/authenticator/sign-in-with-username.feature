@@ -39,7 +39,7 @@ Feature: Sign In with Username
     Then I see "Change Password"
 
   @next @react @vue @angular
-    Scenario: Phone number field autocompletes username
+    Scenario: Username field autocompletes username
       And "Username" field autocompletes "username"
 
   @next @react @vue @angular

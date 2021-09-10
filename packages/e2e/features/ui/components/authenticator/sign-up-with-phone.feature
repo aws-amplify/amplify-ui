@@ -29,5 +29,5 @@ Feature: Sign Up with Phone
 @next @react @vue @angular
   Scenario: Password fields autocomplete "new-password"
     And "Password" field autocompletes "new-password"
-    And "Confirm password" field autocompletes "new-password"
+    And "Confirm Password" field autocompletes "new-password"
     
