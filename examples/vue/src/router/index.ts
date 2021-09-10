@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import routes from 'virtual:generated-pages';
+//@ts-ignore
+import routes from 'virtual:generated-pages-react';
 
 const router = createRouter({
   history: createWebHistory(),
