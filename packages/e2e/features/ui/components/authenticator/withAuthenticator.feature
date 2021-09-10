@@ -5,11 +5,10 @@ Feature: withAuthenticator
   Background:
     Given I'm running the example "/ui/components/authenticator/withAuthenticator"
 
-  @next @react
+  @next
   Scenario: Application is wrapped with Authenticator
     Then I see "Sign in to your account"
 
-  @focus @next @react @vue @skip
   Scenario: Application renders when signed in
     When I type my "username" with status "CONFIRMED"
     And I type my password

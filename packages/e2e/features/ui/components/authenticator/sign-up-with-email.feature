@@ -4,15 +4,14 @@ Feature: Sign Up with Email
 
   Background:
     Given I'm running the example "ui/components/authenticator/sign-up-with-email"
-    When I click the "Create account" button
+    And I click "Create account"
 
-  @next @react @vue @angular
+  @angular @next @vue
   Scenario: Login mechanism set to "email"
     Then I see "Email" as an input field
     And I don't see "Username" as an input field
     And I don't see "Phone Number" as an input field
 
-  @next @react @vue @angular @skip
   Scenario: Sign up with valid email & password
     When I type my "email" with status "UNCONFIRMED"
     And I type my password

@@ -10,29 +10,27 @@ Feature: Sign In with Email
   Background:
     Given I'm running the example "/ui/components/authenticator/sign-in-with-email"
 
-
-  @vue @react @angular
+  @angular @next @vue
   Scenario: Sign in with unknown credentials
     When I type my "email" with status "UNKNOWN"
     And I type my password
     And I click the "Sign in" button
     Then I see "User does not exist"
 
-  @vue @react @angular
+  @angular @next @vue
   Scenario: Sign in with unconfirmed credentials
     When I type my "email" with status "UNCONFIRMED"
     And I type my password
     And I click the "Sign in" button
     Then I see "Confirmation Code"
 
-  @vue @react @angular
+  @angular @next @vue
   Scenario: Sign in with confirmed credentials
     When I type my "email" with status "CONFIRMED"
     And I type my password
     And I click the "Sign in" button
     Then I see "Sign out"
 
-  @react @skip
   Scenario: Sign in with force change password credentials
     When I type my "email" with status "FORCE_CHANGE_PASSWORD"
     And I type my password
