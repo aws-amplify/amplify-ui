@@ -37,7 +37,7 @@ Feature: Sign In with Email
     And I click the "Sign in" button
     Then I see "Change Password"
 
-  @next @react @vue @angular
+  @angular @next @vue
   Scenario: Email field autocompletes username
 
   On sign in form, autocomplete prefers usage of username instead of email. 
@@ -45,6 +45,6 @@ Feature: Sign In with Email
 
     And "Email" field autocompletes "username"
 
-  @next @react @vue @angular
+  @angular @next @vue
   Scenario: Password fields autocomplete "current-password"
     And "Password" field autocompletes "current-password"
