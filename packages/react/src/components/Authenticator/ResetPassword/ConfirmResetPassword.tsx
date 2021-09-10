@@ -4,7 +4,7 @@ import { getActorState, ResetPasswordState } from '@aws-amplify/ui';
 import { useAmplify, useAuth } from '../../../hooks';
 import {
   ConfirmationCodeInput,
-  ErrorText,
+  RemoteErrorMessage,
   TwoButtonSubmitFooter,
 } from '../shared';
 
@@ -63,7 +63,7 @@ export const ConfirmResetPassword = (): JSX.Element => {
           />
         </FieldGroup>
 
-        <ErrorText amplifyNamespace={amplifyNamespace} />
+        <RemoteErrorMessage amplifyNamespace={amplifyNamespace} />
         <TwoButtonSubmitFooter
           cancelButtonSendType="RESEND"
           cancelButtonText={I18n.get('Resend Code')}
