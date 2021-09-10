@@ -41,6 +41,10 @@ Feature: Sign In with Email
 
   @next @react @vue @angular
   Scenario: Email field autocompletes username
+
+  On sign in form, autocomplete prefers usage of username instead of email. 
+  See https://www.chromium.org/developers/design-documents/form-styles-that-chromium-understands.
+
     And "Email" field autocompletes "username"
 
   @next @react @vue @angular
