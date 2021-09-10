@@ -9,7 +9,7 @@ declare namespace Cypress {
      * Custom command to build an authentication alias based on
      * the 'loginMechanism' and 'status' which will then be typed
      * into a previously selected input element.
-     * @example cy.typeAliasWithStatus('email', 'CONFIRMED') -> cy.type('sample_email+CONFIMRED@example.com')
+     * @example cy.findByRole('textbox').typeAliasWithStatus('email', 'CONFIRMED') -> cy.findByRole('textbox').type('sample_email+CONFIMRED@example.com')
      */
     typeAliasWithStatus(
       loginMechanism: string,

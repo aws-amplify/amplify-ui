@@ -20,33 +20,48 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 import '@testing-library/cypress/add-commands';
+import { cond, constant, eq } from 'lodash/fp';
+
+/**
+ * Using Date.now() for UNKNOWN status gives us a unique and unused
+ * alias
+ */
+const appendStatusToAlias = (status: string) =>
+  `${Cypress.env('USERNAME')}+${status === 'UNKNOWN' ? Date.now() : status}`;
+
+/**
+ * This helper function uses a certain country code matching a test user
+ * with the given status in each applicable environment
+ */
+const countryCodeByStatus = (status: string) => {
+  switch (status) {
+    case 'CONFIRMED':
+      return '1';
+    case 'UNKNOWN':
+      return '2';
+    case 'UNCONFIRMED':
+      return '3';
+  }
+};
 
 Cypress.Commands.add(
   'typeAliasWithStatus',
   { prevSubject: true },
   (inputField: Element, loginMechanism: string, status: string) => {
-    let loginAlias;
-    if (loginMechanism === 'email') {
-      loginAlias = `${Cypress.env('USERNAME')}+${
-        status === 'UNKNOWN' ? Date.now() : status
-      }@${Cypress.env('DOMAIN')}`;
-    } else if (loginMechanism === 'phone number') {
-      let countryCode;
-      if (status === 'CONFIRMED') {
-        countryCode = '1';
-      } else if (status === 'UNKNOWN') {
-        countryCode = '2';
-      } else if (status === 'UNCONFIRMED') {
-        countryCode = '3';
-      }
+    const buildAlias = cond([
+      [eq('username'), constant(appendStatusToAlias(status))],
+      [
+        eq('email'),
+        constant(`${appendStatusToAlias(status)}@${Cypress.env('DOMAIN')}`),
+      ],
+      [
+        eq('phone number'),
+        constant(
+          `+${countryCodeByStatus(status)}${Cypress.env('PHONE_NUMBER')}`
+        ),
+      ],
+    ]);
 
-      loginAlias = `+${countryCode}${Cypress.env('PHONE_NUMBER')}`;
-    } else if ((loginMechanism = 'username')) {
-      loginAlias = `${Cypress.env('USERNAME')}+${
-        status === 'UNKNOWN' ? Date.now() : status
-      }`;
-    }
-
-    return cy.wrap(inputField).type(loginAlias);
+    return cy.wrap(inputField).type(buildAlias(loginMechanism));
   }
 );

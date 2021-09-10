@@ -1,6 +1,5 @@
 /// <reference types="@testing-library/cypress" />
 /// <reference types="cypress" />
-/// <reference path="../../support/index.d.ts" />
 import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 
 Given('I click {string}', (text: string) => {

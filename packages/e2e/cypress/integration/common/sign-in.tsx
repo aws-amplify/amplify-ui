@@ -1,6 +1,6 @@
 /// <reference types="@testing-library/cypress" />
 /// <reference types="cypress" />
-/// <reference path="../../support/index.d.ts" />
+/// <reference path="../../support/commands.d.ts" />
 import { When } from 'cypress-cucumber-preprocessor/steps';
 import { escapeRegExp } from 'lodash';
 
