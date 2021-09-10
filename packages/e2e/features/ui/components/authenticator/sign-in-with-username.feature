@@ -17,14 +17,6 @@ Feature: Sign In with Username
     And I click the "Sign In" button
     Then I see "User does not exist"
 
-  @next @react @vue @angular
-    Scenario: Phone number field autocompletes username
-      And "Username" field autocompletes "username"
-
-  @next @react @vue @angular
-    Scenario: Password fields autocomplete "new-password"
-      And "password" field autocompletes "new-password"
-
   @next @react @angular
   Scenario: Sign in with unconfirmed credentials
     When I type the valid username "UNCONFIRMED_USERNAME"
@@ -45,3 +37,11 @@ Feature: Sign In with Username
     And I type the valid password "VALID_PASSWORD"
     And I click the "Sign In" button
     Then I see "Change Password"
+
+  @next @react @vue @angular
+    Scenario: Phone number field autocompletes username
+      And "Username" field autocompletes "username"
+
+  @next @react @vue @angular
+    Scenario: Password fields autocomplete "current-password"
+      And "password" field autocompletes "current-password"

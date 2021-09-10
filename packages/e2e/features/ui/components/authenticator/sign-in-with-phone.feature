@@ -39,9 +39,9 @@ Feature: Sign In with Phone Number
     Then I see "Change Password"
 
   @next @react @vue @angular
-    Scenario: Phone number field autocompletes username
-      And "Username" field autocompletes "username"
+    Scenario: Phone number field autocompletes phone number
+      And "Phone Number" field autocompletes "username"
 
   @next @react @vue @angular
     Scenario: Password fields autocomplete "new-password"
-      And "password" field autocompletes "new-password"
+      And "password" field autocompletes "current-password"
