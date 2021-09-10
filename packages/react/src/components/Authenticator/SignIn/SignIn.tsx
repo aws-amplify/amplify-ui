@@ -63,6 +63,7 @@ export function SignIn() {
             required
             name="password"
             label={I18n.get('Password')}
+            autoComplete="current-password"
             labelHidden={true}
           />
         </FieldGroup>

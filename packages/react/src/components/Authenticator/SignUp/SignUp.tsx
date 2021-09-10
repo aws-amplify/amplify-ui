@@ -92,6 +92,7 @@ export function SignUp() {
             name="password"
             label={passwordLabel}
             labelHidden={true}
+            autoComplete="new-password"
             hasError={!!validationError['confirm_password']}
           />
           <PasswordField
@@ -102,6 +103,7 @@ export function SignUp() {
             name="confirm_password"
             label={confirmPasswordLabel}
             labelHidden={true}
+            autoComplete="new-password"
             hasError={!!validationError['confirm_password']}
           />
 
@@ -193,6 +195,7 @@ SignUp.AliasControl = ({
         placeholder={placeholder}
         label={label}
         labelHidden={true}
+        autoComplete="username"
         errorMessage={error}
       ></TextField>
     </>

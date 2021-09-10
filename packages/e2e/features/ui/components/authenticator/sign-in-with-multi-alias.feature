@@ -34,3 +34,4 @@ Feature: Sign In with Multiple Aliases
     And I type the valid password "VALID_PASSWORD"
     And I click the "Sign In" button
     Then I see "Sign Out"
+
