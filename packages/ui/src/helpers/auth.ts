@@ -16,26 +16,26 @@ export const authInputAttributes: AuthInputAttributes = {
   username: {
     label: 'Username',
     type: 'text',
-    placeholder: 'Enter your username',
+    placeholder: 'Username',
   },
   email: {
     label: 'Email',
     type: 'email',
-    placeholder: 'Enter your email',
+    placeholder: 'Email',
   },
   phone_number: {
     label: 'Phone Number',
     type: 'tel',
-    placeholder: 'Enter your phone number',
+    placeholder: 'Phone',
   },
   confirmation_code: {
     label: 'Confirmation Code',
-    placeholder: 'Enter your confirmation code',
+    placeholder: 'Enter your code',
     type: 'number',
   },
   password: {
     label: 'Password',
-    placeholder: 'Enter your password',
+    placeholder: 'Password',
     type: 'password',
   },
 };
