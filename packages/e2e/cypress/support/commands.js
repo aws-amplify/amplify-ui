@@ -19,4 +19,20 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+import { escapeRegExp } from 'lodash';
+Cypress.Commands.add('findInputField', (field) => {
+  const passwordFieldNames = ['password', 'confirm password'];
+  const isPasswordField = passwordFieldNames.includes(field.toLowerCase());
+  const regexString = `^${escapeRegExp(field)}$`;
+  const regex = new RegExp(regexString, 'i');
+
+  if (isPasswordField) {
+    // TODO: we should use cy.findByLabelText once our dom is cleaned up
+    return cy.findByPlaceholderText(regex);
+  } else {
+    return cy.findByRole('textbox', { name: regex });
+  }
+});
+
 import '@testing-library/cypress/add-commands';

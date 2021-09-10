@@ -1,10 +1,10 @@
 <label>
-  <div data-amplify-label>{{ label || attributeMap[name]?.label }}</div>
+  <div data-amplify-label>{{ inferLabel() }}</div>
   <input
     data-amplify-form-input
-    [type]="inferInputType()"
+    [type]="inferType()"
     [name]="name"
-    [placeholder]="placeholder || attributeMap[name]?.placeholder || ''"
+    [placeholder]="inferPlaceholder()"
     [required]="required ? true : false"
     [value]="this.initialValue"
     [attr.disabled]="disabled ? '' : null"
