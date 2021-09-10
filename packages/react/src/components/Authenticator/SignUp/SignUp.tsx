@@ -142,6 +142,7 @@ export function SignUp() {
             onClick={() => send({ type: 'SIGN_IN' })}
             type="button"
             variation="link"
+            fontWeight="normal"
           >
             {I18n.get('Sign in')}
           </Button>
