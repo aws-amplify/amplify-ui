@@ -4,6 +4,7 @@
     <base-input
       autocomplete="new-password"
       name="password"
+      :placeholder="passwordLabel"
       required
       type="password"
     ></base-input>
