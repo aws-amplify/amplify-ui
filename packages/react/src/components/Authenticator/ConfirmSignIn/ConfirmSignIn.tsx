@@ -13,13 +13,10 @@ import {
   ConfirmSignInFooterProps,
 } from '../shared';
 
-/**
- * placeholder component
- */
 export const ConfirmSignIn = (): JSX.Element => {
   const amplifyNamespace = 'Authenticator.ConfirmSignIn';
   const {
-    components: { Fieldset, Form, Heading, Label },
+    components: { FieldGroup, Flex, Form, Heading },
   } = useAmplify(amplifyNamespace);
 
   const [_state, send] = useAuth();
@@ -56,18 +53,18 @@ export const ConfirmSignIn = (): JSX.Element => {
         });
       }}
     >
-      <Heading level={1}>{headerText}</Heading>
+      <Flex direction="column">
+        <Heading level={3}>{headerText}</Heading>
 
-      <Fieldset disabled={isPending}>
-        <Label data-amplify-confirmationcode>
+        <FieldGroup direction="column" disabled={isPending}>
           <ConfirmationCodeInput
             amplifyNamespace={amplifyNamespace}
             errorText={remoteError}
           />
-        </Label>
-      </Fieldset>
+        </FieldGroup>
 
-      <ConfirmSignInFooter {...footerProps} />
+        <ConfirmSignInFooter {...footerProps} />
+      </Flex>
     </Form>
   );
 };
