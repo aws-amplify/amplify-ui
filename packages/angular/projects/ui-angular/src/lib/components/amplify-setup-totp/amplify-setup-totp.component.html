@@ -22,7 +22,7 @@
           [ngTemplateOutlet]="
             customComponents.setupTotpButton || setupTotpButton
           "
-          [ngTemplateOutletContext]="context()"
+          [ngTemplateOutletContext]="context"
         >
         </ng-container>
       </div>
@@ -41,7 +41,7 @@
   <h2 data-amplify-header>{{ this.headerText }}</h2>
   <ng-container
     [ngTemplateOutlet]="customComponents.setupTotpForm || setupTotpForm"
-    [ngTemplateOutletContext]="context()"
+    [ngTemplateOutletContext]="context"
   >
   </ng-container>
 </div>

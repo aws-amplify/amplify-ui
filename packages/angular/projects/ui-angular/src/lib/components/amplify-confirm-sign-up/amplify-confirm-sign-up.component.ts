@@ -24,7 +24,6 @@ export class AmplifyConfirmSignUpComponent {
   public username: string;
   public remoteError = '';
   public isPending = false;
-  public context = () => ({});
 
   constructor(
     private stateMachine: StateMachineService,
@@ -68,6 +67,13 @@ export class AmplifyConfirmSignUpComponent {
     const actorState: SignUpState = getActorState(state);
     this.remoteError = actorState.context.remoteError;
     this.isPending = !actorState.matches('confirmSignUp.edit');
+  }
+
+  public get context() {
+    const { change, resend, signIn, submit } = this.stateMachine.services;
+    const remoteError = this.remoteError;
+    const username = this.username;
+    return { change, remoteError, resend, signIn, submit, username };
   }
 
   toSignIn(): void {

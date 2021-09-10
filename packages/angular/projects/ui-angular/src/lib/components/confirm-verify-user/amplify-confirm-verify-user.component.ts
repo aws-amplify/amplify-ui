@@ -27,7 +27,6 @@ export class ConfirmVerifyUserComponent
   public customComponents: Record<string, TemplateRef<any>> = {};
   public remoteError = '';
   public isPending = false;
-  public context = () => ({});
   private authSubscription: Subscription;
 
   constructor(
@@ -53,6 +52,12 @@ export class ConfirmVerifyUserComponent
     const actorState: SignInState = getActorState(state);
     this.remoteError = actorState.context.remoteError;
     this.isPending = !actorState.matches('confirmVerifyUser.edit');
+  }
+
+  public get context() {
+    const { skip, submit } = this.stateMachine.services;
+    const remoteError = this.remoteError;
+    return { remoteError, skip, submit };
   }
 
   skipVerify(): void {

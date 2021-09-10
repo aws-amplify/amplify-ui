@@ -25,7 +25,7 @@
         [ngTemplateOutlet]="
           customComponents.verifyUserFooter || verifyUserFooter
         "
-        [ngTemplateOutletContext]="context()"
+        [ngTemplateOutletContext]="context"
       >
       </ng-container>
     </fieldset>
@@ -43,7 +43,7 @@
   <h2 data-amplify-header>{{ this.headerText }}</h2>
   <ng-container
     [ngTemplateOutlet]="customComponents.verifyUserForm || verifyUserForm"
-    [ngTemplateOutletContext]="context()"
+    [ngTemplateOutletContext]="context"
   >
   </ng-container>
 </div>
