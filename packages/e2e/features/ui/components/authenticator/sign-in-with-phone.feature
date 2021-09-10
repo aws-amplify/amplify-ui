@@ -44,4 +44,4 @@ Feature: Sign In with Phone Number
 
   @next @react @vue @angular
     Scenario: Password fields autocomplete "new-password"
-      And "password" field autocompletes "current-password"
+      And "Password" field autocompletes "current-password"

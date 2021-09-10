@@ -44,4 +44,4 @@ Feature: Sign In with Username
 
   @next @react @vue @angular
     Scenario: Password fields autocomplete "current-password"
-      And "password" field autocompletes "current-password"
+      And "Password" field autocompletes "current-password"

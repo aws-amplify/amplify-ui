@@ -13,8 +13,6 @@ Feature: Sign Up with Email
     And I don't see "Username" as an input field
     And I don't see "Phone Number" as an input field
 
-@next @react @vue @angular
-
 @next @react @vue @angular @skip
   Scenario: Sign up with valid email & password
     When I type the email "VALID_EMAIL"
@@ -23,11 +21,12 @@ Feature: Sign Up with Email
     And I click the "Create Account" button
     Then I see "Confirmation Code"
 
+@next @react @vue @angular
   Scenario: Email field autocompletes username
     And "Email" field autocompletes "username"
 
 @next @react @vue @angular
   Scenario: Password fields autocomplete "new-password"
-    And "password" field autocompletes "new-password"
-    And "confirm password" field autocompletes "new-password"
+    And "Password" field autocompletes "new-password"
+    And "Confirm Password" field autocompletes "new-password"
     
