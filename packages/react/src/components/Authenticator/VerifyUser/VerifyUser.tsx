@@ -8,7 +8,7 @@ import {
 import { I18n } from 'aws-amplify';
 
 import { useAmplify, useAuth } from '../../../hooks';
-import { ErrorText, TwoButtonSubmitFooter } from '../shared';
+import { RemoteErrorMessage, TwoButtonSubmitFooter } from '../shared';
 
 const generateRadioGroup = (
   attributes: Record<string, string>
@@ -75,7 +75,7 @@ export const VerifyUser = (): JSX.Element => {
 
       {verificationRadioGroup}
 
-      <ErrorText amplifyNamespace={amplifyNamespace} />
+      <RemoteErrorMessage amplifyNamespace={amplifyNamespace} />
 
       <TwoButtonSubmitFooter
         amplifyNamespace={amplifyNamespace}

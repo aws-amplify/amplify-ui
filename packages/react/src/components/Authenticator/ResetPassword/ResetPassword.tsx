@@ -2,7 +2,7 @@ import { I18n } from 'aws-amplify';
 import { getActorState, ResetPasswordState } from '@aws-amplify/ui';
 
 import { useAmplify, useAuth } from '../../../hooks';
-import { ErrorText, TwoButtonSubmitFooter } from '../shared';
+import { RemoteErrorMessage, TwoButtonSubmitFooter } from '../shared';
 
 export const ResetPassword = (): JSX.Element => {
   const amplifyNamespace = 'Authenticator.ResetPassword';
@@ -63,7 +63,7 @@ export const ResetPassword = (): JSX.Element => {
           />
         </FieldGroup>
 
-        <ErrorText amplifyNamespace={amplifyNamespace} />
+        <RemoteErrorMessage amplifyNamespace={amplifyNamespace} />
         <TwoButtonSubmitFooter
           amplifyNamespace={amplifyNamespace}
           cancelButtonText={I18n.get('Back to Sign In')}
