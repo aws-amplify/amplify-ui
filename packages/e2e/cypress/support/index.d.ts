@@ -3,11 +3,11 @@ declare namespace Cypress {
   interface Chainable<Subject> {
     /**
      * Custom command to select input element by role or placeholder text
-     * @example cy.dataCy('greeting')
+     *
+     * @param {string} field - name of the input field, or alternatively
+     *   placeholder value for password inputs.
+     * @example cy.getInputField('password')
      */
-    getInputField(
-      fieldName: string,
-      options?: { password: boolean }
-    ): Chainable<Element>;
+    getInputField(field: string): Chainable<Element>;
   }
 }

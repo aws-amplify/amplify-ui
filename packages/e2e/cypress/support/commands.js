@@ -21,11 +21,14 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
 import { escapeRegExp } from 'lodash';
-Cypress.Commands.add('getInputField', (fieldName, options) => {
-  const regexString = `^${escapeRegExp(fieldName)}$`;
+Cypress.Commands.add('getInputField', (field) => {
+  const passwordFieldNames = ['Password', 'Confirm Password'];
+  const isPasswordField = passwordFieldNames.includes(field);
+  const regexString = `^${escapeRegExp(field)}$`;
   const regex = new RegExp(regexString, 'i');
 
-  if (options?.password) {
+  if (isPasswordField) {
+    // TODO: we should use cy.findByLabelText once our dom is cleaned up
     return cy.findByPlaceholderText(regex);
   } else {
     return cy.findByRole('textbox', { name: regex });

@@ -30,10 +30,7 @@ Then('I see {string}', (message: string) => {
 And(
   '{string} field autocompletes {string}',
   (fieldName: string, autocomplete: string) => {
-    // possible autocomplete attributes that password fields can have
-    const pwAutocompletes = ['current-password', 'new-password'];
-    const isPWField = pwAutocompletes.includes(autocomplete);
-    cy.getInputField(fieldName, { password: isPWField })
+    cy.getInputField(fieldName)
       .should('have.attr', 'autocomplete')
       .should('eq', autocomplete);
   }
