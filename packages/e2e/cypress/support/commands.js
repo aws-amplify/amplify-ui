@@ -21,9 +21,9 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
 import { escapeRegExp } from 'lodash';
-Cypress.Commands.add('getInputField', (field) => {
-  const passwordFieldNames = ['Password', 'Confirm Password'];
-  const isPasswordField = passwordFieldNames.includes(field);
+Cypress.Commands.add('findInputField', (field) => {
+  const passwordFieldNames = ['password', 'confirm password'];
+  const isPasswordField = passwordFieldNames.includes(field.toLowerCase());
   const regexString = `^${escapeRegExp(field)}$`;
   const regex = new RegExp(regexString, 'i');
 

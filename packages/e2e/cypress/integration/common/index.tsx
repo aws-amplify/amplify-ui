@@ -30,7 +30,7 @@ Then('I see {string}', (message: string) => {
 And(
   '{string} field autocompletes {string}',
   (fieldName: string, autocomplete: string) => {
-    cy.getInputField(fieldName)
+    cy.findInputField(fieldName)
       .should('have.attr', 'autocomplete')
       .should('eq', autocomplete);
   }

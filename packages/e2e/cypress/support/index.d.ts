@@ -6,8 +6,8 @@ declare namespace Cypress {
      *
      * @param {string} field - name of the input field, or alternatively
      *   placeholder value for password inputs.
-     * @example cy.getInputField('password')
+     * @example cy.findInputField('Password')
      */
-    getInputField(field: string): Chainable<Element>;
+    findInputField(field: string): Chainable<Element>;
   }
 }
