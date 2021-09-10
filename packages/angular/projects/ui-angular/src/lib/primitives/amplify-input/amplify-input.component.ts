@@ -40,8 +40,21 @@ export class AmplifyInputComponent {
     return validationError[this.name];
   }
 
+  inferLabel(): string {
+    return this.label || this.attributeMap[this.name]?.label;
+  }
+
+  inferPlaceholder(): string {
+    console.log(this.attributeMap[this.name]);
+    return (
+      this.placeholder ||
+      this.attributeMap[this.name]?.placeholder ||
+      this.inferLabel()
+    );
+  }
+
   // infers what the `type` of underlying input element should be.
-  inferInputType(): string {
+  inferType(): string {
     return this.type ?? this.attributeMap[this.name]?.type ?? 'text';
   }
 }
