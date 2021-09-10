@@ -35,10 +35,3 @@ Feature: Sign In with Multiple Aliases
     And I click the "Sign In" button
     Then I see "Sign Out"
 
-  @next @react @vue @angular
-    Scenario: Phone number field autocompletes username
-      And "Username or Email or Phone Number" field autocompletes "username"
-
-  @next @react @vue @angular
-    Scenario: Password fields autocomplete "new-password"
-      And "password" field autocompletes "new-password"
