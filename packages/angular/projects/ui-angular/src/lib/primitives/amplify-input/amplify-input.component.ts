@@ -45,7 +45,6 @@ export class AmplifyInputComponent {
   }
 
   inferPlaceholder(): string {
-    console.log(this.attributeMap[this.name]);
     return (
       this.placeholder ||
       this.attributeMap[this.name]?.placeholder ||
