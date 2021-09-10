@@ -3,7 +3,7 @@ Feature: Sign Up with Phone
   Create a new user in the Amazon Cognito UserPool by passing the new user’s phone number and password.
 
   Background:
-    Given I'm using the example "ui/components/authenticator/sign-up-with-phone/"
+    Given I'm running the example "ui/components/authenticator/sign-up-with-phone/"
     And I click "Create account"
 
   @angular @next @vue
@@ -20,7 +20,7 @@ Feature: Sign Up with Phone
     And I click the "Create Account" button
     Then I see "Confirmation Code"
 
-  @next @react @vue @angular
+  @angular @next @vue
   Scenario: Phone number field autocompletes username
 
   On sign up form, autocomplete prefers usage of username instead of phone number. 
@@ -28,7 +28,7 @@ Feature: Sign Up with Phone
 
     And "Phone Number" field autocompletes "username"
 
-  @next @react @vue @angular
+  @angular @next @vue
   Scenario: Password fields autocomplete "new-password"
     And "Password" field autocompletes "new-password"
     And "Confirm Password" field autocompletes "new-password"

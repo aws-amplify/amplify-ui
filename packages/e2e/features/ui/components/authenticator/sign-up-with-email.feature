@@ -19,7 +19,7 @@ Feature: Sign Up with Email
     And I click the "Create Account" button
     Then I see "Confirmation Code"
 
-  @next @react @vue @angular
+  @angular @next @vue
   Scenario: Email field autocompletes username
 
   On sign up form, autocomplete prefers usage of username instead of email. 
@@ -27,7 +27,7 @@ Feature: Sign Up with Email
 
     And "Email" field autocompletes "username"
 
-  @next @react @vue @angular
+  @angular @next @vue
   Scenario: Password fields autocomplete "new-password"
     And "Password" field autocompletes "new-password"
     And "Confirm Password" field autocompletes "new-password"

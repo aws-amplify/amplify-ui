@@ -1,6 +1,6 @@
 /// <reference types="@testing-library/cypress" />
 /// <reference types="cypress" />
-/// <reference types="../../support" />
+/// <reference types="../../support/commands" />
 
 import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 import { escapeRegExp } from 'lodash';
