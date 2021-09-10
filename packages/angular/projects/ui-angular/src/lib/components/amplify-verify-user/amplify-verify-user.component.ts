@@ -29,7 +29,6 @@ export class AmplifyVerifyUserComponent
   public unverifiedAttributes = {};
   public remoteError = '';
   public isPending = false;
-  public context = () => ({});
 
   private authSubscription: Subscription;
 
@@ -57,6 +56,12 @@ export class AmplifyVerifyUserComponent
     this.unverifiedAttributes = actorState.context.unverifiedAttributes;
     this.remoteError = actorState.context.remoteError;
     this.isPending = !actorState.matches('verifyUser.edit');
+  }
+
+  public get context() {
+    const { change, skip, submit } = this.stateMachine.services;
+    const remoteError = this.remoteError;
+    return { change, remoteError, skip, submit };
   }
 
   skipVerify(): void {

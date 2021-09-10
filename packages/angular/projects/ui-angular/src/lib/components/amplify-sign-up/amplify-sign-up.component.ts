@@ -16,9 +16,11 @@ import {
   getActorState,
   getConfiguredAliases,
   SignUpState,
+  ValidationError,
 } from '@aws-amplify/ui';
+import { getActorContext } from '@aws-amplify/ui';
+import { SignUpContext } from '@aws-amplify/ui';
 
-const logger = new Logger('SignUp');
 @Component({
   selector: 'amplify-sign-up',
   templateUrl: './amplify-sign-up.component.html',
@@ -29,11 +31,11 @@ export class AmplifySignUpComponent
   @HostBinding('attr.data-amplify-authenticator-signup') dataAttr = '';
   @Input() headerText = 'Create a new account';
   public customComponents: Record<string, TemplateRef<any>>;
-  public context = () => ({});
   public remoteError = '';
   public isPending = false;
   public primaryAlias = '';
   public secondaryAliases: string[] = [];
+  public validationError: ValidationError = {};
 
   private authSubscription: Subscription;
 
@@ -41,6 +43,20 @@ export class AmplifySignUpComponent
     private stateMachine: StateMachineService,
     private contextService: AuthPropService
   ) {}
+
+  public get context() {
+    const { change, signIn, submit } = this.stateMachine.services;
+    const remoteError = this.remoteError;
+    const validationError = this.validationError;
+
+    return {
+      change,
+      remoteError,
+      signIn,
+      submit,
+      validationError,
+    };
+  }
 
   ngOnInit(): void {
     this.authSubscription = this.stateMachine.authService.subscribe((state) =>
@@ -64,7 +80,9 @@ export class AmplifySignUpComponent
 
   private onStateUpdate(state: AuthMachineState): void {
     const actorState: SignUpState = getActorState(state);
-    this.remoteError = actorState.context.remoteError;
+    const actorContext: SignUpContext = getActorContext(state);
+    this.remoteError = actorContext.remoteError;
+    this.validationError = actorContext.validationError;
     this.isPending = !actorState.matches({
       signUp: {
         submission: 'idle',
