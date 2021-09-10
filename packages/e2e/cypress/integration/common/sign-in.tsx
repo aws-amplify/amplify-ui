@@ -2,12 +2,13 @@
 /// <reference types="cypress" />
 /// <reference path="../../support/index.d.ts" />
 import { When } from 'cypress-cucumber-preprocessor/steps';
+import { escapeRegExp } from 'lodash';
 
 When(
   'I type my {string} with status {string}',
   (loginMechanism: string, status: string) => {
     cy.findByRole('textbox', {
-      name: new RegExp(loginMechanism, 'i'),
+      name: new RegExp(escapeRegExp(loginMechanism), 'i'),
     }).typeAliasWithStatus(loginMechanism, status);
   }
 );

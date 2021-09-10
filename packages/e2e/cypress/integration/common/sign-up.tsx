@@ -1,7 +1,11 @@
 /// <reference types="@testing-library/cypress" />
 /// <reference types="cypress" />
 /// <reference path="../../support/index.d.ts" />
-import { When, Then } from 'cypress-cucumber-preprocessor/steps';
+import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
+
+Given('I click {string}', (text: string) => {
+  cy.findByText(text).click();
+});
 
 When('I confirm my password', () => {
   cy.findByPlaceholderText(/confirm password/i).type(

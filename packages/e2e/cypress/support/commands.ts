@@ -23,24 +23,30 @@ import '@testing-library/cypress/add-commands';
 
 Cypress.Commands.add(
   'typeAliasWithStatus',
-  (loginMechanism: string, status: string) => {
-    switch (loginMechanism) {
-      case 'email':
-        return cy.type(
-          `${Cypress.env('USERNAME')}+${status}@${Cypress.env('DOMAIN')}`
-        );
-      case 'phone_number':
-        let countryCode;
-        if (status === 'CONFIRMED') {
-          countryCode = '1';
-        } else if (status === 'UNKNOWN') {
-          countryCode = '2';
-        } else if (status === 'UNCONFIRMED') {
-          countryCode = '3';
-        }
-        return cy.type(`+${countryCode}${Cypress.env('PHONE_NUMBER')}`);
-      case 'username':
-        return cy.type(`${Cypress.env('USERNAME')}+${status}`);
+  { prevSubject: true },
+  (inputField: Element, loginMechanism: string, status: string) => {
+    let loginAlias;
+    if (loginMechanism === 'email') {
+      loginAlias = `${Cypress.env('USERNAME')}+${
+        status === 'UNKNOWN' ? Date.now() : status
+      }@${Cypress.env('DOMAIN')}`;
+    } else if (loginMechanism === 'phone number') {
+      let countryCode;
+      if (status === 'CONFIRMED') {
+        countryCode = '1';
+      } else if (status === 'UNKNOWN') {
+        countryCode = '2';
+      } else if (status === 'UNCONFIRMED') {
+        countryCode = '3';
+      }
+
+      loginAlias = `+${countryCode}${Cypress.env('PHONE_NUMBER')}`;
+    } else if ((loginMechanism = 'username')) {
+      loginAlias = `${Cypress.env('USERNAME')}+${
+        status === 'UNKNOWN' ? Date.now() : status
+      }`;
     }
+
+    return cy.wrap(inputField).type(loginAlias);
   }
 );
