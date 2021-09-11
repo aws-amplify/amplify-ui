@@ -1,7 +1,7 @@
-import { theme } from '@aws-amplify/ui';
+import { Theme } from '../../theming/types';
 
-export type Breakpoints = typeof theme.breakpoints.values;
-export type Breakpoint = keyof Breakpoints;
+export type Breakpoints = Theme['breakpoints']['values'];
+export type Breakpoint = keyof Theme['breakpoints']['values'];
 export interface MediaQueryBreakpoint {
   breakpoint: Breakpoint;
   query: string;

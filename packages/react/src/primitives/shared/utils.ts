@@ -7,8 +7,6 @@ import postcssJs from 'postcss-js';
 import { customAlphabet } from 'nanoid/non-secure';
 const nanoid = customAlphabet('1234567890abcdef', 12);
 
-import { theme } from '@aws-amplify/ui';
-
 import {
   ComponentPropsToStylePropsMap,
   ComponentPropToStyleProp,
@@ -19,18 +17,24 @@ import { getValueAtCurrentBreakpoint } from './responsive/utils';
 import { useBreakpoint } from './responsive/useBreakpoint';
 import { Breakpoint, Breakpoints } from '../types/responsive';
 
-export const prefixer = postcssJs.sync([autoprefixer]);
+import { useTheming } from '../../theming/';
 
-const {
-  values: breakpoints,
-  unit: breakpointUnit,
-  defaultBreakpoint,
-} = theme.breakpoints;
+export const prefixer = postcssJs.sync([autoprefixer]);
 
 export const strHasLength = (str: unknown): str is string =>
   typeof str === 'string' && str.length > 0;
 
 export const usePropStyles = (props: ViewProps, style: any) => {
+  const {
+    theme: {
+      breakpoints: {
+        values: breakpoints,
+        unit: breakpointUnit,
+        defaultBreakpoint,
+      },
+    },
+  } = useTheming();
+
   const breakpoint = useBreakpoint({
     breakpoints,
     breakpointUnit,
@@ -75,17 +79,15 @@ export const convertStylePropsToStyleObj: ConvertStylePropsToStyleObj = ({
       keyof ComponentPropToStyleProp
     >
   )
-    .filter((stylePropKey) => {
-      let value = props[stylePropKey];
-      return filterOutNullOrEmptyStringValues(value);
-    })
+    .filter((stylePropKey) =>
+      filterOutNullOrEmptyStringValues(props[stylePropKey])
+    )
     .forEach((stylePropKey) => {
-      let value = props[stylePropKey];
-
-      // Get style at current breakpoint for Object / Array syntax
-      if (typeof value !== 'string' || Array.isArray(value)) {
-        value = getValueAtCurrentBreakpoint(value, breakpoint, breakpoints);
-      }
+      let value = getValueAtCurrentBreakpoint(
+        props[stylePropKey],
+        breakpoint,
+        breakpoints
+      );
       const reactStyleProp = ComponentPropsToStylePropsMap[stylePropKey];
       style = { ...style, [reactStyleProp]: value };
     });

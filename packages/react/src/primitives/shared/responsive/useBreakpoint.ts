@@ -19,7 +19,7 @@ export const useBreakpoint: UseBreakpoint = ({
 
   const mediaQueries = React.useMemo(
     () => getMediaQueries({ breakpoints, breakpointUnit }),
-    [breakpoints]
+    [breakpoints, getMediaQueries]
   );
 
   const [breakpoint, setBreakpoint] =
@@ -31,13 +31,12 @@ export const useBreakpoint: UseBreakpoint = ({
         setBreakpoint(breakpoint);
       }
     },
-    []
+    [setBreakpoint]
   );
 
   useIsomorphicEffect(() => {
     if (!matchMedia) return;
     const unsubscribeList = mediaQueries.map(({ query, breakpoint }) => {
-      console.log(query);
       const queryList = matchMedia(query);
       updateBreakpoint(queryList.matches, breakpoint);
       const handleMediaChange = (event: MediaQueryListEvent) => {
@@ -52,6 +51,9 @@ export const useBreakpoint: UseBreakpoint = ({
       unsubscribeList.forEach((unsubscribe) => unsubscribe());
     };
   }, [breakpoints, setBreakpoint, mediaQueries]);
+
+  /** Print a nice debug value for React Devtools */
+  React.useDebugValue(breakpoint, (breakpoint) => breakpoint);
 
   return breakpoint;
 };

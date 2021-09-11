@@ -1,14 +1,20 @@
 import { Breakpoint, Breakpoints } from '../../types/responsive';
 
 export const getValueAtCurrentBreakpoint = (
-  values: Record<string, any> | string[],
+  values: Record<string, any> | string[] | string,
   breakpoint: Breakpoint,
   breakpoints: Breakpoints
 ) => {
+  if (typeof values !== 'object') {
+    return values;
+  }
   let breakpointCompatValues = {};
+  const breakpointsAscending = Object.keys(breakpoints).sort(
+    (a, b) => breakpoints[a] - breakpoints[b]
+  );
   if (Array.isArray(values)) {
     values.map((value, index) => {
-      breakpointCompatValues[Object.keys(breakpoints)[index]] = value;
+      breakpointCompatValues[breakpointsAscending[index]] = value;
     });
   } else {
     breakpointCompatValues = values;
@@ -22,7 +28,7 @@ export const getValueAtCurrentBreakpoint = (
 };
 
 const getClosestValueByBreakpoint = (
-  values,
+  values: Record<string, any>,
   breakpoint: Breakpoint,
   breakpoints: Breakpoints
 ) => {
@@ -32,13 +38,15 @@ const getClosestValueByBreakpoint = (
   }
 
   // Otherwise use a lower breakpoint value
-  const keys = Object.keys(breakpoints).sort(
+  const breakpointsDesc = Object.keys(breakpoints).sort(
     (a, b) => breakpoints[b] - breakpoints[a]
   );
-  const lowerKeys = keys.slice(keys.indexOf(breakpoint));
-  for (let key of lowerKeys) {
-    if (values.hasOwnProperty(key)) {
-      return values[key];
+  const lowerBreakpoints = breakpointsDesc.slice(
+    breakpointsDesc.indexOf(breakpoint)
+  );
+  for (const breakpoint of lowerBreakpoints) {
+    if (values.hasOwnProperty(breakpoint)) {
+      return values[breakpoint];
     }
   }
 

@@ -1,5 +1,4 @@
-import { renderHook, act } from '@testing-library/react-hooks';
-import { render } from '@testing-library/react';
+import { renderHook } from '@testing-library/react-hooks';
 
 import { theme } from '@aws-amplify/ui';
 
@@ -31,11 +30,7 @@ const props: ViewProps = {
   className: 'my-section',
 };
 
-let {
-  values: breakpoints,
-  unit: breakpointUnit,
-  defaultBreakpoint,
-} = theme.breakpoints;
+let breakpoints = theme.breakpoints.values;
 
 const defaultStylePropsParams = {
   breakpoint: 'base' as Breakpoint,
