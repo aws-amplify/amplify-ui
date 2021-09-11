@@ -14,6 +14,7 @@ export const Radio: React.FC<RadioProps> = ({
   className,
   id,
   isDisabled,
+  testId,
   value,
   ...rest
 }) => {
@@ -68,6 +69,7 @@ export const Radio: React.FC<RadioProps> = ({
         className={ComponentClassNames.RadioButton}
         data-size={size}
         justifyContent="center"
+        testId={testId}
         {...rest}
       />
       {children && (
