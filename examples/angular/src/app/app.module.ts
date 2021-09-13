@@ -13,7 +13,7 @@ import { SignInSMSMFAComponent } from 'src/pages/ui/components/authenticator/sig
 import { SignInTOTPMFAComponent } from 'src/pages/ui/components/authenticator/sign-in-totp-mfa/sign-in-totp-mfa.component';
 import { SignInWithPhoneComponent } from 'src/pages/ui/components/authenticator/sign-in-with-phone/sign-in-with-phone.component';
 import { SignInWithUsernameComponent } from 'src/pages/ui/components/authenticator/sign-in-with-username/sign-in-with-username.component';
-import { SignUpComponent } from 'src/pages/ui/components/authenticator/sign-up/sign-up.component';
+import { SignUpWithUsernameComponent } from 'src/pages/ui/components/authenticator/sign-up-with-username/sign-up-with-username.component';
 import { SignUpWithEmailComponent } from 'src/pages/ui/components/authenticator/sign-up-with-email/sign-up-with-email.component';
 import { SignUpWithPhoneComponent } from 'src/pages/ui/components/authenticator/sign-up-with-phone/sign-up-with-phone.component';
 import { SignInTOTPSMSComponent } from 'src/pages/ui/components/authenticator/sign-in-totp-sms/sign-in-totp-sms.component';
@@ -29,7 +29,7 @@ import { SignInTOTPSMSComponent } from 'src/pages/ui/components/authenticator/si
     SignInTOTPSMSComponent,
     SignInWithPhoneComponent,
     SignInWithUsernameComponent,
-    SignUpComponent,
+    SignUpWithUsernameComponent,
     SignUpWithEmailComponent,
     SignUpWithEmailComponent,
     SignUpWithPhoneComponent,

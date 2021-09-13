@@ -1,9 +1,9 @@
 {
   "private": true,
   "scripts": {
-    "install": "yarn ui build && yarn react build",
+    "install": "yarn build",
     "postinstall": "patch-package",
-    "build": "yarn workspaces run build",
+    "build": "npx ultra -r --filter '@aws-amplify/*' build",
     "angular": "yarn workspace @aws-amplify/ui-angular",
     "react": "yarn workspace @aws-amplify/ui-react",
     "ui": "yarn workspace @aws-amplify/ui",
@@ -35,7 +35,6 @@
     "ts-jest": "^26.5.6"
   },
   "dependencies": {
-    "npm-run-all": "^4.1.5",
     "patch-package": "^6.4.7",
     "postinstall-postinstall": "^2.1.0",
     "tsup": "^4.14.0"
@@ -45,6 +44,7 @@
     "husky": ">=6",
     "lint-staged": ">=10",
     "prettier": "2.3.2",
+    "ultra-runner": "^3.10.5",
     "wait-on": "^6.0.0"
   },
   "lint-staged": {
