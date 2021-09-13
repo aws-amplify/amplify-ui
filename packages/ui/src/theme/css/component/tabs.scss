@@ -2,36 +2,42 @@
   background-color: var(--amplify-components-tabs-background-color);
   box-shadow: var(--amplify-components-tabs-box-shadow);
   margin-bottom: var(--amplify-components-tabs-margin-bottom);
+  border-bottom: var(--amplify-components-tabs-border-width)
+    var(--amplify-components-tabs-border-style)
+    var(--amplify-components-tabs-border-color);
 }
 
 .amplify-tabs-item {
   background-color: var(--amplify-components-tabs-item-background-color);
   box-sizing: border-box;
-  color: var(--amplify-components-tabs-item-color-primary);
+  color: var(--amplify-components-tabs-item-color);
   font-size: var(--amplify-components-tabs-item-font-size);
   font-weight: var(--amplify-components-tabs-item-font-weight);
   padding: var(--amplify-components-tabs-item-padding);
   text-align: var(--amplify-components-tabs-item-text-align);
   transition: all var(--amplify-components-tabs-item-transition-duration);
-
+  border-bottom: var(--amplify-components-tabs-item-border-width)
+    var(--amplify-components-tabs-item-border-style)
+    var(--amplify-components-tabs-item-border-color);
+  
+    // negative margin so border of tab items and tab bar overlap
+  margin-bottom: calc(-1 * var(--amplify-components-tabs-item-border-width));
+  
   // Radix data attribute
   &[data-state='active'] {
-    color: var(--amplify-components-tabs-item-color-active);
-    border-bottom: var(--amplify-components-tabs-item-border-width)
-      var(--amplify-components-tabs-item-border-style)
-      var(--amplify-components-tabs-item-color-active);
+    color: var(--amplify-components-tabs-item-active-color);
+    border-color: var(--amplify-components-tabs-item-active-border-color);
+    background-color: var(--amplify-components-tabs-item-active-background-color);
     transition-property: none;
   }
 
   &:hover {
-    color: var(--amplify-components-tabs-item-color-active);
+    color: var(--amplify-components-tabs-item-hover-color);
     cursor: pointer;
   }
 
   &:focus {
-    background-color: var(
-      --amplify-components-tabs-item-focus-background-color
-    );
+    color: var(--amplify-components-tabs-item-focus-color);
   }
 
   &:focus-visible {
@@ -41,17 +47,14 @@
   }
 
   &:active {
-    background-color: var(
-      --amplify-components-tabs-item-active-background-color
-    );
-    color: var(--amplify-components-tabs-item-color-active);
+    color: var(--amplify-components-tabs-item-active-color);
   }
 
   &[data-disabled] {
     background-color: var(
       --amplify-components-tabs-item-disabled-background-color
     );
-    border-color: var(--amplify-components-tabs-item-disabled-border-color);
+    // border-color: var(--amplify-components-tabs-item-disabled-border-color);
     color: var(--amplify-components-tabs-item-disabled-color);
     cursor: not-allowed;
   }

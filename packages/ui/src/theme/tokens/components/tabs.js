@@ -1,17 +1,16 @@
 module.exports = {
-  backgroundColor: { value: '{colors.neutral.10.value}' },
-  boxShadow: { value: 'inset 0 -2px {colors.neutral.60.value}' },
+  backgroundColor: { value: 'transparent' },
+  borderColor: { value: '{colors.border.secondary.value}' },
+  borderStyle: { value: 'solid' },
+  borderWidth: { value: '{borderWidths.medium.value}' },
   marginBottom: { value: '{space.medium.value}' },
 
   item: {
-    backgroundColor: { value: '{colors.transparent.value}' },
-    borderColor: { value: '{colors.black.value}' },
+    backgroundColor: { value: 'transparent' },
+    borderColor: { value: '{colors.border.secondary.value}' },
     borderStyle: { value: 'solid' },
     borderWidth: { value: '{borderWidths.medium.value}' },
-    color: {
-      primary: { value: '{colors.neutral.80.value}' },
-      active: { value: '{colors.brand.primary.80.value}' },
-    },
+    color: { value: '{colors.font.secondary.value}' },
     fontSize: { value: '{fontSizes.medium.value}' },
     fontWeight: { value: '{fontWeights.bold.value}' },
     padding: { value: ['{space.small.value}', '{space.medium.value}'] },
@@ -19,17 +18,19 @@ module.exports = {
     transitionDuration: { value: '{time.transition.medium.value}' },
 
     _hover: {
-      color: { value: '{colors.brand.primary.90.value}' },
+      color: { value: '{colors.font.hover.value}' },
     },
     _focus: {
-      backgroundColor: { value: '{colors.neutral.20.value}' },
+      color: { value: '{colors.font.focus.value}' },
     },
     _active: {
-      backgroundColor: { value: '{colors.neutral.40.value}' },
+      color: { value: '{colors.font.interactive.value}' },
+      borderColor: { value: '{colors.font.interactive.value}' },
+      backgroundColor: { value: 'transparent' },
     },
     _disabled: {
-      color: { value: '{colors.font.tertiary.value}' },
-      backgroundColor: { value: '{colors.transparent.value}' },
+      color: { value: '{colors.font.disabled.value}' },
+      backgroundColor: { value: 'transparent' },
       borderColor: { value: '{colors.border.tertiary.value}' },
     },
   },

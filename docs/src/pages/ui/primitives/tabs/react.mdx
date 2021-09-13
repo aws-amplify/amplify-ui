@@ -130,7 +130,13 @@ In the `TabItem` component, use the **required** `title` prop to change the titl
 ```jsx
 <Tabs>
   <TabItem title="This is the first title">Content of the first tab</TabItem>
-  <TabItem title={<Text color="red">Custom Red Title</Text>}>
+  <TabItem
+    title={
+      <Text color="red" as="span">
+        Custom Red Title
+      </Text>
+    }
+  >
     Content of the second tab
   </TabItem>
 </Tabs>
@@ -139,7 +145,13 @@ In the `TabItem` component, use the **required** `title` prop to change the titl
 <Example>
   <Tabs>
     <TabItem title="This is the first title">Content of the first tab</TabItem>
-    <TabItem title={<Text color="red">Custom Red Title</Text>}>
+    <TabItem
+      title={
+        <Text color="red" as="span">
+          Custom Red Title
+        </Text>
+      }
+    >
       Content of the second tab
     </TabItem>
   </Tabs>
