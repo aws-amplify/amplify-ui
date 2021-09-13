@@ -61,6 +61,7 @@ export const Radio: React.FC<RadioProps> = ({
         type="radio"
         name={name}
         value={value}
+        {...rest}
       />
       <Flex
         alignItems="center"
@@ -70,7 +71,6 @@ export const Radio: React.FC<RadioProps> = ({
         data-size={size}
         justifyContent="center"
         testId={testId}
-        {...rest}
       />
       {children && (
         <Text
