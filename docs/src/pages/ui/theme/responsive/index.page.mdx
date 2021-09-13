@@ -1,0 +1,25 @@
+---
+title: Responsive Design
+---
+
+import { Fragment } from '@/components/Fragment';
+
+Responsive styling is supported out of the box using our default breakpoints. Our responsive support uses a mobile first approach, so `@media(min-width)` rules
+are used for all breakpoints.
+
+### Breakpoints
+
+```js
+{
+  base: 0,
+  small: 30em,      // 480px (16px base)
+  medium: 48em,     // 768px
+  large: 62em,      // 992px
+  xl: 80em,         // 1280px
+  xxl: 96em,        // 1536px
+}
+```
+
+[Code](https://github.com/aws-amplify/amplify-ui/blob/main/packages/ui/src/theme/tokens/breakpoints.js)
+
+<Fragment>{({ platform }) => import(`./${platform}.mdx`)}</Fragment>
