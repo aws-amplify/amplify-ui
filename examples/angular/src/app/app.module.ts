@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 // TODO: Rename UiAngularModule to AmplifyUiAngularModule
 import { UiAngularModule } from '@aws-amplify/ui-angular';
+import { AuthWithMultiAliasComponent } from 'src/pages/ui/components/authenticator/auth-with-multi-alias/auth-with-multi-alias.component';
 import { SignInFederatedComponent } from 'src/pages/ui/components/authenticator/sign-in-federated/sign-in-federated.component';
 import { SignInSMSMFAComponent } from 'src/pages/ui/components/authenticator/sign-in-sms-mfa/sign-in-sms-mfa.component';
 import { SignInTOTPMFAComponent } from 'src/pages/ui/components/authenticator/sign-in-totp-mfa/sign-in-totp-mfa.component';
@@ -20,6 +21,7 @@ import { SignInTOTPSMSComponent } from 'src/pages/ui/components/authenticator/si
 @NgModule({
   declarations: [
     AppComponent,
+    AuthWithMultiAliasComponent,
     SignInWithEmailComponent,
     SignInFederatedComponent,
     SignInSMSMFAComponent,

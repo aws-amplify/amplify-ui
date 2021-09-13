@@ -7,20 +7,17 @@ Feature: Sign In with Force New Password flow
   Background:
     Given I'm running the example "ui/components/authenticator/sign-in-with-phone"
 
-  @react @vue @skip
   Scenario: Sign in using a valid phone number and password and user is in a FORCE_CHANGE_PASSWORD state
-		And I type in the phone number "FORCE_CHANGE_PHONE_NUMBER"
-		And I type in the password "VALID_PASSWORD"
-		And I click the "Sign In" button
+    When I type my "phone number" with status "FORCE_CHANGE_PASSWORD"
+    And I type my password
+    And I click the "Sign in" button
 		Then I should see the Force Change Password screen
 
-  @react @vue @skip
   Scenario: User is in a FORCE_CHANGE_PASSWORD state and then enters an invalid new password
-		And I type in the phone number "FORCE_CHANGE_PHONE_NUMBER"
-		And I type in the password "VALID_PASSWORD"
-		And I click the "Sign In" button
-		Then I should see the Force Change Password screen
-    And I type in the password "INVALID_NEW_PASSWORD"
-    And I confirm the password "INVALID_NEW_PASSWORD"
+    When I type my "phone number" with status "FORCE_CHANGE_PASSWORD"
+    And I type my password
+    And I click the "Sign in" button
+    And I type an invalid password
+    And I confirm the invalid password
     And I click the "Change password" button
     Then I should see error text
