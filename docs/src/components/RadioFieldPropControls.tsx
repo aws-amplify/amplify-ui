@@ -4,17 +4,11 @@ import { FieldLabeler } from './FieldLabeler';
 import { DemoBox } from './DemoBox';
 
 export interface RadioFieldPropControlsProps extends RadioFieldProps {
-  setDefaultValue: (
-    value: React.SetStateAction<RadioFieldProps['defaultValue']>
-  ) => void;
   setDirection: (
     value: React.SetStateAction<RadioFieldProps['direction']>
   ) => void;
   setIsDisabled: (
     value: React.SetStateAction<RadioFieldProps['isDisabled']>
-  ) => void;
-  setIsReadOnly: (
-    value: React.SetStateAction<RadioFieldProps['isReadOnly']>
   ) => void;
   setLabel: (value: React.SetStateAction<RadioFieldProps['label']>) => void;
   setName: (value: React.SetStateAction<RadioFieldProps['name']>) => void;
@@ -26,19 +20,12 @@ interface RadioFieldPropControlsInterface {
 }
 
 export const RadioFieldPropControls: RadioFieldPropControlsInterface = ({
-  defaultValue,
-  setDefaultValue,
-  direction,
   setDirection,
-  isDisabled,
   setIsDisabled,
-  isReadOnly,
-  setIsReadOnly,
   label,
   setLabel,
   name,
   setName,
-  size,
   setSize,
 }) => {
   return (
@@ -47,6 +34,7 @@ export const RadioFieldPropControls: RadioFieldPropControlsInterface = ({
         <Input
           type="text"
           name="label"
+          value={label}
           onChange={(event) => {
             setLabel(event.target.value as RadioFieldProps['label']);
           }}
@@ -56,19 +44,9 @@ export const RadioFieldPropControls: RadioFieldPropControlsInterface = ({
         <Input
           type="text"
           name="name"
+          value={name}
           onChange={(event) => {
             setName(event.target.value as RadioFieldProps['name']);
-          }}
-        />
-      </FieldLabeler>
-      <FieldLabeler id="defaultValue">
-        <Input
-          type="text"
-          name="defaultValue"
-          onChange={(event) => {
-            setDefaultValue(
-              event.target.value as RadioFieldProps['defaultValue']
-            );
           }}
         />
       </FieldLabeler>
@@ -79,17 +57,6 @@ export const RadioFieldPropControls: RadioFieldPropControlsInterface = ({
           onChange={(event) => {
             setIsDisabled(
               Boolean(event.target.checked) as RadioFieldProps['isDisabled']
-            );
-          }}
-        />
-      </FieldLabeler>
-      <FieldLabeler id="isReadOnly">
-        <Input
-          type="checkbox"
-          name="isReadOnly"
-          onChange={(event) => {
-            setIsReadOnly(
-              Boolean(event.target.checked) as RadioFieldProps['isReadOnly']
             );
           }}
         />

@@ -1,0 +1,4 @@
+.custom-radio .amplify-radio__input:checked + .amplify-radio__button {
+  border-color: crimson;
+  background-color: crimson;
+}

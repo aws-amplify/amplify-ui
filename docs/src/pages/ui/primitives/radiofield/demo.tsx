@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { Radio, RadioField, View } from '@aws-amplify/ui-react';
 
 import { RadioFieldPropControls } from '@/components/RadioFieldPropControls';
@@ -18,5 +20,22 @@ export const Demo = () => {
         <Radio value="javascript">javascript</Radio>
       </RadioField>
     </View>
+  );
+};
+
+export const ControlledRadioField = () => {
+  const [value, setValue] = useState('html');
+  return (
+    <RadioField
+      label="Language"
+      name="example-2"
+      value={value}
+      onChange={(e) => setValue(e.target.value)}
+      labelHidden
+    >
+      <Radio value="html">html</Radio>
+      <Radio value="css">css</Radio>
+      <Radio value="javascript">javascript</Radio>
+    </RadioField>
   );
 };

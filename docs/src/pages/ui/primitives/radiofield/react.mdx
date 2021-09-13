@@ -1,10 +1,401 @@
-import { Radio, RadioField } from '@aws-amplify/ui-react';
+import { Flex, Radio, RadioField } from '@aws-amplify/ui-react';
 
-import { Demo } from './demo';
+import { ControlledRadioField, Demo } from './demo';
 import { Example } from '@/components/Example';
 
 A RadioGroup allows users to select a single option from a list of mutually exclusive options.
 
 <Example>
   <Demo />
+</Example>
+
+## Usage
+
+Import the RadioField primitive and styles.
+
+```jsx
+import { RadioField } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<RadioField label="Language" name="language" defaultValue="html">
+  <Radio value="html">html</Radio>
+  <Radio value="css">css</Radio>
+  <Radio value="javascript">javascript</Radio>
+</RadioField>;
+```
+
+<Example>
+  <RadioField label="Language" name="example-1" defaultValue="html" labelHidden>
+    <Radio value="html">html</Radio>
+    <Radio value="css">css</Radio>
+    <Radio value="javascript">javascript</Radio>
+  </RadioField>
+</Example>
+
+### Controlled component
+
+```jsx
+import { useState } from 'react';
+import { RadioField } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+const [value, setValue] = useState('html');
+
+<RadioField
+  label="Language"
+  name="language"
+  value={value}
+  onChange={(e) => setValue(e.target.value)}
+>
+  <Radio value="html">html</Radio>
+  <Radio value="css">css</Radio>
+  <Radio value="javascript">javascript</Radio>
+</RadioField>;
+```
+
+<Example>
+  <ControlledRadioField />
+</Example>
+
+### Accessibility / Label behavior
+
+The RadioField primitive is accessible by default. A matching `label` HTML element is rendered with the `RadioField` by default,
+all that is required is to provide a `label` prop with a `string` or `ReactNode`. If no `id` is provided, one will be automatically
+generated and connected to both `label` and the `radio` group.
+
+#### How can I visually hide the label while maintaining accessibility?
+
+In some applications it may be desirable to hide the label when the field purpose is visually apparent such as a search field with button.
+The `labelHidden` prop can be used to visually hide the label while still keeping the label visible for screenreaders. UX Tip: refrain from doing this
+if it would hide important information needed by the user to fill out the field.
+
+```jsx
+import { RadioField } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<RadioField
+  label="Language"
+  name="language"
+  defaultValue="html"
+  labelHidden={true}
+>
+  <Radio value="html">html</Radio>
+  <Radio value="css">css</Radio>
+  <Radio value="javascript">javascript</Radio>
+</RadioField>;
+```
+
+<Example>
+  <RadioField label="Language" name="example-3" defaultValue="html" labelHidden>
+    <Radio value="html">html</Radio>
+    <Radio value="css">css</Radio>
+    <Radio value="javascript">javascript</Radio>
+  </RadioField>
+</Example>
+
+### Sizes
+
+Use the `size` prop to change the RadioField size. Available options are `small`, `large`, and none (default).
+
+```jsx
+import { RadioField } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<RadioField label="Language" name="html" defaultValue="html" size="small">
+  <Radio value="html">html</Radio>
+</RadioField>;
+
+<RadioField label="Language" name="css" defaultValue="css">
+  <Radio value="css">css</Radio>
+</RadioField>;
+
+<RadioField
+  label="Language"
+  name="javascript"
+  defaultValue="javascript"
+  size="large"
+>
+  <Radio value="javascript">javascript</Radio>
+</RadioField>;
+```
+
+<Example>
+  <Flex>
+    <RadioField
+      label="Language"
+      name="example-4"
+      defaultValue="html"
+      size="small"
+      labelHidden
+    >
+      <Radio value="html">html</Radio>
+    </RadioField>
+    <RadioField
+      label="Language"
+      name="example-5"
+      defaultValue="css"
+      labelHidden
+    >
+      <Radio value="css">css</Radio>
+    </RadioField>
+    <RadioField
+      label="Language"
+      name="example-6"
+      defaultValue="javascript"
+      size="large"
+      labelHidden
+    >
+      <Radio value="javascript">javascript</Radio>
+    </RadioField>
+  </Flex>
+</Example>
+
+### direction
+
+Use the `direction` prop to change the RadioField size. Available options are `row`, and `column` (default).
+
+```jsx
+import { RadioField } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<RadioField label="Language" name="direction-column" defaultValue="html">
+  <Radio value="html">html</Radio>
+  <Radio value="css">css</Radio>
+  <Radio value="javascript">javascript</Radio>
+</RadioField>;
+
+<RadioField
+  label="Language"
+  name="direction-row"
+  defaultValue="html"
+  direction="row"
+>
+  <Radio value="html">html</Radio>
+  <Radio value="css">css</Radio>
+  <Radio value="javascript">javascript</Radio>
+</RadioField>;
+```
+
+<Example>
+  <Flex gap="10rem">
+    <RadioField
+      label="Language"
+      name="example-7"
+      defaultValue="html"
+      labelHidden
+    >
+      <Radio value="html">html</Radio>
+      <Radio value="css">css</Radio>
+      <Radio value="javascript">javascript</Radio>
+    </RadioField>
+    <RadioField
+      label="Language"
+      name="example-8"
+      defaultValue="html"
+      direction="row"
+      labelHidden
+    >
+      <Radio value="html">html</Radio>
+      <Radio value="css">css</Radio>
+      <Radio value="javascript">javascript</Radio>
+    </RadioField>
+  </Flex>
+</Example>
+
+### State
+
+The available RadioField states include `isDisabled` and `isReadonly`. A disabled field will be not be focusable not mutable and will not be submitted with form data. A readonly field cannot be edited by the user.
+
+#### Disabled radios and radio group
+
+```jsx
+import { RadioField } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+// disabled a single radio
+<RadioField label="Language" name="disabled-single" defaultValue="html">
+  <Radio value="html">html</Radio>
+  <Radio value="css" isDisabled={true}>
+    css
+  </Radio>
+  <Radio value="javascript">javascript</Radio>
+</RadioField>;
+
+// disabled the whole group
+<RadioField
+  label="Language"
+  name="disabled-group"
+  defaultValue="html"
+  isDisabled={true}
+>
+  <Radio value="html">html</Radio>
+  <Radio value="css">css</Radio>
+  <Radio value="javascript">javascript</Radio>
+</RadioField>;
+```
+
+<Example>
+  <Flex gap="10rem">
+    <RadioField
+      label="Language"
+      name="example-9"
+      defaultValue="html"
+      labelHidden
+    >
+      <Radio value="html">html</Radio>
+      <Radio value="css" isDisabled>
+        {`css`}
+      </Radio>
+      <Radio value="javascript">javascript</Radio>
+    </RadioField>
+    <RadioField
+      label="Language"
+      name="example-10"
+      defaultValue="html"
+      isDisabled
+      labelHidden
+    >
+      <Radio value="html">html</Radio>
+      <Radio value="css">css</Radio>
+      <Radio value="javascript">javascript</Radio>
+    </RadioField>
+  </Flex>
+</Example>
+
+#### Read-only radio group
+
+```jsx
+import { RadioField } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+// Provide a defaultValue and set isReadOnly to true
+<RadioField
+  label="Language"
+  name="language"
+  defaultValue="html"
+  isReadonly={true}
+>
+  <Radio value="html">html</Radio>
+  <Radio value="css">css</Radio>
+  <Radio value="javascript">javascript</Radio>
+</RadioField>;
+```
+
+<Example>
+  <RadioField
+    label="Language"
+    name="example-11"
+    defaultValue="html"
+    isReadonly
+    labelHidden
+  >
+    <Radio value="html">html</Radio>
+    <Radio value="css">css</Radio>
+    <Radio value="javascript">javascript</Radio>
+  </RadioField>
+</Example>
+
+## CSS Styling
+
+### Global styling
+
+To override styling on all Radio buttons, you can set the Amplify CSS variables or use the built-in `.amplify-radio__button` class.
+
+```css
+/* styles.css */
+:root {
+  --amplify-components-radio-button-border-color: yellow;
+  --amplify-components-radio-button-background-color: yellow;
+}
+/* OR */
+.amplify-radio__button {
+  border-color: yellow;
+  background-color: yellow;
+}
+```
+
+To replace Radio button styling, unset it:
+
+```css
+.amplify-radio__button {
+  all: unset;
+  /* Add your styling here*/
+}
+```
+
+### Local styling
+
+To override styling on a specific Radio, you can use (in order of increasing specificity): a class selector, data attributes, or style props.
+
+_Using a class selector:_
+
+```css
+/* styles.css */
+.custom-radio .amplify-radio__input:checked + .amplify-radio__button {
+  border-color: crimson;
+  background-color: crimson;
+}
+```
+
+```jsx
+import { RadioField } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<RadioField label="Language" name="language" defaultValue="html">
+  <Radio value="html" className="custom-radio">
+    html
+  </Radio>
+</RadioField>;
+```
+
+<Example>
+  <RadioField
+    label="Language"
+    name="example-12"
+    defaultValue="html"
+    labelHidden
+  >
+    <Radio value="html" className="custom-radio">
+      {`html`}
+    </Radio>
+  </RadioField>
+</Example>
+
+_Using data attributes:_
+
+```css
+/* styles.css */
+
+/* Override only large size styles */
+.amplify-radiofield[data-size='large'] {
+  font-size: 2rem;
+}
+```
+
+_Using style props:_
+
+```jsx
+import { RadioField } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<RadioField
+  label="Language"
+  name="language"
+  defaultValue="html"
+  fontSize="1.25rem"
+>
+  <Radio value="html">html</Radio>
+</RadioField>;
+```
+
+<Example>
+  <RadioField
+    label="Language"
+    name="example-13"
+    defaultValue="html"
+    fontSize="1.25rem"
+    labelHidden
+  >
+    <Radio value="html">{`html`}</Radio>
+  </RadioField>
 </Example>
