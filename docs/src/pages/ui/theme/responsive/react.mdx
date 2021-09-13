@@ -1,4 +1,4 @@
-import { View, Flex } from '@aws-amplify/ui-react';
+import { View, Flex, Text } from '@aws-amplify/ui-react';
 import { Example } from '@/components/Example';
 
 ## Example
@@ -100,10 +100,10 @@ When using the array syntax, specify each breakpoint styling in order from `base
 ```jsx
 <Flex direction="column" gap="2rem" padding="1rem">
   <View fontSize={['1rem', '2rem', '3rem', '4rem', '5rem']}>
-    <Text style="lin>🐈</Text>
+    <Text>🐈</Text>
   </View>
   <View fontSize={['1rem', '2rem', '3rem']}>
-    <p>🐕</p>
+    <Text>🐕</Text>
   </View>
 </Flex>
 ```
@@ -111,10 +111,10 @@ When using the array syntax, specify each breakpoint styling in order from `base
 <Example>
   <Flex direction="column" gap="2rem" padding="1rem">
     <View fontSize={['1rem', '2rem', '3rem', '4rem', '5rem', '6rem']}>
-      <p> 🐈 </p>
+      <Text>🐈</Text>
     </View>
     <View fontSize={['1rem', '2rem', '3rem']}>
-      <p> 🐕 </p>
+      <Text>🐕</Text>
     </View>
   </Flex>
 </Example>

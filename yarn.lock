@@ -423,12 +423,6 @@
   resolved "https://registry.yarnpkg.com/@aws-amplify/ui/-/ui-2.0.3.tgz#7a88a416942aedbc6a6ea9850a2c98693c80340a"
   integrity sha512-LxbmPGD/S4bWzUh2PXMPSt/rXeUVJTsCbMpwH18XilTkXgOSmKH/eyVZNXUBY8C/xwqjzMTC68EtTlsM1DCq1A==
 
-"@aws-amplify/ui@3.0.1-next.0":
-  version "3.0.1-next.1"
-  dependencies:
-    lodash "^4.17.21"
-    xstate "^4.20.1"
-
 "@aws-amplify/xr@3.0.12":
   version "3.0.12"
   resolved "https://registry.yarnpkg.com/@aws-amplify/xr/-/xr-3.0.12.tgz#40796fe8bc5bcaef230536e8313ad33c9186be26"
