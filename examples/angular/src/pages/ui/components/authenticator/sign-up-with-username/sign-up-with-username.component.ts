@@ -4,10 +4,10 @@ import { Amplify } from 'aws-amplify';
 import awsExports from '@environments/auth-with-username-no-attributes/src/aws-exports';
 
 @Component({
-  selector: 'sign-up',
-  templateUrl: 'sign-up.component.html',
+  selector: 'sign-up-with-username',
+  templateUrl: 'sign-up-with-username.component.html',
 })
-export class SignUpComponent implements OnInit {
+export class SignUpWithUsernameComponent implements OnInit {
   constructor() {
     Amplify.configure(awsExports);
   }
