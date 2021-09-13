@@ -7,8 +7,8 @@ Feature: Sign In with Federation
   Background:
     Given I'm running the example "ui/components/authenticator/sign-in-federated"
 
-  @react @vue @angular
+  @angular @next @vue
   Scenario: Sign in using OAUTH
-		And I see the "Google" sign in button
-		And I see the "Facebook" sign in button
-		And I see the "Amazon" sign in button
+    And I see the "Google" sign in button
+    And I see the "Facebook" sign in button
+    And I see the "Amazon" sign in button

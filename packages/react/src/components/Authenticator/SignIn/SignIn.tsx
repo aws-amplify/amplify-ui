@@ -3,7 +3,7 @@ import { getActorState, SignInState } from '@aws-amplify/ui';
 
 import { useAmplify, useAuth } from '../../../hooks';
 import { FederatedSignIn } from '../FederatedSignIn';
-import { ErrorText, UserNameAlias } from '../shared';
+import { RemoteErrorMessage, UserNameAlias } from '../shared';
 
 export function SignIn() {
   const amplifyNamespace = 'Authenticator.SignIn';
@@ -63,9 +63,12 @@ export function SignIn() {
             required
             name="password"
             label={I18n.get('Password')}
+            autoComplete="current-password"
             labelHidden={true}
           />
         </FieldGroup>
+
+        <RemoteErrorMessage amplifyNamespace={amplifyNamespace} />
 
         <Button
           borderRadius={0}
@@ -102,8 +105,6 @@ export function SignIn() {
           </Button>
         </Footer>
       </Flex>
-
-      <ErrorText amplifyNamespace={amplifyNamespace} />
 
       <Divider size="small" />
 
