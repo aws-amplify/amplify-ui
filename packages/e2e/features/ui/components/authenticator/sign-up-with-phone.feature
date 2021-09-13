@@ -12,6 +12,7 @@ Feature: Sign Up with Phone
     And I don't see "Username" as an input field
     And I don't see "Email" as an input field
 
+  # Sign up tests skipped due to SES limits
   Scenario: Sign up with valid phone number & password
     When I select the country code "+1"
     And I type my "phone number" with status "UNCONFIRMED"
