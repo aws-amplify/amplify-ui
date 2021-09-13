@@ -16,10 +16,9 @@
         type="password"
         autocomplete="current-password"
       ></amplify-form-input>
-      <div>
+      <button type="button" (click)="toResetPassword()">
         Forgot your password?
-        <button (click)="toResetPassword()">Reset password</button>
-      </div>
+      </button>
       <div data-amplify-footer>
         <div>
           No account?{{ ' ' }}
@@ -27,7 +26,7 @@
         </div>
         <ng-container
           [ngTemplateOutlet]="customComponents.signInButton || signInButton"
-          [ngTemplateOutletContext]="context()"
+          [ngTemplateOutletContext]="context"
         >
         </ng-container>
       </div>
@@ -47,7 +46,7 @@
   <h2 data-amplify-header>{{ this.headerText }}</h2>
   <ng-container
     [ngTemplateOutlet]="customComponents.signInForm || signInForm"
-    [ngTemplateOutletContext]="context()"
+    [ngTemplateOutletContext]="context"
   >
   </ng-container>
 </div>

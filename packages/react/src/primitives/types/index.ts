@@ -17,6 +17,7 @@ export * from './placeholder';
 export * from './rating';
 export * from './selectField';
 export * from './style';
+export * from './switchField';
 export * from './tabs';
 export * from './textField';
 export * from './view';

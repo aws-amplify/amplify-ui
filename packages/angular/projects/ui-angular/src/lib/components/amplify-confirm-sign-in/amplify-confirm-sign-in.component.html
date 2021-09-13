@@ -20,7 +20,7 @@
           [ngTemplateOutlet]="
             customComponents.confirmSignInButton || confirmSignInButton
           "
-          [ngTemplateOutletContext]="context()"
+          [ngTemplateOutletContext]="context"
         >
         </ng-container>
       </div>
@@ -40,7 +40,7 @@
   <h2 data-amplify-header>{{ this.headerText }}</h2>
   <ng-container
     [ngTemplateOutlet]="customComponents.signInForm || confirmSignInForm"
-    [ngTemplateOutletContext]="context()"
+    [ngTemplateOutletContext]="context"
   >
   </ng-container>
 </div>

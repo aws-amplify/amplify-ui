@@ -19,7 +19,7 @@ export const SetupTOTP = (): JSX.Element => {
 
   const amplifyNamespace = 'Authenticator.ConfirmSignIn';
   const {
-    components: { Fieldset, Form, Heading, Image, Label },
+    components: { FieldGroup, Flex, Form, Heading, Image },
   } = useAmplify(amplifyNamespace);
 
   const [_state, send] = useAuth();
@@ -72,10 +72,10 @@ export const SetupTOTP = (): JSX.Element => {
         });
       }}
     >
-      <Heading level={1}>Setup TOTP</Heading>
+      <Flex direction="column">
+        <Heading level={3}>Setup TOTP</Heading>
 
-      <Fieldset disabled={isPending}>
-        <Label data-amplify-confirmationcode>
+        <FieldGroup direction="column" disabled={isPending}>
           {/* TODO: Add spinner here instead of loading text... */}
           {isLoading ? (
             <p>{I18n.get('Loading')}&hellip;</p>
@@ -83,10 +83,10 @@ export const SetupTOTP = (): JSX.Element => {
             <Image data-amplify-qrcode src={qrCode} alt="qr code"></Image>
           )}
           <ConfirmationCodeInput amplifyNamespace={amplifyNamespace} />
-        </Label>
-      </Fieldset>
+        </FieldGroup>
 
-      <ConfirmSignInFooter {...footerProps} />
+        <ConfirmSignInFooter {...footerProps} />
+      </Flex>
     </Form>
   );
 };

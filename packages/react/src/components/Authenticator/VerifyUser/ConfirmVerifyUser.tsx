@@ -4,7 +4,7 @@ import { I18n } from 'aws-amplify';
 import { useAmplify, useAuth } from '../../../hooks';
 import {
   ConfirmationCodeInput,
-  ErrorText,
+  RemoteErrorMessage,
   TwoButtonSubmitFooter,
 } from '../shared';
 
@@ -44,7 +44,7 @@ export const ConfirmVerifyUser = (): JSX.Element => {
         <ConfirmationCodeInput amplifyNamespace={amplifyNamespace} />
       </Fieldset>
 
-      <ErrorText amplifyNamespace={amplifyNamespace} />
+      <RemoteErrorMessage amplifyNamespace={amplifyNamespace} />
 
       <TwoButtonSubmitFooter
         amplifyNamespace={amplifyNamespace}

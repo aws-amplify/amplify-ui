@@ -18,7 +18,6 @@
   <amplify-form-input
     name="confirm_password"
     label="Confirm Password"
-    placeholder="Re-enter your password."
     [required]="true"
     type="password"
     autocomplete="new-password"
@@ -29,19 +28,19 @@
   <fieldset data-amplify-fieldset [disabled]="isPending">
     <ng-container
       [ngTemplateOutlet]="customComponents.signUpUsername || signUpUsername"
-      [ngTemplateOutletContext]="context()"
+      [ngTemplateOutletContext]="context"
     ></ng-container>
 
     <ng-container
       [ngTemplateOutlet]="customComponents.signUpPassword || signUpPassword"
-      [ngTemplateOutletContext]="context()"
+      [ngTemplateOutletContext]="context"
     ></ng-container>
 
     <ng-container
       [ngTemplateOutlet]="
         customComponents.signUpConfirmPassword || signUpConfirmPassword
       "
-      [ngTemplateOutletContext]="context()"
+      [ngTemplateOutletContext]="context"
     ></ng-container>
 
     <ng-container *ngFor="let secondaryAlias of secondaryAliases">
@@ -64,7 +63,7 @@
   >
     <ng-container
       [ngTemplateOutlet]="customComponents.signUpFieldset || signUpFieldset"
-      [ngTemplateOutletContext]="context()"
+      [ngTemplateOutletContext]="context"
     ></ng-container>
 
     <div data-amplify-footer>
@@ -74,7 +73,7 @@
       </div>
       <ng-container
         [ngTemplateOutlet]="customComponents.signUpButton || signUpButton"
-        [ngTemplateOutletContext]="context()"
+        [ngTemplateOutletContext]="context"
       >
       </ng-container>
     </div>

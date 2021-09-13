@@ -20,24 +20,32 @@ export const ConfirmSignInFooter = (
   } = props;
 
   const {
-    components: { Button, Footer, Spacer },
+    components: { Button, Flex },
   } = useAmplify(amplifyNamespace);
 
   return (
-    <Footer>
+    <Flex direction="column">
+      <Button
+        isDisabled={isPending}
+        type="submit"
+        variation="primary"
+        fontWeight="normal"
+        isLoading={isPending}
+        loadingText={I18n.get('Confirming')}
+      >
+        {I18n.get('Confirm')}
+      </Button>
       {!shouldHideReturnBtn && (
-        <Button onClick={() => send({ type: 'SIGN_IN' })} type="button">
+        <Button
+          onClick={() => send({ type: 'SIGN_IN' })}
+          type="button"
+          variation="link"
+          fontWeight="normal"
+          size="small"
+        >
           {I18n.get('Back to Sign In')}
         </Button>
       )}
-      <Spacer />
-      <Button isDisabled={isPending} type="submit">
-        {isPending ? (
-          <>{I18n.get('Confirming')}&hellip;</>
-        ) : (
-          <>{I18n.get('Confirm')}</>
-        )}
-      </Button>
-    </Footer>
+    </Flex>
   );
 };

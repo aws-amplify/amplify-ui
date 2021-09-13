@@ -10,3 +10,16 @@
 [data-amplify-lostcode] {
   @apply flex flex-col items-start;
 }
+
+[data-amplify-select] {
+  @apply block w-full  rounded shadow-sm;
+  border-width: 1px;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  width: 97%;
+}
+
+[data-amplify-alias-label] {
+  @apply flex flex-col;
+}

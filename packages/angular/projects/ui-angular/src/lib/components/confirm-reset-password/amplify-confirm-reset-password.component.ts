@@ -25,7 +25,6 @@ export class ConfirmResetPasswordComponent
   public customComponents: Record<string, TemplateRef<any>> = {};
   public remoteError = '';
   public isPending = false;
-  public context = () => ({});
   private authSubscription: Subscription;
 
   constructor(
@@ -51,6 +50,12 @@ export class ConfirmResetPasswordComponent
     const actorState: SignInState = getActorState(state);
     this.remoteError = actorState.context.remoteError;
     this.isPending = !actorState.matches('confirmResetPassword.edit');
+  }
+
+  public get context() {
+    const { change, resend, signIn, submit } = this.stateMachine.services;
+    const remoteError = this.remoteError;
+    return { change, resend, remoteError, signIn, submit };
   }
 
   toSignIn(): void {
