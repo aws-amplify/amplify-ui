@@ -6,7 +6,8 @@
   "module": "dist/index.js",
   "exports": {
     ".": "./dist/index.js",
-    "./styles.css": "./dist/style.css"
+    "./styles.css": "./dist/style.css",
+    "./dist/style.css": "./dist/style.css"
   },
   "types": "dist/index.d.ts",
   "files": [
