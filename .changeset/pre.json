@@ -14,5 +14,8 @@
     "@aws-amplify/ui-react": "2.0.0",
     "@aws-amplify/ui-vue": "2.0.0"
   },
-  "changesets": ["gentle-shirts-press"]
+  "changesets": [
+    "bump-versions-2021-09-13+09:09",
+    "gentle-shirts-press"
+  ]
 }
