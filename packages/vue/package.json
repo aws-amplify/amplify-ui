@@ -9,6 +9,9 @@
     "./styles.css": "./dist/style.css",
     "./dist/style.css": "./dist/style.css"
   },
+  "browser": {
+    "./styles.css": "./dist/style.css"
+  },
   "types": "dist/index.d.ts",
   "files": [
     "dist"
