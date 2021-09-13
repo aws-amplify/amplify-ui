@@ -98,23 +98,27 @@ Or you can use it to specify styling for each breakpoint individually
 When using the array syntax, specify each breakpoint styling in order from `base` up to `xxl`. If only a few styles are specified, all the breakpoints above will have the same style.
 
 ```jsx
-<Flex direction="column" gap="2rem" padding="1rem">
-  <View fontSize={['1rem', '2rem', '3rem', '4rem', '5rem']}>
-    <Text>🐈</Text>
-  </View>
-  <View fontSize={['1rem', '2rem', '3rem']}>
-    <Text>🐕</Text>
-  </View>
-</Flex>
+  <Text
+    as="span"
+    fontSize={['1rem', '2rem', '3rem', '4rem', '5rem', '6rem']}
+    lineHeight="normal"
+  >
+    {' 🐈 '}
+  </Text>
+  <Text as="span" fontSize={['1rem', '2rem', '3rem']} lineHeight="normal">
+    {' 🐕 '}
+  </Text>
 ```
 
 <Example>
-  <Flex direction="column" gap="2rem" padding="1rem">
-    <View fontSize={['1rem', '2rem', '3rem', '4rem', '5rem', '6rem']}>
-      <Text>🐈</Text>
-    </View>
-    <View fontSize={['1rem', '2rem', '3rem']}>
-      <Text>🐕</Text>
-    </View>
-  </Flex>
+  <Text
+    as="span"
+    fontSize={['1rem', '2rem', '3rem', '4rem', '5rem', '6rem']}
+    lineHeight="normal"
+  >
+    {' 🐈 '}
+  </Text>
+  <Text as="span" fontSize={['1rem', '2rem', '3rem']} lineHeight="normal">
+    {' 🐕 '}
+  </Text>
 </Example>
