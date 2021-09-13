@@ -8,12 +8,11 @@ Feature: Verify User
     Given I'm running the example "ui/components/authenticator/sign-in-federated"
 
   # Veriy tests skipped due to SES limits
-  @angular @next @react @vue @skip
   Scenario: Verify User with valid but unverified email
-    When I type a valid but unverified email "UNVERIFIED_EMAIL"
-    And I type a valid password "VALID_PASSWORD"
+    When I type my "email" with status "UNVERIFIED"
+    And I type my password
     And I click the "Sign in" button
     Then I will be redirected to the verify user page
-    And I click on the first radio button
+    When I click on the first radio button
     And I click the "Verify" button
     Then I will be redirected to the confirm verify user page

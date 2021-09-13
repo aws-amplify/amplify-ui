@@ -7,16 +7,15 @@ Feature: Sign In with SMS MFA
   Background:
     Given I'm running the example "ui/components/authenticator/sign-in-sms-mfa"
 
-  @angular @next @react @vue @skip
   Scenario: Sign in using a valid phone number and SMS MFA
-    When I type a valid phone number "VALID_PHONE_NUMBER"
-    And I type a valid password "VALID_PASSWORD"
-    And I click the "Sign In" button
+    When I type my "phone number" with status "UNCONFIRMED"
+    And I type my password
+    And I click the "Sign in" button
     Then I will be redirected to the confirm sms mfa page
     
-  @angular @next @react
+  @angular @next @vue
   Scenario: Sign in with invalid credentials
-    When I type an invalid username "INVALID_PHONE_NUMBER"
-    And I type an invalid password "INVALID_PASSWORD"
-    And I click the "Sign In" button
+    When I type my "phone number" with status "UNKNOWN"
+    And I type my password
+    And I click the "Sign in" button
     Then I see "User does not exist"

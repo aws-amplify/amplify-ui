@@ -7,31 +7,28 @@ Feature: Sign In with TOTP MFA
   Background:
     Given I'm running the example "ui/components/authenticator/sign-in-totp-mfa"
 
-  @angular @next @react @vue @skip
   Scenario: Sign in using a valid email and TOTP MFA
-    When I type a valid email "VALID_EMAIL"
-    And I type a valid password "VALID_PASSWORD"
-    And I click the "Sign In" button
+    When I type my "email" with status "UNCONFIRMED"
+    And I type my password
+    And I click the "Sign in" button
     Then I will be redirected to the confirm totp mfa page
     
-  @angular @next @react @vue @angular
-  Scenario: Sign in with invalid credentials
-    When I type an invalid email "INVALID_EMAIL"
-    And I type an invalid password "INVALID_PASSWORD"
-    And I click the "Sign In" button
+  @angular @next @vue
+  Scenario: Sign in with uknown credentials
+    When I type my "email" with status "UNKNOWN"
+    And I type my password
+    And I click the "Sign in" button
     Then I see "User does not exist"
 
-  @angular @next @react @vue @skip
   Scenario: Sign in with valid credentials that have not set up TOTP MFA
-    When I type a valid email "VALID_EMAIL_SETUP_MFA"
-    And I type a valid password "VALID_PASSWORD_SETUP_MFA"
-    And I click the "Sign In" button
+    When I type my "phone number" with status "CONFIRMED"
+    And I type my password
+    And I click the "Sign in" button
     Then I will be redirected to the setup mfa page
 
-  @skip
   Scenario: Incorrect TOTP code
-    When I type a valid pone number "VALID_PHONE_NUMBER"
-    And I type a valid password "VALID_PASSWORD"
+    When I type a my "phone number" with status "CONFIRMED"
+    And I type my password
+    And I enter an incorrect confirmation code
     And I click the "Sign In" button
-    And I enter my an incorrect confirmation code
     Then I see 'Resend Code'

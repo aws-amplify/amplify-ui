@@ -44,7 +44,7 @@
 <!-- signIn component -->
 <ng-container
   [ngTemplateOutlet]="customComponents.signIn || signIn"
-  [ngTemplateOutletContext]="context()"
+  [ngTemplateOutletContext]="context"
   *ngIf="actorState?.matches('signIn')"
 >
 </ng-container>
@@ -52,7 +52,7 @@
 <!-- signUp component -->
 <ng-container
   [ngTemplateOutlet]="customComponents.signUp || signUp"
-  [ngTemplateOutletContext]="context()"
+  [ngTemplateOutletContext]="context"
   *ngIf="actorState?.matches('signUp')"
 >
 </ng-container>
@@ -60,7 +60,7 @@
 <!-- confirmSignUp content -->
 <ng-container
   [ngTemplateOutlet]="customComponents.confirmSignUp || confirmSignUp"
-  [ngTemplateOutletContext]="context()"
+  [ngTemplateOutletContext]="context"
   *ngIf="actorState?.matches('confirmSignUp')"
 >
 </ng-container>
@@ -68,7 +68,7 @@
 <!-- confirmSignIn content -->
 <ng-container
   [ngTemplateOutlet]="customComponents.confirmSignIn || confirmSignIn"
-  [ngTemplateOutletContext]="context()"
+  [ngTemplateOutletContext]="context"
   *ngIf="actorState?.matches('confirmSignIn')"
 >
 </ng-container>
@@ -76,7 +76,7 @@
 <!-- setupTotp content -->
 <ng-container
   [ngTemplateOutlet]="customComponents.setupTOTP || setupTOTP"
-  [ngTemplateOutletContext]="context()"
+  [ngTemplateOutletContext]="context"
   *ngIf="actorState?.matches('setupTOTP')"
 >
 </ng-container>
@@ -84,7 +84,7 @@
 <!-- forceNewPassword content -->
 <ng-container
   [ngTemplateOutlet]="customComponents.forceNewPassword || forceNewPassword"
-  [ngTemplateOutletContext]="context()"
+  [ngTemplateOutletContext]="context"
   *ngIf="actorState?.matches('forceNewPassword')"
 >
 </ng-container>
@@ -92,7 +92,7 @@
 <!-- resetPassword content -->
 <ng-container
   [ngTemplateOutlet]="customComponents.resetPassword || resetPassword"
-  [ngTemplateOutletContext]="context()"
+  [ngTemplateOutletContext]="context"
   *ngIf="actorState?.matches('resetPassword')"
 >
 </ng-container>
@@ -102,7 +102,7 @@
   [ngTemplateOutlet]="
     customComponents.confirmResetPassword || confirmResetPassword
   "
-  [ngTemplateOutletContext]="context()"
+  [ngTemplateOutletContext]="context"
   *ngIf="actorState?.matches('confirmResetPassword')"
 >
 </ng-container>
@@ -126,7 +126,7 @@
 <!-- signedIn content -->
 <ng-container
   [ngTemplateOutlet]="customComponents.authenticated || authenticated"
-  [ngTemplateOutletContext]="context()"
+  [ngTemplateOutletContext]="context"
   *ngIf="authenticatorState.matches('authenticated')"
 >
 </ng-container>

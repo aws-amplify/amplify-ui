@@ -8,29 +8,30 @@ Feature: Sign In with Multiple Aliases
   email, or phone number when signing into your application.
 
   Background:
-    Given I'm at the sign in page
+    Given I'm running the example "/ui/components/authenticator/auth-with-multi-alias"
 
-  @next @react
+  @angular @next @vue
   Scenario: Multiple login mechanisms
     Then I see "Username or Email or Phone Number"
 
-  @next @react
+  @angular @next @vue
   Scenario: Sign in with confirmed username
-    When I type the valid login mechanism "CONFIRMED_USERNAME"
-    And I type the valid password "VALID_PASSWORD"
-    And I click the "Sign In" button
+    When I type my "username" with status "CONFIRMED"
+    And I type my password
+    And I click the "Sign in" button
     Then I see "Sign Out"
 
-  @next @react
+  @angular @next @vue
   Scenario: Sign in with confirmed email
-    When I type the valid login mechanism "CONFIRMED_EMAIL"
-    And I type the valid password "VALID_PASSWORD"
-    And I click the "Sign In" button
+    When I type my "email" with status "CONFIRMED"
+    And I type my password
+    And I click the "Sign in" button
     Then I see "Sign Out"
 
-  @next @react
+  @angular @next @vue
   Scenario: Sign in with confirmed phone number
-    When I type the valid login mechanism "CONFIRMED_PHONE_NUMBER"
-    And I type the valid password "VALID_PASSWORD"
-    And I click the "Sign In" button
+    When I type my "phone number" with status "CONFIRMED"
+    And I type my password
+    And I click the "Sign in" button
     Then I see "Sign Out"
+

@@ -3,7 +3,6 @@ import { ShowPasswordButtonProps } from '../types/';
 import { Button } from '../Button';
 import { ComponentClassNames } from '../shared/constants';
 import { IconVisibility, IconVisibilityOff } from '../Icon';
-import { Text } from '../Text';
 import classNames from 'classnames';
 import { SharedText } from '../shared/i18n';
 
