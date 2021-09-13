@@ -1,9 +1,9 @@
-import { Then } from 'cypress-cucumber-preprocessor/steps';
+import { Then, When } from 'cypress-cucumber-preprocessor/steps';
 
-Then('I will be redirected to the confirm totp mfa page', () => {
-  cy.get('body').contains('TOTP');
+When('I enter an invalid confirmation code', () => {
+  cy.findInputField('code *').type('000000');
 });
 
-Then('I will be redirected to the setup mfa page', () => {
+Then('I will be redirected to the setup totp page', () => {
   cy.get('[data-amplify-qrcode]').should('be.visible');
 });
