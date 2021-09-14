@@ -9,7 +9,7 @@
 </ng-template>
 
 <ng-template #verifyUserForm>
-  <form data-amplify-form ngNativeValidate (submit)="onSubmit($event)">
+  <form data-amplify-form (submit)="onSubmit($event)">
     <fieldset data-amplify-fieldset [disabled]="isPending">
       <ng-container
         *ngFor="let unverifiedAttribute of unverifiedAttributes | keyvalue"
