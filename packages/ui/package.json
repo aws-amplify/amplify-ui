@@ -13,7 +13,7 @@
     "dist"
   ],
   "scripts": {
-    "prebuild": "rimraf dist",
+    "_prebuild": "rimraf dist",
     "build": "yarn build:sd && yarn build:css && yarn build:js",
     "build:css": "./scripts/generateCSS.js",
     "build:js": "tsup --minify",

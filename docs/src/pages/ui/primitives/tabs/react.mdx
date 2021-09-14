@@ -6,7 +6,7 @@ import {
   IconEmail,
   Badge,
 } from '@aws-amplify/ui-react';
-import { TabsDemo } from './demo';
+import { TabsDemo, ControlledTabExample } from './demo';
 import { Example } from '@/components/Example';
 
 Tabs organize content into multiple sections and allow users to navigate between them. The content under the set of Tabs should be related and form a coherent unit.
@@ -38,7 +38,7 @@ import '@aws-amplify/ui-react/styles.css';
 
 The `Tabs` component accepts `TabItems` as children. Each `TabItem` contains both the Tab's `title` and its corresponding content panel (children). Children passed to `TabItem` must be responsible for their own styling.
 
-### Default Tab
+### Default Tab (uncontrolled)
 
 In the `Tabs` component, use the `defaultIndex` prop to change which Tab content is initially displayed. Pass in the index of the Tab you wish to show. The default is index 0 (the first tab).
 
@@ -60,6 +60,28 @@ In the `Tabs` component, use the `defaultIndex` prop to change which Tab content
       index 1 to defaultIndex (notice that the tabs are zero-indexed).
     </TabItem>
   </Tabs>
+</Example>
+
+### Current Index and onChange (controlled)
+
+The tabs component also works as a controlled component. This allows you to programmatically set the current tab
+
+```jsx
+const [index, setIndex] = React.useState(0);
+return (
+  <Tabs currentIndex={index} onChange={(i) => setIndex(i)}>
+    <TabItem title="First">Content of the first tab</TabItem>
+    <TabItem title="Second">
+      The content of the second tab is initially shown because we passed in
+      index 1 to defaultIndex (notice that the tabs are zero-indexed).
+      <Button onClick={() => setIndex(0)}>Go to first tab</Button>
+    </TabItem>
+  </Tabs>
+);
+```
+
+<Example>
+  <ControlledTabExample />
 </Example>
 
 ### Grow

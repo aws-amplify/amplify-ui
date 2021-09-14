@@ -7,8 +7,8 @@ interface UseTabsProps {
 }
 
 export const useTabsProps: UseTabsProps = (initialValues) => {
-  const [defaultIndex, setDefaultIndex] = useState<TabsProps['defaultIndex']>(
-    initialValues.defaultIndex
+  const [currentIndex, setCurrentIndex] = useState<TabsProps['currentIndex']>(
+    initialValues.currentIndex
   );
   const [grow, setGrow] = useState<TabsProps['grow']>(initialValues.grow);
   const [justifyContent, setJustifyContent] = useState<
@@ -20,8 +20,8 @@ export const useTabsProps: UseTabsProps = (initialValues) => {
   const children = initialValues.children;
 
   return {
-    defaultIndex,
-    setDefaultIndex,
+    currentIndex,
+    setCurrentIndex,
     grow,
     setGrow,
     children,

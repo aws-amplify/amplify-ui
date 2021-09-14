@@ -30,6 +30,8 @@ export const Tabs: Tabs = ({
   children,
   className,
   defaultIndex = 0,
+  currentIndex,
+  onChange,
   indicatorPosition,
   direction,
   gap = '0',
@@ -49,8 +51,19 @@ export const Tabs: Tabs = ({
     return child.props;
   });
 
+  // mapping our props to Radix's props
+  // value (currentIndex) and defaultValue (defaultIndex) must be strings
+  // https://www.radix-ui.com/docs/primitives/components/tabs#api-reference
+  const rootProps = {
+    defaultValue: defaultIndex.toString(),
+    // only pass value/currentIndex prop if it is defined
+    value:
+      typeof currentIndex !== 'undefined' ? currentIndex.toString() : undefined,
+    onValueChange: onChange,
+  };
+
   return (
-    <Root defaultValue={`${defaultIndex}`}>
+    <Root {...rootProps}>
       <List aria-label={ariaLabel}>
         <Flex
           alignContent={alignContent}

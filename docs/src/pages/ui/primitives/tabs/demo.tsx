@@ -14,7 +14,7 @@ const demoChildren = [
 
 export const TabsDemo = () => {
   const tabsProps = useTabsProps({
-    defaultIndex: 0,
+    currentIndex: 0,
     justifyContent: 'flex-start',
     children: demoChildren,
   });
@@ -24,7 +24,8 @@ export const TabsDemo = () => {
       <TabsPropControls {...tabsProps} />
       <Example>
         <Tabs
-          defaultIndex={tabsProps.defaultIndex}
+          currentIndex={tabsProps.currentIndex}
+          onChange={(i) => tabsProps.setCurrentIndex(i)}
           grow={tabsProps.grow}
           justifyContent={tabsProps.justifyContent}
           indicatorPosition={tabsProps.indicatorPosition}
@@ -36,4 +37,16 @@ export const TabsDemo = () => {
   );
 };
 
-// Show that another component can be passed to `title` as a way of styling (e.g., title={<Text color="red"><Red Text/Text>})
+export const ControlledTabExample = () => {
+  const [index, setIndex] = React.useState(0);
+  return (
+    <Tabs currentIndex={index} onChange={(i) => setIndex(i)}>
+      <TabItem title="First">Content of the first tab</TabItem>
+      <TabItem title="Second">
+        The content of the second tab is initially shown because we passed in
+        index 1 to defaultIndex (notice that the tabs are zero-indexed).
+        <Button onClick={() => setIndex(0)}>Go to first tab</Button>
+      </TabItem>
+    </Tabs>
+  );
+};

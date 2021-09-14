@@ -18,7 +18,20 @@ export interface TabsProps
   /**
    * Change which Tab content is initially displayed. Pass in the index of the Tab you wish to show. The default is index 0 (the first tab).
    */
-  defaultIndex?: number;
+  defaultIndex?: number | string;
+
+  /**
+   * The controlled index of the currently selected tab. This should be used with
+   * `onChange` as well to make the component controlled.
+   */
+  currentIndex?: number | string;
+
+  /**
+   * For controlled usage, use the onChange event to listen to when a tab is clicked
+   * and update the `currentIndex` accordingly. The index of the tab clicked is passed
+   * to onChange.
+   */
+  onChange?: (value: number | string) => void;
 
   /**
    * Control how Tabs take up the remaining space. Pass `equal` to make each tab take up the same amount of space, and `relative` to make each tab take up space relative to the size of its title.

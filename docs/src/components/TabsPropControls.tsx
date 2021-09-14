@@ -4,8 +4,8 @@ import { FieldLabeler } from './FieldLabeler';
 import { DemoBox } from './DemoBox';
 
 export interface TabsPropControlsProps extends TabsProps {
-  setDefaultIndex: (
-    value: React.SetStateAction<TabsProps['defaultIndex']>
+  setCurrentIndex: (
+    value: React.SetStateAction<TabsProps['currentIndex']>
   ) => void;
   setGrow: (value: React.SetStateAction<TabsProps['grow']>) => void;
   setJustifyContent: (
@@ -21,8 +21,8 @@ interface TabsPropControlsInterface {
 }
 
 export const TabsPropControls: TabsPropControlsInterface = ({
-  defaultIndex,
-  setDefaultIndex,
+  currentIndex,
+  setCurrentIndex,
   grow,
   setGrow,
   justifyContent,
@@ -32,13 +32,13 @@ export const TabsPropControls: TabsPropControlsInterface = ({
 }) => {
   return (
     <DemoBox primitiveName="Tabs">
-      <FieldLabeler id="defaultIndex">
+      <FieldLabeler id="currentIndex">
         <select
-          name="defaultIndex"
-          id="defaultIndex"
-          value={defaultIndex}
+          name="currentIndex"
+          id="currentIndex"
+          value={currentIndex}
           onChange={(event) =>
-            setDefaultIndex(+event.target.value as TabsProps['defaultIndex'])
+            setCurrentIndex(+event.target.value as TabsProps['currentIndex'])
           }
         >
           <option value={0}>0</option>
