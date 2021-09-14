@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-bind="$attrs">
     <sign-in
       v-if="actorState?.matches('signIn')"
       @sign-in-submit="onSignInSubmitI"
@@ -276,8 +276,8 @@
   ></slot>
 </template>
 
-<script lang="ts">
-import { ref, provide, defineComponent, computed } from 'vue';
+<script setup lang="ts">
+import { ref, provide, computed, useAttrs } from 'vue';
 import { getActorState } from '@aws-amplify/ui';
 
 import { authMachine } from '@aws-amplify/ui';
@@ -295,181 +295,130 @@ import VerifyUser from './verify-user.vue';
 import ConfirmVerifyUser from './confirm-verify-user.vue';
 
 import {
-  AuthenticatorSetupReturnTypes,
-  SetupEventContext,
   InterpretServiceInjectionKeyTypes,
   InterpretService,
 } from '../types/index';
 
-export default defineComponent({
-  inheritAttrs: false,
-  components: {
-    SignIn,
-    SignUp,
-    ConfirmSignUp,
-    ConfirmSignIn,
-    SetupTotp,
-    ForceNewPassword,
-    ResetPassword,
-    ConfirmResetPassword,
-    VerifyUser,
-    ConfirmVerifyUser,
-  },
-  props: {
-    shouldHideReturnBtn: {
-      default: true,
-      type: Boolean,
-    },
-  },
+const { shouldHideReturnBtn } = withDefaults(
+  defineProps<{ shouldHideReturnBtn?: boolean }>(),
+  {
+    shouldHideReturnBtn: true,
+  }
+);
 
-  setup(
-    _,
-    { attrs, emit }: SetupEventContext
-  ): AuthenticatorSetupReturnTypes & {
-    signInComponent: typeof SignIn;
-    signUpComponent: typeof SignUp;
-    confirmSignUpComponent: typeof ConfirmSignUp;
-    confirmSignInComponent: typeof ConfirmSignIn;
-    confirmSetupTOTPComponent: typeof SetupTotp;
-    forceNewPasswordComponent: typeof ForceNewPassword;
-    resetPasswordComponent: typeof ResetPassword;
-    confirmResetPasswordComponent: typeof ConfirmResetPassword;
-    verifyUserComponent: typeof VerifyUser;
-    confirmVerifyUserComponent: typeof ConfirmVerifyUser;
-  } {
-    //Setup XState Provide / Inject
-    const s = useInterpret(authMachine, {
-      devTools: process.env.NODE_ENV === 'development',
-    });
-    const service = ref(s);
+const attrs = useAttrs();
+const emit = defineEmits([
+  'signInSubmit',
+  'confirmSignUpSubmit',
+  'resetPasswordSubmit',
+  'confirmResetPasswordSubmit',
+  'confirmSignInSubmit',
+  'mSetupTOTPSubmit',
+  'forceNewPasswordSubmit',
+  'signUpSubmit',
+  'verifyUserSubmit',
+  'confirmVerifyUserSubmit',
+]);
 
-    provide(InterpretServiceInjectionKeyTypes, <InterpretService>service.value);
-    const { state, send } = useActor(service.value);
-    const actorState = computed(() => getActorState(state.value));
-
-    const signInComponent = ref(null);
-    const signUpComponent = ref(null);
-    const confirmSignUpComponent = ref(null);
-    const confirmSignInComponent = ref(null);
-    const confirmSetupTOTPComponent = ref(null);
-    const forceNewPasswordComponent = ref(null);
-    const resetPasswordComponent = ref(null);
-    const confirmResetPasswordComponent = ref(null);
-    const verifyUserComponent = ref(null);
-    const confirmVerifyUserComponent = ref(null);
-
-    const currentPage = ref('SIGNIN');
-
-    //methods
-
-    const onSignInSubmitI = (e: Event) => {
-      if (attrs?.onSignInSubmit) {
-        emit('signInSubmit', e);
-      } else {
-        signInComponent.value.submit(e);
-      }
-    };
-
-    const onConfirmSignUpSubmitI = (e: Event) => {
-      if (attrs?.onConfirmSignUpSubmit) {
-        emit('confirmSignUpSubmit', e);
-      } else {
-        confirmSignUpComponent.value.submit(e);
-      }
-    };
-
-    const onResetPasswordSubmitI = (e: Event) => {
-      if (attrs?.onResetPasswordSubmit) {
-        emit('resetPasswordSubmit', e);
-      } else {
-        resetPasswordComponent.value.submit(e);
-      }
-    };
-
-    const onConfirmResetPasswordSubmitI = (e: Event) => {
-      if (attrs?.onConfirmResetPasswordSubmit) {
-        emit('confirmResetPasswordSubmit', e);
-      } else {
-        confirmResetPasswordComponent.value.submit(e);
-      }
-    };
-
-    const onConfirmSignInSubmitI = (e: Event) => {
-      if (attrs?.onConfirmSignInSubmit) {
-        emit('confirmSignInSubmit', e);
-      } else {
-        confirmSignInComponent.value.submit(e);
-      }
-    };
-
-    const onConfirmSetupTOTPSubmitI = (e: Event) => {
-      if (attrs?.onForceNewPasswordSubmit) {
-        emit('mSetupTOTPSubmit', e);
-      } else {
-        confirmSetupTOTPComponent.value.submit(e);
-      }
-    };
-
-    const onForceNewPasswordSubmitI = (e: Event) => {
-      if (attrs?.onForceNewPasswordSubmit) {
-        emit('forceNewPasswordSubmit', e);
-      } else {
-        forceNewPasswordComponent.value.submit(e);
-      }
-    };
-
-    const onSignUpSubmitI = (e: Event) => {
-      if (attrs?.onSignUpSubmit) {
-        emit('signUpSubmit', e);
-      } else {
-        signUpComponent.value.submit(e);
-      }
-    };
-
-    const onVerifyUserSubmitI = (e: Event) => {
-      if (attrs?.onVerifyUserSubmit) {
-        emit('verifyUserSubmit', e);
-      } else {
-        verifyUserComponent.value.submit(e);
-      }
-    };
-
-    const onConfirmVerifyUserSubmitI = (e: Event) => {
-      if (attrs?.onConfirmVerifyUserSubmit) {
-        emit('confirmVerifyUserSubmit', e);
-      } else {
-        confirmVerifyUserComponent.value.submit(e);
-      }
-    };
-
-    provide('pageInfo', currentPage);
-
-    return {
-      currentPage,
-      state,
-      actorState,
-      onSignInSubmitI,
-      signInComponent,
-      signUpComponent,
-      forceNewPasswordComponent,
-      onSignUpSubmitI,
-      confirmSignUpComponent,
-      confirmSignInComponent,
-      confirmSetupTOTPComponent,
-      resetPasswordComponent,
-      confirmResetPasswordComponent,
-      verifyUserComponent,
-      confirmVerifyUserComponent,
-      onConfirmSignInSubmitI,
-      onResetPasswordSubmitI,
-      onConfirmSignUpSubmitI,
-      onConfirmSetupTOTPSubmitI,
-      onForceNewPasswordSubmitI,
-      onConfirmResetPasswordSubmitI,
-      onVerifyUserSubmitI,
-      onConfirmVerifyUserSubmitI,
-      send,
-    };
-  },
+const s = useInterpret(authMachine, {
+  devTools: process.env.NODE_ENV === 'development',
 });
+const service = ref(s);
+
+provide(InterpretServiceInjectionKeyTypes, <InterpretService>service.value);
+const { state, send } = useActor(service.value);
+const actorState = computed(() => getActorState(state.value));
+
+const signInComponent = ref(null);
+const signUpComponent = ref(null);
+const confirmSignUpComponent = ref(null);
+const confirmSignInComponent = ref(null);
+const confirmSetupTOTPComponent = ref(null);
+const forceNewPasswordComponent = ref(null);
+const resetPasswordComponent = ref(null);
+const confirmResetPasswordComponent = ref(null);
+const verifyUserComponent = ref(null);
+const confirmVerifyUserComponent = ref(null);
+
+//methods
+
+const onSignInSubmitI = (e: Event) => {
+  if (attrs?.onSignInSubmit) {
+    emit('signInSubmit', e);
+  } else {
+    signInComponent.value.submit(e);
+  }
+};
+
+const onConfirmSignUpSubmitI = (e: Event) => {
+  if (attrs?.onConfirmSignUpSubmit) {
+    emit('confirmSignUpSubmit', e);
+  } else {
+    confirmSignUpComponent.value.submit(e);
+  }
+};
+
+const onResetPasswordSubmitI = (e: Event) => {
+  if (attrs?.onResetPasswordSubmit) {
+    emit('resetPasswordSubmit', e);
+  } else {
+    resetPasswordComponent.value.submit(e);
+  }
+};
+
+const onConfirmResetPasswordSubmitI = (e: Event) => {
+  if (attrs?.onConfirmResetPasswordSubmit) {
+    emit('confirmResetPasswordSubmit', e);
+  } else {
+    confirmResetPasswordComponent.value.submit(e);
+  }
+};
+
+const onConfirmSignInSubmitI = (e: Event) => {
+  if (attrs?.onConfirmSignInSubmit) {
+    emit('confirmSignInSubmit', e);
+  } else {
+    confirmSignInComponent.value.submit(e);
+  }
+};
+
+const onConfirmSetupTOTPSubmitI = (e: Event) => {
+  if (attrs?.onForceNewPasswordSubmit) {
+    emit('mSetupTOTPSubmit', e);
+  } else {
+    confirmSetupTOTPComponent.value.submit(e);
+  }
+};
+
+const onForceNewPasswordSubmitI = (e: Event) => {
+  if (attrs?.onForceNewPasswordSubmit) {
+    emit('forceNewPasswordSubmit', e);
+  } else {
+    forceNewPasswordComponent.value.submit(e);
+  }
+};
+
+const onSignUpSubmitI = (e: Event) => {
+  if (attrs?.onSignUpSubmit) {
+    emit('signUpSubmit', e);
+  } else {
+    signUpComponent.value.submit(e);
+  }
+};
+
+const onVerifyUserSubmitI = (e: Event) => {
+  if (attrs?.onVerifyUserSubmit) {
+    emit('verifyUserSubmit', e);
+  } else {
+    verifyUserComponent.value.submit(e);
+  }
+};
+
+const onConfirmVerifyUserSubmitI = (e: Event) => {
+  if (attrs?.onConfirmVerifyUserSubmit) {
+    emit('confirmVerifyUserSubmit', e);
+  } else {
+    confirmVerifyUserComponent.value.submit(e);
+  }
+};
 </script>
