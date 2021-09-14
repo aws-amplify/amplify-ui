@@ -19,7 +19,7 @@ export class AmplifyInputComponent {
   @Input() name: string;
   // TODO: Separate entry for id
   @Input() type: string;
-  @Input() required = false;
+  @Input() required = true;
   @Input() placeholder = '';
   @Input() label = '';
   @Input() initialValue = '';
