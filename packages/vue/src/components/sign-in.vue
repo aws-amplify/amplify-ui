@@ -17,75 +17,79 @@
           >
           </slot>
         </template>
-        <base-heading :level="1">
-          <template #headingI>
-            <slot name="heading"></slot>
-          </template>
-          {{ signIntoAccountText }}
-        </base-heading>
-        <federated-sign-in></federated-sign-in>
-        <base-field-Set :disabled="actorState.matches('signIn.submit')">
-          <template #fieldSetI="{ slotData }">
-            <slot name="signin-fields" :info="slotData"> </slot>
-          </template>
-          <user-name-alias data-amplify-usernamealias :userNameAlias="true" />
+        <base-wrapper>
+          <base-heading class="amplify-heading" :level="3">
+            <template #headingI>
+              <slot name="heading"></slot>
+            </template>
+            {{ signIntoAccountText }}
+          </base-heading>
+          <federated-sign-in></federated-sign-in>
+          <base-field-Set :disabled="actorState.matches('signIn.submit')">
+            <template #fieldSetI="{ slotData }">
+              <slot name="signin-fields" :info="slotData"> </slot>
+            </template>
+            <user-name-alias data-amplify-usernamealias :userNameAlias="true" />
 
-          <base-label data-amplify-password>
-            <sign-in-password-control />
+            <base-label data-amplify-password>
+              <sign-in-password-control />
 
-            <base-box>
-              <slot
-                name="forgot-password-section"
-                :onForgotPasswordClicked="onForgotPasswordClicked"
-              >
-                <base-button
-                  type="button"
-                  @click.prevent="onForgotPasswordClicked"
+              <base-box>
+                <slot
+                  name="forgot-password-section"
+                  :onForgotPasswordClicked="onForgotPasswordClicked"
                 >
-                  {{ forgotYourPasswordLink }}
-                </base-button>
-              </slot>
-            </base-box>
-          </base-label>
-          <slot
-            name="additional-fields"
-            :onSignInSubmit="onSignInSubmit"
-            :onCreateAccountClicked="onCreateAccountClicked"
-          ></slot>
-        </base-field-Set>
-        <base-footer>
-          <template #footert="{ slotData }">
+                  <base-button
+                    type="button"
+                    @click.prevent="onForgotPasswordClicked"
+                  >
+                    {{ forgotYourPasswordLink }}
+                  </base-button>
+                </slot>
+              </base-box>
+            </base-label>
             <slot
-              name="footer"
-              :info="slotData"
+              name="additional-fields"
               :onSignInSubmit="onSignInSubmit"
               :onCreateAccountClicked="onCreateAccountClicked"
-            >
-            </slot>
-          </template>
-          <base-text>{{ noAccount }}</base-text>
-          <base-button type="button" @click.prevent="onCreateAccountClicked">{{
-            createAccountLink
-          }}</base-button>
-          <base-spacer />
-          <base-button :disabled="actorState.matches('signIn.submit')">
-            <template #buttont>
+            ></slot>
+          </base-field-Set>
+          <base-footer>
+            <template #footert="{ slotData }">
               <slot
-                name="sign-in-button"
+                name="footer"
+                :info="slotData"
                 :onSignInSubmit="onSignInSubmit"
-              ></slot>
+                :onCreateAccountClicked="onCreateAccountClicked"
+              >
+              </slot>
             </template>
-            {{
-              actorState.matches('signIn.submit')
-                ? signIngButtonText
-                : signInButtonText
-            }}
-            <!-- Add prop too? -->
-          </base-button>
-        </base-footer>
-        <base-box data-ui-error>
-          {{ actorState.context.remoteError }}
-        </base-box>
+            <base-text>{{ noAccount }}</base-text>
+            <base-button
+              type="button"
+              @click.prevent="onCreateAccountClicked"
+              >{{ createAccountLink }}</base-button
+            >
+            <base-spacer />
+            <base-button :disabled="actorState.matches('signIn.submit')">
+              <template #buttont>
+                <slot
+                  name="sign-in-button"
+                  :onSignInSubmit="onSignInSubmit"
+                ></slot>
+              </template>
+              {{
+                actorState.matches('signIn.submit')
+                  ? signIngButtonText
+                  : signInButtonText
+              }}
+              <!-- Add prop too? -->
+            </base-button>
+          </base-footer>
+          <base-box data-ui-error>
+            {{ actorState.context.remoteError }}
+          </base-box>
+        </base-wrapper>
       </base-form>
     </base-wrapper>
   </slot>
