@@ -26,7 +26,7 @@ Amplify UI 2.0 is an open-source UI library with cloud-connected components that
 
 ## Getting started
 
-We will be publishing the next major version (2.0) of these packages under the `@react` tag in npm when they are ready:
+We will be publishing the next major version (2.0) of these packages under the `@next` tag in npm when they are ready:
 
 - @aws-amplify/ui-react
 - @aws-amplify/ui-angular
