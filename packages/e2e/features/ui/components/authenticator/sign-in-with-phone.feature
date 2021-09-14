@@ -10,14 +10,14 @@ Feature: Sign In with Phone Number
   Background:
     Given I'm running the example "ui/components/authenticator/sign-in-with-phone"
 
-  @angular @next @vue
+  @angular @react @vue
   Scenario: Sign in with unknown credentials
     When I type my "phone number" with status "UNKNOWN"
     And I type my password
     And I click the "Sign in" button
     Then I see "User does not exist"
 
-  @angular @next @vue
+  @angular @react @vue
   Scenario: Sign in with unconfirmed credentials
     When I type my "phone number" with status "UNCONFIRMED"
     And I type my password
@@ -25,7 +25,7 @@ Feature: Sign In with Phone Number
     Then I see "Confirmation Code"
 
 
-  @angular @next @vue
+  @angular @react @vue
   Scenario: Sign in with confirmed credentials
     When I type my "phone number" with status "CONFIRMED"
     And I type my password
@@ -40,7 +40,7 @@ Feature: Sign In with Phone Number
     And I click the "Sign in" button
     Then I see "Change Password"
 
-  @angular @next @vue
+  @angular @react @vue
   Scenario: Phone number field autocompletes phone number
   
   On sign in form, autocomplete prefers usage of username instead of phone number. 
@@ -48,6 +48,6 @@ Feature: Sign In with Phone Number
 
     Then "Phone Number" field autocompletes "username"
 
-  @angular @next @vue
+  @angular @react @vue
   Scenario: Password fields autocomplete "new-password"
     Then "Password" field autocompletes "current-password"

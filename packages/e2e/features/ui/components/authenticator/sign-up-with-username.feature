@@ -6,7 +6,7 @@ Feature: Sign Up with Username
     Given I'm running the example "ui/components/authenticator/sign-up-with-username"
     And I click "Create account"
 
-  @angular @next @vue
+  @angular @react @vue
   Scenario: Login mechanism set to "username"
     Then I see "Username" as an input field
     And I see "Email" as an input field
@@ -23,11 +23,11 @@ Feature: Sign Up with Username
     Then I see "Confirm Sign Up"
     And I see "Confirmation Code"
 
-  @angular @next @vue
+  @angular @react @vue
   Scenario: Username field autocompletes username
     Then "Username" field autocompletes "username"
 
-  @angular @next @vue
+  @angular @react @vue
   Scenario: Password fields autocomplete "new-password"
     Then "Password" field autocompletes "new-password"
     And "Confirm Password" field autocompletes "new-password"

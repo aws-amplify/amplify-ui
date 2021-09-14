@@ -1,6 +1,5 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
 import { AmplifyAuthenticatorComponent } from './components/amplify-authenticator/amplify-authenticator.component';
 import { AmplifySignInComponent } from './components/amplify-sign-in/amplify-sign-in.component';
 import { AmplifySignOutComponent } from './components/amplify-sign-out/amplify-sign-out.component';
@@ -92,7 +91,7 @@ customElements.define('amplify-photo-picker', AmplifyPhotoPicker);
     ConfirmResetPasswordComponent,
     ConfirmVerifyUserComponent,
   ],
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule],
   exports: [
     chatbot,
     toast,
