@@ -1,6 +1,5 @@
 import { View, Flex, Text } from '@aws-amplify/ui-react';
 import { Example } from '@/components/Example';
-
 ## Example
 
 Import any of our primitives and use either the object or array syntax to changes styles responsively. Resize your browser window window to see the styles change.
@@ -35,16 +34,16 @@ import '@aws-amplify/ui-react/styles.css';
 
 ## Object Syntax
 
-Using the object synax allows you to specify styles for a range
+When using the object synax, you can specify a style for multiple viewpoint ranges. The example below shows setting a style of `orange` from `base` (0em) through `small`, and `yellow` from `medium` (48em) upwards.
 
 ```jsx
-// View will be orange from 0 to 47em (medium - 1), then change to yellow from 48em (medium) upwards.
+// View will be orange from 0 to 47em, then change to yellow from 48em upwards.
 <View backgroundColor={{ base: 'orange', medium: 'yellow' }} />
 ```
 
 <View backgroundColor={{ base: 'orange', medium: 'yellow' }} />
 
-Or you can use it to specify styling for each breakpoint individually
+Or you can use the object syntax to specify styling for each breakpoint individually
 
 ```jsx
 // View background color and text color will change at each breakpoint
