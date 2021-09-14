@@ -82,7 +82,7 @@ export const Tabs: Tabs = ({
               data-grow={grow}
               disabled={isDisabled}
               key={index}
-              style={prefixer(convertStylePropsToStyleObj(rest, {}))}
+              style={prefixer(convertStylePropsToStyleObj(rest))}
               value={`${index}`}
             >
               {title}
