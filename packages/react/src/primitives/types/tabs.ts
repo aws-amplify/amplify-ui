@@ -44,7 +44,7 @@ export interface TabsProps
   indicatorPosition?: 'top' | 'bottom';
 }
 
-export interface TabItemProps {
+export interface TabItemProps extends BaseComponentProps, BaseStyleProps {
   /**
    * Change the title corresponding with each Tab's content panel.
    */

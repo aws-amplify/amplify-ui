@@ -301,16 +301,22 @@ Note that children of `TabItem` must be responsible for their own styling.
 ```css
 /* styles.css */
 :root {
-  --amplify-components-tabs-background-color: rebeccapurple;
-  --amplify-components-tabs-items-background-color: lightblue;
+  /* background for the whole tab bar */
+  --amplify-components-tabs-background-color: var(
+    --amplify-colors-background-secondary
+  );
+  /* background for each tab */
+  --amplify-components-tabs-item-background-color: var(
+    --amplify-colors-background-primary
+  );
 }
 /* OR */
 .amplify-tabs {
-  background-color: rebeccapurple;
+  background-color: var(--amplify-colors-background-secondary);
 }
 
-.amplify-tabs-items {
-  background-color: lightblue;
+.amplify-tab-item {
+  background-color: var(--amplify-colors-background-primary);
 }
 ```
 
@@ -324,11 +330,17 @@ import './styles.css';
 ```
 
 <Example>
-  <Tabs backgroundColor="rebeccapurple">
-    <TabItem title="Tab 1" backgroundColor="lightblue">
+  <Tabs backgroundColor="var(--amplify-colors-background-secondary)">
+    <TabItem
+      title="Tab 1"
+      backgroundColor="var(--amplify-colors-background-primary)"
+    >
       Content of Tab 1
     </TabItem>
-    <TabItem title="Tab 2" backgroundColor="lightblue">
+    <TabItem
+      title="Tab 2"
+      backgroundColor="var(--amplify-colors-background-primary)"
+    >
       Content of Tab 2
     </TabItem>
   </Tabs>
@@ -339,20 +351,17 @@ _Using pseudo-classes:_
 ```css
 /* styles.css */
 .amplify-tabs-item:hover {
-  background-color: red;
+  background-color: var(--amplify-colors-background-primary);
+  border-color: var(--amplify-colors-purple-60);
 }
 
-/* Between mouse down and mouse up on a Tab */
-.amplify-tabs-item:active {
-  background-color: orange;
+.amplify-tabs-item[data-state='active'] {
+  background-color: var(--amplify-colors-background-primary);
+  border-color: var(--amplify-colors-pink-60);
 }
 
 .amplify-tabs-item:focus {
-  background-color: blue;
-}
-
-.amplify-tabs-item:focus-visible {
-  background-color: green;
+  background-color: var(--amplify-colors-pink-10);
 }
 ```
 
@@ -371,13 +380,13 @@ import './styles.css';
 </Tabs>;
 ```
 
-<Example>
+<Example className="pseudo-demo">
   <Tabs>
-    <TabItem title="Tab 1" className="pseudo-demo">
+    <TabItem title="Tab 1">
       Hover over, click on, and manually tab through the Tabs on your keyboard
       to see the styling effects.
     </TabItem>
-    <TabItem title="Tab 2" className="pseudo-demo">
+    <TabItem title="Tab 2">
       Hover over, click on, and manually tab through the Tabs on your keyboard
       to see the styling effects.
     </TabItem>
@@ -407,17 +416,26 @@ _Using a class selector:_
 ```css
 /* styles.css */
 .custom-tabs {
-  background-color: lightblue;
+  background-color: var(--amplify-colors-brand-primary-60);
   justify-content: center;
+  border-color: transparent;
 }
 
 .custom-tab-item {
-  background-color: white;
+  background-color: var(--amplify-colors-brand-primary-80);
+  color: var(--amplify-colors-font-inverse);
+  border-color: transparent;
+}
+
+.custom-tab-item:hover {
+  color: var(--amplify-colors-font-inverse);
+  background-color: var(--amplify-colors-brand-primary-90);
 }
 
 .custom-tab-item[data-state='active'] {
-  color: crimson;
-  border-bottom: 2px solid crimson;
+  color: var(--amplify-colors-font-inverse);
+  border-color: transparent;
+  background-color: var(--amplify-colors-brand-primary-100);
 }
 ```
 
@@ -451,12 +469,12 @@ _Using data attributes:_
 /* styles.css */
 /* When a Tab is selected and displaying its corresponding content panel */
 .amplify-tabs-item[data-state='active'] {
-  background-color: yellow;
+  background-color: var(--amplify-colors-brand-primary-20);
 }
 
 /* When a Tab is disabled */
 .amplify-tabs-item[data-disabled] {
-  background-color: black;
+  background-color: var(--amplify-colors-background-tertiary);
 }
 ```
 
@@ -464,22 +482,20 @@ _Using data attributes:_
 import './styles.css';
 
 <Tabs>
-  <TabItem title="Tab 1" backgroundColor="yellow">
-    Content of Tab 1
-  </TabItem>
-  <TabItem title="Tab 2" isDisabled={true} backgroundColor="black">
-    Content of Tab 2
+  <TabItem title="Tab 1">Content of Tab 1</TabItem>
+  <TabItem title="Tab 2">Content of Tab 2</TabItem>
+  <TabItem title="Tab 3" isDisabled={true}>
+    Content of Tab 3
   </TabItem>
 </Tabs>;
 ```
 
-<Example>
+<Example className="tabs-data-demo">
   <Tabs>
-    <TabItem title="Tab 1" backgroundColor="yellow">
-      Content of Tab 1
-    </TabItem>
-    <TabItem title="Tab 2" isDisabled={true} backgroundColor="black">
-      Content of Tab 2
+    <TabItem title="Tab 1">Content of Tab 1</TabItem>
+    <TabItem title="Tab 2">Content of Tab 2</TabItem>
+    <TabItem title="Tab 3" isDisabled={true}>
+      Content of Tab 3
     </TabItem>
   </Tabs>
 </Example>
@@ -487,24 +503,44 @@ import './styles.css';
 _Using style props:_
 
 ```jsx
-<Tabs backgroundColor="lightgray">
-  <TabItem title="Tab 1" color="white" backgroundColor="orange">
+<Tabs backgroundColor="var(--amplify-colors-background-primary)">
+  <TabItem
+    title="Tab 1"
+    color="var(--amplify-colors-font-primary)"
+    backgroundColor="transparent"
+  >
     Content of Tab 1
   </TabItem>
-  <TabItem title="Tab 2" color="white" backgroundColor="orange">
+  <TabItem
+    title="Tab 2"
+    color="var(--amplify-colors-font-primary)"
+    backgroundColor="transparent"
+  >
     Content of Tab 2
   </TabItem>
 </Tabs>
 ```
 
-<Tabs backgroundColor="lightgray">
-  <TabItem title="Tab 1" color="white" backgroundColor="orange">
-    Content of Tab 1
-  </TabItem>
-  <TabItem title="Tab 2" color="white" backgroundColor="orange">
-    Content of Tab 2
-  </TabItem>
-</Tabs>
+<Example>
+  <Tabs backgroundColor="var(--amplify-colors-background-primary)">
+    <TabItem
+      title="Tab 1"
+      color="var(--amplify-colors-font-primary)"
+      backgroundColor="transparent"
+    >
+      Content of Tab 1
+    </TabItem>
+    <TabItem
+      title="Tab 2"
+      color="var(--amplify-colors-font-primary)"
+      backgroundColor="transparent"
+    >
+      Content of Tab 2
+    </TabItem>
+  </Tabs>
+</Example>
+
+Note: there is currently no way to style different states like hover using only style props. However Amplify UI works well with CSS in JS frameworks for this usecase. Take a look at the [alternative styling docs](/ui/theme/alternativeStyling) for information how to sue CSS in JS with Amplify UI.
 
 ## Accessibility
 
