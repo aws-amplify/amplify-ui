@@ -18,12 +18,17 @@ export interface TabsProps
   /**
    * Change which Tab content is initially displayed. Pass in the index of the Tab you wish to show. The default is index 0 (the first tab).
    */
-  defaultTab?: number;
+  defaultIndex?: number;
 
   /**
    * Control how Tabs take up the remaining space. Pass `equal` to make each tab take up the same amount of space, and `relative` to make each tab take up space relative to the size of its title.
    */
   grow?: TabsGrow;
+
+  /**
+   * Sets the border and indicator of the tabs to be the top or bottom.
+   */
+  indicatorPosition?: 'top' | 'bottom';
 }
 
 export interface TabItemProps {

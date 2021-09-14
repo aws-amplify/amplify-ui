@@ -4,10 +4,15 @@ import { FieldLabeler } from './FieldLabeler';
 import { DemoBox } from './DemoBox';
 
 export interface TabsPropControlsProps extends TabsProps {
-  setDefaultTab: (value: React.SetStateAction<TabsProps['defaultTab']>) => void;
+  setDefaultIndex: (
+    value: React.SetStateAction<TabsProps['defaultIndex']>
+  ) => void;
   setGrow: (value: React.SetStateAction<TabsProps['grow']>) => void;
   setJustifyContent: (
     value: React.SetStateAction<TabsProps['justifyContent']>
+  ) => void;
+  setIndicatorPosition: (
+    value: React.SetStateAction<TabsProps['indicatorPosition']>
   ) => void;
 }
 
@@ -16,22 +21,24 @@ interface TabsPropControlsInterface {
 }
 
 export const TabsPropControls: TabsPropControlsInterface = ({
-  defaultTab,
-  setDefaultTab,
+  defaultIndex,
+  setDefaultIndex,
   grow,
   setGrow,
   justifyContent,
   setJustifyContent,
+  indicatorPosition,
+  setIndicatorPosition,
 }) => {
   return (
     <DemoBox primitiveName="Tabs">
-      <FieldLabeler id="defaultTab">
+      <FieldLabeler id="defaultIndex">
         <select
-          name="defaultTab"
-          id="defaultTab"
-          value={defaultTab}
+          name="defaultIndex"
+          id="defaultIndex"
+          value={defaultIndex}
           onChange={(event) =>
-            setDefaultTab(+event.target.value as TabsProps['defaultTab'])
+            setDefaultIndex(+event.target.value as TabsProps['defaultIndex'])
           }
         >
           <option value={0}>0</option>
@@ -50,6 +57,22 @@ export const TabsPropControls: TabsPropControlsInterface = ({
           <option value="">default</option>
           <option value="equal">equal</option>
           <option value="relative">relative</option>
+        </select>
+      </FieldLabeler>
+
+      <FieldLabeler id="indicatorPosition">
+        <select
+          name="indicatorPosition"
+          id="indicatorPosition"
+          value={indicatorPosition}
+          onChange={(event) =>
+            setIndicatorPosition(
+              event.target.value as TabsProps['indicatorPosition']
+            )
+          }
+        >
+          <option value="">default</option>
+          <option value="top">top</option>
         </select>
       </FieldLabeler>
 

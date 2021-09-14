@@ -29,7 +29,8 @@ export const Tabs: Tabs = ({
   ariaLabel,
   children,
   className,
-  defaultTab = 0,
+  defaultIndex = 0,
+  indicatorPosition,
   direction,
   gap = '0',
   grow,
@@ -49,7 +50,7 @@ export const Tabs: Tabs = ({
   });
 
   return (
-    <Root defaultValue={`${defaultTab}`}>
+    <Root defaultValue={`${defaultIndex}`}>
       <List aria-label={ariaLabel}>
         <Flex
           alignContent={alignContent}
@@ -59,6 +60,7 @@ export const Tabs: Tabs = ({
           gap={gap}
           justifyContent={justifyContent}
           wrap={wrap}
+          data-indicator-position={indicatorPosition}
           {...rest}
         >
           {tabs.map(({ className, isDisabled, title, ...rest }, index) => (

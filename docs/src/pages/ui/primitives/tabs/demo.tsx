@@ -5,21 +5,18 @@ import { useTabsProps } from '@/components/useTabsProps';
 import { Example } from '@/components/Example';
 
 const demoChildren = [
-  <TabItem title="Greeting">
-    <Button>Hello</Button>
-  </TabItem>,
-  <TabItem title="Foo">Bar</TabItem>,
-  <TabItem title="Disabled for demonstration" isDisabled={true}>
+  <TabItem title="Tab 1">Tab content #1</TabItem>,
+  <TabItem title="Tab 2">Tab content #2</TabItem>,
+  <TabItem title="Disabled" isDisabled={true}>
     Cannot click
   </TabItem>,
 ];
 
 export const TabsDemo = () => {
   const tabsProps = useTabsProps({
-    defaultTab: 0,
-    grow: '',
+    defaultIndex: 0,
     justifyContent: 'flex-start',
-    children: demoChildren.map((child) => child),
+    children: demoChildren,
   });
 
   return (
@@ -27,9 +24,10 @@ export const TabsDemo = () => {
       <TabsPropControls {...tabsProps} />
       <Example>
         <Tabs
-          defaultTab={tabsProps.defaultTab}
+          defaultIndex={tabsProps.defaultIndex}
           grow={tabsProps.grow}
           justifyContent={tabsProps.justifyContent}
+          indicatorPosition={tabsProps.indicatorPosition}
         >
           {tabsProps.children}
         </Tabs>

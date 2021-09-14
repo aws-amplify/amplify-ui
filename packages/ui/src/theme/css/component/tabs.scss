@@ -2,9 +2,13 @@
   background-color: var(--amplify-components-tabs-background-color);
   box-shadow: var(--amplify-components-tabs-box-shadow);
   margin-bottom: var(--amplify-components-tabs-margin-bottom);
-  border-bottom: var(--amplify-components-tabs-border-width)
-    var(--amplify-components-tabs-border-style)
-    var(--amplify-components-tabs-border-color);
+  border-width: 0 0 var(--amplify-components-tabs-border-width) 0;
+  border-style: var(--amplify-components-tabs-border-style);
+  border-color: var(--amplify-components-tabs-border-color);
+
+  &[data-indicator-position="top"] {
+    border-width: var(--amplify-components-tabs-border-width) 0 0 0;
+  }
 }
 
 .amplify-tabs-item {
@@ -16,12 +20,19 @@
   padding: var(--amplify-components-tabs-item-padding);
   text-align: var(--amplify-components-tabs-item-text-align);
   transition: all var(--amplify-components-tabs-item-transition-duration);
-  border-bottom: var(--amplify-components-tabs-item-border-width)
-    var(--amplify-components-tabs-item-border-style)
-    var(--amplify-components-tabs-item-border-color);
+  border-width: 0 0 var(--amplify-components-tabs-item-border-width) 0;
+  border-style: var(--amplify-components-tabs-item-border-style);
+  border-color: var(--amplify-components-tabs-item-border-color);
   
-    // negative margin so border of tab items and tab bar overlap
+  // negative margin so border of tab items and tab bar overlap
   margin-bottom: calc(-1 * var(--amplify-components-tabs-item-border-width));
+  
+  [data-indicator-position="top"] > & {
+    border-width: var(--amplify-components-tabs-border-width) 0 0 0;
+    // negative margin so border of tab items and tab bar overlap
+    margin-top: calc(-1 * var(--amplify-components-tabs-item-border-width));
+    margin-bottom: 0;
+  }
   
   // Radix data attribute
   &[data-state='active'] {

@@ -1,4 +1,11 @@
-import { Tabs, TabItem, Flex, Text } from '@aws-amplify/ui-react';
+import {
+  Tabs,
+  TabItem,
+  Flex,
+  Text,
+  IconEmail,
+  Badge,
+} from '@aws-amplify/ui-react';
 import { TabsDemo } from './demo';
 import { Example } from '@/components/Example';
 
@@ -33,24 +40,24 @@ The `Tabs` component accepts `TabItems` as children. Each `TabItem` contains bot
 
 ### Default Tab
 
-In the `Tabs` component, use the `defaultTab` prop to change which Tab content is initially displayed. Pass in the index of the Tab you wish to show. The default is index 0 (the first tab).
+In the `Tabs` component, use the `defaultIndex` prop to change which Tab content is initially displayed. Pass in the index of the Tab you wish to show. The default is index 0 (the first tab).
 
 ```jsx
-<Tabs defaultTab={1}>
+<Tabs defaultIndex={1}>
   <TabItem title="First">Content of the first tab</TabItem>
   <TabItem title="Second">
     The content of the second tab is initially shown because we passed in index
-    1 to defaultTab (notice that the tabs are zero-indexed).
+    1 to defaultIndex (notice that the tabs are zero-indexed).
   </TabItem>
 </Tabs>
 ```
 
 <Example>
-  <Tabs defaultTab={1}>
+  <Tabs defaultIndex={1}>
     <TabItem title="First">Content of the first tab</TabItem>
     <TabItem title="Second">
       The content of the second tab is initially shown because we passed in
-      index 1 to defaultTab (notice that the tabs are zero-indexed).
+      index 1 to defaultIndex (notice that the tabs are zero-indexed).
     </TabItem>
   </Tabs>
 </Example>
@@ -157,7 +164,83 @@ In the `TabItem` component, use the **required** `title` prop to change the titl
   </Tabs>
 </Example>
 
-### isDisabled
+You can also add badges and icons in the `TabItem` by passing custom components to the `title` prop.
+
+```jsx
+<Example>
+  <Tabs>
+    <TabItem
+      title={
+        <>
+          Messages
+          <Badge variation="info">12</Badge>
+        </>
+      }
+    >
+      Content of the first tab
+    </TabItem>
+    <TabItem
+      title={
+        <>
+          <IconEmail />
+          Email
+        </>
+      }
+    >
+      Content of the second tab
+    </TabItem>
+  </Tabs>
+</Example>
+```
+
+<Example>
+  <Tabs>
+    <TabItem
+      title={
+        <>
+          Email
+          <Badge size="small" variation="info">
+            21
+          </Badge>
+        </>
+      }
+    >
+      Content of the first tab
+    </TabItem>
+    <TabItem
+      title={
+        <>
+          <IconEmail />
+          Email
+        </>
+      }
+    >
+      Content of the second tab
+    </TabItem>
+  </Tabs>
+</Example>
+
+### Indicator Position
+
+You can change the position of the tab border and current tab indicator with the `indicatorPosition` prop. The only values are "top" or "bottom" (default).
+
+```jsx
+<Example>
+  <Tabs indicatorPosition="top">
+    <TabItem title="Tab 1">Tab 1 content</TabItem>
+    <TabItem title="Tab 2">Tab 2 content</TabItem>
+  </Tabs>
+</Example>
+```
+
+<Example>
+  <Tabs indicatorPosition="top">
+    <TabItem title="Tab 1">Tab 1 content</TabItem>
+    <TabItem title="Tab 2">Tab 2 content</TabItem>
+  </Tabs>
+</Example>
+
+### Disabled Tabs
 
 In the `TabItem` component, use the `isDisabled` prop to make a Tab not clickable and its content not visible to the user.
 
