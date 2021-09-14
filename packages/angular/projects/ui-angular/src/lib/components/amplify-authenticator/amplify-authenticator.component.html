@@ -110,7 +110,7 @@
 <!-- verifyUser content -->
 <ng-container
   [ngTemplateOutlet]="customComponents.verifyUser || verifyUser"
-  [ngTemplateOutletContext]="context()"
+  [ngTemplateOutletContext]="context"
   *ngIf="actorState?.matches('verifyUser')"
 >
 </ng-container>
@@ -118,7 +118,7 @@
 <!-- confirmVerifyUser content -->
 <ng-container
   [ngTemplateOutlet]="customComponents.confirmVerifyUser || confirmVerifyUser"
-  [ngTemplateOutletContext]="context()"
+  [ngTemplateOutletContext]="context"
   *ngIf="actorState?.matches('confirmVerifyUser')"
 >
 </ng-container>
