@@ -50,7 +50,7 @@ export const useBreakpoint: UseBreakpoint = ({
     return () => {
       unsubscribeList.forEach((unsubscribe) => unsubscribe());
     };
-  }, [breakpoints, setBreakpoint, mediaQueries]);
+  }, [breakpoints, setBreakpoint, matchMedia, mediaQueries]);
 
   /** Print a nice debug value for React Devtools */
   React.useDebugValue(breakpoint, (breakpoint) => breakpoint);
