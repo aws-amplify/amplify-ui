@@ -29,7 +29,7 @@ export const Radio: React.FC<RadioProps> = ({
     size,
   } = useRadioGroupContext();
 
-  const shouldDisabled =
+  const shouldBeDisabled =
     isGroupDisabled || isDisabled || (isReadOnly && defaultValue !== value);
 
   // for controlled component
@@ -42,9 +42,7 @@ export const Radio: React.FC<RadioProps> = ({
   return (
     <Flex
       as="label"
-      alignItems="center"
       className={classNames(ComponentClassNames.Radio, className)}
-      justifyContent="flex-start"
     >
       <Input
         checked={checked}
@@ -55,7 +53,7 @@ export const Radio: React.FC<RadioProps> = ({
         defaultChecked={defaultChecked}
         hasError={hasError}
         id={id}
-        isDisabled={shouldDisabled}
+        isDisabled={shouldBeDisabled}
         isReadOnly={isReadOnly}
         isRequired={isRequired}
         onChange={onChange}
@@ -65,19 +63,17 @@ export const Radio: React.FC<RadioProps> = ({
         {...rest}
       />
       <Flex
-        alignItems="center"
         aria-hidden="true"
         as="span"
         className={ComponentClassNames.RadioButton}
         data-size={size}
-        justifyContent="center"
         testId={testId}
       />
       {children && (
         <Text
           as="span"
           className={ComponentClassNames.RadioLabel}
-          data-disabled={shouldDisabled}
+          data-disabled={shouldBeDisabled}
         >
           {children}
         </Text>

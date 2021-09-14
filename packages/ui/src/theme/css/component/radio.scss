@@ -1,8 +1,12 @@
 .amplify-radio {
+  align-items: var(--amplify-components-radio-align-items);
+  justify-content: var(--amplify-components-radio-justify-content);
   gap: inherit;
 }
 
 .amplify-radio__button {
+  align-items: var(--amplify-components-radio-button-align-items);
+  justify-content: var(--amplify-components-radio-button-justify-content);
   width: var(--amplify-components-radio-button-width);
   height: var(--amplify-components-radio-button-height);
   box-sizing: var(--amplify-components-radio-button-box-sizing);

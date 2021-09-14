@@ -1,6 +1,10 @@
 module.exports = {
+  alignItems: { value: 'center' },
+  justifyContent: { value: 'flex-start' },
   gap: { value: 'inherit' },
   button: {
+    alignItems: { value: 'center' },
+    justifyContent: { value: 'center' },
     width: { value: '{fontSizes.medium.value}' },
     height: { value: '{fontSizes.medium.value}' },
     boxSizing: { value: 'border-box' },
