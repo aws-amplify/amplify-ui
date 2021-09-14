@@ -1,6 +1,6 @@
 <template>
   <slot v-bind="$attrs" name="signInSlotI">
-    <base-wrapper v-bind="$attrs" data-amplify-wrapper>
+    <base-wrapper v-bind="$attrs">
       <base-form
         data-amplify-authenticator-signin
         @submit.prevent="onSignInSubmit"
@@ -17,43 +17,89 @@
           >
           </slot>
         </template>
-        <base-wrapper>
+        <base-wrapper class="amplify-flex" style="flex-direction: column">
           <base-heading class="amplify-heading" :level="3">
             <template #headingI>
               <slot name="heading"></slot>
             </template>
             {{ signIntoAccountText }}
           </base-heading>
-          <federated-sign-in></federated-sign-in>
-          <base-field-Set :disabled="actorState.matches('signIn.submit')">
+          <base-field-set
+            :disabled="actorState.matches('signIn.submit')"
+            class="amplify-flex"
+            style="flex-direction: column"
+          >
             <template #fieldSetI="{ slotData }">
               <slot name="signin-fields" :info="slotData"> </slot>
             </template>
-            <user-name-alias data-amplify-usernamealias :userNameAlias="true" />
-
-            <base-label data-amplify-password>
+            <base-wrapper
+              class="amplify-flex amplify-field amplify-textfield"
+              style="flex-direction: column"
+            >
+              <user-name-alias
+                class="amplify-label sr-only"
+                for="amplify-field-1220"
+                :userNameAlias="true"
+              />
+            </base-wrapper>
+            <base-wrapper
+              class="
+                amplify-flex
+                amplify-field
+                amplify-textfield
+                amplify-passwordfield
+                password-field
+              "
+              style="flex-direction: column"
+            >
               <sign-in-password-control />
-
-              <base-box>
-                <slot
-                  name="forgot-password-section"
-                  :onForgotPasswordClicked="onForgotPasswordClicked"
-                >
-                  <base-button
-                    type="button"
-                    @click.prevent="onForgotPasswordClicked"
-                  >
-                    {{ forgotYourPasswordLink }}
-                  </base-button>
-                </slot>
-              </base-box>
-            </base-label>
+            </base-wrapper>
             <slot
               name="additional-fields"
               :onSignInSubmit="onSignInSubmit"
               :onCreateAccountClicked="onCreateAccountClicked"
             ></slot>
-          </base-field-Set>
+          </base-field-set>
+
+          <base-button
+            :disabled="actorState.matches('signIn.submit')"
+            class="amplify-button amplify-field-group__control"
+            data-fullwidth="true"
+            data-loading="false"
+            data-variation="primary"
+            style="border-radius: 0x; font-weight: normal"
+          >
+            <template #buttont>
+              <slot
+                name="sign-in-button"
+                :onSignInSubmit="onSignInSubmit"
+              ></slot>
+            </template>
+            {{
+              actorState.matches('signIn.submit')
+                ? signIngButtonText
+                : signInButtonText
+            }}
+            <!-- Add prop too? -->
+          </base-button>
+
+          <slot
+            name="forgot-password-section"
+            :onForgotPasswordClicked="onForgotPasswordClicked"
+          >
+            <base-button
+              class="amplify-button amplify-field-group__control"
+              data-fullwidth="true"
+              data-size="small"
+              data-variation="link"
+              style="font-weight: normal"
+              type="button"
+              @click.prevent="onForgotPasswordClicked"
+            >
+              {{ forgotYourPasswordLink }}
+            </base-button>
+          </slot>
+
           <base-footer>
             <template #footert="{ slotData }">
               <slot
@@ -64,32 +110,28 @@
               >
               </slot>
             </template>
-            <base-text>{{ noAccount }}</base-text>
+            <p class="amplify-text">{{ noAccount }}</p>
             <base-button
+              class="amplify-button amplify-field-group__control"
+              data-fullwidth="false"
+              data-variation="link"
+              style="font-weight: normal"
               type="button"
               @click.prevent="onCreateAccountClicked"
               >{{ createAccountLink }}</base-button
             >
             <base-spacer />
-            <base-button :disabled="actorState.matches('signIn.submit')">
-              <template #buttont>
-                <slot
-                  name="sign-in-button"
-                  :onSignInSubmit="onSignInSubmit"
-                ></slot>
-              </template>
-              {{
-                actorState.matches('signIn.submit')
-                  ? signIngButtonText
-                  : signInButtonText
-              }}
-              <!-- Add prop too? -->
-            </base-button>
           </base-footer>
-          <base-box data-ui-error>
+          <base-box data-ui-error v-if="actorState.context.remoteError">
             {{ actorState.context.remoteError }}
           </base-box>
         </base-wrapper>
+        <hr
+          class="amplify-divider"
+          aria-orientation="horizontal"
+          data-size="small"
+        />
+        <federated-sign-in></federated-sign-in>
       </base-form>
     </base-wrapper>
   </slot>
