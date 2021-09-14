@@ -2,28 +2,42 @@ import { Property } from 'csstype';
 import { FlexStyleProps } from './flex';
 import { ImageStyleProps } from './image';
 
+export interface ResponsiveObject<PropertyType> {
+  base?: PropertyType;
+  small?: PropertyType;
+  medium?: PropertyType;
+  large?: PropertyType;
+  xl?: PropertyType;
+  xxl?: PropertyType;
+}
+
+export type ResponsiveStyle<PropertyType> =
+  | PropertyType
+  | PropertyType[]
+  | ResponsiveObject<PropertyType>;
+
 export interface BaseStyleProps {
-  alignSelf?: Property.AlignSelf;
-  backgroundColor?: Property.BackgroundColor;
-  border?: Property.Border;
-  borderRadius?: Property.BorderRadius;
-  boxShadow?: Property.BoxShadow;
-  color?: Property.Color;
-  fontFamily?: Property.FontFamily;
-  fontSize?: Property.FontSize;
-  fontStyle?: Property.FontStyle;
-  fontWeight?: Property.FontWeight;
-  height?: Property.Height;
-  letterSpacing?: Property.LetterSpacing;
-  lineHeight?: Property.LineHeight;
-  maxHeight?: Property.MaxHeight;
-  maxWidth?: Property.MaxWidth;
-  minHeight?: Property.MinHeight;
-  minWidth?: Property.MinWidth;
-  opacity?: Property.Opacity;
-  padding?: Property.Padding;
-  textDecoration?: Property.TextDecoration;
-  width?: Property.Width;
+  alignSelf?: ResponsiveStyle<Property.AlignSelf>;
+  backgroundColor?: ResponsiveStyle<Property.BackgroundColor>;
+  border?: ResponsiveStyle<Property.Border>;
+  borderRadius?: ResponsiveStyle<Property.BorderRadius>;
+  boxShadow?: ResponsiveStyle<Property.BoxShadow>;
+  color?: ResponsiveStyle<Property.Color>;
+  fontFamily?: ResponsiveStyle<Property.FontFamily>;
+  fontSize?: ResponsiveStyle<Property.FontSize>;
+  fontStyle?: ResponsiveStyle<Property.FontStyle>;
+  fontWeight?: ResponsiveStyle<Property.FontWeight>;
+  height?: ResponsiveStyle<Property.Height>;
+  letterSpacing?: ResponsiveStyle<Property.LetterSpacing>;
+  lineHeight?: ResponsiveStyle<Property.LineHeight>;
+  maxHeight?: ResponsiveStyle<Property.MaxHeight>;
+  maxWidth?: ResponsiveStyle<Property.MaxWidth>;
+  minHeight?: ResponsiveStyle<Property.MinHeight>;
+  minWidth?: ResponsiveStyle<Property.MinWidth>;
+  opacity?: ResponsiveStyle<Property.Opacity>;
+  padding?: ResponsiveStyle<Property.Padding>;
+  textDecoration?: ResponsiveStyle<Property.TextDecoration>;
+  width?: ResponsiveStyle<Property.Width>;
 }
 
 export interface AllStyleProps

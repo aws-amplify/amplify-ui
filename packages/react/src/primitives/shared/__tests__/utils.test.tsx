@@ -1,10 +1,15 @@
+import { renderHook } from '@testing-library/react-hooks';
+
+import { theme } from '@aws-amplify/ui';
+
 import {
   convertStylePropsToStyleObj,
-  getNonStyleProps,
+  useNonStyleProps,
   getConsecutiveIntArray,
   strHasLength,
 } from '../utils';
 import { ComponentPropsToStylePropsMap, ViewProps } from '../../types';
+import { Breakpoint } from '../../types/responsive';
 
 const props: ViewProps = {
   backgroundColor: 'blue',
@@ -25,9 +30,19 @@ const props: ViewProps = {
   className: 'my-section',
 };
 
+let breakpoints = theme.breakpoints.values;
+
+const defaultStylePropsParams = {
+  breakpoint: 'base' as Breakpoint,
+  breakpoints,
+};
+
 describe('convertStylePropsToStyleObj: ', () => {
   it('should convert style props to a style object', () => {
-    const style = convertStylePropsToStyleObj(props);
+    const style = convertStylePropsToStyleObj({
+      props,
+      ...defaultStylePropsParams,
+    });
     Object.keys(ComponentPropsToStylePropsMap).forEach((prop) => {
       expect(style[prop]).toBe(props[prop]);
     });
@@ -43,7 +58,10 @@ describe('convertStylePropsToStyleObj: ', () => {
       ariaLabel: 'important section',
       as: 'section',
     };
-    const style = convertStylePropsToStyleObj(props);
+    const style = convertStylePropsToStyleObj({
+      props,
+      ...defaultStylePropsParams,
+    });
 
     expect(style['backgroundColor']).toBeUndefined();
     expect(style['color']).toBeUndefined();
@@ -59,7 +77,11 @@ describe('convertStylePropsToStyleObj: ', () => {
     const existingStyles: React.CSSProperties = {
       color: 'blue',
     };
-    const style = convertStylePropsToStyleObj(props, existingStyles);
+    const style = convertStylePropsToStyleObj({
+      props,
+      style: existingStyles,
+      ...defaultStylePropsParams,
+    });
 
     expect(style['backgroundColor']).toBe('red');
     expect(style['color']).toBe('blue');
@@ -75,7 +97,11 @@ describe('convertStylePropsToStyleObj: ', () => {
       backgroundColor: 'yellow',
     };
 
-    const style = convertStylePropsToStyleObj(props, existingStyles);
+    const style = convertStylePropsToStyleObj({
+      props,
+      style: existingStyles,
+      ...defaultStylePropsParams,
+    });
 
     expect(style['backgroundColor']).toBe('yellow');
     expect(style['color']).toBe('red');
@@ -83,9 +109,10 @@ describe('convertStylePropsToStyleObj: ', () => {
   });
 });
 
-describe('getNonStyleProps: ', () => {
+describe('useNonStyleProps: ', () => {
   it('should return an object containing only the non style props', () => {
-    const nonStyleProps = getNonStyleProps(props);
+    const { result } = renderHook(() => useNonStyleProps(props));
+    const nonStyleProps = result.current;
     expect(nonStyleProps['border']).toBeUndefined();
     expect(nonStyleProps['as']).toBe(props.as);
     expect(nonStyleProps['ariaLabel']).toBe(props.ariaLabel);
@@ -98,7 +125,8 @@ describe('getNonStyleProps: ', () => {
       backgroundColor: 'blue',
       fontWeight: 'bold',
     };
-    const nonStyleProps = getNonStyleProps(allStyleProps);
+    const { result } = renderHook(() => useNonStyleProps(allStyleProps));
+    const nonStyleProps = result.current;
     expect(nonStyleProps).toEqual({});
   });
 
@@ -108,7 +136,8 @@ describe('getNonStyleProps: ', () => {
       ariaLabel: props.ariaLabel,
       as: props.as,
     };
-    const nonStyleProps = getNonStyleProps(noStyleProps);
+    const { result } = renderHook(() => useNonStyleProps(noStyleProps));
+    const nonStyleProps = result.current;
     expect(nonStyleProps).toEqual(noStyleProps);
     expect(nonStyleProps).not.toBe(noStyleProps);
   });
