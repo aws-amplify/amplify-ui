@@ -7,7 +7,7 @@ Feature: Sign In with SMS MFA
   Background:
     Given I'm running the example "ui/components/authenticator/sign-in-sms-mfa"
 
-  @angular @next @vue
+  @angular @react @vue
   Scenario: Sign in using a valid phone number and SMS MFA
     When I type my "phone number" with status "CONFIRMED"
     And I type my password
@@ -15,7 +15,7 @@ Feature: Sign In with SMS MFA
     Then I will be redirected to the confirm sms mfa page
 
   # For angular, the "Back to Sign In" is not a button
-  @next @vue
+  @react @vue
   Scenario: Redirect to sign in page
     When I type my "phone number" with status "CONFIRMED"
     And I type my password
@@ -24,7 +24,7 @@ Feature: Sign In with SMS MFA
     Then I see "Sign in to your account"
 
   # For angular, the code input has an aria role of "spinbutton" and it should be "textbox"
-  @next @vue
+  @react @vue
   Scenario: Incorrect SMS code
     When I type my "phone number" with status "CONFIRMED"
     And I type my password
@@ -33,7 +33,7 @@ Feature: Sign In with SMS MFA
     And I click the "Confirm" button
     Then I see "Invalid code or auth state for the user."
     
-  @angular @next @vue
+  @angular @react @vue
   Scenario: Sign in with unknown credentials
     When I type my "phone number" with status "UNKNOWN"
     And I type my password
