@@ -9,7 +9,13 @@ import {
 import { Subscription } from 'xstate';
 import QRCode from 'qrcode';
 import { Auth, Logger } from 'aws-amplify';
-import { AuthMachineState, getActorState, SignInState } from '@aws-amplify/ui';
+import {
+  AuthMachineState,
+  getActorContext,
+  getActorState,
+  SignInContext,
+  SignInState,
+} from '@aws-amplify/ui';
 import { StateMachineService } from '../../services/state-machine.service';
 import { AuthPropService } from '../../services/authenticator-context.service';
 
@@ -66,7 +72,9 @@ export class AmplifySetupTotpComponent
 
   async generateQRCode() {
     // TODO: This should be handled in core.
-    const { user } = this.stateMachine.context;
+    const state = this.stateMachine.authState;
+    const actorContext: SignInContext = getActorContext(state);
+    const { user } = actorContext;
     try {
       const secretKey = await Auth.setupTOTP(user);
       const issuer = 'AWSCognito';
@@ -97,5 +105,9 @@ export class AmplifySetupTotpComponent
       type: 'SUBMIT',
       data: Object.fromEntries(formData),
     });
+  }
+
+  toSignIn(): void {
+    this.stateMachine.send('SIGN_IN');
   }
 }
