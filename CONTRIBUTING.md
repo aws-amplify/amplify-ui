@@ -36,7 +36,7 @@ Internally, this content is served by a single, Next.js [optional catch all rout
    For your `aws-exports.js`, you can [reference an existing or create a new environment](environments).
 
    ```js
-   // examples/next/pages/components/authenticator/sign-up.tsx
+   // examples/next/pages/components/authenticator/sign-up-with-username.tsx
    import { Authenticator } from '@aws-amplify/ui-react';
    import { Amplify } from 'aws-amplify';
    import awsExports from '../../../../../environments/auth-with-username-no-attributes/src/aws-exports';
@@ -48,7 +48,7 @@ Internally, this content is served by a single, Next.js [optional catch all rout
    }
    ```
 
-1. Visit your example (e.g. <http://localhost:3000/components/authenticator/sign-up>)
+1. Visit your example (e.g. <http://localhost:3000/ui/components/authenticator/sign-up-with-username>)
 1. Make changes to [`@aws-amplify/ui-react`](packages/react) & save.
 
    Next.js should automatically hot-reload your changes in the example.
@@ -62,7 +62,7 @@ Internally, this content is served by a single, Next.js [optional catch all rout
 
      Documentation-friendly description of this feature, why it exists, & how to use it.
 
-     @react
+     @next
      Scenario: Example scenario using this feature
        Given some "STARTING_POINT"
        When I DO "SOMETHING"
@@ -74,7 +74,7 @@ Internally, this content is served by a single, Next.js [optional catch all rout
 1. Start one of the [examples](examples).
 1. Run `yarn e2e dev` to load Cypress
 1. Click on your updated `${feature}.feature` file to validate your changes
-1. Add tags (e.g. `@react`, `@vue`, `@angular`, `@skip`, or `@focus`) above your `Scenario` to indicate which platform(s) to test against
+1. Add tags (e.g. `@next`, `@vue`, `@angular`, `@skip`, or `@focus`) above your `Scenario` to indicate which platform(s) to test against
 
 #### Vue Development
 

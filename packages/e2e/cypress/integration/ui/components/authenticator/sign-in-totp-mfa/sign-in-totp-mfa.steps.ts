@@ -1,29 +1,9 @@
-import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { Then, When } from 'cypress-cucumber-preprocessor/steps';
 
-Given("I'm running the example {string}", (url: string) => {
-  cy.visit(url);
+When('I enter an invalid confirmation code', () => {
+  cy.findInputField('code *').type('000000');
 });
 
-When('I type a valid email {string}', (email: string) => {
-  cy.get('[data-amplify-usernamealias]').type(Cypress.env(email));
-});
-
-When('I type an invalid email {string}', (email: string) => {
-  cy.get('[data-amplify-usernamealias]').type(Cypress.env(email));
-});
-
-And('I type an invalid password {string}', (password: string) => {
-  cy.get('[data-amplify-password]').type(Cypress.env(password));
-});
-
-And('I type a valid password {string}', (password: string) => {
-  cy.get('[data-amplify-password]').type(Cypress.env(password));
-});
-
-Then('I will be redirected to the confirm totp mfa page', () => {
-  cy.get('body').contains('TOTP');
-});
-
-Then('I will be redirected to the setup mfa page', () => {
+Then('I will be redirected to the setup totp page', () => {
   cy.get('[data-amplify-qrcode]').should('be.visible');
 });

@@ -17,6 +17,7 @@ export * from './Radio';
 export * from './RadioField';
 export * from './Rating';
 export * from './SelectField';
+export * from './SwitchField';
 export * from './Text';
 export * from './TextField';
 export * from './View';

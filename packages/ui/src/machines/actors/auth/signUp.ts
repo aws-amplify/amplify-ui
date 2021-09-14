@@ -1,3 +1,4 @@
+import { get } from 'lodash';
 import { createMachine, sendUpdate } from 'xstate';
 
 import { Auth } from 'aws-amplify';
@@ -167,13 +168,19 @@ export const signUpActor = createMachine<SignUpContext, AuthEvent>(
       setUser,
     },
     services: {
-      async confirmSignUp(_, event) {
-        const { username, confirmation_code: code } = event.data;
+      async confirmSignUp(context, event) {
+        const { user, authAttributes } = context;
+        const { confirmation_code: code } = event.data;
+
+        const username =
+          get(user, 'username') || get(authAttributes, 'username');
 
         return Auth.confirmSignUp(username, code);
       },
       async resendConfirmationCode(context, event) {
-        const { username } = event.data;
+        const { user, authAttributes } = context;
+        const username =
+          get(user, 'username') || get(authAttributes, 'username');
 
         return Auth.resendSignUp(username);
       },
@@ -188,18 +195,20 @@ export const signUpActor = createMachine<SignUpContext, AuthEvent>(
           login_mechanisms,
         } = context;
 
-        const [primaryAlias] = login_mechanisms ?? ['username'];
+        const [primaryAlias = 'username'] = login_mechanisms;
 
         if (formValues.phone_number) {
-          formValues.phone_number = formValues.phone_number.replace(
-            /[^A-Z0-9+]/gi,
-            ''
-          );
+          formValues.phone_number =
+            `${formValues.country_code}${formValues.phone_number}`.replace(
+              /[^A-Z0-9+]/gi,
+              ''
+            );
         }
 
         const username = formValues[primaryAlias];
         delete formValues[primaryAlias];
         delete formValues.confirm_password; // confirm_password field should not be sent to Cognito
+        delete formValues.country_code;
 
         const result = await Auth.signUp({
           username,

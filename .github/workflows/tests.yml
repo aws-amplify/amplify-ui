@@ -96,32 +96,12 @@ jobs:
       - name: Run E2E tests against ${{ matrix.framework }} example
         run: yarn workspace e2e test
         env:
-          # Override on the default value in `cypress.json` with `@react and not @skip`
-          TAGS: '@${{ matrix.framework }} and not @skip'
+          # Override on the default value in `cypress.json` with framework tag e.g. `@angular`
+          TAGS: '@${{ matrix.framework }}'
 
           # Env values for testing flows
-          CONFIRMED_USERNAME: ${{ secrets.CONFIRMED_USERNAME }}
-          FORCE_CHANGE_USERNAME: ${{ secrets.FORCE_CHANGE_USERNAME }}
-          INVALID_USERNAME: ${{ secrets.INVALID_USERNAME }}
-          UNCONFIRMED_USERNAME: ${{ secrets.UNCONFIRMED_USERNAME }}
-          UNKNOWN_USERNAME: ${{ secrets.UNKNOWN_USERNAME }}
-          VALID_USERNAME: ${{ secrets.VALID_USERNAME }}
-          CONFIRMED_EMAIL: ${{ secrets.CONFIRMED_EMAIL }}
-          FORCE_CHANGE_EMAIL: ${{ secrets.FORCE_CHANGE_EMAIL }}
-          INVALID_EMAIL: ${{ secrets.INVALID_EMAIL }}
-          UNCONFIRMED_EMAIL: ${{ secrets.UNCONFIRMED_EMAIL }}
-          UNKNOWN_EMAIL: ${{ secrets.UNKNOWN_EMAIL }}
-          VALID_EMAIL: ${{ secrets.VALID_EMAIL }}
-          CONFIRMED_PHONE_NUMBER: ${{ secrets.CONFIRMED_PHONE_NUMBER }}
-          FORCE_CHANGE_PHONE_NUMBER: ${{ secrets.FORCE_CHANGE_PHONE_NUMBER }}
-          INVALID_PHONE_NUMBER: ${{ secrets.INVALID_PHONE_NUMBER }}
-          UNCONFIRMED_PHONE_NUMBER: ${{ secrets.UNCONFIRMED_PHONE_NUMBER }}
-          UNKNOWN_PHONE_NUMBER: ${{ secrets.UNKNOWN_PHONE_NUMBER }}
-          VALID_PHONE_NUMBER: ${{ secrets.VALID_PHONE_NUMBER }}
-          INVALID_PASSWORD: ${{ secrets.INVALID_PASSWORD }}
-          INVALID_NEW_PASSWORD: ${{ secrets.INVALID_NEW_PASSWORD }}
+          DOMAIN: ${{ secrets.DOMAIN }}
+          PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
+          USERNAME: ${{ secrets.USERNAME }}
           NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
           VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
-          VALID_EMAIL_SETUP_MFA: ${{ secrets.VALID_EMAIL_SETUP_MFA }}
-          VALID_PASSWORD_SETUP_MFA: ${{ secrets.VALID_PASSWORD_SETUP_MFA }}
-          UNVERIFIED_EMAIL: ${{ secrets.UNVERIFIED_EMAIL }}

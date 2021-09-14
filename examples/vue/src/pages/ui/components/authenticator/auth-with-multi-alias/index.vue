@@ -14,7 +14,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import aws_exports from '@environments/auth-with-username-no-attributes/src/aws-exports';
+import aws_exports from '@environments/auth-with-multi-alias/src/aws-exports';
 
 import Amplify from 'aws-amplify';
 import '@aws-amplify/ui-vue/styles.css';
@@ -24,7 +24,7 @@ import { Authenticator } from '@aws-amplify/ui-vue';
 Amplify.configure({
   ...aws_exports,
   auth: {
-    login_mechanisms: ['username'],
+    login_mechanisms: ['username', 'email', 'phone_number'],
   },
 });
 

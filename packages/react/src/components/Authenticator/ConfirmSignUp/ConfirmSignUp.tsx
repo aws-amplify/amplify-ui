@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import { getActorState, SignUpState } from '@aws-amplify/ui';
 import { I18n } from 'aws-amplify';
 
@@ -8,37 +6,23 @@ import { useAmplify, useAuth } from '../../../hooks';
 import {
   ConfirmationCodeInput,
   ConfirmationCodeInputProps,
-  ConfirmSignInFooter,
   ConfirmSignInFooterProps,
-  UserNameAlias,
 } from '../shared';
 
 export function ConfirmSignUp() {
-  const [usernameAlias, setUsernameAlias] = useState<string>('');
   const amplifyNamespace = 'Authenticator.ConfirmSignUp';
   const {
-    components: { Box, Button, Fieldset, Form, Heading, Label, Text },
+    components: { Button, FieldGroup, Flex, Form, Heading },
   } = useAmplify(amplifyNamespace);
 
   const [_state, send] = useAuth();
   const actorState: SignUpState = getActorState(_state);
   const isPending = actorState.matches('confirmSignUp.pending');
 
-  const footerProps: ConfirmSignInFooterProps = {
-    amplifyNamespace,
-    isPending,
-    shouldHideReturnBtn: true,
-    send,
-  };
-
   const confirmationCodeInputProps: ConfirmationCodeInputProps = {
     amplifyNamespace,
     label: I18n.get('Confirmation Code'),
     placeholder: I18n.get('Enter your code'),
-  };
-
-  const handleUsernameInputChange = (event): void => {
-    setUsernameAlias(event.target.value);
   };
 
   return (
@@ -58,36 +42,37 @@ export function ConfirmSignUp() {
         });
       }}
     >
-      <Heading level={1}>{I18n.get('Confirm Sign Up')}</Heading>
+      <Flex direction="column">
+        <Heading level={3}>{I18n.get('Confirm Sign Up')}</Heading>
 
-      <Fieldset disabled={isPending}>
-        <UserNameAlias
-          handleInputChange={handleUsernameInputChange}
-          data-amplify-usernamealias
-        />
-
-        <Label data-amplify-confirmationcode>
+        <FieldGroup direction="column" disabled={isPending}>
           <ConfirmationCodeInput {...confirmationCodeInputProps} />
-          <Box>
-            <Text>{I18n.get('Lost your code? ')}</Text>
-            <Button
-              onClick={() => {
-                send({
-                  type: 'RESEND',
-                  data: {
-                    username: usernameAlias,
-                  },
-                });
-              }}
-              type="button"
-            >
-              {I18n.get('Resend Code')}
-            </Button>
-          </Box>
-        </Label>
-      </Fieldset>
 
-      <ConfirmSignInFooter {...footerProps} />
+          <Button
+            variation="primary"
+            isDisabled={isPending}
+            type="submit"
+            loadingText={I18n.get('Confirming')}
+            isLoading={isPending}
+            fontWeight="normal"
+          >
+            {I18n.get('Confirm')}
+          </Button>
+
+          <Button
+            variation="default"
+            onClick={() => {
+              send({
+                type: 'RESEND',
+              });
+            }}
+            type="button"
+            fontWeight="normal"
+          >
+            {I18n.get('Resend Code')}
+          </Button>
+        </FieldGroup>
+      </Flex>
     </Form>
   );
 }

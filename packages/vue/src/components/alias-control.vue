@@ -1,6 +1,18 @@
 <template>
-  <base-label>
+  <base-label v-bind="$attrs" v-if="name === 'phone_number'">
+    <base-text>{{ 'Country Code' }}</base-text>
+    <base-select
+      data-amplify-select
+      aria-label="country code"
+      name="country_code"
+      :options="dialCodes"
+      :select-value="defaultDialCode"
+    >
+    </base-select>
+  </base-label>
+  <base-label v-bind="$attrs">
     <base-text>{{ label }}</base-text>
+
     <base-input
       :name="name"
       required
@@ -10,43 +22,44 @@
   </base-label>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed } from 'vue';
-import { authInputAttributes } from '@aws-amplify/ui';
+<script setup lang="ts">
+import { computed, ComputedRef } from 'vue';
+import {
+  ActorContextWithForms,
+  authInputAttributes,
+  countryDialCodes,
+  getActorContext,
+} from '@aws-amplify/ui';
 
-import BaseInput from './primitives/base-input.vue';
-import BaseText from './primitives/base-text.vue';
-import BaseLabel from './primitives/base-label.vue';
+import { useAuth } from '../composables/useAuth';
 
-import { AliasControlTypes } from '../types';
+interface PropsInterface {
+  label: string;
+  name: string;
+  placeholder?: string;
+}
 
-export default defineComponent({
-  components: {
-    BaseInput,
-    BaseText,
-    BaseLabel,
-  },
-  props: {
-    label: {
-      default: 'Username',
-      required: true,
-      type: String,
-    },
-    name: {
-      default: 'username',
-      required: true,
-      type: String,
-    },
-    placeholder: {
-      default: (props) => props.label,
-      type: String,
-    },
-  },
-  setup(): AliasControlTypes {
-    //computed
-    const inputAttributes = computed(() => authInputAttributes);
+const { label, name, placeholder } = withDefaults(
+  defineProps<PropsInterface>(),
+  {
+    label: 'Username',
+    name: 'username',
+    placeholder: '',
+  }
+);
 
-    return { inputAttributes };
-  },
-});
+const { state } = useAuth();
+const {
+  value: { context },
+} = state;
+
+//computed
+const inputAttributes = computed(() => authInputAttributes);
+const actorContext: ComputedRef<ActorContextWithForms> = computed(() =>
+  getActorContext(state.value)
+);
+
+const defaultDialCode = actorContext.value.formValues?.country_code;
+
+const dialCodes = computed(() => countryDialCodes);
 </script>

@@ -58,7 +58,7 @@ function getGitHubUrlForExample(platform) {
 export function Feature({ name = required('Missing feature name') }) {
   const [source, setSource] = React.useState(null);
   const { pathname, query } = useRouter();
-  const { platform = 'react' } = query;
+  const { platform = 'next' } = query;
 
   const port = getPortForPlatform(platform);
 

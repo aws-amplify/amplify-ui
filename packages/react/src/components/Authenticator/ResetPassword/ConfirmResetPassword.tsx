@@ -4,22 +4,22 @@ import { getActorState, ResetPasswordState } from '@aws-amplify/ui';
 import { useAmplify, useAuth } from '../../../hooks';
 import {
   ConfirmationCodeInput,
-  ErrorText,
-  PasswordInput,
+  RemoteErrorMessage,
   TwoButtonSubmitFooter,
 } from '../shared';
 
 export const ConfirmResetPassword = (): JSX.Element => {
   const amplifyNamespace = 'Authenticator.ConfirmResetPassword';
   const {
-    components: { Box, Button, Fieldset, Form, Heading, Input, Label, Text },
+    components: { FieldGroup, Flex, Form, Heading, PasswordField },
   } = useAmplify(amplifyNamespace);
 
   const [_state, send] = useAuth();
   const actorState = getActorState(_state) as ResetPasswordState;
   const isPending = actorState.matches('confirmResetPassword.pending');
 
-  const headerText = I18n.get('Reset your Password');
+  const headerText = I18n.get('Reset your password');
+  const passwordText = I18n.get('New password');
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -46,42 +46,31 @@ export const ConfirmResetPassword = (): JSX.Element => {
       }}
       onChange={handleChange}
     >
-      <Heading level={1}>{headerText}</Heading>
+      <Flex direction="column">
+        <Heading level={3}>{headerText}</Heading>
 
-      <Fieldset disabled={isPending}>
-        <Label data-amplify-confirmresetpasswordcode-label="">
+        <FieldGroup direction="column" disabled={isPending}>
           <ConfirmationCodeInput amplifyNamespace={amplifyNamespace} />
-        </Label>
 
-        <Label data-amplify-confirmresetpasswordnew-label="">
-          <PasswordInput
-            amplifyNamespace={amplifyNamespace}
-            label={I18n.get('New password')}
+          <PasswordField
+            data-amplify-password
+            className="password-field"
+            placeholder={passwordText}
+            required
+            name="password"
+            label={passwordText}
+            labelHidden={true}
           />
-        </Label>
+        </FieldGroup>
 
-        <Box>
-          <Text>{I18n.get('Lost your code? ')}</Text>
-          <Button
-            onClick={() => {
-              send({
-                type: 'RESEND',
-              });
-            }}
-            type="button"
-          >
-            {I18n.get('Resend Code')}
-          </Button>
-        </Box>
-      </Fieldset>
-
-      <ErrorText amplifyNamespace={amplifyNamespace} />
-      <TwoButtonSubmitFooter
-        cancelButtonSendType="SIGN_IN"
-        cancelButtonText={I18n.get('Sign in')}
-        amplifyNamespace={amplifyNamespace}
-        isPending={isPending}
-      />
+        <RemoteErrorMessage amplifyNamespace={amplifyNamespace} />
+        <TwoButtonSubmitFooter
+          cancelButtonSendType="RESEND"
+          cancelButtonText={I18n.get('Resend Code')}
+          amplifyNamespace={amplifyNamespace}
+          isPending={isPending}
+        />
+      </Flex>
     </Form>
   );
 };

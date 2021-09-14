@@ -5,27 +5,10 @@
   </base-label>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed, ComputedRef } from 'vue';
+<script setup lang="ts">
+import { computed } from 'vue';
 import { I18n } from 'aws-amplify';
-
-import BaseInput from './primitives/base-input.vue';
-import BaseLabel from './primitives/base-label.vue';
-import BaseText from './primitives/base-text.vue';
-
 import { EMAIL_ADDRESS_LABEL } from '../defaults/DefaultTexts';
 
-export default defineComponent({
-  components: {
-    BaseInput,
-    BaseLabel,
-    BaseText,
-  },
-  setup(): { emailAddressLabel: ComputedRef<string> } {
-    const emailAddressLabel = computed(() => I18n.get(EMAIL_ADDRESS_LABEL));
-    return { emailAddressLabel };
-  },
-});
+const emailAddressLabel = computed(() => I18n.get(EMAIL_ADDRESS_LABEL));
 </script>
-
-<style scoped></style>
