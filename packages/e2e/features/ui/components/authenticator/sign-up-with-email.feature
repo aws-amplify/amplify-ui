@@ -6,7 +6,7 @@ Feature: Sign Up with Email
     Given I'm running the example "ui/components/authenticator/sign-up-with-email"
     And I click "Create account"
 
-  @angular @next @vue
+  @angular @react @vue
   Scenario: Login mechanism set to "email"
     Then I see "Email" as an input field
     And I don't see "Username" as an input field
@@ -20,7 +20,7 @@ Feature: Sign Up with Email
     And I click the "Create Account" button
     Then I see "Confirmation Code"
 
-  @angular @next @vue
+  @angular @react @vue
   Scenario: Email field autocompletes username
 
   On sign up form, autocomplete prefers usage of username instead of email. 
@@ -28,7 +28,7 @@ Feature: Sign Up with Email
 
     And "Email" field autocompletes "username"
 
-  @angular @next @vue
+  @angular @react @vue
   Scenario: Password fields autocomplete "new-password"
     And "Password" field autocompletes "new-password"
     And "Confirm Password" field autocompletes "new-password"
