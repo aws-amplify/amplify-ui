@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { CollectionProps } from '../types';
 import { Flex } from '../Flex';
 

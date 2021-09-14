@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-  convertStylePropsToStyleObj,
-  getNonStyleProps,
-  prefixer,
-} from '../shared/utils';
+import { useNonStyleProps, usePropStyles } from '../shared/utils';
 import { ViewProps } from '../types/index';
 
 export const View: React.FC<ViewProps> = (props) => {
@@ -22,6 +18,9 @@ export const View: React.FC<ViewProps> = (props) => {
 
   const ViewTag = asElementTag ?? 'div';
 
+  const propStyles = usePropStyles(props, style);
+  const nonStyleProps = useNonStyleProps(rest);
+
   return (
     <ViewTag
       aria-label={ariaLabel}
@@ -30,8 +29,8 @@ export const View: React.FC<ViewProps> = (props) => {
       disabled={isDisabled}
       id={id}
       role={role}
-      style={prefixer(convertStylePropsToStyleObj(props, style))}
-      {...getNonStyleProps(rest)}
+      style={propStyles}
+      {...nonStyleProps}
     >
       {children}
     </ViewTag>

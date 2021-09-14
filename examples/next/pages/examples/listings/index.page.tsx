@@ -39,7 +39,7 @@ function App() {
         />
         <Collection
           type="list"
-          direction="row"
+          direction={{ base: 'column', large: 'row' }}
           alignItems="stretch"
           padding={`0 0 ${theme.space.xxl} 0`}
           items={experiences}
