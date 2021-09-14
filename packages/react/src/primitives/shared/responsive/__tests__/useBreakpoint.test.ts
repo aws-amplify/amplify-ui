@@ -29,6 +29,28 @@ const defaultBreakpoint = 'base';
 
 let matchMedia: MatchMediaMock;
 let mediaQueries = getMediaQueries({ breakpointUnit: 'em', breakpoints });
+
+const testBreakpoints = (m) => {
+  it(`should return ${m.breakpoint} breakpoint`, () => {
+    matchMedia.useMediaQuery(m.query);
+    const { result } = renderHook(() =>
+      useBreakpoint({ breakpoints, breakpointUnit, defaultBreakpoint })
+    );
+    const breakpoint = result.current;
+
+    expect(breakpoint).toBe(m.breakpoint);
+    expect(mockUseDebugValue).toHaveBeenLastCalledWith(
+      m.breakpoint,
+      expect.any(Function)
+    );
+    if (m.breakpoint === 'base') {
+      expect(mockUseDebugValue).toHaveBeenCalledTimes(1);
+    } else {
+      expect(mockUseDebugValue).toHaveBeenCalledTimes(2);
+    }
+  });
+};
+
 describe('useBreakpoint', () => {
   beforeAll(() => {
     matchMedia = new MatchMediaMock();
@@ -48,50 +70,7 @@ describe('useBreakpoint', () => {
     expect(breakpoint).toBe('base');
   });
 
-  mediaQueries.forEach((m) => {
-    it(`should return ${m.breakpoint.toString()} breakpoint`, () => {
-      matchMedia.useMediaQuery(m.query);
-
-      const { result } = renderHook(() =>
-        useBreakpoint({ breakpoints, breakpointUnit, defaultBreakpoint })
-      );
-      const breakpoint = result.current;
-
-      expect(breakpoint).toBe(m.breakpoint);
-      expect(mockUseDebugValue).toHaveBeenLastCalledWith(
-        m.breakpoint,
-        expect.any(Function)
-      );
-      if (m.breakpoint === 'base') {
-        expect(mockUseDebugValue).toHaveBeenCalledTimes(1);
-      } else {
-        expect(mockUseDebugValue).toHaveBeenCalledTimes(2);
-      }
-    });
-  });
-
-  it('should react to changes to matchMedia', () => {
-    matchMedia.useMediaQuery('(min-width: 0)');
-
-    const { result } = renderHook(() =>
-      useBreakpoint({ breakpoints, breakpointUnit, defaultBreakpoint })
-    );
-
-    expect(result.current).toBe('base');
-    expect(mockUseDebugValue).toHaveBeenCalledTimes(1);
-
-    act(() => {
-      matchMedia.useMediaQuery('(min-width: 48em) and (max-width: 61em)');
-    });
-
-    expect(result.current).toBe('medium');
-    expect(mockUseDebugValue).toHaveBeenCalledTimes(2);
-
-    act(() => {
-      matchMedia.useMediaQuery('(min-width: 30em) and (max-width: 47em)');
-    });
-
-    expect(result.current).toBe('small');
-    expect(mockUseDebugValue).toHaveBeenCalledTimes(3);
-  });
+  // Test going down and up the breakpoints
+  mediaQueries.forEach(testBreakpoints);
+  mediaQueries.reverse().forEach(testBreakpoints);
 });
