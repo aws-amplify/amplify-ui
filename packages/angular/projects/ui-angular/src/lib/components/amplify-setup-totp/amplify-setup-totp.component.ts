@@ -106,4 +106,8 @@ export class AmplifySetupTotpComponent
       data: Object.fromEntries(formData),
     });
   }
+
+  toSignIn(): void {
+    this.stateMachine.send('SIGN_IN');
+  }
 }
