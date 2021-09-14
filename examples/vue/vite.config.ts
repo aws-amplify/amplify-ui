@@ -1,11 +1,12 @@
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
-import voie from 'vite-plugin-voie';
+import Pages from 'vite-plugin-pages';
+
 const path = require('path');
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue(), voie()],
+  plugins: [vue(), Pages()],
   server: {
     port: 3001,
     fs: {
