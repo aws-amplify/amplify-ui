@@ -13,34 +13,84 @@ import {
   ViewProps,
 } from '../types/index';
 
+import { getValueAtCurrentBreakpoint } from './responsive/utils';
+import { useBreakpoint } from './responsive/useBreakpoint';
+import { Breakpoint, Breakpoints } from '../types/responsive';
+
+import { useTheming } from '../../theming/';
+
 export const prefixer = postcssJs.sync([autoprefixer]);
 
 export const strHasLength = (str: unknown): str is string =>
   typeof str === 'string' && str.length > 0;
+
+export const usePropStyles = (props: ViewProps, style: any) => {
+  const {
+    theme: {
+      breakpoints: {
+        values: breakpoints,
+        unit: breakpointUnit,
+        defaultBreakpoint,
+      },
+    },
+  } = useTheming();
+
+  const breakpoint = useBreakpoint({
+    breakpoints,
+    breakpointUnit,
+    defaultBreakpoint: defaultBreakpoint as Breakpoint,
+  });
+
+  return React.useMemo(
+    () =>
+      prefixer(
+        convertStylePropsToStyleObj({ props, style, breakpoint, breakpoints })
+      ),
+    [props, style, breakpoints, breakpoint]
+  );
+};
+
+const filterOutNullOrEmptyStringValues = (value) =>
+  value != null && (typeof value !== 'string' || strHasLength(value));
+
+interface convertStylePropsToStyleObjParams {
+  props: ViewProps;
+  style?: React.CSSProperties;
+  breakpoint: Breakpoint;
+  breakpoints: Breakpoints;
+}
+export interface ConvertStylePropsToStyleObj {
+  (params: convertStylePropsToStyleObjParams);
+}
 
 /**
  * Convert style props to CSS variables for React style prop
  * Note: Will filter out undefined, null, and empty string prop values
  * @returns CSSProperties styles
  */
-export const convertStylePropsToStyleObj = (
-  props: ViewProps,
-  style: React.CSSProperties = {}
-) => {
+export const convertStylePropsToStyleObj: ConvertStylePropsToStyleObj = ({
+  props,
+  style = {},
+  breakpoint,
+  breakpoints,
+}) => {
   (
     Object.keys(ComponentPropsToStylePropsMap) as Array<
       keyof ComponentPropToStyleProp
     >
-  ).forEach((stylePropKey) => {
-    const stylePropValue = props[stylePropKey];
-    if (
-      stylePropValue != null &&
-      (typeof stylePropValue !== 'string' || strHasLength(stylePropValue))
-    ) {
+  )
+    .filter((stylePropKey) =>
+      filterOutNullOrEmptyStringValues(props[stylePropKey])
+    )
+    .forEach((stylePropKey) => {
+      let value = getValueAtCurrentBreakpoint(
+        props[stylePropKey],
+        breakpoint,
+        breakpoints
+      );
       const reactStyleProp = ComponentPropsToStylePropsMap[stylePropKey];
-      style = { ...style, [reactStyleProp]: stylePropValue };
-    }
-  });
+      style = { ...style, [reactStyleProp]: value };
+    });
   return style;
 };
 
@@ -49,14 +99,16 @@ export const convertStylePropsToStyleObj = (
  * @param props
  * @returns non styled props
  */
-export const getNonStyleProps = (props: ViewProps) => {
-  const nonStyleProps = {};
-  Object.keys(props).forEach((propKey) => {
-    if (!(propKey in ComponentPropsToStylePropsMap)) {
-      nonStyleProps[propKey] = props[propKey];
-    }
-  });
-  return nonStyleProps;
+export const useNonStyleProps = (props: ViewProps) => {
+  return React.useMemo(() => {
+    const nonStyleProps = {};
+    Object.keys(props).forEach((propKey) => {
+      if (!(propKey in ComponentPropsToStylePropsMap)) {
+        nonStyleProps[propKey] = props[propKey];
+      }
+    });
+    return nonStyleProps;
+  }, [props]);
 };
 
 /**

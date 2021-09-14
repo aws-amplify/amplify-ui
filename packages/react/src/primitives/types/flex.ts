@@ -1,33 +1,33 @@
 import { Property } from 'csstype';
 
 import { BaseComponentProps } from './base';
-
+import { ResponsiveStyle } from './style';
 export interface FlexStyleProps {
   /**
    * Controls where the flex items sit on the cross axis.
    */
-  alignItems?: Property.AlignItems;
+  alignItems?: ResponsiveStyle<Property.AlignItems>;
 
   /**
    * Sets the distribution of space between and around content items
    */
-  alignContent?: Property.AlignContent;
+  alignContent?: ResponsiveStyle<Property.AlignContent>;
 
   /**
    * Sets how flex items are placed in the flex container defining the main axis
    * and the direction (normal or reversed). (maps to flex-direction CSS property)
    */
-  direction?: Property.FlexDirection;
+  direction?: ResponsiveStyle<Property.FlexDirection>;
 
   /**
    * Spacing between child components
    */
-  gap?: Property.Gap;
+  gap?: ResponsiveStyle<Property.Gap>;
 
   /**
    * Controls where the flex items sit on the main axis.
    */
-  justifyContent?: Property.JustifyContent;
+  justifyContent?: ResponsiveStyle<Property.JustifyContent>;
 
   /**
    * The flexWrap property is set on containers and it controls what happens when
@@ -37,7 +37,7 @@ export interface FlexStyleProps {
    * axis if needed.
    * (maps to flex-wrap CSS property)
    */
-  wrap?: Property.FlexWrap;
+  wrap?: ResponsiveStyle<Property.FlexWrap>;
 }
 
 export interface FlexProps extends FlexStyleProps, BaseComponentProps {}
