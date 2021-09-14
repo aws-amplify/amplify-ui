@@ -19,7 +19,7 @@ export const useBreakpoint: UseBreakpoint = ({
 
   const mediaQueries = React.useMemo(
     () => getMediaQueries({ breakpoints, breakpointUnit }),
-    [breakpoints, getMediaQueries]
+    [breakpoints, breakpointUnit, getMediaQueries]
   );
 
   const [breakpoint, setBreakpoint] =
