@@ -5,7 +5,8 @@
   "module": "dist/esm/index.js",
   "exports": {
     ".": "./dist/esm/index.js",
-    "./legacy": "./dist/esm/legacy.js"
+    "./legacy": "./dist/esm/legacy.js",
+    "./styles.css": "./dist/index.css"
   },
   "browser": {
     "./styles.css": "./dist/index.css"
