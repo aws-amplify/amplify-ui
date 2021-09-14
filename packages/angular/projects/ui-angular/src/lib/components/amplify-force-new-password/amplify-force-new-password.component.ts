@@ -59,9 +59,14 @@ export class AmplifyForceNewPasswordComponent
   }
 
   onStateUpdate(state: AuthMachineState): void {
+    console.log({ ...state });
     const actorState: SignInState = getActorState(state);
     this.remoteError = actorState.context.remoteError;
-    this.isPending = !actorState.matches('forceNewPassword.edit');
+    this.isPending = actorState.matches({
+      signUp: {
+        submission: 'idle',
+      },
+    });
   }
 
   public get context() {
