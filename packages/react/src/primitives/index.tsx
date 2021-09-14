@@ -14,7 +14,6 @@ export * from './Pagination';
 export * from './Placeholder';
 export * from './PasswordField';
 export * from './Rating';
-export * from './Select';
 export * from './SelectField';
 export * from './SwitchField';
 export * from './Tabs';
