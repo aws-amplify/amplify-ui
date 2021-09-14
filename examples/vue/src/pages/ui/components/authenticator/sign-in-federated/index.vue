@@ -12,8 +12,7 @@
   </Authenticator>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script setup lang="ts">
 import aws_exports from '@environments/auth-with-federated/src/aws-exports';
 
 import Amplify from 'aws-amplify';
@@ -26,10 +25,5 @@ Amplify.configure({
   auth: {
     login_mechanisms: ['email', 'facebook', 'amazon', 'google'],
   },
-});
-
-export default defineComponent({
-  name: 'App',
-  components: { Authenticator },
 });
 </script>

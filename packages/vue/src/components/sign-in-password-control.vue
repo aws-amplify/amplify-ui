@@ -11,23 +11,9 @@
   </div>
 </template>
 
-<script lang="ts">
-import BaseText from './primitives/base-text.vue';
-import BaseInput from './primitives/base-input.vue';
-
+<script setup lang="ts">
+import { computed } from 'vue';
 import { PASSWORD_LABEL } from '../defaults/DefaultTexts';
-export default {
-  components: {
-    BaseText,
-    BaseInput,
-  },
-  computed: {
-    passwordLabel: (): string => PASSWORD_LABEL,
-  },
-  setup(): void {
-    return;
-  },
-};
+import { I18n } from 'aws-amplify';
+const passwordLabel = computed(() => I18n.get(PASSWORD_LABEL));
 </script>
-
-<style scoped></style>
