@@ -1,6 +1,6 @@
 <template>
-  <slot name="signInSlotI">
-    <base-wrapper data-amplify-wrapper>
+  <slot v-bind="$attrs" name="signInSlotI">
+    <base-wrapper v-bind="$attrs" data-amplify-wrapper>
       <base-form
         data-amplify-authenticator-signin
         @submit.prevent="onSignInSubmit"
@@ -91,135 +91,91 @@
   </slot>
 </template>
 
-<script lang="ts">
-import { Ref, ref, computed, ComputedRef } from 'vue';
+<script setup lang="ts">
+import { computed, ComputedRef, useAttrs } from 'vue';
 import { I18n } from 'aws-amplify';
 
-import BaseLabel from './primitives/base-label.vue';
-import BaseFooter from './primitives/base-footer.vue';
-import BaseWrapper from './primitives/base-wrapper.vue';
-import BaseForm from './primitives/base-form.vue';
-import BaseHeading from './primitives/base-heading.vue';
-import BaseFieldSet from './primitives/base-field-set.vue';
-import BaseBox from './primitives/base-box.vue';
-import BaseButton from './primitives/base-button.vue';
-import BaseSpacer from './primitives/base-spacer.vue';
-import BaseText from './primitives/base-text.vue';
 import SignInPasswordControl from './sign-in-password-control.vue';
 import UserNameAlias from './user-name-alias.vue';
 import FederatedSignIn from './federated-sign-in.vue';
 
 import {
   SIGN_IN_TEXT,
-  AUTHENTICATOR,
   NO_ACCOUNT,
   CREATE_ACCOUNT_LINK,
   FORGOT_YOUR_PASSWORD_LINK,
   SIGN_IN_BUTTON_TEXT,
-  PASSWORD_LABEL,
   SIGNING_IN_BUTTON_TEXT,
 } from '../defaults/DefaultTexts';
 
 // @xstate
 import { useAuth } from '../composables/useAuth';
-
-// types
-import { SetupEventContext, SignInSetupReturnTypes } from '../types/index';
 import { getActorState, SignInState } from '@aws-amplify/ui';
 
-export default {
-  name: 'Sign In',
-  computed: {
-    signIntoAccountText: (): string => I18n.get(SIGN_IN_TEXT),
-    noAccount: (): string => I18n.get(NO_ACCOUNT),
-    createAccountLink: (): string => I18n.get(CREATE_ACCOUNT_LINK),
-    forgotYourPasswordLink: (): string => I18n.get(FORGOT_YOUR_PASSWORD_LINK),
-    signInButtonText: (): string => I18n.get(SIGN_IN_BUTTON_TEXT),
-    signIngButtonText: (): string => I18n.get(SIGNING_IN_BUTTON_TEXT),
-    passwordLabel: (): string => I18n.get(PASSWORD_LABEL),
-  },
-  inheritAttrs: false,
-  components: {
-    BaseFooter,
-    BaseWrapper,
-    BaseForm,
-    BaseHeading,
-    BaseFieldSet,
-    BaseLabel,
-    BaseText,
-    BaseBox,
-    BaseButton,
-    BaseSpacer,
-    UserNameAlias,
-    SignInPasswordControl,
-    FederatedSignIn,
-  },
-  setup(_, { emit, attrs }: SetupEventContext): SignInSetupReturnTypes {
-    const { state, send } = useAuth();
-    const actorState: ComputedRef<SignInState> = computed(() =>
-      getActorState(state.value)
-    );
+const attrs = useAttrs();
+const emit = defineEmits([
+  'signInSubmit',
+  'forgotPasswordClicked',
+  'createAccountClicked',
+]);
 
-    const username: Ref = ref('');
-    const password: Ref = ref('');
+const signIntoAccountText = computed(() => I18n.get(SIGN_IN_TEXT));
+const noAccount = computed(() => I18n.get(NO_ACCOUNT));
+const createAccountLink = computed(() => I18n.get(CREATE_ACCOUNT_LINK));
+const forgotYourPasswordLink = computed(() =>
+  I18n.get(FORGOT_YOUR_PASSWORD_LINK)
+);
+const signInButtonText = computed(() => I18n.get(SIGN_IN_BUTTON_TEXT));
+const signIngButtonText = computed(() => I18n.get(SIGNING_IN_BUTTON_TEXT));
 
-    // Methods
+const { state, send } = useAuth();
+const actorState: ComputedRef<SignInState> = computed(() =>
+  getActorState(state.value)
+);
 
-    const onInput = (e: Event): void => {
-      const { name, value } = <HTMLInputElement>e.target;
-      send({
-        type: 'CHANGE',
-        //@ts-ignore
-        data: { name, value },
-      });
-    };
+// Methods
 
-    const onSignInSubmit = (e: Event): void => {
-      if (attrs?.onSignInSubmit) {
-        emit('signInSubmit', e);
-      } else {
-        submit(e);
-      }
-    };
+const onInput = (e: Event): void => {
+  const { name, value } = <HTMLInputElement>e.target;
+  send({
+    type: 'CHANGE',
+    //@ts-ignore
+    data: { name, value },
+  });
+};
 
-    const submit = (e: Event): void => {
-      const formData = new FormData(<HTMLFormElement>e.target);
-      send({
-        type: 'SUBMIT',
-        // @ts-ignore Property 'fromEntries' does not exist on type 'ObjectConstructor'. Do you need to change your target library? Try changing the `lib` compiler option to 'es2019' or later.ts(2550)
-        data: Object.fromEntries(formData),
-      });
-    };
+const onSignInSubmit = (e: Event): void => {
+  if (attrs?.onSignInSubmit) {
+    emit('signInSubmit', e);
+  } else {
+    submit(e);
+  }
+};
 
-    const onForgotPasswordClicked = (): void => {
-      if (attrs?.onForgotPasswordClicked) {
-        emit('forgotPasswordClicked');
-      } else {
-        send({ type: 'RESET_PASSWORD' });
-      }
-    };
+const submit = (e: Event): void => {
+  const formData = new FormData(<HTMLFormElement>e.target);
+  send({
+    type: 'SUBMIT',
+    // @ts-ignore Property 'fromEntries' does not exist on type 'ObjectConstructor'. Do you need to change your target library? Try changing the `lib` compiler option to 'es2019' or later.ts(2550)
+    data: Object.fromEntries(formData),
+  });
+};
 
-    const onCreateAccountClicked = (): void => {
-      if (attrs?.onCreateAccountClicked) {
-        emit('createAccountClicked');
-      } else {
-        send({
-          type: 'SIGN_UP',
-        });
-      }
-    };
+const onForgotPasswordClicked = (): void => {
+  if (attrs?.onForgotPasswordClicked) {
+    emit('forgotPasswordClicked');
+  } else {
+    send({ type: 'RESET_PASSWORD' });
+  }
+};
 
-    return {
-      onSignInSubmit,
-      AUTHENTICATOR,
-      onForgotPasswordClicked,
-      onCreateAccountClicked,
-      onInput,
-      actorState,
-      username,
-      password,
-      submit,
-    };
-  },
+const onCreateAccountClicked = (): void => {
+  if (attrs?.onCreateAccountClicked) {
+    emit('createAccountClicked');
+  } else {
+    send({
+      type: 'SIGN_UP',
+    });
+  }
 };
 </script>

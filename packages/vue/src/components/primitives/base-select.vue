@@ -11,28 +11,17 @@
   </select>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType } from 'vue';
+<script setup lang="ts">
+const { options, selectValue } = withDefaults(
+  defineProps<{ selectValue: string; options: string[] }>(),
+  {
+    selectValue: '',
+  }
+);
 
-export default defineComponent({
-  props: {
-    options: {
-      required: true,
-      type: Array as PropType<string[]>,
-    },
-    selectValue: {
-      type: String,
-      default: '',
-    },
-  },
-  setup(props, { emit }): { onChange: (event) => void; selectValue: string } {
-    const onChange = (e: Event): void => {
-      emit('update:selectValue', (<HTMLInputElement>e.target).value);
-    };
+const emit = defineEmits(['update:selectValue']);
 
-    const selectValue = props.selectValue;
-
-    return { onChange, selectValue };
-  },
-});
+const onChange = (e: Event): void => {
+  emit('update:selectValue', (<HTMLInputElement>e.target).value);
+};
 </script>

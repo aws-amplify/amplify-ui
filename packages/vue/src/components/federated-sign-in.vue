@@ -28,45 +28,27 @@
   </base-box>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed } from 'vue';
+<script setup lang="ts">
+import { computed } from 'vue';
 import { FederatedIdentityProviders } from '@aws-amplify/ui';
 import { useAuth } from '../composables/useAuth';
 import FederatedSignInButton from './federated-sign-in-button.vue';
-import BaseWrapper from './primitives/base-wrapper.vue';
-import BaseSpacer from './primitives/base-spacer.vue';
-import BaseBox from './primitives/base-box.vue';
-import { FederatedSignInReturnTypes } from '../types';
 
-export default defineComponent({
-  components: { FederatedSignInButton, BaseWrapper, BaseBox, BaseSpacer },
-  setup(): FederatedSignInReturnTypes {
-    const { state } = useAuth();
-    const {
-      value: { context },
-    } = state;
+const { state } = useAuth();
+const {
+  value: { context },
+} = state;
 
-    const loginMechanisms = context?.config?.login_mechanisms;
+const loginMechanisms = context?.config?.login_mechanisms;
 
-    const includeFacebook = loginMechanisms?.includes('facebook');
-    const includeGoogle = loginMechanisms?.includes('google');
-    const includeAmazon = loginMechanisms?.includes('amazon');
+const includeFacebook = loginMechanisms?.includes('facebook');
+const includeGoogle = loginMechanisms?.includes('google');
+const includeAmazon = loginMechanisms?.includes('amazon');
 
-    const shouldShowFederatedSignIn =
-      includeFacebook || includeGoogle || includeAmazon;
+const shouldShowFederatedSignIn =
+  includeFacebook || includeGoogle || includeAmazon;
 
-    // computed properties
+// computed properties
 
-    const fp = computed(() => FederatedIdentityProviders);
-
-    return {
-      loginMechanisms,
-      fp,
-      includeFacebook,
-      includeGoogle,
-      includeAmazon,
-      shouldShowFederatedSignIn,
-    };
-  },
-});
+const fp = computed(() => FederatedIdentityProviders);
 </script>

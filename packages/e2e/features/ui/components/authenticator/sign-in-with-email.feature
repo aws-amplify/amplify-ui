@@ -10,21 +10,21 @@ Feature: Sign In with Email
   Background:
     Given I'm running the example "/ui/components/authenticator/sign-in-with-email"
 
-  @angular @next @vue
+  @angular @react @vue
   Scenario: Sign in with unknown credentials
     When I type my "email" with status "UNKNOWN"
     And I type my password
     And I click the "Sign in" button
     Then I see "User does not exist"
 
-  @angular @next @vue
+  @angular @react @vue
   Scenario: Sign in with unconfirmed credentials
     When I type my "email" with status "UNCONFIRMED"
     And I type my password
     And I click the "Sign in" button
     Then I see "Confirmation Code"
 
-  @angular @next @vue
+  @angular @react @vue
   Scenario: Sign in with confirmed credentials
     When I type my "email" with status "CONFIRMED"
     And I type my password
@@ -39,7 +39,7 @@ Feature: Sign In with Email
     And I click the "Sign in" button
     Then I see "Change Password"
 
-  @angular @next @vue
+  @angular @react @vue
   Scenario: Email field autocompletes username
 
   On sign in form, autocomplete prefers usage of username instead of email. 
@@ -47,6 +47,6 @@ Feature: Sign In with Email
 
     And "Email" field autocompletes "username"
 
-  @angular @next @vue
+  @angular @react @vue
   Scenario: Password fields autocomplete "current-password"
     And "Password" field autocompletes "current-password"

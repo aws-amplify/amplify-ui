@@ -6,21 +6,14 @@
   />
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-
-export default defineComponent({
-  props: {
-    textValue: {
-      default: '',
-    },
-  },
-  setup(_, { emit }): { onInput: (event) => void } {
-    const onInput = (e: Event): void => {
-      emit('update:textValue', (<HTMLInputElement>e.target).value);
-    };
-
-    return { onInput };
-  },
+<script setup lang="ts">
+const { textValue } = withDefaults(defineProps<{ textValue?: string }>(), {
+  textValue: '',
 });
+
+const emit = defineEmits(['update:textValue']);
+
+const onInput = (e: Event): void => {
+  emit('update:textValue', (<HTMLInputElement>e.target).value);
+};
 </script>

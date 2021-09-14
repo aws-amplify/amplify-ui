@@ -1,19 +1,7 @@
 <template>
-  <slot v-bind="$attrs" name="buttont">
+  <slot name="buttont">
     <button v-bind="$attrs" data-amplify-button="">
       <slot></slot>
     </button>
   </slot>
 </template>
-
-<script lang="ts">
-import { defineComponent } from 'vue';
-
-export default defineComponent({
-  setup() {
-    return {};
-  }
-});
-</script>
-
-<style scoped></style>

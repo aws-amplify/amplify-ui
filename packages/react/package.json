@@ -8,9 +8,13 @@
     "./legacy": "./dist/esm/legacy.js",
     "./styles.css": "./dist/index.css"
   },
+  "browser": {
+    "./styles.css": "./dist/index.css"
+  },
   "types": "dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "legacy"
   ],
   "scripts": {
     "prebuild": "rimraf dist",

@@ -7,15 +7,14 @@ Feature: Verify User
   Background:
     Given I'm running the example "ui/components/authenticator/sign-in-with-email"
 
-  # Verify not functioning in Angular
-  @next @vue
+  @angular @react @vue
   Scenario: Redirect to "Verify" page
     When I type my "email" with status "UNVERIFIED"
     And I type my password
     And I click the "Sign in" button
     Then I will be redirected to the verify user page
 
-  @next @vue
+  @angular @react @vue
   Scenario: Skip verify account
     When I type my "email" with status "UNVERIFIED"
     And I type my password

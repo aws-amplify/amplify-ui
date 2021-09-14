@@ -1,6 +1,6 @@
 <template>
-  <slot name="forceNewPasswordI">
-    <base-wrapper data-amplify-wrapper>
+  <slot v-bind="$attrs" name="forceNewPasswordI">
+    <base-wrapper v-bind="$attrs" data-amplify-wrapper>
       <base-form
         data-amplify-authenticator-forcenewpassword
         @submit.prevent="onForceNewPasswordSubmit"
@@ -58,23 +58,9 @@
   </slot>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed, ComputedRef } from 'vue';
+<script setup lang="ts">
+import { computed, ComputedRef, useAttrs } from 'vue';
 import { I18n } from 'aws-amplify';
-
-import { SetupEventContext, ForceNewPasswordReturnTypes } from '../types';
-
-import BaseInput from './primitives/base-input.vue';
-import BaseText from './primitives/base-text.vue';
-import BaseLabel from './primitives/base-label.vue';
-import BaseForm from './primitives/base-form.vue';
-import BaseHeading from './primitives/base-heading.vue';
-import BaseFieldSet from './primitives/base-field-set.vue';
-import BaseFooter from './primitives/base-footer.vue';
-import BaseButton from './primitives/base-button.vue';
-import BaseSpacer from './primitives/base-spacer.vue';
-import BaseWrapper from './primitives/base-wrapper.vue';
-import BaseBox from './primitives/base-box.vue';
 
 import { useAuth } from '../composables/useAuth';
 
@@ -87,78 +73,49 @@ import {
 } from '../defaults/DefaultTexts';
 import { getActorState, SignInState } from '@aws-amplify/ui';
 
-export default defineComponent({
-  components: {
-    BaseInput,
-    BaseText,
-    BaseLabel,
-    BaseForm,
-    BaseHeading,
-    BaseFieldSet,
-    BaseFooter,
-    BaseButton,
-    BaseSpacer,
-    BaseWrapper,
-    BaseBox,
-  },
-  inheritAttrs: false,
-  setup(_, { emit, attrs }: SetupEventContext): ForceNewPasswordReturnTypes {
-    const { state, send } = useAuth();
-    const actorState: ComputedRef<SignInState> = computed(() =>
-      getActorState(state.value)
-    );
+const attrs = useAttrs();
+const emit = defineEmits(['haveAccountClicked', 'forceNewPasswordSubmit']);
 
-    // computed properties
-    const changePasswordLabel = computed(() => I18n.get(CHANGE_PASSWORD_LABEL));
-    const changingPasswordLabel = computed(() =>
-      I18n.get(CHANGING_PASSWORD_LABEL)
-    );
-    const haveAccountLabel = computed(() => I18n.get(HAVE_ACCOUNT_LABEL));
-    const signInButtonText = computed(() => I18n.get(SIGN_IN_BUTTON_TEXT));
-    const passwordText = computed(() => I18n.get(PASSWORD_TEXT));
-    // Methods
+const { state, send } = useAuth();
+const actorState: ComputedRef<SignInState> = computed(() =>
+  getActorState(state.value)
+);
 
-    const onHaveAccountClicked = (): void => {
-      if (attrs?.onHaveAccountClicked) {
-        emit('haveAccountClicked');
-      } else {
-        send({
-          type: 'SIGN_IN',
-        });
-      }
-    };
+// computed properties
+const changePasswordLabel = computed(() => I18n.get(CHANGE_PASSWORD_LABEL));
+const changingPasswordLabel = computed(() => I18n.get(CHANGING_PASSWORD_LABEL));
+const haveAccountLabel = computed(() => I18n.get(HAVE_ACCOUNT_LABEL));
+const signInButtonText = computed(() => I18n.get(SIGN_IN_BUTTON_TEXT));
+const passwordText = computed(() => I18n.get(PASSWORD_TEXT));
 
-    const onForceNewPasswordSubmit = (e: Event): void => {
-      if (attrs?.onForceNewPasswordSubmit) {
-        emit('forceNewPasswordSubmit', e);
-      } else {
-        submit(e);
-      }
-    };
+// Methods
+const onHaveAccountClicked = (): void => {
+  if (attrs?.onHaveAccountClicked) {
+    emit('haveAccountClicked');
+  } else {
+    send({
+      type: 'SIGN_IN',
+    });
+  }
+};
 
-    const submit = (e: Event): void => {
-      const formData = new FormData(<HTMLFormElement>e.target);
-      send({
-        type: 'SUBMIT',
-        //@ts-ignore
-        data: {
-          //@ts-ignore
-          ...Object.fromEntries(formData),
-        },
-      });
-    };
+const onForceNewPasswordSubmit = (e: Event): void => {
+  if (attrs?.onForceNewPasswordSubmit) {
+    emit('forceNewPasswordSubmit', e);
+  } else {
+    submit(e);
+  }
+};
 
-    return {
-      changePasswordLabel,
-      submit,
-      onForceNewPasswordSubmit,
-      actorState,
-      onHaveAccountClicked,
-      signInButtonText,
-      passwordText,
-      haveAccountLabel,
-      changingPasswordLabel,
-    };
-  },
-});
+const submit = (e: Event): void => {
+  const formData = new FormData(<HTMLFormElement>e.target);
+  send({
+    type: 'SUBMIT',
+    //@ts-ignore
+    data: {
+      //@ts-ignore
+      ...Object.fromEntries(formData),
+    },
+  });
+};
 </script>

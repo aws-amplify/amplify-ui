@@ -122,7 +122,7 @@ Amplify UI consists of both primitive components like Buttons, Badges, and Cards
 
 You can also use the above link to report a bug or a feature request for previous version of Amplify UI Components.
 
-As we continue to work on the new Amplify UI we will move UI-related issues in the amplify-js repository over here to work on them. We will continue to maintain major bug and security fixes for all existing UI packages and versions. New development for UI components will happen in this repository and eventually be published under the `@next` npm tag.
+As we continue to work on the new Amplify UI we will move UI-related issues in the amplify-js repository over here to work on them. We will continue to maintain major bug and security fixes for all existing UI packages and versions. New development for UI components will happen in this repository and eventually be published under the `@react` npm tag.
 
 ## Contributing
 
