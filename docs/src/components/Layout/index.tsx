@@ -169,7 +169,7 @@ export default function Layout({
                     <MenuCloseButton closeMenu={() => setIsMenuOpen(false)} />
                     <PlatformSelect
                       // TODO – Can the available frameworks come from the pages? Or should this be hard-coded based on public support?
-                      filters={['angular', 'next', 'react', 'vue']}
+                      filters={['angular', 'react', 'vue']}
                       platform={platform}
                       pathname={pathname}
                     />
