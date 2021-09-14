@@ -12,7 +12,8 @@
   },
   "types": "dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "legacy"
   ],
   "scripts": {
     "prebuild": "rimraf dist",
