@@ -54,10 +54,16 @@ jobs:
 
     strategy:
       matrix:
-        framework:
-          - 'next'
-          - 'vue'
-          - 'angular'
+        # https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#using-environment-variables-in-a-matrix
+        include:
+          - framework: angular
+            tags: '@angular'
+
+          - framework: next
+            tags: '@react'
+
+          - framework: vue
+            tags: '@vue'
 
     steps:
       - name: Checkout Amplify UI
@@ -97,7 +103,7 @@ jobs:
         run: yarn workspace e2e test
         env:
           # Override on the default value in `cypress.json` with framework tag e.g. `@angular`
-          TAGS: '@${{ matrix.framework }}'
+          TAGS: '${{ matrix.tags }}'
 
           # Env values for testing flows
           DOMAIN: ${{ secrets.DOMAIN }}
