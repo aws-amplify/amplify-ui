@@ -57,9 +57,9 @@
   <h2 data-amplify-header>{{ this.headerText }}</h2>
   <form
     data-amplify-form
+    ngNativeValidate
     (submit)="onSubmit($event)"
     (input)="onInput($event)"
-    ngNativeValidate
   >
     <ng-container
       [ngTemplateOutlet]="customComponents.signUpFieldset || signUpFieldset"
