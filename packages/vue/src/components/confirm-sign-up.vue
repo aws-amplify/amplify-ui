@@ -1,6 +1,6 @@
 <template>
-  <slot name="confirmSignUpSlotI">
-    <base-wrapper data-amplify-wrapper>
+  <slot v-bind="$attrs" name="confirmSignUpSlotI">
+    <base-wrapper v-bind="$attrs" data-amplify-wrapper>
       <base-form @submit.prevent="onConfirmSignUpSubmit">
         <base-heading>
           {{ confirmSignUpHeading }}
@@ -60,22 +60,9 @@
   </slot>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed, ComputedRef } from 'vue';
+<script setup lang="ts">
+import { computed, ComputedRef, useAttrs } from 'vue';
 import { I18n } from 'aws-amplify';
-
-import BaseHeading from './primitives/base-heading.vue';
-import BaseFieldSet from './primitives/base-field-set.vue';
-import BaseLabel from './primitives/base-label.vue';
-import UserNameAlias from './user-name-alias.vue';
-import BaseSpacer from './primitives/base-spacer.vue';
-import BaseButton from './primitives/base-button.vue';
-import BaseFooter from './primitives/base-footer.vue';
-import BaseText from './primitives/base-text.vue';
-import BaseInput from './primitives/base-input.vue';
-import BaseForm from './primitives/base-form.vue';
-import BaseBox from './primitives/base-box.vue';
-import BaseWrapper from './primitives/base-wrapper.vue';
 
 import {
   CONFIRM_SIGNUP_HEADING,
@@ -87,116 +74,82 @@ import {
 } from '../defaults/DefaultTexts';
 
 import { useAuth } from '../composables/useAuth';
+import UserNameAlias from './user-name-alias.vue';
 
-import { ConfirmPasswordSetupReturnTypes, SetupEventContext } from '../types';
 import { getActorState, SignUpContext } from '@aws-amplify/ui';
 
-export default defineComponent({
-  components: {
-    BaseBox,
-    BaseHeading,
-    BaseFieldSet,
-    BaseForm,
-    BaseLabel,
-    BaseSpacer,
-    BaseButton,
-    BaseFooter,
-    BaseText,
-    BaseInput,
-    BaseWrapper,
-    UserNameAlias,
-  },
-  props: {
-    shouldHideReturnBtn: {
-      default: false,
-      type: Boolean,
-    },
-  },
-  inheritAttrs: false,
-  setup(
-    _,
-    { emit, attrs }: SetupEventContext
-  ): ConfirmPasswordSetupReturnTypes {
-    const { state, send } = useAuth();
-    const actorState = computed(() =>
-      getActorState(state.value)
-    ) as ComputedRef<any>;
+const { shouldHideReturnBtn } = withDefaults(
+  defineProps<{ shouldHideReturnBtn?: boolean }>(),
+  {
+    shouldHideReturnBtn: false,
+  }
+);
 
-    const context = actorState.value.context as SignUpContext;
-    const username = context.user?.username ?? context.authAttributes?.username;
+const attrs = useAttrs();
+const emit = defineEmits([
+  'confirmSignUpSubmit',
+  'lostCodeClicked',
+  'backToSignInClicked',
+]);
 
-    //computed properties
-    const confirmSignUpHeading = computed(() =>
-      I18n.get(CONFIRM_SIGNUP_HEADING)
-    );
-    const confirmationCodeText = computed(() =>
-      I18n.get(CONFIRMATION_CODE_TEXT)
-    );
-    const lostYourCodeText = computed(() => I18n.get(LOST_YOUR_CODE_TEXT));
-    const resendCodeText = computed(() => I18n.get(RESEND_CODE_TEXT));
-    const backSignInText = computed(() => I18n.get(BACK_SIGN_IN_TEXT));
-    const confirmText = computed(() => I18n.get(CONFIRM_TEXT));
+const { state, send } = useAuth();
+const actorState = computed(() =>
+  getActorState(state.value)
+) as ComputedRef<any>;
 
-    // Methods
-    const onConfirmSignUpSubmit = (e: Event): void => {
-      if (attrs?.onConfirmSignUpSubmit) {
-        emit('confirmSignUpSubmit', e);
-      } else {
-        submit(e);
-      }
-    };
+const context = actorState.value.context as SignUpContext;
+const username = context.user?.username ?? context.authAttributes?.username;
 
-    const submit = (e: Event): void => {
-      const formData = new FormData(<HTMLFormElement>e.target);
-      send({
-        type: 'SUBMIT',
-        //@ts-ignore
-        data: {
-          //@ts-ignore
-          ...Object.fromEntries(formData),
-          username,
-        },
-      });
-    };
+//computed properties
+const confirmSignUpHeading = computed(() => I18n.get(CONFIRM_SIGNUP_HEADING));
+const confirmationCodeText = computed(() => I18n.get(CONFIRMATION_CODE_TEXT));
+const lostYourCodeText = computed(() => I18n.get(LOST_YOUR_CODE_TEXT));
+const resendCodeText = computed(() => I18n.get(RESEND_CODE_TEXT));
+const backSignInText = computed(() => I18n.get(BACK_SIGN_IN_TEXT));
+const confirmText = computed(() => I18n.get(CONFIRM_TEXT));
 
-    const onLostCodeClicked = (): void => {
-      // do something
-      if (attrs?.onLostCodeClicked) {
-        emit('lostCodeClicked');
-      } else {
-        send({
-          type: 'RESEND',
-          //@ts-ignore
-          data: { username },
-        });
-      }
-    };
+// Methods
+const onConfirmSignUpSubmit = (e: Event): void => {
+  if (attrs?.onConfirmSignUpSubmit) {
+    emit('confirmSignUpSubmit', e);
+  } else {
+    submit(e);
+  }
+};
 
-    const onBackToSignInClicked = (): void => {
-      if (attrs?.onBackToSignInClicked) {
-        emit('backToSignInClicked');
-      } else {
-        send({
-          type: 'SIGN_IN',
-        });
-      }
-    };
-
-    return {
-      onConfirmSignUpSubmit,
-      onBackToSignInClicked,
-      submit,
-      confirmSignUpHeading,
-      confirmationCodeText,
-      lostYourCodeText,
-      resendCodeText,
-      backSignInText,
-      confirmText,
-      onLostCodeClicked,
-      actorState,
-      send,
+const submit = (e: Event): void => {
+  const formData = new FormData(<HTMLFormElement>e.target);
+  send({
+    type: 'SUBMIT',
+    //@ts-ignore
+    data: {
+      //@ts-ignore
+      ...Object.fromEntries(formData),
       username,
-    };
-  },
-});
+    },
+  });
+};
+
+const onLostCodeClicked = (): void => {
+  // do something
+  if (attrs?.onLostCodeClicked) {
+    emit('lostCodeClicked');
+  } else {
+    send({
+      type: 'RESEND',
+      //@ts-ignore
+      data: { username },
+    });
+  }
+};
+
+const onBackToSignInClicked = (): void => {
+  if (attrs?.onBackToSignInClicked) {
+    emit('backToSignInClicked');
+  } else {
+    send({
+      type: 'SIGN_IN',
+    });
+  }
+};
 </script>

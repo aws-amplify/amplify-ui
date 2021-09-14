@@ -1,6 +1,6 @@
 <template>
-  <slot name="confirmSignInSlotI">
-    <base-wrapper data-amplify-wrapper>
+  <slot v-bind="$attrs" name="confirmSignInSlotI">
+    <base-wrapper v-bind="$attrs" data-amplify-wrapper>
       <base-form
         data-amplify-authenticator-confirmsignin
         @submit.prevent="onConfirmSignInSubmit"
@@ -48,13 +48,13 @@
   </slot>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import {
   AuthChallengeNames,
   getActorState,
   SignInState,
 } from '@aws-amplify/ui';
-import { computed, ComputedRef, defineComponent } from 'vue';
+import { computed, ComputedRef, useAttrs } from 'vue';
 import { I18n } from 'aws-amplify';
 
 import { useAuth } from '../composables/useAuth';
@@ -63,94 +63,56 @@ import {
   CONFIRM_TEXT,
   CODE_TEXT,
 } from '../defaults/DefaultTexts';
-import { ConfirmSignInSetupReturnTypes, SetupEventContext } from '../types';
-import BaseBox from './primitives/base-box.vue';
-import BaseButton from './primitives/base-button.vue';
-import BaseFieldSet from './primitives/base-field-set.vue';
-import BaseFooter from './primitives/base-footer.vue';
-import BaseForm from './primitives/base-form.vue';
-import BaseHeading from './primitives/base-heading.vue';
-import BaseInput from './primitives/base-input.vue';
-import BaseLabel from './primitives/base-label.vue';
-import BaseSpacer from './primitives/base-spacer.vue';
-import BaseText from './primitives/base-text.vue';
-import BaseWrapper from './primitives/base-wrapper.vue';
 
-export default defineComponent({
-  components: {
-    BaseBox,
-    BaseHeading,
-    BaseFieldSet,
-    BaseForm,
-    BaseLabel,
-    BaseSpacer,
-    BaseButton,
-    BaseFooter,
-    BaseText,
-    BaseInput,
-    BaseWrapper,
-  },
-  inheritAttrs: false,
-  setup(_, { emit, attrs }: SetupEventContext): ConfirmSignInSetupReturnTypes {
-    const { state, send } = useAuth();
-    const actorState: ComputedRef<SignInState> = computed(() =>
-      getActorState(state.value)
-    );
-    const challengeName = actorState.value.context.challengeName;
+const emit = defineEmits(['confirmSignInSubmit', 'backToSignInClicked']);
+const attrs = useAttrs();
 
-    let mfaType: string = 'SMS';
+const { state, send } = useAuth();
+const actorState: ComputedRef<SignInState> = computed(() =>
+  getActorState(state.value)
+);
+const challengeName = actorState.value.context.challengeName;
 
-    if (challengeName === AuthChallengeNames.SOFTWARE_TOKEN_MFA) {
-      mfaType = 'TOTP';
-    }
-    const confirmSignInHeading = `Confirm ${mfaType} Code`;
+let mfaType: string = 'SMS';
 
-    // Computed Properties
-    const backSignInText = computed(() => I18n.get(BACK_SIGN_IN_TEXT));
-    const confirmText = computed(() => I18n.get(CONFIRM_TEXT));
-    const codeText = computed(() => I18n.get(CODE_TEXT));
+if (challengeName === AuthChallengeNames.SOFTWARE_TOKEN_MFA) {
+  mfaType = 'TOTP';
+}
+const confirmSignInHeading = `Confirm ${mfaType} Code`;
 
-    // Methods
-    const onConfirmSignInSubmit = (e: Event): void => {
-      if (attrs?.onConfirmSignInSubmit) {
-        emit('confirmSignInSubmit', e);
-      } else {
-        submit(e);
-      }
-    };
+// Computed Properties
+const backSignInText = computed(() => I18n.get(BACK_SIGN_IN_TEXT));
+const confirmText = computed(() => I18n.get(CONFIRM_TEXT));
+const codeText = computed(() => I18n.get(CODE_TEXT));
 
-    const submit = (e): void => {
-      const formData = new FormData(e.target);
-      send({
-        type: 'SUBMIT',
-        //@ts-ignore
-        data: {
-          //@ts-ignore
-          ...Object.fromEntries(formData),
-        },
-      });
-    };
+// Methods
+const onConfirmSignInSubmit = (e: Event): void => {
+  if (attrs?.onConfirmSignInSubmit) {
+    emit('confirmSignInSubmit', e);
+  } else {
+    submit(e);
+  }
+};
 
-    const onBackToSignInClicked = (): void => {
-      if (attrs?.onBackToSignInClicked) {
-        emit('backToSignInClicked');
-      } else {
-        send({
-          type: 'SIGN_IN',
-        });
-      }
-    };
+const submit = (e): void => {
+  const formData = new FormData(e.target);
+  send({
+    type: 'SUBMIT',
+    //@ts-ignore
+    data: {
+      //@ts-ignore
+      ...Object.fromEntries(formData),
+    },
+  });
+};
 
-    return {
-      confirmSignInHeading,
-      onConfirmSignInSubmit,
-      onBackToSignInClicked,
-      submit,
-      backSignInText,
-      confirmText,
-      codeText,
-      actorState,
-    };
-  },
-});
+const onBackToSignInClicked = (): void => {
+  if (attrs?.onBackToSignInClicked) {
+    emit('backToSignInClicked');
+  } else {
+    send({
+      type: 'SIGN_IN',
+    });
+  }
+};
 </script>

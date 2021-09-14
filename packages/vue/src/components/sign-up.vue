@@ -1,6 +1,6 @@
 <template>
-  <slot name="signUpSlotI">
-    <base-wrapper data-amplify-wrapper>
+  <slot v-bind="$attrs" name="signUpSlotI">
+    <base-wrapper v-bind="$attrs" data-amplify-wrapper>
       <base-form @submit.prevent="onSignUpSubmit" @input="onInput">
         <base-heading>
           <template #headingI>
@@ -57,29 +57,21 @@
   </slot>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref, computed, ComputedRef } from 'vue';
+<script setup lang="ts">
+import { computed, ComputedRef, useAttrs } from 'vue';
 import { I18n } from 'aws-amplify';
 import {
+  AuthInputAttributes,
   authInputAttributes,
   getActorState,
   SignUpState,
   socialProviderLoginMechanisms,
 } from '@aws-amplify/ui';
 
-import BaseForm from './primitives/base-form.vue';
-import BaseBox from './primitives/base-box.vue';
-import BaseSpacer from './primitives/base-spacer.vue';
-import BaseHeading from './primitives/base-heading.vue';
-import BaseText from './primitives/base-text.vue';
-import BaseFieldSet from './primitives/base-field-set.vue';
-import BaseFooter from './primitives/base-footer.vue';
-import BaseButton from './primitives/base-button.vue';
 import SignUpPasswordControl from './sign-up-password-control.vue';
 import SignUpConfirmPasswordControl from './sign-up-confirm-password-control.vue';
 import UserNameAlias from './user-name-alias.vue';
 import AliasControl from './alias-control.vue';
-import BaseWrapper from './primitives/base-wrapper.vue';
 import FederatedSignIn from './federated-sign-in.vue';
 
 import {
@@ -92,105 +84,65 @@ import {
 import { useAuth } from '../composables/useAuth';
 import { useAliases } from '../composables/useUtils';
 
-import { SetupEventContext, SignUpSetupReturnTypes } from '../types';
+const attrs = useAttrs();
+const emit = defineEmits(['haveAccountClicked', 'signUpSubmit']);
 
-export default defineComponent({
-  components: {
-    BaseForm,
-    BaseHeading,
-    BaseText,
-    BaseFieldSet,
-    BaseFooter,
-    BaseButton,
-    SignUpPasswordControl,
-    BaseWrapper,
-    BaseBox,
-    BaseSpacer,
-    SignUpConfirmPasswordControl,
-    UserNameAlias,
-    AliasControl,
-    FederatedSignIn,
-  },
-  inheritAttrs: false,
-  setup(_, { emit, attrs }: SetupEventContext): SignUpSetupReturnTypes {
-    const { state, send } = useAuth();
+const { state, send } = useAuth();
 
-    const {
-      value: { context },
-    } = state;
-    const actorState: ComputedRef<SignUpState> = computed(() =>
-      getActorState(state.value)
-    );
+const {
+  value: { context },
+} = state;
+const actorState: ComputedRef<SignUpState> = computed(() =>
+  getActorState(state.value)
+);
 
-    let [__, ...secondaryAliases] = useAliases(
-      context?.config?.login_mechanisms
-    );
+let [__, ...secondaryAliases] = useAliases(context?.config?.login_mechanisms);
 
-    secondaryAliases = secondaryAliases.filter(
-      (alias) => !socialProviderLoginMechanisms.includes(alias)
-    );
+secondaryAliases = secondaryAliases.filter(
+  (alias) => !socialProviderLoginMechanisms.includes(alias)
+);
 
-    // reactive properties
+// computed properties
 
-    const phone = ref('');
+const signInButtonText = computed(() => I18n.get(SIGN_IN_BUTTON_TEXT));
+const haveAccountLabel = computed(() => I18n.get(HAVE_ACCOUNT_LABEL));
+const createAccountLabel = computed(() => I18n.get(CREATE_ACCOUNT_LABEL));
+const signUpButtonText = computed(() => I18n.get(SIGN_UP_BUTTON_TEXT));
+const inputAttributes: ComputedRef<AuthInputAttributes> = computed(
+  () => authInputAttributes
+);
 
-    // computed properties
+// Methods
 
-    const signInButtonText = computed(() => I18n.get(SIGN_IN_BUTTON_TEXT));
-    const haveAccountLabel = computed(() => I18n.get(HAVE_ACCOUNT_LABEL));
-    const createAccountLabel = computed(() => I18n.get(CREATE_ACCOUNT_LABEL));
-    const signUpButtonText = computed(() => I18n.get(SIGN_UP_BUTTON_TEXT));
-    const inputAttributes = computed(() => authInputAttributes);
+const onHaveAccountClicked = (): void => {
+  if (attrs?.onHaveAccountClicked) {
+    emit('haveAccountClicked');
+  } else {
+    send({
+      type: 'SIGN_IN',
+    });
+  }
+};
 
-    // Methods
+const onInput = (e: Event): void => {
+  const { name, value } = <HTMLInputElement>e.target;
+  send({
+    type: 'CHANGE',
+    //@ts-ignore
+    data: { name, value },
+  });
+};
+const onSignUpSubmit = (e: Event): void => {
+  if (attrs?.onSignUpSubmit) {
+    emit('signUpSubmit', e);
+  } else {
+    submit();
+  }
+};
 
-    const onHaveAccountClicked = (): void => {
-      if (attrs?.onHaveAccountClicked) {
-        emit('haveAccountClicked');
-      } else {
-        send({
-          type: 'SIGN_IN',
-        });
-      }
-    };
-
-    const onInput = (e: Event): void => {
-      const { name, value } = <HTMLInputElement>e.target;
-      send({
-        type: 'CHANGE',
-        //@ts-ignore
-        data: { name, value },
-      });
-    };
-    const onSignUpSubmit = (e: Event): void => {
-      if (attrs?.onSignUpSubmit) {
-        emit('signUpSubmit', e);
-      } else {
-        submit();
-      }
-    };
-
-    const submit = (): void => {
-      send({
-        type: 'SUBMIT',
-      });
-    };
-
-    return {
-      onHaveAccountClicked,
-      onSignUpSubmit,
-      onInput,
-      state,
-      actorState,
-      phone,
-      submit,
-      secondaryAliases,
-      signInButtonText,
-      haveAccountLabel,
-      createAccountLabel,
-      signUpButtonText,
-      inputAttributes,
-    };
-  },
-});
+const submit = (): void => {
+  send({
+    type: 'SUBMIT',
+  });
+};
 </script>
