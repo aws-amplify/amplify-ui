@@ -3,9 +3,8 @@ import React from 'react';
 
 import { Flex } from '../Flex';
 import { Input } from '../Input';
-import { useRadioGroupContext } from '../RadioField/context';
+import { useRadioGroupContext } from '../RadioGroupField/context';
 import { Text } from '../Text';
-import { VisuallyHidden } from '../VisuallyHidden';
 import { RadioProps } from '../types';
 import { ComponentClassNames } from '../shared';
 
@@ -47,17 +46,19 @@ export const Radio: React.FC<RadioProps> = ({
       className={classNames(ComponentClassNames.Radio, className)}
       justifyContent="flex-start"
     >
-      <VisuallyHidden
-        as={Input}
+      <Input
         checked={checked}
-        className={ComponentClassNames.RadioInput}
+        className={classNames(
+          ComponentClassNames.VisuallyHidden,
+          ComponentClassNames.RadioInput
+        )}
         defaultChecked={defaultChecked}
         hasError={hasError}
         id={id}
         isDisabled={shouldDisabled}
+        isReadOnly={isReadOnly}
+        isRequired={isRequired}
         onChange={onChange}
-        readOnly={isReadOnly}
-        required={isRequired}
         type="radio"
         name={name}
         value={value}

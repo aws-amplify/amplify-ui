@@ -6,14 +6,14 @@ import { ComponentClassNames } from '../shared/constants';
 import { VisuallyHiddenProps } from '../types/visuallyHidden';
 
 export const VisuallyHidden: React.FC<VisuallyHiddenProps> = ({
-  as,
+  as = 'span',
   children,
   className,
   ...rest
 }) => {
   return (
     <View
-      as={as ?? 'span'}
+      as={as}
       className={classNames(ComponentClassNames.VisuallyHidden, className)}
       {...rest}
     >

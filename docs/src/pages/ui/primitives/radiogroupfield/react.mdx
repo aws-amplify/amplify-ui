@@ -1,9 +1,9 @@
-import { Flex, Radio, RadioField } from '@aws-amplify/ui-react';
+import { Flex, Radio, RadioGroupField } from '@aws-amplify/ui-react';
 
-import { ControlledRadioField, Demo } from './demo';
+import { ControlledRadioGroupField, Demo } from './demo';
 import { Example } from '@/components/Example';
 
-A RadioGroup allows users to select a single option from a list of mutually exclusive options.
+A RadioGroupField allows users to select a single option from a list of mutually exclusive options.
 
 <Example>
   <Demo />
@@ -11,37 +11,42 @@ A RadioGroup allows users to select a single option from a list of mutually excl
 
 ## Usage
 
-Import the RadioField primitive and styles.
+Import the Radio, RadioGroupField and styles.
 
 ```jsx
-import { RadioField } from '@aws-amplify/ui-react';
+import { Radio, RadioGroupField } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
-<RadioField label="Language" name="language" defaultValue="html">
+<RadioGroupField label="Language" name="language" defaultValue="html">
   <Radio value="html">html</Radio>
   <Radio value="css">css</Radio>
   <Radio value="javascript">javascript</Radio>
-</RadioField>;
+</RadioGroupField>;
 ```
 
 <Example>
-  <RadioField label="Language" name="example-1" defaultValue="html" labelHidden>
+  <RadioGroupField
+    label="Language"
+    name="example-1"
+    defaultValue="html"
+    labelHidden
+  >
     <Radio value="html">html</Radio>
     <Radio value="css">css</Radio>
     <Radio value="javascript">javascript</Radio>
-  </RadioField>
+  </RadioGroupField>
 </Example>
 
 ### Controlled component
 
 ```jsx
 import { useState } from 'react';
-import { RadioField } from '@aws-amplify/ui-react';
+import { RadioGroupField, Radio } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
 const [value, setValue] = useState('html');
 
-<RadioField
+<RadioGroupField
   label="Language"
   name="language"
   value={value}
@@ -50,16 +55,16 @@ const [value, setValue] = useState('html');
   <Radio value="html">html</Radio>
   <Radio value="css">css</Radio>
   <Radio value="javascript">javascript</Radio>
-</RadioField>;
+</RadioGroupField>;
 ```
 
 <Example>
-  <ControlledRadioField />
+  <ControlledRadioGroupField />
 </Example>
 
 ### Accessibility / Label behavior
 
-The RadioField primitive is accessible by default. A matching `label` HTML element is rendered with the `RadioField` by default,
+The RadioGroupField primitive is accessible by default. A matching `label` HTML element is rendered with the `RadioGroupField` by default,
 all that is required is to provide a `label` prop with a `string` or `ReactNode`. If no `id` is provided, one will be automatically
 generated and connected to both `label` and the `radio` group.
 
@@ -70,10 +75,10 @@ The `labelHidden` prop can be used to visually hide the label while still keepin
 if it would hide important information needed by the user to fill out the field.
 
 ```jsx
-import { RadioField } from '@aws-amplify/ui-react';
+import { Radio, RadioGroupField } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
-<RadioField
+<RadioGroupField
   label="Language"
   name="language"
   defaultValue="html"
@@ -82,46 +87,51 @@ import '@aws-amplify/ui-react/styles.css';
   <Radio value="html">html</Radio>
   <Radio value="css">css</Radio>
   <Radio value="javascript">javascript</Radio>
-</RadioField>;
+</RadioGroupField>;
 ```
 
 <Example>
-  <RadioField label="Language" name="example-3" defaultValue="html" labelHidden>
+  <RadioGroupField
+    label="Language"
+    name="example-3"
+    defaultValue="html"
+    labelHidden
+  >
     <Radio value="html">html</Radio>
     <Radio value="css">css</Radio>
     <Radio value="javascript">javascript</Radio>
-  </RadioField>
+  </RadioGroupField>
 </Example>
 
 ### Sizes
 
-Use the `size` prop to change the RadioField size. Available options are `small`, `large`, and none (default).
+Use the `size` prop to change the RadioGroupField size. Available options are `small`, `large`, and none (default).
 
 ```jsx
-import { RadioField } from '@aws-amplify/ui-react';
+import { Radio, RadioGroupField } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
-<RadioField label="Language" name="html" defaultValue="html" size="small">
+<RadioGroupField label="Language" name="html" defaultValue="html" size="small">
   <Radio value="html">html</Radio>
-</RadioField>;
+</RadioGroupField>;
 
-<RadioField label="Language" name="css" defaultValue="css">
+<RadioGroupField label="Language" name="css" defaultValue="css">
   <Radio value="css">css</Radio>
-</RadioField>;
+</RadioGroupField>;
 
-<RadioField
+<RadioGroupField
   label="Language"
   name="javascript"
   defaultValue="javascript"
   size="large"
 >
   <Radio value="javascript">javascript</Radio>
-</RadioField>;
+</RadioGroupField>;
 ```
 
 <Example>
   <Flex>
-    <RadioField
+    <RadioGroupField
       label="Language"
       name="example-4"
       defaultValue="html"
@@ -129,16 +139,16 @@ import '@aws-amplify/ui-react/styles.css';
       labelHidden
     >
       <Radio value="html">html</Radio>
-    </RadioField>
-    <RadioField
+    </RadioGroupField>
+    <RadioGroupField
       label="Language"
       name="example-5"
       defaultValue="css"
       labelHidden
     >
       <Radio value="css">css</Radio>
-    </RadioField>
-    <RadioField
+    </RadioGroupField>
+    <RadioGroupField
       label="Language"
       name="example-6"
       defaultValue="javascript"
@@ -146,25 +156,25 @@ import '@aws-amplify/ui-react/styles.css';
       labelHidden
     >
       <Radio value="javascript">javascript</Radio>
-    </RadioField>
+    </RadioGroupField>
   </Flex>
 </Example>
 
-### direction
+### Direction
 
-Use the `direction` prop to change the RadioField size. Available options are `row`, and `column` (default).
+Use the `direction` prop to change the RadioGroupField size. Available options are `row`, and `column` (default).
 
 ```jsx
-import { RadioField } from '@aws-amplify/ui-react';
+import { Radio, RadioGroupField } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
-<RadioField label="Language" name="direction-column" defaultValue="html">
+<RadioGroupField label="Language" name="direction-column" defaultValue="html">
   <Radio value="html">html</Radio>
   <Radio value="css">css</Radio>
   <Radio value="javascript">javascript</Radio>
-</RadioField>;
+</RadioGroupField>;
 
-<RadioField
+<RadioGroupField
   label="Language"
   name="direction-row"
   defaultValue="html"
@@ -173,12 +183,12 @@ import '@aws-amplify/ui-react/styles.css';
   <Radio value="html">html</Radio>
   <Radio value="css">css</Radio>
   <Radio value="javascript">javascript</Radio>
-</RadioField>;
+</RadioGroupField>;
 ```
 
 <Example>
   <Flex gap="10rem">
-    <RadioField
+    <RadioGroupField
       label="Language"
       name="example-7"
       defaultValue="html"
@@ -187,8 +197,8 @@ import '@aws-amplify/ui-react/styles.css';
       <Radio value="html">html</Radio>
       <Radio value="css">css</Radio>
       <Radio value="javascript">javascript</Radio>
-    </RadioField>
-    <RadioField
+    </RadioGroupField>
+    <RadioGroupField
       label="Language"
       name="example-8"
       defaultValue="html"
@@ -198,31 +208,31 @@ import '@aws-amplify/ui-react/styles.css';
       <Radio value="html">html</Radio>
       <Radio value="css">css</Radio>
       <Radio value="javascript">javascript</Radio>
-    </RadioField>
+    </RadioGroupField>
   </Flex>
 </Example>
 
 ### State
 
-The available RadioField states include `isDisabled` and `isReadonly`. A disabled field will be not be focusable not mutable and will not be submitted with form data. A readonly field cannot be edited by the user.
+The available RadioGroupField states include `isDisabled` and `isReadonly`. A disabled field will be not be focusable not mutable and will not be submitted with form data. A readonly field cannot be edited by the user.
 
 #### Disabled radios and radio group
 
 ```jsx
-import { RadioField } from '@aws-amplify/ui-react';
+import { Radio, RadioGroupField } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
 // disabled a single radio
-<RadioField label="Language" name="disabled-single" defaultValue="html">
+<RadioGroupField label="Language" name="disabled-single" defaultValue="html">
   <Radio value="html">html</Radio>
   <Radio value="css" isDisabled={true}>
     css
   </Radio>
   <Radio value="javascript">javascript</Radio>
-</RadioField>;
+</RadioGroupField>;
 
 // disabled the whole group
-<RadioField
+<RadioGroupField
   label="Language"
   name="disabled-group"
   defaultValue="html"
@@ -231,12 +241,12 @@ import '@aws-amplify/ui-react/styles.css';
   <Radio value="html">html</Radio>
   <Radio value="css">css</Radio>
   <Radio value="javascript">javascript</Radio>
-</RadioField>;
+</RadioGroupField>;
 ```
 
 <Example>
   <Flex gap="10rem">
-    <RadioField
+    <RadioGroupField
       label="Language"
       name="example-9"
       defaultValue="html"
@@ -247,8 +257,8 @@ import '@aws-amplify/ui-react/styles.css';
         {`css`}
       </Radio>
       <Radio value="javascript">javascript</Radio>
-    </RadioField>
-    <RadioField
+    </RadioGroupField>
+    <RadioGroupField
       label="Language"
       name="example-10"
       defaultValue="html"
@@ -258,18 +268,18 @@ import '@aws-amplify/ui-react/styles.css';
       <Radio value="html">html</Radio>
       <Radio value="css">css</Radio>
       <Radio value="javascript">javascript</Radio>
-    </RadioField>
+    </RadioGroupField>
   </Flex>
 </Example>
 
 #### Read-only radio group
 
 ```jsx
-import { RadioField } from '@aws-amplify/ui-react';
+import { Radio, RadioGroupField } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
 // Provide a defaultValue and set isReadOnly to true
-<RadioField
+<RadioGroupField
   label="Language"
   name="language"
   defaultValue="html"
@@ -278,21 +288,21 @@ import '@aws-amplify/ui-react/styles.css';
   <Radio value="html">html</Radio>
   <Radio value="css">css</Radio>
   <Radio value="javascript">javascript</Radio>
-</RadioField>;
+</RadioGroupField>;
 ```
 
 <Example>
-  <RadioField
+  <RadioGroupField
     label="Language"
     name="example-11"
     defaultValue="html"
-    isReadonly
     labelHidden
+    isReadOnly
   >
     <Radio value="html">html</Radio>
     <Radio value="css">css</Radio>
     <Radio value="javascript">javascript</Radio>
-  </RadioField>
+  </RadioGroupField>
 </Example>
 
 ## CSS Styling
@@ -332,24 +342,25 @@ _Using a class selector:_
 ```css
 /* styles.css */
 .custom-radio .amplify-radio__input:checked + .amplify-radio__button {
+  color: white;
   border-color: crimson;
   background-color: crimson;
 }
 ```
 
 ```jsx
-import { RadioField } from '@aws-amplify/ui-react';
+import { Radio, RadioGroupField } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
-<RadioField label="Language" name="language" defaultValue="html">
+<RadioGroupField label="Language" name="language" defaultValue="html">
   <Radio value="html" className="custom-radio">
     html
   </Radio>
-</RadioField>;
+</RadioGroupField>;
 ```
 
 <Example>
-  <RadioField
+  <RadioGroupField
     label="Language"
     name="example-12"
     defaultValue="html"
@@ -358,7 +369,7 @@ import '@aws-amplify/ui-react/styles.css';
     <Radio value="html" className="custom-radio">
       {`html`}
     </Radio>
-  </RadioField>
+  </RadioGroupField>
 </Example>
 
 _Using data attributes:_
@@ -367,29 +378,29 @@ _Using data attributes:_
 /* styles.css */
 
 /* Override only large size styles */
-.amplify-radiofield[data-size='large'] {
-  font-size: 2rem;
+.amplify-radiogroupfield[data-size='large'] {
+  font-size: 1.25rem;
 }
 ```
 
 _Using style props:_
 
 ```jsx
-import { RadioField } from '@aws-amplify/ui-react';
+import { Radio, RadioGroupField } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
-<RadioField
+<RadioGroupField
   label="Language"
   name="language"
   defaultValue="html"
   fontSize="1.25rem"
 >
   <Radio value="html">html</Radio>
-</RadioField>;
+</RadioGroupField>;
 ```
 
 <Example>
-  <RadioField
+  <RadioGroupField
     label="Language"
     name="example-13"
     defaultValue="html"
@@ -397,5 +408,5 @@ import '@aws-amplify/ui-react/styles.css';
     labelHidden
   >
     <Radio value="html">{`html`}</Radio>
-  </RadioField>
+  </RadioGroupField>
 </Example>

@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { Radio } from '../Radio';
 import { ComponentClassNames } from '../../shared';
 
-describe('Radio test suite', () => {
+describe('RadioField test suite', () => {
   it('should render basic props correctly', async () => {
     render(
       <Radio id="test" value="test" testId="test">

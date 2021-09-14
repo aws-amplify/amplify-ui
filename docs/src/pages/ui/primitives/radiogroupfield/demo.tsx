@@ -1,32 +1,32 @@
 import { useState } from 'react';
 
-import { Radio, RadioField, View } from '@aws-amplify/ui-react';
+import { Radio, RadioGroupField, View } from '@aws-amplify/ui-react';
 
-import { RadioFieldPropControls } from '@/components/RadioFieldPropControls';
-import { useRadioFieldProps } from '@/components/useRadioFieldProps';
+import { RadioGroupFieldPropControls } from '@/components/RadioGroupFieldPropControls';
+import { useRadioGroupFieldProps } from '@/components/useRadioGroupFieldProps';
 
 export const Demo = () => {
-  const props = useRadioFieldProps({
+  const props = useRadioGroupFieldProps({
     label: 'Language',
     name: 'language',
     defaultValue: 'html',
   });
   return (
     <View>
-      <RadioFieldPropControls {...props} />
-      <RadioField className="mt-10" {...props}>
+      <RadioGroupFieldPropControls {...props} />
+      <RadioGroupField className="mt-10" {...props}>
         <Radio value="html">html</Radio>
         <Radio value="css">css</Radio>
         <Radio value="javascript">javascript</Radio>
-      </RadioField>
+      </RadioGroupField>
     </View>
   );
 };
 
-export const ControlledRadioField = () => {
+export const ControlledRadioGroupField = () => {
   const [value, setValue] = useState('html');
   return (
-    <RadioField
+    <RadioGroupField
       label="Language"
       name="example-2"
       value={value}
@@ -36,6 +36,6 @@ export const ControlledRadioField = () => {
       <Radio value="html">html</Radio>
       <Radio value="css">css</Radio>
       <Radio value="javascript">javascript</Radio>
-    </RadioField>
+    </RadioGroupField>
   );
 };

@@ -48,24 +48,17 @@
 }
 
 .amplify-radio__input:checked + .amplify-radio__button {
-  border-color: var(--amplify-components-radio-button-checked-border-color);
-  background-color: var(
-    --amplify-components-radio-button-checked-background-color
-  );
+  color: var(--amplify-components-radio-button-checked-color);
+}
+
+// checked and disabled state can coexist though data will not be submitted
+.amplify-radio__input:checked:disabled + .amplify-radio__button {
+  color: var(--amplify-components-radio-button-checked-disabled-color);
 }
 
 .amplify-radio__input:focus + .amplify-radio__button {
   border-color: var(--amplify-components-radio-button-focus-border-color);
   box-shadow: var(--amplify-components-radio-button-focus-box-shadow);
-}
-
-.amplify-radio__input:checked:not(:disabled) + .amplify-radio__button:hover {
-  border-color: var(
-    --amplify-components-radio-button-checked-hover-border-color
-  );
-  background-color: var(
-    --amplify-components-radio-button-checked-hover-background-color
-  );
 }
 
 .amplify-radio__input:disabled + .amplify-radio__button {

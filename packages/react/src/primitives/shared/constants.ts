@@ -27,7 +27,7 @@ export enum ComponentClassNames {
   RadioButton = 'amplify-radio__button',
   RadioInput = 'amplify-radio__input',
   RadioLabel = 'amplify-radio__label',
-  RadioField = 'amplify-radiofield',
+  RadioGroupField = 'amplify-radiogroupfield',
   RadioGroup = 'amplify-radiogroup',
   Rating = 'amplify-rating',
   Select = 'amplify-select',

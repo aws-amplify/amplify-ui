@@ -7,7 +7,7 @@ module.exports = {
     borderWidth: { value: '{borderWidths.medium.value}' },
     borderStyle: { value: 'solid' },
     borderRadius: { value: '50%' },
-    borderColor: { value: '{colors.border.tertiary.value}' },
+    borderColor: { value: '{colors.border.primary.value}' },
     color: { value: '{colors.white.value}' },
     backgroundColor: { value: '{colors.white.value}' },
     transitionProperty: { value: 'all' },
@@ -36,22 +36,21 @@ module.exports = {
     },
 
     _checked: {
-      borderColor: { value: '#3182ce' },
-      backgroundColor: { value: '#3182ce' },
-      _hover: {
-        borderColor: { value: '#2b6cb0' },
-        backgroundColor: { value: '#2b6cb0' },
+      color: {
+        value: '{colors.red.60.value}',
       },
+      _disabled: { color: { value: '{colors.border.secondary.value}' } },
     },
 
     _focus: {
-      borderColor: { value: '{colors.transparent.value}' },
-      boxShadow: { value: '0 0 0 3px rgba(66, 153, 225, 0.6)' },
+      borderColor: { value: '#2E2EFF' },
+      boxShadow: { value: '0 0 0 3px #2E2EFF' },
     },
 
     _disabled: {
       borderColor: { value: '#e9ecf0' },
       backgroundColor: { value: '{colors.white.value}' },
+      color: { value: '{colors.white.value}' },
     },
   },
 

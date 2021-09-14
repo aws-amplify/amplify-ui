@@ -5,10 +5,10 @@ import { RadioGroupContext, RadioGroupContextType } from './context';
 import { FieldErrorMessage, FieldDescription } from '../Field';
 import { Flex } from '../Flex';
 import { Label } from '../Label';
-import { RadioFieldProps } from '../types';
+import { RadioGroupFieldProps } from '../types';
 import { ComponentClassNames, useAmplifyFieldID } from '../shared';
 
-export const RadioField: React.FC<RadioFieldProps> = ({
+export const RadioGroupField: React.FC<RadioGroupFieldProps> = ({
   alignContent,
   alignItems,
   children,
@@ -64,7 +64,7 @@ export const RadioField: React.FC<RadioFieldProps> = ({
       alignItems={alignItems}
       className={classNames(
         ComponentClassNames.Field,
-        ComponentClassNames.RadioField,
+        ComponentClassNames.RadioGroupField,
         className
       )}
       data-size={size}
