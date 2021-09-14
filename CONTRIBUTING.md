@@ -62,7 +62,7 @@ Internally, this content is served by a single, Next.js [optional catch all rout
 
      Documentation-friendly description of this feature, why it exists, & how to use it.
 
-     @next
+     @react
      Scenario: Example scenario using this feature
        Given some "STARTING_POINT"
        When I DO "SOMETHING"
@@ -74,7 +74,7 @@ Internally, this content is served by a single, Next.js [optional catch all rout
 1. Start one of the [examples](examples).
 1. Run `yarn e2e dev` to load Cypress
 1. Click on your updated `${feature}.feature` file to validate your changes
-1. Add tags (e.g. `@next`, `@vue`, `@angular`, `@skip`, or `@focus`) above your `Scenario` to indicate which platform(s) to test against
+1. Add tags (e.g. `@react`, `@vue`, `@angular`, `@skip`, or `@focus`) above your `Scenario` to indicate which platform(s) to test against
 
 #### Vue Development
 
