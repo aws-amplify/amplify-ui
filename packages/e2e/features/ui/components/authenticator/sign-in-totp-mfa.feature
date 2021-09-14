@@ -8,7 +8,7 @@ Feature: Sign In with TOTP MFA
     Given I'm running the example "ui/components/authenticator/sign-in-totp-mfa"
 
   # Not functioning in angular
-  @next @vue
+  @react @vue
   Scenario: Sign in with valid credentials that have not set up TOTP MFA
     When I type my "email" with status "CONFIRMED"
     And I type my password
@@ -16,7 +16,7 @@ Feature: Sign In with TOTP MFA
     Then I will be redirected to the setup totp page
 
   # For angular, the "Back to Sign In" is not a button
-  @next @vue
+  @react @vue
   Scenario: Redirect to sign in page
     When I type my "email" with status "CONFIRMED"
     And I type my password
@@ -34,7 +34,7 @@ Feature: Sign In with TOTP MFA
     And I click the "Confirm" button
     Then I see 'Code mismatch and fail enable Software Token MFA'
 
-  @angular @next @vue
+  @angular @react @vue
   Scenario: Sign in with unknown credentials
     When I type my "email" with status "UNKNOWN"
     And I type my password

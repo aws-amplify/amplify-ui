@@ -8,6 +8,10 @@
     "./styles.css": "./dist/styles.css",
     "./theme.css": "./dist/theme.css"
   },
+  "browser": {
+    "./styles.css": "./dist/styles.css",
+    "./theme.css": "./dist/theme.css"
+  },
   "types": "dist/index.d.ts",
   "files": [
     "dist"
