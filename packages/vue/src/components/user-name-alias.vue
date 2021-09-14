@@ -1,10 +1,11 @@
 <template>
   <template v-if="name === 'phone_number'">
-    <base-label v-bind="$attrs">
+    <base-label for="amplify-field-1177">
       {{ 'Country Code' }}
     </base-label>
     <base-select
       data-amplify-select
+      id="amplify-field-1177"
       aria-label="country code"
       name="country_code"
       :options="dialCodes"
