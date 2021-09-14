@@ -4,7 +4,9 @@
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
   "exports": {
-    ".": "./dist/esm/index.js",
+    ".": "./dist/esm/index.js"
+  },
+  "browser": {
     "./styles.css": "./dist/styles.css",
     "./theme.css": "./dist/theme.css"
   },
