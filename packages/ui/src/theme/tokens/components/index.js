@@ -15,9 +15,9 @@ module.exports = {
   link: require('./link'),
   pagination: require('./pagination'),
   placeholder: require('./placeholder'),
-  radio: require('./radio'),
   rating: require('./rating'),
   select: require('./select'),
   switchfield: require('./switchField'),
+  tabs: require('./tabs'),
   text: require('./text'),
 };
