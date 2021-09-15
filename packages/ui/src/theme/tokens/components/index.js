@@ -19,5 +19,6 @@ module.exports = {
   rating: require('./rating'),
   select: require('./select'),
   switchfield: require('./switchField'),
+  tabs: require('./tabs'),
   text: require('./text'),
 };

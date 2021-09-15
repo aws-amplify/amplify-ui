@@ -18,6 +18,7 @@ export * from './RadioGroupField';
 export * from './Rating';
 export * from './SelectField';
 export * from './SwitchField';
+export * from './Tabs';
 export * from './Text';
 export * from './TextField';
 export * from './View';
