@@ -70,13 +70,16 @@ export type Phrase = typeof DefaultTexts[keyof typeof DefaultTexts];
  * This will enable vscode autocompleted and help catch typos during development.
  * For example, translate('Submit') is valid but translate('Subnit') is not.
  */
-export const translate = (phrase: Phrase) => {
+export function translate(phrase: Phrase): string;
+export function translate(pharse: string): string;
+export function translate(phrase: Phrase | string): string {
   return I18n.get(phrase);
+}
+
+export type CustomVocab = Partial<Record<Phrase, string>> & {
+  [custom_label: string]: string;
 };
 
-export const putTranslationsForLang = (
-  lang: string,
-  vocab: Partial<Record<Phrase, string>>
-) => {
+export const putTranslationsForLang = (lang: string, vocab: CustomVocab) => {
   I18n.putVocabulariesForLanguage(lang, vocab);
 };
