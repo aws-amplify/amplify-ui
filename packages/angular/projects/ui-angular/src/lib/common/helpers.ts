@@ -54,6 +54,7 @@ export const DefaultTexts = {
 } as const;
 
 // type Phrase = "Back to Sign In" | "Change password" | ...
+// TODO: should just be defined directly?
 export type Phrase = typeof DefaultTexts[keyof typeof DefaultTexts];
 
 /**
@@ -65,4 +66,11 @@ export type Phrase = typeof DefaultTexts[keyof typeof DefaultTexts];
  */
 export const translate = (phrase: Phrase) => {
   return I18n.get(phrase);
+};
+
+export const putCustomVocabForLang = (
+  lang: string,
+  vocab: Partial<Record<Phrase, string>>
+) => {
+  I18n.putVocabulariesForLanguage(lang, vocab);
 };
