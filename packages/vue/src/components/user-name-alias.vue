@@ -22,7 +22,6 @@
       class="amplify-input amplify-field-group__control"
       id="amplify-field-1220"
       aria-invalid="false"
-      aria-labelledby="amplify-field-1220"
       :textValue="uName"
       autocomplete="username"
       :placeholder="label"

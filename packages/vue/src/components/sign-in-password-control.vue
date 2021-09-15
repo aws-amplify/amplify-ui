@@ -7,7 +7,7 @@
       v-model="password"
       class="amplify-input amplify-field-group__control"
       aria-invalid="false"
-      aria-labelledby="amplify-field-70e7"
+      id="amplify-field-70e7"
       data-amplify-password="true"
       name="password"
       autocomplete="current-password"
