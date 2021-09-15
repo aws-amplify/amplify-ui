@@ -13,6 +13,8 @@ export * from './Link';
 export * from './Pagination';
 export * from './Placeholder';
 export * from './PasswordField';
+export * from './Radio';
+export * from './RadioGroupField';
 export * from './Rating';
 export * from './SelectField';
 export * from './SwitchField';
