@@ -2,7 +2,7 @@
   "baseUrl": "http://localhost:3000/",
   "defaultCommandTimeout": 15000,
   "env": {
-    "TAGS": "not @skip"
+    "TAGS": "not (@skip or @skip-angular or @skip-react or @skip-vue)"
   },
   "integrationFolder": "features",
   "testFiles": "**/*.{feature,features}"

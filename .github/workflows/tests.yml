@@ -53,17 +53,30 @@ jobs:
       NODE_ENV: test
 
     strategy:
+      # Run instance, `next-example` which uses `@aws-amplify/ui-react`
+      # See: https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#using-environment-variables-in-a-matrix
       matrix:
-        # https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#using-environment-variables-in-a-matrix
+        # Only allow skipping tests when not on `main`
+        allowSkippingFramework:
+          - ${{ !contains(github.ref, 'main') }}
         include:
           - framework: angular
-            tags: '@angular'
+            tags: ['@angular', 'not @skip-angular']
 
           - framework: next
-            tags: '@react'
+            tags: ['@react', 'not @skip-react']
 
           - framework: vue
-            tags: '@vue'
+            tags: ['@vue', 'not @skip-vue']
+
+        exclude:
+          # Exclude `$skip-*` tags when `allowSkippingFramework` isn't allowed
+          # See: https://github.community/t/how-to-conditionally-include-exclude-items-in-matrix-eg-based-on-branch/16853/6
+          - allowSkippingFramework: false
+            tags:
+              - 'not @skip-angular'
+              - 'not @skip-react'
+              - 'not @skip-vue'
 
     steps:
       - name: Checkout Amplify UI
@@ -102,8 +115,9 @@ jobs:
       - name: Run E2E tests against ${{ matrix.framework }} example
         run: yarn workspace e2e test
         env:
-          # Override on the default value in `cypress.json` with framework tag e.g. `@angular`
-          TAGS: '${{ matrix.tags }}'
+          # Override on the default value in `cypress.json` with tag expression
+          # See: https://github.com/cucumber/common/tree/main/tag-expressions
+          TAGS: ${{ join(matrix.tags, ' and ') }}
 
           # Env values for testing flows
           DOMAIN: ${{ secrets.DOMAIN }}
