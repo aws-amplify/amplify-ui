@@ -34,7 +34,8 @@ export interface TabsProps
   onChange?: (value: number | string) => void;
 
   /**
-   * Control how Tabs take up the remaining space. Pass `equal` to make each tab take up the same amount of space, and `relative` to make each tab take up space relative to the size of its title.
+   * Control how Tabs take up the remaining space. Pass `equal` to make each tab take up the same amount of space,
+   * and `relative` to make each tab take up space relative to the size of its title.
    */
   grow?: TabsGrow;
 
