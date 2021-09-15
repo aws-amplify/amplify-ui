@@ -10,6 +10,7 @@ export class AmplifyUserNameAliasComponent implements OnInit {
   @Input() name: string = 'username';
   @Input() disabled: boolean = false;
   @Input() initialValue: string = '';
+  @Input() required: boolean = true;
   public label: string;
   public type: string;
   public error: string;

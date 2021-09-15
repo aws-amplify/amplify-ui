@@ -1,3 +1,13 @@
+/* Docs styles */
+@import 'prism-theme-night-owl';
+@import 'tailwindcss/tailwind.css';
+@import './styles.css';
+
+/* Amplify UI styles */
+@import '@aws-amplify/ui-react/styles.css';
+
+/* Primitive override styles for docs examples */
+@import './alertStyles.css';
 @import './badgeStyles.css';
 @import './buttonStyles.css';
 @import './cardStyles.css';
@@ -7,11 +17,13 @@
 @import './iconStyles.css';
 @import './linkStyles.css';
 @import './paginationStyles.css';
-@import './placeholderStyles.css';
 @import './passwordFieldStyles.css';
+@import './placeholderStyles.css';
+@import './radioStyles.css';
 @import './ratingStyles.css';
 @import './selectFieldStyles.css';
 @import './switchFieldStyles.css';
-@import './textStyles.css';
+@import './tabsStyles.css';
 @import './textFieldStyles.css';
+@import './textStyles.css';
 @import './viewStyles.css';

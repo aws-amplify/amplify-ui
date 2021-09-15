@@ -13,4 +13,6 @@ export interface ViewProps
   as?: ViewAsHTMLElementTypes;
 
   isDisabled?: boolean;
+
+  style?: React.CSSProperties;
 }

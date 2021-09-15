@@ -1,6 +1,7 @@
 module.exports = {
   components: require('./components'),
   borderWidths: require('./borderWidths'),
+  breakpoints: require('./breakpoints'),
   colors: require('./colors'),
   fonts: require('./fonts'),
   fontSizes: require('./fontSizes'),

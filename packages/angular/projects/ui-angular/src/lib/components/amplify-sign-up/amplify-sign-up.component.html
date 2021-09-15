@@ -9,7 +9,6 @@
 <ng-template #signUpPassword>
   <amplify-form-input
     name="password"
-    [required]="true"
     autocomplete="new-password"
   ></amplify-form-input>
 </ng-template>
@@ -18,7 +17,6 @@
   <amplify-form-input
     name="confirm_password"
     label="Confirm Password"
-    [required]="true"
     type="password"
     autocomplete="new-password"
   ></amplify-form-input>
@@ -26,6 +24,7 @@
 
 <ng-template #signUpFieldset>
   <fieldset data-amplify-fieldset [disabled]="isPending">
+    <amplify-federated-sign-in></amplify-federated-sign-in>
     <ng-container
       [ngTemplateOutlet]="customComponents.signUpUsername || signUpUsername"
       [ngTemplateOutletContext]="context"
@@ -55,12 +54,7 @@
 
 <div data-amplify-container>
   <h2 data-amplify-header>{{ this.headerText }}</h2>
-  <form
-    data-amplify-form
-    (submit)="onSubmit($event)"
-    (input)="onInput($event)"
-    ngNativeValidate
-  >
+  <form data-amplify-form (submit)="onSubmit($event)" (input)="onInput($event)">
     <ng-container
       [ngTemplateOutlet]="customComponents.signUpFieldset || signUpFieldset"
       [ngTemplateOutletContext]="context"

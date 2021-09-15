@@ -195,7 +195,7 @@ export const signUpActor = createMachine<SignUpContext, AuthEvent>(
           login_mechanisms,
         } = context;
 
-        const [primaryAlias = 'username'] = login_mechanisms;
+        const [primaryAlias] = login_mechanisms ?? ['username'];
 
         if (formValues.phone_number) {
           formValues.phone_number =

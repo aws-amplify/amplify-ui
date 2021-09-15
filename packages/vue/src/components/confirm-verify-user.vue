@@ -1,6 +1,6 @@
 <template>
-  <slot name="confirmVerifyUserSlotI">
-    <base-wrapper data-amplify-wrapper>
+  <slot v-bind="$attrs" name="confirmVerifyUserSlotI">
+    <base-wrapper v-bind="$attrs" data-amplify-wrapper>
       <base-form @submit.prevent="onConfirmVerifyUserSubmit">
         <base-heading>
           {{ verifyHeading }}
@@ -44,21 +44,9 @@
   </slot>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed, ComputedRef } from 'vue';
+<script setup lang="ts">
+import { computed, ComputedRef, useAttrs } from 'vue';
 import { I18n } from 'aws-amplify';
-
-import BaseHeading from './primitives/base-heading.vue';
-import BaseFieldSet from './primitives/base-field-set.vue';
-import BaseLabel from './primitives/base-label.vue';
-import BaseSpacer from './primitives/base-spacer.vue';
-import BaseButton from './primitives/base-button.vue';
-import BaseFooter from './primitives/base-footer.vue';
-import BaseText from './primitives/base-text.vue';
-import BaseInput from './primitives/base-input.vue';
-import BaseForm from './primitives/base-form.vue';
-import BaseBox from './primitives/base-box.vue';
-import BaseWrapper from './primitives/base-wrapper.vue';
 
 import { useAuth } from '../composables/useAuth';
 
@@ -68,82 +56,50 @@ import {
   VERIFY_TEXT,
   CONFIRMATION_CODE_TEXT,
 } from '../defaults/DefaultTexts';
-import { ConfirmVerifyUserSetupReturnTypes, SetupEventContext } from '../types';
 import { getActorState, SignInState } from '@aws-amplify/ui';
 
-export default defineComponent({
-  components: {
-    BaseBox,
-    BaseHeading,
-    BaseFieldSet,
-    BaseForm,
-    BaseLabel,
-    BaseSpacer,
-    BaseButton,
-    BaseFooter,
-    BaseText,
-    BaseInput,
-    BaseWrapper,
-  },
-  inheritAttrs: false,
-  setup(
-    _,
-    { emit, attrs }: SetupEventContext
-  ): ConfirmVerifyUserSetupReturnTypes {
-    const { state, send } = useAuth();
-    const actorState: ComputedRef<SignInState> = computed(
-      () => getActorState(state.value) as SignInState
-    );
+const attrs = useAttrs();
+const emit = defineEmits(['confirmVerifyUserSubmit', 'skipClicked']);
 
-    // Computed Properties
-    const verifyHeading = computed(() => I18n.get(VERIFY_HEADING));
-    const skipText = computed(() => I18n.get(SKIP_TEXT));
-    const verifyText = computed(() => I18n.get(VERIFY_TEXT));
-    const confirmationCodeText = computed(() =>
-      I18n.get(CONFIRMATION_CODE_TEXT)
-    );
+const { state, send } = useAuth();
+const actorState: ComputedRef<SignInState> = computed(
+  () => getActorState(state.value) as SignInState
+);
 
-    // Methods
-    const onConfirmVerifyUserSubmit = (e: Event): void => {
-      if (attrs?.onConfirmVerifyUserSubmit) {
-        emit('confirmVerifyUserSubmit', e);
-      } else {
-        submit(e);
-      }
-    };
+// Computed Properties
+const verifyHeading = computed(() => I18n.get(VERIFY_HEADING));
+const skipText = computed(() => I18n.get(SKIP_TEXT));
+const verifyText = computed(() => I18n.get(VERIFY_TEXT));
+const confirmationCodeText = computed(() => I18n.get(CONFIRMATION_CODE_TEXT));
 
-    const submit = (e): void => {
-      const formData = new FormData(e.target);
-      send({
-        type: 'SUBMIT',
-        //@ts-ignore
-        data: {
-          //@ts-ignore
-          ...Object.fromEntries(formData),
-        },
-      });
-    };
+// Methods
+const onConfirmVerifyUserSubmit = (e: Event): void => {
+  if (attrs?.onConfirmVerifyUserSubmit) {
+    emit('confirmVerifyUserSubmit', e);
+  } else {
+    submit(e);
+  }
+};
 
-    const onSkipClicked = (): void => {
-      if (attrs?.onSkipClicked) {
-        emit('skipClicked');
-      } else {
-        send({
-          type: 'SKIP',
-        });
-      }
-    };
+const submit = (e): void => {
+  const formData = new FormData(e.target);
+  send({
+    type: 'SUBMIT',
+    //@ts-ignore
+    data: {
+      //@ts-ignore
+      ...Object.fromEntries(formData),
+    },
+  });
+};
 
-    return {
-      onConfirmVerifyUserSubmit,
-      onSkipClicked,
-      submit,
-      actorState,
-      verifyHeading,
-      skipText,
-      verifyText,
-      confirmationCodeText,
-    };
-  },
-});
+const onSkipClicked = (): void => {
+  if (attrs?.onSkipClicked) {
+    emit('skipClicked');
+  } else {
+    send({
+      type: 'SKIP',
+    });
+  }
+};
 </script>

@@ -1,22 +1,14 @@
 <template>
   <slot name="fieldSetI" :slotData="mySlots.default()">
-    <fieldset data-amplify-fieldset="" v-bind="$attrs">
+    <fieldset v-bind="$attrs" data-amplify-fieldset="">
       <slot></slot>
     </fieldset>
   </slot>
 </template>
 
-<script lang="ts">
-import { PrimitiveSlotReturnType } from '../../types';
-import { defineComponent } from 'vue';
+<script setup lang="ts">
+import { useSlots } from 'vue';
+import { InternalSlots } from '../../types';
 
-export default defineComponent({
-  inheritAttrs: false,
-  setup(_, { slots }): PrimitiveSlotReturnType {
-    let mySlots = slots;
-    return { mySlots };
-  },
-});
+let mySlots: Readonly<InternalSlots> = useSlots();
 </script>
-
-<style scoped></style>

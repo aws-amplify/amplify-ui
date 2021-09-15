@@ -1,11 +1,11 @@
 import { Property } from 'csstype';
 
 import { BaseComponentProps } from './base';
-import { BaseStyleProps } from './style';
+import { BaseStyleProps, ResponsiveStyle } from './style';
 
 export interface ImageStyleProps {
-  objectFit?: Property.ObjectFit;
-  objectPosition?: Property.ObjectPosition;
+  objectFit?: ResponsiveStyle<Property.ObjectFit>;
+  objectPosition?: ResponsiveStyle<Property.ObjectPosition>;
 }
 
 export interface ImageOptions extends ImageStyleProps {

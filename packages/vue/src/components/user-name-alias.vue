@@ -1,28 +1,29 @@
 <template>
-  <base-label
-    v-bind="$attrs"
-    data-amplify-alias-label
-    v-if="name === 'phone_number'"
-  >
-    <base-label>
+  <template v-if="name === 'phone_number'">
+    <base-label for="amplify-field-1177">
       {{ 'Country Code' }}
     </base-label>
     <base-select
       data-amplify-select
+      id="amplify-field-1177"
       aria-label="country code"
       name="country_code"
       :options="dialCodes"
       :selectValue="defaultDialCode"
     >
     </base-select>
-  </base-label>
+  </template>
 
-  <base-label v-bind="$attrs" data-amplify-alias-label>
-    <base-text>
-      {{ label }}
-    </base-text>
+  <base-label v-bind="$attrs">
+    {{ label }}
+  </base-label>
+  <base-wrapper class="amplify-flex">
     <base-input
-      v-model:textValue="uName"
+      class="amplify-input amplify-field-group__control"
+      id="amplify-field-1220"
+      aria-invalid="false"
+      aria-labelledby="amplify-field-1220"
+      :textValue="uName"
       autocomplete="username"
       :placeholder="label"
       required
@@ -30,11 +31,11 @@
       :disabled="disabled"
       :type="type"
     ></base-input>
-  </base-label>
+  </base-wrapper>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref, computed, ComputedRef } from 'vue';
+<script setup lang="ts">
+import { ref, computed, ComputedRef } from 'vue';
 import {
   authInputAttributes,
   getActorContext,
@@ -43,73 +44,57 @@ import {
   countryDialCodes,
 } from '@aws-amplify/ui';
 
-import BaseInput from './primitives/base-input.vue';
-import BaseLabel from './primitives/base-label.vue';
-import BaseText from './primitives/base-text.vue';
-import BaseSelect from './primitives/base-select.vue';
-
 import { useAuth } from '../composables/useAuth';
 import { useAliases } from '../composables/useUtils';
 
-import { UserNameAliasTypes, UserNameAliasSetupReturnTypes } from '../types';
+interface PropsInterface {
+  userNameAlias?: boolean;
+  userName?: string;
+  disabled?: boolean;
+}
 
-export default defineComponent({
-  components: {
-    BaseInput,
-    BaseLabel,
-    BaseText,
-    BaseSelect,
-  },
-  props: {
-    userNameAlias: {
-      default: false,
-    },
-    userName: {
-      default: '',
-    },
-    disabled: {
-      default: false,
-    },
-  },
-  inheritAttrs: false,
-  setup(props: UserNameAliasTypes): UserNameAliasSetupReturnTypes {
-    const { state } = useAuth();
-    const {
-      value: { context },
-    } = state;
+const { userNameAlias, userName, disabled } = withDefaults(
+  defineProps<PropsInterface>(),
+  {
+    userNameAlias: false,
+    userName: '',
+    disable: false,
+  }
+);
 
-    const actorContext: ComputedRef<ActorContextWithForms> = computed(() =>
-      getActorContext(state.value)
-    );
+const { state } = useAuth();
+const {
+  value: { context },
+} = state;
 
-    const defaultDialCode = actorContext.value.formValues?.country_code;
+const actorContext: ComputedRef<ActorContextWithForms> = computed(() =>
+  getActorContext(state.value)
+);
 
-    let uName = ref('');
+const defaultDialCode = actorContext.value.formValues?.country_code;
 
-    if (props.userName) {
-      uName = computed(() => props.userName);
-    }
+let uName = ref('');
 
-    const dialCodes = computed(() => countryDialCodes);
+if (userName) {
+  uName = computed(() => userName);
+}
 
-    const [primaryAlias] = useAliases(context?.config?.login_mechanisms);
+const dialCodes = computed(() => countryDialCodes);
 
-    let name = primaryAlias;
-    let label =
-      authInputAttributes[primaryAlias]?.label ??
-      authInputAttributes['username'].label;
-    let type =
-      authInputAttributes[name]?.type ?? authInputAttributes['username'].label;
+const [primaryAlias] = useAliases(context?.config?.login_mechanisms);
 
-    // Only show for Sign In
-    if (props.userNameAlias) {
-      const aliasInfo = getAliasInfoFromContext(context);
-      label = aliasInfo.label || authInputAttributes['username'].label;
-      type = aliasInfo.type;
-      name = 'username';
-    }
+let name = primaryAlias;
+let label =
+  authInputAttributes[primaryAlias]?.label ??
+  authInputAttributes['username'].label;
+let type =
+  authInputAttributes[name]?.type ?? authInputAttributes['username'].label;
 
-    return { label, name, type, uName, dialCodes, defaultDialCode };
-  },
-});
+// Only show for Sign In
+if (userNameAlias) {
+  const aliasInfo = getAliasInfoFromContext(context);
+  label = aliasInfo.label || authInputAttributes['username'].label;
+  type = aliasInfo.type;
+  name = 'username';
+}
 </script>
