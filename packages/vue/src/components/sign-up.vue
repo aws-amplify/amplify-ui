@@ -39,7 +39,7 @@
               <password-control
                 name="password"
                 :label="passwordLabel"
-                autocomplete="current-password"
+                autocomplete="new-password"
               />
             </base-wrapper>
             <base-wrapper
