@@ -1,4 +1,4 @@
-import { Logger } from 'aws-amplify';
+import { I18n, Logger } from 'aws-amplify';
 import {
   AfterContentInit,
   Component,
@@ -13,6 +13,7 @@ import { StateMachineService } from '../../services/state-machine.service';
 import { AuthPropService } from '../../services/authenticator-context.service';
 import { Subscription } from 'xstate';
 import { AuthMachineState, getActorState, SignInState } from '@aws-amplify/ui';
+import { DefaultTexts, translate } from '../../common';
 
 const logger = new Logger('SignIn');
 
@@ -25,11 +26,17 @@ export class AmplifySignInComponent
   implements AfterContentInit, OnInit, OnDestroy
 {
   @HostBinding('attr.data-amplify-authenticator-signin') dataAttr = '';
-  @Input() public headerText = 'Sign in to your account';
+  @Input() public headerText = I18n.get(DefaultTexts.SIGN_IN_TEXT);
 
   public customComponents: Record<string, TemplateRef<any>> = {};
   public remoteError = '';
   public isPending = false;
+
+  // translated phrases
+  public forgotPasswordText = translate('Forgot your password? ');
+  public signInButtonText = translate('Sign in');
+  public noAccountText = translate('No account? ');
+  public createAccountText = translate('Create Account');
 
   private authSubscription: Subscription;
 
