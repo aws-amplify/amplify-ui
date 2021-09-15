@@ -8,7 +8,6 @@
       class="amplify-input amplify-field-group__control"
       aria-invalid="false"
       :id="'amplify-field-' + random"
-      :aria-labelledby="'amplify-field-' + random"
       data-amplify-password="true"
       :name="name"
       :autocomplete="autocomplete"
