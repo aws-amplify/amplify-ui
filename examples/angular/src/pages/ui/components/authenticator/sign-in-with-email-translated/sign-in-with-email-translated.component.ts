@@ -3,9 +3,6 @@ import Amplify, { I18n } from 'aws-amplify';
 import { translations } from '@aws-amplify/ui';
 import awsExports from '@environments/auth-with-email/src/aws-exports';
 
-I18n.putVocabularies(translations);
-I18n.setLanguage('ja');
-
 @Component({
   selector: 'sign-in-with-email-translated',
   templateUrl: 'sign-in-with-email-translated.component.html',
@@ -20,5 +17,12 @@ export class SignInWithEmailTranslatedComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    I18n.putVocabularies(translations);
+    I18n.setLanguage('ja');
+  }
+
+  ngOnDestroy() {
+    I18n.setLanguage('en');
+  }
 }
