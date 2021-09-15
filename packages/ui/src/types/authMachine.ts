@@ -7,7 +7,7 @@ export type AuthFormData = Record<string, string>;
 export interface AuthContext {
   actorRef?: any;
   config?: {
-    login_mechanisms: string[];
+    login_mechanisms: LoginMechanism[];
   };
   user?: CognitoUserAmplify;
 }
@@ -102,7 +102,15 @@ export const userNameAliasArray = [
 
 export type UserNameAlias = typeof userNameAliasArray[number];
 
-export const socialProviderLoginMechanisms = ['amazon', 'google', 'facebook'];
+export const socialProviderLoginMechanisms = [
+  'amazon',
+  'google',
+  'facebook',
+] as const;
+
+export type LoginMechanism =
+  | UserNameAlias
+  | typeof socialProviderLoginMechanisms[number];
 
 // other non-alias inputs that Cognito would require
 export type AuthInputNames = UserNameAlias | 'confirmation_code' | 'password';

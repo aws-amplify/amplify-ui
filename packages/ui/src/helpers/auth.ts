@@ -9,6 +9,8 @@ import {
   AuthEventTypes,
   AuthInputAttributes,
   AuthMachineState,
+  LoginMechanism,
+  UserNameAlias,
   userNameAliasArray,
 } from '../types';
 
@@ -48,11 +50,23 @@ export enum FederatedIdentityProviders {
 
 /**
  * Given xstate context from AuthMachine, this returns the input label, type,
- * and error attributes of the configured login_mechanisms.
+ * and error attributes of the configured login_mechanisms. An optional "alias"
+ * may be passed in to get info from context for that specific alias.
  */
-export const getAliasInfoFromContext = (context: AuthContext) => {
+export const getAliasInfoFromContext = (
+  context: AuthContext,
+  alias?: LoginMechanism
+) => {
   const loginMechanisms = context.config?.login_mechanisms ?? ['username'];
   const error = context.actorRef?.context?.validationError['username'];
+
+  if (alias as UserNameAlias) {
+    return {
+      label: authInputAttributes[alias].label,
+      type: authInputAttributes[alias].type,
+      error,
+    };
+  }
 
   let type = 'text';
   const label = loginMechanisms
