@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { I18n } from 'aws-amplify';
 import {
   ActorContextWithForms,
   AuthInputAttributes,
@@ -41,15 +42,16 @@ export class AmplifyInputComponent {
   }
 
   inferLabel(): string {
-    return this.label || this.attributeMap[this.name]?.label;
+    const label = this.label || this.attributeMap[this.name]?.label;
+    return I18n.get(label);
   }
 
   inferPlaceholder(): string {
-    return (
+    const placeholder =
       this.placeholder ||
       this.attributeMap[this.name]?.placeholder ||
-      this.inferLabel()
-    );
+      this.inferLabel();
+    return I18n.get(placeholder);
   }
 
   // infers what the `type` of underlying input element should be.
