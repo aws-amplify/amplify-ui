@@ -15,6 +15,7 @@ describe('@aws-amplify/ui-react', () => {
           "Box",
           "Button",
           "Card",
+          "CheckboxField",
           "Collection",
           "CollectionTypeMap",
           "ComponentClassNames",
