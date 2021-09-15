@@ -1,4 +1,4 @@
-import { Component, HostBinding, TemplateRef } from '@angular/core';
+import { Component, HostBinding, Input, TemplateRef } from '@angular/core';
 import {
   AuthMachineState,
   getActorContext,
@@ -10,20 +10,25 @@ import { Logger } from 'aws-amplify';
 import { Subscription } from 'xstate';
 import { StateMachineService } from '../../services/state-machine.service';
 import { AuthPropService } from '../../services/authenticator-context.service';
-
-const logger = new Logger('ConfirmSignUp');
-
+import { translate } from '../../common';
 @Component({
   selector: 'amplify-confirm-sign-up',
   templateUrl: './amplify-confirm-sign-up.component.html',
 })
 export class AmplifyConfirmSignUpComponent {
   @HostBinding('attr.data-amplify-authenticator-confirmsignup') dataAttr = '';
+  @Input() headerText = translate('Confirm Sign Up');
   public customComponents: Record<string, TemplateRef<any>> = {};
   private authSubscription: Subscription;
   public username: string;
   public remoteError = '';
   public isPending = false;
+
+  // translated texts
+  public signInText = translate('Sign in');
+  public resendCodeText = translate('Resend Code');
+  public lostCodeText = translate('Lost your code? ');
+  public confirmText = translate('Confirm');
 
   constructor(
     private stateMachine: StateMachineService,
@@ -57,9 +62,6 @@ export class AmplifyConfirmSignUpComponent {
   }
 
   ngOnDestroy(): void {
-    logger.log(
-      'confirm sign up destroyed, unsubscribing from state machine...'
-    );
     this.authSubscription.unsubscribe();
   }
 
