@@ -76,7 +76,7 @@
         <slot name="sign-up"></slot>
       </template>
 
-      <template #footer-left="{ onHaveAccountClicked }">
+      <!-- <template #footer-left="{ onHaveAccountClicked }">
         <slot
           name="sign-up-footer-left"
           :onHaveAccountClicked="onHaveAccountClicked"
@@ -88,9 +88,9 @@
           name="sign-up-footer-right"
           :onSignUpSubmit="onSignUpSubmit"
         ></slot>
-      </template>
+      </template> -->
 
-      <template #footer="{ info, onHaveAccountClicked, onSignUpSubmit }">
+      <template #footer="{ onHaveAccountClicked, onSignUpSubmit, info }">
         <slot
           name="sign-up-footer"
           :info="info"
@@ -321,7 +321,7 @@ const emit = defineEmits([
 ]);
 
 const s = useInterpret(authMachine, {
-  devTools: process.env.NODE_ENV === 'development',
+  devTools: process.env.NODE_ENV !== 'development',
 });
 const service = ref(s);
 

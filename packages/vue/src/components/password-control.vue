@@ -1,18 +1,19 @@
 <template>
-  <base-label class="amplify-label sr-only" for="amplify-field-70e7">
-    {{ passwordLabel }}
+  <base-label class="amplify-label sr-only" :for="'amplify-field-' + random">
+    {{ label }}
   </base-label>
   <base-wrapper class="amplify-flex amplify-field-group">
     <base-input
       v-model="password"
       class="amplify-input amplify-field-group__control"
       aria-invalid="false"
-      aria-labelledby="amplify-field-70e7"
+      :id="'amplify-field-' + random"
+      :aria-labelledby="'amplify-field-' + random"
       data-amplify-password="true"
-      name="password"
-      autocomplete="current-password"
+      :name="name"
+      :autocomplete="autocomplete"
       required
-      :placeholder="passwordLabel"
+      :placeholder="label"
       :type="showHideType"
       :value="password"
     />
@@ -60,18 +61,23 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
-import {
-  PASSWORD_LABEL,
-  HIDE_PASSWORD,
-  SHOW_PASSWORD,
-} from '../defaults/DefaultTexts';
+import { ref } from 'vue';
+import { HIDE_PASSWORD, SHOW_PASSWORD } from '../defaults/DefaultTexts';
 import { I18n } from 'aws-amplify';
-const passwordLabel = computed(() => I18n.get(PASSWORD_LABEL));
+
 const showPassword = I18n.get(SHOW_PASSWORD);
 const hidePassword = I18n.get(HIDE_PASSWORD);
 const showHideType = ref('password');
 const showHideLabel = ref(showPassword);
+
+const random = Math.floor(Math.random() * 999999);
+
+const { name, label, autocomplete } = defineProps({
+  name: String,
+  label: String,
+  autocomplete: String,
+});
+
 let password = ref('');
 
 function togglePasswordText(): void {
