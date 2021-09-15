@@ -8,16 +8,7 @@ import { RemoteErrorMessage, UserNameAlias } from '../shared';
 export function SignIn() {
   const amplifyNamespace = 'Authenticator.SignIn';
   const {
-    components: {
-      Button,
-      FieldGroup,
-      Flex,
-      Footer,
-      Form,
-      Heading,
-      PasswordField,
-      Text,
-    },
+    components: { Button, FieldGroup, Flex, Form, Heading, PasswordField },
   } = useAmplify(amplifyNamespace);
 
   const [_state, send] = useAuth();

@@ -21,7 +21,6 @@ export function SignUp() {
       Button,
       FieldGroup,
       Flex,
-      Footer,
       Form,
       Heading,
       PasswordField,
