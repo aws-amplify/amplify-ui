@@ -1,27 +1,28 @@
 <template>
-  <base-label
-    v-bind="$attrs"
-    data-amplify-alias-label
-    v-if="name === 'phone_number'"
-  >
-    <base-label>
+  <template v-if="name === 'phone_number'">
+    <base-label for="amplify-field-1177">
       {{ 'Country Code' }}
     </base-label>
     <base-select
       data-amplify-select
+      id="amplify-field-1177"
       aria-label="country code"
       name="country_code"
       :options="dialCodes"
       :selectValue="defaultDialCode"
     >
     </base-select>
-  </base-label>
+  </template>
 
-  <base-label v-bind="$attrs" data-amplify-alias-label>
-    <base-text>
-      {{ label }}
-    </base-text>
+  <base-label v-bind="$attrs">
+    {{ label }}
+  </base-label>
+  <base-wrapper class="amplify-flex">
     <base-input
+      class="amplify-input amplify-field-group__control"
+      id="amplify-field-1220"
+      aria-invalid="false"
+      aria-labelledby="amplify-field-1220"
       :textValue="uName"
       autocomplete="username"
       :placeholder="label"
@@ -30,7 +31,7 @@
       :disabled="disabled"
       :type="type"
     ></base-input>
-  </base-label>
+  </base-wrapper>
 </template>
 
 <script setup lang="ts">

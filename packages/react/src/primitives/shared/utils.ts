@@ -69,7 +69,7 @@ export interface ConvertStylePropsToStyleObj {
  * @returns CSSProperties styles
  */
 export const convertStylePropsToStyleObj: ConvertStylePropsToStyleObj = ({
-  props,
+  props = {},
   style = {},
   breakpoint,
   breakpoints,
