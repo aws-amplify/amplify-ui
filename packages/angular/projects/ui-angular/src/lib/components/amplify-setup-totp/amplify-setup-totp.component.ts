@@ -33,7 +33,7 @@ export class AmplifySetupTotpComponent
   public customComponents: Record<string, TemplateRef<any>> = {};
   public remoteError = '';
   public isPending = false;
-  public headerText = 'Setup TOTP';
+  public headerText = translate('Setup TOTP');
   public qrCodeSource = '';
 
   private authSubscription: Subscription;
