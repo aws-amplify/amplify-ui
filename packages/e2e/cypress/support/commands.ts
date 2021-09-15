@@ -53,8 +53,7 @@ Cypress.Commands.add('findInputField', (field: string) => {
   const regex = new RegExp(regexString, 'i');
 
   if (isPasswordField) {
-    // TODO: we should use cy.findByLabelText once our dom is cleaned up
-    return cy.findByPlaceholderText(regex);
+    return cy.findByLabelText(field);
   } else {
     return cy.findByRole('textbox', { name: regex });
   }
