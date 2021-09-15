@@ -7,7 +7,9 @@ import { View } from '../View';
 
 export const Input: React.FC<InputProps> = ({
   autoComplete,
+  checked,
   className,
+  defaultChecked,
   defaultValue,
   id,
   isDisabled,
@@ -30,6 +32,7 @@ export const Input: React.FC<InputProps> = ({
     aria-invalid={hasError}
     as="input"
     autoComplete={autoComplete}
+    checked={checked}
     className={classNames(
       ComponentClassNames.Input,
       ComponentClassNames.FieldGroupControl,
@@ -37,6 +40,7 @@ export const Input: React.FC<InputProps> = ({
     )}
     data-size={size}
     data-variation={variation}
+    defaultChecked={defaultChecked}
     defaultValue={defaultValue}
     isDisabled={isDisabled}
     id={id}
