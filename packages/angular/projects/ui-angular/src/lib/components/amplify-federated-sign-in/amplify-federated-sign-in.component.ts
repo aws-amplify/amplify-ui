@@ -1,11 +1,7 @@
-import {
-  AfterContentInit,
-  Component,
-  OnInit,
-  TemplateRef,
-} from '@angular/core';
-import { StateMachineService } from '../../services/state-machine.service';
+import { Component, OnInit } from '@angular/core';
 import { FederatedIdentityProviders } from '@aws-amplify/ui';
+import { StateMachineService } from '../../services/state-machine.service';
+import { translate } from '../../common';
 
 @Component({
   selector: 'amplify-federated-sign-in',
@@ -17,6 +13,11 @@ export class AmplifyFederatedSignInComponent implements OnInit {
   public includeGoogle: boolean = false;
   public includeAmazon: boolean = false;
   public shouldShowFederatedSignIn = false;
+
+  // translated texts
+  public signInFacebookText = translate('Sign In with Facebook');
+  public signInGoogleText = translate('Sign In with Google');
+  public signInAmazonText = translate('Sign In with Amazon');
 
   constructor(private stateMachine: StateMachineService) {}
 
