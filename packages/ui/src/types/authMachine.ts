@@ -20,6 +20,7 @@ interface BaseFormContext {
   remoteError?: string;
   user?: CognitoUserAmplify;
   validationError?: ValidationError;
+  country_code?: string;
 }
 
 export interface SignInContext extends BaseFormContext {
