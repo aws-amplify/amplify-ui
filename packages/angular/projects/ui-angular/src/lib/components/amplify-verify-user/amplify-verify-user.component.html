@@ -3,8 +3,8 @@
 -->
 <ng-template #verifyUserFooter>
   <div data-amplify-footer>
-    <button data-amplify-button (click)="skipVerify()">Skip</button>
-    <button data-amplify-button type="submit">Verify</button>
+    <button data-amplify-button (click)="skipVerify()">{{ skipText }}</button>
+    <button data-amplify-button type="submit">{{ verifyText }}</button>
   </div>
 </ng-template>
 
@@ -19,7 +19,7 @@
           type="radio"
           [value]="unverifiedAttribute.key"
         />
-        <amplify-label>{{ unverifiedAttribute.key }}</amplify-label>
+        <div data-amplify-label>{{ I18n.get(unverifiedAttribute.key) }}</div>
       </ng-container>
       <ng-container
         [ngTemplateOutlet]="
