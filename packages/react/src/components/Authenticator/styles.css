@@ -79,3 +79,7 @@
   position: absolute;
   left: 0;
 }
+
+.amplify-tabs {
+  margin-bottom: 0;
+}
