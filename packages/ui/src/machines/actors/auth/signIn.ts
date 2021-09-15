@@ -390,7 +390,12 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
         const source = !!(context.intent && context.intent === 'autoSignIn')
           ? context.authAttributes
           : context.formValues;
-        const { username, password } = source;
+        let { username, password } = source;
+
+        if (source.country_code) {
+          username = source.country_code + source.username;
+        }
+
         return Auth.signIn(username, password);
       },
       async confirmSignIn(context, event) {
