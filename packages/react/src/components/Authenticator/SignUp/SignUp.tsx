@@ -1,19 +1,20 @@
-import { includes, isEmpty } from 'lodash';
+import { isEmpty } from 'lodash';
 
 import { I18n } from 'aws-amplify';
 import {
-  authInputAttributes,
-  countryDialCodes,
   getActorContext,
   getActorState,
   SignUpContext,
   SignUpState,
-  socialProviderLoginMechanisms,
+  UserNameAlias,
 } from '@aws-amplify/ui';
 
 import { useAmplify, useAuth } from '../../../hooks';
 import { FederatedSignIn } from '../FederatedSignIn';
-import { RemoteErrorMessage } from '../shared';
+import {
+  RemoteErrorMessage,
+  UserNameAlias as UserNameAliasComponent,
+} from '../shared';
 export function SignUp() {
   const amplifyNamespace = 'Authenticator.SignUp';
   const {
@@ -33,7 +34,6 @@ export function SignUp() {
   const [_state, send] = useAuth();
   const actorState: SignUpState = getActorState(_state);
   const isPending = actorState.matches('signUp.pending');
-  const { remoteError } = actorState.context;
   const { validationError } = getActorContext(_state) as SignUpContext;
 
   const [primaryAlias, ...secondaryAliases] = _state.context.config
@@ -82,9 +82,9 @@ export function SignUp() {
         <Heading level={3}>{I18n.get('Create a new account')}</Heading>
 
         <FieldGroup disabled={isPending} direction="column">
-          <SignUp.AliasControl
-            label={I18n.get(authInputAttributes[primaryAlias].label)}
-            name={primaryAlias}
+          <UserNameAliasComponent
+            data-amplify-usernamealias
+            alias={primaryAlias}
           />
           <PasswordField
             data-amplify-password
@@ -114,12 +114,12 @@ export function SignUp() {
           )}
 
           {secondaryAliases
-            .filter((alias) => !includes(socialProviderLoginMechanisms, alias))
+            .filter((alias) => alias as UserNameAlias)
             .map((alias) => (
-              <SignUp.AliasControl
+              <UserNameAliasComponent
+                data-amplify-usernamealias
                 key={alias}
-                label={I18n.get(authInputAttributes[alias].label)}
-                name={alias}
+                alias={alias}
               />
             ))}
 
@@ -159,47 +159,3 @@ export function SignUp() {
     </Form>
   );
 }
-
-SignUp.AliasControl = ({
-  label = I18n.get('Username'),
-  name = 'username',
-  placeholder = label,
-}) => {
-  const {
-    components: { SelectField, TextField },
-  } = useAmplify('Authenticator.SignUp.Alias');
-  const [_state] = useAuth();
-  const { validationError, formValues } = getActorContext(
-    _state
-  ) as SignUpContext;
-  const error = validationError[name];
-
-  return (
-    <>
-      {name === 'phone_number' && (
-        <SelectField
-          name="country_code"
-          label="country code"
-          labelHidden={true}
-          defaultValue={formValues.country_code}
-        >
-          {countryDialCodes.map((dialCode) => (
-            <option key={dialCode} value={dialCode}>
-              {dialCode}
-            </option>
-          ))}
-        </SelectField>
-      )}
-      <TextField
-        type={authInputAttributes[name].type}
-        name={name}
-        required
-        placeholder={placeholder}
-        label={label}
-        labelHidden={true}
-        autoComplete="username"
-        errorMessage={error}
-      ></TextField>
-    </>
-  );
-};
