@@ -62,12 +62,18 @@ Internally, this content is served by a single, Next.js [optional catch all rout
 
      Documentation-friendly description of this feature, why it exists, & how to use it.
 
-     @react
+     @angular @react @vue
      Scenario: Example scenario using this feature
        Given some "STARTING_POINT"
        When I DO "SOMETHING"
        And I DO SOMETHING "ELSE"
        Then I see "THE DESIRED BEHAVIOR"
+
+     @react @skip
+     Scenario: Some React-specific scenario that can't be rain in CI
+
+     @angular @todo-react @todo-vue
+     Scenario: Some scenario supported in Angular, but React & Vue haven't added yet
    ```
 
 1. Create or Update the accompanying `${slug}.feature` tests (e.g. `packages/e2e/cypress/integration/${slug}/${feature}/${feature}.steps.ts`
