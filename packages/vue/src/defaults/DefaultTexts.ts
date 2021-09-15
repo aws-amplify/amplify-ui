@@ -40,3 +40,5 @@ export const VERIFY_TEXT = 'Verify';
 export const ENTER_USERNAME_TEXT = 'Enter your username';
 export const CODE_TEXT = 'Code';
 export const PASSWORD_TEXT = 'Password';
+export const HIDE_PASSWORD = 'Hide password';
+export const SHOW_PASSWORD = 'Show password';
