@@ -1,5 +1,5 @@
 <ng-template #signUpButton>
-  <button data-amplify-button type="submit">Create Account</button>
+  <button data-amplify-button type="submit">{{ createAccountText }}</button>
 </ng-template>
 
 <ng-template #signUpUsername>
@@ -62,8 +62,8 @@
 
     <div data-amplify-footer>
       <div>
-        Have an account?{{ ' ' }}
-        <span data-amplify-link (click)="toSignIn()">Sign In</span>
+        {{ haveAccountText }}
+        <button type="button" (click)="toSignIn()">{{ signInText }}</button>
       </div>
       <ng-container
         [ngTemplateOutlet]="customComponents.signUpButton || signUpButton"
