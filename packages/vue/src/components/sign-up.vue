@@ -66,7 +66,7 @@ import {
   getActorState,
   LoginMechanism,
   SignUpState,
-  socialProviderLoginMechanisms,
+  UserNameAlias as UserNameAliasT,
 } from '@aws-amplify/ui';
 
 import SignUpPasswordControl from './sign-up-password-control.vue';
@@ -99,10 +99,7 @@ const actorState: ComputedRef<SignUpState> = computed(() =>
 
 let [__, ...secondaryAliases] = useAliases(context?.config?.login_mechanisms);
 
-secondaryAliases = secondaryAliases.filter(
-  (alias) =>
-    !([...socialProviderLoginMechanisms] as LoginMechanism[]).includes(alias)
-);
+secondaryAliases = secondaryAliases.filter((alias) => alias as UserNameAliasT);
 
 // computed properties
 
