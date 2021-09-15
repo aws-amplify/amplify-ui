@@ -19,7 +19,6 @@ export function SignUp() {
   const {
     components: {
       Button,
-      Divider,
       FieldGroup,
       Flex,
       Footer,
@@ -138,21 +137,6 @@ export function SignUp() {
         >
           {I18n.get('Create Account')}
         </Button>
-
-        {/* TODO - This part will be removed once tabs are ready */}
-        <Footer>
-          <Text>{I18n.get('Have an account? ')}</Text>
-          <Button
-            onClick={() => send({ type: 'SIGN_IN' })}
-            type="button"
-            variation="link"
-            fontWeight="normal"
-          >
-            {I18n.get('Sign in')}
-          </Button>
-        </Footer>
-
-        <Divider size="small" />
 
         <FederatedSignIn />
       </Flex>

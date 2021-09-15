@@ -10,7 +10,6 @@ export function SignIn() {
   const {
     components: {
       Button,
-      Divider,
       FieldGroup,
       Flex,
       Footer,
@@ -92,21 +91,7 @@ export function SignIn() {
         >
           {I18n.get('Forgot your password? ')}
         </Button>
-
-        <Footer>
-          <Text>{I18n.get('No account? ')}</Text>
-          <Button
-            onClick={() => send({ type: 'SIGN_UP' })}
-            type="button"
-            variation="link"
-            fontWeight="normal"
-          >
-            {I18n.get('Create account')}
-          </Button>
-        </Footer>
       </Flex>
-
-      <Divider size="small" />
 
       <FederatedSignIn />
     </Form>

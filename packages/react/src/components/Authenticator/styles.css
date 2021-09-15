@@ -64,12 +64,17 @@
   @apply opacity-50;
 }
 
-.federated-sign-in-container {
-  margin-top: var(--amplify-space-medium);
-}
-
 .federated-sign-in-button {
   border-color: black;
   border-radius: 0;
   color: black;
+}
+
+.federated-sign-in-button-row {
+  position: relative;
+}
+
+.federated-sign-in-icon {
+  position: absolute;
+  left: 0;
 }
