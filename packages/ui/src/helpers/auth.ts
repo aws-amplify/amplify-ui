@@ -30,7 +30,7 @@ export const authInputAttributes: AuthInputAttributes = {
   },
   confirmation_code: {
     label: 'Confirmation Code',
-    placeholder: 'Enter your code',
+    placeholder: 'Code',
     type: 'number',
   },
   password: {
