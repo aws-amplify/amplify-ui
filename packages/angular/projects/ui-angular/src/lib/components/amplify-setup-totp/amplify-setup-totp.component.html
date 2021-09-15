@@ -2,7 +2,7 @@
   Define default contents here
 -->
 <ng-template #setupTotpButton>
-  <button data-amplify-button type="submit">Confirm</button>
+  <button data-amplify-button type="submit">{{ confirmText }}</button>
 </ng-template>
 
 <ng-template #setupTotpForm>
@@ -17,7 +17,7 @@
       ></amplify-form-input>
 
       <div data-amplify-footer>
-        <a data-amplify-link (click)="toSignIn()">Back to Sign In</a>
+        <button (click)="toSignIn()">{{ backToSignInText }}</button>
         <ng-container
           [ngTemplateOutlet]="
             customComponents.setupTotpButton || setupTotpButton

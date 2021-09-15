@@ -18,6 +18,7 @@ import {
 } from '@aws-amplify/ui';
 import { StateMachineService } from '../../services/state-machine.service';
 import { AuthPropService } from '../../services/authenticator-context.service';
+import { translate } from '../../common';
 
 const logger = new Logger('SetupTotp');
 
@@ -36,6 +37,10 @@ export class AmplifySetupTotpComponent
   public qrCodeSource = '';
 
   private authSubscription: Subscription;
+
+  // translated texts
+  public backToSignInText = translate('Back to Sign In');
+  public confirmText = translate('Confirm');
 
   constructor(
     private stateMachine: StateMachineService,
