@@ -68,7 +68,7 @@ export const translate = (phrase: Phrase) => {
   return I18n.get(phrase);
 };
 
-export const putCustomVocabForLang = (
+export const putTranslationsForLang = (
   lang: string,
   vocab: Partial<Record<Phrase, string>>
 ) => {
