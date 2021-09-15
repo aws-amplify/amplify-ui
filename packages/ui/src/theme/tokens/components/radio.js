@@ -47,8 +47,8 @@ module.exports = {
     },
 
     _focus: {
-      borderColor: { value: '#2E2EFF' },
-      boxShadow: { value: '0 0 0 3px #2E2EFF' },
+      borderColor: { value: '{colors.focus.value}' },
+      boxShadow: { value: '0 0 0 1px {colors.focus.value}' },
     },
 
     _disabled: {
