@@ -64,7 +64,7 @@ import {
   authInputAttributes,
   getActorState,
   SignUpState,
-  socialProviderLoginMechanisms,
+  UserNameAlias,
 } from '@aws-amplify/ui';
 
 import BaseForm from './primitives/base-form.vue';
@@ -77,7 +77,7 @@ import BaseFooter from './primitives/base-footer.vue';
 import BaseButton from './primitives/base-button.vue';
 import SignUpPasswordControl from './sign-up-password-control.vue';
 import SignUpConfirmPasswordControl from './sign-up-confirm-password-control.vue';
-import UserNameAlias from './user-name-alias.vue';
+import UserNameAliasComponent from './user-name-alias.vue';
 import AliasControl from './alias-control.vue';
 import BaseWrapper from './primitives/base-wrapper.vue';
 import FederatedSignIn from './federated-sign-in.vue';
@@ -107,7 +107,7 @@ export default defineComponent({
     BaseBox,
     BaseSpacer,
     SignUpConfirmPasswordControl,
-    UserNameAlias,
+    UserNameAliasComponent,
     AliasControl,
     FederatedSignIn,
   },
@@ -127,7 +127,7 @@ export default defineComponent({
     );
 
     secondaryAliases = secondaryAliases.filter(
-      (alias) => !socialProviderLoginMechanisms.includes(alias)
+      (alias) => alias as UserNameAlias
     );
 
     // reactive properties
