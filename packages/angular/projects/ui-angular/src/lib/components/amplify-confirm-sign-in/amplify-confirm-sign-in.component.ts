@@ -7,8 +7,6 @@ import {
   TemplateRef,
 } from '@angular/core';
 import { Logger } from 'aws-amplify';
-import { StateMachineService } from '../../services/state-machine.service';
-import { AuthPropService } from '../../services/authenticator-context.service';
 import { Subscription } from 'xstate';
 import {
   AuthChallengeNames,
@@ -18,6 +16,9 @@ import {
   SignInContext,
   SignInState,
 } from '@aws-amplify/ui';
+import { StateMachineService } from '../../services/state-machine.service';
+import { AuthPropService } from '../../services/authenticator-context.service';
+import { translate } from '../../common';
 
 const logger = new Logger('ConfirmSignIn');
 
@@ -33,9 +34,13 @@ export class AmplifyConfirmSignInComponent
   public customComponents: Record<string, TemplateRef<any>> = {};
   public remoteError = '';
   public isPending = false;
-  public headerText = '';
 
   private authSubscription: Subscription;
+
+  // translated texts
+  public headerText: string;
+  public confirmText = translate('Confirm');
+  public backToSignInText = translate('Back to Sign In');
 
   constructor(
     private stateMachine: StateMachineService,
@@ -70,10 +75,10 @@ export class AmplifyConfirmSignInComponent
     switch (challengeName) {
       case AuthChallengeNames.SOFTWARE_TOKEN_MFA:
         // TODO: this string should be centralized and translated from ui.
-        this.headerText = 'Confirm TOTP Code';
+        this.headerText = translate('Confirm TOTP Code');
         break;
       case AuthChallengeNames.SMS_MFA:
-        this.headerText = 'Confirm SMS Code';
+        this.headerText = translate('Confirm SMS Code');
         break;
       default:
         logger.error('Unexpected challengeName', challengeName);
