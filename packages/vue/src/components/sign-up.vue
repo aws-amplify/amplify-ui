@@ -68,34 +68,44 @@ import {
   SignUpState,
   socialProviderLoginMechanisms,
 } from '@aws-amplify/ui';
+
 import SignUpPasswordControl from './sign-up-password-control.vue';
 import SignUpConfirmPasswordControl from './sign-up-confirm-password-control.vue';
 import UserNameAlias from './user-name-alias.vue';
 import AliasControl from './alias-control.vue';
 import FederatedSignIn from './federated-sign-in.vue';
+
 import {
   SIGN_IN_BUTTON_TEXT,
   HAVE_ACCOUNT_LABEL,
   CREATE_ACCOUNT_LABEL,
   SIGN_UP_BUTTON_TEXT,
 } from '../defaults/DefaultTexts';
+
 import { useAuth } from '../composables/useAuth';
 import { useAliases } from '../composables/useUtils';
+
 const attrs = useAttrs();
 const emit = defineEmits(['haveAccountClicked', 'signUpSubmit']);
+
 const { state, send } = useAuth();
+
 const {
   value: { context },
 } = state;
 const actorState: ComputedRef<SignUpState> = computed(() =>
   getActorState(state.value)
 );
+
 let [__, ...secondaryAliases] = useAliases(context?.config?.login_mechanisms);
+
 secondaryAliases = secondaryAliases.filter(
   (alias) =>
     !([...socialProviderLoginMechanisms] as LoginMechanism[]).includes(alias)
 );
+
 // computed properties
+
 const signInButtonText = computed(() => I18n.get(SIGN_IN_BUTTON_TEXT));
 const haveAccountLabel = computed(() => I18n.get(HAVE_ACCOUNT_LABEL));
 const createAccountLabel = computed(() => I18n.get(CREATE_ACCOUNT_LABEL));
@@ -103,7 +113,9 @@ const signUpButtonText = computed(() => I18n.get(SIGN_UP_BUTTON_TEXT));
 const inputAttributes: ComputedRef<AuthInputAttributes> = computed(
   () => authInputAttributes
 );
+
 // Methods
+
 const onHaveAccountClicked = (): void => {
   if (attrs?.onHaveAccountClicked) {
     emit('haveAccountClicked');
@@ -113,6 +125,7 @@ const onHaveAccountClicked = (): void => {
     });
   }
 };
+
 const onInput = (e: Event): void => {
   const { name, value } = <HTMLInputElement>e.target;
   send({
@@ -128,6 +141,7 @@ const onSignUpSubmit = (e: Event): void => {
     submit();
   }
 };
+
 const submit = (): void => {
   send({
     type: 'SUBMIT',
