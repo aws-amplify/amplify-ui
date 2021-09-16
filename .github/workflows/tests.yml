@@ -59,13 +59,13 @@ jobs:
       matrix:
         include:
           - framework: angular
-            tags: ${{ contains(github.ref, 'main') && '@angular not @skip' || '@angular not (@skip or @todo-angular)' }}
+            tags: ${{ !contains(github.ref, 'main') && '@angular not @skip' || '@angular not (@skip or @todo-angular)' }}
 
           - framework: next
-            tags: ${{ contains(github.ref, 'main') && '@react not @skip' || '@react not (@skip or @todo-react)' }}
+            tags: ${{ !contains(github.ref, 'main') && '@react not @skip' || '@react not (@skip or @todo-react)' }}
 
           - framework: vue
-            tags: ${{ contains(github.ref, 'main') && '@vue not @skip' || '@vue not (@skip or @todo-vue)' }}
+            tags: ${{ !contains(github.ref, 'main') && '@vue not @skip' || '@vue not (@skip or @todo-vue)' }}
 
     steps:
       - name: Checkout Amplify UI
