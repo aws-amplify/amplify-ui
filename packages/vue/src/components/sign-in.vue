@@ -52,7 +52,11 @@
               "
               style="flex-direction: column"
             >
-              <sign-in-password-control />
+              <password-control
+                name="password"
+                :label="passwordLabel"
+                autocomplete="current-password"
+              />
             </base-wrapper>
             <slot
               name="additional-fields"
@@ -141,7 +145,7 @@
 import { computed, ComputedRef, useAttrs } from 'vue';
 import { I18n } from 'aws-amplify';
 
-import SignInPasswordControl from './sign-in-password-control.vue';
+import PasswordControl from './password-control.vue';
 import UserNameAlias from './user-name-alias.vue';
 import FederatedSignIn from './federated-sign-in.vue';
 
@@ -152,6 +156,7 @@ import {
   FORGOT_YOUR_PASSWORD_LINK,
   SIGN_IN_BUTTON_TEXT,
   SIGNING_IN_BUTTON_TEXT,
+  PASSWORD_LABEL,
 } from '../defaults/DefaultTexts';
 
 // @xstate
@@ -165,6 +170,7 @@ const emit = defineEmits([
   'createAccountClicked',
 ]);
 
+const passwordLabel = computed(() => I18n.get(PASSWORD_LABEL));
 const signIntoAccountText = computed(() => I18n.get(SIGN_IN_TEXT));
 const noAccount = computed(() => I18n.get(NO_ACCOUNT));
 const createAccountLink = computed(() => I18n.get(CREATE_ACCOUNT_LINK));

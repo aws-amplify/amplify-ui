@@ -14,10 +14,6 @@
   @apply flex flex-row items-center space-x-1;
 }
 
-[data-amplify-wrapper] [data-amplify-fieldset] {
-  @apply grid gap-6;
-}
-
 [data-amplify-wrapper] [data-amplify-label] {
   @apply space-y-2;
 }
