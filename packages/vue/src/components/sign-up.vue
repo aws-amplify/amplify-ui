@@ -13,7 +13,7 @@
           <template #fieldSetI="{ slotData }">
             <slot name="signup-fields" :info="slotData"> </slot>
           </template>
-          <user-name-alias />
+          <user-name-alias class="amplify-label" for="amplify-field-1220" />
           <sign-up-password-control />
           <sign-up-confirm-password-control />
           <template v-for="(alias, idx) in secondaryAliases" :key="idx">

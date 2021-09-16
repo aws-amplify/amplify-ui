@@ -44,6 +44,8 @@ export enum ComponentClassNames {
   SwitchThumb = 'amplify-switch-thumb',
   SwitchTrack = 'amplify-switch-track',
   SwitchWrapper = 'amplify-switch__wrapper',
+  Tabs = 'amplify-tabs',
+  TabItems = 'amplify-tabs-item',
   Text = 'amplify-text',
   TextField = 'amplify-textfield',
   View = 'amplify-view',
