@@ -76,20 +76,6 @@
         <slot name="sign-up"></slot>
       </template>
 
-      <!-- <template #footer-left="{ onHaveAccountClicked }">
-        <slot
-          name="sign-up-footer-left"
-          :onHaveAccountClicked="onHaveAccountClicked"
-        ></slot>
-      </template>
-
-      <template #footer-right="{ onSignUpSubmit }">
-        <slot
-          name="sign-up-footer-right"
-          :onSignUpSubmit="onSignUpSubmit"
-        ></slot>
-      </template> -->
-
       <template #footer="{ onHaveAccountClicked, onSignUpSubmit, info }">
         <slot
           name="sign-up-footer"
