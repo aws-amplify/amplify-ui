@@ -2,7 +2,6 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AmplifyAuthenticatorComponent } from './components/amplify-authenticator/amplify-authenticator.component';
 import { AmplifySignInComponent } from './components/amplify-sign-in/amplify-sign-in.component';
-import { AmplifySignOutComponent } from './components/amplify-sign-out/amplify-sign-out.component';
 import { AmplifyOverrideDirective } from './directives/amplify-override.directive';
 import { AmplifySignUpComponent } from './components/amplify-sign-up/amplify-sign-up.component';
 import { AmplifyInputComponent } from './primitives/amplify-input/amplify-input.component';
@@ -74,7 +73,6 @@ customElements.define('amplify-photo-picker', AmplifyPhotoPicker);
     photoPicker,
     AmplifyAuthenticatorComponent,
     AmplifySignInComponent,
-    AmplifySignOutComponent,
     AmplifySignUpComponent,
     AmplifyInputComponent,
     AmplifyErrorComponent,
@@ -106,7 +104,6 @@ customElements.define('amplify-photo-picker', AmplifyPhotoPicker);
     photoPicker,
     AmplifyAuthenticatorComponent,
     AmplifySignInComponent,
-    AmplifySignOutComponent,
     AmplifyInputComponent,
     AmplifyErrorComponent,
     AmplifyOverrideDirective,

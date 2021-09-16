@@ -13,10 +13,7 @@
 <ng-template #confirmSignIn>
   <amplify-confirm-sign-in></amplify-confirm-sign-in>
 </ng-template>
-<ng-template #authenticated>
-  <p>You've signed In.</p>
-  <amplify-sign-out></amplify-sign-out>
-</ng-template>
+<ng-template #authenticated> <ng-content></ng-content> </ng-template>
 <ng-template #setupTOTP>
   <amplify-setup-totp></amplify-setup-totp>
 </ng-template>
