@@ -62,19 +62,50 @@ Internally, this content is served by a single, Next.js [optional catch all rout
 
      Documentation-friendly description of this feature, why it exists, & how to use it.
 
-     @react
+     @angular @react @vue
      Scenario: Example scenario using this feature
        Given some "STARTING_POINT"
        When I DO "SOMETHING"
        And I DO SOMETHING "ELSE"
        Then I see "THE DESIRED BEHAVIOR"
+
+     @react @skip
+     Scenario: Some React-specific scenario that can't be rain in CI
+
+     @angular @todo-react @todo-vue
+     Scenario: Some scenario supported in Angular, but React & Vue haven't added yet
    ```
 
 1. Create or Update the accompanying `${slug}.feature` tests (e.g. `packages/e2e/cypress/integration/${slug}/${feature}/${feature}.steps.ts`
 1. Start one of the [examples](examples).
 1. Run `yarn e2e dev` to load Cypress
 1. Click on your updated `${feature}.feature` file to validate your changes
-1. Add tags (e.g. `@react`, `@vue`, `@angular`, `@skip`, or `@focus`) above your `Scenario` to indicate which platform(s) to test against
+1. Add tags above your `Scenario` to indicate how this feature should be tested:
+
+   - If the library supports it, then add one of the following:
+
+     - `@angular` for `@aws-amplify/ui-angular`
+     - `@react` for `@aws-amplify/ui-react`
+     - `@vue` for `@aws-amplify/ui-vue`
+
+     This will ensure automated documentation marks these as supported features.
+
+   - If the library supports it, **but tests cannot be ran in CI for technical reasons**, then also add:
+
+     - `@skip` for all libraries
+     - `@skip-angular` for specifically `@aws-amplify/ui-angular`
+     - `@skip-react` for specifically `@aws-amplify/ui-react`
+     - `@skip-vue` for specifically `@aws-amplify/ui-vue`
+
+     This will ensure automated documentation marks these as supported features, but won't block builds (in PRs or `main`) with test failures.
+
+   - If the library _should_ support it, then also add:
+
+     - `@todo-angular` for `@aws-amplify/ui-angular`
+     - `@todo-react` for `@aws-amplify/ui-react`
+     - `@todo-vue` for `@aws-amplify/ui-vue`
+
+     This will ensure automated documentation marks these as _upcoming_ features, will skip these on PRs, but **will error on `main` until completed**.
 
 #### Vue Development
 
