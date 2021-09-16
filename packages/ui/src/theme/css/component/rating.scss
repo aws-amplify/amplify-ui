@@ -13,12 +13,14 @@
     font-size: var(--amplify-components-rating-large-size);
     line-height: var(--amplify-components-rating-large-size);
   }
+
+  .amplify-icon {
+    font-size: unset;
+    line-height: unset;
+    height: 1em;
+  }
 }
-.amplify-icon {
-  font-size: unset;
-  line-height: unset;
-  height: 1em;
-}
+
 .amplify-rating-filled {
   fill: currentColor;
   display: inline-block;
