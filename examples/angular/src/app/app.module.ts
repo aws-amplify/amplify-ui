@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { SignInWithEmailComponent } from 'src/pages/ui/components/authenticator/sign-in-with-email/sign-in-with-email.component';
-import { SignInWithEmailTranslatedComponent } from 'src/pages/ui/components/authenticator/sign-in-with-email-translated/sign-in-with-email-translated.component';
+import { AuthWithTranslationsComponent } from 'src/pages/ui/components/authenticator/auth-with-translations/auth-with-translations.component';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -32,7 +32,7 @@ import { SignInTOTPSMSComponent } from 'src/pages/ui/components/authenticator/si
     SignInWithUsernameComponent,
     SignUpWithUsernameComponent,
     SignUpWithEmailComponent,
-    SignInWithEmailTranslatedComponent,
+    AuthWithTranslationsComponent,
     SignUpWithEmailComponent,
     SignUpWithPhoneComponent,
   ],
