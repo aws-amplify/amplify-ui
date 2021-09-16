@@ -18,7 +18,7 @@ import {
 } from '@aws-amplify/ui';
 import { StateMachineService } from '../../services/state-machine.service';
 import { AuthPropService } from '../../services/authenticator-context.service';
-import { translate } from '../../common';
+import { translate } from '@aws-amplify/ui';
 
 const logger = new Logger('SetupTotp');
 

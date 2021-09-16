@@ -9,7 +9,7 @@ import {
 import { Subscription } from 'xstate';
 import { StateMachineService } from '../../services/state-machine.service';
 import { AuthPropService } from '../../services/authenticator-context.service';
-import { translate } from '../../common';
+import { translate } from '@aws-amplify/ui';
 @Component({
   selector: 'amplify-confirm-sign-up',
   templateUrl: './amplify-confirm-sign-up.component.html',

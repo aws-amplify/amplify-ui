@@ -11,7 +11,7 @@ import { AuthMachineState, getActorState, SignInState } from '@aws-amplify/ui';
 import { Subscription } from 'xstate';
 import { AuthPropService } from '../../services/authenticator-context.service';
 import { StateMachineService } from '../../services/state-machine.service';
-import { translate } from '../../common';
+import { translate } from '@aws-amplify/ui';
 
 @Component({
   selector: 'amplify-reset-password',

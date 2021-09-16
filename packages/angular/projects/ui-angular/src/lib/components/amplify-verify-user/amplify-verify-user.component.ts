@@ -8,13 +8,15 @@ import {
   TemplateRef,
   ViewEncapsulation,
 } from '@angular/core';
-import { I18n } from 'aws-amplify';
-import { AuthMachineState, getActorState, SignInState } from '@aws-amplify/ui';
+import {
+  AuthMachineState,
+  getActorState,
+  SignInState,
+  translate,
+} from '@aws-amplify/ui';
 import { Subscription } from 'xstate';
 import { StateMachineService } from '../../services/state-machine.service';
 import { AuthPropService } from '../../services/authenticator-context.service';
-import { translate } from '../../common';
-
 @Component({
   selector: 'amplify-verify-user',
   templateUrl: './amplify-verify-user.component.html',
@@ -77,7 +79,7 @@ export class AmplifyVerifyUserComponent
 
   // enable translate to be used inside the template
   translate(phrase: string): string {
-    return translate(phrase);
+    return translate<string>(phrase);
   }
 
   async onSubmit(event: Event): Promise<void> {

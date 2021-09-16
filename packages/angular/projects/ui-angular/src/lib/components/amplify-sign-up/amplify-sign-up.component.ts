@@ -20,7 +20,7 @@ import {
 } from '@aws-amplify/ui';
 import { getActorContext } from '@aws-amplify/ui';
 import { SignUpContext } from '@aws-amplify/ui';
-import { translate } from '../../common';
+import { translate } from '@aws-amplify/ui';
 
 @Component({
   selector: 'amplify-sign-up',

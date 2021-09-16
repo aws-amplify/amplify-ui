@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import Amplify, { I18n } from 'aws-amplify';
-import { translations } from '@aws-amplify/ui';
-import { DefaultTexts } from '@aws-amplify/ui-angular';
+import { translations, DefaultTexts } from '@aws-amplify/ui';
 import awsExports from '@environments/auth-with-email/src/aws-exports';
 @Component({
   selector: 'auth-with-translations',
@@ -24,9 +23,13 @@ export class AuthWithTranslationsComponent implements OnInit {
     // Provide missing translations
     I18n.putVocabulariesForLanguage('ja', {
       [DefaultTexts.CONFIRM_PASSWORD_LABEL]: 'パスワードの確認',
+      [DefaultTexts.CONFIRM_SMS_LABEL]: 'SMSコードを確認する',
+      [DefaultTexts.CONFIRM_TOTP_LABEL]: 'TOTPコードを確認する',
     });
 
     // Or customers can use helper to get autocompletition
+    // import { putTranslationsForLang } from '@aws-amplify/ui'
+
     // putTranslationsForLang('ja', {
     //   'Confirm Password': 'パスワードの確認',
     //   'Confirm SMS Code': 'SMSコードを確認する',
