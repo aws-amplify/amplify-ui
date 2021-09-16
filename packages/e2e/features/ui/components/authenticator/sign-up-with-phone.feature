@@ -14,7 +14,7 @@ Feature: Sign Up with Phone
 
   # Sign up tests skipped due to SES limits
   Scenario: Sign up with valid phone number & password
-    When I select the country code "+1"
+    When I select my country code with status "UNCONFIRMED"
     And I type my "phone number" with status "UNCONFIRMED"
     And I type my password
     And I confirm my password

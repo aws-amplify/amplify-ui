@@ -21,7 +21,7 @@
               class="amplify-flex amplify-field amplify-textfield"
               style="flex-direction: column"
             >
-              <user-name-alias
+              <user-name-alias-component
                 class="amplify-label sr-only"
                 for="amplify-field-1220"
               />
@@ -131,12 +131,13 @@ import {
   getActorState,
   getActorContext,
   SignUpState,
-  socialProviderLoginMechanisms,
   SignUpContext,
+  UserNameAlias,
+  userNameAliasArray,
 } from '@aws-amplify/ui';
 
 import PasswordControl from './password-control.vue';
-import UserNameAlias from './user-name-alias.vue';
+import UserNameAliasComponent from './user-name-alias.vue';
 import AliasControl from './alias-control.vue';
 import FederatedSignIn from './federated-sign-in.vue';
 
@@ -171,7 +172,7 @@ const actorContext = computed(() =>
 let [__, ...secondaryAliases] = useAliases(context?.config?.login_mechanisms);
 
 secondaryAliases = secondaryAliases.filter(
-  (alias) => !socialProviderLoginMechanisms.includes(alias)
+  (alias: any): alias is UserNameAlias => userNameAliasArray.includes(alias)
 );
 
 // computed properties
