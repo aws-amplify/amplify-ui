@@ -19,5 +19,5 @@ Feature: Sign In with Force New Password flow
     And I click the "Sign in" button
     And I type an invalid password
     And I confirm the invalid password
-    And I click the "Change password" button
+    And I click the "Change Password" button
     Then I should see error text

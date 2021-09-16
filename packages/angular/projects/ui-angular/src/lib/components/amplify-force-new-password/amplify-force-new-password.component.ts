@@ -40,7 +40,7 @@ export class AmplifyForceNewPasswordComponent
   private authSubscription: Subscription;
 
   // translated texts
-  public changePasswordText = translate('Change password');
+  public changePasswordText = translate('Change Password');
   public backToSignInText = translate('Back to Sign In');
 
   constructor(

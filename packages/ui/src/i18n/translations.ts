@@ -26,7 +26,7 @@ import { NoInfer } from '../types';
  */
 export const DefaultTexts = {
   BACK_SIGN_IN_TEXT: 'Back to Sign In',
-  CHANGE_PASSWORD_LABEL: 'Change password',
+  CHANGE_PASSWORD_LABEL: 'Change Password',
   CHANGING_PASSWORD_LABEL: 'Changing',
   CODE_TEXT: 'Code',
   CONFIRM_PASSWORD_LABEL: 'Confirm Password',
@@ -66,7 +66,7 @@ export const DefaultTexts = {
   VERIFY_TEXT: 'Verify',
 } as const;
 
-// type Phrase = "Back to Sign In" | "Change password" | ...
+// type Phrase = "Back to Sign In" | "Change Password" | ...
 // TODO: should just be defined directly?
 export type Phrase = typeof DefaultTexts[keyof typeof DefaultTexts];
 
@@ -92,7 +92,13 @@ export const putTranslationsForLang = (lang: string, vocab: CustomVocab) => {
   I18n.putVocabulariesForLanguage(lang, vocab);
 };
 
-export const translations = {
+type BilingualDict = Partial<Record<Phrase, string>>;
+
+type SupportedLang = 'de' | 'fr' | 'es' | 'zh' | 'ja';
+
+type Dict = Record<SupportedLang, BilingualDict>;
+
+export const translations: Dict = {
   de: {
     'Account recovery requires verified contact information':
       'Zurücksetzen des Account benötigt einen verifizierten Account',
