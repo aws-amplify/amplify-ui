@@ -4,8 +4,7 @@ import {
   FederatedSignIn,
   Authenticator,
   RenderInfo,
-  SignUpPasswordControl,
-  SignInPasswordControl,
+  PasswordControl,
   UserNameAlias,
   ForceNewPassword,
   ResetPassword,
@@ -25,8 +24,7 @@ export default {
     app.component('FederatedSignIn', FederatedSignIn);
     app.component('Authenticator', Authenticator);
     app.component('RenderInfo', RenderInfo);
-    app.component('SignInPasswordControl', SignInPasswordControl);
-    app.component('SignUpPasswordControl', SignUpPasswordControl);
+    app.component('PasswordControl', PasswordControl);
     app.component('UserNameAlias', UserNameAlias);
     app.component('ForceNewPassword', ForceNewPassword);
     app.component('ResetPassword', ResetPassword);
@@ -44,9 +42,9 @@ export {
   FederatedSignIn,
   Authenticator,
   RenderInfo,
-  SignUpPasswordControl,
   UserNameAlias,
   ForceNewPassword,
+  PasswordControl,
   ResetPassword,
   ConfirmResetPassword,
   ConfirmSignUp,
