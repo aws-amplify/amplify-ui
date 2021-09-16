@@ -103,7 +103,7 @@ const actorState: ComputedRef<SignUpState> = computed(() =>
 let [__, ...secondaryAliases] = useAliases(context?.config?.login_mechanisms);
 
 secondaryAliases = secondaryAliases.filter(
-  (alias): alias is UserNameAlias => alias in userNameAliasArray
+  (alias: any): alias is UserNameAlias => userNameAliasArray.includes(alias)
 );
 
 // computed properties

@@ -39,7 +39,7 @@ export function SignUp() {
 
   const [primaryAlias, ...secondaryAliases] =
     _state.context.config?.login_mechanisms?.filter(
-      (alias): alias is UserNameAlias => alias in userNameAliasArray
+      (alias: any): alias is UserNameAlias => userNameAliasArray.includes(alias)
     ) ?? userNameAliasArray;
 
   /**

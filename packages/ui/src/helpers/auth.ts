@@ -59,7 +59,7 @@ export const getAliasInfoFromContext = (
   const loginMechanisms = context.config?.login_mechanisms ?? ['username'];
   const error = context.actorRef?.context?.validationError['username'];
 
-  if (alias in userNameAliasArray) {
+  if (userNameAliasArray.includes(alias)) {
     return {
       label: authInputAttributes[alias].label,
       type: authInputAttributes[alias].type,
