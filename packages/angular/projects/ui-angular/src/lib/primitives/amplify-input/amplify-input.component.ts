@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { I18n } from 'aws-amplify';
 import {
   ActorContextWithForms,
   AuthInputAttributes,
   getActorContext,
+  translate,
 } from '@aws-amplify/ui';
 import { getAttributeMap } from '../../common';
 import { StateMachineService } from '../../services/state-machine.service';
@@ -43,7 +43,7 @@ export class AmplifyInputComponent {
 
   inferLabel(): string {
     const label = this.label || this.attributeMap[this.name]?.label;
-    return I18n.get(label);
+    return translate<string>(label);
   }
 
   inferPlaceholder(): string {
@@ -51,7 +51,7 @@ export class AmplifyInputComponent {
       this.placeholder ||
       this.attributeMap[this.name]?.placeholder ||
       this.inferLabel();
-    return I18n.get(placeholder);
+    return translate<string>(placeholder);
   }
 
   // infers what the `type` of underlying input element should be.

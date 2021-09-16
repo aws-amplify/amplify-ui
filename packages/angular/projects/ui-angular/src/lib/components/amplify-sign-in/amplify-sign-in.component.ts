@@ -26,7 +26,7 @@ export class AmplifySignInComponent
   implements AfterContentInit, OnInit, OnDestroy
 {
   @HostBinding('attr.data-amplify-authenticator-signin') dataAttr = '';
-  @Input() public headerText = I18n.get(DefaultTexts.SIGN_IN_TEXT);
+  @Input() public headerText = translate('Sign in to your account');
 
   public customComponents: Record<string, TemplateRef<any>> = {};
   public remoteError = '';
