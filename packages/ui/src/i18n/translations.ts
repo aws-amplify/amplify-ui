@@ -10,7 +10,94 @@
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions
  * and limitations under the License.
  */
+import { I18n } from 'aws-amplify';
+import { NoInfer } from '../types';
 
+/**
+ * Contains translatable strings that authenticator provides by default. Customers
+ * can use this to add custom vocabularies:
+ *
+ * ```
+ * I18n.putVocabulariesForLanguage("en", {
+ *  [DefaultTexts.SIGN_IN_TEXT]: "Custom Sign In Header Text",
+ *  [DefaultTexts.SIGN_IN_BUTTON_TEXT]: "Custom Click Here to Sign In"
+ * });
+ * ```
+ */
+export const DefaultTexts = {
+  BACK_SIGN_IN_TEXT: 'Back to Sign In',
+  CHANGE_PASSWORD_LABEL: 'Change Password',
+  CHANGING_PASSWORD_LABEL: 'Changing',
+  CODE_TEXT: 'Code',
+  CONFIRM_PASSWORD_LABEL: 'Confirm Password',
+  CONFIRM_RESET_PASSWORD_HEADING: 'Reset your Password',
+  CONFIRM_RESET_PASSWORD_TEXT: 'Submit',
+  CONFIRM_SIGNUP_HEADING: 'Confirm Sign Up',
+  CONFIRM_SMS_LABEL: 'Confirm SMS Code',
+  CONFIRM_TOTP_LABEL: 'Confirm TOTP Code',
+  CONFIRM_TEXT: 'Confirm',
+  CONFIRMATION_CODE_TEXT: 'Confirmation Code',
+  CREATE_ACCOUNT_LABEL: 'Create Account',
+  CREATE_ACCOUNT_LINK: 'Create account',
+  EMAIL_ADDRESS_LABEL: 'Email',
+  ENTER_USERNAME_TEXT: 'Enter your username',
+  FORGOT_YOUR_PASSWORD_LINK: 'Forgot your password? ',
+  HAVE_ACCOUNT_LABEL: 'Have an account? ',
+  LOGIN_NAME_TEXT: 'Username',
+  LOST_YOUR_CODE_TEXT: 'Lost your code? ',
+  NO_ACCOUNT: 'No account? ',
+  PASSWORD_LABEL: 'Password',
+  PASSWORD_TEXT: 'Password',
+  PHONE_NUMBER_LABEL: 'Phone Number',
+  RESEND_CODE_TEXT: 'Resend Code',
+  RESET_PASSWORD_HEADING: 'Reset your password',
+  RESET_PASSWORD_TEXT: 'Send Code',
+  SETUP_TOTP_TEXT: 'Setup TOTP',
+  SIGN_IN_BUTTON_TEXT: 'Sign in',
+  SIGN_IN_TEXT: 'Sign in to your account',
+  SIGN_UP_BUTTON_TEXT: 'Create a new account',
+  SIGNING_IN_BUTTON_TEXT: 'Signing in',
+  SIGN_IN_WITH_AMAZON: 'Sign In with Amazon',
+  SIGN_IN_WITH_APPLE: 'Sign In with Apple',
+  SIGN_IN_WITH_GOOGLE: 'Sign In with Google',
+  SIGN_IN_WITH_FACEBOOK: 'Sign In with Facebook',
+  SKIP_TEXT: 'Skip',
+  VERIFY_HEADING: 'Account recovery requires verified contact information',
+  VERIFY_TEXT: 'Verify',
+} as const;
+
+// type Phrase = "Back to Sign In" | "Change Password" | ...
+// TODO: should just be defined directly?
+export type Phrase = typeof DefaultTexts[keyof typeof DefaultTexts];
+
+/**
+ * This helper type checks that given phrase is one of the texts @aws-amplify/ui
+ * provides by default.
+ *
+ * This will enable vscode autocompleted and help catch typos during development.
+ * For example, translate('Submit') is valid but translate('Subnit') is not.
+ *
+ * You can use translate<string> to handle custom strings or dynamic content.
+ */
+export function translate<T = Phrase>(phrase: NoInfer<T>): string {
+  return I18n.get(phrase);
+}
+
+export type CustomVocab = Partial<Record<Phrase, string>> & {
+  [custom_label: string]: string;
+};
+
+// TODO: added this as POC. Does this actually improve DX for users?
+export const putTranslationsForLang = (lang: string, vocab: CustomVocab) => {
+  I18n.putVocabulariesForLanguage(lang, vocab);
+};
+
+/**
+ * TODO: The string keys below can be inferred from DefaultTexts using
+ * https://github.com/aws-amplify/amplify-ui/pull/189#discussion_r690896123,
+ * but this needs translation key standarization. DefaultTexts above is more
+ * accurate to what we use in authenticator@next.
+ */
 export const translations = {
   de: {
     'Account recovery requires verified contact information':

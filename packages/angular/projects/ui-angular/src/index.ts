@@ -3,7 +3,7 @@
  */
 
 export * from './lib/ui-angular.module';
-export * from './lib/common/types';
+export * from './lib/common';
 
 export * from './lib/components';
 export * from './lib/primitives';
