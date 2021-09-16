@@ -1,5 +1,5 @@
 <template>
-  <div v-bind="$attrs">
+  <div v-bind="$attrs" data-amplify-authenticator>
     <sign-in
       v-if="actorState?.matches('signIn')"
       @sign-in-submit="onSignInSubmitI"

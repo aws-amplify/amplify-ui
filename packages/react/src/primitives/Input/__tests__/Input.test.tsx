@@ -44,11 +44,26 @@ describe('Input component', () => {
     expect(input.dataset['variation']).toBe('quiet');
   });
 
+  it('can set defaultChecked (uncontrolled)', async () => {
+    render(<Input type="radio" defaultChecked />);
+
+    const radio = (await screen.findByRole('radio')) as HTMLInputElement;
+    expect(radio).toBeChecked();
+  });
+
   it('can set defaultValue (uncontrolled)', async () => {
     render(<Input defaultValue="test" />);
 
     const input = (await screen.findByRole('textbox')) as HTMLInputElement;
     expect(input.value).toBe('test');
+  });
+
+  it('can set checked (controlled component)', async () => {
+    const onChange = jest.fn();
+    render(<Input type="radio" checked onChange={onChange} />);
+
+    const radio = (await screen.findByRole('radio')) as HTMLInputElement;
+    expect(radio).toBeChecked();
   });
 
   it('can set value (controlled component)', async () => {
