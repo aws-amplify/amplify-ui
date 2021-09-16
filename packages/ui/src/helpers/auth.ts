@@ -9,7 +9,6 @@ import {
   AuthEventTypes,
   AuthInputAttributes,
   AuthMachineState,
-  LoginMechanism,
   UserNameAlias,
   userNameAliasArray,
 } from '../types';
@@ -55,12 +54,12 @@ export enum FederatedIdentityProviders {
  */
 export const getAliasInfoFromContext = (
   context: AuthContext,
-  alias?: LoginMechanism
+  alias?: UserNameAlias
 ) => {
   const loginMechanisms = context.config?.login_mechanisms ?? ['username'];
   const error = context.actorRef?.context?.validationError['username'];
 
-  if (alias as UserNameAlias) {
+  if (alias in userNameAliasArray) {
     return {
       label: authInputAttributes[alias].label,
       type: authInputAttributes[alias].type,

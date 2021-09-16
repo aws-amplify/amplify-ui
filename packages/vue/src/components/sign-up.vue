@@ -13,7 +13,10 @@
           <template #fieldSetI="{ slotData }">
             <slot name="signup-fields" :info="slotData"> </slot>
           </template>
-          <user-name-alias class="amplify-label" for="amplify-field-1220" />
+          <user-name-alias-component
+            class="amplify-label"
+            for="amplify-field-1220"
+          />
           <sign-up-password-control />
           <sign-up-confirm-password-control />
           <template v-for="(alias, idx) in secondaryAliases" :key="idx">
@@ -64,14 +67,14 @@ import {
   AuthInputAttributes,
   authInputAttributes,
   getActorState,
-  LoginMechanism,
   SignUpState,
-  UserNameAlias as UserNameAliasT,
+  UserNameAlias,
+  userNameAliasArray,
 } from '@aws-amplify/ui';
 
 import SignUpPasswordControl from './sign-up-password-control.vue';
 import SignUpConfirmPasswordControl from './sign-up-confirm-password-control.vue';
-import UserNameAlias from './user-name-alias.vue';
+import UserNameAliasComponent from './user-name-alias.vue';
 import AliasControl from './alias-control.vue';
 import FederatedSignIn from './federated-sign-in.vue';
 
@@ -99,7 +102,9 @@ const actorState: ComputedRef<SignUpState> = computed(() =>
 
 let [__, ...secondaryAliases] = useAliases(context?.config?.login_mechanisms);
 
-secondaryAliases = secondaryAliases.filter((alias) => alias as UserNameAliasT);
+secondaryAliases = secondaryAliases.filter(
+  (alias): alias is UserNameAlias => alias in userNameAliasArray
+);
 
 // computed properties
 

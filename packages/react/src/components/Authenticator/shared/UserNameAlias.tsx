@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { I18n } from 'aws-amplify';
 import {
   ActorContextWithForms,
-  LoginMechanism,
+  UserNameAlias,
   countryDialCodes,
   getActorContext,
   getAliasInfoFromContext,
@@ -13,7 +13,7 @@ import { SelectField, TextField } from '../../../primitives';
 
 export interface UserNameAliasProps {
   handleInputChange?(event): void;
-  alias?: LoginMechanism;
+  alias?: UserNameAlias;
   [key: string]: any;
 }
 

@@ -7,6 +7,7 @@ import {
   SignUpContext,
   SignUpState,
   UserNameAlias,
+  userNameAliasArray,
 } from '@aws-amplify/ui';
 
 import { useAmplify, useAuth } from '../../../hooks';
@@ -36,8 +37,10 @@ export function SignUp() {
   const isPending = actorState.matches('signUp.pending');
   const { validationError } = getActorContext(_state) as SignUpContext;
 
-  const [primaryAlias, ...secondaryAliases] = _state.context.config
-    ?.login_mechanisms ?? ['username', 'email', 'phone_number'];
+  const [primaryAlias, ...secondaryAliases] =
+    _state.context.config?.login_mechanisms?.filter(
+      (alias): alias is UserNameAlias => alias in userNameAliasArray
+    ) ?? userNameAliasArray;
 
   /**
    * If the login_mechanisms are configured to use ONLY username, we need
@@ -113,15 +116,13 @@ export function SignUp() {
             <Text variation="error">{validationError['confirm_password']}</Text>
           )}
 
-          {secondaryAliases
-            .filter((alias) => alias as UserNameAlias)
-            .map((alias) => (
-              <UserNameAliasComponent
-                data-amplify-usernamealias
-                key={alias}
-                alias={alias}
-              />
-            ))}
+          {secondaryAliases.map((alias: UserNameAlias) => (
+            <UserNameAliasComponent
+              data-amplify-usernamealias
+              key={alias}
+              alias={alias}
+            />
+          ))}
 
           <RemoteErrorMessage amplifyNamespace={amplifyNamespace} />
         </FieldGroup>

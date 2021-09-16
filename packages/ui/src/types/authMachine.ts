@@ -108,9 +108,9 @@ export const socialProviderLoginMechanisms = [
   'facebook',
 ] as const;
 
-export type LoginMechanism =
-  | UserNameAlias
-  | typeof socialProviderLoginMechanisms[number];
+export type SocialProviderAlias = typeof socialProviderLoginMechanisms[number];
+
+export type LoginMechanism = UserNameAlias | SocialProviderAlias;
 
 // other non-alias inputs that Cognito would require
 export type AuthInputNames = UserNameAlias | 'confirmation_code' | 'password';
