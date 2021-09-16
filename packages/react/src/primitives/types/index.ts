@@ -13,6 +13,7 @@ export * from './label';
 export * from './link';
 export * from './pagination';
 export * from './passwordField';
+export * from './phoneNumberField';
 export * from './placeholder';
 export * from './radio';
 export * from './radioGroupField';
