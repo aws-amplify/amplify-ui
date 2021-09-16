@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthWithMultiAliasComponent } from 'src/pages/ui/components/authenticator/auth-with-multi-alias/auth-with-multi-alias.component';
+import { AuthWithTranslationsComponent } from 'src/pages/ui/components/authenticator/auth-with-translations/auth-with-translations.component';
 import { SignInFederatedComponent } from 'src/pages/ui/components/authenticator/sign-in-federated/sign-in-federated.component';
 import { SignInSMSMFAComponent } from 'src/pages/ui/components/authenticator/sign-in-sms-mfa/sign-in-sms-mfa.component';
 import { SignInTOTPMFAComponent } from 'src/pages/ui/components/authenticator/sign-in-totp-mfa/sign-in-totp-mfa.component';
@@ -20,6 +21,10 @@ const routes: Routes = [
   {
     path: 'ui/components/authenticator/sign-in-with-email',
     component: SignInWithEmailComponent,
+  },
+  {
+    path: 'ui/components/authenticator/auth-with-translations',
+    component: AuthWithTranslationsComponent,
   },
   {
     path: 'ui/components/authenticator/sign-in-federated',
