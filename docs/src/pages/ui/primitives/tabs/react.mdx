@@ -6,7 +6,7 @@ import {
   IconEmail,
   Badge,
 } from '@aws-amplify/ui-react';
-import { TabsDemo, ControlledTabExample } from './demo';
+import { TabsDemo, ControlledTabExample, DemoTabPanel } from './demo';
 import { Example } from '@/components/Example';
 
 Tabs organize content into multiple sections and allow users to navigate between them. The content under the set of Tabs should be related and form a coherent unit.
@@ -31,8 +31,12 @@ import '@aws-amplify/ui-react/styles.css';
 
 <Example>
   <Tabs>
-    <TabItem title="Tab 1">Tab 1 Content</TabItem>
-    <TabItem title="Tab 2">Tab 2 Content</TabItem>
+    <TabItem title="Tab 1">
+      <DemoTabPanel>Tab 1 Content</DemoTabPanel>
+    </TabItem>
+    <TabItem title="Tab 2">
+      <DemoTabPanel>Tab 2 Content</DemoTabPanel>
+    </TabItem>
   </Tabs>
 </Example>
 
@@ -54,10 +58,14 @@ In the `Tabs` component, use the `defaultIndex` prop to change which Tab content
 
 <Example>
   <Tabs defaultIndex={1}>
-    <TabItem title="First">Content of the first tab</TabItem>
+    <TabItem title="First">
+      <DemoTabPanel>Content of the first tab</DemoTabPanel>
+    </TabItem>
     <TabItem title="Second">
-      The content of the second tab is initially shown because we passed in
-      index 1 to defaultIndex (notice that the tabs are zero-indexed).
+      <DemoTabPanel>
+        The content of the second tab is initially shown because we passed in
+        index 1 to defaultIndex (notice that the tabs are zero-indexed).
+      </DemoTabPanel>
     </TabItem>
   </Tabs>
 </Example>
@@ -105,9 +113,21 @@ In the `Tabs` component, use the `grow` prop to control how Tabs take up the rem
 <Example>
 <Flex direction="column" gap="2rem">
 <Tabs grow="equal">
-  <TabItem title="First">Content of the first tab</TabItem>
-  <TabItem title="This is the second tab">Content of the second tab</TabItem>
-  <TabItem title="Really long title for demonstration">Content of the third tab</TabItem>
+  <TabItem title="First">
+    <DemoTabPanel>
+      Content of the first tab
+    </DemoTabPanel>
+  </TabItem>
+  <TabItem title="This is the second tab">
+    <DemoTabPanel>
+      Content of the second tab
+    </DemoTabPanel>
+  </TabItem>
+  <TabItem title="Really long title for demonstration">
+    <DemoTabPanel>
+      Content of the third tab
+    </DemoTabPanel>
+  </TabItem>
 </Tabs>
 
 <Tabs grow="relative">
@@ -132,9 +152,21 @@ Note: this prop only has an effect if the `grow` prop is not set, otherwise the 
 </Tabs>
 
 <Tabs justifyContent="flex-end">
-  <TabItem title="First">Tabs are stacked to the right</TabItem>
-  <TabItem title="Second">Content of the second tab</TabItem>
-  <TabItem title="Third">Content of the third tab</TabItem>
+  <TabItem title="First">
+    <DemoTabPanel>
+      Tabs are stacked to the right
+    </DemoTabPanel>
+  </TabItem>
+  <TabItem title="Second">
+    <DemoTabPanel>
+      Content of the second tab
+    </DemoTabPanel>
+  </TabItem>
+  <TabItem title="Third">
+    <DemoTabPanel>
+      Content of the third tab
+    </DemoTabPanel>
+  </TabItem>
 </Tabs>
 ```
 
@@ -147,9 +179,21 @@ Note: this prop only has an effect if the `grow` prop is not set, otherwise the 
 </Tabs>
 
 <Tabs justifyContent="flex-end">
-  <TabItem title="First">Tabs are stacked to the right</TabItem>
-  <TabItem title="Second">Content of the second tab</TabItem>
-  <TabItem title="Third">Content of the third tab</TabItem>
+  <TabItem title="First">
+    <DemoTabPanel>
+      Tabs are stacked to the right
+    </DemoTabPanel>
+  </TabItem>
+  <TabItem title="Second">
+    <DemoTabPanel>
+      Content of the second tab
+    </DemoTabPanel>
+  </TabItem>
+  <TabItem title="Third">
+    <DemoTabPanel>
+      Content of the third tab
+    </DemoTabPanel>
+  </TabItem>
 </Tabs>
 </Flex>
 </Example>
@@ -175,7 +219,9 @@ In the `TabItem` component, use the **required** `title` prop to change the titl
 
 <Example>
   <Tabs>
-    <TabItem title="This is the first title">Content of the first tab</TabItem>
+    <TabItem title="This is the first title">
+      <DemoTabPanel>Content of the first tab</DemoTabPanel>
+    </TabItem>
     <TabItem
       title={
         <Text color="red" as="span">
@@ -183,7 +229,7 @@ In the `TabItem` component, use the **required** `title` prop to change the titl
         </Text>
       }
     >
-      Content of the second tab
+      <DemoTabPanel>Content of the second tab</DemoTabPanel>
     </TabItem>
   </Tabs>
 </Example>
@@ -229,7 +275,7 @@ You can also add badges and icons in the `TabItem` by passing custom components 
         </>
       }
     >
-      Content of the first tab
+      <DemoTabPanel>Content of the first tab</DemoTabPanel>
     </TabItem>
     <TabItem
       title={
@@ -239,7 +285,7 @@ You can also add badges and icons in the `TabItem` by passing custom components 
         </>
       }
     >
-      Content of the second tab
+      <DemoTabPanel>Content of the second tab</DemoTabPanel>
     </TabItem>
   </Tabs>
 </Example>
@@ -259,8 +305,12 @@ You can change the position of the tab border and current tab indicator with the
 
 <Example>
   <Tabs indicatorPosition="top">
-    <TabItem title="Tab 1">Tab 1 content</TabItem>
-    <TabItem title="Tab 2">Tab 2 content</TabItem>
+    <TabItem title="Tab 1">
+      <DemoTabPanel>Tab 1 content</DemoTabPanel>
+    </TabItem>
+    <TabItem title="Tab 2">
+      <DemoTabPanel>Tab 2 content</DemoTabPanel>
+    </TabItem>
   </Tabs>
 </Example>
 
@@ -283,11 +333,17 @@ In the `TabItem` component, use the `isDisabled` prop to make a Tab not clickabl
 
 <Example>
   <Tabs>
-    <TabItem title="Tab 1">Tab 1 Content</TabItem>
-    <TabItem title="Tab 2">Tab 2 Content</TabItem>
+    <TabItem title="Tab 1">
+      <DemoTabPanel>Tab 1 Content</DemoTabPanel>
+    </TabItem>
+    <TabItem title="Tab 2">
+      <DemoTabPanel>Tab 2 Content</DemoTabPanel>
+    </TabItem>
     <TabItem title="Tab 3" isDisabled={true}>
-      This Tab is not clickable and will not display the Tab's content to the
-      user.
+      <DemoTabPanel>
+        This Tab is not clickable and will not display the Tab's content to the
+        user.
+      </DemoTabPanel>
     </TabItem>
   </Tabs>
 </Example>
@@ -333,8 +389,12 @@ import './styles.css';
 
 <Example className="global-tabs-example">
   <Tabs>
-    <TabItem title="Tab 1">Content of Tab 1</TabItem>
-    <TabItem title="Tab 2">Content of Tab 2</TabItem>
+    <TabItem title="Tab 1">
+      <DemoTabPanel>Content of Tab 1</DemoTabPanel>
+    </TabItem>
+    <TabItem title="Tab 2">
+      <DemoTabPanel>Content of Tab 2</DemoTabPanel>
+    </TabItem>
   </Tabs>
 </Example>
 
@@ -375,12 +435,16 @@ import './styles.css';
 <Example className="pseudo-demo">
   <Tabs>
     <TabItem title="Tab 1">
-      Hover over, click on, and manually tab through the Tabs on your keyboard
-      to see the styling effects.
+      <DemoTabPanel>
+        Hover over, click on, and manually tab through the Tabs on your keyboard
+        to see the styling effects.
+      </DemoTabPanel>
     </TabItem>
     <TabItem title="Tab 2">
-      Hover over, click on, and manually tab through the Tabs on your keyboard
-      to see the styling effects.
+      <DemoTabPanel>
+        Hover over, click on, and manually tab through the Tabs on your keyboard
+        to see the styling effects.
+      </DemoTabPanel>
     </TabItem>
   </Tabs>
 </Example>
@@ -447,10 +511,10 @@ import './styles.css';
 <Example>
   <Tabs className="custom-tabs">
     <TabItem title="Tab 1" className="custom-tab-item">
-      Content of Tab 1
+      <DemoTabPanel>Content of Tab 1</DemoTabPanel>
     </TabItem>
     <TabItem title="Tab 2" className="custom-tab-item">
-      Content of Tab 2
+      <DemoTabPanel>Content of Tab 2</DemoTabPanel>
     </TabItem>
   </Tabs>
 </Example>
@@ -484,10 +548,14 @@ import './styles.css';
 
 <Example className="tabs-data-demo">
   <Tabs>
-    <TabItem title="Tab 1">Content of Tab 1</TabItem>
-    <TabItem title="Tab 2">Content of Tab 2</TabItem>
+    <TabItem title="Tab 1">
+      <DemoTabPanel>Content of Tab 1</DemoTabPanel>
+    </TabItem>
+    <TabItem title="Tab 2">
+      <DemoTabPanel>Content of Tab 2</DemoTabPanel>
+    </TabItem>
     <TabItem title="Tab 3" isDisabled={true}>
-      Content of Tab 3
+      <DemoTabPanel>Content of Tab 3</DemoTabPanel>
     </TabItem>
   </Tabs>
 </Example>
@@ -520,14 +588,14 @@ _Using style props:_
       color="var(--amplify-colors-font-primary)"
       backgroundColor="transparent"
     >
-      Content of Tab 1
+      <DemoTabPanel>Content of Tab 1</DemoTabPanel>
     </TabItem>
     <TabItem
       title="Tab 2"
       color="var(--amplify-colors-font-primary)"
       backgroundColor="transparent"
     >
-      Content of Tab 2
+      <DemoTabPanel>Content of Tab 2</DemoTabPanel>
     </TabItem>
   </Tabs>
 </Example>
@@ -555,11 +623,15 @@ We recommend passing an `ariaLabel` prop to help enable assistive technology.
 <Example>
   <Tabs ariaLabel="fruits">
     <TabItem title="Apples">
-      Play with the Tab and Arrow keys to engage with this component.
+      <DemoTabPanel>
+        Play with the Tab and Arrow keys to engage with this component.
+      </DemoTabPanel>
     </TabItem>
     <TabItem title="Bananas">
-      Notice how an outline is added when the :focus-visible pseudo-class is
-      applied.
+      <DemoTabPanel>
+        Notice how an outline is added when the :focus-visible pseudo-class is
+        applied.
+      </DemoTabPanel>
     </TabItem>
   </Tabs>
 </Example>
