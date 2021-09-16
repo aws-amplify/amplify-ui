@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React from 'react';
 
 import { Flex } from '../Flex';
-import { IconCheck } from '../Icon';
+import { IconCheck, IconRemove as IconIndeterminate } from '../Icon';
 import { Input } from '../Input';
 import { Text } from '../Text';
 import { CheckboxProps } from '../types/checkbox';
@@ -36,6 +36,9 @@ export const Checkbox: React.FC<CheckboxProps> = ({
     <Flex
       as="label"
       className={classNames(ComponentClassNames.Checkbox, className)}
+      alignItems="center"
+      justifyContent="flex-start"
+      gap="inherit"
     >
       <Input
         checked={shouldBeChecked}
@@ -54,8 +57,17 @@ export const Checkbox: React.FC<CheckboxProps> = ({
         value={value}
         {...rest}
       />
-      <Flex as="span" className={ComponentClassNames.CheckboxButton}>
-        <IconCheck data-size={size} />
+      <Flex
+        as="span"
+        className={ComponentClassNames.CheckboxButton}
+        alignItems="center"
+        justifyContent="center"
+      >
+        {isIndeterminate ? (
+          <IconIndeterminate size={size} />
+        ) : (
+          <IconCheck size={size} />
+        )}
       </Flex>
       {children && (
         <Text as="span" className={ComponentClassNames.CheckboxLabel}>
