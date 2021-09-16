@@ -76,8 +76,8 @@ export class AmplifyVerifyUserComponent
   }
 
   // enable translate to be used inside the template
-  translate(phrase: string) {
-    translate(phrase);
+  translate(phrase: string): string {
+    return translate(phrase);
   }
 
   async onSubmit(event: Event): Promise<void> {

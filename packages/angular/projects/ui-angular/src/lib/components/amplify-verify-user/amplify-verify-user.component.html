@@ -19,7 +19,7 @@
           type="radio"
           [value]="unverifiedAttribute.key"
         />
-        <div data-amplify-label>{{ I18n.get(unverifiedAttribute.key) }}</div>
+        <span>{{ translate(unverifiedAttribute.key) }}</span>
       </ng-container>
       <ng-container
         [ngTemplateOutlet]="
