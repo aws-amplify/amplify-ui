@@ -19,8 +19,8 @@ import { NoInfer } from '../types';
  *
  * ```
  * I18n.putVocabulariesForLanguage("en", {
- *  [Translations.SIGN_IN_HEADER_TEXT]: "Custom Sign In Header Text",
- *  [Translations.SIGN_IN_ACTION]: "Custom Click Here to Sign In"
+ *  [DefaultTexts.SIGN_IN_TEXT]: "Custom Sign In Header Text",
+ *  [DefaultTexts.SIGN_IN_BUTTON_TEXT]: "Custom Click Here to Sign In"
  * });
  * ```
  */
@@ -92,13 +92,13 @@ export const putTranslationsForLang = (lang: string, vocab: CustomVocab) => {
   I18n.putVocabulariesForLanguage(lang, vocab);
 };
 
-type BilingualDict = Partial<Record<Phrase, string>>;
-
-type SupportedLang = 'de' | 'fr' | 'es' | 'zh' | 'ja';
-
-type Dict = Record<SupportedLang, BilingualDict>;
-
-export const translations: Dict = {
+/**
+ * TODO: The string keys below can be inferred from DefaultTexts using
+ * https://github.com/aws-amplify/amplify-ui/pull/189#discussion_r690896123,
+ * but this needs translation key standarization. DefaultTexts above is more
+ * accurate to what we use in authenticator@next.
+ */
+export const translations = {
   de: {
     'Account recovery requires verified contact information':
       'Zurücksetzen des Account benötigt einen verifizierten Account',
