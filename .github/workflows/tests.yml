@@ -23,16 +23,17 @@ jobs:
           node-version: lts/*
           cache: 'yarn'
 
+      # https://github.com/actions/cache/blob/main/examples.md#node---yarn
       - name: Cache yarn dependencies and cypress
         uses: actions/cache@v2
         id: yarn-cache
         with:
           path: |
             ~/.cache/Cypress
-            node_modules
-          key: ${{ runner.os }}-yarn-v1-${{ hashFiles('**/yarn.lock') }}
+            ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-yarn-v1
+            ${{ runner.os }}-yarn-
 
       - name: Install dependencies if cache invalid
         if: steps.yarn-cache.outputs.cache-hit != 'true'
