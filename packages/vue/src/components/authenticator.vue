@@ -1,7 +1,11 @@
 <template>
   <div v-bind="$attrs" data-amplify-authenticator>
+    <base-tab
+      @base-tab="baseTabClicked"
+      v-if="actorState?.matches('signIn') || actorState?.matches('signUp')"
+    />
     <sign-in
-      v-if="actorState?.matches('signIn')"
+      v-if="actorState?.matches('signIn') && showFirstTab"
       @sign-in-submit="onSignInSubmitI"
       ref="signInComponent"
     >
@@ -64,7 +68,7 @@
       </template>
     </sign-in>
     <sign-up
-      v-if="actorState?.matches('signUp')"
+      v-if="actorState?.matches('signUp') && !showFirstTab"
       @sign-up-submit="onSignUpSubmitI"
       ref="signUpComponent"
     >
@@ -310,6 +314,7 @@ const s = useInterpret(authMachine, {
   devTools: process.env.NODE_ENV === 'development',
 });
 const service = ref(s);
+const showFirstTab = ref(true);
 
 provide(InterpretServiceInjectionKeyTypes, <InterpretService>service.value);
 const { state, send } = useActor(service.value);
@@ -406,5 +411,19 @@ const onConfirmVerifyUserSubmitI = (e: Event) => {
   } else {
     confirmVerifyUserComponent.value.submit(e);
   }
+};
+
+const baseTabClicked = (e: boolean) => {
+  console.log('clicked base', e);
+  if (e) {
+    send({
+      type: 'SIGN_IN',
+    });
+  } else {
+    send({
+      type: 'SIGN_UP',
+    });
+  }
+  showFirstTab.value = e;
 };
 </script>

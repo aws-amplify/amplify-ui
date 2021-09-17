@@ -84,7 +84,6 @@
                 ? signIngButtonText
                 : signInButtonText
             }}
-            <!-- Add prop too? -->
           </base-button>
 
           <slot
@@ -104,38 +103,22 @@
             </base-button>
           </slot>
 
-          <base-footer>
-            <template #footert="{ slotData }">
-              <slot
-                name="footer"
-                :info="slotData"
-                :onSignInSubmit="onSignInSubmit"
-                :onCreateAccountClicked="onCreateAccountClicked"
-              >
-              </slot>
-            </template>
-            <p class="amplify-text">{{ noAccount }}</p>
-            <base-button
-              class="amplify-button amplify-field-group__control"
-              data-fullwidth="false"
-              data-variation="link"
-              style="font-weight: normal"
-              type="button"
-              @click.prevent="onCreateAccountClicked"
-              >{{ createAccountLink }}</base-button
-            >
-            <base-spacer />
-          </base-footer>
           <base-box data-ui-error v-if="actorState.context.remoteError">
             {{ actorState.context.remoteError }}
           </base-box>
         </base-wrapper>
-        <hr
-          class="amplify-divider"
-          aria-orientation="horizontal"
-          data-size="small"
-        />
-        <federated-sign-in></federated-sign-in>
+        <base-footer>
+          <template #footert="{ slotData }">
+            <slot
+              name="footer"
+              :info="slotData"
+              :onSignInSubmit="onSignInSubmit"
+              :onCreateAccountClicked="onCreateAccountClicked"
+            >
+            </slot>
+          </template>
+          <federated-sign-in></federated-sign-in>
+        </base-footer>
       </base-form>
     </base-wrapper>
   </slot>
