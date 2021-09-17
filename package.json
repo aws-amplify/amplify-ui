@@ -1,7 +1,6 @@
 {
   "private": true,
   "scripts": {
-    "install": "yarn build",
     "postinstall": "patch-package",
     "build": "npx ultra -r --filter '@aws-amplify/*' build",
     "angular": "yarn workspace @aws-amplify/ui-angular",
