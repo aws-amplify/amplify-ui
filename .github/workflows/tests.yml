@@ -35,16 +35,8 @@ jobs:
           node-version: lts/*
           cache: 'yarn'
 
-      - name: Restore yarn dependencies and cypress
-        uses: actions/cache@v2
-        id: yarn-cache
-        with:
-          path: |
-            ~/.cache/Cypress
-            node_modules
-          key: ${{ runner.os }}-yarn-v1-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-v1
+      - name: Install packages
+        run: yarn --frozen-lockfile
 
       - name: Build ${{ matrix.package }} package
         run: yarn workspace ${{ matrix.package }} build
@@ -91,16 +83,8 @@ jobs:
           node-version: lts/*
           cache: 'yarn'
 
-      - name: Restore yarn dependencies and cypress
-        uses: actions/cache@v2
-        id: yarn-cache
-        with:
-          path: |
-            ~/.cache/Cypress
-            node_modules
-          key: ${{ runner.os }}-yarn-v1-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-v1
+      - name: Install packages
+        run: yarn --frozen-lockfile
 
       - name: Add Amplify CLI
         run: yarn global add @aws-amplify/cli
