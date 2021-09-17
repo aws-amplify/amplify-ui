@@ -1,13 +1,8 @@
 import { getActorState, SignUpState } from '@aws-amplify/ui';
 import { I18n } from 'aws-amplify';
-
+import * as React from 'react';
 import { useAmplify, useAuth } from '../../../hooks';
-
-import {
-  ConfirmationCodeInput,
-  ConfirmationCodeInputProps,
-  ConfirmSignInFooterProps,
-} from '../shared';
+import { ConfirmationCodeInput, ConfirmationCodeInputProps } from '../shared';
 
 export function ConfirmSignUp() {
   const amplifyNamespace = 'Authenticator.ConfirmSignUp';

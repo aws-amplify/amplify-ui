@@ -1,11 +1,10 @@
-import { ReactNode } from 'react';
-
+import * as React from 'react';
+import { defaultCSSVariables, defaultTheme, Theme } from '../../theming';
 import { AmplifyContext } from './AmplifyContext';
-import { defaultTheme, defaultCSSVariables, Theme } from '../../theming';
 
 interface AmplifyProviderProps {
-  children: ReactNode;
-  components: Record<string, ReactNode>;
+  children: React.ReactNode;
+  components: Record<string, React.ReactNode>;
   theming?: { theme: Theme; CSSVariables: {} };
 }
 export function AmplifyProvider({

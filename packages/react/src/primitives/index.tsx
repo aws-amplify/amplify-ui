@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 export * from './Alert';
 export * from './Badge';
 export * from './Button';

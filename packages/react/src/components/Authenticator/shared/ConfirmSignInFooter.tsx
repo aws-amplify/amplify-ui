@@ -1,5 +1,5 @@
 import { I18n } from 'aws-amplify';
-
+import * as React from 'react';
 import { useAmplify } from '../../../hooks';
 
 export interface ConfirmSignInFooterProps {

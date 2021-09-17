@@ -1,4 +1,5 @@
 import { ActorContextWithForms, getActorContext } from '@aws-amplify/ui';
+import * as React from 'react';
 import { useAmplify, useAuth } from '../../../hooks';
 
 export interface ErrorTextProps {

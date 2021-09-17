@@ -1,6 +1,3 @@
-import { includes, isEmpty } from 'lodash';
-
-import { I18n } from 'aws-amplify';
 import {
   authInputAttributes,
   countryDialCodes,
@@ -10,10 +7,13 @@ import {
   SignUpState,
   socialProviderLoginMechanisms,
 } from '@aws-amplify/ui';
-
+import { I18n } from 'aws-amplify';
+import { includes, isEmpty } from 'lodash';
+import * as React from 'react';
 import { useAmplify, useAuth } from '../../../hooks';
 import { FederatedSignIn } from '../FederatedSignIn';
 import { RemoteErrorMessage } from '../shared';
+
 export function SignUp() {
   const amplifyNamespace = 'Authenticator.SignUp';
   const {

@@ -1,6 +1,6 @@
-import { I18n } from 'aws-amplify';
 import { getActorState, SignInState } from '@aws-amplify/ui';
-
+import { I18n } from 'aws-amplify';
+import * as React from 'react';
 import { useAmplify, useAuth } from '../../../hooks';
 import { FederatedSignIn } from '../FederatedSignIn';
 import { RemoteErrorMessage, UserNameAlias } from '../shared';

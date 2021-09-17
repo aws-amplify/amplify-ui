@@ -1,7 +1,7 @@
 import { authMachine, getActorState } from '@aws-amplify/ui';
-import { useAmplify } from '../../hooks';
 import { useActor, useInterpret } from '@xstate/react';
-
+import * as React from 'react';
+import { useAmplify } from '../../hooks';
 import { AuthenticatorContext } from './AuthenticatorContext';
 import { ConfirmSignIn } from './ConfirmSignIn';
 import { ConfirmSignUp } from './ConfirmSignUp';

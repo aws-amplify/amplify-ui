@@ -1,4 +1,4 @@
 import { AuthInterpreter } from '@aws-amplify/ui';
-import { createContext } from 'react';
+import * as React from 'react';
 
-export const AuthenticatorContext = createContext<AuthInterpreter>(null);
+export const AuthenticatorContext = React.createContext<AuthInterpreter>(null);

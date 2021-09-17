@@ -1,5 +1,6 @@
-import { useAmplify, useAuth } from '../../../../hooks';
 import { FederatedIdentityProviders } from '@aws-amplify/ui';
+import * as React from 'react';
+import { useAmplify, useAuth } from '../../../../hooks';
 
 export interface FederatedSignInButtonProps {
   icon?: 'facebook' | 'google' | 'amazon';

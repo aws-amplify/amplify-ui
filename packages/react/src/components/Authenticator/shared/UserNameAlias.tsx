@@ -1,6 +1,6 @@
-import { I18n } from 'aws-amplify';
 import { getAliasInfoFromContext } from '@aws-amplify/ui';
-
+import { I18n } from 'aws-amplify';
+import * as React from 'react';
 import { useAuth } from '../../../hooks';
 import { TextField } from '../../../primitives';
 

@@ -1,9 +1,8 @@
-import { useEffect, useState } from 'react';
-import qrcode from 'qrcode-generator';
-
-import { Auth, Logger, I18n } from 'aws-amplify';
 import { getActorState, SignInState } from '@aws-amplify/ui';
-
+import { Auth, I18n, Logger } from 'aws-amplify';
+import qrcode from 'qrcode-generator';
+import * as React from 'react';
+import { useEffect, useState } from 'react';
 import { useAmplify, useAuth } from '../../../hooks';
 import {
   ConfirmationCodeInput,
