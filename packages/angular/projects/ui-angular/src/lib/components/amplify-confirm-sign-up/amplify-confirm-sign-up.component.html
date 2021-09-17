@@ -2,7 +2,7 @@
   Define default contents here
 -->
 <ng-template #confirmSignUpButton>
-  <button data-amplify-button type="submit">Confirm</button>
+  <button data-amplify-button type="submit">{{ confirmText }}</button>
 </ng-template>
 
 <ng-template #confirmSignUpForm>
@@ -19,14 +19,14 @@
       ></amplify-form-input>
 
       <div data-amplify-resend>
-        Lost your code? {{ ' ' }}
-        <a data-amplify-link (click)="resend()">Resend Code</a>
+        {{ lostCodeText }}
+        <a data-amplify-link (click)="resend()">{{ resendCodeText }}</a>
       </div>
 
       <div data-amplify-footer>
         <div>
           Back to{{ ' ' }}
-          <a data-amplify-link (click)="toSignIn()">Sign In</a>
+          <a data-amplify-link (click)="toSignIn()">{{ signInText }}</a>
         </div>
         <ng-container
           [ngTemplateOutlet]="
@@ -49,7 +49,7 @@
 -->
 
 <div data-amplify-container>
-  <h2 data-amplify-header>Confirm Your Account</h2>
+  <h2 data-amplify-header>{{ headerText }}</h2>
   <ng-container
     [ngTemplateOutlet]="customComponents.confirmSignUpForm || confirmSignUpForm"
     [ngTemplateOutletContext]="context"

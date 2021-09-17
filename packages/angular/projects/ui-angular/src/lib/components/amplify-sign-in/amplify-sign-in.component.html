@@ -2,7 +2,7 @@
   Define default contents here
 -->
 <ng-template #signInButton>
-  <button data-amplify-button type="submit">Sign In</button>
+  <button data-amplify-button type="submit">{{ signInButtonText }}</button>
 </ng-template>
 
 <ng-template #signInForm>
@@ -17,12 +17,14 @@
         autocomplete="current-password"
       ></amplify-form-input>
       <button type="button" (click)="toResetPassword()">
-        Forgot your password?
+        {{ forgotPasswordText }}
       </button>
       <div data-amplify-footer>
         <div>
-          No account?{{ ' ' }}
-          <a data-amplify-link (click)="toSignUp()">Create account</a>
+          {{ noAccountText }}
+          <button type="button" (click)="toSignUp()">
+            {{ createAccountText }}
+          </button>
         </div>
         <ng-container
           [ngTemplateOutlet]="customComponents.signInButton || signInButton"
