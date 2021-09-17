@@ -7,6 +7,7 @@
     "angular": "yarn workspace @aws-amplify/ui-angular",
     "react": "yarn workspace @aws-amplify/ui-react",
     "ui": "yarn workspace @aws-amplify/ui",
+    "standalone": "yarn workspace @aws-amplify/ui-standalone",
     "vue": "yarn workspace @aws-amplify/ui-vue",
     "angular-example": "yarn workspace angular-example",
     "docs": "yarn workspace docs",
