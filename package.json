@@ -19,14 +19,19 @@
     "test": "yarn react test && yarn e2e test",
     "prepare": "husky install"
   },
-  "workspaces": [
-    "docs",
-    "angular-docs",
-    "environments",
-    "examples/*",
-    "packages/*",
-    "packages/angular/projects/ui-angular"
-  ],
+  "workspaces": {
+    "packages": [
+      "docs",
+      "environments",
+      "examples/*",
+      "packages/*",
+      "packages/angular/projects/ui-angular"
+    ],
+    "nohoist": [
+      "**/@preact/compat",
+      "**/preact"
+    ]
+  },
   "resolutions": {
     "@mdx-js/mdx/**/trim": "^0.0.3",
     "fs-extra": "^10.0.0",
