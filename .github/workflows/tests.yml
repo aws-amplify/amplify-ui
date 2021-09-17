@@ -85,8 +85,8 @@ jobs:
       - name: Install packages
         run: yarn --frozen-lockfile --offline
 
-      - name: Build ${{ matrix.package }} package
-        run: npx ultra -r --filter '${{ matrix.package }}' build
+      - name: Build Amplify UI
+        run: yarn build
 
       - name: Run ${{ matrix.package }} tests
         run: yarn workspace ${{ matrix.package }} test
@@ -143,6 +143,9 @@ jobs:
 
       - name: Install packages
         run: yarn --frozen-lockfile -offline
+
+      - name: Build Amplify UI
+        run: yarn build
 
       - name: Add Amplify CLI
         run: yarn global add @aws-amplify/cli
