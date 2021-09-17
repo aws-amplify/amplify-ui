@@ -20,7 +20,7 @@ export const PhoneNumberField: React.FC<PhoneNumberFieldProps> = ({
         <SelectField
           name="country_code"
           label="country code"
-          labelHidden={labelHidden}
+          labelHidden={true}
           defaultValue={defaultCountryCode}
         >
           {countryDialCodes.map((dialCode) => (
