@@ -7,7 +7,7 @@ export const SharedText = {
   },
   Fields: {
     ariaLabel: {
-      clearField: 'ClearField',
+      clearField: 'Clear search',
     },
   },
   SearchField: {

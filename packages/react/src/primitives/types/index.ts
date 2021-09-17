@@ -10,6 +10,7 @@ export * from './fieldGroupIcon';
 export * from './flex';
 export * from './heading';
 export * from './icon';
+export * from './input';
 export * from './image';
 export * from './label';
 export * from './link';

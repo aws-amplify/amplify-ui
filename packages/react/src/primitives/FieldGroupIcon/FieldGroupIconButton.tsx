@@ -2,7 +2,7 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { Button } from '../Button';
-import { ComponentClassNames } from 'src';
+import { ComponentClassNames } from '../shared/constants';
 import { FieldGroupIcon } from './FieldGroupIcon';
 import { FieldGroupIconButtonProps } from '../types';
 
