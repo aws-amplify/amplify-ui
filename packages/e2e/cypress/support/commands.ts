@@ -29,21 +29,6 @@ import { cond, constant, eq, escapeRegExp } from 'lodash/fp';
 const appendStatusToAlias = (status: string) =>
   `${Cypress.env('USERNAME')}+${status === 'UNKNOWN' ? Date.now() : status}`;
 
-/**
- * This helper function uses a certain country code matching a test user
- * with the given status in each applicable environment
- */
-const countryCodeByStatus = (status: string) => {
-  switch (status) {
-    case 'CONFIRMED':
-      return '1';
-    case 'UNKNOWN':
-      return '2';
-    case 'UNCONFIRMED':
-      return '3';
-  }
-};
-
 Cypress.Commands.add(
   'typeAliasWithStatus',
   { prevSubject: true },
@@ -54,12 +39,7 @@ Cypress.Commands.add(
         eq('email'),
         constant(`${appendStatusToAlias(status)}@${Cypress.env('DOMAIN')}`),
       ],
-      [
-        eq('phone number'),
-        constant(
-          `+${countryCodeByStatus(status)}${Cypress.env('PHONE_NUMBER')}`
-        ),
-      ],
+      [eq('phone number'), constant(Cypress.env('PHONE_NUMBER'))],
     ]);
 
     return cy.wrap(inputField).type(buildAlias(loginMechanism));
@@ -73,8 +53,7 @@ Cypress.Commands.add('findInputField', (field: string) => {
   const regex = new RegExp(regexString, 'i');
 
   if (isPasswordField) {
-    // TODO: we should use cy.findByLabelText once our dom is cleaned up
-    return cy.findByPlaceholderText(regex);
+    return cy.findByLabelText(field);
   } else {
     return cy.findByRole('textbox', { name: regex });
   }

@@ -18,6 +18,7 @@ import {
 } from '@aws-amplify/ui';
 import { StateMachineService } from '../../services/state-machine.service';
 import { AuthPropService } from '../../services/authenticator-context.service';
+import { translate } from '@aws-amplify/ui';
 
 const logger = new Logger('ForceNewPassword');
 
@@ -30,13 +31,17 @@ export class AmplifyForceNewPasswordComponent
 {
   @HostBinding('attr.data-amplify-authenticator-forcenewpassword')
   dataAttr = '';
-  @Input() public headerText = 'Change Password';
+  @Input() public headerText = translate('Reset your password');
 
   public customComponents: Record<string, TemplateRef<any>> = {};
   public remoteError = '';
   public isPending = false;
 
   private authSubscription: Subscription;
+
+  // translated texts
+  public changePasswordText = translate('Change Password');
+  public backToSignInText = translate('Back to Sign In');
 
   constructor(
     private stateMachine: StateMachineService,

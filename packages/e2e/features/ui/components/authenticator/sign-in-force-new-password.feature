@@ -8,16 +8,18 @@ Feature: Sign In with Force New Password flow
     Given I'm running the example "ui/components/authenticator/sign-in-with-phone"
 
   Scenario: Sign in using a valid phone number and password and user is in a FORCE_CHANGE_PASSWORD state
-    When I type my "phone number" with status "FORCE_CHANGE_PASSWORD"
+    When I select my country code with status "FORCE_CHANGE_PASSWORD"
+    And I type my "phone number" with status "FORCE_CHANGE_PASSWORD"
     And I type my password
     And I click the "Sign in" button
 		Then I should see the Force Change Password screen
 
   Scenario: User is in a FORCE_CHANGE_PASSWORD state and then enters an invalid new password
-    When I type my "phone number" with status "FORCE_CHANGE_PASSWORD"
+    When I select my country code with status "FORCE_CHANGE_PASSWORD"
+    And I type my "phone number" with status "FORCE_CHANGE_PASSWORD"
     And I type my password
     And I click the "Sign in" button
     And I type an invalid password
     And I confirm the invalid password
-    And I click the "Change password" button
+    And I click the "Change Password" button
     Then I should see error text

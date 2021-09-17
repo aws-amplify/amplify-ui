@@ -8,17 +8,7 @@ import { RemoteErrorMessage, UserNameAlias } from '../shared';
 export function SignIn() {
   const amplifyNamespace = 'Authenticator.SignIn';
   const {
-    components: {
-      Button,
-      Divider,
-      FieldGroup,
-      Flex,
-      Footer,
-      Form,
-      Heading,
-      PasswordField,
-      Text,
-    },
+    components: { Button, FieldGroup, Flex, Form, Heading, PasswordField },
   } = useAmplify(amplifyNamespace);
 
   const [_state, send] = useAuth();
@@ -92,21 +82,7 @@ export function SignIn() {
         >
           {I18n.get('Forgot your password? ')}
         </Button>
-
-        <Footer>
-          <Text>{I18n.get('No account? ')}</Text>
-          <Button
-            onClick={() => send({ type: 'SIGN_UP' })}
-            type="button"
-            variation="link"
-            fontWeight="normal"
-          >
-            {I18n.get('Create account')}
-          </Button>
-        </Footer>
       </Flex>
-
-      <Divider size="small" />
 
       <FederatedSignIn />
     </Form>
