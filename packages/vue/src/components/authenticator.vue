@@ -1,11 +1,13 @@
 <template>
   <div v-bind="$attrs" data-amplify-authenticator>
-    <base-tab
-      @base-tab="baseTabClicked"
+    <base-two-tabs
       v-if="actorState?.matches('signIn') || actorState?.matches('signUp')"
-    />
+    >
+      <base-two-tab-item :label="createAccountLabel" :id="44472" />
+      <base-two-tab-item :label="signInLabel" :firstTab="true" :id="44471" />
+    </base-two-tabs>
     <sign-in
-      v-if="actorState?.matches('signIn') && showFirstTab"
+      v-if="actorState?.matches('signIn')"
       @sign-in-submit="onSignInSubmitI"
       ref="signInComponent"
     >
@@ -68,7 +70,7 @@
       </template>
     </sign-in>
     <sign-up
-      v-if="actorState?.matches('signUp') && !showFirstTab"
+      v-if="actorState?.matches('signUp')"
       @sign-up-submit="onSignUpSubmitI"
       ref="signUpComponent"
     >
@@ -97,20 +99,16 @@
     <confirm-sign-up
       v-if="actorState?.matches('confirmSignUp')"
       @confirm-sign-up-submit="onConfirmSignUpSubmitI"
-      :shouldHideReturnBtn="shouldHideReturnBtn"
       ref="confirmSignUpComponent"
     >
       <template #confirmSignUpSlotI>
         <slot name="confirm-sign-up"></slot>
       </template>
-      <template
-        #footer="{ info, onConfirmSignUpSubmit, onBackToSignInClicked }"
-      >
+      <template #footer="{ info, onConfirmSignUpSubmit }">
         <slot
           name="sign-in-footer"
           :info="info"
           :onConfirmSignUpSubmit="onConfirmSignUpSubmit"
-          :onBackToSignInClicked="onBackToSignInClicked"
         >
         </slot>
       </template>
@@ -267,11 +265,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref, provide, computed, useAttrs } from 'vue';
+import { ref, provide, computed, useAttrs, watch } from 'vue';
 import { getActorState } from '@aws-amplify/ui';
+import { I18n } from 'aws-amplify';
 
 import { authMachine } from '@aws-amplify/ui';
 import { useActor, useInterpret } from '@xstate/vue';
+import useSelect from '../composables/useSelect';
 
 import SignIn from './sign-in.vue';
 import SignUp from './sign-up.vue';
@@ -284,17 +284,12 @@ import ConfirmResetPassword from './confirm-reset-password.vue';
 import VerifyUser from './verify-user.vue';
 import ConfirmVerifyUser from './confirm-verify-user.vue';
 
+import { CREATE_ACCOUNT_LABEL, SIGN_IN_LABEL } from '../defaults/DefaultTexts';
+
 import {
   InterpretServiceInjectionKeyTypes,
   InterpretService,
 } from '../types/index';
-
-const { shouldHideReturnBtn } = withDefaults(
-  defineProps<{ shouldHideReturnBtn?: boolean }>(),
-  {
-    shouldHideReturnBtn: true,
-  }
-);
 
 const attrs = useAttrs();
 const emit = defineEmits([
@@ -314,7 +309,7 @@ const s = useInterpret(authMachine, {
   devTools: process.env.NODE_ENV === 'development',
 });
 const service = ref(s);
-const showFirstTab = ref(true);
+const { active } = useSelect;
 
 provide(InterpretServiceInjectionKeyTypes, <InterpretService>service.value);
 const { state, send } = useActor(service.value);
@@ -330,6 +325,11 @@ const resetPasswordComponent = ref(null);
 const confirmResetPasswordComponent = ref(null);
 const verifyUserComponent = ref(null);
 const confirmVerifyUserComponent = ref(null);
+
+// computed
+
+const signInLabel = computed(() => I18n.get(CREATE_ACCOUNT_LABEL));
+const createAccountLabel = computed(() => I18n.get(SIGN_IN_LABEL));
 
 //methods
 
@@ -413,17 +413,23 @@ const onConfirmVerifyUserSubmitI = (e: Event) => {
   }
 };
 
-const baseTabClicked = (e: boolean) => {
-  console.log('clicked base', e);
-  if (e) {
-    send({
-      type: 'SIGN_IN',
-    });
-  } else {
-    send({
-      type: 'SIGN_UP',
-    });
+/**
+ * Toggle sign up and sign in pages when useSelect
+ * active ref updates
+ */
+
+watch(
+  () => active.value,
+  () => {
+    if (active.value) {
+      send({
+        type: 'SIGN_UP',
+      });
+    } else {
+      send({
+        type: 'SIGN_IN',
+      });
+    }
   }
-  showFirstTab.value = e;
-};
+);
 </script>
