@@ -8,7 +8,18 @@ module.exports = {
   },
   fontSize: { value: '{components.fieldcontrol.fontSize.value}' },
   lineHeight: { value: '{components.fieldcontrol.fontSize.value}' },
-  padding: { value: ['{space.small.value}', '{space.medium.value}'] },
+  paddingBlockStart: {
+    value: '{components.fieldcontrol.paddingBlockStart.value}',
+  },
+  paddingBlockEnd: {
+    value: '{components.fieldcontrol.paddingBlockEnd.value}',
+  },
+  paddingInlineStart: {
+    value: '{components.fieldcontrol.paddingInlineStart.value}',
+  },
+  paddingInlineEnd: {
+    value: '{components.fieldcontrol.paddingInlineEnd.value}',
+  },
   borderColor: { value: '{colors.brand.primary.20.value}' },
   borderWidth: { value: '{borderWidths.small.value}' },
   borderStyle: { value: 'solid' },
@@ -89,11 +100,33 @@ module.exports = {
   small: {
     fontSize: { value: '{components.fieldcontrol.small.fontSize.value}' },
     lineHeight: { value: '{components.fieldcontrol.small.fontSize.value}' },
-    padding: { value: '{components.fieldcontrol.small.padding.value}' },
+    paddingBlockStart: {
+      value: '{components.fieldcontrol.small.paddingBlockStart.value}',
+    },
+    paddingBlockEnd: {
+      value: '{components.fieldcontrol.small.paddingBlockEnd.value}',
+    },
+    paddingInlineStart: {
+      value: '{components.fieldcontrol.small.paddingInlineStart.value}',
+    },
+    paddingInlineEnd: {
+      value: '{components.fieldcontrol.small.paddingInlineEnd.value}',
+    },
   },
   large: {
     fontSize: { value: '{components.fieldcontrol.large.fontSize.value}' },
     lineHeight: { value: '{components.fieldcontrol.large.fontSize.value}' },
-    padding: { value: '{components.fieldcontrol.large.padding.value}' },
+    paddingBlockStart: {
+      value: '{components.fieldcontrol.large.paddingBlockStart.value}',
+    },
+    paddingBlockEnd: {
+      value: '{components.fieldcontrol.large.paddingBlockEnd.value}',
+    },
+    paddingInlineStart: {
+      value: '{components.fieldcontrol.large.paddingInlineStart.value}',
+    },
+    paddingInlineEnd: {
+      value: '{components.fieldcontrol.large.paddingInlineEnd.value}',
+    },
   },
 };

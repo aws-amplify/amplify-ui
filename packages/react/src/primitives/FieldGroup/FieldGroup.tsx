@@ -9,30 +9,54 @@ import { View } from '../View';
 export const FieldGroup: React.FC<FieldGroupOptions> = ({
   children,
   className,
-  startComponents,
-  endComponents,
+  outerStartComponent,
+  outerEndComponent,
+  innerStartComponent,
+  innerEndComponent,
   ...rest
 }) => {
-  const showFieldGroup = startComponents || endComponents;
-
-  // Don't apply field group classname unless there are multiple fields
-  const fieldGroupClassName = showFieldGroup
-    ? ComponentClassNames.FieldGroup
+  // Don't apply field group has icon classnames unless an icon was provided
+  const hasFieldGroupStartIcon = innerStartComponent != null;
+  const hasFieldGroupEndIcon = innerEndComponent != null;
+  const fieldGroupHasStartIconClassName = hasFieldGroupStartIcon
+    ? ComponentClassNames.FieldGroupHasStartIcon
+    : null;
+  const fieldGroupHasEndIconClassName = hasFieldGroupEndIcon
+    ? ComponentClassNames.FieldGroupHasEndIcon
     : null;
 
   return (
-    <Flex className={classNames(fieldGroupClassName, className)} {...rest}>
-      {startComponents && (
+    <Flex
+      className={classNames(
+        ComponentClassNames.FieldGroup,
+        fieldGroupHasStartIconClassName,
+        fieldGroupHasEndIconClassName,
+        className
+      )}
+      {...rest}
+    >
+      {outerStartComponent && (
         <View className={ComponentClassNames.FieldGroupStart}>
-          {startComponents}
+          {outerStartComponent}
         </View>
       )}
+      <View className={ComponentClassNames.FieldGroupFieldWrapper}>
+        {innerStartComponent && (
+          <View className={ComponentClassNames.FieldGroupStartIcon}>
+            {innerStartComponent}
+          </View>
+        )}
+        {children}
+        {innerEndComponent && (
+          <View className={ComponentClassNames.FieldGroupEndIcon}>
+            {innerEndComponent}
+          </View>
+        )}
+      </View>
 
-      {children}
-
-      {endComponents && (
+      {outerEndComponent && (
         <View className={ComponentClassNames.FieldGroupEnd}>
-          {endComponents}
+          {outerEndComponent}
         </View>
       )}
     </Flex>

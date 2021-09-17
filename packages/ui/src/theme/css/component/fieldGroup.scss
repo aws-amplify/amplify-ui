@@ -6,15 +6,14 @@
   border-end-end-radius: 0;
   border-start-end-radius: 0;
 }
-
 .amplify-field-group {
   gap: var(--amplify-components-fieldgroup-gap);
 
   // Input styling
-  .amplify-input:not(:last-child) {
+  :not(:last-child) .amplify-input {
     @extend %remove-end-radii;
   }
-  .amplify-input:not(:first-child) {
+  :not(:first-child) .amplify-input {
     @extend %remove-start-radii;
   }
 
@@ -73,5 +72,73 @@
         }
       }
     }
+  }
+}
+
+/**
+ * Inner field group component support
+ */
+.amplify-field-group__field-wrapper {
+  position: relative;
+  width: 100%;
+}
+.amplify-field-group--has-end-icon {
+  .amplify-input {
+    padding-inline-end: calc(
+      var(--amplify-components-fieldcontrol-padding-inline-end) * 3
+    );
+  }
+}
+.amplify-field-group--has-start-icon {
+  .amplify-input {
+    padding-inline-start: calc(
+      var(--amplify-components-fieldcontrol-padding-inline-start) * 3
+    );
+  }
+}
+
+.amplify-field-group__icon:not(.amplify-field-group__icon-button) {
+  display: flex;
+  padding-inline-start: var(
+    --amplify-components-fieldcontrol-padding-inline-start
+  );
+  padding-inline-end: var(
+    --amplify-components-fieldcontrol-padding-inline-start
+  );
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+
+.amplify-field-group__end-icon,
+.amplify-field-group__start-icon {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  pointer-events: none;
+  .amplify-button {
+    pointer-events: all;
+    height: 100%;
+  }
+}
+.amplify-field-group__end-icon {
+  right: 0;
+  left: auto;
+}
+.amplify-field-group__start-icon {
+  right: auto;
+  left: 0;
+}
+
+// Supports RTL languages
+// but moving start icon to left
+html[dir='rtl'] {
+  .amplify-field-group__end-icon {
+    right: auto;
+    left: 0;
+  }
+  .amplify-field-group__start-icon {
+    left: auto;
+    right: 0;
   }
 }

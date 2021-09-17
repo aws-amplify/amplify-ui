@@ -5,4 +5,14 @@ export const SharedText = {
       hidePassword: 'Hide password',
     },
   },
+  Fields: {
+    ariaLabel: {
+      clearField: 'ClearField',
+    },
+  },
+  SearchField: {
+    ariaLabel: {
+      search: 'Search',
+    },
+  },
 };
