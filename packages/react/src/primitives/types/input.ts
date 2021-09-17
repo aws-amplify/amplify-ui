@@ -105,7 +105,7 @@ export interface InputProps
   /**
    * Fired on keyboard key down
    */
-  onKeyDown?: React.FormEventHandler<HTMLInputElement>;
+  onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
 
   /**
    * Placeholder text shown when field is empty

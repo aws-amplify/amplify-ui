@@ -12,6 +12,55 @@ const ESCAPE_KEY = 'Escape';
 const ENTER_KEY = 'Enter';
 const DEFAULT_KEYS = [ESCAPE_KEY, ENTER_KEY];
 
+export const useSearchField = (onSubmit: SearchFieldProps['onSubmit']) => {
+  const [value, setValue] = React.useState<string>('');
+
+  const clearValue = React.useCallback(() => setValue(''), [setValue]);
+
+  const onKeyDown: InputProps['onKeyDown'] = React.useCallback((event) => {
+    const key = event.key;
+
+    if (DEFAULT_KEYS.includes(key)) {
+      event.preventDefault();
+    }
+    if (key === ESCAPE_KEY) {
+      clearValue();
+    }
+    if (key === ENTER_KEY) {
+      onSubmitHandler(event.currentTarget.value);
+    }
+  }, []);
+
+  const onInput: InputProps['onInput'] = React.useCallback(
+    (event) => {
+      const { value } = event.target;
+      setValue(value);
+    },
+    [setValue]
+  );
+
+  const onSubmitHandler = React.useCallback(
+    (value: string) => {
+      if (onSubmit) {
+        onSubmit(value);
+      }
+    },
+    [onSubmit]
+  );
+
+  const onClick: InputProps['onClick'] = React.useCallback(() => {
+    onSubmitHandler(value);
+  }, [onSubmitHandler, value]);
+
+  return {
+    value,
+    clearValue,
+    onKeyDown,
+    onInput,
+    onClick,
+  };
+};
+
 export const SearchField: React.FC<SearchFieldProps> = ({
   autoComplete = 'off',
   children,
@@ -23,38 +72,8 @@ export const SearchField: React.FC<SearchFieldProps> = ({
   size,
   ...rest
 }) => {
-  const [value, setValue] = React.useState<string>('');
-
-  const clearValue = React.useCallback(() => setValue(''), [setValue]);
-
-  const onKeyDown = React.useCallback((event) => {
-    const key = event.key;
-
-    if (DEFAULT_KEYS.includes(key)) {
-      event.preventDefault();
-    }
-    if (key === ESCAPE_KEY) {
-      clearValue();
-    }
-    if (key === ENTER_KEY) {
-      onSubmitHandler(event);
-    }
-  }, []);
-
-  const onInput: InputProps['onInput'] = React.useCallback(
-    (event) => {
-      const { value } = event.currentTarget;
-      setValue(value);
-    },
-    [setValue]
-  );
-
-  const onSubmitHandler = React.useCallback((event) => {
-    alert(event.currentTarget.value);
-    if (onSubmit) {
-      onSubmit(event);
-    }
-  }, []);
+  const { value, clearValue, onInput, onKeyDown, onClick } =
+    useSearchField(onSubmit);
 
   return (
     <TextField
@@ -73,9 +92,7 @@ export const SearchField: React.FC<SearchFieldProps> = ({
       name={name}
       onInput={onInput}
       onKeyDown={onKeyDown}
-      outerEndComponent={
-        <SearchFieldButton onClick={onSubmitHandler} size={size} />
-      }
+      outerEndComponent={<SearchFieldButton onClick={onClick} size={size} />}
       size={size}
       value={value}
       {...rest}

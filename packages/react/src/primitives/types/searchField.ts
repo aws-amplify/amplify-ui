@@ -5,7 +5,7 @@ export interface SearchFieldProps extends TextFieldProps {
   /**
    * Handle submission of search field input
    */
-  onSubmit?: React.ChangeEventHandler<HTMLInputElement>;
+  onSubmit?: (value: string) => void;
 }
 
 export interface SearchFieldButtonProps
