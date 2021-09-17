@@ -53,7 +53,7 @@ Cypress.Commands.add('findInputField', (field: string) => {
   const regex = new RegExp(regexString, 'i');
 
   if (isPasswordField) {
-    return cy.findAllByLabelText(regex).filter(':visible');
+    return cy.findAllByLabelText(regex);
   } else {
     return cy.findByRole('textbox', { name: regex });
   }
