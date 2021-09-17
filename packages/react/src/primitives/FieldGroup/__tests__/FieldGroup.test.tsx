@@ -20,17 +20,6 @@ describe('FieldGroup component', () => {
     expect(fieldGroup).toHaveClass('custom-class');
   });
 
-  it('should not render FieldGroup classname when outerStartComponent and outerEndComponent are undefined', async () => {
-    render(
-      <FieldGroup testId={testId}>
-        <Text>Hello</Text>
-      </FieldGroup>
-    );
-
-    const fieldGroup = await screen.findByTestId(testId);
-    expect(fieldGroup).not.toHaveClass(ComponentClassNames.FieldGroup);
-  });
-
   it('should render FieldGroup classname when outerStartComponent provided', async () => {
     render(
       <FieldGroup
