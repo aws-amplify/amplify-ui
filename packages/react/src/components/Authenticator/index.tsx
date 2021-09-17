@@ -11,6 +11,7 @@ import { SetupTOTP } from './SetupTOTP';
 import { SignIn } from './SignIn';
 import { SignUp } from './SignUp';
 import { ConfirmVerifyUser, VerifyUser } from './VerifyUser';
+import { SignInSignUpTabs } from './shared';
 
 export function Authenticator({
   className = null,
@@ -53,9 +54,8 @@ export function Authenticator({
             case actorState?.matches('setupTOTP'):
               return <SetupTOTP />;
             case actorState?.matches('signIn'):
-              return <SignIn />;
             case actorState?.matches('signUp'):
-              return <SignUp />;
+              return <SignInSignUpTabs />;
             case actorState?.matches('forceNewPassword'):
               return <ForceNewPassword />;
             case actorState?.matches('resetPassword'):

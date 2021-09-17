@@ -11,7 +11,7 @@ import {
 export const ConfirmVerifyUser = (): JSX.Element => {
   const amplifyNamespace = 'Authenticator.ConfirmVerifyUser';
   const {
-    components: { Fieldset, Form, Heading },
+    components: { Flex, FieldGroup, Form, Heading },
   } = useAmplify(amplifyNamespace);
 
   const [_state, send] = useAuth();
@@ -38,20 +38,22 @@ export const ConfirmVerifyUser = (): JSX.Element => {
         });
       }}
     >
-      <Heading level={1}>{headerText}</Heading>
+      <Flex direction="column">
+        <Heading level={3}>{headerText}</Heading>
 
-      <Fieldset disabled={isPending}>
-        <ConfirmationCodeInput amplifyNamespace={amplifyNamespace} />
-      </Fieldset>
+        <FieldGroup direction="column" disabled={isPending}>
+          <ConfirmationCodeInput amplifyNamespace={amplifyNamespace} />
+        </FieldGroup>
 
-      <RemoteErrorMessage amplifyNamespace={amplifyNamespace} />
+        <RemoteErrorMessage amplifyNamespace={amplifyNamespace} />
 
-      <TwoButtonSubmitFooter
-        amplifyNamespace={amplifyNamespace}
-        isPending={isPending}
-        cancelButtonText={I18n.get('Skip')}
-        cancelButtonSendType="SKIP"
-      />
+        <TwoButtonSubmitFooter
+          amplifyNamespace={amplifyNamespace}
+          isPending={isPending}
+          cancelButtonText={I18n.get('Skip')}
+          cancelButtonSendType="SKIP"
+        />
+      </Flex>
     </Form>
   );
 };
