@@ -34,7 +34,7 @@ export const PhoneNumberField: React.FC<PhoneNumberFieldProps> = ({
       name={name}
       placeholder={placeholder}
       label={label}
-      labelHidden={true}
+      labelHidden={labelHidden}
       autoComplete="username"
       errorMessage={errorMessage}
       {...rest}
