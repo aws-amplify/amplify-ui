@@ -11,6 +11,7 @@
     "vue": "yarn workspace @aws-amplify/ui-vue",
     "angular-example": "yarn workspace angular-example",
     "docs": "yarn workspace docs",
+    "js-example": "yarn workspace js-example",
     "next-example": "yarn workspace next-example",
     "vue-example": "yarn workspace vue-example",
     "e2e": "yarn workspace e2e",

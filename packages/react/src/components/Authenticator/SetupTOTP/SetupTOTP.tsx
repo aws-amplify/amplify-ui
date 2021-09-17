@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import QRCode from 'qrcode';
+import qrcode from 'qrcode-generator';
 
 import { Auth, Logger, I18n } from 'aws-amplify';
 import { getActorState, SignInState } from '@aws-amplify/ui';
@@ -31,7 +31,11 @@ export const SetupTOTP = (): JSX.Element => {
       const secretKey = await Auth.setupTOTP(user);
       const issuer = 'AWSCognito';
       const totpCode = `otpauth://totp/${issuer}:${user.username}?secret=${secretKey}&issuer=${issuer}`;
-      const qrCodeImageSource = await QRCode.toDataURL(totpCode);
+      const qr = qrcode(0, 'L');
+      qr.addData(totpCode);
+      qr.make();
+
+      const qrCodeImageSource = qr.createDataURL();
 
       setQrCode(qrCodeImageSource);
     } catch (error) {

@@ -21,6 +21,8 @@
   },
   "devDependencies": {
     "@aws-amplify/ui-react": "2.0.1-next.2",
+    "esbuild-node-builtins": "^0.1.0",
+    "esbuild-plugin-alias": "^0.1.2",
     "preact": "^10.5.14",
     "react": "npm:@preact/compat",
     "react-dom": "npm:@preact/compat",

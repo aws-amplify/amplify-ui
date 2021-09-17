@@ -5,7 +5,7 @@
     "declaration": true,
     "esModuleInterop": true,
     "jsx": "react-jsx",
-    "jsxImportSource": "preact/compat",
+    "jsxImportSource": "preact",
     "rootDir": "./src",
     "outDir": "./dist",
     "skipLibCheck": true,
