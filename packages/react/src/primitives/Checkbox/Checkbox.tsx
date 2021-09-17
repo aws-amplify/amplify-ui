@@ -1,6 +1,7 @@
 import classNames from 'classnames';
-import React, { ChangeEvent, FocusEvent, useState } from 'react';
+import React from 'react';
 
+import { useCheckbox } from './useCheckbox';
 import { Flex } from '../Flex';
 import { IconCheck } from '../Icon';
 import { Input } from '../Input';
@@ -24,24 +25,11 @@ export const Checkbox: React.FC<CheckboxProps> = ({
   value,
   ...rest
 }) => {
-  const [dataChecked, setDataChecked] = useState(checked || defaultChecked);
-  const [dataFocus, setDataFocus] = useState(false);
-
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setDataChecked(e.target.checked);
-    if (onChangeProp) {
-      onChangeProp(e);
-    }
-  };
-
-  const onFocus = (e: FocusEvent<HTMLInputElement>) => {
-    console.log(e.type);
-    setDataFocus(true);
-  };
-
-  const onBlur = (e: FocusEvent<HTMLInputElement>) => {
-    setDataFocus(false);
-  };
+  const { dataChecked, dataFocus, onBlur, onChange, onFocus } = useCheckbox(
+    // controlled checked should always override uncontrolled way
+    checked || defaultChecked,
+    onChangeProp
+  );
 
   return (
     <Flex
