@@ -1,6 +1,6 @@
 import * as React from 'react';
-import autoprefixer from 'autoprefixer';
-import postcssJs from 'postcss-js';
+// import autoprefixer from 'autoprefixer';
+// import postcssJs from 'postcss-js';
 
 // Note: this makes nanoid more performant, not less secure
 // @see https://www.npmjs.com/package/nanoid#user-content-non-secure
@@ -19,7 +19,8 @@ import { Breakpoint, Breakpoints } from '../types/responsive';
 
 import { useTheming } from '../../theming/';
 
-export const prefixer = postcssJs.sync([autoprefixer]);
+// ReferenceError: process is not defined
+export const prefixer = (o) => o; // postcssJs.sync([autoprefixer]);
 
 export const strHasLength = (str: unknown): str is string =>
   typeof str === 'string' && str.length > 0;
