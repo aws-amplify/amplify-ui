@@ -8,7 +8,9 @@ Given('I click {string}', (text: string) => {
 });
 
 When('I confirm my password', () => {
-  cy.findInputField('Confirm Password').type(Cypress.env('VALID_PASSWORD'));
+  cy.findByPlaceholderText(/confirm password/i).type(
+    Cypress.env('VALID_PASSWORD')
+  );
 });
 
 Then('I see {string} as an input field', (name: string) => {
