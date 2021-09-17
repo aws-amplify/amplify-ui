@@ -9,6 +9,8 @@ import {
 } from './actors';
 import { stopActor } from './actions';
 
+const DEFAULT_COUNTRY_CODE = '+1';
+
 export const authMachine = createMachine<AuthContext, AuthEvent>(
   {
     id: 'auth',
@@ -119,6 +121,7 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
             authAttributes: event.data?.authAttributes,
             user: event.data?.user,
             intent: event.data?.intent,
+            country_code: DEFAULT_COUNTRY_CODE,
             formValues: {},
             validationError: {},
           });
@@ -129,8 +132,9 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
         actorRef: (context, event) => {
           const actor = signUpActor.withContext({
             authAttributes: event.data?.authAttributes ?? {},
+            country_code: DEFAULT_COUNTRY_CODE,
             intent: event.data?.intent,
-            formValues: { country_code: '+1' },
+            formValues: {},
             validationError: {},
             login_mechanisms: context.config?.login_mechanisms,
           });

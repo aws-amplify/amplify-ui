@@ -20,6 +20,7 @@ import {
 } from '@aws-amplify/ui';
 import { getActorContext } from '@aws-amplify/ui';
 import { SignUpContext } from '@aws-amplify/ui';
+import { translate } from '@aws-amplify/ui';
 
 @Component({
   selector: 'amplify-sign-up',
@@ -29,7 +30,7 @@ export class AmplifySignUpComponent
   implements AfterContentInit, OnInit, OnDestroy
 {
   @HostBinding('attr.data-amplify-authenticator-signup') dataAttr = '';
-  @Input() headerText = 'Create a new account';
+  @Input() headerText = translate('Create a new account');
   public customComponents: Record<string, TemplateRef<any>>;
   public remoteError = '';
   public isPending = false;
@@ -38,6 +39,11 @@ export class AmplifySignUpComponent
   public validationError: ValidationError = {};
 
   private authSubscription: Subscription;
+
+  // translated texts
+  public createAccountText = translate('Back to Sign In');
+  public haveAccountText = translate('Have an account? ');
+  public signInText = translate('Sign in');
 
   constructor(
     private stateMachine: StateMachineService,

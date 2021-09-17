@@ -8,11 +8,15 @@ import {
   TemplateRef,
   ViewEncapsulation,
 } from '@angular/core';
+import {
+  AuthMachineState,
+  getActorState,
+  SignInState,
+  translate,
+} from '@aws-amplify/ui';
+import { Subscription } from 'xstate';
 import { StateMachineService } from '../../services/state-machine.service';
 import { AuthPropService } from '../../services/authenticator-context.service';
-import { Subscription } from 'xstate';
-import { AuthMachineState, getActorState, SignInState } from '@aws-amplify/ui';
-
 @Component({
   selector: 'amplify-verify-user',
   templateUrl: './amplify-verify-user.component.html',
@@ -22,8 +26,9 @@ export class AmplifyVerifyUserComponent
   implements AfterContentInit, OnInit, OnDestroy
 {
   @HostBinding('attr.data-amplify-authenticator-verifyuser') dataAttr = '';
-  @Input() public headerText =
-    'Account recovery requires verified contact information';
+  @Input() public headerText = translate(
+    'Account recovery requires verified contact information'
+  );
 
   public customComponents: Record<string, TemplateRef<any>> = {};
   public unverifiedAttributes = {};
@@ -31,6 +36,10 @@ export class AmplifyVerifyUserComponent
   public isPending = false;
 
   private authSubscription: Subscription;
+
+  // translated texts
+  public skipText = translate('Skip');
+  public verifyText = translate('Verify');
 
   constructor(
     private stateMachine: StateMachineService,
@@ -66,6 +75,11 @@ export class AmplifyVerifyUserComponent
 
   skipVerify(): void {
     this.stateMachine.send('SKIP');
+  }
+
+  // enable translate to be used inside the template
+  translate(phrase: string): string {
+    return translate<string>(phrase);
   }
 
   async onSubmit(event: Event): Promise<void> {

@@ -1,6 +1,7 @@
 /// <reference types="@testing-library/cypress" />
 /// <reference types="cypress" />
-import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { escapeRegExp } from 'lodash';
 
 Given('I click {string}', (text: string) => {
   cy.findByText(text).click();
@@ -18,4 +19,10 @@ Then('I see {string} as an input field', (name: string) => {
 
 Then("I don't see {string} as an input field", (name: string) => {
   cy.findByRole('textbox', { name }).should('not.exist');
+});
+
+And('I click the Create Account tab', () => {
+  cy.findByRole('tab', {
+    name: new RegExp(`^${escapeRegExp('Create Account')}$`, 'i'),
+  }).click();
 });
