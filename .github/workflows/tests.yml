@@ -30,6 +30,10 @@ jobs:
       - name: Build Amplfiy UI
         run: yarn build
 
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
       - name: Cache build
         uses: actions/cache@v2
         id: build-cache
@@ -37,6 +41,9 @@ jobs:
           path: |
             **/.ultra.cache.json
             **/dist
+            node_modules
+            ${{ steps.yarn-cache-dir-path.outputs.dir }}
+
           key: ${{ runner.os }}-ultra
 
   unit:
@@ -74,6 +81,8 @@ jobs:
           path: |
             **/.ultra.cache.json
             **/dist
+            node_modules
+            ${{ steps.yarn-cache-dir-path.outputs.dir }}
           key: ${{ runner.os }}-ultra
 
       - name: Build ${{ matrix.package }} package
@@ -131,6 +140,8 @@ jobs:
           path: |
             **/.ultra.cache.json
             **/dist
+            node_modules
+            ${{ steps.yarn-cache-dir-path.outputs.dir }}
           key: ${{ runner.os }}-ultra
 
       - name: Add Amplify CLI
