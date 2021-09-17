@@ -3,6 +3,7 @@ import {
   ActorContextWithForms,
   AuthInputAttributes,
   getActorContext,
+  translate,
 } from '@aws-amplify/ui';
 import { getAttributeMap } from '../../common';
 import { StateMachineService } from '../../services/state-machine.service';
@@ -41,15 +42,16 @@ export class AmplifyInputComponent {
   }
 
   inferLabel(): string {
-    return this.label || this.attributeMap[this.name]?.label;
+    const label = this.label || this.attributeMap[this.name]?.label;
+    return translate<string>(label);
   }
 
   inferPlaceholder(): string {
-    return (
+    const placeholder =
       this.placeholder ||
       this.attributeMap[this.name]?.placeholder ||
-      this.inferLabel()
-    );
+      this.inferLabel();
+    return translate<string>(placeholder);
   }
 
   // infers what the `type` of underlying input element should be.

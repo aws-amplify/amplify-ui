@@ -24,6 +24,6 @@ export class AmplifyUserNameAliasComponent implements OnInit {
 
     this.label = label;
     this.type = type;
-    this.placeholder = `Enter your ${label.toLowerCase()}`;
+    this.placeholder = label;
   }
 }

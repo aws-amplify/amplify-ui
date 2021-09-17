@@ -2,16 +2,14 @@
 import classNames from 'classnames';
 import React from 'react';
 
-import { ComponentClassNames } from '../../shared';
+import { ComponentClassNames } from '../../shared/constants';
+
 export const IconCheck = (props) => {
   const { className, size, fill = 'currentColor', ariaLabel, ...rest } = props;
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className={classNames(
-        ComponentClassNames.Icon,
-        ComponentClassNames.CheckboxIcon
-      )}
+      className={classNames(ComponentClassNames.Icon, className)}
       viewBox="0 0 24 24"
       data-size={size}
       aria-label={ariaLabel}
