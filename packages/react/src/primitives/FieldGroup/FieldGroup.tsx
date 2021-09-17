@@ -16,13 +16,13 @@ export const FieldGroup: React.FC<FieldGroupOptions> = ({
   ...rest
 }) => {
   // Don't apply field group has icon classnames unless an icon was provided
-  const hasFieldGroupStartIcon = innerStartComponent != null;
-  const hasFieldGroupEndIcon = innerEndComponent != null;
-  const fieldGroupHasStartIconClassName = hasFieldGroupStartIcon
-    ? ComponentClassNames.FieldGroupHasStartIcon
+  const hasInnerStartComponent = innerStartComponent != null;
+  const hasInnerEndComponent = innerEndComponent != null;
+  const fieldGroupHasStartIconClassName = hasInnerStartComponent
+    ? ComponentClassNames.FieldGroupHasInnerStart
     : null;
-  const fieldGroupHasEndIconClassName = hasFieldGroupEndIcon
-    ? ComponentClassNames.FieldGroupHasEndIcon
+  const fieldGroupHasEndIconClassName = hasInnerEndComponent
+    ? ComponentClassNames.FieldGroupHasInnerEnd
     : null;
 
   return (
@@ -36,26 +36,26 @@ export const FieldGroup: React.FC<FieldGroupOptions> = ({
       {...rest}
     >
       {outerStartComponent && (
-        <View className={ComponentClassNames.FieldGroupStart}>
+        <View className={ComponentClassNames.FieldGroupOuterStart}>
           {outerStartComponent}
         </View>
       )}
       <View className={ComponentClassNames.FieldGroupFieldWrapper}>
         {innerStartComponent && (
-          <View className={ComponentClassNames.FieldGroupStartIcon}>
+          <View className={ComponentClassNames.FieldGroupInnerStart}>
             {innerStartComponent}
           </View>
         )}
         {children}
         {innerEndComponent && (
-          <View className={ComponentClassNames.FieldGroupEndIcon}>
+          <View className={ComponentClassNames.FieldGroupInnerEnd}>
             {innerEndComponent}
           </View>
         )}
       </View>
 
       {outerEndComponent && (
-        <View className={ComponentClassNames.FieldGroupEnd}>
+        <View className={ComponentClassNames.FieldGroupOuterEnd}>
           {outerEndComponent}
         </View>
       )}
