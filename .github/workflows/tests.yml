@@ -124,6 +124,15 @@ jobs:
       - name: Install packages
         run: yarn --frozen-lockfile -offline
 
+      - name: Restore cache
+        uses: actions/cache@v2
+        id: build-cache
+        with:
+          path: |
+            **/.ultra.cache.json
+            **/dist
+          key: ${{ runner.os }}-ultra
+
       - name: Add Amplify CLI
         run: yarn global add @aws-amplify/cli
 
