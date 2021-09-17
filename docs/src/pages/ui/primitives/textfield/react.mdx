@@ -1,11 +1,13 @@
 import { TextField, Flex, PasswordField, Button } from '@aws-amplify/ui-react';
+import { TextFieldDemo } from './demo';
 import {
-  TextFieldDemo,
   DescriptiveTextFieldExample,
   RequiredTextFieldExample,
   TextFieldStyledPropsExample,
   TextFieldStartEndComponentsExample,
-} from './demo';
+  TextFieldStartEndIconExample,
+  TextFieldStartEndComponentAndIconExample,
+} from './examples';
 import { Example } from '@/components/Example';
 
 The `TextField` form primitive can be used allow users to input text content.
@@ -113,22 +115,22 @@ There are two variation styles available: default and `quiet`.
   <TextField label="Quiet" variation="quiet" />
 </Example>
 
-### Start and End components
+### Outer components
 
-Compose field components such as `Button` and `Select` at the start or end of an TextField input using the `inputStartComponents` or `inputEndComponents` props.
+Compose field components such as `Button` and `Select` at the start or end of an TextField input using the `outerStartComponent` or `outerEndComponent` props.
 
 ```jsx
 <Flex gap="1rem" direction="column">
-  <TextField label="Start" inputStartComponents={<Button>Start</Button>} />
+  <TextField label="Start" outerStartComponent={<Button>Start</Button>} />
   <TextField
     label="Start and End"
-    inputStartComponents={<Button>Start</Button>}
-    inputEndComponents={<Button>End</Button>}
+    outerStartComponent={<Button>Start</Button>}
+    outerEndComponent={<Button>End</Button>}
   />
-  <TextField label="End" inputEndComponents={<Button>End</Button>} />
+  <TextField label="End" outerEndComponent={<Button>End</Button>} />
   <TextField
     label="Multiple End"
-    inputEndComponents={
+    outerEndComponent={
       <>
         <Button>End</Button>
         <Button>End</Button>
@@ -137,7 +139,7 @@ Compose field components such as `Button` and `Select` at the start or end of an
   />
   <TextField
     label="Multiple Start"
-    inputStartComponents={
+    outerStartComponent={
       <>
         <Button>Start</Button>
         <Button>Start</Button>
@@ -148,6 +150,71 @@ Compose field components such as `Button` and `Select` at the start or end of an
 ```
 
 <TextFieldStartEndComponentsExample />
+
+### Inner components (icons)
+
+Compose `FieldGroupIcon` or `FieldGroupIconButton` components inside TextField input using innerStartComponent and innerEndComponent.
+To create an interactive icon button, use the `FieldGroupIconButton` component. To add an icon that's not interactive, use `FieldGroupIcon` component.
+
+Note: When clicked, `FieldGroupIcon` will focus the field, whereas the `FieldGroupIconButton` will trigger its `onClick` event.
+
+```jsx
+<Flex gap="1rem" direction="column">
+  <TextField
+    label="Start and End"
+    innerStartComponent={
+      <FieldGroupIcon ariaLabel="">
+        {/** Accessibility tip: pass empty ariaLabel for decorative icons. */}
+        <IconInfo />
+      </FieldGroupIcon>
+    }
+    innerEndComponent={
+      <FieldGroupIconButton
+        ariaLabel="Search"
+        variation="link"
+        onClick={() => alert('😎')}
+      >
+        <IconSearch />
+      </FieldGroupIconButton>
+    }
+  />
+</Flex>
+```
+
+<Example>
+  <TextFieldStartEndIconExample />
+</Example>
+
+_You can also both inner and outer components together_
+
+```jsx
+<Flex gap="1rem" direction="column">
+  <TextField
+    label="Start and End inner and outer components"
+    outerStartComponent={<Button>Start</Button>}
+    outerEndComponent={<Button>End</Button>}
+    innerStartComponent={
+      <FieldGroupIcon ariaLabel="">
+        {/** Accessibility tip: pass empty ariaLabel for decorative icons. */}
+        <IconInfo />
+      </FieldGroupIcon>
+    }
+    innerEndComponent={
+      <FieldGroupIconButton
+        ariaLabel="Search"
+        variation="link"
+        onClick={() => alert('😎')}
+      >
+        <IconSearch />
+      </FieldGroupIconButton>
+    }
+  />
+</Flex>
+```
+
+<Example>
+  <TextFieldStartEndComponentAndIconExample />
+</Example>
 
 ### Descriptive text
 
