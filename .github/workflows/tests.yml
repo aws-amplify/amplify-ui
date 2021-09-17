@@ -11,8 +11,36 @@ on:
     branches: [main]
 
 jobs:
+  cache:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Amplify UI
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js LTS
+        uses: actions/setup-node@v2
+        with:
+          node-version: lts/*
+          cache: 'yarn'
+
+      - name: Cache yarn dependencies and cypress
+        uses: actions/cache@v2
+        id: yarn-cache
+        with:
+          path: |
+            ~/.cache/Cypress
+            node_modules
+          key: ${{ runner.os }}-yarn-v1-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-v1
+
+      - name: Install dependencies if cache invalid
+        if: steps.yarn-cache.outputs.cache-hit != 'true'
+        run: yarn --frozen-lockfile
+
   unit:
     runs-on: ubuntu-latest
+    needs: cache
     env:
       NODE_ENV: test
 
@@ -26,18 +54,6 @@ jobs:
           - '@aws-amplify/ui-react'
 
     steps:
-      - name: Checkout Amplify UI
-        uses: actions/checkout@v2
-
-      - name: Setup Node.js LTS
-        uses: actions/setup-node@v2
-        with:
-          node-version: lts/*
-          cache: 'yarn'
-
-      - name: Install packages
-        run: yarn --frozen-lockfile
-
       - name: Build ${{ matrix.package }} package
         run: yarn workspace ${{ matrix.package }} build
 
@@ -68,24 +84,6 @@ jobs:
             tags: ${{ contains(github.ref, 'main') && '@vue not @skip' || '@vue not (@skip or @todo-vue)' }}
 
     steps:
-      - name: Checkout Amplify UI
-        uses: actions/checkout@v2
-
-      - name: Next.js Cache
-        uses: actions/cache@v2
-        with:
-          path: ${{ github.workspace }}/.next/cache
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}
-
-      - name: Setup Node.js LTS
-        uses: actions/setup-node@v2
-        with:
-          node-version: lts/*
-          cache: 'yarn'
-
-      - name: Install packages
-        run: yarn --frozen-lockfile
-
       - name: Add Amplify CLI
         run: yarn global add @aws-amplify/cli
 
