@@ -50,7 +50,7 @@ describe('PhoneNumberField primitive', () => {
     expect($phoneInput.getAttribute('type')).toBe('tel');
   });
 
-  it('should always "username" as the autocomplete attribute', async () => {
+  it('should always have "username" as the autocomplete attribute', async () => {
     render(<PhoneNumberField defaultCountryCode="+1" label="Phone Number" />);
 
     const $phoneInput = await screen.findByRole('textbox', {
