@@ -11,37 +11,8 @@ on:
     branches: [main]
 
 jobs:
-  cache:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Amplify UI
-        uses: actions/checkout@v2
-
-      - name: Setup Node.js LTS
-        uses: actions/setup-node@v2
-        with:
-          node-version: lts/*
-          cache: 'yarn'
-
-      # https://github.com/actions/cache/blob/main/examples.md#node---yarn
-      - name: Cache yarn dependencies and cypress
-        uses: actions/cache@v2
-        id: yarn-cache
-        with:
-          path: |
-            ~/.cache/Cypress
-            ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-
-      - name: Install dependencies if cache invalid
-        if: steps.yarn-cache.outputs.cache-hit != 'true'
-        run: yarn --frozen-lockfile
-
   unit:
     runs-on: ubuntu-latest
-    needs: cache
     env:
       NODE_ENV: test
 
