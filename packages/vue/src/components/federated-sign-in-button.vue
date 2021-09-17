@@ -10,7 +10,6 @@
       class="amplify-flex federated-sign-in-button-row"
       style="flex-direction: row; justify-content: center"
     >
-      <!-- <slot :text="text"></slot> -->
       <slot></slot>
     </base-wrapper>
   </base-button>
