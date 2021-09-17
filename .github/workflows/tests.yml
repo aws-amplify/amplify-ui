@@ -65,7 +65,7 @@ jobs:
           cache: 'yarn'
 
       - name: Install packages
-        run: yarn --frozen-lockfile
+        run: yarn --frozen-lockfile --offline
 
       - name: Restore cache
         uses: actions/cache@v2
@@ -122,7 +122,7 @@ jobs:
           cache: 'yarn'
 
       - name: Install packages
-        run: yarn --frozen-lockfile
+        run: yarn --frozen-lockfile -offline
 
       - name: Add Amplify CLI
         run: yarn global add @aws-amplify/cli
