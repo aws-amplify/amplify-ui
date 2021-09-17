@@ -48,9 +48,6 @@ export const Checkbox: React.FC<CheckboxProps> = ({
       as="label"
       className={classNames(ComponentClassNames.Checkbox, className)}
       data-disabled={isDisabled}
-      alignItems="center"
-      justifyContent="flex-start"
-      gap="inherit"
     >
       <Input
         checked={checked}
@@ -78,8 +75,6 @@ export const Checkbox: React.FC<CheckboxProps> = ({
         data-checked={dataChecked}
         data-disabled={isDisabled}
         data-focus={dataFocus}
-        alignItems="center"
-        justifyContent="center"
       >
         <IconCheck
           className={ComponentClassNames.CheckboxIcon}
