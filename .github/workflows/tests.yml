@@ -67,6 +67,15 @@ jobs:
       - name: Install packages
         run: yarn --frozen-lockfile
 
+      - name: Restore cache
+        uses: actions/cache@v2
+        id: build-cache
+        with:
+          path: |
+            **/.ultra.cache.json
+            **/dist
+          key: ${{ runner.os }}-ultra
+
       - name: Build ${{ matrix.package }} package
         run: npx ultra -r --filter '${{ matrix.package }}' build
 
