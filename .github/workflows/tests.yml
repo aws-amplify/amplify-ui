@@ -54,6 +54,26 @@ jobs:
           - '@aws-amplify/ui-react'
 
     steps:
+      - name: Checkout Amplify UI
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js LTS
+        uses: actions/setup-node@v2
+        with:
+          node-version: lts/*
+          cache: 'yarn'
+
+      - name: Restore yarn dependencies and cypress
+        uses: actions/cache@v2
+        id: yarn-cache
+        with:
+          path: |
+            ~/.cache/Cypress
+            node_modules
+          key: ${{ runner.os }}-yarn-v1-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-v1
+
       - name: Build ${{ matrix.package }} package
         run: yarn workspace ${{ matrix.package }} build
 
@@ -84,6 +104,32 @@ jobs:
             tags: ${{ contains(github.ref, 'main') && '@vue not @skip' || '@vue not (@skip or @todo-vue)' }}
 
     steps:
+      - name: Checkout Amplify UI
+        uses: actions/checkout@v2
+
+      - name: Next.js Cache
+        uses: actions/cache@v2
+        with:
+          path: ${{ github.workspace }}/.next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Setup Node.js LTS
+        uses: actions/setup-node@v2
+        with:
+          node-version: lts/*
+          cache: 'yarn'
+
+      - name: Restore yarn dependencies and cypress
+        uses: actions/cache@v2
+        id: yarn-cache
+        with:
+          path: |
+            ~/.cache/Cypress
+            node_modules
+          key: ${{ runner.os }}-yarn-v1-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-v1
+
       - name: Add Amplify CLI
         run: yarn global add @aws-amplify/cli
 
