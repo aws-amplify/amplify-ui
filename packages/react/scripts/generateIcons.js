@@ -32,7 +32,7 @@ import { ComponentClassNames } from '../../shared/constants';
 
 export const ${iconName} = (props) => {
 	const {
-    className,
+		className,
 		size,
 		fill = "currentColor",
 		ariaLabel,
