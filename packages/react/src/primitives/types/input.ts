@@ -74,6 +74,16 @@ export interface InputProps
   name?: string;
 
   /**
+   * Blur event handler
+   */
+  onBlur?: React.FocusEventHandler<HTMLInputElement>;
+
+  /**
+   * Focus event handler
+   */
+  onFocus?: React.FocusEventHandler<HTMLInputElement>;
+
+  /**
    * Input change event handler
    */
   onChange?: React.ChangeEventHandler<HTMLInputElement>;

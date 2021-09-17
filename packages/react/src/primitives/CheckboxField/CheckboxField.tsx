@@ -11,8 +11,10 @@ import { ComponentClassNames } from '../shared';
 export const CheckboxField: React.FC<CheckBoxFieldProps> = ({
   alignContent,
   alignItems,
+  checked,
   children,
   className,
+  defaultChecked,
   descriptiveText,
   direction = 'column',
   errorMessage,
@@ -21,7 +23,6 @@ export const CheckboxField: React.FC<CheckBoxFieldProps> = ({
   id,
   isEmphasized,
   isDisabled,
-  isIndeterminate,
   isReadOnly,
   isRequired,
   justifyContent,
@@ -56,11 +57,12 @@ export const CheckboxField: React.FC<CheckBoxFieldProps> = ({
         descriptiveText={descriptiveText}
       />
       <Checkbox
+        checked={checked}
+        defaultChecked={defaultChecked}
         hasError={hasError}
         id={id}
         isEmphasized={isEmphasized}
         isDisabled={isDisabled}
-        isIndeterminate={isIndeterminate}
         isReadOnly={isReadOnly}
         isRequired={isRequired}
         onChange={onChange}
