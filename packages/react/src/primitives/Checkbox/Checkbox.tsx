@@ -23,12 +23,14 @@ export const Checkbox: React.FC<CheckboxProps> = ({
   name,
   onChange: onChangeProp,
   size,
+  testId,
   value,
   ...rest
 }) => {
+  // controlled way should always override uncontrolled way
+  const initialChecked = checked !== undefined ? checked : defaultChecked;
   const { dataChecked, dataFocus, onBlur, onChange, onFocus } = useCheckbox(
-    // controlled checked should always override uncontrolled way
-    checked || defaultChecked,
+    initialChecked,
     onChangeProp
   );
 
@@ -37,6 +39,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
       as="label"
       className={classNames(ComponentClassNames.Checkbox, className)}
       data-disabled={isDisabled}
+      testId={testId}
     >
       <VisuallyHidden>
         <Input
@@ -63,13 +66,14 @@ export const Checkbox: React.FC<CheckboxProps> = ({
         data-checked={dataChecked}
         data-disabled={isDisabled}
         data-focus={dataFocus}
+        testId={`${testId}-button`}
       >
         <IconCheck
           className={ComponentClassNames.CheckboxIcon}
           data-checked={dataChecked}
           data-disabled={isDisabled}
           data-emphasized={isEmphasized}
-          data-focus={dataFocus}
+          data-testid={`${testId}-icon`}
           size={size}
         />
       </Flex>
@@ -78,6 +82,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
           as="span"
           className={ComponentClassNames.CheckboxLabel}
           data-disabled={isDisabled}
+          data-testid={`${testId}-label`}
         >
           {children}
         </Text>

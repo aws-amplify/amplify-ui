@@ -15,7 +15,6 @@ export const CheckboxField: React.FC<CheckboxFieldProps> = ({
   children,
   className,
   defaultChecked,
-  descriptiveText,
   direction = 'column',
   errorMessage,
   gap,
@@ -27,9 +26,9 @@ export const CheckboxField: React.FC<CheckboxFieldProps> = ({
   isRequired,
   justifyContent,
   label,
-  labelHidden = false,
-  onChange,
   name,
+  onChange,
+  testId,
   size,
   value,
   wrap,
@@ -48,14 +47,10 @@ export const CheckboxField: React.FC<CheckboxFieldProps> = ({
       direction={direction}
       gap={gap}
       justifyContent={justifyContent}
+      testId={testId}
       wrap={wrap}
       {...rest}
     >
-      <Label visuallyHidden={labelHidden}>{label}</Label>
-      <FieldDescription
-        labelHidden={labelHidden}
-        descriptiveText={descriptiveText}
-      />
       <Checkbox
         checked={checked}
         defaultChecked={defaultChecked}
@@ -65,8 +60,9 @@ export const CheckboxField: React.FC<CheckboxFieldProps> = ({
         isDisabled={isDisabled}
         isReadOnly={isReadOnly}
         isRequired={isRequired}
-        onChange={onChange}
         name={name}
+        onChange={onChange}
+        testId={`${testId}-checkbox`}
         size={size}
         value={value}
       >
