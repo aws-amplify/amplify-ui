@@ -13,7 +13,7 @@ import { StateMachineService } from '../../services/state-machine.service';
  * Input interface opinionated for authenticator usage.
  *
  * TODO: Separate this component out to two parts -- 1) amplify-auth-input that
- * contains authenticator opionated logic and 2) amplify-base-input primitive
+ * contains authenticator opinionated logic and 2) amplify-text-field primitive
  * that does not make any auth-related inference.
  */
 @Component({
