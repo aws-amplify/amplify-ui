@@ -83,39 +83,22 @@
               >{{ createAccountLabel }}</base-button
             >
 
-            <base-footer>
-              <template #footert="{ slotData }">
-                <slot
-                  name="footer"
-                  :info="slotData"
-                  :onHaveAccountClicked="onHaveAccountClicked"
-                  :onSignUpSubmit="onSignUpSubmit"
-                >
-                </slot>
-              </template>
-              <p class="amplify-text">{{ haveAccountLabel }}</p>
-              <base-button
-                class="amplify-button amplify-field-group__control"
-                data-fullwidth="false"
-                data-variation="link"
-                style="font-weight: normal"
-                type="button"
-                @click.prevent="onHaveAccountClicked"
-              >
-                {{ signInButtonText }}</base-button
-              >
-            </base-footer>
             <base-box data-ui-error v-if="actorState.context.remoteError">
               {{ actorState.context.remoteError }}
             </base-box>
-            <hr
-              class="amplify-divider"
-              aria-orientation="horizontal"
-              data-size="small"
-            />
           </base-field-set>
-
-          <federated-sign-in></federated-sign-in>
+          <base-footer>
+            <template #footert="{ slotData }">
+              <slot
+                name="footer"
+                :info="slotData"
+                :onHaveAccountClicked="onHaveAccountClicked"
+                :onSignUpSubmit="onSignUpSubmit"
+              >
+              </slot>
+            </template>
+            <federated-sign-in></federated-sign-in>
+          </base-footer>
         </base-wrapper>
       </base-form>
     </base-wrapper>
