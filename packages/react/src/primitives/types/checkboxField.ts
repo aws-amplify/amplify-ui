@@ -4,9 +4,5 @@ import { FieldProps } from './field';
 
 export interface CheckboxFieldProps
   extends CheckboxProps,
-    Omit<FieldProps, 'label'>,
-    FlexStyleProps {
-  // A Checkbox is labbelled itself
-  // label in CheckboxField should be optional
-  label?: string;
-}
+    FlexStyleProps,
+    Omit<FieldProps, 'label'> {}
