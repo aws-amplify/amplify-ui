@@ -40,7 +40,7 @@ export class AmplifyInputComponent implements OnInit {
     const { country_code }: ActorContextWithForms = getActorContext(state);
     this.defaultCountryCode = country_code;
 
-    // TODO: research better default handling mechanisms across frameworks
+    // TODO: consider better default handling mechanisms across frameworks
     if (this.isTelInput()) {
       this.stateMachine.send({
         type: 'CHANGE',
