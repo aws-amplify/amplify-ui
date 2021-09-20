@@ -1,0 +1,9 @@
+<select [id]="id" [name]="name" [attr.aria-label]="label">
+  <option
+    *ngFor="let item of items"
+    [value]="item"
+    [selected]="item === initialValue"
+  >
+    {{ item }}
+  </option>
+</select>

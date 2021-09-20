@@ -1,3 +1,13 @@
+<!-- Country code field -->
+<amplify-form-select
+  *ngIf="isTelInput()"
+  name="country_code"
+  label="Country Code"
+  [id]="'country-code'"
+  [items]="countryDialCodes"
+  [initialValue]="defaultCountryCode"
+></amplify-form-select>
+<!-- Textbox field -->
 <label>
   <div data-amplify-label>{{ inferLabel() }}</div>
   <input
@@ -6,7 +16,7 @@
     [name]="name"
     [placeholder]="inferPlaceholder()"
     [required]="required"
-    [value]="this.initialValue"
+    [value]="initialValue"
     [attr.disabled]="disabled ? '' : null"
     [autocomplete]="autocomplete"
   />
