@@ -1,22 +1,26 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   ActorContextWithForms,
   AuthInputAttributes,
   getActorContext,
   translate,
+  countryDialCodes,
 } from '@aws-amplify/ui';
 import { getAttributeMap } from '../../common';
 import { StateMachineService } from '../../services/state-machine.service';
 
 /**
- * Contains an input element and its label. Intended to be used with
- * Angular Reactive Form
+ * Input interface opinionated for authenticator usage.
+ *
+ * TODO: Separate this component out to two parts -- 1) amplify-auth-input that
+ * contains authenticator opionated logic and 2) amplify-base-input primitive
+ * that does not make any auth-related inference.
  */
 @Component({
   selector: 'amplify-form-input',
   templateUrl: './amplify-input.component.html',
 })
-export class AmplifyInputComponent {
+export class AmplifyInputComponent implements OnInit {
   @Input() name: string;
   // TODO: Separate entry for id
   @Input() type: string;
@@ -26,8 +30,24 @@ export class AmplifyInputComponent {
   @Input() initialValue = '';
   @Input() disabled = false;
   @Input() autocomplete = '';
+  public defaultCountryCode: string;
+  public countryDialCodes = countryDialCodes;
 
   constructor(private stateMachine: StateMachineService) {}
+
+  ngOnInit(): void {
+    const state = this.stateMachine.authState;
+    const { country_code }: ActorContextWithForms = getActorContext(state);
+    this.defaultCountryCode = country_code;
+
+    // TODO: research better default handling mechanisms across frameworks
+    if (this.isTelInput()) {
+      this.stateMachine.send({
+        type: 'CHANGE',
+        data: { name: 'country_code', value: country_code },
+      });
+    }
+  }
 
   get attributeMap(): AuthInputAttributes {
     return getAttributeMap();
@@ -39,6 +59,10 @@ export class AmplifyInputComponent {
     );
     const { validationError } = formContext;
     return validationError[this.name];
+  }
+
+  isTelInput(): boolean {
+    return this.inferType() === 'tel';
   }
 
   inferLabel(): string {

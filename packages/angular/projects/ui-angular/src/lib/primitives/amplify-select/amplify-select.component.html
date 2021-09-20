@@ -1,6 +1,10 @@
-<label [for]="inferId()">{{ label }}</label>
-<select>
-  <option *ngFor="let item of items" [value]="item" [id]="inferId()">
-    {{ translate(item) }}
+<label [for]="id">{{ label }}</label>
+<select [id]="id" [name]="name">
+  <option
+    *ngFor="let item of items"
+    [value]="item"
+    [selected]="item === initialValue"
+  >
+    {{ item }}
   </option>
 </select>
