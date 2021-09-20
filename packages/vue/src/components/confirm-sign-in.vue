@@ -1,46 +1,77 @@
 <template>
   <slot v-bind="$attrs" name="confirmSignInSlotI">
-    <base-wrapper v-bind="$attrs" data-amplify-wrapper>
+    <base-wrapper v-bind="$attrs">
       <base-form
         data-amplify-authenticator-confirmsignin
         @submit.prevent="onConfirmSignInSubmit"
       >
-        <base-heading>
-          {{ confirmSignInHeading }}
-        </base-heading>
-        <base-field-set :disabled="actorState.matches('confirmSignIn.pending')">
-          <base-label data-amplify-password>
-            <base-text>Code *</base-text>
-            <base-input
-              name="confirmation_code"
-              :placeholder="codeText"
-              autocomplete="one-time-code"
-              required
-              type="text"
-            ></base-input>
-          </base-label>
+        <base-field-set
+          class="amplify-flex"
+          style="flex-direction: column"
+          :disabled="actorState.matches('confirmSignIn.pending')"
+        >
+          <base-heading :level="3" class="amplify-heading">
+            {{ confirmSignInHeading }}
+          </base-heading>
+          <base-wrapper class="amplify-flex" style="flex-direction: column">
+            <base-wrapper
+              class="amplify-flex amplify-field amplify-textfield"
+              style="flex-direction: column"
+            >
+              <base-label
+                class="amplify-label sr-only"
+                for="amplify-field-51ee"
+              >
+                Code *
+              </base-label>
+              <base-wrapper class="amplify-flex" style="flex-direction: column">
+                <base-input
+                  class="amplify-input amplify-field-group__control"
+                  id="amplify-field-51ee"
+                  aria-invalid="false"
+                  name="confirmation_code"
+                  :placeholder="codeText"
+                  autocomplete="one-time-code"
+                  required
+                  type="text"
+                ></base-input>
+              </base-wrapper>
+            </base-wrapper>
+          </base-wrapper>
+          <base-footer class="amplify-flex" style="flex-direction: column">
+            <template #footert="{ slotData }">
+              <slot
+                name="footer"
+                :info="slotData"
+                :onBackToSignInClicked="onBackToSignInClicked"
+                :onConfirmSignInSubmit="onConfirmSignInSubmit"
+              >
+              </slot>
+            </template>
+            <base-button
+              class="amplify-button amplify-field-group__control"
+              data-fullwidth="false"
+              data-loading="false"
+              data-variation="primary"
+              style="font-weight: normal"
+              :disabled="actorState.matches('confirmSignIn.pending')"
+              >{{ confirmText }}</base-button
+            >
+            <base-button
+              class="amplify-button amplify-field-group__control"
+              data-fullwidth="false"
+              data-size="small"
+              data-variation="link"
+              style="font-weight: normal"
+              type="button"
+              @click.prevent="onBackToSignInClicked"
+            >
+              {{ backSignInText }}</base-button
+            >
+          </base-footer>
         </base-field-set>
 
-        <base-footer>
-          <template #footert="{ slotData }">
-            <slot
-              name="footer"
-              :info="slotData"
-              :onBackToSignInClicked="onBackToSignInClicked"
-              :onConfirmSignInSubmit="onConfirmSignInSubmit"
-            >
-            </slot>
-          </template>
-          <base-button type="button" @click.prevent="onBackToSignInClicked">
-            {{ backSignInText }}</base-button
-          >
-          <base-spacer />
-          <base-button
-            :disabled="actorState.matches('confirmSignIn.pending')"
-            >{{ confirmText }}</base-button
-          >
-        </base-footer>
-        <base-box data-ui-error>
+        <base-box data-ui-error v-if="actorState?.context?.remoteError">
           {{ actorState?.context?.remoteError }}
         </base-box>
       </base-form>
