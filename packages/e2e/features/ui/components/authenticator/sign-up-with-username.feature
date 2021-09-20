@@ -12,7 +12,6 @@ Feature: Sign Up with Username
     And I see "Email" as an input field
     And I see "Phone Number" as an input field
 
-  # Sign up tests skipped due to SES limits
   @angular @react @vue
   Scenario: Sign up with valid username & password
     # This becomes a random username
