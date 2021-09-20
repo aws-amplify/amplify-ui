@@ -12,7 +12,7 @@ Feature: Sign Up with Username
     And I see "Email" as an input field
     And I see "Phone Number" as an input field
 
-  @angular @react @vue
+  @todo-angular @react @todo-vue
   Scenario: Sign up with valid username & password
     # This becomes a random username
     When I type my "username" with status "UNKNOWN"
