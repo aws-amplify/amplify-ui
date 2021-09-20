@@ -4,7 +4,6 @@ import React from 'react';
 import { Checkbox } from '../Checkbox';
 import { FieldErrorMessage, FieldDescription } from '../Field';
 import { Flex } from '../Flex';
-import { Label } from '../Label';
 import { CheckboxFieldProps } from '../types/checkboxField';
 import { ComponentClassNames } from '../shared';
 
@@ -15,6 +14,7 @@ export const CheckboxField: React.FC<CheckboxFieldProps> = ({
   children,
   className,
   defaultChecked,
+  descriptiveText,
   direction = 'column',
   errorMessage,
   gap,
@@ -26,6 +26,7 @@ export const CheckboxField: React.FC<CheckboxFieldProps> = ({
   isRequired,
   justifyContent,
   label,
+  labelHidden = false,
   name,
   onChange,
   testId,
@@ -51,6 +52,10 @@ export const CheckboxField: React.FC<CheckboxFieldProps> = ({
       wrap={wrap}
       {...rest}
     >
+      <FieldDescription
+        labelHidden={labelHidden}
+        descriptiveText={descriptiveText}
+      />
       <Checkbox
         checked={checked}
         defaultChecked={defaultChecked}

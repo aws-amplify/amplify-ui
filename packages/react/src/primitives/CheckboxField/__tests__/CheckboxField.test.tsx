@@ -66,6 +66,16 @@ describe('CheckboxField test suite', () => {
     });
   });
 
+  describe('Descriptive message', () => {
+    const descriptiveText = 'This is a descriptive text.';
+    it('should render when descriptiveText is provided', async () => {
+      render(getCheckboxField({ ...basicProps, descriptiveText }));
+
+      const descriptiveField = await screen.queryByText(descriptiveText);
+      expect(descriptiveField).toContainHTML(descriptiveText);
+    });
+  });
+
   describe('Error messages', () => {
     const errorMessage = 'This is an error message';
     it('should not show when hasError is false', async () => {
