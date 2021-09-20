@@ -13,8 +13,8 @@ Feature: Sign Up with Email
     And I don't see "Phone Number" as an input field
 
   @todo-angular @react @todo-vue
-  Scenario: Sign up with valid email & password
-    When I type my "email" with status "UNCONFIRMED"
+  Scenario: Sign up with a new email & password
+    When I type a new "email"
     And I type my password
     And I confirm my password
     And I click the "Create Account" button

@@ -9,6 +9,13 @@ Given("I'm running the example {string}", (example: string) => {
   cy.visit(example);
 });
 
+When('I type a new {string}', (loginMechanism: string) => {
+  cy.findInputField(loginMechanism).typeAliasWithStatus(
+    loginMechanism,
+    `${Date.now()}`
+  );
+});
+
 When('I click the {string} button', (name: string) => {
   cy.findByRole('button', {
     name: new RegExp(`^${escapeRegExp(name)}$`, 'i'),
