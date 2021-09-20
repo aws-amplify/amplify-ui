@@ -63,9 +63,8 @@ export const useSearchField = (onSubmit: SearchFieldProps['onSubmit']) => {
 
 export const SearchField: React.FC<SearchFieldProps> = ({
   autoComplete = 'off',
-  children,
   className,
-  hideLabel = true,
+  labelHidden = true,
   label,
   name = 'q',
   onSubmit,
@@ -79,6 +78,7 @@ export const SearchField: React.FC<SearchFieldProps> = ({
     <TextField
       autoComplete={autoComplete}
       className={classNames(ComponentClassNames.SearchField, className)}
+      labelHidden={labelHidden}
       innerEndComponent={
         <FieldClearButton
           isVisible={strHasLength(value)}
