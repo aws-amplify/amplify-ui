@@ -41,6 +41,7 @@ jobs:
           path: |
             **/.ultra.cache.json
             **/dist
+            ~/.cache/Cypress
             node_modules
             ${{ steps.yarn-cache-dir-path.outputs.dir }}
 
@@ -78,6 +79,7 @@ jobs:
           path: |
             **/.ultra.cache.json
             **/dist
+            ~/.cache/Cypress
             node_modules
             ${{ steps.yarn-cache-dir-path.outputs.dir }}
           key: ${{ runner.os }}-ultra
@@ -137,6 +139,7 @@ jobs:
           path: |
             **/.ultra.cache.json
             **/dist
+            ~/.cache/Cypress
             node_modules
             ${{ steps.yarn-cache-dir-path.outputs.dir }}
           key: ${{ runner.os }}-ultra
