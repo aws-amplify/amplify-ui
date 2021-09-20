@@ -15,7 +15,8 @@ Feature: Sign Up with Username
   # Sign up tests skipped due to SES limits
   @angular @react @vue
   Scenario: Sign up with valid username & password
-    When I type my "username" with status "UNCONFIRMED"
+    # This becomes a random username
+    When I type my "username" with status "UNKNOWN"
     And I type my password
     And I confirm my password
     And I type my "email" with status "UNCONFIRMED"
