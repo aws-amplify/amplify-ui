@@ -27,6 +27,6 @@ Feature: Verify User
     When I type my "email" with status "UNVERIFIED"
     And I type my password
     And I click the "Sign in" button
-    And I click on the first radio button
+    And I click the "Email" radio button
     And I click the "Verify" button
     Then I will be redirected to the confirm verify user page

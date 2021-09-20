@@ -22,6 +22,10 @@ When('I click the {string} button', (name: string) => {
   }).click();
 });
 
+When('I click the {string} radio button', (label: string) => {
+  cy.findByLabelText(label).click();
+});
+
 Then('I see {string}', (message: string) => {
   cy.findByRole('document').contains(new RegExp(escapeRegExp(message), 'i'));
 });
