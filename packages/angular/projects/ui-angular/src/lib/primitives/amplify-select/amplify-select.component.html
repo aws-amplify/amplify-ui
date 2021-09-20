@@ -1,5 +1,4 @@
-<label [for]="id">{{ label }}</label>
-<select [id]="id" [name]="name">
+<select [id]="id" [name]="name" [attr.aria-label]="label">
   <option
     *ngFor="let item of items"
     [value]="item"
