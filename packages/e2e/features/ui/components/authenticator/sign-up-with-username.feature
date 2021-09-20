@@ -13,7 +13,7 @@ Feature: Sign Up with Username
     And I see "Phone Number" as an input field
 
   # Sign up tests skipped due to SES limits
-  @angular @react @vue @skip
+  @angular @react @vue
   Scenario: Sign up with valid username & password
     When I type my "username" with status "UNCONFIRMED"
     And I type my password
