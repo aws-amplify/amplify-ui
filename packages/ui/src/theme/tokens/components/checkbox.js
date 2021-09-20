@@ -1,7 +1,7 @@
 module.exports = {
   cursor: { value: 'pointer' },
   alignItems: { value: 'center' },
-  justifyContent: { value: 'center' },
+  justifyContent: { value: 'flex-start' },
   disabled: {
     cursor: {
       value: 'not-allowed',
@@ -37,13 +37,15 @@ module.exports = {
     },
   },
   icon: {
-    transform: { value: 'scale(0)' },
     borderRadius: { value: '20%' },
+    opacity: { value: '{opacities.0.value}' },
+    transform: { value: 'scale(0)' },
     transitionProperty: { value: 'all' },
     transitionDuration: { value: '{time.transition.medium.value}' },
     transitionTimingFunction: { value: 'ease-in-out' },
     checked: {
       backgroundColor: { value: '{colors.neutral.60.value}' },
+      opacity: { value: '{opacities.100.value}' },
       transform: { value: 'scale(1)' },
       emphasized: {
         backgroundColor: { value: '{colors.blue.40.value}' },

@@ -1,0 +1,8 @@
+.custom-checkbox .amplify-checkbox {
+  align-items: flex-start;
+  flex-direction: column-reverse;
+}
+
+.custom-data-attribute .amplify-checkbox__icon[data-checked='true'] {
+  background-color: rebeccapurple;
+}

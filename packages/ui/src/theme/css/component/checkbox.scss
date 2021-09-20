@@ -58,6 +58,7 @@
 }
 
 .amplify-checkbox__icon {
+  opacity: var(--amplify-components-checkbox-icon-opacity);
   transform: var(--amplify-components-checkbox-icon-transform);
   border-radius: var(--amplify-components-checkbox-icon-border-radius);
   transition-property: var(
@@ -75,6 +76,7 @@
   background-color: var(
     --amplify-components-checkbox-icon-checked-background-color
   );
+  opacity: var(--amplify-components-checkbox-icon-checked-opacity);
   transform: var(--amplify-components-checkbox-icon-checked-transform);
 
   &[data-emphasized='true'] {

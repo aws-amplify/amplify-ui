@@ -6,6 +6,7 @@ import { Flex } from '../Flex';
 import { IconCheck } from '../Icon';
 import { Input } from '../Input';
 import { Text } from '../Text';
+import { VisuallyHidden } from '../VisuallyHidden';
 import { CheckboxProps } from '../types/checkbox';
 import { ComponentClassNames } from '../shared/constants';
 
@@ -37,25 +38,24 @@ export const Checkbox: React.FC<CheckboxProps> = ({
       className={classNames(ComponentClassNames.Checkbox, className)}
       data-disabled={isDisabled}
     >
-      <Input
-        checked={checked}
-        className={classNames(
-          ComponentClassNames.CheckboxInput,
-          ComponentClassNames.VisuallyHidden
-        )}
-        defaultChecked={defaultChecked}
-        id={id}
-        isDisabled={isDisabled}
-        isReadOnly={isReadOnly}
-        isRequired={isRequired}
-        name={name}
-        onBlur={onBlur}
-        onChange={onChange}
-        onFocus={onFocus}
-        type="checkbox"
-        value={value}
-        {...rest}
-      />
+      <VisuallyHidden>
+        <Input
+          checked={checked}
+          className={ComponentClassNames.CheckboxInput}
+          defaultChecked={defaultChecked}
+          id={id}
+          isDisabled={isDisabled}
+          isReadOnly={isReadOnly}
+          isRequired={isRequired}
+          name={name}
+          onBlur={onBlur}
+          onChange={onChange}
+          onFocus={onFocus}
+          type="checkbox"
+          value={value}
+          {...rest}
+        />
+      </VisuallyHidden>
       <Flex
         aria-hidden="true"
         as="span"

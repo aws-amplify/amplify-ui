@@ -2,7 +2,7 @@ import { CheckboxProps } from './checkbox';
 import { FlexStyleProps } from './flex';
 import { FieldProps } from './field';
 
-export interface CheckBoxFieldProps
+export interface CheckboxFieldProps
   extends CheckboxProps,
     Omit<FieldProps, 'label'>,
     FlexStyleProps {

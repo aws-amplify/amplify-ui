@@ -5,10 +5,10 @@ import { Checkbox } from '../Checkbox';
 import { FieldErrorMessage, FieldDescription } from '../Field';
 import { Flex } from '../Flex';
 import { Label } from '../Label';
-import { CheckBoxFieldProps } from '../types/checkboxField';
+import { CheckboxFieldProps } from '../types/checkboxField';
 import { ComponentClassNames } from '../shared';
 
-export const CheckboxField: React.FC<CheckBoxFieldProps> = ({
+export const CheckboxField: React.FC<CheckboxFieldProps> = ({
   alignContent,
   alignItems,
   checked,
