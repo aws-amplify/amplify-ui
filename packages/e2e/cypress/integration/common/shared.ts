@@ -23,7 +23,15 @@ When('I click the {string} button', (name: string) => {
 });
 
 When('I click the {string} radio button', (label: string) => {
-  cy.findByLabelText(label).click();
+  cy.findByLabelText(label).click({
+    // We have to force this click because the radio input type isn't visible by default
+    // and instead has ::before decoration.
+    //
+    //    cy.click() failed because this element:
+    //    <input ...> is being covered by another element:
+    //    <form ...>...</form>
+    force: true,
+  });
 });
 
 Then('I see {string}', (message: string) => {
