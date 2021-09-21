@@ -1,6 +1,10 @@
 import React from 'react';
-import { useNonStyleProps, usePropStyles } from '../shared/utils';
-import { ViewProps } from '../types/index';
+import {
+  convertGridSpan,
+  useNonStyleProps,
+  usePropStyles,
+} from '../shared/utils';
+import { ResponsiveStyle, ViewProps } from '../types/index';
 
 export const View: React.FC<ViewProps> = (props) => {
   const {
@@ -13,6 +17,8 @@ export const View: React.FC<ViewProps> = (props) => {
     ariaLabel,
     isDisabled,
     style,
+    rowSpan,
+    columnSpan,
     ...rest
   } = props;
 
@@ -20,7 +26,6 @@ export const View: React.FC<ViewProps> = (props) => {
 
   const propStyles = usePropStyles(props, style);
   const nonStyleProps = useNonStyleProps(rest);
-
   return (
     <ViewTag
       aria-label={ariaLabel}

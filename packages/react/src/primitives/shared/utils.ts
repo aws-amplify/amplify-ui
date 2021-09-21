@@ -9,7 +9,9 @@ const nanoid = customAlphabet('1234567890abcdef', 12);
 
 import {
   ComponentPropsToStylePropsMap,
-  ComponentPropToStyleProp,
+  ComponentPropsToStylePropsMapKeys,
+  ResponsiveStyle,
+  StyleConverter,
   ViewProps,
 } from '../types/index';
 
@@ -23,6 +25,36 @@ export const prefixer = postcssJs.sync([autoprefixer]);
 
 export const strHasLength = (str: unknown): str is string =>
   typeof str === 'string' && str.length > 0;
+
+export const isFn = (fn: unknown): fn is Function => typeof fn === 'function';
+const filterOutNullOrEmptyStringValues = (value) =>
+  value != null && (typeof value !== 'string' || strHasLength(value));
+
+// export const filterNullOrEmptyStringFromObject = (props: ViewProps) => {
+//   return Object.fromEntries(
+//     Object.entries(props).filter(([key, value]) =>
+//       filterOutNullOrEmptyStringValues(value)
+//     )
+//   );
+// };
+export const useTransformStyleProps = (props: ViewProps): ViewProps => {
+  const { rowSpan, columnSpan, ...rest } = props;
+
+  const gridProps = React.useMemo(
+    () => ({
+      row: rowSpan != null ? convertGridSpan(rowSpan) : null, // should we filter out undefined values earlier?
+      column: columnSpan != null ? convertGridSpan(columnSpan) : null,
+    }),
+    [rowSpan, columnSpan]
+  );
+
+  // allow grid span row and column to be overwritten
+  // by explicit `row` or `column` prop via ...rest
+  return {
+    ...gridProps,
+    ...rest,
+  };
+};
 
 export const usePropStyles = (props: ViewProps, style: any) => {
   const {
@@ -41,17 +73,21 @@ export const usePropStyles = (props: ViewProps, style: any) => {
     defaultBreakpoint: defaultBreakpoint as Breakpoint,
   });
 
+  const propStyles = useTransformStyleProps(props);
+
   return React.useMemo(
     () =>
       prefixer(
-        convertStylePropsToStyleObj({ props, style, breakpoint, breakpoints })
+        convertStylePropsToStyleObj({
+          props: propStyles,
+          style,
+          breakpoint,
+          breakpoints,
+        })
       ),
-    [props, style, breakpoints, breakpoint]
+    [propStyles, style, breakpoints, breakpoint]
   );
 };
-
-const filterOutNullOrEmptyStringValues = (value) =>
-  value != null && (typeof value !== 'string' || strHasLength(value));
 
 interface convertStylePropsToStyleObjParams {
   props: ViewProps;
@@ -62,6 +98,15 @@ interface convertStylePropsToStyleObjParams {
 export interface ConvertStylePropsToStyleObj {
   (params: convertStylePropsToStyleObjParams);
 }
+
+export type SpanStyleConverter = (
+  spanValue: ResponsiveStyle<number | 'auto'>
+) => StyleConverter;
+
+export const convertGridSpan: SpanStyleConverter = (spanValue) => {
+  return () =>
+    spanValue === 'auto' ? 'auto' : `span ${spanValue}/span ${spanValue}`;
+};
 
 /**
  * Convert style props to CSS variables for React style prop
@@ -74,23 +119,18 @@ export const convertStylePropsToStyleObj: ConvertStylePropsToStyleObj = ({
   breakpoint,
   breakpoints,
 }) => {
-  (
-    Object.keys(ComponentPropsToStylePropsMap) as Array<
-      keyof ComponentPropToStyleProp
-    >
-  )
-    .filter((stylePropKey) =>
-      filterOutNullOrEmptyStringValues(props[stylePropKey])
-    )
-    .forEach((stylePropKey) => {
-      let value = getValueAtCurrentBreakpoint(
-        props[stylePropKey],
-        breakpoint,
-        breakpoints
-      );
-      const reactStyleProp = ComponentPropsToStylePropsMap[stylePropKey];
-      style = { ...style, [reactStyleProp]: value };
-    });
+  ComponentPropsToStylePropsMapKeys.filter((stylePropKey) =>
+    filterOutNullOrEmptyStringValues(props[stylePropKey])
+  ).forEach((stylePropKey) => {
+    let valueOrFn = getValueAtCurrentBreakpoint(
+      props[stylePropKey],
+      breakpoint,
+      breakpoints
+    );
+    let value = isFn(valueOrFn) ? valueOrFn() : valueOrFn;
+    const reactStyleProp = ComponentPropsToStylePropsMap[stylePropKey];
+    style = { ...style, [reactStyleProp]: value };
+  });
   return style;
 };
 

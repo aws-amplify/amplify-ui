@@ -23,3 +23,4 @@ export * from './switchField';
 export * from './tabs';
 export * from './textField';
 export * from './view';
+export * from './grid';
