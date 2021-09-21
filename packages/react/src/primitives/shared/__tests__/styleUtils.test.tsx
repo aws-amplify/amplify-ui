@@ -1,0 +1,139 @@
+import { renderHook } from '@testing-library/react-hooks';
+
+import { theme } from '@aws-amplify/ui';
+
+import { convertStylePropsToStyleObj, useNonStyleProps } from '../styleUtils';
+import { ComponentPropsToStylePropsMap, ViewProps } from '../../types';
+import { Breakpoint } from '../../types/responsive';
+
+const props: ViewProps = {
+  backgroundColor: 'blue',
+  border: '1px solid black',
+  borderRadius: '6px',
+  boxShadow: '3px 3px 5px 6px #ccc',
+  color: 'red',
+  height: '100px',
+  maxHeight: '200px',
+  maxWidth: '200px',
+  minHeight: '100px',
+  minWidth: '100px',
+  opacity: '80%',
+  padding: '6px',
+  width: '100px',
+  as: 'section',
+  ariaLabel: 'important section',
+  className: 'my-section',
+};
+
+let breakpoints = theme.breakpoints.values;
+
+const defaultStylePropsParams = {
+  breakpoint: 'base' as Breakpoint,
+  breakpoints,
+};
+
+describe('convertStylePropsToStyleObj: ', () => {
+  it('should convert style props to a style object', () => {
+    const style = convertStylePropsToStyleObj({
+      props,
+      ...defaultStylePropsParams,
+    });
+    Object.keys(ComponentPropsToStylePropsMap).forEach((prop) => {
+      expect(style[prop]).toBe(props[prop]);
+    });
+    expect(style['as']).toBeUndefined();
+  });
+
+  it('should ignore undefined, null or empty string style prop values', () => {
+    const props: ViewProps = {
+      backgroundColor: undefined,
+      color: null,
+      border: '',
+      borderRadius: '6px',
+      ariaLabel: 'important section',
+      as: 'section',
+    };
+    const style = convertStylePropsToStyleObj({
+      props,
+      ...defaultStylePropsParams,
+    });
+
+    expect(style['backgroundColor']).toBeUndefined();
+    expect(style['color']).toBeUndefined();
+    expect(style['border']).toBeUndefined();
+    expect(style['borderRadius']).toBe(props.borderRadius);
+    expect(style['as']).toBeUndefined();
+  });
+
+  it('should extend the passed in style object', () => {
+    const props: ViewProps = {
+      backgroundColor: 'red',
+    };
+    const existingStyles: React.CSSProperties = {
+      color: 'blue',
+    };
+    const style = convertStylePropsToStyleObj({
+      props,
+      style: existingStyles,
+      ...defaultStylePropsParams,
+    });
+
+    expect(style['backgroundColor']).toBe('red');
+    expect(style['color']).toBe('blue');
+  });
+
+  it('should give precedence to the stylistic props over the passed in style object', () => {
+    const props: ViewProps = {
+      color: 'red',
+      fontWeight: 'bold',
+    };
+    const existingStyles: React.CSSProperties = {
+      color: 'blue',
+      backgroundColor: 'yellow',
+    };
+
+    const style = convertStylePropsToStyleObj({
+      props,
+      style: existingStyles,
+      ...defaultStylePropsParams,
+    });
+
+    expect(style['backgroundColor']).toBe('yellow');
+    expect(style['color']).toBe('red');
+    expect(style['fontWeight']).toBe('bold');
+  });
+});
+
+describe('useNonStyleProps: ', () => {
+  it('should return an object containing only the non style props', () => {
+    const { result } = renderHook(() => useNonStyleProps(props));
+    const nonStyleProps = result.current;
+    expect(nonStyleProps['border']).toBeUndefined();
+    expect(nonStyleProps['as']).toBe(props.as);
+    expect(nonStyleProps['ariaLabel']).toBe(props.ariaLabel);
+    expect(nonStyleProps['className']).toBe(props.className);
+  });
+
+  it('should return an empty object if only style props are passed in', () => {
+    const allStyleProps: ViewProps = {
+      color: 'red',
+      backgroundColor: 'blue',
+      fontWeight: 'bold',
+    };
+    const { result } = renderHook(() => useNonStyleProps(allStyleProps));
+    const nonStyleProps = result.current;
+    expect(nonStyleProps).toEqual({});
+  });
+
+  it('should return a copy of the original object if all non style props are passed in', () => {
+    const noStyleProps: ViewProps = {
+      ['data-variation']: 'primary',
+      ariaLabel: props.ariaLabel,
+      as: props.as,
+    };
+    const { result } = renderHook(() => useNonStyleProps(noStyleProps));
+    const nonStyleProps = result.current;
+    expect(nonStyleProps).toEqual(noStyleProps);
+    expect(nonStyleProps).not.toBe(noStyleProps);
+  });
+});
