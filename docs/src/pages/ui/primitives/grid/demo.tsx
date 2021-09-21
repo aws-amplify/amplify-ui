@@ -12,8 +12,8 @@ export const GridDemo = () => {
       gap="20px"
       row
     >
-      <Card rowSpan={3}>1</Card>
-      <Card columnSpan={2} column="1 / 4">
+      <Card columnSpan={2}>1</Card>
+      <Card columnSpan={1} column="span 2">
         2
       </Card>
       <Card>3</Card>

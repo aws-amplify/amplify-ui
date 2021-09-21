@@ -10,8 +10,10 @@ const nanoid = customAlphabet('1234567890abcdef', 12);
 import {
   ComponentPropsToStylePropsMap,
   ComponentPropsToStylePropsMapKeys,
+  ResponsiveObject,
   ResponsiveStyle,
   StyleConverter,
+  StyleConverters,
   ViewProps,
 } from '../types/index';
 
@@ -27,27 +29,30 @@ export const strHasLength = (str: unknown): str is string =>
   typeof str === 'string' && str.length > 0;
 
 export const isFn = (fn: unknown): fn is Function => typeof fn === 'function';
+
 const filterOutNullOrEmptyStringValues = (value) =>
   value != null && (typeof value !== 'string' || strHasLength(value));
 
-// export const filterNullOrEmptyStringFromObject = (props: ViewProps) => {
-//   return Object.fromEntries(
-//     Object.entries(props).filter(([key, value]) =>
-//       filterOutNullOrEmptyStringValues(value)
-//     )
-//   );
-// };
+/**
+ * Transforms style props to another target prop
+ * where the original is a simpler API than the target.
+ * This function will remove the original prop and
+ * replace target prop value with a function to calculate the final value
+ * E.g. rowSpan => row, columnSpan => column
+ * @param props T
+ * @returns
+ */
 export const useTransformStyleProps = (props: ViewProps): ViewProps => {
   const { rowSpan, columnSpan, ...rest } = props;
+  const gridProps = { row: null, column: null };
 
-  const gridProps = React.useMemo(
-    () => ({
-      row: rowSpan != null ? convertGridSpan(rowSpan) : null, // should we filter out undefined values earlier?
-      column: columnSpan != null ? convertGridSpan(columnSpan) : null,
-    }),
-    [rowSpan, columnSpan]
-  );
-
+  // TODO: add memo here:
+  if (rowSpan != null) {
+    gridProps.row = convertGridSpan(rowSpan);
+  }
+  if (columnSpan != null) {
+    gridProps.column = convertGridSpan(columnSpan);
+  }
   // allow grid span row and column to be overwritten
   // by explicit `row` or `column` prop via ...rest
   return {
@@ -85,7 +90,7 @@ export const usePropStyles = (props: ViewProps, style: any) => {
           breakpoints,
         })
       ),
-    [propStyles, style, breakpoints, breakpoint]
+    [props, style, breakpoints, breakpoint]
   );
 };
 
@@ -99,11 +104,30 @@ export interface ConvertStylePropsToStyleObj {
   (params: convertStylePropsToStyleObjParams);
 }
 
-export type SpanStyleConverter = (
-  spanValue: ResponsiveStyle<number | 'auto'>
-) => StyleConverter;
+export type SpanStyleConverter<PropertyType> = (
+  spanValue: number | 'auto'
+) => StyleConverter<PropertyType>;
 
-export const convertGridSpan: SpanStyleConverter = (spanValue) => {
+export const convertGridSpan = (
+  spanValue: ResponsiveStyle<number | 'auto'>
+): StyleConverters<string> => {
+  if (typeof spanValue === 'number' || spanValue === 'auto') {
+    return getGridSpan(spanValue);
+  }
+  if (typeof spanValue === 'object') {
+    if (Array.isArray(spanValue)) {
+      return spanValue.map((value) => getGridSpan(value));
+    } else {
+      const newObj: ResponsiveObject<StyleConverter<string>> = {};
+      Object.entries(spanValue).forEach(([key, value]) => {
+        newObj[key] = getGridSpan(value);
+      });
+      return newObj;
+    }
+  }
+  return null;
+};
+export const getGridSpan: SpanStyleConverter<string> = (spanValue) => {
   return () =>
     spanValue === 'auto' ? 'auto' : `span ${spanValue}/span ${spanValue}`;
 };
