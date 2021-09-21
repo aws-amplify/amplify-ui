@@ -1,4 +1,4 @@
-import { translations, withAuthenticator } from '@aws-amplify/ui-react';
+import { withAuthenticator } from '@aws-amplify/ui-react';
 import awsExports from '@environments/auth-with-username-no-attributes/src/aws-exports';
 import { Amplify, I18n } from 'aws-amplify';
 

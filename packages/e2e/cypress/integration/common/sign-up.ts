@@ -1,7 +1,6 @@
 /// <reference types="@testing-library/cypress" />
 /// <reference types="cypress" />
-import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
-import { escapeRegExp } from 'lodash';
+import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 
 Given('I click {string}', (text: string) => {
   cy.findByText(text).click();
