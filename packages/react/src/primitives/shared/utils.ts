@@ -10,10 +10,8 @@ const nanoid = customAlphabet('1234567890abcdef', 12);
 import {
   ComponentPropsToStylePropsMap,
   ComponentPropsToStylePropsMapKeys,
+  GridItemStyleProps,
   ResponsiveObject,
-  ResponsiveStyle,
-  StyleConverter,
-  StyleConverters,
   ViewProps,
 } from '../types/index';
 
@@ -104,13 +102,9 @@ export interface ConvertStylePropsToStyleObj {
   (params: convertStylePropsToStyleObjParams);
 }
 
-export type SpanStyleConverter<PropertyType> = (
-  spanValue: number | 'auto'
-) => StyleConverter<PropertyType>;
-
 export const convertGridSpan = (
-  spanValue: ResponsiveStyle<number | 'auto'>
-): StyleConverters<string> => {
+  spanValue: GridItemStyleProps['rowSpan'] | GridItemStyleProps['columnSpan']
+): GridItemStyleProps['row'] | GridItemStyleProps['column'] => {
   if (typeof spanValue === 'number' || spanValue === 'auto') {
     return getGridSpan(spanValue);
   }
@@ -118,7 +112,7 @@ export const convertGridSpan = (
     if (Array.isArray(spanValue)) {
       return spanValue.map((value) => getGridSpan(value));
     } else {
-      const newObj: ResponsiveObject<StyleConverter<string>> = {};
+      const newObj: ResponsiveObject<string> = {};
       Object.entries(spanValue).forEach(([key, value]) => {
         newObj[key] = getGridSpan(value);
       });
@@ -127,9 +121,8 @@ export const convertGridSpan = (
   }
   return null;
 };
-export const getGridSpan: SpanStyleConverter<string> = (spanValue) => {
-  return () =>
-    spanValue === 'auto' ? 'auto' : `span ${spanValue}/span ${spanValue}`;
+export const getGridSpan = (spanValue: number | 'auto'): string => {
+  return spanValue === 'auto' ? 'auto' : `span ${spanValue}/span ${spanValue}`;
 };
 
 /**
@@ -146,12 +139,11 @@ export const convertStylePropsToStyleObj: ConvertStylePropsToStyleObj = ({
   ComponentPropsToStylePropsMapKeys.filter((stylePropKey) =>
     filterOutNullOrEmptyStringValues(props[stylePropKey])
   ).forEach((stylePropKey) => {
-    let valueOrFn = getValueAtCurrentBreakpoint(
+    let value = getValueAtCurrentBreakpoint(
       props[stylePropKey],
       breakpoint,
       breakpoints
     );
-    let value = isFn(valueOrFn) ? valueOrFn() : valueOrFn;
     const reactStyleProp = ComponentPropsToStylePropsMap[stylePropKey];
     style = { ...style, [reactStyleProp]: value };
   });

@@ -13,7 +13,7 @@ export const GridDemo = () => {
       row
     >
       <Card columnSpan={2}>1</Card>
-      <Card columnSpan={1} column="span 2">
+      <Card columnSpan={3} column="span 1">
         2
       </Card>
       <Card>3</Card>

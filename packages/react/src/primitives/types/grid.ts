@@ -1,7 +1,7 @@
 import { Property } from 'csstype';
 import { AriaProps, BaseComponentProps } from './base';
 
-import { ResponsiveStyle, CSSLayoutStyleProps, StyleConverters } from './style';
+import { ResponsiveStyle, CSSLayoutStyleProps } from './style';
 
 export interface GridContainerStyleProps extends CSSLayoutStyleProps {
   area?: ResponsiveStyle<Property.GridArea>;
@@ -20,13 +20,11 @@ interface ConvertSpanFunction {
 }
 
 export interface GridItemStyleProps {
-  column?:
-    | ResponsiveStyle<Property.GridColumn>
-    | StyleConverters<Property.GridColumn>;
+  column?: ResponsiveStyle<Property.GridColumn>;
   columnEnd?: ResponsiveStyle<Property.GridColumnEnd>;
   columnSpan?: ResponsiveStyle<number | 'auto'>;
   columnStart?: ResponsiveStyle<Property.GridColumnStart>;
-  row?: ResponsiveStyle<Property.GridRow | StyleConverters<Property.GridRow>>;
+  row?: ResponsiveStyle<Property.GridRow>;
   rowEnd?: ResponsiveStyle<Property.GridRowEnd>;
   rowSpan?: ResponsiveStyle<number | 'auto'>;
   rowStart?: ResponsiveStyle<Property.GridRowStart>;
