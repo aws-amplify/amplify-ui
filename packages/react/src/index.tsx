@@ -8,4 +8,4 @@ export * from './theming';
 export * as components from './components';
 export * as primitives from './primitives';
 
-export { theme, translations } from '@aws-amplify/ui';
+export { theme } from '@aws-amplify/ui';

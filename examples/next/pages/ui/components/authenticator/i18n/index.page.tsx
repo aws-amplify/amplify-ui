@@ -4,7 +4,6 @@ import { Amplify, I18n } from 'aws-amplify';
 
 Amplify.configure(awsExports);
 
-I18n.putVocabularies(translations);
 I18n.setLanguage('fr');
 
 function App({ state, send }) {
