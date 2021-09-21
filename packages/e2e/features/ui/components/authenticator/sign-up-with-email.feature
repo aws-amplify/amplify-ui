@@ -12,7 +12,7 @@ Feature: Sign Up with Email
     And I don't see "Username" as an input field
     And I don't see "Phone Number" as an input field
 
-  @todo-angular @react @todo-vue
+  @angular @react @vue @todo-angular  @todo-vue
   Scenario: Sign up with a new email & password
     When I type a new "email"
     And I type my password
