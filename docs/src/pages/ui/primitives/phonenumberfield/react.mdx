@@ -7,3 +7,16 @@ The `PhoneNumberField` form primitive can be used allow users to input a phone n
 ## Demo
 
 <PhoneNumberFieldDemo />
+
+## Usage
+
+### Autocomplete - supporting password managers
+
+Password managers in Chromium expect input forms to have an `autocomplete` attribute of `username`. As a result, this attribute is
+added to the `PhoneNumberField` primitive so that password managers are supported out of the box in Chromium. However, you may pass in
+your own `autocomplete` attribute if you wish to override the default value.
+
+## Styling
+
+The `PhoneNumberField` uses the same styling rules as the `TextField` primitive. Refer to the [TextField primitive documentation](textfield#css-styling)
+for more information regarding custom styling.

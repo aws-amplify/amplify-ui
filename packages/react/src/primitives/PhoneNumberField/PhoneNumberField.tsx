@@ -6,12 +6,14 @@ import { PhoneNumberFieldProps } from '../types';
 
 export const PhoneNumberField: React.FC<PhoneNumberFieldProps> = ({
   defaultCountryCode,
+  defaultValue,
   errorMessage,
   label,
   labelHidden = false,
   name = 'phone_number',
   onChange,
   placeholder,
+  value,
   ...rest
 }) => {
   return (
@@ -22,6 +24,7 @@ export const PhoneNumberField: React.FC<PhoneNumberFieldProps> = ({
           label="country code"
           labelHidden={true}
           defaultValue={defaultCountryCode}
+          {...rest}
         >
           {countryDialCodes.map((dialCode) => (
             <option key={dialCode} value={dialCode}>
@@ -30,13 +33,13 @@ export const PhoneNumberField: React.FC<PhoneNumberFieldProps> = ({
           ))}
         </SelectField>
       }
-      type={'tel'}
+      defaultValue={defaultValue}
+      errorMessage={errorMessage}
       name={name}
-      placeholder={placeholder}
       label={label}
       labelHidden={labelHidden}
-      autoComplete="username"
-      errorMessage={errorMessage}
+      placeholder={placeholder}
+      type={'tel'}
       {...rest}
     />
   );
