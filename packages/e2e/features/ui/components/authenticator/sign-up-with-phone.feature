@@ -13,7 +13,7 @@ Feature: Sign Up with Phone
     And I don't see "Username" as an input field
     And I don't see "Email" as an input field
 
-  @todo-angular @react @todo-vue
+  @angular @todo-angular @react @vue @todo-vue
   Scenario: Sign up with valid phone number & password
     When I select my country code with status "UNCONFIRMED"
     And I type my "phone number" with status "UNCONFIRMED"
