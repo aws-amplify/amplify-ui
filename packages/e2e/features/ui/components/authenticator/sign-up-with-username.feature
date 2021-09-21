@@ -12,10 +12,9 @@ Feature: Sign Up with Username
     And I see "Email" as an input field
     And I see "Phone Number" as an input field
 
-  # Sign up tests skipped due to SES limits
-  @angular @react @vue @skip
-  Scenario: Sign up with valid username & password
-    When I type my "username" with status "UNCONFIRMED"
+  @angular @todo-angular @react @vue @todo-vue
+  Scenario: Sign up a new username & password
+    When I type a new "username"
     And I type my password
     And I confirm my password
     And I type my "email" with status "UNCONFIRMED"

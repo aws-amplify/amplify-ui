@@ -5,6 +5,7 @@ Feature: Sign Up with Phone
   Background:
     Given I'm running the example "ui/components/authenticator/sign-up-with-phone/"
     And I click the Create Account tab
+    And intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-phone"
 
   @todo-angular @react @todo-vue
   Scenario: Login mechanism set to "phone_number"
@@ -12,7 +13,7 @@ Feature: Sign Up with Phone
     And I don't see "Username" as an input field
     And I don't see "Email" as an input field
 
-  # Sign up tests skipped due to SES limits
+  @angular @todo-angular @react @vue @todo-vue
   Scenario: Sign up with valid phone number & password
     When I select my country code with status "UNCONFIRMED"
     And I type my "phone number" with status "UNCONFIRMED"
