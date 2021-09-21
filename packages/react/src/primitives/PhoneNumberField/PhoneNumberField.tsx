@@ -5,6 +5,7 @@ import { TextField } from '../TextField';
 import { PhoneNumberFieldProps } from '../types';
 
 export const PhoneNumberField: React.FC<PhoneNumberFieldProps> = ({
+  autoComplete = 'username',
   defaultCountryCode,
   defaultValue,
   errorMessage,
@@ -33,6 +34,7 @@ export const PhoneNumberField: React.FC<PhoneNumberFieldProps> = ({
           ))}
         </SelectField>
       }
+      autoComplete={autoComplete}
       defaultValue={defaultValue}
       errorMessage={errorMessage}
       name={name}
