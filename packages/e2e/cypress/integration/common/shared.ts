@@ -20,8 +20,6 @@ Given(
       throw error;
     }
 
-    console.log({ routeMatcher });
-
     cy.intercept(routeMatcher, { fixture });
   }
 );
