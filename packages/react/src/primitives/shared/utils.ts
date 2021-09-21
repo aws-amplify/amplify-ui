@@ -1,171 +1,17 @@
 import * as React from 'react';
-import autoprefixer from 'autoprefixer';
-import postcssJs from 'postcss-js';
 
 // Note: this makes nanoid more performant, not less secure
 // @see https://www.npmjs.com/package/nanoid#user-content-non-secure
 import { customAlphabet } from 'nanoid/non-secure';
 const nanoid = customAlphabet('1234567890abcdef', 12);
 
-import {
-  ComponentPropsToStylePropsMap,
-  ComponentPropsToStylePropsMapKeys,
-  GridItemStyleProps,
-  ResponsiveObject,
-  ViewProps,
-} from '../types/index';
-
-import { getValueAtCurrentBreakpoint } from './responsive/utils';
-import { useBreakpoint } from './responsive/useBreakpoint';
-import { Breakpoint, Breakpoints } from '../types/responsive';
-
-import { useTheming } from '../../theming/';
-
-export const prefixer = postcssJs.sync([autoprefixer]);
-
 export const strHasLength = (str: unknown): str is string =>
   typeof str === 'string' && str.length > 0;
 
 export const isFn = (fn: unknown): fn is Function => typeof fn === 'function';
 
-const filterOutNullOrEmptyStringValues = (value) =>
+export const filterOutNullOrEmptyStringValues = (value) =>
   value != null && (typeof value !== 'string' || strHasLength(value));
-
-/**
- * Transforms style props to another target prop
- * where the original is a simpler API than the target.
- * This function will remove the original prop and
- * replace target prop value with a function to calculate the final value
- * E.g. rowSpan => row, columnSpan => column
- * @param props T
- * @returns
- */
-export const useTransformStyleProps = (props: ViewProps): ViewProps => {
-  const { rowSpan, columnSpan, ...rest } = props;
-  const gridProps = { row: null, column: null };
-
-  // TODO: add memo here:
-  if (rowSpan != null) {
-    gridProps.row = convertGridSpan(rowSpan);
-  }
-  if (columnSpan != null) {
-    gridProps.column = convertGridSpan(columnSpan);
-  }
-  // allow grid span row and column to be overwritten
-  // by explicit `row` or `column` prop via ...rest
-  return {
-    ...gridProps,
-    ...rest,
-  };
-};
-
-export const usePropStyles = (props: ViewProps, style: any) => {
-  const {
-    theme: {
-      breakpoints: {
-        values: breakpoints,
-        unit: breakpointUnit,
-        defaultBreakpoint,
-      },
-    },
-  } = useTheming();
-
-  const breakpoint = useBreakpoint({
-    breakpoints,
-    breakpointUnit,
-    defaultBreakpoint: defaultBreakpoint as Breakpoint,
-  });
-
-  const propStyles = useTransformStyleProps(props);
-
-  return React.useMemo(
-    () =>
-      prefixer(
-        convertStylePropsToStyleObj({
-          props: propStyles,
-          style,
-          breakpoint,
-          breakpoints,
-        })
-      ),
-    [props, style, breakpoints, breakpoint]
-  );
-};
-
-interface convertStylePropsToStyleObjParams {
-  props: ViewProps;
-  style?: React.CSSProperties;
-  breakpoint: Breakpoint;
-  breakpoints: Breakpoints;
-}
-export interface ConvertStylePropsToStyleObj {
-  (params: convertStylePropsToStyleObjParams);
-}
-
-export const convertGridSpan = (
-  spanValue: GridItemStyleProps['rowSpan'] | GridItemStyleProps['columnSpan']
-): GridItemStyleProps['row'] | GridItemStyleProps['column'] => {
-  if (typeof spanValue === 'number' || spanValue === 'auto') {
-    return getGridSpan(spanValue);
-  }
-  if (typeof spanValue === 'object') {
-    if (Array.isArray(spanValue)) {
-      return spanValue.map((value) => getGridSpan(value));
-    } else {
-      const newObj: ResponsiveObject<string> = {};
-      Object.entries(spanValue).forEach(([key, value]) => {
-        newObj[key] = getGridSpan(value);
-      });
-      return newObj;
-    }
-  }
-  return null;
-};
-export const getGridSpan = (spanValue: number | 'auto'): string => {
-  return spanValue === 'auto' ? 'auto' : `span ${spanValue}/span ${spanValue}`;
-};
-
-/**
- * Convert style props to CSS variables for React style prop
- * Note: Will filter out undefined, null, and empty string prop values
- * @returns CSSProperties styles
- */
-export const convertStylePropsToStyleObj: ConvertStylePropsToStyleObj = ({
-  props = {},
-  style = {},
-  breakpoint,
-  breakpoints,
-}) => {
-  ComponentPropsToStylePropsMapKeys.filter((stylePropKey) =>
-    filterOutNullOrEmptyStringValues(props[stylePropKey])
-  ).forEach((stylePropKey) => {
-    let value = getValueAtCurrentBreakpoint(
-      props[stylePropKey],
-      breakpoint,
-      breakpoints
-    );
-    const reactStyleProp = ComponentPropsToStylePropsMap[stylePropKey];
-    style = { ...style, [reactStyleProp]: value };
-  });
-  return style;
-};
-
-/**
- * Filter out known style props to prevent errors adding invalid HTML attributes
- * @param props
- * @returns non styled props
- */
-export const useNonStyleProps = (props: ViewProps) => {
-  return React.useMemo(() => {
-    const nonStyleProps = {};
-    Object.keys(props).forEach((propKey) => {
-      if (!(propKey in ComponentPropsToStylePropsMap)) {
-        nonStyleProps[propKey] = props[propKey];
-      }
-    });
-    return nonStyleProps;
-  }, [props]);
-};
 
 /**
  * Create a consecutive integer array from start value to end value.
