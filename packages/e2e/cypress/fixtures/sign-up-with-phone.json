@@ -2,8 +2,8 @@
   "CodeDeliveryDetails": {
     "AttributeName": "phone_number",
     "DeliveryMedium": "SMS",
-    "Destination": "+*******7673"
+    "Destination": "+*******4444"
   },
   "UserConfirmed": false,
-  "UserSub": "486c619e-f96f-41bd-ada7-955f14aea97c"
+  "UserSub": "abcdef12-ab12-12ab-abc1-123a45bcd67f"
 }
