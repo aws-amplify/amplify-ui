@@ -1,55 +1,91 @@
 <template>
   <slot v-bind="$attrs" name="confirmSetupTOTPI">
-    <base-wrapper v-bind="$attrs" data-amplify-wrapper>
+    <base-wrapper v-bind="$attrs">
       <base-form
         data-amplify-authenticator-setup-totp
         @submit.prevent="onSetupTOTPSubmit"
       >
-        <base-heading>
-          {{ setupTOTPText }}
-        </base-heading>
-        <base-field-set :disabled="actorState.matches('confirmSignIn.pending')">
-          <base-label data-amplify-confirmationcode>
-            <template v-if="qrCode.isLoading">
-              <p>Loading...</p>
-            </template>
-            <template v-else>
-              <img
-                data-amplify-qrcode
-                :src="qrCode.qrCodeImageSource"
-                alt="qr code"
-              />
-              <base-text>Code *</base-text>
-              <base-input
-                name="confirmation_code"
-                :placeholder="codeText"
-                autocomplete="one-time-code"
-                required
-                type="text"
-              ></base-input>
-            </template>
-          </base-label>
+        <base-field-set
+          class="amplify-flex"
+          style="flex-direction: column"
+          :disabled="actorState.matches('confirmSignIn.pending')"
+        >
+          <template v-if="qrCode.isLoading">
+            <p>Loading...</p>
+          </template>
+          <template v-else>
+            <base-wrapper class="amplify-flex" style="flex-direction: column">
+              <base-heading class="amplify-heading" :level="3">
+                Setup TOTP
+              </base-heading>
+              <base-wrapper class="amplify-flex" style="flex-direction: column">
+                <img
+                  class="amplify-image"
+                  data-amplify-qrcode
+                  :src="qrCode.qrCodeImageSource"
+                  alt="qr code"
+                />
+                <base-wrapper
+                  class="amplify-flex amplify-field amplify-textfield"
+                  style="flex-direction: column"
+                >
+                  <base-label
+                    class="amplify-label sr-only"
+                    for="amplify-field-45d1"
+                    >Code *</base-label
+                  >
+                  <base-wrapper class="amplify-flex">
+                    <base-input
+                      class="amplify-input amplify-field-group__control"
+                      id="amplify-field-45d1"
+                      aria-invalid="false"
+                      name="confirmation_code"
+                      :placeholder="codeText"
+                      autocomplete="one-time-code"
+                      required
+                      type="text"
+                    ></base-input>
+                  </base-wrapper>
+                </base-wrapper>
+              </base-wrapper>
+              <base-footer class="amplify-flex" style="flex-direction: column">
+                <template #footert="{ slotData }">
+                  <slot
+                    name="footer"
+                    :info="slotData"
+                    :onBackToSignInClicked="onBackToSignInClicked"
+                    :onSetupTOTPSubmit="onSetupTOTPSubmit"
+                  >
+                  </slot>
+                </template>
+                <base-button
+                  class="amplify-button amplify-field-group__control"
+                  data-fullwidth="false"
+                  data-loading="false"
+                  data-variation="primary"
+                  type="submit"
+                  style="font-weight: normal"
+                  :disabled="actorState.matches('confirmSignIn.pending')"
+                >
+                  {{ confirmText }}
+                </base-button>
+                <base-button
+                  class="amplify-button amplify-field-group__control"
+                  data-fullwidth="false"
+                  data-size="small"
+                  data-variation="link"
+                  style="font-weight: normal"
+                  type="button"
+                  @click.prevent="onBackToSignInClicked"
+                >
+                  {{ backSignInText }}</base-button
+                >
+              </base-footer>
+            </base-wrapper>
+          </template>
         </base-field-set>
 
-        <base-footer>
-          <template #footert="{ slotData }">
-            <slot
-              name="footer"
-              :info="slotData"
-              :onBackToSignInClicked="onBackToSignInClicked"
-              :onSetupTOTPSubmit="onSetupTOTPSubmit"
-            >
-            </slot>
-          </template>
-          <base-button type="button" @click.prevent="onBackToSignInClicked">
-            {{ backSignInText }}</base-button
-          >
-          <base-spacer />
-          <base-button :disabled="actorState.matches('confirmSignIn.pending')">
-            {{ confirmText }}
-          </base-button>
-        </base-footer>
-        <base-box data-ui-error>
+        <base-box data-ui-error v-if="actorState.context?.remoteError">
           {{ actorState.context.remoteError }}
         </base-box>
       </base-form>

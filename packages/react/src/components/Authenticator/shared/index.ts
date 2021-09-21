@@ -5,3 +5,4 @@ export * from './ErrorText';
 export * from './TwoButtonSubmitFooter';
 export * from './PasswordInput';
 export * from './RemoteErrorMessage';
+export * from './SignInSignUpTabs';

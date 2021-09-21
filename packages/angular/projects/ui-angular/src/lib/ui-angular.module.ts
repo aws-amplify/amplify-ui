@@ -2,7 +2,6 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AmplifyAuthenticatorComponent } from './components/amplify-authenticator/amplify-authenticator.component';
 import { AmplifySignInComponent } from './components/amplify-sign-in/amplify-sign-in.component';
-import { AmplifySignOutComponent } from './components/amplify-sign-out/amplify-sign-out.component';
 import { AmplifyOverrideDirective } from './directives/amplify-override.directive';
 import { AmplifySignUpComponent } from './components/amplify-sign-up/amplify-sign-up.component';
 import { AmplifyInputComponent } from './primitives/amplify-input/amplify-input.component';
@@ -18,6 +17,7 @@ import { AmplifyResetPasswordComponent } from './components/amplify-reset-passwo
 import { AmplifyVerifyUserComponent } from './components/amplify-verify-user/amplify-verify-user.component';
 import { ConfirmResetPasswordComponent } from './components/confirm-reset-password/amplify-confirm-reset-password.component';
 import { ConfirmVerifyUserComponent } from './components/confirm-verify-user/amplify-confirm-verify-user.component';
+import { AmplifySelectComponent } from './primitives/amplify-select/amplify-select.component';
 
 import {
   AmplifyS3Album as S3Album,
@@ -74,7 +74,6 @@ customElements.define('amplify-photo-picker', AmplifyPhotoPicker);
     photoPicker,
     AmplifyAuthenticatorComponent,
     AmplifySignInComponent,
-    AmplifySignOutComponent,
     AmplifySignUpComponent,
     AmplifyInputComponent,
     AmplifyErrorComponent,
@@ -90,6 +89,7 @@ customElements.define('amplify-photo-picker', AmplifyPhotoPicker);
     AmplifyVerifyUserComponent,
     ConfirmResetPasswordComponent,
     ConfirmVerifyUserComponent,
+    AmplifySelectComponent,
   ],
   imports: [CommonModule],
   exports: [
@@ -106,7 +106,6 @@ customElements.define('amplify-photo-picker', AmplifyPhotoPicker);
     photoPicker,
     AmplifyAuthenticatorComponent,
     AmplifySignInComponent,
-    AmplifySignOutComponent,
     AmplifyInputComponent,
     AmplifyErrorComponent,
     AmplifyOverrideDirective,

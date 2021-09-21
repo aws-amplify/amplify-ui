@@ -1,5 +1,13 @@
-export * from './amplify-authenticator/amplify-authenticator.component';
-export * from './amplify-confirm-sign-up/amplify-confirm-sign-up.component';
-export * from './amplify-sign-in/amplify-sign-in.component';
-export * from './amplify-sign-out/amplify-sign-out.component';
-export * from './amplify-sign-up/amplify-sign-up.component';
+export { AmplifyAuthenticatorComponent } from './amplify-authenticator/amplify-authenticator.component';
+export { AmplifyConfirmSignInComponent } from './amplify-confirm-sign-in/amplify-confirm-sign-in.component';
+export { AmplifyConfirmSignUpComponent } from './amplify-confirm-sign-up/amplify-confirm-sign-up.component';
+export { AmplifyFederatedSignInButtonComponent } from './amplify-federated-sign-in-button/amplify-federated-sign-in-button.component';
+export { AmplifyFederatedSignInComponent } from './amplify-federated-sign-in/amplify-federated-sign-in.component';
+export { AmplifyForceNewPasswordComponent } from './amplify-force-new-password/amplify-force-new-password.component';
+export { AmplifyResetPasswordComponent } from './amplify-reset-password/amplify-reset-password.component';
+export { AmplifySetupTotpComponent } from './amplify-setup-totp/amplify-setup-totp.component';
+export { AmplifySignInComponent } from './amplify-sign-in/amplify-sign-in.component';
+export { AmplifySignUpComponent } from './amplify-sign-up/amplify-sign-up.component';
+export { AmplifyVerifyUserComponent } from './amplify-verify-user/amplify-verify-user.component';
+export { ConfirmResetPasswordComponent } from './confirm-reset-password/amplify-confirm-reset-password.component';
+export { ConfirmVerifyUserComponent } from './confirm-verify-user/amplify-confirm-verify-user.component';

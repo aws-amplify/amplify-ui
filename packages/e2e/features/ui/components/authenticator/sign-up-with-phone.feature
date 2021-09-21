@@ -4,9 +4,9 @@ Feature: Sign Up with Phone
 
   Background:
     Given I'm running the example "ui/components/authenticator/sign-up-with-phone/"
-    And I click "Create account"
+    And I click the Create Account tab
 
-  @angular @react @vue
+  @todo-angular @react @todo-vue
   Scenario: Login mechanism set to "phone_number"
     Then I see "Phone Number" as an input field
     And I don't see "Username" as an input field
@@ -21,7 +21,7 @@ Feature: Sign Up with Phone
     And I click the "Create Account" button
     Then I see "Confirmation Code"
 
-  @angular @react @vue
+  @todo-angular @react @todo-vue
   Scenario: Phone number field autocompletes username
 
   On sign up form, autocomplete prefers usage of username instead of phone number. 
@@ -29,7 +29,7 @@ Feature: Sign Up with Phone
 
     And "Phone Number" field autocompletes "username"
 
-  @angular @react @vue
+  @todo-angular @react @todo-vue
   Scenario: Password fields autocomplete "new-password"
     And "Password" field autocompletes "new-password"
     And "Confirm Password" field autocompletes "new-password"
