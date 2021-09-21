@@ -9,6 +9,23 @@ Given("I'm running the example {string}", (example: string) => {
   cy.visit(example);
 });
 
+Given(
+  'intercept {string} with fixture {string}',
+  (json: string, fixture: string) => {
+    let routeMatcher;
+
+    try {
+      routeMatcher = JSON.parse(json);
+    } catch (error) {
+      throw error;
+    }
+
+    console.log({ routeMatcher });
+
+    cy.intercept(routeMatcher, { fixture });
+  }
+);
+
 When('I type a new {string}', (loginMechanism: string) => {
   cy.findInputField(loginMechanism).typeAliasWithStatus(
     loginMechanism,
