@@ -3,12 +3,6 @@ import { FlexStyleProps } from './flex';
 import { GridItemStyleProps, GridContainerStyleProps } from './grid';
 import { ImageStyleProps } from './image';
 
-export type StyleConverter<PropertyType> = () => PropertyType;
-export type StyleConverters<PropertyType> =
-  | StyleConverter<PropertyType>
-  | StyleConverter<PropertyType>[]
-  | ResponsiveObject<StyleConverter<PropertyType>>;
-
 export interface ResponsiveObject<PropertyType> {
   base?: PropertyType;
   small?: PropertyType;
