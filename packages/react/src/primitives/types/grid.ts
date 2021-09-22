@@ -9,14 +9,10 @@ export interface GridContainerStyleProps extends CSSLayoutStyleProps {
   autoFlow?: ResponsiveStyle<Property.GridAutoFlow>;
   autoRows?: ResponsiveStyle<Property.GridAutoRows>;
   columnGap?: ResponsiveStyle<Property.GridColumnGap>;
-  gap?: ResponsiveStyle<Property.Gap>;
   rowGap?: ResponsiveStyle<Property.GridRowGap>;
   templateAreas?: ResponsiveStyle<Property.GridTemplateAreas>;
   templateColumns?: ResponsiveStyle<Property.GridTemplateColumns>;
   templateRows?: ResponsiveStyle<Property.GridTemplateRows>;
-}
-interface ConvertSpanFunction {
-  (spanValue: ResponsiveStyle<number | 'auto'>): () => string;
 }
 
 export interface GridItemStyleProps {
