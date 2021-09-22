@@ -56,7 +56,7 @@ export function UserNameAlias(props: UserNameAliasProps) {
         name={alias ?? 'username'}
         required
         placeholder={i18nLabel}
-        label={label}
+        label={i18nLabel}
         labelHidden={true}
         autoComplete="username"
         errorMessage={error}

@@ -99,6 +99,37 @@ can sign in with Google, Amazon or Facebook.
 
 <Feature name="sign-in-federated" />
 
+### Internationalization (I18n)
+
+The `Authenticator` ships with [translations](https://github.com/aws-amplify/amplify-ui/blob/main/packages/ui/src/i18n/translations.ts) for:
+
+- `en` – English (default)
+- `zh` – Chinese
+- `fr` – French
+- `de` – German
+- `it` – Italian
+- `ja` – Japenese
+- `es` – Spanish
+
+These [translations](https://github.com/aws-amplify/amplify-ui/blob/main/packages/ui/src/i18n/translations.ts) can be customized using the [Amplify JS' `I18n`](https://docs.amplify.aws/lib/utilities/i18n/q/platform/js/) module:
+
+```js
+I18n.setLanguage('fr');
+
+I18n.putVocabularies({
+  fr: {
+    'Sign In': 'Se connecter',
+    'Sign Up': "S'inscrire",
+  },
+  es: {
+    'Sign In': 'Registrarse',
+    'Sign Up': 'Regístrate',
+  },
+});
+```
+
+<Feature name="i18n" />
+
 ## Headless Usage
 
 The `Authenticator`'s UI is powered by a state machine that you can hook into to customize behavior or create your own API.

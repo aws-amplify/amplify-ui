@@ -1,17 +1,19 @@
-import { authMachine, getActorState } from '@aws-amplify/ui';
-import { useAmplify } from '../../hooks';
+import { authMachine, getActorState, translations } from '@aws-amplify/ui';
 import { useActor, useInterpret } from '@xstate/react';
+import { I18n } from 'aws-amplify';
+import * as React from 'react';
 
+import { useAmplify } from '../../hooks';
 import { AuthenticatorContext } from './AuthenticatorContext';
 import { ConfirmSignIn } from './ConfirmSignIn';
 import { ConfirmSignUp } from './ConfirmSignUp';
 import { ForceNewPassword } from './ForceNewPassword';
 import { ConfirmResetPassword, ResetPassword } from './ResetPassword';
 import { SetupTOTP } from './SetupTOTP';
+import { SignInSignUpTabs } from './shared';
 import { SignIn } from './SignIn';
 import { SignUp } from './SignUp';
 import { ConfirmVerifyUser, VerifyUser } from './VerifyUser';
-import { SignInSignUpTabs } from './shared';
 
 export function Authenticator({
   className = null,
@@ -22,6 +24,10 @@ export function Authenticator({
   });
 
   const [state, send] = useActor(service);
+
+  React.useEffect(() => {
+    I18n.putVocabularies(translations);
+  }, []);
 
   const {
     components: {

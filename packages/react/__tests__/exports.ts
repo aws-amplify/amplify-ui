@@ -1877,7 +1877,6 @@ describe('@aws-amplify/ui-react', () => {
           "primitives",
           "strHasLength",
           "theme",
-          "translations",
           "useAmplify",
           "useAmplifyFieldID",
           "useAuth",
