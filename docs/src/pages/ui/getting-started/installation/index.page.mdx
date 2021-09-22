@@ -1,0 +1,9 @@
+---
+title: Installation
+---
+
+import { Fragment } from '@/components/Fragment';
+
+<Fragment>
+  {({ platform }) => import(`./installation.${platform}.mdx`)}
+</Fragment>
