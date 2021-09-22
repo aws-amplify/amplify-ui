@@ -13,13 +13,13 @@
 </ng-template>
 
 <ng-template #signInForm>
-  <form
-    data-amplify-form
-    (submit)="onSubmit($event)"
-    (input)="onInput($event)"
-    [disabled]="isPending"
-  >
-    <div class="amplify-flex" [ngStyle]="{ 'flex-direction': 'column' }">
+  <form data-amplify-form (submit)="onSubmit($event)" (input)="onInput($event)">
+    <fieldset
+      class="amplify-flex"
+      [ngStyle]="{ 'flex-direction': 'column' }"
+      [disabled]="isPending"
+      data-amplify-fieldset
+    >
       <h3 class="amplify-heading">{{ this.headerText }}</h3>
       <amplify-user-name-alias></amplify-user-name-alias>
       <amplify-form-input
@@ -58,7 +58,7 @@
       <amplify-error *ngIf="remoteError">
         {{ remoteError }}
       </amplify-error>
-    </div>
+    </fieldset>
     <amplify-federated-sign-in></amplify-federated-sign-in>
   </form>
 </ng-template>
