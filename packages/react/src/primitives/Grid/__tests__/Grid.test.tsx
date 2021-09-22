@@ -15,6 +15,7 @@ import { errorMessageWrapper } from '../../utils/testUtils';
 import { convertGridSpan } from '../../shared/styleUtils';
 
 export const testGridItemStyleProps: GridItemStyleProps = {
+  area: '1 / 1 / 2 / 2',
   column: '1 / span 2',
   columnEnd: 'auto',
   // columnSpan: 3, // Left out to test separately below, since this changes the row property
@@ -28,7 +29,6 @@ export const testGridItemStyleProps: GridItemStyleProps = {
 export const testGridContainerStyleProps: GridContainerStyleProps = {
   alignContent: 'center',
   alignItems: 'center',
-  area: 'auto / custom-area / auto / 4',
   autoColumns: '1fr',
   autoFlow: 'row dense',
   autoRows: 'minmax(30px, auto)',

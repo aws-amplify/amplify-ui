@@ -4,7 +4,6 @@ import { AriaProps, BaseComponentProps } from './base';
 import { ResponsiveStyle, CSSLayoutStyleProps } from './style';
 
 export interface GridContainerStyleProps extends CSSLayoutStyleProps {
-  area?: ResponsiveStyle<Property.GridArea>;
   autoColumns?: ResponsiveStyle<Property.GridAutoColumns>;
   autoFlow?: ResponsiveStyle<Property.GridAutoFlow>;
   autoRows?: ResponsiveStyle<Property.GridAutoRows>;
@@ -16,6 +15,7 @@ export interface GridContainerStyleProps extends CSSLayoutStyleProps {
 }
 
 export interface GridItemStyleProps {
+  area?: ResponsiveStyle<Property.GridArea>;
   column?: ResponsiveStyle<Property.GridColumn>;
   columnEnd?: ResponsiveStyle<Property.GridColumnEnd>;
   columnSpan?: ResponsiveStyle<number | 'auto'>;
