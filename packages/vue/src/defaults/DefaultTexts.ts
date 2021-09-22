@@ -36,6 +36,7 @@ export const VERIFY_HEADING =
 
 export const SKIP_TEXT = 'Skip';
 export const VERIFY_TEXT = 'Verify';
+export const VERIFY_CONTACT_TEXT = 'Verify Contact';
 
 export const ENTER_USERNAME_TEXT = 'Enter your username';
 export const CODE_TEXT = 'Code';
