@@ -125,8 +125,6 @@ import AliasControl from './alias-control.vue';
 import FederatedSignIn from './federated-sign-in.vue';
 
 import {
-  SIGN_IN_BUTTON_TEXT,
-  HAVE_ACCOUNT_LABEL,
   CREATE_ACCOUNT_LABEL,
   SIGN_UP_BUTTON_TEXT,
   CONFIRM_PASSWORD_LABEL,
@@ -162,8 +160,6 @@ secondaryAliases = secondaryAliases.filter(
 
 const confirmPasswordLabel = computed(() => I18n.get(CONFIRM_PASSWORD_LABEL));
 const passwordLabel = computed(() => I18n.get(PASSWORD_LABEL));
-const signInButtonText = computed(() => I18n.get(SIGN_IN_BUTTON_TEXT));
-const haveAccountLabel = computed(() => I18n.get(HAVE_ACCOUNT_LABEL));
 const createAccountLabel = computed(() => I18n.get(CREATE_ACCOUNT_LABEL));
 const signUpButtonText = computed(() => I18n.get(SIGN_UP_BUTTON_TEXT));
 const inputAttributes: ComputedRef<AuthInputAttributes> = computed(

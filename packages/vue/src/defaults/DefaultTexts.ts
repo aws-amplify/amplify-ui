@@ -47,3 +47,4 @@ export const SIGN_IN_FACEBOOK = 'Sign in with Facebook';
 export const SIGN_IN_AMAZON = 'Sign in with Amazon';
 export const SIGN_IN_LABEL = 'Sign In';
 export const ENTER_CODE = 'Enter your code';
+export const NEW_PASSWORD_LABEL = 'New password';
