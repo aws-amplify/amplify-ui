@@ -1,1 +1,14 @@
-<button data-amplify-button (click)="onClick()">{{ text }}</button>
+<button
+  class="amplify-button amplify-field-group__control federated-sign-in-button"
+  data-fullwidth="true"
+  style="font-weight: normal; display: block"
+  type="button"
+  (click)="onClick()"
+>
+  <div
+    class="amplify-flex federated-sign-in-button-row"
+    style="flex-direction: row; justify-content: center"
+  >
+    <ng-content></ng-content>
+  </div>
+</button>

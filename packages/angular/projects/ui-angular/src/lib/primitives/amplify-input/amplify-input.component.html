@@ -1,17 +1,22 @@
-<!-- Country code field -->
-<amplify-form-select
-  *ngIf="isTelInput()"
-  name="country_code"
-  label="Country Code"
-  [id]="'country-code'"
-  [items]="countryDialCodes"
-  [initialValue]="defaultCountryCode"
-></amplify-form-select>
-<!-- Textbox field -->
-<label>
-  <div data-amplify-label>{{ inferLabel() }}</div>
+<div class="amplify-flex" [ngStyle]="{ 'flex-direction': 'column' }">
+  <!-- Country code field -->
+  <amplify-form-select
+    *ngIf="isTelInput()"
+    name="country_code"
+    label="Country Code"
+    [id]="selectFieldId"
+    [items]="countryDialCodes"
+    [initialValue]="defaultCountryCode"
+  ></amplify-form-select>
+
+  <!-- Textbox field -->
+  <label class="amplify-label sr-only" [for]="textFieldId">
+    {{ inferLabel() }}
+  </label>
   <input
+    class="amplify-input"
     data-amplify-form-input
+    [id]="textFieldId"
     [type]="inferType()"
     [name]="name"
     [placeholder]="inferPlaceholder()"
@@ -23,4 +28,4 @@
   <amplify-error *ngIf="error">
     {{ error }}
   </amplify-error>
-</label>
+</div>

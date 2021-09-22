@@ -2,13 +2,25 @@
   Define default contents here
 -->
 <ng-template #signInButton>
-  <button data-amplify-button type="submit">{{ signInButtonText }}</button>
+  <button
+    class="amplify-button"
+    data-fullwidth="true"
+    data-variation="primary"
+    type="submit"
+  >
+    {{ signInButtonText }}
+  </button>
 </ng-template>
 
 <ng-template #signInForm>
-  <amplify-federated-sign-in></amplify-federated-sign-in>
-  <form data-amplify-form (submit)="onSubmit($event)" (input)="onInput($event)">
-    <fieldset data-amplify-fieldset [disabled]="isPending">
+  <form
+    data-amplify-form
+    (submit)="onSubmit($event)"
+    (input)="onInput($event)"
+    [disabled]="isPending"
+  >
+    <div class="amplify-flex" [ngStyle]="{ 'flex-direction': 'column' }">
+      <h3 class="amplify-heading">{{ this.headerText }}</h3>
       <amplify-user-name-alias></amplify-user-name-alias>
       <amplify-form-input
         data-amplify-password
@@ -16,27 +28,38 @@
         type="password"
         autocomplete="current-password"
       ></amplify-form-input>
-      <button type="button" (click)="toResetPassword()">
+      <ng-container
+        [ngTemplateOutlet]="customComponents.signInButton || signInButton"
+        [ngTemplateOutletContext]="context"
+      >
+      </ng-container>
+      <button
+        type="button"
+        class="amplify-button"
+        data-fullwidth="false"
+        data-size="small"
+        data-variation="link"
+        (click)="toSignUp()"
+        [ngStyle]="{ 'font-weight': 'normal' }"
+      >
+        {{ createAccountText }}
+      </button>
+      <button
+        type="button"
+        class="amplify-button"
+        data-fullwidth="false"
+        data-size="small"
+        data-variation="link"
+        (click)="toResetPassword()"
+        [ngStyle]="{ 'font-weight': 'normal' }"
+      >
         {{ forgotPasswordText }}
       </button>
-      <div data-amplify-footer>
-        <div>
-          {{ noAccountText }}
-          <button type="button" (click)="toSignUp()">
-            {{ createAccountText }}
-          </button>
-        </div>
-        <ng-container
-          [ngTemplateOutlet]="customComponents.signInButton || signInButton"
-          [ngTemplateOutletContext]="context"
-        >
-        </ng-container>
-      </div>
-    </fieldset>
-
-    <amplify-error *ngIf="remoteError">
-      {{ remoteError }}
-    </amplify-error>
+      <amplify-error *ngIf="remoteError">
+        {{ remoteError }}
+      </amplify-error>
+    </div>
+    <amplify-federated-sign-in></amplify-federated-sign-in>
   </form>
 </ng-template>
 
@@ -45,7 +68,6 @@
 -->
 
 <div data-amplify-container>
-  <h2 data-amplify-header>{{ this.headerText }}</h2>
   <ng-container
     [ngTemplateOutlet]="customComponents.signInForm || signInForm"
     [ngTemplateOutletContext]="context"

@@ -12,11 +12,12 @@
     "aws-amplify": "3.x.x || 4.x.x"
   },
   "dependencies": {
-    "@aws-amplify/ui": "3.0.1-next.2",
     "@aws-amplify/ui-components": "^1.7.0",
+    "@aws-amplify/ui": "3.0.1-next.2",
     "@stencil/core": "^2.7.0",
-    "tslib": "^2.0.0",
+    "nanoid": "^3.1.25",
     "qrcode": "^1.4.4",
+    "tslib": "^2.0.0",
     "xstate": "^4.20.1"
   },
   "publishConfig": {
