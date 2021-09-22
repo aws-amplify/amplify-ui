@@ -2,7 +2,6 @@ import {
   AfterContentInit,
   Component,
   ContentChildren,
-  HostBinding,
   Input,
   QueryList,
   TemplateRef,
@@ -28,7 +27,6 @@ export class AmplifyAuthenticatorComponent implements AfterContentInit {
    */
 
   @Input() initialAuthState: AuthState = 'signIn';
-  @HostBinding('attr.data-amplify-authenticator') dataAttr = '';
   @ContentChildren(AmplifyOverrideDirective)
   private customComponentQuery: QueryList<AmplifyOverrideDirective> = null;
   public customComponents: CustomComponents = {};

@@ -6,6 +6,7 @@ import {
   translate,
   countryDialCodes,
 } from '@aws-amplify/ui';
+import { nanoid } from 'nanoid';
 import { getAttributeMap } from '../../common';
 import { StateMachineService } from '../../services/state-machine.service';
 
@@ -32,16 +33,21 @@ export class AmplifyInputComponent implements OnInit {
   @Input() autocomplete = '';
   public defaultCountryCode: string;
   public countryDialCodes = countryDialCodes;
+  public textFieldId: string;
+  public selectFieldId: string;
 
   constructor(private stateMachine: StateMachineService) {}
 
   ngOnInit(): void {
-    const state = this.stateMachine.authState;
-    const { country_code }: ActorContextWithForms = getActorContext(state);
-    this.defaultCountryCode = country_code;
+    this.textFieldId = `amplify-field-${nanoid(12)}`;
+    this.selectFieldId = `amplify-field-${nanoid(12)}`;
 
     // TODO: consider better default handling mechanisms across frameworks
     if (this.isTelInput()) {
+      const state = this.stateMachine.authState;
+      const { country_code }: ActorContextWithForms = getActorContext(state);
+      this.defaultCountryCode = country_code;
+
       this.stateMachine.send({
         type: 'CHANGE',
         data: { name: 'country_code', value: country_code },
