@@ -4,7 +4,8 @@
   "scripts": {
     "build": "yarn --cwd ../../ build",
     "dev": "yarn --cwd ../../ dev",
-    "test": "yarn --cwd ../../ test"
+    "test": "yarn --cwd ../../ test",
+    "generate:css": "npx tailwindcss -i ./styles/component.tailwind.css -o ./styles/component.css"
   },
   "peerDependencies": {
     "@angular/common": "^11.2.4",
