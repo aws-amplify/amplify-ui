@@ -1,11 +1,14 @@
+import classNames from 'classnames';
 import { countryDialCodes } from '@aws-amplify/ui';
 
 import { SelectField } from '../SelectField';
 import { TextField } from '../TextField';
+import { ComponentClassNames } from '../shared/constants';
 import { PhoneNumberFieldProps } from '../types';
 
 export const PhoneNumberField: React.FC<PhoneNumberFieldProps> = ({
-  autoComplete = 'username',
+  autoComplete = 'tel-national',
+  className,
   defaultCountryCode,
   defaultValue,
   errorMessage,
@@ -21,8 +24,9 @@ export const PhoneNumberField: React.FC<PhoneNumberFieldProps> = ({
     <TextField
       inputStartComponents={
         <SelectField
+          autoComplete="tel-country-code"
           name="country_code"
-          label="country code"
+          label="Country Code"
           labelHidden={true}
           defaultValue={defaultCountryCode}
           {...rest}
@@ -35,13 +39,14 @@ export const PhoneNumberField: React.FC<PhoneNumberFieldProps> = ({
         </SelectField>
       }
       autoComplete={autoComplete}
+      className={classNames(ComponentClassNames.PhoneNumberField, className)}
       defaultValue={defaultValue}
       errorMessage={errorMessage}
       name={name}
       label={label}
       labelHidden={labelHidden}
       placeholder={placeholder}
-      type={'tel'}
+      type="tel"
       {...rest}
     />
   );

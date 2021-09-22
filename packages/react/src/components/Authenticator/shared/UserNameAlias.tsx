@@ -36,6 +36,7 @@ export function UserNameAlias(props: UserNameAliasProps) {
 
   return isPhoneAlias ? (
     <PhoneNumberField
+      className="phone-number-field"
       defaultCountryCode={country_code}
       errorMessage={error}
       label={label}

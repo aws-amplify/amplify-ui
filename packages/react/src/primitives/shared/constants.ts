@@ -22,6 +22,7 @@ export enum ComponentClassNames {
   Link = 'amplify-link',
   Pagination = 'amplify-pagination',
   PasswordField = 'amplify-passwordfield',
+  PhoneNumberField = 'amplify-phonenumberfield',
   Placeholder = 'amplify-placeholder',
   Radio = 'amplify-radio',
   RadioButton = 'amplify-radio__button',
