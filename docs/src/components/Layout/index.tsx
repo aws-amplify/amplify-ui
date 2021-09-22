@@ -120,7 +120,7 @@ export default function Layout({
     <>
       {frontmatter && (
         <Head>
-          <title>{`${chapterTitle} - ${frontmatter.title} - Amplify Docs`}</title>
+          <title>{`${frontmatter.title} - Amplify Docs`}</title>
           <meta
             property="og:title"
             content={frontmatter.title}
