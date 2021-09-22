@@ -1,6 +1,5 @@
 // This is large copy-pasta from `amplify-docs/src/Layout` & modified to work outside of that repo
 
-import debounce from 'lodash/debounce';
 import pages from '@/data/pages.preval';
 import CodeBlockProvider from 'amplify-docs/src/components/CodeBlockProvider/index';
 import { Container } from 'amplify-docs/src/components/Container';
@@ -33,13 +32,15 @@ import UniversalNav from 'amplify-docs/src/components/UniversalNav/index';
 import { DISCORD } from 'amplify-docs/src/constants/img';
 import 'amplify-docs/src/styles/styles.css';
 import capitalize from 'lodash/capitalize';
+import debounce from 'lodash/debounce';
 import groupBy from 'lodash/groupBy';
+import words from 'lodash/words';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import * as React from 'react';
-import { PlatformSelect } from './PlatformSelect';
 import { Banner } from './Banner';
+import { PlatformSelect } from './PlatformSelect';
 
 const folderToTitle = (folder: string) =>
   words(folder).map(capitalize).join(' ');
@@ -58,12 +59,24 @@ export default function Layout({
   const href = router.asPath;
   const { platform = 'react' } = router.query as { platform: string };
 
+  const sortedFolders = ['', 'getting-started'];
+
   const groupedPages = Object.entries(
     groupBy(pages, (page) => {
       const [, folder = ''] = page.slug.split('/');
       return folder;
     })
-  );
+  ).sort((a, b) => {
+    if (sortedFolders.includes(a[0])) {
+      if (sortedFolders.includes(b[0])) {
+        return sortedFolders.indexOf(a[0]) - sortedFolders.indexOf(b[0]);
+      } else {
+        return -1;
+      }
+    }
+
+    return a[0].localeCompare(b[0]);
+  });
 
   React.useEffect(() => {
     const updateHeaders = debounce(
@@ -183,7 +196,7 @@ export default function Layout({
                       <div key={folder}>
                         {folder && (
                           <DirectoryGroupHeaderStyle>
-                            <h4>{capitalize(folder)}</h4>
+                            <h4>{folderToTitle(folder)}</h4>
                             {/* <ArrowStyle isUp={true} /> */}
                           </DirectoryGroupHeaderStyle>
                         )}
