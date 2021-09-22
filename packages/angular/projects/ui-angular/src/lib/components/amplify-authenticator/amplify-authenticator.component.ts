@@ -2,7 +2,6 @@ import {
   AfterContentInit,
   Component,
   ContentChildren,
-  HostBinding,
   Input,
   QueryList,
   TemplateRef,
