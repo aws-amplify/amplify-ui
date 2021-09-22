@@ -76,7 +76,7 @@ import { getActorState, SignInState } from '@aws-amplify/ui';
 const attrs = useAttrs();
 const emit = defineEmits(['haveAccountClicked', 'forceNewPasswordSubmit']);
 
-const { state, send } = useAuth();
+const { signOut, user } = useAuth();
 const actorState: ComputedRef<SignInState> = computed(() =>
   getActorState(state.value)
 );

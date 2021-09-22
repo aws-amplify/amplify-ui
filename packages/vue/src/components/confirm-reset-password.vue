@@ -85,7 +85,7 @@ import {
 } from '../defaults/DefaultTexts';
 
 import { getActorState, ResetPasswordState } from '@aws-amplify/ui';
-const { state, send } = useAuth();
+const { signOut, user } = useAuth();
 
 const attrs = useAttrs();
 const emit = defineEmits(['confirmResetPasswordSubmit', 'backToSignInClicked']);

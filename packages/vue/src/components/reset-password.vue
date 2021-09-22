@@ -95,7 +95,7 @@ import { getActorState, ResetPasswordState } from '@aws-amplify/ui';
 const attrs = useAttrs();
 const emit = defineEmits(['resetPasswordSubmit', 'backToSignInClicked']);
 
-const { state, send } = useAuth();
+const { signOut, user } = useAuth();
 const actorState: ComputedRef<ResetPasswordState> = computed(() =>
   getActorState(state.value)
 ) as ComputedRef<ResetPasswordState>;

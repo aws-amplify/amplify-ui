@@ -95,7 +95,7 @@ import { getActorState, SignUpContext } from '@aws-amplify/ui';
 const attrs = useAttrs();
 const emit = defineEmits(['confirmSignUpSubmit', 'lostCodeClicked']);
 
-const { state, send } = useAuth();
+const { signOut, user } = useAuth();
 const actorState = computed(() =>
   getActorState(state.value)
 ) as ComputedRef<any>;

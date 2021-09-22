@@ -98,7 +98,7 @@ import {
 const emit = defineEmits(['confirmSignInSubmit', 'backToSignInClicked']);
 const attrs = useAttrs();
 
-const { state, send } = useAuth();
+const { signOut, user } = useAuth();
 const actorState: ComputedRef<SignInState> = computed(() =>
   getActorState(state.value)
 );

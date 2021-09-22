@@ -139,7 +139,7 @@ import { useAliases } from '../composables/useUtils';
 const attrs = useAttrs();
 const emit = defineEmits(['haveAccountClicked', 'signUpSubmit']);
 
-const { state, send } = useAuth();
+const { signOut, user } = useAuth();
 
 const {
   value: { context },

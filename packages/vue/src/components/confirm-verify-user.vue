@@ -61,7 +61,7 @@ import { getActorState, SignInState } from '@aws-amplify/ui';
 const attrs = useAttrs();
 const emit = defineEmits(['confirmVerifyUserSubmit', 'skipClicked']);
 
-const { state, send } = useAuth();
+const { signOut, user } = useAuth();
 const actorState: ComputedRef<SignInState> = computed(
   () => getActorState(state.value) as SignInState
 );
