@@ -41,6 +41,9 @@ import * as React from 'react';
 import { PlatformSelect } from './PlatformSelect';
 import { Banner } from './Banner';
 
+const folderToTitle = (folder: string) =>
+  words(folder).map(capitalize).join(' ');
+
 export default function Layout({
   children,
   frontmatter,
@@ -96,7 +99,8 @@ export default function Layout({
     return () => observer.disconnect();
   }, [children]);
 
-  const chapterTitle = 'Components'; // TODO – Remove or use "Primitives" depending on path
+  const currentPage = pages.find(({ href }) => href === pathname);
+  const chapterTitle = folderToTitle(currentPage?.slug.split('/')[1] ?? '');
 
   const basePath = 'docs.amplify.aws';
   return (
