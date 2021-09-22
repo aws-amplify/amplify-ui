@@ -8,12 +8,13 @@ import {
   TemplateRef,
   ViewEncapsulation,
 } from '@angular/core';
+import { getActorState, translations } from '@aws-amplify/ui';
+import { I18n } from 'aws-amplify';
+import { CustomComponents } from '../../common';
 import { AuthState } from '../../common/types';
 import { AmplifyOverrideDirective } from '../../directives/amplify-override.directive';
-import { StateMachineService } from '../../services/state-machine.service';
 import { AuthPropService } from '../../services/authenticator-context.service';
-import { CustomComponents } from '../../common';
-import { getActorState } from '@aws-amplify/ui';
+import { StateMachineService } from '../../services/state-machine.service';
 
 @Component({
   selector: 'amplify-authenticator',
@@ -34,7 +35,9 @@ export class AmplifyAuthenticatorComponent implements AfterContentInit {
   constructor(
     private stateMachine: StateMachineService,
     private contextService: AuthPropService
-  ) {}
+  ) {
+    I18n.putVocabularies(translations);
+  }
 
   /**
    * Lifecycle Methods
