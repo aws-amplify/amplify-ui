@@ -2,8 +2,18 @@ import { renderHook } from '@testing-library/react-hooks';
 
 import { theme } from '@aws-amplify/ui';
 
-import { convertStylePropsToStyleObj, useNonStyleProps } from '../styleUtils';
-import { ComponentPropsToStylePropsMap, ViewProps } from '../../types';
+import {
+  convertGridSpan,
+  convertStylePropsToStyleObj,
+  getGridSpan,
+  useNonStyleProps,
+  useTransformStyleProps,
+} from '../styleUtils';
+import {
+  ComponentPropsToStylePropsMap,
+  GridItemStyleProps,
+  ViewProps,
+} from '../../types';
 import { Breakpoint } from '../../types/responsive';
 
 const props: ViewProps = {
@@ -30,6 +40,11 @@ let breakpoints = theme.breakpoints.values;
 const defaultStylePropsParams = {
   breakpoint: 'base' as Breakpoint,
   breakpoints,
+};
+
+const gridItemProps = {
+  columnSpan: 2,
+  rowSpan: 3,
 };
 
 describe('convertStylePropsToStyleObj: ', () => {
@@ -135,5 +150,74 @@ describe('useNonStyleProps: ', () => {
     const nonStyleProps = result.current;
     expect(nonStyleProps).toEqual(noStyleProps);
     expect(nonStyleProps).not.toBe(noStyleProps);
+  });
+});
+
+describe('convertGridSpan: ', () => {
+  it('should return correct css value when passed valid number', () => {
+    const param = 5;
+    const result = convertGridSpan(param);
+    expect(result).toBe(`span ${param} / span ${param}`);
+  });
+
+  it('should return correct css value when passed "auto"', () => {
+    const param = 'auto';
+    const result = convertGridSpan(param);
+    expect(result).toBe(param);
+  });
+
+  it('should return null when passed undefined or null', () => {
+    const unDefResult = convertGridSpan(undefined);
+    const nullResult = convertGridSpan(null);
+    expect(unDefResult).toBe(null);
+    expect(nullResult).toBe(null);
+  });
+
+  it('should return object with transform when passed object', () => {
+    const param = {
+      base: 1,
+      large: 2,
+    };
+    const result = convertGridSpan(param);
+
+    expect(result).toEqual({
+      base: getGridSpan(1),
+      large: getGridSpan(2),
+    });
+  });
+
+  it('should return array with transform when passed array', () => {
+    const param = [1, 2];
+    const result = convertGridSpan(param);
+
+    expect(result).toEqual([getGridSpan(1), getGridSpan(2)]);
+  });
+});
+
+describe('getGridSpan: ', () => {
+  it('should return auto when passed auto', () => {
+    const param = 'auto';
+    const result = getGridSpan(param);
+    expect(result).toBe(param);
+  });
+  it('should return correct css value when passed valid number', () => {
+    const param = 5;
+    const result = getGridSpan(param);
+    expect(result).toBe(`span ${param} / span ${param}`);
+  });
+});
+
+describe('useTransformStyleProps', () => {
+  it('should transform rowSpan and columnSpan to row and column props', () => {
+    const { result } = renderHook(() => useTransformStyleProps(gridItemProps));
+    const transformedProps = result.current;
+    expect(transformedProps).toHaveProperty(
+      'row',
+      getGridSpan(gridItemProps.rowSpan)
+    );
+    expect(transformedProps).toHaveProperty(
+      'column',
+      getGridSpan(gridItemProps.columnSpan)
+    );
   });
 });

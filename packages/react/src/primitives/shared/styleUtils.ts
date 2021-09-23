@@ -29,9 +29,8 @@ import { filterOutNullOrEmptyStringValues, isNullOrEmptyString } from './utils';
  * @returns
  */
 export const useTransformStyleProps = (props: ViewProps): ViewProps => {
-  // Removes rowSpan and columnSpan from props via ...rest
   const { rowSpan, columnSpan, row, column, ...rest } = props;
-  //this is an infinite loop?
+
   const { rowFromSpanValue, columnFromSpanValue } = React.useMemo(() => {
     return {
       rowFromSpanValue: convertGridSpan(rowSpan) as GridItemStyleProps['row'],
