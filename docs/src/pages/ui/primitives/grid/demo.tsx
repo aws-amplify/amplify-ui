@@ -55,14 +55,6 @@ const defaultMainGridItemStyleProps: GridItemStyleProps = {
   columnEnd: '-1',
 };
 
-export const isSpanPrimitiveValue = (
-  spanValue: GridItemStyleProps['rowSpan'] | GridItemStyleProps['columnSpan']
-): spanValue is 'auto' | number => {
-  return (
-    spanValue === 'auto' || (typeof spanValue === 'number' && !isNaN(spanValue))
-  );
-};
-
 export const GridDemo = () => {
   const { theme } = useTheming();
   const gridContainerProps = useGridContainerProps(
@@ -73,9 +65,6 @@ export const GridDemo = () => {
   const navGridItemProps = useGridItemProps(defaultNavGridItemStyleProps);
   const mainGridItemProps = useGridItemProps(defaultMainGridItemStyleProps);
 
-  const columnSpan = isSpanPrimitiveValue(footerGridItemProps.columnSpan)
-    ? footerGridItemProps.columnSpan
-    : undefined;
   return (
     <View>
       <GridContainerPropControls {...gridContainerProps} />
@@ -157,7 +146,7 @@ export const GridDemo = () => {
             area={footerGridItemProps.area}
             column={footerGridItemProps.column}
             columnEnd={footerGridItemProps.columnEnd}
-            columnSpan={columnSpan}
+            columnSpan={footerGridItemProps.columnSpan}
             columnStart={footerGridItemProps.columnStart}
             row={footerGridItemProps.row}
             rowEnd={footerGridItemProps.rowEnd}

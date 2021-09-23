@@ -9,7 +9,7 @@ Grid primitive provides a grid container with style `display: grid`. Any of our 
 
 ## Demo
 
-This demo shows how to create a basic
+This demo shows how to create a basic layout using the Grid primitive.
 
 <GridDemo />
 
@@ -109,5 +109,49 @@ While `rowSpan` and `columnSpan` do not map to CSS properties, they are transfor
     <View rowSpan={2} backgroundColor="var(--amplify-colors-orange-20)"></View>
     <View backgroundColor="var(--amplify-colors-orange-40)"></View>
     <View backgroundColor="var(--amplify-colors-orange-60)"></View>
+  </Grid>
+</Example>
+
+### Responsive layouts
+
+Use array or object syntax to dynamically change layout based on screen size. Resize browser to see example below.
+
+See [responsive design](/ui/theme/responsive) for more details.
+
+```jsx
+<Grid
+  templateColumns={{ base: '1fr', large: '1fr 1fr' }}
+  templateRows={{ base: 'repeat(4, 10rem)', large: 'repeat(3, 10rem)' }}
+  gap="var(--amplify-space-small)"
+>
+  <View
+    columnSpan={[1, 1, 1, 2]}
+    backgroundColor="var(--amplify-colors-pink-10)"
+  ></View>
+  <View
+    rowSpan={{ base: 1, large: 2 }}
+    backgroundColor="var(--amplify-colors-pink-20)"
+  ></View>
+  <View backgroundColor="var(--amplify-colors-pink-40)"></View>
+  <View backgroundColor="var(--amplify-colors-pink-60)"></View>
+</Grid>
+```
+
+<Example>
+  <Grid
+    templateColumns={{ base: '1fr', large: '1fr 1fr' }}
+    templateRows={{ base: 'repeat(4, 10rem)', large: 'repeat(3, 10rem)' }}
+    gap="var(--amplify-space-small)"
+  >
+    <View
+      columnSpan={[1, 1, 1, 2]}
+      backgroundColor="var(--amplify-colors-pink-10)"
+    ></View>
+    <View
+      rowSpan={{ base: 1, large: 2 }}
+      backgroundColor="var(--amplify-colors-pink-20)"
+    ></View>
+    <View backgroundColor="var(--amplify-colors-pink-40)"></View>
+    <View backgroundColor="var(--amplify-colors-pink-60)"></View>
   </Grid>
 </Example>
