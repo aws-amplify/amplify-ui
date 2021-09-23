@@ -5,11 +5,11 @@ import awsExports from '@environments/auth-with-username-no-attributes/src/aws-e
 
 Amplify.configure(awsExports);
 
-function App({ state, send }) {
+function App({ signOut, user }) {
   return (
     <>
-      <h1>Hello {state.context.user.username}</h1>
-      <button onClick={() => send('SIGN_OUT')}>Sign out</button>
+      <h1>Hello {user.username}</h1>
+      <button onClick={signOut}>Sign out</button>
     </>
   );
 }

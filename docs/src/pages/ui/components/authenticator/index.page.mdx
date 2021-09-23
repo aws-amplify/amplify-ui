@@ -8,9 +8,8 @@ import { Feature } from '@/components/Feature';
 import { Fragment } from '@/components/Fragment';
 import { XStateInspector } from '@/components/XStateInspector';
 
-The `Authenticator` is a simple way to add
-[authentication flows](https://docs.amplify.aws/lib/auth/getting-started/q/platform/js)
-to your application.
+The `Authenticator` component encapsulates complete [authentication flows](https://docs.amplify.aws/lib/auth/getting-started/q/platform/js)
+to embed in your application with minimal boilerplate.
 
 <Example>
   <Authenticator />
@@ -21,17 +20,15 @@ to your application.
   </p>
 </Example>
 
-## Getting started
+## Quick Start
 
 > Preqrequisite: [Create an Authentication backend](https://docs.amplify.aws/lib/auth/getting-started/q/platform/js)
 
-The simplest way to get started is by wrapping your application with the Authenticator component.
+The quickest way to get started is by wrapping your application with the Authenticator component.
 This will introduce complete flows for user sign-in and registration and render your app
 when users authenticate.
 
-<Fragment>
-  {({ platform }) => import(`./getting-started.${platform}.mdx`)}
-</Fragment>
+<Fragment>{({ platform }) => import(`./quick-start.${platform}.mdx`)}</Fragment>
 
 ## Features
 

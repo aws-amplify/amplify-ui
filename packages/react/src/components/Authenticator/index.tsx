@@ -1,4 +1,9 @@
-import { authMachine, getActorState, translations } from '@aws-amplify/ui';
+import {
+  authMachine,
+  getActorState,
+  getServiceFacade,
+  translations,
+} from '@aws-amplify/ui';
 import { useActor, useInterpret } from '@xstate/react';
 import { I18n } from 'aws-amplify';
 import * as React from 'react';
@@ -17,7 +22,7 @@ import { ConfirmVerifyUser, VerifyUser } from './VerifyUser';
 
 export function Authenticator({
   className = null,
-  children = (context) => null,
+  children = (facade: ReturnType<typeof getServiceFacade>) => null,
 }) {
   const service = useInterpret(authMachine, {
     devTools: process.env.NODE_ENV === 'development',
@@ -28,6 +33,12 @@ export function Authenticator({
   React.useEffect(() => {
     I18n.putVocabularies(translations);
   }, []);
+
+  const facade = getServiceFacade({ send, state });
+
+  if (state.matches('authenticated')) {
+    return children(facade);
+  }
 
   const {
     components: {
@@ -41,9 +52,6 @@ export function Authenticator({
     },
   } = useAmplify('Authenticator');
 
-  if (state.matches('authenticated')) {
-    return children({ state, send });
-  }
   const actorState = getActorState(state);
 
   return (
@@ -89,7 +97,11 @@ Authenticator.SignUp = SignUp;
 export function withAuthenticator(Component) {
   return function WrappedWithAuthenticator() {
     return (
-      <Authenticator>{(context) => <Component {...context} />}</Authenticator>
+      <Authenticator>
+        {(facade: ReturnType<typeof getServiceFacade>) => (
+          <Component {...facade} />
+        )}
+      </Authenticator>
     );
   };
 }

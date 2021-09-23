@@ -12,17 +12,13 @@ Amplify.configure({
 
 export default function AuthenticatorWithPhone() {
   return (
-    <>
-      <Authenticator>
-        {({ send }) => {
-          return (
-            <>
-              <h1>Hello</h1>
-              <button onClick={() => send('SIGN_OUT')}>Sign out</button>
-            </>
-          );
-        }}
-      </Authenticator>
-    </>
+    <Authenticator>
+      {({ signOut }) => (
+        <>
+          <h1>Hello</h1>
+          <button onClick={signOut}>Sign out</button>
+        </>
+      )}
+    </Authenticator>
   );
 }
