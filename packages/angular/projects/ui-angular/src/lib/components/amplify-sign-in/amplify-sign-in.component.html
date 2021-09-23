@@ -2,12 +2,7 @@
   Define default contents here
 -->
 <ng-template #signInButton>
-  <button
-    class="amplify-button"
-    data-fullwidth="true"
-    data-variation="primary"
-    type="submit"
-  >
+  <button amplify-button variation="primary" fullWidth="true" type="submit">
     {{ signInButtonText }}
   </button>
 </ng-template>
@@ -34,24 +29,20 @@
       >
       </ng-container>
       <button
-        type="button"
-        class="amplify-button"
-        data-fullwidth="false"
-        data-size="small"
-        data-variation="link"
+        amplify-button
+        fontWeight="normal"
+        size="small"
+        variation="link"
         (click)="toSignUp()"
-        style="font-weight: normal"
       >
         {{ createAccountText }}
       </button>
       <button
-        type="button"
-        class="amplify-button"
-        data-fullwidth="false"
-        data-size="small"
-        data-variation="link"
+        amplify-button
+        fontWeight="normal"
+        size="small"
+        variation="link"
         (click)="toResetPassword()"
-        style="font-weight: normal"
       >
         {{ forgotPasswordText }}
       </button>
