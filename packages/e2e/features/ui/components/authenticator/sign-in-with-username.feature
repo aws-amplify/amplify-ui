@@ -17,14 +17,14 @@ Feature: Sign In with Username
     And I click the "Sign in" button
     Then I see "User does not exist"
 
-  @angular @react @vue
+  @angular @react @todo-vue
   Scenario: Sign in with unconfirmed credentials
     When I type my "username" with status "UNCONFIRMED"
     And I type my password
     And I click the "Sign in" button
     Then I see "Confirmation Code"
 
-  @angular @react @vue
+  @angular @react @todo-vue
   Scenario: Sign in with confirmed credentials
     When I type my "username" with status "CONFIRMED"
     And I type my password
