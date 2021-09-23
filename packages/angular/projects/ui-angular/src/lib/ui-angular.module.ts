@@ -47,6 +47,8 @@ import {
   AmplifyPicker,
   AmplifyPhotoPicker,
 } from '@aws-amplify/ui-components/dist/components';
+import { AmplifyPasswordFieldComponent } from './primitives/amplify-password-field/amplify-password-field.component';
+import { AmplifyTextFieldComponent } from './primitives/amplify-text-field/amplify-text-field.component';
 
 customElements.define('amplify-button', AmplifyButton);
 customElements.define('amplify-input', AmplifyInput);
@@ -92,6 +94,8 @@ customElements.define('amplify-photo-picker', AmplifyPhotoPicker);
     ConfirmVerifyUserComponent,
     AmplifySelectComponent,
     AmplifyButtonComponent,
+    AmplifyPasswordFieldComponent,
+    AmplifyTextFieldComponent,
   ],
   imports: [CommonModule],
   exports: [
