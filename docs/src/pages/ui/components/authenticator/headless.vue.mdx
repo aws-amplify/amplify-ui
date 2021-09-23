@@ -4,8 +4,8 @@ to get access to it and customizing behavior or your own UI:
 ```html
 <template>
   <div v-if="state.matches('authenticated')">
-    <h1>Welcome, {user.username}</h1>
-    <button onClick="{signOut}">Sign out</button>
+    <h1>Welcome, {state.context.user.username}</h1>
+    <button onClick={() => send("SIGN_OUT")}>Sign out</button>
   </div>
 </template>
 
@@ -14,6 +14,6 @@ to get access to it and customizing behavior or your own UI:
 
   ...
 
-  const { signOut, state, user } = useAuth();
+  const { state, send } = useAuth();
 </script>
 ```

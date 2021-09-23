@@ -149,10 +149,5 @@ export const getServiceFacade = ([state, send]) => {
   const { user } = state.context as AuthContext;
   const { signOut } = getSendEventAliases(send);
 
-  return {
-    signOut,
-    // TODO Replace with non-XState enum
-    state,
-    user,
-  };
+  return { signOut, user };
 };

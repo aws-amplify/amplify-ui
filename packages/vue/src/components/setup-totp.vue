@@ -121,7 +121,7 @@ import { getActorState, SignInState } from '@aws-amplify/ui';
 const attrs = useAttrs();
 const emit = defineEmits(['confirmSetupTOTPSubmit', 'backToSignInClicked']);
 
-const { signOut, user } = useAuth();
+const { state, send } = useAuth();
 const actorState: ComputedRef<SignInState> = computed(() =>
   getActorState(state.value)
 );

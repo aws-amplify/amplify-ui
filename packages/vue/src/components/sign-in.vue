@@ -163,7 +163,7 @@ const forgotYourPasswordLink = computed(() =>
 const signInButtonText = computed(() => I18n.get(SIGN_IN_BUTTON_TEXT));
 const signIngButtonText = computed(() => I18n.get(SIGNING_IN_BUTTON_TEXT));
 
-const { signOut, user } = useAuth();
+const { state, send } = useAuth();
 const actorState: ComputedRef<SignInState> = computed(() =>
   getActorState(state.value)
 );
