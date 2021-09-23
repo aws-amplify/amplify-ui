@@ -6,13 +6,14 @@ Feature: Sign Up with Email
     Given I'm running the example "ui/components/authenticator/sign-up-with-email"
     And I click the "Create Account" tab
 
-  @todo-angular @react @todo-vue
+  @todo-angular @react @vue
   Scenario: Login mechanism set to "email"
     Then I see "Email" as an input field
     And I don't see "Username" as an input field
     And I don't see "Phone Number" as an input field
 
-  @angular @react @vue @todo-angular  @todo-vue
+# Failing because of SES
+  @todo-angular @todo-react @todo-vue  
   Scenario: Sign up with a new email & password
     When I type a new "email"
     And I type my password
@@ -20,7 +21,7 @@ Feature: Sign Up with Email
     And I click the "Create Account" button
     Then I see "Confirmation Code"
 
-  @todo-angular @react @todo-vue
+  @todo-angular @react @vue
   Scenario: Email field autocompletes username
 
   On sign up form, autocomplete prefers usage of username instead of email. 
@@ -28,7 +29,7 @@ Feature: Sign Up with Email
 
     And "Email" field autocompletes "username"
 
-  @todo-angular @react @todo-vue
+  @todo-angular @react @vue
   Scenario: Password fields autocomplete "new-password"
     And "Password" field autocompletes "new-password"
     And "Confirm Password" field autocompletes "new-password"
