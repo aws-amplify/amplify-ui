@@ -17,7 +17,7 @@ import { useBreakpoint } from './responsive/useBreakpoint';
 import { Breakpoint, Breakpoints } from '../types/responsive';
 
 import { useTheming } from '../../theming/';
-import { filterOutNullOrEmptyStringValues } from './utils';
+import { filterOutNullOrEmptyStringValues, isNullOrEmptyString } from './utils';
 
 /**
  * Transforms style props to another target prop
@@ -30,19 +30,20 @@ import { filterOutNullOrEmptyStringValues } from './utils';
  */
 export const useTransformStyleProps = (props: ViewProps): ViewProps => {
   // Removes rowSpan and columnSpan from props via ...rest
-  const { rowSpan, columnSpan, ...rest } = props;
-
-  const gridProps = React.useMemo(() => {
+  const { rowSpan, columnSpan, row, column, ...rest } = props;
+  //this is an infinite loop?
+  const { rowFromSpanValue, columnFromSpanValue } = React.useMemo(() => {
     return {
-      row: convertGridSpan(rowSpan),
-      column: convertGridSpan(columnSpan),
+      rowFromSpanValue: convertGridSpan(rowSpan) as GridItemStyleProps['row'],
+      columnFromSpanValue: convertGridSpan(
+        columnSpan
+      ) as GridItemStyleProps['column'],
     };
-  }, [convertGridSpan, rowSpan, columnSpan]);
+  }, [rowSpan, columnSpan, convertGridSpan]);
 
-  // allow grid span row and column to be overwritten
-  // by explicit `row` or `column` prop via ...rest
   return {
-    ...gridProps,
+    row: !isNullOrEmptyString(row) ? row : rowFromSpanValue,
+    column: !isNullOrEmptyString(column) ? column : columnFromSpanValue,
     ...rest,
   };
 };
@@ -90,13 +91,21 @@ export interface ConvertStylePropsToStyleObj {
   (params: convertStylePropsToStyleObjParams);
 }
 
+export const isSpanPrimitiveValue = (
+  spanValue: GridItemStyleProps['rowSpan'] | GridItemStyleProps['columnSpan']
+): spanValue is 'auto' | number => {
+  return (
+    spanValue === 'auto' || (typeof spanValue === 'number' && !isNaN(spanValue))
+  );
+};
+
 export const convertGridSpan = (
   spanValue: GridItemStyleProps['rowSpan'] | GridItemStyleProps['columnSpan']
 ): GridItemStyleProps['row'] | GridItemStyleProps['column'] => {
-  if (typeof spanValue === 'number' || spanValue === 'auto') {
+  if (isSpanPrimitiveValue(spanValue)) {
     return getGridSpan(spanValue);
   }
-  if (typeof spanValue === 'object') {
+  if (typeof spanValue === 'object' && spanValue != null) {
     if (Array.isArray(spanValue)) {
       return spanValue.map((value) => getGridSpan(value));
     } else {
@@ -111,7 +120,9 @@ export const convertGridSpan = (
 };
 
 export const getGridSpan = (spanValue: number | 'auto'): string => {
-  return spanValue === 'auto' ? 'auto' : `span ${spanValue}/span ${spanValue}`;
+  return spanValue === 'auto'
+    ? 'auto'
+    : `span ${spanValue} / span ${spanValue}`;
 };
 
 /**
