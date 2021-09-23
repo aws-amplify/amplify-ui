@@ -32,16 +32,8 @@
             <template #fieldSetI="{ slotData }">
               <slot name="signin-fields" :info="slotData"> </slot>
             </template>
-            <base-wrapper
-              class="amplify-flex amplify-field amplify-textfield"
-              style="flex-direction: column"
-            >
-              <user-name-alias
-                class="amplify-label sr-only"
-                for="amplify-field-1220"
-                :userNameAlias="true"
-              />
-            </base-wrapper>
+
+            <user-name-alias :userNameAlias="true" />
             <base-wrapper
               class="
                 amplify-flex

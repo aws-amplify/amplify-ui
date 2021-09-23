@@ -15,7 +15,6 @@
       <base-select
         class="amplify-select amplify-field-group__control"
         :id="'amplify-field-' + randomPhone"
-        data-amplify-select
         aria-label="country code"
         name="country_code"
         :options="dialCodes"
