@@ -17,15 +17,7 @@
             <template #fieldSetI="{ slotData }">
               <slot name="signup-fields" :info="slotData"> </slot>
             </template>
-            <base-wrapper
-              class="amplify-flex amplify-field amplify-textfield"
-              style="flex-direction: column"
-            >
-              <user-name-alias-component
-                class="amplify-label sr-only"
-                for="amplify-field-1220"
-              />
-            </base-wrapper>
+            <user-name-alias-component />
             <base-wrapper
               class="
                 amplify-flex
@@ -190,11 +182,11 @@ const onSignUpSubmit = (e: Event): void => {
   if (attrs?.onSignUpSubmit) {
     emit('signUpSubmit', e);
   } else {
-    submit();
+    submit(e);
   }
 };
 
-const submit = (): void => {
+const submit = (e: Event): void => {
   send({
     type: 'SUBMIT',
   });
