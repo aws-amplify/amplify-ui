@@ -1,5 +1,13 @@
 <ng-template #signUpButton>
-  <button data-amplify-button type="submit">{{ createAccountText }}</button>
+  <button
+    class="amplify-button"
+    data-fullwidth="true"
+    data-variation="primary"
+    type="submit"
+    type="submit"
+  >
+    {{ createAccountText }}
+  </button>
 </ng-template>
 
 <ng-template #signUpUsername>
@@ -23,8 +31,13 @@
 </ng-template>
 
 <ng-template #signUpFieldset>
-  <fieldset data-amplify-fieldset [disabled]="isPending">
-    <amplify-federated-sign-in></amplify-federated-sign-in>
+  <fieldset
+    class="amplify-flex"
+    style="flex-direction: column"
+    data-amplify-fieldset
+    [disabled]="isPending"
+  >
+    <h3 class="amplify-heading">{{ this.headerText }}</h3>
     <ng-container
       [ngTemplateOutlet]="customComponents.signUpUsername || signUpUsername"
       [ngTemplateOutletContext]="context"
@@ -45,31 +58,34 @@
     <ng-container *ngFor="let secondaryAlias of secondaryAliases">
       <amplify-form-input [name]="secondaryAlias"></amplify-form-input>
     </ng-container>
+    <ng-container
+      [ngTemplateOutlet]="customComponents.signUpButton || signUpButton"
+      [ngTemplateOutletContext]="context"
+    >
+    </ng-container>
+    <button
+      type="button"
+      class="amplify-button"
+      data-fullwidth="false"
+      data-size="small"
+      data-variation="link"
+      (click)="toSignIn()"
+      style="font-weight: normal"
+    >
+      {{ signInText }}
+    </button>
+    <amplify-error *ngIf="remoteError">
+      {{ remoteError }}
+    </amplify-error>
   </fieldset>
-
-  <amplify-error *ngIf="remoteError">
-    {{ remoteError }}
-  </amplify-error>
+  <amplify-federated-sign-in></amplify-federated-sign-in>
 </ng-template>
 
 <div data-amplify-container>
-  <h2 data-amplify-header>{{ this.headerText }}</h2>
   <form data-amplify-form (submit)="onSubmit($event)" (input)="onInput($event)">
     <ng-container
       [ngTemplateOutlet]="customComponents.signUpFieldset || signUpFieldset"
       [ngTemplateOutletContext]="context"
     ></ng-container>
-
-    <div data-amplify-footer>
-      <div>
-        {{ haveAccountText }}
-        <button type="button" (click)="toSignIn()">{{ signInText }}</button>
-      </div>
-      <ng-container
-        [ngTemplateOutlet]="customComponents.signUpButton || signUpButton"
-        [ngTemplateOutletContext]="context"
-      >
-      </ng-container>
-    </div>
   </form>
 </div>
