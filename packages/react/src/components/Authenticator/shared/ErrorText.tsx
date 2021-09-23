@@ -1,5 +1,5 @@
 import { ActorContextWithForms, getActorContext } from '@aws-amplify/ui';
-import { useAmplify, useAuth } from '../../../hooks';
+import { useAmplify, useAuthenticator } from '../../../hooks';
 
 export interface ErrorTextProps {
   amplifyNamespace: string;
@@ -11,7 +11,7 @@ export const ErrorText = (props: ErrorTextProps): JSX.Element => {
     components: { Text },
   } = useAmplify(amplifyNamespace);
 
-  const [_state] = useAuth();
+  const [_state] = useAuthenticator();
   const actorContext: ActorContextWithForms = getActorContext(_state);
   const { remoteError } = actorContext;
 

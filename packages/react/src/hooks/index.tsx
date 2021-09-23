@@ -1,2 +1,2 @@
 export { useAmplify } from './useAmplify';
-export { useAuth } from './useAuth';
+export { useAuthenticator } from './useAuthenticator';

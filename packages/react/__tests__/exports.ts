@@ -1879,7 +1879,7 @@ describe('@aws-amplify/ui-react', () => {
           "theme",
           "useAmplify",
           "useAmplifyFieldID",
-          "useAuth",
+          "useAuthenticator",
           "useNonStyleProps",
           "usePagination",
           "usePropStyles",
