@@ -1,5 +1,5 @@
 <template>
-  <template v-if="name === 'phone_number'">
+  <template v-if="type === 'tel'">
     <base-label for="amplify-field-1177">
       {{ 'Country Code' }}
     </base-label>
@@ -34,7 +34,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, ComputedRef } from 'vue';
+import { ref, computed, ComputedRef, onMounted } from 'vue';
 import {
   authInputAttributes,
   getActorContext,
@@ -62,7 +62,8 @@ const { userNameAlias, userName, disabled } = withDefaults(
   }
 );
 
-const { state } = useAuth();
+const { state, send } = useAuth();
+
 const {
   value: { context },
 } = state;
@@ -71,7 +72,7 @@ const actorContext: ComputedRef<ActorContextWithForms> = computed(() =>
   getActorContext(state.value)
 );
 
-const defaultDialCode = actorContext.value.formValues?.country_code;
+const defaultDialCode = actorContext.value.country_code;
 
 let uName = ref('');
 
@@ -89,6 +90,16 @@ let label =
   authInputAttributes['username'].label;
 let type =
   authInputAttributes[name]?.type ?? authInputAttributes['username'].label;
+
+if (
+  label === authInputAttributes['username'].label ||
+  label === authInputAttributes['phone_number'].label
+) {
+  send({
+    type: 'CHANGE',
+    data: { name: 'country_code', value: defaultDialCode },
+  });
+}
 
 // Only show for Sign In
 if (userNameAlias) {

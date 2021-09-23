@@ -310,7 +310,7 @@ const emit = defineEmits([
 ]);
 
 const s = useInterpret(authMachine, {
-  devTools: process.env.NODE_ENV === 'development',
+  devTools: process.env.NODE_ENV !== 'development',
 });
 const service = ref(s);
 const { active } = useSelect;
