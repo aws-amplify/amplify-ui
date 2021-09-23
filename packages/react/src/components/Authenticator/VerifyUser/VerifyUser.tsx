@@ -8,7 +8,7 @@ import {
 import { Radio } from '@aws-amplify/ui-react';
 import { I18n } from 'aws-amplify';
 
-import { useAmplify, useAuth } from '../../../hooks';
+import { useAmplify, useAuthenticator } from '../../../hooks';
 import { RemoteErrorMessage, TwoButtonSubmitFooter } from '../shared';
 
 const generateRadioGroup = (
@@ -35,7 +35,7 @@ export const VerifyUser = (): JSX.Element => {
     components: { Flex, Form, Heading, RadioGroupField },
   } = useAmplify(amplifyNamespace);
 
-  const [_state, send] = useAuth();
+  const [_state, send] = useAuthenticator();
   const actorState: SignInState = getActorState(_state);
   const context = getActorContext(_state) as SignInContext;
   const isPending = actorState.matches('verifyUser.pending');

@@ -1,4 +1,4 @@
-import { useAmplify, useAuth } from '../../../../hooks';
+import { useAmplify, useAuthenticator } from '../../../../hooks';
 import { FederatedIdentityProviders } from '@aws-amplify/ui';
 import { Icon } from '@aws-amplify/ui-react';
 
@@ -65,7 +65,7 @@ export const FederatedSignInButton = (
   props: FederatedSignInButtonProps
 ): JSX.Element => {
   const { icon, provider, text } = props;
-  const [_, send] = useAuth();
+  const [_, send] = useAuthenticator();
 
   const amplifyNamespace = `Authenticator.FederatedSignIn.${provider}`;
   const {
