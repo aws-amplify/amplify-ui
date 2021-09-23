@@ -143,14 +143,11 @@
       <template #confirmResetPasswordSlotI>
         <slot name="confirm-reset-password"></slot>
       </template>
-      <template
-        #footer="{ info, onConfirmResetPasswordSubmit, onBackToSignInClicked }"
-      >
+      <template #footer="{ info, onConfirmResetPasswordSubmit }">
         <slot
           name="sign-in-footer"
           :info="info"
           :onConfirmResetPasswordSubmit="onConfirmResetPasswordSubmit"
-          :onBackToSignInClicked="onBackToSignInClicked"
         >
         </slot>
       </template>

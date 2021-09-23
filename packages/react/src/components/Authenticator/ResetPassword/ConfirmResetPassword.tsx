@@ -1,7 +1,7 @@
 import { I18n } from 'aws-amplify';
 import { getActorState, ResetPasswordState } from '@aws-amplify/ui';
 
-import { useAmplify, useAuth } from '../../../hooks';
+import { useAmplify, useAuthenticator } from '../../../hooks';
 import {
   ConfirmationCodeInput,
   RemoteErrorMessage,
@@ -14,7 +14,7 @@ export const ConfirmResetPassword = (): JSX.Element => {
     components: { FieldGroup, Flex, Form, Heading, PasswordField },
   } = useAmplify(amplifyNamespace);
 
-  const [_state, send] = useAuth();
+  const [_state, send] = useAuthenticator();
   const actorState = getActorState(_state) as ResetPasswordState;
   const isPending = actorState.matches('confirmResetPassword.pending');
 

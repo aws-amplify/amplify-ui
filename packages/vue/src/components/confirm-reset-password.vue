@@ -1,72 +1,97 @@
 <template>
   <slot v-bind="$attrs" name="confirmResetPasswordSlotI">
-    <base-wrapper v-bind="$attrs" data-amplify-wrapper>
+    <base-wrapper v-bind="$attrs">
       <base-form
         data-amplify-authenticator-confirmResetpassword
         @submit.prevent="onConfirmResetPasswordSubmit"
         @change="onChange"
       >
-        <base-heading>
-          {{ confirmResetPasswordHeading }}
-        </base-heading>
         <base-field-set
+          class="amplify-flex"
+          style="flex-direction: column"
           :disabled="actorState.matches('confirmResetPassword.pending')"
         >
-          <base-label data-amplify-confirmresetpassword-label>
-            <base-text>{{ confirmationCodeText }}</base-text>
-            <base-input
-              name="confirmation_code"
-              required
-              type="number"
-            ></base-input>
-          </base-label>
-
-          <base-label data-amplify-confirmresetpassword-label>
-            <base-text>New password</base-text>
-            <base-input
-              name="password"
-              autocomplete="password"
-              required
-              type="password"
-            ></base-input>
-          </base-label>
-          <base-box data-amplify-lostcode>
-            <slot
-              name="lost-your-code-section"
-              :onLostYourCodeClicked="onLostYourCodeClicked"
+          <base-heading class="amplify-heading" :level="3">
+            {{ confirmResetPasswordHeading }}
+          </base-heading>
+          <base-wrapper class="amplify-flex" style="flex-direction: column">
+            <base-wrapper
+              class="amplify-flex amplify-field amplify-textfield"
+              style="flex-direction: column"
             >
-              <base-text> {{ lostYourCodeText }}</base-text>
-              <base-button type="button" @click.prevent="onLostYourCodeClicked">
-                {{ resendCodeText }}
-              </base-button>
-            </slot>
-          </base-box>
+              <base-label
+                class="amplify-label sr-only"
+                for="amplify-field-d653"
+              >
+                {{ confirmationCodeText }}
+              </base-label>
+              <base-wrapper class="amplify-flex">
+                <base-input
+                  class="amplify-input amplify-field-group__control"
+                  id="amplify-field-d653"
+                  aria-invalid="false"
+                  autocomplete="one-time-code"
+                  :placeholder="codeText"
+                  name="confirmation_code"
+                  required
+                  type="number"
+                ></base-input>
+              </base-wrapper>
+            </base-wrapper>
+            <base-wrapper
+              class="
+                amplify-flex
+                amplify-field
+                amplify-textfield
+                amplify-passwordfield
+                password-field
+              "
+              style="flex-direction: column"
+            >
+              <password-control
+                name="password"
+                :label="newPasswordLabel"
+                autocomplete="current-password"
+              />
+            </base-wrapper>
+          </base-wrapper>
+          <base-footer class="amplify-flex" style="flex-direction: column">
+            <template #footert="{ slotData }">
+              <slot
+                name="footer"
+                :info="slotData"
+                :onConfirmResetPasswordSubmit="onConfirmResetPasswordSubmit"
+              >
+              </slot>
+            </template>
+            <base-button
+              class="amplify-button amplify-field-group__control"
+              data-fullwidth="false"
+              data-variation="primary"
+              type="submit"
+              style="font-weight: normal"
+              :disabled="actorState.matches('confirmResetPassword.pending')"
+              >{{ confirmResetPasswordText }}</base-button
+            >
+            <base-button
+              class="amplify-button amplify-field-group__control"
+              data-fullwidth="false"
+              data-size="small"
+              data-variation="link"
+              type="button"
+              @click.prevent="onLostYourCodeClicked"
+              style="font-weight: normal"
+            >
+              {{ resendCodeText }}
+            </base-button>
+          </base-footer>
         </base-field-set>
-
-        <base-footer>
-          <template #footert="{ slotData }">
-            <slot
-              name="footer"
-              :info="slotData"
-              :onBackToSignInClicked="onBackToSignInClicked"
-              :onConfirmResetPasswordSubmit="onConfirmResetPasswordSubmit"
-            >
-            </slot>
-          </template>
-          <base-button type="button" @click.prevent="onBackToSignInClicked">
-            {{ backSignInText }}</base-button
-          >
-          <base-spacer />
-          <base-button
-            :disabled="actorState.matches('confirmResetPassword.pending')"
-            >{{ confirmResetPasswordText }}</base-button
-          >
-        </base-footer>
-        <base-box data-ui-error>
-          {{ actorState?.context?.remoteError }}
-        </base-box>
       </base-form>
     </base-wrapper>
+
+    <base-box data-ui-error v-if="actorState?.context?.remoteError">
+      {{ actorState?.context?.remoteError }}
+    </base-box>
   </slot>
 </template>
 
@@ -74,14 +99,15 @@
 import { computed, ComputedRef, useAttrs, defineEmits } from 'vue';
 import { I18n } from 'aws-amplify';
 import { useAuth } from '../composables/useAuth';
+import PasswordControl from './password-control.vue';
 
 import {
-  BACK_SIGN_IN_TEXT,
   CONFIRM_RESET_PASSWORD_TEXT,
-  LOST_YOUR_CODE_TEXT,
   RESEND_CODE_TEXT,
   CONFIRM_RESET_PASSWORD_HEADING,
   CONFIRMATION_CODE_TEXT,
+  CODE_TEXT,
+  NEW_PASSWORD_LABEL,
 } from '../defaults/DefaultTexts';
 
 import { getActorState, ResetPasswordState } from '@aws-amplify/ui';
@@ -95,8 +121,6 @@ const actorState: ComputedRef<ResetPasswordState> = computed(() =>
 ) as ComputedRef<ResetPasswordState>;
 
 // Computed Properties
-const backSignInText = computed(() => I18n.get(BACK_SIGN_IN_TEXT));
-const lostYourCodeText = computed(() => I18n.get(LOST_YOUR_CODE_TEXT));
 const resendCodeText = computed(() => I18n.get(RESEND_CODE_TEXT));
 const confirmationCodeText = computed(() => I18n.get(CONFIRMATION_CODE_TEXT));
 const confirmResetPasswordHeading = computed(() =>
@@ -105,6 +129,9 @@ const confirmResetPasswordHeading = computed(() =>
 const confirmResetPasswordText = computed(() =>
   I18n.get(CONFIRM_RESET_PASSWORD_TEXT)
 );
+
+const codeText = computed(() => I18n.get(CODE_TEXT));
+const newPasswordLabel = computed(() => I18n.get(NEW_PASSWORD_LABEL));
 
 // Methods
 const onConfirmResetPasswordSubmit = (e: Event): void => {
@@ -131,16 +158,6 @@ const onLostYourCodeClicked = (): void => {
   send({
     type: 'RESEND',
   });
-};
-
-const onBackToSignInClicked = (): void => {
-  if (attrs?.onBackToSignInClicked) {
-    emit('backToSignInClicked');
-  } else {
-    send({
-      type: 'SIGN_IN',
-    });
-  }
 };
 
 const onChange = (e: Event) => {
