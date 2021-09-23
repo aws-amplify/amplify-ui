@@ -134,8 +134,6 @@ import FederatedSignIn from './federated-sign-in.vue';
 
 import {
   SIGN_IN_TEXT,
-  NO_ACCOUNT,
-  CREATE_ACCOUNT_LINK,
   FORGOT_YOUR_PASSWORD_LINK,
   SIGN_IN_BUTTON_TEXT,
   SIGNING_IN_BUTTON_TEXT,
@@ -155,8 +153,6 @@ const emit = defineEmits([
 
 const passwordLabel = computed(() => I18n.get(PASSWORD_LABEL));
 const signIntoAccountText = computed(() => I18n.get(SIGN_IN_TEXT));
-const noAccount = computed(() => I18n.get(NO_ACCOUNT));
-const createAccountLink = computed(() => I18n.get(CREATE_ACCOUNT_LINK));
 const forgotYourPasswordLink = computed(() =>
   I18n.get(FORGOT_YOUR_PASSWORD_LINK)
 );

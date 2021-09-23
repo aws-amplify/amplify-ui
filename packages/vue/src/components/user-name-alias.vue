@@ -45,6 +45,7 @@ import {
 
 import { useAuth } from '../composables/useAuth';
 import { useAliases } from '../composables/useUtils';
+import { I18n } from 'aws-amplify';
 
 interface PropsInterface {
   userNameAlias?: boolean;
@@ -96,4 +97,5 @@ if (userNameAlias) {
   type = aliasInfo.type;
   name = 'username';
 }
+label = I18n.get(label);
 </script>

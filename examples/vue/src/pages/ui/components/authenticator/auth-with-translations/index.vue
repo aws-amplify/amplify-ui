@@ -34,5 +34,4 @@ Amplify.configure({
     login_mechanisms: ['email'],
   },
 });
-console.log('hi');
 </script>

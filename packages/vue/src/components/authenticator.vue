@@ -265,8 +265,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, provide, computed, useAttrs, watch } from 'vue';
-import { getActorState } from '@aws-amplify/ui';
+import { ref, provide, computed, useAttrs, watch, onBeforeMount } from 'vue';
+import { getActorState, translations } from '@aws-amplify/ui';
 import { I18n } from 'aws-amplify';
 
 import { authMachine } from '@aws-amplify/ui';
@@ -290,6 +290,10 @@ import {
   InterpretServiceInjectionKeyTypes,
   InterpretService,
 } from '../types/index';
+
+onBeforeMount(() => {
+  I18n.putVocabularies(translations);
+});
 
 const attrs = useAttrs();
 const emit = defineEmits([
