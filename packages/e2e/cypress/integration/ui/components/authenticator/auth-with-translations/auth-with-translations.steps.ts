@@ -22,5 +22,5 @@ And('Forgot Password button is translated in Japanese', () => {
 });
 
 And('Create Account button is translated in Japanese', () => {
-  cy.findByRole('button', { name: translations.ja['Create Account'].trim() });
+  cy.findByRole('tab', { name: translations.ja['Create Account'].trim() });
 });
