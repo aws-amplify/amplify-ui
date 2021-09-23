@@ -12,7 +12,8 @@ Feature: Sign Up with Email
     And I don't see "Username" as an input field
     And I don't see "Phone Number" as an input field
 
-  @angular @react @vue @todo-angular  @vue
+# Failing because of SES
+  @todo-angular @todo-react @todo-vue  
   Scenario: Sign up with a new email & password
     When I type a new "email"
     And I type my password
