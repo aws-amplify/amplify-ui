@@ -18,10 +18,10 @@ import { StateMachineService } from '../../services/state-machine.service';
  * that does not make any auth-related inference.
  */
 @Component({
-  selector: 'amplify-form-input',
-  templateUrl: './amplify-input.component.html',
+  selector: 'amplify-form-field',
+  templateUrl: './amplify-form-field.component.html',
 })
-export class AmplifyInputComponent implements OnInit {
+export class AmplifyFormFieldComponent implements OnInit {
   @Input() name: string;
   // TODO: Separate entry for id
   @Input() type: string;
@@ -87,5 +87,9 @@ export class AmplifyInputComponent implements OnInit {
   // infers what the `type` of underlying input element should be.
   inferType(): string {
     return this.type ?? this.attributeMap[this.name]?.type ?? 'text';
+  }
+
+  isPasswordField(): boolean {
+    return this.inferType() === 'password';
   }
 }
