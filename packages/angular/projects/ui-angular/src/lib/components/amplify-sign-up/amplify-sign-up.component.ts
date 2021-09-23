@@ -41,8 +41,7 @@ export class AmplifySignUpComponent
 
   // translated texts
   public createAccountText = translate('Create Account');
-  public backToSignIn = translate('Have an account? ');
-  public signInText = translate('Back to Sign In');
+  public backToSignInText = translate('Back to Sign In');
 
   constructor(
     private stateMachine: StateMachineService,
