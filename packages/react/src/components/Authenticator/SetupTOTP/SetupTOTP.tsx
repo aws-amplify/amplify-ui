@@ -4,7 +4,7 @@ import QRCode from 'qrcode';
 import { Auth, Logger, I18n } from 'aws-amplify';
 import { getActorState, SignInState } from '@aws-amplify/ui';
 
-import { useAmplify, useAuth } from '../../../hooks';
+import { useAmplify, useAuthenticator } from '../../../hooks';
 import {
   ConfirmationCodeInput,
   ConfirmSignInFooter,
@@ -22,7 +22,7 @@ export const SetupTOTP = (): JSX.Element => {
     components: { FieldGroup, Flex, Form, Heading, Image },
   } = useAmplify(amplifyNamespace);
 
-  const [_state, send] = useAuth();
+  const [_state, send] = useAuthenticator();
   const actorState = getActorState(_state) as SignInState;
   const isPending = actorState.matches('confirmSignIn.pending');
 
