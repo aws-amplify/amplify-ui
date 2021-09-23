@@ -88,4 +88,8 @@ export class AmplifyInputComponent implements OnInit {
   inferType(): string {
     return this.type ?? this.attributeMap[this.name]?.type ?? 'text';
   }
+
+  isPasswordField(): boolean {
+    return this.inferType() === 'password';
+  }
 }

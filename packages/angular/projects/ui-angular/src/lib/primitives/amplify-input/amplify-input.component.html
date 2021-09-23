@@ -9,22 +9,31 @@
     [initialValue]="defaultCountryCode"
   ></amplify-form-select>
 
-  <!-- Textbox field -->
-  <label class="amplify-label sr-only" [for]="textFieldId">
-    {{ inferLabel() }}
-  </label>
-  <input
-    class="amplify-input"
-    data-amplify-form-input
+  <amplify-password-field
+    *ngIf="isPasswordField()"
+    [id]="textFieldId"
+    [name]="name"
+    [label]="inferLabel()"
+    [placeholder]="inferPlaceholder()"
+    [required]="required"
+    [value]="initialValue"
+    [disabled]="disabled"
+    [autocomplete]="autocomplete"
+  ></amplify-password-field>
+
+  <amplify-text-field
+    *ngIf="!isPasswordField()"
     [id]="textFieldId"
     [type]="inferType()"
     [name]="name"
+    [label]="inferLabel()"
     [placeholder]="inferPlaceholder()"
     [required]="required"
     [value]="initialValue"
     [attr.disabled]="disabled ? '' : null"
     [autocomplete]="autocomplete"
-  />
+  ></amplify-text-field>
+
   <amplify-error *ngIf="error">
     {{ error }}
   </amplify-error>
