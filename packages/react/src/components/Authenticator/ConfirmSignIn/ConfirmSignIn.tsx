@@ -6,7 +6,7 @@ import {
   SignInState,
 } from '@aws-amplify/ui';
 
-import { useAmplify, useAuth } from '../../../hooks';
+import { useAmplify, useAuthenticator } from '../../../hooks';
 import {
   ConfirmationCodeInput,
   ConfirmSignInFooter,
@@ -19,7 +19,7 @@ export const ConfirmSignIn = (): JSX.Element => {
     components: { FieldGroup, Flex, Form, Heading },
   } = useAmplify(amplifyNamespace);
 
-  const [_state, send] = useAuth();
+  const [_state, send] = useAuthenticator();
   const actorState: SignInState = getActorState(_state);
   const isPending = actorState.matches('confirmSignIn.pending');
 

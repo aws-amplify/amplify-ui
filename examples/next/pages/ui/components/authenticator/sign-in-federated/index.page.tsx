@@ -13,13 +13,7 @@ Amplify.configure({
 export default function AuthenticatorWithFacebook() {
   return (
     <Authenticator>
-      {({ send }) => {
-        return (
-          <>
-            <button onClick={() => send('SIGN_OUT')}>Sign out</button>
-          </>
-        );
-      }}
+      {({ signOut }) => <button onClick={signOut}>Sign out</button>}
     </Authenticator>
   );
 }

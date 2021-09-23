@@ -2,7 +2,7 @@ import { I18n } from 'aws-amplify';
 
 import { SignIn } from '../SignIn';
 import { SignUp } from '../SignUp';
-import { useAmplify, useAuth } from '../../../hooks';
+import { useAmplify, useAuthenticator } from '../../../hooks';
 import { getActorState } from '@aws-amplify/ui';
 
 export const SignInSignUpTabs = (): JSX.Element => {
@@ -10,7 +10,7 @@ export const SignInSignUpTabs = (): JSX.Element => {
     components: { Tabs, TabItem },
   } = useAmplify('Authenticator');
 
-  const [_state, send] = useAuth();
+  const [_state, send] = useAuthenticator();
   const actorState = getActorState(_state);
 
   const updateStateMachine = (): void => {

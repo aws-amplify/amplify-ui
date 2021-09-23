@@ -1,7 +1,7 @@
 import { I18n } from 'aws-amplify';
 import { getActorState, SignInState } from '@aws-amplify/ui';
 
-import { useAmplify, useAuth } from '../../../hooks';
+import { useAmplify, useAuthenticator } from '../../../hooks';
 import { FederatedSignIn } from '../FederatedSignIn';
 import { RemoteErrorMessage, UserNameAlias } from '../shared';
 
@@ -11,7 +11,7 @@ export function SignIn() {
     components: { Button, FieldGroup, Flex, Form, Heading, PasswordField },
   } = useAmplify(amplifyNamespace);
 
-  const [_state, send] = useAuth();
+  const [_state, send] = useAuthenticator();
   const actorState: SignInState = getActorState(_state);
   const isPending = actorState.matches('signIn.pending');
 
