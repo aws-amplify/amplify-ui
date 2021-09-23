@@ -17,7 +17,9 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
     initial: 'idle',
     context: {
       user: undefined,
-      config: undefined,
+      config: {
+        login_mechanisms: ['username'],
+      },
       actorRef: undefined,
     },
     states: {
