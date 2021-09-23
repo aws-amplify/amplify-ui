@@ -1876,6 +1876,7 @@ describe('@aws-amplify/ui-react', () => {
           "primitives",
           "theme",
           "useAmplify",
+          "useAuthenticator",
           "usePagination",
           "useTheming",
           "withAuthenticator",
