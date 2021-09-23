@@ -1,3 +1,10 @@
+/**
+ * NOTE:
+ * Many grid item props were left out of this demo
+ * due to a react error which occurs when shorthand and longhand style properties conflict
+ * See ticket: https://app.asana.com/0/1200141963577341/1201047184251871/f
+ */
+
 import * as React from 'react';
 import { GridItemStyleProps, TextField } from '@aws-amplify/ui-react';
 import { DemoBox } from './DemoBox';
@@ -21,36 +28,21 @@ interface GridItemPropControls {
 
 export const GridItemPropControls: GridItemPropControls = ({
   primitiveName,
-  area,
-  setArea,
-  column,
-  setColumn,
   columnEnd,
   setColumnEnd,
-  columnSpan,
-  setColumnSpan,
   columnStart,
   setColumnStart,
-  row,
-  setRow,
   rowEnd,
   setRowEnd,
-  rowSpan,
-  setRowSpan,
   rowStart,
   setRowStart,
 }) => {
   return (
     <DemoBox primitiveName={primitiveName}>
       <TextField
-        label="area"
-        onInput={(event) => setArea(event.target.value)}
-        value={area as string}
-      />
-      <TextField
-        label="column"
-        onInput={(event) => setColumn(event.target.value)}
-        value={column as string}
+        label="columnStart"
+        onInput={(event) => setColumnStart(event.target.value)}
+        value={columnStart as string}
       />
       <TextField
         label="columnEnd"
@@ -58,52 +50,14 @@ export const GridItemPropControls: GridItemPropControls = ({
         value={columnEnd as string}
       />
       <TextField
-        label="columnSpan"
-        onInput={(event) => {
-          const value = event.target.value.trim();
-          const numberValue = parseInt(value);
-          if (typeof numberValue === 'number' && !isNaN(numberValue)) {
-            setColumnSpan(numberValue as number);
-          }
-          if (value === 'auto' || value === '') {
-            setColumnSpan((value as 'auto') || null);
-          }
-        }}
-        value={columnSpan as number}
-      />
-      <TextField
-        label="columnStart"
-        onInput={(event) => setColumnStart(event.target.value)}
-        value={columnStart as string}
-      />
-      <TextField
-        label="row"
-        onInput={(event) => setRow(event.target.value)}
-        value={row as string}
+        label="rowStart"
+        onInput={(event) => setRowStart(event.target.value)}
+        value={rowStart as number}
       />
       <TextField
         label="rowEnd"
         onInput={(event) => setRowEnd(event.target.value)}
         value={rowEnd as string}
-      />
-      <TextField
-        label="rowSpan"
-        onInput={(event) => {
-          const value = event.target.value.trim();
-          const numberValue = parseInt(value);
-          if (typeof numberValue === 'number' && !isNaN(numberValue)) {
-            setRowSpan(numberValue as number);
-          }
-          if (value === 'auto' || value === '') {
-            setRowSpan((value as 'auto') || null);
-          }
-        }}
-        value={rowSpan as number}
-      />
-      <TextField
-        label="rowStart"
-        onInput={(event) => setRowStart(event.target.value)}
-        value={rowStart as number}
       />
     </DemoBox>
   );

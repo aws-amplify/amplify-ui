@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { GridContainerStyleProps, TextField } from '@aws-amplify/ui-react';
 import { DemoBox } from './DemoBox';
-import { setgid } from 'process';
 
 export interface GridContainerPropControlsProps
   extends GridContainerStyleProps {
@@ -11,7 +10,6 @@ export interface GridContainerPropControlsProps
   setColumnGap: (value: any) => void;
   setGap: (value: any) => void;
   setRowGap: (value: any) => void;
-  setTemplateAreas: (value: any) => void;
   setTemplateColumns: (value: any) => void;
   setTemplateRows: (value: any) => void;
   setAlignItems: (value: any) => void;
@@ -36,8 +34,6 @@ export const GridContainerPropControls: GridContainerPropControls = ({
   setGap,
   rowGap,
   setRowGap,
-  templateAreas,
-  setTemplateAreas,
   templateColumns,
   setTemplateColumns,
   templateRows,
@@ -81,13 +77,6 @@ export const GridContainerPropControls: GridContainerPropControls = ({
         label="rowGap"
         onInput={(event) => setRowGap(event.target.value)}
         value={rowGap as string}
-      />
-      <TextField
-        label="templateAreas"
-        as="textarea"
-        height="8rem"
-        onInput={(event) => setTemplateAreas(event.target.value)}
-        value={templateAreas as string}
       />
       <TextField
         label="templateColumns"

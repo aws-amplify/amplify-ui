@@ -28,14 +28,10 @@ const defaultGridContainerStyleProps: GridContainerStyleProps = {
 };
 
 const defaultHeaderGridItemStyleProps: GridItemStyleProps = {
-  area: '',
   columnStart: '1',
   columnEnd: '-1',
-  columnSpan: null,
-  row: '',
   rowStart: '',
   rowEnd: '',
-  rowSpan: null,
 };
 
 const defaultFooterGridItemStyleProps: GridItemStyleProps = {
