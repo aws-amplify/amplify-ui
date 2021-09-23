@@ -24,7 +24,6 @@ export class AmplifyConfirmSignUpComponent {
   public isPending = false;
 
   // translated texts
-  public signInText = translate('Sign in');
   public resendCodeText = translate('Resend Code');
   public lostCodeText = translate('Lost your code? ');
   public confirmText = translate('Confirm');
@@ -39,21 +38,6 @@ export class AmplifyConfirmSignUpComponent {
     this.authSubscription = this.stateMachine.authService.subscribe((state) =>
       this.onStateUpdate(state)
     );
-    this.setUsername();
-  }
-
-  setUsername() {
-    const state = this.stateMachine.authState;
-    const actorContext: SignUpContext = getActorContext(state);
-    const { user, authAttributes } = actorContext;
-    const username = user?.username ?? authAttributes?.username;
-    if (username) {
-      this.username = username;
-      this.stateMachine.send({
-        type: 'CHANGE',
-        data: { name: 'username', value: this.username },
-      });
-    }
   }
 
   ngAfterContentInit(): void {
@@ -76,11 +60,6 @@ export class AmplifyConfirmSignUpComponent {
     const username = this.username;
     return { change, remoteError, resend, signIn, submit, username };
   }
-
-  toSignIn(): void {
-    this.stateMachine.send('SIGN_IN');
-  }
-
   resend(): void {
     this.stateMachine.send({
       type: 'RESEND',
