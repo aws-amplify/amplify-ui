@@ -92,7 +92,7 @@ const { userNameAlias, userName, disabled } = withDefaults(
   }
 );
 
-const { state, send } = useAuth();
+const { state } = useAuth();
 
 const {
   value: { context },
@@ -120,16 +120,6 @@ let label =
   authInputAttributes['username'].label;
 let type =
   authInputAttributes[name]?.type ?? authInputAttributes['username'].label;
-
-if (
-  label === authInputAttributes['username'].label ||
-  label === authInputAttributes['phone_number'].label
-) {
-  send({
-    type: 'CHANGE',
-    data: { name: 'country_code', value: defaultDialCode },
-  });
-}
 
 // Only show for Sign In
 if (userNameAlias) {
