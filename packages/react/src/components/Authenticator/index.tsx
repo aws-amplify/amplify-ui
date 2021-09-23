@@ -34,7 +34,7 @@ export function Authenticator({
     I18n.putVocabularies(translations);
   }, []);
 
-  const facade = getServiceFacade([state, send]);
+  const facade = getServiceFacade({ send, state });
 
   if (state.matches('authenticated')) {
     return children(facade);

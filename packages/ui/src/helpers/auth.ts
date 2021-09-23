@@ -145,8 +145,8 @@ export const getSendEventAliases = (send: Sender<AuthEvent>) => {
   } as const;
 };
 
-export const getServiceFacade = ([state, send]) => {
-  const { user } = state.context as AuthContext;
+export const getServiceFacade = ({ send, state }) => {
+  const user = state.context?.user;
   const { signOut } = getSendEventAliases(send);
 
   return { signOut, user };
