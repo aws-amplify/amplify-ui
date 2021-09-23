@@ -4,6 +4,24 @@
 
 import { When } from 'cypress-cucumber-preprocessor/steps';
 
+When('I select my country code with status {string}', (status: string) => {
+  const countryCodeSelect = cy.findByRole('combobox', {
+    name: /country code/i,
+  });
+  if (countryCodeSelect) {
+    const countryCode =
+      status === 'CONFIRMED'
+        ? '+1'
+        : status === 'UNCONFIRMED'
+        ? '+7'
+        : status === 'UNKNOWN'
+        ? '+20'
+        : null;
+
+    countryCodeSelect.select(countryCode);
+  }
+});
+
 When(
   'I type my {string} with status {string}',
   (loginMechanism: string, status: string) => {
@@ -15,9 +33,9 @@ When(
 );
 
 When('I type my password', () => {
-  cy.findByPlaceholderText(/password/i).type(Cypress.env('VALID_PASSWORD'));
+  cy.findInputField('Password').type(Cypress.env('VALID_PASSWORD'));
 });
 
 When('I type an invalid password', () => {
-  cy.findByPlaceholderText(/password/i).type('invalidpass');
+  cy.findInputField('Password').type('invalidpass');
 });

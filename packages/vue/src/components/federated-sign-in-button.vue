@@ -1,14 +1,24 @@
 <template>
-  <base-button data-amplify-button type="button" @click="onClick">{{
-    text
-  }}</base-button>
+  <base-button
+    class="amplify-button amplify-field-group__control federated-sign-in-button"
+    data-fullwidth="false"
+    style="font-weight: normal"
+    type="button"
+    @click="onClick"
+  >
+    <base-wrapper
+      class="amplify-flex federated-sign-in-button-row"
+      style="flex-direction: row; justify-content: center"
+    >
+      <slot></slot>
+    </base-wrapper>
+  </base-button>
 </template>
 
 <script setup lang="ts">
 // @xstate
 import { useAuth } from '../composables/useAuth';
-const { text, provider } = defineProps({
-  text: String,
+const { provider } = defineProps({
   provider: String,
 });
 

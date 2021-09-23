@@ -53,17 +53,19 @@ jobs:
       NODE_ENV: test
 
     strategy:
+      # Run each examples (e.g. `next-example`) which uses a library (e.g. `@aws-amplify/ui-react`)
+      # BUT, Exclude `@skip` tests in `main` and exclude `@todo-${{ framework }}` tests in PRs
+      # See: https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#using-environment-variables-in-a-matrix
       matrix:
-        # https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#using-environment-variables-in-a-matrix
         include:
           - framework: angular
-            tags: '@angular'
+            tags: ${{ contains(github.ref, 'main') && '@angular and not @skip' || '@angular and not (@skip or @todo-angular)' }}
 
           - framework: next
-            tags: '@react'
+            tags: ${{ contains(github.ref, 'main') && '@react and not @skip' || '@react and not (@skip or @todo-react)' }}
 
           - framework: vue
-            tags: '@vue'
+            tags: ${{ contains(github.ref, 'main') && '@vue and not @skip' || '@vue and not (@skip or @todo-vue)' }}
 
     steps:
       - name: Checkout Amplify UI
@@ -102,7 +104,7 @@ jobs:
       - name: Run E2E tests against ${{ matrix.framework }} example
         run: yarn workspace e2e test
         env:
-          # Override on the default value in `cypress.json` with framework tag e.g. `@angular`
+          # Override on the default value in `cypress.json` with framework-specific tag
           TAGS: '${{ matrix.tags }}'
 
           # Env values for testing flows

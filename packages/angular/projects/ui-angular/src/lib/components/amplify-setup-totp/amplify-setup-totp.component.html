@@ -2,7 +2,7 @@
   Define default contents here
 -->
 <ng-template #setupTotpButton>
-  <button data-amplify-button type="submit">Confirm</button>
+  <button data-amplify-button type="submit">{{ confirmText }}</button>
 </ng-template>
 
 <ng-template #setupTotpForm>
@@ -10,14 +10,14 @@
     <fieldset data-amplify-fieldset [disabled]="isPending">
       <p *ngIf="!qrCodeSource">Loading...</p>
       <img *ngIf="qrCodeSource" [src]="qrCodeSource" alt="qr code" />
-      <amplify-form-input
+      <amplify-form-field
         name="confirmation_code"
         type="number"
         autocomplete="one-time-code"
-      ></amplify-form-input>
+      ></amplify-form-field>
 
       <div data-amplify-footer>
-        <a data-amplify-link (click)="toSignIn()">Back to Sign In</a>
+        <button (click)="toSignIn()">{{ backToSignInText }}</button>
         <ng-container
           [ngTemplateOutlet]="
             customComponents.setupTotpButton || setupTotpButton

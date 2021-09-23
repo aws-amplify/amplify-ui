@@ -1,4 +1,4 @@
-import { Component, HostBinding, TemplateRef } from '@angular/core';
+import { Component, HostBinding, Input, TemplateRef } from '@angular/core';
 import {
   AuthMachineState,
   getActorContext,
@@ -6,24 +6,27 @@ import {
   SignUpContext,
   SignUpState,
 } from '@aws-amplify/ui';
-import { Logger } from 'aws-amplify';
 import { Subscription } from 'xstate';
 import { StateMachineService } from '../../services/state-machine.service';
 import { AuthPropService } from '../../services/authenticator-context.service';
-
-const logger = new Logger('ConfirmSignUp');
-
+import { translate } from '@aws-amplify/ui';
 @Component({
   selector: 'amplify-confirm-sign-up',
   templateUrl: './amplify-confirm-sign-up.component.html',
 })
 export class AmplifyConfirmSignUpComponent {
   @HostBinding('attr.data-amplify-authenticator-confirmsignup') dataAttr = '';
+  @Input() headerText = translate('Confirm Sign Up');
   public customComponents: Record<string, TemplateRef<any>> = {};
   private authSubscription: Subscription;
   public username: string;
   public remoteError = '';
   public isPending = false;
+
+  // translated texts
+  public resendCodeText = translate('Resend Code');
+  public lostCodeText = translate('Lost your code? ');
+  public confirmText = translate('Confirm');
 
   constructor(
     private stateMachine: StateMachineService,
@@ -35,21 +38,6 @@ export class AmplifyConfirmSignUpComponent {
     this.authSubscription = this.stateMachine.authService.subscribe((state) =>
       this.onStateUpdate(state)
     );
-    this.setUsername();
-  }
-
-  setUsername() {
-    const state = this.stateMachine.authState;
-    const actorContext: SignUpContext = getActorContext(state);
-    const { user, authAttributes } = actorContext;
-    const username = user?.username ?? authAttributes?.username;
-    if (username) {
-      this.username = username;
-      this.stateMachine.send({
-        type: 'CHANGE',
-        data: { name: 'username', value: this.username },
-      });
-    }
   }
 
   ngAfterContentInit(): void {
@@ -57,9 +45,6 @@ export class AmplifyConfirmSignUpComponent {
   }
 
   ngOnDestroy(): void {
-    logger.log(
-      'confirm sign up destroyed, unsubscribing from state machine...'
-    );
     this.authSubscription.unsubscribe();
   }
 
@@ -75,11 +60,6 @@ export class AmplifyConfirmSignUpComponent {
     const username = this.username;
     return { change, remoteError, resend, signIn, submit, username };
   }
-
-  toSignIn(): void {
-    this.stateMachine.send('SIGN_IN');
-  }
-
   resend(): void {
     this.stateMachine.send({
       type: 'RESEND',

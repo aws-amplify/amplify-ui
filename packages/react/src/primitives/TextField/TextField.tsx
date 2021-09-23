@@ -73,7 +73,6 @@ export const TextField: React.FC<TextFieldProps> = ({
         endComponents={inputEndComponents}
       >
         <Input
-          aria-labelledby={fieldId}
           autoComplete={autoComplete}
           defaultValue={defaultValue}
           hasError={hasError}

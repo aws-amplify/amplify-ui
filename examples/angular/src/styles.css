@@ -3,6 +3,10 @@
 @import '~@aws-amplify/ui-angular/theme.css';
 
 body {
-  display: flex;
   justify-content: center;
+  background-color: var(--amplify-colors-background-secondary);
+}
+
+h3.amplify-heading {
+  font-weight: 600;
 }

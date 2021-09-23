@@ -1,0 +1,10 @@
+<label class="amplify-label sr-only" [for]="id">{{ label }}</label>
+<select class="amplify-select" [id]="id" [name]="name">
+  <option
+    *ngFor="let item of items"
+    [value]="item"
+    [selected]="item === initialValue"
+  >
+    {{ item }}
+  </option>
+</select>

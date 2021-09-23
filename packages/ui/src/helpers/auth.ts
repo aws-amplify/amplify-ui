@@ -9,6 +9,7 @@ import {
   AuthEventTypes,
   AuthInputAttributes,
   AuthMachineState,
+  UserNameAlias,
   userNameAliasArray,
 } from '../types';
 
@@ -30,7 +31,7 @@ export const authInputAttributes: AuthInputAttributes = {
   },
   confirmation_code: {
     label: 'Confirmation Code',
-    placeholder: 'Enter your code',
+    placeholder: 'Code',
     type: 'number',
   },
   password: {
@@ -48,11 +49,23 @@ export enum FederatedIdentityProviders {
 
 /**
  * Given xstate context from AuthMachine, this returns the input label, type,
- * and error attributes of the configured login_mechanisms.
+ * and error attributes of the configured login_mechanisms. An optional "alias"
+ * may be passed in to get info from context for that specific alias.
  */
-export const getAliasInfoFromContext = (context: AuthContext) => {
+export const getAliasInfoFromContext = (
+  context: AuthContext,
+  alias?: UserNameAlias
+) => {
   const loginMechanisms = context.config?.login_mechanisms ?? ['username'];
   const error = context.actorRef?.context?.validationError['username'];
+
+  if (userNameAliasArray.includes(alias)) {
+    return {
+      label: authInputAttributes[alias].label,
+      type: authInputAttributes[alias].type,
+      error,
+    };
+  }
 
   let type = 'text';
   const label = loginMechanisms
@@ -130,4 +143,11 @@ export const getSendEventAliases = (send: Sender<AuthEvent>) => {
     skip: sendToMachine('SKIP'),
     submit: sendToMachine('SUBMIT'),
   } as const;
+};
+
+export const getServiceFacade = ({ send, state }) => {
+  const user = state.context?.user;
+  const { signOut } = getSendEventAliases(send);
+
+  return { signOut, user };
 };

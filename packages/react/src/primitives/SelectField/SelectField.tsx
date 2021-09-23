@@ -66,7 +66,6 @@ export const SelectField: React.FC<SelectFieldProps> = (props) => {
         descriptiveText={descriptiveText}
       />
       <Select
-        aria-labelledby={fieldId}
         autoComplete={autoComplete}
         defaultValue={defaultValue}
         hasError={hasError}

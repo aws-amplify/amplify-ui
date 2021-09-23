@@ -10,10 +10,11 @@
     }
   },
   "allowedNonPeerDependencies": [
+    "@aws-amplify/ui-components",
     "@aws-amplify/ui",
-    "qrcode",
-    "xstate",
     "@stencil/core",
-    "@aws-amplify/ui-components"
+    "nanoid",
+    "qrcode",
+    "xstate"
   ]
 }

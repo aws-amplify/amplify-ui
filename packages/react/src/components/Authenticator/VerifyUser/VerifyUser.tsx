@@ -5,9 +5,10 @@ import {
   SignInContext,
   authInputAttributes,
 } from '@aws-amplify/ui';
+import { Radio } from '@aws-amplify/ui-react';
 import { I18n } from 'aws-amplify';
 
-import { useAmplify, useAuth } from '../../../hooks';
+import { useAmplify, useAuthenticator } from '../../../hooks';
 import { RemoteErrorMessage, TwoButtonSubmitFooter } from '../shared';
 
 const generateRadioGroup = (
@@ -17,10 +18,9 @@ const generateRadioGroup = (
 
   for (const [key, value] of Object.entries(attributes)) {
     const radio = (
-      <label key={key}>
-        <input type="radio" name="unverifiedAttr" value={key} />
+      <Radio name="unverifiedAttr" value={key} key={key}>
         {I18n.get(authInputAttributes[key].label)}
-      </label>
+      </Radio>
     );
 
     radioButtons.push(radio);
@@ -32,10 +32,10 @@ const generateRadioGroup = (
 export const VerifyUser = (): JSX.Element => {
   const amplifyNamespace = 'Authenticator.VerifyUser';
   const {
-    components: { Fieldset, Form, Heading },
+    components: { Flex, Form, Heading, RadioGroupField },
   } = useAmplify(amplifyNamespace);
 
-  const [_state, send] = useAuth();
+  const [_state, send] = useAuthenticator();
   const actorState: SignInState = getActorState(_state);
   const context = getActorContext(_state) as SignInContext;
   const isPending = actorState.matches('verifyUser.pending');
@@ -50,9 +50,14 @@ export const VerifyUser = (): JSX.Element => {
   );
 
   const verificationRadioGroup = (
-    <Fieldset disabled={isPending}>
+    <RadioGroupField
+      label={I18n.get('Verify Contact')}
+      labelHidden={true}
+      name="verify_context"
+      disabled={isPending}
+    >
       {generateRadioGroup(context.unverifiedAttributes)}
-    </Fieldset>
+    </RadioGroupField>
   );
 
   return (
@@ -71,19 +76,21 @@ export const VerifyUser = (): JSX.Element => {
         });
       }}
     >
-      <Heading level={1}>{headerText}</Heading>
+      <Flex direction="column">
+        <Heading level={3}>{headerText}</Heading>
 
-      {verificationRadioGroup}
+        {verificationRadioGroup}
 
-      <RemoteErrorMessage amplifyNamespace={amplifyNamespace} />
+        <RemoteErrorMessage amplifyNamespace={amplifyNamespace} />
 
-      <TwoButtonSubmitFooter
-        amplifyNamespace={amplifyNamespace}
-        isPending={isPending}
-        cancelButtonText={I18n.get('Skip')}
-        cancelButtonSendType="SKIP"
-        submitButtonText={footerSubmitText}
-      />
+        <TwoButtonSubmitFooter
+          amplifyNamespace={amplifyNamespace}
+          isPending={isPending}
+          cancelButtonText={I18n.get('Skip')}
+          cancelButtonSendType="SKIP"
+          submitButtonText={footerSubmitText}
+        />
+      </Flex>
     </Form>
   );
 };

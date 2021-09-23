@@ -4,17 +4,17 @@ Feature: Sign Up with Username
 
   Background:
     Given I'm running the example "ui/components/authenticator/sign-up-with-username"
-    And I click "Create account"
+    And I click the "Create Account" tab
 
-  @angular @react @vue
+  @todo-angular @react @vue
   Scenario: Login mechanism set to "username"
     Then I see "Username" as an input field
     And I see "Email" as an input field
     And I see "Phone Number" as an input field
 
-  # Sign up tests skipped due to SES limits
-  Scenario: Sign up with valid username & password
-    When I type my "username" with status "UNCONFIRMED"
+  @todo-angular @todo-react @todo-vue 
+  Scenario: Sign up a new username & password
+    When I type a new "username"
     And I type my password
     And I confirm my password
     And I type my "email" with status "UNCONFIRMED"
@@ -23,11 +23,11 @@ Feature: Sign Up with Username
     Then I see "Confirm Sign Up"
     And I see "Confirmation Code"
 
-  @angular @react @vue
+  @todo-angular @react @vue
   Scenario: Username field autocompletes username
     Then "Username" field autocompletes "username"
 
-  @angular @react @vue
+  @todo-angular @react @vue
   Scenario: Password fields autocomplete "new-password"
     Then "Password" field autocompletes "new-password"
     And "Confirm Password" field autocompletes "new-password"

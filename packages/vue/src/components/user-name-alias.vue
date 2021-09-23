@@ -1,36 +1,65 @@
 <template>
-  <template v-if="name === 'phone_number'">
-    <base-label for="amplify-field-1177">
-      {{ 'Country Code' }}
-    </base-label>
-    <base-select
-      data-amplify-select
-      id="amplify-field-1177"
-      aria-label="country code"
-      name="country_code"
-      :options="dialCodes"
-      :selectValue="defaultDialCode"
+  <template v-if="type === 'tel'">
+    <base-wrapper
+      class="amplify-flex amplify-field amplify-selectfield"
+      style="flex-direction: column"
     >
-    </base-select>
+      <base-label class="amplify-label sr-only" for="amplify-field-1177">
+        {{ 'Country Code' }}
+      </base-label>
+      <base-wrapper class="amplify-select__wrapper">
+        <base-select
+          class="amplify-select amplify-field-group__control"
+          id="amplify-field-1177"
+          aria-label="country code"
+          name="country_code"
+          :options="dialCodes"
+          :selectValue="defaultDialCode"
+        >
+        </base-select>
+        <base-wrapper
+          class="amplify-flex amplify-select__icon-wrapper"
+          style="align-items: center; justify-content: center"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="amplify-icon"
+            viewBox="0 0 24 24"
+            data-size="large"
+            fill="currentColor"
+          >
+            <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path>
+          </svg>
+        </base-wrapper>
+      </base-wrapper>
+    </base-wrapper>
   </template>
 
-  <base-label v-bind="$attrs">
-    {{ label }}
-  </base-label>
-  <base-wrapper class="amplify-flex">
-    <base-input
-      class="amplify-input amplify-field-group__control"
-      id="amplify-field-1220"
-      aria-invalid="false"
-      aria-labelledby="amplify-field-1220"
-      :textValue="uName"
-      autocomplete="username"
-      :placeholder="label"
-      required
-      :name="name"
-      :disabled="disabled"
-      :type="type"
-    ></base-input>
+  <base-wrapper
+    class="amplify-flex amplify-field amplify-selectfield"
+    style="flex-direction: column"
+  >
+    <base-label
+      class="amplify-label sr-only"
+      for="amplify-field-601d"
+      v-bind="$attrs"
+    >
+      {{ label }}
+    </base-label>
+    <base-wrapper class="amplify-flex">
+      <base-input
+        class="amplify-input amplify-field-group__control"
+        id="amplify-field-601d"
+        aria-invalid="false"
+        :textValue="uName"
+        autocomplete="username"
+        :placeholder="label"
+        required
+        :name="name"
+        :disabled="disabled"
+        :type="type"
+      ></base-input>
+    </base-wrapper>
   </base-wrapper>
 </template>
 
@@ -46,6 +75,7 @@ import {
 
 import { useAuth } from '../composables/useAuth';
 import { useAliases } from '../composables/useUtils';
+import { I18n } from 'aws-amplify';
 
 interface PropsInterface {
   userNameAlias?: boolean;
@@ -63,6 +93,7 @@ const { userNameAlias, userName, disabled } = withDefaults(
 );
 
 const { state } = useAuth();
+
 const {
   value: { context },
 } = state;
@@ -71,7 +102,7 @@ const actorContext: ComputedRef<ActorContextWithForms> = computed(() =>
   getActorContext(state.value)
 );
 
-const defaultDialCode = actorContext.value.formValues?.country_code;
+const defaultDialCode = actorContext.value.country_code;
 
 let uName = ref('');
 
@@ -97,4 +128,5 @@ if (userNameAlias) {
   type = aliasInfo.type;
   name = 'username';
 }
+label = I18n.get(label);
 </script>

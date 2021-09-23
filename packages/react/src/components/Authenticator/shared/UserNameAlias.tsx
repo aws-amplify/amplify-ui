@@ -1,33 +1,67 @@
+import { useEffect } from 'react';
 import { I18n } from 'aws-amplify';
-import { getAliasInfoFromContext } from '@aws-amplify/ui';
+import {
+  ActorContextWithForms,
+  UserNameAlias,
+  countryDialCodes,
+  getActorContext,
+  getAliasInfoFromContext,
+} from '@aws-amplify/ui';
 
-import { useAuth } from '../../../hooks';
-import { TextField } from '../../../primitives';
+import { useAuthenticator } from '../../../hooks';
+import { SelectField, TextField } from '../../../primitives';
 
 export interface UserNameAliasProps {
   handleInputChange?(event): void;
+  alias?: UserNameAlias;
   [key: string]: any;
 }
 
 export function UserNameAlias(props: UserNameAliasProps) {
-  const { handleInputChange, ...attrs } = props;
-  const [{ context }] = useAuth();
+  const { handleInputChange, alias, ...attrs } = props;
+  const [_state, send] = useAuthenticator();
 
-  const { label, type, error } = getAliasInfoFromContext(context);
+  const actorContext: ActorContextWithForms = getActorContext(_state);
+  const { label, type, error } = getAliasInfoFromContext(_state.context, alias);
   const i18nLabel = I18n.get(label);
 
+  const isPhoneAlias = type === 'tel';
+
+  useEffect(() => {
+    isPhoneAlias &&
+      send({
+        type: 'CHANGE',
+        data: { name: 'country_code', value: actorContext.country_code },
+      });
+  }, []);
+
   return (
-    <TextField
-      type={type}
-      onChange={handleInputChange}
-      name="username"
-      required
-      placeholder={i18nLabel}
-      label={i18nLabel}
-      labelHidden={true}
-      errorMessage={error}
-      autoComplete="username"
-      {...attrs}
-    />
+    <>
+      {isPhoneAlias && (
+        <SelectField
+          name="country_code"
+          label="country code"
+          labelHidden={true}
+          defaultValue={actorContext.country_code}
+        >
+          {countryDialCodes.map((dialCode) => (
+            <option key={dialCode} value={dialCode}>
+              {dialCode}
+            </option>
+          ))}
+        </SelectField>
+      )}
+      <TextField
+        type={type}
+        name={alias ?? 'username'}
+        required
+        placeholder={i18nLabel}
+        label={i18nLabel}
+        labelHidden={true}
+        autoComplete="username"
+        errorMessage={error}
+        {...attrs}
+      />
+    </>
   );
 }

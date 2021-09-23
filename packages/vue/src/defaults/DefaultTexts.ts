@@ -6,7 +6,7 @@ export const SIGN_IN_BUTTON_TEXT = 'Sign in';
 export const SIGNING_IN_BUTTON_TEXT = 'Signing in';
 export const PASSWORD_LABEL = 'Password';
 export const CONFIRM_PASSWORD_LABEL = 'Confirm Password';
-export const CHANGE_PASSWORD_LABEL = 'Change password';
+export const CHANGE_PASSWORD_LABEL = 'Change Password';
 export const CHANGING_PASSWORD_LABEL = 'Changing';
 
 export const SIGN_IN_TEXT = 'Sign in to your account';
@@ -36,9 +36,16 @@ export const VERIFY_HEADING =
 
 export const SKIP_TEXT = 'Skip';
 export const VERIFY_TEXT = 'Verify';
+export const VERIFY_CONTACT_TEXT = 'Verify Contact';
 
 export const ENTER_USERNAME_TEXT = 'Enter your username';
 export const CODE_TEXT = 'Code';
 export const PASSWORD_TEXT = 'Password';
 export const HIDE_PASSWORD = 'Hide password';
 export const SHOW_PASSWORD = 'Show password';
+export const SIGN_IN_GOOGLE = 'Sign in with Google';
+export const SIGN_IN_FACEBOOK = 'Sign in with Facebook';
+export const SIGN_IN_AMAZON = 'Sign in with Amazon';
+export const SIGN_IN_LABEL = 'Sign In';
+export const ENTER_CODE = 'Enter your code';
+export const NEW_PASSWORD_LABEL = 'New password';

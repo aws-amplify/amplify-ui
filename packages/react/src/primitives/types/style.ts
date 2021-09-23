@@ -37,6 +37,7 @@ export interface BaseStyleProps extends GridItemStyleProps {
   minWidth?: ResponsiveStyle<Property.MinWidth>;
   opacity?: ResponsiveStyle<Property.Opacity>;
   padding?: ResponsiveStyle<Property.Padding>;
+  textAlign?: ResponsiveStyle<Property.TextAlign>;
   textDecoration?: ResponsiveStyle<Property.TextDecoration>;
   width?: ResponsiveStyle<Property.Width>;
 }
@@ -122,6 +123,7 @@ export const ComponentPropsToStylePropsMap: ComponentPropToStyleProp = {
   templateAreas: 'gridTemplateAreas',
   templateColumns: 'gridTemplateColumns',
   templateRows: 'gridTemplateRows',
+  textAlign: 'textAlign',
   textDecoration: 'textDecoration',
   width: 'width',
   wrap: 'flexWrap',
