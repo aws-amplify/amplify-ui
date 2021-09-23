@@ -54,7 +54,6 @@ export const GridContainerPropControls: GridContainerPropControls = ({
       />
       <TextField
         label="autoFlow"
-        type="number"
         onInput={(event) => setAutoFlow(event.target.value)}
         value={autoFlow as number}
       />
