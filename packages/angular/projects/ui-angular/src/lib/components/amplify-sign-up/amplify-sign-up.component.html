@@ -1,11 +1,5 @@
 <ng-template #signUpButton>
-  <button
-    class="amplify-button"
-    data-fullwidth="true"
-    data-variation="primary"
-    type="submit"
-    type="submit"
-  >
+  <button amplify-button variation="primary" fullWidth="true" type="submit">
     {{ createAccountText }}
   </button>
 </ng-template>
@@ -64,13 +58,12 @@
     >
     </ng-container>
     <button
-      type="button"
-      class="amplify-button"
-      data-fullwidth="false"
-      data-size="small"
-      data-variation="link"
+      amplify-button
+      size="small"
+      variation="link"
+      fontWeight="normal"
+      fullWidth="true"
       (click)="toSignIn()"
-      style="font-weight: normal"
     >
       {{ signInText }}
     </button>
