@@ -11,11 +11,11 @@
 <ng-template #confirmVerifyUserForm>
   <form data-amplify-form (submit)="onSubmit($event)">
     <fieldset data-amplify-fieldset [disabled]="isPending">
-      <amplify-form-input
+      <amplify-form-field
         name="confirmation_code"
         type="number"
         autocomplete="one-time-code"
-      ></amplify-form-input>
+      ></amplify-form-field>
       <ng-container
         [ngTemplateOutlet]="
           customComponents.verifyUserFooter || verifyUserFooter

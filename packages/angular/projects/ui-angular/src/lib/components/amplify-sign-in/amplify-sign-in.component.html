@@ -17,12 +17,12 @@
     >
       <h3 class="amplify-heading">{{ this.headerText }}</h3>
       <amplify-user-name-alias></amplify-user-name-alias>
-      <amplify-form-input
+      <amplify-form-field
         data-amplify-password
         name="password"
         type="password"
         autocomplete="current-password"
-      ></amplify-form-input>
+      ></amplify-form-field>
       <ng-container
         [ngTemplateOutlet]="customComponents.signInButton || signInButton"
         [ngTemplateOutletContext]="context"

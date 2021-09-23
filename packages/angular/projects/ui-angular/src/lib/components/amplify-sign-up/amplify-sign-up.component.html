@@ -9,19 +9,19 @@
 </ng-template>
 
 <ng-template #signUpPassword>
-  <amplify-form-input
+  <amplify-form-field
     name="password"
     autocomplete="new-password"
-  ></amplify-form-input>
+  ></amplify-form-field>
 </ng-template>
 
 <ng-template #signUpConfirmPassword>
-  <amplify-form-input
+  <amplify-form-field
     name="confirm_password"
     label="Confirm Password"
     type="password"
     autocomplete="new-password"
-  ></amplify-form-input>
+  ></amplify-form-field>
 </ng-template>
 
 <ng-template #signUpFieldset>
@@ -50,7 +50,7 @@
     ></ng-container>
 
     <ng-container *ngFor="let secondaryAlias of secondaryAliases">
-      <amplify-form-input [name]="secondaryAlias"></amplify-form-input>
+      <amplify-form-field [name]="secondaryAlias"></amplify-form-field>
     </ng-container>
     <ng-container
       [ngTemplateOutlet]="customComponents.signUpButton || signUpButton"

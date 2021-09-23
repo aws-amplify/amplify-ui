@@ -8,16 +8,16 @@
 <ng-template #confirmSignUpForm>
   <form data-amplify-form (submit)="onSubmit($event)" (input)="onInput($event)">
     <fieldset data-amplify-fieldset [disabled]="isPending">
-      <amplify-form-input
+      <amplify-form-field
         name="username"
         [initialValue]="username ? username : null"
         [disabled]="!!username"
-      ></amplify-form-input>
-      <amplify-form-input
+      ></amplify-form-field>
+      <amplify-form-field
         name="confirmation_code"
         type="number"
         autocomplete="one-time-code"
-      ></amplify-form-input>
+      ></amplify-form-field>
 
       <div data-amplify-resend>
         {{ lostCodeText }}
