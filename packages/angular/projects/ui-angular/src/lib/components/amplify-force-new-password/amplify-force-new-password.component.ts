@@ -31,7 +31,7 @@ export class AmplifyForceNewPasswordComponent
 {
   @HostBinding('attr.data-amplify-authenticator-forcenewpassword')
   dataAttr = '';
-  @Input() public headerText = translate('Reset your password');
+  @Input() public headerText = translate('Change Password');
 
   public customComponents: Record<string, TemplateRef<any>> = {};
   public remoteError = '';

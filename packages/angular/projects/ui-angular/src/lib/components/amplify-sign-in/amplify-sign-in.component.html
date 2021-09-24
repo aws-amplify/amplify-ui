@@ -2,12 +2,7 @@
   Define default contents here
 -->
 <ng-template #signInButton>
-  <button
-    class="amplify-button"
-    data-fullwidth="true"
-    data-variation="primary"
-    type="submit"
-  >
+  <button amplify-button variation="primary" fullWidth="true" type="submit">
     {{ signInButtonText }}
   </button>
 </ng-template>
@@ -22,36 +17,32 @@
     >
       <h3 class="amplify-heading">{{ this.headerText }}</h3>
       <amplify-user-name-alias></amplify-user-name-alias>
-      <amplify-form-input
+      <amplify-form-field
         data-amplify-password
         name="password"
         type="password"
         autocomplete="current-password"
-      ></amplify-form-input>
+      ></amplify-form-field>
       <ng-container
         [ngTemplateOutlet]="customComponents.signInButton || signInButton"
         [ngTemplateOutletContext]="context"
       >
       </ng-container>
       <button
-        type="button"
-        class="amplify-button"
-        data-fullwidth="false"
-        data-size="small"
-        data-variation="link"
+        amplify-button
+        fontWeight="normal"
+        size="small"
+        variation="link"
         (click)="toSignUp()"
-        style="font-weight: normal"
       >
         {{ createAccountText }}
       </button>
       <button
-        type="button"
-        class="amplify-button"
-        data-fullwidth="false"
-        data-size="small"
-        data-variation="link"
+        amplify-button
+        fontWeight="normal"
+        size="small"
+        variation="link"
         (click)="toResetPassword()"
-        style="font-weight: normal"
       >
         {{ forgotPasswordText }}
       </button>

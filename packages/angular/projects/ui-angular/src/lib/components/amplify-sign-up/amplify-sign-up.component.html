@@ -1,5 +1,7 @@
 <ng-template #signUpButton>
-  <button data-amplify-button type="submit">{{ createAccountText }}</button>
+  <button amplify-button variation="primary" fullWidth="true" type="submit">
+    {{ createAccountText }}
+  </button>
 </ng-template>
 
 <ng-template #signUpUsername>
@@ -7,24 +9,29 @@
 </ng-template>
 
 <ng-template #signUpPassword>
-  <amplify-form-input
+  <amplify-form-field
     name="password"
     autocomplete="new-password"
-  ></amplify-form-input>
+  ></amplify-form-field>
 </ng-template>
 
 <ng-template #signUpConfirmPassword>
-  <amplify-form-input
+  <amplify-form-field
     name="confirm_password"
     label="Confirm Password"
     type="password"
     autocomplete="new-password"
-  ></amplify-form-input>
+  ></amplify-form-field>
 </ng-template>
 
 <ng-template #signUpFieldset>
-  <fieldset data-amplify-fieldset [disabled]="isPending">
-    <amplify-federated-sign-in></amplify-federated-sign-in>
+  <fieldset
+    class="amplify-flex"
+    style="flex-direction: column"
+    data-amplify-fieldset
+    [disabled]="isPending"
+  >
+    <h3 class="amplify-heading">{{ this.headerText }}</h3>
     <ng-container
       [ngTemplateOutlet]="customComponents.signUpUsername || signUpUsername"
       [ngTemplateOutletContext]="context"
@@ -43,33 +50,35 @@
     ></ng-container>
 
     <ng-container *ngFor="let secondaryAlias of secondaryAliases">
-      <amplify-form-input [name]="secondaryAlias"></amplify-form-input>
+      <amplify-form-field [name]="secondaryAlias"></amplify-form-field>
     </ng-container>
+    <ng-container
+      [ngTemplateOutlet]="customComponents.signUpButton || signUpButton"
+      [ngTemplateOutletContext]="context"
+    >
+    </ng-container>
+    <button
+      amplify-button
+      size="small"
+      variation="link"
+      fontWeight="normal"
+      fullWidth="true"
+      (click)="toSignIn()"
+    >
+      {{ backToSignInText }}
+    </button>
+    <amplify-error *ngIf="remoteError">
+      {{ remoteError }}
+    </amplify-error>
   </fieldset>
-
-  <amplify-error *ngIf="remoteError">
-    {{ remoteError }}
-  </amplify-error>
+  <amplify-federated-sign-in></amplify-federated-sign-in>
 </ng-template>
 
 <div data-amplify-container>
-  <h2 data-amplify-header>{{ this.headerText }}</h2>
   <form data-amplify-form (submit)="onSubmit($event)" (input)="onInput($event)">
     <ng-container
       [ngTemplateOutlet]="customComponents.signUpFieldset || signUpFieldset"
       [ngTemplateOutletContext]="context"
     ></ng-container>
-
-    <div data-amplify-footer>
-      <div>
-        {{ haveAccountText }}
-        <button type="button" (click)="toSignIn()">{{ signInText }}</button>
-      </div>
-      <ng-container
-        [ngTemplateOutlet]="customComponents.signUpButton || signUpButton"
-        [ngTemplateOutletContext]="context"
-      >
-      </ng-container>
-    </div>
   </form>
 </div>
