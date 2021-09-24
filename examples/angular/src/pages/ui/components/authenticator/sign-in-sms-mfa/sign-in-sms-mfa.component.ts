@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { Amplify } from 'aws-amplify';
 
@@ -8,15 +8,8 @@ import awsExports from '@environments/auth-with-phone-and-sms-mfa/src/aws-export
   selector: 'sign-in-sms-mfa',
   templateUrl: 'sign-in-sms-mfa.component.html',
 })
-export class SignInSMSMFAComponent implements OnInit {
+export class SignInSMSMFAComponent {
   constructor() {
-    Amplify.configure({
-      ...awsExports,
-      auth: {
-        login_mechanisms: ['phone_number'],
-      },
-    });
+    Amplify.configure(awsExports);
   }
-
-  ngOnInit() {}
 }

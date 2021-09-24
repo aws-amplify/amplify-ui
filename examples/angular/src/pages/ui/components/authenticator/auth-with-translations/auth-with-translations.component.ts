@@ -8,12 +8,7 @@ import Amplify, { I18n } from 'aws-amplify';
 })
 export class AuthWithTranslationsComponent implements OnInit {
   constructor() {
-    Amplify.configure({
-      ...awsExports,
-      auth: {
-        login_mechanisms: ['email'],
-      },
-    });
+    Amplify.configure(awsExports);
   }
 
   ngOnInit() {
