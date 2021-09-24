@@ -14,6 +14,7 @@ Feature: Sign Up with Username
 
   @angular @todo-angular @react @vue @todo-vue
   Scenario: Sign up a new username & password
+    Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-username"
     When I type a new "username"
     And I type my password
     And I confirm my password

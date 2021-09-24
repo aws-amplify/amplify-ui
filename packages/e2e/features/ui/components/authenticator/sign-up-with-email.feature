@@ -14,6 +14,7 @@ Feature: Sign Up with Email
 
   @angular @react @vue @todo-angular  @todo-vue
   Scenario: Sign up with a new email & password
+    Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-email"
     When I type a new "email"
     And I type my password
     And I confirm my password
