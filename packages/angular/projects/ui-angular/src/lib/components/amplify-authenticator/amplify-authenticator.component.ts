@@ -7,7 +7,7 @@ import {
   TemplateRef,
   ViewEncapsulation,
 } from '@angular/core';
-import { getActorState, translations } from '@aws-amplify/ui';
+import { getActorState, translate, translations } from '@aws-amplify/ui';
 import { I18n } from 'aws-amplify';
 import { CustomComponents } from '../../common';
 import { AuthState } from '../../common/types';
@@ -30,6 +30,11 @@ export class AmplifyAuthenticatorComponent implements AfterContentInit {
   @ContentChildren(AmplifyOverrideDirective)
   private customComponentQuery: QueryList<AmplifyOverrideDirective> = null;
   public customComponents: CustomComponents = {};
+
+  // translated texts
+  public signInTitle = translate('Sign In');
+  public signUpTitle = translate('Create Account');
+
   constructor(
     private stateMachine: StateMachineService,
     private contextService: AuthPropService

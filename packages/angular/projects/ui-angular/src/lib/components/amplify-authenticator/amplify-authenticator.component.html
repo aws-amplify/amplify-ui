@@ -43,14 +43,14 @@
     (tabChange)="onTabChange()"
     *ngIf="actorState?.matches('signIn') || actorState?.matches('signUp')"
   >
-    <amplify-tab-item title="Sign In">
+    <amplify-tab-item [title]="signInTitle">
       <!-- signIn component -->
       <ng-container
         [ngTemplateOutlet]="customComponents.signIn || signIn"
         [ngTemplateOutletContext]="context"
       ></ng-container>
     </amplify-tab-item>
-    <amplify-tab-item title="Sign Up">
+    <amplify-tab-item [title]="signUpTitle">
       <!-- signUp component -->
       <ng-container
         [ngTemplateOutlet]="customComponents.signUp || signUp"
