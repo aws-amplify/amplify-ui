@@ -118,7 +118,6 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
             event.data.aws_cognito_login_mechanisms?.map((login) => {
               switch (login) {
                 case 'PREFERRED_USERNAME':
-                case 'USERNAME':
                   return 'username';
 
                 case 'EMAIL':
