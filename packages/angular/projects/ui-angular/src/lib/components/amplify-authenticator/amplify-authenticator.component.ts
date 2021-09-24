@@ -64,6 +64,15 @@ export class AmplifyAuthenticatorComponent implements AfterContentInit {
     return this.stateMachine.authState;
   }
 
+  public onTabChange() {
+    const currentState = this.stateMachine.authState.value;
+    if (currentState === 'signIn') {
+      this.stateMachine.send('SIGN_UP');
+    } else {
+      this.stateMachine.send('SIGN_IN');
+    }
+  }
+
   private mapCustomComponents(
     componentQuery: QueryList<AmplifyOverrideDirective>
   ): Record<string, TemplateRef<any>> {

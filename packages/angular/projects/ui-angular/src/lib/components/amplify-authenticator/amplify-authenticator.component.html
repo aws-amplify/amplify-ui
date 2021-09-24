@@ -38,22 +38,25 @@
   If customer is overriding that component, we render customer's template instead.
 -->
 
-<!-- signIn component -->
 <div data-amplify-wrapper data-amplify-authenticator>
-  <ng-container
-    [ngTemplateOutlet]="customComponents.signIn || signIn"
-    [ngTemplateOutletContext]="context"
-    *ngIf="actorState?.matches('signIn')"
-  >
-  </ng-container>
-
-  <!-- signUp component -->
-  <ng-container
-    [ngTemplateOutlet]="customComponents.signUp || signUp"
-    [ngTemplateOutletContext]="context"
-    *ngIf="actorState?.matches('signUp')"
-  >
-  </ng-container>
+  <amplify-tabs (change)="onTabChange()">
+    <amplify-tab-item title="Sign In">
+      <!-- signIn component -->
+      <ng-container
+        [ngTemplateOutlet]="customComponents.signIn || signIn"
+        [ngTemplateOutletContext]="context"
+        *ngIf="actorState?.matches('signIn')"
+      ></ng-container>
+    </amplify-tab-item>
+    <amplify-tab-item title="Sign Up">
+      <!-- signUp component -->
+      <ng-container
+        [ngTemplateOutlet]="customComponents.signUp || signUp"
+        [ngTemplateOutletContext]="context"
+        *ngIf="actorState?.matches('signUp')"
+      ></ng-container>
+    </amplify-tab-item>
+  </amplify-tabs>
 
   <!-- confirmSignUp content -->
   <ng-container
