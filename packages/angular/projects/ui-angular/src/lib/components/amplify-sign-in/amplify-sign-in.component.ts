@@ -36,7 +36,6 @@ export class AmplifySignInComponent
   public forgotPasswordText = translate('Forgot your password? ');
   public signInButtonText = translate('Sign in');
   public noAccountText = translate('No account? ');
-  public createAccountText = translate('Create account');
 
   private authSubscription: Subscription;
 
@@ -71,10 +70,6 @@ export class AmplifySignInComponent
       this.stateMachine.services;
     const remoteError = this.remoteError;
     return { change, remoteError, resetPassword, signUp, submit };
-  }
-
-  toSignUp(): void {
-    this.stateMachine.send('SIGN_UP');
   }
 
   toResetPassword(): void {
