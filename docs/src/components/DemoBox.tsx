@@ -16,13 +16,13 @@ export const DemoBox: React.FC<DemoBoxProps> = ({
   children,
   startCollapsed = true,
 }) => {
-  const [collapsed, toggleCollapsed] = React.useState(startCollapsed);
+  const [collapsed, setCollapsed] = React.useState(startCollapsed);
 
   return (
     <fieldset>
       <legend className="font-bold p-1 w-full text-left">
         <Button
-          onClick={() => toggleCollapsed(!collapsed)}
+          onClick={() => setCollapsed(!collapsed)}
           variation="link"
           isFullWidth={true}
           style={{ textAlign: 'left' }}

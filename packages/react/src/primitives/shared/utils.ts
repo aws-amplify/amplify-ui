@@ -11,7 +11,7 @@ export const strHasLength = (str: unknown): str is string =>
 export const isFn = (fn: unknown): fn is Function => typeof fn === 'function';
 
 export const isNullOrEmptyString = (value: unknown) =>
-  value == null || (typeof value === 'string' && !strHasLength(value));
+  value == null || !strHasLength(value);
 
 export const filterOutNullOrEmptyStringValues = (value) =>
   value != null && (typeof value !== 'string' || strHasLength(value));

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import autoprefixer from 'autoprefixer';
-import postcssJs from 'postcss-js';
+import postcss from 'postcss-js';
 
-export const prefixer = postcssJs.sync([autoprefixer]);
+export const prefixer = postcss.sync([autoprefixer]);
 
 import {
   ComponentPropsToStylePropsMap,
@@ -10,13 +10,13 @@ import {
   GridItemStyleProps,
   ResponsiveObject,
   ViewProps,
-} from '../types/index';
+} from '../types';
 
 import { getValueAtCurrentBreakpoint } from './responsive/utils';
 import { useBreakpoint } from './responsive/useBreakpoint';
 import { Breakpoint, Breakpoints } from '../types/responsive';
 
-import { useTheming } from '../../theming/';
+import { useTheming } from '../../theming';
 import { filterOutNullOrEmptyStringValues, isNullOrEmptyString } from './utils';
 
 /**
@@ -25,8 +25,6 @@ import { filterOutNullOrEmptyStringValues, isNullOrEmptyString } from './utils';
  * This function will remove the original prop and
  * replace target prop values with calculated
  * E.g. rowSpan => row, columnSpan => column
- * @param props T
- * @returns
  */
 export const useTransformStyleProps = (props: ViewProps): ViewProps => {
   const { rowSpan, columnSpan, row, column, ...rest } = props;
@@ -47,7 +45,7 @@ export const useTransformStyleProps = (props: ViewProps): ViewProps => {
   };
 };
 
-export const usePropStyles = (props: ViewProps, style: any) => {
+export const usePropStyles = (props: ViewProps, style: React.CSSProperties) => {
   const {
     theme: {
       breakpoints: {
@@ -80,16 +78,6 @@ export const usePropStyles = (props: ViewProps, style: any) => {
   );
 };
 
-interface convertStylePropsToStyleObjParams {
-  props: ViewProps;
-  style?: React.CSSProperties;
-  breakpoint: Breakpoint;
-  breakpoints: Breakpoints;
-}
-export interface ConvertStylePropsToStyleObj {
-  (params: convertStylePropsToStyleObjParams);
-}
-
 export const isSpanPrimitiveValue = (
   spanValue: GridItemStyleProps['rowSpan'] | GridItemStyleProps['columnSpan']
 ): spanValue is 'auto' | number => {
@@ -101,19 +89,21 @@ export const isSpanPrimitiveValue = (
 export const convertGridSpan = (
   spanValue: GridItemStyleProps['rowSpan'] | GridItemStyleProps['columnSpan']
 ): GridItemStyleProps['row'] | GridItemStyleProps['column'] => {
+  // PropertyType
   if (isSpanPrimitiveValue(spanValue)) {
     return getGridSpan(spanValue);
   }
+  // PropertyType[]
+  if (Array.isArray(spanValue)) {
+    return spanValue.map((value) => getGridSpan(value));
+  }
+  // ResponsiveObject<PropertyType>
   if (typeof spanValue === 'object' && spanValue != null) {
-    if (Array.isArray(spanValue)) {
-      return spanValue.map((value) => getGridSpan(value));
-    } else {
-      const newObj: ResponsiveObject<string> = {};
-      Object.entries(spanValue).forEach(([key, value]) => {
-        newObj[key] = getGridSpan(value);
-      });
-      return newObj;
-    }
+    const newObj: ResponsiveObject<string> = {};
+    Object.entries(spanValue).forEach(([key, value]) => {
+      newObj[key] = getGridSpan(value);
+    });
+    return newObj;
   }
   return null;
 };
@@ -123,6 +113,16 @@ export const getGridSpan = (spanValue: number | 'auto'): string => {
     ? 'auto'
     : `span ${spanValue} / span ${spanValue}`;
 };
+
+interface convertStylePropsToStyleObjParams {
+  props: ViewProps;
+  style?: React.CSSProperties;
+  breakpoint: Breakpoint;
+  breakpoints: Breakpoints;
+}
+export interface ConvertStylePropsToStyleObj {
+  (params: convertStylePropsToStyleObjParams);
+}
 
 /**
  * Convert style props to CSS variables for React style prop
@@ -138,7 +138,7 @@ export const convertStylePropsToStyleObj: ConvertStylePropsToStyleObj = ({
   ComponentPropsToStylePropsMapKeys.filter((stylePropKey) =>
     filterOutNullOrEmptyStringValues(props[stylePropKey])
   ).forEach((stylePropKey) => {
-    let value = getValueAtCurrentBreakpoint(
+    const value = getValueAtCurrentBreakpoint(
       props[stylePropKey],
       breakpoint,
       breakpoints

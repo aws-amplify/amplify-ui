@@ -2,6 +2,7 @@ import { Property } from 'csstype';
 
 import { BaseComponentProps } from './base';
 import { CSSLayoutStyleProps, ResponsiveStyle } from './style';
+
 export interface FlexStyleProps extends CSSLayoutStyleProps {
   /**
    * Sets how flex items are placed in the flex container defining the main axis
