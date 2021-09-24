@@ -3,11 +3,12 @@ import {
   Component,
   ContentChildren,
   Input,
+  OnInit,
   QueryList,
   TemplateRef,
   ViewEncapsulation,
 } from '@angular/core';
-import { getActorState, translations } from '@aws-amplify/ui';
+import { getActorState, LoginMechanism, translations } from '@aws-amplify/ui';
 import { I18n } from 'aws-amplify';
 import { CustomComponents } from '../../common';
 import { AuthState } from '../../common/types';
@@ -21,20 +22,25 @@ import { StateMachineService } from '../../services/state-machine.service';
   providers: [AuthPropService], // make sure custom components are scoped to this authenticator only
   encapsulation: ViewEncapsulation.None,
 })
-export class AmplifyAuthenticatorComponent implements AfterContentInit {
+export class AmplifyAuthenticatorComponent implements OnInit, AfterContentInit {
   /**
    * TODO: Add back custom events
    */
 
-  @Input() initialAuthState: AuthState = 'signIn';
+  @Input() initialState: AuthState = 'signIn';
+  @Input() loginMechanisms: LoginMechanism[] = ['username'];
+
   @ContentChildren(AmplifyOverrideDirective)
   private customComponentQuery: QueryList<AmplifyOverrideDirective> = null;
   public customComponents: CustomComponents = {};
   constructor(
     private stateMachine: StateMachineService,
     private contextService: AuthPropService
-  ) {
+  ) {}
+
+  ngOnInit(): void {
     I18n.putVocabularies(translations);
+    this.stateMachine.startMachine(this.loginMechanisms);
   }
 
   /**
