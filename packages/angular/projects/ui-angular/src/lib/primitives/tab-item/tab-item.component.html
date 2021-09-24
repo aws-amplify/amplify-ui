@@ -4,7 +4,7 @@
   [id]="id"
   [attr.aria-labelledby]="labelledById"
   [attr.data-state]="active ? 'active' : 'inactive'"
-  [tabIndex]="tabIndex"
+  [attr.tabindex]="tabIndex"
 >
   <ng-content *ngIf="active"></ng-content>
 </div>
