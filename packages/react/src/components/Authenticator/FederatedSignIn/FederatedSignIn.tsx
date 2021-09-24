@@ -3,11 +3,11 @@ import { get, includes } from 'lodash';
 import { I18n } from 'aws-amplify';
 import { FederatedIdentityProviders } from '@aws-amplify/ui';
 
-import { useAmplify, useAuth } from '../../../hooks';
+import { useAmplify, useAuthenticator } from '../../../hooks';
 import { FederatedSignInButton } from './FederatedSignInButtons';
 
 export const FederatedSignIn = (): JSX.Element => {
-  const [{ context }] = useAuth();
+  const [{ context }] = useAuthenticator();
   const loginMechanisms = get(context, 'config.login_mechanisms');
 
   const amplifyNamespace = 'Authenticator.FederatedSignIn';

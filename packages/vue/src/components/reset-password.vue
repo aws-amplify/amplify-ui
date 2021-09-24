@@ -1,28 +1,46 @@
 <template>
   <slot v-bind="$attrs" name="resetPasswordSlotI">
-    <base-wrapper v-bind="$attrs" data-amplify-wrapper>
-      <base-form
-        data-amplify-authenticator-resetpassword
-        @submit.prevent="onResetPasswordSubmit"
-        @change="onChange"
-      >
-        <base-heading>
+    <base-form
+      v-bind="$attrs"
+      data-amplify-authenticator-resetpassword
+      @submit.prevent="onResetPasswordSubmit"
+      @change="onChange"
+    >
+      <base-wrapper class="amplify-flex" style="flex-direction: column">
+        <base-heading class="amplify-heading" :level="3">
           {{ resetPasswordHeading }}
         </base-heading>
-        <base-field-set :disabled="actorState.matches('resetPassword.pending')">
-          <base-label data-amplify-resetpassword-label>
-            <base-text>Username</base-text>
-            <base-input
-              name="username"
-              :placeholder="enterUsernameText"
-              autocomplete="username"
-              required
-              type="username"
-            ></base-input>
-          </base-label>
+        <base-field-set
+          class="amplify-flex"
+          style="flex-direction: column"
+          :disabled="actorState.matches('resetPassword.pending')"
+        >
+          <base-wrapper
+            class="amplify-flex amplify-field amplify-textfield"
+            style="flex-direction: column"
+          >
+            <base-label class="amplify-label sr-only" for="amplify-field-7dce">
+              Username
+            </base-label>
+            <base-wrapper class="amplify-flex">
+              <base-input
+                class="amplify-input amplify-field-group__control"
+                id="amplify-field-7dce"
+                aria-invalid="false"
+                name="username"
+                :placeholder="enterUsernameText"
+                autocomplete="username"
+                required
+                type="username"
+              ></base-input>
+            </base-wrapper>
+          </base-wrapper>
         </base-field-set>
 
-        <base-footer>
+        <base-footer
+          class="amplify-flex"
+          style="flex-direction: column; align-items: unset"
+        >
           <template #footert="{ slotData }">
             <slot
               name="footer"
@@ -32,20 +50,32 @@
             >
             </slot>
           </template>
-          <base-button type="button" @click.prevent="onBackToSignInClicked">
-            {{ backSignInText }}</base-button
-          >
-          <base-spacer />
           <base-button
+            class="amplify-button amplify-field-group__control"
+            data-fullwidth="false"
+            data-variation="primary"
+            type="submit"
+            style="font-weight: normal"
             :disabled="actorState.matches('resetPassword.pending')"
             >{{ resetPasswordText }}</base-button
           >
+          <base-button
+            class="amplify-button amplify-field-group__control"
+            data-fullwidth="false"
+            data-size="small"
+            data-variation="link"
+            style="font-weight: normal"
+            type="button"
+            @click.prevent="onBackToSignInClicked"
+          >
+            {{ backSignInText }}</base-button
+          >
         </base-footer>
-        <base-box data-ui-error>
+        <base-box data-ui-error v-if="actorState?.context?.remoteError">
           {{ actorState?.context?.remoteError }}
         </base-box>
-      </base-form>
-    </base-wrapper>
+      </base-wrapper>
+    </base-form>
   </slot>
 </template>
 

@@ -1,4 +1,3 @@
-import { Logger } from 'aws-amplify';
 import {
   AfterContentInit,
   Component,
@@ -41,9 +40,8 @@ export class AmplifySignUpComponent
   private authSubscription: Subscription;
 
   // translated texts
-  public createAccountText = translate('Back to Sign In');
-  public haveAccountText = translate('Have an account? ');
-  public signInText = translate('Sign in');
+  public createAccountText = translate('Create Account');
+  public backToSignInText = translate('Back to Sign In');
 
   constructor(
     private stateMachine: StateMachineService,

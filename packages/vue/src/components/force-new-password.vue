@@ -1,58 +1,103 @@
 <template>
   <slot v-bind="$attrs" name="forceNewPasswordI">
-    <base-wrapper v-bind="$attrs" data-amplify-wrapper>
+    <base-wrapper v-bind="$attrs">
       <base-form
         data-amplify-authenticator-forcenewpassword
         @submit.prevent="onForceNewPasswordSubmit"
+        @input="onInput"
       >
-        <base-heading>
-          {{ changePasswordLabel }}
-        </base-heading>
         <base-field-set
-          :disabled="!actorState.matches('forceNewPassword.edit')"
+          class="amplify-flex"
+          style="flex-direction: column"
+          :disabled="actorState.matches('forceNewPassword.pending')"
         >
-          <base-label data-amplify-forcenewpassword-label>
-            <base-text>{{ changePasswordLabel }}</base-text>
-            <base-input
-              autocomplete="password"
-              name="password"
-              :placeholder="passwordText"
-              required
-              type="password"
-            ></base-input>
-          </base-label>
+          <base-heading :level="3" class="amplify-heading">
+            {{ changePasswordLabel }}
+          </base-heading>
+          <base-wrapper class="amplify-flex" style="flex-direction: column">
+            <!--Input 1-->
+            <base-wrapper
+              class="
+                amplify-flex
+                amplify-field
+                amplify-textfield
+                amplify-passwordfield
+              "
+              style="flex-direction: column"
+            >
+              <password-control
+                name="password"
+                :label="passwordLabel"
+                autocomplete="new-password"
+              />
+            </base-wrapper>
+
+            <!--Input 2-->
+            <base-wrapper
+              class="
+                amplify-flex
+                amplify-field
+                amplify-textfield
+                amplify-passwordfield
+              "
+              style="flex-direction: column"
+            >
+              <password-control
+                name="confirm_password"
+                :label="confirmPasswordLabel"
+                autocomplete="new-password"
+              />
+            </base-wrapper>
+          </base-wrapper>
+          <base-footer class="amplify-flex" style="flex-direction: column">
+            <template #footert="{ slotData }">
+              <slot
+                name="footer"
+                :info="slotData"
+                :onHaveAccountClicked="onHaveAccountClicked"
+                :onForceNewPasswordSubmit="onForceNewPasswordSubmit"
+              >
+              </slot>
+            </template>
+            <base-button
+              class="amplify-button amplify-field-group__control"
+              data-fullwidth="false"
+              data-loading="false"
+              data-variation="primary"
+              style="font-weight: normal"
+              :disabled="actorState.matches('signUp.submit')"
+              >{{
+                actorState.matches('forceNewPassword.pending')
+                  ? changingPasswordLabel + '&hellip;'
+                  : changePasswordLabel
+              }}</base-button
+            >
+            <base-button
+              class="amplify-button amplify-field-group__control"
+              data-fullwidth="false"
+              data-size="small"
+              data-variation="link"
+              style="font-weight: normal"
+              type="button"
+              @click.prevent="onHaveAccountClicked"
+            >
+              {{ backSignInText }}</base-button
+            >
+          </base-footer>
         </base-field-set>
-        <base-box data-ui-error class="forceNewPasswordErrorText">
+        <base-box
+          data-ui-error
+          class="forceNewPasswordErrorText"
+          v-if="actorState.context.remoteError"
+        >
           {{ actorState.context.remoteError }}
         </base-box>
-        <base-footer>
-          <template #footert="{ slotData }">
-            <slot
-              name="footer"
-              :info="slotData"
-              :onHaveAccountClicked="onHaveAccountClicked"
-              :onForceNewPasswordSubmit="onForceNewPasswordSubmit"
-            >
-            </slot>
-          </template>
-          <slot name="footer-left" :onHaveAccountClicked="onHaveAccountClicked">
-            <base-text>{{ haveAccountLabel }}</base-text>
-            <base-button type="button" @click.prevent="onHaveAccountClicked">
-              {{ signInButtonText }}</base-button
-            >
-          </slot>
-          <base-spacer />
-          <slot
-            name="footer-right"
-            :onForceNewPasswordSubmit="onForceNewPasswordSubmit"
-          >
-            <base-button :disabled="actorState.matches('signUp.submit')">{{
-              !actorState.matches('forceNewPassword.edit')
-                ? changingPasswordLabel + '&hellip;'
-                : changePasswordLabel
-            }}</base-button>
-          </slot>
-        </base-footer>
+        <base-box
+          data-ui-error
+          v-if="!!actorContext.validationError['confirm_password']"
+        >
+          {{ actorContext.validationError['confirm_password'] }}
+        </base-box>
       </base-form>
     </base-wrapper>
   </slot>
@@ -67,11 +112,17 @@ import { useAuth } from '../composables/useAuth';
 import {
   CHANGE_PASSWORD_LABEL,
   CHANGING_PASSWORD_LABEL,
-  HAVE_ACCOUNT_LABEL,
-  SIGN_IN_BUTTON_TEXT,
-  PASSWORD_TEXT,
+  PASSWORD_LABEL,
+  CONFIRM_PASSWORD_LABEL,
+  BACK_SIGN_IN_TEXT,
 } from '../defaults/DefaultTexts';
-import { getActorState, SignInState } from '@aws-amplify/ui';
+import {
+  getActorContext,
+  getActorState,
+  SignInState,
+  SignUpContext,
+} from '@aws-amplify/ui';
+import PasswordControl from './password-control.vue';
 
 const attrs = useAttrs();
 const emit = defineEmits(['haveAccountClicked', 'forceNewPasswordSubmit']);
@@ -81,12 +132,16 @@ const actorState: ComputedRef<SignInState> = computed(() =>
   getActorState(state.value)
 );
 
+const actorContext = computed(() =>
+  getActorContext(state.value)
+) as ComputedRef<SignUpContext>;
+
 // computed properties
 const changePasswordLabel = computed(() => I18n.get(CHANGE_PASSWORD_LABEL));
 const changingPasswordLabel = computed(() => I18n.get(CHANGING_PASSWORD_LABEL));
-const haveAccountLabel = computed(() => I18n.get(HAVE_ACCOUNT_LABEL));
-const signInButtonText = computed(() => I18n.get(SIGN_IN_BUTTON_TEXT));
-const passwordText = computed(() => I18n.get(PASSWORD_TEXT));
+const backSignInText = computed(() => I18n.get(BACK_SIGN_IN_TEXT));
+const passwordLabel = computed(() => I18n.get(PASSWORD_LABEL));
+const confirmPasswordLabel = computed(() => I18n.get(CONFIRM_PASSWORD_LABEL));
 
 // Methods
 const onHaveAccountClicked = (): void => {
@@ -116,6 +171,15 @@ const submit = (e: Event): void => {
       //@ts-ignore
       ...Object.fromEntries(formData),
     },
+  });
+};
+
+const onInput = (e: Event): void => {
+  const { name, value } = <HTMLInputElement>e.target;
+  send({
+    type: 'CHANGE',
+    //@ts-ignore
+    data: { name, value },
   });
 };
 </script>

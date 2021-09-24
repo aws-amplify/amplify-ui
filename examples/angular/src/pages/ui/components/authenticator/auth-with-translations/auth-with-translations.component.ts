@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import Amplify, { I18n } from 'aws-amplify';
-import { translations, DefaultTexts } from '@aws-amplify/ui';
+import { DefaultTexts } from '@aws-amplify/ui';
 import awsExports from '@environments/auth-with-email/src/aws-exports';
+import Amplify, { I18n } from 'aws-amplify';
 @Component({
   selector: 'auth-with-translations',
   templateUrl: 'auth-with-translations.component.html',
@@ -17,7 +17,6 @@ export class AuthWithTranslationsComponent implements OnInit {
   }
 
   ngOnInit() {
-    I18n.putVocabularies(translations); // TODO: this should be done by amplify
     I18n.setLanguage('ja');
 
     // Provide missing translations

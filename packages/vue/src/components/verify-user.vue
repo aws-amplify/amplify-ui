@@ -1,51 +1,95 @@
 <template>
   <slot name="verifyUserSlotI">
-    <base-wrapper data-amplify-wrapper>
+    <base-wrapper>
       <base-form @submit.prevent="onVerifyUserSubmit">
-        <base-heading>
-          {{ verifyHeading }}
-        </base-heading>
-        <base-field-set :disabled="actorState.matches('verifyUser.pending')">
-          <base-label
-            data-amplify-verify-label
-            id="verify"
-            v-for="(value, key) in unverifiedAttributes"
-            :key="value"
+        <base-field-set
+          :disabled="actorState.matches('verifyUser.pending')"
+          class="amplify-flex"
+          style="flex-direction: column"
+        >
+          <base-heading class="amplify-heading" :level="3">
+            {{ verifyHeading }}
+          </base-heading>
+          <base-wrapper
+            class="amplify-flex amplify-field amplify-radiogroupfield"
+            style="flex-direction: column"
           >
-            <base-input
-              data-amplify-verify-input
-              id="verify"
-              name="unverifiedAttr"
-              type="radio"
-              :value="key"
+            <base-label class="amplify-label sr-only" id="amplify-field-493c">
+              {{ verifyContactText }}
+            </base-label>
+            <base-wrapper
+              class="amplify-flex amplify-field amplify-radiogroupfield"
+              style="flex-direction: column"
+              aria-labelledby="amplify-field-493c"
             >
-            </base-input>
-            {{ authInputAttributes[key].label }}
-          </base-label>
+              <base-label
+                class="amplify-flex amplify-radio"
+                data-amplify-verify-label
+                id="verify"
+                v-for="(value, key) in unverifiedAttributes"
+                :key="value"
+              >
+                <base-input
+                  class="
+                    amplify-input
+                    amplify-field-group__control
+                    amplify-visually-hidden
+                    amplify-radio__input
+                  "
+                  aria-invalid="false"
+                  data-amplify-verify-input
+                  id="verify"
+                  name="unverifiedAttr"
+                  type="radio"
+                  :value="key"
+                >
+                </base-input>
+                <base-text
+                  class="amplify-flex amplify-radio__button"
+                  aria-hidden="true"
+                ></base-text>
+                <base-text class="amplify-text amplify-radio__label">
+                  {{ authInputAttributes[key].label }}
+                </base-text>
+              </base-label>
+            </base-wrapper>
+          </base-wrapper>
+          <base-footer class="amplify-flex" style="flex-direction: column">
+            <template #footert="{ slotData }">
+              <slot
+                name="footer"
+                :info="slotData"
+                :onSkipClicked="onSkipClicked"
+                :onVerifyUserSubmit="onVerifyUserSubmit"
+              >
+              </slot>
+            </template>
+            <base-button
+              class="amplify-button amplify-field-group__control"
+              data-fullwidth="false"
+              data-variation="primary"
+              type="submit"
+              style="font-weight: normal"
+              :disabled="actorState.matches('verifyUser.pending')"
+              >{{ verifyText }}</base-button
+            >
+            <base-button
+              class="amplify-button amplify-field-group__control"
+              data-fullwidth="false"
+              data-size="small"
+              data-variation="link"
+              style="font-weight: normal"
+              type="button"
+              @click.prevent="onSkipClicked"
+            >
+              {{ skipText }}</base-button
+            >
+          </base-footer>
         </base-field-set>
 
-        <base-box data-ui-error>
+        <base-box data-ui-error v-if="actorState?.context?.remoteError">
           {{ actorState?.context.remoteError }}
         </base-box>
-
-        <base-footer>
-          <template #footert="{ slotData }">
-            <slot
-              name="footer"
-              :info="slotData"
-              :onSkipClicked="onSkipClicked"
-              :onVerifyUserSubmit="onVerifyUserSubmit"
-            >
-            </slot>
-          </template>
-          <base-button type="button" @click.prevent="onSkipClicked">
-            {{ skipText }}</base-button
-          >
-          <base-spacer />
-          <base-button :disabled="actorState.matches('verifyUser.pending')">{{
-            verifyText
-          }}</base-button>
-        </base-footer>
       </base-form>
     </base-wrapper>
   </slot>
@@ -61,6 +105,7 @@ import {
   VERIFY_HEADING,
   SKIP_TEXT,
   VERIFY_TEXT,
+  VERIFY_CONTACT_TEXT,
 } from '../defaults/DefaultTexts';
 import {
   getActorState,
@@ -83,6 +128,7 @@ const unverifiedAttributes = actorState.value.context.unverifiedAttributes;
 const verifyHeading = computed(() => I18n.get(VERIFY_HEADING));
 const skipText = computed(() => I18n.get(SKIP_TEXT));
 const verifyText = computed(() => I18n.get(VERIFY_TEXT));
+const verifyContactText = computed(() => I18n.get(VERIFY_CONTACT_TEXT));
 
 // Methods
 const onVerifyUserSubmit = (e: Event): void => {

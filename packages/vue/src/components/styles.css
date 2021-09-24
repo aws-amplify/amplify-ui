@@ -1,5 +1,6 @@
 [data-amplify-authenticator] {
   @apply max-w-xl mx-auto overflow-hidden text-base text-gray-700 rounded-md shadow;
+  font-family: 'Work Sans', Arial, Helvetica, sans-serif;
 }
 
 [data-amplify-wrapper] [data-amplify-heading] {
@@ -8,10 +9,6 @@
 
 [data-amplify-authenticator] [data-amplify-form] {
   @apply grid p-8 bg-white;
-}
-
-[data-amplify-authenticator] [data-amplify-footer] {
-  @apply flex flex-row items-center space-x-1;
 }
 
 [data-amplify-wrapper] [data-amplify-label] {
@@ -65,17 +62,6 @@
   color: orangered;
 }
 
-[data-amplify-input] {
-  @apply block w-full mt-1 border-gray-300 rounded shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50;
-  border-width: 1px;
-  padding-top: 0.5rem;
-  padding-right: 0.75rem;
-  padding-bottom: 0.5rem;
-  padding-left: 0.75rem;
-  font-size: 1rem;
-  line-height: 1.5rem;
-}
-
 [data-amplify-wrapper] [data-amplify-federated] {
   @apply flex flex-col w-full gap-4;
 }
@@ -110,4 +96,19 @@
 
 [data-amplify-wrapper] [data-amplify-verify-input] {
   width: initial;
+}
+
+.federated-sign-in-button {
+  border-color: black;
+  border-radius: 0;
+  color: black;
+}
+
+.federated-sign-in-button-row {
+  position: relative;
+}
+
+.federated-sign-in-icon {
+  position: absolute;
+  left: 0;
 }

@@ -32,16 +32,8 @@
             <template #fieldSetI="{ slotData }">
               <slot name="signin-fields" :info="slotData"> </slot>
             </template>
-            <base-wrapper
-              class="amplify-flex amplify-field amplify-textfield"
-              style="flex-direction: column"
-            >
-              <user-name-alias
-                class="amplify-label sr-only"
-                for="amplify-field-1220"
-                :userNameAlias="true"
-              />
-            </base-wrapper>
+
+            <user-name-alias :userNameAlias="true" />
             <base-wrapper
               class="
                 amplify-flex
@@ -84,7 +76,6 @@
                 ? signIngButtonText
                 : signInButtonText
             }}
-            <!-- Add prop too? -->
           </base-button>
 
           <slot
@@ -104,38 +95,22 @@
             </base-button>
           </slot>
 
-          <base-footer>
-            <template #footert="{ slotData }">
-              <slot
-                name="footer"
-                :info="slotData"
-                :onSignInSubmit="onSignInSubmit"
-                :onCreateAccountClicked="onCreateAccountClicked"
-              >
-              </slot>
-            </template>
-            <p class="amplify-text">{{ noAccount }}</p>
-            <base-button
-              class="amplify-button amplify-field-group__control"
-              data-fullwidth="false"
-              data-variation="link"
-              style="font-weight: normal"
-              type="button"
-              @click.prevent="onCreateAccountClicked"
-              >{{ createAccountLink }}</base-button
-            >
-            <base-spacer />
-          </base-footer>
           <base-box data-ui-error v-if="actorState.context.remoteError">
             {{ actorState.context.remoteError }}
           </base-box>
         </base-wrapper>
-        <hr
-          class="amplify-divider"
-          aria-orientation="horizontal"
-          data-size="small"
-        />
-        <federated-sign-in></federated-sign-in>
+        <base-footer>
+          <template #footert="{ slotData }">
+            <slot
+              name="footer"
+              :info="slotData"
+              :onSignInSubmit="onSignInSubmit"
+              :onCreateAccountClicked="onCreateAccountClicked"
+            >
+            </slot>
+          </template>
+          <federated-sign-in></federated-sign-in>
+        </base-footer>
       </base-form>
     </base-wrapper>
   </slot>
@@ -151,8 +126,6 @@ import FederatedSignIn from './federated-sign-in.vue';
 
 import {
   SIGN_IN_TEXT,
-  NO_ACCOUNT,
-  CREATE_ACCOUNT_LINK,
   FORGOT_YOUR_PASSWORD_LINK,
   SIGN_IN_BUTTON_TEXT,
   SIGNING_IN_BUTTON_TEXT,
@@ -172,8 +145,6 @@ const emit = defineEmits([
 
 const passwordLabel = computed(() => I18n.get(PASSWORD_LABEL));
 const signIntoAccountText = computed(() => I18n.get(SIGN_IN_TEXT));
-const noAccount = computed(() => I18n.get(NO_ACCOUNT));
-const createAccountLink = computed(() => I18n.get(CREATE_ACCOUNT_LINK));
 const forgotYourPasswordLink = computed(() =>
   I18n.get(FORGOT_YOUR_PASSWORD_LINK)
 );

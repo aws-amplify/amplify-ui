@@ -1,6 +1,7 @@
-import { Authenticator, translations } from '@aws-amplify/ui-react';
+import { Authenticator } from '@aws-amplify/ui-react';
+import { Amplify } from 'aws-amplify';
+
 import awsExports from '@environments/auth-with-phone-number/src/aws-exports';
-import { Amplify, I18n } from 'aws-amplify';
 
 Amplify.configure({
   ...awsExports,
@@ -9,20 +10,10 @@ Amplify.configure({
   },
 });
 
-I18n.putVocabularies(translations);
-
 export default function AuthenticatorWithPhoneNumber() {
   return (
-    <>
-      <Authenticator>
-        {({ send }) => {
-          return (
-            <>
-              <button onClick={() => send('SIGN_OUT')}>Sign out</button>
-            </>
-          );
-        }}
-      </Authenticator>
-    </>
+    <Authenticator>
+      {({ signOut }) => <button onClick={signOut}>Sign out</button>}
+    </Authenticator>
   );
 }
