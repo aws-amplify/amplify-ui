@@ -23,8 +23,6 @@ export class StateMachineService {
   private _user: Record<string, any>; // TODO: strongly type CognitoUser
   private _services: ReturnType<typeof getSendEventAliases>;
 
-  constructor() {}
-
   public startMachine(loginMechanisms?: LoginMechanism[]) {
     const machine = authMachine.withContext({
       config: {
@@ -41,7 +39,6 @@ export class StateMachineService {
       })
       .start();
 
-    console.log(loginMechanisms, machine, authService);
     this._services = getSendEventAliases(authService.send);
     this._authService = authService;
   }
