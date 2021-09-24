@@ -33,7 +33,7 @@ export const ToggleButton: React.FC<ToggleButtonProps> = ({
       isDisabled={isDisabled}
       onClick={handleOnClick}
       size={size}
-      value={value}
+      type="button"
       variation={variation}
       {...rest}
     >
