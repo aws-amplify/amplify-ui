@@ -48,6 +48,7 @@
       <ng-container
         [ngTemplateOutlet]="customComponents.signIn || signIn"
         [ngTemplateOutletContext]="context"
+        *ngIf="actorState?.matches('signIn')"
       ></ng-container>
     </amplify-tab-item>
     <amplify-tab-item [title]="signUpTitle">
@@ -55,6 +56,7 @@
       <ng-container
         [ngTemplateOutlet]="customComponents.signUp || signUp"
         [ngTemplateOutletContext]="context"
+        *ngIf="actorState?.matches('signUp')"
       ></ng-container>
     </amplify-tab-item>
   </amplify-tabs>
