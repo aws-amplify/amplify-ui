@@ -1,0 +1,12 @@
+<div
+  data-orientation="horizontal"
+  role="tabpanel"
+  [id]="id"
+  [attr.aria-labelledby]="labelledById"
+  [attr.data-state]="active ? 'active' : 'inactive'"
+  [tabIndex]="tabIndex"
+>
+  <ng-container *ngIf="active">
+    <ng-content></ng-content>
+  </ng-container>
+</div>
