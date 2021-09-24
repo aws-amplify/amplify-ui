@@ -39,13 +39,15 @@
 -->
 
 <div data-amplify-wrapper data-amplify-authenticator>
-  <amplify-tabs (change)="onTabChange()">
+  <amplify-tabs
+    (tabChange)="onTabChange()"
+    *ngIf="actorState?.matches('signIn') || actorState?.matches('signUp')"
+  >
     <amplify-tab-item title="Sign In">
       <!-- signIn component -->
       <ng-container
         [ngTemplateOutlet]="customComponents.signIn || signIn"
         [ngTemplateOutletContext]="context"
-        *ngIf="actorState?.matches('signIn')"
       ></ng-container>
     </amplify-tab-item>
     <amplify-tab-item title="Sign Up">
@@ -53,7 +55,6 @@
       <ng-container
         [ngTemplateOutlet]="customComponents.signUp || signUp"
         [ngTemplateOutletContext]="context"
-        *ngIf="actorState?.matches('signUp')"
       ></ng-container>
     </amplify-tab-item>
   </amplify-tabs>

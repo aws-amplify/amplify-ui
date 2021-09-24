@@ -15,7 +15,7 @@ import { TabItemComponent } from '../tab-item/tab-item.component';
 })
 export class TabsComponent implements AfterContentInit {
   @ContentChildren(TabItemComponent) tabs: QueryList<TabItemComponent>;
-  @Output() change = new EventEmitter();
+  @Output() tabChange = new EventEmitter();
 
   ngAfterContentInit(): void {
     // assign ids
@@ -42,7 +42,7 @@ export class TabsComponent implements AfterContentInit {
 
   handleTabClick(tab: TabItemComponent) {
     if (tab.active) return; // don't do anything if clicks the current active tab
-    this.change.emit();
+    this.tabChange.emit();
     this.selectTab(tab);
   }
 }
