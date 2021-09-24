@@ -41,7 +41,6 @@ export class StateMachineService {
       })
       .start();
 
-    console.log(loginMechanisms, machine, authService);
     this._services = getSendEventAliases(authService.send);
     this._authService = authService;
   }
