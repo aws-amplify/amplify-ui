@@ -18,7 +18,7 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
     context: {
       user: undefined,
       config: {
-        login_mechanisms: ['username'],
+        login_mechanisms: undefined,
       },
       actorRef: undefined,
     },
@@ -114,8 +114,8 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
       }),
       applyAmplifyConfig: assign({
         config(context, event) {
-          const loginMechanisms = event.data.aws_cognito_login_mechanisms?.map(
-            (login) => {
+          const configuredLoginMechanisms =
+            event.data.aws_cognito_login_mechanisms?.map((login) => {
               switch (login) {
                 case 'PREFERRED_USERNAME':
                 case 'USERNAME':
@@ -128,17 +128,22 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
                 case 'AMAZON':
                 case 'APPLE':
                   return login.toLowerCase();
-                default:
-                  console.warn(`Unknown login mechanism: ${login}`);
-              }
-            }
-          );
 
-          return {
-            loginMechanisms,
-            // Override config defaults with explicit values provided to state machine
-            ...context.config,
-          };
+                default:
+                  console.warn(
+                    `Unknown login mechanism from Amplify CLI: ${login}.\nOpen an issue: https://github.com/aws-amplify/amplify-ui/issues/choose`
+                  );
+              }
+            });
+
+          const defaultLoginMechanisms = configuredLoginMechanisms ?? [
+            'username',
+          ];
+
+          // Prefer explicitly set login mechanisms from machine instantiation over defaults
+          const { login_mechanisms = defaultLoginMechanisms } = context.config;
+
+          return { login_mechanisms };
         },
       }),
       spawnSignInActor: assign({
