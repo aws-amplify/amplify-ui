@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import Amplify from 'aws-amplify';
 import awsExports from '@environments/auth-with-multi-alias/src/aws-exports';
 
@@ -6,15 +6,8 @@ import awsExports from '@environments/auth-with-multi-alias/src/aws-exports';
   selector: 'auth-with-multi-alias',
   templateUrl: 'auth-with-multi-alias.component.html',
 })
-export class AuthWithMultiAliasComponent implements OnInit {
+export class AuthWithMultiAliasComponent {
   constructor() {
-    Amplify.configure({
-      ...awsExports,
-      auth: {
-        login_mechanisms: ['username', 'email', 'phone_number'],
-      },
-    });
+    Amplify.configure(awsExports);
   }
-
-  ngOnInit() {}
 }

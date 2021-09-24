@@ -1,4 +1,6 @@
-<amplify-authenticator>
+<amplify-authenticator
+  [loginMechanisms]="['email', 'facebook', 'google', 'amazon']"
+>
   <ng-template
     amplifyOverride="authenticated"
     let-user="user"

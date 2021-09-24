@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import Amplify from 'aws-amplify';
 import awsExports from '@environments/auth-with-email/src/aws-exports';
 
@@ -6,15 +6,8 @@ import awsExports from '@environments/auth-with-email/src/aws-exports';
   selector: 'sign-in-with-email',
   templateUrl: 'sign-in-with-email.component.html',
 })
-export class SignInWithEmailComponent implements OnInit {
+export class SignInWithEmailComponent {
   constructor() {
-    Amplify.configure({
-      ...awsExports,
-      auth: {
-        login_mechanisms: ['email'],
-      },
-    });
+    Amplify.configure(awsExports);
   }
-
-  ngOnInit() {}
 }

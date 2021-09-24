@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import Amplify from 'aws-amplify';
 import awsExports from '@environments/auth-with-federated/src/aws-exports';
 
@@ -6,15 +6,8 @@ import awsExports from '@environments/auth-with-federated/src/aws-exports';
   selector: 'sign-in-federated',
   templateUrl: 'sign-in-federated.component.html',
 })
-export class SignInFederatedComponent implements OnInit {
+export class SignInFederatedComponent {
   constructor() {
-    Amplify.configure({
-      ...awsExports,
-      auth: {
-        login_mechanisms: ['email', 'facebook', 'google', 'amazon'],
-      },
-    });
+    Amplify.configure(awsExports);
   }
-
-  ngOnInit() {}
 }
