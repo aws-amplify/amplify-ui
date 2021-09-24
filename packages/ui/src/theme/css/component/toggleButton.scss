@@ -1,0 +1,128 @@
+%togglebutton-shared {
+  border-color: var(--amplify-components-togglebutton-border-color);
+  color: var(--amplify-components-togglebutton-color);
+}
+
+.amplify-togglebutton {
+  @extend %togglebutton-shared;
+
+  &:hover {
+    @extend %togglebutton-shared;
+    background-color: var(
+      --amplify-components-togglebutton-hover-background-color
+    );
+  }
+
+  &:focus {
+    border-color: var(--amplify-components-togglebutton-focus-border-color);
+    color: var(--amplify-components-togglebutton-focus-color);
+  }
+
+  &:active {
+    background-color: var(
+      --amplify-components-togglebutton-active-background-color
+    );
+  }
+
+  &:disabled {
+    background-color: var(
+      --amplify-components-togglebutton-disabled-background-color
+    );
+    border-color: var(--amplify-components-togglebutton-disabled-border-color);
+    color: var(--amplify-components-togglebutton-disabled-color);
+  }
+
+  &[aria-pressed='true'] {
+    background-color: var(
+      --amplify-components-togglebutton-pressed-background-color
+    );
+    color: var(--amplify-components-togglebutton-pressed-color);
+    &:hover:not(:disabled) {
+      background-color: var(
+        --amplify-components-togglebutton-pressed-hover-background-color
+      );
+    }
+  }
+
+  &[data-variation='primary'] {
+    @extend %togglebutton-shared;
+    background-color: var(
+      --amplify-components-togglebutton-primary-background-color
+    );
+    border-width: var(--amplify-components-togglebutton-primary-border-width);
+
+    &:focus {
+      background-color: var(
+        --amplify-components-togglebutton-primary-focus-background-color
+      );
+      border-color: var(
+        --amplify-components-togglebutton-primary-focus-border-color
+      );
+      color: var(--amplify-components-togglebutton-primary-focus-color);
+      box-shadow: var(
+        --amplify-components-togglebutton-primary-focus-box-shadow
+      );
+    }
+
+    &:hover {
+      background-color: var(
+        --amplify-components-togglebutton-primary-hover-background-color
+      );
+      color: var(--amplify-components-togglebutton-primary-hover-color);
+    }
+
+    &:disabled {
+      background-color: var(
+        --amplify-components-togglebutton-primary-disabled-background-color
+      );
+      color: var(--amplify-components-togglebutton-primary-disabled-color);
+    }
+
+    &[aria-pressed='true'] {
+      background-color: var(
+        --amplify-components-togglebutton-primary-pressed-background-color
+      );
+      color: var(--amplify-components-togglebutton-primary-pressed-color);
+
+      &:hover:not(:disabled) {
+        background-color: var(
+          --amplify-components-togglebutton-primary-pressed-hover-background-color
+        );
+      }
+    }
+  }
+
+  &[data-variation='link'] {
+    color: var(--amplify-components-togglebutton-link-color);
+
+    &:hover {
+      background-color: var(
+        --amplify-components-togglebutton-link-hover-background-color
+      );
+      color: var(--amplify-components-togglebutton-link-hover-color);
+    }
+
+    &:focus {
+      background-color: var(
+        --amplify-components-togglebutton-link-focus-background-color
+      );
+      color: var(--amplify-components-togglebutton-link-focus-color);
+    }
+
+    &:disabled {
+      color: var(--amplify-components-togglebutton-link-disabled-color);
+    }
+
+    &[aria-pressed='true'] {
+      background-color: var(
+        --amplify-components-togglebutton-link-pressed-background-color
+      );
+      color: var(--amplify-components-togglebutton-link-pressed-color);
+      &:hover {
+        background-color: var(
+          --amplify-components-togglebutton-link-pressed-hover-background-color
+        );
+      }
+    }
+  }
+}
