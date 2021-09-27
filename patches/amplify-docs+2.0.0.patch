@@ -1,3 +1,16 @@
+diff --git a/node_modules/amplify-docs/src/components/Menu/Directory/index.tsx b/node_modules/amplify-docs/src/components/Menu/Directory/index.tsx
+index 65e4470..b91501e 100644
+--- a/node_modules/amplify-docs/src/components/Menu/Directory/index.tsx
++++ b/node_modules/amplify-docs/src/components/Menu/Directory/index.tsx
+@@ -57,7 +57,7 @@ class DirectoryGroup extends React.Component<
+     ) {
+       this.state = {isExpanded: true};
+     } else {
+-      this.state = {isExpanded: this.props.url.startsWith("/start")};
++      this.state = {isExpanded: true};
+     }
+   }
+ 
 diff --git a/node_modules/amplify-docs/src/components/Menu/FilterSelect/index.tsx b/node_modules/amplify-docs/src/components/Menu/FilterSelect/index.tsx
 index 61372fc..5decc7e 100644
 --- a/node_modules/amplify-docs/src/components/Menu/FilterSelect/index.tsx
