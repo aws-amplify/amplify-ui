@@ -18,6 +18,31 @@ index 61372fc..5decc7e 100644
          <a onClick={this.toggleVis}>
            <img
              alt={filterMetadataByOption[name]?.label + " icon"}
+diff --git a/node_modules/amplify-docs/src/components/Menu/RepoActions/index.tsx b/node_modules/amplify-docs/src/components/Menu/RepoActions/index.tsx
+index 07a67f6..50acf3f 100644
+--- a/node_modules/amplify-docs/src/components/Menu/RepoActions/index.tsx
++++ b/node_modules/amplify-docs/src/components/Menu/RepoActions/index.tsx
+@@ -24,9 +24,9 @@ const getLabelForPath = (path) => {
+ };
+ 
+ function createIssueLink(directoryPath, url) {
+-  url = `https://docs.amplify.aws${url}`;
++  url = `https://ui.docs.amplify.aws${url}`;
+   const NEW_GITHUB_ISSUE_LINK =
+-    "https://github.com/aws-amplify/docs/issues/new";
++    "https://github.com/aws-amplify/amplify-ui/issues/new";
+   const params = [
+     "title=[Feedback]FEEDBACK_TITLE_HERE",
+     `labels=${encodeURIComponent(getLabelForPath(directoryPath))}`,
+@@ -46,7 +46,7 @@ function createEditLink(directoryPath) {
+     .split("/")
+     .map(encodeURIComponent)
+     .join("/");
+-  return `https://github.com/aws-amplify/docs/edit/main/src/pages${safePath}.mdx`;
++  return `https://github.com/aws-amplify/amplify-ui/edit/main/docs/src/pages/${safePath}/index.page.mdx`;
+ }
+ 
+ export default function RepoActions({directoryPath, url}) {
 diff --git a/node_modules/amplify-docs/src/pages/ChooseFilterPage.tsx b/node_modules/amplify-docs/src/pages/ChooseFilterPage.tsx
 index 561b000..8dd99d0 100644
 --- a/node_modules/amplify-docs/src/pages/ChooseFilterPage.tsx
