@@ -4,7 +4,7 @@ import React from 'react';
 import { useToggleButtonGroup } from './useToggleButtonGroup';
 import { Flex } from '../Flex';
 import { ComponentClassNames } from '../shared';
-import { ToggleButtonGroupProps } from '../types';
+import { ToggleButtonProps, ToggleButtonGroupProps } from '../types';
 export const ToggleButtonGroup: React.FC<ToggleButtonGroupProps> = ({
   alignContent = 'center',
   alignItems = 'center',
@@ -36,7 +36,7 @@ export const ToggleButtonGroup: React.FC<ToggleButtonGroupProps> = ({
       {...rest}
     >
       {React.Children.map(children, (child) => {
-        if (React.isValidElement(child)) {
+        if (React.isValidElement<ToggleButtonProps>(child)) {
           return React.cloneElement(child, {
             isSelected: isExclusive
               ? value === child.props.value
