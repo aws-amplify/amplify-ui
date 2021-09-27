@@ -41,7 +41,6 @@ export class AmplifySignUpComponent
 
   // translated texts
   public createAccountText = translate('Create Account');
-  public backToSignInText = translate('Back to Sign In');
 
   constructor(
     private stateMachine: StateMachineService,
@@ -106,9 +105,5 @@ export class AmplifySignUpComponent
       type: 'CHANGE',
       data: { name, value },
     });
-  }
-
-  toSignIn(): void {
-    this.stateMachine.send('SIGN_IN');
   }
 }

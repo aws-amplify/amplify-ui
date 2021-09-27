@@ -48,6 +48,7 @@ export class AmplifyFormFieldComponent implements OnInit {
       const { country_code }: ActorContextWithForms = getActorContext(state);
       this.defaultCountryCode = country_code;
 
+      // TODO: remove this side-effect
       this.stateMachine.send({
         type: 'CHANGE',
         data: { name: 'country_code', value: country_code },

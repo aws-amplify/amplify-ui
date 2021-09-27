@@ -18,6 +18,8 @@ import { AmplifyErrorComponent } from './primitives/amplify-error/amplify-error.
 import { AmplifyFormFieldComponent } from './primitives/amplify-form-field/amplify-form-field.component';
 import { AmplifyPasswordFieldComponent } from './primitives/amplify-password-field/amplify-password-field.component';
 import { AmplifySelectComponent } from './primitives/amplify-select/amplify-select.component';
+import { TabsComponent } from './primitives/tabs/tabs.component';
+import { TabItemComponent } from './primitives/tab-item/tab-item.component';
 import { AmplifyTextFieldComponent } from './primitives/amplify-text-field/amplify-text-field.component';
 import { AmplifyUserNameAliasComponent } from './primitives/amplify-user-name-alias/amplify-user-name-alias.component';
 import { AmplifyOverrideDirective } from './directives/amplify-override.directive';
@@ -96,6 +98,8 @@ customElements.define('amplify-photo-picker', AmplifyPhotoPicker);
     AmplifyButtonComponent,
     AmplifyPasswordFieldComponent,
     AmplifyTextFieldComponent,
+    TabsComponent,
+    TabItemComponent,
   ],
   imports: [CommonModule],
   exports: [
