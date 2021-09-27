@@ -8,7 +8,7 @@ describe('useToggleButton test suite', () => {
       useToggleButton({ defaultSelected: false })
     );
     expect(result.current.isPressed).toBeFalsy();
-    expect(result.current.handleOnClick).toBeDefined();
+    expect(result.current.handleClick).toBeDefined();
   });
 
   it('should return correct props for controlled ToggleButton', () => {
@@ -16,7 +16,7 @@ describe('useToggleButton test suite', () => {
       useToggleButton({ isSelected: false, onChange: jest.fn() })
     );
     expect(result.current.isPressed).toBeFalsy();
-    expect(result.current.handleOnClick).toBeDefined();
+    expect(result.current.handleClick).toBeDefined();
   });
 
   it('should provide correct handleOnClick for uncontrolled ToggleButton', () => {
@@ -24,9 +24,9 @@ describe('useToggleButton test suite', () => {
     const { result } = renderHook(() =>
       useToggleButton({ defaultSelected: false })
     );
-    act(() => result.current.handleOnClick(mockEvent));
+    act(() => result.current.handleClick(mockEvent));
     expect(result.current.isPressed).toBeTruthy();
-    act(() => result.current.handleOnClick(mockEvent));
+    act(() => result.current.handleClick(mockEvent));
     expect(result.current.isPressed).toBeFalsy();
   });
 
@@ -36,7 +36,7 @@ describe('useToggleButton test suite', () => {
     const { result } = renderHook(() =>
       useToggleButton({ isSelected: false, onChange })
     );
-    act(() => result.current.handleOnClick(mockEvent));
+    act(() => result.current.handleClick(mockEvent));
     expect(onChange).toBeCalledTimes(1);
   });
 });
