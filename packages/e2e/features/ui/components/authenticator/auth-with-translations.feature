@@ -7,7 +7,7 @@ Feature: Translate with i18n
   Background:
     Given I'm running the example "ui/components/authenticator/auth-with-translations"
   
-  @todo-angular @todo-react @vue
+  @angular @react @vue
   Scenario: Each field is translated into Japanese
     Then Sign In header is translated in Japanese
     And Email input is translated in Japanese
