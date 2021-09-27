@@ -88,7 +88,7 @@ export default function Page({
   };
 
   const [headers, setHeaders] = React.useState([]);
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     const updateHeaders = debounce(
       () => {
         const htmlHeaders = [
