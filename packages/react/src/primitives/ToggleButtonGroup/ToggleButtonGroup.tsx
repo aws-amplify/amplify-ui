@@ -1,9 +1,10 @@
 import classNames from 'classnames';
 import React from 'react';
 
+import { useToggleButtonGroup } from './useToggleButtonGroup';
 import { Flex } from '../Flex';
 import { ComponentClassNames } from '../shared';
-import { ToggleButtonProps, ToggleButtonGroupProps } from '../types';
+import { ToggleButtonGroupProps } from '../types';
 export const ToggleButtonGroup: React.FC<ToggleButtonGroupProps> = ({
   alignContent = 'center',
   alignItems = 'center',
@@ -23,36 +24,7 @@ export const ToggleButtonGroup: React.FC<ToggleButtonGroupProps> = ({
   variation,
   ...rest
 }) => {
-  // Multiple selection
-  const handleChange: ToggleButtonProps['onChange'] = (e, buttonValue) => {
-    if (!onChange || !Array.isArray(value)) {
-      return;
-    }
-
-    const index = value.indexOf(buttonValue);
-    let newValue;
-
-    if (index >= 0) {
-      newValue = [...value];
-      newValue.splice(index, 1);
-    } else {
-      newValue = [...value, buttonValue];
-    }
-
-    onChange(e, newValue);
-  };
-
-  // Exclusive selection
-  const handleExclusiveChange: ToggleButtonProps['onChange'] = (
-    e,
-    buttonValue
-  ) => {
-    if (!onChange) {
-      return;
-    }
-
-    onChange(e, value === buttonValue ? null : buttonValue);
-  };
+  const handleChange = useToggleButtonGroup(onChange, value, isExclusive);
   return (
     <Flex
       alignContent={alignContent}
@@ -71,7 +43,7 @@ export const ToggleButtonGroup: React.FC<ToggleButtonGroupProps> = ({
             isSelected: isExclusive
               ? value === child.props.value
               : value.includes(child.props.value),
-            onChange: isExclusive ? handleExclusiveChange : handleChange,
+            onChange: handleChange,
             size,
             variation,
           });
