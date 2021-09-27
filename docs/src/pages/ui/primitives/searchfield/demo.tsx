@@ -1,16 +1,8 @@
 import * as React from 'react';
 
-import {
-  Flex,
-  FlexStyleProps,
-  SearchField,
-  SearchFieldProps,
-  View,
-} from '@aws-amplify/ui-react';
+import { Flex, SearchField, View } from '@aws-amplify/ui-react';
 
 import { Example } from '@/components/Example';
-import { GetFieldControls } from '@/components/GetFieldControls';
-import { useFlexStyleProps } from '@/components/useFlexStyleProps';
 import { useSearchFieldProps } from '@/components/useSearchFieldProps';
 import { SearchFieldPropControls } from '@/components/SearchFieldPropControls';
 
@@ -23,6 +15,11 @@ export const SearchFieldDemo = () => {
     size: null,
     variation: null,
   });
+
+  const onSubmit = React.useCallback(
+    (value) => alert(`you searched for ${value}`),
+    []
+  );
 
   return (
     <View width="100%">
@@ -37,6 +34,7 @@ export const SearchFieldDemo = () => {
               placeholder={searchFieldProps.placeholder}
               size={searchFieldProps.size}
               variation={searchFieldProps.variation}
+              onSubmit={onSubmit}
             />
           </Flex>
         </View>
