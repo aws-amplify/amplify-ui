@@ -1,11 +1,8 @@
 <template>
   <authenticator :loginMechanisms="loginMechanisms">
-    <template v-slot="{ user, send }">
+    <template v-slot="{ user, signOut }">
       <h1 class="text-6xl mb-10">Hello {{ user.username }}!</h1>
-      <button
-        className="px-2 bg-white rounded shadow"
-        @click="send('SIGN_OUT')"
-      >
+      <button className="px-2 bg-white rounded shadow" @click="signOut">
         Sign Out
       </button>
     </template>

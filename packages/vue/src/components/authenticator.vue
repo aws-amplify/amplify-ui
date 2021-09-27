@@ -255,16 +255,21 @@
 
   <slot
     v-if="state?.matches('authenticated')"
-    :user="state?.context?.user"
+    :user="user"
     :state="state"
+    :signOut="signOut"
     :send="send"
   ></slot>
 </template>
 
 <script setup lang="ts">
-
 import { ref, provide, computed, useAttrs, watch, onBeforeMount } from 'vue';
-import { getActorState, LoginMechanism, translations } from '@aws-amplify/ui';
+import {
+  getActorState,
+  getServiceFacade,
+  LoginMechanism,
+  translations,
+} from '@aws-amplify/ui';
 import { I18n } from 'aws-amplify';
 
 import { authMachine } from '@aws-amplify/ui';
@@ -428,6 +433,27 @@ const onConfirmVerifyUserSubmitI = (e: Event) => {
     confirmVerifyUserComponent.value.submit(e);
   }
 };
+
+// watchers
+
+/**
+ * Update service facade when context updates
+ */
+
+const user = ref(null);
+const signOut = ref(null);
+
+watch(
+  () => state.value.context,
+  () => {
+    const { user: u, signOut: s } = getServiceFacade({
+      send,
+      state: state.value,
+    });
+    user.value = u;
+    signOut.value = s;
+  }
+);
 
 /**
  * Toggle sign up and sign in pages when useSelect
