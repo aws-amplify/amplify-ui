@@ -41,3 +41,9 @@ ol {
 ul {
   list-style-type: disc;
 }
+
+/* Hide search until it works */
+.algolia-autocomplete,
+.algolia-autocomplete + img[alt='search'] {
+  display: none !important;
+}
