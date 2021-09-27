@@ -23,4 +23,5 @@ export * from './switchField';
 export * from './tabs';
 export * from './textField';
 export * from './toggleButton';
+export * from './toggleButtonGroup';
 export * from './view';

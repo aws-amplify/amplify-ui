@@ -19,7 +19,7 @@ export const ToggleButton: React.FC<ToggleButtonProps> = ({
   variation,
   ...rest
 }) => {
-  const { isPressed, handleOnClick } = useToggleButton({
+  const { isPressed, handleClick } = useToggleButton({
     isSelected,
     defaultSelected,
     onChange,
@@ -31,7 +31,7 @@ export const ToggleButton: React.FC<ToggleButtonProps> = ({
       aria-pressed={isPressed}
       className={classNames(ComponentClassNames.ToggleButton, className)}
       isDisabled={isDisabled}
-      onClick={handleOnClick}
+      onClick={handleClick}
       size={size}
       type="button"
       variation={variation}

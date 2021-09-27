@@ -1863,6 +1863,7 @@ describe('@aws-amplify/ui-react', () => {
           "Text",
           "TextField",
           "ToggleButton",
+          "ToggleButtonGroup",
           "View",
           "VisuallyHidden",
           "Wrapper",

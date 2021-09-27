@@ -13,7 +13,7 @@ export const useToggleButton = ({
   // Maintain internal selected state for unconrolled component
   const [selected, setSelected] = useState(defaultSelected);
   const isPressed = isControlled ? isSelected : selected;
-  const handleOnClick = useCallback(
+  const handleClick = useCallback(
     (e: MouseEvent<HTMLButtonElement>) => {
       if (onClick) {
         onClick(e);
@@ -27,5 +27,5 @@ export const useToggleButton = ({
     },
     [isControlled, onClick, onChange, selected, value]
   );
-  return { isPressed, handleOnClick };
+  return { isPressed, handleClick };
 };

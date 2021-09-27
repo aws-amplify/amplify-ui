@@ -22,6 +22,7 @@ export * from './Tabs';
 export * from './Text';
 export * from './TextField';
 export * from './ToggleButton';
+export * from './ToggleButtonGroup';
 export * from './View';
 export * from './VisuallyHidden';
 

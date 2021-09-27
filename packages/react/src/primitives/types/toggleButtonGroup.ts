@@ -1,0 +1,22 @@
+import React, { MouseEvent } from 'react';
+
+import { AriaProps, BaseComponentProps } from './base';
+import { BaseStyleProps } from './style';
+import { FlexStyleProps } from './flex';
+import { ToggleButtonProps } from './toggleButton';
+export interface ToggleButtonGroupProps
+  extends BaseComponentProps,
+    BaseStyleProps,
+    FlexStyleProps,
+    Pick<AriaProps, 'ariaLabel'>,
+    Pick<ToggleButtonProps, 'size' | 'variation'> {
+  children: React.ReactNode;
+  isExclusive?: boolean;
+  label?: string;
+  labelHidden?: boolean;
+  value: string | string[];
+  onChange: (
+    event: MouseEvent<HTMLButtonElement>,
+    value: string | string[]
+  ) => void;
+}
