@@ -5589,9 +5589,9 @@ amazon-cognito-identity-js@5.1.0:
     isomorphic-unfetch "^3.0.0"
     js-cookie "^2.2.1"
 
-"amplify-docs@github:https://github.com/aws-amplify/docs#33d383d":
+"amplify-docs@github:https://github.com/aws-amplify/docs#8a0d3a0":
   version "2.0.0"
-  resolved "https://codeload.github.com/aws-amplify/docs/tar.gz/33d383db5ea8df2691abff3c8090588a388f7fca"
+  resolved "https://codeload.github.com/aws-amplify/docs/tar.gz/8a0d3a0ff2e91ed5caf1ed57ae7fe050a62cab20"
   dependencies:
     "@aws-amplify/ui-components" latest
     "@emotion/react" "^11.1.5"
