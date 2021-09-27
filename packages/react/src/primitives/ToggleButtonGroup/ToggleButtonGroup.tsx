@@ -16,8 +16,6 @@ export const ToggleButtonGroup: React.FC<ToggleButtonGroupProps> = ({
   id,
   isExclusive,
   justifyContent = 'flex-start',
-  label,
-  labelHidden = true,
   onChange,
   size,
   value,

@@ -12,8 +12,6 @@ export interface ToggleButtonGroupProps
     Pick<ToggleButtonProps, 'size' | 'variation'> {
   children: React.ReactNode;
   isExclusive?: boolean;
-  label?: string;
-  labelHidden?: boolean;
   value: string | string[];
   onChange: (
     event: MouseEvent<HTMLButtonElement>,
