@@ -60,22 +60,6 @@ const groupedPages = Object.entries(
   return a[0].localeCompare(b[0]);
 });
 
-directory.ui.items = {};
-groupedPages.forEach(([folder, pages]) => {
-  if (!folder) {
-    return;
-  }
-
-  directory.ui.items[folder] = {
-    title: folderToTitle(folder),
-    items: pages.map((page) => ({
-      title: page.frontmatter.title,
-      route: page.href,
-      filters: ['angular', 'react', 'vue'],
-    })),
-  };
-});
-
 export default function Page({
   children,
   frontmatter,
@@ -197,6 +181,23 @@ export default function Page({
   if (filterKey !== '') {
     meta.description += ` - ${filterMetadataByOption[filterKey].label}`;
   }
+
+  // Dynamically set the Menu URLs to include ?platform=${filterKey}
+  directory.ui.items = {};
+  groupedPages.forEach(([folder, pages]) => {
+    if (!folder) {
+      return;
+    }
+
+    directory.ui.items[folder] = {
+      title: folderToTitle(folder),
+      items: pages.map((page) => ({
+        title: page.frontmatter.title,
+        route: `${page.href}?platform=${filterKey}`,
+        filters: ['angular', 'react', 'vue'],
+      })),
+    };
+  });
 
   return (
     <Layout meta={meta}>
