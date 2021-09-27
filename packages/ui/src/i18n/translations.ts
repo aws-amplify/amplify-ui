@@ -23,6 +23,8 @@ import { NoInfer } from '../types';
  *  [DefaultTexts.SIGN_IN_BUTTON_TEXT]: "Custom Click Here to Sign In"
  * });
  * ```
+ *
+ * TODO: this needs clean up. What's needed and what's not needed?
  */
 export const DefaultTexts = {
   BACK_SIGN_IN_TEXT: 'Back to Sign In',
@@ -57,6 +59,7 @@ export const DefaultTexts = {
   SHOW_PASSWORD: 'Show password',
   SIGN_IN_BUTTON_TEXT: 'Sign in',
   SIGN_IN_TEXT: 'Sign in to your account',
+  SIGN_IN_TAB: 'Sign In',
   SIGN_IN_WITH_AMAZON: 'Sign In with Amazon',
   SIGN_IN_WITH_APPLE: 'Sign In with Apple',
   SIGN_IN_WITH_FACEBOOK: 'Sign In with Facebook',

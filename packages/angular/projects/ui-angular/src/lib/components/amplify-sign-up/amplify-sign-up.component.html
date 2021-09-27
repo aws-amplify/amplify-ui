@@ -57,16 +57,6 @@
       [ngTemplateOutletContext]="context"
     >
     </ng-container>
-    <button
-      amplify-button
-      size="small"
-      variation="link"
-      fontWeight="normal"
-      fullWidth="true"
-      (click)="toSignIn()"
-    >
-      {{ backToSignInText }}
-    </button>
     <amplify-error *ngIf="remoteError">
       {{ remoteError }}
     </amplify-error>

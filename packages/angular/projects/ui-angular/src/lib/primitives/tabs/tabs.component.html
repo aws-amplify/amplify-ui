@@ -1,0 +1,30 @@
+<div
+  tabindex="0"
+  aria-orientation="horizontal"
+  data-orientation="horizontal"
+  role="tablist"
+  style="outline: none"
+>
+  <div
+    class="amplify-flex amplify-tabs"
+    style="gap: 0px; justify-content: center"
+  >
+    <div
+      *ngFor="let tab of tabs"
+      class="amplify-tabs-item"
+      data-grow="equal"
+      data-orientation="horizontal"
+      role="tab"
+      [id]="tab.labelledById"
+      [tabindex]="tab.active ? '0' : '1'"
+      [attr.aria-selected]="tab.active"
+      [attr.aria-controls]="tab.id"
+      [attr.data-state]="tab.active ? 'active' : 'inactive'"
+      (click)="handleTabClick(tab)"
+    >
+      {{ tab.title }}
+    </div>
+  </div>
+</div>
+
+<ng-content></ng-content>
