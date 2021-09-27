@@ -31,16 +31,12 @@ export const SearchFieldDemo = () => {
         <View maxWidth="500px" padding="2rem">
           <Flex gap="2rem" direction="column">
             <SearchField
-              isDisabled={searchFieldProps.isDisabled as unknown as boolean}
-              label={searchFieldProps.label as SearchFieldProps['label']}
-              labelHidden={searchFieldProps.labelHidden as unknown as boolean}
-              placeholder={
-                searchFieldProps.placeholder as SearchFieldProps['placeholder']
-              }
-              size={searchFieldProps.size as SearchFieldProps['size']}
-              variation={
-                searchFieldProps.variation as SearchFieldProps['variation']
-              }
+              isDisabled={searchFieldProps.isDisabled}
+              label={searchFieldProps.label}
+              labelHidden={searchFieldProps.labelHidden}
+              placeholder={searchFieldProps.placeholder}
+              size={searchFieldProps.size}
+              variation={searchFieldProps.variation}
             />
           </Flex>
         </View>
