@@ -1,7 +1,9 @@
 const { execSync } = require('child_process');
 const path = require('path');
 
-const gitHead = execSync('git rev-parse --abbrev-ref HEAD').toString().trim();
+const gitHead = execSync('git rev-parse --abbrev-ref HEAD')
+  .toString()
+  .trim();
 
 const BRANCH = gitHead === 'HEAD' ? 'main' : gitHead;
 
@@ -14,7 +16,7 @@ const withCompileNodeModules = require('@moxy/next-compile-node-modules')({
       require.resolve('amplify-docs/package.json')
     ),
   ],
-  test: /\.(js|ts)x?/,
+  test: /\.(js|json|ts)x?/,
 });
 
 module.exports = withNextPluginPreval(
@@ -129,6 +131,17 @@ module.exports = withNextPluginPreval(
             loader: 'raw-loader',
           },
         ],
+      });
+
+      config.module.rules.push({
+        test: /\.json5?$/i,
+        loader: 'json5-loader',
+        options: {
+          // TypeError: Cannot read property 'split' of undefined
+          // ../node_modules/axios/lib/helpers/validator.js (15:0)
+          esModule: false,
+        },
+        type: 'javascript/auto',
       });
 
       return config;
