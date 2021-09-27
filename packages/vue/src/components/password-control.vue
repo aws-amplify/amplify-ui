@@ -16,7 +16,7 @@
       :type="showHideType"
       :value="password"
     />
-    <base-wrapper class="amplify-field-group__end">
+    <base-wrapper class="amplify-field-group__outer-end">
       <button
         :aria-label="showHideLabel"
         class="

@@ -16,7 +16,10 @@
   color: var(--amplify-components-button-color);
   font-size: var(--amplify-components-button-font-size);
   line-height: var(--amplify-components-button-font-size);
-  padding: var(--amplify-components-button-padding);
+  padding-block-start: var(--amplify-components-button-padding-block-start);
+  padding-block-end: var(--amplify-components-button-padding-block-end);
+  padding-inline-start: var(--amplify-components-button-padding-inline-start);
+  padding-inline-end: var(--amplify-components-button-padding-inline-end);
 
   &:hover {
     background-color: var(--amplify-components-button-hover-background-color);
@@ -133,13 +136,31 @@
   &[data-size='small'] {
     font-size: var(--amplify-components-button-small-font-size);
     line-height: var(--amplify-components-button-small-font-size);
-    padding: var(--amplify-components-button-small-padding);
+    padding-block-start: var(
+      --amplify-components-button-small-padding-block-start
+    );
+    padding-block-end: var(--amplify-components-button-small-padding-block-end);
+    padding-inline-start: var(
+      --amplify-components-button-small-padding-inline-start
+    );
+    padding-inline-end: var(
+      --amplify-components-button-small-padding-inline-end
+    );
   }
 
   &[data-size='large'] {
     font-size: var(--amplify-components-button-large-font-size);
     line-height: var(--amplify-components-button-large-font-size);
-    padding: var(--amplify-components-button-large-padding);
+    padding-block-start: var(
+      --amplify-components-button-large-padding-block-start
+    );
+    padding-block-end: var(--amplify-components-button-large-padding-block-end);
+    padding-inline-start: var(
+      --amplify-components-button-large-padding-inline-start
+    );
+    padding-inline-end: var(
+      --amplify-components-button-large-padding-inline-end
+    );
   }
 }
 
