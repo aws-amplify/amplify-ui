@@ -262,8 +262,9 @@
 </template>
 
 <script setup lang="ts">
+
 import { ref, provide, computed, useAttrs, watch, onBeforeMount } from 'vue';
-import { getActorState, translations } from '@aws-amplify/ui';
+import { getActorState, LoginMechanism, translations } from '@aws-amplify/ui';
 import { I18n } from 'aws-amplify';
 
 import { authMachine } from '@aws-amplify/ui';
@@ -293,6 +294,14 @@ onBeforeMount(() => {
 });
 
 const attrs = useAttrs();
+
+const { loginMechanisms } = withDefaults(
+  defineProps<{ loginMechanisms?: LoginMechanism[] }>(),
+  {
+    loginMechanisms: () => ['username'],
+  }
+);
+
 const emit = defineEmits([
   'signInSubmit',
   'confirmSignUpSubmit',
@@ -306,14 +315,20 @@ const emit = defineEmits([
   'confirmVerifyUserSubmit',
 ]);
 
-const s = useInterpret(authMachine, {
+const machine = authMachine.withContext({
+  config: {
+    login_mechanisms: loginMechanisms,
+  },
+});
+
+const service = useInterpret(machine, {
   devTools: process.env.NODE_ENV === 'development',
 });
-const service = ref(s);
 const { active } = useSelect;
 
-provide(InterpretServiceInjectionKeyTypes, <InterpretService>service.value);
-const { state, send } = useActor(service.value);
+const { state, send } = useActor(service);
+provide(InterpretServiceInjectionKeyTypes, <InterpretService>service);
+
 const actorState = computed(() => getActorState(state.value));
 
 const signInComponent = ref(null);

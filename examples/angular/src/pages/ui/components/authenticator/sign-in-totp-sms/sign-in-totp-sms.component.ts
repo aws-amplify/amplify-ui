@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Amplify } from 'aws-amplify';
 
 import awsExports from '@environments/auth-with-totp-and-sms-mfa/src/aws-exports';
@@ -7,15 +7,8 @@ import awsExports from '@environments/auth-with-totp-and-sms-mfa/src/aws-exports
   selector: 'sign-in-totp-sms',
   templateUrl: 'sign-in-totp-sms.component.html',
 })
-export class SignInTOTPSMSComponent implements OnInit {
+export class SignInTOTPSMSComponent {
   constructor() {
-    Amplify.configure({
-      ...awsExports,
-      auth: {
-        login_mechanisms: ['email'],
-      },
-    });
+    Amplify.configure(awsExports);
   }
-
-  ngOnInit() {}
 }
