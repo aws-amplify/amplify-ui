@@ -1,0 +1,12 @@
+.amplify-togglebuttongroup .amplify-togglebutton:not(:first-of-type) {
+  border-start-start-radius: 0;
+  border-end-start-radius: 0;
+  &:not(:focus) {
+    border-left: 1px solid transparent;
+  }
+}
+
+.amplify-togglebuttongroup .amplify-togglebutton:not(:last-of-type) {
+  border-start-end-radius: 0;
+  border-end-end-radius: 0;
+}
