@@ -2,6 +2,7 @@
 // You can identify the changes needed by copy/pasting a newer version, then resolving diffs
 import pages from '@/data/pages.preval';
 import capitalize from 'lodash/capitalize';
+import groupBy from 'lodash/groupBy';
 import words from 'lodash/words';
 import debounce from 'lodash/debounce';
 import * as React from 'react';
@@ -38,6 +39,42 @@ const folderToTitle = (folder: string) =>
   words(folder)
     .map(capitalize)
     .join(' ');
+
+// Mutate directory object to use new UI docs instead of amplify-docs
+const directory = require('amplify-docs/src/directory/directory');
+const sortedFolders = ['', 'getting-started'];
+const groupedPages = Object.entries(
+  groupBy(pages, (page) => {
+    const [, folder = ''] = page.slug.split('/');
+    return folder;
+  })
+).sort((a, b) => {
+  if (sortedFolders.includes(a[0])) {
+    if (sortedFolders.includes(b[0])) {
+      return sortedFolders.indexOf(a[0]) - sortedFolders.indexOf(b[0]);
+    } else {
+      return -1;
+    }
+  }
+
+  return a[0].localeCompare(b[0]);
+});
+
+directory.ui.items = {};
+groupedPages.forEach(([folder, pages]) => {
+  if (!folder) {
+    return;
+  }
+
+  directory.ui.items[folder] = {
+    title: folderToTitle(folder),
+    items: pages.map((page) => ({
+      title: page.frontmatter.title,
+      route: page.href,
+      filters: ['angular', 'react', 'vue'],
+    })),
+  };
+});
 
 export default function Page({
   children,
