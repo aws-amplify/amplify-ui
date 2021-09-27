@@ -1,6 +1,7 @@
 // This is large copy-pasta from `amplify-docs/src/Layout` & modified to work outside of that repo
 
 import pages from '@/data/pages.preval';
+import { Banner } from '../Banner';
 import CodeBlockProvider from 'amplify-docs/src/components/CodeBlockProvider/index';
 import { Container } from 'amplify-docs/src/components/Container';
 import ExternalLink from 'amplify-docs/src/components/ExternalLink';
@@ -39,7 +40,6 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import * as React from 'react';
-import { Banner } from './Banner';
 import { PlatformSelect } from './PlatformSelect';
 
 const folderToTitle = (folder: string) =>
