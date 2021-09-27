@@ -6,10 +6,11 @@ import { ComponentClassNames } from '../shared/constants';
 import { FieldGroupIcon } from './FieldGroupIcon';
 import { FieldGroupIconButtonProps } from '../types';
 
-export const FieldGroupIconButton: React.FC<FieldGroupIconButtonProps> = (
-  props
-) => {
-  const { children, className } = props;
+export const FieldGroupIconButton: React.FC<FieldGroupIconButtonProps> = ({
+  children,
+  className,
+  ...rest
+}) => {
   return (
     <FieldGroupIcon
       as={Button}
@@ -17,7 +18,7 @@ export const FieldGroupIconButton: React.FC<FieldGroupIconButtonProps> = (
         ComponentClassNames.FieldGroupIconButton,
         className
       )}
-      {...props}
+      {...rest}
     >
       {children}
     </FieldGroupIcon>

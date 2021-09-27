@@ -5,7 +5,7 @@ import { ButtonProps } from './button';
 export interface FieldGroupIconProps
   extends BaseComponentProps,
     BaseStyleProps,
-    Pick<ButtonProps, 'onClick' | 'variation' | 'size'>,
+    Pick<ButtonProps, 'onClick' | 'variation' | 'size' | 'type'>,
     Required<Pick<AriaProps, 'ariaLabel'>> {
   /**
    * React component to use instead of an anchor tag

@@ -6,7 +6,7 @@ import { TextField } from '../TextField';
 import { FieldClearButton } from '../Field';
 import { SearchFieldButton } from './SearchFieldButton';
 import { strHasLength } from '../shared/utils';
-import { SearchFieldProps, InputProps } from '../types';
+import { SearchFieldProps, InputProps, ButtonProps } from '../types';
 
 const ESCAPE_KEY = 'Escape';
 const ENTER_KEY = 'Enter';
@@ -17,28 +17,6 @@ export const useSearchField = (onSubmit: SearchFieldProps['onSubmit']) => {
 
   const clearValue = React.useCallback(() => setValue(''), [setValue]);
 
-  const onKeyDown: InputProps['onKeyDown'] = React.useCallback((event) => {
-    const key = event.key;
-
-    if (DEFAULT_KEYS.includes(key)) {
-      event.preventDefault();
-    }
-    if (key === ESCAPE_KEY) {
-      clearValue();
-    }
-    if (key === ENTER_KEY) {
-      onSubmitHandler(event.currentTarget.value);
-    }
-  }, []);
-
-  const onInput: InputProps['onInput'] = React.useCallback(
-    (event) => {
-      const { value } = event.target;
-      setValue(value);
-    },
-    [setValue]
-  );
-
   const onSubmitHandler = React.useCallback(
     (value: string) => {
       if (onSubmit) {
@@ -48,7 +26,31 @@ export const useSearchField = (onSubmit: SearchFieldProps['onSubmit']) => {
     [onSubmit]
   );
 
-  const onClick: InputProps['onClick'] = React.useCallback(() => {
+  const onKeyDown: InputProps['onKeyDown'] = React.useCallback(
+    (event) => {
+      const key = event.key;
+
+      if (DEFAULT_KEYS.includes(key)) {
+        event.preventDefault();
+      }
+      if (key === ESCAPE_KEY) {
+        clearValue();
+      }
+      if (key === ENTER_KEY) {
+        onSubmitHandler(value);
+      }
+    },
+    [value, clearValue, onSubmitHandler]
+  );
+
+  const onInput: InputProps['onInput'] = React.useCallback(
+    (event) => {
+      setValue(event.target.value);
+    },
+    [setValue]
+  );
+
+  const onClick: ButtonProps['onClick'] = React.useCallback(() => {
     onSubmitHandler(value);
   }, [onSubmitHandler, value]);
 

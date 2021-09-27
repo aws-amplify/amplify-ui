@@ -51,7 +51,6 @@
     // when there are multiple controls
     &:not(:first-child) {
       @extend %remove-start-radii;
-      @extend %remove-end-radii;
     }
   }
   // Select requires special rules due to icon
@@ -62,19 +61,17 @@
     &:not(:first-child) {
       .amplify-select {
         @extend %remove-start-radii;
-        @extend %remove-end-radii;
       }
     }
   }
 }
 .amplify-field-group__outer-end {
-  .amplify-field-group__control:not(.amplify-select) {
+  .amplify-field-group__control {
     @extend %remove-start-radii;
 
     // This targets non last-child controls
     // where there are multiple controls
     &:not(:last-child) {
-      @extend %remove-start-radii;
       @extend %remove-end-radii;
     }
   }
@@ -85,7 +82,6 @@
     }
     &:not(:last-child) {
       .amplify-select {
-        @extend %remove-start-radii;
         @extend %remove-end-radii;
       }
     }

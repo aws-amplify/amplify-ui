@@ -93,10 +93,10 @@ describe('SearchField component', () => {
     )) as HTMLInputElement;
 
     userEvent.type(searchField, searchQuery);
-    expect(searchField.value).toBe(searchQuery);
+    expect(searchField).toHaveValue(searchQuery);
 
     fireEvent.keyDown(searchField, { key: 'Esc', code: 'Esc' });
-    expect(searchField.value).toBe('');
+    expect(searchField).toHaveValue('');
   });
 
   describe(' - search button', () => {
@@ -125,9 +125,9 @@ describe('SearchField component', () => {
 
       const clearButton = await screen.findByLabelText(clearButtonLabel);
 
-      expect(searchField.value).toBe(searchQuery);
+      expect(searchField).toHaveValue(searchQuery);
       userEvent.click(clearButton);
-      expect(searchField.value).toBe('');
+      expect(searchField).toHaveValue('');
     });
   });
 });

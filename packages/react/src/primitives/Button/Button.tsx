@@ -20,7 +20,7 @@ export const Button: React.FC<ButtonProps> = ({
   ...rest
 }) => (
   <View
-    aria-label={ariaLabel}
+    ariaLabel={ariaLabel}
     as="button"
     className={classNames(
       ComponentClassNames.Button,

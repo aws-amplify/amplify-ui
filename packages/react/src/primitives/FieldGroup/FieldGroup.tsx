@@ -18,10 +18,10 @@ export const FieldGroup: React.FC<FieldGroupOptions> = ({
   // Don't apply field group has icon classnames unless an icon was provided
   const hasInnerStartComponent = innerStartComponent != null;
   const hasInnerEndComponent = innerEndComponent != null;
-  const fieldGroupHasStartIconClassName = hasInnerStartComponent
+  const fieldGroupHasInnerStartClassName = hasInnerStartComponent
     ? ComponentClassNames.FieldGroupHasInnerStart
     : null;
-  const fieldGroupHasEndIconClassName = hasInnerEndComponent
+  const fieldGroupHasInnerEndClassName = hasInnerEndComponent
     ? ComponentClassNames.FieldGroupHasInnerEnd
     : null;
 
@@ -29,8 +29,8 @@ export const FieldGroup: React.FC<FieldGroupOptions> = ({
     <Flex
       className={classNames(
         ComponentClassNames.FieldGroup,
-        fieldGroupHasStartIconClassName,
-        fieldGroupHasEndIconClassName,
+        fieldGroupHasInnerStartClassName,
+        fieldGroupHasInnerEndClassName,
         className
       )}
       {...rest}
