@@ -1,0 +1,33 @@
+diff --git a/node_modules/amplify-docs/src/components/Menu/FilterSelect/index.tsx b/node_modules/amplify-docs/src/components/Menu/FilterSelect/index.tsx
+index 61372fc..5decc7e 100644
+--- a/node_modules/amplify-docs/src/components/Menu/FilterSelect/index.tsx
++++ b/node_modules/amplify-docs/src/components/Menu/FilterSelect/index.tsx
+@@ -75,7 +75,14 @@ export default class FilterSelect extends React.Component<
+     }
+ 
+     return (
+-      <Link href={href} key={name}>
++      <Link
++        href={{
++          pathname: this.props.url,
++          query: { platform: name },
++        }}
++        key={name}
++        scroll={false}
++      >
+         <a onClick={this.toggleVis}>
+           <img
+             alt={filterMetadataByOption[name]?.label + " icon"}
+diff --git a/node_modules/amplify-docs/src/pages/ChooseFilterPage.tsx b/node_modules/amplify-docs/src/pages/ChooseFilterPage.tsx
+index 561b000..8dd99d0 100644
+--- a/node_modules/amplify-docs/src/pages/ChooseFilterPage.tsx
++++ b/node_modules/amplify-docs/src/pages/ChooseFilterPage.tsx
+@@ -79,7 +79,7 @@ function ChooseFilterPage({
+           {filters.map((filter) => (
+             <Card
+               className="vertical"
+-              href={`${url}/q/${filterKind}/${filter}`}
++              href={`${url}?platform=${filter}`}
+               key={filter}
+             >
+               <CardGraphic

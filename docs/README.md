@@ -21,6 +21,12 @@ These docs are published at https://docs.amplify.aws/ui and powered by the follo
 
   You can find the latest/relevant commit at https://github.com/aws-amplify/docs/commits/next.
 
+  Finally, if you make any changes to `node_modules/amplify-docs`, you can save these using `patch-package`:
+
+  ```shell
+  npx patch-package amplify-docs
+  ```
+
 - [XDM](https://github.com/wooorm/xdm) – Content
 - [Next.js](https://nextjs.org/) – Framework
 
