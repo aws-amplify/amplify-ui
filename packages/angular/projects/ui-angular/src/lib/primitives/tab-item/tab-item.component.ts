@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { nanoid } from 'nanoid';
 
 @Component({
   selector: 'amplify-tab-item',
