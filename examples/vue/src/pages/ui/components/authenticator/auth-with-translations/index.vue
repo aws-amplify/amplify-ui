@@ -1,5 +1,5 @@
 <template>
-  <Authenticator>
+  <authenticator :loginMechanisms="loginMechanisms">
     <template v-slot="{ user, send }">
       <h1 class="text-6xl mb-10">Hello {{ user.username }}!</h1>
       <button
@@ -9,7 +9,7 @@
         Sign Out
       </button>
     </template>
-  </Authenticator>
+  </authenticator>
 </template>
 
 <script setup lang="ts">
@@ -28,10 +28,7 @@ I18n.putVocabulariesForLanguage('ja', {
   [DefaultTexts.CONFIRM_TOTP_LABEL]: 'TOTPコードを確認する',
 });
 
-Amplify.configure({
-  ...aws_exports,
-  auth: {
-    login_mechanisms: ['email'],
-  },
-});
+const loginMechanisms = ['email'];
+
+Amplify.configure(aws_exports);
 </script>

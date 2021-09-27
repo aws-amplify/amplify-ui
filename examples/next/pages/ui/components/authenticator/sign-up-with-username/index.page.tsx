@@ -6,5 +6,9 @@ import awsExports from '@environments/auth-with-username-no-attributes/src/aws-e
 Amplify.configure(awsExports);
 
 export default function AuthenticatorWithUsername() {
-  return <Authenticator />;
+  return (
+    <Authenticator>
+      {({ signOut }) => <button onClick={signOut}>Sign out</button>}
+    </Authenticator>
+  );
 }

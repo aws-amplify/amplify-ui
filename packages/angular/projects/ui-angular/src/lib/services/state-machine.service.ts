@@ -6,6 +6,7 @@ import {
   authMachine,
   AuthMachineState,
   getSendEventAliases,
+  LoginMechanism,
 } from '@aws-amplify/ui';
 import { interpret, Event } from 'xstate';
 
@@ -22,15 +23,24 @@ export class StateMachineService {
   private _user: Record<string, any>; // TODO: strongly type CognitoUser
   private _services: ReturnType<typeof getSendEventAliases>;
 
-  constructor() {
-    const interpreter = interpret(authMachine, { devTools: true })
+  public startMachine(loginMechanisms?: LoginMechanism[]) {
+    const machine = authMachine.withContext({
+      config: {
+        login_mechanisms: loginMechanisms,
+      },
+    });
+
+    const authService = interpret(machine, {
+      devTools: process.env.NODE_ENV === 'development',
+    })
       .onTransition((state) => {
         this._user = state.context.user;
         this._authState = state;
       })
       .start();
-    this._services = getSendEventAliases(interpreter.send);
-    this._authService = interpreter;
+
+    this._services = getSendEventAliases(authService.send);
+    this._authService = authService;
   }
 
   public get services() {

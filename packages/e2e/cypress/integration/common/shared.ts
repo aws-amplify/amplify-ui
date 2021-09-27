@@ -17,7 +17,7 @@ Given("I'm running the example {string}", (example: string) => {
 });
 
 Given(
-  'intercept {string} with fixture {string}',
+  'I intercept {string} with fixture {string}',
   (json: string, fixture: string) => {
     let routeMatcher;
 
