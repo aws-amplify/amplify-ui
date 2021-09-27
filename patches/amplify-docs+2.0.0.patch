@@ -56,6 +56,73 @@ index 07a67f6..50acf3f 100644
  }
  
  export default function RepoActions({directoryPath, url}) {
+diff --git a/node_modules/amplify-docs/src/components/TableOfContents/index.tsx b/node_modules/amplify-docs/src/components/TableOfContents/index.tsx
+index e900068..44548e1 100644
+--- a/node_modules/amplify-docs/src/components/TableOfContents/index.tsx
++++ b/node_modules/amplify-docs/src/components/TableOfContents/index.tsx
+@@ -24,17 +24,18 @@ export default function TableOfContents({children, title}) {
+   if (children.length === 0) {
+     return <></>;
+   }
+-  window.onload = (_) => {
+-    if (window.location.href.includes("#")) {
+-      const hash = window.location.href.split("#")[1];
+-      scroll(hash);
+-    }
+-  };
+   let headers = [];
+   let headerQueries = [];
+   let activeLink = 0;
+   let previousLink = 0;
++
+   useEffect(() => {
++    window.onload = (_) => {
++      if (window.location.href.includes("#")) {
++        const hash = window.location.href.split("#")[1];
++        scroll(hash);
++      }
++    };
+     const idSet = new Set();
+     const headings = document.querySelectorAll("a > h2, a > h3");
+     const headings2 = document.getElementById("toc").querySelectorAll("a");
+@@ -93,18 +94,18 @@ export default function TableOfContents({children, title}) {
+                 aTag.classList.add("active");
+               });
+             if (activeElement) {
+-              router.replace(
+-                window.location.href.split("#")[0],
+-                window.location.href.split("#")[0] + "#" + activeElement,
+-                {shallow: true, scroll: false},
+-              );
++              // router.replace(
++              //   window.location.href.split("#")[0],
++              //   window.location.href.split("#")[0] + "#" + activeElement,
++              //   {shallow: true, scroll: false},
++              // );
+             }
+           } else {
+-            router.replace(
+-              window.location.href.split("#")[0],
+-              window.location.href.split("#")[0],
+-              {shallow: true, scroll: false},
+-            );
++            // router.replace(
++            //   window.location.href.split("#")[0],
++            //   window.location.href.split("#")[0],
++            //   {shallow: true, scroll: false},
++            // );
+           }
+         }
+       }
+@@ -113,7 +114,7 @@ export default function TableOfContents({children, title}) {
+     return function cleanup() {
+       document.removeEventListener("scroll", scrollHandler);
+     };
+-  }, []);
++  }, [children]);
+ 
+   return (
+     <TOCStyle id="toc">
 diff --git a/node_modules/amplify-docs/src/pages/ChooseFilterPage.tsx b/node_modules/amplify-docs/src/pages/ChooseFilterPage.tsx
 index 561b000..8dd99d0 100644
 --- a/node_modules/amplify-docs/src/pages/ChooseFilterPage.tsx
