@@ -71,7 +71,7 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
         on: {
           SIGN_IN: 'signIn',
           'done.invoke.signUpActor': {
-            target: 'signIn',
+            target: 'idle',
             actions: 'setUser',
           },
         },
