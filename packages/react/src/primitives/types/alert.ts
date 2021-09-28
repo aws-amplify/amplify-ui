@@ -1,6 +1,6 @@
 import { BaseComponentProps } from './base';
 import { BaseStyleProps } from './style';
-import { FlexStyleProps } from './flex';
+import { FlexContainerStyleProps } from './flex';
 import { IconSize } from './icon';
 import { HeadingLevel } from './heading';
 import React from 'react';
@@ -10,7 +10,7 @@ export type AlertVariation = 'info' | 'error' | 'warning' | 'success';
 export interface AlertProps
   extends BaseComponentProps,
     BaseStyleProps,
-    FlexStyleProps {
+    FlexContainerStyleProps {
   /**
    * The variation property will affect the background color of the Alert.
    */

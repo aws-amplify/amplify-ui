@@ -1,5 +1,4 @@
-import { AriaProps, BaseComponentProps } from './base';
-import { FlexStyleProps } from './flex';
+import { FlexProps } from './flex';
 import { BaseStyleProps } from './style';
 
 export type CollectionType = 'list' | 'grid' | 'table';
@@ -15,9 +14,7 @@ export const CollectionTypeMap: CollectionTypeMapInterface = {
 };
 
 export interface CollectionBaseProps<CollectionItemType>
-  extends BaseComponentProps,
-    AriaProps,
-    BaseStyleProps {
+  extends BaseStyleProps {
   /*
    * Collection type. This will be used to determine collection wrapper component.
    * @default 'list'
@@ -38,7 +35,10 @@ export interface CollectionBaseProps<CollectionItemType>
 
 // @TODO Add GridCollectionProps and TableCollectionProps
 export type ListCollectionProps<CollectionType> =
-  CollectionBaseProps<CollectionType> & FlexStyleProps & { type: 'list' };
+  CollectionBaseProps<CollectionType> & FlexProps & { type: 'list' };
+
+export type GridCollectionProps<CollectionType> =
+  CollectionBaseProps<CollectionType> & GridProps & { type: 'grid' };
 
 export type CollectionProps<CollectionType> =
   ListCollectionProps<CollectionType>;

@@ -2,8 +2,11 @@ import { render, screen } from '@testing-library/react';
 import { kebabCase } from 'lodash';
 
 import { Flex } from '../Flex';
-import { ComponentPropsToStylePropsMap, FlexStyleProps } from '../../types';
-export const testFlexProps: FlexStyleProps = {
+import {
+  ComponentPropsToStylePropsMap,
+  FlexContainerStyleProps,
+} from '../../types';
+export const testFlexProps: FlexContainerStyleProps = {
   direction: 'column-reverse',
   gap: '10%',
   justifyContent: 'flex-end',
@@ -11,7 +14,7 @@ export const testFlexProps: FlexStyleProps = {
   alignContent: 'space-between',
   wrap: 'wrap',
 };
-export const expectFlexStyleProps = (element: HTMLElement): void => {
+export const expectFlexContainerStyleProps = (element: HTMLElement): void => {
   expect(
     element.style.getPropertyValue(
       kebabCase(ComponentPropsToStylePropsMap.direction)
@@ -48,7 +51,7 @@ describe('Flex: ', () => {
   it('can apply styling via props', async () => {
     render(<Flex {...testFlexProps}>{flexText}</Flex>);
     const flex = await screen.findByText(flexText);
-    expectFlexStyleProps(flex);
+    expectFlexContainerStyleProps(flex);
   });
 
   it('can apply a custom className', async () => {

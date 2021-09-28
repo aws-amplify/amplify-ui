@@ -1,5 +1,5 @@
 import { Property } from 'csstype';
-import { FlexStyleProps } from './flex';
+import { FlexItemStyleProps, FlexContainerStyleProps } from './flex';
 import { ImageStyleProps } from './image';
 
 export interface ResponsiveObject<PropertyType> {
@@ -16,7 +16,7 @@ export type ResponsiveStyle<PropertyType> =
   | PropertyType[]
   | ResponsiveObject<PropertyType>;
 
-export interface BaseStyleProps {
+export interface BaseStyleProps extends FlexItemStyleProps {
   alignSelf?: ResponsiveStyle<Property.AlignSelf>;
   backgroundColor?: ResponsiveStyle<Property.BackgroundColor>;
   border?: ResponsiveStyle<Property.Border>;
@@ -44,7 +44,7 @@ export interface BaseStyleProps {
 export interface AllStyleProps
   extends BaseStyleProps,
     ImageStyleProps,
-    FlexStyleProps {}
+    FlexContainerStyleProps {}
 
 export type ComponentPropToStyleProp = {
   [key in keyof AllStyleProps]: keyof React.CSSProperties;

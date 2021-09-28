@@ -7,7 +7,7 @@ export interface TabsPropControlsProps extends TabsProps {
   setCurrentIndex: (
     value: React.SetStateAction<TabsProps['currentIndex']>
   ) => void;
-  setGrow: (value: React.SetStateAction<TabsProps['grow']>) => void;
+  setSpacing: (value: React.SetStateAction<TabsProps['spacing']>) => void;
   setJustifyContent: (
     value: React.SetStateAction<TabsProps['justifyContent']>
   ) => void;
@@ -23,8 +23,8 @@ interface TabsPropControlsInterface {
 export const TabsPropControls: TabsPropControlsInterface = ({
   currentIndex,
   setCurrentIndex,
-  grow,
-  setGrow,
+  spacing,
+  setSpacing,
   justifyContent,
   setJustifyContent,
   indicatorPosition,
@@ -47,12 +47,14 @@ export const TabsPropControls: TabsPropControlsInterface = ({
         </select>
       </FieldLabeler>
 
-      <FieldLabeler id="grow">
+      <FieldLabeler id="spacing">
         <select
-          name="grow"
-          id="grow"
-          value={grow}
-          onChange={(event) => setGrow(event.target.value as TabsProps['grow'])}
+          name="spacing"
+          id="spacing"
+          value={spacing}
+          onChange={(event) =>
+            setSpacing(event.target.value as TabsProps['spacing'])
+          }
         >
           <option value="">default</option>
           <option value="equal">equal</option>

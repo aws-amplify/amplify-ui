@@ -1,15 +1,15 @@
 import { BaseComponentProps, AriaProps } from './base';
 import { BaseStyleProps } from './style';
-import { FlexStyleProps } from './flex';
+import { FlexContainerStyleProps } from './flex';
 import React from 'react';
 
-export type TabsGrow = 'equal' | 'relative';
+export type TabsSpacing = 'equal' | 'relative';
 
 export interface TabsProps
   extends BaseComponentProps,
     AriaProps,
     BaseStyleProps,
-    FlexStyleProps {
+    FlexContainerStyleProps {
   /**
    * The Tabs component only accepts TabItem components as children.
    */
@@ -37,7 +37,7 @@ export interface TabsProps
    * Control how Tabs take up the remaining space. Pass `equal` to make each tab take up the same amount of space,
    * and `relative` to make each tab take up space relative to the size of its title.
    */
-  grow?: TabsGrow;
+  spacing?: TabsSpacing;
 
   /**
    * Sets the border and indicator of the tabs to be the top or bottom.

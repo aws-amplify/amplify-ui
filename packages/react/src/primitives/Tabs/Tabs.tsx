@@ -35,7 +35,7 @@ export const Tabs: Tabs = ({
   indicatorPosition,
   direction,
   gap = '0',
-  grow,
+  spacing,
   justifyContent,
   wrap,
   ...rest
@@ -78,7 +78,7 @@ export const Tabs: Tabs = ({
           {tabs.map(({ className, isDisabled, title, ...rest }, index) => (
             <RadixTab
               className={classNames(ComponentClassNames.TabItems, className)}
-              data-grow={grow}
+              data-spacing={spacing}
               disabled={isDisabled}
               key={index}
               style={prefixer(convertStylePropsToStyleObj(rest))}

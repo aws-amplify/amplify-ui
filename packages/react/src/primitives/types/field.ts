@@ -12,7 +12,7 @@ export interface FieldProps {
   descriptiveText?: React.ReactNode;
 
   /**
-   *  When defined and hasError is true, show error message
+   *  When defined and `hasError` is true, show error message
    */
   errorMessage?: string;
 
@@ -22,8 +22,7 @@ export interface FieldProps {
   label: React.ReactNode;
 
   /**
-   * Hide label and use `aria-label` attribute instead. Common use case
-   * is a search field.
+   * Visually hide label (not recommended in most cases)
    * @default false
    */
   labelHidden?: boolean;

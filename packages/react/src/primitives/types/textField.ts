@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { FlexStyleProps } from './flex';
+import { FlexContainerStyleProps } from './flex';
 import { InputProps } from './input';
 import { FieldProps } from './field';
 
@@ -14,7 +14,10 @@ export type TextFieldType =
   | 'url'
   | string;
 
-export interface TextFieldProps extends InputProps, FieldProps, FlexStyleProps {
+export interface TextFieldProps
+  extends InputProps,
+    FieldProps,
+    FlexContainerStyleProps {
   /**
    * Input field type
    */

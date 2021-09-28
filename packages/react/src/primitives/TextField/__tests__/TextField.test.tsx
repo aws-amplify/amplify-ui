@@ -5,7 +5,7 @@ import { ComponentClassNames } from '../../shared';
 import { TextField } from '../TextField';
 import {
   testFlexProps,
-  expectFlexStyleProps,
+  expectFlexContainerStyleProps,
 } from '../../Flex/__tests__/Flex.test';
 
 const label = 'Field';
@@ -32,7 +32,7 @@ describe('TextField component', () => {
     it('should render all flex style props', async () => {
       render(<TextField testId="testId" label="field" {...testFlexProps} />);
       const field = await screen.findByTestId('testId');
-      expectFlexStyleProps(field);
+      expectFlexContainerStyleProps(field);
     });
   });
 
