@@ -1,5 +1,6 @@
 [data-amplify-authenticator] {
   @apply max-w-xl mx-auto overflow-hidden text-base text-gray-700 rounded-md shadow;
+  font-family: 'Work Sans', Arial, Helvetica, sans-serif;
 }
 
 [data-amplify-wrapper] [data-amplify-heading] {

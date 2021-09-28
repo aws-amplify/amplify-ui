@@ -3,13 +3,12 @@ import { Amplify } from 'aws-amplify';
 
 import awsExports from '@environments/auth-with-email/src/aws-exports';
 
-Amplify.configure({
-  ...awsExports,
-  auth: {
-    login_mechanisms: ['email'],
-  },
-});
+Amplify.configure(awsExports);
 
 export default function AuthenticatorWithEmail() {
-  return <Authenticator />;
+  return (
+    <Authenticator loginMechanisms={['email']}>
+      {({ signOut }) => <button onClick={signOut}>Sign out</button>}
+    </Authenticator>
+  );
 }

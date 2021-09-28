@@ -1,6 +1,7 @@
-import { Example } from '@/components/Example';
 import { SwitchField } from '@aws-amplify/ui-react';
 import { SwitchDemo, SwitchExample, ChangeExample } from './demo.tsx';
+import { Example } from '@/components/Example';
+import { Fragment } from '@/components/Fragment';
 
 The `SwitchField` form primitive is a toggleable input type with a checked (on) and unchecked (off) state.
 
@@ -21,6 +22,10 @@ import { SwitchField } from '@aws-amplify/ui-react';
 <Example>
   <SwitchField label={'This is a switch'} />
 </Example>
+
+### Accessibility / Label behavior
+
+<Fragment>{() => import('./../shared/formFieldAccessibility.mdx')}</Fragment>
 
 ### isChecked
 

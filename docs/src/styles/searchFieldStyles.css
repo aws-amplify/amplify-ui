@@ -1,0 +1,11 @@
+.globally-styled-searchfield.amplify-searchfield {
+  --amplify-components-button-color: var(--amplify-colors-green-100);
+  --amplify-components-button-border-color: var(--amplify-colors-green-100);
+  --amplify-components-fieldcontrol-border-color: var(
+    --amplify-colors-green-100
+  );
+}
+.custom-searchfield-class .amplify-input,
+.custom-searchfield-class .amplify-button {
+  border-radius: 0;
+}

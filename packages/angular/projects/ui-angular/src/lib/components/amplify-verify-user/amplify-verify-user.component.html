@@ -1,38 +1,51 @@
 <!-- 
   Define default contents here
 -->
-<ng-template #verifyUserFooter>
-  <div data-amplify-footer>
-    <button data-amplify-button (click)="skipVerify()">{{ skipText }}</button>
-    <button data-amplify-button type="submit">{{ verifyText }}</button>
-  </div>
+<ng-template #verifyButton>
+  <button amplify-button variation="primary" fullWidth="true" type="submit">
+    {{ verifyText }}
+  </button>
 </ng-template>
 
 <ng-template #verifyUserForm>
   <form data-amplify-form (submit)="onSubmit($event)">
-    <fieldset data-amplify-fieldset [disabled]="isPending">
-      <ng-container
-        *ngFor="let unverifiedAttribute of unverifiedAttributes | keyvalue"
-      >
+    <fieldset
+      class="amplify-flex"
+      style="flex-direction: column"
+      data-amplify-fieldset
+      [disabled]="isPending"
+    >
+      <h3 class="amplify-heading">{{ this.headerText }}</h3>
+
+      <div *ngFor="let unverifiedAttribute of unverifiedAttributes | keyvalue">
         <input
           name="unverifiedAttr"
           type="radio"
           [value]="unverifiedAttribute.key"
         />
-        <span>{{ translate(unverifiedAttribute.key) }}</span>
-      </ng-container>
-      <ng-container
-        [ngTemplateOutlet]="
-          customComponents.verifyUserFooter || verifyUserFooter
-        "
-        [ngTemplateOutletContext]="context"
-      >
-      </ng-container>
-    </fieldset>
+        <span>{{ getLabelForAttr(unverifiedAttribute.key) }}</span>
+      </div>
 
-    <amplify-error *ngIf="remoteError">
-      {{ remoteError }}
-    </amplify-error>
+      <ng-container
+        [ngTemplateOutlet]="customComponents.verifyButton || verifyButton"
+        [ngTemplateOutletContext]="context"
+      ></ng-container>
+
+      <button
+        amplify-button
+        size="small"
+        variation="link"
+        fontWeight="normal"
+        fullWidth="true"
+        (click)="skipVerify()"
+      >
+        {{ skipText }}
+      </button>
+
+      <amplify-error *ngIf="remoteError">
+        {{ remoteError }}
+      </amplify-error>
+    </fieldset>
   </form>
 </ng-template>
 
@@ -40,7 +53,6 @@
   Render verify user component
 -->
 <div data-amplify-container>
-  <h2 data-amplify-header>{{ this.headerText }}</h2>
   <ng-container
     [ngTemplateOutlet]="customComponents.verifyUserForm || verifyUserForm"
     [ngTemplateOutletContext]="context"

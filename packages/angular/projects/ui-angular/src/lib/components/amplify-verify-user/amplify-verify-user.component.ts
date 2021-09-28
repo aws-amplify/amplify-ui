@@ -17,6 +17,7 @@ import {
 import { Subscription } from 'xstate';
 import { StateMachineService } from '../../services/state-machine.service';
 import { AuthPropService } from '../../services/authenticator-context.service';
+import { getAttributeMap } from '../../common';
 @Component({
   selector: 'amplify-verify-user',
   templateUrl: './amplify-verify-user.component.html',
@@ -77,9 +78,10 @@ export class AmplifyVerifyUserComponent
     this.stateMachine.send('SKIP');
   }
 
-  // enable translate to be used inside the template
-  translate(phrase: string): string {
-    return translate<string>(phrase);
+  getLabelForAttr(authAttr: string): string {
+    const attributeMap = getAttributeMap();
+    const label = attributeMap[authAttr]?.label;
+    return translate<string>(label);
   }
 
   async onSubmit(event: Event): Promise<void> {

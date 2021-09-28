@@ -9,6 +9,7 @@ import {
   ConfirmationCodeInput,
   ConfirmSignInFooter,
   ConfirmSignInFooterProps,
+  RemoteErrorMessage,
 } from '../shared';
 
 const logger = new Logger('SetupTOTP-logger');
@@ -83,6 +84,7 @@ export const SetupTOTP = (): JSX.Element => {
             <Image data-amplify-qrcode src={qrCode} alt="qr code"></Image>
           )}
           <ConfirmationCodeInput amplifyNamespace={amplifyNamespace} />
+          <RemoteErrorMessage amplifyNamespace={amplifyNamespace} />
         </FieldGroup>
 
         <ConfirmSignInFooter {...footerProps} />

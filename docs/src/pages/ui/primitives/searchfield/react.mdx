@@ -1,0 +1,145 @@
+import { Flex, SearchField } from '@aws-amplify/ui-react';
+import { Example } from '@/components/Example';
+import { Fragment } from '@/components/Fragment';
+import { SearchFieldStyledPropsExample } from './examples';
+import { SearchFieldDemo } from './demo';
+
+SearchField accepts query text for search. Users may clear the field by hitting the `Esc` key or by clicking the
+clear button. When users hit `Enter` key or click the search icon, the `onSubmit` event handler will be fired.
+
+## Demo
+
+<SearchFieldDemo />
+
+## Usage
+
+Import the `SearchField` component and styles and provide a `label` for accessibility/usability.
+
+```jsx
+import { SearchField } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<SearchField id="search" label="search" />;
+```
+
+<Example>
+  <SearchField id="search" label="search" />
+</Example>
+
+Note: clear text (x) button will show after user has entered text.
+
+### Accessibility / Label behavior
+
+<Fragment>{() => import('./../shared/formFieldAccessibility.mdx')}</Fragment>
+
+### Placeholder
+
+Text that appears in the form control when it has no value set.
+
+```jsx
+<SearchField label="search" placeholder="Search…" />
+```
+
+<SearchField label="search" placeholder="Search…" />
+
+### Sizes
+
+Use the `size` prop to change the Placeholder size. Available options are `small`, `large`, and none (default).
+
+```jsx
+<SearchField label="search" size="small" />
+<SearchField label="search" />
+<SearchField label="search" size="large" />
+```
+
+<Example>
+  <Flex direction="column">
+    <SearchField label="search" size="small" />
+    <SearchField label="search" />
+    <SearchField label="search" size="large" />
+  </Flex>
+</Example>
+
+### Variations
+
+There are two variation styles available: default and `quiet`.
+
+```jsx
+<Flex direction="column" gap="1rem">
+  <SearchField label="search" />
+  <SearchField label="search" variation="quiet" />
+</Flex>
+```
+
+<Example>
+  <Flex direction="column" gap="1rem">
+    <SearchField label="search" />
+    <SearchField label="search" variation="quiet" />
+  </Flex>
+</Example>
+
+## CSS Styling
+
+### Global styling
+
+To override styling on all TextField primitives, you can set the Amplify CSS variables or use the built-in `.amplify-textfield` class.
+
+```css
+/* styles.css */
+:root {
+  --amplify-components-button-color: black;
+  --amplify-components-button-border-color: black;
+  --amplify-components-fieldcontrol-border-color: black;
+}
+/* OR */
+.amplify-searchfield {
+  --amplify-components-button-color: black;
+  --amplify-components-button-border-color: black;
+  --amplify-components-fieldcontrol-border-color: black;
+}
+```
+
+<Example>
+  <SearchField
+    label="Globally styled search field"
+    className="globally-styled-searchfield"
+  />
+</Example>
+
+### Local styling
+
+To override styling on a specific TextField, you can use a class selector or style props.
+
+_Using a class selector:_
+
+```css
+/* styles.css */
+.custom-searchfield-class .amplify-input,
+.custom-searchfield-class .amplify-button {
+  border-radius: 0;
+}
+```
+
+<Example>
+  <SearchField
+    className="custom-searchfield-class"
+    label="Square password field"
+  />
+</Example>
+
+_Using style props:_
+
+Flex styling props will be applied to the SearchField wrapping Flex component, whereas other style props will be applied to the input field. This allows us to change the layout of the label and input field, while also styling the input field directly.
+
+```jsx
+<SearchField
+  label="search"
+  fontSize="var(--amplify-font-sizes-xl)"
+  backgroundColor="var(--amplify-colors-blue-20)"
+  color="var(--amplify-colors-black)"
+/>
+```
+
+<Example>
+  <SearchFieldStyledPropsExample />
+</Example>

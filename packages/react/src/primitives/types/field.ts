@@ -1,3 +1,4 @@
+import { FieldGroupIconButtonProps } from './fieldGroupIcon';
 import { InputProps } from './input';
 
 /**
@@ -28,6 +29,8 @@ export interface FieldProps {
   labelHidden?: boolean;
 }
 
+export interface FieldClearButtonProps
+  extends Partial<FieldGroupIconButtonProps> {}
 export interface FieldDescriptionProps
   extends Pick<FieldProps, 'descriptiveText' | 'labelHidden'> {}
 export interface FieldErrorMessageProps

@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import 'amplify-docs/src/styles/styles.css';
 import '../styles/index.css';
 
 function MyApp({ Component, pageProps }) {

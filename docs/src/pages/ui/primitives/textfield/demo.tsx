@@ -2,9 +2,7 @@ import * as React from 'react';
 
 import {
   TextField,
-  Text,
   Flex,
-  Button,
   View,
   FlexStyleProps,
   TextFieldProps,
@@ -140,101 +138,3 @@ export const TextFieldDemo = () => {
     </View>
   );
 };
-
-export const DescriptiveTextFieldExample = () => {
-  return (
-    <View width="100%">
-      <TextField
-        type="password"
-        label="Password"
-        descriptiveText={
-          <Text
-            as="span"
-            color="rebeccapurple"
-            fontStyle="italic"
-            fontSize="0.8rem"
-          >
-            Password length must be greater than 8 characters
-          </Text>
-        }
-      />
-    </View>
-  );
-};
-
-export const RequiredTextFieldExample = () => (
-  <Flex as="form" direction="column" width="20rem">
-    <TextField
-      label={
-        <Text>
-          Email
-          <Text as="span" fontSize="0.8rem" color="red">
-            {' '}
-            (required)
-          </Text>
-        </Text>
-      }
-      type="email"
-      name="email"
-      isRequired={true}
-    />
-    <TextField
-      label="Password"
-      descriptiveText={
-        <Text as="span" fontSize="0.8rem" color="red" fontStyle="italic">
-          Required
-        </Text>
-      }
-      type="email"
-      name="email"
-      isRequired={true}
-    />
-    <Button type="submit">Submit</Button>
-  </Flex>
-);
-
-export const TextFieldStyledPropsExample = () => (
-  <TextField
-    direction="row"
-    alignItems="baseline"
-    fontSize="1.5rem"
-    label={
-      <Text fontWeight="bold" fontSize="1.5rem">
-        Name:
-      </Text>
-    }
-    backgroundColor="#fff1e7"
-    color="#000"
-    width="400px"
-  />
-);
-
-export const TextFieldStartEndComponentsExample = () => (
-  <Flex gap="1rem" direction="column">
-    <TextField label="Start" inputStartComponents={<Button>Start</Button>} />
-    <TextField
-      label="Start and End"
-      inputStartComponents={<Button>Start</Button>}
-      inputEndComponents={<Button>End</Button>}
-    />
-    <TextField label="End" inputEndComponents={<Button>End</Button>} />
-    <TextField
-      label="Multiple End"
-      inputEndComponents={
-        <>
-          <Button>End</Button>
-          <Button>End</Button>
-        </>
-      }
-    />
-    <TextField
-      label="Multiple Start"
-      inputStartComponents={
-        <>
-          <Button>Start</Button>
-          <Button>Start</Button>
-        </>
-      }
-    />
-  </Flex>
-);

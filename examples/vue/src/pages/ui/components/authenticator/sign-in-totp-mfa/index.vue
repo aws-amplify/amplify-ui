@@ -1,15 +1,12 @@
 <template>
-  <Authenticator>
-    <template v-slot="{ user, send }">
+  <authenticator :loginMechanisms="loginMechanisms">
+    <template v-slot="{ user, signOut }">
       <h1 class="text-6xl mb-10">Hello {{ user.username }}!</h1>
-      <button
-        className="px-2 bg-white rounded shadow"
-        @click="send('SIGN_OUT')"
-      >
+      <button className="px-2 bg-white rounded shadow" @click="signOut">
         Sign Out
       </button>
     </template>
-  </Authenticator>
+  </authenticator>
 </template>
 
 <script setup lang="ts">
@@ -19,11 +16,7 @@ import Amplify from 'aws-amplify';
 import '@aws-amplify/ui-vue/styles.css';
 
 import { Authenticator } from '@aws-amplify/ui-vue';
+const loginMechanisms = ['email'];
 
-Amplify.configure({
-  ...aws_exports,
-  auth: {
-    login_mechanisms: ['email'],
-  },
-});
+Amplify.configure(aws_exports);
 </script>

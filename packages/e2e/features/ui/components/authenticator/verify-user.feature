@@ -6,7 +6,7 @@ Feature: Verify User
 
   Background:
     Given I'm running the example "ui/components/authenticator/sign-in-with-email"
-    And intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.GetUserAttributeVerificationCode" } }' with fixture "verify-user-email"
+    And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.GetUserAttributeVerificationCode" } }' with fixture "verify-user-email"
 
   @angular @react @vue
   Scenario: Redirect to "Verify" page

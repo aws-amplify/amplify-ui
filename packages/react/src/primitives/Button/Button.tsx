@@ -20,7 +20,7 @@ export const Button: React.FC<ButtonProps> = ({
   ...rest
 }) => (
   <View
-    aria-label={ariaLabel}
+    ariaLabel={ariaLabel}
     as="button"
     className={classNames(
       ComponentClassNames.Button,
@@ -31,7 +31,7 @@ export const Button: React.FC<ButtonProps> = ({
     data-loading={isLoading}
     data-size={size}
     data-variation={variation}
-    disabled={isDisabled || isLoading}
+    isDisabled={isDisabled || isLoading}
     id={id}
     onClick={onClick}
     type={type}
