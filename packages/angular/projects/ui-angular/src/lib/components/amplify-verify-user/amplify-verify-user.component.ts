@@ -18,6 +18,7 @@ import { Subscription } from 'xstate';
 import { StateMachineService } from '../../services/state-machine.service';
 import { AuthPropService } from '../../services/authenticator-context.service';
 import { getAttributeMap } from '../../common';
+import { nanoid } from 'nanoid';
 @Component({
   selector: 'amplify-verify-user',
   templateUrl: './amplify-verify-user.component.html',
@@ -35,6 +36,7 @@ export class AmplifyVerifyUserComponent
   public unverifiedAttributes = {};
   public remoteError = '';
   public isPending = false;
+  public labelId = nanoid(12);
 
   private authSubscription: Subscription;
 

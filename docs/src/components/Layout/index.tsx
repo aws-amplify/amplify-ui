@@ -36,9 +36,7 @@ import { parseLocalStorage } from 'amplify-docs/src/utils/parseLocalStorage';
 import { withFilterOverrides } from 'amplify-docs/src/utils/withFilterOverrides';
 
 const folderToTitle = (folder: string) =>
-  words(folder)
-    .map(capitalize)
-    .join(' ');
+  words(folder).map(capitalize).join(' ');
 
 // Mutate directory object to use new UI docs instead of amplify-docs
 const directory = require('amplify-docs/src/directory/directory');
