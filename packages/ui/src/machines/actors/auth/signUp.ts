@@ -143,7 +143,7 @@ export const signUpActor = createMachine<SignUpContext, AuthEvent>(
           const { username, password } = context.authAttributes;
 
           return {
-            user: event.data.user,
+            user: get(event, 'data.user') || context.user,
             authAttributes: { username, password },
           };
         },
@@ -173,13 +173,19 @@ export const signUpActor = createMachine<SignUpContext, AuthEvent>(
 
         const username =
           get(user, 'username') || get(authAttributes, 'username');
-
         const { password } = authAttributes;
 
-        await Auth.confirmSignUp(username, code);
-        const result = await Auth.signIn(username, password);
+        const confirmResult = await Auth.confirmSignUp(username, code);
 
-        return result;
+        try {
+          const result = await Auth.signIn(username, password);
+
+          return result;
+        } catch (err) {
+          console.warn(err);
+
+          return confirmResult;
+        }
       },
       async resendConfirmationCode(context, event) {
         const { user, authAttributes } = context;
