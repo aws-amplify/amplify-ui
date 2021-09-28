@@ -22,7 +22,7 @@ import { TabsComponent } from './primitives/tabs/tabs.component';
 import { TabItemComponent } from './primitives/tab-item/tab-item.component';
 import { AmplifyTextFieldComponent } from './primitives/amplify-text-field/amplify-text-field.component';
 import { AmplifyUserNameAliasComponent } from './primitives/amplify-user-name-alias/amplify-user-name-alias.component';
-import { AmplifyOverrideDirective } from './directives/amplify-override.directive';
+import { AmplifySlotDirective } from './directives/amplify-override.directive';
 
 import {
   AmplifyS3Album as S3Album,
@@ -82,7 +82,7 @@ customElements.define('amplify-photo-picker', AmplifyPhotoPicker);
     AmplifySignUpComponent,
     AmplifyFormFieldComponent,
     AmplifyErrorComponent,
-    AmplifyOverrideDirective,
+    AmplifySlotDirective,
     AmplifyConfirmSignUpComponent,
     AmplifyUserNameAliasComponent,
     AmplifyConfirmSignInComponent,
@@ -118,7 +118,7 @@ customElements.define('amplify-photo-picker', AmplifyPhotoPicker);
     AmplifySignInComponent,
     AmplifyFormFieldComponent,
     AmplifyErrorComponent,
-    AmplifyOverrideDirective,
+    AmplifySlotDirective,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
