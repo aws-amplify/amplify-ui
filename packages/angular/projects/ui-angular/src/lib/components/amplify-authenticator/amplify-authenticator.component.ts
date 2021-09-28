@@ -51,6 +51,13 @@ export class AmplifyAuthenticatorComponent implements OnInit, AfterContentInit {
   ngOnInit(): void {
     I18n.putVocabularies(translations);
     this.stateMachine.startMachine(this.loginMechanisms);
+
+    /**
+     * handling translations after content init, because authenticator and its
+     * translations might be initialized before the main app's `ngOnInit` is run.
+     **/
+    this.signInTitle = translate('Sign In');
+    this.signUpTitle = translate('Create Account');
   }
 
   /**
