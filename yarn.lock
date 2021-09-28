@@ -404,14 +404,6 @@
     qrcode "^1.4.4"
     uuid "^8.2.0"
 
-"@aws-amplify/ui-components@1.8.1":
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/ui-components/-/ui-components-1.8.1.tgz#150457dc1fb9debbf5201bb6095b2288f9d2eda2"
-  integrity sha512-ArR85bNk5/N2/apR0JCVYnDgUt+TkY94b4k/FumJgsr3a/BwiqiSE10HlDWQ+GVLATeOtd/xCjyi1kJiRSCEAQ==
-  dependencies:
-    qrcode "^1.4.4"
-    uuid "^8.2.0"
-
 "@aws-amplify/ui-react-v1@npm:@aws-amplify/ui-react":
   version "1.2.15"
   resolved "https://registry.yarnpkg.com/@aws-amplify/ui-react/-/ui-react-1.2.15.tgz#9f99f048f661857ee80a01a0684afca3ed9cacb6"
@@ -425,13 +417,6 @@
   integrity sha512-JvvIkzK0fjwnNZj5Oq9LfGgpkxgzXu0pzzUyIaDZjLmIWaJ5SzR9PazRAX1i5FS/b8DufxEvPq18EwrLbFh4FA==
   dependencies:
     "@aws-amplify/ui-components" "1.7.2"
-
-"@aws-amplify/ui-react@^1.2.5":
-  version "1.2.18"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/ui-react/-/ui-react-1.2.18.tgz#c2911b6e6573b704b7c8c3ab9926dfebad6e431b"
-  integrity sha512-xQsA8evH0+5Oyp2gBaXWf89zkLIzlgpQaskgZdzESgp/latm1lcxwYkqelQV1FOL0CJSB8R16IkZES5GqgCXGQ==
-  dependencies:
-    "@aws-amplify/ui-components" "1.8.1"
 
 "@aws-amplify/ui@2.0.3":
   version "2.0.3"
@@ -5609,6 +5594,7 @@ amazon-cognito-identity-js@5.1.0:
   resolved "https://codeload.github.com/aws-amplify/docs/tar.gz/8a0d3a0ff2e91ed5caf1ed57ae7fe050a62cab20"
   dependencies:
     "@aws-amplify/ui-components" latest
+    "@aws-amplify/ui-react" "^1.2.5"
     "@emotion/react" "^11.1.5"
     "@emotion/styled" "^11.3.0"
     array-flatten "^3.0.0"
