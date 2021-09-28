@@ -59,9 +59,9 @@
 
             <template v-for="(alias, idx) in secondaryAliases" :key="idx">
               <alias-control
-                :label="inputAttributes[alias].label"
+                :label="I18n.get(inputAttributes[alias].label)"
                 :name="alias"
-                :placeholder="inputAttributes[alias].label"
+                :placeholder="I18n.get(inputAttributes[alias].label)"
               />
             </template>
 
