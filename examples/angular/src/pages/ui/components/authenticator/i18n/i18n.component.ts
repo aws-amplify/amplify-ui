@@ -3,10 +3,10 @@ import { DefaultTexts } from '@aws-amplify/ui';
 import awsExports from '@environments/auth-with-email/src/aws-exports';
 import Amplify, { I18n } from 'aws-amplify';
 @Component({
-  selector: 'auth-with-translations',
-  templateUrl: 'auth-with-translations.component.html',
+  selector: 'i18n',
+  templateUrl: 'i18n.component.html',
 })
-export class AuthWithTranslationsComponent implements OnInit {
+export class I18nComponent implements OnInit {
   constructor() {
     Amplify.configure(awsExports);
   }
