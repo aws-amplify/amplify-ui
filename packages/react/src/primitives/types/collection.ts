@@ -37,8 +37,5 @@ export interface CollectionBaseProps<CollectionItemType>
 export type ListCollectionProps<CollectionType> =
   CollectionBaseProps<CollectionType> & FlexProps & { type: 'list' };
 
-export type GridCollectionProps<CollectionType> =
-  CollectionBaseProps<CollectionType> & GridProps & { type: 'grid' };
-
 export type CollectionProps<CollectionType> =
   ListCollectionProps<CollectionType>;
