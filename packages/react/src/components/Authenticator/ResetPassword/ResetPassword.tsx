@@ -2,6 +2,7 @@ import { I18n } from 'aws-amplify';
 import { getActorState, ResetPasswordState } from '@aws-amplify/ui';
 
 import { useAmplify, useAuthenticator } from '../../../hooks';
+import { handleFormChange, handleFormSubmit } from '../../../utils';
 import { RemoteErrorMessage, TwoButtonSubmitFooter } from '../shared';
 
 export const ResetPassword = (): JSX.Element => {
@@ -21,32 +22,14 @@ export const ResetPassword = (): JSX.Element => {
     <>{I18n.get('Send code')}</>
   );
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    send({
-      type: 'CHANGE',
-      data: { name, value },
-    });
-  };
-
   const inputLabel = I18n.get('Enter your username');
 
   return (
     <Form
       data-amplify-authenticator-resetpassword=""
       method="post"
-      onChange={handleChange}
-      onSubmit={(event) => {
-        event.preventDefault();
-
-        const formData = new FormData(event.target);
-
-        send({
-          type: 'SUBMIT',
-          // @ts-ignore Property 'fromEntries' does not exist on type 'ObjectConstructor'. Do you need to change your target library? Try changing the `lib` compiler option to 'es2019' or later.ts(2550)
-          data: Object.fromEntries(formData),
-        });
-      }}
+      onChange={handleFormChange}
+      onSubmit={handleFormSubmit}
     >
       <Flex direction="column">
         <Heading level={3}>{headerText}</Heading>

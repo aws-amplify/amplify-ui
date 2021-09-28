@@ -9,6 +9,7 @@ import { Radio } from '@aws-amplify/ui-react';
 import { I18n } from 'aws-amplify';
 
 import { useAmplify, useAuthenticator } from '../../../hooks';
+import { handleFormSubmit } from '../../../utils';
 import { RemoteErrorMessage, TwoButtonSubmitFooter } from '../shared';
 
 const generateRadioGroup = (
@@ -35,7 +36,7 @@ export const VerifyUser = (): JSX.Element => {
     components: { Flex, Form, Heading, RadioGroupField },
   } = useAmplify(amplifyNamespace);
 
-  const [_state, send] = useAuthenticator();
+  const [_state, _send] = useAuthenticator();
   const actorState: SignInState = getActorState(_state);
   const context = getActorContext(_state) as SignInContext;
   const isPending = actorState.matches('verifyUser.pending');
@@ -64,17 +65,7 @@ export const VerifyUser = (): JSX.Element => {
     <Form
       data-amplify-authenticator-verifyuser=""
       method="post"
-      onSubmit={(event) => {
-        event.preventDefault();
-
-        const formData = new FormData(event.target);
-
-        send({
-          type: 'SUBMIT',
-          // @ts-ignore Property 'fromEntries' does not exist on type 'ObjectConstructor'. Do you need to change your target library? Try changing the `lib` compiler option to 'es2019' or later.ts(2550)
-          data: Object.fromEntries(formData),
-        });
-      }}
+      onSubmit={handleFormSubmit}
     >
       <Flex direction="column">
         <Heading level={3}>{headerText}</Heading>

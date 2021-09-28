@@ -2,6 +2,7 @@ import { getActorState, SignInState } from '@aws-amplify/ui';
 import { I18n } from 'aws-amplify';
 
 import { useAmplify, useAuthenticator } from '../../../hooks';
+import { handleFormSubmit } from '../../../utils';
 import {
   ConfirmationCodeInput,
   RemoteErrorMessage,
@@ -14,7 +15,7 @@ export const ConfirmVerifyUser = (): JSX.Element => {
     components: { Flex, FieldGroup, Form, Heading },
   } = useAmplify(amplifyNamespace);
 
-  const [_state, send] = useAuthenticator();
+  const [_state, _send] = useAuthenticator();
   const actorState: SignInState = getActorState(_state);
   const isPending = actorState.matches('confirmVerifyUser.pending');
 
@@ -26,17 +27,7 @@ export const ConfirmVerifyUser = (): JSX.Element => {
     <Form
       data-amplify-authenticator-confirmverifyuser=""
       method="post"
-      onSubmit={(event) => {
-        event.preventDefault();
-
-        const formData = new FormData(event.target);
-
-        send({
-          type: 'SUBMIT',
-          // @ts-ignore Property 'fromEntries' does not exist on type 'ObjectConstructor'. Do you need to change your target library? Try changing the `lib` compiler option to 'es2019' or later.ts(2550)
-          data: Object.fromEntries(formData),
-        });
-      }}
+      onSubmit={handleFormSubmit}
     >
       <Flex direction="column">
         <Heading level={3}>{headerText}</Heading>

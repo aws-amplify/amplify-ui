@@ -2,6 +2,7 @@ import { I18n } from 'aws-amplify';
 import { getActorState, SignInState } from '@aws-amplify/ui';
 
 import { useAmplify, useAuthenticator } from '../../../hooks';
+import { handleFormChange, handleFormSubmit } from '../../../utils';
 import { FederatedSignIn } from '../FederatedSignIn';
 import { RemoteErrorMessage, UserNameAlias } from '../shared';
 
@@ -15,31 +16,13 @@ export function SignIn() {
   const actorState: SignInState = getActorState(_state);
   const isPending = actorState.matches('signIn.pending');
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    send({
-      type: 'CHANGE',
-      data: { name, value },
-    });
-  };
-
   return (
     // TODO Automatically add these namespaces again from `useAmplify`
     <Form
       data-amplify-authenticator-signin=""
       method="post"
-      onSubmit={(event) => {
-        event.preventDefault();
-
-        const formData = new FormData(event.target);
-
-        send({
-          type: 'SUBMIT',
-          // @ts-ignore Property 'fromEntries' does not exist on type 'ObjectConstructor'. Do you need to change your target library? Try changing the `lib` compiler option to 'es2019' or later.ts(2550)
-          data: Object.fromEntries(formData),
-        });
-      }}
-      onChange={handleChange}
+      onSubmit={handleFormSubmit}
+      onChange={handleFormChange}
     >
       <Flex direction="column">
         <Heading level={3}>{I18n.get('Sign in to your account')}</Heading>

@@ -2,12 +2,8 @@ import { getActorState, SignUpState } from '@aws-amplify/ui';
 import { I18n } from 'aws-amplify';
 
 import { useAmplify, useAuthenticator } from '../../../hooks';
-
-import {
-  ConfirmationCodeInput,
-  ConfirmationCodeInputProps,
-  ConfirmSignInFooterProps,
-} from '../shared';
+import { handleFormSubmit } from '../../../utils';
+import { ConfirmationCodeInput, ConfirmationCodeInputProps } from '../shared';
 
 export function ConfirmSignUp() {
   const amplifyNamespace = 'Authenticator.ConfirmSignUp';
@@ -30,17 +26,7 @@ export function ConfirmSignUp() {
     <Form
       data-amplify-authenticator-confirmsignup=""
       method="post"
-      onSubmit={(event) => {
-        event.preventDefault();
-
-        const formData = new FormData(event.target);
-
-        send({
-          type: 'SUBMIT',
-          // @ts-ignore Property 'fromEntries' does not exist on type 'ObjectConstructor'. Do you need to change your target library? Try changing the `lib` compiler option to 'es2019' or later.ts(2550)
-          data: Object.fromEntries(formData),
-        });
-      }}
+      onSubmit={handleFormSubmit}
     >
       <Flex direction="column">
         <Heading level={3}>{I18n.get('Confirm Sign Up')}</Heading>

@@ -11,11 +11,13 @@ import {
 } from '@aws-amplify/ui';
 
 import { useAmplify, useAuthenticator } from '../../../hooks';
+import { handleFormChange, handleFormSubmit } from '../../../utils';
 import { FederatedSignIn } from '../FederatedSignIn';
 import {
   RemoteErrorMessage,
   UserNameAlias as UserNameAliasComponent,
 } from '../shared';
+
 export function SignUp() {
   const amplifyNamespace = 'Authenticator.SignUp';
   const {
@@ -30,7 +32,7 @@ export function SignUp() {
     },
   } = useAmplify(amplifyNamespace);
 
-  const [_state, send] = useAuthenticator();
+  const [_state, _send] = useAuthenticator();
   const actorState: SignUpState = getActorState(_state);
   const isPending = actorState.matches('signUp.pending');
   const { validationError } = getActorContext(_state) as SignUpContext;
@@ -50,14 +52,6 @@ export function SignUp() {
     secondaryAliases.push('email', 'phone_number');
   }
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    send({
-      type: 'CHANGE',
-      data: { name, value },
-    });
-  };
-
   const passwordLabel = I18n.get('Password');
   const confirmPasswordLabel = I18n.get('Confirm Password');
   const passwordFieldClass = 'password-field';
@@ -66,18 +60,8 @@ export function SignUp() {
     <Form
       data-amplify-authenticator-signup=""
       method="post"
-      onSubmit={(event) => {
-        event.preventDefault();
-
-        const formData = new FormData(event.target);
-
-        send({
-          type: 'SUBMIT',
-          // @ts-ignore Property 'fromEntries' does not exist on type 'ObjectConstructor'. Do you need to change your target library? Try changing the `lib` compiler option to 'es2019' or later.ts(2550)
-          data: Object.fromEntries(formData),
-        });
-      }}
-      onChange={handleChange}
+      onSubmit={handleFormSubmit}
+      onChange={handleFormChange}
     >
       <Flex direction="column">
         <Heading level={3}>{I18n.get('Create a new account')}</Heading>
