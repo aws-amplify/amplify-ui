@@ -6,16 +6,11 @@ import { Flex } from '../Flex';
 import { ComponentClassNames } from '../shared';
 import { ToggleButtonProps, ToggleButtonGroupProps } from '../types';
 export const ToggleButtonGroup: React.FC<ToggleButtonGroupProps> = ({
-  alignContent = 'center',
-  alignItems = 'center',
   ariaLabel,
   children,
   className,
-  direction = 'row',
-  gap = 0,
   id,
   isExclusive,
-  justifyContent = 'flex-start',
   onChange,
   size,
   value,
@@ -25,13 +20,8 @@ export const ToggleButtonGroup: React.FC<ToggleButtonGroupProps> = ({
   const handleChange = useToggleButtonGroup(onChange, value, isExclusive);
   return (
     <Flex
-      alignContent={alignContent}
-      alignItems={alignItems}
       aria-label={ariaLabel}
       className={classNames(ComponentClassNames.ToggleButtonGroup, className)}
-      direction={direction}
-      gap={gap}
-      justifyContent={justifyContent}
       role="group"
       {...rest}
     >
