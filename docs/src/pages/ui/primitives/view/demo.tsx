@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ViewAsHTMLElementTypes } from '@aws-amplify/ui-react';
+import { View, ViewProps } from '@aws-amplify/ui-react';
 
 const FieldSet: React.FC<{
   id: string;
@@ -42,7 +42,7 @@ export const ViewDemo = ({ children }) => {
   const [opacity, setOpacity] = React.useState<string>('100%');
   const [customAttribute, setCustomAttribute] =
     React.useState<string>('data-demo');
-  const [asElementType, setAs] = React.useState<ViewAsHTMLElementTypes>('div');
+  const [asElementType, setAs] = React.useState<ViewProps['as']>('div');
   const customAttributes = {};
   if (customAttribute) {
     customAttributes[customAttribute] = true;
@@ -57,9 +57,7 @@ export const ViewDemo = ({ children }) => {
             id="as"
             value={asElementType}
             placeholder="As element type"
-            onChange={(event) =>
-              setAs(event.target.value as ViewAsHTMLElementTypes)
-            }
+            onChange={(event) => setAs(event.target.value as ViewProps['as'])}
           >
             <option value="div">div</option>
             <option value="button">button</option>

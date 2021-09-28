@@ -1,6 +1,5 @@
-import { BaseComponentProps } from './base';
-import { ViewAsHTMLElementTypes } from './view';
+import { BaseStyleProps, ViewProps } from 'dist';
 
-export interface VisuallyHiddenProps extends BaseComponentProps {
-  as?: ViewAsHTMLElementTypes;
-}
+// VisuallyHidden should not support style props
+type ViewPropsMinusStyleProps = Omit<ViewProps, keyof BaseStyleProps>;
+export interface VisuallyHiddenProps extends ViewPropsMinusStyleProps {}

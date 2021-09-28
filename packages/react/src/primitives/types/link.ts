@@ -1,6 +1,7 @@
 import React from 'react';
 import { BaseComponentProps, AriaProps } from './base';
 import { BaseStyleProps } from './style';
+import { ViewProps } from './view';
 export interface LinkOptions {
   /**
    * Boolean value indicating an external link
@@ -12,7 +13,7 @@ export interface LinkOptions {
    * React component to use instead of an anchor tag
    * This is used for react routing libraries that have routing components
    */
-  as?: React.ComponentType;
+  as?: React.ElementType;
 
   /**
    * Children to be rendered inside the Link component
@@ -20,8 +21,4 @@ export interface LinkOptions {
   children: React.ReactNode;
 }
 
-export interface LinkProps
-  extends BaseComponentProps,
-    AriaProps,
-    BaseStyleProps,
-    LinkOptions {}
+export interface LinkProps extends ViewProps, LinkOptions {}
