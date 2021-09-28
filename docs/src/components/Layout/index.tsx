@@ -1,84 +1,78 @@
-// This is large copy-pasta from `amplify-docs/src/Layout` & modified to work outside of that repo
-
+// This is large copy-pasta from `amplify-docs/src/components/Page/index.tsx` & modified to work outside of that repo.
+// You can identify the changes needed by copy/pasting a newer version, then resolving diffs
 import pages from '@/data/pages.preval';
-import CodeBlockProvider from 'amplify-docs/src/components/CodeBlockProvider/index';
-import { Container } from 'amplify-docs/src/components/Container';
-import ExternalLink from 'amplify-docs/src/components/ExternalLink';
-import Footer from 'amplify-docs/src/components/Footer/index';
-import {
-  ChapterTitleStyle,
-  ContentStyle,
-  LayoutStyle,
-} from 'amplify-docs/src/components/Layout/styles';
-import {
-  DirectoryGroupHeaderStyle,
-  DirectoryGroupItemStyle,
-  DirectoryLinksStyle,
-  ProductRootLinkStyle,
-} from 'amplify-docs/src/components/Menu/Directory/styles';
-import MenuCloseButton from 'amplify-docs/src/components/Menu/MenuCloseButton';
-import MenuOpenButton from 'amplify-docs/src/components/Menu/MenuOpenButton';
-import RepoActions from 'amplify-docs/src/components/Menu/RepoActions';
-import {
-  DiscordLinkStyle,
-  MenuBodyStyle,
-  MenuBreakStyle,
-  MenuHeaderStyle,
-  MenuStyle,
-} from 'amplify-docs/src/components/Menu/styles';
-import SecondaryNav from 'amplify-docs/src/components/SecondaryNav/index';
-import TableOfContents from 'amplify-docs/src/components/TableOfContents/index';
-import UniversalNav from 'amplify-docs/src/components/UniversalNav/index';
-import { DISCORD } from 'amplify-docs/src/constants/img';
-import 'amplify-docs/src/styles/styles.css';
 import capitalize from 'lodash/capitalize';
-import debounce from 'lodash/debounce';
 import groupBy from 'lodash/groupBy';
 import words from 'lodash/words';
-import Head from 'next/head';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
+import debounce from 'lodash/debounce';
 import * as React from 'react';
-import { Banner } from './Banner';
-import { PlatformSelect } from './PlatformSelect';
+import { Banner } from '../Banner';
+
+import { useRouter } from 'next/router';
+import { traverseHeadings } from 'amplify-docs/src/utils/traverseHeadings';
+import { gatherAllFilters } from 'amplify-docs/src/utils/gatherFilters';
+import CodeBlockProvider from 'amplify-docs/src/components/CodeBlockProvider/index';
+import Layout from 'amplify-docs/src/components/Layout/index';
+import Menu from 'amplify-docs/src/components/Menu/index';
+import TableOfContents from 'amplify-docs/src/components/TableOfContents/index';
+import NextPrevious from 'amplify-docs/src/components/NextPrevious/index';
+import {
+  ContentStyle,
+  ChapterTitleStyle,
+} from 'amplify-docs/src/components/Page/styles';
+import {
+  getChapterDirectory,
+  isProductRoot,
+} from 'amplify-docs/src/utils/getLocalDirectory';
+import SidebarLayoutToggle from 'amplify-docs/src/components/SidebarLayoutToggle';
+import { useRef, useState } from 'react';
+import { MQTablet } from 'amplify-docs/src/components/media';
+import {
+  filterMetadataByOption,
+  SelectedFilters,
+} from 'amplify-docs/src/utils/filter-data';
+import ChooseFilterPage from 'amplify-docs/src/pages/ChooseFilterPage';
+import { parseLocalStorage } from 'amplify-docs/src/utils/parseLocalStorage';
+import { withFilterOverrides } from 'amplify-docs/src/utils/withFilterOverrides';
 
 const folderToTitle = (folder: string) =>
-  words(folder).map(capitalize).join(' ');
+  words(folder)
+    .map(capitalize)
+    .join(' ');
 
-export default function Layout({
+// Mutate directory object to use new UI docs instead of amplify-docs
+const directory = require('amplify-docs/src/directory/directory');
+const sortedFolders = ['', 'getting-started'];
+const groupedPages = Object.entries(
+  groupBy(pages, (page) => {
+    const [, folder = ''] = page.slug.split('/');
+    return folder;
+  })
+).sort((a, b) => {
+  if (sortedFolders.includes(a[0])) {
+    if (sortedFolders.includes(b[0])) {
+      return sortedFolders.indexOf(a[0]) - sortedFolders.indexOf(b[0]);
+    } else {
+      return -1;
+    }
+  }
+
+  return a[0].localeCompare(b[0]);
+});
+
+export default function Page({
   children,
   frontmatter,
 }: {
   children: any;
   frontmatter?: any;
 }) {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(true);
+  const meta = {
+    ...frontmatter,
+  };
+
   const [headers, setHeaders] = React.useState([]);
-  const router = useRouter();
-  const pathname = router.pathname;
-  const href = router.asPath;
-  const { platform = 'react' } = router.query as { platform: string };
-
-  const sortedFolders = ['', 'getting-started'];
-
-  const groupedPages = Object.entries(
-    groupBy(pages, (page) => {
-      const [, folder = ''] = page.slug.split('/');
-      return folder;
-    })
-  ).sort((a, b) => {
-    if (sortedFolders.includes(a[0])) {
-      if (sortedFolders.includes(b[0])) {
-        return sortedFolders.indexOf(a[0]) - sortedFolders.indexOf(b[0]);
-      } else {
-        return -1;
-      }
-    }
-
-    return a[0].localeCompare(b[0]);
-  });
-
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     const updateHeaders = debounce(
       () => {
         const htmlHeaders = [
@@ -90,6 +84,7 @@ export default function Layout({
           ),
         ].map((node: HTMLHeadingElement) => [
           node.innerText,
+          node.id,
           node.tagName.toLowerCase(),
         ]);
 
@@ -112,147 +107,178 @@ export default function Layout({
     return () => observer.disconnect();
   }, [children]);
 
-  const currentPage = pages.find(({ href }) => href === pathname);
-  const chapterTitle = folderToTitle(currentPage?.slug.split('/')[1] ?? '');
+  const router = useRouter();
+  if (!router.isReady) {
+    const [menuIsOpen, setMenuIsOpen] = useState(false);
+    useRef(null);
+    return <></>;
+  }
+  let url = router.pathname;
+  // remove trailing slash.  this is important on pages like /cli/index.mdx
+  // or /console/index.mdx where router.asPath has a trailing slash and
+  // router.pathname doesn't.
+  if (url.endsWith('/')) {
+    url = url.slice(0, -1);
+  }
+  const directoryPath = router.pathname;
+  let filterKey = 'react',
+    filterKind = '';
+  const filterKeysLoaded = parseLocalStorage(
+    'filterKeys',
+    {} as SelectedFilters
+  );
+  const filterKeyUpdates = {} as SelectedFilters;
+  if ('platform' in router.query) {
+    filterKey = router.query.platform as string;
+    filterKeyUpdates.platform = filterKey;
+    filterKind = 'platform';
+  } else if ('integration' in router.query) {
+    filterKey = router.query.integration as string;
+    filterKeyUpdates.integration = filterKey;
+    filterKind = 'integration';
+  } else if ('framework' in router.query) {
+    filterKey = router.query.framework as string;
+    filterKeyUpdates.framework = filterKey;
+    filterKind = 'framework';
+  }
+  let filters = ['angular', 'react', 'vue']; // gatherAllFilters(children, filterKind);
+  // special cases
+  if (url.startsWith('/guides')) {
+    filters = filters.filter((filter) => filter !== 'flutter');
+  }
+  if (url.startsWith('/sdk')) {
+    filters = filters.filter(
+      (filter) => filter !== 'flutter' && filter !== 'js'
+    );
+  }
+
+  const overrides = withFilterOverrides(filterKeyUpdates, filterKeysLoaded);
+  const filterKeys = {
+    ...filterKeysLoaded,
+    ...overrides,
+  };
+
+  localStorage.setItem('filterKeys', JSON.stringify(filterKeys));
+  if (filters.length !== 0 && !filters.includes(filterKey) && meta) {
+    return (
+      <ChooseFilterPage
+        directoryPath="/ChooseFilterPage"
+        address={router.pathname}
+        filterKind={filterKind}
+        filters={filters}
+        currentFilter={filterKey}
+        message={`${filterMetadataByOption[filterKey].label} is not supported on this page.  Please select one of the following:`}
+      />
+    );
+  }
+  const [menuIsOpen, setMenuIsOpen] = useState(false);
+
+  const currentPage = pages.find(({ href }) => href === router.pathname);
+  meta.chapterTitle = folderToTitle(currentPage?.slug.split('/')[1] ?? '');
 
   const basePath = 'docs.amplify.aws';
+  meta.url = basePath + router.pathname;
+  if (filterKey !== '') {
+    meta.description += ` - ${filterMetadataByOption[filterKey].label}`;
+  }
+
+  // Dynamically set the Menu URLs to include ?platform=${filterKey}
+  directory.ui.items = {};
+  groupedPages.forEach(([folder, pages]) => {
+    if (!folder) {
+      return;
+    }
+
+    directory.ui.items[folder] = {
+      title: folderToTitle(folder),
+      items: pages.map((page) => ({
+        title: page.frontmatter.title,
+        route: `${page.href}?platform=${filterKey}`,
+        filters: ['angular', 'react', 'vue'],
+      })),
+    };
+  });
+
+  return (
+    <Layout meta={meta}>
+      {meta
+        ? metaContent({
+            title: meta.title,
+            chapterTitle: meta.chapterTitle,
+            headers,
+            children,
+            filters,
+            filterKey,
+            filterKind,
+            url,
+            directoryPath,
+            menuIsOpen,
+            setMenuIsOpen,
+          })
+        : children}
+    </Layout>
+  );
+}
+
+export function metaContent({
+  title,
+  chapterTitle,
+  headers,
+  children,
+  filters,
+  filterKey,
+  filterKind,
+  url,
+  directoryPath,
+  menuIsOpen,
+  setMenuIsOpen,
+}) {
+  const menuRef = useRef(null);
+  // Slice off the "@media " string at the start for use in JS instead of CSS
+  const MQTabletJS = MQTablet.substring(6);
+  // If the media query matches, then the user is on desktop and should not see the mobile toggle
+  const onDesktop =
+    typeof window === 'undefined'
+      ? false
+      : window.matchMedia(MQTabletJS).matches;
   return (
     <>
-      {frontmatter && (
-        <Head>
-          <title>{`${frontmatter.title} - Amplify Docs`}</title>
-          <meta
-            property="og:title"
-            content={frontmatter.title}
-            key="og:title"
-          />
-          <meta
-            property="og:description"
-            content={frontmatter.description}
-            key="og:description"
-          />
-          <meta
-            property="og:url"
-            content={basePath + router.pathname}
-            key="og:url"
-          />
-          <meta
-            property="og:image"
-            content="https://docs.amplify.aws/assets/ogp.jpg"
-            key="og:image"
-          />
-          <meta
-            property="description"
-            content={frontmatter.description}
-            key="description"
-          />
-          <meta property="twitter:card" content="summary" key="twitter:card" />
-          <meta
-            property="twitter:title"
-            content={frontmatter.title}
-            key="twitter:title"
-          />
-          <meta
-            property="twitter:description"
-            content={frontmatter.description}
-            key="twitter:description"
-          />
-          <meta
-            property="twitter:image"
-            content="https://docs.amplify.aws/assets/ogp.jpg"
-            key="twitter:image"
-          />
-        </Head>
-      )}
-      <Banner />
-      <UniversalNav
-        heading="Amplify Docs"
-        brandIcon="/assets/logo-light.svg"
-        blend={false}
-      />
-      <SecondaryNav
-        platform={
-          undefined /* This is an external site, so this is all nav links can be made external */
-        }
-        pageHasMenu={false}
-      />
-      <Container backgroundColor="bg-color-tertiary">
-        <LayoutStyle>
-          {isMenuOpen ? (
-            <MenuStyle>
-              <div>
-                <div>
-                  <MenuHeaderStyle>
-                    <MenuCloseButton closeMenu={() => setIsMenuOpen(false)} />
-                    <PlatformSelect
-                      // TODO – Can the available frameworks come from the pages? Or should this be hard-coded based on public support?
-                      filters={['angular', 'react', 'vue']}
-                      platform={platform}
-                      pathname={pathname}
-                    />
-                  </MenuHeaderStyle>
-                  <MenuBodyStyle>
-                    {groupedPages.map(([folder, pages]) => (
-                      <div key={folder}>
-                        {folder && (
-                          <DirectoryGroupHeaderStyle>
-                            <h4>{folderToTitle(folder)}</h4>
-                            {/* <ArrowStyle isUp={true} /> */}
-                          </DirectoryGroupHeaderStyle>
-                        )}
-                        <DirectoryLinksStyle>
-                          {pages.map((page) =>
-                            folder ? (
-                              <DirectoryGroupItemStyle
-                                isActive={href === page.href}
-                                key={page.href}
-                              >
-                                <Link href={`${page.href}`} key={page.href}>
-                                  {page.frontmatter.title}
-                                </Link>
-                              </DirectoryGroupItemStyle>
-                            ) : (
-                              <Link href={`${page.href}`} key={page.href}>
-                                <ProductRootLinkStyle
-                                  isActive={href === page.href}
-                                >
-                                  {page.frontmatter.title}
-                                </ProductRootLinkStyle>
-                              </Link>
-                            )
-                          )}
-                        </DirectoryLinksStyle>
-                      </div>
-                    ))}
-                    <MenuBreakStyle />
-                    <RepoActions path={pathname} href={href} />
-                    <DiscordLinkStyle>
-                      <ExternalLink
-                        href="https://discord.gg/jWVbPfC"
-                        anchorTitle="Discord Community"
-                      >
-                        <img alt={DISCORD.alt} src={DISCORD.lightSrc} />
-                        Chat with us
-                      </ExternalLink>
-                    </DiscordLinkStyle>
-                  </MenuBodyStyle>
-                </div>
-              </div>
-            </MenuStyle>
-          ) : (
-            <MenuOpenButton openMenu={() => setIsMenuOpen(true)} />
-          )}
+      <Menu
+        filters={filters}
+        filterKey={filterKey}
+        filterKind={filterKind}
+        url={url}
+        directoryPath={directoryPath}
+        ref={menuRef}
+        setMenuIsOpen={setMenuIsOpen}
+      ></Menu>
+      <ContentStyle menuIsOpen={menuIsOpen}>
+        <Banner />
 
-          <ContentStyle>
-            <ChapterTitleStyle>{chapterTitle}</ChapterTitleStyle>
-            <h1>{frontmatter.title}</h1>
-            <CodeBlockProvider>{children}</CodeBlockProvider>
-          </ContentStyle>
-          <TableOfContents title={frontmatter.title}>{headers}</TableOfContents>
-        </LayoutStyle>
-      </Container>
-      <Footer />
-      <script src="https://cdn.jsdelivr.net/npm/docsearch.js@2.6.3/dist/cdn/docsearch.min.js"></script>
+        <div>
+          <ChapterTitleStyle>{chapterTitle}</ChapterTitleStyle>
+          <h1>{title}</h1>
+          <CodeBlockProvider>
+            {children}
+            <NextPrevious url={url} filterKey={filterKey} />
+          </CodeBlockProvider>
+        </div>
+      </ContentStyle>
+      <TableOfContents title={title}>{headers}</TableOfContents>
+      {!onDesktop && (
+        <SidebarLayoutToggle menuRef={menuRef}>
+          <img
+            alt="Open menu"
+            className="burger-graphic"
+            src="/assets/burger.svg"
+          />
+          <img
+            alt="Close menu"
+            className="ex-graphic"
+            src="/assets/close.svg"
+          />
+        </SidebarLayoutToggle>
+      )}
     </>
   );
 }
