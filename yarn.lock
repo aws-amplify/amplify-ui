@@ -5589,11 +5589,12 @@ amazon-cognito-identity-js@5.1.0:
     isomorphic-unfetch "^3.0.0"
     js-cookie "^2.2.1"
 
-"amplify-docs@github:https://github.com/aws-amplify/docs#33d383d":
+"amplify-docs@github:https://github.com/aws-amplify/docs#8a0d3a0":
   version "2.0.0"
-  resolved "https://codeload.github.com/aws-amplify/docs/tar.gz/33d383db5ea8df2691abff3c8090588a388f7fca"
+  resolved "https://codeload.github.com/aws-amplify/docs/tar.gz/8a0d3a0ff2e91ed5caf1ed57ae7fe050a62cab20"
   dependencies:
     "@aws-amplify/ui-components" latest
+    "@aws-amplify/ui-react" "^1.2.5"
     "@emotion/react" "^11.1.5"
     "@emotion/styled" "^11.3.0"
     array-flatten "^3.0.0"
@@ -13034,6 +13035,15 @@ json3@^3.3.3:
   resolved "https://registry.yarnpkg.com/json3/-/json3-3.3.3.tgz#7fc10e375fc5ae42c4705a5cc0aa6f62be305b81"
   integrity sha512-c7/8mbUsKigAbLkD5B010BK4D9LZm7A1pNItkEwiUZRpIN66exu/e7YQWysGun+TRKaJp8MhemM+VkfWv42aCA==
 
+json5-loader@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/json5-loader/-/json5-loader-4.0.1.tgz#6d17a1181e8f3c3d9204dca2a4ce4627306c8498"
+  integrity sha512-c9viNZlZTz0MTIcf/4qvek5Dz1/PU3DNCB4PwUhlEZIV3qb1bSD6vQQymlV17/Wm6ncra1aCvmIPsuRj+KfEEg==
+  dependencies:
+    json5 "^2.1.3"
+    loader-utils "^2.0.0"
+    schema-utils "^3.0.0"
+
 json5@2.x, json5@^2.1.0, json5@^2.1.2, json5@^2.1.3, json5@^2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/json5/-/json5-2.2.0.tgz#2dfefe720c6ba525d9ebd909950f0515316c89a3"
@@ -14628,9 +14638,9 @@ mixin-deep@^1.2.0:
     is-extendable "^1.0.1"
 
 mixme@^0.5.1:
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/mixme/-/mixme-0.5.1.tgz#b3da79a563b2da46efba9519830059e4c2a9e40f"
-  integrity sha512-NaeZIckeBFT7i0XBEpGyFcAE0/bLcQ9MHErTpnU3bLWVE5WZbxG5Y3fDsMxYGifTo5khDA42OquXCC2ngKJB+g==
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/mixme/-/mixme-0.5.2.tgz#33c7e21d8e9b73abc2711c5197ae6c93f65fe0e4"
+  integrity sha512-fzzuzXSqp14Mk2eZK15yqcJHwNlLtg+EliQBO/ihYfZed9WUuDHR9ZuEUqQDD8FcW/742y0JGq8xBfL9fNsWZw==
 
 mkdirp-classic@^0.5.2:
   version "0.5.3"
