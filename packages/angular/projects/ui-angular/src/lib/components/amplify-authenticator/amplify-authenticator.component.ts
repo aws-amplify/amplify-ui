@@ -17,7 +17,7 @@ import {
 import { I18n } from 'aws-amplify';
 import { CustomComponents } from '../../common';
 import { AuthState } from '../../common/types';
-import { AmplifySlotDirective } from '../../directives/amplify-override.directive';
+import { AmplifySlotDirective } from '../../directives/amplify-slot.directive';
 import { AuthPropService } from '../../services/authenticator-context.service';
 import { StateMachineService } from '../../services/state-machine.service';
 

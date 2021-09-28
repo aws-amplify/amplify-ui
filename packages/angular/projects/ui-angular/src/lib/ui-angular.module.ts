@@ -22,7 +22,7 @@ import { TabsComponent } from './primitives/tabs/tabs.component';
 import { TabItemComponent } from './primitives/tab-item/tab-item.component';
 import { AmplifyTextFieldComponent } from './primitives/amplify-text-field/amplify-text-field.component';
 import { AmplifyUserNameAliasComponent } from './primitives/amplify-user-name-alias/amplify-user-name-alias.component';
-import { AmplifySlotDirective } from './directives/amplify-override.directive';
+import { AmplifySlotDirective } from './directives/amplify-slot.directive';
 
 import {
   AmplifyS3Album as S3Album,
