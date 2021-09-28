@@ -1,5 +1,5 @@
 module.exports = {
-  borderColor: { value: '{colors.border.tertiary.value}' },
+  borderColor: { value: '{colors.border.secondary.value}' },
   color: { value: 'rgba(0, 0, 0, 0.54)' },
   _hover: {
     backgroundColor: { value: 'rgba(0, 0, 0, 0.04)' },
@@ -13,7 +13,7 @@ module.exports = {
   },
   _disabled: {
     backgroundColor: { value: '{colors.transparent.value}' },
-    borderColor: { value: '{colors.border.tertiary.value}' },
+    borderColor: { value: '{colors.border.secondary.value}' },
     color: { value: '{colors.font.disabled.value}' },
   },
   pressed: {
