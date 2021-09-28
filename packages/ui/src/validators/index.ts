@@ -8,9 +8,8 @@ export const passwordMatches: Validator = (formValues: AuthFormData) => {
   if (!password && !confirm_password) {
     // these inputs are clean, don't complain yet
     return null;
-  } else if (!password || !confirm_password || password !== confirm_password) {
-    // if one of the fields have been filled, or if both fields have been filled
-    // but do not match, return error.
+  } else if (password && confirm_password && password !== confirm_password) {
+    // only return an error if both fields have text entered and the passwords do not match
     return {
       confirm_password: 'Your passwords must match',
     };
