@@ -1,13 +1,13 @@
 import { Directive, Input, TemplateRef } from '@angular/core';
 
 @Directive({
-  selector: '[amplifyOverride]',
+  selector: '[amplifySlot]',
 })
 export class AmplifyOverrideDirective {
   constructor(public template: TemplateRef<any>) {}
   public name: string;
 
-  @Input() set amplifyOverride(component: string) {
+  @Input() set amplifySlot(component: string) {
     this.name = component;
   }
 }
