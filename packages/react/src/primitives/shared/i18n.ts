@@ -5,4 +5,7 @@ export const SharedText = {
       hidePassword: 'Hide password',
     },
   },
+  CountryCodeSelect: {
+    ariaLabel: 'Country code',
+  },
 };

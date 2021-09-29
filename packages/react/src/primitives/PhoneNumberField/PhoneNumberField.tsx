@@ -1,17 +1,20 @@
 import classNames from 'classnames';
-import { countryDialCodes } from '@aws-amplify/ui';
 
-import { SelectField } from '../SelectField';
+import { CountryCodeSelect } from './CountryCodeSelect';
 import { TextField } from '../TextField';
 import { ComponentClassNames } from '../shared/constants';
+import { SharedText } from '../shared/i18n';
 import { PhoneNumberFieldProps } from '../types';
 
 export const PhoneNumberField: React.FC<PhoneNumberFieldProps> = ({
   autoComplete = 'tel-national',
   className,
-  countryCodeName = 'country_code',
+  countryCodeName,
+  countryCodeLabel = SharedText.CountryCodeSelect.ariaLabel,
   defaultCountryCode,
   isDisabled,
+  onCountryCodeChange,
+  onInput,
   size,
   type,
   variation,
@@ -20,26 +23,20 @@ export const PhoneNumberField: React.FC<PhoneNumberFieldProps> = ({
   return (
     <TextField
       inputStartComponents={
-        <SelectField
-          autoComplete="tel-country-code"
+        <CountryCodeSelect
           defaultValue={defaultCountryCode}
           isDisabled={isDisabled}
-          label="Country Code"
-          labelHidden={true}
+          label={countryCodeLabel}
           name={countryCodeName}
+          onChange={onCountryCodeChange}
           size={size}
           variation={variation}
-        >
-          {countryDialCodes.map((dialCode) => (
-            <option key={dialCode} value={dialCode}>
-              {dialCode}
-            </option>
-          ))}
-        </SelectField>
+        />
       }
       autoComplete={autoComplete}
       className={classNames(ComponentClassNames.PhoneNumberField, className)}
       isDisabled={isDisabled}
+      onInput={onInput}
       size={size}
       type="tel"
       variation={variation}
