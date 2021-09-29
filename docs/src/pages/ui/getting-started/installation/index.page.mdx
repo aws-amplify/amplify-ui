@@ -3,7 +3,16 @@ title: Installation
 ---
 
 import { Fragment } from '@/components/Fragment';
+import Link from 'next/link';
+
+## Dependencies
 
 <Fragment>
-  {({ platform }) => import(`./installation.${platform}.mdx`)}
+  {({ platform }) => import(`./dependencies.${platform}.mdx`)}
 </Fragment>
+
+## Styles
+
+Amplify UI ships with a default [theme](/ui/theme) that you can customize to match the look and feel of your project.
+
+<Fragment>{({ platform }) => import(`./styles.${platform}.mdx`)}</Fragment>
