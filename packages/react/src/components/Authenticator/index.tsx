@@ -109,10 +109,13 @@ Authenticator.ConfirmSignUp = ConfirmSignUp;
 Authenticator.SignIn = SignIn;
 Authenticator.SignUp = SignUp;
 
-export function withAuthenticator(Component) {
+export function withAuthenticator(
+  Component,
+  props: Omit<AuthenticatorProps, 'children'>
+) {
   return function WrappedWithAuthenticator() {
     return (
-      <Authenticator>
+      <Authenticator {...props}>
         {(facade: ReturnType<typeof getServiceFacade>) => (
           <Component {...facade} />
         )}
