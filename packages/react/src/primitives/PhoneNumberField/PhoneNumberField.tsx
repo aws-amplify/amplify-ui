@@ -10,14 +10,10 @@ export const PhoneNumberField: React.FC<PhoneNumberFieldProps> = ({
   autoComplete = 'tel-national',
   className,
   defaultCountryCode,
-  defaultValue,
-  errorMessage,
-  label,
-  labelHidden = false,
-  name = 'phone_number',
-  onChange,
-  placeholder,
-  value,
+  isDisabled,
+  size,
+  type,
+  variation,
   ...rest
 }) => {
   return (
@@ -25,11 +21,13 @@ export const PhoneNumberField: React.FC<PhoneNumberFieldProps> = ({
       inputStartComponents={
         <SelectField
           autoComplete="tel-country-code"
-          name="country_code"
+          defaultValue={defaultCountryCode}
+          isDisabled={isDisabled}
           label="Country Code"
           labelHidden={true}
-          defaultValue={defaultCountryCode}
-          {...rest}
+          name="country_code"
+          size={size}
+          variation={variation}
         >
           {countryDialCodes.map((dialCode) => (
             <option key={dialCode} value={dialCode}>
@@ -40,13 +38,10 @@ export const PhoneNumberField: React.FC<PhoneNumberFieldProps> = ({
       }
       autoComplete={autoComplete}
       className={classNames(ComponentClassNames.PhoneNumberField, className)}
-      defaultValue={defaultValue}
-      errorMessage={errorMessage}
-      name={name}
-      label={label}
-      labelHidden={labelHidden}
-      placeholder={placeholder}
+      isDisabled={isDisabled}
+      size={size}
       type="tel"
+      variation={variation}
       {...rest}
     />
   );

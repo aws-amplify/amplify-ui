@@ -36,6 +36,7 @@ export function UserNameAlias(props: UserNameAliasProps) {
 
   return isPhoneAlias ? (
     <PhoneNumberField
+      autoComplete="username"
       className="phone-number-field"
       defaultCountryCode={country_code}
       errorMessage={error}
