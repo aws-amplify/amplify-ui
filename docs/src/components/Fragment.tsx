@@ -30,19 +30,19 @@ export interface FragmentProps {
 }
 
 const shouldRenderFragment = (
-  platform: string | string[],
-  platforms: string[]
+  whitelist: string[],
+  platform: string | string[]
 ): boolean => {
   if (isArray(platform)) {
     console.error('ERROR - Only one platform should be selected.');
     return true;
   }
-  if (!platforms) {
-    // if platforms list is not provided, we assume we render all requested fragment
+  if (!whitelist) {
+    // if whitelist is not provided, we assume we render all requested fragment
     return true;
   } else {
-    // if platforms list is provided, then we render only if it's whitelisted
-    return platforms.includes(platform);
+    // if whitelist is provided, then we render only if it's whitelisted
+    return whitelist.includes(platform);
   }
 };
 
@@ -52,7 +52,7 @@ export const Fragment = ({ children, platforms }: FragmentProps) => {
   const Component = React.useMemo(() => {
     return dynamic(() => children({ platform }), {
       loading({ error, isLoading }) {
-        if (!shouldRenderFragment(platform, platforms)) {
+        if (!shouldRenderFragment(platforms, platform)) {
           return null;
         }
         if (error) {
