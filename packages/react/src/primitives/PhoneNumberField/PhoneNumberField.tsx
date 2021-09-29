@@ -9,6 +9,7 @@ import { PhoneNumberFieldProps } from '../types';
 export const PhoneNumberField: React.FC<PhoneNumberFieldProps> = ({
   autoComplete = 'tel-national',
   className,
+  countryCodeName = 'country_code',
   defaultCountryCode,
   isDisabled,
   size,
@@ -25,7 +26,7 @@ export const PhoneNumberField: React.FC<PhoneNumberFieldProps> = ({
           isDisabled={isDisabled}
           label="Country Code"
           labelHidden={true}
-          name="country_code"
+          name={countryCodeName}
           size={size}
           variation={variation}
         >
