@@ -1,14 +1,41 @@
 import Head from 'next/head';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+
+import 'amplify-docs/src/styles/styles.css';
 import '../styles/index.css';
 
 function MyApp({ Component, pageProps }) {
+  const router = useRouter();
+  const { platform } = router.query;
+
   return (
     <>
       <Head>
         <title>Amplify UI</title>
       </Head>
 
-      <Component {...pageProps} />
+      <Component
+        components={{
+          a(props) {
+            if (!props.href) {
+              return <a {...props} />;
+            }
+
+            return (
+              <Link
+                href={{
+                  pathname: props.href,
+                  query: { platform },
+                }}
+              >
+                <a>{props.children}</a>
+              </Link>
+            );
+          },
+        }}
+        {...pageProps}
+      />
 
       <script src="https://cdn.jsdelivr.net/npm/docsearch.js@2.6.3/dist/cdn/docsearch.min.js"></script>
       <script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js"></script>

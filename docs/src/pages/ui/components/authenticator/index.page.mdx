@@ -41,25 +41,21 @@ based on a unique `username` using [`Auth.signUp`](https://docs.amplify.aws/lib/
 
 ### Sign Up with Email
 
-The `Authenticator` automatically infers [`email` as a login mechanism](https://docs.amplify.aws/console/auth/authentication#to-configure-how-users-log-in-to-an-app).
-
 You can explicitly configure Amplify to match your backend via:
 
-```js{4-10} file=../../../../../../examples/next/pages/ui/components/authenticator/sign-up-with-email/index.page.tsx#L2-L10
-
-```
+<Fragment>
+  {({ platform }) => import(`./sign-up-with-email.${platform}.mdx`)}
+</Fragment>
 
 <Feature name="sign-up-with-email" />
 
 ### Sign Up with Phone
 
-The `Authenticator` automatically infers [`phone_number` as a login mechanism](https://docs.amplify.aws/console/auth/authentication#to-configure-how-users-log-in-to-an-app).
-
 You can explicitly configure Amplify to match your backend via:
 
-```js{4-10} file=../../../../../../examples/next/pages/ui/components/authenticator/sign-up-with-phone/index.page.tsx#L2-L10
-
-```
+<Fragment>
+  {({ platform }) => import(`./sign-up-with-phone.${platform}.mdx`)}
+</Fragment>
 
 <Feature name="sign-up-with-phone" />
 

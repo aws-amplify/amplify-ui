@@ -18,12 +18,16 @@
       <h3 class="amplify-heading">{{ this.headerText }}</h3>
 
       <div *ngFor="let unverifiedAttribute of unverifiedAttributes | keyvalue">
+        <!-- TODO: match React implementation -->
         <input
           name="unverifiedAttr"
           type="radio"
           [value]="unverifiedAttribute.key"
+          [id]="labelId"
         />
-        <span>{{ getLabelForAttr(unverifiedAttribute.key) }}</span>
+        <label [for]="labelId">{{
+          getLabelForAttr(unverifiedAttribute.key)
+        }}</label>
       </div>
 
       <ng-container

@@ -7,6 +7,7 @@ export * from './Divider';
 export * from './FieldGroup';
 export * from './FieldGroupIcon';
 export * from './Flex';
+export * from './Grid';
 export * from './Heading';
 export * from './Icon';
 export * from './Image';
