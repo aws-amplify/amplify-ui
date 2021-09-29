@@ -1,0 +1,157 @@
+import { Grid, View } from '@aws-amplify/ui-react';
+
+import { GridDemo } from './demo';
+import { Example } from '@/components/Example';
+
+Grid primitive provides a grid container with style `display: grid`. Any of our other primitives can be used grid item children. To learn how to use Grid CSS properties, see the following documentation:
+
+- [Grid layout - MDN](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Grids)
+- [A Complete Guide to Grid - CSS Tricks](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Grids)
+
+## Demo
+
+This demo shows how to create a basic layout using the Grid primitive.
+
+<GridDemo />
+
+## Usage
+
+Import the Grid primitive and styles. Use any primitive as grid item child components.
+
+```jsx
+import { Heading } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<Grid
+  templateColumns="1fr 1fr"
+  templateRows="10rem 10rem"
+  gap="var(--amplify-space-small)"
+>
+  <View backgroundColor="var(--amplify-colors-blue-10)"></View>
+  <View backgroundColor="var(--amplify-colors-blue-20)"></View>
+  <View backgroundColor="var(--amplify-colors-blue-40)"></View>
+  <View backgroundColor="var(--amplify-colors-blue-60)"></View>
+</Grid>;
+```
+
+<Example>
+  <Grid
+    templateColumns="1fr 1fr"
+    templateRows="10rem 10rem"
+    gap="var(--amplify-space-small)"
+  >
+    <View backgroundColor="var(--amplify-colors-blue-10)"></View>
+    <View backgroundColor="var(--amplify-colors-blue-20)"></View>
+    <View backgroundColor="var(--amplify-colors-blue-40)"></View>
+    <View backgroundColor="var(--amplify-colors-blue-60)"></View>
+  </Grid>
+</Example>
+
+### Mapping Grid CSS properties to Grid props
+
+We've shortened some of the names of the CSS properties for a cleaner prop API. See the following list prop names (CSS => Grid props):
+
+#### Grid container:
+
+- `grid-auto-columns` => `autoColumns`
+- `grid-auto-flow` => `autoFlow`
+- `grid-template-areas` => `templateAreas`
+- `grid-template-columns` => `templateColumns`
+- `grid-template-rows` => `templateRows`
+- `column-gap` => `columnGap`
+- `row-gap` => `rowGrap`
+- `gap` => `gap`
+- `align-items` => `alignItems`
+- `align-content` => `alignContent`
+- `justify-content` => `justifyContent`
+
+#### Grid items <sup>\*</sup>:
+
+- `grid-area` => `area`
+- `grid-column` => `column`
+- `grid-column-start` => `columnStart`
+- `grid-column-end` => `columnEnd`
+- `grid-row` => `row`
+- `grid-row-start` => `rowStart`
+- `grid-row-end` => `rowEnd`
+
+<sup>*</sup>Note: `rowSpan` and `columnSpan` grid item props are transformed to
+`row` and `column` span rules.
+
+### Row and column span
+
+Use the `rowSpan` or `columnSpan` props to stretch a grid item across multiple rows or columns. Available values are any integer value or `auto`.
+While `rowSpan` and `columnSpan` do not map to CSS properties, they are transformed to `row` and `column` style rules.
+
+```jsx
+<Grid
+  templateColumns="1fr 1fr"
+  templateRows="10rem 10rem 10rem"
+  gap="var(--amplify-space-small)"
+>
+  <View columnSpan={2} backgroundColor="var(--amplify-colors-orange-10)"></View>
+  <View rowSpan={2} backgroundColor="var(--amplify-colors-orange-20)"></View>
+  <View backgroundColor="var(--amplify-colors-orange-40)"></View>
+  <View backgroundColor="var(--amplify-colors-orange-60)"></View>
+</Grid>
+```
+
+<Example>
+  <Grid
+    templateColumns="1fr 1fr"
+    templateRows="10rem 10rem 10rem"
+    gap="var(--amplify-space-small)"
+  >
+    <View
+      columnSpan={2}
+      backgroundColor="var(--amplify-colors-orange-10)"
+    ></View>
+    <View rowSpan={2} backgroundColor="var(--amplify-colors-orange-20)"></View>
+    <View backgroundColor="var(--amplify-colors-orange-40)"></View>
+    <View backgroundColor="var(--amplify-colors-orange-60)"></View>
+  </Grid>
+</Example>
+
+### Responsive layouts
+
+Use array or object syntax to dynamically change layout based on screen size. Resize browser to see example below.
+
+See [responsive design](/ui/theme/responsive) for more details.
+
+```jsx
+<Grid
+  templateColumns={{ base: '1fr', large: '1fr 1fr' }}
+  templateRows={{ base: 'repeat(4, 10rem)', large: 'repeat(3, 10rem)' }}
+  gap="var(--amplify-space-small)"
+>
+  <View
+    columnSpan={[1, 1, 1, 2]}
+    backgroundColor="var(--amplify-colors-pink-10)"
+  ></View>
+  <View
+    rowSpan={{ base: 1, large: 2 }}
+    backgroundColor="var(--amplify-colors-pink-20)"
+  ></View>
+  <View backgroundColor="var(--amplify-colors-pink-40)"></View>
+  <View backgroundColor="var(--amplify-colors-pink-60)"></View>
+</Grid>
+```
+
+<Example>
+  <Grid
+    templateColumns={{ base: '1fr', large: '1fr 1fr' }}
+    templateRows={{ base: 'repeat(4, 10rem)', large: 'repeat(3, 10rem)' }}
+    gap="var(--amplify-space-small)"
+  >
+    <View
+      columnSpan={[1, 1, 1, 2]}
+      backgroundColor="var(--amplify-colors-pink-10)"
+    ></View>
+    <View
+      rowSpan={{ base: 1, large: 2 }}
+      backgroundColor="var(--amplify-colors-pink-20)"
+    ></View>
+    <View backgroundColor="var(--amplify-colors-pink-40)"></View>
+    <View backgroundColor="var(--amplify-colors-pink-60)"></View>
+  </Grid>
+</Example>

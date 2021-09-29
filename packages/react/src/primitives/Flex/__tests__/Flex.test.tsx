@@ -3,6 +3,7 @@ import { kebabCase } from 'lodash';
 
 import { Flex } from '../Flex';
 import { ComponentPropsToStylePropsMap, FlexStyleProps } from '../../types';
+import { errorMessageWrapper } from '../../utils/testUtils';
 export const testFlexProps: FlexStyleProps = {
   direction: 'column-reverse',
   gap: '10%',
@@ -11,35 +12,19 @@ export const testFlexProps: FlexStyleProps = {
   alignContent: 'space-between',
   wrap: 'wrap',
 };
+
 export const expectFlexStyleProps = (element: HTMLElement): void => {
-  expect(
-    element.style.getPropertyValue(
-      kebabCase(ComponentPropsToStylePropsMap.direction)
-    )
-  ).toBe(testFlexProps.direction);
-  expect(
-    element.style.getPropertyValue(ComponentPropsToStylePropsMap.gap)
-  ).toBe(testFlexProps.gap);
-  expect(
-    element.style.getPropertyValue(
-      kebabCase(ComponentPropsToStylePropsMap.justifyContent)
-    )
-  ).toBe(testFlexProps.justifyContent);
-  expect(
-    element.style.getPropertyValue(
-      kebabCase(ComponentPropsToStylePropsMap.alignItems)
-    )
-  ).toBe(testFlexProps.alignItems);
-  expect(
-    element.style.getPropertyValue(
-      kebabCase(ComponentPropsToStylePropsMap.alignContent)
-    )
-  ).toBe(testFlexProps.alignContent);
-  expect(
-    element.style.getPropertyValue(
-      kebabCase(ComponentPropsToStylePropsMap.wrap)
-    )
-  ).toBe(testFlexProps.wrap);
+  Object.keys(testFlexProps).forEach((key) => {
+    errorMessageWrapper(
+      () =>
+        expect(
+          element.style.getPropertyValue(
+            kebabCase(ComponentPropsToStylePropsMap[key])
+          )
+        ).toBe(testFlexProps[key]),
+      `Flex container "${key}" style prop error (see above)`
+    );
+  });
 };
 
 describe('Flex: ', () => {

@@ -6,7 +6,8 @@ import { FieldErrorMessage, FieldDescription } from '../Field';
 import { Flex } from '../Flex';
 import { Label } from '../Label';
 import { RadioGroupFieldProps } from '../types';
-import { ComponentClassNames, useAmplifyFieldID } from '../shared';
+import { ComponentClassNames } from '../shared/constants';
+import { useAmplifyFieldID } from '../shared/utils';
 
 export const RadioGroupField: React.FC<RadioGroupFieldProps> = ({
   alignContent,

@@ -21,6 +21,7 @@ export enum ComponentClassNames {
   FieldShowPassword = 'amplify-field__show-password',
   FieldGroupFieldWrapper = 'amplify-field-group__field-wrapper',
   Flex = 'amplify-flex',
+  Grid = 'amplify-grid',
   Heading = 'amplify-heading',
   Icon = 'amplify-icon',
   Image = 'amplify-image',
