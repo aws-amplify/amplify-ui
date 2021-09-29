@@ -9,7 +9,7 @@ import { Text } from '../Text';
 import { VisuallyHidden } from '../VisuallyHidden';
 import { CheckboxProps } from '../types/checkbox';
 import { ComponentClassNames } from '../shared/constants';
-import { useTestId } from './useTestId';
+import { useTestId } from '../utils/testUtils';
 
 export const Checkbox: React.FC<CheckboxProps> = ({
   alignContent,

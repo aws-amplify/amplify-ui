@@ -6,7 +6,7 @@ import { FieldErrorMessage } from '../Field';
 import { Flex } from '../Flex';
 import { CheckboxFieldProps } from '../types/checkboxField';
 import { ComponentClassNames } from '../shared';
-import { useTestId } from '../Checkbox/useTestId';
+import { useTestId } from '../utils/testUtils';
 
 export const CheckboxField: React.FC<CheckboxFieldProps> = ({
   alignContent,
