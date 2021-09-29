@@ -157,7 +157,7 @@ describe('convertGridSpan: ', () => {
   it('should return correct css value when passed valid number', () => {
     const param = 5;
     const result = convertGridSpan(param);
-    expect(result).toBe(`span ${param} / span ${param}`);
+    expect(result).toBe(`span ${param}`);
   });
 
   it('should return correct css value when passed "auto"', () => {
@@ -203,7 +203,7 @@ describe('getGridSpan: ', () => {
   it('should return correct css value when passed valid number', () => {
     const param = 5;
     const result = getGridSpan(param);
-    expect(result).toBe(`span ${param} / span ${param}`);
+    expect(result).toBe(`span ${param}`);
   });
 });
 

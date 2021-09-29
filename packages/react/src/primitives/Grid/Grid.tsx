@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import React from 'react';
+
 import { ComponentClassNames } from '../shared/constants';
 import { GridProps } from '../types';
 import { View } from '../View';

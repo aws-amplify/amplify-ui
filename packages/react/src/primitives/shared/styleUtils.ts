@@ -17,7 +17,7 @@ import { useBreakpoint } from './responsive/useBreakpoint';
 import { Breakpoint, Breakpoints } from '../types/responsive';
 
 import { useTheming } from '../../theming';
-import { filterOutNullOrEmptyStringValues, isNullOrEmptyString } from './utils';
+import { isNullOrEmptyString } from './utils';
 
 /**
  * Transforms style props to another target prop
@@ -109,9 +109,7 @@ export const convertGridSpan = (
 };
 
 export const getGridSpan = (spanValue: number | 'auto'): string => {
-  return spanValue === 'auto'
-    ? 'auto'
-    : `span ${spanValue} / span ${spanValue}`;
+  return spanValue === 'auto' ? 'auto' : `span ${spanValue}`;
 };
 
 interface convertStylePropsToStyleObjParams {
@@ -135,8 +133,8 @@ export const convertStylePropsToStyleObj: ConvertStylePropsToStyleObj = ({
   breakpoint,
   breakpoints,
 }) => {
-  ComponentPropsToStylePropsMapKeys.filter((stylePropKey) =>
-    filterOutNullOrEmptyStringValues(props[stylePropKey])
+  ComponentPropsToStylePropsMapKeys.filter(
+    (stylePropKey) => !isNullOrEmptyString(props[stylePropKey])
   ).forEach((stylePropKey) => {
     const value = getValueAtCurrentBreakpoint(
       props[stylePropKey],

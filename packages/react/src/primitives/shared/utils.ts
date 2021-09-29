@@ -13,9 +13,6 @@ export const isFn = (fn: unknown): fn is Function => typeof fn === 'function';
 export const isNullOrEmptyString = (value: unknown) =>
   value == null || !strHasLength(value);
 
-export const filterOutNullOrEmptyStringValues = (value) =>
-  value != null && (typeof value !== 'string' || strHasLength(value));
-
 /**
  * Create a consecutive integer array from start value to end value.
  * @param start start value

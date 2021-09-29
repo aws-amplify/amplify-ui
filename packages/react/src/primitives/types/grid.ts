@@ -1,7 +1,6 @@
 import { Property } from 'csstype';
-import { ViewProps } from 'dist';
+import { ViewProps } from './view';
 
-import { AriaProps, BaseComponentProps } from './base';
 import { ResponsiveStyle, CSSLayoutStyleProps } from './style';
 
 export interface GridContainerStyleProps extends CSSLayoutStyleProps {
@@ -27,4 +26,4 @@ export interface GridItemStyleProps {
   rowStart?: ResponsiveStyle<Property.GridRowStart>;
 }
 
-export interface GridProps extends ViewProps, GridContainerStyleProps {}
+export interface GridProps extends GridContainerStyleProps, ViewProps {}
