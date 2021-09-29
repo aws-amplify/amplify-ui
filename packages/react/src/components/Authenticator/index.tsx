@@ -111,7 +111,7 @@ Authenticator.SignUp = SignUp;
 
 export function withAuthenticator(
   Component,
-  props: Omit<AuthenticatorProps, 'children'>
+  props?: Omit<AuthenticatorProps, 'children'>
 ) {
   return function WrappedWithAuthenticator() {
     return (
