@@ -48,7 +48,7 @@ export const TabsDemo = () => {
 export const ControlledTabExample = () => {
   const [index, setIndex] = React.useState(0);
   return (
-    <Tabs currentIndex={index} onChange={(i) => setIndex(i)}>
+    <Tabs currentIndex={index} onChange={(i) => setIndex(i as number)}>
       <TabItem title="First">
         <DemoTabPanel>Content of the first tab</DemoTabPanel>
       </TabItem>

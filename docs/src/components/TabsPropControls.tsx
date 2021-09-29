@@ -82,7 +82,7 @@ export const TabsPropControls: TabsPropControlsInterface = ({
         <select
           name="justifyContent"
           id="justifyContent"
-          value={justifyContent}
+          value={justifyContent as string}
           onChange={(event) =>
             setJustifyContent(event.target.value as TabsProps['justifyContent'])
           }

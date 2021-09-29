@@ -55,7 +55,7 @@ export const ViewDemo = ({ children }) => {
         <FieldSet id="as">
           <select
             id="as"
-            value={asElementType}
+            value={asElementType as string}
             placeholder="As element type"
             onChange={(event) => setAs(event.target.value as ViewProps['as'])}
           >
