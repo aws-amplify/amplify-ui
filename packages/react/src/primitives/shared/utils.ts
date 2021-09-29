@@ -1,9 +1,4 @@
-import * as React from 'react';
-
-// Note: this makes nanoid more performant, not less secure
-// @see https://www.npmjs.com/package/nanoid#user-content-non-secure
-import { customAlphabet } from 'nanoid/non-secure';
-const nanoid = customAlphabet('1234567890abcdef', 12);
+import { useId } from '@radix-ui/react-id';
 
 export const strHasLength = (str: unknown): str is string =>
   typeof str === 'string' && str.length > 0;
@@ -27,18 +22,11 @@ export const getConsecutiveIntArray = (start: number, end: number) => {
 
 /**
  * Create a uuid to use with amplify fields unless
- * an id is already defined
+ * an id is provided
  * @param id user specified id or undefined
  * @returns string
  */
-export const useAmplifyFieldID = (id?: string) => {
-  return React.useMemo(() => {
-    if (id) {
-      return id;
-    }
-    return `amplify-field-${nanoid()}`;
-  }, [id]);
-};
+export const useAmplifyFieldID = (id?: string) => useId(id);
 
 /**
  * This method is used to parse through all of the overrides and
