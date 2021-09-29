@@ -11,7 +11,7 @@ import {
 export const ConfirmResetPassword = (): JSX.Element => {
   const amplifyNamespace = 'Authenticator.ConfirmResetPassword';
   const {
-    components: { FieldGroup, Flex, Form, Heading, PasswordField },
+    components: { Flex, Form, Heading, PasswordField },
   } = useAmplify(amplifyNamespace);
 
   const [_state, send] = useAuthenticator();
@@ -49,7 +49,7 @@ export const ConfirmResetPassword = (): JSX.Element => {
       <Flex direction="column">
         <Heading level={3}>{headerText}</Heading>
 
-        <FieldGroup direction="column" disabled={isPending}>
+        <Flex direction="column">
           <ConfirmationCodeInput amplifyNamespace={amplifyNamespace} />
 
           <PasswordField
@@ -61,7 +61,7 @@ export const ConfirmResetPassword = (): JSX.Element => {
             label={passwordText}
             labelHidden={true}
           />
-        </FieldGroup>
+        </Flex>
 
         <RemoteErrorMessage amplifyNamespace={amplifyNamespace} />
         <TwoButtonSubmitFooter
