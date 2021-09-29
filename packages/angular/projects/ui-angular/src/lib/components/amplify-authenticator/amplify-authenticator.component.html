@@ -126,12 +126,12 @@
     *ngIf="actorState?.matches('confirmVerifyUser')"
   >
   </ng-container>
-
-  <!-- signedIn content -->
-  <ng-container
-    [ngTemplateOutlet]="customComponents.authenticated || authenticated"
-    [ngTemplateOutletContext]="context"
-    *ngIf="authenticatorState.matches('authenticated')"
-  >
-  </ng-container>
 </div>
+
+<!-- signedIn content is rendered outside authenticator so it's not styled by authenticator -->
+<ng-container
+  [ngTemplateOutlet]="customComponents.authenticated || authenticated"
+  [ngTemplateOutletContext]="context"
+  *ngIf="authenticatorState.matches('authenticated')"
+>
+</ng-container>

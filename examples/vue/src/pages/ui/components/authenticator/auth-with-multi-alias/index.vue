@@ -1,23 +1,17 @@
-<template>
-  <authenticator :login-mechanisms="loginMechanisms">
-    <template v-slot="{ user, signOut }">
-      <h1 class="text-6xl mb-10">Hello {{ user.username }}!</h1>
-      <button className="px-2 bg-white rounded shadow" @click="signOut">
-        Sign Out
-      </button>
-    </template>
-  </authenticator>
-</template>
-
 <script setup lang="ts">
-import aws_exports from '@environments/auth-with-multi-alias/src/aws-exports';
-
 import Amplify from 'aws-amplify';
-import '@aws-amplify/ui-vue/styles.css';
-
 import { Authenticator } from '@aws-amplify/ui-vue';
-
-const loginMechanisms = ['username', 'email', 'phone_number'];
+import '@aws-amplify/ui-vue/styles.css';
+import aws_exports from '@environments/auth-with-multi-alias/src/aws-exports';
 
 Amplify.configure(aws_exports);
 </script>
+
+<template>
+  <authenticator :login-mechanisms="['username', 'email', 'phone_number']">
+    <template v-slot="{ user, signOut }">
+      <h1>Hello {{ user.username }}!</h1>
+      <button @click="signOut">Sign Out</button>
+    </template>
+  </authenticator>
+</template>

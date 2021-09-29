@@ -33,7 +33,7 @@ Feature: Sign In with Username
 
   # FORCE_CHANGE_PASSWORD tests are skipped as the temporary passwords used for these
   # test accounts will expire in Cognito.
-  @angular @react @vue @todo-angular @todo-vue
+  @angular @react @vue
   Scenario: Sign in with force change password credentials
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }' with fixture "force-change-password"
     When I type my "username" with status "FORCE_CHANGE_PASSWORD"

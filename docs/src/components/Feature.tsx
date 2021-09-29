@@ -63,9 +63,9 @@ export function Feature({ name = required('Missing feature name') }) {
   const port = getPortForPlatform(platform);
 
   useEffect(() => {
-    import(
-      `../../../packages/e2e/features${pathname}/${name}.feature`
-    ).then((exports) => setSource(exports.default));
+    import(`../../../packages/e2e/features${pathname}/${name}.feature`).then(
+      (exports) => setSource(exports.default)
+    );
   }, [name, pathname]);
 
   if (!source) {

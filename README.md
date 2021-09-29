@@ -65,10 +65,15 @@ export default function App() {
 ### Vue
 
 ```html
+<script setup>
+  import { Authenticator } from '@aws-amplify/ui-vue';
+  import '@aws-amplify/ui-vue/styles.css';
+</script>
+
 <authenticator>
-  <template v-slot="{ user }">
+  <template v-slot="{ user, signOut }">
     <h1>Welcome {{ user.username }}!</h1>
-    <button @click="send('SIGN_OUT')">Sign Out</button>
+    <button @click="signOut">Sign Out</button>
   </template>
 </authenticator>
 ```

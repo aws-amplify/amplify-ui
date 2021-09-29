@@ -23,7 +23,7 @@ Feature: Verify User
     And I click the "Skip" button
     Then I see "Sign out"
 
-  @angular @todo-angular @react @vue
+  @angular @react @vue
   Scenario: Redirect to "Confirm Verify" page
     When I type my "email" with status "UNVERIFIED"
     And I type my password

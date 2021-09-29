@@ -4,7 +4,7 @@ import { Amplify, I18n } from 'aws-amplify';
 
 Amplify.configure(awsExports);
 
-I18n.setLanguage('fr');
+I18n.setLanguage('ja');
 
 function App({ signOut, user }) {
   return (
