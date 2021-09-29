@@ -1,8 +1,9 @@
-import { BaseComponentProps, Sizes } from './base';
+import { Sizes } from './base';
+import { ViewProps } from './view';
 
 export type PlaceholderSizes = Sizes;
 
-export interface PlaceholderProps extends BaseComponentProps {
+export interface PlaceholderProps extends ViewProps {
   /**
    * If true, the placeholder won't show, if false the placeholder will show.
    * @default false

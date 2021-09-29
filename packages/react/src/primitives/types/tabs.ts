@@ -1,15 +1,12 @@
-import { BaseComponentProps, AriaProps } from './base';
-import { BaseStyleProps } from './style';
-import { FlexContainerStyleProps } from './flex';
 import React from 'react';
+
+import { BaseComponentProps } from './base';
+import { BaseStyleProps } from './style';
+import { FlexProps } from './flex';
 
 export type TabsSpacing = 'equal' | 'relative';
 
-export interface TabsProps
-  extends BaseComponentProps,
-    AriaProps,
-    BaseStyleProps,
-    FlexContainerStyleProps {
+export interface TabsProps extends FlexProps {
   /**
    * The Tabs component only accepts TabItem components as children.
    */
