@@ -16,3 +16,7 @@ import Link from 'next/link';
 Amplify UI ships with a default [theme](/ui/theme) that you can customize to match the look and feel of your project.
 
 <Fragment>{({ platform }) => import(`./styles.${platform}.mdx`)}</Fragment>
+
+<Fragment platforms={['angular']}>
+  {({ platform }) => import(`./troubleshooting.${platform}.mdx`)}
+</Fragment>
