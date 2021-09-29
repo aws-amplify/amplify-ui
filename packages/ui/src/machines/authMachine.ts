@@ -1,13 +1,13 @@
+import { Amplify, Auth } from 'aws-amplify';
 import { assign, createMachine, forwardTo, spawn } from 'xstate';
-import { Auth, Amplify } from 'aws-amplify';
 import { AuthContext, AuthEvent } from '../types';
-import {
-  signInActor,
-  signUpActor,
-  signOutActor,
-  resetPasswordActor,
-} from './actors';
 import { stopActor } from './actions';
+import {
+  resetPasswordActor,
+  signInActor,
+  signOutActor,
+  signUpActor,
+} from './actors';
 
 const DEFAULT_COUNTRY_CODE = '+1';
 
@@ -17,7 +17,9 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
     initial: 'idle',
     context: {
       user: undefined,
-      config: undefined,
+      config: {
+        login_mechanisms: undefined,
+      },
       actorRef: undefined,
     },
     states: {
@@ -36,7 +38,7 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
           {
             src: 'getAmplifyConfig',
             onDone: {
-              actions: 'setAuthConfig',
+              actions: 'applyAmplifyConfig',
             },
           },
         ],
@@ -69,7 +71,7 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
         on: {
           SIGN_IN: 'signIn',
           'done.invoke.signUpActor': {
-            target: 'signIn',
+            target: 'idle',
             actions: 'setUser',
           },
         },
@@ -110,9 +112,37 @@ export const authMachine = createMachine<AuthContext, AuthEvent>(
       clearUser: assign({
         user: undefined,
       }),
-      setAuthConfig: assign({
-        config(_, event) {
-          return event.data.auth;
+      applyAmplifyConfig: assign({
+        config(context, event) {
+          const configuredLoginMechanisms =
+            event.data.aws_cognito_login_mechanisms?.map((login) => {
+              switch (login) {
+                case 'PREFERRED_USERNAME':
+                  return 'username';
+
+                case 'EMAIL':
+                case 'PHONE_NUMBER':
+                case 'FACEBOOK':
+                case 'GOOGLE':
+                case 'AMAZON':
+                case 'APPLE':
+                  return login.toLowerCase();
+
+                default:
+                  console.warn(
+                    `Unknown login mechanism from Amplify CLI: ${login}.\nOpen an issue: https://github.com/aws-amplify/amplify-ui/issues/choose`
+                  );
+              }
+            });
+
+          const defaultLoginMechanisms = configuredLoginMechanisms ?? [
+            'username',
+          ];
+
+          // Prefer explicitly set login mechanisms from machine instantiation over defaults
+          const { login_mechanisms = defaultLoginMechanisms } = context.config;
+
+          return { login_mechanisms };
         },
       }),
       spawnSignInActor: assign({

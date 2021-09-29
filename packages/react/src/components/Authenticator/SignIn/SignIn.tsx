@@ -1,17 +1,17 @@
 import { I18n } from 'aws-amplify';
 import { getActorState, SignInState } from '@aws-amplify/ui';
 
-import { useAmplify, useAuth } from '../../../hooks';
+import { useAmplify, useAuthenticator } from '../../../hooks';
 import { FederatedSignIn } from '../FederatedSignIn';
 import { RemoteErrorMessage, UserNameAlias } from '../shared';
 
 export function SignIn() {
   const amplifyNamespace = 'Authenticator.SignIn';
   const {
-    components: { Button, FieldGroup, Flex, Form, Heading, PasswordField },
+    components: { Button, Flex, Form, Heading, PasswordField },
   } = useAmplify(amplifyNamespace);
 
-  const [_state, send] = useAuth();
+  const [_state, send] = useAuthenticator();
   const actorState: SignInState = getActorState(_state);
   const isPending = actorState.matches('signIn.pending');
 
@@ -44,7 +44,7 @@ export function SignIn() {
       <Flex direction="column">
         <Heading level={3}>{I18n.get('Sign in to your account')}</Heading>
 
-        <FieldGroup disabled={isPending} direction="column">
+        <Flex direction="column">
           <UserNameAlias data-amplify-usernamealias />
           <PasswordField
             data-amplify-password
@@ -56,7 +56,7 @@ export function SignIn() {
             autoComplete="current-password"
             labelHidden={true}
           />
-        </FieldGroup>
+        </Flex>
 
         <RemoteErrorMessage amplifyNamespace={amplifyNamespace} />
 

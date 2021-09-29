@@ -9,7 +9,7 @@ import { TabsProps, TabItemProps } from '../types';
 import { Flex } from '../Flex';
 import { ComponentClassNames } from '../shared/constants';
 import classNames from 'classnames';
-import { convertStylePropsToStyleObj, prefixer } from '../shared/utils';
+import { convertStylePropsToStyleObj, prefixer } from '../shared/styleUtils';
 
 const isTabsType = (child: any): child is React.Component<TabItemProps> => {
   return (

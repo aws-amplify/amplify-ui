@@ -1,5 +1,5 @@
 .mdx-marker {
-  @apply pl-3 -ml-4 -mr-4 bg-gray-700 border-l-4 border-amazon;
+  @apply pl-3 -ml-4 -mr-4 bg-gray-700 border-l-4 border-solid border-amazon;
 }
 
 pre {
@@ -40,4 +40,10 @@ ol {
 
 ul {
   list-style-type: disc;
+}
+
+/* Hide search until it works */
+.algolia-autocomplete,
+.algolia-autocomplete + img[alt='search'] {
+  display: none !important;
 }

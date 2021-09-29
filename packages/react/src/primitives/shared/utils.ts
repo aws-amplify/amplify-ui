@@ -1,115 +1,18 @@
 import * as React from 'react';
-import autoprefixer from 'autoprefixer';
-import postcssJs from 'postcss-js';
 
 // Note: this makes nanoid more performant, not less secure
 // @see https://www.npmjs.com/package/nanoid#user-content-non-secure
 import { customAlphabet } from 'nanoid/non-secure';
 const nanoid = customAlphabet('1234567890abcdef', 12);
 
-import {
-  ComponentPropsToStylePropsMap,
-  ComponentPropToStyleProp,
-  ViewProps,
-} from '../types/index';
-
-import { getValueAtCurrentBreakpoint } from './responsive/utils';
-import { useBreakpoint } from './responsive/useBreakpoint';
-import { Breakpoint, Breakpoints } from '../types/responsive';
-
-import { useTheming } from '../../theming/';
-
-export const prefixer = postcssJs.sync([autoprefixer]);
-
 export const strHasLength = (str: unknown): str is string =>
   typeof str === 'string' && str.length > 0;
 
-export const usePropStyles = (props: ViewProps, style: any) => {
-  const {
-    theme: {
-      breakpoints: {
-        values: breakpoints,
-        unit: breakpointUnit,
-        defaultBreakpoint,
-      },
-    },
-  } = useTheming();
+export const isFunction = (fn: unknown): fn is Function =>
+  typeof fn === 'function';
 
-  const breakpoint = useBreakpoint({
-    breakpoints,
-    breakpointUnit,
-    defaultBreakpoint: defaultBreakpoint as Breakpoint,
-  });
-
-  return React.useMemo(
-    () =>
-      prefixer(
-        convertStylePropsToStyleObj({ props, style, breakpoint, breakpoints })
-      ),
-    [props, style, breakpoints, breakpoint]
-  );
-};
-
-const filterOutNullOrEmptyStringValues = (value) =>
-  value != null && (typeof value !== 'string' || strHasLength(value));
-
-interface convertStylePropsToStyleObjParams {
-  props: ViewProps;
-  style?: React.CSSProperties;
-  breakpoint: Breakpoint;
-  breakpoints: Breakpoints;
-}
-export interface ConvertStylePropsToStyleObj {
-  (params: convertStylePropsToStyleObjParams);
-}
-
-/**
- * Convert style props to CSS variables for React style prop
- * Note: Will filter out undefined, null, and empty string prop values
- * @returns CSSProperties styles
- */
-export const convertStylePropsToStyleObj: ConvertStylePropsToStyleObj = ({
-  props = {},
-  style = {},
-  breakpoint,
-  breakpoints,
-}) => {
-  (
-    Object.keys(ComponentPropsToStylePropsMap) as Array<
-      keyof ComponentPropToStyleProp
-    >
-  )
-    .filter((stylePropKey) =>
-      filterOutNullOrEmptyStringValues(props[stylePropKey])
-    )
-    .forEach((stylePropKey) => {
-      let value = getValueAtCurrentBreakpoint(
-        props[stylePropKey],
-        breakpoint,
-        breakpoints
-      );
-      const reactStyleProp = ComponentPropsToStylePropsMap[stylePropKey];
-      style = { ...style, [reactStyleProp]: value };
-    });
-  return style;
-};
-
-/**
- * Filter out known style props to prevent errors adding invalid HTML attributes
- * @param props
- * @returns non styled props
- */
-export const useNonStyleProps = (props: ViewProps) => {
-  return React.useMemo(() => {
-    const nonStyleProps = {};
-    Object.keys(props).forEach((propKey) => {
-      if (!(propKey in ComponentPropsToStylePropsMap)) {
-        nonStyleProps[propKey] = props[propKey];
-      }
-    });
-    return nonStyleProps;
-  }, [props]);
-};
+export const isNullOrEmptyString = (value: unknown) =>
+  value == null || !strHasLength(value);
 
 /**
  * Create a consecutive integer array from start value to end value.

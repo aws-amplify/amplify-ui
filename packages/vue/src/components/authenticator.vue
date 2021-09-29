@@ -1,5 +1,11 @@
 <template>
   <div v-bind="$attrs" data-amplify-authenticator>
+    <base-two-tabs
+      v-if="actorState?.matches('signIn') || actorState?.matches('signUp')"
+    >
+      <base-two-tab-item :label="createAccountLabel" :id="44472" />
+      <base-two-tab-item :label="signInLabel" :firstTab="true" :id="44471" />
+    </base-two-tabs>
     <sign-in
       v-if="actorState?.matches('signIn')"
       @sign-in-submit="onSignInSubmitI"
@@ -93,20 +99,16 @@
     <confirm-sign-up
       v-if="actorState?.matches('confirmSignUp')"
       @confirm-sign-up-submit="onConfirmSignUpSubmitI"
-      :shouldHideReturnBtn="shouldHideReturnBtn"
       ref="confirmSignUpComponent"
     >
       <template #confirmSignUpSlotI>
         <slot name="confirm-sign-up"></slot>
       </template>
-      <template
-        #footer="{ info, onConfirmSignUpSubmit, onBackToSignInClicked }"
-      >
+      <template #footer="{ info, onConfirmSignUpSubmit }">
         <slot
           name="sign-in-footer"
           :info="info"
           :onConfirmSignUpSubmit="onConfirmSignUpSubmit"
-          :onBackToSignInClicked="onBackToSignInClicked"
         >
         </slot>
       </template>
@@ -141,14 +143,11 @@
       <template #confirmResetPasswordSlotI>
         <slot name="confirm-reset-password"></slot>
       </template>
-      <template
-        #footer="{ info, onConfirmResetPasswordSubmit, onBackToSignInClicked }"
-      >
+      <template #footer="{ info, onConfirmResetPasswordSubmit }">
         <slot
           name="sign-in-footer"
           :info="info"
           :onConfirmResetPasswordSubmit="onConfirmResetPasswordSubmit"
-          :onBackToSignInClicked="onBackToSignInClicked"
         >
         </slot>
       </template>
@@ -256,18 +255,26 @@
 
   <slot
     v-if="state?.matches('authenticated')"
-    :user="state?.context?.user"
+    :user="user"
     :state="state"
+    :signOut="signOut"
     :send="send"
   ></slot>
 </template>
 
 <script setup lang="ts">
-import { ref, provide, computed, useAttrs } from 'vue';
-import { getActorState } from '@aws-amplify/ui';
+import { ref, provide, computed, useAttrs, watch, onBeforeMount } from 'vue';
+import {
+  getActorState,
+  getServiceFacade,
+  LoginMechanism,
+  translations,
+} from '@aws-amplify/ui';
+import { I18n } from 'aws-amplify';
 
 import { authMachine } from '@aws-amplify/ui';
 import { useActor, useInterpret } from '@xstate/vue';
+import useSelect from '../composables/useSelect';
 
 import SignIn from './sign-in.vue';
 import SignUp from './sign-up.vue';
@@ -280,19 +287,26 @@ import ConfirmResetPassword from './confirm-reset-password.vue';
 import VerifyUser from './verify-user.vue';
 import ConfirmVerifyUser from './confirm-verify-user.vue';
 
+import { CREATE_ACCOUNT_LABEL, SIGN_IN_LABEL } from '../defaults/DefaultTexts';
+
 import {
   InterpretServiceInjectionKeyTypes,
   InterpretService,
 } from '../types/index';
 
-const { shouldHideReturnBtn } = withDefaults(
-  defineProps<{ shouldHideReturnBtn?: boolean }>(),
+onBeforeMount(() => {
+  I18n.putVocabularies(translations);
+});
+
+const attrs = useAttrs();
+
+const { loginMechanisms } = withDefaults(
+  defineProps<{ loginMechanisms?: LoginMechanism[] }>(),
   {
-    shouldHideReturnBtn: true,
+    loginMechanisms: () => ['username'],
   }
 );
 
-const attrs = useAttrs();
 const emit = defineEmits([
   'signInSubmit',
   'confirmSignUpSubmit',
@@ -306,13 +320,20 @@ const emit = defineEmits([
   'confirmVerifyUserSubmit',
 ]);
 
-const s = useInterpret(authMachine, {
+const machine = authMachine.withContext({
+  config: {
+    login_mechanisms: loginMechanisms,
+  },
+});
+
+const service = useInterpret(machine, {
   devTools: process.env.NODE_ENV === 'development',
 });
-const service = ref(s);
+const { active } = useSelect;
 
-provide(InterpretServiceInjectionKeyTypes, <InterpretService>service.value);
-const { state, send } = useActor(service.value);
+const { state, send } = useActor(service);
+provide(InterpretServiceInjectionKeyTypes, <InterpretService>service);
+
 const actorState = computed(() => getActorState(state.value));
 
 const signInComponent = ref(null);
@@ -325,6 +346,11 @@ const resetPasswordComponent = ref(null);
 const confirmResetPasswordComponent = ref(null);
 const verifyUserComponent = ref(null);
 const confirmVerifyUserComponent = ref(null);
+
+// computed
+
+const signInLabel = computed(() => I18n.get(CREATE_ACCOUNT_LABEL));
+const createAccountLabel = computed(() => I18n.get(SIGN_IN_LABEL));
 
 //methods
 
@@ -407,4 +433,45 @@ const onConfirmVerifyUserSubmitI = (e: Event) => {
     confirmVerifyUserComponent.value.submit(e);
   }
 };
+
+// watchers
+
+/**
+ * Update service facade when context updates
+ */
+
+const user = ref(null);
+const signOut = ref(null);
+
+watch(
+  () => state.value.context,
+  () => {
+    const { user: u, signOut: s } = getServiceFacade({
+      send,
+      state: state.value,
+    });
+    user.value = u;
+    signOut.value = s;
+  }
+);
+
+/**
+ * Toggle sign up and sign in pages when useSelect
+ * active ref updates
+ */
+
+watch(
+  () => active.value,
+  () => {
+    if (active.value) {
+      send({
+        type: 'SIGN_UP',
+      });
+    } else {
+      send({
+        type: 'SIGN_IN',
+      });
+    }
+  }
+);
 </script>

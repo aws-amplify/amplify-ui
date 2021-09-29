@@ -30,10 +30,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
     id: 'signInActor',
     states: {
       init: {
-        always: [
-          { target: 'signIn.submit', cond: 'shouldAutoSignIn' },
-          { target: 'signIn' },
-        ],
+        always: [{ target: 'signIn' }],
       },
       signIn: {
         initial: 'edit',
@@ -376,9 +373,6 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
 
         return challengeName === AuthChallengeNames.NEW_PASSWORD_REQUIRED;
       },
-      shouldAutoSignIn: (context) => {
-        return !!(context.intent && context.intent === 'autoSignIn');
-      },
       shouldRequestVerification: (_, event): boolean => {
         const { unverified, verified } = event.data;
 
@@ -387,9 +381,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
     },
     services: {
       async signIn(context) {
-        const source = !!(context.intent && context.intent === 'autoSignIn')
-          ? context.authAttributes
-          : context.formValues;
+        const source = context.formValues;
         const { country_code, username, password } = source;
 
         return Auth.signIn((country_code ?? '') + username, password);

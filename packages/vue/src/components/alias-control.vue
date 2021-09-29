@@ -15,7 +15,6 @@
       <base-select
         class="amplify-select amplify-field-group__control"
         :id="'amplify-field-' + randomPhone"
-        data-amplify-select
         aria-label="country code"
         name="country_code"
         :options="dialCodes"
@@ -93,7 +92,7 @@ const { label, name, placeholder } = withDefaults(
 const random = Math.floor(Math.random() * 999999);
 const randomPhone = Math.floor(Math.random() * 999999);
 
-const { state } = useAuth();
+const { state, send } = useAuth();
 const {
   value: { context },
 } = state;
@@ -104,7 +103,13 @@ const actorContext: ComputedRef<ActorContextWithForms> = computed(() =>
   getActorContext(state.value)
 );
 
-const defaultDialCode = actorContext.value.formValues?.country_code;
+const defaultDialCode = actorContext.value.country_code;
 
 const dialCodes = computed(() => countryDialCodes);
+if (inputAttributes.value[name].type === 'tel') {
+  send({
+    type: 'CHANGE',
+    data: { name: 'country_code', value: defaultDialCode },
+  });
+}
 </script>

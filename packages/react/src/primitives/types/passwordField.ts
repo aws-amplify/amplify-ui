@@ -1,7 +1,7 @@
 import { ButtonProps } from './button';
 import { TextFieldProps, TextFieldType } from './textField';
 
-export interface PasswordFieldProps extends Omit<TextFieldProps, 'type'> {
+export interface PasswordFieldProps extends TextFieldProps {
   /**
    * For password fields, will hide the "show password" button
    */

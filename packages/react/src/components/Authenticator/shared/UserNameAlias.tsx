@@ -8,7 +8,7 @@ import {
   getAliasInfoFromContext,
 } from '@aws-amplify/ui';
 
-import { useAuth } from '../../../hooks';
+import { useAuthenticator } from '../../../hooks';
 import { SelectField, TextField } from '../../../primitives';
 
 export interface UserNameAliasProps {
@@ -19,7 +19,7 @@ export interface UserNameAliasProps {
 
 export function UserNameAlias(props: UserNameAliasProps) {
   const { handleInputChange, alias, ...attrs } = props;
-  const [_state, send] = useAuth();
+  const [_state, send] = useAuthenticator();
 
   const actorContext: ActorContextWithForms = getActorContext(_state);
   const { label, type, error } = getAliasInfoFromContext(_state.context, alias);
@@ -56,7 +56,7 @@ export function UserNameAlias(props: UserNameAliasProps) {
         name={alias ?? 'username'}
         required
         placeholder={i18nLabel}
-        label={label}
+        label={i18nLabel}
         labelHidden={true}
         autoComplete="username"
         errorMessage={error}

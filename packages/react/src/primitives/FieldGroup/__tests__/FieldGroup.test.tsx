@@ -20,20 +20,12 @@ describe('FieldGroup component', () => {
     expect(fieldGroup).toHaveClass('custom-class');
   });
 
-  it('should not render FieldGroup classname when startComponents and endComponents are undefined', async () => {
+  it('should render FieldGroup classname when outerStartComponent provided', async () => {
     render(
-      <FieldGroup testId={testId}>
-        <Text>Hello</Text>
-      </FieldGroup>
-    );
-
-    const fieldGroup = await screen.findByTestId(testId);
-    expect(fieldGroup).not.toHaveClass(ComponentClassNames.FieldGroup);
-  });
-
-  it('should render FieldGroup classname when startComponents provided', async () => {
-    render(
-      <FieldGroup testId={testId} startComponents={<Button>Click me</Button>}>
+      <FieldGroup
+        testId={testId}
+        outerStartComponent={<Button>Click me</Button>}
+      >
         <Text>Hello</Text>
       </FieldGroup>
     );
@@ -42,9 +34,9 @@ describe('FieldGroup component', () => {
     expect(fieldGroup).toHaveClass(ComponentClassNames.FieldGroup);
   });
 
-  it('should render FieldGroup classname when endComponents provided', async () => {
+  it('should render FieldGroup classname when outerEndComponent provided', async () => {
     render(
-      <FieldGroup testId={testId} endComponents={<Button>Click me</Button>}>
+      <FieldGroup testId={testId} outerEndComponent={<Button>Click me</Button>}>
         <Text>Hello</Text>
       </FieldGroup>
     );
@@ -56,12 +48,12 @@ describe('FieldGroup component', () => {
     expect(button.innerHTML).toBe('Click me');
   });
 
-  it('should render FieldGroup classname when endComponents and startComponents provided', async () => {
+  it('should render FieldGroup classname when outerEndComponent and outerStartComponent provided', async () => {
     render(
       <FieldGroup
         testId={testId}
-        endComponents={<Button>Click me</Button>}
-        startComponents={<Button>Click me</Button>}
+        outerEndComponent={<Button>Click me</Button>}
+        outerStartComponent={<Button>Click me</Button>}
       >
         <Text>Hello</Text>
       </FieldGroup>

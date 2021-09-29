@@ -1,3 +1,4 @@
+import { Alert } from '@aws-amplify/ui-react';
 import {
   AstBuilder,
   GherkinClassicTokenMatcher,
@@ -7,7 +8,6 @@ import { IdGenerator } from '@cucumber/messages';
 import {
   ClipboardCheckIcon,
   CodeIcon,
-  ExclamationIcon,
   ExternalLinkIcon,
 } from '@heroicons/react/solid';
 import remarkHeadings from 'amplify-docs/src/plugins/headings';
@@ -58,7 +58,7 @@ function getGitHubUrlForExample(platform) {
 export function Feature({ name = required('Missing feature name') }) {
   const [source, setSource] = React.useState(null);
   const { pathname, query } = useRouter();
-  const { platform = 'next' } = query;
+  const { platform = 'react' } = query;
 
   const port = getPortForPlatform(platform);
 
@@ -83,25 +83,13 @@ export function Feature({ name = required('Missing feature name') }) {
   // TODO Don't show content if there aren't any supported scenarios
   if (!scenarios.length) {
     return (
-      <div className="p-4 rounded-md bg-yellow-50">
-        <div className="flex">
-          <div className="flex-shrink-0">
-            <ExclamationIcon
-              className="w-5 h-5 text-yellow-400"
-              aria-hidden="true"
-            />
-          </div>
-          <div className="ml-3">
-            <p className="m-0 text-sm font-medium text-yellow-800">
-              This feature is not supported for this platform.{' '}
-              <a href="https://github.com/aws-amplify/amplify-ui/issues/new/choose">
-                Open an issue
-              </a>{' '}
-              if you would like to see it added.
-            </p>
-          </div>
-        </div>
-      </div>
+      <Alert variation="warning">
+        This feature is not supported for this platform.{' '}
+        <a href="https://github.com/aws-amplify/amplify-ui/issues/new/choose">
+          Open an issue
+        </a>{' '}
+        if you would like to see it added.
+      </Alert>
     );
   }
 

@@ -1,4 +1,7 @@
 module.exports = {
+  corePlugins: {
+    preflight: false,
+  },
   darkMode: false, // or 'media' or 'class'
   important: true,
   mode: 'jit',

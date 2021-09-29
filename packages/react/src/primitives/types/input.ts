@@ -113,6 +113,11 @@ export interface InputProps
   onSelect?: React.FormEventHandler<HTMLInputElement>;
 
   /**
+   * Fired on keyboard key down
+   */
+  onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
+
+  /**
    * Placeholder text shown when field is empty
    * Accessibility tip: avoid putting important instructions for
    * filling out the TextField in the placeholder. Use descriptiveText

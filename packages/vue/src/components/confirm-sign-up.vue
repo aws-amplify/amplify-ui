@@ -1,60 +1,76 @@
 <template>
   <slot v-bind="$attrs" name="confirmSignUpSlotI">
-    <base-wrapper v-bind="$attrs" data-amplify-wrapper>
+    <base-wrapper v-bind="$attrs">
       <base-form @submit.prevent="onConfirmSignUpSubmit">
-        <base-heading>
-          {{ confirmSignUpHeading }}
-        </base-heading>
-        <base-field-set :disabled="actorState.matches('confirmSignUp.pending')">
-          <user-name-alias
-            :userNameAlias="true"
-            :userName="
-              actorState?.context?.user?.username ||
-              actorState?.context?.authAttributes?.username
-            "
-            :disabled="true"
-          />
-          <base-label data-amplify-password>
-            <base-text>{{ confirmationCodeText }}</base-text>
-            <base-input
-              name="confirmation_code"
-              required
-              type="number"
-            ></base-input>
-            <base-box>
-              <base-text> {{ lostYourCodeText }}</base-text>
-              <base-button type="button" @click.prevent="onLostCodeClicked">
-                {{ resendCodeText }}
-              </base-button>
-            </base-box>
-          </base-label>
-        </base-field-set>
-
-        <base-footer>
-          <template #footert="{ slotData }">
-            <slot
-              name="footer"
-              :info="slotData"
-              :onBackToSignInClicked="onBackToSignInClicked"
-              :onConfirmSignUpSubmit="onConfirmSignUpSubmit"
+        <base-wrapper class="amplify-flex" style="flex-direction: column">
+          <base-heading class="amplify-heading" :level="3">
+            {{ confirmSignUpHeading }}
+          </base-heading>
+          <base-field-set
+            class="amplify-flex"
+            style="flex-direction: column"
+            :disabled="actorState.matches('confirmSignUp.pending')"
+          >
+            <base-wrapper
+              class="amplify-flex amplify-field amplify-textfield"
+              style="flex-direction: column"
             >
-            </slot>
-          </template>
-          <base-button
-            v-if="!shouldHideReturnBtn"
-            type="button"
-            @click.prevent="onBackToSignInClicked"
+              <base-label class="amplify-label sr-only" for="amplify-field-124b"
+                >{{ confirmationCodeText }}
+              </base-label>
+              <base-wrapper class="amplify-flex">
+                <base-input
+                  class="amplify-input amplify-field-group__control"
+                  id="amplify-field-124b"
+                  aria-invalid="false"
+                  autocomplete="one-time-code"
+                  name="confirmation_code"
+                  required
+                  :placeholder="enterCode"
+                  type="number"
+                ></base-input>
+              </base-wrapper>
+            </base-wrapper>
+          </base-field-set>
+
+          <base-footer
+            class="amplify-flex"
+            style="flex-direction: column; align-items: unset"
           >
-            {{ backSignInText }}</base-button
-          >
-          <base-spacer />
-          <base-button :disabled="actorState.matches('confirmSignUp.pending')">
-            {{ confirmText }}
-          </base-button>
-        </base-footer>
-        <base-box data-ui-error>
-          {{ actorState?.context?.remoteError }}
-        </base-box>
+            <template #footert="{ slotData }">
+              <slot
+                name="footer"
+                :info="slotData"
+                :onConfirmSignUpSubmit="onConfirmSignUpSubmit"
+              >
+              </slot>
+            </template>
+            <base-button
+              class="amplify-button amplify-field-group__control"
+              data-fullwidth="false"
+              data-loading="false"
+              data-variation="primary"
+              type="submit"
+              style="font-weight: normal"
+              :disabled="actorState.matches('confirmSignUp.pending')"
+            >
+              {{ confirmText }}
+            </base-button>
+            <base-button
+              class="amplify-button amplify-field-group__control"
+              data-fullwidth="false"
+              data-variation="default"
+              style="font-weight: normal"
+              type="button"
+              @click.prevent="onLostCodeClicked"
+            >
+              {{ resendCodeText }}
+            </base-button>
+          </base-footer>
+          <base-box data-ui-error v-if="actorState?.context?.remoteError">
+            {{ actorState?.context?.remoteError }}
+          </base-box>
+        </base-wrapper>
       </base-form>
     </base-wrapper>
   </slot>
@@ -67,30 +83,17 @@ import { I18n } from 'aws-amplify';
 import {
   CONFIRM_SIGNUP_HEADING,
   CONFIRMATION_CODE_TEXT,
-  LOST_YOUR_CODE_TEXT,
   RESEND_CODE_TEXT,
-  BACK_SIGN_IN_TEXT,
   CONFIRM_TEXT,
+  ENTER_CODE,
 } from '../defaults/DefaultTexts';
 
 import { useAuth } from '../composables/useAuth';
-import UserNameAlias from './user-name-alias.vue';
 
 import { getActorState, SignUpContext } from '@aws-amplify/ui';
 
-const { shouldHideReturnBtn } = withDefaults(
-  defineProps<{ shouldHideReturnBtn?: boolean }>(),
-  {
-    shouldHideReturnBtn: false,
-  }
-);
-
 const attrs = useAttrs();
-const emit = defineEmits([
-  'confirmSignUpSubmit',
-  'lostCodeClicked',
-  'backToSignInClicked',
-]);
+const emit = defineEmits(['confirmSignUpSubmit', 'lostCodeClicked']);
 
 const { state, send } = useAuth();
 const actorState = computed(() =>
@@ -101,11 +104,10 @@ const context = actorState.value.context as SignUpContext;
 const username = context.user?.username ?? context.authAttributes?.username;
 
 //computed properties
+const enterCode = computed(() => I18n.get(ENTER_CODE));
 const confirmSignUpHeading = computed(() => I18n.get(CONFIRM_SIGNUP_HEADING));
 const confirmationCodeText = computed(() => I18n.get(CONFIRMATION_CODE_TEXT));
-const lostYourCodeText = computed(() => I18n.get(LOST_YOUR_CODE_TEXT));
 const resendCodeText = computed(() => I18n.get(RESEND_CODE_TEXT));
-const backSignInText = computed(() => I18n.get(BACK_SIGN_IN_TEXT));
 const confirmText = computed(() => I18n.get(CONFIRM_TEXT));
 
 // Methods
@@ -139,16 +141,6 @@ const onLostCodeClicked = (): void => {
       type: 'RESEND',
       //@ts-ignore
       data: { username },
-    });
-  }
-};
-
-const onBackToSignInClicked = (): void => {
-  if (attrs?.onBackToSignInClicked) {
-    emit('backToSignInClicked');
-  } else {
-    send({
-      type: 'SIGN_IN',
     });
   }
 };

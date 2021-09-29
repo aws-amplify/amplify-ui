@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Amplify } from 'aws-amplify';
 
 import awsExports from '@environments/auth-with-username-no-attributes/src/aws-exports';
@@ -7,15 +7,8 @@ import awsExports from '@environments/auth-with-username-no-attributes/src/aws-e
   selector: 'sign-in-with-username',
   templateUrl: 'sign-in-with-username.component.html',
 })
-export class SignInWithUsernameComponent implements OnInit {
+export class SignInWithUsernameComponent {
   constructor() {
-    Amplify.configure({
-      ...awsExports,
-      auth: {
-        login_mechanisms: ['username'],
-      },
-    });
+    Amplify.configure(awsExports);
   }
-
-  ngOnInit() {}
 }

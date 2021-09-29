@@ -4,11 +4,12 @@ import QRCode from 'qrcode';
 import { Auth, Logger, I18n } from 'aws-amplify';
 import { getActorState, SignInState } from '@aws-amplify/ui';
 
-import { useAmplify, useAuth } from '../../../hooks';
+import { useAmplify, useAuthenticator } from '../../../hooks';
 import {
   ConfirmationCodeInput,
   ConfirmSignInFooter,
   ConfirmSignInFooterProps,
+  RemoteErrorMessage,
 } from '../shared';
 
 const logger = new Logger('SetupTOTP-logger');
@@ -19,10 +20,10 @@ export const SetupTOTP = (): JSX.Element => {
 
   const amplifyNamespace = 'Authenticator.ConfirmSignIn';
   const {
-    components: { FieldGroup, Flex, Form, Heading, Image },
+    components: { Flex, Form, Heading, Image },
   } = useAmplify(amplifyNamespace);
 
-  const [_state, send] = useAuth();
+  const [_state, send] = useAuthenticator();
   const actorState = getActorState(_state) as SignInState;
   const isPending = actorState.matches('confirmSignIn.pending');
 
@@ -75,7 +76,7 @@ export const SetupTOTP = (): JSX.Element => {
       <Flex direction="column">
         <Heading level={3}>Setup TOTP</Heading>
 
-        <FieldGroup direction="column" disabled={isPending}>
+        <Flex direction="column">
           {/* TODO: Add spinner here instead of loading text... */}
           {isLoading ? (
             <p>{I18n.get('Loading')}&hellip;</p>
@@ -83,7 +84,8 @@ export const SetupTOTP = (): JSX.Element => {
             <Image data-amplify-qrcode src={qrCode} alt="qr code"></Image>
           )}
           <ConfirmationCodeInput amplifyNamespace={amplifyNamespace} />
-        </FieldGroup>
+          <RemoteErrorMessage amplifyNamespace={amplifyNamespace} />
+        </Flex>
 
         <ConfirmSignInFooter {...footerProps} />
       </Flex>

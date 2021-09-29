@@ -1,16 +1,15 @@
-import { translations, withAuthenticator } from '@aws-amplify/ui-react';
+import { withAuthenticator } from '@aws-amplify/ui-react';
+import { Amplify } from 'aws-amplify';
+
 import awsExports from '@environments/auth-with-username-no-attributes/src/aws-exports';
-import { Amplify, I18n } from 'aws-amplify';
 
 Amplify.configure(awsExports);
 
-I18n.putVocabularies(translations);
-
-function App({ state, send }) {
+function App({ signOut, user }) {
   return (
     <>
-      <h1>Hello {state.context.user.username}</h1>
-      <button onClick={() => send('SIGN_OUT')}>Sign out</button>
+      <h1>Hello {user.username}</h1>
+      <button onClick={signOut}>Sign out</button>
     </>
   );
 }
