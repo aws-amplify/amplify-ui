@@ -1,5 +1,6 @@
 import React, { ChangeEvent, useState } from 'react';
 
+import { isFunction } from '../shared/utils';
 export const useCheckbox = (
   initialChecked: boolean,
   onChangeProp: React.ChangeEventHandler
@@ -11,7 +12,7 @@ export const useCheckbox = (
     setDataChecked(e.target.checked);
 
     // this is the onChange function user passing in
-    if (onChangeProp) {
+    if (isFunction(onChangeProp)) {
       onChangeProp(e);
     }
   };
