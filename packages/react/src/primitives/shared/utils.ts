@@ -8,7 +8,8 @@ const nanoid = customAlphabet('1234567890abcdef', 12);
 export const strHasLength = (str: unknown): str is string =>
   typeof str === 'string' && str.length > 0;
 
-export const isFn = (fn: unknown): fn is Function => typeof fn === 'function';
+export const isFunction = (fn: unknown): fn is Function =>
+  typeof fn === 'function';
 
 export const isNullOrEmptyString = (value: unknown) =>
   value == null || !strHasLength(value);
