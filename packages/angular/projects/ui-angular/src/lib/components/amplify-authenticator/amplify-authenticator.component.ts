@@ -17,7 +17,7 @@ import {
 import { I18n } from 'aws-amplify';
 import { CustomComponents } from '../../common';
 import { AuthState } from '../../common/types';
-import { AmplifyOverrideDirective } from '../../directives/amplify-override.directive';
+import { AmplifySlotDirective } from '../../directives/amplify-slot.directive';
 import { AuthPropService } from '../../services/authenticator-context.service';
 import { StateMachineService } from '../../services/state-machine.service';
 
@@ -35,8 +35,8 @@ export class AmplifyAuthenticatorComponent implements OnInit, AfterContentInit {
   @Input() initialState: AuthState = 'signIn';
   @Input() loginMechanisms: LoginMechanism[] = ['username'];
 
-  @ContentChildren(AmplifyOverrideDirective)
-  private customComponentQuery: QueryList<AmplifyOverrideDirective> = null;
+  @ContentChildren(AmplifySlotDirective)
+  private customComponentQuery: QueryList<AmplifySlotDirective> = null;
   public customComponents: CustomComponents = {};
 
   // translated texts
@@ -97,7 +97,7 @@ export class AmplifyAuthenticatorComponent implements OnInit, AfterContentInit {
   }
 
   private mapCustomComponents(
-    componentQuery: QueryList<AmplifyOverrideDirective>
+    componentQuery: QueryList<AmplifySlotDirective>
   ): Record<string, TemplateRef<any>> {
     if (!componentQuery) return {};
     const customComponents: Record<string, TemplateRef<any>> = {};
