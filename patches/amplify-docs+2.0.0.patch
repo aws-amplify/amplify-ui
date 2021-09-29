@@ -56,6 +56,19 @@ index 07a67f6..50acf3f 100644
  }
  
  export default function RepoActions({directoryPath, url}) {
+diff --git a/node_modules/amplify-docs/src/components/Menu/index.tsx b/node_modules/amplify-docs/src/components/Menu/index.tsx
+index a4b7028..f0cced1 100644
+--- a/node_modules/amplify-docs/src/components/Menu/index.tsx
++++ b/node_modules/amplify-docs/src/components/Menu/index.tsx
+@@ -72,7 +72,7 @@ export default class Menu extends React.Component<MenuProps, MenuState> {
+         this.props.url.includes("/ui-legacy")) &&
+       this.props.filterKey !== "react-native"
+     ) {
+-      showVersionSwitcher = true;
++      showVersionSwitcher = false;
+     }
+     if (this.state.isOpen) {
+       return (
 diff --git a/node_modules/amplify-docs/src/components/TableOfContents/index.tsx b/node_modules/amplify-docs/src/components/TableOfContents/index.tsx
 index e900068..44548e1 100644
 --- a/node_modules/amplify-docs/src/components/TableOfContents/index.tsx

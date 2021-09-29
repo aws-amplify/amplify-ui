@@ -1,6 +1,6 @@
 import React from 'react';
-import { useNonStyleProps, usePropStyles } from '../shared/utils';
-import { ViewProps } from '../types/index';
+import { useNonStyleProps, usePropStyles } from '../shared/styleUtils';
+import { ViewProps } from '../types/view';
 
 export const View: React.FC<ViewProps> = (props) => {
   const {

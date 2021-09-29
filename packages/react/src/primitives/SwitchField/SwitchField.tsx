@@ -7,7 +7,8 @@ import { Input } from '../Input';
 import { View } from '../View';
 import { Flex } from '../Flex';
 import { VisuallyHidden } from '../VisuallyHidden';
-import { ComponentClassNames, useAmplifyFieldID } from '../shared';
+import { ComponentClassNames } from '../shared/constants';
+import { useAmplifyFieldID } from '../shared/utils';
 import { SwitchFieldProps } from '../types';
 import classNames from 'classnames';
 

@@ -20,7 +20,7 @@ export const SetupTOTP = (): JSX.Element => {
 
   const amplifyNamespace = 'Authenticator.ConfirmSignIn';
   const {
-    components: { FieldGroup, Flex, Form, Heading, Image },
+    components: { Flex, Form, Heading, Image },
   } = useAmplify(amplifyNamespace);
 
   const [_state, send] = useAuthenticator();
@@ -76,7 +76,7 @@ export const SetupTOTP = (): JSX.Element => {
       <Flex direction="column">
         <Heading level={3}>Setup TOTP</Heading>
 
-        <FieldGroup direction="column" disabled={isPending}>
+        <Flex direction="column">
           {/* TODO: Add spinner here instead of loading text... */}
           {isLoading ? (
             <p>{I18n.get('Loading')}&hellip;</p>
@@ -85,7 +85,7 @@ export const SetupTOTP = (): JSX.Element => {
           )}
           <ConfirmationCodeInput amplifyNamespace={amplifyNamespace} />
           <RemoteErrorMessage amplifyNamespace={amplifyNamespace} />
-        </FieldGroup>
+        </Flex>
 
         <ConfirmSignInFooter {...footerProps} />
       </Flex>

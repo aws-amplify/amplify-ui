@@ -16,7 +16,7 @@ import {
 export const ConfirmSignIn = (): JSX.Element => {
   const amplifyNamespace = 'Authenticator.ConfirmSignIn';
   const {
-    components: { FieldGroup, Flex, Form, Heading },
+    components: { Flex, Form, Heading },
   } = useAmplify(amplifyNamespace);
 
   const [_state, send] = useAuthenticator();
@@ -56,12 +56,12 @@ export const ConfirmSignIn = (): JSX.Element => {
       <Flex direction="column">
         <Heading level={3}>{headerText}</Heading>
 
-        <FieldGroup direction="column" disabled={isPending}>
+        <Flex direction="column">
           <ConfirmationCodeInput
             amplifyNamespace={amplifyNamespace}
             errorText={remoteError}
           />
-        </FieldGroup>
+        </Flex>
 
         <ConfirmSignInFooter {...footerProps} />
       </Flex>

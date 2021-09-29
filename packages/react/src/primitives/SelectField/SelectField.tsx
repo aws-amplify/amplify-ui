@@ -1,7 +1,8 @@
 import classNames from 'classnames';
 import React from 'react';
 
-import { ComponentClassNames, useAmplifyFieldID } from '../shared';
+import { ComponentClassNames } from '../shared/constants';
+import { useAmplifyFieldID } from '../shared/utils';
 import { FieldErrorMessage, FieldDescription } from '../Field';
 import { Flex } from '../Flex';
 import { Select } from '../Select';
