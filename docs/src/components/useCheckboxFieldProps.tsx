@@ -15,9 +15,6 @@ export const useCheckboxFieldProps: UseCheckboxFieldProps = (initialValues) => {
   const [isDisabled, setIsDisabled] = useState<
     CheckboxFieldProps['isDisabled']
   >(initialValues.isDisabled);
-  const [isEmphasized, setIsEmphasized] = useState<
-    CheckboxFieldProps['isEmphasized']
-  >(initialValues.isEmphasized);
   const [label, setLabel] = useState<CheckboxFieldProps['label']>(
     initialValues.label
   );
@@ -33,11 +30,10 @@ export const useCheckboxFieldProps: UseCheckboxFieldProps = (initialValues) => {
 
   return {
     checked,
+    children: label,
     setChecked,
     isDisabled,
     setIsDisabled,
-    isEmphasized,
-    setIsEmphasized,
     label,
     setLabel,
     name,

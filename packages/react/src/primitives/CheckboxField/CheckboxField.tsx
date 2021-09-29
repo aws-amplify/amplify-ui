@@ -2,10 +2,11 @@ import classNames from 'classnames';
 import React from 'react';
 
 import { Checkbox } from '../Checkbox';
-import { FieldErrorMessage, FieldDescription } from '../Field';
+import { FieldErrorMessage } from '../Field';
 import { Flex } from '../Flex';
 import { CheckboxFieldProps } from '../types/checkboxField';
 import { ComponentClassNames } from '../shared';
+import { useTestId } from '../Checkbox/useTestId';
 
 export const CheckboxField: React.FC<CheckboxFieldProps> = ({
   alignContent,
@@ -14,19 +15,15 @@ export const CheckboxField: React.FC<CheckboxFieldProps> = ({
   children,
   className,
   defaultChecked,
-  descriptiveText,
-  direction = 'column',
+  direction,
   errorMessage,
   gap,
   hasError = false,
   id,
-  isEmphasized,
   isDisabled,
   isReadOnly,
   isRequired,
   justifyContent,
-  label,
-  labelHidden = false,
   name,
   onChange,
   testId,
@@ -37,39 +34,34 @@ export const CheckboxField: React.FC<CheckboxFieldProps> = ({
 }) => {
   return (
     <Flex
-      alignContent={alignContent}
-      alignItems={alignItems}
       className={classNames(
         ComponentClassNames.Field,
         ComponentClassNames.CheckboxField,
         className
       )}
       data-size={size}
-      direction={direction}
-      gap={gap}
-      justifyContent={justifyContent}
       testId={testId}
-      wrap={wrap}
-      {...rest}
     >
-      <FieldDescription
-        labelHidden={labelHidden}
-        descriptiveText={descriptiveText}
-      />
       <Checkbox
+        alignContent={alignContent}
+        alignItems={alignItems}
         checked={checked}
         defaultChecked={defaultChecked}
+        direction={direction}
+        gap={gap}
         hasError={hasError}
         id={id}
-        isEmphasized={isEmphasized}
         isDisabled={isDisabled}
         isReadOnly={isReadOnly}
         isRequired={isRequired}
+        justifyContent={justifyContent}
         name={name}
         onChange={onChange}
-        testId={`${testId}-checkbox`}
+        testId={useTestId(testId, ComponentClassNames.Checkbox)}
         size={size}
         value={value}
+        wrap={wrap}
+        {...rest}
       >
         {children}
       </Checkbox>

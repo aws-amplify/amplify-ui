@@ -9,22 +9,31 @@ import { Text } from '../Text';
 import { VisuallyHidden } from '../VisuallyHidden';
 import { CheckboxProps } from '../types/checkbox';
 import { ComponentClassNames } from '../shared/constants';
+import { useTestId } from './useTestId';
 
 export const Checkbox: React.FC<CheckboxProps> = ({
+  alignContent,
+  alignItems,
+  backgroundColor,
   checked,
   children,
   className,
+  color,
   defaultChecked,
+  direction,
+  hasError,
   id,
   isDisabled,
-  isEmphasized,
   isReadOnly,
   isRequired,
+  justifyContent,
+  gap,
   name,
   onChange: onChangeProp,
   size,
   testId,
   value,
+  wrap,
   ...rest
 }) => {
   // controlled way should always override uncontrolled way
@@ -36,9 +45,15 @@ export const Checkbox: React.FC<CheckboxProps> = ({
 
   return (
     <Flex
+      alignContent={alignContent}
+      alignItems={alignItems}
       as="label"
       className={classNames(ComponentClassNames.Checkbox, className)}
       data-disabled={isDisabled}
+      direction={direction}
+      gap={gap}
+      justifyContent={justifyContent}
+      wrap={wrap}
       testId={testId}
     >
       <VisuallyHidden>
@@ -66,14 +81,14 @@ export const Checkbox: React.FC<CheckboxProps> = ({
         data-checked={dataChecked}
         data-disabled={isDisabled}
         data-focus={dataFocus}
-        testId={`${testId}-button`}
+        data-error={hasError}
+        testId={useTestId(testId, ComponentClassNames.CheckboxButton)}
       >
         <IconCheck
           className={ComponentClassNames.CheckboxIcon}
           data-checked={dataChecked}
           data-disabled={isDisabled}
-          data-emphasized={isEmphasized}
-          data-testid={`${testId}-icon`}
+          data-testid={useTestId(testId, ComponentClassNames.CheckboxIcon)}
           size={size}
         />
       </Flex>
@@ -82,7 +97,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
           as="span"
           className={ComponentClassNames.CheckboxLabel}
           data-disabled={isDisabled}
-          data-testid={`${testId}-label`}
+          data-testid={useTestId(testId, ComponentClassNames.CheckboxLabel)}
         >
           {children}
         </Text>

@@ -312,6 +312,41 @@ import '@aws-amplify/ui-react/styles.css';
   </SelectField>
 </Example>
 
+### Icon
+
+You can change the expand icon used in the select. Simply pass the `icon` prop. Also, you can change the icon color by passing the `iconColor` prop.
+
+```jsx
+import { SelectField } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<SelectField
+  label="Fruit"
+  labelHidden={true}
+  placeholder="Please select a fruit"
+  icon={<IconArrowDropDown />}
+  iconColor="purple"
+>
+  <option value="apple">Apple</option>
+  <option value="banana">Banana</option>
+  <option value="orange">Orange</option>
+</SelectField>;
+```
+
+<Example>
+  <SelectField
+    label="Fruit"
+    labelHidden={true}
+    placeholder="Please select a fruit"
+    icon={<IconArrowDropDown />}
+    iconColor="purple"
+  >
+    <option value="apple">Apple</option>
+    <option value="banana">Banana</option>
+    <option value="orange">Orange</option>
+  </SelectField>
+</Example>
+
 ### State
 
 `isDisabled` is the only available state for SelectField. A disabled field will be not be focusable not mutable and will not be submitted with form data.
@@ -345,9 +380,9 @@ import '@aws-amplify/ui-react/styles.css';
   </SelectField>
 </Example>
 
-### Icon
+### Validation error
 
-You can change the expand icon used in the select. Simply pass the `icon` prop. Also, you can change the icon color by passing the `iconColor` prop.
+Use the `hasError` and `errorMessage` props to mark a SelectField as having an validation error.
 
 ```jsx
 import { SelectField } from '@aws-amplify/ui-react';
@@ -357,8 +392,8 @@ import '@aws-amplify/ui-react/styles.css';
   label="Fruit"
   labelHidden={true}
   placeholder="Please select a fruit"
-  icon={<IconArrowDropDown />}
-  iconColor="purple"
+  errorMessage="This is a required field."
+  hasError
 >
   <option value="apple">Apple</option>
   <option value="banana">Banana</option>
@@ -371,8 +406,8 @@ import '@aws-amplify/ui-react/styles.css';
     label="Fruit"
     labelHidden={true}
     placeholder="Please select a fruit"
-    icon={<IconArrowDropDown />}
-    iconColor="purple"
+    errorMessage="This is a required field."
+    hasError
   >
     <option value="apple">Apple</option>
     <option value="banana">Banana</option>

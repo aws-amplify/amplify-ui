@@ -16,9 +16,6 @@ export interface CheckboxFieldPropControlsProps extends CheckboxFieldProps {
   setIsDisabled: (
     value: React.SetStateAction<CheckboxFieldProps['isDisabled']>
   ) => void;
-  setIsEmphasized: (
-    value: React.SetStateAction<CheckboxFieldProps['isEmphasized']>
-  ) => void;
   setLabel: (value: React.SetStateAction<CheckboxFieldProps['label']>) => void;
   setSize: (value: React.SetStateAction<CheckboxFieldProps['size']>) => void;
 }
@@ -30,8 +27,6 @@ interface CheckboxFieldPropControlsInterface {
 export const CheckboxFieldPropControls: CheckboxFieldPropControlsInterface = ({
   isDisabled,
   setIsDisabled,
-  isEmphasized,
-  setIsEmphasized,
   label,
   setLabel,
   size,
@@ -67,22 +62,14 @@ export const CheckboxFieldPropControls: CheckboxFieldPropControlsInterface = ({
           <option value="large">large</option>
         </SelectField>
       </FieldLabeler>
-      <FieldLabeler id="isEmphasized">
-        <CheckboxField
-          name="is-emphasized"
-          value="true"
-          checked={isEmphasized}
-          onChange={(e) => setIsEmphasized(e.target.checked)}
-        />
-      </FieldLabeler>
-      <FieldLabeler id="isDisabled">
-        <CheckboxField
-          name="is-disabled"
-          value="true"
-          checked={isDisabled}
-          onChange={(e) => setIsDisabled(e.target.checked)}
-        />
-      </FieldLabeler>
+      <CheckboxField
+        name="is-disabled"
+        value="true"
+        checked={isDisabled}
+        onChange={(e) => setIsDisabled(e.target.checked)}
+      >
+        isDisabled
+      </CheckboxField>
     </DemoBox>
   );
 };

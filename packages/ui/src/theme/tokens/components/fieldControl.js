@@ -59,7 +59,7 @@ module.exports = {
   _disabled: {
     cursor: { value: 'not-allowed' },
     borderColor: { value: '{colors.transparent.value}' },
-    backgroundColor: { value: '{colors.background.tertiary.value}' },
+    backgroundColor: { value: '{colors.background.disabled.value}' },
   },
   _error: {
     borderColor: { value: '{colors.error.value}' },

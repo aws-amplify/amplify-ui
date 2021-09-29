@@ -1,6 +1,12 @@
+import React from 'react';
+import { FlexProps } from './flex';
 import { InputProps } from './input';
 
-export interface CheckboxProps extends InputProps {
+export interface CheckboxProps extends FlexProps, InputProps {
+  /**
+   * The label text
+   */
+  children: string;
   /**
    * The name of the input field in a checkbox (Useful for form submission).
    */
@@ -10,9 +16,4 @@ export interface CheckboxProps extends InputProps {
    * The value of the checkbox.
    */
   value: string;
-
-  /**
-   * Visual prominence will be provided if set to true
-   */
-  isEmphasized?: boolean;
 }

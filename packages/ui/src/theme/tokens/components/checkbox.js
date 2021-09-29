@@ -1,8 +1,7 @@
 module.exports = {
   cursor: { value: 'pointer' },
   alignItems: { value: 'center' },
-  justifyContent: { value: 'flex-start' },
-  disabled: {
+  _disabled: {
     cursor: {
       value: 'not-allowed',
     },
@@ -13,27 +12,30 @@ module.exports = {
     justifyContent: { value: 'center' },
     color: { value: '{colors.white.value}' },
     before: {
-      content: { value: '""' },
-      display: { value: 'inline-block' },
-      position: { value: 'absolute' },
       width: { value: '100%' },
       height: { value: '100%' },
-      boxSizing: { value: 'border-box' },
       borderWidth: { value: '{borderWidths.medium.value}' },
       borderRadius: { value: '20%' },
       borderStyle: { value: 'solid' },
       borderColor: { value: '{colors.border.primary.value}' },
-      disabled: {
-        borderColor: { value: '{colors.neutral.20.value}' },
-      },
     },
-    focus: {
+    _focus: {
       outlineColor: { value: '{colors.transparent.value}' },
       outlineStyle: { value: 'solid' },
       outlineWidth: { value: '{outlineWidths.medium.value}' },
       outlineOffset: { value: '{outlineOffsets.medium.value}' },
       borderColor: { value: '{colors.transparent.value}' },
-      boxShadow: { value: '0 0 0 3px {colors.focus.value}' },
+      boxShadow: { value: '0 0 0 2px {colors.focus.value}' },
+    },
+    _disabled: {
+      borderColor: { value: '{colors.border.disabled.value}' },
+    },
+    _error: {
+      borderColor: { value: '{colors.error.value}' },
+      _focus: {
+        borderColor: { value: '{colors.transparent.value}' },
+        boxShadow: { value: '0 0 0 2px {colors.error.value}' },
+      },
     },
   },
   icon: {
@@ -43,21 +45,18 @@ module.exports = {
     transitionProperty: { value: 'all' },
     transitionDuration: { value: '{time.transition.medium.value}' },
     transitionTimingFunction: { value: 'ease-in-out' },
-    checked: {
-      backgroundColor: { value: '{colors.neutral.60.value}' },
+    _checked: {
+      backgroundColor: { value: '{colors.brand.primary.80.value}' },
       opacity: { value: '{opacities.100.value}' },
       transform: { value: 'scale(1)' },
-      emphasized: {
-        backgroundColor: { value: '{colors.blue.40.value}' },
-      },
-      disabled: {
-        backgroundColor: { value: '{colors.neutral.20.value}' },
+      _disabled: {
+        backgroundColor: { value: '{colors.background.disabled.value}' },
       },
     },
   },
   label: {
-    disabled: {
-      color: { value: '{colors.neutral.40.value}' },
+    _disabled: {
+      color: { value: '{colors.font.disabled.value}' },
     },
   },
 };

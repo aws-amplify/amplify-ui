@@ -1,5 +1,7 @@
 import { CheckboxField } from '@aws-amplify/ui-react';
-import { ControlledCheckbox, Demo } from './demo';
+
+import { ControlledCheckbox } from './examples';
+import { Demo } from './demo';
 import { Example } from '@/components/Example';
 
 CheckboxField is used to mark an individual item as selected, or to select multiple items from a list of individual items.
@@ -19,13 +21,13 @@ import { CheckboxField } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
 <CheckboxField name="subscribe" value="true">
-  subscribe
+  Subscribe
 </CheckboxField>;
 ```
 
 <Example>
   <CheckboxField name="subscribe" value="true">
-    {'subscribe'}
+    {'Subscribe'}
   </CheckboxField>
 </Example>
 
@@ -33,20 +35,25 @@ import '@aws-amplify/ui-react/styles.css';
 
 ```jsx
 import { useState } from 'react';
-
 import { CheckboxField } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
-const [checked, setChecked] = useState(false);
+const ControlledCheckbox = () => {
+  const [checked, setChecked] = useState(false);
 
-<CheckboxField
-  name="subscribe"
-  value="true"
-  checked={checked}
-  onChange={(e) => setChecked(e.target.checked)}
->
-  subscribe
-</CheckboxField>;
+  return (
+    <CheckboxField
+      name="subscribe-controlled"
+      value="yes"
+      checked={checked}
+      onChange={(e) => setChecked(e.target.checked)}
+    >
+      Subscribe
+    </CheckboxField>
+  );
+};
+
+<ControlledCheckbox />;
 ```
 
 <Example>
@@ -62,29 +69,29 @@ import { CheckboxField } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
 <CheckboxField name="subscribe" value="true" size="small">
-  subscribe
+  Subscribe
 </CheckboxField>
 <CheckboxField name="subscribe" value="true">
-  subscribe
+  Subscribe
 </CheckboxField>
 <CheckboxField name="subscribe" value="true" size="large">
-  subscribe
+  Subscribe
 </CheckboxField>
 ```
 
 <Example>
   <CheckboxField name="subscribe" value="true" size="small">
-    {'subscribe'}
+    {'Subscribe'}
   </CheckboxField>
   <CheckboxField name="subscribe" value="true">
-    {'subscribe'}
+    {'Subscribe'}
   </CheckboxField>
   <CheckboxField name="subscribe" value="true" size="large">
-    {'subscribe'}
+    {'Subscribe'}
   </CheckboxField>
 </Example>
 
-### Visual options
+### State
 
 #### Disabled
 
@@ -95,38 +102,43 @@ import { CheckboxField } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
 <CheckboxField name="subscribe" value="true" isDisabled={true}>
-  subscribe
+  Subscribe
 </CheckboxField>
 <CheckboxField name="subscribe" value="true" defaultChecked={true} isDisabled={true}>
-  subscribe
+  Subscribe
 </CheckboxField>;
 ```
 
 <Example>
   <CheckboxField name="subscribe" value="true" isDisabled>
-    {'subscribe'}
+    {'Subscribe'}
   </CheckboxField>
   <CheckboxField name="subscribe" value="true" defaultChecked isDisabled>
-    {'subscribe'}
+    {'Subscribe'}
   </CheckboxField>
 </Example>
 
-#### Emphasized
+### Validation error
 
-An emphasized (blue) version provides a visual prominence that is optimal for forms, settings where a checkbox need to be noticed.
+Use the `hasError` and `errorMessage` props to mark a CheckboxField as having an validation error.
 
 ```jsx
 import { CheckboxField } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
-<CheckboxField name="subscribe" value="true" isEmphasized>
-  subscribe
+<CheckboxField name="subscribe" value="true">
+  Subscribe
 </CheckboxField>;
 ```
 
 <Example>
-  <CheckboxField name="subscribe" value="true" defaultChecked isEmphasized>
-    {'subscribe'}
+  <CheckboxField
+    name="subscribe"
+    value="true"
+    hasError={true}
+    errorMessage="This is a required field"
+  >
+    {'Subscribe'}
   </CheckboxField>
 </Example>
 
@@ -139,18 +151,18 @@ To override styling on all Checkbox, you can set the Amplify CSS variables or us
 ```css
 /* styles.css */
 :root {
-  --amplify-components-checkbox-color: yellow;
+  --amplify-components-checkbox-button-color: var(--amplify-colors-yellow-80);
 }
 /* OR */
-.amplify-checkbox {
-  color: yellow;
+.amplify-checkbox__button {
+  color: var(--amplify-colors-yellow-80);
 }
 ```
 
 To replace Checkbox styling, unset it:
 
 ```css
-.amplify-checkbox {
+.amplify-checkbox__button {
   all: unset;
   /* Add your styling here*/
 }
@@ -176,13 +188,13 @@ import '@aws-amplify/ui-react/styles.css';
 import './styles.css';
 
 <CheckboxField name="subscribe" value="true" className="custom-checkbox">
-  subscribe
+  Subscribe
 </CheckboxField>;
 ```
 
 <Example>
   <CheckboxField name="subscribe" value="true" className="custom-checkbox">
-    {'subscribe'}
+    {'Subscribe'}
   </CheckboxField>
 </Example>
 
@@ -192,7 +204,7 @@ _Using data attributes:_
 /* styles.css */
 
 .amplify-checkbox__icon[data-checked='true'] {
-  background-color: rebeccapurple;
+  background-color: var(--amplify-colors-purple-80);
 }
 ```
 
@@ -202,7 +214,7 @@ import '@aws-amplify/ui-react/styles.css';
 import './styles.css';
 
 <CheckboxField name="subscribe" value="true">
-  subscribe
+  Subscribe
 </CheckboxField>;
 ```
 
@@ -212,7 +224,7 @@ import './styles.css';
     value="true"
     className="custom-data-attribute"
   >
-    {'subscribe'}
+    {'Subscribe'}
   </CheckboxField>
 </Example>
 
@@ -222,13 +234,13 @@ _Using style props:_
 import { CheckboxField } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
-<CheckboxField name="subscribe" value="true" gap="1rem">
-  subscribe
+<CheckboxField name="subscribe" value="on" gap="1rem">
+  Subscribe
 </CheckboxField>;
 ```
 
 <Example>
-  <CheckboxField name="subscribe" value="true" gap="1rem">
-    {'subscribe'}
+  <CheckboxField name="subscribe" value="on" gap="1rem">
+    {'Subscribe'}
   </CheckboxField>
 </Example>

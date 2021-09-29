@@ -4,5 +4,5 @@
 }
 
 .custom-data-attribute .amplify-checkbox__icon[data-checked='true'] {
-  background-color: rebeccapurple;
+  background-color: var(--amplify-colors-purple-80);
 }

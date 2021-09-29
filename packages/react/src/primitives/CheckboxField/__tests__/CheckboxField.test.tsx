@@ -5,15 +5,18 @@ import userEvent from '@testing-library/user-event';
 import { CheckboxField } from '../CheckboxField';
 import { CheckboxFieldProps } from '../../types/checkboxField';
 import { ComponentClassNames } from '../../shared';
-import {
-  testFlexProps,
-  expectFlexStyleProps,
-} from '../../Flex/__tests__/Flex.test';
 
 describe('CheckboxField test suite', () => {
-  const basicProps = { name: 'test', value: 'test', testId: 'test' };
+  const basicProps = {
+    children: 'Subscribe',
+    name: 'testName',
+    value: 'testValue',
+    testId: 'testId',
+  };
+
   const getCheckboxField = (props: CheckboxFieldProps) => {
-    return <CheckboxField {...props}>test</CheckboxField>;
+    const { children, ...rest } = props;
+    return <CheckboxField {...rest}>{children}</CheckboxField>;
   };
   const ControlledCheckboxField = () => {
     const [checked, setChecked] = useState(false);
@@ -23,7 +26,7 @@ describe('CheckboxField test suite', () => {
         onChange={(e) => setChecked(e.target.checked)}
         {...basicProps}
       >
-        test
+        Subscribe
       </CheckboxField>
     );
   };
@@ -31,7 +34,7 @@ describe('CheckboxField test suite', () => {
     const className = 'class-test';
     render(getCheckboxField({ ...basicProps, className }));
 
-    const checkboxField = await screen.findByTestId('test');
+    const checkboxField = await screen.findByTestId(basicProps.testId);
     expect(checkboxField).toHaveClass(
       ComponentClassNames.Field,
       ComponentClassNames.CheckboxField,
@@ -39,17 +42,13 @@ describe('CheckboxField test suite', () => {
     );
   });
 
-  it('should render all flex style props', async () => {
-    render(getCheckboxField({ ...basicProps, ...testFlexProps }));
-    const checkboxField = await screen.findByTestId('test');
-    expectFlexStyleProps(checkboxField);
-  });
-
   describe('Checkbox functionality', () => {
     const expectFunctionality = async (component) => {
       render(component);
 
-      const checkbox = await screen.findByTestId('test-checkbox');
+      const checkbox = await screen.findByTestId(
+        `${basicProps.testId}-${ComponentClassNames.Checkbox}`
+      );
       userEvent.click(checkbox);
 
       const input = await screen.findByRole('checkbox');
@@ -63,16 +62,6 @@ describe('CheckboxField test suite', () => {
 
     it('should work in controlled way', async () => {
       expectFunctionality(<ControlledCheckboxField />);
-    });
-  });
-
-  describe('Descriptive message', () => {
-    const descriptiveText = 'This is a descriptive text.';
-    it('should render when descriptiveText is provided', async () => {
-      render(getCheckboxField({ ...basicProps, descriptiveText }));
-
-      const descriptiveField = await screen.queryByText(descriptiveText);
-      expect(descriptiveField).toContainHTML(descriptiveText);
     });
   });
 

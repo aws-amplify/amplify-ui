@@ -6,8 +6,10 @@ import { CheckboxFieldPropControls } from '@/components/CheckboxFieldPropControl
 import { useCheckboxFieldProps } from '@/components/useCheckboxFieldProps';
 
 export const Demo: React.FC = () => {
+  const label = 'Subscribe';
   const props = useCheckboxFieldProps({
-    label: 'subscribe',
+    label,
+    children: label,
     name: 'subscribe',
     value: 'yes',
   });
@@ -18,25 +20,10 @@ export const Demo: React.FC = () => {
         name={props.name}
         value={props.value}
         isDisabled={props.isDisabled}
-        isEmphasized={props.isEmphasized}
         size={props.size}
       >
         {props.label}
       </CheckboxField>
     </Flex>
-  );
-};
-
-export const ControlledCheckbox: React.FC = () => {
-  const [checked, setChecked] = useState(false);
-  return (
-    <CheckboxField
-      name="subscribe-controlled"
-      value="yes"
-      checked={checked}
-      onChange={(e) => setChecked(e.target.checked)}
-    >
-      subscribe
-    </CheckboxField>
   );
 };

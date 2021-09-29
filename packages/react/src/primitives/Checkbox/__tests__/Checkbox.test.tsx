@@ -4,17 +4,28 @@ import userEvent from '@testing-library/user-event';
 import { Checkbox } from '../Checkbox';
 import { CheckboxProps } from '../../types/checkbox';
 import { ComponentClassNames } from '../../shared';
+import {
+  testFlexProps,
+  expectFlexStyleProps,
+} from '../../Flex/__tests__/Flex.test';
 
 describe('Checkbox test suite', () => {
-  const basicProps = { name: 'test', value: 'test', testId: 'test' };
-  const getCheckbox = (props: CheckboxProps) => (
-    <Checkbox {...props}>test</Checkbox>
-  );
+  const basicProps = {
+    children: 'Subscribe',
+    name: 'testName',
+    value: 'testValue',
+    testId: 'testId',
+  };
+
+  const getCheckbox = (props: CheckboxProps) => {
+    const { children, ...rest } = props;
+    return <Checkbox {...rest}>{children}</Checkbox>;
+  };
 
   it('should render basic props correctly', async () => {
     render(getCheckbox({ ...basicProps }));
 
-    const checkbox = await screen.findByTestId('test');
+    const checkbox = await screen.findByTestId(basicProps.testId);
     expect(checkbox.nodeName).toBe('LABEL');
     expect(checkbox).not.toHaveAttribute('data-disabled');
     expect(checkbox).toHaveClass(ComponentClassNames.Checkbox);
@@ -24,8 +35,14 @@ describe('Checkbox test suite', () => {
     const customClassName = 'custom-class';
     render(getCheckbox({ ...basicProps, className: customClassName }));
 
-    const checkbox = await screen.findByTestId('test');
+    const checkbox = await screen.findByTestId(basicProps.testId);
     expect(checkbox).toHaveClass(customClassName);
+  });
+
+  it('should render all flex style props', async () => {
+    render(getCheckbox({ ...basicProps, ...testFlexProps }));
+    const checkboxField = await screen.findByTestId(basicProps.testId);
+    expectFlexStyleProps(checkboxField);
   });
 
   describe('Input test suite', () => {
@@ -33,8 +50,8 @@ describe('Checkbox test suite', () => {
       render(getCheckbox({ ...basicProps }));
 
       const input = await screen.findByRole('checkbox');
-      expect(input).toHaveAttribute('name', 'test');
-      expect(input).toHaveAttribute('value', 'test');
+      expect(input).toHaveAttribute('name', basicProps.name);
+      expect(input).toHaveAttribute('value', basicProps.value);
       expect(input).not.toBeChecked();
       expect(input).toHaveClass(ComponentClassNames.CheckboxInput);
     });
@@ -93,7 +110,9 @@ describe('Checkbox test suite', () => {
     it('should render basic props correctly', async () => {
       render(getCheckbox({ ...basicProps }));
 
-      const button = await screen.findByTestId('test-button');
+      const button = await screen.findByTestId(
+        `${basicProps.testId}-${ComponentClassNames.CheckboxButton}`
+      );
       expect(button).not.toHaveAttribute('data-checked');
       expect(button).not.toHaveAttribute('data-disabled');
       expect(button).toHaveAttribute('data-focus', 'false');
@@ -105,10 +124,11 @@ describe('Checkbox test suite', () => {
     it('should render basic props correctly', async () => {
       render(getCheckbox({ ...basicProps, size: 'large' }));
 
-      const icon = await screen.findByTestId('test-icon');
+      const icon = await screen.findByTestId(
+        `${basicProps.testId}-${ComponentClassNames.CheckboxIcon}`
+      );
       expect(icon).not.toHaveAttribute('data-checked');
       expect(icon).not.toHaveAttribute('data-disabled');
-      expect(icon).not.toHaveAttribute('data-emphasized');
       expect(icon).toHaveAttribute('data-size', 'large');
       expect(icon).toHaveClass(ComponentClassNames.CheckboxIcon);
     });
@@ -118,7 +138,9 @@ describe('Checkbox test suite', () => {
     it('should render basic props correctly', async () => {
       render(getCheckbox({ ...basicProps, size: 'large' }));
 
-      const label = await screen.findByTestId('test-label');
+      const label = await screen.findByTestId(
+        `${basicProps.testId}-${ComponentClassNames.CheckboxLabel}`
+      );
       expect(label).not.toHaveAttribute('data-disabled');
       expect(label).toHaveClass(ComponentClassNames.CheckboxLabel);
     });
