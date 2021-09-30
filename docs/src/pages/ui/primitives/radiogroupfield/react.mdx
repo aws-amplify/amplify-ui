@@ -12,17 +12,21 @@ A RadioGroupField allows users to select a single option from a list of mutually
 
 ## Usage
 
+<Fragment>{() => import('./../shared/requiredAmplifyProvider.mdx')}</Fragment>
+
 Import the Radio, RadioGroupField and styles.
 
 ```jsx
 import { Radio, RadioGroupField } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
-<RadioGroupField label="Language" name="language" defaultValue="html">
-  <Radio value="html">html</Radio>
-  <Radio value="css">css</Radio>
-  <Radio value="javascript">javascript</Radio>
-</RadioGroupField>;
+const MyApp = () => (
+  <RadioGroupField label="Language" name="language" defaultValue="html">
+    <Radio value="html">html</Radio>
+    <Radio value="css">css</Radio>
+    <Radio value="javascript">javascript</Radio>
+  </RadioGroupField>
+);
 ```
 
 <Example>

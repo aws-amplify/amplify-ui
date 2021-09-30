@@ -11,12 +11,14 @@ The `SwitchField` form primitive is a toggleable input type with a checked (on) 
 
 ## Usage
 
+<Fragment>{() => import('./../shared/requiredAmplifyProvider.mdx')}</Fragment>
+
 The most basic usage simply includes a SwitchField component passing in a required label prop.
 
 ```jsx
 import { SwitchField } from '@aws-amplify/ui-react';
 
-<SwitchField label={'This is a switch'} />;
+const MyApp = () => <SwitchField label={'This is a switch'} />;
 ```
 
 <Example>

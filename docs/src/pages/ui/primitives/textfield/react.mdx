@@ -19,17 +19,20 @@ The `TextField` form primitive can be used allow users to input text content.
 
 ## Usage
 
+<Fragment>{() => import('./../shared/requiredAmplifyProvider.mdx')}</Fragment>
+
 Import the `TextField` component and styles and provide a `label` for accessibility/usability.
 
 ```jsx
 import { TextField } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
-
-<TextField
-  label="Name"
-  placeholder="Galadriel"
-  descriptiveText="Please enter valid name"
-/>;
+const MyApp = () => (
+  <TextField
+    label="Name"
+    placeholder="Galadriel"
+    descriptiveText="Please enter valid name"
+  />
+);
 ```
 
 <Example>

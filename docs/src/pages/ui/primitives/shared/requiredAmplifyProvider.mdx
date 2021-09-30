@@ -1,0 +1,11 @@
+You must wrap your application in `<AmplifyProvider/>`. This is required in order to generate unique Id's for this primitive.
+
+```jsx
+import { AmplifyProvider } from '@aws-amplify/ui-react';
+// Step 1: Wrap your APP with `AmplifyProvider`
+const App = (
+  <AmplifyProvider>
+    <MyApp>{/** render primitive here */}</MyApp>
+  </AmplifyProvider>
+);
+```
