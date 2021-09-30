@@ -9,6 +9,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import {
+  AuthenticatorMachineOptions,
   getActorState,
   LoginMechanism,
   translate,
@@ -32,8 +33,8 @@ export class AmplifyAuthenticatorComponent implements OnInit, AfterContentInit {
    * TODO: Add back custom events
    */
 
-  @Input() initialState: AuthState = 'signIn';
-  @Input() loginMechanisms: LoginMechanism[] = ['username'];
+  @Input() initialState: AuthenticatorMachineOptions['initialState'];
+  @Input() loginMechanisms: AuthenticatorMachineOptions['loginMechanisms'];
 
   @ContentChildren(AmplifySlotDirective)
   private customComponentQuery: QueryList<AmplifySlotDirective> = null;
@@ -50,7 +51,9 @@ export class AmplifyAuthenticatorComponent implements OnInit, AfterContentInit {
 
   ngOnInit(): void {
     I18n.putVocabularies(translations);
-    this.stateMachine.startMachine(this.loginMechanisms);
+
+    const { initialState, loginMechanisms } = this;
+    this.stateMachine.startMachine({ initialState, loginMechanisms });
 
     /**
      * handling translations after content init, because authenticator and its

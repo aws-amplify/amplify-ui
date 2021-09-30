@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {
   AuthContext,
+  AuthenticatorMachineOptions,
   AuthEvent,
   AuthInterpreter,
   createAuthenticatorMachine,
@@ -23,8 +24,14 @@ export class StateMachineService {
   private _user: Record<string, any>; // TODO: strongly type CognitoUser
   private _services: ReturnType<typeof getSendEventAliases>;
 
-  public startMachine(loginMechanisms?: LoginMechanism[]) {
-    const machine = createAuthenticatorMachine({ loginMechanisms });
+  public startMachine({
+    initialState,
+    loginMechanisms,
+  }: AuthenticatorMachineOptions) {
+    const machine = createAuthenticatorMachine({
+      initialState,
+      loginMechanisms,
+    });
 
     const authService = interpret(machine, {
       devTools: process.env.NODE_ENV === 'development',
