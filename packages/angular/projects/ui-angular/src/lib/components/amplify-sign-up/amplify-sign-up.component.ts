@@ -80,8 +80,6 @@ export class AmplifySignUpComponent
       secondaryAliases.push('email', 'phone_number');
     }
 
-    console.log(secondaryAliases);
-
     this.primaryAlias = primaryAlias;
     this.secondaryAliases = secondaryAliases;
   }
