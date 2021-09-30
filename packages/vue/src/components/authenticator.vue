@@ -272,7 +272,7 @@ import {
 } from '@aws-amplify/ui';
 import { I18n } from 'aws-amplify';
 
-import { authMachine } from '@aws-amplify/ui';
+import { createAuthenticatorMachine } from '@aws-amplify/ui';
 import { useActor, useInterpret } from '@xstate/vue';
 import useSelect from '../composables/useSelect';
 
@@ -320,11 +320,7 @@ const emit = defineEmits([
   'confirmVerifyUserSubmit',
 ]);
 
-const machine = authMachine.withContext({
-  config: {
-    login_mechanisms: loginMechanisms,
-  },
-});
+const machine = createAuthenticatorMachine({ loginMechanisms });
 
 const service = useInterpret(machine, {
   devTools: process.env.NODE_ENV === 'development',
