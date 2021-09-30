@@ -32,6 +32,7 @@ export const CheckboxField: React.FC<CheckboxFieldProps> = ({
   wrap,
   ...rest
 }) => {
+  const checkboxTestId = useTestId(testId, ComponentClassNames.Checkbox);
   return (
     <Flex
       className={classNames(
@@ -57,7 +58,7 @@ export const CheckboxField: React.FC<CheckboxFieldProps> = ({
         justifyContent={justifyContent}
         name={name}
         onChange={onChange}
-        testId={useTestId(testId, ComponentClassNames.Checkbox)}
+        testId={checkboxTestId}
         size={size}
         value={value}
         wrap={wrap}

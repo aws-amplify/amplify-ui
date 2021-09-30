@@ -43,7 +43,7 @@ module.exports = {
     opacity: { value: '{opacities.0.value}' },
     transform: { value: 'scale(0)' },
     transitionProperty: { value: 'all' },
-    transitionDuration: { value: '{time.transition.medium.value}' },
+    transitionDuration: { value: '{time.transition.short.value}' },
     transitionTimingFunction: { value: 'ease-in-out' },
     _checked: {
       backgroundColor: { value: '{colors.brand.primary.80.value}' },

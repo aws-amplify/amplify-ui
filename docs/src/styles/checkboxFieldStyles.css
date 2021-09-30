@@ -6,3 +6,13 @@
 .custom-data-attribute .amplify-checkbox__icon[data-checked='true'] {
   background-color: var(--amplify-colors-purple-80);
 }
+
+.global-css-variable {
+  --amplify-components-checkbox-icon-checked-background-color: var(
+    --amplify-colors-blue-80
+  );
+}
+
+.amplify-checkboxfield.global-class .amplify-checkbox__icon {
+  background-color: var(--amplify-colors-blue-80);
+}
