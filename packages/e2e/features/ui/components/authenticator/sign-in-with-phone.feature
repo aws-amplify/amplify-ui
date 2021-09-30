@@ -11,7 +11,7 @@ Feature: Sign In with Phone Number
   Background:
     Given I'm running the example "ui/components/authenticator/sign-in-with-phone"
 
-  @angular @react @vue @todo-angular @todo-vue
+  @angular @react @vue @todo-angular
   Scenario: Sign in with unknown credentials
     When I select my country code with status "UNKNOWN"
     And I type my "phone number" with status "UNKNOWN"
@@ -19,7 +19,7 @@ Feature: Sign In with Phone Number
     And I click the "Sign in" button
     Then I see "User does not exist"
 
-  @angular @react @vue @todo-angular @todo-vue
+  @angular @react @vue @todo-angular
   Scenario: Sign in with unconfirmed credentials
     When I select my country code with status "UNCONFIRMED"
     And I type my "phone number" with status "UNCONFIRMED"
@@ -28,7 +28,7 @@ Feature: Sign In with Phone Number
     Then I see "Confirmation Code"
 
 
-  @angular @react @vue @todo-angular @todo-vue
+  @angular @react @vue @todo-angular
   Scenario: Sign in with confirmed credentials
     When I select my country code with status "CONFIRMED"
     And I type my "phone number" with status "CONFIRMED"

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { Amplify } from 'aws-amplify';
 import awsExports from '@environments/auth-with-phone-number/src/aws-exports';
@@ -7,15 +7,8 @@ import awsExports from '@environments/auth-with-phone-number/src/aws-exports';
   selector: 'sign-in-with-phone',
   templateUrl: 'sign-in-with-phone.component.html',
 })
-export class SignInWithPhoneComponent implements OnInit {
+export class SignInWithPhoneComponent {
   constructor() {
-    Amplify.configure({
-      ...awsExports,
-      auth: {
-        login_mechanisms: ['phone_number'],
-      },
-    });
+    Amplify.configure(awsExports);
   }
-
-  ngOnInit() {}
 }

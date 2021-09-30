@@ -1,11 +1,21 @@
 export const SharedText = {
+  CountryCodeSelect: {
+    ariaLabel: 'Country code',
+  },
   ShowPasswordButton: {
     ariaLabel: {
       showPassword: 'Show password',
       hidePassword: 'Hide password',
     },
   },
-  CountryCodeSelect: {
-    ariaLabel: 'Country code',
+  Fields: {
+    ariaLabel: {
+      clearField: 'Clear search',
+    },
+  },
+  SearchField: {
+    ariaLabel: {
+      search: 'Search',
+    },
   },
 };

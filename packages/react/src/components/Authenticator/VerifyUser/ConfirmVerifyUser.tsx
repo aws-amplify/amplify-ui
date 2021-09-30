@@ -1,7 +1,7 @@
 import { getActorState, SignInState } from '@aws-amplify/ui';
 import { I18n } from 'aws-amplify';
 
-import { useAmplify, useAuth } from '../../../hooks';
+import { useAmplify, useAuthenticator } from '../../../hooks';
 import {
   ConfirmationCodeInput,
   RemoteErrorMessage,
@@ -11,10 +11,10 @@ import {
 export const ConfirmVerifyUser = (): JSX.Element => {
   const amplifyNamespace = 'Authenticator.ConfirmVerifyUser';
   const {
-    components: { Flex, FieldGroup, Form, Heading },
+    components: { Flex, Form, Heading },
   } = useAmplify(amplifyNamespace);
 
-  const [_state, send] = useAuth();
+  const [_state, send] = useAuthenticator();
   const actorState: SignInState = getActorState(_state);
   const isPending = actorState.matches('confirmVerifyUser.pending');
 
@@ -41,9 +41,9 @@ export const ConfirmVerifyUser = (): JSX.Element => {
       <Flex direction="column">
         <Heading level={3}>{headerText}</Heading>
 
-        <FieldGroup direction="column" disabled={isPending}>
+        <Flex direction="column">
           <ConfirmationCodeInput amplifyNamespace={amplifyNamespace} />
-        </FieldGroup>
+        </Flex>
 
         <RemoteErrorMessage amplifyNamespace={amplifyNamespace} />
 

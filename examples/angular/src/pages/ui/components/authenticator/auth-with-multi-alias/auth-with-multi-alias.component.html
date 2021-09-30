@@ -1,6 +1,8 @@
-<amplify-authenticator>
+<amplify-authenticator
+  [loginMechanisms]="['username', 'email', 'phone_number']"
+>
   <ng-template
-    amplifyOverride="authenticated"
+    amplifySlot="authenticated"
     let-user="user"
     let-signOut="signOut"
   >

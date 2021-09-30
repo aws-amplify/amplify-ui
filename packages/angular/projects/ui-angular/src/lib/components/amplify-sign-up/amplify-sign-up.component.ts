@@ -1,4 +1,3 @@
-import { Logger } from 'aws-amplify';
 import {
   AfterContentInit,
   Component,
@@ -10,6 +9,7 @@ import {
 } from '@angular/core';
 import { StateMachineService } from '../../services/state-machine.service';
 import { AuthPropService } from '../../services/authenticator-context.service';
+import { isEmpty } from 'lodash';
 import { Subscription } from 'xstate';
 import {
   AuthMachineState,
@@ -41,9 +41,7 @@ export class AmplifySignUpComponent
   private authSubscription: Subscription;
 
   // translated texts
-  public createAccountText = translate('Back to Sign In');
-  public haveAccountText = translate('Have an account? ');
-  public signInText = translate('Sign in');
+  public createAccountText = translate('Create Account');
 
   constructor(
     private stateMachine: StateMachineService,
@@ -71,6 +69,18 @@ export class AmplifySignUpComponent
 
     const context = this.stateMachine.context;
     const { primaryAlias, secondaryAliases } = getConfiguredAliases(context);
+
+    /**
+     * If the login_mechanisms are configured to use ONLY username, we need
+     * to ask for some sort of secondary contact information in order to
+     * verify the user for Cognito. Currently matching this to how Vue is
+     * set up.
+     */
+    if (primaryAlias === 'username' && isEmpty(secondaryAliases)) {
+      secondaryAliases.push('email', 'phone_number');
+    }
+
+    console.log(secondaryAliases);
 
     this.primaryAlias = primaryAlias;
     this.secondaryAliases = secondaryAliases;
@@ -108,9 +118,5 @@ export class AmplifySignUpComponent
       type: 'CHANGE',
       data: { name, value },
     });
-  }
-
-  toSignIn(): void {
-    this.stateMachine.send('SIGN_IN');
   }
 }

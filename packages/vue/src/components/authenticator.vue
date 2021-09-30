@@ -143,14 +143,11 @@
       <template #confirmResetPasswordSlotI>
         <slot name="confirm-reset-password"></slot>
       </template>
-      <template
-        #footer="{ info, onConfirmResetPasswordSubmit, onBackToSignInClicked }"
-      >
+      <template #footer="{ info, onConfirmResetPasswordSubmit }">
         <slot
           name="sign-in-footer"
           :info="info"
           :onConfirmResetPasswordSubmit="onConfirmResetPasswordSubmit"
-          :onBackToSignInClicked="onBackToSignInClicked"
         >
         </slot>
       </template>
@@ -258,15 +255,21 @@
 
   <slot
     v-if="state?.matches('authenticated')"
-    :user="state?.context?.user"
+    :user="user"
     :state="state"
+    :signOut="signOut"
     :send="send"
   ></slot>
 </template>
 
 <script setup lang="ts">
-import { ref, provide, computed, useAttrs, watch } from 'vue';
-import { getActorState } from '@aws-amplify/ui';
+import { ref, provide, computed, useAttrs, watch, onBeforeMount } from 'vue';
+import {
+  getActorState,
+  getServiceFacade,
+  LoginMechanism,
+  translations,
+} from '@aws-amplify/ui';
 import { I18n } from 'aws-amplify';
 
 import { authMachine } from '@aws-amplify/ui';
@@ -291,7 +294,19 @@ import {
   InterpretService,
 } from '../types/index';
 
+onBeforeMount(() => {
+  I18n.putVocabularies(translations);
+});
+
 const attrs = useAttrs();
+
+const { loginMechanisms } = withDefaults(
+  defineProps<{ loginMechanisms?: LoginMechanism[] }>(),
+  {
+    loginMechanisms: () => ['username'],
+  }
+);
+
 const emit = defineEmits([
   'signInSubmit',
   'confirmSignUpSubmit',
@@ -305,14 +320,20 @@ const emit = defineEmits([
   'confirmVerifyUserSubmit',
 ]);
 
-const s = useInterpret(authMachine, {
+const machine = authMachine.withContext({
+  config: {
+    login_mechanisms: loginMechanisms,
+  },
+});
+
+const service = useInterpret(machine, {
   devTools: process.env.NODE_ENV === 'development',
 });
-const service = ref(s);
 const { active } = useSelect;
 
-provide(InterpretServiceInjectionKeyTypes, <InterpretService>service.value);
-const { state, send } = useActor(service.value);
+const { state, send } = useActor(service);
+provide(InterpretServiceInjectionKeyTypes, <InterpretService>service);
+
 const actorState = computed(() => getActorState(state.value));
 
 const signInComponent = ref(null);
@@ -412,6 +433,27 @@ const onConfirmVerifyUserSubmitI = (e: Event) => {
     confirmVerifyUserComponent.value.submit(e);
   }
 };
+
+// watchers
+
+/**
+ * Update service facade when context updates
+ */
+
+const user = ref(null);
+const signOut = ref(null);
+
+watch(
+  () => state.value.context,
+  () => {
+    const { user: u, signOut: s } = getServiceFacade({
+      send,
+      state: state.value,
+    });
+    user.value = u;
+    signOut.value = s;
+  }
+);
 
 /**
  * Toggle sign up and sign in pages when useSelect

@@ -7,8 +7,8 @@ import {
   getAliasInfoFromContext,
 } from '@aws-amplify/ui';
 
-import { useAuth } from '../../../hooks';
 import { PhoneNumberField, TextField } from '../../../primitives';
+import { useAuthenticator } from '../../../hooks';
 
 export interface UserNameAliasProps {
   handleInputChange?(event): void;
@@ -18,7 +18,7 @@ export interface UserNameAliasProps {
 
 export function UserNameAlias(props: UserNameAliasProps) {
   const { handleInputChange, alias, ...attrs } = props;
-  const [_state, send] = useAuth();
+  const [_state, send] = useAuthenticator();
 
   const { country_code }: ActorContextWithForms = getActorContext(_state);
   const { label, type, error } = getAliasInfoFromContext(_state.context, alias);
@@ -37,11 +37,10 @@ export function UserNameAlias(props: UserNameAliasProps) {
   return isPhoneAlias ? (
     <PhoneNumberField
       autoComplete="username"
-      className="phone-number-field"
       countryCodeName="country_code"
       defaultCountryCode={country_code}
       errorMessage={error}
-      label={label}
+      label={i18nLabel}
       labelHidden={true}
       name={alias ?? 'username'}
       onChange={handleInputChange}
@@ -53,7 +52,7 @@ export function UserNameAlias(props: UserNameAliasProps) {
     <TextField
       autoComplete="username"
       errorMessage={error}
-      label={label}
+      label={i18nLabel}
       labelHidden={true}
       name={alias ?? 'username'}
       required

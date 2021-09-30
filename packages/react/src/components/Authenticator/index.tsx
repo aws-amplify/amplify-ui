@@ -1,27 +1,59 @@
-import { authMachine, getActorState } from '@aws-amplify/ui';
-import { useAmplify } from '../../hooks';
+import {
+  authMachine,
+  getActorState,
+  getServiceFacade,
+  LoginMechanism,
+  translations,
+} from '@aws-amplify/ui';
 import { useActor, useInterpret } from '@xstate/react';
-
+import { I18n } from 'aws-amplify';
+import * as React from 'react';
+import { useAmplify } from '../../hooks';
 import { AuthenticatorContext } from './AuthenticatorContext';
 import { ConfirmSignIn } from './ConfirmSignIn';
 import { ConfirmSignUp } from './ConfirmSignUp';
 import { ForceNewPassword } from './ForceNewPassword';
 import { ConfirmResetPassword, ResetPassword } from './ResetPassword';
 import { SetupTOTP } from './SetupTOTP';
+import { SignInSignUpTabs } from './shared';
 import { SignIn } from './SignIn';
 import { SignUp } from './SignUp';
 import { ConfirmVerifyUser, VerifyUser } from './VerifyUser';
-import { SignInSignUpTabs } from './shared';
+
+type AuthenticatorProps = {
+  children: (facade: ReturnType<typeof getServiceFacade>) => JSX.Element;
+  className?: string;
+  initialState?: 'signIn' | 'signUp' | 'resetPassword';
+  loginMechanisms?: LoginMechanism[];
+};
 
 export function Authenticator({
-  className = null,
-  children = (context) => null,
-}) {
+  children = () => null,
+  className = undefined,
+  initialState = undefined,
+  loginMechanisms = undefined,
+}: AuthenticatorProps) {
   const service = useInterpret(authMachine, {
     devTools: process.env.NODE_ENV === 'development',
+    initialState,
+    context: {
+      config: {
+        login_mechanisms: loginMechanisms,
+      },
+    },
   });
 
   const [state, send] = useActor(service);
+
+  React.useEffect(() => {
+    I18n.putVocabularies(translations);
+  }, []);
+
+  const facade = getServiceFacade({ send, state });
+
+  if (state.matches('authenticated')) {
+    return children(facade);
+  }
 
   const {
     components: {
@@ -35,9 +67,6 @@ export function Authenticator({
     },
   } = useAmplify('Authenticator');
 
-  if (state.matches('authenticated')) {
-    return children({ state, send });
-  }
   const actorState = getActorState(state);
 
   return (
@@ -83,7 +112,11 @@ Authenticator.SignUp = SignUp;
 export function withAuthenticator(Component) {
   return function WrappedWithAuthenticator() {
     return (
-      <Authenticator>{(context) => <Component {...context} />}</Authenticator>
+      <Authenticator>
+        {(facade: ReturnType<typeof getServiceFacade>) => (
+          <Component {...facade} />
+        )}
+      </Authenticator>
     );
   };
 }

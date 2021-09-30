@@ -1,5 +1,6 @@
 import { Property } from 'csstype';
 import { FlexStyleProps } from './flex';
+import { GridItemStyleProps, GridContainerStyleProps } from './grid';
 import { ImageStyleProps } from './image';
 
 export interface ResponsiveObject<PropertyType> {
@@ -16,7 +17,7 @@ export type ResponsiveStyle<PropertyType> =
   | PropertyType[]
   | ResponsiveObject<PropertyType>;
 
-export interface BaseStyleProps {
+export interface BaseStyleProps extends GridItemStyleProps {
   alignSelf?: ResponsiveStyle<Property.AlignSelf>;
   backgroundColor?: ResponsiveStyle<Property.BackgroundColor>;
   border?: ResponsiveStyle<Property.Border>;
@@ -36,14 +37,38 @@ export interface BaseStyleProps {
   minWidth?: ResponsiveStyle<Property.MinWidth>;
   opacity?: ResponsiveStyle<Property.Opacity>;
   padding?: ResponsiveStyle<Property.Padding>;
+  textAlign?: ResponsiveStyle<Property.TextAlign>;
   textDecoration?: ResponsiveStyle<Property.TextDecoration>;
   width?: ResponsiveStyle<Property.Width>;
+}
+
+export interface CSSLayoutStyleProps {
+  /**
+   * Controls where the Flex/Grid items sit on the cross axis.
+   */
+  alignItems?: ResponsiveStyle<Property.AlignItems>;
+
+  /**
+   * Sets the distribution of space between and around content items
+   */
+  alignContent?: ResponsiveStyle<Property.AlignContent>;
+
+  /**
+   * Controls where the Flex/Grid items sit on the main axis.
+   */
+  justifyContent?: ResponsiveStyle<Property.JustifyContent>;
+
+  /**
+   * Spacing between child components. Shorthand for rowGap and columnGap.
+   */
+  gap?: ResponsiveStyle<Property.Gap>;
 }
 
 export interface AllStyleProps
   extends BaseStyleProps,
     ImageStyleProps,
-    FlexStyleProps {}
+    FlexStyleProps,
+    GridContainerStyleProps {}
 
 export type ComponentPropToStyleProp = {
   [key in keyof AllStyleProps]: keyof React.CSSProperties;
@@ -58,11 +83,20 @@ export const ComponentPropsToStylePropsMap: ComponentPropToStyleProp = {
   alignContent: 'alignContent',
   alignItems: 'alignItems',
   alignSelf: 'alignSelf',
+  area: 'gridArea',
+  autoColumns: 'gridAutoColumns',
+  autoFlow: 'gridAutoFlow',
+  autoRows: 'gridAutoRows',
   backgroundColor: 'backgroundColor',
   border: 'border',
   borderRadius: 'borderRadius',
   boxShadow: 'boxShadow',
   color: 'color',
+  column: 'gridColumn',
+  columnEnd: 'gridColumnEnd',
+  columnGap: 'columnGap',
+  columnSpan: 'gridColumn', // Will set gridColumn if no `row` prop given
+  columnStart: 'gridColumnStart',
   direction: 'flexDirection',
   fontFamily: 'fontFamily',
   fontSize: 'fontSize',
@@ -81,7 +115,20 @@ export const ComponentPropsToStylePropsMap: ComponentPropToStyleProp = {
   objectPosition: 'objectPosition',
   opacity: 'opacity',
   padding: 'padding',
+  row: 'gridRow',
+  rowEnd: 'gridRowEnd',
+  rowGap: 'rowGap',
+  rowStart: 'gridRowStart',
+  rowSpan: 'gridRow', // Will set gridRow if no `row` prop given
+  templateAreas: 'gridTemplateAreas',
+  templateColumns: 'gridTemplateColumns',
+  templateRows: 'gridTemplateRows',
+  textAlign: 'textAlign',
   textDecoration: 'textDecoration',
   width: 'width',
   wrap: 'flexWrap',
 };
+
+export const ComponentPropsToStylePropsMapKeys = Object.keys(
+  ComponentPropsToStylePropsMap
+) as Array<keyof ComponentPropToStyleProp>;

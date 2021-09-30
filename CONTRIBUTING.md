@@ -28,10 +28,27 @@ Internally, this content is served by a single, Next.js [optional catch all rout
 
 - `yarn react build` to rebuild for production.
 - `yarn react dev` to watch & rebuild for development.
+- `yarn next-example dev` to run React examples on Next.js.
 
-## Next Examples Development
+## `@aws-amplify/ui-vue`
 
-1. Create or Update an example at [`examples/...`](examples)
+- `yarn vue build` to rebuild for production
+- `yarn vue dev` to watch & rebuild for development.
+- `yarn vue-example dev` to run Vue examples on Vite.
+
+## `@aws-amplify/ui-angular`
+
+- `yarn angular build` to rebuild for production
+- `yarn angular dev` to watch & rebuild for development
+- `yarn angular-example dev` to run Angular examples.
+
+### Angular Troubleshooting
+
+Whenever `yarn angular build` is run, such as part of postinstall script, you want to run `yarn angular dev` again. This is to ensure that both `yarn angular` and `yarn angular-example` have [ivy](https://angular.io/guide/ivy) enabled for local development.
+
+## Examples Development
+
+1. Create or Update an example at [`examples/{next,vue,angular}/...`](examples)
 
    For your `aws-exports.js`, you can [reference an existing or create a new environment](environments).
 
@@ -48,10 +65,11 @@ Internally, this content is served by a single, Next.js [optional catch all rout
    }
    ```
 
+1. Run your example: `yarn {next,vue,angular}-example dev`
 1. Visit your example (e.g. <http://localhost:3000/ui/components/authenticator/sign-up-with-username>)
-1. Make changes to [`@aws-amplify/ui-react`](packages/react) & save.
+1. Make changes to [`@aws-amplify/ui-{react,vue,angular}`](packages) & save.
 
-   Next.js should automatically hot-reload your changes in the example.
+   Examples should automatically hot-reload your changes in the example.
 
 ### E2E Testing
 
@@ -106,17 +124,6 @@ Internally, this content is served by a single, Next.js [optional catch all rout
      - `@todo-vue` for `@aws-amplify/ui-vue`
 
      This will ensure automated documentation marks these as _upcoming_ features, will skip these on PRs, but **will error on `main` until completed**.
-
-#### Vue Development
-
-1. `yarn dev:vue`
-1. Visit <http://localhost:3001/>
-
-#### Angular Development
-
-1. `yarn build:angular`, or `yarn build:angular:watch` for live development
-1. `yarn dev:angular`.
-1. Visit <http://localhost:4200/>
 
 ## Updating Icons
 

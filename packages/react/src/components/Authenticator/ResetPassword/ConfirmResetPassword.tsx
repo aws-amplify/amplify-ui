@@ -1,7 +1,7 @@
 import { I18n } from 'aws-amplify';
 import { getActorState, ResetPasswordState } from '@aws-amplify/ui';
 
-import { useAmplify, useAuth } from '../../../hooks';
+import { useAmplify, useAuthenticator } from '../../../hooks';
 import {
   ConfirmationCodeInput,
   RemoteErrorMessage,
@@ -11,10 +11,10 @@ import {
 export const ConfirmResetPassword = (): JSX.Element => {
   const amplifyNamespace = 'Authenticator.ConfirmResetPassword';
   const {
-    components: { FieldGroup, Flex, Form, Heading, PasswordField },
+    components: { Flex, Form, Heading, PasswordField },
   } = useAmplify(amplifyNamespace);
 
-  const [_state, send] = useAuth();
+  const [_state, send] = useAuthenticator();
   const actorState = getActorState(_state) as ResetPasswordState;
   const isPending = actorState.matches('confirmResetPassword.pending');
 
@@ -49,7 +49,7 @@ export const ConfirmResetPassword = (): JSX.Element => {
       <Flex direction="column">
         <Heading level={3}>{headerText}</Heading>
 
-        <FieldGroup direction="column" disabled={isPending}>
+        <Flex direction="column">
           <ConfirmationCodeInput amplifyNamespace={amplifyNamespace} />
 
           <PasswordField
@@ -61,7 +61,7 @@ export const ConfirmResetPassword = (): JSX.Element => {
             label={passwordText}
             labelHidden={true}
           />
-        </FieldGroup>
+        </Flex>
 
         <RemoteErrorMessage amplifyNamespace={amplifyNamespace} />
         <TwoButtonSubmitFooter
