@@ -300,8 +300,8 @@ const attrs = useAttrs();
 
 const { initialState, loginMechanisms } = withDefaults(
   defineProps<{
-    initialState: AuthenticatorMachineOptions['initialState'];
-    loginMechanisms: AuthenticatorMachineOptions['loginMechanisms'];
+    initialState?: AuthenticatorMachineOptions['initialState'];
+    loginMechanisms?: AuthenticatorMachineOptions['loginMechanisms'];
   }>(),
   {
     loginMechanisms: () => ['username'],
