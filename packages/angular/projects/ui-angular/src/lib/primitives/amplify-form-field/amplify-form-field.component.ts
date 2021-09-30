@@ -39,6 +39,7 @@ export class AmplifyFormFieldComponent implements OnInit {
   constructor(private stateMachine: StateMachineService) {}
 
   ngOnInit(): void {
+    // TODO: field primtiives should have generate these by default.
     this.textFieldId = `amplify-field-${nanoid(12)}`;
     this.selectFieldId = `amplify-field-${nanoid(12)}`;
 

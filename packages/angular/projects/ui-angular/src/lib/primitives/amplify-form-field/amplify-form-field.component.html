@@ -1,13 +1,19 @@
-<div class="amplify-flex" style="flex-direction: column">
+<div class="amplify-flex" style="flex-direction: column; gap: 0">
   <!-- Country code field -->
-  <amplify-form-select
+  <amplify-phone-number-field
     *ngIf="isTelInput()"
-    name="country_code"
-    label="Country Code"
-    [id]="selectFieldId"
-    [items]="countryDialCodes"
-    [initialValue]="defaultCountryCode"
-  ></amplify-form-select>
+    [selectFieldId]="selectFieldId"
+    [defaultCountryCode]="defaultCountryCode"
+    [textFieldId]="textFieldId"
+    [type]="inferType()"
+    [name]="name"
+    [label]="inferLabel()"
+    [placeholder]="inferPlaceholder()"
+    [required]="required"
+    [initialValue]="initialValue"
+    [disabled]="disabled"
+    [autocomplete]="autocomplete"
+  ></amplify-phone-number-field>
 
   <amplify-password-field
     *ngIf="isPasswordField()"
@@ -22,7 +28,7 @@
   ></amplify-password-field>
 
   <amplify-text-field
-    *ngIf="!isPasswordField()"
+    *ngIf="!isPasswordField() && !isTelInput()"
     [id]="textFieldId"
     [type]="inferType()"
     [name]="name"
@@ -30,7 +36,7 @@
     [placeholder]="inferPlaceholder()"
     [required]="required"
     [value]="initialValue"
-    [attr.disabled]="disabled ? '' : null"
+    [disabled]="disabled"
     [autocomplete]="autocomplete"
   ></amplify-text-field>
 
