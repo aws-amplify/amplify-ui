@@ -1,5 +1,6 @@
-import dynamic from 'next/dynamic';
+import dynamic, { LoaderComponent } from 'next/dynamic';
 import { useRouter } from 'next/router';
+import { isArray } from 'lodash';
 import * as React from 'react';
 
 /* This example requires Tailwind CSS v2.0+ */
@@ -19,12 +20,41 @@ const placeholders =
       </div>
     ));
 
-export const Fragment = ({ children }) => {
+export interface FragmentProps {
+  /**
+   * Whitelist of accepted platforms. If the current platform is not in this
+   * list, then the fragment will not render.
+   * */
+  platforms?: string[];
+  children: ({ platform: string }) => LoaderComponent;
+}
+
+const shouldRenderFragment = (
+  whitelist: string[],
+  platform: string | string[]
+): boolean => {
+  if (isArray(platform)) {
+    console.error('ERROR - Only one platform should be selected.');
+    return true;
+  }
+  if (!whitelist) {
+    // if whitelist is not provided, we assume we render all requested fragment
+    return true;
+  } else {
+    // if whitelist is provided, then we render only if it's whitelisted
+    return whitelist.includes(platform);
+  }
+};
+
+export const Fragment = ({ children, platforms }: FragmentProps) => {
   const { query } = useRouter();
   const { platform = 'react' } = query;
   const Component = React.useMemo(() => {
     return dynamic(() => children({ platform }), {
       loading({ error, isLoading }) {
+        if (!shouldRenderFragment(platforms, platform)) {
+          return null;
+        }
         if (error) {
           return (
             <div className="p-4 rounded-md bg-yellow-50">
