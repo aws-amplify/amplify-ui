@@ -7,7 +7,7 @@ import { ComponentClassNames } from '../shared/constants';
 export const ScrollView: React.FC<ScrollViewProps> = ({
   children,
   className,
-  orientation = 'both',
+  orientation,
   ...rest
 }) => (
   <View
