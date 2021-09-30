@@ -223,7 +223,11 @@ export const signUpActor = createMachine<SignUpContext, AuthEvent>(
         const result = await Auth.signUp({
           username,
           password,
-          attributes: formValues,
+          attributes: {
+            // Default `preferred_username`, since Amplify Admin UI & CLI creates backends with this property
+            preferred_username: username,
+            ...formValues,
+          },
         });
 
         // TODO `cond`itionally transition to `signUp.confirm` or `resolved` based on result
