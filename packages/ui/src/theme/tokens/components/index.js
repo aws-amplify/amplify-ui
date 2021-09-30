@@ -3,6 +3,8 @@ module.exports = {
   badge: require('./badge'),
   button: require('./button'),
   card: require('./card'),
+  checkbox: require('./checkbox'),
+  checkboxfield: require('./checkboxField'),
   divider: require('./divider'),
   field: require('./field'),
   fieldcontrol: require('./fieldControl'),
