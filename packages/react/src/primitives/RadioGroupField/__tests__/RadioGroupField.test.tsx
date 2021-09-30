@@ -10,6 +10,7 @@ import {
   testFlexProps,
   expectFlexStyleProps,
 } from '../../Flex/__tests__/Flex.test';
+import { AUTO_GENERATED_ID_PREFIX } from '../../shared/utils';
 
 describe('RadioFieldGroup test suite', () => {
   const basicProps = { label: 'test', name: 'test', testId: 'test' };
@@ -84,6 +85,11 @@ describe('RadioFieldGroup test suite', () => {
       )) as HTMLLabelElement;
       const radioGroup = await screen.findByRole('radiogroup');
       expect(radioGroup).toHaveAttribute('aria-labelledby', labelElelment.id);
+      expect(
+        radioGroup
+          .getAttribute('aria-labelledby')
+          .startsWith(AUTO_GENERATED_ID_PREFIX)
+      ).toBe(true);
     });
 
     it('should have `sr-only` class when labelHidden is true', async () => {

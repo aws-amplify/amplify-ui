@@ -8,7 +8,7 @@ import { View } from '../View';
 import { Flex } from '../Flex';
 import { VisuallyHidden } from '../VisuallyHidden';
 import { ComponentClassNames } from '../shared/constants';
-import { useAmplifyFieldID } from '../shared/utils';
+import { useAmplifyID } from '../shared/utils';
 import { SwitchFieldProps } from '../types';
 import classNames from 'classnames';
 
@@ -37,7 +37,7 @@ export const SwitchField: React.FC<SwitchFieldProps> = ({
     isDisabled,
   });
 
-  const fieldId = useAmplifyFieldID(id);
+  const fieldId = useAmplifyID(id);
   const LabelType = isLabelHidden ? VisuallyHidden : View;
 
   return (
