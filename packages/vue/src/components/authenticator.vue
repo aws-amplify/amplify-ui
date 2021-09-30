@@ -299,7 +299,10 @@ onBeforeMount(() => {
 const attrs = useAttrs();
 
 const { initialState, loginMechanisms } = withDefaults(
-  defineProps<AuthenticatorMachineOptions>(),
+  defineProps<{
+    initialState: AuthenticatorMachineOptions['initialState'];
+    loginMechanisms: AuthenticatorMachineOptions['loginMechanisms'];
+  }>(),
   {
     loginMechanisms: () => ['username'],
   }
