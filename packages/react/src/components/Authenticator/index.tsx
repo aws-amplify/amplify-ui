@@ -1,11 +1,11 @@
 import {
-  authMachine,
+  AuthenticatorMachineOptions,
+  createAuthenticatorMachine,
   getActorState,
   getServiceFacade,
-  LoginMechanism,
   translations,
 } from '@aws-amplify/ui';
-import { useActor, useInterpret } from '@xstate/react';
+import { useMachine } from '@xstate/react';
 import { I18n } from 'aws-amplify';
 import * as React from 'react';
 import { useAmplify } from '../../hooks';
@@ -20,11 +20,9 @@ import { SignIn } from './SignIn';
 import { SignUp } from './SignUp';
 import { ConfirmVerifyUser, VerifyUser } from './VerifyUser';
 
-type AuthenticatorProps = {
+type AuthenticatorProps = AuthenticatorMachineOptions & {
   children: (facade: ReturnType<typeof getServiceFacade>) => JSX.Element;
   className?: string;
-  initialState?: 'signIn' | 'signUp' | 'resetPassword';
-  loginMechanisms?: LoginMechanism[];
 };
 
 export function Authenticator({
@@ -33,17 +31,12 @@ export function Authenticator({
   initialState = undefined,
   loginMechanisms = undefined,
 }: AuthenticatorProps) {
-  const service = useInterpret(authMachine, {
-    devTools: process.env.NODE_ENV === 'development',
-    initialState,
-    context: {
-      config: {
-        login_mechanisms: loginMechanisms,
-      },
-    },
-  });
-
-  const [state, send] = useActor(service);
+  const [state, send, service] = useMachine(
+    () => createAuthenticatorMachine({ initialState, loginMechanisms }),
+    {
+      devTools: process.env.NODE_ENV === 'development',
+    }
+  );
 
   React.useEffect(() => {
     I18n.putVocabularies(translations);
@@ -74,7 +67,7 @@ export function Authenticator({
       <Wrapper className={className} data-amplify-authenticator="">
         {(() => {
           switch (true) {
-            case state.matches('idle'):
+            case state.matches('authenticate'):
               return null;
             case actorState?.matches('confirmSignUp'):
               return <ConfirmSignUp />;
