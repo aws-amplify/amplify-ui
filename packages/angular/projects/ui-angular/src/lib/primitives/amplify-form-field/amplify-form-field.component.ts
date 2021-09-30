@@ -44,7 +44,7 @@ export class AmplifyFormFieldComponent implements OnInit {
     this.selectFieldId = `amplify-field-${nanoid(12)}`;
 
     // TODO: consider better default handling mechanisms across frameworks
-    if (this.isTelInput()) {
+    if (this.isPhoneField()) {
       const state = this.stateMachine.authState;
       const { country_code }: ActorContextWithForms = getActorContext(state);
       this.defaultCountryCode = country_code;
