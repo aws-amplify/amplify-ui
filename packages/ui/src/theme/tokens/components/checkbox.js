@@ -39,6 +39,7 @@ module.exports = {
     },
   },
   icon: {
+    backgroundColor: { value: '{colors.brand.primary.80.value}' },
     borderRadius: { value: '20%' },
     opacity: { value: '{opacities.0.value}' },
     transform: { value: 'scale(0)' },
@@ -46,7 +47,6 @@ module.exports = {
     transitionDuration: { value: '{time.transition.short.value}' },
     transitionTimingFunction: { value: 'ease-in-out' },
     _checked: {
-      backgroundColor: { value: '{colors.brand.primary.80.value}' },
       opacity: { value: '{opacities.100.value}' },
       transform: { value: 'scale(1)' },
       _disabled: {

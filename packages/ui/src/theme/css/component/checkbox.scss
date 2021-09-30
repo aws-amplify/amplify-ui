@@ -71,6 +71,7 @@
 }
 
 .amplify-checkbox__icon {
+  background-color: var(--amplify-components-checkbox-icon-background-color);
   opacity: var(--amplify-components-checkbox-icon-opacity);
   transform: var(--amplify-components-checkbox-icon-transform);
   border-radius: var(--amplify-components-checkbox-icon-border-radius);
@@ -85,9 +86,6 @@
   );
 
   &[data-checked='true'] {
-    background-color: var(
-      --amplify-components-checkbox-icon-checked-background-color
-    );
     opacity: var(--amplify-components-checkbox-icon-checked-opacity);
     transform: var(--amplify-components-checkbox-icon-checked-transform);
 
