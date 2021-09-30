@@ -3,7 +3,6 @@ import { kebabCase } from 'lodash';
 
 import { Collection } from '../Collection';
 import { ComponentPropsToStylePropsMap } from '../../types';
-import { ComponentClassNames } from '../../shared';
 
 const emojis = [
   {
@@ -40,6 +39,16 @@ describe('Collection component', () => {
       )
     ).toBe('column');
     expect(collection.children[0].getAttribute('aria-label')).toBe('LOL');
+  });
+
+  it('should not throw when items is not an array', () => {
+    expect(() =>
+      render(
+        <Collection type="list" testId={testList} items={null}>
+          {(item, index) => <div />}
+        </Collection>
+      )
+    ).not.toThrowError(TypeError);
   });
 
   it('can apply a custom className', async () => {
