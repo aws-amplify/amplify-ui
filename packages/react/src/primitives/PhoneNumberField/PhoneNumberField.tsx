@@ -15,14 +15,14 @@ export const PhoneNumberField: React.FC<PhoneNumberFieldProps> = ({
   isDisabled,
   onCountryCodeChange,
   onInput,
-  size,
+  size = 'small',
   type,
   variation,
   ...rest
 }) => {
   return (
     <TextField
-      inputStartComponents={
+      outerStartComponent={
         <CountryCodeSelect
           defaultValue={defaultCountryCode}
           isDisabled={isDisabled}
