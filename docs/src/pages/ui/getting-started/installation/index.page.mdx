@@ -18,5 +18,5 @@ Amplify UI ships with a default [theme](/ui/theme) that you can customize to mat
 <Fragment>{({ platform }) => import(`./styles.${platform}.mdx`)}</Fragment>
 
 <Fragment platforms={['angular']}>
-  {({ platform }) => import(`./troubleshooting.${platform}.mdx`)}
+  {() => import(`./troubleshooting.angular.mdx`)}
 </Fragment>
