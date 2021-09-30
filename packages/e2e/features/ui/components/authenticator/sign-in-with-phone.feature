@@ -36,6 +36,7 @@ Feature: Sign In with Phone Number
 
   # FORCE_CHANGE_PASSWORD tests are skipped as the temporary passwords used for these
   # test accounts will expire in Cognito.
+  @angular @react @vue @skip
   Scenario: Sign in with force change password credentials
     When I select my country code with status "FORCE_CHANGE_PASSWORD"
     And I type my "phone number" with status "FORCE_CHANGE_PASSWORD"
