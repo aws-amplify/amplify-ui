@@ -25,6 +25,7 @@ export class TabsComponent implements AfterContentInit {
     });
 
     // find active tab
+    // TODO(enhancement): more declarative way for choosing the initial tab to render
     const activeTabs = this.tabs.filter((tab) => tab.active);
 
     // set active tab
