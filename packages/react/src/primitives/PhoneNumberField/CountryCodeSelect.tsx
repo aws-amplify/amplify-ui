@@ -13,7 +13,7 @@ export const CountryCodeSelect: React.FC<CountryCodeSelectProps> = (props) => {
           {dialCode}
         </option>
       )),
-    countryDialCodes
+    [countryDialCodes]
   );
 
   return (
