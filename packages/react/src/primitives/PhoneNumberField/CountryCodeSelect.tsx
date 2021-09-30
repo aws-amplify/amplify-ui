@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { countryDialCodes } from '@aws-amplify/ui';
 
 import { SelectField } from '../SelectField';
+import { ComponentClassNames } from '../shared/constants';
 import { CountryCodeSelectProps } from '../types';
 
 export const CountryCodeSelect: React.FC<CountryCodeSelectProps> = (props) => {
@@ -16,7 +17,12 @@ export const CountryCodeSelect: React.FC<CountryCodeSelectProps> = (props) => {
   );
 
   return (
-    <SelectField autoComplete="tel-country-code" labelHidden={true} {...props}>
+    <SelectField
+      autoComplete="tel-country-code"
+      className={ComponentClassNames.CountryCodeSelect}
+      labelHidden={true}
+      {...props}
+    >
       {countryCodeOptions}
     </SelectField>
   );

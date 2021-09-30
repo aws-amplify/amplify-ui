@@ -1,0 +1,13 @@
+.amplify-countrycodeselect {
+  // default styles
+  min-width: var(--amplify-components-phonenumberfield-min-width);
+  white-space: var(--amplify-components-phonenumberfield-white-space);
+  &[data-size='small'] {
+    min-width: var(--amplify-components-phonenumberfield-small-min-width);
+    white-space: var(--amplify-components-phonenumberfield-white-space);
+  }
+  &[data-size='large'] {
+    min-width: var(--amplify-components-phonenumberfield-large-min-width);
+    white-space: var(--amplify-components-phonenumberfield-white-space);
+  }
+}

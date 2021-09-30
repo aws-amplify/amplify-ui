@@ -4,6 +4,7 @@ export enum ComponentClassNames {
   Badge = 'amplify-badge',
   Button = 'amplify-button',
   Card = 'amplify-card',
+  CountryCodeSelect = 'amplify-countrycodeselect',
   Divider = 'amplify-divider',
   Field = 'amplify-field',
   FieldDescription = 'amplify-field__description',
