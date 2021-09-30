@@ -9,7 +9,7 @@ I18n.setLanguage('ja');
 Amplify.configure(aws_exports);
 </script>
 <template>
-  <authenticator>
+  <authenticator :initial-state="signUp">
     <template v-slot="{ user, send }">
       <h1 class="mb-10 text-6xl">Hello {{ user.username }}!</h1>
       <button
