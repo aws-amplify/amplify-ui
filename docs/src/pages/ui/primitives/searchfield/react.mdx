@@ -13,15 +13,13 @@ clear button. When users hit `Enter` key or click the search icon, the `onSubmit
 
 ## Usage
 
-<Fragment>{() => import('./../shared/requiredAmplifyProvider.mdx')}</Fragment>
-
 Import the `SearchField` component and styles and provide a `label` for accessibility/usability.
 
 ```jsx
 import { SearchField } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
-const MyApp = () => <SearchField id="search" label="search" />;
+<SearchField id="search" label="search" />;
 ```
 
 <Example>

@@ -14,25 +14,21 @@ A SelectField component allows you to create a drop-down list. The `<option>` ta
 
 ## Usage
 
-<Fragment>{() => import('./../shared/requiredAmplifyProvider.mdx')}</Fragment>
-
 Import the SelectField primitive and styles.
 
 ```jsx
 import { SelectField } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
-const MyApp = () => (
-  <SelectField
-    label="Fruit"
-    labelHidden={true}
-    placeholder="Please select a fruit"
-  >
-    <option value="apple">Apple</option>
-    <option value="banana">Banana</option>
-    <option value="orange">Orange</option>
-  </SelectField>
-);
+<SelectField
+  label="Fruit"
+  labelHidden={true}
+  placeholder="Please select a fruit"
+>
+  <option value="apple">Apple</option>
+  <option value="banana">Banana</option>
+  <option value="orange">Orange</option>
+</SelectField>;
 ```
 
 <Example>

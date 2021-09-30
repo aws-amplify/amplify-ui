@@ -25,15 +25,13 @@ The PasswordField primitive allows users to input passwords. It also features fu
 
 ## Usage
 
-<Fragment>{() => import('./../shared/requiredAmplifyProvider.mdx')}</Fragment>
-
 Import the `PasswordField` component and styles and provide a `label` for accessibility/usability.
 
 ```jsx
 import { PasswordField } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
-const MyApp = () => <PasswordField label="Password" name="password" />;
+<PasswordField label="Password" name="password" />;
 ```
 
 <Example>

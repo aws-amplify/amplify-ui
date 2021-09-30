@@ -8,7 +8,6 @@ import {
 } from '@aws-amplify/ui-react';
 import { TabsDemo, ControlledTabExample, DemoTabPanel } from './demo';
 import { Example } from '@/components/Example';
-import { Fragment } from '@/components/Fragment';
 
 Tabs organize content into multiple sections and allow users to navigate between them. The content under the set of Tabs should be related and form a coherent unit.
 
@@ -18,20 +17,16 @@ Tabs organize content into multiple sections and allow users to navigate between
 
 ## Usage
 
-<Fragment>{() => import('./../shared/requiredAmplifyProvider.mdx')}</Fragment>
-
 Import the `Tabs` and `TabItem` components and styles.
 
 ```jsx
 import { Tabs, TabItem } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
-const MyApp = () => (
-  <Tabs>
-    <TabItem title="Tab 1">Tab 1 Content</TabItem>
-    <TabItem title="Tab 2">Tab 2 Content</TabItem>
-  </Tabs>
-);
+<Tabs>
+  <TabItem title="Tab 1">Tab 1 Content</TabItem>
+  <TabItem title="Tab 2">Tab 2 Content</TabItem>
+</Tabs>;
 ```
 
 <Example>
