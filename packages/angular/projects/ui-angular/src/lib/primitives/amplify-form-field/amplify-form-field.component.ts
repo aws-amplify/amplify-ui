@@ -69,10 +69,6 @@ export class AmplifyFormFieldComponent implements OnInit {
     return validationError[this.name];
   }
 
-  isTelInput(): boolean {
-    return this.inferType() === 'tel';
-  }
-
   inferLabel(): string {
     const label = this.label || this.attributeMap[this.name]?.label;
     return translate<string>(label);
@@ -91,7 +87,12 @@ export class AmplifyFormFieldComponent implements OnInit {
     return this.type ?? this.attributeMap[this.name]?.type ?? 'text';
   }
 
+  // TODO(enhancement): use enum to differentiate special field types
   isPasswordField(): boolean {
     return this.inferType() === 'password';
+  }
+
+  isPhoneField(): boolean {
+    return this.inferType() === 'tel';
   }
 }

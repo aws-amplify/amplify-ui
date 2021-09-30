@@ -1,7 +1,7 @@
 <div class="amplify-flex" style="flex-direction: column; gap: 0">
   <!-- Country code field -->
   <amplify-phone-number-field
-    *ngIf="isTelInput()"
+    *ngIf="isPhoneField()"
     [selectFieldId]="selectFieldId"
     [defaultCountryCode]="defaultCountryCode"
     [textFieldId]="textFieldId"
@@ -28,7 +28,7 @@
   ></amplify-password-field>
 
   <amplify-text-field
-    *ngIf="!isPasswordField() && !isTelInput()"
+    *ngIf="!isPasswordField() && !isPhoneField()"
     [id]="textFieldId"
     [type]="inferType()"
     [name]="name"
