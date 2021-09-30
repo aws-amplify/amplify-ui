@@ -12,7 +12,7 @@ export const Collection = <CollectionItemType,>({
 }: CollectionProps<CollectionItemType>): JSX.Element => {
   return (
     <Flex direction={direction} className={className} {...rest}>
-      {items.map(children)}
+      {Array.isArray(items) && items.map(children)}
     </Flex>
   );
 };
