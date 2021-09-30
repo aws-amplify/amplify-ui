@@ -3,7 +3,7 @@ import {
   AuthContext,
   AuthEvent,
   AuthInterpreter,
-  authMachine,
+  createAuthenticatorMachine,
   AuthMachineState,
   getSendEventAliases,
   LoginMechanism,
@@ -24,11 +24,7 @@ export class StateMachineService {
   private _services: ReturnType<typeof getSendEventAliases>;
 
   public startMachine(loginMechanisms?: LoginMechanism[]) {
-    const machine = authMachine.withContext({
-      config: {
-        login_mechanisms: loginMechanisms,
-      },
-    });
+    const machine = createAuthenticatorMachine({ loginMechanisms });
 
     const authService = interpret(machine, {
       devTools: process.env.NODE_ENV === 'development',
