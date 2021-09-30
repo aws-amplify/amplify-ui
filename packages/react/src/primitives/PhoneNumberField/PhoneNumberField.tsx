@@ -15,7 +15,7 @@ export const PhoneNumberField: React.FC<PhoneNumberFieldProps> = ({
   isDisabled,
   onCountryCodeChange,
   onInput,
-  size = 'small',
+  size,
   type,
   variation,
   ...rest
