@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
 
+import { isFunction } from '../shared/utils';
 import { ToggleButtonProps, ToggleButtonGroupProps } from '../types';
 export const useToggleButtonGroup = (
   onChange: ToggleButtonGroupProps['onChange'],
@@ -9,7 +10,7 @@ export const useToggleButtonGroup = (
   // Multiple selection
   const handleChange: ToggleButtonProps['onChange'] = useCallback(
     (buttonValue) => {
-      if (!onChange || !Array.isArray(value)) {
+      if (!isFunction(onChange) || !Array.isArray(value)) {
         return;
       }
 

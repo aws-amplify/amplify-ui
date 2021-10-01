@@ -208,13 +208,17 @@ To override styling on all ToggleButtons, you can set the Amplify CSS variables 
 ```css
 /* styles.css */
 :root {
-  --amplify-components-togglebutton-color: var(--amplify-colors-blue-80);
+  --amplify-components-togglebutton-color: var(--amplify-colors-purple-60);
 }
 /* OR */
 .amplify-togglebutton {
-  color: var(--amplify-colors-blue-80);
+  color: var(--amplify-colors-purple-60);
 }
 ```
+
+<Example>
+  <ToggleButton className="my-togglebutton-global">{'Press me!'}</ToggleButton>
+</Example>
 
 To replace the ToggleButton styling, unset it:
 
@@ -234,7 +238,7 @@ _Using a class selector:_
 ```css
 /* styles.css */
 .my-togglebutton {
-  color: var(--amplify-colors-blue-80);
+  border-radius: 20px;
 }
 ```
 
@@ -248,9 +252,15 @@ _Using data attributes:_
 /* styles.css */
 /* Override primary variation styles */
 .amplify-togglebutton[data-variation='primary'] {
-  color: var(--amplify-colors-blue-80);
+  color: var(--amplify-colors-blue-60);
 }
 ```
+
+<Example>
+  <ToggleButton className="my-togglebutton-data-attribute" variation="primary">
+    {'Press me!'}
+  </ToggleButton>
+</Example>
 
 _Using style props:_
 

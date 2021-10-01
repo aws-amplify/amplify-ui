@@ -1,6 +1,10 @@
 import React from 'react';
 
-import { ToggleButtonProps, SelectField } from '@aws-amplify/ui-react';
+import {
+  CheckboxField,
+  ToggleButtonProps,
+  SelectField,
+} from '@aws-amplify/ui-react';
 import { FieldLabeler } from './FieldLabeler';
 import { DemoBox } from './DemoBox';
 
@@ -51,13 +55,14 @@ export const ToggleButtonPropControls: ToggleButtonPropControlsInterface = ({
         <option value="medium">medium</option>
         <option value="large">large</option>
       </SelectField>
-      <FieldLabeler id="isDisabled">
-        <input
-          type="checkbox"
-          checked={isDisabled}
-          onChange={(event) => setIsDisabled(event.target.checked)}
-        />
-      </FieldLabeler>
+      <CheckboxField
+        name="isDisabled"
+        value="yes"
+        checked={isDisabled}
+        onChange={(event) => setIsDisabled(event.target.checked)}
+      >
+        isDisabled
+      </CheckboxField>
     </DemoBox>
   );
 };

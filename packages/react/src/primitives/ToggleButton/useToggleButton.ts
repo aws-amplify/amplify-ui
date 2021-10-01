@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import { isFunction } from '../shared/utils';
 import { ToggleButtonProps } from '../types';
 
 export const useToggleButton = ({
@@ -15,7 +16,7 @@ export const useToggleButton = ({
   isPressed = isControlled ? isPressed : pressed;
   const handleClick = React.useCallback(
     (event: React.MouseEvent<HTMLButtonElement>) => {
-      if (onClick) {
+      if (isFunction(onClick)) {
         onClick(event);
       }
 
@@ -23,7 +24,7 @@ export const useToggleButton = ({
         setPressed(!pressed);
       }
 
-      if (isControlled && onChange) {
+      if (isControlled && isFunction(onChange)) {
         onChange(value);
       }
     },

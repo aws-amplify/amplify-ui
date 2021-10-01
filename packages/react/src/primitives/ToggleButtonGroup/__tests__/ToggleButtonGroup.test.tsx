@@ -6,7 +6,7 @@ import { ComponentClassNames } from '../../shared';
 import { ToggleButton } from '../../ToggleButton';
 import { ToggleButtonGroup } from '../ToggleButtonGroup';
 
-describe('ToggleButtonGroup test suite', () => {
+describe('ToggleButtonGroup: ', () => {
   const MultipleSelectionGroup = () => {
     const [value, setValue] = React.useState(['test-button-1']);
     return (
@@ -29,8 +29,8 @@ describe('ToggleButtonGroup test suite', () => {
         value={value}
         isExclusive
       >
-        <ToggleButton value="test-button-2" />
         <ToggleButton value="test-button-1" />
+        <ToggleButton value="test-button-2" />
         <ToggleButton value="test-button-3" />
       </ToggleButtonGroup>
     );
