@@ -22,7 +22,7 @@ const placeholders =
 
 export interface FragmentProps {
   /**
-   * Whitelist of accepted platforms. If the current platform is not in this
+   * Allowlist of accepted platforms. If the current platform is not in this
    * list, then the fragment will not render.
    * */
   platforms?: string[];
@@ -30,19 +30,19 @@ export interface FragmentProps {
 }
 
 const shouldRenderFragment = (
-  whitelist: string[],
+  allowlist: string[],
   platform: string | string[]
 ): boolean => {
   if (isArray(platform)) {
     console.error('ERROR - Only one platform should be selected.');
     return true;
   }
-  if (!whitelist) {
-    // if whitelist is not provided, we assume we render all requested fragment
+  if (!allowlist) {
+    // if allowlist is not provided, we assume we render all requested fragment
     return true;
   } else {
-    // if whitelist is provided, then we render only if it's whitelisted
-    return whitelist.includes(platform);
+    // if allowlist is provided, then we render only if it's allowlisted
+    return allowlist.includes(platform);
   }
 };
 
@@ -50,11 +50,12 @@ export const Fragment = ({ children, platforms }: FragmentProps) => {
   const { query } = useRouter();
   const { platform = 'react' } = query;
   const Component = React.useMemo(() => {
+    if (!shouldRenderFragment(platforms, platform)) {
+      return null;
+    }
+
     return dynamic(() => children({ platform }), {
       loading({ error, isLoading }) {
-        if (!shouldRenderFragment(platforms, platform)) {
-          return null;
-        }
         if (error) {
           return (
             <div className="p-4 rounded-md bg-yellow-50">
@@ -91,5 +92,5 @@ export const Fragment = ({ children, platforms }: FragmentProps) => {
     });
   }, [children, platform]);
 
-  return <Component />;
+  return Component ? <Component /> : null;
 };
