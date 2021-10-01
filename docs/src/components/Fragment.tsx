@@ -50,11 +50,12 @@ export const Fragment = ({ children, platforms }: FragmentProps) => {
   const { query } = useRouter();
   const { platform = 'react' } = query;
   const Component = React.useMemo(() => {
+    if (!shouldRenderFragment(platforms, platform)) {
+      return null;
+    }
+
     return dynamic(() => children({ platform }), {
       loading({ error, isLoading }) {
-        if (!shouldRenderFragment(platforms, platform)) {
-          return null;
-        }
         if (error) {
           return (
             <div className="p-4 rounded-md bg-yellow-50">
@@ -91,5 +92,5 @@ export const Fragment = ({ children, platforms }: FragmentProps) => {
     });
   }, [children, platform]);
 
-  return <Component />;
+  return Component ? <Component /> : null;
 };
