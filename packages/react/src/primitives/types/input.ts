@@ -74,6 +74,16 @@ export interface InputProps
   name?: string;
 
   /**
+   * Blur event handler
+   */
+  onBlur?: React.FocusEventHandler<HTMLInputElement>;
+
+  /**
+   * Focus event handler
+   */
+  onFocus?: React.FocusEventHandler<HTMLInputElement>;
+
+  /**
    * Input change event handler
    */
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
@@ -101,6 +111,11 @@ export interface InputProps
    * Selection event
    */
   onSelect?: React.FormEventHandler<HTMLInputElement>;
+
+  /**
+   * Fired on keyboard key down
+   */
+  onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
 
   /**
    * Placeholder text shown when field is empty

@@ -8,9 +8,8 @@ import { Feature } from '@/components/Feature';
 import { Fragment } from '@/components/Fragment';
 import { XStateInspector } from '@/components/XStateInspector';
 
-The `Authenticator` is a simple way to add
-[authentication flows](https://docs.amplify.aws/lib/auth/getting-started/q/platform/js)
-to your application.
+The `Authenticator` component encapsulates complete [authentication flows](https://docs.amplify.aws/lib/auth/getting-started/q/platform/js)
+to embed in your application with minimal boilerplate.
 
 <Example>
   <Authenticator />
@@ -21,23 +20,15 @@ to your application.
   </p>
 </Example>
 
-## Installation
-
-<Fragment>
-  {({ platform }) => import(`./installation.${platform}.mdx`)}
-</Fragment>
-
-## Getting started
+## Quick Start
 
 > Preqrequisite: [Create an Authentication backend](https://docs.amplify.aws/lib/auth/getting-started/q/platform/js)
 
-The simplest way to get started is by wrapping your application with the Authenticator component.
+The quickest way to get started is by wrapping your application with the Authenticator component.
 This will introduce complete flows for user sign-in and registration and render your app
 when users authenticate.
 
-<Fragment>
-  {({ platform }) => import(`./getting-started.${platform}.mdx`)}
-</Fragment>
+<Fragment>{({ platform }) => import(`./quick-start.${platform}.mdx`)}</Fragment>
 
 ## Features
 
@@ -50,25 +41,21 @@ based on a unique `username` using [`Auth.signUp`](https://docs.amplify.aws/lib/
 
 ### Sign Up with Email
 
-The `Authenticator` automatically infers [`email` as a login mechanism](https://docs.amplify.aws/console/auth/authentication#to-configure-how-users-log-in-to-an-app).
-
 You can explicitly configure Amplify to match your backend via:
 
-```js{4-10} file=../../../../../../examples/next/pages/ui/components/authenticator/sign-up-with-email/index.page.tsx#L2-L10
-
-```
+<Fragment>
+  {({ platform }) => import(`./sign-up-with-email.${platform}.mdx`)}
+</Fragment>
 
 <Feature name="sign-up-with-email" />
 
 ### Sign Up with Phone
 
-The `Authenticator` automatically infers [`phone_number` as a login mechanism](https://docs.amplify.aws/console/auth/authentication#to-configure-how-users-log-in-to-an-app).
-
 You can explicitly configure Amplify to match your backend via:
 
-```js{4-10} file=../../../../../../examples/next/pages/ui/components/authenticator/sign-up-with-phone/index.page.tsx#L2-L10
-
-```
+<Fragment>
+  {({ platform }) => import(`./sign-up-with-phone.${platform}.mdx`)}
+</Fragment>
 
 <Feature name="sign-up-with-phone" />
 
@@ -104,6 +91,37 @@ If your backend has [Social Sign-in](https://docs.amplify.aws/lib/auth/social/q/
 can sign in with Google, Amazon or Facebook.
 
 <Feature name="sign-in-federated" />
+
+### Internationalization (I18n)
+
+The `Authenticator` ships with [translations](https://github.com/aws-amplify/amplify-ui/blob/main/packages/ui/src/i18n/translations.ts) for:
+
+- `en` – English (default)
+- `zh` – Chinese
+- `fr` – French
+- `de` – German
+- `it` – Italian
+- `ja` – Japenese
+- `es` – Spanish
+
+These [translations](https://github.com/aws-amplify/amplify-ui/blob/main/packages/ui/src/i18n/translations.ts) can be customized using the [Amplify JS' `I18n`](https://docs.amplify.aws/lib/utilities/i18n/q/platform/js/) module:
+
+```js
+I18n.setLanguage('fr');
+
+I18n.putVocabularies({
+  fr: {
+    'Sign In': 'Se connecter',
+    'Sign Up': "S'inscrire",
+  },
+  es: {
+    'Sign In': 'Registrarse',
+    'Sign Up': 'Regístrate',
+  },
+});
+```
+
+<Feature name="i18n" />
 
 ## Headless Usage
 

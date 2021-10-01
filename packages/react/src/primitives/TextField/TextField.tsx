@@ -1,7 +1,8 @@
 import classNames from 'classnames';
 import * as React from 'react';
 
-import { ComponentClassNames, useAmplifyFieldID } from '../shared';
+import { ComponentClassNames } from '../shared/constants';
+import { useAmplifyFieldID } from '../shared/utils';
 import { FieldDescription, FieldErrorMessage } from '../Field';
 import { Flex } from '../Flex';
 import { FieldGroup } from '../FieldGroup';
@@ -27,14 +28,17 @@ export const TextField: React.FC<TextFieldProps> = ({
   justifyContent,
   label,
   labelHidden = false,
-  inputEndComponents,
-  inputStartComponents,
+  outerEndComponent,
+  outerStartComponent,
+  innerStartComponent,
+  innerEndComponent,
   onChange,
   onCopy,
   onCut,
   onInput,
   onPaste,
   onSelect,
+  onSubmit,
   size,
   testId,
   type = 'text',
@@ -68,8 +72,10 @@ export const TextField: React.FC<TextFieldProps> = ({
         descriptiveText={descriptiveText}
       />
       <FieldGroup
-        startComponents={inputStartComponents}
-        endComponents={inputEndComponents}
+        outerStartComponent={outerStartComponent}
+        outerEndComponent={outerEndComponent}
+        innerStartComponent={innerStartComponent}
+        innerEndComponent={innerEndComponent}
       >
         <Input
           autoComplete={autoComplete}
@@ -85,6 +91,7 @@ export const TextField: React.FC<TextFieldProps> = ({
           onInput={onInput}
           onPaste={onPaste}
           onSelect={onSelect}
+          onSubmit={onSubmit}
           size={size}
           type={type}
           value={value}

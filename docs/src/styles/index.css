@@ -11,6 +11,7 @@
 @import './badgeStyles.css';
 @import './buttonStyles.css';
 @import './cardStyles.css';
+@import './checkboxFieldStyles.css';
 @import './dividerStyles.css';
 @import './flexStyles.css';
 @import './headingStyles.css';
@@ -23,6 +24,7 @@
 @import './ratingStyles.css';
 @import './selectFieldStyles.css';
 @import './switchFieldStyles.css';
+@import './searchFieldStyles.css';
 @import './tabsStyles.css';
 @import './textFieldStyles.css';
 @import './textStyles.css';

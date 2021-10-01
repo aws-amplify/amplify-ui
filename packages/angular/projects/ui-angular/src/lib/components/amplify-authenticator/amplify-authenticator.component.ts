@@ -2,18 +2,23 @@ import {
   AfterContentInit,
   Component,
   ContentChildren,
-  HostBinding,
   Input,
+  OnInit,
   QueryList,
   TemplateRef,
   ViewEncapsulation,
 } from '@angular/core';
-import { AuthState } from '../../common/types';
-import { AmplifyOverrideDirective } from '../../directives/amplify-override.directive';
-import { StateMachineService } from '../../services/state-machine.service';
-import { AuthPropService } from '../../services/authenticator-context.service';
+import {
+  AuthenticatorMachineOptions,
+  getActorState,
+  translate,
+  translations,
+} from '@aws-amplify/ui';
+import { I18n } from 'aws-amplify';
 import { CustomComponents } from '../../common';
-import { getActorState } from '@aws-amplify/ui';
+import { AmplifySlotDirective } from '../../directives/amplify-slot.directive';
+import { AuthPropService } from '../../services/authenticator-context.service';
+import { StateMachineService } from '../../services/state-machine.service';
 
 @Component({
   selector: 'amplify-authenticator',
@@ -21,20 +26,40 @@ import { getActorState } from '@aws-amplify/ui';
   providers: [AuthPropService], // make sure custom components are scoped to this authenticator only
   encapsulation: ViewEncapsulation.None,
 })
-export class AmplifyAuthenticatorComponent implements AfterContentInit {
+export class AmplifyAuthenticatorComponent implements OnInit, AfterContentInit {
   /**
    * TODO: Add back custom events
    */
 
-  @Input() initialAuthState: AuthState = 'signIn';
-  @HostBinding('attr.data-amplify-authenticator') dataAttr = '';
-  @ContentChildren(AmplifyOverrideDirective)
-  private customComponentQuery: QueryList<AmplifyOverrideDirective> = null;
+  @Input() initialState: AuthenticatorMachineOptions['initialState'];
+  @Input() loginMechanisms: AuthenticatorMachineOptions['loginMechanisms'];
+
+  @ContentChildren(AmplifySlotDirective)
+  private customComponentQuery: QueryList<AmplifySlotDirective> = null;
   public customComponents: CustomComponents = {};
+
+  // translated texts
+  public signInTitle = translate('Sign In');
+  public signUpTitle = translate('Create Account');
+
   constructor(
     private stateMachine: StateMachineService,
     private contextService: AuthPropService
   ) {}
+
+  ngOnInit(): void {
+    I18n.putVocabularies(translations);
+
+    const { initialState, loginMechanisms } = this;
+    this.stateMachine.startMachine({ initialState, loginMechanisms });
+
+    /**
+     * handling translations after content init, because authenticator and its
+     * translations might be initialized before the main app's `ngOnInit` is run.
+     **/
+    this.signInTitle = translate('Sign In');
+    this.signUpTitle = translate('Create Account');
+  }
 
   /**
    * Lifecycle Methods
@@ -63,8 +88,17 @@ export class AmplifyAuthenticatorComponent implements AfterContentInit {
     return this.stateMachine.authState;
   }
 
+  public onTabChange() {
+    const currentState = this.stateMachine.authState.value;
+    if (currentState === 'signIn') {
+      this.stateMachine.send('SIGN_UP');
+    } else {
+      this.stateMachine.send('SIGN_IN');
+    }
+  }
+
   private mapCustomComponents(
-    componentQuery: QueryList<AmplifyOverrideDirective>
+    componentQuery: QueryList<AmplifySlotDirective>
   ): Record<string, TemplateRef<any>> {
     if (!componentQuery) return {};
     const customComponents: Record<string, TemplateRef<any>> = {};

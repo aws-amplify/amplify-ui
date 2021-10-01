@@ -135,7 +135,19 @@ After creating a new backend environment for local development, it can be useful
    }
    ```
 
-1. Stage all changes in the new environment as you normally would and commit the changes:
+   If your backend was created with the Amplify CLI, you'll need to enable Admin UI for it:
+
+   1. Within the environment, run `amplify console` to view the Auth backend.
+   1. Select the backend.
+   1. Click `Set up admin UI`
+
+      ![app settings screen](./screenshot.8.png)
+
+   1. Toggle `Enable admin UI (All environments)` to `On`.
+   1. Click `Open Admin UI`
+   1. Finally, select `Local setup instructions` to get your `--appId` and `--envName`
+
+1) Stage all changes in the new environment as you normally would and commit the changes:
 
    ```shell
    # Within environments/my-custom-environment:

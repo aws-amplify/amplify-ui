@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import {
   AuthContext,
+  AuthenticatorMachineOptions,
   AuthEvent,
   AuthInterpreter,
-  authMachine,
   AuthMachineState,
+  createAuthenticatorMachine,
   getSendEventAliases,
 } from '@aws-amplify/ui';
-import { interpret, Event } from 'xstate';
+import { Event, interpret } from 'xstate';
 
 /**
  * AmplifyContextService contains access to the xstate machine
@@ -22,15 +23,26 @@ export class StateMachineService {
   private _user: Record<string, any>; // TODO: strongly type CognitoUser
   private _services: ReturnType<typeof getSendEventAliases>;
 
-  constructor() {
-    const interpreter = interpret(authMachine, { devTools: true })
+  public startMachine({
+    initialState,
+    loginMechanisms,
+  }: AuthenticatorMachineOptions) {
+    const machine = createAuthenticatorMachine({
+      initialState,
+      loginMechanisms,
+    });
+
+    const authService = interpret(machine, {
+      devTools: process.env.NODE_ENV === 'development',
+    })
       .onTransition((state) => {
         this._user = state.context.user;
         this._authState = state;
       })
       .start();
-    this._services = getSendEventAliases(interpreter.send);
-    this._authService = interpreter;
+
+    this._services = getSendEventAliases(authService.send);
+    this._authService = authService;
   }
 
   public get services() {

@@ -1,33 +1,47 @@
 <!-- 
   Define default contents here
 -->
-<ng-template #verifyUserFooter>
-  <div data-amplify-footer>
-    <button data-amplify-button (click)="skipVerify()">Skip</button>
-    <button data-amplify-button type="submit">Submit</button>
-  </div>
+<ng-template #confirmVerifyButton>
+  <button amplify-button variation="primary" fullWidth="true" type="submit">
+    {{ submitText }}
+  </button>
 </ng-template>
 
 <ng-template #confirmVerifyUserForm>
   <form data-amplify-form (submit)="onSubmit($event)">
-    <fieldset data-amplify-fieldset [disabled]="isPending">
-      <amplify-form-input
+    <fieldset
+      class="amplify-flex"
+      style="flex-direction: column"
+      data-amplify-fieldset
+      [disabled]="isPending"
+    >
+      <h3 class="amplify-heading">{{ this.headerText }}</h3>
+      <amplify-form-field
         name="confirmation_code"
         type="number"
         autocomplete="one-time-code"
-      ></amplify-form-input>
+      ></amplify-form-field>
       <ng-container
         [ngTemplateOutlet]="
-          customComponents.verifyUserFooter || verifyUserFooter
+          customComponents.confirmVerifyButton || confirmVerifyButton
         "
         [ngTemplateOutletContext]="context"
-      >
-      </ng-container>
-    </fieldset>
+      ></ng-container>
 
-    <amplify-error *ngIf="remoteError">
-      {{ remoteError }}
-    </amplify-error>
+      <button
+        amplify-button
+        size="small"
+        variation="link"
+        fontWeight="normal"
+        fullWidth="true"
+        (click)="skipVerify()"
+      >
+        {{ skipText }}
+      </button>
+      <amplify-error *ngIf="remoteError">
+        {{ remoteError }}
+      </amplify-error>
+    </fieldset>
   </form>
 </ng-template>
 
@@ -35,7 +49,6 @@
   Render confirm reset password component
 -->
 <div data-amplify-container>
-  <h2 data-amplify-header>{{ this.headerText }}</h2>
   <ng-container
     [ngTemplateOutlet]="
       customComponents.confirmVerifyUserForm || confirmVerifyUserForm

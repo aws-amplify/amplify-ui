@@ -9,10 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "^2.0.1-next.2",
+    "@aws-amplify/ui-react": "^2.0.1-next.5",
     "@types/node": "^15.12.4",
     "@types/react": "^17.0.11",
     "next": "latest",
+    "next-global-css": "^1.1.1",
     "react": "latest",
     "react-dom": "latest",
     "typescript": "^4.3.4"

@@ -5,12 +5,19 @@
 import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 import { escapeRegExp } from 'lodash';
 
+let language = 'en-US';
+
 Given("I'm running the example {string}", (example: string) => {
-  cy.visit(example);
+  cy.visit(example, {
+    // See: https://glebbahmutov.com/blog/cypress-tips-and-tricks/#control-navigatorlanguage
+    onBeforeLoad(win) {
+      Object.defineProperty(win.navigator, 'language', { value: language });
+    },
+  });
 });
 
 Given(
-  'intercept {string} with fixture {string}',
+  'I intercept {string} with fixture {string}',
   (json: string, fixture: string) => {
     let routeMatcher;
 
@@ -29,6 +36,12 @@ When('I type a new {string}', (loginMechanism: string) => {
     loginMechanism,
     `${Date.now()}`
   );
+});
+
+When('I click the {string} tab', (label: string) => {
+  cy.findByRole('tab', {
+    name: new RegExp(`^${escapeRegExp(label)}$`, 'i'),
+  }).click();
 });
 
 When('I click the {string} button', (name: string) => {

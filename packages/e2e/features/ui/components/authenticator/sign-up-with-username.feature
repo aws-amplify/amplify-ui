@@ -4,16 +4,16 @@ Feature: Sign Up with Username
 
   Background:
     Given I'm running the example "ui/components/authenticator/sign-up-with-username"
-    And I click the Create Account tab
 
-  @todo-angular @react @todo-vue
+  @angular @react @vue
   Scenario: Login mechanism set to "username"
     Then I see "Username" as an input field
     And I see "Email" as an input field
     And I see "Phone Number" as an input field
 
-  @angular @todo-angular @react @vue @todo-vue
+  @angular @react @vue 
   Scenario: Sign up a new username & password
+    Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-username"
     When I type a new "username"
     And I type my password
     And I confirm my password
@@ -23,11 +23,11 @@ Feature: Sign Up with Username
     Then I see "Confirm Sign Up"
     And I see "Confirmation Code"
 
-  @todo-angular @react @todo-vue
+  @angular @react @vue
   Scenario: Username field autocompletes username
     Then "Username" field autocompletes "username"
 
-  @todo-angular @react @todo-vue
+  @angular @react @vue
   Scenario: Password fields autocomplete "new-password"
     Then "Password" field autocompletes "new-password"
     And "Confirm Password" field autocompletes "new-password"

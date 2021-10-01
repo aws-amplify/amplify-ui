@@ -2,6 +2,7 @@ import { Flex, Radio, RadioGroupField } from '@aws-amplify/ui-react';
 
 import { ControlledRadioGroupField, Demo } from './demo';
 import { Example } from '@/components/Example';
+import { Fragment } from '@/components/Fragment';
 
 A RadioGroupField allows users to select a single option from a list of mutually exclusive options.
 
@@ -64,15 +65,7 @@ const [value, setValue] = useState('html');
 
 ### Accessibility / Label behavior
 
-The RadioGroupField primitive is accessible by default. A matching `label` HTML element is rendered with the `RadioGroupField` by default,
-all that is required is to provide a `label` prop with a `string` or `ReactNode`. If no `id` is provided, one will be automatically
-generated and connected to both `label` and the `radio` group.
-
-#### How can I visually hide the label while maintaining accessibility?
-
-In some applications it may be desirable to hide the label when the field purpose is visually apparent such as a search field with button.
-The `labelHidden` prop can be used to visually hide the label while still keeping the label visible for screenreaders. UX Tip: refrain from doing this
-if it would hide important information needed by the user to fill out the field.
+<Fragment>{() => import('./../shared/formFieldAccessibility.mdx')}</Fragment>
 
 ```jsx
 import { Radio, RadioGroupField } from '@aws-amplify/ui-react';
@@ -305,6 +298,41 @@ import '@aws-amplify/ui-react/styles.css';
   </RadioGroupField>
 </Example>
 
+### Validation error
+
+Use the `hasError` and `errorMessage` props to mark a RadioGroupField as having an validation error.
+
+```jsx
+import { Radio, RadioGroupField } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+// Use the `hasError` and `errorMessage` fields
+<RadioGroupField
+  label="Language"
+  name="language"
+  errorMessage="This is a required field."
+  hasError
+>
+  <Radio value="html">html</Radio>
+  <Radio value="css">css</Radio>
+  <Radio value="javascript">javascript</Radio>
+</RadioGroupField>;
+```
+
+<Example>
+  <RadioGroupField
+    label="Language"
+    name="example-12"
+    errorMessage="This is a required field."
+    hasError
+    labelHidden
+  >
+    <Radio value="html">html</Radio>
+    <Radio value="css">css</Radio>
+    <Radio value="javascript">javascript</Radio>
+  </RadioGroupField>
+</Example>
+
 ## CSS Styling
 
 ### Global styling
@@ -362,7 +390,7 @@ import '@aws-amplify/ui-react/styles.css';
 <Example>
   <RadioGroupField
     label="Language"
-    name="example-12"
+    name="example-13"
     defaultValue="html"
     labelHidden
   >
@@ -402,7 +430,7 @@ import '@aws-amplify/ui-react/styles.css';
 <Example>
   <RadioGroupField
     label="Language"
-    name="example-13"
+    name="example-14"
     defaultValue="html"
     fontSize="1.25rem"
     labelHidden

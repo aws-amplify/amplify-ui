@@ -10,7 +10,7 @@ import {
   userNameAliasArray,
 } from '@aws-amplify/ui';
 
-import { useAmplify, useAuth } from '../../../hooks';
+import { useAmplify, useAuthenticator } from '../../../hooks';
 import { FederatedSignIn } from '../FederatedSignIn';
 import {
   RemoteErrorMessage,
@@ -19,18 +19,10 @@ import {
 export function SignUp() {
   const amplifyNamespace = 'Authenticator.SignUp';
   const {
-    components: {
-      Button,
-      FieldGroup,
-      Flex,
-      Form,
-      Heading,
-      PasswordField,
-      Text,
-    },
+    components: { Button, Flex, Form, Heading, PasswordField, Text },
   } = useAmplify(amplifyNamespace);
 
-  const [_state, send] = useAuth();
+  const [_state, send] = useAuthenticator();
   const actorState: SignUpState = getActorState(_state);
   const isPending = actorState.matches('signUp.pending');
   const { validationError } = getActorContext(_state) as SignUpContext;
@@ -82,7 +74,7 @@ export function SignUp() {
       <Flex direction="column">
         <Heading level={3}>{I18n.get('Create a new account')}</Heading>
 
-        <FieldGroup disabled={isPending} direction="column">
+        <Flex direction="column">
           <UserNameAliasComponent
             data-amplify-usernamealias
             alias={primaryAlias}
@@ -123,7 +115,7 @@ export function SignUp() {
           ))}
 
           <RemoteErrorMessage amplifyNamespace={amplifyNamespace} />
-        </FieldGroup>
+        </Flex>
 
         <Button
           borderRadius={0}

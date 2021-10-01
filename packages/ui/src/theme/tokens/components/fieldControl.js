@@ -3,7 +3,19 @@ module.exports = {
   borderColor: { value: '{colors.border.primary.value}' },
   borderWidth: { value: '{borderWidths.small.value}' },
   borderRadius: { value: '{radii.medium.value}' },
-  padding: { value: ['{space.xs.value}', '{space.medium.value}'] },
+  paddingBlockStart: {
+    value: '{space.small.value}',
+  },
+  paddingBlockEnd: {
+    value: '{space.small.value}',
+  },
+  paddingInlineStart: {
+    value: '{space.medium.value}',
+  },
+  paddingInlineEnd: {
+    value: '{space.medium.value}',
+  },
+
   fontSize: { value: '{components.field.fontSize.value}' },
   lineHeight: { value: '{lineHeights.medium.value}' },
   transitionDuration: { value: '{time.transition.medium.value}' },
@@ -14,12 +26,34 @@ module.exports = {
 
   small: {
     fontSize: { value: '{components.field.small.fontSize.value}' },
-    padding: { value: ['{space.xs.value}', '{space.small.value}'] },
+    paddingBlockStart: {
+      value: '{space.xs.value}',
+    },
+    paddingBlockEnd: {
+      value: '{space.xs.value}',
+    },
+    paddingInlineStart: {
+      value: '{space.small.value}',
+    },
+    paddingInlineEnd: {
+      value: '{space.small.value}',
+    },
     lineHeight: { value: '{lineHeights.small.value}' },
   },
   large: {
     fontSize: { value: '{components.field.large.fontSize.value}' },
-    padding: { value: ['{space.medium.value}', '{space.large.value}'] },
+    paddingBlockStart: {
+      value: '{space.medium.value}',
+    },
+    paddingBlockEnd: {
+      value: '{space.medium.value}',
+    },
+    paddingInlineStart: {
+      value: '{space.large.value}',
+    },
+    paddingInlineEnd: {
+      value: '{space.large.value}',
+    },
     lineHeight: { value: '{lineHeights.large.value}' },
   },
 
@@ -59,7 +93,7 @@ module.exports = {
   _disabled: {
     cursor: { value: 'not-allowed' },
     borderColor: { value: '{colors.transparent.value}' },
-    backgroundColor: { value: '{colors.background.tertiary.value}' },
+    backgroundColor: { value: '{colors.background.disabled.value}' },
   },
   _error: {
     borderColor: { value: '{colors.error.value}' },

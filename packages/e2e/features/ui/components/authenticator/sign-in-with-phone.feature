@@ -1,4 +1,3 @@
-# Country code select for Vue and Angular needed
 Feature: Sign In with Phone Number
 
   Amplify's SignIn component uses AWS Cognito's authentication
@@ -11,7 +10,7 @@ Feature: Sign In with Phone Number
   Background:
     Given I'm running the example "ui/components/authenticator/sign-in-with-phone"
 
-  @react
+  @angular @react @vue
   Scenario: Sign in with unknown credentials
     When I select my country code with status "UNKNOWN"
     And I type my "phone number" with status "UNKNOWN"
@@ -19,7 +18,7 @@ Feature: Sign In with Phone Number
     And I click the "Sign in" button
     Then I see "User does not exist"
 
-  @react
+  @angular @react @vue
   Scenario: Sign in with unconfirmed credentials
     When I select my country code with status "UNCONFIRMED"
     And I type my "phone number" with status "UNCONFIRMED"
@@ -27,8 +26,7 @@ Feature: Sign In with Phone Number
     And I click the "Sign in" button
     Then I see "Confirmation Code"
 
-
-  @react
+  @angular @react @vue
   Scenario: Sign in with confirmed credentials
     When I select my country code with status "CONFIRMED"
     And I type my "phone number" with status "CONFIRMED"
@@ -38,6 +36,7 @@ Feature: Sign In with Phone Number
 
   # FORCE_CHANGE_PASSWORD tests are skipped as the temporary passwords used for these
   # test accounts will expire in Cognito.
+  @angular @react @vue @skip
   Scenario: Sign in with force change password credentials
     When I select my country code with status "FORCE_CHANGE_PASSWORD"
     And I type my "phone number" with status "FORCE_CHANGE_PASSWORD"

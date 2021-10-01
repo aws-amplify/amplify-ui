@@ -20,9 +20,11 @@ export const Input: React.FC<InputProps> = ({
   hasError = false,
   value,
   variation,
+  onBlur,
   onChange,
   onCopy,
   onCut,
+  onFocus,
   onInput,
   onPaste,
   onSelect,
@@ -44,9 +46,11 @@ export const Input: React.FC<InputProps> = ({
     defaultValue={defaultValue}
     isDisabled={isDisabled}
     id={id}
+    onBlur={onBlur}
     onChange={onChange}
     onCopy={onCopy}
     onCut={onCut}
+    onFocus={onFocus}
     onInput={onInput}
     onPaste={onPaste}
     onSelect={onSelect}

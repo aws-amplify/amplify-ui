@@ -23,10 +23,20 @@ export interface TextFieldProps extends InputProps, FieldProps, FlexStyleProps {
   /**
    * Component(s) to show after input
    */
-  inputEndComponents?: React.ReactNode;
+  outerEndComponent?: React.ReactNode;
 
   /**
    * Component(s) to show before input
    */
-  inputStartComponents?: React.ReactNode;
+  outerStartComponent?: React.ReactNode;
+
+  /**
+   * FieldGroupIconButton component to show inside of input at start
+   */
+  innerStartComponent?: React.ReactNode;
+
+  /**
+   * FieldGroupIconButton component to show inside of input at end
+   */
+  innerEndComponent?: React.ReactNode;
 }

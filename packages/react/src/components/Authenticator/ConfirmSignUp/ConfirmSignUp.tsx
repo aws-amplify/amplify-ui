@@ -1,7 +1,7 @@
 import { getActorState, SignUpState } from '@aws-amplify/ui';
 import { I18n } from 'aws-amplify';
 
-import { useAmplify, useAuth } from '../../../hooks';
+import { useAmplify, useAuthenticator } from '../../../hooks';
 
 import {
   ConfirmationCodeInput,
@@ -12,10 +12,10 @@ import {
 export function ConfirmSignUp() {
   const amplifyNamespace = 'Authenticator.ConfirmSignUp';
   const {
-    components: { Button, FieldGroup, Flex, Form, Heading },
+    components: { Button, Flex, Form, Heading },
   } = useAmplify(amplifyNamespace);
 
-  const [_state, send] = useAuth();
+  const [_state, send] = useAuthenticator();
   const actorState: SignUpState = getActorState(_state);
   const isPending = actorState.matches('confirmSignUp.pending');
 
@@ -45,7 +45,7 @@ export function ConfirmSignUp() {
       <Flex direction="column">
         <Heading level={3}>{I18n.get('Confirm Sign Up')}</Heading>
 
-        <FieldGroup direction="column" disabled={isPending}>
+        <Flex direction="column">
           <ConfirmationCodeInput {...confirmationCodeInputProps} />
 
           <Button
@@ -71,7 +71,7 @@ export function ConfirmSignUp() {
           >
             {I18n.get('Resend Code')}
           </Button>
-        </FieldGroup>
+        </Flex>
       </Flex>
     </Form>
   );

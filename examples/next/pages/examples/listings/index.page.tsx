@@ -13,6 +13,9 @@ import { ExperienceCard } from './ExperienceCard';
 import { ListingCard } from './ListingCard';
 import { SectionHeading } from './SectionHeading';
 
+import '@aws-amplify/ui-react/styles.css';
+import './styles.scss';
+
 function App() {
   const [loaded, setLoaded] = useState(false);
   useEffect(() => {

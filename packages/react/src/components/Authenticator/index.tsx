@@ -1,27 +1,52 @@
-import { authMachine, getActorState } from '@aws-amplify/ui';
+import {
+  AuthenticatorMachineOptions,
+  createAuthenticatorMachine,
+  getActorState,
+  getServiceFacade,
+  translations,
+} from '@aws-amplify/ui';
+import { useMachine } from '@xstate/react';
+import { I18n } from 'aws-amplify';
+import * as React from 'react';
 import { useAmplify } from '../../hooks';
-import { useActor, useInterpret } from '@xstate/react';
-
 import { AuthenticatorContext } from './AuthenticatorContext';
 import { ConfirmSignIn } from './ConfirmSignIn';
 import { ConfirmSignUp } from './ConfirmSignUp';
 import { ForceNewPassword } from './ForceNewPassword';
 import { ConfirmResetPassword, ResetPassword } from './ResetPassword';
 import { SetupTOTP } from './SetupTOTP';
+import { SignInSignUpTabs } from './shared';
 import { SignIn } from './SignIn';
 import { SignUp } from './SignUp';
 import { ConfirmVerifyUser, VerifyUser } from './VerifyUser';
-import { SignInSignUpTabs } from './shared';
+
+type AuthenticatorProps = AuthenticatorMachineOptions & {
+  children: (facade: ReturnType<typeof getServiceFacade>) => JSX.Element;
+  className?: string;
+};
 
 export function Authenticator({
-  className = null,
-  children = (context) => null,
-}) {
-  const service = useInterpret(authMachine, {
-    devTools: process.env.NODE_ENV === 'development',
-  });
+  children = () => null,
+  className = undefined,
+  initialState = undefined,
+  loginMechanisms = undefined,
+}: AuthenticatorProps) {
+  const [state, send, service] = useMachine(
+    () => createAuthenticatorMachine({ initialState, loginMechanisms }),
+    {
+      devTools: process.env.NODE_ENV === 'development',
+    }
+  );
 
-  const [state, send] = useActor(service);
+  React.useEffect(() => {
+    I18n.putVocabularies(translations);
+  }, []);
+
+  const facade = getServiceFacade({ send, state });
+
+  if (state.matches('authenticated')) {
+    return children(facade);
+  }
 
   const {
     components: {
@@ -35,9 +60,6 @@ export function Authenticator({
     },
   } = useAmplify('Authenticator');
 
-  if (state.matches('authenticated')) {
-    return children({ state, send });
-  }
   const actorState = getActorState(state);
 
   return (
@@ -45,7 +67,7 @@ export function Authenticator({
       <Wrapper className={className} data-amplify-authenticator="">
         {(() => {
           switch (true) {
-            case state.matches('idle'):
+            case state.matches('authenticate'):
               return null;
             case actorState?.matches('confirmSignUp'):
               return <ConfirmSignUp />;
@@ -80,10 +102,17 @@ Authenticator.ConfirmSignUp = ConfirmSignUp;
 Authenticator.SignIn = SignIn;
 Authenticator.SignUp = SignUp;
 
-export function withAuthenticator(Component) {
+export function withAuthenticator(
+  Component,
+  props?: Omit<AuthenticatorProps, 'children'>
+) {
   return function WrappedWithAuthenticator() {
     return (
-      <Authenticator>{(context) => <Component {...context} />}</Authenticator>
+      <Authenticator {...props}>
+        {(facade: ReturnType<typeof getServiceFacade>) => (
+          <Component {...facade} />
+        )}
+      </Authenticator>
     );
   };
 }

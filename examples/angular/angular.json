@@ -13,6 +13,28 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "@aws-crypto/crc32",
+              "@aws-crypto/sha256-browser",
+              "@aws-crypto/sha256-js",
+              "axios",
+              "buffer",
+              "crypto-js/core",
+              "crypto-js/hmac-sha256",
+              "crypto-js/lib-typedarrays",
+              "fast-xml-parser",
+              "isomorphic-unfetch",
+              "js-cookie",
+              "lodash",
+              "lodash/get",
+              "lodash/isEmpty",
+              "lodash/isEqual",
+              "lodash/merge",
+              "qrcode",
+              "uuid",
+              "xstate/lib/actions",
+              "zen-observable"
+            ],
             "outputPath": "dist/angular",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -20,7 +42,7 @@
             "tsConfig": "tsconfig.app.json",
             "aot": true,
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.css"],
+            "styles": ["src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -79,7 +101,7 @@
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.css"],
+            "styles": ["src/styles.scss"],
             "scripts": []
           }
         },

@@ -9,5 +9,5 @@ export class AmplifySelectComponent {
   @Input() name: string;
   @Input() label: string;
   @Input() id: string;
-  @Input() initialValue: string;
+  @Input() defaultValue: string;
 }

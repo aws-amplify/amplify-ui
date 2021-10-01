@@ -1,16 +1,15 @@
-import { Authenticator, translations } from '@aws-amplify/ui-react';
+import { Amplify } from 'aws-amplify';
+
+import { Authenticator } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
 import awsExports from '@environments/auth-with-email/src/aws-exports';
-import { Amplify, I18n } from 'aws-amplify';
-
-Amplify.configure({
-  ...awsExports,
-  auth: {
-    login_mechanisms: ['email'],
-  },
-});
-
-I18n.putVocabularies(translations);
+Amplify.configure(awsExports);
 
 export default function AuthenticatorWithEmail() {
-  return <Authenticator />;
+  return (
+    <Authenticator initialState="signUp" loginMechanisms={['email']}>
+      {({ signOut }) => <button onClick={signOut}>Sign out</button>}
+    </Authenticator>
+  );
 }

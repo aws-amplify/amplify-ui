@@ -17,15 +17,7 @@
             <template #fieldSetI="{ slotData }">
               <slot name="signup-fields" :info="slotData"> </slot>
             </template>
-            <base-wrapper
-              class="amplify-flex amplify-field amplify-textfield"
-              style="flex-direction: column"
-            >
-              <user-name-alias-component
-                class="amplify-label sr-only"
-                for="amplify-field-1220"
-              />
-            </base-wrapper>
+            <user-name-alias-component />
             <base-wrapper
               class="
                 amplify-flex
@@ -67,9 +59,9 @@
 
             <template v-for="(alias, idx) in secondaryAliases" :key="idx">
               <alias-control
-                :label="inputAttributes[alias].label"
+                :label="I18n.get(inputAttributes[alias].label)"
                 :name="alias"
-                :placeholder="inputAttributes[alias].label"
+                :placeholder="I18n.get(inputAttributes[alias].label)"
               />
             </template>
 
@@ -125,8 +117,6 @@ import AliasControl from './alias-control.vue';
 import FederatedSignIn from './federated-sign-in.vue';
 
 import {
-  SIGN_IN_BUTTON_TEXT,
-  HAVE_ACCOUNT_LABEL,
   CREATE_ACCOUNT_LABEL,
   SIGN_UP_BUTTON_TEXT,
   CONFIRM_PASSWORD_LABEL,
@@ -162,8 +152,6 @@ secondaryAliases = secondaryAliases.filter(
 
 const confirmPasswordLabel = computed(() => I18n.get(CONFIRM_PASSWORD_LABEL));
 const passwordLabel = computed(() => I18n.get(PASSWORD_LABEL));
-const signInButtonText = computed(() => I18n.get(SIGN_IN_BUTTON_TEXT));
-const haveAccountLabel = computed(() => I18n.get(HAVE_ACCOUNT_LABEL));
 const createAccountLabel = computed(() => I18n.get(CREATE_ACCOUNT_LABEL));
 const signUpButtonText = computed(() => I18n.get(SIGN_UP_BUTTON_TEXT));
 const inputAttributes: ComputedRef<AuthInputAttributes> = computed(
@@ -194,11 +182,11 @@ const onSignUpSubmit = (e: Event): void => {
   if (attrs?.onSignUpSubmit) {
     emit('signUpSubmit', e);
   } else {
-    submit();
+    submit(e);
   }
 };
 
-const submit = (): void => {
+const submit = (e: Event): void => {
   send({
     type: 'SUBMIT',
   });
