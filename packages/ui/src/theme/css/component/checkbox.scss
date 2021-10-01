@@ -1,0 +1,102 @@
+.amplify-checkbox {
+  cursor: var(--amplify-components-checkbox-cursor);
+  align-items: var(--amplify-components-checkbox-align-items);
+  gap: inherit;
+  &[data-disabled='true'] {
+    cursor: var(--amplify-components-checkbox-disabled-cursor);
+  }
+}
+
+.amplify-checkbox__button {
+  position: var(--amplify-components-checkbox-button-position);
+  align-items: var(--amplify-components-checkbox-button-align-items);
+  justify-content: var(--amplify-components-checkbox-button-justify-content);
+  color: var(--amplify-components-checkbox-button-color);
+
+  &::before {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    box-sizing: border-box;
+    width: var(--amplify-components-checkbox-button-before-width);
+    height: var(--amplify-components-checkbox-button-before-height);
+    border-width: var(--amplify-components-checkbox-button-before-border-width);
+    border-radius: var(
+      --amplify-components-checkbox-button-before-border-radius
+    );
+    border-style: var(--amplify-components-checkbox-button-before-border-style);
+    border-color: var(--amplify-components-checkbox-button-before-border-color);
+  }
+
+  &[data-focus='true']::before {
+    outline-color: var(
+      --amplify-components-checkbox-button-focus-outline-color
+    );
+    outline-style: var(
+      --amplify-components-checkbox-button-focus-outline-style
+    );
+    outline-width: var(
+      --amplify-components-checkbox-button-focus-outline-width
+    );
+    outline-offset: var(
+      --amplify-components-checkbox-button-focus-outline-offset
+    );
+
+    border-color: var(--amplify-components-checkbox-button-focus-border-color);
+    box-shadow: var(--amplify-components-checkbox-button-focus-box-shadow);
+  }
+
+  &[data-error='true'] {
+    &::before {
+      border-color: var(
+        --amplify-components-checkbox-button-error-border-color
+      );
+    }
+
+    &[data-focus='true']::before {
+      border-color: var(
+        --amplify-components-checkbox-button-error-focus-border-color
+      );
+      box-shadow: var(
+        --amplify-components-checkbox-button-error-focus-box-shadow
+      );
+    }
+  }
+
+  &[data-disabled='true']::before {
+    border-color: var(
+      --amplify-components-checkbox-button-disabled-border-color
+    );
+  }
+}
+
+.amplify-checkbox__icon {
+  background-color: var(--amplify-components-checkbox-icon-background-color);
+  opacity: var(--amplify-components-checkbox-icon-opacity);
+  transform: var(--amplify-components-checkbox-icon-transform);
+  border-radius: var(--amplify-components-checkbox-icon-border-radius);
+  transition-property: var(
+    --amplify-components-checkbox-icon-transition-property
+  );
+  transition-duration: var(
+    --amplify-components-checkbox-icon-transition-duration
+  );
+  transition-timing-function: var(
+    --amplify-components-checkbox-icon-transition-timing-function
+  );
+
+  &[data-checked='true'] {
+    opacity: var(--amplify-components-checkbox-icon-checked-opacity);
+    transform: var(--amplify-components-checkbox-icon-checked-transform);
+
+    &[data-disabled='true'] {
+      background-color: var(
+        --amplify-components-checkbox-icon-checked-disabled-background-color
+      );
+    }
+  }
+}
+
+.amplify-checkbox__label[data-disabled='true'] {
+  color: var(--amplify-components-checkbox-label-disabled-color);
+}

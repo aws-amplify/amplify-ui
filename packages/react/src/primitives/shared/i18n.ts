@@ -1,4 +1,7 @@
 export const SharedText = {
+  CountryCodeSelect: {
+    ariaLabel: 'Country code',
+  },
   ShowPasswordButton: {
     ariaLabel: {
       showPassword: 'Show password',

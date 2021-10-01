@@ -1,4 +1,7 @@
-<amplify-authenticator [loginMechanisms]="['phone_number']">
+<amplify-authenticator
+  initialState="signUp"
+  [loginMechanisms]="['phone_number']"
+>
   <ng-template
     amplifySlot="authenticated"
     let-user="user"

@@ -43,6 +43,7 @@ export const Radio: React.FC<RadioProps> = ({
     <Flex
       as="label"
       className={classNames(ComponentClassNames.Radio, className)}
+      data-disabled={shouldBeDisabled}
     >
       <Input
         checked={checked}

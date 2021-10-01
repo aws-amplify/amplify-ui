@@ -298,6 +298,41 @@ import '@aws-amplify/ui-react/styles.css';
   </RadioGroupField>
 </Example>
 
+### Validation error
+
+Use the `hasError` and `errorMessage` props to mark a RadioGroupField as having an validation error.
+
+```jsx
+import { Radio, RadioGroupField } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+// Use the `hasError` and `errorMessage` fields
+<RadioGroupField
+  label="Language"
+  name="language"
+  errorMessage="This is a required field."
+  hasError
+>
+  <Radio value="html">html</Radio>
+  <Radio value="css">css</Radio>
+  <Radio value="javascript">javascript</Radio>
+</RadioGroupField>;
+```
+
+<Example>
+  <RadioGroupField
+    label="Language"
+    name="example-12"
+    errorMessage="This is a required field."
+    hasError
+    labelHidden
+  >
+    <Radio value="html">html</Radio>
+    <Radio value="css">css</Radio>
+    <Radio value="javascript">javascript</Radio>
+  </RadioGroupField>
+</Example>
+
 ## CSS Styling
 
 ### Global styling
@@ -355,7 +390,7 @@ import '@aws-amplify/ui-react/styles.css';
 <Example>
   <RadioGroupField
     label="Language"
-    name="example-12"
+    name="example-13"
     defaultValue="html"
     labelHidden
   >
@@ -395,7 +430,7 @@ import '@aws-amplify/ui-react/styles.css';
 <Example>
   <RadioGroupField
     label="Language"
-    name="example-13"
+    name="example-14"
     defaultValue="html"
     fontSize="1.25rem"
     labelHidden

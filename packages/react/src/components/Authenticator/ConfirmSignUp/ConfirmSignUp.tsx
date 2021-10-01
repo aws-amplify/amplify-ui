@@ -12,7 +12,7 @@ import {
 export function ConfirmSignUp() {
   const amplifyNamespace = 'Authenticator.ConfirmSignUp';
   const {
-    components: { Button, FieldGroup, Flex, Form, Heading },
+    components: { Button, Flex, Form, Heading },
   } = useAmplify(amplifyNamespace);
 
   const [_state, send] = useAuthenticator();
@@ -45,7 +45,7 @@ export function ConfirmSignUp() {
       <Flex direction="column">
         <Heading level={3}>{I18n.get('Confirm Sign Up')}</Heading>
 
-        <FieldGroup direction="column" disabled={isPending}>
+        <Flex direction="column">
           <ConfirmationCodeInput {...confirmationCodeInputProps} />
 
           <Button
@@ -71,7 +71,7 @@ export function ConfirmSignUp() {
           >
             {I18n.get('Resend Code')}
           </Button>
-        </FieldGroup>
+        </Flex>
       </Flex>
     </Form>
   );

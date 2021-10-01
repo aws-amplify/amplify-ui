@@ -4,7 +4,6 @@ Feature: Sign Up with Email
 
   Background:
     Given I'm running the example "ui/components/authenticator/sign-up-with-email"
-    And I click the "Create Account" tab
 
   @angular @react @vue
   Scenario: Login mechanism set to "email"

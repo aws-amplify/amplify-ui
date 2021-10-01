@@ -39,11 +39,12 @@ export class AmplifyFormFieldComponent implements OnInit {
   constructor(private stateMachine: StateMachineService) {}
 
   ngOnInit(): void {
+    // TODO: field primtiives should have generate these by default.
     this.textFieldId = `amplify-field-${nanoid(12)}`;
     this.selectFieldId = `amplify-field-${nanoid(12)}`;
 
     // TODO: consider better default handling mechanisms across frameworks
-    if (this.isTelInput()) {
+    if (this.isPhoneField()) {
       const state = this.stateMachine.authState;
       const { country_code }: ActorContextWithForms = getActorContext(state);
       this.defaultCountryCode = country_code;
@@ -68,10 +69,6 @@ export class AmplifyFormFieldComponent implements OnInit {
     return validationError[this.name];
   }
 
-  isTelInput(): boolean {
-    return this.inferType() === 'tel';
-  }
-
   inferLabel(): string {
     const label = this.label || this.attributeMap[this.name]?.label;
     return translate<string>(label);
@@ -90,7 +87,12 @@ export class AmplifyFormFieldComponent implements OnInit {
     return this.type ?? this.attributeMap[this.name]?.type ?? 'text';
   }
 
+  // TODO(enhancement): use enum to differentiate special field types
   isPasswordField(): boolean {
     return this.inferType() === 'password';
+  }
+
+  isPhoneField(): boolean {
+    return this.inferType() === 'tel';
   }
 }

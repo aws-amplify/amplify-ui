@@ -51,6 +51,7 @@ import {
   AmplifyPicker,
   AmplifyPhotoPicker,
 } from '@aws-amplify/ui-components/dist/components';
+import { PhoneNumberFieldComponent } from './primitives/phone-number-field/phone-number-field.component';
 
 customElements.define('amplify-button', AmplifyButton);
 customElements.define('amplify-input', AmplifyInput);
@@ -100,6 +101,7 @@ customElements.define('amplify-photo-picker', AmplifyPhotoPicker);
     AmplifyTextFieldComponent,
     TabsComponent,
     TabItemComponent,
+    PhoneNumberFieldComponent,
   ],
   imports: [CommonModule],
   exports: [
