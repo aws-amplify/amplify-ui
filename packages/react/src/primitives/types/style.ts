@@ -3,6 +3,7 @@ import { Property } from 'csstype';
 import { FlexItemStyleProps, FlexContainerStyleProps } from './flex';
 import { GridItemStyleProps, GridContainerStyleProps } from './grid';
 import { ImageStyleProps } from './image';
+import { TextareaStyleProps } from './textArea';
 
 export interface ResponsiveObject<PropertyType> {
   base?: PropertyType;
@@ -84,7 +85,8 @@ export interface AllStyleProps
   extends BaseStyleProps,
     ImageStyleProps,
     FlexContainerStyleProps,
-    GridContainerStyleProps {}
+    GridContainerStyleProps,
+    TextareaStyleProps {}
 
 export type ComponentPropToStyleProp = {
   [key in keyof AllStyleProps]: keyof React.CSSProperties;
@@ -137,6 +139,7 @@ export const ComponentPropsToStylePropsMap: ComponentPropToStyleProp = {
   order: 'order',
   padding: 'padding',
   position: 'position',
+  resize: 'resize',
   right: 'right',
   row: 'gridRow',
   rowEnd: 'gridRowEnd',
@@ -148,8 +151,8 @@ export const ComponentPropsToStylePropsMap: ComponentPropToStyleProp = {
   templateColumns: 'gridTemplateColumns',
   templateRows: 'gridTemplateRows',
   textAlign: 'textAlign',
-  top: 'top',
   textDecoration: 'textDecoration',
+  top: 'top',
   width: 'width',
   wrap: 'flexWrap',
 };
