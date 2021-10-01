@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React from 'react';
+import * as React from 'react';
 
 import { useToggleButton } from './useToggleButton';
 import { Button } from '../Button';
@@ -9,9 +9,9 @@ import { ComponentClassNames } from '../shared/constants';
 export const ToggleButton: React.FC<ToggleButtonProps> = ({
   className,
   children,
-  defaultSelected = false,
+  defaultPressed = false,
   isDisabled,
-  isSelected,
+  isPressed: isPressedProp,
   onChange,
   onClick,
   size,
@@ -20,8 +20,8 @@ export const ToggleButton: React.FC<ToggleButtonProps> = ({
   ...rest
 }) => {
   const { isPressed, handleClick } = useToggleButton({
-    isSelected,
-    defaultSelected,
+    isPressed: isPressedProp,
+    defaultPressed,
     onChange,
     onClick,
     value,

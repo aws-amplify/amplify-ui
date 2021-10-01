@@ -1,12 +1,12 @@
 import { Flex, ToggleButton } from '@aws-amplify/ui-react';
 
 import { Example } from '@/components/Example';
+import { Demo } from './demo';
 import {
   ControlledToggleButton,
-  Demo,
   ExclusiveSelectionDemo,
   MultipleSelectionDemo,
-} from './demo';
+} from './examples';
 
 A toggle button represents an on/off state for some configuration, for example switching on/off bold text in a text editor.
 
@@ -31,21 +31,21 @@ import '@aws-amplify/ui-react/styles.css';
 
 ### Controlled component
 
-A toggle button can be a controlled component when given `isSelected` prop and `onChange` prop must be provided in this case
+A toggle button can be a controlled component when given `isPressed` prop and `onChange` prop must be provided in this case
 
 ```jsx
-import { useState } from 'react';
+import * as React from 'react';
 import { ToggleButton } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
 const ControlledToggleButton = ({ children }) => {
-  const [isSelected, setIsSelected] = useState(false);
+  const [isPressed, setIsPressed] = React.useState(false);
   return (
     <ToggleButton
-      isSelected={isSelected}
-      onChange={() => setIsSelected(!isSelected)}
+      isPressed={isPressed}
+      onChange={() => setIsPressed(!isPressed)}
     >
-      {children}
+      Press me!
     </ToggleButton>
   );
 };
@@ -84,18 +84,20 @@ Use the `variation` prop to change the Button variation. Available options are `
 import { ToggleButton } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
-<ToggleButton>Press me!</ToggleButton>
-<ToggleButton variation="primary">Press me!</ToggleButton>
-<ToggleButton variation="link">Press me!</ToggleButton>
+<ToggleButton defaultPressed>Press me!</ToggleButton>
+<ToggleButton variation="primary" defaultPressed>Press me!</ToggleButton>
+<ToggleButton variation="link" defaultPressed>Press me!</ToggleButton>
 ```
 
 <Example>
   <Flex>
-    <ToggleButton defaultSelected>Press me!</ToggleButton>
-    <ToggleButton variation="primary" defaultSelected>
+    <ToggleButton defaultPressed>Press me!</ToggleButton>
+    <ToggleButton variation="primary" defaultPressed>
       {'Press me!'}
     </ToggleButton>
-    <ToggleButton variation="link">Press me!</ToggleButton>
+    <ToggleButton variation="link" defaultPressed>
+      {'Press me!'}
+    </ToggleButton>
   </Flex>
 </Example>
 
@@ -108,7 +110,7 @@ import { ToggleButton } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
 <ToggleButton isDisabled>Press me!</ToggleButton>;
-<ToggleButton isDisabled defaultSelected>
+<ToggleButton isDisabled defaultPressed>
   Press me!
 </ToggleButton>;
 ```
@@ -116,7 +118,7 @@ import '@aws-amplify/ui-react/styles.css';
 <Example>
   <Flex>
     <ToggleButton isDisabled>Press me!</ToggleButton>
-    <ToggleButton isDisabled defaultSelected>
+    <ToggleButton isDisabled defaultPressed>
       {'Press me!'}
     </ToggleButton>
   </Flex>
@@ -139,7 +141,7 @@ const ExclusiveSelectionGroup = () => {
     <ToggleButtonGroup
       value={exclusiveValue}
       isExclusive
-      onChange={(e, value: string) => setExclusiveValue(value)}
+      onChange={(value: string) => setExclusiveValue(value)}
     >
       <ToggleButton value="align-left">
         <IconFormatAlignLeft />
@@ -174,7 +176,7 @@ const MultipleSelectionGroup = () => {
   return (
     <ToggleButtonGroup
       value={multipleValue}
-      onChange={(e, value: string[]) => setMultipleValue(value)}
+      onChange={(value: string[]) => setMultipleValue(value)}
     >
       <ToggleButton value="bold">
         <IconFormatBold />
@@ -206,13 +208,11 @@ To override styling on all ToggleButtons, you can set the Amplify CSS variables 
 ```css
 /* styles.css */
 :root {
-  --amplify-components-togglebutton-color: yellow;
-  --amplify-components-togglebutton-border-color: yellow;
+  --amplify-components-togglebutton-color: var(--amplify-colors-blue-80);
 }
 /* OR */
 .amplify-togglebutton {
-  color: yellow;
-  border-color: yellow;
+  color: var(--amplify-colors-blue-80);
 }
 ```
 
@@ -234,8 +234,7 @@ _Using a class selector:_
 ```css
 /* styles.css */
 .my-togglebutton {
-  color: var(--amplify-colors-blue-60);
-  border-color: var(--amplify-colors-blue-60);
+  color: var(--amplify-colors-blue-80);
 }
 ```
 
@@ -247,15 +246,9 @@ _Using data attributes:_
 
 ```css
 /* styles.css */
-/* Override only info variation styles */
+/* Override primary variation styles */
 .amplify-togglebutton[data-variation='primary'] {
-  color: var(--amplify-colors-blue-60);
-  border-color: var(--amplify-colors-blue-60);
-}
-
-/* Override only large size styles */
-.amplify-togglebutton[data-size='large'] {
-  border-radius: 2px;
+  color: var(--amplify-colors-blue-80);
 }
 ```
 

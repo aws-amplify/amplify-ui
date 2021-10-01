@@ -1,31 +1,33 @@
-import { useCallback, useState, MouseEvent } from 'react';
+import * as React from 'react';
 
 import { ToggleButtonProps } from '../types';
 
 export const useToggleButton = ({
-  isSelected,
-  defaultSelected,
+  isPressed,
+  defaultPressed,
   onClick,
   onChange,
   value,
 }: ToggleButtonProps) => {
-  const isControlled = isSelected !== undefined;
+  const isControlled = isPressed !== undefined;
   // Maintain internal selected state for unconrolled component
-  const [selected, setSelected] = useState(defaultSelected);
-  const isPressed = isControlled ? isSelected : selected;
-  const handleClick = useCallback(
-    (e: MouseEvent<HTMLButtonElement>) => {
+  const [pressed, setPressed] = React.useState(defaultPressed);
+  isPressed = isControlled ? isPressed : pressed;
+  const handleClick = React.useCallback(
+    (event: React.MouseEvent<HTMLButtonElement>) => {
       if (onClick) {
-        onClick(e);
+        onClick(event);
       }
 
       if (!isControlled) {
-        setSelected(!selected);
-      } else if (onChange) {
-        onChange(e, value);
+        setPressed(!pressed);
+      }
+
+      if (isControlled && onChange) {
+        onChange(value);
       }
     },
-    [isControlled, onClick, onChange, selected, value]
+    [isControlled, onClick, onChange, pressed, value]
   );
   return { isPressed, handleClick };
 };

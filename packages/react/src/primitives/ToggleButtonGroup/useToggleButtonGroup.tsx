@@ -8,7 +8,7 @@ export const useToggleButtonGroup = (
 ) => {
   // Multiple selection
   const handleChange: ToggleButtonProps['onChange'] = useCallback(
-    (e, buttonValue) => {
+    (buttonValue) => {
       if (!onChange || !Array.isArray(value)) {
         return;
       }
@@ -16,26 +16,29 @@ export const useToggleButtonGroup = (
       const index = value.indexOf(buttonValue);
       let newValue;
 
-      if (index >= 0) {
+      const shouldToggleOff = index >= 0;
+      if (shouldToggleOff) {
+        // Toggle off
         newValue = [...value];
         newValue.splice(index, 1);
       } else {
+        // Toggle on
         newValue = [...value, buttonValue];
       }
 
-      onChange(e, newValue);
+      onChange(newValue);
     },
     [onChange, value]
   );
 
   // Exclusive selection
   const handleExclusiveChange: ToggleButtonProps['onChange'] = useCallback(
-    (e, buttonValue) => {
+    (buttonValue) => {
       if (!onChange) {
         return;
       }
 
-      onChange(e, value === buttonValue ? null : buttonValue);
+      onChange(value === buttonValue ? null : buttonValue);
     },
     [onChange, value]
   );

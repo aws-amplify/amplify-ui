@@ -16,7 +16,7 @@ module.exports = {
     borderColor: { value: '{colors.border.secondary.value}' },
     color: { value: '{colors.font.disabled.value}' },
   },
-  pressed: {
+  _pressed: {
     color: { value: 'rgba(0, 0, 0, 0.87)' },
     backgroundColor: { value: 'rgba(0, 0, 0, 0.08)' },
     _hover: {
@@ -40,7 +40,7 @@ module.exports = {
       backgroundColor: { value: '{colors.background.tertiary.value}' },
       color: { value: '{colors.font.disabled.value}' },
     },
-    pressed: {
+    _pressed: {
       backgroundColor: { value: 'rgba(0, 128, 128, 0.08)' },
       color: { value: 'rgba(0, 128, 128, 0.87)' },
       _hover: {
@@ -63,7 +63,7 @@ module.exports = {
     _disabled: {
       color: { value: '{colors.font.disabled.value}' },
     },
-    pressed: {
+    _pressed: {
       backgroundColor: { value: '{colors.transparent.value}' },
       color: { value: 'rgba(0, 0, 0, 0.87)' },
       _hover: {

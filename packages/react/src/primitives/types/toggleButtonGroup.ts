@@ -1,9 +1,10 @@
-import React, { MouseEvent } from 'react';
+import * as React from 'react';
 
 import { AriaProps, BaseComponentProps } from './base';
 import { BaseStyleProps } from './style';
 import { FlexStyleProps } from './flex';
 import { ToggleButtonProps } from './toggleButton';
+
 export interface ToggleButtonGroupProps
   extends BaseComponentProps,
     BaseStyleProps,
@@ -13,8 +14,5 @@ export interface ToggleButtonGroupProps
   children: React.ReactNode;
   isExclusive?: boolean;
   value: string | string[];
-  onChange: (
-    event: MouseEvent<HTMLButtonElement>,
-    value: string | string[]
-  ) => void;
+  onChange: (value: string | string[]) => void;
 }

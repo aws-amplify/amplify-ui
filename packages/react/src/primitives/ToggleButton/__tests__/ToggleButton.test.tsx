@@ -5,14 +5,11 @@ import userEvent from '@testing-library/user-event';
 import { ComponentClassNames } from '../../shared';
 import { ToggleButton } from '../ToggleButton';
 
-describe('ToggleButton test suite', () => {
+describe('ToggleButton: ', () => {
   const ControlledToggleButton = () => {
-    const [selected, setSelected] = useState(false);
+    const [pressed, setPressed] = useState(false);
     return (
-      <ToggleButton
-        isSelected={selected}
-        onChange={() => setSelected(!selected)}
-      />
+      <ToggleButton isPressed={pressed} onChange={() => setPressed(!pressed)} />
     );
   };
 
@@ -54,7 +51,7 @@ describe('ToggleButton test suite', () => {
   });
 
   it('should works in uncontrolled way', async () => {
-    render(<ToggleButton defaultSelected={false} />);
+    render(<ToggleButton defaultPressed={false} />);
     const toggleButton = await screen.findByRole('button');
     userEvent.click(toggleButton);
     expect(toggleButton).toHaveAttribute('aria-pressed', 'true');

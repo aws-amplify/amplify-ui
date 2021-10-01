@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
@@ -8,10 +8,10 @@ import { ToggleButtonGroup } from '../ToggleButtonGroup';
 
 describe('ToggleButtonGroup test suite', () => {
   const MultipleSelectionGroup = () => {
-    const [value, setValue] = useState(['test-button-1']);
+    const [value, setValue] = React.useState(['test-button-1']);
     return (
       <ToggleButtonGroup
-        onChange={(e, value: string[]) => setValue(value)}
+        onChange={(value: string[]) => setValue(value)}
         value={value}
       >
         <ToggleButton value="test-button-1" />
@@ -22,15 +22,15 @@ describe('ToggleButtonGroup test suite', () => {
   };
 
   const ExclusiveSelectionGroup = () => {
-    const [value, setValue] = useState('test-button-1');
+    const [value, setValue] = React.useState('test-button-1');
     return (
       <ToggleButtonGroup
-        onChange={(e, value: string) => setValue(value)}
+        onChange={(value: string) => setValue(value)}
         value={value}
         isExclusive
       >
-        <ToggleButton value="test-button-1" />
         <ToggleButton value="test-button-2" />
+        <ToggleButton value="test-button-1" />
         <ToggleButton value="test-button-3" />
       </ToggleButtonGroup>
     );
@@ -87,7 +87,7 @@ describe('ToggleButtonGroup test suite', () => {
     expect(toggleButtons[2]).toHaveAttribute('aria-pressed', 'true');
   });
 
-  it('should works in multiple selection way', async () => {
+  it('should works in exclusive selection way', async () => {
     render(<ExclusiveSelectionGroup />);
     const toggleButtons = await screen.findAllByRole('button');
     expect(toggleButtons[0]).toHaveAttribute('aria-pressed', 'true');

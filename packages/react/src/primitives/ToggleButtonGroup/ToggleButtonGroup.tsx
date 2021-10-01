@@ -1,15 +1,15 @@
 import classNames from 'classnames';
-import React from 'react';
+import * as React from 'react';
 
 import { useToggleButtonGroup } from './useToggleButtonGroup';
 import { Flex } from '../Flex';
 import { ComponentClassNames } from '../shared';
 import { ToggleButtonProps, ToggleButtonGroupProps } from '../types';
+
 export const ToggleButtonGroup: React.FC<ToggleButtonGroupProps> = ({
   ariaLabel,
   children,
   className,
-  id,
   isExclusive,
   onChange,
   size,
@@ -18,6 +18,7 @@ export const ToggleButtonGroup: React.FC<ToggleButtonGroupProps> = ({
   ...rest
 }) => {
   const handleChange = useToggleButtonGroup(onChange, value, isExclusive);
+
   return (
     <Flex
       aria-label={ariaLabel}
@@ -28,7 +29,7 @@ export const ToggleButtonGroup: React.FC<ToggleButtonGroupProps> = ({
       {React.Children.map(children, (child) => {
         if (React.isValidElement<ToggleButtonProps>(child)) {
           return React.cloneElement(child, {
-            isSelected: isExclusive
+            isPressed: isExclusive
               ? value === child.props.value
               : value.includes(child.props.value),
             onChange: handleChange,

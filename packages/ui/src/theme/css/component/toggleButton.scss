@@ -4,6 +4,7 @@
 }
 
 .amplify-togglebutton {
+  // This required to override default button styling
   @extend %togglebutton-shared;
 
   &:hover {
