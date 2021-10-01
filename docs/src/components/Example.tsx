@@ -1,5 +1,5 @@
 import { View } from '@aws-amplify/ui-react';
-import React from 'react';
+import * as React from 'react';
 
 export function Example({
   children,
