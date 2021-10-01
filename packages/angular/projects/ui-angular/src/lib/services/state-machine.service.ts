@@ -4,12 +4,11 @@ import {
   AuthenticatorMachineOptions,
   AuthEvent,
   AuthInterpreter,
-  createAuthenticatorMachine,
   AuthMachineState,
+  createAuthenticatorMachine,
   getSendEventAliases,
-  LoginMechanism,
 } from '@aws-amplify/ui';
-import { interpret, Event } from 'xstate';
+import { Event, interpret } from 'xstate';
 
 /**
  * AmplifyContextService contains access to the xstate machine
