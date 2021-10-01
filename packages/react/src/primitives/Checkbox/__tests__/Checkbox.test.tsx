@@ -6,7 +6,7 @@ import { CheckboxProps } from '../../types/checkbox';
 import { ComponentClassNames } from '../../shared';
 import {
   testFlexProps,
-  expectFlexStyleProps,
+  expectFlexContainerStyleProps,
 } from '../../Flex/__tests__/Flex.test';
 
 describe('Checkbox test suite', () => {
@@ -42,7 +42,7 @@ describe('Checkbox test suite', () => {
   it('should render all flex style props', async () => {
     render(getCheckbox({ ...basicProps, ...testFlexProps }));
     const checkboxField = await screen.findByTestId(basicProps.testId);
-    expectFlexStyleProps(checkboxField);
+    expectFlexContainerStyleProps(checkboxField);
   });
 
   describe('Input test suite', () => {
