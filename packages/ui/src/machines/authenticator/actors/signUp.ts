@@ -14,7 +14,7 @@ import {
   setFieldErrors,
   setRemoteError,
   setUser,
-} from '../../actions';
+} from '../actions';
 
 export const signUpActor = createMachine<SignUpContext, AuthEvent>(
   {
@@ -208,11 +208,10 @@ export const signUpActor = createMachine<SignUpContext, AuthEvent>(
         const [primaryAlias] = login_mechanisms ?? ['username'];
 
         if (formValues.phone_number) {
-          formValues.phone_number =
-            `${formValues.country_code}${formValues.phone_number}`.replace(
-              /[^A-Z0-9+]/gi,
-              ''
-            );
+          formValues.phone_number = `${formValues.country_code}${formValues.phone_number}`.replace(
+            /[^A-Z0-9+]/gi,
+            ''
+          );
         }
 
         const username = formValues[primaryAlias];

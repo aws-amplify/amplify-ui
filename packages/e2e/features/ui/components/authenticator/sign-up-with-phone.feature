@@ -4,7 +4,6 @@ Feature: Sign Up with Phone
 
   Background:
     Given I'm running the example "ui/components/authenticator/sign-up-with-phone/"
-    And I click the "Create Account" tab
     And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-phone"
 
   @angular @react @vue

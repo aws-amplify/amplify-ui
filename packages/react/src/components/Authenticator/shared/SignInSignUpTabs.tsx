@@ -20,7 +20,12 @@ export const SignInSignUpTabs = (): JSX.Element => {
   };
 
   return (
-    <Tabs grow="equal" justifyContent="center" onChange={updateStateMachine}>
+    <Tabs
+      currentIndex={actorState?.matches('signIn') ? 0 : 1}
+      grow="equal"
+      justifyContent="center"
+      onChange={updateStateMachine}
+    >
       <TabItem title={I18n.get('Sign In')}>
         {actorState?.matches('signIn') && <SignIn />}
       </TabItem>

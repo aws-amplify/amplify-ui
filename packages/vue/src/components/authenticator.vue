@@ -264,15 +264,13 @@
 
 <script setup lang="ts">
 import { ref, provide, computed, useAttrs, watch, onBeforeMount } from 'vue';
-import {
-  getActorState,
-  getServiceFacade,
-  LoginMechanism,
-  translations,
-} from '@aws-amplify/ui';
+import { getActorState, getServiceFacade, translations } from '@aws-amplify/ui';
 import { I18n } from 'aws-amplify';
 
-import { authMachine } from '@aws-amplify/ui';
+import {
+  AuthenticatorMachineOptions,
+  createAuthenticatorMachine,
+} from '@aws-amplify/ui';
 import { useActor, useInterpret } from '@xstate/vue';
 import useSelect from '../composables/useSelect';
 
@@ -300,8 +298,11 @@ onBeforeMount(() => {
 
 const attrs = useAttrs();
 
-const { loginMechanisms } = withDefaults(
-  defineProps<{ loginMechanisms?: LoginMechanism[] }>(),
+const { initialState, loginMechanisms } = withDefaults(
+  defineProps<{
+    initialState?: AuthenticatorMachineOptions['initialState'];
+    loginMechanisms?: AuthenticatorMachineOptions['loginMechanisms'];
+  }>(),
   {
     loginMechanisms: () => ['username'],
   }
@@ -320,11 +321,7 @@ const emit = defineEmits([
   'confirmVerifyUserSubmit',
 ]);
 
-const machine = authMachine.withContext({
-  config: {
-    login_mechanisms: loginMechanisms,
-  },
-});
+const machine = createAuthenticatorMachine({ initialState, loginMechanisms });
 
 const service = useInterpret(machine, {
   devTools: process.env.NODE_ENV === 'development',

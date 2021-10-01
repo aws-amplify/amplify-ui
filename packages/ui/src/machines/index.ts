@@ -1,1 +1,1 @@
-export * from './authMachine';
+export * from './authenticator';

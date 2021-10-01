@@ -1,20 +1,11 @@
-import { Ref, ComputedRef, Slot } from 'vue';
-import { PayloadSender } from 'xstate';
 import {
-  AuthActorState,
+  AuthContext,
   AuthEvent,
   AuthInputAttributes,
-  FederatedIdentityProviders,
-  ResetPasswordState,
   SignInState,
   SignUpState,
 } from '@aws-amplify/ui';
-
-import { useActor } from '@xstate/vue';
-import { inject, InjectionKey } from 'vue';
-import { authMachine } from '@aws-amplify/ui';
-import { AuthContext, getActorState } from '@aws-amplify/ui';
-import { useInterpret } from '@xstate/vue';
+import { ComputedRef, InjectionKey, Ref, Slot } from 'vue';
 import { Interpreter } from 'xstate';
 
 export interface SignUpSetupReturnTypes {
@@ -63,5 +54,6 @@ export type InterpretService = Interpreter<
   }
 >;
 
-export const InterpretServiceInjectionKeyTypes: InjectionKey<InterpretService> =
-  Symbol('interpret.service');
+export const InterpretServiceInjectionKeyTypes: InjectionKey<InterpretService> = Symbol(
+  'interpret.service'
+);

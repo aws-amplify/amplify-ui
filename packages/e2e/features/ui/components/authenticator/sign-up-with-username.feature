@@ -4,7 +4,6 @@ Feature: Sign Up with Username
 
   Background:
     Given I'm running the example "ui/components/authenticator/sign-up-with-username"
-    And I click the "Create Account" tab
 
   @angular @react @vue
   Scenario: Login mechanism set to "username"
