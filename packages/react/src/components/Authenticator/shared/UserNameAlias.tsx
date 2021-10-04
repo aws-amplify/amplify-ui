@@ -42,7 +42,6 @@ export function UserNameAlias(props: UserNameAliasProps) {
       defaultCountryCode={country_code}
       errorMessage={error}
       label={i18nLabel}
-      labelHidden={true}
       name={alias ?? 'username'}
       onChange={handleInputChange}
       placeholder={i18nLabel}
@@ -54,7 +53,6 @@ export function UserNameAlias(props: UserNameAliasProps) {
       autoComplete="username"
       errorMessage={error}
       label={i18nLabel}
-      labelHidden={true}
       name={alias ?? 'username'}
       required
       placeholder={i18nLabel}

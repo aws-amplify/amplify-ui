@@ -28,7 +28,6 @@ export const ConfirmationCodeInput = (
     <TextField
       name="confirmation_code"
       label={label}
-      labelHidden={true}
       placeholder={placeholder}
       required={required}
       autoComplete="one-time-code"

@@ -72,8 +72,6 @@ export function SignUp() {
       onChange={handleChange}
     >
       <Flex direction="column">
-        <Heading level={3}>{I18n.get('Create a new account')}</Heading>
-
         <Flex direction="column">
           <UserNameAliasComponent
             data-amplify-usernamealias
@@ -86,7 +84,6 @@ export function SignUp() {
             required
             name="password"
             label={passwordLabel}
-            labelHidden={true}
             autoComplete="new-password"
             hasError={!!validationError['confirm_password']}
           />
@@ -97,7 +94,6 @@ export function SignUp() {
             required
             name="confirm_password"
             label={confirmPasswordLabel}
-            labelHidden={true}
             autoComplete="new-password"
             hasError={!!validationError['confirm_password']}
           />

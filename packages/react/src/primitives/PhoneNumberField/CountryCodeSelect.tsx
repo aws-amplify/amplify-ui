@@ -20,7 +20,6 @@ export const CountryCodeSelect: React.FC<CountryCodeSelectProps> = (props) => {
     <SelectField
       autoComplete="tel-country-code"
       className={ComponentClassNames.CountryCodeSelect}
-      labelHidden={true}
       {...props}
     >
       {countryCodeOptions}
