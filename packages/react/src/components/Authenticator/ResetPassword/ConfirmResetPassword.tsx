@@ -59,6 +59,7 @@ export const ConfirmResetPassword = (): JSX.Element => {
             required
             name="password"
             label={passwordText}
+            labelHidden={true}
           />
         </Flex>
 

@@ -54,6 +54,7 @@ export function SignIn() {
             name="password"
             label={I18n.get('Password')}
             autoComplete="current-password"
+            labelHidden={true}
           />
         </Flex>
 

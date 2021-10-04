@@ -57,6 +57,7 @@ export const ResetPassword = (): JSX.Element => {
             name="username"
             placeholder={inputLabel}
             label={inputLabel}
+            labelHidden={true}
             required={true}
             type="username"
           />

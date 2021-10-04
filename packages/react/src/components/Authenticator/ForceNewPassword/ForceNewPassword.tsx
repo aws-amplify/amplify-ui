@@ -59,6 +59,7 @@ export const ForceNewPassword = (): JSX.Element => {
             required
             name="password"
             label={passwordLabel}
+            labelHidden={true}
             hasError={!!validationError['confirm_password']}
           />
           <PasswordField
@@ -67,6 +68,7 @@ export const ForceNewPassword = (): JSX.Element => {
             required
             name="confirm_password"
             label={confirmPasswordLabel}
+            labelHidden={true}
             hasError={!!validationError['confirm_password']}
           />
 
