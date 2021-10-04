@@ -99,6 +99,12 @@ export function Authenticator({
           <View
             backgroundColor={theme.colors.white}
             boxShadow="0px 0px 20px rgba(0, 0, 0, 0.1)"
+            padding={
+              state.matches('signIn') || state.matches('signUp')
+                ? // SignInSignUpTabs already has padding
+                  undefined
+                : theme.space.xl
+            }
             width={`${theme.breakpoints.values.small}${theme.breakpoints.unit}`}
             // Fix z-index of texture being over the Authenticator
             style={{ position: 'relative' }}
