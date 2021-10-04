@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import * as React from 'react';
 
 import { ComponentClassNames } from '../shared/constants';
-import { useAmplifyFieldID } from '../shared/utils';
+import { useStableId } from '../shared/utils';
 import { FieldDescription, FieldErrorMessage } from '../Field';
 import { Flex } from '../Flex';
 import { FieldGroup } from '../FieldGroup';
@@ -46,7 +46,7 @@ export const TextField: React.FC<TextFieldProps> = ({
   wrap,
   ...rest
 }) => {
-  const fieldId = useAmplifyFieldID(id);
+  const fieldId = useStableId(id);
 
   return (
     <Flex
