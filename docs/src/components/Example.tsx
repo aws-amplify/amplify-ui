@@ -1,13 +1,13 @@
-import { View } from '@aws-amplify/ui-react';
 import * as React from 'react';
 
-export function Example({
-  children,
-  className,
-}: {
+import { View } from '@aws-amplify/ui-react';
+
+interface ExampleProps {
   children: React.ReactNode;
   className?: string;
-}) {
+}
+
+export function Example({ children, className }: ExampleProps) {
   return (
     <View
       backgroundColor="rgba(249, 250, 251, 1)"

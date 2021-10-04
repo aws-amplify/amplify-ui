@@ -1,10 +1,14 @@
 import { AriaProps, BaseComponentProps } from './base';
+import { BaseStyleProps } from './style';
 
 export type ButtonSize = 'small' | 'medium' | 'large';
 export type ButtonTypes = 'button' | 'reset' | 'submit';
 export type ButtonVariation = 'primary' | 'default' | 'link';
 
-export interface ButtonProps extends BaseComponentProps, AriaProps {
+export interface ButtonProps
+  extends BaseComponentProps,
+    BaseStyleProps,
+    AriaProps {
   /**
    * If `true`, the button will be disabled.
    */
@@ -29,7 +33,7 @@ export interface ButtonProps extends BaseComponentProps, AriaProps {
   /**
    * Button click event handler
    */
-  onClick?: (event: React.MouseEvent) => void;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 
   /**
    * Changes the size of the button.

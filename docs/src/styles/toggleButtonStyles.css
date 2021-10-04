@@ -1,0 +1,11 @@
+.my-togglebutton {
+  border-radius: 20px;
+}
+
+.my-togglebutton-global {
+  --amplify-components-togglebutton-color: var(--amplify-colors-purple-60);
+}
+
+.my-togglebutton-data-attribute.amplify-togglebutton[data-variation='primary'] {
+  color: var(--amplify-colors-blue-60);
+}
