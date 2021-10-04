@@ -3,7 +3,7 @@
   "name": "vue-example",
   "private": "true",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --port 3000",
     "prebuild": "yarn --cwd ../../ workspace @aws-amplify/ui-vue build",
     "build": "vue-tsc --noEmit && vite build",
     "serve": "vite preview",
