@@ -37,7 +37,7 @@
   padding: var(--amplify-space-xl);
 }
 
-[data-amplify-authenticator] [role='tab'][aria-selected='false'] {
+[data-amplify-authenticator] [data-state='inactive'][role='tab'] {
   background-color: var(--amplify-colors-neutral-10);
 }
 
