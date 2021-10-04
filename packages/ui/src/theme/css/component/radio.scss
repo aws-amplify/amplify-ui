@@ -4,6 +4,10 @@
   gap: inherit;
 }
 
+.amplify-radio[data-disabled='true'] {
+  cursor: var(--amplify-components-radio-disabled-cursor);
+}
+
 .amplify-radio__button {
   align-items: var(--amplify-components-radio-button-align-items);
   justify-content: var(--amplify-components-radio-button-justify-content);
@@ -63,6 +67,14 @@
 .amplify-radio__input:focus + .amplify-radio__button {
   border-color: var(--amplify-components-radio-button-focus-border-color);
   box-shadow: var(--amplify-components-radio-button-focus-box-shadow);
+}
+
+.amplify-radio__input[aria-invalid='true'] + .amplify-radio__button {
+  border-color: var(--amplify-components-radio-button-error-border-color);
+}
+
+.amplify-radio__input[aria-invalid='true']:focus + .amplify-radio__button {
+  box-shadow: var(--amplify-components-radio-button-error-focus-box-shadow);
 }
 
 .amplify-radio__input:disabled + .amplify-radio__button {

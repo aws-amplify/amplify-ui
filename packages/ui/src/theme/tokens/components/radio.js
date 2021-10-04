@@ -2,6 +2,7 @@ module.exports = {
   alignItems: { value: 'center' },
   justifyContent: { value: 'flex-start' },
   gap: { value: 'inherit' },
+  _disabled: { cursor: { value: 'not-allowed' } },
   button: {
     alignItems: { value: 'center' },
     justifyContent: { value: 'center' },
@@ -29,7 +30,6 @@ module.exports = {
       borderRadius: { value: '50%' },
       backgroundColor: { value: 'currentColor' },
     },
-
     small: {
       width: { value: '{fontSizes.xs.value}' },
       height: { value: '{fontSizes.xs.value}' },
@@ -43,7 +43,7 @@ module.exports = {
       color: {
         value: '{colors.red.60.value}',
       },
-      _disabled: { color: { value: '{colors.border.secondary.value}' } },
+      _disabled: { color: { value: '{colors.disabled.value}' } },
     },
 
     _focus: {
@@ -51,8 +51,15 @@ module.exports = {
       boxShadow: { value: '0 0 0 1px {colors.focus.value}' },
     },
 
+    _error: {
+      borderColor: { value: '{colors.error.value}' },
+      _focus: {
+        boxShadow: { value: '0 0 0 1px {colors.error.value}' },
+      },
+    },
+
     _disabled: {
-      borderColor: { value: '#e9ecf0' },
+      borderColor: { value: '{colors.border.disabled.value}' },
       backgroundColor: { value: '{colors.white.value}' },
       color: { value: '{colors.white.value}' },
     },
@@ -61,7 +68,7 @@ module.exports = {
   label: {
     _disabled: {
       color: {
-        value: '#d6dbe2',
+        value: '{colors.font.disabled.value}',
       },
     },
   },

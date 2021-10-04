@@ -21,7 +21,7 @@ import {
   setUnverifiedAttributes,
   setUser,
   setUsernameAuthAttributes,
-} from '../../actions';
+} from '../actions';
 import { AuthEvent, AuthChallengeNames, SignInContext } from '../../../types';
 
 export const signInActor = createMachine<SignInContext, AuthEvent>(

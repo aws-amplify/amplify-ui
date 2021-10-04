@@ -1,10 +1,31 @@
 <label class="amplify-label sr-only" [for]="id">{{ label }}</label>
-<select class="amplify-select" [id]="id" [name]="name">
-  <option
-    *ngFor="let item of items"
-    [value]="item"
-    [selected]="item === initialValue"
+<div class="amplify-select__wrapper">
+  <select
+    class="amplify-select amplify-field-group__control"
+    autocomplete="tel-country-code"
+    [id]="id"
+    [name]="name"
   >
-    {{ item }}
-  </option>
-</select>
+    <option
+      *ngFor="let item of items"
+      [value]="item"
+      [selected]="item === defaultValue"
+    >
+      {{ item }}
+    </option>
+  </select>
+  <div
+    class="amplify-flex amplify-select__icon-wrapper"
+    style="align-items: center; justify-content: center"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="amplify-icon"
+      viewBox="0 0 24 24"
+      data-size="large"
+      fill="currentColor"
+    >
+      <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path>
+    </svg>
+  </div>
+</div>

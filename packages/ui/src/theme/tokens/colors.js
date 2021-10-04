@@ -132,7 +132,7 @@ module.exports = {
     primary: { value: '{colors.white.value}' },
     secondary: { value: '{colors.neutral.10.value}' },
     tertiary: { value: '{colors.neutral.20.value}' },
-    disabled: { value: '{colors.background.secondary.value}' },
+    disabled: { value: '{colors.background.tertiary.value}' },
 
     info: { value: '{colors.blue.20.value}' },
     warning: { value: '{colors.orange.20.value}' },
@@ -144,9 +144,11 @@ module.exports = {
     primary: { value: '{colors.neutral.60.value}' },
     secondary: { value: '{colors.neutral.40.value}' },
     tertiary: { value: '{colors.neutral.20.value}' },
+    disabled: { value: '{colors.border.tertiary.value}' },
   },
 
   focus: { value: '{colors.brand.primary.100.value}' },
+  disabled: { value: '{colors.neutral.40.value}' },
   error: { value: '{colors.red.80.value}' },
 
   shadow: {

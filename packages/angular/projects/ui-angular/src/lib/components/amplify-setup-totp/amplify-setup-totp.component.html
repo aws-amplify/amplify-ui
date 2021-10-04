@@ -17,10 +17,16 @@
     >
       <h3 class="amplify-heading">{{ this.headerText }}</h3>
       <p *ngIf="!qrCodeSource">Loading...</p>
-      <img *ngIf="qrCodeSource" [src]="qrCodeSource" alt="qr code" />
+      <img
+        *ngIf="qrCodeSource"
+        [src]="qrCodeSource"
+        alt="qr code"
+        data-amplify-qrcode
+      />
       <amplify-form-field
         name="confirmation_code"
-        type="number"
+        label="Code *"
+        type="text"
         autocomplete="one-time-code"
       ></amplify-form-field>
       <ng-container

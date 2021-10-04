@@ -10,7 +10,7 @@ import {
   handleInput,
   setRemoteError,
   setUsername,
-} from '../../actions';
+} from '../actions';
 
 export const resetPasswordActor = createMachine<
   ResetPasswordContext,

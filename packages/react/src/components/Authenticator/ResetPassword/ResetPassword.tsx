@@ -7,7 +7,7 @@ import { RemoteErrorMessage, TwoButtonSubmitFooter } from '../shared';
 export const ResetPassword = (): JSX.Element => {
   const amplifyNamespace = 'Authenticator.ResetPassword';
   const {
-    components: { FieldGroup, Flex, Form, Heading, TextField },
+    components: { Flex, Form, Heading, TextField },
   } = useAmplify(amplifyNamespace);
 
   const [state, send] = useAuthenticator();
@@ -51,7 +51,7 @@ export const ResetPassword = (): JSX.Element => {
       <Flex direction="column">
         <Heading level={3}>{headerText}</Heading>
 
-        <FieldGroup direction="column" disabled={isPending}>
+        <Flex direction="column">
           <TextField
             autoComplete="username"
             name="username"
@@ -61,7 +61,7 @@ export const ResetPassword = (): JSX.Element => {
             required={true}
             type="username"
           />
-        </FieldGroup>
+        </Flex>
 
         <RemoteErrorMessage amplifyNamespace={amplifyNamespace} />
         <TwoButtonSubmitFooter
