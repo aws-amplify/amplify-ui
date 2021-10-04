@@ -9,7 +9,8 @@ import { useMachine } from '@xstate/react';
 import { I18n } from 'aws-amplify';
 import * as React from 'react';
 import { useAmplify } from '../../hooks';
-import { Card, Flex, View } from '../../primitives';
+import { Flex, View } from '../../primitives';
+import { useTheming } from '../../theming';
 import { AuthenticatorContext } from './AuthenticatorContext';
 import { ConfirmSignIn } from './ConfirmSignIn';
 import { ConfirmSignUp } from './ConfirmSignUp';
@@ -21,7 +22,6 @@ import { SignIn } from './SignIn';
 import { SignUp } from './SignUp';
 import { Texture } from './Texture';
 import { ConfirmVerifyUser, VerifyUser } from './VerifyUser';
-import { useTheming } from '../../theming';
 
 type AuthenticatorProps = AuthenticatorMachineOptions & {
   children: (facade: ReturnType<typeof getServiceFacade>) => JSX.Element;
