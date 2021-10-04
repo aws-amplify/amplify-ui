@@ -32,18 +32,10 @@ export const SignInSignUpTabs = (): JSX.Element => {
       onChange={updateStateMachine}
     >
       <TabItem title={I18n.get('Sign In')}>
-        {actorState?.matches('signIn') && (
-          <View padding={theme.space.xl}>
-            <SignIn />
-          </View>
-        )}
+        {actorState?.matches('signIn') && <SignIn />}
       </TabItem>
       <TabItem title={I18n.get('Create Account')}>
-        {actorState?.matches('signUp') && (
-          <View padding={theme.space.xl}>
-            <SignUp />
-          </View>
-        )}
+        {actorState?.matches('signUp') && <SignUp />}
       </TabItem>
     </Tabs>
   );

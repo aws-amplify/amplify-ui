@@ -19,7 +19,6 @@ import { SetupTOTP } from './SetupTOTP';
 import { SignInSignUpTabs } from './shared';
 import { SignIn } from './SignIn';
 import { SignUp } from './SignUp';
-import { Texture } from './Texture';
 import { ConfirmVerifyUser, VerifyUser } from './VerifyUser';
 
 type AuthenticatorProps = AuthenticatorMachineOptions & {
@@ -56,47 +55,9 @@ export function Authenticator({
 
   return (
     <AuthenticatorContext.Provider value={service}>
-      <View
-        className={className}
-        backgroundColor="#e1e5e9"
-        width="100vw"
-        height="100vh"
-        style={{
-          // Override browser default `body { margin: 8px }`
-          position: 'fixed',
-          top: '0',
-          left: '0',
-        }}
-      >
-        <View
-          as={Texture}
-          width="100vw"
-          height="100vh"
-          style={{
-            position: 'fixed',
-            top: '0',
-            left: '0',
-
-            // Soften the texture
-            opacity: 0.35,
-            filter: 'contrast(120%) brightness(120%)',
-          }}
-        />
-
-        <Flex alignItems="center" justifyContent="center" height="100vh">
-          <View
-            backgroundColor={theme.colors.white}
-            boxShadow="0px 0px 20px rgba(0, 0, 0, 0.1)"
-            padding={
-              state.matches('signIn') || state.matches('signUp')
-                ? // SignInSignUpTabs already has padding
-                  undefined
-                : theme.space.xl
-            }
-            width={`${theme.breakpoints.values.small}${theme.breakpoints.unit}`}
-            // Fix z-index of texture being over the Authenticator
-            style={{ position: 'relative' }}
-          >
+      <View className={className} data-amplify-authenticator="">
+        <View data-amplify-modal="">
+          <View data-amplify-container="">
             {(() => {
               switch (true) {
                 case state.matches('authenticate'):
@@ -126,7 +87,7 @@ export function Authenticator({
               }
             })()}
           </View>
-        </Flex>
+        </View>
       </View>
     </AuthenticatorContext.Provider>
   );
