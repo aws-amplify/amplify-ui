@@ -39,7 +39,11 @@ export const SignInSignUpTabs = (): JSX.Element => {
         )}
       </TabItem>
       <TabItem title={I18n.get('Create Account')}>
-        {actorState?.matches('signUp') && <SignUp />}
+        {actorState?.matches('signUp') && (
+          <View padding={theme.space.xl}>
+            <SignUp />
+          </View>
+        )}
       </TabItem>
     </Tabs>
   );
