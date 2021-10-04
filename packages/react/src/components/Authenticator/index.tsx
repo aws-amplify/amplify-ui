@@ -95,6 +95,7 @@ export function Authenticator({
             filter: 'contrast(120%) brightness(120%)',
           }}
         />
+
         <Flex alignItems="center" justifyContent="center" height="100vh">
           <View
             backgroundColor={theme.colors.white}
