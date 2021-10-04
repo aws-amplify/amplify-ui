@@ -8,7 +8,6 @@ import {
 import { useMachine } from '@xstate/react';
 import { I18n } from 'aws-amplify';
 import * as React from 'react';
-import { useAmplify } from '../../hooks';
 import { Flex, View } from '../../primitives';
 import { useTheming } from '../../theming';
 import { AuthenticatorContext } from './AuthenticatorContext';
@@ -52,18 +51,6 @@ export function Authenticator({
   if (state.matches('authenticated')) {
     return children(facade);
   }
-
-  const {
-    components: {
-      // @ts-ignore How to tell the context that this may exist for this scope?
-      ConfirmSignUp = Authenticator.ConfirmSignUp,
-      // @ts-ignore How to tell the context that this may exist for this scope?
-      SignIn = Authenticator.SignIn,
-      // @ts-ignore How to tell the context that this may exist for this scope?
-      SignUp = Authenticator.SignUp,
-      Wrapper,
-    },
-  } = useAmplify('Authenticator');
 
   const actorState = getActorState(state);
 
