@@ -21,7 +21,7 @@ export const ToggleButtonGroup: React.FC<ToggleButtonGroupProps> = ({
 
   return (
     <Flex
-      aria-label={ariaLabel}
+      ariaLabel={ariaLabel}
       className={classNames(ComponentClassNames.ToggleButtonGroup, className)}
       role="group"
       {...rest}
