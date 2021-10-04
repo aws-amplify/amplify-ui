@@ -1,6 +1,6 @@
 import { ViewProps } from './view';
 
-type ScrollViewOrientation = 'vertical' | 'horizontal' | 'block' | 'inline';
+type ScrollViewOrientation = 'horizontal' | 'vertical';
 
 export interface ScrollViewProps extends ViewProps {
   orientation?: ScrollViewOrientation;
