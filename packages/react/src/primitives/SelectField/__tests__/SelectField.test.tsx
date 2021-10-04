@@ -7,6 +7,7 @@ import {
   testFlexProps,
   expectFlexContainerStyleProps,
 } from '../../Flex/__tests__/Flex.test';
+import { AUTO_GENERATED_ID_PREFIX } from '../../shared/utils';
 
 describe('SelectField test suite', () => {
   const className = 'my-select';
@@ -126,7 +127,7 @@ describe('SelectField test suite', () => {
         </SelectField>
       );
       const field = await screen.findByLabelText(label);
-      expect(field.id.startsWith('amplify-field-')).toBe(true);
+      expect(field.id.startsWith(AUTO_GENERATED_ID_PREFIX)).toBe(true);
       expect(field).toHaveClass(ComponentClassNames.Select);
     });
   });

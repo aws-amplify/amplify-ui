@@ -19,3 +19,15 @@ yarn add @aws-amplify/ui-react@next
 
 </Block>
 </BlockSwitcher>
+
+Wrap your application in `<AmplifyProvider/>`:
+
+```jsx
+import { AmplifyProvider } from '@aws-amplify/ui-react';
+
+export default = () => (
+  <AmplifyProvider>
+    <App />
+  </AmplifyProvider>
+);
+```

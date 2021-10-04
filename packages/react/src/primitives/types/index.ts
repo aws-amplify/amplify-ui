@@ -30,5 +30,7 @@ export * from './switchField';
 export * from './tabs';
 export * from './text';
 export * from './textField';
+export * from './toggleButton';
+export * from './toggleButtonGroup';
 export * from './view';
 export * from './grid';

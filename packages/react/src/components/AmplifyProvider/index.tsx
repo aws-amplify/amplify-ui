@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { IdProvider } from '@radix-ui/react-id';
 
 import { AmplifyContext } from './AmplifyContext';
 import { defaultTheme, defaultCSSVariables, Theme } from '../../theming';
@@ -20,7 +21,9 @@ export function AmplifyProvider({
         theming,
       }}
     >
-      <div data-amplify-theme="">{children}</div>
+      <IdProvider>
+        <div data-amplify-theme="">{children}</div>
+      </IdProvider>
     </AmplifyContext.Provider>
   );
 }

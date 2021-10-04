@@ -30,7 +30,7 @@ export interface ButtonProps extends ViewProps {
   /**
    * Button click event handler
    */
-  onClick?: (event: React.MouseEvent) => void;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 
   /**
    * Changes the size of the button.

@@ -62,6 +62,8 @@ export enum ComponentClassNames {
   TabItems = 'amplify-tabs-item',
   Text = 'amplify-text',
   TextField = 'amplify-textfield',
+  ToggleButton = 'amplify-togglebutton',
+  ToggleButtonGroup = 'amplify-togglebuttongroup',
   View = 'amplify-view',
   VisuallyHidden = 'amplify-visually-hidden',
 }
