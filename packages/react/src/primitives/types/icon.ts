@@ -1,5 +1,6 @@
 import { Property } from 'csstype';
 import { ViewProps } from './view';
+import { Sizes } from './base';
 
 export interface ViewBox {
   minX?: number;
@@ -8,7 +9,7 @@ export interface ViewBox {
   height?: number;
 }
 
-export type IconSize = 'small' | 'large';
+export type IconSize = Sizes;
 
 export interface IconProps extends ViewProps {
   /**

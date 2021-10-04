@@ -25,6 +25,11 @@ export interface FlexProps extends ViewProps, FlexContainerStyleProps {}
 
 export interface FlexItemStyleProps {
   /**
+   * Shorthand for flex grow / shrink / basis
+   */
+  flex?: ResponsiveStyle<Property.Flex>;
+
+  /**
    * Controls order flex items appear
    */
   order?: ResponsiveStyle<Property.Order>;
@@ -43,9 +48,4 @@ export interface FlexItemStyleProps {
    * Default size of element before remaining space is distributed
    */
   basis?: ResponsiveStyle<Property.FlexBasis>;
-
-  /**
-   * Override default alignment for this flex item
-   */
-  alignSelf?: ResponsiveStyle<Property.FlexBasis>;
 }
