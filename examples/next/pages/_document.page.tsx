@@ -19,6 +19,8 @@ class MyDocument extends Document {
           />
         </Head>
         <body>
+          <h1>React Example</h1>
+
           <Main />
           <NextScript />
         </body>
