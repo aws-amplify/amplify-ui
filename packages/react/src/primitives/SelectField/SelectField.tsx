@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React from 'react';
 
 import { ComponentClassNames } from '../shared/constants';
-import { useAmplifyFieldID } from '../shared/utils';
+import { useStableId } from '../shared/utils';
 import { FieldErrorMessage, FieldDescription } from '../Field';
 import { Flex } from '../Flex';
 import { Select } from '../Select';
@@ -40,7 +40,7 @@ export const SelectField: React.FC<SelectFieldProps> = (props) => {
     ...rest
   } = props;
 
-  const fieldId = useAmplifyFieldID(id);
+  const fieldId = useStableId(id);
 
   return (
     <Flex

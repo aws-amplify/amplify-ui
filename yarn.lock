@@ -4608,6 +4608,13 @@
   dependencies:
     "@babel/runtime" "^7.13.10"
 
+"@radix-ui/react-id@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.npmjs.org/@radix-ui/react-id/-/react-id-0.1.0.tgz#d01067520fb8f4b09da3f914bfe6cb0f88c26721"
+  integrity sha512-SubMSz7rAtl6w8qZ9YBRbDe9GjW36JugBsc6aYqng8tFydvNtkuBMj86zN/x5QiomMo+r8ylBVvuWzRkS0WbBA==
+  dependencies:
+    "@babel/runtime" "^7.13.10"
+
 "@radix-ui/react-polymorphic@0.0.13":
   version "0.0.13"
   resolved "https://registry.yarnpkg.com/@radix-ui/react-polymorphic/-/react-polymorphic-0.0.13.tgz#d010d48281626191c9513f11db5d82b37662418a"
