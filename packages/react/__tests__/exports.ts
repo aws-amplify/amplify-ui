@@ -10,6 +10,7 @@ describe('@aws-amplify/ui-react', () => {
         Array [
           "Alert",
           "AmplifyProvider",
+          "AmplifyThemeOverrides",
           "Authenticator",
           "Badge",
           "Box",
@@ -1868,6 +1869,7 @@ describe('@aws-amplify/ui-react', () => {
           "Tabs",
           "Text",
           "TextField",
+          "Theme",
           "ToggleButton",
           "ToggleButtonGroup",
           "View",

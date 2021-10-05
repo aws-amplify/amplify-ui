@@ -58,8 +58,8 @@ export const usePropStyles = (props: ViewProps, style: React.CSSProperties) => {
 
   const breakpoint = useBreakpoint({
     breakpoints,
-    breakpointUnit,
-    defaultBreakpoint: defaultBreakpoint as Breakpoint,
+    breakpointUnit: breakpointUnit.value as string,
+    defaultBreakpoint: defaultBreakpoint.value as Breakpoint,
   });
 
   const propStyles = useTransformStyleProps(props);

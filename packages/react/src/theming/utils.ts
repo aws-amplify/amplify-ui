@@ -1,4 +1,4 @@
-import { Tokens } from './types';
+import { Theme } from './types';
 
 function isPlainObject(value) {
   if (
@@ -66,7 +66,7 @@ export const extendTokens = (tokens, overrideTokens) => {
  * Generates a CSS variables map from tokens
  * @param tokens Tokens object
  */
-export const getCSSVariablesFromTokens = (tokens: Tokens) => {
+export const getCSSVariablesFromTokens = (tokens: Theme) => {
   const CSSPrefix = '--amplify-';
   const CSSVariables = {};
 

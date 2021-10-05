@@ -10,7 +10,7 @@ export const getValueAtCurrentBreakpoint = (
   }
   let breakpointCompatValues = {};
   const breakpointsAscending = Object.keys(breakpoints).sort(
-    (a, b) => breakpoints[a] - breakpoints[b]
+    (a, b) => breakpoints[a].value - breakpoints[b].value
   );
   if (Array.isArray(values)) {
     values.map((value, index) => {

@@ -2,12 +2,12 @@ import { Breakpoints } from '../../../types/responsive';
 import { getMediaQueries } from '../getMediaQueries';
 
 const unSortedBreakpoints: Breakpoints = {
-  xl: 80,
-  small: 30,
-  base: 0,
-  large: 62,
-  medium: 48,
-  xxl: 96,
+  xl: { value: 80 },
+  small: { value: 30 },
+  base: { value: 0 },
+  large: { value: 62 },
+  medium: { value: 48 },
+  xxl: { value: 96 },
 };
 
 const expectedMediaQueries = [
@@ -65,7 +65,7 @@ describe('getMediaQueries', () => {
   it('should handle negative min-width', () => {
     const negativeBreakpoints: Breakpoints = {
       ...unSortedBreakpoints,
-      base: -1,
+      base: { value: -1 },
     };
     const expectedMediaQueriesNegWidth = [...expectedMediaQueries];
     expectedMediaQueriesNegWidth[5].minWidth = -1;
