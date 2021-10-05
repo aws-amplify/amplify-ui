@@ -1,5 +1,6 @@
 <script setup lang="ts">
-const { active, id, label } = withDefaults(
+import { toRefs } from 'vue';
+const props = withDefaults(
   defineProps<{
     label: string;
     id: number;
@@ -9,6 +10,9 @@ const { active, id, label } = withDefaults(
     active: false,
   }
 );
+
+const { id, label } = props;
+const { active } = toRefs(props);
 </script>
 
 <template>
