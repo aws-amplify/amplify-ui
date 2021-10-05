@@ -1,6 +1,6 @@
-import { theme, tokens } from '@aws-amplify/ui';
+import { theme as defaultTheme } from '@aws-amplify/ui';
 import { getCSSVariablesFromTokens } from './utils';
 
-const defaultCSSVariables = getCSSVariablesFromTokens(tokens);
+const defaultCSSVariables = getCSSVariablesFromTokens(defaultTheme);
 
-export { theme as defaultTheme, tokens as defaultTokens, defaultCSSVariables };
+export { defaultTheme, defaultCSSVariables };

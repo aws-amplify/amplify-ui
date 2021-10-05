@@ -21,12 +21,13 @@
     "build": "yarn build:sd && yarn build:css && yarn build:js",
     "build:css": "./scripts/generateCSS.js",
     "build:js": "tsup --minify",
-    "build:sd": "style-dictionary build --config ./sd.config.js",
+    "build:sd": "ts-node --transpile-only sd.config.ts",
     "dev": "tsup --watch src",
     "test": "echo \"Skipped: no test specified\""
   },
   "dependencies": {
     "lodash": "^4.17.21",
+    "type-fest": "^2.3.4",
     "xstate": "^4.20.1"
   },
   "devDependencies": {
@@ -41,6 +42,7 @@
     "rimraf": "^3.0.2",
     "sass": "^1.35.2",
     "style-dictionary": "^3.0.1",
+    "ts-node": "^10.2.1",
     "tslib": "^2.3.0"
   },
   "peerDependencies": {
