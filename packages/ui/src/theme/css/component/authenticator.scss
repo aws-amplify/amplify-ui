@@ -45,3 +45,8 @@
 [data-amplify-authenticator] .amplify-passwordfield .amplify-button {
   border-left: none;
 }
+
+/* Remove double-border between the phone field & country select  */
+[data-amplify-authenticator] .amplify-phonenumberfield select {
+  border-right: none;
+}
