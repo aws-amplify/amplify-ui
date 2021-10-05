@@ -1,0 +1,52 @@
+[data-amplify-authenticator] [data-amplify-modal] {
+  display: grid;
+  background-color: var(--amplify-colors-neutral-10, #e1e5e9);
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+
+  /* Override browser default `body { margin: 8px }` */
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+/* Texture for modal */
+[data-amplify-authenticator] [data-amplify-modal]::before {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+
+  content: '';
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' id='texture' data-v-1d260e0e=''%3E%3Cfilter id='noise' data-v-1d260e0e=''%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch' data-v-1d260e0e=''%3E%3C/feTurbulence%3E%3CfeColorMatrix type='saturate' values='0' data-v-1d260e0e=''%3E%3C/feColorMatrix%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' data-v-1d260e0e=''%3E%3C/rect%3E%3C/svg%3E");
+  opacity: 0.35;
+  filter: 'contrast(120%) brightness(120%)';
+}
+
+[data-amplify-authenticator] [data-amplify-container] {
+  /* Fix z-index of texture being over the Authenticator */
+  position: relative;
+
+  background-color: var(--amplify-colors-white);
+  box-shadow: var(--amplify-shadows-small);
+  place-self: center;
+  width: calc(var(--amplify-breakpoints-values-small) * 1rem);
+}
+
+[data-amplify-authenticator] [data-amplify-form] {
+  padding: var(--amplify-space-xl);
+}
+
+[data-amplify-authenticator] [data-state='inactive'][role='tab'] {
+  background-color: var(--amplify-colors-neutral-10);
+}
+
+/* Remove double-border between the password field & reveal button */
+[data-amplify-authenticator] .amplify-passwordfield .amplify-button {
+  border-left: none;
+}
+
+/* Remove double-border between the phone field & country select  */
+[data-amplify-authenticator] .amplify-phonenumberfield select {
+  border-right: none;
+}

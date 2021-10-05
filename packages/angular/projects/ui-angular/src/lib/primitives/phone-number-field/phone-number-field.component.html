@@ -1,9 +1,11 @@
-<div class="amplify-flex" amplify-field-group style="gap: 0px">
+<div
+  class="amplify-flex amplify-phonenumberfield"
+  amplify-field-group
+  style="gap: 0px"
+>
   <div class="amplify-field-group__outer-start">
     <div
-      class="
-        amplify-flex amplify-field amplify-selectfield amplify-countrycodeselect
-      "
+      class=" amplify-flex amplify-field amplify-selectfield amplify-countrycodeselect"
       style="flex-direction: column"
     >
       <amplify-form-select
@@ -16,7 +18,7 @@
     </div>
   </div>
 
-  <label class="amplify-label sr-only" [for]="textFieldId">
+  <label class="sr-only amplify-label" [for]="textFieldId">
     {{ label }}
   </label>
   <input
