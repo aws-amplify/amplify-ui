@@ -6,7 +6,7 @@ import { defaultTheme, defaultCSSVariables, Theme } from '../../theming';
 
 interface AmplifyProviderProps {
   children: ReactNode;
-  components: Record<string, ReactNode>;
+  components?: Record<string, ReactNode>;
   theming?: { theme: Theme; CSSVariables: {} };
 }
 export function AmplifyProvider({
@@ -15,12 +15,7 @@ export function AmplifyProvider({
   theming = { theme: defaultTheme, CSSVariables: defaultCSSVariables },
 }: AmplifyProviderProps) {
   return (
-    <AmplifyContext.Provider
-      value={{
-        components,
-        theming,
-      }}
-    >
+    <AmplifyContext.Provider value={{ components, theming }}>
       <IdProvider>
         <div data-amplify-theme="">{children}</div>
       </IdProvider>
