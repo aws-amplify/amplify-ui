@@ -24,6 +24,11 @@ Feature: Confirm Sign Up
     And I click the "Confirm" button
     Then I am logged in
 
+  Scenario: Entering an invalid code
+    When I type an invalid confirmation code
+    And I click the "Confirm" button
+    Then I see an error alert
+
   Scenario: Sign up with a new username & password
     When I type a new username
     And I type the password "test-password"
