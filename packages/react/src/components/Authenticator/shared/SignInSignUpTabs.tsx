@@ -1,18 +1,14 @@
+import { getActorState } from '@aws-amplify/ui';
 import { I18n } from 'aws-amplify';
-
-import { SignIn } from '../SignIn';
-import { SignUp } from '../SignUp';
 import { useAmplify, useAuthenticator } from '../../../hooks';
 import { useTheming } from '../../../theming';
-import { View } from '../../../primitives';
-import { getActorState } from '@aws-amplify/ui';
+import { SignIn } from '../SignIn';
+import { SignUp } from '../SignUp';
 
 export const SignInSignUpTabs = (): JSX.Element => {
   const {
     components: { Tabs, TabItem },
   } = useAmplify('Authenticator');
-
-  const { theme } = useTheming();
 
   const [_state, send] = useAuthenticator();
   const actorState = getActorState(_state);

@@ -8,7 +8,7 @@ import {
 import { useMachine } from '@xstate/react';
 import { I18n } from 'aws-amplify';
 import * as React from 'react';
-import { Flex, View } from '../../primitives';
+import { View } from '../../primitives';
 import { useTheming } from '../../theming';
 import { AuthenticatorContext } from './AuthenticatorContext';
 import { ConfirmSignIn } from './ConfirmSignIn';
@@ -32,8 +32,6 @@ export function Authenticator({
   initialState = undefined,
   loginMechanisms = undefined,
 }: AuthenticatorProps) {
-  const { theme } = useTheming();
-
   const [state, send, service] = useMachine(
     () => createAuthenticatorMachine({ initialState, loginMechanisms }),
     {
