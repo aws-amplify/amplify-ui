@@ -24,4 +24,6 @@ module.exports = {
   switchfield: require('./switchField'),
   tabs: require('./tabs'),
   text: require('./text'),
+  togglebutton: require('./toggleButton'),
+  togglebuttongroup: require('./toggleButtonGroup'),
 };

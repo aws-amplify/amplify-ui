@@ -7,7 +7,7 @@ import { Flex } from '../Flex';
 import { Label } from '../Label';
 import { RadioGroupFieldProps } from '../types';
 import { ComponentClassNames } from '../shared/constants';
-import { useAmplifyFieldID } from '../shared/utils';
+import { useStableId } from '../shared/utils';
 
 export const RadioGroupField: React.FC<RadioGroupFieldProps> = ({
   alignContent,
@@ -34,7 +34,7 @@ export const RadioGroupField: React.FC<RadioGroupFieldProps> = ({
   wrap,
   ...rest
 }) => {
-  const fieldId = useAmplifyFieldID(id);
+  const fieldId = useStableId(id);
   const radioGroupContextValue: RadioGroupContextType = useMemo(
     () => ({
       currentValue: value,
