@@ -39,106 +39,104 @@
 -->
 
 <div data-amplify-authenticator>
-  <div data-amplify-modal>
-    <div data-amplify-container>
-      <amplify-tabs
-        (tabChange)="onTabChange()"
-        *ngIf="actorState?.matches('signIn') || actorState?.matches('signUp')"
-      >
-        <amplify-tab-item
-          [title]="signInTitle"
-          [active]="actorState?.matches('signIn')"
-        >
-          <!-- signIn component -->
-          <ng-container
-            [ngTemplateOutlet]="customComponents.signIn || signIn"
-            [ngTemplateOutletContext]="context"
-            *ngIf="actorState?.matches('signIn')"
-          ></ng-container>
-        </amplify-tab-item>
-        <amplify-tab-item
-          [title]="signUpTitle"
-          [active]="actorState?.matches('signUp')"
-        >
-          <!-- signUp component -->
-          <ng-container
-            [ngTemplateOutlet]="customComponents.signUp || signUp"
-            [ngTemplateOutletContext]="context"
-            *ngIf="actorState?.matches('signUp')"
-          ></ng-container>
-        </amplify-tab-item>
-      </amplify-tabs>
+  <div data-amplify-modal></div>
 
-      <!-- confirmSignUp content -->
-      <ng-container
-        [ngTemplateOutlet]="customComponents.confirmSignUp || confirmSignUp"
-        [ngTemplateOutletContext]="context"
-        *ngIf="actorState?.matches('confirmSignUp')"
+  <div data-amplify-container>
+    <amplify-tabs
+      (tabChange)="onTabChange()"
+      *ngIf="actorState?.matches('signIn') || actorState?.matches('signUp')"
+    >
+      <amplify-tab-item
+        [title]="signInTitle"
+        [active]="actorState?.matches('signIn')"
       >
-      </ng-container>
+        <!-- signIn component -->
+        <ng-container
+          [ngTemplateOutlet]="customComponents.signIn || signIn"
+          [ngTemplateOutletContext]="context"
+          *ngIf="actorState?.matches('signIn')"
+        ></ng-container>
+      </amplify-tab-item>
+      <amplify-tab-item
+        [title]="signUpTitle"
+        [active]="actorState?.matches('signUp')"
+      >
+        <!-- signUp component -->
+        <ng-container
+          [ngTemplateOutlet]="customComponents.signUp || signUp"
+          [ngTemplateOutletContext]="context"
+          *ngIf="actorState?.matches('signUp')"
+        ></ng-container>
+      </amplify-tab-item>
+    </amplify-tabs>
 
-      <!-- confirmSignIn content -->
-      <ng-container
-        [ngTemplateOutlet]="customComponents.confirmSignIn || confirmSignIn"
-        [ngTemplateOutletContext]="context"
-        *ngIf="actorState?.matches('confirmSignIn')"
-      >
-      </ng-container>
+    <!-- confirmSignUp content -->
+    <ng-container
+      [ngTemplateOutlet]="customComponents.confirmSignUp || confirmSignUp"
+      [ngTemplateOutletContext]="context"
+      *ngIf="actorState?.matches('confirmSignUp')"
+    >
+    </ng-container>
 
-      <!-- setupTotp content -->
-      <ng-container
-        [ngTemplateOutlet]="customComponents.setupTOTP || setupTOTP"
-        [ngTemplateOutletContext]="context"
-        *ngIf="actorState?.matches('setupTOTP')"
-      >
-      </ng-container>
+    <!-- confirmSignIn content -->
+    <ng-container
+      [ngTemplateOutlet]="customComponents.confirmSignIn || confirmSignIn"
+      [ngTemplateOutletContext]="context"
+      *ngIf="actorState?.matches('confirmSignIn')"
+    >
+    </ng-container>
 
-      <!-- forceNewPassword content -->
-      <ng-container
-        [ngTemplateOutlet]="
-          customComponents.forceNewPassword || forceNewPassword
-        "
-        [ngTemplateOutletContext]="context"
-        *ngIf="actorState?.matches('forceNewPassword')"
-      >
-      </ng-container>
+    <!-- setupTotp content -->
+    <ng-container
+      [ngTemplateOutlet]="customComponents.setupTOTP || setupTOTP"
+      [ngTemplateOutletContext]="context"
+      *ngIf="actorState?.matches('setupTOTP')"
+    >
+    </ng-container>
 
-      <!-- resetPassword content -->
-      <ng-container
-        [ngTemplateOutlet]="customComponents.resetPassword || resetPassword"
-        [ngTemplateOutletContext]="context"
-        *ngIf="actorState?.matches('resetPassword')"
-      >
-      </ng-container>
+    <!-- forceNewPassword content -->
+    <ng-container
+      [ngTemplateOutlet]="customComponents.forceNewPassword || forceNewPassword"
+      [ngTemplateOutletContext]="context"
+      *ngIf="actorState?.matches('forceNewPassword')"
+    >
+    </ng-container>
 
-      <!-- confirmResetPassword content -->
-      <ng-container
-        [ngTemplateOutlet]="
-          customComponents.confirmResetPassword || confirmResetPassword
-        "
-        [ngTemplateOutletContext]="context"
-        *ngIf="actorState?.matches('confirmResetPassword')"
-      >
-      </ng-container>
+    <!-- resetPassword content -->
+    <ng-container
+      [ngTemplateOutlet]="customComponents.resetPassword || resetPassword"
+      [ngTemplateOutletContext]="context"
+      *ngIf="actorState?.matches('resetPassword')"
+    >
+    </ng-container>
 
-      <!-- verifyUser content -->
-      <ng-container
-        [ngTemplateOutlet]="customComponents.verifyUser || verifyUser"
-        [ngTemplateOutletContext]="context"
-        *ngIf="actorState?.matches('verifyUser')"
-      >
-      </ng-container>
+    <!-- confirmResetPassword content -->
+    <ng-container
+      [ngTemplateOutlet]="
+        customComponents.confirmResetPassword || confirmResetPassword
+      "
+      [ngTemplateOutletContext]="context"
+      *ngIf="actorState?.matches('confirmResetPassword')"
+    >
+    </ng-container>
 
-      <!-- confirmVerifyUser content -->
-      <ng-container
-        [ngTemplateOutlet]="
-          customComponents.confirmVerifyUser || confirmVerifyUser
-        "
-        [ngTemplateOutletContext]="context"
-        *ngIf="actorState?.matches('confirmVerifyUser')"
-      >
-      </ng-container>
-    </div>
+    <!-- verifyUser content -->
+    <ng-container
+      [ngTemplateOutlet]="customComponents.verifyUser || verifyUser"
+      [ngTemplateOutletContext]="context"
+      *ngIf="actorState?.matches('verifyUser')"
+    >
+    </ng-container>
+
+    <!-- confirmVerifyUser content -->
+    <ng-container
+      [ngTemplateOutlet]="
+        customComponents.confirmVerifyUser || confirmVerifyUser
+      "
+      [ngTemplateOutletContext]="context"
+      *ngIf="actorState?.matches('confirmVerifyUser')"
+    >
+    </ng-container>
   </div>
 </div>
 
