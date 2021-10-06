@@ -2,6 +2,7 @@ export * from './alert';
 export * from './badge';
 export * from './base';
 export * from './button';
+export * from './buttonGroup';
 export * from './card';
 export * from './checkboxField';
 export * from './collection';

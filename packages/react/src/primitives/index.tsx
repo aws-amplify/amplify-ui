@@ -1,6 +1,7 @@
 export * from './Alert';
 export * from './Badge';
 export * from './Button';
+export * from './ButtonGroup';
 export * from './Card';
 export * from './CheckboxField';
 export * from './Collection';
