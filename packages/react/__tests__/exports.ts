@@ -1859,6 +1859,7 @@ describe('@aws-amplify/ui-react', () => {
           "Radio",
           "RadioGroupField",
           "Rating",
+          "ScrollView",
           "SearchField",
           "SelectField",
           "SharedText",

@@ -46,6 +46,7 @@ export enum ComponentClassNames {
   RadioGroupField = 'amplify-radiogroupfield',
   RadioGroup = 'amplify-radiogroup',
   Rating = 'amplify-rating',
+  ScrollView = 'amplify-scrollview',
   Select = 'amplify-select',
   SelectField = 'amplify-selectfield',
   SearchField = 'amplify-searchfield',

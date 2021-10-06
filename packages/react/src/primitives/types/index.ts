@@ -23,6 +23,7 @@ export * from './placeholder';
 export * from './radio';
 export * from './radioGroupField';
 export * from './rating';
+export * from './scrollView';
 export * from './searchField';
 export * from './selectField';
 export * from './style';

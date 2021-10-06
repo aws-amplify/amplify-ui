@@ -19,6 +19,7 @@ export * from './PasswordField';
 export * from './Radio';
 export * from './RadioGroupField';
 export * from './Rating';
+export * from './ScrollView';
 export * from './SelectField';
 export * from './SearchField';
 export * from './SwitchField';
