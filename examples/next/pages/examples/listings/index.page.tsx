@@ -35,7 +35,7 @@ function App() {
         </Button>
       </header>
 
-      <View padding={theme.space.xxl.value}>
+      <View padding={`${theme.space.xxl.value}`}>
         <SectionHeading
           title="Discover Experiences"
           subtitle="Unique activities with local experts—in person or online."
@@ -74,7 +74,7 @@ function App() {
       </View>
 
       <footer className="listing-app-footer">
-        <Text color={theme.colors.font.tertiary.value}>
+        <Text color={`${theme.colors.font.tertiary.value}`}>
           © 2021 Lystifying (not a real company)
         </Text>
       </footer>

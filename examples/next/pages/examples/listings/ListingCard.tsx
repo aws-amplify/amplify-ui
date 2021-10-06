@@ -39,8 +39,8 @@ export const ListingCard = ({
   description?: string;
 }) => (
   <Card
-    padding={theme.space.medium.value}
-    borderRadius={theme.radii.medium.value}
+    padding={`${theme.space.medium.value}`}
+    borderRadius={`${theme.radii.medium.value}`}
     width="30rem"
   >
     <Placeholder isLoaded={isLoaded}>
@@ -53,15 +53,15 @@ export const ListingCard = ({
             objectPosition="center"
             width="100%"
             height="100%"
-            borderRadius={theme.radii.medium.value}
+            borderRadius={`${theme.radii.medium.value}`}
           />
         </View>
         <Flex
           direction="column"
-          gap={theme.space.xs.value}
+          gap={`${theme.space.xs.value}`}
           className="flex-grow"
         >
-          <Flex gap={theme.space.xs.value}>
+          <Flex gap={`${theme.space.xs.value}`}>
             {plus ? (
               <Badge variation="success">
                 <IconFavorite /> Favorite
@@ -79,7 +79,7 @@ export const ListingCard = ({
             ) : null}
           </Flex>
 
-          <Flex gap={theme.space.xxs.value} direction="column">
+          <Flex gap={`${theme.space.xxs.value}`} direction="column">
             <Heading level={4}>{title}</Heading>
             <Flex alignItems="center">
               <Rating value={rating} maxValue={5} />
