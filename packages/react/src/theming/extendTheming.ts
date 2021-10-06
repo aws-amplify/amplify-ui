@@ -2,7 +2,6 @@ import merge from 'deepmerge';
 import { AmplifyTheme, AmplifyThemeOverrides } from '@aws-amplify/ui';
 
 import { defaultTheme } from './defaultTheming';
-// import { Theme } from './types';
 import { getCSSVariablesFromTokens, extendTokens } from './utils';
 
 export const extendTheming = (
