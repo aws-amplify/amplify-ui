@@ -7,7 +7,7 @@ interface ExampleProps {
   className?: string;
 }
 
-export function Example({ children, className }: ExampleProps) {
+export function Example({ children, className = 'example' }: ExampleProps) {
   return (
     <View
       backgroundColor="rgba(249, 250, 251, 1)"
