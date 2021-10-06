@@ -185,7 +185,7 @@ export const colors: Colors = {
     primary: { value: '{colors.white.value}' },
     secondary: { value: '{colors.neutral.10.value}' },
     tertiary: { value: '{colors.neutral.20.value}' },
-    disabled: { value: '{colors.background.secondary.value}' },
+    disabled: { value: '{colors.background.tertiary.value}' },
 
     info: { value: '{colors.blue.20.value}' },
     warning: { value: '{colors.orange.20.value}' },
