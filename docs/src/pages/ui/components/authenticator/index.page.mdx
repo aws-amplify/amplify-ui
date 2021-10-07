@@ -122,16 +122,3 @@ I18n.putVocabularies({
 ```
 
 <Feature name="i18n" />
-
-## Headless Usage
-
-The `Authenticator`'s UI is powered by a state machine that you can hook into to customize behavior or create your own API.
-
-<details className="mb-4">
-  <summary>View Authenticator State Machine</summary>
-
-  <XStateInspector />
-  <Authenticator className="hidden" />
-</details>
-
-<Fragment>{({ platform }) => import(`./headless.${platform}.mdx`)}</Fragment>
