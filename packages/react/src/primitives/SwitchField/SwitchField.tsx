@@ -48,6 +48,7 @@ export const SwitchField: React.FC<SwitchFieldProps> = ({
     >
       <VisuallyHidden>
         <Input
+          role="switch"
           type="checkbox"
           id={fieldId}
           onChange={changeHandler}
