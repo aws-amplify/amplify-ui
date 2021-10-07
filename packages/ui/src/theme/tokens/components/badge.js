@@ -29,7 +29,7 @@ module.exports = {
   // Sizes
   small: {
     fontSize: { value: '{fontSizes.xs.value}' },
-    padding: { value: ['{space.xxs.value}', '{space.xs.value}'] },
+    padding: { value: ['{space.xxxs.value}', '{space.xs.value}'] },
   },
   // medium is the default size
   large: {

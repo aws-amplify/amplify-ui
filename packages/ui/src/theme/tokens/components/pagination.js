@@ -5,28 +5,26 @@ module.exports = {
     backgroundColor: { value: '{colors.black.opacity.40.value}' },
   },
   button: {
-    color: { value: 'inherit' },
-    fontWeight: { value: 'inherit' },
-    paddingTop: { value: '0' },
-    paddingRight: { value: '6px' },
-    paddingBottom: { value: '0' },
-    paddingLeft: { value: '6px' },
-    transitionProperty: { value: 'all' },
+    color: { value: '{colors.black.value}' },
+    paddingRight: { value: '{space.xxs.value}' },
+    paddingLeft: { value: '{space.xxs.value}' },
+    transitionProperty: { value: 'background-color' },
     transitionDuration: { value: '{time.transition.medium.value}' },
     hover: {
       backgroundColor: { value: '{colors.black.opacity.10.value}' },
+      color: { value: '{colors.black.value}' },
     },
     disabled: {
-      opacity: { value: '{opacities.40.value}' },
+      color: { value: '{colors.font.disabled.value}' },
     },
   },
   ellipsis: {
-    paddingRight: { value: '8px' },
-    paddingLeft: { value: '8px' },
+    paddingRight: { value: '{space.xs.value}' },
+    paddingLeft: { value: '{space.xs.value}' },
   },
   itemContainer: {
-    marginLeft: { value: '4px' },
-    marginRight: { value: '4px' },
+    marginLeft: { value: '{space.xxxs.value}' },
+    marginRight: { value: '{space.xxxs.value}' },
   },
   itemShared: {
     height: { value: '{fontSizes.xxl.value}' },
