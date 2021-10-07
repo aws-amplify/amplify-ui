@@ -46,7 +46,12 @@
         --amplify-components-pagination-button-padding-bottom
       );
       padding-left: var(--amplify-components-pagination-button-padding-left);
-      transition: var(--amplify-components-pagination-button-transition);
+      transition-property: var(
+        --amplify-components-pagination-button-transition-property
+      );
+      transition-duration: var(
+        --amplify-components-pagination-button-transition-duration
+      );
 
       &:hover {
         text-decoration: none;

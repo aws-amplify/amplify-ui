@@ -2,7 +2,7 @@ module.exports = {
   current: {
     color: { value: '{colors.white.value}' },
     fontSize: { value: '{fontSizes.small.value}' },
-    backgroundColor: { value: 'rgba(0, 0, 0, 0.4)' },
+    backgroundColor: { value: '{colors.black.opacity.40.value}' },
   },
   button: {
     color: { value: 'inherit' },
@@ -11,9 +11,10 @@ module.exports = {
     paddingRight: { value: '6px' },
     paddingBottom: { value: '0' },
     paddingLeft: { value: '6px' },
-    transition: { value: 'background-color {time.transition.medium.value}' },
+    transitionProperty: { value: 'all' },
+    transitionDuration: { value: '{time.transition.medium.value}' },
     hover: {
-      backgroundColor: { value: 'rgba(0, 0, 0, 0.1)' },
+      backgroundColor: { value: '{colors.black.opacity.10.value}' },
     },
     disabled: {
       opacity: { value: '{opacities.40.value}' },
