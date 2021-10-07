@@ -7,8 +7,7 @@ import {
   getAliasInfoFromContext,
 } from '@aws-amplify/ui';
 
-import { TextField } from '../../../primitives';
-import { PhoneNumberField } from '../../../primitives/PhoneNumberField'; // Pull from primitives dir when ready
+import { PhoneNumberField, TextField } from '../../../primitives';
 import { useAuthenticator } from '../../../hooks';
 
 export interface UserNameAliasProps {
