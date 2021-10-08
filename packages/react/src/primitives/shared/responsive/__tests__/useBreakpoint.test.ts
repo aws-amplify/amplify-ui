@@ -16,12 +16,12 @@ const mockUseDebugValue = React.useDebugValue as jest.Mock<
 >;
 
 const breakpoints: Breakpoints = {
-  xl: { value: 80 },
-  small: { value: 30 },
-  base: { value: 0 },
-  large: { value: 62 },
-  medium: { value: 48 },
-  xxl: { value: 96 },
+  xl: 80,
+  small: 30,
+  base: 0,
+  large: 62,
+  medium: 48,
+  xxl: 96,
 };
 
 const breakpointUnit = 'em';

@@ -1,31 +1,25 @@
-import { DesignToken } from './types/designToken';
-
 export interface Breakpoints {
   values: {
-    base: DesignToken;
-    small: DesignToken;
-    medium: DesignToken;
-    large: DesignToken;
-    xl: DesignToken;
-    xxl: DesignToken;
+    base: number;
+    small: number;
+    medium: number;
+    large: number;
+    xl: number;
+    xxl: number;
   };
-  unit: DesignToken;
-  defaultBreakpoint: DesignToken;
+  unit: string;
+  defaultBreakpoint: string;
 }
 
 export const breakpoints: Breakpoints = {
   values: {
-    base: { value: 0 },
-    small: { value: 30 }, // 480px (16px base)
-    medium: { value: 48 }, // 768px
-    large: { value: 62 }, // 992px
-    xl: { value: 80 }, // 1280px
-    xxl: { value: 96 }, // 1536px
+    base: 0,
+    small: 30, // 480px (16px base)
+    medium: 48, // 768px
+    large: 62, // 992px
+    xl: 80, // 1280px
+    xxl: 96, // 1536px
   },
-  unit: {
-    value: 'em',
-  },
-  defaultBreakpoint: {
-    value: 'base',
-  },
+  unit: 'em',
+  defaultBreakpoint: 'base',
 };

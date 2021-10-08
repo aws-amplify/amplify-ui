@@ -8,19 +8,17 @@ export const getMediaQueries: GetMediaQueries = ({
   breakpointUnit,
 }) => {
   const sortedBreakpoints = Object.keys(breakpoints).sort(
-    (a, b) => breakpoints[b].value - breakpoints[a].value
+    (a, b) => breakpoints[b] - breakpoints[a]
   );
 
   return (sortedBreakpoints as Array<Breakpoint>).map((breakpoint, index) => {
     let query = '';
 
-    let minWidth = breakpoints[breakpoint].value as number;
+    let minWidth = breakpoints[breakpoint];
     const nextBreakpoint = sortedBreakpoints[index - 1] as
       | Breakpoint
       | undefined;
-    const maxWidth = nextBreakpoint
-      ? (breakpoints[nextBreakpoint].value as number)
-      : null;
+    const maxWidth = nextBreakpoint ? breakpoints[nextBreakpoint] : null;
 
     if (minWidth >= 0) {
       query = `(min-width: ${minWidth}${breakpointUnit})`;

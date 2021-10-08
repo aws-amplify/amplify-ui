@@ -27,7 +27,6 @@
   },
   "dependencies": {
     "lodash": "^4.17.21",
-    "type-fest": "^2.3.4",
     "xstate": "^4.20.1"
   },
   "devDependencies": {
@@ -43,7 +42,8 @@
     "sass": "^1.35.2",
     "style-dictionary": "^3.0.1",
     "ts-node": "^10.2.1",
-    "tslib": "^2.3.0"
+    "tslib": "^2.3.0",
+    "type-fest": "^2.3.4"
   },
   "peerDependencies": {
     "aws-amplify": "3.x.x || 4.x.x"
