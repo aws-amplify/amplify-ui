@@ -8,8 +8,8 @@ import { Feature } from '@/components/Feature';
 import { Fragment } from '@/components/Fragment';
 import { XStateInspector } from '@/components/XStateInspector';
 
-The `Authenticator` component encapsulates complete [authentication flows](https://docs.amplify.aws/lib/auth/getting-started/q/platform/js)
-to embed in your application with minimal boilerplate.
+The `Authenticator` component adds complete [authentication flows](https://docs.amplify.aws/lib/auth/getting-started/q/platform/js)
+to your application with minimal boilerplate.
 
 <Example>
   <Authenticator />
@@ -25,72 +25,75 @@ to embed in your application with minimal boilerplate.
 > Preqrequisite: [Create an Authentication backend](https://docs.amplify.aws/lib/auth/getting-started/q/platform/js)
 
 The quickest way to get started is by wrapping your application with the Authenticator component.
-This will introduce complete flows for user sign-in and registration and render your app
-when users authenticate.
+Once an end-user has created an account & signed in, the underlying component is rendered with access to the `user`.
 
 <Fragment>{({ platform }) => import(`./quick-start.${platform}.mdx`)}</Fragment>
 
-## Features
+## Configuration
 
-### Sign Up with Username
+### `initialState`
+
+By default, unauthenticated users are redirected to the `signIn` flow.
+
+You can instead default to `signUp` or `resetPassword` as your `initialState`:
+
+<Fragment>
+  {({ platform }) => import(`./initialState.${platform}.mdx`)}
+</Fragment>
+
+### `loginMechanisms`
 
 By default, `Authenticator` creates new users in the Amazon Cognito UserPool
 based on a unique `username` using [`Auth.signUp`](https://docs.amplify.aws/lib/auth/emailpassword/q/platform/js).
 
-<Feature name="sign-up-with-username" />
-
-### Sign Up with Email
-
-You can explicitly configure Amplify to match your backend via:
+Alternatively, you can use `email`:
 
 <Fragment>
-  {({ platform }) => import(`./sign-up-with-email.${platform}.mdx`)}
+  {({ platform }) => import(`./loginMechanisms.email.${platform}.mdx`)}
 </Fragment>
 
-<Feature name="sign-up-with-email" />
+<Example>
+  <Authenticator loginMechanisms={['email']} />
 
-### Sign Up with Phone
+  <p className="text-sm text-center mt-6 text-gray-500 italic">
+    <strong>Note</strong>: This example isn't fully functional until configured
+    with an Amplify backend.
+  </p>
+</Example>
 
-You can explicitly configure Amplify to match your backend via:
+Or `phone_number`:
 
 <Fragment>
-  {({ platform }) => import(`./sign-up-with-phone.${platform}.mdx`)}
+  {({ platform }) => import(`./loginMechanisms.phone_number.${platform}.mdx`)}
 </Fragment>
 
-<Feature name="sign-up-with-phone" />
+<Example>
+  <Authenticator loginMechanisms={['phone_number']} />
 
-### Confirm Sign Up
+  <p className="text-sm text-center mt-6 text-gray-500 italic">
+    <strong>Note</strong>: This example isn't fully functional until configured
+    with an Amplify backend.
+  </p>
+</Example>
 
-If your backend has multi-factor authentication enabled, new sign-ups will [receive a confirmation code](https://docs.amplify.aws/lib/auth/emailpassword/q/platform/js#confirm-sign-up).
+Or any of the following [configured social providers](https://docs.amplify.aws/lib/auth/social/q/platform/js/):
 
-<Feature name="confirm-sign-up" />
+<Fragment>
+  {({ platform }) => import(`./loginMechanisms.social.${platform}.mdx`)}
+</Fragment>
 
-### Sign In
+> **Note**: A `username`, `email`, or `phone_number` is still required for Cognito User Pools.
 
-Users who have registered with their `username`, `email`, or `phone_number` are signed in via [`Auth.signIn`](https://docs.amplify.aws/lib/auth/emailpassword/q/platform/js#sign-in).
+<Example>
+  <Authenticator loginMechanisms={['email', 'amazon', 'facebook', 'google']} />
 
-<Feature name="sign-in-with-username" />
+  <p className="text-sm text-center mt-6 text-gray-500 italic">
+    <strong>Note</strong>: This example isn't fully functional until configured
+    with an Amplify backend.
+  </p>
+</Example>
 
-### Sign In with SMS MFA
-
-If your backend has [Multi-Factor Authentication (MFA) enabled with `SMS`](https://docs.amplify.aws/console/auth/authentication#to-configure-how-users-log-in-to-an-app),
-sign-ins will need to verify before authentication.
-
-<Feature name="sign-in-sms-mfa" />
-
-### Sign In with TOTP MFA
-
-If your backend has [Multi-Factor Authentication (MFA) enabled with `TOTP` (Time-based One-Time Password)](https://docs.amplify.aws/console/auth/authentication#to-configure-how-users-log-in-to-an-app),
-sign-ins will need to verify before authentication.
-
-<Feature name="sign-in-totp-mfa" />
-
-### Sign In with Social Sign-in
-
-If your backend has [Social Sign-in](https://docs.amplify.aws/lib/auth/social/q/platform/js), users
-can sign in with Google, Amazon or Facebook.
-
-<Feature name="sign-in-federated" />
+## Customization
 
 ### Internationalization (I18n)
 
@@ -120,5 +123,3 @@ I18n.putVocabularies({
   },
 });
 ```
-
-<Feature name="i18n" />
