@@ -5,10 +5,11 @@ module.exports = {
   dts: true,
   entryPoints: ['src/index.tsx', 'src/legacy.tsx'],
   // `aws-amplify` is external, but sub-dependencies weren't automatically externalized ("require" statements were included)
-  external: ['`aws-amplify', /^@aws-amplify\//],
+  external: ['`aws-amplify', /^@aws-amplify\//, 'lodash'],
   format: ['cjs', 'esm'],
   // ! .cjs/.mjs doesn't work with Angular's webpack4 config by default!
   legacyOutput: true,
   sourcemap: 'external',
+  minify: false,
   splitting: false,
 };
