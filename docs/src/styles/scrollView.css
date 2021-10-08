@@ -1,0 +1,9 @@
+.horizontal-example {
+  overflow-wrap: normal;
+}
+
+.my-scrollview {
+  height: 100px;
+  width: 200px;
+  background-color: var(--amplify-colors-blue-40);
+}

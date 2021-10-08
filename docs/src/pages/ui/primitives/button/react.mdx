@@ -1,4 +1,5 @@
-import { Button } from '@aws-amplify/ui-react';
+import { Button, ButtonGroup, Flex } from '@aws-amplify/ui-react';
+
 import { ButtonDemo } from './demo';
 import { Example } from '@/components/Example';
 
@@ -103,6 +104,78 @@ Setting an `aria-label` attribute for an icon Button:
 
 <Example>
   <Button ariaLabel="To the moon!">🚀</Button>
+</Example>
+
+### ButtonGroup
+
+Use a `ButtonGroup` to group buttons with the same `size` or `variation`.
+
+```jsx
+import { Button, ButtonGroup } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+// same size
+<ButtonGroup size="small">
+  <Button>🚀</Button>
+  <Button>🚀</Button>
+  <Button>🚀</Button>
+</ButtonGroup>;
+
+// same variation
+<ButtonGroup variation="primary">
+  <Button>🚀</Button>
+  <Button>🚀</Button>
+  <Button>🚀</Button>
+</ButtonGroup>;
+```
+
+<Example>
+  <Flex direction="column">
+    <ButtonGroup size="small">
+      <Button>🚀</Button>
+      <Button>🚀</Button>
+      <Button>🚀</Button>
+    </ButtonGroup>
+    <ButtonGroup variation="primary">
+      <Button>🚀</Button>
+      <Button>🚀</Button>
+      <Button>🚀</Button>
+    </ButtonGroup>
+  </Flex>
+</Example>
+
+`ButtonGroup` is also a flex container, so any flex props can apply to it for layout purpose. See [Flex](/ui/primitives/flex?platform=react).
+
+```jsx
+import { Button, ButtonGroup } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<ButtonGroup justifyContent="center">
+  <Button>🚀</Button>
+  <Button>🚀</Button>
+  <Button>🚀</Button>
+</ButtonGroup>
+
+<ButtonGroup direction="column">
+  <Button>🚀</Button>
+  <Button>🚀</Button>
+  <Button>🚀</Button>
+</ButtonGroup>;
+```
+
+<Example>
+  <Flex direction="column">
+    <ButtonGroup justifyContent="center">
+      <Button>🚀</Button>
+      <Button>🚀</Button>
+      <Button>🚀</Button>
+    </ButtonGroup>
+    <ButtonGroup direction="column">
+      <Button>🚀</Button>
+      <Button>🚀</Button>
+      <Button>🚀</Button>
+    </ButtonGroup>
+  </Flex>
 </Example>
 
 ## CSS Styling
