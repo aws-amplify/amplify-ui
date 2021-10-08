@@ -1,4 +1,4 @@
-import { Theme } from './types';
+import { Theme } from '@aws-amplify/ui';
 
 function isPlainObject(value) {
   if (
