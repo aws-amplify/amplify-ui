@@ -70,7 +70,7 @@ index a4b7028..f0cced1 100644
      if (this.state.isOpen) {
        return (
 diff --git a/node_modules/amplify-docs/src/components/TableOfContents/index.tsx b/node_modules/amplify-docs/src/components/TableOfContents/index.tsx
-index e900068..44548e1 100644
+index e900068..1cc233c 100644
 --- a/node_modules/amplify-docs/src/components/TableOfContents/index.tsx
 +++ b/node_modules/amplify-docs/src/components/TableOfContents/index.tsx
 @@ -24,17 +24,18 @@ export default function TableOfContents({children, title}) {
@@ -98,6 +98,20 @@ index e900068..44548e1 100644
      const idSet = new Set();
      const headings = document.querySelectorAll("a > h2, a > h3");
      const headings2 = document.getElementById("toc").querySelectorAll("a");
+@@ -55,11 +56,11 @@ export default function TableOfContents({children, title}) {
+       }
+       (headings[i].parentElement as HTMLAnchorElement).onclick = () => {
+         setTimeout(scroll.bind(undefined, uniqueId), 50);
+-        return false;
++        // return false;
+       };
+       headings2[i].onclick = () => {
+         setTimeout(scroll.bind(undefined, uniqueId), 50);
+-        return false;
++        // return false;
+       };
+     }
+     headers = Array.from(headings).map((heading) => heading.id);
 @@ -93,18 +94,18 @@ export default function TableOfContents({children, title}) {
                  aTag.classList.add("active");
                });
