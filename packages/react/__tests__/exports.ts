@@ -10,7 +10,6 @@ describe('@aws-amplify/ui-react', () => {
         Array [
           "Alert",
           "AmplifyProvider",
-          "AmplifyThemeOverrides",
           "Authenticator",
           "Badge",
           "Box",

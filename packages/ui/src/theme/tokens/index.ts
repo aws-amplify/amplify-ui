@@ -1,7 +1,6 @@
 import { PartialDeep } from 'type-fest';
 
 import { borderWidths, BorderWidths } from './borderWidths';
-import { breakpoints, Breakpoints } from './breakpoints';
 import { colors, Colors } from './colors';
 import { fonts, Fonts } from './fonts';
 import { fontSizes, FontSizes } from './fontSizes';
@@ -16,10 +15,9 @@ import { space, Space } from './space';
 import { time, Time } from './time';
 import { transforms, Transforms } from './transforms';
 
-export interface AmplifyTheme {
+export interface Tokens {
   components: any; // TODO type this
   borderWidths: BorderWidths;
-  breakpoints: Breakpoints;
   colors: Colors;
   fonts: Fonts;
   fontSizes: FontSizes;
@@ -37,13 +35,12 @@ export interface AmplifyTheme {
   [key: string]: any;
 }
 
-export type AmplifyThemeOverrides = PartialDeep<AmplifyTheme>;
+export type TokenOverrides = PartialDeep<Tokens>;
 
-export const theme: AmplifyTheme = {
+export const tokens: Tokens = {
   // TODO: convert component theme files to typescript
   components: require('./components'),
   borderWidths,
-  breakpoints,
   colors,
   fonts,
   fontSizes,

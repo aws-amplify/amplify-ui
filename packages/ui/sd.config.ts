@@ -8,7 +8,7 @@ import { theme, CSS_VARIABLE_PREFIX } from './src/theme';
 const CSS_VARIABLE_SCOPE = ':root, .amplify-theme';
 
 StyleDictionary.extend({
-  tokens: theme,
+  tokens: theme.tokens,
   transform: {
     cssPadding: {
       type: 'value',
