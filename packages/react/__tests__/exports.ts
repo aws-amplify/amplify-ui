@@ -1876,6 +1876,7 @@ describe('@aws-amplify/ui-react', () => {
           "VisuallyHidden",
           "Wrapper",
           "components",
+          "convertSortPredicatesToDataStore",
           "defaultCSSVariables",
           "defaultTheme",
           "extendTheming",

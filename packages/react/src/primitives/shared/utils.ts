@@ -1,3 +1,4 @@
+import { SortDirection } from '@aws-amplify/datastore';
 import { useId } from '@radix-ui/react-id';
 
 export const strHasLength = (str: unknown): str is string =>
@@ -87,3 +88,34 @@ export const getOverrideProps = (
 export type EscapeHatchProps = {
   [elementHierarchy: string]: Record<string, string>;
 };
+
+export type SortPredicateInput = {
+  field: string;
+  direction: 'ASC' | 'DESC';
+};
+
+/**
+ * Accepts a list of sort predicate options (field name and direction) and converts into a function
+ * to be handed to the DataStore provider class.
+ */
+export function convertSortPredicatesToDataStore(
+  predicates: readonly SortPredicateInput[]
+): (s: any) => any {
+  const clonedPredicates = [...predicates];
+
+  return (s: Record<string, Function>) => {
+    while (clonedPredicates.length) {
+      const nextPredicate = clonedPredicates.shift();
+
+      if (nextPredicate) {
+        s[nextPredicate.field](
+          nextPredicate.direction === 'ASC'
+            ? SortDirection.ASCENDING
+            : SortDirection.DESCENDING
+        );
+      }
+    }
+
+    return s;
+  };
+}

@@ -1,4 +1,8 @@
-import { getConsecutiveIntArray, strHasLength } from '../utils';
+import {
+  convertSortPredicatesToDataStore,
+  getConsecutiveIntArray,
+  strHasLength,
+} from '../utils';
 import { ViewProps } from '../../types';
 
 const props: ViewProps = {
@@ -51,5 +55,51 @@ describe('strHasLength: ', () => {
 
   it('should return true for strings with a length', () => {
     expect(strHasLength('some string')).toBe(true);
+  });
+});
+
+describe('convertSortPredicatesToDataStore', () => {
+  const [firstName, lastName, age] = [jest.fn(), jest.fn(), jest.fn()];
+  const testObject = {
+    firstName,
+    lastName,
+    age,
+  };
+
+  beforeEach(() => {
+    jest.resetAllMocks();
+  });
+
+  it('transforms an empty list of predicates correctly, and the models provided are not accessed', () => {
+    convertSortPredicatesToDataStore([])(testObject);
+    expect(firstName).not.toBeCalled();
+    expect(lastName).not.toBeCalled();
+    expect(age).not.toBeCalled();
+  });
+  it('transforms a simple predicate correctly, and the model provided is only accessed directly on the `firstName` field', () => {
+    convertSortPredicatesToDataStore([
+      {
+        field: 'firstName',
+        direction: 'ASC',
+      },
+    ])(testObject);
+    expect(firstName).toBeCalled();
+    expect(lastName).not.toBeCalled();
+    expect(age).not.toBeCalled();
+  });
+  it('transforms multiple predicates correctly, and the model provided is only accessed via the `firstName` and `age` fields', () => {
+    convertSortPredicatesToDataStore([
+      {
+        field: 'firstName',
+        direction: 'ASC',
+      },
+      {
+        field: 'age',
+        direction: 'DESC',
+      },
+    ])(testObject);
+    expect(firstName).toBeCalled();
+    expect(lastName).not.toBeCalled();
+    expect(age).toBeCalled();
   });
 });

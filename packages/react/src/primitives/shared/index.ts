@@ -3,5 +3,7 @@ export {
   EscapeHatchProps,
   findChildOverrides,
   getOverrideProps,
+  SortPredicateInput,
+  convertSortPredicatesToDataStore,
 } from './utils';
 export * from './i18n';
