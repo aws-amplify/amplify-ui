@@ -12,16 +12,17 @@ index 65e4470..b91501e 100644
    }
  
 diff --git a/node_modules/amplify-docs/src/components/Menu/FilterSelect/index.tsx b/node_modules/amplify-docs/src/components/Menu/FilterSelect/index.tsx
-index 61372fc..5decc7e 100644
+index 61372fc..d896b54 100644
 --- a/node_modules/amplify-docs/src/components/Menu/FilterSelect/index.tsx
 +++ b/node_modules/amplify-docs/src/components/Menu/FilterSelect/index.tsx
-@@ -75,7 +75,14 @@ export default class FilterSelect extends React.Component<
+@@ -75,7 +75,15 @@ export default class FilterSelect extends React.Component<
      }
  
      return (
 -      <Link href={href} key={name}>
 +      <Link
 +        href={{
++          hash: window.location.hash,
 +          pathname: this.props.url,
 +          query: { platform: name },
 +        }}
