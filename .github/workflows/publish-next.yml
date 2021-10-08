@@ -1,17 +1,19 @@
 name: Publish to @next
 
 on:
-  workflow_run:
-    workflows: ['Tests']
-    types:
-      - completed
+  # workflow_run:
+  #   workflows: ['Tests']
+  #   types: [completed]
+  push:
+    branches: [deployment/setup-next-deployment]
 
 jobs:
   publish:
     runs-on: ubuntu-latest
-    if: |
-      github.event.workflow_run.conclusion == 'success' &&
-      github.ref == 'refs/heads/main'
+    # if: |
+    #   github.event.workflow_run.conclusion == 'success' &&
+    #   github.ref == 'refs/heads/deployment/setup-next-deployment'
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
@@ -25,8 +27,8 @@ jobs:
       - name: Add changeset that bumps all public packages
         # There needs to be a changeset for @aws-amplify/ui[-framework] to publish.
         run: cp .github/changeset-presets/bump-versions.md .changeset
-      - name: Run changeset version to next tag
-        run: yarn changeset version --snapshot next
+      - name: Run changeset version to next-poc tag
+        run: yarn changeset version --snapshot next-poc
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Creating .npmrc
@@ -37,5 +39,5 @@ jobs:
         # It's important we build after packages are versioned because Angular
         # dist/ui-angular/package.json is auto-generated.
         run: yarn build
-      - name: Publish to next tag
-        run: yarn changeset publish --tag next
+      - name: Publish to next-poc tag
+        run: yarn changeset publish --tag next-poc
