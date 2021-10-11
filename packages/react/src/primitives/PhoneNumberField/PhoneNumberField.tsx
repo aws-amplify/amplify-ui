@@ -25,6 +25,7 @@ export const PhoneNumberField: React.FC<PhoneNumberFieldProps> = ({
       outerStartComponent={
         <CountryCodeSelect
           defaultValue={defaultCountryCode}
+          className={className}
           isDisabled={isDisabled}
           label={countryCodeLabel}
           name={countryCodeName}
