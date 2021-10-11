@@ -3,13 +3,18 @@
  */
 
 import StyleDictionary from 'style-dictionary';
-import { theme, CSS_VARIABLE_PREFIX } from './src/theme';
+import { theme } from './src/theme';
+import { CSS_VARIABLE_PREFIX, cssNameTransform } from './src/theme/utils';
 
-const CSS_VARIABLE_SCOPE = ':root, .amplify-theme';
+const CSS_VARIABLE_SCOPE = ':root, [data-amplify-theme]';
 
 StyleDictionary.extend({
   tokens: theme.tokens,
   transform: {
+    cssNameTransform: {
+      type: 'name',
+      transformer: cssNameTransform,
+    },
     cssPadding: {
       type: 'value',
       transitive: true,
@@ -25,7 +30,7 @@ StyleDictionary.extend({
   },
   platforms: {
     css: {
-      transforms: ['attribute/cti', 'name/cti/kebab', 'cssPadding'],
+      transforms: ['attribute/cti', 'cssNameTransform', 'cssPadding'],
       prefix: CSS_VARIABLE_PREFIX,
       files: [
         {

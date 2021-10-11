@@ -35,8 +35,6 @@ export interface Tokens {
   [key: string]: any;
 }
 
-export type TokenOverrides = PartialDeep<Tokens>;
-
 export const tokens: Tokens = {
   // TODO: convert component theme files to typescript
   components: require('./components'),

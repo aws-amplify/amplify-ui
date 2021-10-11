@@ -1,4 +1,4 @@
-import { Theme } from '../../theming/types';
+import { Theme } from '@aws-amplify/ui';
 
 export type Breakpoints = Theme['breakpoints']['values'];
 export type Breakpoint = keyof Theme['breakpoints']['values'];

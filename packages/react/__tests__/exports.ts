@@ -1877,9 +1877,7 @@ describe('@aws-amplify/ui-react', () => {
           "VisuallyHidden",
           "Wrapper",
           "components",
-          "defaultCSSVariables",
-          "defaultTheme",
-          "extendTheming",
+          "createTheme",
           "findChildOverrides",
           "getOverrideProps",
           "primitives",
@@ -1888,7 +1886,7 @@ describe('@aws-amplify/ui-react', () => {
           "useAuthenticator",
           "usePagination",
           "useSearchField",
-          "useTheming",
+          "useTheme",
           "withAuthenticator",
         ]
       `);

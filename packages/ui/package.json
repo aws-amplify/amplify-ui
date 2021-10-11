@@ -23,17 +23,18 @@
     "build:js": "tsup --minify",
     "build:sd": "ts-node --transpile-only sd.config.ts",
     "dev": "tsup --watch src",
-    "test": "echo \"Skipped: no test specified\""
+    "test": "jest"
   },
   "dependencies": {
+    "change-case": "^4.1.2",
     "lodash": "^4.17.21",
     "xstate": "^4.20.1"
   },
   "devDependencies": {
+    "@types/jest": "^26.0.23",
     "@types/lodash": "^4.14.170",
     "@types/webpack-env": "^1.16.2",
     "autoprefixer": "^10.3.1",
-    "change-case": "^4.1.2",
     "fs-extra": "^10.0.0",
     "glob": "^7.1.7",
     "globcat": "^1.3.4",
@@ -41,6 +42,7 @@
     "rimraf": "^3.0.2",
     "sass": "^1.35.2",
     "style-dictionary": "^3.0.1",
+    "ts-jest": "^27.0.3",
     "ts-node": "^10.2.1",
     "tslib": "^2.3.0",
     "type-fest": "^2.3.4"

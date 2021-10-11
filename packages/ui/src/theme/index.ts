@@ -1,14 +1,6 @@
-import { Tokens, tokens } from './tokens';
-import { Breakpoints, breakpoints } from './breakpoints';
-export { TokenOverrides } from './tokens';
-export const CSS_VARIABLE_PREFIX = 'amplify';
+export * from './types';
+import { createTheme } from './createTheme';
+import { defaultTheme } from './defaultTheme';
+export { createTheme };
 
-export interface Theme {
-  tokens?: Tokens;
-  breakpoints?: Breakpoints;
-}
-
-export const theme: Theme = {
-  tokens,
-  breakpoints,
-};
+export const theme = createTheme({}, defaultTheme);

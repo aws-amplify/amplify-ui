@@ -46,6 +46,10 @@ export interface Colors {
   font: FontColors;
   background: BackgroundColors;
   border: BorderColors;
+  brand: {
+    primary: ColorScale;
+    secondary: ColorScale;
+  };
 
   // escape hatch to allow customers to add arbitrary colors
   [key: string]: any;

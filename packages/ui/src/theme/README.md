@@ -2,73 +2,23 @@
 
 ## Design Tokens
 
-- Colors
-- Spacing
-- Sizes
-- Typography: font sizes & weights
-- Borders: radius
-- Components: Button
-
 ## Build
-
-```bash
-yarn run build # or npm run build
-```
-
-Output:
-
-```
-> style-dictionary build
-
-css
-✔︎ dist/variables.css
-
-js
-✔︎ dist/theme.js
-
-json
-✔︎ dist/theme.json
-
-✨  Done in 0.45s.
-```
 
 ## Usage
 
 ### React
 
 ```jsx
-import { ThemeProvider, Button } from '@aws-amplify/ui-react';
-import { theme } from '@aws-amplify/ui';
+import { createTheme } from '@aws-amplify/ui';
 
-const ThemedApp = (
-  <ThemeProvider theme={BaseTheme}>
-    <Button variation="primary">Click me!</Button>
-  </ThemeProvider>
-);
-```
+const myTheme = createTheme({});
 
-or using a utility function:
-
-```jsx
-import { withTheme, Button } from '@aws-amplify/ui-react';
-import { theme } from '@aws-amplify/ui';
-
-const ThemedApp = withTheme(
-  BaseTheme,
-  <Button variation="primary">Click me!</Button>
-);
-```
-
-### Other CSS-supported platforms
-
-```jsx
-import '@aws-amplify/ui/dist/theme.css';
-
-const ThemedApp = (
-  <button class="amplify-ui-button" data-size="large" data-variation="primary">
-    Click me!
-  </button>
-);
+<>
+  <Head>
+    {/* for SSR/SSG */}
+    <style>{myTheme.css}</style>
+  </Head>
+</>;
 ```
 
 ## Structure
