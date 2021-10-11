@@ -1,0 +1,50 @@
+name: Publish to @next
+
+on:
+  workflow_run:
+    workflows: ['Tests']
+    types:
+      - completed
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: ci
+    # We only publish if the previous workflow run (Tests) was successful
+    # and the previous workflow was called from main branch.
+    #
+    # Note that we check against workflow_run.head_branch instead of github.ref
+    # because workflow_run is always run on main, even if it's triggered from
+    # another branch.
+    #
+    # https://github.community/t/workflow-run-not-working-as-expected/139342
+    if: |
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.head_branch == 'main'
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      - name: Setup Node.js LTS
+        uses: actions/setup-node@v2
+        with:
+          node-version: lts/*
+          cache: 'yarn'
+      - name: Install packages
+        run: yarn --frozen-lockfile
+      - name: Add changeset that bumps all public packages
+        # There needs to be a changeset for @aws-amplify/ui[-framework] to publish.
+        run: cp .github/changeset-presets/bump-versions.md .changeset
+      - name: Run changeset version to next tag
+        run: yarn changeset version --snapshot next
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build packages
+        # It's important we build after packages are versioned because Angular
+        # dist/ui-angular/package.json is auto-generated.
+        run: yarn build
+      - name: Create .npmrc
+        run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Publish to next tag
+        run: yarn changeset publish --tag next
