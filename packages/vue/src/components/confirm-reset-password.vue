@@ -129,6 +129,7 @@ import {
   CONFIRMATION_CODE_TEXT,
   CODE_TEXT,
   NEW_PASSWORD_LABEL,
+  CONFIRM_PASSWORD_LABEL,
 } from '../defaults/DefaultTexts';
 
 import {
@@ -162,6 +163,7 @@ const confirmResetPasswordText = computed(() =>
 
 const codeText = computed(() => I18n.get(CODE_TEXT));
 const newPasswordLabel = computed(() => I18n.get(NEW_PASSWORD_LABEL));
+const confirmPasswordLabel = computed(() => I18n.get(CONFIRM_PASSWORD_LABEL));
 
 // Methods
 const onConfirmResetPasswordSubmit = (e: Event): void => {
