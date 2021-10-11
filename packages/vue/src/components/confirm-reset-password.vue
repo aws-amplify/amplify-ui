@@ -4,7 +4,7 @@
       <base-form
         data-amplify-authenticator-confirmResetpassword
         @submit.prevent="onConfirmResetPasswordSubmit"
-        @change="onChange"
+        @input="onInput"
       >
         <base-field-set
           class="amplify-flex"
@@ -192,7 +192,7 @@ const onLostYourCodeClicked = (): void => {
   });
 };
 
-const onChange = (e: Event) => {
+const onInput = (e: Event) => {
   const { name, value } = <HTMLInputElement>e.target;
   send({
     type: 'CHANGE',
