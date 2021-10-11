@@ -54,6 +54,21 @@
                 autocomplete="current-password"
               />
             </base-wrapper>
+            <base-wrapper
+              class="
+                amplify-flex
+                amplify-field
+                amplify-textfield
+                amplify-passwordfield
+              "
+              style="flex-direction: column"
+            >
+              <password-control
+                name="confirm_password"
+                :label="confirmPasswordLabel"
+                autocomplete="new-password"
+              />
+            </base-wrapper>
           </base-wrapper>
           <base-footer class="amplify-flex" style="flex-direction: column">
             <template #footert="{ slotData }">
@@ -92,6 +107,12 @@
     <base-box data-ui-error v-if="actorState?.context?.remoteError">
       {{ actorState?.context?.remoteError }}
     </base-box>
+    <base-box
+      data-ui-error
+      v-if="!!actorContext.validationError['confirm_password']"
+    >
+      {{ actorContext.validationError['confirm_password'] }}
+    </base-box>
   </slot>
 </template>
 
@@ -110,7 +131,12 @@ import {
   NEW_PASSWORD_LABEL,
 } from '../defaults/DefaultTexts';
 
-import { getActorState, ResetPasswordState } from '@aws-amplify/ui';
+import {
+  getActorContext,
+  getActorState,
+  ResetPasswordContext,
+  ResetPasswordState,
+} from '@aws-amplify/ui';
 const { state, send } = useAuth();
 
 const attrs = useAttrs();
@@ -119,6 +145,10 @@ const emit = defineEmits(['confirmResetPasswordSubmit', 'backToSignInClicked']);
 const actorState: ComputedRef<ResetPasswordState> = computed(() =>
   getActorState(state.value)
 ) as ComputedRef<ResetPasswordState>;
+
+const actorContext = computed(() =>
+  getActorContext(state.value)
+) as ComputedRef<ResetPasswordContext>;
 
 // Computed Properties
 const resendCodeText = computed(() => I18n.get(RESEND_CODE_TEXT));
