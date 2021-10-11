@@ -341,7 +341,6 @@ const machine = createAuthenticatorMachine({ initialState, loginMechanisms });
 const service = useInterpret(machine, {
   devTools: process.env.NODE_ENV === 'development',
 });
-const { active } = useSelect;
 
 const { state, send } = useActor(service);
 provide(InterpretServiceInjectionKeyTypes, <InterpretService>service);
