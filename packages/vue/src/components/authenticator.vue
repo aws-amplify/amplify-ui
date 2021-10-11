@@ -466,24 +466,4 @@ watch(
     signOut.value = s;
   }
 );
-
-/**
- * Toggle sign up and sign in pages when useSelect
- * active ref updates
- */
-
-watch(
-  () => active.value,
-  () => {
-    if (active.value) {
-      send({
-        type: 'SIGN_UP',
-      });
-    } else {
-      send({
-        type: 'SIGN_IN',
-      });
-    }
-  }
-);
 </script>
