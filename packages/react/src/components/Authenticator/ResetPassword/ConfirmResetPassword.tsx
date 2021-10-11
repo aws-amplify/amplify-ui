@@ -1,5 +1,10 @@
 import { I18n } from 'aws-amplify';
-import { getActorState, ResetPasswordState } from '@aws-amplify/ui';
+import {
+  getActorContext,
+  getActorState,
+  ResetPasswordContext,
+  ResetPasswordState,
+} from '@aws-amplify/ui';
 
 import { useAmplify, useAuthenticator } from '../../../hooks';
 import {
@@ -11,15 +16,17 @@ import {
 export const ConfirmResetPassword = (): JSX.Element => {
   const amplifyNamespace = 'Authenticator.ConfirmResetPassword';
   const {
-    components: { Flex, Form, Heading, PasswordField },
+    components: { Flex, Form, Heading, PasswordField, Text },
   } = useAmplify(amplifyNamespace);
 
   const [_state, send] = useAuthenticator();
   const actorState = getActorState(_state) as ResetPasswordState;
+  const { validationError } = getActorContext(_state) as ResetPasswordContext;
   const isPending = actorState.matches('confirmResetPassword.pending');
 
   const headerText = I18n.get('Reset your password');
   const passwordText = I18n.get('New password');
+  const confirmPasswordLabel = I18n.get('Confirm Password');
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -61,6 +68,19 @@ export const ConfirmResetPassword = (): JSX.Element => {
             label={passwordText}
             labelHidden={true}
           />
+          <PasswordField
+            data-amplify-confirmpassword
+            placeholder={confirmPasswordLabel}
+            required
+            name="confirm_password"
+            label={confirmPasswordLabel}
+            labelHidden={true}
+            hasError={!!validationError['confirm_password']}
+          />
+
+          {!!validationError['confirm_password'] && (
+            <Text variation="error">{validationError['confirm_password']}</Text>
+          )}
         </Flex>
 
         <RemoteErrorMessage amplifyNamespace={amplifyNamespace} />
