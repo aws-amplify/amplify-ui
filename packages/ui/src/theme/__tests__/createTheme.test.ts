@@ -1,5 +1,4 @@
 import { createTheme } from '../createTheme';
-import { theme, Theme } from '../index';
 
 describe('@aws-amplify/ui', () => {
   describe('createTheme', () => {
