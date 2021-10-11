@@ -11,11 +11,12 @@ jobs:
     runs-on: ubuntu-latest
     environment: ci
     # We only publish if the previous workflow run (Tests) was successful
-    # and the previous workflow was called from "main" branch.
+    # and the previous workflow was called from main branch.
     #
-    # Note that we don't check against current github.ref, because workflow_run
-    # triggers are always run on main. Instead we check against
-    # workflow_run.head_branch.
+    # Note that we check against workflow_run.head_branch instead of github.ref
+    # because workflow_run is always run on main, even if it's triggered from
+    # another branch.
+    #
     # https://github.community/t/workflow-run-not-working-as-expected/139342
     if: |
       github.event.workflow_run.conclusion == 'success' &&
