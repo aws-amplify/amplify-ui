@@ -1,4 +1,61 @@
-module.exports = {
+import { DesignToken } from './types/designToken';
+import { OrdinalScale, OrdinalVariation } from './types/scales';
+
+export interface ColorScale {
+  10: DesignToken;
+  20: DesignToken;
+  40: DesignToken;
+  60: DesignToken;
+  80: DesignToken;
+  90: DesignToken;
+  100: DesignToken;
+}
+
+export interface FontColors extends OrdinalScale, OrdinalVariation {
+  inverse: DesignToken;
+  interactive: DesignToken;
+  hover: DesignToken;
+  focus: DesignToken;
+  active: DesignToken;
+  disabled: DesignToken;
+}
+
+export interface BackgroundColors extends OrdinalScale, OrdinalVariation {
+  disabled: DesignToken;
+}
+
+export interface BorderColors extends OrdinalScale {
+  disabled: DesignToken;
+}
+
+export interface Colors {
+  // base color palette
+  red: ColorScale;
+  orange: ColorScale;
+  yellow: ColorScale;
+  green: ColorScale;
+  teal: ColorScale;
+  blue: ColorScale;
+  purple: ColorScale;
+  pink: ColorScale;
+  neutral: ColorScale;
+  white: DesignToken;
+  black: DesignToken;
+
+  // Semantic colors
+  font: FontColors;
+  background: BackgroundColors;
+  border: BorderColors;
+  brand: {
+    primary: ColorScale;
+    secondary: ColorScale;
+  };
+
+  // escape hatch to allow customers to add arbitrary colors
+  [key: string]: any;
+}
+
+export const colors: Colors = {
   red: {
     10: { value: 'hsl(0, 75%, 95%)' },
     20: { value: 'hsl(0, 75%, 85%)' },
@@ -147,6 +204,7 @@ module.exports = {
     disabled: { value: '{colors.border.tertiary.value}' },
   },
 
+  // TODO: put these in the border, background, or font
   focus: { value: '{colors.brand.primary.100.value}' },
   disabled: { value: '{colors.neutral.40.value}' },
   error: { value: '{colors.red.80.value}' },
