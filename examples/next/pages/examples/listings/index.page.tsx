@@ -4,7 +4,7 @@ import {
   IconAccountCircle,
   Image,
   Text,
-  theme,
+  defaultTheme,
   View,
 } from '@aws-amplify/ui-react';
 import { useEffect, useState } from 'react';
@@ -35,7 +35,7 @@ function App() {
         </Button>
       </header>
 
-      <View padding={theme.space.xxl}>
+      <View padding={`${defaultTheme.tokens.space.xxl}`}>
         <SectionHeading
           title="Discover Experiences"
           subtitle="Unique activities with local experts—in person or online."
@@ -44,7 +44,7 @@ function App() {
           type="list"
           direction={{ base: 'column', large: 'row' }}
           alignItems="stretch"
-          padding={`0 0 ${theme.space.xxl} 0`}
+          padding={`0 0 ${defaultTheme.tokens.space.xxl} 0`}
           items={experiences}
         >
           {(item) => (
@@ -60,7 +60,7 @@ function App() {
           type="list"
           direction="row"
           alignItems="stretch"
-          padding={`0 0 ${theme.space.xxl} 0`}
+          padding={`0 0 ${defaultTheme.tokens.space.xxl} 0`}
           items={places}
         >
           {(item) => (
@@ -74,7 +74,7 @@ function App() {
       </View>
 
       <footer className="listing-app-footer">
-        <Text color={theme.colors.font.tertiary}>
+        <Text color={`${defaultTheme.tokens.colors.font.tertiary}`}>
           © 2021 Lystifying (not a real company)
         </Text>
       </footer>

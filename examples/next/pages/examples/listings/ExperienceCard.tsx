@@ -1,10 +1,10 @@
-import { Card, Image, Text, theme } from '@aws-amplify/ui-react';
+import { Card, Image, Text, defaultTheme } from '@aws-amplify/ui-react';
 
 export const ExperienceCard = ({ img, title }) => (
   <Card
     width="20rem"
     padding="0"
-    borderRadius={theme.radii.large}
+    borderRadius={`${defaultTheme.tokens.radii.large}`}
     className="experience-card"
   >
     <Image
@@ -14,7 +14,7 @@ export const ExperienceCard = ({ img, title }) => (
       objectPosition="center"
       width="100%"
       height="20rem"
-      borderRadius={theme.radii.large}
+      borderRadius={`${defaultTheme.tokens.radii.large}`}
     />
     <Text className="experience-card-text">{title}</Text>
   </Card>

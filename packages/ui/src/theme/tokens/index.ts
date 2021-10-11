@@ -1,5 +1,3 @@
-import { PartialDeep } from 'type-fest';
-
 import { borderWidths, BorderWidths } from './borderWidths';
 import { colors, Colors } from './colors';
 import { fonts, Fonts } from './fonts';
