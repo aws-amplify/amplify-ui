@@ -287,7 +287,6 @@ import {
   createAuthenticatorMachine,
 } from '@aws-amplify/ui';
 import { useActor, useInterpret } from '@xstate/vue';
-import useSelect from '../composables/useSelect';
 
 import SignIn from './sign-in.vue';
 import SignUp from './sign-up.vue';
