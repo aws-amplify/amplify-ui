@@ -1,4 +1,4 @@
-import { paramCase } from 'change-case';
+import kebabCase from 'lodash/kebabCase';
 
 // internal style dictionary functions
 import usesReference from 'style-dictionary/lib/utils/references/usesReference';
@@ -16,5 +16,5 @@ export function cssValue(value: string) {
 }
 
 export function cssNameTransform({ path = [] }: { path: Array<string> }) {
-  return `${paramCase([CSS_VARIABLE_PREFIX, ...path].join(' '))}`;
+  return `${kebabCase([CSS_VARIABLE_PREFIX, ...path].join(' '))}`;
 }
