@@ -7,14 +7,7 @@ import {
   OnInit,
   TemplateRef,
 } from '@angular/core';
-import {
-  AuthMachineState,
-  getActorContext,
-  getActorState,
-  ResetPasswordContext,
-  SignInState,
-  ValidationError,
-} from '@aws-amplify/ui';
+import { AuthMachineState, getActorState, SignInState } from '@aws-amplify/ui';
 import { Subscription } from 'xstate';
 import { AuthPropService } from '../../services/authenticator-context.service';
 import { StateMachineService } from '../../services/state-machine.service';
@@ -32,7 +25,6 @@ export class ConfirmResetPasswordComponent
 
   public customComponents: Record<string, TemplateRef<any>> = {};
   public remoteError = '';
-  public validationError: ValidationError;
   public isPending = false;
   private authSubscription: Subscription;
 
@@ -63,8 +55,6 @@ export class ConfirmResetPasswordComponent
 
   onStateUpdate(state: AuthMachineState): void {
     const actorState: SignInState = getActorState(state);
-    const actorContext: ResetPasswordContext = getActorContext(state);
-    this.validationError = actorContext.validationError;
     this.remoteError = actorState.context.remoteError;
     this.isPending = !actorState.matches('confirmResetPassword.edit');
   }
