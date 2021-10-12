@@ -13,4 +13,12 @@ module.exports = {
     right: { value: '{space.medium.value}' },
     pointerEvents: { value: 'none' },
   },
+  whiteSpace: { value: 'nowrap' },
+  minWidth: { value: '6.5rem' },
+  small: {
+    minWidth: { value: '5.5rem' },
+  },
+  large: {
+    minWidth: { value: '7.5rem' },
+  },
 };
