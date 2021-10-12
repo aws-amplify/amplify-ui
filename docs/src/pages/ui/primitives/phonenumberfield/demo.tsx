@@ -81,7 +81,7 @@ export const PhoneNumberFieldDemo = () => {
     <View width="100%">
       {TextFieldPropControls}
       {FlexPropControls}
-      <Example className="">
+      <Example>
         <PhoneNumberField
           defaultCountryCode="+1"
           alignContent={alignContent as FlexStyleProps['alignContent']}
