@@ -1,20 +1,16 @@
-import { BaseComponentProps } from './base';
-import { BaseStyleProps } from './style';
-import { FlexStyleProps } from './flex';
-import { IconSize } from './icon';
+import * as React from 'react';
+
+import { FlexProps } from './flex';
 import { HeadingLevel } from './heading';
-import React from 'react';
+import { IconSize } from './icon';
 
-export type AlertVariation = 'info' | 'error' | 'warning' | 'success';
+export type AlertVariations = 'info' | 'error' | 'warning' | 'success';
 
-export interface AlertProps
-  extends BaseComponentProps,
-    BaseStyleProps,
-    FlexStyleProps {
+export interface AlertProps extends FlexProps {
   /**
    * The variation property will affect the background color of the Alert.
    */
-  variation?: AlertVariation;
+  variation?: AlertVariations;
 
   /**
    * The isDismissible property will affect whether the user can dismiss (close) the Alert. Defaults to false (not dismissible).

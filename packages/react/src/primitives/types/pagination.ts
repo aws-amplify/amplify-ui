@@ -1,5 +1,6 @@
 import { BaseComponentProps, AriaProps } from './base';
 import { BaseStyleProps } from './style';
+import { ViewProps } from './view';
 
 export type PaginationItemType = 'page' | 'next' | 'previous' | 'ellipsis';
 export type PaginationCallbackType = 'onNext' | 'onPrevious' | 'onChange';
@@ -36,11 +37,7 @@ interface BasePaginationProps {
   onChange: (newPageIndex: number, prevPageIndex: number) => void;
 }
 
-export interface PaginationProps
-  extends BasePaginationProps,
-    BaseComponentProps,
-    BaseStyleProps,
-    AriaProps {}
+export interface PaginationProps extends BasePaginationProps, ViewProps {}
 
 export interface UsePaginationProps
   extends Omit<BasePaginationProps, PaginationCallbackType> {}

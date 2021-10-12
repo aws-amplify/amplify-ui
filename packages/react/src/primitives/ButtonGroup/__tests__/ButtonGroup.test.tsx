@@ -6,7 +6,7 @@ import { ButtonGroupProps } from '../../types';
 import { ComponentClassNames } from '../../shared/constants';
 import {
   testFlexProps,
-  expectFlexStyleProps,
+  expectFlexContainerStyleProps,
 } from '../../Flex/__tests__/Flex.test';
 
 describe('ButtonGroup: ', () => {
@@ -30,7 +30,7 @@ describe('ButtonGroup: ', () => {
   it('should render all flex style props', async () => {
     render(getButtonGroup(testFlexProps));
     const buttonGroup = await screen.findByRole('group');
-    expectFlexStyleProps(buttonGroup);
+    expectFlexContainerStyleProps(buttonGroup);
   });
 
   it('should set size for each child button correctly', async () => {

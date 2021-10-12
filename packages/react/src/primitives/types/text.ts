@@ -1,5 +1,4 @@
-import { BaseComponentProps } from './base';
-import { BaseStyleProps } from './style';
+import { ViewProps } from './view';
 
 export type TextVariation =
   | 'primary'
@@ -10,7 +9,7 @@ export type TextVariation =
   | 'info'
   | 'success';
 
-export interface TextProps extends BaseComponentProps, BaseStyleProps {
+export interface TextProps extends ViewProps {
   /**
    * HTML allowed tags
    */

@@ -1,11 +1,6 @@
-import { BaseComponentProps } from './base';
-import { FlexStyleProps } from './flex';
-import { BaseStyleProps } from './style';
+import { FlexProps } from './flex';
 
-export interface FieldGroupOptions
-  extends BaseComponentProps,
-    BaseStyleProps,
-    FlexStyleProps {
+export interface FieldGroupOptions extends FlexProps {
   children?: React.ReactNode;
   outerStartComponent?: React.ReactNode;
   outerEndComponent?: React.ReactNode;

@@ -1,10 +1,14 @@
 import { render, screen } from '@testing-library/react';
 import { kebabCase } from 'lodash';
 
-import { Flex } from '../Flex';
-import { ComponentPropsToStylePropsMap, FlexStyleProps } from '../../types';
+import {
+  ComponentPropsToStylePropsMap,
+  FlexContainerStyleProps,
+} from '../../types';
 import { errorMessageWrapper } from '../../utils/testUtils';
-export const testFlexProps: FlexStyleProps = {
+import { Flex } from '../Flex';
+
+export const testFlexProps: FlexContainerStyleProps = {
   direction: 'column-reverse',
   gap: '10%',
   justifyContent: 'flex-end',
@@ -13,7 +17,7 @@ export const testFlexProps: FlexStyleProps = {
   wrap: 'wrap',
 };
 
-export const expectFlexStyleProps = (element: HTMLElement): void => {
+export const expectFlexContainerStyleProps = (element: HTMLElement): void => {
   Object.keys(testFlexProps).forEach((key) => {
     errorMessageWrapper(
       () =>
@@ -33,7 +37,7 @@ describe('Flex: ', () => {
   it('can apply styling via props', async () => {
     render(<Flex {...testFlexProps}>{flexText}</Flex>);
     const flex = await screen.findByText(flexText);
-    expectFlexStyleProps(flex);
+    expectFlexContainerStyleProps(flex);
   });
 
   it('can apply a custom className', async () => {

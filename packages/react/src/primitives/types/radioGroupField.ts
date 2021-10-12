@@ -1,10 +1,10 @@
-import { FlexStyleProps } from './flex';
+import { FlexContainerStyleProps } from './flex';
 import { FieldProps } from './field';
 import { InputProps } from './input';
 
 export interface RadioGroupFieldProps
   extends FieldProps,
-    FlexStyleProps,
+    FlexContainerStyleProps,
     InputProps {
   name: string;
   value?: string;

@@ -5,7 +5,7 @@ import { ComponentClassNames } from '../../shared';
 import { SelectField } from '../SelectField';
 import {
   testFlexProps,
-  expectFlexStyleProps,
+  expectFlexContainerStyleProps,
 } from '../../Flex/__tests__/Flex.test';
 import { AUTO_GENERATED_ID_PREFIX } from '../../shared/utils';
 
@@ -42,7 +42,7 @@ describe('SelectField test suite', () => {
         </SelectField>
       );
       const selectField = await screen.findByTestId(testId);
-      expectFlexStyleProps(selectField);
+      expectFlexContainerStyleProps(selectField);
     });
   });
 

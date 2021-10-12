@@ -1,25 +1,35 @@
 import React from 'react';
-import { StyleProps } from '@aws-amplify/ui-react';
+import { BaseStyleProps } from '@aws-amplify/ui-react';
 import { FieldLabeler } from './FieldLabeler';
 
-export interface StylePropControlsProps extends StyleProps {
+export interface StylePropControlsProps extends BaseStyleProps {
   setBackgroundColor: (
-    value: React.SetStateAction<StyleProps['backgroundColor']>
+    value: React.SetStateAction<BaseStyleProps['backgroundColor']>
   ) => void;
-  setBorder: (value: React.SetStateAction<StyleProps['border']>) => void;
+  setBorder: (value: React.SetStateAction<BaseStyleProps['border']>) => void;
   setBorderRadius: (
-    value: React.SetStateAction<StyleProps['borderRadius']>
+    value: React.SetStateAction<BaseStyleProps['borderRadius']>
   ) => void;
-  setBoxShadow: (value: React.SetStateAction<StyleProps['boxShadow']>) => void;
-  setColor: (value: React.SetStateAction<StyleProps['color']>) => void;
-  setHeight: (value: React.SetStateAction<StyleProps['height']>) => void;
-  setMaxHeight: (value: React.SetStateAction<StyleProps['maxHeight']>) => void;
-  setMaxWidth: (value: React.SetStateAction<StyleProps['maxWidth']>) => void;
-  setMinHeight: (value: React.SetStateAction<StyleProps['minHeight']>) => void;
-  setMinWidth: (value: React.SetStateAction<StyleProps['minWidth']>) => void;
-  setOpacity: (value: React.SetStateAction<StyleProps['opacity']>) => void;
-  setPadding: (value: React.SetStateAction<StyleProps['padding']>) => void;
-  setWidth: (value: React.SetStateAction<StyleProps['width']>) => void;
+  setBoxShadow: (
+    value: React.SetStateAction<BaseStyleProps['boxShadow']>
+  ) => void;
+  setColor: (value: React.SetStateAction<BaseStyleProps['color']>) => void;
+  setHeight: (value: React.SetStateAction<BaseStyleProps['height']>) => void;
+  setMaxHeight: (
+    value: React.SetStateAction<BaseStyleProps['maxHeight']>
+  ) => void;
+  setMaxWidth: (
+    value: React.SetStateAction<BaseStyleProps['maxWidth']>
+  ) => void;
+  setMinHeight: (
+    value: React.SetStateAction<BaseStyleProps['minHeight']>
+  ) => void;
+  setMinWidth: (
+    value: React.SetStateAction<BaseStyleProps['minWidth']>
+  ) => void;
+  setOpacity: (value: React.SetStateAction<BaseStyleProps['opacity']>) => void;
+  setPadding: (value: React.SetStateAction<BaseStyleProps['padding']>) => void;
+  setWidth: (value: React.SetStateAction<BaseStyleProps['width']>) => void;
 }
 
 interface StylePropControlsInterface {
@@ -62,7 +72,7 @@ export const StylePropControls: StylePropControlsInterface = ({
           <input
             type="text"
             placeholder="Set backgroundColor"
-            value={backgroundColor}
+            value={backgroundColor as string}
             onChange={(event: any) => {
               setBackgroundColor(event.target.value);
             }}
@@ -73,7 +83,7 @@ export const StylePropControls: StylePropControlsInterface = ({
           <input
             type="text"
             placeholder="Set border"
-            value={border}
+            value={border as string}
             onChange={(event: any) => {
               setBorder(event.target.value);
             }}
@@ -84,7 +94,7 @@ export const StylePropControls: StylePropControlsInterface = ({
           <input
             type="text"
             placeholder="Set borderRadius"
-            value={borderRadius}
+            value={borderRadius as string}
             onChange={(event: any) => {
               setBorderRadius(event.target.value);
             }}
@@ -95,7 +105,7 @@ export const StylePropControls: StylePropControlsInterface = ({
           <input
             type="text"
             placeholder="Set boxShadow"
-            value={boxShadow}
+            value={boxShadow as string}
             onChange={(event: any) => {
               setBoxShadow(event.target.value);
             }}
@@ -108,7 +118,7 @@ export const StylePropControls: StylePropControlsInterface = ({
             placeholder="Set color"
             id="color"
             name="color"
-            value={color}
+            value={color as string}
             onChange={(event: any) => {
               setColor(event.target.value);
             }}
@@ -119,7 +129,7 @@ export const StylePropControls: StylePropControlsInterface = ({
           <input
             type="text"
             placeholder="Set height"
-            value={height}
+            value={height as string}
             onChange={(event: any) => {
               setHeight(event.target.value);
             }}
@@ -130,7 +140,7 @@ export const StylePropControls: StylePropControlsInterface = ({
           <input
             type="text"
             placeholder="Set maxHeight"
-            value={maxHeight}
+            value={maxHeight as string}
             onChange={(event: any) => {
               setMaxHeight(event.target.value);
             }}
@@ -141,7 +151,7 @@ export const StylePropControls: StylePropControlsInterface = ({
           <input
             type="text"
             placeholder="Set maxWidth"
-            value={maxWidth}
+            value={maxWidth as string}
             onChange={(event: any) => {
               setMaxWidth(event.target.value);
             }}
@@ -152,7 +162,7 @@ export const StylePropControls: StylePropControlsInterface = ({
           <input
             type="text"
             placeholder="Set minHeight"
-            value={minHeight}
+            value={minHeight as string}
             onChange={(event: any) => {
               setMinHeight(event.target.value);
             }}
@@ -163,7 +173,7 @@ export const StylePropControls: StylePropControlsInterface = ({
           <input
             type="text"
             placeholder="Set minWidth"
-            value={minWidth}
+            value={minWidth as string}
             onChange={(event: any) => {
               setMinWidth(event.target.value);
             }}
@@ -174,7 +184,7 @@ export const StylePropControls: StylePropControlsInterface = ({
           <input
             type="text"
             placeholder="Set opacity"
-            value={opacity}
+            value={opacity as string}
             onChange={(event: any) => {
               setOpacity(event.target.value);
             }}
@@ -185,7 +195,7 @@ export const StylePropControls: StylePropControlsInterface = ({
           <input
             type="text"
             placeholder="Set padding"
-            value={padding}
+            value={padding as string}
             onChange={(event: any) => {
               setPadding(event.target.value);
             }}
@@ -196,7 +206,7 @@ export const StylePropControls: StylePropControlsInterface = ({
           <input
             type="text"
             placeholder="Set width"
-            value={width}
+            value={width as string}
             onChange={(event: any) => {
               setWidth(event.target.value);
             }}
