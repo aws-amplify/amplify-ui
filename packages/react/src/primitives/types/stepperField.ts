@@ -7,8 +7,6 @@ export interface StepperFieldProps extends TextFieldProps {
   step?: number;
   value?: number;
   defaultValue?: number;
-
-  // TODO: Rename to onChange, once PR merged <- https://github.com/aws-amplify/amplify-ui/pull/434
   onStepChange?: (value: number) => void;
   onIncrease?: () => void;
   onDecrease?: () => void;

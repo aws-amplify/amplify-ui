@@ -10,6 +10,7 @@ import { Input } from '../Input';
 import { Label } from '../Label';
 import { StepperFieldProps } from '../types/stepperField';
 import { ComponentClassNames } from '../shared/constants';
+import { SharedText } from '../shared/i18n';
 import {
   isControlledComponent,
   isFunction,
@@ -20,7 +21,7 @@ export const StepperField: React.FC<StepperFieldProps> = ({
   alignContent,
   alignItems,
   className,
-  defaultValue,
+  defaultValue = 0,
   descriptiveText,
   direction,
   errorMessage,
@@ -33,34 +34,80 @@ export const StepperField: React.FC<StepperFieldProps> = ({
   justifyContent,
   label,
   labelHidden = true,
-  max,
-  min,
+  max = Number.MAX_SAFE_INTEGER,
+  min = Number.MIN_SAFE_INTEGER,
   onDecrease,
   onIncrease,
   onStepChange,
   size,
-  step,
+  step = 1,
   value,
   wrap,
   ...rest
 }) => {
   const fieldId = useStableId(id);
 
+  // Make sure max value is greater than or equal to min value
   max = Math.max(min, max);
 
-  // Maintain uncontrolled state
+  /**
+   * Maintain an internal state for uncontrolled components
+   * This enables us to correct any invalid input versus purely relying on an uncontrolled input
+   */
   const [uncontrolledValue, setUncontrolledValue] =
     React.useState(defaultValue);
+
   const isControlled = isControlledComponent(value);
   value = isControlled ? value : uncontrolledValue;
 
   const onChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
+    let newValue = Number(event.target.value);
+    if (isNaN(newValue)) {
+      return;
+    }
+
+    // Make sure new value is not outside the bound
+    newValue = Math.min(newValue, max);
+    newValue = Math.max(newValue, min);
+
+    // Round it to the closest step value
+    const remainder = (newValue - min) % step;
+    newValue = newValue - remainder + Math.round(remainder / step) * step;
+
     if (!isControlled) {
-      setUncontrolledValue(Number(event.target.value));
+      setUncontrolledValue(newValue);
     }
 
     if (isFunction(onStepChange)) {
-      onStepChange(Number(event.target.value));
+      onStepChange(newValue);
+    }
+  };
+
+  const handleIncrease: React.MouseEventHandler<HTMLButtonElement> = () => {
+    if (!isControlled) {
+      setUncontrolledValue(value + step);
+    }
+
+    if (isFunction(onStepChange)) {
+      onStepChange(value + step);
+    }
+
+    if (isFunction(onIncrease)) {
+      onIncrease();
+    }
+  };
+
+  const handleDecrease: React.MouseEventHandler<HTMLButtonElement> = () => {
+    if (!isControlled) {
+      setUncontrolledValue(value - step);
+    }
+
+    if (isFunction(onStepChange)) {
+      onStepChange(value - step);
+    }
+
+    if (isFunction(onDecrease)) {
+      onDecrease();
     }
   };
 
@@ -83,12 +130,24 @@ export const StepperField: React.FC<StepperFieldProps> = ({
       />
       <FieldGroup
         outerStartComponent={
-          <FieldGroupIconButton ariaLabel="" onClick={onDecrease}>
+          <FieldGroupIconButton
+            ariaLabel={`${SharedText.StepperField.ariaLabel.DecreaseTo} ${
+              value - step
+            }`}
+            isDisabled={value - step < min}
+            onClick={handleDecrease}
+          >
             <IconRemove />
           </FieldGroupIconButton>
         }
         outerEndComponent={
-          <FieldGroupIconButton ariaLabel="" onClick={onIncrease}>
+          <FieldGroupIconButton
+            ariaLabel={`${SharedText.StepperField.ariaLabel.IncreaseTo} ${
+              value + step
+            }`}
+            isDisabled={value + step > max}
+            onClick={handleIncrease}
+          >
             <IconAdd />
           </FieldGroupIconButton>
         }
