@@ -59,7 +59,7 @@ export const PhoneNumberFieldDemo = () => {
   ] = flexStyleProps;
   const [
     [autoComplete],
-    [defaultValue], // leave unused `defaultValue` since destructuring order is important
+    [defaultValue],
     [descriptiveText],
     [errorMessage],
     [hasError],
