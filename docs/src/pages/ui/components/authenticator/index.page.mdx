@@ -40,7 +40,7 @@ By default, unauthenticated users are redirected to the `signIn` flow.
 You can explicitly redirect to `signUp` or `resetPassword` as your `initialState`:
 
 <BlockSwitcher>
-  <Block name="signIn">
+  <Block name="Sign In">
     <Fragment>
       {({ platform }) => import(`./initialState.signIn.${platform}.mdx`)}
     </Fragment>
@@ -52,7 +52,7 @@ You can explicitly redirect to `signUp` or `resetPassword` as your `initialState
       </p>
     </Example>
   </Block>
-  <Block name="signUp">
+  <Block name="Sign Up">
     <Fragment>
       {({ platform }) => import(`./initialState.signUp.${platform}.mdx`)}
     </Fragment>
@@ -64,7 +64,7 @@ You can explicitly redirect to `signUp` or `resetPassword` as your `initialState
       </p>
     </Example>
   </Block>
-  <Block name="resetPassword">
+  <Block name="Reset Password">
     <Fragment>
       {({ platform }) => import(`./initialState.resetPassword.${platform}.mdx`)}
     </Fragment>
