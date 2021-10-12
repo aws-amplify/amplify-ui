@@ -80,55 +80,69 @@ You can explicitly redirect to `signUp` or `resetPassword` as your `initialState
 
 ### `loginMechanisms`
 
-By default, `Authenticator` creates new users in the Amazon Cognito UserPool
-based on a unique `username` using [`Auth.signUp`](https://docs.amplify.aws/lib/auth/emailpassword/q/platform/js).
+By default, the Authenticator creates new users in the Amazon Cognito UserPool based on a unique `username` using
+[`Auth.signUp`](https://docs.amplify.aws/lib/auth/emailpassword/q/platform/js).
 
-Alternatively, you can use `email`:
+You can provide an alternative `username` such as `email` or `phone_number`.
 
-<Fragment>
-  {({ platform }) => import(`./loginMechanisms.email.${platform}.mdx`)}
-</Fragment>
+> **Note**: A `username`, `email`, or `phone_number` value is required for Cognito User Pools.
 
-<Example>
-  <Authenticator loginMechanisms={['email']} />
+For your [configured social providers](https://docs.amplify.aws/lib/auth/social/q/platform/js/), you can also provide `amazon`, `facebook`, or `google`:
 
-  <p className="text-sm text-center mt-6 text-gray-500 italic">
-    <strong>Note</strong>: This example isn't fully functional until configured
-    with an Amplify backend.
-  </p>
-</Example>
-
-Or `phone_number`:
-
-<Fragment>
-  {({ platform }) => import(`./loginMechanisms.phone_number.${platform}.mdx`)}
-</Fragment>
-
-<Example>
-  <Authenticator loginMechanisms={['phone_number']} />
-
-  <p className="text-sm text-center mt-6 text-gray-500 italic">
-    <strong>Note</strong>: This example isn't fully functional until configured
-    with an Amplify backend.
-  </p>
-</Example>
-
-Or any of the following [configured social providers](https://docs.amplify.aws/lib/auth/social/q/platform/js/):
-
-<Fragment>
-  {({ platform }) => import(`./loginMechanisms.social.${platform}.mdx`)}
-</Fragment>
-
-> **Note**: A `username`, `email`, or `phone_number` is still required for Cognito User Pools.
-
-<Example>
-  <Authenticator loginMechanisms={['email', 'amazon', 'facebook', 'google']} />
-
-  <p className="text-sm text-center mt-6 text-gray-500 italic">
-    <strong>Note</strong>: This example isn't fully functional until configured
-    with an Amplify backend.
-  </p>
-</Example>
+<BlockSwitcher>
+  <Block name="Username">
+    <Fragment>
+      {({ platform }) => import(`./loginMechanisms.username.${platform}.mdx`)}
+    </Fragment>
+    <Example>
+      <Authenticator />
+      <p className="text-sm text-center mt-6 text-gray-500 italic">
+        <strong>Note</strong>: This example isn't fully functional until
+        configured with an Amplify backend.
+      </p>
+    </Example>
+  </Block>
+  <Block name="Email">
+    <Fragment>
+      {({ platform }) => import(`./loginMechanisms.email.${platform}.mdx`)}
+    </Fragment>
+    <Example>
+      <Authenticator loginMechanisms={['email']} />
+      <p className="text-sm text-center mt-6 text-gray-500 italic">
+        <strong>Note</strong>: This example isn't fully functional until
+        configured with an Amplify backend.
+      </p>
+    </Example>
+  </Block>
+  <Block name="Phone Number">
+    <Fragment>
+      {({ platform }) =>
+        import(`./loginMechanisms.phone_number.${platform}.mdx`)
+      }
+    </Fragment>
+    <Example>
+      <Authenticator loginMechanisms={['phone_number']} />
+      <p className="text-sm text-center mt-6 text-gray-500 italic">
+        <strong>Note</strong>: This example isn't fully functional until
+        configured with an Amplify backend.
+      </p>
+    </Example>
+  </Block>
+  <Block name="Social Providers">
+    <Fragment>
+      {({ platform }) => import(`./loginMechanisms.social.${platform}.mdx`)}
+    </Fragment>
+    <Example>
+      <Authenticator
+        loginMechanisms={['email', 'amazon', 'facebook', 'google']}
+      />
+      <p className="text-sm text-center mt-6 text-gray-500 italic">
+        <strong>Note</strong>: This example isn't fully functional until
+        configured with an Amplify backend.
+      </p>
+    </Example>
+  </Block>
+</BlockSwitcher>
 
 ## Customization
 
