@@ -1,5 +1,6 @@
-import { Flex, theme, View } from '@aws-amplify/ui-react';
-import React from 'react';
+import { Flex, defaultTheme, View } from '@aws-amplify/ui-react';
+
+const { tokens } = defaultTheme;
 
 const baseColors = [
   'red',
@@ -16,8 +17,8 @@ export const Colors = () => {
   return (
     <>
       {baseColors.map((baseColor) => (
-        <Flex direction="row" style={{ marginBottom: theme.space.large }}>
-          {Object.values(theme.colors[baseColor]).map(({ name, value }) => (
+        <Flex direction="row">
+          {Object.values(tokens.colors[baseColor]).map(({ name, value }) => (
             <View
               key={name}
               width="5rem"

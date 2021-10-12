@@ -1,8 +1,12 @@
-# Amplify UI Design Tokens
+# Amplify UI Theme
 
 ## Design Tokens
 
+The Amplify UI theme is built with Design Tokens.
+
 ## Build
+
+This package generates the core CSS used by Amplify UI for the web on any framework.
 
 ## Usage
 

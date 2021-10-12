@@ -3,9 +3,10 @@ import deepExtend from 'style-dictionary/lib/utils/deepExtend';
 import flattenProperties from 'style-dictionary/lib/utils/flattenProperties';
 
 import { baseTheme as _baseTheme } from './baseTheme';
-import { Theme, BaseTheme, PartialTheme } from './types';
+import { Theme, BaseTheme, PartialTheme, Override } from './types';
 import { cssValue, cssNameTransform } from './utils';
 import { Tokens } from './tokens';
+import { DesignToken } from '.';
 
 /**
  * This will take a design token and add some data to it for it
@@ -15,13 +16,13 @@ import { Tokens } from './tokens';
  *
  * We should see if there is a way to share this logic with style dictionary...
  */
-function setupToken(token: { value: any }, path: Array<string>) {
+function setupToken(token: DesignToken, path: Array<string>) {
   const name = `--${cssNameTransform({ path })}`;
   const { value } = token;
   return {
     name,
     path,
-    value: cssValue(value),
+    value: cssValue(token),
     original: value,
     toString: () => `var(${name})`,
   };
@@ -72,19 +73,65 @@ export function createTheme(
   const { breakpoints } = mergedTheme;
 
   // flattenProperties is another internal Style Dictionary function
-  // it creates an array of all tokens
-  const css =
+  // that creates an array of all tokens.
+  let css =
     `[data-amplify-theme] {\n` +
     flattenProperties(tokens)
       .map((token) => {
         return `${token.name}: ${token.value};`;
       })
       .join('\n') +
-    `}`;
+    `\n}\n`;
 
-  const { overrides } = mergedTheme;
+  let overrides: Array<Override> = [];
 
-  // TODO: handle 'overrides'
+  /**
+   * For each override, we setup the tokens and then generate the CSS.
+   * This allows us to have one single CSS string for all possible overrides
+   * and avoid re-renders in React, but also support other frameworks as well.
+   */
+  if (mergedTheme.overrides) {
+    overrides = mergedTheme.overrides.map((override) => {
+      const tokens = setupTokens(override.tokens);
+      const customProperties = flattenProperties(tokens)
+        .map((token) => {
+          return `${token.name}: ${token.value};`;
+        })
+        .join('\n');
+      // Overrides can have a selector, media query, breakpoint, or color mode
+      // for creating the selector
+      if ('selector' in override) {
+        css += `\n${override.selector} {\n${customProperties}\n}`;
+      }
+      if ('mediaQuery' in override) {
+        css += `\n@media (${override.mediaQuery}) {
+  [data-amplify-theme] {
+    ${customProperties}
+  }
+}`;
+      }
+      if ('breakpoint' in override) {
+        const breakpoint = mergedTheme.breakpoints.values[override.breakpoint];
+        const breakpointUnit = mergedTheme.breakpoints.unit;
+        css += `\n@media(min-width: ${breakpoint}${breakpointUnit}) {
+  [data-amplify-theme] {
+    ${customProperties}
+  }
+}`;
+      }
+      if ('colorMode' in override) {
+        css += `\n@media(prefers-color-scheme: ${override.colorMode}) {
+          [data-amplify-color-mode="system"] {\n${customProperties}\n}
+        }`;
+        css += `\n[data-amplify-color-mode="${override.colorMode}"] {\n${customProperties}\n}`;
+      }
+
+      return {
+        ...override,
+        tokens,
+      };
+    });
+  }
 
   return {
     tokens,

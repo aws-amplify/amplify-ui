@@ -1,6 +1,7 @@
 .amplify-alert {
   background-color: var(--amplify-components-alert-background-color);
-  padding: var(--amplify-components-alert-padding);
+  padding: var(--amplify-components-alert-padding-vertical)
+    var(--amplify-components-alert-padding-horizontal);
 
   &[data-variation='info'] {
     background-color: var(--amplify-components-alert-info-background-color);
