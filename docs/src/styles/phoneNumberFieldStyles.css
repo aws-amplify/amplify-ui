@@ -2,6 +2,6 @@
   --amplify-components-field-border-color: rebeccapurple;
 }
 .custom-phonenumberfield-class .amplify-input,
-.custom-phonenumberfield-class .amplify-button {
+.custom-phonenumberfield-class .amplify-selectfield {
   border-radius: 0;
 }

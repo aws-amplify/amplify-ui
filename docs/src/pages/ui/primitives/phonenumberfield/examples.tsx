@@ -26,11 +26,12 @@ export const AutoCompleteExample = () => (
 );
 
 export const AccessibilityExample = () => (
-  <Flex>
+  <Flex direction="column">
     <PhoneNumberField
       label="Phone Number"
       labelHidden={true}
       defaultCountryCode="+1"
+      placeholder="Phone Number"
     />
   </Flex>
 );
@@ -38,15 +39,29 @@ export const AccessibilityExample = () => (
 export const SizeExample = () => (
   <Flex direction="column" gap="1rem">
     <Flex>
-      <PhoneNumberField defaultCountryCode="+1" label="Small" size="small" />
+      <PhoneNumberField
+        defaultCountryCode="+1"
+        label="Small"
+        size="small"
+        labelHidden={true}
+      />
       <Button size="small">Small</Button>
     </Flex>
     <Flex>
-      <PhoneNumberField defaultCountryCode="+1" label="Default" />
+      <PhoneNumberField
+        defaultCountryCode="+1"
+        label="Default"
+        labelHidden={true}
+      />
       <Button>Default</Button>
     </Flex>
     <Flex>
-      <PhoneNumberField defaultCountryCode="+1" label="Large" size="large" />
+      <PhoneNumberField
+        defaultCountryCode="+1"
+        label="Large"
+        size="large"
+        labelHidden={true}
+      />
       <Button size="large">Large</Button>
     </Flex>
   </Flex>
@@ -85,17 +100,6 @@ export const StatesExample = () => (
       isReadOnly={true}
       descriptiveText="You can't edit me"
     />
-  </Flex>
-);
-
-export const RequiredExample = () => (
-  <Flex as="form" direction="column">
-    <PhoneNumberField
-      defaultCountryCode="+1"
-      label="PhoneNumberField"
-      isRequired={true}
-    />
-    <Button type="submit">Submit</Button>
   </Flex>
 );
 
@@ -139,7 +143,7 @@ export const ErrorExample = () => (
     />
     <PhoneNumberField
       defaultCountryCode="+1"
-      label="Password"
+      label="Phone Number"
       defaultValue="1234"
       hasError={true}
       variation="quiet"
