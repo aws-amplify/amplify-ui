@@ -1,17 +1,14 @@
 import * as React from 'react';
 
-import { AriaProps, BaseComponentProps } from './base';
-import { BaseStyleProps } from './style';
+import { ViewProps } from './view';
 
 export type SelectSize = 'small' | 'large';
 
 export type SelectVariation = 'quiet';
 
-export interface SelectProps
-  extends AriaProps,
-    BaseComponentProps,
-    BaseStyleProps {
+export interface SelectProps extends ViewProps {
   autoComplete?: string;
+
   name?: string;
 
   defaultValue?: string;

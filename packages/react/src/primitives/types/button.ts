@@ -1,14 +1,11 @@
-import { AriaProps, BaseComponentProps } from './base';
-import { BaseStyleProps } from './style';
+import { Sizes } from './base';
+import { ViewProps } from './view';
 
-export type ButtonSize = 'small' | 'medium' | 'large';
+export type ButtonSizes = Sizes;
 export type ButtonTypes = 'button' | 'reset' | 'submit';
-export type ButtonVariation = 'primary' | 'default' | 'link';
+export type ButtonVariations = 'primary' | 'default' | 'link';
 
-export interface ButtonProps
-  extends BaseComponentProps,
-    BaseStyleProps,
-    AriaProps {
+export interface ButtonProps extends ViewProps {
   /**
    * If `true`, the button will be disabled.
    */
@@ -39,7 +36,7 @@ export interface ButtonProps
    * Changes the size of the button.
    * @default "medium"
    */
-  size?: ButtonSize;
+  size?: ButtonSizes;
 
   /**
    * Changes the button type
@@ -51,5 +48,5 @@ export interface ButtonProps
    * Changes the visual weight of the button.
    * @default "default"
    */
-  variation?: ButtonVariation;
+  variation?: ButtonVariations;
 }

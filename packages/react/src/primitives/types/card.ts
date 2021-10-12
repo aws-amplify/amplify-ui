@@ -1,4 +1,3 @@
-import { BaseComponentProps } from "./base";
-import { BaseStyleProps } from "./style";
+import { ViewProps } from './view';
 
-export interface CardProps extends BaseComponentProps, BaseStyleProps {}
+export interface CardProps extends ViewProps {}

@@ -1,6 +1,6 @@
-import { AriaProps, BaseComponentProps } from './base';
+import { ViewProps } from './view';
 
-export interface LabelProps extends BaseComponentProps, AriaProps {
+export interface LabelProps extends ViewProps {
   /**
    * ID of DOM element the label should be associated with
    */

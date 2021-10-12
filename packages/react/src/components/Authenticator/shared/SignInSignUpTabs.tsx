@@ -23,7 +23,7 @@ export const SignInSignUpTabs = (): JSX.Element => {
     <Tabs
       indicatorPosition="top"
       currentIndex={actorState?.matches('signIn') ? 0 : 1}
-      grow="equal"
+      spacing="equal"
       justifyContent="center"
       onChange={updateStateMachine}
     >
