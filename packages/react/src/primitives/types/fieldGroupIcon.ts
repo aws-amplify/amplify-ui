@@ -1,12 +1,13 @@
-import { BaseStyleProps } from './style';
-import { AriaProps, BaseComponentProps } from './base';
+import { ViewProps } from './view';
+import { AriaProps } from './base';
 import { ButtonProps } from './button';
 
-export interface FieldGroupIconProps
-  extends BaseComponentProps,
-    BaseStyleProps,
-    Pick<ButtonProps, 'onClick' | 'variation' | 'size' | 'type'>,
-    Required<Pick<AriaProps, 'ariaLabel'>> {
+export interface FieldGroupIconProps extends ViewProps {
+  /**
+   * Accessible label for icon
+   */
+  ariaLabel: AriaProps['ariaLabel'];
+
   /**
    * React component to use instead of an anchor tag
    * This is used for react routing libraries that have routing components
@@ -25,4 +26,6 @@ export interface FieldGroupIconProps
   excludeFromTabOrder?: boolean;
 }
 
-export interface FieldGroupIconButtonProps extends FieldGroupIconProps {}
+export interface FieldGroupIconButtonProps
+  extends FieldGroupIconProps,
+    Pick<ButtonProps, 'onClick' | 'variation' | 'size' | 'type'> {}

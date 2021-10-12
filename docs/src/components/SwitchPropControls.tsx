@@ -1,5 +1,5 @@
 import React from 'react';
-import { SwitchFieldProps } from '@aws-amplify/ui-react';
+import { Button, SwitchFieldProps } from '@aws-amplify/ui-react';
 import { FieldLabeler } from './FieldLabeler';
 import { DemoBox } from './DemoBox';
 
@@ -111,7 +111,7 @@ export const SwitchPropControls: SwitchPropControlsInterface = ({
           placeholder="Set switchfield label"
           id="label"
           name="label"
-          value={label}
+          value={label as string}
           onChange={(event: any) => {
             setLabel(event.target.value);
           }}
@@ -169,7 +169,13 @@ export const SwitchPropControls: SwitchPropControlsInterface = ({
             );
           }}
         />
-        <a onClick={() => setIsChecked(undefined)}>Unset</a>
+        <Button
+          variation="link"
+          onClick={() => setIsChecked(undefined)}
+          textAlign="left"
+        >
+          Unset
+        </Button>
       </FieldLabeler>
     </DemoBox>
   );

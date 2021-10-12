@@ -1,24 +1,21 @@
-import { BaseComponentProps } from './base';
-import { BaseStyleProps } from './style';
+import { Sizes } from './base';
+import { ViewProps } from './view';
 
-export type DividerOrientation = 'horizontal' | 'vertical';
-export type DividerSize = 'small' | 'medium' | 'large';
+export type DividerOrientations = 'horizontal' | 'vertical';
+export type DividerSizes = Sizes;
 
 export interface DividerOptions {
   /**
    * Controls whether the divider is oriented horizontally or vertically.
    * @default "horizontal"
    */
-  orientation?: DividerOrientation;
+  orientation?: DividerOrientations;
 
   /**
    * Size of the divider (height for a horiziontal divider, width for vertical)
    * @default "small"
    */
-  size?: DividerSize;
+  size?: DividerSizes;
 }
 
-export interface DividerProps
-  extends DividerOptions,
-    BaseComponentProps,
-    BaseStyleProps {}
+export interface DividerProps extends ViewProps, DividerOptions {}

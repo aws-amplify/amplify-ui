@@ -1,15 +1,13 @@
 import React from 'react';
-import { LinkOptions, BaseStyleProps } from '@aws-amplify/ui-react';
+import { LinkProps, BaseStyleProps } from '@aws-amplify/ui-react';
 import { FieldLabeler } from './FieldLabeler';
 import { DemoBox } from './DemoBox';
 
-export interface LinkPropControlsProps extends LinkOptions, BaseStyleProps {
-  setColor: (value: React.SetStateAction<LinkOptions['color']>) => void;
-  setIsExternal: (
-    value: React.SetStateAction<LinkOptions['isExternal']>
-  ) => void;
+export interface LinkPropControlsProps extends LinkProps, BaseStyleProps {
+  setColor: (value: React.SetStateAction<LinkProps['color']>) => void;
+  setIsExternal: (value: React.SetStateAction<LinkProps['isExternal']>) => void;
   setTextDecoration: (
-    value: React.SetStateAction<LinkOptions['textDecoration']>
+    value: React.SetStateAction<LinkProps['textDecoration']>
   ) => void;
 }
 
@@ -31,10 +29,10 @@ export const LinkPropControls: LinkPropControlsInterface = ({
         <input
           name="isExternal"
           id="isExternal"
-          value={isExternal}
+          value={isExternal as unknown as string}
           type="checkbox"
           onChange={(event) =>
-            setIsExternal(event.target.checked as LinkOptions['isExternal'])
+            setIsExternal(event.target.checked as LinkProps['isExternal'])
           }
         />
       </FieldLabeler>
@@ -43,10 +41,10 @@ export const LinkPropControls: LinkPropControlsInterface = ({
         <input
           name="color"
           id="color"
-          value={color}
+          value={color as string}
           type="text"
           onChange={(event) =>
-            setColor(event.target.value as LinkOptions['color'])
+            setColor(event.target.value as LinkProps['color'])
           }
         />
       </FieldLabeler>
@@ -54,12 +52,10 @@ export const LinkPropControls: LinkPropControlsInterface = ({
         <input
           name="textDecoration"
           id="textDecoration"
-          value={textDecoration}
+          value={textDecoration as string}
           type="text"
           onChange={(event) =>
-            setTextDecoration(
-              event.target.value as LinkOptions['textDecoration']
-            )
+            setTextDecoration(event.target.value as LinkProps['textDecoration'])
           }
         />
       </FieldLabeler>

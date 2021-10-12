@@ -1,9 +1,9 @@
 import { Property } from 'csstype';
 
-import { BaseComponentProps } from './base';
 import { CSSLayoutStyleProps, ResponsiveStyle } from './style';
+import { ViewProps } from './view';
 
-export interface FlexStyleProps extends CSSLayoutStyleProps {
+export interface FlexContainerStyleProps extends CSSLayoutStyleProps {
   /**
    * Sets how flex items are placed in the flex container defining the main axis
    * and the direction (normal or reversed). (maps to flex-direction CSS property)
@@ -21,4 +21,31 @@ export interface FlexStyleProps extends CSSLayoutStyleProps {
   wrap?: ResponsiveStyle<Property.FlexWrap>;
 }
 
-export interface FlexProps extends FlexStyleProps, BaseComponentProps {}
+export interface FlexProps extends ViewProps, FlexContainerStyleProps {}
+
+export interface FlexItemStyleProps {
+  /**
+   * Shorthand for flex grow / shrink / basis
+   */
+  flex?: ResponsiveStyle<Property.Flex>;
+
+  /**
+   * Controls order flex items appear
+   */
+  order?: ResponsiveStyle<Property.Order>;
+
+  /**
+   * Ability for flex item to grow
+   */
+  grow?: ResponsiveStyle<Property.FlexGrow>;
+
+  /**
+   * Ability for flex item to shrink
+   */
+  shrink?: ResponsiveStyle<Property.FlexShrink>;
+
+  /**
+   * Default size of element before remaining space is distributed
+   */
+  basis?: ResponsiveStyle<Property.FlexBasis>;
+}

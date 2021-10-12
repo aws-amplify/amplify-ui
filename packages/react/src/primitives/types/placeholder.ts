@@ -1,12 +1,17 @@
-import { BaseComponentProps } from './base';
+import { Sizes } from './base';
+import { ViewProps } from './view';
 
-export type PlaceholderSize = 'small' | 'large';
+export type PlaceholderSizes = Sizes;
 
-export interface PlaceholderProps extends BaseComponentProps {
+export interface PlaceholderProps extends ViewProps {
   /**
-   * If true, the placeholder won't show, if false the placeholder will show. Default: false.
+   * If true, the placeholder won't show, if false the placeholder will show.
+   * @default false
    */
   isLoaded?: boolean;
 
-  size?: PlaceholderSize;
+  /**
+   * Controls the display size of placeholder
+   */
+  size?: PlaceholderSizes;
 }

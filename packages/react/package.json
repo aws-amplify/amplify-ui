@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react",
-  "version": "2.0.1-next.6",
+  "version": "2.0.0",
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
   "exports": {
@@ -18,7 +18,7 @@
   ],
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": "tsup --minify",
+    "build": "tsup --minify --keep-names",
     "dev": "tsup --watch src",
     "update:icons": "node scripts/updateIcons.js",
     "build:icons": "yarn run clean:icons && node scripts/generateIcons.js",
@@ -31,7 +31,7 @@
     "test:unit:watch": "jest --watch"
   },
   "dependencies": {
-    "@aws-amplify/ui": "3.0.1-next.6",
+    "@aws-amplify/ui": "3.0.0",
     "@aws-amplify/ui-react-v1": "npm:@aws-amplify/ui-react@1.2.9",
     "@radix-ui/react-id": "^0.1.0",
     "@radix-ui/react-tabs": "0.0.16",
@@ -39,6 +39,7 @@
     "autoprefixer": "^10.3.1",
     "classnames": "^2.3.1",
     "deepmerge": "^4.2.2",
+    "lodash": "^4.17.21",
     "postcss-js": "^3.0.3",
     "qrcode": "^1.4.4"
   },

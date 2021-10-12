@@ -10,15 +10,15 @@ import {
   Divider,
   Heading,
   Collection,
-  FlexStyleProps,
+  FlexContainerStyleProps,
 } from '@aws-amplify/ui-react';
 
-import { useFlexStyleProps } from '../../../../components/useFlexStyleProps';
+import { useFlexContainerStyleProps } from '../../../../components/useFlexContainerStyleProps';
 import { GetFieldControls } from '../../../../components/GetFieldControls';
 import { Example } from '../../../../components/Example';
 
 export const CollectionDemo = () => {
-  const flexStyleProps = useFlexStyleProps({
+  const flexStyleProps = useFlexContainerStyleProps({
     alignItems: 'normal',
     alignContent: 'start',
     direction: 'row',
@@ -86,12 +86,14 @@ export const CollectionDemo = () => {
         <Collection
           items={list}
           type="list"
-          alignContent={alignContent as FlexStyleProps['alignContent']}
-          alignItems={alignItems as FlexStyleProps['alignItems']}
-          direction={direction as FlexStyleProps['direction']}
-          gap={gap as FlexStyleProps['gap']}
-          justifyContent={justifyContent as FlexStyleProps['justifyContent']}
-          wrap={wrap as FlexStyleProps['wrap']}
+          alignContent={alignContent as FlexContainerStyleProps['alignContent']}
+          alignItems={alignItems as FlexContainerStyleProps['alignItems']}
+          direction={direction as FlexContainerStyleProps['direction']}
+          gap={gap as FlexContainerStyleProps['gap']}
+          justifyContent={
+            justifyContent as FlexContainerStyleProps['justifyContent']
+          }
+          wrap={wrap as FlexContainerStyleProps['wrap']}
         >
           {(item, index) => (
             <Card key={index}>

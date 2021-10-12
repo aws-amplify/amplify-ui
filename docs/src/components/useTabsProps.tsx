@@ -10,7 +10,9 @@ export const useTabsProps: UseTabsProps = (initialValues) => {
   const [currentIndex, setCurrentIndex] = useState<TabsProps['currentIndex']>(
     initialValues.currentIndex
   );
-  const [grow, setGrow] = useState<TabsProps['grow']>(initialValues.grow);
+  const [spacing, setSpacing] = useState<TabsProps['spacing']>(
+    initialValues.spacing
+  );
   const [justifyContent, setJustifyContent] = useState<
     TabsProps['justifyContent']
   >(initialValues.justifyContent);
@@ -22,8 +24,8 @@ export const useTabsProps: UseTabsProps = (initialValues) => {
   return {
     currentIndex,
     setCurrentIndex,
-    grow,
-    setGrow,
+    spacing,
+    setSpacing,
     children,
     justifyContent,
     setJustifyContent,

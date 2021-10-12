@@ -34,7 +34,7 @@ export const TabsDemo = () => {
         <Tabs
           currentIndex={tabsProps.currentIndex}
           onChange={(i) => tabsProps.setCurrentIndex(i)}
-          grow={tabsProps.grow}
+          spacing={tabsProps.spacing}
           justifyContent={tabsProps.justifyContent}
           indicatorPosition={tabsProps.indicatorPosition}
         >
