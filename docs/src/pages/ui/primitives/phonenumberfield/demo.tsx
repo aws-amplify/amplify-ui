@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import {
-  FlexStyleProps,
+  FlexContainerStyleProps,
   PhoneNumberField,
   TextFieldProps,
   View,
@@ -9,11 +9,11 @@ import {
 
 import { Example } from '@/components/Example';
 import { GetFieldControls } from '@/components/GetFieldControls';
-import { useFlexStyleProps } from '@/components/useFlexStyleProps';
+import { useFlexContainerStyleProps } from '@/components/useFlexContainerStyleProps';
 import { useTextFieldProps } from '@/components/useTextFieldProps';
 
 export const PhoneNumberFieldDemo = () => {
-  const flexStyleProps = useFlexStyleProps({
+  const flexStyleProps = useFlexContainerStyleProps({
     alignItems: '',
     alignContent: '',
     direction: 'column',
@@ -84,27 +84,29 @@ export const PhoneNumberFieldDemo = () => {
       <Example>
         <PhoneNumberField
           defaultCountryCode="+1"
-          alignContent={alignContent as FlexStyleProps['alignContent']}
-          alignItems={alignItems as FlexStyleProps['alignItems']}
+          alignContent={alignContent as FlexContainerStyleProps['alignContent']}
+          alignItems={alignItems as FlexContainerStyleProps['alignItems']}
           autoComplete={autoComplete as TextFieldProps['autoComplete']}
           descriptiveText={descriptiveText as TextFieldProps['descriptiveText']}
           defaultValue={defaultValue as TextFieldProps['defaultValue']}
-          direction={direction as FlexStyleProps['direction']}
+          direction={direction as FlexContainerStyleProps['direction']}
           errorMessage={errorMessage as TextFieldProps['errorMessage']}
-          gap={gap as FlexStyleProps['gap']}
+          gap={gap as FlexContainerStyleProps['gap']}
           hasError={hasError as unknown as boolean}
           inputMode={inputMode as TextFieldProps['inputMode']}
           isDisabled={isDisabled as unknown as boolean}
           isReadOnly={isReadOnly as unknown as boolean}
           isRequired={isRequired as unknown as boolean}
-          justifyContent={justifyContent as FlexStyleProps['justifyContent']}
+          justifyContent={
+            justifyContent as FlexContainerStyleProps['justifyContent']
+          }
           label={label as TextFieldProps['label']}
           labelHidden={labelHidden as unknown as boolean}
           name={name as TextFieldProps['name']}
           placeholder={placeholder as TextFieldProps['placeholder']}
           size={size as TextFieldProps['size']}
           variation={variation as TextFieldProps['variation']}
-          wrap={wrap as FlexStyleProps['wrap']}
+          wrap={wrap as FlexContainerStyleProps['wrap']}
         />
       </Example>
     </View>
