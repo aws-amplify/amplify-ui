@@ -7,6 +7,8 @@ import { Example } from '@/components/Example';
 import { Feature } from '@/components/Feature';
 import { Fragment } from '@/components/Fragment';
 import { XStateInspector } from '@/components/XStateInspector';
+import Block from 'amplify-docs/src/components/Block';
+import BlockSwitcher from 'amplify-docs/src/components/BlockSwitcher';
 
 The `Authenticator` component adds complete [authentication flows](https://docs.amplify.aws/lib/auth/getting-started/q/platform/js)
 to your application with minimal boilerplate.
@@ -35,11 +37,46 @@ Once an end-user has created an account & signed in, the underlying component is
 
 By default, unauthenticated users are redirected to the `signIn` flow.
 
-You can instead default to `signUp` or `resetPassword` as your `initialState`:
+You can explicitly redirect to `signUp` or `resetPassword` as your `initialState`:
 
-<Fragment>
-  {({ platform }) => import(`./initialState.${platform}.mdx`)}
-</Fragment>
+<BlockSwitcher>
+  <Block name="signIn">
+    <Fragment>
+      {({ platform }) => import(`./initialState.signIn.${platform}.mdx`)}
+    </Fragment>
+    <Example>
+      <Authenticator initialState="signIn" />
+      <p className="text-sm text-center mt-6 text-gray-500 italic">
+        <strong>Note</strong>: This example isn't fully functional until
+        configured with an Amplify backend.
+      </p>
+    </Example>
+  </Block>
+  <Block name="signUp">
+    <Fragment>
+      {({ platform }) => import(`./initialState.signUp.${platform}.mdx`)}
+    </Fragment>
+    <Example>
+      <Authenticator initialState="signUp" />
+      <p className="text-sm text-center mt-6 text-gray-500 italic">
+        <strong>Note</strong>: This example isn't fully functional until
+        configured with an Amplify backend.
+      </p>
+    </Example>
+  </Block>
+  <Block name="resetPassword">
+    <Fragment>
+      {({ platform }) => import(`./initialState.resetPassword.${platform}.mdx`)}
+    </Fragment>
+    <Example>
+      <Authenticator initialState="resetPassword" />
+      <p className="text-sm text-center mt-6 text-gray-500 italic">
+        <strong>Note</strong>: This example isn't fully functional until
+        configured with an Amplify backend.
+      </p>
+    </Example>
+  </Block>
+</BlockSwitcher>
 
 ### `loginMechanisms`
 
