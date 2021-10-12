@@ -1,9 +1,9 @@
+import { getActorState } from '@aws-amplify/ui';
 import { I18n } from 'aws-amplify';
-
+import { useAmplify, useAuthenticator } from '../../../hooks';
+import { useTheming } from '../../../theming';
 import { SignIn } from '../SignIn';
 import { SignUp } from '../SignUp';
-import { useAmplify, useAuthenticator } from '../../../hooks';
-import { getActorState } from '@aws-amplify/ui';
 
 export const SignInSignUpTabs = (): JSX.Element => {
   const {
@@ -21,6 +21,7 @@ export const SignInSignUpTabs = (): JSX.Element => {
 
   return (
     <Tabs
+      indicatorPosition="top"
       currentIndex={actorState?.matches('signIn') ? 0 : 1}
       spacing="equal"
       justifyContent="center"

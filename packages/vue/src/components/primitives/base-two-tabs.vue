@@ -10,6 +10,7 @@
   >
     <base-wrapper
       class="amplify-flex amplify-tabs"
+      data-indicator-position="top"
       style="gap: 0px; justify-content: center"
     >
       <slot></slot>

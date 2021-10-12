@@ -43,9 +43,11 @@ html {
 // Layout
 @import './component/flex.scss';
 @import './component/grid.scss';
+@import './component/scrollView.scss';
 
 // Composed components
 @import './component/alert.scss';
+@import './component/authenticator.scss';
 @import './component/card.scss';
 @import './component/checkbox.scss';
 @import './component/checkboxField.scss';

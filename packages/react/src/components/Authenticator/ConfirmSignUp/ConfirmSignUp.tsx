@@ -6,7 +6,7 @@ import { useAmplify, useAuthenticator } from '../../../hooks';
 import {
   ConfirmationCodeInput,
   ConfirmationCodeInputProps,
-  ConfirmSignInFooterProps,
+  RemoteErrorMessage,
 } from '../shared';
 
 export function ConfirmSignUp() {
@@ -37,7 +37,6 @@ export function ConfirmSignUp() {
 
         send({
           type: 'SUBMIT',
-          // @ts-ignore Property 'fromEntries' does not exist on type 'ObjectConstructor'. Do you need to change your target library? Try changing the `lib` compiler option to 'es2019' or later.ts(2550)
           data: Object.fromEntries(formData),
         });
       }}
@@ -47,6 +46,8 @@ export function ConfirmSignUp() {
 
         <Flex direction="column">
           <ConfirmationCodeInput {...confirmationCodeInputProps} />
+
+          <RemoteErrorMessage amplifyNamespace={amplifyNamespace} />
 
           <Button
             variation="primary"

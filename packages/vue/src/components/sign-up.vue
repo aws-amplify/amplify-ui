@@ -1,6 +1,6 @@
 <template>
   <slot v-bind="$attrs" name="signUpSlotI">
-    <base-wrapper v-bind="$attrs" data-amplify-authenticator>
+    <base-wrapper v-bind="$attrs">
       <base-form @submit.prevent="onSignUpSubmit" @input="onInput">
         <base-wrapper class="amplify-flex" style="flex-direction: column">
           <base-heading class="amplify-heading" :level="3">
@@ -19,13 +19,7 @@
             </template>
             <user-name-alias-component />
             <base-wrapper
-              class="
-                amplify-flex
-                amplify-field
-                amplify-textfield
-                amplify-passwordfield
-                password-field
-              "
+              class=" amplify-flex amplify-field amplify-textfield amplify-passwordfield password-field"
               style="flex-direction: column"
             >
               <password-control
@@ -35,13 +29,7 @@
               />
             </base-wrapper>
             <base-wrapper
-              class="
-                amplify-flex
-                amplify-field
-                amplify-textfield
-                amplify-passwordfield
-                password-field
-              "
+              class=" amplify-flex amplify-field amplify-textfield amplify-passwordfield password-field"
               style="flex-direction: column"
             >
               <password-control

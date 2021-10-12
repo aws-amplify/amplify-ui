@@ -47,3 +47,21 @@ ul {
 .algolia-autocomplete + img[alt='search'] {
   display: none !important;
 }
+
+/* Inline the Authenticator instead of full-screen */
+.example [data-amplify-authenticator] {
+  position: relative;
+  width: 100%;
+  height: auto;
+
+  /* Don't go on top of docs' nav */
+  z-index: auto;
+
+  /* Allow space for shadows */
+  padding: 1rem;
+}
+
+.example [data-amplify-authenticator] [data-amplify-modal] {
+  /* Hide the modal texture */
+  display: none;
+}

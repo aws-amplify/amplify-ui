@@ -62,6 +62,10 @@ When('I click the {string} radio button', (label: string) => {
   });
 });
 
+When('I reload the page', () => {
+  cy.reload();
+});
+
 Then('I see {string}', (message: string) => {
   cy.findByRole('document').contains(new RegExp(escapeRegExp(message), 'i'));
 });
