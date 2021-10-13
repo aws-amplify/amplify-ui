@@ -53,7 +53,7 @@ describe('@aws-amplify/ui', () => {
     });
     it('should match snapshot', () => {
       expect(themeWithOverrides.css).toMatchInlineSnapshot(`
-        "[data-amplify-theme] {
+        "[data-amplify-theme=\\"defaultTheme\\"] {
         --amplify-components-alert-background-color: var(--amplify-colors-background-tertiary);
         --amplify-components-alert-padding-vertical: var(--amplify-space-small);
         --amplify-components-alert-padding-horizontal: var(--amplify-space-medium);
@@ -644,17 +644,17 @@ describe('@aws-amplify/ui', () => {
         }
 
         @media (prefers-color-scheme: dark) {
-          [data-amplify-theme] {
+          [data-amplify-theme=\\"defaultTheme\\"] {
             --amplify-colors-background-primary: #000;
           }
         }
         @media(min-width: 30em) {
-          [data-amplify-theme] {
+          [data-amplify-theme=\\"defaultTheme\\"] {
             --amplify-space-medium: 0.5rem;
           }
         }
         @media(min-width: 62em) {
-          [data-amplify-theme] {
+          [data-amplify-theme=\\"defaultTheme\\"] {
             --amplify-space-medium: 2.5rem;
           }
         }

@@ -1,6 +1,7 @@
 import { createTheme, defaultTheme } from '@aws-amplify/ui';
 
 export const theme = createTheme({
+  name: 'listings-theme',
   breakpoints: {
     values: {
       large: 50,

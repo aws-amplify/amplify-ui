@@ -70,12 +70,12 @@ export function createTheme(
   // - its value (reference to another CSS variable or raw value)
   const tokens: Tokens = setupTokens(mergedTheme.tokens) as Tokens; // Setting the type here because setupTokens is recursive
 
-  const { breakpoints } = mergedTheme;
+  const { breakpoints, name } = mergedTheme;
 
   // flattenProperties is another internal Style Dictionary function
   // that creates an array of all tokens.
   let css =
-    `[data-amplify-theme] {\n` +
+    `[data-amplify-theme="${name}"] {\n` +
     flattenProperties(tokens)
       .map((token) => {
         return `${token.name}: ${token.value};`;
@@ -105,7 +105,7 @@ export function createTheme(
       }
       if ('mediaQuery' in override) {
         css += `\n@media (${override.mediaQuery}) {
-  [data-amplify-theme] {
+  [data-amplify-theme="${name}"] {
     ${customProperties}
   }
 }`;
@@ -114,16 +114,16 @@ export function createTheme(
         const breakpoint = mergedTheme.breakpoints.values[override.breakpoint];
         const breakpointUnit = mergedTheme.breakpoints.unit;
         css += `\n@media(min-width: ${breakpoint}${breakpointUnit}) {
-  [data-amplify-theme] {
+  [data-amplify-theme="${name}"] {
     ${customProperties}
   }
 }`;
       }
       if ('colorMode' in override) {
         css += `\n@media(prefers-color-scheme: ${override.colorMode}) {
-          [data-amplify-color-mode="system"] {\n${customProperties}\n}
+          [data-amplify-theme="${name}"][data-amplify-color-mode="system"] {\n${customProperties}\n}
         }`;
-        css += `\n[data-amplify-color-mode="${override.colorMode}"] {\n${customProperties}\n}`;
+        css += `\n[data-amplify-theme="${name}"][data-amplify-color-mode="${override.colorMode}"] {\n${customProperties}\n}`;
       }
 
       return {
@@ -136,6 +136,7 @@ export function createTheme(
   return {
     tokens,
     breakpoints,
+    name,
     css,
     // keep overrides separate from base theme
     // this allows web platforms to use plain CSS scoped to a

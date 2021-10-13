@@ -19,6 +19,7 @@ export function AmplifyProvider({
   colorMode,
   theme = defaultTheme,
 }: AmplifyProviderProps) {
+  const { name } = theme;
   return (
     <AmplifyContext.Provider
       value={{
@@ -27,9 +28,12 @@ export function AmplifyProvider({
       }}
     >
       <IdProvider>
-        <div data-amplify-theme="" data-amplify-color-mode={colorMode}>
+        <div data-amplify-theme={name} data-amplify-color-mode={colorMode}>
           {children}
-          <style id="amplify" dangerouslySetInnerHTML={{ __html: theme.css }} />
+          <style
+            id={`amplify-theme-${name}`}
+            dangerouslySetInnerHTML={{ __html: theme.css }}
+          />
         </div>
       </IdProvider>
     </AmplifyContext.Provider>

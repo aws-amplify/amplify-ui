@@ -90,7 +90,18 @@ export interface ColorModeOverride extends BaseOverride {
 
 export interface BaseTheme {
   tokens: Tokens;
+  /**
+   * The name of the theme. This is used to create scoped CSS to allow for
+   * multiple themes on a page.
+   */
+  name: string;
   breakpoints?: Breakpoints;
+  /**
+   * Overrides allow you to change design tokens in different contexts, like
+   * light and dark mode. You can also have other media query overrides as well
+   * as breakpoint overrides which correspond to the Breakpoints on a theme,
+   * and a generic selector override.
+   */
   overrides?: Array<Override>;
 }
 
