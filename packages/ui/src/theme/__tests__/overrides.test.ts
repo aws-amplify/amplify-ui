@@ -28,14 +28,6 @@ const discoTokens = {
   },
 };
 
-const superDiscoTokens = {
-  colors: {
-    font: {
-      primary: { value: 'purple' },
-    },
-  },
-};
-
 describe('@aws-amplify/ui', () => {
   describe('overrides', () => {
     const themeWithOverrides = createTheme({
@@ -56,12 +48,6 @@ describe('@aws-amplify/ui', () => {
         {
           selector: '.disco-theme',
           tokens: discoTokens,
-          overrides: [
-            {
-              selector: '.super-disco-theme',
-              tokens: superDiscoTokens,
-            },
-          ],
         },
       ],
     });
