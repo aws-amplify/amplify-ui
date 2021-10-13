@@ -3,7 +3,7 @@ import { createTheme, defaultTheme } from '@aws-amplify/ui';
 export const theme = createTheme({
   breakpoints: {
     values: {
-      large: 80,
+      large: 50,
     },
   },
   tokens: {

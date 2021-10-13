@@ -18,6 +18,7 @@ import { ExperienceCard } from './ExperienceCard';
 import { ListingCard } from './ListingCard';
 import { SectionHeading } from './SectionHeading';
 import { theme } from '../../../theme';
+const { tokens } = theme;
 import '@aws-amplify/ui-react/styles.css';
 import './styles.scss';
 
@@ -32,7 +33,7 @@ function App() {
   const [colorMode, setColorMode] = useState<ColorMode>('system');
   return (
     <AmplifyProvider components={{}} theme={theme} colorMode={colorMode}>
-      <View backgroundColor={`${theme.tokens.colors.background.secondary}`}>
+      <View backgroundColor={`${tokens.colors.background.secondary}`}>
         <header className="listing-app-header">
           <Image src="/listing-logo.svg" alt="lystifying" />
 
@@ -51,7 +52,7 @@ function App() {
           </Button>
         </header>
 
-        <View padding={`${defaultTheme.tokens.space.xxl}`}>
+        <View padding={`${tokens.space.xxl}`}>
           <SectionHeading
             title="Discover Experiences"
             subtitle="Unique activities with local experts—in person or online."
@@ -60,7 +61,7 @@ function App() {
             type="list"
             direction={{ base: 'column', large: 'row' }}
             alignItems="stretch"
-            padding={`0 0 ${defaultTheme.tokens.space.xxl} 0`}
+            padding={`0 0 ${tokens.space.xxl} 0`}
             items={experiences}
           >
             {(item) => (
@@ -74,9 +75,9 @@ function App() {
           />
           <Collection
             type="list"
-            direction="row"
+            direction={['column', 'row']}
             alignItems="stretch"
-            padding={`0 0 ${defaultTheme.tokens.space.xxl} 0`}
+            padding={`0 0 ${tokens.space.xxl} 0`}
             items={places}
           >
             {(item) => (
@@ -90,7 +91,7 @@ function App() {
         </View>
 
         <footer className="listing-app-footer">
-          <Text color={`${defaultTheme.tokens.colors.font.tertiary}`}>
+          <Text color={`${tokens.colors.font.tertiary}`}>
             © 2021 Lystifying (not a real company)
           </Text>
         </footer>

@@ -362,6 +362,10 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-select-icon-wrapper-top: 25%;
         --amplify-components-select-icon-wrapper-right: var(--amplify-space-medium);
         --amplify-components-select-icon-wrapper-pointer-events: none;
+        --amplify-components-select-white-space: nowrap;
+        --amplify-components-select-min-width: 6.5rem;
+        --amplify-components-select-small-min-width: 5.5rem;
+        --amplify-components-select-large-min-width: 7.5rem;
         --amplify-components-switchfield-disabled-opacity: var(--amplify-opacities-30);
         --amplify-components-switchfield-focused-shadow: var(--amplify-shadows-small);
         --amplify-components-switchfield-label-padding: var(--amplify-space-xs);
