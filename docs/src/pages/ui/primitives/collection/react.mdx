@@ -1,4 +1,12 @@
-import { Card, Collection, View, Text, Heading } from '@aws-amplify/ui-react';
+import {
+  Button,
+  Card,
+  Collection,
+  View,
+  Text,
+  Heading,
+} from '@aws-amplify/ui-react';
+import { countries } from 'countries-list';
 import { CollectionDemo, ListCollectionExample } from './demo';
 import { Example } from '@/components/Example';
 
@@ -73,6 +81,20 @@ const visitNewZealand = [
     )}
   </Collection>
 </Example>
+
+## Paginated collection
+
+A Collection can be paginated, using the special `isPaginated` property.
+
+```jsx
+<Collection type="list" items={countries} isPaginated>
+  {(country) => (
+    <Button>
+      {country.emoji} {country.name}
+    </Button>
+  )}
+</Collection>
+```
 
 ### Collection types
 
