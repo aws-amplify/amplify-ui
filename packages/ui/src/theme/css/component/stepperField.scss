@@ -1,0 +1,19 @@
+.amplify-stepperfield__input {
+  // To remove default arrows inside input[type = 'number']
+  // Chrome, Safari, Edge, Opera
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  // Firefox
+  -moz-appearance: textfield;
+
+  border-color: var(--amplify-components-stepperfield-input-border-color);
+  // To reomve overlapped borders but keep those when the input gets focused
+  // so that focus indicator will not look thinner on both sides
+  &:not(:focus) {
+    border-inline-start: none;
+    border-inline-end: none;
+  }
+}

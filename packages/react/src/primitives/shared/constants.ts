@@ -56,6 +56,7 @@ export enum ComponentClassNames {
   SelectWrapper = 'amplify-select__wrapper',
   SelectIconWrapper = 'amplify-select__icon-wrapper',
   StepperField = 'amplify-stepperfield',
+  StepperFieldInput = 'amplify-stepperfield__input',
   SwitchField = 'amplify-switchfield',
   SwitchLabel = 'amplify-switch-label',
   SwitchThumb = 'amplify-switch-thumb',
