@@ -1,0 +1,32 @@
+## Troubleshooting
+
+### Vite
+
+When working with a [Vite](https://vitejs.dev) project you must make a few modifications. Please follow the steps below.
+
+**1.** Add the following script tag to the `index.html` file at the bottom of the `<body>` tag.
+
+```html
+...
+  <script>
+        window.global = window;
+        var exports = {};
+  </script>
+</body>
+```
+
+**2.** Update the `vite.config.ts` and add in a resolve object inside the `defineConfig({})` as seen below.
+
+```js
+...
+export default defineConfig({
+  plugins: [vue()],
+  resolve: {
+      alias: [
+      {
+        find: './runtimeConfig',
+        replacement: './runtimeConfig.browser',
+      },
+  }
+})
+```
