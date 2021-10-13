@@ -1,0 +1,49 @@
+```jsx
+import { AmplifyProvider } from '@aws-amplify/ui-react';
+// Step 1: Wrap your APP with `AmplifyProvider`
+const App = (
+  <AmplifyProvider>
+    <MyApp>/* AmplifyUI */</MyApp>
+  </AmplifyProvider>
+);
+
+// Step 2: Get the theme object through useTheming hook and style components with it
+import React from 'react';
+import { Text, useTheme } from '@aws-amplify/ui-react';
+
+const MyComponent = ({ children }) => {
+  const { tokens } = useTheme();
+  return <Text color={`${tokens.colors.font.tertiary}`}>{children}</Text>;
+};
+```
+
+To extend or override a token in the default theme with `createTheme`
+
+```jsx
+import { createTheme } from '@aws-amplify/ui-react';
+
+// Step 1: Use `createTheme` and pass your custom values
+const theme = createTheme({
+  name: 'my-theme',
+  tokens: {
+    colors: {
+      font: {
+        primary: { value: '#008080' },
+        // ...
+      },
+    },
+  },
+});
+
+// Step 2: Pass the new theme to `AmplifyProvider`
+// this will apply the theme to all Amplify UI components
+<AmplifyProvider theme={theme}>
+  <App />
+</AmplifyProvider>;
+
+// Step 3: You can also use the theme tokens in your components
+const MyComponent = ({ children }) => {
+  const { tokens } = useTheme();
+  return <Text color={`${tokens.colors.brand.primary}`}>{children}</Text>;
+};
+```

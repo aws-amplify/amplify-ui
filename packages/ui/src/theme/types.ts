@@ -83,19 +83,19 @@ export interface ColorModeOverride extends BaseOverride {
   colorMode: ColorMode;
 }
 
-// There are 3 types of Themes:
-// BaseTheme: should have *all* theme tokens defined
-// PartialTheme: can have *any* part of a theme defined, this is what users interact with
-// Theme: the 'created' theme which is returned from the `createTheme` method
-
-export interface BaseTheme {
-  tokens: Tokens;
+/**
+ * A Theme just needs a name. This is what a user would generally deal with.
+ * They can define any tokens or breakpoints they need, but they don't need a
+ * complete theme with all tokens.
+ */
+export interface Theme {
   /**
    * The name of the theme. This is used to create scoped CSS to allow for
    * multiple themes on a page.
    */
   name: string;
-  breakpoints?: Breakpoints;
+  tokens?: PartialDeep<Tokens>;
+  breakpoints?: PartialDeep<Breakpoints>;
   /**
    * Overrides allow you to change design tokens in different contexts, like
    * light and dark mode. You can also have other media query overrides as well
@@ -105,8 +105,15 @@ export interface BaseTheme {
   overrides?: Array<Override>;
 }
 
-export type PartialTheme = PartialDeep<BaseTheme>;
+/**
+ * A BaseTheme has all tokens and breakpoints required
+ */
+export interface BaseTheme extends Theme {
+  tokens: Tokens;
+  breakpoints: Breakpoints;
+  overrides?: Array<Override>;
+}
 
-export interface Theme extends BaseTheme {
+export interface BrowserTheme extends BaseTheme {
   css: string;
 }

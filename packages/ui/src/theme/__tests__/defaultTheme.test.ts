@@ -4,7 +4,7 @@ describe('@aws-amplify/ui', () => {
   describe('defaultTheme', () => {
     it('should match snapshot', () => {
       expect(defaultTheme.css).toMatchInlineSnapshot(`
-        "[data-amplify-theme=\\"defaultTheme\\"] {
+        "[data-amplify-theme=\\"default-theme\\"] {
         --amplify-components-alert-background-color: var(--amplify-colors-background-tertiary);
         --amplify-components-alert-padding-vertical: var(--amplify-space-small);
         --amplify-components-alert-padding-horizontal: var(--amplify-space-medium);

@@ -3,7 +3,7 @@ import { createTheme } from '../createTheme';
 describe('@aws-amplify/ui', () => {
   describe('createTheme', () => {
     describe('without a base theme', () => {
-      const { tokens } = createTheme({});
+      const { tokens } = createTheme({ name: 'test-theme' });
 
       // This will allow users to use the token in a style prop
       // without `.value` and for it to use the CSS variable
@@ -26,6 +26,7 @@ describe('@aws-amplify/ui', () => {
 
     describe('with a theme and without a base theme', () => {
       const theme = createTheme({
+        name: 'test-theme',
         tokens: {
           colors: {
             background: {
@@ -46,6 +47,7 @@ describe('@aws-amplify/ui', () => {
       it('should handle being extended again', () => {
         const newTheme = createTheme(
           {
+            name: 'test-theme',
             tokens: {
               colors: {
                 background: {

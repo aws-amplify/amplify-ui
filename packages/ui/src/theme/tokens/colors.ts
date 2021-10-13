@@ -51,6 +51,10 @@ export interface Colors {
     secondary: ColorScale;
   };
 
+  // focus: DesignToken;
+  // disabled: DesignToken;
+  // error: DesignToken;
+
   // escape hatch to allow customers to add arbitrary colors
   [key: string]: any;
 }

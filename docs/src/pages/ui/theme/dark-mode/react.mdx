@@ -1,3 +1,4 @@
+```jsx
 import * as React from 'react';
 import {
   createTheme,
@@ -11,7 +12,7 @@ import {
 } from '@aws-amplify/ui-react';
 
 export const DarkModeExample = () => {
-  const [colorMode, setColorMode] = React.useState<ColorMode>('system');
+  const [colorMode, setColorMode] = React.useState < ColorMode > 'system';
   const theme = createTheme({
     overrides: [
       {
@@ -35,19 +36,20 @@ export const DarkModeExample = () => {
     ],
   });
   return (
-    <AmplifyProvider components={{}} theme={theme} colorMode={colorMode}>
+    <AmplifyProvider theme={theme} colorMode={colorMode}>
+      <ToggleButtonGroup
+        value={colorMode}
+        isExclusive
+        onChange={(value: ColorMode) => setColorMode(value)}
+      >
+        <ToggleButton value="light">☀️</ToggleButton>
+        <ToggleButton value="dark">🌒</ToggleButton>
+        <ToggleButton value="system">💻</ToggleButton>
+      </ToggleButtonGroup>
       <Card>
-        <ToggleButtonGroup
-          value={colorMode}
-          isExclusive
-          onChange={(value: ColorMode) => setColorMode(value)}
-        >
-          <ToggleButton value="light">Light</ToggleButton>
-          <ToggleButton value="dark">Dark</ToggleButton>
-          <ToggleButton value="system">System</ToggleButton>
-        </ToggleButtonGroup>
-        <Text>Current color mode: {colorMode}</Text>
+        <Text>Hello!</Text>
       </Card>
     </AmplifyProvider>
   );
 };
+```

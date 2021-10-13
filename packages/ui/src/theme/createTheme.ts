@@ -3,7 +3,7 @@ import deepExtend from 'style-dictionary/lib/utils/deepExtend';
 import flattenProperties from 'style-dictionary/lib/utils/flattenProperties';
 
 import { baseTheme as _baseTheme } from './baseTheme';
-import { Theme, BaseTheme, PartialTheme, Override } from './types';
+import { Theme, BaseTheme, BrowserTheme, Override } from './types';
 import { cssValue, cssNameTransform } from './utils';
 import { Tokens } from './tokens';
 import { DesignToken } from '.';
@@ -55,14 +55,14 @@ function setupTokens(obj: any, path = []) {
  * can be passed to a stylesheet at build-time or run-time.
  */
 export function createTheme(
-  theme?: PartialTheme,
-  baseTheme: BaseTheme | Theme = _baseTheme
-): Theme {
+  theme?: Theme,
+  baseTheme: BaseTheme = _baseTheme
+): BrowserTheme {
   // merge theme and baseTheme to get a complete theme
   // deepExtend is an internal Style Dictionary method
   // that performs a deep merge on n objects. We could change
   // this to another 3p deep merge solution too.
-  const mergedTheme: Theme = deepExtend([{}, baseTheme, theme]);
+  const mergedTheme: BaseTheme = deepExtend([{}, baseTheme, theme]);
 
   // Setting up the tokens. This is similar to what Style Dictionary
   // does. At the end of this, each token should have:

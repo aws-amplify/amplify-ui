@@ -2,14 +2,14 @@ import { ReactNode } from 'react';
 import { IdProvider } from '@radix-ui/react-id';
 
 import { AmplifyContext } from './AmplifyContext';
-import { defaultTheme, Theme } from '@aws-amplify/ui';
+import { defaultTheme, BrowserTheme } from '@aws-amplify/ui';
 
 export type ColorMode = 'system' | 'light' | 'dark';
 
 interface AmplifyProviderProps {
   children: ReactNode;
   components: Record<string, ReactNode>;
-  theme?: Theme;
+  theme?: BrowserTheme;
   colorMode?: ColorMode;
 }
 
@@ -19,7 +19,7 @@ export function AmplifyProvider({
   colorMode,
   theme = defaultTheme,
 }: AmplifyProviderProps) {
-  const { name } = theme;
+  const { name = '' } = theme;
   return (
     <AmplifyContext.Provider
       value={{

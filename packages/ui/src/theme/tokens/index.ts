@@ -29,8 +29,6 @@ export interface Tokens {
   space: Space;
   time: Time;
   transforms: Transforms;
-  // this is to make the style dictionary type work
-  [key: string]: any;
 }
 
 export const tokens: Tokens = {

@@ -1,4 +1,4 @@
-import { createTheme, defaultTheme } from '@aws-amplify/ui';
+import { createTheme, defaultTheme } from '@aws-amplify/ui-react';
 
 export const theme = createTheme({
   name: 'listings-theme',
