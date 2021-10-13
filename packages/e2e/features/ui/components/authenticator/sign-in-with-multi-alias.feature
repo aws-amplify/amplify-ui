@@ -22,6 +22,15 @@ Feature: Sign In with Multiple Aliases
     Then I see "Sign Out"
 
   @angular @react @vue
+  Scenario: Sign in with confirmed username then sign Out
+    When I type my "username" with status "CONFIRMED"
+    And I type my password
+    And I click the "Sign in" button
+    Then I see "Sign Out"
+    And I click the "Sign Out" button
+    Then I see "Sign in to your account"
+
+  @angular @react @vue
   Scenario: Sign in with confirmed email
     When I type my "email" with status "CONFIRMED"
     And I type my password
