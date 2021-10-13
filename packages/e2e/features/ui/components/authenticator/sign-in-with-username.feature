@@ -34,7 +34,7 @@ Feature: Sign In with Username
     Then I see "Sign out"
 
   @angular @react @vue
-  Scenario: Sign in with confirmed credentials and sign out
+  Scenario: Sign in with confirmed credentials then sign out
     When I type my "username" with status "CONFIRMED"
     And I type my password
     And I click the "Sign in" button
