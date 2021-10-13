@@ -24,7 +24,7 @@ export const StepperField: React.FC<StepperFieldProps> = ({
   className,
   defaultValue = 0,
   descriptiveText,
-  direction = 'column',
+  direction,
   errorMessage,
   gap,
   hasError = false,
@@ -123,7 +123,12 @@ export const StepperField: React.FC<StepperFieldProps> = ({
     <Flex
       alignContent={alignContent}
       alignItems={alignItems}
-      className={classNames(ComponentClassNames.StepperField, className)}
+      className={classNames(
+        ComponentClassNames.Field,
+        ComponentClassNames.StepperField,
+        className
+      )}
+      data-size={size}
       direction={direction}
       gap={gap}
       justifyContent={justifyContent}
@@ -144,8 +149,9 @@ export const StepperField: React.FC<StepperFieldProps> = ({
             }`}
             isDisabled={value - step < min}
             onClick={handleDecrease}
+            size={size}
           >
-            <IconRemove />
+            <IconRemove size={size} />
           </FieldGroupIconButton>
         }
         outerEndComponent={
@@ -155,8 +161,9 @@ export const StepperField: React.FC<StepperFieldProps> = ({
             }`}
             isDisabled={value + step > max}
             onClick={handleIncrease}
+            size={size}
           >
-            <IconAdd />
+            <IconAdd size={size} />
           </FieldGroupIconButton>
         }
       >

@@ -1,3 +1,16 @@
+.amplify-stepperfield {
+  flex-direction: var(--amplify-components-stepperfield-flex-direction);
+  width: var(--amplify-components-stepperfield-width);
+
+  &[data-size='small'] {
+    width: var(--amplify-components-stepperfield-small-width);
+  }
+
+  &[data-size='large'] {
+    width: var(--amplify-components-stepperfield-large-width);
+  }
+}
+
 .amplify-stepperfield__input {
   // To remove default arrows inside input[type = 'number']
   // Chrome, Safari, Edge, Opera
