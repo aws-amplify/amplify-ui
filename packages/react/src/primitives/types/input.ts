@@ -1,7 +1,7 @@
 import React from 'react';
-import { BaseComponentProps, AriaProps, Sizes } from './base';
+import { Sizes } from './base';
 import { FieldVariations } from './field';
-import { BaseStyleProps } from './style';
+import { ViewProps } from './view';
 
 export type InputMode =
   | 'none'
@@ -13,10 +13,9 @@ export type InputMode =
   | 'email'
   | 'url';
 
-export interface InputProps
-  extends BaseComponentProps,
-    BaseStyleProps,
-    AriaProps {
+export type InputSizes = Sizes;
+
+export interface InputProps extends ViewProps {
   /**
    * Specifies permissions for browser UA to autocomplete field
    * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete
@@ -128,7 +127,7 @@ export interface InputProps
   /**
    * Changes the font-size, padding, and height of the field.
    */
-  size?: Sizes;
+  size?: InputSizes;
 
   /**
    * Input type

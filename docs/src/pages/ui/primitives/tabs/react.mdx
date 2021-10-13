@@ -94,16 +94,16 @@ return (
 
 ### Grow
 
-In the `Tabs` component, use the `grow` prop to control how Tabs take up the remaining space. Pass `equal` to make each tab take up the same amount of space, and `relative` to make each tab take up space relative to the size of its title.
+In the `Tabs` component, use the `spacing` prop to control how Tabs take up the remaining space. Pass `equal` to make each tab take up the same amount of space, and `relative` to make each tab take up space relative to the size of its title.
 
 ```jsx
-<Tabs grow="equal">
+<Tabs spacing="equal">
   <TabItem title="First">Content of the first tab</TabItem>
   <TabItem title="This is the second tab">Content of the second tab</TabItem>
   <TabItem title="Really long title for demonstration">Content of the third tab</TabItem>
 </Tabs>
 
-<Tabs grow="relative">
+<Tabs spacing="relative">
   <TabItem title="First">Content of the first tab</TabItem>
   <TabItem title="This is the second tab">Content of the second tab</TabItem>
   <TabItem title="Really long title for demonstration">Content of the third tab</TabItem>
@@ -112,7 +112,7 @@ In the `Tabs` component, use the `grow` prop to control how Tabs take up the rem
 
 <Example>
 <Flex direction="column" gap="2rem">
-<Tabs grow="equal">
+<Tabs spacing="equal">
   <TabItem title="First">
     <DemoTabPanel>
       Content of the first tab
@@ -130,7 +130,7 @@ In the `Tabs` component, use the `grow` prop to control how Tabs take up the rem
   </TabItem>
 </Tabs>
 
-<Tabs grow="relative">
+<Tabs spacing="relative">
   <TabItem title="First">Content of the first tab</TabItem>
   <TabItem title="This is the second tab">Content of the second tab</TabItem>
   <TabItem title="Really long title for demonstration">Content of the third tab</TabItem>
@@ -142,7 +142,7 @@ In the `Tabs` component, use the `grow` prop to control how Tabs take up the rem
 
 In the `Tabs` component, use the `justifyContent` prop to control how space is distributed between and around the Tabs. Available options include `flex-start` (default), `flex-end`, `center`, `space-between`, `space-around`, and `space-evenly`.
 
-Note: this prop only has an effect if the `grow` prop is not set, otherwise the `grow` prop will take precedence.
+Note: this prop only has an effect if the `spacing` prop is not set, otherwise the `spacing` prop will take precedence.
 
 ```jsx
 <Tabs justifyContent="center">

@@ -35,7 +35,7 @@ jobs:
         # There needs to be a changeset for @aws-amplify/ui[-framework] to publish.
         run: cp .github/changeset-presets/bump-versions.md .changeset
       - name: Run changeset version to next tag
-        run: yarn changeset version --snapshot next
+        run: yarn version:next
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Build packages
@@ -47,4 +47,4 @@ jobs:
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Publish to next tag
-        run: yarn changeset publish --tag next
+        run: yarn publish:next

@@ -8,7 +8,7 @@ import { RadioGroupFieldProps } from '../../types/radioGroupField';
 import { ComponentClassNames } from '../../shared';
 import {
   testFlexProps,
-  expectFlexStyleProps,
+  expectFlexContainerStyleProps,
 } from '../../Flex/__tests__/Flex.test';
 import { AUTO_GENERATED_ID_PREFIX } from '../../shared/utils';
 
@@ -65,7 +65,7 @@ describe('RadioFieldGroup test suite', () => {
   it('should render all flex style props', async () => {
     render(getRadioFieldGroup({ ...basicProps, ...testFlexProps }));
     const radioField = await screen.findByTestId('test');
-    expectFlexStyleProps(radioField);
+    expectFlexContainerStyleProps(radioField);
   });
 
   describe('Label', () => {

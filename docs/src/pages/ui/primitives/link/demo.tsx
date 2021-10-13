@@ -9,6 +9,7 @@ export const LinkDemo = () => {
     isExternal: false,
     color: '#007EB9',
     textDecoration: 'none',
+    children: 'My Demo Link',
   });
 
   return (
@@ -19,9 +20,8 @@ export const LinkDemo = () => {
           color={linkProps.color}
           isExternal={linkProps.isExternal}
           textDecoration={linkProps.textDecoration}
-          size={linkProps.size}
         >
-          My Demo Link
+          {linkProps.children}
         </Link>
         <Text fontSize={'.75em'}>
           <sup>*</sup>Rel Attribute=

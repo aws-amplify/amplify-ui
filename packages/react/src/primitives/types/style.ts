@@ -1,5 +1,6 @@
 import { Property } from 'csstype';
-import { FlexStyleProps } from './flex';
+
+import { FlexItemStyleProps, FlexContainerStyleProps } from './flex';
 import { GridItemStyleProps, GridContainerStyleProps } from './grid';
 import { ImageStyleProps } from './image';
 
@@ -17,7 +18,7 @@ export type ResponsiveStyle<PropertyType> =
   | PropertyType[]
   | ResponsiveObject<PropertyType>;
 
-export interface BaseStyleProps extends GridItemStyleProps {
+export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
   alignSelf?: ResponsiveStyle<Property.AlignSelf>;
   backgroundColor?: ResponsiveStyle<Property.BackgroundColor>;
   border?: ResponsiveStyle<Property.Border>;
@@ -62,12 +63,22 @@ export interface CSSLayoutStyleProps {
    * Spacing between child components. Shorthand for rowGap and columnGap.
    */
   gap?: ResponsiveStyle<Property.Gap>;
+
+  /**
+   * Spacing between Flex/Grid child columns
+   */
+  columnGap?: ResponsiveStyle<Property.GridColumnGap>;
+
+  /**
+   * Spacing between Flex/Grid child rows
+   */
+  rowGap?: ResponsiveStyle<Property.RowGap>;
 }
 
 export interface AllStyleProps
   extends BaseStyleProps,
     ImageStyleProps,
-    FlexStyleProps,
+    FlexContainerStyleProps,
     GridContainerStyleProps {}
 
 export type ComponentPropToStyleProp = {
@@ -88,6 +99,7 @@ export const ComponentPropsToStylePropsMap: ComponentPropToStyleProp = {
   autoFlow: 'gridAutoFlow',
   autoRows: 'gridAutoRows',
   backgroundColor: 'backgroundColor',
+  basis: 'flexBasis',
   border: 'border',
   borderRadius: 'borderRadius',
   boxShadow: 'boxShadow',
@@ -103,6 +115,7 @@ export const ComponentPropsToStylePropsMap: ComponentPropToStyleProp = {
   fontStyle: 'fontStyle',
   fontWeight: 'fontWeight',
   gap: 'gap',
+  grow: 'flexGrow',
   height: 'height',
   justifyContent: 'justifyContent',
   letterSpacing: 'letterSpacing',
@@ -114,12 +127,14 @@ export const ComponentPropsToStylePropsMap: ComponentPropToStyleProp = {
   objectFit: 'objectFit',
   objectPosition: 'objectPosition',
   opacity: 'opacity',
+  order: 'order',
   padding: 'padding',
   row: 'gridRow',
   rowEnd: 'gridRowEnd',
   rowGap: 'rowGap',
-  rowStart: 'gridRowStart',
   rowSpan: 'gridRow', // Will set gridRow if no `row` prop given
+  rowStart: 'gridRowStart',
+  shrink: 'flexShrink',
   templateAreas: 'gridTemplateAreas',
   templateColumns: 'gridTemplateColumns',
   templateRows: 'gridTemplateRows',

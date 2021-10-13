@@ -4,7 +4,7 @@
       <base-form
         data-amplify-authenticator-confirmResetpassword
         @submit.prevent="onConfirmResetPasswordSubmit"
-        @change="onChange"
+        @input="onInput"
       >
         <base-field-set
           class="amplify-flex"
@@ -54,6 +54,21 @@
                 autocomplete="current-password"
               />
             </base-wrapper>
+            <base-wrapper
+              class="
+                amplify-flex
+                amplify-field
+                amplify-textfield
+                amplify-passwordfield
+              "
+              style="flex-direction: column"
+            >
+              <password-control
+                name="confirm_password"
+                :label="confirmPasswordLabel"
+                autocomplete="new-password"
+              />
+            </base-wrapper>
           </base-wrapper>
           <base-footer class="amplify-flex" style="flex-direction: column">
             <template #footert="{ slotData }">
@@ -92,6 +107,12 @@
     <base-box data-ui-error v-if="actorState?.context?.remoteError">
       {{ actorState?.context?.remoteError }}
     </base-box>
+    <base-box
+      data-ui-error
+      v-if="!!actorContext.validationError['confirm_password']"
+    >
+      {{ actorContext.validationError['confirm_password'] }}
+    </base-box>
   </slot>
 </template>
 
@@ -108,9 +129,15 @@ import {
   CONFIRMATION_CODE_TEXT,
   CODE_TEXT,
   NEW_PASSWORD_LABEL,
+  CONFIRM_PASSWORD_LABEL,
 } from '../defaults/DefaultTexts';
 
-import { getActorState, ResetPasswordState } from '@aws-amplify/ui';
+import {
+  getActorContext,
+  getActorState,
+  ResetPasswordContext,
+  ResetPasswordState,
+} from '@aws-amplify/ui';
 const { state, send } = useAuth();
 
 const attrs = useAttrs();
@@ -119,6 +146,10 @@ const emit = defineEmits(['confirmResetPasswordSubmit', 'backToSignInClicked']);
 const actorState: ComputedRef<ResetPasswordState> = computed(() =>
   getActorState(state.value)
 ) as ComputedRef<ResetPasswordState>;
+
+const actorContext = computed(() =>
+  getActorContext(state.value)
+) as ComputedRef<ResetPasswordContext>;
 
 // Computed Properties
 const resendCodeText = computed(() => I18n.get(RESEND_CODE_TEXT));
@@ -132,6 +163,7 @@ const confirmResetPasswordText = computed(() =>
 
 const codeText = computed(() => I18n.get(CODE_TEXT));
 const newPasswordLabel = computed(() => I18n.get(NEW_PASSWORD_LABEL));
+const confirmPasswordLabel = computed(() => I18n.get(CONFIRM_PASSWORD_LABEL));
 
 // Methods
 const onConfirmResetPasswordSubmit = (e: Event): void => {
@@ -160,7 +192,7 @@ const onLostYourCodeClicked = (): void => {
   });
 };
 
-const onChange = (e: Event) => {
+const onInput = (e: Event) => {
   const { name, value } = <HTMLInputElement>e.target;
   send({
     type: 'CHANGE',

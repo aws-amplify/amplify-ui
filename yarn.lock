@@ -6182,7 +6182,6 @@ amazon-cognito-identity-js@5.2.0:
   resolved "https://codeload.github.com/aws-amplify/docs/tar.gz/8a0d3a0ff2e91ed5caf1ed57ae7fe050a62cab20"
   dependencies:
     "@aws-amplify/ui-components" latest
-    "@aws-amplify/ui-react" "^1.2.5"
     "@emotion/react" "^11.1.5"
     "@emotion/styled" "^11.3.0"
     array-flatten "^3.0.0"

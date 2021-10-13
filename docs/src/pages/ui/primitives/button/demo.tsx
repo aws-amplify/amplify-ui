@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, ButtonSize, ButtonVariation } from '@aws-amplify/ui-react';
+import { Button, ButtonSizes, ButtonVariations } from '@aws-amplify/ui-react';
 import { FieldLabeler } from '@/components/FieldLabeler';
 import { Example } from '@/components/Example';
 
@@ -9,8 +9,8 @@ export const ButtonDemo = () => {
   const [fullWidth, setFullWidth] = React.useState<boolean>(false);
   const [loadingText, setLoadingText] = React.useState('Loading...');
   const [ariaLabel, setAriaLabel] = React.useState<string>('');
-  const [variation, setVariation] = React.useState<ButtonVariation>();
-  const [size, setSize] = React.useState<ButtonSize>();
+  const [variation, setVariation] = React.useState<ButtonVariations>();
+  const [size, setSize] = React.useState<ButtonSizes>();
 
   return (
     <div>
@@ -73,7 +73,7 @@ export const ButtonDemo = () => {
             value={variation}
             placeholder="Select button variation"
             onChange={(event) =>
-              setVariation(event.target.value as ButtonVariation)
+              setVariation(event.target.value as ButtonVariations)
             }
           >
             <option value="">default</option>
@@ -85,7 +85,7 @@ export const ButtonDemo = () => {
           <select
             id="size"
             value={size}
-            onChange={(event) => setSize(event.target.value as ButtonSize)}
+            onChange={(event) => setSize(event.target.value as ButtonSizes)}
           >
             <option value="">default</option>
             <option value="small">small</option>

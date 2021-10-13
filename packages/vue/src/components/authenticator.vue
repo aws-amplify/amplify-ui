@@ -287,7 +287,6 @@ import {
   createAuthenticatorMachine,
 } from '@aws-amplify/ui';
 import { useActor, useInterpret } from '@xstate/vue';
-import useSelect from '../composables/useSelect';
 
 import SignIn from './sign-in.vue';
 import SignUp from './sign-up.vue';
@@ -341,7 +340,6 @@ const machine = createAuthenticatorMachine({ initialState, loginMechanisms });
 const service = useInterpret(machine, {
   devTools: process.env.NODE_ENV === 'development',
 });
-const { active } = useSelect;
 
 const { state, send } = useActor(service);
 provide(InterpretServiceInjectionKeyTypes, <InterpretService>service);
@@ -464,26 +462,6 @@ watch(
     });
     user.value = u;
     signOut.value = s;
-  }
-);
-
-/**
- * Toggle sign up and sign in pages when useSelect
- * active ref updates
- */
-
-watch(
-  () => active.value,
-  () => {
-    if (active.value) {
-      send({
-        type: 'SIGN_UP',
-      });
-    } else {
-      send({
-        type: 'SIGN_IN',
-      });
-    }
   }
 );
 </script>

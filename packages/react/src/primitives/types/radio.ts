@@ -1,7 +1,5 @@
-import { BaseComponentProps } from './base';
-import { BaseStyleProps } from './style';
+import { InputProps } from './input';
 
-export interface RadioProps extends BaseComponentProps, BaseStyleProps {
+export interface RadioProps extends InputProps {
   value: string;
-  isDisabled?: boolean;
 }

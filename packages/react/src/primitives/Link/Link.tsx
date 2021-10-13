@@ -6,16 +6,15 @@ import { LinkProps } from '../types';
 import { View } from '../View';
 
 export const Link: React.FC<LinkProps> = ({
-  as,
+  as = 'a',
   children,
   className,
   isExternal,
   ...rest
 }) => {
-  const linkTag = as || 'a';
   return (
     <View
-      as={linkTag}
+      as={as}
       className={classNames(ComponentClassNames.Link, className)}
       rel={isExternal ? 'noopener noreferrer' : undefined}
       target={isExternal ? '_blank' : undefined}
