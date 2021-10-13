@@ -18,30 +18,30 @@ export type InputSizes = Sizes;
 /**
  * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/number
  */
-interface NumberInputProps {
-  /**
-   * The id of a datalist element located in the same document.
-   * The datalist provides a list of predefined values to suggest to the user for this input.
-   */
-  list?: string;
+// interface NumberInputProps {
+//   /**
+//    * The id of a datalist element located in the same document.
+//    * The datalist provides a list of predefined values to suggest to the user for this input.
+//    */
+//   list?: string;
 
-  /**
-   * The maximum value to accept for number inputs.
-   */
-  max?: number;
+//   /**
+//    * The maximum value to accept for number inputs.
+//    */
+//   max?: number;
 
-  /**
-   * The minimum value to accept for number inputs.
-   */
-  min?: number;
+//   /**
+//    * The minimum value to accept for number inputs.
+//    */
+//   min?: number;
 
-  /**
-   * The stepping value for number inputs. Default to 1.
-   */
-  step?: number;
-}
+//   /**
+//    * The stepping value for number inputs. Default to 1.
+//    */
+//   step?: number;
+// }
 
-export interface InputProps extends NumberInputProps, ViewProps {
+export interface InputProps extends ViewProps {
   /**
    * Specifies permissions for browser UA to autocomplete field
    * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete
@@ -141,6 +141,11 @@ export interface InputProps extends NumberInputProps, ViewProps {
    * Fired on keyboard key down
    */
   onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
+
+  /**
+   * Fired when rotating a wheel button on a pointing device (typically a mouse)
+   */
+  onWheel?: React.WheelEventHandler<HTMLInputElement>;
 
   /**
    * Placeholder text shown when field is empty

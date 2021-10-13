@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { isNaN } from 'lodash';
 import * as React from 'react';
 
 import { FieldDescription, FieldErrorMessage } from '../Field';
@@ -23,7 +24,7 @@ export const StepperField: React.FC<StepperFieldProps> = ({
   className,
   defaultValue = 0,
   descriptiveText,
-  direction,
+  direction = 'column',
   errorMessage,
   gap,
   hasError = false,
@@ -60,9 +61,13 @@ export const StepperField: React.FC<StepperFieldProps> = ({
   const isControlled = isControlledComponent(value);
   value = isControlled ? value : uncontrolledValue;
 
+  const [inputValue, setInputValue] = React.useState<number | string>(value);
+
   const onChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
-    let newValue = Number(event.target.value);
+    let newValue = parseFloat(event.target.value);
+    // The enter value could be empty string or minus '-'
     if (isNaN(newValue)) {
+      setInputValue(event.target.value);
       return;
     }
 
@@ -81,6 +86,7 @@ export const StepperField: React.FC<StepperFieldProps> = ({
     if (isFunction(onStepChange)) {
       onStepChange(newValue);
     }
+    setInputValue(newValue);
   };
 
   const handleIncrease: React.MouseEventHandler<HTMLButtonElement> = () => {
@@ -95,6 +101,7 @@ export const StepperField: React.FC<StepperFieldProps> = ({
     if (isFunction(onIncrease)) {
       onIncrease();
     }
+    setInputValue(value + step);
   };
 
   const handleDecrease: React.MouseEventHandler<HTMLButtonElement> = () => {
@@ -109,6 +116,7 @@ export const StepperField: React.FC<StepperFieldProps> = ({
     if (isFunction(onDecrease)) {
       onDecrease();
     }
+    setInputValue(value - step);
   };
 
   return (
@@ -154,18 +162,17 @@ export const StepperField: React.FC<StepperFieldProps> = ({
       >
         <Input
           // defaultValue={defaultValue}
+          className={ComponentClassNames.StepperFieldInput}
           hasError={hasError}
           id={fieldId}
           isDisabled={isDisabled}
           isReadOnly={isReadOnly}
           isRequired={isRequired}
-          max={max}
-          min={min}
           onChange={onChange}
+          onWheel={(e) => e.currentTarget.blur()}
           size={size}
-          step={step}
           type="number"
-          value={value}
+          value={inputValue}
           {...rest}
         />
       </FieldGroup>

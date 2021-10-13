@@ -28,6 +28,7 @@ export const Input: React.FC<InputProps> = ({
   onInput,
   onPaste,
   onSelect,
+  onWheel,
   ...rest
 }) => (
   <View
@@ -54,6 +55,7 @@ export const Input: React.FC<InputProps> = ({
     onInput={onInput}
     onPaste={onPaste}
     onSelect={onSelect}
+    onWheel={onWheel}
     readOnly={isReadOnly}
     required={isRequired}
     type={type}
