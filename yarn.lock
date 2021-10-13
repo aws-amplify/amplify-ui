@@ -413,8 +413,7 @@
     qrcode "^1.4.4"
     uuid "^8.2.0"
 
-"@aws-amplify/ui-react-v1@npm:@aws-amplify/ui-react", "@aws-amplify/ui-react@^1.2.5":
-  name "@aws-amplify/ui-react-v1"
+"@aws-amplify/ui-react-v1@npm:@aws-amplify/ui-react":
   version "1.2.19"
   resolved "https://registry.yarnpkg.com/@aws-amplify/ui-react/-/ui-react-1.2.19.tgz#8721fb33151522faf2a49aaf1ff641c809260927"
   integrity sha512-qf+XZujT/i8eNHgV7P5P2UGCTzJldrgYCdSW15jSJhPSZ3iJNvHjVbeB7FAdIIm2hH65/WJkF2kixsf5G6rwEQ==
@@ -6145,6 +6144,7 @@ amazon-cognito-identity-js@5.2.0:
   resolved "https://codeload.github.com/aws-amplify/docs/tar.gz/8a0d3a0ff2e91ed5caf1ed57ae7fe050a62cab20"
   dependencies:
     "@aws-amplify/ui-components" latest
+    "@aws-amplify/ui-react" "^1.2.5"
     "@emotion/react" "^11.1.5"
     "@emotion/styled" "^11.3.0"
     array-flatten "^3.0.0"
