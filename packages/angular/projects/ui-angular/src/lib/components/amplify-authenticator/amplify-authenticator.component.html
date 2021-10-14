@@ -38,7 +38,10 @@
   If customer is overriding that component, we render customer's template instead.
 -->
 
-<div data-amplify-authenticator>
+<div
+  data-amplify-authenticator
+  *ngIf="!authenticatorState.matches('authenticated')"
+>
   <div data-amplify-modal></div>
 
   <div data-amplify-container>

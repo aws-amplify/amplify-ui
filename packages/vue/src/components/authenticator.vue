@@ -1,5 +1,9 @@
 <template>
-  <div v-bind="$attrs" data-amplify-authenticator>
+  <div
+    v-bind="$attrs"
+    data-amplify-authenticator
+    v-if="!state?.matches('authenticated')"
+  >
     <div data-amplify-modal />
     <div data-amplify-container>
       <base-two-tabs
