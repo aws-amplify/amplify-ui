@@ -4,9 +4,7 @@ import {
   IconAccountCircle,
   Image,
   Text,
-  defaultTheme,
   View,
-  createTheme,
   ToggleButton,
   ToggleButtonGroup,
   AmplifyProvider,
@@ -23,16 +21,9 @@ import '@aws-amplify/ui-react/styles.css';
 import './styles.scss';
 
 function App() {
-  const [loaded, setLoaded] = useState(false);
-  useEffect(() => {
-    setTimeout(() => {
-      setLoaded(true);
-    }, 4000);
-  });
-
   const [colorMode, setColorMode] = useState<ColorMode>('system');
   return (
-    <AmplifyProvider components={{}} theme={theme} colorMode={colorMode}>
+    <AmplifyProvider theme={theme} colorMode={colorMode}>
       <View backgroundColor={`${tokens.colors.background.secondary}`}>
         <header className="listing-app-header">
           <Image src="/listing-logo.svg" alt="lystifying" />
