@@ -4,12 +4,34 @@ import {
   SignInState,
   SignInContext,
   authInputAttributes,
+  ContactMethod,
+  censorPhoneNumber,
+  censorAllButFirstAndLast,
 } from '@aws-amplify/ui';
 import { Radio } from '@aws-amplify/ui-react';
 import { I18n } from 'aws-amplify';
 
 import { useAmplify, useAuthenticator } from '../../../hooks';
 import { RemoteErrorMessage, TwoButtonSubmitFooter } from '../shared';
+
+const censorContactInformation = (
+  type: ContactMethod,
+  value: string
+): string => {
+  const translated = I18n.get(type);
+  let newVal = value;
+
+  if (type === 'Phone Number') {
+    newVal = censorPhoneNumber(value);
+  } else if (type === 'Email') {
+    const splitEmail = value.split('@');
+    const censoredName = censorAllButFirstAndLast(splitEmail[0]);
+
+    newVal = `${censoredName}@${splitEmail[1]}`;
+  }
+
+  return `${translated}: ${newVal}`;
+};
 
 const generateRadioGroup = (
   attributes: Record<string, string>
@@ -19,7 +41,7 @@ const generateRadioGroup = (
   for (const [key, value] of Object.entries(attributes)) {
     const radio = (
       <Radio name="unverifiedAttr" value={key} key={key}>
-        {I18n.get(authInputAttributes[key].label)}
+        {censorContactInformation(authInputAttributes[key].label, value)}
       </Radio>
     );
 
