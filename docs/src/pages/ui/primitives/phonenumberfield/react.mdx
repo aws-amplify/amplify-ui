@@ -168,7 +168,7 @@ To provide additional descriptive text of requirements of the field, use the `de
 
 ### States
 
-The available `PhoneNumberField` states include `isDisabled` and `isReadonly`. A disabled field will be not be focusable, not mutable,
+The available `PhoneNumberField` states include `isDisabled` and `isReadonly`. A disabled field will be not be focusable, mutable,
 and will not be submitted with form data. A readonly field cannot be edited by the user.
 
 ```jsx
@@ -204,8 +204,7 @@ There is no default styling for required fields. Customize the `label` or `descr
     label={
       <Text>
         Phone Number
-        <Text as="span" fontSize="0.8rem" color="red">
-          {' '}
+        <Text as="span" fontSize="0.8rem" color="red" padding="0.25rem">
           (required)
         </Text>
       </Text>

@@ -122,8 +122,7 @@ export const StyledRequiredExample = () => (
       label={
         <Text>
           Phone Number
-          <Text as="span" fontSize="0.8rem" color="red">
-            {' '}
+          <Text as="span" fontSize="0.8rem" color="red" padding="0.25rem">
             (required)
           </Text>
         </Text>
