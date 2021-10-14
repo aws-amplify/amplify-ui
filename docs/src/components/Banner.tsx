@@ -12,12 +12,8 @@ export const Banner = () => {
         <>
           Developer Preview
           <br />
-          <a
-            href={`https://www.npmjs.com/package/@aws-amplify/ui-${platform}/v/next`}
-          >
-            <img
-              src={`https://img.shields.io/npm/v/@aws-amplify/ui-${platform}/next.svg`}
-            />
+          <a href="https://www.npmjs.com/package/@aws-amplify/ui/v/next">
+            <img src="https://img.shields.io/badge/npm-%40next-blue.svg" />
           </a>
         </>
       }
