@@ -23,6 +23,8 @@
   -moz-appearance: textfield;
 
   border-color: var(--amplify-components-stepperfield-input-border-color);
+  text-align: center;
+
   // To reomve overlapped borders but keep those when the input gets focused
   // so that focus indicator will not look thinner on both sides
   &:not(:focus) {
