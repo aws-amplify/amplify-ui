@@ -23,7 +23,7 @@ import './styles.scss';
 function App() {
   const [colorMode, setColorMode] = useState<ColorMode>('system');
   return (
-    <AmplifyProvider theme={theme} colorMode={colorMode}>
+    <AmplifyProvider components={{}} theme={theme} colorMode={colorMode}>
       <View backgroundColor={`${tokens.colors.background.secondary}`}>
         <header className="listing-app-header">
           <Image src="/listing-logo.svg" alt="lystifying" />
