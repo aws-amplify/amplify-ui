@@ -33,15 +33,15 @@ describe('censorAllButFirstAndLast', () => {
 });
 
 describe('censorPhoneNumber', () => {
-  it('should censor all but the last 4 digits of a phone number', () => {
+  it('should censor all but the last 4 characters of a phone number', () => {
     const phone1 = censorPhoneNumber('+11231234567');
-    expect(phone1).toEqual('+*******4567');
+    expect(phone1).toEqual('********4567');
 
     const phone2 = censorPhoneNumber('1234567890');
     expect(phone2).toEqual('******7890');
 
     const phone3 = censorPhoneNumber('+_+_+_+_+_+_+_+_+_+_+_+_9999');
-    expect(phone3).toEqual('+_+_+_+_+_+_+_+_+_+_+_+_9999');
+    expect(phone3).toEqual('************************9999');
 
     const phone4 = censorPhoneNumber('1234');
     expect(phone4).toEqual('1234');
