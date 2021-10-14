@@ -61,7 +61,7 @@ ul {
   padding: 1rem;
 }
 
-.example [data-amplify-authenticator] [data-amplify-modal] {
+.example [data-amplify-authenticator] [data-authentication-variation='modal'] {
   /* Hide the modal texture */
   display: none;
 }

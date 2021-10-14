@@ -4,7 +4,7 @@
     data-amplify-authenticator
     v-if="!state?.matches('authenticated')"
   >
-    <div data-amplify-modal v-if="variationModal" />
+    <div data-authentication-variation="modal" v-if="variationModal" />
     <div data-amplify-container>
       <base-two-tabs
         v-if="actorState?.matches('signIn') || actorState?.matches('signUp')"
@@ -351,7 +351,7 @@ const { state, send } = useActor(service);
 provide(InterpretServiceInjectionKeyTypes, <InterpretService>service);
 
 const actorState = computed(() => getActorState(state.value));
-const variationModal = computed(() => variation === 'modal');
+const variationModal = computed(() => (variation === 'modal' ? true : null));
 
 const signInComponent = ref(null);
 const signUpComponent = ref(null);

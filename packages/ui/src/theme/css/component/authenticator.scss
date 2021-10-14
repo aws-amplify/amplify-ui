@@ -13,7 +13,7 @@
   z-index: 1;
 }
 
-[data-amplify-authenticator] [data-amplify-modal] {
+[data-amplify-authenticator] [data-authentication-variation='modal'] {
   // Fill Authenticator space
   position: fixed;
   width: 100%;
@@ -22,7 +22,7 @@
 }
 
 /* Texture for modal */
-[data-amplify-authenticator] [data-amplify-modal]::before {
+[data-amplify-authenticator] [data-authentication-variation='modal']::before {
   // Fill modal space, but don't scroll
   position: absolute;
   width: 100%;

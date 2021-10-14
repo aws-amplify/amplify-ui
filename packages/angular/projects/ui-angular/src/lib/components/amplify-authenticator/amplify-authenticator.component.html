@@ -42,7 +42,7 @@
   data-amplify-authenticator
   *ngIf="!authenticatorState.matches('authenticated')"
 >
-  <div data-amplify-modal *ngIf="variationModal"></div>
+  <div data-authentication-variation="modal" *ngIf="variationModal"></div>
 
   <div data-amplify-container>
     <amplify-tabs
