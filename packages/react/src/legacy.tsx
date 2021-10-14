@@ -1,6 +1,8 @@
 export {
   /** @deprecated `AmplifyAuthenticator` is the v1 release. Prefer the latest `Authenticator` for continued support. */
   AmplifyAuthenticator,
+  AmplifySignIn,
+  AmplifySignOut,
   AmplifyChatbot,
   AmplifyPhotoPicker,
   AmplifyPicker,

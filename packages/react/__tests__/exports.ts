@@ -1909,6 +1909,8 @@ describe('@aws-amplify/ui-react/legacy', () => {
           "AmplifyS3ImagePicker",
           "AmplifyS3Text",
           "AmplifyS3TextPicker",
+          "AmplifySignIn",
+          "AmplifySignOut",
           "withAuthenticator",
         ]
       `);
