@@ -54,7 +54,7 @@ export function Authenticator({
   return (
     <AuthenticatorContext.Provider value={service}>
       <View className={className} data-amplify-authenticator="">
-        <View data-authentication-variation="modal" />
+        <View data-authenticator-variation="modal" />
 
         <View data-amplify-container="">
           {(() => {

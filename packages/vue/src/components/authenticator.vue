@@ -4,7 +4,7 @@
     data-amplify-authenticator
     v-if="!state?.matches('authenticated')"
   >
-    <div data-authentication-variation="modal" v-if="variationModal" />
+    <div data-authenticator-variation="modal" v-if="variationModal" />
     <div data-amplify-container>
       <base-two-tabs
         v-if="actorState?.matches('signIn') || actorState?.matches('signUp')"
