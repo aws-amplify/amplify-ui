@@ -32,14 +32,13 @@ In addition to the static CSS, this package exports:
 - `defaultTheme`: The default `Theme` object which Amplify UI uses for its default theme.
 - `createTheme`: A function that takes theme customizations and returns a `Theme` object which contains the CSS needed to theme Amplify UI components
 
-```typescript
+```javascript
 import { createTheme, defaultTheme } from '@aws-amplify/ui';
 
 export const theme = createTheme({
   tokens: {
     colors: {
       brand: {
-        // You can
         primary: defaultTheme.colors.blue,
       },
     },
@@ -50,33 +49,105 @@ export const theme = createTheme({
   overrides: [{}],
 });
 
-// theme.css returns a string which can be written to a CSS file or place inline in a <style> tag
+// theme.css returns a string which can be written to a CSS file or placed inline in a <style> tag
 ```
-
-The `createTheme` function
 
 ## Theme Structure
 
-An Amplify UI Theme contains
+### Tokens
 
-## Tokens
+The Amplify UI theme is built with Design Tokens. The structure of the Amplify UI theme tokens follows the [System-UI Theme Specification](https://system-ui.com/theme/). There are global design tokens that are under the top-level namespaces like `colors`, `fontSizes`, `space`, etc. Then there are component design tokens under the `components` namespace.
 
-The Amplify UI theme is built with Design Tokens.
+### Breakpoints
 
-The structure of the Amplify UI theme tokens follows the [System-UI Theme Specification](https://system-ui.com/theme/). There are global design tokens that are under the top-level namespaces like `colors`, `fontSizes`, `space`, etc. Then there are component design tokens under the `components` namespace.
+Breakpoints allow you to set media query breakpoints for responsive design. You can then define breakpoint-specific token overrides or use the breakpoints for different layouts in Javascript.
 
-### Color
+```typescript
+export interface Breakpoints {
+  values: {
+    base: number;
+    small: number;
+    medium: number;
+    large: number;
+    xl: number;
+    xxl: number;
+  };
+  unit: string;
+  defaultBreakpoint: string;
+}
+```
 
-The color scale type is based on research into other UI libraries and how they approach building a base color palette. Some libraries ([Tailwind], [Chakra-UI], [Material], [BaseUI]) use the scale: 50, 100, 200, 300, 400, 500, 600, 700, 800 900, for a total of 10 shades of a color. This also maps to font-weights going from 100-900 as well.
+You can modify default breakpoints in the `createTheme` method:
 
-#### Semantic colors
+```javascript
+import { createTheme } from '@aws-amplify/ui';
 
-Font colors
+const myTheme = createTheme({
+  name: 'my-theme',
+  breakpoints: {
+    // createTheme does a deep merge with the default theme
+    // so you don't have to override all the breakpoint values
+    values: {
+      // default unit is 'em'
+      medium: 50,
+    },
+  },
+  //...
+});
+```
 
-Background colors
+### Overrides
 
-Border colors
+An `override` is a collection of design tokens that should take precedence in certain situations, like dark mode. Overrides are built into the theme configuration, but kept separate, so that Amplify UI can use CSS for overriding parts of the theme.
 
-## Breakpoints
+```javascript
+import { createTheme } from '@aws-amplify/ui';
 
-## Overrides
+export const theme = createTheme({
+  name: 'my-theme',
+  overrides: [
+    {
+      colorMode: 'dark',
+      tokens: {
+        colors: {
+          neutral: {
+            10: { value: defaultTheme.tokens.colors.neutral[100].value },
+            20: { value: defaultTheme.tokens.colors.neutral[90].value },
+            40: { value: defaultTheme.tokens.colors.neutral[80].value },
+            80: { value: defaultTheme.tokens.colors.neutral[40].value },
+            90: { value: defaultTheme.tokens.colors.neutral[20].value },
+            100: { value: defaultTheme.tokens.colors.neutral[10].value },
+          },
+          black: { value: '#fff' },
+          white: { value: '#000' },
+        },
+      },
+    },
+    {
+      breakpoint: 'large',
+      tokens: {
+        space: {
+          small: { value: '1rem' },
+          medium: { value: '2rem' },
+          large: { value: '3rem' },
+        },
+      },
+    },
+  ],
+});
+```
+
+You can override design tokens in CSS by using a media query or adding extra selectors to `[data-amplify-theme="{theme.name}"]`.
+
+```css
+@media (prefers-color-scheme: dark) {
+  [data-amplify-theme='my-theme'] {
+    --amplify-colors-black: #fff;
+    --amplify-colors-white: #fff;
+  }
+}
+
+[data-amplify-theme='my-theme'].disco {
+  --amplify-colors-font-primary: pink;
+}
+```
