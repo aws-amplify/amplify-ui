@@ -4,9 +4,28 @@ import * as React from 'react';
 import { StepperFieldProps } from '../types/stepperField';
 import { isControlledComponent, isFunction } from '../shared/utils';
 
+const getCorrectSteppingValue = (
+  min: number,
+  max: number,
+  step: number,
+  value: number
+) => {
+  // Round it to the closest step value
+  // It will be based off min to be consistent with native input[type="number"]
+  // This allows keyboard accessible
+  const remainder = (value - min) % step;
+  value = value - remainder + Math.round(remainder / step) * step;
+
+  // Make sure new value is not outside the bound
+  value = Math.min(max, value);
+  value = Math.max(min, value);
+
+  return value;
+};
+
 export const useStepper = ({
   defaultValue = 0,
-  value,
+  value: controlledValue,
   step = 1,
   max = Number.MAX_SAFE_INTEGER,
   min = Number.MIN_SAFE_INTEGER,
@@ -16,39 +35,53 @@ export const useStepper = ({
   onIncrease,
   onStepChange,
 }: StepperFieldProps) => {
+  const isControlled = isControlledComponent(controlledValue);
+
   // Make sure max value is greater than or equal to min value
   max = Math.max(min, max);
 
   // Maintain an internal state for uncontrolled components
   // This allows to take over the input value and correct any invalid versus purely relying on the native uncontrolled input
-  const [uncontrolledValue, setUncontrolledValue] =
-    React.useState(defaultValue);
+  const [uncontrolledValue, setUncontrolledValue] = React.useState(() =>
+    // This is required for users could provide any defaultValue
+    getCorrectSteppingValue(min, max, step, defaultValue)
+  );
 
-  const isControlled = isControlledComponent(value);
-  value = isControlled ? value : uncontrolledValue;
+  // Same for controlled components on the first render because users could provide invalid intial value.
+  // It seems redundant afterwards but necessary for the first render
+  if (isControlled) {
+    controlledValue = getCorrectSteppingValue(min, max, step, controlledValue);
+  }
+
+  const value = isControlled ? controlledValue : uncontrolledValue;
+
+  const shouldDisableIncreaseButton =
+    isDisabled || isReadOnly || value + step > max;
+
+  const shouldDisableDecreaseButton =
+    isDisabled || isReadOnly || value - step < min;
 
   // This is the exact value to be rendered on screen
-  // It could be a string, like '-' and empty string when users clear the input value
+  // It could be a string, like '-' or empty string when users clear the input
   const [inputValue, setInputValue] = React.useState<number | string>(value);
 
   const handleOnChange: React.ChangeEventHandler<HTMLInputElement> =
+    React.useCallback((event) => {
+      setInputValue(event.target.value);
+    }, []);
+
+  const handleOnBlur: React.FocusEventHandler<HTMLInputElement> =
     React.useCallback(
       (event) => {
         let newValue = parseFloat(event.target.value);
         // Though input[type='number'] has built-in validation to reject non-numerical entries
         // The entered value could still be empty string or minus '-'
+        // in these cases, no need to do the following validation
         if (isNaN(newValue)) {
-          setInputValue(event.target.value);
           return;
         }
 
-        // // Make sure new value is not outside the bound
-        newValue = Math.min(newValue, max);
-        newValue = Math.max(newValue, min);
-
-        // // Round it to the closest step value
-        const remainder = (newValue - min) % step;
-        newValue = newValue - remainder + Math.round(remainder / step) * step;
+        newValue = getCorrectSteppingValue(min, max, step, newValue);
 
         if (!isControlled) {
           setUncontrolledValue(newValue);
@@ -65,7 +98,8 @@ export const useStepper = ({
 
   const handleIncrease: React.MouseEventHandler<HTMLButtonElement> =
     React.useCallback(() => {
-      // No need to check if the value will be outside the bounds because the button will be disabled if so
+      // No need to check if the value will be outside the bounds
+      // The button will be disabled if so
       if (!isControlled) {
         setUncontrolledValue(value + step);
       }
@@ -82,7 +116,8 @@ export const useStepper = ({
 
   const handleDecrease: React.MouseEventHandler<HTMLButtonElement> =
     React.useCallback(() => {
-      // No need to check if the value will be outside the bounds because the button will be disabled if so
+      // No need to check if the value will be outside the bounds
+      // The button will be disabled if so
       if (!isControlled) {
         setUncontrolledValue(value - step);
       }
@@ -97,24 +132,21 @@ export const useStepper = ({
       setInputValue(value - step);
     }, [step, value, isControlled, onDecrease, onStepChange]);
 
-  // This aims to disable unwanted behaviors on input[type='number']
-  // When the input gets focused, rotating a wheel will change the value
-  // but the parent container(the entire window mostly) is scrolling to elsewhere
+  // This aims to disable unwanted behaviors on React input[type='number']
+  // When the input gets focused, rotating a wheel will change its value
+  // But the parent container(mostly the entire window) will be scrolling to elsewhere
   const handleOnWheel: React.WheelEventHandler<HTMLInputElement> =
     React.useCallback((event) => {
       event.currentTarget.blur();
     }, []);
 
-  const shouldDisableIncreaseButton =
-    isDisabled || isReadOnly || value + step > max;
-
-  const shouldDisableDecreaseButton =
-    isDisabled || isReadOnly || value - step < min;
-
   return {
+    step,
+    value,
     inputValue,
     handleDecrease,
     handleIncrease,
+    handleOnBlur,
     handleOnChange,
     handleOnWheel,
     shouldDisableDecreaseButton,

@@ -21,7 +21,8 @@ export const StepperField: React.FC<StepperFieldProps> = (props) => {
     alignItems,
     className,
     descriptiveText,
-    defaultValue = 0,
+    // this is only required in useStepper hook but deconstruct here to remove its existence in rest
+    defaultValue,
     direction,
     errorMessage,
     gap,
@@ -35,8 +36,8 @@ export const StepperField: React.FC<StepperFieldProps> = (props) => {
     labelHidden = true,
     onStepChange,
     size,
-    step = 1,
-    value,
+    // this is only required in useStepper hook but deconstruct here to remove its existence in rest
+    value: controlledValue,
     wrap,
     ...rest
   } = props;
@@ -44,16 +45,17 @@ export const StepperField: React.FC<StepperFieldProps> = (props) => {
   const fieldId = useStableId(id);
 
   const {
+    step,
+    value,
     inputValue,
     handleDecrease,
     handleIncrease,
+    handleOnBlur,
     handleOnChange,
     handleOnWheel,
     shouldDisableDecreaseButton,
     shouldDisableIncreaseButton,
   } = useStepper(props);
-
-  console.log(inputValue);
 
   return (
     <Flex
@@ -80,6 +82,7 @@ export const StepperField: React.FC<StepperFieldProps> = (props) => {
       <FieldGroup
         outerStartComponent={
           <FieldGroupIconButton
+            aria-controls={fieldId}
             ariaLabel={`${SharedText.StepperField.ariaLabel.DecreaseTo} ${
               value - step
             }`}
@@ -92,6 +95,7 @@ export const StepperField: React.FC<StepperFieldProps> = (props) => {
         }
         outerEndComponent={
           <FieldGroupIconButton
+            aria-controls={fieldId}
             ariaLabel={`${SharedText.StepperField.ariaLabel.IncreaseTo} ${
               value + step
             }`}
@@ -110,6 +114,7 @@ export const StepperField: React.FC<StepperFieldProps> = (props) => {
           isDisabled={isDisabled}
           isReadOnly={isReadOnly}
           isRequired={isRequired}
+          onBlur={handleOnBlur}
           onChange={handleOnChange}
           onWheel={handleOnWheel}
           size={size}
