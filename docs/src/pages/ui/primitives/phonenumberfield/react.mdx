@@ -5,6 +5,7 @@ import { PhoneNumberFieldDemo } from './demo';
 import {
   AccessibilityExample,
   AutoCompleteExample,
+  CountryCodePropsExample,
   DescriptiveTextExample,
   ErrorExample,
   LocalStylingExample,
@@ -44,14 +45,20 @@ properties specific to the country code selector are the following:
 - `onCountryCodeChange`: A custom change handler for the country code selector (e.g. `onChange={onCountryCodeChange}`)
 
 ```jsx
-<PhoneNumberField
-  label="Phone Number"
-  defaultCountryCode="+7"
-  countryCodeName="country_code"
-  countryCodeLabel="Country Code"
-  onCountryCodeChange={(e) => console.log(e.target.value)}
-/>
+<Flex direction="column">
+  <PhoneNumberField
+    label="Phone Number"
+    defaultCountryCode="+7"
+    countryCodeName="country_code"
+    countryCodeLabel="Country Code"
+    onCountryCodeChange={(e) => console.log(e.target.value)}
+  />
+</Flex>
 ```
+
+<Example>
+  <CountryCodePropsExample />
+</Example>
 
 ### Autocomplete - supporting password managers
 
@@ -280,7 +287,8 @@ _Using a class selector:_
 
 ```css
 /* styles.css */
-.custom-phonenumberfield-class .amplify-input {
+.custom-phonenumberfield-class .amplify-input,
+.amplify-select {
   border-radius: 0;
 }
 ```
