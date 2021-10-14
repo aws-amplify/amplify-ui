@@ -33,6 +33,7 @@ export class AmplifyAuthenticatorComponent implements OnInit, AfterContentInit {
 
   @Input() initialState: AuthenticatorMachineOptions['initialState'];
   @Input() loginMechanisms: AuthenticatorMachineOptions['loginMechanisms'];
+  @Input() variation: string;
 
   @ContentChildren(AmplifySlotDirective)
   private customComponentQuery: QueryList<AmplifySlotDirective> = null;
@@ -86,6 +87,10 @@ export class AmplifyAuthenticatorComponent implements OnInit, AfterContentInit {
 
   public get authenticatorState() {
     return this.stateMachine.authState;
+  }
+
+  public get variationModal() {
+    return this.variation === 'modal';
   }
 
   public onTabChange() {
