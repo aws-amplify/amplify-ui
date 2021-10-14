@@ -6,7 +6,7 @@ import StyleDictionary from 'style-dictionary';
 import { defaultTheme } from './src/theme';
 import { CSS_VARIABLE_PREFIX, cssNameTransform } from './src/theme/utils';
 
-const CSS_VARIABLE_SCOPE = '[data-amplify-theme]';
+const CSS_VARIABLE_SCOPE = ':root, [data-amplify-theme]';
 
 StyleDictionary.extend({
   tokens: defaultTheme.tokens,
