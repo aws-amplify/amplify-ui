@@ -33,7 +33,7 @@ export class AmplifyAuthenticatorComponent implements OnInit, AfterContentInit {
 
   @Input() initialState: AuthenticatorMachineOptions['initialState'];
   @Input() loginMechanisms: AuthenticatorMachineOptions['loginMechanisms'];
-  @Input() variation: string;
+  @Input() variation: 'modal' | undefined;
 
   @ContentChildren(AmplifySlotDirective)
   private customComponentQuery: QueryList<AmplifySlotDirective> = null;

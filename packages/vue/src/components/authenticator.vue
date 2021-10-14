@@ -320,11 +320,11 @@ const { initialState, loginMechanisms, variation } = withDefaults(
   defineProps<{
     initialState?: AuthenticatorMachineOptions['initialState'];
     loginMechanisms?: AuthenticatorMachineOptions['loginMechanisms'];
-    variation?: string;
+    variation?: 'modal' | undefined;
   }>(),
   {
     loginMechanisms: () => ['username'],
-    variation: '',
+    variation: undefined,
   }
 );
 
