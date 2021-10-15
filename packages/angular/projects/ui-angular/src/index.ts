@@ -3,6 +3,7 @@
  */
 
 export { UiAngularModule } from './lib/ui-angular.module';
+export { LegacyUiAngularModule } from './legacy/legacy-ui-angular.module';
 
 export * from './lib/common';
 export * from './lib/components';
