@@ -181,9 +181,7 @@ export default function Page({
   }
 
   // Dynamically set the Menu URLs to include ?platform=${filterKey}
-  directory.ui = directory.ui || {};
   directory.ui.items = {};
-
   groupedPages.forEach(([folder, pages]) => {
     if (!folder) {
       return;
