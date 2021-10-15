@@ -76,4 +76,5 @@ customElements.define('amplify-icon', AmplifyIcon);
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class UiLegacyAngularModule {}
+// TODO: rename this to LegacyAmplifyUiAngularModule
+export class LegacyUiAngularModule {}
