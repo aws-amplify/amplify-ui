@@ -16,6 +16,7 @@ export const Pagination: React.FC<PaginationProps> = (props) => {
     onNext,
     onPrevious,
     onChange,
+    role = 'navigation',
     ...rest
   } = props;
 
@@ -31,6 +32,7 @@ export const Pagination: React.FC<PaginationProps> = (props) => {
   return (
     <View
       as="nav"
+      role={role}
       className={classNames(ComponentClassNames.Pagination, className)}
       {...rest}
     >

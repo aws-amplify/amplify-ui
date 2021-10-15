@@ -77,7 +77,8 @@ export const SearchField: React.FC<SearchFieldProps> = ({
   className,
   labelHidden = true,
   label,
-  name = 'q',
+  name,
+  role = 'searchbox',
   onSubmit,
   onClear,
   size,
@@ -106,6 +107,7 @@ export const SearchField: React.FC<SearchFieldProps> = ({
       onInput={onInput}
       onKeyDown={onKeyDown}
       outerEndComponent={<SearchFieldButton onClick={onClick} size={size} />}
+      role={role}
       size={size}
       value={value}
       {...rest}

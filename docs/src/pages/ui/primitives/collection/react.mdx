@@ -2,6 +2,7 @@ import {
   Button,
   Card,
   Collection,
+  Flex,
   View,
   Text,
   Heading,
@@ -10,7 +11,7 @@ import { countries } from 'countries-list';
 import { CollectionDemo, ListCollectionExample } from './demo';
 import { Example } from '@/components/Example';
 
-A Collection wraps Flex and Grid components, and provides a way to display items in a collection from a data source. They come in `paginated` and `infiniteScrolling` versions. Both versions need paginated data.
+A Collection wraps Flex and Grid components, and provides a way to display items in a collection from a data source.
 
 ## Demo
 
@@ -82,25 +83,11 @@ const visitNewZealand = [
   </Collection>
 </Example>
 
-## Paginated collection
-
-A Collection can be paginated, using the special `isPaginated` property.
-
-```jsx
-<Collection type="list" items={countries} isPaginated>
-  {(country) => (
-    <Button>
-      {country.emoji} {country.name}
-    </Button>
-  )}
-</Collection>
-```
-
-### Collection types
+## Collection types
 
 Collection `type` options include `list`, `grid`, and `table`.
 
-**List collection type**
+### List
 
 The `list` collection type can be customized with any of following Flex props: `alignItems`, `alignContent`, `direction`, `gap`, `justifyContent`, `wrap`.
 
@@ -155,10 +142,78 @@ The `list` collection type can be customized with any of following Flex props: `
   </Collection>
 </Example>
 
-#### Grid collection type
+## Pagination
 
-TBD
+A Collection can be paginated, adding a special `isPaginated` property. Change the page size passing a `itemsPerPage` property (default: 10).
 
-#### Table collection type
+```jsx
+<Collection type="list" items={countries} isPaginated itemsPerPage={12}>
+  {(country) => (
+    <Button>
+      {country.emoji} {country.name}
+    </Button>
+  )}
+</Collection>
+```
 
-TBD
+<Example>
+  <Collection
+    type="list"
+    direction="row"
+    wrap="wrap"
+    items={Object.values(countries).map(({ name, emoji }) => ({ name, emoji }))}
+    isPaginated
+    itemsPerPage={12}
+  >
+    {(country) => (
+      <Button grow="1">
+        {country.emoji} {country.name}
+      </Button>
+    )}
+  </Collection>
+</Example>
+
+## Search
+
+Collections can also be filtered, adding a `isSearchable` property. Pass a custom `searchFilter` function to enhance your search experience.
+
+```jsx
+const startsWith = (country, keyword) => country.name.startsWith(keyword)
+
+<Collection
+  type="grid"
+  items={countries}
+  itemsPerPage={9}
+  isSearchable
+  searchFilter={startsWith}
+  searchPlaceholder="Type to search..."
+>
+  {(country) => (
+    <Button grow="1">
+      {country.emoji} {country.name}
+    </Button>
+  )}
+</Collection>
+```
+
+<Example>
+  <Collection
+    type="grid"
+    templateColumns="1fr 1fr 1fr"
+    gap="15px"
+    items={Object.values(countries).map(({ name, emoji }) => ({ name, emoji }))}
+    isSearchable
+    isPaginated
+    itemsPerPage={9}
+    searchPlaceholder="Type to search..."
+    searchFilter={(country, keyword) =>
+      country.name.toLowerCase().startsWith(keyword.toLowerCase())
+    }
+  >
+    {(country) => (
+      <Button grow="1">
+        {country.emoji} {country.name}
+      </Button>
+    )}
+  </Collection>
+</Example>

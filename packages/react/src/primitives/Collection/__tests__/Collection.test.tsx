@@ -3,6 +3,7 @@ import { kebabCase } from 'lodash';
 
 import { Collection } from '../Collection';
 import { ComponentPropsToStylePropsMap } from '../../types';
+import { ComponentClassNames } from '../../shared/constants';
 
 const emojis = [
   {
@@ -22,9 +23,52 @@ const emojis = [
 describe('Collection component', () => {
   const testList = 'testList';
 
+  it('should render a Search box when isSearchable is true', async () => {
+    render(
+      <Collection testId={testList} type="list" items={emojis} isSearchable>
+        {(item, index) => (
+          <div key={index} aria-label={item.title}>
+            {item.emoji}
+          </div>
+        )}
+      </Collection>
+    );
+
+    const searchField = await screen.findByRole('searchbox');
+    expect(searchField).not.toBe(undefined);
+  });
+
+  it('should render pagination when isPaginated is true', async () => {
+    render(
+      <Collection
+        testId={testList}
+        type="list"
+        items={emojis}
+        isPaginated
+        itemsPerPage={1}
+      >
+        {(item, index) => (
+          <div key={index} aria-label={item.title}>
+            {item.emoji}
+          </div>
+        )}
+      </Collection>
+    );
+
+    const navigation = await screen.findByRole('navigation');
+
+    expect(navigation.classList).toContain(ComponentClassNames.Pagination);
+    expect(navigation).not.toBe(undefined);
+  });
+
   it('should render Flex when rendering list collection', async () => {
     render(
-      <Collection testId={testList} type="list" items={emojis}>
+      <Collection
+        testId={testList}
+        type="list"
+        direction="column"
+        items={emojis}
+      >
         {(item, index) => (
           <div key={index} aria-label={item.title}>
             {item.emoji}
