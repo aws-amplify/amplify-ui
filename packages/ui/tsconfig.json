@@ -19,7 +19,7 @@
     "declaration": true,
     "outDir": "dist",
     "baseUrl": ".",
-    "types": ["webpack-env","jest"],
+    "types": ["webpack-env", "jest"],
     "paths": {
       "@/*": ["src/*"]
     },

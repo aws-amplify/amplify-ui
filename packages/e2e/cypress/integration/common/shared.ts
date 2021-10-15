@@ -51,7 +51,7 @@ When('I click the {string} button', (name: string) => {
 });
 
 When('I click the {string} radio button', (label: string) => {
-  cy.findByLabelText(label).click({
+  cy.findByLabelText(new RegExp(`^${escapeRegExp(label)}`, 'i')).click({
     // We have to force this click because the radio input type isn't visible by default
     // and instead has ::before decoration.
     //

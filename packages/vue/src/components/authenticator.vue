@@ -1,6 +1,10 @@
 <template>
-  <div v-bind="$attrs" data-amplify-authenticator>
-    <div data-amplify-modal />
+  <div
+    v-bind="$attrs"
+    data-amplify-authenticator
+    v-if="!state?.matches('authenticated')"
+  >
+    <div data-authenticator-variation="modal" v-if="variationModal" />
     <div data-amplify-container>
       <base-two-tabs
         v-if="actorState?.matches('signIn') || actorState?.matches('signUp')"
@@ -312,13 +316,15 @@ onBeforeMount(() => {
 
 const attrs = useAttrs();
 
-const { initialState, loginMechanisms } = withDefaults(
+const { initialState, loginMechanisms, variation } = withDefaults(
   defineProps<{
     initialState?: AuthenticatorMachineOptions['initialState'];
     loginMechanisms?: AuthenticatorMachineOptions['loginMechanisms'];
+    variation?: 'modal' | undefined;
   }>(),
   {
     loginMechanisms: () => ['username'],
+    variation: undefined,
   }
 );
 
@@ -345,6 +351,7 @@ const { state, send } = useActor(service);
 provide(InterpretServiceInjectionKeyTypes, <InterpretService>service);
 
 const actorState = computed(() => getActorState(state.value));
+const variationModal = computed(() => (variation === 'modal' ? true : null));
 
 const signInComponent = ref(null);
 const signUpComponent = ref(null);
