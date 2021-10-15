@@ -16,7 +16,7 @@ function referenceValue(value: string) {
 
 export function cssValue(token: DesignToken) {
   const { value } = token;
-  if (typeof value === 'string' && usesReference(value)) {
+  if (typeof value === 'string') {
     return referenceValue(value);
   }
   if (typeof value === 'object') {

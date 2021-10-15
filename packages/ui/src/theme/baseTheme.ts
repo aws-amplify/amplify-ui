@@ -5,5 +5,5 @@ import { BaseTheme } from './types';
 export const baseTheme: BaseTheme = {
   tokens,
   breakpoints,
-  name: 'defaultTheme',
+  name: 'base-theme',
 };

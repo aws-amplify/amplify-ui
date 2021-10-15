@@ -46,7 +46,6 @@
     "ts-node": "^10.2.1",
     "tslib": "^2.3.0",
     "type-fest": "^2.3.4"
-    "tslib": "^2.3.0"
   },
   "peerDependencies": {
     "aws-amplify": "3.x.x || 4.x.x"

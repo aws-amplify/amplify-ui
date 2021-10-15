@@ -15,22 +15,10 @@ StyleDictionary.extend({
       type: 'name',
       transformer: cssNameTransform,
     },
-    cssPadding: {
-      type: 'value',
-      transitive: true,
-      matcher: (token) => token.path[token.path.length - 1] === 'padding',
-      transformer: (token) => {
-        if (Array.isArray(token.value)) {
-          return token.value.join(' ');
-        } else {
-          return token.value;
-        }
-      },
-    },
   },
   platforms: {
     css: {
-      transforms: ['attribute/cti', 'cssNameTransform', 'cssPadding'],
+      transforms: ['attribute/cti', 'cssNameTransform'],
       prefix: CSS_VARIABLE_PREFIX,
       files: [
         {
