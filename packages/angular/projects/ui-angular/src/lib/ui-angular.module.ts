@@ -63,4 +63,5 @@ import { AmplifySlotDirective } from './directives/amplify-slot.directive';
     AmplifySlotDirective,
   ],
 })
+// TODO: rename this to AmplifyUiAngularModule
 export class UiAngularModule {}
