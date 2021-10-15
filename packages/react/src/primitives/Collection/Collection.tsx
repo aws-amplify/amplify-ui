@@ -78,7 +78,7 @@ export const Collection = <Item,>({
   return (
     <Flex direction="column">
       {isSearchable && (
-        <Flex>
+        <Flex direction="row" justifyContent="center">
           <SearchField
             size="small"
             label="Search"
