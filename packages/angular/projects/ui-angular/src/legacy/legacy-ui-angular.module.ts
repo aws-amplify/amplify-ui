@@ -13,6 +13,7 @@ import {
   AmplifyToast as toast,
   AmplifyInput as input,
   AmplifyButton as button,
+  AmplifyIcon as icon,
 } from './proxies';
 
 import {
@@ -27,6 +28,7 @@ import {
   AmplifyS3Image,
   AmplifyPicker,
   AmplifyPhotoPicker,
+  AmplifyIcon,
 } from '@aws-amplify/ui-components/dist/components';
 
 customElements.define('amplify-button', AmplifyButton);
@@ -40,11 +42,13 @@ customElements.define('amplify-s3-text-picker', AmplifyS3TextPicker);
 customElements.define('amplify-s3-image', AmplifyS3Image);
 customElements.define('amplify-picker', AmplifyPicker);
 customElements.define('amplify-photo-picker', AmplifyPhotoPicker);
+customElements.define('amplify-icon', AmplifyIcon);
 
 @NgModule({
   declarations: [
     chatbot,
     toast,
+    icon,
     input,
     button,
     S3Album,
@@ -59,6 +63,7 @@ customElements.define('amplify-photo-picker', AmplifyPhotoPicker);
   exports: [
     chatbot,
     toast,
+    icon,
     input,
     button,
     S3Album,

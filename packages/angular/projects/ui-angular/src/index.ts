@@ -13,15 +13,16 @@ export * from './lib/services/state-machine.service';
 export * from './lib/directives/amplify-slot.directive';
 
 export {
+  AmplifyButton,
+  AmplifyChatbot,
+  AmplifyIcon,
+  AmplifyInput,
+  AmplifyPhotoPicker,
+  AmplifyPicker,
   AmplifyS3Album,
+  AmplifyS3Image,
   AmplifyS3ImagePicker,
   AmplifyS3Text,
   AmplifyS3TextPicker,
-  AmplifyS3Image,
-  AmplifyPicker,
-  AmplifyPhotoPicker,
-  AmplifyChatbot,
   AmplifyToast,
-  AmplifyInput,
-  AmplifyButton,
 } from './legacy/proxies';
