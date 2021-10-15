@@ -37,6 +37,7 @@ export const Collection = <Item,>({
   items,
   itemsPerPage = DEFAULT_PAGE_SIZE,
   searchFilter = itemHasText,
+  searchPlaceholder,
   type = 'list',
   ...rest
 }: CollectionProps<Item>): JSX.Element => {
@@ -45,6 +46,9 @@ export const Collection = <Item,>({
   const onSearch = useCallback(debounce(setSearchText, TYPEAHEAD_DELAY_MS), [
     setSearchText,
   ]);
+
+  // Make sure that items are iterable
+  items = Array.isArray(items) ? items : [];
 
   // Filter items by text
   if (isSearchable && strHasLength(searchText)) {
@@ -60,24 +64,32 @@ export const Collection = <Item,>({
     items = getItemsAtPage(items, pagination.currentPage, itemsPerPage);
   }
 
+  const collection =
+    type === 'list' ? (
+      <ListCollection items={items} {...rest} />
+    ) : type === 'grid' ? (
+      <GridCollection items={items} {...rest} />
+    ) : null;
+
+  if (!isSearchable && !isPaginated) {
+    return collection;
+  }
+
   return (
     <Flex direction="column">
       {isSearchable && (
-        <Flex justifyContent="center">
+        <Flex>
           <SearchField
             size="small"
             label="Search"
+            placeholder={searchPlaceholder}
             onChange={(e) => onSearch(e.target.value)}
             onClear={() => setSearchText('')}
           />
         </Flex>
       )}
 
-      {type === 'list' ? (
-        <ListCollection items={items} {...rest} />
-      ) : type === 'grid' ? (
-        <GridCollection items={items} {...rest} />
-      ) : null}
+      {collection}
 
       {isPaginated && (
         <Flex justifyContent="center">
