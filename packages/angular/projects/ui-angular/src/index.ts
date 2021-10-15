@@ -2,8 +2,7 @@
  * Public API Surface of ui-angular
  */
 
-export * from './lib/ui-angular.module';
-export * from './legacy/legacy-ui-angular.module';
+export { UiAngularModule } from './lib/ui-angular.module';
 
 export * from './lib/common';
 export * from './lib/components';
