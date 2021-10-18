@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "lodash": "^4.17.21",
+    "style-dictionary": "^3.0.1",
     "xstate": "^4.20.1"
   },
   "devDependencies": {
@@ -41,7 +42,6 @@
     "postcss": "^8.3.6",
     "rimraf": "^3.0.2",
     "sass": "^1.35.2",
-    "style-dictionary": "^3.0.1",
     "ts-jest": "^27.0.3",
     "ts-node": "^10.2.1",
     "tslib": "^2.3.0",

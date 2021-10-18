@@ -19,15 +19,11 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-badge-padding-vertical: var(--amplify-space-xs);
         --amplify-components-badge-padding-horizontal: var(--amplify-space-small);
         --amplify-components-badge-background-color: var(--amplify-colors-background-tertiary);
-        --amplify-components-badge-border-radius: var(--amplify-radii-xxl);
+        --amplify-components-badge-border-radius: 9999px;
         --amplify-components-badge-info-background-color: var(--amplify-colors-background-info);
-        --amplify-components-badge-info-color: var(--amplify-colors-font-info);
         --amplify-components-badge-warning-background-color: var(--amplify-colors-background-warning);
-        --amplify-components-badge-warning-color: var(--amplify-colors-font-info);
         --amplify-components-badge-success-background-color: var(--amplify-colors-background-success);
-        --amplify-components-badge-success-color: var(--amplify-colors-font-success);
         --amplify-components-badge-error-background-color: var(--amplify-colors-background-error);
-        --amplify-components-badge-error-color: var(--amplify-colors-font-error);
         --amplify-components-badge-small-font-size: var(--amplify-font-sizes-xs);
         --amplify-components-badge-small-padding-vertical: var(--amplify-space-xxs);
         --amplify-components-badge-small-padding-horizontal: var(--amplify-space-xs);
