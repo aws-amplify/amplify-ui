@@ -2,28 +2,20 @@
 
 ## Getting Started
 
-To build:
-
-```bash
-yarn build
-```
-
-To build and watch for changes:
-
-```bash
-yarn build --watch
-```
+Please see [CONTRIBUTING.md](../../CONTRIBUTING.md#aws-amplifyui-angular) to get started.
 
 ## Development Structure
 
 ```bash
 packages/angular/
 ├── projects/ui-angular/ # where the actual `@aws-amplify/ui-angular` library lives
-│   ├── src/ # contains src files for actual library code.
+│   ├── src/ # contains src files for UI library code.
+│   ├── legacy/ # contains re-expors of legacy web component UI components
 │   └── package.json # name: `@aws-amplify/ui-angular`, private: false
 │                    # contains dependencies that library needs (e.g. xstate)
 │
-├── dist/ui-angular/
+├── dist/ui-angular/ # this is auto-generated when we run `yarn angular build`.
+|                    # deployment will happen from this folder only.
 │   └── bundles/
 │   └── esm2015/
 │   └── fesm2015/
