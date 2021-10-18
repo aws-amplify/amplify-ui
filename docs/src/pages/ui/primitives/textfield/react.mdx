@@ -40,6 +40,19 @@ import '@aws-amplify/ui-react/styles.css';
   />
 </Example>
 
+### Multiline textarea
+
+To render a multi-line textarea, set the `isMultiline` prop to `true`.
+
+<Example>
+  <TextField
+    label="Address"
+    placeholder="Enter your address"
+    descriptiveText="USPS approved address"
+    isMultiline={true}
+  />
+</Example>
+
 ### Accessibility / Label behavior
 
 <Fragment>{() => import('./../shared/formFieldAccessibility.mdx')}</Fragment>
