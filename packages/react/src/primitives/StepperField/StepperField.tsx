@@ -15,6 +15,9 @@ import { ComponentClassNames } from '../shared/constants';
 import { SharedText } from '../shared/i18n';
 import { useStableId } from '../shared/utils';
 
+export const DECREASE_ICON = 'decrease-icon';
+export const INCREASE_ICON = 'increase-icon';
+
 export const StepperField: React.FC<StepperFieldProps> = (props) => {
   const {
     alignContent,
@@ -33,9 +36,10 @@ export const StepperField: React.FC<StepperFieldProps> = (props) => {
     isRequired,
     justifyContent,
     label,
-    labelHidden = true,
+    labelHidden = false,
     onStepChange,
     size,
+    testId,
     // this is only required in useStepper hook but deconstruct here to remove its existence in rest
     value: controlledValue,
     wrap,
@@ -70,6 +74,7 @@ export const StepperField: React.FC<StepperFieldProps> = (props) => {
       direction={direction}
       gap={gap}
       justifyContent={justifyContent}
+      testId={testId}
       wrap={wrap}
     >
       <Label htmlFor={fieldId} visuallyHidden={labelHidden}>
@@ -90,7 +95,7 @@ export const StepperField: React.FC<StepperFieldProps> = (props) => {
             onClick={handleDecrease}
             size={size}
           >
-            <IconRemove size={size} />
+            <IconRemove data-testid={DECREASE_ICON} size={size} />
           </FieldGroupIconButton>
         }
         outerEndComponent={
@@ -103,7 +108,7 @@ export const StepperField: React.FC<StepperFieldProps> = (props) => {
             onClick={handleIncrease}
             size={size}
           >
-            <IconAdd size={size} />
+            <IconAdd data-testid={INCREASE_ICON} size={size} />
           </FieldGroupIconButton>
         }
       >
