@@ -1,16 +1,21 @@
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 
 import { Button } from '../Button';
 import { Flex } from '../Flex';
 import { IconChevronLeft, IconChevronRight } from '../Icon';
 import { View } from '../View';
 import { VisuallyHidden } from '../VisuallyHidden';
-import { PaginationItemProps } from '../types/pagination';
+import { PaginationItemProps, Primitive } from '../types';
 
-export const PaginationItem: React.FC<PaginationItemProps> = (props) => {
-  const { type, page, currentPage, isDisabled, onClick, ariaLabel, ...rest } =
-    props;
-
+export const PaginationItem: Primitive<PaginationItemProps, typeof Button> = ({
+  type,
+  page,
+  currentPage,
+  isDisabled,
+  onClick,
+  ariaLabel,
+  ...rest
+}) => {
   switch (type) {
     case 'page':
       const onChange = useCallback(() => {

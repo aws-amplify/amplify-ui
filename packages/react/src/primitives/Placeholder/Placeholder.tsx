@@ -1,10 +1,10 @@
-import React from 'react';
-import { ComponentClassNames } from '../shared';
 import classNames from 'classnames';
-import { PlaceholderProps } from '../types';
+
+import { ComponentClassNames } from '../shared';
+import { PlaceholderProps, Primitive } from '../types';
 import { View } from '../View';
 
-export const Placeholder: React.FC<PlaceholderProps> = ({
+export const Placeholder: Primitive<PlaceholderProps, 'div'> = ({
   className,
   children,
   isLoaded,

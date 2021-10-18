@@ -4,17 +4,6 @@ import { ButtonProps } from './button';
 
 export interface FieldGroupIconProps extends ViewProps {
   /**
-   * Accessible label for icon
-   */
-  ariaLabel: AriaProps['ariaLabel'];
-
-  /**
-   * React component to use instead of an anchor tag
-   * This is used for react routing libraries that have routing components
-   */
-  as?: React.ComponentType;
-
-  /**
    * Determines whether Icon should be visible
    */
   isVisible?: boolean;

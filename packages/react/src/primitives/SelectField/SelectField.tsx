@@ -1,5 +1,4 @@
 import classNames from 'classnames';
-import React from 'react';
 
 import { ComponentClassNames } from '../shared/constants';
 import { useStableId } from '../shared/utils';
@@ -7,9 +6,9 @@ import { FieldErrorMessage, FieldDescription } from '../Field';
 import { Flex } from '../Flex';
 import { Select } from '../Select';
 import { Label } from '../Label';
-import { SelectFieldProps } from '../types/selectField';
+import { SelectFieldProps, Primitive } from '../types';
 
-export const SelectField: React.FC<SelectFieldProps> = (props) => {
+export const SelectField: Primitive<SelectFieldProps, 'select'> = (props) => {
   const {
     alignContent,
     alignItems,

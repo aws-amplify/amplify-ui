@@ -16,7 +16,7 @@ enum ComponentPropType {
  */
 const isReactComponent = (node: Node) =>
   Node.isVariableDeclaration(node) &&
-  node.getType().getText(node).startsWith('React.FC');
+  node.getType().getText(node).startsWith('Primitive');
 
 /**
  * Remove double quotes from String literal types

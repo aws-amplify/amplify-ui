@@ -142,7 +142,8 @@ describe('useNonStyleProps: ', () => {
 
   it('should return a copy of the original object if all non style props are passed in', () => {
     const noStyleProps: ViewProps = {
-      ['data-variation']: 'primary',
+      // @ts-ignore next-line
+      'data-variation': 'primary',
       ariaLabel: props.ariaLabel,
       as: props.as,
     };

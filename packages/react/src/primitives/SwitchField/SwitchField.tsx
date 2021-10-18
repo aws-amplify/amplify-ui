@@ -1,5 +1,4 @@
-import React from 'react';
-import { nanoid } from 'nanoid';
+import classNames from 'classnames';
 
 import { useSwitch } from './useSwitch';
 import { Label } from '../Label';
@@ -9,10 +8,9 @@ import { Flex } from '../Flex';
 import { VisuallyHidden } from '../VisuallyHidden';
 import { ComponentClassNames } from '../shared/constants';
 import { useStableId } from '../shared/utils';
-import { SwitchFieldProps } from '../types';
-import classNames from 'classnames';
+import { Primitive, SwitchFieldProps } from '../types';
 
-export const SwitchField: React.FC<SwitchFieldProps> = ({
+export const SwitchField: Primitive<SwitchFieldProps, 'input'> = ({
   className,
   defaultChecked,
   id,
@@ -61,13 +59,13 @@ export const SwitchField: React.FC<SwitchFieldProps> = ({
           onBlur={() => {
             setIsFocused(false);
           }}
+          {...rest}
         />
       </VisuallyHidden>
       <Label
         htmlFor={fieldId}
         className={ComponentClassNames.SwitchWrapper}
         data-label-position={labelPosition}
-        {...rest}
       >
         <LabelType as="span" className={ComponentClassNames.SwitchLabel}>
           {label}
