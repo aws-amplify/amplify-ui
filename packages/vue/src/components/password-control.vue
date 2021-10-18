@@ -44,7 +44,6 @@ function togglePasswordText(): void {
       required
       :placeholder="label"
       :type="showHideType"
-      :value="password"
     />
     <base-wrapper class="amplify-field-group__outer-end">
       <button
