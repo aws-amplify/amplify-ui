@@ -48,11 +48,13 @@
             onSignInSubmit,
             onCreateAccountClicked,
             onForgotPasswordClicked,
+            onInput,
           }"
         >
           <slot
             name="sign-in-form"
             :info="info"
+            :onInput="onInput"
             :onSignInSubmit="onSignInSubmit"
             :onCreateAccountClicked="onCreateAccountClicked"
             :onForgotPasswordClicked="onForgotPasswordClicked"

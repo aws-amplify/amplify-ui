@@ -58,6 +58,9 @@
                   >
                   </slot>
                 </template>
+                <base-alert v-if="actorState.context?.remoteError">
+                  {{ actorState.context.remoteError }}
+                </base-alert>
                 <base-button
                   class="amplify-button amplify-field-group__control"
                   data-fullwidth="false"
@@ -84,10 +87,6 @@
             </base-wrapper>
           </template>
         </base-field-set>
-
-        <base-box data-ui-error v-if="actorState.context?.remoteError">
-          {{ actorState.context.remoteError }}
-        </base-box>
       </base-form>
     </base-wrapper>
   </slot>
