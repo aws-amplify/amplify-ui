@@ -10,6 +10,7 @@
     "test": "echo \"Skipped: ng test\"",
     "lint": "ng lint"
   },
+  "license": "Apache-2.0",
   "dependencies": {
     "@angular/animations": "~11.2.4",
     "@angular/common": "~11.2.4",
