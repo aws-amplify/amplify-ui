@@ -1,5 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import * as React from 'react';
 
 import { StepperField, DECREASE_ICON, INCREASE_ICON } from '../StepperField';
 import {
@@ -70,6 +71,20 @@ describe('StepperField: ', () => {
   describe('Input field', () => {
     const label = 'stepper';
 
+    const ControlledStepper = () => {
+      const [value, setValue] = React.useState(0);
+      return (
+        <StepperField
+          label={label}
+          min={-10}
+          max={10}
+          step={2}
+          value={value}
+          onStepChange={(value) => setValue(value)}
+        />
+      );
+    };
+
     it('should render classname', async () => {
       render(<StepperField label={label} />);
       const stepperInput = await screen.findByLabelText(label);
@@ -86,6 +101,44 @@ describe('StepperField: ', () => {
       render(<StepperField label={label} />);
       const stepperInput = await screen.findByLabelText(label);
       expect(stepperInput.id.startsWith(AUTO_GENERATED_ID_PREFIX)).toBeTruthy();
+    });
+
+    it('should set value correctly(controlled)', async () => {
+      render(<ControlledStepper />);
+      const stepperInput = await screen.findByLabelText(label);
+      expect(stepperInput).toHaveValue(0);
+      const buttons = await screen.findAllByRole('button');
+      userEvent.click(buttons[0]);
+      expect(stepperInput).toHaveValue(-2);
+      userEvent.click(buttons[1]);
+      expect(stepperInput).toHaveValue(0);
+      userEvent.type(stepperInput, '9');
+      fireEvent.blur(stepperInput);
+      // will be rounded up to 10 when losing focus since the step is 2
+      expect(stepperInput).toHaveValue(10);
+    });
+
+    it('should set value correctly(uncontrolled)', async () => {
+      render(
+        <StepperField
+          label={label}
+          defaultValue={0}
+          min={-10}
+          max={10}
+          step={2}
+        />
+      );
+      const stepperInput = await screen.findByLabelText(label);
+      expect(stepperInput).toHaveValue(0);
+      const buttons = await screen.findAllByRole('button');
+      userEvent.click(buttons[0]);
+      expect(stepperInput).toHaveValue(-2);
+      userEvent.click(buttons[1]);
+      expect(stepperInput).toHaveValue(0);
+      userEvent.type(stepperInput, '9');
+      fireEvent.blur(stepperInput);
+      // will be rounded up to 10 when losing focus since the step is 2
+      expect(stepperInput).toHaveValue(10);
     });
 
     it('should render min, max, step attributes', async () => {
