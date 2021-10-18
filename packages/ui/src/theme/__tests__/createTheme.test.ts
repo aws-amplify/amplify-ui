@@ -20,8 +20,6 @@ describe('@aws-amplify/ui', () => {
           'var(--amplify-colors-red-20)'
         );
       });
-
-      it('should ', () => {});
     });
 
     describe('with a theme and without a base theme', () => {

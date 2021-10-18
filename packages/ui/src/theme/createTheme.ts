@@ -6,7 +6,14 @@ import { baseTheme as _baseTheme } from './baseTheme';
 import { Theme, BaseTheme, BrowserTheme, Override } from './types';
 import { cssValue, cssNameTransform } from './utils';
 import { Tokens } from './tokens';
-import { DesignToken } from '.';
+import { DesignToken, DesignTokenValue } from './tokens/types/designToken';
+
+interface SetupToken extends DesignToken {
+  name: string;
+  path: Array<string>;
+  original: DesignTokenValue;
+  toString: () => string;
+}
 
 /**
  * This will take a design token and add some data to it for it
@@ -16,9 +23,10 @@ import { DesignToken } from '.';
  *
  * We should see if there is a way to share this logic with style dictionary...
  */
-function setupToken(token: DesignToken, path: Array<string>) {
+function setupToken(token: DesignToken, path: Array<string>): SetupToken {
   const name = `--${cssNameTransform({ path })}`;
   const { value } = token;
+
   return {
     name,
     path,
@@ -53,6 +61,8 @@ function setupTokens(obj: any, path = []) {
  * This will be used like `const myTheme = createTheme({})`
  * `myTheme` can then be passed to a Provider or the generated CSS
  * can be passed to a stylesheet at build-time or run-time.
+ * const myTheme = createTheme({})
+ * const myOtherTheme = createTheme({}, myTheme);
  */
 export function createTheme(
   theme?: Theme,
@@ -74,12 +84,10 @@ export function createTheme(
 
   // flattenProperties is another internal Style Dictionary function
   // that creates an array of all tokens.
-  let css =
+  let cssText =
     `[data-amplify-theme="${name}"] {\n` +
     flattenProperties(tokens)
-      .map((token) => {
-        return `${token.name}: ${token.value};`;
-      })
+      .map((token) => `${token.name}: ${token.value};`)
       .join('\n') +
     `\n}\n`;
 
@@ -94,17 +102,15 @@ export function createTheme(
     overrides = mergedTheme.overrides.map((override) => {
       const tokens = setupTokens(override.tokens);
       const customProperties = flattenProperties(tokens)
-        .map((token) => {
-          return `${token.name}: ${token.value};`;
-        })
+        .map((token) => `${token.name}: ${token.value};`)
         .join('\n');
       // Overrides can have a selector, media query, breakpoint, or color mode
       // for creating the selector
       if ('selector' in override) {
-        css += `\n${override.selector} {\n${customProperties}\n}`;
+        cssText += `\n${override.selector} {\n${customProperties}\n}`;
       }
       if ('mediaQuery' in override) {
-        css += `\n@media (${override.mediaQuery}) {
+        cssText += `\n@media (${override.mediaQuery}) {
   [data-amplify-theme="${name}"] {
     ${customProperties}
   }
@@ -113,17 +119,17 @@ export function createTheme(
       if ('breakpoint' in override) {
         const breakpoint = mergedTheme.breakpoints.values[override.breakpoint];
         const breakpointUnit = mergedTheme.breakpoints.unit;
-        css += `\n@media(min-width: ${breakpoint}${breakpointUnit}) {
+        cssText += `\n@media(min-width: ${breakpoint}${breakpointUnit}) {
   [data-amplify-theme="${name}"] {
     ${customProperties}
   }
 }`;
       }
       if ('colorMode' in override) {
-        css += `\n@media(prefers-color-scheme: ${override.colorMode}) {
+        cssText += `\n@media(prefers-color-scheme: ${override.colorMode}) {
           [data-amplify-theme="${name}"][data-amplify-color-mode="system"] {\n${customProperties}\n}
         }`;
-        css += `\n[data-amplify-theme="${name}"][data-amplify-color-mode="${override.colorMode}"] {\n${customProperties}\n}`;
+        cssText += `\n[data-amplify-theme="${name}"][data-amplify-color-mode="${override.colorMode}"] {\n${customProperties}\n}`;
       }
 
       return {
@@ -137,7 +143,7 @@ export function createTheme(
     tokens,
     breakpoints,
     name,
-    css,
+    cssText,
     // keep overrides separate from base theme
     // this allows web platforms to use plain CSS scoped to a
     // selector and only override the CSS vars needed. This

@@ -2,7 +2,7 @@ export interface DesignToken {
   value: DesignTokenValue;
 }
 
-type DesignTokenValue =
+export type DesignTokenValue =
   | BorderWidthDesignToken
   | ColorDesignToken
   | FontDesignToken

@@ -33,7 +33,7 @@ interface BaseOverride {
  * ```
  */
 interface BreakpointOverride extends BaseOverride {
-  breakpoint?: keyof Breakpoints['values'];
+  breakpoint: keyof Breakpoints['values'];
 }
 
 /**
@@ -115,5 +115,5 @@ export interface BaseTheme extends Theme {
 }
 
 export interface BrowserTheme extends BaseTheme {
-  css: string;
+  cssText: string;
 }

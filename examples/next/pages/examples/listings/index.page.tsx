@@ -1,24 +1,27 @@
 import {
-  Button,
   Collection,
-  IconAccountCircle,
-  Image,
   Text,
   View,
   ToggleButton,
   ToggleButtonGroup,
   AmplifyProvider,
+  IconWbSunny,
+  IconWbTwilight,
+  IconComputer,
   ColorMode,
 } from '@aws-amplify/ui-react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { experiences, places } from './data';
 import { ExperienceCard } from './ExperienceCard';
 import { ListingCard } from './ListingCard';
 import { SectionHeading } from './SectionHeading';
+import { Logo } from './Logo';
 import { theme } from '../../../theme';
-const { tokens } = theme;
+
 import '@aws-amplify/ui-react/styles.css';
 import './styles.scss';
+
+const { tokens } = theme;
 
 function App() {
   const [colorMode, setColorMode] = useState<ColorMode>('system');
@@ -26,7 +29,7 @@ function App() {
     <AmplifyProvider components={{}} theme={theme} colorMode={colorMode}>
       <View backgroundColor={`${tokens.colors.background.secondary}`}>
         <header className="listing-app-header">
-          <Image src="/listing-logo.svg" alt="lystifying" />
+          <Logo />
 
           <input type="search" placeholder="search" />
           <ToggleButtonGroup
@@ -34,13 +37,16 @@ function App() {
             isExclusive
             onChange={(value: ColorMode) => setColorMode(value)}
           >
-            <ToggleButton value="light">☀️</ToggleButton>
-            <ToggleButton value="dark">🌒</ToggleButton>
-            <ToggleButton value="system">💻</ToggleButton>
+            <ToggleButton value="light">
+              <IconWbSunny />
+            </ToggleButton>
+            <ToggleButton value="dark">
+              <IconWbTwilight />
+            </ToggleButton>
+            <ToggleButton value="system">
+              <IconComputer />
+            </ToggleButton>
           </ToggleButtonGroup>
-          <Button variation="link" size="large">
-            <IconAccountCircle />
-          </Button>
         </header>
 
         <View padding={`${tokens.space.xxl}`}>

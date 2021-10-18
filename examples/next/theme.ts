@@ -1,4 +1,5 @@
 import { createTheme, defaultTheme } from '@aws-amplify/ui-react';
+import { flipPalette, usePalette } from 'utils';
 
 export const theme = createTheme({
   name: 'listings-theme',
@@ -10,31 +11,92 @@ export const theme = createTheme({
   tokens: {
     colors: {
       brand: {
-        primary: defaultTheme.tokens.colors.orange,
+        // primary: usePalette('blue'),
+        // secondary: usePalette('red')
+      },
+      border: {
+        // Dark borders
+        primary: { value: '{colors.neutral.100.value}' },
+        secondary: { value: '{colors.neutral.90.value}' },
+        tertiary: { value: '{colors.neutral.60.value}' },
+      },
+    },
+    radii: {
+      // Rounded
+      // small:  { value: '1rem' },
+      // medium: { value: '2rem' },
+      // large:  { value: '3rem' },
+
+      // Squared up
+      small: { value: '0' },
+      medium: { value: '0' },
+      large: { value: '0' },
+      xl: { value: '0' },
+      xxl: { value: '0' },
+    },
+    space: {
+      // extra space
+      // xxs:    { value: '0.5rem' },
+      // xs:     { value: '0.75rem' },
+      // small:  { value: '1rem' },
+      // medium: { value: '2rem' },
+      // large:  { value: '3rem' }
+    },
+
+    // component-specific overrides
+    components: {
+      card: {
+        borderColor: { value: '{colors.brand.primary.60.value}' },
+        boxShadow: { value: '{shadows.large.value}' },
       },
     },
   },
   overrides: [
     {
-      colorMode: 'dark',
+      mediaQuery: 'prefers-reduced-motion',
       tokens: {
         colors: {
-          neutral: {
-            10: { value: defaultTheme.tokens.colors.neutral[100].value },
-            20: { value: defaultTheme.tokens.colors.neutral[90].value },
-            40: { value: defaultTheme.tokens.colors.neutral[80].value },
-            80: { value: defaultTheme.tokens.colors.neutral[40].value },
-            90: { value: defaultTheme.tokens.colors.neutral[20].value },
-            100: { value: defaultTheme.tokens.colors.neutral[10].value },
-          },
-          black: { value: '#fff' },
-          white: { value: '#000' },
+          // brand: {
+          //   primary: usePalette('pink'),
+          //   secondary: usePalette('teal'),
+          // }
         },
       },
     },
     {
-      breakpoint: 'large',
+      colorMode: 'dark',
       tokens: {
+        colors: {
+          red: flipPalette(defaultTheme.tokens.colors.red),
+          orange: flipPalette(defaultTheme.tokens.colors.orange),
+          yellow: flipPalette(defaultTheme.tokens.colors.yellow),
+          green: flipPalette(defaultTheme.tokens.colors.green),
+          teal: flipPalette(defaultTheme.tokens.colors.teal),
+          blue: flipPalette(defaultTheme.tokens.colors.blue),
+          purple: flipPalette(defaultTheme.tokens.colors.purple),
+          pink: flipPalette(defaultTheme.tokens.colors.pink),
+          neutral: flipPalette(defaultTheme.tokens.colors.neutral),
+          black: { value: '#fff' },
+          white: { value: '#000' },
+
+          border: {
+            primary: { value: '{colors.neutral.20.value}' },
+            secondary: { value: '{colors.neutral.20.value}' },
+            tertiary: { value: '{colors.neutral.20.value}' },
+          },
+        },
+      },
+    },
+    {
+      // maps to breakpoint names:
+      breakpoint: 'xl',
+      tokens: {
+        fontSizes: {
+          small: { value: '1rem' },
+          medium: { value: '1.125rem' },
+          large: { value: '1.75rem' },
+          xl: { value: '2.25rem' },
+        },
         space: {
           small: { value: '1rem' },
           medium: { value: '2rem' },

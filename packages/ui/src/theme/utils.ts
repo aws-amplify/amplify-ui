@@ -1,8 +1,8 @@
 import kebabCase from 'lodash/kebabCase';
-
-// internal style dictionary functions
+// internal style dictionary function
 import usesReference from 'style-dictionary/lib/utils/references/usesReference';
-import { DesignToken } from '.';
+
+import { DesignToken } from './tokens/types/designToken';
 
 export const CSS_VARIABLE_PREFIX = 'amplify';
 
@@ -31,6 +31,10 @@ export function cssValue(token: DesignToken) {
   return value;
 }
 
-export function cssNameTransform({ path = [] }: { path: Array<string> }) {
+interface NameTransformProps {
+  path?: Array<string>;
+}
+
+export function cssNameTransform({ path = [] }: NameTransformProps): string {
   return `${kebabCase([CSS_VARIABLE_PREFIX, ...path].join(' '))}`;
 }

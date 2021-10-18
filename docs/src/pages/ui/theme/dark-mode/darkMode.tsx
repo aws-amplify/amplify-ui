@@ -14,6 +14,7 @@ import {
 export const DarkModeExample = () => {
   const [colorMode, setColorMode] = React.useState<ColorMode>('system');
   const theme = createTheme({
+    name: 'dark-mode-theme',
     overrides: [
       {
         colorMode: 'dark',

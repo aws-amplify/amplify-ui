@@ -28,6 +28,13 @@ export interface BorderColors extends OrdinalScale {
   disabled: DesignToken;
 }
 
+type ColorTypes =
+  | ColorScale
+  | FontColors
+  | BackgroundColors
+  | DesignToken
+  | BorderColors;
+
 export interface Colors {
   // base color palette
   red: ColorScale;
@@ -51,8 +58,7 @@ export interface Colors {
     secondary: ColorScale;
   };
 
-  // escape hatch to allow customers to add arbitrary colors
-  [key: string]: any;
+  [key: string]: ColorTypes | Record<string, ColorTypes>;
 }
 
 export const colors: Colors = {
@@ -218,8 +224,4 @@ export const colors: Colors = {
   black: { value: '#000' },
   white: { value: '#fff' },
   transparent: { value: 'transparent' },
-  icon: {
-    filled: { value: '{colors.orange.40.value}' },
-    empty: { value: '{colors.neutral.60.value}' },
-  },
 };

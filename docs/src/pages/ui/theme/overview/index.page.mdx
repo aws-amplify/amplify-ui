@@ -13,7 +13,7 @@ import {
 
 A Theme is a structured collection of design decisions that change the appearance of a UI library. An Amplify UI theme is a structured object of [design tokens](#design-tokens), [breakpoints](#breakpoints), and [overrides](#overrides). The goals of the Amplify UI theme are:
 
-1. **Leverage platform technologies as much as possible to be performant and support .** This means plain CSS and CSS variables. You can always fall back to writing CSS (or a pre-processer to CSS like [Sass](https://sass-lang.com/)).
+1. **Leverage platform technologies as much as possible for performance and broad support.** This means plain CSS and CSS variables. You can always fall back to writing CSS (or a pre-processer to CSS like [Sass](https://sass-lang.com/)).
 1. **Use framework-specific patterns to provide an easier developer experience.** This is using a `createTheme` method with a theme configuration which generates the CSS for you and can be used at build-time.
 
 ## Getting started
@@ -24,11 +24,12 @@ A Theme is a structured collection of design decisions that change the appearanc
 
 ### Theme object
 
-The theme object is where you define tokens for color palette, font stacks, spacing, and more. Amplify UI provides a `defaultTheme` object but you can customize it to fit your design.
+The theme object is where you define tokens for color palette, font stacks, spacing, and more. Use the `createTheme` method to create your theme. By default, it will extend from the `defaultTheme` Amplify UI provides, but you can also extend from another theme as well:
 
 ```javascript
-import { createTheme } from '@aws-amplify/ui';
+import { createTheme, defaultTheme } from '@aws-amplify/ui';
 
+// by default, createTheme extends the defaultTheme.
 export const myTheme = createTheme({
   name: 'my-theme',
   tokens: {
@@ -39,6 +40,22 @@ export const myTheme = createTheme({
     },
   },
 });
+
+export const myOtherTheme = createTheme(
+  {
+    name: 'my-other-theme',
+    tokens: {
+      colors: {
+        font: {
+          primary: { value: 'blue' },
+        },
+      },
+    },
+  },
+  myTheme
+);
+// The 2nd argument is the base theme to be extended
+// if it is omitted, it will use the defaultTheme
 ```
 
 ### CSS
@@ -94,6 +111,10 @@ Amplify UI uses [Design Tokens](https://www.designtokens.org/) for storing desig
 
 Amplify UI follows the [System UI Theme Specification](https://system-ui.com/theme/) with some modifications. The System UI Theme Specification outlines top-level namespaces for categorizing design token types. For example, colors go under the `colors` namespace. This specification is used by [Stitches](https://stitches.dev/docs/tokens), [Chakra-UI](https://chakra-ui.com/docs/theming/theme), and [Evergreen](https://evergreen.segment.com/introduction/theming).
 
+```typescript file=../../../../../../packages/ui/src/theme/tokens/index.ts#L16-L32
+
+```
+
 #### References
 
 One import thing about design tokens is they can reference other design tokens. The default theme tokens use references a lot to make a robust system where you can modify a few tokens to have a large effect. The syntax for design token references follows the draft [W3C Design Tokens Community Group specification](https://design-tokens.github.io/community-group/format/#aliases-references)
@@ -104,6 +125,9 @@ const myTheme = createTheme({
   tokens: {
     colors: {
       font: {
+        // references colors.neutral.100
+        // because the default theme defines that color already
+        // we don't need to re-define it here
         primary: { value: '{colors.neutral.100.value}' },
       },
     },
@@ -115,19 +139,8 @@ const myTheme = createTheme({
 
 Breakpoints allow you to set media query breakpoints for responsive design. You can then define breakpoint-specific token overrides or use the breakpoints for different layouts in Javascript.
 
-```typescript
-export interface Breakpoints {
-  values: {
-    base: number;
-    small: number;
-    medium: number;
-    large: number;
-    xl: number;
-    xxl: number;
-  };
-  unit: string;
-  defaultBreakpoint: string;
-}
+```typescript file=../../../../../../packages/ui/src/theme/breakpoints.ts
+
 ```
 
 You can modify default breakpoints in the `createTheme` method:
@@ -147,7 +160,7 @@ const myTheme = createTheme({
 });
 ```
 
-Unfortunately right now CSS media queries do not support CSS variables so there is no way to customize the breakpoints using only CSS.
+_Note: Unfortunately right now CSS media queries do not support CSS variables so there is no way to customize the breakpoints using only CSS._
 
 ### Overrides
 
