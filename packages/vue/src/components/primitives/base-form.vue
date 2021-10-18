@@ -1,5 +1,5 @@
 <template>
-  <slot name="formt" :slotData="mySlots.default()">
+  <slot v-bind="$attrs" name="formt" :slotData="mySlots.default()">
     <form data-amplify-form="" v-bind="$attrs">
       <slot name="default"></slot>
     </form>

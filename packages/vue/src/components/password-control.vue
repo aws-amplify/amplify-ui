@@ -1,3 +1,33 @@
+<script setup lang="ts">
+import { ref, toRefs } from 'vue';
+import { HIDE_PASSWORD, SHOW_PASSWORD } from '../defaults/DefaultTexts';
+import { I18n } from 'aws-amplify';
+
+const showPassword = I18n.get(SHOW_PASSWORD);
+const hidePassword = I18n.get(HIDE_PASSWORD);
+const showHideType = ref('password');
+const showHideLabel = ref(showPassword);
+
+const random = Math.floor(Math.random() * 999999);
+
+const props = defineProps({
+  name: String,
+  label: String,
+  autocomplete: String,
+  ariainvalid: Boolean,
+});
+
+const { name, label, autocomplete, ariainvalid } = toRefs(props);
+
+let password = ref('');
+
+function togglePasswordText(): void {
+  showHideLabel.value =
+    showHideLabel.value === showPassword ? hidePassword : showPassword;
+  showHideType.value = showHideType.value === 'password' ? 'text' : 'password';
+}
+</script>
+
 <template>
   <base-label class="amplify-label sr-only" :for="'amplify-field-' + random">
     {{ label }}
@@ -6,7 +36,7 @@
     <base-input
       v-model="password"
       class="amplify-input amplify-field-group__control"
-      aria-invalid="false"
+      :aria-invalid="ariainvalid"
       :id="'amplify-field-' + random"
       data-amplify-password="true"
       :name="name"
@@ -58,30 +88,3 @@
     </base-wrapper>
   </base-wrapper>
 </template>
-
-<script setup lang="ts">
-import { ref } from 'vue';
-import { HIDE_PASSWORD, SHOW_PASSWORD } from '../defaults/DefaultTexts';
-import { I18n } from 'aws-amplify';
-
-const showPassword = I18n.get(SHOW_PASSWORD);
-const hidePassword = I18n.get(HIDE_PASSWORD);
-const showHideType = ref('password');
-const showHideLabel = ref(showPassword);
-
-const random = Math.floor(Math.random() * 999999);
-
-const { name, label, autocomplete } = defineProps({
-  name: String,
-  label: String,
-  autocomplete: String,
-});
-
-let password = ref('');
-
-function togglePasswordText(): void {
-  showHideLabel.value =
-    showHideLabel.value === showPassword ? hidePassword : showPassword;
-  showHideType.value = showHideType.value === 'password' ? 'text' : 'password';
-}
-</script>
