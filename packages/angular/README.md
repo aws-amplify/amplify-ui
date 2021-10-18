@@ -10,13 +10,13 @@ Please see [CONTRIBUTING.md](../../CONTRIBUTING.md#aws-amplifyui-angular) to get
 packages/angular/
 ├── projects/ui-angular/ # where the actual `@aws-amplify/ui-angular` library lives
 │   ├── src/ # contains src files for UI library code.
-│   ├── legacy/ # contains re-expors of legacy web component UI components
+│   ├── legacy/ # contains re-expors of legacy web components
+│   │   └── src/
+│   │   └── package.json # required by ng-packagr to setup secondary entry points
 │   └── package.json # name: `@aws-amplify/ui-angular`, private: false
 │                    # contains dependencies that library needs (e.g. xstate)
 │
-├── dist/ui-angular/ # this is auto-generated when we run `yarn angular build`.
-|                    # deployment will happen from this folder only.
-│   └── bundles/
+├── dist/ui-angular/ # this is auto-generated on build. Deployments will only happen from this folder.
 │   └── esm2015/
 │   └── fesm2015/
 │   └── lib/
