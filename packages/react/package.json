@@ -45,7 +45,8 @@
     "deepmerge": "^4.2.2",
     "lodash": "^4.17.21",
     "postcss-js": "^3.0.3",
-    "qrcode": "^1.4.4"
+    "qrcode": "^1.4.4",
+    "react-generate-context": "^1.0.0"
   },
   "peerDependencies": {
     "aws-amplify": "3.x.x || 4.x.x",

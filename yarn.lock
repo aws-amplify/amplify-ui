@@ -414,6 +414,7 @@
     uuid "^8.2.0"
 
 "@aws-amplify/ui-react-v1@npm:@aws-amplify/ui-react", "@aws-amplify/ui-react@^1.2.5":
+  name "@aws-amplify/ui-react-v1"
   version "1.2.20"
   resolved "https://registry.yarnpkg.com/@aws-amplify/ui-react/-/ui-react-1.2.20.tgz#913433348cb54dd836d236bd011617f869831d0a"
   integrity sha512-R2znqKXc/kPwzUUIIOaQnM7PIo7fu1dupz6r+t7eUlhkWa8pPSYS0UantQWEyZi7yGh0rkhPRcmZQ7baqlkJhw==
@@ -17981,6 +17982,11 @@ react-error-boundary@^3.1.0:
   integrity sha512-A+F9HHy9fvt9t8SNDlonq01prnU8AmkjvGKV4kk8seB9kU3xMEO8J/PQlLVmoOIDODl5U2kufSBs4vrWIqhsAA==
   dependencies:
     "@babel/runtime" "^7.12.5"
+
+react-generate-context@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-generate-context/-/react-generate-context-1.0.0.tgz#b7d597833391a46daf197546382f48ea289eeb7f"
+  integrity sha512-eV/N34Jl910KGBtULXPugMn+0GzzDdlSKGnENg7ABhnP9jel0sXuAzB6CPzoze+EYdVyb4Ok35EPX/+t8jg/2g==
 
 react-is@17.0.2, react-is@^17.0.1:
   version "17.0.2"
