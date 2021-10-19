@@ -29,6 +29,7 @@
     "packages/angular/projects/ui-angular"
   ],
   "resolutions": {
+    "ansi-regex": "5.0.1",
     "trim": "^0.0.3",
     "fs-extra": "^10.0.0",
     "next": "^11.0.1",
