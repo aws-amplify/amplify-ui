@@ -45,6 +45,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
             },
           },
           federatedSignIn: {
+            tags: ['pending'],
             entry: [sendUpdate(), 'clearError'],
             invoke: {
               src: 'federatedSignIn',
@@ -54,6 +55,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
             },
           },
           submit: {
+            tags: ['pending'],
             entry: ['clearError', sendUpdate()],
             invoke: {
               src: 'signIn',
@@ -100,6 +102,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
             },
           },
           verifying: {
+            tags: ['pending'],
             entry: ['clearError', sendUpdate()],
             invoke: {
               src: 'checkVerifiedContact',
@@ -136,6 +139,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
             },
           },
           submit: {
+            tags: ['pending'],
             entry: ['clearError', sendUpdate()],
             invoke: {
               src: 'confirmSignIn',
@@ -206,6 +210,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
                 },
               },
               pending: {
+                tags: ['pending'],
                 entry: [sendUpdate(), 'clearError'],
                 invoke: {
                   src: 'forceNewPassword',
@@ -237,6 +242,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
             },
           },
           submit: {
+            tags: ['pending'],
             entry: [sendUpdate(), 'clearError'],
             invoke: {
               src: 'verifyTotpToken',
@@ -265,6 +271,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
             },
           },
           submit: {
+            tags: ['pending'],
             entry: 'clearError',
             invoke: {
               src: 'verifyUser',
@@ -297,6 +304,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
             },
           },
           submit: {
+            tags: ['pending'],
             entry: 'clearError',
             invoke: {
               src: 'confirmVerifyUser',

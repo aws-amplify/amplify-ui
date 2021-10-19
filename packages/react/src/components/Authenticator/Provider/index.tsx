@@ -34,20 +34,13 @@ const useAuthenticatorValue = ({
     [customComponents]
   );
 
-  const {
-    route,
-    signIn,
-    signOut,
-    signUp,
-    submitForm,
-    user,
-    updateForm,
-  } = getServiceFacade({
+  const facade = React.useMemo(() => getServiceFacade({ send, state }), [
     send,
     state,
-  });
-  const isPending = false; // TODO Check if .matches endsWith('pending')
-  console.log({ isPending, state });
+  ]);
+
+  const isPending =
+    state.hasTag('pending') || getActorState(state)?.hasTag('pending');
 
   const actorContext: ActorContextWithForms = getActorContext(state);
   const error = actorContext?.remoteError;
@@ -56,13 +49,7 @@ const useAuthenticatorValue = ({
     components,
     error,
     isPending,
-    route,
-    signIn,
-    signOut,
-    signUp,
-    submitForm,
-    updateForm,
-    user,
+    ...facade,
   };
 };
 
