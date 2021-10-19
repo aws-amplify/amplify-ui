@@ -10,7 +10,7 @@ import { ComponentClassNames } from '../shared/constants';
 import { useStableId } from '../shared/utils';
 import { Primitive, SwitchFieldProps } from '../types';
 
-export const SwitchField: Primitive<SwitchFieldProps, 'input'> = ({
+export const SwitchField: Primitive<SwitchFieldProps, typeof Flex> = ({
   className,
   defaultChecked,
   id,
@@ -43,6 +43,7 @@ export const SwitchField: Primitive<SwitchFieldProps, 'input'> = ({
       className={classNames(ComponentClassNames.SwitchField, className)}
       data-size={size}
       data-label-position={labelPosition}
+      {...rest}
     >
       <VisuallyHidden>
         <Input
@@ -59,7 +60,6 @@ export const SwitchField: Primitive<SwitchFieldProps, 'input'> = ({
           onBlur={() => {
             setIsFocused(false);
           }}
-          {...rest}
         />
       </VisuallyHidden>
       <Label

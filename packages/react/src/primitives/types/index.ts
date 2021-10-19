@@ -4,7 +4,6 @@ export * from './base';
 export * from './button';
 export * from './buttonGroup';
 export * from './card';
-export * from './checkbox';
 export * from './checkboxField';
 export * from './collection';
 export * from './divider';
