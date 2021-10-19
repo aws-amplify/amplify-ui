@@ -146,6 +146,71 @@ For your [configured social providers](https://docs.amplify.aws/lib/auth/social/
 
 ## Customization
 
+### Sign Up
+
+The following examples adds a required field to the Sign Up screen with
+custom validation to prevent submission until completed:
+
+```js
+import { Authenticator, withAuthenticator } from '@aws-amplify/ui-react';
+
+const components = {
+  'SignUp.FormFields': () => (
+    <>
+      <Authenticator.SignUp.FormFields />
+      <CheckboxField
+        label="I agree with the Terms & Conditions"
+        name="acknowledgement"
+      />
+    </>
+  ),
+};
+
+const services = {
+  validateSignUp(formData) {
+    if (!formData.acknowledgement) {
+      return {
+        acknowledgement: 'You must agree to the Terms & Conditions',
+      };
+    }
+  },
+};
+
+export default withAuthenticator(App, { components, services });
+```
+
+<Example>
+  <Authenticator
+    initialState="signUp"
+    components={{
+      'SignUp.FormFields': () => {
+        return (
+          <>
+            <Authenticator.SignUp.FormFields />
+            <CheckboxField
+              label={
+                <>
+                  I agree with the <Link>Terms & Conditions</Link>
+                </>
+              }
+              name="acknowledgement"
+            />
+          </>
+        );
+      },
+    }}
+    services={{
+      validateSignUp(formData) {
+        if (!formData.acknowledgement) {
+          return {
+            acknowledgement: 'You must agree to the Terms & Conditions',
+          };
+        }
+      },
+    }}
+  />
+</Example>
+
 ### Internationalization (I18n)
 
 The `Authenticator` ships with [translations](https://github.com/aws-amplify/amplify-ui/blob/main/packages/ui/src/i18n/translations.ts) for:
