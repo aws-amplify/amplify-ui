@@ -1,1 +1,1 @@
-export * from './StepperField';
+export { StepperField } from './StepperField';

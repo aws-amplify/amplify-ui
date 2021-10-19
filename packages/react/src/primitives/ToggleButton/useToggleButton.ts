@@ -10,7 +10,7 @@ export const useToggleButton = ({
   onChange,
   value,
 }: ToggleButtonProps) => {
-  const isControlled = value !== undefined;
+  const isControlled = isPressed !== undefined;
   // Maintain internal selected state for unconrolled component
   const [pressed, setPressed] = React.useState(defaultPressed);
   isPressed = isControlled ? isPressed : pressed;
