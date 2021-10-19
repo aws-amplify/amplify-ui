@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 
-import { AmplifyContext } from '../components/AmplifyProvider/AmplifyContext';
-import * as primitives from '../primitives';
+import { AmplifyContext } from './AmplifyContext';
+import * as primitives from '../../primitives';
 
 export function useAmplify(namespace) {
   const { components = {}, theme } = useContext(AmplifyContext);
