@@ -1,9 +1,9 @@
-import { I18n } from 'aws-amplify';
 import {
   getActorContext,
   getActorState,
   SignInContext,
   SignInState,
+  translate,
 } from '@aws-amplify/ui';
 
 import { useAmplify, useAuthenticator } from '../../../hooks';
@@ -20,9 +20,9 @@ export const ForceNewPassword = (): JSX.Element => {
   const { validationError } = getActorContext(_state) as SignInContext;
   const isPending = actorState.matches('forceNewPassword.pending');
 
-  const headerText = I18n.get('Change Password');
-  const passwordLabel = I18n.get('Password');
-  const confirmPasswordLabel = I18n.get('Confirm Password');
+  const headerText = translate('Change Password');
+  const passwordLabel = translate('Password');
+  const confirmPasswordLabel = translate('Confirm Password');
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -88,10 +88,10 @@ export const ForceNewPassword = (): JSX.Element => {
           type="submit"
           variation="primary"
           isLoading={isPending}
-          loadingText={I18n.get('Changing')}
+          loadingText={translate('Changing')}
           fontWeight="normal"
         >
-          {I18n.get('Change Password')}
+          {translate('Change Password')}
         </Button>
         <Button
           onClick={() => send({ type: 'SIGN_IN' })}
@@ -100,7 +100,7 @@ export const ForceNewPassword = (): JSX.Element => {
           variation="link"
           size="small"
         >
-          {I18n.get('Back to Sign In')}
+          {translate('Back to Sign In')}
         </Button>
       </Flex>
     </Form>

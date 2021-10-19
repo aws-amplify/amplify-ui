@@ -1,6 +1,7 @@
 import { I18n } from 'aws-amplify';
 
 import { useAmplify } from '../../../hooks';
+import { translate } from '@aws-amplify/ui';
 
 export interface ConfirmationCodeInputProps {
   amplifyNamespace: string;
@@ -16,8 +17,8 @@ export const ConfirmationCodeInput = (
   const {
     amplifyNamespace,
     errorText,
-    label = I18n.get('Code *'),
-    placeholder = I18n.get('Code'),
+    label = translate('Code'),
+    placeholder = translate('Code'),
     required = true,
   } = props;
   const {

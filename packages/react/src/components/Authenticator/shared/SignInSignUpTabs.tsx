@@ -1,4 +1,4 @@
-import { getActorState } from '@aws-amplify/ui';
+import { getActorState, translate } from '@aws-amplify/ui';
 import { I18n } from 'aws-amplify';
 import { useAmplify, useAuthenticator } from '../../../hooks';
 import { useTheming } from '../../../theming';
@@ -27,10 +27,10 @@ export const SignInSignUpTabs = (): JSX.Element => {
       justifyContent="center"
       onChange={updateStateMachine}
     >
-      <TabItem title={I18n.get('Sign In')}>
+      <TabItem title={translate('Sign In')}>
         {actorState?.matches('signIn') && <SignIn />}
       </TabItem>
-      <TabItem title={I18n.get('Create Account')}>
+      <TabItem title={translate('Create Account')}>
         {actorState?.matches('signUp') && <SignUp />}
       </TabItem>
     </Tabs>

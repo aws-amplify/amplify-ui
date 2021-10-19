@@ -1,5 +1,4 @@
-import { getActorState, SignUpState } from '@aws-amplify/ui';
-import { I18n } from 'aws-amplify';
+import { getActorState, SignUpState, translate } from '@aws-amplify/ui';
 
 import { useAmplify, useAuthenticator } from '../../../hooks';
 
@@ -21,8 +20,8 @@ export function ConfirmSignUp() {
 
   const confirmationCodeInputProps: ConfirmationCodeInputProps = {
     amplifyNamespace,
-    label: I18n.get('Confirmation Code'),
-    placeholder: I18n.get('Enter your code'),
+    label: translate('Confirmation Code'),
+    placeholder: translate('Enter your code'),
   };
 
   return (
@@ -42,7 +41,7 @@ export function ConfirmSignUp() {
       }}
     >
       <Flex direction="column">
-        <Heading level={3}>{I18n.get('Confirm Sign Up')}</Heading>
+        <Heading level={3}>{translate('Confirm Sign Up')}</Heading>
 
         <Flex direction="column">
           <ConfirmationCodeInput {...confirmationCodeInputProps} />
@@ -53,11 +52,11 @@ export function ConfirmSignUp() {
             variation="primary"
             isDisabled={isPending}
             type="submit"
-            loadingText={I18n.get('Confirming')}
+            loadingText={translate('Confirming')}
             isLoading={isPending}
             fontWeight="normal"
           >
-            {I18n.get('Confirm')}
+            {translate('Confirm')}
           </Button>
 
           <Button
@@ -70,7 +69,7 @@ export function ConfirmSignUp() {
             type="button"
             fontWeight="normal"
           >
-            {I18n.get('Resend Code')}
+            {translate('Resend Code')}
           </Button>
         </Flex>
       </Flex>

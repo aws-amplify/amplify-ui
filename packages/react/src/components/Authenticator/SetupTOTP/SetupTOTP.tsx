@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import QRCode from 'qrcode';
 
-import { Auth, Logger, I18n } from 'aws-amplify';
-import { getActorState, SignInState } from '@aws-amplify/ui';
+import { Auth, Logger } from 'aws-amplify';
+import { getActorState, SignInState, translate } from '@aws-amplify/ui';
 
 import { useAmplify, useAuthenticator } from '../../../hooks';
 import {
@@ -79,7 +79,7 @@ export const SetupTOTP = (): JSX.Element => {
         <Flex direction="column">
           {/* TODO: Add spinner here instead of loading text... */}
           {isLoading ? (
-            <p>{I18n.get('Loading')}&hellip;</p>
+            <p>{translate('Loading')}&hellip;</p>
           ) : (
             <Image data-amplify-qrcode src={qrCode} alt="qr code"></Image>
           )}

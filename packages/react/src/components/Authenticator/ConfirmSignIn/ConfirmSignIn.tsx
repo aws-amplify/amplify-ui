@@ -1,9 +1,9 @@
-import { I18n } from 'aws-amplify';
 import {
   AuthChallengeNames,
   getActorState,
   SignInContext,
   SignInState,
+  translate,
 } from '@aws-amplify/ui';
 
 import { useAmplify, useAuthenticator } from '../../../hooks';
@@ -30,12 +30,24 @@ export const ConfirmSignIn = (): JSX.Element => {
   };
 
   const { challengeName, remoteError } = actorState.context as SignInContext;
-  let mfaType: string = 'SMS';
-  if (challengeName === AuthChallengeNames.SOFTWARE_TOKEN_MFA) {
-    mfaType = 'TOTP';
-  }
 
-  const headerText = I18n.get(`Confirm ${mfaType} Code`);
+  let mfaType: 'SMS' | 'TOTP';
+  let headerText: string;
+
+  switch (challengeName) {
+    case AuthChallengeNames.SMS_MFA:
+      mfaType = 'SMS';
+      headerText = translate('Confirm SMS Code');
+      break;
+    case AuthChallengeNames.SOFTWARE_TOKEN_MFA:
+      mfaType = 'TOTP';
+      headerText = translate('Confirm TOTP Code');
+      break;
+    default:
+      throw new Error(
+        `Unexpected challengeName encountered in ConfirmSignIn: ${challengeName}`
+      );
+  }
 
   return (
     <Form

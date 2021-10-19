@@ -1,9 +1,9 @@
-import { I18n } from 'aws-amplify';
 import {
   getActorContext,
   getActorState,
   ResetPasswordContext,
   ResetPasswordState,
+  translate,
 } from '@aws-amplify/ui';
 
 import { useAmplify, useAuthenticator } from '../../../hooks';
@@ -24,9 +24,9 @@ export const ConfirmResetPassword = (): JSX.Element => {
   const { validationError } = getActorContext(_state) as ResetPasswordContext;
   const isPending = actorState.matches('confirmResetPassword.pending');
 
-  const headerText = I18n.get('Reset your password');
-  const passwordText = I18n.get('New password');
-  const confirmPasswordLabel = I18n.get('Confirm Password');
+  const headerText = translate('Reset your password');
+  const passwordText = translate('New password');
+  const confirmPasswordLabel = translate('Confirm Password');
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -86,7 +86,7 @@ export const ConfirmResetPassword = (): JSX.Element => {
         <RemoteErrorMessage amplifyNamespace={amplifyNamespace} />
         <TwoButtonSubmitFooter
           cancelButtonSendType="RESEND"
-          cancelButtonText={I18n.get('Resend Code')}
+          cancelButtonText={translate('Resend Code')}
           amplifyNamespace={amplifyNamespace}
           isPending={isPending}
         />

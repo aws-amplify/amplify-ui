@@ -7,9 +7,9 @@ import {
   ContactMethod,
   censorPhoneNumber,
   censorAllButFirstAndLast,
+  translate,
 } from '@aws-amplify/ui';
 import { Radio } from '@aws-amplify/ui-react';
-import { I18n } from 'aws-amplify';
 
 import { useAmplify, useAuthenticator } from '../../../hooks';
 import { RemoteErrorMessage, TwoButtonSubmitFooter } from '../shared';
@@ -18,7 +18,7 @@ const censorContactInformation = (
   type: ContactMethod,
   value: string
 ): string => {
-  const translated = I18n.get(type);
+  const translated = translate(type);
   let newVal = value;
 
   if (type === 'Phone Number') {
@@ -62,18 +62,18 @@ export const VerifyUser = (): JSX.Element => {
   const context = getActorContext(_state) as SignInContext;
   const isPending = actorState.matches('verifyUser.pending');
 
-  const headerText = I18n.get(
+  const headerText = translate(
     'Account recovery requires verified contact information'
   );
   const footerSubmitText = isPending ? (
     <>Verifying&hellip;</>
   ) : (
-    <>{I18n.get('Verify')}</>
+    <>{translate('Verify')}</>
   );
 
   const verificationRadioGroup = (
     <RadioGroupField
-      label={I18n.get('Verify Contact')}
+      label={translate('Verify Contact')}
       labelHidden={true}
       name="verify_context"
       disabled={isPending}
@@ -108,7 +108,7 @@ export const VerifyUser = (): JSX.Element => {
         <TwoButtonSubmitFooter
           amplifyNamespace={amplifyNamespace}
           isPending={isPending}
-          cancelButtonText={I18n.get('Skip')}
+          cancelButtonText={translate('Skip')}
           cancelButtonSendType="SKIP"
           submitButtonText={footerSubmitText}
         />

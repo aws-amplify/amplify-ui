@@ -1,5 +1,4 @@
-import { I18n } from 'aws-amplify';
-import { getActorState, ResetPasswordState } from '@aws-amplify/ui';
+import { getActorState, ResetPasswordState, translate } from '@aws-amplify/ui';
 
 import { useAmplify, useAuthenticator } from '../../../hooks';
 import { RemoteErrorMessage, TwoButtonSubmitFooter } from '../shared';
@@ -14,11 +13,11 @@ export const ResetPassword = (): JSX.Element => {
   const actorState = getActorState(state) as ResetPasswordState;
   const isPending = actorState.matches('resetPassword.submit');
 
-  const headerText = I18n.get('Reset your password');
+  const headerText = translate('Reset your password');
   const submitText = isPending ? (
-    <>{I18n.get('Sending')}&hellip;</>
+    <>{translate('Sending')}&hellip;</>
   ) : (
-    <>{I18n.get('Send code')}</>
+    <>{translate('Send code')}</>
   );
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,7 +28,7 @@ export const ResetPassword = (): JSX.Element => {
     });
   };
 
-  const inputLabel = I18n.get('Enter your username');
+  const inputLabel = translate('Enter your username');
 
   return (
     <Form
@@ -66,7 +65,7 @@ export const ResetPassword = (): JSX.Element => {
         <RemoteErrorMessage amplifyNamespace={amplifyNamespace} />
         <TwoButtonSubmitFooter
           amplifyNamespace={amplifyNamespace}
-          cancelButtonText={I18n.get('Back to Sign In')}
+          cancelButtonText={translate('Back to Sign In')}
           cancelButtonSendType="SIGN_IN"
           isPending={isPending}
           submitButtonText={submitText}

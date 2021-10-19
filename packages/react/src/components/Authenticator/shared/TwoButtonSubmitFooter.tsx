@@ -1,5 +1,5 @@
 import { I18n } from 'aws-amplify';
-import { AuthEventTypes } from '@aws-amplify/ui';
+import { AuthEventTypes, translate } from '@aws-amplify/ui';
 
 import { useAmplify, useAuthenticator } from '../../../hooks';
 
@@ -29,9 +29,9 @@ export const TwoButtonSubmitFooter = (
   const [state, send] = useAuthenticator();
 
   const defaultSubmitText = isPending ? (
-    <>{I18n.get('Submitting')}&hellip;</>
+    <>{translate('Submitting')}&hellip;</>
   ) : (
-    <>{I18n.get('Submit')}</>
+    <>{translate('Submit')}</>
   );
   const submitText = submitButtonText || defaultSubmitText;
 
