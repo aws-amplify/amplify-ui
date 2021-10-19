@@ -19,31 +19,50 @@
             </template>
             <user-name-alias-component />
             <base-wrapper
-              class=" amplify-flex amplify-field amplify-textfield amplify-passwordfield password-field"
+              class="
+                amplify-flex
+                amplify-field
+                amplify-textfield
+                amplify-passwordfield
+                password-field
+              "
               style="flex-direction: column"
             >
               <password-control
                 name="password"
                 :label="passwordLabel"
                 autocomplete="new-password"
+                :ariainvalid="
+                  !!actorContext.validationError['confirm_password']
+                "
               />
             </base-wrapper>
             <base-wrapper
-              class=" amplify-flex amplify-field amplify-textfield amplify-passwordfield password-field"
+              class="
+                amplify-flex
+                amplify-field
+                amplify-textfield
+                amplify-passwordfield
+                password-field
+              "
               style="flex-direction: column"
             >
               <password-control
                 name="confirm_password"
                 :label="confirmPasswordLabel"
                 autocomplete="new-password"
+                :ariainvalid="
+                  !!actorContext.validationError['confirm_password']
+                "
               />
             </base-wrapper>
-            <base-box
-              data-ui-error
+            <p
+              data-variation="error"
+              class="amplify-text"
               v-if="!!actorContext.validationError['confirm_password']"
             >
               {{ actorContext.validationError['confirm_password'] }}
-            </base-box>
+            </p>
 
             <template v-for="(alias, idx) in secondaryAliases" :key="idx">
               <alias-control
@@ -53,6 +72,9 @@
               />
             </template>
 
+            <base-alert v-if="actorState.context.remoteError">
+              {{ actorState.context.remoteError }}
+            </base-alert>
             <base-button
               class="amplify-button amplify-field-group__control"
               data-fullwidth="true"
@@ -62,10 +84,6 @@
               :disabled="actorState.matches('signUp.submit')"
               >{{ createAccountLabel }}</base-button
             >
-
-            <base-box data-ui-error v-if="actorState.context.remoteError">
-              {{ actorState.context.remoteError }}
-            </base-box>
           </base-field-set>
           <base-footer>
             <template #footert="{ slotData }">
