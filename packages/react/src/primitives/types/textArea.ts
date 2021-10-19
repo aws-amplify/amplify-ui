@@ -63,6 +63,11 @@ export interface TextareaProps extends TextareaStyleProps, ViewProps {
   placeholder?: string;
 
   /**
+   * Controls height based on number of rows of text to display
+   */
+  rows?: number;
+
+  /**
    * Changes the font-size, padding, and height of the field.
    */
   size?: Sizes;

@@ -17,24 +17,21 @@ const isMultilineField = (
   return props.isMultiline;
 };
 
+export const DEFAULT_ROW_COUNT = 4;
+
 export const TextField: Primitive<TextFieldProps, 'input' | 'textarea'> = (
-  props
+  props: TextFieldProps
 ) => {
   const {
     alignContent,
     alignItems,
-    autoComplete,
     className,
-    defaultValue,
     descriptiveText,
     direction = 'column',
     errorMessage,
     gap,
     hasError = false,
     id,
-    isDisabled,
-    isReadOnly,
-    isRequired,
     justifyContent,
     label,
     labelHidden = false,
@@ -42,11 +39,11 @@ export const TextField: Primitive<TextFieldProps, 'input' | 'textarea'> = (
     outerStartComponent,
     innerStartComponent,
     innerEndComponent,
-    isMultiline = false,
+    resize,
+    rows = DEFAULT_ROW_COUNT,
     size,
     testId,
     type = 'text',
-    value,
     wrap,
     ...rest
   } = props;
@@ -55,9 +52,27 @@ export const TextField: Primitive<TextFieldProps, 'input' | 'textarea'> = (
   let control = null;
 
   if (isMultilineField(props)) {
-    control = <TextArea id={fieldId} maxLength={props.maxLength} {...rest} />;
+    control = (
+      <TextArea
+        hasError={hasError}
+        id={fieldId}
+        maxLength={props.maxLength}
+        resize={resize}
+        rows={rows}
+        size={size}
+        {...rest}
+      />
+    );
   } else {
-    control = <Input id={fieldId} type={props.type} {...rest} />;
+    control = (
+      <Input
+        hasError={hasError}
+        id={fieldId}
+        size={size}
+        type={props.type}
+        {...rest}
+      />
+    );
   }
 
   return (
