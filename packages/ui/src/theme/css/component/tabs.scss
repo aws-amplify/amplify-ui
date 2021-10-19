@@ -16,7 +16,8 @@
   color: var(--amplify-components-tabs-item-color);
   font-size: var(--amplify-components-tabs-item-font-size);
   font-weight: var(--amplify-components-tabs-item-font-weight);
-  padding: var(--amplify-components-tabs-item-padding);
+  padding: var(--amplify-components-tabs-item-padding-vertical)
+    var(--amplify-components-tabs-item-padding-horizontal);
   text-align: var(--amplify-components-tabs-item-text-align);
   transition: all var(--amplify-components-tabs-item-transition-duration);
   border-width: 0 0 var(--amplify-components-tabs-item-border-width) 0;
