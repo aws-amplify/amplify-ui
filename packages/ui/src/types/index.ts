@@ -1,5 +1,6 @@
 export * from './authMachine';
 export * from './validator';
+export * from './i18n';
 
 // Prevents usage of T from being automatically inferred.
 // https://github.com/Microsoft/TypeScript/issues/14829#issuecomment-504042546
