@@ -15,32 +15,6 @@ export type InputMode =
 
 export type InputSizes = Sizes;
 
-/**
- * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/number
- */
-// interface NumberInputProps {
-//   /**
-//    * The id of a datalist element located in the same document.
-//    * The datalist provides a list of predefined values to suggest to the user for this input.
-//    */
-//   list?: string;
-
-//   /**
-//    * The maximum value to accept for number inputs.
-//    */
-//   max?: number;
-
-//   /**
-//    * The minimum value to accept for number inputs.
-//    */
-//   min?: number;
-
-//   /**
-//    * The stepping value for number inputs. Default to 1.
-//    */
-//   step?: number;
-// }
-
 export interface InputProps extends ViewProps {
   /**
    * Specifies permissions for browser UA to autocomplete field

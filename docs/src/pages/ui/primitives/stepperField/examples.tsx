@@ -12,7 +12,7 @@ export const ControlledStepperField = () => {
       max={10}
       step={1}
       value={value}
-      onStepChange={(value) => setValue(value)}
+      onStepChange={setValue}
       labelHidden
     />
   );

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { isControlledComponent, isFunction } from '../shared/utils';
+import { isFunction } from '../shared/utils';
 import { ToggleButtonProps } from '../types';
 
 export const useToggleButton = ({
@@ -10,7 +10,7 @@ export const useToggleButton = ({
   onChange,
   value,
 }: ToggleButtonProps) => {
-  const isControlled = isControlledComponent(isPressed);
+  const isControlled = value !== undefined;
   // Maintain internal selected state for unconrolled component
   const [pressed, setPressed] = React.useState(defaultPressed);
   isPressed = isControlled ? isPressed : pressed;

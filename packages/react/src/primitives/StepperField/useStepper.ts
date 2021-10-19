@@ -1,8 +1,7 @@
-import { isNaN } from 'lodash';
 import * as React from 'react';
 
 import { StepperFieldProps } from '../types/stepperField';
-import { isControlledComponent, isFunction } from '../shared/utils';
+import { isFunction } from '../shared/utils';
 
 const getCorrectSteppingValue = (
   min: number,
@@ -37,7 +36,7 @@ export const useStepper = ({
   onIncrease,
   onStepChange,
 }: StepperFieldProps) => {
-  const isControlled = isControlledComponent(controlledValue);
+  const isControlled = controlledValue !== undefined;
 
   // Make sure max value is greater than or equal to min value
   max = Math.max(min, max);
