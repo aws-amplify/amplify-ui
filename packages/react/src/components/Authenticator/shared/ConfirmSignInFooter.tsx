@@ -1,15 +1,10 @@
 import { I18n } from 'aws-amplify';
 
-export interface ConfirmSignInFooterProps {
-  isPending: boolean;
-  shouldHideReturnBtn?: boolean;
-  send({ type: string }): void;
-}
+import { useAuthenticator } from '../..';
+import { Button, Flex } from '../../..';
 
-export const ConfirmSignInFooter = (
-  props: ConfirmSignInFooterProps
-): JSX.Element => {
-  const { isPending, shouldHideReturnBtn = false, send } = props;
+export const ConfirmSignInFooter = () => {
+  const { isPending, signIn } = useAuthenticator();
 
   return (
     <Flex direction="column">
@@ -23,17 +18,16 @@ export const ConfirmSignInFooter = (
       >
         {I18n.get('Confirm')}
       </Button>
-      {!shouldHideReturnBtn && (
-        <Button
-          onClick={() => send({ type: 'SIGN_IN' })}
-          type="button"
-          variation="link"
-          fontWeight="normal"
-          size="small"
-        >
-          {I18n.get('Back to Sign In')}
-        </Button>
-      )}
+
+      <Button
+        onClick={signIn}
+        type="button"
+        variation="link"
+        fontWeight="normal"
+        size="small"
+      >
+        {I18n.get('Back to Sign In')}
+      </Button>
     </Flex>
   );
 };

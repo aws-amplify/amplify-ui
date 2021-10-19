@@ -1,12 +1,8 @@
-import {
-  getActorContext,
-  getActorState,
-  ResetPasswordContext,
-  ResetPasswordState,
-} from '@aws-amplify/ui';
+import { getActorContext, ResetPasswordContext } from '@aws-amplify/ui';
 import { I18n } from 'aws-amplify';
 
 import { useAuthenticator } from '..';
+import { Flex, Form, Heading, PasswordField, Text } from '../../..';
 import {
   ConfirmationCodeInput,
   RemoteErrorMessage,
@@ -14,10 +10,8 @@ import {
 } from '../shared';
 
 export const ConfirmResetPassword = (): JSX.Element => {
-  const [_state, send] = useAuthenticator();
-  const actorState = getActorState(_state) as ResetPasswordState;
+  const { _state, isPending, submitForm, updateForm } = useAuthenticator();
   const { validationError } = getActorContext(_state) as ResetPasswordContext;
-  const isPending = actorState.matches('confirmResetPassword.pending');
 
   const headerText = I18n.get('Reset your password');
   const passwordText = I18n.get('New password');
@@ -25,27 +19,19 @@ export const ConfirmResetPassword = (): JSX.Element => {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    send({
-      type: 'CHANGE',
-      data: { name, value },
-    });
+    updateForm({ name, value });
+  };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    submitForm();
   };
 
   return (
     <Form
       data-amplify-authenticator-confirmresetpassword=""
       method="post"
-      onSubmit={(event) => {
-        event.preventDefault();
-
-        const formData = new FormData(event.target);
-
-        send({
-          type: 'SUBMIT',
-          // @ts-ignore Property 'fromEntries' does not exist on type 'ObjectConstructor'. Do you need to change your target library? Try changing the `lib` compiler option to 'es2019' or later.ts(2550)
-          data: Object.fromEntries(formData),
-        });
-      }}
+      onSubmit={handleSubmit}
       onChange={handleChange}
     >
       <Flex direction="column">

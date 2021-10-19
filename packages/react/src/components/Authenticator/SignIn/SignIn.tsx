@@ -6,7 +6,7 @@ import { FederatedSignIn } from '../FederatedSignIn';
 import { RemoteErrorMessage, UserNameAlias } from '../shared';
 
 export function SignIn() {
-  const { isPending, submitForm, updateForm } = useAuthenticator();
+  const { _send, isPending, submitForm, updateForm } = useAuthenticator();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -59,7 +59,7 @@ export function SignIn() {
         </Button>
 
         <Button
-          onClick={() => send({ type: 'RESET_PASSWORD' })}
+          onClick={() => _send({ type: 'RESET_PASSWORD' })}
           type="button"
           variation="link"
           size="small"

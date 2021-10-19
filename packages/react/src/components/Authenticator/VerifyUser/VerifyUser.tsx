@@ -4,14 +4,12 @@ import {
   censorPhoneNumber,
   ContactMethod,
   getActorContext,
-  getActorState,
   SignInContext,
-  SignInState,
 } from '@aws-amplify/ui';
 import { I18n } from 'aws-amplify';
 
 import { useAuthenticator } from '..';
-import { Radio } from '../../..';
+import { Flex, Form, Heading, Radio, RadioGroupField } from '../../..';
 import { RemoteErrorMessage, TwoButtonSubmitFooter } from '../shared';
 
 const censorContactInformation = (
@@ -52,14 +50,9 @@ const generateRadioGroup = (
 };
 
 export const VerifyUser = (): JSX.Element => {
-  const [_state, send] = useAuthenticator();
-  const actorState: SignInState = getActorState(_state);
+  const { _state, isPending, submitForm, updateForm } = useAuthenticator();
   const context = getActorContext(_state) as SignInContext;
-  const isPending = actorState.matches('verifyUser.pending');
 
-  const headerText = I18n.get(
-    'Account recovery requires verified contact information'
-  );
   const footerSubmitText = isPending ? (
     <>Verifying&hellip;</>
   ) : (
@@ -77,24 +70,27 @@ export const VerifyUser = (): JSX.Element => {
     </RadioGroupField>
   );
 
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    updateForm({ name, value });
+  };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    submitForm();
+  };
+
   return (
     <Form
       data-amplify-authenticator-verifyuser=""
       method="post"
-      onSubmit={(event) => {
-        event.preventDefault();
-
-        const formData = new FormData(event.target);
-
-        send({
-          type: 'SUBMIT',
-          // @ts-ignore Property 'fromEntries' does not exist on type 'ObjectConstructor'. Do you need to change your target library? Try changing the `lib` compiler option to 'es2019' or later.ts(2550)
-          data: Object.fromEntries(formData),
-        });
-      }}
+      onChange={handleChange}
+      onSubmit={handleSubmit}
     >
       <Flex direction="column">
-        <Heading level={3}>{headerText}</Heading>
+        <Heading level={3}>
+          {I18n.get('Account recovery requires verified contact information')}
+        </Heading>
 
         {verificationRadioGroup}
 

@@ -1,13 +1,12 @@
-import { getActorState, SignInState } from '@aws-amplify/ui';
 import { Auth, I18n, Logger } from 'aws-amplify';
 import QRCode from 'qrcode';
 import { useEffect, useState } from 'react';
 
 import { useAuthenticator } from '..';
+import { Flex, Form, Heading, Image } from '../../..';
 import {
   ConfirmationCodeInput,
   ConfirmSignInFooter,
-  ConfirmSignInFooterProps,
   RemoteErrorMessage,
 } from '../shared';
 
@@ -16,10 +15,7 @@ const logger = new Logger('SetupTOTP-logger');
 export const SetupTOTP = (): JSX.Element => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [qrCode, setQrCode] = useState<string>();
-
-  const [_state, send] = useAuthenticator();
-  const actorState = getActorState(_state) as SignInState;
-  const isPending = actorState.matches('confirmSignIn.pending');
+  const { submitForm, updateForm, user } = useAuthenticator();
 
   const generateQRCode = async (user): Promise<void> => {
     try {
@@ -37,37 +33,30 @@ export const SetupTOTP = (): JSX.Element => {
   };
 
   useEffect(() => {
-    const { user } = actorState.context;
-    if (!user) {
-      return;
-    }
+    if (!user) return;
 
     generateQRCode(user);
-  }, []);
+  }, [user]);
 
-  const footerProps: ConfirmSignInFooterProps = {
-    isPending,
-    send,
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    updateForm({ name, value });
+  };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    submitForm();
   };
 
   return (
     <Form
       data-amplify-authenticator-setup-totp=""
       method="post"
-      onSubmit={(event) => {
-        event.preventDefault();
-
-        const formData = new FormData(event.target);
-
-        send({
-          type: 'SUBMIT',
-          // @ts-ignore Property 'fromEntries' does not exist on type 'ObjectConstructor'. Do you need to change your target library? Try changing the `lib` compiler option to 'es2019' or later.ts(2550)
-          data: Object.fromEntries(formData),
-        });
-      }}
+      onChange={handleChange}
+      onSubmit={handleSubmit}
     >
       <Flex direction="column">
-        <Heading level={3}>Setup TOTP</Heading>
+        <Heading level={3}>{I18n.get('Setup TOTP')}</Heading>
 
         <Flex direction="column">
           {/* TODO: Add spinner here instead of loading text... */}
@@ -80,7 +69,7 @@ export const SetupTOTP = (): JSX.Element => {
           <RemoteErrorMessage />
         </Flex>
 
-        <ConfirmSignInFooter {...footerProps} />
+        <ConfirmSignInFooter />
       </Flex>
     </Form>
   );
