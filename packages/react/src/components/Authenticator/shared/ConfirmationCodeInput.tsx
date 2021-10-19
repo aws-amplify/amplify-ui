@@ -15,7 +15,7 @@ export const ConfirmationCodeInput = (
   const {
     amplifyNamespace,
     errorText,
-    label = translate('Code'),
+    label = `${translate('Code')} *`,
     placeholder = translate('Code'),
     required = true,
   } = props;
