@@ -27,6 +27,7 @@ export * from './rating';
 export * from './scrollView';
 export * from './searchField';
 export * from './selectField';
+export * from './stepperField';
 export * from './style';
 export * from './switchField';
 export * from './tabs';

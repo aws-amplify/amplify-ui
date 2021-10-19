@@ -27,6 +27,7 @@ export const Input: Primitive<InputProps, 'input'> = ({
   onInput,
   onPaste,
   onSelect,
+  onWheel,
   ...rest
 }) => (
   <View
@@ -53,6 +54,7 @@ export const Input: Primitive<InputProps, 'input'> = ({
     onInput={onInput}
     onPaste={onPaste}
     onSelect={onSelect}
+    onWheel={onWheel}
     readOnly={isReadOnly}
     required={isRequired}
     type={type}
