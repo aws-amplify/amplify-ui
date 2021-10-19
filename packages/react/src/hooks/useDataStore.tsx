@@ -1,11 +1,11 @@
 import { DataStore, PersistentModel } from '@aws-amplify/datastore';
 import { useEffect, useState } from 'react';
 import {
+  DataStoreBindingProps,
   DataStoreCollectionProps,
   DataStoreCollectionResult,
   DataStoreItemProps,
   DataStoreItemResult,
-  DataStoreQueryProps,
 } from '../primitives/types/datastore';
 
 /**
@@ -29,7 +29,7 @@ export const useDataStoreCollection = <M extends PersistentModel>({
       .finally(() => setLoading(false));
   };
 
-  // Attempt fetch on next render cycle
+  // Fetch on next render cycle
   useEffect(fetch, []);
 
   return {
@@ -60,7 +60,7 @@ export const useDataStoreItem = <M extends PersistentModel>({
       .finally(() => setLoading(false));
   };
 
-  // Attempt fetch on next render cycle
+  // Fetch on next render cycle
   useEffect(fetch, []);
 
   return {
@@ -71,15 +71,17 @@ export const useDataStoreItem = <M extends PersistentModel>({
   };
 };
 
-export function useDataStoreBinding<M extends PersistentModel>(
-  props: { type: 'record' } & DataStoreItemProps<M>
-): DataStoreItemResult<M>;
-export function useDataStoreBinding<M extends PersistentModel>(
-  props: { type: 'collection' } & DataStoreCollectionProps<M>
-): DataStoreCollectionResult<M>;
-export function useDataStoreBinding<M extends PersistentModel>(
-  props: DataStoreQueryProps<M, 'record'> | DataStoreQueryProps<M, 'collection'>
-): DataStoreItemResult<M> | DataStoreCollectionResult<M> {
+export function useDataStoreBinding<Model extends PersistentModel>(
+  props: DataStoreBindingProps<Model, 'record'>
+): DataStoreItemResult<Model>;
+export function useDataStoreBinding<Model extends PersistentModel>(
+  props: DataStoreBindingProps<Model, 'collection'>
+): DataStoreCollectionResult<Model>;
+export function useDataStoreBinding<Model extends PersistentModel>(
+  props:
+    | DataStoreBindingProps<Model, 'record'>
+    | DataStoreBindingProps<Model, 'collection'>
+): DataStoreItemResult<Model> | DataStoreCollectionResult<Model> {
   return props.type === 'record'
     ? useDataStoreItem(props)
     : useDataStoreCollection(props);

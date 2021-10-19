@@ -5,15 +5,15 @@ import {
   ProducerPaginationInput,
 } from '@aws-amplify/datastore';
 
-export type DataStoreItemProps<M extends PersistentModel> = {
-  model: PersistentModelConstructor<M>;
+export type DataStoreItemProps<Model extends PersistentModel> = {
+  model: PersistentModelConstructor<Model>;
   id: string;
 };
 
-export type DataStoreCollectionProps<M extends PersistentModel> = {
-  model: PersistentModelConstructor<M>;
-  criteria?: ProducerModelPredicate<M>;
-  pagination?: ProducerPaginationInput<M>;
+export type DataStoreCollectionProps<Model extends PersistentModel> = {
+  model: PersistentModelConstructor<Model>;
+  criteria?: ProducerModelPredicate<Model>;
+  pagination?: ProducerPaginationInput<Model>;
 };
 
 type DataStoreBaseResult = {
@@ -22,16 +22,19 @@ type DataStoreBaseResult = {
   isLoading: boolean;
 };
 
-export type DataStoreItemResult<M extends PersistentModel> =
-  DataStoreBaseResult & { item?: M };
+export type DataStoreItemResult<Model extends PersistentModel> =
+  DataStoreBaseResult & { item?: Model };
 
-export type DataStoreCollectionResult<M extends PersistentModel> =
-  DataStoreBaseResult & { items: M[] };
+export type DataStoreCollectionResult<Model extends PersistentModel> =
+  DataStoreBaseResult & { items: Model[] };
 
-export type DataStoreQueryProps<M extends PersistentModel, T extends string> = {
-  type: T;
-} & (T extends 'record'
-  ? DataStoreItemProps<M>
-  : T extends 'collection'
-  ? DataStoreCollectionProps<M>
+export type DataStoreBindingProps<
+  Model extends PersistentModel,
+  BindingType extends 'record' | 'collection'
+> = {
+  type: BindingType;
+} & (BindingType extends 'record'
+  ? DataStoreItemProps<Model>
+  : BindingType extends 'collection'
+  ? DataStoreCollectionProps<Model>
   : never);

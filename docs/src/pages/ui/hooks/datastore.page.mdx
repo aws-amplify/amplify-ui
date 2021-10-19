@@ -11,31 +11,36 @@ From [Amplify DataStore official documentation](https://docs.amplify.aws/lib/dat
 Retrieve multiple items from a DataStore model. Also provides loading & error states.
 
 ```jsx
-import { useDataStoreCollection } from '@aws-amplify/ui-react';
+import {
+  Collection,
+  Text,
+  useDataStoreCollection,
+} from '@aws-amplify/ui-react';
+
 import { Post } from './models';
 
-const { items, isLoading, error } = useDataStoreCollection({
-  // Model to query against (required)
-  model: Post,
+const PostList = () => {
+  const { items, isLoading, error } = useDataStoreCollection({
+    // Model to query against (required)
+    model: Post,
 
-  // Use a predicate to filter results (optional)
-  criteria: (c) => c.rating('gt', 4),
+    // Use a predicate to filter results (optional)
+    criteria: (c) => c.rating('gt', 4),
 
-  // Extra options to customize pagination & sort (optional)
-  pagination: {
-    page: 3,
-    limit: 100,
-    sort: (s) => s.rating(SortDirection.ASCENDING),
-  },
-});
+    // Extra options to customize pagination & sort (optional)
+    pagination: {
+      page: 3,
+      limit: 100,
+      sort: (s) => s.rating(SortDirection.ASCENDING),
+    },
+  });
 
-/*
-  items = [
-    { id: '...', title: '...' },
-    { id: '...', title: '...' },
-    { id: '...', title: '...' }
-  ]
-*/
+  return (
+    <Collection type="list" items={items}>
+      {(item) => <Text>{item.title}</Text>}
+    </Collection>
+  );
+};
 ```
 
 ## useDataStoreItem
@@ -43,18 +48,41 @@ const { items, isLoading, error } = useDataStoreCollection({
 Fetch a single item from a DataStore model
 
 ```jsx
-import { useDataStoreItem } from '@aws-amplify/ui-react';
+import { Heading, useDataStoreItem } from '@aws-amplify/ui-react';
 import { Post } from './models';
 
-const { item, isLoading, error } = useDataStoreItem({
-  // Model to query against (required)
-  model: Post,
+const PostView = ({ postId }) => {
+  const { item, isLoading, error } = useDataStoreItem({
+    // Model to query against (required)
+    model: Post,
 
-  // Unique Model instance ID
-  id: '6d1be47f-feca-467f-a8b0-8c73a61b6c6e',
+    // Use provided postId as Post id
+    id: postId,
+  });
+
+  if (item) {
+    return <Heading level={1}>{post.title}</Heading>;
+  }
+
+  return null;
+};
+```
+
+## useDataStoreBinding
+
+A generic utility to fetch one or multiple items from a DataStore model. Depending on `type`, will invoke `useDataStoreItem` or `useDataStoreCollection`.
+
+```jsx
+// Fetch a DataStore item
+const { item } = useDataStoreBinding({
+  type: 'record',
+  model: Post,
+  id: postId,
 });
 
-/*
-  item = { id: '...', title: '...' }
-*/
+// Fetch a DataStore collection
+const { items } = useDataStoreBinding({
+  type: 'collection',
+  model: Post,
+});
 ```
