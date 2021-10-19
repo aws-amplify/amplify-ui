@@ -18,6 +18,7 @@ export default defineConfig({
     }),
     typescript2({
       check: false,
+      include: ['src/components/*.vue', 'src/components/primitives/*.vue'],
       tsconfigOverride: {
         compilerOptions: {
           sourceMap: true,
