@@ -174,7 +174,11 @@ export const getServiceFacade = ({ send, state }) => {
   const route = (() => {
     switch (true) {
       case state.matches('idle'):
-        return null;
+        return 'idle';
+      case state.matches('signOut'):
+        return 'signOut';
+      case state.matches('authenticated'):
+        return 'authenticated';
       case actorState?.matches('confirmSignUp'):
         return 'confirmSignUp';
       case actorState?.matches('confirmSignIn'):
@@ -196,7 +200,10 @@ export const getServiceFacade = ({ send, state }) => {
       case actorState?.matches('confirmVerifyUser'):
         return 'confirmVerifyUser';
       default:
-        console.warn('Unhandled Auth state', state.value);
+        console.debug(
+          'Cannot infer `route` from Authenticator state:',
+          state.value
+        );
         return null;
     }
   })();
