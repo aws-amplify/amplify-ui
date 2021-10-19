@@ -9,7 +9,7 @@ export function withAuthenticator(
   return function WrappedWithAuthenticator() {
     return (
       <Authenticator {...options}>
-        {(...props) => <Component {...props} />}
+        {(props) => <Component {...props} />}
       </Authenticator>
     );
   };
