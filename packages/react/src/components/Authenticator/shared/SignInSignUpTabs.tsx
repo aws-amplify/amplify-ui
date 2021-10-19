@@ -1,7 +1,5 @@
 import { getActorState, translate } from '@aws-amplify/ui';
-import { I18n } from 'aws-amplify';
 import { useAmplify, useAuthenticator } from '../../../hooks';
-import { useTheming } from '../../../theming';
 import { SignIn } from '../SignIn';
 import { SignUp } from '../SignUp';
 

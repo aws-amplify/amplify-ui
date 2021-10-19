@@ -31,16 +31,13 @@ export const ConfirmSignIn = (): JSX.Element => {
 
   const { challengeName, remoteError } = actorState.context as SignInContext;
 
-  let mfaType: 'SMS' | 'TOTP';
   let headerText: string;
 
   switch (challengeName) {
     case AuthChallengeNames.SMS_MFA:
-      mfaType = 'SMS';
       headerText = translate('Confirm SMS Code');
       break;
     case AuthChallengeNames.SOFTWARE_TOKEN_MFA:
-      mfaType = 'TOTP';
       headerText = translate('Confirm TOTP Code');
       break;
     default:

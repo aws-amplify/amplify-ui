@@ -1,5 +1,3 @@
-import { I18n } from 'aws-amplify';
-
 import { useAmplify } from '../../../hooks';
 import { translate } from '@aws-amplify/ui';
 

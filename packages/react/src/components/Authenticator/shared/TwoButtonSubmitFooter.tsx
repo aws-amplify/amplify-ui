@@ -1,4 +1,3 @@
-import { I18n } from 'aws-amplify';
 import { AuthEventTypes, translate } from '@aws-amplify/ui';
 
 import { useAmplify, useAuthenticator } from '../../../hooks';
