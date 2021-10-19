@@ -17,8 +17,10 @@ const getCorrectSteppingValue = (
   value = value - remainder + Math.round(remainder / step) * step;
 
   // Make sure new value is not outside the bound
-  value = Math.min(max, value);
   value = Math.max(min, value);
+  if (value > max) {
+    value = max - ((max - min) % step);
+  }
 
   return value;
 };

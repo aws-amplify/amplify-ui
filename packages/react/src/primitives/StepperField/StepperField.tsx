@@ -91,6 +91,8 @@ export const StepperField: React.FC<StepperFieldProps> = (props) => {
             ariaLabel={`${SharedText.StepperField.ariaLabel.DecreaseTo} ${
               value - step
             }`}
+            className={ComponentClassNames.StepperFieldButtonDecrease}
+            data-invalid={hasError}
             isDisabled={shouldDisableDecreaseButton}
             onClick={handleDecrease}
             size={size}
@@ -104,6 +106,8 @@ export const StepperField: React.FC<StepperFieldProps> = (props) => {
             ariaLabel={`${SharedText.StepperField.ariaLabel.IncreaseTo} ${
               value + step
             }`}
+            className={ComponentClassNames.StepperFieldButtonIncrease}
+            data-invalid={hasError}
             isDisabled={shouldDisableIncreaseButton}
             onClick={handleIncrease}
             size={size}
