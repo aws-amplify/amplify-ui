@@ -129,25 +129,77 @@ export const getActorContext = (state: AuthMachineState): AuthActorContext => {
  */
 export const getSendEventAliases = (send: Sender<AuthEvent>) => {
   const sendToMachine = (type: AuthEventTypes) => {
+    // TODO If these were created during the creation of the machine & provider,
+    // then invalid transitions could be caught via https://xstate.js.org/docs/guides/states.html#state-can-event
     return (data?: AuthEventData) => send({ type, data });
   };
 
   return {
+    /** @deprecated use `updateForm` instead */
     change: sendToMachine('CHANGE'),
+    updateForm: sendToMachine('CHANGE'),
+
     federatedSignIn: sendToMachine('FEDERATED_SIGN_IN'),
+
+    /** @deprecated use `resendCode` instead */
     resend: sendToMachine('RESEND'),
+    resendCode: sendToMachine('RESEND'),
+
     resetPassword: sendToMachine('RESET_PASSWORD'),
     signIn: sendToMachine('SIGN_IN'),
     signOut: sendToMachine('SIGN_OUT'),
     signUp: sendToMachine('SIGN_UP'),
+
+    /** @deprecated use `skipVerification` instead */
     skip: sendToMachine('SKIP'),
+    skipVerification: sendToMachine('SKIP'),
+
+    /** @deprecated Use `submitForm` instead */
     submit: sendToMachine('SUBMIT'),
+    submitForm: sendToMachine('SUBMIT'),
   } as const;
 };
 
 export const getServiceFacade = ({ send, state }) => {
   const user = state.context?.user;
-  const { signOut } = getSendEventAliases(send);
+  const actorState = getActorState(state);
+  const {
+    signIn,
+    signUp,
+    signOut,
+    submitForm,
+    updateForm,
+  } = getSendEventAliases(send);
 
-  return { signOut, user };
+  const route = (() => {
+    switch (true) {
+      case state.matches('idle'):
+        return null;
+      case actorState?.matches('confirmSignUp'):
+        return 'confirmSignUp';
+      case actorState?.matches('confirmSignIn'):
+        return 'confirmSignIn';
+      case actorState?.matches('setupTOTP'):
+        return 'setupTOTP';
+      case actorState?.matches('signIn'):
+        return 'signIn';
+      case actorState?.matches('signUp'):
+        return 'signUp';
+      case actorState?.matches('forceNewPassword'):
+        return 'forceNewPassword';
+      case actorState?.matches('resetPassword'):
+        return 'resetPassword';
+      case actorState?.matches('confirmResetPassword'):
+        return 'confirmResetPassword';
+      case actorState?.matches('verifyUser'):
+        return 'verifyUser';
+      case actorState?.matches('confirmVerifyUser'):
+        return 'confirmVerifyUser';
+      default:
+        console.warn('Unhandled Auth state', state.value);
+        return null;
+    }
+  })();
+
+  return { route, signIn, signOut, signUp, submitForm, updateForm, user };
 };
