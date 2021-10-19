@@ -4,7 +4,7 @@ import {
   Grid,
   GridContainerStyleProps,
   GridItemStyleProps,
-  useTheming,
+  useTheme,
   View,
 } from '@aws-amplify/ui-react';
 import { useGridContainerProps } from '@/components/useGridContainerProps';
@@ -52,7 +52,7 @@ const defaultMainGridItemStyleProps: GridItemStyleProps = {
 };
 
 export const GridDemo = () => {
-  const { theme } = useTheming();
+  const theme = useTheme();
   const gridContainerProps = useGridContainerProps(
     defaultGridContainerStyleProps
   );
@@ -96,7 +96,7 @@ export const GridDemo = () => {
           justifyContent={gridContainerProps.justifyContent}
         >
           <Card
-            backgroundColor={theme.colors.blue[10]}
+            backgroundColor={`${theme.tokens.colors.blue[10].value}`}
             area={headerGridItemProps.area}
             column={headerGridItemProps.column}
             columnEnd={headerGridItemProps.columnEnd}
@@ -110,7 +110,7 @@ export const GridDemo = () => {
             Header
           </Card>
           <Card
-            backgroundColor={theme.colors.yellow[10]}
+            backgroundColor={`${theme.tokens.colors.yellow[10].value}`}
             area={navGridItemProps.area}
             column={navGridItemProps.column}
             columnEnd={navGridItemProps.columnEnd}
@@ -124,7 +124,7 @@ export const GridDemo = () => {
             Nav
           </Card>
           <Card
-            backgroundColor={theme.colors.green[10]}
+            backgroundColor={`${theme.tokens.colors.green[10].value}`}
             area={mainGridItemProps.area}
             column={mainGridItemProps.column}
             columnEnd={mainGridItemProps.columnEnd}
@@ -138,7 +138,7 @@ export const GridDemo = () => {
             Main
           </Card>
           <Card
-            backgroundColor={theme.colors.red[10]}
+            backgroundColor={`${theme.tokens.colors.red[10].value}`}
             area={footerGridItemProps.area}
             column={footerGridItemProps.column}
             columnEnd={footerGridItemProps.columnEnd}
