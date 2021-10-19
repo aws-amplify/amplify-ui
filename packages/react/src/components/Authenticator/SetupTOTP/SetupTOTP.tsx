@@ -1,10 +1,9 @@
-import { useEffect, useState } from 'react';
-import QRCode from 'qrcode';
-
-import { Auth, Logger, I18n } from 'aws-amplify';
 import { getActorState, SignInState } from '@aws-amplify/ui';
+import { Auth, I18n, Logger } from 'aws-amplify';
+import QRCode from 'qrcode';
+import { useEffect, useState } from 'react';
 
-import { useAmplify, useAuthenticator } from '../../../hooks';
+import { useAuthenticator } from '..';
 import {
   ConfirmationCodeInput,
   ConfirmSignInFooter,
@@ -17,11 +16,6 @@ const logger = new Logger('SetupTOTP-logger');
 export const SetupTOTP = (): JSX.Element => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [qrCode, setQrCode] = useState<string>();
-
-  const amplifyNamespace = 'Authenticator.ConfirmSignIn';
-  const {
-    components: { Flex, Form, Heading, Image },
-  } = useAmplify(amplifyNamespace);
 
   const [_state, send] = useAuthenticator();
   const actorState = getActorState(_state) as SignInState;
@@ -52,7 +46,6 @@ export const SetupTOTP = (): JSX.Element => {
   }, []);
 
   const footerProps: ConfirmSignInFooterProps = {
-    amplifyNamespace,
     isPending,
     send,
   };
@@ -83,8 +76,8 @@ export const SetupTOTP = (): JSX.Element => {
           ) : (
             <Image data-amplify-qrcode src={qrCode} alt="qr code"></Image>
           )}
-          <ConfirmationCodeInput amplifyNamespace={amplifyNamespace} />
-          <RemoteErrorMessage amplifyNamespace={amplifyNamespace} />
+          <ConfirmationCodeInput />
+          <RemoteErrorMessage />
         </Flex>
 
         <ConfirmSignInFooter {...footerProps} />

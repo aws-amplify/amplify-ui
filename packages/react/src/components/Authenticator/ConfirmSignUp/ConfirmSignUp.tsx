@@ -1,8 +1,6 @@
-import { getActorState, SignUpState } from '@aws-amplify/ui';
 import { I18n } from 'aws-amplify';
 
-import { useAmplify, useAuthenticator } from '../../../hooks';
-
+import { Button, Flex, Form, Heading } from '../../../primitives';
 import {
   ConfirmationCodeInput,
   ConfirmationCodeInputProps,
@@ -10,17 +8,7 @@ import {
 } from '../shared';
 
 export function ConfirmSignUp() {
-  const amplifyNamespace = 'Authenticator.ConfirmSignUp';
-  const {
-    components: { Button, Flex, Form, Heading },
-  } = useAmplify(amplifyNamespace);
-
-  const [_state, send] = useAuthenticator();
-  const actorState: SignUpState = getActorState(_state);
-  const isPending = actorState.matches('confirmSignUp.pending');
-
   const confirmationCodeInputProps: ConfirmationCodeInputProps = {
-    amplifyNamespace,
     label: I18n.get('Confirmation Code'),
     placeholder: I18n.get('Enter your code'),
   };
@@ -47,7 +35,7 @@ export function ConfirmSignUp() {
         <Flex direction="column">
           <ConfirmationCodeInput {...confirmationCodeInputProps} />
 
-          <RemoteErrorMessage amplifyNamespace={amplifyNamespace} />
+          <RemoteErrorMessage />
 
           <Button
             variation="primary"

@@ -1,17 +1,17 @@
 import {
-  getActorState,
-  getActorContext,
-  SignInState,
-  SignInContext,
   authInputAttributes,
-  ContactMethod,
-  censorPhoneNumber,
   censorAllButFirstAndLast,
+  censorPhoneNumber,
+  ContactMethod,
+  getActorContext,
+  getActorState,
+  SignInContext,
+  SignInState,
 } from '@aws-amplify/ui';
-import { Radio } from '@aws-amplify/ui-react';
 import { I18n } from 'aws-amplify';
 
-import { useAmplify, useAuthenticator } from '../../../hooks';
+import { useAuthenticator } from '..';
+import { Radio } from '../../..';
 import { RemoteErrorMessage, TwoButtonSubmitFooter } from '../shared';
 
 const censorContactInformation = (
@@ -52,11 +52,6 @@ const generateRadioGroup = (
 };
 
 export const VerifyUser = (): JSX.Element => {
-  const amplifyNamespace = 'Authenticator.VerifyUser';
-  const {
-    components: { Flex, Form, Heading, RadioGroupField },
-  } = useAmplify(amplifyNamespace);
-
   const [_state, send] = useAuthenticator();
   const actorState: SignInState = getActorState(_state);
   const context = getActorContext(_state) as SignInContext;
@@ -103,10 +98,9 @@ export const VerifyUser = (): JSX.Element => {
 
         {verificationRadioGroup}
 
-        <RemoteErrorMessage amplifyNamespace={amplifyNamespace} />
+        <RemoteErrorMessage />
 
         <TwoButtonSubmitFooter
-          amplifyNamespace={amplifyNamespace}
           isPending={isPending}
           cancelButtonText={I18n.get('Skip')}
           cancelButtonSendType="SKIP"

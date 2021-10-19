@@ -1,6 +1,3 @@
-import { isEmpty } from 'lodash';
-
-import { I18n } from 'aws-amplify';
 import {
   getActorContext,
   getActorState,
@@ -9,19 +6,18 @@ import {
   UserNameAlias,
   userNameAliasArray,
 } from '@aws-amplify/ui';
+import { I18n } from 'aws-amplify';
+import { isEmpty } from 'lodash';
 
-import { useAmplify, useAuthenticator } from '../../../hooks';
+import { useAuthenticator } from '..';
+import { Button, Flex, Form, Heading, PasswordField } from '../../..';
 import { FederatedSignIn } from '../FederatedSignIn';
 import {
   RemoteErrorMessage,
   UserNameAlias as UserNameAliasComponent,
 } from '../shared';
-export function SignUp() {
-  const amplifyNamespace = 'Authenticator.SignUp';
-  const {
-    components: { Button, Flex, Form, Heading, PasswordField, Text },
-  } = useAmplify(amplifyNamespace);
 
+export function SignUp() {
   const [_state, send] = useAuthenticator();
   const actorState: SignUpState = getActorState(_state);
   const isPending = actorState.matches('signUp.pending');
@@ -114,7 +110,7 @@ export function SignUp() {
             />
           ))}
 
-          <RemoteErrorMessage amplifyNamespace={amplifyNamespace} />
+          <RemoteErrorMessage />
         </Flex>
 
         <Button
@@ -135,3 +131,9 @@ export function SignUp() {
     </Form>
   );
 }
+
+SignUp.Header = null;
+SignUp.Form = null;
+SignUp.FormFields = null;
+SignUp.SubmitButton = null;
+SignUp.SocialButtons = null;

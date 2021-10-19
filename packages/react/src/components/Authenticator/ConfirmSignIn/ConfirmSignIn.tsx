@@ -1,12 +1,12 @@
-import { I18n } from 'aws-amplify';
 import {
   AuthChallengeNames,
   getActorState,
   SignInContext,
   SignInState,
 } from '@aws-amplify/ui';
+import { I18n } from 'aws-amplify';
 
-import { useAmplify, useAuthenticator } from '../../../hooks';
+import { useAuthenticator } from '..';
 import {
   ConfirmationCodeInput,
   ConfirmSignInFooter,
@@ -14,17 +14,11 @@ import {
 } from '../shared';
 
 export const ConfirmSignIn = (): JSX.Element => {
-  const amplifyNamespace = 'Authenticator.ConfirmSignIn';
-  const {
-    components: { Flex, Form, Heading },
-  } = useAmplify(amplifyNamespace);
-
   const [_state, send] = useAuthenticator();
   const actorState: SignInState = getActorState(_state);
   const isPending = actorState.matches('confirmSignIn.pending');
 
   const footerProps: ConfirmSignInFooterProps = {
-    amplifyNamespace,
     isPending,
     send,
   };
@@ -57,10 +51,7 @@ export const ConfirmSignIn = (): JSX.Element => {
         <Heading level={3}>{headerText}</Heading>
 
         <Flex direction="column">
-          <ConfirmationCodeInput
-            amplifyNamespace={amplifyNamespace}
-            errorText={remoteError}
-          />
+          <ConfirmationCodeInput errorText={remoteError} />
         </Flex>
 
         <ConfirmSignInFooter {...footerProps} />

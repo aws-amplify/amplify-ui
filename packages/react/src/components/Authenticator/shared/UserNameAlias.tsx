@@ -1,14 +1,14 @@
-import { useEffect } from 'react';
-import { I18n } from 'aws-amplify';
 import {
   ActorContextWithForms,
-  UserNameAlias,
   getActorContext,
   getAliasInfoFromContext,
+  UserNameAlias,
 } from '@aws-amplify/ui';
+import { I18n } from 'aws-amplify';
+import { useEffect } from 'react';
 
-import { PhoneNumberField, TextField } from '../../../primitives';
-import { useAuthenticator } from '../../../hooks';
+import { useAuthenticator } from '..';
+import { PhoneNumberField, TextField } from '../../..';
 
 export interface UserNameAliasProps {
   handleInputChange?(event): void;

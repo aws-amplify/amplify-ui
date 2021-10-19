@@ -1,10 +1,9 @@
-import { I18n } from 'aws-amplify';
 import { AuthEventTypes } from '@aws-amplify/ui';
+import { I18n } from 'aws-amplify';
 
-import { useAmplify, useAuthenticator } from '../../../hooks';
+import { Button, Flex } from '../../../primitives';
 
 export interface TwoButtonSubmitFooterProps {
-  amplifyNamespace: string;
   isPending: boolean;
   cancelButtonSendType: AuthEventTypes;
   cancelButtonText: string;
@@ -15,18 +14,11 @@ export const TwoButtonSubmitFooter = (
   props: TwoButtonSubmitFooterProps
 ): JSX.Element => {
   const {
-    amplifyNamespace,
     cancelButtonSendType,
     cancelButtonText,
     isPending,
     submitButtonText,
   } = props;
-
-  const {
-    components: { Button, Flex },
-  } = useAmplify(amplifyNamespace);
-
-  const [state, send] = useAuthenticator();
 
   const defaultSubmitText = isPending ? (
     <>{I18n.get('Submitting')}&hellip;</>

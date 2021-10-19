@@ -1,7 +1,7 @@
-import { getActorState, SignInState } from '@aws-amplify/ui';
 import { I18n } from 'aws-amplify';
 
-import { useAmplify, useAuthenticator } from '../../../hooks';
+import { useAuthenticator } from '..';
+import { Form } from '../../..';
 import {
   ConfirmationCodeInput,
   RemoteErrorMessage,
@@ -9,14 +9,7 @@ import {
 } from '../shared';
 
 export const ConfirmVerifyUser = (): JSX.Element => {
-  const amplifyNamespace = 'Authenticator.ConfirmVerifyUser';
-  const {
-    components: { Flex, Form, Heading },
-  } = useAmplify(amplifyNamespace);
-
-  const [_state, send] = useAuthenticator();
-  const actorState: SignInState = getActorState(_state);
-  const isPending = actorState.matches('confirmVerifyUser.pending');
+  const { isPending } = useAuthenticator();
 
   const headerText = I18n.get(
     'Account recovery requires verified contact information'
@@ -42,13 +35,12 @@ export const ConfirmVerifyUser = (): JSX.Element => {
         <Heading level={3}>{headerText}</Heading>
 
         <Flex direction="column">
-          <ConfirmationCodeInput amplifyNamespace={amplifyNamespace} />
+          <ConfirmationCodeInput />
         </Flex>
 
-        <RemoteErrorMessage amplifyNamespace={amplifyNamespace} />
+        <RemoteErrorMessage />
 
         <TwoButtonSubmitFooter
-          amplifyNamespace={amplifyNamespace}
           isPending={isPending}
           cancelButtonText={I18n.get('Skip')}
           cancelButtonSendType="SKIP"

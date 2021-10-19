@@ -1,19 +1,14 @@
-import { I18n } from 'aws-amplify';
 import {
   getActorContext,
   getActorState,
   SignInContext,
   SignInState,
 } from '@aws-amplify/ui';
+import { I18n } from 'aws-amplify';
 
-import { useAmplify, useAuthenticator } from '../../../hooks';
+import { useAuthenticator } from '..';
 
 export const ForceNewPassword = (): JSX.Element => {
-  const amplifyNamespace = 'Authenticator.ForceNewPassword';
-  const {
-    components: { Button, Flex, Form, Heading, PasswordField, Text },
-  } = useAmplify(amplifyNamespace);
-
   const [_state, send] = useAuthenticator();
   const actorState: SignInState = getActorState(_state);
   const { remoteError } = actorState.context;

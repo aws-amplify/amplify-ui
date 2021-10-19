@@ -1,9 +1,6 @@
 import { I18n } from 'aws-amplify';
 
-import { useAmplify } from '../../../hooks';
-
 export interface ConfirmSignInFooterProps {
-  amplifyNamespace: string;
   isPending: boolean;
   shouldHideReturnBtn?: boolean;
   send({ type: string }): void;
@@ -12,16 +9,7 @@ export interface ConfirmSignInFooterProps {
 export const ConfirmSignInFooter = (
   props: ConfirmSignInFooterProps
 ): JSX.Element => {
-  const {
-    amplifyNamespace,
-    isPending,
-    shouldHideReturnBtn = false,
-    send,
-  } = props;
-
-  const {
-    components: { Button, Flex },
-  } = useAmplify(amplifyNamespace);
+  const { isPending, shouldHideReturnBtn = false, send } = props;
 
   return (
     <Flex direction="column">
