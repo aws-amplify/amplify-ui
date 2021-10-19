@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNonStyleProps, usePropStyles } from '../shared/styleUtils';
-import { ElementType, Primitive, PrimitiveProps, ViewProps } from '../types';
+import { ElementType, PrimitiveProps, ViewProps } from '../types';
 
 export const View = <Element extends ElementType = 'div'>({
   as = 'div',

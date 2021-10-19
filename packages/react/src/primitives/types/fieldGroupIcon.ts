@@ -1,5 +1,4 @@
 import { ViewProps } from './view';
-import { AriaProps } from './base';
 import { ButtonProps } from './button';
 
 export interface FieldGroupIconProps extends ViewProps {
