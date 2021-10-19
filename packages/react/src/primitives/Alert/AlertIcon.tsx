@@ -1,4 +1,6 @@
-import { AlertVariations, IconSize, Primitive } from '../types';
+import * as React from 'react';
+
+import { AlertVariations, IconSize } from '../types';
 import { IconInfo, IconError, IconWarning, IconCheckCircle } from '../Icon';
 
 interface AlertIconProps {
@@ -6,20 +8,19 @@ interface AlertIconProps {
   iconSize: IconSize;
 }
 
-export const AlertIcon: Primitive<AlertIconProps, 'svg'> = ({
+export const AlertIcon: React.FC<AlertIconProps> = ({
   variation,
   iconSize,
-  ...rest
 }) => {
   switch (variation) {
     case 'info':
-      return <IconInfo size={iconSize} {...rest} />;
+      return <IconInfo size={iconSize} />;
     case 'error':
-      return <IconError size={iconSize} {...rest} />;
+      return <IconError size={iconSize} />;
     case 'warning':
-      return <IconWarning size={iconSize} {...rest} />;
+      return <IconWarning size={iconSize} />;
     case 'success':
-      return <IconCheckCircle size={iconSize} {...rest} />;
+      return <IconCheckCircle size={iconSize} />;
     default:
       return null;
   }

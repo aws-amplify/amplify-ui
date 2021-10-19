@@ -5,9 +5,9 @@ import { Flex } from '../Flex';
 import { IconChevronLeft, IconChevronRight } from '../Icon';
 import { View } from '../View';
 import { VisuallyHidden } from '../VisuallyHidden';
-import { PaginationItemProps, Primitive } from '../types';
+import { PaginationItemProps } from '../types';
 
-export const PaginationItem: Primitive<PaginationItemProps, typeof Button> = ({
+export const PaginationItem: React.FC<PaginationItemProps> = ({
   type,
   page,
   currentPage,
