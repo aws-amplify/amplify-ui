@@ -7,6 +7,8 @@ import { Example } from '@/components/Example';
 import { Feature } from '@/components/Feature';
 import { Fragment } from '@/components/Fragment';
 import { XStateInspector } from '@/components/XStateInspector';
+import Block from 'amplify-docs/src/components/Block';
+import BlockSwitcher from 'amplify-docs/src/components/BlockSwitcher';
 
 The `Authenticator` component adds complete [authentication flows](https://docs.amplify.aws/lib/auth/getting-started/q/platform/js)
 to your application with minimal boilerplate.
@@ -35,63 +37,112 @@ Once an end-user has created an account & signed in, the underlying component is
 
 By default, unauthenticated users are redirected to the `signIn` flow.
 
-You can instead default to `signUp` or `resetPassword` as your `initialState`:
+You can explicitly redirect to `signUp` or `resetPassword` as your `initialState`:
 
-<Fragment>
-  {({ platform }) => import(`./initialState.${platform}.mdx`)}
-</Fragment>
+<BlockSwitcher>
+  <Block name="Sign In">
+    <Fragment>
+      {({ platform }) => import(`./initialState.signIn.${platform}.mdx`)}
+    </Fragment>
+    <Example>
+      <Authenticator initialState="signIn" />
+      <p className="text-sm text-center mt-6 text-gray-500 italic">
+        <strong>Note</strong>: This example isn't fully functional until
+        configured with an Amplify backend.
+      </p>
+    </Example>
+  </Block>
+  <Block name="Sign Up">
+    <Fragment>
+      {({ platform }) => import(`./initialState.signUp.${platform}.mdx`)}
+    </Fragment>
+    <Example>
+      <Authenticator initialState="signUp" />
+      <p className="text-sm text-center mt-6 text-gray-500 italic">
+        <strong>Note</strong>: This example isn't fully functional until
+        configured with an Amplify backend.
+      </p>
+    </Example>
+  </Block>
+  <Block name="Reset Password">
+    <Fragment>
+      {({ platform }) => import(`./initialState.resetPassword.${platform}.mdx`)}
+    </Fragment>
+    <Example>
+      <Authenticator initialState="resetPassword" />
+      <p className="text-sm text-center mt-6 text-gray-500 italic">
+        <strong>Note</strong>: This example isn't fully functional until
+        configured with an Amplify backend.
+      </p>
+    </Example>
+  </Block>
+</BlockSwitcher>
 
 ### `loginMechanisms`
 
-By default, `Authenticator` creates new users in the Amazon Cognito UserPool
-based on a unique `username` using [`Auth.signUp`](https://docs.amplify.aws/lib/auth/emailpassword/q/platform/js).
+By default, the Authenticator creates new users in the Amazon Cognito UserPool based on a unique `username` using
+[`Auth.signUp`](https://docs.amplify.aws/lib/auth/emailpassword/q/platform/js).
 
-Alternatively, you can use `email`:
+You can provide an alternative `username` such as `email` or `phone_number`.
 
-<Fragment>
-  {({ platform }) => import(`./loginMechanisms.email.${platform}.mdx`)}
-</Fragment>
+> **Note**: A `username`, `email`, or `phone_number` value is required for Cognito User Pools.
 
-<Example>
-  <Authenticator loginMechanisms={['email']} />
+For your [configured social providers](https://docs.amplify.aws/lib/auth/social/q/platform/js/), you can also provide `amazon`, `facebook`, or `google`:
 
-  <p className="text-sm text-center mt-6 text-gray-500 italic">
-    <strong>Note</strong>: This example isn't fully functional until configured
-    with an Amplify backend.
-  </p>
-</Example>
-
-Or `phone_number`:
-
-<Fragment>
-  {({ platform }) => import(`./loginMechanisms.phone_number.${platform}.mdx`)}
-</Fragment>
-
-<Example>
-  <Authenticator loginMechanisms={['phone_number']} />
-
-  <p className="text-sm text-center mt-6 text-gray-500 italic">
-    <strong>Note</strong>: This example isn't fully functional until configured
-    with an Amplify backend.
-  </p>
-</Example>
-
-Or any of the following [configured social providers](https://docs.amplify.aws/lib/auth/social/q/platform/js/):
-
-<Fragment>
-  {({ platform }) => import(`./loginMechanisms.social.${platform}.mdx`)}
-</Fragment>
-
-> **Note**: A `username`, `email`, or `phone_number` is still required for Cognito User Pools.
-
-<Example>
-  <Authenticator loginMechanisms={['email', 'amazon', 'facebook', 'google']} />
-
-  <p className="text-sm text-center mt-6 text-gray-500 italic">
-    <strong>Note</strong>: This example isn't fully functional until configured
-    with an Amplify backend.
-  </p>
-</Example>
+<BlockSwitcher>
+  <Block name="Username">
+    <Fragment>
+      {({ platform }) => import(`./loginMechanisms.username.${platform}.mdx`)}
+    </Fragment>
+    <Example>
+      <Authenticator />
+      <p className="text-sm text-center mt-6 text-gray-500 italic">
+        <strong>Note</strong>: This example isn't fully functional until
+        configured with an Amplify backend.
+      </p>
+    </Example>
+  </Block>
+  <Block name="Email">
+    <Fragment>
+      {({ platform }) => import(`./loginMechanisms.email.${platform}.mdx`)}
+    </Fragment>
+    <Example>
+      <Authenticator loginMechanisms={['email']} />
+      <p className="text-sm text-center mt-6 text-gray-500 italic">
+        <strong>Note</strong>: This example isn't fully functional until
+        configured with an Amplify backend.
+      </p>
+    </Example>
+  </Block>
+  <Block name="Phone Number">
+    <Fragment>
+      {({ platform }) =>
+        import(`./loginMechanisms.phone_number.${platform}.mdx`)
+      }
+    </Fragment>
+    <Example>
+      <Authenticator loginMechanisms={['phone_number']} />
+      <p className="text-sm text-center mt-6 text-gray-500 italic">
+        <strong>Note</strong>: This example isn't fully functional until
+        configured with an Amplify backend.
+      </p>
+    </Example>
+  </Block>
+  <Block name="Social Providers">
+    <Fragment>
+      {({ platform }) => import(`./loginMechanisms.social.${platform}.mdx`)}
+    </Fragment>
+    <Example>
+      <Authenticator
+        loginMechanisms={['email', 'amazon', 'facebook', 'google']}
+      />
+      <p className="text-sm text-center mt-6 text-gray-500 italic">
+        <strong>Note</strong>: This example isn't fully functional until
+        configured with an Amplify backend.
+      </p>
+    </Example>
+  </Block>
+</BlockSwitcher>
 
 ## Customization
 
@@ -123,3 +174,54 @@ I18n.putVocabularies({
   },
 });
 ```
+
+### Styling
+
+You can customize the Authenticator's default [theme](/ui/theme) with [CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties).
+The example below uses a `<style>` tag to change the default colors to a dark theme:
+
+```css
+[data-amplify-authenticator] {
+  --amplify-colors-background-primary: var(--amplify-colors-neutral-90);
+  --amplify-colors-background-secondary: var(--amplify-colors-neutral-100);
+  --amplify-colors-background-tertiary: var(--amplify-colors-black);
+  ...
+  --amplify-components-text-color: var(--amplify-colors-font-interactive);
+}
+```
+
+<Example className="customization-styles">
+  <style>{`
+    .example.customization-styles {
+      background-color: #1a1a1a !important;
+      color: #eee !important;
+    }
+    .example.customization-styles [data-amplify-authenticator] {
+      --amplify-colors-background-primary: var(--amplify-colors-neutral-90);
+      --amplify-colors-background-secondary: var(--amplify-colors-neutral-100);
+      --amplify-colors-background-tertiary: var(--amplify-colors-black);
+      --amplify-colors-border-primary: var(--amplify-colors-neutral-20);
+      --amplify-colors-border-secondary: var(--amplify-colors-neutral-40);
+      --amplify-colors-border-tertiary: var(--amplify-colors-neutral-60);
+      --amplify-colors-brand-primary-10: var(--amplify-colors-teal-100);
+      --amplify-colors-brand-primary-20: var(--amplify-colors-teal-90);
+      --amplify-colors-brand-primary-40: var(--amplify-colors-teal-80);
+      --amplify-colors-brand-primary-60: var(--amplify-colors-teal-60);
+      --amplify-colors-brand-primary-80: var(--amplify-colors-teal-40);
+      --amplify-colors-brand-primary-90: var(--amplify-colors-teal-20);
+      --amplify-colors-brand-primary-100: var(--amplify-colors-teal-10);
+      --amplify-colors-font-interactive: var(--amplify-colors-white);
+      --amplify-components-heading-color: var(--amplify-colors-neutral-20);
+      --amplify-components-tabs-item-active-border-color: var(--amplify-colors-white);
+      --amplify-components-tabs-item-active-color: var(--amplify-colors-white);
+      --amplify-components-tabs-item-color: var(--amplify-colors-white);
+      --amplify-components-tabs-item-focus-color: var(--amplify-colors-white);
+      --amplify-components-text-color: var(--amplify-colors-font-interactive);
+    }
+  `}</style>
+  <Authenticator />
+  <p className="text-sm text-center mt-6 text-gray-500 italic">
+    <strong>Note</strong>: This example isn't fully functional until configured
+    with an Amplify backend.
+  </p>
+</Example>

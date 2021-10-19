@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react-hooks';
 
-import { theme } from '@aws-amplify/ui';
+import { defaultTheme } from '@aws-amplify/ui';
 
 import {
   convertGridSpan,
@@ -35,7 +35,7 @@ const props: ViewProps = {
   className: 'my-section',
 };
 
-let breakpoints = theme.breakpoints.values;
+let breakpoints = defaultTheme.breakpoints.values;
 
 const defaultStylePropsParams = {
   breakpoint: 'base' as Breakpoint,

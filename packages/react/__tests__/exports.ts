@@ -1856,6 +1856,7 @@ describe('@aws-amplify/ui-react', () => {
           "Main",
           "Pagination",
           "PasswordField",
+          "PhoneNumberField",
           "Placeholder",
           "Radio",
           "RadioGroupField",
@@ -1877,18 +1878,16 @@ describe('@aws-amplify/ui-react', () => {
           "VisuallyHidden",
           "Wrapper",
           "components",
-          "defaultCSSVariables",
+          "createTheme",
           "defaultTheme",
-          "extendTheming",
           "findChildOverrides",
           "getOverrideProps",
           "primitives",
-          "theme",
           "useAmplify",
           "useAuthenticator",
           "usePagination",
           "useSearchField",
-          "useTheming",
+          "useTheme",
           "withAuthenticator",
         ]
       `);
@@ -1910,6 +1909,8 @@ describe('@aws-amplify/ui-react/legacy', () => {
           "AmplifyS3ImagePicker",
           "AmplifyS3Text",
           "AmplifyS3TextPicker",
+          "AmplifySignIn",
+          "AmplifySignOut",
           "withAuthenticator",
         ]
       `);

@@ -59,7 +59,7 @@
       @extend %remove-end-radii;
     }
     &:not(:first-child) {
-      .amplify-select {
+      .amplify-select:not(:first-child) {
         @extend %remove-start-radii;
       }
     }

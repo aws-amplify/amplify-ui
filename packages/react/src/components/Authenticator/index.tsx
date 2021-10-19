@@ -9,7 +9,6 @@ import { useMachine } from '@xstate/react';
 import { I18n } from 'aws-amplify';
 import * as React from 'react';
 import { View } from '../../primitives';
-import { useTheming } from '../../theming';
 import { AuthenticatorContext } from './AuthenticatorContext';
 import { ConfirmSignIn } from './ConfirmSignIn';
 import { ConfirmSignUp } from './ConfirmSignUp';
@@ -54,7 +53,7 @@ export function Authenticator({
   return (
     <AuthenticatorContext.Provider value={service}>
       <View className={className} data-amplify-authenticator="">
-        <View data-amplify-modal="" />
+        <View data-authenticator-variation="modal" />
 
         <View data-amplify-container="">
           {(() => {

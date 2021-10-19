@@ -12,6 +12,7 @@ export const PhoneNumberField: React.FC<PhoneNumberFieldProps> = ({
   countryCodeName,
   countryCodeLabel = SharedText.CountryCodeSelect.ariaLabel,
   defaultCountryCode,
+  hasError,
   isDisabled,
   onCountryCodeChange,
   onInput,
@@ -25,6 +26,8 @@ export const PhoneNumberField: React.FC<PhoneNumberFieldProps> = ({
       outerStartComponent={
         <CountryCodeSelect
           defaultValue={defaultCountryCode}
+          className={className}
+          hasError={hasError}
           isDisabled={isDisabled}
           label={countryCodeLabel}
           name={countryCodeName}
@@ -35,6 +38,7 @@ export const PhoneNumberField: React.FC<PhoneNumberFieldProps> = ({
       }
       autoComplete={autoComplete}
       className={classNames(ComponentClassNames.PhoneNumberField, className)}
+      hasError={hasError}
       isDisabled={isDisabled}
       onInput={onInput}
       size={size}
