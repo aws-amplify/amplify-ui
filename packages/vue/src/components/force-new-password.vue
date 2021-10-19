@@ -29,6 +29,9 @@
                 name="password"
                 :label="passwordLabel"
                 autocomplete="new-password"
+                :ariainvalid="
+                  !!actorContext.validationError['confirm_password']
+                "
               />
             </base-wrapper>
 
@@ -46,6 +49,9 @@
                 name="confirm_password"
                 :label="confirmPasswordLabel"
                 autocomplete="new-password"
+                :ariainvalid="
+                  !!actorContext.validationError['confirm_password']
+                "
               />
             </base-wrapper>
           </base-wrapper>
