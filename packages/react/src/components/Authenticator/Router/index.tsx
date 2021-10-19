@@ -13,6 +13,10 @@ import { ConfirmVerifyUser, VerifyUser } from '../VerifyUser';
 export function Router({ className, children }) {
   const { route, signOut, user } = useAuthenticator();
 
+  if (['authenticated', 'signOut'].includes(route)) {
+    return children({ signOut, user });
+  }
+
   return (
     <>
       <View className={className} data-amplify-authenticator="">
@@ -21,9 +25,8 @@ export function Router({ className, children }) {
         <View data-amplify-container="">
           {(() => {
             switch (route) {
-              case 'authenticated':
-                return children({ signOut, user });
-
+              case 'idle':
+                return null;
               case 'confirmSignUp':
                 return <ConfirmSignUp />;
               case 'confirmSignIn':
@@ -50,7 +53,6 @@ export function Router({ className, children }) {
                   route
                 );
 
-              case 'idle':
                 return null;
             }
           })()}
