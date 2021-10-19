@@ -18,7 +18,7 @@ export interface UserNameAliasProps {
 
 export function UserNameAlias(props: UserNameAliasProps) {
   const { handleInputChange, alias, ...attrs } = props;
-  const [_state, send] = useAuthenticator();
+  const { _state, _send } = useAuthenticator();
 
   const { country_code }: ActorContextWithForms = getActorContext(_state);
   const { label, type, error } = getAliasInfoFromContext(_state.context, alias);
@@ -28,7 +28,7 @@ export function UserNameAlias(props: UserNameAliasProps) {
 
   useEffect(() => {
     isPhoneAlias &&
-      send({
+      _send({
         type: 'CHANGE',
         data: { name: 'country_code', value: country_code },
       });

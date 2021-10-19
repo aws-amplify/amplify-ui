@@ -14,7 +14,7 @@ export const SignInSignUpTabs = (): JSX.Element => {
       currentIndex={route === 'signIn' ? 0 : 1}
       spacing="equal"
       justifyContent="center"
-      onChange={route === 'signIn' ? void signUp : void signIn}
+      onChange={() => (route === 'signIn' ? signUp() : signIn())}
     >
       <TabItem title={I18n.get('Sign In')}>
         {route === 'signIn' && <SignIn />}

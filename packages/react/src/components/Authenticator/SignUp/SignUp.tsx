@@ -10,7 +10,7 @@ import { I18n } from 'aws-amplify';
 import { isEmpty } from 'lodash';
 
 import { useAuthenticator } from '..';
-import { Button, Flex, Form, Heading, PasswordField } from '../../..';
+import { Button, Flex, Form, Heading, PasswordField, Text } from '../../..';
 import { FederatedSignIn } from '../FederatedSignIn';
 import {
   RemoteErrorMessage,
@@ -18,7 +18,7 @@ import {
 } from '../shared';
 
 export function SignUp() {
-  const [_state, send] = useAuthenticator();
+  const { _state, _send } = useAuthenticator();
   const actorState: SignUpState = getActorState(_state);
   const isPending = actorState.matches('signUp.pending');
   const { validationError } = getActorContext(_state) as SignUpContext;
@@ -40,7 +40,7 @@ export function SignUp() {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    send({
+    _send({
       type: 'CHANGE',
       data: { name, value },
     });
@@ -59,7 +59,7 @@ export function SignUp() {
 
         const formData = new FormData(event.target);
 
-        send({
+        _send({
           type: 'SUBMIT',
           // @ts-ignore Property 'fromEntries' does not exist on type 'ObjectConstructor'. Do you need to change your target library? Try changing the `lib` compiler option to 'es2019' or later.ts(2550)
           data: Object.fromEntries(formData),

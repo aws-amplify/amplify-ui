@@ -1,8 +1,9 @@
 import {
-  AuthenticatorMachineOptions,
   ActorContextWithForms,
+  AuthenticatorMachineOptions,
   createAuthenticatorMachine,
   getActorContext,
+  getActorState,
   getServiceFacade,
 } from '@aws-amplify/ui';
 import { useMachine } from '@xstate/react';
@@ -20,9 +21,8 @@ const useAuthenticatorValue = ({
   components: customComponents,
   initialState,
   loginMechanisms,
-  services,
 }: Props) => {
-  const [state, send, service] = useMachine(
+  const [state, send] = useMachine(
     () => createAuthenticatorMachine({ initialState, loginMechanisms }),
     {
       devTools: process.env.NODE_ENV === 'development',
@@ -46,6 +46,10 @@ const useAuthenticatorValue = ({
   const error = actorContext?.remoteError;
 
   return {
+    /** @deprecated For internal use only */
+    _send: send,
+    /** @deprecated For internal use only */
+    _state: state,
     components,
     error,
     isPending,
