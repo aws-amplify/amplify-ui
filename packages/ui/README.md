@@ -2,7 +2,6 @@
 
 > Low-level logic & styles for stand-alone usage or re-use in framework-specific implementations.
 
-- [Design tokens](src/tokens)
+- [Theme](src/theme)
 - [I18n](src/i18n)
 - [State machines](src/machines)
-- [Styles](src/css)

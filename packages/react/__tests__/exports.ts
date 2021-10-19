@@ -1877,13 +1877,11 @@ describe('@aws-amplify/ui-react', () => {
           "VisuallyHidden",
           "Wrapper",
           "components",
-          "defaultCSSVariables",
+          "createTheme",
           "defaultTheme",
-          "extendTheming",
           "findChildOverrides",
           "getOverrideProps",
           "primitives",
-          "theme",
           "useAmplify",
           "useAuthenticator",
           "useDataStoreBinding",
@@ -1891,7 +1889,7 @@ describe('@aws-amplify/ui-react', () => {
           "useDataStoreItem",
           "usePagination",
           "useSearchField",
-          "useTheming",
+          "useTheme",
           "withAuthenticator",
         ]
       `);
