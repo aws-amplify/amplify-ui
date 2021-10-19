@@ -7,6 +7,7 @@
     "test": "yarn --cwd ../../ test",
     "generate:css": "npx tailwindcss -i ./styles/component.tailwind.css -o ./styles/component.css"
   },
+  "license": "Apache-2.0",
   "peerDependencies": {
     "@angular/common": "^11.2.4",
     "@angular/core": "^11.2.4",
