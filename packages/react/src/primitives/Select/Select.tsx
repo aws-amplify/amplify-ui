@@ -1,29 +1,28 @@
-import React from 'react';
 import classNames from 'classnames';
 
 import { Flex } from '../Flex';
 import { View } from '../View';
 import { IconExpandMore } from '../Icon';
 import { SelectProps } from '../types/select';
+import { Primitive } from '../types';
 import { ComponentClassNames } from '../shared';
 
-export const Select: React.FC<SelectProps> = (props) => {
-  const {
-    autoComplete,
-    className,
-    size,
-    variation,
-    value,
-    defaultValue,
-    hasError,
-    icon = <IconExpandMore size="large" />,
-    iconColor,
-    children,
-    placeholder,
-    isDisabled,
-    isRequired,
-    ...rest
-  } = props;
+export const Select: Primitive<SelectProps, 'select'> = ({
+  autoComplete,
+  className,
+  size,
+  variation,
+  value,
+  defaultValue,
+  hasError,
+  icon = <IconExpandMore size="large" />,
+  iconColor,
+  children,
+  placeholder,
+  isDisabled,
+  isRequired,
+  ...rest
+}) => {
   const DEFAULT_PLACEHOLDER_VALUE = '';
   // value === undefined is to make sure that component is used in uncontrolled way so that setting defaultValue is valid
   const shouldSetDefaultPlaceholderValue =

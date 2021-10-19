@@ -1,8 +1,13 @@
-import React from 'react';
+import classNames from 'classnames';
+
 import { ComponentClassNames } from '../shared';
-import { ImageProps } from '../types';
+import { ImageProps, Primitive } from '../types';
 import { View } from '../View';
 
-export const Image: React.FC<ImageProps> = (props) => (
-  <View as="img" className={ComponentClassNames.Image} {...props} />
+export const Image: Primitive<ImageProps, 'img'> = ({ className, ...rest }) => (
+  <View
+    as="img"
+    className={classNames(ComponentClassNames.Image, className)}
+    {...rest}
+  />
 );

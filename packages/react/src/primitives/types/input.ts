@@ -130,12 +130,6 @@ export interface InputProps extends ViewProps {
   size?: InputSizes;
 
   /**
-   * Input type
-   * @default "text"
-   */
-  type?: string;
-
-  /**
    * If value is provided, this will be a controlled field
    */
   value?: string | number | readonly string[];

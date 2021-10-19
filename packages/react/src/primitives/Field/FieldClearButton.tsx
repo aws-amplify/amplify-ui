@@ -1,16 +1,14 @@
-import * as React from 'react';
-
-import { FieldClearButtonProps } from '../types';
+import { FieldClearButtonProps, Primitive } from '../types';
 import { FieldGroupIconButton } from '../FieldGroupIcon';
 import { IconClose } from '../Icon';
 import { SharedText } from '../shared/i18n';
 
 const ariaLabelText = SharedText.Fields.ariaLabel.clearField;
 
-export const FieldClearButton: React.FC<FieldClearButtonProps> = (props) => {
-  return (
-    <FieldGroupIconButton ariaLabel={ariaLabelText} {...props}>
-      <IconClose size={props.size} />
-    </FieldGroupIconButton>
-  );
-};
+export const FieldClearButton: Primitive<FieldClearButtonProps, 'button'> = (
+  props
+) => (
+  <FieldGroupIconButton ariaLabel={ariaLabelText} {...props}>
+    <IconClose size={props.size} />
+  </FieldGroupIconButton>
+);
