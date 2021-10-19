@@ -1,5 +1,4 @@
 import classNames from 'classnames';
-import * as React from 'react';
 
 import { ComponentClassNames } from '../shared/constants';
 import { useStableId } from '../shared/utils';
@@ -8,9 +7,9 @@ import { Flex } from '../Flex';
 import { FieldGroup } from '../FieldGroup';
 import { Input } from '../Input';
 import { Label } from '../Label';
-import { TextFieldProps } from '../types';
+import { Primitive, TextFieldProps } from '../types';
 
-export const TextField: React.FC<TextFieldProps> = ({
+export const TextField: Primitive<TextFieldProps, 'input'> = ({
   alignContent,
   alignItems,
   autoComplete,

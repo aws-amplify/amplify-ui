@@ -1,12 +1,11 @@
 import classNames from 'classnames';
-import * as React from 'react';
-import { Flex } from '../Flex';
 
+import { Flex } from '../Flex';
 import { ComponentClassNames } from '../shared/constants';
-import { FieldGroupOptions } from '../types';
+import { FieldGroupOptions, Primitive } from '../types';
 import { View } from '../View';
 
-export const FieldGroup: React.FC<FieldGroupOptions> = ({
+export const FieldGroup: Primitive<FieldGroupOptions, typeof Flex> = ({
   children,
   className,
   outerStartComponent,

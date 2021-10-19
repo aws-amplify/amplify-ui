@@ -1,35 +1,21 @@
-import classNames from 'classnames';
 import * as React from 'react';
+import classNames from 'classnames';
 
 import { Flex } from '../Flex';
-import { ButtonProps } from '../types/button';
-import { ButtonGroupProps } from '../types/buttonGroup';
+import { ButtonProps, ButtonGroupProps, Primitive } from '../types';
 import { ComponentClassNames } from '../shared/constants';
 
-export const ButtonGroup: React.FC<ButtonGroupProps> = ({
-  alignContent,
-  alignItems,
-  ariaLabel,
+export const ButtonGroup: Primitive<ButtonGroupProps, typeof Flex> = ({
   className,
   children,
-  direction,
-  gap,
-  justifyContent,
+  role = 'group',
   size,
   variation,
-  wrap,
   ...rest
 }) => (
   <Flex
-    alignContent={alignContent}
-    alignItems={alignItems}
-    aria-label={ariaLabel}
     className={classNames(ComponentClassNames.ButtonGroup, className)}
-    direction={direction}
-    gap={gap}
-    justifyContent={justifyContent}
-    role="group"
-    wrap={wrap}
+    role={role}
     {...rest}
   >
     {React.Children.map(children, (child) => {

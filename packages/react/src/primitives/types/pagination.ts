@@ -52,6 +52,7 @@ export interface PaginationItemProps
    * Available item type are 'page', 'next', 'previous' and 'ellipsis'.
    */
   type: PaginationItemType;
+
   /**
    * For 'page' item, this is the page number to be rendered.
    */

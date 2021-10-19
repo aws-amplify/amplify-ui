@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { ShowPasswordButtonProps } from '../types/';
+
+import { ShowPasswordButtonProps } from '../types';
 import { Button } from '../Button';
 import { ComponentClassNames } from '../shared/constants';
 import { IconVisibility, IconVisibilityOff } from '../Icon';
-import classNames from 'classnames';
 import { SharedText } from '../shared/i18n';
 
 const ariaLabelText = SharedText.ShowPasswordButton.ariaLabel;
@@ -15,7 +15,7 @@ export const ShowPasswordButton: React.FC<ShowPasswordButtonProps> = ({
 }) => {
   return (
     <Button
-      className={classNames(ComponentClassNames.FieldShowPassword)}
+      className={ComponentClassNames.FieldShowPassword}
       onClick={onClick}
       size={size}
       ariaLabel={

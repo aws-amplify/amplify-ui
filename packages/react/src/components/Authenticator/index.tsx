@@ -9,7 +9,6 @@ import { useMachine } from '@xstate/react';
 import { I18n } from 'aws-amplify';
 import * as React from 'react';
 import { View } from '../../primitives';
-import { useTheming } from '../../theming';
 import { AuthenticatorContext } from './AuthenticatorContext';
 import { ConfirmSignIn } from './ConfirmSignIn';
 import { ConfirmSignUp } from './ConfirmSignUp';

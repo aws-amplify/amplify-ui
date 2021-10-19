@@ -35,4 +35,5 @@ export * from './textField';
 export * from './toggleButton';
 export * from './toggleButtonGroup';
 export * from './view';
+export * from './visuallyHidden';
 export * from './grid';

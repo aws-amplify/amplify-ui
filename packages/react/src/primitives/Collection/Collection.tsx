@@ -17,10 +17,13 @@ const TYPEAHEAD_DELAY_MS = 300;
 
 const ListCollection = <Item,>({
   children,
+  direction = 'column',
   items,
   ...rest
 }: ListCollectionProps<Item>) => (
-  <Flex {...rest}>{Array.isArray(items) && items.map(children)}</Flex>
+  <Flex direction={direction} {...rest}>
+    {Array.isArray(items) ? items.map(children) : null}
+  </Flex>
 );
 
 const GridCollection = <Item,>({
@@ -28,7 +31,7 @@ const GridCollection = <Item,>({
   items,
   ...rest
 }: GridCollectionProps<Item>) => (
-  <Grid {...rest}>{Array.isArray(items) && items.map(children)}</Grid>
+  <Grid {...rest}>{Array.isArray(items) ? items.map(children) : null}</Grid>
 );
 
 export const Collection = <Item,>({

@@ -1,0 +1,88 @@
+---
+title: DataStore
+---
+
+From [Amplify DataStore official documentation](https://docs.amplify.aws/lib/datastore/getting-started/q/platform/js/):
+
+> Amplify DataStore provides a programming model for leveraging shared and distributed data without writing additional code for offline and online scenarios, which makes working with distributed, cross-user data just as simple as working with local-only data.
+
+## useDataStoreCollection
+
+Retrieve multiple items from a DataStore model. Also provides loading & error states.
+
+```jsx
+import {
+  Collection,
+  Text,
+  useDataStoreCollection,
+} from '@aws-amplify/ui-react';
+
+import { Post } from './models';
+
+const PostList = () => {
+  const { items, isLoading, error } = useDataStoreCollection({
+    // Model to query against (required)
+    model: Post,
+
+    // Use a predicate to filter results (optional)
+    criteria: (c) => c.rating('gt', 4),
+
+    // Extra options to customize pagination & sort (optional)
+    pagination: {
+      page: 3,
+      limit: 100,
+      sort: (s) => s.rating(SortDirection.ASCENDING),
+    },
+  });
+
+  return (
+    <Collection type="list" items={items}>
+      {(item) => <Text>{item.title}</Text>}
+    </Collection>
+  );
+};
+```
+
+## useDataStoreItem
+
+Fetch a single item from a DataStore model
+
+```jsx
+import { Heading, useDataStoreItem } from '@aws-amplify/ui-react';
+import { Post } from './models';
+
+const PostView = ({ postId }) => {
+  const { item, isLoading, error } = useDataStoreItem({
+    // Model to query against (required)
+    model: Post,
+
+    // Use provided postId as Post id
+    id: postId,
+  });
+
+  if (item) {
+    return <Heading level={1}>{post.title}</Heading>;
+  }
+
+  return null;
+};
+```
+
+## useDataStoreBinding
+
+A generic utility to fetch one or multiple items from a DataStore model. Depending on `type`, will invoke `useDataStoreItem` or `useDataStoreCollection`.
+
+```jsx
+// Fetch a DataStore item
+const { item } = useDataStoreBinding({
+  type: 'record',
+  model: Post,
+  id: postId,
+});
+
+// Fetch a DataStore collection
+const { items } = useDataStoreBinding({
+  type: 'collection',
+  model: Post,
+});
+```
