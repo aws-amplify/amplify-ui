@@ -11,7 +11,6 @@ import { Button, Flex, Form, Heading, PasswordField, Text } from '../../..';
 
 export const ForceNewPassword = (): JSX.Element => {
   const {
-    _send,
     _state,
     error,
     isPending,
@@ -19,7 +18,6 @@ export const ForceNewPassword = (): JSX.Element => {
     submitForm,
     updateForm,
   } = useAuthenticator();
-  const actorState: SignInState = getActorState(_state);
   const { validationError } = getActorContext(_state) as SignInContext;
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
