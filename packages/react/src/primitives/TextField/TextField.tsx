@@ -39,6 +39,7 @@ export const TextField: Primitive<TextFieldProps, 'input' | 'textarea'> = (
     outerStartComponent,
     innerStartComponent,
     innerEndComponent,
+    isMultiline, // remove from rest to prevent passing as DOM attribute
     resize,
     rows = DEFAULT_ROW_COUNT,
     size,
