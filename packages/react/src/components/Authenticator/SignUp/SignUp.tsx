@@ -1,8 +1,6 @@
 import {
   getActorContext,
-  getActorState,
   SignUpContext,
-  SignUpState,
   UserNameAlias,
   userNameAliasArray,
 } from '@aws-amplify/ui';
@@ -18,9 +16,7 @@ import {
 } from '../shared';
 
 export function SignUp() {
-  const { _state, _send } = useAuthenticator();
-  const actorState: SignUpState = getActorState(_state);
-  const isPending = actorState.matches('signUp.pending');
+  const { _state, isPending, submitForm, updateForm } = useAuthenticator();
   const { validationError } = getActorContext(_state) as SignUpContext;
 
   const [primaryAlias, ...secondaryAliases] =
@@ -40,10 +36,12 @@ export function SignUp() {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    _send({
-      type: 'CHANGE',
-      data: { name, value },
-    });
+    updateForm({ name, value });
+  };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    submitForm();
   };
 
   const passwordLabel = I18n.get('Password');
@@ -54,18 +52,8 @@ export function SignUp() {
     <Form
       data-amplify-authenticator-signup=""
       method="post"
-      onSubmit={(event) => {
-        event.preventDefault();
-
-        const formData = new FormData(event.target);
-
-        _send({
-          type: 'SUBMIT',
-          // @ts-ignore Property 'fromEntries' does not exist on type 'ObjectConstructor'. Do you need to change your target library? Try changing the `lib` compiler option to 'es2019' or later.ts(2550)
-          data: Object.fromEntries(formData),
-        });
-      }}
       onChange={handleChange}
+      onSubmit={handleSubmit}
     >
       <Flex direction="column">
         <Heading level={3}>{I18n.get('Create a new account')}</Heading>

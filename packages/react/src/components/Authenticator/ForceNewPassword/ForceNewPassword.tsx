@@ -20,15 +20,17 @@ export const ForceNewPassword = (): JSX.Element => {
     updateForm({ name, value });
   };
 
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    submitForm();
+  };
+
   return (
     <Form
       data-amplify-authenticator-forcenewpassword=""
       method="post"
       onChange={handleChange}
-      onSubmit={(event) => {
-        event.preventDefault();
-        submitForm();
-      }}
+      onSubmit={handleSubmit}
     >
       <Flex direction="column">
         <Heading level={3}>{I18n.get('Change Password')}</Heading>
