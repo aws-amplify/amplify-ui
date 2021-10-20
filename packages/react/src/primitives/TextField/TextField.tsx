@@ -17,7 +17,7 @@ const isMultilineField = (
   return props.isMultiline;
 };
 
-export const DEFAULT_ROW_COUNT = 4;
+export const DEFAULT_ROW_COUNT = 3;
 
 export const TextField: Primitive<TextFieldProps, 'input' | 'textarea'> = (
   props: TextFieldProps

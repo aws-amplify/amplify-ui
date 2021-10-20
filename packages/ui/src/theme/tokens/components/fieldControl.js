@@ -38,7 +38,6 @@ module.exports = {
     paddingInlineEnd: {
       value: '{space.small.value}',
     },
-    lineHeight: { value: '{lineHeights.small.value}' },
   },
   large: {
     fontSize: { value: '{components.field.large.fontSize.value}' },
@@ -54,7 +53,6 @@ module.exports = {
     paddingInlineEnd: {
       value: '{space.medium.value}',
     },
-    lineHeight: { value: '{lineHeights.small.value}' },
   },
 
   quiet: {
