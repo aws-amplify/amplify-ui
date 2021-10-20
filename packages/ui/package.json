@@ -26,6 +26,12 @@
     "test": "jest"
   },
   "dependencies": {
+    "@tensorflow-models/blazeface": "^0.0.7",
+    "@tensorflow/tfjs-backend-cpu": "^3.9.0",
+    "@tensorflow/tfjs-backend-wasm": "^3.9.0",
+    "@tensorflow/tfjs-backend-webgl": "^3.9.0",
+    "@tensorflow/tfjs-converter": "^3.9.0",
+    "@tensorflow/tfjs-core": "^3.9.0",
     "lodash": "^4.17.21",
     "xstate": "^4.20.1"
   },

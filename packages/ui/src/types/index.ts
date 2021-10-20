@@ -1,5 +1,7 @@
 export * from './authMachine';
 export * from './validator';
+export * from './faceDetection';
+export * from './liveness';
 
 // Prevents usage of T from being automatically inferred.
 // https://github.com/Microsoft/TypeScript/issues/14829#issuecomment-504042546
