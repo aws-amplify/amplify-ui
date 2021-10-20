@@ -1,23 +1,20 @@
 import classNames from 'classnames';
-import React from 'react';
 
-import { View } from '../View';
 import { ComponentClassNames } from '../shared/constants';
-import { VisuallyHiddenProps } from '../types/visuallyHidden';
+import { Primitive, VisuallyHiddenProps } from '../types';
+import { View } from '../View';
 
-export const VisuallyHidden: React.FC<VisuallyHiddenProps> = ({
+export const VisuallyHidden: Primitive<VisuallyHiddenProps, 'span'> = ({
   as = 'span',
   children,
   className,
   ...rest
-}) => {
-  return (
-    <View
-      as={as}
-      className={classNames(ComponentClassNames.VisuallyHidden, className)}
-      {...rest}
-    >
-      {children}
-    </View>
-  );
-};
+}) => (
+  <View
+    as={as}
+    className={classNames(ComponentClassNames.VisuallyHidden, className)}
+    {...rest}
+  >
+    {children}
+  </View>
+);

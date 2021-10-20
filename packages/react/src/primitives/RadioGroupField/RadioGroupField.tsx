@@ -1,15 +1,15 @@
 import classNames from 'classnames';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 
 import { RadioGroupContext, RadioGroupContextType } from './context';
 import { FieldErrorMessage, FieldDescription } from '../Field';
 import { Flex } from '../Flex';
 import { Label } from '../Label';
-import { RadioGroupFieldProps } from '../types';
+import { RadioGroupFieldProps, Primitive } from '../types';
 import { ComponentClassNames } from '../shared/constants';
 import { useStableId } from '../shared/utils';
 
-export const RadioGroupField: React.FC<RadioGroupFieldProps> = ({
+export const RadioGroupField: Primitive<RadioGroupFieldProps, typeof Flex> = ({
   alignContent,
   alignItems,
   children,
@@ -59,6 +59,7 @@ export const RadioGroupField: React.FC<RadioGroupFieldProps> = ({
       value,
     ]
   );
+
   return (
     <Flex
       alignContent={alignContent}

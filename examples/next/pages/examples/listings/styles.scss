@@ -115,6 +115,7 @@ input[type='search'] {
   border-style: solid;
   padding: var(--amplify-space-small) var(--amplify-space-large);
   width: 30rem;
+  background-color: var(--amplify-colors-background-primary);
   
   &:focus {
     outline: none;

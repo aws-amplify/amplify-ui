@@ -12,6 +12,7 @@
             name="form"
             :info="slotData"
             :onSignInSubmit="onSignInSubmit"
+            :onInput="onInput"
             :onCreateAccountClicked="onCreateAccountClicked"
             :onForgotPasswordClicked="onForgotPasswordClicked"
           >
@@ -48,6 +49,7 @@
                 name="password"
                 :label="passwordLabel"
                 autocomplete="current-password"
+                :ariainvalid="false"
               />
             </base-wrapper>
             <slot
@@ -56,6 +58,9 @@
               :onCreateAccountClicked="onCreateAccountClicked"
             ></slot>
           </base-field-set>
+          <base-alert v-if="actorState.context.remoteError">
+            {{ actorState.context.remoteError }}
+          </base-alert>
 
           <base-button
             :disabled="actorState.matches('signIn.submit')"
@@ -94,10 +99,6 @@
               {{ forgotYourPasswordLink }}
             </base-button>
           </slot>
-
-          <base-box data-ui-error v-if="actorState.context.remoteError">
-            {{ actorState.context.remoteError }}
-          </base-box>
         </base-wrapper>
         <base-footer>
           <template #footert="{ slotData }">

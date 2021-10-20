@@ -16,7 +16,7 @@ import { getValueAtCurrentBreakpoint } from './responsive/utils';
 import { useBreakpoint } from './responsive/useBreakpoint';
 import { Breakpoint, Breakpoints } from '../types/responsive';
 
-import { useTheming } from '../../theming';
+import { useTheme } from '../../hooks';
 import { isNullOrEmptyString } from './utils';
 
 /**
@@ -47,14 +47,12 @@ export const useTransformStyleProps = (props: ViewProps): ViewProps => {
 
 export const usePropStyles = (props: ViewProps, style: React.CSSProperties) => {
   const {
-    theme: {
-      breakpoints: {
-        values: breakpoints,
-        unit: breakpointUnit,
-        defaultBreakpoint,
-      },
+    breakpoints: {
+      values: breakpoints,
+      unit: breakpointUnit,
+      defaultBreakpoint,
     },
-  } = useTheming();
+  } = useTheme();
 
   const breakpoint = useBreakpoint({
     breakpoints,
@@ -74,7 +72,7 @@ export const usePropStyles = (props: ViewProps, style: React.CSSProperties) => {
           breakpoints,
         })
       ),
-    [props, style, breakpoints, breakpoint]
+    [propStyles, style, breakpoints, breakpoint]
   );
 };
 

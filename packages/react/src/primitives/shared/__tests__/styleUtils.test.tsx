@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react-hooks';
 
-import { theme } from '@aws-amplify/ui';
+import { defaultTheme } from '@aws-amplify/ui';
 
 import {
   convertGridSpan,
@@ -35,7 +35,7 @@ const props: ViewProps = {
   className: 'my-section',
 };
 
-let breakpoints = theme.breakpoints.values;
+let breakpoints = defaultTheme.breakpoints.values;
 
 const defaultStylePropsParams = {
   breakpoint: 'base' as Breakpoint,
@@ -142,7 +142,8 @@ describe('useNonStyleProps: ', () => {
 
   it('should return a copy of the original object if all non style props are passed in', () => {
     const noStyleProps: ViewProps = {
-      ['data-variation']: 'primary',
+      // @ts-ignore next-line
+      'data-variation': 'primary',
       ariaLabel: props.ariaLabel,
       as: props.as,
     };
