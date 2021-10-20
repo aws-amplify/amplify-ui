@@ -3,7 +3,7 @@ import { Property } from 'csstype';
 import { FlexItemStyleProps, FlexContainerStyleProps } from './flex';
 import { GridItemStyleProps, GridContainerStyleProps } from './grid';
 import { ImageStyleProps } from './image';
-import { TextareaStyleProps } from './textArea';
+import { TextAreaStyleProps } from './textArea';
 
 export interface ResponsiveObject<PropertyType> {
   base?: PropertyType;
@@ -86,7 +86,7 @@ export interface AllStyleProps
     ImageStyleProps,
     FlexContainerStyleProps,
     GridContainerStyleProps,
-    TextareaStyleProps {}
+    TextAreaStyleProps {}
 
 export type ComponentPropToStyleProp = {
   [key in keyof AllStyleProps]: keyof React.CSSProperties;

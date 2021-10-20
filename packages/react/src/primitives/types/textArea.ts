@@ -5,11 +5,11 @@ import { Sizes } from './base';
 import { FieldVariations } from './field';
 import { ViewProps } from './view';
 
-export interface TextareaStyleProps {
+export interface TextAreaStyleProps {
   resize?: Property.Resize;
 }
 
-export interface TextareaProps extends TextareaStyleProps, ViewProps {
+export interface TextAreaProps extends TextAreaStyleProps, ViewProps {
   /**
    * Specifies permissions for browser UA to autocomplete field
    * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete
