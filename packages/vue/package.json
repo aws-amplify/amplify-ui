@@ -22,6 +22,7 @@
     "build": "vue-tsc --noEmit && vite build",
     "dev": "vite build --watch",
     "clean": "rimraf dist",
+    "lint": "echo No linting enabled for @aws-amplify/ui-vue",
     "test": "yarn test:unit",
     "test:watch": "yarn test:unit:watch",
     "test:unit": "jest",

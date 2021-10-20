@@ -29,6 +29,7 @@
     "clean": "rimraf dist",
     "clean:icons": "rimraf ./src/primitives/Icon/icons",
     "primitives:new": "hygen primitives new",
+    "lint": "tsc --noEmit",
     "test": "yarn test:unit",
     "test:watch": "yarn test:unit:watch",
     "test:unit": "jest",
