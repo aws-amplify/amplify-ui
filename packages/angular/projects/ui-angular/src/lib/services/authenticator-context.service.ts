@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CustomComponents, PropContext } from '../common';
+import { CustomComponents, PropContext } from '@/common';
 
 @Injectable({
   providedIn: 'root',

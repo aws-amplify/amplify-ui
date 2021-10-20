@@ -15,9 +15,9 @@ import {
   translate,
 } from '@aws-amplify/ui';
 import { Subscription } from 'xstate';
-import { StateMachineService } from '../../../../services/state-machine.service';
-import { AuthPropService } from '../../../../services/authenticator-context.service';
-import { getAttributeMap } from '../../../../common';
+import { StateMachineService } from '@/services/state-machine.service';
+import { AuthPropService } from '@/services/authenticator-context.service';
+import { getAttributeMap } from '@/common';
 import { nanoid } from 'nanoid';
 @Component({
   selector: 'amplify-verify-user',

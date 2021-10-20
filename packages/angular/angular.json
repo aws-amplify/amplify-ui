@@ -12,12 +12,12 @@
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "tsConfig": "projects/ui-angular/tsconfig.lib.json",
+            "tsConfig": "projects/ui-angular/tsconfig.json",
             "project": "projects/ui-angular/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/ui-angular/tsconfig.lib.prod.json"
+              "tsConfig": "projects/ui-angular/tsconfig.prod.json"
             }
           }
         },
@@ -33,7 +33,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/ui-angular/tsconfig.lib.json",
+              "projects/ui-angular/tsconfig.json",
               "projects/ui-angular/tsconfig.spec.json"
             ],
             "exclude": ["**/node_modules/**"]

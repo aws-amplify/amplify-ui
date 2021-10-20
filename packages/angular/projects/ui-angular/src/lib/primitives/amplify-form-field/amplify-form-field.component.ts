@@ -7,8 +7,8 @@ import {
   countryDialCodes,
 } from '@aws-amplify/ui';
 import { nanoid } from 'nanoid';
-import { getAttributeMap } from '../../common';
-import { StateMachineService } from '../../services/state-machine.service';
+import { getAttributeMap } from '@/common';
+import { StateMachineService } from '@/services/state-machine.service';
 
 /**
  * Input interface opinionated for authenticator usage.

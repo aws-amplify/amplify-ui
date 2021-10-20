@@ -15,10 +15,10 @@ import {
   translations,
 } from '@aws-amplify/ui';
 import { I18n } from 'aws-amplify';
-import { CustomComponents } from '../../../../common';
-import { AmplifySlotDirective } from '../../../../directives/amplify-slot.directive';
-import { AuthPropService } from '../../../../services/authenticator-context.service';
-import { StateMachineService } from '../../../../services/state-machine.service';
+import { CustomComponents } from '@/common';
+import { AmplifySlotDirective } from '@/directives/amplify-slot.directive';
+import { AuthPropService } from '@/services/authenticator-context.service';
+import { StateMachineService } from '@/services/state-machine.service';
 
 @Component({
   selector: 'amplify-authenticator',

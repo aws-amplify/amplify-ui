@@ -14,8 +14,8 @@ import {
   translate,
 } from '@aws-amplify/ui';
 import { Subscription } from 'xstate';
-import { AuthPropService } from '../../../../services/authenticator-context.service';
-import { StateMachineService } from '../../../../services/state-machine.service';
+import { AuthPropService } from '@/services/authenticator-context.service';
+import { StateMachineService } from '@/services/state-machine.service';
 
 @Component({
   selector: 'amplify-confirm-verify-user',

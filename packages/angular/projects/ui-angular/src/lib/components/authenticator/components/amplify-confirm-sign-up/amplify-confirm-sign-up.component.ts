@@ -7,8 +7,8 @@ import {
   SignUpState,
 } from '@aws-amplify/ui';
 import { Subscription } from 'xstate';
-import { StateMachineService } from '../../../../services/state-machine.service';
-import { AuthPropService } from '../../../../services/authenticator-context.service';
+import { StateMachineService } from '@/services/state-machine.service';
+import { AuthPropService } from '@/services/authenticator-context.service';
 import { translate } from '@aws-amplify/ui';
 @Component({
   selector: 'amplify-confirm-sign-up',
