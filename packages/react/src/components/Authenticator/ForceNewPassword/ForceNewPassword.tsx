@@ -1,9 +1,4 @@
-import {
-  getActorContext,
-  getActorState,
-  SignInContext,
-  SignInState,
-} from '@aws-amplify/ui';
+import { getActorContext, SignInContext } from '@aws-amplify/ui';
 import { I18n } from 'aws-amplify';
 
 import { useAuthenticator } from '..';
