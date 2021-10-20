@@ -62,11 +62,6 @@ import { AmplifySlotDirective } from '../../directives/amplify-slot.directive';
     TabsComponent,
   ],
   imports: [CommonModule, BrowserModule],
-  exports: [
-    AmplifyAuthenticatorComponent,
-    AmplifyFormFieldComponent,
-    AmplifyErrorComponent,
-    AmplifySlotDirective,
-  ],
+  exports: [AmplifyAuthenticatorComponent, AmplifySlotDirective],
 })
 export class AmplifyAuthenticatorModule {}
