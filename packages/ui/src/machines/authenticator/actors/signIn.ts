@@ -433,17 +433,16 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
         return result;
       },
       async verifyUser(context, event) {
-        const result = await Auth.verifyCurrentUserAttribute(
-          event.data.unverifiedAttr
-        );
+        const { unverifiedAttr } = context.formValues;
+        const result = await Auth.verifyCurrentUserAttribute(unverifiedAttr);
 
-        context.attributeToVerify = event.data.unverifiedAttr;
+        context.attributeToVerify = unverifiedAttr;
 
         return result;
       },
       async confirmVerifyUser(context, event) {
         const { attributeToVerify } = context;
-        const { confirmation_code: code } = event.data;
+        const { confirmation_code: code } = context.formValues;
 
         const result = await Auth.verifyCurrentUserAttributeSubmit(
           attributeToVerify,
