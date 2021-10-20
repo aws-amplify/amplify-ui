@@ -12,15 +12,17 @@
     "./styles.css": "./dist/index.css"
   },
   "types": "dist/index.d.ts",
+  "license": "Apache-2.0",
   "files": [
     "dist",
-    "legacy"
+    "legacy",
+    "LICENSE"
   ],
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "yarn run build:ts && yarn run build:catalog",
     "build:ts": "tsup --minify --keep-names",
-    "build:catalog": "ts-node --project tsconfig.node.json scripts/generatePrimitivesCatalog.ts",
+    "build:catalog": "ts-node scripts/generatePrimitivesCatalog.ts",
     "dev": "tsup --watch src",
     "update:icons": "node scripts/updateIcons.js",
     "build:icons": "yarn run clean:icons && node scripts/generateIcons.js",

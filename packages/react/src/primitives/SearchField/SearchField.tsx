@@ -6,7 +6,7 @@ import { TextField } from '../TextField';
 import { FieldClearButton } from '../Field';
 import { SearchFieldButton } from './SearchFieldButton';
 import { strHasLength } from '../shared/utils';
-import { SearchFieldProps, InputProps, ButtonProps } from '../types';
+import { SearchFieldProps, InputProps, Primitive } from '../types';
 
 const ESCAPE_KEY = 'Escape';
 const ENTER_KEY = 'Enter';
@@ -43,14 +43,14 @@ export const useSearchField = (onSubmit: SearchFieldProps['onSubmit']) => {
     [value, clearValue, onSubmitHandler]
   );
 
-  const onInput: InputProps['onInput'] = React.useCallback(
+  const onInput = React.useCallback(
     (event) => {
       setValue(event.target.value);
     },
     [setValue]
   );
 
-  const onClick: ButtonProps['onClick'] = React.useCallback(() => {
+  const onClick = React.useCallback(() => {
     onSubmitHandler(value);
   }, [onSubmitHandler, value]);
 
@@ -63,7 +63,7 @@ export const useSearchField = (onSubmit: SearchFieldProps['onSubmit']) => {
   };
 };
 
-export const SearchField: React.FC<SearchFieldProps> = ({
+export const SearchField: Primitive<SearchFieldProps, 'input'> = ({
   autoComplete = 'off',
   className,
   labelHidden = true,

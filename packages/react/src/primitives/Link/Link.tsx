@@ -1,11 +1,10 @@
-import React from 'react';
 import classNames from 'classnames';
 
 import { ComponentClassNames } from '../shared';
-import { LinkProps } from '../types';
+import { LinkProps, Primitive } from '../types';
 import { View } from '../View';
 
-export const Link: React.FC<LinkProps> = ({
+export const Link: Primitive<LinkProps, 'a'> = ({
   as = 'a',
   children,
   className,

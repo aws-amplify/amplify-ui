@@ -3,7 +3,7 @@ module.exports = {
     opacity: { value: '{opacities.30.value}' },
   },
   focused: {
-    shadow: { value: '{shadows.switch.value}' },
+    shadow: { value: '{shadows.small.value}' },
   },
   label: {
     padding: { value: '{space.xs.value}' },

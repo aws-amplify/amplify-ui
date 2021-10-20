@@ -52,6 +52,9 @@
                 name="password"
                 :label="newPasswordLabel"
                 autocomplete="current-password"
+                :ariainvalid="
+                  !!actorContext.validationError['confirm_password']
+                "
               />
             </base-wrapper>
             <base-wrapper
@@ -67,6 +70,9 @@
                 name="confirm_password"
                 :label="confirmPasswordLabel"
                 autocomplete="new-password"
+                :ariainvalid="
+                  !!actorContext.validationError['confirm_password']
+                "
               />
             </base-wrapper>
           </base-wrapper>
@@ -79,6 +85,9 @@
               >
               </slot>
             </template>
+            <base-alert v-if="actorState?.context?.remoteError">
+              {{ actorState?.context?.remoteError }}
+            </base-alert>
             <base-button
               class="amplify-button amplify-field-group__control"
               data-fullwidth="false"
@@ -104,9 +113,6 @@
       </base-form>
     </base-wrapper>
 
-    <base-box data-ui-error v-if="actorState?.context?.remoteError">
-      {{ actorState?.context?.remoteError }}
-    </base-box>
     <base-box
       data-ui-error
       v-if="!!actorContext.validationError['confirm_password']"

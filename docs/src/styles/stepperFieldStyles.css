@@ -1,0 +1,17 @@
+.global-styling-example .amplify-stepperfield__input {
+  border-color: var(--amplify-colors-purple-80);
+}
+
+.custom-button .amplify-stepperfield__button--decrease {
+  color: var(--amplify-colors-white);
+  background-color: var(--amplify-colors-purple-80);
+}
+
+.custom-button .amplify-stepperfield__button--increase {
+  color: var(--amplify-colors-white);
+  background-color: var(--amplify-colors-purple-80);
+}
+
+.amplify-stepperfield.data-attribute-large-size {
+  width: 50%;
+}

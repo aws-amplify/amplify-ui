@@ -1,5 +1,4 @@
 import classNames from 'classnames';
-import React from 'react';
 
 import { useCheckbox } from './useCheckbox';
 import { Flex } from '../Flex';
@@ -8,10 +7,11 @@ import { Input } from '../Input';
 import { Text } from '../Text';
 import { VisuallyHidden } from '../VisuallyHidden';
 import { CheckboxProps } from '../types/checkbox';
+import { Primitive } from '../types/view';
 import { ComponentClassNames } from '../shared/constants';
 import { useTestId } from '../utils/testUtils';
 
-export const Checkbox: React.FC<CheckboxProps> = ({
+export const Checkbox: Primitive<CheckboxProps, typeof Flex> = ({
   alignContent,
   alignItems,
   backgroundColor,

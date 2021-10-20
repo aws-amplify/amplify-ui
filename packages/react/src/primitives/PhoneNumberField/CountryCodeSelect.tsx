@@ -1,11 +1,15 @@
 import { useMemo } from 'react';
+import classNames from 'classnames';
 import { countryDialCodes } from '@aws-amplify/ui';
 
 import { SelectField } from '../SelectField';
 import { ComponentClassNames } from '../shared/constants';
-import { CountryCodeSelectProps } from '../types';
+import { CountryCodeSelectProps, Primitive } from '../types';
 
-export const CountryCodeSelect: React.FC<CountryCodeSelectProps> = (props) => {
+export const CountryCodeSelect: Primitive<CountryCodeSelectProps, 'select'> = ({
+  className,
+  ...props
+}) => {
   const countryCodeOptions = useMemo(
     () =>
       countryDialCodes.map((dialCode) => (
@@ -19,7 +23,7 @@ export const CountryCodeSelect: React.FC<CountryCodeSelectProps> = (props) => {
   return (
     <SelectField
       autoComplete="tel-country-code"
-      className={ComponentClassNames.CountryCodeSelect}
+      className={classNames(ComponentClassNames.CountryCodeSelect, className)}
       labelHidden={true}
       {...props}
     >

@@ -39,22 +39,19 @@ Bug fixes to the existing stable release of the ui packages will happen on the [
 ### React
 
 ```js
-import { Authenticator, useAuth, Button, Heading } from '@aws-amplify/ui-react';
+import { Amplify } from 'aws-amplify';
+
+import { withAuthenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
-export default function App() {
-  const { state, user, signOut } = useAuth();
+import awsExports from './aws-exports';
+Amplify.configure(awsExports);
 
-  if (state !== 'authenticated') {
-    return <Authenticator />;
-  }
-
+function App({ signOut, user }) {
   return (
     <>
-      <Heading level={1}>Welcome {user.username}!</Heading>
-      <Button variation="primary" onClick={signOut}>
-        Sign Out
-      </Button>
+      <h1>Hello {user.username}</h1>
+      <button onClick={signOut}>Sign out</button>
     </>
   );
 }

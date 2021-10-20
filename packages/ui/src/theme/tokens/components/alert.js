@@ -1,7 +1,8 @@
 module.exports = {
   // Default styles
   backgroundColor: { value: '{colors.background.tertiary.value}' },
-  padding: { value: ['{space.small.value}', '{space.medium.value}'] },
+  paddingVertical: { value: '{space.small.value}' },
+  paddingHorizontal: { value: '{space.medium.value}' },
 
   // Variations
   info: {

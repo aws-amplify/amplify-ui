@@ -1,20 +1,17 @@
 import classNames from 'classnames';
-import * as React from 'react';
 
 import { ComponentClassNames } from '../shared/constants';
-import { LabelProps } from '../types';
+import { LabelProps, Primitive } from '../types';
 import { View } from '../View';
 
-export const Label: React.FC<LabelProps> = ({
+export const Label: Primitive<LabelProps, 'label'> = ({
   children,
-  htmlFor,
   visuallyHidden,
   ...rest
 }) => {
   return (
     <View
       as="label"
-      htmlFor={htmlFor}
       className={classNames(ComponentClassNames.Label, {
         'sr-only': visuallyHidden,
       })}
