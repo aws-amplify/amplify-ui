@@ -35,7 +35,7 @@ export function SignIn() {
             data-amplify-password
             className="password-field"
             placeholder={I18n.get('Password')}
-            required
+            isRequired={true}
             name="password"
             label={I18n.get('Password')}
             autoComplete="current-password"

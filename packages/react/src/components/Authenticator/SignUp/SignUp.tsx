@@ -79,7 +79,7 @@ export function SignUp() {
             data-amplify-password
             className={passwordFieldClass}
             placeholder={passwordLabel}
-            required
+            isRequired={true}
             name="password"
             label={passwordLabel}
             labelHidden={true}
@@ -90,7 +90,7 @@ export function SignUp() {
             data-amplify-confirmpassword
             className={passwordFieldClass}
             placeholder={confirmPasswordLabel}
-            required
+            isRequired={true}
             name="confirm_password"
             label={confirmPasswordLabel}
             labelHidden={true}

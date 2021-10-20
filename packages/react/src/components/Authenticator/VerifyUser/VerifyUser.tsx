@@ -64,7 +64,7 @@ export const VerifyUser = (): JSX.Element => {
       label={I18n.get('Verify Contact')}
       labelHidden={true}
       name="verify_context"
-      disabled={isPending}
+      isDisabled={isPending}
     >
       {generateRadioGroup(context.unverifiedAttributes)}
     </RadioGroupField>

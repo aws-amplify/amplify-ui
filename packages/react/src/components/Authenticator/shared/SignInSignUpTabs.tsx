@@ -1,7 +1,7 @@
 import { I18n } from 'aws-amplify';
 
 import { useAuthenticator } from '..';
-import { TabItem, Tabs } from '../../../primitives';
+import { TabItem, Tabs } from '../../..';
 import { SignIn } from '../SignIn';
 import { SignUp } from '../SignUp';
 

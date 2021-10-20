@@ -1,0 +1,389 @@
+import { Flex, StepperField } from '@aws-amplify/ui-react';
+
+import { StepperFieldDemo } from './demo';
+import { ControlledStepperField } from './examples';
+import { Example } from '@/components/Example';
+import { Fragment } from '@/components/Fragment';
+
+A StepperField allows to increase or decrease a numeric value
+
+## Demo
+
+<StepperFieldDemo />
+
+## Usage
+
+Import StepperField and styles. You could edit the stepping value directly but it will be validated and rounded to a valid one when the field loses focus.
+
+```jsx
+import { StepperField } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<StepperField
+  label="Stepper"
+  defaultValue={0}
+  min={0}
+  max={10}
+  step={1}
+  labelHidden
+/>;
+```
+
+<Example>
+  <StepperField
+    label="Stepper"
+    defaultValue={0}
+    min={0}
+    max={10}
+    step={1}
+    labelHidden
+  />
+</Example>
+
+### Controlled component
+
+```jsx
+import * as React from 'react';
+import { StepperField } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+const ControlledStepperField = () => {
+  const [value, setValue] = React.useState(0);
+
+  return (
+    <StepperField
+      label="Controlled stepper"
+      min={0}
+      max={10}
+      step={1}
+      value={value}
+      onStepChange={(value) => setValue(value)}
+      labelHidden
+    />
+  );
+};
+
+<ControlledStepperField />;
+```
+
+<Example>
+  <ControlledStepperField />
+</Example>
+
+### Accessibility / Label behavior
+
+<Fragment>{() => import('./../shared/formFieldAccessibility.mdx')}</Fragment>
+
+```jsx
+import { StepperField } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<StepperField label="Stepper" defaultValue={0} min={0} max={10} step={1} />;
+```
+
+<Example>
+  <StepperField label="Stepper" defaultValue={0} min={0} max={10} step={1} />
+</Example>
+
+### Sizes
+
+Use the `size` prop to change the StepperField size. Available options are `small`, `large`, and none (default).
+
+```jsx
+import { StepperField } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<StepperField
+  label="Stepper"
+  defaultValue={0}
+  min={0}
+  max={10}
+  step={1}
+  size="small"
+  labelHidden
+/>
+<StepperField
+  label="Stepper"
+  defaultValue={0}
+  min={0}
+  max={10}
+  step={1}
+  labelHidden
+/>
+<StepperField
+  label="Stepper"
+  defaultValue={0}
+  min={0}
+  max={10}
+  step={1}
+  size="large"
+  labelHidden
+/>
+```
+
+<Example>
+  <Flex direction="column">
+    <StepperField
+      label="Stepper"
+      defaultValue={0}
+      min={0}
+      max={10}
+      step={1}
+      size="small"
+      labelHidden
+    />
+    <StepperField
+      label="Stepper"
+      defaultValue={0}
+      min={0}
+      max={10}
+      step={1}
+      labelHidden
+    />
+    <StepperField
+      label="Stepper"
+      defaultValue={0}
+      min={0}
+      max={10}
+      step={1}
+      size="large"
+      labelHidden
+    />
+  </Flex>
+</Example>
+
+### State
+
+The available StepperField states include `isDisabled` and `isReadonly`. A disabled field will be not be focusable not mutable and will not be submitted with form data. A readonly field cannot be edited by the user.
+
+#### Disabled StepperField
+
+```jsx
+import { StepperField } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<StepperField
+  label="Stepper"
+  defaultValue={0}
+  min={0}
+  max={10}
+  step={1}
+  labelHidden
+  isDisabled
+/>;
+```
+
+<Example>
+  <StepperField
+    label="Stepper"
+    defaultValue={0}
+    min={0}
+    max={10}
+    step={1}
+    labelHidden
+    isDisabled
+  />
+</Example>
+
+#### Read-only StepperField
+
+```jsx
+import { StepperField } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<StepperField
+  label="Stepper"
+  defaultValue={5}
+  min={0}
+  max={10}
+  step={1}
+  labelHidden
+  isReadOnly
+/>;
+```
+
+<Example>
+  <StepperField
+    label="Stepper"
+    defaultValue={5}
+    min={0}
+    max={10}
+    step={1}
+    labelHidden
+    isReadOnly
+  />
+</Example>
+
+### Validation error
+
+Use the `hasError` and `errorMessage` props to mark a StepperField as having an validation error.
+
+```jsx
+import { StepperField } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<StepperField
+  label="Stepper"
+  defaultValue={0}
+  min={0}
+  max={10}
+  step={1}
+  errorMessage="The is an error message."
+  hasError
+  labelHidden
+/>;
+```
+
+<Example>
+  <StepperField
+    label="Stepper"
+    defaultValue={0}
+    min={0}
+    max={10}
+    step={1}
+    errorMessage="The is an error message."
+    hasError
+    labelHidden
+  />
+</Example>
+
+## CSS Styling
+
+### Global styling
+
+To override styling on all StepperFields, you can set the Amplify CSS variables or use the built-in `.amplify-stepperfield`, `.amplify-stepperfield__input`, `amplify-stepperfield__button--decrease` and `amplify-stepperfield__button--increase` class.
+
+```css
+/* styles.css */
+:root {
+  --amplify-components-stepperfield-input-border-color: var(
+    --amplify-colors-purple-80
+  );
+}
+/* OR */
+.amplify-stepperfield__input {
+  border-color: var(--amplify-colors-purple-80);
+}
+```
+
+<Example>
+  <StepperField
+    label="Stepper"
+    className="global-styling-example"
+    defaultValue={0}
+    min={0}
+    max={10}
+    step={1}
+    labelHidden
+  />
+</Example>
+
+To replace StepperField styling, unset it:
+
+```css
+.amplify-stepperfield {
+  all: unset;
+  /* Add your styling here*/
+}
+```
+
+### Local styling
+
+To override styling on a specific StepperField, you can use (in order of increasing specificity): a class selector, data attributes, or style props.
+
+_Using a class selector:_
+
+```css
+/* styles.css */
+.custom-button .amplify-stepperfield__button--decrease,
+.amplify-stepperfield__button--increase {
+  color: var(--amplify-colors-white);
+  background-color: var(--amplify-colors-purple-80);
+}
+```
+
+```jsx
+import { StepperField } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+import './styles.css';
+
+<StepperField
+  label="Stepper"
+  classname="custom-button"
+  defaultValue={0}
+  min={0}
+  max={10}
+  step={1}
+  labelHidden
+/>;
+```
+
+<Example>
+  <StepperField
+    label="Stepper"
+    className="custom-button"
+    defaultValue={0}
+    min={0}
+    max={10}
+    step={1}
+    labelHidden
+  />
+</Example>
+
+_Using data attributes:_
+
+```css
+/* styles.css */
+
+/* Override only large size styles */
+.amplify-stepperfield[data-size='large'] {
+  width: 50%;
+}
+```
+
+<Example>
+  <StepperField
+    label="Stepper"
+    className="data-attribute-large-size"
+    defaultValue={0}
+    min={0}
+    max={10}
+    size="large"
+    step={1}
+    labelHidden
+  />
+</Example>
+
+_Using style props:_
+
+```jsx
+import { StepperField } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<StepperField
+  label="Stepper"
+  defaultValue={0}
+  min={0}
+  max={10}
+  step={1}
+  color="var(--amplify-colors-white)"
+  border="1px solid var(--amplify-colors-teal-60)"
+  backgroundColor="var(--amplify-colors-teal-60)"
+  labelHidden
+/>;
+```
+
+<Example>
+  <StepperField
+    label="Stepper"
+    defaultValue={0}
+    min={0}
+    max={10}
+    step={1}
+    backgroundColor="var(--amplify-colors-teal-60)"
+    border="1px solid var(--amplify-colors-teal-60)"
+    color="var(--amplify-colors-white)"
+    labelHidden
+  />
+</Example>
