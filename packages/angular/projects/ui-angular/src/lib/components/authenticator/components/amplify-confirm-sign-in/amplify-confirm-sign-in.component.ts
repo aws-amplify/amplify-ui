@@ -6,41 +6,41 @@ import {
   OnInit,
   TemplateRef,
 } from '@angular/core';
+import { Logger } from 'aws-amplify';
 import { Subscription } from 'xstate';
-import QRCode from 'qrcode';
-import { Auth, Logger } from 'aws-amplify';
 import {
+  AuthChallengeNames,
   AuthMachineState,
   getActorContext,
   getActorState,
   SignInContext,
   SignInState,
 } from '@aws-amplify/ui';
-import { StateMachineService } from '../../services/state-machine.service';
-import { AuthPropService } from '../../services/authenticator-context.service';
+import { StateMachineService } from '../../../../services/state-machine.service';
+import { AuthPropService } from '../../../../services/authenticator-context.service';
 import { translate } from '@aws-amplify/ui';
 
-const logger = new Logger('SetupTotp');
+const logger = new Logger('ConfirmSignIn');
 
 @Component({
-  selector: 'amplify-setup-totp',
-  templateUrl: './amplify-setup-totp.component.html',
+  selector: 'amplify-confirm-sign-in',
+  templateUrl: './amplify-confirm-sign-in.component.html',
 })
-export class AmplifySetupTotpComponent
-  implements OnInit, AfterContentInit, OnDestroy
+export class AmplifyConfirmSignInComponent
+  implements OnInit, OnDestroy, AfterContentInit
 {
-  @HostBinding('attr.data-amplify-authenticator-setup-totp')
+  @HostBinding('attr.data-amplify-authenticator-confirmsignin') dataAttr = '';
+
   public customComponents: Record<string, TemplateRef<any>> = {};
   public remoteError = '';
   public isPending = false;
-  public headerText = translate('Setup TOTP');
-  public qrCodeSource = '';
 
   private authSubscription: Subscription;
 
   // translated texts
-  public backToSignInText = translate('Back to Sign In');
+  public headerText: string;
   public confirmText = translate('Confirm');
+  public backToSignInText = translate('Back to Sign In');
 
   constructor(
     private stateMachine: StateMachineService,
@@ -51,7 +51,7 @@ export class AmplifySetupTotpComponent
     this.authSubscription = this.stateMachine.authService.subscribe((state) => {
       this.onStateUpdate(state);
     });
-    this.generateQRCode();
+    this.setHeaderText();
   }
 
   ngAfterContentInit(): void {
@@ -62,35 +62,33 @@ export class AmplifySetupTotpComponent
     this.authSubscription.unsubscribe();
   }
 
+  public get context() {
+    const { change, signIn, submit } = this.stateMachine.services;
+    const remoteError = this.remoteError;
+    return { change, remoteError, signIn, submit };
+  }
+
+  setHeaderText(): void {
+    const state = this.stateMachine.authState;
+    const actorContext: SignInContext = getActorContext(state);
+    const { challengeName } = actorContext;
+    switch (challengeName) {
+      case AuthChallengeNames.SOFTWARE_TOKEN_MFA:
+        // TODO: this string should be centralized and translated from ui.
+        this.headerText = translate('Confirm TOTP Code');
+        break;
+      case AuthChallengeNames.SMS_MFA:
+        this.headerText = translate('Confirm SMS Code');
+        break;
+      default:
+        logger.error('Unexpected challengeName', challengeName);
+    }
+  }
+
   onStateUpdate(state: AuthMachineState): void {
     const actorState: SignInState = getActorState(state);
     this.remoteError = actorState.context.remoteError;
-    this.isPending = !actorState.matches('setupTOTP.edit');
-  }
-
-  public get context() {
-    const { change, submit } = this.stateMachine.services;
-    const remoteError = this.remoteError;
-    const user = this.stateMachine.user;
-    return { change, remoteError, submit, user };
-  }
-
-  async generateQRCode() {
-    // TODO: This should be handled in core.
-    const state = this.stateMachine.authState;
-    const actorContext: SignInContext = getActorContext(state);
-    const { user } = actorContext;
-    try {
-      const secretKey = await Auth.setupTOTP(user);
-      const issuer = 'AWSCognito';
-      const totpCode = `otpauth://totp/${issuer}:${user.username}?secret=${secretKey}&issuer=${issuer}`;
-
-      logger.info('totp code was generated:', totpCode);
-      this.qrCodeSource = await QRCode.toDataURL(totpCode);
-    } catch (err) {
-      this.remoteError = err.message ?? err;
-      logger.error(err);
-    }
+    this.isPending = !actorState.matches('confirmSignIn.edit');
   }
 
   onInput(event: Event) {
@@ -112,7 +110,7 @@ export class AmplifySetupTotpComponent
     });
   }
 
-  toSignIn(): void {
+  toSignIn() {
     this.stateMachine.send('SIGN_IN');
   }
 }

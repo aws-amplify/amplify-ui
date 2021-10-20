@@ -7,8 +7,8 @@ import {
   OnInit,
   TemplateRef,
 } from '@angular/core';
-import { StateMachineService } from '../../services/state-machine.service';
-import { AuthPropService } from '../../services/authenticator-context.service';
+import { StateMachineService } from '../../../../services/state-machine.service';
+import { AuthPropService } from '../../../../services/authenticator-context.service';
 import { isEmpty } from 'lodash';
 import { Subscription } from 'xstate';
 import {
