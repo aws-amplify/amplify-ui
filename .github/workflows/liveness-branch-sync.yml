@@ -1,0 +1,19 @@
+name: Liveness Branch Sync
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  branch-sync:
+    name: Branch Sync
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: TreTuna/sync-branches@1.4.0
+        name: Sync branches
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FROM_BRANCH: main
+          TO_BRANCH: liveness-main
