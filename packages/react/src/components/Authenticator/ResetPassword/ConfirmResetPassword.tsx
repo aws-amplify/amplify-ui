@@ -10,7 +10,7 @@ import {
 } from '../shared';
 
 export const ConfirmResetPassword = (): JSX.Element => {
-  const { _state, isPending, submitForm, updateForm } = useAuthenticator();
+  const { _state, submitForm, updateForm } = useAuthenticator();
   const { validationError } = getActorContext(_state) as ResetPasswordContext;
 
   const headerText = I18n.get('Reset your password');
@@ -68,7 +68,6 @@ export const ConfirmResetPassword = (): JSX.Element => {
         <TwoButtonSubmitFooter
           cancelButtonSendType="RESEND"
           cancelButtonText={I18n.get('Resend Code')}
-          isPending={isPending}
         />
       </Flex>
     </Form>

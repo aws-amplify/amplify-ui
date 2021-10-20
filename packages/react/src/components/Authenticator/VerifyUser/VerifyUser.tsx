@@ -97,7 +97,6 @@ export const VerifyUser = (): JSX.Element => {
         <RemoteErrorMessage />
 
         <TwoButtonSubmitFooter
-          isPending={isPending}
           cancelButtonText={I18n.get('Skip')}
           cancelButtonSendType="SKIP"
           submitButtonText={footerSubmitText}

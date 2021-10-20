@@ -163,13 +163,7 @@ export const getSendEventAliases = (send: Sender<AuthEvent>) => {
 export const getServiceFacade = ({ send, state }) => {
   const user = state.context?.user;
   const actorState = getActorState(state);
-  const {
-    signIn,
-    signUp,
-    signOut,
-    submitForm,
-    updateForm,
-  } = getSendEventAliases(send);
+  const sendEventAliases = getSendEventAliases(send);
 
   const route = (() => {
     switch (true) {
@@ -208,5 +202,9 @@ export const getServiceFacade = ({ send, state }) => {
     }
   })();
 
-  return { route, signIn, signOut, signUp, submitForm, updateForm, user };
+  return {
+    ...sendEventAliases,
+    route,
+    user,
+  };
 };

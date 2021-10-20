@@ -43,7 +43,6 @@ export const ResetPassword = (): JSX.Element => {
         <TwoButtonSubmitFooter
           cancelButtonText={I18n.get('Back to Sign In')}
           cancelButtonSendType="SIGN_IN"
-          isPending={isPending}
           submitButtonText={
             isPending ? (
               <>{I18n.get('Sending')}&hellip;</>

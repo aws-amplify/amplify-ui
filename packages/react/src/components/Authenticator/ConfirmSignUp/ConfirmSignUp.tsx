@@ -1,6 +1,7 @@
 import { I18n } from 'aws-amplify';
 
-import { Button, Flex, Form, Heading } from '../../../primitives';
+import { useAuthenticator } from '../..';
+import { Button, Flex, Form, Heading } from '../../..';
 import {
   ConfirmationCodeInput,
   ConfirmationCodeInputProps,
@@ -8,6 +9,18 @@ import {
 } from '../shared';
 
 export function ConfirmSignUp() {
+  const { isPending, resendCode, submitForm, updateForm } = useAuthenticator();
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    updateForm({ name, value });
+  };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    submitForm();
+  };
+
   const confirmationCodeInputProps: ConfirmationCodeInputProps = {
     label: I18n.get('Confirmation Code'),
     placeholder: I18n.get('Enter your code'),
@@ -18,16 +31,8 @@ export function ConfirmSignUp() {
     <Form
       data-amplify-authenticator-confirmsignup=""
       method="post"
-      onSubmit={(event) => {
-        event.preventDefault();
-
-        const formData = new FormData(event.target);
-
-        send({
-          type: 'SUBMIT',
-          data: Object.fromEntries(formData),
-        });
-      }}
+      onChange={handleChange}
+      onSubmit={handleSubmit}
     >
       <Flex direction="column">
         <Heading level={3}>{I18n.get('Confirm Sign Up')}</Heading>
@@ -50,11 +55,7 @@ export function ConfirmSignUp() {
 
           <Button
             variation="default"
-            onClick={() => {
-              send({
-                type: 'RESEND',
-              });
-            }}
+            onClick={resendCode}
             type="button"
             fontWeight="normal"
           >

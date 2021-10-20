@@ -1,7 +1,7 @@
 import { I18n } from 'aws-amplify';
 
 import { useAuthenticator } from '..';
-import { Form } from '../../..';
+import { Flex, Form, Heading } from '../../..';
 import {
   ConfirmationCodeInput,
   RemoteErrorMessage,
@@ -9,30 +9,29 @@ import {
 } from '../shared';
 
 export const ConfirmVerifyUser = (): JSX.Element => {
-  const { isPending } = useAuthenticator();
+  const { submitForm, updateForm } = useAuthenticator();
 
-  const headerText = I18n.get(
-    'Account recovery requires verified contact information'
-  );
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    updateForm({ name, value });
+  };
+
+  const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    submitForm();
+  };
 
   return (
     <Form
       data-amplify-authenticator-confirmverifyuser=""
       method="post"
-      onSubmit={(event) => {
-        event.preventDefault();
-
-        const formData = new FormData(event.target);
-
-        send({
-          type: 'SUBMIT',
-          // @ts-ignore Property 'fromEntries' does not exist on type 'ObjectConstructor'. Do you need to change your target library? Try changing the `lib` compiler option to 'es2019' or later.ts(2550)
-          data: Object.fromEntries(formData),
-        });
-      }}
+      onChange={handleChange}
+      onSubmit={handleSubmit}
     >
       <Flex direction="column">
-        <Heading level={3}>{headerText}</Heading>
+        <Heading level={3}>
+          {I18n.get('Account recovery requires verified contact information')}
+        </Heading>
 
         <Flex direction="column">
           <ConfirmationCodeInput />
@@ -41,7 +40,6 @@ export const ConfirmVerifyUser = (): JSX.Element => {
         <RemoteErrorMessage />
 
         <TwoButtonSubmitFooter
-          isPending={isPending}
           cancelButtonText={I18n.get('Skip')}
           cancelButtonSendType="SKIP"
         />
