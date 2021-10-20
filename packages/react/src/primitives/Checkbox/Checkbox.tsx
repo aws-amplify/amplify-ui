@@ -11,7 +11,7 @@ import { Primitive } from '../types/view';
 import { ComponentClassNames } from '../shared/constants';
 import { useTestId } from '../utils/testUtils';
 
-export const Checkbox: Primitive<CheckboxProps, typeof Flex> = ({
+export const Checkbox: Primitive<CheckboxProps, 'input'> = ({
   alignContent,
   alignItems,
   backgroundColor,
