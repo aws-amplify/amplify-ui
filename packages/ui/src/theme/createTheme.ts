@@ -5,8 +5,10 @@ import flattenProperties from 'style-dictionary/lib/utils/flattenProperties';
 import { baseTheme as _baseTheme } from './baseTheme';
 import { Theme, BaseTheme, BrowserTheme, Override } from './types';
 import { cssValue, cssNameTransform } from './utils';
-import { Tokens } from './tokens';
+import Tokens from './tokens';
 import { DesignToken, DesignTokenValue } from './tokens/types/designToken';
+
+type Tokens = typeof Tokens;
 
 interface SetupToken extends DesignToken {
   name: string;

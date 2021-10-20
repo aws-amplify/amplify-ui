@@ -1,8 +1,10 @@
 import { PartialDeep } from 'type-fest';
-import { Tokens } from './tokens';
+import tokens from './tokens';
 import { Breakpoints } from './breakpoints';
 
 export { DesignToken } from './tokens/types/designToken';
+
+type Tokens = typeof tokens;
 
 /**
  * An override is a set of tokens that override others
