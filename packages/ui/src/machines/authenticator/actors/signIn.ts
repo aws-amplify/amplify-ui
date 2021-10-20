@@ -396,7 +396,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
       },
       async confirmSignIn(context, event) {
         const { challengeName, user } = context;
-        const { confirmation_code: code } = event.data;
+        const { confirmation_code: code } = context.formValues;
 
         let mfaType;
         if (
@@ -416,15 +416,14 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
       },
       async verifyTotpToken(context, event) {
         const { user } = context;
-        const { confirmation_code } = event.data;
+        const { confirmation_code } = context.formValues;
 
         return Auth.verifyTotpToken(user, confirmation_code);
       },
       async federatedSignIn(_, event) {
         const { provider } = event.data;
-        const result = await Auth.federatedSignIn({ provider });
 
-        return result;
+        return await Auth.federatedSignIn({ provider });
       },
       async checkVerifiedContact(context, event) {
         const { user } = context;
@@ -442,18 +441,17 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
       },
       async confirmVerifyUser(context, event) {
         const { attributeToVerify } = context;
-        const { confirmation_code: code } = context.formValues;
+        const { confirmation_code } = context.formValues;
 
-        const result = await Auth.verifyCurrentUserAttributeSubmit(
+        return await Auth.verifyCurrentUserAttributeSubmit(
           attributeToVerify,
-          code
+          confirmation_code
         );
-
-        return result;
       },
       async validateFields(context, _event) {
         const { formValues } = context;
         const validators = [passwordMatches]; // this can contain custom validators too
+
         return runValidators(formValues, validators);
       },
     },
