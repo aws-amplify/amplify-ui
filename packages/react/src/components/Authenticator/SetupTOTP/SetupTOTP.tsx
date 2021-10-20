@@ -1,4 +1,6 @@
 import { Auth, I18n, Logger } from 'aws-amplify';
+import { getActorState, SignInState } from '@aws-amplify/ui';
+
 import QRCode from 'qrcode';
 import { useEffect, useState } from 'react';
 
@@ -15,7 +17,11 @@ const logger = new Logger('SetupTOTP-logger');
 export const SetupTOTP = (): JSX.Element => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [qrCode, setQrCode] = useState<string>();
-  const { submitForm, updateForm, user } = useAuthenticator();
+  const { _state, submitForm, updateForm } = useAuthenticator();
+
+  // `user` hasn't been set on the top-level state yet, so it's only available from the signIn actor
+  const actorState = getActorState(_state) as SignInState;
+  const { user } = actorState.context;
 
   const generateQRCode = async (user): Promise<void> => {
     try {
