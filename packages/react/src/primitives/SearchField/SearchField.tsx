@@ -26,7 +26,7 @@ export const useSearchField = (onSubmit: SearchFieldProps['onSubmit']) => {
     [onSubmit]
   );
 
-  const onKeyDown: InputProps['onKeyDown'] = React.useCallback(
+  const onKeyDown = React.useCallback(
     (event) => {
       const key = event.key;
 

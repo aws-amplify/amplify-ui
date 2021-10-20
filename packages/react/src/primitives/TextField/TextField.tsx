@@ -8,20 +8,34 @@ import { FieldGroup } from '../FieldGroup';
 import { Input } from '../Input';
 import { Label } from '../Label';
 
-import { Primitive, TextAreaFieldProps, TextFieldProps } from '../types';
+import {
+  Primitive,
+  PrimitiveProps,
+  TextAreaFieldProps,
+  TextFieldProps,
+  TextInputFieldProps,
+} from '../types';
 import { TextArea } from '../TextArea';
 
-const isMultilineField = (
+const isTextAreaField = (
   props: TextFieldProps
-): props is TextAreaFieldProps => {
+): props is React.PropsWithChildren<
+  PrimitiveProps<TextAreaFieldProps, 'textarea'>
+> => {
   return props.isMultiline;
+};
+
+const isInputField = (
+  props: TextFieldProps
+): props is React.PropsWithChildren<
+  PrimitiveProps<TextInputFieldProps, 'input'>
+> => {
+  return !props.isMultiline;
 };
 
 export const DEFAULT_ROW_COUNT = 3;
 
-export const TextField: Primitive<TextFieldProps, 'input' | 'textarea'> = (
-  props: TextFieldProps
-) => {
+export const TextField: Primitive<TextFieldProps, any> = (props) => {
   const {
     alignContent,
     alignItems,
@@ -40,8 +54,6 @@ export const TextField: Primitive<TextFieldProps, 'input' | 'textarea'> = (
     innerStartComponent,
     innerEndComponent,
     isMultiline, // remove from rest to prevent passing as DOM attribute
-    resize,
-    rows = DEFAULT_ROW_COUNT,
     size,
     testId,
     type = 'text',
@@ -50,21 +62,22 @@ export const TextField: Primitive<TextFieldProps, 'input' | 'textarea'> = (
   } = props;
 
   const fieldId = useStableId(id);
-  let control = null;
 
-  if (isMultilineField(props)) {
+  let control = null;
+  if (isTextAreaField(props)) {
     control = (
       <TextArea
         hasError={hasError}
         id={fieldId}
         maxLength={props.maxLength}
-        resize={resize}
-        rows={rows}
+        resize={props.resize}
+        rows={props.rows ?? DEFAULT_ROW_COUNT}
         size={size}
         {...rest}
       />
     );
-  } else {
+  }
+  if (isInputField(props)) {
     control = (
       <Input
         hasError={hasError}

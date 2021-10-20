@@ -112,7 +112,7 @@ There are two variation styles available: default and `quiet`.
 
 ### Multiline textarea
 
-To render a multi-line textarea, set the `isMultiline` prop to `true`.
+To render a multi-line `textarea`, set the `isMultiline` prop to `true`.
 
 ```jsx
 <TextField label="Comments" isMultiline={true} />
@@ -124,7 +124,7 @@ To render a multi-line textarea, set the `isMultiline` prop to `true`.
 
 #### Resizeable
 
-For a resizeable multiline field, use `resize` prop. See [MDN resize docs](https://developer.mozilla.org/en-US/docs/Web/CSS/resize) for supported values.
+For a resizeable multiline field, use `resize` prop. Common values are `horizontal`, `vertical`, `both`. See [MDN resize docs](https://developer.mozilla.org/en-US/docs/Web/CSS/resize) for supported values.
 
 ```jsx
 <TextField
@@ -148,25 +148,26 @@ For a resizeable multiline field, use `resize` prop. See [MDN resize docs](https
 
 #### Size
 
-To change the general size, use the `size` prop. Options available are `small`, none (default), and `large`.
+To change the general size, use the `size` prop. Available options are `small`, none (default), and `large`.
 
 ```jsx
 <TextField
   label="Small"
-  defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
   isMultiline={true}
   size="small"
-/>
-<TextField
-  label="default (equivalent to 5 lines)"
   defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+/>
+
+<TextField
+  label="Default"
   isMultiline={true}
+  defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 />
 <TextField
-  label="Large (equivalent to 7 lines)"
-  defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+  label="Large"
   isMultiline={true}
   size="large"
+  defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 />
 ```
 
@@ -224,7 +225,7 @@ To enforce a maximum length of multiline text, use the `maxLength` prop.
 <TextField
   label="Maximum length of 100 characters"
   isMultiline={true}
-  defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et"
+  defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut laboree"
   maxLength={100}
 />
 ```
@@ -233,7 +234,7 @@ To enforce a maximum length of multiline text, use the `maxLength` prop.
   <TextField
     label="Maximum length of 100 characters"
     isMultiline={true}
-    defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et"
+    defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut laboree"
     maxLength={100}
   />
 </Example>
