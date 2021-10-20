@@ -6,6 +6,7 @@ import {
   OnDestroy,
   OnInit,
   TemplateRef,
+  ViewEncapsulation,
 } from '@angular/core';
 import {
   AuthMachineState,
@@ -14,30 +15,34 @@ import {
   translate,
 } from '@aws-amplify/ui';
 import { Subscription } from 'xstate';
-import { AuthPropService } from '../../services/authenticator-context.service';
-import { StateMachineService } from '../../services/state-machine.service';
-
+import { StateMachineService } from '../../../../services/state-machine.service';
+import { AuthPropService } from '../../../../services/authenticator-context.service';
+import { getAttributeMap } from '../../../../common';
+import { nanoid } from 'nanoid';
 @Component({
-  selector: 'amplify-confirm-verify-user',
-  templateUrl: './amplify-confirm-verify-user.component.html',
+  selector: 'amplify-verify-user',
+  templateUrl: './amplify-verify-user.component.html',
+  encapsulation: ViewEncapsulation.None,
 })
-export class ConfirmVerifyUserComponent
-  implements OnInit, AfterContentInit, OnDestroy
+export class AmplifyVerifyUserComponent
+  implements AfterContentInit, OnInit, OnDestroy
 {
-  @HostBinding('attr.data-amplify-authenticator-confirmverifyuser') dataAttr =
-    '';
+  @HostBinding('attr.data-amplify-authenticator-verifyuser') dataAttr = '';
   @Input() public headerText = translate(
     'Account recovery requires verified contact information'
   );
 
   public customComponents: Record<string, TemplateRef<any>> = {};
+  public unverifiedAttributes = {};
   public remoteError = '';
   public isPending = false;
+  public labelId = nanoid(12);
+
   private authSubscription: Subscription;
 
   // translated texts
   public skipText = translate('Skip');
-  public submitText = translate('Submit');
+  public verifyText = translate('Verify');
 
   constructor(
     private stateMachine: StateMachineService,
@@ -50,28 +55,35 @@ export class ConfirmVerifyUserComponent
     );
   }
 
-  ngAfterContentInit() {
+  ngAfterContentInit(): void {
     this.customComponents = this.contextService.customComponents;
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.authSubscription.unsubscribe();
   }
 
   onStateUpdate(state: AuthMachineState): void {
     const actorState: SignInState = getActorState(state);
+    this.unverifiedAttributes = actorState.context.unverifiedAttributes;
     this.remoteError = actorState.context.remoteError;
-    this.isPending = !actorState.matches('confirmVerifyUser.edit');
+    this.isPending = !actorState.matches('verifyUser.edit');
   }
 
   public get context() {
-    const { skip, submit } = this.stateMachine.services;
+    const { change, skip, submit } = this.stateMachine.services;
     const remoteError = this.remoteError;
-    return { remoteError, skip, submit };
+    return { change, remoteError, skip, submit };
   }
 
   skipVerify(): void {
     this.stateMachine.send('SKIP');
+  }
+
+  getLabelForAttr(authAttr: string): string {
+    const attributeMap = getAttributeMap();
+    const label = attributeMap[authAttr]?.label;
+    return translate<string>(label);
   }
 
   async onSubmit(event: Event): Promise<void> {
