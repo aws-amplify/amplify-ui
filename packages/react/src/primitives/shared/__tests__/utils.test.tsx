@@ -1,4 +1,9 @@
-import { getConsecutiveIntArray, strHasLength } from '../utils';
+import {
+  getConsecutiveIntArray,
+  getOverridesFromVariants,
+  strHasLength,
+  VariantValues,
+} from '../utils';
 import { ViewProps } from '../../types';
 
 const props: ViewProps = {
@@ -51,5 +56,93 @@ describe('strHasLength: ', () => {
 
   it('should return true for strings with a length', () => {
     expect(strHasLength('some string')).toBe(true);
+  });
+});
+
+describe('getOverridesFromVariants', () => {
+  const variants = [
+    {
+      variantValues: {
+        variant: 'primary',
+      },
+      overrides: {
+        Button: {
+          fontSize: '12px',
+        },
+      },
+    },
+    {
+      variantValues: {
+        variant: 'secondary',
+      },
+      overrides: {
+        Button: {
+          fontSize: '40px',
+        },
+      },
+    },
+    {
+      variantValues: {
+        variant: 'primary',
+        size: 'large',
+      },
+      overrides: {
+        Button: {
+          width: '500',
+        },
+      },
+    },
+  ];
+
+  it('should return overrides for primary variant, without optional', () => {
+    const selectedVariantValue = { variant: 'primary' };
+    const expected = {
+      Button: {
+        fontSize: '12px',
+      },
+    };
+    expect(getOverridesFromVariants(variants, selectedVariantValue)).toEqual(
+      expected
+    );
+  });
+
+  it('should return overrides for alternative', () => {
+    const selectedVariantValue = { variant: 'secondary' };
+    const expected = {
+      Button: {
+        fontSize: '40px',
+      },
+    };
+    expect(getOverridesFromVariants(variants, selectedVariantValue)).toEqual(
+      expected
+    );
+  });
+
+  it('should return overrides for multiple values, including optional', () => {
+    const selectedVariantValue = { variant: 'primary', size: 'large' };
+    const expected = {
+      Button: {
+        width: '500',
+      },
+    };
+    expect(getOverridesFromVariants(variants, selectedVariantValue)).toEqual(
+      expected
+    );
+  });
+
+  it('should return no overrides invalid combo', () => {
+    const selectedVariantValue = { variant: 'secondary', size: 'large' };
+    const expected = {};
+    expect(getOverridesFromVariants(variants, selectedVariantValue)).toEqual(
+      expected
+    );
+  });
+
+  it('should return no overrides on unexpected variant parameter', () => {
+    const selectedVariantValue = { unexpected: 'yes' };
+    const expected = {};
+    expect(getOverridesFromVariants(variants, selectedVariantValue)).toEqual(
+      expected
+    );
   });
 });
