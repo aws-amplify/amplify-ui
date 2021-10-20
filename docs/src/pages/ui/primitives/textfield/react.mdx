@@ -40,124 +40,6 @@ import '@aws-amplify/ui-react/styles.css';
   />
 </Example>
 
-### Multiline textarea
-
-To render a multi-line textarea, set the `isMultiline` prop to `true`.
-
-```jsx
-<TextField label="Address" isMultiline={true} />
-```
-
-<Example>
-  <TextField label="Address" isMultiline={true} />
-</Example>
-
-For a resizeable multiline field, use resize style prop. Available options match those listed on [MDN resize docs](https://developer.mozilla.org/en-US/docs/Web/CSS/resize).
-
-```jsx
-<TextField
-  label="Address"
-  placeholder="1234 Main St."
-  descriptiveText="USPS approved address"
-  isMultiline={true}
-  resize="vertical"
-/>
-```
-
-<Example>
-  <TextField
-    label="Address"
-    placeholder="1234 Main St."
-    descriptiveText="USPS approved address"
-    isMultiline={true}
-    resize="vertical"
-  />
-</Example>
-
-To change the general size, use the `size` prop. Options available are `small`, none (default), and `large`.
-
-```jsx
-<TextField
-  label="Small"
-  defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-  isMultiline={true}
-  size="small"
-/>
-<TextField
-  label="default (equivalent to 5 lines)"
-    defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-
-  isMultiline={true}
-/>
-<TextField
-  label="Large (equivalent to 7 lines)"
-  defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-  isMultiline={true}
-  size="large"
-/>
-```
-
-<Example>
-  <TextField
-    label="Small"
-    isMultiline={true}
-    size="small"
-    defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-  />
-
-  <TextField
-    label="default"
-    isMultiline={true}
-    defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-  />
-  <TextField
-    label="Large"
-    isMultiline={true}
-    size="large"
-    defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-  />
-</Example>
-
-To change the number of rows of text displayed, use the `rows` prop.
-
-```jsx
-<TextField
-  label="6 rows"
-  isMultiline={true}
-  rows={6}
-  defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-/>
-```
-
-<Example>
-  <TextField
-    label="6 rows"
-    isMultiline={true}
-    rows={6}
-    defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-  />
-</Example>
-
-To enforce a maximum length of multiline text, use the `maxLength` prop.
-
-```jsx
-<TextField
-  label="Maximum length of 10 characters"
-  isMultiline={true}
-  defaultValue="0123456789"
-  maxLength={10}
-/>
-```
-
-<Example>
-  <TextField
-    label="Maximum length of 10 characters"
-    isMultiline={true}
-    defaultValue="0123456789"
-    maxLength={10}
-  />
-</Example>
-
 ### Accessibility / Label behavior
 
 <Fragment>{() => import('./../shared/formFieldAccessibility.mdx')}</Fragment>
@@ -226,6 +108,134 @@ There are two variation styles available: default and `quiet`.
 <Example>
   <TextField label="Default" />
   <TextField label="Quiet" variation="quiet" />
+</Example>
+
+### Multiline textarea
+
+To render a multi-line textarea, set the `isMultiline` prop to `true`.
+
+```jsx
+<TextField label="Comments" isMultiline={true} />
+```
+
+<Example>
+  <TextField label="Comments" isMultiline={true} />
+</Example>
+
+#### Resizeable
+
+For a resizeable multiline field, use `resize` prop. See [MDN resize docs](https://developer.mozilla.org/en-US/docs/Web/CSS/resize) for supported values.
+
+```jsx
+<TextField
+  label="Address"
+  placeholder="1234 Main St."
+  descriptiveText="Please enter a USPS validated address"
+  isMultiline={true}
+  resize="vertical"
+/>
+```
+
+<Example>
+  <TextField
+    label="Address"
+    placeholder="1234 Main St."
+    descriptiveText="Please enter a USPS validated address"
+    isMultiline={true}
+    resize="vertical"
+  />
+</Example>
+
+#### Size
+
+To change the general size, use the `size` prop. Options available are `small`, none (default), and `large`.
+
+```jsx
+<TextField
+  label="Small"
+  defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+  isMultiline={true}
+  size="small"
+/>
+<TextField
+  label="default (equivalent to 5 lines)"
+  defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+  isMultiline={true}
+/>
+<TextField
+  label="Large (equivalent to 7 lines)"
+  defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+  isMultiline={true}
+  size="large"
+/>
+```
+
+<Example>
+  <Flex direction="column" gap="1.5rem">
+    <TextField
+      label="Small"
+      isMultiline={true}
+      size="small"
+      defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    />
+
+    <TextField
+      label="Default"
+      isMultiline={true}
+      defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    />
+    <TextField
+      label="Large"
+      isMultiline={true}
+      size="large"
+      defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    />
+
+  </Flex>
+</Example>
+
+#### Rows
+
+To change the number of rows of text displayed, use the `rows` prop with desired number.
+
+```jsx
+<TextField
+  label="6 rows"
+  isMultiline={true}
+  rows={6}
+  defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+/>
+```
+
+<Example>
+  <TextField
+    label="6 rows"
+    isMultiline={true}
+    rows={6}
+    defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+  />
+</Example>
+
+#### Maximum length
+
+To enforce a maximum length of multiline text, use the `maxLength` prop.
+
+```jsx
+<TextField
+  label="Maximum length of 100 characters"
+  isMultiline={true}
+  defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et"
+  maxLength={100}
+/>
+```
+
+<Example>
+  <TextField
+    label="Maximum length of 100 characters"
+    isMultiline={true}
+    defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et"
+    maxLength={100}
+  />
 </Example>
 
 ### Outer components
