@@ -1,9 +1,13 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { AmplifyProvider, Divider } from '@aws-amplify/ui-react';
 
-import 'amplify-docs/src/styles/styles.css';
+import { Header } from '@/components/Layout/Header';
+
+import { theme } from './theme';
 import '../styles/index.css';
+
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
@@ -14,32 +18,34 @@ function MyApp({ Component, pageProps }) {
       <Head>
         <title>Amplify UI</title>
       </Head>
+      <AmplifyProvider components={{}} theme={theme}>
+      <div className="aui-docs">
+        <Header />
+        <div>
+          <Component
+            components={{
+              a(props) {
+                if (!props.href) {
+                  return <a {...props} />;
+                }
 
-      <Component
-        components={{
-          a(props) {
-            if (!props.href) {
-              return <a {...props} />;
-            }
-
-            return (
-              <Link
-                href={{
-                  pathname: props.href,
-                  query: { platform },
-                }}
-              >
-                <a>{props.children}</a>
-              </Link>
-            );
-          },
-        }}
-        {...pageProps}
-      />
-
-      <script src="https://cdn.jsdelivr.net/npm/docsearch.js@2.6.3/dist/cdn/docsearch.min.js"></script>
-      <script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js"></script>
-      <script src="/scripts/shortbreadv1.js"></script>
+                return (
+                  <Link
+                    href={{
+                      pathname: props.href,
+                      query: { platform },
+                    }}
+                  >
+                    <a>{props.children}</a>
+                  </Link>
+                );
+              },
+            }}
+            {...pageProps}
+          />
+        </div>
+      </div>
+      </AmplifyProvider>
     </>
   );
 }

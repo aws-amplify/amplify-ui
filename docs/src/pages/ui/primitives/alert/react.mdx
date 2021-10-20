@@ -1,16 +1,22 @@
+
 import { Alert, Flex } from '@aws-amplify/ui-react';
 import { AlertDemo } from './demo';
-import { Example } from '@/components/Example';
-
-An Alert displays a brief, important message in a way that attracts the user's attention without interrupting the user's task. Alerts are typically intended to be read out dynamically by a screen reader.
-
-## Demo
+import { Example, ExampleWithCode, Code } from '@/components/ExampleWithCode';
 
 <AlertDemo />
+
 
 ## Usage
 
 Import the Alert component and styles.
+
+<ExampleWithCode>
+
+<Example>
+  <Alert>Default Alert</Alert>
+</Example>
+
+<Code>
 
 ```jsx
 import { Alert } from '@aws-amplify/ui-react';
@@ -19,9 +25,9 @@ import '@aws-amplify/ui-react/styles.css';
 <Alert>Default Alert</Alert>;
 ```
 
-<Example>
-  <Alert>Default Alert</Alert>
-</Example>
+</Code>
+
+</ExampleWithCode>
 
 ### Variations
 

@@ -1,10 +1,10 @@
-/* Docs styles */
-@import 'prism-theme-night-owl';
-@import 'tailwindcss/tailwind.css';
-@import './styles.css';
-
 /* Amplify UI styles */
 @import '@aws-amplify/ui-react/styles.css';
+
+/* Docs styles */
+@import './prism-one-light.css';
+/* @import 'tailwindcss/tailwind.css'; */
+@import './styles.css';
 
 /* Primitive override styles for docs examples */
 @import './alertStyles.css';
