@@ -36,6 +36,7 @@ export enum ComponentClassNames {
   Input = 'amplify-input',
   Label = 'amplify-label',
   Link = 'amplify-link',
+  Loader = 'amplify-loader',
   Pagination = 'amplify-pagination',
   PasswordField = 'amplify-passwordfield',
   PhoneNumberField = 'amplify-phonenumberfield',
