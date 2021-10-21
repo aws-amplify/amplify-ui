@@ -39,5 +39,3 @@ export function AmplifyProvider({
     </AmplifyContext.Provider>
   );
 }
-
-export { AmplifyContext };
