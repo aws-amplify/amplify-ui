@@ -95,7 +95,7 @@ Amplify UI consists of both primitive components like Buttons, Badges, and Cards
 
 **Where should I file bugs and requests?**
 
-[Bugs and feature requests for Amplify UI 2.0](https://github.com/aws-amplify/amplify-ui/issues/new)
+[Bugs and feature requests for Amplify UI](https://github.com/aws-amplify/amplify-ui/issues/new)
 
 You can also use the above link to report a bug or a feature request for previous version of Amplify UI Components.
 
