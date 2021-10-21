@@ -78,19 +78,9 @@
 
 <script setup lang="ts">
 import { computed, ComputedRef, useAttrs } from 'vue';
-import { I18n } from 'aws-amplify';
-
-import {
-  CONFIRM_SIGNUP_HEADING,
-  CONFIRMATION_CODE_TEXT,
-  RESEND_CODE_TEXT,
-  CONFIRM_TEXT,
-  ENTER_CODE,
-} from '../defaults/DefaultTexts';
+import { getActorState, SignUpContext, translate } from '@aws-amplify/ui';
 
 import { useAuth } from '../composables/useAuth';
-
-import { getActorState, SignUpContext } from '@aws-amplify/ui';
 
 const attrs = useAttrs();
 const emit = defineEmits(['confirmSignUpSubmit', 'lostCodeClicked']);
@@ -104,11 +94,11 @@ const context = actorState.value.context as SignUpContext;
 const username = context.user?.username ?? context.authAttributes?.username;
 
 //computed properties
-const enterCode = computed(() => I18n.get(ENTER_CODE));
-const confirmSignUpHeading = computed(() => I18n.get(CONFIRM_SIGNUP_HEADING));
-const confirmationCodeText = computed(() => I18n.get(CONFIRMATION_CODE_TEXT));
-const resendCodeText = computed(() => I18n.get(RESEND_CODE_TEXT));
-const confirmText = computed(() => I18n.get(CONFIRM_TEXT));
+const enterCode = computed(() => translate('Enter your code'));
+const confirmSignUpHeading = computed(() => translate('Confirm Sign Up'));
+const confirmationCodeText = computed(() => translate('Confirmation Code'));
+const resendCodeText = computed(() => translate('Resend Code'));
+const confirmText = computed(() => translate('Confirm'));
 
 // Methods
 const onConfirmSignUpSubmit = (e: Event): void => {

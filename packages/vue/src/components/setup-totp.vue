@@ -101,21 +101,12 @@ import {
   ComputedRef,
   useAttrs,
 } from 'vue';
-
-import { I18n } from 'aws-amplify';
-
-import { useAuth } from '../composables/useAuth';
-
-import {
-  BACK_SIGN_IN_TEXT,
-  CONFIRM_TEXT,
-  SETUP_TOTP_TEXT,
-  CODE_TEXT,
-} from '../defaults/DefaultTexts';
+import QRCode from 'qrcode';
 
 import { Auth, Logger } from 'aws-amplify';
-import QRCode from 'qrcode';
-import { getActorState, SignInState } from '@aws-amplify/ui';
+import { getActorState, SignInState, translate } from '@aws-amplify/ui';
+
+import { useAuth } from '../composables/useAuth';
 
 const attrs = useAttrs();
 const emit = defineEmits(['confirmSetupTOTPSubmit', 'backToSignInClicked']);
@@ -151,10 +142,10 @@ onMounted(async () => {
 });
 
 // Computed Properties
-const backSignInText = computed(() => I18n.get(BACK_SIGN_IN_TEXT));
-const confirmText = computed(() => I18n.get(CONFIRM_TEXT));
-const setupTOTPText = computed(() => I18n.get(SETUP_TOTP_TEXT));
-const codeText = computed(() => I18n.get(CODE_TEXT));
+const backSignInText = computed(() => translate('Back to Sign In'));
+const confirmText = computed(() => translate('Confirm'));
+const setupTOTPText = computed(() => translate('Setup TOTP'));
+const codeText = computed(() => translate('Code'));
 
 // Methods
 const onSetupTOTPSubmit = (e: Event): void => {
