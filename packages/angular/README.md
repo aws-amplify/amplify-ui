@@ -1,4 +1,4 @@
-# Amplify Spark (Angular)
+# Amplify UI (Angular)
 
 ## Getting Started
 

@@ -6,8 +6,7 @@ import { I18nComponent } from 'src/pages/ui/components/authenticator/i18n/i18n.c
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-// TODO: Rename UiAngularModule to AmplifyUiAngularModule
-import { UiAngularModule } from '@aws-amplify/ui-angular';
+import { AmplifyAuthenticatorModule } from '@aws-amplify/ui-angular';
 import { AuthWithMultiAliasComponent } from 'src/pages/ui/components/authenticator/auth-with-multi-alias/auth-with-multi-alias.component';
 import { ResetPasswordComponent } from 'src/pages/ui/components/authenticator/reset-password/reset-password.component';
 import { SignInFederatedComponent } from 'src/pages/ui/components/authenticator/sign-in-federated/sign-in-federated.component';
@@ -38,7 +37,12 @@ import { SignInTOTPSMSComponent } from 'src/pages/ui/components/authenticator/si
     SignUpWithEmailComponent,
     SignUpWithPhoneComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, UiAngularModule, HttpClientModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    AmplifyAuthenticatorModule,
+    HttpClientModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

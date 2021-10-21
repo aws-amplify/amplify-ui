@@ -5,7 +5,7 @@ For Angular,
 ```ts{3,12}
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';;
-import { UiAngularModule } from '@aws-amplify/ui-angular';
+import { AmplifyAuthenticatorModule } from '@aws-amplify/ui-angular';
 
 import { AppComponent } from './app.component';
 import awsconfig from '../aws-exports';
@@ -14,7 +14,7 @@ Amplify.configure(awsconfig);
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, UiAngularModule],
+  imports: [BrowserModule, AmplifyAuthenticatorModule],
   providers: [],
   bootstrap: [AppComponent],
 })
