@@ -39,7 +39,13 @@
               </base-wrapper>
             </base-wrapper>
             <base-wrapper
-              class=" amplify-flex amplify-field amplify-textfield amplify-passwordfield password-field"
+              class="
+                amplify-flex
+                amplify-field
+                amplify-textfield
+                amplify-passwordfield
+                password-field
+              "
               style="flex-direction: column"
             >
               <password-control
@@ -52,7 +58,12 @@
               />
             </base-wrapper>
             <base-wrapper
-              class=" amplify-flex amplify-field amplify-textfield amplify-passwordfield"
+              class="
+                amplify-flex
+                amplify-field
+                amplify-textfield
+                amplify-passwordfield
+              "
               style="flex-direction: column"
             >
               <password-control
@@ -146,7 +157,7 @@ const confirmResetPasswordHeading = computed(() =>
 const confirmResetPasswordText = computed(() => translate('Submit'));
 
 const codeText = computed(() => translate('Code'));
-const newPasswordLabel = computed(() => translate('Password'));
+const newPasswordLabel = computed(() => translate('New password'));
 const confirmPasswordLabel = computed(() => translate('Confirm Password'));
 
 // Methods
