@@ -57,7 +57,7 @@ export class AmplifyAuthenticatorComponent implements OnInit, AfterContentInit {
     /**
      * handling translations after content init, because authenticator and its
      * translations might be initialized before the main app's `ngOnInit` is run.
-     **/
+     */
     this.signInTitle = translate('Sign In');
     this.signUpTitle = translate('Create Account');
   }
@@ -78,7 +78,7 @@ export class AmplifyAuthenticatorComponent implements OnInit, AfterContentInit {
   public get context() {
     const { signOut } = this.stateMachine.services;
     const user = this.stateMachine.user;
-    return { signOut, user };
+    return { signOut, user } as const;
   }
 
   public get actorState() {
