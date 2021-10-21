@@ -1,4 +1,4 @@
-import { I18n } from 'aws-amplify';
+import { translate } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '..';
 import { TabItem, Tabs } from '../../..';
@@ -16,10 +16,10 @@ export const SignInSignUpTabs = (): JSX.Element => {
       justifyContent="center"
       onChange={() => (route === 'signIn' ? toSignUp() : toSignIn())}
     >
-      <TabItem title={I18n.get('Sign In')}>
+      <TabItem title={translate('Sign In')}>
         {route === 'signIn' && <SignIn />}
       </TabItem>
-      <TabItem title={I18n.get('Create Account')}>
+      <TabItem title={translate('Create Account')}>
         {route === 'signUp' && <SignUp />}
       </TabItem>
     </Tabs>

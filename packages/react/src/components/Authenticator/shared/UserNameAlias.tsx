@@ -3,8 +3,8 @@ import {
   getActorContext,
   getAliasInfoFromContext,
   UserNameAlias,
+  translate,
 } from '@aws-amplify/ui';
-import { I18n } from 'aws-amplify';
 import { useEffect } from 'react';
 
 import { useAuthenticator } from '..';
@@ -22,7 +22,7 @@ export function UserNameAlias(props: UserNameAliasProps) {
 
   const { country_code }: ActorContextWithForms = getActorContext(_state);
   const { label, type, error } = getAliasInfoFromContext(_state.context, alias);
-  const i18nLabel = I18n.get(label);
+  const i18nLabel = translate<string>(label);
 
   const isPhoneAlias = type === 'tel';
 

@@ -34,10 +34,10 @@ const useAuthenticatorValue = ({
     [customComponents]
   );
 
-  const facade = React.useMemo(() => getServiceFacade({ send, state }), [
-    send,
-    state,
-  ]);
+  const facade = React.useMemo(
+    () => getServiceFacade({ send, state }),
+    [send, state]
+  );
 
   const isPending =
     state.hasTag('pending') || getActorState(state)?.hasTag('pending');

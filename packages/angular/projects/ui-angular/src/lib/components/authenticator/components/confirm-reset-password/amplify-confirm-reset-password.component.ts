@@ -31,7 +31,6 @@ export class ConfirmResetPasswordComponent
   // translated strings
   public sendCodeText = translate('Send Code');
   public backToSignInText = translate('Back to Sign In');
-  public lostCodeText = translate('Lost your code? ');
   public resendCodeText = translate('Resend Code');
 
   constructor(

@@ -1,5 +1,4 @@
-import { FederatedIdentityProviders } from '@aws-amplify/ui';
-import { I18n } from 'aws-amplify';
+import { FederatedIdentityProviders, translate } from '@aws-amplify/ui';
 import { get, includes } from 'lodash';
 
 import { useAuthenticator } from '..';
@@ -13,21 +12,21 @@ export const FederatedSignIn = (): JSX.Element => {
   const facebookButton = includes(loginMechanisms, 'facebook') ? (
     <FederatedSignInButton
       icon="facebook"
-      text={I18n.get('Sign In with Facebook')}
+      text={translate('Sign In with Facebook')}
       provider={FederatedIdentityProviders.Facebook}
     />
   ) : null;
   const googleButton = includes(loginMechanisms, 'google') ? (
     <FederatedSignInButton
       icon="google"
-      text={I18n.get('Sign In with Google')}
+      text={translate('Sign In with Google')}
       provider={FederatedIdentityProviders.Google}
     />
   ) : null;
   const amazonButton = includes(loginMechanisms, 'amazon') ? (
     <FederatedSignInButton
       icon="amazon"
-      text={I18n.get('Sign In with Amazon')}
+      text={translate('Sign In with Amazon')}
       provider={FederatedIdentityProviders.Amazon}
     />
   ) : null;

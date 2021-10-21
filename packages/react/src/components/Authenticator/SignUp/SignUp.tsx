@@ -3,8 +3,8 @@ import {
   SignUpContext,
   UserNameAlias,
   userNameAliasArray,
+  translate,
 } from '@aws-amplify/ui';
-import { I18n } from 'aws-amplify';
 import { isEmpty } from 'lodash';
 
 import { useAuthenticator } from '..';
@@ -44,8 +44,8 @@ export function SignUp() {
     submitForm();
   };
 
-  const passwordLabel = I18n.get('Password');
-  const confirmPasswordLabel = I18n.get('Confirm Password');
+  const passwordLabel = translate('Password');
+  const confirmPasswordLabel = translate('Confirm Password');
   const passwordFieldClass = 'password-field';
 
   return (
@@ -56,7 +56,7 @@ export function SignUp() {
       onSubmit={handleSubmit}
     >
       <Flex direction="column">
-        <Heading level={3}>{I18n.get('Create a new account')}</Heading>
+        <Heading level={3}>{translate('Create a new account')}</Heading>
 
         <Flex direction="column">
           <UserNameAliasComponent
@@ -108,10 +108,10 @@ export function SignUp() {
           type="submit"
           variation="primary"
           isLoading={isPending}
-          loadingText={I18n.get('Creating Account')}
+          loadingText={translate('Creating Account')}
           fontWeight="normal"
         >
-          {I18n.get('Create Account')}
+          {translate('Create Account')}
         </Button>
 
         <FederatedSignIn />

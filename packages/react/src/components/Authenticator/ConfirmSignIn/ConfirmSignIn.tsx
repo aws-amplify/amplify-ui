@@ -3,8 +3,8 @@ import {
   getActorState,
   SignInContext,
   SignInState,
+  translate,
 } from '@aws-amplify/ui';
-import { I18n } from 'aws-amplify';
 
 import { useAuthenticator } from '..';
 import { Flex, Form, Heading } from '../../..';
@@ -15,9 +15,19 @@ export const ConfirmSignIn = (): JSX.Element => {
   const actorState: SignInState = getActorState(_state);
 
   const { challengeName } = actorState.context as SignInContext;
-  let mfaType: string = 'SMS';
-  if (challengeName === AuthChallengeNames.SOFTWARE_TOKEN_MFA) {
-    mfaType = 'TOTP';
+  let headerText: string;
+
+  switch (challengeName) {
+    case AuthChallengeNames.SMS_MFA:
+      headerText = translate('Confirm SMS Code');
+      break;
+    case AuthChallengeNames.SOFTWARE_TOKEN_MFA:
+      headerText = translate('Confirm TOTP Code');
+      break;
+    default:
+      throw new Error(
+        `Unexpected challengeName encountered in ConfirmSignIn: ${challengeName}`
+      );
   }
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,7 +48,7 @@ export const ConfirmSignIn = (): JSX.Element => {
       onSubmit={handleSubmit}
     >
       <Flex direction="column">
-        <Heading level={3}>{I18n.get(`Confirm ${mfaType} Code`)}</Heading>
+        <Heading level={3}>{headerText}</Heading>
 
         <Flex direction="column">
           <ConfirmationCodeInput errorText={error} />
