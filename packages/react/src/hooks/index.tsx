@@ -1,3 +1,5 @@
+export { useAmplify } from './useAmplify';
+
 export {
   useDataStoreBinding,
   useDataStoreCollection,

@@ -40,5 +40,4 @@ export function AmplifyProvider({
   );
 }
 
-export { useAmplify } from './useAmplify';
 export { AmplifyContext };
