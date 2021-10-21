@@ -1,7 +1,7 @@
 <template>
   <slot name="verifyUserSlotI">
     <base-wrapper>
-      <base-form @submit.prevent="onVerifyUserSubmit">
+      <base-form @input="onInput" @submit.prevent="onVerifyUserSubmit">
         <base-field-set
           :disabled="actorState.matches('verifyUser.pending')"
           class="amplify-flex"
@@ -14,7 +14,7 @@
             class="amplify-flex amplify-field amplify-radiogroupfield"
             style="flex-direction: column"
           >
-            <base-label class="amplify-label sr-only" id="amplify-field-493c">
+            <base-label class="sr-only amplify-label" id="amplify-field-493c">
               {{ verifyContactText }}
             </base-label>
             <base-wrapper
@@ -30,12 +30,7 @@
                 :key="value"
               >
                 <base-input
-                  class="
-                    amplify-input
-                    amplify-field-group__control
-                    amplify-visually-hidden
-                    amplify-radio__input
-                  "
+                  class=" amplify-input amplify-field-group__control amplify-visually-hidden amplify-radio__input"
                   aria-invalid="false"
                   data-amplify-verify-input
                   id="verify"
@@ -130,6 +125,15 @@ const verifyText = computed(() => I18n.get(VERIFY_TEXT));
 const verifyContactText = computed(() => I18n.get(VERIFY_CONTACT_TEXT));
 
 // Methods
+const onInput = (e: Event): void => {
+  const { name, value } = <HTMLInputElement>e.target;
+  send({
+    type: 'CHANGE',
+    //@ts-ignore
+    data: { name, value },
+  });
+};
+
 const onVerifyUserSubmit = (e: Event): void => {
   if (attrs?.onVerifyUserSubmit) {
     emit('verifyUserSubmit', e);

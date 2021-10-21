@@ -18,6 +18,7 @@ export type AuthenticatorMachineOptions = {
 
 export function createAuthenticatorMachine({
   initialState = 'signIn',
+  /** @TODO Prefer `usernameAliases` and `socialProviders` */
   loginMechanisms,
 }: AuthenticatorMachineOptions) {
   return createMachine<AuthContext, AuthEvent>(
@@ -123,8 +124,8 @@ export function createAuthenticatorMachine({
         }),
         applyAmplifyConfig: assign({
           config(context, event) {
-            const configuredLoginMechanisms =
-              event.data.aws_cognito_login_mechanisms?.map((login) => {
+            const configuredLoginMechanisms = event.data.aws_cognito_login_mechanisms?.map(
+              (login) => {
                 switch (login) {
                   case 'PREFERRED_USERNAME':
                     return 'username';
@@ -142,15 +143,17 @@ export function createAuthenticatorMachine({
                       `Unknown login mechanism from Amplify CLI: ${login}.\nOpen an issue: https://github.com/aws-amplify/amplify-ui/issues/choose`
                     );
                 }
-              });
+              }
+            );
 
             const defaultLoginMechanisms = configuredLoginMechanisms ?? [
               'username',
             ];
 
             // Prefer explicitly set login mechanisms from machine instantiation over defaults
-            const { login_mechanisms = defaultLoginMechanisms } =
-              context.config;
+            const {
+              login_mechanisms = defaultLoginMechanisms,
+            } = context.config;
 
             return { login_mechanisms };
           },

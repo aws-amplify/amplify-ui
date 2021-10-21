@@ -1,6 +1,7 @@
-import { useAmplify, useAuthenticator } from '../../../../hooks';
 import { FederatedIdentityProviders } from '@aws-amplify/ui';
-import { Icon } from '@aws-amplify/ui-react';
+
+import { useAuthenticator } from '../..';
+import { Button, Flex, Icon, Text } from '../../../..';
 
 export interface FederatedSignInButtonProps {
   icon?: 'facebook' | 'google' | 'amazon';
@@ -65,17 +66,12 @@ export const FederatedSignInButton = (
   props: FederatedSignInButtonProps
 ): JSX.Element => {
   const { icon, provider, text } = props;
-  const [_, send] = useAuthenticator();
-
-  const amplifyNamespace = `Authenticator.FederatedSignIn.${provider}`;
-  const {
-    components: { Button, Flex, Text },
-  } = useAmplify(amplifyNamespace);
+  const { _send } = useAuthenticator();
 
   const handleClick = (event): void => {
     event.preventDefault();
 
-    send({
+    _send({
       type: 'FEDERATED_SIGN_IN',
       data: {
         provider,

@@ -1,26 +1,27 @@
 import { I18n } from 'aws-amplify';
-import { getActorState, SignInState } from '@aws-amplify/ui';
 
-import { useAmplify, useAuthenticator } from '../../../hooks';
+import { useAuthenticator } from '..';
+import { Form, Flex, Heading, PasswordField, Button } from '../../..';
 import { FederatedSignIn } from '../FederatedSignIn';
 import { RemoteErrorMessage, UserNameAlias } from '../shared';
 
 export function SignIn() {
-  const amplifyNamespace = 'Authenticator.SignIn';
   const {
-    components: { Button, Flex, Form, Heading, PasswordField },
-  } = useAmplify(amplifyNamespace);
-
-  const [_state, send] = useAuthenticator();
-  const actorState: SignInState = getActorState(_state);
-  const isPending = actorState.matches('signIn.pending');
+    _send,
+    isPending,
+    submitForm,
+    toResetPassword,
+    updateForm,
+  } = useAuthenticator();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    send({
-      type: 'CHANGE',
-      data: { name, value },
-    });
+    updateForm({ name, value });
+  };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    submitForm();
   };
 
   return (
@@ -28,17 +29,7 @@ export function SignIn() {
     <Form
       data-amplify-authenticator-signin=""
       method="post"
-      onSubmit={(event) => {
-        event.preventDefault();
-
-        const formData = new FormData(event.target);
-
-        send({
-          type: 'SUBMIT',
-          // @ts-ignore Property 'fromEntries' does not exist on type 'ObjectConstructor'. Do you need to change your target library? Try changing the `lib` compiler option to 'es2019' or later.ts(2550)
-          data: Object.fromEntries(formData),
-        });
-      }}
+      onSubmit={handleSubmit}
       onChange={handleChange}
     >
       <Flex direction="column">
@@ -58,7 +49,7 @@ export function SignIn() {
           />
         </Flex>
 
-        <RemoteErrorMessage amplifyNamespace={amplifyNamespace} />
+        <RemoteErrorMessage />
 
         <Button
           borderRadius={0}
@@ -74,7 +65,7 @@ export function SignIn() {
         </Button>
 
         <Button
-          onClick={() => send({ type: 'RESET_PASSWORD' })}
+          onClick={toResetPassword}
           type="button"
           variation="link"
           size="small"

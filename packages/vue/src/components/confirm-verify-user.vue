@@ -1,7 +1,7 @@
 <template>
   <slot v-bind="$attrs" name="confirmVerifyUserSlotI">
     <base-wrapper v-bind="$attrs">
-      <base-form @submit.prevent="onConfirmVerifyUserSubmit">
+      <base-form @input="onInput" @submit.prevent="onConfirmVerifyUserSubmit">
         <base-field-set
           class="amplify-flex"
           style="flex-direction: column"
@@ -16,7 +16,7 @@
               style="flex-direction: column"
             >
               <base-label
-                class="amplify-label sr-only"
+                class="sr-only amplify-label"
                 for="amplify-field-c34b"
                 >{{ confirmationCodeText }}</base-label
               >
@@ -108,6 +108,15 @@ const codeText = computed(() => I18n.get(CODE_TEXT));
 const submitText = computed(() => I18n.get(CONFIRM_RESET_PASSWORD_TEXT));
 
 // Methods
+const onInput = (e: Event): void => {
+  const { name, value } = <HTMLInputElement>e.target;
+  send({
+    type: 'CHANGE',
+    //@ts-ignore
+    data: { name, value },
+  });
+};
+
 const onConfirmVerifyUserSubmit = (e: Event): void => {
   if (attrs?.onConfirmVerifyUserSubmit) {
     emit('confirmVerifyUserSubmit', e);

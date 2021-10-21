@@ -3,8 +3,8 @@
     <base-form
       v-bind="$attrs"
       data-amplify-authenticator-resetpassword
+      @input="onInput"
       @submit.prevent="onResetPasswordSubmit"
-      @change="onChange"
     >
       <base-wrapper class="amplify-flex" style="flex-direction: column">
         <base-heading class="amplify-heading" :level="3">
@@ -19,7 +19,7 @@
             class="amplify-flex amplify-field amplify-textfield"
             style="flex-direction: column"
           >
-            <base-label class="amplify-label sr-only" for="amplify-field-7dce">
+            <base-label class="sr-only amplify-label" for="amplify-field-7dce">
               Username
             </base-label>
             <base-wrapper class="amplify-flex">
@@ -123,7 +123,7 @@ const submit = (e: Event): void => {
   });
 };
 
-const onChange = (e: Event): void => {
+const onInput = (e: Event): void => {
   const { name, value } = <HTMLFormElement>e.target;
   send({
     type: 'CHANGE',

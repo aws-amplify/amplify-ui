@@ -3,8 +3,8 @@
     <base-wrapper v-bind="$attrs">
       <base-form
         data-amplify-authenticator-signin
-        @submit.prevent="onSignInSubmit"
         @input="onInput"
+        @submit.prevent="onSignInSubmit"
         method="post"
       >
         <template #formt="{ slotData }">
@@ -36,13 +36,7 @@
 
             <user-name-alias :userNameAlias="true" />
             <base-wrapper
-              class="
-                amplify-flex
-                amplify-field
-                amplify-textfield
-                amplify-passwordfield
-                password-field
-              "
+              class=" amplify-flex amplify-field amplify-textfield amplify-passwordfield password-field"
               style="flex-direction: column"
             >
               <password-control

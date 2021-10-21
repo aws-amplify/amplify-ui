@@ -3,8 +3,8 @@
     <base-wrapper v-bind="$attrs">
       <base-form
         data-amplify-authenticator-forcenewpassword
-        @submit.prevent="onForceNewPasswordSubmit"
         @input="onInput"
+        @submit.prevent="onForceNewPasswordSubmit"
       >
         <base-field-set
           class="amplify-flex"
@@ -17,12 +17,7 @@
           <base-wrapper class="amplify-flex" style="flex-direction: column">
             <!--Input 1-->
             <base-wrapper
-              class="
-                amplify-flex
-                amplify-field
-                amplify-textfield
-                amplify-passwordfield
-              "
+              class=" amplify-flex amplify-field amplify-textfield amplify-passwordfield"
               style="flex-direction: column"
             >
               <password-control
@@ -37,12 +32,7 @@
 
             <!--Input 2-->
             <base-wrapper
-              class="
-                amplify-flex
-                amplify-field
-                amplify-textfield
-                amplify-passwordfield
-              "
+              class=" amplify-flex amplify-field amplify-textfield amplify-passwordfield"
               style="flex-direction: column"
             >
               <password-control

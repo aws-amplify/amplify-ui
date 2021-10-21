@@ -3,6 +3,7 @@
     <base-wrapper v-bind="$attrs">
       <base-form
         data-amplify-authenticator-confirmsignin
+        @input="onInput"
         @submit.prevent="onConfirmSignInSubmit"
       >
         <base-field-set
@@ -19,7 +20,7 @@
               style="flex-direction: column"
             >
               <base-label
-                class="amplify-label sr-only"
+                class="sr-only amplify-label"
                 for="amplify-field-51ee"
               >
                 Code *
@@ -116,6 +117,15 @@ const confirmText = computed(() => I18n.get(CONFIRM_TEXT));
 const codeText = computed(() => I18n.get(CODE_TEXT));
 
 // Methods
+const onInput = (e: Event): void => {
+  const { name, value } = <HTMLInputElement>e.target;
+  send({
+    type: 'CHANGE',
+    //@ts-ignore
+    data: { name, value },
+  });
+};
+
 const onConfirmSignInSubmit = (e: Event): void => {
   if (attrs?.onConfirmSignInSubmit) {
     emit('confirmSignInSubmit', e);
