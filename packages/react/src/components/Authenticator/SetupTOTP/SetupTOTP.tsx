@@ -74,7 +74,7 @@ export const SetupTOTP = (): JSX.Element => {
       }}
     >
       <Flex direction="column">
-        <Heading level={3}>Setup TOTP</Heading>
+        <Heading level={3}>{translate('Setup TOTP')}</Heading>
 
         <Flex direction="column">
           {/* TODO: Add spinner here instead of loading text... */}

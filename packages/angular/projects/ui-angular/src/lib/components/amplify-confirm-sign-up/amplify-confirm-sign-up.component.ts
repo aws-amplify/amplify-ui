@@ -25,7 +25,6 @@ export class AmplifyConfirmSignUpComponent {
 
   // translated texts
   public resendCodeText = translate('Resend Code');
-  public lostCodeText = translate('Lost your code? ');
   public confirmText = translate('Confirm');
 
   constructor(

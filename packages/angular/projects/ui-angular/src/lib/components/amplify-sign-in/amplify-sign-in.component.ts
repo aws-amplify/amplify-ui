@@ -35,7 +35,6 @@ export class AmplifySignInComponent
   // translated phrases
   public forgotPasswordText = translate('Forgot your password? ');
   public signInButtonText = translate('Sign in');
-  public noAccountText = translate('No account? ');
 
   private authSubscription: Subscription;
 
