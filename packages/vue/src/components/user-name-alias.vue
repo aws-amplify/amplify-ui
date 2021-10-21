@@ -105,7 +105,7 @@ const { userNameAlias, userName, disabled } = withDefaults(
   }
 );
 
-const { state } = useAuth();
+const { state, send } = useAuth();
 
 const {
   value: { context },
@@ -142,4 +142,10 @@ if (userNameAlias) {
   name = 'username';
 }
 label = I18n.get(label);
+if (type === 'tel') {
+  send({
+    type: 'CHANGE',
+    data: { name: 'country_code', value: defaultDialCode },
+  });
+}
 </script>
