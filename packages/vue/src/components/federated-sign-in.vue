@@ -79,6 +79,7 @@ import { computed } from 'vue';
 import { FederatedIdentityProviders, translate } from '@aws-amplify/ui';
 
 import { useAuth } from '../composables/useAuth';
+import FederatedSignInButton from './federated-sign-in-button.vue';
 
 const { state } = useAuth();
 const {
