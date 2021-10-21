@@ -20,12 +20,10 @@ import { deDict, esDict, frDict, itDict, jaDict, zhDict } from './dictionaries';
  *
  * ```
  * I18n.putVocabulariesForLanguage("en", {
- *  [DefaultTexts.SIGN_IN_TEXT]: "Custom Sign In Header Text",
- *  [DefaultTexts.SIGN_IN_BUTTON_TEXT]: "Custom Click Here to Sign In"
+ *  [DefaultTexts.SIGN_IN]: "Custom Sign In Text",
+ *  [DefaultTexts.SIGN_IN_BUTTON]: "Custom Click Here to Sign In"
  * });
  * ```
- *
- * TODO: this needs clean up. What's needed and what's not needed?
  */
 export const DefaultTexts = {
   BACK_SIGN_IN: 'Back to Sign In',
@@ -78,14 +76,20 @@ export const DefaultTexts = {
 // type Phrase = "Back to Sign In" | "Change Password" | ...
 export type Phrase = typeof DefaultTexts[keyof typeof DefaultTexts];
 
-export type Dict = Partial<Record<Phrase, string>>;
+/**
+ * TODO: Translation keys for dictionaries can be inferred from DefaultTexts
+ * by typing it to Partial<Record<Phrase, string>>.
+ *
+ * But this requires error string keys to be standarized as well, and can be a
+ * limiting factor for custom translation keys. Marking it as TODO until we see
+ * a reason to strongly type this.
+ */
+export type Dict = Record<string, string>;
 
 /**
  * This helper type checks that given phrase is one of the texts @aws-amplify/ui
- * provides by default.
- *
- * This will enable vscode autocompleted and help catch typos during development.
- * For example, translate('Submit') is valid but translate('Subnit') is not.
+ * provides by default. This enables vscode autocompletion to help catch typos
+ * during development.
  *
  * You can also use translate<string> to handle custom strings or dynamic content.
  */
@@ -93,12 +97,6 @@ export function translate<T = Phrase>(phrase: NoInfer<T>): string {
   return I18n.get(phrase);
 }
 
-/**
- * TODO: The string keys below can be inferred from DefaultTexts using
- * https://github.com/aws-amplify/amplify-ui/pull/189#discussion_r690896123,
- * but this needs translation key standarization. DefaultTexts above is more
- * accurate to what we use in authenticator@next.
- */
 export const translations: Record<string, Dict> = {
   de: deDict,
   es: esDict,
