@@ -1,5 +1,4 @@
 import { FederatedIdentityProviders, translate } from '@aws-amplify/ui';
-import { I18n } from 'aws-amplify';
 import { get, includes } from 'lodash';
 
 import { useAuthenticator } from '..';
