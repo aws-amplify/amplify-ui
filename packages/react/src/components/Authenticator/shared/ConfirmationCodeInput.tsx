@@ -1,8 +1,8 @@
-import { useAmplify } from '../../../hooks';
 import { translate } from '@aws-amplify/ui';
 
+import { TextField } from '../../../primitives';
+
 export interface ConfirmationCodeInputProps {
-  amplifyNamespace: string;
   errorText?: string;
   label?: string;
   placeholder?: string;
@@ -13,15 +13,11 @@ export const ConfirmationCodeInput = (
   props: ConfirmationCodeInputProps
 ): JSX.Element => {
   const {
-    amplifyNamespace,
     errorText,
     label = `${translate('Code')} *`,
     placeholder = translate('Code'),
     required = true,
   } = props;
-  const {
-    components: { TextField },
-  } = useAmplify(amplifyNamespace);
 
   return (
     <TextField

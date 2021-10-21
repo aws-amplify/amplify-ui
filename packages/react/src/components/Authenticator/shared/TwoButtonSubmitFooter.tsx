@@ -1,10 +1,9 @@
 import { AuthEventTypes, translate } from '@aws-amplify/ui';
 
-import { useAmplify, useAuthenticator } from '../../../hooks';
+import { useAuthenticator } from '..';
+import { Button, Flex } from '../../..';
 
 export interface TwoButtonSubmitFooterProps {
-  amplifyNamespace: string;
-  isPending: boolean;
   cancelButtonSendType: AuthEventTypes;
   cancelButtonText: string;
   submitButtonText?: JSX.Element;
@@ -13,19 +12,9 @@ export interface TwoButtonSubmitFooterProps {
 export const TwoButtonSubmitFooter = (
   props: TwoButtonSubmitFooterProps
 ): JSX.Element => {
-  const {
-    amplifyNamespace,
-    cancelButtonSendType,
-    cancelButtonText,
-    isPending,
-    submitButtonText,
-  } = props;
+  const { cancelButtonSendType, cancelButtonText, submitButtonText } = props;
 
-  const {
-    components: { Button, Flex },
-  } = useAmplify(amplifyNamespace);
-
-  const [state, send] = useAuthenticator();
+  const { _send, isPending } = useAuthenticator();
 
   const defaultSubmitText = isPending ? (
     <>{translate('Submitting')}&hellip;</>
@@ -46,7 +35,7 @@ export const TwoButtonSubmitFooter = (
       </Button>
 
       <Button
-        onClick={() => send({ type: cancelButtonSendType })}
+        onClick={() => _send({ type: cancelButtonSendType })}
         type="button"
         variation="link"
         fontWeight="normal"

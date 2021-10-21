@@ -1,12 +1,11 @@
 import {
   getActorContext,
-  getActorState,
   ResetPasswordContext,
-  ResetPasswordState,
   translate,
 } from '@aws-amplify/ui';
 
-import { useAmplify, useAuthenticator } from '../../../hooks';
+import { useAuthenticator } from '..';
+import { Flex, Form, Heading, PasswordField, Text } from '../../..';
 import {
   ConfirmationCodeInput,
   RemoteErrorMessage,
@@ -14,15 +13,8 @@ import {
 } from '../shared';
 
 export const ConfirmResetPassword = (): JSX.Element => {
-  const amplifyNamespace = 'Authenticator.ConfirmResetPassword';
-  const {
-    components: { Flex, Form, Heading, PasswordField, Text },
-  } = useAmplify(amplifyNamespace);
-
-  const [_state, send] = useAuthenticator();
-  const actorState = getActorState(_state) as ResetPasswordState;
+  const { _state, submitForm, updateForm } = useAuthenticator();
   const { validationError } = getActorContext(_state) as ResetPasswordContext;
-  const isPending = actorState.matches('confirmResetPassword.pending');
 
   const headerText = translate('Reset your password');
   const passwordText = translate('New password');
@@ -30,34 +22,26 @@ export const ConfirmResetPassword = (): JSX.Element => {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    send({
-      type: 'CHANGE',
-      data: { name, value },
-    });
+    updateForm({ name, value });
+  };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    submitForm();
   };
 
   return (
     <Form
       data-amplify-authenticator-confirmresetpassword=""
       method="post"
-      onSubmit={(event) => {
-        event.preventDefault();
-
-        const formData = new FormData(event.target);
-
-        send({
-          type: 'SUBMIT',
-          // @ts-ignore Property 'fromEntries' does not exist on type 'ObjectConstructor'. Do you need to change your target library? Try changing the `lib` compiler option to 'es2019' or later.ts(2550)
-          data: Object.fromEntries(formData),
-        });
-      }}
+      onSubmit={handleSubmit}
       onChange={handleChange}
     >
       <Flex direction="column">
         <Heading level={3}>{headerText}</Heading>
 
         <Flex direction="column">
-          <ConfirmationCodeInput amplifyNamespace={amplifyNamespace} />
+          <ConfirmationCodeInput />
 
           <PasswordField
             data-amplify-password
@@ -83,12 +67,10 @@ export const ConfirmResetPassword = (): JSX.Element => {
           )}
         </Flex>
 
-        <RemoteErrorMessage amplifyNamespace={amplifyNamespace} />
+        <RemoteErrorMessage />
         <TwoButtonSubmitFooter
           cancelButtonSendType="RESEND"
           cancelButtonText={translate('Resend Code')}
-          amplifyNamespace={amplifyNamespace}
-          isPending={isPending}
         />
       </Flex>
     </Form>

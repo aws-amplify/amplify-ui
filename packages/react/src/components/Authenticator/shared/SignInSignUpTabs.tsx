@@ -1,35 +1,26 @@
-import { getActorState, translate } from '@aws-amplify/ui';
-import { useAmplify, useAuthenticator } from '../../../hooks';
+import { translate } from '@aws-amplify/ui';
+
+import { useAuthenticator } from '..';
+import { TabItem, Tabs } from '../../..';
 import { SignIn } from '../SignIn';
 import { SignUp } from '../SignUp';
 
 export const SignInSignUpTabs = (): JSX.Element => {
-  const {
-    components: { Tabs, TabItem },
-  } = useAmplify('Authenticator');
-
-  const [_state, send] = useAuthenticator();
-  const actorState = getActorState(_state);
-
-  const updateStateMachine = (): void => {
-    const valToSend = _state.value === 'signIn' ? 'SIGN_UP' : 'SIGN_IN';
-
-    send({ type: valToSend });
-  };
+  const { route, toSignIn, toSignUp } = useAuthenticator();
 
   return (
     <Tabs
       indicatorPosition="top"
-      currentIndex={actorState?.matches('signIn') ? 0 : 1}
+      currentIndex={route === 'signIn' ? 0 : 1}
       spacing="equal"
       justifyContent="center"
-      onChange={updateStateMachine}
+      onChange={() => (route === 'signIn' ? toSignUp() : toSignIn())}
     >
       <TabItem title={translate('Sign In')}>
-        {actorState?.matches('signIn') && <SignIn />}
+        {route === 'signIn' && <SignIn />}
       </TabItem>
       <TabItem title={translate('Create Account')}>
-        {actorState?.matches('signUp') && <SignUp />}
+        {route === 'signUp' && <SignUp />}
       </TabItem>
     </Tabs>
   );

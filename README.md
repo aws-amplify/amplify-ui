@@ -55,6 +55,8 @@ function App({ signOut, user }) {
     </>
   );
 }
+
+export default withAuthenticator(App);
 ```
 
 [Head over to the docs for more information on React usage](https://ui.docs.amplify.aws/ui/components/authenticator?platform=react)

@@ -3,8 +3,8 @@
     <base-wrapper v-bind="$attrs">
       <base-form
         data-amplify-authenticator-confirmResetpassword
-        @submit.prevent="onConfirmResetPasswordSubmit"
         @input="onInput"
+        @submit.prevent="onConfirmResetPasswordSubmit"
       >
         <base-field-set
           class="amplify-flex"
@@ -20,7 +20,7 @@
               style="flex-direction: column"
             >
               <base-label
-                class="amplify-label sr-only"
+                class="sr-only amplify-label"
                 for="amplify-field-d653"
               >
                 {{ confirmationCodeText }}
@@ -39,13 +39,7 @@
               </base-wrapper>
             </base-wrapper>
             <base-wrapper
-              class="
-                amplify-flex
-                amplify-field
-                amplify-textfield
-                amplify-passwordfield
-                password-field
-              "
+              class=" amplify-flex amplify-field amplify-textfield amplify-passwordfield password-field"
               style="flex-direction: column"
             >
               <password-control
@@ -58,12 +52,7 @@
               />
             </base-wrapper>
             <base-wrapper
-              class="
-                amplify-flex
-                amplify-field
-                amplify-textfield
-                amplify-passwordfield
-              "
+              class=" amplify-flex amplify-field amplify-textfield amplify-passwordfield"
               style="flex-direction: column"
             >
               <password-control

@@ -1,35 +1,21 @@
-import {
-  getActorContext,
-  getActorState,
-  SignInContext,
-  SignInState,
-  translate,
-} from '@aws-amplify/ui';
+import { getActorContext, SignInContext, translate } from '@aws-amplify/ui';
 
-import { useAmplify, useAuthenticator } from '../../../hooks';
+import { useAuthenticator } from '..';
+import { Button, Flex, Form, Heading, PasswordField, Text } from '../../..';
 
 export const ForceNewPassword = (): JSX.Element => {
-  const amplifyNamespace = 'Authenticator.ForceNewPassword';
-  const {
-    components: { Button, Flex, Form, Heading, PasswordField, Text },
-  } = useAmplify(amplifyNamespace);
-
-  const [_state, send] = useAuthenticator();
-  const actorState: SignInState = getActorState(_state);
-  const { remoteError } = actorState.context;
+  const { _state, error, isPending, toSignIn, submitForm, updateForm } =
+    useAuthenticator();
   const { validationError } = getActorContext(_state) as SignInContext;
-  const isPending = actorState.matches('forceNewPassword.pending');
-
-  const headerText = translate('Change Password');
-  const passwordLabel = translate('Password');
-  const confirmPasswordLabel = translate('Confirm Password');
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    send({
-      type: 'CHANGE',
-      data: { name, value },
-    });
+    updateForm({ name, value });
+  };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    submitForm();
   };
 
   return (
@@ -37,37 +23,27 @@ export const ForceNewPassword = (): JSX.Element => {
       data-amplify-authenticator-forcenewpassword=""
       method="post"
       onChange={handleChange}
-      onSubmit={(event) => {
-        event.preventDefault();
-
-        const formData = new FormData(event.target);
-
-        send({
-          type: 'SUBMIT',
-          // @ts-ignore Property 'fromEntries' does not exist on type 'ObjectConstructor'. Do you need to change your target library? Try changing the `lib` compiler option to 'es2019' or later.ts(2550)
-          data: Object.fromEntries(formData),
-        });
-      }}
+      onSubmit={handleSubmit}
     >
       <Flex direction="column">
-        <Heading level={3}>{headerText}</Heading>
+        <Heading level={3}>{translate('Change Password')}</Heading>
 
         <Flex direction="column">
           <PasswordField
             data-amplify-password
-            placeholder={passwordLabel}
+            placeholder={translate('Password')}
             required
             name="password"
-            label={passwordLabel}
+            label={translate('Password')}
             labelHidden={true}
             hasError={!!validationError['confirm_password']}
           />
           <PasswordField
             data-amplify-confirmpassword
-            placeholder={confirmPasswordLabel}
+            placeholder={translate('Confirm Password')}
             required
             name="confirm_password"
-            label={confirmPasswordLabel}
+            label={translate('Confirm Password')}
             labelHidden={true}
             hasError={!!validationError['confirm_password']}
           />
@@ -77,9 +53,9 @@ export const ForceNewPassword = (): JSX.Element => {
           )}
         </Flex>
 
-        {!!remoteError && (
+        {error && (
           <Text className="forceNewPasswordErrorText" variation="error">
-            {remoteError}
+            {error}
           </Text>
         )}
 
@@ -94,7 +70,7 @@ export const ForceNewPassword = (): JSX.Element => {
           {translate('Change Password')}
         </Button>
         <Button
-          onClick={() => send({ type: 'SIGN_IN' })}
+          onClick={toSignIn}
           type="button"
           fontWeight="normal"
           variation="link"

@@ -3,6 +3,7 @@
     <base-wrapper v-bind="$attrs">
       <base-form
         data-amplify-authenticator-setup-totp
+        @input="onInput"
         @submit.prevent="onSetupTOTPSubmit"
       >
         <base-field-set
@@ -30,7 +31,7 @@
                   style="flex-direction: column"
                 >
                   <base-label
-                    class="amplify-label sr-only"
+                    class="sr-only amplify-label"
                     for="amplify-field-45d1"
                     >Code *</base-label
                   >
@@ -148,6 +149,15 @@ const setupTOTPText = computed(() => translate('Setup TOTP'));
 const codeText = computed(() => translate('Code'));
 
 // Methods
+const onInput = (e: Event): void => {
+  const { name, value } = <HTMLInputElement>e.target;
+  send({
+    type: 'CHANGE',
+    //@ts-ignore
+    data: { name, value },
+  });
+};
+
 const onSetupTOTPSubmit = (e: Event): void => {
   if (attrs?.onConfirmSetupTOTPSubmit) {
     emit('confirmSetupTOTPSubmit', e);

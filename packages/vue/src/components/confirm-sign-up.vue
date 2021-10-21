@@ -1,7 +1,7 @@
 <template>
   <slot v-bind="$attrs" name="confirmSignUpSlotI">
     <base-wrapper v-bind="$attrs">
-      <base-form @submit.prevent="onConfirmSignUpSubmit">
+      <base-form @input="onInput" @submit.prevent="onConfirmSignUpSubmit">
         <base-wrapper class="amplify-flex" style="flex-direction: column">
           <base-heading class="amplify-heading" :level="3">
             {{ confirmSignUpHeading }}
@@ -15,7 +15,7 @@
               class="amplify-flex amplify-field amplify-textfield"
               style="flex-direction: column"
             >
-              <base-label class="amplify-label sr-only" for="amplify-field-124b"
+              <base-label class="sr-only amplify-label" for="amplify-field-124b"
                 >{{ confirmationCodeText }}
               </base-label>
               <base-wrapper class="amplify-flex">
@@ -101,6 +101,15 @@ const resendCodeText = computed(() => translate('Resend Code'));
 const confirmText = computed(() => translate('Confirm'));
 
 // Methods
+const onInput = (e: Event): void => {
+  const { name, value } = <HTMLInputElement>e.target;
+  send({
+    type: 'CHANGE',
+    //@ts-ignore
+    data: { name, value },
+  });
+};
+
 const onConfirmSignUpSubmit = (e: Event): void => {
   if (attrs?.onConfirmSignUpSubmit) {
     emit('confirmSignUpSubmit', e);

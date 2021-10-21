@@ -1,30 +1,22 @@
-import { isEmpty } from 'lodash';
-
 import {
   getActorContext,
-  getActorState,
   SignUpContext,
-  SignUpState,
   UserNameAlias,
   userNameAliasArray,
   translate,
 } from '@aws-amplify/ui';
+import { isEmpty } from 'lodash';
 
-import { useAmplify, useAuthenticator } from '../../../hooks';
+import { useAuthenticator } from '..';
+import { Button, Flex, Form, Heading, PasswordField, Text } from '../../..';
 import { FederatedSignIn } from '../FederatedSignIn';
 import {
   RemoteErrorMessage,
   UserNameAlias as UserNameAliasComponent,
 } from '../shared';
-export function SignUp() {
-  const amplifyNamespace = 'Authenticator.SignUp';
-  const {
-    components: { Button, Flex, Form, Heading, PasswordField, Text },
-  } = useAmplify(amplifyNamespace);
 
-  const [_state, send] = useAuthenticator();
-  const actorState: SignUpState = getActorState(_state);
-  const isPending = actorState.matches('signUp.pending');
+export function SignUp() {
+  const { _state, isPending, submitForm, updateForm } = useAuthenticator();
   const { validationError } = getActorContext(_state) as SignUpContext;
 
   const [primaryAlias, ...secondaryAliases] =
@@ -44,10 +36,12 @@ export function SignUp() {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    send({
-      type: 'CHANGE',
-      data: { name, value },
-    });
+    updateForm({ name, value });
+  };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    submitForm();
   };
 
   const passwordLabel = translate('Password');
@@ -58,18 +52,8 @@ export function SignUp() {
     <Form
       data-amplify-authenticator-signup=""
       method="post"
-      onSubmit={(event) => {
-        event.preventDefault();
-
-        const formData = new FormData(event.target);
-
-        send({
-          type: 'SUBMIT',
-          // @ts-ignore Property 'fromEntries' does not exist on type 'ObjectConstructor'. Do you need to change your target library? Try changing the `lib` compiler option to 'es2019' or later.ts(2550)
-          data: Object.fromEntries(formData),
-        });
-      }}
       onChange={handleChange}
+      onSubmit={handleSubmit}
     >
       <Flex direction="column">
         <Heading level={3}>{translate('Create a new account')}</Heading>
@@ -114,7 +98,7 @@ export function SignUp() {
             />
           ))}
 
-          <RemoteErrorMessage amplifyNamespace={amplifyNamespace} />
+          <RemoteErrorMessage />
         </Flex>
 
         <Button
@@ -135,3 +119,9 @@ export function SignUp() {
     </Form>
   );
 }
+
+SignUp.Header = null;
+SignUp.Form = null;
+SignUp.FormFields = null;
+SignUp.SubmitButton = null;
+SignUp.SocialButtons = null;

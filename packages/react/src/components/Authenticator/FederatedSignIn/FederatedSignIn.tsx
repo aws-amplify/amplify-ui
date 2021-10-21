@@ -1,18 +1,14 @@
+import { FederatedIdentityProviders, translate } from '@aws-amplify/ui';
+import { I18n } from 'aws-amplify';
 import { get, includes } from 'lodash';
 
-import { FederatedIdentityProviders, translate } from '@aws-amplify/ui';
-
-import { useAmplify, useAuthenticator } from '../../../hooks';
+import { useAuthenticator } from '..';
+import { Divider, Flex } from '../../..';
 import { FederatedSignInButton } from './FederatedSignInButtons';
 
 export const FederatedSignIn = (): JSX.Element => {
-  const [{ context }] = useAuthenticator();
-  const loginMechanisms = get(context, 'config.login_mechanisms');
-
-  const amplifyNamespace = 'Authenticator.FederatedSignIn';
-  const {
-    components: { Divider, Flex },
-  } = useAmplify(amplifyNamespace);
+  const { _state } = useAuthenticator();
+  const loginMechanisms = get(_state, 'context.config.login_mechanisms');
 
   const facebookButton = includes(loginMechanisms, 'facebook') ? (
     <FederatedSignInButton
