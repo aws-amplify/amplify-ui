@@ -42,12 +42,12 @@ export interface TextFieldOptions extends FieldProps, FlexContainerStyleProps {
   innerEndComponent?: React.ReactNode;
 }
 
-export interface TextInputFieldProps extends TextFieldOptions, InputProps {
-  isMultiline?: false;
-}
+export interface TextInputFieldProps extends TextFieldOptions, InputProps {}
 
-export interface TextAreaFieldProps extends TextFieldOptions, TextAreaProps {
-  isMultiline?: true;
-}
+export interface TextAreaFieldProps extends TextFieldOptions, TextAreaProps {}
 
-export type TextFieldProps = TextAreaFieldProps | TextInputFieldProps;
+export type TextFieldProps<Multiline extends boolean> = (Multiline extends true
+  ? TextAreaFieldProps
+  : TextInputFieldProps) & {
+  isMultiline?: Multiline;
+};

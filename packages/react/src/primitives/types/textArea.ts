@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { Property } from 'csstype';
 
 import { Sizes } from './base';

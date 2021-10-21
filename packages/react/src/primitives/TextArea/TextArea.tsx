@@ -2,10 +2,11 @@ import classNames from 'classnames';
 import * as React from 'react';
 
 import { ComponentClassNames } from '../shared';
+import { Primitive } from '../types/view';
 import { TextAreaProps } from '../types/textArea';
 import { View } from '../View';
 
-export const TextArea: React.FC<TextAreaProps> = ({
+export const TextArea: Primitive<TextAreaProps, 'textarea'> = ({
   className,
   isReadOnly,
   isRequired,

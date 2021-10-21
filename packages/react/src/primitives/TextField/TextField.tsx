@@ -17,25 +17,23 @@ import {
 } from '../types';
 import { TextArea } from '../TextArea';
 
-const isTextAreaField = (
-  props: TextFieldProps
-): props is React.PropsWithChildren<
-  PrimitiveProps<TextAreaFieldProps, 'textarea'>
-> => {
+const isTextAreaField = (props: {
+  isMultiline?: boolean;
+}): props is PrimitiveProps<TextFieldProps<true>, 'textarea'> => {
   return props.isMultiline;
 };
 
-const isInputField = (
-  props: TextFieldProps
-): props is React.PropsWithChildren<
-  PrimitiveProps<TextInputFieldProps, 'input'>
-> => {
+const isInputField = (props: {
+  isMultiline?: boolean;
+}): props is PrimitiveProps<TextFieldProps<false>, 'input'> => {
   return !props.isMultiline;
 };
 
 export const DEFAULT_ROW_COUNT = 3;
 
-export const TextField: Primitive<TextFieldProps, any> = (props) => {
+export const TextField = <Multiline extends boolean>(
+  props: PrimitiveProps<TextFieldProps<Multiline>, 'input' | 'textarea'>
+) => {
   const {
     alignContent,
     alignItems,
@@ -65,19 +63,17 @@ export const TextField: Primitive<TextFieldProps, any> = (props) => {
 
   let control = null;
   if (isTextAreaField(props)) {
+    const { rows } = props;
     control = (
       <TextArea
         hasError={hasError}
         id={fieldId}
-        maxLength={props.maxLength}
-        resize={props.resize}
-        rows={props.rows ?? DEFAULT_ROW_COUNT}
+        rows={rows ?? DEFAULT_ROW_COUNT}
         size={size}
         {...rest}
       />
     );
-  }
-  if (isInputField(props)) {
+  } else if (isInputField(props)) {
     control = (
       <Input
         hasError={hasError}
