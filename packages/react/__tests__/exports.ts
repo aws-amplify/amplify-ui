@@ -1885,6 +1885,7 @@ describe('@aws-amplify/ui-react', () => {
           "defaultTheme",
           "findChildOverrides",
           "getOverrideProps",
+          "getOverridesFromVariants",
           "primitives",
           "useAmplify",
           "useAuthenticator",
