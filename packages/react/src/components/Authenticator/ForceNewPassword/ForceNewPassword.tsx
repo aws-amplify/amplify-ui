@@ -9,7 +9,7 @@ export const ForceNewPassword = (): JSX.Element => {
     _state,
     error,
     isPending,
-    signIn,
+    toSignIn,
     submitForm,
     updateForm,
   } = useAuthenticator();
@@ -77,7 +77,7 @@ export const ForceNewPassword = (): JSX.Element => {
           {I18n.get('Change Password')}
         </Button>
         <Button
-          onClick={signIn}
+          onClick={toSignIn}
           type="button"
           fontWeight="normal"
           variation="link"

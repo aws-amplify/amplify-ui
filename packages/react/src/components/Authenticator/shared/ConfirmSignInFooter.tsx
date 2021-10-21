@@ -4,7 +4,7 @@ import { useAuthenticator } from '../..';
 import { Button, Flex } from '../../..';
 
 export const ConfirmSignInFooter = () => {
-  const { isPending, signIn } = useAuthenticator();
+  const { isPending, toSignIn } = useAuthenticator();
 
   return (
     <Flex direction="column">
@@ -20,7 +20,7 @@ export const ConfirmSignInFooter = () => {
       </Button>
 
       <Button
-        onClick={signIn}
+        onClick={toSignIn}
         type="button"
         variation="link"
         fontWeight="normal"

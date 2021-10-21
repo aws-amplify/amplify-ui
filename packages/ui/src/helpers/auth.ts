@@ -139,16 +139,18 @@ export const getSendEventAliases = (send: Sender<AuthEvent>) => {
     change: sendToMachine('CHANGE'),
     updateForm: sendToMachine('CHANGE'),
 
-    federatedSignIn: sendToMachine('FEDERATED_SIGN_IN'),
-
     /** @deprecated use `resendCode` instead */
     resend: sendToMachine('RESEND'),
-    resendCode: sendToMachine('RESEND'),
 
-    resetPassword: sendToMachine('RESET_PASSWORD'),
-    signIn: sendToMachine('SIGN_IN'),
+    resendCode: sendToMachine('RESEND'),
     signOut: sendToMachine('SIGN_OUT'),
-    signUp: sendToMachine('SIGN_UP'),
+
+    // Actions that don't immediately invoke a service but instead transition to a screen
+    // are prefixed with `to*`
+    toFederatedSignIn: sendToMachine('FEDERATED_SIGN_IN'),
+    toResetPassword: sendToMachine('RESET_PASSWORD'),
+    toSignIn: sendToMachine('SIGN_IN'),
+    toSignUp: sendToMachine('SIGN_UP'),
 
     /** @deprecated use `skipVerification` instead */
     skip: sendToMachine('SKIP'),

@@ -6,7 +6,7 @@ import { SignIn } from '../SignIn';
 import { SignUp } from '../SignUp';
 
 export const SignInSignUpTabs = (): JSX.Element => {
-  const { route, signIn, signUp } = useAuthenticator();
+  const { route, toSignIn, toSignUp } = useAuthenticator();
 
   return (
     <Tabs
@@ -14,7 +14,7 @@ export const SignInSignUpTabs = (): JSX.Element => {
       currentIndex={route === 'signIn' ? 0 : 1}
       spacing="equal"
       justifyContent="center"
-      onChange={() => (route === 'signIn' ? signUp() : signIn())}
+      onChange={() => (route === 'signIn' ? toSignUp() : toSignIn())}
     >
       <TabItem title={I18n.get('Sign In')}>
         {route === 'signIn' && <SignIn />}
