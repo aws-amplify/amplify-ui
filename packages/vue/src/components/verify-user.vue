@@ -49,7 +49,7 @@
                   aria-hidden="true"
                 ></base-text>
                 <base-text class="amplify-text amplify-radio__label">
-                  {{ authInputAttributes[key].label }}
+                  {{ authInputAttributes[key as UserNameAlias].label }}
                 </base-text>
               </base-label>
             </base-wrapper>
@@ -110,6 +110,7 @@ import {
   getActorState,
   SignInState,
   authInputAttributes,
+  UserNameAlias,
 } from '@aws-amplify/ui';
 
 const attrs = useAttrs();
@@ -138,8 +139,8 @@ const onVerifyUserSubmit = (e: Event): void => {
   }
 };
 
-const submit = (e): void => {
-  const formData = new FormData(e.target);
+const submit = (e: Event): void => {
+  const formData = new FormData(<HTMLFormElement>e.target);
   send({
     type: 'SUBMIT',
     //@ts-ignore

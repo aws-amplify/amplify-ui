@@ -12,13 +12,14 @@ export default defineComponent({
   setup(props, { slots, attrs }): Record<string, unknown> | (() => unknown) {
     const defaultSlot = slots.default ? slots.default() : [];
     const headingI = slots.headingI ? slots.headingI() : [];
-    if (headingI[0]?.children.length === 0) {
+    if (headingI[0]?.children?.length === 0) {
       headingI[0].children = [
         h(`h${props.level}`, { ...attrs }, [defaultSlot]),
       ];
     } else {
       return () =>
         h(`h${props.level}`, { 'data-amplify-heading': '', ...attrs }, [
+          //@ts-ignore
           headingI[0] ? h(headingI[0].children[0]) : h(defaultSlot[0]),
         ]);
     }

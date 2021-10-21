@@ -1,5 +1,9 @@
 <template>
-  <slot v-bind="$attrs" name="fieldSetI" :slotData="mySlots.default()">
+  <slot
+    v-bind="$attrs"
+    name="fieldSetI"
+    :slotData="mySlots.default && mySlots.default()"
+  >
     <fieldset v-bind="$attrs" data-amplify-fieldset="">
       <slot></slot>
     </fieldset>

@@ -30,7 +30,7 @@
                 :label="passwordLabel"
                 autocomplete="new-password"
                 :ariainvalid="
-                  !!actorContext.validationError['confirm_password']
+                  !!(actorContext.validationError as ValidationError)['confirm_password']
                 "
               />
             </base-wrapper>
@@ -50,7 +50,7 @@
                 :label="confirmPasswordLabel"
                 autocomplete="new-password"
                 :ariainvalid="
-                  !!actorContext.validationError['confirm_password']
+                  !!(actorContext.validationError as ValidationError)['confirm_password']
                 "
               />
             </base-wrapper>
@@ -100,9 +100,9 @@
         </base-box>
         <base-box
           data-ui-error
-          v-if="!!actorContext.validationError['confirm_password']"
+          v-if="!!(actorContext.validationError as ValidationError)['confirm_password']"
         >
-          {{ actorContext.validationError['confirm_password'] }}
+          {{ (actorContext.validationError as ValidationError)['confirm_password'] }}
         </base-box>
       </base-form>
     </base-wrapper>
@@ -127,6 +127,7 @@ import {
   getActorState,
   SignInState,
   SignUpContext,
+  ValidationError,
 } from '@aws-amplify/ui';
 import PasswordControl from './password-control.vue';
 

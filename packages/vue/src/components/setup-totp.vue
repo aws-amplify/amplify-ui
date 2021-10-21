@@ -126,7 +126,7 @@ const actorState: ComputedRef<SignInState> = computed(() =>
 );
 
 let qrCode = reactive({
-  qrCodeImageSource: null,
+  qrCodeImageSource: '',
   isLoading: true,
 });
 
@@ -165,8 +165,8 @@ const onSetupTOTPSubmit = (e: Event): void => {
   }
 };
 
-const submit = (e): void => {
-  const formData = new FormData(e.target);
+const submit = (e: Event): void => {
+  const formData = new FormData(<HTMLFormElement>e.target);
   send({
     type: 'SUBMIT',
     //@ts-ignore
