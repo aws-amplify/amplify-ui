@@ -4,7 +4,7 @@
   "scripts": {
     "build": "yarn --cwd ../../ build",
     "dev": "yarn --cwd ../../ dev",
-    "lint": "yarn --cwd ../../ lint",
+    "lint": "echo 'TODO https://github.com/aws-amplify/amplify-ui/issues/549 - yarn --cwd ../../ lint'",
     "test": "yarn --cwd ../../ test",
     "generate:css": "npx tailwindcss -i ./styles/component.tailwind.css -o ./styles/component.css"
   },
