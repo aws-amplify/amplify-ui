@@ -1,10 +1,10 @@
-import React from 'react';
-import { ComponentClassNames } from '../shared/constants';
 import classNames from 'classnames';
-import { BadgeProps } from '../types';
+
+import { ComponentClassNames } from '../shared/constants';
+import { BadgeProps, Primitive } from '../types';
 import { View } from '../View';
 
-export const Badge: React.FC<BadgeProps> = ({
+export const Badge: Primitive<BadgeProps, 'span'> = ({
   className,
   children,
   variation,

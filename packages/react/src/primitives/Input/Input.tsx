@@ -1,11 +1,10 @@
 import classNames from 'classnames';
-import * as React from 'react';
 
 import { ComponentClassNames } from '../shared';
-import { InputProps } from '../types/input';
+import { InputProps, Primitive } from '../types';
 import { View } from '../View';
 
-export const Input: React.FC<InputProps> = ({
+export const Input: Primitive<InputProps, 'input'> = ({
   autoComplete,
   checked,
   className,
@@ -28,6 +27,7 @@ export const Input: React.FC<InputProps> = ({
   onInput,
   onPaste,
   onSelect,
+  onWheel,
   ...rest
 }) => (
   <View
@@ -54,6 +54,7 @@ export const Input: React.FC<InputProps> = ({
     onInput={onInput}
     onPaste={onPaste}
     onSelect={onSelect}
+    onWheel={onWheel}
     readOnly={isReadOnly}
     required={isRequired}
     type={type}

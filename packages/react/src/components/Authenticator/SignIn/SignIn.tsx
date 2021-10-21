@@ -49,7 +49,7 @@ export function SignIn() {
             data-amplify-password
             className="password-field"
             placeholder={translate('Password')}
-            required
+            isRequired={true}
             name="password"
             label={translate('Password')}
             autoComplete="current-password"

@@ -76,7 +76,7 @@ export const VerifyUser = (): JSX.Element => {
       label={translate('Verify Contact')}
       labelHidden={true}
       name="verify_context"
-      disabled={isPending}
+      isDisabled={isPending}
     >
       {generateRadioGroup(context.unverifiedAttributes)}
     </RadioGroupField>
