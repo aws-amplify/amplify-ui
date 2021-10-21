@@ -2,17 +2,19 @@ import { translations } from '@aws-amplify/ui';
 import { I18n } from 'aws-amplify';
 import * as React from 'react';
 
-import { Provider } from './Provider';
-import { Router } from './Router';
+import { Provider, ProviderProps } from './Provider';
+import { Router, RouterProps } from './Router';
+
+export type AuthenticatorProps = ProviderProps & RouterProps;
 
 export function Authenticator({
   children,
-  className = undefined,
-  components = undefined,
-  initialState = undefined,
-  loginMechanisms = undefined,
-  services = undefined,
-}) {
+  className,
+  components,
+  initialState,
+  loginMechanisms,
+  services,
+}: AuthenticatorProps) {
   React.useEffect(() => {
     I18n.putVocabularies(translations);
   }, []);

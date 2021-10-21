@@ -12,16 +12,16 @@ import generateContext from 'react-generate-context';
 
 import { defaultComponents } from './defaultComponents';
 
-type Props = AuthenticatorMachineOptions & {
-  components: typeof defaultComponents;
-  services: undefined;
+export type ProviderProps = AuthenticatorMachineOptions & {
+  components?: typeof defaultComponents;
+  services?: undefined;
 };
 
 const useAuthenticatorValue = ({
   components: customComponents,
   initialState,
   loginMechanisms,
-}: Props) => {
+}: ProviderProps) => {
   const [state, send] = useMachine(
     () => createAuthenticatorMachine({ initialState, loginMechanisms }),
     {

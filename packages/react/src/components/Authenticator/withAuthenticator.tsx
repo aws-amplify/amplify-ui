@@ -1,10 +1,12 @@
 import * as React from 'react';
 
-import { Authenticator } from './Authenticator';
+import { Authenticator, AuthenticatorProps } from './Authenticator';
+
+export type WithAuthenticatorOptions = Omit<AuthenticatorProps, 'children'>;
 
 export function withAuthenticator(
   Component,
-  options?: Omit<Parameters<typeof Authenticator>, 'children'>
+  options?: WithAuthenticatorOptions
 ) {
   return function WrappedWithAuthenticator() {
     return (

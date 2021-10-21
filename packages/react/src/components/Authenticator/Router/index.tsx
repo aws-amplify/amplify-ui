@@ -1,3 +1,4 @@
+import { CognitoUserAmplify } from '@aws-amplify/ui';
 import * as React from 'react';
 
 import { useAuthenticator } from '..';
@@ -10,7 +11,18 @@ import { SetupTOTP } from '../SetupTOTP';
 import { SignInSignUpTabs } from '../shared';
 import { ConfirmVerifyUser, VerifyUser } from '../VerifyUser';
 
-export function Router({ className, children }) {
+export type RouterProps = {
+  className?: string;
+  children: ({
+    signOut,
+    user,
+  }: {
+    signOut: ReturnType<typeof useAuthenticator>['signOut'];
+    user: CognitoUserAmplify;
+  }) => JSX.Element;
+};
+
+export function Router({ className, children }: RouterProps) {
   const { route, signOut, user } = useAuthenticator();
 
   if (['authenticated', 'signOut'].includes(route)) {
