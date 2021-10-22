@@ -15,8 +15,13 @@ export const TableDemo = () => {
     <View>
       <TablePropControls {...tableProps} />
       <View className="mt-8">
-        <Table caption={tableProps.caption} summary={tableProps.caption}>
+        <Table caption={tableProps.caption} summary={tableProps.summary}>
           <Table.Head>
+            <Table.Row>
+              <Table.Cell as="th" colspan="3">
+                Numbers
+              </Table.Cell>
+            </Table.Row>
             <Table.Row>
               <Table.Cell as="th">One</Table.Cell>
               <Table.Cell as="th">Two</Table.Cell>

@@ -13,35 +13,27 @@ interface TablePropControlsInterface {
 }
 
 export const TablePropControls: TablePropControlsInterface = ({
-  caption,
   setCaption,
   setSummary,
-  summary,
-}) => {
-  return (
-    <DemoBox primitiveName="Table">
-      <TextField
-        id="caption-control"
-        label="caption-control"
-        name="caption-control"
-        placeholder="Table Caption"
-        onChange={(event) =>
-          setCaption(event.target.value as TableProps['caption'])
-        }
-      >
-        {caption}
-      </TextField>
-      <TextField
-        id="summary-control"
-        label="summary-control"
-        name="summary-control"
-        placeholder="Table Summary"
-        onChange={(event) =>
-          setSummary(event.target.value as TableProps['summary'])
-        }
-      >
-        {summary}
-      </TextField>
-    </DemoBox>
-  );
-};
+}) => (
+  <DemoBox primitiveName="Table">
+    <TextField
+      id="caption-control"
+      label="caption"
+      name="caption-control"
+      placeholder="Table Caption"
+      onChange={(event) =>
+        setCaption(event.target.value as TableProps['caption'])
+      }
+    />
+    <TextField
+      id="summary-control"
+      label="summary"
+      name="summary-control"
+      placeholder="Table Summary"
+      onChange={(event) =>
+        setSummary(event.target.value as TableProps['summary'])
+      }
+    />
+  </DemoBox>
+);
