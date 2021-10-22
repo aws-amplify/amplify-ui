@@ -3,8 +3,8 @@
     <base-form
       v-bind="$attrs"
       data-amplify-authenticator-resetpassword
+      @input="onInput"
       @submit.prevent="onResetPasswordSubmit"
-      @change="onChange"
     >
       <base-wrapper class="amplify-flex" style="flex-direction: column">
         <base-heading class="amplify-heading" :level="3">
@@ -19,7 +19,7 @@
             class="amplify-flex amplify-field amplify-textfield"
             style="flex-direction: column"
           >
-            <base-label class="amplify-label sr-only" for="amplify-field-7dce">
+            <base-label class="sr-only amplify-label" for="amplify-field-7dce">
               Username
             </base-label>
             <base-wrapper class="amplify-flex">
@@ -81,16 +81,9 @@
 
 <script setup lang="ts">
 import { computed, ComputedRef, useAttrs } from 'vue';
-import { I18n } from 'aws-amplify';
-import { useAuth } from '../composables/useAuth';
+import { getActorState, ResetPasswordState, translate } from '@aws-amplify/ui';
 
-import {
-  BACK_SIGN_IN_TEXT,
-  RESET_PASSWORD_HEADING,
-  RESET_PASSWORD_TEXT,
-  ENTER_USERNAME_TEXT,
-} from '../defaults/DefaultTexts';
-import { getActorState, ResetPasswordState } from '@aws-amplify/ui';
+import { useAuth } from '../composables/useAuth';
 
 const attrs = useAttrs();
 const emit = defineEmits(['resetPasswordSubmit', 'backToSignInClicked']);
@@ -101,10 +94,10 @@ const actorState: ComputedRef<ResetPasswordState> = computed(() =>
 ) as ComputedRef<ResetPasswordState>;
 
 // Computed Properties
-const backSignInText = computed(() => I18n.get(BACK_SIGN_IN_TEXT));
-const resetPasswordHeading = computed(() => I18n.get(RESET_PASSWORD_HEADING));
-const resetPasswordText = computed(() => I18n.get(RESET_PASSWORD_TEXT));
-const enterUsernameText = computed(() => I18n.get(ENTER_USERNAME_TEXT));
+const backSignInText = computed(() => translate('Back to Sign In'));
+const resetPasswordHeading = computed(() => translate('Reset your password'));
+const resetPasswordText = computed(() => translate('Send Code'));
+const enterUsernameText = computed(() => translate('Enter your username'));
 
 // Methods
 const onResetPasswordSubmit = (e: Event): void => {
@@ -123,7 +116,7 @@ const submit = (e: Event): void => {
   });
 };
 
-const onChange = (e: Event): void => {
+const onInput = (e: Event): void => {
   const { name, value } = <HTMLFormElement>e.target;
   send({
     type: 'CHANGE',

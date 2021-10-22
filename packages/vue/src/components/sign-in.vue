@@ -3,8 +3,8 @@
     <base-wrapper v-bind="$attrs">
       <base-form
         data-amplify-authenticator-signin
-        @submit.prevent="onSignInSubmit"
         @input="onInput"
+        @submit.prevent="onSignInSubmit"
         method="post"
       >
         <template #formt="{ slotData }">
@@ -36,13 +36,7 @@
 
             <user-name-alias :userNameAlias="true" />
             <base-wrapper
-              class="
-                amplify-flex
-                amplify-field
-                amplify-textfield
-                amplify-passwordfield
-                password-field
-              "
+              class=" amplify-flex amplify-field amplify-textfield amplify-passwordfield password-field"
               style="flex-direction: column"
             >
               <password-control
@@ -119,23 +113,14 @@
 
 <script setup lang="ts">
 import { computed, ComputedRef, useAttrs } from 'vue';
-import { I18n } from 'aws-amplify';
+import { getActorState, SignInState, translate } from '@aws-amplify/ui';
 
 import PasswordControl from './password-control.vue';
 import UserNameAlias from './user-name-alias.vue';
 import FederatedSignIn from './federated-sign-in.vue';
 
-import {
-  SIGN_IN_TEXT,
-  FORGOT_YOUR_PASSWORD_LINK,
-  SIGN_IN_BUTTON_TEXT,
-  SIGNING_IN_BUTTON_TEXT,
-  PASSWORD_LABEL,
-} from '../defaults/DefaultTexts';
-
 // @xstate
 import { useAuth } from '../composables/useAuth';
-import { getActorState, SignInState } from '@aws-amplify/ui';
 
 const attrs = useAttrs();
 const emit = defineEmits([
@@ -144,13 +129,15 @@ const emit = defineEmits([
   'createAccountClicked',
 ]);
 
-const passwordLabel = computed(() => I18n.get(PASSWORD_LABEL));
-const signIntoAccountText = computed(() => I18n.get(SIGN_IN_TEXT));
-const forgotYourPasswordLink = computed(() =>
-  I18n.get(FORGOT_YOUR_PASSWORD_LINK)
+const passwordLabel = computed(() => translate('Password'));
+const signIntoAccountText = computed(() =>
+  translate('Sign in to your account')
 );
-const signInButtonText = computed(() => I18n.get(SIGN_IN_BUTTON_TEXT));
-const signIngButtonText = computed(() => I18n.get(SIGNING_IN_BUTTON_TEXT));
+const forgotYourPasswordLink = computed(() =>
+  translate('Forgot your password? ')
+);
+const signInButtonText = computed(() => translate('Sign in'));
+const signIngButtonText = computed(() => translate('Signing in'));
 
 const { state, send } = useAuth();
 const actorState: ComputedRef<SignInState> = computed(() =>
