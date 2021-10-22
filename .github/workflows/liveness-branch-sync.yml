@@ -23,4 +23,4 @@ jobs:
         uses: hmarr/auto-approve-action@6a9ec7556f0a7fa5b49527a1eea4878b8a22d2e0 # pin@v2
         with:
           pull-request-number: ${{ steps.open-pr.outputs.pr_number }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
