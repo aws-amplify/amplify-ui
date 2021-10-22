@@ -538,7 +538,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-font-weights-extrabold: 800;
         --amplify-font-weights-black: 900;
         --amplify-line-heights-small: 1.5;
-        --amplify-line-heights-medium: 1.8;
+        --amplify-line-heights-medium: 1.75;
         --amplify-line-heights-large: 2;
         --amplify-opacities-0: 0;
         --amplify-opacities-10: 0.1;
