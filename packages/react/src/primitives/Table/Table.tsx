@@ -34,12 +34,23 @@ export const Table: TableControls = (props) => {
   );
 };
 
-Table.Body = ({ children }) => <tbody>{children}</tbody>;
+Table.Body = ({ children, ...rest }) => {
+  const nonStyleProps = useNonStyleProps(rest);
+  return <tbody {...nonStyleProps}>{children}</tbody>;
+};
 
-Table.Cell = ({ as: CellTag = 'td', children }) => (
-  <CellTag>{children}</CellTag>
-);
+Table.Cell = ({ as: CellTag = 'td', children, ...rest }) => {
+  const nonStyleProps = useNonStyleProps(rest);
+  console.log('nonStyleProps', nonStyleProps);
+  return <CellTag {...nonStyleProps}>{children}</CellTag>;
+};
 
-Table.Head = ({ children }) => <thead>{children}</thead>;
+Table.Head = ({ children, ...rest }) => {
+  const nonStyleProps = useNonStyleProps(rest);
+  return <thead {...nonStyleProps}>{children}</thead>;
+};
 
-Table.Row = ({ children }) => <tr>{children}</tr>;
+Table.Row = ({ children, ...rest }) => {
+  const nonStyleProps = useNonStyleProps(rest);
+  return <tr {...nonStyleProps}>{children}</tr>;
+};
