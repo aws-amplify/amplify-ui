@@ -285,14 +285,16 @@
 
 <script setup lang="ts">
 import { ref, provide, computed, useAttrs, watch, onBeforeMount } from 'vue';
-import { getActorState, getServiceFacade, translations } from '@aws-amplify/ui';
+import { useActor, useInterpret } from '@xstate/vue';
 import { I18n } from 'aws-amplify';
-
 import {
+  getActorState,
+  getServiceFacade,
+  translations,
   AuthenticatorMachineOptions,
   createAuthenticatorMachine,
+  translate,
 } from '@aws-amplify/ui';
-import { useActor, useInterpret } from '@xstate/vue';
 
 import SignIn from './sign-in.vue';
 import SignUp from './sign-up.vue';
@@ -304,8 +306,6 @@ import ResetPassword from './reset-password.vue';
 import ConfirmResetPassword from './confirm-reset-password.vue';
 import VerifyUser from './verify-user.vue';
 import ConfirmVerifyUser from './confirm-verify-user.vue';
-
-import { CREATE_ACCOUNT_LABEL, SIGN_IN_LABEL } from '../defaults/DefaultTexts';
 
 import {
   InterpretServiceInjectionKeyTypes,
@@ -368,8 +368,8 @@ const confirmVerifyUserComponent = ref();
 
 // computed
 
-const signInLabel = computed(() => I18n.get(CREATE_ACCOUNT_LABEL));
-const createAccountLabel = computed(() => I18n.get(SIGN_IN_LABEL));
+const signInLabel = computed(() => translate('Create Account'));
+const createAccountLabel = computed(() => translate('Sign In'));
 
 //methods
 

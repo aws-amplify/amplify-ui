@@ -35,6 +35,13 @@ Feature: Sign In with Phone Number
     Then I see "Sign out"
 
   @angular @react @vue
+  Scenario: Sign in with confirmed credentials and don't select country code
+    When I type my "phone number" with status "CONFIRMED"
+    And I type my password
+    And I click the "Sign in" button
+    Then I see "Sign out"
+
+  @angular @react @vue
   Scenario: Sign in with confirmed credentials then sign out
     When I select my country code with status "CONFIRMED"
     And I type my "phone number" with status "CONFIRMED"
