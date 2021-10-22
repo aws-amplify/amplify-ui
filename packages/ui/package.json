@@ -25,6 +25,7 @@
     "build:js": "tsup --minify",
     "build:sd": "ts-node --transpile-only sd.config.ts",
     "dev": "tsup --watch src",
+    "lint": "tsc --noEmit",
     "test": "jest"
   },
   "dependencies": {

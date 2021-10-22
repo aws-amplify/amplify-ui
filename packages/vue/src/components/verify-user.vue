@@ -1,7 +1,7 @@
 <template>
   <slot name="verifyUserSlotI">
     <base-wrapper>
-      <base-form @submit.prevent="onVerifyUserSubmit">
+      <base-form @input="onInput" @submit.prevent="onVerifyUserSubmit">
         <base-field-set
           :disabled="actorState.matches('verifyUser.pending')"
           class="amplify-flex"
@@ -14,7 +14,7 @@
             class="amplify-flex amplify-field amplify-radiogroupfield"
             style="flex-direction: column"
           >
-            <base-label class="amplify-label sr-only" id="amplify-field-493c">
+            <base-label class="sr-only amplify-label" id="amplify-field-493c">
               {{ verifyContactText }}
             </base-label>
             <base-wrapper
@@ -30,12 +30,7 @@
                 :key="value"
               >
                 <base-input
-                  class="
-                    amplify-input
-                    amplify-field-group__control
-                    amplify-visually-hidden
-                    amplify-radio__input
-                  "
+                  class=" amplify-input amplify-field-group__control amplify-visually-hidden amplify-radio__input"
                   aria-invalid="false"
                   data-amplify-verify-input
                   id="verify"
@@ -96,21 +91,14 @@
 
 <script setup lang="ts">
 import { computed, ComputedRef, useAttrs } from 'vue';
-import { I18n } from 'aws-amplify';
-
-import { useAuth } from '../composables/useAuth';
-
-import {
-  VERIFY_HEADING,
-  SKIP_TEXT,
-  VERIFY_TEXT,
-  VERIFY_CONTACT_TEXT,
-} from '../defaults/DefaultTexts';
 import {
   getActorState,
   SignInState,
   authInputAttributes,
+  translate,
 } from '@aws-amplify/ui';
+
+import { useAuth } from '../composables/useAuth';
 
 const attrs = useAttrs();
 const emit = defineEmits(['verifyUserSubmit', 'skipClicked']);
@@ -124,12 +112,23 @@ const actorState: ComputedRef<SignInState> = computed(
 const unverifiedAttributes = actorState.value.context.unverifiedAttributes;
 
 // Computed Properties
-const verifyHeading = computed(() => I18n.get(VERIFY_HEADING));
-const skipText = computed(() => I18n.get(SKIP_TEXT));
-const verifyText = computed(() => I18n.get(VERIFY_TEXT));
-const verifyContactText = computed(() => I18n.get(VERIFY_CONTACT_TEXT));
+const verifyHeading = computed(() =>
+  translate('Account recovery requires verified contact information')
+);
+const skipText = computed(() => translate('Skip'));
+const verifyText = computed(() => translate('Verify'));
+const verifyContactText = computed(() => translate('Verify Contact'));
 
 // Methods
+const onInput = (e: Event): void => {
+  const { name, value } = <HTMLInputElement>e.target;
+  send({
+    type: 'CHANGE',
+    //@ts-ignore
+    data: { name, value },
+  });
+};
+
 const onVerifyUserSubmit = (e: Event): void => {
   if (attrs?.onVerifyUserSubmit) {
     emit('verifyUserSubmit', e);

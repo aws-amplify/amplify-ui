@@ -11,9 +11,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: TreTuna/sync-branches@1.4.0
-        name: Sync branches
+      - name: Sync branches
+        uses: repo-sync/pull-request@65194d8015be7624d231796ddee1cd52a5023cb3 # pin@v2
+        id: open-pr
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          FROM_BRANCH: main
-          TO_BRANCH: liveness-main
+          source_branch: main
+          destination_branch: liveness-main
+          pr_title: 'Sync branch main to liveness-main'
+          github_token: ${{ secrets.PERSONAL_TOKEN }}
+      - name: Auto approve pull request
+        uses: hmarr/auto-approve-action@6a9ec7556f0a7fa5b49527a1eea4878b8a22d2e0 # pin@v2
+        with:
+          pull-request-number: ${{ steps.open-pr.outputs.pr_number }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}

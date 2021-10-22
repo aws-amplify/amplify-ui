@@ -3,8 +3,8 @@
     <base-wrapper v-bind="$attrs">
       <base-form
         data-amplify-authenticator-confirmResetpassword
-        @submit.prevent="onConfirmResetPasswordSubmit"
         @input="onInput"
+        @submit.prevent="onConfirmResetPasswordSubmit"
       >
         <base-field-set
           class="amplify-flex"
@@ -20,7 +20,7 @@
               style="flex-direction: column"
             >
               <base-label
-                class="amplify-label sr-only"
+                class="sr-only amplify-label"
                 for="amplify-field-d653"
               >
                 {{ confirmationCodeText }}
@@ -124,26 +124,17 @@
 
 <script setup lang="ts">
 import { computed, ComputedRef, useAttrs, defineEmits } from 'vue';
-import { I18n } from 'aws-amplify';
-import { useAuth } from '../composables/useAuth';
-import PasswordControl from './password-control.vue';
-
-import {
-  CONFIRM_RESET_PASSWORD_TEXT,
-  RESEND_CODE_TEXT,
-  CONFIRM_RESET_PASSWORD_HEADING,
-  CONFIRMATION_CODE_TEXT,
-  CODE_TEXT,
-  NEW_PASSWORD_LABEL,
-  CONFIRM_PASSWORD_LABEL,
-} from '../defaults/DefaultTexts';
-
 import {
   getActorContext,
   getActorState,
   ResetPasswordContext,
   ResetPasswordState,
+  translate,
 } from '@aws-amplify/ui';
+
+import { useAuth } from '../composables/useAuth';
+import PasswordControl from './password-control.vue';
+
 const { state, send } = useAuth();
 
 const attrs = useAttrs();
@@ -158,18 +149,16 @@ const actorContext = computed(() =>
 ) as ComputedRef<ResetPasswordContext>;
 
 // Computed Properties
-const resendCodeText = computed(() => I18n.get(RESEND_CODE_TEXT));
-const confirmationCodeText = computed(() => I18n.get(CONFIRMATION_CODE_TEXT));
+const resendCodeText = computed(() => translate('Resend Code'));
+const confirmationCodeText = computed(() => translate('Confirmation Code'));
 const confirmResetPasswordHeading = computed(() =>
-  I18n.get(CONFIRM_RESET_PASSWORD_HEADING)
+  translate('Reset your Password')
 );
-const confirmResetPasswordText = computed(() =>
-  I18n.get(CONFIRM_RESET_PASSWORD_TEXT)
-);
+const confirmResetPasswordText = computed(() => translate('Submit'));
 
-const codeText = computed(() => I18n.get(CODE_TEXT));
-const newPasswordLabel = computed(() => I18n.get(NEW_PASSWORD_LABEL));
-const confirmPasswordLabel = computed(() => I18n.get(CONFIRM_PASSWORD_LABEL));
+const codeText = computed(() => translate('Code'));
+const newPasswordLabel = computed(() => translate('New password'));
+const confirmPasswordLabel = computed(() => translate('Confirm Password'));
 
 // Methods
 const onConfirmResetPasswordSubmit = (e: Event): void => {
