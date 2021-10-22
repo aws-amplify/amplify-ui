@@ -2,19 +2,14 @@ import classNames from 'classnames';
 
 import { ComponentClassNames } from '../shared/constants';
 import { useStableId } from '../shared/utils';
+import { splitPrimitiveProps } from '../shared/styleUtils';
 import { FieldDescription, FieldErrorMessage } from '../Field';
 import { Flex } from '../Flex';
 import { FieldGroup } from '../FieldGroup';
 import { Input } from '../Input';
 import { Label } from '../Label';
 
-import {
-  Primitive,
-  PrimitiveProps,
-  TextAreaFieldProps,
-  TextFieldProps,
-  TextInputFieldProps,
-} from '../types';
+import { PrimitiveProps, TextFieldProps } from '../types';
 import { TextArea } from '../TextArea';
 
 const isTextAreaField = (props: {
@@ -35,16 +30,11 @@ export const TextField = <Multiline extends boolean>(
   props: PrimitiveProps<TextFieldProps<Multiline>, 'input' | 'textarea'>
 ) => {
   const {
-    alignContent,
-    alignItems,
     className,
     descriptiveText,
-    direction = 'column',
     errorMessage,
-    gap,
     hasError = false,
     id,
-    justifyContent,
     label,
     labelHidden = false,
     outerEndComponent,
@@ -55,11 +45,13 @@ export const TextField = <Multiline extends boolean>(
     size,
     testId,
     type = 'text',
-    wrap,
-    ...rest
+    ..._rest
   } = props;
 
   const fieldId = useStableId(id);
+
+  const { flexContainerStyleProps, baseStyleProps, rest } =
+    splitPrimitiveProps(_rest);
 
   let control = null;
   if (isTextAreaField(props)) {
@@ -70,6 +62,7 @@ export const TextField = <Multiline extends boolean>(
         id={fieldId}
         rows={rows ?? DEFAULT_ROW_COUNT}
         size={size}
+        {...baseStyleProps}
         {...rest}
       />
     );
@@ -80,6 +73,7 @@ export const TextField = <Multiline extends boolean>(
         id={fieldId}
         size={size}
         type={props.type}
+        {...baseStyleProps}
         {...rest}
       />
     );
@@ -87,19 +81,14 @@ export const TextField = <Multiline extends boolean>(
 
   return (
     <Flex
-      alignContent={alignContent}
-      alignItems={alignItems}
       className={classNames(
         ComponentClassNames.Field,
         ComponentClassNames.TextField,
         className
       )}
       data-size={size}
-      direction={direction}
-      gap={gap}
-      justifyContent={justifyContent}
       testId={testId}
-      wrap={wrap}
+      {...flexContainerStyleProps}
     >
       <Label htmlFor={fieldId} visuallyHidden={labelHidden}>
         {label}

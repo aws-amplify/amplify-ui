@@ -5,6 +5,7 @@ import postcss from 'postcss-js';
 export const prefixer = postcss.sync([autoprefixer]);
 
 import {
+  BaseStyleProps,
   ComponentPropsToStylePropsMap,
   ComponentPropsToStylePropsMapKeys,
   GridItemStyleProps,
@@ -18,6 +19,7 @@ import { Breakpoint, Breakpoints } from '../types/responsive';
 
 import { useTheme } from '../../hooks';
 import { isNullOrEmptyString } from './utils';
+import { FlexContainerStyleProps } from '../types/flex';
 
 /**
  * Transforms style props to another target prop
@@ -160,4 +162,105 @@ export const useNonStyleProps = (props: ViewProps) => {
     });
     return nonStyleProps;
   }, [props]);
+};
+
+/**
+ * Map of all the FlexContainerStyleProps type keys
+ * The type requires all keys in order to ensure it remains
+ * in sync with the FlexContainerStyleProps type.
+ */
+const FlexContainerStylePropsMap: Required<
+  { [key in keyof FlexContainerStyleProps]: true }
+> = {
+  alignContent: true,
+  alignItems: true,
+  direction: true,
+  gap: true,
+  justifyContent: true,
+  wrap: true,
+  columnGap: true,
+  rowGap: true,
+};
+
+/**
+ * Map of all the FlexContainerStyleProps type keys
+ * The type requires all keys in order to ensure it remains
+ * in sync with the FlexContainerStyleProps type.
+ */
+const BaseStylePropsMap: Required<{ [key in keyof BaseStyleProps]: true }> = {
+  alignSelf: true,
+  area: true,
+  backgroundColor: true,
+  basis: true,
+  border: true,
+  borderRadius: true,
+  bottom: true,
+  boxShadow: true,
+  color: true,
+  column: true,
+  columnEnd: true,
+  columnSpan: true,
+  columnStart: true,
+  flex: true,
+  fontFamily: true,
+  fontSize: true,
+  fontStyle: true,
+  fontWeight: true,
+  grow: true,
+  height: true,
+  left: true,
+  letterSpacing: true,
+  lineHeight: true,
+  maxHeight: true,
+  maxWidth: true,
+  minHeight: true,
+  minWidth: true,
+  opacity: true,
+  order: true,
+  padding: true,
+  position: true,
+  right: true,
+  row: true,
+  rowEnd: true,
+  rowSpan: true,
+  rowStart: true,
+  shrink: true,
+  textAlign: true,
+  textDecoration: true,
+  top: true,
+  width: true,
+};
+
+interface SplitProps<PrimitiveProps> {
+  flexContainerStyleProps: FlexContainerStyleProps;
+  baseStyleProps: BaseStyleProps;
+  rest: Omit<
+    PrimitiveProps,
+    keyof FlexContainerStyleProps | keyof BaseStyleProps
+  >;
+}
+
+export const splitPrimitiveProps = <
+  PrimitiveProps extends { [index: string]: any }
+>(
+  props: PrimitiveProps
+): SplitProps<PrimitiveProps> => {
+  let rest = {} as SplitProps<PrimitiveProps>['rest'];
+  let flexContainerStyleProps = {};
+  let baseStyleProps = {};
+
+  for (const prop in props) {
+    if (prop in FlexContainerStylePropsMap) {
+      flexContainerStyleProps = { ...flexContainerStyleProps, ...props[prop] };
+    } else if (prop in BaseStylePropsMap) {
+      baseStyleProps = { ...baseStyleProps, ...props[prop] };
+    } else {
+      rest = { ...rest, ...props[prop] };
+    }
+  }
+  return {
+    flexContainerStyleProps,
+    baseStyleProps,
+    rest,
+  };
 };
