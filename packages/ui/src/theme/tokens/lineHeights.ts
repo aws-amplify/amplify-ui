@@ -8,6 +8,6 @@ export interface LineHeights {
 
 export const lineHeights: LineHeights = {
   small: { value: '1.5' },
-  medium: { value: '1.8' },
+  medium: { value: '1.75' },
   large: { value: '2' },
 };
