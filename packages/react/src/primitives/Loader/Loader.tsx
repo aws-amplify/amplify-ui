@@ -11,7 +11,8 @@ export const Loader: React.FC<LoaderProps> = ({
   filledColor,
   emptyColor,
   size,
-  variation = 'circular',
+  variation,
+  ...rest
 }) => {
   return (
     <View
@@ -21,13 +22,9 @@ export const Loader: React.FC<LoaderProps> = ({
       data-size={size}
       data-variation={variation}
       role="img"
+      {...rest}
     >
-      {variation === 'circular' ? (
-        <g>
-          <circle cx="50%" cy="50%" r="42%" style={{ stroke: emptyColor }} />
-          <circle cx="50%" cy="50%" r="42%" style={{ stroke: filledColor }} />
-        </g>
-      ) : (
+      {variation === 'linear' ? (
         <g>
           {/* stroke-linecap: round will cause overflow on the ends of an svg element, so 1% and 99% is a good choice versus 0% and 100% */}
           <line
@@ -44,6 +41,11 @@ export const Loader: React.FC<LoaderProps> = ({
             y2="50%"
             style={{ stroke: filledColor }}
           />
+        </g>
+      ) : (
+        <g>
+          <circle cx="50%" cy="50%" r="42%" style={{ stroke: emptyColor }} />
+          <circle cx="50%" cy="50%" r="42%" style={{ stroke: filledColor }} />
         </g>
       )}
     </View>
