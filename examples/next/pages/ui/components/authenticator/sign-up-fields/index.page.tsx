@@ -19,16 +19,14 @@ export default withAuthenticator(App, {
   initialState: 'signUp',
   components: {
     SignUp: {
-      FormFields() {
-        return (
-          <>
-            <Authenticator.SignUp.FormFields />
-            <CheckboxField name="acknowledgement" value="yes">
-              I agree with the <Link href="#">Terms & Conditions</Link>
-            </CheckboxField>
-          </>
-        );
-      },
+      FormFields: () => (
+        <>
+          <Authenticator.SignUp.FormFields />
+          <CheckboxField name="acknowledgement" value="yes">
+            I agree with the <Link href="#">Terms & Conditions</Link>
+          </CheckboxField>
+        </>
+      ),
     },
   },
   services: {
