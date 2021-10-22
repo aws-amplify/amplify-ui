@@ -10,18 +10,24 @@ jobs:
     name: Repo Sync
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: repo-sync/github-sync@v2
-      name: Sync repo to branch
-      with:
-        source_repo: aws-amplify/amplify-ui
-        source_branch: main
-        destination_branch: pr/repo-sync
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-    - uses: repo-sync/pull-request@v2
-      name: Create pull request
-      with:
-        source_branch: pr/repo-sync
-        destination_branch: main
-        pr_title: "Sync amplify-ui to amplify-ui-staging"
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/checkout@v2
+      - name: Sync repo to branch
+        uses: repo-sync/github-sync@3832fe8e2be32372e1b3970bbae8e7079edeec88 # pin@v2
+        with:
+          source_repo: aws-amplify/amplify-ui
+          source_branch: main
+          destination_branch: pr/repo-sync
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create pull request
+        uses: repo-sync/pull-request@65194d8015be7624d231796ddee1cd52a5023cb3 # pin@v2
+        id: open-pr
+        with:
+          source_branch: pr/repo-sync
+          destination_branch: main
+          pr_title: 'Sync amplify-ui to amplify-ui-staging'
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Auto approve pull request
+        uses: hmarr/auto-approve-action@6a9ec7556f0a7fa5b49527a1eea4878b8a22d2e0 # pin@v2
+        with:
+          pull-request-number: ${{ steps.open-pr.outputs.pr_number }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
