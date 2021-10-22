@@ -7,7 +7,7 @@ export const isFunction = (fn: unknown): fn is Function =>
   typeof fn === 'function';
 
 export const isNullOrEmptyString = (value: unknown) =>
-  value == null || !strHasLength(value);
+  value == null || (typeof value === 'string' && value.length < 1);
 
 /**
  * Create a consecutive integer array from start value to end value.
