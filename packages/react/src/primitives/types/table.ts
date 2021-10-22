@@ -1,4 +1,3 @@
-import React from 'react';
 import { BaseComponentProps } from './base';
 import { BaseStyleProps } from './style';
 
@@ -26,13 +25,8 @@ export interface TableCellProps extends BaseComponentProps, BaseStyleProps {
   as?: 'td' | 'th';
 }
 
+export interface TableFootProps extends BaseComponentProps, BaseStyleProps {}
+
 export interface TableHeadProps extends BaseComponentProps, BaseStyleProps {}
 
 export interface TableRowProps extends BaseComponentProps, BaseStyleProps {}
-
-export type TableControls = React.FC<TableProps> & {
-  Body: React.FC<TableBodyProps>;
-  Cell: React.FC<TableCellProps>;
-  Head: React.FC<TableHeadProps>;
-  Row: React.FC<TableRowProps>;
-};

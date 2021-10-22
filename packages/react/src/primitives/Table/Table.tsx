@@ -1,56 +1,35 @@
 import classNames from 'classnames';
 import * as React from 'react';
 
-import { Text } from '../';
+import { Flex, Text, View } from '..';
 import { ComponentClassNames } from '../shared/constants';
-import { useNonStyleProps, usePropStyles } from '../shared/styleUtils';
-import { TableControls } from '../types/table';
+import { TableProps } from '../types/table';
 
-export const Table: TableControls = (props) => {
-  const { caption, children, className, label, style, summary, ...rest } =
-    props;
-
-  const propStyles = usePropStyles(props, style);
-  const nonStyleProps = useNonStyleProps(rest);
-
-  return (
-    <table
-      aria-label={label}
+export const Table: React.FC<TableProps> = ({
+  caption,
+  children,
+  className,
+  summary,
+  ...rest
+}) => (
+  <Flex>
+    <View
+      as="table"
       className={classNames(ComponentClassNames.Table, className)}
-      style={propStyles}
-      {...nonStyleProps}
+      {...rest}
     >
-      <caption>
-        {caption}
-        {caption && summary ? <br /> : null}
-        {summary && (
-          <Text as="span" className={ComponentClassNames.TableSummary}>
-            {summary}
-          </Text>
-        )}
-      </caption>
+      {caption || summary ? (
+        <View as="caption">
+          {caption}
+          {caption && summary ? <br /> : null}
+          {summary && (
+            <Text as="span" className={ComponentClassNames.TableSummary}>
+              {summary}
+            </Text>
+          )}
+        </View>
+      ) : null}
       {children}
-    </table>
-  );
-};
-
-Table.Body = ({ children, ...rest }) => {
-  const nonStyleProps = useNonStyleProps(rest);
-  return <tbody {...nonStyleProps}>{children}</tbody>;
-};
-
-Table.Cell = ({ as: CellTag = 'td', children, ...rest }) => {
-  const nonStyleProps = useNonStyleProps(rest);
-  console.log('nonStyleProps', nonStyleProps);
-  return <CellTag {...nonStyleProps}>{children}</CellTag>;
-};
-
-Table.Head = ({ children, ...rest }) => {
-  const nonStyleProps = useNonStyleProps(rest);
-  return <thead {...nonStyleProps}>{children}</thead>;
-};
-
-Table.Row = ({ children, ...rest }) => {
-  const nonStyleProps = useNonStyleProps(rest);
-  return <tr {...nonStyleProps}>{children}</tr>;
-};
+    </View>
+  </Flex>
+);
