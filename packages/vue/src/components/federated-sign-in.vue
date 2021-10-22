@@ -76,15 +76,10 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { FederatedIdentityProviders } from '@aws-amplify/ui';
-import { I18n } from 'aws-amplify';
+import { FederatedIdentityProviders, translate } from '@aws-amplify/ui';
+
 import { useAuth } from '../composables/useAuth';
 import FederatedSignInButton from './federated-sign-in-button.vue';
-import {
-  SIGN_IN_GOOGLE,
-  SIGN_IN_AMAZON,
-  SIGN_IN_FACEBOOK,
-} from '../defaults/DefaultTexts';
 
 const { state } = useAuth();
 const {
@@ -103,7 +98,7 @@ const shouldShowFederatedSignIn =
 // computed properties
 
 const fp = computed(() => FederatedIdentityProviders);
-const signInWithGoogle = computed(() => I18n.get(SIGN_IN_GOOGLE));
-const signInWithFacebook = computed(() => I18n.get(SIGN_IN_FACEBOOK));
-const signInWithAmazon = computed(() => I18n.get(SIGN_IN_AMAZON));
+const signInWithGoogle = computed(() => translate('Sign In with Google'));
+const signInWithFacebook = computed(() => translate('Sign In with Facebook'));
+const signInWithAmazon = computed(() => translate('Sign In with Amazon'));
 </script>
