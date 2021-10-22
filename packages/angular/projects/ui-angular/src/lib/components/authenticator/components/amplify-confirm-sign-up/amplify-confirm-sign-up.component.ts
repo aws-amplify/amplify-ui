@@ -87,7 +87,7 @@ export class AmplifyConfirmSignUpComponent
     });
   }
 
-  onSubmit(event: Event) {
+  onSubmit(event: Event): void {
     event.preventDefault();
     const state = this.stateMachine.authState;
     const actorContext: SignUpContext = getActorContext(state);
