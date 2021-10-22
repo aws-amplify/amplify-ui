@@ -7,8 +7,7 @@ import { Example } from '@/components/Example';
 import { Feature } from '@/components/Feature';
 import { Fragment } from '@/components/Fragment';
 import { XStateInspector } from '@/components/XStateInspector';
-import Block from 'amplify-docs/src/components/Block';
-import BlockSwitcher from 'amplify-docs/src/components/BlockSwitcher';
+import { Tabs, TabItem } from '@aws-amplify/ui-react';
 
 The `Authenticator` component adds complete [authentication flows](https://docs.amplify.aws/lib/auth/getting-started/q/platform/js)
 to your application with minimal boilerplate.
@@ -39,8 +38,8 @@ By default, unauthenticated users are redirected to the `signIn` flow.
 
 You can explicitly redirect to `signUp` or `resetPassword` as your `initialState`:
 
-<BlockSwitcher>
-  <Block name="Sign In">
+<Tabs>
+  <TabItem title="Sign In">
     <Fragment>
       {({ platform }) => import(`./initialState.signIn.${platform}.mdx`)}
     </Fragment>
@@ -51,8 +50,8 @@ You can explicitly redirect to `signUp` or `resetPassword` as your `initialState
         configured with an Amplify backend.
       </p>
     </Example>
-  </Block>
-  <Block name="Sign Up">
+  </TabItem>
+  <TabItem title="Sign Up">
     <Fragment>
       {({ platform }) => import(`./initialState.signUp.${platform}.mdx`)}
     </Fragment>
@@ -63,8 +62,8 @@ You can explicitly redirect to `signUp` or `resetPassword` as your `initialState
         configured with an Amplify backend.
       </p>
     </Example>
-  </Block>
-  <Block name="Reset Password">
+  </TabItem>
+  <TabItem title="Reset Password">
     <Fragment>
       {({ platform }) => import(`./initialState.resetPassword.${platform}.mdx`)}
     </Fragment>
@@ -75,8 +74,8 @@ You can explicitly redirect to `signUp` or `resetPassword` as your `initialState
         configured with an Amplify backend.
       </p>
     </Example>
-  </Block>
-</BlockSwitcher>
+  </TabItem>
+</Tabs>
 
 ### `loginMechanisms`
 
@@ -89,8 +88,8 @@ You can provide an alternative `username` such as `email` or `phone_number`.
 
 For your [configured social providers](https://docs.amplify.aws/lib/auth/social/q/platform/js/), you can also provide `amazon`, `facebook`, or `google`:
 
-<BlockSwitcher>
-  <Block name="Username">
+<Tabs>
+  <TabItem title="Username">
     <Fragment>
       {({ platform }) => import(`./loginMechanisms.username.${platform}.mdx`)}
     </Fragment>
@@ -101,8 +100,8 @@ For your [configured social providers](https://docs.amplify.aws/lib/auth/social/
         configured with an Amplify backend.
       </p>
     </Example>
-  </Block>
-  <Block name="Email">
+  </TabItem>
+  <TabItem title="Email">
     <Fragment>
       {({ platform }) => import(`./loginMechanisms.email.${platform}.mdx`)}
     </Fragment>
@@ -113,8 +112,8 @@ For your [configured social providers](https://docs.amplify.aws/lib/auth/social/
         configured with an Amplify backend.
       </p>
     </Example>
-  </Block>
-  <Block name="Phone Number">
+  </TabItem>
+  <TabItem title="Phone Number">
     <Fragment>
       {({ platform }) =>
         import(`./loginMechanisms.phone_number.${platform}.mdx`)
@@ -127,8 +126,8 @@ For your [configured social providers](https://docs.amplify.aws/lib/auth/social/
         configured with an Amplify backend.
       </p>
     </Example>
-  </Block>
-  <Block name="Social Providers">
+  </TabItem>
+  <TabItem title="Social Providers">
     <Fragment>
       {({ platform }) => import(`./loginMechanisms.social.${platform}.mdx`)}
     </Fragment>
@@ -141,8 +140,8 @@ For your [configured social providers](https://docs.amplify.aws/lib/auth/social/
         configured with an Amplify backend.
       </p>
     </Example>
-  </Block>
-</BlockSwitcher>
+  </TabItem>
+</Tabs>
 
 ## Customization
 

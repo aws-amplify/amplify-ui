@@ -2,8 +2,7 @@
 title: Alternative Styling
 ---
 
-import Block from 'amplify-docs/src/components/Block';
-import BlockSwitcher from 'amplify-docs/src/components/BlockSwitcher';
+import { Tabs, TabItem } from '@aws-amplify/ui-react';
 
 One of the goals of Amplify is to be a good citizen of the environment it exists in. As such Amplify works hard to not interfere with other tools that are being used.
 
@@ -11,8 +10,8 @@ One of the goals of Amplify is to be a good citizen of the environment it exists
 
 There are many CSS In JS libraries out there that give a number of benefits. Amplify does not use a CSS In JS library to implement its theming system but operates well with the major CSS In JS libraries out there. Below are a few of the libraries with descriptions of how they work with Amplify's theming system.
 
-<BlockSwitcher>
-<Block name="Styled Components">
+<Tabs>
+<TabItem title="Styled Components">
 [Styled Components](https://github.com/styled-components/styled-components) allows you to create visual primitives with actual CSS code directly tied to components.
 
 #### Usage
@@ -123,9 +122,9 @@ const StyledButton = styled(Button)`
 
 In the example above, the button color will be set to `blue` because the Styled Component will take precedence over the Amplify CSS variable.
 
-</Block>
+</TabItem>
 
-<Block name="JSS">
+<TabItem title="JSS">
 [JSS](https://github.com/cssinjs/jss/tree/master/packages/react-jss) is a library for generating Style Sheets with Javascript.
 
 #### Usage
@@ -258,9 +257,9 @@ const classes = useStyles();
 
 In the example above, the button color will be set to `blue` because the JSS styling will take precedence over the Amplify CSS variable.
 
-</Block>
+</TabItem>
 
-<Block name="Emotion">
+<TabItem title="Emotion">
 [Emotion](https://github.com/emotion-js/emotion) is a library designed for writing css styles with JavaScript.
 
 #### Usage
@@ -374,9 +373,9 @@ const styles = {
 
 In the example above, the button color will be set to `blue` because the Emotion styling will take precedence over the Amplify CSS variable.
 
-</Block>
+</TabItem>
 
-<Block name="Aphrodite">
+<TabItem title="Aphrodite">
 [Aphrodite](https://github.com/Khan/aphrodite) is a Framework-agnostic CSS-in-JS with support for server-side rendering, browser prefixing, and minimum CSS generation.
 
 #### Usage
@@ -496,6 +495,6 @@ const styles = StyleSheet.create({
 
 In the example above, the button color will be set to `blue` because the Aphrodite styling will take precedence over the Amplify CSS variable.
 
-</Block>
+</TabItem>
 
-</BlockSwitcher>
+</Tabs>

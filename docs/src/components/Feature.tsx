@@ -10,7 +10,7 @@ import {
   CodeIcon,
   ExternalLinkIcon,
 } from '@heroicons/react/solid';
-import remarkHeadings from 'amplify-docs/src/plugins/headings';
+// import remarkHeadings from 'amplify-docs/src/plugins/headings';
 import { useRouter } from 'next/router';
 import * as React from 'react';
 import { useEffect } from 'react';
@@ -99,7 +99,7 @@ export function Feature({ name = required('Missing feature name') }) {
     {
       ...runtime,
       rehypePlugins: [],
-      remarkPlugins: [remarkHeadings, remarkGfm],
+      remarkPlugins: [remarkGfm],
     }
   );
 
