@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -8,10 +9,9 @@ import { Header } from '@/components/Layout/Header';
 import { theme } from './theme';
 import '../styles/index.css';
 
-
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
-  const { platform } = router.query;
+  const { platform = 'react' } = router.query;
 
   return (
     <>
@@ -19,32 +19,32 @@ function MyApp({ Component, pageProps }) {
         <title>Amplify UI</title>
       </Head>
       <AmplifyProvider components={{}} theme={theme}>
-      <div className="aui-docs">
-        <Header />
-        <div>
-          <Component
-            components={{
-              a(props) {
-                if (!props.href) {
-                  return <a {...props} />;
-                }
+        <div className="aui-docs">
+          <Header platform={platform} />
+          <div>
+            <Component
+              components={{
+                a(props) {
+                  if (!props.href) {
+                    return <a {...props} />;
+                  }
 
-                return (
-                  <Link
-                    href={{
-                      pathname: props.href,
-                      query: { platform },
-                    }}
-                  >
-                    <a>{props.children}</a>
-                  </Link>
-                );
-              },
-            }}
-            {...pageProps}
-          />
+                  return (
+                    <Link
+                      href={{
+                        pathname: props.href,
+                        query: { platform },
+                      }}
+                    >
+                      <a>{props.children}</a>
+                    </Link>
+                  );
+                },
+              }}
+              {...pageProps}
+            />
+          </div>
         </div>
-      </div>
       </AmplifyProvider>
     </>
   );
