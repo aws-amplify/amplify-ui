@@ -113,8 +113,8 @@ export class AmplifySignUpComponent
     });
   }
 
-  onSubmit($event): void {
-    $event.preventDefault();
+  onSubmit(event: Event): void {
+    event.preventDefault();
     this.stateMachine.send('SUBMIT');
   }
 }
