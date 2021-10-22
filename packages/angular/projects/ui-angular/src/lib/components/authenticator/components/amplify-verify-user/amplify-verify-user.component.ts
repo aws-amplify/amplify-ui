@@ -86,7 +86,16 @@ export class AmplifyVerifyUserComponent
     return translate<string>(label);
   }
 
-  async onSubmit(event: Event): Promise<void> {
+  onInput(event: Event): void {
+    event.preventDefault();
+    const { name, value } = <HTMLInputElement>event.target;
+    this.stateMachine.send({
+      type: 'CHANGE',
+      data: { name, value },
+    });
+  }
+
+  onSubmit(event: Event): void {
     event.preventDefault();
     const formData = new FormData(event.target as HTMLFormElement);
     this.stateMachine.send({

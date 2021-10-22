@@ -84,7 +84,7 @@ export class AmplifyForceNewPasswordComponent
     this.stateMachine.send('SIGN_IN');
   }
 
-  onInput(event: Event) {
+  onInput(event: Event): void {
     event.preventDefault();
     const { name, value } = <HTMLInputElement>event.target;
     this.stateMachine.send({
@@ -93,7 +93,7 @@ export class AmplifyForceNewPasswordComponent
     });
   }
 
-  onSubmit(event: Event) {
+  onSubmit(event: Event): void {
     event.preventDefault();
     // consider stateMachine directly providing actorState / actorContext
     const state = this.stateMachine.authState;

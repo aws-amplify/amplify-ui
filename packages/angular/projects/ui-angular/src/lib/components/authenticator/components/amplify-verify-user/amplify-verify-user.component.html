@@ -8,7 +8,7 @@
 </ng-template>
 
 <ng-template #verifyUserForm>
-  <form data-amplify-form (submit)="onSubmit($event)">
+  <form data-amplify-form (input)="onInput($event)" (submit)="onSubmit($event)">
     <fieldset
       class="amplify-flex"
       style="flex-direction: column"
