@@ -1,21 +1,14 @@
 import classNames from 'classnames';
 
 import { ComponentClassNames } from '../shared/constants';
-import { useStableId } from '../shared/utils';
 import { FieldDescription, FieldErrorMessage } from '../Field';
-import { Flex } from '../Flex';
 import { FieldGroup } from '../FieldGroup';
+import { Flex } from '../Flex';
 import { Input } from '../Input';
 import { Label } from '../Label';
-
-import {
-  Primitive,
-  PrimitiveProps,
-  TextAreaFieldProps,
-  TextFieldProps,
-  TextInputFieldProps,
-} from '../types';
+import { PrimitiveProps, TextFieldProps } from '../types';
 import { TextArea } from '../TextArea';
+import { useStableId } from '../shared/utils';
 
 const isTextAreaField = (props: {
   isMultiline?: boolean;
@@ -61,7 +54,7 @@ export const TextField = <Multiline extends boolean>(
 
   const fieldId = useStableId(id);
 
-  let control = null;
+  let control: JSX.Element = null;
   if (isTextAreaField(props)) {
     const { rows } = props;
     control = (
