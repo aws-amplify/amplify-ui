@@ -1,15 +1,16 @@
-import React, { useState, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { ComponentClassNames } from '../shared/constants';
 import classNames from 'classnames';
-import { AlertProps } from '../types';
+import { AlertProps, Primitive } from '../types';
 import { View } from '../View';
 import { Flex } from '../Flex';
 import { Heading } from '../Heading';
 import { Button } from '../Button';
 import { AlertIcon } from './AlertIcon';
 import { IconClose } from '../Icon';
+import { isFunction } from '../shared/utils';
 
-export const Alert: React.FC<AlertProps> = ({
+export const Alert: Primitive<AlertProps, typeof Flex> = ({
   alignContent,
   alignItems = 'center',
   children,
@@ -22,7 +23,7 @@ export const Alert: React.FC<AlertProps> = ({
   iconSize,
   isDismissible = false,
   justifyContent = 'space-between',
-  onDismiss = () => {},
+  onDismiss,
   variation,
   wrap,
   ...rest
@@ -31,7 +32,10 @@ export const Alert: React.FC<AlertProps> = ({
 
   const dismissAlert = useCallback(() => {
     setDismissed(!dismissed);
-    onDismiss();
+
+    if (isFunction(onDismiss)) {
+      onDismiss();
+    }
   }, [setDismissed, onDismiss]);
 
   return (

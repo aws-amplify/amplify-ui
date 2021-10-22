@@ -184,6 +184,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-fieldcontrol-quiet-error-focus-box-shadow: var(--amplify-0-1-px-colors-error);
         --amplify-components-fieldcontrol-focus-border-color: var(--amplify-colors-focus);
         --amplify-components-fieldcontrol-focus-box-shadow: var(--amplify-0-px-0-px-0-px-1-px-colors-focus);
+        --amplify-components-fieldcontrol-disabled-color: var(--amplify-colors-font-disabled);
         --amplify-components-fieldcontrol-disabled-cursor: not-allowed;
         --amplify-components-fieldcontrol-disabled-border-color: var(--amplify-colors-transparent);
         --amplify-components-fieldcontrol-disabled-background-color: var(--amplify-colors-background-disabled);
@@ -313,6 +314,9 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-select-min-width: 6.5rem;
         --amplify-components-select-small-min-width: 5.5rem;
         --amplify-components-select-large-min-width: 7.5rem;
+        --amplify-components-stepperfield-flex-direction: column;
+        --amplify-components-stepperfield-input-border-color: var(--amplify-colors-brand-primary-20);
+        --amplify-components-stepperfield-input-text-align: center;
         --amplify-components-switchfield-disabled-opacity: var(--amplify-opacities-30);
         --amplify-components-switchfield-focused-shadow: var(--amplify-shadows-small);
         --amplify-components-switchfield-label-padding: var(--amplify-space-xs);

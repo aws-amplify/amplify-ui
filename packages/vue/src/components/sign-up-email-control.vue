@@ -7,8 +7,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { I18n } from 'aws-amplify';
-import { EMAIL_ADDRESS_LABEL } from '../defaults/DefaultTexts';
+import { translate } from '@aws-amplify/ui';
 
-const emailAddressLabel = computed(() => I18n.get(EMAIL_ADDRESS_LABEL));
+const emailAddressLabel = computed(() => translate('Email'));
 </script>

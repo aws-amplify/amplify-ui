@@ -1,11 +1,13 @@
-import React from 'react';
-import { ComponentClassNames } from '../shared/constants';
 import classNames from 'classnames';
-import { HeadingProps } from '../types';
+
+import { ComponentClassNames } from '../shared/constants';
+import { HeadingProps, Primitive } from '../types';
 import { View } from '../View';
 
+type HeadingTag = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+
 interface HeadingLevels {
-  [key: number]: keyof JSX.IntrinsicElements;
+  [key: number]: HeadingTag;
 }
 
 const headingLevels: HeadingLevels = {
@@ -17,7 +19,7 @@ const headingLevels: HeadingLevels = {
   6: 'h6',
 };
 
-export const Heading: React.FC<HeadingProps> = ({
+export const Heading: Primitive<HeadingProps, HeadingTag> = ({
   className,
   children,
   level = 6,

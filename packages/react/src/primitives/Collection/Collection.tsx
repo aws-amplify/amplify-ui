@@ -9,10 +9,8 @@ export const Collection = <CollectionItemType,>({
   direction = 'column',
   type = 'list',
   ...rest
-}: CollectionProps<CollectionItemType>): JSX.Element => {
-  return (
-    <Flex direction={direction} className={className} {...rest}>
-      {Array.isArray(items) && items.map(children)}
-    </Flex>
-  );
-};
+}: CollectionProps<CollectionItemType>) => (
+  <Flex direction={direction} className={className} {...rest}>
+    {Array.isArray(items) && items.map(children)}
+  </Flex>
+);

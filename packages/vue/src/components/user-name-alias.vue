@@ -84,11 +84,11 @@ import {
   getAliasInfoFromContext,
   ActorContextWithForms,
   countryDialCodes,
+  translate,
 } from '@aws-amplify/ui';
 
 import { useAuth } from '../composables/useAuth';
 import { useAliases } from '../composables/useUtils';
-import { I18n } from 'aws-amplify';
 
 interface PropsInterface {
   userNameAlias?: boolean;
@@ -105,7 +105,7 @@ const { userNameAlias, userName, disabled } = withDefaults(
   }
 );
 
-const { state } = useAuth();
+const { state, send } = useAuth();
 
 const {
   value: { context },
@@ -141,5 +141,11 @@ if (userNameAlias) {
   type = aliasInfo.type;
   name = 'username';
 }
-label = I18n.get(label);
+label = translate<string>(label);
+if (type === 'tel') {
+  send({
+    type: 'CHANGE',
+    data: { name: 'country_code', value: defaultDialCode },
+  });
+}
 </script>
