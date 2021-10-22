@@ -95,8 +95,7 @@ export type EscapeHatchProps = {
   [elementHierarchy: string]: Record<string, string>;
 };
 
-export type VariantValues = { [key: string]: string };
-
+type VariantValues = { [key: string]: string };
 export type Variant = {
   variantValues: VariantValues;
   overrides: EscapeHatchProps;
@@ -105,18 +104,33 @@ export type Variant = {
 /**
  * Given a list of style variants, select a given one based on input props
  * @param variants list of style variants to select from
- * @param selectedVariantValues variant values to select from the list
+ * @param props variant values to select from the list, may include additional props, to tidy up usage upstream
  */
 export function getOverridesFromVariants(
   variants: Variant[],
-  selectedVariantValues: VariantValues
+  props: { [key: string]: any }
 ) {
+  // Get unique keys from the provided variants
+  const variantValueKeys = [
+    ...new Set(
+      variants.flatMap((variant) => Object.keys(variant.variantValues))
+    ),
+  ];
+
+  // Get variant value object from provided props, dropping keys that aren't in variantValueKeys, or whose vals are falsey
+  const variantValuesFromProps: VariantValues = Object.keys(props)
+    .filter((i) => variantValueKeys.includes(i) && props[i])
+    .reduce((acc, key) => {
+      acc[key] = props[key];
+      return acc;
+    }, {});
+
   const matchedVariants = variants.filter(({ variantValues }) => {
     return (
       Object.keys(variantValues).length ===
-        Object.keys(selectedVariantValues).length &&
+        Object.keys(variantValuesFromProps).length &&
       Object.entries(variantValues).every(
-        ([key, value]) => selectedVariantValues[key] === value
+        ([key, value]) => variantValuesFromProps[key] === value
       )
     );
   });

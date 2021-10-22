@@ -2,7 +2,6 @@ import {
   getConsecutiveIntArray,
   getOverridesFromVariants,
   strHasLength,
-  VariantValues,
 } from '../utils';
 import { ViewProps } from '../../types';
 
@@ -141,6 +140,50 @@ describe('getOverridesFromVariants', () => {
   it('should return no overrides on unexpected variant parameter', () => {
     const selectedVariantValue = { unexpected: 'yes' };
     const expected = {};
+    expect(getOverridesFromVariants(variants, selectedVariantValue)).toEqual(
+      expected
+    );
+  });
+
+  it('should match on expected variants even with additional props', () => {
+    const selectedVariantValue = { variant: 'primary', unexpected: 'yes' };
+    const expected = {
+      Button: {
+        fontSize: '12px',
+      },
+    };
+    expect(getOverridesFromVariants(variants, selectedVariantValue)).toEqual(
+      expected
+    );
+  });
+
+  it('should match on expected variants with optional even with additional props', () => {
+    const selectedVariantValue = {
+      variant: 'primary',
+      size: 'large',
+      unexpected: 'yes',
+    };
+    const expected = {
+      Button: {
+        width: '500',
+      },
+    };
+    expect(getOverridesFromVariants(variants, selectedVariantValue)).toEqual(
+      expected
+    );
+  });
+
+  it('should match on expected variants with undefined for optional', () => {
+    const selectedVariantValue = {
+      variant: 'primary',
+      size: undefined,
+      unexpected: 'yes',
+    };
+    const expected = {
+      Button: {
+        fontSize: '12px',
+      },
+    };
     expect(getOverridesFromVariants(variants, selectedVariantValue)).toEqual(
       expected
     );
