@@ -278,6 +278,27 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-link-large-font-size: var(--amplify-font-sizes-large);
         --amplify-components-link-small-font-size: var(--amplify-font-sizes-small);
         --amplify-components-link-visited-color: var(--amplify-colors-font-tertiary);
+        --amplify-components-loader-width: var(--amplify-font-sizes-xxl);
+        --amplify-components-loader-height: var(--amplify-font-sizes-xxl);
+        --amplify-components-loader-stroke-width: 8%;
+        --amplify-components-loader-stroke-empty: var(--amplify-colors-neutral-20);
+        --amplify-components-loader-stroke-filled: var(--amplify-colors-brand-primary-80);
+        --amplify-components-loader-stroke-linecap: round;
+        --amplify-components-loader-small-width: var(--amplify-font-sizes-medium);
+        --amplify-components-loader-small-height: var(--amplify-font-sizes-medium);
+        --amplify-components-loader-large-width: var(--amplify-font-sizes-xxxl);
+        --amplify-components-loader-large-height: var(--amplify-font-sizes-xxxl);
+        --amplify-components-loader-linear-width: 100%;
+        --amplify-components-loader-linear-min-width: 100px;
+        --amplify-components-loader-linear-height: var(--amplify-font-sizes-xxs);
+        --amplify-components-loader-linear-stroke-width: var(--amplify-font-sizes-xxs);
+        --amplify-components-loader-linear-stroke-filled: var(--amplify-colors-brand-primary-80);
+        --amplify-components-loader-linear-stroke-empty: var(--amplify-colors-neutral-20);
+        --amplify-components-loader-linear-stroke-linecap: round;
+        --amplify-components-loader-linear-small-height: var(--amplify-font-sizes-xxxs);
+        --amplify-components-loader-linear-small-stroke-width: var(--amplify-font-sizes-xxxs);
+        --amplify-components-loader-linear-large-height: var(--amplify-font-sizes-xs);
+        --amplify-components-loader-linear-large-stroke-width: var(--amplify-font-sizes-xs);
         --amplify-components-pagination-current-color: var(--amplify-colors-white);
         --amplify-components-pagination-current-font-size: var(--amplify-font-sizes-small);
         --amplify-components-pagination-current-background-color: rgba(0, 0, 0, 0.4);
@@ -568,6 +589,8 @@ describe('@aws-amplify/ui', () => {
                 sans-serif;
         --amplify-fonts-default-static: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue',
                 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif;
+        --amplify-font-sizes-xxxs: 0.375rem;
+        --amplify-font-sizes-xxs: 0.5rem;
         --amplify-font-sizes-xs: 0.75rem;
         --amplify-font-sizes-small: 0.875rem;
         --amplify-font-sizes-medium: 1rem;
