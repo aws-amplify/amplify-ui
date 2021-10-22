@@ -7,27 +7,35 @@ import { useTableProps } from '@/components/useTableProps';
 
 export const TableDemo = () => {
   const tableProps = useTableProps({
-    highlightOnHover: false,
-    pagination: 'infinite-scroll',
-    selectable: false,
-    size: 'small',
-    stickyHeader: false,
-    variation: 'bordered',
+    caption: '',
+    summary: '',
   });
 
   return (
     <View>
       <TablePropControls {...tableProps} />
       <View className="mt-8">
-        <Table
-          highlightOnHover={tableProps.highlightOnHover}
-          name="numbers"
-          pagination={tableProps.pagination}
-          selectable={tableProps.selectable}
-          size={tableProps.size}
-          stickyHeader={tableProps.stickyHeader}
-          variation={tableProps.variation}
-        />
+        <Table caption={tableProps.caption} summary={tableProps.caption}>
+          <Table.Head>
+            <Table.Row>
+              <Table.Cell as="th">One</Table.Cell>
+              <Table.Cell as="th">Two</Table.Cell>
+              <Table.Cell as="th">Three</Table.Cell>
+            </Table.Row>
+          </Table.Head>
+          <Table.Body>
+            <Table.Row>
+              <Table.Cell>Uno</Table.Cell>
+              <Table.Cell>Dos</Table.Cell>
+              <Table.Cell>Tres</Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell>Ishi</Table.Cell>
+              <Table.Cell>Ni</Table.Cell>
+              <Table.Cell>San</Table.Cell>
+            </Table.Row>
+          </Table.Body>
+        </Table>
       </View>
     </View>
   );

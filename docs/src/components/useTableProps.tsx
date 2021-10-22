@@ -9,34 +9,17 @@ interface UseTableProps {
 }
 
 export const useTableProps: UseTableProps = (initialValues) => {
-  const [highlightOnHover, setHighlightOnHover] = useState<
-    TableProps['highlightOnHover']
-  >(initialValues.highlightOnHover);
-  const [pagination, setPagination] = useState<TableProps['pagination']>(
-    initialValues.pagination
+  const [caption, setCaption] = useState<TableProps['caption']>(
+    initialValues.caption
   );
-  const [selectable, setSelectable] = useState<TableProps['selectable']>(
-    initialValues.selectable
+  const [summary, setSummary] = useState<TableProps['summary']>(
+    initialValues.summary
   );
-  const [size, setSize] = useState<TableProps['size']>(initialValues.size);
-  const [stickyHeader, setStickyHeader] = useState<TableProps['stickyHeader']>(
-    initialValues.stickyHeader
-  );
-  const [variation, setVariation] = useState<TableProps['variation']>(
-    initialValues.variation
-  );
+
   return {
-    highlightOnHover,
-    pagination,
-    selectable,
-    setHighlightOnHover,
-    setPagination,
-    setSelectable,
-    setSize,
-    setStickyHeader,
-    setVariation,
-    size,
-    stickyHeader,
-    variation,
+    caption,
+    setCaption,
+    setSummary,
+    summary,
   };
 };

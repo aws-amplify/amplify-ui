@@ -1868,6 +1868,7 @@ describe('@aws-amplify/ui-react', () => {
           "Spacer",
           "SwitchField",
           "TabItem",
+          "Table",
           "Tabs",
           "Text",
           "TextField",

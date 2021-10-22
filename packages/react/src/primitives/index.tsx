@@ -25,6 +25,7 @@ export * from './ScrollView';
 export * from './SelectField';
 export * from './SearchField';
 export * from './SwitchField';
+export * from './Table';
 export * from './Tabs';
 export * from './Text';
 export * from './TextField';

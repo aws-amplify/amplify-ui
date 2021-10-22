@@ -29,6 +29,7 @@ export * from './searchField';
 export * from './selectField';
 export * from './style';
 export * from './switchField';
+export * from './table';
 export * from './tabs';
 export * from './text';
 export * from './textField';
