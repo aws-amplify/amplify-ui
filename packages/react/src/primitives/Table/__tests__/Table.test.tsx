@@ -9,10 +9,10 @@ describe('Table primitive', () => {
   const testSummary = 'test-summary';
 
   const setup = async ({ name = 'table', ...rest }: TableProps = {}) => {
-    await render(<Table name={name} {...rest} />);
+    render(<Table name={name} {...rest} />);
 
     return {
-      $table: await screen.findByRole('table', { name: new RegExp(name, 'i') }),
+      $table: await screen.findByRole('table'),
     };
   };
 
@@ -39,43 +39,12 @@ describe('Table primitive', () => {
       expect($table).toHaveClass(ComponentClassNames.Table, customClassName);
     });
 
-    it('should render a provided caption and summary with default class names', async () => {
-      await setup({ summary: testSummary });
+    it('should render a provided summary with default class name', async () => {
+      await setup({ caption: testCaption, summary: testSummary });
+
       const $testSummary = screen.getByText(testSummary);
 
       expect($testSummary).toHaveClass(ComponentClassNames.TableSummary);
-    });
-
-    it('should have the "data-highlightonhover" attribute when set', async () => {
-      const { $table } = await setup({ highlightOnHover: true });
-
-      expect($table).toHaveAttribute('data-highlightonhover');
-    });
-
-    it('should have default the "data-size" attribute of "large"', async () => {
-      const { $table } = await setup();
-
-      expect($table).toHaveAttribute('data-size', 'large');
-    });
-
-    it('should allow the "data-size" attribute to be set', async () => {
-      const setSize = 'small';
-      const { $table } = await setup({ size: setSize });
-
-      expect($table).toHaveAttribute('data-size', setSize);
-    });
-
-    it('should have the default "data-variation" attribute of "bordered"', async () => {
-      const { $table } = await setup();
-
-      expect($table).toHaveAttribute('data-variation', 'bordered');
-    });
-
-    it('should allow the "data-variation" attribute to be set', async () => {
-      const setVariation = 'striped';
-      const { $table } = await setup({ variation: setVariation });
-
-      expect($table).toHaveAttribute('data-variation', setVariation);
     });
 
     it('should allow for custom style props', async () => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { BaseComponentProps, Sizes } from './base';
+import { BaseComponentProps } from './base';
 import { BaseStyleProps } from './style';
 
 export interface TableProps extends BaseComponentProps, BaseStyleProps {
