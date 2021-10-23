@@ -104,11 +104,6 @@ export class AmplifySignUpComponent
     });
   }
 
-  async onSubmit($event): Promise<void> {
-    $event.preventDefault();
-    this.stateMachine.send('SUBMIT');
-  }
-
   onInput(event: Event): void {
     event.preventDefault();
     const { name, value } = <HTMLInputElement>event.target;
@@ -116,5 +111,10 @@ export class AmplifySignUpComponent
       type: 'CHANGE',
       data: { name, value },
     });
+  }
+
+  onSubmit(event: Event): void {
+    event.preventDefault();
+    this.stateMachine.send('SUBMIT');
   }
 }

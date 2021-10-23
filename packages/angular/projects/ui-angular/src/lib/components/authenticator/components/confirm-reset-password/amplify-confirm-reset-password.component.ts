@@ -72,7 +72,7 @@ export class ConfirmResetPasswordComponent
     this.stateMachine.send('RESEND');
   }
 
-  onInput(event: Event) {
+  onInput(event: Event): void {
     event.preventDefault();
     const { name, value } = <HTMLInputElement>event.target;
     this.stateMachine.send({
@@ -81,7 +81,7 @@ export class ConfirmResetPasswordComponent
     });
   }
 
-  async onSubmit(event: Event): Promise<void> {
+  onSubmit(event: Event): void {
     event.preventDefault();
     this.stateMachine.send('SUBMIT');
   }
