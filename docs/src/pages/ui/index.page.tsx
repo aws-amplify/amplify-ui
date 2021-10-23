@@ -21,37 +21,21 @@ import {
 } from '@aws-amplify/ui-react';
 
 import { HomeLogo } from '@/components/HomeLogo';
+import { theme } from '../theme';
 
-const flipper = {
-  100: 10,
-  90: 20,
-  80: 40,
-  60: 60,
-  40: 80,
-  20: 90,
-  10: 100,
-};
-
-const usePalette = (str) => {
-  return Object.keys(flipper).reduce((acc, curr) => {
-    return {
-      ...acc,
-      [curr]: { value: `{colors.${str}.${curr}.value}` },
-    };
-  }, {});
-};
+const { tokens } = theme;
 
 const HomePage = () => {
-  const testTheme = createTheme({
-    name: 'test-theme',
-    tokens: {
-      colors: {
-        brand: {
-          primary: usePalette('blue'),
-        },
-      },
-    },
-  });
+  // const testTheme = createTheme({
+  //   name: 'test-theme',
+  //   tokens: {
+  //     colors: {
+  //       brand: {
+  //         primary: usePalette('blue'),
+  //       },
+  //     },
+  //   },
+  // });
 
   const router = useRouter();
   const framework = router.query.platform ?? 'react';
@@ -60,17 +44,14 @@ const HomePage = () => {
     <div>
       <View as="section" className="docs-home-section-bg">
         <HomeLogo />
-        <Card padding={`${testTheme.tokens.space.xl}`}>
-          <Text fontSize={`${testTheme.tokens.fontSizes.xl}`}>
+        <Card padding={`${tokens.space.xl}`}>
+          <Text fontSize={`${tokens.fontSizes.xl}`}>
             Amplify UI is an open-source design system with cloud-connected
             workflows and components that simplify building accessible,
             performant, and beautiful applications on React, Angular, and Vue
             (more coming soon).
           </Text>
-          <Flex
-            direction="row"
-            padding={`${testTheme.tokens.space.medium} 0 0 0`}
-          >
+          <Flex direction="row" padding={`${tokens.space.medium} 0 0 0`}>
             <Button variation="primary" as="a" href="/getting-started">
               Get started
             </Button>
@@ -90,32 +71,53 @@ const HomePage = () => {
         </Card>
       </View>
 
-      <View as="section" className="docs-home-section docs-home-preview">
-        <Button variation="primary">Buy Now</Button>
-        <Badge variation="success">Available</Badge>
-        <SwitchField label="Pizza" />
-        <SearchField label="Search" labelHidden={true} />
-        <Button variation="primary" as="a" href="/getting-started">
-          Get started
-        </Button>
-        <Button>Get started</Button>
+      <View as="section" className="docs-home-section">
+        <Flex direction="row">
+          <View style={{ flex: '1' }}>
+            <Heading level={2}>Primitive Components</Heading>
+          </View>
 
-        <Card>
-          <Tabs>
-            <TabItem title="Tab item">
-              <p></p>
-            </TabItem>
-            <TabItem title="Tab item">
-              <p></p>
-            </TabItem>
-          </Tabs>
-        </Card>
+          <View style={{ flex: '1' }} className="docs-home-preview">
+            <Button variation="primary">Buy Now</Button>
+            <Badge variation="success">Available</Badge>
+            <SwitchField label="Pizza" />
+            <SearchField label="Search" labelHidden={true} />
+            <Button variation="primary" as="a" href="/getting-started">
+              Get started
+            </Button>
+            <Button>Get started</Button>
+
+            <Card>
+              <Tabs>
+                <TabItem title="Tab item">
+                  <p></p>
+                </TabItem>
+                <TabItem title="Tab item">
+                  <p></p>
+                </TabItem>
+              </Tabs>
+            </Card>
+          </View>
+        </Flex>
       </View>
 
       <View
         as="section"
         className="docs-home-section"
-        backgroundColor={`${testTheme.tokens.colors.background.secondary}`}
+        backgroundColor={`${tokens.colors.background.secondary}`}
+      >
+        <Flex direction="row">
+          <View style={{ flex: '1' }}></View>
+          <View style={{ flex: '1' }}>
+            <Heading level={2}>Connected Components</Heading>
+          </View>
+        </Flex>
+      </View>
+
+      <View
+        as="section"
+        className="docs-home-section"
+        backgroundColor={`${tokens.colors.background.secondary}`}
       >
         <Heading level={2}>Accessible</Heading>
       </View>
@@ -123,7 +125,7 @@ const HomePage = () => {
       <View
         as="section"
         className="docs-home-section"
-        backgroundColor={`${testTheme.tokens.colors.brand.secondary[10]}`}
+        backgroundColor={`${tokens.colors.background.tertiary}`}
       >
         <Grid
           templateColumns="1fr 1fr"

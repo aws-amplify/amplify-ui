@@ -12,6 +12,12 @@ import {
   Button,
   IconSearch,
   Flex,
+  ColorMode,
+  ToggleButton,
+  ToggleButtonGroup,
+  IconWbSunny,
+  IconWbTwighlight,
+  IconComputer,
 } from '@aws-amplify/ui-react';
 import { useRouter } from 'next/router';
 import { Logo } from '@/components/Logo';
@@ -30,7 +36,28 @@ const NavLink = ({ href, children }) => {
   );
 };
 
-export const Header = ({ platform }) => {
+const ColorModeSwitcher = ({ colorMode, setColorMode }) => {
+  return (
+    <ToggleButtonGroup
+      value={colorMode}
+      isExclusive
+      size="small"
+      onChange={(value: ColorMode) => setColorMode(value)}
+    >
+      <ToggleButton value="light">
+        <IconWbSunny />
+      </ToggleButton>
+      <ToggleButton value="dark">
+        <IconWbTwighlight />
+      </ToggleButton>
+      <ToggleButton value="system">
+        <IconComputer />
+      </ToggleButton>
+    </ToggleButtonGroup>
+  );
+};
+
+export const Header = ({ platform, colorMode, setColorMode }) => {
   return (
     <header className="docs-header">
       <Link href="/">
@@ -49,6 +76,7 @@ export const Header = ({ platform }) => {
           <IconSearch />
         </Button>
         <FrameworkChooser platform={platform} />
+        <ColorModeSwitcher setColorMode={setColorMode} colorMode={colorMode} />
       </Flex>
     </header>
   );
