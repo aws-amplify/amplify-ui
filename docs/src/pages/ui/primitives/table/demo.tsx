@@ -1,6 +1,14 @@
 import * as React from 'react';
 
-import { Table, View } from '@aws-amplify/ui-react';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableFoot,
+  TableHead,
+  TableRow,
+  View,
+} from '@aws-amplify/ui-react';
 
 import { TablePropControls } from '@/components/TablePropControls';
 import { useTableProps } from '@/components/useTableProps';
@@ -16,30 +24,35 @@ export const TableDemo = () => {
       <TablePropControls {...tableProps} />
       <View className="mt-8">
         <Table caption={tableProps.caption} summary={tableProps.summary}>
-          <Table.Head>
-            <Table.Row>
-              <Table.Cell as="th" colspan="3">
-                Numbers
-              </Table.Cell>
-            </Table.Row>
-            <Table.Row>
-              <Table.Cell as="th">One</Table.Cell>
-              <Table.Cell as="th">Two</Table.Cell>
-              <Table.Cell as="th">Three</Table.Cell>
-            </Table.Row>
-          </Table.Head>
-          <Table.Body>
-            <Table.Row>
-              <Table.Cell>Uno</Table.Cell>
-              <Table.Cell>Dos</Table.Cell>
-              <Table.Cell>Tres</Table.Cell>
-            </Table.Row>
-            <Table.Row>
-              <Table.Cell>Ishi</Table.Cell>
-              <Table.Cell>Ni</Table.Cell>
-              <Table.Cell>San</Table.Cell>
-            </Table.Row>
-          </Table.Body>
+          <TableHead>
+            <TableRow>
+              <TableCell as="th" colspan="3">
+                Fruit
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell as="th">Citrus</TableCell>
+              <TableCell as="th">Stone Fruit</TableCell>
+              <TableCell as="th">Berry</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            <TableRow>
+              <TableCell>Orange</TableCell>
+              <TableCell>Nectarine</TableCell>
+              <TableCell>Raspberry</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Grapefruit</TableCell>
+              <TableCell>Apricot</TableCell>
+              <TableCell>Blueberry</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Lime</TableCell>
+              <TableCell>Peach</TableCell>
+              <TableCell>Strawberry</TableCell>
+            </TableRow>
+          </TableBody>
         </Table>
       </View>
     </View>

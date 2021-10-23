@@ -1,0 +1,8 @@
+.custom-table-class .amplify-table__tr:first-child {
+  background-color: hsl(210, 5%, 95%);
+}
+
+.custom-table-class .amplify-table__caption {
+  caption-side: bottom;
+  text-align: right;
+}

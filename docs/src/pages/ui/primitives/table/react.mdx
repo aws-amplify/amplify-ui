@@ -12,4 +12,132 @@ The `Table` primitive provides users with a styled and customizable table elemen
 
 ## Usage
 
+The `Table` primitive and its various components can be used similiarly to how the
+HTML `table`, `tbody`, `td`, `tfoot`, `th`, `thead`, and `tr` elements are used.
+
+```jsx
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableFoot,
+  TableHead,
+  TableRow,
+} from '@aws-amplify/ui-react';
+
+<Table caption={tableProps.caption} summary={tableProps.summary}>
+  <TableHead>
+    <TableRow>
+      <TableCell as="th" colspan="3">
+        Fruit
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell as="th">Citrus</TableCell>
+      <TableCell as="th">Stone Fruit</TableCell>
+      <TableCell as="th">Berry</TableCell>
+    </TableRow>
+  </TableHead>
+  <TableBody>
+    <TableRow>
+      <TableCell>Orange</TableCell>
+      <TableCell>Nectarine</TableCell>
+      <TableCell>Raspberry</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Grapefruit</TableCell>
+      <TableCell>Apricot</TableCell>
+      <TableCell>Blueberry</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Lime</TableCell>
+      <TableCell>Peacg</TableCell>
+      <TableCell>Strawberry</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>;
+```
+
 ## CSS Styling
+
+### Global Styling
+
+Each component related to the `Table` primitive has its own class name which
+may be used to override styling with custom CSS.
+
+```css
+.amplify-table .amplify-table__tr:first-child {
+  background-color: hsl(210, 5%, 95%);
+}
+
+.amplify-table .amplify-table__caption {
+  caption-side: bottom;
+  text-align: right;
+}
+```
+
+```jsx
+<Table className="custom-table-class">
+  <TableHead>
+    <TableRow>
+      <TableCell />
+      <TableCell as="th">A</TableCell>
+      <TableCell as="th">B</TableCell>
+      <TableCell as="th">C</TableCell>
+    </TableRow>
+  </TableHead>
+  <TableBody>
+    <TableRow>
+      <TableCell as="th">1</TableCell>
+      <TableCell>A1</TableCell>
+      <TableCell>B1</TableCell>
+      <TableCell>C1</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell as="th">2</TableCell>
+      <TableCell>A2</TableCell>
+      <TableCell>B2</TableCell>
+      <TableCell>C2</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell as="th">3</TableCell>
+      <TableCell>A3</TableCell>
+      <TableCell>B3</TableCell>
+      <TableCell>C3</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+```
+
+<Example>
+  <Table>
+    <TableHead>
+      <TableRow>
+        <TableCell></TableCell>
+        <TableCell as="th">A</TableCell>
+        <TableCell as="th">B</TableCell>
+        <TableCell as="th">C</TableCell>
+      </TableRow>
+    </TableHead>
+    <TableBody>
+      <TableRow>
+        <TableCell as="th">1</TableCell>
+        <TableCell>A1</TableCell>
+        <TableCell>B1</TableCell>
+        <TableCell>C1</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell as="th">2</TableCell>
+        <TableCell>A2</TableCell>
+        <TableCell>B2</TableCell>
+        <TableCell>C2</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell as="th">3</TableCell>
+        <TableCell>A3</TableCell>
+        <TableCell>B3</TableCell>
+        <TableCell>C3</TableCell>
+      </TableRow>
+    </TableBody>
+  </Table>
+</Example>
