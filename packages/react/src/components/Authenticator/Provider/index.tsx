@@ -21,9 +21,11 @@ const useAuthenticatorValue = ({
   components: customComponents,
   initialState,
   loginMechanisms,
+  services,
 }: ProviderProps) => {
   const [state, send] = useMachine(
-    () => createAuthenticatorMachine({ initialState, loginMechanisms }),
+    () =>
+      createAuthenticatorMachine({ initialState, loginMechanisms, services }),
     {
       devTools: process.env.NODE_ENV === 'development',
     }
@@ -34,10 +36,10 @@ const useAuthenticatorValue = ({
     [customComponents]
   );
 
-  const facade = React.useMemo(() => getServiceFacade({ send, state }), [
-    send,
-    state,
-  ]);
+  const facade = React.useMemo(
+    () => getServiceFacade({ send, state }),
+    [send, state]
+  );
 
   const isPending =
     state.hasTag('pending') || getActorState(state)?.hasTag('pending');

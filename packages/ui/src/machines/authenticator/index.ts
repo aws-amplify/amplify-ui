@@ -1,25 +1,24 @@
-import { Amplify, Auth } from 'aws-amplify';
 import { assign, createMachine, forwardTo, spawn } from 'xstate';
+
 import { AuthContext, AuthEvent, LoginMechanism } from '../../types';
 import { stopActor } from './actions';
-import {
-  resetPasswordActor,
-  signInActor,
-  signOutActor,
-  signUpActor,
-} from './actors';
+import { resetPasswordActor, signInActor, signOutActor } from './actors';
+import { createSignUpMachine } from './signUp';
+import { defaultServices } from './defaultServices';
 
 const DEFAULT_COUNTRY_CODE = '+1';
 
 export type AuthenticatorMachineOptions = {
   initialState?: 'signIn' | 'signUp' | 'resetPassword';
   loginMechanisms?: LoginMechanism[];
+  services?: typeof defaultServices;
 };
 
 export function createAuthenticatorMachine({
   initialState = 'signIn',
-  /** @TODO Prefer `usernameAliases` and `socialProviders` */
+  /** @TODO Prefer `usernameAttributes` and `socialProviders` */
   loginMechanisms,
+  services,
 }: AuthenticatorMachineOptions) {
   return createMachine<AuthContext, AuthEvent>(
     {
@@ -124,8 +123,8 @@ export function createAuthenticatorMachine({
         }),
         applyAmplifyConfig: assign({
           config(context, event) {
-            const configuredLoginMechanisms = event.data.aws_cognito_login_mechanisms?.map(
-              (login) => {
+            const configuredLoginMechanisms =
+              event.data.aws_cognito_login_mechanisms?.map((login) => {
                 switch (login) {
                   case 'PREFERRED_USERNAME':
                     return 'username';
@@ -143,17 +142,15 @@ export function createAuthenticatorMachine({
                       `Unknown login mechanism from Amplify CLI: ${login}.\nOpen an issue: https://github.com/aws-amplify/amplify-ui/issues/choose`
                     );
                 }
-              }
-            );
+              });
 
             const defaultLoginMechanisms = configuredLoginMechanisms ?? [
               'username',
             ];
 
             // Prefer explicitly set login mechanisms from machine instantiation over defaults
-            const {
-              login_mechanisms = defaultLoginMechanisms,
-            } = context.config;
+            const { login_mechanisms = defaultLoginMechanisms } =
+              context.config;
 
             return { login_mechanisms };
           },
@@ -173,7 +170,7 @@ export function createAuthenticatorMachine({
         }),
         spawnSignUpActor: assign({
           actorRef: (context, event) => {
-            const actor = signUpActor.withContext({
+            const actor = createSignUpMachine({ services }).withContext({
               authAttributes: event.data?.authAttributes ?? {},
               country_code: DEFAULT_COUNTRY_CODE,
               intent: event.data?.intent,
@@ -215,12 +212,8 @@ export function createAuthenticatorMachine({
         },
       },
       services: {
-        async getCurrentUser() {
-          return Auth.currentAuthenticatedUser();
-        },
-        async getAmplifyConfig() {
-          return Amplify.configure();
-        },
+        ...defaultServices,
+        ...services,
       },
     }
   );
