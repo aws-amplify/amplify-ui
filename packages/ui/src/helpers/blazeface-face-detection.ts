@@ -1,5 +1,11 @@
 import * as tf from '@tensorflow/tfjs-core';
 import * as blazeface from '@tensorflow-models/blazeface';
+
+// TODO:: Figure out if we should lazy load these or not.
+import * as tfjsWasm from '@tensorflow/tfjs-backend-wasm';
+import '@tensorflow/tfjs-backend-webgl';
+import '@tensorflow/tfjs-backend-cpu';
+
 import { isWebAssemblySupported, isWebGLSupported } from './support';
 import { FaceDetection, Face } from '../types';
 
@@ -57,7 +63,6 @@ export class BlazeFaceFaceDetection extends FaceDetection {
   }
 
   private async _loadWebAssemblyBackend() {
-    const tfjsWasm = await import('@tensorflow/tfjs-backend-wasm');
     /**
      * TODO:: figure out a better way to provide the backend instead of using jsdelivr
      *        for example using our own hosted wasm binary on CDN (cloudfront) that we control
@@ -70,13 +75,11 @@ export class BlazeFaceFaceDetection extends FaceDetection {
   }
 
   private async _loadWebGLBackend() {
-    await import('@tensorflow/tfjs-backend-webgl');
     await tf.setBackend('webgl');
     this.modelBackend = 'webgl';
   }
 
   private async _loadCPUBackend() {
-    await import('@tensorflow/tfjs-backend-cpu');
     await tf.setBackend('cpu');
     this.modelBackend = 'cpu';
   }
