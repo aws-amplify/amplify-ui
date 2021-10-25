@@ -7,7 +7,8 @@ import { RemoteErrorMessage } from '../shared';
 import { FormFields } from './FormFields';
 
 export function SignUp() {
-  const { components, isPending, submitForm, updateForm } = useAuthenticator();
+  const { components, hasValidationErrors, isPending, submitForm, updateForm } =
+    useAuthenticator();
   const {
     SignUp: { FormFields = SignUp.FormFields },
   } = components;
@@ -41,7 +42,7 @@ export function SignUp() {
 
         <Button
           borderRadius={0}
-          isDisabled={isPending}
+          isDisabled={hasValidationErrors}
           isFullWidth={true}
           type="submit"
           variation="primary"
