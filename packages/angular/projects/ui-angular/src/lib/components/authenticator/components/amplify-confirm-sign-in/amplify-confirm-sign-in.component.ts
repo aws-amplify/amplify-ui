@@ -91,7 +91,7 @@ export class AmplifyConfirmSignInComponent
     this.isPending = !actorState.matches('confirmSignIn.edit');
   }
 
-  onInput(event: Event) {
+  onInput(event: Event): void {
     event.preventDefault();
     const { name, value } = <HTMLInputElement>event.target;
     this.stateMachine.send({
@@ -100,7 +100,7 @@ export class AmplifyConfirmSignInComponent
     });
   }
 
-  onSubmit(event: Event) {
+  onSubmit(event: Event): void {
     event.preventDefault();
     // TODO: handle form data within the state machine
     const formData = new FormData(event.target as HTMLFormElement);

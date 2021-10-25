@@ -76,7 +76,7 @@ export class AmplifySignInComponent
     this.stateMachine.send('RESET_PASSWORD');
   }
 
-  onInput(event: Event) {
+  onInput(event: Event): void {
     event.preventDefault();
     const { name, value } = <HTMLInputElement>event.target;
     this.stateMachine.send({
@@ -85,7 +85,7 @@ export class AmplifySignInComponent
     });
   }
 
-  async onSubmit(event: Event): Promise<void> {
+  onSubmit(event: Event): void {
     event.preventDefault();
 
     this.stateMachine.send({
