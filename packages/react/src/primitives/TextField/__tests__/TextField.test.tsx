@@ -191,9 +191,9 @@ describe('TextField component', () => {
       );
 
       const field = await screen.findByRole('textbox');
-      expect(field).toHaveAttribute('disabled');
-      expect(field).toHaveAttribute('readonly');
-      expect(field).toHaveAttribute('required');
+      expect(field).toHaveAttribute('disabled', '');
+      expect(field).toHaveAttribute('readonly', '');
+      expect(field).toHaveAttribute('required', '');
       expect(field).toHaveAttribute('rows', DEFAULT_ROW_COUNT.toString());
     });
 

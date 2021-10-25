@@ -47,7 +47,6 @@ export const TextField = <Multiline extends boolean>(
     isMultiline, // remove from rest to prevent passing as DOM attribute
     size,
     testId,
-    type = 'text',
     wrap,
     ...rest
   } = props;
@@ -67,12 +66,13 @@ export const TextField = <Multiline extends boolean>(
       />
     );
   } else if (isInputField(props)) {
+    const { type = 'text' } = props;
     control = (
       <Input
         hasError={hasError}
         id={fieldId}
         size={size}
-        type={props.type}
+        type={type}
         {...rest}
       />
     );

@@ -18,7 +18,7 @@ export interface TextAreaProps extends TextAreaStyleProps, ViewProps {
   /**
    * Use this to provide a default value for an uncontrolled field
    */
-  defaultValue?: React.HTMLAttributes<'textarea'>['defaultValue'];
+  defaultValue?: React.AllHTMLAttributes<'textarea'>['defaultValue'];
 
   /**
    * Indicates that Field is in error state
@@ -74,7 +74,7 @@ export interface TextAreaProps extends TextAreaStyleProps, ViewProps {
   /**
    * If value is provided, this will be a controlled field
    */
-  value?: React.HTMLAttributes<'textarea'>['defaultValue'];
+  value?: React.AllHTMLAttributes<'textarea'>['value'];
 
   /**
    * Variants

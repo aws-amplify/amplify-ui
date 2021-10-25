@@ -5,22 +5,7 @@ import { InputProps } from './input';
 import { FieldProps } from './field';
 import { TextAreaProps } from './textArea';
 
-export type TextFieldType =
-  | 'email'
-  | 'number'
-  | 'password'
-  | 'search'
-  | 'tel'
-  | 'text'
-  | 'url'
-  | string;
-
 export interface TextFieldOptions extends FieldProps, FlexContainerStyleProps {
-  /**
-   * Input field type
-   */
-  type?: TextFieldType;
-
   /**
    * Component(s) to show after input
    */

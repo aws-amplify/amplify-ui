@@ -90,6 +90,7 @@ export const SearchField: Primitive<SearchFieldProps, 'input'> = ({
           size={size}
         />
       }
+      isMultiline={false}
       label={label}
       name={name}
       onInput={onInput}

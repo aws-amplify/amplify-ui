@@ -35,7 +35,7 @@ export interface InputProps extends ViewProps {
   /**
    * Use this to provide a default value for an uncontrolled field
    */
-  defaultValue?: string | number | readonly string[];
+  defaultValue?: React.AllHTMLAttributes<'input'>['defaultValue'];
 
   /**
    * Indicates that Field is in error state
@@ -86,9 +86,14 @@ export interface InputProps extends ViewProps {
   size?: InputSizes;
 
   /**
+   * Input field type
+   */
+  type?: React.HTMLInputTypeAttribute;
+
+  /**
    * If value is provided, this will be a controlled field
    */
-  value?: string | number | readonly string[];
+  value?: React.AllHTMLAttributes<'input'>['value'];
 
   /**
    * Variants
