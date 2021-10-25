@@ -7,14 +7,14 @@ module.exports = {
     backgroundColor: { value: '{colors.overlay.40.value}' },
   },
   button: {
-    color: { value: '{colors.black.value}' },
+    color: { value: '{colors.font.primary.value}' },
     paddingInlineStart: { value: '{space.xxs.value}' },
     paddingInlineEnd: { value: '{space.xxs.value}' },
     transitionProperty: { value: 'background-color' },
     transitionDuration: { value: '{time.transition.medium.value}' },
     hover: {
       backgroundColor: { value: '{colors.overlay.10.value}' },
-      color: { value: '{colors.black.value}' },
+      color: { value: '{colors.font.primary.value}' },
     },
     disabled: {
       color: { value: '{colors.font.disabled.value}' },
