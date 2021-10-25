@@ -16,11 +16,6 @@ export interface BaseComponentProps {
    * Used to provide a `data-testid` attribute for testing purposes
    */
   testId?: string;
-
-  /**
-   * Any arbitrary props will be passed to the underlying element.
-   */
-  [key: string]: any;
 }
 
 export interface AriaProps {

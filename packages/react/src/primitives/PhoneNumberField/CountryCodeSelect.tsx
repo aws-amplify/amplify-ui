@@ -4,9 +4,9 @@ import { countryDialCodes } from '@aws-amplify/ui';
 
 import { SelectField } from '../SelectField';
 import { ComponentClassNames } from '../shared/constants';
-import { CountryCodeSelectProps } from '../types';
+import { CountryCodeSelectProps, Primitive } from '../types';
 
-export const CountryCodeSelect: React.FC<CountryCodeSelectProps> = ({
+export const CountryCodeSelect: Primitive<CountryCodeSelectProps, 'select'> = ({
   className,
   ...props
 }) => {

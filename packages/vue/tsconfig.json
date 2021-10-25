@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "target": "es2015",
+    "target": "esnext",
     "module": "esnext",
-    "strict": false,
+    "strict": true,
     "jsx": "preserve",
     "importHelpers": true,
     "declaration": true,

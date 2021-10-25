@@ -1,12 +1,11 @@
 import classNames from 'classnames';
-import * as React from 'react';
 
 import { useToggleButton } from './useToggleButton';
 import { Button } from '../Button';
-import { ToggleButtonProps } from '../types';
+import { ToggleButtonProps, Primitive } from '../types';
 import { ComponentClassNames } from '../shared/constants';
 
-export const ToggleButton: React.FC<ToggleButtonProps> = ({
+export const ToggleButton: Primitive<ToggleButtonProps, typeof Button> = ({
   className,
   children,
   defaultPressed = false,

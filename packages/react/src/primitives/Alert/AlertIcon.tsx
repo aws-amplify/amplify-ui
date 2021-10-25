@@ -1,6 +1,6 @@
-import React from 'react';
-import { AlertVariations } from '../types/alert';
-import { IconSize } from '../types/icon';
+import * as React from 'react';
+
+import { AlertVariations, IconSize } from '../types';
 import { IconInfo, IconError, IconWarning, IconCheckCircle } from '../Icon';
 
 interface AlertIconProps {

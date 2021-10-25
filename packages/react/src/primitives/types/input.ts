@@ -117,6 +117,11 @@ export interface InputProps extends ViewProps {
   onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
 
   /**
+   * Fired when rotating a wheel button on a pointing device (typically a mouse)
+   */
+  onWheel?: React.WheelEventHandler<HTMLInputElement>;
+
+  /**
    * Placeholder text shown when field is empty
    * Accessibility tip: avoid putting important instructions for
    * filling out the TextField in the placeholder. Use descriptiveText
@@ -128,12 +133,6 @@ export interface InputProps extends ViewProps {
    * Changes the font-size, padding, and height of the field.
    */
   size?: InputSizes;
-
-  /**
-   * Input type
-   * @default "text"
-   */
-  type?: string;
 
   /**
    * If value is provided, this will be a controlled field

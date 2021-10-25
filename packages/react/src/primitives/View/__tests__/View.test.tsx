@@ -78,7 +78,14 @@ describe('View: ', () => {
 
   it('can apply styling via props', async () => {
     render(
-      <View width="100%" opacity="0.5" borderRadius="6px" testId="stylingTest">
+      <View
+        width="100%"
+        opacity="0.5"
+        borderRadius="6px"
+        testId="stylingTest"
+        backgroundColor={['red', 'yellow']}
+        color={{ base: 'blue', large: 'purple' }}
+      >
         {viewText}
       </View>
     );
@@ -94,5 +101,15 @@ describe('View: ', () => {
         kebabCase(ComponentPropsToStylePropsMap.borderRadius)
       )
     ).toBe('6px');
+    expect(
+      view.style.getPropertyValue(
+        kebabCase(ComponentPropsToStylePropsMap.backgroundColor)
+      )
+    ).toBe('red');
+    expect(
+      view.style.getPropertyValue(
+        kebabCase(ComponentPropsToStylePropsMap.color)
+      )
+    ).toBe('blue');
   });
 });

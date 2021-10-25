@@ -1,14 +1,13 @@
 import classNames from 'classnames';
-import React from 'react';
 
 import { Checkbox } from '../Checkbox';
 import { FieldErrorMessage } from '../Field';
 import { Flex } from '../Flex';
-import { CheckboxFieldProps } from '../types/checkboxField';
+import { CheckboxFieldProps, Primitive } from '../types';
 import { ComponentClassNames } from '../shared';
 import { useTestId } from '../utils/testUtils';
 
-export const CheckboxField: React.FC<CheckboxFieldProps> = ({
+export const CheckboxField: Primitive<CheckboxFieldProps, 'input'> = ({
   alignContent,
   alignItems,
   checked,

@@ -30,17 +30,19 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "projects/ui-angular/tsconfig.lib.json",
-              "projects/ui-angular/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**"]
+            "lintFilePatterns": [
+              "projects/ui-angular/**/*.ts",
+              "projects/ui-angular/**/*.html"
+            ]
           }
         }
       }
     }
   },
-  "defaultProject": "ui-angular"
+  "defaultProject": "ui-angular",
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
+  }
 }

@@ -18,6 +18,7 @@ export type AuthenticatorMachineOptions = {
 
 export function createAuthenticatorMachine({
   initialState = 'signIn',
+  /** @TODO Prefer `usernameAliases` and `socialProviders` */
   loginMechanisms,
 }: AuthenticatorMachineOptions) {
   return createMachine<AuthContext, AuthEvent>(

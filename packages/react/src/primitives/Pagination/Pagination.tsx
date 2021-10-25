@@ -1,24 +1,21 @@
-import React from 'react';
 import classNames from 'classnames';
 
 import { Flex } from '../Flex';
 import { View } from '../View';
 import { usePaginationItems } from './usePaginationItems';
-import { PaginationProps } from '../types';
+import { PaginationProps, Primitive } from '../types';
 import { ComponentClassNames } from '../shared/constants';
 
-export const Pagination: React.FC<PaginationProps> = (props) => {
-  const {
-    className,
-    currentPage,
-    totalPages,
-    siblingCount,
-    onNext,
-    onPrevious,
-    onChange,
-    ...rest
-  } = props;
-
+export const Pagination: Primitive<PaginationProps, 'nav'> = ({
+  className,
+  currentPage,
+  totalPages,
+  siblingCount,
+  onNext,
+  onPrevious,
+  onChange,
+  ...rest
+}) => {
   const paginationItems = usePaginationItems(
     currentPage,
     totalPages,

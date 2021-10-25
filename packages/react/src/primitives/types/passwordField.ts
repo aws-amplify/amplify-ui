@@ -1,5 +1,5 @@
 import { ButtonProps } from './button';
-import { TextFieldProps, TextFieldType } from './textField';
+import { TextFieldProps } from './textField';
 
 export interface PasswordFieldProps extends TextFieldProps {
   /**
