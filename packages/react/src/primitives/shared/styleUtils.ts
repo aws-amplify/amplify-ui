@@ -240,9 +240,7 @@ interface SplitProps<PrimitiveProps> {
   >;
 }
 
-export const splitPrimitiveProps = <
-  PrimitiveProps extends { [index: string]: unknown }
->(
+export const splitPrimitiveProps = <PrimitiveProps>(
   props: PrimitiveProps
 ): SplitProps<PrimitiveProps> => {
   let rest = {} as SplitProps<PrimitiveProps>['rest'];
