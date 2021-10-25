@@ -45,6 +45,7 @@ export const TextField = <Multiline extends boolean>(
     innerStartComponent,
     innerEndComponent,
     isMultiline, // remove from rest to prevent passing as DOM attribute
+    type, // remove from rest to prevent passing as DOM attribute to textarea
     size,
     testId,
     wrap,

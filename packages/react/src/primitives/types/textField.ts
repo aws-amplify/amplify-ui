@@ -25,6 +25,11 @@ export interface TextFieldOptions extends FieldProps, FlexContainerStyleProps {
    * FieldGroupIconButton component to show inside of input at end
    */
   innerEndComponent?: React.ReactNode;
+
+  /**
+   * Input field type (only applies when isMultiline = false)
+   */
+  type?: InputProps['type'];
 }
 
 export interface TextInputFieldProps extends TextFieldOptions, InputProps {}
