@@ -1,10 +1,12 @@
 import { Amplify } from 'aws-amplify';
 
 import {
+  // Access the default `Authenticator.SignUp.FormFields` for re-use
   Authenticator,
+  // Amplify UI Primitives to simplify the custom fields
   CheckboxField,
-  Link,
   TextField,
+  // React hook to get access to validation errors
   useAuthenticator,
 } from '@aws-amplify/ui-react';
 import { withAuthenticator } from '@aws-amplify/ui-react';
@@ -18,29 +20,37 @@ function App({ signOut }) {
 }
 
 export default withAuthenticator(App, {
+  // Default to Sign Up screen
   initialState: 'signUp',
+  // Backend is configured for `email` instead of `username`
   loginMechanisms: ['email'],
   components: {
+    // Customize `Authenticator.SignUp.FormFields`
     SignUp: {
       FormFields() {
         const { validationErrors } = useAuthenticator();
 
         return (
           <>
+            {/* Prepend `preferred_username` custom attribute */}
             <TextField
               label="Preferred Username"
               labelHidden={true}
               name="preferred_username"
               placeholder="Preferred Username"
             />
+
+            {/* Re-use default `Authenticator.SignUp.FormFields` */}
             <Authenticator.SignUp.FormFields />
+
+            {/* Append & require Terms & Conditions field to sign up  */}
             <CheckboxField
               errorMessage={validationErrors.acknowledgement}
               hasError={!!validationErrors.acknowledgement}
               name="acknowledgement"
               value="yes"
             >
-              I agree with the <Link href="#">Terms & Conditions</Link>
+              I agree with the Terms & Conditions
             </CheckboxField>
           </>
         );
@@ -48,12 +58,11 @@ export default withAuthenticator(App, {
     },
   },
   services: {
-    async validateSignUp(formData) {
-      // TODO How to do other validations?
+    async validateCustomSignUp(formData) {
       if (!formData.acknowledgement) {
-        return Promise.reject({
+        return {
           acknowledgement: 'You must agree to the Terms & Conditions',
-        });
+        };
       }
     },
   },
