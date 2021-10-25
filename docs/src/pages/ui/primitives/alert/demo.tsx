@@ -1,6 +1,18 @@
 import { useState } from 'react';
-import Highlight, { defaultProps } from "prism-react-renderer";
-import { Alert, Heading, Tabs, TabItem, Card, Flex, defaultTheme, AmplifyProvider, createTheme, Theme, Button } from '@aws-amplify/ui-react';
+import Highlight, { defaultProps } from 'prism-react-renderer';
+import {
+  Alert,
+  Heading,
+  Tabs,
+  TabItem,
+  Card,
+  Flex,
+  defaultTheme,
+  AmplifyProvider,
+  createTheme,
+  Theme,
+  Button,
+} from '@aws-amplify/ui-react';
 
 import { AlertPropControls } from './AlertPropControls';
 import { useAlertProps } from './useAlertProps';
@@ -17,7 +29,7 @@ const propsToCode = (props) => `import { Alert } from '@aws-amplify/ui-react';
   headingLevel={${props.headingLevel}}
   >
   ${props.body}
-</Alert>`
+</Alert>`;
 
 export const AlertDemo = () => {
   const [copied, setCopied] = useState(false);
@@ -30,18 +42,24 @@ export const AlertDemo = () => {
     headingLevel: 6,
     body: 'This is the alert message',
   });
-  
+
   const alertThemeProps = useAlertThemeProps({
-    backgroundColor: defaultTheme.tokens.components.alert.backgroundColor.value
+    backgroundColor: defaultTheme.tokens.components.alert.backgroundColor.value,
   });
-  
-  const [theme, setTheme] = useState<Theme>(createTheme({ name: 'alert-theme' }))
+
+  const [theme, setTheme] = useState<Theme>(
+    createTheme({ name: 'alert-theme' })
+  );
 
   return (
-    <Card className="docs-component-demo" width="100%" style={{marginBottom: 'var(--amplify-space-large)'}}>
-    <Flex direction="row" alignItems="stretch">
-      <Flex direction="column" style={{flexGrow: 1}}>
-          <AmplifyProvider theme={theme}>
+    <Card
+      className="docs-component-demo"
+      width="100%"
+      style={{ marginBottom: 'var(--amplify-space-large)' }}
+    >
+      <Flex direction="row" alignItems="stretch">
+        <Flex direction="column" style={{ flexGrow: 1 }}>
+          {/* <AmplifyProvider theme={theme}> */}
           <Alert
             variation={alertProps.variation}
             isDismissible={alertProps.isDismissible}
@@ -52,7 +70,7 @@ export const AlertDemo = () => {
           >
             {alertProps.body}
           </Alert>
-          </AmplifyProvider>
+          {/* </AmplifyProvider> */}
           <Tabs>
             <TabItem title="Props">
               <AlertPropControls {...alertProps} />
@@ -61,33 +79,41 @@ export const AlertDemo = () => {
               <div />
             </TabItem>
           </Tabs>
-      </Flex>
-      <Flex style={{flexBasis: '33%', position: 'relative'}}>
-      <Button size="small"
-        className="example-copy-button"
-        disabled={copied}
-        onClick={() => {
-          setCopied(true);
-          setTimeout(() => setCopied(false), 2000);
-        }}>{copied ? 'Copied!' : 'Copy'}</Button>
-      <Highlight Prism={defaultProps.Prism} code={propsToCode(alertProps)} language="jsx">
-        {({ className, style, tokens, getLineProps, getTokenProps }) => (
-          <pre className={className} style={style}>
-            {tokens.map((line, i) => (
-              <div {...getLineProps({ line, key: i })}>
-                {line.map((token, key) => (
-                  <span {...getTokenProps({ token, key })} />
+        </Flex>
+        <Flex style={{ flexBasis: '33%', position: 'relative' }}>
+          <Button
+            size="small"
+            className="example-copy-button"
+            disabled={copied}
+            onClick={() => {
+              setCopied(true);
+              setTimeout(() => setCopied(false), 2000);
+            }}
+          >
+            {copied ? 'Copied!' : 'Copy'}
+          </Button>
+          <Highlight
+            Prism={defaultProps.Prism}
+            code={propsToCode(alertProps)}
+            language="jsx"
+          >
+            {({ className, style, tokens, getLineProps, getTokenProps }) => (
+              <pre className={className} style={style}>
+                {tokens.map((line, i) => (
+                  <div {...getLineProps({ line, key: i })}>
+                    {line.map((token, key) => (
+                      <span {...getTokenProps({ token, key })} />
+                    ))}
+                  </div>
                 ))}
-              </div>
-            ))}
-          </pre>
-        )}
-      </Highlight>
-        {/* <pre className="language-jsx" style={{margin: '0', borderRadius: '0'}}>
+              </pre>
+            )}
+          </Highlight>
+          {/* <pre className="language-jsx" style={{margin: '0', borderRadius: '0'}}>
           <code className="language-jsx">{propsToCode(alertProps)}</code>
         </pre> */}
+        </Flex>
       </Flex>
-    </Flex>
     </Card>
   );
 };

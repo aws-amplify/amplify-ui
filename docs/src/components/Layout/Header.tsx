@@ -70,6 +70,7 @@ export const Header = ({ platform, colorMode, setColorMode }) => {
         <NavLink href="/getting-started">Getting started</NavLink>
         <NavLink href="/ui/primitives">Components</NavLink>
         <NavLink href="/ui/theming">Theming</NavLink>
+        <NavLink href="/examples">Examples</NavLink>
       </nav>
       <Flex direction="row" alignItems="center">
         <Button variation="primary" size="small">

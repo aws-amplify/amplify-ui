@@ -1,4 +1,11 @@
-import { AlertProps, TextField, SelectField, SwitchField, View, useTheme } from '@aws-amplify/ui-react';
+import {
+  AlertProps,
+  TextField,
+  SelectField,
+  SwitchField,
+  View,
+  useTheme,
+} from '@aws-amplify/ui-react';
 
 export interface AlertPropControlsProps extends AlertProps {
   setVariation: (value: React.SetStateAction<AlertProps['variation']>) => void;
@@ -34,6 +41,7 @@ export const AlertPropControls: AlertPropControlsInterface = ({
   setBody,
 }) => {
   const { tokens } = useTheme();
+  console.log(hasIcon);
   return (
     <View padding={`${tokens.space.medium} 0`}>
       <SelectField
@@ -43,47 +51,46 @@ export const AlertPropControls: AlertPropControlsInterface = ({
         value={variation}
         onChange={(event) =>
           setVariation(event.target.value as AlertProps['variation'])
-        }>
+        }
+      >
         <option value="">default</option>
-          <option value="info">info</option>
-          <option value="error">error</option>
-          <option value="warning">warning</option>
-          <option value="success">success</option>
+        <option value="info">info</option>
+        <option value="error">error</option>
+        <option value="warning">warning</option>
+        <option value="success">success</option>
       </SelectField>
-      
+
       <TextField
         label="Heading"
         value={heading as string}
         onChange={(event) =>
           setHeading(event.target.value as AlertProps['heading'])
-        } />
+        }
+      />
 
       <TextField
         label="Body"
         value={body as string}
-        onChange={(event) =>
-          setBody(event.target.value)
-        } />
-      
-      <SwitchField 
+        onChange={(event) => setBody(event.target.value)}
+      />
+
+      <SwitchField
         label="isDismissable"
-        checked={isDismissible}
+        isChecked={isDismissible}
         labelPosition="end"
         onChange={(event) =>
-          setIsDismissible(
-            event.target.checked as AlertProps['isDismissible']
-          )
-        } />
+          setIsDismissible(event.target.checked as AlertProps['isDismissible'])
+        }
+      />
 
       <SwitchField
         label="hasIcon"
-        checked={hasIcon}
+        isChecked={hasIcon}
         labelPosition="end"
         onChange={(event) =>
-          setHasIcon(
-            event.target.checked as AlertProps['hasIcon']
-          )
-        } />
+          setHasIcon(event.target.checked as AlertProps['hasIcon'])
+        }
+      />
     </View>
   );
 };

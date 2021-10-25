@@ -43,6 +43,14 @@ export const theme = createTheme({
           fontWeight: { value: 900 },
           fontSize: { value: '3rem' },
         },
+        2: {
+          fontWeight: { value: 900 },
+          fontSize: { value: '2.5rem' },
+        },
+        3: {
+          fontWeight: { value: 900 },
+          fontSize: { value: '2rem' },
+        },
       },
       button: {
         borderColor: { value: '{colors.border.primary.value}' },

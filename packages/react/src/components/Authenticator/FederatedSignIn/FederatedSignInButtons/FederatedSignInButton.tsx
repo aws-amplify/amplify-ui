@@ -100,7 +100,7 @@ export const FederatedSignInButton = (
         className="federated-sign-in-button-row"
       >
         {iconComponent}
-        <Text alignSelf="center">{text}</Text>
+        {text}
       </Flex>
     </Button>
   );
