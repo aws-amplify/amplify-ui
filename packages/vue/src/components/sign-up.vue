@@ -27,7 +27,7 @@
                 :label="passwordLabel"
                 autocomplete="new-password"
                 :ariainvalid="
-                  !!actorContext.validationError['confirm_password']
+                  !!(actorContext.validationError as ValidationError)['confirm_password']
                 "
               />
             </base-wrapper>
@@ -40,23 +40,32 @@
                 :label="confirmPasswordLabel"
                 autocomplete="new-password"
                 :ariainvalid="
-                  !!actorContext.validationError['confirm_password']
+                  !!(actorContext.validationError as ValidationError)['confirm_password']
                 "
               />
             </base-wrapper>
             <p
               data-variation="error"
               class="amplify-text"
-              v-if="!!actorContext.validationError['confirm_password']"
+              v-if="!!(actorContext.validationError as ValidationError)['confirm_password']"
             >
-              {{ actorContext.validationError['confirm_password'] }}
+              {{ (actorContext.validationError as ValidationError)['confirm_password'] }}
             </p>
 
-            <template v-for="(alias, idx) in secondaryAliases" :key="idx">
+            <template
+              v-for="(alias: UserNameAlias, idx) in secondaryAliases as UserNameAlias[]"
+              :key="idx"
+            >
               <alias-control
-                :label="translate(inputAttributes[alias].label)"
+                :label="
+                  // prettier-ignore
+                  translate<string>(inputAttributes[alias].label)
+                "
                 :name="alias"
-                :placeholder="translate(inputAttributes[alias].label)"
+                :placeholder="
+                  // prettier-ignore
+                  translate<string>( inputAttributes[alias].label)
+                "
               />
             </template>
 
@@ -102,6 +111,7 @@ import {
   SignUpContext,
   UserNameAlias,
   userNameAliasArray,
+  ValidationError,
   translate,
 } from '@aws-amplify/ui';
 
