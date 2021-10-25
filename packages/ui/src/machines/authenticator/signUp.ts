@@ -17,12 +17,10 @@ import {
 import { defaultServices } from './defaultServices';
 
 export type SignUpMachineOptions = {
-  services?: Pick<typeof defaultServices, 'validateSignUp'>;
+  services?: Partial<typeof defaultServices>;
 };
 
 export function createSignUpMachine({ services }: SignUpMachineOptions) {
-  const { validateSignUp } = services;
-
   return createMachine<SignUpContext, AuthEvent>(
     {
       id: 'signUpActor',
@@ -43,7 +41,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
               states: {
                 pending: {
                   invoke: {
-                    src: ({ formValues }) => validateSignUp(formValues),
+                    src: 'validateSignUp',
                     onDone: {
                       target: 'valid',
                       actions: 'clearValidationError',
@@ -86,7 +84,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
                 validate: {
                   entry: sendUpdate(),
                   invoke: {
-                    src: ({ formValues }) => validateSignUp(formValues),
+                    src: 'validateSignUp',
                     onDone: {
                       target: 'pending',
                       actions: 'clearValidationError',
@@ -242,6 +240,17 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
 
           // TODO `cond`itionally transition to `signUp.confirm` or `resolved` based on result
           return result;
+        },
+        async validateSignUp(context, event) {
+          // This needs to exist in the machine to reference new `services`
+          return runValidators(context.formValues, [
+            // Validation for default form fields
+            services.validateConfirmPassword,
+            services.validatePreferredUsername,
+
+            // Validation for any custom Sign Up fields
+            services.validateCustomSignUp,
+          ]);
         },
       },
     }

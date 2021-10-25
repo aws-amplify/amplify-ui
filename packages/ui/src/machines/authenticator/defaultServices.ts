@@ -1,6 +1,6 @@
 import { Amplify, Auth } from 'aws-amplify';
 
-import { passwordMatches, runValidators } from '../../validators';
+import { runValidators } from '../../validators';
 
 export const defaultServices = {
   async getAmplifyConfig() {
@@ -11,9 +11,20 @@ export const defaultServices = {
     return Auth.currentAuthenticatedUser();
   },
 
-  async validateSignUp(formData) {
-    const validators = [passwordMatches]; // this can contain custom validators too
+  // Validation hooks for overriding
+  async validateCustomSignUp(formData) {},
+  async validateConfirmPassword(formData) {
+    const { password, confirm_password } = formData;
 
-    return runValidators(formData, validators);
+    if (!password && !confirm_password) {
+      // these inputs are clean, don't complain yet
+      return null;
+    } else if (password && confirm_password && password !== confirm_password) {
+      // only return an error if both fields have text entered and the passwords do not match
+      return {
+        confirm_password: 'Your passwords must match',
+      };
+    }
   },
+  async validatePreferredUsername(formData) {},
 };
