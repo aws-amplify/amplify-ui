@@ -4,12 +4,13 @@ import {
   Authenticator,
   CheckboxField,
   Link,
+  TextField,
   useAuthenticator,
 } from '@aws-amplify/ui-react';
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
-import awsExports from '@environments/auth-with-username-no-attributes/src/aws-exports';
+import awsExports from '@environments/auth-with-email-and-custom-attributes/src/aws-exports';
 Amplify.configure(awsExports);
 
 function App({ signOut }) {
@@ -18,6 +19,7 @@ function App({ signOut }) {
 
 export default withAuthenticator(App, {
   initialState: 'signUp',
+  loginMechanisms: ['email'],
   components: {
     SignUp: {
       FormFields() {
@@ -25,10 +27,16 @@ export default withAuthenticator(App, {
 
         return (
           <>
+            <TextField
+              label="Preferred Username"
+              labelHidden={true}
+              name="preferred_username"
+              placeholder="Preferred Username"
+            />
             <Authenticator.SignUp.FormFields />
             <CheckboxField
               errorMessage={validationErrors.acknowledgement}
-              hasError={validationErrors.acknowledgement}
+              hasError={!!validationErrors.acknowledgement}
               name="acknowledgement"
               value="yes"
             >
