@@ -1,4 +1,5 @@
-import { I18n } from 'aws-amplify';
+import { translate } from '@aws-amplify/ui';
+
 import { TextField } from '../../../primitives';
 
 export interface ConfirmationCodeInputProps {
@@ -13,8 +14,8 @@ export const ConfirmationCodeInput = (
 ): JSX.Element => {
   const {
     errorText,
-    label = I18n.get('Code *'),
-    placeholder = I18n.get('Code'),
+    label = `${translate('Code')} *`,
+    placeholder = translate('Code'),
     required = true,
   } = props;
 

@@ -77,19 +77,9 @@
 
 <script setup lang="ts">
 import { computed, ComputedRef, useAttrs } from 'vue';
-import { I18n } from 'aws-amplify';
+import { getActorState, SignInState, translate } from '@aws-amplify/ui';
 
 import { useAuth } from '../composables/useAuth';
-
-import {
-  VERIFY_HEADING,
-  SKIP_TEXT,
-  VERIFY_TEXT,
-  CONFIRMATION_CODE_TEXT,
-  CONFIRM_RESET_PASSWORD_TEXT,
-  CODE_TEXT,
-} from '../defaults/DefaultTexts';
-import { getActorState, SignInState } from '@aws-amplify/ui';
 
 const attrs = useAttrs();
 const emit = defineEmits(['confirmVerifyUserSubmit', 'skipClicked']);
@@ -100,12 +90,14 @@ const actorState: ComputedRef<SignInState> = computed(
 );
 
 // Computed Properties
-const verifyHeading = computed(() => I18n.get(VERIFY_HEADING));
-const skipText = computed(() => I18n.get(SKIP_TEXT));
-const verifyText = computed(() => I18n.get(VERIFY_TEXT));
-const confirmationCodeText = computed(() => I18n.get(CONFIRMATION_CODE_TEXT));
-const codeText = computed(() => I18n.get(CODE_TEXT));
-const submitText = computed(() => I18n.get(CONFIRM_RESET_PASSWORD_TEXT));
+const verifyHeading = computed(() =>
+  translate('Account recovery requires verified contact information')
+);
+const skipText = computed(() => translate('Skip'));
+const verifyText = computed(() => translate('Verify'));
+const confirmationCodeText = computed(() => translate('Confirmation Code'));
+const codeText = computed(() => translate('Code'));
+const submitText = computed(() => translate('Submit'));
 
 // Methods
 const onInput = (e: Event): void => {
@@ -125,8 +117,8 @@ const onConfirmVerifyUserSubmit = (e: Event): void => {
   }
 };
 
-const submit = (e): void => {
-  const formData = new FormData(e.target);
+const submit = (e: Event): void => {
+  const formData = new FormData(<HTMLFormElement>e.target);
   send({
     type: 'SUBMIT',
     //@ts-ignore

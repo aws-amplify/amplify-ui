@@ -1,4 +1,4 @@
-import { I18n } from 'aws-amplify';
+import { translate } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '..';
 import { Flex, Form, Heading, TextField } from '../../..';
@@ -27,14 +27,14 @@ export const ResetPassword = (): JSX.Element => {
       onSubmit={handleSubmit}
     >
       <Flex direction="column">
-        <Heading level={3}>{I18n.get('Reset your password')}</Heading>
+        <Heading level={3}>{translate('Reset your password')}</Heading>
 
         <Flex direction="column">
           <TextField
             autoComplete="username"
             name="username"
-            placeholder={I18n.get('Enter your username')}
-            label={I18n.get('Enter your username')}
+            placeholder={translate('Enter your username')}
+            label={translate('Enter your username')}
             labelHidden={true}
             required={true}
             type="username"
@@ -43,13 +43,13 @@ export const ResetPassword = (): JSX.Element => {
 
         <RemoteErrorMessage />
         <TwoButtonSubmitFooter
-          cancelButtonText={I18n.get('Back to Sign In')}
+          cancelButtonText={translate('Back to Sign In')}
           cancelButtonSendType="SIGN_IN"
           submitButtonText={
             isPending ? (
-              <>{I18n.get('Sending')}&hellip;</>
+              <>{translate('Sending')}&hellip;</>
             ) : (
-              <>{I18n.get('Send code')}</>
+              <>{translate('Send code')}</>
             )
           }
         />

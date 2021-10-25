@@ -32,6 +32,7 @@ export * from './style';
 export * from './switchField';
 export * from './tabs';
 export * from './text';
+export * from './textArea';
 export * from './textField';
 export * from './toggleButton';
 export * from './toggleButtonGroup';

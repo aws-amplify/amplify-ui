@@ -1,4 +1,4 @@
-import { I18n } from 'aws-amplify';
+import { translate } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '..';
 import { Button, Flex, Form, Heading } from '../../..';
@@ -33,7 +33,7 @@ export function SignUp() {
       onSubmit={handleSubmit}
     >
       <Flex direction="column">
-        <Heading level={3}>{I18n.get('Create a new account')}</Heading>
+        <Heading level={3}>{translate('Create a new account')}</Heading>
 
         <Flex direction="column">
           <FormFields />
@@ -47,10 +47,10 @@ export function SignUp() {
           type="submit"
           variation="primary"
           isLoading={isPending}
-          loadingText={I18n.get('Creating Account')}
+          loadingText={translate('Creating Account')}
           fontWeight="normal"
         >
-          {I18n.get('Create Account')}
+          {translate('Create Account')}
         </Button>
 
         <FederatedSignIn />

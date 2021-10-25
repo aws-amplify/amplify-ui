@@ -1,5 +1,4 @@
-import { AuthEventTypes } from '@aws-amplify/ui';
-import { I18n } from 'aws-amplify';
+import { AuthEventTypes, translate } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '..';
 import { Button, Flex } from '../../..';
@@ -18,9 +17,9 @@ export const TwoButtonSubmitFooter = (
   const { _send, isPending } = useAuthenticator();
 
   const defaultSubmitText = isPending ? (
-    <>{I18n.get('Submitting')}&hellip;</>
+    <>{translate('Submitting')}&hellip;</>
   ) : (
-    <>{I18n.get('Submit')}</>
+    <>{translate('Submit')}</>
   );
   const submitText = submitButtonText || defaultSubmitText;
 

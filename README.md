@@ -1,107 +1,80 @@
-🚧 The next version of Amplify UI (2.0.0) is currently under development. Get started with the current version of Amplify UI [here](https://docs.amplify.aws/ui). 🚧
+<img src="https://s3.amazonaws.com/aws-mobile-hub-images/aws-amplify-logo.png" alt="AWS Amplify" width="225">
 
-<img src="https://s3.amazonaws.com/aws-mobile-hub-images/aws-amplify-logo.png" alt="AWS Amplify" width="550">
+---
 
-[![Discord](https://img.shields.io/discord/308323056592486420?logo=discord)](https://discord.gg/jWVbPfC)
+# Amplify UI
+
+> 🚧 This is the `next` version of Amplify UI 🚧
+>
+> For the the `latest` Amplify UI documentation, [click here](https://docs.amplify.aws/ui)
+
 [![GitHub](https://img.shields.io/github/license/aws-amplify/amplify-ui)](LICENSE)
-
-<!-- Enable this once we have issues opened up
+[![Discord](https://img.shields.io/discord/308323056592486420?logo=discord)](https://discord.gg/jWVbPfC)
+[![Tests](https://github.com/aws-amplify/amplify-ui/actions/workflows/tests.yml/badge.svg)](https://github.com/aws-amplify/amplify-ui/actions/workflows/tests.yml)
 [![Open Bugs](https://img.shields.io/github/issues/aws-amplify/amplify-ui/bug?color=d73a4a&label=bugs)](https://github.com/aws-amplify/amplify-cli/issues?q=is%3Aissue+is%3Aopen+label%3Abug)
 [![Feature Requests](https://img.shields.io/github/issues/aws-amplify/amplify-ui/feature-request?color=ff9001&label=feature%20requests)](https://github.com/aws-amplify/amplify-cli/issues?q=is%3Aissue+label%3Afeature-request+is%3Aopen)
-[![Enhancements](https://img.shields.io/github/issues/aws-amplify/amplify-ui/enhancement?color=4287f5&label=enhancement)](https://github.com/aws-amplify/amplify-cli/issues?q=is%3Aissue+is%3Aopen+label%3Aenhancement)
-[![Closed Issues](https://img.shields.io/github/issues-closed/aws-amplify/amplify-ui?color=%2325CC00&label=issues%20closed)](https://github.com/aws-amplify/amplify-cli/issues?q=is%3Aissue+is%3Aclosed+)
+[![GA milestone](https://img.shields.io/github/milestones/progress-percent/aws-amplify/amplify-ui/1)](https://github.com/aws-amplify/amplify-ui/milestone/1)
 
--->
-
-# Amplify UI 2.0
-
-Amplify UI 2.0 is an open-source UI library with cloud-connected components that are endlessly customizable, accessible, and can integrate into _any_ application. Amplify UI consists of:
+Amplify UI is an open-source UI library with cloud-connected components that are endlessly customizable, accessible, and can integrate into _any_ application. Amplify UI consists of:
 
 1. Connected components that simplify complex cloud-connected workflows, like Authenticator.
 2. Primitive components that create consistency across Amplify UI and allow you to build complete applications that fit your brand, like Buttons and Badges.
 3. Data-bound components that make it easy to display dynamic data, like DataStoreCollections.
 4. Theming capabilities that allow you to customize the appearance of Amplify UI to match your brand.
 
-**This is an early preview of the upcoming Amplify UI 2.0 release.**
-
-## Getting started
-
-We will be publishing the next major version (2.0) of these packages under the `@next` tag in npm when they are ready:
-
-- @aws-amplify/ui-react
-- @aws-amplify/ui-angular
-- @aws-amplify/ui-vue
-
-Bug fixes to the existing stable release of the ui packages will happen on the [aws-amplify/amplify-js](https://github.com/aws-amplify/amplify-js) repository.
-
-## Usage
-
-### React
-
-```js
-import { Amplify } from 'aws-amplify';
-
-import { withAuthenticator } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-import awsExports from './aws-exports';
-Amplify.configure(awsExports);
-
-function App({ signOut, user }) {
-  return (
-    <>
-      <h1>Hello {user.username}</h1>
-      <button onClick={signOut}>Sign out</button>
-    </>
-  );
-}
-
-export default withAuthenticator(App);
-```
-
-[Head over to the docs for more information on React usage](https://ui.docs.amplify.aws/ui/components/authenticator?platform=react)
-
-### Vue
-
-```html
-<script setup>
-  import { Authenticator } from '@aws-amplify/ui-vue';
-  import '@aws-amplify/ui-vue/styles.css';
-</script>
-
-<authenticator>
-  <template v-slot="{ user, signOut }">
-    <h1>Welcome {{ user.username }}!</h1>
-    <button @click="signOut">Sign Out</button>
-  </template>
-</authenticator>
-```
-
-[Head over to the docs for more information on Vue usage](https://ui.docs.amplify.aws/ui/components/authenticator?platform=vue)
-
-> Note: primitives not available for Vue yet
-
-### Angular
-
-```html
-<amplify-authenticator>
-  <ng-template amplifySlot="authenticated" let-username="username">
-    <h1>Welcome, {{username}}!</h1>
-    <amplify-sign-out></amplify-sign-out>
-  </ng-template>
-</amplify-authenticator>
-```
-
-[Head over to the docs for more information on Angular usage](https://ui.docs.amplify.aws/ui/components/authenticator?platform=angular)
-
-> Note: primitives not available for Angular yet
+**This is an early preview of the upcoming Amplify UI release.**
 
 ## Documentation
 
-- Docs for the latest stable version of Amplify UI can be found [here](https://docs.amplify.aws/ui).
-- Docs for the next version of Amplify UI can be found [here](https://ui.docs.amplify.aws).
+- https://ui.docs.amplify.aws/
 
-Improving our documentation and providing better and more interactive sample code is one of the focuses of the new Amplify UI. We also wanted to make it easier to keep our docs in sync with the UI code so now this repository will contain all the documentation, UI code, and end-to-end tests to ensure the correctness of the documentation.
+## Getting started
+
+- https://ui.docs.amplify.aws/ui/getting-started/installation
+
+## Component Matrix
+
+| **Component**            | **React** | **Angular** | **Vue** |
+| :----------------------- | :-------: | :---------: | :-----: |
+| **Connected Components** |           |             |
+| Authenticator            |    ✅     |     ✅      |   ✅    |
+| Interactions             |           |             |
+| Storage                  |           |             |
+| **Primitives**           |           |             |
+| Alert                    |    ✅     |             |
+| Badge                    |    ✅     |             |
+| Button                   |    ✅     |             |
+| Card                     |    ✅     |             |
+| CheckboxField            |    ✅     |             |
+| Collection               |    ✅     |             |
+| Divider                  |    ✅     |             |
+| Dropdown                 |           |             |
+| Flex                     |    ✅     |             |
+| Grid                     |    ✅     |             |
+| Heading                  |    ✅     |             |
+| Icon                     |    ✅     |             |
+| Image                    |    ✅     |             |
+| Link                     |    ✅     |             |
+| Pagination               |    ✅     |             |
+| PasswordField            |    ✅     |             |
+| PhoneNumberField         |    ✅     |             |
+| Placeholder              |    ✅     |             |
+| RadioGroupField          |    ✅     |             |
+| Rating                   |    ✅     |             |
+| ScrollView               |    ✅     |             |
+| SearchField              |    ✅     |             |
+| SelectField              |    ✅     |             |
+| Slider                   |           |             |
+| Spinner                  |           |             |
+| StepperField             |    ✅     |             |
+| SwitchField              |    ✅     |             |
+| Table                    |           |             |
+| Tabs                     |    ✅     |             |
+| Text                     |    ✅     |             |
+| TextField                |    ✅     |             |
+| ToggleButton             |    ✅     |             |
+| View                     |    ✅     |             |
+| VisuallyHidden           |    ✅     |             |
 
 ## Frequently asked questions
 
@@ -122,7 +95,7 @@ Amplify UI consists of both primitive components like Buttons, Badges, and Cards
 
 **Where should I file bugs and requests?**
 
-[Bugs and feature requests for Amplify UI 2.0](https://github.com/aws-amplify/amplify-ui/issues/new)
+[Bugs and feature requests for Amplify UI](https://github.com/aws-amplify/amplify-ui/issues/new)
 
 You can also use the above link to report a bug or a feature request for previous version of Amplify UI Components.
 
@@ -130,51 +103,4 @@ As we continue to work on the new Amplify UI we will move UI-related issues in t
 
 ## Contributing
 
-Right now the best way to contribute is to try out the new Amplify UI and give us feedback. We want to make sure we are building the right tools for you to build amazing applications easily.
-
-## Status
-
-This is a very early preview of the work we are doing. Currently, these packages are not being published to npm yet. We will let you know when they become available. This is currently what we are working on:
-
-| **Component**  | **React** | **Angular** | **Vue** |
-| :------------- | :-------: | :---------: | :-----: |
-| **components** |           |             |
-| Authenticator  |    ✅     |     ✅      |   ✅    |
-| Interactions   |           |             |
-| Storage        |           |             |
-| **primitives** |           |             |
-| Alert          |           |             |
-| Badge          |    ✅     |             |
-| Button         |    ✅     |             |
-| Card           |    ✅     |             |
-| Checkbox       |           |             |
-| Collection     |    ✅     |             |
-| Divider        |    ✅     |             |
-| Dropdown       |           |             |
-| Flex           |    ✅     |             |
-| Grid           |           |             |
-| Icon           |    ✅     |             |
-| Image          |    ✅     |             |
-| Input          |    ✅     |             |
-| Heading        |    ✅     |             |
-| Pagination     |    ✅     |             |
-| Placeholder    |    ✅     |             |
-| RadioButton    |           |             |
-| Slider         |           |             |
-| Spinner        |           |             |
-| Table          |           |             |
-| Tabs           |           |             |
-| Text           |    ✅     |             |
-| TextField      |           |             |
-| Toggle         |           |             |
-| View           |    ✅     |             |
-
-## Looking for other products?
-
-- [Amplify Console](https://docs.amplify.aws/console)
-- [Amplify JS](https://docs.amplify.aws/lib/q/platform/js)
-- [Amplify iOS](https://docs.amplify.aws/lib/q/platform/ios)
-- [Amplify Android](https://docs.amplify.aws/lib/q/platform/android)
-- [Amplify Flutter](https://docs.amplify.aws/lib/q/platform/flutter)
-- [Amplify CLI](https://docs.amplify.aws/cli)
-- [Amplify Community](https://amplify.aws/community/)
+- [CONTRIBUTING.md](/CONTRIBUTING.md)

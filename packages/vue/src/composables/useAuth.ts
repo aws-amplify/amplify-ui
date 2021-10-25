@@ -4,5 +4,6 @@ import { inject } from 'vue';
 
 export const useAuth = () => {
   const service = inject(InterpretServiceInjectionKeyTypes);
+  //@ts-ignore
   return useActor(service);
 };

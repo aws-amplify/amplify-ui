@@ -5,7 +5,6 @@
     "ng": "ng",
     "dev": "ng serve --port 3000",
     "start": "serve dist/angular -s -p 3000",
-    "prebuild": "yarn --cwd ../../ workspace @aws-amplify/ui-angular build",
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",

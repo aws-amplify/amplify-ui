@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import { ref, toRefs } from 'vue';
-import { HIDE_PASSWORD, SHOW_PASSWORD } from '../defaults/DefaultTexts';
-import { I18n } from 'aws-amplify';
+import { translate } from '@aws-amplify/ui';
 
-const showPassword = I18n.get(SHOW_PASSWORD);
-const hidePassword = I18n.get(HIDE_PASSWORD);
+const showPassword = translate('Show password');
+const hidePassword = translate('Hide password');
 const showHideType = ref('password');
 const showHideLabel = ref(showPassword);
 

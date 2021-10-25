@@ -1,4 +1,4 @@
-import { I18n } from 'aws-amplify';
+import { translate } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '../..';
 import { Button, Flex } from '../../..';
@@ -14,9 +14,9 @@ export const ConfirmSignInFooter = () => {
         variation="primary"
         fontWeight="normal"
         isLoading={isPending}
-        loadingText={I18n.get('Confirming')}
+        loadingText={translate('Confirming')}
       >
-        {I18n.get('Confirm')}
+        {translate('Confirm')}
       </Button>
 
       <Button
@@ -26,7 +26,7 @@ export const ConfirmSignInFooter = () => {
         fontWeight="normal"
         size="small"
       >
-        {I18n.get('Back to Sign In')}
+        {translate('Back to Sign In')}
       </Button>
     </Flex>
   );

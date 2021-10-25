@@ -1,10 +1,10 @@
 import {
   getActorContext,
   SignUpContext,
+  translate,
   UserNameAlias,
   userNameAliasArray,
 } from '@aws-amplify/ui';
-import { I18n } from 'aws-amplify';
 import { isEmpty } from 'lodash';
 
 import { useAuthenticator } from '..';
@@ -30,8 +30,8 @@ export function FormFields() {
     secondaryAliases.push('email', 'phone_number');
   }
 
-  const passwordLabel = I18n.get('Password');
-  const confirmPasswordLabel = I18n.get('Confirm Password');
+  const passwordLabel = translate('Password');
+  const confirmPasswordLabel = translate('Confirm Password');
   const passwordFieldClass = 'password-field';
 
   return (

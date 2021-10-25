@@ -1,4 +1,12 @@
-import { Component, HostBinding, Input, TemplateRef } from '@angular/core';
+import {
+  AfterContentInit,
+  Component,
+  HostBinding,
+  Input,
+  OnDestroy,
+  OnInit,
+  TemplateRef,
+} from '@angular/core';
 import {
   AuthMachineState,
   getActorContext,
@@ -14,7 +22,9 @@ import { translate } from '@aws-amplify/ui';
   selector: 'amplify-confirm-sign-up',
   templateUrl: './amplify-confirm-sign-up.component.html',
 })
-export class AmplifyConfirmSignUpComponent {
+export class AmplifyConfirmSignUpComponent
+  implements OnInit, AfterContentInit, OnDestroy
+{
   @HostBinding('attr.data-amplify-authenticator-confirmsignup') dataAttr = '';
   @Input() headerText = translate('Confirm Sign Up');
   public customComponents: Record<string, TemplateRef<any>> = {};
@@ -25,7 +35,6 @@ export class AmplifyConfirmSignUpComponent {
 
   // translated texts
   public resendCodeText = translate('Resend Code');
-  public lostCodeText = translate('Lost your code? ');
   public confirmText = translate('Confirm');
 
   constructor(
@@ -78,7 +87,7 @@ export class AmplifyConfirmSignUpComponent {
     });
   }
 
-  onSubmit(event: Event) {
+  onSubmit(event: Event): void {
     event.preventDefault();
     const state = this.stateMachine.authState;
     const actorContext: SignUpContext = getActorContext(state);

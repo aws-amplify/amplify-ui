@@ -1,4 +1,4 @@
-import { I18n } from 'aws-amplify';
+import { translate } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '..';
 import { Form, Flex, Heading, PasswordField, Button } from '../../..';
@@ -30,17 +30,17 @@ export function SignIn() {
       onChange={handleChange}
     >
       <Flex direction="column">
-        <Heading level={3}>{I18n.get('Sign in to your account')}</Heading>
+        <Heading level={3}>{translate('Sign in to your account')}</Heading>
 
         <Flex direction="column">
           <UserNameAlias data-amplify-usernamealias />
           <PasswordField
             data-amplify-password
             className="password-field"
-            placeholder={I18n.get('Password')}
+            placeholder={translate('Password')}
             isRequired={true}
             name="password"
-            label={I18n.get('Password')}
+            label={translate('Password')}
             autoComplete="current-password"
             labelHidden={true}
           />
@@ -55,10 +55,10 @@ export function SignIn() {
           type="submit"
           variation="primary"
           isLoading={isPending}
-          loadingText={I18n.get('Signing in')}
+          loadingText={translate('Signing in')}
           fontWeight="normal"
         >
-          {I18n.get('Sign in')}
+          {translate('Sign in')}
         </Button>
 
         <Button
@@ -68,7 +68,7 @@ export function SignIn() {
           size="small"
           fontWeight="normal"
         >
-          {I18n.get('Forgot your password? ')}
+          {translate('Forgot your password? ')}
         </Button>
       </Flex>
 

@@ -36,7 +36,6 @@ export class AmplifySignInComponent
   // translated phrases
   public forgotPasswordText = translate('Forgot your password? ');
   public signInButtonText = translate('Sign in');
-  public noAccountText = translate('No account? ');
 
   private authSubscription: Subscription;
 
@@ -77,7 +76,7 @@ export class AmplifySignInComponent
     this.stateMachine.send('RESET_PASSWORD');
   }
 
-  onInput(event: Event) {
+  onInput(event: Event): void {
     event.preventDefault();
     const { name, value } = <HTMLInputElement>event.target;
     this.stateMachine.send({
@@ -86,7 +85,7 @@ export class AmplifySignInComponent
     });
   }
 
-  async onSubmit(event: Event): Promise<void> {
+  onSubmit(event: Event): void {
     event.preventDefault();
 
     this.stateMachine.send({

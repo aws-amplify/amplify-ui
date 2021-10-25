@@ -1,4 +1,4 @@
-import { I18n } from 'aws-amplify';
+import { translate } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '..';
 import { Flex, Form, Heading } from '../../..';
@@ -32,7 +32,7 @@ export const ConfirmVerifyUser = (): JSX.Element => {
     >
       <Flex direction="column">
         <Heading level={3}>
-          {I18n.get('Account recovery requires verified contact information')}
+          {translate('Account recovery requires verified contact information')}
         </Heading>
 
         <Flex direction="column">
@@ -42,7 +42,7 @@ export const ConfirmVerifyUser = (): JSX.Element => {
         <RemoteErrorMessage />
 
         <TwoButtonSubmitFooter
-          cancelButtonText={I18n.get('Skip')}
+          cancelButtonText={translate('Skip')}
           cancelButtonSendType="SKIP"
         />
       </Flex>

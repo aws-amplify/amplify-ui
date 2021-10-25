@@ -1,5 +1,4 @@
-import { getActorContext, SignInContext } from '@aws-amplify/ui';
-import { I18n } from 'aws-amplify';
+import { getActorContext, SignInContext, translate } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '..';
 import { Button, Flex, Form, Heading, PasswordField, Text } from '../../..';
@@ -29,24 +28,24 @@ export const ForceNewPassword = (): JSX.Element => {
       onSubmit={handleSubmit}
     >
       <Flex direction="column">
-        <Heading level={3}>{I18n.get('Change Password')}</Heading>
+        <Heading level={3}>{translate('Change Password')}</Heading>
 
         <Flex direction="column">
           <PasswordField
             data-amplify-password
-            placeholder={I18n.get('Password')}
+            placeholder={translate('Password')}
             required
             name="password"
-            label={I18n.get('Password')}
+            label={translate('Password')}
             labelHidden={true}
             hasError={!!validationError['confirm_password']}
           />
           <PasswordField
             data-amplify-confirmpassword
-            placeholder={I18n.get('Confirm Password')}
+            placeholder={translate('Confirm Password')}
             required
             name="confirm_password"
-            label={I18n.get('Confirm Password')}
+            label={translate('Confirm Password')}
             labelHidden={true}
             hasError={!!validationError['confirm_password']}
           />
@@ -67,10 +66,10 @@ export const ForceNewPassword = (): JSX.Element => {
           type="submit"
           variation="primary"
           isLoading={isPending}
-          loadingText={I18n.get('Changing')}
+          loadingText={translate('Changing')}
           fontWeight="normal"
         >
-          {I18n.get('Change Password')}
+          {translate('Change Password')}
         </Button>
         <Button
           onClick={toSignIn}
@@ -79,7 +78,7 @@ export const ForceNewPassword = (): JSX.Element => {
           variation="link"
           size="small"
         >
-          {I18n.get('Back to Sign In')}
+          {translate('Back to Sign In')}
         </Button>
       </Flex>
     </Form>

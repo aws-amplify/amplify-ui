@@ -84,16 +84,11 @@ import {
   AuthChallengeNames,
   getActorState,
   SignInState,
+  translate,
 } from '@aws-amplify/ui';
 import { computed, ComputedRef, useAttrs } from 'vue';
-import { I18n } from 'aws-amplify';
 
 import { useAuth } from '../composables/useAuth';
-import {
-  BACK_SIGN_IN_TEXT,
-  CONFIRM_TEXT,
-  CODE_TEXT,
-} from '../defaults/DefaultTexts';
 
 const emit = defineEmits(['confirmSignInSubmit', 'backToSignInClicked']);
 const attrs = useAttrs();
@@ -112,9 +107,9 @@ if (challengeName === AuthChallengeNames.SOFTWARE_TOKEN_MFA) {
 const confirmSignInHeading = `Confirm ${mfaType} Code`;
 
 // Computed Properties
-const backSignInText = computed(() => I18n.get(BACK_SIGN_IN_TEXT));
-const confirmText = computed(() => I18n.get(CONFIRM_TEXT));
-const codeText = computed(() => I18n.get(CODE_TEXT));
+const backSignInText = computed(() => translate('Back to Sign In'));
+const confirmText = computed(() => translate('Confirm'));
+const codeText = computed(() => translate('Code'));
 
 // Methods
 const onInput = (e: Event): void => {
@@ -134,8 +129,8 @@ const onConfirmSignInSubmit = (e: Event): void => {
   }
 };
 
-const submit = (e): void => {
-  const formData = new FormData(e.target);
+const submit = (e: Event): void => {
+  const formData = new FormData(<HTMLFormElement>e.target);
   send({
     type: 'SUBMIT',
     //@ts-ignore

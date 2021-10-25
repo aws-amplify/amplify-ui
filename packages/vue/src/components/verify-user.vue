@@ -44,7 +44,7 @@
                   aria-hidden="true"
                 ></base-text>
                 <base-text class="amplify-text amplify-radio__label">
-                  {{ authInputAttributes[key].label }}
+                  {{ authInputAttributes[key as UserNameAlias].label }}
                 </base-text>
               </base-label>
             </base-wrapper>
@@ -91,21 +91,15 @@
 
 <script setup lang="ts">
 import { computed, ComputedRef, useAttrs } from 'vue';
-import { I18n } from 'aws-amplify';
-
-import { useAuth } from '../composables/useAuth';
-
-import {
-  VERIFY_HEADING,
-  SKIP_TEXT,
-  VERIFY_TEXT,
-  VERIFY_CONTACT_TEXT,
-} from '../defaults/DefaultTexts';
 import {
   getActorState,
   SignInState,
   authInputAttributes,
+  UserNameAlias,
+  translate,
 } from '@aws-amplify/ui';
+
+import { useAuth } from '../composables/useAuth';
 
 const attrs = useAttrs();
 const emit = defineEmits(['verifyUserSubmit', 'skipClicked']);
@@ -119,10 +113,12 @@ const actorState: ComputedRef<SignInState> = computed(
 const unverifiedAttributes = actorState.value.context.unverifiedAttributes;
 
 // Computed Properties
-const verifyHeading = computed(() => I18n.get(VERIFY_HEADING));
-const skipText = computed(() => I18n.get(SKIP_TEXT));
-const verifyText = computed(() => I18n.get(VERIFY_TEXT));
-const verifyContactText = computed(() => I18n.get(VERIFY_CONTACT_TEXT));
+const verifyHeading = computed(() =>
+  translate('Account recovery requires verified contact information')
+);
+const skipText = computed(() => translate('Skip'));
+const verifyText = computed(() => translate('Verify'));
+const verifyContactText = computed(() => translate('Verify Contact'));
 
 // Methods
 const onInput = (e: Event): void => {
@@ -142,8 +138,8 @@ const onVerifyUserSubmit = (e: Event): void => {
   }
 };
 
-const submit = (e): void => {
-  const formData = new FormData(e.target);
+const submit = (e: Event): void => {
+  const formData = new FormData(<HTMLFormElement>e.target);
   send({
     type: 'SUBMIT',
     //@ts-ignore
