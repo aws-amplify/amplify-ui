@@ -24,8 +24,12 @@
   justify-content: center;
   font-weight: initial;
   color: var(--amplify-components-pagination-button-color);
-  padding-right: var(--amplify-components-pagination-button-padding-right);
-  padding-left: var(--amplify-components-pagination-button-padding-left);
+  padding-inline-start: var(
+    --amplify-components-pagination-button-padding-inline-start
+  );
+  padding-inline-end: var(
+    --amplify-components-pagination-button-padding-inline-end
+  );
   transition-property: var(
     --amplify-components-pagination-button-transition-property
   );
@@ -49,6 +53,8 @@
 
 .amplify-pagination__item-current {
   @extend %item-shared;
+  align-items: var(--amplify-components-pagination-current-align-items);
+  justify-content: var(--amplify-components-pagination-current-justify-content);
 
   color: var(--amplify-components-pagination-current-color);
   font-size: var(--amplify-components-pagination-current-font-size);
@@ -58,6 +64,14 @@
 }
 
 .amplify-pagination__item-ellipsis {
-  padding-left: var(--amplify-components-pagination-ellipsis-padding-left);
-  padding-right: var(--amplify-components-pagination-ellipsis-padding-right);
+  align-items: var(--amplify-components-pagination-ellipsis-align-items);
+  justify-content: var(
+    --amplify-components-pagination-ellipsis-justify-content
+  );
+  padding-inline-start: var(
+    --amplify-components-pagination-ellipsis-padding-inline-start
+  );
+  padding-inline-end: var(
+    --amplify-components-pagination-ellipsis-padding-inline-end
+  );
 }

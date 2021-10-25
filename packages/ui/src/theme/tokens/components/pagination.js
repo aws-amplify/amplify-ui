@@ -1,17 +1,19 @@
 module.exports = {
   current: {
+    alignItems: { value: 'center' },
+    justifyContent: { value: 'center' },
     color: { value: '{colors.white.value}' },
     fontSize: { value: '{fontSizes.small.value}' },
-    backgroundColor: { value: '{colors.black.opacity.40.value}' },
+    backgroundColor: { value: '{colors.overlay.40.value}' },
   },
   button: {
     color: { value: '{colors.black.value}' },
-    paddingRight: { value: '{space.xxs.value}' },
-    paddingLeft: { value: '{space.xxs.value}' },
+    paddingInlineStart: { value: '{space.xxs.value}' },
+    paddingInlineEnd: { value: '{space.xxs.value}' },
     transitionProperty: { value: 'background-color' },
     transitionDuration: { value: '{time.transition.medium.value}' },
     hover: {
-      backgroundColor: { value: '{colors.black.opacity.10.value}' },
+      backgroundColor: { value: '{colors.overlay.10.value}' },
       color: { value: '{colors.black.value}' },
     },
     disabled: {
@@ -19,8 +21,10 @@ module.exports = {
     },
   },
   ellipsis: {
-    paddingRight: { value: '{space.xs.value}' },
-    paddingLeft: { value: '{space.xs.value}' },
+    alignItems: { value: 'baseline' },
+    justifyContent: { value: 'center' },
+    paddingInlineStart: { value: '{space.xs.value}' },
+    paddingInlineEnd: { value: '{space.xs.value}' },
   },
   itemContainer: {
     marginLeft: { value: '{space.xxxs.value}' },

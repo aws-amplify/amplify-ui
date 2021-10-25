@@ -221,19 +221,20 @@ export const colors: Colors = {
     tertiary: { value: 'hsla(210, 50%, 10%, 0.05)' },
   },
 
+  overlay: {
+    10: { value: 'hsla(0, 0%, 0%, 0.1)' },
+    20: { value: 'hsla(0, 0%, 0%, 0.2)' },
+    30: { value: 'hsla(0, 0%, 0%, 0.3)' },
+    40: { value: 'hsla(0, 0%, 0%, 0.4)' },
+    50: { value: 'hsla(0, 0%, 0%, 0.5)' },
+    60: { value: 'hsla(0, 0%, 0%, 0.6)' },
+    70: { value: 'hsla(0, 0%, 0%, 0.7)' },
+    80: { value: 'hsla(0, 0%, 0%, 0.8)' },
+    90: { value: 'hsla(0, 0%, 0%, 0.9)' },
+  },
+
   black: {
     value: 'hsl(0, 0%, 0%)',
-    opacity: {
-      10: { value: 'hsla(0, 0%, 0%, 0.1)' },
-      20: { value: 'hsla(0, 0%, 0%, 0.2)' },
-      30: { value: 'hsla(0, 0%, 0%, 0.3)' },
-      40: { value: 'hsla(0, 0%, 0%, 0.4)' },
-      50: { value: 'hsla(0, 0%, 0%, 0.5)' },
-      60: { value: 'hsla(0, 0%, 0%, 0.6)' },
-      70: { value: 'hsla(0, 0%, 0%, 0.7)' },
-      80: { value: 'hsla(0, 0%, 0%, 0.8)' },
-      90: { value: 'hsla(0, 0%, 0%, 0.9)' },
-    },
   },
   white: { value: 'hsl(0, 0%, 100%)' },
   transparent: { value: 'transparent' },

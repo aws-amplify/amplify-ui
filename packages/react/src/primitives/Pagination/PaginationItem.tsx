@@ -28,8 +28,6 @@ export const PaginationItem: React.FC<PaginationItemProps> = ({
             <Flex
               as="span"
               className={ComponentClassNames.PaginationItemCurrent}
-              justifyContent="center"
-              alignItems="center"
               {...rest}
             >
               {/**
@@ -98,8 +96,6 @@ export const PaginationItem: React.FC<PaginationItemProps> = ({
             as="span"
             className={ComponentClassNames.PaginationItemEllipsis}
             testId="ellipsis"
-            alignItems="baseline"
-            justifyContent="center"
             {...rest}
           >
             &#8230;
