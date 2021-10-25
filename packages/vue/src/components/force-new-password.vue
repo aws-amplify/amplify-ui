@@ -3,8 +3,8 @@
     <base-wrapper v-bind="$attrs">
       <base-form
         data-amplify-authenticator-forcenewpassword
-        @submit.prevent="onForceNewPasswordSubmit"
         @input="onInput"
+        @submit.prevent="onForceNewPasswordSubmit"
       >
         <base-field-set
           class="amplify-flex"
@@ -17,12 +17,7 @@
           <base-wrapper class="amplify-flex" style="flex-direction: column">
             <!--Input 1-->
             <base-wrapper
-              class="
-                amplify-flex
-                amplify-field
-                amplify-textfield
-                amplify-passwordfield
-              "
+              class=" amplify-flex amplify-field amplify-textfield amplify-passwordfield"
               style="flex-direction: column"
             >
               <password-control
@@ -30,19 +25,14 @@
                 :label="passwordLabel"
                 autocomplete="new-password"
                 :ariainvalid="
-                  !!actorContext.validationError['confirm_password']
+                  !!(actorContext.validationError as ValidationError)['confirm_password']
                 "
               />
             </base-wrapper>
 
             <!--Input 2-->
             <base-wrapper
-              class="
-                amplify-flex
-                amplify-field
-                amplify-textfield
-                amplify-passwordfield
-              "
+              class=" amplify-flex amplify-field amplify-textfield amplify-passwordfield"
               style="flex-direction: column"
             >
               <password-control
@@ -50,7 +40,7 @@
                 :label="confirmPasswordLabel"
                 autocomplete="new-password"
                 :ariainvalid="
-                  !!actorContext.validationError['confirm_password']
+                  !!(actorContext.validationError as ValidationError)['confirm_password']
                 "
               />
             </base-wrapper>
@@ -100,9 +90,9 @@
         </base-box>
         <base-box
           data-ui-error
-          v-if="!!actorContext.validationError['confirm_password']"
+          v-if="!!(actorContext.validationError as ValidationError)['confirm_password']"
         >
-          {{ actorContext.validationError['confirm_password'] }}
+          {{ (actorContext.validationError as ValidationError)['confirm_password'] }}
         </base-box>
       </base-form>
     </base-wrapper>
@@ -111,23 +101,17 @@
 
 <script setup lang="ts">
 import { computed, ComputedRef, useAttrs } from 'vue';
-import { I18n } from 'aws-amplify';
-
-import { useAuth } from '../composables/useAuth';
-
-import {
-  CHANGE_PASSWORD_LABEL,
-  CHANGING_PASSWORD_LABEL,
-  PASSWORD_LABEL,
-  CONFIRM_PASSWORD_LABEL,
-  BACK_SIGN_IN_TEXT,
-} from '../defaults/DefaultTexts';
 import {
   getActorContext,
   getActorState,
   SignInState,
   SignUpContext,
+  ValidationError,
+  translate,
 } from '@aws-amplify/ui';
+
+import { useAuth } from '../composables/useAuth';
+
 import PasswordControl from './password-control.vue';
 
 const attrs = useAttrs();
@@ -143,11 +127,11 @@ const actorContext = computed(() =>
 ) as ComputedRef<SignUpContext>;
 
 // computed properties
-const changePasswordLabel = computed(() => I18n.get(CHANGE_PASSWORD_LABEL));
-const changingPasswordLabel = computed(() => I18n.get(CHANGING_PASSWORD_LABEL));
-const backSignInText = computed(() => I18n.get(BACK_SIGN_IN_TEXT));
-const passwordLabel = computed(() => I18n.get(PASSWORD_LABEL));
-const confirmPasswordLabel = computed(() => I18n.get(CONFIRM_PASSWORD_LABEL));
+const changePasswordLabel = computed(() => translate('Change Password'));
+const changingPasswordLabel = computed(() => translate('Changing'));
+const backSignInText = computed(() => translate('Back to Sign In'));
+const passwordLabel = computed(() => translate('Password'));
+const confirmPasswordLabel = computed(() => translate('Confirm Password'));
 
 // Methods
 const onHaveAccountClicked = (): void => {

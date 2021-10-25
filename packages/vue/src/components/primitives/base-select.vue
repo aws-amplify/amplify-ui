@@ -4,7 +4,7 @@
       v-for="(option, idx) in options"
       :key="idx"
       :value="option"
-      :selected="option == selectValue ? true : null"
+      :selected="option == selectValue ? true : undefined"
     >
       {{ option }}
     </option>

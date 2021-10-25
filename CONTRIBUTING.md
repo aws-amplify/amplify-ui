@@ -97,6 +97,11 @@ Whenever `yarn angular build` is run, such as part of postinstall script, you wa
 1. Create or Update the accompanying `${slug}.feature` tests (e.g. `packages/e2e/cypress/integration/${slug}/${feature}/${feature}.steps.ts`
 1. Start one of the [examples](examples).
 1. Run `yarn e2e dev` to load Cypress
+
+   ```shell
+   TAGS='@react and not (@skip or @todo-react)' yarn e2e dev
+   ```
+
 1. Click on your updated `${feature}.feature` file to validate your changes
 1. Add tags above your `Scenario` to indicate how this feature should be tested:
 

@@ -7,7 +7,7 @@ export const isFunction = (fn: unknown): fn is Function =>
   typeof fn === 'function';
 
 export const isNullOrEmptyString = (value: unknown) =>
-  value == null || !strHasLength(value);
+  value == null || (typeof value === 'string' && value.length === 0);
 
 /**
  * Create a consecutive integer array from start value to end value.
@@ -94,3 +94,48 @@ export const getOverrideProps = (
 export type EscapeHatchProps = {
   [elementHierarchy: string]: Record<string, string>;
 };
+
+type VariantValues = { [key: string]: string };
+export type Variant = {
+  variantValues: VariantValues;
+  overrides: EscapeHatchProps;
+};
+
+/**
+ * Given a list of style variants, select a given one based on input props
+ * @param variants list of style variants to select from
+ * @param props variant values to select from the list, may include additional props, to tidy up usage upstream
+ */
+export function getOverridesFromVariants(
+  variants: Variant[],
+  props: { [key: string]: any }
+) {
+  // Get unique keys from the provided variants
+  const variantValueKeys = [
+    ...new Set(
+      variants.flatMap((variant) => Object.keys(variant.variantValues))
+    ),
+  ];
+
+  // Get variant value object from provided props, dropping keys that aren't in variantValueKeys, or whose vals are falsey
+  const variantValuesFromProps: VariantValues = Object.keys(props)
+    .filter((i) => variantValueKeys.includes(i) && props[i])
+    .reduce((acc, key) => {
+      acc[key] = props[key];
+      return acc;
+    }, {});
+
+  const matchedVariants = variants.filter(({ variantValues }) => {
+    return (
+      Object.keys(variantValues).length ===
+        Object.keys(variantValuesFromProps).length &&
+      Object.entries(variantValues).every(
+        ([key, value]) => variantValuesFromProps[key] === value
+      )
+    );
+  });
+
+  return matchedVariants.reduce((overrides, variant) => {
+    return { ...overrides, ...variant.overrides };
+  }, {});
+}

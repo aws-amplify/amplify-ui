@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
-import { Authenticator } from '../src/components/index';
+import { Authenticator } from '../dist';
 
 describe('Authenticator', () => {
   it('Authenticator Exists', () => {
