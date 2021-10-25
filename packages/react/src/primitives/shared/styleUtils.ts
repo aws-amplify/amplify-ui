@@ -241,7 +241,7 @@ interface SplitProps<PrimitiveProps> {
 }
 
 export const splitPrimitiveProps = <
-  PrimitiveProps extends { [index: string]: any }
+  PrimitiveProps extends { [index: string]: unknown }
 >(
   props: PrimitiveProps
 ): SplitProps<PrimitiveProps> => {
@@ -251,13 +251,17 @@ export const splitPrimitiveProps = <
 
   for (const prop in props) {
     if (prop in FlexContainerStylePropsMap) {
-      flexContainerStyleProps = { ...flexContainerStyleProps, ...props[prop] };
+      flexContainerStyleProps = {
+        ...flexContainerStyleProps,
+        [prop]: props[prop],
+      };
     } else if (prop in BaseStylePropsMap) {
-      baseStyleProps = { ...baseStyleProps, ...props[prop] };
+      baseStyleProps = { ...baseStyleProps, [prop]: props[prop] };
     } else {
-      rest = { ...rest, ...props[prop] };
+      rest = { ...rest, [prop]: props[prop] };
     }
   }
+
   return {
     flexContainerStyleProps,
     baseStyleProps,
