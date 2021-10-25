@@ -2,7 +2,13 @@
 title: Authenticator
 ---
 
-import { Authenticator } from '@aws-amplify/ui-react';
+import {
+  Authenticator,
+  CheckboxField,
+  Link,
+  TextField,
+  useAuthenticator,
+} from '@aws-amplify/ui-react';
 import { Example } from '@/components/Example';
 import { Feature } from '@/components/Feature';
 import { Fragment } from '@/components/Fragment';
@@ -148,59 +154,48 @@ For your [configured social providers](https://docs.amplify.aws/lib/auth/social/
 
 ### Sign Up Fields
 
-The following examples adds a required field to the Sign Up screen with
-custom validation to prevent submission until completed:
+The following example customizes the Sign Up screen with:
 
-```js
-import { Authenticator, withAuthenticator } from '@aws-amplify/ui-react';
+- Prepending custom `preferred_username` field
+- Re-using the default form fields
+- Appending a custom "Terms & Conditions" checkbox with custom validation
 
-const components = {
-  'SignUp.FormFields': () => (
-    <>
-      <Authenticator.SignUp.FormFields />
-      <CheckboxField
-        label="I agree with the Terms & Conditions"
-        name="acknowledgement"
-      />
-    </>
-  ),
-};
+```tsx{3-11,28-48,51-57} file=../../../../../../examples/next/pages/ui/components/authenticator/custom-sign-up-fields/index.page.tsx
 
-const services = {
-  validateSignUp(formData) {
-    if (!formData.acknowledgement) {
-      return {
-        acknowledgement: 'You must agree to the Terms & Conditions',
-      };
-    }
-  },
-};
-
-export default withAuthenticator(App, { components, services });
 ```
 
 <Example>
   <Authenticator
     initialState="signUp"
+    loginMechanisms={['email']}
     components={{
-      'SignUp.FormFields': () => {
-        return (
-          <>
-            <Authenticator.SignUp.FormFields />
-            <CheckboxField
-              label={
-                <>
-                  I agree with the <Link>Terms & Conditions</Link>
-                </>
-              }
-              name="acknowledgement"
-            />
-          </>
-        );
+      SignUp: {
+        FormFields() {
+          const { validationErrors } = useAuthenticator();
+          return (
+            <>
+              <TextField
+                label="Preferred Username"
+                labelHidden={true}
+                name="preferred_username"
+                placeholder="Preferred Username"
+              />
+              <Authenticator.SignUp.FormFields />
+              <CheckboxField
+                errorMessage={validationErrors.acknowledgement}
+                hasError={!!validationErrors.acknowledgement}
+                name="acknowledgement"
+                value="yes"
+              >
+                I agree with the Terms & Conditions
+              </CheckboxField>
+            </>
+          );
+        },
       },
     }}
     services={{
-      validateSignUp(formData) {
+      async validateCustomSignUp(formData) {
         if (!formData.acknowledgement) {
           return {
             acknowledgement: 'You must agree to the Terms & Conditions',
