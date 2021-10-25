@@ -1,11 +1,12 @@
-import { useCallback } from 'react';
+import * as React from 'react';
 
 import { Button } from '../Button';
 import { Flex } from '../Flex';
 import { IconChevronLeft, IconChevronRight } from '../Icon';
 import { View } from '../View';
 import { VisuallyHidden } from '../VisuallyHidden';
-import { PaginationItemProps } from '../types';
+import { PaginationItemProps } from '../types/pagination';
+import { ComponentClassNames } from '../shared/constants';
 
 export const PaginationItem: React.FC<PaginationItemProps> = ({
   type,
@@ -18,7 +19,7 @@ export const PaginationItem: React.FC<PaginationItemProps> = ({
 }) => {
   switch (type) {
     case 'page':
-      const onChange = useCallback(() => {
+      const onChange = React.useCallback(() => {
         onClick(page, currentPage);
       }, [page, currentPage, onClick]);
       return (
@@ -26,9 +27,7 @@ export const PaginationItem: React.FC<PaginationItemProps> = ({
           {page === currentPage ? (
             <Flex
               as="span"
-              className="current"
-              justifyContent="center"
-              alignItems="center"
+              className={ComponentClassNames.PaginationItemCurrent}
               {...rest}
             >
               {/**
@@ -40,6 +39,7 @@ export const PaginationItem: React.FC<PaginationItemProps> = ({
             </Flex>
           ) : (
             <Button
+              className={ComponentClassNames.PaginationItemButton}
               size="small"
               variation="link"
               onClick={onChange}
@@ -52,12 +52,13 @@ export const PaginationItem: React.FC<PaginationItemProps> = ({
         </View>
       );
     case 'next':
-      const onNext = useCallback(() => {
+      const onNext = React.useCallback(() => {
         onClick();
       }, [onClick]);
       return (
         <View as="li">
           <Button
+            className={ComponentClassNames.PaginationItemButton}
             size="small"
             variation="link"
             isDisabled={isDisabled}
@@ -70,12 +71,13 @@ export const PaginationItem: React.FC<PaginationItemProps> = ({
         </View>
       );
     case 'previous':
-      const onPrevious = useCallback(() => {
+      const onPrevious = React.useCallback(() => {
         onClick();
       }, [onClick]);
       return (
         <View as="li">
           <Button
+            className={ComponentClassNames.PaginationItemButton}
             size="small"
             variation="link"
             isDisabled={isDisabled}
@@ -92,10 +94,8 @@ export const PaginationItem: React.FC<PaginationItemProps> = ({
         <View as="li">
           <Flex
             as="span"
-            className="ellipsis"
+            className={ComponentClassNames.PaginationItemEllipsis}
             testId="ellipsis"
-            alignItems="baseline"
-            justifyContent="center"
             {...rest}
           >
             &#8230;

@@ -1,6 +1,7 @@
 import { DesignToken } from './types/designToken';
 
 export interface Space {
+  xxxs: DesignToken;
   xxs: DesignToken;
   xs: DesignToken;
   small: DesignToken;
@@ -10,6 +11,7 @@ export interface Space {
   xxl: DesignToken;
   xxxl: DesignToken;
   relative: {
+    xxxs: DesignToken;
     xxs: DesignToken;
     xs: DesignToken;
     small: DesignToken;
@@ -22,7 +24,8 @@ export interface Space {
 }
 
 export const space: Space = {
-  xxs: { value: '0.25rem' },
+  xxxs: { value: '0.25rem' },
+  xxs: { value: '0.375rem' },
   xs: { value: '0.5rem' },
   small: { value: '0.75rem' },
   medium: { value: '1rem' },
@@ -32,7 +35,8 @@ export const space: Space = {
   xxxl: { value: '4.5rem' },
   relative: {
     //creating a second set of sizes using em which will be sized relative to a parent instead of the root
-    xxs: { value: '0.25em' },
+    xxxs: { value: '0.25em' },
+    xxs: { value: '0.375rem' },
     xs: { value: '0.5em' },
     small: { value: '0.75em' },
     medium: { value: '1em' },

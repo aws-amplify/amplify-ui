@@ -1,12 +1,12 @@
 module.exports = {
-  borderColor: { value: '{colors.border.secondary.value}' },
-  color: { value: 'rgba(0, 0, 0, 0.54)' },
+  borderColor: { value: '{colors.border.primary.value}' },
+  color: { value: '{colors.overlay.50.value}' },
   _hover: {
-    backgroundColor: { value: 'rgba(0, 0, 0, 0.04)' },
+    backgroundColor: { value: '{colors.overlay.10.value}' },
   },
   _focus: {
     borderColor: { value: '{colors.focus.value}' },
-    color: { value: 'rgba(0, 0, 0, 0.54)' },
+    color: { value: '{colors.overlay.50.value}' },
   },
   _active: {
     backgroundColor: { value: '{colors.transparent.value}' },
@@ -17,10 +17,10 @@ module.exports = {
     color: { value: '{colors.font.disabled.value}' },
   },
   _pressed: {
-    color: { value: 'rgba(0, 0, 0, 0.87)' },
-    backgroundColor: { value: 'rgba(0, 0, 0, 0.08)' },
+    color: { value: '{colors.overlay.90.value}' },
+    backgroundColor: { value: '{colors.overlay.20.value}' },
     _hover: {
-      backgroundColor: { value: 'rgba(0, 0, 0, 0.12)' },
+      backgroundColor: { value: '{colors.overlay.30.value}' },
     },
   },
   primary: {
@@ -30,42 +30,50 @@ module.exports = {
       borderColor: { value: '{colors.focus.value}' },
       backgroundColor: { value: '{colors.transparent.value}' },
       boxShadow: { value: '0 0 0 1px {colors.focus.value}' },
-      color: { value: 'rgba(0, 0, 0, 0.54)' },
+      color: { value: '{colors.overlay.50.value}' },
     },
     _hover: {
-      backgroundColor: { value: 'rgba(0, 0, 0, 0.04)' },
-      color: { value: 'rgba(0, 0, 0, 0.54)' },
+      backgroundColor: { value: '{colors.overlay.10.value}' },
+      color: { value: '{colors.overlay.50.value}' },
     },
     _disabled: {
       backgroundColor: { value: '{colors.background.tertiary.value}' },
       color: { value: '{colors.font.disabled.value}' },
     },
     _pressed: {
-      backgroundColor: { value: 'rgba(0, 128, 128, 0.08)' },
-      color: { value: 'rgba(0, 128, 128, 0.87)' },
-      _hover: {
+      backgroundColor: { value: '{colors.brand.primary.80.value}' },
+      borderColor: { value: '{colors.brand.primary.80.value}' },
+      color: { value: '{colors.white.value}' },
+      _focus: {
         backgroundColor: {
-          value: 'rgba(0, 128, 128, 0.12)',
+          value: '{colors.focus.value}',
+        },
+        borderColor: { value: '{colors.focus.value}' },
+      },
+      _hover: {
+        borderColor: { value: '{colors.brand.primary.60.value}' },
+        backgroundColor: {
+          value: '{colors.brand.primary.60.value}',
         },
       },
     },
   },
   link: {
-    color: { value: 'rgba(0, 0, 0, 0.54)' },
+    color: { value: '{colors.overlay.50.value}' },
     _hover: {
       backgroundColor: { value: '{colors.transparent.value}' },
-      color: { value: 'rgba(0, 0, 0, 0.54)' },
+      color: { value: '{colors.overlay.50.value}' },
     },
     _focus: {
       backgroundColor: { value: '{colors.transparent.value}' },
-      color: { value: 'rgba(0, 0, 0, 0.54)' },
+      color: { value: '{colors.overlay.50.value}' },
     },
     _disabled: {
       color: { value: '{colors.font.disabled.value}' },
     },
     _pressed: {
       backgroundColor: { value: '{colors.transparent.value}' },
-      color: { value: 'rgba(0, 0, 0, 0.87)' },
+      color: { value: '{colors.overlay.90.value}' },
       _hover: {
         backgroundColor: { value: '{colors.transparent.value}' },
       },
