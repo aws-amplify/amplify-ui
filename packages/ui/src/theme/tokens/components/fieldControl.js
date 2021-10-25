@@ -4,10 +4,10 @@ module.exports = {
   borderWidth: { value: '{borderWidths.small.value}' },
   borderRadius: { value: '{radii.medium.value}' },
   paddingBlockStart: {
-    value: '{space.small.value}',
+    value: '{space.xs.value}',
   },
   paddingBlockEnd: {
-    value: '{space.small.value}',
+    value: '{space.xs.value}',
   },
   paddingInlineStart: {
     value: '{space.medium.value}',
@@ -38,23 +38,21 @@ module.exports = {
     paddingInlineEnd: {
       value: '{space.small.value}',
     },
-    lineHeight: { value: '{lineHeights.small.value}' },
   },
   large: {
     fontSize: { value: '{components.field.large.fontSize.value}' },
     paddingBlockStart: {
-      value: '{space.medium.value}',
+      value: '{space.xs.value}',
     },
     paddingBlockEnd: {
-      value: '{space.medium.value}',
+      value: '{space.xs.value}',
     },
     paddingInlineStart: {
-      value: '{space.large.value}',
+      value: '{space.medium.value}',
     },
     paddingInlineEnd: {
-      value: '{space.large.value}',
+      value: '{space.medium.value}',
     },
-    lineHeight: { value: '{lineHeights.large.value}' },
   },
 
   quiet: {
