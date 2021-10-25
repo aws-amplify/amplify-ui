@@ -17,10 +17,12 @@ import {
 import { defaultServices } from './defaultServices';
 
 export type SignUpMachineOptions = {
-  services?: Partial<Pick<typeof defaultServices, 'validateSignUp'>>;
+  services?: Pick<typeof defaultServices, 'validateSignUp'>;
 };
 
-export function createSignUpMachine({ services = {} }: SignUpMachineOptions) {
+export function createSignUpMachine({ services }: SignUpMachineOptions) {
+  const { validateSignUp } = services;
+
   return createMachine<SignUpContext, AuthEvent>(
     {
       id: 'signUpActor',

@@ -18,8 +18,13 @@ export function createAuthenticatorMachine({
   initialState = 'signIn',
   /** @TODO Prefer `usernameAttributes` and `socialProviders` */
   loginMechanisms,
-  services,
+  services: customServices,
 }: AuthenticatorMachineOptions) {
+  const services = {
+    ...defaultServices,
+    ...customServices,
+  };
+
   return createMachine<AuthContext, AuthEvent>(
     {
       id: 'authenticator',
@@ -211,10 +216,7 @@ export function createAuthenticatorMachine({
           return event.data.intent === 'confirmPasswordReset';
         },
       },
-      services: {
-        ...defaultServices,
-        ...services,
-      },
+      services,
     }
   );
 }
