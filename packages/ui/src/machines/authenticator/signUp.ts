@@ -1,9 +1,9 @@
-import { get } from 'lodash';
+import { Auth } from 'aws-amplify';
+import { get, pickBy } from 'lodash';
 import { createMachine, sendUpdate } from 'xstate';
 
-import { Auth } from 'aws-amplify';
-
 import { AuthEvent, SignUpContext } from '../../types';
+import { runValidators } from '../../validators';
 import {
   clearError,
   clearFormValues,
@@ -212,11 +212,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
           return result;
         },
         async signUp(context, _event) {
-          const {
-            formValues: { password, ...formValues },
-            login_mechanisms,
-          } = context;
-
+          const { formValues, login_mechanisms } = context;
           const [primaryAlias] = login_mechanisms ?? ['username'];
 
           if (formValues.phone_number) {
@@ -228,15 +224,37 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
           }
 
           const username = formValues[primaryAlias];
-          delete formValues[primaryAlias];
-          delete formValues.confirm_password; // confirm_password field should not be sent to Cognito
-          delete formValues.country_code;
+          const { password } = formValues;
+          const attributes = pickBy(formValues, (value, key) => {
+            // Allowlist of Cognito User Pool Attributes (from OpenID Connect specification)
+            // See: https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html
+            switch (key) {
+              case 'address':
+              case 'birthdate':
+              case 'email':
+              case 'family_name':
+              case 'gender':
+              case 'given_name':
+              case 'locale':
+              case 'middle_name':
+              case 'name':
+              case 'nickname':
+              case 'phone_number':
+              case 'picture':
+              case 'preferred_username':
+              case 'profile':
+              case 'updated_at':
+              case 'website':
+              case 'zoneinfo':
+                return true;
 
-          const result = await Auth.signUp({
-            username,
-            password,
-            attributes: formValues,
+              // Otherwise, it's a custom attribute
+              default:
+                return key.startsWith('custom:');
+            }
           });
+
+          const result = await Auth.signUp({ username, password, attributes });
 
           // TODO `cond`itionally transition to `signUp.confirm` or `resolved` based on result
           return result;
