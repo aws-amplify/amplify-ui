@@ -5,18 +5,14 @@ import { useAuthenticator } from '..';
 import { Button, Flex, Form, Heading, PasswordField, Text } from '../../..';
 
 export const ForceNewPassword = (): JSX.Element => {
-  const {
-    _state,
-    error,
-    isPending,
-    toSignIn,
-    submitForm,
-    updateForm,
-  } = useAuthenticator();
+  const { _state, error, isPending, toSignIn, submitForm, updateForm } =
+    useAuthenticator();
   const { validationError } = getActorContext(_state) as SignInContext;
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
+    let { checked, name, type, value } = event.target;
+    if (type === 'checkbox' && !checked) value = undefined;
+
     updateForm({ name, value });
   };
 
