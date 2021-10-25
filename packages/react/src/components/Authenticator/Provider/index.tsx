@@ -1,9 +1,6 @@
 import {
-  ActorContextWithForms,
   AuthenticatorMachineOptions,
   createAuthenticatorMachine,
-  getActorContext,
-  getActorState,
   getServiceFacade,
 } from '@aws-amplify/ui';
 import { useMachine } from '@xstate/react';
