@@ -35,7 +35,7 @@ export interface InputProps extends ViewProps {
   /**
    * Use this to provide a default value for an uncontrolled field
    */
-  defaultValue?: string | number | readonly string[];
+  defaultValue?: React.AllHTMLAttributes<'input'>['defaultValue'];
 
   /**
    * Indicates that Field is in error state
@@ -73,50 +73,6 @@ export interface InputProps extends ViewProps {
   name?: string;
 
   /**
-   * Blur event handler
-   */
-  onBlur?: React.FocusEventHandler<HTMLInputElement>;
-
-  /**
-   * Focus event handler
-   */
-  onFocus?: React.FocusEventHandler<HTMLInputElement>;
-
-  /**
-   * Input change event handler
-   */
-  onChange?: React.ChangeEventHandler<HTMLInputElement>;
-  /**
-   *
-   */
-  onInput?: React.ChangeEventHandler<HTMLInputElement>;
-
-  /**
-   * Copy clipboard event
-   */
-  onCopy?: React.ClipboardEventHandler<HTMLInputElement>;
-
-  /**
-   * Cut clipboard event
-   */
-  onCut?: React.ClipboardEventHandler<HTMLInputElement>;
-
-  /**
-   * Paste clipboard event
-   */
-  onPaste?: React.ClipboardEventHandler<HTMLInputElement>;
-
-  /**
-   * Selection event
-   */
-  onSelect?: React.FormEventHandler<HTMLInputElement>;
-
-  /**
-   * Fired on keyboard key down
-   */
-  onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
-
-  /**
    * Placeholder text shown when field is empty
    * Accessibility tip: avoid putting important instructions for
    * filling out the TextField in the placeholder. Use descriptiveText
@@ -130,9 +86,14 @@ export interface InputProps extends ViewProps {
   size?: InputSizes;
 
   /**
+   * Input field type
+   */
+  type?: React.HTMLInputTypeAttribute;
+
+  /**
    * If value is provided, this will be a controlled field
    */
-  value?: string | number | readonly string[];
+  value?: React.AllHTMLAttributes<'input'>['value'];
 
   /**
    * Variants

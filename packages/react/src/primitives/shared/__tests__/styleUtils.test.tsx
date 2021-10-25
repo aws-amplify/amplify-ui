@@ -9,11 +9,7 @@ import {
   useNonStyleProps,
   useTransformStyleProps,
 } from '../styleUtils';
-import {
-  ComponentPropsToStylePropsMap,
-  GridItemStyleProps,
-  ViewProps,
-} from '../../types';
+import { ComponentPropsToStylePropsMap, ViewProps } from '../../types';
 import { Breakpoint } from '../../types/responsive';
 
 const props: ViewProps = {
@@ -78,6 +74,50 @@ describe('convertStylePropsToStyleObj: ', () => {
     expect(style['border']).toBeUndefined();
     expect(style['borderRadius']).toBe(props.borderRadius);
     expect(style['as']).toBeUndefined();
+  });
+
+  it('should support object or array style prop values', () => {
+    const props = {
+      backgroundColor: ['red', 'yellow'],
+      direction: { base: 'row', large: 'column' },
+    };
+    const baseStyle = convertStylePropsToStyleObj({
+      props,
+      ...defaultStylePropsParams,
+    });
+
+    expect(baseStyle[ComponentPropsToStylePropsMap.backgroundColor]).toBe(
+      props.backgroundColor[0]
+    );
+    expect(baseStyle[ComponentPropsToStylePropsMap.direction]).toBe(
+      props.direction.base
+    );
+
+    const mediumStyle = convertStylePropsToStyleObj({
+      props,
+      ...defaultStylePropsParams,
+      breakpoint: 'medium',
+    });
+
+    expect(mediumStyle[ComponentPropsToStylePropsMap.backgroundColor]).toBe(
+      props.backgroundColor[1]
+    );
+    expect(mediumStyle[ComponentPropsToStylePropsMap.direction]).toBe(
+      props.direction.base
+    );
+
+    const largeStyle = convertStylePropsToStyleObj({
+      props,
+      ...defaultStylePropsParams,
+      breakpoint: 'large',
+    });
+
+    expect(largeStyle[ComponentPropsToStylePropsMap.backgroundColor]).toBe(
+      props.backgroundColor[1]
+    );
+    expect(largeStyle[ComponentPropsToStylePropsMap.direction]).toBe(
+      props.direction.large
+    );
   });
 
   it('should extend the passed in style object', () => {

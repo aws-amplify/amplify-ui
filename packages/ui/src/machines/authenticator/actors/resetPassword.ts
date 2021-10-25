@@ -41,6 +41,7 @@ export const resetPasswordActor = createMachine<
             },
           },
           submit: {
+            tags: ['pending'],
             entry: [sendUpdate(), 'setUsername', 'clearError'],
             invoke: {
               src: 'resetPassword',
@@ -111,6 +112,7 @@ export const resetPasswordActor = createMachine<
                 },
               },
               resendCode: {
+                tags: ['pending'],
                 entry: ['clearError', sendUpdate()],
                 invoke: {
                   src: 'resetPassword',
@@ -122,6 +124,7 @@ export const resetPasswordActor = createMachine<
                 },
               },
               pending: {
+                tags: ['pending'],
                 entry: ['clearError', sendUpdate()],
                 invoke: {
                   src: 'confirmResetPassword',

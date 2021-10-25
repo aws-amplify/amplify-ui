@@ -72,7 +72,7 @@ export const usePropStyles = (props: ViewProps, style: React.CSSProperties) => {
           breakpoints,
         })
       ),
-    [props, style, breakpoints, breakpoint]
+    [propStyles, style, breakpoints, breakpoint]
   );
 };
 

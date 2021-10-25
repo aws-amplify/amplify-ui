@@ -1,5 +1,5 @@
-import { ReactNode } from 'react';
 import { IdProvider } from '@radix-ui/react-id';
+import { ReactNode } from 'react';
 
 import { AmplifyContext } from './AmplifyContext';
 import { defaultTheme, BrowserTheme } from '@aws-amplify/ui';
