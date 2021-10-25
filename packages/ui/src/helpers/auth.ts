@@ -180,6 +180,11 @@ export const getServiceFacade = ({ send, state }) => {
   const actorState = getActorState(state);
   const actorContext: ActorContextWithForms = getActorContext(state);
   const sendEventAliases = getSendEventAliases(send);
+  const error = actorContext?.remoteError;
+  const validationErrors = { ...actorContext?.validationError };
+  const hasValidationErrors = Object.keys(validationErrors).length > 0;
+  const isPending =
+    state.hasTag('pending') || getActorState(state)?.hasTag('pending');
 
   const route = (() => {
     switch (true) {
@@ -220,10 +225,11 @@ export const getServiceFacade = ({ send, state }) => {
 
   return {
     ...sendEventAliases,
+    error,
+    hasValidationErrors,
+    isPending,
     route,
     user,
-    validationErrors: {
-      ...actorContext?.validationError,
-    },
+    validationErrors,
   };
 };

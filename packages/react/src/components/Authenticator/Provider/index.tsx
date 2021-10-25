@@ -41,20 +41,12 @@ const useAuthenticatorValue = ({
     [send, state]
   );
 
-  const isPending =
-    state.hasTag('pending') || getActorState(state)?.hasTag('pending');
-
-  const actorContext: ActorContextWithForms = getActorContext(state);
-  const error = actorContext?.remoteError;
-
   return {
     /** @deprecated For internal use only */
     _send: send,
     /** @deprecated For internal use only */
     _state: state,
     components,
-    error,
-    isPending,
     ...facade,
   };
 };
