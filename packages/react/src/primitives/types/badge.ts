@@ -1,17 +1,16 @@
-import { BaseComponentProps } from './base';
+import { Sizes } from './base';
+import { ViewProps } from './view';
 
-import { BaseStyleProps } from './style';
+export type BadgeVariations = 'info' | 'error' | 'warning' | 'success';
+export type BadgeSizes = Sizes;
 
-export type BadgeVariation = 'info' | 'error' | 'warning' | 'success';
-export type BadgeSize = 'small' | 'large';
-
-export interface BadgeProps extends BaseComponentProps, BaseStyleProps {
+export interface BadgeProps extends ViewProps {
   /**
    * The variation property will affect the background color of the badge.
    */
-  variation?: BadgeVariation;
+  variation?: BadgeVariations;
   /**
    * The size property will affect the font size of the badge.
    */
-  size?: BadgeSize;
+  size?: BadgeSizes;
 }

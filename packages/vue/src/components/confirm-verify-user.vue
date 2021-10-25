@@ -1,7 +1,7 @@
 <template>
   <slot v-bind="$attrs" name="confirmVerifyUserSlotI">
     <base-wrapper v-bind="$attrs">
-      <base-form @submit.prevent="onConfirmVerifyUserSubmit">
+      <base-form @input="onInput" @submit.prevent="onConfirmVerifyUserSubmit">
         <base-field-set
           class="amplify-flex"
           style="flex-direction: column"
@@ -16,7 +16,7 @@
               style="flex-direction: column"
             >
               <base-label
-                class="amplify-label sr-only"
+                class="sr-only amplify-label"
                 for="amplify-field-c34b"
                 >{{ confirmationCodeText }}</base-label
               >
@@ -45,6 +45,9 @@
               >
               </slot>
             </template>
+            <base-alert v-if="actorState?.context?.remoteError">
+              {{ actorState?.context.remoteError }}
+            </base-alert>
             <base-button
               class="amplify-button amplify-field-group__control"
               data-fullwidth="false"
@@ -67,10 +70,6 @@
             >
           </base-footer>
         </base-field-set>
-
-        <base-box data-ui-error v-if="actorState?.context?.remoteError">
-          {{ actorState?.context.remoteError }}
-        </base-box>
       </base-form>
     </base-wrapper>
   </slot>
@@ -78,19 +77,9 @@
 
 <script setup lang="ts">
 import { computed, ComputedRef, useAttrs } from 'vue';
-import { I18n } from 'aws-amplify';
+import { getActorState, SignInState, translate } from '@aws-amplify/ui';
 
 import { useAuth } from '../composables/useAuth';
-
-import {
-  VERIFY_HEADING,
-  SKIP_TEXT,
-  VERIFY_TEXT,
-  CONFIRMATION_CODE_TEXT,
-  CONFIRM_RESET_PASSWORD_TEXT,
-  CODE_TEXT,
-} from '../defaults/DefaultTexts';
-import { getActorState, SignInState } from '@aws-amplify/ui';
 
 const attrs = useAttrs();
 const emit = defineEmits(['confirmVerifyUserSubmit', 'skipClicked']);
@@ -101,14 +90,25 @@ const actorState: ComputedRef<SignInState> = computed(
 );
 
 // Computed Properties
-const verifyHeading = computed(() => I18n.get(VERIFY_HEADING));
-const skipText = computed(() => I18n.get(SKIP_TEXT));
-const verifyText = computed(() => I18n.get(VERIFY_TEXT));
-const confirmationCodeText = computed(() => I18n.get(CONFIRMATION_CODE_TEXT));
-const codeText = computed(() => I18n.get(CODE_TEXT));
-const submitText = computed(() => I18n.get(CONFIRM_RESET_PASSWORD_TEXT));
+const verifyHeading = computed(() =>
+  translate('Account recovery requires verified contact information')
+);
+const skipText = computed(() => translate('Skip'));
+const verifyText = computed(() => translate('Verify'));
+const confirmationCodeText = computed(() => translate('Confirmation Code'));
+const codeText = computed(() => translate('Code'));
+const submitText = computed(() => translate('Submit'));
 
 // Methods
+const onInput = (e: Event): void => {
+  const { name, value } = <HTMLInputElement>e.target;
+  send({
+    type: 'CHANGE',
+    //@ts-ignore
+    data: { name, value },
+  });
+};
+
 const onConfirmVerifyUserSubmit = (e: Event): void => {
   if (attrs?.onConfirmVerifyUserSubmit) {
     emit('confirmVerifyUserSubmit', e);
@@ -117,8 +117,8 @@ const onConfirmVerifyUserSubmit = (e: Event): void => {
   }
 };
 
-const submit = (e): void => {
-  const formData = new FormData(e.target);
+const submit = (e: Event): void => {
+  const formData = new FormData(<HTMLFormElement>e.target);
   send({
     type: 'SUBMIT',
     //@ts-ignore

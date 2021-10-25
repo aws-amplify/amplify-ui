@@ -1,7 +1,7 @@
 import React from 'react';
-import { BaseComponentProps, AriaProps, Sizes } from './base';
+import { Sizes } from './base';
 import { FieldVariations } from './field';
-import { BaseStyleProps } from './style';
+import { ViewProps } from './view';
 
 export type InputMode =
   | 'none'
@@ -13,10 +13,9 @@ export type InputMode =
   | 'email'
   | 'url';
 
-export interface InputProps
-  extends BaseComponentProps,
-    BaseStyleProps,
-    AriaProps {
+export type InputSizes = Sizes;
+
+export interface InputProps extends ViewProps {
   /**
    * Specifies permissions for browser UA to autocomplete field
    * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete
@@ -118,6 +117,11 @@ export interface InputProps
   onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
 
   /**
+   * Fired when rotating a wheel button on a pointing device (typically a mouse)
+   */
+  onWheel?: React.WheelEventHandler<HTMLInputElement>;
+
+  /**
    * Placeholder text shown when field is empty
    * Accessibility tip: avoid putting important instructions for
    * filling out the TextField in the placeholder. Use descriptiveText
@@ -128,13 +132,7 @@ export interface InputProps
   /**
    * Changes the font-size, padding, and height of the field.
    */
-  size?: Sizes;
-
-  /**
-   * Input type
-   * @default "text"
-   */
-  type?: string;
+  size?: InputSizes;
 
   /**
    * If value is provided, this will be a controlled field

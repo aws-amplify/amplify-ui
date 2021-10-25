@@ -1,12 +1,14 @@
 {
   "name": "@aws-amplify/ui-angular",
-  "version": "2.0.1-next.5",
+  "version": "2.0.0",
   "scripts": {
     "build": "yarn --cwd ../../ build",
     "dev": "yarn --cwd ../../ dev",
+    "lint": "yarn --cwd ../../ lint",
     "test": "yarn --cwd ../../ test",
     "generate:css": "npx tailwindcss -i ./styles/component.tailwind.css -o ./styles/component.css"
   },
+  "license": "Apache-2.0",
   "peerDependencies": {
     "@angular/common": "^11.2.4",
     "@angular/core": "^11.2.4",
@@ -14,7 +16,7 @@
   },
   "dependencies": {
     "@aws-amplify/ui-components": "^1.7.0",
-    "@aws-amplify/ui": "3.0.1-next.5",
+    "@aws-amplify/ui": "3.0.0",
     "@stencil/core": "^2.7.0",
     "nanoid": "^3.1.25",
     "qrcode": "^1.4.4",

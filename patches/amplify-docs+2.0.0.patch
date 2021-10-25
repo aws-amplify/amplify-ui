@@ -12,16 +12,17 @@ index 65e4470..b91501e 100644
    }
  
 diff --git a/node_modules/amplify-docs/src/components/Menu/FilterSelect/index.tsx b/node_modules/amplify-docs/src/components/Menu/FilterSelect/index.tsx
-index 61372fc..5decc7e 100644
+index 61372fc..d896b54 100644
 --- a/node_modules/amplify-docs/src/components/Menu/FilterSelect/index.tsx
 +++ b/node_modules/amplify-docs/src/components/Menu/FilterSelect/index.tsx
-@@ -75,7 +75,14 @@ export default class FilterSelect extends React.Component<
+@@ -75,7 +75,15 @@ export default class FilterSelect extends React.Component<
      }
  
      return (
 -      <Link href={href} key={name}>
 +      <Link
 +        href={{
++          hash: window.location.hash,
 +          pathname: this.props.url,
 +          query: { platform: name },
 +        }}
@@ -70,7 +71,7 @@ index a4b7028..f0cced1 100644
      if (this.state.isOpen) {
        return (
 diff --git a/node_modules/amplify-docs/src/components/TableOfContents/index.tsx b/node_modules/amplify-docs/src/components/TableOfContents/index.tsx
-index e900068..44548e1 100644
+index e900068..1cc233c 100644
 --- a/node_modules/amplify-docs/src/components/TableOfContents/index.tsx
 +++ b/node_modules/amplify-docs/src/components/TableOfContents/index.tsx
 @@ -24,17 +24,18 @@ export default function TableOfContents({children, title}) {
@@ -98,6 +99,20 @@ index e900068..44548e1 100644
      const idSet = new Set();
      const headings = document.querySelectorAll("a > h2, a > h3");
      const headings2 = document.getElementById("toc").querySelectorAll("a");
+@@ -55,11 +56,11 @@ export default function TableOfContents({children, title}) {
+       }
+       (headings[i].parentElement as HTMLAnchorElement).onclick = () => {
+         setTimeout(scroll.bind(undefined, uniqueId), 50);
+-        return false;
++        // return false;
+       };
+       headings2[i].onclick = () => {
+         setTimeout(scroll.bind(undefined, uniqueId), 50);
+-        return false;
++        // return false;
+       };
+     }
+     headers = Array.from(headings).map((heading) => heading.id);
 @@ -93,18 +94,18 @@ export default function TableOfContents({children, title}) {
                  aTag.classList.add("active");
                });

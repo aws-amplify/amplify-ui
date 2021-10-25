@@ -1,8 +1,9 @@
-import { BaseComponentProps } from './base';
-import { BaseStyleProps } from './style';
 import { Property } from 'csstype';
 
-export type RatingSize = 'small' | 'medium' | 'large';
+import { FlexProps } from './flex';
+import { Sizes } from './base';
+
+export type RatingSizes = Sizes;
 
 export interface RatingOptions {
   /**
@@ -43,7 +44,7 @@ export interface RatingOptions {
    * This will set the icon size of the stars
    * Default css value is medium
    */
-  size?: RatingSize;
+  size?: RatingSizes;
 
   /**
    * The value of the rating
@@ -52,7 +53,4 @@ export interface RatingOptions {
   value?: number;
 }
 
-export interface RatingProps
-  extends RatingOptions,
-    BaseComponentProps,
-    BaseStyleProps {}
+export interface RatingProps extends RatingOptions, FlexProps {}

@@ -1,15 +1,14 @@
-import { useEffect } from 'react';
-import { I18n } from 'aws-amplify';
 import {
   ActorContextWithForms,
-  UserNameAlias,
   getActorContext,
   getAliasInfoFromContext,
+  UserNameAlias,
+  translate,
 } from '@aws-amplify/ui';
+import { useEffect } from 'react';
 
-import { TextField } from '../../../primitives';
-import { PhoneNumberField } from '../../../primitives/PhoneNumberField'; // Pull from primitives dir when ready
-import { useAuthenticator } from '../../../hooks';
+import { useAuthenticator } from '..';
+import { PhoneNumberField, TextField } from '../../..';
 
 export interface UserNameAliasProps {
   handleInputChange?(event): void;
@@ -19,17 +18,17 @@ export interface UserNameAliasProps {
 
 export function UserNameAlias(props: UserNameAliasProps) {
   const { handleInputChange, alias, ...attrs } = props;
-  const [_state, send] = useAuthenticator();
+  const { _state, _send } = useAuthenticator();
 
   const { country_code }: ActorContextWithForms = getActorContext(_state);
   const { label, type, error } = getAliasInfoFromContext(_state.context, alias);
-  const i18nLabel = I18n.get(label);
+  const i18nLabel = translate<string>(label);
 
   const isPhoneAlias = type === 'tel';
 
   useEffect(() => {
     isPhoneAlias &&
-      send({
+      _send({
         type: 'CHANGE',
         data: { name: 'country_code', value: country_code },
       });

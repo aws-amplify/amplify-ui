@@ -1,18 +1,13 @@
-import { AriaProps, BaseComponentProps } from './base';
+import { ViewProps } from './view';
 
-export interface LabelProps extends BaseComponentProps, AriaProps {
+export interface LabelProps extends ViewProps {
   /**
-   * ID of DOM element the label should be associated with
+   * Whether label should be visually hidden
    */
-  htmlFor?: string;
+  visuallyHidden?: boolean;
 
   /**
    * Inner text of the label
    */
   children: React.ReactNode;
-
-  /**
-   * Whether label should be visually hidden
-   */
-  visuallyHidden?: boolean;
 }

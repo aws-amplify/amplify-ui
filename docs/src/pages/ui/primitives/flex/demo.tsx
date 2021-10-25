@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { Property } from 'csstype';
 
-import { Flex, Button, View } from '@aws-amplify/ui-react';
+import { Flex, Button, View, ViewProps } from '@aws-amplify/ui-react';
 
 const JustifyContentProps: Property.JustifyContent[] = [
   'flex-start',
@@ -39,7 +39,7 @@ const Direction = () => {
         {DirectionProps.map((prop, i) => (
           <Button
             onClick={() => setDirection(prop)}
-            variation={prop === direction ? 'primary' : 'secondary'}
+            variation={prop === direction ? 'primary' : undefined}
             size="small"
             key={i}
           >
@@ -65,7 +65,7 @@ const JustifyContent = () => {
         {JustifyContentProps.map((prop, i) => (
           <Button
             onClick={() => setJustifyContent(prop)}
-            variation={prop === justifyContent ? 'primary' : 'secondary'}
+            variation={prop === justifyContent ? 'primary' : undefined}
             size="small"
             key={i}
           >
@@ -90,7 +90,7 @@ const AlignItems = () => {
         {AlignItemsProps.map((prop, i) => (
           <Button
             onClick={() => setAlignItems(prop)}
-            variation={prop === alignItems ? 'primary' : 'secondary'}
+            variation={prop === alignItems ? 'primary' : undefined}
             size="small"
             key={i}
           >
@@ -137,7 +137,7 @@ const Wrap = () => {
         {WrapProps.map((prop, i) => (
           <Button
             onClick={() => setWrap(prop)}
-            variation={prop === wrap ? 'primary' : 'secondary'}
+            variation={prop === wrap ? 'primary' : undefined}
             size="small"
             key={i}
           >
@@ -151,7 +151,7 @@ const Wrap = () => {
   );
 };
 
-const mockStyle = {
+const mockStyle: ViewProps = {
   width: '15rem',
   height: '3rem',
   borderRadius: '5px',
@@ -167,9 +167,9 @@ const mockElements = (elements) => {
   const arr =
     typeof elements === 'number' ? [...Array(elements)] : [...elements];
   return arr.map((char, i) => (
-    <View style={mockStyle} key={i}>
+    <Flex {...mockStyle} key={i}>
       {typeof elements === 'number' ? i + 1 : char}
-    </View>
+    </Flex>
   ));
 };
 

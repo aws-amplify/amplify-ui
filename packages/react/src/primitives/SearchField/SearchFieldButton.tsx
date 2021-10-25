@@ -1,13 +1,14 @@
-import * as React from 'react';
 import { FieldGroupIconButton } from '../FieldGroupIcon';
 import { IconSearch } from '../Icon';
 import { SharedText } from '../shared/i18n';
-import { SearchFieldButtonProps } from '../types';
+import { Primitive, SearchFieldButtonProps } from '../types';
 import { ComponentClassNames } from '../shared/constants';
 
 const ariaLabelText = SharedText.SearchField.ariaLabel.search;
 
-export const SearchFieldButton: React.FC<SearchFieldButtonProps> = (props) => {
+export const SearchFieldButton: Primitive<SearchFieldButtonProps, 'button'> = (
+  props
+) => {
   return (
     <FieldGroupIconButton
       ariaLabel={ariaLabelText}

@@ -4,14 +4,15 @@ import { CountryCodeSelect } from './CountryCodeSelect';
 import { TextField } from '../TextField';
 import { ComponentClassNames } from '../shared/constants';
 import { SharedText } from '../shared/i18n';
-import { PhoneNumberFieldProps } from '../types';
+import { PhoneNumberFieldProps, Primitive } from '../types';
 
-export const PhoneNumberField: React.FC<PhoneNumberFieldProps> = ({
+export const PhoneNumberField: Primitive<PhoneNumberFieldProps, 'input'> = ({
   autoComplete = 'tel-national',
   className,
   countryCodeName,
   countryCodeLabel = SharedText.CountryCodeSelect.ariaLabel,
   defaultCountryCode,
+  hasError,
   isDisabled,
   onCountryCodeChange,
   onInput,
@@ -25,6 +26,8 @@ export const PhoneNumberField: React.FC<PhoneNumberFieldProps> = ({
       outerStartComponent={
         <CountryCodeSelect
           defaultValue={defaultCountryCode}
+          className={className}
+          hasError={hasError}
           isDisabled={isDisabled}
           label={countryCodeLabel}
           name={countryCodeName}
@@ -35,6 +38,7 @@ export const PhoneNumberField: React.FC<PhoneNumberFieldProps> = ({
       }
       autoComplete={autoComplete}
       className={classNames(ComponentClassNames.PhoneNumberField, className)}
+      hasError={hasError}
       isDisabled={isDisabled}
       onInput={onInput}
       size={size}

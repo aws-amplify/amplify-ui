@@ -11,9 +11,11 @@ import {
   Placeholder,
   Rating,
   Text,
-  theme,
   View,
 } from '@aws-amplify/ui-react';
+
+import { theme } from '../../../theme';
+const { tokens } = theme;
 
 export const ListingCard = ({
   title,
@@ -39,8 +41,8 @@ export const ListingCard = ({
   description?: string;
 }) => (
   <Card
-    padding={theme.space.medium}
-    borderRadius={theme.radii.medium}
+    padding={`${tokens.space.medium}`}
+    borderRadius={`${tokens.radii.medium}`}
     width="30rem"
   >
     <Placeholder isLoaded={isLoaded}>
@@ -53,11 +55,15 @@ export const ListingCard = ({
             objectPosition="center"
             width="100%"
             height="100%"
-            borderRadius={theme.radii.medium}
+            borderRadius={`${tokens.radii.medium}`}
           />
         </View>
-        <Flex direction="column" gap={theme.space.xs} className="flex-grow">
-          <Flex gap={theme.space.xs}>
+        <Flex
+          direction="column"
+          gap={`${tokens.space.xs}`}
+          className="flex-grow"
+        >
+          <Flex gap={`${tokens.space.xs}`}>
             {plus ? (
               <Badge variation="success">
                 <IconFavorite /> Favorite
@@ -75,7 +81,7 @@ export const ListingCard = ({
             ) : null}
           </Flex>
 
-          <Flex gap={theme.space.xxs} direction="column">
+          <Flex gap={`${tokens.space.xxs}`} direction="column">
             <Heading level={4}>{title}</Heading>
             <Flex alignItems="center">
               <Rating value={rating} maxValue={5} />

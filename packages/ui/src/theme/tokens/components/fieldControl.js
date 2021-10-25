@@ -91,6 +91,7 @@ module.exports = {
     boxShadow: { value: '0px 0px 0px 1px {colors.focus.value}' },
   },
   _disabled: {
+    color: { value: '{colors.font.disabled.value}' },
     cursor: { value: 'not-allowed' },
     borderColor: { value: '{colors.transparent.value}' },
     backgroundColor: { value: '{colors.background.disabled.value}' },

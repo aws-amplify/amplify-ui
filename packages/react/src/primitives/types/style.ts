@@ -1,5 +1,6 @@
 import { Property } from 'csstype';
-import { FlexStyleProps } from './flex';
+
+import { FlexItemStyleProps, FlexContainerStyleProps } from './flex';
 import { GridItemStyleProps, GridContainerStyleProps } from './grid';
 import { ImageStyleProps } from './image';
 
@@ -17,11 +18,12 @@ export type ResponsiveStyle<PropertyType> =
   | PropertyType[]
   | ResponsiveObject<PropertyType>;
 
-export interface BaseStyleProps extends GridItemStyleProps {
+export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
   alignSelf?: ResponsiveStyle<Property.AlignSelf>;
   backgroundColor?: ResponsiveStyle<Property.BackgroundColor>;
   border?: ResponsiveStyle<Property.Border>;
   borderRadius?: ResponsiveStyle<Property.BorderRadius>;
+  bottom?: ResponsiveStyle<Property.Bottom>;
   boxShadow?: ResponsiveStyle<Property.BoxShadow>;
   color?: ResponsiveStyle<Property.Color>;
   fontFamily?: ResponsiveStyle<Property.FontFamily>;
@@ -29,6 +31,7 @@ export interface BaseStyleProps extends GridItemStyleProps {
   fontStyle?: ResponsiveStyle<Property.FontStyle>;
   fontWeight?: ResponsiveStyle<Property.FontWeight>;
   height?: ResponsiveStyle<Property.Height>;
+  left?: ResponsiveStyle<Property.Left>;
   letterSpacing?: ResponsiveStyle<Property.LetterSpacing>;
   lineHeight?: ResponsiveStyle<Property.LineHeight>;
   maxHeight?: ResponsiveStyle<Property.MaxHeight>;
@@ -37,8 +40,11 @@ export interface BaseStyleProps extends GridItemStyleProps {
   minWidth?: ResponsiveStyle<Property.MinWidth>;
   opacity?: ResponsiveStyle<Property.Opacity>;
   padding?: ResponsiveStyle<Property.Padding>;
+  position?: ResponsiveStyle<Property.Position>;
+  right?: ResponsiveStyle<Property.Right>;
   textAlign?: ResponsiveStyle<Property.TextAlign>;
   textDecoration?: ResponsiveStyle<Property.TextDecoration>;
+  top?: ResponsiveStyle<Property.Top>;
   width?: ResponsiveStyle<Property.Width>;
 }
 
@@ -62,12 +68,22 @@ export interface CSSLayoutStyleProps {
    * Spacing between child components. Shorthand for rowGap and columnGap.
    */
   gap?: ResponsiveStyle<Property.Gap>;
+
+  /**
+   * Spacing between Flex/Grid child columns
+   */
+  columnGap?: ResponsiveStyle<Property.GridColumnGap>;
+
+  /**
+   * Spacing between Flex/Grid child rows
+   */
+  rowGap?: ResponsiveStyle<Property.RowGap>;
 }
 
 export interface AllStyleProps
   extends BaseStyleProps,
     ImageStyleProps,
-    FlexStyleProps,
+    FlexContainerStyleProps,
     GridContainerStyleProps {}
 
 export type ComponentPropToStyleProp = {
@@ -88,8 +104,10 @@ export const ComponentPropsToStylePropsMap: ComponentPropToStyleProp = {
   autoFlow: 'gridAutoFlow',
   autoRows: 'gridAutoRows',
   backgroundColor: 'backgroundColor',
+  basis: 'flexBasis',
   border: 'border',
   borderRadius: 'borderRadius',
+  bottom: 'bottom',
   boxShadow: 'boxShadow',
   color: 'color',
   column: 'gridColumn',
@@ -103,8 +121,10 @@ export const ComponentPropsToStylePropsMap: ComponentPropToStyleProp = {
   fontStyle: 'fontStyle',
   fontWeight: 'fontWeight',
   gap: 'gap',
+  grow: 'flexGrow',
   height: 'height',
   justifyContent: 'justifyContent',
+  left: 'left',
   letterSpacing: 'letterSpacing',
   lineHeight: 'lineHeight',
   maxHeight: 'maxHeight',
@@ -114,16 +134,21 @@ export const ComponentPropsToStylePropsMap: ComponentPropToStyleProp = {
   objectFit: 'objectFit',
   objectPosition: 'objectPosition',
   opacity: 'opacity',
+  order: 'order',
   padding: 'padding',
+  position: 'position',
+  right: 'right',
   row: 'gridRow',
   rowEnd: 'gridRowEnd',
   rowGap: 'rowGap',
-  rowStart: 'gridRowStart',
   rowSpan: 'gridRow', // Will set gridRow if no `row` prop given
+  rowStart: 'gridRowStart',
+  shrink: 'flexShrink',
   templateAreas: 'gridTemplateAreas',
   templateColumns: 'gridTemplateColumns',
   templateRows: 'gridTemplateRows',
   textAlign: 'textAlign',
+  top: 'top',
   textDecoration: 'textDecoration',
   width: 'width',
   wrap: 'flexWrap',

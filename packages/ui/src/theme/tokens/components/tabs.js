@@ -12,7 +12,8 @@ module.exports = {
     color: { value: '{colors.font.secondary.value}' },
     fontSize: { value: '{fontSizes.medium.value}' },
     fontWeight: { value: '{fontWeights.bold.value}' },
-    padding: { value: ['{space.small.value}', '{space.medium.value}'] },
+    paddingVertical: { value: '{space.small.value}' },
+    paddingHorizontal: { value: '{space.medium.value}' },
     textAlign: { value: 'center' },
     transitionDuration: { value: '{time.transition.medium.value}' },
 

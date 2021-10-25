@@ -1,6 +1,10 @@
 <template>
-  <div v-bind="$attrs" data-amplify-authenticator>
-    <div data-amplify-modal />
+  <div
+    v-bind="$attrs"
+    data-amplify-authenticator
+    v-if="!state?.matches('authenticated')"
+  >
+    <div data-authenticator-variation="modal" v-if="variationModal" />
     <div data-amplify-container>
       <base-two-tabs
         v-if="actorState?.matches('signIn') || actorState?.matches('signUp')"
@@ -44,11 +48,13 @@
             onSignInSubmit,
             onCreateAccountClicked,
             onForgotPasswordClicked,
+            onInput,
           }"
         >
           <slot
             name="sign-in-form"
             :info="info"
+            :onInput="onInput"
             :onSignInSubmit="onSignInSubmit"
             :onCreateAccountClicked="onCreateAccountClicked"
             :onForgotPasswordClicked="onForgotPasswordClicked"
@@ -279,15 +285,16 @@
 
 <script setup lang="ts">
 import { ref, provide, computed, useAttrs, watch, onBeforeMount } from 'vue';
-import { getActorState, getServiceFacade, translations } from '@aws-amplify/ui';
+import { useActor, useInterpret } from '@xstate/vue';
 import { I18n } from 'aws-amplify';
-
 import {
+  getActorState,
+  getServiceFacade,
+  translations,
   AuthenticatorMachineOptions,
   createAuthenticatorMachine,
+  translate,
 } from '@aws-amplify/ui';
-import { useActor, useInterpret } from '@xstate/vue';
-import useSelect from '../composables/useSelect';
 
 import SignIn from './sign-in.vue';
 import SignUp from './sign-up.vue';
@@ -300,8 +307,6 @@ import ConfirmResetPassword from './confirm-reset-password.vue';
 import VerifyUser from './verify-user.vue';
 import ConfirmVerifyUser from './confirm-verify-user.vue';
 
-import { CREATE_ACCOUNT_LABEL, SIGN_IN_LABEL } from '../defaults/DefaultTexts';
-
 import {
   InterpretServiceInjectionKeyTypes,
   InterpretService,
@@ -313,13 +318,15 @@ onBeforeMount(() => {
 
 const attrs = useAttrs();
 
-const { initialState, loginMechanisms } = withDefaults(
+const { initialState, loginMechanisms, variation } = withDefaults(
   defineProps<{
     initialState?: AuthenticatorMachineOptions['initialState'];
     loginMechanisms?: AuthenticatorMachineOptions['loginMechanisms'];
+    variation?: 'modal' | undefined;
   }>(),
   {
     loginMechanisms: () => ['username'],
+    variation: undefined,
   }
 );
 
@@ -341,28 +348,28 @@ const machine = createAuthenticatorMachine({ initialState, loginMechanisms });
 const service = useInterpret(machine, {
   devTools: process.env.NODE_ENV === 'development',
 });
-const { active } = useSelect;
 
 const { state, send } = useActor(service);
 provide(InterpretServiceInjectionKeyTypes, <InterpretService>service);
 
 const actorState = computed(() => getActorState(state.value));
+const variationModal = computed(() => (variation === 'modal' ? true : null));
 
-const signInComponent = ref(null);
-const signUpComponent = ref(null);
-const confirmSignUpComponent = ref(null);
-const confirmSignInComponent = ref(null);
-const confirmSetupTOTPComponent = ref(null);
-const forceNewPasswordComponent = ref(null);
-const resetPasswordComponent = ref(null);
-const confirmResetPasswordComponent = ref(null);
-const verifyUserComponent = ref(null);
-const confirmVerifyUserComponent = ref(null);
+const signInComponent = ref();
+const signUpComponent = ref();
+const confirmSignUpComponent = ref();
+const confirmSignInComponent = ref();
+const confirmSetupTOTPComponent = ref();
+const forceNewPasswordComponent = ref();
+const resetPasswordComponent = ref();
+const confirmResetPasswordComponent = ref();
+const verifyUserComponent = ref();
+const confirmVerifyUserComponent = ref();
 
 // computed
 
-const signInLabel = computed(() => I18n.get(CREATE_ACCOUNT_LABEL));
-const createAccountLabel = computed(() => I18n.get(SIGN_IN_LABEL));
+const signInLabel = computed(() => translate('Create Account'));
+const createAccountLabel = computed(() => translate('Sign In'));
 
 //methods
 
@@ -370,7 +377,7 @@ const onSignInSubmitI = (e: Event) => {
   if (attrs?.onSignInSubmit) {
     emit('signInSubmit', e);
   } else {
-    signInComponent.value.submit(e);
+    signInComponent.value?.submit(e);
   }
 };
 
@@ -453,7 +460,7 @@ const onConfirmVerifyUserSubmitI = (e: Event) => {
  */
 
 const user = ref(null);
-const signOut = ref(null);
+const signOut = ref();
 
 watch(
   () => state.value.context,
@@ -464,26 +471,6 @@ watch(
     });
     user.value = u;
     signOut.value = s;
-  }
-);
-
-/**
- * Toggle sign up and sign in pages when useSelect
- * active ref updates
- */
-
-watch(
-  () => active.value,
-  () => {
-    if (active.value) {
-      send({
-        type: 'SIGN_UP',
-      });
-    } else {
-      send({
-        type: 'SIGN_IN',
-      });
-    }
   }
 );
 </script>

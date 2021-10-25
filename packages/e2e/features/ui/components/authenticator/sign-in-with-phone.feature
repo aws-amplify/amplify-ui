@@ -34,6 +34,24 @@ Feature: Sign In with Phone Number
     And I click the "Sign in" button
     Then I see "Sign out"
 
+  @angular @react @vue
+  Scenario: Sign in with confirmed credentials and don't select country code
+    When I type my "phone number" with status "CONFIRMED"
+    And I type my password
+    And I click the "Sign in" button
+    Then I see "Sign out"
+
+  @angular @react @vue
+  Scenario: Sign in with confirmed credentials then sign out
+    When I select my country code with status "CONFIRMED"
+    And I type my "phone number" with status "CONFIRMED"
+    And I type my password
+    And I click the "Sign in" button
+    Then I see "Sign out"
+    And I click the "Sign out" button
+    Then I see "Sign in to your account"
+
+
   # FORCE_CHANGE_PASSWORD tests are skipped as the temporary passwords used for these
   # test accounts will expire in Cognito.
   @angular @react @vue @skip

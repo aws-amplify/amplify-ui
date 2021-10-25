@@ -2,24 +2,29 @@
  * Public API Surface of ui-angular
  */
 
-export * from './lib/ui-angular.module';
+/**
+ * Modules
+ */
+export { AmplifyAuthenticatorModule } from './lib/components/authenticator/authenticator.module';
+
+/**
+ * Components
+ */
+export * from './lib/components/authenticator/components';
+export * from './lib/primitives';
+
+/**
+ * Helpers
+ */
 export * from './lib/common';
 
-export * from './lib/components';
-export * from './lib/primitives';
+/**
+ * Directives
+ */
+export * from './lib/directives/amplify-slot.directive';
+
+/**
+ * Services
+ */
 export * from './lib/services/authenticator-context.service';
 export * from './lib/services/state-machine.service';
-export * from './lib/directives/amplify-slot.directive';
-export {
-  AmplifyS3Album,
-  AmplifyS3ImagePicker,
-  AmplifyS3Text,
-  AmplifyS3TextPicker,
-  AmplifyS3Image,
-  AmplifyPicker,
-  AmplifyPhotoPicker,
-  AmplifyChatbot,
-  AmplifyToast,
-  AmplifyInput,
-  AmplifyButton,
-} from './lib/proxies';

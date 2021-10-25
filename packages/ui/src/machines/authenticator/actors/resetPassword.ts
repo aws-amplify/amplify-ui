@@ -7,10 +7,13 @@ import {
   clearError,
   clearFormValues,
   clearUsername,
+  clearValidationError,
   handleInput,
+  setFieldErrors,
   setRemoteError,
   setUsername,
 } from '../actions';
+import { passwordMatches, runValidators } from '@/validators';
 
 export const resetPasswordActor = createMachine<
   ResetPasswordContext,
@@ -38,6 +41,7 @@ export const resetPasswordActor = createMachine<
             },
           },
           submit: {
+            tags: ['pending'],
             entry: [sendUpdate(), 'setUsername', 'clearError'],
             invoke: {
               src: 'resetPassword',
@@ -53,39 +57,86 @@ export const resetPasswordActor = createMachine<
         },
       },
       confirmResetPassword: {
-        initial: 'edit',
+        type: 'parallel',
         exit: ['clearFormValues', 'clearError', 'clearUsername'],
         states: {
-          edit: {
-            entry: sendUpdate(),
+          validation: {
+            initial: 'pending',
+            states: {
+              pending: {
+                invoke: {
+                  src: 'validateFields',
+                  onDone: {
+                    target: 'valid',
+                    actions: 'clearValidationError',
+                  },
+                  onError: {
+                    target: 'invalid',
+                    actions: 'setFieldErrors',
+                  },
+                },
+              },
+              valid: { entry: sendUpdate() },
+              invalid: { entry: sendUpdate() },
+            },
             on: {
-              SUBMIT: 'submit',
-              RESEND: 'resendCode',
-              CHANGE: { actions: 'handleInput' },
-            },
-          },
-          resendCode: {
-            entry: ['clearError', sendUpdate()],
-            invoke: {
-              src: 'resetPassword',
-              onDone: { target: 'edit' },
-              onError: {
-                actions: 'setRemoteError',
-                target: 'edit',
+              CHANGE: {
+                actions: 'handleInput',
+                target: '.pending',
               },
             },
           },
-          submit: {
-            entry: ['clearError', sendUpdate()],
-            invoke: {
-              src: 'confirmResetPassword',
-              onDone: {
-                actions: 'clearUsername',
-                target: '#resetPasswordActor.resolved',
+          submission: {
+            initial: 'idle',
+            states: {
+              idle: {
+                entry: sendUpdate(),
+                on: {
+                  SUBMIT: 'validate',
+                  RESEND: 'resendCode',
+                  CHANGE: { actions: 'handleInput' },
+                },
               },
-              onError: {
-                actions: 'setRemoteError',
-                target: 'edit',
+              validate: {
+                entry: sendUpdate(),
+                invoke: {
+                  src: 'validateFields',
+                  onDone: {
+                    target: 'pending',
+                    actions: 'clearValidationError',
+                  },
+                  onError: {
+                    target: 'idle',
+                    actions: 'setFieldErrors',
+                  },
+                },
+              },
+              resendCode: {
+                tags: ['pending'],
+                entry: ['clearError', sendUpdate()],
+                invoke: {
+                  src: 'resetPassword',
+                  onDone: { target: 'idle' },
+                  onError: {
+                    actions: 'setRemoteError',
+                    target: 'idle',
+                  },
+                },
+              },
+              pending: {
+                tags: ['pending'],
+                entry: ['clearError', sendUpdate()],
+                invoke: {
+                  src: 'confirmResetPassword',
+                  onDone: {
+                    actions: 'clearUsername',
+                    target: '#resetPasswordActor.resolved',
+                  },
+                  onError: {
+                    actions: 'setRemoteError',
+                    target: 'idle',
+                  },
+                },
               },
             },
           },
@@ -99,7 +150,9 @@ export const resetPasswordActor = createMachine<
       clearError,
       clearFormValues,
       clearUsername,
+      clearValidationError,
       handleInput,
+      setFieldErrors,
       setRemoteError,
       setUsername,
     },
@@ -119,6 +172,11 @@ export const resetPasswordActor = createMachine<
         const { confirmation_code: code, password } = context.formValues;
 
         return Auth.forgotPasswordSubmit(username, code, password);
+      },
+      async validateFields(context, _event) {
+        const { formValues } = context;
+        const validators = [passwordMatches]; // this can contain custom validators too
+        return runValidators(formValues, validators);
       },
     },
   }

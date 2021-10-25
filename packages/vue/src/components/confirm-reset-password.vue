@@ -3,8 +3,8 @@
     <base-wrapper v-bind="$attrs">
       <base-form
         data-amplify-authenticator-confirmResetpassword
+        @input="onInput"
         @submit.prevent="onConfirmResetPasswordSubmit"
-        @change="onChange"
       >
         <base-field-set
           class="amplify-flex"
@@ -20,7 +20,7 @@
               style="flex-direction: column"
             >
               <base-label
-                class="amplify-label sr-only"
+                class="sr-only amplify-label"
                 for="amplify-field-d653"
               >
                 {{ confirmationCodeText }}
@@ -52,6 +52,27 @@
                 name="password"
                 :label="newPasswordLabel"
                 autocomplete="current-password"
+                :ariainvalid="
+                  !!(actorContext.validationError as ValidationError)['confirm_password']
+                "
+              />
+            </base-wrapper>
+            <base-wrapper
+              class="
+                amplify-flex
+                amplify-field
+                amplify-textfield
+                amplify-passwordfield
+              "
+              style="flex-direction: column"
+            >
+              <password-control
+                name="confirm_password"
+                :label="confirmPasswordLabel"
+                autocomplete="new-password"
+                :ariainvalid="
+                  !!(actorContext.validationError as ValidationError)['confirm_password']
+                "
               />
             </base-wrapper>
           </base-wrapper>
@@ -64,6 +85,9 @@
               >
               </slot>
             </template>
+            <base-alert v-if="actorState?.context?.remoteError">
+              {{ actorState?.context?.remoteError }}
+            </base-alert>
             <base-button
               class="amplify-button amplify-field-group__control"
               data-fullwidth="false"
@@ -89,28 +113,29 @@
       </base-form>
     </base-wrapper>
 
-    <base-box data-ui-error v-if="actorState?.context?.remoteError">
-      {{ actorState?.context?.remoteError }}
+    <base-box
+      data-ui-error
+      v-if="!!(actorContext.validationError as ValidationError)['confirm_password']"
+    >
+      {{ (actorContext.validationError as ValidationError)['confirm_password'] }}
     </base-box>
   </slot>
 </template>
 
 <script setup lang="ts">
 import { computed, ComputedRef, useAttrs, defineEmits } from 'vue';
-import { I18n } from 'aws-amplify';
+import {
+  getActorContext,
+  getActorState,
+  ResetPasswordContext,
+  ResetPasswordState,
+  ValidationError,
+  translate,
+} from '@aws-amplify/ui';
+
 import { useAuth } from '../composables/useAuth';
 import PasswordControl from './password-control.vue';
 
-import {
-  CONFIRM_RESET_PASSWORD_TEXT,
-  RESEND_CODE_TEXT,
-  CONFIRM_RESET_PASSWORD_HEADING,
-  CONFIRMATION_CODE_TEXT,
-  CODE_TEXT,
-  NEW_PASSWORD_LABEL,
-} from '../defaults/DefaultTexts';
-
-import { getActorState, ResetPasswordState } from '@aws-amplify/ui';
 const { state, send } = useAuth();
 
 const attrs = useAttrs();
@@ -120,18 +145,21 @@ const actorState: ComputedRef<ResetPasswordState> = computed(() =>
   getActorState(state.value)
 ) as ComputedRef<ResetPasswordState>;
 
-// Computed Properties
-const resendCodeText = computed(() => I18n.get(RESEND_CODE_TEXT));
-const confirmationCodeText = computed(() => I18n.get(CONFIRMATION_CODE_TEXT));
-const confirmResetPasswordHeading = computed(() =>
-  I18n.get(CONFIRM_RESET_PASSWORD_HEADING)
-);
-const confirmResetPasswordText = computed(() =>
-  I18n.get(CONFIRM_RESET_PASSWORD_TEXT)
-);
+const actorContext = computed(() =>
+  getActorContext(state.value)
+) as ComputedRef<ResetPasswordContext>;
 
-const codeText = computed(() => I18n.get(CODE_TEXT));
-const newPasswordLabel = computed(() => I18n.get(NEW_PASSWORD_LABEL));
+// Computed Properties
+const resendCodeText = computed(() => translate('Resend Code'));
+const confirmationCodeText = computed(() => translate('Confirmation Code'));
+const confirmResetPasswordHeading = computed(() =>
+  translate('Reset your Password')
+);
+const confirmResetPasswordText = computed(() => translate('Submit'));
+
+const codeText = computed(() => translate('Code'));
+const newPasswordLabel = computed(() => translate('New password'));
+const confirmPasswordLabel = computed(() => translate('Confirm Password'));
 
 // Methods
 const onConfirmResetPasswordSubmit = (e: Event): void => {
@@ -160,7 +188,7 @@ const onLostYourCodeClicked = (): void => {
   });
 };
 
-const onChange = (e: Event) => {
+const onInput = (e: Event) => {
   const { name, value } = <HTMLInputElement>e.target;
   send({
     type: 'CHANGE',

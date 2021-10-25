@@ -99,7 +99,7 @@ export const AlertPropControls: AlertPropControlsInterface = ({
           name="heading"
           id="heading"
           type="text"
-          value={heading}
+          value={heading as string}
           onChange={(event) =>
             setHeading(event.target.value as AlertProps['heading'])
           }

@@ -8,10 +8,15 @@ import { VisuallyHidden } from '../VisuallyHidden';
 import { PaginationItemProps } from '../types/pagination';
 import { ComponentClassNames } from '../shared/constants';
 
-export const PaginationItem: React.FC<PaginationItemProps> = (props) => {
-  const { type, page, currentPage, isDisabled, onClick, ariaLabel, ...rest } =
-    props;
-
+export const PaginationItem: React.FC<PaginationItemProps> = ({
+  type,
+  page,
+  currentPage,
+  isDisabled,
+  onClick,
+  ariaLabel,
+  ...rest
+}) => {
   switch (type) {
     case 'page':
       const onChange = React.useCallback(() => {

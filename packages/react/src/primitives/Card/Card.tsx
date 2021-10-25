@@ -1,13 +1,15 @@
 import classNames from 'classnames';
-import React from 'react';
+
 import { ComponentClassNames } from '../shared/constants';
-import { CardProps } from '../types/card';
+import { CardProps, Primitive } from '../types';
 import { View } from '../View';
 
-export const Card: React.FC<CardProps> = ({ className, children, ...rest }) => {
-  return (
-    <View className={classNames(ComponentClassNames.Card, className)} {...rest}>
-      {children}
-    </View>
-  );
-};
+export const Card: Primitive<CardProps, 'div'> = ({
+  className,
+  children,
+  ...rest
+}) => (
+  <View className={classNames(ComponentClassNames.Card, className)} {...rest}>
+    {children}
+  </View>
+);

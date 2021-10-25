@@ -1,7 +1,7 @@
 <template>
   <slot v-bind="$attrs" name="signUpSlotI">
     <base-wrapper v-bind="$attrs">
-      <base-form @submit.prevent="onSignUpSubmit" @input="onInput">
+      <base-form @input="onInput" @submit.prevent="onSignUpSubmit">
         <base-wrapper class="amplify-flex" style="flex-direction: column">
           <base-heading class="amplify-heading" :level="3">
             <template #headingI>
@@ -26,6 +26,9 @@
                 name="password"
                 :label="passwordLabel"
                 autocomplete="new-password"
+                :ariainvalid="
+                  !!(actorContext.validationError as ValidationError)['confirm_password']
+                "
               />
             </base-wrapper>
             <base-wrapper
@@ -36,23 +39,39 @@
                 name="confirm_password"
                 :label="confirmPasswordLabel"
                 autocomplete="new-password"
+                :ariainvalid="
+                  !!(actorContext.validationError as ValidationError)['confirm_password']
+                "
               />
             </base-wrapper>
-            <base-box
-              data-ui-error
-              v-if="!!actorContext.validationError['confirm_password']"
+            <p
+              data-variation="error"
+              class="amplify-text"
+              v-if="!!(actorContext.validationError as ValidationError)['confirm_password']"
             >
-              {{ actorContext.validationError['confirm_password'] }}
-            </base-box>
+              {{ (actorContext.validationError as ValidationError)['confirm_password'] }}
+            </p>
 
-            <template v-for="(alias, idx) in secondaryAliases" :key="idx">
+            <template
+              v-for="(alias: UserNameAlias, idx) in secondaryAliases as UserNameAlias[]"
+              :key="idx"
+            >
               <alias-control
-                :label="I18n.get(inputAttributes[alias].label)"
+                :label="
+                  // prettier-ignore
+                  translate<string>(inputAttributes[alias].label)
+                "
                 :name="alias"
-                :placeholder="I18n.get(inputAttributes[alias].label)"
+                :placeholder="
+                  // prettier-ignore
+                  translate<string>( inputAttributes[alias].label)
+                "
               />
             </template>
 
+            <base-alert v-if="actorState.context.remoteError">
+              {{ actorState.context.remoteError }}
+            </base-alert>
             <base-button
               class="amplify-button amplify-field-group__control"
               data-fullwidth="true"
@@ -62,10 +81,6 @@
               :disabled="actorState.matches('signUp.submit')"
               >{{ createAccountLabel }}</base-button
             >
-
-            <base-box data-ui-error v-if="actorState.context.remoteError">
-              {{ actorState.context.remoteError }}
-            </base-box>
           </base-field-set>
           <base-footer>
             <template #footert="{ slotData }">
@@ -87,7 +102,6 @@
 
 <script setup lang="ts">
 import { computed, ComputedRef, useAttrs } from 'vue';
-import { I18n } from 'aws-amplify';
 import {
   AuthInputAttributes,
   authInputAttributes,
@@ -97,19 +111,14 @@ import {
   SignUpContext,
   UserNameAlias,
   userNameAliasArray,
+  ValidationError,
+  translate,
 } from '@aws-amplify/ui';
 
 import PasswordControl from './password-control.vue';
 import UserNameAliasComponent from './user-name-alias.vue';
 import AliasControl from './alias-control.vue';
 import FederatedSignIn from './federated-sign-in.vue';
-
-import {
-  CREATE_ACCOUNT_LABEL,
-  SIGN_UP_BUTTON_TEXT,
-  CONFIRM_PASSWORD_LABEL,
-  PASSWORD_LABEL,
-} from '../defaults/DefaultTexts';
 
 import { useAuth } from '../composables/useAuth';
 import { useAliases } from '../composables/useUtils';
@@ -138,10 +147,10 @@ secondaryAliases = secondaryAliases.filter(
 
 // computed properties
 
-const confirmPasswordLabel = computed(() => I18n.get(CONFIRM_PASSWORD_LABEL));
-const passwordLabel = computed(() => I18n.get(PASSWORD_LABEL));
-const createAccountLabel = computed(() => I18n.get(CREATE_ACCOUNT_LABEL));
-const signUpButtonText = computed(() => I18n.get(SIGN_UP_BUTTON_TEXT));
+const confirmPasswordLabel = computed(() => translate('Confirm Password'));
+const passwordLabel = computed(() => translate('Password'));
+const createAccountLabel = computed(() => translate('Create Account'));
+const signUpButtonText = computed(() => translate('Create a new account'));
 const inputAttributes: ComputedRef<AuthInputAttributes> = computed(
   () => authInputAttributes
 );

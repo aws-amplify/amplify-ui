@@ -16,7 +16,9 @@
     "environments": "yarn workspace environments",
     "build:icons": "yarn react build:icons",
     "test": "yarn react test && yarn e2e test",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "version:next": "yarn changeset version --snapshot next",
+    "publish:next": "yarn changeset publish --tag next"
   },
   "workspaces": [
     "docs",
@@ -27,6 +29,7 @@
     "packages/angular/projects/ui-angular"
   ],
   "resolutions": {
+    "ansi-regex": "5.0.1",
     "trim": "^0.0.3",
     "fs-extra": "^10.0.0",
     "next": "^11.0.1",

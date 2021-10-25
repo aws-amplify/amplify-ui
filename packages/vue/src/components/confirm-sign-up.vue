@@ -1,7 +1,7 @@
 <template>
   <slot v-bind="$attrs" name="confirmSignUpSlotI">
     <base-wrapper v-bind="$attrs">
-      <base-form @submit.prevent="onConfirmSignUpSubmit">
+      <base-form @input="onInput" @submit.prevent="onConfirmSignUpSubmit">
         <base-wrapper class="amplify-flex" style="flex-direction: column">
           <base-heading class="amplify-heading" :level="3">
             {{ confirmSignUpHeading }}
@@ -15,7 +15,7 @@
               class="amplify-flex amplify-field amplify-textfield"
               style="flex-direction: column"
             >
-              <base-label class="amplify-label sr-only" for="amplify-field-124b"
+              <base-label class="sr-only amplify-label" for="amplify-field-124b"
                 >{{ confirmationCodeText }}
               </base-label>
               <base-wrapper class="amplify-flex">
@@ -45,6 +45,9 @@
               >
               </slot>
             </template>
+            <base-alert v-if="actorState?.context?.remoteError">
+              {{ actorState?.context?.remoteError }}
+            </base-alert>
             <base-button
               class="amplify-button amplify-field-group__control"
               data-fullwidth="false"
@@ -67,9 +70,6 @@
               {{ resendCodeText }}
             </base-button>
           </base-footer>
-          <base-box data-ui-error v-if="actorState?.context?.remoteError">
-            {{ actorState?.context?.remoteError }}
-          </base-box>
         </base-wrapper>
       </base-form>
     </base-wrapper>
@@ -78,19 +78,9 @@
 
 <script setup lang="ts">
 import { computed, ComputedRef, useAttrs } from 'vue';
-import { I18n } from 'aws-amplify';
-
-import {
-  CONFIRM_SIGNUP_HEADING,
-  CONFIRMATION_CODE_TEXT,
-  RESEND_CODE_TEXT,
-  CONFIRM_TEXT,
-  ENTER_CODE,
-} from '../defaults/DefaultTexts';
+import { getActorState, SignUpContext, translate } from '@aws-amplify/ui';
 
 import { useAuth } from '../composables/useAuth';
-
-import { getActorState, SignUpContext } from '@aws-amplify/ui';
 
 const attrs = useAttrs();
 const emit = defineEmits(['confirmSignUpSubmit', 'lostCodeClicked']);
@@ -104,13 +94,22 @@ const context = actorState.value.context as SignUpContext;
 const username = context.user?.username ?? context.authAttributes?.username;
 
 //computed properties
-const enterCode = computed(() => I18n.get(ENTER_CODE));
-const confirmSignUpHeading = computed(() => I18n.get(CONFIRM_SIGNUP_HEADING));
-const confirmationCodeText = computed(() => I18n.get(CONFIRMATION_CODE_TEXT));
-const resendCodeText = computed(() => I18n.get(RESEND_CODE_TEXT));
-const confirmText = computed(() => I18n.get(CONFIRM_TEXT));
+const enterCode = computed(() => translate('Enter your code'));
+const confirmSignUpHeading = computed(() => translate('Confirm Sign Up'));
+const confirmationCodeText = computed(() => translate('Confirmation Code'));
+const resendCodeText = computed(() => translate('Resend Code'));
+const confirmText = computed(() => translate('Confirm'));
 
 // Methods
+const onInput = (e: Event): void => {
+  const { name, value } = <HTMLInputElement>e.target;
+  send({
+    type: 'CHANGE',
+    //@ts-ignore
+    data: { name, value },
+  });
+};
+
 const onConfirmSignUpSubmit = (e: Event): void => {
   if (attrs?.onConfirmSignUpSubmit) {
     emit('confirmSignUpSubmit', e);

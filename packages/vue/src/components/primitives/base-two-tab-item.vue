@@ -25,7 +25,7 @@ const { active } = toRefs(props);
     data-orientation="horizontal"
     role="tab"
     class="amplify-tabs-item"
-    data-grow="equal"
+    data-spacing="equal"
     data-radix-collection-item=""
   >
     {{ label }}

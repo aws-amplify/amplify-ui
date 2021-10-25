@@ -1,5 +1,9 @@
 <template>
-  <slot name="footert" :slotData="mySlots.default()">
+  <slot
+    v-bind="$attrs"
+    name="footert"
+    :slotData="mySlots.default && mySlots.default()"
+  >
     <footer v-bind="$attrs" data-amplify-footer=""><slot></slot></footer>
   </slot>
 </template>

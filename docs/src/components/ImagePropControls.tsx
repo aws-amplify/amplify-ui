@@ -83,7 +83,7 @@ export const ImagePropControls: ImagePropControlsInterface = ({
           <input
             type="text"
             placeholder="Set objectFit"
-            value={objectFit}
+            value={objectFit as string}
             onChange={(event: any) => {
               setObjectFit(event.target.value);
             }}
@@ -94,7 +94,7 @@ export const ImagePropControls: ImagePropControlsInterface = ({
           <input
             type="text"
             placeholder="Set objectPosition"
-            value={objectPosition}
+            value={objectPosition as string}
             onChange={(event: any) => {
               setObjectPosition(event.target.value);
             }}

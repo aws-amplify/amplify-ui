@@ -5,7 +5,7 @@
   border-style: var(--amplify-components-tabs-border-style);
   border-color: var(--amplify-components-tabs-border-color);
 
-  &[data-indicator-position="top"] {
+  &[data-indicator-position='top'] {
     border-width: var(--amplify-components-tabs-border-width) 0 0 0;
   }
 }
@@ -16,28 +16,31 @@
   color: var(--amplify-components-tabs-item-color);
   font-size: var(--amplify-components-tabs-item-font-size);
   font-weight: var(--amplify-components-tabs-item-font-weight);
-  padding: var(--amplify-components-tabs-item-padding);
+  padding: var(--amplify-components-tabs-item-padding-vertical)
+    var(--amplify-components-tabs-item-padding-horizontal);
   text-align: var(--amplify-components-tabs-item-text-align);
   transition: all var(--amplify-components-tabs-item-transition-duration);
   border-width: 0 0 var(--amplify-components-tabs-item-border-width) 0;
   border-style: var(--amplify-components-tabs-item-border-style);
   border-color: var(--amplify-components-tabs-item-border-color);
-  
+
   // negative margin so border of tab items and tab bar overlap
   margin-bottom: calc(-1 * var(--amplify-components-tabs-item-border-width));
-  
-  [data-indicator-position="top"] > & {
+
+  [data-indicator-position='top'] > & {
     border-width: var(--amplify-components-tabs-border-width) 0 0 0;
     // negative margin so border of tab items and tab bar overlap
     margin-top: calc(-1 * var(--amplify-components-tabs-item-border-width));
     margin-bottom: 0;
   }
-  
+
   // Radix data attribute
   &[data-state='active'] {
     color: var(--amplify-components-tabs-item-active-color);
     border-color: var(--amplify-components-tabs-item-active-border-color);
-    background-color: var(--amplify-components-tabs-item-active-background-color);
+    background-color: var(
+      --amplify-components-tabs-item-active-background-color
+    );
     transition-property: none;
   }
 
@@ -69,11 +72,11 @@
     cursor: not-allowed;
   }
 
-  &[data-grow='equal'] {
+  &[data-spacing='equal'] {
     flex: 1 1 0;
   }
 
-  &[data-grow='relative'] {
+  &[data-spacing='relative'] {
     flex-grow: 1;
   }
 }

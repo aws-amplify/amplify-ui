@@ -1,26 +1,21 @@
-import React from 'react';
-import { ComponentClassNames } from '../shared/constants';
-import { ButtonProps } from '../types';
 import classNames from 'classnames';
+import { ComponentClassNames } from '../shared/constants';
+import { ButtonProps, Primitive } from '../types';
 import { View } from '../View';
 
-export const Button: React.FC<ButtonProps> = ({
-  ariaLabel,
-  className = '',
+export const Button: Primitive<ButtonProps, 'button'> = ({
+  className,
   children,
   isFullWidth = false,
   isDisabled,
   isLoading,
-  id,
   loadingText = '',
-  onClick = () => {},
   size,
-  variation,
   type = 'button',
+  variation,
   ...rest
 }) => (
   <View
-    ariaLabel={ariaLabel}
     as="button"
     className={classNames(
       ComponentClassNames.Button,
@@ -32,8 +27,6 @@ export const Button: React.FC<ButtonProps> = ({
     data-size={size}
     data-variation={variation}
     isDisabled={isDisabled || isLoading}
-    id={id}
-    onClick={onClick}
     type={type}
     {...rest}
   >
