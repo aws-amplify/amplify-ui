@@ -40,9 +40,9 @@ export default withAuthenticator(App, {
     },
   },
   services: {
-    async validateSignUp(context, _event) {
+    async validateSignUp(formData) {
       // TODO How to do other validations?
-      if (!context.formValues.acknowledgement) {
+      if (!formData.acknowledgement) {
         return Promise.reject({
           acknowledgement: 'You must agree to the Terms & Conditions',
         });

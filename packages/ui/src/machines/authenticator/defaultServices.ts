@@ -11,10 +11,9 @@ export const defaultServices = {
     return Auth.currentAuthenticatedUser();
   },
 
-  async validateSignUp(context, _event) {
-    const { formValues } = context;
+  async validateSignUp(formData) {
     const validators = [passwordMatches]; // this can contain custom validators too
 
-    return runValidators(formValues, validators);
+    return runValidators(formData, validators);
   },
 };

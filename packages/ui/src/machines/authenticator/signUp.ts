@@ -41,7 +41,7 @@ export function createSignUpMachine({ services = {} }: SignUpMachineOptions) {
               states: {
                 pending: {
                   invoke: {
-                    src: 'validateSignUp',
+                    src: ({ formValues }) => validateSignUp(formValues),
                     onDone: {
                       target: 'valid',
                       actions: 'clearValidationError',
@@ -84,7 +84,7 @@ export function createSignUpMachine({ services = {} }: SignUpMachineOptions) {
                 validate: {
                   entry: sendUpdate(),
                   invoke: {
-                    src: 'validateSignUp',
+                    src: ({ formValues }) => validateSignUp(formValues),
                     onDone: {
                       target: 'pending',
                       actions: 'clearValidationError',
@@ -179,9 +179,6 @@ export function createSignUpMachine({ services = {} }: SignUpMachineOptions) {
         setUser,
       },
       services: {
-        validateSignUp:
-          services.validateSignUp ?? defaultServices.validateSignUp,
-
         async confirmSignUp(context, event) {
           const { user, authAttributes } = context;
           const { confirmation_code: code } = event.data;
