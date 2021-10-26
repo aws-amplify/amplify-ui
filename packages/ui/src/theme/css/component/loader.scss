@@ -10,6 +10,11 @@
     animation-timing-function: linear;
     animation-iteration-count: infinite;
     animation-duration: var(--amplify-components-loader-animation-duration);
+    @media (prefers-reduced-motion) {
+      animation: none;
+      stroke-dasharray: 100% 200%;
+      stroke-dashoffset: 50%;
+    }
     stroke: var(--amplify-components-loader-stroke-filled);
     stroke-linecap: var(--amplify-components-loader-stroke-linecap);
   }
@@ -33,6 +38,10 @@
     );
     animation-timing-function: linear;
     animation-iteration-count: infinite;
+    @media (prefers-reduced-motion) {
+      animation: none;
+      stroke-dashoffset: -50%;
+    }
   }
 
   &[data-variation='linear'] {
