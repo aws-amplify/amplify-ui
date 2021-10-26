@@ -42,7 +42,7 @@ export function SignUp() {
 
         <Button
           borderRadius={0}
-          isDisabled={hasValidationErrors}
+          isDisabled={hasValidationErrors || isPending}
           isFullWidth={true}
           type="submit"
           variation="primary"
