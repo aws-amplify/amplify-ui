@@ -183,7 +183,11 @@ export const colors: Colors = {
     inverse: { value: '{colors.white.value}' },
 
     interactive: { value: '{colors.brand.primary.80.value}' },
+    // Hover and Focus colors are intentionally different colors.
+    // This allows users to distinguish between the current keyboard focus
+    // and the location of their pointer
     hover: { value: '{colors.brand.primary.90.value}' },
+    // Focus color is set to 100 to ensure enough contrast for accessibility
     focus: { value: '{colors.brand.primary.100.value}' },
     active: { value: '{colors.brand.primary.100.value}' },
 
@@ -211,6 +215,7 @@ export const colors: Colors = {
     tertiary: { value: '{colors.neutral.20.value}' },
 
     disabled: { value: '{colors.border.tertiary.value}' },
+    // Focus color is set to 100 to ensure enough contrast for accessibility
     focus: { value: '{colors.brand.primary.100.value}' },
     error: { value: '{colors.red.80.value}' },
   },
