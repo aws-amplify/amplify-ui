@@ -1,5 +1,6 @@
 /* Amplify UI styles */
 @import '@aws-amplify/ui-react/styles.css';
+@import '@codesandbox/sandpack-react/dist/index.css';
 
 /* Docs styles */
 @import './prism-one-light.css';

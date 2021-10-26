@@ -81,17 +81,6 @@ ul {
   list-style-type: disc;
 }
 
-.aui-docs {
-  /* display: flex;
-  flex-direction: row; */
-}
-
-.aui-docs-header {
-  width: 18rem;
-  flex-shrink: 0;
-  background-color: var(--amplify-colors-background-primary);
-}
-
 .docs-logo-svg {
   height: 2rem;
   display: inline-block;
@@ -147,14 +136,14 @@ p {
   position: sticky;
   top: 0;
   width: 100%;
-  padding: var(--amplify-space-small) var(--amplify-space-xl);
-  display: flex;
+  /* padding: var(--amplify-space-small) var(--amplify-space-xl); */
+  /* display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: center; */
   background-color: var(--amplify-colors-background-primary);
   z-index: 2;
   border-bottom: var(--amplify-borders-primary);
-  /* box-shadow: var(--amplify-shadows-small); */
+  /* box-shadow: var(--amplify-shadows-large); */
 }
 
 .docs-nav-link {
@@ -185,6 +174,8 @@ p {
 .docs-sidebar {
   flex-shrink: 0;
   width: 18rem;
+  position: relative;
+  z-index: 10;
 }
 
 .docs-sidebar-inner {
@@ -197,7 +188,7 @@ p {
   border-right: var(--amplify-border-widths-small) solid
     var(--amplify-colors-border-primary);
   box-shadow: var(--amplify-shadows-medium);
-  /* scrollbar-color: red yellow; */
+  z-index: 10;
 }
 
 /* .docs-sidebar-inner::-webkit-scrollbar {
@@ -295,6 +286,12 @@ body::-webkit-scrollbar-track {
 
 .docs-nav-section.expanded .chevron {
   transform: rotate(90deg);
+}
+
+.sp-wrapper {
+  --sp-colors-bg-default: var(--amplify-colors-background-secondary);
+  --sp-colors-fg-inactive: var(--amplify-colors-border-primary);
+  --sp-border-radius: 0;
 }
 
 :root,
@@ -443,14 +440,16 @@ body::-webkit-scrollbar-track {
 
 .docs-home-section-bg {
   position: relative;
-  padding-bottom: calc(var(--amplify-space-xxl) * 4);
+  /* padding-bottom: calc(var(--amplify-space-xxl) * 4); */
 }
 
 .docs-home-section-bg > .amplify-card {
-  position: absolute;
-  bottom: var(--amplify-space-medium);
-  right: var(--amplify-space-xxl);
+  /* position: absolute; */
+  /* bottom: var(--amplify-space-medium);
+  left: var(--amplify-space-xxl); */
   width: 50%;
+  margin: calc(var(--amplify-space-xl) * -1) 0 var(--amplify-space-xl)
+    var(--amplify-space-xl);
 }
 
 .install-code {
@@ -485,4 +484,25 @@ code {
 .docs-home-feature-card {
   /* box-shadow: none; */
   border-width: 0;
+}
+
+.docs-home-vue {
+  position: absolute;
+  right: 5rem;
+  bottom: 8rem;
+  height: 10rem;
+}
+
+.docs-home-react {
+  position: absolute;
+  right: 15rem;
+  bottom: 8rem;
+  height: 10rem;
+}
+
+.docs-home-angular {
+  position: absolute;
+  right: 25rem;
+  bottom: 8rem;
+  height: 10rem;
 }

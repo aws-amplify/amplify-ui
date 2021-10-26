@@ -1,0 +1,637 @@
+import {
+  Tabs,
+  TabItem,
+  Flex,
+  Text,
+  IconEmail,
+  Badge,
+} from '@aws-amplify/ui-react';
+import { TabsDemo, ControlledTabExample, DemoTabPanel } from './demo';
+import { Example } from '@/components/Example';
+
+Tabs organize content into multiple sections and allow users to navigate between them. The content under the set of Tabs should be related and form a coherent unit.
+
+## Demo
+
+<TabsDemo />
+
+## Usage
+
+Import the `Tabs` and `TabItem` components and styles.
+
+```jsx
+import { Tabs, TabItem } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<Tabs>
+  <TabItem title="Tab 1">Tab 1 Content</TabItem>
+  <TabItem title="Tab 2">Tab 2 Content</TabItem>
+</Tabs>;
+```
+
+<Example>
+  <Tabs>
+    <TabItem title="Tab 1">
+      <DemoTabPanel>Tab 1 Content</DemoTabPanel>
+    </TabItem>
+    <TabItem title="Tab 2">
+      <DemoTabPanel>Tab 2 Content</DemoTabPanel>
+    </TabItem>
+  </Tabs>
+</Example>
+
+The `Tabs` component accepts `TabItems` as children. Each `TabItem` contains both the Tab's `title` and its corresponding content panel (children). Children passed to `TabItem` are responsible for their own styling.
+
+### Default Tab (uncontrolled)
+
+In the `Tabs` component, use the `defaultIndex` prop to change which Tab content is initially displayed. Pass in the index of the Tab you wish to show. The default is index 0 (the first tab).
+
+```jsx
+<Tabs defaultIndex={1}>
+  <TabItem title="First">Content of the first tab</TabItem>
+  <TabItem title="Second">
+    The content of the second tab is initially shown because we passed in index
+    1 to defaultIndex (notice that the tabs are zero-indexed).
+  </TabItem>
+</Tabs>
+```
+
+<Example>
+  <Tabs defaultIndex={1}>
+    <TabItem title="First">
+      <DemoTabPanel>Content of the first tab</DemoTabPanel>
+    </TabItem>
+    <TabItem title="Second">
+      <DemoTabPanel>
+        The content of the second tab is initially shown because we passed in
+        index 1 to defaultIndex (notice that the tabs are zero-indexed).
+      </DemoTabPanel>
+    </TabItem>
+  </Tabs>
+</Example>
+
+### Current Index and onChange (controlled)
+
+The tabs component also works as a controlled component. This allows you to programmatically set the current tab
+
+```jsx
+const [index, setIndex] = React.useState(0);
+return (
+  <Tabs currentIndex={index} onChange={(i) => setIndex(i)}>
+    <TabItem title="First">Content of the first tab</TabItem>
+    <TabItem title="Second">
+      The content of the second tab is initially shown because we passed in
+      index 1 to defaultIndex (notice that the tabs are zero-indexed).
+      <Button onClick={() => setIndex(0)}>Go to first tab</Button>
+    </TabItem>
+  </Tabs>
+);
+```
+
+<Example>
+  <ControlledTabExample />
+</Example>
+
+### Grow
+
+In the `Tabs` component, use the `spacing` prop to control how Tabs take up the remaining space. Pass `equal` to make each tab take up the same amount of space, and `relative` to make each tab take up space relative to the size of its title.
+
+```jsx
+<Tabs spacing="equal">
+  <TabItem title="First">Content of the first tab</TabItem>
+  <TabItem title="This is the second tab">Content of the second tab</TabItem>
+  <TabItem title="Really long title for demonstration">Content of the third tab</TabItem>
+</Tabs>
+
+<Tabs spacing="relative">
+  <TabItem title="First">Content of the first tab</TabItem>
+  <TabItem title="This is the second tab">Content of the second tab</TabItem>
+  <TabItem title="Really long title for demonstration">Content of the third tab</TabItem>
+</Tabs>
+```
+
+<Example>
+<Flex direction="column" gap="2rem">
+<Tabs spacing="equal">
+  <TabItem title="First">
+    <DemoTabPanel>
+      Content of the first tab
+    </DemoTabPanel>
+  </TabItem>
+  <TabItem title="This is the second tab">
+    <DemoTabPanel>
+      Content of the second tab
+    </DemoTabPanel>
+  </TabItem>
+  <TabItem title="Really long title for demonstration">
+    <DemoTabPanel>
+      Content of the third tab
+    </DemoTabPanel>
+  </TabItem>
+</Tabs>
+
+<Tabs spacing="relative">
+  <TabItem title="First">Content of the first tab</TabItem>
+  <TabItem title="This is the second tab">Content of the second tab</TabItem>
+  <TabItem title="Really long title for demonstration">Content of the third tab</TabItem>
+</Tabs>
+</Flex>
+</Example>
+
+### Justify Content
+
+In the `Tabs` component, use the `justifyContent` prop to control how space is distributed between and around the Tabs. Available options include `flex-start` (default), `flex-end`, `center`, `space-between`, `space-around`, and `space-evenly`.
+
+Note: this prop only has an effect if the `spacing` prop is not set, otherwise the `spacing` prop will take precedence.
+
+```jsx
+<Tabs justifyContent="center">
+  <TabItem title="First">Tabs are centered</TabItem>
+  <TabItem title="Second">Content of the second tab</TabItem>
+  <TabItem title="Third">Content of the third tab</TabItem>
+</Tabs>
+
+<Tabs justifyContent="flex-end">
+  <TabItem title="First">
+    <DemoTabPanel>
+      Tabs are stacked to the right
+    </DemoTabPanel>
+  </TabItem>
+  <TabItem title="Second">
+    <DemoTabPanel>
+      Content of the second tab
+    </DemoTabPanel>
+  </TabItem>
+  <TabItem title="Third">
+    <DemoTabPanel>
+      Content of the third tab
+    </DemoTabPanel>
+  </TabItem>
+</Tabs>
+```
+
+<Example>
+<Flex direction="column" gap="2rem">
+<Tabs justifyContent="center">
+  <TabItem title="First">Tabs are centered</TabItem>
+  <TabItem title="Second">Content of the second tab</TabItem>
+  <TabItem title="Third">Content of the third tab</TabItem>
+</Tabs>
+
+<Tabs justifyContent="flex-end">
+  <TabItem title="First">
+    <DemoTabPanel>
+      Tabs are stacked to the right
+    </DemoTabPanel>
+  </TabItem>
+  <TabItem title="Second">
+    <DemoTabPanel>
+      Content of the second tab
+    </DemoTabPanel>
+  </TabItem>
+  <TabItem title="Third">
+    <DemoTabPanel>
+      Content of the third tab
+    </DemoTabPanel>
+  </TabItem>
+</Tabs>
+</Flex>
+</Example>
+
+### Title
+
+In the `TabItem` component, use the **required** `title` prop to change the title corresponding with each Tab's content panel. For styling purposes, you may pass your own custom component if you wish.
+
+```jsx
+<Tabs>
+  <TabItem title="This is the first title">Content of the first tab</TabItem>
+  <TabItem
+    title={
+      <Text color="red" as="span">
+        Custom Red Title
+      </Text>
+    }
+  >
+    Content of the second tab
+  </TabItem>
+</Tabs>
+```
+
+<Example>
+  <Tabs>
+    <TabItem title="This is the first title">
+      <DemoTabPanel>Content of the first tab</DemoTabPanel>
+    </TabItem>
+    <TabItem
+      title={
+        <Text color="red" as="span">
+          Custom Red Title
+        </Text>
+      }
+    >
+      <DemoTabPanel>Content of the second tab</DemoTabPanel>
+    </TabItem>
+  </Tabs>
+</Example>
+
+You can also add badges and icons in the `TabItem` by passing custom components to the `title` prop.
+
+```jsx
+<Example>
+  <Tabs>
+    <TabItem
+      title={
+        <>
+          Messages
+          <Badge variation="info">12</Badge>
+        </>
+      }
+    >
+      Content of the first tab
+    </TabItem>
+    <TabItem
+      title={
+        <>
+          <IconEmail />
+          Email
+        </>
+      }
+    >
+      Content of the second tab
+    </TabItem>
+  </Tabs>
+</Example>
+```
+
+<Example>
+  <Tabs>
+    <TabItem
+      title={
+        <>
+          Email
+          <Badge size="small" variation="info">
+            21
+          </Badge>
+        </>
+      }
+    >
+      <DemoTabPanel>Content of the first tab</DemoTabPanel>
+    </TabItem>
+    <TabItem
+      title={
+        <>
+          <IconEmail />
+          Email
+        </>
+      }
+    >
+      <DemoTabPanel>Content of the second tab</DemoTabPanel>
+    </TabItem>
+  </Tabs>
+</Example>
+
+### Indicator Position
+
+You can change the position of the tab border and current tab indicator with the `indicatorPosition` prop. The only values are `top` or `bottom` (default).
+
+```jsx
+<Example>
+  <Tabs indicatorPosition="top">
+    <TabItem title="Tab 1">Tab 1 content</TabItem>
+    <TabItem title="Tab 2">Tab 2 content</TabItem>
+  </Tabs>
+</Example>
+```
+
+<Example>
+  <Tabs indicatorPosition="top">
+    <TabItem title="Tab 1">
+      <DemoTabPanel>Tab 1 content</DemoTabPanel>
+    </TabItem>
+    <TabItem title="Tab 2">
+      <DemoTabPanel>Tab 2 content</DemoTabPanel>
+    </TabItem>
+  </Tabs>
+</Example>
+
+### Disabled Tabs
+
+In the `TabItem` component, use the `isDisabled` prop to make a Tab not clickable and its content not visible to the user.
+
+```jsx
+<Tabs>
+  <Tabs>
+    <TabItem title="Tab 1">Tab 1 Content</TabItem>
+    <TabItem title="Tab 2">Tab 2 Content</TabItem>
+    <TabItem title="Tab 3" isDisabled={true}>
+      This Tab is not clickable and will not display the Tab's content to the
+      user.
+    </TabItem>
+  </Tabs>
+</Tabs>
+```
+
+<Example>
+  <Tabs>
+    <TabItem title="Tab 1">
+      <DemoTabPanel>Tab 1 Content</DemoTabPanel>
+    </TabItem>
+    <TabItem title="Tab 2">
+      <DemoTabPanel>Tab 2 Content</DemoTabPanel>
+    </TabItem>
+    <TabItem title="Tab 3" isDisabled={true}>
+      <DemoTabPanel>
+        This Tab is not clickable and will not display the Tab's content to the
+        user.
+      </DemoTabPanel>
+    </TabItem>
+  </Tabs>
+</Example>
+
+## CSS Styling
+
+### Global styling
+
+To override styling on all `Tabs` or `TabItems`, you can set the Amplify CSS variables, use the built-in `.amplify-tabs` or `.amplify-tabs-items`classes, or use pseudo-classes.
+
+Note that children of `TabItem` must be responsible for their own styling.
+
+```css
+/* styles.css */
+:root {
+  /* background for the whole tab bar */
+  --amplify-components-tabs-background-color: var(
+    --amplify-colors-background-secondary
+  );
+  /* background for each tab */
+  --amplify-components-tabs-item-background-color: var(
+    --amplify-colors-background-primary
+  );
+}
+/* OR */
+.amplify-tabs {
+  background-color: var(--amplify-colors-background-secondary);
+}
+
+.amplify-tabs-item {
+  background-color: var(--amplify-colors-background-primary);
+}
+```
+
+```jsx
+import './styles.css';
+
+<Tabs>
+  <TabItem title="Tab 1">Content of Tab 1</TabItem>
+  <TabItem title="Tab 2">Content of Tab 2</TabItem>
+</Tabs>;
+```
+
+<Example className="global-tabs-example">
+  <Tabs>
+    <TabItem title="Tab 1">
+      <DemoTabPanel>Content of Tab 1</DemoTabPanel>
+    </TabItem>
+    <TabItem title="Tab 2">
+      <DemoTabPanel>Content of Tab 2</DemoTabPanel>
+    </TabItem>
+  </Tabs>
+</Example>
+
+_Using pseudo-classes:_
+
+```css
+/* styles.css */
+.amplify-tabs-item:hover {
+  background-color: var(--amplify-colors-background-primary);
+  border-color: var(--amplify-colors-purple-60);
+}
+
+.amplify-tabs-item[data-state='active'] {
+  background-color: var(--amplify-colors-background-primary);
+  border-color: var(--amplify-colors-pink-60);
+}
+
+.amplify-tabs-item:focus {
+  background-color: var(--amplify-colors-pink-10);
+}
+```
+
+```jsx
+import './styles.css';
+
+<Tabs>
+  <TabItem title="Tab 1">
+    Hover over, click on, and manually navigate through the tabs on your
+    keyboard using right/left arrows to to see the styling effects.
+  </TabItem>
+  <TabItem title="Tab 2">
+    Hover over, click on, and manually navigate through the tabs on your
+    keyboard using right/left arrows to to see the styling effects.
+  </TabItem>
+</Tabs>;
+```
+
+<Example className="pseudo-demo">
+  <Tabs>
+    <TabItem title="Tab 1">
+      <DemoTabPanel>
+        Hover over, click on, and manually tab through the Tabs on your keyboard
+        to see the styling effects.
+      </DemoTabPanel>
+    </TabItem>
+    <TabItem title="Tab 2">
+      <DemoTabPanel>
+        Hover over, click on, and manually tab through the Tabs on your keyboard
+        to see the styling effects.
+      </DemoTabPanel>
+    </TabItem>
+  </Tabs>
+</Example>
+
+To replace the Tabs styling, unset it:
+
+```css
+.amplify-tabs {
+  all: unset;
+  /* Add your styling here*/
+}
+
+.amplify-tabs-items {
+  all: unset;
+  /* Add your styling here*/
+}
+```
+
+### Local styling
+
+To override styling on a specific `Tabs` or `TabItem` component, you can use (in order of increasing specificity): a class selector, data attributes, or style props.
+
+_Using a class selector:_
+
+```css
+/* styles.css */
+.custom-tabs {
+  background-color: var(--amplify-colors-brand-primary-60);
+  justify-content: center;
+  border-color: transparent;
+}
+
+.custom-tab-item {
+  background-color: var(--amplify-colors-brand-primary-80);
+  color: var(--amplify-colors-font-inverse);
+  border-color: transparent;
+}
+
+.custom-tab-item:hover {
+  color: var(--amplify-colors-font-inverse);
+  background-color: var(--amplify-colors-brand-primary-90);
+}
+
+.custom-tab-item[data-state='active'] {
+  color: var(--amplify-colors-font-inverse);
+  border-color: transparent;
+  background-color: var(--amplify-colors-brand-primary-100);
+}
+```
+
+```jsx
+import './styles.css';
+
+<Tabs className="custom-tabs">
+  <TabItem title="Tab 1" className="custom-tab-item">
+    Content of Tab 1
+  </TabItem>
+  <TabItem title="Tab 2" className="custom-tab-item">
+    Content of Tab 2
+  </TabItem>
+</Tabs>;
+```
+
+<Example>
+  <Tabs className="custom-tabs">
+    <TabItem title="Tab 1" className="custom-tab-item">
+      <DemoTabPanel>Content of Tab 1</DemoTabPanel>
+    </TabItem>
+    <TabItem title="Tab 2" className="custom-tab-item">
+      <DemoTabPanel>Content of Tab 2</DemoTabPanel>
+    </TabItem>
+  </Tabs>
+</Example>
+
+_Using data attributes:_
+
+```css
+/* styles.css */
+/* When a Tab is selected and displaying its corresponding content panel */
+.amplify-tabs-item[data-state='active'] {
+  background-color: var(--amplify-colors-brand-primary-20);
+}
+
+/* When a Tab is disabled */
+.amplify-tabs-item[data-disabled] {
+  background-color: var(--amplify-colors-background-tertiary);
+}
+```
+
+```jsx
+import './styles.css';
+
+<Tabs>
+  <TabItem title="Tab 1">Content of Tab 1</TabItem>
+  <TabItem title="Tab 2">Content of Tab 2</TabItem>
+  <TabItem title="Tab 3" isDisabled={true}>
+    Content of Tab 3
+  </TabItem>
+</Tabs>;
+```
+
+<Example className="tabs-data-demo">
+  <Tabs>
+    <TabItem title="Tab 1">
+      <DemoTabPanel>Content of Tab 1</DemoTabPanel>
+    </TabItem>
+    <TabItem title="Tab 2">
+      <DemoTabPanel>Content of Tab 2</DemoTabPanel>
+    </TabItem>
+    <TabItem title="Tab 3" isDisabled={true}>
+      <DemoTabPanel>Content of Tab 3</DemoTabPanel>
+    </TabItem>
+  </Tabs>
+</Example>
+
+_Using style props:_
+
+```jsx
+<Tabs backgroundColor="var(--amplify-colors-background-primary)">
+  <TabItem
+    title="Tab 1"
+    color="var(--amplify-colors-font-primary)"
+    backgroundColor="transparent"
+  >
+    Content of Tab 1
+  </TabItem>
+  <TabItem
+    title="Tab 2"
+    color="var(--amplify-colors-font-primary)"
+    backgroundColor="transparent"
+  >
+    Content of Tab 2
+  </TabItem>
+</Tabs>
+```
+
+<Example>
+  <Tabs backgroundColor="var(--amplify-colors-background-primary)">
+    <TabItem
+      title="Tab 1"
+      color="var(--amplify-colors-font-primary)"
+      backgroundColor="transparent"
+    >
+      <DemoTabPanel>Content of Tab 1</DemoTabPanel>
+    </TabItem>
+    <TabItem
+      title="Tab 2"
+      color="var(--amplify-colors-font-primary)"
+      backgroundColor="transparent"
+    >
+      <DemoTabPanel>Content of Tab 2</DemoTabPanel>
+    </TabItem>
+  </Tabs>
+</Example>
+
+Note: there is currently no way to style different states like hover using only style props. However Amplify UI works well with CSS in JS frameworks for this usecase. Take a look at the [alternative styling docs](/ui/theme/alternativeStyling) for information how to use CSS in JS with Amplify UI.
+
+## Accessibility
+
+Adheres to the [Tabs WAI-ARIA design pattern](https://www.w3.org/TR/wai-aria-practices-1.1/#tabpanel).
+
+We recommend passing an `ariaLabel` prop to help enable assistive technology.
+
+```jsx
+<Tabs ariaLabel="fruits">
+  <TabItem title="Apples">
+    Play with the Tab and Arrow keys to engage with this component.
+  </TabItem>
+  <TabItem title="Bananas">
+    Notice how an outline is added when the :focus-visible pseudo-class is
+    applied.
+  </TabItem>
+</Tabs>
+```
+
+<Example>
+  <Tabs ariaLabel="fruits">
+    <TabItem title="Apples">
+      <DemoTabPanel>
+        Play with the Tab and Arrow keys to engage with this component.
+      </DemoTabPanel>
+    </TabItem>
+    <TabItem title="Bananas">
+      <DemoTabPanel>
+        Notice how an outline is added when the :focus-visible pseudo-class is
+        applied.
+      </DemoTabPanel>
+    </TabItem>
+  </Tabs>
+</Example>

@@ -68,12 +68,24 @@ module.exports = {
     borderRadius: { value: '0' },
     _focus: {
       borderBlockEndColor: { value: '{colors.focus.value}' },
-      boxShadow: { value: '0 1px {colors.focus.value}' },
+      boxShadow: {
+        value: {
+          offsetX: '0px',
+          offsetY: '1px',
+          color: '{colors.focus.value}',
+        },
+      },
     },
     _error: {
       borderBlockEndColor: { value: '{colors.error.value}' },
       _focus: {
-        boxShadow: { value: '0 1px {colors.error.value}' },
+        boxShadow: {
+          value: {
+            offsetX: '0px',
+            offsetY: '1px',
+            color: '{colors.error.value}',
+          },
+        },
       },
     },
   },
@@ -88,7 +100,15 @@ module.exports = {
     //
     // IMPORTANT: Must recalibrate if `colors.border.primary` or `colors.focus` are changed
     borderColor: { value: '{colors.focus.value}' },
-    boxShadow: { value: '0px 0px 0px 1px {colors.focus.value}' },
+    boxShadow: {
+      value: {
+        offsetX: '0px',
+        offsetY: '0px',
+        blurRadius: '0px',
+        spreadRadius: '1px',
+        color: '{colors.focus.value}',
+      },
+    },
   },
   _disabled: {
     color: { value: '{colors.font.disabled.value}' },
@@ -99,7 +119,15 @@ module.exports = {
   _error: {
     borderColor: { value: '{colors.error.value}' },
     _focus: {
-      boxShadow: { value: '0px 0px 0px 1px {colors.error.value}' },
+      boxShadow: {
+        value: {
+          offsetX: '0px',
+          offsetY: '0px',
+          blurRadius: '0px',
+          spreadRadius: '1px',
+          color: '{colors.error.value}',
+        },
+      },
     },
   },
 };

@@ -1,0 +1,124 @@
+import { View } from '@aws-amplify/ui-react';
+import { ViewDemo } from './demo';
+import { Example } from '@/components/Example';
+
+View is a container that contains stuff. View is the most abstract component on top of which all other components live.
+
+## Demo
+
+<ViewDemo />
+
+## Usage
+
+Import the View component and styles.
+
+```jsx
+import { View } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<View>Nice view! 🏔</View>;
+```
+
+<Example>
+  <View>Nice view! 🏔</View>
+</Example>
+
+### Set rendered HTML element
+
+Change the HTML element rendered by View with the `as` property.
+
+```jsx
+<View as="section">I'm a Section</View>
+```
+
+<Example>
+  <View as="section">I'm a Section</View>
+</Example>
+
+### Disabled state
+
+```jsx
+<View as="button" isDisabled={true} onClick={() => alert("This won't fire 🚫")}>
+  You can't click me!
+</View>
+```
+
+<Example>
+  <View
+    as="button"
+    isDisabled={true}
+    onClick={() => alert("This won't fire 🚫")}
+  >
+    You can't click me!
+  </View>
+</Example>
+
+### Accessibility
+
+Setting an `aria-label` attribute and `role` for an icon button
+
+```jsx
+<View ariaLabel="To the moon!" role="button" onClick={() => alert('👋 hello')}>
+  🚀
+</View>
+```
+
+<Example>
+  <View
+    ariaLabel="To the moon!"
+    role="button"
+    onClick={() => alert('👋 hello')}
+  >
+    🚀
+  </View>
+</Example>
+
+### Custom attributes
+
+Pass any attribute to the underlying HTML element.
+
+```jsx
+<View as="progress" data-progress-bar max="100" value="50" />
+```
+
+<Example>
+  <View
+    as="progress"
+    data-progress-bar
+    max="100"
+    value="50"
+    style={{ all: 'revert' }}
+  />
+</Example>
+
+## CSS Styling
+
+### Local styling
+
+To override styling on a specific View, you can use a class selector or style props.
+
+_Using a class selector:_
+
+```css
+/* styles.css */
+.mountain-view {
+  background-color: #b7daf9;
+  display: block;
+  font-size: 5em;
+  text-align: center;
+}
+```
+
+```jsx
+import './styles.css';
+
+<View className="mountain-view">🏔</View>;
+```
+
+<Example>
+  <View className="mountain-view">🏔</View>
+</Example>
+
+_Using style props:_
+
+(Example needed)

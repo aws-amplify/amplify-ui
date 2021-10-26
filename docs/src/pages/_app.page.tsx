@@ -49,7 +49,7 @@ function MyApp({ Component, pageProps }) {
               {...pageProps}
             />
           </div>
-          <Footer />
+          {/* <Footer /> */}
         </div>
       </AmplifyProvider>
     </>

@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { useRouter } from 'next/router';
+import { Sandpack } from '@codesandbox/sandpack-react';
+import '@codesandbox/sandpack-react/dist/index.css';
 import {
   Button,
   Badge,
@@ -31,6 +33,13 @@ import { HomeLogo } from '@/components/HomeLogo';
 import { theme } from '../theme';
 
 const { tokens } = theme;
+
+const code = `import {Button} from '@aws-amplify/ui-react'; 
+import '@aws-amplify/ui-react/styles.css';
+
+export default function App() {
+  return <Button>Hello!</Button>
+}`;
 
 const HomePage = () => {
   // const testTheme = createTheme({
@@ -76,6 +85,21 @@ const HomePage = () => {
             />
           </Flex>
         </Card>
+      </View>
+      <View>
+        <Sandpack
+          template="react"
+          files={{
+            '/App.js': code,
+          }}
+          customSetup={{
+            dependencies: {
+              '@aws-amplify/ui-react': '0.0.0-next-2021922213736',
+              'aws-amplify': 'latest',
+            },
+            entry: '/index.js',
+          }}
+        />
       </View>
 
       <View
