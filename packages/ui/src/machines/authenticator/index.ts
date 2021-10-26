@@ -11,7 +11,7 @@ const DEFAULT_COUNTRY_CODE = '+1';
 export type AuthenticatorMachineOptions = {
   initialState?: 'signIn' | 'signUp' | 'resetPassword';
   loginMechanisms?: LoginMechanism[];
-  services?: typeof defaultServices;
+  services?: Partial<typeof defaultServices>;
 };
 
 export function createAuthenticatorMachine({

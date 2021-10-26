@@ -1,6 +1,6 @@
 import { Amplify, Auth } from 'aws-amplify';
 
-import { runValidators } from '../../validators';
+import { ValidatorResult } from '../../types';
 
 export const defaultServices = {
   async getAmplifyConfig() {
@@ -12,8 +12,8 @@ export const defaultServices = {
   },
 
   // Validation hooks for overriding
-  async validateCustomSignUp(formData) {},
-  async validateConfirmPassword(formData) {
+  async validateCustomSignUp(formData): Promise<ValidatorResult> {},
+  async validateConfirmPassword<Validator>(formData): Promise<ValidatorResult> {
     const { password, confirm_password } = formData;
 
     if (!password && !confirm_password) {
@@ -26,5 +26,5 @@ export const defaultServices = {
       };
     }
   },
-  async validatePreferredUsername(formData) {},
+  async validatePreferredUsername(formData): Promise<ValidatorResult> {},
 };

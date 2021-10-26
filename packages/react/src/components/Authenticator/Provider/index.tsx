@@ -11,7 +11,7 @@ import { defaultComponents } from './defaultComponents';
 
 export type ProviderProps = AuthenticatorMachineOptions & {
   components?: typeof defaultComponents;
-  services?: undefined;
+  services?: AuthenticatorMachineOptions['services'];
 };
 
 const useAuthenticatorValue = ({
