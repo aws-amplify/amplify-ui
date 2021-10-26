@@ -51,7 +51,7 @@ const theme = createTheme({
 
 export default function App() {
   return (
-    <AmplifyProvider>
+    <AmplifyProvider theme={theme}>
       <Card>
         <Badge variation="success">New</Badge>
         <Button>Hello!</Button>
@@ -109,20 +109,38 @@ const HomePage = () => {
           </Flex>
         </Card>
       </View>
-      <View>
-        <Sandpack
-          template="react"
-          files={{
-            '/App.js': code,
-          }}
-          customSetup={{
-            dependencies: {
-              '@aws-amplify/ui-react': '0.0.0-next-2021922213736',
-              'aws-amplify': 'latest',
-            },
-            entry: '/index.js',
-          }}
-        />
+      <View
+        backgroundColor={`${tokens.colors.background.secondary}`}
+        padding={`${tokens.space.xl}`}
+      >
+        <Card style={{ width: '100%', padding: 0 }}>
+          <Sandpack
+            template="react"
+            files={{
+              '/App.js': code,
+            }}
+            theme={{
+              typography: {
+                fontSize: '16px',
+                lineHeight: '1.5',
+              },
+            }}
+            options={{
+              editorHeight: 500,
+              showNavigator: true, // this will show a top navigator bar instead of the refresh button
+              showTabs: true, // you can toggle the tabs on/off manually
+              showLineNumbers: true, // this is off by default, but you can show line numbers for the editor
+              wrapContent: true, // also off by default, this wraps the code instead of creating horizontal overflow
+            }}
+            customSetup={{
+              dependencies: {
+                '@aws-amplify/ui-react': '0.0.0-next-202192618169',
+                'aws-amplify': 'latest',
+              },
+              entry: '/index.js',
+            }}
+          />
+        </Card>
       </View>
 
       <View
