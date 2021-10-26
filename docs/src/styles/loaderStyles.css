@@ -1,0 +1,13 @@
+.global-styling-example {
+  --amplify-components-loader-stroke-filled: var(--amplify-colors-red-80);
+}
+
+.my-loader {
+  width: 5rem;
+  height: 5rem;
+}
+
+.data-attribute-styling-example {
+  width: 5rem;
+  height: 5rem;
+}

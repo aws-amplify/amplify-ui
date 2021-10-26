@@ -36,6 +36,7 @@ export enum ComponentClassNames {
   Input = 'amplify-input',
   Label = 'amplify-label',
   Link = 'amplify-link',
+  Loader = 'amplify-loader',
   Pagination = 'amplify-pagination',
   PaginationItemButton = 'amplify-pagination__item-button',
   PaginationItemCurrent = 'amplify-pagination__item-current',
