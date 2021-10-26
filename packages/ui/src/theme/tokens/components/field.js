@@ -5,7 +5,7 @@ module.exports = {
 
   // Adjust base fontSize and gap for small and large sizes
   small: {
-    gap: { value: '{space.xxs.value}' },
+    gap: { value: '{space.xxxs.value}' },
     fontSize: { value: '{fontSizes.small.value}' },
   },
   large: {

@@ -1,51 +1,83 @@
 import classNames from 'classnames';
 
 import { ComponentClassNames } from '../shared/constants';
-import { useStableId } from '../shared/utils';
 import { FieldDescription, FieldErrorMessage } from '../Field';
-import { Flex } from '../Flex';
 import { FieldGroup } from '../FieldGroup';
+import { Flex } from '../Flex';
 import { Input } from '../Input';
 import { Label } from '../Label';
-import { Primitive, TextFieldProps } from '../types';
+import { PrimitiveProps, TextFieldProps } from '../types';
+import { TextArea } from '../TextArea';
+import { useStableId } from '../shared/utils';
 
-export const TextField: Primitive<TextFieldProps, 'input'> = ({
-  alignContent,
-  alignItems,
-  autoComplete,
-  className,
-  defaultValue,
-  descriptiveText,
-  direction = 'column',
-  errorMessage,
-  gap,
-  hasError = false,
-  id,
-  isDisabled,
-  isReadOnly,
-  isRequired,
-  justifyContent,
-  label,
-  labelHidden = false,
-  outerEndComponent,
-  outerStartComponent,
-  innerStartComponent,
-  innerEndComponent,
-  onChange,
-  onCopy,
-  onCut,
-  onInput,
-  onPaste,
-  onSelect,
-  onSubmit,
-  size,
-  testId,
-  type = 'text',
-  value,
-  wrap,
-  ...rest
-}) => {
+const isTextAreaField = (props: {
+  isMultiline?: boolean;
+}): props is PrimitiveProps<TextFieldProps<true>, 'textarea'> => {
+  return props.isMultiline;
+};
+
+const isInputField = (props: {
+  isMultiline?: boolean;
+}): props is PrimitiveProps<TextFieldProps<false>, 'input'> => {
+  return !props.isMultiline;
+};
+
+export const DEFAULT_ROW_COUNT = 3;
+
+export const TextField = <Multiline extends boolean>(
+  props: PrimitiveProps<TextFieldProps<Multiline>, 'input' | 'textarea'>
+) => {
+  const {
+    alignContent,
+    alignItems,
+    className,
+    descriptiveText,
+    direction = 'column',
+    errorMessage,
+    gap,
+    hasError = false,
+    id,
+    justifyContent,
+    label,
+    labelHidden = false,
+    outerEndComponent,
+    outerStartComponent,
+    innerStartComponent,
+    innerEndComponent,
+    isMultiline, // remove from rest to prevent passing as DOM attribute
+    type, // remove from rest to prevent passing as DOM attribute to textarea
+    size,
+    testId,
+    wrap,
+    ...rest
+  } = props;
+
   const fieldId = useStableId(id);
+
+  let control: JSX.Element = null;
+  if (isTextAreaField(props)) {
+    const { rows } = props;
+    control = (
+      <TextArea
+        hasError={hasError}
+        id={fieldId}
+        rows={rows ?? DEFAULT_ROW_COUNT}
+        size={size}
+        {...rest}
+      />
+    );
+  } else if (isInputField(props)) {
+    const { type = 'text' } = props;
+    control = (
+      <Input
+        hasError={hasError}
+        id={fieldId}
+        size={size}
+        type={type}
+        {...rest}
+      />
+    );
+  }
 
   return (
     <Flex
@@ -76,26 +108,7 @@ export const TextField: Primitive<TextFieldProps, 'input'> = ({
         innerStartComponent={innerStartComponent}
         innerEndComponent={innerEndComponent}
       >
-        <Input
-          autoComplete={autoComplete}
-          defaultValue={defaultValue}
-          hasError={hasError}
-          id={fieldId}
-          isDisabled={isDisabled}
-          isReadOnly={isReadOnly}
-          isRequired={isRequired}
-          onChange={onChange}
-          onCopy={onCopy}
-          onCut={onCut}
-          onInput={onInput}
-          onPaste={onPaste}
-          onSelect={onSelect}
-          onSubmit={onSubmit}
-          size={size}
-          type={type}
-          value={value}
-          {...rest}
-        />
+        {control}
       </FieldGroup>
       <FieldErrorMessage hasError={hasError} errorMessage={errorMessage} />
     </Flex>

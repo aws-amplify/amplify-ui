@@ -9,7 +9,7 @@ import { RadioGroupFieldProps, Primitive } from '../types';
 import { ComponentClassNames } from '../shared/constants';
 import { useStableId } from '../shared/utils';
 
-export const RadioGroupField: Primitive<RadioGroupFieldProps, typeof Flex> = ({
+export const RadioGroupField: Primitive<RadioGroupFieldProps, 'input'> = ({
   alignContent,
   alignItems,
   children,

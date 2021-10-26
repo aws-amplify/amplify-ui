@@ -47,6 +47,7 @@ export const SwitchField: Primitive<SwitchFieldProps, typeof Flex> = ({
     >
       <VisuallyHidden>
         <Input
+          role="switch"
           type="checkbox"
           id={fieldId}
           onChange={changeHandler}

@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { PhoneNumberField } from '../PhoneNumberField';
-import { PhoneNumberFieldProps } from '../../types';
+import { PhoneNumberFieldProps, PrimitiveProps } from '../../types';
 import { ComponentClassNames } from '../../shared/constants';
 
 describe('PhoneNumberField primitive', () => {
@@ -10,7 +10,7 @@ describe('PhoneNumberField primitive', () => {
     defaultCountryCode = '+1',
     label = 'Phone Number',
     ...rest
-  }: Partial<PhoneNumberFieldProps>) => {
+  }: Partial<PrimitiveProps<PhoneNumberFieldProps, 'input'>>) => {
     render(
       <PhoneNumberField
         defaultCountryCode={defaultCountryCode}
