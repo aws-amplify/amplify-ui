@@ -65,23 +65,23 @@ module.exports = {
     borderBlockStart: { value: 'none' },
     borderRadius: { value: '0' },
     _focus: {
-      borderBlockEndColor: { value: '{colors.focus.value}' },
+      borderBlockEndColor: { value: '{colors.border.focus.value}' },
       boxShadow: {
         value: {
           offsetX: '0px',
           offsetY: '1px',
-          color: '{colors.focus.value}',
+          color: '{colors.border.focus.value}',
         },
       },
     },
     _error: {
-      borderBlockEndColor: { value: '{colors.error.value}' },
+      borderBlockEndColor: { value: '{colors.border.error.value}' },
       _focus: {
         boxShadow: {
           value: {
             offsetX: '0px',
             offsetY: '1px',
-            color: '{colors.error.value}',
+            color: '{colors.border.error.value}',
           },
         },
       },
@@ -97,14 +97,14 @@ module.exports = {
     // * Contrast between focused and unfocused states has a ratio of 3:1
     //
     // IMPORTANT: Must recalibrate if `colors.border.primary` or `colors.focus` are changed
-    borderColor: { value: '{colors.focus.value}' },
+    borderColor: { value: '{colors.border.focus.value}' },
     boxShadow: {
       value: {
         offsetX: '0px',
         offsetY: '0px',
         blurRadius: '0px',
         spreadRadius: '1px',
-        color: '{colors.focus.value}',
+        color: '{colors.border.focus.value}',
       },
     },
   },
@@ -115,7 +115,7 @@ module.exports = {
     backgroundColor: { value: '{colors.background.disabled.value}' },
   },
   _error: {
-    borderColor: { value: '{colors.error.value}' },
+    borderColor: { value: '{colors.border.error.value}' },
     _focus: {
       boxShadow: {
         value: {
@@ -123,7 +123,7 @@ module.exports = {
           offsetY: '0px',
           blurRadius: '0px',
           spreadRadius: '1px',
-          color: '{colors.error.value}',
+          color: '{colors.border.error.value}',
         },
       },
     },

@@ -5,7 +5,7 @@ module.exports = {
     backgroundColor: { value: '{colors.overlay.10.value}' },
   },
   _focus: {
-    borderColor: { value: '{colors.focus.value}' },
+    borderColor: { value: '{colors.border.focus.value}' },
     color: { value: '{colors.overlay.50.value}' },
   },
   _active: {
@@ -27,7 +27,7 @@ module.exports = {
     backgroundColor: { value: '{colors.transparent.value}' },
     borderWidth: { value: '{borderWidths.small.value}' },
     _focus: {
-      borderColor: { value: '{colors.focus.value}' },
+      borderColor: { value: '{colors.border.focus.value}' },
       backgroundColor: { value: '{colors.transparent.value}' },
       boxShadow: { value: '{components.fieldcontrol.focus.boxShadow.value}' },
       color: { value: '{colors.overlay.50.value}' },
@@ -46,9 +46,9 @@ module.exports = {
       color: { value: '{colors.white.value}' },
       _focus: {
         backgroundColor: {
-          value: '{colors.focus.value}',
+          value: '{colors.border.focus.value}',
         },
-        borderColor: { value: '{colors.focus.value}' },
+        borderColor: { value: '{colors.border.focus.value}' },
       },
       _hover: {
         borderColor: { value: '{colors.brand.primary.60.value}' },

@@ -31,7 +31,7 @@ module.exports = {
           offsetY: '0px',
           blurRadius: '0px',
           spreadRadius: '2px',
-          color: '{colors.focus.value}',
+          color: '{colors.border.focus.value}',
         },
       },
     },
@@ -39,7 +39,7 @@ module.exports = {
       borderColor: { value: '{colors.border.disabled.value}' },
     },
     _error: {
-      borderColor: { value: '{colors.error.value}' },
+      borderColor: { value: '{colors.border.error.value}' },
       _focus: {
         borderColor: { value: '{colors.transparent.value}' },
         boxShadow: {
@@ -48,7 +48,7 @@ module.exports = {
             offsetY: '0px',
             blurRadius: '0px',
             spreadRadius: '2px',
-            color: '{colors.error.value}',
+            color: '{colors.border.error.value}',
           },
         },
       },
