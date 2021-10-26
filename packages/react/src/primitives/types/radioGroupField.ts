@@ -1,7 +1,8 @@
+import * as React from 'react';
+
 import { FlexContainerStyleProps } from './flex';
 import { FieldProps } from './field';
 import { InputProps } from './input';
-import React from 'react';
 
 export interface RadioGroupFieldProps
   extends FieldProps,
