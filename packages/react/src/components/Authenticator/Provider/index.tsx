@@ -9,8 +9,12 @@ import generateContext from 'react-generate-context';
 
 import { defaultComponents } from './defaultComponents';
 
+type DeepPartial<T> = {
+  [propertyKey in keyof T]?: DeepPartial<T[propertyKey]>;
+};
+
 export type ProviderProps = AuthenticatorMachineOptions & {
-  components?: typeof defaultComponents;
+  components?: DeepPartial<typeof defaultComponents>;
   services?: AuthenticatorMachineOptions['services'];
 };
 
