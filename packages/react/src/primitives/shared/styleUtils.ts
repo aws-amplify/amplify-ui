@@ -247,7 +247,7 @@ export const splitPrimitiveProps = <PrimitiveProps>(
   let flexContainerStyleProps = {};
   let baseStyleProps = {};
 
-  for (const prop in props) {
+  Object.keys(props).forEach((prop) => {
     if (prop in FlexContainerStylePropsMap) {
       flexContainerStyleProps = {
         ...flexContainerStyleProps,
@@ -258,7 +258,7 @@ export const splitPrimitiveProps = <PrimitiveProps>(
     } else {
       rest = { ...rest, [prop]: props[prop] };
     }
-  }
+  });
 
   return {
     flexContainerStyleProps,

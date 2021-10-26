@@ -9,7 +9,9 @@ import { RadioGroupFieldProps, Primitive } from '../types';
 import { ComponentClassNames } from '../shared/constants';
 import { useStableId } from '../shared/utils';
 
-export const RadioGroupField: Primitive<RadioGroupFieldProps, 'input'> = ({
+// Note: RadioGroupField doesn't extend the JSX.IntrinsicElements<'input'> types (instead extending 'typeof Flex')
+// because all rest props are passed to Flex container
+export const RadioGroupField: Primitive<RadioGroupFieldProps, typeof Flex> = ({
   children,
   className,
   defaultValue,
