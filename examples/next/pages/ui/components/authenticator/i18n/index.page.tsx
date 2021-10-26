@@ -1,4 +1,4 @@
-import { Amplify, I18n } from 'aws-amplify';
+import { Amplify, I18n } from '@aws-amplify/core';
 
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';

@@ -286,7 +286,7 @@
 <script setup lang="ts">
 import { ref, provide, computed, useAttrs, watch, onBeforeMount } from 'vue';
 import { useActor, useInterpret } from '@xstate/vue';
-import { I18n } from 'aws-amplify';
+import { I18n } from '@aws-amplify/core';
 import {
   getActorState,
   getServiceFacade,

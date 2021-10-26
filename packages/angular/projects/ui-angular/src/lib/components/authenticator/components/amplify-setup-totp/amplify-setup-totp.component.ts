@@ -8,7 +8,8 @@ import {
 } from '@angular/core';
 import { Subscription } from 'xstate';
 import QRCode from 'qrcode';
-import { Auth, Logger } from 'aws-amplify';
+import { Auth } from '@aws-amplify/auth';
+import { Logger } from '@aws-amplify/core';
 import {
   AuthMachineState,
   getActorContext,

@@ -1,4 +1,4 @@
-import { Auth } from 'aws-amplify';
+import { Auth } from '@aws-amplify/auth';
 import { createMachine, sendUpdate } from 'xstate';
 
 import { AuthEvent, ResetPasswordContext } from '../../../types';

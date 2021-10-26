@@ -1,4 +1,5 @@
-import { Auth, Logger } from 'aws-amplify';
+import { Auth } from '@aws-amplify/auth';
+import { Logger } from '@aws-amplify/core';
 import { getActorState, SignInState, translate } from '@aws-amplify/ui';
 
 import QRCode from 'qrcode';

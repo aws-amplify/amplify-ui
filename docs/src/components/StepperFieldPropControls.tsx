@@ -8,7 +8,7 @@ import {
 } from '@aws-amplify/ui-react';
 
 import { DemoBox } from './DemoBox';
-import { label } from 'aws-amplify';
+import { label } from '@aws-amplify/ui';
 
 export interface StepperFieldPropControlsProps extends StepperFieldProps {
   setLabel: (min: React.SetStateAction<StepperFieldProps['label']>) => void;

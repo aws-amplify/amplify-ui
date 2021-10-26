@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import awsExports from '@environments/auth-with-email/src/aws-exports';
-import Amplify, { I18n } from 'aws-amplify';
+import Amplify, { I18n } from '@aws-amplify/core';
 @Component({
   selector: 'i18n',
   templateUrl: 'i18n.component.html',

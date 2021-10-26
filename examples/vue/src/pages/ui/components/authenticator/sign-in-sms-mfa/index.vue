@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Amplify from 'aws-amplify';
+import { Amplify } from '@aws-amplify/core';
 import '@aws-amplify/ui-vue/styles.css';
 import { Authenticator } from '@aws-amplify/ui-vue';
 import aws_exports from '@environments/auth-with-phone-and-sms-mfa/src/aws-exports';

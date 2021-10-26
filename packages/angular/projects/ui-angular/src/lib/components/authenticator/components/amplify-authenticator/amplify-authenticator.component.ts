@@ -14,7 +14,7 @@ import {
   translate,
   translations,
 } from '@aws-amplify/ui';
-import { I18n } from 'aws-amplify';
+import { I18n } from '@aws-amplify/core';
 import { CustomComponents } from '../../../../common';
 import { AmplifySlotDirective } from '../../../../directives/amplify-slot.directive';
 import { AuthPropService } from '../../../../services/authenticator-context.service';

@@ -55,7 +55,7 @@ Whenever `yarn angular build` is run, such as part of postinstall script, you wa
    ```js
    // examples/next/pages/components/authenticator/sign-up-with-username.tsx
    import { Authenticator } from '@aws-amplify/ui-react';
-   import { Amplify } from 'aws-amplify';
+   import { Amplify } from '@aws-amplify/core';
    import awsExports from '../../../../../environments/auth-with-username-no-attributes/src/aws-exports';
 
    Amplify.configure(awsExports);

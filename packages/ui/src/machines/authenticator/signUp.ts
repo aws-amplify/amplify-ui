@@ -1,4 +1,4 @@
-import { Auth } from 'aws-amplify';
+import { Auth } from '@aws-amplify/auth';
 import { get, pickBy } from 'lodash';
 import { createMachine, sendUpdate } from 'xstate';
 

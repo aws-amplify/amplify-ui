@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { Amplify } from 'aws-amplify';
+import { Amplify } from '@aws-amplify/core';
 import awsExports from '@environments/auth-with-phone-number/src/aws-exports';
 
 @Component({

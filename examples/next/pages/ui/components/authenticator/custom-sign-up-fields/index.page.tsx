@@ -1,4 +1,4 @@
-import { Amplify } from 'aws-amplify';
+import { Amplify } from '@aws-amplify/core';
 
 import {
   // Access the default `Authenticator.SignUp.FormFields` for re-use

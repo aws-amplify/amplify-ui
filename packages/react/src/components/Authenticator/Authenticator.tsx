@@ -1,5 +1,5 @@
 import { translations } from '@aws-amplify/ui';
-import { I18n } from 'aws-amplify';
+import { I18n } from '@aws-amplify/core';
 import * as React from 'react';
 
 import { Provider, ProviderProps } from './Provider';
