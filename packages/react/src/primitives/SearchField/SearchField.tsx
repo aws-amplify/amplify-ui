@@ -26,7 +26,7 @@ export const useSearchField = (onSubmit: SearchFieldProps['onSubmit']) => {
     [onSubmit]
   );
 
-  const onKeyDown: InputProps['onKeyDown'] = React.useCallback(
+  const onKeyDown = React.useCallback(
     (event) => {
       const key = event.key;
 
@@ -90,6 +90,7 @@ export const SearchField: Primitive<SearchFieldProps, 'input'> = ({
           size={size}
         />
       }
+      isMultiline={false}
       label={label}
       name={name}
       onInput={onInput}

@@ -1,7 +1,7 @@
 import { FieldGroupIconButtonProps } from './fieldGroupIcon';
-import { TextFieldProps } from './textField';
+import { TextInputFieldProps } from './textField';
 
-export interface SearchFieldProps extends TextFieldProps {
+export interface SearchFieldProps extends TextInputFieldProps {
   /**
    * Handle submission of search field input
    */

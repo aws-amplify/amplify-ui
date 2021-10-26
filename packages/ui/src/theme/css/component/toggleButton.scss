@@ -83,9 +83,24 @@
       background-color: var(
         --amplify-components-togglebutton-primary-pressed-background-color
       );
+      border-color: var(
+        --amplify-components-togglebutton-primary-pressed-border-color
+      );
       color: var(--amplify-components-togglebutton-primary-pressed-color);
 
+      &:focus {
+        border-color: var(
+          --amplify-components-togglebutton-primary-pressed-focus-border-color
+        );
+        background-color: var(
+          --amplify-components-togglebutton-primary-pressed-focus-background-color
+        );
+      }
+
       &:hover:not(:disabled) {
+        border-color: var(
+          --amplify-components-togglebutton-primary-pressed-hover-border-color
+        );
         background-color: var(
           --amplify-components-togglebutton-primary-pressed-hover-background-color
         );

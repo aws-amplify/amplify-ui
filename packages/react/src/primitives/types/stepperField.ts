@@ -1,6 +1,6 @@
-import { TextFieldProps } from '../types/textField';
+import { TextInputFieldProps } from '../types/textField';
 
-export interface StepperFieldProps extends TextFieldProps {
+export interface StepperFieldProps extends TextInputFieldProps {
   type?: 'number';
   min?: number;
   max?: number;
