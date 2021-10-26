@@ -58,6 +58,7 @@ export enum ComponentClassNames {
   SearchFieldSearch = 'amplify-searchfield__search',
   SelectWrapper = 'amplify-select__wrapper',
   SelectIconWrapper = 'amplify-select__icon-wrapper',
+  SliderField = 'amplify-sliderfield',
   StepperField = 'amplify-stepperfield',
   StepperFieldButtonDecrease = 'amplify-stepperfield__button--decrease',
   StepperFieldButtonIncrease = 'amplify-stepperfield__button--increase',
