@@ -243,26 +243,21 @@ interface SplitProps<PrimitiveProps> {
 export const splitPrimitiveProps = <PrimitiveProps>(
   props: PrimitiveProps
 ): SplitProps<PrimitiveProps> => {
-  let rest = {} as SplitProps<PrimitiveProps>['rest'];
-  let flexContainerStyleProps = {};
-  let baseStyleProps = {};
+  const splitProps: SplitProps<PrimitiveProps> = {
+    flexContainerStyleProps: {},
+    baseStyleProps: {},
+    rest: {} as SplitProps<PrimitiveProps>['rest'],
+  };
 
   Object.keys(props).forEach((prop) => {
     if (prop in FlexContainerStylePropsMap) {
-      flexContainerStyleProps = {
-        ...flexContainerStyleProps,
-        [prop]: props[prop],
-      };
+      splitProps.flexContainerStyleProps[prop] = props[prop];
     } else if (prop in BaseStylePropsMap) {
-      baseStyleProps = { ...baseStyleProps, [prop]: props[prop] };
+      splitProps.baseStyleProps[prop] = props[prop];
     } else {
-      rest = { ...rest, [prop]: props[prop] };
+      splitProps.rest[prop] = props[prop];
     }
   });
 
-  return {
-    flexContainerStyleProps,
-    baseStyleProps,
-    rest,
-  };
+  return splitProps;
 };
