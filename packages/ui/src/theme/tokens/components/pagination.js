@@ -1,31 +1,34 @@
 module.exports = {
   current: {
+    alignItems: { value: 'center' },
+    justifyContent: { value: 'center' },
     color: { value: '{colors.white.value}' },
     fontSize: { value: '{fontSizes.small.value}' },
-    backgroundColor: { value: 'rgba(0, 0, 0, 0.4)' },
+    backgroundColor: { value: '{colors.overlay.40.value}' },
   },
   button: {
-    color: { value: 'inherit' },
-    fontWeight: { value: 'inherit' },
-    paddingTop: { value: '0' },
-    paddingRight: { value: '6px' },
-    paddingBottom: { value: '0' },
-    paddingLeft: { value: '6px' },
-    transition: { value: 'background-color {time.transition.medium.value}' },
+    color: { value: '{colors.font.primary.value}' },
+    paddingInlineStart: { value: '{space.xxs.value}' },
+    paddingInlineEnd: { value: '{space.xxs.value}' },
+    transitionProperty: { value: 'background-color' },
+    transitionDuration: { value: '{time.transition.medium.value}' },
     hover: {
-      backgroundColor: { value: 'rgba(0, 0, 0, 0.1)' },
+      backgroundColor: { value: '{colors.overlay.10.value}' },
+      color: { value: '{colors.font.primary.value}' },
     },
     disabled: {
-      opacity: { value: '{opacities.40.value}' },
+      color: { value: '{colors.font.disabled.value}' },
     },
   },
   ellipsis: {
-    paddingRight: { value: '8px' },
-    paddingLeft: { value: '8px' },
+    alignItems: { value: 'baseline' },
+    justifyContent: { value: 'center' },
+    paddingInlineStart: { value: '{space.xs.value}' },
+    paddingInlineEnd: { value: '{space.xs.value}' },
   },
   itemContainer: {
-    marginLeft: { value: '4px' },
-    marginRight: { value: '4px' },
+    marginLeft: { value: '{space.xxxs.value}' },
+    marginRight: { value: '{space.xxxs.value}' },
   },
   itemShared: {
     height: { value: '{fontSizes.xxl.value}' },

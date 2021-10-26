@@ -53,7 +53,7 @@
                 :label="newPasswordLabel"
                 autocomplete="current-password"
                 :ariainvalid="
-                  !!actorContext.validationError['confirm_password']
+                  !!(actorContext.validationError as ValidationError)['confirm_password']
                 "
               />
             </base-wrapper>
@@ -71,7 +71,7 @@
                 :label="confirmPasswordLabel"
                 autocomplete="new-password"
                 :ariainvalid="
-                  !!actorContext.validationError['confirm_password']
+                  !!(actorContext.validationError as ValidationError)['confirm_password']
                 "
               />
             </base-wrapper>
@@ -115,9 +115,9 @@
 
     <base-box
       data-ui-error
-      v-if="!!actorContext.validationError['confirm_password']"
+      v-if="!!(actorContext.validationError as ValidationError)['confirm_password']"
     >
-      {{ actorContext.validationError['confirm_password'] }}
+      {{ (actorContext.validationError as ValidationError)['confirm_password'] }}
     </base-box>
   </slot>
 </template>
@@ -129,6 +129,7 @@ import {
   getActorState,
   ResetPasswordContext,
   ResetPasswordState,
+  ValidationError,
   translate,
 } from '@aws-amplify/ui';
 

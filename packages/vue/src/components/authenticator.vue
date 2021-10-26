@@ -355,16 +355,16 @@ provide(InterpretServiceInjectionKeyTypes, <InterpretService>service);
 const actorState = computed(() => getActorState(state.value));
 const variationModal = computed(() => (variation === 'modal' ? true : null));
 
-const signInComponent = ref(null);
-const signUpComponent = ref(null);
-const confirmSignUpComponent = ref(null);
-const confirmSignInComponent = ref(null);
-const confirmSetupTOTPComponent = ref(null);
-const forceNewPasswordComponent = ref(null);
-const resetPasswordComponent = ref(null);
-const confirmResetPasswordComponent = ref(null);
-const verifyUserComponent = ref(null);
-const confirmVerifyUserComponent = ref(null);
+const signInComponent = ref();
+const signUpComponent = ref();
+const confirmSignUpComponent = ref();
+const confirmSignInComponent = ref();
+const confirmSetupTOTPComponent = ref();
+const forceNewPasswordComponent = ref();
+const resetPasswordComponent = ref();
+const confirmResetPasswordComponent = ref();
+const verifyUserComponent = ref();
+const confirmVerifyUserComponent = ref();
 
 // computed
 
@@ -377,7 +377,7 @@ const onSignInSubmitI = (e: Event) => {
   if (attrs?.onSignInSubmit) {
     emit('signInSubmit', e);
   } else {
-    signInComponent.value.submit(e);
+    signInComponent.value?.submit(e);
   }
 };
 
@@ -460,7 +460,7 @@ const onConfirmVerifyUserSubmitI = (e: Event) => {
  */
 
 const user = ref(null);
-const signOut = ref(null);
+const signOut = ref();
 
 watch(
   () => state.value.context,

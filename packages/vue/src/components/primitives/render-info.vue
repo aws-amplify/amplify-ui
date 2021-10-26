@@ -1,15 +1,15 @@
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue';
 
 export default defineComponent({
   props: {
     info: {
-      type: Object
-    }
+      type: Object,
+    },
   },
-  setup(props): () => Record<string, unknown> {
+  setup(props): () => Record<string, unknown> | undefined {
     return () => props.info;
-  }
+  },
 });
 </script>
 
