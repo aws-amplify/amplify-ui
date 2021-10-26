@@ -26,14 +26,14 @@ module.exports = {
   color: { value: '{colors.brand.primary.80.value}' },
 
   _hover: {
-    color: { value: '{colors.focus.value}' },
+    color: { value: '{colors.font.focus.value}' },
     backgroundColor: { value: '{colors.brand.primary.10.value}' },
     borderColor: { value: '{colors.brand.primary.60.value}' },
   },
   _focus: {
-    color: { value: '{colors.focus.value}' },
-    borderColor: { value: '{colors.focus.value}' },
-    boxShadow: { value: '{colors.focus.value} 0px 0px 0px 1px' },
+    color: { value: '{colors.font.focus.value}' },
+    borderColor: { value: '{colors.border.focus.value}' },
+    boxShadow: { value: '{components.fieldcontrol.focus.boxShadow.value}' },
   },
   _active: {
     color: { value: '{colors.font.inverse.value}' },
