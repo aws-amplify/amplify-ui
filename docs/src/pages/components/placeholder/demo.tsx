@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Placeholder, PlaceholderSize, Flex } from '@aws-amplify/ui-react';
 
-import { FieldLabeler } from '../../../../components/FieldLabeler';
+import { FieldLabeler } from '@/components/FieldLabeler';
 
 export const PlaceholderDemo = () => {
   const [loaded, setLoaded] = useState<boolean>();

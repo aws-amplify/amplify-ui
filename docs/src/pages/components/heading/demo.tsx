@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Heading, HeadingLevel, Flex, View } from '@aws-amplify/ui-react';
-import { FieldLabeler } from '../../../../components/FieldLabeler';
-import { Example } from '../../../../components/Example';
+import { FieldLabeler } from '@/components/FieldLabeler';
+import { Example } from '@/components/Example';
 
 export const HeadingDemo = () => {
   const [level, setLevel] = useState<HeadingLevel>(6);
