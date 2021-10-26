@@ -229,7 +229,7 @@ describe('StepperField: ', () => {
       expect(buttons[1]).toHaveAttribute('aria-controls', id);
     });
 
-    describe('Increase/Decrease icon', async () => {
+    describe('Increase/Decrease icon', () => {
       it('should pass through size attribute', async () => {
         render(<StepperField label="stepper" size="small" />);
 

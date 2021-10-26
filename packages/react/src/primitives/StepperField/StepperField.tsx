@@ -14,11 +14,12 @@ import { StepperFieldProps } from '../types/stepperField';
 import { ComponentClassNames } from '../shared/constants';
 import { SharedText } from '../shared/i18n';
 import { useStableId } from '../shared/utils';
+import { Primitive } from '../types/view';
 
 export const DECREASE_ICON = 'decrease-icon';
 export const INCREASE_ICON = 'increase-icon';
 
-export const StepperField: React.FC<StepperFieldProps> = (props) => {
+export const StepperField: Primitive<StepperFieldProps, 'input'> = (props) => {
   const {
     alignContent,
     alignItems,
