@@ -1,6 +1,12 @@
 import { render, screen } from '@testing-library/react';
 
-import { Loader } from '../Loader';
+import {
+  Loader,
+  CIRCULAR_EMPTY,
+  CIRCULAR_FILLED,
+  LINEAR_EMPTY,
+  LINEAR_FILLED,
+} from '../Loader';
 import { ComponentClassNames } from '../../shared';
 
 describe('Loader: ', () => {
@@ -28,5 +34,31 @@ describe('Loader: ', () => {
     render(<Loader ariaLabel={ariaLabel} />);
     const loader = await screen.findByRole('img');
     expect(loader).toHaveAttribute('aria-label', ariaLabel);
+  });
+
+  it('should set emptyColor and filledColor for circular Loader', async () => {
+    const emptyColor = 'gray';
+    const filledColor = 'blue';
+    render(<Loader emptyColor={emptyColor} filledColor={filledColor} />);
+    const circularEmpty = await screen.findByTestId(CIRCULAR_EMPTY);
+    const circularFilled = await screen.findByTestId(CIRCULAR_FILLED);
+    expect(circularEmpty).toHaveStyle({ stroke: emptyColor });
+    expect(circularFilled).toHaveStyle({ stroke: filledColor });
+  });
+
+  it('should set emptyColor and filledColor for linear Loader', async () => {
+    const emptyColor = 'black';
+    const filledColor = 'orange';
+    render(
+      <Loader
+        variation="linear"
+        emptyColor={emptyColor}
+        filledColor={filledColor}
+      />
+    );
+    const linearEmpty = await screen.findByTestId(LINEAR_EMPTY);
+    const linearFilled = await screen.findByTestId(LINEAR_FILLED);
+    expect(linearEmpty).toHaveStyle({ stroke: emptyColor });
+    expect(linearFilled).toHaveStyle({ stroke: filledColor });
   });
 });

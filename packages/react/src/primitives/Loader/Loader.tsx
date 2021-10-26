@@ -1,12 +1,16 @@
 import classNames from 'classnames';
-import * as React from 'react';
 
 import { View } from '../View';
 import { LoaderProps } from '../types/loader';
+import { Primitive } from '../types/view';
 import { ComponentClassNames } from '../shared/constants';
 
-export const Loader: React.FC<LoaderProps> = ({
-  ariaLabel,
+export const LINEAR_EMPTY = 'linear-empty';
+export const LINEAR_FILLED = 'linear-filled';
+export const CIRCULAR_EMPTY = 'circular-empty';
+export const CIRCULAR_FILLED = 'circular-filled';
+
+export const Loader: Primitive<LoaderProps, 'svg'> = ({
   className,
   filledColor,
   emptyColor,
@@ -14,9 +18,51 @@ export const Loader: React.FC<LoaderProps> = ({
   variation,
   ...rest
 }) => {
+  const linearLoader = (
+    <g>
+      <line
+        x1="0"
+        x2="100%"
+        y1="50%"
+        y2="50%"
+        style={{ stroke: emptyColor }}
+        data-testid={LINEAR_EMPTY}
+      />
+      <line
+        x1="0"
+        x2="100%"
+        y1="50%"
+        y2="50%"
+        style={{ stroke: filledColor }}
+        data-testid={LINEAR_FILLED}
+      />
+    </g>
+  );
+
+  // r + stroke-width should add up to 50% to avoid overflow
+  const circularLoader = (
+    <g>
+      <circle
+        cx="50%"
+        cy="50%"
+        r="42%"
+        stroke-width="8%"
+        style={{ stroke: emptyColor }}
+        data-testid={CIRCULAR_EMPTY}
+      />
+      <circle
+        cx="50%"
+        cy="50%"
+        r="42%"
+        stroke-width="8%"
+        style={{ stroke: filledColor }}
+        data-testid={CIRCULAR_FILLED}
+      />
+    </g>
+  );
+
   return (
     <View
-      ariaLabel={ariaLabel}
       as="svg"
       className={classNames(ComponentClassNames.Loader, className)}
       data-size={size}
@@ -24,30 +70,7 @@ export const Loader: React.FC<LoaderProps> = ({
       role="img"
       {...rest}
     >
-      {variation === 'linear' ? (
-        <g>
-          {/* stroke-linecap: round will cause overflow on the ends of an svg element, so 1% and 99% is a good choice versus 0% and 100% */}
-          <line
-            x1="1%"
-            x2="99%"
-            y1="50%"
-            y2="50%"
-            style={{ stroke: emptyColor }}
-          />
-          <line
-            x1="1%"
-            x2="99%"
-            y1="50%"
-            y2="50%"
-            style={{ stroke: filledColor }}
-          />
-        </g>
-      ) : (
-        <g>
-          <circle cx="50%" cy="50%" r="42%" style={{ stroke: emptyColor }} />
-          <circle cx="50%" cy="50%" r="42%" style={{ stroke: filledColor }} />
-        </g>
-      )}
+      {variation === 'linear' ? linearLoader : circularLoader}
     </View>
   );
 };

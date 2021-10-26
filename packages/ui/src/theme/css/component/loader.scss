@@ -3,13 +3,13 @@
   height: var(--amplify-components-loader-height);
   fill: none;
   stroke: var(--amplify-components-loader-stroke-empty);
-  stroke-width: var(--amplify-components-loader-stroke-width);
+
   circle:last-of-type {
     transform-origin: center center;
-    animation-name: circular;
-    animation-duration: 1s;
+    animation-name: amplify-loader-circular;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
+    animation-duration: var(--amplify-components-loader-animation-duration);
     stroke: var(--amplify-components-loader-stroke-filled);
     stroke-linecap: var(--amplify-components-loader-stroke-linecap);
   }
@@ -27,8 +27,10 @@
   line:last-of-type {
     stroke: var(--amplify-components-loader-linear-stroke-filled);
     stroke-dasharray: 50% 200%; // This will affect the animation. We don't want this to be overridden
-    animation-name: linear;
-    animation-duration: 1s;
+    animation-name: amplify-loader-linear;
+    animation-duration: var(
+      --amplify-components-loader-linear-animation-duration
+    );
     animation-timing-function: linear;
     animation-iteration-count: infinite;
   }
@@ -53,7 +55,7 @@
   }
 }
 
-@keyframes circular {
+@keyframes amplify-loader-circular {
   0% {
     stroke-dasharray: 100% 200%;
     transform: rotate(120deg);
@@ -67,7 +69,7 @@
   }
 }
 
-@keyframes linear {
+@keyframes amplify-loader-linear {
   0% {
     stroke-dashoffset: 200%;
   }
