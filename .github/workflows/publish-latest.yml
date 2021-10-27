@@ -27,7 +27,7 @@ jobs:
         uses: changesets/action@b98cec9
         with:
           version: yarn version:latest
-          publish: yarn release:latest
+          # publish: yarn release:latest # commented out until we're ready for GA release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          # NPM_TOKEN: ${{ secrets.NPM_TOKEN }} # commented out until we're ready for GA release

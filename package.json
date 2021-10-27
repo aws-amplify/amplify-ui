@@ -20,7 +20,7 @@
     "version:next": "yarn changeset version --snapshot next && yarn build",
     "publish:next": "yarn changeset publish --tag next",
     "version:latest": "yarn changeset version && yarn build",
-    "publish:latest": "yarn changeset publish"
+    "publish:latest": "echo \"not implemented until stable release\""
   },
   "workspaces": [
     "docs",
