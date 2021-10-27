@@ -1,14 +1,6 @@
 import { useActor } from '@xstate/vue';
-import {
-  watch,
-  ref,
-  onMounted,
-  reactive,
-  Ref,
-  computed,
-  ComputedRef,
-} from 'vue';
-import { getActorContext, getServiceFacade } from '@aws-amplify/ui';
+import { ref, reactive, Ref, watchEffect } from 'vue';
+import { getServiceFacade } from '@aws-amplify/ui';
 import { facade } from './useUtils';
 import { InterpretService } from '@/components';
 
@@ -23,25 +15,18 @@ export const useAuth = (serv?: InterpretService) => {
 };
 
 export const useAuthenticator = () => {
-  onMounted(() => {
+  watchEffect(() => {
+    if (!service.value) return;
+
     const { state, send } = useAuth();
-    const actorContext = computed(() =>
-      getActorContext(state.value)
-    ) as ComputedRef<any>;
 
-    watch(
-      () => [state.value.context, actorContext],
-      () => {
-        const facadeValues = getServiceFacade({ send, state: state.value });
-        for (const key of Object.keys(facade)) {
-          //@ts-ignore
-          useAuthenticatorValue[key] = facadeValues[key];
-        }
-        useAuthenticatorValue.send = send;
-        useAuthenticatorValue.state = state;
-      }
-    );
+    const facadeValues = getServiceFacade({ send, state: state.value });
+    for (const key of Object.keys(facade)) {
+      //@ts-ignore
+      useAuthenticatorValue[key] = facadeValues[key];
+    }
+    useAuthenticatorValue.send = send;
+    useAuthenticatorValue.state = state;
   });
-
   return useAuthenticatorValue;
 };
