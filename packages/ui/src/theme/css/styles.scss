@@ -39,6 +39,7 @@ html {
 @import './component/textArea.scss';
 @import './component/image.scss';
 @import './component/link.scss';
+@import './component/loader.scss';
 @import './component/placeholder.scss';
 
 // Layout
@@ -60,10 +61,12 @@ html {
 @import './component/rating.scss';
 @import './component/radio.scss';
 @import './component/radiogroup.scss';
+@import './component/radioGroupField.scss';
 @import './component/select.scss';
 @import './component/stepperField.scss';
 @import './component/switchField.scss';
 @import './component/tabs.scss';
+@import './component/textField.scss';
 @import './component/toggleButton.scss';
 @import './component/toggleButtonGroup.scss';
 

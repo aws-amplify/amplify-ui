@@ -17,6 +17,7 @@ export * from './input';
 export * from './image';
 export * from './label';
 export * from './link';
+export * from './loader';
 export * from './pagination';
 export * from './passwordField';
 export * from './phoneNumberField';

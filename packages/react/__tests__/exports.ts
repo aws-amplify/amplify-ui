@@ -1856,6 +1856,7 @@ describe('@aws-amplify/ui-react', () => {
           "LivenessFlow",
           "LivenessFlowProps",
           "LivenessStatus",
+          "Loader",
           "Main",
           "Pagination",
           "PasswordField",
