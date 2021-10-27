@@ -41,7 +41,7 @@ Feature: Confirm Sign Up
   @angular @react @vue 
   Scenario: User is already confirmed and then clicks Resend Code
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-email"
-    Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ResendConfirmationCode" } }' with error fixture "user-already-confirmed-error"
+    And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ResendConfirmationCode" } }' with error fixture "user-already-confirmed-error"
     When I type a new "email"
     And I type my password
     And I confirm my password
