@@ -31,16 +31,16 @@ jobs:
           cache: 'yarn'
       - name: Install packages
         run: yarn --frozen-lockfile
-      - name: Add changeset that bumps all public packages
-        # There needs to be a changeset for @aws-amplify/ui[-framework] to publish.
-        run: cp .github/changeset-presets/bump-versions.md .changeset
-      - name: Run changeset version to next tag
-        run: yarn version:next
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Create .npmrc
         run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - name: Publish to next tag
-        run: yarn publish:next
+      - name: Create Release Pull Request or Publish to npm
+        id: changesets
+        uses: changesets/action@b98cec9
+        with:
+          version: yarn version:latest
+          publish: yarn release:latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
