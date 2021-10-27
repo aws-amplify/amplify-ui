@@ -17,6 +17,8 @@ import {
   VerifyUser,
 } from './components/index';
 
+import { useAuthenticator } from './composables/useAuth';
+
 import './styles.css';
 
 export default {
@@ -53,6 +55,7 @@ export {
   ConfirmSignIn,
   ConfirmVerifyUser,
   VerifyUser,
+  useAuthenticator,
 };
 
 export { translations } from '@aws-amplify/ui';

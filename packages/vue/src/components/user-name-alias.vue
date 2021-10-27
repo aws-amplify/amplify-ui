@@ -86,6 +86,7 @@ import {
   countryDialCodes,
   UserNameAlias,
   translate,
+  LoginMechanism,
 } from '@aws-amplify/ui';
 
 import { useAuth } from '../composables/useAuth';
@@ -126,7 +127,9 @@ if (userName) {
 
 const dialCodes = computed(() => countryDialCodes);
 
-const [primaryAlias] = useAliases(context?.config?.login_mechanisms);
+const [primaryAlias] = useAliases(
+  context?.config?.login_mechanisms as LoginMechanism[]
+);
 
 let name = primaryAlias;
 let label =

@@ -19,7 +19,13 @@
             </template>
             <user-name-alias-component />
             <base-wrapper
-              class=" amplify-flex amplify-field amplify-textfield amplify-passwordfield password-field"
+              class="
+                amplify-flex
+                amplify-field
+                amplify-textfield
+                amplify-passwordfield
+                password-field
+              "
               style="flex-direction: column"
             >
               <password-control
@@ -32,7 +38,13 @@
               />
             </base-wrapper>
             <base-wrapper
-              class=" amplify-flex amplify-field amplify-textfield amplify-passwordfield password-field"
+              class="
+                amplify-flex
+                amplify-field
+                amplify-textfield
+                amplify-passwordfield
+                password-field
+              "
               style="flex-direction: column"
             >
               <password-control
@@ -113,6 +125,7 @@ import {
   userNameAliasArray,
   ValidationError,
   translate,
+  LoginMechanism,
 } from '@aws-amplify/ui';
 
 import PasswordControl from './password-control.vue';
@@ -139,7 +152,9 @@ const actorContext = computed(() =>
   getActorContext(state.value)
 ) as ComputedRef<SignUpContext>;
 
-let [__, ...secondaryAliases] = useAliases(context?.config?.login_mechanisms);
+let [__, ...secondaryAliases] = useAliases(
+  context?.config?.login_mechanisms as LoginMechanism[]
+);
 
 secondaryAliases = secondaryAliases.filter(
   (alias: any): alias is UserNameAlias => userNameAliasArray.includes(alias)

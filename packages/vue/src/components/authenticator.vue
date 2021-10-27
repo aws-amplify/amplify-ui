@@ -95,7 +95,7 @@
         ref="signUpComponent"
       >
         <template #signup-fields="{ info }">
-          <slot name="sign-up-fields" :info="info"></slot>
+          <slot name="sign-up-fields" :info="info" :state="state"></slot>
         </template>
 
         <template #signUpSlotI>
@@ -284,8 +284,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, provide, computed, useAttrs, watch, onBeforeMount } from 'vue';
+import { ref, computed, useAttrs, watch, onBeforeMount } from 'vue';
 import { useActor, useInterpret } from '@xstate/vue';
+import { useAuth } from '../composables/useAuth';
 import { I18n } from 'aws-amplify';
 import {
   getActorState,
@@ -307,21 +308,17 @@ import ConfirmResetPassword from './confirm-reset-password.vue';
 import VerifyUser from './verify-user.vue';
 import ConfirmVerifyUser from './confirm-verify-user.vue';
 
-import {
-  InterpretServiceInjectionKeyTypes,
-  InterpretService,
-} from '../types/index';
-
 onBeforeMount(() => {
   I18n.putVocabularies(translations);
 });
 
 const attrs = useAttrs();
 
-const { initialState, loginMechanisms, variation } = withDefaults(
+const { initialState, loginMechanisms, variation, services } = withDefaults(
   defineProps<{
     initialState?: AuthenticatorMachineOptions['initialState'];
     loginMechanisms?: AuthenticatorMachineOptions['loginMechanisms'];
+    services?: AuthenticatorMachineOptions['services'];
     variation?: 'modal' | undefined;
   }>(),
   {
@@ -342,15 +339,18 @@ const emit = defineEmits([
   'verifyUserSubmit',
   'confirmVerifyUserSubmit',
 ]);
-
-const machine = createAuthenticatorMachine({ initialState, loginMechanisms });
+const machine = createAuthenticatorMachine({
+  initialState,
+  loginMechanisms,
+  services,
+});
 
 const service = useInterpret(machine, {
   devTools: process.env.NODE_ENV === 'development',
 });
 
 const { state, send } = useActor(service);
-provide(InterpretServiceInjectionKeyTypes, <InterpretService>service);
+useAuth(service);
 
 const actorState = computed(() => getActorState(state.value));
 const variationModal = computed(() => (variation === 'modal' ? true : null));
