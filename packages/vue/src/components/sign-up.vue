@@ -17,7 +17,8 @@
             <template #fieldSetI="{ slotData }">
               <slot name="signup-fields" :info="slotData"> </slot>
             </template>
-            <user-name-alias-component />
+            <authenticator-sign-up-form-fields />
+            <!-- <user-name-alias-component />
             <base-wrapper
               class="
                 amplify-flex
@@ -92,7 +93,7 @@
               style="border-radius: 0px; font-weight: normal"
               :disabled="actorState.matches('signUp.submit')"
               >{{ createAccountLabel }}</base-button
-            >
+            > -->
           </base-field-set>
           <base-footer>
             <template #footert="{ slotData }">
@@ -123,15 +124,12 @@ import {
   SignUpContext,
   UserNameAlias,
   userNameAliasArray,
-  ValidationError,
   translate,
   LoginMechanism,
 } from '@aws-amplify/ui';
 
-import PasswordControl from './password-control.vue';
-import UserNameAliasComponent from './user-name-alias.vue';
-import AliasControl from './alias-control.vue';
 import FederatedSignIn from './federated-sign-in.vue';
+import AuthenticatorSignUpFormFields from './authenticator-sign-up-form-fields.vue';
 
 import { useAuth } from '../composables/useAuth';
 import { useAliases } from '../composables/useUtils';

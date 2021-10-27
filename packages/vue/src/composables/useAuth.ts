@@ -19,7 +19,7 @@ export const useAuthenticator = () => {
     const { state, send } = useAuth();
 
     watch(
-      () => (state.value as any).context,
+      () => state.value.context,
       () => {
         const facadeValues = getServiceFacade({ send, state: state.value });
 
