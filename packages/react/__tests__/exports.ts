@@ -1853,6 +1853,7 @@ describe('@aws-amplify/ui-react', () => {
           "Input",
           "Label",
           "Link",
+          "Loader",
           "Main",
           "Pagination",
           "PasswordField",

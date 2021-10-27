@@ -25,16 +25,32 @@ module.exports = {
       outlineWidth: { value: '{outlineWidths.medium.value}' },
       outlineOffset: { value: '{outlineOffsets.medium.value}' },
       borderColor: { value: '{colors.transparent.value}' },
-      boxShadow: { value: '0 0 0 2px {colors.focus.value}' },
+      boxShadow: {
+        value: {
+          offsetX: '0px',
+          offsetY: '0px',
+          blurRadius: '0px',
+          spreadRadius: '2px',
+          color: '{colors.border.focus.value}',
+        },
+      },
     },
     _disabled: {
       borderColor: { value: '{colors.border.disabled.value}' },
     },
     _error: {
-      borderColor: { value: '{colors.error.value}' },
+      borderColor: { value: '{colors.border.error.value}' },
       _focus: {
         borderColor: { value: '{colors.transparent.value}' },
-        boxShadow: { value: '0 0 0 2px {colors.error.value}' },
+        boxShadow: {
+          value: {
+            offsetX: '0px',
+            offsetY: '0px',
+            blurRadius: '0px',
+            spreadRadius: '2px',
+            color: '{colors.border.error.value}',
+          },
+        },
       },
     },
   },

@@ -1,9 +1,6 @@
 import {
-  ActorContextWithForms,
   AuthenticatorMachineOptions,
   createAuthenticatorMachine,
-  getActorContext,
-  getActorState,
   getServiceFacade,
 } from '@aws-amplify/ui';
 import { useMachine } from '@xstate/react';
@@ -13,17 +10,19 @@ import generateContext from 'react-generate-context';
 import { defaultComponents } from './defaultComponents';
 
 export type ProviderProps = AuthenticatorMachineOptions & {
-  components?: typeof defaultComponents;
-  services?: undefined;
+  components?: Partial<typeof defaultComponents>;
+  services?: AuthenticatorMachineOptions['services'];
 };
 
 const useAuthenticatorValue = ({
   components: customComponents,
   initialState,
   loginMechanisms,
+  services,
 }: ProviderProps) => {
   const [state, send] = useMachine(
-    () => createAuthenticatorMachine({ initialState, loginMechanisms }),
+    () =>
+      createAuthenticatorMachine({ initialState, loginMechanisms, services }),
     {
       devTools: process.env.NODE_ENV === 'development',
     }
@@ -39,20 +38,12 @@ const useAuthenticatorValue = ({
     [send, state]
   );
 
-  const isPending =
-    state.hasTag('pending') || getActorState(state)?.hasTag('pending');
-
-  const actorContext: ActorContextWithForms = getActorContext(state);
-  const error = actorContext?.remoteError;
-
   return {
     /** @deprecated For internal use only */
     _send: send,
     /** @deprecated For internal use only */
     _state: state,
     components,
-    error,
-    isPending,
     ...facade,
   };
 };

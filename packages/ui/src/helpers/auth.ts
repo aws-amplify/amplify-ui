@@ -2,6 +2,7 @@ import { includes } from 'lodash';
 import { Sender } from 'xstate';
 import { AuthContext } from '..';
 import {
+  ActorContextWithForms,
   AuthActorContext,
   AuthActorState,
   AuthEvent,
@@ -177,7 +178,13 @@ export const getSendEventAliases = (send: Sender<AuthEvent>) => {
 export const getServiceFacade = ({ send, state }) => {
   const user = state.context?.user;
   const actorState = getActorState(state);
+  const actorContext: ActorContextWithForms = getActorContext(state);
   const sendEventAliases = getSendEventAliases(send);
+  const error = actorContext?.remoteError;
+  const validationErrors = { ...actorContext?.validationError };
+  const hasValidationErrors = Object.keys(validationErrors).length > 0;
+  const isPending =
+    state.hasTag('pending') || getActorState(state)?.hasTag('pending');
 
   const route = (() => {
     switch (true) {
@@ -218,7 +225,11 @@ export const getServiceFacade = ({ send, state }) => {
 
   return {
     ...sendEventAliases,
+    error,
+    hasValidationErrors,
+    isPending,
     route,
     user,
+    validationErrors,
   };
 };

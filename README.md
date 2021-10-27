@@ -65,7 +65,7 @@ Amplify UI is an open-source UI library with cloud-connected components that are
 | SearchField              |    ✅     |             |
 | SelectField              |    ✅     |             |
 | Slider                   |           |             |
-| Spinner                  |           |             |
+| Loader                   |    ✅     |             |
 | StepperField             |    ✅     |             |
 | SwitchField              |    ✅     |             |
 | Table                    |           |             |
