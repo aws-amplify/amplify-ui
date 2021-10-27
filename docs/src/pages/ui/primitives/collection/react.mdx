@@ -175,7 +175,7 @@ A Collection can be paginated, adding a special `isPaginated` property. Change t
 
 ## Search
 
-Collections can also be filtered, adding a `isSearchable` property. Pass a custom `searchFilter` function to enhance your search experience.
+Collections can also be filtered, adding a `isSearchable` property. Pass a custom `searchFilter` function to enhance your search experience (default search filter looks for any string-like property inside of items)
 
 ```jsx
 const startsWith = (country, keyword) => country.name.startsWith(keyword)

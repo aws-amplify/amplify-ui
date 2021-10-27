@@ -14,7 +14,6 @@ export const Pagination: Primitive<PaginationProps, 'nav'> = ({
   onNext,
   onPrevious,
   onChange,
-  role = 'navigation',
   ...rest
 }) => {
   const paginationItems = usePaginationItems(
@@ -29,7 +28,6 @@ export const Pagination: Primitive<PaginationProps, 'nav'> = ({
   return (
     <View
       as="nav"
-      role={role}
       className={classNames(ComponentClassNames.Pagination, className)}
       {...rest}
     >

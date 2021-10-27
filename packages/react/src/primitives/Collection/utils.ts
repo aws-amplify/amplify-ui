@@ -8,6 +8,10 @@ export const getItemsAtPage = <T>(
   page: number,
   itemsPerPage: number
 ) => {
+  if (page < 1 || itemsPerPage < 1) {
+    return [];
+  }
+
   const startIndex = (page - 1) * itemsPerPage;
   return items.slice(startIndex, startIndex + itemsPerPage);
 };

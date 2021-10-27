@@ -1,9 +1,12 @@
+import classNames from 'classnames';
 import debounce from 'lodash/debounce';
 import { useCallback, useState } from 'react';
 import { Flex } from '../Flex';
 import { Grid } from '../Grid';
 import { Pagination, usePagination } from '../Pagination';
 import { SearchField } from '../SearchField';
+import { ComponentClassNames } from '../shared/constants';
+import { SharedText } from '../shared/i18n';
 import { strHasLength } from '../shared/utils';
 import {
   CollectionProps,
@@ -35,6 +38,7 @@ const GridCollection = <Item,>({
 );
 
 export const Collection = <Item,>({
+  className,
   isSearchable,
   isPaginated,
   items,
@@ -42,6 +46,7 @@ export const Collection = <Item,>({
   searchFilter = itemHasText,
   searchPlaceholder,
   type = 'list',
+  testId,
   ...rest
 }: CollectionProps<Item>): JSX.Element => {
   const [searchText, setSearchText] = useState<string>();
@@ -69,36 +74,42 @@ export const Collection = <Item,>({
 
   const collection =
     type === 'list' ? (
-      <ListCollection items={items} {...rest} />
+      <ListCollection
+        className={ComponentClassNames.CollectionItems}
+        items={items}
+        {...rest}
+      />
     ) : type === 'grid' ? (
-      <GridCollection items={items} {...rest} />
+      <GridCollection
+        className={ComponentClassNames.CollectionItems}
+        items={items}
+        {...rest}
+      />
     ) : null;
 
-  if (!isSearchable && !isPaginated) {
-    return collection;
-  }
-
   return (
-    <Flex direction="column">
-      {isSearchable && (
-        <Flex direction="row" justifyContent="center">
+    <Flex
+      testId={testId}
+      className={classNames(ComponentClassNames.Collection, className)}
+    >
+      {isSearchable ? (
+        <Flex className={ComponentClassNames.CollectionSearch}>
           <SearchField
-            size="small"
-            label="Search"
+            label={SharedText.Collection.SearchFieldLabel}
             placeholder={searchPlaceholder}
             onChange={(e) => onSearch(e.target.value)}
             onClear={() => setSearchText('')}
           />
         </Flex>
-      )}
+      ) : null}
 
       {collection}
 
-      {isPaginated && (
-        <Flex justifyContent="center">
+      {isPaginated ? (
+        <Flex className={ComponentClassNames.CollectionPagination}>
           <Pagination {...pagination} />
         </Flex>
-      )}
+      ) : null}
     </Flex>
   );
 };

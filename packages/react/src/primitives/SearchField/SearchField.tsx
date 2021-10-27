@@ -77,8 +77,7 @@ export const SearchField: Primitive<SearchFieldProps, 'input'> = ({
   className,
   labelHidden = true,
   label,
-  name,
-  role = 'searchbox',
+  name = 'q',
   onSubmit,
   onClear,
   size,
@@ -108,7 +107,6 @@ export const SearchField: Primitive<SearchFieldProps, 'input'> = ({
       onInput={onInput}
       onKeyDown={onKeyDown}
       outerEndComponent={<SearchFieldButton onClick={onClick} size={size} />}
-      role={role}
       size={size}
       value={value}
       {...rest}
