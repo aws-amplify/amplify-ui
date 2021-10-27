@@ -451,8 +451,7 @@
     qrcode "^1.4.4"
     uuid "^8.2.0"
 
-"@aws-amplify/ui-react-v1@npm:@aws-amplify/ui-react", "@aws-amplify/ui-react@^1.2.5":
-  name "@aws-amplify/ui-react-v1"
+"@aws-amplify/ui-react-v1@npm:@aws-amplify/ui-react":
   version "1.2.21"
   resolved "https://registry.yarnpkg.com/@aws-amplify/ui-react/-/ui-react-1.2.21.tgz#b723fded8006e7ef212905a0a93ef7ae866a2a05"
   integrity sha512-+0AQlrLQei66y+gKBhBxNJnx92OeFzZ2Uls9U3vNf2c4ocEtUzErXu/YLjxmYyX9rVxACrRLHd6zuBuA91Ubmw==
