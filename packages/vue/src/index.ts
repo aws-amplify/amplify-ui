@@ -15,7 +15,8 @@ import {
   ConfirmSignIn,
   ConfirmVerifyUser,
   VerifyUser,
-  AuthenticatorSignUpFormFields,
+  SignUpFormFields,
+  BaseTextField,
 } from './components/index';
 
 import { useAuthenticator } from './composables/useAuth';
@@ -38,10 +39,8 @@ export default {
     app.component('ConfirmSignIn', ConfirmSignIn);
     app.component('VerifyUser', VerifyUser);
     app.component('ConfirmVerifyUser', ConfirmVerifyUser);
-    app.component(
-      'AuthenticatorSignUpFormFields',
-      AuthenticatorSignUpFormFields
-    );
+    app.component('BaseTextField', BaseTextField);
+    app.component('SignUpFormFields', SignUpFormFields);
   },
 };
 
@@ -50,7 +49,7 @@ export {
   SignUp,
   FederatedSignIn,
   Authenticator,
-  AuthenticatorSignUpFormFields,
+  SignUpFormFields,
   RenderInfo,
   UserNameAlias,
   ForceNewPassword,
@@ -61,6 +60,7 @@ export {
   ConfirmSignIn,
   ConfirmVerifyUser,
   VerifyUser,
+  BaseTextField,
   useAuthenticator,
 };
 

@@ -45,7 +45,6 @@ const inputAttributes: ComputedRef<AuthInputAttributes> = computed(
 const passwordLabel = computed(() => translate('Password'));
 const createAccountLabel = computed(() => translate('Create Account'));
 const confirmPasswordLabel = computed(() => translate('Confirm Password'));
-console.log('got here');
 </script>
 
 <template>
@@ -106,17 +105,4 @@ console.log('got here');
       "
     />
   </template>
-
-  <base-alert v-if="actorState.context.remoteError">
-    {{ actorState.context.remoteError }}
-  </base-alert>
-  <base-button
-    class="amplify-button amplify-field-group__control"
-    data-fullwidth="true"
-    data-loading="false"
-    data-variation="primary"
-    style="border-radius: 0px; font-weight: normal"
-    :disabled="actorState.matches('signUp.submit')"
-    >{{ createAccountLabel }}</base-button
-  >
 </template>

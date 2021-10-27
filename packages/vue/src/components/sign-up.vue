@@ -17,84 +17,20 @@
             <template #fieldSetI="{ slotData }">
               <slot name="signup-fields" :info="slotData"> </slot>
             </template>
-            <authenticator-sign-up-form-fields />
-            <!-- <user-name-alias-component />
-            <base-wrapper
-              class="
-                amplify-flex
-                amplify-field
-                amplify-textfield
-                amplify-passwordfield
-                password-field
-              "
-              style="flex-direction: column"
-            >
-              <password-control
-                name="password"
-                :label="passwordLabel"
-                autocomplete="new-password"
-                :ariainvalid="
-                  !!(actorContext.validationError as ValidationError)['confirm_password']
-                "
-              />
-            </base-wrapper>
-            <base-wrapper
-              class="
-                amplify-flex
-                amplify-field
-                amplify-textfield
-                amplify-passwordfield
-                password-field
-              "
-              style="flex-direction: column"
-            >
-              <password-control
-                name="confirm_password"
-                :label="confirmPasswordLabel"
-                autocomplete="new-password"
-                :ariainvalid="
-                  !!(actorContext.validationError as ValidationError)['confirm_password']
-                "
-              />
-            </base-wrapper>
-            <p
-              data-variation="error"
-              class="amplify-text"
-              v-if="!!(actorContext.validationError as ValidationError)['confirm_password']"
-            >
-              {{ (actorContext.validationError as ValidationError)['confirm_password'] }}
-            </p>
-
-            <template
-              v-for="(alias: UserNameAlias, idx) in secondaryAliases as UserNameAlias[]"
-              :key="idx"
-            >
-              <alias-control
-                :label="
-                  // prettier-ignore
-                  translate<string>(inputAttributes[alias].label)
-                "
-                :name="alias"
-                :placeholder="
-                  // prettier-ignore
-                  translate<string>( inputAttributes[alias].label)
-                "
-              />
-            </template>
-
-            <base-alert v-if="actorState.context.remoteError">
-              {{ actorState.context.remoteError }}
-            </base-alert>
-            <base-button
-              class="amplify-button amplify-field-group__control"
-              data-fullwidth="true"
-              data-loading="false"
-              data-variation="primary"
-              style="border-radius: 0px; font-weight: normal"
-              :disabled="actorState.matches('signUp.submit')"
-              >{{ createAccountLabel }}</base-button
-            > -->
+            <sign-up-form-fields />
           </base-field-set>
+          <base-alert v-if="actorState.context.remoteError">
+            {{ actorState.context.remoteError }}
+          </base-alert>
+          <base-button
+            class="amplify-button amplify-field-group__control"
+            data-fullwidth="true"
+            data-loading="false"
+            data-variation="primary"
+            style="border-radius: 0px; font-weight: normal"
+            :disabled="actorState.matches('signUp.submit')"
+            >{{ createAccountLabel }}</base-button
+          >
           <base-footer>
             <template #footert="{ slotData }">
               <slot
@@ -115,58 +51,26 @@
 
 <script setup lang="ts">
 import { computed, ComputedRef, useAttrs } from 'vue';
-import {
-  AuthInputAttributes,
-  authInputAttributes,
-  getActorState,
-  getActorContext,
-  SignUpState,
-  SignUpContext,
-  UserNameAlias,
-  userNameAliasArray,
-  translate,
-  LoginMechanism,
-} from '@aws-amplify/ui';
+import { getActorState, SignUpState, translate } from '@aws-amplify/ui';
 
 import FederatedSignIn from './federated-sign-in.vue';
-import AuthenticatorSignUpFormFields from './authenticator-sign-up-form-fields.vue';
+import SignUpFormFields from './sign-up-form-fields.vue';
 
 import { useAuth } from '../composables/useAuth';
-import { useAliases } from '../composables/useUtils';
 
 const attrs = useAttrs();
 const emit = defineEmits(['haveAccountClicked', 'signUpSubmit']);
 
 const { state, send } = useAuth();
 
-const {
-  value: { context },
-} = state;
 const actorState: ComputedRef<SignUpState> = computed(() =>
   getActorState(state.value)
 );
 
-const actorContext = computed(() =>
-  getActorContext(state.value)
-) as ComputedRef<SignUpContext>;
-
-let [__, ...secondaryAliases] = useAliases(
-  context?.config?.login_mechanisms as LoginMechanism[]
-);
-
-secondaryAliases = secondaryAliases.filter(
-  (alias: any): alias is UserNameAlias => userNameAliasArray.includes(alias)
-);
-
 // computed properties
 
-const confirmPasswordLabel = computed(() => translate('Confirm Password'));
-const passwordLabel = computed(() => translate('Password'));
 const createAccountLabel = computed(() => translate('Create Account'));
 const signUpButtonText = computed(() => translate('Create a new account'));
-const inputAttributes: ComputedRef<AuthInputAttributes> = computed(
-  () => authInputAttributes
-);
 
 // Methods
 
@@ -181,7 +85,10 @@ const onHaveAccountClicked = (): void => {
 };
 
 const onInput = (e: Event): void => {
-  const { name, value } = <HTMLInputElement>e.target;
+  let { checked, name, type, value } = <HTMLInputElement>e.target;
+
+  if (type === 'checkbox' && !checked)
+    (value as string | undefined) = undefined;
   send({
     type: 'CHANGE',
     //@ts-ignore
