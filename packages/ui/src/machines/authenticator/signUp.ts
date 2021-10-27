@@ -135,7 +135,14 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
               invoke: {
                 src: 'resendConfirmationCode',
                 onDone: { target: 'edit' },
-                onError: { target: 'edit', actions: 'setRemoteError' },
+                onError: [
+                  {
+                    target: '#signUpActor.resolved',
+                    actions: 'setUser',
+                    cond: 'isUserAlreadyConfirmed',
+                  },
+                  { target: 'edit', actions: 'setRemoteError' },
+                ],
               },
             },
             submit: {
@@ -164,6 +171,23 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
     },
     {
       guards: {
+        /**
+         * This guard covers an edge case that exists in the current state of the UI.
+         * As of now, our ConfirmSignUp screen only supports showing an input for a
+         * confirmation code. However, a Cognito UserPool can instead verify users
+         * through a link that gets emailed to them. If a user verifies through the
+         * link and then they click on the "Resend Code" button, they will get an error
+         * saying that the user has already been confirmed. If we encounter that error,
+         * we want to just funnel them through the rest of the flow. In the future, we will
+         * want to update our UI to support both confirmation codes and links.
+         *
+         * https://github.com/aws-amplify/amplify-ui/issues/219
+         */
+        isUserAlreadyConfirmed: (context, event) => {
+          console.log(context);
+
+          return event.data.message === 'User is already confirmed.';
+        },
         shouldInitConfirmSignUp: (context) => {
           return context.intent && context.intent === 'confirmSignUp';
         },
