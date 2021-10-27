@@ -6,10 +6,16 @@ import {
   convertGridSpan,
   convertStylePropsToStyleObj,
   getGridSpan,
+  splitPrimitiveProps,
   useNonStyleProps,
   useTransformStyleProps,
 } from '../styleUtils';
-import { ComponentPropsToStylePropsMap, ViewProps } from '../../types';
+import {
+  BaseStyleProps,
+  ComponentPropsToStylePropsMap,
+  FlexContainerStyleProps,
+  ViewProps,
+} from '../../types';
 import { Breakpoint } from '../../types/responsive';
 
 const props: ViewProps = {
@@ -260,5 +266,49 @@ describe('useTransformStyleProps', () => {
       'column',
       getGridSpan(gridItemProps.columnSpan)
     );
+  });
+});
+
+describe('splitPrimitiveProps', () => {
+  it('should split props into base, flex and rest', () => {
+    const baseStyleProps: BaseStyleProps = {
+      backgroundColor: 'yellow',
+      alignSelf: 'baseline',
+      area: 'auto',
+      basis: 'content',
+      border: '1px solid black',
+      borderRadius: '2px',
+    };
+    const flexContainerStyleProps: FlexContainerStyleProps = {
+      alignContent: 'space-around',
+      alignItems: 'baseline',
+      columnGap: '2rem',
+      direction: 'column-reverse',
+      gap: '2rem',
+      justifyContent: 'space-around',
+      rowGap: '4rem',
+      wrap: 'nowrap',
+    };
+    const restProps = {
+      type: 'textarea',
+      rows: '4',
+      autoComplete: 'current-password',
+      name: 'password',
+      placeholder: 'Password',
+    };
+
+    const {
+      baseStyleProps: resultBaseStyleProps,
+      flexContainerStyleProps: resultFlexContainerStyleProps,
+      rest: resultRest,
+    } = splitPrimitiveProps({
+      ...baseStyleProps,
+      ...flexContainerStyleProps,
+      ...restProps,
+    });
+
+    expect(resultRest).toEqual(restProps);
+    expect(resultFlexContainerStyleProps).toEqual(flexContainerStyleProps);
+    expect(resultBaseStyleProps).toEqual(baseStyleProps);
   });
 });

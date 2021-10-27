@@ -32,6 +32,7 @@ type ShadowDesignToken = {
   offsetX: string;
   offsetY: string;
   blurRadius: string;
+  spreadRadius?: string;
   color: string;
 };
 type SpaceDesignToken = string;

@@ -4,6 +4,7 @@ import * as React from 'react';
 
 import { Provider, ProviderProps } from './Provider';
 import { Router, RouterProps } from './Router';
+import { SignUp } from './SignUp';
 
 export type AuthenticatorProps = ProviderProps & RouterProps;
 
@@ -30,3 +31,5 @@ export function Authenticator({
     </Provider>
   );
 }
+
+Authenticator.SignUp = SignUp;

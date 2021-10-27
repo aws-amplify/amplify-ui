@@ -26,6 +26,8 @@ export interface BackgroundColors extends OrdinalScale, OrdinalVariation {
 
 export interface BorderColors extends OrdinalScale {
   disabled: DesignToken;
+  focus: DesignToken;
+  error: DesignToken;
 }
 
 type ColorTypes =
@@ -181,8 +183,12 @@ export const colors: Colors = {
     inverse: { value: '{colors.white.value}' },
 
     interactive: { value: '{colors.brand.primary.80.value}' },
+    // Hover and Focus colors are intentionally different colors.
+    // This allows users to distinguish between the current keyboard focus
+    // and the location of their pointer
     hover: { value: '{colors.brand.primary.90.value}' },
-    focus: { value: '{colors.brand.primary.90.value}' },
+    // Focus color is set to 100 to ensure enough contrast for accessibility
+    focus: { value: '{colors.brand.primary.100.value}' },
     active: { value: '{colors.brand.primary.100.value}' },
 
     info: { value: '{colors.blue.80.value}' },
@@ -207,13 +213,12 @@ export const colors: Colors = {
     primary: { value: '{colors.neutral.60.value}' },
     secondary: { value: '{colors.neutral.40.value}' },
     tertiary: { value: '{colors.neutral.20.value}' },
-    disabled: { value: '{colors.border.tertiary.value}' },
-  },
 
-  // TODO: put these in the border, background, or font
-  focus: { value: '{colors.brand.primary.100.value}' },
-  disabled: { value: '{colors.neutral.40.value}' },
-  error: { value: '{colors.red.80.value}' },
+    disabled: { value: '{colors.border.tertiary.value}' },
+    // Focus color is set to 100 to ensure enough contrast for accessibility
+    focus: { value: '{colors.brand.primary.100.value}' },
+    error: { value: '{colors.red.80.value}' },
+  },
 
   shadow: {
     primary: { value: 'hsla(210, 50%, 10%, 0.25)' },

@@ -1,6 +1,6 @@
 module.exports = {
   error: {
-    color: { value: '{colors.error.value}' },
+    color: { value: '{colors.border.error.value}' },
     fontSize: { value: '{fontSizes.small.value}' },
   },
   description: {

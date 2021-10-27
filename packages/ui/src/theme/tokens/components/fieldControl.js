@@ -65,13 +65,25 @@ module.exports = {
     borderBlockStart: { value: 'none' },
     borderRadius: { value: '0' },
     _focus: {
-      borderBlockEndColor: { value: '{colors.focus.value}' },
-      boxShadow: { value: '0 1px {colors.focus.value}' },
+      borderBlockEndColor: { value: '{colors.border.focus.value}' },
+      boxShadow: {
+        value: {
+          offsetX: '0px',
+          offsetY: '1px',
+          color: '{colors.border.focus.value}',
+        },
+      },
     },
     _error: {
-      borderBlockEndColor: { value: '{colors.error.value}' },
+      borderBlockEndColor: { value: '{colors.border.error.value}' },
       _focus: {
-        boxShadow: { value: '0 1px {colors.error.value}' },
+        boxShadow: {
+          value: {
+            offsetX: '0px',
+            offsetY: '1px',
+            color: '{colors.border.error.value}',
+          },
+        },
       },
     },
   },
@@ -85,8 +97,16 @@ module.exports = {
     // * Contrast between focused and unfocused states has a ratio of 3:1
     //
     // IMPORTANT: Must recalibrate if `colors.border.primary` or `colors.focus` are changed
-    borderColor: { value: '{colors.focus.value}' },
-    boxShadow: { value: '0px 0px 0px 1px {colors.focus.value}' },
+    borderColor: { value: '{colors.border.focus.value}' },
+    boxShadow: {
+      value: {
+        offsetX: '0px',
+        offsetY: '0px',
+        blurRadius: '0px',
+        spreadRadius: '1px',
+        color: '{colors.border.focus.value}',
+      },
+    },
   },
   _disabled: {
     color: { value: '{colors.font.disabled.value}' },
@@ -95,9 +115,17 @@ module.exports = {
     backgroundColor: { value: '{colors.background.disabled.value}' },
   },
   _error: {
-    borderColor: { value: '{colors.error.value}' },
+    borderColor: { value: '{colors.border.error.value}' },
     _focus: {
-      boxShadow: { value: '0px 0px 0px 1px {colors.error.value}' },
+      boxShadow: {
+        value: {
+          offsetX: '0px',
+          offsetY: '0px',
+          blurRadius: '0px',
+          spreadRadius: '1px',
+          color: '{colors.border.error.value}',
+        },
+      },
     },
   },
 };

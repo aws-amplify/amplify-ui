@@ -11,7 +11,6 @@ Feature: Sign Up with Email
     And I don't see "Username" as an input field
     And I don't see "Phone Number" as an input field
 
-# Failing because of SES
   @angular @react @vue  
   Scenario: Sign up with a new email & password
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-email"

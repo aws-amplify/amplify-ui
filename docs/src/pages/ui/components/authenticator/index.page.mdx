@@ -2,7 +2,14 @@
 title: Authenticator
 ---
 
-import { Authenticator, Alert } from '@aws-amplify/ui-react';
+import {
+  Alert,
+  Authenticator,
+  CheckboxField,
+  Link,
+  TextField,
+  useAuthenticator,
+} from '@aws-amplify/ui-react';
 import { Example } from '@/components/Example';
 import { Feature } from '@/components/Feature';
 import { Fragment } from '@/components/Fragment';
@@ -145,6 +152,60 @@ For your [configured social providers](https://docs.amplify.aws/lib/auth/social/
 </BlockSwitcher>
 
 ## Customization
+
+### Sign Up Fields
+
+The following example customizes the Sign Up screen with:
+
+- Prepending custom `preferred_username` field
+- Re-using the default form fields
+- Appending a custom "Terms & Conditions" checkbox with custom validation
+
+```tsx{3-11,28-48,51-57} file=../../../../../../examples/next/pages/ui/components/authenticator/custom-sign-up-fields/index.page.tsx
+
+```
+
+<Example>
+  <Authenticator
+    initialState="signUp"
+    loginMechanisms={['email']}
+    components={{
+      SignUp: {
+        FormFields() {
+          const { validationErrors } = useAuthenticator();
+          return (
+            <>
+              <TextField
+                label="Preferred Username"
+                labelHidden={true}
+                name="preferred_username"
+                placeholder="Preferred Username"
+              />
+              <Authenticator.SignUp.FormFields />
+              <CheckboxField
+                errorMessage={validationErrors.acknowledgement}
+                hasError={!!validationErrors.acknowledgement}
+                name="acknowledgement"
+                value="yes"
+              >
+                I agree with the Terms & Conditions
+              </CheckboxField>
+            </>
+          );
+        },
+      },
+    }}
+    services={{
+      async validateCustomSignUp(formData) {
+        if (!formData.acknowledgement) {
+          return {
+            acknowledgement: 'You must agree to the Terms & Conditions',
+          };
+        }
+      },
+    }}
+  />
+</Example>
 
 ### Internationalization (I18n)
 
