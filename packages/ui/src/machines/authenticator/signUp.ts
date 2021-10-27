@@ -184,8 +184,6 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
          * https://github.com/aws-amplify/amplify-ui/issues/219
          */
         isUserAlreadyConfirmed: (context, event) => {
-          console.log(context);
-
           return event.data.message === 'User is already confirmed.';
         },
         shouldInitConfirmSignUp: (context) => {
