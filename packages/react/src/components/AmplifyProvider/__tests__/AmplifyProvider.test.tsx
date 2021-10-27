@@ -23,7 +23,7 @@ describe('AmplifyProvider', () => {
     expect(heading.nodeName).toBe('H6');
   });
 
-  it('wraps the APp in [data-amplify-theme="default-theme"]', () => {
+  it('wraps the App in [data-amplify-theme="default-theme"]', () => {
     const { container } = render(
       <AmplifyProvider>
         <App />
@@ -32,7 +32,7 @@ describe('AmplifyProvider', () => {
 
     const wrapper = container.querySelector('[data-amplify-theme]');
     expect(wrapper).toBeInTheDocument();
-    expect(wrapper.getAttribute('data-amplify-theme')).toBe('default-theme');
+    expect(wrapper).toHaveAttribute('data-amplify-theme', 'default-theme');
   });
 
   it('accepts custom primitives as components', async () => {
