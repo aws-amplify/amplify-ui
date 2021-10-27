@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { LivenessFlow } from '@aws-amplify/ui-react';
 import { Amplify } from 'aws-amplify';
 import awsExports from '@environments/liveness/src/aws-exports';
+import '@aws-amplify/ui-react/styles.css';
 
 Amplify.configure({
   ...awsExports,
