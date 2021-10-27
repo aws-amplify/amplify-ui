@@ -16,7 +16,7 @@ import {
   SignInContext,
   SignInState,
 } from '@aws-amplify/ui';
-import { StateMachineService } from '../../../../services/state-machine.service';
+import { AuthenticatorService } from '../../../../services/state-machine.service';
 import { AuthPropService } from '../../../../services/authenticator-context.service';
 import { translate } from '@aws-amplify/ui';
 
@@ -43,12 +43,12 @@ export class AmplifySetupTotpComponent
   public confirmText = translate('Confirm');
 
   constructor(
-    private stateMachine: StateMachineService,
+    private authService: AuthenticatorService,
     private contextService: AuthPropService
   ) {}
 
   ngOnInit(): void {
-    this.authSubscription = this.stateMachine.authService.subscribe((state) => {
+    this.authSubscription = this.authService.authService.subscribe((state) => {
       this.onStateUpdate(state);
     });
     this.generateQRCode();
@@ -69,15 +69,15 @@ export class AmplifySetupTotpComponent
   }
 
   public get context() {
-    const { change, submit } = this.stateMachine.services;
+    const { change, submit } = this.authService.services;
     const remoteError = this.remoteError;
-    const user = this.stateMachine.user;
+    const user = this.authService.user;
     return { change, remoteError, submit, user };
   }
 
   async generateQRCode() {
     // TODO: This should be handled in core.
-    const state = this.stateMachine.authState;
+    const state = this.authService.authState;
     const actorContext: SignInContext = getActorContext(state);
     const { user } = actorContext;
     try {
@@ -96,7 +96,7 @@ export class AmplifySetupTotpComponent
   onInput(event: Event): void {
     event.preventDefault();
     const { name, value } = <HTMLInputElement>event.target;
-    this.stateMachine.send({
+    this.authService.send({
       type: 'CHANGE',
       data: { name, value },
     });
@@ -106,13 +106,13 @@ export class AmplifySetupTotpComponent
     event.preventDefault();
     // TODO: handle form data within the state machine
     const formData = new FormData(event.target as HTMLFormElement);
-    this.stateMachine.send({
+    this.authService.send({
       type: 'SUBMIT',
       data: Object.fromEntries(formData),
     });
   }
 
   toSignIn(): void {
-    this.stateMachine.send('SIGN_IN');
+    this.authService.send('SIGN_IN');
   }
 }

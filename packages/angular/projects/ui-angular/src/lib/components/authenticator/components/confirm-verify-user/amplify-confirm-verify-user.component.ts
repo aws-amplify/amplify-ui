@@ -15,7 +15,7 @@ import {
 } from '@aws-amplify/ui';
 import { Subscription } from 'xstate';
 import { AuthPropService } from '../../../../services/authenticator-context.service';
-import { StateMachineService } from '../../../../services/state-machine.service';
+import { AuthenticatorService } from '../../../../services/state-machine.service';
 
 @Component({
   selector: 'amplify-confirm-verify-user',
@@ -40,12 +40,12 @@ export class ConfirmVerifyUserComponent
   public submitText = translate('Submit');
 
   constructor(
-    private stateMachine: StateMachineService,
+    private authService: AuthenticatorService,
     private contextService: AuthPropService
   ) {}
 
   ngOnInit(): void {
-    this.authSubscription = this.stateMachine.authService.subscribe((state) =>
+    this.authSubscription = this.authService.authService.subscribe((state) =>
       this.onStateUpdate(state)
     );
   }
@@ -65,19 +65,19 @@ export class ConfirmVerifyUserComponent
   }
 
   public get context() {
-    const { skip, submit } = this.stateMachine.services;
+    const { skip, submit } = this.authService.services;
     const remoteError = this.remoteError;
     return { remoteError, skip, submit };
   }
 
   skipVerify(): void {
-    this.stateMachine.send('SKIP');
+    this.authService.send('SKIP');
   }
 
   onInput(event: Event): void {
     event.preventDefault();
     const { name, value } = <HTMLInputElement>event.target;
-    this.stateMachine.send({
+    this.authService.send({
       type: 'CHANGE',
       data: { name, value },
     });
@@ -86,7 +86,7 @@ export class ConfirmVerifyUserComponent
   onSubmit(event: Event): void {
     event.preventDefault();
     const formData = new FormData(event.target as HTMLFormElement);
-    this.stateMachine.send({
+    this.authService.send({
       type: 'SUBMIT',
       data: Object.fromEntries(formData),
     });

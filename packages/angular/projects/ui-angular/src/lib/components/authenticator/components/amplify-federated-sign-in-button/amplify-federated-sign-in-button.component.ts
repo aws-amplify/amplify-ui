@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FederatedIdentityProviders } from '@aws-amplify/ui';
-import { StateMachineService } from '../../../../services/state-machine.service';
+import { AuthenticatorService } from '../../../../services/state-machine.service';
 
 @Component({
   selector: 'amplify-federated-sign-in-button',
@@ -10,10 +10,10 @@ export class AmplifyFederatedSignInButtonComponent {
   @Input() provider: FederatedIdentityProviders;
   @Input() text: string;
 
-  constructor(private stateMachine: StateMachineService) {}
+  constructor(private authService: AuthenticatorService) {}
 
   onClick = (): void => {
-    this.stateMachine.send({
+    this.authService.send({
       type: 'FEDERATED_SIGN_IN',
       data: { provider: this.provider },
     });

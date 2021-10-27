@@ -7,7 +7,7 @@ import {
   OnInit,
   TemplateRef,
 } from '@angular/core';
-import { StateMachineService } from '../../../../services/state-machine.service';
+import { AuthenticatorService } from '../../../../services/state-machine.service';
 import { AuthPropService } from '../../../../services/authenticator-context.service';
 import { isEmpty } from 'lodash';
 import { Subscription } from 'xstate';
@@ -44,12 +44,12 @@ export class AmplifySignUpComponent
   public createAccountText = translate('Create Account');
 
   constructor(
-    private stateMachine: StateMachineService,
+    private authService: AuthenticatorService,
     private contextService: AuthPropService
   ) {}
 
   public get context() {
-    const { change, signIn, submit } = this.stateMachine.services;
+    const { change, signIn, submit } = this.authService.services;
     const remoteError = this.remoteError;
     const validationError = this.validationError;
 
@@ -63,11 +63,11 @@ export class AmplifySignUpComponent
   }
 
   ngOnInit(): void {
-    this.authSubscription = this.stateMachine.authService.subscribe((state) =>
+    this.authSubscription = this.authService.authService.subscribe((state) =>
       this.onStateUpdate(state)
     );
 
-    const context = this.stateMachine.context;
+    const context = this.authService.context;
     const { primaryAlias, secondaryAliases } = getConfiguredAliases(context);
 
     /**
@@ -107,7 +107,7 @@ export class AmplifySignUpComponent
   onInput(event: Event): void {
     event.preventDefault();
     const { name, value } = <HTMLInputElement>event.target;
-    this.stateMachine.send({
+    this.authService.send({
       type: 'CHANGE',
       data: { name, value },
     });
@@ -115,6 +115,6 @@ export class AmplifySignUpComponent
 
   onSubmit(event: Event): void {
     event.preventDefault();
-    this.stateMachine.send('SUBMIT');
+    this.authService.send('SUBMIT');
   }
 }

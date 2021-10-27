@@ -16,7 +16,7 @@ import {
   SignInContext,
   SignInState,
 } from '@aws-amplify/ui';
-import { StateMachineService } from '../../../../services/state-machine.service';
+import { AuthenticatorService } from '../../../../services/state-machine.service';
 import { AuthPropService } from '../../../../services/authenticator-context.service';
 import { translate } from '@aws-amplify/ui';
 
@@ -44,12 +44,12 @@ export class AmplifyForceNewPasswordComponent
   public backToSignInText = translate('Back to Sign In');
 
   constructor(
-    private stateMachine: StateMachineService,
+    private authService: AuthenticatorService,
     private contextService: AuthPropService
   ) {}
 
   ngOnInit(): void {
-    this.authSubscription = this.stateMachine.authService.subscribe((state) =>
+    this.authSubscription = this.authService.authService.subscribe((state) =>
       this.onStateUpdate(state)
     );
   }
@@ -74,20 +74,20 @@ export class AmplifyForceNewPasswordComponent
   }
 
   public get context() {
-    const { change, signIn, submit } = this.stateMachine.services;
-    const user = this.stateMachine.user;
+    const { change, signIn, submit } = this.authService.services;
+    const user = this.authService.user;
     const remoteError = this.remoteError;
     return { change, remoteError, signIn, submit, user };
   }
 
   toSignIn(): void {
-    this.stateMachine.send('SIGN_IN');
+    this.authService.send('SIGN_IN');
   }
 
   onInput(event: Event): void {
     event.preventDefault();
     const { name, value } = <HTMLInputElement>event.target;
-    this.stateMachine.send({
+    this.authService.send({
       type: 'CHANGE',
       data: { name, value },
     });
@@ -96,11 +96,11 @@ export class AmplifyForceNewPasswordComponent
   onSubmit(event: Event): void {
     event.preventDefault();
     // consider stateMachine directly providing actorState / actorContext
-    const state = this.stateMachine.authState;
+    const state = this.authService.authState;
     const actorState: SignInContext = getActorContext(state);
     const { formValues } = actorState;
 
-    this.stateMachine.send({
+    this.authService.send({
       type: 'SUBMIT',
       data: formValues,
     });

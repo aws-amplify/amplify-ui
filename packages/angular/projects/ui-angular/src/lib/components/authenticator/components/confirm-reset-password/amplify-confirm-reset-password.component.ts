@@ -10,7 +10,7 @@ import {
 import { AuthMachineState, getActorState, SignInState } from '@aws-amplify/ui';
 import { Subscription } from 'xstate';
 import { AuthPropService } from '../../../../services/authenticator-context.service';
-import { StateMachineService } from '../../../../services/state-machine.service';
+import { AuthenticatorService } from '../../../../services/state-machine.service';
 import { translate } from '@aws-amplify/ui';
 
 @Component({
@@ -34,12 +34,12 @@ export class ConfirmResetPasswordComponent
   public resendCodeText = translate('Resend Code');
 
   constructor(
-    private stateMachine: StateMachineService,
+    private authService: AuthenticatorService,
     private contextService: AuthPropService
   ) {}
 
   ngOnInit(): void {
-    this.authSubscription = this.stateMachine.authService.subscribe((state) =>
+    this.authSubscription = this.authService.authService.subscribe((state) =>
       this.onStateUpdate(state)
     );
   }
@@ -59,23 +59,23 @@ export class ConfirmResetPasswordComponent
   }
 
   public get context() {
-    const { change, resend, signIn, submit } = this.stateMachine.services;
+    const { change, resend, signIn, submit } = this.authService.services;
     const remoteError = this.remoteError;
     return { change, resend, remoteError, signIn, submit };
   }
 
   toSignIn(): void {
-    this.stateMachine.send('SIGN_IN');
+    this.authService.send('SIGN_IN');
   }
 
   resend() {
-    this.stateMachine.send('RESEND');
+    this.authService.send('RESEND');
   }
 
   onInput(event: Event): void {
     event.preventDefault();
     const { name, value } = <HTMLInputElement>event.target;
-    this.stateMachine.send({
+    this.authService.send({
       type: 'CHANGE',
       data: { name, value },
     });
@@ -83,6 +83,6 @@ export class ConfirmResetPasswordComponent
 
   onSubmit(event: Event): void {
     event.preventDefault();
-    this.stateMachine.send('SUBMIT');
+    this.authService.send('SUBMIT');
   }
 }

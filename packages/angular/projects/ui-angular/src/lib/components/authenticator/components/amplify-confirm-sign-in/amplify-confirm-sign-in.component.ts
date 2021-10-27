@@ -16,7 +16,7 @@ import {
   SignInContext,
   SignInState,
 } from '@aws-amplify/ui';
-import { StateMachineService } from '../../../../services/state-machine.service';
+import { AuthenticatorService } from '../../../../services/state-machine.service';
 import { AuthPropService } from '../../../../services/authenticator-context.service';
 import { translate } from '@aws-amplify/ui';
 
@@ -43,12 +43,12 @@ export class AmplifyConfirmSignInComponent
   public backToSignInText = translate('Back to Sign In');
 
   constructor(
-    private stateMachine: StateMachineService,
+    private authService: AuthenticatorService,
     private contextService: AuthPropService
   ) {}
 
   ngOnInit(): void {
-    this.authSubscription = this.stateMachine.authService.subscribe((state) => {
+    this.authSubscription = this.authService.authService.subscribe((state) => {
       this.onStateUpdate(state);
     });
     this.setHeaderText();
@@ -63,13 +63,13 @@ export class AmplifyConfirmSignInComponent
   }
 
   public get context() {
-    const { change, signIn, submit } = this.stateMachine.services;
+    const { change, signIn, submit } = this.authService.services;
     const remoteError = this.remoteError;
     return { change, remoteError, signIn, submit };
   }
 
   setHeaderText(): void {
-    const state = this.stateMachine.authState;
+    const state = this.authService.authState;
     const actorContext: SignInContext = getActorContext(state);
     const { challengeName } = actorContext;
     switch (challengeName) {
@@ -94,7 +94,7 @@ export class AmplifyConfirmSignInComponent
   onInput(event: Event): void {
     event.preventDefault();
     const { name, value } = <HTMLInputElement>event.target;
-    this.stateMachine.send({
+    this.authService.send({
       type: 'CHANGE',
       data: { name, value },
     });
@@ -104,13 +104,13 @@ export class AmplifyConfirmSignInComponent
     event.preventDefault();
     // TODO: handle form data within the state machine
     const formData = new FormData(event.target as HTMLFormElement);
-    this.stateMachine.send({
+    this.authService.send({
       type: 'SUBMIT',
       data: Object.fromEntries(formData),
     });
   }
 
   toSignIn() {
-    this.stateMachine.send('SIGN_IN');
+    this.authService.send('SIGN_IN');
   }
 }

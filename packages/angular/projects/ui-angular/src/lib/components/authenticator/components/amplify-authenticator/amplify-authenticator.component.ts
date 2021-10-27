@@ -18,7 +18,7 @@ import { I18n } from 'aws-amplify';
 import { CustomComponents } from '../../../../common';
 import { AmplifySlotDirective } from '../../../../directives/amplify-slot.directive';
 import { AuthPropService } from '../../../../services/authenticator-context.service';
-import { StateMachineService } from '../../../../services/state-machine.service';
+import { AuthenticatorService } from '../../../../services/state-machine.service';
 
 @Component({
   selector: 'amplify-authenticator',
@@ -44,7 +44,7 @@ export class AmplifyAuthenticatorComponent implements OnInit, AfterContentInit {
   public signUpTitle = translate('Create Account');
 
   constructor(
-    private stateMachine: StateMachineService,
+    private authService: AuthenticatorService,
     private contextService: AuthPropService
   ) {}
 
@@ -52,7 +52,7 @@ export class AmplifyAuthenticatorComponent implements OnInit, AfterContentInit {
     I18n.putVocabularies(translations);
 
     const { initialState, loginMechanisms } = this;
-    this.stateMachine.startMachine({ initialState, loginMechanisms });
+    this.authService.startMachine({ initialState, loginMechanisms });
 
     /**
      * handling translations after content init, because authenticator and its
@@ -76,17 +76,17 @@ export class AmplifyAuthenticatorComponent implements OnInit, AfterContentInit {
    * Class Functions
    */
   public get context() {
-    const { signOut } = this.stateMachine.services;
-    const user = this.stateMachine.user;
+    const { signOut } = this.authService.services;
+    const user = this.authService.user;
     return { signOut, user } as const;
   }
 
   public get actorState() {
-    return getActorState(this.stateMachine.authState);
+    return getActorState(this.authService.authState);
   }
 
   public get authenticatorState() {
-    return this.stateMachine.authState;
+    return this.authService.authState;
   }
 
   public get variationModal() {
@@ -94,11 +94,11 @@ export class AmplifyAuthenticatorComponent implements OnInit, AfterContentInit {
   }
 
   public onTabChange() {
-    const currentState = this.stateMachine.authState.value;
+    const currentState = this.authService.authState.value;
     if (currentState === 'signIn') {
-      this.stateMachine.send('SIGN_UP');
+      this.authService.send('SIGN_UP');
     } else {
-      this.stateMachine.send('SIGN_IN');
+      this.authService.send('SIGN_IN');
     }
   }
 

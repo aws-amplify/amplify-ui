@@ -17,7 +17,7 @@ import { Event, interpret } from 'xstate';
 @Injectable({
   providedIn: 'root', // ensure we have a singleton service
 })
-export class StateMachineService {
+export class AuthenticatorService {
   private _authState: AuthMachineState;
   private _authService: AuthInterpreter;
   private _user: Record<string, any>; // TODO: strongly type CognitoUser

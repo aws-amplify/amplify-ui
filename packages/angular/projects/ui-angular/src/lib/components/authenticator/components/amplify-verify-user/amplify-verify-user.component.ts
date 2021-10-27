@@ -15,7 +15,7 @@ import {
   translate,
 } from '@aws-amplify/ui';
 import { Subscription } from 'xstate';
-import { StateMachineService } from '../../../../services/state-machine.service';
+import { AuthenticatorService } from '../../../../services/state-machine.service';
 import { AuthPropService } from '../../../../services/authenticator-context.service';
 import { getAttributeMap } from '../../../../common';
 import { nanoid } from 'nanoid';
@@ -45,12 +45,12 @@ export class AmplifyVerifyUserComponent
   public verifyText = translate('Verify');
 
   constructor(
-    private stateMachine: StateMachineService,
+    private authService: AuthenticatorService,
     private contextService: AuthPropService
   ) {}
 
   ngOnInit(): void {
-    this.authSubscription = this.stateMachine.authService.subscribe((state) =>
+    this.authSubscription = this.authService.authService.subscribe((state) =>
       this.onStateUpdate(state)
     );
   }
@@ -71,13 +71,13 @@ export class AmplifyVerifyUserComponent
   }
 
   public get context() {
-    const { change, skip, submit } = this.stateMachine.services;
+    const { change, skip, submit } = this.authService.services;
     const remoteError = this.remoteError;
     return { change, remoteError, skip, submit };
   }
 
   skipVerify(): void {
-    this.stateMachine.send('SKIP');
+    this.authService.send('SKIP');
   }
 
   getLabelForAttr(authAttr: string): string {
@@ -89,7 +89,7 @@ export class AmplifyVerifyUserComponent
   onInput(event: Event): void {
     event.preventDefault();
     const { name, value } = <HTMLInputElement>event.target;
-    this.stateMachine.send({
+    this.authService.send({
       type: 'CHANGE',
       data: { name, value },
     });
@@ -98,7 +98,7 @@ export class AmplifyVerifyUserComponent
   onSubmit(event: Event): void {
     event.preventDefault();
     const formData = new FormData(event.target as HTMLFormElement);
-    this.stateMachine.send({
+    this.authService.send({
       type: 'SUBMIT',
       data: Object.fromEntries(formData),
     });

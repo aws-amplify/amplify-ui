@@ -10,7 +10,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 // TODO: import from '@/services/...'
-import { StateMachineService } from '../../../../services/state-machine.service';
+import { AuthenticatorService } from '../../../../services/state-machine.service';
 import { AuthPropService } from '../../../../services/authenticator-context.service';
 import { Subscription } from 'xstate';
 import { AuthMachineState, getActorState, SignInState } from '@aws-amplify/ui';
@@ -40,12 +40,12 @@ export class AmplifySignInComponent
   private authSubscription: Subscription;
 
   constructor(
-    private stateMachine: StateMachineService,
+    private authService: AuthenticatorService,
     private contextService: AuthPropService
   ) {}
 
   ngOnInit(): void {
-    this.authSubscription = this.stateMachine.authService.subscribe((state) =>
+    this.authSubscription = this.authService.authService.subscribe((state) =>
       this.onStateUpdate(state)
     );
   }
@@ -66,20 +66,19 @@ export class AmplifySignInComponent
   }
 
   public get context() {
-    const { change, resetPassword, signUp, submit } =
-      this.stateMachine.services;
+    const { change, resetPassword, signUp, submit } = this.authService.services;
     const remoteError = this.remoteError;
     return { change, remoteError, resetPassword, signUp, submit };
   }
 
   toResetPassword(): void {
-    this.stateMachine.send('RESET_PASSWORD');
+    this.authService.send('RESET_PASSWORD');
   }
 
   onInput(event: Event): void {
     event.preventDefault();
     const { name, value } = <HTMLInputElement>event.target;
-    this.stateMachine.send({
+    this.authService.send({
       type: 'CHANGE',
       data: { name, value },
     });
@@ -88,7 +87,7 @@ export class AmplifySignInComponent
   onSubmit(event: Event): void {
     event.preventDefault();
 
-    this.stateMachine.send({
+    this.authService.send({
       type: 'SUBMIT',
     });
   }
