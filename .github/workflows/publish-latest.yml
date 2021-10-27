@@ -1,26 +1,13 @@
 name: Publish to @next
 
 on:
-  workflow_run:
-    workflows: ['Tests']
-    types:
-      - completed
+  push:
+    branches: [main]
 
 jobs:
   publish:
     runs-on: ubuntu-latest
     environment: ci
-    # We only publish if the previous workflow run (Tests) was successful
-    # and the previous workflow was called from main branch.
-    #
-    # Note that we check against workflow_run.head_branch instead of github.ref
-    # because workflow_run is always run on main, even if it's triggered from
-    # another branch.
-    #
-    # https://github.community/t/workflow-run-not-working-as-expected/139342
-    if: |
-      github.event.workflow_run.conclusion == 'success' &&
-      github.event.workflow_run.head_branch == 'main'
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
