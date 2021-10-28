@@ -1,42 +1,67 @@
 import classNames from 'classnames';
-import { Range, Slider, Thumb, Track } from '@radix-ui/react-slider';
+import { Range, Root, Thumb, Track } from '@radix-ui/react-slider';
+import * as React from 'react';
 
 import { FieldDescription, FieldErrorMessage } from '../Field';
 import { FieldGroup } from '../FieldGroup';
 import { Flex } from '../Flex';
 import { Label } from '../Label';
+import { View } from '../View';
 import { SliderFieldProps } from '../types/sliderField';
 import { Primitive } from '../types/view';
 import { ComponentClassNames } from '../shared/constants';
 import { splitPrimitiveProps } from '../shared/styleUtils';
-import { useStableId } from '../shared/utils';
+import { isFunction } from '../shared/utils';
 
-export const SliderField: Primitive<SliderFieldProps, typeof Slider> = ({
-  trackHeight,
+export const SliderField: Primitive<SliderFieldProps, typeof Root> = ({
+  orientation,
+  trackWidth,
   emptyTrackColor,
   filledTrackColor,
   thumbColor,
   thumbComponent,
   outerStartComponent,
   outerEndComponent,
-  id,
   descriptiveText,
   label,
   labelHidden,
   errorMessage,
   hasError,
+  isDisabled,
+  isValueHidden,
   value,
   defaultValue,
-  onValueChange,
+  onChange,
   testId,
   ..._rest
 }) => {
-  const fieldId = useStableId(id);
-
   const { flexContainerStyleProps, rest } = splitPrimitiveProps(_rest);
+
+  const isControlled = value !== undefined;
+
+  const [currentValue, setCurrentValue] = React.useState(
+    isControlled ? value : defaultValue
+  );
+
+  const values = isControlled ? [value] : undefined;
+  const defaultValues = !isControlled ? [defaultValue] : undefined;
+
+  const onValueChange = React.useCallback(
+    (value: number[]) => {
+      setCurrentValue(value[0]);
+      if (isFunction(onChange)) {
+        // Do not have multiple thumbs support yet
+        onChange(value[0]);
+      }
+    },
+    [onChange]
+  );
+
+  const isVertical = orientation === 'vertical';
+
   return (
     <Flex
-      // Custom classnames will be added to Slider below through rest
+      // Custom classnames will be added to Root below through rest
       className={classNames(
         ComponentClassNames.Field,
         ComponentClassNames.SliderField
@@ -44,30 +69,56 @@ export const SliderField: Primitive<SliderFieldProps, typeof Slider> = ({
       testId={testId}
       {...flexContainerStyleProps}
     >
-      <Label htmlFor={fieldId} visuallyHidden={labelHidden}>
-        {label}
+      <Label
+        className={ComponentClassNames.SliderFieldLabel}
+        visuallyHidden={labelHidden}
+      >
+        <View as="span">{label}</View>
+        {!isValueHidden ? (
+          <View as="span" aria-hidden>
+            {currentValue}
+          </View>
+        ) : null}
       </Label>
       <FieldDescription
         labelHidden={labelHidden}
         descriptiveText={descriptiveText}
       />
       <FieldGroup
+        className={ComponentClassNames.SliderFieldGroup}
+        orientation={orientation}
         outerStartComponent={outerStartComponent}
         outerEndComponent={outerEndComponent}
       >
-        <Slider {...rest}>
+        <Root
+          className={ComponentClassNames.SliderFieldRoot}
+          disabled={isDisabled}
+          orientation={orientation}
+          defaultValue={defaultValues}
+          value={values}
+          onValueChange={onValueChange}
+          {...rest}
+        >
           <Track
-            style={{ backgroundColor: emptyTrackColor, height: trackHeight }}
+            className={ComponentClassNames.SliderFieldTrack}
+            style={{
+              backgroundColor: emptyTrackColor,
+              [`${isVertical ? 'width' : 'height'}`]: trackWidth,
+            }}
           >
-            <Range id={fieldId} style={{ backgroundColor: filledTrackColor }} />
+            <Range
+              className={ComponentClassNames.SliderFieldRange}
+              style={{ backgroundColor: filledTrackColor }}
+            />
           </Track>
           <Thumb
             asChild={thumbComponent != undefined}
+            className={ComponentClassNames.SliderFieldThumb}
             style={{ backgroundColor: thumbColor }}
           >
             {thumbComponent}
           </Thumb>
-        </Slider>
+        </Root>
       </FieldGroup>
       <FieldErrorMessage hasError={hasError} errorMessage={errorMessage} />
     </Flex>

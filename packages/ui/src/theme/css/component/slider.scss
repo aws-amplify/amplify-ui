@@ -1,0 +1,83 @@
+.amplify-sliderfield {
+  flex-direction: column;
+}
+
+.amplify-sliderfield__label {
+  display: flex;
+  justify-content: space-between;
+}
+
+.amplify-sliderfield__group {
+  gap: var(--amplify-components-sliderfield-group-gap);
+}
+
+.amplify-sliderfield__root {
+  position: relative;
+  display: flex;
+  align-items: center;
+  user-select: none;
+  touch-action: none;
+
+  &[data-orientation='horizontal'] {
+    height: var(--amplify-components-sliderfield-root-horizontal-height);
+  }
+
+  &[data-orientation='vertical'] {
+    flex-direction: column;
+    width: var(--amplify-components-sliderfield-root-horizontal-width);
+  }
+}
+
+.amplify-sliderfield__track {
+  position: relative;
+  flex-grow: 1;
+  border-radius: 9999px;
+  background-color: var(
+    --amplify-components-sliderfield-track-background-color
+  );
+
+  &[data-orientation='horizontal'] {
+    height: var(--amplify-components-sliderfield-track-horizontal-height);
+    min-width: var(--amplify-components-sliderfield-track-horizontal-min-width);
+  }
+
+  &[data-orientation='vertical'] {
+    width: var(--amplify-components-sliderfield-track-vertical-width);
+    min-height: var(--amplify-components-sliderfield-track-vertical-min-height);
+  }
+}
+
+.amplify-sliderfield__range {
+  position: absolute;
+  border-radius: 9999px;
+  background-color: var(
+    --amplify-components-sliderfield-range-background-color
+  );
+
+  &[data-orientation='horizontal'] {
+    height: 100%;
+  }
+
+  &[data-orientation='vertical'] {
+    width: 100%;
+  }
+}
+
+.amplify-sliderfield__thumb {
+  display: block;
+  width: var(--amplify-components-sliderfield-thumb-width);
+  height: var(--amplify-components-sliderfield-thumb-height);
+  background-color: var(
+    --amplify-components-sliderfield-thumb-background-color
+  );
+  box-shadow: var(--amplify-components-sliderfield-thumb-box-shadow);
+  border-radius: var(--amplify-components-sliderfield-thumb-border-radius);
+  &:hover {
+    background-color: var(
+      --amplify-components-sliderfield-thumb-hover-background-color
+    );
+  }
+  &:focus {
+    box-shadow: var(--amplify-components-sliderfield-thumb-focus-box-shadow);
+  }
+}

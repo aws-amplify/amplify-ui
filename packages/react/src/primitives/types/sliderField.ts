@@ -4,7 +4,7 @@ import * as React from 'react';
 import { TextInputFieldProps } from './textField';
 import { ViewProps } from './view';
 
-type SliderOrientation = 'vertical';
+type SliderOrientation = 'horizontal' | 'vertical';
 
 export interface SliderFieldProps extends TextInputFieldProps, ViewProps {
   min?: number;
@@ -12,12 +12,12 @@ export interface SliderFieldProps extends TextInputFieldProps, ViewProps {
   step?: number;
   orientation?: SliderOrientation;
   isValueHidden?: boolean;
-  trackHeight?: Property.Height;
+  trackWidth?: string;
   emptyTrackColor?: Property.Color;
   filledTrackColor?: Property.Color;
   thumbColor?: Property.Color;
   thumbComponent?: React.ReactNode;
   value?: number;
   defaultValue?: number;
-  onValueChange?: (value: number) => void;
+  onChange?: (value: number) => void;
 }
