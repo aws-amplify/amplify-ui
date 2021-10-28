@@ -18,10 +18,6 @@ jobs:
           cache: 'yarn'
       - name: Install packages
         run: yarn --frozen-lockfile
-      - name: Create .npmrc
-        run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Create Release Pull Request or Publish to npm
         id: changesets
         uses: changesets/action@b98cec9
