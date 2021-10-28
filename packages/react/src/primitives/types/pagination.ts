@@ -9,7 +9,7 @@ interface BasePaginationProps {
   /**
    * Index of the current page. (starting from 1)
    */
-  currentPage: number;
+  currentPage?: number;
 
   /**
    * Total number of available pages.

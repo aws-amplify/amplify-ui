@@ -46,7 +46,7 @@ export const Loader: Primitive<LoaderProps, 'svg'> = ({
         cx="50%"
         cy="50%"
         r="42%"
-        stroke-width="8%"
+        strokeWidth="8%"
         style={{ stroke: emptyColor }}
         data-testid={CIRCULAR_EMPTY}
       />
@@ -54,7 +54,7 @@ export const Loader: Primitive<LoaderProps, 'svg'> = ({
         cx="50%"
         cy="50%"
         r="42%"
-        stroke-width="8%"
+        strokeWidth="8%"
         style={{ stroke: filledColor }}
         data-testid={CIRCULAR_FILLED}
       />

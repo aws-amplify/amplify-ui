@@ -1,11 +1,11 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { UsePaginationProps, UsePaginationResult } from '../types/pagination';
 
 export const usePagination = (
   props: UsePaginationProps
 ): UsePaginationResult => {
-  let { currentPage: initialPage, totalPages, siblingCount = 1 } = props;
+  let { currentPage: initialPage = 1, totalPages, siblingCount = 1 } = props;
 
   // The current page should not be less than 1
   initialPage = Math.max(initialPage, 1);
@@ -13,8 +13,10 @@ export const usePagination = (
   siblingCount = Math.max(siblingCount, 1);
   // The total pages should be always greater than current page
   totalPages = Math.max(initialPage, totalPages);
-
   const [currentPage, setCurrentPage] = useState(initialPage);
+
+  // Reset current page if initialPage or totalPages changes
+  useEffect(() => setCurrentPage(initialPage), [initialPage, totalPages]);
 
   const onNext = useCallback(() => {
     if (currentPage < totalPages) {

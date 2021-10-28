@@ -8,6 +8,11 @@ export interface SearchFieldProps extends TextInputFieldProps {
   onSubmit?: (value: string) => void;
 
   /**
+   * Triggered when search field is cleared
+   */
+  onClear?: () => void;
+
+  /**
    * Visually hide label
    * @default true
    */
