@@ -17,6 +17,7 @@ import { AmplifyResetPasswordComponent } from './components/amplify-reset-passwo
 import { AmplifySetupTotpComponent } from './components/amplify-setup-totp/amplify-setup-totp.component';
 import { AmplifySignInComponent } from './components/amplify-sign-in/amplify-sign-in.component';
 import { AmplifySignUpComponent } from './components/amplify-sign-up/amplify-sign-up.component';
+import { AmplifySignUpFormFieldComponent } from './components/amplify-sign-up/amplify-sign-up-form-field.component';
 import { AmplifyVerifyUserComponent } from './components/amplify-verify-user/amplify-verify-user.component';
 import { ConfirmResetPasswordComponent } from './components/confirm-reset-password/amplify-confirm-reset-password.component';
 import { ConfirmVerifyUserComponent } from './components/confirm-verify-user/amplify-confirm-verify-user.component';
@@ -51,6 +52,7 @@ import { AmplifySlotDirective } from '../../directives/amplify-slot.directive';
     AmplifySetupTotpComponent,
     AmplifySignInComponent,
     AmplifySignUpComponent,
+    AmplifySignUpFormFieldComponent,
     AmplifySlotDirective,
     AmplifyTextFieldComponent,
     AmplifyUserNameAliasComponent,
@@ -62,6 +64,10 @@ import { AmplifySlotDirective } from '../../directives/amplify-slot.directive';
     TabsComponent,
   ],
   imports: [CommonModule, BrowserModule],
-  exports: [AmplifyAuthenticatorComponent, AmplifySlotDirective],
+  exports: [
+    AmplifyAuthenticatorComponent,
+    AmplifySignUpFormFieldComponent,
+    AmplifySlotDirective,
+  ],
 })
 export class AmplifyAuthenticatorModule {}
