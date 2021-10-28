@@ -95,7 +95,7 @@
         ref="signUpComponent"
       >
         <template #signup-fields="{ info }">
-          <slot name="sign-up-fields" :info="info" :state="state"></slot>
+          <slot name="sign-up-fields" :info="info"></slot>
         </template>
 
         <template #signUpSlotI>
