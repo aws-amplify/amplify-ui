@@ -31,6 +31,21 @@ Given(
   }
 );
 
+Given(
+  'I intercept {string} with error fixture {string}',
+  (json: string, fixture: string) => {
+    let routeMatcher;
+
+    try {
+      routeMatcher = JSON.parse(json);
+    } catch (error) {
+      throw error;
+    }
+
+    cy.intercept(routeMatcher, { statusCode: 400, fixture });
+  }
+);
+
 When('I type an invalid password', () => {
   cy.findInputField('Password').type('invalidpass');
 });
