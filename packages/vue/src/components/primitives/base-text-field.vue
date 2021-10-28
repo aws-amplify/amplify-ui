@@ -9,7 +9,6 @@ interface textFields {
   disabled: boolean;
   name: string;
   type: string;
-  initialValue: string;
 }
 const props = withDefaults(defineProps<textFields>(), {
   label: '',
@@ -20,19 +19,10 @@ const props = withDefaults(defineProps<textFields>(), {
   disabled: false,
   name: '',
   type: 'text',
-  initialValue: '',
 });
 
-const {
-  label,
-  id,
-  autocomplete,
-  placeholder,
-  required,
-  name,
-  type,
-  initialValue,
-} = toRefs(props);
+const { label, id, autocomplete, placeholder, required, name, type } =
+  toRefs(props);
 </script>
 <template>
   <base-label class="amplify-label sr-only" :for="id">
@@ -49,7 +39,6 @@ const {
       :name="name"
       :disabled="disabled"
       :type="type"
-      v-model="initialValue"
     ></base-input>
   </base-wrapper>
 </template>

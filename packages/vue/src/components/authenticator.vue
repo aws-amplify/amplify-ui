@@ -102,11 +102,10 @@
           <slot name="sign-up"></slot>
         </template>
 
-        <template #footer="{ onHaveAccountClicked, onSignUpSubmit, info }">
+        <template #footer="{ onSignUpSubmit, info }">
           <slot
             name="sign-up-footer"
             :info="info"
-            :onHaveAccountClicked="onHaveAccountClicked"
             :onSignUpSubmit="onSignUpSubmit"
           >
           </slot>
@@ -319,7 +318,7 @@ const { initialState, loginMechanisms, variation, services } = withDefaults(
     initialState?: AuthenticatorMachineOptions['initialState'];
     loginMechanisms?: AuthenticatorMachineOptions['loginMechanisms'];
     services?: AuthenticatorMachineOptions['services'];
-    variation?: 'modal' | undefined;
+    variation?: 'modal';
   }>(),
   {
     loginMechanisms: () => ['username'],
@@ -433,7 +432,7 @@ const onSignUpSubmitI = (e: Event) => {
   if (attrs?.onSignUpSubmit) {
     emit('signUpSubmit', e);
   } else {
-    signUpComponent.value.submit(e);
+    signUpComponent.value.submit();
   }
 };
 

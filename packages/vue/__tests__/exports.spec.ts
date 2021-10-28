@@ -6,6 +6,7 @@ describe('@aws-amplify/ui-vue', () => {
       expect(Object.keys(exported)).toMatchInlineSnapshot(`
         Array [
           "Authenticator",
+          "BaseCheckBox",
           "BaseTextField",
           "ConfirmResetPassword",
           "ConfirmSignIn",

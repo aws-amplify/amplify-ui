@@ -17,6 +17,7 @@ import {
   VerifyUser,
   SignUpFormFields,
   BaseTextField,
+  BaseCheckBox,
 } from './components/index';
 
 import { useAuthenticator } from './composables/useAuth';
@@ -40,6 +41,7 @@ export default {
     app.component('VerifyUser', VerifyUser);
     app.component('ConfirmVerifyUser', ConfirmVerifyUser);
     app.component('BaseTextField', BaseTextField);
+    app.component('BaseCheckBox', BaseCheckBox);
     app.component('SignUpFormFields', SignUpFormFields);
   },
 };
@@ -61,6 +63,7 @@ export {
   ConfirmVerifyUser,
   VerifyUser,
   BaseTextField,
+  BaseCheckBox,
   useAuthenticator,
 };
 
