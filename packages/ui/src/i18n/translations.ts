@@ -12,7 +12,15 @@
  */
 import { I18n } from 'aws-amplify';
 import { NoInfer } from '../types';
-import { deDict, esDict, frDict, itDict, jaDict, zhDict } from './dictionaries';
+import {
+  deDict,
+  enDict,
+  esDict,
+  frDict,
+  itDict,
+  jaDict,
+  zhDict,
+} from './dictionaries';
 
 /**
  * Contains translatable strings that authenticator provides by default. Customers
@@ -100,6 +108,7 @@ export function translate<T = Phrase>(phrase: NoInfer<T>): string {
 
 export const translations: Record<string, Dict> = {
   de: deDict,
+  en: enDict,
   es: esDict,
   fr: frDict,
   it: itDict,
