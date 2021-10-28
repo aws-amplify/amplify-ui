@@ -3,12 +3,13 @@ import { ReactNode } from 'react';
 
 import { AmplifyContext } from './AmplifyContext';
 import { defaultTheme, BrowserTheme } from '@aws-amplify/ui';
+import * as primitives from '../../primitives';
 
 export type ColorMode = 'system' | 'light' | 'dark';
 
 interface AmplifyProviderProps {
   children: ReactNode;
-  components: Record<string, ReactNode>;
+  components?: Partial<typeof primitives>;
   theme?: BrowserTheme;
   colorMode?: ColorMode;
 }

@@ -24,4 +24,7 @@ export const SharedText = {
       DecreaseTo: 'Decrease to',
     },
   },
+  Collection: {
+    SearchFieldLabel: 'Search',
+  },
 };
