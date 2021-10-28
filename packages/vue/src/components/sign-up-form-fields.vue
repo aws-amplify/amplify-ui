@@ -1,18 +1,13 @@
 <script setup lang="ts">
-import { computed, ComputedRef } from 'vue';
+import { computed, ComputedRef, toRefs } from 'vue';
 import {
   translate,
-  ValidationError,
-  getActorContext,
-  SignUpContext,
   UserNameAlias,
   LoginMechanism,
   AuthInputAttributes,
   authInputAttributes,
-  SignUpState,
-  getActorState,
 } from '@aws-amplify/ui';
-import { useAuth } from '../composables/useAuth';
+import { useAuth, useAuthenticator } from '../composables/useAuth';
 import { useAliases } from '../composables/useUtils';
 import UserNameAliasComponent from './user-name-alias.vue';
 import PasswordControl from './password-control.vue';
@@ -25,13 +20,7 @@ const {
   value: { context },
 } = state;
 
-const actorState: ComputedRef<SignUpState> = computed(() =>
-  getActorState(state.value)
-);
-
-const actorContext = computed(() =>
-  getActorContext(state.value)
-) as ComputedRef<SignUpContext>;
+const { validationErrors } = toRefs(useAuthenticator());
 
 let [__, ...secondaryAliases] = useAliases(
   context?.config?.login_mechanisms as LoginMechanism[]
@@ -43,7 +32,6 @@ const inputAttributes: ComputedRef<AuthInputAttributes> = computed(
 
 // computed properties
 const passwordLabel = computed(() => translate('Password'));
-const createAccountLabel = computed(() => translate('Create Account'));
 const confirmPasswordLabel = computed(() => translate('Confirm Password'));
 </script>
 
@@ -60,9 +48,7 @@ const confirmPasswordLabel = computed(() => translate('Confirm Password'));
       name="password"
       :label="passwordLabel"
       autocomplete="new-password"
-      :ariainvalid="
-                  !!(actorContext.validationError as ValidationError)['confirm_password']
-                "
+      :ariainvalid="!!validationErrors.confirm_password"
     />
   </base-wrapper>
   <base-wrapper
@@ -76,17 +62,15 @@ const confirmPasswordLabel = computed(() => translate('Confirm Password'));
       name="confirm_password"
       :label="confirmPasswordLabel"
       autocomplete="new-password"
-      :ariainvalid="
-                  !!(actorContext.validationError as ValidationError)['confirm_password']
-                "
+      :ariainvalid="!!validationErrors.confirm_password"
     />
   </base-wrapper>
   <p
     data-variation="error"
     class="amplify-text"
-    v-if="!!(actorContext.validationError as ValidationError)['confirm_password']"
+    v-if="!!validationErrors.confirm_password"
   >
-    {{ (actorContext.validationError as ValidationError)['confirm_password'] }}
+    {{ validationErrors.confirm_password }}
   </p>
 
   <template
