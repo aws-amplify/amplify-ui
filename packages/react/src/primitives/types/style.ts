@@ -27,6 +27,7 @@ export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
   bottom?: ResponsiveStyle<Property.Bottom>;
   boxShadow?: ResponsiveStyle<Property.BoxShadow>;
   color?: ResponsiveStyle<Property.Color>;
+  display?: ResponsiveStyle<Property.Display>;
   fontFamily?: ResponsiveStyle<Property.FontFamily>;
   fontSize?: ResponsiveStyle<Property.FontSize>;
   fontStyle?: ResponsiveStyle<Property.FontStyle>;
@@ -40,6 +41,7 @@ export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
   minHeight?: ResponsiveStyle<Property.MinHeight>;
   minWidth?: ResponsiveStyle<Property.MinWidth>;
   opacity?: ResponsiveStyle<Property.Opacity>;
+  overflow?: ResponsiveStyle<Property.Overflow>;
   padding?: ResponsiveStyle<Property.Padding>;
   position?: ResponsiveStyle<Property.Position>;
   right?: ResponsiveStyle<Property.Right>;
@@ -118,6 +120,7 @@ export const ComponentPropsToStylePropsMap: ComponentPropToStyleProp = {
   columnSpan: 'gridColumn', // Will set gridColumn if no `row` prop given
   columnStart: 'gridColumnStart',
   direction: 'flexDirection',
+  display: 'display',
   fontFamily: 'fontFamily',
   fontSize: 'fontSize',
   fontStyle: 'fontStyle',
@@ -137,6 +140,7 @@ export const ComponentPropsToStylePropsMap: ComponentPropToStyleProp = {
   objectPosition: 'objectPosition',
   opacity: 'opacity',
   order: 'order',
+  overflow: 'overflow',
   padding: 'padding',
   position: 'position',
   resize: 'resize',
