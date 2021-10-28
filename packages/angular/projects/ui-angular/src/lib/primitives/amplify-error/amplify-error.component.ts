@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
 })
 export class AmplifyErrorComponent {
   public isVisible = true;
+
   public close() {
     this.isVisible = false;
   }
