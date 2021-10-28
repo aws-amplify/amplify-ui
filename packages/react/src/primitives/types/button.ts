@@ -3,7 +3,7 @@ import { ViewProps } from './view';
 
 export type ButtonSizes = Sizes;
 export type ButtonTypes = 'button' | 'reset' | 'submit';
-export type ButtonVariations = 'primary' | 'default' | 'link';
+export type ButtonVariations = 'primary' | 'link' | 'menu';
 
 export interface ButtonProps extends ViewProps {
   /**
@@ -46,7 +46,6 @@ export interface ButtonProps extends ViewProps {
 
   /**
    * Changes the visual weight of the button.
-   * @default "default"
    */
   variation?: ButtonVariations;
 }

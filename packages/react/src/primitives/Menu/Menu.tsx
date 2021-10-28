@@ -22,22 +22,19 @@ export const Menu: Menu = ({
   children,
   className,
   button = (
-    <MenuButton variation="link">
-      <IconMenu />
+    <MenuButton className={ComponentClassNames.MenuTrigger}>
+      <IconMenu size="large" />
     </MenuButton>
   ),
   onOpenChange,
   ...rest
 }) => {
-  console.log('children', children);
   return (
     <DropdownMenu onOpenChange={onOpenChange}>
       <DropdownMenuTrigger asChild={true}>{button}</DropdownMenuTrigger>
       <DropdownMenuContent>
         <Flex
           aria-label={ariaLabel}
-          as={Flex}
-          direction="column"
           className={ComponentClassNames.MenuContent}
         >
           {children}
@@ -50,7 +47,13 @@ export const Menu: Menu = ({
 export const MenuItem: React.FC<MenuItemProps> = ({ children, ...rest }) => {
   return (
     <DropdownMenuItem asChild={true}>
-      <MenuButton {...rest}>{children}</MenuButton>
+      <MenuButton
+        className={ComponentClassNames.MenuButton}
+        variation="menu"
+        {...rest}
+      >
+        {children}
+      </MenuButton>
     </DropdownMenuItem>
   );
 };
