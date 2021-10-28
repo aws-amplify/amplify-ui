@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event';
 
 import { Checkbox } from '../Checkbox';
 import { CheckboxProps } from '../../types/checkbox';
+import { PrimitiveProps } from '../../types/view';
 import { ComponentClassNames } from '../../shared';
 import {
   testFlexProps,
@@ -17,7 +18,7 @@ describe('Checkbox test suite', () => {
     testId: 'testId',
   };
 
-  const getCheckbox = (props: CheckboxProps) => {
+  const getCheckbox = (props: PrimitiveProps<CheckboxProps, 'input'>) => {
     const { children, ...rest } = props;
     return <Checkbox {...rest}>{children}</Checkbox>;
   };

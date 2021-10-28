@@ -21,10 +21,20 @@ export function cssValue(token: DesignToken) {
   }
   if (typeof value === 'object') {
     if ('offsetX' in value) {
-      const { offsetX = '', offsetY = '', blurRadius = '', color = '' } = value;
-      return `${referenceValue(offsetX)} ${referenceValue(
-        offsetY
-      )} ${referenceValue(blurRadius)} ${referenceValue(color)}`;
+      const {
+        offsetX = '',
+        offsetY = '',
+        blurRadius = '',
+        spreadRadius = '',
+        color = '',
+      } = value;
+      return [
+        referenceValue(offsetX),
+        referenceValue(offsetY),
+        referenceValue(blurRadius),
+        referenceValue(spreadRadius),
+        referenceValue(color),
+      ].join(' ');
     }
   }
 

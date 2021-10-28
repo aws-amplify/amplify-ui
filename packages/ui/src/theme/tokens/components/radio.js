@@ -43,18 +43,20 @@ module.exports = {
       color: {
         value: '{colors.red.60.value}',
       },
-      _disabled: { color: { value: '{colors.disabled.value}' } },
+      _disabled: { color: { value: '{colors.background.disabled.value}' } },
     },
 
     _focus: {
-      borderColor: { value: '{colors.focus.value}' },
-      boxShadow: { value: '0 0 0 1px {colors.focus.value}' },
+      borderColor: { value: '{colors.border.focus.value}' },
+      boxShadow: { value: '{components.fieldcontrol.focus.boxShadow.value}' },
     },
 
     _error: {
-      borderColor: { value: '{colors.error.value}' },
+      borderColor: { value: '{colors.border.error.value}' },
       _focus: {
-        boxShadow: { value: '0 0 0 1px {colors.error.value}' },
+        boxShadow: {
+          value: '{components.fieldcontrol.error.focus.boxShadow.value}',
+        },
       },
     },
 

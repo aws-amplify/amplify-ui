@@ -9,7 +9,9 @@ export const ForceNewPassword = (): JSX.Element => {
   const { validationError } = getActorContext(_state) as SignInContext;
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
+    let { checked, name, type, value } = event.target;
+    if (type === 'checkbox' && !checked) value = undefined;
+
     updateForm({ name, value });
   };
 

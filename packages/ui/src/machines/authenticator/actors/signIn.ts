@@ -1,9 +1,9 @@
+import { Auth } from 'aws-amplify';
 import { get, isEmpty } from 'lodash';
 import { createMachine, sendUpdate } from 'xstate';
 
-import { Auth } from 'aws-amplify';
-
-import { passwordMatches, runValidators } from '@/validators';
+import { AuthChallengeNames, AuthEvent, SignInContext } from '../../../types';
+import { runValidators } from '../../../validators';
 import {
   clearAttributeToVerify,
   clearChallengeName,
@@ -22,7 +22,7 @@ import {
   setUser,
   setUsernameAuthAttributes,
 } from '../actions';
-import { AuthEvent, AuthChallengeNames, SignInContext } from '../../../types';
+import { defaultServices } from '../defaultServices';
 
 export const signInActor = createMachine<SignInContext, AuthEvent>(
   {
@@ -448,11 +448,10 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
           confirmation_code
         );
       },
-      async validateFields(context, _event) {
-        const { formValues } = context;
-        const validators = [passwordMatches]; // this can contain custom validators too
-
-        return runValidators(formValues, validators);
+      async validateFields(context, event) {
+        return runValidators(context.formValues, [
+          defaultServices.validateConfirmPassword,
+        ]);
       },
     },
   }

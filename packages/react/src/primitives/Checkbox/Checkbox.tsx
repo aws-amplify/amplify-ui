@@ -8,34 +8,26 @@ import { Text } from '../Text';
 import { VisuallyHidden } from '../VisuallyHidden';
 import { CheckboxProps } from '../types/checkbox';
 import { Primitive } from '../types/view';
+import { splitPrimitiveProps } from '../shared/styleUtils';
 import { ComponentClassNames } from '../shared/constants';
 import { useTestId } from '../utils/testUtils';
 
-export const Checkbox: Primitive<CheckboxProps, typeof Flex> = ({
-  alignContent,
-  alignItems,
-  backgroundColor,
+export const Checkbox: Primitive<CheckboxProps, 'input'> = ({
   checked,
   children,
   className,
-  color,
   defaultChecked,
-  direction,
   hasError,
   id,
   isDisabled,
-  isReadOnly,
-  isRequired,
-  justifyContent,
-  gap,
-  name,
   onChange: onChangeProp,
   size,
   testId,
-  value,
-  wrap,
-  ...rest
+  ..._rest
 }) => {
+  const { baseStyleProps, flexContainerStyleProps, rest } =
+    splitPrimitiveProps(_rest);
+
   // controlled way should always override uncontrolled way
   const initialChecked = checked !== undefined ? checked : defaultChecked;
 
@@ -50,17 +42,12 @@ export const Checkbox: Primitive<CheckboxProps, typeof Flex> = ({
 
   return (
     <Flex
-      alignContent={alignContent}
-      alignItems={alignItems}
       as="label"
       className={classNames(ComponentClassNames.Checkbox, className)}
       data-disabled={isDisabled}
-      direction={direction}
-      gap={gap}
-      justifyContent={justifyContent}
-      wrap={wrap}
       testId={testId}
-      {...rest}
+      {...baseStyleProps}
+      {...flexContainerStyleProps}
     >
       <VisuallyHidden>
         <Input
@@ -69,14 +56,11 @@ export const Checkbox: Primitive<CheckboxProps, typeof Flex> = ({
           defaultChecked={defaultChecked}
           id={id}
           isDisabled={isDisabled}
-          isReadOnly={isReadOnly}
-          isRequired={isRequired}
-          name={name}
           onBlur={onBlur}
           onChange={onChange}
           onFocus={onFocus}
           type="checkbox"
-          value={value}
+          {...rest}
         />
       </VisuallyHidden>
       <Flex

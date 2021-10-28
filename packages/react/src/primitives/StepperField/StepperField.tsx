@@ -14,27 +14,24 @@ import { StepperFieldProps } from '../types/stepperField';
 import { ComponentClassNames } from '../shared/constants';
 import { SharedText } from '../shared/i18n';
 import { useStableId } from '../shared/utils';
+import { Primitive } from '../types/view';
+import { splitPrimitiveProps } from '../shared/styleUtils';
 
 export const DECREASE_ICON = 'decrease-icon';
 export const INCREASE_ICON = 'increase-icon';
 
-export const StepperField: React.FC<StepperFieldProps> = (props) => {
+export const StepperField: Primitive<StepperFieldProps, 'input'> = (props) => {
   const {
-    alignContent,
-    alignItems,
     className,
     descriptiveText,
     // this is only required in useStepper hook but deconstruct here to remove its existence in rest
     defaultValue,
-    direction,
     errorMessage,
-    gap,
     hasError = false,
     id,
     isDisabled,
     isReadOnly,
     isRequired,
-    justifyContent,
     label,
     labelHidden = false,
     onStepChange,
@@ -42,11 +39,13 @@ export const StepperField: React.FC<StepperFieldProps> = (props) => {
     testId,
     // this is only required in useStepper hook but deconstruct here to remove its existence in rest
     value: controlledValue,
-    wrap,
-    ...rest
+    ..._rest
   } = props;
 
   const fieldId = useStableId(id);
+
+  const { baseStyleProps, flexContainerStyleProps, rest } =
+    splitPrimitiveProps(_rest);
 
   const {
     step,
@@ -63,19 +62,14 @@ export const StepperField: React.FC<StepperFieldProps> = (props) => {
 
   return (
     <Flex
-      alignContent={alignContent}
-      alignItems={alignItems}
       className={classNames(
         ComponentClassNames.Field,
         ComponentClassNames.StepperField,
         className
       )}
       data-size={size}
-      direction={direction}
-      gap={gap}
-      justifyContent={justifyContent}
       testId={testId}
-      wrap={wrap}
+      {...flexContainerStyleProps}
     >
       <Label htmlFor={fieldId} visuallyHidden={labelHidden}>
         {label}
@@ -129,6 +123,7 @@ export const StepperField: React.FC<StepperFieldProps> = (props) => {
           size={size}
           type="number"
           value={inputValue}
+          {...baseStyleProps}
           {...rest}
         />
       </FieldGroup>

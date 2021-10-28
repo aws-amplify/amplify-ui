@@ -26,7 +26,7 @@ describe('Pagination component test suite', () => {
       expect(pagination).toHaveClass(ComponentClassNames.Pagination);
 
       const firstPage = await screen.findByText('1');
-      expect(firstPage).toHaveClass('current');
+      expect(firstPage).toHaveClass(ComponentClassNames.PaginationItemCurrent);
 
       const lastPage = await screen.findByLabelText('Go to page 5');
       expect(lastPage.childNodes.length).toBe(1);
@@ -203,7 +203,7 @@ describe('Pagination component test suite', () => {
       );
       const pageItem = await screen.findByText('1');
       expect(pageItem.nodeName).toBe('SPAN');
-      expect(pageItem).toHaveClass('current');
+      expect(pageItem).toHaveClass(ComponentClassNames.PaginationItemCurrent);
       const invisibleLabel = await screen.findByText('Current Page:');
       expect(invisibleLabel).toHaveClass(ComponentClassNames.VisuallyHidden);
 
@@ -248,7 +248,7 @@ describe('Pagination component test suite', () => {
       render(<PaginationItem type="ellipsis" ariaLabel="ellipsis" />);
       const ellipsis = await screen.findByTestId('ellipsis');
       expect(ellipsis.nodeName).toBe('SPAN');
-      expect(ellipsis).toHaveClass('ellipsis');
+      expect(ellipsis).toHaveClass(ComponentClassNames.PaginationItemEllipsis);
       expect(ellipsis.innerHTML).toBe('\u2026');
     });
   });

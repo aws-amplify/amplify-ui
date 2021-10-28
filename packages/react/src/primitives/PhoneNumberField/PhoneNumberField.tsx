@@ -40,6 +40,7 @@ export const PhoneNumberField: Primitive<PhoneNumberFieldProps, 'input'> = ({
       className={classNames(ComponentClassNames.PhoneNumberField, className)}
       hasError={hasError}
       isDisabled={isDisabled}
+      isMultiline={false}
       onInput={onInput}
       size={size}
       type="tel"
