@@ -31,7 +31,6 @@
     data-amplify-fieldset
     [disabled]="isPending"
   >
-    <h3 class="amplify-heading">{{ this.headerText }}</h3>
     <ng-container
       [ngTemplateOutlet]="customComponents.signUpUsername || signUpUsername"
       [ngTemplateOutletContext]="context"
@@ -55,20 +54,7 @@
   </fieldset>
 </ng-template>
 
-<div data-amplify-container>
-  <form data-amplify-form (submit)="onSubmit($event)" (input)="onInput($event)">
-    <ng-container
-      [ngTemplateOutlet]="customComponents.signUpFieldset || signUpFieldset"
-      [ngTemplateOutletContext]="context"
-    ></ng-container>
-    <ng-container
-      [ngTemplateOutlet]="customComponents.signUpButton || signUpButton"
-      [ngTemplateOutletContext]="context"
-    >
-    </ng-container>
-    <amplify-error *ngIf="remoteError">
-      {{ remoteError }}
-    </amplify-error>
-    <amplify-federated-sign-in></amplify-federated-sign-in>
-  </form>
-</div>
+<ng-container
+  [ngTemplateOutlet]="customComponents.signUpFieldset || signUpFieldset"
+  [ngTemplateOutletContext]="context"
+></ng-container>
