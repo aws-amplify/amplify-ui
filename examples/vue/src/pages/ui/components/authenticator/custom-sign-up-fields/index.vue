@@ -4,7 +4,9 @@ import { toRefs } from 'vue';
 import {
   Authenticator,
   SignUpFormFields,
+  // Vue Composable to get access to validation errors
   useAuthenticator,
+  // Amplify UI Primitives to simplify the custom fields
   BaseTextField,
   BaseCheckBox,
 } from '@aws-amplify/ui-vue';
