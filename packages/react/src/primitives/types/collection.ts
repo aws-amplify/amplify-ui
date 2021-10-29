@@ -1,41 +1,61 @@
 import { FlexProps } from './flex';
+import { GridProps } from './grid';
 import { BaseStyleProps } from './style';
 
 export type CollectionType = 'list' | 'grid' | 'table';
 
-export interface CollectionTypeMapInterface {
-  [key: string]: CollectionType;
-}
-
-export const CollectionTypeMap: CollectionTypeMapInterface = {
-  LIST: 'list',
-  GRID: 'grid',
-  TABLE: 'table',
-};
-
-export interface CollectionBaseProps<CollectionItemType>
-  extends BaseStyleProps {
-  /*
+export interface CollectionWrapperProps extends BaseStyleProps {
+  /**
    * Collection type. This will be used to determine collection wrapper component.
    * @default 'list'
    */
   type?: CollectionType;
 
+  /**
+   * Enable pagination for collection items
+   */
+  isPaginated?: boolean;
+
+  /**
+   * Page size (when pagination is enabled)
+   */
+  itemsPerPage?: number;
+
+  /**
+   * Enable collection filtering
+   */
+  isSearchable?: boolean;
+
+  /**
+   * Custom search filter (when search is enabled)
+   */
+  searchFilter?: (item: unknown, searchText: string) => boolean;
+
+  /**
+   * Search field placeholder
+   */
+  searchPlaceholder?: string;
+}
+
+export interface CollectionBaseProps<Item> {
   /*
    * Data source. Items to be repeated over the collection.
    */
-  items: Array<CollectionItemType>;
+  items: Array<Item>;
 
   /*
    * The component to be repeated
    * Same interface as Array.prototype.map
    */
-  children: (item: CollectionItemType, index: number) => JSX.Element;
+  children: (item: Item, index: number) => JSX.Element;
 }
 
-// @TODO Add GridCollectionProps and TableCollectionProps
-export type ListCollectionProps<CollectionType> =
-  CollectionBaseProps<CollectionType> & FlexProps & { type: 'list' };
+// @TODO Add TableCollectionProps
+export type ListCollectionProps<Item> = FlexProps & CollectionBaseProps<Item>;
+export type GridCollectionProps<Item> = GridProps & CollectionBaseProps<Item>;
 
-export type CollectionProps<CollectionType> =
-  ListCollectionProps<CollectionType>;
+export type CollectionProps<Item> = CollectionWrapperProps &
+  (
+    | ({ type: 'list' } & ListCollectionProps<Item>)
+    | ({ type: 'grid' } & GridCollectionProps<Item>)
+  );

@@ -451,7 +451,8 @@
     qrcode "^1.4.4"
     uuid "^8.2.0"
 
-"@aws-amplify/ui-react-v1@npm:@aws-amplify/ui-react":
+"@aws-amplify/ui-react-v1@npm:@aws-amplify/ui-react", "@aws-amplify/ui-react@^1.2.5":
+  name "@aws-amplify/ui-react-v1"
   version "1.2.21"
   resolved "https://registry.yarnpkg.com/@aws-amplify/ui-react/-/ui-react-1.2.21.tgz#b723fded8006e7ef212905a0a93ef7ae866a2a05"
   integrity sha512-+0AQlrLQei66y+gKBhBxNJnx92OeFzZ2Uls9U3vNf2c4ocEtUzErXu/YLjxmYyX9rVxACrRLHd6zuBuA91Ubmw==
@@ -8756,6 +8757,11 @@ cosmiconfig@^7.0.0, cosmiconfig@^7.0.1:
     parse-json "^5.0.0"
     path-type "^4.0.0"
     yaml "^1.10.0"
+
+countries-list@^2.6.1:
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/countries-list/-/countries-list-2.6.1.tgz#d479757ac873b1e596ccea0a925962d20396c0cb"
+  integrity sha512-jXM1Nv3U56dPQ1DsUSsEaGmLHburo4fnB7m+1yhWDUVvx5gXCd1ok/y3gXCjXzhqyawG+igcPYcAl4qjkvopaQ==
 
 create-ecdh@^4.0.0:
   version "4.0.4"
