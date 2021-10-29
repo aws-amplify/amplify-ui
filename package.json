@@ -17,8 +17,10 @@
     "build:icons": "yarn react build:icons",
     "test": "yarn react test && yarn e2e test",
     "prepare": "husky install",
-    "version:next": "yarn changeset version --snapshot next",
-    "publish:next": "yarn changeset publish --tag next"
+    "version:next": "yarn changeset version --snapshot next && yarn build",
+    "publish:next": "yarn changeset publish --tag next",
+    "version:latest": "yarn changeset version && yarn build",
+    "publish:latest": "echo \"not implemented until stable release\""
   },
   "workspaces": [
     "docs",
