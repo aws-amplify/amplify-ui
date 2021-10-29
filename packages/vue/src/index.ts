@@ -54,5 +54,7 @@ export {
   ConfirmVerifyUser,
   VerifyUser,
 };
+import { translations } from '@aws-amplify/ui';
 
-export { translations } from '@aws-amplify/ui';
+import { I18n } from 'aws-amplify';
+I18n.putVocabularies(translations);

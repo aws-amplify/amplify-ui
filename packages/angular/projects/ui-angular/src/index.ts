@@ -28,3 +28,11 @@ export * from './lib/directives/amplify-slot.directive';
  */
 export * from './lib/services/authenticator-context.service';
 export * from './lib/services/state-machine.service';
+
+/**
+ * Translations
+ */
+
+import { I18n } from 'aws-amplify';
+import { translations } from '@aws-amplify/ui';
+I18n.putVocabularies(translations);

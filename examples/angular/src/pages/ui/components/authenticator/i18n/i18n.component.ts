@@ -12,6 +12,7 @@ export class I18nComponent implements OnInit {
 
   ngOnInit() {
     I18n.setLanguage('ja');
+    I18n.putVocabulariesForLanguage('ja', { 'Sign In': 'Sign In Custom' });
   }
 
   ngOnDestroy() {

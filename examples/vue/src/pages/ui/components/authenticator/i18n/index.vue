@@ -5,6 +5,7 @@ import '@aws-amplify/ui-vue/styles.css';
 import aws_exports from '@environments/auth-with-username-no-attributes/src/aws-exports';
 
 I18n.setLanguage('ja');
+I18n.putVocabulariesForLanguage('ja', { 'Sign In': 'Sign In Custom' });
 
 Amplify.configure(aws_exports);
 </script>

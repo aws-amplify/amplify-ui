@@ -7,6 +7,7 @@ import awsExports from '@environments/auth-with-username-no-attributes/src/aws-e
 Amplify.configure(awsExports);
 
 I18n.setLanguage('ja');
+I18n.putVocabulariesForLanguage('ja', { 'Sign In': 'Sign In Custom' });
 
 function App({ signOut, user }) {
   return (
