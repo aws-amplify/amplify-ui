@@ -5,7 +5,7 @@ Feature: Confirm Sign Up
   See: https://docs.amplify.aws/lib/auth/emailpassword/q/platform/js#confirm-sign-up
 
   Background:
-    Given I'm running the example "ui/components/authenticator/confirm-sign-up"
+    Given I'm running the example "ui/components/authenticator/sign-up-with-email"
 
   Scenario: Username is disabled
     When I see "Confirm Sign Up"
@@ -37,6 +37,18 @@ Feature: Confirm Sign Up
     And I click the "Create Account" button
     Then I see "Confirm Sign Up"
     And I see "Confirmation Code"
+  
+  @angular @react @vue 
+  Scenario: User is already confirmed and then clicks Resend Code
+    Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-email"
+    And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ResendConfirmationCode" } }' with error fixture "user-already-confirmed-error"
+    When I type a new "email"
+    And I type my password
+    And I confirm my password
+    And I click the "Create Account" button
+    Then I see "Confirmation Code"
+    And I click the "Resend Code" button
+    Then I see "Create a new account"
 
   Scenario: Supports "One-Time Code"
 
