@@ -23,10 +23,10 @@ import { SignUpContext } from '@aws-amplify/ui';
 import { translate } from '@aws-amplify/ui';
 
 @Component({
-  selector: 'amplify-sign-up-form-field',
-  templateUrl: './amplify-sign-up-form-field.component.html',
+  selector: 'amplify-sign-up-form-fields',
+  templateUrl: './amplify-sign-up-form-fields.component.html',
 })
-export class AmplifySignUpFormFieldComponent
+export class AmplifySignUpFormFieldsComponent
   implements AfterContentInit, OnInit, OnDestroy
 {
   @HostBinding('attr.data-amplify-authenticator-signup') dataAttr = '';
