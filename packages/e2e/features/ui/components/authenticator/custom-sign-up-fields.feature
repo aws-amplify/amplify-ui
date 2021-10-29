@@ -24,6 +24,7 @@ Feature: Custom Sign Up Fields
 
   @todo-angular @react @todo-vue
   Scenario: Form is valid when I check the Terms & Conditions checkbox, but missing `preferred_username` for Cognito
+    Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with error fixture "custom-sign-up-fields-missing-preferred_username"
     When I type a new "email"
     And I type my password
     And I confirm my password
