@@ -7,7 +7,8 @@ import AuthenticatorSignUpFormFields from './authenticator-sign-up-form-fields.v
 
 import { useAuthenticator } from '../composables/useAuth';
 const facadeValues = useAuthenticator();
-const { submitForm, updateForm } = useAuthenticator();
+// const { submitForm, updateForm } = useAuthenticator();
+const props = useAuthenticator();
 const { hasValidationErrors, isPending, error } = toRefs(facadeValues);
 
 const attrs = useAttrs();
@@ -25,7 +26,7 @@ const onInput = (e: Event): void => {
 
   if (type === 'checkbox' && !checked)
     (value as string | undefined) = undefined;
-  updateForm({ name, value });
+  props.updateForm({ name, value });
 };
 const onSignUpSubmit = (e: Event): void => {
   if (attrs?.onSignUpSubmit) {
@@ -36,7 +37,7 @@ const onSignUpSubmit = (e: Event): void => {
 };
 
 const submit = (): void => {
-  submitForm();
+  props.submitForm();
 };
 </script>
 
