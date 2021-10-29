@@ -45,6 +45,12 @@ export class AuthenticatorService {
     this._authService = authService;
   }
 
+  public get subscribe() {
+    if (this._services) {
+      return this._authService.subscribe;
+    }
+  }
+
   public get services() {
     return this._services;
   }
