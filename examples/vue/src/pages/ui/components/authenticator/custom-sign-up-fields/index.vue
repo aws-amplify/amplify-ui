@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import Amplify from 'aws-amplify';
-import { toRefs } from 'vue';
 import {
   Authenticator,
   AuthenticatorSignUpFormFields,
@@ -11,9 +10,10 @@ import {
   BaseCheckBox,
 } from '@aws-amplify/ui-vue';
 import '@aws-amplify/ui-vue/styles.css';
-import awsExports from '@environments/auth-with-email-and-custom-attributes/src/aws-exports';
 
+import awsExports from '@environments/auth-with-email-and-custom-attributes/src/aws-exports';
 Amplify.configure(awsExports);
+import { toRefs } from 'vue';
 
 const { validationErrors } = toRefs(useAuthenticator());
 
