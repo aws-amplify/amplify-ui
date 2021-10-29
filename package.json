@@ -19,7 +19,7 @@
     "prepare": "husky install",
     "version:next": "yarn changeset version --snapshot next && yarn build",
     "publish:next": "yarn changeset publish --tag next",
-    "version:latest": "yarn changeset version && yarn build",
+    "version:latest": "echo \"not implemented until stable release\"",
     "publish:latest": "echo \"not implemented until stable release\""
   },
   "workspaces": [
