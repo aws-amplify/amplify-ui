@@ -3,7 +3,7 @@ import { computed, useAttrs, toRefs } from 'vue';
 import { translate } from '@aws-amplify/ui';
 
 import FederatedSignIn from './federated-sign-in.vue';
-import SignUpFormFields from './sign-up-form-fields.vue';
+import AuthenticatorSignUpFormFields from './authenticator-sign-up-form-fields.vue';
 
 import { useAuthenticator } from '../composables/useAuth';
 const facadeValues = useAuthenticator();
@@ -59,7 +59,7 @@ const submit = (): void => {
             <template #fieldSetI="{ slotData }">
               <slot name="signup-fields" :info="slotData"> </slot>
             </template>
-            <sign-up-form-fields />
+            <authenticator-sign-up-form-fields />
           </base-field-set>
           <base-alert v-if="error">
             {{ error }}

@@ -3,7 +3,7 @@ import Amplify from 'aws-amplify';
 import { toRefs } from 'vue';
 import {
   Authenticator,
-  SignUpFormFields,
+  AuthenticatorSignUpFormFields,
   // Vue Composable to get access to validation errors
   useAuthenticator,
   // Amplify UI Primitives to simplify the custom fields
@@ -43,7 +43,7 @@ const services = {
         type="text"
         :required="false"
       ></base-text-field>
-      <sign-up-form-fields />
+      <authenticator-sign-up-form-fields />
       <base-check-box :errorMessage="validationErrors.acknowledgement" />
     </template>
     <template v-slot="{ user, signOut }">
