@@ -1,4 +1,4 @@
-name: Publish to @next
+name: Publish to latest
 
 on:
   push:
@@ -16,8 +16,8 @@ jobs:
         with:
           node-version: lts/*
           cache: 'yarn'
-      - name: Install packages
-        run: yarn --frozen-lockfile
+      # - name: Install and build packages # commented out until we're ready for GA release
+      #   run: yarn --frozen-lockfile
       - name: Create Release Pull Request or Publish to npm
         id: changesets
         uses: changesets/action@b98cec97583b917ff1dc6179dd4d230d3e439894
