@@ -13,16 +13,15 @@ export interface LivenessFlowProps {
   livenessSeed: string;
 
   /**
-   * Callback called when the API request to Liveness for DetectLiveness
+   * Callback called when the API request to Liveness for GetLivenessDetection
    * is to be made. This callback is required to be passed to
    * proxy the call to Liveness through their backend to encapsulate business
    * logic on confidence scores and not expose the score on client
    *
-   * TODO: Make this a required prop
    */
-  onDetectLiveness?: (
+  onGetLivenessDetection: (
     sessionId: string
-  ) => Promise<DetectLivenessCallbackResponse>;
+  ) => Promise<GetLivenessDetectionCallbackResponse>;
 
   /**
    * Callback called when the user denies any required permissions
@@ -56,9 +55,9 @@ export enum LivenessStatus {
 }
 
 /**
- * The object to be returned as part of the onDetectLiveness callback
+ * The object to be returned as part of the onGetLivenessDetection callback
  */
-export interface DetectLivenessCallbackResponse {
+export interface GetLivenessDetectionCallbackResponse {
   isLive: LivenessStatus;
 }
 

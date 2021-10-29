@@ -1,10 +1,16 @@
 import { createMachine, assign } from 'xstate';
-import { LivenessContext, LivenessEvent, FaceMatchState } from '../../types';
+import {
+  LivenessContext,
+  LivenessEvent,
+  FaceMatchState,
+  LivenessStatus,
+} from '../../types';
 import {
   BlazeFaceFaceDetection,
   drawLivenessOvalInCanvas,
   getFaceMatchStateInLivenessOval,
   getRandomLivenessOvalDetails,
+  LivenessPredictionsProvider,
   VideoRecorder,
 } from '../../helpers';
 
@@ -83,10 +89,24 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         },
       },
       uploading: {
-        on: {
-          ERROR: 'permissionCheck',
-          CHECK_FAILED: 'checkFailed',
-          CHECK_SUCCEEDED: 'end',
+        initial: 'pending',
+        states: {
+          pending: {
+            invoke: {
+              src: 'putLivenessVideo',
+              onDone: 'checking',
+              onError: '#livenessMachine.notRecording',
+            },
+          },
+          checking: {
+            always: [
+              {
+                target: '#livenessMachine.end',
+                cond: 'hasLivenessCheckSucceeded',
+              },
+              { target: '#livenessMachine.checkFailed' },
+            ],
+          },
         },
       },
       checkFailed: {
@@ -110,6 +130,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         type: 'final',
       },
       end: {
+        entry: 'callSuccessFlow',
         type: 'final',
       },
     },
@@ -165,7 +186,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         faceMatchState: (_, event) => event.data.faceMatchState,
       }),
       callExitFlow: (context) => {
-        context.flowProps.onUserExit();
+        context.flowProps.onUserExit?.();
+      },
+      callSuccessFlow: (context) => {
+        context.flowProps.onSuccess?.();
       },
     },
     guards: {
@@ -173,6 +197,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         context.failedAttempts >= context.maxFailedAttempts,
       hasFaceMatchedInOval: (context) =>
         context.faceMatchState === FaceMatchState.MATCHED,
+      hasLivenessCheckSucceeded: (_, __, meta) =>
+        meta.state.event.data.isLive === LivenessStatus.SUCCESS,
     },
     services: {
       async detectInitialFaceAndDrawOval(context) {
@@ -222,6 +248,28 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         );
 
         return { faceMatchState };
+      },
+      async putLivenessVideo(context) {
+        const {
+          flowProps: { sessionId, onGetLivenessDetection },
+          videoAssociatedParams: { videoRecorder },
+        } = context;
+
+        const provider = new LivenessPredictionsProvider();
+
+        await new Promise((resolve) => setTimeout(resolve, 500));
+        const videoBlob = videoRecorder.getBlob();
+
+        // Put liveness video
+        await provider.putLivenessVideo({
+          sessionId,
+          videoBlob,
+        });
+
+        // Get liveness result
+        const { isLive } = await onGetLivenessDetection(sessionId);
+
+        return { isLive };
       },
     },
   }

@@ -1,15 +1,59 @@
 import * as React from 'react';
+import { useActor } from '@xstate/react';
+import { I18n } from 'aws-amplify';
+
+import { useLivenessFlow } from '../providers';
 import { useTheme } from '../../../hooks';
-import { Flex, Text } from '../../..';
+import { Flex, IconCheckCircleOutline, Loader, View } from '../../..';
 
 export interface InstructionProps {
-  instruction: string;
+  isMobileScreen: boolean;
 }
 
-export const Instruction = (props: InstructionProps): JSX.Element => {
-  const { instruction } = props;
+export const Instruction: React.FC<InstructionProps> = (props) => {
+  const { isMobileScreen } = props;
 
   const { tokens } = useTheme();
+  const { service } = useLivenessFlow();
+  const [state] = useActor(service);
+
+  const isNotRecording = state.matches('notRecording');
+  const isUploading = state.matches('uploading');
+  const isSuccessful = state.matches('end');
+
+  const getInstructionContent = () => {
+    if (isNotRecording) {
+      return I18n.get(
+        'Once recording begins, move your face inside the frame that appears'
+      );
+    }
+    if (isUploading) {
+      return (
+        <Flex gap={`${tokens.space.xxs}`} alignItems="center">
+          <Loader />
+          <span>{I18n.get('Authenticating...')}</span>
+        </Flex>
+      );
+    }
+    if (isSuccessful) {
+      return (
+        <Flex
+          gap={`${tokens.space.xs}`}
+          color={
+            isMobileScreen
+              ? `${tokens.colors.green[40]}`
+              : `${tokens.colors.green[100]}`
+          }
+          alignItems="flex-end"
+        >
+          <IconCheckCircleOutline size="large" viewBox="0 0 20 20" />
+          <span>{I18n.get('Check succeeded!')}</span>
+        </Flex>
+      );
+    }
+
+    return state.context.faceMatchState;
+  };
 
   return (
     <Flex
@@ -22,14 +66,14 @@ export const Instruction = (props: InstructionProps): JSX.Element => {
       padding={`${tokens.space.small}`}
       style={{ opacity: 0.5 }}
     >
-      <Text
+      <View
         color={{
           base: `${tokens.colors.white}`,
           medium: `${tokens.colors.black}`,
         }}
       >
-        {instruction}
-      </Text>
+        {getInstructionContent()}
+      </View>
     </Flex>
   );
 };

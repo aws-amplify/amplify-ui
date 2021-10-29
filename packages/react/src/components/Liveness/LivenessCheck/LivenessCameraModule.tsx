@@ -2,8 +2,6 @@ import React, { useState, useRef } from 'react';
 import Webcam from 'react-webcam';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 import { useActor } from '@xstate/react';
-import { I18n } from 'aws-amplify';
-import { useTheme } from '../../../hooks';
 import { useLivenessFlow } from '../providers';
 import { Instruction } from '../shared/Instruction';
 import { Flex } from '../../..';
@@ -17,18 +15,20 @@ export const LivenessCameraModule = (
   props: LivenessCameraModuleProps
 ): JSX.Element => {
   const { isMobileScreen, videoConstraints } = props;
-
-  const { tokens } = useTheme();
-  const { service } = useLivenessFlow();
-  const [state, send] = useActor(service);
-  const [countDownRunning, setCountDownRunning] = useState<boolean>(false);
   const height = (videoConstraints.height as ConstrainULongRange).ideal;
   const width = (videoConstraints.width as ConstrainULongRange).ideal;
+
+  const { service } = useLivenessFlow();
+  const [state, send] = useActor(service);
+
   const webcamRef = useRef<Webcam>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  const [countDownRunning, setCountDownRunning] = useState<boolean>(false);
   const [videoHeight, setVideoHeight] = useState<number>(height);
   const [videoWidth, setVideoWidth] = useState<number>(width);
   const [top, setTop] = useState<number>(0);
+
   const isNotRecording = state.matches('notRecording');
 
   const timerCompleteHandler = () => {
@@ -89,22 +89,17 @@ export const LivenessCameraModule = (
             bottom: top + 10,
           }}
         >
-          <Instruction
-            instruction={
-              isNotRecording
-                ? I18n.get(
-                    'Once recording begins, move your face inside the frame that appears'
-                  )
-                : state.context.faceMatchState
-            }
-          />
+          <Instruction isMobileScreen={isMobileScreen} />
+
           {isNotRecording && (
             <CountdownCircleTimer
               isPlaying={isNotRecording}
-              size={60}
+              size={80}
               duration={3}
               rotation="counterclockwise"
-              colors={`${tokens.colors.black.value}`}
+              // TODO:: using hardcoded colors for now since it requires hex value
+              colors={isMobileScreen ? '#ffffff' : '#000000'}
+              trailColor={'#909090'}
               onComplete={timerCompleteHandler}
             >
               {({ remainingTime }) => remainingTime}
