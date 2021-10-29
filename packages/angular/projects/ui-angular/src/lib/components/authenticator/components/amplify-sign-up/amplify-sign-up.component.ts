@@ -9,15 +9,8 @@ import {
 } from '@angular/core';
 import { AuthenticatorService } from '../../../../services/state-machine.service';
 import { AuthPropService } from '../../../../services/authenticator-context.service';
-import { isEmpty } from 'lodash';
 import { Subscription } from 'xstate';
-import {
-  AuthMachineState,
-  getActorState,
-  getConfiguredAliases,
-  SignUpState,
-  ValidationError,
-} from '@aws-amplify/ui';
+import { AuthMachineState, getActorState, SignUpState } from '@aws-amplify/ui';
 import { getActorContext } from '@aws-amplify/ui';
 import { SignUpContext } from '@aws-amplify/ui';
 import { translate } from '@aws-amplify/ui';
@@ -34,9 +27,6 @@ export class AmplifySignUpComponent
   public customComponents: Record<string, TemplateRef<any>>;
   public remoteError = '';
   public isPending = false;
-  public primaryAlias = '';
-  public secondaryAliases: string[] = [];
-  public validationError: ValidationError = {};
 
   private authSubscription: Subscription;
 
@@ -51,14 +41,12 @@ export class AmplifySignUpComponent
   public get context() {
     const { change, signIn, submit } = this.authService.services;
     const remoteError = this.remoteError;
-    const validationError = this.validationError;
 
     return {
       change,
       remoteError,
       signIn,
       submit,
-      validationError,
     };
   }
 
@@ -66,22 +54,6 @@ export class AmplifySignUpComponent
     this.authSubscription = this.authService.authService.subscribe((state) =>
       this.onStateUpdate(state)
     );
-
-    const context = this.authService.context;
-    const { primaryAlias, secondaryAliases } = getConfiguredAliases(context);
-
-    /**
-     * If the login_mechanisms are configured to use ONLY username, we need
-     * to ask for some sort of secondary contact information in order to
-     * verify the user for Cognito. Currently matching this to how Vue is
-     * set up.
-     */
-    if (primaryAlias === 'username' && isEmpty(secondaryAliases)) {
-      secondaryAliases.push('email', 'phone_number');
-    }
-
-    this.primaryAlias = primaryAlias;
-    this.secondaryAliases = secondaryAliases;
   }
 
   ngAfterContentInit(): void {
@@ -96,7 +68,6 @@ export class AmplifySignUpComponent
     const actorState: SignUpState = getActorState(state);
     const actorContext: SignUpContext = getActorContext(state);
     this.remoteError = actorContext.remoteError;
-    this.validationError = actorContext.validationError;
     this.isPending = !actorState.matches({
       signUp: {
         submission: 'idle',

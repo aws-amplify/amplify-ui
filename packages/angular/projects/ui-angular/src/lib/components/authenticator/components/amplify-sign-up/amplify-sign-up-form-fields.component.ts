@@ -1,72 +1,19 @@
-import {
-  AfterContentInit,
-  Component,
-  HostBinding,
-  Input,
-  OnDestroy,
-  OnInit,
-  TemplateRef,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthenticatorService } from '../../../../services/state-machine.service';
-import { AuthPropService } from '../../../../services/authenticator-context.service';
 import { isEmpty } from 'lodash';
-import { Subscription } from 'xstate';
-import {
-  AuthMachineState,
-  getActorState,
-  getConfiguredAliases,
-  SignUpState,
-  ValidationError,
-} from '@aws-amplify/ui';
-import { getActorContext } from '@aws-amplify/ui';
-import { SignUpContext } from '@aws-amplify/ui';
-import { translate } from '@aws-amplify/ui';
+import { getConfiguredAliases } from '@aws-amplify/ui';
 
 @Component({
   selector: 'amplify-sign-up-form-fields',
   templateUrl: './amplify-sign-up-form-fields.component.html',
 })
-export class AmplifySignUpFormFieldsComponent
-  implements AfterContentInit, OnInit, OnDestroy
-{
-  @HostBinding('attr.data-amplify-authenticator-signup') dataAttr = '';
-  @Input() headerText = translate('Create a new account');
-  public customComponents: Record<string, TemplateRef<any>>;
-  public remoteError = '';
-  public isPending = false;
+export class AmplifySignUpFormFieldsComponent implements OnInit {
   public primaryAlias = '';
   public secondaryAliases: string[] = [];
-  public validationError: ValidationError = {};
 
-  private authSubscription: Subscription;
-
-  // translated texts
-  public createAccountText = translate('Create Account');
-
-  constructor(
-    private authService: AuthenticatorService,
-    private contextService: AuthPropService
-  ) {}
-
-  public get context() {
-    const { change, signIn, submit } = this.authService.services;
-    const remoteError = this.remoteError;
-    const validationError = this.validationError;
-
-    return {
-      change,
-      remoteError,
-      signIn,
-      submit,
-      validationError,
-    };
-  }
+  constructor(private authService: AuthenticatorService) {}
 
   ngOnInit(): void {
-    this.authSubscription = this.authService.authService.subscribe((state) =>
-      this.onStateUpdate(state)
-    );
-
     const context = this.authService.context;
     const { primaryAlias, secondaryAliases } = getConfiguredAliases(context);
 
@@ -82,39 +29,5 @@ export class AmplifySignUpFormFieldsComponent
 
     this.primaryAlias = primaryAlias;
     this.secondaryAliases = secondaryAliases;
-  }
-
-  ngAfterContentInit(): void {
-    this.customComponents = this.contextService.customComponents;
-  }
-
-  ngOnDestroy(): void {
-    this.authSubscription.unsubscribe();
-  }
-
-  private onStateUpdate(state: AuthMachineState): void {
-    const actorState: SignUpState = getActorState(state);
-    const actorContext: SignUpContext = getActorContext(state);
-    this.remoteError = actorContext.remoteError;
-    this.validationError = actorContext.validationError;
-    this.isPending = !actorState.matches({
-      signUp: {
-        submission: 'idle',
-      },
-    });
-  }
-
-  onInput(event: Event): void {
-    event.preventDefault();
-    const { name, value } = <HTMLInputElement>event.target;
-    this.authService.send({
-      type: 'CHANGE',
-      data: { name, value },
-    });
-  }
-
-  onSubmit(event: Event): void {
-    event.preventDefault();
-    this.authService.send('SUBMIT');
   }
 }

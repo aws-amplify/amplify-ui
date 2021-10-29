@@ -10,7 +10,7 @@
   </button>
 </ng-template>
 
-<ng-template #signUpFieldset>
+<form data-amplify-form (submit)="onSubmit($event)" (input)="onInput($event)">
   <div class="amplify-flex" style="flex-direction: column">
     <h3 class="amplify-heading">{{ this.headerText }}</h3>
 
@@ -28,11 +28,4 @@
     </ng-container>
     <amplify-federated-sign-in></amplify-federated-sign-in>
   </div>
-</ng-template>
-
-<form data-amplify-form (submit)="onSubmit($event)" (input)="onInput($event)">
-  <ng-container
-    [ngTemplateOutlet]="customComponents.signUpFieldset || signUpFieldset"
-    [ngTemplateOutletContext]="context"
-  ></ng-container>
 </form>
