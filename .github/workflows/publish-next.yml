@@ -38,10 +38,6 @@ jobs:
         run: yarn version:next
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Build packages
-        # It's important we build after packages are versioned because Angular
-        # dist/ui-angular/package.json is auto-generated.
-        run: yarn build
       - name: Create .npmrc
         run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
         env:
