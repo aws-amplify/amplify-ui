@@ -3,11 +3,11 @@ import classNames from 'classnames';
 
 import { ComponentClassNames } from '../shared/constants';
 import { useNonStyleProps, usePropStyles } from '../shared/styleUtils';
-import { ButtonProps, Primitive } from '../types';
+import { ButtonProps, PrimitiveProps } from '../types';
 
 export const MenuButton = React.forwardRef<
   HTMLButtonElement,
-  ButtonProps & { children?: React.ReactNode }
+  PrimitiveProps<ButtonProps, 'button'>
 >(
   (
     {

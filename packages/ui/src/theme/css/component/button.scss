@@ -15,11 +15,12 @@
   border-radius: var(--amplify-components-button-border-radius);
   color: var(--amplify-components-button-color);
   font-size: var(--amplify-components-button-font-size);
-  line-height: var(--amplify-components-button-font-size);
+  line-height: var(--amplify-components-button-line-height);
   padding-block-start: var(--amplify-components-button-padding-block-start);
   padding-block-end: var(--amplify-components-button-padding-block-end);
   padding-inline-start: var(--amplify-components-button-padding-inline-start);
   padding-inline-end: var(--amplify-components-button-padding-inline-end);
+  user-select: none;
 
   &:hover {
     background-color: var(--amplify-components-button-hover-background-color);
@@ -62,14 +63,15 @@
   &[data-variation='menu'] {
     border-width: 0;
     background-color: none;
+    text-align: left;
+    user-select: none;
 
     &:hover {
       color: var(--amplify-colors-white);
       background-color: var(--amplify-colors-brand-primary-80);
     }
-    &:focus,
-    &:focus-visible,
-    &:focus-within {
+
+    &:focus {
       box-shadow: none;
       color: var(--amplify-colors-white);
       background-color: var(--amplify-colors-brand-primary-80);
@@ -165,7 +167,6 @@
 
   &[data-size='small'] {
     font-size: var(--amplify-components-button-small-font-size);
-    line-height: var(--amplify-components-button-small-font-size);
     padding-block-start: var(
       --amplify-components-button-small-padding-block-start
     );
@@ -180,7 +181,6 @@
 
   &[data-size='large'] {
     font-size: var(--amplify-components-button-large-font-size);
-    line-height: var(--amplify-components-button-large-font-size);
     padding-block-start: var(
       --amplify-components-button-large-padding-block-start
     );

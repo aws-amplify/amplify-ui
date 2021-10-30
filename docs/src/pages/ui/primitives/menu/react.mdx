@@ -1,6 +1,8 @@
 import { Divider, Flex, Menu, MenuItem, Loader } from '@aws-amplify/ui-react';
 
 import { MenuDemo } from './demo';
+import { BasicExample } from './examples';
+
 import { Example } from '@/components/Example';
 
 Menu provides an interactive menu for selecting actions within an application.
@@ -8,3 +10,39 @@ Menu provides an interactive menu for selecting actions within an application.
 ## Demo
 
 <MenuDemo />
+
+## Usage
+
+Import the `Menu` and `MenuItem` components and styles.
+
+```jsx
+import { Menu, MenuItem } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<Menu>
+  <MenuItem onClick={() => alert('Download')}>Download</MenuItem>
+  <MenuItem onClick={() => alert('Create a Copy')}>Create a Copy</MenuItem>
+  <MenuItem onClick={() => alert('Mark as Draft')}>Mark as Draft</MenuItem>
+  <Divider />
+  <MenuItem isDisabled onClick={() => alert('Delete')}>
+    Delete
+  </MenuItem>
+  <MenuItem onClick={() => alert('Attend a workshop')}>
+    Attend a workshop
+  </MenuItem>
+</Menu>;
+```
+
+<Example>
+  <BasicExample />
+</Example>
+
+### Components
+
+#### Menu
+
+Menu is the main component which controls the placement of the Button and basic styling of the menu content.
+
+### MenuItem
+
+The Menu

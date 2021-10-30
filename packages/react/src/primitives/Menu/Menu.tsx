@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import {
   DropdownMenu,
   DropdownMenuTrigger,
+  DropdownMenuTriggerItem,
   DropdownMenuItem,
   DropdownMenuContent,
 } from '@radix-ui/react-dropdown-menu';
@@ -13,40 +14,37 @@ import { IconMenu } from '../Icon';
 import { MenuButton } from './MenuButton';
 import { MenuProps, MenuItemProps, Primitive } from '../types';
 
-export interface Menu {
-  (props: MenuProps): React.ReactComponentElement<any>;
-}
-
-export const Menu: Menu = ({
-  ariaLabel,
+export const Menu: Primitive<MenuProps, 'div'> = ({
+  align = 'start',
   children,
   className,
-  button = (
-    <MenuButton className={ComponentClassNames.MenuTrigger}>
-      <IconMenu size="large" />
-    </MenuButton>
-  ),
+  isOpen,
+  trigger,
   onOpenChange,
   ...rest
-}) => {
-  return (
-    <DropdownMenu onOpenChange={onOpenChange}>
-      <DropdownMenuTrigger asChild={true}>{button}</DropdownMenuTrigger>
-      <DropdownMenuContent>
-        <Flex
-          aria-label={ariaLabel}
-          className={ComponentClassNames.MenuContent}
-        >
-          {children}
-        </Flex>
-      </DropdownMenuContent>
-    </DropdownMenu>
-  );
-};
+}) => (
+  <DropdownMenu onOpenChange={onOpenChange} open={isOpen}>
+    <DropdownMenuTrigger asChild={true}>
+      {trigger ?? (
+        <MenuButton className={ComponentClassNames.MenuTrigger}>
+          <IconMenu size="large" />
+        </MenuButton>
+      )}
+    </DropdownMenuTrigger>
+    <DropdownMenuContent align={align}>
+      <Flex className={ComponentClassNames.MenuContent} {...rest}>
+        {children}
+      </Flex>
+    </DropdownMenuContent>
+  </DropdownMenu>
+);
 
-export const MenuItem: React.FC<MenuItemProps> = ({ children, ...rest }) => {
+export const MenuItem = React.forwardRef<
+  HTMLDivElement,
+  MenuItemProps & { children?: React.ReactNode }
+>(({ children, ...rest }, ref) => {
   return (
-    <DropdownMenuItem asChild={true}>
+    <DropdownMenuItem asChild={true} ref={ref}>
       <MenuButton
         className={ComponentClassNames.MenuButton}
         variation="menu"
@@ -56,4 +54,4 @@ export const MenuItem: React.FC<MenuItemProps> = ({ children, ...rest }) => {
       </MenuButton>
     </DropdownMenuItem>
   );
-};
+});

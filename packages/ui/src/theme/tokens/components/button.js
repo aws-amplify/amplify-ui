@@ -7,7 +7,7 @@ module.exports = {
     value: '{components.fieldcontrol.transitionDuration.value}',
   },
   fontSize: { value: '{components.fieldcontrol.fontSize.value}' },
-  lineHeight: { value: '{components.fieldcontrol.fontSize.value}' },
+  lineHeight: { value: '{components.fieldcontrol.lineHeight.value}' },
   paddingBlockStart: {
     value: '{components.fieldcontrol.paddingBlockStart.value}',
   },
@@ -99,7 +99,6 @@ module.exports = {
   // sizes
   small: {
     fontSize: { value: '{components.fieldcontrol.small.fontSize.value}' },
-    lineHeight: { value: '{components.fieldcontrol.small.fontSize.value}' },
     paddingBlockStart: {
       value: '{components.fieldcontrol.small.paddingBlockStart.value}',
     },
@@ -115,7 +114,6 @@ module.exports = {
   },
   large: {
     fontSize: { value: '{components.fieldcontrol.large.fontSize.value}' },
-    lineHeight: { value: '{components.fieldcontrol.large.fontSize.value}' },
     paddingBlockStart: {
       value: '{components.fieldcontrol.large.paddingBlockStart.value}',
     },

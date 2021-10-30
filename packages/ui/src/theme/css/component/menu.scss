@@ -1,8 +1,8 @@
 // .amplify-menu {
 // }
 .amplify-menu__trigger {
-  width: 3.25rem;
-  height: 3.25rem;
+  width: 3.5rem;
+  height: 3.5rem;
 }
 .amplify-menu__content {
   flex-direction: column;
@@ -11,9 +11,13 @@
   min-width: var(--amplify-components-menu-min-width);
   box-shadow: var(--amplify-components-menu-box-shadow);
   border-radius: var(--amplify-components-menu-border-radius);
+  max-width: 20rem;
+  // Remove border radius to fit within content wrapper
+  // but only the menu items in between first and last
   .amplify-menu__button:not(:first-child):not(:last-child) {
     border-radius: 0;
   }
+  // Remove bottom border radius from first menu item
   .amplify-menu__button:first-child {
     border-end-end-radius: 0; // border-bottom-right-radius (ltr reading mode)
     border-end-start-radius: 0; // border-bottom-left-radius (ltr reading mode)
@@ -25,6 +29,7 @@
       border-bottom-left-radius: 0;
     }
   }
+  // Remove top border radius from last menu item
   .amplify-menu__button:last-child {
     border-start-end-radius: 0; // border-top-right-radius (ltr reading mode)
     border-start-start-radius: 0; // border-top-left-radius (ltr reading mode)
@@ -38,22 +43,8 @@
   }
 }
 .amplify-button.amplify-menu__button {
+  font-size: var(--amplify-font-sizes-small);
   min-height: 2.5rem;
-
-  // &:hover {
-  //   color: var(--amplify-colors-white);
-  //   background-color: var(--amplify-colors-brand-primary-80);
-  // }
-  // &:focus,
-  // &:focus-visible,
-  // &:focus-within {
-  //   border-color: none;
-  //   box-shadow: none;
-  // }
-  // &[data-variation='link'] {
-  //   &:hover {
-  //     background-color: none;
-  //     color: currentColor;
-  //   }
-  // }
+  padding-inline-start: var(--amplify-space-medium);
+  padding-inline-end: var(--amplify-space-medium);
 }
