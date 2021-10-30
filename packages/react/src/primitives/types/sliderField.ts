@@ -16,7 +16,6 @@ export interface SliderFieldProps extends TextInputFieldProps, ViewProps {
   emptyTrackColor?: Property.Color;
   filledTrackColor?: Property.Color;
   thumbColor?: Property.Color;
-  thumbComponent?: React.ReactNode;
   value?: number;
   defaultValue?: number;
   onChange?: (value: number) => void;

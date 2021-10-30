@@ -11,30 +11,38 @@ import { SliderFieldProps } from '../types/sliderField';
 import { Primitive } from '../types/view';
 import { ComponentClassNames } from '../shared/constants';
 import { splitPrimitiveProps } from '../shared/styleUtils';
-import { isFunction } from '../shared/utils';
+import { isFunction, useStableId } from '../shared/utils';
+
+export const ROOT = 'root';
+export const TRACK = 'track';
+export const RANGE = 'range';
 
 export const SliderField: Primitive<SliderFieldProps, typeof Root> = ({
-  orientation,
+  ariaValueText,
+  className,
+  orientation = 'horizontal',
   trackWidth,
   emptyTrackColor,
   filledTrackColor,
   thumbColor,
-  thumbComponent,
   outerStartComponent,
   outerEndComponent,
   descriptiveText,
+  id,
   label,
-  labelHidden,
+  labelHidden = false,
   errorMessage,
-  hasError,
+  hasError = false,
   isDisabled,
-  isValueHidden,
+  isValueHidden = false,
   value,
   defaultValue,
   onChange,
   testId,
   ..._rest
 }) => {
+  const fieldId = useStableId(id);
+
   const { flexContainerStyleProps, rest } = splitPrimitiveProps(_rest);
 
   const isControlled = value !== undefined;
@@ -61,7 +69,7 @@ export const SliderField: Primitive<SliderFieldProps, typeof Root> = ({
 
   return (
     <Flex
-      // Custom classnames will be added to Root below through rest
+      // Custom classnames will be added to Root below
       className={classNames(
         ComponentClassNames.Field,
         ComponentClassNames.SliderField
@@ -71,14 +79,11 @@ export const SliderField: Primitive<SliderFieldProps, typeof Root> = ({
     >
       <Label
         className={ComponentClassNames.SliderFieldLabel}
+        id={fieldId}
         visuallyHidden={labelHidden}
       >
         <View as="span">{label}</View>
-        {!isValueHidden ? (
-          <View as="span" aria-hidden>
-            {currentValue}
-          </View>
-        ) : null}
+        {!isValueHidden ? <View as="span">{currentValue}</View> : null}
       </Label>
       <FieldDescription
         labelHidden={labelHidden}
@@ -91,7 +96,8 @@ export const SliderField: Primitive<SliderFieldProps, typeof Root> = ({
         outerEndComponent={outerEndComponent}
       >
         <Root
-          className={ComponentClassNames.SliderFieldRoot}
+          className={classNames(ComponentClassNames.SliderFieldRoot, className)}
+          data-testid={ROOT}
           disabled={isDisabled}
           orientation={orientation}
           defaultValue={defaultValues}
@@ -101,6 +107,7 @@ export const SliderField: Primitive<SliderFieldProps, typeof Root> = ({
         >
           <Track
             className={ComponentClassNames.SliderFieldTrack}
+            data-testid={TRACK}
             style={{
               backgroundColor: emptyTrackColor,
               [`${isVertical ? 'width' : 'height'}`]: trackWidth,
@@ -108,16 +115,16 @@ export const SliderField: Primitive<SliderFieldProps, typeof Root> = ({
           >
             <Range
               className={ComponentClassNames.SliderFieldRange}
+              data-testid={RANGE}
               style={{ backgroundColor: filledTrackColor }}
             />
           </Track>
           <Thumb
-            asChild={thumbComponent != undefined}
+            aria-describedby={fieldId}
+            aria-valuetext={ariaValueText}
             className={ComponentClassNames.SliderFieldThumb}
             style={{ backgroundColor: thumbColor }}
-          >
-            {thumbComponent}
-          </Thumb>
+          />
         </Root>
       </FieldGroup>
       <FieldErrorMessage hasError={hasError} errorMessage={errorMessage} />
