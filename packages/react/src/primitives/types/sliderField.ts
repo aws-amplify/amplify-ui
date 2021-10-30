@@ -1,5 +1,4 @@
 import { Property } from 'csstype';
-import * as React from 'react';
 
 import { TextInputFieldProps } from './textField';
 import { ViewProps } from './view';
