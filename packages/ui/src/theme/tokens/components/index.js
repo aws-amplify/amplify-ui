@@ -22,6 +22,7 @@ module.exports = {
   rating: require('./rating'),
   select: require('./select'),
   switchfield: require('./switchField'),
+  table: require('./table'),
   tabs: require('./tabs'),
   text: require('./text'),
   togglebutton: require('./toggleButton'),
