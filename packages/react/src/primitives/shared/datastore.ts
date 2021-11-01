@@ -3,6 +3,7 @@ import {
   PersistentModel,
   ProducerModelPredicate,
 } from '@aws-amplify/datastore';
+import { isFunction } from './utils';
 
 export type DataStorePredicateObject = {
   and?: DataStorePredicateObject[];
@@ -12,9 +13,22 @@ export type DataStorePredicateObject = {
   operator?: string;
 };
 
-const createPredicate = <Model extends PersistentModel>(
-  predicateObject: DataStorePredicateObject,
-  nextPredicate?: ProducerModelPredicate<Model>
+/**
+ * Given an array of predicates, compose them in sequential order
+ */
+const mergePredicates = <Model extends PersistentModel>(
+  predicates: ProducerModelPredicate<Model>[]
+): ProducerModelPredicate<Model> =>
+  predicates.reduce(
+    (previous, current) => (predicate) => current(previous(predicate)),
+    (predicate) => predicate
+  );
+
+/**
+ * Creates a DataStore compatible predicate function from an object representation
+ */
+export const createDataStorePredicate = <Model extends PersistentModel>(
+  predicateObject: DataStorePredicateObject
 ): ProducerModelPredicate<Model> => {
   const {
     and: groupAnd,
@@ -25,31 +39,24 @@ const createPredicate = <Model extends PersistentModel>(
   } = predicateObject;
 
   if (Array.isArray(groupAnd)) {
-    let nextPredicate: ProducerModelPredicate<Model>;
+    const predicates = groupAnd.map((condition) =>
+      createDataStorePredicate<Model>(condition)
+    );
 
-    groupAnd.forEach((condition) => {
-      nextPredicate = createPredicate(condition, nextPredicate);
-    });
-
-    return (predicate: ModelPredicate<Model>) => predicate.and(nextPredicate);
+    return (p: ModelPredicate<Model>) => p.and(mergePredicates(predicates));
   } else if (Array.isArray(groupOr)) {
-    let nextPredicate: ProducerModelPredicate<Model>;
+    const predicates = groupOr.map((condition) =>
+      createDataStorePredicate<Model>(condition)
+    );
 
-    groupOr.forEach((condition) => {
-      nextPredicate = createPredicate(condition, nextPredicate);
-    });
-
-    return (predicate: ModelPredicate<Model>) => predicate.or(nextPredicate);
-  } else {
-    return (predicate: ModelPredicate<Model>) => {
-      const current = nextPredicate ? nextPredicate(predicate) : predicate;
-      return current[field].call(current, operator, operand);
-    };
+    return (p: ModelPredicate<Model>) => p.or(mergePredicates(predicates));
   }
-};
 
-export const createDataStorePredicate = <Model extends PersistentModel>(
-  predicateObject: DataStorePredicateObject
-): ProducerModelPredicate<Model> => {
-  return createPredicate(predicateObject);
+  return (predicate: ModelPredicate<Model>) => {
+    if (isFunction(predicate[field])) {
+      return predicate[field].call(predicate, operator, operand);
+    }
+
+    return predicate;
+  };
 };
