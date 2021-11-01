@@ -80,13 +80,13 @@
   }
 
   &[data-variation='striped'] {
-    .amplify-table__row:nth-child(even) {
+    .amplify-table__body .amplify-table__row:nth-child(odd) {
       background-color: var(--amplify-colors-background-secondary);
     }
   }
 
   &[data-highlightonhover='true'] {
-    .amplify-table__row:hover {
+    .amplify-table__body .amplify-table__row:hover {
       background-color: var(--amplify-colors-background-tertiary);
     }
   }
