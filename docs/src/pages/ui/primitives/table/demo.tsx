@@ -16,14 +16,23 @@ import { useTableProps } from '@/components/useTableProps';
 export const TableDemo = () => {
   const tableProps = useTableProps({
     caption: '',
+    highlightOnHover: false,
+    size: '',
     summary: '',
+    variation: '',
   });
 
   return (
     <View>
       <TablePropControls {...tableProps} />
       <View className="mt-8">
-        <Table caption={tableProps.caption} summary={tableProps.summary}>
+        <Table
+          caption={tableProps.caption}
+          highlightOnHover={tableProps.highlightOnHover}
+          size={tableProps.size}
+          summary={tableProps.summary}
+          variation={tableProps.variation}
+        >
           <TableHead>
             <TableRow>
               <TableCell as="th" colspan="3">

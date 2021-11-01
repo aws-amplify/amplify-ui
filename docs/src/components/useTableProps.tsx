@@ -12,14 +12,31 @@ export const useTableProps: UseTableProps = (initialValues) => {
   const [caption, setCaption] = useState<TableProps['caption']>(
     initialValues.caption
   );
+
+  const [highlightOnHover, setHighlightOnHover] = useState<
+    TableProps['highlightOnHover']
+  >(initialValues.highlightOnHover);
+
+  const [size, setSize] = useState<TableProps['size']>(initialValues.size);
+
   const [summary, setSummary] = useState<TableProps['summary']>(
     initialValues.summary
   );
 
+  const [variation, setVariation] = useState<TableProps['variation']>(
+    initialValues.variation
+  );
+
   return {
     caption,
+    highlightOnHover,
     setCaption,
+    setHighlightOnHover,
+    setSize,
     setSummary,
+    setVariation,
+    size,
     summary,
+    variation,
   };
 };
