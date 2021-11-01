@@ -26,9 +26,7 @@ const logger = new Logger('ConfirmSignIn');
   selector: 'amplify-confirm-sign-in',
   templateUrl: './amplify-confirm-sign-in.component.html',
 })
-export class AmplifyConfirmSignInComponent
-  implements OnInit, OnDestroy, AfterContentInit
-{
+export class AmplifyConfirmSignInComponent implements OnInit, OnDestroy {
   @HostBinding('attr.data-amplify-authenticator-confirmsignin') dataAttr = '';
 
   public customComponents: Record<string, TemplateRef<any>> = {};
@@ -42,20 +40,13 @@ export class AmplifyConfirmSignInComponent
   public confirmText = translate('Confirm');
   public backToSignInText = translate('Back to Sign In');
 
-  constructor(
-    private stateMachine: StateMachineService,
-    private contextService: AuthPropService
-  ) {}
+  constructor(private stateMachine: StateMachineService) {}
 
   ngOnInit(): void {
     this.authSubscription = this.stateMachine.authService.subscribe((state) => {
       this.onStateUpdate(state);
     });
     this.setHeaderText();
-  }
-
-  ngAfterContentInit(): void {
-    this.customComponents = this.contextService.customComponents;
   }
 
   ngOnDestroy(): void {

@@ -23,9 +23,7 @@ const logger = new Logger('SignIn');
   templateUrl: './amplify-sign-in.component.html',
   encapsulation: ViewEncapsulation.None,
 })
-export class AmplifySignInComponent
-  implements AfterContentInit, OnInit, OnDestroy
-{
+export class AmplifySignInComponent implements OnInit, OnDestroy {
   @HostBinding('attr.data-amplify-authenticator-signin') dataAttr = '';
   @Input() public headerText = translate('Sign in to your account');
 
@@ -39,19 +37,12 @@ export class AmplifySignInComponent
 
   private authSubscription: Subscription;
 
-  constructor(
-    private stateMachine: StateMachineService,
-    private contextService: AuthPropService
-  ) {}
+  constructor(private stateMachine: StateMachineService) {}
 
   ngOnInit(): void {
     this.authSubscription = this.stateMachine.authService.subscribe((state) =>
       this.onStateUpdate(state)
     );
-  }
-
-  ngAfterContentInit(): void {
-    this.customComponents = this.contextService.customComponents;
   }
 
   ngOnDestroy(): void {

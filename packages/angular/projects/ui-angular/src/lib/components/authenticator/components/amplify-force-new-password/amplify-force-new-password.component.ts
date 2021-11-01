@@ -26,14 +26,11 @@ const logger = new Logger('ForceNewPassword');
   selector: 'amplify-force-new-password',
   templateUrl: './amplify-force-new-password.component.html',
 })
-export class AmplifyForceNewPasswordComponent
-  implements OnInit, AfterContentInit, OnDestroy
-{
+export class AmplifyForceNewPasswordComponent implements OnInit, OnDestroy {
   @HostBinding('attr.data-amplify-authenticator-forcenewpassword')
   dataAttr = '';
   @Input() public headerText = translate('Change Password');
 
-  public customComponents: Record<string, TemplateRef<any>> = {};
   public remoteError = '';
   public isPending = false;
 
@@ -43,19 +40,12 @@ export class AmplifyForceNewPasswordComponent
   public changePasswordText = translate('Change Password');
   public backToSignInText = translate('Back to Sign In');
 
-  constructor(
-    private stateMachine: StateMachineService,
-    private contextService: AuthPropService
-  ) {}
+  constructor(private stateMachine: StateMachineService) {}
 
   ngOnInit(): void {
     this.authSubscription = this.stateMachine.authService.subscribe((state) =>
       this.onStateUpdate(state)
     );
-  }
-
-  ngAfterContentInit(): void {
-    this.customComponents = this.contextService.customComponents;
   }
 
   ngOnDestroy(): void {

@@ -21,9 +21,7 @@ import { StateMachineService } from '../../../../services/state-machine.service'
   selector: 'amplify-confirm-verify-user',
   templateUrl: './amplify-confirm-verify-user.component.html',
 })
-export class ConfirmVerifyUserComponent
-  implements OnInit, AfterContentInit, OnDestroy
-{
+export class ConfirmVerifyUserComponent implements OnInit, OnDestroy {
   @HostBinding('attr.data-amplify-authenticator-confirmverifyuser') dataAttr =
     '';
   @Input() public headerText = translate(
@@ -39,19 +37,12 @@ export class ConfirmVerifyUserComponent
   public skipText = translate('Skip');
   public submitText = translate('Submit');
 
-  constructor(
-    private stateMachine: StateMachineService,
-    private contextService: AuthPropService
-  ) {}
+  constructor(private stateMachine: StateMachineService) {}
 
   ngOnInit(): void {
     this.authSubscription = this.stateMachine.authService.subscribe((state) =>
       this.onStateUpdate(state)
     );
-  }
-
-  ngAfterContentInit() {
-    this.customComponents = this.contextService.customComponents;
   }
 
   ngOnDestroy() {

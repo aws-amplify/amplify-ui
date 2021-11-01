@@ -1,13 +1,4 @@
-<!-- 
-  Define default contents here
--->
-<ng-template #verifyButton>
-  <button amplify-button variation="primary" fullWidth="true" type="submit">
-    {{ verifyText }}
-  </button>
-</ng-template>
-
-<ng-template #verifyUserForm>
+<div data-amplify-container>
   <form data-amplify-form (input)="onInput($event)" (submit)="onSubmit($event)">
     <fieldset
       class="amplify-flex"
@@ -30,10 +21,9 @@
         }}</label>
       </div>
 
-      <ng-container
-        [ngTemplateOutlet]="customComponents.verifyButton || verifyButton"
-        [ngTemplateOutletContext]="context"
-      ></ng-container>
+      <button amplify-button variation="primary" fullWidth="true" type="submit">
+        {{ verifyText }}
+      </button>
 
       <button
         amplify-button
@@ -51,15 +41,4 @@
       </amplify-error>
     </fieldset>
   </form>
-</ng-template>
-
-<!-- 
-  Render verify user component
--->
-<div data-amplify-container>
-  <ng-container
-    [ngTemplateOutlet]="customComponents.verifyUserForm || verifyUserForm"
-    [ngTemplateOutletContext]="context"
-  >
-  </ng-container>
 </div>

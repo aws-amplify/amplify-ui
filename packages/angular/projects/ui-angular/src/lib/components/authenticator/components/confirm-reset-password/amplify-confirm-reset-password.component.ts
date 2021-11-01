@@ -17,9 +17,7 @@ import { translate } from '@aws-amplify/ui';
   selector: 'amplify-confirm-reset-password',
   templateUrl: './amplify-confirm-reset-password.component.html',
 })
-export class ConfirmResetPasswordComponent
-  implements OnInit, AfterContentInit, OnDestroy
-{
+export class ConfirmResetPasswordComponent implements OnInit, OnDestroy {
   @HostBinding('attr.data-amplify-authenticator-confirmsignin') dataAttr = '';
   @Input() public headerText = translate('Reset your password');
 
@@ -33,19 +31,12 @@ export class ConfirmResetPasswordComponent
   public backToSignInText = translate('Back to Sign In');
   public resendCodeText = translate('Resend Code');
 
-  constructor(
-    private stateMachine: StateMachineService,
-    private contextService: AuthPropService
-  ) {}
+  constructor(private stateMachine: StateMachineService) {}
 
   ngOnInit(): void {
     this.authSubscription = this.stateMachine.authService.subscribe((state) =>
       this.onStateUpdate(state)
     );
-  }
-
-  ngAfterContentInit() {
-    this.customComponents = this.contextService.customComponents;
   }
 
   ngOnDestroy() {

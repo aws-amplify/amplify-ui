@@ -24,9 +24,7 @@ import { nanoid } from 'nanoid';
   templateUrl: './amplify-verify-user.component.html',
   encapsulation: ViewEncapsulation.None,
 })
-export class AmplifyVerifyUserComponent
-  implements AfterContentInit, OnInit, OnDestroy
-{
+export class AmplifyVerifyUserComponent implements OnInit, OnDestroy {
   @HostBinding('attr.data-amplify-authenticator-verifyuser') dataAttr = '';
   @Input() public headerText = translate(
     'Account recovery requires verified contact information'
@@ -44,19 +42,12 @@ export class AmplifyVerifyUserComponent
   public skipText = translate('Skip');
   public verifyText = translate('Verify');
 
-  constructor(
-    private stateMachine: StateMachineService,
-    private contextService: AuthPropService
-  ) {}
+  constructor(private stateMachine: StateMachineService) {}
 
   ngOnInit(): void {
     this.authSubscription = this.stateMachine.authService.subscribe((state) =>
       this.onStateUpdate(state)
     );
-  }
-
-  ngAfterContentInit(): void {
-    this.customComponents = this.contextService.customComponents;
   }
 
   ngOnDestroy(): void {

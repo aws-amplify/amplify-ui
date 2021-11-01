@@ -22,12 +22,11 @@ import { translate } from '@aws-amplify/ui';
   selector: 'amplify-confirm-sign-up',
   templateUrl: './amplify-confirm-sign-up.component.html',
 })
-export class AmplifyConfirmSignUpComponent
-  implements OnInit, AfterContentInit, OnDestroy
-{
-  @HostBinding('attr.data-amplify-authenticator-confirmsignup') dataAttr = '';
+export class AmplifyConfirmSignUpComponent implements OnInit, OnDestroy {
   @Input() headerText = translate('Confirm Sign Up');
-  public customComponents: Record<string, TemplateRef<any>> = {};
+
+  @HostBinding('attr.data-amplify-authenticator-confirmsignup') dataAttr = '';
+
   private authSubscription: Subscription;
   public username: string;
   public remoteError = '';
@@ -47,10 +46,6 @@ export class AmplifyConfirmSignUpComponent
     this.authSubscription = this.stateMachine.authService.subscribe((state) =>
       this.onStateUpdate(state)
     );
-  }
-
-  ngAfterContentInit(): void {
-    this.customComponents = this.contextService.customComponents;
   }
 
   ngOnDestroy(): void {
