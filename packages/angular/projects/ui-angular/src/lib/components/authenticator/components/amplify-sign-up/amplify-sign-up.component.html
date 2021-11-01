@@ -1,15 +1,3 @@
-<ng-template #signUpButton>
-  <button
-    [disabled]="isPending"
-    amplify-button
-    variation="primary"
-    fullWidth="true"
-    type="submit"
-  >
-    {{ createAccountText }}
-  </button>
-</ng-template>
-
 <form data-amplify-form (submit)="onSubmit($event)" (input)="onInput($event)">
   <div class="amplify-flex" style="flex-direction: column">
     <h3 class="amplify-heading">{{ this.headerText }}</h3>
@@ -21,11 +9,17 @@
       </amplify-error>
     </div>
 
-    <ng-container
-      [ngTemplateOutlet]="customComponents.signUpButton || signUpButton"
-      [ngTemplateOutletContext]="context"
-    >
-    </ng-container>
+    <amplify-slot name="signUpButton" [context]="context">
+      <button
+        [disabled]="isPending"
+        amplify-button
+        variation="primary"
+        fullWidth="true"
+        type="submit"
+      >
+        {{ createAccountText }}
+      </button>
+    </amplify-slot>
     <amplify-federated-sign-in></amplify-federated-sign-in>
   </div>
 </form>
