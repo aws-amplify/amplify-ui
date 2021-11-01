@@ -86,6 +86,7 @@ export class AmplifySignUpComponent
 
   ngAfterContentInit(): void {
     this.customComponents = this.contextService.customComponents;
+    console.log(this.customComponents);
   }
 
   ngOnDestroy(): void {
