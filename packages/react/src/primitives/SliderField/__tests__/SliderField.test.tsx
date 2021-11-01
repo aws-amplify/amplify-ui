@@ -254,7 +254,7 @@ describe('SliderField: ', () => {
 
       it('should set aria-valuetext', async () => {
         render(
-          <SliderField defaultValue={0} label="slider" ariaValueText="Monday" />
+          <SliderField defaultValue={0} label="slider" ariaValuetext="Monday" />
         );
         const thumb = await screen.findByRole('slider');
         expect(thumb).toHaveAttribute('aria-valuetext', 'Monday');

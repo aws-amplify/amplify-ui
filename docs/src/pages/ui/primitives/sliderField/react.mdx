@@ -1,0 +1,366 @@
+import { SliderField } from '@aws-amplify/ui-react';
+
+import { SliderFieldDemo } from './demo';
+import { ControlledSliderField, DaySlider, SliderInForm } from './examples';
+import { Example } from '@/components/Example';
+import { Fragment } from '@/components/Fragment';
+
+Sliders allow users to quickly select a value within a range. They should be used when the upper and lower bounds to the range are invariable.
+
+## Demo
+
+<SliderFieldDemo />
+
+## Usage
+
+Import SliderField and styles.
+
+```jsx
+import { SliderField } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<SliderField
+  label="Slider"
+  defaultValue={50}
+  min={0}
+  max={100}
+  step={1}
+  labelHidden
+/>;
+```
+
+<Example>
+  <SliderField
+    label="Slider"
+    defaultValue={50}
+    min={0}
+    max={100}
+    step={1}
+    labelHidden
+  />
+</Example>
+
+The Sliders will render an input for the thumb when used within a form to ensure that value will be able to submiited with form data.
+
+```jsx
+import { Button, SliderField } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+const SliderInForm = () => {
+  const onSubmit = (event) => {
+    event.preventDefault();
+    alert(event.target.slider.value);
+  };
+  return (
+    <form onSubmit={onSubmit}>
+      <SliderField
+        name="slider"
+        label="Slider"
+        defaultValue={50}
+        min={0}
+        max={100}
+        step={1}
+        labelHidden
+      />
+      <Button type="submit">Submit</Button>
+    </form>
+  );
+};
+
+<SliderInForm />;
+```
+
+<Example>
+  <SliderInForm />
+</Example>
+
+### Controlled component
+
+```jsx
+import * as React from 'react';
+import { SliderField } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+const ControlledSliderField = () => {
+  const [value, setValue] = React.useState(50);
+  return (
+    <SliderField
+      label="Controlled slider"
+      min={0}
+      max={100}
+      step={1}
+      value={value}
+      onChange={setValue}
+      labelHidden
+    />
+  );
+};
+
+<ControlledSliderField />;
+```
+
+<Example>
+  <ControlledSliderField />
+</Example>
+
+### Accessibility / Label behavior
+
+<Fragment>{() => import('./../shared/formFieldAccessibility.mdx')}</Fragment>
+
+```jsx
+import { SliderField } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<SliderField label="Slider" defaultValue={50} min={0} max={100} step={1} />;
+```
+
+<Example>
+  <SliderField label="Slider" defaultValue={50} min={0} max={100} step={1} />
+</Example>
+
+You can hide the value to the right of the label with `isValueHidden` prop
+
+```jsx
+import { SliderField } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<SliderField
+  label="Slider"
+  defaultValue={50}
+  min={0}
+  max={100}
+  step={1}
+  isValueHidden
+/>;
+```
+
+<Example>
+  <SliderField
+    label="Slider"
+    defaultValue={50}
+    min={0}
+    max={100}
+    step={1}
+    isValueHidden
+  />
+</Example>
+
+The Sliders will programmatically update the value of `aria-valuenow` in response to user input. However, a slider sometimes is used to choose a value that is not, semantically, a number. In these cases, the `ariaValuetext` attribute is used to provide the appropriate text name for the currently selected value.
+
+```jsx
+import * as React from 'react';
+import { SliderField } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+const dayNames = [
+  'Sunday',
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday',
+];
+
+const DaySlider = () => {
+  const [value, setValue] = React.useState(2);
+  return (
+    <SliderField
+      ariaValuetext={dayNames[value]}
+      label="Day slider"
+      min={0}
+      max={6}
+      step={1}
+      value={value}
+      onChange={setValue}
+      labelHidden
+    />
+  );
+};
+
+<DaySlider />;
+```
+
+<Example>
+  <DaySlider />
+</Example>
+
+#### Disabled SliderField
+
+A disabled field will not be focusable not mutable and will not be submitted with form data.
+
+```jsx
+import { SliderField } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<SliderField
+  label="Slider"
+  defaultValue={50}
+  min={0}
+  max={100}
+  step={1}
+  isDisabled
+  labelHidden
+/>;
+```
+
+<Example>
+  <SliderField
+    label="Slider"
+    defaultValue={50}
+    min={0}
+    max={100}
+    step={1}
+    isDisabled
+    labelHidden
+  />
+</Example>
+
+### Validation error
+
+Use the `hasError` and `errorMessage` props to mark a SliderField as having an validation error.
+
+```jsx
+import { SliderField } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<SliderField
+  label="Slider"
+  defaultValue={50}
+  min={0}
+  max={100}
+  step={1}
+  hasError
+  labelHidden
+/>;
+```
+
+<Example>
+  <SliderField
+    label="Slider"
+    defaultValue={50}
+    min={0}
+    max={100}
+    step={1}
+    errorMessage="The is an error message."
+    hasError
+    labelHidden
+  />
+</Example>
+
+## CSS Styling
+
+### Global styling
+
+To override styling on all SliderFields, you can set the Amplify CSS variables or use the built-in `.amplify-sliderfield__root`, `.amplify-sliderfield__track`, `.amplify-sliderfield__range` and `.amplify-sliderfield__thumb`.
+
+```css
+/* styles.css */
+:root {
+  --amplify-components-sliderfield-track-background-color: var(
+    --amplify-colors-purple-80
+  );
+}
+/* OR */
+.amplify-sliderfield__track {
+  background-color: var(--amplify-colors-purple-80);
+}
+```
+
+<Example>
+  <SliderField
+    className="global-styling-example"
+    label="Slider"
+    defaultValue={50}
+    min={0}
+    max={100}
+    step={1}
+    labelHidden
+  />
+</Example>
+
+To replace SliderField styling, unset it:
+
+```css
+.amplify-sliderfield {
+  all: unset;
+  /* Add your styling here*/
+}
+```
+
+### Local styling
+
+To override styling on a specific SliderField, you can use (in order of increasing specificity): a class selector, data attributes, or style props.
+
+_Using a class selector:_
+
+```css
+/* styles.css */
+.custom-slider .amplify-sliderfield__track {
+  background-color: var(--amplify-colors-purple-80);
+}
+```
+
+```jsx
+import { SliderField } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<SliderField
+  className="custom-slider"
+  label="Slider"
+  defaultValue={50}
+  min={0}
+  max={100}
+  step={1}
+  labelHidden
+/>;
+```
+
+<Example>
+  <SliderField
+    className="custom-slider"
+    label="Slider"
+    defaultValue={50}
+    min={0}
+    max={100}
+    step={1}
+    labelHidden
+  />
+</Example>
+
+_Using style props:_
+
+The Sliders have built-in `trackWidth`, `emptyTrackColor`, `filledTrackColor` and `thumbColor` to use out of the box.
+
+```jsx
+import { SliderField } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<SliderField
+  label="Slider"
+  defaultValue={50}
+  min={0}
+  max={100}
+  step={1}
+  trackWidth="10px"
+  emptyTrackColor="var(--amplify-colors-black)"
+  filledTrackColor="var(--amplify-colors-blue-60)"
+  thumbColor="var(--amplify-colors-orange-40)"
+  labelHidden
+/>;
+```
+
+<Example>
+  <SliderField
+    label="Slider"
+    defaultValue={50}
+    min={0}
+    max={100}
+    step={1}
+    trackWidth="10px"
+    emptyTrackColor="var(--amplify-colors-black)"
+    filledTrackColor="var(--amplify-colors-blue-60)"
+    thumbColor="var(--amplify-colors-orange-40)"
+    labelHidden
+  />
+</Example>

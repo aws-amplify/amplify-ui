@@ -19,7 +19,7 @@ export const SLIDER_TRACK = 'slider-track';
 export const SLIDER_RANGE = 'slider-range';
 
 export const SliderField: Primitive<SliderFieldProps, typeof Root> = ({
-  ariaValueText,
+  ariaValuetext,
   className,
   orientation = 'horizontal',
   trackWidth,
@@ -123,7 +123,7 @@ export const SliderField: Primitive<SliderFieldProps, typeof Root> = ({
           </Track>
           <Thumb
             aria-describedby={fieldId}
-            aria-valuetext={ariaValueText}
+            aria-valuetext={ariaValuetext}
             className={ComponentClassNames.SliderFieldThumb}
             style={{ backgroundColor: thumbColor }}
           />
