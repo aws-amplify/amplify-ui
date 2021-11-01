@@ -1,4 +1,10 @@
-import { AfterContentInit, Component, Input, TemplateRef } from '@angular/core';
+import {
+  AfterContentInit,
+  Component,
+  HostBinding,
+  Input,
+  TemplateRef,
+} from '@angular/core';
 import { AuthPropService } from '../../services/authenticator-context.service';
 
 @Component({
@@ -8,6 +14,8 @@ import { AuthPropService } from '../../services/authenticator-context.service';
 export class AmplifySlotComponent implements AfterContentInit {
   @Input() name: string;
   @Input() context: Record<PropertyKey, any>;
+
+  @HostBinding('style.display') display = 'contents';
 
   public overridingComponent: TemplateRef<any>;
   public isOverriden: boolean = false;
