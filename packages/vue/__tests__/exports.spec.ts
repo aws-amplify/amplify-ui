@@ -5,9 +5,9 @@ describe('@aws-amplify/ui-vue', () => {
     it('should match snapshot', () => {
       expect(Object.keys(exported)).toMatchInlineSnapshot(`
         Array [
+          "AmplifyCheckBox",
           "Authenticator",
           "AuthenticatorSignUpFormFields",
-          "BaseCheckBox",
           "BaseTextField",
           "ConfirmResetPassword",
           "ConfirmSignIn",

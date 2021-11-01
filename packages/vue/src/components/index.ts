@@ -14,5 +14,5 @@ export { default as ConfirmSignIn } from './confirm-sign-in.vue';
 export { default as VerifyUser } from './verify-user.vue';
 export { default as ConfirmVerifyUser } from './confirm-verify-user.vue';
 export { default as BaseTextField } from './primitives/base-text-field.vue';
-export { default as BaseCheckBox } from './primitives/base-check-box.vue';
+export { default as AmplifyCheckBox } from './primitives/amplify-check-box.vue';
 export * from '../types';

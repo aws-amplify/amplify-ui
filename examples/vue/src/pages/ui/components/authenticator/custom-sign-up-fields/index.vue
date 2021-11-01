@@ -7,7 +7,7 @@ import {
   useAuthenticator,
   // Amplify UI Primitives to simplify the custom fields
   BaseTextField,
-  BaseCheckBox,
+  AmplifyCheckBox,
 } from '@aws-amplify/ui-vue';
 import '@aws-amplify/ui-vue/styles.css';
 
@@ -44,7 +44,7 @@ const services = {
         :required="false"
       ></base-text-field>
       <authenticator-sign-up-form-fields />
-      <base-check-box :errorMessage="validationErrors.acknowledgement" />
+      <amplify-check-box :errorMessage="validationErrors.acknowledgement" />
     </template>
     <template v-slot="{ user, signOut }">
       <h1>Hello {{ user.username }}!</h1>
