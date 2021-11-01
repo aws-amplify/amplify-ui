@@ -8,8 +8,8 @@ describe('Table primitive', () => {
   const testCaption = 'test-caption';
   const testSummary = 'test-summary';
 
-  const setup = async ({ name = 'table', ...rest }: TableProps = {}) => {
-    render(<Table name={name} {...rest} />);
+  const setup = async (props: TableProps = {}) => {
+    render(<Table {...props} />);
 
     return {
       $table: await screen.findByRole('table'),
@@ -17,17 +17,11 @@ describe('Table primitive', () => {
   };
 
   describe('Accessibility', () => {
-    it('should render a table with an accessible role', async () => {
-      const { $table } = await setup({ name: 'accessible-table' });
-
-      expect($table).toBeDefined();
-    });
-
     it('should render a table with an accessible label', async () => {
-      const accessibleLabel = 'accessible-label';
-      const { $table } = await setup({ label: accessibleLabel });
+      const label = 'accessible-label';
+      const { $table } = await setup({ label });
 
-      expect($table).toHaveAttribute('aria-label', accessibleLabel);
+      expect($table).toHaveAttribute('aria-label', label);
     });
   });
 
@@ -52,6 +46,30 @@ describe('Table primitive', () => {
       const { $table } = await setup({ style: customStyle });
 
       expect($table).toHaveStyle(customStyle);
+    });
+
+    it('should set the data-highlightonhover attribute', async () => {
+      const highlightOnHover = true;
+      const { $table } = await setup({ highlightOnHover });
+
+      expect($table).toHaveAttribute(
+        'data-highlightonhover',
+        highlightOnHover.toString()
+      );
+    });
+
+    it('should set the data-size attribute', async () => {
+      const size = 'small';
+      const { $table } = await setup({ size });
+
+      expect($table).toHaveAttribute('data-size', size);
+    });
+
+    it('should set the data-variation attribute', async () => {
+      const variation = 'striped';
+      const { $table } = await setup({ variation });
+
+      expect($table).toHaveAttribute('data-variation', variation);
     });
   });
 

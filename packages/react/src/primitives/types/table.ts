@@ -9,14 +9,14 @@ export interface TableProps extends BaseComponentProps, BaseStyleProps {
   caption?: string;
 
   /**
-   * Used to provide an accessible name to the Table component.
-   */
-  name?: string;
-
-  /**
    * If set to true, will highlight a table row on hover. Default is false.
    */
   highlightOnHover?: boolean;
+
+  /**
+   * Will be set as the table's accessible aria-label
+   */
+  label?: string;
 
   /**
    * Affects font size and padding. Default is in between 'small' and 'large'.

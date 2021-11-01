@@ -10,6 +10,7 @@ export const Table: React.FC<TableProps> = ({
   children,
   className,
   highlightOnHover = false,
+  label,
   size = '',
   summary,
   variation = '',
@@ -17,6 +18,7 @@ export const Table: React.FC<TableProps> = ({
 }) => (
   <Flex>
     <View
+      ariaLabel={label}
       as="table"
       className={classNames(ComponentClassNames.Table, className)}
       data-highlightonhover={highlightOnHover}
