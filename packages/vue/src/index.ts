@@ -54,5 +54,3 @@ export {
   ConfirmVerifyUser,
   VerifyUser,
 };
-
-export { translations } from '@aws-amplify/ui';
