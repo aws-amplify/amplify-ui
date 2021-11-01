@@ -1,15 +1,15 @@
 import * as React from 'react';
 
 import {
+  Flex,
   Table,
   TableBody,
   TableCell,
-  TableFoot,
   TableHead,
   TableRow,
-  View,
 } from '@aws-amplify/ui-react';
 
+import { Example } from '@/components/Example';
 import { TablePropControls } from '@/components/TablePropControls';
 import { useTableProps } from '@/components/useTableProps';
 
@@ -23,9 +23,9 @@ export const TableDemo = () => {
   });
 
   return (
-    <View>
+    <Flex direction="column" gap="0.5rem">
       <TablePropControls {...tableProps} />
-      <View className="mt-8">
+      <Example>
         <Table
           caption={tableProps.caption}
           highlightOnHover={tableProps.highlightOnHover}
@@ -34,11 +34,6 @@ export const TableDemo = () => {
           variation={tableProps.variation}
         >
           <TableHead>
-            <TableRow>
-              <TableCell as="th" colspan="3">
-                Fruit
-              </TableCell>
-            </TableRow>
             <TableRow>
               <TableCell as="th">Citrus</TableCell>
               <TableCell as="th">Stone Fruit</TableCell>
@@ -63,7 +58,7 @@ export const TableDemo = () => {
             </TableRow>
           </TableBody>
         </Table>
-      </View>
-    </View>
+      </Example>
+    </Flex>
   );
 };

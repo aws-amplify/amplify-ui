@@ -1,8 +1,28 @@
-.custom-table-class .amplify-table__tr:first-child {
-  background-color: hsl(210, 5%, 95%);
+.custom-table-class .amplify-table__th {
+  background-color: hsl(0, 0%, 65%);
 }
 
-.custom-table-class .amplify-table__caption {
+.custom-table-class .amplify-table__th:first-child {
+  text-align: right;
+}
+
+.custom-table-class .amplify-table__row:not(:first-child) .amplify-table__th {
+  border-top: none;
+}
+
+.custom-table-class .amplify-table__row:not(:last-child) .amplify-table__th {
+  border-bottom: none;
+}
+
+.custom-table-class caption {
   caption-side: bottom;
   text-align: right;
+}
+
+.amplify-table .my-custom-table-cell {
+  font-size: 0.75rem;
+}
+
+.custom-data-styling.amplify-table[data-size='large'] .amplify-table__td {
+  font-size: 2.5rem;
 }

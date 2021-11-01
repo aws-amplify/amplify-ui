@@ -1,5 +1,13 @@
 import * as React from 'react';
 
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+} from '@aws-amplify/ui-react';
+
 import { TableDemo } from './demo';
 import { Example } from '@/components/Example';
 import { Fragment } from '@/components/Fragment';
@@ -20,18 +28,12 @@ import {
   Table,
   TableBody,
   TableCell,
-  TableFoot,
   TableHead,
   TableRow,
 } from '@aws-amplify/ui-react';
 
-<Table caption={tableProps.caption} summary={tableProps.summary}>
+<Table caption="" highlightOnHover={false} size="" summary="" variation="">
   <TableHead>
-    <TableRow>
-      <TableCell as="th" colspan="3">
-        Fruit
-      </TableCell>
-    </TableRow>
     <TableRow>
       <TableCell as="th">Citrus</TableCell>
       <TableCell as="th">Stone Fruit</TableCell>
@@ -51,11 +53,79 @@ import {
     </TableRow>
     <TableRow>
       <TableCell>Lime</TableCell>
-      <TableCell>Peacg</TableCell>
+      <TableCell>Peach</TableCell>
       <TableCell>Strawberry</TableCell>
     </TableRow>
   </TableBody>
 </Table>;
+```
+
+### TableCell
+
+#### `th` and `td` cells
+
+The `TableCell` is used for all data presented in a table. If a cell is intended to be a heading for a row or column,
+it's recommended to set the cell as a `th` element using the `as` property:
+
+```jsx
+<TableCell as="th">Column Header</TableCell>
+```
+
+By default, the `TableCell` is rendered as a `td` element.
+
+#### Spanning multiple columns or rows
+
+The `TableCell` component can be made to span multiple columns or rows using the `colspan` or `rowspan` properties,
+respectively. This is similar to how the HTML native `th` and `td` elements are made to span multiple columns and rows.
+
+<Example>
+  <Table variation="bordered">
+    <TableBody>
+      <TableRow>
+        <TableCell />
+        <TableCell />
+        <TableCell colspan="2" />
+      </TableRow>
+      <TableRow>
+        <TableCell rowspan="2" />
+        <TableCell />
+        <TableCell />
+        <TableCell rowspan="3" />
+      </TableRow>
+      <TableRow>
+        <TableCell />
+        <TableCell />
+      </TableRow>
+      <TableRow>
+        <TableCell colspan="3" />
+      </TableRow>
+    </TableBody>
+  </Table>
+</Example>
+
+```jsx
+<Table variation="bordered">
+  <TableBody>
+    <TableRow>
+      <TableCell />
+      <TableCell />
+      <TableCell colspan="2" />
+    </TableRow>
+    <TableRow>
+      <TableCell rowspan="2" />
+      <TableCell />
+      <TableCell />
+      <TableCell rowspan="3" />
+    </TableRow>
+    <TableRow>
+      <TableCell />
+      <TableCell />
+    </TableRow>
+    <TableRow>
+      <TableCell colspan="3" />
+    </TableRow>
+  </TableBody>
+</Table>
 ```
 
 ## CSS Styling
@@ -65,28 +135,73 @@ import {
 Each component related to the `Table` primitive has its own class name which
 may be used to override styling with custom CSS.
 
+<Example>
+  <Table
+    className="custom-table-class"
+    caption="Table Name"
+    summary="Short summary describing the table"
+  >
+    <TableBody>
+      <TableRow>
+        <TableCell as="th" />
+        <TableCell as="th">A</TableCell>
+        <TableCell as="th">B</TableCell>
+        <TableCell as="th">C</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell as="th">1</TableCell>
+        <TableCell>A1</TableCell>
+        <TableCell>B1</TableCell>
+        <TableCell>C1</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell as="th">2</TableCell>
+        <TableCell>A2</TableCell>
+        <TableCell>B2</TableCell>
+        <TableCell>C2</TableCell>
+      </TableRow>
+      <TableRow>
+        <TableCell as="th">3</TableCell>
+        <TableCell>A3</TableCell>
+        <TableCell>B3</TableCell>
+        <TableCell>C3</TableCell>
+      </TableRow>
+    </TableBody>
+  </Table>
+</Example>
+
 ```css
-.amplify-table .amplify-table__tr:first-child {
-  background-color: hsl(210, 5%, 95%);
+.amplify-table .amplify-table__th {
+  background-color: hsl(0, 0%, 65%);
 }
 
-.amplify-table .amplify-table__caption {
+.amplify-table .amplify-table__th:first-child {
+  text-align: right;
+}
+
+.amplify-table .amplify-table__row:not(:first-child) .amplify-table__th {
+  border-top: none;
+}
+
+.amplify-table .amplify-table__row:not(:last-child) .amplify-table__th {
+  border-bottom: none;
+}
+
+.amplify-table caption {
   caption-side: bottom;
   text-align: right;
 }
 ```
 
 ```jsx
-<Table className="custom-table-class">
-  <TableHead>
+<Table caption="Table Name" summary="Short summary describing the table">
+  <TableBody>
     <TableRow>
-      <TableCell />
+      <TableCell as="th" />
       <TableCell as="th">A</TableCell>
       <TableCell as="th">B</TableCell>
       <TableCell as="th">C</TableCell>
     </TableRow>
-  </TableHead>
-  <TableBody>
     <TableRow>
       <TableCell as="th">1</TableCell>
       <TableCell>A1</TableCell>
@@ -109,34 +224,108 @@ may be used to override styling with custom CSS.
 </Table>
 ```
 
+### Local Styling
+
+To override styling on a specific `Table` components, you can use (in order of increasing specificity): a class
+selector, data attributes, or style props.
+
+_Using a class selector:_
+
+```css
+/* styles.css */
+.amplify-table .my-custom-table-cell {
+  font-size: 0.75rem;
+}
+```
+
+```jsx
+import './styles.css';
+
+<Table>
+  <TableBody>
+    <TableRow>
+      <TableCell className="my-custom-table-cell">Smaller Text</TableCell>
+      <TableCell className="my-custom-table-cell">Smaller Text</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>;
+```
+
 <Example>
   <Table>
-    <TableHead>
-      <TableRow>
-        <TableCell></TableCell>
-        <TableCell as="th">A</TableCell>
-        <TableCell as="th">B</TableCell>
-        <TableCell as="th">C</TableCell>
-      </TableRow>
-    </TableHead>
     <TableBody>
       <TableRow>
-        <TableCell as="th">1</TableCell>
-        <TableCell>A1</TableCell>
-        <TableCell>B1</TableCell>
-        <TableCell>C1</TableCell>
+        <TableCell className="my-custom-table-cell">Smaller Text</TableCell>
+        <TableCell className="my-custom-table-cell">Smaller Text</TableCell>
       </TableRow>
+    </TableBody>
+  </Table>
+</Example>
+
+_Using data attributes:_
+
+```css
+/* styles.css */
+/* Override only large size styles */
+.amplify-table[data-size='large'] .amplify-table__td {
+  font-size: 2.5rem;
+}
+```
+
+```jsx
+import './styles.css';
+
+<Table size="large">
+  <TableBody>
+    <TableRow>
+      <TableCell>Larger Text</TableCell>
+      <TableCell>Larger Text</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>;
+```
+
+<Example>
+  <Table className="custom-data-styling" size="large">
+    <TableBody>
       <TableRow>
-        <TableCell as="th">2</TableCell>
-        <TableCell>A2</TableCell>
-        <TableCell>B2</TableCell>
-        <TableCell>C2</TableCell>
+        <TableCell>Larger Text</TableCell>
+        <TableCell>Larger Text</TableCell>
       </TableRow>
+    </TableBody>
+  </Table>
+</Example>
+
+_Using style props:_
+
+```jsx
+<Table>
+  <TableBody>
+    <TableRow>
+      <TableCell style={{ fontSize: '0.75rem' }}>Smaller Text</TableCell>
+      <TableCell style={{ fontSize: '0.75rem' }}>Smaller Text</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>;
+{
+  /* OR */
+}
+<Table>
+  <TableBody>
+    <TableRow>
+      <TableCell fontSize={'0.75rem'}>Smaller Text</TableCell>
+      <TableCell fontSize={'0.75rem'}>Smaller Text</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>;
+```
+
+<Example>
+  <Table>
+    <TableBody>
       <TableRow>
-        <TableCell as="th">3</TableCell>
-        <TableCell>A3</TableCell>
-        <TableCell>B3</TableCell>
-        <TableCell>C3</TableCell>
+        <TableCell fontSize={'0.75rem'}>Smaller Text</TableCell>
+        <TableCell fontSize={'0.75rem'}>Smaller Text</TableCell>
       </TableRow>
     </TableBody>
   </Table>
