@@ -9,13 +9,19 @@ export const Table: React.FC<TableProps> = ({
   caption,
   children,
   className,
+  highlightOnHover = false,
+  size = '',
   summary,
+  variation = '',
   ...rest
 }) => (
   <Flex>
     <View
       as="table"
       className={classNames(ComponentClassNames.Table, className)}
+      data-highlightonhover={highlightOnHover}
+      data-size={size}
+      data-variation={variation}
       {...rest}
     >
       {caption || summary ? (

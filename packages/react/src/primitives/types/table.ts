@@ -14,9 +14,24 @@ export interface TableProps extends BaseComponentProps, BaseStyleProps {
   name?: string;
 
   /**
+   * If set to true, will highlight a table row on hover. Default is false.
+   */
+  highlightOnHover?: boolean;
+
+  /**
+   * Affects font size and padding. Default is in between 'small' and 'large'.
+   */
+  size?: 'small' | 'large';
+
+  /**
    * Optional summary that is rendered as part of the table caption.
    */
   summary?: string;
+
+  /**
+   * Sets a supported style variation. Default is no specific variation.
+   */
+  variation?: 'bordered' | 'striped';
 }
 
 export interface TableBodyProps extends BaseComponentProps, BaseStyleProps {}
