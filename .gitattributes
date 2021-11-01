@@ -1,2 +1,4 @@
 **/*.d.ts linguist-generated=true
+**/.graphqlconfig.yml linguist-generated=true
+**/amplify/** linguist-generated=true
 yarn.lock linguist-generated=true

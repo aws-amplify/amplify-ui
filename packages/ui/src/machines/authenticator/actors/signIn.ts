@@ -1,9 +1,9 @@
+import { Auth } from 'aws-amplify';
 import { get, isEmpty } from 'lodash';
 import { createMachine, sendUpdate } from 'xstate';
 
-import { Auth } from 'aws-amplify';
-
-import { passwordMatches, runValidators } from '@/validators';
+import { AuthChallengeNames, AuthEvent, SignInContext } from '../../../types';
+import { runValidators } from '../../../validators';
 import {
   clearAttributeToVerify,
   clearChallengeName,
@@ -22,7 +22,7 @@ import {
   setUser,
   setUsernameAuthAttributes,
 } from '../actions';
-import { AuthEvent, AuthChallengeNames, SignInContext } from '../../../types';
+import { defaultServices } from '../defaultServices';
 
 export const signInActor = createMachine<SignInContext, AuthEvent>(
   {
@@ -45,6 +45,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
             },
           },
           federatedSignIn: {
+            tags: ['pending'],
             entry: [sendUpdate(), 'clearError'],
             invoke: {
               src: 'federatedSignIn',
@@ -54,6 +55,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
             },
           },
           submit: {
+            tags: ['pending'],
             entry: ['clearError', sendUpdate()],
             invoke: {
               src: 'signIn',
@@ -100,6 +102,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
             },
           },
           verifying: {
+            tags: ['pending'],
             entry: ['clearError', sendUpdate()],
             invoke: {
               src: 'checkVerifiedContact',
@@ -136,6 +139,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
             },
           },
           submit: {
+            tags: ['pending'],
             entry: ['clearError', sendUpdate()],
             invoke: {
               src: 'confirmSignIn',
@@ -206,6 +210,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
                 },
               },
               pending: {
+                tags: ['pending'],
                 entry: [sendUpdate(), 'clearError'],
                 invoke: {
                   src: 'forceNewPassword',
@@ -237,6 +242,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
             },
           },
           submit: {
+            tags: ['pending'],
             entry: [sendUpdate(), 'clearError'],
             invoke: {
               src: 'verifyTotpToken',
@@ -265,6 +271,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
             },
           },
           submit: {
+            tags: ['pending'],
             entry: 'clearError',
             invoke: {
               src: 'verifyUser',
@@ -297,6 +304,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
             },
           },
           submit: {
+            tags: ['pending'],
             entry: 'clearError',
             invoke: {
               src: 'confirmVerifyUser',
@@ -388,7 +396,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
       },
       async confirmSignIn(context, event) {
         const { challengeName, user } = context;
-        const { confirmation_code: code } = event.data;
+        const { confirmation_code: code } = context.formValues;
 
         let mfaType;
         if (
@@ -408,15 +416,14 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
       },
       async verifyTotpToken(context, event) {
         const { user } = context;
-        const { confirmation_code } = event.data;
+        const { confirmation_code } = context.formValues;
 
         return Auth.verifyTotpToken(user, confirmation_code);
       },
       async federatedSignIn(_, event) {
         const { provider } = event.data;
-        const result = await Auth.federatedSignIn({ provider });
 
-        return result;
+        return await Auth.federatedSignIn({ provider });
       },
       async checkVerifiedContact(context, event) {
         const { user } = context;
@@ -425,29 +432,26 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
         return result;
       },
       async verifyUser(context, event) {
-        const result = await Auth.verifyCurrentUserAttribute(
-          event.data.unverifiedAttr
-        );
+        const { unverifiedAttr } = context.formValues;
+        const result = await Auth.verifyCurrentUserAttribute(unverifiedAttr);
 
-        context.attributeToVerify = event.data.unverifiedAttr;
+        context.attributeToVerify = unverifiedAttr;
 
         return result;
       },
       async confirmVerifyUser(context, event) {
         const { attributeToVerify } = context;
-        const { confirmation_code: code } = event.data;
+        const { confirmation_code } = context.formValues;
 
-        const result = await Auth.verifyCurrentUserAttributeSubmit(
+        return await Auth.verifyCurrentUserAttributeSubmit(
           attributeToVerify,
-          code
+          confirmation_code
         );
-
-        return result;
       },
-      async validateFields(context, _event) {
-        const { formValues } = context;
-        const validators = [passwordMatches]; // this can contain custom validators too
-        return runValidators(formValues, validators);
+      async validateFields(context, event) {
+        return runValidators(context.formValues, [
+          defaultServices.validateConfirmPassword,
+        ]);
       },
     },
   }

@@ -1,25 +1,30 @@
-import { Amplify, Auth } from 'aws-amplify';
 import { assign, createMachine, forwardTo, spawn } from 'xstate';
+
 import { AuthContext, AuthEvent, LoginMechanism } from '../../types';
 import { stopActor } from './actions';
-import {
-  resetPasswordActor,
-  signInActor,
-  signOutActor,
-  signUpActor,
-} from './actors';
+import { resetPasswordActor, signInActor, signOutActor } from './actors';
+import { createSignUpMachine } from './signUp';
+import { defaultServices } from './defaultServices';
 
 const DEFAULT_COUNTRY_CODE = '+1';
 
 export type AuthenticatorMachineOptions = {
   initialState?: 'signIn' | 'signUp' | 'resetPassword';
   loginMechanisms?: LoginMechanism[];
+  services?: Partial<typeof defaultServices>;
 };
 
 export function createAuthenticatorMachine({
   initialState = 'signIn',
+  /** @TODO Prefer `usernameAttributes` and `socialProviders` */
   loginMechanisms,
+  services: customServices,
 }: AuthenticatorMachineOptions) {
+  const services = {
+    ...defaultServices,
+    ...customServices,
+  };
+
   return createMachine<AuthContext, AuthEvent>(
     {
       id: 'authenticator',
@@ -170,7 +175,7 @@ export function createAuthenticatorMachine({
         }),
         spawnSignUpActor: assign({
           actorRef: (context, event) => {
-            const actor = signUpActor.withContext({
+            const actor = createSignUpMachine({ services }).withContext({
               authAttributes: event.data?.authAttributes ?? {},
               country_code: DEFAULT_COUNTRY_CODE,
               intent: event.data?.intent,
@@ -211,14 +216,7 @@ export function createAuthenticatorMachine({
           return event.data.intent === 'confirmPasswordReset';
         },
       },
-      services: {
-        async getCurrentUser() {
-          return Auth.currentAuthenticatedUser();
-        },
-        async getAmplifyConfig() {
-          return Amplify.configure();
-        },
-      },
+      services,
     }
   );
 }

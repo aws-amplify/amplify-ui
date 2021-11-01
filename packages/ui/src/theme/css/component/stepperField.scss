@@ -1,0 +1,38 @@
+.amplify-stepperfield {
+  flex-direction: var(--amplify-components-stepperfield-flex-direction);
+}
+
+.amplify-stepperfield__button--decrease {
+  &[data-invalid='true'] {
+    border-inline-end: none;
+  }
+}
+
+.amplify-stepperfield__button--increase {
+  &[data-invalid='true'] {
+    border-inline-start: none;
+  }
+}
+
+.amplify-stepperfield__input {
+  // To remove default arrows inside input[type = 'number']
+  // Chrome, Safari, Edge, Opera
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  // Firefox
+  -moz-appearance: textfield;
+
+  border-color: var(--amplify-components-stepperfield-input-border-color);
+  text-align: var(--amplify-components-stepperfield-input-text-align);
+
+  // To remove overlapped borders but keep those when the input gets focused
+  // so that focus indicator will not look thinner on both sides
+  // also keep those borders when the input has errors
+  &:not(:focus, [aria-invalid='true']) {
+    border-inline-start: none;
+    border-inline-end: none;
+  }
+}

@@ -1,5 +1,4 @@
-import React from 'react';
-import { nanoid } from 'nanoid';
+import classNames from 'classnames';
 
 import { useSwitch } from './useSwitch';
 import { Label } from '../Label';
@@ -9,10 +8,9 @@ import { Flex } from '../Flex';
 import { VisuallyHidden } from '../VisuallyHidden';
 import { ComponentClassNames } from '../shared/constants';
 import { useStableId } from '../shared/utils';
-import { SwitchFieldProps } from '../types';
-import classNames from 'classnames';
+import { Primitive, SwitchFieldProps } from '../types';
 
-export const SwitchField: React.FC<SwitchFieldProps> = ({
+export const SwitchField: Primitive<SwitchFieldProps, typeof Flex> = ({
   className,
   defaultChecked,
   id,
@@ -45,9 +43,11 @@ export const SwitchField: React.FC<SwitchFieldProps> = ({
       className={classNames(ComponentClassNames.SwitchField, className)}
       data-size={size}
       data-label-position={labelPosition}
+      {...rest}
     >
       <VisuallyHidden>
         <Input
+          role="switch"
           type="checkbox"
           id={fieldId}
           onChange={changeHandler}
@@ -67,7 +67,6 @@ export const SwitchField: React.FC<SwitchFieldProps> = ({
         htmlFor={fieldId}
         className={ComponentClassNames.SwitchWrapper}
         data-label-position={labelPosition}
-        {...rest}
       >
         <LabelType as="span" className={ComponentClassNames.SwitchLabel}>
           {label}

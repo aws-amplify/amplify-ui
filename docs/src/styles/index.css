@@ -17,6 +17,7 @@
 @import './headingStyles.css';
 @import './iconStyles.css';
 @import './linkStyles.css';
+@import './loaderStyles.css';
 @import './paginationStyles.css';
 @import './passwordFieldStyles.css';
 @import './phoneNumberFieldStyles.css';
@@ -25,6 +26,7 @@
 @import './ratingStyles.css';
 @import './scrollView.css';
 @import './selectFieldStyles.css';
+@import './stepperFieldStyles.css';
 @import './switchFieldStyles.css';
 @import './searchFieldStyles.css';
 @import './tableStyles.css';

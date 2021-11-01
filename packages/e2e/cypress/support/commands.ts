@@ -40,6 +40,7 @@ Cypress.Commands.add(
         constant(`${appendStatusToAlias(status)}@${Cypress.env('DOMAIN')}`),
       ],
       [eq('phone number'), constant(Cypress.env('PHONE_NUMBER'))],
+      [eq('preferred username'), constant(appendStatusToAlias(status))],
     ]);
 
     return cy.wrap(inputField).type(buildAlias(loginMechanism));

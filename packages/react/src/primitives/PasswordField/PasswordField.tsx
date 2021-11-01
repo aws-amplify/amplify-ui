@@ -3,10 +3,10 @@ import * as React from 'react';
 import { ShowPasswordButton } from './ShowPasswordButton';
 
 import { ComponentClassNames } from '../shared/constants';
-import { PasswordFieldProps, PasswordFieldType } from '../types';
+import { PasswordFieldProps, PasswordFieldType, Primitive } from '../types';
 import { TextField } from '../TextField';
 
-export const PasswordField: React.FC<PasswordFieldProps> = ({
+export const PasswordField: Primitive<PasswordFieldProps, 'input'> = ({
   autoComplete = 'current-password',
   label,
   className,
@@ -27,6 +27,7 @@ export const PasswordField: React.FC<PasswordFieldProps> = ({
   return (
     <TextField
       autoComplete={autoComplete}
+      isMultiline={false}
       outerEndComponent={
         hideShowPassword ? null : (
           <ShowPasswordButton

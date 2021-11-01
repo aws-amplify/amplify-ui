@@ -1,3 +1,5 @@
+import type { App } from 'vue';
+
 import {
   SignIn,
   SignUp,
@@ -18,7 +20,7 @@ import {
 import './styles.css';
 
 export default {
-  install: (app) => {
+  install: (app: App) => {
     app.component('SignIn', SignIn);
     app.component('SignUp', SignUp);
     app.component('FederatedSignIn', FederatedSignIn);
@@ -52,5 +54,3 @@ export {
   ConfirmVerifyUser,
   VerifyUser,
 };
-
-export { translations } from '@aws-amplify/ui';

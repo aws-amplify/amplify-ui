@@ -12,3 +12,7 @@ Feature: Internationalization (I18n)
     And the "Password" input is in "ja"
     And the "Confirm Password" input is in "ja"
     And the "Create Account" button is in "ja"
+
+@angular @react @vue
+  Scenario: Authenticator reflects updated vocabularies for `I18n.setLanguage('ja')`
+    Then I see "Sign In Custom"

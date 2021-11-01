@@ -6,12 +6,14 @@ import {
   convertGridSpan,
   convertStylePropsToStyleObj,
   getGridSpan,
+  splitPrimitiveProps,
   useNonStyleProps,
   useTransformStyleProps,
 } from '../styleUtils';
 import {
+  BaseStyleProps,
   ComponentPropsToStylePropsMap,
-  GridItemStyleProps,
+  FlexContainerStyleProps,
   ViewProps,
 } from '../../types';
 import { Breakpoint } from '../../types/responsive';
@@ -80,6 +82,50 @@ describe('convertStylePropsToStyleObj: ', () => {
     expect(style['as']).toBeUndefined();
   });
 
+  it('should support object or array style prop values', () => {
+    const props = {
+      backgroundColor: ['red', 'yellow'],
+      direction: { base: 'row', large: 'column' },
+    };
+    const baseStyle = convertStylePropsToStyleObj({
+      props,
+      ...defaultStylePropsParams,
+    });
+
+    expect(baseStyle[ComponentPropsToStylePropsMap.backgroundColor]).toBe(
+      props.backgroundColor[0]
+    );
+    expect(baseStyle[ComponentPropsToStylePropsMap.direction]).toBe(
+      props.direction.base
+    );
+
+    const mediumStyle = convertStylePropsToStyleObj({
+      props,
+      ...defaultStylePropsParams,
+      breakpoint: 'medium',
+    });
+
+    expect(mediumStyle[ComponentPropsToStylePropsMap.backgroundColor]).toBe(
+      props.backgroundColor[1]
+    );
+    expect(mediumStyle[ComponentPropsToStylePropsMap.direction]).toBe(
+      props.direction.base
+    );
+
+    const largeStyle = convertStylePropsToStyleObj({
+      props,
+      ...defaultStylePropsParams,
+      breakpoint: 'large',
+    });
+
+    expect(largeStyle[ComponentPropsToStylePropsMap.backgroundColor]).toBe(
+      props.backgroundColor[1]
+    );
+    expect(largeStyle[ComponentPropsToStylePropsMap.direction]).toBe(
+      props.direction.large
+    );
+  });
+
   it('should extend the passed in style object', () => {
     const props: ViewProps = {
       backgroundColor: 'red',
@@ -142,7 +188,8 @@ describe('useNonStyleProps: ', () => {
 
   it('should return a copy of the original object if all non style props are passed in', () => {
     const noStyleProps: ViewProps = {
-      ['data-variation']: 'primary',
+      // @ts-ignore next-line
+      'data-variation': 'primary',
       ariaLabel: props.ariaLabel,
       as: props.as,
     };
@@ -219,5 +266,49 @@ describe('useTransformStyleProps', () => {
       'column',
       getGridSpan(gridItemProps.columnSpan)
     );
+  });
+});
+
+describe('splitPrimitiveProps', () => {
+  it('should split props into base, flex and rest', () => {
+    const baseStyleProps: BaseStyleProps = {
+      backgroundColor: 'yellow',
+      alignSelf: 'baseline',
+      area: 'auto',
+      basis: 'content',
+      border: '1px solid black',
+      borderRadius: '2px',
+    };
+    const flexContainerStyleProps: FlexContainerStyleProps = {
+      alignContent: 'space-around',
+      alignItems: 'baseline',
+      columnGap: '2rem',
+      direction: 'column-reverse',
+      gap: '2rem',
+      justifyContent: 'space-around',
+      rowGap: '4rem',
+      wrap: 'nowrap',
+    };
+    const restProps = {
+      type: 'textarea',
+      rows: '4',
+      autoComplete: 'current-password',
+      name: 'password',
+      placeholder: 'Password',
+    };
+
+    const {
+      baseStyleProps: resultBaseStyleProps,
+      flexContainerStyleProps: resultFlexContainerStyleProps,
+      rest: resultRest,
+    } = splitPrimitiveProps({
+      ...baseStyleProps,
+      ...flexContainerStyleProps,
+      ...restProps,
+    });
+
+    expect(resultRest).toEqual(restProps);
+    expect(resultFlexContainerStyleProps).toEqual(flexContainerStyleProps);
+    expect(resultBaseStyleProps).toEqual(baseStyleProps);
   });
 });

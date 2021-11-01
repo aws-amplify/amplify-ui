@@ -1,0 +1,88 @@
+.amplify-loader {
+  width: var(--amplify-components-loader-width);
+  height: var(--amplify-components-loader-height);
+  fill: none;
+  stroke: var(--amplify-components-loader-stroke-empty);
+
+  circle:last-of-type {
+    transform-origin: center center;
+    animation-name: amplify-loader-circular;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-duration: var(--amplify-components-loader-animation-duration);
+    @media (prefers-reduced-motion) {
+      animation: none;
+      stroke-dasharray: 100% 200%;
+      stroke-dashoffset: 50%;
+    }
+    stroke: var(--amplify-components-loader-stroke-filled);
+    stroke-linecap: var(--amplify-components-loader-stroke-linecap);
+  }
+
+  &[data-size='small'] {
+    width: var(--amplify-components-loader-small-width);
+    height: var(--amplify-components-loader-small-height);
+  }
+
+  &[data-size='large'] {
+    width: var(--amplify-components-loader-large-width);
+    height: var(--amplify-components-loader-large-height);
+  }
+
+  line:last-of-type {
+    stroke: var(--amplify-components-loader-linear-stroke-filled);
+    stroke-dasharray: 50% 200%; // This will affect the animation. We don't want this to be overridden
+    animation-name: amplify-loader-linear;
+    animation-duration: var(
+      --amplify-components-loader-linear-animation-duration
+    );
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    @media (prefers-reduced-motion) {
+      animation: none;
+      stroke-dashoffset: -50%;
+    }
+  }
+
+  &[data-variation='linear'] {
+    width: var(--amplify-components-loader-linear-width);
+    min-width: var(--amplify-components-loader-linear-min-width);
+    height: var(--amplify-components-loader-linear-height);
+    stroke: var(--amplify-components-loader-linear-stroke-empty);
+    stroke-width: var(--amplify-components-loader-linear-stroke-width);
+    stroke-linecap: var(--amplify-components-loader-linear-stroke-linecap);
+
+    &[data-size='small'] {
+      height: var(--amplify-components-loader-linear-small-height);
+      stroke-width: var(--amplify-components-loader-linear-small-stroke-width);
+    }
+
+    &[data-size='large'] {
+      height: var(--amplify-components-loader-linear-large-height);
+      stroke-width: var(--amplify-components-loader-linear-large-stroke-width);
+    }
+  }
+}
+
+@keyframes amplify-loader-circular {
+  0% {
+    stroke-dasharray: 100% 200%;
+    transform: rotate(120deg);
+  }
+  50% {
+    stroke-dasharray: 20% 400%;
+  }
+  100% {
+    stroke-dasharray: 100% 200%;
+    transform: rotate(480deg);
+  }
+}
+
+@keyframes amplify-loader-linear {
+  0% {
+    stroke-dashoffset: 200%;
+  }
+  100% {
+    stroke-dashoffset: -50%;
+  }
+}

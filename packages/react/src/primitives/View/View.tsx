@@ -1,38 +1,34 @@
 import React from 'react';
 import { useNonStyleProps, usePropStyles } from '../shared/styleUtils';
-import { ViewProps } from '../types/view';
+import { ElementType, PrimitiveProps, ViewProps } from '../types';
 
-export const View: React.FC<ViewProps> = (props) => {
-  const {
-    as: asElementTag,
-    className,
-    children,
-    role,
-    id,
-    testId,
-    ariaLabel,
-    isDisabled,
-    style,
-    ...rest
-  } = props;
-
-  const ViewTag = asElementTag ?? 'div';
-
-  const propStyles = usePropStyles(props, style);
+export const View = <Element extends ElementType = 'div'>({
+  as = 'div',
+  className,
+  children,
+  role,
+  id,
+  testId,
+  ariaLabel,
+  isDisabled,
+  style,
+  ...rest
+}: PrimitiveProps<ViewProps, Element>) => {
+  const propStyles = usePropStyles(rest, style);
   const nonStyleProps = useNonStyleProps(rest);
 
-  return (
-    <ViewTag
-      aria-label={ariaLabel}
-      className={className}
-      data-testid={testId}
-      disabled={isDisabled}
-      id={id}
-      role={role}
-      style={propStyles}
-      {...nonStyleProps}
-    >
-      {children}
-    </ViewTag>
+  return React.createElement(
+    as,
+    {
+      'aria-label': ariaLabel,
+      className,
+      'data-testid': testId,
+      disabled: isDisabled,
+      id,
+      role,
+      style: propStyles,
+      ...nonStyleProps,
+    },
+    children
   );
 };

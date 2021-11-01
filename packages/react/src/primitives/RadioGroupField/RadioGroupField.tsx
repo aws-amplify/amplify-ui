@@ -1,37 +1,33 @@
 import classNames from 'classnames';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 
 import { RadioGroupContext, RadioGroupContextType } from './context';
 import { FieldErrorMessage, FieldDescription } from '../Field';
 import { Flex } from '../Flex';
 import { Label } from '../Label';
-import { RadioGroupFieldProps } from '../types';
+import { RadioGroupFieldProps, Primitive } from '../types';
 import { ComponentClassNames } from '../shared/constants';
 import { useStableId } from '../shared/utils';
 
-export const RadioGroupField: React.FC<RadioGroupFieldProps> = ({
-  alignContent,
-  alignItems,
+// Note: RadioGroupField doesn't extend the JSX.IntrinsicElements<'input'> types (instead extending 'typeof Flex')
+// because all rest props are passed to Flex container
+export const RadioGroupField: Primitive<RadioGroupFieldProps, typeof Flex> = ({
   children,
   className,
   defaultValue,
   descriptiveText,
-  direction = 'column',
   errorMessage,
-  gap,
   hasError = false,
   id,
   isDisabled,
   isRequired,
   isReadOnly,
-  justifyContent,
   label,
   labelHidden = false,
   onChange,
   name,
   size,
   value,
-  wrap,
   ...rest
 }) => {
   const fieldId = useStableId(id);
@@ -59,20 +55,15 @@ export const RadioGroupField: React.FC<RadioGroupFieldProps> = ({
       value,
     ]
   );
+
   return (
     <Flex
-      alignContent={alignContent}
-      alignItems={alignItems}
       className={classNames(
         ComponentClassNames.Field,
         ComponentClassNames.RadioGroupField,
         className
       )}
       data-size={size}
-      direction={direction}
-      gap={gap}
-      justifyContent={justifyContent}
-      wrap={wrap}
       {...rest}
     >
       <Label id={fieldId} visuallyHidden={labelHidden}>

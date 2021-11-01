@@ -1,24 +1,22 @@
 import {
-  getActorState,
-  getActorContext,
-  SignInState,
-  SignInContext,
   authInputAttributes,
-  ContactMethod,
-  censorPhoneNumber,
   censorAllButFirstAndLast,
+  censorPhoneNumber,
+  ContactMethod,
+  getActorContext,
+  SignInContext,
+  translate,
 } from '@aws-amplify/ui';
-import { Radio } from '@aws-amplify/ui-react';
-import { I18n } from 'aws-amplify';
 
-import { useAmplify, useAuthenticator } from '../../../hooks';
+import { useAuthenticator } from '..';
+import { Flex, Form, Heading, Radio, RadioGroupField } from '../../..';
 import { RemoteErrorMessage, TwoButtonSubmitFooter } from '../shared';
 
 const censorContactInformation = (
   type: ContactMethod,
   value: string
 ): string => {
-  const translated = I18n.get(type);
+  const translated = translate(type);
   let newVal = value;
 
   if (type === 'Phone Number') {
@@ -52,63 +50,56 @@ const generateRadioGroup = (
 };
 
 export const VerifyUser = (): JSX.Element => {
-  const amplifyNamespace = 'Authenticator.VerifyUser';
-  const {
-    components: { Flex, Form, Heading, RadioGroupField },
-  } = useAmplify(amplifyNamespace);
-
-  const [_state, send] = useAuthenticator();
-  const actorState: SignInState = getActorState(_state);
+  const { _state, isPending, submitForm, updateForm } = useAuthenticator();
   const context = getActorContext(_state) as SignInContext;
-  const isPending = actorState.matches('verifyUser.pending');
 
-  const headerText = I18n.get(
-    'Account recovery requires verified contact information'
-  );
   const footerSubmitText = isPending ? (
     <>Verifying&hellip;</>
   ) : (
-    <>{I18n.get('Verify')}</>
+    <>{translate('Verify')}</>
   );
 
   const verificationRadioGroup = (
     <RadioGroupField
-      label={I18n.get('Verify Contact')}
+      label={translate('Verify Contact')}
       labelHidden={true}
       name="verify_context"
-      disabled={isPending}
+      isDisabled={isPending}
     >
       {generateRadioGroup(context.unverifiedAttributes)}
     </RadioGroupField>
   );
 
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    let { checked, name, type, value } = event.target;
+    if (type === 'checkbox' && !checked) value = undefined;
+
+    updateForm({ name, value });
+  };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    submitForm();
+  };
+
   return (
     <Form
       data-amplify-authenticator-verifyuser=""
       method="post"
-      onSubmit={(event) => {
-        event.preventDefault();
-
-        const formData = new FormData(event.target);
-
-        send({
-          type: 'SUBMIT',
-          // @ts-ignore Property 'fromEntries' does not exist on type 'ObjectConstructor'. Do you need to change your target library? Try changing the `lib` compiler option to 'es2019' or later.ts(2550)
-          data: Object.fromEntries(formData),
-        });
-      }}
+      onChange={handleChange}
+      onSubmit={handleSubmit}
     >
       <Flex direction="column">
-        <Heading level={3}>{headerText}</Heading>
+        <Heading level={3}>
+          {translate('Account recovery requires verified contact information')}
+        </Heading>
 
         {verificationRadioGroup}
 
-        <RemoteErrorMessage amplifyNamespace={amplifyNamespace} />
+        <RemoteErrorMessage />
 
         <TwoButtonSubmitFooter
-          amplifyNamespace={amplifyNamespace}
-          isPending={isPending}
-          cancelButtonText={I18n.get('Skip')}
+          cancelButtonText={translate('Skip')}
           cancelButtonSendType="SKIP"
           submitButtonText={footerSubmitText}
         />

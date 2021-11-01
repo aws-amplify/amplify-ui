@@ -9,7 +9,7 @@ interface BasePaginationProps {
   /**
    * Index of the current page. (starting from 1)
    */
-  currentPage: number;
+  currentPage?: number;
 
   /**
    * Total number of available pages.
@@ -52,6 +52,7 @@ export interface PaginationItemProps
    * Available item type are 'page', 'next', 'previous' and 'ellipsis'.
    */
   type: PaginationItemType;
+
   /**
    * For 'page' item, this is the page number to be rendered.
    */

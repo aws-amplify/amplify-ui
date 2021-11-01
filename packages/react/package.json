@@ -22,13 +22,14 @@
     "prebuild": "rimraf dist",
     "build": "yarn run build:ts && yarn run build:catalog",
     "build:ts": "tsup --minify --keep-names",
-    "build:catalog": "ts-node --project tsconfig.node.json scripts/generatePrimitivesCatalog.ts",
+    "build:catalog": "ts-node scripts/generatePrimitivesCatalog.ts",
     "dev": "tsup --watch src",
     "update:icons": "node scripts/updateIcons.js",
     "build:icons": "yarn run clean:icons && node scripts/generateIcons.js",
     "clean": "rimraf dist",
     "clean:icons": "rimraf ./src/primitives/Icon/icons",
     "primitives:new": "hygen primitives new",
+    "lint": "tsc --noEmit",
     "test": "yarn test:unit",
     "test:watch": "yarn test:unit:watch",
     "test:unit": "jest",
@@ -45,7 +46,8 @@
     "deepmerge": "^4.2.2",
     "lodash": "^4.17.21",
     "postcss-js": "^3.0.3",
-    "qrcode": "^1.4.4"
+    "qrcode": "^1.4.4",
+    "react-generate-context": "^1.0.0"
   },
   "peerDependencies": {
     "aws-amplify": "3.x.x || 4.x.x",

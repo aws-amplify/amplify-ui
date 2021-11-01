@@ -5,76 +5,87 @@ import { ComponentClassNames } from '../shared/constants';
 import { TextField } from '../TextField';
 import { FieldClearButton } from '../Field';
 import { SearchFieldButton } from './SearchFieldButton';
-import { strHasLength } from '../shared/utils';
-import { SearchFieldProps, InputProps, ButtonProps } from '../types';
+import { isFunction, strHasLength } from '../shared/utils';
+import { SearchFieldProps, InputProps, Primitive } from '../types';
 
 const ESCAPE_KEY = 'Escape';
 const ENTER_KEY = 'Enter';
 const DEFAULT_KEYS = [ESCAPE_KEY, ENTER_KEY];
 
-export const useSearchField = (onSubmit: SearchFieldProps['onSubmit']) => {
+export const useSearchField = ({
+  onSubmit,
+  onClear,
+}: Partial<SearchFieldProps>) => {
   const [value, setValue] = React.useState<string>('');
 
-  const clearValue = React.useCallback(() => setValue(''), [setValue]);
+  const onClearHandler = React.useCallback(() => {
+    setValue('');
+
+    if (isFunction(onClear)) {
+      onClear();
+    }
+  }, [setValue, onClear]);
 
   const onSubmitHandler = React.useCallback(
     (value: string) => {
-      if (onSubmit) {
+      if (isFunction(onSubmit)) {
         onSubmit(value);
       }
     },
     [onSubmit]
   );
 
-  const onKeyDown: InputProps['onKeyDown'] = React.useCallback(
+  const onKeyDown = React.useCallback(
     (event) => {
       const key = event.key;
 
       if (DEFAULT_KEYS.includes(key)) {
         event.preventDefault();
       }
+
       if (key === ESCAPE_KEY) {
-        clearValue();
-      }
-      if (key === ENTER_KEY) {
+        onClearHandler();
+      } else if (key === ENTER_KEY) {
         onSubmitHandler(value);
       }
     },
-    [value, clearValue, onSubmitHandler]
+    [value, onClearHandler, onSubmitHandler]
   );
 
-  const onInput: InputProps['onInput'] = React.useCallback(
+  const onInput = React.useCallback(
     (event) => {
       setValue(event.target.value);
     },
     [setValue]
   );
 
-  const onClick: ButtonProps['onClick'] = React.useCallback(() => {
+  const onClick = React.useCallback(() => {
     onSubmitHandler(value);
   }, [onSubmitHandler, value]);
 
   return {
     value,
-    clearValue,
+    onClearHandler,
     onKeyDown,
     onInput,
     onClick,
   };
 };
 
-export const SearchField: React.FC<SearchFieldProps> = ({
+export const SearchField: Primitive<SearchFieldProps, 'input'> = ({
   autoComplete = 'off',
   className,
   labelHidden = true,
   label,
   name = 'q',
   onSubmit,
+  onClear,
   size,
   ...rest
 }) => {
-  const { value, clearValue, onInput, onKeyDown, onClick } =
-    useSearchField(onSubmit);
+  const { value, onClearHandler, onInput, onKeyDown, onClick } = useSearchField(
+    { onSubmit, onClear }
+  );
 
   return (
     <TextField
@@ -84,12 +95,13 @@ export const SearchField: React.FC<SearchFieldProps> = ({
       innerEndComponent={
         <FieldClearButton
           isVisible={strHasLength(value)}
-          onClick={clearValue}
+          onClick={onClearHandler}
           excludeFromTabOrder={true}
           variation="link"
           size={size}
         />
       }
+      isMultiline={false}
       label={label}
       name={name}
       onInput={onInput}

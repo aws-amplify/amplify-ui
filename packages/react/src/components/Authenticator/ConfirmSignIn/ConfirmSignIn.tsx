@@ -1,69 +1,62 @@
-import { I18n } from 'aws-amplify';
 import {
   AuthChallengeNames,
   getActorState,
   SignInContext,
   SignInState,
+  translate,
 } from '@aws-amplify/ui';
 
-import { useAmplify, useAuthenticator } from '../../../hooks';
-import {
-  ConfirmationCodeInput,
-  ConfirmSignInFooter,
-  ConfirmSignInFooterProps,
-} from '../shared';
+import { useAuthenticator } from '..';
+import { Flex, Form, Heading } from '../../..';
+import { ConfirmationCodeInput, ConfirmSignInFooter } from '../shared';
 
 export const ConfirmSignIn = (): JSX.Element => {
-  const amplifyNamespace = 'Authenticator.ConfirmSignIn';
-  const {
-    components: { Flex, Form, Heading },
-  } = useAmplify(amplifyNamespace);
-
-  const [_state, send] = useAuthenticator();
+  const { _state, error, submitForm, updateForm } = useAuthenticator();
   const actorState: SignInState = getActorState(_state);
-  const isPending = actorState.matches('confirmSignIn.pending');
 
-  const footerProps: ConfirmSignInFooterProps = {
-    amplifyNamespace,
-    isPending,
-    send,
-  };
+  const { challengeName } = actorState.context as SignInContext;
+  let headerText: string;
 
-  const { challengeName, remoteError } = actorState.context as SignInContext;
-  let mfaType: string = 'SMS';
-  if (challengeName === AuthChallengeNames.SOFTWARE_TOKEN_MFA) {
-    mfaType = 'TOTP';
+  switch (challengeName) {
+    case AuthChallengeNames.SMS_MFA:
+      headerText = translate('Confirm SMS Code');
+      break;
+    case AuthChallengeNames.SOFTWARE_TOKEN_MFA:
+      headerText = translate('Confirm TOTP Code');
+      break;
+    default:
+      throw new Error(
+        `Unexpected challengeName encountered in ConfirmSignIn: ${challengeName}`
+      );
   }
 
-  const headerText = I18n.get(`Confirm ${mfaType} Code`);
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    let { checked, name, type, value } = event.target;
+    if (type === 'checkbox' && !checked) value = undefined;
+
+    updateForm({ name, value });
+  };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    submitForm();
+  };
 
   return (
     <Form
       data-amplify-authenticator-confirmsignin=""
       method="post"
-      onSubmit={(event) => {
-        event.preventDefault();
-
-        const formData = new FormData(event.target);
-
-        send({
-          type: 'SUBMIT',
-          // @ts-ignore Property 'fromEntries' does not exist on type 'ObjectConstructor'. Do you need to change your target library? Try changing the `lib` compiler option to 'es2019' or later.ts(2550)
-          data: Object.fromEntries(formData),
-        });
-      }}
+      onChange={handleChange}
+      onSubmit={handleSubmit}
     >
       <Flex direction="column">
         <Heading level={3}>{headerText}</Heading>
 
         <Flex direction="column">
-          <ConfirmationCodeInput
-            amplifyNamespace={amplifyNamespace}
-            errorText={remoteError}
-          />
+          <ConfirmationCodeInput errorText={error} />
         </Flex>
 
-        <ConfirmSignInFooter {...footerProps} />
+        <ConfirmSignInFooter />
       </Flex>
     </Form>
   );

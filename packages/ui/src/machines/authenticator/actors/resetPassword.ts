@@ -1,8 +1,8 @@
+import { Auth } from 'aws-amplify';
 import { createMachine, sendUpdate } from 'xstate';
 
-import { Auth } from 'aws-amplify';
-
 import { AuthEvent, ResetPasswordContext } from '../../../types';
+import { runValidators } from '../../../validators';
 import {
   clearError,
   clearFormValues,
@@ -13,8 +13,9 @@ import {
   setRemoteError,
   setUsername,
 } from '../actions';
-import { passwordMatches, runValidators } from '@/validators';
+import { defaultServices } from '../defaultServices';
 
+// TODO `createResetPasswordMachine` that accepts `services`
 export const resetPasswordActor = createMachine<
   ResetPasswordContext,
   AuthEvent
@@ -41,6 +42,7 @@ export const resetPasswordActor = createMachine<
             },
           },
           submit: {
+            tags: ['pending'],
             entry: [sendUpdate(), 'setUsername', 'clearError'],
             invoke: {
               src: 'resetPassword',
@@ -111,6 +113,7 @@ export const resetPasswordActor = createMachine<
                 },
               },
               resendCode: {
+                tags: ['pending'],
                 entry: ['clearError', sendUpdate()],
                 invoke: {
                   src: 'resetPassword',
@@ -122,6 +125,7 @@ export const resetPasswordActor = createMachine<
                 },
               },
               pending: {
+                tags: ['pending'],
                 entry: ['clearError', sendUpdate()],
                 invoke: {
                   src: 'confirmResetPassword',
@@ -170,10 +174,10 @@ export const resetPasswordActor = createMachine<
 
         return Auth.forgotPasswordSubmit(username, code, password);
       },
-      async validateFields(context, _event) {
-        const { formValues } = context;
-        const validators = [passwordMatches]; // this can contain custom validators too
-        return runValidators(formValues, validators);
+      async validateFields(context, event) {
+        return runValidators(context.formValues, [
+          defaultServices.validateConfirmPassword,
+        ]);
       },
     },
   }

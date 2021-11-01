@@ -2,13 +2,22 @@
 title: Authenticator
 ---
 
-import { Authenticator } from '@aws-amplify/ui-react';
+import {
+  Alert,
+  Authenticator,
+  CheckboxField,
+  Link,
+  TextField,
+  useAuthenticator,
+} from '@aws-amplify/ui-react';
 import { Example } from '@/components/Example';
 import { Feature } from '@/components/Feature';
 import { Fragment } from '@/components/Fragment';
 import { XStateInspector } from '@/components/XStateInspector';
 import Block from 'amplify-docs/src/components/Block';
 import BlockSwitcher from 'amplify-docs/src/components/BlockSwitcher';
+
+import { LabelsAndTextDemo } from './LabelsAndTextDemo';
 
 The `Authenticator` component adds complete [authentication flows](https://docs.amplify.aws/lib/auth/getting-started/q/platform/js)
 to your application with minimal boilerplate.
@@ -161,6 +170,8 @@ The `Authenticator` ships with [translations](https://github.com/aws-amplify/amp
 These [translations](https://github.com/aws-amplify/amplify-ui/blob/main/packages/ui/src/i18n/translations.ts) can be customized using the [Amplify JS' `I18n`](https://docs.amplify.aws/lib/utilities/i18n/q/platform/js/) module:
 
 ```js
+import { translations } from '@aws-amplify/ui';
+I18n.putVocabularies(translations);
 I18n.setLanguage('fr');
 
 I18n.putVocabularies({
@@ -174,6 +185,155 @@ I18n.putVocabularies({
   },
 });
 ```
+
+The list of available keys are available [here](https://github.com/aws-amplify/amplify-ui/blob/main/packages/ui/src/i18n/translations.ts).
+
+<Alert variation="info" heading="Translations Needed 📖">
+  If you see any missing translations or would like to contribute a new
+  language, we greatly appreciate contributions to translations we have
+  [here](https://github.com/aws-amplify/amplify-ui/blob/main/packages/ui/src/i18n/dictionaries).
+</Alert>
+
+### Labels & Text
+
+Using the same techniques as [Internationalization (I18n)](#internationalization-i18n), you can customize the labels and text of the components:
+
+<BlockSwitcher>
+  <Block name="Default Values">
+    Compare the default labels below to those in the customized screens via the tabs above.
+
+    Because `I18n` manages global translations, customizing these will affect all translations of these strings (including those on this page!).
+
+    <Example>
+      <Authenticator />
+    </Example>
+
+  </Block>
+  <Block name="Sign In">
+
+    ```js
+    I18n.putVocabulariesForLanguage('en', {
+      'Sign In': 'Login', // Tab header
+      'Sign in': 'Log in', // Button label
+      'Sign in to your account': 'Welcome Back!',
+      Username: 'Enter your username', // Username label
+      Password: 'Enter your password', // Password label
+      'Forgot your password? ': 'Reset Password',
+    });
+    ```
+
+    <Example>
+      <LabelsAndTextDemo Component={Authenticator.SignIn} />
+    </Example>
+
+  </Block>
+
+  <Block name="Sign Up">
+    
+    ```js
+    I18n.putVocabulariesForLanguage('en', {
+      'Create Account': 'Register', // Tab header
+      'Create a new account': 'New User', // Header text
+      'Confirm Password': 'Confirm your password', // Confirm Password label
+      Email: 'Enter your email',
+      'Phone Number': 'Enter your phone number',
+    });
+    ```
+
+    <Example>
+      <LabelsAndTextDemo Component={Authenticator.SignUp} />
+    </Example>
+
+  </Block>
+
+  <Block name="Reset Password">
+    
+    ```js
+    I18n.putVocabulariesForLanguage('en', {
+      'Reset your password': 'Forgot your password?',
+      'Enter your username': 'Username or Email',
+      'Send code': 'Reset my password',
+      'Back to Sign In': 'Back to Login',
+    });
+    ```
+
+    <Example>
+      <LabelsAndTextDemo Component={Authenticator.ResetPassword} />
+    </Example>
+
+  </Block>
+
+  <Block name="Setup TOTP">
+
+    ```js
+    I18n.putVocabulariesForLanguage('en', {
+      Loading: 'QR code would show here',
+      Code: '2FA Code',
+      Confirm: 'Confirm 2FA',
+      'Back to Sign In': 'Back to Login',
+    });
+    ```
+
+    <Example>
+      <LabelsAndTextDemo Component={Authenticator.SetupTOTP} />
+    </Example>
+
+  </Block>
+</BlockSwitcher>
+
+### Sign Up Fields
+
+The following example customizes the Sign Up screen with:
+
+- Prepending custom `preferred_username` field
+- Re-using the default form fields
+- Appending a custom "Terms & Conditions" checkbox with custom validation
+
+```tsx{3-11,28-48,51-57} file=../../../../../../examples/next/pages/ui/components/authenticator/custom-sign-up-fields/index.page.tsx
+
+```
+
+<Example>
+  <Authenticator
+    initialState="signUp"
+    loginMechanisms={['email']}
+    components={{
+      SignUp: {
+        FormFields() {
+          const { validationErrors } = useAuthenticator();
+          return (
+            <>
+              <TextField
+                label="Preferred Username"
+                labelHidden={true}
+                name="preferred_username"
+                placeholder="Preferred Username"
+              />
+              <Authenticator.SignUp.FormFields />
+              <CheckboxField
+                errorMessage={validationErrors.acknowledgement}
+                hasError={!!validationErrors.acknowledgement}
+                name="acknowledgement"
+                value="yes"
+              >
+                I agree with the Terms & Conditions
+              </CheckboxField>
+            </>
+          );
+        },
+      },
+    }}
+    services={{
+      async validateCustomSignUp(formData) {
+        if (!formData.acknowledgement) {
+          return {
+            acknowledgement: 'You must agree to the Terms & Conditions',
+          };
+        }
+      },
+    }}
+  />
+</Example>
 
 ### Styling
 

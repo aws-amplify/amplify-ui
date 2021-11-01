@@ -31,7 +31,6 @@
 
   &[data-size='small'] {
     font-size: var(--amplify-components-fieldcontrol-small-font-size);
-    line-height: var(--amplify-components-fieldcontrol-small-line-height);
     padding-block-start: var(
       --amplify-components-fieldcontrol-small-padding-block-start
     );
@@ -48,7 +47,6 @@
 
   &[data-size='large'] {
     font-size: var(--amplify-components-fieldcontrol-large-font-size);
-    line-height: var(--amplify-components-fieldcontrol-large-line-height);
     padding-block-start: var(
       --amplify-components-fieldcontrol-large-padding-block-start
     );
@@ -74,6 +72,7 @@
 
   // for disabled styles
   &[disabled] {
+    color: var(--amplify-components-fieldcontrol-disabled-color);
     cursor: var(--amplify-components-fieldcontrol-disabled-cursor);
     border-color: var(--amplify-components-fieldcontrol-disabled-border-color);
     background-color: var(

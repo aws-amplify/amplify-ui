@@ -1,14 +1,13 @@
 import classNames from 'classnames';
-import React from 'react';
 
 import { Flex } from '../Flex';
 import { Input } from '../Input';
 import { useRadioGroupContext } from '../RadioGroupField/context';
 import { Text } from '../Text';
-import { RadioProps } from '../types';
+import { RadioProps, Primitive } from '../types';
 import { ComponentClassNames } from '../shared';
 
-export const Radio: React.FC<RadioProps> = ({
+export const Radio: Primitive<RadioProps, 'input'> = ({
   children,
   className,
   id,

@@ -18,4 +18,13 @@ export const SharedText = {
       search: 'Search',
     },
   },
+  StepperField: {
+    ariaLabel: {
+      IncreaseTo: 'Increase to',
+      DecreaseTo: 'Decrease to',
+    },
+  },
+  Collection: {
+    SearchFieldLabel: 'Search',
+  },
 };

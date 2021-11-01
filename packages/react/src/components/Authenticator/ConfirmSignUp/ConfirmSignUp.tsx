@@ -1,8 +1,7 @@
-import { getActorState, SignUpState } from '@aws-amplify/ui';
-import { I18n } from 'aws-amplify';
+import { translate } from '@aws-amplify/ui';
 
-import { useAmplify, useAuthenticator } from '../../../hooks';
-
+import { useAuthenticator } from '../..';
+import { Button, Flex, Form, Heading } from '../../..';
 import {
   ConfirmationCodeInput,
   ConfirmationCodeInputProps,
@@ -10,19 +9,23 @@ import {
 } from '../shared';
 
 export function ConfirmSignUp() {
-  const amplifyNamespace = 'Authenticator.ConfirmSignUp';
-  const {
-    components: { Button, Flex, Form, Heading },
-  } = useAmplify(amplifyNamespace);
+  const { isPending, resendCode, submitForm, updateForm } = useAuthenticator();
 
-  const [_state, send] = useAuthenticator();
-  const actorState: SignUpState = getActorState(_state);
-  const isPending = actorState.matches('confirmSignUp.pending');
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    let { checked, name, type, value } = event.target;
+    if (type === 'checkbox' && !checked) value = undefined;
+
+    updateForm({ name, value });
+  };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    submitForm();
+  };
 
   const confirmationCodeInputProps: ConfirmationCodeInputProps = {
-    amplifyNamespace,
-    label: I18n.get('Confirmation Code'),
-    placeholder: I18n.get('Enter your code'),
+    label: translate('Confirmation Code'),
+    placeholder: translate('Enter your code'),
   };
 
   return (
@@ -30,47 +33,35 @@ export function ConfirmSignUp() {
     <Form
       data-amplify-authenticator-confirmsignup=""
       method="post"
-      onSubmit={(event) => {
-        event.preventDefault();
-
-        const formData = new FormData(event.target);
-
-        send({
-          type: 'SUBMIT',
-          data: Object.fromEntries(formData),
-        });
-      }}
+      onChange={handleChange}
+      onSubmit={handleSubmit}
     >
       <Flex direction="column">
-        <Heading level={3}>{I18n.get('Confirm Sign Up')}</Heading>
+        <Heading level={3}>{translate('Confirm Sign Up')}</Heading>
 
         <Flex direction="column">
           <ConfirmationCodeInput {...confirmationCodeInputProps} />
 
-          <RemoteErrorMessage amplifyNamespace={amplifyNamespace} />
+          <RemoteErrorMessage />
 
           <Button
             variation="primary"
             isDisabled={isPending}
             type="submit"
-            loadingText={I18n.get('Confirming')}
+            loadingText={translate('Confirming')}
             isLoading={isPending}
             fontWeight="normal"
           >
-            {I18n.get('Confirm')}
+            {translate('Confirm')}
           </Button>
 
           <Button
             variation="default"
-            onClick={() => {
-              send({
-                type: 'RESEND',
-              });
-            }}
+            onClick={resendCode}
             type="button"
             fontWeight="normal"
           >
-            {I18n.get('Resend Code')}
+            {translate('Resend Code')}
           </Button>
         </Flex>
       </Flex>

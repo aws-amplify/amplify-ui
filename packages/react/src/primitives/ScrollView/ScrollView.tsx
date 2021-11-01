@@ -1,10 +1,10 @@
 import classNames from 'classnames';
-import React from 'react';
 
 import { View } from '../View';
-import { ScrollViewProps } from '../types/scrollView';
+import { Primitive, ScrollViewProps } from '../types';
 import { ComponentClassNames } from '../shared/constants';
-export const ScrollView: React.FC<ScrollViewProps> = ({
+
+export const ScrollView: Primitive<ScrollViewProps, 'div'> = ({
   children,
   className,
   orientation,
