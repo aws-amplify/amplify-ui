@@ -283,14 +283,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, useAttrs, watch, onBeforeMount } from 'vue';
-import { useActor, useInterpret } from '@xstate/vue';
 import { useAuth } from '../composables/useAuth';
-import { I18n } from 'aws-amplify';
+import { ref, computed, useAttrs, watch } from 'vue';
+import { useActor, useInterpret } from '@xstate/vue';
 import {
   getActorState,
   getServiceFacade,
-  translations,
   AuthenticatorMachineOptions,
   createAuthenticatorMachine,
   translate,
@@ -306,10 +304,6 @@ import ResetPassword from './reset-password.vue';
 import ConfirmResetPassword from './confirm-reset-password.vue';
 import VerifyUser from './verify-user.vue';
 import ConfirmVerifyUser from './confirm-verify-user.vue';
-
-onBeforeMount(() => {
-  I18n.putVocabularies(translations);
-});
 
 const attrs = useAttrs();
 

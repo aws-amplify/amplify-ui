@@ -69,5 +69,3 @@ export {
   AmplifyCheckBox,
   useAuthenticator,
 };
-
-export { translations } from '@aws-amplify/ui';

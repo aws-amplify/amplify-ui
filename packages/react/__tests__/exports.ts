@@ -1878,6 +1878,7 @@ describe('@aws-amplify/ui-react', () => {
           "VisuallyHidden",
           "Wrapper",
           "components",
+          "createDataStorePredicate",
           "createTheme",
           "defaultTheme",
           "findChildOverrides",
