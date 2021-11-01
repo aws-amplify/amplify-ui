@@ -1,11 +1,9 @@
 import {
-  AfterContentInit,
   Component,
   HostBinding,
   Input,
   OnDestroy,
   OnInit,
-  TemplateRef,
 } from '@angular/core';
 import { Subscription } from 'xstate';
 import { Logger } from 'aws-amplify';
@@ -17,7 +15,6 @@ import {
   SignInState,
 } from '@aws-amplify/ui';
 import { StateMachineService } from '../../../../services/state-machine.service';
-import { AuthPropService } from '../../../../services/authenticator-context.service';
 import { translate } from '@aws-amplify/ui';
 
 const logger = new Logger('ForceNewPassword');
