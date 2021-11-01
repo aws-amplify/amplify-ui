@@ -1,11 +1,9 @@
 import {
-  AfterContentInit,
   Component,
   HostBinding,
   Input,
   OnDestroy,
   OnInit,
-  TemplateRef,
 } from '@angular/core';
 import {
   AuthMachineState,
@@ -14,7 +12,6 @@ import {
   translate,
 } from '@aws-amplify/ui';
 import { Subscription } from 'xstate';
-import { AuthPropService } from '../../../../services/authenticator-context.service';
 import { StateMachineService } from '../../../../services/state-machine.service';
 
 @Component({
@@ -28,7 +25,6 @@ export class ConfirmVerifyUserComponent implements OnInit, OnDestroy {
     'Account recovery requires verified contact information'
   );
 
-  public customComponents: Record<string, TemplateRef<any>> = {};
   public remoteError = '';
   public isPending = false;
   private authSubscription: Subscription;

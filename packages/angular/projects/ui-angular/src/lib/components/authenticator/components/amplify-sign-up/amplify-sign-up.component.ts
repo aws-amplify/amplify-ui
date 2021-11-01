@@ -1,25 +1,23 @@
 import {
-  AfterContentInit,
   Component,
   HostBinding,
   Input,
   OnDestroy,
   OnInit,
-  TemplateRef,
 } from '@angular/core';
 import { StateMachineService } from '../../../../services/state-machine.service';
 import { isEmpty } from 'lodash';
 import { Subscription } from 'xstate';
 import {
   AuthMachineState,
+  getActorContext,
   getActorState,
   getConfiguredAliases,
+  SignUpContext,
   SignUpState,
+  translate,
   ValidationError,
 } from '@aws-amplify/ui';
-import { getActorContext } from '@aws-amplify/ui';
-import { SignUpContext } from '@aws-amplify/ui';
-import { translate } from '@aws-amplify/ui';
 
 @Component({
   selector: 'amplify-sign-up',
@@ -30,7 +28,6 @@ export class AmplifySignUpComponent implements OnInit, OnDestroy {
 
   @HostBinding('attr.data-amplify-authenticator-signup') dataAttr = '';
 
-  public customComponents: Record<string, TemplateRef<any>>;
   public remoteError = '';
   public isPending = false;
   public primaryAlias = '';

@@ -1,15 +1,12 @@
 import {
-  AfterContentInit,
   Component,
   HostBinding,
   Input,
   OnDestroy,
   OnInit,
-  TemplateRef,
 } from '@angular/core';
 import { AuthMachineState, getActorState, SignInState } from '@aws-amplify/ui';
 import { Subscription } from 'xstate';
-import { AuthPropService } from '../../../../services/authenticator-context.service';
 import { StateMachineService } from '../../../../services/state-machine.service';
 import { translate } from '@aws-amplify/ui';
 
@@ -21,7 +18,6 @@ export class ConfirmResetPasswordComponent implements OnInit, OnDestroy {
   @HostBinding('attr.data-amplify-authenticator-confirmsignin') dataAttr = '';
   @Input() public headerText = translate('Reset your password');
 
-  public customComponents: Record<string, TemplateRef<any>> = {};
   public remoteError = '';
   public isPending = false;
   private authSubscription: Subscription;

@@ -1,11 +1,9 @@
 import {
-  AfterContentInit,
   Component,
   HostBinding,
   Input,
   OnDestroy,
   OnInit,
-  TemplateRef,
   ViewEncapsulation,
 } from '@angular/core';
 import {
@@ -16,7 +14,6 @@ import {
 } from '@aws-amplify/ui';
 import { Subscription } from 'xstate';
 import { StateMachineService } from '../../../../services/state-machine.service';
-import { AuthPropService } from '../../../../services/authenticator-context.service';
 import { getAttributeMap } from '../../../../common';
 import { nanoid } from 'nanoid';
 @Component({
@@ -30,7 +27,6 @@ export class AmplifyVerifyUserComponent implements OnInit, OnDestroy {
     'Account recovery requires verified contact information'
   );
 
-  public customComponents: Record<string, TemplateRef<any>> = {};
   public unverifiedAttributes = {};
   public remoteError = '';
   public isPending = false;

@@ -1,11 +1,4 @@
-import {
-  AfterContentInit,
-  Component,
-  HostBinding,
-  OnDestroy,
-  OnInit,
-  TemplateRef,
-} from '@angular/core';
+import { Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'xstate';
 import QRCode from 'qrcode';
 import { Auth, Logger } from 'aws-amplify';
@@ -17,7 +10,6 @@ import {
   SignInState,
 } from '@aws-amplify/ui';
 import { StateMachineService } from '../../../../services/state-machine.service';
-import { AuthPropService } from '../../../../services/authenticator-context.service';
 import { translate } from '@aws-amplify/ui';
 
 const logger = new Logger('SetupTotp');

@@ -1,17 +1,14 @@
 import { Logger } from 'aws-amplify';
 import {
-  AfterContentInit,
   Component,
   HostBinding,
   Input,
   OnDestroy,
   OnInit,
-  TemplateRef,
   ViewEncapsulation,
 } from '@angular/core';
 // TODO: import from '@/services/...'
 import { StateMachineService } from '../../../../services/state-machine.service';
-import { AuthPropService } from '../../../../services/authenticator-context.service';
 import { Subscription } from 'xstate';
 import { AuthMachineState, getActorState, SignInState } from '@aws-amplify/ui';
 import { translate } from '@aws-amplify/ui';
@@ -27,7 +24,6 @@ export class AmplifySignInComponent implements OnInit, OnDestroy {
   @HostBinding('attr.data-amplify-authenticator-signin') dataAttr = '';
   @Input() public headerText = translate('Sign in to your account');
 
-  public customComponents: Record<string, TemplateRef<any>> = {};
   public remoteError = '';
   public isPending = false;
 
