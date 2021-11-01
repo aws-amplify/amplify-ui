@@ -1,7 +1,5 @@
-import {
-  createDataStorePredicate,
-  DataStorePredicateObject,
-} from '../datastore';
+import { DataStorePredicateObject } from '../../types/datastore';
+import { createDataStorePredicate } from '../datastore';
 
 type Post = {
   id: string;
