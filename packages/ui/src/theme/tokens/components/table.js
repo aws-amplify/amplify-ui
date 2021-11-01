@@ -15,7 +15,10 @@ module.exports = {
    * Default font styles
    */
   color: { value: '{colors.font.primary.value}' },
-  fontSize: { value: '{fontSizes.medium.value}' },
+  fontSize: {
+    default: { value: '{fontSizes.medium.value}' },
+    summary: { value: '{fontSizes.xs.value}' },
+  },
   fontWeight: {
     td: { value: '{fontWeights.normal.value}' },
     th: { value: '{fontWeights.bold.value}' },
@@ -27,7 +30,10 @@ module.exports = {
   },
 
   large: {
-    fontSize: { value: '{fontSizes.large.value}' },
+    fontSize: {
+      default: { value: '{fontSizes.large.value}' },
+      summary: { value: '{fontSizes.small.value}' },
+    },
     padding: { value: '{space.large.value}' },
   },
 };

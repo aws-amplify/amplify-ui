@@ -41,7 +41,7 @@
     border-width: var(--amplify-components-table-border-width);
     padding: var(--amplify-components-table-padding);
     color: var(--amplify-components-table-color);
-    font-size: var(--amplify-components-table-font-size);
+    font-size: var(--amplify-components-table-font-size-default);
   }
 
   .amplify-table__th {
@@ -54,13 +54,13 @@
 
   .amplify-table caption {
     color: var(--amplify-components-table-color);
-    font-size: var(--amplify-components-table-font-size);
+    font-size: var(--amplify-components-table-font-size-default);
     word-break: break-all;
   }
 
   .amplify-table__summary {
     color: var(--amplify-colors-font-secondary);
-    font-size: var(--amplify-font-sizes-xs);
+    font-size: var(--amplify-components-table-font-size-summary);
     font-style: italic;
   }
 
@@ -97,13 +97,25 @@
       font-size: var(--amplify-components-table-small-font-size);
       padding: var(--amplify-components-table-small-padding);
     }
+
+    caption {
+      font-size: var(--amplify-components-table-small-font-size);
+    }
   }
 
   &[data-size='large'] {
     .amplify-table__th,
     .amplify-table__td {
-      font-size: var(--amplify-components-table-large-font-size);
+      font-size: var(--amplify-components-table-large-font-size-default);
       padding: var(--amplify-components-table-large-padding);
+    }
+
+    caption {
+      font-size: var(--amplify-components-table-large-font-size-default);
+    }
+
+    .amplify-table__summary {
+      font-size: var(--amplify-components-table-large-font-size-summary);
     }
   }
 }
