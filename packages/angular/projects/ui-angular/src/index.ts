@@ -21,7 +21,7 @@ export * from './lib/common';
 /**
  * Directives
  */
-export * from './lib/directives/amplify-slot.directive';
+export * from './lib/utilities/amplify-slot/amplify-slot.directive';
 
 /**
  * Services
