@@ -8,7 +8,6 @@ import {
   TemplateRef,
 } from '@angular/core';
 import { AuthenticatorService } from '../../../../services/state-machine.service';
-import { AuthPropService } from '../../../../services/authenticator-context.service';
 import { Subscription } from 'xstate';
 import { AuthMachineState, getActorState, SignUpState } from '@aws-amplify/ui';
 import { getActorContext } from '@aws-amplify/ui';
@@ -19,12 +18,9 @@ import { translate } from '@aws-amplify/ui';
   selector: 'amplify-sign-up',
   templateUrl: './amplify-sign-up.component.html',
 })
-export class AmplifySignUpComponent
-  implements AfterContentInit, OnInit, OnDestroy
-{
+export class AmplifySignUpComponent implements OnInit, OnDestroy {
   @HostBinding('attr.data-amplify-authenticator-signup') dataAttr = '';
   @Input() headerText = translate('Create a new account');
-  public customComponents: Record<string, TemplateRef<any>>;
   public remoteError = '';
   public isPending = false;
 
@@ -33,10 +29,7 @@ export class AmplifySignUpComponent
   // translated texts
   public createAccountText = translate('Create Account');
 
-  constructor(
-    private authService: AuthenticatorService,
-    private contextService: AuthPropService
-  ) {}
+  constructor(private authService: AuthenticatorService) {}
 
   public get context() {
     const { change, signIn, submit } = this.authService.services;
@@ -54,10 +47,6 @@ export class AmplifySignUpComponent
     this.authSubscription = this.authService.authService.subscribe((state) =>
       this.onStateUpdate(state)
     );
-  }
-
-  ngAfterContentInit(): void {
-    this.customComponents = this.contextService.customComponents;
   }
 
   ngOnDestroy(): void {

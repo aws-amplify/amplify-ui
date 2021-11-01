@@ -3,7 +3,10 @@
     <h3 class="amplify-heading">{{ this.headerText }}</h3>
 
     <div class="amplify-flex" style="flex-direction: column">
-      <amplify-sign-up-form-fields></amplify-sign-up-form-fields>
+      <amplify-slot name="sign-up-form-fields" [context]="context">
+        <amplify-sign-up-form-fields></amplify-sign-up-form-fields>
+      </amplify-slot>
+
       <amplify-error *ngIf="remoteError">
         {{ remoteError }}
       </amplify-error>
