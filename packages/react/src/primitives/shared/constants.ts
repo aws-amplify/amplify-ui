@@ -17,6 +17,7 @@ export enum ComponentClassNames {
   CollectionPagination = 'amplify-collection-pagination',
   CountryCodeSelect = 'amplify-countrycodeselect',
   Divider = 'amplify-divider',
+  Expander = 'amplify-expander',
   Field = 'amplify-field',
   FieldDescription = 'amplify-field__description',
   FieldErrorMessage = 'amplify-field__error-message',

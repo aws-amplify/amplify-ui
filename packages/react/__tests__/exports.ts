@@ -22,6 +22,7 @@ describe('@aws-amplify/ui-react', () => {
           "ComponentPropsToStylePropsMap",
           "ComponentPropsToStylePropsMapKeys",
           "Divider",
+          "Expander",
           "ErrorText",
           "FieldGroup",
           "FieldGroupIcon",
