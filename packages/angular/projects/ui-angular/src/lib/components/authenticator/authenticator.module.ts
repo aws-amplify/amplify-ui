@@ -32,7 +32,8 @@ import { PhoneNumberFieldComponent } from '../../primitives/phone-number-field/p
 import { TabItemComponent } from '../../primitives/tab-item/tab-item.component';
 import { TabsComponent } from '../../primitives/tabs/tabs.component';
 
-import { AmplifySlotDirective } from '../../directives/amplify-slot.directive';
+import { AmplifySlotComponent } from '../../utilities/amplify-slot/amplify-slot.component';
+import { AmplifySlotDirective } from '../../utilities/amplify-slot/amplify-slot.directive';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { AmplifySlotDirective } from '../../directives/amplify-slot.directive';
     AmplifySetupTotpComponent,
     AmplifySignInComponent,
     AmplifySignUpComponent,
+    AmplifySlotComponent,
     AmplifySlotDirective,
     AmplifyTextFieldComponent,
     AmplifyUserNameAliasComponent,
