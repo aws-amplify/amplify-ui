@@ -33,7 +33,6 @@ export class AmplifyAuthenticatorComponent implements OnInit, AfterContentInit {
 
   @ContentChildren(AmplifySlotDirective)
   private customComponentQuery: QueryList<AmplifySlotDirective> = null;
-  public customComponents: CustomComponents = {};
 
   // translated texts
   public signInTitle = translate('Sign In');
@@ -65,13 +64,14 @@ export class AmplifyAuthenticatorComponent implements OnInit, AfterContentInit {
     this.contextService.customComponents = this.mapCustomComponents(
       this.customComponentQuery
     );
-    this.customComponents = this.contextService.customComponents;
   }
 
   /**
    * Class Functions
    */
-  public get context() {
+
+  // context passed to "authenticated" slot
+  public get authenticatedContext() {
     const { signOut } = this.stateMachine.services;
     const user = this.stateMachine.user;
     return { signOut, user } as const;
