@@ -3,15 +3,8 @@ import {
   PersistentModel,
   ProducerModelPredicate,
 } from '@aws-amplify/datastore';
+import { DataStorePredicateObject } from '../types/datastore';
 import { isFunction } from './utils';
-
-export type DataStorePredicateObject = {
-  and?: DataStorePredicateObject[];
-  or?: DataStorePredicateObject[];
-  field?: string;
-  operand?: string;
-  operator?: string;
-};
 
 /**
  * Given an array of predicates, compose them in sequential order
