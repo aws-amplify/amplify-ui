@@ -5,7 +5,7 @@ import {
   Input,
   TemplateRef,
 } from '@angular/core';
-import { AuthPropService } from '../../services/authenticator-context.service';
+import { CustomComponentsService } from '../../services/custom-components.service';
 
 @Component({
   selector: 'amplify-slot',
@@ -20,7 +20,7 @@ export class AmplifySlotComponent implements AfterContentInit {
   public overridingComponent: TemplateRef<any>;
   public isOverriden: boolean = false;
 
-  constructor(private propService: AuthPropService) {}
+  constructor(private propService: CustomComponentsService) {}
 
   ngAfterContentInit(): void {
     const customComponents = this.propService.customComponents;

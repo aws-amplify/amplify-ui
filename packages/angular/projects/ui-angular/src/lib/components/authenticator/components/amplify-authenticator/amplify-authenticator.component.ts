@@ -16,13 +16,13 @@ import {
 } from '@aws-amplify/ui';
 import { I18n } from 'aws-amplify';
 import { AmplifySlotDirective } from '../../../../utilities/amplify-slot/amplify-slot.directive';
-import { AuthPropService } from '../../../../services/authenticator-context.service';
+import { CustomComponentsService } from '../../../../services/custom-components.service';
 import { StateMachineService } from '../../../../services/state-machine.service';
 
 @Component({
   selector: 'amplify-authenticator',
   templateUrl: './amplify-authenticator.component.html',
-  providers: [AuthPropService], // make sure custom components are scoped to this authenticator only
+  providers: [CustomComponentsService], // make sure custom components are scoped to this authenticator only
   encapsulation: ViewEncapsulation.None,
 })
 export class AmplifyAuthenticatorComponent implements OnInit, AfterContentInit {
@@ -39,7 +39,7 @@ export class AmplifyAuthenticatorComponent implements OnInit, AfterContentInit {
 
   constructor(
     private stateMachine: StateMachineService,
-    private contextService: AuthPropService
+    private contextService: CustomComponentsService
   ) {}
 
   ngOnInit(): void {
