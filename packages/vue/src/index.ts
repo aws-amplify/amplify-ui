@@ -16,7 +16,7 @@ import {
   ConfirmVerifyUser,
   VerifyUser,
   AuthenticatorSignUpFormFields,
-  BaseTextField,
+  AmplifyTextField,
   AmplifyCheckBox,
 } from './components/index';
 
@@ -40,7 +40,7 @@ export default {
     app.component('ConfirmSignIn', ConfirmSignIn);
     app.component('VerifyUser', VerifyUser);
     app.component('ConfirmVerifyUser', ConfirmVerifyUser);
-    app.component('BaseTextField', BaseTextField);
+    app.component('AmplifyTextField', AmplifyTextField);
     app.component('AmplifyCheckBox', AmplifyCheckBox);
     app.component(
       'AuthenticatorSignUpFormFields',
@@ -65,7 +65,7 @@ export {
   ConfirmSignIn,
   ConfirmVerifyUser,
   VerifyUser,
-  BaseTextField,
+  AmplifyTextField,
   AmplifyCheckBox,
   useAuthenticator,
 };

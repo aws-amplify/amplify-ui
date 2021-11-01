@@ -6,7 +6,7 @@ import {
   // Vue Composable to get access to validation errors
   useAuthenticator,
   // Amplify UI Primitives to simplify the custom fields
-  BaseTextField,
+  AmplifyTextField,
   AmplifyCheckBox,
 } from '@aws-amplify/ui-vue';
 import '@aws-amplify/ui-vue/styles.css';
@@ -35,14 +35,14 @@ const services = {
     :services="services"
   >
     <template v-slot:sign-up-fields>
-      <base-text-field
+      <amplify-text-field
         id="prefered_username"
         label="Preferred Username"
         name="preferred_username"
         placeholder="Preferred Username"
         type="text"
         :required="false"
-      ></base-text-field>
+      ></amplify-text-field>
       <authenticator-sign-up-form-fields />
       <amplify-check-box :errorMessage="validationErrors.acknowledgement" />
     </template>
