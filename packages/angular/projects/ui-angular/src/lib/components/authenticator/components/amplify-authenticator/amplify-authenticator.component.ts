@@ -27,10 +27,6 @@ import { AuthenticatorService } from '../../../../services/state-machine.service
   encapsulation: ViewEncapsulation.None,
 })
 export class AmplifyAuthenticatorComponent implements OnInit, AfterContentInit {
-  /**
-   * TODO: Add back custom events
-   */
-
   @Input() initialState: AuthenticatorMachineOptions['initialState'];
   @Input() loginMechanisms: AuthenticatorMachineOptions['loginMechanisms'];
   @Input() variation: 'modal' | undefined;
