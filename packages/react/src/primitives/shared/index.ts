@@ -1,4 +1,5 @@
 export * from './constants';
+export { createDataStorePredicate } from './datastore';
 export {
   EscapeHatchProps,
   findChildOverrides,

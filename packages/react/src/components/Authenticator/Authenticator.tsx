@@ -1,7 +1,3 @@
-import { translations } from '@aws-amplify/ui';
-import { I18n } from 'aws-amplify';
-import * as React from 'react';
-
 import { Provider, ProviderProps } from './Provider';
 import { ResetPassword } from './ResetPassword';
 import { Router, RouterProps } from './Router';
@@ -19,10 +15,6 @@ export function Authenticator({
   loginMechanisms,
   services,
 }: AuthenticatorProps) {
-  React.useEffect(() => {
-    I18n.putVocabularies(translations);
-  }, []);
-
   return (
     <Provider
       components={components}

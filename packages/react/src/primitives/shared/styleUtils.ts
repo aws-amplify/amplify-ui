@@ -229,7 +229,9 @@ const BaseStylePropsMap: Required<{ [key in keyof BaseStyleProps]: true }> = {
   shrink: true,
   textAlign: true,
   textDecoration: true,
+  textTransform: true,
   top: true,
+  transform: true,
   width: true,
 };
 
