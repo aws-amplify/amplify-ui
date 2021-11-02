@@ -1,15 +1,12 @@
 import {
-  AfterContentInit,
   Component,
   HostBinding,
   Input,
   OnDestroy,
   OnInit,
-  TemplateRef,
 } from '@angular/core';
 import { AuthMachineState, getActorState, SignInState } from '@aws-amplify/ui';
 import { Subscription } from 'xstate';
-import { AuthPropService } from '../../../../services/authenticator-context.service';
 import { StateMachineService } from '../../../../services/state-machine.service';
 import { translate } from '@aws-amplify/ui';
 
@@ -17,13 +14,10 @@ import { translate } from '@aws-amplify/ui';
   selector: 'amplify-reset-password',
   templateUrl: './amplify-reset-password.component.html',
 })
-export class AmplifyResetPasswordComponent
-  implements OnInit, AfterContentInit, OnDestroy
-{
+export class AmplifyResetPasswordComponent implements OnInit, OnDestroy {
   @HostBinding('attr.data-amplify-authenticator-resetPassword') dataAttr = '';
   @Input() public headerText = translate('Reset your password');
 
-  public customComponents: Record<string, TemplateRef<any>> = {};
   public remoteError = '';
   public isPending = false;
 
@@ -33,19 +27,12 @@ export class AmplifyResetPasswordComponent
   public sendCodeText = translate('Send Code');
   public backToSignInText = translate('Back to Sign In');
 
-  constructor(
-    private stateMachine: StateMachineService,
-    private contextService: AuthPropService
-  ) {}
+  constructor(private stateMachine: StateMachineService) {}
 
   ngOnInit(): void {
     this.authSubscription = this.stateMachine.authService.subscribe((state) =>
       this.onStateUpdate(state)
     );
-  }
-
-  ngAfterContentInit() {
-    this.customComponents = this.contextService.customComponents;
   }
 
   ngOnDestroy() {

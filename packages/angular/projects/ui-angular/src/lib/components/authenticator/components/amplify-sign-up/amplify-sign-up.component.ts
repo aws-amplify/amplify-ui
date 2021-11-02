@@ -1,37 +1,33 @@
 import {
-  AfterContentInit,
   Component,
   HostBinding,
   Input,
   OnDestroy,
   OnInit,
-  TemplateRef,
 } from '@angular/core';
 import { StateMachineService } from '../../../../services/state-machine.service';
-import { AuthPropService } from '../../../../services/authenticator-context.service';
 import { isEmpty } from 'lodash';
 import { Subscription } from 'xstate';
 import {
   AuthMachineState,
+  getActorContext,
   getActorState,
   getConfiguredAliases,
+  SignUpContext,
   SignUpState,
+  translate,
   ValidationError,
 } from '@aws-amplify/ui';
-import { getActorContext } from '@aws-amplify/ui';
-import { SignUpContext } from '@aws-amplify/ui';
-import { translate } from '@aws-amplify/ui';
 
 @Component({
   selector: 'amplify-sign-up',
   templateUrl: './amplify-sign-up.component.html',
 })
-export class AmplifySignUpComponent
-  implements AfterContentInit, OnInit, OnDestroy
-{
-  @HostBinding('attr.data-amplify-authenticator-signup') dataAttr = '';
+export class AmplifySignUpComponent implements OnInit, OnDestroy {
   @Input() headerText = translate('Create a new account');
-  public customComponents: Record<string, TemplateRef<any>>;
+
+  @HostBinding('attr.data-amplify-authenticator-signup') dataAttr = '';
+
   public remoteError = '';
   public isPending = false;
   public primaryAlias = '';
@@ -43,10 +39,7 @@ export class AmplifySignUpComponent
   // translated texts
   public createAccountText = translate('Create Account');
 
-  constructor(
-    private stateMachine: StateMachineService,
-    private contextService: AuthPropService
-  ) {}
+  constructor(private stateMachine: StateMachineService) {}
 
   public get context() {
     const { change, signIn, submit } = this.stateMachine.services;
@@ -82,10 +75,6 @@ export class AmplifySignUpComponent
 
     this.primaryAlias = primaryAlias;
     this.secondaryAliases = secondaryAliases;
-  }
-
-  ngAfterContentInit(): void {
-    this.customComponents = this.contextService.customComponents;
   }
 
   ngOnDestroy(): void {

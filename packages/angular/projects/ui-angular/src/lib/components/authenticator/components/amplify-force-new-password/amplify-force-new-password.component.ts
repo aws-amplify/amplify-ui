@@ -1,11 +1,9 @@
 import {
-  AfterContentInit,
   Component,
   HostBinding,
   Input,
   OnDestroy,
   OnInit,
-  TemplateRef,
 } from '@angular/core';
 import { Subscription } from 'xstate';
 import { Logger } from 'aws-amplify';
@@ -17,7 +15,6 @@ import {
   SignInState,
 } from '@aws-amplify/ui';
 import { StateMachineService } from '../../../../services/state-machine.service';
-import { AuthPropService } from '../../../../services/authenticator-context.service';
 import { translate } from '@aws-amplify/ui';
 
 const logger = new Logger('ForceNewPassword');
@@ -26,14 +23,11 @@ const logger = new Logger('ForceNewPassword');
   selector: 'amplify-force-new-password',
   templateUrl: './amplify-force-new-password.component.html',
 })
-export class AmplifyForceNewPasswordComponent
-  implements OnInit, AfterContentInit, OnDestroy
-{
+export class AmplifyForceNewPasswordComponent implements OnInit, OnDestroy {
   @HostBinding('attr.data-amplify-authenticator-forcenewpassword')
   dataAttr = '';
   @Input() public headerText = translate('Change Password');
 
-  public customComponents: Record<string, TemplateRef<any>> = {};
   public remoteError = '';
   public isPending = false;
 
@@ -43,19 +37,12 @@ export class AmplifyForceNewPasswordComponent
   public changePasswordText = translate('Change Password');
   public backToSignInText = translate('Back to Sign In');
 
-  constructor(
-    private stateMachine: StateMachineService,
-    private contextService: AuthPropService
-  ) {}
+  constructor(private stateMachine: StateMachineService) {}
 
   ngOnInit(): void {
     this.authSubscription = this.stateMachine.authService.subscribe((state) =>
       this.onStateUpdate(state)
     );
-  }
-
-  ngAfterContentInit(): void {
-    this.customComponents = this.contextService.customComponents;
   }
 
   ngOnDestroy(): void {

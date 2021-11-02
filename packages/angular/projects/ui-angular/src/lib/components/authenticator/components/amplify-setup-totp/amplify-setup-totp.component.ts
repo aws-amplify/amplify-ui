@@ -1,11 +1,4 @@
-import {
-  AfterContentInit,
-  Component,
-  HostBinding,
-  OnDestroy,
-  OnInit,
-  TemplateRef,
-} from '@angular/core';
+import { Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'xstate';
 import QRCode from 'qrcode';
 import { Auth, Logger } from 'aws-amplify';
@@ -17,7 +10,6 @@ import {
   SignInState,
 } from '@aws-amplify/ui';
 import { StateMachineService } from '../../../../services/state-machine.service';
-import { AuthPropService } from '../../../../services/authenticator-context.service';
 import { translate } from '@aws-amplify/ui';
 
 const logger = new Logger('SetupTotp');
@@ -26,11 +18,8 @@ const logger = new Logger('SetupTotp');
   selector: 'amplify-setup-totp',
   templateUrl: './amplify-setup-totp.component.html',
 })
-export class AmplifySetupTotpComponent
-  implements OnInit, AfterContentInit, OnDestroy
-{
-  @HostBinding('attr.data-amplify-authenticator-setup-totp')
-  public customComponents: Record<string, TemplateRef<any>> = {};
+export class AmplifySetupTotpComponent implements OnInit, OnDestroy {
+  @HostBinding('attr.data-amplify-authenticator-setup-totp') dataAttr = '';
   public remoteError = '';
   public isPending = false;
   public headerText = translate('Setup TOTP');
@@ -42,20 +31,13 @@ export class AmplifySetupTotpComponent
   public backToSignInText = translate('Back to Sign In');
   public confirmText = translate('Confirm');
 
-  constructor(
-    private stateMachine: StateMachineService,
-    private contextService: AuthPropService
-  ) {}
+  constructor(private stateMachine: StateMachineService) {}
 
   ngOnInit(): void {
     this.authSubscription = this.stateMachine.authService.subscribe((state) => {
       this.onStateUpdate(state);
     });
     this.generateQRCode();
-  }
-
-  ngAfterContentInit(): void {
-    this.customComponents = this.contextService.customComponents;
   }
 
   ngOnDestroy(): void {

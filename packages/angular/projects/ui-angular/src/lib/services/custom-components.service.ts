@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
-import { CustomComponents, PropContext } from '../common';
+import { CustomComponents } from '../common';
 
+/**
+ * Stores and provides custom components that users provide with `amplify-slot`.
+ */
 @Injectable({
   providedIn: 'root',
 })
-export class AuthPropService {
-  constructor() {}
+export class CustomComponentsService {
   private _customComponents: CustomComponents = {};
-  private _props: PropContext = {};
 
   public get customComponents(): CustomComponents {
     return this._customComponents;
@@ -15,13 +16,5 @@ export class AuthPropService {
 
   public set customComponents(customComponents: CustomComponents) {
     this._customComponents = { ...this._customComponents, ...customComponents };
-  }
-
-  public get props(): PropContext {
-    return this._props;
-  }
-
-  public set props(props: PropContext) {
-    this._props = { ...this._props, ...props };
   }
 }

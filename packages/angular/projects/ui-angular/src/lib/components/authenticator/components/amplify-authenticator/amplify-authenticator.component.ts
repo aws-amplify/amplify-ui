@@ -13,29 +13,23 @@ import {
   getActorState,
   translate,
 } from '@aws-amplify/ui';
-import { CustomComponents } from '../../../../common';
-import { AmplifySlotDirective } from '../../../../directives/amplify-slot.directive';
-import { AuthPropService } from '../../../../services/authenticator-context.service';
+import { AmplifySlotDirective } from '../../../../utilities/amplify-slot/amplify-slot.directive';
+import { CustomComponentsService } from '../../../../services/custom-components.service';
 import { StateMachineService } from '../../../../services/state-machine.service';
 
 @Component({
   selector: 'amplify-authenticator',
   templateUrl: './amplify-authenticator.component.html',
-  providers: [AuthPropService], // make sure custom components are scoped to this authenticator only
+  providers: [CustomComponentsService], // make sure custom components are scoped to this authenticator only
   encapsulation: ViewEncapsulation.None,
 })
 export class AmplifyAuthenticatorComponent implements OnInit, AfterContentInit {
-  /**
-   * TODO: Add back custom events
-   */
-
   @Input() initialState: AuthenticatorMachineOptions['initialState'];
   @Input() loginMechanisms: AuthenticatorMachineOptions['loginMechanisms'];
   @Input() variation: 'modal' | undefined;
 
   @ContentChildren(AmplifySlotDirective)
   private customComponentQuery: QueryList<AmplifySlotDirective> = null;
-  public customComponents: CustomComponents = {};
 
   // translated texts
   public signInTitle = translate('Sign In');
@@ -43,7 +37,7 @@ export class AmplifyAuthenticatorComponent implements OnInit, AfterContentInit {
 
   constructor(
     private stateMachine: StateMachineService,
-    private contextService: AuthPropService
+    private contextService: CustomComponentsService
   ) {}
 
   ngOnInit(): void {
@@ -65,13 +59,14 @@ export class AmplifyAuthenticatorComponent implements OnInit, AfterContentInit {
     this.contextService.customComponents = this.mapCustomComponents(
       this.customComponentQuery
     );
-    this.customComponents = this.contextService.customComponents;
   }
 
   /**
    * Class Functions
    */
-  public get context() {
+
+  // context passed to "authenticated" slot
+  public get authenticatedContext() {
     const { signOut } = this.stateMachine.services;
     const user = this.stateMachine.user;
     return { signOut, user } as const;

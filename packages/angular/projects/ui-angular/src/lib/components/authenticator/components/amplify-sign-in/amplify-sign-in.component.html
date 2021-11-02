@@ -1,13 +1,4 @@
-<!-- 
-  Define default contents here
--->
-<ng-template #signInButton>
-  <button amplify-button variation="primary" fullWidth="true" type="submit">
-    {{ signInButtonText }}
-  </button>
-</ng-template>
-
-<ng-template #signInForm>
+<div data-amplify-container>
   <form data-amplify-form (submit)="onSubmit($event)" (input)="onInput($event)">
     <fieldset
       class="amplify-flex"
@@ -23,11 +14,9 @@
         type="password"
         autocomplete="current-password"
       ></amplify-form-field>
-      <ng-container
-        [ngTemplateOutlet]="customComponents.signInButton || signInButton"
-        [ngTemplateOutletContext]="context"
-      >
-      </ng-container>
+      <button amplify-button variation="primary" fullWidth="true" type="submit">
+        {{ signInButtonText }}
+      </button>
       <button
         amplify-button
         fontWeight="normal"
@@ -43,16 +32,4 @@
     </fieldset>
     <amplify-federated-sign-in></amplify-federated-sign-in>
   </form>
-</ng-template>
-
-<!-- 
-  Render sign in component
--->
-
-<div data-amplify-container>
-  <ng-container
-    [ngTemplateOutlet]="customComponents.signInForm || signInForm"
-    [ngTemplateOutletContext]="context"
-  >
-  </ng-container>
 </div>

@@ -1,11 +1,9 @@
 import {
-  AfterContentInit,
   Component,
   HostBinding,
   Input,
   OnDestroy,
   OnInit,
-  TemplateRef,
   ViewEncapsulation,
 } from '@angular/core';
 import {
@@ -16,7 +14,6 @@ import {
 } from '@aws-amplify/ui';
 import { Subscription } from 'xstate';
 import { StateMachineService } from '../../../../services/state-machine.service';
-import { AuthPropService } from '../../../../services/authenticator-context.service';
 import { getAttributeMap } from '../../../../common';
 import { nanoid } from 'nanoid';
 @Component({
@@ -24,15 +21,12 @@ import { nanoid } from 'nanoid';
   templateUrl: './amplify-verify-user.component.html',
   encapsulation: ViewEncapsulation.None,
 })
-export class AmplifyVerifyUserComponent
-  implements AfterContentInit, OnInit, OnDestroy
-{
+export class AmplifyVerifyUserComponent implements OnInit, OnDestroy {
   @HostBinding('attr.data-amplify-authenticator-verifyuser') dataAttr = '';
   @Input() public headerText = translate(
     'Account recovery requires verified contact information'
   );
 
-  public customComponents: Record<string, TemplateRef<any>> = {};
   public unverifiedAttributes = {};
   public remoteError = '';
   public isPending = false;
@@ -44,19 +38,12 @@ export class AmplifyVerifyUserComponent
   public skipText = translate('Skip');
   public verifyText = translate('Verify');
 
-  constructor(
-    private stateMachine: StateMachineService,
-    private contextService: AuthPropService
-  ) {}
+  constructor(private stateMachine: StateMachineService) {}
 
   ngOnInit(): void {
     this.authSubscription = this.stateMachine.authService.subscribe((state) =>
       this.onStateUpdate(state)
     );
-  }
-
-  ngAfterContentInit(): void {
-    this.customComponents = this.contextService.customComponents;
   }
 
   ngOnDestroy(): void {

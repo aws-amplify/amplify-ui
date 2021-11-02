@@ -1,11 +1,4 @@
-import {
-  AfterContentInit,
-  Component,
-  HostBinding,
-  OnDestroy,
-  OnInit,
-  TemplateRef,
-} from '@angular/core';
+import { Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
 import { Logger } from 'aws-amplify';
 import { Subscription } from 'xstate';
 import {
@@ -17,7 +10,6 @@ import {
   SignInState,
 } from '@aws-amplify/ui';
 import { StateMachineService } from '../../../../services/state-machine.service';
-import { AuthPropService } from '../../../../services/authenticator-context.service';
 import { translate } from '@aws-amplify/ui';
 
 const logger = new Logger('ConfirmSignIn');
@@ -26,12 +18,9 @@ const logger = new Logger('ConfirmSignIn');
   selector: 'amplify-confirm-sign-in',
   templateUrl: './amplify-confirm-sign-in.component.html',
 })
-export class AmplifyConfirmSignInComponent
-  implements OnInit, OnDestroy, AfterContentInit
-{
+export class AmplifyConfirmSignInComponent implements OnInit, OnDestroy {
   @HostBinding('attr.data-amplify-authenticator-confirmsignin') dataAttr = '';
 
-  public customComponents: Record<string, TemplateRef<any>> = {};
   public remoteError = '';
   public isPending = false;
 
@@ -42,20 +31,13 @@ export class AmplifyConfirmSignInComponent
   public confirmText = translate('Confirm');
   public backToSignInText = translate('Back to Sign In');
 
-  constructor(
-    private stateMachine: StateMachineService,
-    private contextService: AuthPropService
-  ) {}
+  constructor(private stateMachine: StateMachineService) {}
 
   ngOnInit(): void {
     this.authSubscription = this.stateMachine.authService.subscribe((state) => {
       this.onStateUpdate(state);
     });
     this.setHeaderText();
-  }
-
-  ngAfterContentInit(): void {
-    this.customComponents = this.contextService.customComponents;
   }
 
   ngOnDestroy(): void {
