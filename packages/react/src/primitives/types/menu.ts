@@ -12,11 +12,6 @@ export interface MenuProps extends FlexProps {
   align?: 'start' | 'center' | 'end';
 
   /**
-   * Menu primitive only accepts MenuItem components as children.
-   */
-  children: React.ReactElement | React.ReactElement[];
-
-  /**
    * Handle open and close event of menu
    */
   onOpenChange?: (open: boolean) => void;
