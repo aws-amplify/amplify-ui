@@ -49,7 +49,7 @@ export function SignIn() {
         <RemoteErrorMessage />
 
         <Button
-          borderRadius={0}
+          borderRadius="0"
           isDisabled={isPending}
           isFullWidth={true}
           type="submit"
