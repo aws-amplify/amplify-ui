@@ -1,3 +1,7 @@
+/**
+ * Note: Global styling examples require a scoped classname (`global-styling-menu`) to prevent affecting other menu examples,
+ * even though customer facing code doesn't show the scoped classname.
+ */
 .global-styling-menu.amplify-menu {
   --amplify-components-button-color: var(--amplify-colors-brand-secondary-90);
 }
@@ -7,7 +11,7 @@
   );
   --amplify-components-button-color: var(--amplify-colors-brand-secondary-90);
 }
-.my-menu-trigger .amplify-menu-trigger {
+.my-menu-trigger.amplify-menu-trigger {
   border-color: var(--amplify-colors-brand-secondary-90);
   color: var(--amplify-colors-brand-secondary-90);
 }
