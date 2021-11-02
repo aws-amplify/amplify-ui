@@ -16,10 +16,10 @@ export class AmplifyUserNameAliasComponent implements OnInit {
   public error: string;
   public placeholder: string;
 
-  constructor(private stateMachine: AuthenticatorService) {}
+  constructor(private authenticator: AuthenticatorService) {}
 
   ngOnInit(): void {
-    const context = this.stateMachine.context;
+    const context = this.authenticator.context;
     const { label, type } = getAliasInfoFromContext(context);
 
     this.label = label;

@@ -31,12 +31,14 @@ export class AmplifySetupTotpComponent implements OnInit, OnDestroy {
   public backToSignInText = translate('Back to Sign In');
   public confirmText = translate('Confirm');
 
-  constructor(private stateMachine: AuthenticatorService) {}
+  constructor(private authenticator: AuthenticatorService) {}
 
   ngOnInit(): void {
-    this.authSubscription = this.stateMachine.authService.subscribe((state) => {
-      this.onStateUpdate(state);
-    });
+    this.authSubscription = this.authenticator.authService.subscribe(
+      (state) => {
+        this.onStateUpdate(state);
+      }
+    );
     this.generateQRCode();
   }
 
@@ -51,15 +53,15 @@ export class AmplifySetupTotpComponent implements OnInit, OnDestroy {
   }
 
   public get context() {
-    const { change, submit } = this.stateMachine.services;
+    const { change, submit } = this.authenticator.services;
     const remoteError = this.remoteError;
-    const user = this.stateMachine.user;
+    const user = this.authenticator.user;
     return { change, remoteError, submit, user };
   }
 
   async generateQRCode() {
     // TODO: This should be handled in core.
-    const state = this.stateMachine.authState;
+    const state = this.authenticator.authState;
     const actorContext: SignInContext = getActorContext(state);
     const { user } = actorContext;
     try {
@@ -78,7 +80,7 @@ export class AmplifySetupTotpComponent implements OnInit, OnDestroy {
   onInput(event: Event): void {
     event.preventDefault();
     const { name, value } = <HTMLInputElement>event.target;
-    this.stateMachine.send({
+    this.authenticator.send({
       type: 'CHANGE',
       data: { name, value },
     });
@@ -88,13 +90,13 @@ export class AmplifySetupTotpComponent implements OnInit, OnDestroy {
     event.preventDefault();
     // TODO: handle form data within the state machine
     const formData = new FormData(event.target as HTMLFormElement);
-    this.stateMachine.send({
+    this.authenticator.send({
       type: 'SUBMIT',
       data: Object.fromEntries(formData),
     });
   }
 
   toSignIn(): void {
-    this.stateMachine.send('SIGN_IN');
+    this.authenticator.send('SIGN_IN');
   }
 }

@@ -36,7 +36,7 @@ export class AmplifyFormFieldComponent implements OnInit {
   public textFieldId: string;
   public selectFieldId: string;
 
-  constructor(private stateMachine: AuthenticatorService) {}
+  constructor(private authenticator: AuthenticatorService) {}
 
   ngOnInit(): void {
     // TODO: field primtiives should have generate these by default.
@@ -45,12 +45,12 @@ export class AmplifyFormFieldComponent implements OnInit {
 
     // TODO: consider better default handling mechanisms across frameworks
     if (this.isPhoneField()) {
-      const state = this.stateMachine.authState;
+      const state = this.authenticator.authState;
       const { country_code }: ActorContextWithForms = getActorContext(state);
       this.defaultCountryCode = country_code;
 
       // TODO: remove this side-effect
-      this.stateMachine.send({
+      this.authenticator.send({
         type: 'CHANGE',
         data: { name: 'country_code', value: country_code },
       });
@@ -63,7 +63,7 @@ export class AmplifyFormFieldComponent implements OnInit {
 
   get error(): string {
     const formContext: ActorContextWithForms = getActorContext(
-      this.stateMachine.authState
+      this.authenticator.authState
     );
     const { validationError } = formContext;
     return validationError[this.name];

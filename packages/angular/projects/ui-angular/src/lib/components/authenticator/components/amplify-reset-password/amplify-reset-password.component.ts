@@ -27,10 +27,10 @@ export class AmplifyResetPasswordComponent implements OnInit, OnDestroy {
   public sendCodeText = translate('Send Code');
   public backToSignInText = translate('Back to Sign In');
 
-  constructor(private stateMachine: AuthenticatorService) {}
+  constructor(private authenticator: AuthenticatorService) {}
 
   ngOnInit(): void {
-    this.authSubscription = this.stateMachine.authService.subscribe((state) =>
+    this.authSubscription = this.authenticator.authService.subscribe((state) =>
       this.onStateUpdate(state)
     );
   }
@@ -46,19 +46,19 @@ export class AmplifyResetPasswordComponent implements OnInit, OnDestroy {
   }
 
   public get context() {
-    const { change, signIn, submit } = this.stateMachine.services;
+    const { change, signIn, submit } = this.authenticator.services;
     const remoteError = this.remoteError;
     return { change, remoteError, signIn, submit };
   }
 
   toSignIn(): void {
-    this.stateMachine.send('SIGN_IN');
+    this.authenticator.send('SIGN_IN');
   }
 
   onInput(event: Event): void {
     event.preventDefault();
     const { name, value } = <HTMLInputElement>event.target;
-    this.stateMachine.send({
+    this.authenticator.send({
       type: 'CHANGE',
       data: { name, value },
     });
@@ -66,6 +66,6 @@ export class AmplifyResetPasswordComponent implements OnInit, OnDestroy {
 
   onSubmit(event: Event): void {
     event.preventDefault();
-    this.stateMachine.send('SUBMIT');
+    this.authenticator.send('SUBMIT');
   }
 }

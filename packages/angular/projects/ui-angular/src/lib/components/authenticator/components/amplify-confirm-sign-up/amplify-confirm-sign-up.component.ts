@@ -33,11 +33,11 @@ export class AmplifyConfirmSignUpComponent implements OnInit, OnDestroy {
   public resendCodeText = translate('Resend Code');
   public confirmText = translate('Confirm');
 
-  constructor(private stateMachine: AuthenticatorService) {}
+  constructor(private authenticator: AuthenticatorService) {}
 
   ngOnInit(): void {
     // TODO: alias for subscribe
-    this.authSubscription = this.stateMachine.authService.subscribe((state) =>
+    this.authSubscription = this.authenticator.authService.subscribe((state) =>
       this.onStateUpdate(state)
     );
   }
@@ -53,13 +53,13 @@ export class AmplifyConfirmSignUpComponent implements OnInit, OnDestroy {
   }
 
   public get context() {
-    const { change, resend, signIn, submit } = this.stateMachine.services;
+    const { change, resend, signIn, submit } = this.authenticator.services;
     const remoteError = this.remoteError;
     const username = this.username;
     return { change, remoteError, resend, signIn, submit, username };
   }
   resend(): void {
-    this.stateMachine.send({
+    this.authenticator.send({
       type: 'RESEND',
       data: {
         username: this.username,
@@ -70,7 +70,7 @@ export class AmplifyConfirmSignUpComponent implements OnInit, OnDestroy {
   onInput($event) {
     $event.preventDefault();
     const { name, value } = $event.target;
-    this.stateMachine.send({
+    this.authenticator.send({
       type: 'CHANGE',
       data: { name, value },
     });
@@ -78,12 +78,12 @@ export class AmplifyConfirmSignUpComponent implements OnInit, OnDestroy {
 
   onSubmit(event: Event): void {
     event.preventDefault();
-    const state = this.stateMachine.authState;
+    const state = this.authenticator.authState;
     const actorContext: SignUpContext = getActorContext(state);
     const { formValues } = actorContext;
     const { username, confirmation_code } = formValues;
 
-    this.stateMachine.send({
+    this.authenticator.send({
       type: 'SUBMIT',
       data: { username, confirmation_code },
     });

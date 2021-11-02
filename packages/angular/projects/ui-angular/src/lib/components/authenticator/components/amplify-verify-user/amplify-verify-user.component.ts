@@ -38,10 +38,10 @@ export class AmplifyVerifyUserComponent implements OnInit, OnDestroy {
   public skipText = translate('Skip');
   public verifyText = translate('Verify');
 
-  constructor(private stateMachine: AuthenticatorService) {}
+  constructor(private authenticator: AuthenticatorService) {}
 
   ngOnInit(): void {
-    this.authSubscription = this.stateMachine.authService.subscribe((state) =>
+    this.authSubscription = this.authenticator.authService.subscribe((state) =>
       this.onStateUpdate(state)
     );
   }
@@ -58,13 +58,13 @@ export class AmplifyVerifyUserComponent implements OnInit, OnDestroy {
   }
 
   public get context() {
-    const { change, skip, submit } = this.stateMachine.services;
+    const { change, skip, submit } = this.authenticator.services;
     const remoteError = this.remoteError;
     return { change, remoteError, skip, submit };
   }
 
   skipVerify(): void {
-    this.stateMachine.send('SKIP');
+    this.authenticator.send('SKIP');
   }
 
   getLabelForAttr(authAttr: string): string {
@@ -76,7 +76,7 @@ export class AmplifyVerifyUserComponent implements OnInit, OnDestroy {
   onInput(event: Event): void {
     event.preventDefault();
     const { name, value } = <HTMLInputElement>event.target;
-    this.stateMachine.send({
+    this.authenticator.send({
       type: 'CHANGE',
       data: { name, value },
     });
@@ -85,7 +85,7 @@ export class AmplifyVerifyUserComponent implements OnInit, OnDestroy {
   onSubmit(event: Event): void {
     event.preventDefault();
     const formData = new FormData(event.target as HTMLFormElement);
-    this.stateMachine.send({
+    this.authenticator.send({
       type: 'SUBMIT',
       data: Object.fromEntries(formData),
     });

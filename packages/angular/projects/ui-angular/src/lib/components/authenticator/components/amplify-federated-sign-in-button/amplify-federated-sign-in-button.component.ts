@@ -10,10 +10,10 @@ export class AmplifyFederatedSignInButtonComponent {
   @Input() provider: FederatedIdentityProviders;
   @Input() text: string;
 
-  constructor(private stateMachine: AuthenticatorService) {}
+  constructor(private authenticator: AuthenticatorService) {}
 
   onClick = (): void => {
-    this.stateMachine.send({
+    this.authenticator.send({
       type: 'FEDERATED_SIGN_IN',
       data: { provider: this.provider },
     });

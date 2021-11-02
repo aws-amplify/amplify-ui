@@ -36,13 +36,13 @@ export class AmplifyAuthenticatorComponent implements OnInit, AfterContentInit {
   public signUpTitle = translate('Create Account');
 
   constructor(
-    private stateMachine: AuthenticatorService,
+    private authenticator: AuthenticatorService,
     private contextService: CustomComponentsService
   ) {}
 
   ngOnInit(): void {
     const { initialState, loginMechanisms } = this;
-    this.stateMachine.startMachine({ initialState, loginMechanisms });
+    this.authenticator.startMachine({ initialState, loginMechanisms });
 
     /**
      * handling translations after content init, because authenticator and its
@@ -67,17 +67,17 @@ export class AmplifyAuthenticatorComponent implements OnInit, AfterContentInit {
 
   // context passed to "authenticated" slot
   public get authenticatedContext() {
-    const { signOut } = this.stateMachine.services;
-    const user = this.stateMachine.user;
+    const { signOut } = this.authenticator.services;
+    const user = this.authenticator.user;
     return { signOut, user } as const;
   }
 
   public get actorState() {
-    return getActorState(this.stateMachine.authState);
+    return getActorState(this.authenticator.authState);
   }
 
   public get authenticatorState() {
-    return this.stateMachine.authState;
+    return this.authenticator.authState;
   }
 
   public get variationModal() {
@@ -85,11 +85,11 @@ export class AmplifyAuthenticatorComponent implements OnInit, AfterContentInit {
   }
 
   public onTabChange() {
-    const currentState = this.stateMachine.authState.value;
+    const currentState = this.authenticator.authState.value;
     if (currentState === 'signIn') {
-      this.stateMachine.send('SIGN_UP');
+      this.authenticator.send('SIGN_UP');
     } else {
-      this.stateMachine.send('SIGN_IN');
+      this.authenticator.send('SIGN_IN');
     }
   }
 
