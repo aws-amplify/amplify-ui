@@ -5,7 +5,7 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { StateMachineService } from '../../../../services/state-machine.service';
+import { AuthenticatorService } from '../../../../services/authenticator.service';
 import { isEmpty } from 'lodash';
 import { Subscription } from 'xstate';
 import {
@@ -39,10 +39,10 @@ export class AmplifySignUpComponent implements OnInit, OnDestroy {
   // translated texts
   public createAccountText = translate('Create Account');
 
-  constructor(private stateMachine: StateMachineService) {}
+  constructor(private authenticator: AuthenticatorService) {}
 
   public get context() {
-    const { change, signIn, submit } = this.stateMachine.services;
+    const { change, signIn, submit } = this.authenticator.services;
     const remoteError = this.remoteError;
     const validationError = this.validationError;
 
@@ -56,11 +56,11 @@ export class AmplifySignUpComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.authSubscription = this.stateMachine.authService.subscribe((state) =>
+    this.authSubscription = this.authenticator.subscribe((state) =>
       this.onStateUpdate(state)
     );
 
-    const context = this.stateMachine.context;
+    const context = this.authenticator.context;
     const { primaryAlias, secondaryAliases } = getConfiguredAliases(context);
 
     /**
@@ -96,7 +96,7 @@ export class AmplifySignUpComponent implements OnInit, OnDestroy {
   onInput(event: Event): void {
     event.preventDefault();
     const { name, value } = <HTMLInputElement>event.target;
-    this.stateMachine.send({
+    this.authenticator.send({
       type: 'CHANGE',
       data: { name, value },
     });
@@ -104,6 +104,6 @@ export class AmplifySignUpComponent implements OnInit, OnDestroy {
 
   onSubmit(event: Event): void {
     event.preventDefault();
-    this.stateMachine.send('SUBMIT');
+    this.authenticator.send('SUBMIT');
   }
 }
