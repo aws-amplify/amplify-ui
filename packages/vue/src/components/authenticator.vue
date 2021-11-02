@@ -284,13 +284,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, provide, computed, useAttrs, watch, onBeforeMount } from 'vue';
+import { ref, provide, computed, useAttrs, watch } from 'vue';
 import { useActor, useInterpret } from '@xstate/vue';
-import { I18n } from 'aws-amplify';
 import {
   getActorState,
   getServiceFacade,
-  translations,
   AuthenticatorMachineOptions,
   createAuthenticatorMachine,
   translate,
@@ -311,10 +309,6 @@ import {
   InterpretServiceInjectionKeyTypes,
   InterpretService,
 } from '../types/index';
-
-onBeforeMount(() => {
-  I18n.putVocabularies(translations);
-});
 
 const attrs = useAttrs();
 
