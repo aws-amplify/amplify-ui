@@ -202,8 +202,8 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
       },
       services: {
         async confirmSignUp(context, event) {
-          const { user, authAttributes } = context;
-          const { confirmation_code: code } = event.data;
+          const { user, authAttributes, formValues } = context;
+          const { confirmation_code: code } = formValues;
 
           const username =
             get(user, 'username') || get(authAttributes, 'username');
