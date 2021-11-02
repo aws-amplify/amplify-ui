@@ -1,48 +1,216 @@
-import { Divider, Flex, Menu, MenuItem, Loader } from '@aws-amplify/ui-react';
+import {
+  Divider,
+  Flex,
+  Menu,
+  MenuItem,
+  Loader,
+  View,
+} from '@aws-amplify/ui-react';
 
 import { MenuDemo } from './demo';
-import { BasicExample } from './examples';
+import {
+  AlignExample,
+  BasicExample,
+  MenuExample,
+  ControlledExample,
+  SizeExample,
+} from './examples/';
 
 import { Example } from '@/components/Example';
 
 Menu provides an interactive menu for selecting actions within an application.
 
-## Demo
-
-<MenuDemo />
-
 ## Usage
 
-Import the `Menu` and `MenuItem` components and styles.
+Import the `Menu` and `MenuItem` components and styles. Use `MenuItem` component to configure menu options.
 
-```jsx
-import { Menu, MenuItem } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
+```tsx file=./examples/basicExample.tsx
 
-<Menu>
-  <MenuItem onClick={() => alert('Download')}>Download</MenuItem>
-  <MenuItem onClick={() => alert('Create a Copy')}>Create a Copy</MenuItem>
-  <MenuItem onClick={() => alert('Mark as Draft')}>Mark as Draft</MenuItem>
-  <Divider />
-  <MenuItem isDisabled onClick={() => alert('Delete')}>
-    Delete
-  </MenuItem>
-  <MenuItem onClick={() => alert('Attend a workshop')}>
-    Attend a workshop
-  </MenuItem>
-</Menu>;
 ```
 
 <Example>
   <BasicExample />
 </Example>
 
-### Components
+### Size
 
-#### Menu
+Control the size of the Menu buttons and items using the `size` prop. Available options are `small`, none (default), and `large`.
 
-Menu is the main component which controls the placement of the Button and basic styling of the menu content.
+```tsx file=./examples/sizeExample.tsx
 
-### MenuItem
+```
 
-The Menu
+<Example>
+  <SizeExample />
+</Example>
+
+### Align
+
+Alignment of menu with button trigger can be controlled using the `align` prop. Available options are `start` (default), `center`, and `end`.
+
+```tsx file=./examples/alignExample.tsx
+
+```
+
+<Example>
+  <AlignExample />
+</Example>
+
+### Customize trigger button
+
+The defatul trigger button can be overwritten using the `trigger` prop on `Menu` with the `MenuButton` component.
+`MenuButton` can take all the same props as [Button](./button).
+
+```tsx file=./examples/menuExample.tsx
+
+```
+
+<Example>
+  <MenuExample />
+</Example>
+
+### Controlled Menu
+
+Create a controlled `Menu` using the `isOpen` and `onOpenChange` props.
+
+```tsx file=./examples/controlledExample.tsx
+
+```
+
+<Example>
+  <ControlledExample />
+</Example>
+
+## CSS Styling
+
+### Global styling
+
+To override styling on all Menus, you can set the Amplify CSS variables with the built-in `.amplify-menu` class.
+
+```css
+/* styles.css */
+.amplify-menu {
+  --amplify-components-button-color: var(--amplify-colors-brand-secondary-90);
+}
+```
+
+```jsx
+import { Menu, MenuItem } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+import './styles.css';
+
+<Menu>
+  <MenuItem>Download</MenuItem>
+  <MenuItem>Create a Copy</MenuItem>
+  <MenuItem>Mark as Draft</MenuItem>
+</Menu>;
+```
+
+<Example>
+  <Menu className="global-styling-menu">
+    <MenuItem>Download</MenuItem>
+    <MenuItem>Create a Copy</MenuItem>
+    <MenuItem>Mark as Draft</MenuItem>
+  </Menu>
+</Example>
+
+### Local styling
+
+To override styling on a specific Menu, you can use (in order of increasing specificity): a class selector, data attributes, or style props.
+
+_Using a class selector:_
+
+Note: `Menu` classname prop only applies to the Menu content. To wrap the menu trigger button, wrap the menu in a View.
+
+```css
+/* styles.css */
+.my-menu .amplify-menu-trigger {
+  border-color: var(--amplify-colors-brand-secondary-90);
+  color: var(--amplify-colors-brand-secondary-90);
+}
+.my-menu-content .amplify-menu__item {
+  color: var(--amplify-colors-brand-secondary-90);
+}
+.my-menu-content .amplify-menu__item:hover {
+  background-color: var(--amplify-colors-brand-secondary-90);
+}
+```
+
+```jsx
+import { Loader } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+import './styles.css';
+
+<View className="my-menu">
+  <Menu className="my-menu">
+    <MenuItem>Download</MenuItem>
+    <MenuItem>Create a Copy</MenuItem>
+    <MenuItem>Mark as Draft</MenuItem>
+  </Menu>
+</View>;
+```
+
+<Example>
+  <View className="my-menu">
+    <Menu className="my-menu-content">
+      <MenuItem>Download</MenuItem>
+      <MenuItem>Create a Copy</MenuItem>
+      <MenuItem>Mark as Draft</MenuItem>
+    </Menu>
+  </View>
+</Example>
+
+_Using data attributes:_
+
+```css
+/* styles.css */
+.amplify-menu__item[data-size='large'] {
+  font-size: var(--amplify-font-sizes-xxxxl);
+}
+```
+
+```jsx
+import { Menu, MenuItem } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+import './styles.css';
+
+<View className="custom-font-size">
+  <Menu size="large">
+    <MenuItem>Download</MenuItem>
+    <MenuItem>Create a Copy</MenuItem>
+    <MenuItem>Mark as Draft</MenuItem>
+  </Menu>
+</View>;
+```
+
+<Example>
+  <Menu size="large" className="custom-font-size">
+    <MenuItem>Download</MenuItem>
+    <MenuItem>Create a Copy</MenuItem>
+    <MenuItem>Mark as Draft</MenuItem>
+  </Menu>
+</Example>
+
+_Using style props:_
+
+```jsx
+import { Loader } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<Menu direction="row">
+  <MenuItem>Download</MenuItem>
+  <MenuItem>Create a Copy</MenuItem>
+  <MenuItem>Mark as Draft</MenuItem>
+</Menu>;
+```
+
+<Example>
+  <Menu direction="row">
+    <MenuItem>Download</MenuItem>
+    <MenuItem>Create a Copy</MenuItem>
+    <MenuItem>Mark as Draft</MenuItem>
+  </Menu>
+</Example>

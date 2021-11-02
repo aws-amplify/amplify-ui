@@ -1,3 +1,5 @@
+const { boxShadow } = require('./menu');
+
 module.exports = {
   // shared styles
   fontWeight: { value: 'bold' },
@@ -46,7 +48,7 @@ module.exports = {
     borderColor: { value: '{colors.border.tertiary.value}' },
   },
   _disabled: {
-    color: { value: '{colors.font.tertiary.value}' },
+    color: { value: '{colors.font.disabled.value}' },
     backgroundColor: { value: 'transparent' },
     borderColor: { value: '{colors.border.tertiary.value}' },
   },
@@ -75,6 +77,27 @@ module.exports = {
     },
   },
 
+  menu: {
+    borderWidth: { value: 0 },
+    backgroundColor: { value: 'none' },
+    textAlign: { value: 'left' },
+    _hover: {
+      color: { value: '{colors.white.value}' },
+      backgroundColor: { value: '{colors.brand.primary.80.value}' },
+    },
+    _focus: {
+      color: { value: '{colors.white.value}' },
+      backgroundColor: { value: '{colors.brand.primary.80.value}' },
+    },
+    _active: {
+      color: { value: '{colors.white.value}' },
+      backgroundColor: { value: '{colors.brand.primary.90.value}' },
+    },
+    _disabled: {
+      color: { value: '{colors.font.disabled.value}' },
+    },
+  },
+
   link: {
     borderWidth: { value: 0 },
     backgroundColor: { value: 'transparent' },
@@ -89,7 +112,7 @@ module.exports = {
       color: { value: '{colors.font.active.value}' },
     },
     _disabled: {
-      color: { value: '{colors.font.tertiary.value}' },
+      color: { value: '{colors.font.disabled.value}' },
     },
     _loading: {
       color: { value: '{colors.font.tertiary.value}' },

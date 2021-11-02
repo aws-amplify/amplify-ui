@@ -1,16 +1,15 @@
 import * as React from 'react';
 
-import { FlexProps } from './flex';
-import { MenuButton } from '../Menu/MenuButton';
 import { ButtonProps } from './button';
+import { FlexProps } from './flex';
+import { Sizes } from './base';
 
 export interface MenuProps extends FlexProps {
   /**
-   * Trigger node
-   * @default MenuButton with IconMenu
-   * @note Must forward refs to DOM element
+   * Alignment of menu against trigger
+   * @default "start"
    */
-  trigger?: React.ReactNode;
+  align?: 'start' | 'center' | 'end';
 
   /**
    * Menu primitive only accepts MenuItem components as children.
@@ -18,10 +17,9 @@ export interface MenuProps extends FlexProps {
   children: React.ReactElement | React.ReactElement[];
 
   /**
-   * Default for uncontrolled menu
-   *
+   * Handle open and close event of menu
    */
-  defaultOpen?: boolean;
+  onOpenChange?: (open: boolean) => void;
 
   /**
    * Default for controlled menu
@@ -29,15 +27,16 @@ export interface MenuProps extends FlexProps {
   isOpen?: boolean;
 
   /**
-   * Handle open and close event of menu
+   * Size of Menu button and items
    */
-  onOpenChange?: (open: boolean) => void;
+  size?: Sizes;
 
   /**
-   * Alignment of menu against trigger
-   * @default "start"
+   * Trigger node
+   * @default MenuButton with IconMenu
+   * @note Must forward refs to DOM element
    */
-  align?: 'start' | 'center' | 'end';
+  trigger?: React.ReactNode;
 }
 
 export interface MenuItemProps extends ButtonProps {}

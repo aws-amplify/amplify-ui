@@ -1,24 +1,23 @@
-import * as React from 'react';
 import classNames from 'classnames';
+
 import {
   DropdownMenu,
   DropdownMenuTrigger,
-  DropdownMenuTriggerItem,
-  DropdownMenuItem,
   DropdownMenuContent,
 } from '@radix-ui/react-dropdown-menu';
 
 import { ComponentClassNames } from '../shared/constants';
-import { Flex } from '../Flex';
 import { IconMenu } from '../Icon';
 import { MenuButton } from './MenuButton';
-import { MenuProps, MenuItemProps, Primitive } from '../types';
+import { MenuProps, Primitive } from '../types';
+import { ButtonGroup } from '../ButtonGroup';
 
 export const Menu: Primitive<MenuProps, 'div'> = ({
   align = 'start',
   children,
   className,
   isOpen,
+  size,
   trigger,
   onOpenChange,
   ...rest
@@ -26,32 +25,22 @@ export const Menu: Primitive<MenuProps, 'div'> = ({
   <DropdownMenu onOpenChange={onOpenChange} open={isOpen}>
     <DropdownMenuTrigger asChild={true}>
       {trigger ?? (
-        <MenuButton className={ComponentClassNames.MenuTrigger}>
-          <IconMenu size="large" />
+        <MenuButton
+          size={size}
+          className={classNames(ComponentClassNames.MenuTrigger)}
+        >
+          <IconMenu size={size} />
         </MenuButton>
       )}
     </DropdownMenuTrigger>
     <DropdownMenuContent align={align}>
-      <Flex className={ComponentClassNames.MenuContent} {...rest}>
-        {children}
-      </Flex>
-    </DropdownMenuContent>
-  </DropdownMenu>
-);
-
-export const MenuItem = React.forwardRef<
-  HTMLDivElement,
-  MenuItemProps & { children?: React.ReactNode }
->(({ children, ...rest }, ref) => {
-  return (
-    <DropdownMenuItem asChild={true} ref={ref}>
-      <MenuButton
-        className={ComponentClassNames.MenuButton}
-        variation="menu"
+      <ButtonGroup
+        className={classNames(ComponentClassNames.Menu, className)}
+        size={size}
         {...rest}
       >
         {children}
-      </MenuButton>
-    </DropdownMenuItem>
-  );
-});
+      </ButtonGroup>
+    </DropdownMenuContent>
+  </DropdownMenu>
+);

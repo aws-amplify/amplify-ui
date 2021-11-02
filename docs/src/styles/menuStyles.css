@@ -1,0 +1,16 @@
+.global-styling-menu.amplify-menu {
+  --amplify-components-button-color: var(--amplify-colors-brand-secondary-90);
+}
+.my-menu .amplify-menu-trigger {
+  border-color: var(--amplify-colors-brand-secondary-90);
+  color: var(--amplify-colors-brand-secondary-90);
+}
+.my-menu-content .amplify-menu__item {
+  color: var(--amplify-colors-brand-secondary-90);
+}
+.my-menu-content .amplify-menu__item:hover {
+  background-color: var(--amplify-colors-brand-secondary-90);
+}
+.custom-font-size .amplify-button[data-size='large'] {
+  font-size: var(--amplify-font-sizes-xxl);
+}
