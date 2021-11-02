@@ -8,10 +8,6 @@ Amplify.configure(aws_exports);
 </script>
 
 <template>
-  <h3>Hello World</h3>
-  <h3>Hello World</h3>
-  <h3>Hello World</h3>
-  <h3>Hello World</h3>
   <authenticator :login-mechanisms="['email']">
     <template v-slot="{ user, signOut }">
       <h1>Hello {{ user.username }}!</h1>
@@ -19,12 +15,3 @@ Amplify.configure(aws_exports);
     </template>
   </authenticator>
 </template>
-<style>
-[data-amplify-authenticator] {
-  position: relative;
-}
-
-.amplify-tabs {
-  display: none;
-}
-</style>
