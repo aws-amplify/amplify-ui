@@ -5,7 +5,7 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { AuthenticatorService } from '../../../../services/state-machine.service';
+import { AuthenticatorService } from '../../../../services/authenticator.service';
 import { isEmpty } from 'lodash';
 import { Subscription } from 'xstate';
 import {

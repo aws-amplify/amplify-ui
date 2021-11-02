@@ -13,7 +13,7 @@ import {
   SignUpState,
 } from '@aws-amplify/ui';
 import { Subscription } from 'xstate';
-import { AuthenticatorService } from '../../../../services/state-machine.service';
+import { AuthenticatorService } from '../../../../services/authenticator.service';
 import { translate } from '@aws-amplify/ui';
 @Component({
   selector: 'amplify-confirm-sign-up',

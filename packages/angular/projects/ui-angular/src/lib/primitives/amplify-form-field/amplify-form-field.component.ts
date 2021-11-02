@@ -8,7 +8,7 @@ import {
 } from '@aws-amplify/ui';
 import { nanoid } from 'nanoid';
 import { getAttributeMap } from '../../common';
-import { AuthenticatorService } from '../../services/state-machine.service';
+import { AuthenticatorService } from '../../services/authenticator.service';
 
 /**
  * Input interface opinionated for authenticator usage.

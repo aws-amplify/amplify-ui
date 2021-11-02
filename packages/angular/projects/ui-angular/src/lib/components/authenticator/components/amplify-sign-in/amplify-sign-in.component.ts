@@ -8,7 +8,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 // TODO: import from '@/services/...'
-import { AuthenticatorService } from '../../../../services/state-machine.service';
+import { AuthenticatorService } from '../../../../services/authenticator.service';
 import { Subscription } from 'xstate';
 import { AuthMachineState, getActorState, SignInState } from '@aws-amplify/ui';
 import { translate } from '@aws-amplify/ui';

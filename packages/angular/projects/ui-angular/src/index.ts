@@ -27,4 +27,4 @@ export * from './lib/utilities/amplify-slot/amplify-slot.directive';
  * Services
  */
 export * from './lib/services/custom-components.service';
-export * from './lib/services/state-machine.service';
+export * from './lib/services/authenticator.service';

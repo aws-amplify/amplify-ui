@@ -13,7 +13,7 @@ import {
   translate,
 } from '@aws-amplify/ui';
 import { Subscription } from 'xstate';
-import { AuthenticatorService } from '../../../../services/state-machine.service';
+import { AuthenticatorService } from '../../../../services/authenticator.service';
 import { getAttributeMap } from '../../../../common';
 import { nanoid } from 'nanoid';
 @Component({

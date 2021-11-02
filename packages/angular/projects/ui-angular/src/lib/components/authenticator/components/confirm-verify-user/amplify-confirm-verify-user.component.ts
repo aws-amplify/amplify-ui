@@ -12,7 +12,7 @@ import {
   translate,
 } from '@aws-amplify/ui';
 import { Subscription } from 'xstate';
-import { AuthenticatorService } from '../../../../services/state-machine.service';
+import { AuthenticatorService } from '../../../../services/authenticator.service';
 
 @Component({
   selector: 'amplify-confirm-verify-user',

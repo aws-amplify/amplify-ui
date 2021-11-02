@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FederatedIdentityProviders } from '@aws-amplify/ui';
-import { AuthenticatorService } from '../../../../services/state-machine.service';
+import { AuthenticatorService } from '../../../../services/authenticator.service';
 
 @Component({
   selector: 'amplify-federated-sign-in-button',
