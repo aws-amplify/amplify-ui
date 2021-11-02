@@ -1,11 +1,4 @@
-import {
-  AfterContentInit,
-  Component,
-  HostBinding,
-  OnDestroy,
-  OnInit,
-  TemplateRef,
-} from '@angular/core';
+import { Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'xstate';
 import QRCode from 'qrcode';
 import { Auth, Logger } from 'aws-amplify';
@@ -16,8 +9,7 @@ import {
   SignInContext,
   SignInState,
 } from '@aws-amplify/ui';
-import { StateMachineService } from '../../../../services/state-machine.service';
-import { AuthPropService } from '../../../../services/authenticator-context.service';
+import { AuthenticatorService } from '../../../../services/authenticator.service';
 import { translate } from '@aws-amplify/ui';
 
 const logger = new Logger('SetupTotp');
@@ -26,11 +18,8 @@ const logger = new Logger('SetupTotp');
   selector: 'amplify-setup-totp',
   templateUrl: './amplify-setup-totp.component.html',
 })
-export class AmplifySetupTotpComponent
-  implements OnInit, AfterContentInit, OnDestroy
-{
-  @HostBinding('attr.data-amplify-authenticator-setup-totp')
-  public customComponents: Record<string, TemplateRef<any>> = {};
+export class AmplifySetupTotpComponent implements OnInit, OnDestroy {
+  @HostBinding('attr.data-amplify-authenticator-setup-totp') dataAttr = '';
   public remoteError = '';
   public isPending = false;
   public headerText = translate('Setup TOTP');
@@ -42,20 +31,13 @@ export class AmplifySetupTotpComponent
   public backToSignInText = translate('Back to Sign In');
   public confirmText = translate('Confirm');
 
-  constructor(
-    private stateMachine: StateMachineService,
-    private contextService: AuthPropService
-  ) {}
+  constructor(private authenticator: AuthenticatorService) {}
 
   ngOnInit(): void {
-    this.authSubscription = this.stateMachine.authService.subscribe((state) => {
+    this.authSubscription = this.authenticator.subscribe((state) => {
       this.onStateUpdate(state);
     });
     this.generateQRCode();
-  }
-
-  ngAfterContentInit(): void {
-    this.customComponents = this.contextService.customComponents;
   }
 
   ngOnDestroy(): void {
@@ -69,15 +51,15 @@ export class AmplifySetupTotpComponent
   }
 
   public get context() {
-    const { change, submit } = this.stateMachine.services;
+    const { change, submit } = this.authenticator.services;
     const remoteError = this.remoteError;
-    const user = this.stateMachine.user;
+    const user = this.authenticator.user;
     return { change, remoteError, submit, user };
   }
 
   async generateQRCode() {
     // TODO: This should be handled in core.
-    const state = this.stateMachine.authState;
+    const state = this.authenticator.authState;
     const actorContext: SignInContext = getActorContext(state);
     const { user } = actorContext;
     try {
@@ -96,7 +78,7 @@ export class AmplifySetupTotpComponent
   onInput(event: Event): void {
     event.preventDefault();
     const { name, value } = <HTMLInputElement>event.target;
-    this.stateMachine.send({
+    this.authenticator.send({
       type: 'CHANGE',
       data: { name, value },
     });
@@ -106,13 +88,13 @@ export class AmplifySetupTotpComponent
     event.preventDefault();
     // TODO: handle form data within the state machine
     const formData = new FormData(event.target as HTMLFormElement);
-    this.stateMachine.send({
+    this.authenticator.send({
       type: 'SUBMIT',
       data: Object.fromEntries(formData),
     });
   }
 
   toSignIn(): void {
-    this.stateMachine.send('SIGN_IN');
+    this.authenticator.send('SIGN_IN');
   }
 }

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { StateMachineService } from '../../services/state-machine.service';
+import { AuthenticatorService } from '../../services/authenticator.service';
 import { getAliasInfoFromContext } from '@aws-amplify/ui';
 
 @Component({
@@ -16,10 +16,10 @@ export class AmplifyUserNameAliasComponent implements OnInit {
   public error: string;
   public placeholder: string;
 
-  constructor(private stateMachine: StateMachineService) {}
+  constructor(private authenticator: AuthenticatorService) {}
 
   ngOnInit(): void {
-    const context = this.stateMachine.context;
+    const context = this.authenticator.context;
     const { label, type } = getAliasInfoFromContext(context);
 
     this.label = label;

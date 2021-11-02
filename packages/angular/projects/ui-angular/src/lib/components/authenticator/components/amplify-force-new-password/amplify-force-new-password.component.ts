@@ -1,11 +1,9 @@
 import {
-  AfterContentInit,
   Component,
   HostBinding,
   Input,
   OnDestroy,
   OnInit,
-  TemplateRef,
 } from '@angular/core';
 import { Subscription } from 'xstate';
 import { Logger } from 'aws-amplify';
@@ -16,8 +14,7 @@ import {
   SignInContext,
   SignInState,
 } from '@aws-amplify/ui';
-import { StateMachineService } from '../../../../services/state-machine.service';
-import { AuthPropService } from '../../../../services/authenticator-context.service';
+import { AuthenticatorService } from '../../../../services/authenticator.service';
 import { translate } from '@aws-amplify/ui';
 
 const logger = new Logger('ForceNewPassword');
@@ -26,14 +23,11 @@ const logger = new Logger('ForceNewPassword');
   selector: 'amplify-force-new-password',
   templateUrl: './amplify-force-new-password.component.html',
 })
-export class AmplifyForceNewPasswordComponent
-  implements OnInit, AfterContentInit, OnDestroy
-{
+export class AmplifyForceNewPasswordComponent implements OnInit, OnDestroy {
   @HostBinding('attr.data-amplify-authenticator-forcenewpassword')
   dataAttr = '';
   @Input() public headerText = translate('Change Password');
 
-  public customComponents: Record<string, TemplateRef<any>> = {};
   public remoteError = '';
   public isPending = false;
 
@@ -43,19 +37,12 @@ export class AmplifyForceNewPasswordComponent
   public changePasswordText = translate('Change Password');
   public backToSignInText = translate('Back to Sign In');
 
-  constructor(
-    private stateMachine: StateMachineService,
-    private contextService: AuthPropService
-  ) {}
+  constructor(private authenticator: AuthenticatorService) {}
 
   ngOnInit(): void {
-    this.authSubscription = this.stateMachine.authService.subscribe((state) =>
+    this.authSubscription = this.authenticator.subscribe((state) =>
       this.onStateUpdate(state)
     );
-  }
-
-  ngAfterContentInit(): void {
-    this.customComponents = this.contextService.customComponents;
   }
 
   ngOnDestroy(): void {
@@ -74,20 +61,20 @@ export class AmplifyForceNewPasswordComponent
   }
 
   public get context() {
-    const { change, signIn, submit } = this.stateMachine.services;
-    const user = this.stateMachine.user;
+    const { change, signIn, submit } = this.authenticator.services;
+    const user = this.authenticator.user;
     const remoteError = this.remoteError;
     return { change, remoteError, signIn, submit, user };
   }
 
   toSignIn(): void {
-    this.stateMachine.send('SIGN_IN');
+    this.authenticator.send('SIGN_IN');
   }
 
   onInput(event: Event): void {
     event.preventDefault();
     const { name, value } = <HTMLInputElement>event.target;
-    this.stateMachine.send({
+    this.authenticator.send({
       type: 'CHANGE',
       data: { name, value },
     });
@@ -96,11 +83,11 @@ export class AmplifyForceNewPasswordComponent
   onSubmit(event: Event): void {
     event.preventDefault();
     // consider stateMachine directly providing actorState / actorContext
-    const state = this.stateMachine.authState;
+    const state = this.authenticator.authState;
     const actorState: SignInContext = getActorContext(state);
     const { formValues } = actorState;
 
-    this.stateMachine.send({
+    this.authenticator.send({
       type: 'SUBMIT',
       data: formValues,
     });

@@ -12,47 +12,37 @@ import {
   AuthenticatorMachineOptions,
   getActorState,
   translate,
-  translations,
 } from '@aws-amplify/ui';
-import { I18n } from 'aws-amplify';
-import { CustomComponents } from '../../../../common';
-import { AmplifySlotDirective } from '../../../../directives/amplify-slot.directive';
-import { AuthPropService } from '../../../../services/authenticator-context.service';
-import { StateMachineService } from '../../../../services/state-machine.service';
+import { AmplifySlotDirective } from '../../../../utilities/amplify-slot/amplify-slot.directive';
+import { CustomComponentsService } from '../../../../services/custom-components.service';
+import { AuthenticatorService } from '../../../../services/authenticator.service';
 
 @Component({
   selector: 'amplify-authenticator',
   templateUrl: './amplify-authenticator.component.html',
-  providers: [AuthPropService], // make sure custom components are scoped to this authenticator only
+  providers: [CustomComponentsService], // make sure custom components are scoped to this authenticator only
   encapsulation: ViewEncapsulation.None,
 })
 export class AmplifyAuthenticatorComponent implements OnInit, AfterContentInit {
-  /**
-   * TODO: Add back custom events
-   */
-
   @Input() initialState: AuthenticatorMachineOptions['initialState'];
   @Input() loginMechanisms: AuthenticatorMachineOptions['loginMechanisms'];
   @Input() variation: 'modal' | undefined;
 
   @ContentChildren(AmplifySlotDirective)
   private customComponentQuery: QueryList<AmplifySlotDirective> = null;
-  public customComponents: CustomComponents = {};
 
   // translated texts
   public signInTitle = translate('Sign In');
   public signUpTitle = translate('Create Account');
 
   constructor(
-    private stateMachine: StateMachineService,
-    private contextService: AuthPropService
+    private authenticator: AuthenticatorService,
+    private contextService: CustomComponentsService
   ) {}
 
   ngOnInit(): void {
-    I18n.putVocabularies(translations);
-
     const { initialState, loginMechanisms } = this;
-    this.stateMachine.startMachine({ initialState, loginMechanisms });
+    this.authenticator.startMachine({ initialState, loginMechanisms });
 
     /**
      * handling translations after content init, because authenticator and its
@@ -69,24 +59,25 @@ export class AmplifyAuthenticatorComponent implements OnInit, AfterContentInit {
     this.contextService.customComponents = this.mapCustomComponents(
       this.customComponentQuery
     );
-    this.customComponents = this.contextService.customComponents;
   }
 
   /**
    * Class Functions
    */
-  public get context() {
-    const { signOut } = this.stateMachine.services;
-    const user = this.stateMachine.user;
+
+  // context passed to "authenticated" slot
+  public get authenticatedContext() {
+    const { signOut } = this.authenticator.services;
+    const user = this.authenticator.user;
     return { signOut, user } as const;
   }
 
   public get actorState() {
-    return getActorState(this.stateMachine.authState);
+    return getActorState(this.authenticator.authState);
   }
 
   public get authenticatorState() {
-    return this.stateMachine.authState;
+    return this.authenticator.authState;
   }
 
   public get variationModal() {
@@ -94,11 +85,11 @@ export class AmplifyAuthenticatorComponent implements OnInit, AfterContentInit {
   }
 
   public onTabChange() {
-    const currentState = this.stateMachine.authState.value;
+    const currentState = this.authenticator.authState.value;
     if (currentState === 'signIn') {
-      this.stateMachine.send('SIGN_UP');
+      this.authenticator.send('SIGN_UP');
     } else {
-      this.stateMachine.send('SIGN_IN');
+      this.authenticator.send('SIGN_IN');
     }
   }
 

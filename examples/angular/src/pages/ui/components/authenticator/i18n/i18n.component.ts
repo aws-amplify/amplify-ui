@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { translations } from '@aws-amplify/ui';
 import awsExports from '@environments/auth-with-email/src/aws-exports';
 import Amplify, { I18n } from 'aws-amplify';
 @Component({
@@ -11,7 +12,9 @@ export class I18nComponent implements OnInit {
   }
 
   ngOnInit() {
+    I18n.putVocabularies(translations);
     I18n.setLanguage('ja');
+    I18n.putVocabulariesForLanguage('ja', { 'Sign In': 'Sign In Custom' });
   }
 
   ngOnDestroy() {

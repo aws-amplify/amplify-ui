@@ -1,3 +1,20 @@
+## Install as a global plugin (Optional)
+
+Optionally, you can register all the `@aws-amplify/ui-vue` components at once.
+
+```js
+// main.js
+import { createApp } from 'vue';
+import App from './App.vue';
+import AmplifyVue from '@aws-amplify/ui-vue';
+
+const app = createApp(App);
+app.use(AmplifyVue);
+app.mount('#app');
+```
+
+Otherwise, you can import individual components from the `@aws-amplify/ui-vue` package in each one of your components.
+
 ## Troubleshooting
 
 ### Vite
@@ -27,6 +44,16 @@ export default defineConfig({
         find: './runtimeConfig',
         replacement: './runtimeConfig.browser',
       },
+    ]
   }
 })
+```
+
+**3.** Update the `tsconfig.json` file and add `skipLibCheck: true` under `compilerOptions`.
+
+```js
+...
+  "compilerOptions": {
+    "skipLibCheck": true,
+...
 ```

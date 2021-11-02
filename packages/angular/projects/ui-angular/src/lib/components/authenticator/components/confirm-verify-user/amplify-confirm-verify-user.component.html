@@ -1,13 +1,4 @@
-<!-- 
-  Define default contents here
--->
-<ng-template #confirmVerifyButton>
-  <button amplify-button variation="primary" fullWidth="true" type="submit">
-    {{ submitText }}
-  </button>
-</ng-template>
-
-<ng-template #confirmVerifyUserForm>
+<div data-amplify-container>
   <form data-amplify-form (input)="onInput($event)" (submit)="onSubmit($event)">
     <fieldset
       class="amplify-flex"
@@ -21,12 +12,9 @@
         type="number"
         autocomplete="one-time-code"
       ></amplify-form-field>
-      <ng-container
-        [ngTemplateOutlet]="
-          customComponents.confirmVerifyButton || confirmVerifyButton
-        "
-        [ngTemplateOutletContext]="context"
-      ></ng-container>
+      <button amplify-button variation="primary" fullWidth="true" type="submit">
+        {{ submitText }}
+      </button>
 
       <button
         amplify-button
@@ -43,17 +31,4 @@
       </amplify-error>
     </fieldset>
   </form>
-</ng-template>
-
-<!-- 
-  Render confirm reset password component
--->
-<div data-amplify-container>
-  <ng-container
-    [ngTemplateOutlet]="
-      customComponents.confirmVerifyUserForm || confirmVerifyUserForm
-    "
-    [ngTemplateOutletContext]="context"
-  >
-  </ng-container>
 </div>
