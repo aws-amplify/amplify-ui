@@ -34,11 +34,9 @@ export class AmplifySetupTotpComponent implements OnInit, OnDestroy {
   constructor(private authenticator: AuthenticatorService) {}
 
   ngOnInit(): void {
-    this.authSubscription = this.authenticator.authService.subscribe(
-      (state) => {
-        this.onStateUpdate(state);
-      }
-    );
+    this.authSubscription = this.authenticator.subscribe((state) => {
+      this.onStateUpdate(state);
+    });
     this.generateQRCode();
   }
 

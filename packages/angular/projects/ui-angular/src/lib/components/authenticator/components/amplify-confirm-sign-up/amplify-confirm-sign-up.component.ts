@@ -37,7 +37,7 @@ export class AmplifyConfirmSignUpComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     // TODO: alias for subscribe
-    this.authSubscription = this.authenticator.authService.subscribe((state) =>
+    this.authSubscription = this.authenticator.subscribe((state) =>
       this.onStateUpdate(state)
     );
   }

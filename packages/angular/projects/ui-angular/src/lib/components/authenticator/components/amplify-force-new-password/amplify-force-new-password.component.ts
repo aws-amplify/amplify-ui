@@ -40,7 +40,7 @@ export class AmplifyForceNewPasswordComponent implements OnInit, OnDestroy {
   constructor(private authenticator: AuthenticatorService) {}
 
   ngOnInit(): void {
-    this.authSubscription = this.authenticator.authService.subscribe((state) =>
+    this.authSubscription = this.authenticator.subscribe((state) =>
       this.onStateUpdate(state)
     );
   }
