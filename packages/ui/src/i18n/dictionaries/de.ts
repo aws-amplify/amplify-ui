@@ -27,6 +27,7 @@ export const deDict = {
   'Lost your code? ': 'Code verloren? ',
   'New Password': 'Neues Passwort',
   'No account? ': 'Kein Account? ',
+  or: 'oder',
   Password: 'Passwort',
   'Password attempts exceeded':
     'Die maximale Anzahl der fehlerhaften Anmeldeversuche wurde erreicht',
