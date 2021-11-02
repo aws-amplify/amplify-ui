@@ -14,7 +14,7 @@ import {
   SignInContext,
   SignInState,
 } from '@aws-amplify/ui';
-import { StateMachineService } from '../../../../services/state-machine.service';
+import { AuthenticatorService } from '../../../../services/state-machine.service';
 import { translate } from '@aws-amplify/ui';
 
 const logger = new Logger('ForceNewPassword');
@@ -37,7 +37,7 @@ export class AmplifyForceNewPasswordComponent implements OnInit, OnDestroy {
   public changePasswordText = translate('Change Password');
   public backToSignInText = translate('Back to Sign In');
 
-  constructor(private stateMachine: StateMachineService) {}
+  constructor(private stateMachine: AuthenticatorService) {}
 
   ngOnInit(): void {
     this.authSubscription = this.stateMachine.authService.subscribe((state) =>

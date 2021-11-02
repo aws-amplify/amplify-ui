@@ -12,7 +12,7 @@ import {
   translate,
 } from '@aws-amplify/ui';
 import { Subscription } from 'xstate';
-import { StateMachineService } from '../../../../services/state-machine.service';
+import { AuthenticatorService } from '../../../../services/state-machine.service';
 
 @Component({
   selector: 'amplify-confirm-verify-user',
@@ -33,7 +33,7 @@ export class ConfirmVerifyUserComponent implements OnInit, OnDestroy {
   public skipText = translate('Skip');
   public submitText = translate('Submit');
 
-  constructor(private stateMachine: StateMachineService) {}
+  constructor(private stateMachine: AuthenticatorService) {}
 
   ngOnInit(): void {
     this.authSubscription = this.stateMachine.authService.subscribe((state) =>

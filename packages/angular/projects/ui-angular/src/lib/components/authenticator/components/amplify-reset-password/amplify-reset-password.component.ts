@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { AuthMachineState, getActorState, SignInState } from '@aws-amplify/ui';
 import { Subscription } from 'xstate';
-import { StateMachineService } from '../../../../services/state-machine.service';
+import { AuthenticatorService } from '../../../../services/state-machine.service';
 import { translate } from '@aws-amplify/ui';
 
 @Component({
@@ -27,7 +27,7 @@ export class AmplifyResetPasswordComponent implements OnInit, OnDestroy {
   public sendCodeText = translate('Send Code');
   public backToSignInText = translate('Back to Sign In');
 
-  constructor(private stateMachine: StateMachineService) {}
+  constructor(private stateMachine: AuthenticatorService) {}
 
   ngOnInit(): void {
     this.authSubscription = this.stateMachine.authService.subscribe((state) =>

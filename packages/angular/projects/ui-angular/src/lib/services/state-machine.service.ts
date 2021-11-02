@@ -17,7 +17,7 @@ import { Event, interpret } from 'xstate';
 @Injectable({
   providedIn: 'root', // ensure we have a singleton service
 })
-export class StateMachineService {
+export class AuthenticatorService {
   private _authState: AuthMachineState;
   private _authService: AuthInterpreter;
   private _user: Record<string, any>; // TODO: strongly type CognitoUser
@@ -65,6 +65,15 @@ export class StateMachineService {
     return this._authState.context;
   }
 
+  public get subscribe() {
+    if (this._services) {
+      return this._authService.subscribe;
+    }
+  }
+
+  /**
+   * @deprecated For internal use only
+   */
   public send(event: Event<AuthEvent>) {
     this.authService.send(event);
   }

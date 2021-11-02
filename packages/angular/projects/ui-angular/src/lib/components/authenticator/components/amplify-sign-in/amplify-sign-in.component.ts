@@ -8,7 +8,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 // TODO: import from '@/services/...'
-import { StateMachineService } from '../../../../services/state-machine.service';
+import { AuthenticatorService } from '../../../../services/state-machine.service';
 import { Subscription } from 'xstate';
 import { AuthMachineState, getActorState, SignInState } from '@aws-amplify/ui';
 import { translate } from '@aws-amplify/ui';
@@ -33,7 +33,7 @@ export class AmplifySignInComponent implements OnInit, OnDestroy {
 
   private authSubscription: Subscription;
 
-  constructor(private stateMachine: StateMachineService) {}
+  constructor(private stateMachine: AuthenticatorService) {}
 
   ngOnInit(): void {
     this.authSubscription = this.stateMachine.authService.subscribe((state) =>

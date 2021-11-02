@@ -8,7 +8,7 @@ import {
 } from '@aws-amplify/ui';
 import { nanoid } from 'nanoid';
 import { getAttributeMap } from '../../common';
-import { StateMachineService } from '../../services/state-machine.service';
+import { AuthenticatorService } from '../../services/state-machine.service';
 
 /**
  * Input interface opinionated for authenticator usage.
@@ -36,7 +36,7 @@ export class AmplifyFormFieldComponent implements OnInit {
   public textFieldId: string;
   public selectFieldId: string;
 
-  constructor(private stateMachine: StateMachineService) {}
+  constructor(private stateMachine: AuthenticatorService) {}
 
   ngOnInit(): void {
     // TODO: field primtiives should have generate these by default.

@@ -5,7 +5,7 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { StateMachineService } from '../../../../services/state-machine.service';
+import { AuthenticatorService } from '../../../../services/state-machine.service';
 import { isEmpty } from 'lodash';
 import { Subscription } from 'xstate';
 import {
@@ -39,7 +39,7 @@ export class AmplifySignUpComponent implements OnInit, OnDestroy {
   // translated texts
   public createAccountText = translate('Create Account');
 
-  constructor(private stateMachine: StateMachineService) {}
+  constructor(private stateMachine: AuthenticatorService) {}
 
   public get context() {
     const { change, signIn, submit } = this.stateMachine.services;

@@ -13,7 +13,7 @@ import {
   SignUpState,
 } from '@aws-amplify/ui';
 import { Subscription } from 'xstate';
-import { StateMachineService } from '../../../../services/state-machine.service';
+import { AuthenticatorService } from '../../../../services/state-machine.service';
 import { translate } from '@aws-amplify/ui';
 @Component({
   selector: 'amplify-confirm-sign-up',
@@ -33,7 +33,7 @@ export class AmplifyConfirmSignUpComponent implements OnInit, OnDestroy {
   public resendCodeText = translate('Resend Code');
   public confirmText = translate('Confirm');
 
-  constructor(private stateMachine: StateMachineService) {}
+  constructor(private stateMachine: AuthenticatorService) {}
 
   ngOnInit(): void {
     // TODO: alias for subscribe

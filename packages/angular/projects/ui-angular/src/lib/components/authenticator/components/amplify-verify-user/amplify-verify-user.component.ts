@@ -13,7 +13,7 @@ import {
   translate,
 } from '@aws-amplify/ui';
 import { Subscription } from 'xstate';
-import { StateMachineService } from '../../../../services/state-machine.service';
+import { AuthenticatorService } from '../../../../services/state-machine.service';
 import { getAttributeMap } from '../../../../common';
 import { nanoid } from 'nanoid';
 @Component({
@@ -38,7 +38,7 @@ export class AmplifyVerifyUserComponent implements OnInit, OnDestroy {
   public skipText = translate('Skip');
   public verifyText = translate('Verify');
 
-  constructor(private stateMachine: StateMachineService) {}
+  constructor(private stateMachine: AuthenticatorService) {}
 
   ngOnInit(): void {
     this.authSubscription = this.stateMachine.authService.subscribe((state) =>

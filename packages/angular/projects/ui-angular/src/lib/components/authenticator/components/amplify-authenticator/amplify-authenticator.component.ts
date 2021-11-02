@@ -15,7 +15,7 @@ import {
 } from '@aws-amplify/ui';
 import { AmplifySlotDirective } from '../../../../utilities/amplify-slot/amplify-slot.directive';
 import { CustomComponentsService } from '../../../../services/custom-components.service';
-import { StateMachineService } from '../../../../services/state-machine.service';
+import { AuthenticatorService } from '../../../../services/state-machine.service';
 
 @Component({
   selector: 'amplify-authenticator',
@@ -36,7 +36,7 @@ export class AmplifyAuthenticatorComponent implements OnInit, AfterContentInit {
   public signUpTitle = translate('Create Account');
 
   constructor(
-    private stateMachine: StateMachineService,
+    private stateMachine: AuthenticatorService,
     private contextService: CustomComponentsService
   ) {}
 
