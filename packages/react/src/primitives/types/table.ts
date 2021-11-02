@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 import { BaseComponentProps } from './base';
 import { BaseStyleProps } from './style';
 
@@ -22,6 +24,8 @@ export interface TableProps extends BaseComponentProps, BaseStyleProps {
    * Affects font size and padding. Default is in between 'small' and 'large'.
    */
   size?: 'small' | 'large';
+
+  style?: React.CSSProperties;
 
   /**
    * Optional summary that is rendered as part of the table caption.
