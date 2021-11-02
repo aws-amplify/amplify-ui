@@ -289,9 +289,9 @@ The following example customizes the Sign Up screen with:
 - Re-using the default form fields
 - Appending a custom "Terms & Conditions" checkbox with custom validation
 
-```tsx{3-11,28-48,51-57} file=../../../../../../examples/next/pages/ui/components/authenticator/custom-sign-up-fields/index.page.tsx
-
-```
+<Fragment>
+  {({ platform }) => import(`./customization.${platform}.mdx`)}
+</Fragment>
 
 <Example>
   <Authenticator

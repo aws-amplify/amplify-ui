@@ -102,11 +102,10 @@
           <slot name="sign-up"></slot>
         </template>
 
-        <template #footer="{ onHaveAccountClicked, onSignUpSubmit, info }">
+        <template #footer="{ onSignUpSubmit, info }">
           <slot
             name="sign-up-footer"
             :info="info"
-            :onHaveAccountClicked="onHaveAccountClicked"
             :onSignUpSubmit="onSignUpSubmit"
           >
           </slot>
@@ -284,7 +283,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, provide, computed, useAttrs, watch } from 'vue';
+import { useAuth } from '../composables/useAuth';
+import { ref, computed, useAttrs, watch } from 'vue';
 import { useActor, useInterpret } from '@xstate/vue';
 import {
   getActorState,
@@ -305,18 +305,14 @@ import ConfirmResetPassword from './confirm-reset-password.vue';
 import VerifyUser from './verify-user.vue';
 import ConfirmVerifyUser from './confirm-verify-user.vue';
 
-import {
-  InterpretServiceInjectionKeyTypes,
-  InterpretService,
-} from '../types/index';
-
 const attrs = useAttrs();
 
-const { initialState, loginMechanisms, variation } = withDefaults(
+const { initialState, loginMechanisms, variation, services } = withDefaults(
   defineProps<{
     initialState?: AuthenticatorMachineOptions['initialState'];
     loginMechanisms?: AuthenticatorMachineOptions['loginMechanisms'];
-    variation?: 'modal' | undefined;
+    services?: AuthenticatorMachineOptions['services'];
+    variation?: 'modal';
   }>(),
   {
     loginMechanisms: () => ['username'],
@@ -336,15 +332,18 @@ const emit = defineEmits([
   'verifyUserSubmit',
   'confirmVerifyUserSubmit',
 ]);
-
-const machine = createAuthenticatorMachine({ initialState, loginMechanisms });
+const machine = createAuthenticatorMachine({
+  initialState,
+  loginMechanisms,
+  services,
+});
 
 const service = useInterpret(machine, {
   devTools: process.env.NODE_ENV === 'development',
 });
 
 const { state, send } = useActor(service);
-provide(InterpretServiceInjectionKeyTypes, <InterpretService>service);
+useAuth(service);
 
 const actorState = computed(() => getActorState(state.value));
 const variationModal = computed(() => (variation === 'modal' ? true : null));
@@ -427,7 +426,7 @@ const onSignUpSubmitI = (e: Event) => {
   if (attrs?.onSignUpSubmit) {
     emit('signUpSubmit', e);
   } else {
-    signUpComponent.value.submit(e);
+    signUpComponent.value.submit();
   }
 };
 
