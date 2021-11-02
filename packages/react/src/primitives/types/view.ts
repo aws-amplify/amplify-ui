@@ -26,6 +26,7 @@ export type Primitive<
   Props extends ViewProps,
   Element extends ElementType
 > = React.FC<PrimitiveProps<Props, Element>>;
+
 export interface ViewProps
   extends BaseComponentProps,
     BaseStyleProps,

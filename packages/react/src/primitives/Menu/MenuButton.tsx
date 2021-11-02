@@ -1,9 +1,9 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
+import { ButtonProps, PrimitiveProps } from '../types';
 import { ComponentClassNames } from '../shared/constants';
 import { useNonStyleProps, usePropStyles } from '../shared/styleUtils';
-import { ButtonProps, PrimitiveProps } from '../types';
 
 export const MenuButton = React.forwardRef<
   HTMLButtonElement,

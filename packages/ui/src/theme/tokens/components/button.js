@@ -81,6 +81,9 @@ module.exports = {
     borderWidth: { value: 0 },
     backgroundColor: { value: 'none' },
     textAlign: { value: 'left' },
+    // Focus and hover styles are identical for menu variation
+    // because for Menu primitive, menu items are forced to be focused even
+    // for mouse interactions, making it impossible to distinguish the two interactions
     _hover: {
       color: { value: '{colors.white.value}' },
       backgroundColor: { value: '{colors.brand.primary.80.value}' },

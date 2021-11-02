@@ -1,16 +1,15 @@
 import classNames from 'classnames';
-
 import {
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
 } from '@radix-ui/react-dropdown-menu';
 
+import { ButtonGroup } from '../ButtonGroup';
 import { ComponentClassNames } from '../shared/constants';
 import { IconMenu } from '../Icon';
 import { MenuButton } from './MenuButton';
 import { MenuProps, Primitive } from '../types';
-import { ButtonGroup } from '../ButtonGroup';
 
 export const Menu: Primitive<MenuProps, 'div'> = ({
   align = 'start',

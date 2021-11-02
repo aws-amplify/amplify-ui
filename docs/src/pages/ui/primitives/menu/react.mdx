@@ -1,11 +1,4 @@
-import {
-  Divider,
-  Flex,
-  Menu,
-  MenuItem,
-  Loader,
-  View,
-} from '@aws-amplify/ui-react';
+import { Menu, MenuItem } from '@aws-amplify/ui-react';
 
 import { MenuDemo } from './demo';
 import {
@@ -62,7 +55,7 @@ Alignment of menu with button trigger can be controlled using the `align` prop. 
 
 ### Customize trigger button
 
-The defatul trigger button can be overwritten using the `trigger` prop on `Menu` with the `MenuButton` component.
+The default trigger button can be overwritten using the `trigger` prop on `Menu` with the `MenuButton` component.
 `MenuButton` can take all the same props as [Button](./button).
 
 ```tsx file=./examples/menuExample.tsx
@@ -159,7 +152,7 @@ Note: The `classname` prop is applied to the Menu dropdown content. Use the `tri
 ```
 
 ```jsx
-import { Loader } from '@aws-amplify/ui-react';
+import { Menu, MenuItem } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
 import './styles.css';
@@ -212,7 +205,7 @@ import './styles.css';
 _Using style props:_
 
 ```jsx
-import { Loader } from '@aws-amplify/ui-react';
+import { Menu, MenuItem } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
 <Menu direction="row">
