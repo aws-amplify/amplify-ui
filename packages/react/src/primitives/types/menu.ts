@@ -42,7 +42,7 @@ export interface MenuProps extends FlexProps {
    * ClassName to apply to default trigger button
    * Note: only applies if `trigger` prop is null
    */
-  triggerClassName: string;
+  triggerClassName?: string;
 }
 
 export interface MenuItemProps extends ButtonProps {}
