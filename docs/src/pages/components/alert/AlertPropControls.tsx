@@ -78,8 +78,11 @@ export const AlertPropControls: AlertPropControlsInterface = ({
         label="isDismissable"
         isChecked={isDismissible}
         labelPosition="end"
-        onChange={(event) =>
+        onChange={(event) => {
+          console.log(event);
           setIsDismissible(event.target.checked as AlertProps['isDismissible'])
+        }
+          
         }
       />
 

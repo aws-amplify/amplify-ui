@@ -58,7 +58,7 @@ export const AlertDemo = () => {
       style={{ marginBottom: 'var(--amplify-space-large)' }}
     >
       <Flex direction="row" alignItems="stretch">
-        <Flex direction="column" style={{ flexGrow: 1 }}>
+        <Flex direction="column" style={{ width:'50%' }}>
           <Alert
             variation={alertProps.variation}
             isDismissible={alertProps.isDismissible}
@@ -78,7 +78,7 @@ export const AlertDemo = () => {
             </TabItem>
           </Tabs>
         </Flex>
-        <Flex style={{ flexBasis: '33%', position: 'relative' }}>
+        <Flex style={{ width:'50%', position:'relative' }}>
           <Button
             size="small"
             className="example-copy-button"

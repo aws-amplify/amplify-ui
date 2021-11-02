@@ -1,14 +1,13 @@
 import { useState } from 'react';
 import Head from 'next/head';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { AmplifyProvider, ColorMode } from '@aws-amplify/ui-react';
+import { AmplifyProvider, ColorMode, Heading, Link, IconLink } from '@aws-amplify/ui-react';
 
 import { Header } from '@/components/Layout/Header';
 import { Footer } from '@/components/Layout/Footer';
 
 import { theme } from './theme';
-import '../styles/index.css';
+import '../styles/index.scss';
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();

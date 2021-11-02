@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Link from 'next/link';
+import NextLink from 'next/link';
 import {
   Icon,
   IconChevronRight,
@@ -7,10 +7,13 @@ import {
   IconWidgets,
   IconDeviceHub,
   SearchField,
+  IconOpenInNew,
+  IconSettings,
   View,
   Heading,
   Button,
   IconSearch,
+  Link,
   Flex,
   ColorMode,
   ToggleButton,
@@ -18,23 +21,25 @@ import {
   IconWbSunny,
   IconWbTwighlight,
   IconComputer,
+  IconMenu,
   Alert,
+  Divider
 } from '@aws-amplify/ui-react';
 import { useRouter } from 'next/router';
 import { Logo } from '@/components/Logo';
 import { FrameworkChooser } from './FrameworkChooser';
 import { theme } from '../../pages/theme';
 
-const NavLink = ({ href, children }) => {
+const NavLink = ({ href, children, isExternal }) => {
   const router = useRouter();
   const isCurrent = router.pathname.startsWith(href);
 
   return (
-    <Link href={href}>
-      <a className={`docs-nav-link ${isCurrent ? 'current' : ''}`}>
-        {children}
-      </a>
-    </Link>
+    <NextLink href={href}>
+      <Link href={href} isExternal={isExternal} className={`docs-nav-link ${isCurrent ? 'current' : ''}`}>
+      {children}
+      </Link>
+    </NextLink>
   );
 };
 
@@ -64,30 +69,37 @@ export const Header = ({ platform, colorMode, setColorMode }) => {
     <>
       <header className="docs-header">
         {/* <Alert variation="warning" isDismissible={true}>
-      You're viewing documentation for the next release of Amplify UI.
-      For the latest stable release, visit <a href="https://docs.amplify.aws/ui">https://docs.amplify.aws/ui</a>.
-    </Alert> */}
+          You're viewing documentation for the next release of Amplify UI. For the latest stable release, visit <a href="https://docs.amplify.aws/ui">https://docs.amplify.aws/ui</a>.
+        </Alert> */}
         <Flex
           direction="row"
           alignItems="center"
           padding={`${theme.tokens.space.small} ${theme.tokens.space.xl}`}
         >
+          <Button className="docs-header-menu-button" size="small">
+            <IconMenu />
+          </Button>
           <Link href="/">
             <a className="docs-logo-link">
               <Logo />
             </a>
           </Link>
 
-          <nav className="docs-nav">
+          <Flex as="nav" className="docs-nav" gap="0">
             <NavLink href="/getting-started">Getting started</NavLink>
             <NavLink href="/components">Components</NavLink>
             <NavLink href="/theming">Theming</NavLink>
             <NavLink href="/examples">Examples</NavLink>
-          </nav>
+            <Divider orientation="vertical" />
+            <NavLink isExternal href="https://docs.amplify.aws">Amplify docs <IconOpenInNew /></NavLink>
+          </Flex>
           <Flex direction="row" alignItems="center">
             <Button variation="primary" size="small">
               <IconSearch />
             </Button>
+            {/* <Button size="small">
+              <IconSettings />
+            </Button> */}
             <FrameworkChooser platform={platform} />
             <ColorModeSwitcher
               setColorMode={setColorMode}
@@ -95,6 +107,10 @@ export const Header = ({ platform, colorMode, setColorMode }) => {
             />
           </Flex>
         </Flex>
+        {/* <Button className="docs-amplify-fab" variation="primary" as="a" href="https://docs.amplify.aws">
+          All amplify
+          <IconOpenInNew size="large" />
+        </Button> */}
       </header>
     </>
   );
