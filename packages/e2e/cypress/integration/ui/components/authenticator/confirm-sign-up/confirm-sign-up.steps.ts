@@ -6,7 +6,7 @@ When('I type a valid confirmation code', () => {
 });
 
 When('I type an invalid confirmation code', () => {
-  cy.findInputField('confirmation_code').type('invalidcode');
+  cy.findByLabelText('Confirmation Code').type('invalidcode');
 });
 
 Then('I see an error alert', () => {
