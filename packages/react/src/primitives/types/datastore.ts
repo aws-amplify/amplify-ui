@@ -38,3 +38,11 @@ export type DataStoreBindingProps<
   : BindingType extends 'collection'
   ? DataStoreCollectionProps<Model>
   : never);
+
+export type DataStorePredicateObject = {
+  and?: DataStorePredicateObject[];
+  or?: DataStorePredicateObject[];
+  field?: string;
+  operand?: string;
+  operator?: string;
+};

@@ -12,9 +12,7 @@ import {
   AuthenticatorMachineOptions,
   getActorState,
   translate,
-  translations,
 } from '@aws-amplify/ui';
-import { I18n } from 'aws-amplify';
 import { AmplifySlotDirective } from '../../../../utilities/amplify-slot/amplify-slot.directive';
 import { CustomComponentsService } from '../../../../services/custom-components.service';
 import { StateMachineService } from '../../../../services/state-machine.service';
@@ -43,8 +41,6 @@ export class AmplifyAuthenticatorComponent implements OnInit, AfterContentInit {
   ) {}
 
   ngOnInit(): void {
-    I18n.putVocabularies(translations);
-
     const { initialState, loginMechanisms } = this;
     this.stateMachine.startMachine({ initialState, loginMechanisms });
 
