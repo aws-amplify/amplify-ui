@@ -1,7 +1,9 @@
 const path = require('path');
 const { execSync } = require('child_process');
 
-const gitHead = execSync('git rev-parse --abbrev-ref HEAD').toString().trim();
+const gitHead = execSync('git rev-parse --abbrev-ref HEAD')
+  .toString()
+  .trim();
 
 const BRANCH = gitHead === 'HEAD' ? 'main' : gitHead;
 
@@ -16,7 +18,7 @@ module.exports = withNextPluginPreval({
   typescript: {
     ignoreBuildErrors: true,
   },
-  
+
   sassOptions: {
     includePaths: [path.join(__dirname, 'src/styles')],
   },
@@ -26,10 +28,8 @@ module.exports = withNextPluginPreval({
       require('mdx-prism'),
       // TODO: these are older versions of these packages because the newer versions
       // are ESM only.
-      // Also there is a bug where top-level MDX pages I think get double-linked
-      // but Fragments are fine. 
       require('rehype-slug'),
-      require('rehype-autolink-headings')
+      require('rehype-autolink-headings'),
     ];
     const defaultRemarkPlugins = [
       require('remark-code-import'),

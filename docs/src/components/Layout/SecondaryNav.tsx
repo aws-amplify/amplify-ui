@@ -25,7 +25,6 @@ const NavLink = ({ href, children }) => {
   );
 };
 
-
 // TODO: clean up this logic
 export const SecondaryNav = () => {
   const router = useRouter();
@@ -35,10 +34,21 @@ export const SecondaryNav = () => {
         <NavLink href="/theming">Overview</NavLink>
         <NavLink href="/theming/responsive">Responsive</NavLink>
         <NavLink href="/theming/dark-mode">Dark mode</NavLink>
-        <NavLink href="/theming/alternativeStyling">Alternative styling</NavLink>
+        <NavLink href="/theming/alternativeStyling">
+          Alternative styling
+        </NavLink>
       </Sidebar>
-    )
+    );
   }
+
+  if (router.pathname.startsWith('/getting-started')) {
+    return (
+      <Sidebar>
+        <NavLink href="/getting-started/installation">Installation</NavLink>
+      </Sidebar>
+    );
+  }
+
   if (router.pathname.startsWith('/components')) {
     return (
       <Sidebar>
@@ -61,7 +71,7 @@ export const SecondaryNav = () => {
         <NavLink href="/components/pagination">Pagination</NavLink>
         <NavLink href="/components/placeholder">Placeholder</NavLink>
         <NavLink href="/components/loader">Loader</NavLink>
-        
+
         <Heading level={6}>Inputs</Heading>
         <NavLink href="/components/textfield">Text Field</NavLink>
         <NavLink href="/components/selectfield">Select Field</NavLink>
@@ -72,9 +82,7 @@ export const SecondaryNav = () => {
           Phone Number Field
         </NavLink>
         <NavLink href="/components/switchfield">Switch Field</NavLink>
-        <NavLink href="/components/radiogroupfield">
-          Radio Group Field
-        </NavLink>
+        <NavLink href="/components/radiogroupfield">Radio Group Field</NavLink>
         <NavLink href="/components/checkboxfield">Checkbox Field</NavLink>
         <NavLink href="/components/togglebutton">Toggle Button</NavLink>
         <NavLink href="/components/button">Button</NavLink>
@@ -92,18 +100,16 @@ export const SecondaryNav = () => {
         <Heading level={6}>Utilities</Heading>
         <NavLink href="/components/visuallyhidden">Visually Hidden</NavLink>
       </Sidebar>
-    )
+    );
   }
   return null;
-}
+};
 
 const Sidebar = ({ children }) => {
   return (
     <aside className="docs-sidebar">
       <div className="docs-sidebar-inner">
-        <nav className="docs-sidebar-nav">
-          {children}
-        </nav>
+        <nav className="docs-sidebar-nav">{children}</nav>
       </div>
     </aside>
   );

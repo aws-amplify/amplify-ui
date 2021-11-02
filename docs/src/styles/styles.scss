@@ -18,10 +18,15 @@ html {
   box-sizing: border-box;
 }
 
+html {
+  // https://rsms.me/inter/#features
+  font-feature-settings: "ss01", "ss02", "case", "salt";
+}
+
 body {
   padding: 0;
   margin: 0;
-  line-height: 1.4;
+  line-height: 1.5;
 }
 
 a {
@@ -41,6 +46,7 @@ blockquote {
   border-left: var(--amplify-border-widths-large) solid
     var(--amplify-colors-brand-secondary-60);
   margin: 0 0 var(--amplify-space-medium) 0;
+  background-color: var(--amplify-colors-background-secondary);
 }
 
 .docs-main blockquote > p {
@@ -55,28 +61,12 @@ blockquote {
   padding-left: var(--amplify-space-medium);
 }
 
-pre {
-  @apply rounded;
-}
-
 pre.language-shell code.language-shell::before {
   content: '$';
-  @apply mr-2 -ml-2 text-gray-500;
 }
 
-code.language-shell,
-.mdx-marker {
-  @apply select-all;
-}
-
-a > h2::before {
-  content: '#';
-  position: absolute;
-}
-
-a > h3::before {
-  content: '#';
-  position: absolute;
+section > pre[class*=language-] {
+  margin-bottom: var(--amplify-space-medium);
 }
 
 ol {
@@ -119,10 +109,13 @@ ul {
 }
 
 .docs-nav {
-  display: none;
+  // display: none;
+  visibility: hidden;
+  width: 0;
+  flex-shrink: 1;
   
   @media (min-width: 62rem) {
-    display: block;
+    visibility: visible;
     flex-grow: 1;
     padding: 0 var(--amplify-space-medium);
   }
@@ -389,7 +382,7 @@ p {
 }
 
 .docs-meta {
-  padding-bottom: var(--amplify-space-xl);
+  padding-bottom: var(--amplify-space-medium);
 }
 
 .amplify-card {
@@ -541,8 +534,15 @@ p {
 
 code {
   padding: var(--amplify-space-xxs);
-  background-color: var(--amplify-colors-background-secondary);
+  // background-color: var(--amplify-colors-background-secondary);
+  background-color: rgba(0,0,0,0.05);
+  font-size: 0.875em;
+  
+  &[class*=language-] {
+    padding: 0;
+  }
 }
+
 
 .docs-home-description {
   color: var(--amplify-colors-font-secondary);
@@ -575,12 +575,37 @@ code {
   height: 10rem;
 }
 
+h2 {
+  font-size: var(--amplify-components-heading-2-font-size);
+  font-weight: var(--amplify-components-heading-2-font-weight);
+  margin: 0;
+}
+
+h3 {
+  font-size: var(--amplify-components-heading-3-font-size);
+  font-weight: var(--amplify-components-heading-3-font-weight);
+}
+
 h2[id],
 h3[id] {
   position: relative;
   margin-top: var(--amplify-space-large);
+  margin-bottom: var(--amplify-space-small);
   // to offset sticky header
   scroll-margin-block-start: 6rem;
+}
+
+h2[id] {
+  margin-top: var(--amplify-space-xxl);
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: -1rem;
+    left: 0;
+    width: 5rem;
+    border-top: var(--amplify-border-widths-large) solid var(--amplify-colors-border-tertiary);
+  }
 }
 
 h2[id] > a,

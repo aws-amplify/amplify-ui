@@ -1,7 +1,13 @@
 import { useState } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { AmplifyProvider, ColorMode, Heading, Link, IconLink } from '@aws-amplify/ui-react';
+import {
+  AmplifyProvider,
+  ColorMode,
+  Heading,
+  Link,
+  IconLink,
+} from '@aws-amplify/ui-react';
 
 import { Header } from '@/components/Layout/Header';
 import { Footer } from '@/components/Layout/Footer';
@@ -26,27 +32,7 @@ function MyApp({ Component, pageProps }) {
             setColorMode={setColorMode}
           />
           <div>
-            <Component
-              components={{
-                a(props) {
-                  if (!props.href) {
-                    return <a {...props} />;
-                  }
-
-                  return (
-                    <Link
-                      href={{
-                        pathname: props.href,
-                        query: { platform },
-                      }}
-                    >
-                      <a>{props.children}</a>
-                    </Link>
-                  );
-                },
-              }}
-              {...pageProps}
-            />
+            <Component {...pageProps} />
           </div>
           {/* <Footer /> */}
         </div>

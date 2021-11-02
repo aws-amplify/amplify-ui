@@ -23,22 +23,28 @@ import {
   IconComputer,
   IconMenu,
   Alert,
-  Divider
+  Divider,
 } from '@aws-amplify/ui-react';
 import { useRouter } from 'next/router';
 import { Logo } from '@/components/Logo';
 import { FrameworkChooser } from './FrameworkChooser';
 import { theme } from '../../pages/theme';
 
-const NavLink = ({ href, children, isExternal }) => {
+const NavLink = ({ href, children, isExternal = false }) => {
   const router = useRouter();
   const isCurrent = router.pathname.startsWith(href);
+  const className = `docs-nav-link ${isCurrent ? 'current' : ''}`;
 
+  if (isExternal) {
+    return (
+      <Link isExternal className={className}>
+        {children}
+      </Link>
+    );
+  }
   return (
     <NextLink href={href}>
-      <Link href={href} isExternal={isExternal} className={`docs-nav-link ${isCurrent ? 'current' : ''}`}>
-      {children}
-      </Link>
+      <a className={className}>{children}</a>
     </NextLink>
   );
 };
@@ -79,19 +85,23 @@ export const Header = ({ platform, colorMode, setColorMode }) => {
           <Button className="docs-header-menu-button" size="small">
             <IconMenu />
           </Button>
-          <Link href="/">
+          <NextLink href="/">
             <a className="docs-logo-link">
               <Logo />
             </a>
-          </Link>
+          </NextLink>
 
           <Flex as="nav" className="docs-nav" gap="0">
-            <NavLink href="/getting-started">Getting started</NavLink>
+            <NavLink href="/getting-started/installation">
+              Getting started
+            </NavLink>
             <NavLink href="/components">Components</NavLink>
             <NavLink href="/theming">Theming</NavLink>
             <NavLink href="/examples">Examples</NavLink>
             <Divider orientation="vertical" />
-            <NavLink isExternal href="https://docs.amplify.aws">Amplify docs <IconOpenInNew /></NavLink>
+            <NavLink isExternal href="https://docs.amplify.aws">
+              Amplify docs <IconOpenInNew />
+            </NavLink>
           </Flex>
           <Flex direction="row" alignItems="center">
             <Button variation="primary" size="small">

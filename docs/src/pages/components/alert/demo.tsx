@@ -11,6 +11,7 @@ import {
   AmplifyProvider,
   createTheme,
   Theme,
+  View,
   Button,
 } from '@aws-amplify/ui-react';
 
@@ -58,7 +59,7 @@ export const AlertDemo = () => {
       style={{ marginBottom: 'var(--amplify-space-large)' }}
     >
       <Flex direction="row" alignItems="stretch">
-        <Flex direction="column" style={{ width:'50%' }}>
+        <Flex direction="column" style={{ width: '50%' }}>
           <Alert
             variation={alertProps.variation}
             isDismissible={alertProps.isDismissible}
@@ -78,7 +79,7 @@ export const AlertDemo = () => {
             </TabItem>
           </Tabs>
         </Flex>
-        <Flex style={{ width:'50%', position:'relative' }}>
+        <View style={{ width: '50%', position: 'relative' }}>
           <Button
             size="small"
             className="example-copy-button"
@@ -96,7 +97,7 @@ export const AlertDemo = () => {
             language="jsx"
           >
             {({ className, style, tokens, getLineProps, getTokenProps }) => (
-              <pre className={className} style={style}>
+              <pre className={className} style={{ ...style, height: '100%' }}>
                 {tokens.map((line, i) => (
                   <div {...getLineProps({ line, key: i })}>
                     {line.map((token, key) => (
@@ -107,7 +108,7 @@ export const AlertDemo = () => {
               </pre>
             )}
           </Highlight>
-        </Flex>
+        </View>
       </Flex>
     </Card>
   );
