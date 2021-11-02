@@ -7,7 +7,7 @@ import { Example } from '@/components/Example';
 
 export const MenuDemo = () => {
   const props = useMenuProps({
-    align: 'center',
+    align: 'start',
     size: null,
   });
 
