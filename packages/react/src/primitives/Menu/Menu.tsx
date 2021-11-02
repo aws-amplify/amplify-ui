@@ -19,6 +19,7 @@ export const Menu: Primitive<MenuProps, 'div'> = ({
   isOpen,
   size,
   trigger,
+  triggerClassName,
   onOpenChange,
   ...rest
 }) => (
@@ -27,7 +28,10 @@ export const Menu: Primitive<MenuProps, 'div'> = ({
       {trigger ?? (
         <MenuButton
           size={size}
-          className={classNames(ComponentClassNames.MenuTrigger)}
+          className={classNames(
+            ComponentClassNames.MenuTrigger,
+            triggerClassName
+          )}
         >
           <IconMenu size={size} />
         </MenuButton>

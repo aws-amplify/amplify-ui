@@ -1,7 +1,13 @@
 .global-styling-menu.amplify-menu {
   --amplify-components-button-color: var(--amplify-colors-brand-secondary-90);
 }
-.my-menu .amplify-menu-trigger {
+.global-styling-menu-trigger.amplify-menu-trigger {
+  --amplify-components-button-border-color: var(
+    --amplify-colors-brand-secondary-90
+  );
+  --amplify-components-button-color: var(--amplify-colors-brand-secondary-90);
+}
+.my-menu-trigger .amplify-menu-trigger {
   border-color: var(--amplify-colors-brand-secondary-90);
   color: var(--amplify-colors-brand-secondary-90);
 }

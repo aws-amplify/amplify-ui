@@ -18,7 +18,7 @@ import {
 
 import { Example } from '@/components/Example';
 
-Menu provides an interactive menu for selecting actions within an application.
+Menu provides an accessible, interactive menu for selecting actions within an application. Dropdown menu is collision-aware and will automatically change location based on available space.
 
 ## Usage
 
@@ -83,6 +83,14 @@ Create a controlled `Menu` using the `isOpen` and `onOpenChange` props.
 
 ## CSS Styling
 
+### Target classes
+
+| Class                  | Description                                                             |
+| ---------------------- | ----------------------------------------------------------------------- |
+| `amplify-menu`         | Menu content container (`Flex`)                                         |
+| `amplify-menu__item`   | Menu item button (`MenuButton`, wrapped in `amplify-menu` class)        |
+| `amplify-menu-trigger` | Menu trigger button (`MenuButton`, not wrapped in `amplify-menu` class) |
+
 ### Global styling
 
 To override styling on all Menus, you can set the Amplify CSS variables with the built-in `.amplify-menu` class.
@@ -90,6 +98,12 @@ To override styling on all Menus, you can set the Amplify CSS variables with the
 ```css
 /* styles.css */
 .amplify-menu {
+  --amplify-components-button-color: var(--amplify-colors-brand-secondary-90);
+}
+.amplify-menu-trigger {
+  --amplify-components-button-border-color: var(
+    --amplify-colors-brand-secondary-90
+  );
   --amplify-components-button-color: var(--amplify-colors-brand-secondary-90);
 }
 ```
@@ -108,7 +122,10 @@ import './styles.css';
 ```
 
 <Example>
-  <Menu className="global-styling-menu">
+  <Menu
+    className="global-styling-menu"
+    triggerClassName="global-styling-menu-trigger"
+  >
     <MenuItem>Download</MenuItem>
     <MenuItem>Create a Copy</MenuItem>
     <MenuItem>Mark as Draft</MenuItem>
@@ -121,11 +138,11 @@ To override styling on a specific Menu, you can use (in order of increasing spec
 
 _Using a class selector:_
 
-Note: `Menu` classname prop only applies to the Menu content. To wrap the menu trigger button, wrap the menu in a View.
+Note: `Menu` classname prop is applied to the Menu content. To target the menu trigger button, wrap the menu in a View with a custom classname.
 
 ```css
 /* styles.css */
-.my-menu .amplify-menu-trigger {
+.my-menu-trigger.amplify-menu-trigger {
   border-color: var(--amplify-colors-brand-secondary-90);
   color: var(--amplify-colors-brand-secondary-90);
 }
@@ -143,23 +160,19 @@ import '@aws-amplify/ui-react/styles.css';
 
 import './styles.css';
 
-<View className="my-menu">
-  <Menu className="my-menu">
+<Menu className="my-menu-content" triggerClassName="my-menu-trigger">
+  <MenuItem>Download</MenuItem>
+  <MenuItem>Create a Copy</MenuItem>
+  <MenuItem>Mark as Draft</MenuItem>
+</Menu>;
+```
+
+<Example>
+  <Menu className="my-menu-content" triggerClassName="my-menu-trigger">
     <MenuItem>Download</MenuItem>
     <MenuItem>Create a Copy</MenuItem>
     <MenuItem>Mark as Draft</MenuItem>
   </Menu>
-</View>;
-```
-
-<Example>
-  <View className="my-menu">
-    <Menu className="my-menu-content">
-      <MenuItem>Download</MenuItem>
-      <MenuItem>Create a Copy</MenuItem>
-      <MenuItem>Mark as Draft</MenuItem>
-    </Menu>
-  </View>
 </Example>
 
 _Using data attributes:_
@@ -177,13 +190,11 @@ import '@aws-amplify/ui-react/styles.css';
 
 import './styles.css';
 
-<View className="custom-font-size">
-  <Menu size="large">
-    <MenuItem>Download</MenuItem>
-    <MenuItem>Create a Copy</MenuItem>
-    <MenuItem>Mark as Draft</MenuItem>
-  </Menu>
-</View>;
+<Menu size="large">
+  <MenuItem>Download</MenuItem>
+  <MenuItem>Create a Copy</MenuItem>
+  <MenuItem>Mark as Draft</MenuItem>
+</Menu>;
 ```
 
 <Example>
