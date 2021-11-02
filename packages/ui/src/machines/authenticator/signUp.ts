@@ -209,17 +209,9 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
             get(user, 'username') || get(authAttributes, 'username');
           const { password } = authAttributes;
 
-          const confirmResult = await Auth.confirmSignUp(username, code);
+          await Auth.confirmSignUp(username, code);
 
-          try {
-            const result = await Auth.signIn(username, password);
-
-            return result;
-          } catch (err) {
-            console.warn(err);
-
-            return confirmResult;
-          }
+          return await Auth.signIn(username, password);
         },
         async resendConfirmationCode(context, event) {
           const { user, authAttributes } = context;
