@@ -6,6 +6,7 @@ Feature: Confirm Sign Up
 
   Background:
     Given I'm running the example "ui/components/authenticator/sign-up-with-email"
+    And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-email"
 
   Scenario: Username is disabled
     When I see "Confirm Sign Up"
