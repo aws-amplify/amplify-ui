@@ -175,17 +175,15 @@ export const getSendEventAliases = (send: Sender<AuthEvent>) => {
   } as const;
 };
 
-export const getServiceFacade = ({ send, state }) => {
+export const getServiceContext = (state: AuthMachineState) => {
   const user = state.context?.user;
   const actorState = getActorState(state);
   const actorContext: ActorContextWithForms = getActorContext(state);
-  const sendEventAliases = getSendEventAliases(send);
   const error = actorContext?.remoteError;
   const validationErrors = { ...actorContext?.validationError };
   const hasValidationErrors = Object.keys(validationErrors).length > 0;
   const isPending =
     state.hasTag('pending') || getActorState(state)?.hasTag('pending');
-
   const route = (() => {
     switch (true) {
       case state.matches('idle'):
@@ -224,12 +222,21 @@ export const getServiceFacade = ({ send, state }) => {
   })();
 
   return {
-    ...sendEventAliases,
     error,
     hasValidationErrors,
     isPending,
     route,
     user,
     validationErrors,
+  };
+};
+
+export const getServiceFacade = ({ send, state }) => {
+  const sendEventAliases = getSendEventAliases(send);
+  const serviceContext = getServiceContext(state);
+
+  return {
+    ...sendEventAliases,
+    ...serviceContext,
   };
 };
