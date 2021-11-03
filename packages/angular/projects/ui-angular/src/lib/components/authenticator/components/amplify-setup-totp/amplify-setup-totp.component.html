@@ -1,13 +1,4 @@
-<!-- 
-  Define default contents here
--->
-<ng-template #setupTotpButton>
-  <button amplify-button variation="primary" fullWidth="true" type="submit">
-    {{ confirmText }}
-  </button>
-</ng-template>
-
-<ng-template #setupTotpForm>
+<div data-amplify-container>
   <form data-amplify-form (submit)="onSubmit($event)" (input)="onInput($event)">
     <fieldset
       class="amplify-flex"
@@ -29,11 +20,9 @@
         type="text"
         autocomplete="one-time-code"
       ></amplify-form-field>
-      <ng-container
-        [ngTemplateOutlet]="customComponents.setupTotpButton || setupTotpButton"
-        [ngTemplateOutletContext]="context"
-      >
-      </ng-container>
+      <button amplify-button variation="primary" fullWidth="true" type="submit">
+        {{ confirmText }}
+      </button>
       <button
         amplify-button
         size="small"
@@ -49,15 +38,4 @@
       </amplify-error>
     </fieldset>
   </form>
-</ng-template>
-
-<!-- 
-  Render sign in component
--->
-<div data-amplify-container>
-  <ng-container
-    [ngTemplateOutlet]="customComponents.setupTotpForm || setupTotpForm"
-    [ngTemplateOutletContext]="context"
-  >
-  </ng-container>
 </div>

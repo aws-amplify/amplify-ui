@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Logger } from '@aws-amplify/core';
 import {
   AuthContext,
   AuthenticatorMachineOptions,
@@ -9,6 +10,9 @@ import {
   getSendEventAliases,
 } from '@aws-amplify/ui';
 import { Event, interpret } from 'xstate';
+import { AuthSubscriptionCallback } from '../common';
+
+const logger = new Logger('state-machine');
 
 /**
  * AmplifyContextService contains access to the xstate machine
@@ -17,7 +21,7 @@ import { Event, interpret } from 'xstate';
 @Injectable({
   providedIn: 'root', // ensure we have a singleton service
 })
-export class StateMachineService {
+export class AuthenticatorService {
   private _authState: AuthMachineState;
   private _authService: AuthInterpreter;
   private _user: Record<string, any>; // TODO: strongly type CognitoUser
@@ -65,6 +69,22 @@ export class StateMachineService {
     return this._authState.context;
   }
 
+  /**
+   * @deprecated For internal use only
+   */
+  public subscribe(callback: AuthSubscriptionCallback) {
+    if (this._authService) {
+      return this._authService.subscribe(callback);
+    } else {
+      logger.error(
+        'Subscription attempted before machine was created. This is likely a bug on the library, please consider filing a bug.'
+      );
+    }
+  }
+
+  /**
+   * @deprecated For internal use only
+   */
   public send(event: Event<AuthEvent>) {
     this.authService.send(event);
   }

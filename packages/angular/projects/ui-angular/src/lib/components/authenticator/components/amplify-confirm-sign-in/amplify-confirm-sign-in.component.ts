@@ -1,11 +1,4 @@
-import {
-  AfterContentInit,
-  Component,
-  HostBinding,
-  OnDestroy,
-  OnInit,
-  TemplateRef,
-} from '@angular/core';
+import { Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
 import { Logger } from 'aws-amplify';
 import { Subscription } from 'xstate';
 import {
@@ -16,8 +9,7 @@ import {
   SignInContext,
   SignInState,
 } from '@aws-amplify/ui';
-import { StateMachineService } from '../../../../services/state-machine.service';
-import { AuthPropService } from '../../../../services/authenticator-context.service';
+import { AuthenticatorService } from '../../../../services/authenticator.service';
 import { translate } from '@aws-amplify/ui';
 
 const logger = new Logger('ConfirmSignIn');
@@ -26,12 +18,9 @@ const logger = new Logger('ConfirmSignIn');
   selector: 'amplify-confirm-sign-in',
   templateUrl: './amplify-confirm-sign-in.component.html',
 })
-export class AmplifyConfirmSignInComponent
-  implements OnInit, OnDestroy, AfterContentInit
-{
+export class AmplifyConfirmSignInComponent implements OnInit, OnDestroy {
   @HostBinding('attr.data-amplify-authenticator-confirmsignin') dataAttr = '';
 
-  public customComponents: Record<string, TemplateRef<any>> = {};
   public remoteError = '';
   public isPending = false;
 
@@ -42,20 +31,13 @@ export class AmplifyConfirmSignInComponent
   public confirmText = translate('Confirm');
   public backToSignInText = translate('Back to Sign In');
 
-  constructor(
-    private stateMachine: StateMachineService,
-    private contextService: AuthPropService
-  ) {}
+  constructor(private authenticator: AuthenticatorService) {}
 
   ngOnInit(): void {
-    this.authSubscription = this.stateMachine.authService.subscribe((state) => {
+    this.authSubscription = this.authenticator.subscribe((state) => {
       this.onStateUpdate(state);
     });
     this.setHeaderText();
-  }
-
-  ngAfterContentInit(): void {
-    this.customComponents = this.contextService.customComponents;
   }
 
   ngOnDestroy(): void {
@@ -63,13 +45,13 @@ export class AmplifyConfirmSignInComponent
   }
 
   public get context() {
-    const { change, signIn, submit } = this.stateMachine.services;
+    const { change, signIn, submit } = this.authenticator.services;
     const remoteError = this.remoteError;
     return { change, remoteError, signIn, submit };
   }
 
   setHeaderText(): void {
-    const state = this.stateMachine.authState;
+    const state = this.authenticator.authState;
     const actorContext: SignInContext = getActorContext(state);
     const { challengeName } = actorContext;
     switch (challengeName) {
@@ -94,7 +76,7 @@ export class AmplifyConfirmSignInComponent
   onInput(event: Event): void {
     event.preventDefault();
     const { name, value } = <HTMLInputElement>event.target;
-    this.stateMachine.send({
+    this.authenticator.send({
       type: 'CHANGE',
       data: { name, value },
     });
@@ -104,13 +86,13 @@ export class AmplifyConfirmSignInComponent
     event.preventDefault();
     // TODO: handle form data within the state machine
     const formData = new FormData(event.target as HTMLFormElement);
-    this.stateMachine.send({
+    this.authenticator.send({
       type: 'SUBMIT',
       data: Object.fromEntries(formData),
     });
   }
 
   toSignIn() {
-    this.stateMachine.send('SIGN_IN');
+    this.authenticator.send('SIGN_IN');
   }
 }

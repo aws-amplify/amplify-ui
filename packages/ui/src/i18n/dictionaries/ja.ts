@@ -28,6 +28,7 @@ export const jaDict = {
   'Lost your code? ': 'コードを失くしましたか？',
   'New Password': '新しいパスワード',
   'No account? ': 'アカウントが無いとき ',
+  or: '又は',
   Password: 'パスワード ',
   'Password attempts exceeded': 'サインインの試行回数が上限に達しました',
   'Phone Number': '電話番号',

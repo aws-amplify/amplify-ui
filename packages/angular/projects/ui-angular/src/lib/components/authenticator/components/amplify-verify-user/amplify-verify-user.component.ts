@@ -1,11 +1,9 @@
 import {
-  AfterContentInit,
   Component,
   HostBinding,
   Input,
   OnDestroy,
   OnInit,
-  TemplateRef,
   ViewEncapsulation,
 } from '@angular/core';
 import {
@@ -15,8 +13,7 @@ import {
   translate,
 } from '@aws-amplify/ui';
 import { Subscription } from 'xstate';
-import { StateMachineService } from '../../../../services/state-machine.service';
-import { AuthPropService } from '../../../../services/authenticator-context.service';
+import { AuthenticatorService } from '../../../../services/authenticator.service';
 import { getAttributeMap } from '../../../../common';
 import { nanoid } from 'nanoid';
 @Component({
@@ -24,15 +21,12 @@ import { nanoid } from 'nanoid';
   templateUrl: './amplify-verify-user.component.html',
   encapsulation: ViewEncapsulation.None,
 })
-export class AmplifyVerifyUserComponent
-  implements AfterContentInit, OnInit, OnDestroy
-{
+export class AmplifyVerifyUserComponent implements OnInit, OnDestroy {
   @HostBinding('attr.data-amplify-authenticator-verifyuser') dataAttr = '';
   @Input() public headerText = translate(
     'Account recovery requires verified contact information'
   );
 
-  public customComponents: Record<string, TemplateRef<any>> = {};
   public unverifiedAttributes = {};
   public remoteError = '';
   public isPending = false;
@@ -44,19 +38,12 @@ export class AmplifyVerifyUserComponent
   public skipText = translate('Skip');
   public verifyText = translate('Verify');
 
-  constructor(
-    private stateMachine: StateMachineService,
-    private contextService: AuthPropService
-  ) {}
+  constructor(private authenticator: AuthenticatorService) {}
 
   ngOnInit(): void {
-    this.authSubscription = this.stateMachine.authService.subscribe((state) =>
+    this.authSubscription = this.authenticator.subscribe((state) =>
       this.onStateUpdate(state)
     );
-  }
-
-  ngAfterContentInit(): void {
-    this.customComponents = this.contextService.customComponents;
   }
 
   ngOnDestroy(): void {
@@ -71,13 +58,13 @@ export class AmplifyVerifyUserComponent
   }
 
   public get context() {
-    const { change, skip, submit } = this.stateMachine.services;
+    const { change, skip, submit } = this.authenticator.services;
     const remoteError = this.remoteError;
     return { change, remoteError, skip, submit };
   }
 
   skipVerify(): void {
-    this.stateMachine.send('SKIP');
+    this.authenticator.send('SKIP');
   }
 
   getLabelForAttr(authAttr: string): string {
@@ -89,7 +76,7 @@ export class AmplifyVerifyUserComponent
   onInput(event: Event): void {
     event.preventDefault();
     const { name, value } = <HTMLInputElement>event.target;
-    this.stateMachine.send({
+    this.authenticator.send({
       type: 'CHANGE',
       data: { name, value },
     });
@@ -98,7 +85,7 @@ export class AmplifyVerifyUserComponent
   onSubmit(event: Event): void {
     event.preventDefault();
     const formData = new FormData(event.target as HTMLFormElement);
-    this.stateMachine.send({
+    this.authenticator.send({
       type: 'SUBMIT',
       data: Object.fromEntries(formData),
     });

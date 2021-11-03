@@ -1,11 +1,9 @@
 import {
-  AfterContentInit,
   Component,
   HostBinding,
   Input,
   OnDestroy,
   OnInit,
-  TemplateRef,
 } from '@angular/core';
 import {
   AuthMachineState,
@@ -14,23 +12,19 @@ import {
   translate,
 } from '@aws-amplify/ui';
 import { Subscription } from 'xstate';
-import { AuthPropService } from '../../../../services/authenticator-context.service';
-import { StateMachineService } from '../../../../services/state-machine.service';
+import { AuthenticatorService } from '../../../../services/authenticator.service';
 
 @Component({
   selector: 'amplify-confirm-verify-user',
   templateUrl: './amplify-confirm-verify-user.component.html',
 })
-export class ConfirmVerifyUserComponent
-  implements OnInit, AfterContentInit, OnDestroy
-{
+export class ConfirmVerifyUserComponent implements OnInit, OnDestroy {
   @HostBinding('attr.data-amplify-authenticator-confirmverifyuser') dataAttr =
     '';
   @Input() public headerText = translate(
     'Account recovery requires verified contact information'
   );
 
-  public customComponents: Record<string, TemplateRef<any>> = {};
   public remoteError = '';
   public isPending = false;
   private authSubscription: Subscription;
@@ -39,19 +33,12 @@ export class ConfirmVerifyUserComponent
   public skipText = translate('Skip');
   public submitText = translate('Submit');
 
-  constructor(
-    private stateMachine: StateMachineService,
-    private contextService: AuthPropService
-  ) {}
+  constructor(private authenticator: AuthenticatorService) {}
 
   ngOnInit(): void {
-    this.authSubscription = this.stateMachine.authService.subscribe((state) =>
+    this.authSubscription = this.authenticator.subscribe((state) =>
       this.onStateUpdate(state)
     );
-  }
-
-  ngAfterContentInit() {
-    this.customComponents = this.contextService.customComponents;
   }
 
   ngOnDestroy() {
@@ -65,19 +52,19 @@ export class ConfirmVerifyUserComponent
   }
 
   public get context() {
-    const { skip, submit } = this.stateMachine.services;
+    const { skip, submit } = this.authenticator.services;
     const remoteError = this.remoteError;
     return { remoteError, skip, submit };
   }
 
   skipVerify(): void {
-    this.stateMachine.send('SKIP');
+    this.authenticator.send('SKIP');
   }
 
   onInput(event: Event): void {
     event.preventDefault();
     const { name, value } = <HTMLInputElement>event.target;
-    this.stateMachine.send({
+    this.authenticator.send({
       type: 'CHANGE',
       data: { name, value },
     });
@@ -86,7 +73,7 @@ export class ConfirmVerifyUserComponent
   onSubmit(event: Event): void {
     event.preventDefault();
     const formData = new FormData(event.target as HTMLFormElement);
-    this.stateMachine.send({
+    this.authenticator.send({
       type: 'SUBMIT',
       data: Object.fromEntries(formData),
     });
