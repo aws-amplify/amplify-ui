@@ -1,9 +1,9 @@
 import {
   getActorContext,
+  LoginMechanism,
+  LoginMechanismArray,
   SignUpContext,
   translate,
-  UserNameAlias,
-  userNameAliasArray,
 } from '@aws-amplify/ui';
 import { isEmpty } from 'lodash';
 
@@ -16,9 +16,10 @@ export function FormFields() {
   const { validationError } = getActorContext(_state) as SignUpContext;
 
   const [primaryAlias, ...secondaryAliases] =
-    _state.context.config?.login_mechanisms?.filter(
-      (alias: any): alias is UserNameAlias => userNameAliasArray.includes(alias)
-    ) ?? userNameAliasArray;
+    _state.context.config?.loginMechanisms?.filter(
+      (alias: any): alias is LoginMechanism =>
+        LoginMechanismArray.includes(alias)
+    ) ?? LoginMechanismArray;
 
   /**
    * If the login_mechanisms are configured to use ONLY username, we need
@@ -64,7 +65,7 @@ export function FormFields() {
         <Text variation="error">{validationError['confirm_password']}</Text>
       )}
 
-      {secondaryAliases.map((alias: UserNameAlias) => (
+      {secondaryAliases.map((alias: LoginMechanism) => (
         <UserNameAliasComponent
           data-amplify-usernamealias
           key={alias}
