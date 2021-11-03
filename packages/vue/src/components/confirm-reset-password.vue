@@ -85,6 +85,14 @@
               >
               </slot>
             </template>
+            <base-box
+              data-ui-error
+              data-variation="error"
+              class="amplify-text"
+              v-if="!!(actorContext.validationError as ValidationError)['confirm_password']"
+            >
+              {{ (actorContext.validationError as ValidationError)['confirm_password'] }}
+            </base-box>
             <base-alert v-if="actorState?.context?.remoteError">
               {{ actorState?.context?.remoteError }}
             </base-alert>
@@ -112,13 +120,6 @@
         </base-field-set>
       </base-form>
     </base-wrapper>
-
-    <base-box
-      data-ui-error
-      v-if="!!(actorContext.validationError as ValidationError)['confirm_password']"
-    >
-      {{ (actorContext.validationError as ValidationError)['confirm_password'] }}
-    </base-box>
   </slot>
 </template>
 
