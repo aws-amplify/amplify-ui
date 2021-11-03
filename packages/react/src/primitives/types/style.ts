@@ -50,6 +50,7 @@ export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
   textTransform?: ResponsiveStyle<Property.TextTransform>;
   top?: ResponsiveStyle<Property.Top>;
   transform?: ResponsiveStyle<Property.Transform>;
+  transformOrigin?: ResponsiveStyle<Property.TransformOrigin>;
   width?: ResponsiveStyle<Property.Width>;
 }
 
@@ -161,6 +162,7 @@ export const ComponentPropsToStylePropsMap: ComponentPropToStyleProp = {
   textTransform: 'textTransform',
   top: 'top',
   transform: 'transform',
+  transformOrigin: 'transformOrigin',
   width: 'width',
   wrap: 'flexWrap',
 };
