@@ -4,7 +4,6 @@ import {
   AuthContext,
   AuthenticatorMachineOptions,
   AuthEvent,
-  AuthEventData,
   AuthInterpreter,
   AuthMachineState,
   createAuthenticatorMachine,

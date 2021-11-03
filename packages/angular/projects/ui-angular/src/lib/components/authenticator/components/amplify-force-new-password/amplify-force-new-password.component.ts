@@ -3,8 +3,6 @@ import { Logger } from 'aws-amplify';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
 import { translate } from '@aws-amplify/ui';
 
-const logger = new Logger('ForceNewPassword');
-
 @Component({
   selector: 'amplify-force-new-password',
   templateUrl: './amplify-force-new-password.component.html',
