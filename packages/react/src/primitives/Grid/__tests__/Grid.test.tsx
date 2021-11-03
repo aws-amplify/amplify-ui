@@ -122,8 +122,8 @@ describe('Grid: ', () => {
       const { row, column, ...rest } = testGridItemStyleProps;
       const styleProps = {
         ...rest,
-        columnSpan: 2,
-        rowSpan: 4,
+        columnSpan: '2',
+        rowSpan: '4',
       };
 
       render(
@@ -149,8 +149,8 @@ describe('Grid: ', () => {
     it('rowSpan and columnSpan are overwritten by row and column values', async () => {
       const styleProps = {
         ...testGridItemStyleProps,
-        columnSpan: 2,
-        rowSpan: 4,
+        columnSpan: '2',
+        rowSpan: '4',
       };
       render(
         <Card testId={cardTestId} {...styleProps}>

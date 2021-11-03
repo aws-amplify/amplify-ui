@@ -45,8 +45,8 @@ const defaultStylePropsParams = {
 };
 
 const gridItemProps = {
-  columnSpan: 2,
-  rowSpan: 3,
+  columnSpan: '2',
+  rowSpan: '3',
 };
 
 describe('convertStylePropsToStyleObj: ', () => {
@@ -202,7 +202,7 @@ describe('useNonStyleProps: ', () => {
 
 describe('convertGridSpan: ', () => {
   it('should return correct css value when passed valid number', () => {
-    const param = 5;
+    const param = '5';
     const result = convertGridSpan(param);
     expect(result).toBe(`span ${param}`);
   });
@@ -222,22 +222,22 @@ describe('convertGridSpan: ', () => {
 
   it('should return object with transform when passed object', () => {
     const param = {
-      base: 1,
-      large: 2,
+      base: '1',
+      large: '2',
     };
     const result = convertGridSpan(param);
 
     expect(result).toEqual({
-      base: getGridSpan(1),
-      large: getGridSpan(2),
+      base: getGridSpan('1'),
+      large: getGridSpan('2'),
     });
   });
 
   it('should return array with transform when passed array', () => {
-    const param = [1, 2];
+    const param = ['1', '2'];
     const result = convertGridSpan(param);
 
-    expect(result).toEqual([getGridSpan(1), getGridSpan(2)]);
+    expect(result).toEqual([getGridSpan('1'), getGridSpan('2')]);
   });
 });
 
@@ -248,7 +248,7 @@ describe('getGridSpan: ', () => {
     expect(result).toBe(param);
   });
   it('should return correct css value when passed valid number', () => {
-    const param = 5;
+    const param = '5';
     const result = getGridSpan(param);
     expect(result).toBe(`span ${param}`);
   });
