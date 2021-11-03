@@ -1,8 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { Project, Node, Symbol } from 'ts-morph';
-
-const TOO_MANY_STRINGS = 20;
+import { Node, Project, Type, VariableDeclaration } from 'ts-morph';
 
 enum ComponentPropType {
   Boolean = 'boolean',
@@ -14,59 +12,33 @@ enum ComponentPropType {
 /**
  * Determine if a TypeScript AST Node is a React.FC instance
  */
-const isReactComponent = (node: Node) =>
+const isPrimitive = (node: Node): node is VariableDeclaration =>
   Node.isVariableDeclaration(node) &&
   node.getType().getText(node).startsWith('Primitive');
 
 /**
- * Remove double quotes from String literal types
- */
-const cleanStringLiteral = (literal: string) => literal.replace(/"/g, '');
-
-/**
- * Filter browser vendor prefixes (-webkit, -moz, -ms, ...)
- */
-const isValidStringValue = (value: string) => !value.startsWith('-');
-
-/**
  * Get a catalog-compatible type from a component property
  */
-const getCatalogType = (property: Symbol) => {
-  const propType = property.getValueDeclaration()?.getType();
-
+const getCatalogType = (propType: Type) => {
   if (!propType) {
-    return { type: ComponentPropType.Any };
-  }
-
-  if (propType.isBoolean() || propType.isBooleanLiteral()) {
+    return;
+  } else if (propType.isBoolean() || propType.isBooleanLiteral()) {
     return { type: ComponentPropType.Boolean };
   } else if (propType.isString() || propType.isStringLiteral()) {
     return { type: ComponentPropType.String };
   } else if (propType.isNumber() || propType.isNumberLiteral()) {
     return { type: ComponentPropType.Number };
   } else if (propType.isUnion()) {
-    const stringValues = propType
+    const hasString = propType
       .getUnionTypes()
-      .filter((prop) => prop.isStringLiteral())
-      .map((prop) => cleanStringLiteral(prop.getText()));
+      .some((prop) => prop.isStringLiteral() || prop.isString());
 
-    /**
-     * Editorial decision:
-     * If there's too many options (like HTML Web colors), not include any
-     */
-    if (stringValues.length > TOO_MANY_STRINGS || stringValues.length === 0) {
+    if (hasString) {
       return {
         type: ComponentPropType.String,
       };
     }
-
-    return {
-      type: ComponentPropType.String,
-      enum: stringValues.filter(isValidStringValue),
-    };
   }
-
-  return { type: ComponentPropType.Any };
 };
 
 const project = new Project({
@@ -80,14 +52,22 @@ const catalog: Record<string, object> = {};
  * Extract properties from exported React components
  */
 for (const [componentName, [node]] of source.getExportedDeclarations()) {
-  if (isReactComponent(node)) {
+  if (isPrimitive(node)) {
+    const properties = {};
     const [propsType] = node.getType().getTypeArguments();
-    const props = propsType.getProperties();
+
+    propsType.getProperties().forEach((prop) => {
+      const propertyName = prop.getName();
+      const propertyType = prop.getDeclarations()[0].getType();
+      const catalogType = getCatalogType(propertyType);
+
+      if (catalogType) {
+        properties[propertyName] = catalogType;
+      }
+    });
 
     catalog[componentName] = {
-      properties: Object.fromEntries(
-        props.map((prop) => [prop.getName(), getCatalogType(prop)])
-      ),
+      properties,
     };
   }
 }

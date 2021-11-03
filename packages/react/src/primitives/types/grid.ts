@@ -16,11 +16,11 @@ export interface GridItemStyleProps {
   area?: ResponsiveStyle<Property.GridArea>;
   column?: ResponsiveStyle<Property.GridColumn>;
   columnEnd?: ResponsiveStyle<Property.GridColumnEnd>;
-  columnSpan?: ResponsiveStyle<number | 'auto'>;
+  columnSpan?: ResponsiveStyle<string | 'auto'>;
   columnStart?: ResponsiveStyle<Property.GridColumnStart>;
   row?: ResponsiveStyle<Property.GridRow>;
   rowEnd?: ResponsiveStyle<Property.GridRowEnd>;
-  rowSpan?: ResponsiveStyle<number | 'auto'>;
+  rowSpan?: ResponsiveStyle<string | 'auto'>;
   rowStart?: ResponsiveStyle<Property.GridRowStart>;
 }
 
