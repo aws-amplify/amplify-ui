@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { Logger } from '@aws-amplify/core';
 import {
   AuthContext,
@@ -8,24 +8,25 @@ import {
   AuthMachineState,
   createAuthenticatorMachine,
   getSendEventAliases,
+  getServiceContext,
 } from '@aws-amplify/ui';
-import { Event, interpret } from 'xstate';
+import { Event, interpret, Subscription } from 'xstate';
 import { AuthSubscriptionCallback } from '../common';
 
 const logger = new Logger('state-machine');
 
 /**
- * AmplifyContextService contains access to the xstate machine
- * and custom components passed by the user.
+ * AuthenticatorService provides access to the authenticator state and context.
  */
 @Injectable({
   providedIn: 'root', // ensure we have a singleton service
 })
-export class AuthenticatorService {
+export class AuthenticatorService implements OnDestroy {
   private _authState: AuthMachineState;
   private _authService: AuthInterpreter;
-  private _user: Record<string, any>; // TODO: strongly type CognitoUser
-  private _services: ReturnType<typeof getSendEventAliases>;
+  private _sendEventAliases: ReturnType<typeof getSendEventAliases>;
+  private _subscription: Subscription;
+  private _facade: ReturnType<typeof getServiceContext>;
 
   public startMachine({
     initialState,
@@ -38,40 +39,64 @@ export class AuthenticatorService {
 
     const authService = interpret(machine, {
       devTools: process.env.NODE_ENV === 'development',
-    })
-      .onTransition((state) => {
-        this._user = state.context.user;
-        this._authState = state;
-      })
-      .start();
+    }).start();
 
-    this._services = getSendEventAliases(authService.send);
+    this._subscription = authService.subscribe((state) => {
+      this._facade = getServiceContext(state);
+    });
+
+    this._sendEventAliases = getSendEventAliases(authService.send);
     this._authService = authService;
   }
 
-  public get services() {
-    return this._services;
+  ngOnDestroy(): void {
+    if (this._subscription) this._subscription.unsubscribe();
   }
 
+  public get error() {
+    return this._facade?.error;
+  }
+
+  public get hasValidationErrors() {
+    return this._facade?.hasValidationErrors;
+  }
+
+  public get isPending() {
+    return this._facade?.isPending;
+  }
+
+  public get route() {
+    return this._facade?.route;
+  }
+
+  public get user() {
+    return this._facade?.user;
+  }
+
+  public validationErrors() {
+    return this._facade?.validationErrors;
+  }
+
+  public get services() {
+    return this._sendEventAliases;
+  }
+
+  /** @deprecated For internal use only */
   public get authState(): AuthMachineState {
     return this._authState;
   }
 
+  /** @deprecated For internal use only */
   public get authService(): AuthInterpreter {
     return this._authService;
   }
 
-  public get user(): Record<string, any> {
-    return this._user;
-  }
-
+  /** @deprecated For internal use only */
   public get context(): AuthContext {
     return this._authState.context;
   }
 
-  /**
-   * @deprecated For internal use only
-   */
+  /** @deprecated For internal use only */
   public subscribe(callback: AuthSubscriptionCallback) {
     if (this._authService) {
       return this._authService.subscribe(callback);
@@ -82,9 +107,7 @@ export class AuthenticatorService {
     }
   }
 
-  /**
-   * @deprecated For internal use only
-   */
+  /** @deprecated For internal use only */
   public send(event: Event<AuthEvent>) {
     this.authService.send(event);
   }
