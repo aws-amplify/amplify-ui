@@ -68,6 +68,7 @@ import { AmplifySlotDirective } from '../../utilities/amplify-slot/amplify-slot.
   imports: [CommonModule, BrowserModule],
   exports: [
     AmplifyAuthenticatorComponent,
+    AmplifyTextFieldComponent,
     AmplifySignUpFormFieldsComponent,
     AmplifySlotDirective,
   ],
