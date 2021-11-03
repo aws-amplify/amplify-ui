@@ -79,7 +79,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ComputedRef } from 'vue';
+import { computed, ComputedRef, onMounted } from 'vue';
 import {
   ActorContextWithForms,
   authInputAttributes,
@@ -121,10 +121,13 @@ const actorContext: ComputedRef<ActorContextWithForms> = computed(() =>
 const defaultDialCode = actorContext.value.country_code;
 
 const dialCodes = computed(() => countryDialCodes);
-if (inputAttributes.value[name as UserNameAlias].type === 'tel') {
-  send({
-    type: 'CHANGE',
-    data: { name: 'country_code', value: defaultDialCode },
-  });
-}
+
+onMounted(() => {
+  if (inputAttributes.value[name as UserNameAlias].type === 'tel') {
+    send({
+      type: 'CHANGE',
+      data: { name: 'country_code', value: defaultDialCode },
+    });
+  }
+});
 </script>

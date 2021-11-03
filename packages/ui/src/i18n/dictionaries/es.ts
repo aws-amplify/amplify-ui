@@ -19,6 +19,7 @@ export const esDict = {
     'Formato de n\xFAmero de tel\xE9fono inv\xE1lido.\nUtilice el formato de n\xFAmero de tel\xE9fono +12345678900',
   'Loading...': 'Cargando...',
   'New Password': 'Nueva contraseña',
+  or: 'o',
   Password: 'Contraseña',
   'Phone Number': 'Número de teléfono',
   'Resend a Code': 'Reenviar un código',

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FederatedIdentityProviders } from '@aws-amplify/ui';
-import { StateMachineService } from '../../../../services/state-machine.service';
+import { AuthenticatorService } from '../../../../services/authenticator.service';
 import { translate } from '@aws-amplify/ui';
 
 @Component({
@@ -19,10 +19,11 @@ export class AmplifyFederatedSignInComponent implements OnInit {
   public signInGoogleText = translate('Sign In with Google');
   public signInAmazonText = translate('Sign In with Amazon');
 
-  constructor(private stateMachine: StateMachineService) {}
+  constructor(private authenticator: AuthenticatorService) {}
 
   ngOnInit(): void {
-    const loginMechanisms = this.stateMachine.context?.config?.login_mechanisms;
+    const loginMechanisms =
+      this.authenticator.context?.config?.login_mechanisms;
 
     this.includeFacebook = loginMechanisms?.includes('facebook');
     this.includeGoogle = loginMechanisms?.includes('google');

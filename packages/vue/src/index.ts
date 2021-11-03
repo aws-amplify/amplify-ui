@@ -15,7 +15,12 @@ import {
   ConfirmSignIn,
   ConfirmVerifyUser,
   VerifyUser,
+  AuthenticatorSignUpFormFields,
+  AmplifyTextField,
+  AmplifyCheckBox,
 } from './components/index';
+
+import { useAuthenticator } from './composables/useAuth';
 
 import './styles.css';
 
@@ -35,6 +40,12 @@ export default {
     app.component('ConfirmSignIn', ConfirmSignIn);
     app.component('VerifyUser', VerifyUser);
     app.component('ConfirmVerifyUser', ConfirmVerifyUser);
+    app.component('AmplifyTextField', AmplifyTextField);
+    app.component('AmplifyCheckBox', AmplifyCheckBox);
+    app.component(
+      'AuthenticatorSignUpFormFields',
+      AuthenticatorSignUpFormFields
+    );
   },
 };
 
@@ -43,6 +54,7 @@ export {
   SignUp,
   FederatedSignIn,
   Authenticator,
+  AuthenticatorSignUpFormFields,
   RenderInfo,
   UserNameAlias,
   ForceNewPassword,
@@ -53,4 +65,7 @@ export {
   ConfirmSignIn,
   ConfirmVerifyUser,
   VerifyUser,
+  AmplifyTextField,
+  AmplifyCheckBox,
+  useAuthenticator,
 };

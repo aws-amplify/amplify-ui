@@ -1,5 +1,5 @@
 ---
-"@aws-amplify/ui-react": patch
+'@aws-amplify/ui-react': patch
 ---
 
 AmplifyProvider accepts a partial list of primitives as `components`:
@@ -13,7 +13,6 @@ const App = () => {
   return <Heading>Howdy</Heading>;
 };
 
-
 <AmplifyProvider
   components={{
     Heading({ children }) {
@@ -22,5 +21,5 @@ const App = () => {
   }}
 >
   <App />
-</AmplifyProvider>
+</AmplifyProvider>;
 ```

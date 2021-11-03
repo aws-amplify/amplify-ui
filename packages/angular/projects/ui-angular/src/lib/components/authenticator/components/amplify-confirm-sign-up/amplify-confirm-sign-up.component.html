@@ -1,13 +1,4 @@
-<!-- 
-  Define default contents here
--->
-<ng-template #confirmSignUpButton>
-  <button amplify-button variation="primary" fullWidth="true" type="submit">
-    {{ confirmText }}
-  </button>
-</ng-template>
-
-<ng-template #confirmSignUpForm>
+<div data-amplify-container>
   <form data-amplify-form (submit)="onSubmit($event)" (input)="onInput($event)">
     <fieldset
       class="amplify-flex"
@@ -22,13 +13,9 @@
         autocomplete="one-time-code"
       ></amplify-form-field>
 
-      <ng-container
-        [ngTemplateOutlet]="
-          customComponents.confirmSignUpButton || confirmSignUpButton
-        "
-        [ngTemplateOutletContext]="context"
-      >
-      </ng-container>
+      <button amplify-button variation="primary" fullWidth="true" type="submit">
+        {{ confirmText }}
+      </button>
       <button amplify-button fontWeight="normal" (click)="resend()">
         {{ resendCodeText }}
       </button>
@@ -38,16 +25,4 @@
       {{ remoteError }}
     </amplify-error>
   </form>
-</ng-template>
-
-<!-- 
-  Render confirm sign up component
--->
-
-<div data-amplify-container>
-  <ng-container
-    [ngTemplateOutlet]="customComponents.confirmSignUpForm || confirmSignUpForm"
-    [ngTemplateOutletContext]="context"
-  >
-  </ng-container>
 </div>
