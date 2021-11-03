@@ -18,6 +18,7 @@ export enum ComponentClassNames {
   CountryCodeSelect = 'amplify-countrycodeselect',
   Divider = 'amplify-divider',
   Expander = 'amplify-expander',
+  ExpanderItem = 'amplify-expander__item',
   Field = 'amplify-field',
   FieldDescription = 'amplify-field__description',
   FieldErrorMessage = 'amplify-field__error-message',
