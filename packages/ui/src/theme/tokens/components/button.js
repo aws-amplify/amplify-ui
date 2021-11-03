@@ -1,5 +1,3 @@
-const { boxShadow } = require('./menu');
-
 module.exports = {
   // shared styles
   fontWeight: { value: 'bold' },
