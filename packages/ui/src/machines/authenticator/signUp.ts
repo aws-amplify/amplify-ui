@@ -212,7 +212,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
           return context.intent && context.intent === 'confirmSignUp';
         },
         shouldSkipConfirm: (context, event) => {
-          return event.data.userConfirmed === true;
+          return event.data.userConfirmed;
         },
       },
       actions: {
