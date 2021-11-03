@@ -5,6 +5,13 @@ import { GridItemStyleProps, GridContainerStyleProps } from './grid';
 import { ImageStyleProps } from './image';
 import { TextAreaStyleProps } from './textArea';
 
+/**
+ * Extract string-like types. Defaulted to string if prop doesn't allow it
+ */
+export type StyleProp<PropertyType> = PropertyType extends string
+  ? PropertyType
+  : string;
+
 export interface ResponsiveObject<PropertyType> {
   base?: PropertyType;
   small?: PropertyType;
@@ -15,9 +22,9 @@ export interface ResponsiveObject<PropertyType> {
 }
 
 export type ResponsiveStyle<PropertyType> =
-  | PropertyType
-  | PropertyType[]
-  | ResponsiveObject<PropertyType>;
+  | StyleProp<PropertyType>
+  | StyleProp<PropertyType>[]
+  | ResponsiveObject<StyleProp<PropertyType>>;
 
 export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
   alignSelf?: ResponsiveStyle<Property.AlignSelf>;

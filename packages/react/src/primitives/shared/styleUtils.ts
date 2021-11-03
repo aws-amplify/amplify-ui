@@ -80,9 +80,10 @@ export const usePropStyles = (props: ViewProps, style: React.CSSProperties) => {
 
 export const isSpanPrimitiveValue = (
   spanValue: GridItemStyleProps['rowSpan'] | GridItemStyleProps['columnSpan']
-): spanValue is 'auto' | number => {
+): spanValue is 'auto' | string => {
   return (
-    spanValue === 'auto' || (typeof spanValue === 'number' && !isNaN(spanValue))
+    spanValue === 'auto' ||
+    (typeof spanValue === 'string' && !isNaN(parseFloat(spanValue)))
   );
 };
 
@@ -108,7 +109,7 @@ export const convertGridSpan = (
   return null;
 };
 
-export const getGridSpan = (spanValue: number | 'auto'): string => {
+export const getGridSpan = (spanValue: string | 'auto'): string => {
   return spanValue === 'auto' ? 'auto' : `span ${spanValue}`;
 };
 
