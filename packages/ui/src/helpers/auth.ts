@@ -152,7 +152,7 @@ export const getSendEventAliases = (send: Sender<AuthEvent>) => {
   } as const;
 };
 
-export const getServiceContext = (state: AuthMachineState) => {
+export const getServiceContextFacade = (state: AuthMachineState) => {
   const user = state.context?.user;
   const actorState = getActorState(state);
   const actorContext: ActorContextWithForms = getActorContext(state);
@@ -210,7 +210,7 @@ export const getServiceContext = (state: AuthMachineState) => {
 
 export const getServiceFacade = ({ send, state }) => {
   const sendEventAliases = getSendEventAliases(send);
-  const serviceContext = getServiceContext(state);
+  const serviceContext = getServiceContextFacade(state);
 
   return {
     ...sendEventAliases,
