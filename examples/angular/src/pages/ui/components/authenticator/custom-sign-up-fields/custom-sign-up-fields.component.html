@@ -1,0 +1,23 @@
+<amplify-authenticator [loginMechanisms]="['email']" initialState="signUp">
+  <!-- sign-up-field override -->
+  <ng-template amplifySlot="sign-up-form-fields">
+    <amplify-text-field
+      id="prefered_username"
+      label="Preferred Username"
+      name="preferred_username"
+      placeholder="Preferred Username"
+      [required]="true"
+    ></amplify-text-field>
+    <amplify-sign-up-form-fields></amplify-sign-up-form-fields>
+  </ng-template>
+
+  <!-- signed-in content override -->
+  <ng-template
+    amplifySlot="authenticated"
+    let-user="user"
+    let-signOut="signOut"
+  >
+    <h2>Welcome, {{ user.username }}!</h2>
+    <button (click)="signOut()">Sign Out</button>
+  </ng-template>
+</amplify-authenticator>
