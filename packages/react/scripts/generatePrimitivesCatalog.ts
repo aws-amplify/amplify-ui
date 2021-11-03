@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { Node, Project, Type, VariableDeclaration } from 'ts-morph';
+import { Node, Project, Symbol, Type, VariableDeclaration } from 'ts-morph';
 
 enum ComponentPropType {
   Boolean = 'boolean',
@@ -19,7 +19,9 @@ const isPrimitive = (node: Node): node is VariableDeclaration =>
 /**
  * Get a catalog-compatible type from a component property
  */
-const getCatalogType = (propType: Type) => {
+const getCatalogType = (property: Symbol) => {
+  const propType = property.getDeclarations()[0].getType();
+
   if (!propType) {
     return;
   } else if (propType.isBoolean() || propType.isBooleanLiteral()) {
@@ -57,12 +59,11 @@ for (const [componentName, [node]] of source.getExportedDeclarations()) {
     const [propsType] = node.getType().getTypeArguments();
 
     propsType.getProperties().forEach((prop) => {
-      const propertyName = prop.getName();
-      const propertyType = prop.getDeclarations()[0].getType();
-      const catalogType = getCatalogType(propertyType);
+      const propName = prop.getName();
+      const propType = getCatalogType(prop);
 
-      if (catalogType) {
-        properties[propertyName] = catalogType;
+      if (propType) {
+        properties[propName] = propType;
       }
     });
 
