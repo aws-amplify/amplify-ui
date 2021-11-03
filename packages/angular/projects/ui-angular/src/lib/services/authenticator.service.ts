@@ -4,6 +4,7 @@ import {
   AuthContext,
   AuthenticatorMachineOptions,
   AuthEvent,
+  AuthEventData,
   AuthInterpreter,
   AuthMachineState,
   createAuthenticatorMachine,
@@ -42,6 +43,7 @@ export class AuthenticatorService implements OnDestroy {
     }).start();
 
     this._subscription = authService.subscribe((state) => {
+      this._authState = state;
       this._facade = getServiceContext(state);
     });
 
@@ -52,6 +54,10 @@ export class AuthenticatorService implements OnDestroy {
   ngOnDestroy(): void {
     if (this._subscription) this._subscription.unsubscribe();
   }
+
+  /**
+   * Context facades
+   */
 
   public get error() {
     return this._facade?.error;
@@ -73,13 +79,58 @@ export class AuthenticatorService implements OnDestroy {
     return this._facade?.user;
   }
 
-  public validationErrors() {
+  public get validationErrors() {
     return this._facade?.validationErrors;
   }
 
-  public get services() {
-    return this._sendEventAliases;
+  /**
+   * Service facades
+   */
+
+  public get updateForm() {
+    return this._sendEventAliases.updateForm;
   }
+
+  public get resendCode() {
+    return this._sendEventAliases.resendCode;
+  }
+
+  public get signOut() {
+    console.log(this);
+    return this._sendEventAliases.signOut;
+  }
+
+  public get submitForm() {
+    return this._sendEventAliases.submitForm;
+  }
+
+  /**
+   * Transition facades
+   */
+
+  public get toFederatedSignIn() {
+    return this._sendEventAliases.toFederatedSignIn;
+  }
+
+  public get toResetPassword() {
+    return this._sendEventAliases.toResetPassword;
+  }
+
+  public get toSignIn() {
+    return this._sendEventAliases.toSignIn;
+  }
+
+  public get toSignUp() {
+    return this._sendEventAliases.toSignUp;
+  }
+
+  public get skipVerification() {
+    return this._sendEventAliases.skipVerification;
+  }
+
+  /**
+   * Internal utility functions
+   */
 
   /** @deprecated For internal use only */
   public get authState(): AuthMachineState {

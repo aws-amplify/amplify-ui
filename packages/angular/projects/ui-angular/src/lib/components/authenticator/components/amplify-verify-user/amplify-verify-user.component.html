@@ -4,12 +4,11 @@
       class="amplify-flex"
       style="flex-direction: column"
       data-amplify-fieldset
-      [disabled]="isPending"
+      [disabled]="authenticator.isPending"
     >
       <h3 class="amplify-heading">{{ this.headerText }}</h3>
 
       <div *ngFor="let unverifiedAttribute of unverifiedAttributes | keyvalue">
-        <!-- TODO: match React implementation -->
         <input
           name="unverifiedAttr"
           type="radio"
@@ -31,13 +30,13 @@
         variation="link"
         fontWeight="normal"
         fullWidth="true"
-        (click)="skipVerify()"
+        (click)="authenticator.skipVerification()"
       >
         {{ skipText }}
       </button>
 
-      <amplify-error *ngIf="remoteError">
-        {{ remoteError }}
+      <amplify-error *ngIf="authenticator.error">
+        {{ authenticator.error }}
       </amplify-error>
     </fieldset>
   </form>
