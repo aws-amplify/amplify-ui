@@ -33,7 +33,7 @@ export const authInputAttributes: AuthInputAttributes = {
   confirmation_code: {
     label: 'Confirmation Code',
     placeholder: 'Code',
-    type: 'number',
+    type: 'text',
   },
   password: {
     label: 'Password',
