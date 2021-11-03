@@ -23,7 +23,7 @@ _app.component.html_
 <!-- example of "sign up" submit button -->
 <button (click)="authenticator.submitForm()">Sign Up</button>
 
-<!-- disabling the submit form if submission is in progress -->
+<!-- disabling the submit button if submission is in progress -->
 <button (click)="authenticator.submitForm()" [disabled]="authenticator.isPending">
   Sign Up
 </button>
