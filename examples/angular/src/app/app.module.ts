@@ -16,6 +16,7 @@ import { SignInWithPhoneComponent } from 'src/pages/ui/components/authenticator/
 import { SignInWithUsernameComponent } from 'src/pages/ui/components/authenticator/sign-in-with-username/sign-in-with-username.component';
 import { SignUpWithUsernameComponent } from 'src/pages/ui/components/authenticator/sign-up-with-username/sign-up-with-username.component';
 import { SignUpWithEmailComponent } from 'src/pages/ui/components/authenticator/sign-up-with-email/sign-up-with-email.component';
+import { SignUpWithEmailLambdaComponent } from 'src/pages/ui/components/authenticator/sign-up-with-email-lambda/sign-up-with-email-lambda.component';
 import { SignUpWithPhoneComponent } from 'src/pages/ui/components/authenticator/sign-up-with-phone/sign-up-with-phone.component';
 import { SignInTOTPSMSComponent } from 'src/pages/ui/components/authenticator/sign-in-totp-sms/sign-in-totp-sms.component';
 
@@ -35,6 +36,7 @@ import { SignInTOTPSMSComponent } from 'src/pages/ui/components/authenticator/si
     SignUpWithEmailComponent,
     I18nComponent,
     SignUpWithEmailComponent,
+    SignUpWithEmailLambdaComponent,
     SignUpWithPhoneComponent,
   ],
   imports: [
