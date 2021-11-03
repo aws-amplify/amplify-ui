@@ -284,7 +284,7 @@
 
 <script setup lang="ts">
 import { useAuth } from '../composables/useAuth';
-import { ref, computed, useAttrs, watch } from 'vue';
+import { ref, computed, useAttrs, watch, Ref } from 'vue';
 import { useActor, useInterpret } from '@xstate/vue';
 import {
   getActorState,
@@ -292,6 +292,7 @@ import {
   AuthenticatorMachineOptions,
   createAuthenticatorMachine,
   translate,
+  CognitoUserAmplify,
 } from '@aws-amplify/ui';
 
 import SignIn from './sign-in.vue';
@@ -452,7 +453,7 @@ const onConfirmVerifyUserSubmitI = (e: Event) => {
  * Update service facade when context updates
  */
 
-const user = ref(null);
+const user: Ref<CognitoUserAmplify | null> = ref(null);
 const signOut = ref();
 
 watch(
