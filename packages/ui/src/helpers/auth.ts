@@ -1,5 +1,6 @@
 import { includes } from 'lodash';
 import { Sender } from 'xstate';
+
 import { AuthContext } from '..';
 import {
   ActorContextWithForms,
@@ -10,8 +11,8 @@ import {
   AuthEventTypes,
   AuthInputAttributes,
   AuthMachineState,
-  UserNameAlias,
-  userNameAliasArray,
+  LoginMechanism,
+  LoginMechanismArray,
 } from '../types';
 
 export const authInputAttributes: AuthInputAttributes = {
@@ -43,6 +44,7 @@ export const authInputAttributes: AuthInputAttributes = {
 };
 
 export enum FederatedIdentityProviders {
+  Apple = 'SignInWithApple',
   Amazon = 'LoginWithAmazon',
   Facebook = 'Facebook',
   Google = 'Google',
@@ -55,12 +57,13 @@ export enum FederatedIdentityProviders {
  */
 export const getAliasInfoFromContext = (
   context: AuthContext,
-  alias?: UserNameAlias
+  // TODO This function & its signature should be renamed since aliases were rolled back
+  alias?: LoginMechanism
 ) => {
-  const loginMechanisms = context.config?.login_mechanisms ?? ['username'];
+  const loginMechanisms = context.config?.loginMechanisms;
   const error = context.actorRef?.context?.validationError['username'];
 
-  if (userNameAliasArray.includes(alias)) {
+  if (LoginMechanismArray.includes(alias)) {
     return {
       label: authInputAttributes[alias].label,
       type: authInputAttributes[alias].type,
@@ -70,7 +73,7 @@ export const getAliasInfoFromContext = (
 
   let type = 'text';
   const label = loginMechanisms
-    .filter((mechanism) => includes(userNameAliasArray, mechanism))
+    .filter((mechanism) => includes(LoginMechanismArray, mechanism))
     .map((v) => {
       return (
         authInputAttributes[v]?.label ?? authInputAttributes['username'].label
@@ -90,11 +93,9 @@ export const getAliasInfoFromContext = (
  * secondaryAliases.
  */
 export const getConfiguredAliases = (context: AuthContext) => {
-  const login_mechanisms = context.config?.login_mechanisms ?? [
-    ...userNameAliasArray,
-  ];
-  const aliases = login_mechanisms.filter((mechanism) =>
-    includes(userNameAliasArray, mechanism)
+  const loginMechanisms = context.config?.loginMechanisms;
+  const aliases = loginMechanisms.filter((mechanism) =>
+    includes(LoginMechanismArray, mechanism)
   );
 
   const [primaryAlias, ...secondaryAliases] = aliases;

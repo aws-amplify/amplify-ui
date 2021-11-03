@@ -226,8 +226,8 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
           return result;
         },
         async signUp(context, _event) {
-          const { formValues, login_mechanisms } = context;
-          const [primaryAlias] = login_mechanisms ?? ['username'];
+          const { formValues, loginMechanisms } = context;
+          const [primaryAlias] = loginMechanisms ?? ['username'];
 
           if (formValues.phone_number) {
             formValues.phone_number =
