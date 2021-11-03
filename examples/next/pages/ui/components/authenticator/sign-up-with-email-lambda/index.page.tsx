@@ -12,4 +12,5 @@ function App({ signOut }) {
 
 export default withAuthenticator(App, {
   loginMechanisms: ['email'],
+  initialState: 'signUp',
 });
