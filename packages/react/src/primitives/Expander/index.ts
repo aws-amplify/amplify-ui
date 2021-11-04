@@ -1,2 +1,2 @@
 export * from './Expander';
-export * from './ExpanderItem';
+export { ExpanderItem } from './ExpanderItem';

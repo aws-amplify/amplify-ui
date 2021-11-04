@@ -20,7 +20,7 @@ export enum ComponentClassNames {
   Expander = 'amplify-expander',
   ExpanderContent = 'amplify-expander__content',
   ExpanderContentText = 'amplify-expander__content__text',
-  ExpanderHeading = 'amplify-expander__heading',
+  ExpanderHeader = 'amplify-expander__header',
   ExpanderIcon = 'amplify-expander__icon',
   ExpanderItem = 'amplify-expander__item',
   ExpanderTrigger = 'amplify-expander__trigger',

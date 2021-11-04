@@ -32,11 +32,6 @@ export interface ExpanderProps extends ViewProps {
 
 export interface ExpanderItemProps extends ViewProps {
   /**
-   * The heading level of the item.
-   */
-  level?: HeadingLevel;
-
-  /**
    * The content of the heading.
    */
   title?: string;

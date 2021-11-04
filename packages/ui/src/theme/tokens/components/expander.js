@@ -56,8 +56,8 @@ module.exports = {
     },
   },
   content: {
-    paddingInlineStart: { value: '1.25rem' },
-    paddingInlineEnd: { value: '1.25rem' },
+    paddingInlineStart: { value: '1.5rem' },
+    paddingInlineEnd: { value: '1.5rem' },
     text: {
       color: { value: '{colors.font.secondary.value}' },
       paddingBlockStart: { value: '1rem' },
