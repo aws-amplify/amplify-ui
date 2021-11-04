@@ -9,26 +9,32 @@ import { translate } from '@aws-amplify/ui';
 })
 export class AmplifyFederatedSignInComponent implements OnInit {
   public FederatedProviders = FederatedIdentityProviders;
+  public includeAmazon: boolean = false;
+  public includeApple: boolean = false;
   public includeFacebook: boolean = false;
   public includeGoogle: boolean = false;
-  public includeAmazon: boolean = false;
   public shouldShowFederatedSignIn = false;
 
   // translated texts
+  public signInAmazonText = translate('Sign In with Amazon');
+  public signInAppleText = translate('Sign In with Apple');
   public signInFacebookText = translate('Sign In with Facebook');
   public signInGoogleText = translate('Sign In with Google');
-  public signInAmazonText = translate('Sign In with Amazon');
 
   constructor(private authenticator: AuthenticatorService) {}
 
   ngOnInit(): void {
     const { socialProviders } = this.authenticator.context?.config;
 
-    this.includeFacebook = socialProviders?.includes('facebook');
-    this.includeGoogle = socialProviders?.includes('google');
     this.includeAmazon = socialProviders?.includes('amazon');
+    this.includeApple = socialProviders?.includes('apple');
+    this.includeGoogle = socialProviders?.includes('google');
+    this.includeFacebook = socialProviders?.includes('facebook');
 
     this.shouldShowFederatedSignIn =
-      this.includeFacebook || this.includeGoogle || this.includeAmazon;
+      this.includeAmazon ||
+      this.includeApple ||
+      this.includeFacebook ||
+      this.includeGoogle;
   }
 }
