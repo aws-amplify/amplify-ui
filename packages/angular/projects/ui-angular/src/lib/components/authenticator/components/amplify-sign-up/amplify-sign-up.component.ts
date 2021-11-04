@@ -1,84 +1,34 @@
-import {
-  Component,
-  HostBinding,
-  Input,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { Component, HostBinding, Input } from '@angular/core';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
-import { Subscription } from 'xstate';
-import {
-  AuthMachineState,
-  getActorContext,
-  getActorState,
-  SignUpContext,
-  SignUpState,
-  translate,
-} from '@aws-amplify/ui';
+import { translate } from '@aws-amplify/ui';
 
 @Component({
   selector: 'amplify-sign-up',
   templateUrl: './amplify-sign-up.component.html',
 })
-export class AmplifySignUpComponent implements OnInit, OnDestroy {
+export class AmplifySignUpComponent {
   @Input() headerText = translate('Create a new account');
 
   @HostBinding('attr.data-amplify-authenticator-signup') dataAttr = '';
 
-  public remoteError = '';
-  public isPending = false;
-
-  private authSubscription: Subscription;
-
   // translated texts
   public createAccountText = translate('Create Account');
 
-  constructor(private authenticator: AuthenticatorService) {}
+  constructor(public authenticator: AuthenticatorService) {}
 
   public get context() {
-    const { change, signIn, submit } = this.authenticator.services;
-    const remoteError = this.remoteError;
-
-    return {
-      change,
-      remoteError,
-      signIn,
-      submit,
-    };
+    const { updateForm, toSignIn, submitForm, error } = this.authenticator;
+    return { updateForm, toSignIn, submitForm, error };
   }
 
-  ngOnInit(): void {
-    this.authSubscription = this.authenticator.subscribe((state) =>
-      this.onStateUpdate(state)
-    );
-  }
-
-  ngOnDestroy(): void {
-    this.authSubscription.unsubscribe();
-  }
-
-  private onStateUpdate(state: AuthMachineState): void {
-    const actorState: SignUpState = getActorState(state);
-    const actorContext: SignUpContext = getActorContext(state);
-    this.remoteError = actorContext.remoteError;
-    this.isPending = !actorState.matches({
-      signUp: {
-        submission: 'idle',
-      },
-    });
-  }
-
-  onInput(event: Event): void {
+  onInput(event: Event) {
     event.preventDefault();
     const { name, value } = <HTMLInputElement>event.target;
-    this.authenticator.send({
-      type: 'CHANGE',
-      data: { name, value },
-    });
+    this.authenticator.updateForm({ name, value });
   }
 
   onSubmit(event: Event): void {
     event.preventDefault();
-    this.authenticator.send('SUBMIT');
+    this.authenticator.submitForm();
   }
 }
