@@ -20,6 +20,17 @@ describe('@aws-amplify/ui', () => {
           'var(--amplify-colors-red-20)'
         );
       });
+
+      it('should return a css variable reference if present on token value', () => {
+        expect(tokens.colors.background.primary.cssReference).toEqual(
+          'var(--amplify-colors-background-primary)'
+        );
+      });
+      it('should return a css variable reference if present on token value', () => {
+        expect(tokens.colors.background.primary.value).toEqual(
+          'var(--amplify-colors-white)'
+        );
+      });
     });
 
     describe('with a theme and without a base theme', () => {

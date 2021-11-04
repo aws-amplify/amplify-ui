@@ -1,4 +1,5 @@
 import { Property } from 'csstype';
+import { WebDesignToken } from '@aws-amplify/ui';
 
 import { FlexItemStyleProps, FlexContainerStyleProps } from './flex';
 import { GridItemStyleProps, GridContainerStyleProps } from './grid';
@@ -20,70 +21,70 @@ export type ResponsiveStyle<PropertyType> =
   | ResponsiveObject<PropertyType>;
 
 export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
-  alignSelf?: ResponsiveStyle<Property.AlignSelf>;
-  backgroundColor?: ResponsiveStyle<Property.BackgroundColor>;
-  border?: ResponsiveStyle<Property.Border>;
-  borderRadius?: ResponsiveStyle<Property.BorderRadius>;
-  bottom?: ResponsiveStyle<Property.Bottom>;
-  boxShadow?: ResponsiveStyle<Property.BoxShadow>;
-  color?: ResponsiveStyle<Property.Color>;
-  display?: ResponsiveStyle<Property.Display>;
-  fontFamily?: ResponsiveStyle<Property.FontFamily>;
-  fontSize?: ResponsiveStyle<Property.FontSize>;
-  fontStyle?: ResponsiveStyle<Property.FontStyle>;
-  fontWeight?: ResponsiveStyle<Property.FontWeight>;
-  height?: ResponsiveStyle<Property.Height>;
-  left?: ResponsiveStyle<Property.Left>;
-  letterSpacing?: ResponsiveStyle<Property.LetterSpacing>;
-  lineHeight?: ResponsiveStyle<Property.LineHeight>;
-  maxHeight?: ResponsiveStyle<Property.MaxHeight>;
-  maxWidth?: ResponsiveStyle<Property.MaxWidth>;
-  minHeight?: ResponsiveStyle<Property.MinHeight>;
-  minWidth?: ResponsiveStyle<Property.MinWidth>;
-  opacity?: ResponsiveStyle<Property.Opacity>;
-  overflow?: ResponsiveStyle<Property.Overflow>;
-  padding?: ResponsiveStyle<Property.Padding>;
-  position?: ResponsiveStyle<Property.Position>;
-  right?: ResponsiveStyle<Property.Right>;
-  textAlign?: ResponsiveStyle<Property.TextAlign>;
-  textDecoration?: ResponsiveStyle<Property.TextDecoration>;
-  textTransform?: ResponsiveStyle<Property.TextTransform>;
-  top?: ResponsiveStyle<Property.Top>;
-  transform?: ResponsiveStyle<Property.Transform>;
-  transformOrigin?: ResponsiveStyle<Property.TransformOrigin>;
-  width?: ResponsiveStyle<Property.Width>;
+  alignSelf?: ResponsiveStyle<Property.AlignSelf | WebDesignToken>;
+  backgroundColor?: ResponsiveStyle<Property.BackgroundColor | WebDesignToken>;
+  border?: ResponsiveStyle<Property.Border | WebDesignToken>;
+  borderRadius?: ResponsiveStyle<Property.BorderRadius | WebDesignToken>;
+  bottom?: ResponsiveStyle<Property.Bottom | WebDesignToken>;
+  boxShadow?: ResponsiveStyle<Property.BoxShadow | WebDesignToken>;
+  color?: ResponsiveStyle<Property.Color | WebDesignToken>;
+  display?: ResponsiveStyle<Property.Display | WebDesignToken>;
+  fontFamily?: ResponsiveStyle<Property.FontFamily | WebDesignToken>;
+  fontSize?: ResponsiveStyle<Property.FontSize | WebDesignToken>;
+  fontStyle?: ResponsiveStyle<Property.FontStyle | WebDesignToken>;
+  fontWeight?: ResponsiveStyle<Property.FontWeight | WebDesignToken>;
+  height?: ResponsiveStyle<Property.Height | WebDesignToken>;
+  left?: ResponsiveStyle<Property.Left | WebDesignToken>;
+  letterSpacing?: ResponsiveStyle<Property.LetterSpacing | WebDesignToken>;
+  lineHeight?: ResponsiveStyle<Property.LineHeight | WebDesignToken>;
+  maxHeight?: ResponsiveStyle<Property.MaxHeight | WebDesignToken>;
+  maxWidth?: ResponsiveStyle<Property.MaxWidth | WebDesignToken>;
+  minHeight?: ResponsiveStyle<Property.MinHeight | WebDesignToken>;
+  minWidth?: ResponsiveStyle<Property.MinWidth | WebDesignToken>;
+  opacity?: ResponsiveStyle<Property.Opacity | WebDesignToken>;
+  overflow?: ResponsiveStyle<Property.Overflow | WebDesignToken>;
+  padding?: ResponsiveStyle<Property.Padding | WebDesignToken>;
+  position?: ResponsiveStyle<Property.Position | WebDesignToken>;
+  right?: ResponsiveStyle<Property.Right | WebDesignToken>;
+  textAlign?: ResponsiveStyle<Property.TextAlign | WebDesignToken>;
+  textDecoration?: ResponsiveStyle<Property.TextDecoration | WebDesignToken>;
+  textTransform?: ResponsiveStyle<Property.TextTransform | WebDesignToken>;
+  top?: ResponsiveStyle<Property.Top | WebDesignToken>;
+  transform?: ResponsiveStyle<Property.Transform | WebDesignToken>;
+  transformOrigin?: ResponsiveStyle<Property.TransformOrigin | WebDesignToken>;
+  width?: ResponsiveStyle<Property.Width | WebDesignToken>;
 }
 
 export interface CSSLayoutStyleProps {
   /**
    * Controls where the Flex/Grid items sit on the cross axis.
    */
-  alignItems?: ResponsiveStyle<Property.AlignItems>;
+  alignItems?: ResponsiveStyle<Property.AlignItems | WebDesignToken>;
 
   /**
    * Sets the distribution of space between and around content items
    */
-  alignContent?: ResponsiveStyle<Property.AlignContent>;
+  alignContent?: ResponsiveStyle<Property.AlignContent | WebDesignToken>;
 
   /**
    * Controls where the Flex/Grid items sit on the main axis.
    */
-  justifyContent?: ResponsiveStyle<Property.JustifyContent>;
+  justifyContent?: ResponsiveStyle<Property.JustifyContent | WebDesignToken>;
 
   /**
    * Spacing between child components. Shorthand for rowGap and columnGap.
    */
-  gap?: ResponsiveStyle<Property.Gap>;
+  gap?: ResponsiveStyle<Property.Gap | WebDesignToken>;
 
   /**
    * Spacing between Flex/Grid child columns
    */
-  columnGap?: ResponsiveStyle<Property.GridColumnGap>;
+  columnGap?: ResponsiveStyle<Property.GridColumnGap | WebDesignToken>;
 
   /**
    * Spacing between Flex/Grid child rows
    */
-  rowGap?: ResponsiveStyle<Property.RowGap>;
+  rowGap?: ResponsiveStyle<Property.RowGap | WebDesignToken>;
 }
 
 export interface AllStyleProps

@@ -1,27 +1,31 @@
-import { DesignToken } from './types/designToken';
+import { DesignToken, WebDesignToken, SpaceValue } from './types/designToken';
 
-export interface Space {
-  xxxs: DesignToken;
-  xxs: DesignToken;
-  xs: DesignToken;
-  small: DesignToken;
-  medium: DesignToken;
-  large: DesignToken;
-  xl: DesignToken;
-  xxl: DesignToken;
-  xxxl: DesignToken;
+type SpaceKeys =
+  | 'xxxs'
+  | 'xxs'
+  | 'xs'
+  | 'small'
+  | 'medium'
+  | 'large'
+  | 'xl'
+  | 'xxl'
+  | 'xxxl';
+
+export type Space = {
+  [key in SpaceKeys]: DesignToken<SpaceValue>;
+} & {
   relative: {
-    xxxs: DesignToken;
-    xxs: DesignToken;
-    xs: DesignToken;
-    small: DesignToken;
-    medium: DesignToken;
-    large: DesignToken;
-    xl: DesignToken;
-    xxl: DesignToken;
-    xxxl: DesignToken;
+    [key in SpaceKeys]: DesignToken<SpaceValue>;
   };
-}
+};
+
+export type WebSpace = {
+  [key in SpaceKeys]: WebDesignToken<SpaceValue>;
+} & {
+  relative: {
+    [key in SpaceKeys]: WebDesignToken<SpaceValue>;
+  };
+};
 
 export const space: Space = {
   xxxs: { value: '0.25rem' },

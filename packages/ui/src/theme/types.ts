@@ -1,8 +1,8 @@
 import { PartialDeep } from 'type-fest';
-import { Tokens } from './tokens';
+import { Tokens, WebTokens } from './tokens';
 import { Breakpoints } from './breakpoints';
 
-export { DesignToken } from './tokens/types/designToken';
+export * from './tokens/types/designToken';
 
 /**
  * An override is a set of tokens that override others
@@ -114,6 +114,12 @@ export interface BaseTheme extends Theme {
   overrides?: Array<Override>;
 }
 
+/**
+ * BrowserTheme is a fully built theme that has cssText based
+ * on the design tokens and all design tokens have added fields
+ * to be used in Javascript/Typescript.
+ */
 export interface BrowserTheme extends BaseTheme {
+  tokens: WebTokens;
   cssText: string;
 }

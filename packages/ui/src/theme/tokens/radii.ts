@@ -1,13 +1,14 @@
-import { DesignToken } from './types/designToken';
+import { DesignToken, WebDesignToken, RadiusValue } from './types/designToken';
 
-export interface Radii {
-  small: DesignToken;
-  medium: DesignToken;
-  large: DesignToken;
-  xl: DesignToken;
-  xxl: DesignToken;
-  xxxl: DesignToken;
-}
+type RadiusKeys = 'small' | 'medium' | 'large' | 'xl' | 'xxl' | 'xxl' | 'xxxl';
+
+export type Radii = {
+  [key in RadiusKeys]: DesignToken<RadiusValue>;
+};
+
+export type WebRadii = {
+  [key in RadiusKeys]: WebDesignToken<RadiusValue>;
+};
 
 export const radii: Radii = {
   small: { value: '0.125rem' },

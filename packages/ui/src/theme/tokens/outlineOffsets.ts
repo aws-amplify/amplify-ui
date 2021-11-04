@@ -1,10 +1,18 @@
-import { DesignToken } from './types/designToken';
+import {
+  DesignToken,
+  WebDesignToken,
+  OutlineOffsetValue,
+} from './types/designToken';
 
-export interface OutlineOffsets {
-  small: DesignToken;
-  medium: DesignToken;
-  large: DesignToken;
-}
+type OutlineOffsetKeys = 'small' | 'medium' | 'large';
+
+export type OutlineOffsets = {
+  [key in OutlineOffsetKeys]: DesignToken<OutlineOffsetValue>;
+};
+
+export type WebOutlineOffsets = {
+  [key in OutlineOffsetKeys]: WebDesignToken<OutlineOffsetValue>;
+};
 
 export const outlineOffsets: OutlineOffsets = {
   small: { value: '1px' },

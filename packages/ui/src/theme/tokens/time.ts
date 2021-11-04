@@ -1,12 +1,18 @@
-import { DesignToken } from './types/designToken';
+import { DesignToken, WebDesignToken, TimeValue } from './types/designToken';
 
-export interface Time {
+type TimeKeys = 'short' | 'medium' | 'long';
+
+export type Time = {
   transition: {
-    short: DesignToken;
-    medium: DesignToken;
-    long: DesignToken;
+    [key in TimeKeys]: DesignToken<TimeValue>;
   };
-}
+};
+
+export type WebTime = {
+  transition: {
+    [key in TimeKeys]: WebDesignToken<TimeValue>;
+  };
+};
 
 export const time: Time = {
   transition: {

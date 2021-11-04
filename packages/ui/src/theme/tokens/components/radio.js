@@ -48,14 +48,14 @@ module.exports = {
 
     _focus: {
       borderColor: { value: '{colors.border.focus.value}' },
-      boxShadow: { value: '{components.fieldcontrol.focus.boxShadow.value}' },
+      boxShadow: { value: '{components.fieldcontrol._focus.boxShadow.value}' },
     },
 
     _error: {
       borderColor: { value: '{colors.border.error.value}' },
       _focus: {
         boxShadow: {
-          value: '{components.fieldcontrol.error.focus.boxShadow.value}',
+          value: '{components.fieldcontrol._error._focus.boxShadow.value}',
         },
       },
     },

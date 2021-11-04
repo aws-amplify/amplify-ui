@@ -1,10 +1,18 @@
-import { DesignToken } from './types/designToken';
+import {
+  DesignToken,
+  WebDesignToken,
+  OutlineWidthValue,
+} from './types/designToken';
 
-export interface OutlineWidths {
-  small: DesignToken;
-  medium: DesignToken;
-  large: DesignToken;
-}
+type OutlineWidthKeys = 'small' | 'medium' | 'large';
+
+export type OutlineWidths = {
+  [key in OutlineWidthKeys]: DesignToken<OutlineWidthValue>;
+};
+
+export type WebOutlineWidths = {
+  [key in OutlineWidthKeys]: WebDesignToken<OutlineWidthValue>;
+};
 
 export const outlineWidths: OutlineWidths = {
   small: { value: '1px' },

@@ -6,7 +6,7 @@ export const ExperienceCard = ({ img, title }) => (
   <Card
     width="20rem"
     padding="0"
-    borderRadius={`${tokens.radii.large}`}
+    borderRadius={tokens.radii.large}
     className="experience-card"
   >
     <Image
@@ -16,7 +16,7 @@ export const ExperienceCard = ({ img, title }) => (
       objectPosition="center"
       width="100%"
       height="20rem"
-      borderRadius={`${tokens.radii.large}`}
+      borderRadius={tokens.radii.large}
     />
     <Text className="experience-card-text">{title}</Text>
   </Card>

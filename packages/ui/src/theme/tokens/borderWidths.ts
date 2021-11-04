@@ -1,10 +1,18 @@
-import { DesignToken } from './types/designToken';
+import {
+  DesignToken,
+  WebDesignToken,
+  BorderWidthValue,
+} from './types/designToken';
 
-export interface BorderWidths {
-  small: DesignToken;
-  medium: DesignToken;
-  large: DesignToken;
-}
+type Sizes = 'small' | 'medium' | 'large';
+
+export type BorderWidths = {
+  [key in Sizes]: DesignToken<BorderWidthValue>;
+};
+
+export type WebBorderWidths = {
+  [key in Sizes]: WebDesignToken<BorderWidthValue>;
+};
 
 export const borderWidths: BorderWidths = {
   small: { value: '1px' },

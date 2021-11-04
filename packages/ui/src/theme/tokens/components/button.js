@@ -33,7 +33,7 @@ module.exports = {
   _focus: {
     color: { value: '{colors.font.focus.value}' },
     borderColor: { value: '{colors.border.focus.value}' },
-    boxShadow: { value: '{components.fieldcontrol.focus.boxShadow.value}' },
+    boxShadow: { value: '{components.fieldcontrol._focus.boxShadow.value}' },
   },
   _active: {
     color: { value: '{colors.font.inverse.value}' },

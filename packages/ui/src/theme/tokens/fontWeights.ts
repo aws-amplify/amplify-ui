@@ -1,16 +1,27 @@
-import { DesignToken } from './types/designToken';
+import {
+  DesignToken,
+  WebDesignToken,
+  FontWeightValue,
+} from './types/designToken';
 
-export interface FontWeights {
-  hairline: DesignToken;
-  thin: DesignToken;
-  light: DesignToken;
-  normal: DesignToken;
-  medium: DesignToken;
-  semibold: DesignToken;
-  bold: DesignToken;
-  extrabold: DesignToken;
-  black: DesignToken;
-}
+type FontWeightKeys =
+  | 'hairline'
+  | 'thin'
+  | 'light'
+  | 'normal'
+  | 'medium'
+  | 'semibold'
+  | 'bold'
+  | 'extrabold'
+  | 'black';
+
+export type FontWeights = {
+  [key in FontWeightKeys]: DesignToken<FontWeightValue>;
+};
+
+export type WebFontWeights = {
+  [key in FontWeightKeys]: WebDesignToken<FontWeightValue>;
+};
 
 export const fontWeights: FontWeights = {
   hairline: { value: 100 },

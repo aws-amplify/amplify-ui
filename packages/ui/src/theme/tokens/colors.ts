@@ -1,67 +1,95 @@
-import { DesignToken } from './types/designToken';
-import { OrdinalScale, OrdinalVariation } from './types/scales';
+import { DesignToken, WebDesignToken, ColorValue } from './types/designToken';
+import { OrdinalScaleKeys, OrdinalVariationKeys } from './types/scales';
 
-export interface ColorScale {
-  10: DesignToken;
-  20: DesignToken;
-  40: DesignToken;
-  60: DesignToken;
-  80: DesignToken;
-  90: DesignToken;
-  100: DesignToken;
-}
+type ScaleKeys = 10 | 20 | 40 | 60 | 80 | 90 | 100;
+type FontKeys =
+  | 'inverse'
+  | 'interactive'
+  | 'hover'
+  | 'focus'
+  | 'active'
+  | 'disabled';
 
-export interface FontColors extends OrdinalScale, OrdinalVariation {
-  inverse: DesignToken;
-  interactive: DesignToken;
-  hover: DesignToken;
-  focus: DesignToken;
-  active: DesignToken;
-  disabled: DesignToken;
-}
+type FontColors = {
+  [key in
+    | OrdinalScaleKeys
+    | OrdinalVariationKeys
+    | FontKeys]: DesignToken<ColorValue>;
+};
 
-export interface BackgroundColors extends OrdinalScale, OrdinalVariation {
-  disabled: DesignToken;
-}
+type BackgroundColors = {
+  [key in
+    | OrdinalScaleKeys
+    | OrdinalVariationKeys
+    | 'disabled']: DesignToken<ColorValue>;
+};
 
-export interface BorderColors extends OrdinalScale {
-  disabled: DesignToken;
-  focus: DesignToken;
-  error: DesignToken;
-}
+type BorderColors = {
+  [key in
+    | OrdinalScaleKeys
+    | 'disabled'
+    | 'focus'
+    | 'error']: DesignToken<ColorValue>;
+};
 
 type ColorTypes =
-  | ColorScale
+  | { [key in ScaleKeys]: DesignToken<ColorValue> }
   | FontColors
   | BackgroundColors
-  | DesignToken
+  | DesignToken<ColorValue>
   | BorderColors;
 
-export interface Colors {
+export type Colors = {
   // base color palette
-  red: ColorScale;
-  orange: ColorScale;
-  yellow: ColorScale;
-  green: ColorScale;
-  teal: ColorScale;
-  blue: ColorScale;
-  purple: ColorScale;
-  pink: ColorScale;
-  neutral: ColorScale;
-  white: DesignToken;
-  black: DesignToken;
+  red: { [key in ScaleKeys]: DesignToken<ColorValue> };
+  orange: { [key in ScaleKeys]: DesignToken<ColorValue> };
+  yellow: { [key in ScaleKeys]: DesignToken<ColorValue> };
+  green: { [key in ScaleKeys]: DesignToken<ColorValue> };
+  teal: { [key in ScaleKeys]: DesignToken<ColorValue> };
+  blue: { [key in ScaleKeys]: DesignToken<ColorValue> };
+  purple: { [key in ScaleKeys]: DesignToken<ColorValue> };
+  pink: { [key in ScaleKeys]: DesignToken<ColorValue> };
+  neutral: { [key in ScaleKeys]: DesignToken<ColorValue> };
+  white: DesignToken<ColorValue>;
+  black: DesignToken<ColorValue>;
 
   // Semantic colors
   font: FontColors;
   background: BackgroundColors;
   border: BorderColors;
   brand: {
-    primary: ColorScale;
-    secondary: ColorScale;
+    primary: { [key in ScaleKeys]: DesignToken<ColorValue> };
+    secondary: { [key in ScaleKeys]: DesignToken<ColorValue> };
   };
 
   [key: string]: ColorTypes | Record<string, ColorTypes>;
-}
+};
+
+export type WebColors = {
+  red: { [key in ScaleKeys]: WebDesignToken<ColorValue> };
+  orange: { [key in ScaleKeys]: WebDesignToken<ColorValue> };
+  yellow: { [key in ScaleKeys]: WebDesignToken<ColorValue> };
+  green: { [key in ScaleKeys]: WebDesignToken<ColorValue> };
+  teal: { [key in ScaleKeys]: WebDesignToken<ColorValue> };
+  blue: { [key in ScaleKeys]: WebDesignToken<ColorValue> };
+  purple: { [key in ScaleKeys]: WebDesignToken<ColorValue> };
+  pink: { [key in ScaleKeys]: WebDesignToken<ColorValue> };
+  neutral: { [key in ScaleKeys]: WebDesignToken<ColorValue> };
+  white: WebDesignToken<ColorValue>;
+  black: WebDesignToken<ColorValue>;
+
+  font: { [Property in keyof Colors['font']]: WebDesignToken<ColorValue> };
+  background: {
+    [Property in keyof Colors['background']]: WebDesignToken<ColorValue>;
+  };
+  border: { [Property in keyof Colors['border']]: WebDesignToken<ColorValue> };
+  brand: {
+    primary: { [key in ScaleKeys]: WebDesignToken<ColorValue> };
+    secondary: { [key in ScaleKeys]: WebDesignToken<ColorValue> };
+  };
+
+  [key: string]: ColorTypes | Record<string, ColorTypes>;
+};
 
 export const colors: Colors = {
   red: {

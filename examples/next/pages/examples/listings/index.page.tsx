@@ -27,7 +27,7 @@ function App() {
   const [colorMode, setColorMode] = useState<ColorMode>('system');
   return (
     <AmplifyProvider components={{}} theme={theme} colorMode={colorMode}>
-      <View backgroundColor={`${tokens.colors.background.secondary}`}>
+      <View backgroundColor={tokens.colors.background.secondary}>
         <header className="listing-app-header">
           <Logo />
 
@@ -49,7 +49,7 @@ function App() {
           </ToggleButtonGroup>
         </header>
 
-        <View padding={`${tokens.space.xxl}`}>
+        <View padding={tokens.space.xxl}>
           <SectionHeading
             title="Discover Experiences"
             subtitle="Unique activities with local experts—in person or online."
@@ -88,7 +88,7 @@ function App() {
         </View>
 
         <footer className="listing-app-footer">
-          <Text color={`${tokens.colors.font.tertiary}`}>
+          <Text color={tokens.colors.font.tertiary}>
             © 2021 Lystifying (not a real company)
           </Text>
         </footer>
