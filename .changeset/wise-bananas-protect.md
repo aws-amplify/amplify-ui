@@ -1,7 +1,4 @@
 ---
-"docs": patch
-"angular-example": patch
-"amplify-ui-angular-mono": patch
 "@aws-amplify/ui-angular": patch
 ---
 
