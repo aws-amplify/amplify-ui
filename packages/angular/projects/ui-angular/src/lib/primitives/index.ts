@@ -8,3 +8,4 @@ export { AmplifyUserNameAliasComponent } from './amplify-user-name-alias/amplify
 export { PhoneNumberFieldComponent } from './phone-number-field/phone-number-field.component';
 export { TabItemComponent } from './tab-item/tab-item.component';
 export { TabsComponent } from './tabs/tabs.component';
+export { AmplifyCheckboxComponent } from './checkbox/checkbox.component';
