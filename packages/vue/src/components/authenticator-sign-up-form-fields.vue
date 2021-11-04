@@ -2,7 +2,6 @@
 import { computed, ComputedRef, toRefs } from 'vue';
 import {
   translate,
-  UserNameAlias,
   LoginMechanism,
   AuthInputAttributes,
   authInputAttributes,
@@ -23,7 +22,7 @@ const {
 const { validationErrors } = toRefs(useAuthenticator());
 
 let [__, ...secondaryAliases] = useAliases(
-  context?.config?.login_mechanisms as LoginMechanism[]
+  context?.config?.loginMechanisms as LoginMechanism[]
 );
 
 const inputAttributes: ComputedRef<AuthInputAttributes> = computed(
@@ -74,7 +73,7 @@ const confirmPasswordLabel = computed(() => translate('Confirm Password'));
   </p>
 
   <template
-    v-for="(alias: UserNameAlias, idx) in secondaryAliases as UserNameAlias[]"
+    v-for="(alias: LoginMechanism, idx) in secondaryAliases as LoginMechanism[]"
     :key="idx"
   >
     <alias-control

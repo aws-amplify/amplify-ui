@@ -86,11 +86,11 @@ const {
   value: { context },
 } = state;
 
-const loginMechanisms = context?.config?.login_mechanisms;
+const socialProviders = context?.config?.socialProviders;
 
-const includeFacebook = loginMechanisms?.includes('facebook');
-const includeGoogle = loginMechanisms?.includes('google');
-const includeAmazon = loginMechanisms?.includes('amazon');
+const includeFacebook = socialProviders?.includes('facebook');
+const includeGoogle = socialProviders?.includes('google');
+const includeAmazon = socialProviders?.includes('amazon');
 
 const shouldShowFederatedSignIn =
   includeFacebook || includeGoogle || includeAmazon;

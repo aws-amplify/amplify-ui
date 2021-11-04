@@ -84,7 +84,6 @@ import {
   getAliasInfoFromContext,
   ActorContextWithForms,
   countryDialCodes,
-  UserNameAlias,
   translate,
   LoginMechanism,
 } from '@aws-amplify/ui';
@@ -128,15 +127,15 @@ if (userName) {
 const dialCodes = computed(() => countryDialCodes);
 
 const [primaryAlias] = useAliases(
-  context?.config?.login_mechanisms as LoginMechanism[]
+  context?.config?.loginMechanisms as LoginMechanism[]
 );
 
 let name = primaryAlias;
 let label =
-  authInputAttributes[primaryAlias as UserNameAlias]?.label ??
+  authInputAttributes[primaryAlias as LoginMechanism]?.label ??
   authInputAttributes['username'].label;
 let type =
-  authInputAttributes[name as UserNameAlias]?.type ??
+  authInputAttributes[name as LoginMechanism]?.type ??
   authInputAttributes['username'].label;
 
 // Only show for Sign In

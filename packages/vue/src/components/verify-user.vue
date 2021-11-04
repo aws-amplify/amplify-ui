@@ -44,7 +44,7 @@
                   aria-hidden="true"
                 ></base-text>
                 <base-text class="amplify-text amplify-radio__label">
-                  {{ authInputAttributes[key as UserNameAlias].label }}
+                  {{ authInputAttributes[key as LoginMechanism].label }}
                 </base-text>
               </base-label>
             </base-wrapper>
@@ -95,7 +95,7 @@ import {
   getActorState,
   SignInState,
   authInputAttributes,
-  UserNameAlias,
+  LoginMechanism,
   translate,
 } from '@aws-amplify/ui';
 
