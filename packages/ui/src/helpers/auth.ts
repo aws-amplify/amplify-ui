@@ -179,7 +179,7 @@ export const getSendEventAliases = (send: Sender<AuthEvent>) => {
 export const getServiceFacade = ({ send, state }) => {
   const user = state.context?.user;
   const actorState = getActorState(state);
-  const actorContext: ActorContextWithForms = getActorContext(state);
+  const actorContext = getActorContext(state) as ActorContextWithForms;
   const sendEventAliases = getSendEventAliases(send);
   const error = actorContext?.remoteError;
   const validationErrors = { ...actorContext?.validationError };
