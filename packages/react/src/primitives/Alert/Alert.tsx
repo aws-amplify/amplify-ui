@@ -53,7 +53,7 @@ export const Alert: Primitive<AlertProps, typeof Flex> = ({
       >
         <Flex alignItems="center">
           {hasIcon && <AlertIcon variation={variation} iconSize={iconSize} />}
-          <View>
+          <View role="alert">
             {heading && (
               <Heading
                 className={ComponentClassNames.AlertHeading}
