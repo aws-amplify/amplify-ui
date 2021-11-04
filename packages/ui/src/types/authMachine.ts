@@ -25,6 +25,8 @@ interface BaseFormContext {
 }
 
 export interface SignInContext extends BaseFormContext {
+  loginMechanisms: AuthContext['config']['loginMechanisms'];
+  socialProviders: AuthContext['config']['socialProviders'];
   attributeToVerify?: string;
   redirectIntent?: string;
   unverifiedAttributes?: Record<string, string>;

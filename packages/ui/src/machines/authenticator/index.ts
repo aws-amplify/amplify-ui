@@ -161,7 +161,7 @@ export function createAuthenticatorMachine({
           },
         }),
         spawnSignInActor: assign({
-          actorRef: (_, event) => {
+          actorRef: (context, event) => {
             const actor = signInActor.withContext({
               authAttributes: event.data?.authAttributes,
               user: event.data?.user,
@@ -169,6 +169,8 @@ export function createAuthenticatorMachine({
               country_code: DEFAULT_COUNTRY_CODE,
               formValues: {},
               validationError: {},
+              loginMechanisms: context.config?.loginMechanisms,
+              socialProviders: context.config?.socialProviders,
             });
             return spawn(actor, { name: 'signInActor' });
           },
