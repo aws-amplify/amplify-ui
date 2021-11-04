@@ -3,7 +3,7 @@ import { Property } from 'csstype';
 import { ResponsiveStyle, CSSLayoutStyleProps } from './style';
 import { ViewProps } from './view';
 
-export type GridSpanType = number | 'auto';
+export type GridSpanType = number | string | 'auto';
 
 export interface GridContainerStyleProps extends CSSLayoutStyleProps {
   autoColumns?: ResponsiveStyle<Property.GridAutoColumns>;
