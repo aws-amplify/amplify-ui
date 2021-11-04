@@ -22,11 +22,3 @@ Feature: Sign Up with Email with Pre Sign Up Lambda Trigger for Auto Confirmatio
     And I mock 'Amplify.Auth.currentAuthenticatedUser' with fixture "Auth.currentAuthenticatedUser-verified-email"
     And I click the "Create Account" button
     Then I see "Sign out"
-
-  @angular @react @vue
-  Scenario: Email field autocompletes username
-
-  On sign up form, autocomplete prefers usage of username instead of email. 
-  See https://www.chromium.org/developers/design-documents/form-styles-that-chromium-understands.
-
-    And "Email" field autocompletes "username"

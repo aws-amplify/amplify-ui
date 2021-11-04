@@ -118,7 +118,6 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
                   },
                 },
                 skipConfirm: {
-                  tags: ['checking'],
                   invoke: {
                     src: 'signIn',
                     onDone: {
