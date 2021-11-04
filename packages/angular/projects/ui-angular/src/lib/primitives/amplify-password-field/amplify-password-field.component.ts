@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { translate } from '@aws-amplify/ui';
+import { nanoid } from 'nanoid';
 
 @Component({
   selector: 'amplify-password-field',
@@ -8,7 +9,7 @@ import { translate } from '@aws-amplify/ui';
 export class AmplifyPasswordFieldComponent {
   @Input() autocomplete = 'new-password';
   @Input() disabled = false;
-  @Input() id: string;
+  @Input() fieldId: string = `amplify-field-${nanoid(12)}`;
   @Input() initialValue = '';
   @Input() label = '';
   @Input() name: string;
