@@ -97,7 +97,6 @@ export class AuthenticatorService implements OnDestroy {
   }
 
   public get signOut() {
-    console.log(this);
     return this._sendEventAliases.signOut;
   }
 

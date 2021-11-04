@@ -202,24 +202,16 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
       },
       services: {
         async confirmSignUp(context, event) {
-          const { user, authAttributes } = context;
-          const { confirmation_code: code } = event.data;
+          const { user, authAttributes, formValues } = context;
+          const { confirmation_code: code } = formValues;
 
           const username =
             get(user, 'username') || get(authAttributes, 'username');
           const { password } = authAttributes;
 
-          const confirmResult = await Auth.confirmSignUp(username, code);
+          await Auth.confirmSignUp(username, code);
 
-          try {
-            const result = await Auth.signIn(username, password);
-
-            return result;
-          } catch (err) {
-            console.warn(err);
-
-            return confirmResult;
-          }
+          return await Auth.signIn(username, password);
         },
         async resendConfirmationCode(context, event) {
           const { user, authAttributes } = context;
