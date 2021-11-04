@@ -18,7 +18,7 @@ export class AppComponent {
 _app.component.html_
 ```html
 <!-- example of "reset password" button -->
-<button (click)="authenticator.toSignUp()">Reset password</button>
+<button (click)="authenticator.toResetPassword()">Reset password</button>
 
 <!-- example of "sign up" submit button -->
 <button (click)="authenticator.submitForm()">Sign Up</button>
