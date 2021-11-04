@@ -1,5 +1,4 @@
 import { Component, HostBinding, Input } from '@angular/core';
-import { Logger } from 'aws-amplify';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
 import { translate } from '@aws-amplify/ui';
 
