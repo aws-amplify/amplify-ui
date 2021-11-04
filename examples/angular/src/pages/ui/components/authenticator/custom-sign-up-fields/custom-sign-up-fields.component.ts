@@ -13,7 +13,6 @@ export class CustomSignUpFieldsComponent {
 
   services = {
     async validateCustomSignUp(formData: Record<string, string>) {
-      console.log({ ...formData });
       if (!formData.acknowledgement) {
         return {
           acknowledgement: 'You must agree to the Terms & Conditions',
