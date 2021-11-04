@@ -29,11 +29,11 @@ This backend is configured with Amplify Admin UI & cloned with Amplify CLI v6.3.
   };
   ```
 
-  - Pre sign-up trigger in Cognito
+- Pre sign-up trigger in Cognito
 
-    - Runs lambda before sign up completes.
+  - Runs lambda before sign up completes.
 
-      ![](screenshot.1.png)
+    ![](screenshot.1.png)
 
 ## Using this Backend
 
