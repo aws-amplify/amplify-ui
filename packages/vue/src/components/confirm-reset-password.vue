@@ -88,6 +88,7 @@
             <base-box
               data-ui-error
               data-variation="error"
+              role="alert"
               class="amplify-text"
               v-if="!!(actorContext.validationError as ValidationError)['confirm_password']"
             >

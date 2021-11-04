@@ -61,7 +61,9 @@ export function FormFields() {
       />
 
       {!!validationError['confirm_password'] && (
-        <Text variation="error">{validationError['confirm_password']}</Text>
+        <Text role="alert" variation="error">
+          {validationError['confirm_password']}
+        </Text>
       )}
 
       {secondaryAliases.map((alias: UserNameAlias) => (

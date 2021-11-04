@@ -17,7 +17,12 @@
           <base-wrapper class="amplify-flex" style="flex-direction: column">
             <!--Input 1-->
             <base-wrapper
-              class=" amplify-flex amplify-field amplify-textfield amplify-passwordfield"
+              class="
+                amplify-flex
+                amplify-field
+                amplify-textfield
+                amplify-passwordfield
+              "
               style="flex-direction: column"
             >
               <password-control
@@ -32,7 +37,12 @@
 
             <!--Input 2-->
             <base-wrapper
-              class=" amplify-flex amplify-field amplify-textfield amplify-passwordfield"
+              class="
+                amplify-flex
+                amplify-field
+                amplify-textfield
+                amplify-passwordfield
+              "
               style="flex-direction: column"
             >
               <password-control
@@ -55,6 +65,16 @@
               >
               </slot>
             </template>
+            <base-box
+              data-ui-error
+              role="alert"
+              v-if="!!(actorContext.validationError as ValidationError)['confirm_password']"
+            >
+              {{ (actorContext.validationError as ValidationError)['confirm_password'] }}
+            </base-box>
+            <base-alert data-ui-error v-if="actorState.context.remoteError">
+              {{ actorState.context.remoteError }}
+            </base-alert>
             <base-button
               class="amplify-button amplify-field-group__control"
               data-fullwidth="false"
@@ -81,19 +101,6 @@
             >
           </base-footer>
         </base-field-set>
-        <base-box
-          data-ui-error
-          class="forceNewPasswordErrorText"
-          v-if="actorState.context.remoteError"
-        >
-          {{ actorState.context.remoteError }}
-        </base-box>
-        <base-box
-          data-ui-error
-          v-if="!!(actorContext.validationError as ValidationError)['confirm_password']"
-        >
-          {{ (actorContext.validationError as ValidationError)['confirm_password'] }}
-        </base-box>
       </base-form>
     </base-wrapper>
   </slot>
