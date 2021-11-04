@@ -45,7 +45,7 @@ export class AmplifySetupTotpComponent implements OnInit, OnDestroy {
   }
 
   onStateUpdate(state: AuthMachineState): void {
-    const actorState: SignInState = getActorState(state);
+    const actorState = getActorState(state) as SignInState;
     this.remoteError = actorState.context.remoteError;
     this.isPending = !actorState.matches('setupTOTP.edit');
   }
@@ -60,7 +60,7 @@ export class AmplifySetupTotpComponent implements OnInit, OnDestroy {
   async generateQRCode() {
     // TODO: This should be handled in core.
     const state = this.authenticator.authState;
-    const actorContext: SignInContext = getActorContext(state);
+    const actorContext = getActorContext(state) as SignInContext;
     const { user } = actorContext;
     try {
       const secretKey = await Auth.setupTOTP(user);

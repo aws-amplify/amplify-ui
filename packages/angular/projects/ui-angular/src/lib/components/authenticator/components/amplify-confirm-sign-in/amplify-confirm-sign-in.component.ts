@@ -52,7 +52,7 @@ export class AmplifyConfirmSignInComponent implements OnInit, OnDestroy {
 
   setHeaderText(): void {
     const state = this.authenticator.authState;
-    const actorContext: SignInContext = getActorContext(state);
+    const actorContext = getActorContext(state) as SignInContext;
     const { challengeName } = actorContext;
     switch (challengeName) {
       case AuthChallengeNames.SOFTWARE_TOKEN_MFA:
@@ -68,7 +68,7 @@ export class AmplifyConfirmSignInComponent implements OnInit, OnDestroy {
   }
 
   onStateUpdate(state: AuthMachineState): void {
-    const actorState: SignInState = getActorState(state);
+    const actorState = getActorState(state) as SignInState;
     this.remoteError = actorState.context.remoteError;
     this.isPending = !actorState.matches('confirmSignIn.edit');
   }

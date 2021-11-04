@@ -47,7 +47,7 @@ export class AmplifySignInComponent implements OnInit, OnDestroy {
   }
 
   onStateUpdate(state: AuthMachineState): void {
-    const actorState: SignInState = getActorState(state);
+    const actorState = getActorState(state) as SignInState;
     this.remoteError = actorState.context.remoteError;
     this.isPending = !actorState.matches('signIn.edit');
   }

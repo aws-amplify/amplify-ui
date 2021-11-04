@@ -51,7 +51,7 @@ export class AmplifyForceNewPasswordComponent implements OnInit, OnDestroy {
   }
 
   onStateUpdate(state: AuthMachineState): void {
-    const actorState: SignInState = getActorState(state);
+    const actorState = getActorState(state) as SignInState;
     this.remoteError = actorState.context.remoteError;
     this.isPending = actorState.matches({
       signUp: {
@@ -84,7 +84,7 @@ export class AmplifyForceNewPasswordComponent implements OnInit, OnDestroy {
     event.preventDefault();
     // consider stateMachine directly providing actorState / actorContext
     const state = this.authenticator.authState;
-    const actorState: SignInContext = getActorContext(state);
+    const actorState = getActorContext(state) as SignInContext;
     const { formValues } = actorState;
 
     this.authenticator.send({
