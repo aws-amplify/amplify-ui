@@ -65,6 +65,7 @@ const confirmPasswordLabel = computed(() => translate('Confirm Password'));
     />
   </base-wrapper>
   <p
+    role="alert"
     data-variation="error"
     class="amplify-text"
     v-if="!!validationErrors.confirm_password"
