@@ -8,14 +8,17 @@ import { Primitive } from '../types/view';
 import { ExpanderItemProps } from '../types/expander';
 import { ComponentClassNames } from '../shared/constants';
 import { splitPrimitiveProps } from '../shared/styleUtils';
+import { useStableId } from '../shared/utils';
 
 export const ExpanderItem: Primitive<ExpanderItemProps, typeof Item> = ({
   children,
   className,
-  title,
   level,
+  title,
   ..._rest
 }) => {
+  const triggerId = useStableId();
+  const contentId = useStableId();
   const { baseStyleProps, rest } = splitPrimitiveProps(_rest);
   return (
     <View
@@ -26,7 +29,12 @@ export const ExpanderItem: Primitive<ExpanderItemProps, typeof Item> = ({
     >
       <View as={Header} asChild>
         <Heading className={ComponentClassNames.ExpanderHeading} level={level}>
-          <View as={Trigger} className={ComponentClassNames.ExpanderTrigger}>
+          <View
+            aria-controls={contentId}
+            as={Trigger}
+            className={ComponentClassNames.ExpanderTrigger}
+            id={triggerId}
+          >
             {title}
             <IconExpandMore
               aria-hidden
@@ -36,7 +44,12 @@ export const ExpanderItem: Primitive<ExpanderItemProps, typeof Item> = ({
           </View>
         </Heading>
       </View>
-      <View as={Content} className={ComponentClassNames.ExpanderContent}>
+      <View
+        aria-labelledby={triggerId}
+        as={Content}
+        className={ComponentClassNames.ExpanderContent}
+        id={contentId}
+      >
         <View className={ComponentClassNames.ExpanderContentText}>
           {children}
         </View>
