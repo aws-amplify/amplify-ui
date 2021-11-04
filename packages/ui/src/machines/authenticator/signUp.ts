@@ -103,7 +103,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
                     onDone: [
                       {
                         cond: 'shouldSkipConfirm',
-                        target: 'skipCheck',
+                        target: 'skipConfirm',
                         actions: ['setUser'],
                       },
                       {
@@ -117,10 +117,10 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
                     },
                   },
                 },
-                skipCheck: {
+                skipConfirm: {
                   tags: ['checking'],
                   invoke: {
-                    src: 'signInService',
+                    src: 'signIn',
                     onDone: {
                       target: '#signUpActor.resolved',
                       actions: 'setUser',
@@ -226,7 +226,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
         setUser,
       },
       services: {
-        async signInService(context, event) {
+        async signIn(context, event) {
           const { user, authAttributes, formValues } = context;
 
           const username =
