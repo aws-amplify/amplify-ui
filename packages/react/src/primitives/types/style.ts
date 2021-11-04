@@ -6,11 +6,15 @@ import { ImageStyleProps } from './image';
 import { TextAreaStyleProps } from './textArea';
 
 /**
- * Extract string-like types. Defaulted to string if prop doesn't allow it
+ * Extract style compatible types (string literal | number | any string)
  */
-export type StyleProp<PropertyType> = PropertyType extends string
-  ? PropertyType
-  : string;
+export type StyleProp<PropertyType> =
+  | (PropertyType extends number
+      ? number
+      : PropertyType extends string
+      ? PropertyType
+      : never)
+  | (string & {});
 
 export interface ResponsiveObject<PropertyType> {
   base?: PropertyType;

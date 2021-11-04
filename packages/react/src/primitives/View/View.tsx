@@ -32,3 +32,5 @@ export const View = <Element extends ElementType = 'div'>({
     children
   );
 };
+
+<View fontWeight="400"></View>;
