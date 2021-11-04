@@ -1,0 +1,17 @@
+<div class="amplify-flex" style="flex-direction: column" data-amplify-fieldset>
+  <amplify-user-name-alias [name]="primaryAlias"></amplify-user-name-alias>
+  <amplify-form-field
+    name="password"
+    autocomplete="new-password"
+  ></amplify-form-field>
+  <amplify-form-field
+    name="confirm_password"
+    label="Confirm Password"
+    type="password"
+    autocomplete="new-password"
+  ></amplify-form-field>
+
+  <ng-container *ngFor="let secondaryAlias of secondaryAliases">
+    <amplify-form-field [name]="secondaryAlias"></amplify-form-field>
+  </ng-container>
+</div>

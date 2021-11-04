@@ -1,19 +1,10 @@
-<!-- 
-  Define default contents here
--->
-<ng-template #signInButton>
-  <button amplify-button variation="primary" fullWidth="true" type="submit">
-    {{ signInButtonText }}
-  </button>
-</ng-template>
-
-<ng-template #signInForm>
+<div data-amplify-container>
   <form data-amplify-form (submit)="onSubmit($event)" (input)="onInput($event)">
     <fieldset
       class="amplify-flex"
       style="flex-direction: column"
       data-amplify-fieldset
-      [disabled]="isPending"
+      [disabled]="authenticator.isPending"
     >
       <h3 class="amplify-heading">{{ this.headerText }}</h3>
       <amplify-user-name-alias></amplify-user-name-alias>
@@ -23,36 +14,22 @@
         type="password"
         autocomplete="current-password"
       ></amplify-form-field>
-      <ng-container
-        [ngTemplateOutlet]="customComponents.signInButton || signInButton"
-        [ngTemplateOutletContext]="context"
-      >
-      </ng-container>
+      <button amplify-button variation="primary" fullWidth="true" type="submit">
+        {{ signInButtonText }}
+      </button>
       <button
         amplify-button
         fontWeight="normal"
         size="small"
         variation="link"
-        (click)="toResetPassword()"
+        (click)="authenticator.toResetPassword()"
       >
         {{ forgotPasswordText }}
       </button>
-      <amplify-error *ngIf="remoteError">
-        {{ remoteError }}
+      <amplify-error *ngIf="authenticator.error">
+        {{ authenticator.error }}
       </amplify-error>
     </fieldset>
     <amplify-federated-sign-in></amplify-federated-sign-in>
   </form>
-</ng-template>
-
-<!-- 
-  Render sign in component
--->
-
-<div data-amplify-container>
-  <ng-container
-    [ngTemplateOutlet]="customComponents.signInForm || signInForm"
-    [ngTemplateOutletContext]="context"
-  >
-  </ng-container>
 </div>

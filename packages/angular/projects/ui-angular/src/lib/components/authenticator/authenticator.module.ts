@@ -17,6 +17,7 @@ import { AmplifyResetPasswordComponent } from './components/amplify-reset-passwo
 import { AmplifySetupTotpComponent } from './components/amplify-setup-totp/amplify-setup-totp.component';
 import { AmplifySignInComponent } from './components/amplify-sign-in/amplify-sign-in.component';
 import { AmplifySignUpComponent } from './components/amplify-sign-up/amplify-sign-up.component';
+import { AmplifySignUpFormFieldsComponent } from './components/amplify-sign-up/sign-up-form-fields/sign-up-form-fields.component';
 import { AmplifyVerifyUserComponent } from './components/amplify-verify-user/amplify-verify-user.component';
 import { ConfirmResetPasswordComponent } from './components/confirm-reset-password/amplify-confirm-reset-password.component';
 import { ConfirmVerifyUserComponent } from './components/confirm-verify-user/amplify-confirm-verify-user.component';
@@ -32,7 +33,8 @@ import { PhoneNumberFieldComponent } from '../../primitives/phone-number-field/p
 import { TabItemComponent } from '../../primitives/tab-item/tab-item.component';
 import { TabsComponent } from '../../primitives/tabs/tabs.component';
 
-import { AmplifySlotDirective } from '../../directives/amplify-slot.directive';
+import { AmplifySlotComponent } from '../../utilities/amplify-slot/amplify-slot.component';
+import { AmplifySlotDirective } from '../../utilities/amplify-slot/amplify-slot.directive';
 
 @NgModule({
   declarations: [
@@ -51,6 +53,8 @@ import { AmplifySlotDirective } from '../../directives/amplify-slot.directive';
     AmplifySetupTotpComponent,
     AmplifySignInComponent,
     AmplifySignUpComponent,
+    AmplifySignUpFormFieldsComponent,
+    AmplifySlotComponent,
     AmplifySlotDirective,
     AmplifyTextFieldComponent,
     AmplifyUserNameAliasComponent,
@@ -62,6 +66,10 @@ import { AmplifySlotDirective } from '../../directives/amplify-slot.directive';
     TabsComponent,
   ],
   imports: [CommonModule, BrowserModule],
-  exports: [AmplifyAuthenticatorComponent, AmplifySlotDirective],
+  exports: [
+    AmplifyAuthenticatorComponent,
+    AmplifySignUpFormFieldsComponent,
+    AmplifySlotDirective,
+  ],
 })
 export class AmplifyAuthenticatorModule {}

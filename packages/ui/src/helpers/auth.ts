@@ -33,7 +33,7 @@ export const authInputAttributes: AuthInputAttributes = {
   confirmation_code: {
     label: 'Confirmation Code',
     placeholder: 'Code',
-    type: 'number',
+    type: 'text',
   },
   password: {
     label: 'Password',
@@ -136,56 +136,31 @@ export const getSendEventAliases = (send: Sender<AuthEvent>) => {
   };
 
   return {
-    /** @deprecated use `updateForm` instead */
-    change: sendToMachine('CHANGE'),
-    updateForm: sendToMachine('CHANGE'),
-
-    /** @deprecated use `resendCode` instead */
-    resend: sendToMachine('RESEND'),
     resendCode: sendToMachine('RESEND'),
-
     signOut: sendToMachine('SIGN_OUT'),
+    submitForm: sendToMachine('SUBMIT'),
+    updateForm: sendToMachine('CHANGE'),
 
     // Actions that don't immediately invoke a service but instead transition to a screen
     // are prefixed with `to*`
 
-    /** @deprecated use `toFederatedSignIn` instead */
-    federatedSignIn: sendToMachine('FEDERATED_SIGN_IN'),
     toFederatedSignIn: sendToMachine('FEDERATED_SIGN_IN'),
-
-    /** @deprecated use `toResetPassword` instead */
-    resetPassword: sendToMachine('RESET_PASSWORD'),
     toResetPassword: sendToMachine('RESET_PASSWORD'),
-
-    /** @deprecated use `toSignIn` instead */
-    signIn: sendToMachine('SIGN_IN'),
     toSignIn: sendToMachine('SIGN_IN'),
-
-    /** @deprecated use `toSignUp` instead */
-    signUp: sendToMachine('SIGN_UP'),
     toSignUp: sendToMachine('SIGN_UP'),
-
-    /** @deprecated use `skipVerification` instead */
-    skip: sendToMachine('SKIP'),
     skipVerification: sendToMachine('SKIP'),
-
-    /** @deprecated Use `submitForm` instead */
-    submit: sendToMachine('SUBMIT'),
-    submitForm: sendToMachine('SUBMIT'),
   } as const;
 };
 
-export const getServiceFacade = ({ send, state }) => {
+export const getServiceContextFacade = (state: AuthMachineState) => {
   const user = state.context?.user;
   const actorState = getActorState(state);
   const actorContext: ActorContextWithForms = getActorContext(state);
-  const sendEventAliases = getSendEventAliases(send);
   const error = actorContext?.remoteError;
   const validationErrors = { ...actorContext?.validationError };
   const hasValidationErrors = Object.keys(validationErrors).length > 0;
   const isPending =
     state.hasTag('pending') || getActorState(state)?.hasTag('pending');
-
   const route = (() => {
     switch (true) {
       case state.matches('idle'):
@@ -224,12 +199,21 @@ export const getServiceFacade = ({ send, state }) => {
   })();
 
   return {
-    ...sendEventAliases,
     error,
     hasValidationErrors,
     isPending,
     route,
     user,
     validationErrors,
+  };
+};
+
+export const getServiceFacade = ({ send, state }) => {
+  const sendEventAliases = getSendEventAliases(send);
+  const serviceContext = getServiceContextFacade(state);
+
+  return {
+    ...sendEventAliases,
+    ...serviceContext,
   };
 };
