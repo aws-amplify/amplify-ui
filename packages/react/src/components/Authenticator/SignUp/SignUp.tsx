@@ -41,7 +41,7 @@ export function SignUp() {
         </Flex>
 
         <Button
-          borderRadius="0"
+          borderRadius={0}
           isDisabled={hasValidationErrors || isPending}
           isFullWidth={true}
           type="submit"
