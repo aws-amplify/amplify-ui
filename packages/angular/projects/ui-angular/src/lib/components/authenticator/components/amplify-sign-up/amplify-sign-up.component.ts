@@ -17,13 +17,15 @@ export class AmplifySignUpComponent {
   constructor(public authenticator: AuthenticatorService) {}
 
   public get context() {
-    const { updateForm, toSignIn, submitForm, error } = this.authenticator;
-    return { updateForm, toSignIn, submitForm, error };
+    const { updateForm, toSignIn, submitForm, validationErrors, error } =
+      this.authenticator;
+    return { updateForm, toSignIn, submitForm, validationErrors, error };
   }
 
   onInput(event: Event) {
-    event.preventDefault();
-    const { name, value } = <HTMLInputElement>event.target;
+    let { checked, name, type, value } = <HTMLInputElement>event.target;
+
+    if (type === 'checkbox' && !checked) value = undefined;
     this.authenticator.updateForm({ name, value });
   }
 
