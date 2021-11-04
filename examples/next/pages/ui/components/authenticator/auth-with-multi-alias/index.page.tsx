@@ -8,7 +8,7 @@ Amplify.configure(awsExports);
 
 export default function AuthenticatorWithMultiAlias() {
   return (
-    <Authenticator loginMechanisms={['username', 'email', 'phone_number']}>
+    <Authenticator>
       {({ signOut }) => <button onClick={signOut}>Sign out</button>}
     </Authenticator>
   );

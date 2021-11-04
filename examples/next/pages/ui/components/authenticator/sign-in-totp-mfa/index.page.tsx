@@ -8,7 +8,7 @@ Amplify.configure(awsExports);
 
 export default function SignInTotpMfa() {
   return (
-    <Authenticator loginMechanisms={['email']}>
+    <Authenticator>
       {({ signOut }) => <button onClick={signOut}>Sign out</button>}
     </Authenticator>
   );

@@ -8,7 +8,7 @@ Amplify.configure(awsExports);
 
 export default function AuthenticatorWithEmail() {
   return (
-    <Authenticator initialState="signUp" loginMechanisms={['email']}>
+    <Authenticator initialState="signUp">
       {({ signOut }) => <button onClick={signOut}>Sign out</button>}
     </Authenticator>
   );
