@@ -6,14 +6,13 @@ import { IconExpandMore } from '../Icon';
 import { View } from '../View';
 import { Primitive } from '../types/view';
 import { ExpanderItemProps } from '../types/expander';
+import { ComponentClassNames } from '../shared/constants';
 import { splitPrimitiveProps } from '../shared/styleUtils';
-import { ComponentClassNames } from 'src';
 
 export const ExpanderItem: Primitive<ExpanderItemProps, typeof Item> = ({
   children,
   className,
-  content,
-  heading,
+  title,
   level,
   ..._rest
 }) => {
@@ -26,14 +25,22 @@ export const ExpanderItem: Primitive<ExpanderItemProps, typeof Item> = ({
       {...rest}
     >
       <View as={Header} asChild>
-        <Heading level={level}>
-          <View as={Trigger}>
-            {heading}
-            <IconExpandMore aria-hidden />
+        <Heading className={ComponentClassNames.ExpanderHeading} level={level}>
+          <View as={Trigger} className={ComponentClassNames.ExpanderTrigger}>
+            {title}
+            <IconExpandMore
+              aria-hidden
+              className={ComponentClassNames.ExpanderIcon}
+              size="large"
+            />
           </View>
         </Heading>
       </View>
-      <View as={Content}>{content}</View>
+      <View as={Content} className={ComponentClassNames.ExpanderContent}>
+        <View className={ComponentClassNames.ExpanderContentText}>
+          {children}
+        </View>
+      </View>
     </View>
   );
 };

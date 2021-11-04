@@ -1,6 +1,8 @@
 import { HeadingLevel } from '../types/heading';
 import { ViewProps } from '../types/view';
 
+type ExpanderType = 'single' | 'multiple';
+
 export interface ExpanderProps extends ViewProps {
   /**
    * The value of the item(s) to expand.  Use on uncontrolled component.
@@ -18,9 +20,9 @@ export interface ExpanderProps extends ViewProps {
   isCollapsible?: boolean;
 
   /**
-   * Determines if multiple items can be opened at the same time.
+   * Determines whether one or multiple items can be opened at the same time.
    */
-  isMultiple?: boolean;
+  type: ExpanderType;
 
   /**
    * Event handler called when the expanded state of an item changes
@@ -37,12 +39,7 @@ export interface ExpanderItemProps extends ViewProps {
   /**
    * The content of the heading.
    */
-  heading?: string;
-
-  /**
-   * The content of the item.
-   */
-  content?: string;
+  title?: string;
 
   /**
    * A unique value for the item.

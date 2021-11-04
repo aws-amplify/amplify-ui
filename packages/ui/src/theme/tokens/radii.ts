@@ -1,6 +1,7 @@
 import { DesignToken } from './types/designToken';
 
 export interface Radii {
+  xs: DesignToken;
   small: DesignToken;
   medium: DesignToken;
   large: DesignToken;
@@ -10,8 +11,9 @@ export interface Radii {
 }
 
 export const radii: Radii = {
-  small: { value: '0.125rem' },
-  medium: { value: '0.25rem' },
+  xs: { value: '0.125rem' },
+  small: { value: '0.25rem' },
+  medium: { value: '0.5rem' },
   large: { value: '1rem' },
   xl: { value: '2rem' },
   xxl: { value: '4rem' },

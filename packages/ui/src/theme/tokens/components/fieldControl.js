@@ -2,7 +2,7 @@ module.exports = {
   borderStyle: { value: 'solid' },
   borderColor: { value: '{colors.border.primary.value}' },
   borderWidth: { value: '{borderWidths.small.value}' },
-  borderRadius: { value: '{radii.medium.value}' },
+  borderRadius: { value: '{radii.small.value}' },
   paddingBlockStart: {
     value: '{space.xs.value}',
   },
