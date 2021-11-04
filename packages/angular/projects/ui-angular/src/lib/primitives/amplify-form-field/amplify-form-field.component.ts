@@ -50,9 +50,9 @@ export class AmplifyFormFieldComponent implements OnInit {
       this.defaultCountryCode = country_code;
 
       // TODO: remove this side-effect
-      this.authenticator.send({
-        type: 'CHANGE',
-        data: { name: 'country_code', value: country_code },
+      this.authenticator.updateForm({
+        name: 'country_code',
+        value: country_code,
       });
     }
   }

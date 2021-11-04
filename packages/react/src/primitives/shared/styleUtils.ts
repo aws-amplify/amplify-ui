@@ -232,6 +232,7 @@ const BaseStylePropsMap: Required<{ [key in keyof BaseStyleProps]: true }> = {
   textTransform: true,
   top: true,
   transform: true,
+  transformOrigin: true,
   width: true,
 };
 
