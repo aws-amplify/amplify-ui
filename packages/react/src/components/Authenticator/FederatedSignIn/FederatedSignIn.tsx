@@ -1,5 +1,4 @@
 import { FederatedIdentityProviders, translate } from '@aws-amplify/ui';
-import { get, includes } from 'lodash';
 
 import { useAuthenticator } from '..';
 import { Divider, Flex } from '../../..';
