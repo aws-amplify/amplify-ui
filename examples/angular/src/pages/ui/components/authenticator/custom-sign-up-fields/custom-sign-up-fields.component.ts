@@ -10,4 +10,15 @@ export class CustomSignUpFieldsComponent {
   constructor() {
     Amplify.configure(awsExports);
   }
+
+  services = {
+    async validateCustomSignUp(formData: Record<string, string>) {
+      console.log({ ...formData });
+      if (!formData.acknowledgement) {
+        return {
+          acknowledgement: 'You must agree to the Terms & Conditions',
+        };
+      }
+    },
+  };
 }
