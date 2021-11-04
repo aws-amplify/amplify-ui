@@ -58,8 +58,8 @@ export class AmplifySignUpComponent implements OnInit, OnDestroy {
   }
 
   private onStateUpdate(state: AuthMachineState): void {
-    const actorState: SignUpState = getActorState(state);
-    const actorContext: SignUpContext = getActorContext(state);
+    const actorState = getActorState(state) as SignUpState;
+    const actorContext = getActorContext(state) as SignUpContext;
     this.remoteError = actorContext.remoteError;
     this.isPending = !actorState.matches({
       signUp: {

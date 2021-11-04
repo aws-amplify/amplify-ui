@@ -22,12 +22,11 @@ export class AmplifyFederatedSignInComponent implements OnInit {
   constructor(private authenticator: AuthenticatorService) {}
 
   ngOnInit(): void {
-    const loginMechanisms =
-      this.authenticator.context?.config?.login_mechanisms;
+    const { socialProviders } = this.authenticator.context?.config;
 
-    this.includeFacebook = loginMechanisms?.includes('facebook');
-    this.includeGoogle = loginMechanisms?.includes('google');
-    this.includeAmazon = loginMechanisms?.includes('amazon');
+    this.includeFacebook = socialProviders?.includes('facebook');
+    this.includeGoogle = socialProviders?.includes('google');
+    this.includeAmazon = socialProviders?.includes('amazon');
 
     this.shouldShowFederatedSignIn =
       this.includeFacebook || this.includeGoogle || this.includeAmazon;

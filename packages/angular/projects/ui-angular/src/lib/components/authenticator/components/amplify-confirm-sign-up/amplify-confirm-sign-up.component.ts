@@ -47,7 +47,7 @@ export class AmplifyConfirmSignUpComponent implements OnInit, OnDestroy {
   }
 
   onStateUpdate(state: AuthMachineState): void {
-    const actorState: SignUpState = getActorState(state);
+    const actorState = getActorState(state) as SignUpState;
     this.remoteError = actorState.context.remoteError;
     this.isPending = !actorState.matches('confirmSignUp.edit');
   }
@@ -79,7 +79,7 @@ export class AmplifyConfirmSignUpComponent implements OnInit, OnDestroy {
   onSubmit(event: Event): void {
     event.preventDefault();
     const state = this.authenticator.authState;
-    const actorContext: SignUpContext = getActorContext(state);
+    const actorContext = getActorContext(state) as SignUpContext;
     const { formValues } = actorContext;
     const { username, confirmation_code } = formValues;
 
