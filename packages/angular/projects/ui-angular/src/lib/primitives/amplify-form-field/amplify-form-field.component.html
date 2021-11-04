@@ -17,7 +17,6 @@
 
   <amplify-password-field
     *ngIf="isPasswordField()"
-    [id]="textFieldId"
     [name]="name"
     [label]="inferLabel()"
     [placeholder]="inferPlaceholder()"
@@ -29,7 +28,6 @@
 
   <amplify-text-field
     *ngIf="!isPasswordField() && !isPhoneField()"
-    [id]="textFieldId"
     [type]="inferType()"
     [name]="name"
     [label]="inferLabel()"
