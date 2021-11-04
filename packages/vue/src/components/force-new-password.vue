@@ -118,9 +118,9 @@ const attrs = useAttrs();
 const emit = defineEmits(['haveAccountClicked', 'forceNewPasswordSubmit']);
 
 const { state, send } = useAuth();
-const actorState: ComputedRef<SignInState> = computed(() =>
+const actorState = computed(() =>
   getActorState(state.value)
-);
+) as ComputedRef<SignInState>;
 
 const actorContext = computed(() =>
   getActorContext(state.value)

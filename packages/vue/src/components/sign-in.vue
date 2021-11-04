@@ -140,9 +140,9 @@ const signInButtonText = computed(() => translate('Sign in'));
 const signIngButtonText = computed(() => translate('Signing in'));
 
 const { state, send } = useAuth();
-const actorState: ComputedRef<SignInState> = computed(() =>
+const actorState = computed(() =>
   getActorState(state.value)
-);
+) as ComputedRef<SignInState>;
 
 // Methods
 

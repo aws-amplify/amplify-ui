@@ -113,9 +113,9 @@ const attrs = useAttrs();
 const emit = defineEmits(['confirmSetupTOTPSubmit', 'backToSignInClicked']);
 
 const { state, send } = useAuth();
-const actorState: ComputedRef<SignInState> = computed(() =>
+const actorState = computed(() =>
   getActorState(state.value)
-);
+) as ComputedRef<SignInState>;
 
 let qrCode = reactive({
   qrCodeImageSource: '',
