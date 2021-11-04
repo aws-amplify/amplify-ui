@@ -22,6 +22,7 @@ import { AuthenticatorService } from '../../../../services/authenticator.service
 export class AmplifyAuthenticatorComponent implements OnInit, AfterContentInit {
   @Input() initialState: AuthenticatorMachineOptions['initialState'];
   @Input() loginMechanisms: AuthenticatorMachineOptions['loginMechanisms'];
+  @Input() services: AuthenticatorMachineOptions['services'];
   @Input() variation: 'modal' | undefined;
 
   @ContentChildren(AmplifySlotDirective)
@@ -37,8 +38,12 @@ export class AmplifyAuthenticatorComponent implements OnInit, AfterContentInit {
   ) {}
 
   ngOnInit(): void {
-    const { initialState, loginMechanisms } = this;
-    this.authenticator.startMachine({ initialState, loginMechanisms });
+    const { initialState, loginMechanisms, services } = this;
+    this.authenticator.startMachine({
+      initialState,
+      loginMechanisms,
+      services,
+    });
 
     /**
      * handling translations after content init, because authenticator and its
