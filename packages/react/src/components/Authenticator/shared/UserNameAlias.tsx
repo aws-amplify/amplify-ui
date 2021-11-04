@@ -2,7 +2,7 @@ import {
   ActorContextWithForms,
   getActorContext,
   getAliasInfoFromContext,
-  UserNameAlias,
+  LoginMechanism,
   translate,
 } from '@aws-amplify/ui';
 import { useEffect } from 'react';
@@ -12,7 +12,7 @@ import { PhoneNumberField, TextField } from '../../..';
 
 export interface UserNameAliasProps {
   handleInputChange?(event): void;
-  alias?: UserNameAlias;
+  alias?: LoginMechanism;
   [key: string]: any;
 }
 
