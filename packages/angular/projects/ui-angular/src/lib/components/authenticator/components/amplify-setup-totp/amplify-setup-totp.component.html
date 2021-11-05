@@ -4,7 +4,7 @@
       class="amplify-flex"
       style="flex-direction: column"
       data-amplify-fieldset
-      [disabled]="isPending"
+      [disabled]="authenticator.isPending"
     >
       <h3 class="amplify-heading">{{ this.headerText }}</h3>
       <p *ngIf="!qrCodeSource">Loading...</p>
@@ -29,12 +29,12 @@
         variation="link"
         fontWeight="normal"
         fullWidth="true"
-        (click)="toSignIn()"
+        (click)="authenticator.toSignIn()"
       >
         {{ backToSignInText }}
       </button>
-      <amplify-error *ngIf="remoteError">
-        {{ remoteError }}
+      <amplify-error *ngIf="authenticator.error">
+        {{ authenticator.error }}
       </amplify-error>
     </fieldset>
   </form>

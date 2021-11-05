@@ -6,7 +6,6 @@ import {
   translate,
   countryDialCodes,
 } from '@aws-amplify/ui';
-import { nanoid } from 'nanoid';
 import { getAttributeMap } from '../../common';
 import { AuthenticatorService } from '../../services/authenticator.service';
 
@@ -39,10 +38,6 @@ export class AmplifyFormFieldComponent implements OnInit {
   constructor(private authenticator: AuthenticatorService) {}
 
   ngOnInit(): void {
-    // TODO: field primtiives should have generate these by default.
-    this.textFieldId = `amplify-field-${nanoid(12)}`;
-    this.selectFieldId = `amplify-field-${nanoid(12)}`;
-
     // TODO: consider better default handling mechanisms across frameworks
     if (this.isPhoneField()) {
       const state = this.authenticator.authState;
@@ -50,9 +45,9 @@ export class AmplifyFormFieldComponent implements OnInit {
       this.defaultCountryCode = country_code;
 
       // TODO: remove this side-effect
-      this.authenticator.send({
-        type: 'CHANGE',
-        data: { name: 'country_code', value: country_code },
+      this.authenticator.updateForm({
+        name: 'country_code',
+        value: country_code,
       });
     }
   }

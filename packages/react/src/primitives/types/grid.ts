@@ -3,6 +3,8 @@ import { Property } from 'csstype';
 import { ResponsiveStyle, CSSLayoutStyleProps } from './style';
 import { ViewProps } from './view';
 
+export type GridSpanType = number | string | 'auto';
+
 export interface GridContainerStyleProps extends CSSLayoutStyleProps {
   autoColumns?: ResponsiveStyle<Property.GridAutoColumns>;
   autoFlow?: ResponsiveStyle<Property.GridAutoFlow>;
@@ -16,11 +18,11 @@ export interface GridItemStyleProps {
   area?: ResponsiveStyle<Property.GridArea>;
   column?: ResponsiveStyle<Property.GridColumn>;
   columnEnd?: ResponsiveStyle<Property.GridColumnEnd>;
-  columnSpan?: ResponsiveStyle<number | 'auto'>;
+  columnSpan?: ResponsiveStyle<GridSpanType>;
   columnStart?: ResponsiveStyle<Property.GridColumnStart>;
   row?: ResponsiveStyle<Property.GridRow>;
   rowEnd?: ResponsiveStyle<Property.GridRowEnd>;
-  rowSpan?: ResponsiveStyle<number | 'auto'>;
+  rowSpan?: ResponsiveStyle<GridSpanType>;
   rowStart?: ResponsiveStyle<Property.GridRowStart>;
 }
 

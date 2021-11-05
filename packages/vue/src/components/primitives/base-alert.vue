@@ -13,6 +13,7 @@ function close() {
     class="amplify-flex amplify-alert"
     data-variation="error"
     style="align-items: center; justify-content: space-between"
+    role="alert"
   >
     <div class="amplify-flex" style="align-items: center">
       <svg

@@ -32,6 +32,7 @@ import { AmplifyUserNameAliasComponent } from '../../primitives/amplify-user-nam
 import { PhoneNumberFieldComponent } from '../../primitives/phone-number-field/phone-number-field.component';
 import { TabItemComponent } from '../../primitives/tab-item/tab-item.component';
 import { TabsComponent } from '../../primitives/tabs/tabs.component';
+import { AmplifyCheckboxComponent } from '../../primitives/checkbox/checkbox.component';
 
 import { AmplifySlotComponent } from '../../utilities/amplify-slot/amplify-slot.component';
 import { AmplifySlotDirective } from '../../utilities/amplify-slot/amplify-slot.directive';
@@ -40,6 +41,7 @@ import { AmplifySlotDirective } from '../../utilities/amplify-slot/amplify-slot.
   declarations: [
     AmplifyAuthenticatorComponent,
     AmplifyButtonComponent,
+    AmplifyCheckboxComponent,
     AmplifyConfirmSignInComponent,
     AmplifyConfirmSignUpComponent,
     AmplifyErrorComponent,
@@ -68,8 +70,10 @@ import { AmplifySlotDirective } from '../../utilities/amplify-slot/amplify-slot.
   imports: [CommonModule, BrowserModule],
   exports: [
     AmplifyAuthenticatorComponent,
+    AmplifyCheckboxComponent,
     AmplifySignUpFormFieldsComponent,
     AmplifySlotDirective,
+    AmplifyTextFieldComponent,
   ],
 })
 export class AmplifyAuthenticatorModule {}
