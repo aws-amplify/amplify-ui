@@ -27,7 +27,6 @@
                   name="confirmation_code"
                   required
                   :placeholder="enterCode"
-                  type="number"
                 ></base-input>
               </base-wrapper>
             </base-wrapper>
