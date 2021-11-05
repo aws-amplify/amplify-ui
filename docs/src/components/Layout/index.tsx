@@ -3,28 +3,30 @@ import debounce from 'lodash/debounce';
 import { Heading, Text, useTheme } from '@aws-amplify/ui-react';
 import { SecondaryNav } from './SecondaryNav';
 import { TableOfContents } from '../TableOfContents';
+import { Footer } from './Footer';
 
 export default function Page({
   children,
-  frontmatter={},
+  frontmatter = {},
 }: {
   children: any;
   frontmatter?: any;
 }) {
-  const {title, description, hideToc=false} = frontmatter;
+  const { title, description, hideToc = false } = frontmatter;
   const { tokens } = useTheme();
   const [headings, setHeadings] = React.useState([]);
-  
+
   // TODO: is there a better way to do this?
   React.useLayoutEffect(() => {
     const updateHeaders = debounce(() => {
-      setHeadings([...document.querySelectorAll('h2[id],h3[id]')]
-        .map(node => ({
+      setHeadings(
+        [...document.querySelectorAll('h2[id],h3[id]')].map((node) => ({
           id: node.id,
           label: node.innerText,
           level: node.nodeName,
-          top: node.offsetTop
-        })));
+          top: node.offsetTop,
+        }))
+      );
     });
 
     const observer = new MutationObserver(updateHeaders);
@@ -43,14 +45,21 @@ export default function Page({
         <section className="docs-content-body">
           <section className="docs-meta">
             <Heading level={1}>{title}</Heading>
-            <Text fontSize={`${tokens.fontSizes.xl}`} className="docs-description">{description}</Text>
+            <Text
+              fontSize={`${tokens.fontSizes.xl}`}
+              className="docs-description"
+            >
+              {description}
+            </Text>
           </section>
-          
+
           {children}
         </section>
+        <Footer />
       </main>
-      {hideToc ? null :
-        <TableOfContents title="Contents" headings={headings} />}
+      {hideToc ? null : (
+        <TableOfContents title="Contents" headings={headings} />
+      )}
     </div>
-  )
+  );
 }

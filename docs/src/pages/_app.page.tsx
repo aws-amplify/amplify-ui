@@ -19,23 +19,39 @@ function MyApp({ Component, pageProps }) {
   const router = useRouter();
   const { platform = 'react' } = router.query;
   const [colorMode, setColorMode] = useState<ColorMode>('system');
+  const [themeOverride, setThemeOverride] = useState('default');
   return (
     <>
       <Head>
         <title>Amplify UI</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="true"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Ubuntu&display=swap"
+          rel="stylesheet"
+        />
       </Head>
-      <AmplifyProvider components={{}} theme={theme} colorMode={colorMode}>
-        <div className="aui-docs">
-          <Header
-            platform={platform}
-            colorMode={colorMode}
-            setColorMode={setColorMode}
-          />
-          <div>
-            <Component {...pageProps} />
-          </div>
-          {/* <Footer /> */}
-        </div>
+      <AmplifyProvider
+        className={themeOverride}
+        components={{}}
+        theme={theme}
+        colorMode={colorMode}
+      >
+        <Header
+          platform={platform}
+          colorMode={colorMode}
+          setColorMode={setColorMode}
+        />
+        <Component
+          {...pageProps}
+          themeOverride={themeOverride}
+          colorMode={colorMode}
+          setThemeOverride={setThemeOverride}
+        />
       </AmplifyProvider>
     </>
   );

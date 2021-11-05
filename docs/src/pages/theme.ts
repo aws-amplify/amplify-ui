@@ -103,5 +103,110 @@ export const theme = createTheme({
         },
       },
     },
+    {
+      selector: '[data-amplify-theme="amplify-docs"].classic',
+      tokens: {
+        fonts: {
+          default: {
+            variable: { value: `'Open Sans'` },
+            static: { value: `'Open Sans'` },
+          },
+        },
+        colors: {
+          brand: {
+            primary: usePalette('blue'),
+            secondary: usePalette('neutral'),
+          },
+          border: {
+            primary: { value: '{colors.neutral.40.value}' },
+            secondary: { value: '{colors.neutral.20.value}' },
+            tertiary: { value: '{colors.neutral.10.value}' },
+          },
+          background: {
+            success: { value: '{colors.green.80.value}' },
+          },
+        },
+      },
+    },
+    {
+      selector: '[data-amplify-theme="amplify-docs"].artistic',
+      tokens: {
+        fonts: {
+          default: {
+            variable: { value: 'Ubuntu' },
+            static: { value: 'Ubuntu' },
+          },
+        },
+        colors: {
+          green: {
+            10: { value: '#C7EFCA' },
+            20: { value: '#9AE2A1' },
+            40: { value: '#4CCB68' },
+            60: { value: '#44AF5B' },
+            80: { value: '#31703D' },
+            90: { value: '#224226' },
+          },
+          brand: {
+            primary: usePalette('green'),
+            secondary: usePalette('green'),
+          },
+          border: {
+            primary: { value: 'black' },
+          },
+        },
+        shadows: {
+          small: {
+            value: {
+              offsetX: '0px',
+              offsetY: '2px',
+              blurRadius: '4px',
+              color: '{colors.shadow.tertiary.value}',
+            },
+          },
+          medium: {
+            value: {
+              offsetX: '6px',
+              offsetY: '6px',
+              spreadRadius: '4px',
+              blurRadius: '0',
+              color: '{colors.shadow.secondary.value}',
+            },
+          },
+          large: {
+            value: {
+              offsetX: '8px',
+              offsetY: '16px',
+              spreadRadius: '10px',
+              blurRadius: '0',
+              color: '{colors.shadow.primary.value}',
+            },
+          },
+        },
+        components: {
+          button: {
+            primary: {
+              backgroundColor: { value: '{colors.brand.primary.40.value}' },
+              color: { value: '{colors.font.primary.value}' },
+              borderColor: { value: '{colors.border.primary.value}' },
+            },
+          },
+        },
+        radii: {
+          small: { value: '0' },
+          medium: { value: '0' },
+          large: { value: '0' },
+        },
+        space: {
+          small: { value: '1rem' },
+          medium: { value: '1.5rem' },
+          large: { value: '2rem' },
+        },
+        borderWidths: {
+          small: { value: '2px' },
+          medium: { value: '4px' },
+          large: { value: '8px' },
+        },
+      },
+    },
   ],
 });

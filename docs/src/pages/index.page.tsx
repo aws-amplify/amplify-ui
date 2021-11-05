@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useRouter } from 'next/router';
-import { Sandpack } from '@codesandbox/sandpack-react';
+import { Sandpack, codesandboxDarkTheme } from '@codesandbox/sandpack-react';
 import {
   Button,
   Badge,
@@ -29,41 +29,79 @@ import {
 } from '@aws-amplify/ui-react';
 
 import { HomeLogo } from '@/components/HomeLogo';
+import { HomeThemeSwitcher } from './HomeThemeSwitcher';
 import { theme } from './theme';
 
 const { tokens } = theme;
 
-const code = `import {
-  AmplifyProvider,
-  Button,
-  Card,
-  Text,
-  Heading,
-  Flex,
-  Badge,
-  createTheme
-} from '@aws-amplify/ui-react'; 
+const code = `import { AmplifyProvider, Button, Card, Text, Heading, Flex, Badge, createTheme, Image, View, StepperField, Rating } from '@aws-amplify/ui-react'; 
 import '@aws-amplify/ui-react/styles.css';
 
-const theme = createTheme({
-  
-});
+const theme = createTheme({});
 
 export default function App() {
   return (
     <AmplifyProvider theme={theme}>
       <Card>
-        <Badge variation="success">New</Badge>
-        <Button>Hello!</Button>
+        <Flex direction="row">
+          <Image src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=930&q=80"
+            width="8rem"/>
+          <Flex direction="column" gap={\`\${theme.tokens.space.xs}\`}>
+            <Flex direction="row">
+              <Badge variation="success">New</Badge>
+            </Flex>
+            <Heading level={3}>
+              Product title
+            </Heading>
+            <Rating value={4.5} />
+            <Text>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut scelerisque risus in sem dapibus, nec vestibulum metus mattis. Mauris dignissim maximus tellus, in feugiat nibh rhoncus a.</Text>
+            <Flex direction="row">
+              <StepperField
+                label="Stepper"
+                defaultValue={1}
+                min={0}
+                max={10}
+                step={1}
+                labelHidden
+              />
+              <Button variation="primary">Add to cart</Button>
+            </Flex>
+          </Flex>
+        </Flex>
       </Card>
     </AmplifyProvider>
   )
 }`;
 
-const HomePage = () => {
+type ThemeOverride = 'default' | 'classic' | 'artistic';
+
+// const artisticTheme = theme.overrides
+//   .find(override => override.selector && override.selector.includes('artistic'))
+
+const ThemeSwitcher = ({ themeOverride, setThemeOverride }) => {
+  return (
+    <ToggleButtonGroup
+      value={themeOverride}
+      isExclusive
+      onChange={(value: ThemeOverride) => setThemeOverride(value)}
+    >
+      <ToggleButton value="default">Default</ToggleButton>
+      <ToggleButton value="classic">Classic</ToggleButton>
+      <ToggleButton value="artistic">Artistic</ToggleButton>
+    </ToggleButtonGroup>
+  );
+};
+
+const HomePage = ({ setThemeOverride, themeOverride, colorMode }) => {
   const router = useRouter();
   const framework = router.query.platform ?? 'react';
-
+  const sandPackTheme = {
+    ...(colorMode === 'dark' ? codesandboxDarkTheme : {}),
+    typography: {
+      fontSize: '16px',
+      lineHeight: '1.5',
+    },
+  };
   return (
     <div>
       <View as="section" className="docs-home-section-bg">
@@ -90,6 +128,11 @@ const HomePage = () => {
             performant, and beautiful applications in React, Angular, and Vue
             (more coming soon).
           </Text>
+          {/* <HomeThemeSwitcher />
+          <ThemeSwitcher
+            setThemeOverride={setThemeOverride}
+            themeOverride={themeOverride} /> */}
+
           <Flex direction="row" padding={`${tokens.space.medium} 0 0 0`}>
             <Button variation="primary" as="a" href="/getting-started">
               Get started
@@ -119,12 +162,7 @@ const HomePage = () => {
             files={{
               '/App.js': code,
             }}
-            theme={{
-              typography: {
-                fontSize: '16px',
-                lineHeight: '1.5',
-              },
-            }}
+            theme={sandPackTheme}
             options={{
               editorHeight: 500,
               showNavigator: true, // this will show a top navigator bar instead of the refresh button
@@ -143,10 +181,10 @@ const HomePage = () => {
         </Card>
       </View>
 
-      <View
+      {/* <View
         as="section"
         className="docs-home-section"
-        backgroundColor={`${tokens.colors.background.secondary}`}
+        backgroundColor={`${tokens.colors.background.primary}`}
       >
         <Grid
           templateColumns="1fr 1fr"
@@ -185,7 +223,7 @@ const HomePage = () => {
             </Text>
           </Card>
         </Grid>
-      </View>
+      </View> */}
 
       <View as="section" className="docs-home-section">
         <Flex direction="row">
@@ -198,7 +236,7 @@ const HomePage = () => {
             </Text>
           </View>
 
-          <Grid
+          {/* <Grid
             templateColumns="1fr 1fr"
             templateRows="1fr 1fr 1fr"
             gap={`${tokens.space.medium}`}
@@ -240,7 +278,7 @@ const HomePage = () => {
               </Button>
               <Button>Get started</Button>
             </Card>
-          </Grid>
+          </Grid> */}
         </Flex>
       </View>
 
@@ -283,14 +321,14 @@ const HomePage = () => {
         className="docs-home-section"
         backgroundColor={`${tokens.colors.background.secondary}`}
       >
-        <Heading level={2}>Accessible</Heading>
+        <Heading level={2}>Accessibility</Heading>
       </View>
 
       <View as="section" className="docs-home-section">
         <Heading level={2}>Looking for other Amplify Products?</Heading>
-        <Card as="a" href="https://docs.amplify.aws">
+        {/* <Card as="a" href="https://docs.amplify.aws">
           <Heading level={3}>Amplify Console</Heading>
-        </Card>
+        </Card> */}
       </View>
     </div>
   );

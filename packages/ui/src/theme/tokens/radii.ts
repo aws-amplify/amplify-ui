@@ -10,7 +10,7 @@ export interface Radii {
 }
 
 export const radii: Radii = {
-  small: { value: '0.125rem' },
+  small: { value: '0' },
   medium: { value: '0.25rem' },
   large: { value: '1rem' },
   xl: { value: '2rem' },

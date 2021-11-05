@@ -1,10 +1,10 @@
 @import url('https://rsms.me/inter/inter.css');
-html {
-  font-family: 'Inter', sans-serif;
+[data-amplify-theme] {
+  font-family: var(--amplify-fonts-default-static);
 }
 @supports (font-variation-settings: normal) {
-  html {
-    font-family: 'Inter var', sans-serif;
+  [data-amplify-theme] {
+    font-family: var(--amplify-fonts-default-variable);
   }
 }
 
@@ -215,16 +215,14 @@ p {
   @media (min-width: 62rem) {
     display: block;
     flex-shrink: 0;
-    width: 18rem;
+    width: 16rem;
     position: relative;
-    z-index: 10;
   }
 }
 
 .docs-sidebar-inner {
   height: calc(100vh - var(--docs-header-height));
-  width: 18rem;
-  padding: var(--amplify-space-medium) 0;
+  width: 16rem;
   overflow-y: auto;
   position: fixed;
   border-right: var(--amplify-border-widths-small) solid
@@ -234,9 +232,17 @@ p {
 }
 
 .docs-footer {
-  padding: var(--amplify-space-small) var(--amplify-space-medium);
-  background-color: var(--amplify-colors-brand-primary-80);
-  color: var(--amplify-colors-font-inverse);
+  padding: var(--amplify-space-xl);
+  position: relative;
+  color: var(--amplify-colors-font-tertiary);
+  &::before {
+    content: '';
+    position: absolute;
+    top: calc(var(--amplify-space-medium) * -1);
+    left: 25%;
+    width: 50%;
+    border-top: var(--amplify-border-widths-large) solid var(--amplify-colors-border-tertiary);
+  }
 }
 
 .docs-home-section {
@@ -305,6 +311,20 @@ p {
   width: 25%;
   border-top: var(--amplify-borders-tertiary);
   content: '';
+}
+
+.docs-sidebar-nav {
+  padding: var(--amplify-space-medium) 0;
+}
+
+.docs-sidebar-footer {
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  padding: var(--amplify-space-medium);
+  background-color: var(--amplify-colors-background-primary);
+  border-top: var(--amplify-border-widths-small) solid var(--amplify-colors-border-tertiary);
+  z-index: 2;
 }
 
 .docs-nav-section.expanded > .docs-nav-section-links {
@@ -647,6 +667,7 @@ h3:hover > a .icon-link {
   position: fixed;
   right: -14rem;
   background-color: var(--amplify-colors-background-primary);
+  font-size: var(--amplify-font-sizes-small);
   
   &:hover {
     right: 0;

@@ -11,6 +11,7 @@ interface AmplifyProviderProps {
   components: Record<string, ReactNode>;
   theme?: BrowserTheme;
   colorMode?: ColorMode;
+  className?: string;
 }
 
 export function AmplifyProvider({
@@ -18,6 +19,7 @@ export function AmplifyProvider({
   components,
   colorMode,
   theme = defaultTheme,
+  className = '',
 }: AmplifyProviderProps) {
   const { name = '' } = theme;
   return (
@@ -28,7 +30,11 @@ export function AmplifyProvider({
       }}
     >
       <IdProvider>
-        <div data-amplify-theme={name} data-amplify-color-mode={colorMode}>
+        <div
+          data-amplify-theme={name}
+          data-amplify-color-mode={colorMode}
+          className={className}
+        >
           {children}
         </div>
         <style
