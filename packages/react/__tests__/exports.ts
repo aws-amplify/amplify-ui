@@ -1886,7 +1886,7 @@ describe('@aws-amplify/ui-react', () => {
           "getOverridesFromVariants",
           "primitives",
           "useAmplify",
-          "useAuthenticatedUser"
+          "useAuthenticatedUser",
           "useAuthenticator",
           "useDataStoreBinding",
           "useDataStoreCollection",
