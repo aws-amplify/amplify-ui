@@ -316,7 +316,6 @@ const { initialState, loginMechanisms, variation, services } = withDefaults(
     variation?: 'modal';
   }>(),
   {
-    loginMechanisms: () => ['username'],
     variation: undefined,
   }
 );
