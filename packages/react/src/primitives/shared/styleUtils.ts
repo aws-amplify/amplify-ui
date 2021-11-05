@@ -1,7 +1,7 @@
 import * as React from 'react';
 import autoprefixer from 'autoprefixer';
 import postcss from 'postcss-js';
-import { WebDesignToken, isDesignToken } from '@aws-amplify/ui';
+import { isDesignToken } from '@aws-amplify/ui';
 
 export const prefixer = postcss.sync([autoprefixer]);
 

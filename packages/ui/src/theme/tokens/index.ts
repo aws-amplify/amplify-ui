@@ -46,6 +46,7 @@ export interface Tokens {
 export interface WebTokens extends Tokens {
   borderWidths: WebBorderWidths;
   colors: WebColors;
+  fonts: WebFonts;
   fontSizes: WebFontSizes;
   fontWeights: WebFontWeights;
   lineHeights: WebLineHeights;

@@ -115,7 +115,7 @@ export interface BaseTheme extends Theme {
 }
 
 /**
- * BrowserTheme is a fully built theme that has cssText based
+ * WebTheme is a fully built theme that has cssText based
  * on the design tokens and all design tokens have added fields
  * to be used in Javascript/Typescript.
  */
