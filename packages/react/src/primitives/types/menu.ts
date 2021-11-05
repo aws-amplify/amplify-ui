@@ -14,7 +14,7 @@ export interface MenuProps extends FlexProps {
   /**
    * Handle open and close event of menu
    */
-  onOpenChange?: (open: boolean) => void;
+  onOpenChange?: (isOpen: boolean) => void;
 
   /**
    * Default for controlled menu
