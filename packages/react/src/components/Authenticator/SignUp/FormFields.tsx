@@ -38,6 +38,7 @@ export function FormFields() {
   return (
     <>
       <UserNameAliasComponent data-amplify-usernamealias alias={primaryAlias} />
+
       <PasswordField
         data-amplify-password
         className={passwordFieldClass}
@@ -66,6 +67,8 @@ export function FormFields() {
           {validationError['confirm_password']}
         </Text>
       )}
+
+      {/* TODO These should use aws_cognito_signup_attributes, aws_cognito_verification_mechanisms, etc. to determine required fields */}
 
       {secondaryAliases.map((alias: LoginMechanism) => (
         <UserNameAliasComponent

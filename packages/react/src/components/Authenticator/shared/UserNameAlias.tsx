@@ -26,6 +26,7 @@ export function UserNameAlias(props: UserNameAliasProps) {
 
   const isPhoneAlias = type === 'tel';
 
+  // TODO This should exist on context & not rely on side-effects
   useEffect(() => {
     isPhoneAlias &&
       _send({
