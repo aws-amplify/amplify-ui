@@ -1,0 +1,42 @@
+<amplify-authenticator
+  [loginMechanisms]="['email']"
+  [services]="services"
+  initialState="signUp"
+>
+  <!-- sign-up-field override -->
+  <ng-template
+    amplifySlot="sign-up-form-fields"
+    let-validationErrors="validationErrors"
+  >
+    <!--  Prepend `preferred_username` custom attribute  -->
+    <amplify-text-field
+      label="Preferred Username"
+      name="preferred_username"
+      placeholder="Preferred Username"
+      [required]="false"
+    ></amplify-text-field>
+
+    <!-- Re-use default `Authenticator.SignUp.FormFields` -->
+    <amplify-sign-up-form-fields></amplify-sign-up-form-fields>
+
+    <!-- Append & require Terms & Conditions field to sign up -->
+    <amplify-checkbox
+      [errorMessage]="validationErrors.acknowledgement"
+      [hasError]="!!validationErrors.acknowledgement"
+      name="acknowledgement"
+      value="yes"
+    >
+      I agree with the Terms & Conditions
+    </amplify-checkbox>
+  </ng-template>
+
+  <!-- signed-in content override -->
+  <ng-template
+    amplifySlot="authenticated"
+    let-user="user"
+    let-signOut="signOut"
+  >
+    <h2>Welcome, {{ user.username }}!</h2>
+    <button (click)="signOut()">Sign Out</button>
+  </ng-template>
+</amplify-authenticator>

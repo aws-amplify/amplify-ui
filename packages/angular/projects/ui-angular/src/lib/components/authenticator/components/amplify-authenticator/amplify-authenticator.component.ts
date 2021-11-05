@@ -8,11 +8,7 @@ import {
   TemplateRef,
   ViewEncapsulation,
 } from '@angular/core';
-import {
-  AuthenticatorMachineOptions,
-  getActorState,
-  translate,
-} from '@aws-amplify/ui';
+import { AuthenticatorMachineOptions, translate } from '@aws-amplify/ui';
 import { AmplifySlotDirective } from '../../../../utilities/amplify-slot/amplify-slot.directive';
 import { CustomComponentsService } from '../../../../services/custom-components.service';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
@@ -26,6 +22,7 @@ import { AuthenticatorService } from '../../../../services/authenticator.service
 export class AmplifyAuthenticatorComponent implements OnInit, AfterContentInit {
   @Input() initialState: AuthenticatorMachineOptions['initialState'];
   @Input() loginMechanisms: AuthenticatorMachineOptions['loginMechanisms'];
+  @Input() services: AuthenticatorMachineOptions['services'];
   @Input() variation: 'modal' | undefined;
 
   @ContentChildren(AmplifySlotDirective)
@@ -41,8 +38,12 @@ export class AmplifyAuthenticatorComponent implements OnInit, AfterContentInit {
   ) {}
 
   ngOnInit(): void {
-    const { initialState, loginMechanisms } = this;
-    this.authenticator.startMachine({ initialState, loginMechanisms });
+    const { initialState, loginMechanisms, services } = this;
+    this.authenticator.startMachine({
+      initialState,
+      loginMechanisms,
+      services,
+    });
 
     /**
      * handling translations after content init, because authenticator and its
@@ -67,17 +68,12 @@ export class AmplifyAuthenticatorComponent implements OnInit, AfterContentInit {
 
   // context passed to "authenticated" slot
   public get authenticatedContext() {
-    const { signOut } = this.authenticator.services;
-    const user = this.authenticator.user;
-    return { signOut, user } as const;
+    const { signOut, user } = this.authenticator;
+    return { signOut, user };
   }
 
-  public get actorState() {
-    return getActorState(this.authenticator.authState);
-  }
-
-  public get authenticatorState() {
-    return this.authenticator.authState;
+  public get route() {
+    return this.authenticator.route;
   }
 
   public get variationModal() {
@@ -85,11 +81,11 @@ export class AmplifyAuthenticatorComponent implements OnInit, AfterContentInit {
   }
 
   public onTabChange() {
-    const currentState = this.authenticator.authState.value;
-    if (currentState === 'signIn') {
-      this.authenticator.send('SIGN_UP');
+    const route = this.authenticator.route;
+    if (route === 'signIn') {
+      this.authenticator.toSignUp();
     } else {
-      this.authenticator.send('SIGN_IN');
+      this.authenticator.toSignIn();
     }
   }
 

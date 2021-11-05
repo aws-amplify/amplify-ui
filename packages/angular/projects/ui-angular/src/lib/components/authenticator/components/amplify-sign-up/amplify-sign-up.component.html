@@ -7,14 +7,16 @@
         <amplify-sign-up-form-fields></amplify-sign-up-form-fields>
       </amplify-slot>
 
-      <amplify-error *ngIf="remoteError">
-        {{ remoteError }}
+      <amplify-error *ngIf="authenticator.error">
+        {{ authenticator.error }}
       </amplify-error>
     </div>
 
     <amplify-slot name="sign-up-button" [context]="context">
       <button
-        [disabled]="isPending"
+        [disabled]="
+          authenticator.isPending || authenticator.hasValidationErrors
+        "
         amplify-button
         variation="primary"
         fullWidth="true"

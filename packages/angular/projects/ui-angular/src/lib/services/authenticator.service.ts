@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { Logger } from '@aws-amplify/core';
 import {
   AuthContext,
@@ -8,70 +8,146 @@ import {
   AuthMachineState,
   createAuthenticatorMachine,
   getSendEventAliases,
+  getServiceContextFacade,
 } from '@aws-amplify/ui';
-import { Event, interpret } from 'xstate';
+import { Event, interpret, Subscription } from 'xstate';
 import { AuthSubscriptionCallback } from '../common';
 
 const logger = new Logger('state-machine');
 
 /**
- * AmplifyContextService contains access to the xstate machine
- * and custom components passed by the user.
+ * AuthenticatorService provides access to the authenticator state and context.
  */
 @Injectable({
   providedIn: 'root', // ensure we have a singleton service
 })
-export class AuthenticatorService {
+export class AuthenticatorService implements OnDestroy {
   private _authState: AuthMachineState;
   private _authService: AuthInterpreter;
-  private _user: Record<string, any>; // TODO: strongly type CognitoUser
-  private _services: ReturnType<typeof getSendEventAliases>;
+  private _sendEventAliases: ReturnType<typeof getSendEventAliases>;
+  private _subscription: Subscription;
+  private _facade: ReturnType<typeof getServiceContextFacade>;
 
   public startMachine({
     initialState,
     loginMechanisms,
+    services,
   }: AuthenticatorMachineOptions) {
     const machine = createAuthenticatorMachine({
       initialState,
       loginMechanisms,
+      services,
     });
 
     const authService = interpret(machine, {
       devTools: process.env.NODE_ENV === 'development',
-    })
-      .onTransition((state) => {
-        this._user = state.context.user;
-        this._authState = state;
-      })
-      .start();
+    }).start();
 
-    this._services = getSendEventAliases(authService.send);
+    this._subscription = authService.subscribe((state) => {
+      this._authState = state;
+      this._facade = getServiceContextFacade(state);
+    });
+
+    this._sendEventAliases = getSendEventAliases(authService.send);
     this._authService = authService;
   }
 
-  public get services() {
-    return this._services;
+  ngOnDestroy(): void {
+    if (this._subscription) this._subscription.unsubscribe();
   }
 
+  /**
+   * Context facades
+   */
+
+  public get error() {
+    return this._facade?.error;
+  }
+
+  public get hasValidationErrors() {
+    return this._facade?.hasValidationErrors;
+  }
+
+  public get isPending() {
+    return this._facade?.isPending;
+  }
+
+  public get route() {
+    return this._facade?.route;
+  }
+
+  public get user() {
+    return this._facade?.user;
+  }
+
+  public get validationErrors() {
+    return this._facade?.validationErrors;
+  }
+
+  /**
+   * Service facades
+   */
+
+  public get updateForm() {
+    return this._sendEventAliases.updateForm;
+  }
+
+  public get resendCode() {
+    return this._sendEventAliases.resendCode;
+  }
+
+  public get signOut() {
+    return this._sendEventAliases.signOut;
+  }
+
+  public get submitForm() {
+    return this._sendEventAliases.submitForm;
+  }
+
+  /**
+   * Transition facades
+   */
+
+  public get toFederatedSignIn() {
+    return this._sendEventAliases.toFederatedSignIn;
+  }
+
+  public get toResetPassword() {
+    return this._sendEventAliases.toResetPassword;
+  }
+
+  public get toSignIn() {
+    return this._sendEventAliases.toSignIn;
+  }
+
+  public get toSignUp() {
+    return this._sendEventAliases.toSignUp;
+  }
+
+  public get skipVerification() {
+    return this._sendEventAliases.skipVerification;
+  }
+
+  /**
+   * Internal utility functions
+   */
+
+  /** @deprecated For internal use only */
   public get authState(): AuthMachineState {
     return this._authState;
   }
 
+  /** @deprecated For internal use only */
   public get authService(): AuthInterpreter {
     return this._authService;
   }
 
-  public get user(): Record<string, any> {
-    return this._user;
-  }
-
+  /** @deprecated For internal use only */
   public get context(): AuthContext {
     return this._authState.context;
   }
 
-  /**
-   * @deprecated For internal use only
-   */
+  /** @deprecated For internal use only */
   public subscribe(callback: AuthSubscriptionCallback) {
     if (this._authService) {
       return this._authService.subscribe(callback);
@@ -82,9 +158,7 @@ export class AuthenticatorService {
     }
   }
 
-  /**
-   * @deprecated For internal use only
-   */
+  /** @deprecated For internal use only */
   public send(event: Event<AuthEvent>) {
     this.authService.send(event);
   }
