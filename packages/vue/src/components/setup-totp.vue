@@ -25,6 +25,8 @@
                   data-amplify-qrcode
                   :src="qrCode.qrCodeImageSource"
                   alt="qr code"
+                  width="228"
+                  height="228"
                 />
                 <base-wrapper
                   class="amplify-flex amplify-field amplify-textfield"
