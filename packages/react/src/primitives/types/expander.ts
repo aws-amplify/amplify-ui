@@ -1,4 +1,3 @@
-import { HeadingLevel } from '../types/heading';
 import { ViewProps } from '../types/view';
 
 type ExpanderType = 'single' | 'multiple';
@@ -15,14 +14,14 @@ export interface ExpanderProps extends ViewProps {
   value?: string | string[];
 
   /**
-   * Determines whether the opened item can be collapsed if this is an exclusive expander.
+   * Determines whether the opened item can be collapsed if this is a single expander.
    */
   isCollapsible?: boolean;
 
   /**
    * Determines whether one or multiple items can be opened at the same time.
    */
-  type: ExpanderType;
+  type?: ExpanderType;
 
   /**
    * Event handler called when the expanded state of an item changes

@@ -15,7 +15,7 @@ export const Expander: Primitive<ExpanderProps, typeof Root> = ({
   // It is not in use but remove it from rest to avoid type errors
   onValueChange,
   testId,
-  type,
+  type = 'single',
   value,
   ..._rest
 }) => {

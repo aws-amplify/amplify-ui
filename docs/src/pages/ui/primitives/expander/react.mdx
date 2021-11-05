@@ -1,0 +1,331 @@
+import { Expander, ExpanderItem } from '@aws-amplify/ui-react';
+
+import { ExpanderDemo } from './demo';
+import { ControlledExpander, UncontrolledExpander } from './examples';
+import { Example } from '@/components/Example';
+
+Expanders enables users to expand or collapse a set of sections.
+
+## Demo
+
+<ExpanderDemo />
+
+## Usage
+
+Import the Expander and ExpanderItem components and styles.
+
+### Single Item
+
+```jsx
+import { Expander, ExpanderItem } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<Expander type="single">
+  <ExpanderItem title="Section 1 title" value="item-1">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua.
+  </ExpanderItem>
+  <ExpanderItem title="Section 2 title" value="item-2">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua.
+  </ExpanderItem>
+  <ExpanderItem title="Section 3 title" value="item-3">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua.
+  </ExpanderItem>
+</Expander>;
+```
+
+<Example>
+  <UncontrolledExpander type="single" />
+</Example>
+
+### Multiple Items
+
+```jsx
+import { Expander, ExpanderItem } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<Expander type="multiple">
+  <ExpanderItem title="Section 1 title" value="item-1">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua.
+  </ExpanderItem>
+  <ExpanderItem title="Section 2 title" value="item-2">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua.
+  </ExpanderItem>
+  <ExpanderItem title="Section 3 title" value="item-3">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua.
+  </ExpanderItem>
+</Expander>;
+```
+
+<Example>
+  <UncontrolledExpander type="multiple" />
+</Example>
+
+## Controlled component
+
+To use the Expander as controlled component, specify the `value` of the item(s) to expand and used in conjunction with `onChange`.
+
+### Single Item
+
+```jsx
+import { Expander, ExpanderItem } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+export const ControlledExpander = () => {
+  const [value, setValue] = React.useState<string | string[]>('item-1');
+  return (
+    <Expander
+      type="single"
+      value={value}
+      onChange={setValue}
+    >
+      <ExpanderItem title="Section 1 title" value="item-1">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua.
+      </ExpanderItem>
+      <ExpanderItem title="Section 2 title" value="item-2">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua.
+      </ExpanderItem>
+      <ExpanderItem title="Section 3 title" value="item-3">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua.
+      </ExpanderItem>
+    </Expander>
+  );
+};
+```
+
+<Example>
+  <ControlledExpander type="single" />
+</Example>
+
+### Multiple Items
+
+```jsx
+import { Expander, ExpanderItem } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+export const ControlledExpander = () => {
+  const [value, setValue] = React.useState<string | string[]>(['item-1']);
+  return (
+    <Expander
+      type="multiple"
+      value={value}
+      onChange={setValue}
+    >
+      <ExpanderItem title="Section 1 title" value="item-1">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua.
+      </ExpanderItem>
+      <ExpanderItem title="Section 2 title" value="item-2">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua.
+      </ExpanderItem>
+      <ExpanderItem title="Section 3 title" value="item-3">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua.
+      </ExpanderItem>
+    </Expander>
+  );
+};
+```
+
+<Example>
+  <ControlledExpander type="multiple" />
+</Example>
+
+## Expanded by default
+
+By specifying `defaultValue`, the Expanders are able to expand the items by default.
+
+### Single Item
+
+```jsx
+import { Expander, ExpanderItem } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<Expander type="single" defaultValue="item-1">
+  <ExpanderItem title="Section 1 title" value="item-1">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua.
+  </ExpanderItem>
+  <ExpanderItem title="Section 2 title" value="item-2">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua.
+  </ExpanderItem>
+  <ExpanderItem title="Section 3 title" value="item-3">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua.
+  </ExpanderItem>
+</Expander>;
+```
+
+<Example>
+  <UncontrolledExpander type="single" defaultValue="item-1" />
+</Example>
+
+### Multiple Items
+
+```jsx
+import { Expander, ExpanderItem } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<Expander type="multiple" defaultValue={['item-1', 'item-2']}>
+  <ExpanderItem title="Section 1 title" value="item-1">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua.
+  </ExpanderItem>
+  <ExpanderItem title="Section 2 title" value="item-2">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua.
+  </ExpanderItem>
+  <ExpanderItem title="Section 3 title" value="item-3">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua.
+  </ExpanderItem>
+</Expander>;
+```
+
+<Example>
+  <UncontrolledExpander type="multiple" defaultValue={['item-1', 'item-2']} />
+</Example>
+
+### Allow collapsing
+
+You may want to enable the Expanders with type `single` to collapse all items. In this case, set the `isCollapsible` prop to true.
+
+```jsx
+import { Expander, ExpanderItem } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<Expander type="single" isCollapsible={true}>
+  <ExpanderItem title="Section 1 title" value="item-1">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua.
+  </ExpanderItem>
+  <ExpanderItem title="Section 2 title" value="item-2">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua.
+  </ExpanderItem>
+  <ExpanderItem title="Section 3 title" value="item-3">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua.
+  </ExpanderItem>
+</Expander>;
+```
+
+<Example>
+  <UncontrolledExpander type="single" isCollapsible />
+</Example>
+
+## CSS Styling
+
+### Global styling
+
+To override styling on all Expanders, you can set the Amplify CSS variables with the built-in `.amplify-expander`, `.amplify-expander__item`, `.amplify-expander__header`, `.amplify-expander__trigger`, `.amplify-expander__icon`, `.amplify-expander__content` and `.amplify-expander__content__text` class.
+
+```css
+/* styles.css */
+.amplify-expander {
+  --amplify-components-expander-box-shadow: 0 0 10px var(--amplify-colors-brand-primary-80);
+}
+```
+
+<Example>
+  <UncontrolledExpander
+    className="expander-global-styling-example"
+    type="single"
+  />
+</Example>
+
+### Local styling
+
+To override styling on a specific Expander, you can use (in order of increasing specificity): a class selector and style props.
+
+_Using a class selector:_
+
+```css
+/* styles.css */
+.my-expander {
+  background-color: var(--amplify-colors-brand-primary-80);
+  color: var(--amplify-colors-white);
+}
+
+.my-expander .amplify-expander__content__text {
+  color: var(--amplify-colors-white);
+}
+```
+
+```jsx
+import { Expander, ExpanderItem } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+import './styles.css';
+
+<Expander className="my-expander" type="single">
+  <ExpanderItem title="Section 1 title" value="item-1">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua.
+  </ExpanderItem>
+  <ExpanderItem title="Section 2 title" value="item-2">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua.
+  </ExpanderItem>
+  <ExpanderItem title="Section 3 title" value="item-3">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua.
+  </ExpanderItem>
+</Expander>;
+```
+
+<Example>
+  <UncontrolledExpander className="my-expander" type="single" />
+</Example>
+
+_Using style props:_
+
+```jsx
+import { Expander, ExpanderItem } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<Expander
+  type="single"
+  style={{
+    backgroundColor: 'var(--amplify-colors-brand-secondary-80)',
+    color: 'var(--amplify-colors-white)',
+    '--amplify-components-expander-content-text-color':
+      'var(--amplify-colors-white)',
+  }}
+>
+  <ExpanderItem title="Section 1 title" value="item-1">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua.
+  </ExpanderItem>
+  <ExpanderItem title="Section 2 title" value="item-2">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua.
+  </ExpanderItem>
+  <ExpanderItem title="Section 3 title" value="item-3">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua.
+  </ExpanderItem>
+</Expander>;
+```
+
+<Example>
+  <UncontrolledExpander
+    type="single"
+    style={{
+      backgroundColor: 'var(--amplify-colors-brand-secondary-80)',
+      color: 'var(--amplify-colors-white)',
+      '--amplify-components-expander-content-text-color':
+        'var(--amplify-colors-white)',
+    }}
+  />
+</Example>
