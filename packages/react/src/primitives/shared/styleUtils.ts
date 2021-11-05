@@ -10,6 +10,7 @@ import {
   ComponentPropsToStylePropsMap,
   ComponentPropsToStylePropsMapKeys,
   GridItemStyleProps,
+  GridSpanType,
   ResponsiveObject,
   ViewProps,
 } from '../types';
@@ -81,9 +82,11 @@ export const usePropStyles = (props: ViewProps, style: React.CSSProperties) => {
 
 export const isSpanPrimitiveValue = (
   spanValue: GridItemStyleProps['rowSpan'] | GridItemStyleProps['columnSpan']
-): spanValue is 'auto' | number => {
+): spanValue is GridSpanType => {
   return (
-    spanValue === 'auto' || (typeof spanValue === 'number' && !isNaN(spanValue))
+    spanValue === 'auto' ||
+    (typeof spanValue === 'number' && !isNaN(spanValue)) ||
+    (typeof spanValue === 'string' && !isNaN(parseFloat(spanValue)))
   );
 };
 
@@ -109,7 +112,7 @@ export const convertGridSpan = (
   return null;
 };
 
-export const getGridSpan = (spanValue: number | 'auto'): string => {
+export const getGridSpan = (spanValue: GridSpanType): string => {
   return spanValue === 'auto' ? 'auto' : `span ${spanValue}`;
 };
 

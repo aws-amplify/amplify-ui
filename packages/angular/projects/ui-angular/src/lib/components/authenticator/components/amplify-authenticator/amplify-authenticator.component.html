@@ -1,88 +1,70 @@
-<div
-  data-amplify-authenticator
-  *ngIf="!authenticatorState.matches('authenticated')"
->
+<div data-amplify-authenticator *ngIf="route !== 'authenticated'">
   <div data-authenticator-variation="modal" *ngIf="variationModal"></div>
 
   <div data-amplify-container>
     <amplify-tabs
       (tabChange)="onTabChange()"
-      *ngIf="actorState?.matches('signIn') || actorState?.matches('signUp')"
+      *ngIf="route === 'signIn' || route === 'signUp'"
     >
-      <amplify-tab-item
-        [title]="signInTitle"
-        [active]="actorState?.matches('signIn')"
-      >
+      <amplify-tab-item [title]="signInTitle" [active]="route === 'signIn'">
         <!-- signIn component -->
-        <amplify-slot name="sign-in" *ngIf="actorState?.matches('signIn')">
+        <amplify-slot name="sign-in" *ngIf="route === 'signIn'">
           <amplify-sign-in></amplify-sign-in>
         </amplify-slot>
       </amplify-tab-item>
-      <amplify-tab-item
-        [title]="signUpTitle"
-        [active]="actorState?.matches('signUp')"
-      >
+      <amplify-tab-item [title]="signUpTitle" [active]="route === 'signUp'">
         <!-- signUp component -->
-        <amplify-slot name="sign-up" *ngIf="actorState?.matches('signUp')">
+        <amplify-slot name="sign-up" *ngIf="route === 'signUp'">
           <amplify-sign-up></amplify-sign-up>
         </amplify-slot>
       </amplify-tab-item>
     </amplify-tabs>
 
     <!-- confirmSignUp content -->
-    <amplify-slot
-      name="confirm-sign-up"
-      *ngIf="actorState?.matches('confirmSignUp')"
-    >
+    <amplify-slot name="confirm-sign-up" *ngIf="route === 'confirmSignUp'">
       <amplify-confirm-sign-up></amplify-confirm-sign-up>
     </amplify-slot>
 
     <!-- confirmSignIn content -->
-    <amplify-slot
-      name="confirm-sign-in"
-      *ngIf="actorState?.matches('confirmSignIn')"
-    >
+    <amplify-slot name="confirm-sign-in" *ngIf="route === 'confirmSignIn'">
       <amplify-confirm-sign-in></amplify-confirm-sign-in>
     </amplify-slot>
 
     <!-- setupTotp content -->
-    <amplify-slot name="setup-totp" *ngIf="actorState?.matches('setupTOTP')">
+    <amplify-slot name="setup-totp" *ngIf="route === 'setupTOTP'">
       <amplify-setup-totp></amplify-setup-totp>
     </amplify-slot>
 
     <!-- forceNewPassword content -->
     <amplify-slot
       name="force-new-password"
-      *ngIf="actorState?.matches('forceNewPassword')"
+      *ngIf="route === 'forceNewPassword'"
     >
       <amplify-force-new-password></amplify-force-new-password>
     </amplify-slot>
 
     <!-- resetPassword content -->
-    <amplify-slot
-      name="reset-password"
-      *ngIf="actorState?.matches('resetPassword')"
-    >
+    <amplify-slot name="reset-password" *ngIf="route === 'resetPassword'">
       <amplify-reset-password></amplify-reset-password>
     </amplify-slot>
 
     <!-- confirmResetPassword content -->
     <amplify-slot
       name="confirm-reset-password"
-      *ngIf="actorState?.matches('confirmResetPassword')"
+      *ngIf="route === 'confirmResetPassword'"
     >
       <amplify-confirm-reset-password></amplify-confirm-reset-password>
     </amplify-slot>
 
     <!-- verifyUser content -->
-    <amplify-slot name="verify-user" *ngIf="actorState?.matches('verifyUser')">
+    <amplify-slot name="verify-user" *ngIf="route === 'verifyUser'">
       <amplify-verify-user></amplify-verify-user>
     </amplify-slot>
 
     <!-- confirmVerifyUser content -->
     <amplify-slot
       name="confirm-verify-user"
-      *ngIf="actorState?.matches('confirmVerifyUser')"
+      *ngIf="route === 'confirmVerifyUser'"
     >
       <amplify-confirm-verify-user></amplify-confirm-verify-user>
     </amplify-slot>
@@ -93,7 +75,7 @@
 <amplify-slot
   name="authenticated"
   [context]="authenticatedContext"
-  *ngIf="authenticatorState.matches('authenticated')"
+  *ngIf="route === 'authenticated'"
 >
   <ng-content></ng-content>
 </amplify-slot>

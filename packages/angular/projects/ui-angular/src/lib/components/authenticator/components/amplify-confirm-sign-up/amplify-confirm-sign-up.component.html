@@ -4,7 +4,7 @@
       class="amplify-flex"
       style="flex-direction: column"
       data-amplify-fieldset
-      [disabled]="isPending"
+      [disabled]="context.isPending"
     >
       <h3 class="amplify-heading">{{ this.headerText }}</h3>
       <amplify-form-field
@@ -15,13 +15,17 @@
       <button amplify-button variation="primary" fullWidth="true" type="submit">
         {{ confirmText }}
       </button>
-      <button amplify-button fontWeight="normal" (click)="resend()">
+      <button
+        amplify-button
+        fontWeight="normal"
+        (click)="authenticator.resendCode()"
+      >
         {{ resendCodeText }}
       </button>
     </fieldset>
 
-    <amplify-error *ngIf="remoteError">
-      {{ remoteError }}
+    <amplify-error *ngIf="context.error">
+      {{ authenticator.error }}
     </amplify-error>
   </form>
 </div>

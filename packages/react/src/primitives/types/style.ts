@@ -6,6 +6,17 @@ import { GridItemStyleProps, GridContainerStyleProps } from './grid';
 import { ImageStyleProps } from './image';
 import { TextAreaStyleProps } from './textArea';
 
+/**
+ * Extract style compatible types (string literal | number | any string)
+ */
+export type StyleProp<PropertyType> =
+  | (PropertyType extends number
+      ? number
+      : PropertyType extends string
+      ? PropertyType
+      : never)
+  | (string & {});
+
 export interface ResponsiveObject<PropertyType> {
   base?: PropertyType;
   small?: PropertyType;
@@ -16,9 +27,9 @@ export interface ResponsiveObject<PropertyType> {
 }
 
 export type ResponsiveStyle<PropertyType> =
-  | PropertyType
-  | PropertyType[]
-  | ResponsiveObject<PropertyType>;
+  | StyleProp<PropertyType>
+  | StyleProp<PropertyType>[]
+  | ResponsiveObject<StyleProp<PropertyType>>;
 
 export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
   alignSelf?: ResponsiveStyle<Property.AlignSelf | WebDesignToken>;
