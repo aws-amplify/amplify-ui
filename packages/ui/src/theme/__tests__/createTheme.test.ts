@@ -21,14 +21,12 @@ describe('@aws-amplify/ui', () => {
         );
       });
 
-      it('should return a css variable reference if present on token value', () => {
+      it('should return the variable name in var() when called with .toString or cssReference', () => {
         expect(tokens.colors.background.primary.cssReference).toEqual(
           'var(--amplify-colors-background-primary)'
         );
-      });
-      it('should return a css variable reference if present on token value', () => {
-        expect(tokens.colors.background.primary.value).toEqual(
-          'var(--amplify-colors-white)'
+        expect(tokens.colors.background.primary.toString()).toEqual(
+          'var(--amplify-colors-background-primary)'
         );
       });
     });

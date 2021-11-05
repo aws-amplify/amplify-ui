@@ -3,7 +3,7 @@ import deepExtend from 'style-dictionary/lib/utils/deepExtend';
 import flattenProperties from 'style-dictionary/lib/utils/flattenProperties';
 
 import { baseTheme as _baseTheme } from './baseTheme';
-import { Theme, BaseTheme, BrowserTheme, Override } from './types';
+import { Theme, BaseTheme, WebTheme, Override } from './types';
 import { cssValue, cssNameTransform } from './utils';
 import { WebTokens } from './tokens';
 import { DesignToken, WebDesignToken } from './tokens/types/designToken';
@@ -61,7 +61,7 @@ function setupTokens(obj: any, path = []) {
 export function createTheme(
   theme?: Theme,
   baseTheme: BaseTheme = _baseTheme
-): BrowserTheme {
+): WebTheme {
   // merge theme and baseTheme to get a complete theme
   // deepExtend is an internal Style Dictionary method
   // that performs a deep merge on n objects. We could change

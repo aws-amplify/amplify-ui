@@ -119,7 +119,7 @@ export interface BaseTheme extends Theme {
  * on the design tokens and all design tokens have added fields
  * to be used in Javascript/Typescript.
  */
-export interface BrowserTheme extends BaseTheme {
+export interface WebTheme extends BaseTheme {
   tokens: WebTokens;
   cssText: string;
 }

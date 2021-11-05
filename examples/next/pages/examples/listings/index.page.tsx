@@ -1,54 +1,15 @@
-import {
-  Collection,
-  Text,
-  View,
-  ToggleButton,
-  ToggleButtonGroup,
-  AmplifyProvider,
-  IconWbSunny,
-  IconWbTwilight,
-  IconComputer,
-  ColorMode,
-} from '@aws-amplify/ui-react';
-import { useState } from 'react';
+import { Collection, Text, View, useTheme } from '@aws-amplify/ui-react';
 import { experiences, places } from './data';
 import { ExperienceCard } from './ExperienceCard';
 import { ListingCard } from './ListingCard';
 import { SectionHeading } from './SectionHeading';
-import { Logo } from './Logo';
-import { theme } from '../../../theme';
+import { App } from './App';
 
-import '@aws-amplify/ui-react/styles.css';
-import './styles.scss';
-
-const { tokens } = theme;
-
-function App() {
-  const [colorMode, setColorMode] = useState<ColorMode>('system');
+export default function IndexPage() {
+  const { tokens } = useTheme();
   return (
-    <AmplifyProvider components={{}} theme={theme} colorMode={colorMode}>
+    <App>
       <View backgroundColor={tokens.colors.background.secondary}>
-        <header className="listing-app-header">
-          <Logo />
-
-          <input type="search" placeholder="search" />
-          <ToggleButtonGroup
-            value={colorMode}
-            isExclusive
-            onChange={(value: ColorMode) => setColorMode(value)}
-          >
-            <ToggleButton value="light">
-              <IconWbSunny />
-            </ToggleButton>
-            <ToggleButton value="dark">
-              <IconWbTwilight />
-            </ToggleButton>
-            <ToggleButton value="system">
-              <IconComputer />
-            </ToggleButton>
-          </ToggleButtonGroup>
-        </header>
-
         <View padding={tokens.space.xxl}>
           <SectionHeading
             title="Discover Experiences"
@@ -93,8 +54,6 @@ function App() {
           </Text>
         </footer>
       </View>
-    </AmplifyProvider>
+    </App>
   );
 }
-
-export default App;

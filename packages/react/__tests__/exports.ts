@@ -1872,6 +1872,7 @@ describe('@aws-amplify/ui-react', () => {
           "Tabs",
           "Text",
           "TextField",
+          "Theme",
           "ToggleButton",
           "ToggleButtonGroup",
           "View",
