@@ -41,7 +41,6 @@ const services = {
         name="preferred_username"
         placeholder="Preferred Username"
         type="text"
-        :required="false"
       ></amplify-text-field>
       <authenticator-sign-up-form-fields />
       <amplify-check-box :errorMessage="validationErrors.acknowledgement" />

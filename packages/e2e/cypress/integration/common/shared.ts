@@ -144,3 +144,9 @@ Then('the {string} button is disabled', (name: string) => {
     name: new RegExp(`^${escapeRegExp(name)}$`, 'i'),
   }).should('be.disabled');
 });
+
+Then('the {string} field is invalid', (name: string) => {
+  cy.findInputField(name)
+    .then(($el) => $el.get(0).checkValidity())
+    .should('be.false');
+});
