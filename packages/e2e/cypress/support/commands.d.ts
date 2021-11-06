@@ -12,7 +12,7 @@ declare namespace Cypress {
      *   placeholder value for password inputs.
      * @example cy.findInputField('Password')
      */
-    findInputField(field: string): Chainable<Element>;
+    findInputField(field: string): Chainable<JQuery<HTMLInputElement>>;
   }
 }
 
