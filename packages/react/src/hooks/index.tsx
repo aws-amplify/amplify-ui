@@ -1,6 +1,6 @@
 export { useAmplify } from './useAmplify';
 
-export { useAuthenticatedUser } from './useAuthenticatedUser';
+export { useAuth } from './useAuth';
 
 export {
   useDataStoreBinding,
