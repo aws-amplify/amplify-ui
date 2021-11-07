@@ -1,0 +1,26 @@
+.docs-main p {
+  margin-bottom: var(--amplify-space-medium);
+}
+
+.docs-main .docs-description {
+  color: var(--amplify-colors-font-secondary);
+  font-size: var(--amplify-font-sizes-large);
+  padding-top: var(--amplify-space-medium);
+  margin: 0;
+}
+
+.docs-meta {
+  padding-bottom: var(--amplify-space-medium);
+}
+
+.docs-content {
+  max-width: 80rem;
+}
+
+.docs-content-body {
+  padding: var(--amplify-space-xxl);
+}
+
+.docs-main blockquote > p {
+  margin: 0;
+}

@@ -1,16 +1,7 @@
-import { useState } from 'react';
 import NextLink from 'next/link';
 import {
-  Icon,
-  IconChevronRight,
-  IconNotStarted,
-  IconWidgets,
-  IconDeviceHub,
-  SearchField,
+  Alert,
   IconOpenInNew,
-  IconSettings,
-  View,
-  Heading,
   Button,
   IconSearch,
   Link,
@@ -22,7 +13,6 @@ import {
   IconWbTwighlight,
   IconComputer,
   IconMenu,
-  Alert,
   Divider,
 } from '@aws-amplify/ui-react';
 import { useRouter } from 'next/router';
@@ -74,9 +64,11 @@ export const Header = ({ platform, colorMode, setColorMode }) => {
   return (
     <>
       <header className="docs-header">
-        {/* <Alert variation="warning" isDismissible={true}>
-          You're viewing documentation for the next release of Amplify UI. For the latest stable release, visit <a href="https://docs.amplify.aws/ui">https://docs.amplify.aws/ui</a>.
-        </Alert> */}
+        <Alert variation="warning" isDismissible={true}>
+          You're viewing documentation for the next release of Amplify UI. For
+          the latest stable release, visit{' '}
+          <a href="https://docs.amplify.aws/ui">https://docs.amplify.aws/ui</a>.
+        </Alert>
         <Flex
           direction="row"
           alignItems="center"

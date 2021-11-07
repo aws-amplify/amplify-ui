@@ -19,7 +19,7 @@ const NavLink = ({ href, children }) => {
 
   return (
     <Link href={href}>
-      <a className={`aui-docs-nav-link ${isCurrent ? 'current' : ''}`}>
+      <a className={`docs-secondary-nav-link ${isCurrent ? 'current' : ''}`}>
         {children}
       </a>
     </Link>
