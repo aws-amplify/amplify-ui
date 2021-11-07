@@ -4,14 +4,14 @@ import {
   OutlineWidthValue,
 } from './types/designToken';
 
-type OutlineWidthKeys = 'small' | 'medium' | 'large';
-
 export type OutlineWidths = {
-  [key in OutlineWidthKeys]: DesignToken<OutlineWidthValue>;
+  small: DesignToken<OutlineWidthValue>;
+  medium: DesignToken<OutlineWidthValue>;
+  large: DesignToken<OutlineWidthValue>;
 };
 
 export type WebOutlineWidths = {
-  [key in OutlineWidthKeys]: WebDesignToken<OutlineWidthValue>;
+  [Property in keyof OutlineWidths]: WebDesignToken<OutlineWidthValue>;
 };
 
 export const outlineWidths: OutlineWidths = {

@@ -1,14 +1,22 @@
 import { DesignToken, WebDesignToken, OpacityValue } from './types/designToken';
 
-// TODO: Update these so the values aren't directly tied to the names
-type OpacityKeys = 0 | 10 | 20 | 30 | 40 | 50 | 60 | 70 | 80 | 90 | 100;
-
 export type Opacities = {
-  [key in OpacityKeys]: DesignToken<OpacityValue>;
+  // TODO: Update these so the values aren't directly tied to the names
+  0: DesignToken<OpacityValue>;
+  10: DesignToken<OpacityValue>;
+  20: DesignToken<OpacityValue>;
+  30: DesignToken<OpacityValue>;
+  40: DesignToken<OpacityValue>;
+  50: DesignToken<OpacityValue>;
+  60: DesignToken<OpacityValue>;
+  70: DesignToken<OpacityValue>;
+  80: DesignToken<OpacityValue>;
+  90: DesignToken<OpacityValue>;
+  100: DesignToken<OpacityValue>;
 };
 
 export type WebOpacities = {
-  [key in OpacityKeys]: WebDesignToken<OpacityValue>;
+  [Property in keyof Opacities]: WebDesignToken<OpacityValue>;
 };
 
 export const opacities: Opacities = {

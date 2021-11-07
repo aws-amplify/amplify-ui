@@ -1,13 +1,13 @@
 import { DesignToken, WebDesignToken, ShadowValue } from './types/designToken';
 
-type ShadowKeys = 'small' | 'medium' | 'large';
-
 export type Shadows = {
-  [key in ShadowKeys]: DesignToken<ShadowValue>;
+  small: DesignToken<ShadowValue>;
+  medium: DesignToken<ShadowValue>;
+  large: DesignToken<ShadowValue>;
 };
 
 export type WebShadows = {
-  [key in ShadowKeys]: WebDesignToken<ShadowValue>;
+  [Property in keyof Shadows]: WebDesignToken<ShadowValue>;
 };
 
 export const shadows: Shadows = {

@@ -4,13 +4,15 @@ type TimeKeys = 'short' | 'medium' | 'long';
 
 export type Time = {
   transition: {
-    [key in TimeKeys]: DesignToken<TimeValue>;
+    short: DesignToken<TimeValue>;
+    medium: DesignToken<TimeValue>;
+    long: DesignToken<TimeValue>;
   };
 };
 
 export type WebTime = {
   transition: {
-    [key in TimeKeys]: WebDesignToken<TimeValue>;
+    [Property in keyof Time['transition']]: WebDesignToken<TimeValue>;
   };
 };
 

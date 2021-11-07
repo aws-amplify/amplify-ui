@@ -4,23 +4,20 @@ import {
   FontWeightValue,
 } from './types/designToken';
 
-type FontWeightKeys =
-  | 'hairline'
-  | 'thin'
-  | 'light'
-  | 'normal'
-  | 'medium'
-  | 'semibold'
-  | 'bold'
-  | 'extrabold'
-  | 'black';
-
 export type FontWeights = {
-  [key in FontWeightKeys]: DesignToken<FontWeightValue>;
+  hairline: DesignToken<FontWeightValue>;
+  thin: DesignToken<FontWeightValue>;
+  light: DesignToken<FontWeightValue>;
+  normal: DesignToken<FontWeightValue>;
+  medium: DesignToken<FontWeightValue>;
+  semibold: DesignToken<FontWeightValue>;
+  bold: DesignToken<FontWeightValue>;
+  extrabold: DesignToken<FontWeightValue>;
+  black: DesignToken<FontWeightValue>;
 };
 
 export type WebFontWeights = {
-  [key in FontWeightKeys]: WebDesignToken<FontWeightValue>;
+  [Property in keyof FontWeights]: WebDesignToken<FontWeightValue>;
 };
 
 export const fontWeights: FontWeights = {

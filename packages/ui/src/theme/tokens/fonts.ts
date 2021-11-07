@@ -1,16 +1,15 @@
 import { DesignToken, WebDesignToken, FontValue } from './types/designToken';
 
-type FontKeys = 'variable' | 'static';
-
 export type Fonts = {
   default: {
-    [key in FontKeys]: DesignToken<FontValue>;
+    variable: DesignToken<FontValue>;
+    static: DesignToken<FontValue>;
   };
 };
 
 export interface WebFonts {
   default: {
-    [key in FontKeys]: WebDesignToken<FontValue>;
+    [Property in keyof Fonts['default']]: WebDesignToken<FontValue>;
   };
 }
 

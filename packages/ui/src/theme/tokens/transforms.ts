@@ -4,17 +4,17 @@ import {
   TransformValue,
 } from './types/designToken';
 
-type TransformKeys = 'small' | 'medium' | 'large';
-
 export type Transforms = {
   slideX: {
-    [key in TransformKeys]: DesignToken<TransformValue>;
+    small: DesignToken<TransformValue>;
+    medium: DesignToken<TransformValue>;
+    large: DesignToken<TransformValue>;
   };
 };
 
 export type WebTransforms = {
   slideX: {
-    [key in TransformKeys]: WebDesignToken<TransformValue>;
+    [Property in keyof Transforms['slideX']]: WebDesignToken<TransformValue>;
   };
 };
 

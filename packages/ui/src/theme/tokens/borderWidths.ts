@@ -4,14 +4,23 @@ import {
   BorderWidthValue,
 } from './types/designToken';
 
-type Sizes = 'small' | 'medium' | 'large';
-
 export type BorderWidths = {
-  [key in Sizes]: DesignToken<BorderWidthValue>;
+  /**
+   * Small border, used for inputs and such
+   */
+  small: DesignToken<BorderWidthValue>;
+  /**
+   * Medium border, used for
+   */
+  medium: DesignToken<BorderWidthValue>;
+  /**
+   * Large border
+   */
+  large: DesignToken<BorderWidthValue>;
 };
 
 export type WebBorderWidths = {
-  [key in Sizes]: WebDesignToken<BorderWidthValue>;
+  [Property in keyof BorderWidths]: WebDesignToken<BorderWidthValue>;
 };
 
 export const borderWidths: BorderWidths = {

@@ -4,24 +4,21 @@ import {
   FontSizeValue,
 } from './types/designToken';
 
-type FontSizeKeys =
-  | 'xxxs'
-  | 'xxs'
-  | 'xs'
-  | 'small'
-  | 'medium'
-  | 'large'
-  | 'xl'
-  | 'xxl'
-  | 'xxxl'
-  | 'xxxxl';
-
 export type FontSizes = {
-  [key in FontSizeKeys]: DesignToken<FontSizeValue>;
+  xxxs: DesignToken<FontSizeValue>;
+  xxs: DesignToken<FontSizeValue>;
+  xs: DesignToken<FontSizeValue>;
+  small: DesignToken<FontSizeValue>;
+  medium: DesignToken<FontSizeValue>;
+  large: DesignToken<FontSizeValue>;
+  xl: DesignToken<FontSizeValue>;
+  xxl: DesignToken<FontSizeValue>;
+  xxxl: DesignToken<FontSizeValue>;
+  xxxxl: DesignToken<FontSizeValue>;
 };
 
 export type WebFontSizes = {
-  [key in FontSizeKeys]: WebDesignToken<FontSizeValue>;
+  [Property in keyof FontSizes]: WebDesignToken<FontSizeValue>;
 };
 
 export const fontSizes: FontSizes = {

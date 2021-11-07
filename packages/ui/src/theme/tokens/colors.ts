@@ -1,36 +1,28 @@
 import { DesignToken, WebDesignToken, ColorValue } from './types/designToken';
-import { OrdinalScaleKeys, OrdinalVariationKeys } from './types/scales';
+import { OrdinalScale, OrdinalVariation } from './types/scales';
 
 type ScaleKeys = 10 | 20 | 40 | 60 | 80 | 90 | 100;
-type FontKeys =
-  | 'inverse'
-  | 'interactive'
-  | 'hover'
-  | 'focus'
-  | 'active'
-  | 'disabled';
 
 type FontColors = {
-  [key in
-    | OrdinalScaleKeys
-    | OrdinalVariationKeys
-    | FontKeys]: DesignToken<ColorValue>;
-};
+  inverse: DesignToken<ColorValue>;
+  interactive: DesignToken<ColorValue>;
+  hover: DesignToken<ColorValue>;
+  focus: DesignToken<ColorValue>;
+  active: DesignToken<ColorValue>;
+  disabled: DesignToken<ColorValue>;
+} & OrdinalScale &
+  OrdinalVariation;
 
 type BackgroundColors = {
-  [key in
-    | OrdinalScaleKeys
-    | OrdinalVariationKeys
-    | 'disabled']: DesignToken<ColorValue>;
-};
+  disabled: DesignToken<ColorValue>;
+} & OrdinalScale &
+  OrdinalVariation;
 
 type BorderColors = {
-  [key in
-    | OrdinalScaleKeys
-    | 'disabled'
-    | 'focus'
-    | 'error']: DesignToken<ColorValue>;
-};
+  disabled: DesignToken<ColorValue>;
+  focus: DesignToken<ColorValue>;
+  error: DesignToken<ColorValue>;
+} & OrdinalScale;
 
 type ColorTypes =
   | { [key in ScaleKeys]: DesignToken<ColorValue> }

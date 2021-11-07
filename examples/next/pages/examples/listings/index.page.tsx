@@ -10,7 +10,7 @@ export default function IndexPage() {
   return (
     <App>
       <View backgroundColor={tokens.colors.background.secondary}>
-        <View padding={tokens.space.xxl}>
+        <View padding={tokens.space.large}>
           <SectionHeading
             title="Discover Experiences"
             subtitle="Unique activities with local experts—in person or online."

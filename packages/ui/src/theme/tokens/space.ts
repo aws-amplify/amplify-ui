@@ -12,10 +12,40 @@ type SpaceKeys =
   | 'xxxl';
 
 export type Space = {
-  [key in SpaceKeys]: DesignToken<SpaceValue>;
-} & {
+  /**
+   * Smallest space value, used as spacing between
+   * small parts of components like pagination and fields.
+   * default value: 0.25rem / 4px
+   */
+  xxxs: DesignToken<SpaceValue>;
+  /**
+   * Smallest space value, used in badges and pagination.
+   * default value: 0.375rem / 6px
+   */
+  xxs: DesignToken<SpaceValue>;
+  /**
+   * default value: 0.5rem / 8px
+   */
+  xs: DesignToken<SpaceValue>;
+  small: DesignToken<SpaceValue>;
+  /**
+   * Base space, used in lots of places
+   */
+  medium: DesignToken<SpaceValue>;
+  large: DesignToken<SpaceValue>;
+  xl: DesignToken<SpaceValue>;
+  xxl: DesignToken<SpaceValue>;
+  xxxl: DesignToken<SpaceValue>;
   relative: {
-    [key in SpaceKeys]: DesignToken<SpaceValue>;
+    xxxs: DesignToken<SpaceValue>;
+    xxs: DesignToken<SpaceValue>;
+    xs: DesignToken<SpaceValue>;
+    small: DesignToken<SpaceValue>;
+    medium: DesignToken<SpaceValue>;
+    large: DesignToken<SpaceValue>;
+    xl: DesignToken<SpaceValue>;
+    xxl: DesignToken<SpaceValue>;
+    xxxl: DesignToken<SpaceValue>;
   };
 };
 

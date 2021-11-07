@@ -4,14 +4,14 @@ import {
   OutlineOffsetValue,
 } from './types/designToken';
 
-type OutlineOffsetKeys = 'small' | 'medium' | 'large';
-
 export type OutlineOffsets = {
-  [key in OutlineOffsetKeys]: DesignToken<OutlineOffsetValue>;
+  small: DesignToken<OutlineOffsetValue>;
+  medium: DesignToken<OutlineOffsetValue>;
+  large: DesignToken<OutlineOffsetValue>;
 };
 
 export type WebOutlineOffsets = {
-  [key in OutlineOffsetKeys]: WebDesignToken<OutlineOffsetValue>;
+  [Property in keyof OutlineOffsets]: WebDesignToken<OutlineOffsetValue>;
 };
 
 export const outlineOffsets: OutlineOffsets = {

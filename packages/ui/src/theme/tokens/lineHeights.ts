@@ -4,14 +4,14 @@ import {
   LineHeightValue,
 } from './types/designToken';
 
-type Keys = 'small' | 'medium' | 'large';
-
 export type LineHeights = {
-  [key in Keys]: DesignToken<LineHeightValue>;
+  small: DesignToken<LineHeightValue>;
+  medium: DesignToken<LineHeightValue>;
+  large: DesignToken<LineHeightValue>;
 };
 
 export type WebLineHeights = {
-  [key in Keys]: WebDesignToken<LineHeightValue>;
+  [Property in keyof LineHeights]: WebDesignToken<LineHeightValue>;
 };
 
 export const lineHeights: LineHeights = {
