@@ -9,8 +9,8 @@ export default function IndexPage() {
   const { tokens } = useTheme();
   return (
     <App>
-      <View backgroundColor={tokens.colors.background.secondary}>
-        <View padding={tokens.space.large}>
+      <View>
+        <View>
           <SectionHeading
             title="Discover Experiences"
             subtitle="Unique activities with local experts—in person or online."

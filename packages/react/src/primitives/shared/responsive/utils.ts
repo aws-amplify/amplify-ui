@@ -1,3 +1,5 @@
+import { isDesignToken } from '@aws-amplify/ui';
+
 import { Breakpoint, Breakpoints } from '../../types/responsive';
 
 export const getValueAtCurrentBreakpoint = (
@@ -5,6 +7,9 @@ export const getValueAtCurrentBreakpoint = (
   breakpoint: Breakpoint,
   breakpoints: Breakpoints
 ) => {
+  if (isDesignToken(values)) {
+    values = values.toString();
+  }
   if (typeof values !== 'object') {
     return values;
   }
@@ -19,6 +24,14 @@ export const getValueAtCurrentBreakpoint = (
   } else {
     breakpointCompatValues = values;
   }
+
+  // Replace any breakpoint values if they are design tokens
+  Object.keys(breakpointCompatValues).forEach((key) => {
+    const value = breakpointCompatValues[key];
+    if (isDesignToken(value)) {
+      breakpointCompatValues[key] = value.toString();
+    }
+  });
 
   return getClosestValueByBreakpoint(
     breakpointCompatValues,

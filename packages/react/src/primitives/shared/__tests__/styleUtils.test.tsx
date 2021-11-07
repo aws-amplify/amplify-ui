@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react-hooks';
 
-import { defaultTheme } from '@aws-amplify/ui';
+import { defaultTheme, createTheme } from '@aws-amplify/ui';
 
 import {
   convertGridSpan,
@@ -48,6 +48,8 @@ const gridItemProps = {
   columnSpan: 2,
   rowSpan: 3,
 };
+
+const theme = createTheme();
 
 describe('convertStylePropsToStyleObj: ', () => {
   it('should convert style props to a style object', () => {
@@ -162,6 +164,106 @@ describe('convertStylePropsToStyleObj: ', () => {
     expect(style['backgroundColor']).toBe('yellow');
     expect(style['color']).toBe('red');
     expect(style['fontWeight']).toBe('bold');
+  });
+
+  it('should handle design tokens', () => {
+    const props = {
+      color: theme.tokens.colors.font.primary,
+    };
+    const style = convertStylePropsToStyleObj({
+      props,
+      style: {},
+      ...defaultStylePropsParams,
+    });
+    expect(style['color']).toBe('var(--amplify-colors-font-primary)');
+  });
+
+  it('should handle responsive design tokens', () => {
+    const props = {
+      color: [
+        theme.tokens.colors.font.primary,
+        theme.tokens.colors.font.secondary,
+      ],
+      backgroundColor: {
+        base: theme.tokens.colors.background.primary,
+        large: theme.tokens.colors.background.secondary,
+      },
+    };
+    const style = convertStylePropsToStyleObj({
+      props,
+      style: {},
+      ...defaultStylePropsParams,
+    });
+    expect(style['color']).toBe('var(--amplify-colors-font-primary)');
+    expect(style['backgroundColor']).toBe(
+      'var(--amplify-colors-background-primary)'
+    );
+
+    const mediumStyle = convertStylePropsToStyleObj({
+      props,
+      ...defaultStylePropsParams,
+      breakpoint: 'medium',
+    });
+
+    expect(mediumStyle[ComponentPropsToStylePropsMap.color]).toBe(
+      'var(--amplify-colors-font-secondary)'
+    );
+    expect(mediumStyle[ComponentPropsToStylePropsMap.backgroundColor]).toBe(
+      'var(--amplify-colors-background-primary)'
+    );
+
+    const largeStyle = convertStylePropsToStyleObj({
+      props,
+      ...defaultStylePropsParams,
+      breakpoint: 'large',
+    });
+    expect(largeStyle[ComponentPropsToStylePropsMap.color]).toBe(
+      'var(--amplify-colors-font-secondary)'
+    );
+    expect(largeStyle[ComponentPropsToStylePropsMap.backgroundColor]).toBe(
+      'var(--amplify-colors-background-secondary)'
+    );
+  });
+
+  it('should handle a mix of responsive design tokens and raw values', () => {
+    const props = {
+      color: [theme.tokens.colors.font.primary, 'red'],
+      backgroundColor: {
+        base: theme.tokens.colors.background.primary,
+        large: 'blue',
+      },
+    };
+    const style = convertStylePropsToStyleObj({
+      props,
+      style: {},
+      ...defaultStylePropsParams,
+    });
+
+    expect(style['color']).toBe('var(--amplify-colors-font-primary)');
+    expect(style['backgroundColor']).toBe(
+      'var(--amplify-colors-background-primary)'
+    );
+
+    const mediumStyle = convertStylePropsToStyleObj({
+      props,
+      ...defaultStylePropsParams,
+      breakpoint: 'medium',
+    });
+
+    expect(mediumStyle[ComponentPropsToStylePropsMap.color]).toBe('red');
+    expect(mediumStyle[ComponentPropsToStylePropsMap.backgroundColor]).toBe(
+      'var(--amplify-colors-background-primary)'
+    );
+
+    const largeStyle = convertStylePropsToStyleObj({
+      props,
+      ...defaultStylePropsParams,
+      breakpoint: 'large',
+    });
+    expect(largeStyle[ComponentPropsToStylePropsMap.color]).toBe('red');
+    expect(largeStyle[ComponentPropsToStylePropsMap.backgroundColor]).toBe(
+      'blue'
+    );
   });
 });
 
