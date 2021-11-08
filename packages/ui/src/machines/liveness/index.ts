@@ -1,8 +1,9 @@
-import { createMachine, assign } from 'xstate';
+import { createMachine, assign, actions } from 'xstate';
 import {
   LivenessContext,
   LivenessEvent,
   FaceMatchState,
+  LivenessErrorState,
   LivenessStatus,
 } from '../../types';
 import {
@@ -25,9 +26,14 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       videoAssociatedParams: undefined,
       ovalAssociatedParams: undefined,
       faceMatchState: FaceMatchState.CANT_IDENTIFY,
+      errorState: null,
     },
     on: {
       CANCEL: 'userExit',
+      TIMEOUT: {
+        target: 'retryableTimeout',
+        actions: 'updateErrorStateForTimeout',
+      },
     },
     states: {
       start: {
@@ -48,7 +54,12 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         },
       },
       recording: {
-        entry: ['setDOMAndCameraDetails', 'startRecording'],
+        entry: [
+          'setDOMAndCameraDetails',
+          'startRecording',
+          'clearErrorState',
+          'sendTimeoutAfterOvalDrawingDelay',
+        ],
         initial: 'ovalDrawing',
         states: {
           ovalDrawing: {
@@ -56,11 +67,15 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
               src: 'detectInitialFaceAndDrawOval',
               onDone: {
                 target: 'ovalMatching',
-                actions: 'updateOvalAssociatedParams',
+                actions: [
+                  'updateOvalAssociatedParams',
+                  'sendTimeoutAfterOvalMatchDelay',
+                ],
               },
             },
           },
           ovalMatching: {
+            entry: 'cancelOvalDrawingTimeout',
             invoke: {
               src: 'detectFaceAndMatchOval',
               onDone: {
@@ -79,14 +94,11 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             },
           },
           success: {
-            entry: ['stopRecording'],
+            entry: ['stopRecording', 'cancelOvalMatchTimeout'],
             type: 'final',
           },
         },
         onDone: 'uploading',
-        on: {
-          TIMEOUT: 'timeout',
-        },
       },
       uploading: {
         initial: 'pending',
@@ -95,7 +107,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             invoke: {
               src: 'putLivenessVideo',
               onDone: 'checking',
-              onError: '#livenessMachine.notRecording',
+              onError: {
+                target: '#livenessMachine.retryableTimeout',
+                actions: 'updateErrorStateForRuntime',
+              },
             },
           },
           checking: {
@@ -109,28 +124,33 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           },
         },
       },
-      checkFailed: {
+      retryableTimeout: {
         entry: 'updateFailedAttempts',
         always: [
           {
             target: 'timeout',
             cond: 'shouldTimeoutOnFailedAttempts',
           },
-          { target: 'permissionCheck' },
+          { target: 'notRecording' },
         ],
       },
       permissionDenied: {
+        entry: 'callUserPermissionDeniedCallback',
         type: 'final',
       },
       userExit: {
-        entry: 'callExitFlow',
+        entry: 'callUserExitCallback',
         type: 'final',
       },
       timeout: {
+        entry: 'callUserTimeoutCallback',
+        type: 'final',
+      },
+      checkFailed: {
         type: 'final',
       },
       end: {
-        entry: 'callSuccessFlow',
+        entry: 'callSuccessCallback',
         type: 'final',
       },
     },
@@ -185,10 +205,45 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       updateFaceMatchState: assign({
         faceMatchState: (_, event) => event.data.faceMatchState,
       }),
-      callExitFlow: (context) => {
+      updateErrorStateForTimeout: assign({
+        errorState: (_) => LivenessErrorState.TIMEOUT,
+      }),
+      updateErrorStateForRuntime: assign({
+        errorState: (_) => LivenessErrorState.RUNTIME_ERROR,
+      }),
+      clearErrorState: assign({
+        errorState: (_) => null,
+      }),
+
+      // timeous
+      sendTimeoutAfterOvalDrawingDelay: actions.send(
+        { type: 'TIMEOUT' },
+        {
+          delay: 5000,
+          id: 'ovalDrawingTimeout',
+        }
+      ),
+      cancelOvalDrawingTimeout: actions.cancel('ovalDrawingTimeout'),
+      sendTimeoutAfterOvalMatchDelay: actions.send(
+        { type: 'TIMEOUT' },
+        {
+          delay: 5000,
+          id: 'ovalMatchTimeout',
+        }
+      ),
+      cancelOvalMatchTimeout: actions.cancel('ovalMatchTimeout'),
+
+      // callbacks
+      callUserPermissionDeniedCallback: (context) => {
+        context.flowProps.onUserPermissionDeined?.();
+      },
+      callUserExitCallback: (context) => {
         context.flowProps.onUserExit?.();
       },
-      callSuccessFlow: (context) => {
+      callUserTimeoutCallback: (context) => {
+        context.flowProps.onUserTimeout?.();
+      },
+      callSuccessCallback: (context) => {
         context.flowProps.onSuccess?.();
       },
     },

@@ -62,7 +62,7 @@ export const LivenessCheck: React.FC = () => {
       {!state.matches('permissionDenied') ? (
         <LivenessCameraModule
           isMobileScreen={isMobileScreen}
-          videoConstraints={getVideoConstraints(isMobileScreen, screen)}
+          videoConstraints={videoConstraints}
         />
       ) : (
         <Flex

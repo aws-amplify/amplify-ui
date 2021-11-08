@@ -85,7 +85,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
     response = await API.post('SampleBackend', '/liveness/start', {});
   } catch (err) {
-    console.log({ err: err.response.data });
+    console.log({ err: err.response?.data });
   }
 
   if (!response) {

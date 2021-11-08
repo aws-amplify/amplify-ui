@@ -11,6 +11,9 @@ import { FaceDetection, Face } from '../types';
 
 type BlazeFaceModelBackend = 'wasm' | 'webgl' | 'cpu';
 
+const BASE_CDN_URL =
+  'https://models.edge.reventlov.rekognition.aws.dev/blazeface';
+
 /**
  * The BlazeFace implementation of the FaceDetection interface.
  */
@@ -28,7 +31,9 @@ export class BlazeFaceFaceDetection extends FaceDetection {
     }
 
     await tf.ready();
-    this._model = await blazeface.load();
+    this._model = await blazeface.load({
+      modelUrl: `${BASE_CDN_URL}/model/model.json`,
+    });
   }
 
   async detectFaces(videoEl: HTMLVideoElement): Promise<Face[]> {
@@ -63,13 +68,7 @@ export class BlazeFaceFaceDetection extends FaceDetection {
   }
 
   private async _loadWebAssemblyBackend() {
-    /**
-     * TODO:: figure out a better way to provide the backend instead of using jsdelivr
-     *        for example using our own hosted wasm binary on CDN (cloudfront) that we control
-     */
-    tfjsWasm.setWasmPaths(
-      `https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-wasm@${tfjsWasm.version_wasm}/dist/`
-    );
+    tfjsWasm.setWasmPaths(`${BASE_CDN_URL}/wasm/`);
     await tf.setBackend('wasm');
     this.modelBackend = 'wasm';
   }

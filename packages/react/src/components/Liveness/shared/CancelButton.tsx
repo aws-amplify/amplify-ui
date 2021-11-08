@@ -12,13 +12,16 @@ export const CancelButton: React.FC<CancelButtonProps> = (props) => {
   const { isMobileScreen } = props;
 
   const { service } = useLivenessFlow();
-  const [_, send] = useActor(service);
+  const [state, send] = useActor(service);
+  const isFinalState = state.done;
 
   const handleClick = () => {
     send({
       type: 'CANCEL',
     });
   };
+
+  if (isFinalState) return null;
 
   return isMobileScreen ? (
     <Button variation="link" onClick={handleClick}>

@@ -29,9 +29,9 @@ export interface LivenessFlowProps {
   onUserPermissionDeined?: () => void;
 
   /**
-   * Callback called when the user denies Consent
+   * Callback called when the flow times out after retry attempts
    */
-  onUserConsentDenied?: () => void;
+  onUserTimeout?: () => void;
 
   /**
    * Callback called when the user exists out of the flow
@@ -100,4 +100,12 @@ export enum FaceMatchState {
   TOO_FAR = 'TOO FAR',
   TOO_CLOSE = 'TOO CLOSE',
   CANT_IDENTIFY = 'CANNOT IDENTIFY',
+}
+
+/**
+ * The liveness error states
+ */
+export enum LivenessErrorState {
+  TIMEOUT = 'TIMEOUT',
+  RUNTIME_ERROR = 'RUNTIME_ERROR',
 }

@@ -38,6 +38,9 @@ jobs:
       - name: Install packages
         run: yarn --frozen-lockfile
 
+      - name: Lint packages
+        run: yarn workspace ${{ matrix.package }} lint
+
       - name: Build ${{ matrix.package }} package
         run: yarn workspace ${{ matrix.package }} build
 

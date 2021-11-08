@@ -38,7 +38,7 @@ export class LivenessPredictionsProvider extends AmazonAIInterpretPredictionsPro
         .putLivenessVideo({
           SessionId: input.sessionId,
           Video: input.videoBlob,
-          LivenessActionDocument: '',
+          LivenessActionDocument: 'placeholder',
         })
         .promise();
     } catch (err) {

@@ -2,6 +2,7 @@ import { Interpreter, State } from 'xstate';
 import {
   LivenessFlowProps,
   FaceMatchState,
+  LivenessErrorState,
   LivenessOvalDetails,
 } from './liveness';
 import { VideoRecorder } from '../helpers';
@@ -23,6 +24,7 @@ export interface LivenessContext {
     ovalDetails: LivenessOvalDetails;
   };
   faceMatchState: FaceMatchState;
+  errorState: LivenessErrorState | null;
 }
 
 export type LivenessEventTypes =

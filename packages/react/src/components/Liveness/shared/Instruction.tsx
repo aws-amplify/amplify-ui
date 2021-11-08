@@ -4,7 +4,13 @@ import { I18n } from 'aws-amplify';
 
 import { useLivenessFlow } from '../providers';
 import { useTheme } from '../../../hooks';
-import { Flex, IconCheckCircleOutline, Loader, View } from '../../..';
+import {
+  Flex,
+  IconCheckCircleOutline,
+  IconHighlightOff,
+  Loader,
+  View,
+} from '../../..';
 
 export interface InstructionProps {
   isMobileScreen: boolean;
@@ -22,11 +28,29 @@ export const Instruction: React.FC<InstructionProps> = (props) => {
   const isSuccessful = state.matches('end');
 
   const getInstructionContent = () => {
+    if (state.context.errorState) {
+      return (
+        <Flex
+          gap={`${tokens.space.xs}`}
+          color={
+            isMobileScreen
+              ? `${tokens.colors.red[40]}`
+              : `${tokens.colors.red[80]}`
+          }
+          alignItems="flex-end"
+        >
+          <IconHighlightOff size="large" viewBox="0 0 20 20" />
+          <span>{state.context.errorState}</span>
+        </Flex>
+      );
+    }
+
     if (isNotRecording) {
       return I18n.get(
         'Once recording begins, move your face inside the frame that appears'
       );
     }
+
     if (isUploading) {
       return (
         <Flex gap={`${tokens.space.xxs}`} alignItems="center">
@@ -35,6 +59,7 @@ export const Instruction: React.FC<InstructionProps> = (props) => {
         </Flex>
       );
     }
+
     if (isSuccessful) {
       return (
         <Flex
