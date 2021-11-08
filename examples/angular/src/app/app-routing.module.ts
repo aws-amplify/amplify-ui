@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthWithMultiAliasComponent } from 'src/pages/ui/components/authenticator/auth-with-multi-alias/auth-with-multi-alias.component';
 import { I18nComponent } from 'src/pages/ui/components/authenticator/i18n/i18n.component';
 import { ResetPasswordComponent } from 'src/pages/ui/components/authenticator/reset-password/reset-password.component';
 import { SignInFederatedComponent } from 'src/pages/ui/components/authenticator/sign-in-federated/sign-in-federated.component';
@@ -17,10 +16,6 @@ import { SignUpWithUsernameComponent } from 'src/pages/ui/components/authenticat
 import { CustomSignUpFieldsComponent } from 'src/pages/ui/components/authenticator/custom-sign-up-fields/custom-sign-up-fields.component';
 
 const routes: Routes = [
-  {
-    path: 'ui/components/authenticator/auth-with-multi-alias',
-    component: AuthWithMultiAliasComponent,
-  },
   {
     path: 'ui/components/authenticator/custom-sign-up-fields',
     component: CustomSignUpFieldsComponent,

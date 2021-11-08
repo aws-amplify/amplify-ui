@@ -33,15 +33,23 @@ The internal Amplify team uses shared backend environments which are also used f
 
 1. Ensure you have the Amplify CLI tool installed as well as the internal `isengardcli` tool installed.
 1. In a new terminal window, use `isengardcli` to assume the shared `aws-amplify-ui` account and manually set your region to `us-east-1`:
+
    ```shell
    isengardcli assume aws-amplify-ui --region us-east-1
    ```
+
    This will configure a local AWS profile which uses temporary access keys from our shared `aws-amplify-ui` account that can be used for accessing our shared environments.
+
 1. In the root directory of the project, pull all environments with the following yarn script:
+
    ```shell
    yarn environments pull
    ```
+
+   **Note – you _must_ be running `@aws-amplify/cli@6.5.0-beta.0` or newer for zero-config support.**
+
    If you want to pull a single environment, you can call `yarn pull` in that specific environment's directory:
+
    ```shell
    cd environments/auth-with-email && yarn pull
    ```

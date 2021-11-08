@@ -1,4 +1,9 @@
-# Auth with Multiple Sign In Aliases
+# DEPRECATED - Auth with Multiple Sign In Aliases
+
+> **This auth configuration has been deprecated and is no longer supported by Amplify**
+> See: https://docs.amplify.aws/cli/migration/cli-auth-signup-changes/
+
+---
 
 This environment allows users to sign in using a username, email, or phone number. Allowing users to sign in using multiple aliases requires configuring your `auth` backend using the Amplify CLI.
 

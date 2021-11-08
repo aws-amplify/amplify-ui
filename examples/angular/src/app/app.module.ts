@@ -6,7 +6,6 @@ import { AmplifyAuthenticatorModule } from '@aws-amplify/ui-angular';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { AuthWithMultiAliasComponent } from 'src/pages/ui/components/authenticator/auth-with-multi-alias/auth-with-multi-alias.component';
 import { CustomSignUpFieldsComponent } from 'src/pages/ui/components/authenticator/custom-sign-up-fields/custom-sign-up-fields.component';
 import { I18nComponent } from 'src/pages/ui/components/authenticator/i18n/i18n.component';
 import { ResetPasswordComponent } from 'src/pages/ui/components/authenticator/reset-password/reset-password.component';
@@ -25,7 +24,6 @@ import { SignUpWithUsernameComponent } from 'src/pages/ui/components/authenticat
 @NgModule({
   declarations: [
     AppComponent,
-    AuthWithMultiAliasComponent,
     CustomSignUpFieldsComponent,
     I18nComponent,
     ResetPasswordComponent,

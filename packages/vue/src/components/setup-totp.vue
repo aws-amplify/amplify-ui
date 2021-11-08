@@ -25,6 +25,8 @@
                   data-amplify-qrcode
                   :src="qrCode.qrCodeImageSource"
                   alt="qr code"
+                  width="228"
+                  height="228"
                 />
                 <base-wrapper
                   class="amplify-flex amplify-field amplify-textfield"
@@ -113,9 +115,9 @@ const attrs = useAttrs();
 const emit = defineEmits(['confirmSetupTOTPSubmit', 'backToSignInClicked']);
 
 const { state, send } = useAuth();
-const actorState: ComputedRef<SignInState> = computed(() =>
+const actorState = computed(() =>
   getActorState(state.value)
-);
+) as ComputedRef<SignInState>;
 
 let qrCode = reactive({
   qrCodeImageSource: '',

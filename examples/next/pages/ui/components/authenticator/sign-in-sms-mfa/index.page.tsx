@@ -8,7 +8,7 @@ Amplify.configure(awsExports);
 
 export default function AuthenticatorWithSmsMfa() {
   return (
-    <Authenticator loginMechanisms={['phone_number']}>
+    <Authenticator>
       {({ signOut }) => <button onClick={signOut}>Sign out</button>}
     </Authenticator>
   );
