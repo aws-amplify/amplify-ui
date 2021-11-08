@@ -9,7 +9,7 @@ export interface MenuProps extends FlexProps {
    * Alignment of menu against trigger
    * @default "start"
    */
-  align?: 'start' | 'center' | 'end';
+  menuAlign?: 'start' | 'center' | 'end';
 
   /**
    * Handle open and close event of menu

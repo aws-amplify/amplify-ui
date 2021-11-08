@@ -11,8 +11,11 @@ import { IconMenu } from '../Icon';
 import { MenuButton } from './MenuButton';
 import { MenuProps, Primitive } from '../types';
 
+export const MENU_TRIGGER_TEST_ID = 'amplify-menu-trigger-test-id';
+export const MENU_ITEMS_GROUP_TEST_ID = 'amplify-menu-items-group-test-id';
+
 export const Menu: Primitive<MenuProps, 'div'> = ({
-  align = 'start',
+  menuAlign = 'start',
   children,
   className,
   isOpen,
@@ -26,7 +29,9 @@ export const Menu: Primitive<MenuProps, 'div'> = ({
     <DropdownMenuTrigger asChild={true}>
       {trigger ?? (
         <MenuButton
+          role="button"
           size={size}
+          testId={MENU_TRIGGER_TEST_ID}
           className={classNames(
             ComponentClassNames.MenuTrigger,
             triggerClassName
@@ -36,9 +41,10 @@ export const Menu: Primitive<MenuProps, 'div'> = ({
         </MenuButton>
       )}
     </DropdownMenuTrigger>
-    <DropdownMenuContent align={align}>
+    <DropdownMenuContent align={menuAlign}>
       <ButtonGroup
         className={classNames(ComponentClassNames.Menu, className)}
+        testId={MENU_ITEMS_GROUP_TEST_ID}
         size={size}
         {...rest}
       >

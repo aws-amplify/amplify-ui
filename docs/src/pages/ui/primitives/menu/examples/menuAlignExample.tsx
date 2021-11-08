@@ -1,17 +1,17 @@
 import { Flex, Menu, MenuItem } from '@aws-amplify/ui-react';
 
-export const AlignExample = () => {
+export const MenuAlignExample = () => {
   return (
     <Flex direction="column" width="4rem">
       <Menu>
         <MenuItem>Download</MenuItem>
         <MenuItem>Create a Copy</MenuItem>
       </Menu>
-      <Menu align="center">
+      <Menu menuAlign="center">
         <MenuItem>Download</MenuItem>
         <MenuItem>Create a Copy</MenuItem>
       </Menu>
-      <Menu align="end">
+      <Menu menuAlign="end">
         <MenuItem>Download</MenuItem>
         <MenuItem>Create a Copy</MenuItem>
       </Menu>

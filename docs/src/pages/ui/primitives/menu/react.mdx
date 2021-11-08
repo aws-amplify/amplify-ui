@@ -2,8 +2,8 @@ import { Menu, MenuItem } from '@aws-amplify/ui-react';
 
 import { MenuDemo } from './demo';
 import {
-  AlignExample,
   BasicExample,
+  MenuAlignExample,
   MenuExample,
   ControlledExample,
   SizeExample,
@@ -41,16 +41,16 @@ Control the size of the Menu buttons and items using the `size` prop. Available 
   <SizeExample />
 </Example>
 
-### Align
+### Menu alignment
 
-Alignment of menu with button trigger can be controlled using the `align` prop. Available options are `start` (default), `center`, and `end`.
+Alignment of menu with button trigger can be controlled using the `menuAlign` prop. Available options are `start` (default), `center`, and `end`.
 
-```tsx file=./examples/alignExample.tsx
+```tsx file=./examples/menuAlignExample.tsx
 
 ```
 
 <Example>
-  <AlignExample />
+  <MenuAlignExample />
 </Example>
 
 ### Customize trigger button
