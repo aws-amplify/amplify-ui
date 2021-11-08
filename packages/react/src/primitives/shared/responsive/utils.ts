@@ -7,9 +7,6 @@ export const getValueAtCurrentBreakpoint = (
   breakpoint: Breakpoint,
   breakpoints: Breakpoints
 ) => {
-  if (isDesignToken(values)) {
-    values = values.toString();
-  }
   if (typeof values !== 'object') {
     return values;
   }

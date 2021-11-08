@@ -144,8 +144,9 @@ export const convertStylePropsToStyleObj: ConvertStylePropsToStyleObj = ({
     // if styleProp is a DesignToken use its toString()
     if (isDesignToken(value)) {
       value = value.toString();
+    } else {
+      value = getValueAtCurrentBreakpoint(value, breakpoint, breakpoints);
     }
-    value = getValueAtCurrentBreakpoint(value, breakpoint, breakpoints);
     const reactStyleProp = ComponentPropsToStylePropsMap[stylePropKey];
     style = { ...style, [reactStyleProp]: value };
   });

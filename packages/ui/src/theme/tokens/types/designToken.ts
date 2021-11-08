@@ -32,10 +32,6 @@ export type WebDesignToken<ValueType = any> = {
    * The wrapped CSS variable name of this design token, for example
    * `var(--amplify-colors-font-primary)`
    */
-  cssReference: string;
-  /**
-   *
-   */
   toString(): string;
 } & DesignToken<ValueType>;
 

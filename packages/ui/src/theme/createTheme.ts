@@ -25,7 +25,6 @@ function setupToken(token: DesignToken, path: Array<string>): WebDesignToken {
     path,
     value: cssValue(token),
     original: value,
-    cssReference: `var(${name})`,
     toString: () => `var(${name})`,
   };
 }
