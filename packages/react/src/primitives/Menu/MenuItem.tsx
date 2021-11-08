@@ -6,6 +6,8 @@ import { ComponentClassNames } from '../shared/constants';
 import { MenuButton } from './MenuButton';
 import { MenuItemProps } from '../types';
 
+export const MENU_ITEM_TEST_ID = 'amplify-menu-item-test-id';
+
 export const MenuItem = React.forwardRef<
   HTMLDivElement,
   MenuItemProps & { children?: React.ReactNode }
@@ -14,6 +16,7 @@ export const MenuItem = React.forwardRef<
     <DropdownMenuItem asChild={true} ref={ref}>
       <MenuButton
         className={classNames(ComponentClassNames.MenuItem, className)}
+        testId={MENU_ITEM_TEST_ID}
         {...rest}
         variation="menu" // ensures `menu` variation is not overwritten
       >
