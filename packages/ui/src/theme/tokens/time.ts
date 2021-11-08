@@ -1,7 +1,5 @@
 import { DesignToken, WebDesignToken, TimeValue } from './types/designToken';
 
-type TimeKeys = 'short' | 'medium' | 'long';
-
 export type Time = {
   transition: {
     short: DesignToken<TimeValue>;

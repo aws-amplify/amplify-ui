@@ -1,5 +1,3 @@
-import { Property } from 'csstype';
-
 export function isDesignToken(arg: any): arg is WebDesignToken {
   return arg.value !== undefined;
 }
@@ -35,18 +33,12 @@ export type WebDesignToken<ValueType = any> = {
   toString(): string;
 } & DesignToken<ValueType>;
 
-/**
- * When defining a design token, you only need to have a `value`
- */
-// export type DesignTokenInput<ValueType = any> = Pick<DesignToken<ValueType>, "value">;
-// export type InputDesignToken<ValueType = any> = Pick<DesignToken<ValueType>, "value">;
-
-export type ColorValue = string | Property.Color;
-export type BorderWidthValue = string | Property.BorderWidth;
-export type FontValue = string | Property.FontFamily;
-export type FontSizeValue = string | Property.FontSize;
-export type FontWeightValue = number | Property.FontWeight;
-export type LineHeightValue = string | Property.LineHeight;
+export type ColorValue = string;
+export type BorderWidthValue = string;
+export type FontValue = string;
+export type FontSizeValue = string;
+export type FontWeightValue = number;
+export type LineHeightValue = string;
 export type OpacityValue = string;
 export type OutlineOffsetValue = string;
 export type OutlineWidthValue = string;
