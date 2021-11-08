@@ -7,14 +7,16 @@ interface UseMenuProps {
 }
 
 export const useMenuProps: UseMenuProps = (initialValues) => {
-  const [align, setAlign] = useState<MenuProps['align']>(initialValues.align);
+  const [menuAlign, setMenuAlign] = useState<MenuProps['menuAlign']>(
+    initialValues.align
+  );
   const [size, setSize] = useState<MenuProps['size']>(initialValues.size);
 
   return {
     ...initialValues,
-    align,
+    menuAlign,
     size,
-    setAlign,
+    setMenuAlign,
     setSize,
   };
 };

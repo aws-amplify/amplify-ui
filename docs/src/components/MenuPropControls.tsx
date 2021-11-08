@@ -1,9 +1,9 @@
-import React from 'react';
+import * as React from 'react';
 import { MenuProps, SelectField, TextField } from '@aws-amplify/ui-react';
 import { DemoBox } from './DemoBox';
 
 export interface MenuPropControlsProps extends MenuProps {
-  setAlign: (value: React.SetStateAction<MenuProps['align']>) => void;
+  setMenuAlign: (value: React.SetStateAction<MenuProps['menuAlign']>) => void;
   setSize: (value: React.SetStateAction<MenuProps['size']>) => void;
 }
 
@@ -12,17 +12,17 @@ interface MenuPropControlsInterface {
 }
 
 export const MenuPropControls: MenuPropControlsInterface = ({
-  setAlign,
+  setMenuAlign,
   setSize,
-  align,
-  size,
 }) => {
   return (
     <DemoBox primitiveName="Menu">
       <SelectField
-        label="align"
-        name="align"
-        onChange={(event) => setAlign(event.target.value as MenuProps['align'])}
+        label="menuAlign"
+        name="menuAlign"
+        onChange={(event) =>
+          setMenuAlign(event.target.value as MenuProps['menuAlign'])
+        }
       >
         <option value="start">start</option>
         <option value="center">center</option>
