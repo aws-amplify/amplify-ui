@@ -1,36 +1,10 @@
 import { DesignToken, WebDesignToken, SpaceValue } from './types/designToken';
 
-type SpaceKeys =
-  | 'xxxs'
-  | 'xxs'
-  | 'xs'
-  | 'small'
-  | 'medium'
-  | 'large'
-  | 'xl'
-  | 'xxl'
-  | 'xxxl';
-
 export type Space = {
-  /**
-   * Smallest space value, used as spacing between
-   * small parts of components like pagination and fields.
-   * default value: 0.25rem / 4px
-   */
   xxxs: DesignToken<SpaceValue>;
-  /**
-   * Smallest space value, used in badges and pagination.
-   * default value: 0.375rem / 6px
-   */
   xxs: DesignToken<SpaceValue>;
-  /**
-   * default value: 0.5rem / 8px
-   */
   xs: DesignToken<SpaceValue>;
   small: DesignToken<SpaceValue>;
-  /**
-   * Base space, used in lots of places
-   */
   medium: DesignToken<SpaceValue>;
   large: DesignToken<SpaceValue>;
   xl: DesignToken<SpaceValue>;
@@ -50,10 +24,10 @@ export type Space = {
 };
 
 export type WebSpace = {
-  [key in SpaceKeys]: WebDesignToken<SpaceValue>;
+  [Property in keyof Omit<Space, 'relative'>]: WebDesignToken<SpaceValue>;
 } & {
   relative: {
-    [key in SpaceKeys]: WebDesignToken<SpaceValue>;
+    [Property in keyof Space['relative']]: WebDesignToken<SpaceValue>;
   };
 };
 
