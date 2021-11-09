@@ -1,11 +1,12 @@
 import { Sizes } from './base';
 import { ViewProps } from './view';
+import { FlexContainerStyleProps } from './flex';
 
 export type ButtonSizes = Sizes;
 export type ButtonTypes = 'button' | 'reset' | 'submit';
 export type ButtonVariations = 'primary' | 'link' | 'menu';
 
-export interface ButtonProps extends ViewProps {
+export interface ButtonProps extends ViewProps, FlexContainerStyleProps {
   /**
    * If `true`, the button will be disabled.
    */
