@@ -11,9 +11,11 @@
           style="flex-direction: column"
           :disabled="actorState.matches('confirmSignIn.pending')"
         >
-          <base-heading :level="3" class="amplify-heading">
-            {{ confirmSignInHeading }}
-          </base-heading>
+          <slot name="header">
+            <base-heading :level="3" class="amplify-heading">
+              {{ confirmSignInHeading }}
+            </base-heading>
+          </slot>
           <base-wrapper class="amplify-flex" style="flex-direction: column">
             <base-wrapper
               class="amplify-flex amplify-field amplify-textfield"
@@ -40,15 +42,6 @@
             </base-wrapper>
           </base-wrapper>
           <base-footer class="amplify-flex" style="flex-direction: column">
-            <template #footert="{ slotData }">
-              <slot
-                name="footer"
-                :info="slotData"
-                :onBackToSignInClicked="onBackToSignInClicked"
-                :onConfirmSignInSubmit="onConfirmSignInSubmit"
-              >
-              </slot>
-            </template>
             <base-alert v-if="actorState?.context?.remoteError">
               {{ actorState?.context?.remoteError }}
             </base-alert>
@@ -72,6 +65,12 @@
             >
               {{ backSignInText }}</base-button
             >
+            <slot
+              name="footer"
+              :onBackToSignInClicked="onBackToSignInClicked"
+              :onConfirmSignInSubmit="onConfirmSignInSubmit"
+            >
+            </slot>
           </base-footer>
         </base-field-set>
       </base-form>

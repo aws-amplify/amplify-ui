@@ -4,6 +4,7 @@
     data-amplify-authenticator
     v-if="!state?.matches('authenticated')"
   >
+    <slot name="header"> </slot>
     <div data-authenticator-variation="modal" v-if="variationModal" />
     <div data-amplify-container>
       <base-two-tabs
@@ -31,62 +32,29 @@
           <slot name="sign-in"></slot>
         </template>
 
-        <template #forgot-password-section="{ onForgotPasswordClicked }">
-          <slot
-            name="sign-in-forgot-password-section"
-            :onForgotPasswordClicked="onForgotPasswordClicked"
-          />
-        </template>
-
-        <template #sign-in-button="{ onSignInSubmit }">
-          <slot name="sign-in-button" :onSignInSubmit="onSignInSubmit" />
-        </template>
-
         <template
-          #form="{
-            info,
-            onSignInSubmit,
-            onCreateAccountClicked,
-            onForgotPasswordClicked,
-            onInput,
-          }"
+          #form="{ info, onSignInSubmit, onForgotPasswordClicked, onInput }"
         >
           <slot
             name="sign-in-form"
             :info="info"
             :onInput="onInput"
             :onSignInSubmit="onSignInSubmit"
-            :onCreateAccountClicked="onCreateAccountClicked"
             :onForgotPasswordClicked="onForgotPasswordClicked"
           ></slot>
         </template>
 
-        <template #heading>
-          <slot name="sign-in-heading"></slot>
+        <template #header>
+          <slot name="sign-in-header"></slot>
         </template>
 
-        <template #footer="{ info, onSignInSubmit, onCreateAccountClicked }">
+        <template #footer="{ onSignInSubmit, onForgotPasswordClicked }">
           <slot
             name="sign-in-footer"
-            :info="info"
             :onSignInSubmit="onSignInSubmit"
-            :onCreateAccountClicked="onCreateAccountClicked"
+            :onForgotPasswordClicked="onForgotPasswordClicked"
           >
           </slot>
-        </template>
-
-        <template
-          #additional-fields="{ onSignInSubmit, onCreateAccountClicked }"
-        >
-          <slot
-            name="sign-in-additional-fields"
-            :onSignInSubmit="onSignInSubmit"
-            :onCreateAccountClicked="onCreateAccountClicked"
-          >
-          </slot>
-        </template>
-        <template #signin-fields="{ info }">
-          <slot name="sign-in-fields" :info="info"></slot>
         </template>
       </sign-in>
       <sign-up
@@ -94,26 +62,20 @@
         @sign-up-submit="onSignUpSubmitI"
         ref="signUpComponent"
       >
+        <template #signUpSlotI>
+          <slot name="sign-up"></slot>
+        </template>
+        <template #header>
+          <slot name="sign-up-header"></slot>
+        </template>
         <template #signup-fields="{ info }">
           <slot name="sign-up-fields" :info="info"></slot>
         </template>
 
-        <template #signUpSlotI>
-          <slot name="sign-up"></slot>
-        </template>
-
-        <template #footer="{ onSignUpSubmit, info }">
-          <slot
-            name="sign-up-footer"
-            :info="info"
-            :onSignUpSubmit="onSignUpSubmit"
-          >
-          </slot>
+        <template #footer="{ onSignUpSubmit }">
+          <slot name="sign-up-footer" :onSignUpSubmit="onSignUpSubmit"> </slot>
         </template>
       </sign-up>
-      <div v-if="actorState?.matches('signIn.rejected')">
-        Error! Can't sign in!
-      </div>
 
       <confirm-sign-up
         v-if="actorState?.matches('confirmSignUp')"
@@ -123,11 +85,14 @@
         <template #confirmSignUpSlotI>
           <slot name="confirm-sign-up"></slot>
         </template>
-        <template #footer="{ info, onConfirmSignUpSubmit }">
+        <template #header>
+          <slot name="confirm-sign-up-header"></slot>
+        </template>
+        <template #footer="{ onConfirmSignUpSubmit, onLostCodeClicked }">
           <slot
-            name="sign-in-footer"
-            :info="info"
+            name="confirm-sign-up-footer"
             :onConfirmSignUpSubmit="onConfirmSignUpSubmit"
+            :onLostCodeClicked="onLostCodeClicked"
           >
           </slot>
         </template>
@@ -141,12 +106,12 @@
         <template #resetPasswordSlotI>
           <slot name="reset-password"></slot>
         </template>
-        <template
-          #footer="{ info, onResetPasswordSubmit, onBackToSignInClicked }"
-        >
+        <template #header>
+          <slot name="reset-password-header"></slot>
+        </template>
+        <template #footer="{ onResetPasswordSubmit, onBackToSignInClicked }">
           <slot
-            name="sign-in-footer"
-            :info="info"
+            name="reset-password-footer"
             :onResetPasswordSubmit="onResetPasswordSubmit"
             :onBackToSignInClicked="onBackToSignInClicked"
           >
@@ -162,11 +127,16 @@
         <template #confirmResetPasswordSlotI>
           <slot name="confirm-reset-password"></slot>
         </template>
-        <template #footer="{ info, onConfirmResetPasswordSubmit }">
+        <template #header>
+          <slot name="confirm-reset-password-header"></slot>
+        </template>
+        <template
+          #footer="{ onConfirmResetPasswordSubmit, onLostYourCodeClicked }"
+        >
           <slot
-            name="sign-in-footer"
-            :info="info"
+            name="confirm-reset-password-footer"
             :onConfirmResetPasswordSubmit="onConfirmResetPasswordSubmit"
+            :onLostYourCodeClicked="onLostYourCodeClicked"
           >
           </slot>
         </template>
@@ -180,12 +150,12 @@
         <template #confirmSignInSlotI>
           <slot name="confirm-sign-in"></slot>
         </template>
-        <template
-          #footer="{ info, onConfirmSignInSubmit, onBackToSignInClicked }"
-        >
+        <template #header>
+          <slot name="confirm-sign-in-header"></slot>
+        </template>
+        <template #footer="{ onConfirmSignInSubmit, onBackToSignInClicked }">
           <slot
-            name="sign-in-footer"
-            :info="info"
+            name="confirm-sign-in-footer"
             :onConfirmSignInSubmit="onConfirmSignInSubmit"
             :onBackToSignInClicked="onBackToSignInClicked"
           >
@@ -199,12 +169,14 @@
         ref="confirmSetupTOTPComponent"
       >
         <template #confirmSetupTOTPI>
-          <slot name="confirm-setup-totp"></slot>
+          <slot name="setup-totp"></slot>
         </template>
-        <template #footer="{ info, onSetupTOTPSubmit, onBackToSignInClicked }">
+        <template #header>
+          <slot name="setup-totp-header"></slot>
+        </template>
+        <template #footer="{ onSetupTOTPSubmit, onBackToSignInClicked }">
           <slot
-            name="sign-in-footer"
-            :info="info"
+            name="setup-totp-footer"
             :onSetupTOTPSubmit="onSetupTOTPSubmit"
             :onBackToSignInClicked="onBackToSignInClicked"
           >
@@ -220,12 +192,12 @@
         <template #forceNewPasswordI>
           <slot name="force-new-password"></slot>
         </template>
-        <template
-          #footer="{ info, onHaveAccountClicked, onForceNewPasswordSubmit }"
-        >
+        <template #header>
+          <slot name="force-new-password-header"></slot>
+        </template>
+        <template #footer="{ onHaveAccountClicked, onForceNewPasswordSubmit }">
           <slot
-            name="sign-in-footer"
-            :info="info"
+            name="force-new-password-footer"
             :onForceNewPasswordSubmit="onForceNewPasswordSubmit"
             :onBackToSignInClicked="onHaveAccountClicked"
           >
@@ -241,10 +213,12 @@
         <template #verifyUserSlotI>
           <slot name="verify-user"></slot>
         </template>
-        <template #footer="{ info, onVerifyUserSubmit, onSkipClicked }">
+        <template #header>
+          <slot name="verify-user-header"></slot>
+        </template>
+        <template #footer="{ onVerifyUserSubmit, onSkipClicked }">
           <slot
-            name="sign-in-footer"
-            :info="info"
+            name="verify-user-footer"
             :onVerifyUserSubmit="onVerifyUserSubmit"
             :onSkipClicked="onSkipClicked"
           >
@@ -260,10 +234,12 @@
         <template #confirmVerifyUserSlotI>
           <slot name="confirm-verify-user"></slot>
         </template>
-        <template #footer="{ info, onConfirmVerifyUserSubmit, onSkipClicked }">
+        <template #header>
+          <slot name="confirm-verify-user-header"></slot>
+        </template>
+        <template #footer="{ onConfirmVerifyUserSubmit, onSkipClicked }">
           <slot
-            name="sign-in-footer"
-            :info="info"
+            name="confirm-verify-user-footer"
             :onConfirmVerifyUserSubmit="onConfirmVerifyUserSubmit"
             :onSkipClicked="onSkipClicked"
           >
@@ -271,6 +247,7 @@
         </template>
       </confirm-verify-user>
     </div>
+    <slot name="footer"></slot>
   </div>
 
   <slot

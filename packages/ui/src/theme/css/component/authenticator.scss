@@ -41,7 +41,10 @@
   background-color: var(--amplify-colors-background-primary);
   box-shadow: var(--amplify-shadows-small);
   place-self: center;
-  width: calc(var(--amplify-breakpoints-values-small) * 1rem);
+  width: 30rem;
+  @media (max-width: 30rem) {
+    width: 100%;
+  }
 }
 
 [data-amplify-authenticator] [data-amplify-form] {
