@@ -4,7 +4,6 @@ import {
   Loader,
   useAuthenticator,
   View,
-  Tabs,
 } from '@aws-amplify/ui-react';
 import { I18n } from 'aws-amplify';
 import * as React from 'react';
@@ -17,41 +16,11 @@ type ScreenProps = {
 };
 
 function Screen({ Component }: ScreenProps) {
+  // Used to render the component when side-effects happen
+  const [version, setVersion] = React.useState(0);
   const { route } = useAuthenticator();
 
-  if (route === 'idle') {
-    return <Loader variation="linear" />;
-  }
-
-  if (!Component) {
-    throw new Error(
-      'Component is not defined. Please check the component name'
-    );
-  }
-
-  return <Component />;
-}
-
-export function LabelsAndTextDemo({ Component }: ScreenProps) {
-  return (
-    <Authenticator.Provider>
-      <View data-amplify-authenticator="">
-        <View data-authenticator-variation="modal" />
-
-        <View data-amplify-container="">
-          <Screen Component={Component} />
-        </View>
-      </View>
-    </Authenticator.Provider>
-  );
-}
-
-export function LabelsAndTextDemoTabs({ children }) {
-  const [index, setIndex] = React.useState('0');
-
-  if (index === '0') {
-    I18n.putVocabulariesForLanguage('en', translations['en']);
-  } else {
+  React.useEffect(() => {
     I18n.putVocabulariesForLanguage('en', {
       // Sign In screen
       'Sign In': 'Login', // Tab header
@@ -80,11 +49,37 @@ export function LabelsAndTextDemoTabs({ children }) {
       'Send code': 'Reset my password',
       // 'Back to Sign In': 'Back to Login', # Already set
     });
+
+    setVersion(version + 1);
+
+    return () => {
+      I18n.putVocabulariesForLanguage('en', translations['en']);
+    };
+  }, []);
+
+  if (route === 'idle') {
+    return <Loader variation="linear" />;
   }
 
+  if (!Component) {
+    throw new Error(
+      'Component is not defined. Please check the component name'
+    );
+  }
+
+  return <Component key={version} />;
+}
+
+export function LabelsAndTextDemo({ Component }: ScreenProps) {
   return (
-    <Tabs currentIndex={index} onChange={(i: string) => setIndex(i)}>
-      {children}
-    </Tabs>
+    <Authenticator.Provider>
+      <View data-amplify-authenticator="">
+        <View data-authenticator-variation="modal" />
+
+        <View data-amplify-container="">
+          <Screen Component={Component} />
+        </View>
+      </View>
+    </Authenticator.Provider>
   );
 }
