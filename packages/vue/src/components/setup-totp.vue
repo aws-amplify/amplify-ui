@@ -16,9 +16,12 @@
           </template>
           <template v-else>
             <base-wrapper class="amplify-flex" style="flex-direction: column">
-              <base-heading class="amplify-heading" :level="3">
-                Setup TOTP
-              </base-heading>
+              <slot name="header">
+                <base-heading class="amplify-heading" :level="3">
+                  Setup TOTP
+                </base-heading>
+              </slot>
+
               <base-wrapper class="amplify-flex" style="flex-direction: column">
                 <img
                   class="amplify-image"
@@ -52,15 +55,6 @@
                 </base-wrapper>
               </base-wrapper>
               <base-footer class="amplify-flex" style="flex-direction: column">
-                <template #footert="{ slotData }">
-                  <slot
-                    name="footer"
-                    :info="slotData"
-                    :onBackToSignInClicked="onBackToSignInClicked"
-                    :onSetupTOTPSubmit="onSetupTOTPSubmit"
-                  >
-                  </slot>
-                </template>
                 <base-alert v-if="actorState.context?.remoteError">
                   {{ actorState.context.remoteError }}
                 </base-alert>
@@ -86,6 +80,12 @@
                 >
                   {{ backSignInText }}</base-button
                 >
+                <slot
+                  name="footer"
+                  :onBackToSignInClicked="onBackToSignInClicked"
+                  :onSetupTOTPSubmit="onSetupTOTPSubmit"
+                >
+                </slot>
               </base-footer>
             </base-wrapper>
           </template>
@@ -96,14 +96,7 @@
 </template>
 
 <script setup lang="ts">
-import {
-  onMounted,
-  reactive,
-  toRefs,
-  computed,
-  ComputedRef,
-  useAttrs,
-} from 'vue';
+import { onMounted, reactive, computed, ComputedRef, useAttrs } from 'vue';
 import QRCode from 'qrcode';
 
 import { Auth, Logger } from 'aws-amplify';
@@ -147,7 +140,6 @@ onMounted(async () => {
 // Computed Properties
 const backSignInText = computed(() => translate('Back to Sign In'));
 const confirmText = computed(() => translate('Confirm'));
-const setupTOTPText = computed(() => translate('Setup TOTP'));
 const codeText = computed(() => translate('Code'));
 
 // Methods

@@ -1,116 +1,3 @@
-<template>
-  <slot v-bind="$attrs" name="signInSlotI">
-    <base-wrapper v-bind="$attrs">
-      <base-form
-        data-amplify-authenticator-signin
-        @input="onInput"
-        @submit.prevent="onSignInSubmit"
-        method="post"
-      >
-        <template #formt="{ slotData }">
-          <slot
-            name="form"
-            :info="slotData"
-            :onSignInSubmit="onSignInSubmit"
-            :onInput="onInput"
-            :onCreateAccountClicked="onCreateAccountClicked"
-            :onForgotPasswordClicked="onForgotPasswordClicked"
-          >
-          </slot>
-        </template>
-        <base-wrapper class="amplify-flex" style="flex-direction: column">
-          <base-heading class="amplify-heading" :level="3">
-            <template #headingI>
-              <slot name="heading"></slot>
-            </template>
-            {{ signIntoAccountText }}
-          </base-heading>
-          <base-field-set
-            :disabled="actorState.matches('signIn.submit')"
-            class="amplify-flex"
-            style="flex-direction: column"
-          >
-            <template #fieldSetI="{ slotData }">
-              <slot name="signin-fields" :info="slotData"> </slot>
-            </template>
-
-            <user-name-alias :userNameAlias="true" />
-            <base-wrapper
-              class=" amplify-flex amplify-field amplify-textfield amplify-passwordfield password-field"
-              style="flex-direction: column"
-            >
-              <password-control
-                name="password"
-                :label="passwordLabel"
-                autocomplete="current-password"
-                :ariainvalid="false"
-              />
-            </base-wrapper>
-            <slot
-              name="additional-fields"
-              :onSignInSubmit="onSignInSubmit"
-              :onCreateAccountClicked="onCreateAccountClicked"
-            ></slot>
-          </base-field-set>
-          <base-alert v-if="actorState.context.remoteError">
-            {{ actorState.context.remoteError }}
-          </base-alert>
-
-          <base-button
-            :disabled="actorState.matches('signIn.submit')"
-            class="amplify-button amplify-field-group__control"
-            data-fullwidth="true"
-            data-loading="false"
-            data-variation="primary"
-            style="border-radius: 0x; font-weight: normal"
-          >
-            <template #buttont>
-              <slot
-                name="sign-in-button"
-                :onSignInSubmit="onSignInSubmit"
-              ></slot>
-            </template>
-            {{
-              actorState.matches('signIn.submit')
-                ? signIngButtonText
-                : signInButtonText
-            }}
-          </base-button>
-
-          <slot
-            name="forgot-password-section"
-            :onForgotPasswordClicked="onForgotPasswordClicked"
-          >
-            <base-button
-              class="amplify-button amplify-field-group__control"
-              data-fullwidth="true"
-              data-size="small"
-              data-variation="link"
-              style="font-weight: normal"
-              type="button"
-              @click.prevent="onForgotPasswordClicked"
-            >
-              {{ forgotYourPasswordLink }}
-            </base-button>
-          </slot>
-        </base-wrapper>
-        <base-footer>
-          <template #footert="{ slotData }">
-            <slot
-              name="footer"
-              :info="slotData"
-              :onSignInSubmit="onSignInSubmit"
-              :onCreateAccountClicked="onCreateAccountClicked"
-            >
-            </slot>
-          </template>
-          <federated-sign-in></federated-sign-in>
-        </base-footer>
-      </base-form>
-    </base-wrapper>
-  </slot>
-</template>
-
 <script setup lang="ts">
 import { computed, ComputedRef, useAttrs } from 'vue';
 import { getActorState, SignInState, translate } from '@aws-amplify/ui';
@@ -130,12 +17,13 @@ const emit = defineEmits([
 ]);
 
 const passwordLabel = computed(() => translate('Password'));
-const signIntoAccountText = computed(() =>
-  translate('Sign in to your account')
-);
 const forgotYourPasswordLink = computed(() =>
   translate('Forgot your password? ')
 );
+const signIntoAccountText = computed(() =>
+  translate('Sign in to your account')
+);
+
 const signInButtonText = computed(() => translate('Sign in'));
 const signIngButtonText = computed(() => translate('Signing in'));
 
@@ -179,14 +67,101 @@ const onForgotPasswordClicked = (): void => {
     send({ type: 'RESET_PASSWORD' });
   }
 };
-
-const onCreateAccountClicked = (): void => {
-  if (attrs?.onCreateAccountClicked) {
-    emit('createAccountClicked');
-  } else {
-    send({
-      type: 'SIGN_UP',
-    });
-  }
-};
 </script>
+
+<template>
+  <slot v-bind="$attrs" name="signInSlotI">
+    <base-wrapper v-bind="$attrs">
+      <base-form
+        data-amplify-authenticator-signin
+        @input="onInput"
+        @submit.prevent="onSignInSubmit"
+        method="post"
+      >
+        <template #formt="{ slotData }">
+          <slot
+            name="form"
+            :info="slotData"
+            :onSignInSubmit="onSignInSubmit"
+            :onInput="onInput"
+            :onForgotPasswordClicked="onForgotPasswordClicked"
+          >
+          </slot>
+        </template>
+        <base-wrapper class="amplify-flex" style="flex-direction: column">
+          <slot name="header">
+            <base-heading class="amplify-heading" :level="3">
+              {{ signIntoAccountText }}
+            </base-heading>
+          </slot>
+          <base-field-set
+            :disabled="actorState.matches('signIn.submit')"
+            class="amplify-flex"
+            style="flex-direction: column"
+          >
+            <template #fieldSetI="{ slotData }">
+              <slot name="signin-fields" :info="slotData"> </slot>
+            </template>
+
+            <user-name-alias :userNameAlias="true" />
+            <base-wrapper
+              class="
+                amplify-flex
+                amplify-field
+                amplify-textfield
+                amplify-passwordfield
+                password-field
+              "
+              style="flex-direction: column"
+            >
+              <password-control
+                name="password"
+                :label="passwordLabel"
+                autocomplete="current-password"
+                :ariainvalid="false"
+              />
+            </base-wrapper>
+          </base-field-set>
+          <base-alert v-if="actorState.context.remoteError">
+            {{ actorState.context.remoteError }}
+          </base-alert>
+
+          <base-button
+            :disabled="actorState.matches('signIn.submit')"
+            class="amplify-button amplify-field-group__control"
+            data-fullwidth="true"
+            data-loading="false"
+            data-variation="primary"
+            style="border-radius: 0x; font-weight: normal"
+          >
+            {{
+              actorState.matches('signIn.submit')
+                ? signIngButtonText
+                : signInButtonText
+            }}
+          </base-button>
+          <base-button
+            class="amplify-button amplify-field-group__control"
+            data-fullwidth="true"
+            data-size="small"
+            data-variation="link"
+            style="font-weight: normal"
+            type="button"
+            @click.prevent="onForgotPasswordClicked"
+          >
+            {{ forgotYourPasswordLink }}
+          </base-button>
+        </base-wrapper>
+        <base-footer>
+          <federated-sign-in></federated-sign-in>
+          <slot
+            name="footer"
+            :onSignInSubmit="onSignInSubmit"
+            :onForgotPasswordClicked="onForgotPasswordClicked"
+          >
+          </slot>
+        </base-footer>
+      </base-form>
+    </base-wrapper>
+  </slot>
+</template>
