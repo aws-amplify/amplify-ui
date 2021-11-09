@@ -1,0 +1,40 @@
+.example {
+  width: 100%;
+}
+
+/* Inline the Authenticator instead of full-screen */
+.example [data-amplify-authenticator] {
+  position: relative;
+  width: 100%;
+  height: auto;
+
+  /* Don't go on top of docs' nav */
+  z-index: auto;
+
+  /* Allow space for shadows */
+  padding: 1rem;
+}
+
+.example [data-amplify-authenticator] [data-authenticator-variation='modal'] {
+  /* Hide the modal texture */
+  display: none;
+}
+
+.example-card pre {
+  margin: 0;
+}
+
+.example-code {
+  position: relative;
+}
+
+.example-copy-button {
+  position: absolute;
+  top: var(--amplify-space-small);
+  right: var(--amplify-space-small);
+}
+
+.docs-component-demo .example-copy-button {
+  bottom: var(--amplify-space-small);
+  top: auto;
+}
