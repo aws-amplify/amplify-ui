@@ -53,6 +53,11 @@
   font-size: var(--amplify-font-sizes-small);
   color: var(--amplify-colors-font-secondary);
   text-decoration: none;
+  
+  &.current {
+    color: var(--amplify-colors-font-interactive);
+    background-color: var(--amplify-colors-brand-primary-10);
+  }
 }
 
 .docs-sidebar-footer {

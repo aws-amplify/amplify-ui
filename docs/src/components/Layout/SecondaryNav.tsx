@@ -1,21 +1,10 @@
-import { useState } from 'react';
 import Link from 'next/link';
-import {
-  Icon,
-  IconChevronRight,
-  IconNotStarted,
-  IconWidgets,
-  IconDeviceHub,
-  SearchField,
-  View,
-  Heading,
-  Button,
-} from '@aws-amplify/ui-react';
+import { Heading } from '@aws-amplify/ui-react';
 import { useRouter } from 'next/router';
 
 const NavLink = ({ href, children }) => {
-  const router = useRouter();
-  const isCurrent = router.pathname === href;
+  const { pathname } = useRouter();
+  const isCurrent = pathname === href;
 
   return (
     <Link href={href}>

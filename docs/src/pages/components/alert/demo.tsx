@@ -19,6 +19,8 @@ import { AlertPropControls } from './AlertPropControls';
 import { useAlertProps } from './useAlertProps';
 import { AlertThemeControls, useAlertThemeProps } from './AlertThemeControls';
 
+const alertTheme = defaultTheme.tokens.components.alert;
+
 const propsToCode = (props) => `import { Alert } from '@aws-amplify/ui-react';
 
 <Alert
@@ -32,10 +34,39 @@ const propsToCode = (props) => `import { Alert } from '@aws-amplify/ui-react';
   ${props.body}
 </Alert>`;
 
+const AlertThemeProvider = ({
+  backgroundColor,
+  infoBackgroundColor,
+  paddingVertical,
+  paddingHorizontal,
+  children,
+}) => {
+  const theme = createTheme({
+    name: 'alert-theme',
+    tokens: {
+      components: {
+        alert: {
+          backgroundColor: { value: backgroundColor },
+          paddingVertical: { value: paddingVertical },
+          paddingHorizontal: { value: paddingHorizontal },
+          info: {
+            backgroundColor: { value: infoBackgroundColor },
+          },
+        },
+      },
+    },
+  });
+
+  return (
+    <AmplifyProvider components={{}} theme={theme}>
+      {children}
+    </AmplifyProvider>
+  );
+};
+
 export const AlertDemo = () => {
   const [copied, setCopied] = useState(false);
   const alertProps = useAlertProps({
-    variation: 'info',
     isDismissible: false,
     hasIcon: true,
     iconSize: 'large',
@@ -45,12 +76,13 @@ export const AlertDemo = () => {
   });
 
   const alertThemeProps = useAlertThemeProps({
-    backgroundColor: defaultTheme.tokens.components.alert.backgroundColor.value,
+    backgroundColor: alertTheme.backgroundColor.original,
+    paddingHorizontal: alertTheme.paddingHorizontal.original,
+    paddingVertical: alertTheme.paddingVertical.original,
+    info: {
+      backgroundColor: alertTheme.info.backgroundColor.original,
+    },
   });
-
-  const [theme, setTheme] = useState<Theme>(
-    createTheme({ name: 'alert-theme' })
-  );
 
   return (
     <Card
@@ -60,23 +92,30 @@ export const AlertDemo = () => {
     >
       <Flex direction="row" alignItems="stretch">
         <Flex direction="column" style={{ width: '50%' }}>
-          <Alert
-            variation={alertProps.variation}
-            isDismissible={alertProps.isDismissible}
-            hasIcon={alertProps.hasIcon}
-            iconSize={alertProps.iconSize}
-            heading={alertProps.heading}
-            headingLevel={alertProps.headingLevel}
+          <AlertThemeProvider
+            backgroundColor={alertThemeProps.backgroundColor}
+            infoBackgroundColor={alertThemeProps.infoBackgroundColor}
+            paddingVertical={alertThemeProps.paddingVertical}
+            paddingHorizontal={alertThemeProps.paddingHorizontal}
           >
-            {alertProps.body}
-          </Alert>
+            <Alert
+              variation={alertProps.variation}
+              isDismissible={alertProps.isDismissible}
+              hasIcon={alertProps.hasIcon}
+              iconSize={alertProps.iconSize}
+              heading={alertProps.heading}
+              headingLevel={alertProps.headingLevel}
+            >
+              {alertProps.body}
+            </Alert>
+          </AlertThemeProvider>
           <Tabs>
             <TabItem title="Props">
               <AlertPropControls {...alertProps} />
             </TabItem>
-            <TabItem title="Theme">
-              <div />
-            </TabItem>
+            {/* <TabItem title="Theme">
+              <AlertThemeControls {...alertThemeProps} />
+            </TabItem> */}
           </Tabs>
         </Flex>
         <View style={{ width: '50%', position: 'relative' }}>

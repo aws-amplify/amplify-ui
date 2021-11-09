@@ -1,9 +1,7 @@
 const path = require('path');
 const { execSync } = require('child_process');
 
-const gitHead = execSync('git rev-parse --abbrev-ref HEAD')
-  .toString()
-  .trim();
+const gitHead = execSync('git rev-parse --abbrev-ref HEAD').toString().trim();
 
 const BRANCH = gitHead === 'HEAD' ? 'main' : gitHead;
 
@@ -17,6 +15,42 @@ module.exports = withNextPluginPreval({
   // don't want to fix typescript errors right now...
   typescript: {
     ignoreBuildErrors: true,
+  },
+
+  // These redirects are because of the IA change from previous docs
+  redirects() {
+    return [
+      {
+        source: '/ui',
+        destination: '/',
+        permanent: false,
+      },
+      {
+        source: '/ui/components/:page*',
+        destination: '/components/:page*',
+        permanent: false,
+      },
+      {
+        source: '/ui/getting-started/:page*',
+        destination: '/getting-started/:page*',
+        permanent: false,
+      },
+      {
+        source: '/ui/primitives/:page*',
+        destination: '/components/:page*',
+        permanent: false,
+      },
+      {
+        source: '/ui/theme/alternativeStyling',
+        destination: '/theming/alternative-styling',
+        permanent: false,
+      },
+      {
+        source: '/ui/theme/:page*',
+        destination: '/theming/:page*',
+        permanent: false,
+      },
+    ];
   },
 
   sassOptions: {

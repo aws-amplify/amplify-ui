@@ -41,7 +41,6 @@ export const AlertPropControls: AlertPropControlsInterface = ({
   setBody,
 }) => {
   const { tokens } = useTheme();
-  console.log(hasIcon);
   return (
     <View padding={`${tokens.space.medium} 0`}>
       <SelectField
@@ -80,10 +79,8 @@ export const AlertPropControls: AlertPropControlsInterface = ({
         labelPosition="end"
         onChange={(event) => {
           console.log(event);
-          setIsDismissible(event.target.checked as AlertProps['isDismissible'])
-        }
-          
-        }
+          setIsDismissible(event.target.checked as AlertProps['isDismissible']);
+        }}
       />
 
       <SwitchField
