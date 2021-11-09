@@ -13,9 +13,9 @@ import {
   FlexContainerStyleProps,
 } from '@aws-amplify/ui-react';
 
-import { useFlexContainerStyleProps } from '../../../../components/useFlexContainerStyleProps';
-import { GetFieldControls } from '../../../../components/GetFieldControls';
-import { Example } from '../../../../components/Example';
+import { useFlexContainerStyleProps } from '@/components/useFlexContainerStyleProps';
+import { GetFieldControls } from '@/components/GetFieldControls';
+import { Example } from '@/components/Example';
 
 export const CollectionDemo = () => {
   const flexStyleProps = useFlexContainerStyleProps({
