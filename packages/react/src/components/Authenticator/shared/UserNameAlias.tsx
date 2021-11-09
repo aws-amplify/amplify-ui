@@ -46,7 +46,7 @@ export function UserNameAlias(props: UserNameAliasProps) {
       name={alias ?? 'username'}
       onChange={handleInputChange}
       placeholder={i18nLabel}
-      required
+      isRequired
       {...attrs}
     />
   ) : (
@@ -58,6 +58,7 @@ export function UserNameAlias(props: UserNameAliasProps) {
       name={alias ?? 'username'}
       required
       placeholder={i18nLabel}
+      isRequired
       type={type}
       {...attrs}
     />
