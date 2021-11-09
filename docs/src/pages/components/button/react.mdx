@@ -2,6 +2,7 @@ import { Button, ButtonGroup, Flex } from '@aws-amplify/ui-react';
 
 import { ButtonDemo } from './demo';
 import { Example } from '@/components/Example';
+import { IconButtonExample } from './examples';
 
 The Button primitive is used to trigger an action or event, such as submitting a form, opening a dialog, canceling an action, or performing a delete operation.
 
@@ -68,6 +69,18 @@ Use the `variation` prop to change the Button variation. Available options are `
   <Button variation="link">Link</Button>
   <Button variation="menu">Menu</Button>
   <Button>Default</Button>
+</Example>
+
+### Icon buttons
+
+Icons can be added to buttons and will adapt to the surrounding font-size.
+
+```tsx file=./examples/iconButton.tsx
+
+```
+
+<Example>
+  <IconButtonExample />
 </Example>
 
 ### Loading state
@@ -277,6 +290,6 @@ _Using style props:_
 <Example>
   <Button style={{ backgroundColor: 'green', color: 'white' }}>Green</Button>
   <Button backgroundColor="purple" color="white">
-    Purple
+    {'Purple'}
   </Button>
 </Example>

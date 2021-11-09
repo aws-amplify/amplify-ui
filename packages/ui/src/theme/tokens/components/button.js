@@ -1,7 +1,6 @@
 module.exports = {
   // shared styles
   fontWeight: { value: 'bold' },
-  textAlign: { value: 'center' },
   borderRadius: { value: '{components.fieldcontrol.borderRadius.value}' },
   transitionDuration: {
     value: '{components.fieldcontrol.transitionDuration.value}',
@@ -78,7 +77,7 @@ module.exports = {
   menu: {
     borderWidth: { value: 0 },
     backgroundColor: { value: 'none' },
-    textAlign: { value: 'left' },
+    justifyContent: { value: 'start' },
     // Focus and hover styles are identical for menu variation
     // because for Menu primitive, menu items are forced to be focused even
     // for mouse interactions, making it impossible to distinguish the two interactions

@@ -81,7 +81,6 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-badge-large-padding-vertical: var(--amplify-space-small);
         --amplify-components-badge-large-padding-horizontal: var(--amplify-space-medium);
         --amplify-components-button-font-weight: bold;
-        --amplify-components-button-text-align: center;
         --amplify-components-button-border-radius: var(--amplify-components-fieldcontrol-border-radius);
         --amplify-components-button-transition-duration: var(--amplify-components-fieldcontrol-transition-duration);
         --amplify-components-button-font-size: var(--amplify-components-fieldcontrol-font-size);
@@ -121,7 +120,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-button-primary-active-background-color: var(--amplify-colors-brand-primary-100);
         --amplify-components-button-menu-border-width: 0;
         --amplify-components-button-menu-background-color: none;
-        --amplify-components-button-menu-text-align: left;
+        --amplify-components-button-menu-justify-content: start;
         --amplify-components-button-menu-hover-color: var(--amplify-colors-white);
         --amplify-components-button-menu-hover-background-color: var(--amplify-colors-brand-primary-80);
         --amplify-components-button-menu-focus-color: var(--amplify-colors-white);
@@ -271,9 +270,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-heading-color: var(--amplify-colors-font-primary);
         --amplify-components-heading-line-height: 1.25;
         --amplify-components-icon-line-height: 1;
-        --amplify-components-icon-height: var(--amplify-font-sizes-medium);
-        --amplify-components-icon-large-height: var(--amplify-font-sizes-large);
-        --amplify-components-icon-small-height: var(--amplify-font-sizes-small);
+        --amplify-components-icon-height: 1em;
         --amplify-components-image-max-width: 100%;
         --amplify-components-image-height: auto;
         --amplify-components-image-object-fit: initial;
