@@ -29,7 +29,7 @@
     "test:unit:watch": "jest --watch"
   },
   "dependencies": {
-    "@aws-amplify/ui": "3.0.0",
+    "@aws-amplify/ui": "2.0.3",
     "@xstate/vue": "^0.8.0",
     "qrcode": "^1.4.4"
   },
