@@ -343,6 +343,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-sliderfield-root-horizontal-height: 2rem;
         --amplify-components-sliderfield-root-vertical-width: 2rem;
         --amplify-components-sliderfield-track-background-color: var(--amplify-colors-background-tertiary);
+        --amplify-components-sliderfield-track-border-radius: 9999px;
         --amplify-components-sliderfield-track-horizontal-height: 0.375rem;
         --amplify-components-sliderfield-track-horizontal-min-width: 10rem;
         --amplify-components-sliderfield-track-vertical-width: 0.375rem;
