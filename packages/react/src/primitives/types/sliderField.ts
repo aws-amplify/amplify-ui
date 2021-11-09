@@ -11,7 +11,7 @@ export interface SliderFieldProps extends TextInputFieldProps, ViewProps {
   step?: number;
   orientation?: SliderOrientation;
   isValueHidden?: boolean;
-  trackWidth?: string;
+  trackSize?: string;
   emptyTrackColor?: Property.Color;
   filledTrackColor?: Property.Color;
   thumbColor?: Property.Color;

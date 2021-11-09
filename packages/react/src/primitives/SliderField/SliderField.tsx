@@ -13,33 +13,33 @@ import { ComponentClassNames } from '../shared/constants';
 import { splitPrimitiveProps } from '../shared/styleUtils';
 import { isFunction, useStableId } from '../shared/utils';
 
-export const SLIDER_LABEL = 'slider-label';
-export const SLIDER_ROOT = 'slider-root';
-export const SLIDER_TRACK = 'slider-track';
-export const SLIDER_RANGE = 'slider-range';
+export const SLIDER_LABEL_TEST_ID = 'slider-label';
+export const SLIDER_ROOT_TEST_ID = 'slider-root';
+export const SLIDER_TRACK_TEST_ID = 'slider-track';
+export const SLIDER_RANGE_TEST_ID = 'slider-range';
 
 export const SliderField: Primitive<SliderFieldProps, typeof Root> = ({
   ariaValuetext,
   className,
-  orientation = 'horizontal',
-  trackWidth,
-  emptyTrackColor,
-  filledTrackColor,
-  thumbColor,
-  outerStartComponent,
-  outerEndComponent,
+  defaultValue,
   descriptiveText,
-  id,
-  label,
-  labelHidden = false,
+  emptyTrackColor,
   errorMessage,
+  filledTrackColor,
   hasError = false,
+  id,
   isDisabled,
   isValueHidden = false,
-  value,
-  defaultValue,
+  label,
+  labelHidden = false,
   onChange,
+  orientation = 'horizontal',
+  outerEndComponent,
+  outerStartComponent,
   testId,
+  thumbColor,
+  trackSize,
+  value,
   ..._rest
 }) => {
   const fieldId = useStableId(id);
@@ -81,7 +81,7 @@ export const SliderField: Primitive<SliderFieldProps, typeof Root> = ({
       <Label
         className={ComponentClassNames.SliderFieldLabel}
         id={fieldId}
-        testId={SLIDER_LABEL}
+        testId={SLIDER_LABEL_TEST_ID}
         visuallyHidden={labelHidden}
       >
         <View as="span">{label}</View>
@@ -99,7 +99,7 @@ export const SliderField: Primitive<SliderFieldProps, typeof Root> = ({
       >
         <Root
           className={classNames(ComponentClassNames.SliderFieldRoot, className)}
-          data-testid={SLIDER_ROOT}
+          data-testid={SLIDER_ROOT_TEST_ID}
           disabled={isDisabled}
           orientation={orientation}
           defaultValue={defaultValues}
@@ -109,15 +109,15 @@ export const SliderField: Primitive<SliderFieldProps, typeof Root> = ({
         >
           <Track
             className={ComponentClassNames.SliderFieldTrack}
-            data-testid={SLIDER_TRACK}
+            data-testid={SLIDER_TRACK_TEST_ID}
             style={{
               backgroundColor: emptyTrackColor,
-              [`${isVertical ? 'width' : 'height'}`]: trackWidth,
+              [`${isVertical ? 'width' : 'height'}`]: trackSize,
             }}
           >
             <Range
               className={ComponentClassNames.SliderFieldRange}
-              data-testid={SLIDER_RANGE}
+              data-testid={SLIDER_RANGE_TEST_ID}
               style={{ backgroundColor: filledTrackColor }}
             />
           </Track>

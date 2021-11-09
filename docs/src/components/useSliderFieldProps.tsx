@@ -23,7 +23,7 @@ export const useSliderFieldProps: UseSliderFieldProps = (initialValues) => {
   const [orientation, setOrientation] = React.useState(
     initialValues.orientation
   );
-  const [trackWidth, setTrackWidth] = React.useState(initialValues.trackWidth);
+  const [trackSize, setTrackSize] = React.useState(initialValues.trackSize);
   const [emptyTrackColor, setEmptyTrackColor] = React.useState(
     initialValues.emptyTrackColor
   );
@@ -41,7 +41,7 @@ export const useSliderFieldProps: UseSliderFieldProps = (initialValues) => {
     min,
     step,
     orientation,
-    trackWidth,
+    trackSize,
     emptyTrackColor,
     filledTrackColor,
     thumbColor,
@@ -56,6 +56,6 @@ export const useSliderFieldProps: UseSliderFieldProps = (initialValues) => {
     setOrientation,
     setStep,
     setThumbColor,
-    setTrackWidth,
+    setTrackSize,
   };
 };

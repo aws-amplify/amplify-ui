@@ -1,4 +1,8 @@
-import { SliderField } from '@aws-amplify/ui-react';
+import {
+  SliderField,
+  IconVolumeDown,
+  IconVolumeUp,
+} from '@aws-amplify/ui-react';
 
 import { SliderFieldDemo } from './demo';
 import { ControlledSliderField, DaySlider, SliderInForm } from './examples';
@@ -40,7 +44,7 @@ import '@aws-amplify/ui-react/styles.css';
   />
 </Example>
 
-The Sliders will render an input for the thumb when used within a form to ensure that value will be able to submiited with form data.
+The `Slider` will render an input for the thumb when used within a form to ensure that value will be submiited with form data.
 
 ```jsx
 import { Button, SliderField } from '@aws-amplify/ui-react';
@@ -145,7 +149,7 @@ import '@aws-amplify/ui-react/styles.css';
   />
 </Example>
 
-The Sliders will programmatically update the value of `aria-valuenow` in response to user input. However, a slider sometimes is used to choose a value that is not, semantically, a number. In these cases, the `ariaValuetext` attribute is used to provide the appropriate text name for the currently selected value.
+The Sliders will programmatically update the value of `aria-valuenow` in response to user input. However, a slider sometimes is used to choose a value that is not, semantically, a number. In these cases, the `ariaValuetext` attribute is used to provide the appropriate text name for the currently selected value. See [MDN using the slider role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/ARIA_Techniques/Using_the_slider_role).
 
 ```jsx
 import * as React from 'react';
@@ -185,9 +189,42 @@ const DaySlider = () => {
   <DaySlider />
 </Example>
 
-#### Disabled SliderField
+### Outer components
 
-A disabled field will not be focusable not mutable and will not be submitted with form data.
+Adding icons at the start or end of an Slider using the `outerStartComponent` or `outerEndComponent` props.
+
+```jsx
+import { SliderField } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<SliderField
+  label="Slider"
+  defaultValue={50}
+  min={0}
+  max={100}
+  step={1}
+  outerEndComponent={<IconVolumeUp />}
+  outerStartComponent={<IconVolumeDown />}
+  labelHidden
+/>;
+```
+
+<Example>
+  <SliderField
+    label="Volume"
+    defaultValue={50}
+    min={0}
+    max={100}
+    step={1}
+    outerEndComponent={<IconVolumeUp />}
+    outerStartComponent={<IconVolumeDown />}
+    labelHidden
+  />
+</Example>
+
+### Disabled SliderField
+
+A disabled field will not be focusable or mutable and will not be submitted with form data.
 
 ```jsx
 import { SliderField } from '@aws-amplify/ui-react';
@@ -242,7 +279,7 @@ import '@aws-amplify/ui-react/styles.css';
     min={0}
     max={100}
     step={1}
-    errorMessage="The is an error message."
+    errorMessage="This is an error message."
     hasError
     labelHidden
   />
@@ -269,7 +306,7 @@ To override styling on all SliderFields, you can set the Amplify CSS variables o
 
 <Example>
   <SliderField
-    className="global-styling-example"
+    className="global-styling-slider"
     label="Slider"
     defaultValue={50}
     min={0}
@@ -330,7 +367,7 @@ import '@aws-amplify/ui-react/styles.css';
 
 _Using style props:_
 
-The Sliders have built-in `trackWidth`, `emptyTrackColor`, `filledTrackColor` and `thumbColor` to use out of the box.
+The Sliders have built-in `trackSize`, `emptyTrackColor`, `filledTrackColor` and `thumbColor` to use out of the box.
 
 ```jsx
 import { SliderField } from '@aws-amplify/ui-react';
@@ -342,7 +379,7 @@ import '@aws-amplify/ui-react/styles.css';
   min={0}
   max={100}
   step={1}
-  trackWidth="10px"
+  trackSize="10px"
   emptyTrackColor="var(--amplify-colors-black)"
   filledTrackColor="var(--amplify-colors-blue-60)"
   thumbColor="var(--amplify-colors-orange-40)"
@@ -357,7 +394,7 @@ import '@aws-amplify/ui-react/styles.css';
     min={0}
     max={100}
     step={1}
-    trackWidth="10px"
+    trackSize="10px"
     emptyTrackColor="var(--amplify-colors-black)"
     filledTrackColor="var(--amplify-colors-blue-60)"
     thumbColor="var(--amplify-colors-orange-40)"

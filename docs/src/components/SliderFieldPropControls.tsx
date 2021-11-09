@@ -26,8 +26,8 @@ export interface SliderFieldPropControlsProps extends SliderFieldProps {
     value: React.SetStateAction<SliderFieldProps['orientation']>
   ) => void;
   setStep: (value: React.SetStateAction<SliderFieldProps['step']>) => void;
-  setTrackWidth: (
-    value: React.SetStateAction<SliderFieldProps['trackWidth']>
+  setTrackSize: (
+    value: React.SetStateAction<SliderFieldProps['trackSize']>
   ) => void;
   setEmptyTrackColor: (
     value: React.SetStateAction<SliderFieldProps['emptyTrackColor']>
@@ -50,7 +50,7 @@ export const SliderFieldPropControls: React.FC<SliderFieldPropControlsProps> =
     min,
     orientation,
     step,
-    trackWidth,
+    trackSize,
     emptyTrackColor,
     filledTrackColor,
     thumbColor,
@@ -65,7 +65,7 @@ export const SliderFieldPropControls: React.FC<SliderFieldPropControlsProps> =
     setOrientation,
     setStep,
     setThumbColor,
-    setTrackWidth,
+    setTrackSize,
   }) => {
     return (
       <DemoBox primitiveName="SliderField">
@@ -101,10 +101,10 @@ export const SliderFieldPropControls: React.FC<SliderFieldPropControlsProps> =
           }
         />
         <TextField
-          label="trackWidth"
-          value={trackWidth}
+          label="trackSize"
+          value={trackSize}
           onChange={(event) =>
-            setTrackWidth(event.target.value as SliderFieldProps['trackWidth'])
+            setTrackSize(event.target.value as SliderFieldProps['trackSize'])
           }
         />
         <TextField

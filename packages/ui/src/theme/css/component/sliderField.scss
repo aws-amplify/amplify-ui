@@ -31,7 +31,7 @@
 .amplify-sliderfield__track {
   position: relative;
   flex-grow: 1;
-  border-radius: 9999px;
+  border-radius: var(--amplify-components-sliderfield-track-border-radius);
   background-color: var(
     --amplify-components-sliderfield-track-background-color
   );

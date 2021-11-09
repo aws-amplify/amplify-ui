@@ -12,6 +12,7 @@ module.exports = {
   },
   track: {
     backgroundColor: { value: '{colors.background.tertiary.value}' },
+    borderRadius: { value: '9999px' },
     horizontal: {
       height: { value: '0.375rem' },
       minWidth: { value: '10rem' },
