@@ -151,6 +151,8 @@ export function getFaceMatchStateInLivenessOval(
   face: Face,
   ovalDetails: LivenessOvalDetails
 ): FaceMatchState {
+  let faceMatchState: FaceMatchState;
+
   const minFaceX = face.left;
   const maxFaceX = face.left + face.width;
   const minFaceY = face.top;
@@ -182,6 +184,8 @@ export function getFaceMatchStateInLivenessOval(
   const intersectionThreshold = 0.5;
   const ovalMatchWidthThreshold = ovalDetails.width * 0.25;
   const ovalMatchHeightThreshold = ovalDetails.height * 0.25;
+  const faceDetectionWidthThreshold = ovalDetails.width * 0.15;
+  const faceDetectionHeightThreshold = ovalDetails.height * 0.15;
 
   if (
     intersection > intersectionThreshold &&
@@ -189,10 +193,29 @@ export function getFaceMatchStateInLivenessOval(
     Math.abs(maxOvalX - maxFaceX) < ovalMatchWidthThreshold &&
     Math.abs(maxOvalY - maxFaceY) < ovalMatchHeightThreshold
   ) {
-    return FaceMatchState.MATCHED;
+    faceMatchState = FaceMatchState.MATCHED;
+  } else if (
+    minOvalX - minFaceX > faceDetectionWidthThreshold &&
+    maxOvalX - maxFaceX > faceDetectionWidthThreshold
+  ) {
+    faceMatchState = FaceMatchState.TOO_LEFT;
+  } else if (
+    minFaceX - minOvalX > faceDetectionWidthThreshold &&
+    maxFaceX - maxOvalX > faceDetectionWidthThreshold
+  ) {
+    faceMatchState = FaceMatchState.TOO_RIGHT;
+  } else if (
+    minOvalY - minFaceY > faceDetectionHeightThreshold ||
+    maxFaceY - maxOvalY > faceDetectionHeightThreshold ||
+    (minOvalX - minFaceX > faceDetectionWidthThreshold &&
+      maxFaceX - maxOvalX > faceDetectionWidthThreshold)
+  ) {
+    faceMatchState = FaceMatchState.TOO_CLOSE;
+  } else {
+    faceMatchState = FaceMatchState.TOO_FAR;
   }
 
-  return FaceMatchState.CANT_IDENTIFY;
+  return faceMatchState;
 }
 
 /**

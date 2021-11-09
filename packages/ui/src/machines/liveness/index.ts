@@ -66,12 +66,22 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             invoke: {
               src: 'detectInitialFaceAndDrawOval',
               onDone: {
-                target: 'ovalMatching',
+                target: 'checkFaceDetected',
                 actions: [
+                  'updateFaceMatchState',
                   'updateOvalAssociatedParams',
                   'sendTimeoutAfterOvalMatchDelay',
                 ],
               },
+            },
+          },
+          checkFaceDetected: {
+            after: {
+              0: {
+                target: 'ovalMatching',
+                cond: 'hasSingleFace',
+              },
+              100: { target: 'ovalDrawing' },
             },
           },
           ovalMatching: {
@@ -198,7 +208,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       updateOvalAssociatedParams: assign({
         ovalAssociatedParams: (context, event) => ({
           ...context.ovalAssociatedParams,
-          initialFace: event.data.initialFace,
+          initialFace: event.data.ovalDetails
+            ? event.data.ovalDetails.initialFace
+            : null,
           ovalDetails: event.data.ovalDetails,
         }),
       }),
@@ -254,6 +266,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         context.faceMatchState === FaceMatchState.MATCHED,
       hasLivenessCheckSucceeded: (_, __, meta) =>
         meta.state.event.data.isLive === LivenessStatus.SUCCESS,
+      hasSingleFace: (context) =>
+        context.faceMatchState === FaceMatchState.FACE_IDENTIFIED,
     },
     services: {
       async detectInitialFaceAndDrawOval(context) {
@@ -268,7 +282,32 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
 
         // detect face
         const detectedFaces = await faceDetector.detectFaces(videoEl);
-        const initialFace = detectedFaces[0];
+        let initialFace = null;
+        let faceMatchState: FaceMatchState;
+        switch (detectedFaces.length) {
+          case 0: {
+            // no face detected;
+            // TODO: put illumination related code here to
+            // provide feedback for lighting conditions
+            faceMatchState = FaceMatchState.CANT_IDENTIFY;
+            break;
+          }
+          case 1: {
+            //exactly one face detected;
+            faceMatchState = FaceMatchState.FACE_IDENTIFIED;
+            initialFace = detectedFaces[0];
+            break;
+          }
+          default: {
+            //more than one face detected ;
+            faceMatchState = FaceMatchState.TOO_MANY;
+            break;
+          }
+        }
+
+        if (!initialFace) {
+          return { faceMatchState };
+        }
 
         // generate oval details from initialFace and video dimensions
         const { width, height } = videoMediaStream.getTracks()[0].getSettings();
@@ -284,7 +323,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         canvasEl.height = height;
         drawLivenessOvalInCanvas(canvasEl, ovalDetails);
 
-        return { initialFace, ovalDetails };
+        return { faceMatchState, ovalDetails };
       },
       async detectFaceAndMatchOval(context) {
         const {
@@ -294,13 +333,30 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
 
         // detect face
         const detectedFaces = await faceDetector.detectFaces(videoEl);
-        const face = detectedFaces[0];
+        let faceMatchState: FaceMatchState;
 
-        // match face with oval
-        const faceMatchState = getFaceMatchStateInLivenessOval(
-          face,
-          ovalDetails
-        );
+        switch (detectedFaces.length) {
+          case 0: {
+            //no face detected;
+            faceMatchState = FaceMatchState.CANT_IDENTIFY;
+            // TODO: put illumination related code here to
+            // provide feedback for lighting conditions
+            break;
+          }
+          case 1: {
+            //exactly one face detected, match face with oval;
+            faceMatchState = getFaceMatchStateInLivenessOval(
+              detectedFaces[0],
+              ovalDetails
+            );
+            break;
+          }
+          default: {
+            //more than one face detected ;
+            faceMatchState = FaceMatchState.TOO_MANY;
+            break;
+          }
+        }
 
         return { faceMatchState };
       },
