@@ -38,16 +38,16 @@ export const ComponentsGrid = () => {
       <Heading level={3}>Navigation components</Heading>
       <ComponentGrid components={navigationComponents} />
 
-      <Heading level={6}>Input components</Heading>
+      <Heading level={3}>Input components</Heading>
       <ComponentGrid components={inputComponents} />
 
-      <Heading level={6}>Layout components</Heading>
+      <Heading level={3}>Layout components</Heading>
       <ComponentGrid components={layoutComponents} />
 
-      <Heading level={6}>Data display components</Heading>
+      <Heading level={3}>Data display components</Heading>
       <ComponentGrid components={dataDisplayComponents} />
 
-      <Heading level={6}>Utility components</Heading>
+      <Heading level={3}>Utility components</Heading>
       <ComponentGrid components={utilityComponents} />
     </Flex>
   );
