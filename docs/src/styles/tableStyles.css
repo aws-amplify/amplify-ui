@@ -1,5 +1,5 @@
 .custom-table-class .amplify-table__th {
-  background-color: hsl(0, 0%, 65%);
+  background-color: var(--amplify-colors-yellow-90)
 }
 
 .custom-table-class .amplify-table__th:first-child {
