@@ -1,4 +1,5 @@
 import { Interpreter, State } from 'xstate';
+
 import {
   LivenessFlowProps,
   FaceMatchState,

@@ -1,6 +1,7 @@
 import React from 'react';
 import { I18n } from 'aws-amplify';
 import { useActor } from '@xstate/react';
+
 import { useTheme } from '../../../hooks';
 import { useBreakpoint } from 'src/primitives/shared/responsive/useBreakpoint';
 import { Breakpoint } from 'src/primitives/types/responsive';
@@ -51,9 +52,7 @@ export const LivenessCheck: React.FC = () => {
   return (
     <Flex
       direction="column"
-      style={{
-        position: 'relative',
-      }}
+      position="relative"
       padding={{ medium: `${tokens.space.medium} ${tokens.space.large}` }}
     >
       {!isMobileScreen && (
@@ -82,13 +81,7 @@ export const LivenessCheck: React.FC = () => {
         </Flex>
       )}
       {isMobileScreen ? (
-        <View
-          style={{
-            position: 'absolute',
-            top: 0,
-            right: 0,
-          }}
-        >
+        <View position="absolute" top={0} right={0}>
           <CancelButton isMobileScreen={true} />
         </View>
       ) : (

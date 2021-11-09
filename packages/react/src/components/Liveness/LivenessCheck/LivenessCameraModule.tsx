@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import Webcam from 'react-webcam';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 import { useActor } from '@xstate/react';
+
 import { useLivenessFlow } from '../providers';
 import { Instruction } from '../shared/Instruction';
 import { Flex } from '../../..';
@@ -57,7 +58,7 @@ export const LivenessCameraModule = (
 
   return (
     <Flex direction="column" alignItems="center" justifyContent="center">
-      <Flex direction="column" style={{ position: 'relative' }}>
+      <Flex direction="column" position="relative">
         <Webcam
           ref={webcamRef}
           audio={false}
@@ -84,10 +85,8 @@ export const LivenessCameraModule = (
         <Flex
           direction="column"
           alignItems="center"
-          style={{
-            position: `${isMobileScreen ? 'absolute' : 'static'}`,
-            bottom: top + 10,
-          }}
+          position={isMobileScreen ? 'absolute' : 'relative'}
+          bottom={top + 10}
         >
           <Instruction isMobileScreen={isMobileScreen} />
 

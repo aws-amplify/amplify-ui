@@ -1,4 +1,5 @@
 import * as React from 'react';
+
 import { useTheme } from '../../../hooks';
 import { Flex, Text } from '../../..';
 
@@ -18,9 +19,7 @@ export const DescriptionBullet = (
   return (
     <Flex direction="row" gap={`${tokens.space.small}`}>
       <Flex
-        style={{
-          flexShrink: 0,
-        }}
+        shrink={0}
         alignItems="center"
         justifyContent="center"
         borderRadius="100%"

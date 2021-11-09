@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { I18n } from 'aws-amplify';
 import { useActor } from '@xstate/react';
+
 import { useTheme } from '../../../hooks';
 import { DescriptionBullet } from '../shared/DescriptionBullet';
 import { useLivenessFlow } from '../providers';

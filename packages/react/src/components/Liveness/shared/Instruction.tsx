@@ -89,7 +89,7 @@ export const Instruction: React.FC<InstructionProps> = (props) => {
         medium: `${tokens.colors.transparent}`,
       }}
       padding={`${tokens.space.small}`}
-      style={{ opacity: 0.5 }}
+      opacity={0.5}
     >
       <View
         color={{

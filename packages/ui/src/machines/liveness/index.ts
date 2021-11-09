@@ -1,5 +1,7 @@
 import { createMachine, assign, actions } from 'xstate';
+
 import {
+  Face,
   LivenessContext,
   LivenessEvent,
   FaceMatchState,
@@ -227,7 +229,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         errorState: (_) => null,
       }),
 
-      // timeous
+      // timeouts
       sendTimeoutAfterOvalDrawingDelay: actions.send(
         { type: 'TIMEOUT' },
         {
@@ -282,7 +284,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
 
         // detect face
         const detectedFaces = await faceDetector.detectFaces(videoEl);
-        let initialFace = null;
+        let initialFace: Face;
         let faceMatchState: FaceMatchState;
         switch (detectedFaces.length) {
           case 0: {
