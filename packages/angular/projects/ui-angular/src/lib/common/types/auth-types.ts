@@ -1,9 +1,6 @@
-import { AuthInputAttributes } from '@aws-amplify/ui';
-
-/**
- * TODO: This should be typed from core
- */
-export type AuthState = 'signIn' | 'signUp' | 'signedIn';
+import { AuthInputAttributes, AuthMachineState } from '@aws-amplify/ui';
 
 // maps auth attribute to its repsective labels and placeholder
 export type AttributeInfoProvider = () => AuthInputAttributes;
+
+export type AuthSubscriptionCallback = (state: AuthMachineState) => void;

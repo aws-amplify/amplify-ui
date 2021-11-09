@@ -15,6 +15,7 @@ export const zhDict = {
   'Invalid password format': '密码格式错误',
   'Invalid phone number format': '电话格式错误，请使用格式 +12345678900',
   'New Password': '新密码',
+  or: '或者',
   Password: '密码',
   'Phone Number': '电话',
   'Resend a Code': '重发确认码',

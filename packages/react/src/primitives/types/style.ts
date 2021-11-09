@@ -5,6 +5,17 @@ import { GridItemStyleProps, GridContainerStyleProps } from './grid';
 import { ImageStyleProps } from './image';
 import { TextAreaStyleProps } from './textArea';
 
+/**
+ * Extract style compatible types (string literal | number | any string)
+ */
+export type StyleProp<PropertyType> =
+  | (PropertyType extends number
+      ? number
+      : PropertyType extends string
+      ? PropertyType
+      : never)
+  | (string & {});
+
 export interface ResponsiveObject<PropertyType> {
   base?: PropertyType;
   small?: PropertyType;
@@ -15,9 +26,9 @@ export interface ResponsiveObject<PropertyType> {
 }
 
 export type ResponsiveStyle<PropertyType> =
-  | PropertyType
-  | PropertyType[]
-  | ResponsiveObject<PropertyType>;
+  | StyleProp<PropertyType>
+  | StyleProp<PropertyType>[]
+  | ResponsiveObject<StyleProp<PropertyType>>;
 
 export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
   alignSelf?: ResponsiveStyle<Property.AlignSelf>;
@@ -27,6 +38,7 @@ export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
   bottom?: ResponsiveStyle<Property.Bottom>;
   boxShadow?: ResponsiveStyle<Property.BoxShadow>;
   color?: ResponsiveStyle<Property.Color>;
+  display?: ResponsiveStyle<Property.Display>;
   fontFamily?: ResponsiveStyle<Property.FontFamily>;
   fontSize?: ResponsiveStyle<Property.FontSize>;
   fontStyle?: ResponsiveStyle<Property.FontStyle>;
@@ -40,12 +52,16 @@ export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
   minHeight?: ResponsiveStyle<Property.MinHeight>;
   minWidth?: ResponsiveStyle<Property.MinWidth>;
   opacity?: ResponsiveStyle<Property.Opacity>;
+  overflow?: ResponsiveStyle<Property.Overflow>;
   padding?: ResponsiveStyle<Property.Padding>;
   position?: ResponsiveStyle<Property.Position>;
   right?: ResponsiveStyle<Property.Right>;
   textAlign?: ResponsiveStyle<Property.TextAlign>;
   textDecoration?: ResponsiveStyle<Property.TextDecoration>;
+  textTransform?: ResponsiveStyle<Property.TextTransform>;
   top?: ResponsiveStyle<Property.Top>;
+  transform?: ResponsiveStyle<Property.Transform>;
+  transformOrigin?: ResponsiveStyle<Property.TransformOrigin>;
   width?: ResponsiveStyle<Property.Width>;
 }
 
@@ -118,6 +134,7 @@ export const ComponentPropsToStylePropsMap: ComponentPropToStyleProp = {
   columnSpan: 'gridColumn', // Will set gridColumn if no `row` prop given
   columnStart: 'gridColumnStart',
   direction: 'flexDirection',
+  display: 'display',
   fontFamily: 'fontFamily',
   fontSize: 'fontSize',
   fontStyle: 'fontStyle',
@@ -137,6 +154,7 @@ export const ComponentPropsToStylePropsMap: ComponentPropToStyleProp = {
   objectPosition: 'objectPosition',
   opacity: 'opacity',
   order: 'order',
+  overflow: 'overflow',
   padding: 'padding',
   position: 'position',
   resize: 'resize',
@@ -152,7 +170,10 @@ export const ComponentPropsToStylePropsMap: ComponentPropToStyleProp = {
   templateRows: 'gridTemplateRows',
   textAlign: 'textAlign',
   textDecoration: 'textDecoration',
+  textTransform: 'textTransform',
   top: 'top',
+  transform: 'transform',
+  transformOrigin: 'transformOrigin',
   width: 'width',
   wrap: 'flexWrap',
 };

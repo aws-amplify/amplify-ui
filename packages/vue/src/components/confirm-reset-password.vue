@@ -11,9 +11,12 @@
           style="flex-direction: column"
           :disabled="actorState.matches('confirmResetPassword.pending')"
         >
-          <base-heading class="amplify-heading" :level="3">
-            {{ confirmResetPasswordHeading }}
-          </base-heading>
+          <slot name="header">
+            <base-heading class="amplify-heading" :level="3">
+              {{ confirmResetPasswordHeading }}
+            </base-heading>
+          </slot>
+
           <base-wrapper class="amplify-flex" style="flex-direction: column">
             <base-wrapper
               class="amplify-flex amplify-field amplify-textfield"
@@ -77,14 +80,15 @@
             </base-wrapper>
           </base-wrapper>
           <base-footer class="amplify-flex" style="flex-direction: column">
-            <template #footert="{ slotData }">
-              <slot
-                name="footer"
-                :info="slotData"
-                :onConfirmResetPasswordSubmit="onConfirmResetPasswordSubmit"
-              >
-              </slot>
-            </template>
+            <base-box
+              data-ui-error
+              data-variation="error"
+              role="alert"
+              class="amplify-text"
+              v-if="!!(actorContext.validationError as ValidationError)['confirm_password']"
+            >
+              {{ (actorContext.validationError as ValidationError)['confirm_password'] }}
+            </base-box>
             <base-alert v-if="actorState?.context?.remoteError">
               {{ actorState?.context?.remoteError }}
             </base-alert>
@@ -108,17 +112,16 @@
             >
               {{ resendCodeText }}
             </base-button>
+            <slot
+              name="footer"
+              :onConfirmResetPasswordSubmit="onConfirmResetPasswordSubmit"
+              :onLostYourCodeClicked="onLostYourCodeClicked"
+            >
+            </slot>
           </base-footer>
         </base-field-set>
       </base-form>
     </base-wrapper>
-
-    <base-box
-      data-ui-error
-      v-if="!!(actorContext.validationError as ValidationError)['confirm_password']"
-    >
-      {{ (actorContext.validationError as ValidationError)['confirm_password'] }}
-    </base-box>
   </slot>
 </template>
 

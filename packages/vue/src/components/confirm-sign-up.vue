@@ -3,9 +3,11 @@
     <base-wrapper v-bind="$attrs">
       <base-form @input="onInput" @submit.prevent="onConfirmSignUpSubmit">
         <base-wrapper class="amplify-flex" style="flex-direction: column">
-          <base-heading class="amplify-heading" :level="3">
-            {{ confirmSignUpHeading }}
-          </base-heading>
+          <slot name="header">
+            <base-heading class="amplify-heading" :level="3">
+              {{ confirmSignUpHeading }}
+            </base-heading>
+          </slot>
           <base-field-set
             class="amplify-flex"
             style="flex-direction: column"
@@ -27,7 +29,6 @@
                   name="confirmation_code"
                   required
                   :placeholder="enterCode"
-                  type="number"
                 ></base-input>
               </base-wrapper>
             </base-wrapper>
@@ -37,14 +38,6 @@
             class="amplify-flex"
             style="flex-direction: column; align-items: unset"
           >
-            <template #footert="{ slotData }">
-              <slot
-                name="footer"
-                :info="slotData"
-                :onConfirmSignUpSubmit="onConfirmSignUpSubmit"
-              >
-              </slot>
-            </template>
             <base-alert v-if="actorState?.context?.remoteError">
               {{ actorState?.context?.remoteError }}
             </base-alert>
@@ -69,6 +62,12 @@
             >
               {{ resendCodeText }}
             </base-button>
+            <slot
+              name="footer"
+              :onConfirmSignUpSubmit="onConfirmSignUpSubmit"
+              :onLostCodeClicked="onLostCodeClicked"
+            >
+            </slot>
           </base-footer>
         </base-wrapper>
       </base-form>

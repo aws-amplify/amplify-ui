@@ -18,11 +18,17 @@ const useAuthenticatorValue = ({
   components: customComponents,
   initialState,
   loginMechanisms,
+  socialProviders,
   services,
 }: ProviderProps) => {
   const [state, send] = useMachine(
     () =>
-      createAuthenticatorMachine({ initialState, loginMechanisms, services }),
+      createAuthenticatorMachine({
+        initialState,
+        loginMechanisms,
+        services,
+        socialProviders,
+      }),
     {
       devTools: process.env.NODE_ENV === 'development',
     }

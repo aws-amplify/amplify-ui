@@ -15,6 +15,7 @@ export * from './Icon';
 export * from './Image';
 export * from './Link';
 export * from './Loader';
+export * from './Menu';
 export * from './Pagination';
 export * from './Placeholder';
 export * from './PasswordField';

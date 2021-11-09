@@ -16,6 +16,7 @@ module.exports = {
   image: require('./image'),
   link: require('./link'),
   loader: require('./loader'),
+  menu: require('./menu'),
   pagination: require('./pagination'),
   phonenumberfield: require('./phoneNumberField'),
   placeholder: require('./placeholder'),

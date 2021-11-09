@@ -17,6 +17,12 @@ html {
   all: unset; /* protect against external styles */
 }
 
+// Must be defined AFTER `[class*='amplify']
+// or rules will be unset to initial/default
+[data-amplify-theme] * {
+  box-sizing: border-box;
+}
+
 .sr-only {
   position: absolute !important;
   width: 1px !important;
@@ -51,11 +57,13 @@ html {
 @import './component/alert.scss';
 @import './component/authenticator.scss';
 @import './component/card.scss';
+@import './component/collection.scss';
 @import './component/checkbox.scss';
 @import './component/checkboxField.scss';
 @import './component/divider.scss';
 @import './component/field.scss';
 @import './component/fieldGroup.scss';
+@import './component/menu.scss';
 @import './component/pagination.scss';
 @import './component/phoneNumberField.scss';
 @import './component/rating.scss';

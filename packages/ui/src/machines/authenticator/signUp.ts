@@ -100,9 +100,29 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
                   entry: [sendUpdate(), 'clearError'],
                   invoke: {
                     src: 'signUp',
+                    onDone: [
+                      {
+                        cond: 'shouldSkipConfirm',
+                        target: 'skipConfirm',
+                        actions: ['setUser'],
+                      },
+                      {
+                        target: 'resolved',
+                        actions: ['setUser', 'setCredentials'],
+                      },
+                    ],
+                    onError: {
+                      target: 'idle',
+                      actions: 'setRemoteError',
+                    },
+                  },
+                },
+                skipConfirm: {
+                  invoke: {
+                    src: 'signIn',
                     onDone: {
-                      target: 'resolved',
-                      actions: ['setUser', 'setCredentials'],
+                      target: '#signUpActor.resolved',
+                      actions: 'setUser',
                     },
                     onError: {
                       target: 'idle',
@@ -110,6 +130,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
                     },
                   },
                 },
+
                 resolved: {
                   type: 'final',
                   always: '#signUpActor.confirmSignUp',
@@ -135,7 +156,14 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
               invoke: {
                 src: 'resendConfirmationCode',
                 onDone: { target: 'edit' },
-                onError: { target: 'edit', actions: 'setRemoteError' },
+                onError: [
+                  {
+                    target: '#signUpActor.resolved',
+                    actions: 'setUser',
+                    cond: 'isUserAlreadyConfirmed',
+                  },
+                  { target: 'edit', actions: 'setRemoteError' },
+                ],
               },
             },
             submit: {
@@ -164,8 +192,26 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
     },
     {
       guards: {
+        /**
+         * This guard covers an edge case that exists in the current state of the UI.
+         * As of now, our ConfirmSignUp screen only supports showing an input for a
+         * confirmation code. However, a Cognito UserPool can instead verify users
+         * through a link that gets emailed to them. If a user verifies through the
+         * link and then they click on the "Resend Code" button, they will get an error
+         * saying that the user has already been confirmed. If we encounter that error,
+         * we want to just funnel them through the rest of the flow. In the future, we will
+         * want to update our UI to support both confirmation codes and links.
+         *
+         * https://github.com/aws-amplify/amplify-ui/issues/219
+         */
+        isUserAlreadyConfirmed: (context, event) => {
+          return event.data.message === 'User is already confirmed.';
+        },
         shouldInitConfirmSignUp: (context) => {
           return context.intent && context.intent === 'confirmSignUp';
+        },
+        shouldSkipConfirm: (context, event) => {
+          return event.data.userConfirmed;
         },
       },
       actions: {
@@ -179,25 +225,26 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
         setUser,
       },
       services: {
+        async signIn(context, event) {
+          const { user, authAttributes, formValues } = context;
+
+          const username =
+            get(user, 'username') || get(authAttributes, 'username');
+          const password = get(formValues, 'password');
+
+          return await Auth.signIn(username, password);
+        },
         async confirmSignUp(context, event) {
-          const { user, authAttributes } = context;
-          const { confirmation_code: code } = event.data;
+          const { user, authAttributes, formValues } = context;
+          const { confirmation_code: code } = formValues;
 
           const username =
             get(user, 'username') || get(authAttributes, 'username');
           const { password } = authAttributes;
 
-          const confirmResult = await Auth.confirmSignUp(username, code);
+          await Auth.confirmSignUp(username, code);
 
-          try {
-            const result = await Auth.signIn(username, password);
-
-            return result;
-          } catch (err) {
-            console.warn(err);
-
-            return confirmResult;
-          }
+          return await Auth.signIn(username, password);
         },
         async resendConfirmationCode(context, event) {
           const { user, authAttributes } = context;
@@ -212,8 +259,8 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
           return result;
         },
         async signUp(context, _event) {
-          const { formValues, login_mechanisms } = context;
-          const [primaryAlias] = login_mechanisms ?? ['username'];
+          const { formValues, loginMechanisms } = context;
+          const [primaryAlias] = loginMechanisms ?? ['username'];
 
           if (formValues.phone_number) {
             formValues.phone_number =

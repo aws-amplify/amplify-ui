@@ -9,6 +9,7 @@ import {
   ComponentPropsToStylePropsMap,
   ComponentPropsToStylePropsMapKeys,
   GridItemStyleProps,
+  GridSpanType,
   ResponsiveObject,
   ViewProps,
 } from '../types';
@@ -80,9 +81,11 @@ export const usePropStyles = (props: ViewProps, style: React.CSSProperties) => {
 
 export const isSpanPrimitiveValue = (
   spanValue: GridItemStyleProps['rowSpan'] | GridItemStyleProps['columnSpan']
-): spanValue is 'auto' | number => {
+): spanValue is GridSpanType => {
   return (
-    spanValue === 'auto' || (typeof spanValue === 'number' && !isNaN(spanValue))
+    spanValue === 'auto' ||
+    (typeof spanValue === 'number' && !isNaN(spanValue)) ||
+    (typeof spanValue === 'string' && !isNaN(parseFloat(spanValue)))
   );
 };
 
@@ -108,7 +111,7 @@ export const convertGridSpan = (
   return null;
 };
 
-export const getGridSpan = (spanValue: number | 'auto'): string => {
+export const getGridSpan = (spanValue: GridSpanType): string => {
   return spanValue === 'auto' ? 'auto' : `span ${spanValue}`;
 };
 
@@ -201,6 +204,7 @@ const BaseStylePropsMap: Required<{ [key in keyof BaseStyleProps]: true }> = {
   columnEnd: true,
   columnSpan: true,
   columnStart: true,
+  display: true,
   flex: true,
   fontFamily: true,
   fontSize: true,
@@ -217,6 +221,7 @@ const BaseStylePropsMap: Required<{ [key in keyof BaseStyleProps]: true }> = {
   minWidth: true,
   opacity: true,
   order: true,
+  overflow: true,
   padding: true,
   position: true,
   right: true,
@@ -227,7 +232,10 @@ const BaseStylePropsMap: Required<{ [key in keyof BaseStyleProps]: true }> = {
   shrink: true,
   textAlign: true,
   textDecoration: true,
+  textTransform: true,
   top: true,
+  transform: true,
+  transformOrigin: true,
   width: true,
 };
 

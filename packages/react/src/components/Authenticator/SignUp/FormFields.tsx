@@ -1,9 +1,9 @@
 import {
   getActorContext,
+  LoginMechanism,
+  LoginMechanismArray,
   SignUpContext,
   translate,
-  UserNameAlias,
-  userNameAliasArray,
 } from '@aws-amplify/ui';
 import { isEmpty } from 'lodash';
 
@@ -16,9 +16,10 @@ export function FormFields() {
   const { validationError } = getActorContext(_state) as SignUpContext;
 
   const [primaryAlias, ...secondaryAliases] =
-    _state.context.config?.login_mechanisms?.filter(
-      (alias: any): alias is UserNameAlias => userNameAliasArray.includes(alias)
-    ) ?? userNameAliasArray;
+    _state.context.config?.loginMechanisms?.filter(
+      (alias: any): alias is LoginMechanism =>
+        LoginMechanismArray.includes(alias)
+    ) ?? LoginMechanismArray;
 
   /**
    * If the login_mechanisms are configured to use ONLY username, we need
@@ -37,6 +38,7 @@ export function FormFields() {
   return (
     <>
       <UserNameAliasComponent data-amplify-usernamealias alias={primaryAlias} />
+
       <PasswordField
         data-amplify-password
         className={passwordFieldClass}
@@ -61,10 +63,14 @@ export function FormFields() {
       />
 
       {!!validationError['confirm_password'] && (
-        <Text variation="error">{validationError['confirm_password']}</Text>
+        <Text role="alert" variation="error">
+          {validationError['confirm_password']}
+        </Text>
       )}
 
-      {secondaryAliases.map((alias: UserNameAlias) => (
+      {/* TODO These should use aws_cognito_signup_attributes, aws_cognito_verification_mechanisms, etc. to determine required fields */}
+
+      {secondaryAliases.map((alias: LoginMechanism) => (
         <UserNameAliasComponent
           data-amplify-usernamealias
           key={alias}

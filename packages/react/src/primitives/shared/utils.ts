@@ -74,11 +74,8 @@ export const getOverrideProps = (
   }
 
   const componentOverrides = Object.entries(overrides)
-    .filter((m) => m[0] === elementHierarchy)
-    .flatMap((m) => {
-      const values = Object.entries(m[1]);
-      return [values[0], values[1]];
-    })
+    .filter(([key]) => key === elementHierarchy)
+    .flatMap(([, value]) => Object.entries(value))
     .filter((m) => m?.[0]);
 
   return Object.fromEntries(componentOverrides);
