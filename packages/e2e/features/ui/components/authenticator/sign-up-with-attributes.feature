@@ -7,7 +7,7 @@ Feature: Sign Up with Attributes
   Background:
     Given I'm running the example "ui/components/authenticator/sign-up-with-attributes"
 
-  @todo-angular @react @todo-vue
+  @angular @react @vue @todo-angular @todo-vue
   Scenario: Login mechanism set to "username"
     Then I see "Username" as a "text" field
     And I see "Email" as an "email" field
