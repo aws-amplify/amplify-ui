@@ -29,11 +29,7 @@ const services = {
 </script>
 
 <template>
-  <authenticator
-    initial-state="signUp"
-    :login-mechanisms="['email']"
-    :services="services"
-  >
+  <authenticator initial-state="signUp" :services="services">
     <template v-slot:sign-up-fields>
       <amplify-text-field
         id="prefered_username"

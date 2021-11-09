@@ -71,7 +71,13 @@ export const SetupTOTP = (): JSX.Element => {
           {isLoading ? (
             <p>{translate('Loading')}&hellip;</p>
           ) : (
-            <Image data-amplify-qrcode src={qrCode} alt="qr code"></Image>
+            <img
+              data-amplify-qrcode
+              src={qrCode}
+              alt="qr code"
+              width="228"
+              height="228"
+            />
           )}
           <ConfirmationCodeInput />
           <RemoteErrorMessage />

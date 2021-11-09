@@ -94,9 +94,9 @@ const emit = defineEmits(['confirmSignInSubmit', 'backToSignInClicked']);
 const attrs = useAttrs();
 
 const { state, send } = useAuth();
-const actorState: ComputedRef<SignInState> = computed(() =>
+const actorState = computed(() =>
   getActorState(state.value)
-);
+) as ComputedRef<SignInState>;
 const challengeName = actorState.value.context.challengeName;
 
 let mfaType: string = 'SMS';

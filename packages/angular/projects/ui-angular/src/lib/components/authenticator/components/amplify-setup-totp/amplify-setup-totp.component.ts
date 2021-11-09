@@ -34,7 +34,7 @@ export class AmplifySetupTotpComponent implements OnInit {
   async generateQRCode() {
     // TODO: This should be handled in core.
     const state = this.authenticator.authState;
-    const actorContext: SignInContext = getActorContext(state);
+    const actorContext = getActorContext(state) as SignInContext;
     const { user } = actorContext;
     try {
       const secretKey = await Auth.setupTOTP(user);

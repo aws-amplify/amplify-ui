@@ -12,7 +12,7 @@ import { ConfirmationCodeInput, ConfirmSignInFooter } from '../shared';
 
 export const ConfirmSignIn = (): JSX.Element => {
   const { _state, error, submitForm, updateForm } = useAuthenticator();
-  const actorState: SignInState = getActorState(_state);
+  const actorState = getActorState(_state) as SignInState;
 
   const { challengeName } = actorState.context as SignInContext;
   let headerText: string;

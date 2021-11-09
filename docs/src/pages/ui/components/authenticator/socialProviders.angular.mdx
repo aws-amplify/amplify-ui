@@ -1,5 +1,6 @@
+```html{1}
 <amplify-authenticator
-  [loginMechanisms]="['username', 'email', 'phone_number']"
+  [socialProviders]="['amazon', 'apple', 'facebook', 'google']"
 >
   <ng-template
     amplifySlot="authenticated"
@@ -10,3 +11,4 @@
     <button (click)="signOut()">Sign Out</button>
   </ng-template>
 </amplify-authenticator>
+```

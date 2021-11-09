@@ -42,6 +42,38 @@ Once an end-user has created an account & signed in, the underlying component is
 
 ## Configuration
 
+### Zero Configuration
+
+The Authenticator works seamlessly with the [Amplify CLI](https://docs.amplify.aws/cli/start/install/)
+to **automatically** work with your backend.
+
+First, update `@aws-amplify/cli@beta` with [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/):
+
+<BlockSwitcher>
+<Block name="npm">
+
+```shell
+npm install -g @aws-amplify/cli@beta
+```
+
+</Block>
+<Block name="yarn">
+
+```shell
+yarn add @aws-amplify/cli@beta
+```
+
+</Block>
+</BlockSwitcher>
+
+Finally, run `amplify pull` to sync your `aws-exports.js` with your cloud backend:
+
+```shell
+amplify pull
+```
+
+This will update your `aws-exports.js` with your latest backend configuration for the Authenticator.
+
 ### `initialState`
 
 By default, unauthenticated users are redirected to the `signIn` flow.
@@ -89,14 +121,19 @@ You can explicitly redirect to `signUp` or `resetPassword` as your `initialState
 
 ### `loginMechanisms`
 
+<Alert heading="Zero Configuration">
+
+The Authenticator [automatically infers](#zero-configuration) `loginMechanisms` from `amplify pull`,
+but you customize it as seen below.
+
+</Alert>
+
 By default, the Authenticator creates new users in the Amazon Cognito UserPool based on a unique `username` using
 [`Auth.signUp`](https://docs.amplify.aws/lib/auth/emailpassword/q/platform/js).
 
 You can provide an alternative `username` such as `email` or `phone_number`.
 
 > **Note**: A `username`, `email`, or `phone_number` value is required for Cognito User Pools.
-
-For your [configured social providers](https://docs.amplify.aws/lib/auth/social/q/platform/js/), you can also provide `amazon`, `facebook`, or `google`:
 
 <BlockSwitcher>
   <Block name="Username">
@@ -137,21 +174,30 @@ For your [configured social providers](https://docs.amplify.aws/lib/auth/social/
       </p>
     </Example>
   </Block>
-  <Block name="Social Providers">
-    <Fragment>
-      {({ platform }) => import(`./loginMechanisms.social.${platform}.mdx`)}
-    </Fragment>
-    <Example>
-      <Authenticator
-        loginMechanisms={['email', 'amazon', 'facebook', 'google']}
-      />
-      <p className="text-sm text-center mt-6 text-gray-500 italic">
-        <strong>Note</strong>: This example isn't fully functional until
-        configured with an Amplify backend.
-      </p>
-    </Example>
-  </Block>
 </BlockSwitcher>
+
+### `socialProviders`
+
+<Alert heading="Zero Configuration">
+
+The Authenticator [automatically infers](#zero-configuration) `socialProviders` from `amplify pull`,
+but you customize it as seen below.
+
+</Alert>
+
+For your [configured social providers](https://docs.amplify.aws/lib/auth/social/q/platform/js/), you can also provide `amazon`, `facebook`, or `google`:
+
+<Fragment>
+  {({ platform }) => import(`./socialProviders.${platform}.mdx`)}
+</Fragment>
+
+<Example>
+  <Authenticator socialProviders={['amazon', 'apple', 'facebook', 'google']} />
+  <p className="text-sm text-center mt-6 text-gray-500 italic">
+    <strong>Note</strong>: This example isn't fully functional until configured
+    with an Amplify backend.
+  </p>
+</Example>
 
 ## Customization
 
