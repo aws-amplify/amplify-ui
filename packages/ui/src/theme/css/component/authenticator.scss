@@ -42,6 +42,7 @@
   box-shadow: var(--amplify-shadows-small);
   place-self: center;
   width: calc(var(--amplify-breakpoints-values-small) * 1rem);
+  max-width: 460px;
 }
 
 [data-amplify-authenticator] [data-amplify-form] {
