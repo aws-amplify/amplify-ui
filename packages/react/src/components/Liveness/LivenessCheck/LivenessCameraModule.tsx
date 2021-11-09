@@ -4,8 +4,8 @@ import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 import { useActor } from '@xstate/react';
 
 import { useLivenessFlow } from '../providers';
-import { Instruction } from '../shared/Instruction';
-import { Flex } from '../../..';
+import { CancelButton, Instruction, RecordingIcon } from '../shared';
+import { Flex, View } from '../../..';
 
 export interface LivenessCameraModuleProps {
   isMobileScreen: boolean;
@@ -31,6 +31,7 @@ export const LivenessCameraModule = (
   const [top, setTop] = useState<number>(0);
 
   const isNotRecording = state.matches('notRecording');
+  const isRecording = state.matches('recording');
 
   const timerCompleteHandler = () => {
     send({
@@ -57,7 +58,17 @@ export const LivenessCameraModule = (
   };
 
   return (
-    <Flex direction="column" alignItems="center" justifyContent="center">
+    <Flex
+      direction="column"
+      alignItems="center"
+      justifyContent="center"
+      {...(isMobileScreen && {
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        backgroundColor: 'black',
+      })}
+    >
       <Flex direction="column" position="relative">
         <Webcam
           ref={webcamRef}
@@ -80,6 +91,22 @@ export const LivenessCameraModule = (
             top: top,
           }}
         ></canvas>
+
+        {isRecording && (
+          <View
+            position="absolute"
+            top={isMobileScreen ? top + 10 : 10}
+            left={10}
+          >
+            <RecordingIcon />
+          </View>
+        )}
+
+        {isMobileScreen && (
+          <View position="absolute" top={top + 10} right={10}>
+            <CancelButton isMobileScreen={true} />
+          </View>
+        )}
       </Flex>
       {countDownRunning && (
         <Flex

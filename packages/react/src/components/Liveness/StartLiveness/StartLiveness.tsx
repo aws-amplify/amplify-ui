@@ -3,9 +3,8 @@ import { I18n } from 'aws-amplify';
 import { useActor } from '@xstate/react';
 
 import { useTheme } from '../../../hooks';
-import { DescriptionBullet } from '../shared/DescriptionBullet';
+import { CancelButton, DescriptionBullet } from '../shared';
 import { useLivenessFlow } from '../providers';
-import { CancelButton } from '../shared/CancelButton';
 import { Flex, Heading, Button, Collection, Divider } from '../../..';
 
 const INSTRUCTIONS = [

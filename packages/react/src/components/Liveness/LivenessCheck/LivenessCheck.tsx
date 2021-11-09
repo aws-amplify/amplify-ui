@@ -7,8 +7,8 @@ import { useBreakpoint } from 'src/primitives/shared/responsive/useBreakpoint';
 import { Breakpoint } from 'src/primitives/types/responsive';
 import { LivenessCameraModule } from './LivenessCameraModule';
 import { useLivenessFlow } from '../providers';
-import { CancelButton } from '../shared/CancelButton';
-import { Text, Flex, Heading, Divider, View } from '../../..';
+import { CancelButton } from '../shared';
+import { Text, Flex, Heading, Divider } from '../../..';
 
 function getVideoConstraints(
   isMobileScreen: boolean,
@@ -80,11 +80,7 @@ export const LivenessCheck: React.FC = () => {
           </Text>
         </Flex>
       )}
-      {isMobileScreen ? (
-        <View position="absolute" top={0} right={0}>
-          <CancelButton isMobileScreen={true} />
-        </View>
-      ) : (
+      {!isMobileScreen && (
         <Flex direction="column" alignItems="flex-end">
           <Divider />
           <CancelButton />
