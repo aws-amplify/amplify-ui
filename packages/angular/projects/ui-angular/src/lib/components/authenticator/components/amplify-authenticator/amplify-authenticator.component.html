@@ -2,6 +2,7 @@
   <div data-authenticator-variation="modal" *ngIf="variationModal"></div>
 
   <div data-amplify-container>
+    <amplify-slot name="header"></amplify-slot>
     <amplify-tabs
       (tabChange)="onTabChange()"
       *ngIf="route === 'signIn' || route === 'signUp'"
@@ -68,6 +69,7 @@
     >
       <amplify-confirm-verify-user></amplify-confirm-verify-user>
     </amplify-slot>
+    <amplify-slot name="footer"></amplify-slot>
   </div>
 </div>
 
