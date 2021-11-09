@@ -143,6 +143,11 @@ export function createAuthenticatorMachine({
                 s.toLowerCase()
               ) ?? [];
 
+            const cliVerificationMechanisms =
+              event.data.aws_cognito_verification_mechanisms?.map((s) =>
+                s.toLowerCase()
+              ) ?? [];
+
             const cliSignUpAttributes =
               event.data.aws_cognito_signup_attributes?.map((s) =>
                 s.toLowerCase()
@@ -162,7 +167,14 @@ export function createAuthenticatorMachine({
             // Prefer explicitly configured settings over default CLI values
             return {
               loginMechanisms: loginMechanisms ?? cliLoginMechanisms,
-              signUpAttributes: signUpAttributes ?? cliSignUpAttributes,
+              signUpAttributes:
+                signUpAttributes ??
+                Array.from(
+                  new Set([
+                    ...cliVerificationMechanisms,
+                    ...cliSignUpAttributes,
+                  ])
+                ),
               socialProviders: socialProviders ?? cliSocialProviders.sort(),
             };
           },
