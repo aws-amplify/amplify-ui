@@ -141,6 +141,7 @@ h3:hover > a .icon-link {
 [data-amplify-theme='amplify-docs'] {
   background-color: var(--amplify-colors-background-primary);
   color: var(--amplify-colors-font-primary);
+  min-height: 100vh;
   
   --amplify-components-fieldcontrol-line-height: 1.5;
   --amplify-borders-primary: var(--amplify-border-widths-small) solid
