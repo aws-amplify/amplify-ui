@@ -26,7 +26,7 @@ export const FrameworkChooser = ({ platform }) => {
           alt=""
           height="1rem"
           style={{ display: 'block' }}
-          src="/assets/integrations/react.svg"
+          src="/svg/integrations/react.svg"
         />
       </ToggleButton>
       <ToggleButton value="angular" size="small">
@@ -34,7 +34,7 @@ export const FrameworkChooser = ({ platform }) => {
           alt=""
           height="1rem"
           style={{ display: 'block' }}
-          src="/assets/integrations/angular.svg"
+          src="/svg/integrations/angular.svg"
         />
       </ToggleButton>
       <ToggleButton value="vue" size="small">
@@ -42,7 +42,7 @@ export const FrameworkChooser = ({ platform }) => {
           alt=""
           height="1rem"
           style={{ display: 'block' }}
-          src="/assets/integrations/vue.svg"
+          src="/svg/integrations/vue.svg"
         />
       </ToggleButton>
     </ToggleButtonGroup>
