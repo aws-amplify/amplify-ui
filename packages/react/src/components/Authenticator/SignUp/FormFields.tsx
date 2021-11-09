@@ -87,6 +87,18 @@ export function FormFields() {
               />
             );
 
+          case 'family_name':
+            return (
+              <TextField
+                autoComplete="family-name"
+                key={name}
+                isRequired
+                label={translate('Family Name')}
+                name={name}
+                placeholder={translate('Family Name')}
+              />
+            );
+
           case 'given_name':
             return (
               <TextField

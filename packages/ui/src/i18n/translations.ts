@@ -52,6 +52,7 @@ export const DefaultTexts = {
   EMAIL_ADDRESS: 'Email',
   ENTER_CODE: 'Enter your code',
   ENTER_USERNAME: 'Enter your username',
+  FAMILY_NAME: 'Family Name',
   GIVEN_NAME: 'Given Name',
   FORGOT_YOUR_PASSWORD: 'Forgot your password? ',
   HIDE_PASSWORD: 'Hide password',
