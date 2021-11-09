@@ -1,6 +1,24 @@
 import Link from 'next/link';
-import { Heading } from '@aws-amplify/ui-react';
+import { Heading, Collection } from '@aws-amplify/ui-react';
 import { useRouter } from 'next/router';
+
+import {
+  baseComponents,
+  ComponentNavItem,
+  connectedComponents,
+  dataDisplayComponents,
+  feedbackComponents,
+  inputComponents,
+  layoutComponents,
+  navigationComponents,
+  utilityComponents,
+} from '../../data/links';
+
+const NavLinks = ({ items }: { items: ComponentNavItem[] }) => (
+  <Collection type="list" items={items}>
+    {({ href, label }) => <NavLink href={href}>{label}</NavLink>}
+  </Collection>
+);
 
 const NavLink = ({ href, children }) => {
   const { pathname } = useRouter();
@@ -43,52 +61,28 @@ export const SecondaryNav = () => {
     return (
       <Sidebar>
         <Heading level={6}>Connected Components</Heading>
-        <NavLink href="/components/authenticator">Authenticator</NavLink>
-        <NavLink href="/components/chatbot">Chatbot</NavLink>
-        <NavLink href="/components/chatbot">S3 Album</NavLink>
+        <NavLinks items={connectedComponents} />
 
         <Heading level={6}>Base</Heading>
-        <NavLink href="/components/view">View</NavLink>
-        <NavLink href="/components/text">Text</NavLink>
-        <NavLink href="/components/heading">Heading</NavLink>
-        <NavLink href="/components/link">Link</NavLink>
-        <NavLink href="/components/image">Image</NavLink>
-        <NavLink href="/components/divider">Divider</NavLink>
-        <NavLink href="/components/icon">Icon</NavLink>
+        <NavLinks items={baseComponents} />
 
         <Heading level={6}>Feedback</Heading>
-        <NavLink href="/components/alert">Alert</NavLink>
-        <NavLink href="/components/pagination">Pagination</NavLink>
-        <NavLink href="/components/placeholder">Placeholder</NavLink>
-        <NavLink href="/components/loader">Loader</NavLink>
+        <NavLinks items={feedbackComponents} />
+
+        <Heading level={6}>Navigation</Heading>
+        <NavLinks items={navigationComponents} />
 
         <Heading level={6}>Inputs</Heading>
-        <NavLink href="/components/textfield">Text Field</NavLink>
-        <NavLink href="/components/selectfield">Select Field</NavLink>
-        <NavLink href="/components/stepperField">Stepper Field</NavLink>
-        <NavLink href="/components/searchfield">Search Field</NavLink>
-        <NavLink href="/components/passwordfield">Password Field</NavLink>
-        <NavLink href="/components/phonenumberfield">
-          Phone Number Field
-        </NavLink>
-        <NavLink href="/components/switchfield">Switch Field</NavLink>
-        <NavLink href="/components/radiogroupfield">Radio Group Field</NavLink>
-        <NavLink href="/components/checkboxfield">Checkbox Field</NavLink>
-        <NavLink href="/components/togglebutton">Toggle Button</NavLink>
-        <NavLink href="/components/button">Button</NavLink>
+        <NavLinks items={inputComponents} />
 
         <Heading level={6}>Layout</Heading>
-        <NavLink href="/components/collection">Collection</NavLink>
-        <NavLink href="/components/flex">Flex</NavLink>
-        <NavLink href="/components/grid">Grid</NavLink>
-        <NavLink href="/components/table">Table</NavLink>
+        <NavLinks items={layoutComponents} />
 
         <Heading level={6}>Data Display</Heading>
-        <NavLink href="/components/badge">Badge</NavLink>
-        <NavLink href="/components/rating">Rating</NavLink>
+        <NavLinks items={dataDisplayComponents} />
 
         <Heading level={6}>Utilities</Heading>
-        <NavLink href="/components/visuallyhidden">Visually Hidden</NavLink>
+        <NavLinks items={utilityComponents} />
       </Sidebar>
     );
   }
