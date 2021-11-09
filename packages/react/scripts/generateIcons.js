@@ -33,7 +33,6 @@ import { ComponentClassNames } from '../../shared/constants';
 export const ${iconName} = (props) => {
 	const {
 		className,
-		size,
 		fill = "currentColor",
 		ariaLabel,
 		...rest
@@ -49,7 +48,7 @@ export const ${iconName} = (props) => {
       )
       .replace(
         /width="[0-9]+"/,
-        'data-size={size} aria-label={ariaLabel} fill={fill} {...rest}'
+        'aria-label={ariaLabel} fill={fill} {...rest}'
       )}
 	);
 };`;
