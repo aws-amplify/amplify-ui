@@ -19,8 +19,6 @@ export const MenuButton = React.forwardRef<
       isLoading,
       loadingText = '',
       size,
-      id,
-      role,
       style,
       type = 'button',
       variation,
@@ -35,11 +33,7 @@ export const MenuButton = React.forwardRef<
     return (
       <button
         ref={ref}
-        className={classNames(
-          ComponentClassNames.Button,
-          ComponentClassNames.FieldGroupControl,
-          className
-        )}
+        className={classNames(ComponentClassNames.Button, className)}
         data-fullwidth={isFullWidth}
         data-loading={isLoading}
         data-size={size}
@@ -48,8 +42,6 @@ export const MenuButton = React.forwardRef<
         type={type}
         data-testid={testId}
         aria-label={ariaLabel}
-        id={id}
-        role={role}
         style={propStyles}
         {...nonStyleProps}
       >

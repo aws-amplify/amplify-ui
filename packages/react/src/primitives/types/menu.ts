@@ -40,4 +40,6 @@ export interface MenuProps extends FlexProps {
   triggerClassName?: string;
 }
 
-export interface MenuItemProps extends ButtonProps {}
+export interface MenuItemProps extends ButtonProps {
+  children?: React.ReactNode;
+}

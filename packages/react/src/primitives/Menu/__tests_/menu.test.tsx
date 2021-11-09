@@ -66,7 +66,7 @@ describe('Menu: ', () => {
     );
 
     const menuItemsGroup = await screen.queryByTestId(MENU_ITEMS_GROUP_TEST_ID);
-    expect(menuItemsGroup).toHaveClass(ComponentClassNames.Menu);
+    expect(menuItemsGroup).toHaveClass(ComponentClassNames.MenuContent);
   });
 
   it('should be closable (controlled)', async () => {
@@ -123,7 +123,10 @@ describe('Menu: ', () => {
       );
       const menuItems = await screen.findAllByTestId(MENU_ITEM_TEST_ID);
 
-      expect(menuItemsGroup).toHaveClass(ComponentClassNames.Menu, className);
+      expect(menuItemsGroup).toHaveClass(
+        ComponentClassNames.MenuContent,
+        className
+      );
       expect(menuItems[0]).toHaveClass(
         ComponentClassNames.MenuItem,
         menuItem1ClassName

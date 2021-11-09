@@ -82,19 +82,19 @@ Create a controlled `Menu` using the `isOpen` and `onOpenChange` props.
 
 ### Target classes
 
-| Class                  | Description                                                             |
-| ---------------------- | ----------------------------------------------------------------------- |
-| `amplify-menu`         | Menu content container (`Flex`)                                         |
-| `amplify-menu__item`   | Menu item button (`MenuButton`, wrapped in `amplify-menu` class)        |
-| `amplify-menu-trigger` | Menu trigger button (`MenuButton`, not wrapped in `amplify-menu` class) |
+| Class                        | Description                                                                     |
+| ---------------------------- | ------------------------------------------------------------------------------- |
+| `amplify-menu-content`       | Menu content container (`Flex`)                                                 |
+| `amplify-menu-content__item` | Menu item button (`MenuButton`, wrapped in `amplify-menu-content` class)        |
+| `amplify-menu-trigger`       | Menu trigger button (`MenuButton`, not wrapped in `amplify-menu-content` class) |
 
 ### Global styling
 
-To override styling on all Menus, you can set the Amplify CSS variables with the built-in `.amplify-menu` class.
+To override styling on all Menus, you can set the Amplify CSS variables with the built-in classes.
 
 ```css
 /* styles.css */
-.amplify-menu {
+.amplify-menu-content {
   --amplify-components-button-color: var(--amplify-colors-brand-secondary-90);
 }
 .amplify-menu-trigger {
@@ -143,10 +143,10 @@ Note: The `classname` prop is applied to the Menu dropdown content. Use the `tri
   border-color: var(--amplify-colors-brand-secondary-90);
   color: var(--amplify-colors-brand-secondary-90);
 }
-.my-menu-content .amplify-menu__item {
+.my-menu-content .amplify-menu-content__item {
   color: var(--amplify-colors-brand-secondary-90);
 }
-.my-menu-content .amplify-menu__item:hover {
+.my-menu-content .amplify-menu-content__item:hover {
   background-color: var(--amplify-colors-brand-secondary-90);
 }
 ```
@@ -176,7 +176,7 @@ _Using data attributes:_
 
 ```css
 /* styles.css */
-.amplify-menu__item[data-size='large'] {
+.amplify-menu-content__item[data-size='large'] {
   font-size: var(--amplify-font-sizes-xxxxl);
 }
 ```

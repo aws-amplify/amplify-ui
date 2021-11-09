@@ -43,7 +43,7 @@ export const Menu: Primitive<MenuProps, 'div'> = ({
     </DropdownMenuTrigger>
     <DropdownMenuContent align={menuAlign}>
       <ButtonGroup
-        className={classNames(ComponentClassNames.Menu, className)}
+        className={classNames(ComponentClassNames.MenuContent, className)}
         testId={MENU_ITEMS_GROUP_TEST_ID}
         size={size}
         {...rest}
