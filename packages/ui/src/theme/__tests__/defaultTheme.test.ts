@@ -221,9 +221,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-heading-color: var(--amplify-colors-font-primary);
         --amplify-components-heading-line-height: 1.25;
         --amplify-components-icon-line-height: 1;
-        --amplify-components-icon-height: var(--amplify-font-sizes-medium);
-        --amplify-components-icon-large-height: var(--amplify-font-sizes-large);
-        --amplify-components-icon-small-height: var(--amplify-font-sizes-small);
+        --amplify-components-icon-height: 1em;
         --amplify-components-image-max-width: 100%;
         --amplify-components-image-height: auto;
         --amplify-components-image-object-fit: initial;
