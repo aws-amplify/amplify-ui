@@ -20,6 +20,9 @@ const passwordLabel = computed(() => translate('Password'));
 const forgotYourPasswordLink = computed(() =>
   translate('Forgot your password? ')
 );
+const signIntoAccountText = computed(() =>
+  translate('Sign in to your account')
+);
 
 const signInButtonText = computed(() => translate('Sign in'));
 const signIngButtonText = computed(() => translate('Signing in'));
@@ -86,7 +89,11 @@ const onForgotPasswordClicked = (): void => {
           </slot>
         </template>
         <base-wrapper class="amplify-flex" style="flex-direction: column">
-          <slot name="header"> </slot>
+          <slot name="header">
+            <base-heading class="amplify-heading" :level="3">
+              {{ signIntoAccountText }}
+            </base-heading>
+          </slot>
           <base-field-set
             :disabled="actorState.matches('signIn.submit')"
             class="amplify-flex"
