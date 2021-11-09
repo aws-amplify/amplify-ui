@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { View } from '@aws-amplify/ui-react';
+import { Card, useTheme } from '@aws-amplify/ui-react';
 
 interface ExampleProps {
   children: React.ReactNode;
@@ -8,16 +8,13 @@ interface ExampleProps {
 }
 
 export function Example({ children, className = '' }: ExampleProps) {
+  const { tokens } = useTheme();
   return (
-    <View
-      backgroundColor="rgba(249, 250, 251, 1)"
-      borderRadius="0.25rem"
-      boxShadow="inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)"
+    <Card
       className={`example ${className}`}
-      style={{ marginBottom: '1.5rem' }}
-      padding="1.5rem"
+      style={{ marginBottom: `${tokens.space.large}` }}
     >
       {children}
-    </View>
+    </Card>
   );
 }
