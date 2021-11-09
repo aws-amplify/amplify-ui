@@ -10,6 +10,4 @@ function App({ signOut }) {
   return <button onClick={signOut}>Sign out</button>;
 }
 
-export default withAuthenticator(App, {
-  loginMechanisms: ['email'],
-});
+export default withAuthenticator(App);

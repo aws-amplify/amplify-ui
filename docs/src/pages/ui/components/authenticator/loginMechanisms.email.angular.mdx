@@ -1,3 +1,12 @@
-```js{1} file=../../../../../../examples/angular/src/pages/ui/components/authenticator/sign-in-with-email/sign-in-with-email.component.html
-
+```html{1}
+<amplify-authenticator [loginMechanisms]="['email']">
+  <ng-template
+    amplifySlot="authenticated"
+    let-user="user"
+    let-signOut="signOut"
+  >
+    <h2>Welcome, {{ user.username }}!</h2>
+    <button (click)="signOut()">Sign Out</button>
+  </ng-template>
+</amplify-authenticator>
 ```

@@ -1,3 +1,4 @@
+import { parse } from 'url';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -22,11 +23,16 @@ function MyApp({ Component, pageProps }) {
               return <a {...props} />;
             }
 
+            const url = JSON.parse(JSON.stringify(parse(props.href)));
+
             return (
               <Link
                 href={{
-                  pathname: props.href,
-                  query: { platform },
+                  ...url,
+                  query: {
+                    platform,
+                    ...url.query,
+                  },
                 }}
               >
                 <a>{props.children}</a>

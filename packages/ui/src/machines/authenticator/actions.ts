@@ -1,6 +1,11 @@
 import { assign, stop } from 'xstate/lib/actions';
 
-import { ActorContextWithForms, AuthEvent, SignUpContext } from '../../types';
+import {
+  ActorContextWithForms,
+  AuthEvent,
+  SignInContext,
+  SignUpContext,
+} from '../../types';
 
 export const stopActor = (machineId: string) => {
   return stop(machineId);
@@ -59,8 +64,8 @@ export const setConfirmSignUpIntent = assign({
 });
 
 export const setCredentials = assign({
-  authAttributes: (context: SignUpContext, _) => {
-    const [primaryAlias] = context.login_mechanisms ?? ['username'];
+  authAttributes: (context: SignInContext | SignUpContext, _) => {
+    const [primaryAlias] = context.loginMechanisms;
     const username = context.formValues[primaryAlias];
     const password = context.formValues?.password;
 
