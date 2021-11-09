@@ -24,6 +24,51 @@ module.exports = {
     th: { value: '{fontWeights.bold.value}' },
   },
 
+  /**
+   * Default table head styles
+   */
+  head: {
+    display: { value: 'table-header-group' },
+    'vertical-align': { value: 'middle' },
+    'border-color': { value: 'inherit' },
+  },
+
+  /**
+   * Default table body styles
+   */
+  body: {
+    display: { value: 'table-row-group' },
+    'vertical-align': { value: 'middle' },
+    'border-color': { value: 'inherit' },
+  },
+
+  /**
+   * Default table foot styles
+   */
+  foot: {
+    display: { value: 'table-footer-group' },
+    'vertical-align': { value: 'middle' },
+    'border-color': { value: 'inherit' },
+  },
+
+  /**
+   * Default table row styles
+   */
+  row: {
+    display: { value: 'table-row' },
+    'vertical-align': { value: 'inherit' },
+    'border-color': { value: 'inherit' },
+  },
+
+  /**
+   * Default table header cell styles
+   */
+  header: {
+    display: { value: 'table-cell' },
+    'vertical-align': { value: 'middle' },
+    'border-color': { value: '{colors.border.tertiary.value}' },
+  },
+
   small: {
     fontSize: { value: '{fontSizes.small.value}' },
     padding: { value: '{space.xs.value}' },
