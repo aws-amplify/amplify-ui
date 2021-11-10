@@ -34,27 +34,37 @@ export interface SignInContext extends BaseFormContext {
 }
 
 // https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html
-export const SignUpAttributes = [
-  'address',
+export const signUpFieldsWithDefault = [
   'birthdate',
   'email',
   'family_name',
-  'gender',
   'given_name',
-  'locale',
   'middle_name',
   'name',
   'nickname',
   'phone_number',
-  'picture',
   'preferred_username',
   'profile',
-  'updated_at',
   'website',
+] as const;
+
+export const signUpFieldsWithoutDefault = [
+  'address',
+  'gender',
+  'locale',
+  'picture',
+  'updated_at',
   'zoneinfo',
 ] as const;
 
-export type SignUpAttribute = typeof SignUpAttributes[number];
+export type SignUpFieldsWithDefaults = typeof signUpFieldsWithDefault[number];
+
+export type SignUpFieldsWithoutDefaults =
+  typeof signUpFieldsWithoutDefault[number];
+
+export type SignUpAttribute =
+  | SignUpFieldsWithDefaults
+  | SignUpFieldsWithoutDefaults;
 
 export interface SignUpContext extends BaseFormContext {
   loginMechanisms: AuthContext['config']['loginMechanisms'];
@@ -120,6 +130,7 @@ export interface InputAttributes {
   label: string;
   type: string;
   placeholder: string;
+  autocomplete?: string;
 }
 
 export const LoginMechanismArray = [
@@ -132,10 +143,17 @@ export type LoginMechanism = typeof LoginMechanismArray[number];
 
 export type SocialProvider = 'amazon' | 'apple' | 'facebook' | 'google';
 
-// other non-alias inputs that Cognito would require
-export type AuthInputNames = LoginMechanism | 'confirmation_code' | 'password';
+// Auth fields that we provide default fields with
+export type AuthFieldsWithDefaults =
+  | LoginMechanism
+  | SignUpFieldsWithDefaults
+  | 'confirmation_code'
+  | 'password';
 
-export type AuthInputAttributes = Record<AuthInputNames, InputAttributes>;
+export type AuthInputAttributes = Record<
+  AuthFieldsWithDefaults,
+  InputAttributes
+>;
 
 export type AuthEventData = Record<PropertyKey, any>; // TODO: this should be typed further
 

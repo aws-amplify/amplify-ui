@@ -1,3 +1,65 @@
+<script setup lang="ts">
+import { computed, ComputedRef, onMounted } from 'vue';
+import {
+  ActorContextWithForms,
+  authInputAttributes,
+  countryDialCodes,
+  getActorContext,
+  LoginMechanism,
+} from '@aws-amplify/ui';
+
+import { useAuth } from '../composables/useAuth';
+
+interface PropsInterface {
+  label: string;
+  name: string;
+  placeholder?: string;
+  autocomplete?: string;
+}
+
+const { label, name, placeholder, autocomplete } = withDefaults(
+  defineProps<PropsInterface>(),
+  {
+    label: 'Username',
+    name: 'username',
+    placeholder: '',
+    autocomplete: '',
+  }
+);
+const random = Math.floor(Math.random() * 999999);
+const randomPhone = Math.floor(Math.random() * 999999);
+
+const { state, send } = useAuth();
+const {
+  value: { context },
+} = state;
+
+//computed
+const inputAttributes = computed(() => authInputAttributes);
+const actorContext: ComputedRef<ActorContextWithForms> = computed(() =>
+  getActorContext(state.value)
+);
+
+const defaultDialCode = actorContext.value.country_code;
+
+const dialCodes = computed(() => countryDialCodes);
+
+onMounted(() => {
+  if (inputAttributes.value[name as LoginMechanism].type === 'tel') {
+    send({
+      type: 'CHANGE',
+      data: { name: 'country_code', value: defaultDialCode },
+    });
+  }
+});
+
+const inferAutocomplete = computed((): string => {
+  return (
+    autocomplete || authInputAttributes[name as LoginMechanism]?.placeholder
+  );
+});
+</script>
+
 <template>
   <base-wrapper
     class="
@@ -67,7 +129,7 @@
           aria-invalid="false"
           :id="'amplify-field-' + random"
           :aria-labelledby="'amplify-field-' + random"
-          autocomplete="username"
+          :autocomplete="inferAutocomplete"
           :name="name"
           required
           :type="inputAttributes[name as LoginMechanism].type"
@@ -77,57 +139,3 @@
     </base-wrapper>
   </base-wrapper>
 </template>
-
-<script setup lang="ts">
-import { computed, ComputedRef, onMounted } from 'vue';
-import {
-  ActorContextWithForms,
-  authInputAttributes,
-  countryDialCodes,
-  getActorContext,
-  LoginMechanism,
-} from '@aws-amplify/ui';
-
-import { useAuth } from '../composables/useAuth';
-
-interface PropsInterface {
-  label: string;
-  name: string;
-  placeholder?: string;
-}
-
-const { label, name, placeholder } = withDefaults(
-  defineProps<PropsInterface>(),
-  {
-    label: 'Username',
-    name: 'username',
-    placeholder: '',
-  }
-);
-const random = Math.floor(Math.random() * 999999);
-const randomPhone = Math.floor(Math.random() * 999999);
-
-const { state, send } = useAuth();
-const {
-  value: { context },
-} = state;
-
-//computed
-const inputAttributes = computed(() => authInputAttributes);
-const actorContext: ComputedRef<ActorContextWithForms> = computed(() =>
-  getActorContext(state.value)
-);
-
-const defaultDialCode = actorContext.value.country_code;
-
-const dialCodes = computed(() => countryDialCodes);
-
-onMounted(() => {
-  if (inputAttributes.value[name as LoginMechanism].type === 'tel') {
-    send({
-      type: 'CHANGE',
-      data: { name: 'country_code', value: defaultDialCode },
-    });
-  }
-});
-</script>
