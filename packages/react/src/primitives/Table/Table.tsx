@@ -1,11 +1,10 @@
 import classNames from 'classnames';
-import * as React from 'react';
 
 import { Flex, Text, View } from '..';
 import { ComponentClassNames } from '../shared/constants';
-import { TableProps } from '../types/table';
+import { Primitive, TableProps } from '../types';
 
-export const Table: React.FC<TableProps> = ({
+export const Table: Primitive<TableProps, 'table'> = ({
   caption,
   children,
   className,

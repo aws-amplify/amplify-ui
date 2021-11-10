@@ -1,11 +1,10 @@
 import classNames from 'classnames';
-import * as React from 'react';
 
 import { View } from '..';
 import { ComponentClassNames } from '../shared/constants';
-import { TableBodyProps } from '../types/table';
+import { Primitive, TableBodyProps } from '../types';
 
-export const TableBody: React.FC<TableBodyProps> = ({
+export const TableBody: Primitive<TableBodyProps, 'tbody'> = ({
   children,
   className,
   ...rest

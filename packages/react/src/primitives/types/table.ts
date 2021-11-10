@@ -1,9 +1,10 @@
-import * as React from 'react';
+import { Sizes } from './base';
+import { ViewProps } from './view';
 
-import { BaseComponentProps } from './base';
-import { BaseStyleProps } from './style';
+export type TableSize = Sizes;
+export type TableVariation = 'bordered' | 'striped';
 
-export interface TableProps extends BaseComponentProps, BaseStyleProps {
+export interface TableProps extends ViewProps {
   /**
    * Optional caption which serves as an accessible title/caption for
    * the table.
@@ -23,9 +24,7 @@ export interface TableProps extends BaseComponentProps, BaseStyleProps {
   /**
    * Affects font size and padding. Default is in between 'small' and 'large'.
    */
-  size?: 'small' | 'large';
-
-  style?: React.CSSProperties;
+  size?: TableSize;
 
   /**
    * Optional summary that is rendered as part of the table caption.
@@ -35,17 +34,18 @@ export interface TableProps extends BaseComponentProps, BaseStyleProps {
   /**
    * Sets a supported style variation. Default is no specific variation.
    */
-  variation?: 'bordered' | 'striped';
+  variation?: TableVariation;
 }
 
-export interface TableBodyProps extends BaseComponentProps, BaseStyleProps {}
+export interface TableBodyProps extends ViewProps {}
 
-export interface TableCellProps extends BaseComponentProps, BaseStyleProps {
-  as?: 'td' | 'th';
+export type TableCellElement = 'td' | 'th';
+export interface TableCellProps extends ViewProps {
+  as?: TableCellElement;
 }
 
-export interface TableFootProps extends BaseComponentProps, BaseStyleProps {}
+export interface TableFootProps extends ViewProps {}
 
-export interface TableHeadProps extends BaseComponentProps, BaseStyleProps {}
+export interface TableHeadProps extends ViewProps {}
 
-export interface TableRowProps extends BaseComponentProps, BaseStyleProps {}
+export interface TableRowProps extends ViewProps {}

@@ -1,11 +1,10 @@
 import classNames from 'classnames';
-import * as React from 'react';
 
 import { View } from '..';
 import { ComponentClassNames } from '../shared/constants';
-import { TableCellProps } from '../types/table';
+import { Primitive, TableCellElement, TableCellProps } from '../types';
 
-export const TableCell: React.FC<TableCellProps> = ({
+export const TableCell: Primitive<TableCellProps, TableCellElement> = ({
   as: asElementTag = 'td',
   children,
   className,
