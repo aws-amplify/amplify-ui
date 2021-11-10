@@ -1,0 +1,52 @@
+`useAuthenticator` hook provides `route` string that represents the current auth state. You can use it to compose components without `withAuthenticator` HOC:
+
+```jsx
+import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react';
+
+const App = () => {
+  const { user, route, signOut } = useAuthenticator();
+
+  return route === 'authenticated' ? (
+    <div className="App">
+      <div>Hello, {user.username}</div>
+      <button type="button" onClick={() => signOut()}>
+        Sign Out
+      </button>
+    </div>
+  ) : (
+    <Authenticator />
+  );
+};
+```
+
+To trigger transition to another `route`, you can use `to*` helpers from `useAuthenticator` hook.
+
+```jsx
+import { withAuthenticator, useAuthenticator, Button } from '@aws-amplify/ui-react';
+
+function App({ signOut }) {
+  return <button onClick={signOut}>Sign out</button>;
+}
+
+export default withAuthenticator(App, {
+  components: {
+    // Add forgot password button to Sign Up footer
+    SignUp: {
+      Footer() {
+        const { toResetPassword } = useAuthenticator();
+
+        return (
+          <Button
+            onClick={toResetPassword}
+            borderRadius={0}
+            isFullWidth={true}
+            fontWeight="normal"
+          >
+            Forgot your password?
+          </Button>
+        );
+      },
+    },
+  }
+}
+```
