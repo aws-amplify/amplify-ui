@@ -140,12 +140,9 @@ export type AuthInputNames =
   | 'confirmation_code'
   | 'password';
 
-/**
- * TODO: This can be much cleaner! Let's break AuthInputNames
- * into those that have defaults and those that don't.
- */
-export type AuthInputAttributes = Record<LoginMechanism, InputAttributes> &
-  Partial<Record<AuthInputNames, InputAttributes>>;
+export type AuthInputAttributes = Partial<
+  Record<AuthInputNames, InputAttributes>
+>;
 
 export type AuthEventData = Record<PropertyKey, any>; // TODO: this should be typed further
 
