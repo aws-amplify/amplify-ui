@@ -71,5 +71,5 @@ export const useAuth = (): UseAuthResult => {
 
   useEffect(fetch, []);
 
-  return result;
+  return { ...result, fetch };
 };
