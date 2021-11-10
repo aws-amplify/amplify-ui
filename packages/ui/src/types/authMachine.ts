@@ -39,12 +39,10 @@ export const signUpFieldsWithDefault = [
   'email',
   'family_name',
   'given_name',
-  'locale',
   'middle_name',
   'name',
   'nickname',
   'phone_number',
-  'picture',
   'preferred_username',
   'profile',
   'website',
@@ -53,6 +51,7 @@ export const signUpFieldsWithDefault = [
 export const signUpFieldsWithoutDefault = [
   'address',
   'gender',
+  'locale',
   'picture',
   'updated_at',
   'zoneinfo',
@@ -144,7 +143,7 @@ export type LoginMechanism = typeof LoginMechanismArray[number];
 
 export type SocialProvider = 'amazon' | 'apple' | 'facebook' | 'google';
 
-// other non-alias inputs that Cognito would require
+// Auth fields that we provide default fields with
 export type AuthFieldsWithDefaults =
   | LoginMechanism
   | SignUpFieldsWithDefaults
