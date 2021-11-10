@@ -38,7 +38,7 @@ export const CancelButton: React.FC<CancelButtonProps> = (props) => {
       <IconClose size="large" />
     </Button>
   ) : (
-    <Button variation="default" type="button" onClick={handleClick}>
+    <Button variation="link" type="button" onClick={handleClick}>
       {I18n.get('Cancel')}
     </Button>
   );
