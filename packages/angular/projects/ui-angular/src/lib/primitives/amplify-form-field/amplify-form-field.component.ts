@@ -83,6 +83,10 @@ export class AmplifyFormFieldComponent implements OnInit {
     return this.type ?? this.attributeMap[this.name]?.type ?? 'text';
   }
 
+  inferAutocomplete(): string {
+    return this.autocomplete || this.attributeMap[this.name]?.placeholder;
+  }
+
   // TODO(enhancement): use enum to differentiate special field types
   isPasswordField(): boolean {
     return this.inferType() === 'password';

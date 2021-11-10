@@ -11,7 +11,7 @@
     [initialValue]="initialValue"
     [disabled]="disabled"
     [labelHidden]="labelHidden"
-    [autocomplete]="autocomplete"
+    [autocomplete]="inferAutocomplete()"
   ></amplify-phone-number-field>
 
   <amplify-password-field
@@ -23,7 +23,7 @@
     [initialValue]="initialValue"
     [disabled]="disabled"
     [labelHidden]="labelHidden"
-    [autocomplete]="autocomplete"
+    [autocomplete]="inferAutocomplete()"
   ></amplify-password-field>
 
   <amplify-text-field
@@ -36,7 +36,7 @@
     [initialValue]="initialValue"
     [disabled]="disabled"
     [labelHidden]="labelHidden"
-    [autocomplete]="autocomplete"
+    [autocomplete]="inferAutocomplete()"
   ></amplify-text-field>
 
   <amplify-error *ngIf="error">
