@@ -4,7 +4,6 @@ module.exports = {
    */
   borderCollapse: { value: 'collapse' },
   display: { value: 'table' },
-  textIndent: { value: 'initial' },
   width: { value: '100%' },
 
   /**
