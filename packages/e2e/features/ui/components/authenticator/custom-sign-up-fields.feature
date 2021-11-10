@@ -30,7 +30,7 @@ Feature: Custom Sign Up Fields
     And I confirm my password
     And I click the "I agree with the Terms & Conditions" checkbox
     And I click the "Create Account" button
-    Then I see "Attributes did not conform to the schema: preferred_username: The attribute is required"
+    Then the "Preferred Username" field is invalid
 
   @angular @react @vue
   Scenario: Form successfully submits with `preferred_username` and Terms & Conditions checked

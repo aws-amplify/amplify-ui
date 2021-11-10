@@ -1,8 +1,4 @@
-<amplify-authenticator
-  [loginMechanisms]="['email']"
-  [services]="services"
-  initialState="signUp"
->
+<amplify-authenticator [services]="services" initialState="signUp">
   <!-- sign-up-field override -->
   <ng-template
     amplifySlot="sign-up-form-fields"
@@ -13,7 +9,6 @@
       label="Preferred Username"
       name="preferred_username"
       placeholder="Preferred Username"
-      [required]="false"
     ></amplify-text-field>
 
     <!-- Re-use default `Authenticator.SignUp.FormFields` -->

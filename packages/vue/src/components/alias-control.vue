@@ -70,7 +70,7 @@
           autocomplete="username"
           :name="name"
           required
-          :type="inputAttributes[name as UserNameAlias].type"
+          :type="inputAttributes[name as LoginMechanism].type"
           :placeholder="placeholder"
         ></base-input>
       </base-wrapper>
@@ -85,7 +85,7 @@ import {
   authInputAttributes,
   countryDialCodes,
   getActorContext,
-  UserNameAlias,
+  LoginMechanism,
 } from '@aws-amplify/ui';
 
 import { useAuth } from '../composables/useAuth';
@@ -123,7 +123,7 @@ const defaultDialCode = actorContext.value.country_code;
 const dialCodes = computed(() => countryDialCodes);
 
 onMounted(() => {
-  if (inputAttributes.value[name as UserNameAlias].type === 'tel') {
+  if (inputAttributes.value[name as LoginMechanism].type === 'tel') {
     send({
       type: 'CHANGE',
       data: { name: 'country_code', value: defaultDialCode },

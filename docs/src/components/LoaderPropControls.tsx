@@ -22,7 +22,7 @@ export const LoaderPropControls: React.FC<LoaderPropControlsProps> = ({
   setVariation,
   emptyColor,
   setEmptyColor,
-  filledcolor,
+  filledColor,
   setFilledColor,
 }) => {
   return (
@@ -53,7 +53,7 @@ export const LoaderPropControls: React.FC<LoaderPropControlsProps> = ({
       />
       <TextField
         label="filledColor"
-        value={filledcolor}
+        value={filledColor}
         onChange={(event) => setFilledColor(event.target.value)}
       />
     </DemoBox>

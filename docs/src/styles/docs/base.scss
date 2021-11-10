@@ -1,0 +1,158 @@
+@import url('https://rsms.me/inter/inter.css');
+[data-amplify-theme] {
+  font-family: var(--amplify-fonts-default-static);
+}
+@supports (font-variation-settings: normal) {
+  [data-amplify-theme] {
+    font-family: var(--amplify-fonts-default-variable);
+  }
+}
+
+@media screen and (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+// Remove this when this gets fixed in the UI package
+* {
+  box-sizing: border-box;
+}
+
+html {
+  // https://rsms.me/inter/#features
+  font-feature-settings: "ss01", "ss02", "case", "salt";
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  line-height: 1.5;
+}
+
+a {
+  color: var(--amplify-components-link-color);
+  
+  &:hover,
+  &:focus {
+    color: var(--amplify-components-link-hover-color);
+  }
+  
+  &:active {
+    color: var(--amplify-components-link-active-color);
+  }
+}
+
+blockquote {
+  padding: var(--amplify-space-medium);
+  border-left: var(--amplify-border-widths-large) solid
+    var(--amplify-colors-brand-secondary-60);
+  margin: 0 0 var(--amplify-space-medium) 0;
+  background-color: var(--amplify-colors-background-secondary);
+}
+
+img,
+svg {
+  max-width: 100%;
+  max-height: 100%;
+  display: inline-block;
+}
+
+p {
+  margin: 0;
+}
+
+ol {
+  list-style-type: decimal;
+}
+
+ul {
+  list-style-type: disc;
+}
+
+
+code {
+  padding: var(--amplify-space-xxxs) var(--amplify-space-xxs);
+  background-color: var(--amplify-colors-background-secondary);
+  font-size: 0.875em;
+  border-radius: 0.3em;
+  
+  &[class*=language-] {
+    padding: 0;
+  }
+}
+
+
+
+
+h2 {
+  font-size: var(--amplify-components-heading-2-font-size);
+  font-weight: var(--amplify-components-heading-2-font-weight);
+  margin: 0;
+}
+
+h3 {
+  font-size: var(--amplify-components-heading-3-font-size);
+  font-weight: var(--amplify-components-heading-3-font-weight);
+}
+
+h2[id],
+h3[id] {
+  position: relative;
+  margin-top: var(--amplify-space-large);
+  margin-bottom: var(--amplify-space-small);
+  // to offset sticky header
+  scroll-margin-block-start: 6rem;
+}
+
+h2[id] {
+  margin-top: var(--amplify-space-xxl);
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: -1rem;
+    left: 0;
+    width: 5rem;
+    border-top: var(--amplify-border-widths-large) solid var(--amplify-colors-border-tertiary);
+  }
+}
+
+h2[id] > a,
+h3[id] > a {
+  position: absolute;
+  left: -1.5rem;
+}
+
+.icon-link {
+  opacity: 0;
+  transition: opacity var(--amplify-time-transition-medium) ease;
+}
+
+.icon-link::after {
+  content: '#';
+}
+
+h2:hover > a .icon-link,
+h3:hover > a .icon-link {
+  opacity: 1;
+}
+
+[data-amplify-theme='amplify-docs'] {
+  background-color: var(--amplify-colors-background-primary);
+  color: var(--amplify-colors-font-primary);
+  
+  --amplify-components-fieldcontrol-line-height: 1.5;
+  --amplify-borders-primary: var(--amplify-border-widths-small) solid
+    var(--amplify-colors-border-primary);
+  --amplify-borders-secondary: var(--amplify-border-widths-small) solid
+    var(--amplify-colors-border-secondary);
+  --amplify-borders-tertiary: var(--amplify-border-widths-small) solid
+    var(--amplify-colors-border-tertiary);
+
+  --amplify-components-heading-1-font-size: 3rem;
+  --amplify-components-heading-1-font-weight: 750;
+  
+  /* custom vars */
+  --docs-header-height: 4rem;
+}

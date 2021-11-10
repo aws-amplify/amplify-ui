@@ -7,9 +7,11 @@
           class="amplify-flex"
           style="flex-direction: column"
         >
-          <base-heading class="amplify-heading" :level="3">
-            {{ verifyHeading }}
-          </base-heading>
+          <slot name="header">
+            <base-heading class="amplify-heading" :level="3">
+              {{ verifyHeading }}
+            </base-heading>
+          </slot>
           <base-wrapper
             class="amplify-flex amplify-field amplify-radiogroupfield"
             style="flex-direction: column"
@@ -30,7 +32,12 @@
                 :key="value"
               >
                 <base-input
-                  class=" amplify-input amplify-field-group__control amplify-visually-hidden amplify-radio__input"
+                  class="
+                    amplify-input
+                    amplify-field-group__control
+                    amplify-visually-hidden
+                    amplify-radio__input
+                  "
                   aria-invalid="false"
                   data-amplify-verify-input
                   id="verify"
@@ -44,21 +51,12 @@
                   aria-hidden="true"
                 ></base-text>
                 <base-text class="amplify-text amplify-radio__label">
-                  {{ authInputAttributes[key as UserNameAlias].label }}
+                  {{ authInputAttributes[key as LoginMechanism].label }}
                 </base-text>
               </base-label>
             </base-wrapper>
           </base-wrapper>
           <base-footer class="amplify-flex" style="flex-direction: column">
-            <template #footert="{ slotData }">
-              <slot
-                name="footer"
-                :info="slotData"
-                :onSkipClicked="onSkipClicked"
-                :onVerifyUserSubmit="onVerifyUserSubmit"
-              >
-              </slot>
-            </template>
             <base-alert v-if="actorState?.context?.remoteError">
               {{ actorState?.context.remoteError }}
             </base-alert>
@@ -82,6 +80,12 @@
             >
               {{ skipText }}</base-button
             >
+            <slot
+              name="footer"
+              :onSkipClicked="onSkipClicked"
+              :onVerifyUserSubmit="onVerifyUserSubmit"
+            >
+            </slot>
           </base-footer>
         </base-field-set>
       </base-form>
@@ -95,7 +99,7 @@ import {
   getActorState,
   SignInState,
   authInputAttributes,
-  UserNameAlias,
+  LoginMechanism,
   translate,
 } from '@aws-amplify/ui';
 

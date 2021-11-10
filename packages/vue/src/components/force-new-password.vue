@@ -11,9 +11,11 @@
           style="flex-direction: column"
           :disabled="actorState.matches('forceNewPassword.pending')"
         >
-          <base-heading :level="3" class="amplify-heading">
-            {{ changePasswordLabel }}
-          </base-heading>
+          <slot name="header">
+            <base-heading :level="3" class="amplify-heading">
+              {{ changePasswordLabel }}
+            </base-heading>
+          </slot>
           <base-wrapper class="amplify-flex" style="flex-direction: column">
             <!--Input 1-->
             <base-wrapper
@@ -56,15 +58,6 @@
             </base-wrapper>
           </base-wrapper>
           <base-footer class="amplify-flex" style="flex-direction: column">
-            <template #footert="{ slotData }">
-              <slot
-                name="footer"
-                :info="slotData"
-                :onHaveAccountClicked="onHaveAccountClicked"
-                :onForceNewPasswordSubmit="onForceNewPasswordSubmit"
-              >
-              </slot>
-            </template>
             <base-box
               data-ui-error
               role="alert"
@@ -99,6 +92,12 @@
             >
               {{ backSignInText }}</base-button
             >
+            <slot
+              name="footer"
+              :onHaveAccountClicked="onHaveAccountClicked"
+              :onForceNewPasswordSubmit="onForceNewPasswordSubmit"
+            >
+            </slot>
           </base-footer>
         </base-field-set>
       </base-form>
@@ -125,9 +124,9 @@ const attrs = useAttrs();
 const emit = defineEmits(['haveAccountClicked', 'forceNewPasswordSubmit']);
 
 const { state, send } = useAuth();
-const actorState: ComputedRef<SignInState> = computed(() =>
+const actorState = computed(() =>
   getActorState(state.value)
-);
+) as ComputedRef<SignInState>;
 
 const actorContext = computed(() =>
   getActorContext(state.value)

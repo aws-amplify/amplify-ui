@@ -17,7 +17,7 @@ const emit = defineEmits(['signUpSubmit']);
 // computed properties
 
 const createAccountLabel = computed(() => translate('Create Account'));
-const signUpButtonText = computed(() => translate('Create a new account'));
+const signUpHeaderText = computed(() => translate('Create a new account'));
 
 // Methods
 
@@ -46,12 +46,11 @@ const submit = (): void => {
     <base-wrapper v-bind="$attrs">
       <base-form @input="onInput" @submit.prevent="onSignUpSubmit">
         <base-wrapper class="amplify-flex" style="flex-direction: column">
-          <base-heading class="amplify-heading" :level="3">
-            <template #headingI>
-              <slot name="heading"></slot>
-            </template>
-            {{ signUpButtonText }}
-          </base-heading>
+          <slot name="header">
+            <base-heading class="amplify-heading" :level="3">
+              {{ signUpHeaderText }}
+            </base-heading>
+          </slot>
           <base-field-set
             class="amplify-flex"
             style="flex-direction: column"
@@ -75,15 +74,8 @@ const submit = (): void => {
             >{{ createAccountLabel }}</base-button
           >
           <base-footer>
-            <template #footert="{ slotData }">
-              <slot
-                name="footer"
-                :info="slotData"
-                :onSignUpSubmit="onSignUpSubmit"
-              >
-              </slot>
-            </template>
             <federated-sign-in></federated-sign-in>
+            <slot name="footer" :onSignUpSubmit="onSignUpSubmit"> </slot>
           </base-footer>
         </base-wrapper>
       </base-form>
