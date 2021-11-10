@@ -8,35 +8,59 @@ interface AuthUser extends CognitoUser {
   attributes: Record<string, string>;
 }
 
-export const useAuth = () => {
-  const [user, setUser] = useState<AuthUser>();
-  const [error, setError] = useState<Error>();
-  const [isLoading, setLoading] = useState<boolean>(true);
+export interface UseAuthResult {
+  user?: AuthUser;
+  isLoading: boolean;
+  error?: Error;
+  fetch?: () => void;
+}
 
-  const handleUser = (user: AuthUser | undefined) => {
-    if (typeof user === 'undefined') {
-      setError(new Error('Current authenticated user is not available'));
-    } else {
-      setUser(user);
-    }
-  };
+/**
+ * React hook for Amplify Auth.
+ * Returns a reference to current authenticated Cognito `user`.
+ *
+ * Usage:
+ * ```
+ * const { user, isLoading, error } = useAuth();
+ *
+ * if (isLoading) {
+ *   console.info('Fetching metadata for current user');
+ * }
+ *
+ * if (error) {
+ *   console.error(error.message);
+ * }
+ *
+ * if (user) {
+ *   console.log(`Current username is ${user.username}`);
+ * }
+ *
+ * ```
+ */
+export const useAuth = (): UseAuthResult => {
+  const [result, setResult] = useState<UseAuthResult>({
+    error: undefined,
+    isLoading: true,
+    user: undefined,
+  });
 
   const handleAuth = ({ payload }) => {
     switch (payload.event) {
       case 'signIn':
-        return handleUser(payload.data);
+        return setResult({ user: payload.data, isLoading: false });
       case 'signOut':
-        return handleUser(undefined);
+        return setResult({ isLoading: false });
       default:
         break;
     }
   };
 
   const fetch = () => {
+    setResult({ isLoading: true });
+
     Auth.currentAuthenticatedUser()
-      .then(handleUser)
-      .catch(setError)
-      .finally(() => setLoading(false));
+      .then((user) => setResult({ user, isLoading: false }))
+      .catch((error) => setResult({ error, isLoading: false }));
 
     // Handle Hub Auth events
     Hub.listen('auth', handleAuth);
@@ -47,10 +71,5 @@ export const useAuth = () => {
 
   useEffect(fetch, []);
 
-  return {
-    user,
-    isLoading,
-    fetch,
-    error,
-  };
+  return result;
 };
