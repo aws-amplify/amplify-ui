@@ -11,11 +11,11 @@ Feature: Sign Up with Phone
     Then I see "Phone Number" as an input field
     And I don't see "Username" as an input field
 
-  @angular @react @vue @todo-angular @todo-vue
+  @angular @react @vue @todo-angular
   Scenario: "Email" is included from `aws_cognito_verification_mechanisms`
     Then I see "Email" as an "email" field
 
-  @angular @react @vue @todo-angular @todo-vue
+  @angular @react @vue @todo-angular
   Scenario: Sign up with valid phone number & password
     When I select my country code with status "UNCONFIRMED"
     And I type my "phone number" with status "UNCONFIRMED"
