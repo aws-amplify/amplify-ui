@@ -5,7 +5,6 @@ import {
   Authenticator,
   // Amplify UI Primitives to simplify the custom fields
   CheckboxField,
-  TextField,
   // React hook to get access to validation errors
   useAuthenticator,
 } from '@aws-amplify/ui-react';

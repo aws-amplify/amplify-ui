@@ -1,12 +1,6 @@
 import { assign, createMachine, forwardTo, spawn } from 'xstate';
 
-import {
-  AuthContext,
-  AuthEvent,
-  LoginMechanism,
-  SignUpAttribute,
-  SocialProvider,
-} from '../../types';
+import { AuthContext, AuthEvent } from '../../types';
 import { stopActor } from './actions';
 import { resetPasswordActor, signInActor, signOutActor } from './actors';
 import { defaultServices } from './defaultServices';

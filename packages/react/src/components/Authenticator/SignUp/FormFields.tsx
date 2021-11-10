@@ -186,8 +186,6 @@ export function FormFields() {
               />
             );
 
-            return null;
-
           case 'website':
             return (
               <TextField
