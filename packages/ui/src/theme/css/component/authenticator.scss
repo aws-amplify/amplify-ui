@@ -37,14 +37,23 @@
 [data-amplify-authenticator] [data-amplify-container] {
   /* Fix z-index of texture being over the Authenticator */
   position: relative;
-
-  background-color: var(--amplify-colors-background-primary);
-  box-shadow: var(--amplify-shadows-small);
   place-self: center;
   width: 30rem;
   @media (max-width: 30rem) {
     width: 100%;
   }
+}
+
+[data-amplify-authenticator] [data-amplify-container] > {
+  [data-amplify-header],
+  [data-amplify-footer] {
+    text-align: center;
+  }
+}
+
+[data-amplify-authenticator] [data-amplify-container] > [data-amplify-body] {
+  background-color: var(--amplify-colors-background-primary);
+  box-shadow: var(--amplify-shadows-small);
 }
 
 [data-amplify-authenticator] [data-amplify-form] {
