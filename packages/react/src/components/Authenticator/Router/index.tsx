@@ -35,39 +35,41 @@ export function Router({ className, children }: RouterProps) {
         <View data-authenticator-variation="modal" />
 
         <View data-amplify-container="">
-          {(() => {
-            switch (route) {
-              case 'idle':
-                return null;
-              case 'confirmSignUp':
-                return <ConfirmSignUp />;
-              case 'confirmSignIn':
-                return <ConfirmSignIn />;
-              case 'setupTOTP':
-                return <SetupTOTP />;
-              case 'signIn':
-              case 'signUp':
-                return <SignInSignUpTabs />;
-              case 'forceNewPassword':
-                return <ForceNewPassword />;
-              case 'resetPassword':
-                return <ResetPassword />;
-              case 'confirmResetPassword':
-                return <ConfirmResetPassword />;
-              case 'verifyUser':
-                return <VerifyUser />;
-              case 'confirmVerifyUser':
-                return <ConfirmVerifyUser />;
+          <View data-amplify-body="">
+            {(() => {
+              switch (route) {
+                case 'idle':
+                  return null;
+                case 'confirmSignUp':
+                  return <ConfirmSignUp />;
+                case 'confirmSignIn':
+                  return <ConfirmSignIn />;
+                case 'setupTOTP':
+                  return <SetupTOTP />;
+                case 'signIn':
+                case 'signUp':
+                  return <SignInSignUpTabs />;
+                case 'forceNewPassword':
+                  return <ForceNewPassword />;
+                case 'resetPassword':
+                  return <ResetPassword />;
+                case 'confirmResetPassword':
+                  return <ConfirmResetPassword />;
+                case 'verifyUser':
+                  return <VerifyUser />;
+                case 'confirmVerifyUser':
+                  return <ConfirmVerifyUser />;
 
-              default:
-                console.warn(
-                  'Unhandled Authenicator route – please open an issue: ',
-                  route
-                );
+                default:
+                  console.warn(
+                    'Unhandled Authenicator route – please open an issue: ',
+                    route
+                  );
 
-                return null;
-            }
-          })()}
+                  return null;
+              }
+            })()}
+          </View>
         </View>
       </View>
     </>
