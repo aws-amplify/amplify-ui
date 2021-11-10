@@ -21,7 +21,7 @@ Feature: Sign Up with Username
   Scenario: "Phone Number" is not included
     Then I don't see "Phone Number"
   
-  @angular @react @vue 
+  @angular @react @vue @todo-angular @todo-vue
   Scenario: Sign up a new username & password
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-username"
     When I type a new "username"
