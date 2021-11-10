@@ -2,65 +2,65 @@
   /**
    * Default Table primitive stylings
    */
-  border-collapse: collapse;
-  width: 100%;
-  display: table;
-  text-indent: initial;
+  border-collapse: var(--amplify-components-table-border-collapse);
+  display: var(--amplify-components-table-display);
+  text-indent: var(--amplify-components-table-text-indent);
+  width: var(--amplify-components-table-width);
 
   .amplify-table__head {
-    display: table-header-group;
-    vertical-align: middle;
-    border-color: inherit;
+    display: var(--amplify-components-table-head-display);
+    vertical-align: var(--amplify-components-table-head-vertical-align);
   }
 
   .amplify-table__body {
-    display: table-row-group;
-    vertical-align: middle;
-    border-color: inherit;
+    display: var(--amplify-components-table-body-display);
+    vertical-align: var(--amplify-components-table-body-vertical-align);
   }
 
   .amplify-table__foot {
-    display: table-footer-group;
-    vertical-align: middle;
-    border-color: inherit;
+    display: var(--amplify-components-table-foot-display);
+    vertical-align: var(--amplify-components-table-foot-vertical-align);
   }
 
   .amplify-table__row {
-    display: table-row;
-    vertical-align: inherit;
-    border-color: inherit;
-  }
-
-  .amplify-table__th,
-  .amplify-table__td {
-    display: table-cell;
-    vertical-align: inherit;
-    border-color: var(--amplify-components-table-border-color);
-    border-style: var(--amplify-components-table-border-style);
-    border-width: var(--amplify-components-table-border-width);
-    padding: var(--amplify-components-table-padding);
-    color: var(--amplify-components-table-color);
-    font-size: var(--amplify-components-table-font-size-default);
+    display: var(--amplify-components-table-row-display);
+    vertical-align: var(--amplify-components-table-row-vertical-align);
   }
 
   .amplify-table__th {
-    font-weight: var(--amplify-components-table-font-weight-th);
+    border-color: var(--amplify-components-table-header-border-color);
+    border-style: var(--amplify-components-table-header-border-style);
+    border-width: var(--amplify-components-table-header-border-width);
+    color: var(--amplify-components-table-header-color);
+    display: var(--amplify-components-table-header-display);
+    font-size: var(--amplify-components-table-header-font-size);
+    font-weight: var(--amplify-components-table-header-font-weight);
+    padding: var(--amplify-components-table-header-padding);
+    vertical-align: var(--amplify-components-table-header-vertical-align);
   }
 
   .amplify-table__td {
-    font-weight: var(--amplify-components-table-font-weight-td);
+    border-color: var(--amplify-components-table-data-border-color);
+    border-style: var(--amplify-components-table-data-border-style);
+    border-width: var(--amplify-components-table-data-border-width);
+    color: var(--amplify-components-table-data-color);
+    display: var(--amplify-components-table-data-display);
+    font-size: var(--amplify-components-table-data-font-size);
+    font-weight: var(--amplify-components-table-data-font-weight);
+    padding: var(--amplify-components-table-data-padding);
+    vertical-align: var(--amplify-components-table-data-vertical-align);
   }
 
   .amplify-table caption {
-    color: var(--amplify-components-table-color);
-    font-size: var(--amplify-components-table-font-size-default);
-    word-break: break-all;
+    color: var(--amplify-components-table-caption-color);
+    font-size: var(--amplify-components-table-caption-font-size);
+    word-break: var(--amplify-components-table-caption-word-break);
   }
 
   .amplify-table__summary {
-    color: var(--amplify-colors-font-secondary);
-    font-size: var(--amplify-components-table-font-size-summary);
-    font-style: italic;
+    color: var(--amplify-components-table-summary-color);
+    font-size: var(--amplify-components-table-summary-font-size);
+    font-weight: var(--amplify-components-table-summary-font-weight);
   }
 
   /**
@@ -80,41 +80,57 @@
 
   &[data-variation='striped'] {
     .amplify-table__body .amplify-table__row:nth-child(odd) {
-      background-color: var(--amplify-colors-background-secondary);
+      background-color: var(
+        --amplify-components-table-row-striped-background-color
+      );
     }
   }
 
   &[data-highlightonhover='true'] {
     .amplify-table__body .amplify-table__row:hover {
-      background-color: var(--amplify-colors-background-tertiary);
+      background-color: var(
+        --amplify-components-table-row-hover-background-color
+      );
     }
   }
 
   &[data-size='small'] {
-    .amplify-table__th,
+    .amplify-table__th {
+      font-size: var(--amplify-components-table-header-small-font-size);
+      padding: var(--amplify-components-table-header-small-padding);
+    }
+
     .amplify-table__td {
-      font-size: var(--amplify-components-table-small-font-size);
-      padding: var(--amplify-components-table-small-padding);
+      font-size: var(--amplify-components-table-data-small-font-size);
+      padding: var(--amplify-components-table-data-small-padding);
     }
 
     caption {
-      font-size: var(--amplify-components-table-small-font-size);
+      font-size: var(--amplify-components-table-caption-small-font-size);
+    }
+
+    .amplify-table__summary {
+      font-size: var(--amplify-components-table-summary-small-font-size);
     }
   }
 
   &[data-size='large'] {
-    .amplify-table__th,
+    .amplify-table__th {
+      font-size: var(--amplify-components-table-header-large-font-size);
+      padding: var(--amplify-components-table-header-large-padding);
+    }
+
     .amplify-table__td {
-      font-size: var(--amplify-components-table-large-font-size-default);
-      padding: var(--amplify-components-table-large-padding);
+      font-size: var(--amplify-components-table-data-large-font-size);
+      padding: var(--amplify-components-table-data-large-padding);
     }
 
     caption {
-      font-size: var(--amplify-components-table-large-font-size-default);
+      font-size: var(--amplify-components-table-caption-large-font-size);
     }
 
     .amplify-table__summary {
-      font-size: var(--amplify-components-table-large-font-size-summary);
+      font-size: var(--amplify-components-table-summary-large-font-size);
     }
   }
 }

@@ -1,36 +1,18 @@
 module.exports = {
   /**
-   * Default borders
+   * Default table styles
    */
-  borderColor: { value: '{colors.border.tertiary.value}' },
-  borderStyle: { value: 'solid' },
-  borderWidth: { value: '{borderWidths.small.value}' },
-
-  /**
-   * Default padding
-   */
-  padding: { value: '{space.medium.value}' },
-
-  /**
-   * Default font styles
-   */
-  color: { value: '{colors.font.primary.value}' },
-  fontSize: {
-    default: { value: '{fontSizes.medium.value}' },
-    summary: { value: '{fontSizes.xs.value}' },
-  },
-  fontWeight: {
-    td: { value: '{fontWeights.normal.value}' },
-    th: { value: '{fontWeights.bold.value}' },
-  },
+  borderCollapse: { value: 'collapse' },
+  display: { value: 'table' },
+  textIndent: { value: 'initial' },
+  width: { value: '100%' },
 
   /**
    * Default table head styles
    */
   head: {
     display: { value: 'table-header-group' },
-    'vertical-align': { value: 'middle' },
-    'border-color': { value: 'inherit' },
+    verticalAlign: { value: 'middle' },
   },
 
   /**
@@ -38,8 +20,7 @@ module.exports = {
    */
   body: {
     display: { value: 'table-row-group' },
-    'vertical-align': { value: 'middle' },
-    'border-color': { value: 'inherit' },
+    verticalAlign: { value: 'middle' },
   },
 
   /**
@@ -47,8 +28,7 @@ module.exports = {
    */
   foot: {
     display: { value: 'table-footer-group' },
-    'vertical-align': { value: 'middle' },
-    'border-color': { value: 'inherit' },
+    verticalAlign: { value: 'middle' },
   },
 
   /**
@@ -56,29 +36,98 @@ module.exports = {
    */
   row: {
     display: { value: 'table-row' },
-    'vertical-align': { value: 'inherit' },
-    'border-color': { value: 'inherit' },
+    verticalAlign: { value: 'middle' },
+
+    hover: {
+      backgroundColor: { value: '{colors.background.tertiary.value}' },
+    },
+
+    striped: {
+      backgroundColor: { value: '{colors.background.secondary.value}' },
+    },
   },
 
   /**
    * Default table header cell styles
    */
   header: {
+    borderColor: { value: '{colors.border.tertiary.value}' },
+    borderStyle: { value: 'solid' },
+    borderWidth: { value: '{borderWidths.small.value}' },
+    color: { value: '{colors.font.primary.value}' },
     display: { value: 'table-cell' },
-    'vertical-align': { value: 'middle' },
-    'border-color': { value: '{colors.border.tertiary.value}' },
-  },
+    fontSize: { value: '{fontSizes.medium.value}' },
+    fontWeight: { value: '{fontWeights.bold.value}' },
+    padding: { value: '{space.medium.value}' },
+    verticalAlign: { value: 'middle' },
 
-  small: {
-    fontSize: { value: '{fontSizes.small.value}' },
-    padding: { value: '{space.xs.value}' },
-  },
-
-  large: {
-    fontSize: {
-      default: { value: '{fontSizes.large.value}' },
-      summary: { value: '{fontSizes.small.value}' },
+    large: {
+      fontSize: { value: '{fontSizes.large.value}' },
+      padding: { value: '{space.large.value}' },
     },
-    padding: { value: '{space.large.value}' },
+
+    small: {
+      fontSize: { value: '{fontSizes.small.value}' },
+      padding: { value: '{space.xs.value}' },
+    },
+  },
+
+  /**
+   * Default table data cell styles
+   */
+  data: {
+    borderColor: { value: '{colors.border.tertiary.value}' },
+    borderStyle: { value: 'solid' },
+    borderWidth: { value: '{borderWidths.small.value}' },
+    color: { value: '{colors.font.primary.value}' },
+    display: { value: 'table-cell' },
+    fontSize: { value: '{fontSizes.medium.value}' },
+    fontWeight: { value: '{fontWeights.normal.value}' },
+    padding: { value: '{space.medium.value}' },
+    verticalAlign: { value: 'middle' },
+
+    large: {
+      fontSize: { value: '{fontSizes.large.value}' },
+      padding: { value: '{space.large.value}' },
+    },
+
+    small: {
+      fontSize: { value: '{fontSizes.small.value}' },
+      padding: { value: '{space.xs.value}' },
+    },
+  },
+
+  /**
+   * Default table caption styles
+   */
+  caption: {
+    color: { value: '{colors.font.primary.value}' },
+    fontSize: { value: '{fontSizes.medium.value}' },
+    wordBreak: { value: 'break-all' },
+
+    large: {
+      fontSize: { value: '{fontSizes.large.value}' },
+    },
+
+    small: {
+      fontSize: { value: '{fontSizes.small.value}' },
+    },
+  },
+
+  /**
+   * Default table summary styles
+   */
+  summary: {
+    color: { value: '{colors.font.secondary.value}' },
+    fontSize: { value: '{fontSizes.xs.value}' },
+    fontWeight: { value: '{fontWeights.light.value}' },
+
+    large: {
+      fontSize: { value: '{fontSizes.small.value}' },
+    },
+
+    small: {
+      fontSize: { value: '{fontSizes.xs.value}' },
+    },
   },
 };
