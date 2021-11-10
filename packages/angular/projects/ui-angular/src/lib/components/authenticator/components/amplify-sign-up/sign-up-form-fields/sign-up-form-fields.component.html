@@ -11,7 +11,7 @@
     autocomplete="new-password"
   ></amplify-form-field>
 
-  <ng-container *ngFor="let secondaryAlias of secondaryAliases">
-    <amplify-form-field [name]="secondaryAlias"></amplify-form-field>
+  <ng-container *ngFor="let field of fieldNames">
+    <amplify-form-field [name]="field"></amplify-form-field>
   </ng-container>
 </div>
