@@ -3,45 +3,51 @@ import { OrdinalScale, OrdinalVariation } from './types/scales';
 
 type ScaleKeys = 10 | 20 | 40 | 60 | 80 | 90 | 100;
 
-type FontColors = {
-  inverse: DesignToken<ColorValue>;
-  interactive: DesignToken<ColorValue>;
-  hover: DesignToken<ColorValue>;
-  focus: DesignToken<ColorValue>;
-  active: DesignToken<ColorValue>;
-  disabled: DesignToken<ColorValue>;
-} & OrdinalScale &
-  OrdinalVariation;
+type ColorScale<DesignTokenType = DesignToken<ColorValue>> = {
+  [key in ScaleKeys]: DesignTokenType;
+};
 
-type BackgroundColors = {
-  disabled: DesignToken<ColorValue>;
-} & OrdinalScale &
-  OrdinalVariation;
+type FontColors<DesignTokenType = DesignToken<ColorValue>> = {
+  inverse: DesignTokenType;
+  interactive: DesignTokenType;
+  hover: DesignTokenType;
+  focus: DesignTokenType;
+  active: DesignTokenType;
+  disabled: DesignTokenType;
+} & OrdinalScale<DesignTokenType> &
+  OrdinalVariation<DesignTokenType>;
 
-type BorderColors = {
-  disabled: DesignToken<ColorValue>;
-  focus: DesignToken<ColorValue>;
-  error: DesignToken<ColorValue>;
-} & OrdinalScale;
+type BackgroundColors<DesignTokenType = DesignToken<ColorValue>> = {
+  disabled: DesignTokenType;
+} & OrdinalScale<DesignTokenType> &
+  OrdinalVariation<DesignTokenType>;
 
-type ColorTypes =
-  | { [key in ScaleKeys]: DesignToken<ColorValue> }
+type BorderColors<DesignTokenType = DesignToken<ColorValue>> = {
+  disabled: DesignTokenType;
+  focus: DesignTokenType;
+  error: DesignTokenType;
+} & OrdinalScale<DesignTokenType>;
+
+type ColorTypes<DesignTokenType = DesignToken<ColorValue>> =
+  | { [key in ScaleKeys]: DesignTokenType }
   | FontColors
   | BackgroundColors
-  | DesignToken<ColorValue>
+  | DesignTokenType
   | BorderColors;
+
+type WebColorTypes = ColorTypes<WebDesignToken<ColorValue>>;
 
 export type Colors = {
   // base color palette
-  red: { [key in ScaleKeys]: DesignToken<ColorValue> };
-  orange: { [key in ScaleKeys]: DesignToken<ColorValue> };
-  yellow: { [key in ScaleKeys]: DesignToken<ColorValue> };
-  green: { [key in ScaleKeys]: DesignToken<ColorValue> };
-  teal: { [key in ScaleKeys]: DesignToken<ColorValue> };
-  blue: { [key in ScaleKeys]: DesignToken<ColorValue> };
-  purple: { [key in ScaleKeys]: DesignToken<ColorValue> };
-  pink: { [key in ScaleKeys]: DesignToken<ColorValue> };
-  neutral: { [key in ScaleKeys]: DesignToken<ColorValue> };
+  red: ColorScale;
+  orange: ColorScale;
+  yellow: ColorScale;
+  green: ColorScale;
+  teal: ColorScale;
+  blue: ColorScale;
+  purple: ColorScale;
+  pink: ColorScale;
+  neutral: ColorScale;
   white: DesignToken<ColorValue>;
   black: DesignToken<ColorValue>;
 
@@ -50,37 +56,35 @@ export type Colors = {
   background: BackgroundColors;
   border: BorderColors;
   brand: {
-    primary: { [key in ScaleKeys]: DesignToken<ColorValue> };
-    secondary: { [key in ScaleKeys]: DesignToken<ColorValue> };
+    primary: ColorScale;
+    secondary: ColorScale;
   };
 
   [key: string]: ColorTypes | Record<string, ColorTypes>;
 };
 
 export type WebColors = {
-  red: { [key in ScaleKeys]: WebDesignToken<ColorValue> };
-  orange: { [key in ScaleKeys]: WebDesignToken<ColorValue> };
-  yellow: { [key in ScaleKeys]: WebDesignToken<ColorValue> };
-  green: { [key in ScaleKeys]: WebDesignToken<ColorValue> };
-  teal: { [key in ScaleKeys]: WebDesignToken<ColorValue> };
-  blue: { [key in ScaleKeys]: WebDesignToken<ColorValue> };
-  purple: { [key in ScaleKeys]: WebDesignToken<ColorValue> };
-  pink: { [key in ScaleKeys]: WebDesignToken<ColorValue> };
-  neutral: { [key in ScaleKeys]: WebDesignToken<ColorValue> };
+  red: ColorScale<WebDesignToken<ColorValue>>;
+  orange: ColorScale<WebDesignToken<ColorValue>>;
+  yellow: ColorScale<WebDesignToken<ColorValue>>;
+  green: ColorScale<WebDesignToken<ColorValue>>;
+  teal: ColorScale<WebDesignToken<ColorValue>>;
+  blue: ColorScale<WebDesignToken<ColorValue>>;
+  purple: ColorScale<WebDesignToken<ColorValue>>;
+  pink: ColorScale<WebDesignToken<ColorValue>>;
+  neutral: ColorScale<WebDesignToken<ColorValue>>;
   white: WebDesignToken<ColorValue>;
   black: WebDesignToken<ColorValue>;
 
-  font: { [Property in keyof Colors['font']]: WebDesignToken<ColorValue> };
-  background: {
-    [Property in keyof Colors['background']]: WebDesignToken<ColorValue>;
-  };
-  border: { [Property in keyof Colors['border']]: WebDesignToken<ColorValue> };
+  font: FontColors<WebDesignToken<ColorValue>>;
+  background: BackgroundColors<WebDesignToken<ColorValue>>;
+  border: BorderColors<WebDesignToken<ColorValue>>;
   brand: {
-    primary: { [key in ScaleKeys]: WebDesignToken<ColorValue> };
-    secondary: { [key in ScaleKeys]: WebDesignToken<ColorValue> };
+    primary: ColorScale<WebDesignToken<ColorValue>>;
+    secondary: ColorScale<WebDesignToken<ColorValue>>;
   };
 
-  [key: string]: ColorTypes | Record<string, ColorTypes>;
+  [key: string]: WebColorTypes | Record<string, WebColorTypes>;
 };
 
 export const colors: Colors = {

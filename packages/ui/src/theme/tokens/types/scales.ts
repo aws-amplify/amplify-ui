@@ -1,14 +1,14 @@
-import { DesignToken } from './designToken';
+import { DesignToken, ColorValue } from './designToken';
 
-export interface OrdinalScale<ValueType = any> {
-  primary: DesignToken<ValueType>;
-  secondary: DesignToken<ValueType>;
-  tertiary: DesignToken<ValueType>;
+export interface OrdinalScale<DesignTokenType = DesignToken<ColorValue>> {
+  primary: DesignTokenType;
+  secondary: DesignTokenType;
+  tertiary: DesignTokenType;
 }
 
-export interface OrdinalVariation<ValueType = any> {
-  info: DesignToken<ValueType>;
-  warning: DesignToken<ValueType>;
-  error: DesignToken<ValueType>;
-  success: DesignToken<ValueType>;
+export interface OrdinalVariation<DesignTokenType = DesignToken<ColorValue>> {
+  info: DesignTokenType;
+  warning: DesignTokenType;
+  error: DesignTokenType;
+  success: DesignTokenType;
 }
