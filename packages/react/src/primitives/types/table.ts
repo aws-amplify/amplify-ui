@@ -17,11 +17,6 @@ export interface TableProps extends ViewProps {
   highlightOnHover?: boolean;
 
   /**
-   * Will be set as the table's accessible aria-label
-   */
-  label?: string;
-
-  /**
    * Affects font size and padding. Default is in between 'small' and 'large'.
    */
   size?: TableSize;

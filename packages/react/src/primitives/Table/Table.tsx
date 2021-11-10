@@ -9,7 +9,6 @@ export const Table: Primitive<TableProps, 'table'> = ({
   children,
   className,
   highlightOnHover = false,
-  label,
   size = '',
   summary,
   variation = '',
@@ -17,7 +16,6 @@ export const Table: Primitive<TableProps, 'table'> = ({
 }) => (
   <Flex>
     <View
-      ariaLabel={label}
       as="table"
       className={classNames(ComponentClassNames.Table, className)}
       data-highlightonhover={highlightOnHover}
