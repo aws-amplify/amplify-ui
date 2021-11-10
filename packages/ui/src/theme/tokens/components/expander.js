@@ -3,28 +3,22 @@ module.exports = {
   backgroundColor: { value: '{colors.white.value}' },
   borderRadius: { value: '{radii.medium.value}' },
   boxShadow: {
-    value: {
-      offsetX: '0',
-      offsetY: '1px',
-      blurRadius: '10px',
-      color: '{colors.overlay.30.value}',
-    },
+    value: '{shadows.large.value}',
   },
   width: { value: '100%' },
   item: {
     marginTop: { value: '1px' },
     boxShadow: {
-      value: {
-        offsetX: '0',
-        offsetY: '1px',
-        blurRadius: '0',
-        color: '{colors.overlay.20.value}',
-      },
+      value: '{shadows.small.value}',
     },
-    borderStartStartRadius: { value: '0.5rem' },
-    borderStartEndRadius: { value: '0.5rem' },
-    borderEndStartRadius: { value: '0.5rem' },
-    borderEndEndRadius: { value: '0.5rem' },
+    borderBottomLeftRadius: { value: '{radii.medium.value}' },
+    borderBottomRightRadius: { value: '{radii.medium.value}' },
+    borderTopLeftRadius: { value: '{radii.medium.value}' },
+    borderTopRightRadius: { value: '{radii.medium.value}' },
+    borderStartStartRadius: { value: '{radii.medium.value}' },
+    borderStartEndRadius: { value: '{radii.medium.value}' },
+    borderEndStartRadius: { value: '{radii.medium.value}' },
+    borderEndEndRadius: { value: '{radii.medium.value}' },
     _focus: {
       boxShadow: {
         value: {
@@ -37,12 +31,7 @@ module.exports = {
       },
     },
   },
-  trigger: {
-    height: { value: '3rem' },
-    paddingInlineStart: { value: '1.5rem' },
-    paddingInlineEnd: { value: '1.5rem' },
-    alignItems: { value: 'center' },
-    justifyContent: { value: 'space-between' },
+  header: {
     boxShadow: {
       value: {
         offsetX: '0',
@@ -51,26 +40,36 @@ module.exports = {
         color: '{colors.overlay.20.value}',
       },
     },
+  },
+  trigger: {
+    minHeight: { value: '3rem' },
+    paddingInlineStart: { value: '{space.large.value}' },
+    paddingInlineEnd: { value: '{space.large.value}' },
+    alignItems: { value: 'center' },
+    justifyContent: { value: 'space-between' },
     _hover: {
       backgroundColor: { value: '{colors.overlay.10.value}' },
     },
   },
   content: {
-    paddingInlineStart: { value: '1.5rem' },
-    paddingInlineEnd: { value: '1.5rem' },
+    paddingInlineStart: { value: '{space.large.value}' },
+    paddingInlineEnd: { value: '{space.large.value}' },
     text: {
       color: { value: '{colors.font.secondary.value}' },
-      paddingBlockStart: { value: '1rem' },
-      paddingBlockEnd: { value: '1rem' },
+      paddingBlockStart: { value: '{space.medium.value}' },
+      paddingBlockEnd: { value: '{space.medium.value}' },
     },
     _open: {
       animationDuration: { value: '{time.animation.medium.value}' },
+      animationTimingFunction: { value: 'cubic-bezier(0.87, 0, 0.13, 1)' },
     },
     _closed: {
       animationDuration: { value: '{time.animation.medium.value}' },
+      animationTimingFunction: { value: 'cubic-bezier(0.87, 0, 0.13, 1)' },
     },
   },
   icon: {
     transitionDuration: { value: '{time.transition.medium.value}' },
+    transitionTimingFunction: { value: 'cubic-bezier(0.87, 0, 0.13, 1)' },
   },
 };

@@ -3,10 +3,10 @@ import { render, screen } from '@testing-library/react';
 import { Expander } from '../Expander';
 import {
   ExpanderItem,
-  EXPANDER_CONTENT_TEXT,
-  EXPANDER_HEADER,
-  EXPANDER_ICON,
-  EXPANDER_ITEM,
+  EXPANDER_CONTENT_TEXT_TEST_ID,
+  EXPANDER_HEADER_TEST_ID,
+  EXPANDER_ICON_TEST_ID,
+  EXPANDER_ITEM_TEST_ID,
 } from '../ExpanderItem';
 import { ComponentClassNames } from '../../shared/constants';
 
@@ -25,16 +25,18 @@ describe('ExpanderItem: ', () => {
       </Expander>
     );
 
-    const item = await screen.findByTestId(EXPANDER_ITEM);
+    const item = await screen.findByTestId(EXPANDER_ITEM_TEST_ID);
     expect(item).toHaveClass(ComponentClassNames.ExpanderItem, className);
 
-    const header = await screen.findByTestId(EXPANDER_HEADER);
+    const header = await screen.findByTestId(EXPANDER_HEADER_TEST_ID);
     expect(header).toHaveClass(ComponentClassNames.ExpanderHeader);
 
-    const icon = await screen.findByTestId(EXPANDER_ICON);
+    const icon = await screen.findByTestId(EXPANDER_ICON_TEST_ID);
     expect(icon).toHaveClass(ComponentClassNames.ExpanderIcon);
 
-    const contentText = await screen.findByTestId(EXPANDER_CONTENT_TEXT);
+    const contentText = await screen.findByTestId(
+      EXPANDER_CONTENT_TEXT_TEST_ID
+    );
     expect(contentText).toHaveClass(ComponentClassNames.ExpanderContentText);
 
     const content = await screen.findByRole('region');
@@ -54,7 +56,7 @@ describe('ExpanderItem: ', () => {
       </Expander>
     );
 
-    const header = await screen.findByTestId(EXPANDER_HEADER);
+    const header = await screen.findByTestId(EXPANDER_HEADER_TEST_ID);
     expect(header).toHaveTextContent(title);
   });
 
@@ -95,7 +97,7 @@ describe('ExpanderItem: ', () => {
       </Expander>
     );
 
-    const icon = await screen.findByTestId(EXPANDER_ICON);
+    const icon = await screen.findByTestId(EXPANDER_ICON_TEST_ID);
     expect(icon).toHaveAttribute('aria-hidden', 'true');
   });
 });

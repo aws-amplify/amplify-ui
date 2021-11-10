@@ -4,7 +4,7 @@ import { ExpanderDemo } from './demo';
 import { ControlledExpander, UncontrolledExpander } from './examples';
 import { Example } from '@/components/Example';
 
-Expanders enables users to expand or collapse a set of sections.
+The Expander primitive enables users to expand or collapse a set of sections.
 
 ## Demo
 
@@ -68,7 +68,7 @@ import '@aws-amplify/ui-react/styles.css';
 
 ## Controlled component
 
-To use the Expander as controlled component, specify the `value` of the item(s) to expand and used in conjunction with `onChange`.
+To use the `Expander` as controlled component, specify the `value` of the item(s) to expand and use in conjunction with `onChange`.
 
 ### Single Item
 
@@ -198,7 +198,7 @@ import '@aws-amplify/ui-react/styles.css';
 
 ### Allow collapsing
 
-You may want to enable the Expanders with type `single` to collapse all items. In this case, set the `isCollapsible` prop to true.
+The open item in `Expander` with type `single` is not collapsible. To allow collapsing, set `isCollapsible` to true.
 
 ```jsx
 import { Expander, ExpanderItem } from '@aws-amplify/ui-react';
@@ -226,9 +226,21 @@ import '@aws-amplify/ui-react/styles.css';
 
 ## CSS Styling
 
+### Target classes
+
+| Class                             | Description                                                |
+| --------------------------------- | ---------------------------------------------------------- |
+| `amplify-expander`                | Expander root element                                      |
+| `amplify-expander__item`          | Expander item(containier for header, trigger, and content) |
+| `amplify-expander__header`        | Expander item header                                       |
+| `amplify-expander__trigger`       | Expander item trigger(button)                              |
+| `amplify-expander__icon`          | Icon to indicate whether an item is expanded or collapsed  |
+| `amplify-expander__content`       | Expander content container                                 |
+| `amplify-expander__content__text` | Expander content text                                      |
+
 ### Global styling
 
-To override styling on all Expanders, you can set the Amplify CSS variables with the built-in `.amplify-expander`, `.amplify-expander__item`, `.amplify-expander__header`, `.amplify-expander__trigger`, `.amplify-expander__icon`, `.amplify-expander__content` and `.amplify-expander__content__text` class.
+To override styling on all Expanders, you can set the Amplify CSS variables with the built-in classes.
 
 ```css
 /* styles.css */

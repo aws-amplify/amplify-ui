@@ -9,11 +9,10 @@ import { ComponentClassNames } from '../shared/constants';
 import { splitPrimitiveProps } from '../shared/styleUtils';
 import { useStableId } from '../shared/utils';
 
-export const EXPANDER_ITEM = 'expander-item';
-export const EXPANDER_HEADER = 'expander-header';
-export const EXPANDER_ICON = 'expander-icon';
-// export const EXPANDER_CONTENT = 'expander-content';
-export const EXPANDER_CONTENT_TEXT = 'expander-content-text';
+export const EXPANDER_ITEM_TEST_ID = 'expander-item';
+export const EXPANDER_HEADER_TEST_ID = 'expander-header';
+export const EXPANDER_ICON_TEST_ID = 'expander-icon';
+export const EXPANDER_CONTENT_TEXT_TEST_ID = 'expander-content-text';
 
 export const ExpanderItem: Primitive<ExpanderItemProps, typeof Item> = ({
   children,
@@ -27,12 +26,12 @@ export const ExpanderItem: Primitive<ExpanderItemProps, typeof Item> = ({
   return (
     <Item
       className={classNames(ComponentClassNames.ExpanderItem, className)}
-      data-testid={EXPANDER_ITEM}
+      data-testid={EXPANDER_ITEM_TEST_ID}
       {...rest}
     >
       <Header
         className={ComponentClassNames.ExpanderHeader}
-        data-testid={EXPANDER_HEADER}
+        data-testid={EXPANDER_HEADER_TEST_ID}
       >
         <Trigger
           aria-controls={contentId}
@@ -43,7 +42,7 @@ export const ExpanderItem: Primitive<ExpanderItemProps, typeof Item> = ({
           <IconExpandMore
             aria-hidden
             className={ComponentClassNames.ExpanderIcon}
-            data-testid={EXPANDER_ICON}
+            data-testid={EXPANDER_ICON_TEST_ID}
             size="large"
           />
         </Trigger>
@@ -55,7 +54,7 @@ export const ExpanderItem: Primitive<ExpanderItemProps, typeof Item> = ({
       >
         <View
           className={ComponentClassNames.ExpanderContentText}
-          testId={EXPANDER_CONTENT_TEXT}
+          testId={EXPANDER_CONTENT_TEXT_TEST_ID}
         >
           {children}
         </View>
