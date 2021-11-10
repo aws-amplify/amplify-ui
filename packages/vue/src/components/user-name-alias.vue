@@ -77,15 +77,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, ComputedRef } from 'vue';
+import { ref, computed, ComputedRef, onMounted } from 'vue';
 import {
   authInputAttributes,
   getActorContext,
   getAliasInfoFromContext,
   ActorContextWithForms,
   countryDialCodes,
-  UserNameAlias,
   translate,
+  LoginMechanism,
 } from '@aws-amplify/ui';
 
 import { useAuth } from '../composables/useAuth';
@@ -126,14 +126,16 @@ if (userName) {
 
 const dialCodes = computed(() => countryDialCodes);
 
-const [primaryAlias] = useAliases(context?.config?.login_mechanisms);
+const [primaryAlias] = useAliases(
+  context?.config?.loginMechanisms as LoginMechanism[]
+);
 
 let name = primaryAlias;
 let label =
-  authInputAttributes[primaryAlias as UserNameAlias]?.label ??
+  authInputAttributes[primaryAlias as LoginMechanism]?.label ??
   authInputAttributes['username'].label;
 let type =
-  authInputAttributes[name as UserNameAlias]?.type ??
+  authInputAttributes[name as LoginMechanism]?.type ??
   authInputAttributes['username'].label;
 
 // Only show for Sign In
@@ -144,10 +146,12 @@ if (userNameAlias) {
   name = 'username';
 }
 label = translate<string>(label);
-if (type === 'tel') {
-  send({
-    type: 'CHANGE',
-    data: { name: 'country_code', value: defaultDialCode },
-  });
-}
+onMounted(() => {
+  if (type === 'tel') {
+    send({
+      type: 'CHANGE',
+      data: { name: 'country_code', value: defaultDialCode },
+    });
+  }
+});
 </script>

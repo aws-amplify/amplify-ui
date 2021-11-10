@@ -1,5 +1,6 @@
 import { includes } from 'lodash';
 import { Sender } from 'xstate';
+
 import { AuthContext } from '..';
 import {
   ActorContextWithForms,
@@ -10,8 +11,8 @@ import {
   AuthEventTypes,
   AuthInputAttributes,
   AuthMachineState,
-  UserNameAlias,
-  userNameAliasArray,
+  LoginMechanism,
+  LoginMechanismArray,
 } from '../types';
 
 export const authInputAttributes: AuthInputAttributes = {
@@ -33,7 +34,7 @@ export const authInputAttributes: AuthInputAttributes = {
   confirmation_code: {
     label: 'Confirmation Code',
     placeholder: 'Code',
-    type: 'number',
+    type: 'text',
   },
   password: {
     label: 'Password',
@@ -43,6 +44,7 @@ export const authInputAttributes: AuthInputAttributes = {
 };
 
 export enum FederatedIdentityProviders {
+  Apple = 'SignInWithApple',
   Amazon = 'LoginWithAmazon',
   Facebook = 'Facebook',
   Google = 'Google',
@@ -55,12 +57,13 @@ export enum FederatedIdentityProviders {
  */
 export const getAliasInfoFromContext = (
   context: AuthContext,
-  alias?: UserNameAlias
+  // TODO This function & its signature should be renamed since aliases were rolled back
+  alias?: LoginMechanism
 ) => {
-  const loginMechanisms = context.config?.login_mechanisms ?? ['username'];
+  const loginMechanisms = context.config?.loginMechanisms;
   const error = context.actorRef?.context?.validationError['username'];
 
-  if (userNameAliasArray.includes(alias)) {
+  if (LoginMechanismArray.includes(alias)) {
     return {
       label: authInputAttributes[alias].label,
       type: authInputAttributes[alias].type,
@@ -70,7 +73,7 @@ export const getAliasInfoFromContext = (
 
   let type = 'text';
   const label = loginMechanisms
-    .filter((mechanism) => includes(userNameAliasArray, mechanism))
+    .filter((mechanism) => includes(LoginMechanismArray, mechanism))
     .map((v) => {
       return (
         authInputAttributes[v]?.label ?? authInputAttributes['username'].label
@@ -90,11 +93,9 @@ export const getAliasInfoFromContext = (
  * secondaryAliases.
  */
 export const getConfiguredAliases = (context: AuthContext) => {
-  const login_mechanisms = context.config?.login_mechanisms ?? [
-    ...userNameAliasArray,
-  ];
-  const aliases = login_mechanisms.filter((mechanism) =>
-    includes(userNameAliasArray, mechanism)
+  const loginMechanisms = context.config?.loginMechanisms;
+  const aliases = loginMechanisms.filter((mechanism) =>
+    includes(LoginMechanismArray, mechanism)
   );
 
   const [primaryAlias, ...secondaryAliases] = aliases;
@@ -136,56 +137,31 @@ export const getSendEventAliases = (send: Sender<AuthEvent>) => {
   };
 
   return {
-    /** @deprecated use `updateForm` instead */
-    change: sendToMachine('CHANGE'),
-    updateForm: sendToMachine('CHANGE'),
-
-    /** @deprecated use `resendCode` instead */
-    resend: sendToMachine('RESEND'),
     resendCode: sendToMachine('RESEND'),
-
     signOut: sendToMachine('SIGN_OUT'),
+    submitForm: sendToMachine('SUBMIT'),
+    updateForm: sendToMachine('CHANGE'),
 
     // Actions that don't immediately invoke a service but instead transition to a screen
     // are prefixed with `to*`
 
-    /** @deprecated use `toFederatedSignIn` instead */
-    federatedSignIn: sendToMachine('FEDERATED_SIGN_IN'),
     toFederatedSignIn: sendToMachine('FEDERATED_SIGN_IN'),
-
-    /** @deprecated use `toResetPassword` instead */
-    resetPassword: sendToMachine('RESET_PASSWORD'),
     toResetPassword: sendToMachine('RESET_PASSWORD'),
-
-    /** @deprecated use `toSignIn` instead */
-    signIn: sendToMachine('SIGN_IN'),
     toSignIn: sendToMachine('SIGN_IN'),
-
-    /** @deprecated use `toSignUp` instead */
-    signUp: sendToMachine('SIGN_UP'),
     toSignUp: sendToMachine('SIGN_UP'),
-
-    /** @deprecated use `skipVerification` instead */
-    skip: sendToMachine('SKIP'),
     skipVerification: sendToMachine('SKIP'),
-
-    /** @deprecated Use `submitForm` instead */
-    submit: sendToMachine('SUBMIT'),
-    submitForm: sendToMachine('SUBMIT'),
   } as const;
 };
 
-export const getServiceFacade = ({ send, state }) => {
+export const getServiceContextFacade = (state: AuthMachineState) => {
   const user = state.context?.user;
   const actorState = getActorState(state);
-  const actorContext: ActorContextWithForms = getActorContext(state);
-  const sendEventAliases = getSendEventAliases(send);
+  const actorContext = getActorContext(state) as ActorContextWithForms;
   const error = actorContext?.remoteError;
   const validationErrors = { ...actorContext?.validationError };
   const hasValidationErrors = Object.keys(validationErrors).length > 0;
   const isPending =
     state.hasTag('pending') || getActorState(state)?.hasTag('pending');
-
   const route = (() => {
     switch (true) {
       case state.matches('idle'):
@@ -224,12 +200,21 @@ export const getServiceFacade = ({ send, state }) => {
   })();
 
   return {
-    ...sendEventAliases,
     error,
     hasValidationErrors,
     isPending,
     route,
     user,
     validationErrors,
+  };
+};
+
+export const getServiceFacade = ({ send, state }) => {
+  const sendEventAliases = getSendEventAliases(send);
+  const serviceContext = getServiceContextFacade(state);
+
+  return {
+    ...sendEventAliases,
+    ...serviceContext,
   };
 };

@@ -1,10 +1,15 @@
 import { assign, createMachine, forwardTo, spawn } from 'xstate';
 
-import { AuthContext, AuthEvent, LoginMechanism } from '../../types';
+import {
+  AuthContext,
+  AuthEvent,
+  LoginMechanism,
+  SocialProvider,
+} from '../../types';
 import { stopActor } from './actions';
 import { resetPasswordActor, signInActor, signOutActor } from './actors';
-import { createSignUpMachine } from './signUp';
 import { defaultServices } from './defaultServices';
+import { createSignUpMachine } from './signUp';
 
 const DEFAULT_COUNTRY_CODE = '+1';
 
@@ -12,12 +17,13 @@ export type AuthenticatorMachineOptions = {
   initialState?: 'signIn' | 'signUp' | 'resetPassword';
   loginMechanisms?: LoginMechanism[];
   services?: Partial<typeof defaultServices>;
+  socialProviders?: SocialProvider[];
 };
 
 export function createAuthenticatorMachine({
   initialState = 'signIn',
-  /** @TODO Prefer `usernameAttributes` and `socialProviders` */
   loginMechanisms,
+  socialProviders,
   services: customServices,
 }: AuthenticatorMachineOptions) {
   const services = {
@@ -32,7 +38,8 @@ export function createAuthenticatorMachine({
       context: {
         user: undefined,
         config: {
-          login_mechanisms: loginMechanisms,
+          loginMechanisms,
+          socialProviders,
         },
         actorRef: undefined,
       },
@@ -128,40 +135,33 @@ export function createAuthenticatorMachine({
         }),
         applyAmplifyConfig: assign({
           config(context, event) {
-            const configuredLoginMechanisms =
-              event.data.aws_cognito_login_mechanisms?.map((login) => {
-                switch (login) {
-                  case 'PREFERRED_USERNAME':
-                    return 'username';
+            // The CLI uses uppercased constants in `aws-exports.js`, while `parameters.json` are lowercase.
+            // We use lowercase to be consistent with previous versions' values.
+            const cliLoginMechanisms =
+              event.data.aws_cognito_username_attributes?.map((s) =>
+                s.toLowerCase()
+              ) ?? [];
 
-                  case 'EMAIL':
-                  case 'PHONE_NUMBER':
-                  case 'FACEBOOK':
-                  case 'GOOGLE':
-                  case 'AMAZON':
-                  case 'APPLE':
-                    return login.toLowerCase();
+            const cliSocialProviders =
+              event.data.aws_cognito_social_providers?.map((s) =>
+                s.toLowerCase()
+              ) ?? [];
 
-                  default:
-                    console.warn(
-                      `Unknown login mechanism from Amplify CLI: ${login}.\nOpen an issue: https://github.com/aws-amplify/amplify-ui/issues/choose`
-                    );
-                }
-              });
+            // By default, Cognito assumes `username`, so there isn't a different username attribute like `email`.
+            // We explicitly add it as a login mechanism to be consistent with Admin UI's language.
+            if (cliLoginMechanisms.length === 0) {
+              cliLoginMechanisms.push('username');
+            }
 
-            const defaultLoginMechanisms = configuredLoginMechanisms ?? [
-              'username',
-            ];
-
-            // Prefer explicitly set login mechanisms from machine instantiation over defaults
-            const { login_mechanisms = defaultLoginMechanisms } =
-              context.config;
-
-            return { login_mechanisms };
+            // Prefer explicitly configured settings over default CLI values
+            return {
+              loginMechanisms: loginMechanisms ?? cliLoginMechanisms,
+              socialProviders: socialProviders ?? cliSocialProviders.sort(),
+            };
           },
         }),
         spawnSignInActor: assign({
-          actorRef: (_, event) => {
+          actorRef: (context, event) => {
             const actor = signInActor.withContext({
               authAttributes: event.data?.authAttributes,
               user: event.data?.user,
@@ -169,6 +169,8 @@ export function createAuthenticatorMachine({
               country_code: DEFAULT_COUNTRY_CODE,
               formValues: {},
               validationError: {},
+              loginMechanisms: context.config?.loginMechanisms,
+              socialProviders: context.config?.socialProviders,
             });
             return spawn(actor, { name: 'signInActor' });
           },
@@ -181,7 +183,8 @@ export function createAuthenticatorMachine({
               intent: event.data?.intent,
               formValues: {},
               validationError: {},
-              login_mechanisms: context.config?.login_mechanisms,
+              loginMechanisms: context.config?.loginMechanisms,
+              socialProviders: context.config?.socialProviders,
             });
             return spawn(actor, { name: 'signUpActor' });
           },

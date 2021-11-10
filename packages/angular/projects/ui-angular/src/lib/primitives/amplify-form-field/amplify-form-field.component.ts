@@ -6,9 +6,8 @@ import {
   translate,
   countryDialCodes,
 } from '@aws-amplify/ui';
-import { nanoid } from 'nanoid';
 import { getAttributeMap } from '../../common';
-import { StateMachineService } from '../../services/state-machine.service';
+import { AuthenticatorService } from '../../services/authenticator.service';
 
 /**
  * Input interface opinionated for authenticator usage.
@@ -36,23 +35,19 @@ export class AmplifyFormFieldComponent implements OnInit {
   public textFieldId: string;
   public selectFieldId: string;
 
-  constructor(private stateMachine: StateMachineService) {}
+  constructor(private authenticator: AuthenticatorService) {}
 
   ngOnInit(): void {
-    // TODO: field primtiives should have generate these by default.
-    this.textFieldId = `amplify-field-${nanoid(12)}`;
-    this.selectFieldId = `amplify-field-${nanoid(12)}`;
-
     // TODO: consider better default handling mechanisms across frameworks
     if (this.isPhoneField()) {
-      const state = this.stateMachine.authState;
+      const state = this.authenticator.authState;
       const { country_code }: ActorContextWithForms = getActorContext(state);
       this.defaultCountryCode = country_code;
 
       // TODO: remove this side-effect
-      this.stateMachine.send({
-        type: 'CHANGE',
-        data: { name: 'country_code', value: country_code },
+      this.authenticator.updateForm({
+        name: 'country_code',
+        value: country_code,
       });
     }
   }
@@ -63,7 +58,7 @@ export class AmplifyFormFieldComponent implements OnInit {
 
   get error(): string {
     const formContext: ActorContextWithForms = getActorContext(
-      this.stateMachine.authState
+      this.authenticator.authState
     );
     const { validationError } = formContext;
     return validationError[this.name];

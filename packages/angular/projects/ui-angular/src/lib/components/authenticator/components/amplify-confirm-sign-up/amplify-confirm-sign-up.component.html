@@ -1,53 +1,34 @@
-<!-- 
-  Define default contents here
--->
-<ng-template #confirmSignUpButton>
-  <button amplify-button variation="primary" fullWidth="true" type="submit">
-    {{ confirmText }}
-  </button>
-</ng-template>
-
-<ng-template #confirmSignUpForm>
+<div data-amplify-container>
   <form data-amplify-form (submit)="onSubmit($event)" (input)="onInput($event)">
     <fieldset
       class="amplify-flex"
       style="flex-direction: column"
       data-amplify-fieldset
-      [disabled]="isPending"
+      [disabled]="context.isPending"
     >
-      <h3 class="amplify-heading">{{ this.headerText }}</h3>
+      <amplify-slot name="confirm-sign-up-header">
+        <h3 class="amplify-heading">{{ this.headerText }}</h3>
+      </amplify-slot>
       <amplify-form-field
         name="confirmation_code"
-        type="number"
         autocomplete="one-time-code"
       ></amplify-form-field>
 
-      <ng-container
-        [ngTemplateOutlet]="
-          customComponents.confirmSignUpButton || confirmSignUpButton
-        "
-        [ngTemplateOutletContext]="context"
+      <button amplify-button variation="primary" fullWidth="true" type="submit">
+        {{ confirmText }}
+      </button>
+      <button
+        amplify-button
+        fontWeight="normal"
+        (click)="authenticator.resendCode()"
       >
-      </ng-container>
-      <button amplify-button fontWeight="normal" (click)="resend()">
         {{ resendCodeText }}
       </button>
     </fieldset>
 
-    <amplify-error *ngIf="remoteError">
-      {{ remoteError }}
+    <amplify-error *ngIf="context.error">
+      {{ authenticator.error }}
     </amplify-error>
+    <amplify-slot name="confirm-sign-up-footer"></amplify-slot>
   </form>
-</ng-template>
-
-<!-- 
-  Render confirm sign up component
--->
-
-<div data-amplify-container>
-  <ng-container
-    [ngTemplateOutlet]="customComponents.confirmSignUpForm || confirmSignUpForm"
-    [ngTemplateOutletContext]="context"
-  >
-  </ng-container>
 </div>

@@ -70,7 +70,7 @@
           autocomplete="username"
           :name="name"
           required
-          :type="inputAttributes[name as UserNameAlias].type"
+          :type="inputAttributes[name as LoginMechanism].type"
           :placeholder="placeholder"
         ></base-input>
       </base-wrapper>
@@ -79,13 +79,13 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ComputedRef } from 'vue';
+import { computed, ComputedRef, onMounted } from 'vue';
 import {
   ActorContextWithForms,
   authInputAttributes,
   countryDialCodes,
   getActorContext,
-  UserNameAlias,
+  LoginMechanism,
 } from '@aws-amplify/ui';
 
 import { useAuth } from '../composables/useAuth';
@@ -121,10 +121,13 @@ const actorContext: ComputedRef<ActorContextWithForms> = computed(() =>
 const defaultDialCode = actorContext.value.country_code;
 
 const dialCodes = computed(() => countryDialCodes);
-if (inputAttributes.value[name as UserNameAlias].type === 'tel') {
-  send({
-    type: 'CHANGE',
-    data: { name: 'country_code', value: defaultDialCode },
-  });
-}
+
+onMounted(() => {
+  if (inputAttributes.value[name as LoginMechanism].type === 'tel') {
+    send({
+      type: 'CHANGE',
+      data: { name: 'country_code', value: defaultDialCode },
+    });
+  }
+});
 </script>

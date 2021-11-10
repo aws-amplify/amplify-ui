@@ -11,13 +11,20 @@
           style="flex-direction: column"
           :disabled="actorState.matches('forceNewPassword.pending')"
         >
-          <base-heading :level="3" class="amplify-heading">
-            {{ changePasswordLabel }}
-          </base-heading>
+          <slot name="header">
+            <base-heading :level="3" class="amplify-heading">
+              {{ changePasswordLabel }}
+            </base-heading>
+          </slot>
           <base-wrapper class="amplify-flex" style="flex-direction: column">
             <!--Input 1-->
             <base-wrapper
-              class=" amplify-flex amplify-field amplify-textfield amplify-passwordfield"
+              class="
+                amplify-flex
+                amplify-field
+                amplify-textfield
+                amplify-passwordfield
+              "
               style="flex-direction: column"
             >
               <password-control
@@ -32,7 +39,12 @@
 
             <!--Input 2-->
             <base-wrapper
-              class=" amplify-flex amplify-field amplify-textfield amplify-passwordfield"
+              class="
+                amplify-flex
+                amplify-field
+                amplify-textfield
+                amplify-passwordfield
+              "
               style="flex-direction: column"
             >
               <password-control
@@ -46,15 +58,16 @@
             </base-wrapper>
           </base-wrapper>
           <base-footer class="amplify-flex" style="flex-direction: column">
-            <template #footert="{ slotData }">
-              <slot
-                name="footer"
-                :info="slotData"
-                :onHaveAccountClicked="onHaveAccountClicked"
-                :onForceNewPasswordSubmit="onForceNewPasswordSubmit"
-              >
-              </slot>
-            </template>
+            <base-box
+              data-ui-error
+              role="alert"
+              v-if="!!(actorContext.validationError as ValidationError)['confirm_password']"
+            >
+              {{ (actorContext.validationError as ValidationError)['confirm_password'] }}
+            </base-box>
+            <base-alert data-ui-error v-if="actorState.context.remoteError">
+              {{ actorState.context.remoteError }}
+            </base-alert>
             <base-button
               class="amplify-button amplify-field-group__control"
               data-fullwidth="false"
@@ -79,21 +92,14 @@
             >
               {{ backSignInText }}</base-button
             >
+            <slot
+              name="footer"
+              :onHaveAccountClicked="onHaveAccountClicked"
+              :onForceNewPasswordSubmit="onForceNewPasswordSubmit"
+            >
+            </slot>
           </base-footer>
         </base-field-set>
-        <base-box
-          data-ui-error
-          class="forceNewPasswordErrorText"
-          v-if="actorState.context.remoteError"
-        >
-          {{ actorState.context.remoteError }}
-        </base-box>
-        <base-box
-          data-ui-error
-          v-if="!!(actorContext.validationError as ValidationError)['confirm_password']"
-        >
-          {{ (actorContext.validationError as ValidationError)['confirm_password'] }}
-        </base-box>
       </base-form>
     </base-wrapper>
   </slot>
@@ -118,9 +124,9 @@ const attrs = useAttrs();
 const emit = defineEmits(['haveAccountClicked', 'forceNewPasswordSubmit']);
 
 const { state, send } = useAuth();
-const actorState: ComputedRef<SignInState> = computed(() =>
+const actorState = computed(() =>
   getActorState(state.value)
-);
+) as ComputedRef<SignInState>;
 
 const actorContext = computed(() =>
   getActorContext(state.value)

@@ -8,7 +8,7 @@ Amplify.configure(awsExports);
 
 export default function AuthenticatorWithPhone() {
   return (
-    <Authenticator initialState="signUp" loginMechanisms={['phone_number']}>
+    <Authenticator initialState="signUp">
       {({ signOut }) => (
         <>
           <h1>Hello</h1>

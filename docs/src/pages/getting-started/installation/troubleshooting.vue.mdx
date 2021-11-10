@@ -1,0 +1,59 @@
+## Install as a global plugin (Optional)
+
+Optionally, you can register all the `@aws-amplify/ui-vue` components at once.
+
+```js
+// main.js
+import { createApp } from 'vue';
+import App from './App.vue';
+import AmplifyVue from '@aws-amplify/ui-vue';
+
+const app = createApp(App);
+app.use(AmplifyVue);
+app.mount('#app');
+```
+
+Otherwise, you can import individual components from the `@aws-amplify/ui-vue` package in each one of your components.
+
+## Troubleshooting
+
+### Vite
+
+When working with a [Vite](https://vitejs.dev) project you must make a few modifications. Please follow the steps below.
+
+**1.** Add the following script tag to the `index.html` file at the bottom of the `<body>` tag.
+
+```html
+...
+  <script>
+        window.global = window;
+        var exports = {};
+  </script>
+</body>
+```
+
+**2.** Update the `vite.config.ts` and add in a resolve object inside the `defineConfig({})` as seen below.
+
+```js
+...
+export default defineConfig({
+  plugins: [vue()],
+  resolve: {
+      alias: [
+      {
+        find: './runtimeConfig',
+        replacement: './runtimeConfig.browser',
+      },
+    ]
+  }
+})
+```
+
+**3.** Update the `tsconfig.json` file and add `skipLibCheck: true` under `compilerOptions`.
+
+```js
+...
+  "compilerOptions": {
+    "skipLibCheck": true,
+...
+```

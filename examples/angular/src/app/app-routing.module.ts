@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthWithMultiAliasComponent } from 'src/pages/ui/components/authenticator/auth-with-multi-alias/auth-with-multi-alias.component';
 import { I18nComponent } from 'src/pages/ui/components/authenticator/i18n/i18n.component';
 import { ResetPasswordComponent } from 'src/pages/ui/components/authenticator/reset-password/reset-password.component';
 import { SignInFederatedComponent } from 'src/pages/ui/components/authenticator/sign-in-federated/sign-in-federated.component';
@@ -11,13 +10,15 @@ import { SignInWithEmailComponent } from 'src/pages/ui/components/authenticator/
 import { SignInWithPhoneComponent } from 'src/pages/ui/components/authenticator/sign-in-with-phone/sign-in-with-phone.component';
 import { SignInWithUsernameComponent } from 'src/pages/ui/components/authenticator/sign-in-with-username/sign-in-with-username.component';
 import { SignUpWithEmailComponent } from 'src/pages/ui/components/authenticator/sign-up-with-email/sign-up-with-email.component';
+import { SignUpWithEmailLambdaComponent } from 'src/pages/ui/components/authenticator/sign-up-with-email-lambda/sign-up-with-email-lambda.component';
 import { SignUpWithPhoneComponent } from 'src/pages/ui/components/authenticator/sign-up-with-phone/sign-up-with-phone.component';
 import { SignUpWithUsernameComponent } from 'src/pages/ui/components/authenticator/sign-up-with-username/sign-up-with-username.component';
+import { CustomSignUpFieldsComponent } from 'src/pages/ui/components/authenticator/custom-sign-up-fields/custom-sign-up-fields.component';
 
 const routes: Routes = [
   {
-    path: 'ui/components/authenticator/auth-with-multi-alias',
-    component: AuthWithMultiAliasComponent,
+    path: 'ui/components/authenticator/custom-sign-up-fields',
+    component: CustomSignUpFieldsComponent,
   },
   {
     path: 'ui/components/authenticator/reset-password',
@@ -62,6 +63,10 @@ const routes: Routes = [
   {
     path: 'ui/components/authenticator/sign-up-with-email',
     component: SignUpWithEmailComponent,
+  },
+  {
+    path: 'ui/components/authenticator/sign-up-with-email-lambda',
+    component: SignUpWithEmailLambdaComponent,
   },
   {
     path: 'ui/components/authenticator/sign-up-with-phone',

@@ -22,8 +22,6 @@ function App({ signOut }) {
 export default withAuthenticator(App, {
   // Default to Sign Up screen
   initialState: 'signUp',
-  // Backend is configured for `email` instead of `username`
-  loginMechanisms: ['email'],
   components: {
     // Customize `Authenticator.SignUp.FormFields`
     SignUp: {
@@ -38,6 +36,7 @@ export default withAuthenticator(App, {
               labelHidden={true}
               name="preferred_username"
               placeholder="Preferred Username"
+              isRequired
             />
 
             {/* Re-use default `Authenticator.SignUp.FormFields` */}

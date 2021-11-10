@@ -27,6 +27,7 @@ export const itDict = {
     'Utilizzo non valido Telefonummern formattare un numero nel formato :. 12.345.678,9 mille',
   'Lost your code?': 'Perso codice?',
   'New Password': 'Nuova password',
+  or: 'o',
   'No account? ': 'Nessun account?',
   Password: 'Password',
   'Password attempts exceeded':

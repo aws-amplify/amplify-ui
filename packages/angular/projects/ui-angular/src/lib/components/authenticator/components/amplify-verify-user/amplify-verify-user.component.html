@@ -1,24 +1,16 @@
-<!-- 
-  Define default contents here
--->
-<ng-template #verifyButton>
-  <button amplify-button variation="primary" fullWidth="true" type="submit">
-    {{ verifyText }}
-  </button>
-</ng-template>
-
-<ng-template #verifyUserForm>
+<div data-amplify-container>
   <form data-amplify-form (input)="onInput($event)" (submit)="onSubmit($event)">
     <fieldset
       class="amplify-flex"
       style="flex-direction: column"
       data-amplify-fieldset
-      [disabled]="isPending"
+      [disabled]="authenticator.isPending"
     >
-      <h3 class="amplify-heading">{{ this.headerText }}</h3>
+      <amplify-slot name="verify-user-header">
+        <h3 class="amplify-heading">{{ this.headerText }}</h3>
+      </amplify-slot>
 
       <div *ngFor="let unverifiedAttribute of unverifiedAttributes | keyvalue">
-        <!-- TODO: match React implementation -->
         <input
           name="unverifiedAttr"
           type="radio"
@@ -30,10 +22,9 @@
         }}</label>
       </div>
 
-      <ng-container
-        [ngTemplateOutlet]="customComponents.verifyButton || verifyButton"
-        [ngTemplateOutletContext]="context"
-      ></ng-container>
+      <button amplify-button variation="primary" fullWidth="true" type="submit">
+        {{ verifyText }}
+      </button>
 
       <button
         amplify-button
@@ -41,25 +32,15 @@
         variation="link"
         fontWeight="normal"
         fullWidth="true"
-        (click)="skipVerify()"
+        (click)="authenticator.skipVerification()"
       >
         {{ skipText }}
       </button>
 
-      <amplify-error *ngIf="remoteError">
-        {{ remoteError }}
+      <amplify-error *ngIf="authenticator.error">
+        {{ authenticator.error }}
       </amplify-error>
     </fieldset>
+    <amplify-slot name="verify-user-footer"> </amplify-slot>
   </form>
-</ng-template>
-
-<!-- 
-  Render verify user component
--->
-<div data-amplify-container>
-  <ng-container
-    [ngTemplateOutlet]="customComponents.verifyUserForm || verifyUserForm"
-    [ngTemplateOutletContext]="context"
-  >
-  </ng-container>
 </div>

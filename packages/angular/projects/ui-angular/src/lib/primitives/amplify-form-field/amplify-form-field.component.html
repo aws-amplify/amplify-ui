@@ -2,9 +2,7 @@
   <!-- Country code field -->
   <amplify-phone-number-field
     *ngIf="isPhoneField()"
-    [selectFieldId]="selectFieldId"
     [defaultCountryCode]="defaultCountryCode"
-    [textFieldId]="textFieldId"
     [type]="inferType()"
     [name]="name"
     [label]="inferLabel()"
@@ -17,7 +15,6 @@
 
   <amplify-password-field
     *ngIf="isPasswordField()"
-    [id]="textFieldId"
     [name]="name"
     [label]="inferLabel()"
     [placeholder]="inferPlaceholder()"
@@ -29,7 +26,6 @@
 
   <amplify-text-field
     *ngIf="!isPasswordField() && !isPhoneField()"
-    [id]="textFieldId"
     [type]="inferType()"
     [name]="name"
     [label]="inferLabel()"

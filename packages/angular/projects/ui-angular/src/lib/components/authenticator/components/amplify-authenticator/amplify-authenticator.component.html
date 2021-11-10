@@ -1,152 +1,90 @@
-<!-- 
-  Define default contents here.
--->
-<ng-template #signIn>
-  <amplify-sign-in></amplify-sign-in>
-</ng-template>
-<ng-template #signUp>
-  <amplify-sign-up></amplify-sign-up>
-</ng-template>
-<ng-template #confirmSignUp>
-  <amplify-confirm-sign-up></amplify-confirm-sign-up>
-</ng-template>
-<ng-template #confirmSignIn>
-  <amplify-confirm-sign-in></amplify-confirm-sign-in>
-</ng-template>
-<ng-template #authenticated> <ng-content></ng-content> </ng-template>
-<ng-template #setupTOTP>
-  <amplify-setup-totp></amplify-setup-totp>
-</ng-template>
-<ng-template #forceNewPassword>
-  <amplify-force-new-password></amplify-force-new-password>
-</ng-template>
-<ng-template #resetPassword>
-  <amplify-reset-password></amplify-reset-password>
-</ng-template>
-<ng-template #confirmResetPassword>
-  <amplify-confirm-reset-password></amplify-confirm-reset-password>
-</ng-template>
-<ng-template #verifyUser>
-  <amplify-verify-user></amplify-verify-user>
-</ng-template>
-<ng-template #confirmVerifyUser>
-  <amplify-confirm-verify-user></amplify-confirm-verify-user>
-</ng-template>
-
-<!-- 
-  Next, we render respective auth subcomponent respective to the current authState.
-  If customer is overriding that component, we render customer's template instead.
--->
-
-<div
-  data-amplify-authenticator
-  *ngIf="!authenticatorState.matches('authenticated')"
->
+<div data-amplify-authenticator *ngIf="route !== 'authenticated'">
   <div data-authenticator-variation="modal" *ngIf="variationModal"></div>
 
   <div data-amplify-container>
-    <amplify-tabs
-      (tabChange)="onTabChange()"
-      *ngIf="actorState?.matches('signIn') || actorState?.matches('signUp')"
-    >
-      <amplify-tab-item
-        [title]="signInTitle"
-        [active]="actorState?.matches('signIn')"
+    <div data-amplify-header>
+      <amplify-slot name="header"></amplify-slot>
+    </div>
+    <div data-amplify-body>
+      <amplify-tabs
+        (tabChange)="onTabChange()"
+        *ngIf="route === 'signIn' || route === 'signUp'"
       >
-        <!-- signIn component -->
-        <ng-container
-          [ngTemplateOutlet]="customComponents.signIn || signIn"
-          [ngTemplateOutletContext]="context"
-          *ngIf="actorState?.matches('signIn')"
-        ></ng-container>
-      </amplify-tab-item>
-      <amplify-tab-item
-        [title]="signUpTitle"
-        [active]="actorState?.matches('signUp')"
+        <amplify-tab-item [title]="signInTitle" [active]="route === 'signIn'">
+          <!-- signIn component -->
+          <amplify-slot name="sign-in" *ngIf="route === 'signIn'">
+            <amplify-sign-in></amplify-sign-in>
+          </amplify-slot>
+        </amplify-tab-item>
+        <amplify-tab-item [title]="signUpTitle" [active]="route === 'signUp'">
+          <!-- signUp component -->
+          <amplify-slot name="sign-up" *ngIf="route === 'signUp'">
+            <amplify-sign-up></amplify-sign-up>
+          </amplify-slot>
+        </amplify-tab-item>
+      </amplify-tabs>
+
+      <!-- confirmSignUp content -->
+      <amplify-slot name="confirm-sign-up" *ngIf="route === 'confirmSignUp'">
+        <amplify-confirm-sign-up></amplify-confirm-sign-up>
+      </amplify-slot>
+
+      <!-- confirmSignIn content -->
+      <amplify-slot name="confirm-sign-in" *ngIf="route === 'confirmSignIn'">
+        <amplify-confirm-sign-in></amplify-confirm-sign-in>
+      </amplify-slot>
+
+      <!-- setupTotp content -->
+      <amplify-slot name="setup-totp" *ngIf="route === 'setupTOTP'">
+        <amplify-setup-totp></amplify-setup-totp>
+      </amplify-slot>
+
+      <!-- forceNewPassword content -->
+      <amplify-slot
+        name="force-new-password"
+        *ngIf="route === 'forceNewPassword'"
       >
-        <!-- signUp component -->
-        <ng-container
-          [ngTemplateOutlet]="customComponents.signUp || signUp"
-          [ngTemplateOutletContext]="context"
-          *ngIf="actorState?.matches('signUp')"
-        ></ng-container>
-      </amplify-tab-item>
-    </amplify-tabs>
+        <amplify-force-new-password></amplify-force-new-password>
+      </amplify-slot>
 
-    <!-- confirmSignUp content -->
-    <ng-container
-      [ngTemplateOutlet]="customComponents.confirmSignUp || confirmSignUp"
-      [ngTemplateOutletContext]="context"
-      *ngIf="actorState?.matches('confirmSignUp')"
-    >
-    </ng-container>
+      <!-- resetPassword content -->
+      <amplify-slot name="reset-password" *ngIf="route === 'resetPassword'">
+        <amplify-reset-password></amplify-reset-password>
+      </amplify-slot>
 
-    <!-- confirmSignIn content -->
-    <ng-container
-      [ngTemplateOutlet]="customComponents.confirmSignIn || confirmSignIn"
-      [ngTemplateOutletContext]="context"
-      *ngIf="actorState?.matches('confirmSignIn')"
-    >
-    </ng-container>
+      <!-- confirmResetPassword content -->
+      <amplify-slot
+        name="confirm-reset-password"
+        *ngIf="route === 'confirmResetPassword'"
+      >
+        <amplify-confirm-reset-password></amplify-confirm-reset-password>
+      </amplify-slot>
 
-    <!-- setupTotp content -->
-    <ng-container
-      [ngTemplateOutlet]="customComponents.setupTOTP || setupTOTP"
-      [ngTemplateOutletContext]="context"
-      *ngIf="actorState?.matches('setupTOTP')"
-    >
-    </ng-container>
+      <!-- verifyUser content -->
+      <amplify-slot name="verify-user" *ngIf="route === 'verifyUser'">
+        <amplify-verify-user></amplify-verify-user>
+      </amplify-slot>
 
-    <!-- forceNewPassword content -->
-    <ng-container
-      [ngTemplateOutlet]="customComponents.forceNewPassword || forceNewPassword"
-      [ngTemplateOutletContext]="context"
-      *ngIf="actorState?.matches('forceNewPassword')"
-    >
-    </ng-container>
+      <!-- confirmVerifyUser content -->
+      <amplify-slot
+        name="confirm-verify-user"
+        *ngIf="route === 'confirmVerifyUser'"
+      >
+        <amplify-confirm-verify-user></amplify-confirm-verify-user>
+      </amplify-slot>
+    </div>
 
-    <!-- resetPassword content -->
-    <ng-container
-      [ngTemplateOutlet]="customComponents.resetPassword || resetPassword"
-      [ngTemplateOutletContext]="context"
-      *ngIf="actorState?.matches('resetPassword')"
-    >
-    </ng-container>
-
-    <!-- confirmResetPassword content -->
-    <ng-container
-      [ngTemplateOutlet]="
-        customComponents.confirmResetPassword || confirmResetPassword
-      "
-      [ngTemplateOutletContext]="context"
-      *ngIf="actorState?.matches('confirmResetPassword')"
-    >
-    </ng-container>
-
-    <!-- verifyUser content -->
-    <ng-container
-      [ngTemplateOutlet]="customComponents.verifyUser || verifyUser"
-      [ngTemplateOutletContext]="context"
-      *ngIf="actorState?.matches('verifyUser')"
-    >
-    </ng-container>
-
-    <!-- confirmVerifyUser content -->
-    <ng-container
-      [ngTemplateOutlet]="
-        customComponents.confirmVerifyUser || confirmVerifyUser
-      "
-      [ngTemplateOutletContext]="context"
-      *ngIf="actorState?.matches('confirmVerifyUser')"
-    >
-    </ng-container>
+    <div data-amplify-footer>
+      <amplify-slot name="footer"></amplify-slot>
+    </div>
   </div>
 </div>
 
 <!-- signedIn content is rendered outside authenticator so it's not styled by authenticator -->
-<ng-container
-  [ngTemplateOutlet]="customComponents.authenticated || authenticated"
-  [ngTemplateOutletContext]="context"
-  *ngIf="authenticatorState.matches('authenticated')"
+<amplify-slot
+  name="authenticated"
+  [context]="authenticatedContext"
+  *ngIf="route === 'authenticated'"
 >
-</ng-container>
+  <ng-content></ng-content>
+</amplify-slot>
