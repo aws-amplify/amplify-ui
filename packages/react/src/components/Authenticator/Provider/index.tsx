@@ -19,6 +19,7 @@ const useAuthenticatorValue = ({
   initialState,
   loginMechanisms,
   socialProviders,
+  signUpAttributes,
   services,
 }: ProviderProps) => {
   const [state, send] = useMachine(
@@ -27,6 +28,7 @@ const useAuthenticatorValue = ({
         initialState,
         loginMechanisms,
         services,
+        signUpAttributes,
         socialProviders,
       }),
     {

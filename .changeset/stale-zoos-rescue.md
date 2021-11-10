@@ -1,7 +1,7 @@
 ---
-'@aws-amplify/ui': patch
-'@aws-amplify/ui-vue': patch
-'@aws-amplify/ui-angular': patch
+'@aws-amplify/ui': minor
+'@aws-amplify/ui-vue': minor
+'@aws-amplify/ui-angular': minor
 ---
 
 This implements `AuthenticatorService` that can be used internally and externally to access common Authenticator context and helpers.

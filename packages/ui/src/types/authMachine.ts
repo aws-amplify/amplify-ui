@@ -8,6 +8,7 @@ export interface AuthContext {
   actorRef?: any;
   config?: {
     loginMechanisms?: LoginMechanism[];
+    signUpAttributes?: SignUpAttribute[];
     socialProviders?: SocialProvider[];
   };
   user?: CognitoUserAmplify;
@@ -31,6 +32,29 @@ export interface SignInContext extends BaseFormContext {
   redirectIntent?: string;
   unverifiedAttributes?: Record<string, string>;
 }
+
+// https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html
+export const SignUpAttributes = [
+  'address',
+  'birthdate',
+  'email',
+  'family_name',
+  'gender',
+  'given_name',
+  'locale',
+  'middle_name',
+  'name',
+  'nickname',
+  'phone_number',
+  'picture',
+  'preferred_username',
+  'profile',
+  'updated_at',
+  'website',
+  'zoneinfo',
+] as const;
+
+export type SignUpAttribute = typeof SignUpAttributes[number];
 
 export interface SignUpContext extends BaseFormContext {
   loginMechanisms: AuthContext['config']['loginMechanisms'];
