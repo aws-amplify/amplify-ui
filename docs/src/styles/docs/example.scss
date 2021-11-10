@@ -20,8 +20,9 @@
   display: none;
 }
 
-.example-card pre {
-  margin: 0;
+.example pre {
+  --margin: calc(var(--amplify-space-medium) * -1);
+  margin: var(--amplify-space-medium) var(--margin) var(--margin) var(--margin);
 }
 
 .example-code {
