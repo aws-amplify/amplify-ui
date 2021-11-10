@@ -1,3 +1,5 @@
+name: Track @TODOs
+
 on:
   push:
     branches: [main]
