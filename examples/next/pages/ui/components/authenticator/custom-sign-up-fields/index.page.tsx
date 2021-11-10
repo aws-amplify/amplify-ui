@@ -30,15 +30,6 @@ export default withAuthenticator(App, {
 
         return (
           <>
-            {/* Prepend `preferred_username` custom attribute */}
-            <TextField
-              label="Preferred Username"
-              labelHidden={true}
-              name="preferred_username"
-              placeholder="Preferred Username"
-              isRequired
-            />
-
             {/* Re-use default `Authenticator.SignUp.FormFields` */}
             <Authenticator.SignUp.FormFields />
 

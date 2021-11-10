@@ -401,19 +401,15 @@ The following example customizes the Sign Up screen with:
   <Authenticator
     initialState="signUp"
     loginMechanisms={['email']}
+    signUpAttributes={['preferred_username']}
     components={{
       SignUp: {
         FormFields() {
           const { validationErrors } = useAuthenticator();
           return (
             <>
-              <TextField
-                label="Preferred Username"
-                labelHidden={true}
-                name="preferred_username"
-                placeholder="Preferred Username"
-              />
               <Authenticator.SignUp.FormFields />
+
               <CheckboxField
                 errorMessage={validationErrors.acknowledgement}
                 hasError={!!validationErrors.acknowledgement}
