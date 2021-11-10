@@ -1,0 +1,13 @@
+on:
+  push:
+    branches: [main]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: ci
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      - name: Track TODOs
+        run: chmod +x ./.github/scripts/track-todos.sh  && ./.github/scripts/track-todos.sh
