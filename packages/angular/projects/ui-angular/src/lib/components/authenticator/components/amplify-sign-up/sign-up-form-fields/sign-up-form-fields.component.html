@@ -12,6 +12,9 @@
   ></amplify-form-field>
 
   <ng-container *ngFor="let field of fieldNames">
-    <amplify-form-field [name]="field"></amplify-form-field>
+    <amplify-form-field
+      [name]="field"
+      [labelHidden]="false"
+    ></amplify-form-field>
   </ng-container>
 </div>
