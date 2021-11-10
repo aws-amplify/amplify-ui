@@ -3,11 +3,12 @@
  */
 
 .amplify-button {
-  display: inline-block;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   border-radius: var(--amplify-components-button-border-radius);
   box-sizing: border-box;
   font-weight: var(--amplify-components-button-font-weight);
-  text-align: var(--amplify-components-button-text-align);
   transition: all var(--amplify-components-button-transition-duration);
   border-width: var(--amplify-components-button-border-width);
   border-style: var(--amplify-components-button-border-style);
@@ -63,7 +64,7 @@
   &[data-variation='menu'] {
     border-width: var(--amplify-components-button-menu-border-width);
     background-color: var(--amplify-components-button-menu-background-color);
-    text-align: var(--amplify-components-button-menu-text-align);
+    justify-content: var(--amplify-components-button-menu-justify-content);
 
     &:hover {
       color: var(--amplify-components-button-menu-hover-color);
