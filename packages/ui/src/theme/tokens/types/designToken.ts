@@ -1,19 +1,29 @@
-export function isDesignToken(arg: any): arg is WebDesignToken {
-  return arg.value !== undefined;
+/**
+ * Helper function to test if something is a design token or not.
+ * Used in the React component style props.
+ *
+ * @param arg - thing to test if it is a design token or not
+ * @returns boolean
+ */
+export function isDesignToken(arg: unknown): arg is WebDesignToken {
+  if (typeof arg === 'object') {
+    return arg.hasOwnProperty('value');
+  } else {
+    return false;
+  }
 }
 
+/**
+ *
+ */
 export type DesignToken<ValueType = any> = {
   value: ValueType;
 };
 
 /**
- *
+ * A fully setup design token ready to be used in web platform.
  */
 export type WebDesignToken<ValueType = any> = {
-  /**
-   * Transformed value
-   */
-  value: ValueType;
   /**
    * Name of the design token
    */
