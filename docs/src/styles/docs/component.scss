@@ -1,0 +1,9 @@
+.docs-component-card {
+  transition: all var(--amplify-time-transition-medium) ease;
+  cursor: pointer;
+  color: var(--amplify-colors-font-secondary);
+}
+
+.docs-component-card:hover {
+  transform: scale(1.05);
+}

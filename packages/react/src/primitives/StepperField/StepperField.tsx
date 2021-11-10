@@ -1,7 +1,5 @@
 import classNames from 'classnames';
 
-import * as React from 'react';
-
 import { useStepper } from './useStepper';
 import { FieldDescription, FieldErrorMessage } from '../Field';
 import { FieldGroup } from '../FieldGroup';
