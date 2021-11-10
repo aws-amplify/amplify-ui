@@ -9,15 +9,15 @@ Feature: Sign Up with Username
   Scenario: Login mechanism set to "username"
     Then I see "Username" as an input field
 
-  @angular @react @vue
+  @angular @react @vue @todo-angular @todo-vue
   Scenario: "Preferred Username" is included from `aws_cognito_signup_attributes`
     Then I see "Preferred Username" as a "text" field
 
-  @angular @react @vue
+  @angular @react @vue @todo-angular @todo-vue
   Scenario: "Email" is included from `aws_cognito_verification_mechanisms`
     Then I see "Email" as an "email" field
   
-  @angular @react @vue
+  @angular @react @vue @todo-angular @todo-vue
   Scenario: "Phone Number" is not included
     Then I don't see "Phone Number"
   
