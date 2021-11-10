@@ -1,0 +1,51 @@
+.docs-home-description {
+  color: var(--amplify-colors-font-secondary);
+  font-size: var(--amplify-font-sizes-xl);
+}
+
+.docs-home-feature-card {
+  /* box-shadow: none; */
+  border-width: 0;
+}
+
+.docs-home-vue {
+  position: absolute;
+  right: 5rem;
+  bottom: 8rem;
+  height: 10rem;
+}
+
+.docs-home-react {
+  position: absolute;
+  right: 15rem;
+  bottom: 8rem;
+  height: 10rem;
+}
+
+.docs-home-angular {
+  position: absolute;
+  right: 25rem;
+  bottom: 8rem;
+  height: 10rem;
+}
+
+
+.docs-home-section {
+  position: relative;
+  padding: var(--amplify-space-xxl);
+}
+
+.docs-home-section-bg {
+  position: relative;
+}
+
+.docs-home-section-bg > .amplify-card {
+  width: 50%;
+  margin: calc(var(--amplify-space-xl) * -1) 0 var(--amplify-space-xl)
+    var(--amplify-space-xl);
+}
+
+.install-code {
+  flex-grow: 1;
+  margin: 0;
+}

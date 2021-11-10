@@ -1,13 +1,12 @@
 module.exports = {
   // shared styles
   fontWeight: { value: 'bold' },
-  textAlign: { value: 'center' },
   borderRadius: { value: '{components.fieldcontrol.borderRadius.value}' },
   transitionDuration: {
     value: '{components.fieldcontrol.transitionDuration.value}',
   },
   fontSize: { value: '{components.fieldcontrol.fontSize.value}' },
-  lineHeight: { value: '{components.fieldcontrol.fontSize.value}' },
+  lineHeight: { value: '{components.fieldcontrol.lineHeight.value}' },
   paddingBlockStart: {
     value: '{components.fieldcontrol.paddingBlockStart.value}',
   },
@@ -46,7 +45,7 @@ module.exports = {
     borderColor: { value: '{colors.border.tertiary.value}' },
   },
   _disabled: {
-    color: { value: '{colors.font.tertiary.value}' },
+    color: { value: '{colors.font.disabled.value}' },
     backgroundColor: { value: 'transparent' },
     borderColor: { value: '{colors.border.tertiary.value}' },
   },
@@ -75,6 +74,30 @@ module.exports = {
     },
   },
 
+  menu: {
+    borderWidth: { value: 0 },
+    backgroundColor: { value: 'none' },
+    justifyContent: { value: 'start' },
+    // Focus and hover styles are identical for menu variation
+    // because for Menu primitive, menu items are forced to be focused even
+    // for mouse interactions, making it impossible to distinguish the two interactions
+    _hover: {
+      color: { value: '{colors.white.value}' },
+      backgroundColor: { value: '{colors.brand.primary.80.value}' },
+    },
+    _focus: {
+      color: { value: '{colors.white.value}' },
+      backgroundColor: { value: '{colors.brand.primary.80.value}' },
+    },
+    _active: {
+      color: { value: '{colors.white.value}' },
+      backgroundColor: { value: '{colors.brand.primary.90.value}' },
+    },
+    _disabled: {
+      color: { value: '{colors.font.disabled.value}' },
+    },
+  },
+
   link: {
     borderWidth: { value: 0 },
     backgroundColor: { value: 'transparent' },
@@ -89,7 +112,7 @@ module.exports = {
       color: { value: '{colors.font.active.value}' },
     },
     _disabled: {
-      color: { value: '{colors.font.tertiary.value}' },
+      color: { value: '{colors.font.disabled.value}' },
     },
     _loading: {
       color: { value: '{colors.font.tertiary.value}' },
@@ -99,7 +122,6 @@ module.exports = {
   // sizes
   small: {
     fontSize: { value: '{components.fieldcontrol.small.fontSize.value}' },
-    lineHeight: { value: '{components.fieldcontrol.small.fontSize.value}' },
     paddingBlockStart: {
       value: '{components.fieldcontrol.small.paddingBlockStart.value}',
     },
@@ -115,7 +137,6 @@ module.exports = {
   },
   large: {
     fontSize: { value: '{components.fieldcontrol.large.fontSize.value}' },
-    lineHeight: { value: '{components.fieldcontrol.large.fontSize.value}' },
     paddingBlockStart: {
       value: '{components.fieldcontrol.large.paddingBlockStart.value}',
     },

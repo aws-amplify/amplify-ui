@@ -1,7 +1,8 @@
 <form data-amplify-form (submit)="onSubmit($event)" (input)="onInput($event)">
   <div class="amplify-flex" style="flex-direction: column">
-    <h3 class="amplify-heading">{{ this.headerText }}</h3>
-
+    <amplify-slot name="sign-up-header">
+      <h3 class="amplify-heading">{{ this.headerText }}</h3>
+    </amplify-slot>
     <div class="amplify-flex" style="flex-direction: column">
       <amplify-slot name="sign-up-form-fields" [context]="context">
         <amplify-sign-up-form-fields></amplify-sign-up-form-fields>
@@ -26,5 +27,6 @@
       </button>
     </amplify-slot>
     <amplify-federated-sign-in></amplify-federated-sign-in>
+    <amplify-slot name="sign-up-footer"> </amplify-slot>
   </div>
 </form>

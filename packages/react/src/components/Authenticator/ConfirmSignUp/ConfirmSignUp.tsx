@@ -55,12 +55,7 @@ export function ConfirmSignUp() {
             {translate('Confirm')}
           </Button>
 
-          <Button
-            variation="default"
-            onClick={resendCode}
-            type="button"
-            fontWeight="normal"
-          >
+          <Button onClick={resendCode} type="button" fontWeight="normal">
             {translate('Resend Code')}
           </Button>
         </Flex>

@@ -8,12 +8,4 @@
   fill: currentColor;
   height: var(--amplify-components-icon-height);
   line-height: var(--amplify-components-icon-line-height);
-
-  &[data-size='small'] {
-    height: var(--amplify-components-icon-small-height);
-  }
-
-  &[data-size='large'] {
-    height: var(--amplify-components-icon-large-height);
-  }
 }
