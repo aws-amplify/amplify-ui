@@ -389,7 +389,6 @@ Using the same techniques as [Internationalization (I18n)](#internationalization
 
 The following example customizes the Sign Up screen with:
 
-- Prepending custom `preferred_username` field
 - Re-using the default form fields
 - Appending a custom "Terms & Conditions" checkbox with custom validation
 
@@ -401,18 +400,13 @@ The following example customizes the Sign Up screen with:
   <Authenticator
     initialState="signUp"
     loginMechanisms={['email']}
+    signUpAttributes={['preferred_username']}
     components={{
       SignUp: {
         FormFields() {
           const { validationErrors } = useAuthenticator();
           return (
             <>
-              <TextField
-                label="Preferred Username"
-                labelHidden={true}
-                name="preferred_username"
-                placeholder="Preferred Username"
-              />
               <Authenticator.SignUp.FormFields />
               <CheckboxField
                 errorMessage={validationErrors.acknowledgement}
