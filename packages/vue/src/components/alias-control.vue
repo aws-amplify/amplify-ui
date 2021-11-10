@@ -69,7 +69,7 @@ const inferAutocomplete = computed((): string => {
   >
     <base-label
       :for="'amplify-field-' + random"
-      class="amplify-flex sr-only"
+      class="amplify-label"
       v-bind="$attrs"
     >
       {{ label }}
@@ -128,7 +128,6 @@ const inferAutocomplete = computed((): string => {
           class="amplify-input amplify-field-group__control"
           aria-invalid="false"
           :id="'amplify-field-' + random"
-          :aria-labelledby="'amplify-field-' + random"
           :autocomplete="inferAutocomplete"
           :name="name"
           required

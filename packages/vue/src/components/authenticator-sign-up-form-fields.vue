@@ -8,7 +8,6 @@ import {
   SignUpAttribute,
 } from '@aws-amplify/ui';
 import { useAuth, useAuthenticator } from '../composables/useAuth';
-import { useAliases } from '../composables/useUtils';
 import UserNameAliasComponent from './user-name-alias.vue';
 import PasswordControl from './password-control.vue';
 import AliasControl from './alias-control.vue';
@@ -21,10 +20,6 @@ const {
 } = state;
 
 const { validationErrors } = toRefs(useAuthenticator());
-
-let [__, ...secondaryAliases] = useAliases(
-  context?.config?.loginMechanisms as LoginMechanism[]
-);
 
 const inputAttributes: ComputedRef<AuthInputAttributes> = computed(
   () => authInputAttributes
@@ -39,10 +34,6 @@ let fieldNames: Array<LoginMechanism | SignUpAttribute>;
 let loginMechanisms = context.config?.loginMechanisms as LoginMechanism[];
 let signUpAttributes = context.config?.signUpAttributes as SignUpAttribute[];
 
-// const {
-//   config: { loginMechanisms, signUpAttributes },
-// } = context as any;
-
 fieldNames = Array.from(new Set([...loginMechanisms, ...signUpAttributes]));
 
 fieldNames = fieldNames.filter((fieldName) => {
@@ -54,12 +45,6 @@ fieldNames = fieldNames.filter((fieldName) => {
   }
   return hasDefaultField;
 });
-console.log(
-  'fieldNames',
-  fieldNames,
-  authInputAttributes,
-  context.config?.signUpAttributes
-);
 
 // Only 1 is supported, so `['email', 'phone_number']` will only show `email`
 const loginMechanism = fieldNames.shift() as LoginMechanism;
