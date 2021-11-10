@@ -40,7 +40,7 @@ fieldNames = fieldNames.filter((fieldName) => {
   const hasDefaultField = !!authInputAttributes[fieldName as LoginMechanism];
   if (!hasDefaultField) {
     console.debug(
-      `Authenticator does not have a default implementation for ${fieldName}. Customize Authenticator.SignUp.FormFields to add your own.`
+      `Authenticator does not have a default implementation for ${fieldName}. Customize the authenticator sign-up-fields slot to add your own.`
     );
   }
   return hasDefaultField;
