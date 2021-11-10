@@ -22,7 +22,6 @@ import { AuthenticatorService } from '../../services/authenticator.service';
 })
 export class AmplifyFormFieldComponent implements OnInit {
   @Input() name: string;
-  // TODO: Separate entry for id
   @Input() type: string;
   @Input() required = true;
   @Input() placeholder = '';
@@ -30,6 +29,8 @@ export class AmplifyFormFieldComponent implements OnInit {
   @Input() initialValue = '';
   @Input() disabled = false;
   @Input() autocomplete = '';
+  @Input() labelHidden = true;
+
   public defaultCountryCode: string;
   public countryDialCodes = countryDialCodes;
   public textFieldId: string;
@@ -80,6 +81,10 @@ export class AmplifyFormFieldComponent implements OnInit {
   // infers what the `type` of underlying input element should be.
   inferType(): string {
     return this.type ?? this.attributeMap[this.name]?.type ?? 'text';
+  }
+
+  inferAutocomplete(): string {
+    return this.autocomplete || this.attributeMap[this.name]?.placeholder;
   }
 
   // TODO(enhancement): use enum to differentiate special field types
