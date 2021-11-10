@@ -17,6 +17,17 @@
 // Remove this when this gets fixed in the UI package
 * {
   box-sizing: border-box;
+  
+  /* Selection */
+  &::-moz-selection {
+    background: var(--amplify-colors-overlay-10);
+    color: inherit;
+  }
+  
+  &::selection {
+    background: var(--amplify-colors-overlay-10);
+    color: inherit;
+  }
 }
 
 html {
