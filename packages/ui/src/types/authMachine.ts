@@ -120,6 +120,7 @@ export interface InputAttributes {
   label: string;
   type: string;
   placeholder: string;
+  autocomplete?: string;
 }
 
 export const LoginMechanismArray = [
@@ -133,9 +134,15 @@ export type LoginMechanism = typeof LoginMechanismArray[number];
 export type SocialProvider = 'amazon' | 'apple' | 'facebook' | 'google';
 
 // other non-alias inputs that Cognito would require
-export type AuthInputNames = LoginMechanism | 'confirmation_code' | 'password';
+export type AuthInputNames =
+  | LoginMechanism
+  | SignUpAttribute
+  | 'confirmation_code'
+  | 'password';
 
-export type AuthInputAttributes = Record<AuthInputNames, InputAttributes>;
+export type AuthInputAttributes = Partial<
+  Record<AuthInputNames, InputAttributes>
+>;
 
 export type AuthEventData = Record<PropertyKey, any>; // TODO: this should be typed further
 
