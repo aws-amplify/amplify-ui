@@ -14,6 +14,7 @@ export function Authenticator({
   initialState,
   loginMechanisms,
   services,
+  signUpAttributes,
   socialProviders,
 }: AuthenticatorProps) {
   return (
@@ -22,6 +23,7 @@ export function Authenticator({
       initialState={initialState}
       loginMechanisms={loginMechanisms}
       services={services}
+      signUpAttributes={signUpAttributes}
       socialProviders={socialProviders}
     >
       <Router className={className} children={children} />

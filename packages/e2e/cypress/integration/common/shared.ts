@@ -124,6 +124,22 @@ Then('I see {string}', (message: string) => {
   cy.findByRole('document').contains(new RegExp(escapeRegExp(message), 'i'));
 });
 
+Then('I see {string} as a {string} field', (label: string, type: string) => {
+  cy.findByLabelText(new RegExp(`^${escapeRegExp(label)}$`, 'i')).should(
+    'have.attr',
+    'type',
+    type
+  );
+});
+
+Then('I see {string} as an {string} field', (label: string, type: string) => {
+  cy.findByLabelText(new RegExp(`^${escapeRegExp(label)}$`, 'i')).should(
+    'have.attr',
+    'type',
+    type
+  );
+});
+
 Then("I don't see {string}", (message: string) => {
   cy.findByRole('document')
     .contains(new RegExp(escapeRegExp(message), 'i'))

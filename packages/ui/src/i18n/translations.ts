@@ -35,6 +35,7 @@ import {
  */
 export const DefaultTexts = {
   BACK_SIGN_IN: 'Back to Sign In',
+  BIRTHDATE: 'Birthdate',
   CHANGE_PASSWORD: 'Change Password',
   CHANGING_PASSWORD: 'Changing',
   CODE: 'Code',
@@ -51,13 +52,20 @@ export const DefaultTexts = {
   EMAIL_ADDRESS: 'Email',
   ENTER_CODE: 'Enter your code',
   ENTER_USERNAME: 'Enter your username',
+  FAMILY_NAME: 'Family Name',
+  GIVEN_NAME: 'Given Name',
   FORGOT_YOUR_PASSWORD: 'Forgot your password? ',
   HIDE_PASSWORD: 'Hide password',
   LOADING: 'Loading',
   LOGIN_NAME: 'Username',
+  MIDDLE_NAME: 'Middle Name',
+  NAME: 'Name',
+  NICKNAME: 'Nickname',
   NEW_PASSWORD: 'New password',
   PASSWORD: 'Password',
   PHONE_NUMBER: 'Phone Number',
+  PREFERRED_USERNAME: 'Preferred Username',
+  PROFILE: 'Profile',
   RESEND_CODE: 'Resend Code',
   RESET_PASSWORD_HEADING: 'Reset your password',
   RESET_PASSWORD: 'Send Code',
@@ -80,6 +88,7 @@ export const DefaultTexts = {
   VERIFY_CONTACT: 'Verify Contact',
   VERIFY_HEADING: 'Account recovery requires verified contact information',
   VERIFY: 'Verify',
+  WEBSITE: 'Website',
 } as const;
 
 // type Phrase = "Back to Sign In" | "Change Password" | ...

@@ -1,7 +1,7 @@
 import { FederatedIdentityProviders, SocialProvider } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '../..';
-import { Button, Flex, Icon, Text } from '../../../..';
+import { Button, Icon, Text } from '../../../..';
 
 export interface FederatedSignInButtonProps {
   icon?: SocialProvider;
@@ -112,15 +112,10 @@ export const FederatedSignInButton = (
       onClick={handleClick}
       className="federated-sign-in-button"
       fontWeight="normal"
+      gap="1rem"
     >
-      <Flex
-        direction="row"
-        justifyContent="center"
-        className="federated-sign-in-button-row"
-      >
-        {iconComponent}
-        <Text alignSelf="center">{text}</Text>
-      </Flex>
+      {iconComponent}
+      <Text as="span">{text}</Text>
     </Button>
   );
 };
