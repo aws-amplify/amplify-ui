@@ -47,6 +47,7 @@ export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
   left?: ResponsiveStyle<Property.Left>;
   letterSpacing?: ResponsiveStyle<Property.LetterSpacing>;
   lineHeight?: ResponsiveStyle<Property.LineHeight>;
+  margin?: ResponsiveStyle<Property.Margin>;
   maxHeight?: ResponsiveStyle<Property.MaxHeight>;
   maxWidth?: ResponsiveStyle<Property.MaxWidth>;
   minHeight?: ResponsiveStyle<Property.MinHeight>;
@@ -104,9 +105,11 @@ export interface AllStyleProps
     GridContainerStyleProps,
     TextAreaStyleProps {}
 
-export type ComponentPropToStyleProp = {
-  [key in keyof AllStyleProps]: keyof React.CSSProperties;
-};
+export type ComponentPropToStyleProp = Required<
+  {
+    [key in keyof AllStyleProps]: keyof React.CSSProperties;
+  }
+>;
 
 /**
  * Maps from component style props to React `style` props
@@ -135,6 +138,7 @@ export const ComponentPropsToStylePropsMap: ComponentPropToStyleProp = {
   columnStart: 'gridColumnStart',
   direction: 'flexDirection',
   display: 'display',
+  flex: 'flex',
   fontFamily: 'fontFamily',
   fontSize: 'fontSize',
   fontStyle: 'fontStyle',
@@ -146,6 +150,7 @@ export const ComponentPropsToStylePropsMap: ComponentPropToStyleProp = {
   left: 'left',
   letterSpacing: 'letterSpacing',
   lineHeight: 'lineHeight',
+  margin: 'margin',
   maxHeight: 'maxHeight',
   maxWidth: 'maxWidth',
   minHeight: 'minHeight',
