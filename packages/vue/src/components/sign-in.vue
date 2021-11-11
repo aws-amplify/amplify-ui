@@ -129,9 +129,9 @@ const onForgotPasswordClicked = (): void => {
           <amplify-button
             :disabled="actorState.matches('signIn.submit')"
             class="amplify-button amplify-field-group__control"
-            data-fullwidth="true"
+            :fullwidth="true"
             data-loading="false"
-            data-variation="primary"
+            :variation="'primary'"
             style="border-radius: 0x; font-weight: normal"
           >
             {{
