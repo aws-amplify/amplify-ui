@@ -80,7 +80,6 @@ export enum ComponentClassNames {
   TableFoot = 'amplify-table__foot',
   TableHead = 'amplify-table__head',
   TableRow = 'amplify-table__row',
-  TableSummary = 'amplify-table__summary',
   Tabs = 'amplify-tabs',
   TabItems = 'amplify-tabs-item',
   Text = 'amplify-text',
