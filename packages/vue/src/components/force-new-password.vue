@@ -68,7 +68,7 @@
             <base-alert data-ui-error v-if="actorState.context.remoteError">
               {{ actorState.context.remoteError }}
             </base-alert>
-            <base-button
+            <amplify-button
               class="amplify-button amplify-field-group__control"
               data-fullwidth="false"
               data-loading="false"
@@ -79,9 +79,9 @@
                 actorState.matches('forceNewPassword.pending')
                   ? changingPasswordLabel + '&hellip;'
                   : changePasswordLabel
-              }}</base-button
+              }}</amplify-button
             >
-            <base-button
+            <amplify-button
               class="amplify-button amplify-field-group__control"
               data-fullwidth="false"
               data-size="small"
@@ -90,7 +90,7 @@
               type="button"
               @click.prevent="onHaveAccountClicked"
             >
-              {{ backSignInText }}</base-button
+              {{ backSignInText }}</amplify-button
             >
             <slot
               name="footer"

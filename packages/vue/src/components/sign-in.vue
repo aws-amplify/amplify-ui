@@ -126,7 +126,7 @@ const onForgotPasswordClicked = (): void => {
             {{ actorState.context.remoteError }}
           </base-alert>
 
-          <base-button
+          <amplify-button
             :disabled="actorState.matches('signIn.submit')"
             class="amplify-button amplify-field-group__control"
             data-fullwidth="true"
@@ -139,8 +139,8 @@ const onForgotPasswordClicked = (): void => {
                 ? signIngButtonText
                 : signInButtonText
             }}
-          </base-button>
-          <base-button
+          </amplify-button>
+          <amplify-button
             class="amplify-button amplify-field-group__control"
             data-fullwidth="true"
             data-size="small"
@@ -150,7 +150,7 @@ const onForgotPasswordClicked = (): void => {
             @click.prevent="onForgotPasswordClicked"
           >
             {{ forgotYourPasswordLink }}
-          </base-button>
+          </amplify-button>
         </base-wrapper>
         <base-footer>
           <federated-sign-in></federated-sign-in>

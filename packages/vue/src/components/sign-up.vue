@@ -64,14 +64,14 @@ const submit = (): void => {
           <base-alert v-if="error">
             {{ error }}
           </base-alert>
-          <base-button
+          <amplify-button
             class="amplify-button amplify-field-group__control"
             data-fullwidth="true"
             data-loading="false"
             data-variation="primary"
             style="border-radius: 0px; font-weight: normal"
             :disabled="isPending || hasValidationErrors"
-            >{{ createAccountLabel }}</base-button
+            >{{ createAccountLabel }}</amplify-button
           >
           <base-footer>
             <federated-sign-in></federated-sign-in>

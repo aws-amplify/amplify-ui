@@ -15,4 +15,5 @@ export { default as VerifyUser } from './verify-user.vue';
 export { default as ConfirmVerifyUser } from './confirm-verify-user.vue';
 export { default as AmplifyTextField } from './primitives/amplify-text-field.vue';
 export { default as AmplifyCheckBox } from './primitives/amplify-check-box.vue';
+export { default as AmplifyButton } from './primitives/amplify-button.vue';
 export * from '../types';

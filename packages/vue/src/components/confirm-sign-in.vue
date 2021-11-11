@@ -45,16 +45,16 @@
             <base-alert v-if="actorState?.context?.remoteError">
               {{ actorState?.context?.remoteError }}
             </base-alert>
-            <base-button
+            <amplify-button
               class="amplify-button amplify-field-group__control"
               data-fullwidth="false"
               data-loading="false"
               data-variation="primary"
               style="font-weight: normal"
               :disabled="actorState.matches('confirmSignIn.pending')"
-              >{{ confirmText }}</base-button
+              >{{ confirmText }}</amplify-button
             >
-            <base-button
+            <amplify-button
               class="amplify-button amplify-field-group__control"
               data-fullwidth="false"
               data-size="small"
@@ -63,7 +63,7 @@
               type="button"
               @click.prevent="onBackToSignInClicked"
             >
-              {{ backSignInText }}</base-button
+              {{ backSignInText }}</amplify-button
             >
             <slot
               name="footer"

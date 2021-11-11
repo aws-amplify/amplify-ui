@@ -60,16 +60,16 @@
             <base-alert v-if="actorState?.context?.remoteError">
               {{ actorState?.context.remoteError }}
             </base-alert>
-            <base-button
+            <amplify-button
               class="amplify-button amplify-field-group__control"
               data-fullwidth="false"
               data-variation="primary"
               type="submit"
               style="font-weight: normal"
               :disabled="actorState.matches('verifyUser.pending')"
-              >{{ verifyText }}</base-button
+              >{{ verifyText }}</amplify-button
             >
-            <base-button
+            <amplify-button
               class="amplify-button amplify-field-group__control"
               data-fullwidth="false"
               data-size="small"
@@ -78,7 +78,7 @@
               type="button"
               @click.prevent="onSkipClicked"
             >
-              {{ skipText }}</base-button
+              {{ skipText }}</amplify-button
             >
             <slot
               name="footer"
