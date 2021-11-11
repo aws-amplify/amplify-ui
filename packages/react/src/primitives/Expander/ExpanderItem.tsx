@@ -43,7 +43,6 @@ export const ExpanderItem: Primitive<ExpanderItemProps, typeof Item> = ({
             aria-hidden
             className={ComponentClassNames.ExpanderIcon}
             data-testid={EXPANDER_ICON_TEST_ID}
-            size="large"
           />
         </Trigger>
       </Header>
