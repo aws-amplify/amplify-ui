@@ -19,6 +19,7 @@ export const Expander: Primitive<ExpanderProps, typeof Root> = ({
   value,
   ..._rest
 }) => {
+  // Throw away baseStyleProps and flexContainerStyleProps since they won't work on Root element
   const { rest } = splitPrimitiveProps(_rest);
 
   const expander =
