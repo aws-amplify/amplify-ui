@@ -16,30 +16,88 @@ import {
 } from '../types';
 
 export const authInputAttributes: AuthInputAttributes = {
-  username: {
-    label: 'Username',
-    type: 'text',
-    placeholder: 'Username',
-  },
-  email: {
-    label: 'Email',
-    type: 'email',
-    placeholder: 'Email',
-  },
-  phone_number: {
-    label: 'Phone Number',
-    type: 'tel',
-    placeholder: 'Phone',
+  birthdate: {
+    label: 'Birthdate',
+    placeholder: 'Birthdate',
+    type: 'date',
+    autocomplete: 'bday',
   },
   confirmation_code: {
     label: 'Confirmation Code',
     placeholder: 'Code',
     type: 'text',
+    autocomplete: 'one-time-code',
+  },
+  email: {
+    label: 'Email',
+    type: 'email',
+    placeholder: 'Email',
+    autocomplete: 'username',
+  },
+  family_name: {
+    label: 'Family Name',
+    placeholder: 'Family Name',
+    type: 'text',
+    autocomplete: 'family-name',
+  },
+  given_name: {
+    label: 'Given Name',
+    placeholder: 'Given Name',
+    type: 'text',
+    autocomplete: 'given-name',
+  },
+  middle_name: {
+    label: 'Middle Name',
+    placeholder: 'Middle Name',
+    type: 'text',
+    autocomplete: 'additional-name',
+  },
+  name: {
+    label: 'Name',
+    placeholder: 'Name',
+    type: 'text',
+    autocomplete: 'name',
+  },
+  nickname: {
+    label: 'Nickname',
+    placeholder: 'Nickname',
+    type: 'text',
+    autocomplete: 'tel',
   },
   password: {
     label: 'Password',
     placeholder: 'Password',
     type: 'password',
+    autocomplete: 'password',
+  },
+  phone_number: {
+    label: 'Phone Number',
+    placeholder: 'Phone',
+    type: 'tel',
+    autocomplete: 'tel',
+  },
+  preferred_username: {
+    label: 'Preferred Username',
+    placeholder: 'Preferred Username',
+    type: 'text',
+  },
+  profile: {
+    label: 'Profile',
+    placeholder: 'Profile',
+    type: 'url',
+    autocomplete: 'url',
+  },
+  website: {
+    label: 'Website',
+    placeholder: 'Website',
+    type: 'url',
+    autocomplete: 'url',
+  },
+  username: {
+    label: 'Username',
+    type: 'text',
+    placeholder: 'Username',
+    autocomplete: 'username',
   },
 };
 
