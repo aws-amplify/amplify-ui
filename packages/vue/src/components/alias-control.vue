@@ -55,7 +55,8 @@ onMounted(() => {
 
 const inferAutocomplete = computed((): string => {
   return (
-    autocomplete || authInputAttributes[name as LoginMechanism]?.placeholder
+    autocomplete ||
+    (authInputAttributes[name as LoginMechanism]?.autocomplete as string)
   );
 });
 </script>
