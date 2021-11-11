@@ -1,6 +1,12 @@
 <amplify-authenticator initialState="signUp">
   <ng-template amplifySlot="sign-up-footer">
-    <button amplify-button fontWeight="normal" size="small" variation="link">
+    <button
+      amplify-button
+      (click)="authenticator.toResetPassword()"
+      fontWeight="normal"
+      size="small"
+      variation="link"
+    >
       Forgot your password?
     </button>
   </ng-template>
