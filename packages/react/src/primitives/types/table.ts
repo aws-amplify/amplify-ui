@@ -13,6 +13,12 @@ export interface TableProps extends ViewProps {
   caption?: React.ReactNode;
 
   /**
+   * Optional prop to visually hide the caption while keeping it accessible
+   * for screen readers.
+   */
+  hideCaption?: boolean;
+
+  /**
    * If set to true, will highlight a table row on hover. Default is false.
    */
   highlightOnHover?: boolean;
