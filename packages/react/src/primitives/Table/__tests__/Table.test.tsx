@@ -68,7 +68,11 @@ describe('Table primitive', () => {
     it('should render a table with an accessible caption', async () => {
       await setup({ caption: testCaption });
 
-      expect(screen.findByRole('table', { name: testCaption })).toBeDefined();
+      const $accessibleTable = await screen.findByRole('table', {
+        name: testCaption,
+      });
+
+      expect($accessibleTable).toBeDefined();
     });
   });
 
@@ -121,16 +125,9 @@ describe('Table primitive', () => {
     it('should render a caption with default class name', async () => {
       await setup({ caption: testCaption });
 
-      expect(screen.getByText(testCaption)).toHaveClass(
-        ComponentClassNames.TableCaption
-      );
-    });
+      const $caption = await screen.getByText(testCaption);
 
-    it('should allow for custom style props', async () => {
-      const customStyle = { border: '1px solid black' };
-      const { $table } = await setup({ style: customStyle });
-
-      expect($table).toHaveStyle(customStyle);
+      expect($caption).toHaveClass(ComponentClassNames.TableCaption);
     });
 
     it('should set the data-highlightonhover attribute', async () => {

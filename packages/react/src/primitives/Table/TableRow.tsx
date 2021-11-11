@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 
-import { View } from '../View';
 import { ComponentClassNames } from '../shared/constants';
 import { Primitive, TableRowProps } from '../types';
+import { View } from '../View';
 
 export const TableRow: Primitive<TableRowProps, 'tr'> = ({
   children,

@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 
-import { View } from '../View';
 import { ComponentClassNames } from '../shared/constants';
 import { Primitive, TableCellElement, TableCellProps } from '../types';
+import { View } from '../View';
 
 export const TableCell: Primitive<TableCellProps, TableCellElement> = ({
   as: asElementTag = 'td',
