@@ -51,7 +51,7 @@
     "@changesets/changelog-github": "0.4.1",
     "husky": ">=6",
     "lint-staged": ">=10",
-    "prettier": "2.3.2",
+    "prettier": "2.4.1",
     "ultra-runner": "^3.10.5",
     "wait-on": "^6.0.0"
   },
