@@ -29,14 +29,10 @@ export const AlertPropControls: AlertPropControlsInterface = ({
   setVariation,
   isDismissible,
   setIsDismissible,
-  iconSize,
-  setIconSize,
   hasIcon,
   setHasIcon,
   heading,
   setHeading,
-  headingLevel,
-  setHeadingLevel,
   body,
   setBody,
 }) => {
@@ -46,7 +42,7 @@ export const AlertPropControls: AlertPropControlsInterface = ({
       <SelectField
         name="variation"
         id="variation"
-        label="variation"
+        label="Variation"
         value={variation}
         onChange={(event) =>
           setVariation(event.target.value as AlertProps['variation'])
@@ -75,17 +71,16 @@ export const AlertPropControls: AlertPropControlsInterface = ({
 
       <SwitchField
         label="isDismissable"
-        isChecked={isDismissible}
+        defaultChecked={isDismissible}
         labelPosition="end"
         onChange={(event) => {
-          console.log(event);
           setIsDismissible(event.target.checked as AlertProps['isDismissible']);
         }}
       />
 
       <SwitchField
         label="hasIcon"
-        isChecked={hasIcon}
+        defaultChecked={hasIcon}
         labelPosition="end"
         onChange={(event) =>
           setHasIcon(event.target.checked as AlertProps['hasIcon'])

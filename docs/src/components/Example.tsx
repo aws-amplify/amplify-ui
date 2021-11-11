@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-import { Card, Button, View, useTheme } from '@aws-amplify/ui-react';
+import { Card, Button, Flex, useTheme } from '@aws-amplify/ui-react';
 
 interface ExampleProps {
   children: React.ReactNode;
@@ -15,7 +15,7 @@ export function Example({ children, className = '' }: ExampleProps) {
       className={`example ${className}`}
       style={{ marginBottom: `${tokens.space.large}` }}
     >
-      {children}
+      <Flex direction="column">{children}</Flex>
     </Card>
   );
 }
