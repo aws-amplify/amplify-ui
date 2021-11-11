@@ -1,27 +1,35 @@
-import { DesignToken } from './types/designToken';
+import { DesignToken, WebDesignToken, SpaceValue } from './types/designToken';
 
-export interface Space {
-  xxxs: DesignToken;
-  xxs: DesignToken;
-  xs: DesignToken;
-  small: DesignToken;
-  medium: DesignToken;
-  large: DesignToken;
-  xl: DesignToken;
-  xxl: DesignToken;
-  xxxl: DesignToken;
+export type Space = {
+  xxxs: DesignToken<SpaceValue>;
+  xxs: DesignToken<SpaceValue>;
+  xs: DesignToken<SpaceValue>;
+  small: DesignToken<SpaceValue>;
+  medium: DesignToken<SpaceValue>;
+  large: DesignToken<SpaceValue>;
+  xl: DesignToken<SpaceValue>;
+  xxl: DesignToken<SpaceValue>;
+  xxxl: DesignToken<SpaceValue>;
   relative: {
-    xxxs: DesignToken;
-    xxs: DesignToken;
-    xs: DesignToken;
-    small: DesignToken;
-    medium: DesignToken;
-    large: DesignToken;
-    xl: DesignToken;
-    xxl: DesignToken;
-    xxxl: DesignToken;
+    xxxs: DesignToken<SpaceValue>;
+    xxs: DesignToken<SpaceValue>;
+    xs: DesignToken<SpaceValue>;
+    small: DesignToken<SpaceValue>;
+    medium: DesignToken<SpaceValue>;
+    large: DesignToken<SpaceValue>;
+    xl: DesignToken<SpaceValue>;
+    xxl: DesignToken<SpaceValue>;
+    xxxl: DesignToken<SpaceValue>;
   };
-}
+};
+
+export type WebSpace = {
+  [Property in keyof Omit<Space, 'relative'>]: WebDesignToken<SpaceValue>;
+} & {
+  relative: {
+    [Property in keyof Space['relative']]: WebDesignToken<SpaceValue>;
+  };
+};
 
 export const space: Space = {
   xxxs: { value: '0.25rem' },

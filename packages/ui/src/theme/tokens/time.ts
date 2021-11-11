@@ -1,10 +1,14 @@
-import { DesignToken } from './types/designToken';
+import { DesignToken, WebDesignToken, TimeValue } from './types/designToken';
 
-export interface Time {
-  short: DesignToken;
-  medium: DesignToken;
-  long: DesignToken;
-}
+export type Time = {
+  short: DesignToken<TimeValue>;
+  medium: DesignToken<TimeValue>;
+  long: DesignToken<TimeValue>;
+};
+
+export type WebTime = {
+  [Property in keyof Time]: WebDesignToken<TimeValue>;
+};
 
 export const time: Time = {
   short: { value: '100ms' },
