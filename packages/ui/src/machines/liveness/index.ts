@@ -75,6 +75,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
                   'sendTimeoutAfterOvalMatchDelay',
                 ],
               },
+              onError: {
+                target: '#livenessMachine.error',
+                actions: 'updateErrorStateForRuntime',
+              },
             },
           },
           checkFaceDetected: {
@@ -156,6 +160,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       timeout: {
         entry: 'callUserTimeoutCallback',
+        type: 'final',
+      },
+      error: {
+        entry: 'callErrorCallback',
         type: 'final',
       },
       checkFailed: {
@@ -260,6 +268,9 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       callSuccessCallback: (context) => {
         context.flowProps.onSuccess?.();
       },
+      callErrorCallback: (context) => {
+        context.flowProps.onError?.(new Error(context.errorState));
+      },
     },
     guards: {
       shouldTimeoutOnFailedAttempts: (context) =>
@@ -280,7 +291,11 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         } = context;
 
         // initialize models
-        await faceDetector.modelLoadingPromise;
+        try {
+          await faceDetector.modelLoadingPromise;
+        } catch (err) {
+          console.log({ err });
+        }
 
         // detect face
         const detectedFaces = await faceDetector.detectFaces(videoEl);
