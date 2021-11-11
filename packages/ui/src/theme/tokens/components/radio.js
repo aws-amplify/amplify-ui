@@ -16,7 +16,7 @@ module.exports = {
     color: { value: '{colors.white.value}' },
     backgroundColor: { value: '{colors.white.value}' },
     transitionProperty: { value: 'all' },
-    transitionDuration: { value: '{time.transition.medium.value}' },
+    transitionDuration: { value: '{time.medium.value}' },
     outlineColor: { value: '{colors.transparent.value}' },
     outlineStyle: { value: 'solid' },
     outlineWidth: { value: '{outlineWidths.medium.value}' },
