@@ -7,6 +7,7 @@
   width: var(--amplify-components-table-width);
 
   .amplify-table__caption {
+    caption-side: var(--amplify-components-table-caption-caption-side);
     color: var(--amplify-components-table-caption-color);
     display: var(--amplify-components-table-caption-display);
     font-size: var(--amplify-components-table-caption-font-size);

@@ -100,6 +100,7 @@ module.exports = {
    * Default table caption styles
    */
   caption: {
+    captionSide: { value: 'bottom' },
     color: { value: '{colors.font.primary.value}' },
     display: { value: 'table-caption' },
     fontSize: { value: '{fontSizes.medium.value}' },
