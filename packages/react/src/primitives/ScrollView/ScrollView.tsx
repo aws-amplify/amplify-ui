@@ -18,3 +18,5 @@ export const ScrollView: Primitive<ScrollViewProps, 'div'> = ({
     {children}
   </View>
 );
+
+ScrollView.displayName = 'ScrollView';

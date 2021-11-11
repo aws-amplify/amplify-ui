@@ -12,3 +12,5 @@ export const FieldClearButton: Primitive<FieldClearButtonProps, 'button'> = (
     <IconClose size={props.size} />
   </FieldGroupIconButton>
 );
+
+FieldClearButton.displayName = 'FieldClearButton';

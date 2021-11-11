@@ -74,3 +74,5 @@ export const Loader: Primitive<LoaderProps, 'svg'> = ({
     </View>
   );
 };
+
+Loader.displayName = 'Loader';

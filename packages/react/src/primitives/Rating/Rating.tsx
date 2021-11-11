@@ -68,3 +68,5 @@ export const Rating: Primitive<RatingProps, typeof Flex> = ({
     </Flex>
   );
 };
+
+Rating.displayName = 'Rating';

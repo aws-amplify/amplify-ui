@@ -1,1 +1,1 @@
-export * from './ScrollView';
+export { ScrollView } from './ScrollView';

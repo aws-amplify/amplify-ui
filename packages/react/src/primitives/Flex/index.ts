@@ -1,1 +1,1 @@
-export * from './Flex';
+export { Flex } from './Flex';

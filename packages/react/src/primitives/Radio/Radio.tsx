@@ -81,3 +81,5 @@ export const Radio: Primitive<RadioProps, 'input'> = ({
     </Flex>
   );
 };
+
+Radio.displayName = 'Radio';

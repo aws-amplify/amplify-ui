@@ -1,1 +1,1 @@
-export * from './Collection';
+export { Collection } from './Collection';

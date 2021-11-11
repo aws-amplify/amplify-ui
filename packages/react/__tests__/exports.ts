@@ -1899,7 +1899,6 @@ describe('@aws-amplify/ui-react', () => {
           "useDataStoreCollection",
           "useDataStoreItem",
           "usePagination",
-          "useSearchField",
           "useTheme",
           "withAuthenticator",
         ]

@@ -20,3 +20,5 @@ export const SearchFieldButton: Primitive<SearchFieldButtonProps, 'button'> = (
     </FieldGroupIconButton>
   );
 };
+
+SearchFieldButton.displayName = 'SearchFieldButton';

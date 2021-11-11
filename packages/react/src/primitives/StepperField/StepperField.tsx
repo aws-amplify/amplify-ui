@@ -129,3 +129,5 @@ export const StepperField: Primitive<StepperFieldProps, 'input'> = (props) => {
     </Flex>
   );
 };
+
+StepperField.displayName = 'StepperField';

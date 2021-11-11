@@ -14,3 +14,5 @@ export const FieldErrorMessage: React.FC<FieldErrorMessageProps> = ({
     </Text>
   ) : null;
 };
+
+FieldErrorMessage.displayName = 'FieldErrorMessage';

@@ -23,3 +23,5 @@ export const Link: Primitive<LinkProps, 'a'> = ({
     </View>
   );
 };
+
+Link.displayName = 'Link';
