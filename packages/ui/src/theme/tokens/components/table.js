@@ -101,7 +101,9 @@ module.exports = {
    */
   caption: {
     color: { value: '{colors.font.primary.value}' },
+    display: { value: 'table-caption' },
     fontSize: { value: '{fontSizes.medium.value}' },
+    textAlign: { value: 'center' },
     wordBreak: { value: 'break-all' },
 
     large: {

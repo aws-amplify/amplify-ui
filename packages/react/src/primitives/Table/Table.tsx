@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 
-import { Flex, Text, View } from '..';
+import { Flex, View } from '..';
 import { ComponentClassNames } from '../shared/constants';
 import { Primitive, TableProps } from '../types';
 
@@ -9,9 +9,8 @@ export const Table: Primitive<TableProps, 'table'> = ({
   children,
   className,
   highlightOnHover = false,
-  size = '',
-  summary,
-  variation = '',
+  size,
+  variation,
   ...rest
 }) => (
   <Flex>
@@ -23,17 +22,11 @@ export const Table: Primitive<TableProps, 'table'> = ({
       data-variation={variation}
       {...rest}
     >
-      {caption || summary ? (
-        <View as="caption">
+      {caption && (
+        <View as="caption" className={ComponentClassNames.TableCaption}>
           {caption}
-          {caption && summary ? <br /> : null}
-          {summary && (
-            <Text as="span" className={ComponentClassNames.TableSummary}>
-              {summary}
-            </Text>
-          )}
         </View>
-      ) : null}
+      )}
       {children}
     </View>
   </Flex>

@@ -6,6 +6,14 @@
   display: var(--amplify-components-table-display);
   width: var(--amplify-components-table-width);
 
+  .amplify-table__caption {
+    color: var(--amplify-components-table-caption-color);
+    display: var(--amplify-components-table-caption-display);
+    font-size: var(--amplify-components-table-caption-font-size);
+    text-align: var(--amplify-components-table-caption-text-align);
+    word-break: var(--amplify-components-table-caption-word-break);
+  }
+
   .amplify-table__head {
     display: var(--amplify-components-table-head-display);
     vertical-align: var(--amplify-components-table-head-vertical-align);
@@ -50,18 +58,6 @@
     vertical-align: var(--amplify-components-table-data-vertical-align);
   }
 
-  .amplify-table caption {
-    color: var(--amplify-components-table-caption-color);
-    font-size: var(--amplify-components-table-caption-font-size);
-    word-break: var(--amplify-components-table-caption-word-break);
-  }
-
-  .amplify-table__summary {
-    color: var(--amplify-components-table-summary-color);
-    font-size: var(--amplify-components-table-summary-font-size);
-    font-weight: var(--amplify-components-table-summary-font-weight);
-  }
-
   /**
    * Data attribute stylings
    */
@@ -94,6 +90,10 @@
   }
 
   &[data-size='small'] {
+    .amplify-table__caption {
+      font-size: var(--amplify-components-table-caption-small-font-size);
+    }
+
     .amplify-table__th {
       font-size: var(--amplify-components-table-header-small-font-size);
       padding: var(--amplify-components-table-header-small-padding);
@@ -103,17 +103,13 @@
       font-size: var(--amplify-components-table-data-small-font-size);
       padding: var(--amplify-components-table-data-small-padding);
     }
-
-    caption {
-      font-size: var(--amplify-components-table-caption-small-font-size);
-    }
-
-    .amplify-table__summary {
-      font-size: var(--amplify-components-table-summary-small-font-size);
-    }
   }
 
   &[data-size='large'] {
+    .amplify-table__caption {
+      font-size: var(--amplify-components-table-caption-large-font-size);
+    }
+
     .amplify-table__th {
       font-size: var(--amplify-components-table-header-large-font-size);
       padding: var(--amplify-components-table-header-large-padding);
@@ -122,14 +118,6 @@
     .amplify-table__td {
       font-size: var(--amplify-components-table-data-large-font-size);
       padding: var(--amplify-components-table-data-large-padding);
-    }
-
-    caption {
-      font-size: var(--amplify-components-table-caption-large-font-size);
-    }
-
-    .amplify-table__summary {
-      font-size: var(--amplify-components-table-summary-large-font-size);
     }
   }
 }

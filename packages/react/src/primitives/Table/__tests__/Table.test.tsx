@@ -17,11 +17,11 @@ describe('Table primitive', () => {
   };
 
   describe('Accessibility', () => {
-    it('should render a table with an accessible label', async () => {
-      const label = 'accessible-label';
-      const { $table } = await setup({ label });
+    it('should render a table with an accessible caption', async () => {
+      const caption = 'accessible-caption';
+      await setup({ caption });
 
-      expect($table).toHaveAttribute('aria-label', label);
+      expect(screen.findByRole('table', { name: caption })).toBeDefined();
     });
   });
 

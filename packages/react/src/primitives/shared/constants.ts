@@ -73,6 +73,7 @@ export enum ComponentClassNames {
   SwitchTrack = 'amplify-switch-track',
   SwitchWrapper = 'amplify-switch__wrapper',
   Table = 'amplify-table',
+  TableCaption = 'amplify-table__caption',
   TableBody = 'amplify-table__body',
   TableTd = 'amplify-table__td',
   TableTh = 'amplify-table__th',

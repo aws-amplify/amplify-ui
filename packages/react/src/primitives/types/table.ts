@@ -1,3 +1,4 @@
+import React from 'react';
 import { Sizes } from './base';
 import { ViewProps } from './view';
 
@@ -9,7 +10,7 @@ export interface TableProps extends ViewProps {
    * Optional caption which serves as an accessible title/caption for
    * the table.
    */
-  caption?: string;
+  caption?: React.ReactNode;
 
   /**
    * If set to true, will highlight a table row on hover. Default is false.
@@ -20,11 +21,6 @@ export interface TableProps extends ViewProps {
    * Affects font size and padding. Default is in between 'small' and 'large'.
    */
   size?: TableSize;
-
-  /**
-   * Optional summary that is rendered as part of the table caption.
-   */
-  summary?: string;
 
   /**
    * Sets a supported style variation. Default is no specific variation.
