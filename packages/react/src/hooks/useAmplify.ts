@@ -6,7 +6,7 @@ import { AmplifyContext } from '../components/AmplifyProvider/AmplifyContext';
 import * as primitives from '../primitives';
 
 interface UseAmplifyOutput {
-  components: Record<string, React.ReactNode>;
+  components: Record<string, any>;
   theme: Theme;
 }
 
