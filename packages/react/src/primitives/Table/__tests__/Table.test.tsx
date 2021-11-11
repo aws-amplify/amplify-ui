@@ -1,44 +1,135 @@
 import { render, screen } from '@testing-library/react';
 
-import { Table } from '../Table';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableFoot,
+  TableHead,
+  TableRow,
+} from '..';
 import { ComponentClassNames } from '../../shared';
 import { TableProps } from '../../types';
 
 describe('Table primitive', () => {
   const testCaption = 'test-caption';
-  const testSummary = 'test-summary';
+  const testClass = 'test-class';
+
+  const HEADER_TEXT = 'Header';
+  const BODY_TEXT = 'Body';
+  const FOOTER_TEXT = 'Footer';
 
   const setup = async (props: TableProps = {}) => {
-    render(<Table {...props} />);
+    render(
+      <Table {...props}>
+        <TableHead>
+          <TableRow>
+            <TableCell as="th">{HEADER_TEXT}</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          <TableRow>
+            <TableCell>{BODY_TEXT}</TableCell>
+          </TableRow>
+        </TableBody>
+        <TableFoot>
+          <TableRow>
+            <TableCell>{FOOTER_TEXT}</TableCell>
+          </TableRow>
+        </TableFoot>
+      </Table>
+    );
 
     return {
+      $body: (await screen.findAllByRole('rowgroup'))[1],
+      $bodyCell: await screen.findByRole('cell', { name: BODY_TEXT }),
+      $bodyRow: (await screen.findAllByRole('row'))[1],
+      $footer: (await screen.findAllByRole('rowgroup'))[2],
+      $footerCell: await screen.findByRole('cell', { name: FOOTER_TEXT }),
+      $footerRow: (await screen.findAllByRole('row'))[2],
+      $header: (await screen.findAllByRole('rowgroup'))[0],
+      $headerCell: await screen.findByRole('columnheader', {
+        name: HEADER_TEXT,
+      }),
+      $headerRow: (await screen.findAllByRole('row'))[0],
       $table: await screen.findByRole('table'),
     };
   };
 
   describe('Accessibility', () => {
-    it('should render a table with an accessible caption', async () => {
-      const caption = 'accessible-caption';
-      await setup({ caption });
+    it('should render table elements with accessible roles', async () => {
+      const $tableElements = await setup();
 
-      expect(screen.findByRole('table', { name: caption })).toBeDefined();
+      Object.values($tableElements).forEach(($tableElement) =>
+        expect($tableElement).toBeDefined()
+      );
+    });
+
+    it('should render a table with an accessible caption', async () => {
+      await setup({ caption: testCaption });
+
+      expect(screen.findByRole('table', { name: testCaption })).toBeDefined();
+    });
+
+    it('should have an accessible caption even if hidden', async () => {
+      await setup({ caption: testCaption, hideCaption: true });
+
+      expect(screen.findByRole('table', { name: testCaption })).toBeDefined();
     });
   });
 
   describe('Styling and attributes', () => {
     it('should render Table with default and custom class names', async () => {
-      const customClassName = 'custom-class';
-      const { $table } = await setup({ className: customClassName });
+      const { $table } = await setup({ className: testClass });
 
-      expect($table).toHaveClass(ComponentClassNames.Table, customClassName);
+      expect($table).toHaveClass(ComponentClassNames.Table, testClass);
     });
 
-    it('should render a provided summary with default class name', async () => {
-      await setup({ caption: testCaption, summary: testSummary });
+    it('should render TableHead with default class name', async () => {
+      const { $header } = await setup();
 
-      const $testSummary = screen.getByText(testSummary);
+      expect($header).toHaveClass(ComponentClassNames.TableHead);
+    });
 
-      expect($testSummary).toHaveClass(ComponentClassNames.TableSummary);
+    it('should render TableBody with default class name', async () => {
+      const { $body } = await setup();
+
+      expect($body).toHaveClass(ComponentClassNames.TableBody);
+    });
+
+    it('should render TableFoot with default class name', async () => {
+      const { $footer } = await setup();
+
+      expect($footer).toHaveClass(ComponentClassNames.TableFoot);
+    });
+
+    it('should render TableRow with default class name', async () => {
+      const { $bodyRow, $footerRow, $headerRow } = await setup();
+
+      expect($bodyRow).toHaveClass(ComponentClassNames.TableRow);
+      expect($footerRow).toHaveClass(ComponentClassNames.TableRow);
+      expect($headerRow).toHaveClass(ComponentClassNames.TableRow);
+    });
+
+    it('should render TableCell header with default class name', async () => {
+      const { $headerCell } = await setup();
+
+      expect($headerCell).toHaveClass(ComponentClassNames.TableTh);
+    });
+
+    it('should render TableCell data with default class name', async () => {
+      const { $bodyCell, $footerCell } = await setup();
+
+      expect($bodyCell).toHaveClass(ComponentClassNames.TableTd);
+      expect($footerCell).toHaveClass(ComponentClassNames.TableTd);
+    });
+
+    it('should render a caption with default class name', async () => {
+      await setup({ caption: testCaption });
+
+      expect(screen.getByText(testCaption)).toHaveClass(
+        ComponentClassNames.TableCaption
+      );
     });
 
     it('should allow for custom style props', async () => {
@@ -71,17 +162,11 @@ describe('Table primitive', () => {
 
       expect($table).toHaveAttribute('data-variation', variation);
     });
-  });
 
-  describe('Functionality', () => {
-    it('should render provided caption and summary for the Table', async () => {
-      await setup({
-        caption: testCaption,
-        summary: testSummary,
-      });
+    it('should set the hidden attribute on caption', async () => {
+      await setup({ caption: testCaption, hideCaption: true });
 
-      expect(screen.getByText(testCaption)).toBeDefined();
-      expect(screen.getByText(testSummary)).toBeDefined();
+      expect(screen.getByText(testCaption)).toHaveAttribute('hidden');
     });
   });
 });
