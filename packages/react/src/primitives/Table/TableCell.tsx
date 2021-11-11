@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 
-import { View } from '..';
+import { View } from '../View';
 import { ComponentClassNames } from '../shared/constants';
 import { Primitive, TableCellElement, TableCellProps } from '../types';
 

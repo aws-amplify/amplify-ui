@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 
-import { Flex, View } from '..';
+import { Flex } from '../Flex';
+import { View } from '../View';
 import { ComponentClassNames } from '../shared/constants';
 import { Primitive, TableProps } from '../types';
 
