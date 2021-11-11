@@ -9,4 +9,3 @@ export {
 } from './useDataStore';
 
 export { useTheme } from './useTheme';
-export { useThemeBreakpoint } from './useThemeBreakpoint';
