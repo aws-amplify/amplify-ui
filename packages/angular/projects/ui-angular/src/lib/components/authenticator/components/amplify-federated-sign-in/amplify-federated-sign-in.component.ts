@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostBinding, OnInit } from '@angular/core';
 import { FederatedIdentityProviders } from '@aws-amplify/ui';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
 import { translate } from '@aws-amplify/ui';
@@ -8,6 +8,8 @@ import { translate } from '@aws-amplify/ui';
   templateUrl: './amplify-federated-sign-in.component.html',
 })
 export class AmplifyFederatedSignInComponent implements OnInit {
+  @HostBinding('style.display') display = 'contents';
+
   public FederatedProviders = FederatedIdentityProviders;
   public includeAmazon: boolean = false;
   public includeApple: boolean = false;
