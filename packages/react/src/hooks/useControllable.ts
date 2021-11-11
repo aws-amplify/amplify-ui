@@ -1,3 +1,4 @@
+// Taken from https://www.npmjs.com/package/@awsui/components-react
 import * as React from 'react';
 
 interface PropertyDescription {
