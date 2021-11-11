@@ -30,6 +30,7 @@ export * from './rating';
 export * from './scrollView';
 export * from './searchField';
 export * from './selectField';
+export * from './sliderField';
 export * from './stepperField';
 export * from './style';
 export * from './switchField';

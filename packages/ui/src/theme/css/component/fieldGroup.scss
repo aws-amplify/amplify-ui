@@ -24,6 +24,15 @@
 .amplify-field-group {
   gap: var(--amplify-components-fieldgroup-gap);
 
+  &[data-orientation='horizontal'] {
+    flex-direction: row;
+  }
+
+  &[data-orientation='vertical'] {
+    flex-direction: column;
+    align-items: var(--amplify-components-fieldgroup-vertical-align-items);
+  }
+
   // Input styling
   :not(:last-child) .amplify-input {
     @extend %remove-end-radii;
@@ -35,6 +44,7 @@
 .amplify-field-group__outer-start,
 .amplify-field-group__outer-end {
   display: flex;
+  align-items: var(--amplify-components-fieldgroup-outer-align-items);
   .amplify-field-group__control {
     height: 100%;
   }
@@ -94,6 +104,10 @@
 .amplify-field-group__field-wrapper {
   position: relative;
   width: 100%;
+
+  &[data-orientation='vertical'] {
+    width: fit-content;
+  }
 }
 
 // Align inner components above the field wrapper

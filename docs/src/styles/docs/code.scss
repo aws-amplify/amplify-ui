@@ -53,14 +53,14 @@ pre[class*='language-'] {
 code[class*='language-']::-moz-selection,
 code[class*='language-'] *::-moz-selection,
 pre[class*='language-'] *::-moz-selection {
-  background: hsl(230, 1%, 90%);
+  background: var(--amplify-colors-overlay-10);
   color: inherit;
 }
 
 code[class*='language-']::selection,
 code[class*='language-'] *::selection,
 pre[class*='language-'] *::selection {
-  background: hsl(230, 1%, 90%);
+  background: var(--amplify-colors-overlay-10);
   color: inherit;
 }
 
@@ -475,4 +475,11 @@ pre > code.diff-highlight .token.token.inserted:not(.prefix) *::selection {
 .sp-code-editor .cm-gutters {
   background-color: var(--amplify-colors-background-primary);
   color: var(--amplify-colors-font-tertiary);
+}
+
+.mdx-marker {
+  margin-left: calc(var(--amplify-space-medium) * -1);
+  margin-right: calc(var(--amplify-space-medium) * -1);
+  padding-left: var(--amplify-space-medium);
+  background-color: var(--amplify-colors-yellow-10);
 }

@@ -10,7 +10,6 @@ export const Icon: Primitive<IconProps, 'svg'> = ({
   className,
   fill = 'currentColor',
   pathData,
-  size,
   viewBox = defaultViewBox,
   ...rest
 }) => {
@@ -23,7 +22,6 @@ export const Icon: Primitive<IconProps, 'svg'> = ({
     <View
       as="svg"
       className={classNames(ComponentClassNames.Icon, className)}
-      data-size={size}
       viewBox={`${minX} ${minY} ${width} ${height}`}
       {...rest}
     >

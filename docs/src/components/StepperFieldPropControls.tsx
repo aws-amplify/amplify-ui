@@ -8,17 +8,16 @@ import {
 } from '@aws-amplify/ui-react';
 
 import { DemoBox } from './DemoBox';
-import { label } from 'aws-amplify';
 
 export interface StepperFieldPropControlsProps extends StepperFieldProps {
-  setLabel: (min: React.SetStateAction<StepperFieldProps['label']>) => void;
+  setLabel: (value: React.SetStateAction<StepperFieldProps['label']>) => void;
   setLabelHidden: (
-    labelHidden: React.SetStateAction<StepperFieldProps['labelHidden']>
+    value: React.SetStateAction<StepperFieldProps['labelHidden']>
   ) => void;
-  setMax: (min: React.SetStateAction<StepperFieldProps['max']>) => void;
-  setMin: (min: React.SetStateAction<StepperFieldProps['min']>) => void;
-  setSize: (min: React.SetStateAction<StepperFieldProps['size']>) => void;
-  setStep: (min: React.SetStateAction<StepperFieldProps['step']>) => void;
+  setMax: (value: React.SetStateAction<StepperFieldProps['max']>) => void;
+  setMin: (value: React.SetStateAction<StepperFieldProps['min']>) => void;
+  setSize: (value: React.SetStateAction<StepperFieldProps['size']>) => void;
+  setStep: (value: React.SetStateAction<StepperFieldProps['step']>) => void;
 }
 
 export const StepperFieldPropControls: React.FC<StepperFieldPropControlsProps> =
