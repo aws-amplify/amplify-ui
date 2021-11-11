@@ -1,6 +1,7 @@
 import { DesignToken, WebDesignToken, RadiusValue } from './types/designToken';
 
 export type Radii = {
+  xs: DesignToken<RadiusValue>;
   small: DesignToken<RadiusValue>;
   medium: DesignToken<RadiusValue>;
   large: DesignToken<RadiusValue>;
@@ -14,8 +15,9 @@ export type WebRadii = {
 };
 
 export const radii: Radii = {
-  small: { value: '0.125rem' },
-  medium: { value: '0.25rem' },
+  xs: { value: '0.125rem' },
+  small: { value: '0.25rem' },
+  medium: { value: '0.5rem' },
   large: { value: '1rem' },
   xl: { value: '2rem' },
   xxl: { value: '4rem' },

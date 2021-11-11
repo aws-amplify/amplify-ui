@@ -60,7 +60,7 @@ module.exports = {
     opacity: { value: '{opacities.0.value}' },
     transform: { value: 'scale(0)' },
     transitionProperty: { value: 'all' },
-    transitionDuration: { value: '{time.transition.short.value}' },
+    transitionDuration: { value: '{time.short.value}' },
     transitionTimingFunction: { value: 'ease-in-out' },
     _checked: {
       opacity: { value: '{opacities.100.value}' },
