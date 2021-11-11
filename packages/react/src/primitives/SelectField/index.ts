@@ -1,1 +1,1 @@
-export * from './SelectField';
+export { SelectField } from './SelectField';
