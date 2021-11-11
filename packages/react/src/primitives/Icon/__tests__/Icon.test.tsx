@@ -53,20 +53,6 @@ describe('Icon component', () => {
     expect(icon.classList[1]).toContain('my-icon-component');
   });
 
-  it('can set data-size attribute', async () => {
-    render(
-      <Icon
-        testId={iconTestId}
-        pathData={pathData}
-        size="small"
-        ariaLabel="Search"
-      />
-    );
-
-    const icon = await screen.findByTestId(iconTestId);
-    expect(icon.dataset['size']).toBe('small');
-  });
-
   it('can set viewBox attribute', async () => {
     render(
       <Icon

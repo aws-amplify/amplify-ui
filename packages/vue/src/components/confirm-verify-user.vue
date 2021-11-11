@@ -7,9 +7,11 @@
           style="flex-direction: column"
           :disabled="actorState.matches('confirmVerifyUser.pending')"
         >
-          <base-heading :level="3" class="amplify-heading">
-            {{ verifyHeading }}
-          </base-heading>
+          <slot name="header">
+            <base-heading :level="3" class="amplify-heading">
+              {{ verifyHeading }}
+            </base-heading>
+          </slot>
           <base-wrapper class="amplify-flex" style="flex-direction: column">
             <base-wrapper
               class="amplify-flex amplify-field amplify-textfield"
@@ -36,15 +38,6 @@
           </base-wrapper>
 
           <base-footer class="amplify-flex" style="flex-direction: column">
-            <template #footert="{ slotData }">
-              <slot
-                name="footer"
-                :info="slotData"
-                :onSkipClicked="onSkipClicked"
-                :onConfirmVerifyUserSubmit="onConfirmVerifyUserSubmit"
-              >
-              </slot>
-            </template>
             <base-alert v-if="actorState?.context?.remoteError">
               {{ actorState?.context.remoteError }}
             </base-alert>
@@ -68,6 +61,12 @@
             >
               {{ skipText }}</base-button
             >
+            <slot
+              name="footer"
+              :onSkipClicked="onSkipClicked"
+              :onConfirmVerifyUserSubmit="onConfirmVerifyUserSubmit"
+            >
+            </slot>
           </base-footer>
         </base-field-set>
       </base-form>

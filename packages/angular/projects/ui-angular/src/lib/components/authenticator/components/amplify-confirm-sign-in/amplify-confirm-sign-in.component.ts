@@ -36,7 +36,7 @@ export class AmplifyConfirmSignInComponent implements OnInit {
 
   setHeaderText(): void {
     const state = this.authenticator.authState;
-    const actorContext: SignInContext = getActorContext(state);
+    const actorContext = getActorContext(state) as SignInContext;
     const { challengeName } = actorContext;
     switch (challengeName) {
       case AuthChallengeNames.SOFTWARE_TOKEN_MFA:

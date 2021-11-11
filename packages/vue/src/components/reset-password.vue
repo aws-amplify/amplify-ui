@@ -7,9 +7,11 @@
       @submit.prevent="onResetPasswordSubmit"
     >
       <base-wrapper class="amplify-flex" style="flex-direction: column">
-        <base-heading class="amplify-heading" :level="3">
-          {{ resetPasswordHeading }}
-        </base-heading>
+        <slot name="header">
+          <base-heading class="amplify-heading" :level="3">
+            {{ resetPasswordHeading }}
+          </base-heading>
+        </slot>
         <base-field-set
           class="amplify-flex"
           style="flex-direction: column"
@@ -41,15 +43,6 @@
           class="amplify-flex"
           style="flex-direction: column; align-items: unset"
         >
-          <template #footert="{ slotData }">
-            <slot
-              name="footer"
-              :info="slotData"
-              :onBackToSignInClicked="onBackToSignInClicked"
-              :onResetPasswordSubmit="onResetPasswordSubmit"
-            >
-            </slot>
-          </template>
           <base-alert v-if="actorState?.context?.remoteError">
             {{ actorState?.context?.remoteError }}
           </base-alert>
@@ -73,6 +66,12 @@
           >
             {{ backSignInText }}</base-button
           >
+          <slot
+            name="footer"
+            :onBackToSignInClicked="onBackToSignInClicked"
+            :onResetPasswordSubmit="onResetPasswordSubmit"
+          >
+          </slot>
         </base-footer>
       </base-wrapper>
     </base-form>

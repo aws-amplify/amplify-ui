@@ -1,0 +1,9 @@
+.global-styling-slider {
+  --amplify-components-sliderfield-track-background-color: var(
+    --amplify-colors-purple-80
+  );
+}
+
+.custom-slider .amplify-sliderfield__track {
+  background-color: var(--amplify-colors-purple-80);
+}

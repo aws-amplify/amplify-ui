@@ -9,6 +9,7 @@ Feature: Sign In with Federation
 
   @angular @react @vue
   Scenario: Sign in using OAUTH
-    And I see the "Google" sign in button
-    And I see the "Facebook" sign in button
     And I see the "Amazon" sign in button
+    And I see the "Apple" sign in button
+    And I see the "Facebook" sign in button
+    And I see the "Google" sign in button

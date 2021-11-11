@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, HostBinding, Input } from '@angular/core';
 import { nanoid } from 'nanoid';
 
 @Component({
@@ -15,4 +15,7 @@ export class AmplifyTextFieldComponent {
   @Input() placeholder = '';
   @Input() required = true;
   @Input() type: string;
+  @Input() labelHidden = false;
+
+  @HostBinding('style.display') display = 'contents';
 }

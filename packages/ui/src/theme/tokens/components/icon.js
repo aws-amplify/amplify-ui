@@ -1,11 +1,4 @@
 module.exports = {
   lineHeight: { value: 1 },
-  height: { value: '{fontSizes.medium.value}' },
-
-  large: {
-    height: { value: '{fontSizes.large.value}' },
-  },
-  small: {
-    height: { value: '{fontSizes.small.value}' },
-  },
+  height: { value: '1em' }, // Should match height of parent container font-size
 };

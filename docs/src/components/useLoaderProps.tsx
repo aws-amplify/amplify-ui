@@ -20,7 +20,7 @@ export const useLoaderProps: UseLoaderProps = (initialValues) => {
   );
   const [filledColor, setFilledColor] = React.useState<
     LoaderProps['filledColor']
-  >(initialValues.filledcolor);
+  >(initialValues.filledColor);
   return {
     size,
     setSize,

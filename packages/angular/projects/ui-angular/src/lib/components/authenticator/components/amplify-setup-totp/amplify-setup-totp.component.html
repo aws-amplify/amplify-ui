@@ -6,13 +6,17 @@
       data-amplify-fieldset
       [disabled]="authenticator.isPending"
     >
-      <h3 class="amplify-heading">{{ this.headerText }}</h3>
+      <amplify-slot name="setup-totp-header">
+        <h3 class="amplify-heading">{{ this.headerText }}</h3>
+      </amplify-slot>
       <p *ngIf="!qrCodeSource">Loading...</p>
       <img
         *ngIf="qrCodeSource"
         [src]="qrCodeSource"
         alt="qr code"
         data-amplify-qrcode
+        width="228"
+        height="228"
       />
       <amplify-form-field
         name="confirmation_code"
@@ -37,5 +41,6 @@
         {{ authenticator.error }}
       </amplify-error>
     </fieldset>
+    <amplify-slot name="setup-totp-footer"> </amplify-slot>
   </form>
 </div>

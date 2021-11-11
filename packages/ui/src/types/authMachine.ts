@@ -7,7 +7,9 @@ export type AuthFormData = Record<string, string>;
 export interface AuthContext {
   actorRef?: any;
   config?: {
-    login_mechanisms: LoginMechanism[];
+    loginMechanisms?: LoginMechanism[];
+    signUpAttributes?: SignUpAttribute[];
+    socialProviders?: SocialProvider[];
   };
   user?: CognitoUserAmplify;
 }
@@ -24,13 +26,49 @@ interface BaseFormContext {
 }
 
 export interface SignInContext extends BaseFormContext {
+  loginMechanisms: AuthContext['config']['loginMechanisms'];
+  socialProviders: AuthContext['config']['socialProviders'];
   attributeToVerify?: string;
   redirectIntent?: string;
   unverifiedAttributes?: Record<string, string>;
 }
 
+// https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html
+export const signUpFieldsWithDefault = [
+  'birthdate',
+  'email',
+  'family_name',
+  'given_name',
+  'middle_name',
+  'name',
+  'nickname',
+  'phone_number',
+  'preferred_username',
+  'profile',
+  'website',
+] as const;
+
+export const signUpFieldsWithoutDefault = [
+  'address',
+  'gender',
+  'locale',
+  'picture',
+  'updated_at',
+  'zoneinfo',
+] as const;
+
+export type SignUpFieldsWithDefaults = typeof signUpFieldsWithDefault[number];
+
+export type SignUpFieldsWithoutDefaults =
+  typeof signUpFieldsWithoutDefault[number];
+
+export type SignUpAttribute =
+  | SignUpFieldsWithDefaults
+  | SignUpFieldsWithoutDefaults;
+
 export interface SignUpContext extends BaseFormContext {
-  login_mechanisms?: string[];
+  loginMechanisms: AuthContext['config']['loginMechanisms'];
+  socialProviders: AuthContext['config']['socialProviders'];
   unverifiedAttributes?: Record<string, string>;
 }
 
@@ -92,30 +130,30 @@ export interface InputAttributes {
   label: string;
   type: string;
   placeholder: string;
+  autocomplete?: string;
 }
 
-export const userNameAliasArray = [
+export const LoginMechanismArray = [
   'username',
   'email',
   'phone_number',
 ] as const;
 
-export type UserNameAlias = typeof userNameAliasArray[number];
+export type LoginMechanism = typeof LoginMechanismArray[number];
 
-export const socialProviderLoginMechanisms = [
-  'amazon',
-  'google',
-  'facebook',
-] as const;
+export type SocialProvider = 'amazon' | 'apple' | 'facebook' | 'google';
 
-export type SocialProviderAlias = typeof socialProviderLoginMechanisms[number];
+// Auth fields that we provide default fields with
+export type AuthFieldsWithDefaults =
+  | LoginMechanism
+  | SignUpFieldsWithDefaults
+  | 'confirmation_code'
+  | 'password';
 
-export type LoginMechanism = UserNameAlias | SocialProviderAlias;
-
-// other non-alias inputs that Cognito would require
-export type AuthInputNames = UserNameAlias | 'confirmation_code' | 'password';
-
-export type AuthInputAttributes = Record<AuthInputNames, InputAttributes>;
+export type AuthInputAttributes = Record<
+  AuthFieldsWithDefaults,
+  InputAttributes
+>;
 
 export type AuthEventData = Record<PropertyKey, any>; // TODO: this should be typed further
 

@@ -36,9 +36,4 @@ export interface IconProps extends ViewProps {
    * @link https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/fill
    */
   fill?: Property.Color;
-
-  /**
-   * This is used to change the icon size. Available options are "large", "medium", and "small".
-   */
-  size?: IconSize;
 }

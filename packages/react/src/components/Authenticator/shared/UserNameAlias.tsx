@@ -2,7 +2,7 @@ import {
   ActorContextWithForms,
   getActorContext,
   getAliasInfoFromContext,
-  UserNameAlias,
+  LoginMechanism,
   translate,
 } from '@aws-amplify/ui';
 import { useEffect } from 'react';
@@ -12,7 +12,7 @@ import { PhoneNumberField, TextField } from '../../..';
 
 export interface UserNameAliasProps {
   handleInputChange?(event): void;
-  alias?: UserNameAlias;
+  alias?: LoginMechanism;
   [key: string]: any;
 }
 
@@ -26,6 +26,7 @@ export function UserNameAlias(props: UserNameAliasProps) {
 
   const isPhoneAlias = type === 'tel';
 
+  // TODO This should exist on context & not rely on side-effects
   useEffect(() => {
     isPhoneAlias &&
       _send({
@@ -45,7 +46,7 @@ export function UserNameAlias(props: UserNameAliasProps) {
       name={alias ?? 'username'}
       onChange={handleInputChange}
       placeholder={i18nLabel}
-      required
+      isRequired
       {...attrs}
     />
   ) : (
@@ -57,6 +58,7 @@ export function UserNameAlias(props: UserNameAliasProps) {
       name={alias ?? 'username'}
       required
       placeholder={i18nLabel}
+      isRequired
       type={type}
       {...attrs}
     />
