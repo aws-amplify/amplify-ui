@@ -41,8 +41,8 @@
             <base-alert v-if="actorState?.context?.remoteError">
               {{ actorState?.context?.remoteError }}
             </base-alert>
-            <base-button
-              class="amplify-button amplify-field-group__control"
+            <amplify-button
+              class="amplify-field-group__control"
               data-fullwidth="false"
               data-loading="false"
               data-variation="primary"
@@ -51,9 +51,9 @@
               :disabled="actorState.matches('confirmSignUp.pending')"
             >
               {{ confirmText }}
-            </base-button>
-            <base-button
-              class="amplify-button amplify-field-group__control"
+            </amplify-button>
+            <amplify-button
+              class="amplify-field-group__control"
               data-fullwidth="false"
               data-variation="default"
               style="font-weight: normal"
@@ -61,7 +61,7 @@
               @click.prevent="onLostCodeClicked"
             >
               {{ resendCodeText }}
-            </base-button>
+            </amplify-button>
             <slot
               name="footer"
               :onConfirmSignUpSubmit="onConfirmSignUpSubmit"

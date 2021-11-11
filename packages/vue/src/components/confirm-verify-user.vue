@@ -41,17 +41,17 @@
             <base-alert v-if="actorState?.context?.remoteError">
               {{ actorState?.context.remoteError }}
             </base-alert>
-            <base-button
-              class="amplify-button amplify-field-group__control"
+            <amplify-button
+              class="amplify-field-group__control"
               data-fullwidth="false"
               data-variation="primary"
               type="submit"
               style="font-weight: normal"
               :disabled="actorState.matches('confirmVerifyUser.pending')"
-              >{{ submitText }}</base-button
+              >{{ submitText }}</amplify-button
             >
-            <base-button
-              class="amplify-button amplify-field-group__control"
+            <amplify-button
+              class="amplify-field-group__control"
               data-fullwidth="false"
               data-size="small"
               data-variation="link"
@@ -59,7 +59,7 @@
               type="button"
               @click.prevent="onSkipClicked"
             >
-              {{ skipText }}</base-button
+              {{ skipText }}</amplify-button
             >
             <slot
               name="footer"

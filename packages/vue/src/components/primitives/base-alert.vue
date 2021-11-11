@@ -28,8 +28,8 @@ function close() {
       </svg>
       <div><slot></slot></div>
     </div>
-    <button
-      class="amplify-button amplify-field-group__control"
+    <amplify-button
+      class="amplify-field-group__control"
       data-fullwidth="false"
       data-variation="link"
       type="button"
@@ -45,6 +45,6 @@ function close() {
           d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
         ></path>
       </svg>
-    </button>
+    </amplify-button>
   </div>
 </template>
