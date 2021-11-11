@@ -14,6 +14,7 @@ import { SignUpWithEmailLambdaComponent } from 'src/pages/ui/components/authenti
 import { SignUpWithPhoneComponent } from 'src/pages/ui/components/authenticator/sign-up-with-phone/sign-up-with-phone.component';
 import { SignUpWithUsernameComponent } from 'src/pages/ui/components/authenticator/sign-up-with-username/sign-up-with-username.component';
 import { CustomSignUpFieldsComponent } from 'src/pages/ui/components/authenticator/custom-sign-up-fields/custom-sign-up-fields.component';
+import { UseAuthenticatorComponent } from 'src/pages/ui/components/authenticator/use-authenticator/use-authenticator.component';
 
 const routes: Routes = [
   {
@@ -75,6 +76,10 @@ const routes: Routes = [
   {
     path: 'ui/components/authenticator/sign-up-with-email',
     component: SignUpWithEmailComponent,
+  },
+  {
+    path: 'ui/components/authenticator/use-authenticator',
+    component: UseAuthenticatorComponent,
   },
 ];
 

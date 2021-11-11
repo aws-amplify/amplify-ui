@@ -1,0 +1,12 @@
+<amplify-authenticator initialState="signUp">
+  <ng-template amplifySlot="sign-up-footer">
+    <button amplify-button fontWeight="normal" size="small" variation="link">
+      Forgot your password?
+    </button>
+  </ng-template>
+</amplify-authenticator>
+
+<ng-container *ngIf="authenticator.route === 'authenticated'">
+  <h2>Welcome, {{ authenticator.user.username }}!</h2>
+  <button (click)="authenticator.signOut()">Sign Out</button>
+</ng-container>
