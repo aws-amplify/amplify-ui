@@ -16,7 +16,6 @@ export interface TablePropControlsProps extends TableProps {
     value: React.SetStateAction<TableProps['highlightOnHover']>
   ) => void;
   setSize: (value: React.SetStateAction<TableProps['size']>) => void;
-  setSummary: (value: React.SetStateAction<TableProps['summary']>) => void;
   setVariation: (value: React.SetStateAction<TableProps['variation']>) => void;
 }
 
@@ -29,7 +28,6 @@ export const TablePropControls: TablePropControlsInterface = ({
   setCaption,
   setHighlightOnHover,
   setSize,
-  setSummary,
   setVariation,
   size,
   variation,
@@ -42,15 +40,6 @@ export const TablePropControls: TablePropControlsInterface = ({
       placeholder="Table Caption"
       onChange={(event) =>
         setCaption(event.target.value as TableProps['caption'])
-      }
-    />
-    <TextField
-      id="summary-control"
-      label="summary"
-      name="summary-control"
-      placeholder="Table Summary"
-      onChange={(event) =>
-        setSummary(event.target.value as TableProps['summary'])
       }
     />
     <CheckboxField

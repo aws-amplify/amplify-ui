@@ -14,13 +14,7 @@ import { TablePropControls } from '@/components/TablePropControls';
 import { useTableProps } from '@/components/useTableProps';
 
 export const TableDemo = () => {
-  const tableProps = useTableProps({
-    caption: '',
-    highlightOnHover: false,
-    size: '',
-    summary: '',
-    variation: '',
-  });
+  const tableProps = useTableProps({});
 
   return (
     <Flex direction="column" gap="0.5rem">
@@ -30,7 +24,6 @@ export const TableDemo = () => {
           caption={tableProps.caption}
           highlightOnHover={tableProps.highlightOnHover}
           size={tableProps.size}
-          summary={tableProps.summary}
           variation={tableProps.variation}
         >
           <TableHead>

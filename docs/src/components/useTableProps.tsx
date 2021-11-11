@@ -19,10 +19,6 @@ export const useTableProps: UseTableProps = (initialValues) => {
 
   const [size, setSize] = useState<TableProps['size']>(initialValues.size);
 
-  const [summary, setSummary] = useState<TableProps['summary']>(
-    initialValues.summary
-  );
-
   const [variation, setVariation] = useState<TableProps['variation']>(
     initialValues.variation
   );
@@ -33,10 +29,8 @@ export const useTableProps: UseTableProps = (initialValues) => {
     setCaption,
     setHighlightOnHover,
     setSize,
-    setSummary,
     setVariation,
     size,
-    summary,
     variation,
   };
 };
