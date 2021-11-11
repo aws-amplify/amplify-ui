@@ -1,5 +1,10 @@
 import { useRouter } from 'next/router';
-import { ToggleButton, ToggleButtonGroup, Image } from '@aws-amplify/ui-react';
+import {
+  ToggleButton,
+  ToggleButtonGroup,
+  Image,
+  VisuallyHidden,
+} from '@aws-amplify/ui-react';
 
 export const FrameworkChooser = ({ platform }) => {
   const router = useRouter();
@@ -22,6 +27,7 @@ export const FrameworkChooser = ({ platform }) => {
       }}
     >
       <ToggleButton value="react" size="small">
+        <VisuallyHidden>React</VisuallyHidden>
         <Image
           alt=""
           height="1rem"
@@ -30,6 +36,7 @@ export const FrameworkChooser = ({ platform }) => {
         />
       </ToggleButton>
       <ToggleButton value="angular" size="small">
+        <VisuallyHidden>Angular</VisuallyHidden>
         <Image
           alt=""
           height="1rem"
@@ -38,6 +45,7 @@ export const FrameworkChooser = ({ platform }) => {
         />
       </ToggleButton>
       <ToggleButton value="vue" size="small">
+        <VisuallyHidden>Vue</VisuallyHidden>
         <Image
           alt=""
           height="1rem"
