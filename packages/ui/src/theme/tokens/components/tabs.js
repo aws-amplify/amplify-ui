@@ -15,7 +15,7 @@ module.exports = {
     paddingVertical: { value: '{space.small.value}' },
     paddingHorizontal: { value: '{space.medium.value}' },
     textAlign: { value: 'center' },
-    transitionDuration: { value: '{time.transition.medium.value}' },
+    transitionDuration: { value: '{time.medium.value}' },
 
     _hover: {
       color: { value: '{colors.font.hover.value}' },

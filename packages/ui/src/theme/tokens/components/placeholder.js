@@ -1,6 +1,6 @@
 module.exports = {
   borderRadius: { value: '{radii.small.value}' },
-  transitionDuration: { value: '{time.transition.long.value}' },
+  transitionDuration: { value: '{time.long.value}' },
 
   startColor: { value: '{colors.background.secondary.value}' },
   endColor: { value: '{colors.background.tertiary.value}' },

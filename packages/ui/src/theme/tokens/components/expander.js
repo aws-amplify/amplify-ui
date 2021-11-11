@@ -60,16 +60,16 @@ module.exports = {
       paddingBlockEnd: { value: '{space.medium.value}' },
     },
     _open: {
-      animationDuration: { value: '{time.animation.medium.value}' },
+      animationDuration: { value: '{time.medium.value}' },
       animationTimingFunction: { value: 'cubic-bezier(0.87, 0, 0.13, 1)' },
     },
     _closed: {
-      animationDuration: { value: '{time.animation.medium.value}' },
+      animationDuration: { value: '{time.medium.value}' },
       animationTimingFunction: { value: 'cubic-bezier(0.87, 0, 0.13, 1)' },
     },
   },
   icon: {
-    transitionDuration: { value: '{time.transition.medium.value}' },
+    transitionDuration: { value: '{time.medium.value}' },
     transitionTimingFunction: { value: 'cubic-bezier(0.87, 0, 0.13, 1)' },
   },
 };
