@@ -1,6 +1,7 @@
 import * as React from 'react';
 import autoprefixer from 'autoprefixer';
 import postcss from 'postcss-js';
+import { isDesignToken } from '@aws-amplify/ui';
 
 export const prefixer = postcss.sync([autoprefixer]);
 
@@ -138,12 +139,14 @@ export const convertStylePropsToStyleObj: ConvertStylePropsToStyleObj = ({
 }) => {
   ComponentPropsToStylePropsMapKeys.filter(
     (stylePropKey) => !isNullOrEmptyString(props[stylePropKey])
-  ).forEach((stylePropKey) => {
-    const value = getValueAtCurrentBreakpoint(
-      props[stylePropKey],
-      breakpoint,
-      breakpoints
-    );
+  ).forEach((stylePropKey: any) => {
+    let value = props[stylePropKey];
+    // if styleProp is a DesignToken use its toString()
+    if (isDesignToken(value)) {
+      value = value.toString();
+    } else {
+      value = getValueAtCurrentBreakpoint(value, breakpoint, breakpoints);
+    }
     const reactStyleProp = ComponentPropsToStylePropsMap[stylePropKey];
     style = { ...style, [reactStyleProp]: value };
   });

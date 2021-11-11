@@ -1,4 +1,5 @@
 import { Property } from 'csstype';
+import { WebDesignToken } from '@aws-amplify/ui';
 
 import { FlexItemStyleProps, FlexContainerStyleProps } from './flex';
 import { GridItemStyleProps, GridContainerStyleProps } from './grid';
@@ -11,7 +12,7 @@ import { TextAreaStyleProps } from './textArea';
 export type StyleProp<PropertyType> =
   | (PropertyType extends number
       ? number
-      : PropertyType extends string
+      : PropertyType extends string | WebDesignToken
       ? PropertyType
       : never)
   | (string & {});
@@ -25,6 +26,12 @@ export interface ResponsiveObject<PropertyType> {
   xxl?: PropertyType;
 }
 
+/**
+ * Allows a style prop to be the property type
+ * or a design token of that property type.
+ */
+type StyleToken<PropertyType> = PropertyType | WebDesignToken<PropertyType>;
+
 export type ResponsiveStyle<PropertyType> =
   | StyleProp<PropertyType>
   | StyleProp<PropertyType>[]
@@ -32,19 +39,19 @@ export type ResponsiveStyle<PropertyType> =
 
 export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
   alignSelf?: ResponsiveStyle<Property.AlignSelf>;
-  backgroundColor?: ResponsiveStyle<Property.BackgroundColor>;
+  backgroundColor?: ResponsiveStyle<StyleToken<Property.BackgroundColor>>;
   border?: ResponsiveStyle<Property.Border>;
-  borderRadius?: ResponsiveStyle<Property.BorderRadius>;
+  borderRadius?: ResponsiveStyle<StyleToken<Property.BorderRadius>>;
   bottom?: ResponsiveStyle<Property.Bottom>;
-  boxShadow?: ResponsiveStyle<Property.BoxShadow>;
-  color?: ResponsiveStyle<Property.Color>;
+  boxShadow?: ResponsiveStyle<StyleToken<Property.BoxShadow>>;
+  color?: ResponsiveStyle<StyleToken<Property.Color>>;
   display?: ResponsiveStyle<Property.Display>;
-  fontFamily?: ResponsiveStyle<Property.FontFamily>;
-  fontSize?: ResponsiveStyle<Property.FontSize>;
+  fontFamily?: ResponsiveStyle<StyleToken<Property.FontFamily>>;
+  fontSize?: ResponsiveStyle<StyleToken<Property.FontSize>>;
   fontStyle?: ResponsiveStyle<Property.FontStyle>;
-  fontWeight?: ResponsiveStyle<Property.FontWeight>;
-  height?: ResponsiveStyle<Property.Height>;
-  left?: ResponsiveStyle<Property.Left>;
+  fontWeight?: ResponsiveStyle<StyleToken<Property.FontWeight>>;
+  height?: ResponsiveStyle<StyleToken<Property.Height>>;
+  left?: ResponsiveStyle<StyleToken<Property.Left>>;
   letterSpacing?: ResponsiveStyle<Property.LetterSpacing>;
   lineHeight?: ResponsiveStyle<Property.LineHeight>;
   margin?: ResponsiveStyle<Property.Margin>;
@@ -53,17 +60,23 @@ export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
   minHeight?: ResponsiveStyle<Property.MinHeight>;
   minWidth?: ResponsiveStyle<Property.MinWidth>;
   opacity?: ResponsiveStyle<Property.Opacity>;
+  lineHeight?: ResponsiveStyle<StyleToken<Property.LineHeight>>;
+  maxHeight?: ResponsiveStyle<StyleToken<Property.MaxHeight>>;
+  maxWidth?: ResponsiveStyle<StyleToken<Property.MaxWidth>>;
+  minHeight?: ResponsiveStyle<StyleToken<Property.MinHeight>>;
+  minWidth?: ResponsiveStyle<StyleToken<Property.MinWidth>>;
+  opacity?: ResponsiveStyle<StyleToken<Property.Opacity>>;
   overflow?: ResponsiveStyle<Property.Overflow>;
-  padding?: ResponsiveStyle<Property.Padding>;
+  padding?: ResponsiveStyle<StyleToken<Property.Padding>>;
   position?: ResponsiveStyle<Property.Position>;
-  right?: ResponsiveStyle<Property.Right>;
+  right?: ResponsiveStyle<StyleToken<Property.Right>>;
   textAlign?: ResponsiveStyle<Property.TextAlign>;
   textDecoration?: ResponsiveStyle<Property.TextDecoration>;
   textTransform?: ResponsiveStyle<Property.TextTransform>;
-  top?: ResponsiveStyle<Property.Top>;
-  transform?: ResponsiveStyle<Property.Transform>;
+  top?: ResponsiveStyle<StyleToken<Property.Top>>;
+  transform?: ResponsiveStyle<StyleToken<Property.Transform>>;
   transformOrigin?: ResponsiveStyle<Property.TransformOrigin>;
-  width?: ResponsiveStyle<Property.Width>;
+  width?: ResponsiveStyle<StyleToken<Property.Width>>;
 }
 
 export interface CSSLayoutStyleProps {
@@ -85,17 +98,17 @@ export interface CSSLayoutStyleProps {
   /**
    * Spacing between child components. Shorthand for rowGap and columnGap.
    */
-  gap?: ResponsiveStyle<Property.Gap>;
+  gap?: ResponsiveStyle<StyleToken<Property.Gap>>;
 
   /**
    * Spacing between Flex/Grid child columns
    */
-  columnGap?: ResponsiveStyle<Property.GridColumnGap>;
+  columnGap?: ResponsiveStyle<StyleToken<Property.GridColumnGap>>;
 
   /**
    * Spacing between Flex/Grid child rows
    */
-  rowGap?: ResponsiveStyle<Property.RowGap>;
+  rowGap?: ResponsiveStyle<StyleToken<Property.RowGap>>;
 }
 
 export interface AllStyleProps

@@ -1,12 +1,22 @@
-import { DesignToken } from './types/designToken';
+import {
+  DesignToken,
+  WebDesignToken,
+  TransformValue,
+} from './types/designToken';
 
-export interface Transforms {
+export type Transforms = {
   slideX: {
-    small: DesignToken;
-    medium: DesignToken;
-    large: DesignToken;
+    small: DesignToken<TransformValue>;
+    medium: DesignToken<TransformValue>;
+    large: DesignToken<TransformValue>;
   };
-}
+};
+
+export type WebTransforms = {
+  slideX: {
+    [Property in keyof Transforms['slideX']]: WebDesignToken<TransformValue>;
+  };
+};
 
 export const transforms: Transforms = {
   // TODO: make this more generic and cross-platform

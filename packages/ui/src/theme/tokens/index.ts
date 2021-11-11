@@ -1,17 +1,25 @@
-import { borderWidths, BorderWidths } from './borderWidths';
-import { colors, Colors } from './colors';
-import { fonts, Fonts } from './fonts';
-import { fontSizes, FontSizes } from './fontSizes';
-import { fontWeights, FontWeights } from './fontWeights';
-import { lineHeights, LineHeights } from './lineHeights';
-import { opacities, Opacities } from './opacities';
-import { outlineOffsets, OutlineOffsets } from './outlineOffsets';
-import { outlineWidths, OutlineWidths } from './outlineWidths';
-import { radii, Radii } from './radii';
-import { shadows, Shadows } from './shadows';
-import { space, Space } from './space';
-import { time, Time } from './time';
-import { transforms, Transforms } from './transforms';
+import { borderWidths, BorderWidths, WebBorderWidths } from './borderWidths';
+import { colors, Colors, WebColors } from './colors';
+import { fonts, Fonts, WebFonts } from './fonts';
+import { fontSizes, FontSizes, WebFontSizes } from './fontSizes';
+import { fontWeights, FontWeights, WebFontWeights } from './fontWeights';
+import { lineHeights, LineHeights, WebLineHeights } from './lineHeights';
+import { opacities, Opacities, WebOpacities } from './opacities';
+import {
+  outlineOffsets,
+  OutlineOffsets,
+  WebOutlineOffsets,
+} from './outlineOffsets';
+import {
+  outlineWidths,
+  OutlineWidths,
+  WebOutlineWidths,
+} from './outlineWidths';
+import { radii, Radii, WebRadii } from './radii';
+import { shadows, Shadows, WebShadows } from './shadows';
+import { space, Space, WebSpace } from './space';
+import { time, Time, WebTime } from './time';
+import { transforms, Transforms, WebTransforms } from './transforms';
 
 export interface Tokens {
   components: any; // TODO type this
@@ -29,6 +37,27 @@ export interface Tokens {
   space: Space;
   time: Time;
   transforms: Transforms;
+}
+
+/**
+ * The fully setup theme tokens. It has the same shape as Tokens
+ * but each token has added fields.
+ */
+export interface WebTokens extends Tokens {
+  borderWidths: WebBorderWidths;
+  colors: WebColors;
+  fonts: WebFonts;
+  fontSizes: WebFontSizes;
+  fontWeights: WebFontWeights;
+  lineHeights: WebLineHeights;
+  opacities: WebOpacities;
+  outlineOffsets: WebOutlineOffsets;
+  outlineWidths: WebOutlineWidths;
+  radii: WebRadii;
+  shadows: WebShadows;
+  space: WebSpace;
+  time: WebTime;
+  transform: WebTransforms;
 }
 
 export const tokens: Tokens = {
