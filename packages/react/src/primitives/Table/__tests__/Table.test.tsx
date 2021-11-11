@@ -70,12 +70,6 @@ describe('Table primitive', () => {
 
       expect(screen.findByRole('table', { name: testCaption })).toBeDefined();
     });
-
-    it('should have an accessible caption even if hidden', async () => {
-      await setup({ caption: testCaption, hideCaption: true });
-
-      expect(screen.findByRole('table', { name: testCaption })).toBeDefined();
-    });
   });
 
   describe('Styling and attributes', () => {
@@ -161,12 +155,6 @@ describe('Table primitive', () => {
       const { $table } = await setup({ variation });
 
       expect($table).toHaveAttribute('data-variation', variation);
-    });
-
-    it('should set the hidden attribute on caption', async () => {
-      await setup({ caption: testCaption, hideCaption: true });
-
-      expect(screen.getByText(testCaption)).toHaveAttribute('hidden');
     });
   });
 });

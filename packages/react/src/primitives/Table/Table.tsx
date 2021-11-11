@@ -8,7 +8,6 @@ export const Table: Primitive<TableProps, 'table'> = ({
   caption,
   children,
   className,
-  hideCaption = false,
   highlightOnHover = false,
   size,
   variation,
@@ -24,11 +23,7 @@ export const Table: Primitive<TableProps, 'table'> = ({
       {...rest}
     >
       {caption && (
-        <View
-          as="caption"
-          className={ComponentClassNames.TableCaption}
-          hidden={hideCaption}
-        >
+        <View as="caption" className={ComponentClassNames.TableCaption}>
           {caption}
         </View>
       )}
