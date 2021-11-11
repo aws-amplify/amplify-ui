@@ -37,7 +37,7 @@ export const Expander: Primitive<ExpanderProps, typeof Root> = ({
     ) : (
       <Root
         className={classNames(ComponentClassNames.Expander, className)}
-        collapsible={isCollapsible}
+        collapsible={type === 'single' ? isCollapsible : undefined}
         data-testid={testId}
         defaultValue={defaultValue as string}
         onValueChange={onChange}
