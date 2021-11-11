@@ -8,6 +8,7 @@ import { View } from '../View';
 export const FieldGroup: Primitive<FieldGroupOptions, typeof Flex> = ({
   children,
   className,
+  orientation = 'horizontal',
   outerStartComponent,
   outerEndComponent,
   innerStartComponent,
@@ -32,6 +33,7 @@ export const FieldGroup: Primitive<FieldGroupOptions, typeof Flex> = ({
         fieldGroupHasInnerEndClassName,
         className
       )}
+      data-orientation={orientation}
       {...rest}
     >
       {outerStartComponent && (
@@ -39,7 +41,10 @@ export const FieldGroup: Primitive<FieldGroupOptions, typeof Flex> = ({
           {outerStartComponent}
         </View>
       )}
-      <View className={ComponentClassNames.FieldGroupFieldWrapper}>
+      <View
+        className={ComponentClassNames.FieldGroupFieldWrapper}
+        data-orientation={orientation}
+      >
         {innerStartComponent && (
           <View className={ComponentClassNames.FieldGroupInnerStart}>
             {innerStartComponent}

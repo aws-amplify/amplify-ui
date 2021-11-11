@@ -31,10 +31,14 @@ export class AuthenticatorService implements OnDestroy {
   public startMachine({
     initialState,
     loginMechanisms,
+    services,
+    signUpAttributes,
   }: AuthenticatorMachineOptions) {
     const machine = createAuthenticatorMachine({
       initialState,
       loginMechanisms,
+      services,
+      signUpAttributes,
     });
 
     const authService = interpret(machine, {

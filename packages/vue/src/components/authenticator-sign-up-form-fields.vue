@@ -2,13 +2,12 @@
 import { computed, ComputedRef, toRefs } from 'vue';
 import {
   translate,
-  UserNameAlias,
   LoginMechanism,
   AuthInputAttributes,
   authInputAttributes,
+  SignUpAttribute,
 } from '@aws-amplify/ui';
 import { useAuth, useAuthenticator } from '../composables/useAuth';
-import { useAliases } from '../composables/useUtils';
 import UserNameAliasComponent from './user-name-alias.vue';
 import PasswordControl from './password-control.vue';
 import AliasControl from './alias-control.vue';
@@ -22,10 +21,6 @@ const {
 
 const { validationErrors } = toRefs(useAuthenticator());
 
-let [__, ...secondaryAliases] = useAliases(
-  context?.config?.login_mechanisms as LoginMechanism[]
-);
-
 const inputAttributes: ComputedRef<AuthInputAttributes> = computed(
   () => authInputAttributes
 );
@@ -33,10 +28,30 @@ const inputAttributes: ComputedRef<AuthInputAttributes> = computed(
 // computed properties
 const passwordLabel = computed(() => translate('Password'));
 const confirmPasswordLabel = computed(() => translate('Confirm Password'));
+
+//
+let fieldNames: Array<LoginMechanism | SignUpAttribute>;
+let loginMechanisms = context.config?.loginMechanisms as LoginMechanism[];
+let signUpAttributes = context.config?.signUpAttributes as SignUpAttribute[];
+
+fieldNames = Array.from(new Set([...loginMechanisms, ...signUpAttributes]));
+
+fieldNames = fieldNames.filter((fieldName) => {
+  const hasDefaultField = !!authInputAttributes[fieldName as LoginMechanism];
+  if (!hasDefaultField) {
+    console.debug(
+      `Authenticator does not have a default implementation for ${fieldName}. Customize the authenticator sign-up-fields slot to add your own.`
+    );
+  }
+  return hasDefaultField;
+});
+
+// Only 1 is supported, so `['email', 'phone_number']` will only show `email`
+const loginMechanism = fieldNames.shift() as LoginMechanism;
 </script>
 
 <template>
-  <user-name-alias-component />
+  <user-name-alias-component :userName="loginMechanism" />
   <base-wrapper
     class="
       amplify-flex amplify-field amplify-textfield amplify-passwordfield
@@ -66,6 +81,7 @@ const confirmPasswordLabel = computed(() => translate('Confirm Password'));
     />
   </base-wrapper>
   <p
+    role="alert"
     data-variation="error"
     class="amplify-text"
     v-if="!!validationErrors.confirm_password"
@@ -73,19 +89,16 @@ const confirmPasswordLabel = computed(() => translate('Confirm Password'));
     {{ validationErrors.confirm_password }}
   </p>
 
-  <template
-    v-for="(alias: UserNameAlias, idx) in secondaryAliases as UserNameAlias[]"
-    :key="idx"
-  >
+  <template v-for="(field, idx) in fieldNames" :key="idx">
     <alias-control
       :label="
         // prettier-ignore
-        translate<string>(inputAttributes[alias].label)
+        translate<string>((inputAttributes[field as LoginMechanism]).label)
       "
-      :name="alias"
+      :name="field"
       :placeholder="
         // prettier-ignore
-        translate<string>( inputAttributes[alias].label)
+        translate<string>( inputAttributes[field as LoginMechanism].label)
       "
     />
   </template>

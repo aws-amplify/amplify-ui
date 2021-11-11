@@ -5,7 +5,6 @@ import {
   Authenticator,
   // Amplify UI Primitives to simplify the custom fields
   CheckboxField,
-  TextField,
   // React hook to get access to validation errors
   useAuthenticator,
 } from '@aws-amplify/ui-react';
@@ -22,8 +21,6 @@ function App({ signOut }) {
 export default withAuthenticator(App, {
   // Default to Sign Up screen
   initialState: 'signUp',
-  // Backend is configured for `email` instead of `username`
-  loginMechanisms: ['email'],
   components: {
     // Customize `Authenticator.SignUp.FormFields`
     SignUp: {
@@ -32,14 +29,6 @@ export default withAuthenticator(App, {
 
         return (
           <>
-            {/* Prepend `preferred_username` custom attribute */}
-            <TextField
-              label="Preferred Username"
-              labelHidden={true}
-              name="preferred_username"
-              placeholder="Preferred Username"
-            />
-
             {/* Re-use default `Authenticator.SignUp.FormFields` */}
             <Authenticator.SignUp.FormFields />
 

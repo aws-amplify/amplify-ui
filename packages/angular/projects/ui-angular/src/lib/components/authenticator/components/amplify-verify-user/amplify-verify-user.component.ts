@@ -30,7 +30,9 @@ export class AmplifyVerifyUserComponent implements OnInit {
   constructor(public authenticator: AuthenticatorService) {}
 
   ngOnInit(): void {
-    const actorState: SignInState = getActorState(this.authenticator.authState);
+    const actorState = getActorState(
+      this.authenticator.authState
+    ) as SignInState;
     this.unverifiedAttributes = actorState.context.unverifiedAttributes;
   }
 

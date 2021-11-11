@@ -1,45 +1,35 @@
+import { useState } from 'react';
 import Head from 'next/head';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { AmplifyProvider, ColorMode } from '@aws-amplify/ui-react';
 
-import 'amplify-docs/src/styles/styles.css';
-import '../styles/index.css';
+import { Header } from '@/components/Layout/Header';
+
+import { theme } from '../theme';
+import '../styles/index.scss';
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
-  const { platform } = router.query;
-
+  const { platform = 'react' } = router.query;
+  const [colorMode, setColorMode] = useState<ColorMode>('system');
+  const favicon =
+    process.env.NODE_ENV === 'development'
+      ? '/svg/favicon-dev.svg'
+      : '/svg/favicon.svg';
   return (
     <>
       <Head>
         <title>Amplify UI</title>
+        <link rel="icon" type="image/svg+xml" href={favicon} />
       </Head>
-
-      <Component
-        components={{
-          a(props) {
-            if (!props.href) {
-              return <a {...props} />;
-            }
-
-            return (
-              <Link
-                href={{
-                  pathname: props.href,
-                  query: { platform },
-                }}
-              >
-                <a>{props.children}</a>
-              </Link>
-            );
-          },
-        }}
-        {...pageProps}
-      />
-
-      <script src="https://cdn.jsdelivr.net/npm/docsearch.js@2.6.3/dist/cdn/docsearch.min.js"></script>
-      <script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js"></script>
-      <script src="/scripts/shortbreadv1.js"></script>
+      <AmplifyProvider components={{}} theme={theme} colorMode={colorMode}>
+        <Header
+          platform={platform}
+          colorMode={colorMode}
+          setColorMode={setColorMode}
+        />
+        <Component {...pageProps} colorMode={colorMode} />
+      </AmplifyProvider>
     </>
   );
 }

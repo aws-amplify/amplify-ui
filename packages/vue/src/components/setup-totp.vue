@@ -16,15 +16,20 @@
           </template>
           <template v-else>
             <base-wrapper class="amplify-flex" style="flex-direction: column">
-              <base-heading class="amplify-heading" :level="3">
-                Setup TOTP
-              </base-heading>
+              <slot name="header">
+                <base-heading class="amplify-heading" :level="3">
+                  Setup TOTP
+                </base-heading>
+              </slot>
+
               <base-wrapper class="amplify-flex" style="flex-direction: column">
                 <img
                   class="amplify-image"
                   data-amplify-qrcode
                   :src="qrCode.qrCodeImageSource"
                   alt="qr code"
+                  width="228"
+                  height="228"
                 />
                 <base-wrapper
                   class="amplify-flex amplify-field amplify-textfield"
@@ -50,15 +55,6 @@
                 </base-wrapper>
               </base-wrapper>
               <base-footer class="amplify-flex" style="flex-direction: column">
-                <template #footert="{ slotData }">
-                  <slot
-                    name="footer"
-                    :info="slotData"
-                    :onBackToSignInClicked="onBackToSignInClicked"
-                    :onSetupTOTPSubmit="onSetupTOTPSubmit"
-                  >
-                  </slot>
-                </template>
                 <base-alert v-if="actorState.context?.remoteError">
                   {{ actorState.context.remoteError }}
                 </base-alert>
@@ -84,6 +80,12 @@
                 >
                   {{ backSignInText }}</base-button
                 >
+                <slot
+                  name="footer"
+                  :onBackToSignInClicked="onBackToSignInClicked"
+                  :onSetupTOTPSubmit="onSetupTOTPSubmit"
+                >
+                </slot>
               </base-footer>
             </base-wrapper>
           </template>
@@ -94,14 +96,7 @@
 </template>
 
 <script setup lang="ts">
-import {
-  onMounted,
-  reactive,
-  toRefs,
-  computed,
-  ComputedRef,
-  useAttrs,
-} from 'vue';
+import { onMounted, reactive, computed, ComputedRef, useAttrs } from 'vue';
 import QRCode from 'qrcode';
 
 import { Auth, Logger } from 'aws-amplify';
@@ -113,9 +108,9 @@ const attrs = useAttrs();
 const emit = defineEmits(['confirmSetupTOTPSubmit', 'backToSignInClicked']);
 
 const { state, send } = useAuth();
-const actorState: ComputedRef<SignInState> = computed(() =>
+const actorState = computed(() =>
   getActorState(state.value)
-);
+) as ComputedRef<SignInState>;
 
 let qrCode = reactive({
   qrCodeImageSource: '',
@@ -145,7 +140,6 @@ onMounted(async () => {
 // Computed Properties
 const backSignInText = computed(() => translate('Back to Sign In'));
 const confirmText = computed(() => translate('Confirm'));
-const setupTOTPText = computed(() => translate('Setup TOTP'));
 const codeText = computed(() => translate('Code'));
 
 // Methods

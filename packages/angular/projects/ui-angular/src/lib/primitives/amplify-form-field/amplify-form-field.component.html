@@ -1,10 +1,8 @@
-<div class="amplify-flex" style="flex-direction: column; gap: 0">
+<div class="amplify-flex amplify-field" style="flex-direction: column">
   <!-- Country code field -->
   <amplify-phone-number-field
     *ngIf="isPhoneField()"
-    [selectFieldId]="selectFieldId"
     [defaultCountryCode]="defaultCountryCode"
-    [textFieldId]="textFieldId"
     [type]="inferType()"
     [name]="name"
     [label]="inferLabel()"
@@ -12,24 +10,24 @@
     [required]="required"
     [initialValue]="initialValue"
     [disabled]="disabled"
-    [autocomplete]="autocomplete"
+    [labelHidden]="labelHidden"
+    [autocomplete]="inferAutocomplete()"
   ></amplify-phone-number-field>
 
   <amplify-password-field
     *ngIf="isPasswordField()"
-    [id]="textFieldId"
     [name]="name"
     [label]="inferLabel()"
     [placeholder]="inferPlaceholder()"
     [required]="required"
     [initialValue]="initialValue"
     [disabled]="disabled"
-    [autocomplete]="autocomplete"
+    [labelHidden]="labelHidden"
+    [autocomplete]="inferAutocomplete()"
   ></amplify-password-field>
 
   <amplify-text-field
     *ngIf="!isPasswordField() && !isPhoneField()"
-    [id]="textFieldId"
     [type]="inferType()"
     [name]="name"
     [label]="inferLabel()"
@@ -37,7 +35,8 @@
     [required]="required"
     [initialValue]="initialValue"
     [disabled]="disabled"
-    [autocomplete]="autocomplete"
+    [labelHidden]="labelHidden"
+    [autocomplete]="inferAutocomplete()"
   ></amplify-text-field>
 
   <amplify-error *ngIf="error">

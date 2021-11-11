@@ -6,7 +6,9 @@
       data-amplify-fieldset
       [disabled]="authenticator.isPending"
     >
-      <h3 class="amplify-heading">{{ headerText }}</h3>
+      <amplify-slot name="confirm-sign-in-header">
+        <h3 class="amplify-heading">{{ headerText }}</h3>
+      </amplify-slot>
       <amplify-form-field
         name="confirmation_code"
         label="Code *"
@@ -31,5 +33,6 @@
         {{ authenticator.error }}
       </amplify-error>
     </fieldset>
+    <amplify-slot name="confirm-sign-in-footer"></amplify-slot>
   </form>
 </div>

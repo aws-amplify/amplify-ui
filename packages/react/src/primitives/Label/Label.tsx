@@ -6,13 +6,14 @@ import { View } from '../View';
 
 export const Label: Primitive<LabelProps, 'label'> = ({
   children,
+  className,
   visuallyHidden,
   ...rest
 }) => {
   return (
     <View
       as="label"
-      className={classNames(ComponentClassNames.Label, {
+      className={classNames(ComponentClassNames.Label, className, {
         'sr-only': visuallyHidden,
       })}
       {...rest}
