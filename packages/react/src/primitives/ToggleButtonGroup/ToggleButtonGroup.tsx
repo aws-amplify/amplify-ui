@@ -43,3 +43,5 @@ export const ToggleButtonGroup: Primitive<ToggleButtonGroupProps, typeof Flex> =
       </Flex>
     );
   };
+
+ToggleButtonGroup.displayName = 'ToggleButtonGroup';

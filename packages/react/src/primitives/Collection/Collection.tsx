@@ -113,3 +113,5 @@ export const Collection = <Item,>({
     </Flex>
   );
 };
+
+Collection.displayName = 'Collection';

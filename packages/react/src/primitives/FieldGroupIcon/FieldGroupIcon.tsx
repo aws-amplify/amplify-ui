@@ -21,3 +21,5 @@ export const FieldGroupIcon: Primitive<FieldGroupIconProps, 'button'> = ({
     </View>
   ) : null;
 };
+
+FieldGroupIcon.displayName = 'FieldGroupIcon';

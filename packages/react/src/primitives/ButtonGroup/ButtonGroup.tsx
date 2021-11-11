@@ -26,3 +26,5 @@ export const ButtonGroup: Primitive<ButtonGroupProps, typeof Flex> = ({
     })}
   </Flex>
 );
+
+ButtonGroup.displayName = 'ButtonGroup';

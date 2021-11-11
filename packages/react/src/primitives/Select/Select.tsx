@@ -64,3 +64,5 @@ export const Select: Primitive<SelectProps, 'select'> = ({
     </View>
   );
 };
+
+Select.displayName = 'Select';

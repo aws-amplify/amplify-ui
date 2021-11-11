@@ -51,3 +51,5 @@ export const RatingMixedIcon: React.FC<RatingMixedIconProps> = ({
     </View>
   );
 };
+
+RatingMixedIcon.displayName = 'RatingMixedIcon';

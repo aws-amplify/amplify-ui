@@ -62,3 +62,5 @@ export const Input: Primitive<InputProps, 'input'> = ({
     {...rest}
   />
 );
+
+Input.displayName = 'Input';

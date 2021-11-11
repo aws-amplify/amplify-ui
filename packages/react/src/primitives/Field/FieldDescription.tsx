@@ -14,3 +14,5 @@ export const FieldDescription: React.FC<FieldDescriptionProps> = ({
     </Text>
   ) : null;
 };
+
+FieldDescription.displayName = 'FieldDescription';
