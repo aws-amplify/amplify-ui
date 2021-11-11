@@ -114,21 +114,4 @@ module.exports = {
       fontSize: { value: '{fontSizes.small.value}' },
     },
   },
-
-  /**
-   * Default table summary styles
-   */
-  summary: {
-    color: { value: '{colors.font.secondary.value}' },
-    fontSize: { value: '{fontSizes.xs.value}' },
-    fontWeight: { value: '{fontWeights.light.value}' },
-
-    large: {
-      fontSize: { value: '{fontSizes.small.value}' },
-    },
-
-    small: {
-      fontSize: { value: '{fontSizes.xs.value}' },
-    },
-  },
 };
