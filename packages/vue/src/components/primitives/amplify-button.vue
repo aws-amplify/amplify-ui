@@ -14,6 +14,7 @@ const { type, fullWidth, size, variation, fontWeight } = withDefaults(
 <template>
   <slot v-bind="$attrs" name="buttont">
     <button
+      class="amplify-button"
       :type="type"
       :style="{ fontWeight: fontWeight }"
       :data-fullwidth="fullWidth"

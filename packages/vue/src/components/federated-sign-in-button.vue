@@ -1,6 +1,6 @@
 <template>
   <amplify-button
-    class="amplify-button amplify-field-group__control federated-sign-in-button"
+    class="amplify-field-group__control federated-sign-in-button"
     data-fullwidth="false"
     style="font-weight: normal"
     type="button"

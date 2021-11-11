@@ -93,7 +93,7 @@
               {{ actorState?.context?.remoteError }}
             </base-alert>
             <amplify-button
-              class="amplify-button amplify-field-group__control"
+              class="amplify-field-group__control"
               data-fullwidth="false"
               data-variation="primary"
               type="submit"
@@ -102,7 +102,7 @@
               >{{ confirmResetPasswordText }}</amplify-button
             >
             <amplify-button
-              class="amplify-button amplify-field-group__control"
+              class="amplify-field-group__control"
               data-fullwidth="false"
               data-size="small"
               data-variation="link"
