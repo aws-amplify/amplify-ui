@@ -109,3 +109,5 @@ export const TextField = <Multiline extends boolean>(
     </Flex>
   );
 };
+
+TextField.displayName = 'TextField';

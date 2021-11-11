@@ -6,6 +6,7 @@ module.exports = {
   checkbox: require('./checkbox'),
   checkboxfield: require('./checkboxField'),
   divider: require('./divider'),
+  expander: require('./expander'),
   field: require('./field'),
   fieldcontrol: require('./fieldControl'),
   fieldgroup: require('./fieldGroup'),

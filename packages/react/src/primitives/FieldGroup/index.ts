@@ -1,1 +1,1 @@
-export * from './FieldGroup';
+export { FieldGroup } from './FieldGroup';

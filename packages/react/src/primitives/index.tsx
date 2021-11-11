@@ -6,6 +6,7 @@ export * from './Card';
 export * from './CheckboxField';
 export * from './Collection';
 export * from './Divider';
+export * from './Expander';
 export * from './FieldGroup';
 export * from './FieldGroupIcon';
 export * from './Flex';

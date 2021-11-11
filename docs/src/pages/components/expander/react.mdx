@@ -1,0 +1,186 @@
+import { Expander, ExpanderItem } from '@aws-amplify/ui-react';
+
+import {
+  BasicSingleExpander,
+  BasicMultipleExpander,
+  ClassStylingExpander,
+  CollapsibleExpander,
+  ControlledMultipleExpander,
+  ControlledSingleExpander,
+  ExpandedByDefaultSingleExpander,
+  ExpandedByDefaultMultipleExpander,
+  StylePropsExpander,
+} from './examples';
+import { ExpanderDemo } from './demo';
+import { Example } from '@/components/Example';
+
+The Expander primitive enables users to expand or collapse a set of sections.
+
+## Demo
+
+<ExpanderDemo />
+
+## Usage
+
+Import the Expander and ExpanderItem components and styles.
+
+### Single Item
+
+```tsx file=./examples/basicSingleExample.tsx
+
+```
+
+<Example>
+  <BasicSingleExpander />
+</Example>
+
+### Multiple Items
+
+```tsx file=./examples/basicMultipleExample.tsx
+
+```
+
+<Example>
+  <BasicMultipleExpander />
+</Example>
+
+## Controlled component
+
+To use the `Expander` as controlled component, specify the `value` of the item(s) to expand and use in conjunction with `onChange`.
+
+### Single Item
+
+```tsx file=./examples/controlledSingleExample.tsx
+
+```
+
+<Example>
+  <ControlledSingleExpander />
+</Example>
+
+### Multiple Items
+
+```tsx file=./examples/controlledMultipleExample.tsx
+
+```
+
+<Example>
+  <ControlledMultipleExpander />
+</Example>
+
+## Expanded by default
+
+By specifying `defaultValue`, the Expanders are able to expand the items by default.
+
+### Single Item
+
+```tsx file=./examples/expandedByDefaultSingleExample.tsx
+
+```
+
+<Example>
+  <ExpandedByDefaultSingleExpander />
+</Example>
+
+### Multiple Items
+
+```tsx file=./examples/expandedByDefaultMultipleExample.tsx
+
+```
+
+<Example>
+  <ExpandedByDefaultMultipleExpander />
+</Example>
+
+## Allow collapsing
+
+The open item in `Expander` with type `single` is not collapsible. To allow collapsing, set `isCollapsible` to true.
+
+```jsx
+import { Expander, ExpanderItem } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+<Expander type="single" isCollapsible={true}>
+  <ExpanderItem title="Section 1 title" value="item-1">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua.
+  </ExpanderItem>
+  <ExpanderItem title="Section 2 title" value="item-2">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua.
+  </ExpanderItem>
+  <ExpanderItem title="Section 3 title" value="item-3">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua.
+  </ExpanderItem>
+</Expander>;
+```
+
+<Example>
+  <CollapsibleExpander />
+</Example>
+
+## CSS Styling
+
+### Target classes
+
+| Class                             | Description                                                |
+| --------------------------------- | ---------------------------------------------------------- |
+| `amplify-expander`                | Expander root element                                      |
+| `amplify-expander__item`          | Expander item(containier for header, trigger, and content) |
+| `amplify-expander__header`        | Expander item header                                       |
+| `amplify-expander__trigger`       | Expander item trigger(button)                              |
+| `amplify-expander__icon`          | Icon to indicate whether an item is expanded or collapsed  |
+| `amplify-expander__content`       | Expander content container                                 |
+| `amplify-expander__content__text` | Expander content text                                      |
+
+### Global styling
+
+To override styling on all Expanders, you can set the Amplify CSS variables with the built-in classes.
+
+```css
+/* styles.css */
+.amplify-expander {
+  --amplify-components-expander-box-shadow: 0 0 10px var(--amplify-colors-brand-primary-80);
+}
+```
+
+<Example>
+  <BasicSingleExpander className="expander-global-styling-example" />
+</Example>
+
+### Local styling
+
+To override styling on a specific Expander, you can use (in order of increasing specificity): a class selector and style props.
+
+_Using a class selector:_
+
+```css
+/* styles.css */
+.my-expander {
+  background-color: var(--amplify-colors-brand-primary-80);
+  color: var(--amplify-colors-white);
+}
+
+.my-expander .amplify-expander__content__text {
+  color: var(--amplify-colors-white);
+}
+```
+
+```tsx file=./examples/classStylingExample.tsx
+
+```
+
+<Example>
+  <ClassStylingExpander />
+</Example>
+
+_Using style props:_
+
+```tsx file=./examples/stylePropsExample.tsx
+
+```
+
+<Example>
+  <StylePropsExpander />
+</Example>

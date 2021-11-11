@@ -2,7 +2,7 @@ module.exports = {
   borderStyle: { value: 'solid' },
   borderColor: { value: '{colors.border.primary.value}' },
   borderWidth: { value: '{borderWidths.small.value}' },
-  borderRadius: { value: '{radii.medium.value}' },
+  borderRadius: { value: '{radii.small.value}' },
   paddingBlockStart: {
     value: '{space.xs.value}',
   },
@@ -18,7 +18,7 @@ module.exports = {
 
   fontSize: { value: '{components.field.fontSize.value}' },
   lineHeight: { value: '{lineHeights.medium.value}' },
-  transitionDuration: { value: '{time.transition.medium.value}' },
+  transitionDuration: { value: '{time.medium.value}' },
   outlineColor: { value: '{colors.transparent.value}' },
   outlineStyle: { value: 'solid' },
   outlineWidth: { value: '{outlineWidths.medium.value}' },

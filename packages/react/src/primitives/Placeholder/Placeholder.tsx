@@ -23,3 +23,5 @@ export const Placeholder: Primitive<PlaceholderProps, 'div'> = ({
     />
   );
 };
+
+Placeholder.displayName = 'Placeholder';

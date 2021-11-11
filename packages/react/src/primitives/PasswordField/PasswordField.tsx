@@ -45,3 +45,5 @@ export const PasswordField: Primitive<PasswordFieldProps, 'input'> = ({
     />
   );
 };
+
+PasswordField.displayName = 'PasswordField';

@@ -1,2 +1,2 @@
-export * from './FieldGroupIcon';
-export * from './FieldGroupIconButton';
+export { FieldGroupIcon } from './FieldGroupIcon';
+export { FieldGroupIconButton } from './FieldGroupIconButton';

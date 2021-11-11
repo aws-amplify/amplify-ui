@@ -7,4 +7,4 @@ export * from './primitives';
 export * as components from './components';
 export * as primitives from './primitives';
 
-export { defaultTheme, createTheme } from '@aws-amplify/ui';
+export { defaultTheme, createTheme, Theme } from '@aws-amplify/ui';
