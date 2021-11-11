@@ -1,0 +1,32 @@
+import { S3ProviderGetConfig, Storage } from '@aws-amplify/storage';
+import { useEffect, useState } from 'react';
+
+export interface UseStorageURLResult {
+  url?: string;
+  error?: Error;
+  isLoading: boolean;
+}
+
+export const useStorageURL = (key: string, options?: S3ProviderGetConfig) => {
+  const [result, setResult] = useState<UseStorageURLResult>({
+    isLoading: true,
+  });
+
+  const fetch = () => {
+    setResult({ isLoading: true });
+
+    const promise = Storage.get(key, options);
+
+    // Attempt to fetch storage object url
+    promise
+      .then((url) => setResult({ url, isLoading: false }))
+      .catch((error) => setResult({ error, isLoading: false }));
+
+    // Cancel current promise on unmount
+    return () => Storage.cancel(promise);
+  };
+
+  useEffect(fetch, []);
+
+  return { ...result, fetch };
+};
