@@ -1,9 +1,8 @@
 import React, { useState, useRef } from 'react';
 import Webcam from 'react-webcam';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
-import { useActor } from '@xstate/react';
 
-import { useLivenessFlow } from '../providers';
+import { useLivenessActor } from '../hooks';
 import { CancelButton, Instruction, RecordingIcon } from '../shared';
 import { Flex, View } from '../../..';
 
@@ -19,8 +18,7 @@ export const LivenessCameraModule = (
   const height = (videoConstraints.height as ConstrainULongRange).ideal;
   const width = (videoConstraints.width as ConstrainULongRange).ideal;
 
-  const { service } = useLivenessFlow();
-  const [state, send] = useActor(service);
+  const [state, send] = useLivenessActor();
 
   const webcamRef = useRef<Webcam>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);

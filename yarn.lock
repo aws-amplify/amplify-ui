@@ -4960,14 +4960,6 @@
     "@radix-ui/react-use-previous" "0.1.0"
     "@radix-ui/react-use-size" "0.1.0"
 
-"@radix-ui/react-slot@0.0.12":
-  version "0.0.12"
-  resolved "https://registry.yarnpkg.com/@radix-ui/react-slot/-/react-slot-0.0.12.tgz#c4d8a75fffca561aeeca2ed9603384d86757f60a"
-  integrity sha512-Em8P/xYyh3O/32IhrmARJNH+J/XCAVnw6h2zGu6oeReliIX7ktU67pMSeyyIZiU2hNXzaXYB/xDdixizQe/DGA==
-  dependencies:
-    "@babel/runtime" "^7.13.10"
-    "@radix-ui/react-compose-refs" "0.0.5"
-
 "@radix-ui/react-slot@0.1.1":
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/@radix-ui/react-slot/-/react-slot-0.1.1.tgz#9dbc2070ccc492847f7e43747b4847bc54786a76"
@@ -18464,11 +18456,6 @@ react-smooshpack@^1.0.0-alpha-31:
     prism-react-renderer "^1.1.1"
     smooshpack "1.0.0-beta-5"
 
-react-webcam@^6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/react-webcam/-/react-webcam-6.0.0.tgz#46dd9ba44cebe6bf3cc4ea2ff09d12243900abfa"
-  integrity sha512-pw7067WYnDHRjAXYXrsLeig9/AAxCFDnnaEJzZ5ep6UZoYMqF4UNRtVkeTk0LotpwqT/c8vHisn/+QodNbUsQA==
-
 react-style-singleton@^2.1.0:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/react-style-singleton/-/react-style-singleton-2.1.1.tgz#ce7f90b67618be2b6b94902a30aaea152ce52e66"
@@ -18477,6 +18464,11 @@ react-style-singleton@^2.1.0:
     get-nonce "^1.0.0"
     invariant "^2.2.4"
     tslib "^1.0.0"
+
+react-webcam@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/react-webcam/-/react-webcam-6.0.0.tgz#46dd9ba44cebe6bf3cc4ea2ff09d12243900abfa"
+  integrity sha512-pw7067WYnDHRjAXYXrsLeig9/AAxCFDnnaEJzZ5ep6UZoYMqF4UNRtVkeTk0LotpwqT/c8vHisn/+QodNbUsQA==
 
 react@latest:
   version "17.0.2"
@@ -21828,15 +21820,15 @@ url@^0.11.0, url@~0.11.0:
     punycode "1.3.2"
     querystring "0.2.0"
 
-use-elapsed-time@2.1.8:
-  version "2.1.8"
-  resolved "https://registry.yarnpkg.com/use-elapsed-time/-/use-elapsed-time-2.1.8.tgz#3c830ae730e2bc204f2294b66be15580f0016ea5"
-  integrity sha512-lNLTDffKHdHWweQNvnch9tFI2eRP3tXccSLrwE7U6xrfyWFNEgNQZWWsGhQvtwKa0kJ6L+7E5wKbi3jg86opjg==
-
 use-callback-ref@^1.2.3:
   version "1.2.5"
   resolved "https://registry.yarnpkg.com/use-callback-ref/-/use-callback-ref-1.2.5.tgz#6115ed242cfbaed5915499c0a9842ca2912f38a5"
   integrity sha512-gN3vgMISAgacF7sqsLPByqoePooY3n2emTH59Ur5d/M8eg4WTWu1xp8i8DHjohftIyEx0S08RiYxbffr4j8Peg==
+
+use-elapsed-time@2.1.8:
+  version "2.1.8"
+  resolved "https://registry.yarnpkg.com/use-elapsed-time/-/use-elapsed-time-2.1.8.tgz#3c830ae730e2bc204f2294b66be15580f0016ea5"
+  integrity sha512-lNLTDffKHdHWweQNvnch9tFI2eRP3tXccSLrwE7U6xrfyWFNEgNQZWWsGhQvtwKa0kJ6L+7E5wKbi3jg86opjg==
 
 use-isomorphic-layout-effect@^1.0.0:
   version "1.1.1"

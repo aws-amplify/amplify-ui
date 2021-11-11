@@ -1,9 +1,8 @@
 import * as React from 'react';
 import { I18n } from 'aws-amplify';
-import { useActor } from '@xstate/react';
 
 import { useTheme } from '../../../hooks';
-import { useLivenessFlow } from '../providers';
+import { useLivenessActor } from '../hooks';
 import { Button, IconClose } from '../../..';
 
 export interface CancelButtonProps {
@@ -14,8 +13,7 @@ export const CancelButton: React.FC<CancelButtonProps> = (props) => {
   const { isMobileScreen } = props;
 
   const { tokens } = useTheme();
-  const { service } = useLivenessFlow();
-  const [state, send] = useActor(service);
+  const [state, send] = useLivenessActor();
   const isFinalState = state.done;
 
   const handleClick = () => {

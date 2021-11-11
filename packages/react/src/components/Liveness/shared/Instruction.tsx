@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { useActor } from '@xstate/react';
 import { I18n } from 'aws-amplify';
 
-import { useLivenessFlow } from '../providers';
+import { useLivenessActor } from '../hooks';
 import { useTheme } from '../../../hooks';
 import {
   Flex,
@@ -20,8 +19,7 @@ export const Instruction: React.FC<InstructionProps> = (props) => {
   const { isMobileScreen } = props;
 
   const { tokens } = useTheme();
-  const { service } = useLivenessFlow();
-  const [state] = useActor(service);
+  const [state] = useLivenessActor();
 
   const isNotRecording = state.matches('notRecording');
   const isUploading = state.matches('uploading');

@@ -1,12 +1,11 @@
 import React from 'react';
 import { I18n } from 'aws-amplify';
-import { useActor } from '@xstate/react';
 
 import { useTheme } from '../../../hooks';
 import { useBreakpoint } from 'src/primitives/shared/responsive/useBreakpoint';
 import { Breakpoint } from 'src/primitives/types/responsive';
 import { LivenessCameraModule } from './LivenessCameraModule';
-import { useLivenessFlow } from '../providers';
+import { useLivenessActor } from '../hooks';
 import { CancelButton } from '../shared';
 import { Text, Flex, Heading, Divider } from '../../..';
 
@@ -46,8 +45,7 @@ export const LivenessCheck: React.FC = () => {
 
   const isMobileScreen = breakpoint === 'base';
   const videoConstraints = getVideoConstraints(isMobileScreen, screen);
-  const { service } = useLivenessFlow();
-  const [state] = useActor(service);
+  const [state] = useLivenessActor();
 
   return (
     <Flex

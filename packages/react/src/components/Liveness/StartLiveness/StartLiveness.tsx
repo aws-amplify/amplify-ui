@@ -1,10 +1,9 @@
 import * as React from 'react';
 import { I18n } from 'aws-amplify';
-import { useActor } from '@xstate/react';
 
 import { useTheme } from '../../../hooks';
 import { CancelButton, DescriptionBullet } from '../shared';
-import { useLivenessFlow } from '../providers';
+import { useLivenessActor } from '../hooks';
 import { Flex, Heading, Button, Collection, Divider } from '../../..';
 
 const INSTRUCTIONS = [
@@ -24,9 +23,7 @@ const INSTRUCTIONS = [
 
 export const StartLiveness = () => {
   const { tokens } = useTheme();
-
-  const { service } = useLivenessFlow();
-  const [_, send] = useActor(service);
+  const [_, send] = useLivenessActor();
 
   return (
     <Flex
