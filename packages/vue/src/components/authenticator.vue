@@ -1,3 +1,192 @@
+<script setup lang="ts">
+import { useAuth } from '../composables/useAuth';
+import { ref, computed, useAttrs, watch, Ref } from 'vue';
+import { useActor, useInterpret } from '@xstate/vue';
+import {
+  getActorState,
+  getServiceFacade,
+  AuthenticatorMachineOptions,
+  createAuthenticatorMachine,
+  translate,
+  CognitoUserAmplify,
+} from '@aws-amplify/ui';
+
+import SignIn from './sign-in.vue';
+import SignUp from './sign-up.vue';
+import ConfirmSignUp from './confirm-sign-up.vue';
+import ConfirmSignIn from './confirm-sign-in.vue';
+import SetupTotp from './setup-totp.vue';
+import ForceNewPassword from './force-new-password.vue';
+import ResetPassword from './reset-password.vue';
+import ConfirmResetPassword from './confirm-reset-password.vue';
+import VerifyUser from './verify-user.vue';
+import ConfirmVerifyUser from './confirm-verify-user.vue';
+
+const attrs = useAttrs();
+
+const { initialState, loginMechanisms, variation, services, signUpAttributes } =
+  withDefaults(
+    defineProps<{
+      initialState?: AuthenticatorMachineOptions['initialState'];
+      loginMechanisms?: AuthenticatorMachineOptions['loginMechanisms'];
+      services?: AuthenticatorMachineOptions['services'];
+      signUpAttributes?: AuthenticatorMachineOptions['signUpAttributes'];
+      variation?: 'modal';
+    }>(),
+    {
+      variation: undefined,
+    }
+  );
+
+const emit = defineEmits([
+  'signInSubmit',
+  'confirmSignUpSubmit',
+  'resetPasswordSubmit',
+  'confirmResetPasswordSubmit',
+  'confirmSignInSubmit',
+  'mSetupTOTPSubmit',
+  'forceNewPasswordSubmit',
+  'signUpSubmit',
+  'verifyUserSubmit',
+  'confirmVerifyUserSubmit',
+]);
+const machine = createAuthenticatorMachine({
+  initialState,
+  loginMechanisms,
+  services,
+  signUpAttributes,
+});
+
+const service = useInterpret(machine, {
+  devTools: process.env.NODE_ENV === 'development',
+});
+
+const { state, send } = useActor(service);
+useAuth(service);
+
+const actorState = computed(() => getActorState(state.value));
+const variationModal = computed(() => (variation === 'modal' ? true : null));
+
+const signInComponent = ref();
+const signUpComponent = ref();
+const confirmSignUpComponent = ref();
+const confirmSignInComponent = ref();
+const confirmSetupTOTPComponent = ref();
+const forceNewPasswordComponent = ref();
+const resetPasswordComponent = ref();
+const confirmResetPasswordComponent = ref();
+const verifyUserComponent = ref();
+const confirmVerifyUserComponent = ref();
+
+// computed
+
+const signInLabel = computed(() => translate('Create Account'));
+const createAccountLabel = computed(() => translate('Sign In'));
+
+//methods
+
+const onSignInSubmitI = (e: Event) => {
+  if (attrs?.onSignInSubmit) {
+    emit('signInSubmit', e);
+  } else {
+    signInComponent.value?.submit(e);
+  }
+};
+
+const onConfirmSignUpSubmitI = (e: Event) => {
+  if (attrs?.onConfirmSignUpSubmit) {
+    emit('confirmSignUpSubmit', e);
+  } else {
+    confirmSignUpComponent.value.submit(e);
+  }
+};
+
+const onResetPasswordSubmitI = (e: Event) => {
+  if (attrs?.onResetPasswordSubmit) {
+    emit('resetPasswordSubmit', e);
+  } else {
+    resetPasswordComponent.value.submit(e);
+  }
+};
+
+const onConfirmResetPasswordSubmitI = (e: Event) => {
+  if (attrs?.onConfirmResetPasswordSubmit) {
+    emit('confirmResetPasswordSubmit', e);
+  } else {
+    confirmResetPasswordComponent.value.submit(e);
+  }
+};
+
+const onConfirmSignInSubmitI = (e: Event) => {
+  if (attrs?.onConfirmSignInSubmit) {
+    emit('confirmSignInSubmit', e);
+  } else {
+    confirmSignInComponent.value.submit(e);
+  }
+};
+
+const onConfirmSetupTOTPSubmitI = (e: Event) => {
+  if (attrs?.onForceNewPasswordSubmit) {
+    emit('mSetupTOTPSubmit', e);
+  } else {
+    confirmSetupTOTPComponent.value.submit(e);
+  }
+};
+
+const onForceNewPasswordSubmitI = (e: Event) => {
+  if (attrs?.onForceNewPasswordSubmit) {
+    emit('forceNewPasswordSubmit', e);
+  } else {
+    forceNewPasswordComponent.value.submit(e);
+  }
+};
+
+const onSignUpSubmitI = (e: Event) => {
+  if (attrs?.onSignUpSubmit) {
+    emit('signUpSubmit', e);
+  } else {
+    signUpComponent.value.submit();
+  }
+};
+
+const onVerifyUserSubmitI = (e: Event) => {
+  if (attrs?.onVerifyUserSubmit) {
+    emit('verifyUserSubmit', e);
+  } else {
+    verifyUserComponent.value.submit(e);
+  }
+};
+
+const onConfirmVerifyUserSubmitI = (e: Event) => {
+  if (attrs?.onConfirmVerifyUserSubmit) {
+    emit('confirmVerifyUserSubmit', e);
+  } else {
+    confirmVerifyUserComponent.value.submit(e);
+  }
+};
+
+// watchers
+
+/**
+ * Update service facade when context updates
+ */
+
+const user: Ref<CognitoUserAmplify | null> = ref(null);
+const signOut = ref();
+
+watch(
+  () => state.value.context,
+  () => {
+    const { user: u, signOut: s } = getServiceFacade({
+      send,
+      state: state.value,
+    });
+    user.value = u;
+    signOut.value = s;
+  }
+);
+</script>
+
 <template>
   <div
     v-bind="$attrs"
@@ -267,189 +456,3 @@
     :send="send"
   ></slot>
 </template>
-
-<script setup lang="ts">
-import { useAuth } from '../composables/useAuth';
-import { ref, computed, useAttrs, watch, Ref } from 'vue';
-import { useActor, useInterpret } from '@xstate/vue';
-import {
-  getActorState,
-  getServiceFacade,
-  AuthenticatorMachineOptions,
-  createAuthenticatorMachine,
-  translate,
-  CognitoUserAmplify,
-} from '@aws-amplify/ui';
-
-import SignIn from './sign-in.vue';
-import SignUp from './sign-up.vue';
-import ConfirmSignUp from './confirm-sign-up.vue';
-import ConfirmSignIn from './confirm-sign-in.vue';
-import SetupTotp from './setup-totp.vue';
-import ForceNewPassword from './force-new-password.vue';
-import ResetPassword from './reset-password.vue';
-import ConfirmResetPassword from './confirm-reset-password.vue';
-import VerifyUser from './verify-user.vue';
-import ConfirmVerifyUser from './confirm-verify-user.vue';
-
-const attrs = useAttrs();
-
-const { initialState, loginMechanisms, variation, services } = withDefaults(
-  defineProps<{
-    initialState?: AuthenticatorMachineOptions['initialState'];
-    loginMechanisms?: AuthenticatorMachineOptions['loginMechanisms'];
-    services?: AuthenticatorMachineOptions['services'];
-    variation?: 'modal';
-  }>(),
-  {
-    variation: undefined,
-  }
-);
-
-const emit = defineEmits([
-  'signInSubmit',
-  'confirmSignUpSubmit',
-  'resetPasswordSubmit',
-  'confirmResetPasswordSubmit',
-  'confirmSignInSubmit',
-  'mSetupTOTPSubmit',
-  'forceNewPasswordSubmit',
-  'signUpSubmit',
-  'verifyUserSubmit',
-  'confirmVerifyUserSubmit',
-]);
-const machine = createAuthenticatorMachine({
-  initialState,
-  loginMechanisms,
-  services,
-});
-
-const service = useInterpret(machine, {
-  devTools: process.env.NODE_ENV === 'development',
-});
-
-const { state, send } = useActor(service);
-useAuth(service);
-
-const actorState = computed(() => getActorState(state.value));
-const variationModal = computed(() => (variation === 'modal' ? true : null));
-
-const signInComponent = ref();
-const signUpComponent = ref();
-const confirmSignUpComponent = ref();
-const confirmSignInComponent = ref();
-const confirmSetupTOTPComponent = ref();
-const forceNewPasswordComponent = ref();
-const resetPasswordComponent = ref();
-const confirmResetPasswordComponent = ref();
-const verifyUserComponent = ref();
-const confirmVerifyUserComponent = ref();
-
-// computed
-
-const signInLabel = computed(() => translate('Create Account'));
-const createAccountLabel = computed(() => translate('Sign In'));
-
-//methods
-
-const onSignInSubmitI = (e: Event) => {
-  if (attrs?.onSignInSubmit) {
-    emit('signInSubmit', e);
-  } else {
-    signInComponent.value?.submit(e);
-  }
-};
-
-const onConfirmSignUpSubmitI = (e: Event) => {
-  if (attrs?.onConfirmSignUpSubmit) {
-    emit('confirmSignUpSubmit', e);
-  } else {
-    confirmSignUpComponent.value.submit(e);
-  }
-};
-
-const onResetPasswordSubmitI = (e: Event) => {
-  if (attrs?.onResetPasswordSubmit) {
-    emit('resetPasswordSubmit', e);
-  } else {
-    resetPasswordComponent.value.submit(e);
-  }
-};
-
-const onConfirmResetPasswordSubmitI = (e: Event) => {
-  if (attrs?.onConfirmResetPasswordSubmit) {
-    emit('confirmResetPasswordSubmit', e);
-  } else {
-    confirmResetPasswordComponent.value.submit(e);
-  }
-};
-
-const onConfirmSignInSubmitI = (e: Event) => {
-  if (attrs?.onConfirmSignInSubmit) {
-    emit('confirmSignInSubmit', e);
-  } else {
-    confirmSignInComponent.value.submit(e);
-  }
-};
-
-const onConfirmSetupTOTPSubmitI = (e: Event) => {
-  if (attrs?.onForceNewPasswordSubmit) {
-    emit('mSetupTOTPSubmit', e);
-  } else {
-    confirmSetupTOTPComponent.value.submit(e);
-  }
-};
-
-const onForceNewPasswordSubmitI = (e: Event) => {
-  if (attrs?.onForceNewPasswordSubmit) {
-    emit('forceNewPasswordSubmit', e);
-  } else {
-    forceNewPasswordComponent.value.submit(e);
-  }
-};
-
-const onSignUpSubmitI = (e: Event) => {
-  if (attrs?.onSignUpSubmit) {
-    emit('signUpSubmit', e);
-  } else {
-    signUpComponent.value.submit();
-  }
-};
-
-const onVerifyUserSubmitI = (e: Event) => {
-  if (attrs?.onVerifyUserSubmit) {
-    emit('verifyUserSubmit', e);
-  } else {
-    verifyUserComponent.value.submit(e);
-  }
-};
-
-const onConfirmVerifyUserSubmitI = (e: Event) => {
-  if (attrs?.onConfirmVerifyUserSubmit) {
-    emit('confirmVerifyUserSubmit', e);
-  } else {
-    confirmVerifyUserComponent.value.submit(e);
-  }
-};
-
-// watchers
-
-/**
- * Update service facade when context updates
- */
-
-const user: Ref<CognitoUserAmplify | null> = ref(null);
-const signOut = ref();
-
-watch(
-  () => state.value.context,
-  () => {
-    const { user: u, signOut: s } = getServiceFacade({
-      send,
-      state: state.value,
-    });
-    user.value = u;
-    signOut.value = s;
-  }
-);
-</script>

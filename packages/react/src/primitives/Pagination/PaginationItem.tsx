@@ -107,3 +107,5 @@ export const PaginationItem: React.FC<PaginationItemProps> = ({
   }
   return <View as="li" />;
 };
+
+PaginationItem.displayName = 'PaginationItem';

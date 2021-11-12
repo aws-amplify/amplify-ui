@@ -20,6 +20,12 @@ describe('@aws-amplify/ui', () => {
           'var(--amplify-colors-red-20)'
         );
       });
+
+      it('should return the variable name in var() when called with .toString()', () => {
+        expect(tokens.colors.background.primary.toString()).toEqual(
+          'var(--amplify-colors-background-primary)'
+        );
+      });
     });
 
     describe('with a theme and without a base theme', () => {

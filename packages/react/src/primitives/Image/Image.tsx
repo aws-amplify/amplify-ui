@@ -11,3 +11,5 @@ export const Image: Primitive<ImageProps, 'img'> = ({ className, ...rest }) => (
     {...rest}
   />
 );
+
+Image.displayName = 'Image';

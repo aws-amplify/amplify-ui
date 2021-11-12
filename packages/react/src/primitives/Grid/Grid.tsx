@@ -13,3 +13,5 @@ export const Grid: Primitive<GridProps, 'div'> = ({
     {children}
   </View>
 );
+
+Grid.displayName = 'Grid';

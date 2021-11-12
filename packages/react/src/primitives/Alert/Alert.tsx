@@ -74,3 +74,5 @@ export const Alert: Primitive<AlertProps, typeof Flex> = ({
     )
   );
 };
+
+Alert.displayName = 'Alert';

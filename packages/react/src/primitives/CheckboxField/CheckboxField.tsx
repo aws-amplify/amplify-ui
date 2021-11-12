@@ -69,3 +69,5 @@ export const CheckboxField: Primitive<CheckboxFieldProps, 'input'> = ({
     </Flex>
   );
 };
+
+CheckboxField.displayName = 'CheckboxField';

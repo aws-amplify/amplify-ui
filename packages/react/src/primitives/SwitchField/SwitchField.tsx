@@ -91,3 +91,5 @@ export const SwitchField: Primitive<SwitchFieldProps, typeof Flex> = ({
     </Flex>
   );
 };
+
+SwitchField.displayName = 'SwitchField';

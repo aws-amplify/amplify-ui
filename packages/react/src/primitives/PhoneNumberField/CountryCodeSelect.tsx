@@ -31,3 +31,5 @@ export const CountryCodeSelect: Primitive<CountryCodeSelectProps, 'select'> = ({
     </SelectField>
   );
 };
+
+CountryCodeSelect.displayName = 'CountryCodeSelect';

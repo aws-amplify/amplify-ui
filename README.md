@@ -49,6 +49,7 @@ Amplify UI is an open-source UI library with cloud-connected components that are
 | Collection               |    ✅     |             |
 | Divider                  |    ✅     |             |
 | Dropdown                 |           |             |
+| Expander                 |    ✅     |             |
 | Flex                     |    ✅     |             |
 | Grid                     |    ✅     |             |
 | Heading                  |    ✅     |             |

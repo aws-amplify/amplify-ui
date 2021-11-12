@@ -1,43 +1,43 @@
-import { DesignToken } from './types/designToken';
+import { DesignToken, WebDesignToken, ColorValue } from './types/designToken';
 import { OrdinalScale, OrdinalVariation } from './types/scales';
 
-export interface ColorScale {
-  10: DesignToken;
-  20: DesignToken;
-  40: DesignToken;
-  60: DesignToken;
-  80: DesignToken;
-  90: DesignToken;
-  100: DesignToken;
-}
+type ScaleKeys = 10 | 20 | 40 | 60 | 80 | 90 | 100;
 
-export interface FontColors extends OrdinalScale, OrdinalVariation {
-  inverse: DesignToken;
-  interactive: DesignToken;
-  hover: DesignToken;
-  focus: DesignToken;
-  active: DesignToken;
-  disabled: DesignToken;
-}
+type ColorScale<DesignTokenType = DesignToken<ColorValue>> = {
+  [key in ScaleKeys]: DesignTokenType;
+};
 
-export interface BackgroundColors extends OrdinalScale, OrdinalVariation {
-  disabled: DesignToken;
-}
+type FontColors<DesignTokenType = DesignToken<ColorValue>> = {
+  inverse: DesignTokenType;
+  interactive: DesignTokenType;
+  hover: DesignTokenType;
+  focus: DesignTokenType;
+  active: DesignTokenType;
+  disabled: DesignTokenType;
+} & OrdinalScale<DesignTokenType> &
+  OrdinalVariation<DesignTokenType>;
 
-export interface BorderColors extends OrdinalScale {
-  disabled: DesignToken;
-  focus: DesignToken;
-  error: DesignToken;
-}
+type BackgroundColors<DesignTokenType = DesignToken<ColorValue>> = {
+  disabled: DesignTokenType;
+} & OrdinalScale<DesignTokenType> &
+  OrdinalVariation<DesignTokenType>;
 
-type ColorTypes =
-  | ColorScale
+type BorderColors<DesignTokenType = DesignToken<ColorValue>> = {
+  disabled: DesignTokenType;
+  focus: DesignTokenType;
+  error: DesignTokenType;
+} & OrdinalScale<DesignTokenType>;
+
+type ColorTypes<DesignTokenType = DesignToken<ColorValue>> =
+  | { [key in ScaleKeys]: DesignTokenType }
   | FontColors
   | BackgroundColors
-  | DesignToken
+  | DesignTokenType
   | BorderColors;
 
-export interface Colors {
+type WebColorTypes = ColorTypes<WebDesignToken<ColorValue>>;
+
+export type Colors = {
   // base color palette
   red: ColorScale;
   orange: ColorScale;
@@ -48,8 +48,8 @@ export interface Colors {
   purple: ColorScale;
   pink: ColorScale;
   neutral: ColorScale;
-  white: DesignToken;
-  black: DesignToken;
+  white: DesignToken<ColorValue>;
+  black: DesignToken<ColorValue>;
 
   // Semantic colors
   font: FontColors;
@@ -61,7 +61,31 @@ export interface Colors {
   };
 
   [key: string]: ColorTypes | Record<string, ColorTypes>;
-}
+};
+
+export type WebColors = {
+  red: ColorScale<WebDesignToken<ColorValue>>;
+  orange: ColorScale<WebDesignToken<ColorValue>>;
+  yellow: ColorScale<WebDesignToken<ColorValue>>;
+  green: ColorScale<WebDesignToken<ColorValue>>;
+  teal: ColorScale<WebDesignToken<ColorValue>>;
+  blue: ColorScale<WebDesignToken<ColorValue>>;
+  purple: ColorScale<WebDesignToken<ColorValue>>;
+  pink: ColorScale<WebDesignToken<ColorValue>>;
+  neutral: ColorScale<WebDesignToken<ColorValue>>;
+  white: WebDesignToken<ColorValue>;
+  black: WebDesignToken<ColorValue>;
+
+  font: FontColors<WebDesignToken<ColorValue>>;
+  background: BackgroundColors<WebDesignToken<ColorValue>>;
+  border: BorderColors<WebDesignToken<ColorValue>>;
+  brand: {
+    primary: ColorScale<WebDesignToken<ColorValue>>;
+    secondary: ColorScale<WebDesignToken<ColorValue>>;
+  };
+
+  [key: string]: WebColorTypes | Record<string, WebColorTypes>;
+};
 
 export const colors: Colors = {
   red: {
