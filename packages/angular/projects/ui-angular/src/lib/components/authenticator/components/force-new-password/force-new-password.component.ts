@@ -6,7 +6,7 @@ import { translate } from '@aws-amplify/ui';
   selector: 'amplify-force-new-password',
   templateUrl: './force-new-password.component.html',
 })
-export class AmplifyForceNewPasswordComponent {
+export class ForceNewPasswordComponent {
   @HostBinding('attr.data-amplify-authenticator-forcenewpassword')
   dataAttr = '';
   @Input() public headerText = translate('Change Password');

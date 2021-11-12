@@ -5,7 +5,7 @@ import { translate } from '@aws-amplify/ui';
   selector: 'amplify-confirm-sign-up',
   templateUrl: './confirm-sign-up.component.html',
 })
-export class AmplifyConfirmSignUpComponent {
+export class ConfirmSignUpComponent {
   @Input() headerText = translate('Confirm Sign Up');
 
   @HostBinding('attr.data-amplify-authenticator-confirmsignup') dataAttr = '';

@@ -14,7 +14,7 @@ import { nanoid } from 'nanoid';
   templateUrl: './verify-user.component.html',
   encapsulation: ViewEncapsulation.None,
 })
-export class AmplifyVerifyUserComponent implements OnInit {
+export class VerifyUserComponent implements OnInit {
   @HostBinding('attr.data-amplify-authenticator-verifyuser') dataAttr = '';
   @Input() public headerText = translate(
     'Account recovery requires verified contact information'

@@ -20,7 +20,7 @@ import { AuthenticatorService } from '../../services/authenticator.service';
   selector: 'amplify-form-field',
   templateUrl: './form-field.component.html',
 })
-export class AmplifyFormFieldComponent implements OnInit {
+export class FormFieldComponent implements OnInit {
   @Input() name: string;
   @Input() type: string;
   @Input() required = true;
