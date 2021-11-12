@@ -12,6 +12,10 @@ export const useStorageURL = (key: string, options?: S3ProviderGetConfig) => {
     isLoading: true,
   });
 
+  // Used to prevent an infinite loop on useEffect, because `options`
+  // will have a different reference on every render
+  const serializedOptions = JSON.stringify(options);
+
   const fetch = () => {
     setResult({ isLoading: true });
 
@@ -26,7 +30,7 @@ export const useStorageURL = (key: string, options?: S3ProviderGetConfig) => {
     return () => Storage.cancel(promise);
   };
 
-  useEffect(fetch, []);
+  useEffect(fetch, [key, serializedOptions]);
 
   return { ...result, fetch };
 };
