@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 
 import { AmplifyContext } from './AmplifyContext';
 import { createTheme, defaultTheme, Theme } from '@aws-amplify/ui';
-import * as primitives from '../../primitives';
+import * as primitives from '../../primitives/primitives';
 
 export type ColorMode = 'system' | 'light' | 'dark';
 

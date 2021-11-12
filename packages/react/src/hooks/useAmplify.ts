@@ -3,10 +3,10 @@ import * as React from 'react';
 import { Theme } from '@aws-amplify/ui';
 
 import { AmplifyContext } from '../components/AmplifyProvider/AmplifyContext';
-import * as primitives from '../primitives';
+import * as primitives from '../primitives/primitives';
 
 interface UseAmplifyOutput {
-  components: Record<string, any>;
+  components: typeof primitives;
   theme: Theme;
 }
 
