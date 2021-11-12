@@ -11,3 +11,7 @@ body {
 h3.amplify-heading {
   font-weight: 600;
 }
+
+use-authenticator .amplify-tabs {
+  display: none;
+}
