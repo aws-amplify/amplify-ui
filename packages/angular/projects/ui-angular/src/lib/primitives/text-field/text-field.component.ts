@@ -5,7 +5,7 @@ import { nanoid } from 'nanoid';
   selector: 'amplify-text-field',
   templateUrl: './text-field.component.html',
 })
-export class AmplifyTextFieldComponent {
+export class TextFieldComponent {
   @Input() autocomplete = 'new-password';
   @Input() disabled = false;
   @Input() fieldId: string = `amplify-field-${nanoid(12)}`;

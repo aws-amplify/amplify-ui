@@ -19,7 +19,7 @@ import { AuthenticatorService } from '../../../../services/authenticator.service
   providers: [CustomComponentsService], // make sure custom components are scoped to this authenticator only
   encapsulation: ViewEncapsulation.None,
 })
-export class AmplifyAuthenticatorComponent implements OnInit, AfterContentInit {
+export class AuthenticatorComponent implements OnInit, AfterContentInit {
   @Input() initialState: AuthenticatorMachineOptions['initialState'];
   @Input() loginMechanisms: AuthenticatorMachineOptions['loginMechanisms'];
   @Input() services: AuthenticatorMachineOptions['services'];

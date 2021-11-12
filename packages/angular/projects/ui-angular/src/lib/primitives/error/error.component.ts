@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'amplify-error',
   templateUrl: './error.component.html',
 })
-export class AmplifyErrorComponent {
+export class ErrorComponent {
   public isVisible = true;
 
   public close() {

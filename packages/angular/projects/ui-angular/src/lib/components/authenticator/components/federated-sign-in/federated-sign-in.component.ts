@@ -7,7 +7,7 @@ import { translate } from '@aws-amplify/ui';
   selector: 'amplify-federated-sign-in',
   templateUrl: './federated-sign-in.component.html',
 })
-export class AmplifyFederatedSignInComponent implements OnInit {
+export class FederatedSignInComponent implements OnInit {
   public FederatedProviders = FederatedIdentityProviders;
   public includeAmazon: boolean = false;
   public includeApple: boolean = false;

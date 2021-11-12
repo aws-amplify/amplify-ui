@@ -11,7 +11,7 @@ const logger = new Logger('SetupTotp');
   selector: 'amplify-setup-totp',
   templateUrl: './setup-totp.component.html',
 })
-export class AmplifySetupTotpComponent implements OnInit {
+export class SetupTotpComponent implements OnInit {
   @HostBinding('attr.data-amplify-authenticator-setup-totp') dataAttr = '';
   public headerText = translate('Setup TOTP');
   public qrCodeSource = '';

@@ -4,7 +4,7 @@ import { Component, Input } from '@angular/core';
   selector: 'amplify-form-select',
   templateUrl: './select.component.html',
 })
-export class AmplifySelectComponent {
+export class SelectComponent {
   @Input() items: string[];
   @Input() name: string;
   @Input() label: string;

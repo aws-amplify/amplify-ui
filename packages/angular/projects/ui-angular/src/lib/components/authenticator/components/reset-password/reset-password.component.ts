@@ -6,7 +6,7 @@ import { translate } from '@aws-amplify/ui';
   selector: 'amplify-reset-password',
   templateUrl: './reset-password.component.html',
 })
-export class AmplifyResetPasswordComponent {
+export class ResetPasswordComponent {
   @HostBinding('attr.data-amplify-authenticator-resetPassword') dataAttr = '';
   @Input() public headerText = translate('Reset your password');
 

@@ -10,7 +10,7 @@ import {
   selector: 'amplify-sign-up-form-fields',
   templateUrl: './sign-up-form-fields.component.html',
 })
-export class AmplifySignUpFormFieldsComponent implements OnInit {
+export class SignUpFormFieldsComponent implements OnInit {
   public primaryAlias = '';
   public secondaryAliases: string[] = [];
   public fieldNames: Array<LoginMechanism | SignUpAttribute>;
