@@ -1,0 +1,27 @@
+`useAuthenticator` hook provides `route` string that represents the current auth state. You can use it to compose components without `withAuthenticator` HOC:
+
+_app.component.ts_
+
+```ts{8}
+import { AuthenticatorService } from '@aws-amplify/ui-angular'
+
+@Component({
+  selector: 'use-authenticator',
+  templateUrl: 'use-authenticator.component.html',
+})
+export class UseAuthenticatorComponent {
+  constructor(public authenticator: AuthenticatorService) {}
+}
+```
+
+_app.component.html_
+
+```html
+<amplify-authenticator *ngIf="authenticator.route !== 'authenticated'"">
+</amplify-authenticator>
+
+<ng-container *ngIf="authenticator.route === 'authenticated'">
+  <h2>Welcome, {{ authenticator.user.username }}!</h2>
+  <button (click)="authenticator.signOut()">Sign Out</button>
+</ng-container>
+```

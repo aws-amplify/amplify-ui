@@ -1,0 +1,19 @@
+_app.component.ts_
+
+```ts{8}
+import { AuthenticatorService } from '@aws-amplify/ui-angular'
+
+@Component({
+  selector: 'use-authenticator',
+  templateUrl: 'use-authenticator.component.html',
+})
+export class UseAuthenticatorComponent {
+  constructor(public authenticator: AuthenticatorService) {}
+}
+```
+
+_app.component.html_
+
+```html{1-14} file=../../../../../examples/angular/src/pages/ui/components/authenticator/use-authenticator/use-authenticator.component.html
+
+```
