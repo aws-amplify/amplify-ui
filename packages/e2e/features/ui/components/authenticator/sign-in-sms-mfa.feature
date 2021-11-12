@@ -22,7 +22,7 @@ Feature: Sign In with SMS MFA
     And I type my password
     And I click the "Sign in" button
     And I click the "Back to Sign In" button
-    Then I see "Sign in to your account"
+    Then I see "Sign in"
 
   @angular @react @vue
   Scenario: Incorrect SMS code

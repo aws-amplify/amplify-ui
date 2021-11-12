@@ -1,5 +1,6 @@
 <div data-amplify-container>
   <form data-amplify-form (submit)="onSubmit($event)" (input)="onInput($event)">
+    <amplify-federated-sign-in></amplify-federated-sign-in>
     <fieldset
       class="amplify-flex"
       style="flex-direction: column"
@@ -30,7 +31,6 @@
         {{ authenticator.error }}
       </amplify-error>
     </fieldset>
-    <amplify-federated-sign-in></amplify-federated-sign-in>
     <amplify-slot name="sign-in-footer"> </amplify-slot>
   </form>
 </div>

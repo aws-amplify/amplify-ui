@@ -1,15 +1,51 @@
+<script setup lang="ts">
+import { computed } from 'vue';
+import { FederatedIdentityProviders, Phrase, translate } from '@aws-amplify/ui';
+
+import { useAuth, useAuthenticator } from '../composables/useAuth';
+import FederatedSignInButton from './federated-sign-in-button.vue';
+
+const { state } = useAuth();
+const { route } = useAuthenticator();
+const {
+  value: { context },
+} = state;
+
+const socialProviders = context?.config?.socialProviders;
+
+const includeAmazon = socialProviders?.includes('amazon');
+const includeApple = socialProviders?.includes('apple');
+const includeFacebook = socialProviders?.includes('facebook');
+const includeGoogle = socialProviders?.includes('google');
+
+const shouldShowFederatedSignIn =
+  includeFacebook || includeGoogle || includeAmazon || includeApple;
+
+const federatedText = route === 'signUp' ? 'Up' : 'In';
+
+// computed properties
+
+const fp = computed(() => FederatedIdentityProviders);
+const signInWithAmazon = computed(() =>
+  translate(`Sign ${federatedText} with Amazon` as Phrase)
+);
+const signInWithApple = computed(() =>
+  translate(`Sign ${federatedText} with Apple` as Phrase)
+);
+const signInWithFacebook = computed(() =>
+  translate(`Sign ${federatedText} with Facebook` as Phrase)
+);
+const signInWithGoogle = computed(() =>
+  translate(`Sign ${federatedText} with Google` as Phrase)
+);
+</script>
+
 <template>
   <base-wrapper
     class="amplify-flex federated-sign-in-container"
-    style="flex-direction: column"
+    style="flex-direction: column; padding: 0 0 1rem 0"
     v-if="shouldShowFederatedSignIn"
   >
-    <hr
-      class="amplify-divider"
-      aria-orientation="horizontal"
-      data-size="small"
-    />
-
     <federated-sign-in-button v-if="includeAmazon" :provider="fp.Amazon">
       <svg
         aria-label="Amazon icon"
@@ -93,36 +129,14 @@
         {{ signInWithGoogle }}
       </p>
     </federated-sign-in-button>
+    <base-wrapper class="amplify-flex" data-or-container>
+      <div data-or-line>or</div>
+
+      <hr
+        class="amplify-divider"
+        aria-orientation="horizontal"
+        data-size="small"
+      />
+    </base-wrapper>
   </base-wrapper>
 </template>
-
-<script setup lang="ts">
-import { computed } from 'vue';
-import { FederatedIdentityProviders, translate } from '@aws-amplify/ui';
-
-import { useAuth } from '../composables/useAuth';
-import FederatedSignInButton from './federated-sign-in-button.vue';
-
-const { state } = useAuth();
-const {
-  value: { context },
-} = state;
-
-const socialProviders = context?.config?.socialProviders;
-
-const includeAmazon = socialProviders?.includes('amazon');
-const includeApple = socialProviders?.includes('apple');
-const includeFacebook = socialProviders?.includes('facebook');
-const includeGoogle = socialProviders?.includes('google');
-
-const shouldShowFederatedSignIn =
-  includeFacebook || includeGoogle || includeAmazon || includeApple;
-
-// computed properties
-
-const fp = computed(() => FederatedIdentityProviders);
-const signInWithAmazon = computed(() => translate('Sign In with Amazon'));
-const signInWithApple = computed(() => translate('Sign In with Apple'));
-const signInWithFacebook = computed(() => translate('Sign In with Facebook'));
-const signInWithGoogle = computed(() => translate('Sign In with Google'));
-</script>

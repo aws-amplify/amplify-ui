@@ -85,6 +85,7 @@ const onForgotPasswordClicked = (): void => {
           >
           </slot>
         </template>
+        <federated-sign-in></federated-sign-in>
         <base-wrapper class="amplify-flex" style="flex-direction: column">
           <slot name="header"></slot>
           <base-field-set
@@ -146,7 +147,6 @@ const onForgotPasswordClicked = (): void => {
           </amplify-button>
         </base-wrapper>
         <base-footer>
-          <federated-sign-in></federated-sign-in>
           <slot
             name="footer"
             :onSignInSubmit="onSignInSubmit"

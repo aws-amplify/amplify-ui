@@ -1,4 +1,4 @@
-import { FederatedIdentityProviders, translate } from '@aws-amplify/ui';
+import { FederatedIdentityProviders, Phrase, translate } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '..';
 import { Divider, Flex, View } from '../../..';
@@ -28,7 +28,7 @@ export function FederatedSignIn() {
                 icon="amazon"
                 key={provider}
                 provider={FederatedIdentityProviders.Amazon}
-                text={translate(`Sign ${federatedText} with Amazon`)}
+                text={translate(`Sign ${federatedText} with Amazon` as Phrase)}
               />
             );
           case 'apple':
@@ -37,7 +37,7 @@ export function FederatedSignIn() {
                 icon="apple"
                 key={provider}
                 provider={FederatedIdentityProviders.Apple}
-                text={translate(`Sign ${federatedText} with Apple`)}
+                text={translate(`Sign ${federatedText} with Apple` as Phrase)}
               />
             );
           case 'facebook':
@@ -46,7 +46,9 @@ export function FederatedSignIn() {
                 icon="facebook"
                 key={provider}
                 provider={FederatedIdentityProviders.Facebook}
-                text={translate(`Sign ${federatedText} with Facebook`)}
+                text={translate(
+                  `Sign ${federatedText} with Facebook` as Phrase
+                )}
               />
             );
           case 'google':
@@ -55,7 +57,7 @@ export function FederatedSignIn() {
                 icon="google"
                 key={provider}
                 provider={FederatedIdentityProviders.Google}
-                text={translate(`Sign ${federatedText} with Google`)}
+                text={translate(`Sign ${federatedText} with Google` as Phrase)}
               />
             );
           default:
@@ -65,18 +67,8 @@ export function FederatedSignIn() {
         }
       })}
 
-      <Flex
-        justifyContent="center"
-        alignItems="center"
-        padding="1.5rem 0"
-        style={{ position: 'relative', color: 'gray' }}
-      >
-        <View
-          padding="0 1.5rem"
-          style={{ position: 'absolute', background: 'white', zIndex: 1 }}
-        >
-          or
-        </View>
+      <Flex data-or-container="">
+        <View data-or-line>or</View>
         <Divider size="small" />
       </Flex>
     </Flex>
