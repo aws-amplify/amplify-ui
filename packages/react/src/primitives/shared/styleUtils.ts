@@ -218,6 +218,7 @@ const BaseStylePropsMap: Required<{ [key in keyof BaseStyleProps]: true }> = {
   left: true,
   letterSpacing: true,
   lineHeight: true,
+  margin: true,
   maxHeight: true,
   maxWidth: true,
   minHeight: true,
