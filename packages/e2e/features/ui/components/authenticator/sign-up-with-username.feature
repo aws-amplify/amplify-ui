@@ -9,19 +9,19 @@ Feature: Sign Up with Username
   Scenario: Login mechanism set to "username"
     Then I see "Username" as an input field
 
-  @angular @react @vue @todo-vue
+  @angular @react @vue 
   Scenario: "Preferred Username" is included from `aws_cognito_signup_attributes`
     Then I see "Preferred Username" as a "text" field
 
-  @angular @react @vue @todo-vue
+  @angular @react @vue 
   Scenario: "Email" is included from `aws_cognito_verification_mechanisms`
     Then I see "Email" as an "email" field
   
-  @angular @react @vue @todo-vue
+  @angular @react @vue 
   Scenario: "Phone Number" is not included
     Then I don't see "Phone Number"
   
-  @angular @react @vue @todo-vue
+  @angular @react @vue 
   Scenario: Sign up a new username & password
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-username"
     When I type a new "username"

@@ -1,0 +1,13 @@
+.expander-global-styling-example {
+  --amplify-components-expander-box-shadow: 0 0 10px
+    var(--amplify-colors-brand-primary-80);
+}
+
+.my-expander {
+  background-color: var(--amplify-colors-brand-primary-80);
+  color: var(--amplify-colors-white);
+}
+
+.my-expander .amplify-expander__content__text {
+  color: var(--amplify-colors-white);
+}

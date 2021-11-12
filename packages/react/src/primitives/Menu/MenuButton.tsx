@@ -50,3 +50,5 @@ export const MenuButton = React.forwardRef<
     );
   }
 );
+
+MenuButton.displayName = 'MenuButton';

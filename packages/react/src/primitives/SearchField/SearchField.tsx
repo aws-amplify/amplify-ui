@@ -113,3 +113,5 @@ export const SearchField: Primitive<SearchFieldProps, 'input'> = ({
     />
   );
 };
+
+SearchField.displayName = 'SearchField';

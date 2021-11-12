@@ -18,3 +18,5 @@ export const VisuallyHidden: Primitive<VisuallyHiddenProps, 'span'> = ({
     {children}
   </View>
 );
+
+VisuallyHidden.displayName = 'VisuallyHidden';

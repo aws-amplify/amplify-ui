@@ -28,7 +28,7 @@ module.exports = {
       transform: { value: '{transforms.slideX.medium.value}' },
     },
     transition: {
-      duration: { value: '{time.transition.medium.value}' },
+      duration: { value: '{time.medium.value}' },
     },
     width: { value: '{space.relative.medium.value}' },
   },
@@ -43,7 +43,7 @@ module.exports = {
     height: { value: '{space.relative.medium.value}' },
     padding: { value: '{outlineWidths.medium.value}' },
     transition: {
-      duration: { value: '{time.transition.short.value}' },
+      duration: { value: '{time.short.value}' },
     },
     width: { value: '{space.relative.xl.value}' },
   },

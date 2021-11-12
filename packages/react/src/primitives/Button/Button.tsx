@@ -33,3 +33,5 @@ export const Button: Primitive<ButtonProps, 'button'> = ({
     {isLoading && loadingText ? <span>{loadingText}</span> : children}
   </View>
 );
+
+Button.displayName = 'Button';

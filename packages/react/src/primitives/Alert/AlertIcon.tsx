@@ -25,3 +25,5 @@ export const AlertIcon: React.FC<AlertIconProps> = ({
       return null;
   }
 };
+
+AlertIcon.displayName = 'AlertIcon';

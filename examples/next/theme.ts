@@ -1,7 +1,7 @@
-import { createTheme, defaultTheme } from '@aws-amplify/ui-react';
+import { defaultTheme, Theme } from '@aws-amplify/ui-react';
 import { flipPalette, usePalette } from 'utils';
 
-export const theme = createTheme({
+export const theme: Theme = {
   name: 'listings-theme',
   breakpoints: {
     values: {
@@ -105,4 +105,4 @@ export const theme = createTheme({
       },
     },
   ],
-});
+};
