@@ -38,9 +38,8 @@ export default withAuthenticator(App, {
               hasError={!!validationErrors.acknowledgement}
               name="acknowledgement"
               value="yes"
-            >
-              I agree with the Terms & Conditions
-            </CheckboxField>
+              label="I agree with the Terms & Conditions"
+            />
           </>
         );
       },
