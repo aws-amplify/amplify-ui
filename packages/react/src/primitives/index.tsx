@@ -1,5 +1,5 @@
 export * from './hooks';
-export * from './primitives';
+export * from './components';
 
 export * from './shared';
 export * from './types';

@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Theme } from '@aws-amplify/ui';
 
 import { AmplifyContext } from '../components/AmplifyProvider/AmplifyContext';
-import * as primitives from '../primitives/primitives';
+import * as primitives from '../primitives/components';
 
 interface UseAmplifyOutput {
   components: typeof primitives;
