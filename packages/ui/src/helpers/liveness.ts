@@ -7,17 +7,26 @@ import {
 } from '../types';
 
 /**
- * Returns the random number between min and max
- * seeded with the provided seed.
- *
- * TODO: Use a custom random number generator with seed.
+ * ClientActionObject parsed from clientActionDocument string
  */
-function getSeededRandomInRange(
+interface ClientActionObject {
+  ovalScaleFactor: {
+    width: string;
+    centerX: string;
+    centerY: string;
+  };
+}
+
+/**
+ * Returns the random number between min and max
+ * seeded with the provided random seed.
+ */
+function getScaledValueFromRandomSeed(
+  randomSeed: number,
   min: number,
-  max: number,
-  seed: string
+  max: number
 ): number {
-  return Math.random() * (max - min) + min;
+  return randomSeed * (max - min) + min;
 }
 
 /**
@@ -41,6 +50,21 @@ function getIntersectionOverUnion(
 }
 
 /**
+ * Accepts clientActionDocument as string and return the 3 attributes
+ * width: number;
+ * centerX: number;
+ * centerY: number;
+ */
+export function getRandomScalingAttributes(clientActionDocument: string) {
+  const clientActionObj: ClientActionObject = JSON.parse(clientActionDocument);
+  return {
+    centerX: parseFloat(clientActionObj.ovalScaleFactor?.centerX),
+    centerY: parseFloat(clientActionObj.ovalScaleFactor?.centerY),
+    width: parseFloat(clientActionObj.ovalScaleFactor?.width),
+  };
+}
+
+/**
  * Returns the details of a randomly generated liveness oval
  * based on the video dimensions, initial face and the provided seed.
  */
@@ -48,12 +72,12 @@ export function getRandomLivenessOvalDetails({
   width,
   height,
   initialFace,
-  livenessSeed,
+  clientActionDocument,
 }: {
   width: number;
   height: number;
   initialFace: Face;
-  livenessSeed: string;
+  clientActionDocument: string;
 }): LivenessOvalDetails {
   let videoWidth = width;
   let videoHeight = height;
@@ -71,15 +95,18 @@ export function getRandomLivenessOvalDetails({
   const minOvalCenterY = (2 * videoHeight) / 5;
   const maxOvalCenterY = (3 * videoHeight) / 5;
 
-  const ovalCenterX = getSeededRandomInRange(
+  const randomScalingAttributes =
+    getRandomScalingAttributes(clientActionDocument);
+
+  const ovalCenterX = getScaledValueFromRandomSeed(
+    randomScalingAttributes.centerX,
     minOvalCenterX,
-    maxOvalCenterX,
-    livenessSeed
+    maxOvalCenterX
   );
-  const ovalCenterY = getSeededRandomInRange(
+  const ovalCenterY = getScaledValueFromRandomSeed(
+    randomScalingAttributes.centerY,
     minOvalCenterY,
-    maxOvalCenterY,
-    livenessSeed
+    maxOvalCenterY
   );
 
   // dimensions of oval
@@ -95,9 +122,13 @@ export function getRandomLivenessOvalDetails({
 
   let ovalWidth: number;
   if (faceWidthHeight > ovalThreshold) {
-    ovalWidth = minOvalWidth * getSeededRandomInRange(1, 4 / 3, livenessSeed);
+    ovalWidth =
+      minOvalWidth *
+      getScaledValueFromRandomSeed(randomScalingAttributes.width, 1, 4 / 3);
   } else {
-    ovalWidth = maxOvalWidth * getSeededRandomInRange(3 / 4, 1, livenessSeed);
+    ovalWidth =
+      maxOvalWidth *
+      getScaledValueFromRandomSeed(randomScalingAttributes.width, 3 / 4, 1);
   }
 
   const ovalHeight = GOLDEN_RATIO * ovalWidth;

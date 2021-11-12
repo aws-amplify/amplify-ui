@@ -8,9 +8,9 @@ export interface LivenessFlowProps {
   sessionId: string;
 
   /**
-   * The random seed as returned by StartLivenessDetection API
+   * The clientActionDocument as returned by StartLivenessDetection API
    */
-  livenessSeed: string;
+  clientActionDocument: string;
 
   /**
    * Callback called when the API request to Liveness for GetLivenessDetection

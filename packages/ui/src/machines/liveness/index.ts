@@ -287,7 +287,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         const {
           videoAssociatedParams: { videoEl, canvasEl, videoMediaStream },
           ovalAssociatedParams: { faceDetector },
-          flowProps: { livenessSeed },
+          flowProps: { clientActionDocument },
         } = context;
 
         // initialize models
@@ -332,7 +332,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           width,
           height,
           initialFace,
-          livenessSeed,
+          clientActionDocument,
         });
 
         // draw oval on canvas

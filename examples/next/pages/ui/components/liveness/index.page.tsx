@@ -25,10 +25,10 @@ Amplify.configure({
 
 export default function App({
   sessionId,
-  livenessSeed,
+  clientActionDocument,
 }: {
   sessionId: string;
-  livenessSeed: string;
+  clientActionDocument: string;
 }) {
   const [isLivenessVisible, setLivenessVisible] = useState(false);
 
@@ -64,7 +64,7 @@ export default function App({
       {isLivenessVisible ? (
         <LivenessFlow
           sessionId={sessionId}
-          livenessSeed={livenessSeed}
+          clientActionDocument={clientActionDocument}
           onUserExit={handleUserExit}
           onGetLivenessDetection={handleGetLivenessDetection}
           onSuccess={handleSuccess}
@@ -95,12 +95,12 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 
   const sessionId = response.sessionId;
-  const livenessSeed = response.seed;
+  const clientActionDocument = response.clientActionDocument;
 
   return {
     props: {
       sessionId,
-      livenessSeed,
+      clientActionDocument,
     },
   };
 };
