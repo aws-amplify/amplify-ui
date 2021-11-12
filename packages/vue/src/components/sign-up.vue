@@ -17,7 +17,6 @@ const emit = defineEmits(['signUpSubmit']);
 // computed properties
 
 const createAccountLabel = computed(() => translate('Create Account'));
-const signUpHeaderText = computed(() => translate('Create a new account'));
 
 // Methods
 
@@ -46,11 +45,7 @@ const submit = (): void => {
     <base-wrapper v-bind="$attrs">
       <base-form @input="onInput" @submit.prevent="onSignUpSubmit">
         <base-wrapper class="amplify-flex" style="flex-direction: column">
-          <slot name="header">
-            <base-heading class="amplify-heading" :level="3">
-              {{ signUpHeaderText }}
-            </base-heading>
-          </slot>
+          <slot name="header"></slot>
           <base-field-set
             class="amplify-flex"
             style="flex-direction: column"

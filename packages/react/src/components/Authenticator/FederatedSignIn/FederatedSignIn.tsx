@@ -1,21 +1,25 @@
 import { FederatedIdentityProviders, translate } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '..';
-import { Divider, Flex } from '../../..';
+import { Divider, Flex, View } from '../../..';
 import { FederatedSignInButton } from './FederatedSignInButtons';
 
 export function FederatedSignIn() {
-  const { _state } = useAuthenticator();
+  const { _state, route } = useAuthenticator();
   const { socialProviders = [] } = _state.context.config;
 
   if (socialProviders.length === 0) {
     return null;
   }
 
-  return (
-    <Flex direction="column" className="federated-sign-in-container">
-      <Divider size="small" />
+  const federatedText = route === 'signUp' ? 'Up' : 'In';
 
+  return (
+    <Flex
+      direction="column"
+      padding={`0 0 1rem 0`}
+      className="federated-sign-in-container"
+    >
       {socialProviders.map((provider) => {
         switch (provider) {
           case 'amazon':
@@ -24,7 +28,7 @@ export function FederatedSignIn() {
                 icon="amazon"
                 key={provider}
                 provider={FederatedIdentityProviders.Amazon}
-                text={translate('Sign In with Amazon')}
+                text={translate(`Sign ${federatedText} with Amazon`)}
               />
             );
           case 'apple':
@@ -33,7 +37,7 @@ export function FederatedSignIn() {
                 icon="apple"
                 key={provider}
                 provider={FederatedIdentityProviders.Apple}
-                text={translate('Sign In with Apple')}
+                text={translate(`Sign ${federatedText} with Apple`)}
               />
             );
           case 'facebook':
@@ -42,7 +46,7 @@ export function FederatedSignIn() {
                 icon="facebook"
                 key={provider}
                 provider={FederatedIdentityProviders.Facebook}
-                text={translate('Sign In with Facebook')}
+                text={translate(`Sign ${federatedText} with Facebook`)}
               />
             );
           case 'google':
@@ -51,7 +55,7 @@ export function FederatedSignIn() {
                 icon="google"
                 key={provider}
                 provider={FederatedIdentityProviders.Google}
-                text={translate('Sign In with Google')}
+                text={translate(`Sign ${federatedText} with Google`)}
               />
             );
           default:
@@ -60,6 +64,21 @@ export function FederatedSignIn() {
             );
         }
       })}
+
+      <Flex
+        justifyContent="center"
+        alignItems="center"
+        padding="1.5rem 0"
+        style={{ position: 'relative', color: 'gray' }}
+      >
+        <View
+          padding="0 1.5rem"
+          style={{ position: 'absolute', background: 'white', zIndex: 1 }}
+        >
+          or
+        </View>
+        <Divider size="small" />
+      </Flex>
     </Flex>
   );
 }
