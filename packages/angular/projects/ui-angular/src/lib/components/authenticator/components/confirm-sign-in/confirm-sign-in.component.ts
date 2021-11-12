@@ -12,7 +12,7 @@ const logger = new Logger('ConfirmSignIn');
 
 @Component({
   selector: 'amplify-confirm-sign-in',
-  templateUrl: './amplify-confirm-sign-in.component.html',
+  templateUrl: './confirm-sign-in.component.html',
 })
 export class AmplifyConfirmSignInComponent implements OnInit {
   @HostBinding('attr.data-amplify-authenticator-confirmsignin') dataAttr = '';

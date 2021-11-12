@@ -3,24 +3,22 @@ import { AuthenticatorService } from '../../../../services/authenticator.service
 import { translate } from '@aws-amplify/ui';
 
 @Component({
-  selector: 'amplify-force-new-password',
-  templateUrl: './amplify-force-new-password.component.html',
+  selector: 'amplify-reset-password',
+  templateUrl: './reset-password.component.html',
 })
-export class AmplifyForceNewPasswordComponent {
-  @HostBinding('attr.data-amplify-authenticator-forcenewpassword')
-  dataAttr = '';
-  @Input() public headerText = translate('Change Password');
+export class AmplifyResetPasswordComponent {
+  @HostBinding('attr.data-amplify-authenticator-resetPassword') dataAttr = '';
+  @Input() public headerText = translate('Reset your password');
 
   // translated texts
-  public changePasswordText = translate('Change Password');
+  public sendCodeText = translate('Send Code');
   public backToSignInText = translate('Back to Sign In');
 
   constructor(public authenticator: AuthenticatorService) {}
 
   public get context() {
-    const { updateForm, toSignIn, submitForm, user, error } =
-      this.authenticator;
-    return { updateForm, toSignIn, submitForm, user, error };
+    const { updateForm, toSignIn, submitForm, error } = this.authenticator;
+    return { updateForm, toSignIn, submitForm, error };
   }
 
   onInput(event: Event) {

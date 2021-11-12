@@ -7,18 +7,18 @@ import { BrowserModule } from '@angular/platform-browser';
  *
  * Related: https://github.com/ng-packagr/ng-packagr/issues/567
  */
-import { AmplifyAuthenticatorComponent } from './components/amplify-authenticator/amplify-authenticator.component';
-import { AmplifyConfirmSignInComponent } from './components/amplify-confirm-sign-in/amplify-confirm-sign-in.component';
-import { AmplifyConfirmSignUpComponent } from './components/amplify-confirm-sign-up/amplify-confirm-sign-up.component';
-import { AmplifyFederatedSignInButtonComponent } from './components/amplify-federated-sign-in-button/amplify-federated-sign-in-button.component';
-import { AmplifyFederatedSignInComponent } from './components/amplify-federated-sign-in/amplify-federated-sign-in.component';
-import { AmplifyForceNewPasswordComponent } from './components/amplify-force-new-password/amplify-force-new-password.component';
-import { AmplifyResetPasswordComponent } from './components/amplify-reset-password/amplify-reset-password.component';
-import { AmplifySetupTotpComponent } from './components/amplify-setup-totp/amplify-setup-totp.component';
-import { AmplifySignInComponent } from './components/amplify-sign-in/amplify-sign-in.component';
-import { AmplifySignUpComponent } from './components/amplify-sign-up/amplify-sign-up.component';
-import { AmplifySignUpFormFieldsComponent } from './components/amplify-sign-up/sign-up-form-fields/sign-up-form-fields.component';
-import { AmplifyVerifyUserComponent } from './components/amplify-verify-user/amplify-verify-user.component';
+import { AmplifyAuthenticatorComponent } from './components/authenticator/authenticator.component';
+import { AmplifyConfirmSignInComponent } from './components/confirm-sign-in/confirm-sign-in.component';
+import { AmplifyConfirmSignUpComponent } from './components/confirm-sign-up/confirm-sign-up.component';
+import { AmplifyFederatedSignInButtonComponent } from './components/federated-sign-in-button/federated-sign-in-button.component';
+import { AmplifyFederatedSignInComponent } from './components/federated-sign-in/federated-sign-in.component';
+import { AmplifyForceNewPasswordComponent } from './components/force-new-password/force-new-password.component';
+import { AmplifyResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { AmplifySetupTotpComponent } from './components/setup-totp/setup-totp.component';
+import { AmplifySignInComponent } from './components/sign-in/sign-in.component';
+import { AmplifySignUpComponent } from './components/sign-up/sign-up.component';
+import { AmplifySignUpFormFieldsComponent } from './components/sign-up/sign-up-form-fields/sign-up-form-fields.component';
+import { AmplifyVerifyUserComponent } from './components/verify-user/verify-user.component';
 import { ConfirmResetPasswordComponent } from './components/confirm-reset-password/amplify-confirm-reset-password.component';
 import { ConfirmVerifyUserComponent } from './components/confirm-verify-user/amplify-confirm-verify-user.component';
 

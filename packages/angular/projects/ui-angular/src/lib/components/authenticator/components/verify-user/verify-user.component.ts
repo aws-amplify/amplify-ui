@@ -11,7 +11,7 @@ import { getAttributeMap } from '../../../../common';
 import { nanoid } from 'nanoid';
 @Component({
   selector: 'amplify-verify-user',
-  templateUrl: './amplify-verify-user.component.html',
+  templateUrl: './verify-user.component.html',
   encapsulation: ViewEncapsulation.None,
 })
 export class AmplifyVerifyUserComponent implements OnInit {

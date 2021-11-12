@@ -15,7 +15,7 @@ import { AuthenticatorService } from '../../../../services/authenticator.service
 
 @Component({
   selector: 'amplify-authenticator',
-  templateUrl: './amplify-authenticator.component.html',
+  templateUrl: './authenticator.component.html',
   providers: [CustomComponentsService], // make sure custom components are scoped to this authenticator only
   encapsulation: ViewEncapsulation.None,
 })

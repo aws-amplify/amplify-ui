@@ -4,7 +4,7 @@ import { translate } from '@aws-amplify/ui';
 
 @Component({
   selector: 'amplify-sign-up',
-  templateUrl: './amplify-sign-up.component.html',
+  templateUrl: './sign-up.component.html',
 })
 export class AmplifySignUpComponent {
   @Input() headerText = translate('Create a new account');

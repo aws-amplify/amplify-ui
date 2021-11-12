@@ -9,7 +9,7 @@ import { translate } from '@aws-amplify/ui';
 
 @Component({
   selector: 'amplify-sign-in',
-  templateUrl: './amplify-sign-in.component.html',
+  templateUrl: './sign-in.component.html',
   encapsulation: ViewEncapsulation.None,
 })
 export class AmplifySignInComponent {

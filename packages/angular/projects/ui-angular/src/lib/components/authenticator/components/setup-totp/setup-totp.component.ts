@@ -9,7 +9,7 @@ const logger = new Logger('SetupTotp');
 
 @Component({
   selector: 'amplify-setup-totp',
-  templateUrl: './amplify-setup-totp.component.html',
+  templateUrl: './setup-totp.component.html',
 })
 export class AmplifySetupTotpComponent implements OnInit {
   @HostBinding('attr.data-amplify-authenticator-setup-totp') dataAttr = '';
