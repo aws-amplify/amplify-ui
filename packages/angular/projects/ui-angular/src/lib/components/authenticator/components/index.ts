@@ -9,6 +9,8 @@ export { AmplifySetupTotpComponent } from './setup-totp/setup-totp.component';
 export { AmplifySignInComponent } from './sign-in/sign-in.component';
 export { AmplifySignUpComponent } from './sign-up/sign-up.component';
 export { AmplifySignUpFormFieldsComponent } from './sign-up/sign-up-form-fields/sign-up-form-fields.component';
+export { AmplifyUserNameAliasComponent } from './user-name-alias/user-name-alias.component';
 export { AmplifyVerifyUserComponent } from './verify-user/verify-user.component';
 export { ConfirmResetPasswordComponent } from './confirm-reset-password/amplify-confirm-reset-password.component';
 export { ConfirmVerifyUserComponent } from './confirm-verify-user/amplify-confirm-verify-user.component';
+export { AmplifyFormFieldComponent } from './form-field/form-field.component';

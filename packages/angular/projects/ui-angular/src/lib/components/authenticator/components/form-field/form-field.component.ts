@@ -6,8 +6,8 @@ import {
   translate,
   countryDialCodes,
 } from '@aws-amplify/ui';
-import { getAttributeMap } from '../../common';
-import { AuthenticatorService } from '../../services/authenticator.service';
+import { getAttributeMap } from '../../../../common';
+import { AuthenticatorService } from '../../../../services/authenticator.service';
 
 /**
  * Input interface opinionated for authenticator usage.
