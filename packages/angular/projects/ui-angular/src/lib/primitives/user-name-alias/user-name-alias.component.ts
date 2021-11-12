@@ -4,7 +4,7 @@ import { getAliasInfoFromContext } from '@aws-amplify/ui';
 
 @Component({
   selector: 'amplify-user-name-alias',
-  templateUrl: './amplify-user-name-alias.component.html',
+  templateUrl: './user-name-alias.component.html',
 })
 export class AmplifyUserNameAliasComponent implements OnInit {
   @Input() name: string = 'username';

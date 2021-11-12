@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'amplify-error',
-  templateUrl: './amplify-error.component.html',
+  templateUrl: './error.component.html',
 })
 export class AmplifyErrorComponent {
   public isVisible = true;

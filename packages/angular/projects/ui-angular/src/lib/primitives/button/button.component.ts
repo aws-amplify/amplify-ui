@@ -2,7 +2,7 @@ import { Component, HostBinding, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'button[amplify-button]',
-  templateUrl: './amplify-button.component.html',
+  templateUrl: './button.component.html',
 })
 export class AmplifyButtonComponent implements OnInit {
   @Input() type: 'submit' | 'button' = 'button';

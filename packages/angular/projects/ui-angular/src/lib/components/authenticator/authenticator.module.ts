@@ -22,13 +22,13 @@ import { AmplifyVerifyUserComponent } from './components/verify-user/verify-user
 import { ConfirmResetPasswordComponent } from './components/confirm-reset-password/amplify-confirm-reset-password.component';
 import { ConfirmVerifyUserComponent } from './components/confirm-verify-user/amplify-confirm-verify-user.component';
 
-import { AmplifyFormFieldComponent } from '../../primitives/amplify-form-field/amplify-form-field.component';
-import { AmplifyErrorComponent } from '../../primitives/amplify-error/amplify-error.component';
-import { AmplifyButtonComponent } from '../../primitives/amplify-button/amplify-button.component';
-import { AmplifyPasswordFieldComponent } from '../../primitives/amplify-password-field/amplify-password-field.component';
-import { AmplifySelectComponent } from '../../primitives/amplify-select/amplify-select.component';
-import { AmplifyTextFieldComponent } from '../../primitives/amplify-text-field/amplify-text-field.component';
-import { AmplifyUserNameAliasComponent } from '../../primitives/amplify-user-name-alias/amplify-user-name-alias.component';
+import { AmplifyFormFieldComponent } from '../../primitives/form-field/form-field.component';
+import { AmplifyErrorComponent } from '../../primitives/error/error.component';
+import { AmplifyButtonComponent } from '../../primitives/button/button.component';
+import { AmplifyPasswordFieldComponent } from '../../primitives/password-field/password-field.component';
+import { AmplifySelectComponent } from '../../primitives/select/select.component';
+import { AmplifyTextFieldComponent } from '../../primitives/text-field/amplify-text-field.component';
+import { AmplifyUserNameAliasComponent } from '../../primitives/user-name-alias/user-name-alias.component';
 import { PhoneNumberFieldComponent } from '../../primitives/phone-number-field/phone-number-field.component';
 import { TabItemComponent } from '../../primitives/tab-item/tab-item.component';
 import { TabsComponent } from '../../primitives/tabs/tabs.component';

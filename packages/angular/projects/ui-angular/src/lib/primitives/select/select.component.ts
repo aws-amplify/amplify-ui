@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'amplify-form-select',
-  templateUrl: './amplify-select.component.html',
+  templateUrl: './select.component.html',
 })
 export class AmplifySelectComponent {
   @Input() items: string[];

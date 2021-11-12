@@ -18,7 +18,7 @@ import { AuthenticatorService } from '../../services/authenticator.service';
  */
 @Component({
   selector: 'amplify-form-field',
-  templateUrl: './amplify-form-field.component.html',
+  templateUrl: './form-field.component.html',
 })
 export class AmplifyFormFieldComponent implements OnInit {
   @Input() name: string;
