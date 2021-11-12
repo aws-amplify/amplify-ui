@@ -27,16 +27,16 @@ const federatedText = route === 'signUp' ? 'Up' : 'In';
 
 const fp = computed(() => FederatedIdentityProviders);
 const signInWithAmazon = computed(() =>
-  translate(`Sign ${federatedText} with Amazon` as Phrase)
+  translate<string>(`Sign ${federatedText} with Amazon`)
 );
 const signInWithApple = computed(() =>
-  translate(`Sign ${federatedText} with Apple` as Phrase)
+  translate<string>(`Sign ${federatedText} with Apple`)
 );
 const signInWithFacebook = computed(() =>
-  translate(`Sign ${federatedText} with Facebook` as Phrase)
+  translate<string>(`Sign ${federatedText} with Facebook`)
 );
 const signInWithGoogle = computed(() =>
-  translate(`Sign ${federatedText} with Google` as Phrase)
+  translate<string>(`Sign ${federatedText} with Google`)
 );
 </script>
 

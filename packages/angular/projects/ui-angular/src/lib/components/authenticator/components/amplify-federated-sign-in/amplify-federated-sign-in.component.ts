@@ -42,17 +42,17 @@ export class AmplifyFederatedSignInComponent implements OnInit {
   private setFederatedTexts() {
     const { route } = this.authenticator;
     const federatedText = route === 'signUp' ? 'Up' : 'In';
-    this.signInAmazonText = translate(
-      `Sign ${federatedText} with Amazon` as Phrase
+    this.signInAmazonText = translate<string>(
+      `Sign ${federatedText} with Amazon`
     );
-    this.signInAppleText = translate(
-      `Sign ${federatedText} with Apple` as Phrase
+    this.signInAppleText = translate<string>(
+      `Sign ${federatedText} with Apple`
     );
-    this.signInFacebookText = translate(
-      `Sign ${federatedText} with Facebook` as Phrase
+    this.signInFacebookText = translate<string>(
+      `Sign ${federatedText} with Facebook`
     );
-    this.signInGoogleText = translate(
-      `Sign ${federatedText} with Google` as Phrase
+    this.signInGoogleText = translate<string>(
+      `Sign ${federatedText} with Google`
     );
   }
 }

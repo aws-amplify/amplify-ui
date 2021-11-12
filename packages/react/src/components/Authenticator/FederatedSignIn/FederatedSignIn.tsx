@@ -28,7 +28,7 @@ export function FederatedSignIn() {
                 icon="amazon"
                 key={provider}
                 provider={FederatedIdentityProviders.Amazon}
-                text={translate(`Sign ${federatedText} with Amazon` as Phrase)}
+                text={translate<string>(`Sign ${federatedText} with Amazon`)}
               />
             );
           case 'apple':
@@ -37,7 +37,7 @@ export function FederatedSignIn() {
                 icon="apple"
                 key={provider}
                 provider={FederatedIdentityProviders.Apple}
-                text={translate(`Sign ${federatedText} with Apple` as Phrase)}
+                text={translate<string>(`Sign ${federatedText} with Apple`)}
               />
             );
           case 'facebook':
@@ -46,9 +46,7 @@ export function FederatedSignIn() {
                 icon="facebook"
                 key={provider}
                 provider={FederatedIdentityProviders.Facebook}
-                text={translate(
-                  `Sign ${federatedText} with Facebook` as Phrase
-                )}
+                text={translate<string>(`Sign ${federatedText} with Facebook`)}
               />
             );
           case 'google':
@@ -57,7 +55,7 @@ export function FederatedSignIn() {
                 icon="google"
                 key={provider}
                 provider={FederatedIdentityProviders.Google}
-                text={translate(`Sign ${federatedText} with Google` as Phrase)}
+                text={translate<string>(`Sign ${federatedText} with Google`)}
               />
             );
           default:
