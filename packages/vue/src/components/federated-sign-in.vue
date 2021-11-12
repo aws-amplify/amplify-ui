@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { FederatedIdentityProviders, Phrase, translate } from '@aws-amplify/ui';
+import { FederatedIdentityProviders, translate } from '@aws-amplify/ui';
 
 import { useAuth, useAuthenticator } from '../composables/useAuth';
 import FederatedSignInButton from './federated-sign-in-button.vue';

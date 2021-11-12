@@ -1,4 +1,4 @@
-import { FederatedIdentityProviders, Phrase, translate } from '@aws-amplify/ui';
+import { FederatedIdentityProviders, translate } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '..';
 import { Divider, Flex, View } from '../../..';
