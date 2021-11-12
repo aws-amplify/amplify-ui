@@ -1,7 +1,10 @@
-import { View } from '../View';
-import { render, screen } from '@testing-library/react';
-import { ComponentPropsToStylePropsMap } from '../../types';
+import * as React from 'react';
+
 import { kebabCase } from 'lodash';
+import { render, screen } from '@testing-library/react';
+
+import { ComponentPropsToStylePropsMap } from '../../types';
+import { View } from '../View';
 
 describe('View: ', () => {
   const viewText = 'Hello from inside a view';
@@ -20,6 +23,17 @@ describe('View: ', () => {
     expect(view.dataset['testid']).toBe(viewTestId);
     expect(view.innerHTML).toBe(viewText);
     expect(view.nodeName).toBe('DIV');
+  });
+
+  it('should forward ref to DOM element', async () => {
+    const ref = React.createRef<HTMLDivElement>();
+    const text = 'Hello there';
+
+    render(<View ref={ref}>{text}</View>);
+
+    await screen.findByText(text);
+    expect(ref.current.nodeName).toBe('DIV');
+    expect(ref.current.innerHTML).toBe(text);
   });
 
   it('can render a <button> HTML element', async () => {
