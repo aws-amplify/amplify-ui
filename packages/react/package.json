@@ -10,7 +10,7 @@
     },
     "./legacy": {
       "import": "./dist/esm/legacy.js",
-      "require": "./dist/index.js"
+      "require": "./dist/legacy.js"
     },
     "./styles.css": "./dist/index.css"
   },
