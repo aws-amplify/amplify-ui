@@ -469,6 +469,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-table-data-large-padding: var(--amplify-space-large);
         --amplify-components-table-data-small-font-size: var(--amplify-font-sizes-small);
         --amplify-components-table-data-small-padding: var(--amplify-space-xs);
+        --amplify-components-table-caption-caption-side: bottom;
         --amplify-components-table-caption-color: var(--amplify-colors-font-primary);
         --amplify-components-table-caption-display: table-caption;
         --amplify-components-table-caption-font-size: var(--amplify-font-sizes-medium);
