@@ -1,40 +1,65 @@
-export interface DesignToken {
-  value: DesignTokenValue;
+/**
+ * Helper function to test if something is a design token or not.
+ * Used in the React component style props.
+ *
+ * @param arg - thing to test if it is a design token or not
+ * @returns boolean
+ */
+export function isDesignToken(arg: unknown): arg is WebDesignToken {
+  if (typeof arg === 'object') {
+    return arg.hasOwnProperty('value');
+  } else {
+    return false;
+  }
 }
 
-export type DesignTokenValue =
-  | BorderWidthDesignToken
-  | ColorDesignToken
-  | FontDesignToken
-  | FontSizeDesignToken
-  | FontWeightDesignToken
-  | LineHeightDesignToken
-  | OpacityDesignToken
-  | OutlineOffsetDesignToken
-  | OutlineWidthDesignToken
-  | RadiusDesignToken
-  | ShadowDesignToken
-  | SpaceDesignToken
-  | TimeDesignToken
-  | TransformDesignToken;
+/**
+ *
+ */
+export type DesignToken<ValueType = any> = {
+  value: ValueType;
+};
 
-type BorderWidthDesignToken = string;
-type ColorDesignToken = string;
-type FontDesignToken = string;
-type FontSizeDesignToken = string;
-type FontWeightDesignToken = number;
-type LineHeightDesignToken = string;
-type OpacityDesignToken = string;
-type OutlineOffsetDesignToken = string;
-type OutlineWidthDesignToken = string;
-type RadiusDesignToken = string;
-type ShadowDesignToken = {
+/**
+ * A fully setup design token ready to be used in web platform.
+ */
+export type WebDesignToken<ValueType = any> = {
+  /**
+   * Name of the design token
+   */
+  name: string;
+  /**
+   * Object path of the design token. Used for constructing the name
+   */
+  path: Array<string>;
+  /**
+   * Original (unresolved, untransformed) value of the design token
+   */
+  original: ValueType;
+  /**
+   * The wrapped CSS variable name of this design token, for example
+   * `var(--amplify-colors-font-primary)`
+   */
+  toString(): string;
+} & DesignToken<ValueType>;
+
+export type ColorValue = string;
+export type BorderWidthValue = string;
+export type FontValue = string;
+export type FontSizeValue = string;
+export type FontWeightValue = number;
+export type LineHeightValue = string;
+export type OpacityValue = string;
+export type OutlineOffsetValue = string;
+export type OutlineWidthValue = string;
+export type RadiusValue = string;
+export type ShadowValue = {
   offsetX: string;
   offsetY: string;
   blurRadius: string;
   spreadRadius?: string;
   color: string;
 };
-type SpaceDesignToken = string;
-type TimeDesignToken = string;
-type TransformDesignToken = string;
+export type SpaceValue = string;
+export type TimeValue = string;
+export type TransformValue = string;

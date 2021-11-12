@@ -1,11 +1,6 @@
 import { assign, createMachine, forwardTo, spawn } from 'xstate';
 
-import {
-  AuthContext,
-  AuthEvent,
-  LoginMechanism,
-  SocialProvider,
-} from '../../types';
+import { AuthContext, AuthEvent } from '../../types';
 import { stopActor } from './actions';
 import { resetPasswordActor, signInActor, signOutActor } from './actors';
 import { defaultServices } from './defaultServices';
@@ -13,16 +8,15 @@ import { createSignUpMachine } from './signUp';
 
 const DEFAULT_COUNTRY_CODE = '+1';
 
-export type AuthenticatorMachineOptions = {
+export type AuthenticatorMachineOptions = AuthContext['config'] & {
   initialState?: 'signIn' | 'signUp' | 'resetPassword';
-  loginMechanisms?: LoginMechanism[];
   services?: Partial<typeof defaultServices>;
-  socialProviders?: SocialProvider[];
 };
 
 export function createAuthenticatorMachine({
   initialState = 'signIn',
   loginMechanisms,
+  signUpAttributes,
   socialProviders,
   services: customServices,
 }: AuthenticatorMachineOptions) {
@@ -39,6 +33,7 @@ export function createAuthenticatorMachine({
         user: undefined,
         config: {
           loginMechanisms,
+          signUpAttributes,
           socialProviders,
         },
         actorRef: undefined,
@@ -142,6 +137,16 @@ export function createAuthenticatorMachine({
                 s.toLowerCase()
               ) ?? [];
 
+            const cliVerificationMechanisms =
+              event.data.aws_cognito_verification_mechanisms?.map((s) =>
+                s.toLowerCase()
+              ) ?? [];
+
+            const cliSignUpAttributes =
+              event.data.aws_cognito_signup_attributes?.map((s) =>
+                s.toLowerCase()
+              ) ?? [];
+
             const cliSocialProviders =
               event.data.aws_cognito_social_providers?.map((s) =>
                 s.toLowerCase()
@@ -156,6 +161,14 @@ export function createAuthenticatorMachine({
             // Prefer explicitly configured settings over default CLI values
             return {
               loginMechanisms: loginMechanisms ?? cliLoginMechanisms,
+              signUpAttributes:
+                signUpAttributes ??
+                Array.from(
+                  new Set([
+                    ...cliVerificationMechanisms,
+                    ...cliSignUpAttributes,
+                  ])
+                ),
               socialProviders: socialProviders ?? cliSocialProviders.sort(),
             };
           },

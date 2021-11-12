@@ -25,6 +25,7 @@ export const useAlertProps: UseAlertProps = (initialValues) => {
   const [headingLevel, setHeadingLevel] = useState<AlertProps['headingLevel']>(
     initialValues.headingLevel
   );
+  const [body, setBody] = useState<string>(initialValues.body);
 
   return {
     variation,
@@ -39,5 +40,7 @@ export const useAlertProps: UseAlertProps = (initialValues) => {
     setHeading,
     headingLevel,
     setHeadingLevel,
+    body,
+    setBody,
   };
 };

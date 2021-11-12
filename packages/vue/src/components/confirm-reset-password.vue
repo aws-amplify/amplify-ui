@@ -92,17 +92,17 @@
             <base-alert v-if="actorState?.context?.remoteError">
               {{ actorState?.context?.remoteError }}
             </base-alert>
-            <base-button
-              class="amplify-button amplify-field-group__control"
+            <amplify-button
+              class="amplify-field-group__control"
               data-fullwidth="false"
               data-variation="primary"
               type="submit"
               style="font-weight: normal"
               :disabled="actorState.matches('confirmResetPassword.pending')"
-              >{{ confirmResetPasswordText }}</base-button
+              >{{ confirmResetPasswordText }}</amplify-button
             >
-            <base-button
-              class="amplify-button amplify-field-group__control"
+            <amplify-button
+              class="amplify-field-group__control"
               data-fullwidth="false"
               data-size="small"
               data-variation="link"
@@ -111,7 +111,7 @@
               style="font-weight: normal"
             >
               {{ resendCodeText }}
-            </base-button>
+            </amplify-button>
             <slot
               name="footer"
               :onConfirmResetPasswordSubmit="onConfirmResetPasswordSubmit"

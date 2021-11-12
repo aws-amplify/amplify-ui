@@ -11,7 +11,7 @@ module.exports = {
     paddingInlineStart: { value: '{space.xxs.value}' },
     paddingInlineEnd: { value: '{space.xxs.value}' },
     transitionProperty: { value: 'background-color' },
-    transitionDuration: { value: '{time.transition.medium.value}' },
+    transitionDuration: { value: '{time.medium.value}' },
     hover: {
       backgroundColor: { value: '{colors.overlay.10.value}' },
       color: { value: '{colors.font.primary.value}' },

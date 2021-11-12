@@ -1,35 +1,47 @@
-import React from 'react';
-import { Alert, Flex } from '@aws-amplify/ui-react';
+import { Alert } from '@aws-amplify/ui-react';
 
-import { AlertPropControls } from '@/components/AlertPropControls';
-import { useAlertProps } from '@/components/useAlertProps';
-import { Example } from '@/components/Example';
+import { Demo } from '@/components/Demo';
+import { AlertPropControls } from './AlertPropControls';
+import { useAlertProps } from './useAlertProps';
+
+const propsToCode = (props) => `import { Alert } from '@aws-amplify/ui-react';
+
+<Alert
+  variation="${props.variation}"
+  isDismissible={${props.isDismissible}}
+  hasIcon={${props.hasIcon}}
+  iconSize={${props.iconSize}}
+  heading="${props.heading}"
+  headingLevel={${props.headingLevel}}
+  >
+  ${props.body}
+</Alert>`;
 
 export const AlertDemo = () => {
   const alertProps = useAlertProps({
-    variation: 'info',
     isDismissible: false,
     hasIcon: true,
     iconSize: 'large',
     heading: 'Alert heading',
     headingLevel: 6,
+    body: 'This is the alert message',
   });
 
   return (
-    <Flex direction="column" gap="0.5rem">
-      <AlertPropControls {...alertProps} />
-      <Example>
-        <Alert
-          variation={alertProps.variation}
-          isDismissible={alertProps.isDismissible}
-          hasIcon={alertProps.hasIcon}
-          iconSize={alertProps.iconSize}
-          heading={alertProps.heading}
-          headingLevel={alertProps.headingLevel}
-        >
-          This is the Alert message.
-        </Alert>
-      </Example>
-    </Flex>
+    <Demo
+      code={propsToCode(alertProps)}
+      propControls={<AlertPropControls {...alertProps} />}
+    >
+      <Alert
+        variation={alertProps.variation}
+        isDismissible={alertProps.isDismissible}
+        hasIcon={alertProps.hasIcon}
+        iconSize={alertProps.iconSize}
+        heading={alertProps.heading}
+        headingLevel={alertProps.headingLevel}
+      >
+        {alertProps.body}
+      </Alert>
+    </Demo>
   );
 };

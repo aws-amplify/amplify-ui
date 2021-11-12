@@ -49,3 +49,5 @@ export const PhoneNumberField: Primitive<PhoneNumberFieldProps, 'input'> = ({
     />
   );
 };
+
+PhoneNumberField.displayName = 'PhoneNumberField';

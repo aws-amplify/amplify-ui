@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react",
-  "version": "2.0.0",
+  "version": "1.2.22",
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
   "exports": {
@@ -36,12 +36,13 @@
     "test:unit:watch": "jest --watch"
   },
   "dependencies": {
-    "@aws-amplify/ui": "3.0.0",
+    "@aws-amplify/ui": "2.1.0",
     "@aws-amplify/ui-react-v1": "npm:@aws-amplify/ui-react@1.2.9",
+    "@radix-ui/react-accordion": "^0.1.1",
     "@radix-ui/react-dropdown-menu": "^0.1.1",
     "@radix-ui/react-id": "^0.1.0",
     "@radix-ui/react-slider": "^0.1.1",
-    "@radix-ui/react-tabs": "0.0.16",
+    "@radix-ui/react-tabs": "^0.1.1",
     "@xstate/react": "^1.4.0",
     "autoprefixer": "^10.3.1",
     "classnames": "^2.3.1",

@@ -40,3 +40,5 @@ export const ToggleButton: Primitive<ToggleButtonProps, typeof Button> = ({
     </Button>
   );
 };
+
+ToggleButton.displayName = 'ToggleButton';

@@ -19,3 +19,5 @@ export const FieldGroupIconButton: React.FC<FieldGroupIconButtonProps> = ({
     {children}
   </FieldGroupIcon>
 );
+
+FieldGroupIconButton.displayName = 'FieldGroupIconButton';

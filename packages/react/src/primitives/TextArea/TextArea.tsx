@@ -30,3 +30,5 @@ export const TextArea: Primitive<TextAreaProps, 'textarea'> = ({
     {...rest}
   />
 );
+
+TextArea.displayName = 'TextArea';

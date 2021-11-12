@@ -2,7 +2,7 @@ import NextLink from 'next/link';
 import {
   IconOpenInNew,
   Button,
-  IconSearch,
+  VisuallyHidden,
   Link,
   Flex,
   ColorMode,
@@ -47,12 +47,15 @@ const ColorModeSwitcher = ({ colorMode, setColorMode }) => {
       onChange={(value: ColorMode) => setColorMode(value)}
     >
       <ToggleButton value="light">
+        <VisuallyHidden>Light mode</VisuallyHidden>
         <IconWbSunny />
       </ToggleButton>
       <ToggleButton value="dark">
+        <VisuallyHidden>Dark mode</VisuallyHidden>
         <IconWbTwighlight />
       </ToggleButton>
       <ToggleButton value="system">
+        <VisuallyHidden>System preference</VisuallyHidden>
         <IconComputer />
       </ToggleButton>
     </ToggleButtonGroup>
@@ -74,6 +77,7 @@ export const Header = ({ platform, colorMode, setColorMode }) => {
           </Button>
           <NextLink href="/">
             <a className="docs-logo-link">
+              <VisuallyHidden>Amplify UI Home</VisuallyHidden>
               <Logo />
             </a>
           </NextLink>

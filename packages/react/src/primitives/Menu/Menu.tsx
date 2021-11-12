@@ -53,3 +53,5 @@ export const Menu: Primitive<MenuProps, 'div'> = ({
     </DropdownMenuContent>
   </DropdownMenu>
 );
+
+Menu.displayName = 'Menu';

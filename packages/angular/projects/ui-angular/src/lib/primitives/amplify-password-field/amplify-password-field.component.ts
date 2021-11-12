@@ -15,6 +15,8 @@ export class AmplifyPasswordFieldComponent {
   @Input() name: string;
   @Input() placeholder = '';
   @Input() required = true;
+  @Input() labelHidden = false;
+
   public type: 'text' | 'password' = 'password';
 
   public showPassword = false;

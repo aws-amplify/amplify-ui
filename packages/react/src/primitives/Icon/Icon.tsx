@@ -29,3 +29,5 @@ export const Icon: Primitive<IconProps, 'svg'> = ({
     </View>
   );
 };
+
+Icon.displayName = 'Icon';

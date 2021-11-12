@@ -10,6 +10,7 @@ import { Flex } from '../Flex';
 import { ComponentClassNames } from '../shared/constants';
 import classNames from 'classnames';
 import { convertStylePropsToStyleObj, prefixer } from '../shared/styleUtils';
+import { Primitive } from '../types';
 
 const isTabsType = (child: any): child is React.Component<TabItemProps> => {
   return (
@@ -19,11 +20,8 @@ const isTabsType = (child: any): child is React.Component<TabItemProps> => {
     child.props.children != null
   );
 };
-export interface Tabs {
-  (props: TabsProps): React.ReactComponentElement<any>;
-}
 
-export const Tabs: Tabs = ({
+export const Tabs: Primitive<TabsProps, typeof Flex> = ({
   alignContent,
   alignItems,
   ariaLabel,
@@ -39,7 +37,7 @@ export const Tabs: Tabs = ({
   justifyContent,
   wrap,
   ...rest
-}) => {
+}: TabsProps) => {
   const tabs = React.Children.map(children, (child) => {
     if (!isTabsType(child)) {
       console.warn(
@@ -99,3 +97,6 @@ export const Tabs: Tabs = ({
 };
 
 export const TabItem: React.FC<TabItemProps> = () => <></>;
+
+Tabs.displayName = 'Tabs';
+TabItem.displayName = 'TabItem';
