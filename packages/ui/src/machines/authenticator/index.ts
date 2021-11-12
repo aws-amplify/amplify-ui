@@ -91,7 +91,6 @@ export function createAuthenticatorMachine({
           exit: stopActor('signUpActor'),
           on: {
             SIGN_IN: 'signIn',
-            RESET_PASSWORD: 'resetPassword',
             'done.invoke.signUpActor': {
               target: 'idle',
               actions: 'setUser',
