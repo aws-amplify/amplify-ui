@@ -12,10 +12,15 @@ function MyApp({ Component, pageProps }) {
   const router = useRouter();
   const { platform = 'react' } = router.query;
   const [colorMode, setColorMode] = useState<ColorMode>('system');
+  const favicon =
+    process.env.NODE_ENV === 'development'
+      ? '/svg/favicon-dev.svg'
+      : '/svg/favicon.svg';
   return (
     <>
       <Head>
         <title>Amplify UI</title>
+        <link rel="icon" type="image/svg+xml" href={favicon} />
       </Head>
       <AmplifyProvider components={{}} theme={theme} colorMode={colorMode}>
         <Header

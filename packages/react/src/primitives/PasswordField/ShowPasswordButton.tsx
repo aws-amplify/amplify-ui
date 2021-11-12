@@ -32,3 +32,5 @@ export const ShowPasswordButton: React.FC<ShowPasswordButtonProps> = ({
     </Button>
   );
 };
+
+ShowPasswordButton.displayName = 'ShowPasswordButton';

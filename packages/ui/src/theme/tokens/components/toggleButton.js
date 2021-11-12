@@ -29,7 +29,7 @@ module.exports = {
     _focus: {
       borderColor: { value: '{colors.border.focus.value}' },
       backgroundColor: { value: '{colors.transparent.value}' },
-      boxShadow: { value: '{components.fieldcontrol.focus.boxShadow.value}' },
+      boxShadow: { value: '{components.fieldcontrol._focus.boxShadow.value}' },
       color: { value: '{colors.overlay.50.value}' },
     },
     _hover: {

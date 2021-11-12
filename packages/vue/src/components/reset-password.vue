@@ -46,17 +46,17 @@
           <base-alert v-if="actorState?.context?.remoteError">
             {{ actorState?.context?.remoteError }}
           </base-alert>
-          <base-button
-            class="amplify-button amplify-field-group__control"
+          <amplify-button
+            class="amplify-field-group__control"
             data-fullwidth="false"
             data-variation="primary"
             type="submit"
             style="font-weight: normal"
             :disabled="actorState.matches('resetPassword.pending')"
-            >{{ resetPasswordText }}</base-button
+            >{{ resetPasswordText }}</amplify-button
           >
-          <base-button
-            class="amplify-button amplify-field-group__control"
+          <amplify-button
+            class="amplify-field-group__control"
             data-fullwidth="false"
             data-size="small"
             data-variation="link"
@@ -64,7 +64,7 @@
             type="button"
             @click.prevent="onBackToSignInClicked"
           >
-            {{ backSignInText }}</base-button
+            {{ backSignInText }}</amplify-button
           >
           <slot
             name="footer"

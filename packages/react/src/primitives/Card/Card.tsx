@@ -13,3 +13,5 @@ export const Card: Primitive<CardProps, 'div'> = ({
     {children}
   </View>
 );
+
+Card.displayName = 'Card';

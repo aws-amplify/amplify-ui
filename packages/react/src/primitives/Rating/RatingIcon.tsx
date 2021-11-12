@@ -24,3 +24,5 @@ export const RatingIcon: React.FC<RatingIconProps> = ({
     </View>
   );
 };
+
+RatingIcon.displayName = 'RatingIcon';

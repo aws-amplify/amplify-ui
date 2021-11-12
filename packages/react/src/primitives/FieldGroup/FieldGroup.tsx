@@ -66,3 +66,5 @@ export const FieldGroup: Primitive<FieldGroupOptions, typeof Flex> = ({
     </Flex>
   );
 };
+
+FieldGroup.displayName = 'FieldGroup';

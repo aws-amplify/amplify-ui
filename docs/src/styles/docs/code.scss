@@ -3,36 +3,11 @@
  * Based on Atom's One Light theme: https://github.com/atom/atom/tree/master/packages/one-light-syntax
  */
 
-/**
- * One Light colours (accurate as of commit eb064bf on 19 Feb 2021)
- * From colors.less
- * --mono-1: hsl(230, 8%, 24%);
- * --mono-2: hsl(230, 6%, 44%);
- * --mono-3: hsl(230, 4%, 64%)
- * --hue-1: hsl(198, 99%, 37%);
- * --hue-2: hsl(221, 87%, 60%);
- * --hue-3: hsl(301, 63%, 40%);
- * --hue-4: hsl(119, 34%, 47%);
- * --hue-5: hsl(5, 74%, 59%);
- * --hue-5-2: hsl(344, 84%, 43%);
- * --hue-6: hsl(35, 99%, 36%);
- * --hue-6-2: hsl(35, 99%, 40%);
- * --syntax-fg: hsl(230, 8%, 24%);
- * --syntax-bg: hsl(230, 1%, 98%);
- * --syntax-gutter: hsl(230, 1%, 62%);
- * --syntax-guide: hsla(230, 8%, 24%, 0.2);
- * --syntax-accent: hsl(230, 100%, 66%);
- * From syntax-variables.less
- * --syntax-selection-color: hsl(230, 1%, 90%);
- * --syntax-gutter-background-color-selected: hsl(230, 1%, 90%);
- * --syntax-cursor-line: hsla(230, 8%, 24%, 0.05);
- */
-
 code,
 code[class*='language-'],
 pre[class*='language-'] {
   background: var(--amplify-colors-background-secondary);
-  color: var(--amplify-colors-font-secondary);
+  color: var(--amplify-colors-font-primary);
   font-family: 'Fira Code', 'Fira Mono', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
   direction: ltr;
   text-align: left;
@@ -83,11 +58,11 @@ section > pre[class*=language-] {
 .token.comment,
 .token.prolog,
 .token.cdata {
-  color: hsl(230, 4%, 64%);
+  color: var(--amplify-colors-font-secondary);
 }
 
 .token.keyword {
-  color: hsl(301, 63%, 40%);
+  color: var(--amplify-colors-purple-90);
 }
 
 .token.property,
@@ -95,7 +70,7 @@ section > pre[class*=language-] {
 .token.symbol,
 .token.deleted,
 .token.important {
-  color: hsl(5, 74%, 59%);
+  color: var(--amplify-colors-yellow-90);
 }
 
 .token.selector,
@@ -106,18 +81,20 @@ section > pre[class*=language-] {
 .token.regex,
 .token.attr-value,
 .token.attr-value > .token.punctuation {
-  color: hsl(119, 34%, 47%);
-  color: var(--amplify-colors-green-60);
+  color: var(--amplify-colors-green-90);
 }
 
 .token.variable,
-.token.operator,
 .token.function {
-  color: hsl(221, 87%, 60%);
+  color: var(--amplify-colors-teal-90);
+}
+
+.token.operator {
+  color: var(--amplify-colors-green-90);
 }
 
 .token.url {
-  color: hsl(198, 99%, 37%);
+  color: var(--amplify-colors-pink-90);
 }
 
 /* HTML overrides */
@@ -128,87 +105,82 @@ section > pre[class*=language-] {
 
 /* CSS overrides */
 .language-css .token.selector {
-  color: hsl(5, 74%, 59%);
+  color: var(--amplify-colors-pink-90);
 }
 
 .language-css .token.property {
-  color: hsl(230, 8%, 24%);
+  color: var(--amplify-colors-teal-90);
 }
 
 .language-css .token.function,
 .language-css .token.url > .token.function {
-  color: hsl(198, 99%, 37%);
+  color: var(--amplify-colors-blue-90);
 }
 
 .language-css .token.url > .token.string.url {
-  color: hsl(119, 34%, 47%);
+  color: var(--amplify-colors-green-90);
 }
 
 .language-css .token.important,
 .language-css .token.atrule .token.rule {
-  color: hsl(301, 63%, 40%);
-}
-
-/* JS overrides */
-.language-javascript .token.operator {
-  color: hsl(301, 63%, 40%);
+  color: var(--amplify-colors-pink-90);
 }
 
 .language-javascript
   .token.template-string
   > .token.interpolation
   > .token.interpolation-punctuation.punctuation {
-  color: hsl(344, 84%, 43%);
+  color: var(--amplify-colors-red-90);
 }
 
 /* JSON overrides */
 .language-json .token.operator {
-  color: hsl(230, 8%, 24%);
+  color: var(--amplify-colors-font-secondary);
 }
 
 .language-json .token.null.keyword {
-  color: hsl(35, 99%, 36%);
+  color: var(--amplify-colors-orange-90);
 }
 
 /* MD overrides */
 .language-markdown .token.url,
 .language-markdown .token.url > .token.operator,
 .language-markdown .token.url-reference.url > .token.string {
-  color: hsl(230, 8%, 24%);
+  color: var(--amplify-colors-font-secondary);
 }
 
 .language-markdown .token.url > .token.content {
-  color: hsl(221, 87%, 60%);
+  color: var(--amplify-colors-blue-90);
 }
 
 .language-markdown .token.url > .token.url,
 .language-markdown .token.url-reference.url {
-  color: hsl(198, 99%, 37%);
+  color: var(--amplify-colors-teal-90);
 }
 
 .language-markdown .token.blockquote.punctuation,
 .language-markdown .token.hr.punctuation {
-  color: hsl(230, 4%, 64%);
+  color: var(--amplify-colors-font-secondary);
   font-style: italic;
 }
 
 .language-markdown .token.code-snippet {
-  color: hsl(119, 34%, 47%);
+  color: var(--amplify-colors-green-90);
 }
 
 .language-markdown .token.bold .token.content {
-  color: hsl(35, 99%, 36%);
+  color: var(--amplify-colors-orange-90);
 }
 
 .language-markdown .token.italic .token.content {
-  color: hsl(301, 63%, 40%);
+  color: var(--amplify-colors-pink-90);
 }
 
 .language-markdown .token.strike .token.content,
 .language-markdown .token.strike .token.punctuation,
 .language-markdown .token.list.punctuation,
 .language-markdown .token.title.important > .token.punctuation {
-  color: hsl(5, 74%, 59%);
+  color: var(--amplify-colors-red-90);
 }
 
 /* General */
@@ -303,31 +275,6 @@ pre[id].linkable-line-numbers.linkable-line-numbers
   color: hsl(230, 1%, 62%);
 }
 
-/* Match Braces plugin overrides */
-/* Note: Outline colour is inherited from the braces */
-.rainbow-braces .token.token.punctuation.brace-level-1,
-.rainbow-braces .token.token.punctuation.brace-level-5,
-.rainbow-braces .token.token.punctuation.brace-level-9 {
-  color: hsl(5, 74%, 59%);
-}
-
-.rainbow-braces .token.token.punctuation.brace-level-2,
-.rainbow-braces .token.token.punctuation.brace-level-6,
-.rainbow-braces .token.token.punctuation.brace-level-10 {
-  color: hsl(119, 34%, 47%);
-}
-
-.rainbow-braces .token.token.punctuation.brace-level-3,
-.rainbow-braces .token.token.punctuation.brace-level-7,
-.rainbow-braces .token.token.punctuation.brace-level-11 {
-  color: hsl(221, 87%, 60%);
-}
-
-.rainbow-braces .token.token.punctuation.brace-level-4,
-.rainbow-braces .token.token.punctuation.brace-level-8,
-.rainbow-braces .token.token.punctuation.brace-level-12 {
-  color: hsl(301, 63%, 40%);
-}
 
 /* Diff Highlight plugin overrides */
 /* Taken from https://github.com/atom/github/blob/master/styles/variables.less */
@@ -423,7 +370,6 @@ pre > code.diff-highlight .token.token.inserted:not(.prefix) *::selection {
 .token.doctype,
 .token.punctuation,
 .token.entity {
-  color: hsl(230, 8%, 24%);
   color: var(--amplify-colors-font-secondary);
 }
 
@@ -432,13 +378,13 @@ pre > code.diff-highlight .token.token.inserted:not(.prefix) *::selection {
 .token.boolean,
 .token.constant,
 .token.number,
-.token.atrule {
-  color: hsl(35, 99%, 36%);
-  color: var(--amplify-colors-blue-60);
+.token.atrule,
+.token.unit {
+  color: var(--amplify-colors-green-90);
 }
 
 .token.boolean {
-  color: var(--amplify-colors-purple-60);
+  color: var(--amplify-colors-pink-90);
 }
 
 [data-amplify-theme] .amplify-card .sp-wrapper {
@@ -474,7 +420,7 @@ pre > code.diff-highlight .token.token.inserted:not(.prefix) *::selection {
 
 .sp-code-editor .cm-gutters {
   background-color: var(--amplify-colors-background-primary);
-  color: var(--amplify-colors-font-tertiary);
+  color: var(--amplify-colors-font-secondary);
 }
 
 .mdx-marker {

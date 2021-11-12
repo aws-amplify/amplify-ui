@@ -86,3 +86,5 @@ export const SelectField: Primitive<SelectFieldProps, 'select'> = (props) => {
     </Flex>
   );
 };
+
+SelectField.displayName = 'SelectField';

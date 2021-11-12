@@ -94,3 +94,5 @@ export const Checkbox: Primitive<CheckboxProps, 'input'> = ({
     </Flex>
   );
 };
+
+Checkbox.displayName = 'Checkbox';

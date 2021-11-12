@@ -133,3 +133,5 @@ export const SliderField: Primitive<SliderFieldProps, typeof Root> = ({
     </Flex>
   );
 };
+
+SliderField.displayName = 'SliderField';

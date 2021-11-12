@@ -1,1 +1,1 @@
-export * from './Radio';
+export { Radio } from './Radio';

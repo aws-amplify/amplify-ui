@@ -86,3 +86,5 @@ export const RadioGroupField: Primitive<RadioGroupFieldProps, typeof Flex> = ({
     </Flex>
   );
 };
+
+RadioGroupField.displayName = 'RadioGroupField';

@@ -33,3 +33,5 @@ export const Heading: Primitive<HeadingProps, HeadingTag> = ({
     {children}
   </View>
 );
+
+Heading.displayName = 'Heading';

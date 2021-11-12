@@ -1,6 +1,6 @@
 <template>
-  <base-button
-    class="amplify-button amplify-field-group__control federated-sign-in-button"
+  <amplify-button
+    class="amplify-field-group__control federated-sign-in-button"
     data-fullwidth="false"
     style="font-weight: normal"
     type="button"
@@ -12,7 +12,7 @@
     >
       <slot></slot>
     </base-wrapper>
-  </base-button>
+  </amplify-button>
 </template>
 
 <script setup lang="ts">

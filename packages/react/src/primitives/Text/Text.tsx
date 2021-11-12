@@ -22,3 +22,5 @@ export const Text: Primitive<TextProps, 'p'> = ({
     {children}
   </View>
 );
+
+Text.displayName = 'Text';
