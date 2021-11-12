@@ -1,13 +1,20 @@
 import { translate } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '..';
-import { Form, Flex, Heading, PasswordField, Button } from '../../..';
+import { Button, Flex, Form, Heading, PasswordField, View } from '../../..';
 import { FederatedSignIn } from '../FederatedSignIn';
 import { RemoteErrorMessage, UserNameAlias } from '../shared';
 
 export function SignIn() {
-  const { _send, isPending, submitForm, toResetPassword, updateForm } =
-    useAuthenticator();
+  const {
+    components: {
+      SignIn: { Header, Footer },
+    },
+    isPending,
+    submitForm,
+    toResetPassword,
+    updateForm,
+  } = useAuthenticator();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     let { checked, name, type, value } = event.target;
@@ -22,57 +29,63 @@ export function SignIn() {
   };
 
   return (
-    // TODO Automatically add these namespaces again from `useAmplify`
-    <Form
-      data-amplify-authenticator-signin=""
-      method="post"
-      onSubmit={handleSubmit}
-      onChange={handleChange}
-    >
-      <Flex direction="column">
-        <Heading level={3}>{translate('Sign in to your account')}</Heading>
+    <View>
+      <Header />
 
+      <Form
+        data-amplify-authenticator-signin=""
+        method="post"
+        onSubmit={handleSubmit}
+        onChange={handleChange}
+      >
         <Flex direction="column">
-          <UserNameAlias data-amplify-usernamealias />
-          <PasswordField
-            data-amplify-password
-            className="password-field"
-            placeholder={translate('Password')}
-            isRequired={true}
-            name="password"
-            label={translate('Password')}
-            autoComplete="current-password"
-            labelHidden={true}
-          />
+          <Flex direction="column">
+            <UserNameAlias data-amplify-usernamealias />
+            <PasswordField
+              data-amplify-password
+              className="password-field"
+              placeholder={translate('Password')}
+              isRequired={true}
+              name="password"
+              label={translate('Password')}
+              autoComplete="current-password"
+              labelHidden={true}
+            />
+          </Flex>
+
+          <RemoteErrorMessage />
+
+          <Button
+            borderRadius={0}
+            isDisabled={isPending}
+            isFullWidth={true}
+            type="submit"
+            variation="primary"
+            isLoading={isPending}
+            loadingText={translate('Signing in')}
+            fontWeight="normal"
+          >
+            {translate('Sign in')}
+          </Button>
+
+          <Button
+            onClick={toResetPassword}
+            type="button"
+            variation="link"
+            size="small"
+            fontWeight="normal"
+          >
+            {translate('Forgot your password? ')}
+          </Button>
         </Flex>
 
-        <RemoteErrorMessage />
+        <FederatedSignIn />
+      </Form>
 
-        <Button
-          borderRadius={0}
-          isDisabled={isPending}
-          isFullWidth={true}
-          type="submit"
-          variation="primary"
-          isLoading={isPending}
-          loadingText={translate('Signing in')}
-          fontWeight="normal"
-        >
-          {translate('Sign in')}
-        </Button>
-
-        <Button
-          onClick={toResetPassword}
-          type="button"
-          variation="link"
-          size="small"
-          fontWeight="normal"
-        >
-          {translate('Forgot your password? ')}
-        </Button>
-      </Flex>
-
-      <FederatedSignIn />
-    </Form>
+      <Footer />
+    </View>
   );
 }
+
+SignIn.Header = (): JSX.Element => null;
+SignIn.Footer = (): JSX.Element => null;
