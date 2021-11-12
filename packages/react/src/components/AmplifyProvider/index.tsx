@@ -1,14 +1,16 @@
 import { IdProvider } from '@radix-ui/react-id';
-import { ReactNode } from 'react';
+import * as React from 'react';
+
+import { createTheme, defaultTheme, Theme as UiTheme } from '@aws-amplify/ui';
 
 import { AmplifyContext } from './AmplifyContext';
-import { createTheme, defaultTheme, Theme } from '@aws-amplify/ui';
 import * as primitives from '../../primitives/components';
 
+export type Theme = UiTheme;
 export type ColorMode = 'system' | 'light' | 'dark';
 
 interface AmplifyProviderProps {
-  children: ReactNode;
+  children: React.ReactNode;
   components?: Partial<typeof primitives>;
   theme?: Theme;
   colorMode?: ColorMode;

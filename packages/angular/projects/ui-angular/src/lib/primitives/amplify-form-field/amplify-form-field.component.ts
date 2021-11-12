@@ -84,7 +84,7 @@ export class AmplifyFormFieldComponent implements OnInit {
   }
 
   inferAutocomplete(): string {
-    return this.autocomplete || this.attributeMap[this.name]?.placeholder;
+    return this.autocomplete || this.attributeMap[this.name]?.autocomplete;
   }
 
   // TODO(enhancement): use enum to differentiate special field types
