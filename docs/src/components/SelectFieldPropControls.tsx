@@ -1,14 +1,13 @@
-import React from 'react';
+import * as React from 'react';
 
 import {
-  Flex,
+  CheckboxField,
   SelectField,
   SelectFieldProps,
   TextField,
 } from '@aws-amplify/ui-react';
 
 import { DemoBox } from './DemoBox';
-import { FieldLabeler } from './FieldLabeler';
 
 export interface SelectFieldPropControlsProps extends SelectFieldProps {
   setDescriptiveText: (
@@ -38,6 +37,14 @@ interface SelectFieldPropControlsInterface {
 }
 
 export const SelectFieldPropControls: SelectFieldPropControlsInterface = ({
+  descriptiveText,
+  errorMessage,
+  hasError,
+  isDisabled,
+  label,
+  labelHidden,
+  size,
+  variation,
   setDescriptiveText,
   setErrorMessage,
   setHasError,
@@ -52,8 +59,8 @@ export const SelectFieldPropControls: SelectFieldPropControlsInterface = ({
       <SelectField
         label="size"
         name="size"
-        id="size"
         placeholder="default"
+        value={size}
         onChange={(event) =>
           setSize(event.target.value as SelectFieldProps['size'])
         }
@@ -64,8 +71,8 @@ export const SelectFieldPropControls: SelectFieldPropControlsInterface = ({
       <SelectField
         label="variation"
         name="variation"
-        id="variation"
         placeholder="default"
+        value={variation}
         onChange={(event) =>
           setVariation(event.target.value as SelectFieldProps['variation'])
         }
@@ -75,8 +82,8 @@ export const SelectFieldPropControls: SelectFieldPropControlsInterface = ({
       <TextField
         label="label"
         name="label"
-        id="label"
         placeholder="Specify a label"
+        value={label as string}
         onChange={(event) =>
           setLabel(event.target.value as SelectFieldProps['label'])
         }
@@ -84,8 +91,8 @@ export const SelectFieldPropControls: SelectFieldPropControlsInterface = ({
       <TextField
         label="descriptiveText"
         name="descriptiveText"
-        id="descriptiveText"
         placeholder="Provide a descriptive text"
+        value={descriptiveText as string}
         onChange={(event) =>
           setDescriptiveText(
             event.target.value as SelectFieldProps['descriptiveText']
@@ -95,50 +102,50 @@ export const SelectFieldPropControls: SelectFieldPropControlsInterface = ({
       <TextField
         label="errorMessage"
         name="errorMessage"
-        id="errorMessage"
         placeholder="Specify error message"
+        value={errorMessage}
         onChange={(event) =>
           setErrorMessage(
             event.target.value as SelectFieldProps['errorMessage']
           )
         }
       />
-      <FieldLabeler id="labelHidden">
-        <input
-          type="checkbox"
-          name="labelHidden"
-          id="labelHidden"
-          onChange={(event) => {
-            setLabelHidden(
-              Boolean(event.target.checked) as SelectFieldProps['labelHidden']
-            );
-          }}
-        />
-      </FieldLabeler>
-      <FieldLabeler id="hasError">
-        <input
-          type="checkbox"
-          name="hasError"
-          id="labelHidden"
-          onChange={(event) => {
-            setHasError(
-              Boolean(event.target.checked) as SelectFieldProps['hasError']
-            );
-          }}
-        />
-      </FieldLabeler>
-      <FieldLabeler id="isDisabled">
-        <input
-          type="checkbox"
-          name="isDisabled"
-          id="isDisabled"
-          onChange={(event) => {
-            setIsDisabled(
-              Boolean(event.target.checked) as SelectFieldProps['isDisabled']
-            );
-          }}
-        />
-      </FieldLabeler>
+      <CheckboxField
+        name="labelHidden"
+        value="yes"
+        checked={labelHidden}
+        onChange={(event) => {
+          setLabelHidden(
+            Boolean(event.target.checked) as SelectFieldProps['labelHidden']
+          );
+        }}
+      >
+        labelHidden
+      </CheckboxField>
+      <CheckboxField
+        name="hasError"
+        value="yes"
+        checked={hasError}
+        onChange={(event) => {
+          setHasError(
+            Boolean(event.target.checked) as SelectFieldProps['hasError']
+          );
+        }}
+      >
+        hasError
+      </CheckboxField>
+      <CheckboxField
+        name="isDisabled"
+        value="yes"
+        checked={isDisabled}
+        onChange={(event) => {
+          setIsDisabled(
+            Boolean(event.target.checked) as SelectFieldProps['isDisabled']
+          );
+        }}
+      >
+        isDisabled
+      </CheckboxField>
     </DemoBox>
   );
 };
