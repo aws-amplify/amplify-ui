@@ -16,10 +16,10 @@ export class AmplifyFederatedSignInComponent implements OnInit {
   public shouldShowFederatedSignIn = false;
 
   // translated texts
-  public signInAmazonText: String;
-  public signInAppleText: String;
-  public signInFacebookText: String;
-  public signInGoogleText: String;
+  public signInAmazonText: string;
+  public signInAppleText: string;
+  public signInFacebookText: string;
+  public signInGoogleText: string;
 
   constructor(private authenticator: AuthenticatorService) {}
 
