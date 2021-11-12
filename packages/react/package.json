@@ -4,8 +4,14 @@
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
   "exports": {
-    ".": "./dist/esm/index.js",
-    "./legacy": "./dist/esm/legacy.js",
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/index.js"
+    },
+    "./legacy": {
+      "import": "./dist/esm/legacy.js",
+      "require": "./dist/index.js"
+    },
     "./styles.css": "./dist/index.css"
   },
   "browser": {
