@@ -5,7 +5,7 @@ import { ComponentClassNames } from '../shared/constants';
 import { ButtonProps, PrimitiveWithForwardRef } from '../types';
 import { View } from '../View';
 
-export const ButtonInner: PrimitiveWithForwardRef<ButtonProps, 'button'> = (
+const ButtonInner: PrimitiveWithForwardRef<ButtonProps, 'button'> = (
   {
     className,
     children,

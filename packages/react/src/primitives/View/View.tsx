@@ -2,7 +2,7 @@ import React from 'react';
 import { useNonStyleProps, usePropStyles } from '../shared/styleUtils';
 import { ElementType, PrimitivePropsWithRef, ViewProps } from '../types';
 
-export const ViewInner = <Element extends ElementType = 'div'>(
+const ViewInner = <Element extends ElementType = 'div'>(
   {
     as = 'div',
     className,
