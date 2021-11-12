@@ -14,7 +14,6 @@ import { translate } from '@aws-amplify/ui';
 })
 export class AmplifySignInComponent {
   @HostBinding('attr.data-amplify-authenticator-signin') dataAttr = '';
-  @Input() public headerText = translate('Sign in to your account');
 
   // translated phrases
   public forgotPasswordText = translate('Forgot your password? ');

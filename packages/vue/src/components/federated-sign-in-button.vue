@@ -8,7 +8,7 @@
   >
     <base-wrapper
       class="amplify-flex federated-sign-in-button-row"
-      style="flex-direction: row; justify-content: center"
+      style="flex-direction: row; justify-content: center; align-items: center"
     >
       <slot></slot>
     </base-wrapper>

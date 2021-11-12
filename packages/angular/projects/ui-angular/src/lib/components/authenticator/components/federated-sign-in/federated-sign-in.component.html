@@ -1,17 +1,10 @@
 <div
   class="amplify-flex federated-sign-in-container"
-  style="flex-direction: column"
+  style="flex-direction: column; padding: 0 0 1rem 0"
   *ngIf="shouldShowFederatedSignIn"
   data-orientation="horizontal"
   data-size="small"
 >
-  <hr
-    class="amplify-divider"
-    aria-orientation="horizontal"
-    data-size="small"
-    style="margin: '1rem 0'"
-  />
-
   <amplify-federated-sign-in-button
     *ngIf="includeAmazon"
     [text]="signInAmazonText"
@@ -108,4 +101,13 @@
       {{ signInGoogleText }}
     </p>
   </amplify-federated-sign-in-button>
+
+  <div class="amplify-flex" data-or-container>
+    <div data-or-line>or</div>
+    <hr
+      class="amplify-divider"
+      aria-orientation="horizontal"
+      data-size="small"
+    />
+  </div>
 </div>

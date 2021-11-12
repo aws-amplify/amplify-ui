@@ -7,8 +7,6 @@ import { translate } from '@aws-amplify/ui';
   templateUrl: './sign-up.component.html',
 })
 export class AmplifySignUpComponent {
-  @Input() headerText = translate('Create a new account');
-
   @HostBinding('attr.data-amplify-authenticator-signup') dataAttr = '';
 
   // translated texts

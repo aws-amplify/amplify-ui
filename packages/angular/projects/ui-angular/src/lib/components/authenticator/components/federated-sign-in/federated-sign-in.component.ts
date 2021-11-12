@@ -16,16 +16,17 @@ export class AmplifyFederatedSignInComponent implements OnInit {
   public shouldShowFederatedSignIn = false;
 
   // translated texts
-  public signInAmazonText = translate('Sign In with Amazon');
-  public signInAppleText = translate('Sign In with Apple');
-  public signInFacebookText = translate('Sign In with Facebook');
-  public signInGoogleText = translate('Sign In with Google');
+  public signInAmazonText: string;
+  public signInAppleText: string;
+  public signInFacebookText: string;
+  public signInGoogleText: string;
 
   constructor(private authenticator: AuthenticatorService) {}
 
   ngOnInit(): void {
     const { socialProviders } = this.authenticator.context?.config;
 
+    this.setFederatedTexts();
     this.includeAmazon = socialProviders?.includes('amazon');
     this.includeApple = socialProviders?.includes('apple');
     this.includeGoogle = socialProviders?.includes('google');
@@ -36,5 +37,22 @@ export class AmplifyFederatedSignInComponent implements OnInit {
       this.includeApple ||
       this.includeFacebook ||
       this.includeGoogle;
+  }
+
+  private setFederatedTexts() {
+    const { route } = this.authenticator;
+    const federatedText = route === 'signUp' ? 'Up' : 'In';
+    this.signInAmazonText = translate<string>(
+      `Sign ${federatedText} with Amazon`
+    );
+    this.signInAppleText = translate<string>(
+      `Sign ${federatedText} with Apple`
+    );
+    this.signInFacebookText = translate<string>(
+      `Sign ${federatedText} with Facebook`
+    );
+    this.signInGoogleText = translate<string>(
+      `Sign ${federatedText} with Google`
+    );
   }
 }

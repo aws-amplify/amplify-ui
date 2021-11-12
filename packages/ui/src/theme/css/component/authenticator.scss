@@ -73,3 +73,18 @@
 [data-amplify-authenticator] .amplify-phonenumberfield select {
   border-right: none;
 }
+
+[data-amplify-authenticator] [data-or-container] {
+  position: relative;
+  color: gray;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 0px;
+
+  [data-or-line] {
+    position: absolute;
+    background: var(--amplify-colors-white);
+    z-index: 1;
+    padding: 0px 1.5rem;
+  }
+}

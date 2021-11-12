@@ -23,56 +23,55 @@ export function SignIn() {
 
   return (
     // TODO Automatically add these namespaces again from `useAmplify`
-    <Form
-      data-amplify-authenticator-signin=""
-      method="post"
-      onSubmit={handleSubmit}
-      onChange={handleChange}
-    >
-      <Flex direction="column">
-        <Heading level={3}>{translate('Sign in to your account')}</Heading>
-
+    <>
+      <Form
+        data-amplify-authenticator-signin=""
+        method="post"
+        onSubmit={handleSubmit}
+        onChange={handleChange}
+      >
+        <FederatedSignIn />
         <Flex direction="column">
-          <UserNameAlias data-amplify-usernamealias />
-          <PasswordField
-            data-amplify-password
-            className="password-field"
-            placeholder={translate('Password')}
-            isRequired={true}
-            name="password"
-            label={translate('Password')}
-            autoComplete="current-password"
-            labelHidden={true}
-          />
+          <Flex direction="column">
+            <UserNameAlias data-amplify-usernamealias />
+            <PasswordField
+              data-amplify-password
+              className="password-field"
+              placeholder={translate('Password')}
+              isRequired={true}
+              name="password"
+              label={translate('Password')}
+              autoComplete="current-password"
+              labelHidden={true}
+            />
+          </Flex>
+
+          <RemoteErrorMessage />
+
+          <Button
+            borderRadius={0}
+            isDisabled={isPending}
+            isFullWidth={true}
+            type="submit"
+            variation="primary"
+            isLoading={isPending}
+            loadingText={translate('Signing in')}
+            fontWeight="normal"
+          >
+            {translate('Sign in')}
+          </Button>
+
+          <Button
+            onClick={toResetPassword}
+            type="button"
+            variation="link"
+            size="small"
+            fontWeight="normal"
+          >
+            {translate('Forgot your password? ')}
+          </Button>
         </Flex>
-
-        <RemoteErrorMessage />
-
-        <Button
-          borderRadius={0}
-          isDisabled={isPending}
-          isFullWidth={true}
-          type="submit"
-          variation="primary"
-          isLoading={isPending}
-          loadingText={translate('Signing in')}
-          fontWeight="normal"
-        >
-          {translate('Sign in')}
-        </Button>
-
-        <Button
-          onClick={toResetPassword}
-          type="button"
-          variation="link"
-          size="small"
-          fontWeight="normal"
-        >
-          {translate('Forgot your password? ')}
-        </Button>
-      </Flex>
-
-      <FederatedSignIn />
-    </Form>
+      </Form>
+    </>
   );
 }
