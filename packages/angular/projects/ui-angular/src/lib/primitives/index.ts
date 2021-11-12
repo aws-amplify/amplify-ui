@@ -3,7 +3,7 @@ export { AmplifyErrorComponent } from './error/error.component';
 export { AmplifyButtonComponent } from './button/button.component';
 export { AmplifyPasswordFieldComponent } from './password-field/password-field.component';
 export { AmplifySelectComponent } from './select/select.component';
-export { AmplifyTextFieldComponent } from './text-field/amplify-text-field.component';
+export { AmplifyTextFieldComponent } from './text-field/text-field.component';
 export { AmplifyUserNameAliasComponent } from './user-name-alias/user-name-alias.component';
 export { PhoneNumberFieldComponent } from './phone-number-field/phone-number-field.component';
 export { TabItemComponent } from './tab-item/tab-item.component';

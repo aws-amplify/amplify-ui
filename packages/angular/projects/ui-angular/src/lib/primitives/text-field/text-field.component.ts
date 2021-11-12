@@ -3,7 +3,7 @@ import { nanoid } from 'nanoid';
 
 @Component({
   selector: 'amplify-text-field',
-  templateUrl: './amplify-text-field.component.html',
+  templateUrl: './text-field.component.html',
 })
 export class AmplifyTextFieldComponent {
   @Input() autocomplete = 'new-password';

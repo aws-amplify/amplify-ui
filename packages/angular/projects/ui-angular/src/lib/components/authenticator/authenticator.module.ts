@@ -27,7 +27,7 @@ import { AmplifyErrorComponent } from '../../primitives/error/error.component';
 import { AmplifyButtonComponent } from '../../primitives/button/button.component';
 import { AmplifyPasswordFieldComponent } from '../../primitives/password-field/password-field.component';
 import { AmplifySelectComponent } from '../../primitives/select/select.component';
-import { AmplifyTextFieldComponent } from '../../primitives/text-field/amplify-text-field.component';
+import { AmplifyTextFieldComponent } from '../../primitives/text-field/text-field.component';
 import { AmplifyUserNameAliasComponent } from '../../primitives/user-name-alias/user-name-alias.component';
 import { PhoneNumberFieldComponent } from '../../primitives/phone-number-field/phone-number-field.component';
 import { TabItemComponent } from '../../primitives/tab-item/tab-item.component';
