@@ -24,11 +24,6 @@ body {
   align-items: center;
 }
 
-.amplify-divider {
-  display: block !important; /* because of all: unset */
-  margin: 1rem 0 !important; /* margin doesn't work in React for divider */
-}
-
 .amplify-placeholder {
   display: block;
 }

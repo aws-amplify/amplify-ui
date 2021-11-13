@@ -4,7 +4,7 @@ import { Component, Input, OnInit } from '@angular/core';
   selector: 'amplify-checkbox',
   templateUrl: './checkbox.component.html',
 })
-export class AmplifyCheckboxComponent implements OnInit {
+export class CheckboxComponent implements OnInit {
   @Input() defaultChecked: boolean = false;
   @Input() errorMessage: string;
   @Input() hasError: boolean = false;

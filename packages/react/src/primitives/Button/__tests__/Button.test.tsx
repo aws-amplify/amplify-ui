@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
@@ -11,6 +12,17 @@ describe('Button test suite', () => {
 
     const button = await screen.findByRole('button');
     expect(button).toHaveClass(ComponentClassNames.Button, className);
+  });
+
+  it('should forward ref to button DOM element', async () => {
+    const ref = React.createRef<HTMLButtonElement>();
+    const buttonText = 'Hello there';
+
+    render(<Button ref={ref}>{buttonText}</Button>);
+
+    await screen.findByRole('button');
+    expect(ref.current.nodeName).toBe('BUTTON');
+    expect(ref.current.innerHTML).toBe(buttonText);
   });
 
   it('should set size and variation props correctly', async () => {
