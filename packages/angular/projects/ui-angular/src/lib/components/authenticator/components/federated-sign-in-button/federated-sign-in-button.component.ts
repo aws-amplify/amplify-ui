@@ -6,7 +6,7 @@ import { AuthenticatorService } from '../../../../services/authenticator.service
   selector: 'amplify-federated-sign-in-button',
   templateUrl: './federated-sign-in-button.component.html',
 })
-export class AmplifyFederatedSignInButtonComponent {
+export class FederatedSignInButtonComponent {
   @Input() provider: FederatedIdentityProviders;
   @Input() text: string;
 

@@ -12,7 +12,7 @@ import { translate } from '@aws-amplify/ui';
   templateUrl: './sign-in.component.html',
   encapsulation: ViewEncapsulation.None,
 })
-export class AmplifySignInComponent {
+export class SignInComponent {
   @HostBinding('attr.data-amplify-authenticator-signin') dataAttr = '';
 
   // translated phrases

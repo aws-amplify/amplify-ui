@@ -6,7 +6,7 @@ import { translate } from '@aws-amplify/ui';
   selector: 'amplify-sign-up',
   templateUrl: './sign-up.component.html',
 })
-export class AmplifySignUpComponent {
+export class SignUpComponent {
   @HostBinding('attr.data-amplify-authenticator-signup') dataAttr = '';
 
   // translated texts

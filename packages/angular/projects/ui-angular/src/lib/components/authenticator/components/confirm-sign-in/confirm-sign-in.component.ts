@@ -14,7 +14,7 @@ const logger = new Logger('ConfirmSignIn');
   selector: 'amplify-confirm-sign-in',
   templateUrl: './confirm-sign-in.component.html',
 })
-export class AmplifyConfirmSignInComponent implements OnInit {
+export class ConfirmSignInComponent implements OnInit {
   @HostBinding('attr.data-amplify-authenticator-confirmsignin') dataAttr = '';
 
   // translated texts
