@@ -1,11 +1,9 @@
-export { AmplifyFormFieldComponent } from './amplify-form-field/amplify-form-field.component';
-export { AmplifyErrorComponent } from './amplify-error/amplify-error.component';
-export { AmplifyButtonComponent } from './amplify-button/amplify-button.component';
-export { AmplifyPasswordFieldComponent } from './amplify-password-field/amplify-password-field.component';
-export { AmplifySelectComponent } from './amplify-select/amplify-select.component';
-export { AmplifyTextFieldComponent } from './amplify-text-field/amplify-text-field.component';
-export { AmplifyUserNameAliasComponent } from './amplify-user-name-alias/amplify-user-name-alias.component';
+export { ErrorComponent } from './error/error.component';
+export { ButtonComponent } from './button/button.component';
+export { PasswordFieldComponent } from './password-field/password-field.component';
+export { SelectComponent } from './select/select.component';
+export { TextFieldComponent } from './text-field/text-field.component';
 export { PhoneNumberFieldComponent } from './phone-number-field/phone-number-field.component';
 export { TabItemComponent } from './tab-item/tab-item.component';
 export { TabsComponent } from './tabs/tabs.component';
-export { AmplifyCheckboxComponent } from './checkbox/checkbox.component';
+export { CheckboxComponent } from './checkbox/checkbox.component';
