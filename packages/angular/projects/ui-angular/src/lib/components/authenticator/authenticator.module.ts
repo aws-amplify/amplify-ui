@@ -15,24 +15,24 @@ import { ConfirmVerifyUserComponent } from './components/confirm-verify-user/amp
 import { FederatedSignInButtonComponent } from './components/federated-sign-in-button/federated-sign-in-button.component';
 import { FederatedSignInComponent } from './components/federated-sign-in/federated-sign-in.component';
 import { ForceNewPasswordComponent } from './components/force-new-password/force-new-password.component';
+import { FormFieldComponent } from './components/form-field/form-field.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { SetupTotpComponent } from './components/setup-totp/setup-totp.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { SignUpFormFieldsComponent } from './components/sign-up/sign-up-form-fields/sign-up-form-fields.component';
+import { UserNameAliasComponent } from './components/user-name-alias/user-name-alias.component';
 import { VerifyUserComponent } from './components/verify-user/verify-user.component';
 
 import { ButtonComponent } from '../../primitives/button/button.component';
 import { CheckboxComponent } from '../../primitives/checkbox/checkbox.component';
 import { ErrorComponent } from '../../primitives/error/error.component';
-import { FormFieldComponent } from '../../primitives/form-field/form-field.component';
 import { PasswordFieldComponent } from '../../primitives/password-field/password-field.component';
 import { PhoneNumberFieldComponent } from '../../primitives/phone-number-field/phone-number-field.component';
 import { SelectComponent } from '../../primitives/select/select.component';
 import { TabItemComponent } from '../../primitives/tab-item/tab-item.component';
 import { TabsComponent } from '../../primitives/tabs/tabs.component';
 import { TextFieldComponent } from '../../primitives/text-field/text-field.component';
-import { UserNameAliasComponent } from '../../primitives/user-name-alias/user-name-alias.component';
 
 import { AmplifySlotComponent } from '../../utilities/amplify-slot/amplify-slot.component';
 import { AmplifySlotDirective } from '../../utilities/amplify-slot/amplify-slot.directive';

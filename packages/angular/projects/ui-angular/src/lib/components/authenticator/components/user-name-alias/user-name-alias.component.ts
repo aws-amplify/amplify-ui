@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AuthenticatorService } from '../../services/authenticator.service';
+import { AuthenticatorService } from '../../../../services/authenticator.service';
 import { getAliasInfoFromContext } from '@aws-amplify/ui';
 
 @Component({
