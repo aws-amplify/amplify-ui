@@ -1,64 +1,104 @@
 import * as React from 'react';
 import { useRouter } from 'next/router';
-// import { Sandpack, codesandboxDarkTheme } from '@codesandbox/sandpack-react';
+import { Sandpack, codesandboxDarkTheme } from '@codesandbox/sandpack-react';
 import {
+  Link,
+  Grid,
+  Authenticator,
   Button,
   Card,
   TextField,
   Heading,
   View,
   Text,
-  IconCopyAll,
   Flex,
   Image,
+  useTheme,
+  ToggleButtonGroup,
+  ToggleButton,
+  IconChevronRight,
 } from '@aws-amplify/ui-react';
 
 import { HomeLogo } from './HomeLogo';
-import { theme } from '../theme';
+import { ThemeButton } from './ThemeButton';
+import { HomePrimitivePreview } from './HomePrimitivePreview';
+import { Copy } from '@/components/Copy';
+import { Footer } from '@/components/Layout/Footer';
 
-const { tokens } = theme;
-
-const code = `import { AmplifyProvider, Button, Card, Text, Heading, Flex, Badge, createTheme, Image, View, StepperField, Rating } from '@aws-amplify/ui-react'; 
+const code = `import { AmplifyProvider, Button, Card, Text, Heading, Flex, Badge, createTheme, Image, View, StepperField, Rating, useTheme } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
-const theme = createTheme({});
+import { theme } from './theme';
+
+const Example = () => {
+  const { tokens } = useTheme();
+  return (
+    <Card>
+      <Flex direction="row" alignItems="flex-start">
+        <Image src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=930&q=80"
+          width="8rem"/>
+        <Flex direction="column" gap={tokens.space.xs}>
+          <Flex direction="row">
+            <Badge variation="success">New</Badge>
+          </Flex>
+          <Heading level={3}>
+            Product title
+          </Heading>
+          <Text>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut scelerisque risus in sem dapibus, nec vestibulum metus mattis. Mauris dignissim maximus tellus, in feugiat nibh rhoncus a.</Text>
+          <Flex direction="row" alignItems="center">
+            <Text
+              fontSize={tokens.fontSizes.large}
+              color={tokens.colors.font.secondary}>
+              $199.99
+            </Text>
+            <StepperField
+              label="Stepper"
+              defaultValue={1}
+              min={0}
+              max={10}
+              step={1}
+              labelHidden
+            />
+            <Button variation="primary">Add to cart</Button>
+          </Flex>
+        </Flex>
+      </Flex>
+    </Card>
+  )
+}
 
 export default function App() {
   return (
     <AmplifyProvider theme={theme}>
-      <Card>
-        <Flex direction="row">
-          <Image src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=930&q=80"
-            width="8rem"/>
-          <Flex direction="column" gap={\`\${theme.tokens.space.xs}\`}>
-            <Flex direction="row">
-              <Badge variation="success">New</Badge>
-            </Flex>
-            <Heading level={3}>
-              Product title
-            </Heading>
-            <Rating value={4.5} />
-            <Text>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut scelerisque risus in sem dapibus, nec vestibulum metus mattis. Mauris dignissim maximus tellus, in feugiat nibh rhoncus a.</Text>
-            <Flex direction="row">
-              <StepperField
-                label="Stepper"
-                defaultValue={1}
-                min={0}
-                max={10}
-                step={1}
-                labelHidden
-              />
-              <Button variation="primary">Add to cart</Button>
-            </Flex>
-          </Flex>
-        </Flex>
-      </Card>
+      <Example />
     </AmplifyProvider>
   )
 }`;
 
-const HomePage = ({ colorMode }) => {
+const themeCode = `export const theme = {
+  name: 'my-theme',
+  // customizations
+  // tokens: {
+  //   colors: {
+  //     font: {
+  //       secondary: { value: 'hotpink' }
+  //     }
+  //   }
+  // }
+};`;
+
+const AmpCard = ({ title, description, href }) => (
+  <Link isExternal href={href} className="docs-home-amp-product-card">
+    <Card textAlign="center">
+      <Heading level={3}>{title}</Heading>
+      <Text>{description}</Text>
+    </Card>
+  </Link>
+);
+
+const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
   const router = useRouter();
+  const { tokens } = useTheme();
   const framework = router.query.platform ?? 'react';
   const sandPackTheme = {
     ...(colorMode === 'dark' ? codesandboxDarkTheme : {}),
@@ -68,7 +108,7 @@ const HomePage = ({ colorMode }) => {
     },
   };
   return (
-    <div>
+    <>
       <View as="section" className="docs-home-section-bg">
         <HomeLogo />
         <Image
@@ -95,20 +135,28 @@ const HomePage = ({ colorMode }) => {
           </Text>
 
           <Flex direction="row" padding={`${tokens.space.medium} 0 0 0`}>
-            <Button variation="primary" as="a" href="/getting-started">
+            <Button
+              size="large"
+              variation="primary"
+              as="a"
+              href="/getting-started/installation"
+            >
               Get started
+              <IconChevronRight />
             </Button>
             <TextField
               label=""
               labelHidden={true}
               isReadOnly={true}
               className="install-code"
+              size="large"
               innerEndComponent={
-                <Button variation="link">
-                  <IconCopyAll /> Copy
-                </Button>
+                <Copy
+                  variation="link"
+                  text={`npm i aws-amplify @aws-amplify/ui-${framework}`}
+                />
               }
-              value={`npm i @aws-amplify/ui-${framework}`}
+              value={`npm i @aws-amplify/ui-${framework}@next`}
             />
           </Flex>
         </Card>
@@ -117,11 +165,15 @@ const HomePage = ({ colorMode }) => {
         backgroundColor={`${tokens.colors.background.secondary}`}
         padding={`${tokens.space.xl}`}
       >
+        <Heading level={2} textAlign="center" margin={`${tokens.space.xl}`}>
+          Take it for a test drive
+        </Heading>
         <Card style={{ width: '100%', padding: 0 }}>
-          {/* <Sandpack
+          <Sandpack
             template="react"
             files={{
-              '/App.js': code,
+              '/App.js': { code: code, active: true },
+              '/theme.js': { code: themeCode },
             }}
             theme={sandPackTheme}
             options={{
@@ -133,69 +185,36 @@ const HomePage = ({ colorMode }) => {
             }}
             customSetup={{
               dependencies: {
-                '@aws-amplify/ui-react': '0.0.0-next-202192618169',
+                '@aws-amplify/ui-react': '0.0.0-next-5257a31-20211011212613',
                 'aws-amplify': 'latest',
               },
               entry: '/index.js',
             }}
-          /> */}
+          />
         </Card>
       </View>
 
       <View as="section" className="docs-home-section">
-        <Flex direction="row">
-          <View style={{ flex: '1' }}>
+        <Flex
+          direction={{
+            base: 'column',
+            large: 'row',
+          }}
+        >
+          <Flex flex="1" direction="column" alignItems="flex-start">
             <Heading level={2}>Primitive Components</Heading>
             <Text className="docs-home-description">
               Primitive components that create consistency across Amplify UI and
               allow you to build complete applications that fit your brand, like
               Buttons and Badges.
             </Text>
-          </View>
+            <Button as="a" size="large" href="/components/authenticator">
+              Get started with components
+              <IconChevronRight />
+            </Button>
+          </Flex>
 
-          {/* <Grid
-            templateColumns="1fr 1fr"
-            templateRows="1fr 1fr 1fr"
-            gap={`${tokens.space.medium}`}
-            style={{ flex: '1' }}
-            className="docs-home-preview"
-          >
-            <Card columnSpan={2}>
-              <Flex direction="row">
-                <Image src="http://placekitten.com/g/200/300" />
-                <View>
-                  <Heading level={4}></Heading>
-                  <Badge variation="success">Available</Badge>
-                  <Badge variation="info">New</Badge>
-                </View>
-              </Flex>
-            </Card>
-            <Card rowSpan={2}>
-              <SelectField label="Room type">
-                <option></option>
-              </SelectField>
-              <StepperField label="Guests" />
-              <Rating value={4} />
-            </Card>
-            <Card>
-              <Tabs>
-                <TabItem title="Tab item">
-                  <p></p>
-                </TabItem>
-                <TabItem title="Tab item">
-                  <p></p>
-                </TabItem>
-              </Tabs>
-            </Card>
-
-            <Card>
-              <SearchField label="Search" labelHidden={true} />
-              <Button variation="primary" as="a" href="/getting-started">
-                Get started
-              </Button>
-              <Button>Get started</Button>
-            </Card>
-          </Grid> */}
+          <HomePrimitivePreview />
         </Flex>
       </View>
 
@@ -204,15 +223,26 @@ const HomePage = ({ colorMode }) => {
         className="docs-home-section"
         backgroundColor={`${tokens.colors.background.secondary}`}
       >
-        <Flex direction="row">
-          <View style={{ flex: '1' }}></View>
-          <View style={{ flex: '1' }}>
-            <Heading level={2}>Connected Components</Heading>
-            <Text className="docs-home-description">
-              Connected components that simplify complex cloud-connected
-              workflows
-            </Text>
+        <Flex
+          direction={{
+            base: 'column-reverse',
+            large: 'row',
+          }}
+        >
+          <View flex="1" className="example">
+            <Authenticator />
           </View>
+          <Flex flex="1" direction="column" alignItems="flex-start">
+            <Heading level={2}>Cloud-Connected Components</Heading>
+            <Text className="docs-home-description">
+              Simplify complex cloud-connected workflows like authentication
+              with minimal boilerplate code.
+            </Text>
+            <Button as="a" size="large" href="/components/authenticator">
+              Authenticator
+              <IconChevronRight />
+            </Button>
+          </Flex>
         </Flex>
       </View>
 
@@ -221,15 +251,60 @@ const HomePage = ({ colorMode }) => {
         className="docs-home-section"
         backgroundColor={`${tokens.colors.background.primary}`}
       >
-        <Flex direction="row">
-          <View style={{ flex: '1' }}>
+        <Flex
+          direction={{
+            base: 'column',
+            large: 'row',
+          }}
+        >
+          <Flex flex="1" direction="column" alignItems="flex-start">
             <Heading level={2}>Theming</Heading>
             <Text className="docs-home-description">
               Theming capabilities that allow you to customize the appearance of
               Amplify UI to match your brand.
             </Text>
-          </View>
-          <View style={{ flex: '1' }}></View>
+            <Button as="a" size="large" href="/theming">
+              Get started with theming
+              <IconChevronRight />
+            </Button>
+          </Flex>
+          <Flex
+            flex="1"
+            alignContent="center"
+            padding={{
+              base: '0',
+              large: tokens.space.xl,
+            }}
+          >
+            <ToggleButtonGroup
+              width="100%"
+              value={themeOverride}
+              isExclusive
+              onChange={(value: string) => setThemeOverride(value)}
+            >
+              <ToggleButton value="" flex="1">
+                <ThemeButton
+                  label="Default"
+                  colors={[
+                    'var(--amplify-colors-teal-60)',
+                    'var(--amplify-colors-purple-60)',
+                  ]}
+                />
+              </ToggleButton>
+              <ToggleButton value="terminal" flex="1">
+                <ThemeButton label="Terminal" colors={['#44AF5B', '#000']} />
+              </ToggleButton>
+              <ToggleButton value="classic" flex="1">
+                <ThemeButton
+                  label="Classic"
+                  colors={[
+                    'var(--amplify-colors-blue-60)',
+                    'var(--amplify-colors-neutral-60)',
+                  ]}
+                />
+              </ToggleButton>
+            </ToggleButtonGroup>
+          </Flex>
         </Flex>
       </View>
 
@@ -239,12 +314,43 @@ const HomePage = ({ colorMode }) => {
         backgroundColor={`${tokens.colors.background.secondary}`}
       >
         <Heading level={2}>Accessibility</Heading>
+        <Text></Text>
       </View>
 
       <View as="section" className="docs-home-section">
-        <Heading level={2}>Looking for other Amplify Products?</Heading>
+        <Heading level={2} textAlign="center" margin={`${tokens.space.xl}`}>
+          Looking for other Amplify Products?
+        </Heading>
+        <Grid
+          templateColumns="1fr 1fr"
+          templateRows="1fr 1fr 1fr"
+          gap={`${tokens.space.medium}`}
+          flex="1"
+        >
+          <AmpCard
+            href="https://docs.amplify.aws/lib/q/platform/js/"
+            title="Amplify Libraries"
+            description="Connect app to new or existing AWS services (Cognito, S3, and more)."
+          />
+          <AmpCard
+            href="https://docs.amplify.aws/cli/"
+            title="Amplify CLI"
+            description="Configure an app backend with a guided CLI workflow."
+          />
+          <AmpCard
+            href="https://docs.amplify.aws/console/"
+            title="Amplify Console"
+            description="AWS service for creating an app backend and hosting full-stack web apps."
+          />
+          <AmpCard
+            href="https://docs.amplify.aws/console/adminui/intro/"
+            title="Amplify Admin"
+            description="Visually configure and manage your app backend."
+          />
+        </Grid>
       </View>
-    </div>
+      <Footer />
+    </>
   );
 };
 

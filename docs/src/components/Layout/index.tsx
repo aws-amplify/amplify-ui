@@ -71,7 +71,7 @@ export default function Page({
         bottom={`${tokens.space.large}`}
         left={`${tokens.space.large}`}
         right={`${tokens.space.large}`}
-        style={{ zIndex: '9999' }}
+        style={{ zIndex: '9999', boxShadow: `${tokens.shadows.medium}` }}
       >
         You're viewing documentation for the next release of Amplify UI. For the
         latest stable release, visit:&nbsp;

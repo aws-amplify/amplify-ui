@@ -68,7 +68,7 @@ h6.amplify-heading {
 
 .experience-card {
   position: relative;
-  transition: all var(--amplify-time-transition-medium);
+  transition: all var(--amplify-time-medium);
 
   & img {
     display: block;
@@ -84,7 +84,7 @@ h6.amplify-heading {
 }
 
 .experience-card-text {
-  transition: all var(--amplify-time-transition-medium);
+  transition: all var(--amplify-time-medium);
   position: absolute;
   bottom: var(--amplify-space-medium);
   padding: 0 var(--amplify-space-medium);

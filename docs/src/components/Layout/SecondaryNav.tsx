@@ -16,7 +16,7 @@ import {
 } from '../../data/links';
 
 const NavLinks = ({ items }: { items: ComponentNavItem[] }) => (
-  <Collection type="list" items={items}>
+  <Collection type="list" items={items} gap="0">
     {({ href, label }) => <NavLink href={href}>{label}</NavLink>}
   </Collection>
 );

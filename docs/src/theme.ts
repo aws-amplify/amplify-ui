@@ -1,4 +1,4 @@
-import { createTheme, defaultTheme } from '@aws-amplify/ui-react';
+import { defaultTheme, Theme } from '@aws-amplify/ui-react';
 
 const flipper = {
   100: 10,
@@ -29,7 +29,7 @@ const usePalette = (str) => {
   }, {});
 };
 
-export const theme = createTheme({
+export const theme: Theme = {
   name: 'amplify-docs',
   tokens: {
     colors: {
@@ -40,16 +40,31 @@ export const theme = createTheme({
     components: {
       heading: {
         1: {
-          fontWeight: { value: 800 },
+          fontWeight: { value: 900 },
           fontSize: { value: '3rem' },
         },
         2: {
-          fontWeight: { value: 600 },
-          fontSize: { value: '2.25rem' },
+          fontWeight: { value: 900 },
+          fontSize: { value: '2.5rem' },
         },
         3: {
           fontWeight: { value: 600 },
           fontSize: { value: '2rem' },
+        },
+      },
+      sliderfield: {
+        thumb: {
+          boxShadow: { value: '{shadows.small.value}' },
+        },
+      },
+      badge: {
+        borderRadius: { value: '{radii.large.value}' },
+      },
+      switchfield: {
+        track: {
+          checked: {
+            background: { value: '{colors.brand.primary.80.value}' },
+          },
         },
       },
       button: {
@@ -112,7 +127,7 @@ export const theme = createTheme({
       },
     },
     {
-      selector: '[data-amplify-theme="amplify-docs"].classic',
+      selector: '.classic [data-amplify-theme="amplify-docs"]',
       tokens: {
         fonts: {
           default: {
@@ -125,24 +140,29 @@ export const theme = createTheme({
             primary: usePalette('blue'),
             secondary: usePalette('neutral'),
           },
+          radii: {
+            small: { value: '0' },
+            medium: { value: '2px' },
+            large: { value: '4px' },
+          },
           border: {
             primary: { value: '{colors.neutral.40.value}' },
             secondary: { value: '{colors.neutral.20.value}' },
             tertiary: { value: '{colors.neutral.10.value}' },
           },
-          background: {
-            success: { value: '{colors.green.80.value}' },
-          },
+          // background: {
+          //   success: { value: '{colors.green.80.value}' },
+          // },
         },
       },
     },
     {
-      selector: '[data-amplify-theme="amplify-docs"].artistic',
+      selector: '.terminal [data-amplify-theme="amplify-docs"]',
       tokens: {
         fonts: {
           default: {
-            variable: { value: 'Ubuntu' },
-            static: { value: 'Ubuntu' },
+            variable: { value: "'Work Sans'" },
+            static: { value: "'Work Sans'" },
           },
         },
         colors: {
@@ -173,9 +193,9 @@ export const theme = createTheme({
           },
           medium: {
             value: {
-              offsetX: '6px',
-              offsetY: '6px',
-              spreadRadius: '4px',
+              offsetX: '10px',
+              offsetY: '10px',
+              spreadRadius: '0px',
               blurRadius: '0',
               color: '{colors.shadow.secondary.value}',
             },
@@ -183,7 +203,7 @@ export const theme = createTheme({
           large: {
             value: {
               offsetX: '8px',
-              offsetY: '16px',
+              offsetY: '30px',
               spreadRadius: '10px',
               blurRadius: '0',
               color: '{colors.shadow.primary.value}',
@@ -217,4 +237,4 @@ export const theme = createTheme({
       },
     },
   ],
-});
+};
