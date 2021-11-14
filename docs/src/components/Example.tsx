@@ -8,6 +8,19 @@ interface ExampleProps {
   className?: string;
 }
 
+// export function ExampleCard({}) {
+//   return (
+//     <Card
+//     className={`example ${className}`}
+//     style={{ marginBottom: `${tokens.space.large}` }}
+//   >
+//     <Flex direction="column">
+//       {children}
+//     </Flex>
+//   </Card>
+//   )
+// }
+
 export function Example({ children, className = '' }: ExampleProps) {
   const { tokens } = useTheme();
   return (
