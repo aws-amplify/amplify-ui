@@ -60,9 +60,8 @@ export const ToggleButtonPropControls: ToggleButtonPropControlsInterface = ({
         value="yes"
         checked={isDisabled}
         onChange={(event) => setIsDisabled(event.target.checked)}
-      >
-        isDisabled
-      </CheckboxField>
+        label="isDisabled"
+      />
     </DemoBox>
   );
 };

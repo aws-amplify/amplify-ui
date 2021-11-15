@@ -8,27 +8,12 @@ import { ComponentClassNames } from '../shared';
 import { useTestId } from '../utils/testUtils';
 
 export const CheckboxField: Primitive<CheckboxFieldProps, 'input'> = ({
-  alignContent,
-  alignItems,
-  checked,
-  children,
   className,
-  defaultChecked,
-  direction,
   errorMessage,
-  gap,
   hasError = false,
-  id,
-  isDisabled,
-  isReadOnly,
-  isRequired,
-  justifyContent,
-  name,
-  onChange,
+  labelHidden = false,
   testId,
   size,
-  value,
-  wrap,
   ...rest
 }) => {
   const checkboxTestId = useTestId(testId, ComponentClassNames.Checkbox);
@@ -43,28 +28,11 @@ export const CheckboxField: Primitive<CheckboxFieldProps, 'input'> = ({
       testId={testId}
     >
       <Checkbox
-        alignContent={alignContent}
-        alignItems={alignItems}
-        checked={checked}
-        defaultChecked={defaultChecked}
-        direction={direction}
-        gap={gap}
         hasError={hasError}
-        id={id}
-        isDisabled={isDisabled}
-        isReadOnly={isReadOnly}
-        isRequired={isRequired}
-        justifyContent={justifyContent}
-        name={name}
-        onChange={onChange}
+        labelHidden={labelHidden}
         testId={checkboxTestId}
-        size={size}
-        value={value}
-        wrap={wrap}
         {...rest}
-      >
-        {children}
-      </Checkbox>
+      />
       <FieldErrorMessage hasError={hasError} errorMessage={errorMessage} />
     </Flex>
   );

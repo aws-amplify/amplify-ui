@@ -14,12 +14,12 @@ import { useTestId } from '../utils/testUtils';
 
 export const Checkbox: Primitive<CheckboxProps, 'input'> = ({
   checked,
-  children,
   className,
   defaultChecked,
   hasError,
-  id,
   isDisabled,
+  label,
+  labelHidden,
   onChange: onChangeProp,
   size,
   testId,
@@ -54,7 +54,6 @@ export const Checkbox: Primitive<CheckboxProps, 'input'> = ({
           checked={checked}
           className={ComponentClassNames.CheckboxInput}
           defaultChecked={defaultChecked}
-          id={id}
           isDisabled={isDisabled}
           onBlur={onBlur}
           onChange={onChange}
@@ -81,14 +80,14 @@ export const Checkbox: Primitive<CheckboxProps, 'input'> = ({
           size={size}
         />
       </Flex>
-      {children && (
+      {label && !labelHidden && (
         <Text
           as="span"
           className={ComponentClassNames.CheckboxLabel}
           data-disabled={isDisabled}
-          data-testid={labelTestId}
+          testId={labelTestId}
         >
-          {children}
+          {label}
         </Text>
       )}
     </Flex>
