@@ -124,6 +124,10 @@ Then('I see {string}', (message: string) => {
   cy.findByRole('document').contains(new RegExp(escapeRegExp(message), 'i'));
 });
 
+Then('I see the {string} image', (alt: string) => {
+  cy.findByAltText(alt).should('exist');
+});
+
 Then('I see {string} as a {string} field', (label: string, type: string) => {
   cy.findByLabelText(new RegExp(`^${escapeRegExp(label)}$`, 'i')).should(
     'have.attr',

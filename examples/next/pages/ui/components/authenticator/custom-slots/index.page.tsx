@@ -92,7 +92,7 @@ export default withAuthenticator(App, {
               size="small"
               variation="link"
             >
-              Back to Sign
+              Back to Sign In
             </Button>
           </View>
         );
@@ -104,7 +104,7 @@ export default withAuthenticator(App, {
       return (
         <View textAlign="center" padding={`${tokens.space.large}`}>
           <Text color={`${tokens.colors.neutral['80']}`}>
-            &copy; {new Date().getFullYear()}
+            &copy; All Rights Reserved
           </Text>
         </View>
       );
