@@ -1,8 +1,10 @@
-import { Text } from '../Text';
+import * as React from 'react';
+import { kebabCase } from 'lodash';
 import { render, screen } from '@testing-library/react';
+
+import { Text } from '../Text';
 import { ComponentClassNames } from '../../shared';
 import { ComponentPropsToStylePropsMap } from '../../types';
-import { kebabCase } from 'lodash';
 
 describe('Text: ', () => {
   const textText = 'This is a Text primitive';
@@ -14,6 +16,14 @@ describe('Text: ', () => {
     expect(text.innerHTML).toBe(textText);
     expect(text.nodeName).toBe('P');
     expect(text.className).toContain(ComponentClassNames.Text);
+  });
+
+  it('should forward ref to DOM element', async () => {
+    const ref = React.createRef<HTMLParagraphElement>();
+    render(<Text ref={ref}>{textText}</Text>);
+
+    await screen.findByText(textText);
+    expect(ref.current.nodeName).toBe('P');
   });
 
   it('can render a classname for Text', async () => {
