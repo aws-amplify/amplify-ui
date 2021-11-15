@@ -3,7 +3,7 @@ const fs = require('fs-extra');
 const { pascalCase } = require('change-case');
 
 const dirPath = `./src/primitives/Icon/icons/`;
-const iconSetPath = '../ui/src/icons/*.svg';
+const iconSetPath = '../ui/src/_icons/*.svg';
 const iconNames = [];
 
 const template = ({ iconName, source }) => `import classNames from 'classnames';
@@ -21,7 +21,7 @@ export const ${iconName} = (props) => {
       className={classNames(ComponentClassNames.Icon, className)}
       {...rest}
     >
-      ${source}
+      ${source.replace('black', 'currentColor')}
     </View>
   );
 }

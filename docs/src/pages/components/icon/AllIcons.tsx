@@ -7,15 +7,17 @@ export const AllIcons = () => {
     (key) => key.startsWith('Icon') && key.length > 4
   );
   return (
-    <>
-      {iconKeys.map((key) => {
-        const Component = AUI[key];
-        return (
-          <AUI.Card fontSize="2rem">
-            <Component />
-          </AUI.Card>
-        );
-      })}
-    </>
+    <AUI.Expander type="single" isCollapsible={true}>
+      <AUI.ExpanderItem value="icons" title="Show all icons">
+        {iconKeys.map((key) => {
+          const Component = AUI[key];
+          return (
+            <AUI.Card fontSize="2rem">
+              <Component />
+            </AUI.Card>
+          );
+        })}
+      </AUI.ExpanderItem>
+    </AUI.Expander>
   );
 };
