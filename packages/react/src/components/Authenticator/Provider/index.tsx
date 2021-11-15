@@ -6,11 +6,12 @@ import {
 import { useMachine } from '@xstate/react';
 import * as React from 'react';
 import generateContext from 'react-generate-context';
+import { PartialDeep } from 'type-fest';
 
 import { defaultComponents } from './defaultComponents';
 
 export type ProviderProps = AuthenticatorMachineOptions & {
-  components?: Partial<typeof defaultComponents>;
+  components?: PartialDeep<typeof defaultComponents>;
   services?: AuthenticatorMachineOptions['services'];
 };
 

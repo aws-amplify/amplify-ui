@@ -8,7 +8,7 @@ import { RemoteErrorMessage, UserNameAlias } from '../shared';
 export function SignIn() {
   const {
     components: {
-      SignIn: { Header, Footer },
+      SignIn: { Header = SignIn.Header, Footer = SignIn.Footer },
     },
     isPending,
     submitForm,
