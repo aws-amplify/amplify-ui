@@ -8,8 +8,10 @@ import { Demo } from '@/components/Demo';
 const propsToCode = (badgeProps) => {
   return (
     `<Badge` +
-    (badgeProps.size ? `\n  size="${badgeProps.size}"` : '') +
-    (badgeProps.variation ? `\n  variation="${badgeProps.variation}"` : '') +
+    (badgeProps.size ? `\n  size=${JSON.stringify(badgeProps.size)}` : '') +
+    (badgeProps.variation
+      ? `\n  variation=${JSON.stringify(badgeProps.variation)}`
+      : '') +
     `>
   ${badgeProps.body}
 </Badge>`
