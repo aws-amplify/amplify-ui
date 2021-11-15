@@ -1,6 +1,6 @@
 import NextLink from 'next/link';
 import {
-  IconOpenInNew,
+  IconExternalLink,
   Button,
   VisuallyHidden,
   Link,
@@ -8,9 +8,8 @@ import {
   ColorMode,
   ToggleButton,
   ToggleButtonGroup,
-  IconWbSunny,
-  IconWbTwighlight,
-  IconComputer,
+  IconDarkMode,
+  IconLightMode,
   IconMenu,
   Divider,
   useTheme,
@@ -48,15 +47,14 @@ const ColorModeSwitcher = ({ colorMode, setColorMode }) => {
     >
       <ToggleButton value="light">
         <VisuallyHidden>Light mode</VisuallyHidden>
-        <IconWbSunny />
+        <IconLightMode />
       </ToggleButton>
       <ToggleButton value="dark">
         <VisuallyHidden>Dark mode</VisuallyHidden>
-        <IconWbTwighlight />
+        <IconDarkMode />
       </ToggleButton>
       <ToggleButton value="system">
         <VisuallyHidden>System preference</VisuallyHidden>
-        <IconComputer />
       </ToggleButton>
     </ToggleButtonGroup>
   );
@@ -91,7 +89,7 @@ export const Header = ({ platform, colorMode, setColorMode }) => {
             {/* <NavLink href="/examples">Examples</NavLink> */}
             <Divider orientation="vertical" />
             <NavLink isExternal href="https://docs.amplify.aws">
-              Amplify docs <IconOpenInNew />
+              Amplify docs <IconExternalLink />
             </NavLink>
           </Flex>
           <Flex direction="row" alignItems="center">

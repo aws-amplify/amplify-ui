@@ -3,14 +3,17 @@ import {
   Icon,
   Flex,
   IconAdd,
-  IconDone,
+  // IconDone,
   IconStar,
   IconClose,
   IconSave,
   Text,
 } from '@aws-amplify/ui-react';
 import { IconDemo } from './demo';
+import { AllIcons } from './AllIcons';
 import { Example } from '@/components/Example';
+
+<AllIcons />
 
 Icons should be thought of as plain text; they inherit the size and color of their context or can be set directly. Icons themselves do not have any state or handlers, those should be at a higher level like a button. Amplify uses the [Google Material icon set](https://github.com/google/material-design-icons) as the default because it meets the needs above and uses an approved license (Apache-2).
 
@@ -52,14 +55,14 @@ import '@aws-amplify/ui-react/styles.css';
 Use a default icon from the [Material Design icons](http://google.github.io/material-design-icons/).
 
 ```jsx
-import { IconDone } from '@aws-amplify/ui-react';
+import { IconSave } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
-<IconDone />;
+<IconSave />;
 ```
 
 <Example>
-  <IconDone />
+  <IconSave />
 </Example>
 
 ### Custom icon
@@ -138,17 +141,17 @@ _Set specific font-size_
 
 ### Color
 
-Use the `fill` prop to change the Icon color. By default the Icon color is set to [`currentColor`](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value#currentcolor_keyword)(inherits color from current font color).
+Use the `color` prop to change the Icon color. The fill of the path inside the SVG is set to [`currentColor`](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value#currentcolor_keyword)(inherits color from current font color).
 
 ```jsx
 import { IconStar } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
-<IconStar fill="orange" />;
+<IconStar color="orange" />;
 ```
 
 <Example>
-  <IconStar fill="orange" />
+  <IconStar color="orange" />
 </Example>
 
 ### viewBox

@@ -26,7 +26,7 @@
   ],
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": "yarn run build:ts && yarn run build:catalog",
+    "build": "yarn run build:icons && yarn run build:ts && yarn run build:catalog",
     "build:ts": "tsup --minify --keep-names",
     "build:catalog": "ts-node scripts/generatePrimitivesCatalog.ts",
     "dev": "tsup --watch src",
@@ -64,6 +64,7 @@
     "react-dom": ">= 16.8.0"
   },
   "devDependencies": {
+    "@svgr/core": "^5.5.0",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",
     "@testing-library/react-hooks": "^7.0.1",

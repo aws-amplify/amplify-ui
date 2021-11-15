@@ -130,7 +130,7 @@ describe('Checkbox test suite', () => {
       );
       expect(icon).not.toHaveAttribute('data-checked');
       expect(icon).not.toHaveAttribute('data-disabled');
-      expect(icon).toHaveAttribute('data-size', 'large');
+      // expect(icon).toHaveAttribute('data-size', 'large');
       expect(icon).toHaveClass(ComponentClassNames.CheckboxIcon);
     });
   });
