@@ -150,9 +150,6 @@ export const theme: Theme = {
             secondary: { value: '{colors.neutral.20.value}' },
             tertiary: { value: '{colors.neutral.10.value}' },
           },
-          // background: {
-          //   success: { value: '{colors.green.80.value}' },
-          // },
         },
       },
     },

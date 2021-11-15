@@ -8,7 +8,6 @@ import {
   Button,
 } from '@aws-amplify/ui-react';
 
-import * as img from '@/data/img';
 import * as links from '@/data/links';
 import * as icons from '@/data/icon';
 import { Logo } from '@/components/Logo';
