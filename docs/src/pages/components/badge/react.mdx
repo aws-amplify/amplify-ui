@@ -1,8 +1,12 @@
-import { Badge } from '@aws-amplify/ui-react';
+import { Badge, View } from '@aws-amplify/ui-react';
 import { BadgeDemo } from './demo';
-import { Example } from '@/components/Example';
-
-A Badge is a small visual element to denote a status or message about an item. A small, color-coded visual element that contains letters or numbers, that you can use to label, categorize, or organize items.
+import { Example, ExampleCode } from '@/components/Example';
+import {
+  DefaultBadgeExample,
+  BadgeVariationExample,
+  BadgeSizeExample,
+  BadgeStyleProps,
+} from './examples';
 
 ## Demo
 
@@ -12,62 +16,67 @@ A Badge is a small visual element to denote a status or message about an item. A
 
 Import the Badge primitive and styles.
 
-```jsx
-import { Badge } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
+<Example>
+  <View>
+    <DefaultBadgeExample />
+  </View>
+  
+  <ExampleCode>
 
-<Badge>Default badge</Badge>;
+```jsx file=./examples/DefaultBadgeExample.tsx
+
 ```
 
-<Example>
-  <Badge>Default badge</Badge>
+  </ExampleCode>
 </Example>
 
 ### Variations
 
 Use the `variation` prop to change the Badge variation. Available options are `info`, `error`, `warning`, `success`, and none (default).
 
-```jsx
-<Badge variation="info">Info</Badge>
-<Badge variation="error">Error</Badge>
-<Badge variation="warning">Warning</Badge>
-<Badge variation="success">Success</Badge>
-<Badge>Default</Badge>
+<Example direction="row">
+  <View>
+    <BadgeVariationExample />
+  </View>
+  
+  <ExampleCode>
+
+```jsx file=./examples/BadgeVariationExample.tsx
+
 ```
 
-<Example>
-  <Badge variation="info">Info</Badge>
-  <Badge variation="error">Error</Badge>
-  <Badge variation="warning">Warning</Badge>
-  <Badge variation="success">Success</Badge>
-  <Badge>Default</Badge>
+  </ExampleCode>
 </Example>
 
 ### Sizes
 
 Use the `size` prop to change the Badge size. Available options are `small`, `large`, and none (default).
 
-```jsx
-<Badge size="small">Small</Badge>
-<Badge>Default</Badge>
-<Badge size="large">Large</Badge>
+<Example>
+  <View>
+    <BadgeSizeExample />
+  </View>
+  
+  <ExampleCode>
+
+```tsx file=./examples/BadgeSizeExample.tsx
+
 ```
 
-<Example>
-  <Badge size="small">Small</Badge>
-  <Badge>Default</Badge>
-  <Badge size="large">Large</Badge>
+  </ExampleCode>
 </Example>
 
-## CSS Styling
+## Styling
 
 ### Global styling
 
 To override styling on all Badges, you can set the Amplify CSS variables or use the built-in `.amplify-badge` class.
 
+<ExampleCode>
+
 ```css
 /* styles.css */
-:root {
+[data-amplify-theme] {
   --amplify-components-badge-background-color: yellow;
 }
 /* OR */
@@ -76,7 +85,11 @@ To override styling on all Badges, you can set the Amplify CSS variables or use 
 }
 ```
 
+</ExampleCode>
+
 To replace the Badge styling, unset it:
+
+<ExampleCode>
 
 ```css
 .amplify-badge {
@@ -85,11 +98,20 @@ To replace the Badge styling, unset it:
 }
 ```
 
+</ExampleCode>
+
 ### Local styling
 
 To override styling on a specific Badge, you can use (in order of increasing specificity): a class selector, data attributes, or style props.
 
 _Using a class selector:_
+
+<Example>
+  <View>
+    <Badge className="flagged">13</Badge>
+  </View>
+  
+  <ExampleCode>
 
 ```css
 /* styles.css */
@@ -100,14 +122,16 @@ _Using a class selector:_
 }
 ```
 
+</ExampleCode>
+<ExampleCode>
+
 ```jsx
 import './styles.css';
 
 <Badge className="flagged">13</Badge>;
 ```
 
-<Example>
-  <Badge className="flagged">13</Badge>
+  </ExampleCode>
 </Example>
 
 _Using data attributes:_
@@ -134,19 +158,16 @@ import './styles.css';
 
 _Using style props:_
 
-```jsx
-<Badge style={{ backgroundColor: 'green', color: 'white' }}>Green</Badge>;
-{
-  /* OR */
-}
-<Badge backgroundColor="purple" color="white">
-  Purple
-</Badge>;
+<Example>
+  <View>
+    <BadgeStyleProps />
+  </View>
+  
+  <ExampleCode>
+
+```jsx file=./examples/BadgeStyleProps.tsx
+
 ```
 
-<Example>
-  <Badge style={{ backgroundColor: 'green', color: 'white' }}>Green</Badge>
-  <Badge backgroundColor="purple" color="white">
-    Purple
-  </Badge>
+  </ExampleCode>
 </Example>
