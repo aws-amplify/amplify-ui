@@ -22,7 +22,7 @@ function MyApp({ Component, pageProps }) {
         <title>Amplify UI</title>
         <link rel="icon" type="image/svg+xml" href={favicon} />
       </Head>
-      <AmplifyProvider components={{}} theme={theme} colorMode={colorMode}>
+      <AmplifyProvider theme={theme} colorMode={colorMode}>
         <Header
           platform={platform}
           colorMode={colorMode}
