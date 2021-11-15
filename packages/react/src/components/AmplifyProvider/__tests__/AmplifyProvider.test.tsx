@@ -1,5 +1,4 @@
 import { render, screen } from '@testing-library/react';
-import { useAmplify } from '../../../hooks';
 
 import { AmplifyProvider } from '../index';
 import { Heading } from '../../../primitives';
