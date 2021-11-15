@@ -1,16 +1,13 @@
 import { Amplify } from 'aws-amplify';
 
 import {
-  // Access the default `Authenticator.SignUp.FormFields` for re-use
-  Authenticator,
   // Amplify UI Primitives to simplify the custom fields
   Button,
-  CheckboxField,
-  Image,
-  // React hook to get access to validation errors
-  Text,
   Heading,
+  Image,
+  Text,
   View,
+  // React hook to get access to validation errors
   useAuthenticator,
   useTheme,
 } from '@aws-amplify/ui-react';
@@ -108,15 +105,6 @@ export default withAuthenticator(App, {
           </Text>
         </View>
       );
-    },
-  },
-  services: {
-    async validateCustomSignUp(formData) {
-      if (!formData.acknowledgement) {
-        return {
-          acknowledgement: 'You must agree to the Terms & Conditions',
-        };
-      }
     },
   },
 });
