@@ -1,10 +1,31 @@
 import { useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import Highlight, { defaultProps } from 'prism-react-renderer';
-import { Tabs, TabItem, Card, Flex, View, Button } from '@aws-amplify/ui-react';
+import {
+  Tabs,
+  TabItem,
+  Card,
+  Flex,
+  View,
+  Button,
+  useTheme,
+} from '@aws-amplify/ui-react';
 
-export const Demo = ({ children, propControls, themeControls, code }) => {
+interface DemoProps {
+  children: React.ReactNode;
+  propControls: React.ReactNode;
+  themeControls?: React.ReactNode;
+  code: string;
+}
+
+export const Demo = ({
+  children,
+  propControls,
+  themeControls,
+  code,
+}: DemoProps) => {
   const [copied, setCopied] = useState(false);
+  const { tokens } = useTheme();
 
   const copy = () => {
     setCopied(true);
@@ -16,14 +37,16 @@ export const Demo = ({ children, propControls, themeControls, code }) => {
   return (
     <Card className="docs-component-demo">
       <Flex direction="row" alignItems="stretch">
-        <Flex direction="column" width="50%">
-          {children}
+        <Flex direction="column" flex="1">
+          <View>{children}</View>
           <Tabs>
-            <TabItem title="Props">{propControls}</TabItem>
+            <TabItem title="Props">
+              <View padding={`${tokens.space.medium} 0`}>{propControls}</View>
+            </TabItem>
             {themeControls ?? <TabItem title="Theme">{themeControls}</TabItem>}
           </Tabs>
         </Flex>
-        <View width="50%" position="relative">
+        <View flex="1" position="relative">
           <CopyToClipboard text={code} onCopy={copy}>
             <Button
               size="small"

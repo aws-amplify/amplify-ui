@@ -39,9 +39,8 @@ export const ExpanderPropControls: React.FC<ExpanderPropControlsProps> = ({
           checked={isCollapsible}
           value="yes"
           onChange={(event) => setIsCollapsible(event.target.checked)}
-        >
-          isCollapsible
-        </CheckboxField>
+          label="isCollapsible"
+        />
       ) : null}
     </DemoBox>
   );

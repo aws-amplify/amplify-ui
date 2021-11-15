@@ -1,15 +1,11 @@
-import React, { useState } from 'react';
-
 import { CheckboxField, Flex } from '@aws-amplify/ui-react';
 
 import { CheckboxFieldPropControls } from '@/components/CheckboxFieldPropControls';
 import { useCheckboxFieldProps } from '@/components/useCheckboxFieldProps';
 
-export const Demo: React.FC = () => {
-  const label = 'Subscribe';
+export const Demo = () => {
   const props = useCheckboxFieldProps({
-    label,
-    children: label,
+    label: 'Subscribe',
     name: 'subscribe',
     value: 'yes',
   });
@@ -21,9 +17,9 @@ export const Demo: React.FC = () => {
         value={props.value}
         isDisabled={props.isDisabled}
         size={props.size}
-      >
-        {props.label}
-      </CheckboxField>
+        label={props.label}
+        labelHidden={props.labelHidden}
+      />
     </Flex>
   );
 };

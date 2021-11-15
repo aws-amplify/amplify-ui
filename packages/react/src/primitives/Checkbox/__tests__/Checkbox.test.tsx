@@ -12,15 +12,14 @@ import {
 
 describe('Checkbox test suite', () => {
   const basicProps = {
-    children: 'Subscribe',
+    label: 'Subscribe',
     name: 'testName',
     value: 'testValue',
     testId: 'testId',
   };
 
   const getCheckbox = (props: PrimitiveProps<CheckboxProps, 'input'>) => {
-    const { children, ...rest } = props;
-    return <Checkbox {...rest}>{children}</Checkbox>;
+    return <Checkbox {...props} />;
   };
 
   it('should render basic props correctly', async () => {

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import * as React from 'react';
 
 import { CheckboxFieldProps } from '@aws-amplify/ui-react';
 
@@ -9,22 +9,25 @@ interface UseCheckboxFieldProps {
 }
 
 export const useCheckboxFieldProps: UseCheckboxFieldProps = (initialValues) => {
-  const [checked, setChecked] = useState<CheckboxFieldProps['checked']>(
+  const [checked, setChecked] = React.useState<CheckboxFieldProps['checked']>(
     initialValues.checked
   );
-  const [isDisabled, setIsDisabled] = useState<
+  const [isDisabled, setIsDisabled] = React.useState<
     CheckboxFieldProps['isDisabled']
   >(initialValues.isDisabled);
-  const [label, setLabel] = useState<CheckboxFieldProps['label']>(
+  const [label, setLabel] = React.useState<CheckboxFieldProps['label']>(
     initialValues.label
   );
-  const [name, setName] = useState<CheckboxFieldProps['name']>(
+  const [labelHidden, setLabelHidden] = React.useState<
+    CheckboxFieldProps['labelHidden']
+  >(initialValues.labelHidden);
+  const [name, setName] = React.useState<CheckboxFieldProps['name']>(
     initialValues.size
   );
-  const [size, setSize] = useState<CheckboxFieldProps['size']>(
+  const [size, setSize] = React.useState<CheckboxFieldProps['size']>(
     initialValues.size
   );
-  const [value, setValue] = useState<CheckboxFieldProps['value']>(
+  const [value, setValue] = React.useState<CheckboxFieldProps['value']>(
     initialValues.size
   );
 
@@ -36,6 +39,8 @@ export const useCheckboxFieldProps: UseCheckboxFieldProps = (initialValues) => {
     setIsDisabled,
     label,
     setLabel,
+    labelHidden,
+    setLabelHidden,
     name,
     setName,
     size,
