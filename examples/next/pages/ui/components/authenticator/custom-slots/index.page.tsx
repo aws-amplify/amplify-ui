@@ -68,6 +68,36 @@ export default withAuthenticator(App, {
         );
       },
     },
+    SignUp: {
+      Header() {
+        const { tokens } = useTheme();
+
+        return (
+          <Heading
+            padding={`${tokens.space.xl} 0 0 ${tokens.space.xl}`}
+            level={3}
+          >
+            Create a new account
+          </Heading>
+        );
+      },
+      Footer() {
+        const { toSignIn } = useAuthenticator();
+
+        return (
+          <View textAlign="center">
+            <Button
+              fontWeight="normal"
+              onClick={toSignIn}
+              size="small"
+              variation="link"
+            >
+              Back to Sign
+            </Button>
+          </View>
+        );
+      },
+    },
     Footer() {
       const { tokens } = useTheme();
 
@@ -78,29 +108,6 @@ export default withAuthenticator(App, {
           </Text>
         </View>
       );
-    },
-    // Customize `Authenticator.SignUp.FormFields`
-    SignUp: {
-      FormFields() {
-        const { validationErrors } = useAuthenticator();
-
-        return (
-          <>
-            {/* Re-use default `Authenticator.SignUp.FormFields` */}
-            <Authenticator.SignUp.FormFields />
-
-            {/* Append & require Terms & Conditions field to sign up  */}
-            <CheckboxField
-              errorMessage={validationErrors.acknowledgement}
-              hasError={!!validationErrors.acknowledgement}
-              name="acknowledgement"
-              value="yes"
-            >
-              I agree with the Terms & Conditions
-            </CheckboxField>
-          </>
-        );
-      },
     },
   },
   services: {

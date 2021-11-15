@@ -8,7 +8,9 @@ export const defaultComponents = {
     Footer: SignIn.Footer,
   },
   SignUp: {
+    Header: SignUp.Header,
     FormFields: SignUp.FormFields,
+    Footer: SignUp.Footer,
   },
   Footer: (): JSX.Element => null,
 };
