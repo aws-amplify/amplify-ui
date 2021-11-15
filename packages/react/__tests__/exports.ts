@@ -1884,6 +1884,7 @@ describe('@aws-amplify/ui-react', () => {
           "Tabs",
           "Text",
           "TextField",
+          "Theme",
           "ToggleButton",
           "ToggleButtonGroup",
           "View",
@@ -1904,7 +1905,6 @@ describe('@aws-amplify/ui-react', () => {
           "useDataStoreCollection",
           "useDataStoreItem",
           "usePagination",
-          "useStorageURL",
           "useTheme",
           "withAuthenticator",
         ]
