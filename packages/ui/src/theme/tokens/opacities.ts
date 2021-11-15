@@ -1,19 +1,23 @@
-import { DesignToken } from './types/designToken';
+import { DesignToken, WebDesignToken, OpacityValue } from './types/designToken';
 
-// TODO: Update these so the values aren't directly tied to the names
-export interface Opacities {
-  0: DesignToken;
-  10: DesignToken;
-  20: DesignToken;
-  30: DesignToken;
-  40: DesignToken;
-  50: DesignToken;
-  60: DesignToken;
-  70: DesignToken;
-  80: DesignToken;
-  90: DesignToken;
-  100: DesignToken;
-}
+export type Opacities = {
+  // TODO: Update these so the values aren't directly tied to the names
+  0: DesignToken<OpacityValue>;
+  10: DesignToken<OpacityValue>;
+  20: DesignToken<OpacityValue>;
+  30: DesignToken<OpacityValue>;
+  40: DesignToken<OpacityValue>;
+  50: DesignToken<OpacityValue>;
+  60: DesignToken<OpacityValue>;
+  70: DesignToken<OpacityValue>;
+  80: DesignToken<OpacityValue>;
+  90: DesignToken<OpacityValue>;
+  100: DesignToken<OpacityValue>;
+};
+
+export type WebOpacities = {
+  [Property in keyof Opacities]: WebDesignToken<OpacityValue>;
+};
 
 export const opacities: Opacities = {
   0: {

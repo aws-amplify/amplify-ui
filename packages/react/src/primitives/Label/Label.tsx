@@ -22,3 +22,5 @@ export const Label: Primitive<LabelProps, 'label'> = ({
     </View>
   );
 };
+
+Label.displayName = 'Label';

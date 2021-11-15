@@ -80,7 +80,7 @@ export const feedbackComponents: ComponentNavItem[] = [
     body: `The Placeholder component is used to fill out the interface while content is loaded asynchronously.`,
   },
   {
-    href: '/components/Loader',
+    href: '/components/loader',
     label: 'Loader',
     body: ``,
   },
@@ -89,7 +89,7 @@ export const feedbackComponents: ComponentNavItem[] = [
 export const inputComponents = [
   { href: '/components/textfield', label: 'Text Field', body: `` },
   { href: '/components/selectfield', label: 'Select Field', body: `` },
-  { href: '/components/stepperField', label: 'Stepper Field', body: `` },
+  { href: '/components/stepperfield', label: 'Stepper Field', body: `` },
   { href: '/components/searchfield', label: 'Search Field', body: `` },
   { href: '/components/passwordfield', label: 'Password Field', body: `` },
   {
@@ -132,3 +132,16 @@ export const navigationComponents: ComponentNavItem[] = [
 export const utilityComponents = [
   { href: '/components/visuallyhidden', label: 'Visually Hidden', body: `` },
 ].sort(sortByLabel);
+
+export const reactHooks = [
+  {
+    href: '/hooks/auth',
+    label: 'Authentication',
+    body: 'Get current authenticated user data',
+  },
+  {
+    href: '/hooks/datastore',
+    label: 'DataStore',
+    body: 'Computes a signed URL for an Amplify Storage file',
+  },
+];

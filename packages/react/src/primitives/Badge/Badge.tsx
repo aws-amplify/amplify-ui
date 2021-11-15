@@ -21,3 +21,5 @@ export const Badge: Primitive<BadgeProps, 'span'> = ({
     {children}
   </View>
 );
+
+Badge.displayName = 'Badge';

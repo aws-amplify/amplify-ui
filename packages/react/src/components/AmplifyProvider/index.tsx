@@ -1,16 +1,18 @@
 import { IdProvider } from '@radix-ui/react-id';
-import { ReactNode } from 'react';
+import * as React from 'react';
+
+import { createTheme, defaultTheme, Theme as UiTheme } from '@aws-amplify/ui';
 
 import { AmplifyContext } from './AmplifyContext';
-import { defaultTheme, BrowserTheme } from '@aws-amplify/ui';
-import * as primitives from '../../primitives';
+import * as primitives from '../../primitives/components';
 
+export type Theme = UiTheme;
 export type ColorMode = 'system' | 'light' | 'dark';
 
 interface AmplifyProviderProps {
-  children: ReactNode;
+  children: React.ReactNode;
   components?: Partial<typeof primitives>;
-  theme?: BrowserTheme;
+  theme?: Theme;
   colorMode?: ColorMode;
 }
 
@@ -20,12 +22,13 @@ export function AmplifyProvider({
   colorMode,
   theme = defaultTheme,
 }: AmplifyProviderProps) {
-  const { name = '' } = theme;
+  const webTheme = createTheme(theme);
+  const { name, cssText } = webTheme;
   return (
     <AmplifyContext.Provider
       value={{
         components,
-        theme,
+        theme: webTheme,
       }}
     >
       <IdProvider>
@@ -34,7 +37,7 @@ export function AmplifyProvider({
         </div>
         <style
           id={`amplify-theme-${name}`}
-          dangerouslySetInnerHTML={{ __html: theme.cssText }}
+          dangerouslySetInnerHTML={{ __html: cssText }}
         />
       </IdProvider>
     </AmplifyContext.Provider>

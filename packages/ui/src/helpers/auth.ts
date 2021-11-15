@@ -1,4 +1,4 @@
-import { includes } from 'lodash';
+import includes from 'lodash/includes';
 import { Sender } from 'xstate';
 
 import { AuthContext } from '..';

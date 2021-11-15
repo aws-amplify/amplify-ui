@@ -38,6 +38,7 @@ export function SignIn() {
         onSubmit={handleSubmit}
         onChange={handleChange}
       >
+        <FederatedSignIn />
         <Flex direction="column">
           <Flex direction="column">
             <UserNameAlias data-amplify-usernamealias />
@@ -78,8 +79,6 @@ export function SignIn() {
             {translate('Forgot your password? ')}
           </Button>
         </Flex>
-
-        <FederatedSignIn />
       </Form>
 
       <Footer />

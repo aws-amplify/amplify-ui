@@ -38,7 +38,7 @@ Feature: Sign In with Email
     And I click the "Sign in" button
     Then I see "Sign out"
     And I click the "Sign out" button
-    Then I see "Sign in to your account"
+    Then I see "Sign in"
 
 
 

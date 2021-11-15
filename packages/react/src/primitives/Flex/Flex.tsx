@@ -13,3 +13,5 @@ export const Flex: Primitive<FlexProps, 'div'> = ({
     {children}
   </View>
 );
+
+Flex.displayName = 'Flex';

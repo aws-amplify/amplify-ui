@@ -37,3 +37,5 @@ export const Pagination: Primitive<PaginationProps, 'nav'> = ({
     </View>
   );
 };
+
+Pagination.displayName = 'Pagination';

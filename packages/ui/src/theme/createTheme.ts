@@ -3,17 +3,10 @@ import deepExtend from 'style-dictionary/lib/utils/deepExtend';
 import flattenProperties from 'style-dictionary/lib/utils/flattenProperties';
 
 import { baseTheme as _baseTheme } from './baseTheme';
-import { Theme, BaseTheme, BrowserTheme, Override } from './types';
+import { Theme, BaseTheme, WebTheme, Override } from './types';
 import { cssValue, cssNameTransform } from './utils';
-import { Tokens } from './tokens';
-import { DesignToken, DesignTokenValue } from './tokens/types/designToken';
-
-interface SetupToken extends DesignToken {
-  name: string;
-  path: Array<string>;
-  original: DesignTokenValue;
-  toString: () => string;
-}
+import { WebTokens } from './tokens';
+import { DesignToken, WebDesignToken } from './tokens/types/designToken';
 
 /**
  * This will take a design token and add some data to it for it
@@ -23,7 +16,7 @@ interface SetupToken extends DesignToken {
  *
  * We should see if there is a way to share this logic with style dictionary...
  */
-function setupToken(token: DesignToken, path: Array<string>): SetupToken {
+function setupToken(token: DesignToken, path: Array<string>): WebDesignToken {
   const name = `--${cssNameTransform({ path })}`;
   const { value } = token;
 
@@ -67,7 +60,7 @@ function setupTokens(obj: any, path = []) {
 export function createTheme(
   theme?: Theme,
   baseTheme: BaseTheme = _baseTheme
-): BrowserTheme {
+): WebTheme {
   // merge theme and baseTheme to get a complete theme
   // deepExtend is an internal Style Dictionary method
   // that performs a deep merge on n objects. We could change
@@ -78,7 +71,7 @@ export function createTheme(
   // does. At the end of this, each token should have:
   // - CSS variable name of itself
   // - its value (reference to another CSS variable or raw value)
-  const tokens: Tokens = setupTokens(mergedTheme.tokens) as Tokens; // Setting the type here because setupTokens is recursive
+  const tokens = setupTokens(mergedTheme.tokens) as WebTokens; // Setting the type here because setupTokens is recursive
 
   const { breakpoints, name } = mergedTheme;
 

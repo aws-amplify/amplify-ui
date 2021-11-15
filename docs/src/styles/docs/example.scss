@@ -20,8 +20,9 @@
   display: none;
 }
 
-.example-card pre {
-  margin: 0;
+.example pre {
+  --margin: calc(var(--amplify-space-medium) * -1);
+  margin: 0 var(--margin) var(--margin) var(--margin);
 }
 
 .example-code {
@@ -31,10 +32,16 @@
 .example-copy-button {
   position: absolute;
   top: var(--amplify-space-small);
-  right: var(--amplify-space-small);
+  right: 0;
 }
 
-.docs-component-demo .example-copy-button {
-  bottom: var(--amplify-space-small);
-  top: auto;
+.docs-component-demo {
+  width: 100%;
+  margin-bottom: var(--amplify-space-large);
+  
+  & .example-copy-button {
+    bottom: var(--amplify-space-small);
+    top: auto;
+    right: var(--amplify-space-small);
+  }
 }

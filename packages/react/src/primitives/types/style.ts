@@ -1,4 +1,5 @@
 import { Property } from 'csstype';
+import { WebDesignToken } from '@aws-amplify/ui';
 
 import { FlexItemStyleProps, FlexContainerStyleProps } from './flex';
 import { GridItemStyleProps, GridContainerStyleProps } from './grid';
@@ -11,7 +12,7 @@ import { TextAreaStyleProps } from './textArea';
 export type StyleProp<PropertyType> =
   | (PropertyType extends number
       ? number
-      : PropertyType extends string
+      : PropertyType extends string | WebDesignToken
       ? PropertyType
       : never)
   | (string & {});
@@ -25,44 +26,51 @@ export interface ResponsiveObject<PropertyType> {
   xxl?: PropertyType;
 }
 
+/**
+ * Allows a style prop to be the property type
+ * or a design token of that property type.
+ */
+type StyleToken<PropertyType> = PropertyType | WebDesignToken<PropertyType>;
+
 export type ResponsiveStyle<PropertyType> =
   | StyleProp<PropertyType>
   | StyleProp<PropertyType>[]
   | ResponsiveObject<StyleProp<PropertyType>>;
 
 export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
-  alignSelf?: ResponsiveStyle<Property.AlignSelf>;
-  backgroundColor?: ResponsiveStyle<Property.BackgroundColor>;
-  border?: ResponsiveStyle<Property.Border>;
-  borderRadius?: ResponsiveStyle<Property.BorderRadius>;
-  bottom?: ResponsiveStyle<Property.Bottom>;
-  boxShadow?: ResponsiveStyle<Property.BoxShadow>;
-  color?: ResponsiveStyle<Property.Color>;
-  display?: ResponsiveStyle<Property.Display>;
-  fontFamily?: ResponsiveStyle<Property.FontFamily>;
-  fontSize?: ResponsiveStyle<Property.FontSize>;
-  fontStyle?: ResponsiveStyle<Property.FontStyle>;
-  fontWeight?: ResponsiveStyle<Property.FontWeight>;
-  height?: ResponsiveStyle<Property.Height>;
-  left?: ResponsiveStyle<Property.Left>;
-  letterSpacing?: ResponsiveStyle<Property.LetterSpacing>;
-  lineHeight?: ResponsiveStyle<Property.LineHeight>;
-  maxHeight?: ResponsiveStyle<Property.MaxHeight>;
-  maxWidth?: ResponsiveStyle<Property.MaxWidth>;
-  minHeight?: ResponsiveStyle<Property.MinHeight>;
-  minWidth?: ResponsiveStyle<Property.MinWidth>;
-  opacity?: ResponsiveStyle<Property.Opacity>;
-  overflow?: ResponsiveStyle<Property.Overflow>;
-  padding?: ResponsiveStyle<Property.Padding>;
-  position?: ResponsiveStyle<Property.Position>;
-  right?: ResponsiveStyle<Property.Right>;
-  textAlign?: ResponsiveStyle<Property.TextAlign>;
-  textDecoration?: ResponsiveStyle<Property.TextDecoration>;
-  textTransform?: ResponsiveStyle<Property.TextTransform>;
-  top?: ResponsiveStyle<Property.Top>;
-  transform?: ResponsiveStyle<Property.Transform>;
-  transformOrigin?: ResponsiveStyle<Property.TransformOrigin>;
-  width?: ResponsiveStyle<Property.Width>;
+  alignSelf?: ResponsiveStyle<StyleToken<Property.AlignSelf>>;
+  backgroundColor?: ResponsiveStyle<StyleToken<Property.BackgroundColor>>;
+  border?: ResponsiveStyle<StyleToken<Property.Border>>;
+  borderRadius?: ResponsiveStyle<StyleToken<Property.BorderRadius>>;
+  bottom?: ResponsiveStyle<StyleToken<Property.Bottom>>;
+  boxShadow?: ResponsiveStyle<StyleToken<Property.BoxShadow>>;
+  color?: ResponsiveStyle<StyleToken<Property.Color>>;
+  display?: ResponsiveStyle<StyleToken<Property.Display>>;
+  fontFamily?: ResponsiveStyle<StyleToken<Property.FontFamily>>;
+  fontSize?: ResponsiveStyle<StyleToken<Property.FontSize>>;
+  fontStyle?: ResponsiveStyle<StyleToken<Property.FontStyle>>;
+  fontWeight?: ResponsiveStyle<StyleToken<Property.FontWeight>>;
+  height?: ResponsiveStyle<StyleToken<Property.Height>>;
+  left?: ResponsiveStyle<StyleToken<Property.Left>>;
+  letterSpacing?: ResponsiveStyle<StyleToken<Property.LetterSpacing>>;
+  lineHeight?: ResponsiveStyle<StyleToken<Property.LineHeight>>;
+  margin?: ResponsiveStyle<StyleToken<Property.Margin>>;
+  maxHeight?: ResponsiveStyle<StyleToken<Property.MaxHeight>>;
+  maxWidth?: ResponsiveStyle<StyleToken<Property.MaxWidth>>;
+  minHeight?: ResponsiveStyle<StyleToken<Property.MinHeight>>;
+  minWidth?: ResponsiveStyle<StyleToken<Property.MinWidth>>;
+  opacity?: ResponsiveStyle<StyleToken<Property.Opacity>>;
+  overflow?: ResponsiveStyle<StyleToken<Property.Overflow>>;
+  padding?: ResponsiveStyle<StyleToken<Property.Padding>>;
+  position?: ResponsiveStyle<StyleToken<Property.Position>>;
+  right?: ResponsiveStyle<StyleToken<Property.Right>>;
+  textAlign?: ResponsiveStyle<StyleToken<Property.TextAlign>>;
+  textDecoration?: ResponsiveStyle<StyleToken<Property.TextDecoration>>;
+  textTransform?: ResponsiveStyle<StyleToken<Property.TextTransform>>;
+  top?: ResponsiveStyle<StyleToken<Property.Top>>;
+  transform?: ResponsiveStyle<StyleToken<Property.Transform>>;
+  transformOrigin?: ResponsiveStyle<StyleToken<Property.TransformOrigin>>;
+  width?: ResponsiveStyle<StyleToken<Property.Width>>;
 }
 
 export interface CSSLayoutStyleProps {
@@ -84,17 +92,17 @@ export interface CSSLayoutStyleProps {
   /**
    * Spacing between child components. Shorthand for rowGap and columnGap.
    */
-  gap?: ResponsiveStyle<Property.Gap>;
+  gap?: ResponsiveStyle<StyleToken<Property.Gap>>;
 
   /**
    * Spacing between Flex/Grid child columns
    */
-  columnGap?: ResponsiveStyle<Property.GridColumnGap>;
+  columnGap?: ResponsiveStyle<StyleToken<Property.GridColumnGap>>;
 
   /**
    * Spacing between Flex/Grid child rows
    */
-  rowGap?: ResponsiveStyle<Property.RowGap>;
+  rowGap?: ResponsiveStyle<StyleToken<Property.RowGap>>;
 }
 
 export interface AllStyleProps
@@ -104,9 +112,9 @@ export interface AllStyleProps
     GridContainerStyleProps,
     TextAreaStyleProps {}
 
-export type ComponentPropToStyleProp = {
+export type ComponentPropToStyleProp = Required<{
   [key in keyof AllStyleProps]: keyof React.CSSProperties;
-};
+}>;
 
 /**
  * Maps from component style props to React `style` props
@@ -135,6 +143,7 @@ export const ComponentPropsToStylePropsMap: ComponentPropToStyleProp = {
   columnStart: 'gridColumnStart',
   direction: 'flexDirection',
   display: 'display',
+  flex: 'flex',
   fontFamily: 'fontFamily',
   fontSize: 'fontSize',
   fontStyle: 'fontStyle',
@@ -146,6 +155,7 @@ export const ComponentPropsToStylePropsMap: ComponentPropToStyleProp = {
   left: 'left',
   letterSpacing: 'letterSpacing',
   lineHeight: 'lineHeight',
+  margin: 'margin',
   maxHeight: 'maxHeight',
   maxWidth: 'maxWidth',
   minHeight: 'minHeight',
