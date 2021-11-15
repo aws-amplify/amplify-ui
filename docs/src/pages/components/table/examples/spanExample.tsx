@@ -6,20 +6,20 @@ export const SpanExample = () => (
       <TableRow>
         <TableCell />
         <TableCell />
-        <TableCell colSpan={2} />
+        <TableCell colspan="2" />
       </TableRow>
       <TableRow>
-        <TableCell rowSpan={2} />
+        <TableCell rowspan="3" />
         <TableCell />
         <TableCell />
-        <TableCell rowSpan={3} />
+        <TableCell rowspan="3" />
       </TableRow>
       <TableRow>
         <TableCell />
         <TableCell />
       </TableRow>
       <TableRow>
-        <TableCell colSpan={3} />
+        <TableCell colspan="3" />
       </TableRow>
     </TableBody>
   </Table>

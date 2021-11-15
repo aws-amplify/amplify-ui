@@ -31,8 +31,11 @@ export interface TableProps extends ViewProps {
 export interface TableBodyProps extends ViewProps {}
 
 export type TableCellElement = 'td' | 'th';
+
 export interface TableCellProps extends ViewProps {
   as?: TableCellElement;
+  colspan?: Pick<React.HTMLProps<HTMLTableCellElement>, 'colSpan'>;
+  rowspan?: Pick<React.HTMLProps<HTMLTableCellElement>, 'rowSpan'>;
 }
 
 export interface TableFootProps extends ViewProps {}
