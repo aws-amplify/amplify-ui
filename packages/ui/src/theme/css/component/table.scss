@@ -75,7 +75,7 @@
   }
 
   &[data-variation='striped'] {
-    .amplify-table__body .amplify-table__row:nth-child(odd) {
+    .amplify-table__row:not(.amplify-table__head *):nth-child(odd) {
       background-color: var(
         --amplify-components-table-row-striped-background-color
       );
@@ -83,7 +83,7 @@
   }
 
   &[data-highlightonhover='true'] {
-    .amplify-table__body .amplify-table__row:hover {
+    .amplify-table__row:not(.amplify-table__head *):hover {
       background-color: var(
         --amplify-components-table-row-hover-background-color
       );
