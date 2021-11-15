@@ -41,11 +41,13 @@ const submit = (): void => {
 
 <template>
   <slot v-bind="$attrs" name="signUpSlotI">
+    <slot name="header"></slot>
+
     <base-wrapper v-bind="$attrs">
       <base-form @input="onInput" @submit.prevent="onSignUpSubmit">
         <federated-sign-in></federated-sign-in>
+
         <base-wrapper class="amplify-flex" style="flex-direction: column">
-          <slot name="header"></slot>
           <base-field-set
             class="amplify-flex"
             style="flex-direction: column"
@@ -68,11 +70,12 @@ const submit = (): void => {
             :disabled="isPending || hasValidationErrors"
             >{{ createAccountLabel }}</amplify-button
           >
-          <base-footer>
-            <slot name="footer" :onSignUpSubmit="onSignUpSubmit"> </slot>
-          </base-footer>
         </base-wrapper>
       </base-form>
     </base-wrapper>
+
+    <base-footer>
+      <slot name="footer"> </slot>
+    </base-footer>
   </slot>
 </template>
