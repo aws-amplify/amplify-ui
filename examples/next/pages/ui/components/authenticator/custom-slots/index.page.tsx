@@ -4,6 +4,7 @@ import {
   // Access the default `Authenticator.SignUp.FormFields` for re-use
   Authenticator,
   // Amplify UI Primitives to simplify the custom fields
+  Button,
   CheckboxField,
   Image,
   // React hook to get access to validation errors
@@ -51,12 +52,18 @@ export default withAuthenticator(App, {
         );
       },
       Footer() {
-        const { tokens } = useTheme();
+        const { toResetPassword } = useAuthenticator();
+
         return (
-          <View textAlign="center" padding={`0 0 ${tokens.space.large}`}>
-            <Text color={`${tokens.colors.neutral[80]}`} fontStyle="italic">
-              Call 1-800-•••-•••• for support
-            </Text>
+          <View textAlign="center">
+            <Button
+              fontWeight="normal"
+              onClick={toResetPassword}
+              size="small"
+              variation="link"
+            >
+              Reset Password
+            </Button>
           </View>
         );
       },
