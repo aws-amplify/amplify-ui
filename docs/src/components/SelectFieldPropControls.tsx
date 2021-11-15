@@ -119,9 +119,8 @@ export const SelectFieldPropControls: SelectFieldPropControlsInterface = ({
             Boolean(event.target.checked) as SelectFieldProps['labelHidden']
           );
         }}
-      >
-        labelHidden
-      </CheckboxField>
+        label="labelHidden"
+      />
       <CheckboxField
         name="hasError"
         value="yes"
@@ -131,9 +130,8 @@ export const SelectFieldPropControls: SelectFieldPropControlsInterface = ({
             Boolean(event.target.checked) as SelectFieldProps['hasError']
           );
         }}
-      >
-        hasError
-      </CheckboxField>
+        label="hasError"
+      />
       <CheckboxField
         name="isDisabled"
         value="yes"
@@ -143,9 +141,8 @@ export const SelectFieldPropControls: SelectFieldPropControlsInterface = ({
             Boolean(event.target.checked) as SelectFieldProps['isDisabled']
           );
         }}
-      >
-        isDisabled
-      </CheckboxField>
+        label="isDisabled"
+      />
     </DemoBox>
   );
 };
