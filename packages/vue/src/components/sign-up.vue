@@ -7,7 +7,6 @@ import AuthenticatorSignUpFormFields from './authenticator-sign-up-form-fields.v
 
 import { useAuthenticator } from '../composables/useAuth';
 const facadeValues = useAuthenticator();
-// const { submitForm, updateForm } = useAuthenticator();
 const props = useAuthenticator();
 const { hasValidationErrors, isPending, error } = toRefs(facadeValues);
 
@@ -17,7 +16,6 @@ const emit = defineEmits(['signUpSubmit']);
 // computed properties
 
 const createAccountLabel = computed(() => translate('Create Account'));
-const signUpHeaderText = computed(() => translate('Create a new account'));
 
 // Methods
 
@@ -45,12 +43,9 @@ const submit = (): void => {
   <slot v-bind="$attrs" name="signUpSlotI">
     <base-wrapper v-bind="$attrs">
       <base-form @input="onInput" @submit.prevent="onSignUpSubmit">
+        <federated-sign-in></federated-sign-in>
         <base-wrapper class="amplify-flex" style="flex-direction: column">
-          <slot name="header">
-            <base-heading class="amplify-heading" :level="3">
-              {{ signUpHeaderText }}
-            </base-heading>
-          </slot>
+          <slot name="header"></slot>
           <base-field-set
             class="amplify-flex"
             style="flex-direction: column"
@@ -74,7 +69,6 @@ const submit = (): void => {
             >{{ createAccountLabel }}</amplify-button
           >
           <base-footer>
-            <federated-sign-in></federated-sign-in>
             <slot name="footer" :onSignUpSubmit="onSignUpSubmit"> </slot>
           </base-footer>
         </base-wrapper>

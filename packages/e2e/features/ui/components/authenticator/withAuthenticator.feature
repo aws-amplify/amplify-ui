@@ -7,7 +7,7 @@ Feature: withAuthenticator
 
   @react
   Scenario: Application is wrapped with Authenticator
-    Then I see "Sign in to your account"
+    Then I see "Sign in"
 
   @react
   Scenario: Application renders when signed in

@@ -1,19 +1,22 @@
 import React from 'react';
 import { useNonStyleProps, usePropStyles } from '../shared/styleUtils';
-import { ElementType, PrimitiveProps, ViewProps } from '../types';
+import { ElementType, PrimitivePropsWithRef, ViewProps } from '../types';
 
-export const View = <Element extends ElementType = 'div'>({
-  as = 'div',
-  className,
-  children,
-  role,
-  id,
-  testId,
-  ariaLabel,
-  isDisabled,
-  style,
-  ...rest
-}: PrimitiveProps<ViewProps, Element>) => {
+const ViewInner = <Element extends ElementType = 'div'>(
+  {
+    as = 'div',
+    className,
+    children,
+    role,
+    id,
+    testId,
+    ariaLabel,
+    isDisabled,
+    style,
+    ...rest
+  }: PrimitivePropsWithRef<ViewProps, Element>,
+  ref?: React.ForwardedRef<HTMLElement>
+) => {
   const propStyles = usePropStyles(rest, style);
   const nonStyleProps = useNonStyleProps(rest);
 
@@ -26,9 +29,14 @@ export const View = <Element extends ElementType = 'div'>({
       disabled: isDisabled,
       id,
       role,
+      ref,
       style: propStyles,
       ...nonStyleProps,
     },
     children
   );
 };
+
+export const View = React.forwardRef(ViewInner);
+
+View.displayName = 'View';

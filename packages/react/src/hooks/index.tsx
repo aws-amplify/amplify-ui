@@ -8,4 +8,6 @@ export {
   useDataStoreItem,
 } from './useDataStore';
 
+export { useStorageURL } from './useStorageURL';
+
 export { useTheme } from './useTheme';

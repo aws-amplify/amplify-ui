@@ -11,6 +11,7 @@ import {
   inputComponents,
   layoutComponents,
   navigationComponents,
+  reactHooks,
   utilityComponents,
 } from '../../data/links';
 
@@ -36,7 +37,12 @@ const NavLink = ({ href, children }) => {
 // TODO: clean up this logic
 export const SecondaryNav = () => {
   const router = useRouter();
-  if (router.pathname.startsWith('/theming')) {
+  const { platform = 'react' } = router.query;
+
+  // Extract section from URL (/section/... => section)
+  const section = router.pathname.split('/')[1];
+
+  if (section === 'theming') {
     return (
       <Sidebar>
         <NavLink href="/theming">Overview</NavLink>
@@ -49,7 +55,7 @@ export const SecondaryNav = () => {
     );
   }
 
-  if (router.pathname.startsWith('/getting-started')) {
+  if (section === 'getting-started') {
     return (
       <Sidebar>
         <NavLink href="/getting-started/installation">Installation</NavLink>
@@ -57,7 +63,7 @@ export const SecondaryNav = () => {
     );
   }
 
-  if (router.pathname.startsWith('/components')) {
+  if (section === 'components' || section === 'hooks') {
     return (
       <Sidebar>
         <Heading level={6}>Connected Components</Heading>
@@ -83,6 +89,13 @@ export const SecondaryNav = () => {
 
         <Heading level={6}>Utilities</Heading>
         <NavLinks items={utilityComponents} />
+
+        {platform === 'react' ? (
+          <>
+            <Heading level={6}>Hooks</Heading>
+            <NavLinks items={reactHooks} />
+          </>
+        ) : null}
       </Sidebar>
     );
   }

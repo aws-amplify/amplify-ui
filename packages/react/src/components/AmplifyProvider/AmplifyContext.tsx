@@ -1,13 +1,15 @@
-import { createContext, ReactNode } from 'react';
+import * as React from 'react';
 
 import { defaultTheme, WebTheme } from '@aws-amplify/ui';
 
+import * as primitives from '../../primitives/components';
+
 interface AmplifyContextType {
-  components: Record<string, ReactNode>;
+  components: Partial<typeof primitives>;
   theme: WebTheme;
 }
 
-export const AmplifyContext = createContext<AmplifyContextType>({
-  components: undefined,
+export const AmplifyContext = React.createContext<AmplifyContextType>({
+  components: primitives,
   theme: defaultTheme,
 });

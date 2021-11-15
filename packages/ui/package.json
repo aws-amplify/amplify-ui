@@ -4,7 +4,10 @@
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
   "exports": {
-    ".": "./dist/esm/index.js",
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/index.js"
+    },
     "./styles.css": "./dist/styles.css",
     "./theme.css": "./dist/theme.css"
   },

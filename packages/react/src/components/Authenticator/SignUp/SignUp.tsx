@@ -32,9 +32,8 @@ export function SignUp() {
       onChange={handleChange}
       onSubmit={handleSubmit}
     >
+      <FederatedSignIn />
       <Flex direction="column">
-        <Heading level={3}>{translate('Create a new account')}</Heading>
-
         <Flex direction="column">
           <FormFields />
           <RemoteErrorMessage />
@@ -52,8 +51,6 @@ export function SignUp() {
         >
           {translate('Create Account')}
         </Button>
-
-        <FederatedSignIn />
       </Flex>
     </Form>
   );

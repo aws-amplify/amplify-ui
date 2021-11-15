@@ -20,7 +20,7 @@ Feature: Sign In with TOTP MFA
     And I type my password
     And I click the "Sign in" button
     And I click the "Back to Sign In" button
-    Then I see "Sign in to your account"
+    Then I see "Sign in"
   
   @angular @react @vue
   Scenario: Invalid TOTP code
