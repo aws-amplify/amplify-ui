@@ -12,7 +12,6 @@ export function SignIn() {
     },
     isPending,
     submitForm,
-    toResetPassword,
     updateForm,
   } = useAuthenticator();
 
@@ -68,16 +67,6 @@ export function SignIn() {
           >
             {translate('Sign in')}
           </Button>
-
-          <Button
-            onClick={toResetPassword}
-            type="button"
-            variation="link"
-            size="small"
-            fontWeight="normal"
-          >
-            {translate('Forgot your password? ')}
-          </Button>
         </Flex>
       </Form>
 
@@ -87,4 +76,19 @@ export function SignIn() {
 }
 
 SignIn.Header = (): JSX.Element => null;
-SignIn.Footer = (): JSX.Element => null;
+SignIn.Footer = () => {
+  const { toResetPassword } = useAuthenticator();
+
+  return (
+    <View textAlign="center">
+      <Button
+        fontWeight="normal"
+        onClick={toResetPassword}
+        size="small"
+        variation="link"
+      >
+        {translate('Forgot your password? ')}
+      </Button>
+    </View>
+  );
+};
