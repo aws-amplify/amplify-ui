@@ -1,0 +1,17 @@
+{
+  "name": "js",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "serve": "vite preview"
+  },
+  "dependencies": {
+    "@aws-amplify/ui-standalone": "1.0.0",
+    "aws-amplify": "^4.1.3"
+  },
+  "devDependencies": {
+    "typescript": "^4.3.2",
+    "vite": "^2.6.4"
+  }
+}
