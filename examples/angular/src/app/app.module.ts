@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
-import { AmplifyAuthenticatorModule } from '@aws-amplify/ui-angular';
+import {
+  AmplifyAuthenticatorModule,
+  AuthenticatorService,
+} from '@aws-amplify/ui-angular';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -50,7 +53,7 @@ import { SignUpWithUsernameComponent } from 'src/pages/ui/components/authenticat
     AmplifyAuthenticatorModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [AuthenticatorService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
