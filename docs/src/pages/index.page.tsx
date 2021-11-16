@@ -89,7 +89,7 @@ const themeCode = `export const theme = {
 
 const AmpCard = ({ title, description, href }) => (
   <Link isExternal href={href} className="docs-home-amp-product-card">
-    <Card textAlign="center">
+    <Card textAlign="center" variation="outlined">
       <Heading level={3}>{title}</Heading>
       <Text>{description}</Text>
     </Card>
@@ -126,7 +126,7 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
           className="docs-home-angular"
           src="/svg/integrations/angular.svg"
         />
-        <Card padding={`${tokens.space.xl}`}>
+        <Card padding={`${tokens.space.xl}`} variation="outlined">
           <Text fontSize={`${tokens.fontSizes.xl}`}>
             Amplify UI is an open-source design system with cloud-connected
             components and primitives that simplify building accessible,
@@ -168,7 +168,7 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
         <Heading level={2} textAlign="center" margin={`${tokens.space.xl}`}>
           Take it for a test drive
         </Heading>
-        <Card style={{ width: '100%', padding: 0 }}>
+        <Card style={{ width: '100%', padding: 0 }} variation="outlined">
           <Sandpack
             template="react"
             files={{

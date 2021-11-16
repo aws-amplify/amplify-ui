@@ -123,9 +123,9 @@ export const HomePrimitivePreview = () => {
         />
       </Flex>
       <Flex direction="row" alignItems="flex-start">
-        <CheckboxField defaultChecked={true}>Pepperoni</CheckboxField>
-        <CheckboxField>Bell Peppers</CheckboxField>
-        <CheckboxField>Mushrooms</CheckboxField>
+        <CheckboxField label="Pepperoni" defaultChecked={true} />
+        <CheckboxField label="Bell Peppers" />
+        <CheckboxField label="Mushrooms" />
       </Flex>
     </Flex>
   );
