@@ -6,7 +6,7 @@ import {
   IconFormatAlignLeft,
   IconFormatAlignRight,
   IconFormatBold,
-  IconFormatColorFill,
+  IconFormatColorReset,
   IconFormatItalic,
   IconFormatUnderlined,
   ToggleButton,
@@ -49,7 +49,7 @@ export const MultipleSelectionDemo = () => {
           <IconFormatUnderlined />
         </ToggleButton>
         <ToggleButton value="color-fill">
-          <IconFormatColorFill />
+          <IconFormatColorReset />
         </ToggleButton>
       </ToggleButtonGroup>
     </Example>
