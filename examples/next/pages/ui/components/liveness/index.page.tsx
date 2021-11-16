@@ -30,19 +30,24 @@ export default function App({
   sessionId: string;
   clientActionDocument: string;
 }) {
-  const [isLivenessVisible, setLivenessVisible] = useState(false);
+  const [isLivenessActive, setLivenessActive] = useState(false);
 
   const handleStartLiveness = () => {
-    setLivenessVisible(true);
+    setLivenessActive(true);
   };
 
-  const handleUserExit = () => {
-    setLivenessVisible(false);
+  const handleExit = () => {
+    setLivenessActive(false);
+  };
+
+  const handleUserExit = (event: CustomEvent) => {
+    event.preventDefault();
+    setLivenessActive(false);
   };
 
   const handleSuccess = async () => {
     await new Promise((resolve) => setTimeout(resolve, 2000));
-    setLivenessVisible(false);
+    setLivenessActive(false);
   };
 
   const handleGetLivenessDetection: LivenessFlowProps['onGetLivenessDetection'] =
@@ -61,12 +66,14 @@ export default function App({
 
   return (
     <div>
-      {isLivenessVisible ? (
+      {isLivenessActive ? (
         <LivenessFlow
           sessionId={sessionId}
           clientActionDocument={clientActionDocument}
-          onUserExit={handleUserExit}
           onGetLivenessDetection={handleGetLivenessDetection}
+          active={isLivenessActive}
+          onExit={handleExit}
+          onUserCancel={handleUserExit}
           onSuccess={handleSuccess}
         />
       ) : (

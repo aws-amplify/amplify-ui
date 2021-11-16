@@ -24,6 +24,16 @@ export interface LivenessFlowProps {
   ) => Promise<GetLivenessDetectionCallbackResponse>;
 
   /**
+   * Prop to mark the flow as active in controlled mode
+   */
+  active?: boolean;
+
+  /**
+   * Callback called when the flow is being exited
+   */
+  onExit?: () => void;
+
+  /**
    * Callback called when the user denies any required permissions
    */
   onUserPermissionDeined?: () => void;
@@ -34,9 +44,9 @@ export interface LivenessFlowProps {
   onUserTimeout?: () => void;
 
   /**
-   * Callback called when the user exists out of the flow
+   * Callback called when the user cancels the flow
    */
-  onUserExit?: () => void;
+  onUserCancel?: (event?: CustomEvent) => void;
 
   /**
    * Callback called when there is error occured on any step

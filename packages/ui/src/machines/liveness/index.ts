@@ -31,7 +31,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       errorState: null,
     },
     on: {
-      CANCEL: 'userExit',
+      CANCEL: 'userCancel',
       TIMEOUT: {
         target: 'retryableTimeout',
         actions: 'updateErrorStateForTimeout',
@@ -154,8 +154,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         entry: 'callUserPermissionDeniedCallback',
         type: 'final',
       },
-      userExit: {
-        entry: 'callUserExitCallback',
+      userCancel: {
+        entry: 'callUserCancelCallback',
         type: 'final',
       },
       timeout: {
@@ -259,8 +259,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       callUserPermissionDeniedCallback: (context) => {
         context.flowProps.onUserPermissionDeined?.();
       },
-      callUserExitCallback: (context) => {
-        context.flowProps.onUserExit?.();
+      callUserCancelCallback: (context) => {
+        context.flowProps.onUserCancel?.();
       },
       callUserTimeoutCallback: (context) => {
         context.flowProps.onUserTimeout?.();

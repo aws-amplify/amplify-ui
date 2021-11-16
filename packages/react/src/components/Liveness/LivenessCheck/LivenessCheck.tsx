@@ -2,8 +2,7 @@ import React from 'react';
 import { I18n } from 'aws-amplify';
 
 import { useTheme } from '../../../hooks';
-import { useBreakpoint } from 'src/primitives/shared/responsive/useBreakpoint';
-import { Breakpoint } from 'src/primitives/types/responsive';
+import { useThemeBreakpoint } from '../../../hooks/useThemeBreakpoint';
 import { LivenessCameraModule } from './LivenessCameraModule';
 import { useLivenessActor } from '../hooks';
 import { CancelButton } from '../shared';
@@ -28,24 +27,11 @@ function getVideoConstraints(
 
 export const LivenessCheck: React.FC = () => {
   const { tokens } = useTheme();
-
-  const {
-    breakpoints: {
-      values: breakpoints,
-      unit: breakpointUnit,
-      defaultBreakpoint,
-    },
-  } = useTheme();
-
-  const breakpoint = useBreakpoint({
-    breakpoints,
-    breakpointUnit,
-    defaultBreakpoint: defaultBreakpoint as Breakpoint,
-  });
+  const breakpoint = useThemeBreakpoint();
+  const [state] = useLivenessActor();
 
   const isMobileScreen = breakpoint === 'base';
   const videoConstraints = getVideoConstraints(isMobileScreen, screen);
-  const [state] = useLivenessActor();
 
   return (
     <Flex
