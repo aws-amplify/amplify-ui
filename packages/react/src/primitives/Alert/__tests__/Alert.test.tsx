@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { Alert } from '../Alert';
 import { ComponentClassNames } from '../../shared';
 import { ComponentPropsToStylePropsMap } from '../../types';
-import { kebabCase } from 'lodash';
+import kebabCase from 'lodash/kebabCase';
 
 describe('Alert: ', () => {
   it('can render Alert variations', async () => {

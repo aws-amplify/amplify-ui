@@ -1,5 +1,5 @@
 import { render, screen, waitFor } from '@testing-library/react';
-import { kebabCase } from 'lodash';
+import kebabCase from 'lodash/kebabCase';
 
 import { Grid } from '../Grid';
 import { View } from '../../View';
