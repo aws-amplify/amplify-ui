@@ -21,7 +21,6 @@
   }
 
   &[aria-orientation='vertical'] {
-    height: 100%;
     border-left-width: var(--amplify-components-divider-border-width);
 
     &[data-size='small'] {
