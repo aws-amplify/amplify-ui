@@ -6,8 +6,8 @@ import {
 import { useMachine } from '@xstate/react';
 import * as React from 'react';
 import generateContext from 'react-generate-context';
-import type { PartialDeep } from 'type-fest';
 
+import type { PartialDeep } from '../../../types';
 import { defaultComponents } from './defaultComponents';
 
 export type ProviderProps = AuthenticatorMachineOptions & {
