@@ -137,4 +137,4 @@ jobs:
         run: yarn --frozen-lockfile
 
       - name: Build docs package
-        run: yarn workspace docs build
+        run: yarn docs build
