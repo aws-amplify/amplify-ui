@@ -21,18 +21,19 @@
 }
 
 .example pre {
-  --margin: calc(var(--amplify-space-medium) * -1);
-  margin: 0 var(--margin) var(--margin) var(--margin);
+  margin: 0;
 }
 
 .example-code {
   position: relative;
+  background: var(--amplify-colors-background-secondary);
+  width: 100%;
 }
 
 .example-copy-button {
   position: absolute;
   top: var(--amplify-space-small);
-  right: 0;
+  right: var(--amplify-space-small);
 }
 
 .docs-component-demo {

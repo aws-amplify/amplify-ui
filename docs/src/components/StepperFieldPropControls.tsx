@@ -83,8 +83,7 @@ export const StepperFieldPropControls: React.FC<StepperFieldPropControlsProps> =
         value="yes"
         checked={labelHidden}
         onChange={(event) => setLabelHidden(event.target.checked)}
-      >
-        labelHidden
-      </CheckboxField>
+        label="labelHidden"
+      />
     </DemoBox>
   );

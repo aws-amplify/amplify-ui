@@ -1,27 +1,28 @@
+import * as React from 'react';
 import classNames from 'classnames';
 
 import { ComponentClassNames } from '../shared';
-import { LinkProps, Primitive } from '../types';
+import { LinkProps, PrimitiveWithForwardRef } from '../types';
 import { View } from '../View';
 
-export const Link: Primitive<LinkProps, 'a'> = ({
-  as = 'a',
-  children,
-  className,
-  isExternal,
-  ...rest
-}) => {
+const LinkInner: PrimitiveWithForwardRef<LinkProps, 'a'> = (
+  { as = 'a', children, className, isExternal, ...rest },
+  ref
+) => {
   return (
     <View
       as={as}
       className={classNames(ComponentClassNames.Link, className)}
       rel={isExternal ? 'noopener noreferrer' : undefined}
       target={isExternal ? '_blank' : undefined}
+      ref={ref}
       {...rest}
     >
       {children}
     </View>
   );
 };
+
+export const Link = React.forwardRef(LinkInner);
 
 Link.displayName = 'Link';

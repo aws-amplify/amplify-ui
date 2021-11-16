@@ -23,11 +23,10 @@
             <CheckboxField
               errorMessage={validationErrors.acknowledgement}
               hasError={!!validationErrors.acknowledgement}
+              label="I agree with the Terms & Conditions"
               name="acknowledgement"
               value="yes"
-            >
-              I agree with the Terms & Conditions
-            </CheckboxField>
+            />
           </>
         );
       },

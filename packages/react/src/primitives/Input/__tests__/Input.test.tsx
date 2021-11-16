@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
@@ -12,6 +13,7 @@ describe('Input component', () => {
     expect(input).toHaveClass('custom-class');
     expect(input).toHaveClass(ComponentClassNames.Input);
   });
+
   it('should render expected classname, id Input field', async () => {
     render(
       <Input
@@ -25,6 +27,14 @@ describe('Input component', () => {
     const input = await screen.findByRole('textbox');
     expect(input).toHaveClass('my-input');
     expect(input.id).toBe('testField');
+  });
+
+  it('should forward ref to DOM element', async () => {
+    const ref = React.createRef<HTMLInputElement>();
+
+    render(<Input ref={ref} />);
+    await screen.findByRole('textbox');
+    expect(ref.current.nodeName).toBe('INPUT');
   });
 
   it('should render the state attributes', async () => {

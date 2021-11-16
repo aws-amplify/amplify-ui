@@ -12,4 +12,8 @@ module.exports = {
     gap: { value: '{space.small.value}' },
     fontSize: { value: '{fontSizes.large.value}' },
   },
+
+  label: {
+    color: { value: '{colors.font.secondary.value}' },
+  },
 };

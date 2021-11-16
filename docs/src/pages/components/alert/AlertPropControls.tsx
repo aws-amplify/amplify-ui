@@ -3,8 +3,7 @@ import {
   TextField,
   SelectField,
   SwitchField,
-  View,
-  useTheme,
+  Flex,
 } from '@aws-amplify/ui-react';
 
 export interface AlertPropControlsProps extends AlertProps {
@@ -36,9 +35,8 @@ export const AlertPropControls: AlertPropControlsInterface = ({
   body,
   setBody,
 }) => {
-  const { tokens } = useTheme();
   return (
-    <View padding={`${tokens.space.medium} 0`}>
+    <Flex direction="column">
       <SelectField
         name="variation"
         id="variation"
@@ -86,6 +84,6 @@ export const AlertPropControls: AlertPropControlsInterface = ({
           setHasIcon(event.target.checked as AlertProps['hasIcon'])
         }
       />
-    </View>
+    </Flex>
   );
 };

@@ -105,6 +105,7 @@ export const inputComponents = [
 ].sort(sortByLabel);
 
 export const layoutComponents = [
+  { href: '/components/card', label: 'Card', body: `` },
   { href: '/components/collection', label: 'Collection', body: `` },
   { href: '/components/flex', label: 'Flex', body: `` },
   { href: '/components/grid', label: 'Grid', body: `` },

@@ -8,7 +8,11 @@ import {
   TemplateRef,
   ViewEncapsulation,
 } from '@angular/core';
-import { AuthenticatorMachineOptions, translate } from '@aws-amplify/ui';
+import {
+  AuthenticatorMachineOptions,
+  SocialProvider,
+  translate,
+} from '@aws-amplify/ui';
 import { AmplifySlotDirective } from '../../../../utilities/amplify-slot/amplify-slot.directive';
 import { CustomComponentsService } from '../../../../services/custom-components.service';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
@@ -24,6 +28,7 @@ export class AuthenticatorComponent implements OnInit, AfterContentInit {
   @Input() loginMechanisms: AuthenticatorMachineOptions['loginMechanisms'];
   @Input() services: AuthenticatorMachineOptions['services'];
   @Input() signUpAttributes: AuthenticatorMachineOptions['signUpAttributes'];
+  @Input() socialProviders: SocialProvider[];
   @Input() variation: 'modal' | undefined;
 
   @ContentChildren(AmplifySlotDirective)
@@ -39,12 +44,19 @@ export class AuthenticatorComponent implements OnInit, AfterContentInit {
   ) {}
 
   ngOnInit(): void {
-    const { initialState, loginMechanisms, services, signUpAttributes } = this;
+    const {
+      initialState,
+      loginMechanisms,
+      services,
+      signUpAttributes,
+      socialProviders,
+    } = this;
     this.authenticator.startMachine({
       initialState,
       loginMechanisms,
       services,
       signUpAttributes,
+      socialProviders,
     });
 
     /**

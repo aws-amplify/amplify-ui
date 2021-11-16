@@ -149,25 +149,22 @@ export const SliderFieldPropControls: React.FC<SliderFieldPropControlsProps> =
           value="yes"
           checked={isDisabled}
           onChange={(event) => setIsDisabled(event.target.checked)}
-        >
-          isDisabled
-        </CheckboxField>
+          label="isDisabled"
+        />
         <CheckboxField
           name="value-hidden"
           value="yes"
           checked={isValueHidden}
           onChange={(event) => setIsValueHidden(event.target.checked)}
-        >
-          isValueHidden
-        </CheckboxField>
+          label="isValueHidden"
+        />
         <CheckboxField
           name="label-hidden"
           value="yes"
           checked={labelHidden}
           onChange={(event) => setLabelHidden(event.target.checked)}
-        >
-          labelHidden
-        </CheckboxField>
+          label="labelHidden"
+        />
       </DemoBox>
     );
   };

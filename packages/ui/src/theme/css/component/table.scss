@@ -1,0 +1,124 @@
+.amplify-table {
+  /**
+   * Default Table primitive stylings
+   */
+  border-collapse: var(--amplify-components-table-border-collapse);
+  display: var(--amplify-components-table-display);
+  width: var(--amplify-components-table-width);
+
+  .amplify-table__caption {
+    caption-side: var(--amplify-components-table-caption-caption-side);
+    color: var(--amplify-components-table-caption-color);
+    display: var(--amplify-components-table-caption-display);
+    font-size: var(--amplify-components-table-caption-font-size);
+    text-align: var(--amplify-components-table-caption-text-align);
+    word-break: var(--amplify-components-table-caption-word-break);
+  }
+
+  .amplify-table__head {
+    display: var(--amplify-components-table-head-display);
+    vertical-align: var(--amplify-components-table-head-vertical-align);
+  }
+
+  .amplify-table__body {
+    display: var(--amplify-components-table-body-display);
+    vertical-align: var(--amplify-components-table-body-vertical-align);
+  }
+
+  .amplify-table__foot {
+    display: var(--amplify-components-table-foot-display);
+    vertical-align: var(--amplify-components-table-foot-vertical-align);
+  }
+
+  .amplify-table__row {
+    display: var(--amplify-components-table-row-display);
+    vertical-align: var(--amplify-components-table-row-vertical-align);
+  }
+
+  .amplify-table__th {
+    border-color: var(--amplify-components-table-header-border-color);
+    border-style: var(--amplify-components-table-header-border-style);
+    border-width: var(--amplify-components-table-header-border-width);
+    color: var(--amplify-components-table-header-color);
+    display: var(--amplify-components-table-header-display);
+    font-size: var(--amplify-components-table-header-font-size);
+    font-weight: var(--amplify-components-table-header-font-weight);
+    padding: var(--amplify-components-table-header-padding);
+    vertical-align: var(--amplify-components-table-header-vertical-align);
+  }
+
+  .amplify-table__td {
+    border-color: var(--amplify-components-table-data-border-color);
+    border-style: var(--amplify-components-table-data-border-style);
+    border-width: var(--amplify-components-table-data-border-width);
+    color: var(--amplify-components-table-data-color);
+    display: var(--amplify-components-table-data-display);
+    font-size: var(--amplify-components-table-data-font-size);
+    font-weight: var(--amplify-components-table-data-font-weight);
+    padding: var(--amplify-components-table-data-padding);
+    vertical-align: var(--amplify-components-table-data-vertical-align);
+  }
+
+  /**
+   * Data attribute stylings
+   */
+  &:not([data-variation='bordered']) {
+    .amplify-table__td:not(:first-child),
+    .amplify-table__th:not(:first-child) {
+      border-left: none;
+    }
+
+    .amplify-table__td:not(:last-child),
+    .amplify-table__th:not(:last-child) {
+      border-right: none;
+    }
+  }
+
+  &[data-variation='striped'] {
+    .amplify-table__row:not(.amplify-table__head *):nth-child(odd) {
+      background-color: var(
+        --amplify-components-table-row-striped-background-color
+      );
+    }
+  }
+
+  &[data-highlightonhover='true'] {
+    .amplify-table__row:not(.amplify-table__head *):hover {
+      background-color: var(
+        --amplify-components-table-row-hover-background-color
+      );
+    }
+  }
+
+  &[data-size='small'] {
+    .amplify-table__caption {
+      font-size: var(--amplify-components-table-caption-small-font-size);
+    }
+
+    .amplify-table__th {
+      font-size: var(--amplify-components-table-header-small-font-size);
+      padding: var(--amplify-components-table-header-small-padding);
+    }
+
+    .amplify-table__td {
+      font-size: var(--amplify-components-table-data-small-font-size);
+      padding: var(--amplify-components-table-data-small-padding);
+    }
+  }
+
+  &[data-size='large'] {
+    .amplify-table__caption {
+      font-size: var(--amplify-components-table-caption-large-font-size);
+    }
+
+    .amplify-table__th {
+      font-size: var(--amplify-components-table-header-large-font-size);
+      padding: var(--amplify-components-table-header-large-padding);
+    }
+
+    .amplify-table__td {
+      font-size: var(--amplify-components-table-data-large-font-size);
+      padding: var(--amplify-components-table-data-large-padding);
+    }
+  }
+}

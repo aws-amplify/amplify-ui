@@ -1,5 +1,7 @@
-import { Divider } from '../Divider';
+import * as React from 'react';
 import { render, screen } from '@testing-library/react';
+
+import { Divider } from '../Divider';
 import { ComponentClassNames } from '../../shared';
 
 describe('Divider component', () => {
@@ -27,6 +29,14 @@ describe('Divider component', () => {
     const divider = (await screen.findByRole('separator')) as HTMLHRElement;
     expect(divider.className).toContain('my-divider');
     expect(divider.className).toContain(ComponentClassNames.Divider);
+  });
+
+  it('should forward ref to DOM element', async () => {
+    const ref = React.createRef<HTMLHRElement>();
+    render(<Divider className="my-divider" ref={ref} />);
+
+    await screen.findByRole('separator');
+    expect(ref.current.nodeName).toBe('HR');
   });
 
   it('can render any arbitrary data-* attribute', async () => {

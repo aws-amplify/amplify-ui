@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import {
   Card,
   Text,
@@ -9,34 +9,58 @@ import {
   Flex,
   Divider,
   Heading,
+  SelectField,
+  CardProps,
+  useTheme,
 } from '@aws-amplify/ui-react';
 
-export const CardSample = () => {
+import { Demo } from '@/components/Demo';
+
+const propsToCode = (props) => {
   return (
-    <Card maxWidth="20rem">
-      <Image
-        src="/road-to-milford-new-zealand-800w.jpg"
-        alt="Glittering stream with old log, snowy mountain peaks
-    tower over a green field."
-        objectFit="cover"
-      />
-      <View padding="1rem">
-        <Flex>
-          <Badge backgroundColor="lightgreen">Plus</Badge>
-          <Badge backgroundColor="lightblue">Verified</Badge>
-        </Flex>
-        <Divider padding="1rem 0 0 0" />
-        <Heading level={3}>
-          <b>New Zealand White Water Outdoor Adventure</b>
-        </Heading>
-        <View padding="0 1rem">
-          <Text padding="0 0 1rem 0" isTruncated={true}>
-            Join us on this beautiful outdoor adventure through the glittering
-            rivers through the snowy peaks on New Zealand.
-          </Text>
-          <Button isFullWidth={true}>Book it</Button>
-        </View>
+    `<Card` +
+    (props.variation
+      ? `\n  variation=${JSON.stringify(props.variation)}`
+      : '') +
+    `>
+  I'm a card!
+</Card>`
+  );
+};
+
+const PropControls = (props) => {
+  const { variation, setVariation } = props;
+  return (
+    <View>
+      <SelectField
+        name="variation"
+        id="variation"
+        label="Variation"
+        value={variation}
+        onChange={(event) =>
+          setVariation(event.target.value as CardProps['variation'])
+        }
+      >
+        <option value="">default</option>
+        <option value="outlined">outlined</option>
+        <option value="elevated">elevated</option>
+      </SelectField>
+    </View>
+  );
+};
+
+export const CardDemo = () => {
+  const { tokens } = useTheme();
+  const [variation, setVariation] = React.useState<CardProps>('');
+  const props = { variation, setVariation };
+  return (
+    <Demo code={propsToCode(props)} propControls={<PropControls {...props} />}>
+      <View
+        backgroundColor={tokens.colors.background.secondary}
+        padding={tokens.space.medium}
+      >
+        <Card {...props}>I'm a card!</Card>
       </View>
-    </Card>
+    </Demo>
   );
 };

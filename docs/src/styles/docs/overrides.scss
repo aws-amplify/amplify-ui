@@ -1,67 +1,8 @@
 // These are overrides/fixes
 // remove these when they are fixed in the ui/react packages
-.amplify-card {
-  border-width: var(--amplify-border-widths-small);
-  border-style: solid;
-  border-color: var(--amplify-colors-border-primary);
-}
 
-.amplify-field-group :not(:last-child) .amplify-input {
-  border-end-end-radius: var(--amplify-components-fieldcontrol-border-radius);
-  border-start-end-radius: var(--amplify-components-fieldcontrol-border-radius);
-}
-
-.amplify-field-group__outer-end {
-  position: relative;
-}
-
-.amplify-sliderfield__thumb {
-  border: var(--amplify-border-widths-small) solid var(--amplify-colors-border-secondary);
-  cursor: pointer;
-  
-  &:hover {
-    background-color: var(--amplify-colors-background-primary);
-    border-color: var(--amplify-colors-border-focus);
-  }
-}
-
-.amplify-label,
-.amplify-switch__wrapper {
-  color: var(--amplify-colors-font-secondary);
-  font-weight: 500;
-}
-
-.amplify-switchfield {
-  display: block;
-}
-
-.amplify-field {
-  margin-bottom: var(--amplify-space-medium);
-}
-
-.amplify-switch-track {
-  box-sizing: content-box;
-}
 
 .amplify-button[data-variation='primary'] {
   border-color: var(--amplify-components-button-primary-border-color);
 }
 
-.amplify-select,
-.amplify-input {
-  color: var(--amplify-components-fieldcontrol-color);
-}
-
-.amplify-alert {
-  & .amplify-button[data-variation=link] {
-    color: inherit;
-  }
-}
-
-.amplify-field-group__outer-end {
-  margin-left: calc(var(--amplify-border-widths-small) * -1);
-}
-
-.amplify-rating {
-  gap: var(--amplify-space-xs);
-}
