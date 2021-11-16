@@ -1,9 +1,22 @@
 // Taken from https://www.npmjs.com/package/@awsui/components-react
 import * as React from 'react';
 
+import { isDevelopment } from '../helpers';
+
 interface PropertyDescription {
+  /**
+   * Name of the component.
+   */
   componentName: string;
+
+  /**
+   * Name of the prop to this component that is being controlled
+   */
   controlledProp: string;
+
+  /**
+   * Name of the handler that would be called when the controlled prop is changed.
+   */
   changeHandler: string;
 }
 
@@ -40,8 +53,6 @@ interface PropertyDescription {
  *  />
  * ```
  *
- * @internal
- *
  * @param controlledValue value for the controlled mode
  * @param handler update handler for controlled mode
  * @param defaultValue initial value for uncontrolled mode
@@ -56,7 +67,7 @@ export function useControllable<ValueType>(
   // The decision whether a component is controlled or uncontrolled is made on its first render and cannot be changed afterwards.
   const isControlled = React.useState(controlledValue !== undefined)[0];
 
-  if (isDevelopment) {
+  if (isDevelopment()) {
     // Print a warning if the component switches between controlled and uncontrolled mode.
 
     React.useEffect(() => {
@@ -103,8 +114,6 @@ export function useControllable<ValueType>(
     return [currentUncontrolledValue, setUncontrolledValue] as const;
   }
 }
-
-const isDevelopment = process.env.NODE_ENV !== 'production';
 
 function defaultCallback() {
   return void 0;
