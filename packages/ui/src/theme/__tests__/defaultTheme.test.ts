@@ -186,10 +186,12 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-field-small-font-size: var(--amplify-font-sizes-small);
         --amplify-components-field-large-gap: var(--amplify-space-small);
         --amplify-components-field-large-font-size: var(--amplify-font-sizes-large);
+        --amplify-components-field-label-color: var(--amplify-colors-font-secondary);
         --amplify-components-fieldcontrol-border-style: solid;
         --amplify-components-fieldcontrol-border-color: var(--amplify-colors-border-primary);
         --amplify-components-fieldcontrol-border-width: var(--amplify-border-widths-small);
         --amplify-components-fieldcontrol-border-radius: var(--amplify-radii-small);
+        --amplify-components-fieldcontrol-color: var(--amplify-colors-font-primary);
         --amplify-components-fieldcontrol-padding-block-start: var(--amplify-space-xs);
         --amplify-components-fieldcontrol-padding-block-end: var(--amplify-space-xs);
         --amplify-components-fieldcontrol-padding-inline-start: var(--amplify-space-medium);
@@ -232,8 +234,9 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-fieldgroup-gap: 0;
         --amplify-components-fieldgroup-vertical-align-items: center;
         --amplify-components-fieldgroup-outer-align-items: center;
-        --amplify-components-fieldmessages-error-color: var(--amplify-colors-border-error);
+        --amplify-components-fieldmessages-error-color: var(--amplify-colors-font-error);
         --amplify-components-fieldmessages-error-font-size: var(--amplify-font-sizes-small);
+        --amplify-components-fieldmessages-description-color: var(--amplify-colors-font-secondary);
         --amplify-components-fieldmessages-description-font-style: italic;
         --amplify-components-fieldmessages-description-font-size: var(--amplify-font-sizes-small);
         --amplify-components-flex-gap: var(--amplify-space-medium);
