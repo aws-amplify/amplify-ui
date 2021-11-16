@@ -1,17 +1,23 @@
+import * as React from 'react';
 import classNames from 'classnames';
 
 import { ComponentClassNames } from '../shared/constants';
-import { FlexProps, Primitive } from '../types';
+import { FlexProps, PrimitiveWithForwardRef } from '../types';
 import { View } from '../View';
 
-export const Flex: Primitive<FlexProps, 'div'> = ({
-  className,
-  children,
-  ...rest
-}) => (
-  <View className={classNames(ComponentClassNames.Flex, className)} {...rest}>
+const FlexInner: PrimitiveWithForwardRef<FlexProps, 'div'> = (
+  { className, children, ...rest },
+  ref
+) => (
+  <View
+    className={classNames(ComponentClassNames.Flex, className)}
+    ref={ref}
+    {...rest}
+  >
     {children}
   </View>
 );
+
+export const Flex = React.forwardRef(FlexInner);
 
 Flex.displayName = 'Flex';
