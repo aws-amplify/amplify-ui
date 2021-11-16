@@ -1,35 +1,39 @@
+import * as React from 'react';
 import classNames from 'classnames';
 
 import { ComponentClassNames } from '../shared';
-import { InputProps, Primitive } from '../types';
+import { InputProps, PrimitiveWithForwardRef } from '../types';
 import { View } from '../View';
 
-export const Input: Primitive<InputProps, 'input'> = ({
-  autoComplete,
-  checked,
-  className,
-  defaultChecked,
-  defaultValue,
-  id,
-  isDisabled,
-  isReadOnly,
-  isRequired,
-  size,
-  type = 'text',
-  hasError = false,
-  value,
-  variation,
-  onBlur,
-  onChange,
-  onCopy,
-  onCut,
-  onFocus,
-  onInput,
-  onPaste,
-  onSelect,
-  onWheel,
-  ...rest
-}) => (
+const InputInner: PrimitiveWithForwardRef<InputProps, 'input'> = (
+  {
+    autoComplete,
+    checked,
+    className,
+    defaultChecked,
+    defaultValue,
+    id,
+    isDisabled,
+    isReadOnly,
+    isRequired,
+    size,
+    type = 'text',
+    hasError = false,
+    value,
+    variation,
+    onBlur,
+    onChange,
+    onCopy,
+    onCut,
+    onFocus,
+    onInput,
+    onPaste,
+    onSelect,
+    onWheel,
+    ...rest
+  },
+  ref
+) => (
   <View
     aria-invalid={hasError}
     as="input"
@@ -56,11 +60,14 @@ export const Input: Primitive<InputProps, 'input'> = ({
     onSelect={onSelect}
     onWheel={onWheel}
     readOnly={isReadOnly}
+    ref={ref}
     required={isRequired}
     type={type}
     value={value}
     {...rest}
   />
 );
+
+export const Input = React.forwardRef(InputInner);
 
 Input.displayName = 'Input';

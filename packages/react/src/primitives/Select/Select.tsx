@@ -1,28 +1,32 @@
+import * as React from 'react';
 import classNames from 'classnames';
 
 import { Flex } from '../Flex';
 import { View } from '../View';
 import { IconExpandMore } from '../Icon';
 import { SelectProps } from '../types/select';
-import { Primitive } from '../types';
+import { PrimitiveWithForwardRef } from '../types';
 import { ComponentClassNames } from '../shared';
 
-export const Select: Primitive<SelectProps, 'select'> = ({
-  autoComplete,
-  className,
-  size,
-  variation,
-  value,
-  defaultValue,
-  hasError,
-  icon = <IconExpandMore size="large" />,
-  iconColor,
-  children,
-  placeholder,
-  isDisabled,
-  isRequired,
-  ...rest
-}) => {
+const SelectInner: PrimitiveWithForwardRef<SelectProps, 'select'> = (
+  {
+    autoComplete,
+    className,
+    size,
+    variation,
+    value,
+    defaultValue,
+    hasError,
+    icon = <IconExpandMore size="large" />,
+    iconColor,
+    children,
+    placeholder,
+    isDisabled,
+    isRequired,
+    ...rest
+  },
+  ref
+) => {
   const DEFAULT_PLACEHOLDER_VALUE = '';
   // value === undefined is to make sure that component is used in uncontrolled way so that setting defaultValue is valid
   const shouldSetDefaultPlaceholderValue =
@@ -48,6 +52,7 @@ export const Select: Primitive<SelectProps, 'select'> = ({
           ComponentClassNames.FieldGroupControl,
           className
         )}
+        ref={ref}
         {...rest}
       >
         {placeholder && <option value="">{placeholder}</option>}
@@ -64,5 +69,7 @@ export const Select: Primitive<SelectProps, 'select'> = ({
     </View>
   );
 };
+
+export const Select = React.forwardRef(SelectInner);
 
 Select.displayName = 'Select';
