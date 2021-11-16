@@ -63,20 +63,6 @@ export default function Page({
       {hideToc ? null : (
         <TableOfContents title="Contents" headings={headings} />
       )}
-
-      <Alert
-        variation="warning"
-        isDismissible={true}
-        position="fixed"
-        bottom={`${tokens.space.large}`}
-        left={`${tokens.space.large}`}
-        right={`${tokens.space.large}`}
-        style={{ zIndex: '9999' }}
-      >
-        You're viewing documentation for the next release of Amplify UI. For the
-        latest stable release, visit:&nbsp;
-        <a href="https://docs.amplify.aws/ui">https://docs.amplify.aws/ui</a>.
-      </Alert>
     </div>
   );
 }
