@@ -1,4 +1,4 @@
-.docs-main p {
+.docs-main p:not([class*='amplify']) {
   margin-bottom: var(--amplify-space-medium);
 }
 

@@ -6,11 +6,12 @@ import { CardProps, PrimitiveWithForwardRef } from '../types';
 import { View } from '../View';
 
 const CardInner: PrimitiveWithForwardRef<CardProps, 'div'> = (
-  { className, children, ...rest },
+  { className, children, variation, ...rest },
   ref
 ) => (
   <View
     className={classNames(ComponentClassNames.Card, className)}
+    data-variation={variation}
     ref={ref}
     {...rest}
   >

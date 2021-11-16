@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { kebabCase } from 'lodash';
+import kebabCase from 'lodash/kebabCase';
 import { render, screen } from '@testing-library/react';
 
 import { ComponentPropsToStylePropsMap } from '../../types';

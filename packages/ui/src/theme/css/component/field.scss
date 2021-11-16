@@ -11,12 +11,8 @@
     font-size: var(--amplify-components-field-large-font-size);
     gap: var(--amplify-components-field-large-gap);
   }
+}
 
-  // Required to override docs styling
-  // css-s90uia p { margin-bottom: 1rem; }
-  // @TODO: remove styling from docs
-  .amplify-field__description,
-  .amplify-field__error-message {
-    margin: 0;
-  }
+.amplify-label {
+  color: var(--amplify-components-field-label-color);
 }

@@ -3,6 +3,7 @@ module.exports = {
   borderColor: { value: '{colors.border.primary.value}' },
   borderWidth: { value: '{borderWidths.small.value}' },
   borderRadius: { value: '{radii.small.value}' },
+  color: { value: '{colors.font.primary.value}' },
   paddingBlockStart: {
     value: '{space.xs.value}',
   },

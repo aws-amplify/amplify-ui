@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 import { render, screen } from '@testing-library/react';
 
 import {
@@ -15,6 +17,14 @@ describe('Loader: ', () => {
     render(<Loader className={className} />);
     const loader = await screen.findByRole('img');
     expect(loader).toHaveClass(ComponentClassNames.Loader, className);
+  });
+
+  it('should forward ref to DOM element', async () => {
+    const ref = React.createRef<SVGSVGElement>();
+    render(<Loader ref={ref} />);
+
+    await screen.findByRole('img');
+    expect(ref.current.nodeName).toBe('svg');
   });
 
   it('should set size attribute', async () => {
