@@ -6,39 +6,8 @@
   border-color: var(--amplify-colors-border-primary);
 }
 
-.amplify-field-group :not(:last-child) .amplify-input {
-  border-end-end-radius: var(--amplify-components-fieldcontrol-border-radius);
-  border-start-end-radius: var(--amplify-components-fieldcontrol-border-radius);
-}
-
-.amplify-field-group__outer-end {
-  position: relative;
-}
-
-
-.amplify-label,
-.amplify-switch__wrapper {
-  color: var(--amplify-colors-font-secondary);
-  font-weight: 500;
-}
-
-.amplify-switchfield {
-  display: block;
-}
-
-.amplify-field {
-  margin-bottom: var(--amplify-space-medium);
-}
-
-.amplify-switch-track {
-  box-sizing: content-box;
-}
 
 .amplify-button[data-variation='primary'] {
   border-color: var(--amplify-components-button-primary-border-color);
 }
 
-.amplify-select,
-.amplify-input {
-  color: var(--amplify-components-fieldcontrol-color);
-}
