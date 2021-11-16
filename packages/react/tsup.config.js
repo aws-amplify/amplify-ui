@@ -3,7 +3,7 @@
  */
 module.exports = {
   dts: true,
-  entryPoints: ['src/index.tsx', 'src/legacy.tsx'],
+  entryPoints: ['src/index.tsx', 'src/legacy.tsx', 'src/icons.tsx'],
   // `aws-amplify` is external, but sub-dependencies weren't automatically externalized ("require" statements were included)
   external: ['`aws-amplify', /^@aws-amplify\//],
   format: ['cjs', 'esm'],

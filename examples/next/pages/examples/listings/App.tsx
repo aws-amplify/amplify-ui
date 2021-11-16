@@ -3,8 +3,8 @@ import {
   ToggleButtonGroup,
   AmplifyProvider,
   IconWbSunny,
-  IconWbTwilight,
-  IconComputer,
+  IconBedtime,
+  IconTonality,
   ColorMode,
 } from '@aws-amplify/ui-react';
 import { useState } from 'react';
@@ -32,10 +32,10 @@ export const App = ({ children }) => {
             <IconWbSunny />
           </ToggleButton>
           <ToggleButton value="dark">
-            <IconWbTwilight />
+            <IconBedtime />
           </ToggleButton>
           <ToggleButton value="system">
-            <IconComputer />
+            <IconTonality />
           </ToggleButton>
         </ToggleButtonGroup>
       </header>

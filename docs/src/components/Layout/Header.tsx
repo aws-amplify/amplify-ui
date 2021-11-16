@@ -9,8 +9,8 @@ import {
   ToggleButton,
   ToggleButtonGroup,
   IconWbSunny,
-  IconWbTwighlight,
-  IconComputer,
+  IconBedtime,
+  IconTonality,
   IconMenu,
   Divider,
   useTheme,
@@ -52,11 +52,11 @@ const ColorModeSwitcher = ({ colorMode, setColorMode }) => {
       </ToggleButton>
       <ToggleButton value="dark">
         <VisuallyHidden>Dark mode</VisuallyHidden>
-        <IconWbTwighlight />
+        <IconBedtime />
       </ToggleButton>
       <ToggleButton value="system">
         <VisuallyHidden>System preference</VisuallyHidden>
-        <IconComputer />
+        <IconTonality />
       </ToggleButton>
     </ToggleButtonGroup>
   );
