@@ -12,6 +12,7 @@ export function Example({ children, className = '' }: ExampleProps) {
   const { tokens } = useTheme();
   return (
     <Card
+      variation="outlined"
       className={`example ${className}`}
       style={{ marginBottom: `${tokens.space.large}` }}
     >

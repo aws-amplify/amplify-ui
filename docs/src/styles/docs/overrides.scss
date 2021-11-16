@@ -1,10 +1,5 @@
 // These are overrides/fixes
 // remove these when they are fixed in the ui/react packages
-.amplify-card {
-  border-width: var(--amplify-border-widths-small);
-  border-style: solid;
-  border-color: var(--amplify-colors-border-primary);
-}
 
 .amplify-field-group :not(:last-child) .amplify-input {
   border-end-end-radius: var(--amplify-components-fieldcontrol-border-radius);
