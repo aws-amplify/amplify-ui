@@ -1,5 +1,6 @@
-import { render, screen } from '@testing-library/react';
+import * as React from 'react';
 import kebabCase from 'lodash/kebabCase';
+import { render, screen } from '@testing-library/react';
 
 import {
   ComponentPropsToStylePropsMap,
@@ -44,6 +45,14 @@ describe('Flex: ', () => {
     render(<Flex className="custom-flex">{flexText}</Flex>);
     const flex = await screen.findByText(flexText);
     expect(flex.classList.contains('custom-flex')).toBe(true);
+  });
+
+  it('should forward ref to DOM element', async () => {
+    const ref = React.createRef<HTMLDivElement>();
+    render(<Flex ref={ref}>{flexText}</Flex>);
+
+    await screen.findByText(flexText);
+    expect(ref.current.nodeName).toBe('DIV');
   });
 
   it('can render any arbitrary data-* attribute', async () => {
