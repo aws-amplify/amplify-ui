@@ -123,8 +123,6 @@ jobs:
     environment: ci
     env:
       NODE_ENV: test
-
-    strategy:
     steps:
       - name: Checkout Amplify UI
         uses: actions/checkout@v2
