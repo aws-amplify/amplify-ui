@@ -1,21 +1,36 @@
-import React from 'react';
+import * as React from 'react';
 import { Badge, Flex } from '@aws-amplify/ui-react';
 
-import { BadgePropControls } from '@/components/BadgePropControls';
-import { useBadgeProps } from '@/components/useBadgeProps';
-import { Example } from '@/components/Example';
+import { BadgePropControls } from './BadgePropControls';
+import { useBadgeProps } from './useBadgeProps';
+import { Demo } from '@/components/Demo';
+
+const propsToCode = (badgeProps) => {
+  return (
+    `<Badge` +
+    (badgeProps.size ? `\n  size=${JSON.stringify(badgeProps.size)}` : '') +
+    (badgeProps.variation
+      ? `\n  variation=${JSON.stringify(badgeProps.variation)}`
+      : '') +
+    `>
+  ${badgeProps.body}
+</Badge>`
+  );
+};
 
 export const BadgeDemo = () => {
-  const badgeProps = useBadgeProps({});
+  const badgeProps = useBadgeProps({
+    body: 'Badge',
+  });
 
   return (
-    <Flex direction="column" gap="0.5rem">
-      <BadgePropControls {...badgeProps} />
-      <Example>
-        <Badge size={badgeProps.size} variation={badgeProps.variation}>
-          Badge
-        </Badge>
-      </Example>
-    </Flex>
+    <Demo
+      code={propsToCode(badgeProps)}
+      propControls={<BadgePropControls {...badgeProps} />}
+    >
+      <Badge size={badgeProps.size} variation={badgeProps.variation}>
+        {badgeProps.body}
+      </Badge>
+    </Demo>
   );
 };

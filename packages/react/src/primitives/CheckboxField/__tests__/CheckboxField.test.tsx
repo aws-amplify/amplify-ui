@@ -8,15 +8,14 @@ import { ComponentClassNames } from '../../shared';
 
 describe('CheckboxField test suite', () => {
   const basicProps = {
-    children: 'Subscribe',
+    label: 'Subscribe',
     name: 'testName',
     value: 'testValue',
     testId: 'testId',
   };
 
   const getCheckboxField = (props: CheckboxFieldProps) => {
-    const { children, ...rest } = props;
-    return <CheckboxField {...rest}>{children}</CheckboxField>;
+    return <CheckboxField {...props} />;
   };
   const ControlledCheckboxField = () => {
     const [checked, setChecked] = useState(false);
@@ -25,9 +24,7 @@ describe('CheckboxField test suite', () => {
         checked={checked}
         onChange={(e) => setChecked(e.target.checked)}
         {...basicProps}
-      >
-        Subscribe
-      </CheckboxField>
+      />
     );
   };
   it('should render default and custom classname', async () => {

@@ -1,43 +1,41 @@
-import React, { useState } from 'react';
+import * as React from 'react';
 
-import { SelectField, View } from '@aws-amplify/ui-react';
+import { SelectField, Flex } from '@aws-amplify/ui-react';
 
 import { SelectFieldPropControls } from '@/components/SelectFieldPropControls';
 import { useSelectFieldProps } from '@/components/useSelectFieldProps';
 
 export const SelectDemo = () => {
   const selectProps = useSelectFieldProps({
-    label: 'Fruit',
-    labelHidden: true,
+    label: '',
+    labelHidden: false,
     hasError: false,
   });
   return (
-    <View>
+    <Flex direction="column">
       <SelectFieldPropControls {...selectProps} />
-      <View className="mt-8">
-        <SelectField
-          name="fruits"
-          descriptiveText={selectProps.descriptiveText}
-          errorMessage={selectProps.errorMessage}
-          hasError={selectProps.hasError}
-          isDisabled={selectProps.isDisabled}
-          label={selectProps.label}
-          labelHidden={selectProps.labelHidden}
-          placeholder="Please select a fruit"
-          size={selectProps.size}
-          variation={selectProps.variation}
-        >
-          <option value="apple">Apple</option>
-          <option value="banana">Banana</option>
-          <option value="orange">Orange</option>
-        </SelectField>
-      </View>
-    </View>
+      <SelectField
+        name="fruits"
+        descriptiveText={selectProps.descriptiveText}
+        errorMessage={selectProps.errorMessage}
+        hasError={selectProps.hasError}
+        isDisabled={selectProps.isDisabled}
+        label={selectProps.label}
+        labelHidden={selectProps.labelHidden}
+        placeholder="Please select a fruit"
+        size={selectProps.size}
+        variation={selectProps.variation}
+      >
+        <option value="apple">Apple</option>
+        <option value="banana">Banana</option>
+        <option value="orange">Orange</option>
+      </SelectField>
+    </Flex>
   );
 };
 
 export const ControlledSelect = () => {
-  const [value, setValue] = useState('');
+  const [value, setValue] = React.useState('');
   return (
     <SelectField
       label="Fruit"

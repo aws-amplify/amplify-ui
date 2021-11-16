@@ -11,11 +11,14 @@ export const useBadgeProps: UseBadgeProps = (initialValues) => {
     initialValues.variation
   );
   const [size, setSize] = useState<BadgeProps['size']>(initialValues.size);
+  const [body, setBody] = useState<string>(initialValues.body);
 
   return {
     variation,
     setVariation,
     size,
     setSize,
+    body,
+    setBody,
   };
 };
