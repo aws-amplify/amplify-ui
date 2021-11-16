@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 
 import { ScrollView } from '../ScrollView';
@@ -11,6 +12,14 @@ describe('ScrollView: ', () => {
       ComponentClassNames.ScrollView,
       'class-test'
     );
+  });
+
+  it('should forward ref to DOM element', async () => {
+    const ref = React.createRef<HTMLDivElement>();
+    render(<ScrollView ref={ref} testId="test-id" />);
+
+    await screen.findByTestId('test-id');
+    expect(ref.current.nodeName).toBe('DIV');
   });
 
   it('should set data-orientation correctly', async () => {

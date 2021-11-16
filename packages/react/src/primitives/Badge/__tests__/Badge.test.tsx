@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 import { Badge } from '../Badge';
 import { ComponentClassNames } from '../../shared';
@@ -21,6 +22,16 @@ describe('Badge: ', () => {
     const badge = await screen.findByText(badgeText);
     expect(badge.classList.contains('custom-badge')).toBe(true);
     expect(badge.classList.contains(ComponentClassNames.Badge)).toBe(true);
+  });
+
+  it('should forward ref to DOM element', async () => {
+    const ref = React.createRef<HTMLSpanElement>();
+
+    render(<Badge ref={ref}>{badgeText}</Badge>);
+
+    await screen.findByText(badgeText);
+    expect(ref.current.nodeName).toBe('SPAN');
+    expect(ref.current.innerHTML).toBe(badgeText);
   });
 
   it('can render any arbitrary data-* attribute', async () => {
