@@ -43,17 +43,17 @@ describe('TextArea component', () => {
     render(<TextArea size="small" hasError isDisabled isReadOnly isRequired />);
 
     const textarea = await screen.findByRole('textbox');
-    expect(textarea).toHaveAttribute('disabled');
-    expect(textarea).toHaveAttribute('readonly');
-    expect(textarea).toHaveAttribute('required');
+    expect(textarea).toHaveAttribute('disabled', '');
+    expect(textarea).toHaveAttribute('readonly', '');
+    expect(textarea).toHaveAttribute('required', '');
   });
 
   it('should set size and variation data attributes', async () => {
     render(<TextArea size="small" variation="quiet" />);
 
     const textarea = await screen.findByRole('textbox');
-    expect(textarea.dataset['size']).toBe('small');
-    expect(textarea.dataset['variation']).toBe('quiet');
+    expect(textarea).toHaveAttribute('data-size', 'small');
+    expect(textarea).toHaveAttribute('data-variation', 'quiet');
   });
 
   it('can set defaultValue (uncontrolled)', async () => {
@@ -62,7 +62,7 @@ describe('TextArea component', () => {
     const textarea = (await screen.findByRole(
       'textbox'
     )) as HTMLTextAreaElement;
-    expect(textarea.value).toBe('test');
+    expect(textarea).toHaveValue('test');
   });
 
   it('can set value (controlled component)', async () => {
@@ -72,7 +72,7 @@ describe('TextArea component', () => {
     const textarea = (await screen.findByRole(
       'textbox'
     )) as HTMLTextAreaElement;
-    expect(textarea.value).toBe('test');
+    expect(textarea).toHaveValue('test');
   });
 
   it('show add aria-invalid attribute to textarea when hasError', async () => {
@@ -80,7 +80,7 @@ describe('TextArea component', () => {
     const textarea = (await screen.findByRole(
       'textbox'
     )) as HTMLTextAreaElement;
-    expect(textarea).toHaveAttribute('aria-invalid');
+    expect(textarea).toHaveAttribute('aria-invalid', 'true');
   });
 
   it('should fire event handlers', async () => {
