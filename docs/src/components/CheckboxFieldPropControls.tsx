@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import {
   CheckboxField,
@@ -17,6 +17,9 @@ export interface CheckboxFieldPropControlsProps extends CheckboxFieldProps {
     value: React.SetStateAction<CheckboxFieldProps['isDisabled']>
   ) => void;
   setLabel: (value: React.SetStateAction<CheckboxFieldProps['label']>) => void;
+  setLabelHidden: (
+    value: React.SetStateAction<CheckboxFieldProps['labelHidden']>
+  ) => void;
   setSize: (value: React.SetStateAction<CheckboxFieldProps['size']>) => void;
 }
 
@@ -29,6 +32,8 @@ export const CheckboxFieldPropControls: CheckboxFieldPropControlsInterface = ({
   setIsDisabled,
   label,
   setLabel,
+  labelHidden,
+  setLabelHidden,
   size,
   setSize,
 }) => {
@@ -40,7 +45,7 @@ export const CheckboxFieldPropControls: CheckboxFieldPropControlsInterface = ({
           name="label"
           label="label"
           labelHidden
-          value={label}
+          value={label as string}
           onChange={(e) =>
             setLabel(e.target.value as CheckboxFieldProps['label'])
           }
@@ -67,9 +72,15 @@ export const CheckboxFieldPropControls: CheckboxFieldPropControlsInterface = ({
         value="true"
         checked={isDisabled}
         onChange={(e) => setIsDisabled(e.target.checked)}
-      >
-        isDisabled
-      </CheckboxField>
+        label="isDisabled"
+      />
+      <CheckboxField
+        name="label-hidden"
+        value="true"
+        checked={labelHidden}
+        onChange={(e) => setLabelHidden(e.target.checked)}
+        label="labelHidden"
+      />
     </DemoBox>
   );
 };

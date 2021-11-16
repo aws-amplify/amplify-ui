@@ -18,7 +18,7 @@ import './styles.scss';
 export const App = ({ children }) => {
   const [colorMode, setColorMode] = useState<ColorMode>('system');
   return (
-    <AmplifyProvider components={{}} theme={theme} colorMode={colorMode}>
+    <AmplifyProvider theme={theme} colorMode={colorMode}>
       <header className="listing-app-header">
         <Logo />
 

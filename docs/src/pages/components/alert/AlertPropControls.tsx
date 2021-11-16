@@ -38,7 +38,7 @@ export const AlertPropControls: AlertPropControlsInterface = ({
 }) => {
   const { tokens } = useTheme();
   return (
-    <View padding={`${tokens.space.medium} 0`}>
+    <>
       <SelectField
         name="variation"
         id="variation"
@@ -86,6 +86,6 @@ export const AlertPropControls: AlertPropControlsInterface = ({
           setHasIcon(event.target.checked as AlertProps['hasIcon'])
         }
       />
-    </View>
+    </>
   );
 };
