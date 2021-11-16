@@ -31,6 +31,7 @@ export { SelectField } from './SelectField';
 export { SliderField } from './SliderField';
 export { StepperField } from './StepperField';
 export { SwitchField } from './SwitchField';
+export * from './Table';
 export { Tabs, TabItem } from './Tabs';
 export { Text } from './Text';
 export { TextField } from './TextField';
