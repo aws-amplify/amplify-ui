@@ -18,10 +18,10 @@
     </h3>
   </ng-template>
 
-  <ng-template amplifySlot="sign-in-footer" let-authenticator="authenticator">
+  <ng-template amplifySlot="sign-in-footer">
     <div style="text-align: center">
       <button
-        (click)="auth.toResetPassword()"
+        (click)="authenticator.toResetPassword()"
         class="amplify-button amplify-field-group__control"
         data-fullwidth="false"
         data-size="small"
@@ -43,10 +43,10 @@
     </h3>
   </ng-template>
 
-  <ng-template amplifySlot="sign-up-footer" let-toSignIn="toSignIn">
+  <ng-template amplifySlot="sign-up-footer">
     <div style="text-align: center">
       <button
-        (click)="auth.toSignIn()"
+        (click)="authenticator.toSignIn()"
         class="amplify-button amplify-field-group__control"
         data-fullwidth="false"
         data-size="small"

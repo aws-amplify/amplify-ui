@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import Amplify from 'aws-amplify';
-import awsExports from '@environments/auth-with-federated/src/aws-exports';
 import { AuthenticatorService } from '@aws-amplify/ui-angular';
+import Amplify from 'aws-amplify';
+
+import awsExports from '@environments/auth-with-federated/src/aws-exports';
 
 @Component({
   selector: 'custom-slots',
@@ -10,10 +11,5 @@ import { AuthenticatorService } from '@aws-amplify/ui-angular';
 export class CustomSlotsComponent {
   constructor(private authenticator: AuthenticatorService) {
     Amplify.configure(awsExports);
-  }
-
-  get auth() {
-    const { toResetPassword, toSignIn } = this.authenticator;
-    return { toResetPassword, toSignIn };
   }
 }
