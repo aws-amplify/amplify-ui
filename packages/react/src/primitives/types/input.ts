@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Sizes } from './base';
 import { FieldVariations } from './field';
 import { ViewProps } from './view';
