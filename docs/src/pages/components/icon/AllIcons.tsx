@@ -4,7 +4,7 @@ import * as AUI from '@aws-amplify/ui-react';
 
 export const AllIcons = () => {
   const iconKeys = Object.keys(AUI).filter(
-    (key) => key.startsWith('Icon') && key.length > 4
+    (key) => key.match(/^Icon\w/)
   );
   return (
     <AUI.Expander type="single" isCollapsible={true}>
