@@ -1,8 +1,10 @@
-import { Image } from '../Image';
+import * as React from 'react';
+import kebabCase from 'lodash/kebabCase';
 import { fireEvent, render, screen } from '@testing-library/react';
+
+import { Image } from '../Image';
 import { ComponentClassNames } from '../../shared';
 import { ComponentPropsToStylePropsMap } from '../../types';
-import { kebabCase } from 'lodash';
 
 const altText = 'Cool cat';
 const src = 'http://localhost/cat.jpg';
@@ -112,5 +114,13 @@ describe('Image: ', () => {
         kebabCase(ComponentPropsToStylePropsMap.objectPosition)
       )
     ).toBe('top left');
+  });
+
+  it('should forward ref to DOM element', async () => {
+    const ref = React.createRef<HTMLImageElement>();
+
+    render(<Image alt={altText} src="nonexistent.jpg" ref={ref} />);
+    await screen.findByRole('img');
+    expect(ref.current.nodeName).toBe('IMG');
   });
 });

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
@@ -13,7 +13,7 @@ describe('Select primitive test suite', () => {
   const variation = 'quiet';
   const placeholder = 'Please select your option';
   const SelectControlled = () => {
-    const [value, setValue] = useState('');
+    const [value, setValue] = React.useState('');
 
     return (
       <Select
@@ -56,6 +56,14 @@ describe('Select primitive test suite', () => {
     expect(select).toHaveClass(ComponentClassNames.Select);
     expect(select).not.toBeDisabled();
     expect(select).not.toBeRequired();
+  });
+
+  it('should forward ref to DOM element', async () => {
+    const ref = React.createRef<HTMLSelectElement>();
+    render(<Select ref={ref} testId={testId}></Select>);
+
+    await screen.findByTestId(testId);
+    expect(ref.current.nodeName).toBe('SELECT');
   });
 
   it('should be able to pass through isDisabled and isRequired props', async () => {

@@ -3,7 +3,7 @@ import { Tabs, TabItem } from '../Tabs';
 import { Text } from '../../Text';
 import { ComponentClassNames } from '../../shared';
 import { ComponentPropsToStylePropsMap } from '../../types';
-import { kebabCase } from 'lodash';
+import kebabCase from 'lodash/kebabCase';
 
 describe('Tabs: ', () => {
   it('can render custom classnames', async () => {

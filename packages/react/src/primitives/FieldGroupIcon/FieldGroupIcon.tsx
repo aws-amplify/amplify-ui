@@ -1,19 +1,27 @@
+import * as React from 'react';
 import classNames from 'classnames';
 
 import { ComponentClassNames } from '../shared/constants';
-import { FieldGroupIconProps, Primitive } from '../types';
+import { FieldGroupIconProps, PrimitiveWithForwardRef } from '../types';
 import { View } from '../View';
 
-export const FieldGroupIcon: Primitive<FieldGroupIconProps, 'button'> = ({
-  className,
-  children,
-  isVisible = true,
-  excludeFromTabOrder = false,
-  ...rest
-}) => {
+const FieldGroupIconInner: PrimitiveWithForwardRef<
+  FieldGroupIconProps,
+  'button' | 'div'
+> = (
+  {
+    className,
+    children,
+    isVisible = true,
+    excludeFromTabOrder = false,
+    ...rest
+  },
+  ref
+) => {
   return isVisible ? (
     <View
       className={classNames(ComponentClassNames.FieldGroupIcon, className)}
+      ref={ref}
       tabIndex={excludeFromTabOrder ? -1 : undefined}
       {...rest}
     >
@@ -21,5 +29,7 @@ export const FieldGroupIcon: Primitive<FieldGroupIconProps, 'button'> = ({
     </View>
   ) : null;
 };
+
+export const FieldGroupIcon = React.forwardRef(FieldGroupIconInner);
 
 FieldGroupIcon.displayName = 'FieldGroupIcon';

@@ -1,5 +1,6 @@
+import * as React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
-import { kebabCase } from 'lodash';
+import kebabCase from 'lodash/kebabCase';
 
 import { Grid } from '../Grid';
 import { View } from '../../View';
@@ -85,6 +86,13 @@ describe('Grid: ', () => {
     const grid = await screen.findByTestId(testId);
     expect(grid).toHaveClass('custom-grid');
     expect(grid).toHaveClass(ComponentClassNames.Grid);
+  });
+
+  it('should forward ref to DOM element', async () => {
+    const ref = React.createRef<HTMLDivElement>();
+    render(<Grid ref={ref} testId={testId}></Grid>);
+    await screen.findByTestId(testId);
+    expect(ref.current.nodeName).toBe('DIV');
   });
 
   it('can render any arbitrary data-* attribute', async () => {
