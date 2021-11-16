@@ -1,5 +1,10 @@
 import React from 'react';
-import { BadgeProps, SelectField, TextField } from '@aws-amplify/ui-react';
+import {
+  BadgeProps,
+  SelectField,
+  TextField,
+  Flex,
+} from '@aws-amplify/ui-react';
 
 export interface BadgePropControlsProps extends BadgeProps {
   setVariation: (value: React.SetStateAction<BadgeProps['variation']>) => void;
@@ -21,7 +26,7 @@ export const BadgePropControls: BadgePropControlsInterface = ({
   setBody,
 }) => {
   return (
-    <>
+    <Flex direction="column">
       <SelectField
         name="variation"
         id="variation"
@@ -55,6 +60,6 @@ export const BadgePropControls: BadgePropControlsInterface = ({
         value={body}
         onChange={(event) => setBody(event.target.value)}
       />
-    </>
+    </Flex>
   );
 };

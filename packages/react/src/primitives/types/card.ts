@@ -1,3 +1,7 @@
 import { ViewProps } from './view';
 
-export interface CardProps extends ViewProps {}
+export type CardVariations = 'outlined' | 'elevated';
+
+export interface CardProps extends ViewProps {
+  variation?: CardVariations;
+}

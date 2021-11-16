@@ -35,7 +35,7 @@ export const Demo = ({
   };
 
   return (
-    <Card className="docs-component-demo">
+    <Card className="docs-component-demo" variation="outlined">
       <Flex direction="row" alignItems="stretch">
         <Flex direction="column" flex="1">
           <View>{children}</View>

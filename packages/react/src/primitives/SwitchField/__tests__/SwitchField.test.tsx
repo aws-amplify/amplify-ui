@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { kebabCase } from 'lodash';
+import kebabCase from 'lodash/kebabCase';
 
 import { SwitchField } from '../SwitchField';
 import { ComponentClassNames } from '../../shared';

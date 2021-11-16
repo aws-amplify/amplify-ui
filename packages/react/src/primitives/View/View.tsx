@@ -1,6 +1,11 @@
-import React from 'react';
+import * as React from 'react';
 import { useNonStyleProps, usePropStyles } from '../shared/styleUtils';
-import { ElementType, PrimitivePropsWithRef, ViewProps } from '../types';
+import {
+  ElementType,
+  HTMLElementType,
+  PrimitivePropsWithRef,
+  ViewProps,
+} from '../types';
 
 const ViewInner = <Element extends ElementType = 'div'>(
   {
@@ -15,7 +20,7 @@ const ViewInner = <Element extends ElementType = 'div'>(
     style,
     ...rest
   }: PrimitivePropsWithRef<ViewProps, Element>,
-  ref?: React.ForwardedRef<HTMLElement>
+  ref?: React.ForwardedRef<HTMLElementType<Element>>
 ) => {
   const propStyles = usePropStyles(rest, style);
   const nonStyleProps = useNonStyleProps(rest);

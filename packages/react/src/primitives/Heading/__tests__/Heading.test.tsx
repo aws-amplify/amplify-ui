@@ -1,8 +1,10 @@
+import * as React from 'react';
+import kebabCase from 'lodash/kebabCase';
 import { render, screen } from '@testing-library/react';
+
 import { Heading } from '../Heading';
 import { ComponentClassNames } from '../../shared';
 import { ComponentPropsToStylePropsMap } from '../../types';
-import { kebabCase } from 'lodash';
 
 describe('Heading: ', () => {
   it('renders an h6 tag by default', async () => {
@@ -67,6 +69,19 @@ describe('Heading: ', () => {
     const heading = await screen.findByTestId('headingId');
     expect(heading.classList.contains('custom-heading')).toBe(true);
     expect(heading.classList.contains(ComponentClassNames.Heading)).toBe(true);
+  });
+
+  it('can forward ref to DOM element', async () => {
+    const ref = React.createRef<HTMLDivElement>();
+    const headingText = 'Title';
+    render(
+      <Heading level={2} ref={ref}>
+        {headingText}
+      </Heading>
+    );
+    await screen.findByRole('heading');
+    expect(ref.current.nodeName).toBe('H2');
+    expect(ref.current.innerHTML).toBe(headingText);
   });
 
   it('can render any arbitrary data-* attribute', async () => {
