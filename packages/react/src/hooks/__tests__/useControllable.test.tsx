@@ -16,16 +16,16 @@ interface Ref {
 
 const Component = React.forwardRef(
   ({ value, defaultValue, onChange }: Props, ref: React.Ref<Ref>) => {
-    const [hookValue, setHookValue] = useControllable(
-      value,
-      onChange,
+    const [hookValue, setHookValue] = useControllable({
+      controlledValue: value,
+      handler: onChange,
       defaultValue,
-      {
+      propertyDescription: {
         componentName: 'MyComponent',
         controlledProp: 'value',
         changeHandler: 'onChange',
-      }
-    );
+      },
+    });
 
     useImperativeHandle(ref, () => ({
       setHookValue,

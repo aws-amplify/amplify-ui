@@ -20,6 +20,28 @@ interface PropertyDescription {
   changeHandler: string;
 }
 
+export interface UseControllableProps<ValueType> {
+  /**
+   * Value for the controlled mode
+   */
+  controlledValue: ValueType;
+
+  /**
+   * Update handler for controlled mode
+   */
+  handler: ((...args: any[]) => unknown) | undefined;
+
+  /**
+   * Initial value for uncontrolled mode
+   */
+  defaultValue: ValueType;
+
+  /**
+   * Property metadata
+   */
+  propertyDescription: PropertyDescription;
+}
+
 /**
  * This hook allows you to make a component that can be used both in controlled mode and uncontrolled mode.
  * Pass in your component's props, and then implement your component as if it was only controlled.
@@ -52,18 +74,13 @@ interface PropertyDescription {
  *   }}
  *  />
  * ```
- *
- * @param controlledValue value for the controlled mode
- * @param handler update handler for controlled mode
- * @param defaultValue initial value for uncontrolled mode
- * @param description property metadata
  */
-export function useControllable<ValueType>(
-  controlledValue: ValueType,
-  handler: ((...args: any[]) => unknown) | undefined,
-  defaultValue: ValueType,
-  { componentName, changeHandler, controlledProp }: PropertyDescription
-) {
+export function useControllable<ValueType>({
+  controlledValue,
+  handler,
+  defaultValue,
+  propertyDescription: { componentName, changeHandler, controlledProp },
+}: UseControllableProps<ValueType>) {
   // The decision whether a component is controlled or uncontrolled is made on its first render and cannot be changed afterwards.
   const isControlled = React.useState(controlledValue !== undefined)[0];
 
