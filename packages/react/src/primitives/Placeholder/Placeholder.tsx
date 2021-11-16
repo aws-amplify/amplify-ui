@@ -1,16 +1,14 @@
+import * as React from 'react';
 import classNames from 'classnames';
 
 import { ComponentClassNames } from '../shared';
-import { PlaceholderProps, Primitive } from '../types';
+import { PlaceholderProps, PrimitiveWithForwardRef } from '../types';
 import { View } from '../View';
 
-export const Placeholder: Primitive<PlaceholderProps, 'div'> = ({
-  className,
-  children,
-  isLoaded,
-  size,
-  ...rest
-}) => {
+const PlaceholderInner: PrimitiveWithForwardRef<PlaceholderProps, 'div'> = (
+  { className, children, isLoaded, size, ...rest },
+  ref
+) => {
   if (isLoaded) {
     return <>{children}</>;
   }
@@ -19,9 +17,12 @@ export const Placeholder: Primitive<PlaceholderProps, 'div'> = ({
     <View
       className={classNames(ComponentClassNames.Placeholder, className)}
       data-size={size}
+      ref={ref}
       {...rest}
     />
   );
 };
+
+export const Placeholder = React.forwardRef(PlaceholderInner);
 
 Placeholder.displayName = 'Placeholder';
