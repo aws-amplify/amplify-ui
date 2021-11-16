@@ -21,7 +21,7 @@
   <ng-template amplifySlot="sign-in-footer" let-authenticator="authenticator">
     <div style="text-align: center">
       <button
-        (click)="authenticator.toResetPassword()"
+        (click)="auth.toResetPassword()"
         class="amplify-button amplify-field-group__control"
         data-fullwidth="false"
         data-size="small"
@@ -46,6 +46,7 @@
   <ng-template amplifySlot="sign-up-footer" let-toSignIn="toSignIn">
     <div style="text-align: center">
       <button
+        (click)="auth.toSignIn()"
         class="amplify-button amplify-field-group__control"
         data-fullwidth="false"
         data-size="small"
