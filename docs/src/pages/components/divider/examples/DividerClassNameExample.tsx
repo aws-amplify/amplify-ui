@@ -5,10 +5,8 @@ const css = `.custom-divider {
 }`;
 
 export const DividerClassNameExample = () => (
-  <>
-    <Flex direction="column">
-      <style>{css}</style>
-      <Divider className="custom-divider" />
-    </Flex>
-  </>
+  <Flex direction="column">
+    <style>{css}</style>
+    <Divider className="custom-divider" />
+  </Flex>
 );

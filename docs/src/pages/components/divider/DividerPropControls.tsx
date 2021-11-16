@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { DividerOptions, Flex, SelectField } from '@aws-amplify/ui-react';
-import { FieldLabeler } from '../../../components/FieldLabeler';
-import { DemoBox } from '../../../components/DemoBox';
+
 export interface DividerPropControlsProps extends DividerOptions {
   setSize: (value: React.SetStateAction<DividerOptions['size']>) => void;
   setOrientation: (
