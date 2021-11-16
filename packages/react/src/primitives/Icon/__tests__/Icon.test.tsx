@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 
 import { Icon } from '../Icon';
@@ -51,6 +52,22 @@ describe('Icon component', () => {
     expect(icon.classList.length).toBe(2);
     expect(icon.classList[0]).toContain(ComponentClassNames.Icon);
     expect(icon.classList[1]).toContain('my-icon-component');
+  });
+
+  it('should forward ref to DOM element', async () => {
+    const ref = React.createRef<SVGSVGElement>();
+
+    render(
+      <Icon
+        ref={ref}
+        testId={iconTestId}
+        pathData={pathData}
+        ariaLabel="Search"
+      />
+    );
+
+    await screen.findByTestId(iconTestId);
+    expect(ref.current.nodeName).toBe('svg');
   });
 
   it('can set viewBox attribute', async () => {

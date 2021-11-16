@@ -1,18 +1,22 @@
+import * as React from 'react';
 import classNames from 'classnames';
 
-import { IconProps, Primitive } from '../types';
+import { IconProps, PrimitiveWithForwardRef } from '../types';
 import { ComponentClassNames } from '../shared';
 import { View } from '../View';
 
 const defaultViewBox = { minX: 0, minY: 0, width: 24, height: 24 };
 
-export const Icon: Primitive<IconProps, 'svg'> = ({
-  className,
-  fill = 'currentColor',
-  pathData,
-  viewBox = defaultViewBox,
-  ...rest
-}) => {
+const IconInner: PrimitiveWithForwardRef<IconProps, 'svg'> = (
+  {
+    className,
+    fill = 'currentColor',
+    pathData,
+    viewBox = defaultViewBox,
+    ...rest
+  },
+  ref
+) => {
   const minX = viewBox.minX ? viewBox.minX : defaultViewBox.minX;
   const minY = viewBox.minY ? viewBox.minY : defaultViewBox.minY;
   const width = viewBox.width ? viewBox.width : defaultViewBox.width;
@@ -22,6 +26,7 @@ export const Icon: Primitive<IconProps, 'svg'> = ({
     <View
       as="svg"
       className={classNames(ComponentClassNames.Icon, className)}
+      ref={ref}
       viewBox={`${minX} ${minY} ${width} ${height}`}
       {...rest}
     >
@@ -29,5 +34,7 @@ export const Icon: Primitive<IconProps, 'svg'> = ({
     </View>
   );
 };
+
+export const Icon = React.forwardRef(IconInner);
 
 Icon.displayName = 'Icon';
