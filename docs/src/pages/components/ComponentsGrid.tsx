@@ -16,7 +16,7 @@ const ComponentGrid = ({ components }) => {
     <Grid templateColumns="1fr 1fr" gap="var(--amplify-space-large)">
       {components.map(({ href, label, body }) => (
         <Link href={href} key={href}>
-          <Card className="docs-component-card">
+          <Card className="docs-component-card" variation="elevated">
             <Heading level={4}>{label}</Heading>
             <div className="docs-component-card-contents">{body}</div>
           </Card>
