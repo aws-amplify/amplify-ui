@@ -76,17 +76,17 @@ const { toResetPassword, toSignIn } = toRefs(useAuthenticator());
       </div>
     </template>
 
-    <template v-slot="{ user, signOut }">
-      <h1>Hello {{ user.username }}!</h1>
-      <button @click="signOut">Sign Out</button>
-    </template>
-
     <template v-slot:footer>
       <div style="padding: var(--amplify-space-large); text-align: center">
         <p class="amplify-text" style="color: var(--amplify-colors-neutral-80)">
           © All Rights Reserved
         </p>
       </div>
+    </template>
+
+    <template v-slot="{ user, signOut }">
+      <h1>Hello {{ user.username }}!</h1>
+      <button @click="signOut">Sign Out</button>
     </template>
   </authenticator>
 </template>
