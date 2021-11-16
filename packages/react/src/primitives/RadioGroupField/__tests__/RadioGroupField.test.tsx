@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
@@ -36,7 +36,7 @@ describe('RadioFieldGroup test suite', () => {
   };
 
   const ControlledRadioFieldGroup = () => {
-    const [value, setValue] = useState('html');
+    const [value, setValue] = React.useState('html');
     return (
       <RadioGroupField
         {...basicProps}
@@ -60,6 +60,14 @@ describe('RadioFieldGroup test suite', () => {
       ComponentClassNames.RadioGroupField,
       className
     );
+  });
+
+  it('should forward ref to DOM element', async () => {
+    const ref = React.createRef<HTMLDivElement>();
+    render(<RadioGroupField {...basicProps} ref={ref}></RadioGroupField>);
+
+    await screen.findByTestId('test');
+    expect(ref.current.nodeName).toBe('DIV');
   });
 
   it('should render all flex style props', async () => {
