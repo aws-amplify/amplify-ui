@@ -1,5 +1,5 @@
 // See: https://github.com/sindresorhus/type-fest/blob/main/source/primitive.d.ts
-import { Primitive } from './primitive';
+import { Primitive } from './Primitive';
 
 /**
 Create a type from another type with all keys and nested keys set to optional.
