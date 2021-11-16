@@ -6,7 +6,7 @@ import { SelectField } from '../SelectField';
 import { ComponentClassNames } from '../shared/constants';
 import { CountryCodeSelectProps, PrimitiveWithForwardRef } from '../types';
 
-const CountryCodeSelectInner: PrimitiveWithForwardRef<
+const CountryCodeSelectPrimitive: PrimitiveWithForwardRef<
   CountryCodeSelectProps,
   'select'
 > = ({ className, ...props }, ref) => {
@@ -33,6 +33,6 @@ const CountryCodeSelectInner: PrimitiveWithForwardRef<
   );
 };
 
-export const CountryCodeSelect = React.forwardRef(CountryCodeSelectInner);
+export const CountryCodeSelect = React.forwardRef(CountryCodeSelectPrimitive);
 
 CountryCodeSelect.displayName = 'CountryCodeSelect';
