@@ -9,7 +9,7 @@ import awsExports from '@environments/auth-with-federated/src/aws-exports';
   templateUrl: 'custom-slots.component.html',
 })
 export class CustomSlotsComponent {
-  constructor(private authenticator: AuthenticatorService) {
+  constructor(public authenticator: AuthenticatorService) {
     Amplify.configure(awsExports);
   }
 }
