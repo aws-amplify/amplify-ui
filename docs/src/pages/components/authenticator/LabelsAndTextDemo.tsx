@@ -73,11 +73,11 @@ function Screen({ Component }: ScreenProps) {
 export function LabelsAndTextDemo({ Component }: ScreenProps) {
   return (
     <Authenticator.Provider>
-      <View data-amplify-authenticator="">
-        <View data-authenticator-variation="modal" />
-
+      <View data-amplify-authenticator="" data-variaton="modal">
         <View data-amplify-container="">
-          <Screen Component={Component} />
+          <View data-amplify-body>
+            <Screen Component={Component} />
+          </View>
         </View>
       </View>
     </Authenticator.Provider>

@@ -6,15 +6,10 @@ import '@aws-amplify/ui-react/styles.css';
 import awsExports from '@environments/auth-with-username-no-attributes/src/aws-exports';
 Amplify.configure(awsExports);
 
-export default function App() {
+export default function App({ signOut }) {
   return (
-    <Authenticator>
-      {({ signOut, user }) => (
-        <>
-          <h1>Hello {user.username}</h1>
-          <button onClick={signOut}>Sign out</button>
-        </>
-      )}
+    <Authenticator variation="modal">
+      {({ signOut }) => <button onClick={signOut}>Sign out</button>}
     </Authenticator>
   );
 }
