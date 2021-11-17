@@ -26,7 +26,7 @@
   ],
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": "yarn run build:icons && yarn run build:ts && yarn run build:catalog",
+    "build": "yarn run build:ts && yarn run build:catalog",
     "build:ts": "tsup --minify --keep-names",
     "build:catalog": "ts-node scripts/generatePrimitivesCatalog.ts",
     "dev": "tsup --watch src",

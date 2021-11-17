@@ -249,13 +249,8 @@ watch(
             <slot name="sign-in-header"></slot>
           </template>
 
-          <template #footer="{ onSignInSubmit, onForgotPasswordClicked }">
-            <slot
-              name="sign-in-footer"
-              :onSignInSubmit="onSignInSubmit"
-              :onForgotPasswordClicked="onForgotPasswordClicked"
-            >
-            </slot>
+          <template #footer>
+            <slot name="sign-in-footer"> </slot>
           </template>
         </sign-in>
         <sign-up
@@ -273,9 +268,8 @@ watch(
             <slot name="sign-up-fields" :info="info"></slot>
           </template>
 
-          <template #footer="{ onSignUpSubmit }">
-            <slot name="sign-up-footer" :onSignUpSubmit="onSignUpSubmit">
-            </slot>
+          <template #footer>
+            <slot name="sign-up-footer"> </slot>
           </template>
         </sign-up>
 

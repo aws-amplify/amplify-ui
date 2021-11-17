@@ -1,13 +1,19 @@
 import { translate } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '..';
-import { Form, Flex, Heading, PasswordField, Button } from '../../..';
+import { Button, Flex, Form, Heading, PasswordField, View } from '../../..';
 import { FederatedSignIn } from '../FederatedSignIn';
 import { RemoteErrorMessage, UserNameAlias } from '../shared';
 
 export function SignIn() {
-  const { _send, isPending, submitForm, toResetPassword, updateForm } =
-    useAuthenticator();
+  const {
+    components: {
+      SignIn: { Header = SignIn.Header, Footer = SignIn.Footer },
+    },
+    isPending,
+    submitForm,
+    updateForm,
+  } = useAuthenticator();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     let { checked, name, type, value } = event.target;
@@ -22,8 +28,9 @@ export function SignIn() {
   };
 
   return (
-    // TODO Automatically add these namespaces again from `useAmplify`
-    <>
+    <View>
+      <Header />
+
       <Form
         data-amplify-authenticator-signin=""
         method="post"
@@ -58,18 +65,28 @@ export function SignIn() {
           >
             {translate('Sign in')}
           </Button>
-
-          <Button
-            onClick={toResetPassword}
-            type="button"
-            variation="link"
-            size="small"
-            fontWeight="normal"
-          >
-            {translate('Forgot your password? ')}
-          </Button>
         </Flex>
       </Form>
-    </>
+
+      <Footer />
+    </View>
   );
 }
+
+SignIn.Header = (): JSX.Element => null;
+SignIn.Footer = () => {
+  const { toResetPassword } = useAuthenticator();
+
+  return (
+    <View textAlign="center">
+      <Button
+        fontWeight="normal"
+        onClick={toResetPassword}
+        size="small"
+        variation="link"
+      >
+        {translate('Forgot your password? ')}
+      </Button>
+    </View>
+  );
+};

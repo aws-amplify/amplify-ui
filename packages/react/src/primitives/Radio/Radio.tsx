@@ -1,21 +1,17 @@
+import * as React from 'react';
 import classNames from 'classnames';
 
 import { Flex } from '../Flex';
 import { Input } from '../Input';
 import { useRadioGroupContext } from '../RadioGroupField/context';
 import { Text } from '../Text';
-import { RadioProps, Primitive } from '../types';
+import { RadioProps, PrimitiveWithForwardRef } from '../types';
 import { ComponentClassNames } from '../shared';
 
-export const Radio: Primitive<RadioProps, 'input'> = ({
-  children,
-  className,
-  id,
-  isDisabled,
-  testId,
-  value,
-  ...rest
-}) => {
+export const RadioInner: PrimitiveWithForwardRef<RadioProps, 'input'> = (
+  { children, className, id, isDisabled, testId, value, ...rest },
+  ref
+) => {
   const {
     currentValue,
     defaultValue,
@@ -57,6 +53,7 @@ export const Radio: Primitive<RadioProps, 'input'> = ({
         isReadOnly={isReadOnly}
         isRequired={isRequired}
         onChange={onChange}
+        ref={ref}
         type="radio"
         name={name}
         value={value}
@@ -81,5 +78,7 @@ export const Radio: Primitive<RadioProps, 'input'> = ({
     </Flex>
   );
 };
+
+export const Radio = React.forwardRef(RadioInner);
 
 Radio.displayName = 'Radio';

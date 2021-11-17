@@ -45,6 +45,7 @@ pre[class*='language-'] {
   margin: 0 0 var(--amplify-space-large) 0;
   overflow: auto;
   border-radius: 0;
+  max-height: 30em;
 }
 
 pre.language-shell code.language-shell::before {

@@ -1,37 +1,43 @@
+import * as React from 'react';
 import classNames from 'classnames';
-import { useMemo } from 'react';
 
 import { RadioGroupContext, RadioGroupContextType } from './context';
 import { FieldErrorMessage, FieldDescription } from '../Field';
 import { Flex } from '../Flex';
 import { Label } from '../Label';
-import { RadioGroupFieldProps, Primitive } from '../types';
+import { RadioGroupFieldProps, PrimitiveWithForwardRef } from '../types';
 import { ComponentClassNames } from '../shared/constants';
 import { useStableId } from '../shared/utils';
 
 // Note: RadioGroupField doesn't extend the JSX.IntrinsicElements<'input'> types (instead extending 'typeof Flex')
 // because all rest props are passed to Flex container
-export const RadioGroupField: Primitive<RadioGroupFieldProps, typeof Flex> = ({
-  children,
-  className,
-  defaultValue,
-  descriptiveText,
-  errorMessage,
-  hasError = false,
-  id,
-  isDisabled,
-  isRequired,
-  isReadOnly,
-  label,
-  labelHidden = false,
-  onChange,
-  name,
-  size,
-  value,
-  ...rest
-}) => {
+const RadioGroupFieldInner: PrimitiveWithForwardRef<
+  RadioGroupFieldProps,
+  typeof Flex
+> = (
+  {
+    children,
+    className,
+    defaultValue,
+    descriptiveText,
+    errorMessage,
+    hasError = false,
+    id,
+    isDisabled,
+    isRequired,
+    isReadOnly,
+    label,
+    labelHidden = false,
+    onChange,
+    name,
+    size,
+    value,
+    ...rest
+  },
+  ref
+) => {
   const fieldId = useStableId(id);
-  const radioGroupContextValue: RadioGroupContextType = useMemo(
+  const radioGroupContextValue: RadioGroupContextType = React.useMemo(
     () => ({
       currentValue: value,
       defaultValue,
@@ -64,6 +70,7 @@ export const RadioGroupField: Primitive<RadioGroupFieldProps, typeof Flex> = ({
         className
       )}
       data-size={size}
+      ref={ref}
       {...rest}
     >
       <Label id={fieldId} visuallyHidden={labelHidden}>
@@ -86,5 +93,7 @@ export const RadioGroupField: Primitive<RadioGroupFieldProps, typeof Flex> = ({
     </Flex>
   );
 };
+
+export const RadioGroupField = React.forwardRef(RadioGroupFieldInner);
 
 RadioGroupField.displayName = 'RadioGroupField';
