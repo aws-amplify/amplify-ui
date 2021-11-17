@@ -14,6 +14,9 @@
   padding: var(--amplify-space-xl);
   position: relative;
   color: var(--amplify-colors-font-tertiary);
+  max-width: 60rem;
+  margin: 0 auto;
+  text-align: center;
   
   &::before {
     content: '';

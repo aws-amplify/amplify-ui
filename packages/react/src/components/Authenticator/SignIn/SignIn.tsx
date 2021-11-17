@@ -56,14 +56,12 @@ export function SignIn() {
           <RemoteErrorMessage />
 
           <Button
-            borderRadius={0}
             isDisabled={isPending}
             isFullWidth={true}
             type="submit"
             variation="primary"
             isLoading={isPending}
             loadingText={translate('Signing in')}
-            fontWeight="normal"
           >
             {translate('Sign in')}
           </Button>

@@ -493,9 +493,9 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-switchfield-thumb-checked-transform: var(--amplify-transforms-slide-x-medium);
         --amplify-components-switchfield-thumb-transition-duration: var(--amplify-time-medium);
         --amplify-components-switchfield-thumb-width: var(--amplify-space-relative-medium);
-        --amplify-components-switchfield-track-background: var(--amplify-colors-neutral-40);
+        --amplify-components-switchfield-track-background-color: var(--amplify-colors-background-tertiary);
         --amplify-components-switchfield-track-border-radius: var(--amplify-radii-xxxl);
-        --amplify-components-switchfield-track-checked-background: var(--amplify-colors-blue-40);
+        --amplify-components-switchfield-track-checked-background-color: var(--amplify-colors-brand-primary-600);
         --amplify-components-switchfield-track-height: var(--amplify-space-relative-medium);
         --amplify-components-switchfield-track-padding: var(--amplify-outline-widths-medium);
         --amplify-components-switchfield-track-transition-duration: var(--amplify-time-short);
