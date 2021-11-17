@@ -29,7 +29,7 @@ export class AuthenticatorComponent implements OnInit, AfterContentInit {
   @Input() services: AuthenticatorMachineOptions['services'];
   @Input() signUpAttributes: AuthenticatorMachineOptions['signUpAttributes'];
   @Input() socialProviders: SocialProvider[];
-  @Input() variation: 'modal' | undefined;
+  @Input() variation: 'default' | 'modal';
 
   @ContentChildren(AmplifySlotDirective)
   private customComponentQuery: QueryList<AmplifySlotDirective> = null;
@@ -88,10 +88,6 @@ export class AuthenticatorComponent implements OnInit, AfterContentInit {
 
   public get route() {
     return this.authenticator.route;
-  }
-
-  public get variationModal() {
-    return this.variation === 'modal';
   }
 
   public onTabChange() {

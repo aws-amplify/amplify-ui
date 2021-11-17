@@ -1,6 +1,4 @@
-<div data-amplify-authenticator *ngIf="route !== 'authenticated'">
-  <div data-authenticator-variation="modal" *ngIf="variationModal"></div>
-
+<div data-amplify-authenticator [attr.data-variation]="variation">
   <div data-amplify-container>
     <div data-amplify-header>
       <amplify-slot name="header"></amplify-slot>
