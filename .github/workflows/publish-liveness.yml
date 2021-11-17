@@ -1,0 +1,64 @@
+name: Publish to @liveness
+
+on:
+  workflow_run:
+    workflows: ['Liveness Tests']
+    types:
+      - completed
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: ci
+    # We only publish if the previous workflow run (Tests) was successful
+    # and the previous workflow was called from main branch.
+    #
+    # Note that we check against workflow_run.head_branch instead of github.ref
+    # because workflow_run is always run on main, even if it's triggered from
+    # another branch.
+    #
+    # https://github.community/t/workflow-run-not-working-as-expected/139342
+    if: |
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.head_branch == 'liveness-main'
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      - name: Setup Node.js LTS
+        uses: actions/setup-node@v2
+        with:
+          node-version: lts/*
+          cache: 'yarn'
+      - name: Install packages
+        run: yarn --frozen-lockfile
+      - name: Add changeset that bumps all public packages
+        # There needs to be a changeset for @aws-amplify/ui[-framework] to publish.
+        run: cp .github/changeset-presets/bump-versions.md .changeset
+      - name: Run changeset version to liveness tag
+        run: yarn version:liveness
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # CodeArtifact
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: ${{ secrets.LIVENESS_DEPLOYMENT_ROLE }}
+          aws-region: us-east-1
+      - name: Login to CodeArtifact
+        run: aws codeartifact login --tool npm --repository amplify-ui --domain amplify-ui-liveness --domain-owner $LIVENESS_AWS_ACCOUNT
+        env:
+          LIVENESS_AWS_ACCOUNT: ${{ secrets.LIVENESS_AWS_ACCOUNT }}
+      - name: Publish to liveness tag for CodeArtifact
+        run: yarn publish:liveness
+
+      # Verdaccio
+      - name: Login to Verdaccio
+        run: |
+          yarn config set registry https://registry.edge.reventlov.rekognition.aws.dev
+          echo "//registry.edge.reventlov.rekognition.aws.dev/:_authToken=$LIVENESS_VERDACCIO_TOKEN" > .npmrc
+          echo "//registry.edge.reventlov.rekognition.aws.dev/:always-auth=true" >> .npmrc
+        env:
+          LIVENESS_VERDACCIO_TOKEN: ${{ secrets.LIVENESS_VERDACCIO_TOKEN }}
+      - name: Publish to liveness tag for Verdaccio
+        run: yarn publish:liveness

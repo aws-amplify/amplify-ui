@@ -19,6 +19,8 @@
     "prepare": "husky install",
     "version:next": "yarn changeset version --snapshot next-$(git rev-parse --short=7 HEAD) && yarn build",
     "publish:next": "yarn changeset publish --tag next",
+    "version:liveness": "yarn changeset version --snapshot liveness-$(git rev-parse --short=7 HEAD) && yarn build",
+    "publish:liveness": "yarn changeset publish --tag liveness",
     "version:latest": "echo \"not implemented until stable release\"",
     "publish:latest": "echo \"not implemented until stable release\""
   },
