@@ -3,7 +3,7 @@
 
   <div data-amplify-container>
     <div data-amplify-header>
-      <amplify-slot name="header"></amplify-slot>
+      <amplify-slot name="header" [context]="context"></amplify-slot>
     </div>
     <div data-amplify-body>
       <amplify-tabs
@@ -12,62 +12,93 @@
       >
         <amplify-tab-item [title]="signInTitle" [active]="route === 'signIn'">
           <!-- signIn component -->
-          <amplify-slot name="sign-in" *ngIf="route === 'signIn'">
+          <amplify-slot
+            name="sign-in"
+            [context]="context"
+            *ngIf="route === 'signIn'"
+          >
             <amplify-sign-in></amplify-sign-in>
           </amplify-slot>
         </amplify-tab-item>
         <amplify-tab-item [title]="signUpTitle" [active]="route === 'signUp'">
           <!-- signUp component -->
-          <amplify-slot name="sign-up" *ngIf="route === 'signUp'">
+          <amplify-slot
+            name="sign-up"
+            [context]="context"
+            *ngIf="route === 'signUp'"
+          >
             <amplify-sign-up></amplify-sign-up>
           </amplify-slot>
         </amplify-tab-item>
       </amplify-tabs>
 
       <!-- confirmSignUp content -->
-      <amplify-slot name="confirm-sign-up" *ngIf="route === 'confirmSignUp'">
+      <amplify-slot
+        name="confirm-sign-up"
+        [context]="context"
+        *ngIf="route === 'confirmSignUp'"
+      >
         <amplify-confirm-sign-up></amplify-confirm-sign-up>
       </amplify-slot>
 
       <!-- confirmSignIn content -->
-      <amplify-slot name="confirm-sign-in" *ngIf="route === 'confirmSignIn'">
+      <amplify-slot
+        name="confirm-sign-in"
+        [context]="context"
+        *ngIf="route === 'confirmSignIn'"
+      >
         <amplify-confirm-sign-in></amplify-confirm-sign-in>
       </amplify-slot>
 
       <!-- setupTotp content -->
-      <amplify-slot name="setup-totp" *ngIf="route === 'setupTOTP'">
+      <amplify-slot
+        name="setup-totp"
+        [context]="context"
+        *ngIf="route === 'setupTOTP'"
+      >
         <amplify-setup-totp></amplify-setup-totp>
       </amplify-slot>
 
       <!-- forceNewPassword content -->
       <amplify-slot
         name="force-new-password"
+        [context]="context"
         *ngIf="route === 'forceNewPassword'"
       >
         <amplify-force-new-password></amplify-force-new-password>
       </amplify-slot>
 
       <!-- resetPassword content -->
-      <amplify-slot name="reset-password" *ngIf="route === 'resetPassword'">
+      <amplify-slot
+        name="reset-password"
+        [context]="context"
+        *ngIf="route === 'resetPassword'"
+      >
         <amplify-reset-password></amplify-reset-password>
       </amplify-slot>
 
       <!-- confirmResetPassword content -->
       <amplify-slot
         name="confirm-reset-password"
+        [context]="context"
         *ngIf="route === 'confirmResetPassword'"
       >
         <amplify-confirm-reset-password></amplify-confirm-reset-password>
       </amplify-slot>
 
       <!-- verifyUser content -->
-      <amplify-slot name="verify-user" *ngIf="route === 'verifyUser'">
+      <amplify-slot
+        name="verify-user"
+        [context]="context"
+        *ngIf="route === 'verifyUser'"
+      >
         <amplify-verify-user></amplify-verify-user>
       </amplify-slot>
 
       <!-- confirmVerifyUser content -->
       <amplify-slot
         name="confirm-verify-user"
+        [context]="context"
         *ngIf="route === 'confirmVerifyUser'"
       >
         <amplify-confirm-verify-user></amplify-confirm-verify-user>
@@ -75,7 +106,7 @@
     </div>
 
     <div data-amplify-footer>
-      <amplify-slot name="footer"></amplify-slot>
+      <amplify-slot name="footer" [context]="context"></amplify-slot>
     </div>
   </div>
 </div>
@@ -83,7 +114,7 @@
 <!-- signedIn content is rendered outside authenticator so it's not styled by authenticator -->
 <amplify-slot
   name="authenticated"
-  [context]="authenticatedContext"
+  [context]="context"
   *ngIf="route === 'authenticated'"
 >
   <ng-content></ng-content>

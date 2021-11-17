@@ -6,7 +6,7 @@
       data-amplify-fieldset
       [disabled]="context.isPending"
     >
-      <amplify-slot name="confirm-sign-up-header">
+      <amplify-slot name="confirm-sign-up-header" [context]="context">
         <h3 class="amplify-heading">{{ this.headerText }}</h3>
       </amplify-slot>
       <amplify-form-field
@@ -29,6 +29,9 @@
     <amplify-error *ngIf="context.error">
       {{ authenticator.error }}
     </amplify-error>
-    <amplify-slot name="confirm-sign-up-footer"></amplify-slot>
+    <amplify-slot
+      name="confirm-sign-up-footer"
+      [context]="context"
+    ></amplify-slot>
   </form>
 </div>

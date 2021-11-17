@@ -24,8 +24,7 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   public get context() {
-    const { updateForm, toSignIn, submitForm, error } = this.authenticator;
-    return { updateForm, toSignIn, submitForm, error };
+    return this.authenticator.slotContext;
   }
 
   onInput(event: Event) {
