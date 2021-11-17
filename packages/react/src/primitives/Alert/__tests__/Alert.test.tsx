@@ -44,10 +44,13 @@ describe('Alert: ', () => {
       </Alert>
     );
 
-    const alert = await screen.findByText('Test heading');
-    expect(alert.nodeName).toBe('H6');
+    const alertHeading = await screen.findByText('Test heading');
+    expect(alertHeading.nodeName).toBe('DIV');
     expect(
-      alert.parentElement.parentElement.parentElement.classList.contains(
+      alertHeading.classList.contains(ComponentClassNames.AlertHeading)
+    ).toBe(true);
+    expect(
+      alertHeading.parentElement.parentElement.classList.contains(
         ComponentClassNames.Alert
       )
     ).toBe(true);
@@ -70,18 +73,14 @@ describe('Alert: ', () => {
     const noIcon = await screen.findByTestId('noIcon');
     const defaultAlert = await screen.findByTestId('default');
 
-    expect(hasIcon.firstElementChild.childElementCount).toBe(2);
-    expect(noIcon.firstElementChild.childElementCount).toBe(1);
-    expect(defaultAlert.firstElementChild.childElementCount).toBe(1);
+    expect(hasIcon.childElementCount).toBe(2);
+    expect(noIcon.childElementCount).toBe(1);
+    expect(defaultAlert.childElementCount).toBe(1);
     expect(
-      hasIcon.firstElementChild.firstElementChild.classList.contains(
-        ComponentClassNames.Icon
-      )
+      hasIcon.firstElementChild.classList.contains(ComponentClassNames.Icon)
     ).toBe(true);
     expect(
-      noIcon.firstElementChild.firstElementChild.classList.contains(
-        ComponentClassNames.Icon
-      )
+      noIcon.firstElementChild.classList.contains(ComponentClassNames.Icon)
     ).toBe(false);
   });
 

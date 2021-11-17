@@ -36,9 +36,4 @@ export interface AlertProps extends FlexProps {
    * The heading property will affect the content of the Alert heading.
    */
   heading?: React.ReactNode;
-
-  /**
-   * The headingLevel property will determine what type of heading renders (e.g., h1 - h6).
-   */
-  headingLevel?: HeadingLevel;
 }

@@ -1,6 +1,9 @@
 export enum ComponentClassNames {
   Alert = 'amplify-alert',
-  AlertHeading = 'amplify-alert-heading',
+  AlertIcon = 'amplify-alert__icon',
+  AlertHeading = 'amplify-alert__heading',
+  AlertBody = 'amplify-alert__body',
+  AlertDismiss = 'amplify-alert__dismiss',
   Badge = 'amplify-badge',
   Button = 'amplify-button',
   ButtonGroup = 'amplify-buttongroup',
