@@ -5,18 +5,17 @@ import {
   SwitchField,
   Flex,
 } from '@aws-amplify/ui-react';
+import React from 'react';
 
 export interface AlertPropControlsProps extends AlertProps {
   setVariation: (value: React.SetStateAction<AlertProps['variation']>) => void;
   setIsDismissible: (
     value: React.SetStateAction<AlertProps['isDismissible']>
   ) => void;
-  setIconSize: (value: React.SetStateAction<AlertProps['iconSize']>) => void;
   setHasIcon: (value: React.SetStateAction<AlertProps['hasIcon']>) => void;
   setHeading: (value: React.SetStateAction<AlertProps['heading']>) => void;
-  setHeadingLevel: (
-    value: React.SetStateAction<AlertProps['headingLevel']>
-  ) => void;
+  setBody: (value: React.SetStateAction<string>) => void;
+  body: string;
 }
 
 interface AlertPropControlsInterface {
