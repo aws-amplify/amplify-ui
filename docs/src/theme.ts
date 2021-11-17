@@ -32,11 +32,6 @@ const usePalette = (str) => {
 export const theme: Theme = {
   name: 'amplify-docs',
   tokens: {
-    colors: {
-      border: {
-        primary: { value: '{colors.neutral.100.value}' },
-      },
-    },
     components: {
       heading: {
         1: {
@@ -65,14 +60,6 @@ export const theme: Theme = {
           checked: {
             background: { value: '{colors.brand.primary.80.value}' },
           },
-        },
-      },
-      button: {
-        borderColor: { value: '{colors.border.primary.value}' },
-        color: { value: '{colors.font.primary.value}' },
-        primary: {
-          borderWidth: { value: '{borderWidths.small.value}' },
-          borderColor: { value: 'transparent' },
         },
       },
       togglebutton: {

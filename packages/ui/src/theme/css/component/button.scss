@@ -22,15 +22,17 @@
   padding-inline-start: var(--amplify-components-button-padding-inline-start);
   padding-inline-end: var(--amplify-components-button-padding-inline-end);
   user-select: none;
+  // all:unset removes this, so we have to add it back.
+  cursor: pointer;
 
   &:hover {
     background-color: var(--amplify-components-button-hover-background-color);
     border-color: var(--amplify-components-button-hover-border-color);
     color: var(--amplify-components-button-hover-color);
-    cursor: pointer;
   }
 
   &:focus {
+    background-color: var(--amplify-components-button-hover-background-color);
     border-color: var(--amplify-components-button-focus-border-color);
     color: var(--amplify-components-button-focus-color);
     box-shadow: var(--amplify-components-button-focus-box-shadow);
@@ -96,11 +98,18 @@
   &[data-variation='primary'] {
     border-width: var(--amplify-components-button-primary-border-width);
     background-color: var(--amplify-components-button-primary-background-color);
+    border-color: var(--amplify-components-button-primary-border-color);
     color: var(--amplify-components-button-primary-color);
 
     &:hover {
       background-color: var(
         --amplify-components-button-primary-hover-background-color
+      );
+      border-color: var(
+        --amplify-components-button-primary-hover-border-color
+      );
+      color: var(
+        --amplify-components-button-primary-hover-color
       );
     }
 
@@ -108,11 +117,24 @@
       background-color: var(
         --amplify-components-button-primary-focus-background-color
       );
+      border-color: var(
+        --amplify-components-button-primary-focus-border-color
+      );
+      color: var(
+        --amplify-components-button-primary-focus-color
+      );
+      box-shadow: var(--amplify-components-button-primary-focus-box-shadow);
     }
 
     &:active {
       background-color: var(
         --amplify-components-button-primary-active-background-color
+      );
+      border-color: var(
+        --amplify-components-button-primary-active-border-color
+      );
+      color: var(
+        --amplify-components-button-primary-active-color
       );
     }
 
@@ -120,12 +142,18 @@
       background-color: var(
         --amplify-components-button-primary-loading-background-color
       );
+      border-color: var(
+        --amplify-components-button-primary-loading-border-color
+      );
       color: var(--amplify-components-button-primary-loading-color);
     }
 
     &[disabled] {
       background-color: var(
         --amplify-components-button-primary-disabled-background-color
+      );
+      border-color: var(
+        --amplify-components-button-primary-disabled-border-color
       );
       color: var(--amplify-components-button-primary-disabled-color);
     }
@@ -137,31 +165,34 @@
     color: var(--amplify-components-button-link-color);
 
     &:hover {
+      background-color: var(--amplify-components-button-link-hover-background-color);
+      border-color: var(--amplify-components-button-link-hover-border-color);
       color: var(--amplify-components-button-link-hover-color);
-      text-decoration: underline;
     }
 
     &:focus {
+      background-color: var(--amplify-components-button-link-focus-background-color);
+      border-color: var(--amplify-components-button-link-focus-border-color);
       color: var(--amplify-components-button-link-focus-color);
-      text-decoration: underline;
-      box-shadow: none;
-    }
-
-    &:focus-visible {
-      outline: 2px solid black;
+      box-shadow: var(--amplify-components-button-link-focus-box-shadow);
     }
 
     &:active {
+      background-color: var(--amplify-components-button-link-active-background-color);
+      border-color: var(--amplify-components-button-link-active-border-color);
       color: var(--amplify-components-button-link-active-color);
-      text-decoration: underline;
     }
 
     &[disabled] {
+      background-color: var(--amplify-components-button-link-disabled-background-color);
+      border-color: var(--amplify-components-button-link-disabled-border-color);
       color: var(--amplify-components-button-link-disabled-color);
       text-decoration: none;
     }
 
     &[data-loading='true'] {
+      background-color: var(--amplify-components-button-link-loading-background-color);
+      border-color: var(--amplify-components-button-link-loading-border-color);
       color: var(--amplify-components-button-link-loading-color);
       text-decoration: none;
     }

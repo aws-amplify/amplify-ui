@@ -1,114 +1,166 @@
-import React from 'react';
-import { Button, ButtonSizes, ButtonVariations } from '@aws-amplify/ui-react';
-import { FieldLabeler } from '@/components/FieldLabeler';
-import { Example } from '@/components/Example';
+import * as React from 'react';
+
+import {
+  Button,
+  ButtonSizes,
+  ButtonVariations,
+  ButtonProps,
+  Flex,
+  SwitchField,
+  SelectField,
+  TextField,
+} from '@aws-amplify/ui-react';
+
+import { Demo } from '@/components/Demo';
+
+const propsToCode = (props) => {
+  return (
+    `<Button` +
+    (props.disabled ? `\n  isDisabled={${props.disabled}}` : '') +
+    (props.fullWidth ? `\n  isFullWidth={${props.fullWidth}}` : '') +
+    (props.loading ? `\n  isLoading={${props.loading}}` : '') +
+    (props.variation
+      ? `\n  variation=${JSON.stringify(props.variation)}`
+      : '') +
+    (props.size ? `\n  size=${JSON.stringify(props.size)}` : '') +
+    `
+  loadingText=${JSON.stringify(props.loadingText)}
+  onClick={() => alert('hello')}
+  ariaLabel=${JSON.stringify(props.ariaLabel)}
+>
+  Click me!
+</Button>`
+  );
+};
+
+const PropControls = (props) => {
+  return (
+    <Flex direction="column">
+      <SelectField
+        name="variation"
+        id="variation"
+        label="Variation"
+        value={props.variation}
+        onChange={(event) =>
+          props.setVariation(event.target.value as ButtonVariations)
+        }
+      >
+        <option value="">default</option>
+        <option value="primary">Primary</option>
+        <option value="link">Link</option>
+      </SelectField>
+
+      <SelectField
+        name="Size"
+        id="size"
+        label="Size"
+        value={props.size}
+        onChange={(event) => props.setSize(event.target.value as ButtonSizes)}
+      >
+        <option value="">default</option>
+        <option value="small">Small</option>
+        <option value="large">Large</option>
+      </SelectField>
+
+      <SwitchField
+        label="isFullWidth"
+        defaultChecked={props.fullWidth}
+        labelPosition="end"
+        onChange={(event) => {
+          props.setFullWidth(
+            event.target.checked as ButtonProps['isFullWidth']
+          );
+        }}
+      />
+
+      <SwitchField
+        label="isDisabled"
+        defaultChecked={props.disabled}
+        labelPosition="end"
+        onChange={(event) => {
+          props.setDisabled(event.target.checked as ButtonProps['isDisabled']);
+        }}
+      />
+
+      <SwitchField
+        label="isLoading"
+        defaultChecked={props.loading}
+        labelPosition="end"
+        onChange={(event) => {
+          props.setLoading(event.target.checked as ButtonProps['isLoading']);
+        }}
+      />
+
+      {/* <TextField
+        label="ariaLabel"
+        name="ariaLabel"
+        id="ariaLabel"
+        value={props.ariaLabel}
+        onChange={(event) => {
+          props.setAriaLabel(event.target.value as ButtonProps['ariaLabel']);
+        }}
+      /> */}
+
+      <TextField
+        label="loadingText"
+        name="loadingText"
+        id="loadingText"
+        value={props.loadingText}
+        onChange={(event) => {
+          props.setLoadingText(
+            event.target.value as ButtonProps['loadingText']
+          );
+        }}
+      />
+    </Flex>
+  );
+};
 
 export const ButtonDemo = () => {
   const [disabled, setDisabled] = React.useState<boolean>(false);
   const [loading, setLoading] = React.useState<boolean>(false);
   const [fullWidth, setFullWidth] = React.useState<boolean>(false);
-  const [loadingText, setLoadingText] = React.useState('Loading...');
+  const [loadingText, setLoadingText] = React.useState('');
   const [ariaLabel, setAriaLabel] = React.useState<string>('');
   const [variation, setVariation] = React.useState<ButtonVariations>();
   const [size, setSize] = React.useState<ButtonSizes>();
 
+  const props = {
+    disabled,
+    loading,
+    fullWidth,
+    loadingText,
+    ariaLabel,
+    variation,
+    size,
+  };
+  const propControls = {
+    ...props,
+    setDisabled,
+    setLoading,
+    setFullWidth,
+    setLoadingText,
+    setAriaLabel,
+    setVariation,
+    setSize,
+  };
   return (
-    <div>
-      <h4>Button Props:</h4>
-      <div className="flex flex-wrap gap-5 my-8">
-        <div className="flex items-center gap-1">
-          <input
-            id="disabled"
-            name="disabled"
-            type="checkbox"
-            onChange={() => setDisabled(!disabled)}
-          />
-          <label htmlFor="disabled">isDisabled</label>
-        </div>
-
-        <div className="flex items-center gap-1">
-          <input
-            id="fullwidth"
-            name="fullwidth"
-            type="checkbox"
-            onChange={() => setFullWidth(!fullWidth)}
-          />
-          <label htmlFor="fullwidth">isFullWidth</label>
-        </div>
-        <div className="flex items-center gap-1">
-          <input
-            id="loading"
-            name="loading"
-            type="checkbox"
-            onChange={() => setLoading(!loading)}
-          />
-          <label htmlFor="loading">isLoading</label>
-        </div>
-
-        <FieldLabeler id="loadingText">
-          <input
-            id="loadingText"
-            type="text"
-            value={loadingText}
-            onChange={(event: any) => {
-              setLoadingText(event.target.value);
-            }}
-          />
-        </FieldLabeler>
-
-        <FieldLabeler id="ariaLabel">
-          <input
-            id="ariaLabel"
-            type="text"
-            placeholder="Set aria-label text"
-            value={ariaLabel}
-            onChange={(event: any) => {
-              setAriaLabel(event.target.value);
-            }}
-          />
-        </FieldLabeler>
-        <FieldLabeler id="variation">
-          <select
-            id="variation"
-            value={variation}
-            placeholder="Select button variation"
-            onChange={(event) =>
-              setVariation(event.target.value as ButtonVariations)
-            }
-          >
-            <option value="">default</option>
-            <option value="primary">primary</option>
-            <option value="link">link</option>
-          </select>
-        </FieldLabeler>
-        <FieldLabeler id="size">
-          <select
-            id="size"
-            value={size}
-            onChange={(event) => setSize(event.target.value as ButtonSizes)}
-          >
-            <option value="">default</option>
-            <option value="small">small</option>
-            <option value="large">large</option>
-          </select>
-        </FieldLabeler>
-      </div>
-      <Example>
-        <Button
-          className="my-favorite-button"
-          isDisabled={disabled}
-          isLoading={loading}
-          loadingText={loadingText}
-          variation={variation}
-          size={size}
-          onClick={() => alert('hello')}
-          ariaLabel={ariaLabel}
-          isFullWidth={fullWidth}
-          type="button"
-        >
-          Click me!
-        </Button>
-      </Example>
-    </div>
+    <Demo
+      code={propsToCode(props)}
+      propControls={<PropControls {...propControls} />}
+    >
+      <Button
+        isDisabled={disabled}
+        isLoading={loading}
+        loadingText={loadingText}
+        variation={variation}
+        size={size}
+        onClick={() => alert('hello')}
+        ariaLabel={ariaLabel}
+        isFullWidth={fullWidth}
+      >
+        Click me!
+      </Button>
+    </Demo>
   );
 };
