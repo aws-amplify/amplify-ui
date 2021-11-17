@@ -141,24 +141,6 @@ export const utilityComponents = [
   { href: '/components/visuallyhidden', label: 'Visually Hidden', body: `` },
 ].sort(sortByLabel);
 
-export const reactHooks = [
-  {
-    href: '/hooks/auth',
-    label: 'Authentication',
-    body: '',
-  },
-  {
-    href: '/hooks/datastore',
-    label: 'DataStore',
-    body: '',
-  },
-  {
-    href: '/hooks/storage',
-    label: 'Storage',
-    body: '',
-  },
-];
-
 export const DISCORD = 'https://discord.gg/amplify';
 export const COMMUNITY = 'https://amplify.aws/community';
 export const COMMUNITY_EVENTS = 'https://amplify.aws/community/events';

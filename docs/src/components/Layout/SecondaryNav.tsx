@@ -11,7 +11,6 @@ import {
   inputComponents,
   layoutComponents,
   navigationComponents,
-  reactHooks,
   utilityComponents,
 } from '../../data/links';
 
@@ -63,7 +62,7 @@ export const SecondaryNav = () => {
     );
   }
 
-  if (section === 'components' || section === 'hooks') {
+  if (section === 'components') {
     return (
       <Sidebar>
         <Heading level={6}>Connected Components</Heading>
@@ -89,13 +88,6 @@ export const SecondaryNav = () => {
 
         <Heading level={6}>Utilities</Heading>
         <NavLinks items={utilityComponents} />
-
-        {platform === 'react' ? (
-          <>
-            <Heading level={6}>Hooks</Heading>
-            <NavLinks items={reactHooks} />
-          </>
-        ) : null}
       </Sidebar>
     );
   }
