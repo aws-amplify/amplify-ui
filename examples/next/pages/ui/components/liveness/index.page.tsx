@@ -4,14 +4,13 @@ import {
   LivenessFlowProps,
   LivenessStatus,
 } from '@aws-amplify/ui-react';
-import { GetServerSideProps } from 'next';
-import { Amplify, API, withSSRContext } from 'aws-amplify';
+import { Amplify, API } from 'aws-amplify';
+import useSWR from 'swr';
 import awsExports from '@environments/liveness/src/aws-exports';
 import '@aws-amplify/ui-react/styles.css';
 
 Amplify.configure({
   ...awsExports,
-  ssr: true,
   API: {
     endpoints: [
       {
@@ -23,14 +22,18 @@ Amplify.configure({
   },
 });
 
-export default function App({
-  sessionId,
-  clientActionDocument,
-}: {
-  sessionId: string;
-  clientActionDocument: string;
-}) {
+export default function App() {
   const [isLivenessActive, setLivenessActive] = useState(false);
+
+  const {
+    data: startLivenessApiData,
+    error: startLivenessApiError,
+    isValidating: startLivenessApiLoading,
+  } = useSWR(
+    'StartLiveness',
+    () => API.post('SampleBackend', '/liveness/start', {}),
+    { revalidateOnFocus: false }
+  );
 
   const handleStartLiveness = () => {
     setLivenessActive(true);
@@ -64,12 +67,16 @@ export default function App({
       return { isLive: LivenessStatus.SUCCESS };
     };
 
+  if (startLivenessApiError) {
+    return <div>Some error occured...</div>;
+  }
+
   return (
     <div>
       {isLivenessActive ? (
         <LivenessFlow
-          sessionId={sessionId}
-          clientActionDocument={clientActionDocument}
+          sessionId={startLivenessApiData.sessionId}
+          clientActionDocument={startLivenessApiData.clientActionDocument}
           onGetLivenessDetection={handleGetLivenessDetection}
           active={isLivenessActive}
           onExit={handleExit}
@@ -77,37 +84,14 @@ export default function App({
           onSuccess={handleSuccess}
         />
       ) : (
-        <button id="StartButton" onClick={handleStartLiveness}>
-          Start Liveness
+        <button
+          id="StartButton"
+          onClick={handleStartLiveness}
+          disabled={startLivenessApiLoading}
+        >
+          {startLivenessApiLoading ? 'Loading...' : 'Start Liveness'}
         </button>
       )}
     </div>
   );
 }
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { API } = withSSRContext(context);
-
-  let response;
-  try {
-    response = await API.post('SampleBackend', '/liveness/start', {});
-  } catch (err) {
-    console.log({ err: err.response?.data });
-  }
-
-  if (!response) {
-    return {
-      notFound: true,
-    };
-  }
-
-  const sessionId = response.sessionId;
-  const clientActionDocument = response.clientActionDocument;
-
-  return {
-    props: {
-      sessionId,
-      clientActionDocument,
-    },
-  };
-};
