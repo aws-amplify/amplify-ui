@@ -1,22 +1,24 @@
+import * as React from 'react';
 import classNames from 'classnames';
 
 import { View } from '../View';
-import { Primitive, ScrollViewProps } from '../types';
+import { PrimitiveWithForwardRef, ScrollViewProps } from '../types';
 import { ComponentClassNames } from '../shared/constants';
 
-export const ScrollView: Primitive<ScrollViewProps, 'div'> = ({
-  children,
-  className,
-  orientation,
-  ...rest
-}) => (
+const ScrollViewInner: PrimitiveWithForwardRef<ScrollViewProps, 'div'> = (
+  { children, className, orientation, ...rest },
+  ref
+) => (
   <View
     className={classNames(ComponentClassNames.ScrollView, className)}
     data-orientation={orientation}
+    ref={ref}
     {...rest}
   >
     {children}
   </View>
 );
+
+export const ScrollView = React.forwardRef(ScrollViewInner);
 
 ScrollView.displayName = 'ScrollView';

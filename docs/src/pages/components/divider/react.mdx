@@ -1,8 +1,15 @@
 import { Divider, View, Flex, Text } from '@aws-amplify/ui-react';
 import { DividerDemo } from './demo';
-import { Example } from '@/components/Example';
-
-A Divider creates separations in content.
+import { Example, ExampleCode } from '@/components/Example';
+import {
+  DefaultDividerExample,
+  HorizontalDividerExample,
+  VerticalDividerExample,
+  DividerSizesExample,
+  DividerStylePropsExample,
+  DividerClassNameExample,
+  DividerThemeExample,
+} from './examples';
 
 ## Demo
 
@@ -10,86 +17,90 @@ A Divider creates separations in content.
 
 ## Usage
 
-Import the Divider component and styles.
-
-```jsx
-import { Divider } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-<Divider />;
-```
+Import the Divider component and place it between components you want separated. Most of the time you will want to use the divider in a [`<Flex>`](/components/flex) component.
 
 <Example>
-  <Divider />
+  <DefaultDividerExample />
+  <ExampleCode>
+
+```jsx file=./examples/DefaultDividerExample.tsx
+
+```
+
+  </ExampleCode>
 </Example>
 
 ### Orientation
 
 **Horizontal (default)**
 
-```jsx
-<View>
-  <Text>Before</Text>
-  <Divider orientation="horizontal" />
-  <Text>After</Text>
-</View>
+<Example>
+  <HorizontalDividerExample />
+  <ExampleCode>
+
+```jsx file=./examples/HorizontalDividerExample.tsx
+
 ```
 
-<Example>
-  <View>
-    <Text>Before</Text>
-    <Divider orientation="horizontal" />
-    <Text>After</Text>
-  </View>
+  </ExampleCode>
 </Example>
 
 **Vertical**
 
-```jsx
-<Flex height="100px" justifyContent="space-around">
-  <Text>Before</Text>
-  <Divider orientation="vertical" />
-  <Text>After</Text>
-</Flex>
+<Example>
+  <VerticalDividerExample />
+  <ExampleCode>
+
+```jsx file=./examples/VerticalDividerExample.tsx
+
 ```
 
-<Example>
-  <Flex height="100px" justifyContent="space-around">
-    <Text>Before</Text>
-    <Divider orientation="vertical" />
-    <Text>After</Text>
-  </Flex>
+  </ExampleCode>
 </Example>
 
 ### Sizes
 
 Available options are `small`, `large`, and none (default).
 
-```jsx
-<Flex direction="column" gap="20px">
-  <Divider size="small" />
-  <Divider />
-  <Divider size="large" />
-</Flex>
+<Example>
+  <DividerSizesExample />
+  <ExampleCode>
+
+```jsx file=./examples/DividerSizesExample.tsx
+
 ```
 
-<Example>
-  <Flex direction="column" gap="20px">
-    <Divider size="small" />
-    <Divider />
-    <Divider size="large" />
-  </Flex>
+  </ExampleCode>
 </Example>
 
-## CSS Styling
+## Customization
 
-### Global styling
+### Theme
 
-To override styling on all Dividers, you can set the Amplify CSS variables or use the built-in `.amplify-divider` class.
+You can customize the appearance of all Dividers in your application with a [Theme](/theming).
+
+<Example>
+  <DividerThemeExample />
+  <ExampleCode>
+
+```jsx file=./examples/DividerThemeExample.tsx
+
+```
+
+  </ExampleCode>
+</Example>
+
+### CSS
+
+You can set the Amplify CSS variables or use the built-in `.amplify-divider` class to customize all Dividers in your application as well.
+
+<Example>
+  <Divider className="border-style-override" />
+  <ExampleCode>
 
 ```css
 /* styles.css */
-:root {
+[data-amplify-theme] {
   --amplify-components-divider-border-style: dashed;
 }
 /* OR */
@@ -98,11 +109,10 @@ To override styling on all Dividers, you can set the Amplify CSS variables or us
 }
 ```
 
-<Example>
-  <Divider className="border-style-override" />
+</ExampleCode>
 </Example>
 
-To replace the Divider styling, unset it:
+To replace _all_ the Divider styling, unset it:
 
 ```css
 .amplify-divider {
@@ -117,36 +127,32 @@ To override styling on a specific Divider, you can use (in order of increasing s
 
 _Using a class selector:_
 
-(Example needed)
-
-_Using data attributes:_
-
-```css
-/* styles.css */
-.amplify-divider[data-size='small'] {
-  border-width: 2px;
-}
-.amplify-divider[data-size='large'] {
-  border-width: 6px;
-}
-```
-
-```jsx
-<Flex direction="column" gap="20px">
-  <Divider size="small" />
-  <Divider />
-  <Divider size="large" />
-</Flex>
-```
-
 <Example>
-  <Flex direction="column" gap="20px">
-    <Divider className="border-width-override" size="small" />
-    <Divider className="border-width-override" />
-    <Divider className="border-width-override" size="large" />
-  </Flex>
+  <DividerClassNameExample />
+  <ExampleCode>
+
+```jsx file=./examples/DividerClassNameExample.tsx
+
+```
+
+  </ExampleCode>
 </Example>
 
 _Using style props:_
 
-(Example needed)
+<Example>
+  <DividerStylePropsExample />
+  <ExampleCode>
+
+```jsx file=./examples/DividerStylePropsExample.tsx
+
+```
+
+  </ExampleCode>
+</Example>
+
+### Default theme
+
+```js file=../../../../../packages/ui/src/theme/tokens/components/divider.js
+
+```

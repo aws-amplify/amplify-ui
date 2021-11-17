@@ -1,5 +1,7 @@
-import { render, screen } from '@testing-library/react';
+import * as React from 'react';
 import kebabCase from 'lodash/kebabCase';
+import { render, screen } from '@testing-library/react';
+
 import { ComponentClassNames } from '../../shared';
 import { ComponentPropsToStylePropsMap } from '../../types';
 import { Link } from '../Link';
@@ -22,6 +24,14 @@ describe('Text: ', () => {
 
     const link = await screen.findByText(linkText);
     expect(link.className).toContain('my-link');
+  });
+
+  it('should forward ref to DOM element', async () => {
+    const ref = React.createRef<HTMLAnchorElement>();
+    render(<Link ref={ref}>{linkText}</Link>);
+
+    await screen.findByText(linkText);
+    expect(ref.current.nodeName).toBe('A');
   });
 
   it('can add the rel attribute to the rendered anchor tag', async () => {

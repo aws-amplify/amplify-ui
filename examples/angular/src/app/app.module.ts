@@ -1,12 +1,16 @@
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
-import { AmplifyAuthenticatorModule } from '@aws-amplify/ui-angular';
+import {
+  AmplifyAuthenticatorModule,
+  AuthenticatorService,
+} from '@aws-amplify/ui-angular';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { CustomSignUpFieldsComponent } from 'src/pages/ui/components/authenticator/custom-sign-up-fields/custom-sign-up-fields.component';
+import { CustomSlotsComponent } from 'src/pages/ui/components/authenticator/custom-slots/custom-slots.component';
 import { I18nComponent } from 'src/pages/ui/components/authenticator/i18n/i18n.component';
 import { ResetPasswordComponent } from 'src/pages/ui/components/authenticator/reset-password/reset-password.component';
 import { SignInFederatedComponent } from 'src/pages/ui/components/authenticator/sign-in-federated/sign-in-federated.component';
@@ -26,6 +30,7 @@ import { SignUpWithUsernameComponent } from 'src/pages/ui/components/authenticat
   declarations: [
     AppComponent,
     CustomSignUpFieldsComponent,
+    CustomSlotsComponent,
     I18nComponent,
     ResetPasswordComponent,
     SignInFederatedComponent,
@@ -48,7 +53,7 @@ import { SignUpWithUsernameComponent } from 'src/pages/ui/components/authenticat
     AmplifyAuthenticatorModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [AuthenticatorService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

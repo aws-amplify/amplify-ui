@@ -1,4 +1,6 @@
+import * as React from 'react';
 import { render, screen } from '@testing-library/react';
+
 import { Placeholder } from '../Placeholder';
 import { Text } from '../../Text';
 import { ComponentClassNames } from '../../shared';
@@ -12,6 +14,14 @@ describe('Placeholder: ', () => {
       placeholder.classList.contains(ComponentClassNames.Placeholder)
     ).toBe(true);
     expect(placeholder.dataset['size']).toBeUndefined();
+  });
+
+  it('should forward ref to DOM element', async () => {
+    const ref = React.createRef<HTMLDivElement>();
+    render(<Placeholder ref={ref} testId="placeholderId" />);
+
+    await screen.findByTestId('placeholderId');
+    expect(ref.current.nodeName).toBe('DIV');
   });
 
   it('renders based on isLoaded prop', async () => {

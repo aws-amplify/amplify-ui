@@ -66,6 +66,7 @@
     "react-dom": ">= 16.8.0"
   },
   "devDependencies": {
+    "@svgr/core": "^5.5.0",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",
     "@testing-library/react-hooks": "^7.0.1",

@@ -1,4 +1,5 @@
 .amplify-badge {
+  color: var(--amplify-components-badge-color);
   background-color: var(--amplify-components-badge-background-color);
   border-radius: var(--amplify-components-badge-border-radius);
   display: inline-flex;
@@ -10,18 +11,22 @@
   line-height: var(--amplify-components-badge-line-height);
 
   &[data-variation='info'] {
+    color: var(--amplify-components-badge-info-color);
     background-color: var(--amplify-components-badge-info-background-color);
   }
 
   &[data-variation='error'] {
+    color: var(--amplify-components-badge-error-color);
     background-color: var(--amplify-components-badge-error-background-color);
   }
 
   &[data-variation='warning'] {
+    color: var(--amplify-components-badge-warning-color);
     background-color: var(--amplify-components-badge-warning-background-color);
   }
 
   &[data-variation='success'] {
+    color: var(--amplify-components-badge-success-color);
     background-color: var(--amplify-components-badge-success-background-color);
   }
 

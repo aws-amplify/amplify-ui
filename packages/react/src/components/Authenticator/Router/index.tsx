@@ -23,7 +23,12 @@ export type RouterProps = {
 };
 
 export function Router({ className, children }: RouterProps) {
-  const { route, signOut, user } = useAuthenticator();
+  const {
+    components: { Header, Footer },
+    route,
+    signOut,
+    user,
+  } = useAuthenticator();
 
   if (['authenticated', 'signOut'].includes(route)) {
     return children({ signOut, user });
@@ -35,6 +40,8 @@ export function Router({ className, children }: RouterProps) {
         <View data-authenticator-variation="modal" />
 
         <View data-amplify-container="">
+          <Header />
+
           <View data-amplify-body="">
             {(() => {
               switch (route) {
@@ -70,6 +77,8 @@ export function Router({ className, children }: RouterProps) {
               }
             })()}
           </View>
+
+          <Footer />
         </View>
       </View>
     </>

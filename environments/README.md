@@ -2,6 +2,10 @@
 
 This folder contains a list of pre-built Amplify backends for use with manual & automated testing.
 
+## Zero Configuration
+
+These environments rely on `@aws-amplify/cli@latest` (v6.4.0+) to work.
+
 ## Using an Existing Backend Environment
 
 For manual and end-to-end testing, example applications will use a particular backend environment by pulling the `aws-exports.js` file from the `environments/{BACKEND_ENVIRONMENT}/src` directory. To use an existing backend environment, please use the following instructions.

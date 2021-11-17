@@ -1,3 +1,4 @@
+import * as React from 'react';
 import classNames from 'classnames';
 
 import { useCheckbox } from './useCheckbox';
@@ -7,24 +8,27 @@ import { Input } from '../Input';
 import { Text } from '../Text';
 import { VisuallyHidden } from '../VisuallyHidden';
 import { CheckboxProps } from '../types/checkbox';
-import { Primitive } from '../types/view';
+import { PrimitiveWithForwardRef } from '../types/view';
 import { splitPrimitiveProps } from '../shared/styleUtils';
 import { ComponentClassNames } from '../shared/constants';
 import { useTestId } from '../utils/testUtils';
 
-export const Checkbox: Primitive<CheckboxProps, 'input'> = ({
-  checked,
-  className,
-  defaultChecked,
-  hasError,
-  isDisabled,
-  label,
-  labelHidden,
-  onChange: onChangeProp,
-  size,
-  testId,
-  ..._rest
-}) => {
+const CheckboxInner: PrimitiveWithForwardRef<CheckboxProps, 'input'> = (
+  {
+    checked,
+    className,
+    defaultChecked,
+    hasError,
+    isDisabled,
+    label,
+    labelHidden,
+    onChange: onChangeProp,
+    size,
+    testId,
+    ..._rest
+  },
+  ref
+) => {
   const { baseStyleProps, flexContainerStyleProps, rest } =
     splitPrimitiveProps(_rest);
 
@@ -58,6 +62,7 @@ export const Checkbox: Primitive<CheckboxProps, 'input'> = ({
           onBlur={onBlur}
           onChange={onChange}
           onFocus={onFocus}
+          ref={ref}
           type="checkbox"
           {...rest}
         />
@@ -93,5 +98,7 @@ export const Checkbox: Primitive<CheckboxProps, 'input'> = ({
     </Flex>
   );
 };
+
+export const Checkbox = React.forwardRef(CheckboxInner);
 
 Checkbox.displayName = 'Checkbox';

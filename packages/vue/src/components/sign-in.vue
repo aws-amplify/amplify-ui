@@ -68,6 +68,8 @@ const onForgotPasswordClicked = (): void => {
 
 <template>
   <slot v-bind="$attrs" name="signInSlotI">
+    <slot name="header"></slot>
+
     <base-wrapper v-bind="$attrs">
       <base-form
         data-amplify-authenticator-signin
@@ -87,7 +89,6 @@ const onForgotPasswordClicked = (): void => {
         </template>
         <federated-sign-in></federated-sign-in>
         <base-wrapper class="amplify-flex" style="flex-direction: column">
-          <slot name="header"></slot>
           <base-field-set
             :disabled="actorState.matches('signIn.submit')"
             class="amplify-flex"
@@ -99,13 +100,7 @@ const onForgotPasswordClicked = (): void => {
 
             <user-name-alias :userNameAlias="true" />
             <base-wrapper
-              class="
-                amplify-flex
-                amplify-field
-                amplify-textfield
-                amplify-passwordfield
-                password-field
-              "
+              class=" amplify-flex amplify-field amplify-textfield amplify-passwordfield password-field"
               style="flex-direction: column"
             >
               <password-control
@@ -134,27 +129,24 @@ const onForgotPasswordClicked = (): void => {
                 : signInButtonText
             }}
           </amplify-button>
-          <amplify-button
-            class="amplify-field-group__control"
-            data-fullwidth="true"
-            data-size="small"
-            data-variation="link"
-            style="font-weight: normal"
-            type="button"
-            @click.prevent="onForgotPasswordClicked"
-          >
-            {{ forgotYourPasswordLink }}
-          </amplify-button>
         </base-wrapper>
-        <base-footer>
-          <slot
-            name="footer"
-            :onSignInSubmit="onSignInSubmit"
-            :onForgotPasswordClicked="onForgotPasswordClicked"
-          >
-          </slot>
-        </base-footer>
       </base-form>
     </base-wrapper>
+
+    <base-footer>
+      <slot name="footer">
+        <amplify-button
+          @click="onForgotPasswordClicked"
+          class="amplify-field-group__control"
+          data-fullwidth="true"
+          data-size="small"
+          data-variation="link"
+          style="font-weight: normal"
+          type="button"
+        >
+          {{ forgotYourPasswordLink }}
+        </amplify-button>
+      </slot>
+    </base-footer>
   </slot>
 </template>
