@@ -138,11 +138,16 @@ export const reactHooks = [
   {
     href: '/hooks/auth',
     label: 'Authentication',
-    body: 'Get current authenticated user data',
+    body: '',
   },
   {
     href: '/hooks/datastore',
     label: 'DataStore',
-    body: 'Computes a signed URL for an Amplify Storage file',
+    body: '',
+  },
+  {
+    href: '/hooks/storage',
+    label: 'Storage',
+    body: '',
   },
 ];
