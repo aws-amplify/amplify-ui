@@ -28,14 +28,12 @@
 
   <amplify-slot name="sign-in-footer">
     <button
+      amplify-button
+      fontWeight="normal"
+      size="small"
+      variation="link"
+      fullWidth="true"
       (click)="authenticator.toResetPassword()"
-      class="amplify-button amplify-field-group__control"
-      data-fullwidth="true"
-      data-size="small"
-      data-variation="link"
-      data-amplify-button=""
-      style="font-weight: normal"
-      type="button"
     >
       {{ forgotPasswordText }}
     </button>
