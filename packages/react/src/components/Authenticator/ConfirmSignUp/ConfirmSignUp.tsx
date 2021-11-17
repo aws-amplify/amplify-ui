@@ -1,7 +1,9 @@
 import { translate } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '../..';
-import { Button, Flex, Form, Heading } from '../../..';
+import { Button, Flex, Heading } from '../../..';
+import { isInputTarget } from '../../../helpers/utils';
+
 import {
   ConfirmationCodeInput,
   ConfirmationCodeInputProps,
@@ -11,11 +13,13 @@ import {
 export function ConfirmSignUp() {
   const { isPending, resendCode, submitForm, updateForm } = useAuthenticator();
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    let { checked, name, type, value } = event.target;
-    if (type === 'checkbox' && !checked) value = undefined;
+  const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
+    if (isInputTarget(event.target)) {
+      let { checked, name, type, value } = event.target;
+      if (type === 'checkbox' && !checked) value = undefined;
 
-    updateForm({ name, value });
+      updateForm({ name, value });
+    }
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -30,7 +34,8 @@ export function ConfirmSignUp() {
 
   return (
     // TODO Automatically add these namespaces again from `useAmplify`
-    <Form
+    <form
+      data-amplify-form=""
       data-amplify-authenticator-confirmsignup=""
       method="post"
       onChange={handleChange}
@@ -60,6 +65,6 @@ export function ConfirmSignUp() {
           </Button>
         </Flex>
       </Flex>
-    </Form>
+    </form>
   );
 }

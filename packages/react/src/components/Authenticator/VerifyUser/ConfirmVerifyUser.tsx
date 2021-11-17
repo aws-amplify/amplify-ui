@@ -1,21 +1,24 @@
 import { translate } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '..';
-import { Flex, Form, Heading } from '../../..';
+import { Flex, Heading } from '../../..';
 import {
   ConfirmationCodeInput,
   RemoteErrorMessage,
   TwoButtonSubmitFooter,
 } from '../shared';
+import { isInputTarget } from '../../../helpers/utils';
 
 export const ConfirmVerifyUser = (): JSX.Element => {
   const { submitForm, updateForm } = useAuthenticator();
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    let { checked, name, type, value } = event.target;
-    if (type === 'checkbox' && !checked) value = undefined;
+  const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
+    if (isInputTarget(event.target)) {
+      let { checked, name, type, value } = event.target;
+      if (type === 'checkbox' && !checked) value = undefined;
 
-    updateForm({ name, value });
+      updateForm({ name, value });
+    }
   };
 
   const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
@@ -24,7 +27,8 @@ export const ConfirmVerifyUser = (): JSX.Element => {
   };
 
   return (
-    <Form
+    <form
+      data-amplify-form=""
       data-amplify-authenticator-confirmverifyuser=""
       method="post"
       onChange={handleChange}
@@ -46,6 +50,6 @@ export const ConfirmVerifyUser = (): JSX.Element => {
           cancelButtonSendType="SKIP"
         />
       </Flex>
-    </Form>
+    </form>
   );
 };
