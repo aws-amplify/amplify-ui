@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
@@ -18,7 +18,7 @@ describe('CheckboxField test suite', () => {
     return <CheckboxField {...props} />;
   };
   const ControlledCheckboxField = () => {
-    const [checked, setChecked] = useState(false);
+    const [checked, setChecked] = React.useState(false);
     return (
       <CheckboxField
         checked={checked}
@@ -37,6 +37,14 @@ describe('CheckboxField test suite', () => {
       ComponentClassNames.CheckboxField,
       className
     );
+  });
+
+  it('should forward ref to DOM element', async () => {
+    const ref = React.createRef<HTMLInputElement>();
+    render(<CheckboxField {...basicProps} ref={ref} />);
+
+    await screen.findByTestId(basicProps.testId);
+    expect(ref.current.nodeName).toBe('INPUT');
   });
 
   describe('Checkbox functionality', () => {

@@ -8,7 +8,7 @@ import {
   Heading,
   View,
   Text,
-  IconCopyAll,
+  IconContentCopy,
   Flex,
   Image,
 } from '@aws-amplify/ui-react';
@@ -105,7 +105,7 @@ const HomePage = ({ colorMode }) => {
               className="install-code"
               innerEndComponent={
                 <Button variation="link">
-                  <IconCopyAll /> Copy
+                  <IconContentCopy /> Copy
                 </Button>
               }
               value={`npm i @aws-amplify/ui-${framework}`}

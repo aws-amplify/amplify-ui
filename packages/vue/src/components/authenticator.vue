@@ -9,6 +9,7 @@ import {
   createAuthenticatorMachine,
   translate,
   CognitoUserAmplify,
+  SocialProvider,
 } from '@aws-amplify/ui';
 
 import SignIn from './sign-in.vue';
@@ -24,19 +25,26 @@ import ConfirmVerifyUser from './confirm-verify-user.vue';
 
 const attrs = useAttrs();
 
-const { initialState, loginMechanisms, variation, services, signUpAttributes } =
-  withDefaults(
-    defineProps<{
-      initialState?: AuthenticatorMachineOptions['initialState'];
-      loginMechanisms?: AuthenticatorMachineOptions['loginMechanisms'];
-      services?: AuthenticatorMachineOptions['services'];
-      signUpAttributes?: AuthenticatorMachineOptions['signUpAttributes'];
-      variation?: 'modal';
-    }>(),
-    {
-      variation: undefined,
-    }
-  );
+const {
+  initialState,
+  loginMechanisms,
+  variation,
+  services,
+  signUpAttributes,
+  socialProviders,
+} = withDefaults(
+  defineProps<{
+    initialState?: AuthenticatorMachineOptions['initialState'];
+    loginMechanisms?: AuthenticatorMachineOptions['loginMechanisms'];
+    services?: AuthenticatorMachineOptions['services'];
+    signUpAttributes?: AuthenticatorMachineOptions['signUpAttributes'];
+    variation?: 'modal';
+    socialProviders?: SocialProvider[];
+  }>(),
+  {
+    variation: undefined,
+  }
+);
 
 const emit = defineEmits([
   'signInSubmit',
@@ -55,6 +63,7 @@ const machine = createAuthenticatorMachine({
   loginMechanisms,
   services,
   signUpAttributes,
+  socialProviders,
 });
 
 const service = useInterpret(machine, {
@@ -240,13 +249,8 @@ watch(
             <slot name="sign-in-header"></slot>
           </template>
 
-          <template #footer="{ onSignInSubmit, onForgotPasswordClicked }">
-            <slot
-              name="sign-in-footer"
-              :onSignInSubmit="onSignInSubmit"
-              :onForgotPasswordClicked="onForgotPasswordClicked"
-            >
-            </slot>
+          <template #footer>
+            <slot name="sign-in-footer"> </slot>
           </template>
         </sign-in>
         <sign-up
@@ -264,9 +268,8 @@ watch(
             <slot name="sign-up-fields" :info="info"></slot>
           </template>
 
-          <template #footer="{ onSignUpSubmit }">
-            <slot name="sign-up-footer" :onSignUpSubmit="onSignUpSubmit">
-            </slot>
+          <template #footer>
+            <slot name="sign-up-footer"> </slot>
           </template>
         </sign-up>
 

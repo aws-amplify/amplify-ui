@@ -1,22 +1,24 @@
 import classNames from 'classnames';
+import * as React from 'react';
 
 import { ComponentClassNames } from '../shared/constants';
-import { CardProps, Primitive } from '../types';
+import { CardProps, PrimitiveWithForwardRef } from '../types';
 import { View } from '../View';
 
-export const Card: Primitive<CardProps, 'div'> = ({
-  className,
-  children,
-  variation,
-  ...rest
-}) => (
+const CardInner: PrimitiveWithForwardRef<CardProps, 'div'> = (
+  { className, children, variation, ...rest },
+  ref
+) => (
   <View
     className={classNames(ComponentClassNames.Card, className)}
     data-variation={variation}
+    ref={ref}
     {...rest}
   >
     {children}
   </View>
 );
+
+export const Card = React.forwardRef(CardInner);
 
 Card.displayName = 'Card';
