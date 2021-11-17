@@ -1,3 +1,8 @@
+/* Center by default */
+[data-amplify-authenticator] {
+  display: grid;
+}
+
 [data-amplify-authenticator][data-variation='modal'] {
   display: grid;
   width: 100vw;
