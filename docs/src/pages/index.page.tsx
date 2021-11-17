@@ -126,8 +126,8 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
           className="docs-home-angular"
           src="/svg/integrations/angular.svg"
         />
-        <Card padding={`${tokens.space.xl}`} variation="outlined">
-          <Text fontSize={`${tokens.fontSizes.xl}`}>
+        <Card padding={tokens.space.xl} variation="outlined">
+          <Text fontSize={tokens.fontSizes.xl}>
             Amplify UI is an open-source design system with cloud-connected
             components and primitives that simplify building accessible,
             performant, and beautiful applications in React, Angular, and Vue
@@ -162,10 +162,10 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
         </Card>
       </View>
       <View
-        backgroundColor={`${tokens.colors.background.secondary}`}
-        padding={`${tokens.space.xl}`}
+        backgroundColor={tokens.colors.background.secondary}
+        padding={tokens.space.xl}
       >
-        <Heading level={2} textAlign="center" margin={`${tokens.space.xl}`}>
+        <Heading level={2} textAlign="center" margin={tokens.space.xl}>
           Take it for a test drive
         </Heading>
         <Card style={{ width: '100%', padding: 0 }} variation="outlined">
@@ -185,7 +185,7 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
             }}
             customSetup={{
               dependencies: {
-                '@aws-amplify/ui-react': '0.0.0-next-5257a31-20211011212613',
+                '@aws-amplify/ui-react': 'next',
                 'aws-amplify': 'latest',
               },
               entry: '/index.js',
@@ -195,34 +195,6 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
       </View>
 
       <View as="section" className="docs-home-section">
-        <Flex
-          direction={{
-            base: 'column',
-            large: 'row',
-          }}
-        >
-          <Flex flex="1" direction="column" alignItems="flex-start">
-            <Heading level={2}>Primitive Components</Heading>
-            <Text className="docs-home-description">
-              Primitive components that create consistency across Amplify UI and
-              allow you to build complete applications that fit your brand, like
-              Buttons and Badges.
-            </Text>
-            <Button as="a" size="large" href="/components/authenticator">
-              Get started with components
-              <IconChevronRight />
-            </Button>
-          </Flex>
-
-          <HomePrimitivePreview />
-        </Flex>
-      </View>
-
-      <View
-        as="section"
-        className="docs-home-section"
-        backgroundColor={`${tokens.colors.background.secondary}`}
-      >
         <Flex
           direction={{
             base: 'column-reverse',
@@ -249,7 +221,7 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
       <View
         as="section"
         className="docs-home-section"
-        backgroundColor={`${tokens.colors.background.primary}`}
+        backgroundColor={tokens.colors.background.secondary}
       >
         <Flex
           direction={{
@@ -308,23 +280,70 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
         </Flex>
       </View>
 
+      <View as="section" className="docs-home-section">
+        <Flex
+          direction={{
+            base: 'column',
+            large: 'row',
+          }}
+        >
+          <HomePrimitivePreview />
+          <Flex flex="1" direction="column" alignItems="flex-start">
+            <Heading level={2}>Primitive Components</Heading>
+            <Text className="docs-home-description">
+              Primitive components that create consistency across Amplify UI and
+              allow you to build complete applications that fit your brand, like
+              Buttons and Badges.
+            </Text>
+            <Button as="a" size="large" href="/components/authenticator">
+              Get started with components
+              <IconChevronRight />
+            </Button>
+          </Flex>
+        </Flex>
+      </View>
+
       <View
         as="section"
         className="docs-home-section"
-        backgroundColor={`${tokens.colors.background.secondary}`}
+        backgroundColor={tokens.colors.background.secondary}
       >
-        <Heading level={2}>Accessibility</Heading>
-        <Text></Text>
+        <Flex
+          direction={{
+            base: 'column',
+            large: 'row',
+          }}
+        >
+          <View flex="1">
+            <Heading level={2}>Accessibility</Heading>
+            <Text className="docs-home-description">
+              Amplify UI components follow{' '}
+              <Link
+                isExternal
+                href="https://www.w3.org/WAI/standards-guidelines/wcag/"
+              >
+                WCAG
+              </Link>{' '}
+              and{' '}
+              <Link isExternal href="https://www.w3.org/TR/wai-aria-1.2/">
+                WAI-ARIA
+              </Link>{' '}
+              best practices and guidelines such as color contrast, keyboard
+              navigation, accessible labels, and focus management.
+            </Text>
+          </View>
+          <View flex="1"></View>
+        </Flex>
       </View>
 
       <View as="section" className="docs-home-section">
-        <Heading level={2} textAlign="center" margin={`${tokens.space.xl}`}>
+        <Heading level={2} textAlign="center" margin={tokens.space.xl}>
           Looking for other Amplify Products?
         </Heading>
         <Grid
           templateColumns="1fr 1fr"
           templateRows="1fr 1fr 1fr"
-          gap={`${tokens.space.medium}`}
+          gap={tokens.space.medium}
           flex="1"
         >
           <AmpCard
