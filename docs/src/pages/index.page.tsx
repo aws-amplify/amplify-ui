@@ -202,7 +202,9 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
           }}
         >
           <View flex="1" className="example">
-            <Authenticator />
+            <Authenticator
+              socialProviders={['amazon', 'apple', 'facebook', 'google']}
+            />
           </View>
           <Flex flex="1" direction="column" alignItems="flex-start">
             <Heading level={2}>Cloud-Connected Components</Heading>
