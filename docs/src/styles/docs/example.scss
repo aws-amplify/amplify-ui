@@ -2,6 +2,13 @@
   width: 100%;
 }
 
+.example [data-amplify-authenticator][data-variation='modal'] {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 5em;
+}
+
 .example pre {
   margin: 0;
 }
