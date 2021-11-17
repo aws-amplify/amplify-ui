@@ -25,7 +25,6 @@ describe('@aws-amplify/ui-react', () => {
           "ErrorText",
           "Expander",
           "ExpanderItem",
-          "FieldGroup",
           "FieldGroupIcon",
           "FieldGroupIconButton",
           "Fieldset",
