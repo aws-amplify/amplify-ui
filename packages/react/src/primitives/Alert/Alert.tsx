@@ -20,7 +20,6 @@ export const Alert: Primitive<AlertProps, typeof Flex> = ({
   gap,
   hasIcon = true,
   heading,
-  iconSize,
   isDismissible = false,
   justifyContent = 'space-between',
   onDismiss,
@@ -64,7 +63,7 @@ export const Alert: Primitive<AlertProps, typeof Flex> = ({
             className={ComponentClassNames.AlertDismiss}
             onClick={dismissAlert}
           >
-            <IconClose size={iconSize} />
+            <IconClose />
           </Button>
         )}
       </Flex>
