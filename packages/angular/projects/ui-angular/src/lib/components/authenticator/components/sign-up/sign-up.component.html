@@ -1,4 +1,4 @@
-<amplify-slot name="sign-up-header"></amplify-slot>
+<amplify-slot name="sign-up-header" [context]="context"></amplify-slot>
 
 <form data-amplify-form (submit)="onSubmit($event)" (input)="onInput($event)">
   <amplify-federated-sign-in></amplify-federated-sign-in>
@@ -29,4 +29,4 @@
   </div>
 </form>
 
-<amplify-slot name="sign-up-footer"> </amplify-slot>
+<amplify-slot name="sign-up-footer" [context]="context"> </amplify-slot>
