@@ -81,9 +81,8 @@ export class AuthenticatorComponent implements OnInit, AfterContentInit {
    */
 
   // context passed to "authenticated" slot
-  public get authenticatedContext() {
-    const { signOut, user } = this.authenticator;
-    return { signOut, user };
+  public get context() {
+    return this.authenticator.slotContext;
   }
 
   public get route() {

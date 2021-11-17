@@ -83,7 +83,7 @@
 <!-- signedIn content is rendered outside authenticator so it's not styled by authenticator -->
 <amplify-slot
   name="authenticated"
-  [context]="authenticatedContext"
+  [context]="slotContext"
   *ngIf="route === 'authenticated'"
 >
   <ng-content></ng-content>

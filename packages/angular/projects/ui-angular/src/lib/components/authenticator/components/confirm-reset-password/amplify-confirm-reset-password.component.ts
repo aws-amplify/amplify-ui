@@ -18,9 +18,7 @@ export class ConfirmResetPasswordComponent {
   constructor(public authenticator: AuthenticatorService) {}
 
   public get context() {
-    const { updateForm, resendCode, toSignIn, submitForm, error } =
-      this.authenticator;
-    return { updateForm, resendCode, toSignIn, submitForm, error };
+    return this.authenticator.slotContext;
   }
 
   onInput(event: Event) {

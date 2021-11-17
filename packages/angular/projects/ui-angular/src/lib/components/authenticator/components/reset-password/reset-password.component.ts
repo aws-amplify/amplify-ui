@@ -17,8 +17,7 @@ export class ResetPasswordComponent {
   constructor(public authenticator: AuthenticatorService) {}
 
   public get context() {
-    const { updateForm, toSignIn, submitForm, error } = this.authenticator;
-    return { updateForm, toSignIn, submitForm, error };
+    return this.authenticator.slotContext;
   }
 
   onInput(event: Event) {

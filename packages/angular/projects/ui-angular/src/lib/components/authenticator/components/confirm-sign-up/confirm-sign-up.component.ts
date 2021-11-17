@@ -17,16 +17,7 @@ export class ConfirmSignUpComponent {
   constructor(public authenticator: AuthenticatorService) {}
 
   public get context() {
-    const { updateForm, resendCode, isPending, submitForm, error } =
-      this.authenticator;
-
-    return {
-      updateForm,
-      resendCode,
-      isPending,
-      submitForm,
-      error,
-    };
+    return this.authenticator.slotContext;
   }
 
   onInput(event: Event) {
