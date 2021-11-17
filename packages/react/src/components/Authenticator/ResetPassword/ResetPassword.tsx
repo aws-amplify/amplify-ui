@@ -1,11 +1,14 @@
-import { translate } from '@aws-amplify/ui';
+import { getAliasInfoFromContext, translate } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '..';
 import { Flex, Form, Heading, TextField } from '../../..';
 import { RemoteErrorMessage, TwoButtonSubmitFooter } from '../shared';
 
 export const ResetPassword = (): JSX.Element => {
-  const { isPending, submitForm, updateForm } = useAuthenticator();
+  const { isPending, submitForm, updateForm, _state } = useAuthenticator();
+
+  const { label } = getAliasInfoFromContext(_state.context);
+  const labelText = `Enter your ${label.toLowerCase()}`;
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     let { checked, name, type, value } = event.target;
@@ -33,7 +36,7 @@ export const ResetPassword = (): JSX.Element => {
           <TextField
             autoComplete="username"
             name="username"
-            placeholder={translate('Enter your username')}
+            placeholder={translate<string>(labelText)}
             label={translate('Enter your username')}
             labelHidden={true}
             required={true}
