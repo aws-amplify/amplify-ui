@@ -20,19 +20,19 @@ import { Logo } from '@/components/Logo';
 import { FrameworkChooser } from './FrameworkChooser';
 
 const NavLink = ({ href, children, isExternal = false }) => {
-  const router = useRouter();
-  const isCurrent = router.pathname.startsWith(href);
+  const { pathname, query } = useRouter();
+  const isCurrent = pathname.startsWith(href);
   const className = `docs-nav-link ${isCurrent ? 'current' : ''}`;
 
   if (isExternal) {
     return (
-      <Link isExternal className={className}>
+      <Link isExternal href={href} className={className}>
         {children}
       </Link>
     );
   }
   return (
-    <NextLink href={href}>
+    <NextLink href={{ pathname: href, query }}>
       <a className={className}>{children}</a>
     </NextLink>
   );
@@ -75,12 +75,12 @@ export const Header = ({ platform, colorMode, setColorMode }) => {
           <Button className="docs-header-menu-button" size="small">
             <IconMenu />
           </Button>
-          <NextLink href="/">
+          <NavLink href="/">
             <a className="docs-logo-link">
               <VisuallyHidden>Amplify UI Home</VisuallyHidden>
               <Logo />
             </a>
-          </NextLink>
+          </NavLink>
 
           <Flex as="nav" className="docs-nav" alignItems="center" gap="0">
             <NavLink href="/getting-started/installation">

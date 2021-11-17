@@ -22,11 +22,11 @@ const NavLinks = ({ items }: { items: ComponentNavItem[] }) => (
 );
 
 const NavLink = ({ href, children }) => {
-  const { pathname } = useRouter();
+  const { pathname, query } = useRouter();
   const isCurrent = pathname === href;
 
   return (
-    <Link href={href}>
+    <Link href={{ pathname: href, query }}>
       <a className={`docs-secondary-nav-link ${isCurrent ? 'current' : ''}`}>
         {children}
       </a>
