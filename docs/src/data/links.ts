@@ -116,7 +116,7 @@ export const layoutComponents = [
   { href: '/components/flex', label: 'Flex', body: `` },
   { href: '/components/grid', label: 'Grid', body: `` },
   { href: '/components/table', label: 'Table', body: `` },
-  { href: '/components/expander', label: 'Table', body: `` },
+  { href: '/components/expander', label: 'Expander', body: `` },
 ].sort(sortByLabel);
 
 export const navigationComponents: ComponentNavItem[] = [
