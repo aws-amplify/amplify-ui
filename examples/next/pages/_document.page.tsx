@@ -10,7 +10,6 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <title>React Example App</title>
           <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" />
@@ -20,7 +19,8 @@ class MyDocument extends Document {
           />
         </Head>
         <body>
-          <h1>React Example</h1>
+          <title>React Example App</title>
+          <h1>React Example App</h1>
 
           <Main />
           <NextScript />
