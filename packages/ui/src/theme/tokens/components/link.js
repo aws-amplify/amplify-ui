@@ -16,6 +16,6 @@ module.exports = {
     fontSize: { value: '{fontSizes.small.value}' },
   },
   visited: {
-    color: { value: '{colors.font.tertiary.value}' },
+    color: { value: '{colors.font.interactive.value}' },
   },
 };
