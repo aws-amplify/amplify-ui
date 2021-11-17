@@ -18,8 +18,6 @@ export function SignUp() {
     },
   } = components;
 
-  console.log({ components });
-
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     let { checked, name, type, value } = event.target;
     if (type === 'checkbox' && !checked) value = undefined;
