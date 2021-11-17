@@ -46,10 +46,9 @@ export const TablePropControls: TablePropControlsInterface = ({
       name="highlightonhover"
       value="false"
       checked={highlightOnHover}
+      label="highlightOnHover"
       onChange={(e) => setHighlightOnHover(e.target.checked)}
-    >
-      highlightOnHover
-    </CheckboxField>
+    />
     <FieldLabeler id="size">
       <SelectField
         id="size"
