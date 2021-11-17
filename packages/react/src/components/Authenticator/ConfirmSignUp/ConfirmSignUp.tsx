@@ -2,7 +2,7 @@ import { translate } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '../..';
 import { Button, Flex, Heading } from '../../..';
-import { isInputTarget } from '../../../helpers/utils';
+import { isInputEventTarget } from '../../../helpers/utils';
 
 import {
   ConfirmationCodeInput,
@@ -14,7 +14,7 @@ export function ConfirmSignUp() {
   const { isPending, resendCode, submitForm, updateForm } = useAuthenticator();
 
   const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
-    if (isInputTarget(event.target)) {
+    if (isInputEventTarget(event.target)) {
       let { checked, name, type, value } = event.target;
       if (type === 'checkbox' && !checked) value = undefined;
 

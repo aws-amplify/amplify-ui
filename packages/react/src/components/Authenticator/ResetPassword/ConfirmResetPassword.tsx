@@ -11,7 +11,7 @@ import {
   RemoteErrorMessage,
   TwoButtonSubmitFooter,
 } from '../shared';
-import { isInputTarget } from '../../../helpers/utils';
+import { isInputEventTarget } from '../../../helpers/utils';
 
 export const ConfirmResetPassword = (): JSX.Element => {
   const { _state, submitForm, updateForm } = useAuthenticator();
@@ -22,7 +22,7 @@ export const ConfirmResetPassword = (): JSX.Element => {
   const confirmPasswordLabel = translate('Confirm Password');
 
   const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
-    if (isInputTarget(event.target)) {
+    if (isInputEventTarget(event.target)) {
       let { checked, name, type, value } = event.target;
       if (type === 'checkbox' && !checked) value = undefined;
 

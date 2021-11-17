@@ -9,7 +9,7 @@ import {
 import { useAuthenticator } from '..';
 import { Flex, Heading } from '../../..';
 import { ConfirmationCodeInput, ConfirmSignInFooter } from '../shared';
-import { isInputTarget } from '../../../helpers/utils';
+import { isInputEventTarget } from '../../../helpers/utils';
 
 export const ConfirmSignIn = (): JSX.Element => {
   const { _state, error, submitForm, updateForm } = useAuthenticator();
@@ -31,7 +31,7 @@ export const ConfirmSignIn = (): JSX.Element => {
       );
   }
   const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
-    if (isInputTarget(event.target)) {
+    if (isInputEventTarget(event.target)) {
       let { checked, name, type, value } = event.target;
       if (type === 'checkbox' && !checked) value = undefined;
 

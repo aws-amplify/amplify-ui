@@ -2,7 +2,7 @@ import { getActorContext, SignInContext, translate } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '..';
 import { Button, Flex, Heading, PasswordField, Text } from '../../..';
-import { isInputTarget } from '../../../helpers/utils';
+import { isInputEventTarget } from '../../../helpers/utils';
 
 export const ForceNewPassword = (): JSX.Element => {
   const { _state, error, isPending, toSignIn, submitForm, updateForm } =
@@ -10,7 +10,7 @@ export const ForceNewPassword = (): JSX.Element => {
   const { validationError } = getActorContext(_state) as SignInContext;
 
   const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
-    if (isInputTarget(event.target)) {
+    if (isInputEventTarget(event.target)) {
       let { checked, name, type, value } = event.target;
       if (type === 'checkbox' && !checked) value = undefined;
 
