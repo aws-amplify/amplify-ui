@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
@@ -103,6 +104,20 @@ describe('SelectField test suite', () => {
 
       const select = await screen.findByRole(role);
       expect(select).toHaveAttribute('id', id);
+    });
+
+    it('should forward ref to DOM element', async () => {
+      const ref = React.createRef<HTMLSelectElement>();
+      render(
+        <SelectField id={id} label={label} ref={ref}>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+        </SelectField>
+      );
+
+      await screen.findByRole(role);
+      expect(ref.current.nodeName).toBe('SELECT');
     });
 
     it('should render labeled select field when id is provided', async () => {
