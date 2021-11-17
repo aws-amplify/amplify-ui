@@ -358,8 +358,8 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
           />
           <AmpCard
             href="https://docs.amplify.aws/console/"
-            title="Amplify Console"
-            description="AWS service for creating an app backend and hosting full-stack web apps."
+            title="Amplify Hosting"
+            description="Fully managed web hosting with full-stack CI/CD."
           />
           <AmpCard
             href="https://docs.amplify.aws/console/adminui/intro/"
