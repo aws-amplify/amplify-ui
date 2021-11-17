@@ -1,6 +1,7 @@
 name: Publish to @liveness
 
 on:
+  workflow_dispatch:
   workflow_run:
     workflows: ['Liveness Tests']
     types:
@@ -19,11 +20,13 @@ jobs:
     #
     # https://github.community/t/workflow-run-not-working-as-expected/139342
     if: |
-      github.event.workflow_run.conclusion == 'success' &&
-      github.event.workflow_run.head_branch == 'liveness-main'
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'liveness-main')
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
+        with:
+          ref: 'liveness-main'
       - name: Setup Node.js LTS
         uses: actions/setup-node@v2
         with:
