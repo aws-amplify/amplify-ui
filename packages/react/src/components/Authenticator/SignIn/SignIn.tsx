@@ -4,7 +4,7 @@ import { useAuthenticator } from '..';
 import { Button, Flex, PasswordField, View } from '../../..';
 import { FederatedSignIn } from '../FederatedSignIn';
 import { RemoteErrorMessage, UserNameAlias } from '../shared';
-import { isInputEventTarget } from '../../../helpers/utils';
+import { isInputElement, isInputOrSelectElement } from '../../../helpers/utils';
 
 export function SignIn() {
   const {
@@ -17,9 +17,15 @@ export function SignIn() {
   } = useAuthenticator();
 
   const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
-    if (isInputEventTarget(event.target)) {
-      let { checked, name, type, value } = event.target;
-      if (type === 'checkbox' && !checked) value = undefined;
+    if (isInputOrSelectElement(event.target)) {
+      let { name, type, value } = event.target;
+      if (
+        isInputElement(event.target) &&
+        type === 'checkbox' &&
+        !event.target.checked
+      ) {
+        value = undefined;
+      }
 
       updateForm({ name, value });
     }

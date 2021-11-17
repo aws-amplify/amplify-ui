@@ -5,7 +5,7 @@ import { Button, Flex, View } from '../../..';
 import { FederatedSignIn } from '../FederatedSignIn';
 import { RemoteErrorMessage } from '../shared';
 import { FormFields } from './FormFields';
-import { isInputEventTarget } from '../../../helpers/utils';
+import { isInputOrSelectElement, isInputElement } from '../../../helpers/utils';
 
 export function SignUp() {
   const { components, hasValidationErrors, isPending, submitForm, updateForm } =
@@ -22,9 +22,15 @@ export function SignUp() {
   console.log({ components });
 
   const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
-    if (isInputEventTarget(event.target)) {
-      let { checked, name, type, value } = event.target;
-      if (type === 'checkbox' && !checked) value = undefined;
+    if (isInputOrSelectElement(event.target)) {
+      let { name, type, value } = event.target;
+      if (
+        isInputElement(event.target) &&
+        type === 'checkbox' &&
+        !event.target.checked
+      ) {
+        value = undefined;
+      }
 
       updateForm({ name, value });
     }

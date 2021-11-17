@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 
 import { useAuthenticator } from '..';
 import { Flex, Heading, Image } from '../../..';
-import { isInputEventTarget } from '../../../helpers/utils';
+import { isInputOrSelectElement, isInputElement } from '../../../helpers/utils';
 
 import {
   ConfirmationCodeInput,
@@ -47,9 +47,15 @@ export const SetupTOTP = (): JSX.Element => {
   }, [user]);
 
   const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
-    if (isInputEventTarget(event.target)) {
-      let { checked, name, type, value } = event.target;
-      if (type === 'checkbox' && !checked) value = undefined;
+    if (isInputOrSelectElement(event.target)) {
+      let { name, type, value } = event.target;
+      if (
+        isInputElement(event.target) &&
+        type === 'checkbox' &&
+        !event.target.checked
+      ) {
+        value = undefined;
+      }
 
       updateForm({ name, value });
     }
