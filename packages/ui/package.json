@@ -38,7 +38,7 @@
     "@tensorflow/tfjs-backend-webgl": "^3.9.0",
     "@tensorflow/tfjs-converter": "^3.9.0",
     "@tensorflow/tfjs-core": "^3.9.0",
-    "aws-sdk-liveness": "./aws-sdk-2.1006.0-liveness.3.tgz",
+    "aws-sdk-liveness": "./aws-sdk-2.1006.0-liveness.4.tgz",
     "lodash": "^4.17.21",
     "style-dictionary": "^3.0.1",
     "xstate": "^4.20.1"
