@@ -49,7 +49,7 @@ export function Router({
         <View data-amplify-container="">
           <Header />
 
-          <View data-amplify-body="">
+          <View data-amplify-router="">
             {(() => {
               switch (route) {
                 case 'idle':

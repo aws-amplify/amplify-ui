@@ -77,7 +77,6 @@ export function SignIn() {
           </Button>
         </Flex>
       </form>
-
       <Footer />
     </View>
   );
@@ -88,7 +87,7 @@ SignIn.Footer = () => {
   const { toResetPassword } = useAuthenticator();
 
   return (
-    <View textAlign="center">
+    <View data-amplify-footer="">
       <Button
         fontWeight="normal"
         onClick={toResetPassword}

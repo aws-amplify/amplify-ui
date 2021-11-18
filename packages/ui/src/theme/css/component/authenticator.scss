@@ -42,14 +42,13 @@
   }
 }
 
-[data-amplify-authenticator] [data-amplify-container] > {
-  [data-amplify-header],
-  [data-amplify-footer] {
-    text-align: center;
-  }
+// footers inside each screen should have some margin below it
+[data-amplify-authenticator] [data-amplify-router] [data-amplify-footer] {
+  padding-bottom: var(--amplify-space-medium);
+  text-align: center;
 }
 
-[data-amplify-authenticator] [data-amplify-container] > [data-amplify-body] {
+[data-amplify-authenticator] [data-amplify-router] {
   background-color: var(--amplify-colors-background-primary);
   box-shadow: var(--amplify-shadows-medium);
 }
