@@ -1392,12 +1392,8 @@ describe('@aws-amplify/ui-react', () => {
           "View",
           "VisuallyHidden",
           "components",
-          "createDataStorePredicate",
           "createTheme",
           "defaultTheme",
-          "findChildOverrides",
-          "getOverrideProps",
-          "getOverridesFromVariants",
           "primitives",
           "useAmplify",
           "useAuthenticator",
@@ -1437,6 +1433,10 @@ describe('@aws-amplify/ui-react/internal', () => {
     it('should match snapshot', () => {
       expect(Object.keys(internal)).toMatchInlineSnapshot(`
         Array [
+          "createDataStorePredicate",
+          "findChildOverrides",
+          "getOverrideProps",
+          "getOverridesFromVariants",
           "useAuth",
           "useDataStoreBinding",
           "useDataStoreCollection",
