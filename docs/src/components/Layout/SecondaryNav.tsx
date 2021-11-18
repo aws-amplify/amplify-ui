@@ -16,7 +16,11 @@ import {
 
 const NavLinks = ({ items }: { items: ComponentNavItem[] }) => (
   <Collection type="list" items={items} gap="0">
-    {({ href, label }) => <NavLink href={href}>{label}</NavLink>}
+    {({ href, label }) => (
+      <NavLink key={label} href={href}>
+        {label}
+      </NavLink>
+    )}
   </Collection>
 );
 
