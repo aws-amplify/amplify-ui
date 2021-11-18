@@ -2,22 +2,11 @@
   width: 100%;
 }
 
-/* Inline the Authenticator instead of full-screen */
-.example [data-amplify-authenticator] {
+.example [data-amplify-authenticator][data-variation='modal'] {
   position: relative;
   width: 100%;
-  height: auto;
-
-  /* Don't go on top of docs' nav */
-  z-index: auto;
-
-  /* Allow space for shadows */
-  padding: 1rem;
-}
-
-.example [data-amplify-authenticator] [data-authenticator-variation='modal'] {
-  /* Hide the modal texture */
-  display: none;
+  height: 100%;
+  padding: 5em;
 }
 
 .example pre {
@@ -39,7 +28,7 @@
 .docs-component-demo {
   width: 100%;
   margin-bottom: var(--amplify-space-large);
-  
+
   & .example-copy-button {
     bottom: var(--amplify-space-small);
     top: auto;

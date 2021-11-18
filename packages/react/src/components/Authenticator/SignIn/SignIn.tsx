@@ -1,9 +1,10 @@
 import { translate } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '..';
-import { Button, Flex, Form, Heading, PasswordField, View } from '../../..';
+import { Button, Flex, PasswordField, View } from '../../..';
 import { FederatedSignIn } from '../FederatedSignIn';
 import { RemoteErrorMessage, UserNameAlias } from '../shared';
+import { isInputElement, isInputOrSelectElement } from '../../../helpers/utils';
 
 export function SignIn() {
   const {
@@ -15,11 +16,19 @@ export function SignIn() {
     updateForm,
   } = useAuthenticator();
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    let { checked, name, type, value } = event.target;
-    if (type === 'checkbox' && !checked) value = undefined;
+  const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
+    if (isInputOrSelectElement(event.target)) {
+      let { name, type, value } = event.target;
+      if (
+        isInputElement(event.target) &&
+        type === 'checkbox' &&
+        !event.target.checked
+      ) {
+        value = undefined;
+      }
 
-    updateForm({ name, value });
+      updateForm({ name, value });
+    }
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -31,7 +40,8 @@ export function SignIn() {
     <View>
       <Header />
 
-      <Form
+      <form
+        data-amplify-form=""
         data-amplify-authenticator-signin=""
         method="post"
         onSubmit={handleSubmit}
@@ -56,19 +66,17 @@ export function SignIn() {
           <RemoteErrorMessage />
 
           <Button
-            borderRadius={0}
             isDisabled={isPending}
             isFullWidth={true}
             type="submit"
             variation="primary"
             isLoading={isPending}
             loadingText={translate('Signing in')}
-            fontWeight="normal"
           >
             {translate('Sign in')}
           </Button>
         </Flex>
-      </Form>
+      </form>
 
       <Footer />
     </View>

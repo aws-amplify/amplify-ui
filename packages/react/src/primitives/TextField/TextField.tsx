@@ -1,3 +1,4 @@
+import * as React from 'react';
 import classNames from 'classnames';
 
 import { ComponentClassNames } from '../shared/constants';
@@ -8,25 +9,20 @@ import { Flex } from '../Flex';
 import { Input } from '../Input';
 import { Label } from '../Label';
 import { PrimitiveProps, TextFieldProps } from '../types';
+import {
+  isTextAreaField,
+  isInputField,
+  isInputRef,
+  isTextAreaRef,
+} from './utils';
 import { TextArea } from '../TextArea';
 import { useStableId } from '../shared/utils';
 
-const isTextAreaField = (props: {
-  isMultiline?: boolean;
-}): props is PrimitiveProps<TextFieldProps<true>, 'textarea'> => {
-  return props.isMultiline;
-};
-
-const isInputField = (props: {
-  isMultiline?: boolean;
-}): props is PrimitiveProps<TextFieldProps<false>, 'input'> => {
-  return !props.isMultiline;
-};
-
 export const DEFAULT_ROW_COUNT = 3;
 
-export const TextField = <Multiline extends boolean>(
-  props: PrimitiveProps<TextFieldProps<Multiline>, 'input' | 'textarea'>
+const TextFieldPrimitive = <Multiline extends boolean>(
+  props: PrimitiveProps<TextFieldProps<Multiline>, 'input' | 'textarea'>,
+  ref: React.ForwardedRef<HTMLTextAreaElement | HTMLInputElement>
 ) => {
   const {
     className,
@@ -59,6 +55,7 @@ export const TextField = <Multiline extends boolean>(
       <TextArea
         hasError={hasError}
         id={fieldId}
+        ref={isTextAreaRef(props, ref) ? ref : undefined}
         rows={rows ?? DEFAULT_ROW_COUNT}
         size={size}
         {...baseStyleProps}
@@ -71,6 +68,7 @@ export const TextField = <Multiline extends boolean>(
       <Input
         hasError={hasError}
         id={fieldId}
+        ref={isInputRef(props, ref) ? ref : undefined}
         size={size}
         type={type}
         {...baseStyleProps}
@@ -110,4 +108,16 @@ export const TextField = <Multiline extends boolean>(
   );
 };
 
-TextField.displayName = 'TextField';
+export const TextField = React.forwardRef(TextFieldPrimitive) as <
+  Multiline extends boolean
+>(
+  props: PrimitiveProps<TextFieldProps<Multiline>, 'input' | 'textarea'> & {
+    ref?: React.ForwardedRef<HTMLInputElement | HTMLTextAreaElement>;
+  }
+) => ReturnType<typeof TextFieldPrimitive>;
+
+// Note: we cannot add the displayName to the higher level primitive because
+// the function type expression syntax used in assertion on TextField doesn’t allow for declaring properties.
+// We need to use the function type syntax above to allow higher order function type inference,
+// So I'm adding it to the inner primitive instead
+TextFieldPrimitive.displayName = 'TextField';

@@ -1,25 +1,44 @@
 .amplify-alert {
   background-color: var(--amplify-components-alert-background-color);
-  padding: var(--amplify-components-alert-padding-vertical)
-    var(--amplify-components-alert-padding-horizontal);
+  padding-block: var(--amplify-components-alert-padding-block);
+  padding-inline: var(--amplify-components-alert-padding-inline);
 
   &[data-variation='info'] {
+    color: var(--amplify-components-alert-info-color);
     background-color: var(--amplify-components-alert-info-background-color);
   }
 
   &[data-variation='error'] {
+    color: var(--amplify-components-alert-error-color);
     background-color: var(--amplify-components-alert-error-background-color);
   }
 
   &[data-variation='warning'] {
+    color: var(--amplify-components-alert-warning-color);
     background-color: var(--amplify-components-alert-warning-background-color);
   }
 
   &[data-variation='success'] {
+    color: var(--amplify-components-alert-success-color);
     background-color: var(--amplify-components-alert-success-background-color);
   }
 }
 
-.amplify-alert-heading {
+.amplify-alert__icon {
+  font-size: var(--amplify-components-alert-icon-size);
+}
+
+.amplify-alert__heading {
+  display: block;
+  font-weight: var(--amplify-components-alert-heading-font-weight);
+  font-size: var(--amplify-components-alert-heading-font-size);
+}
+
+.amplify-alert__body {
+  color: inherit;
+  display: block;
+}
+
+.amplify-button.amplify-alert__dismiss {
   color: inherit;
 }

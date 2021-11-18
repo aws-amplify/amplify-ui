@@ -82,7 +82,7 @@ export const Header = ({ platform, colorMode, setColorMode }) => {
             </a>
           </NextLink>
 
-          <Flex as="nav" className="docs-nav" gap="0">
+          <Flex as="nav" className="docs-nav" alignItems="center" gap="0">
             <NavLink href="/getting-started/installation">
               Getting started
             </NavLink>

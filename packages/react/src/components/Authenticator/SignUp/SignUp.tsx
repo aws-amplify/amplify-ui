@@ -1,10 +1,11 @@
 import { translate } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '..';
-import { Button, Flex, Form, View } from '../../..';
+import { Button, Flex, View } from '../../..';
 import { FederatedSignIn } from '../FederatedSignIn';
 import { RemoteErrorMessage } from '../shared';
 import { FormFields } from './FormFields';
+import { isInputOrSelectElement, isInputElement } from '../../../helpers/utils';
 
 export function SignUp() {
   const { components, hasValidationErrors, isPending, submitForm, updateForm } =
@@ -20,11 +21,19 @@ export function SignUp() {
 
   console.log({ components });
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    let { checked, name, type, value } = event.target;
-    if (type === 'checkbox' && !checked) value = undefined;
+  const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
+    if (isInputOrSelectElement(event.target)) {
+      let { name, type, value } = event.target;
+      if (
+        isInputElement(event.target) &&
+        type === 'checkbox' &&
+        !event.target.checked
+      ) {
+        value = undefined;
+      }
 
-    updateForm({ name, value });
+      updateForm({ name, value });
+    }
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -36,7 +45,8 @@ export function SignUp() {
     <View>
       <Header />
 
-      <Form
+      <form
+        data-amplify-form=""
         data-amplify-authenticator-signup=""
         method="post"
         onChange={handleChange}
@@ -63,7 +73,7 @@ export function SignUp() {
             {translate('Create Account')}
           </Button>
         </Flex>
-      </Form>
+      </form>
 
       <Footer />
     </View>

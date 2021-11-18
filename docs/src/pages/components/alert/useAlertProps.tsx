@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { AlertPropControlsProps } from './AlertPropControls';
 
 interface UseAlertProps {
-  (initialValues: AlertProps): AlertPropControlsProps;
+  (initialValues: AlertProps & { body: string }): AlertPropControlsProps;
 }
 
 export const useAlertProps: UseAlertProps = (initialValues) => {
@@ -13,17 +13,11 @@ export const useAlertProps: UseAlertProps = (initialValues) => {
   const [isDismissible, setIsDismissible] = useState<
     AlertProps['isDismissible']
   >(initialValues.isDismissible);
-  const [iconSize, setIconSize] = useState<AlertProps['iconSize']>(
-    initialValues.iconSize
-  );
   const [hasIcon, setHasIcon] = useState<AlertProps['hasIcon']>(
     initialValues.hasIcon
   );
   const [heading, setHeading] = useState<AlertProps['heading']>(
     initialValues.heading
-  );
-  const [headingLevel, setHeadingLevel] = useState<AlertProps['headingLevel']>(
-    initialValues.headingLevel
   );
   const [body, setBody] = useState<string>(initialValues.body);
 
@@ -32,14 +26,10 @@ export const useAlertProps: UseAlertProps = (initialValues) => {
     setVariation,
     isDismissible,
     setIsDismissible,
-    iconSize,
-    setIconSize,
     hasIcon,
     setHasIcon,
     heading,
     setHeading,
-    headingLevel,
-    setHeadingLevel,
     body,
     setBody,
   };

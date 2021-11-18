@@ -16,6 +16,7 @@ export function Authenticator({
   services,
   signUpAttributes,
   socialProviders,
+  variation,
 }: AuthenticatorProps) {
   return (
     <Provider
@@ -26,7 +27,7 @@ export function Authenticator({
       signUpAttributes={signUpAttributes}
       socialProviders={socialProviders}
     >
-      <Router className={className} children={children} />
+      <Router className={className} children={children} variation={variation} />
     </Provider>
   );
 }

@@ -53,6 +53,22 @@ describe('SliderField: ', () => {
       );
     });
 
+    it('should forward ref to DOM element', async () => {
+      const ref = React.createRef<HTMLSpanElement>();
+      const testId = 'sliderTestId';
+      render(
+        <SliderField
+          defaultValue={0}
+          label="slider"
+          ref={ref}
+          testId={testId}
+        />
+      );
+
+      await screen.findByTestId(testId);
+      expect(ref.current.nodeName).toBe('SPAN');
+    });
+
     it('should have `sr-only` class when labelHidden is true', async () => {
       render(
         <SliderField defaultValue={0} label="slider" labelHidden={true} />

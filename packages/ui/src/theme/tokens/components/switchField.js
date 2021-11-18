@@ -33,12 +33,12 @@ module.exports = {
     width: { value: '{space.relative.medium.value}' },
   },
   track: {
-    background: { value: '{colors.neutral.40.value}' },
+    backgroundColor: { value: '{colors.background.tertiary.value}' },
     border: {
       radius: { value: '{radii.xxxl.value}' },
     },
     checked: {
-      background: { value: '{colors.blue.40.value}' },
+      backgroundColor: { value: '{colors.brand.primary.600.value}' },
     },
     height: { value: '{space.relative.medium.value}' },
     padding: { value: '{outlineWidths.medium.value}' },
