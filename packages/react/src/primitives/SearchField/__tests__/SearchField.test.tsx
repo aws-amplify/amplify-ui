@@ -2,7 +2,8 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { SearchField } from '../SearchField';
-import { ComponentClassNames, SharedText } from '../../shared';
+import { ComponentClassNames } from '../../shared';
+import { SharedText } from '../../shared/i18n';
 
 const label = 'Search Amplify UI';
 const searchButtonLabel = SharedText.SearchField.ariaLabel.search;
