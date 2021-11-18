@@ -38,6 +38,11 @@ export const baseComponents: ComponentNavItem[] = [
     label: 'Divider',
     body: ``,
   },
+  {
+    href: '/components/scrollview',
+    label: 'Scrollview',
+    body: ``,
+  },
 ].sort(sortByLabel);
 
 export const connectedComponents = [
@@ -89,6 +94,7 @@ export const feedbackComponents: ComponentNavItem[] = [
 export const inputComponents = [
   { href: '/components/textfield', label: 'Text Field', body: `` },
   { href: '/components/selectfield', label: 'Select Field', body: `` },
+  { href: '/components/sliderfield', label: 'Slider Field', body: `` },
   { href: '/components/stepperfield', label: 'Stepper Field', body: `` },
   { href: '/components/searchfield', label: 'Search Field', body: `` },
   { href: '/components/passwordfield', label: 'Password Field', body: `` },
@@ -110,6 +116,7 @@ export const layoutComponents = [
   { href: '/components/flex', label: 'Flex', body: `` },
   { href: '/components/grid', label: 'Grid', body: `` },
   { href: '/components/table', label: 'Table', body: `` },
+  { href: '/components/expander', label: 'Expander', body: `` },
 ].sort(sortByLabel);
 
 export const navigationComponents: ComponentNavItem[] = [
@@ -133,19 +140,6 @@ export const navigationComponents: ComponentNavItem[] = [
 export const utilityComponents = [
   { href: '/components/visuallyhidden', label: 'Visually Hidden', body: `` },
 ].sort(sortByLabel);
-
-export const reactHooks = [
-  {
-    href: '/hooks/auth',
-    label: 'Authentication',
-    body: 'Get current authenticated user data',
-  },
-  {
-    href: '/hooks/datastore',
-    label: 'DataStore',
-    body: 'Computes a signed URL for an Amplify Storage file',
-  },
-];
 
 export const DISCORD = 'https://discord.gg/amplify';
 export const COMMUNITY = 'https://amplify.aws/community';

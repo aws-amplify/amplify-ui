@@ -22,9 +22,7 @@ export class SignInComponent {
   constructor(public authenticator: AuthenticatorService) {}
 
   public get context() {
-    const { updateForm, toResetPassword, toSignUp, submitForm, error } =
-      this.authenticator;
-    return { updateForm, toResetPassword, toSignUp, submitForm, error };
+    return this.authenticator.slotContext;
   }
 
   onInput(event: Event) {

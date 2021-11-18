@@ -7,8 +7,9 @@ import {
 } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '..';
-import { Flex, Form, Heading } from '../../..';
+import { Flex, Heading } from '../../..';
 import { ConfirmationCodeInput, ConfirmSignInFooter } from '../shared';
+import { isInputOrSelectElement, isInputElement } from '../../../helpers/utils';
 
 export const ConfirmSignIn = (): JSX.Element => {
   const { _state, error, submitForm, updateForm } = useAuthenticator();
@@ -29,12 +30,19 @@ export const ConfirmSignIn = (): JSX.Element => {
         `Unexpected challengeName encountered in ConfirmSignIn: ${challengeName}`
       );
   }
+  const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
+    if (isInputOrSelectElement(event.target)) {
+      let { name, type, value } = event.target;
+      if (
+        isInputElement(event.target) &&
+        type === 'checkbox' &&
+        !event.target.checked
+      ) {
+        value = undefined;
+      }
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    let { checked, name, type, value } = event.target;
-    if (type === 'checkbox' && !checked) value = undefined;
-
-    updateForm({ name, value });
+      updateForm({ name, value });
+    }
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -43,7 +51,8 @@ export const ConfirmSignIn = (): JSX.Element => {
   };
 
   return (
-    <Form
+    <form
+      data-amplify-form=""
       data-amplify-authenticator-confirmsignin=""
       method="post"
       onChange={handleChange}
@@ -58,6 +67,6 @@ export const ConfirmSignIn = (): JSX.Element => {
 
         <ConfirmSignInFooter />
       </Flex>
-    </Form>
+    </form>
   );
 };

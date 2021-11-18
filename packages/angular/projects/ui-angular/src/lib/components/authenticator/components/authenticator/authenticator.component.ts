@@ -29,7 +29,7 @@ export class AuthenticatorComponent implements OnInit, AfterContentInit {
   @Input() services: AuthenticatorMachineOptions['services'];
   @Input() signUpAttributes: AuthenticatorMachineOptions['signUpAttributes'];
   @Input() socialProviders: SocialProvider[];
-  @Input() variation: 'modal' | undefined;
+  @Input() variation: 'default' | 'modal';
 
   @ContentChildren(AmplifySlotDirective)
   private customComponentQuery: QueryList<AmplifySlotDirective> = null;
@@ -81,17 +81,12 @@ export class AuthenticatorComponent implements OnInit, AfterContentInit {
    */
 
   // context passed to "authenticated" slot
-  public get authenticatedContext() {
-    const { signOut, user } = this.authenticator;
-    return { signOut, user };
+  public get context() {
+    return this.authenticator.slotContext;
   }
 
   public get route() {
     return this.authenticator.route;
-  }
-
-  public get variationModal() {
-    return this.variation === 'modal';
   }
 
   public onTabChange() {

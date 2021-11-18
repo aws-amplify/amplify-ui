@@ -55,12 +55,20 @@ describe('@aws-amplify/ui', () => {
     it('should match snapshot', () => {
       expect(themeWithOverrides.cssText).toMatchInlineSnapshot(`
         "[data-amplify-theme=\\"test-theme\\"] {
+        --amplify-components-alert-color: var(--amplify-colors-font-primary);
         --amplify-components-alert-background-color: var(--amplify-colors-background-tertiary);
-        --amplify-components-alert-padding-vertical: var(--amplify-space-small);
-        --amplify-components-alert-padding-horizontal: var(--amplify-space-medium);
+        --amplify-components-alert-padding-block: var(--amplify-space-small);
+        --amplify-components-alert-padding-inline: var(--amplify-space-medium);
+        --amplify-components-alert-icon-size: var(--amplify-font-sizes-xl);
+        --amplify-components-alert-heading-font-size: var(--amplify-font-sizes-medium);
+        --amplify-components-alert-heading-font-weight: var(--amplify-font-weights-bold);
+        --amplify-components-alert-info-color: var(--amplify-colors-font-info);
         --amplify-components-alert-info-background-color: var(--amplify-colors-background-info);
+        --amplify-components-alert-error-color: var(--amplify-colors-font-error);
         --amplify-components-alert-error-background-color: var(--amplify-colors-background-error);
+        --amplify-components-alert-warning-color: var(--amplify-colors-font-warning);
         --amplify-components-alert-warning-background-color: var(--amplify-colors-background-warning);
+        --amplify-components-alert-success-color: var(--amplify-colors-font-success);
         --amplify-components-alert-success-background-color: var(--amplify-colors-background-success);
         --amplify-components-badge-color: var(--amplify-colors-font-primary);
         --amplify-components-badge-line-height: 1;
@@ -337,7 +345,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-link-hover-color: var(--amplify-colors-font-hover);
         --amplify-components-link-large-font-size: var(--amplify-font-sizes-large);
         --amplify-components-link-small-font-size: var(--amplify-font-sizes-small);
-        --amplify-components-link-visited-color: var(--amplify-colors-font-tertiary);
+        --amplify-components-link-visited-color: var(--amplify-colors-font-interactive);
         --amplify-components-loader-width: var(--amplify-font-sizes-xxl);
         --amplify-components-loader-height: var(--amplify-font-sizes-xxl);
         --amplify-components-loader-stroke-empty: var(--amplify-colors-neutral-20);

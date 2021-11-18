@@ -202,7 +202,9 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
           }}
         >
           <View flex="1" className="example">
-            <Authenticator />
+            <Authenticator
+              socialProviders={['amazon', 'apple', 'facebook', 'google']}
+            />
           </View>
           <Flex flex="1" direction="column" alignItems="flex-start">
             <Heading level={2}>Cloud-Connected Components</Heading>
@@ -358,8 +360,8 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
           />
           <AmpCard
             href="https://docs.amplify.aws/console/"
-            title="Amplify Console"
-            description="AWS service for creating an app backend and hosting full-stack web apps."
+            title="Amplify Hosting"
+            description="Fully managed web hosting with full-stack CI/CD."
           />
           <AmpCard
             href="https://docs.amplify.aws/console/adminui/intro/"
