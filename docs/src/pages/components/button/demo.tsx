@@ -91,16 +91,6 @@ const PropControls = (props) => {
         }}
       />
 
-      {/* <TextField
-        label="ariaLabel"
-        name="ariaLabel"
-        id="ariaLabel"
-        value={props.ariaLabel}
-        onChange={(event) => {
-          props.setAriaLabel(event.target.value as ButtonProps['ariaLabel']);
-        }}
-      /> */}
-
       <TextField
         label="loadingText"
         name="loadingText"

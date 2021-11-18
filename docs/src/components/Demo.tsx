@@ -46,7 +46,11 @@ export const Demo = ({
             {themeControls ?? <TabItem title="Theme">{themeControls}</TabItem>}
           </Tabs>
         </Flex>
-        <View flex="1" position="relative">
+        <View
+          flex="1"
+          position="relative"
+          backgroundColor={tokens.colors.background.secondary}
+        >
           <CopyToClipboard text={code} onCopy={copy}>
             <Button
               size="small"

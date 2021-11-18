@@ -29,10 +29,6 @@
   width: 100%;
   margin-bottom: var(--amplify-space-large);
   
-  & pre[class*=language-] {
-    max-height: none;
-  }
-  
   & .example-copy-button {
     bottom: var(--amplify-space-small);
     top: auto;
