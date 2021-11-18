@@ -100,7 +100,13 @@ const onForgotPasswordClicked = (): void => {
 
             <user-name-alias :userNameAlias="true" />
             <base-wrapper
-              class=" amplify-flex amplify-field amplify-textfield amplify-passwordfield password-field"
+              class="
+                amplify-flex
+                amplify-field
+                amplify-textfield
+                amplify-passwordfield
+                password-field
+              "
               style="flex-direction: column"
             >
               <password-control
@@ -135,17 +141,19 @@ const onForgotPasswordClicked = (): void => {
 
     <base-footer>
       <slot name="footer">
-        <amplify-button
-          @click="onForgotPasswordClicked"
-          class="amplify-field-group__control"
-          data-fullwidth="true"
-          data-size="small"
-          data-variation="link"
-          style="font-weight: normal"
-          type="button"
-        >
-          {{ forgotYourPasswordLink }}
-        </amplify-button>
+        <div data-amplify-footer>
+          <amplify-button
+            @click="onForgotPasswordClicked"
+            class="amplify-field-group__control"
+            data-fullwidth="true"
+            data-size="small"
+            data-variation="link"
+            style="font-weight: normal"
+            type="button"
+          >
+            {{ forgotYourPasswordLink }}
+          </amplify-button>
+        </div>
       </slot>
     </base-footer>
   </slot>

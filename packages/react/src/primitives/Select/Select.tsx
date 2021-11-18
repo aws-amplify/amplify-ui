@@ -6,7 +6,7 @@ import { View } from '../View';
 import { IconExpandMore } from '../Icon';
 import { SelectProps } from '../types/select';
 import { PrimitiveWithForwardRef } from '../types';
-import { ComponentClassNames } from '../shared';
+import { ComponentClassNames } from '../shared/constants';
 
 const SelectInner: PrimitiveWithForwardRef<SelectProps, 'select'> = (
   {
@@ -17,7 +17,7 @@ const SelectInner: PrimitiveWithForwardRef<SelectProps, 'select'> = (
     value,
     defaultValue,
     hasError,
-    icon = <IconExpandMore size="large" />,
+    icon = <IconExpandMore />,
     iconColor,
     children,
     placeholder,
@@ -58,12 +58,7 @@ const SelectInner: PrimitiveWithForwardRef<SelectProps, 'select'> = (
         {placeholder && <option value="">{placeholder}</option>}
         {children}
       </View>
-      <Flex
-        className={ComponentClassNames.SelectIconWrapper}
-        alignItems="center"
-        justifyContent="center"
-        color={iconColor}
-      >
+      <Flex className={ComponentClassNames.SelectIconWrapper} color={iconColor}>
         {icon}
       </Flex>
     </View>
