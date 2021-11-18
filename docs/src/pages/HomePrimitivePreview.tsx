@@ -29,6 +29,16 @@ export const HomePrimitivePreview = () => {
   const [exclusiveValue, setExclusiveValue] = React.useState('align-left');
   const { tokens } = useTheme();
 
+  const [currentPage, setCurrentPage] = React.useState(1);
+
+  const onPrevious = () => {
+    setCurrentPage(Math.max(1, currentPage - 1));
+  };
+
+  const onNext = () => {
+    setCurrentPage(Math.min(10, currentPage + 1));
+  };
+
   return (
     <Flex direction="column" flex="1">
       <Flex
@@ -44,12 +54,12 @@ export const HomePrimitivePreview = () => {
         </Badge>
 
         <Pagination
-          currentPage={1}
+          currentPage={currentPage}
           totalPages={10}
           siblingCount={1}
-          onChange={() => {}}
-          onPrevious={() => {}}
-          onNext={() => {}}
+          onChange={setCurrentPage}
+          onPrevious={onPrevious}
+          onNext={onNext}
         />
       </Flex>
       <Flex direction="row" padding={`0 0 0 ${tokens.space.medium}`}>
