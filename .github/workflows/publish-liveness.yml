@@ -11,6 +11,9 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     environment: ci
+    permissions:
+      id-token: write
+      contents: write
     # We only publish if the previous workflow run (Tests) was successful
     # and the previous workflow was called from main branch.
     #
@@ -44,12 +47,18 @@ jobs:
 
       # CodeArtifact
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@master
         with:
           role-to-assume: ${{ secrets.LIVENESS_DEPLOYMENT_ROLE }}
           aws-region: us-east-1
       - name: Login to CodeArtifact
-        run: aws codeartifact login --tool npm --repository amplify-ui --domain amplify-ui-liveness --domain-owner $LIVENESS_AWS_ACCOUNT
+        run: |
+          CODEARTIFACT_REGISTRY=amplify-ui-liveness-$LIVENESS_AWS_ACCOUNT.d.codeartifact.us-east-1.amazonaws.com/npm/amplify-ui/
+          NPM_TOKEN=`aws codeartifact get-authorization-token --domain amplify-ui-liveness --domain-owner $LIVENESS_AWS_ACCOUNT --query authorizationToken --output text`
+
+          yarn config set registry https://$CODEARTIFACT_REGISTRY
+          echo "//$CODEARTIFACT_REGISTRY:_authToken=$NPM_TOKEN" >> .npmrc
+          echo "//$CODEARTIFACT_REGISTRY:always-auth=true" >> .npmrc
         env:
           LIVENESS_AWS_ACCOUNT: ${{ secrets.LIVENESS_AWS_ACCOUNT }}
       - name: Publish to liveness tag for CodeArtifact
@@ -58,10 +67,12 @@ jobs:
       # Verdaccio
       - name: Login to Verdaccio
         run: |
-          yarn config set registry https://registry.edge.reventlov.rekognition.aws.dev
-          echo "//registry.edge.reventlov.rekognition.aws.dev/:_authToken=$LIVENESS_VERDACCIO_TOKEN" > .npmrc
-          echo "//registry.edge.reventlov.rekognition.aws.dev/:always-auth=true" >> .npmrc
+          VERDACCIO_REGISTRY=registry.edge.reventlov.rekognition.aws.dev
+
+          yarn config set registry https://$VERDACCIO_REGISTRY
+          echo "//$VERDACCIO_REGISTRY/:_authToken=$NPM_TOKEN" >> .npmrc
+          echo "//$VERDACCIO_REGISTRY/:always-auth=true" >> .npmrc
         env:
-          LIVENESS_VERDACCIO_TOKEN: ${{ secrets.LIVENESS_VERDACCIO_TOKEN }}
+          NPM_TOKEN: ${{ secrets.LIVENESS_VERDACCIO_TOKEN }}
       - name: Publish to liveness tag for Verdaccio
         run: yarn publish:liveness
