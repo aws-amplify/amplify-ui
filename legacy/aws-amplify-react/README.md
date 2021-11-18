@@ -580,7 +580,7 @@ class App extends Component {
 
 `Picker` is used to pick a file from local device storage. `PhotoPicker` and `TextPicker` components are specific to image and text file types .
 
-![Image](/images/photo_picker_and_code.png)
+![Image](photo_picker_and_code.png)
 
 Listen to `PhotoPicker` onPick event:
 
@@ -608,7 +608,7 @@ You can retrieve the URL of the image by implementing `onLoad` action. In this c
 
 `S3Album` renders a list of `S3Image` and `S3Text` objects:
 
-![Image](/images/S3Album_and_code.png)
+![Image](S3Album_and_code.png)
 
 ```jsx
 import { S3Album } from 'aws-amplify-react';
