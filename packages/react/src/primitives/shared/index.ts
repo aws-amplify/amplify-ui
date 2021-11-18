@@ -1,4 +1,4 @@
-export * from './constants';
+export { ComponentClassNames } from './constants';
 export { createDataStorePredicate } from './datastore';
 export {
   EscapeHatchProps,
@@ -7,4 +7,3 @@ export {
   Variant,
   getOverridesFromVariants,
 } from './utils';
-export * from './i18n';
