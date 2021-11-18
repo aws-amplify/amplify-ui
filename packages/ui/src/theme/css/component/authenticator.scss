@@ -62,12 +62,26 @@
 }
 
 /* Remove double-border between the password field & reveal button */
-[data-amplify-authenticator] .amplify-passwordfield .amplify-button {
+[data-amplify-authenticator]
+  .amplify-passwordfield
+  .amplify-button:not(:focus) {
   border-left: none;
 }
 
+[data-amplify-authenticator]
+  .amplify-phonenumberfield
+  .amplify-countrycodeselect {
+  height: 100%;
+}
+
+[data-amplify-authenticator]
+  .amplify-phonenumberfield
+  .amplify-select__wrapper {
+  height: 100%;
+}
+
 /* Remove double-border between the phone field & country select  */
-[data-amplify-authenticator] .amplify-phonenumberfield select {
+[data-amplify-authenticator] .amplify-phonenumberfield select:not(:focus) {
   border-right: none;
 }
 
