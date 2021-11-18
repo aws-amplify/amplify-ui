@@ -59,7 +59,7 @@ export const connectedComponents = [
   {
     href: '/components/storage',
     label: 'Storage',
-    body: 'Renders a list of storage objects.',
+    body: 'A set of components to help interact with S3 storage.',
   },
 ].sort(sortByLabel);
 
