@@ -1,5 +1,5 @@
 import { Auth } from 'aws-amplify';
-import { createMachine, sendUpdate } from 'xstate';
+import { assign, createMachine, sendUpdate } from 'xstate';
 
 import { AuthEvent, ResetPasswordContext } from '../../../types';
 import { runValidators } from '../../../validators';
@@ -22,8 +22,17 @@ export const resetPasswordActor = createMachine<
 >(
   {
     id: 'resetPasswordActor',
-    initial: 'init',
+    initial: 'idle',
+    context: {} as any,
     states: {
+      idle: {
+        on: {
+          INIT: {
+            actions: 'setContext',
+            target: 'init',
+          },
+        },
+      },
       init: {
         always: [
           { target: 'confirmResetPassword', cond: 'shouldAutoConfirmReset' },
@@ -156,6 +165,9 @@ export const resetPasswordActor = createMachine<
       setFieldErrors,
       setRemoteError,
       setUsername,
+      setContext: assign((context, event) => ({
+        ...event.data,
+      })),
     },
     guards: {
       shouldAutoConfirmReset: (context, event): boolean => {

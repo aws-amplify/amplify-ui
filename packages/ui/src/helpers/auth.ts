@@ -248,6 +248,8 @@ export const getServiceContextFacade = (state: AuthMachineState) => {
         return 'verifyUser';
       case actorState?.matches('confirmVerifyUser'):
         return 'confirmVerifyUser';
+      case actorState.matches('idle'):
+        return 'idle';
       default:
         console.debug(
           'Cannot infer `route` from Authenticator state:',

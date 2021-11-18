@@ -1,11 +1,19 @@
 import { CognitoUser } from 'amazon-cognito-identity-js';
-import { Interpreter, State } from 'xstate';
+import { Actor, ActorRefFrom, Interpreter, State, StateMachine } from 'xstate';
 import { ValidationError } from './validator';
 
 export type AuthFormData = Record<string, string>;
 
 export interface AuthContext {
   actorRef?: any;
+  actors?: {
+    signInActor: ActorRefFrom<StateMachine<SignInContext, any, AuthEvent>>;
+    signUpActor: ActorRefFrom<StateMachine<SignUpContext, any, AuthEvent>>;
+    resetPasswordActor: ActorRefFrom<
+      StateMachine<ResetPasswordContext, any, AuthEvent>
+    >;
+    signOutActor: ActorRefFrom<StateMachine<SignOutContext, any, AuthEvent>>;
+  }; // TODO: type this
   config?: {
     loginMechanisms?: LoginMechanism[];
     signUpAttributes?: SignUpAttribute[];
@@ -116,6 +124,7 @@ export type AuthEventTypes =
   | 'SIGN_UP'
   | 'SKIP'
   | 'SUBMIT'
+  | 'INIT'
   | InvokeActorEventTypes;
 
 export enum AuthChallengeNames {

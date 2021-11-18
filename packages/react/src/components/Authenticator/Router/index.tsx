@@ -52,6 +52,7 @@ export function Router({
           <View data-amplify-body="">
             {(() => {
               switch (route) {
+                case 'spawnActors':
                 case 'idle':
                   return null;
                 case 'confirmSignUp':

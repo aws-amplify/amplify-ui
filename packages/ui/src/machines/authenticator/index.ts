@@ -1,7 +1,6 @@
-import { assign, createMachine, forwardTo, spawn } from 'xstate';
+import { assign, createMachine, forwardTo, spawn, send } from 'xstate';
 
 import { AuthContext, AuthEvent } from '../../types';
-import { stopActor } from './actions';
 import { resetPasswordActor, signInActor, signOutActor } from './actors';
 import { defaultServices } from './defaultServices';
 import { createSignUpMachine } from './signUp';
@@ -28,7 +27,7 @@ export function createAuthenticatorMachine({
   return createMachine<AuthContext, AuthEvent>(
     {
       id: 'authenticator',
-      initial: 'idle',
+      initial: 'spawnActors',
       context: {
         user: undefined,
         config: {
@@ -40,6 +39,12 @@ export function createAuthenticatorMachine({
       },
       states: {
         // See: https://xstate.js.org/docs/guides/communication.html#invoking-promises
+        spawnActors: {
+          always: {
+            actions: 'spawnAllActors',
+            target: 'idle',
+          },
+        },
         idle: {
           invoke: [
             {
@@ -60,8 +65,7 @@ export function createAuthenticatorMachine({
           ],
         },
         signIn: {
-          entry: 'spawnSignInActor',
-          exit: stopActor('signInActor'),
+          entry: ['useSignInActor', 'initSignInActor'],
           on: {
             SIGN_UP: 'signUp',
             RESET_PASSWORD: 'resetPassword',
@@ -82,8 +86,7 @@ export function createAuthenticatorMachine({
           },
         },
         signUp: {
-          entry: 'spawnSignUpActor',
-          exit: stopActor('signUpActor'),
+          entry: ['useSignUpActor', 'initSignUpActor'],
           on: {
             SIGN_IN: 'signIn',
             'done.invoke.signUpActor': {
@@ -93,16 +96,15 @@ export function createAuthenticatorMachine({
           },
         },
         resetPassword: {
-          entry: 'spawnResetPasswordActor',
-          exit: stopActor('resetPasswordActor'),
+          entry: ['useResetPasswordActor', 'initResetPasswordActor'],
           on: {
             SIGN_IN: 'signIn',
             'done.invoke.resetPasswordActor': 'signIn',
           },
         },
         signOut: {
-          entry: 'spawnSignOutActor',
-          exit: [stopActor('signOutActor'), 'clearUser'],
+          entry: ['useSignOutActor', 'initSignOutActor'],
+          exit: 'clearUser',
           on: { 'done.invoke.signOutActor': 'signIn' },
         },
         authenticated: {
@@ -117,6 +119,7 @@ export function createAuthenticatorMachine({
         SIGN_OUT: { actions: 'forwardToActor' },
         SIGN_IN: { actions: 'forwardToActor' },
         SKIP: { actions: 'forwardToActor' },
+        INIT: { actions: 'forwardToActor' },
       },
     },
     {
@@ -173,53 +176,79 @@ export function createAuthenticatorMachine({
             };
           },
         }),
-        spawnSignInActor: assign({
-          actorRef: (context, event) => {
-            const actor = signInActor.withContext({
-              authAttributes: event.data?.authAttributes,
-              user: event.data?.user,
-              intent: event.data?.intent,
-              country_code: DEFAULT_COUNTRY_CODE,
-              formValues: {},
-              validationError: {},
-              loginMechanisms: context.config?.loginMechanisms,
-              socialProviders: context.config?.socialProviders,
-            });
-            return spawn(actor, { name: 'signInActor' });
+        spawnAllActors: assign({
+          actors: () => {
+            const actors = {
+              signInActor: spawn(signInActor, { name: 'signInActor' }),
+              signUpActor: spawn(createSignUpMachine({ services }), {
+                name: 'signUpActor',
+              }),
+              resetPasswordActor: spawn(resetPasswordActor, {
+                name: 'resetPasswordActor',
+              }),
+              signOutActor: spawn(signOutActor, { name: 'signOutActor' }),
+            };
+            return actors;
           },
         }),
-        spawnSignUpActor: assign({
+        useSignInActor: assign({
           actorRef: (context, event) => {
-            const actor = createSignUpMachine({ services }).withContext({
-              authAttributes: event.data?.authAttributes ?? {},
-              country_code: DEFAULT_COUNTRY_CODE,
-              intent: event.data?.intent,
-              formValues: {},
-              validationError: {},
-              loginMechanisms: context.config?.loginMechanisms,
-              socialProviders: context.config?.socialProviders,
-            });
-            return spawn(actor, { name: 'signUpActor' });
+            return context.actors.signInActor;
           },
         }),
-        spawnResetPasswordActor: assign({
-          actorRef: (context, event) => {
-            const actor = resetPasswordActor.withContext({
-              formValues: {},
-              intent: event.data?.intent,
-              username: event.data?.authAttributes?.username,
-              validationError: {},
-            });
-            return spawn(actor, { name: 'resetPasswordActor' });
-          },
+        useSignUpActor: assign({
+          actorRef: (context) => context.actors.signUpActor,
         }),
-        spawnSignOutActor: assign({
+        useResetPasswordActor: assign({
           actorRef: (context) => {
-            const actor = signOutActor.withContext({
-              user: context.user,
-            });
-            return spawn(actor, { name: 'signOutActor' });
+            return context.actors.resetPasswordActor;
           },
+        }),
+        useSignOutActor: assign({
+          actorRef: (context) => context.actors.signOutActor,
+        }),
+        initSignInActor: send((context, event) => {
+          const data = {
+            authAttributes: event.data?.authAttributes,
+            user: event.data?.user,
+            intent: event.data?.intent,
+            country_code: DEFAULT_COUNTRY_CODE,
+            formValues: {},
+            validationError: {},
+            loginMechanisms: context.config?.loginMechanisms,
+            socialProviders: context.config?.socialProviders,
+          };
+          return { type: 'INIT', data };
+        }),
+        initSignUpActor: send((context, event) => {
+          const data = {
+            authAttributes: event.data?.authAttributes ?? {},
+            country_code: DEFAULT_COUNTRY_CODE,
+            intent: event.data?.intent,
+            formValues: {},
+            validationError: {},
+            loginMechanisms: context.config?.loginMechanisms,
+            socialProviders: context.config?.socialProviders,
+          };
+          return { type: 'INIT', data };
+        }),
+        initResetPasswordActor: send((context, event) => {
+          const data = {
+            authAttributes: event.data?.authAttributes ?? {},
+            country_code: DEFAULT_COUNTRY_CODE,
+            intent: event.data?.intent,
+            formValues: {},
+            validationError: {},
+            loginMechanisms: context.config?.loginMechanisms,
+            socialProviders: context.config?.socialProviders,
+          };
+          return { type: 'INIT', data };
+        }),
+        initSignOutActor: send((context, event) => {
+          const data = {
+            user: context.user,
+          };
+          return { type: 'INIT', data };
         }),
       },
       guards: {

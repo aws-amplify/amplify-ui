@@ -1,7 +1,7 @@
 import { Auth } from 'aws-amplify';
 import get from 'lodash/get';
 import isEmpty from 'lodash/isEmpty';
-import { createMachine, sendUpdate } from 'xstate';
+import { createMachine, sendUpdate, assign } from 'xstate';
 
 import { AuthChallengeNames, AuthEvent, SignInContext } from '../../../types';
 import { runValidators } from '../../../validators';
@@ -27,9 +27,18 @@ import { defaultServices } from '../defaultServices';
 
 export const signInActor = createMachine<SignInContext, AuthEvent>(
   {
-    initial: 'init',
+    initial: 'idle',
     id: 'signInActor',
+    context: {} as any,
     states: {
+      idle: {
+        on: {
+          INIT: {
+            actions: 'setContext',
+            target: 'init',
+          },
+        },
+      },
       init: {
         always: [{ target: 'signIn' }],
       },
@@ -355,6 +364,9 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
       setUnverifiedAttributes,
       setUser,
       setUsernameAuthAttributes,
+      setContext: assign((context, event) => ({
+        ...event.data,
+      })),
     },
     guards: {
       shouldConfirmSignIn: (_, event): boolean => {

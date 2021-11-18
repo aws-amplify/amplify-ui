@@ -1,7 +1,7 @@
 import { Auth } from 'aws-amplify';
 import get from 'lodash/get';
 import pickBy from 'lodash/pickBy';
-import { createMachine, sendUpdate } from 'xstate';
+import { assign, createMachine, sendUpdate } from 'xstate';
 
 import { AuthEvent, SignUpContext } from '../../types';
 import { runValidators } from '../../validators';
@@ -25,8 +25,17 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
   return createMachine<SignUpContext, AuthEvent>(
     {
       id: 'signUpActor',
-      initial: 'init',
+      initial: 'idle',
+      context: {} as any,
       states: {
+        idle: {
+          on: {
+            INIT: {
+              actions: 'setContext',
+              target: 'init',
+            },
+          },
+        },
         init: {
           always: [
             { target: 'confirmSignUp', cond: 'shouldInitConfirmSignUp' },
@@ -224,6 +233,9 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
         setFieldErrors,
         setRemoteError,
         setUser,
+        setContext: assign((context, event) => ({
+          ...event.data,
+        })),
       },
       services: {
         async signIn(context, event) {
