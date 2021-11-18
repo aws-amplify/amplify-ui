@@ -57,7 +57,7 @@ const PropControls = (props) => {
         value={props.size}
         onChange={(event) => props.setSize(event.target.value as ButtonSizes)}
       >
-        <option value="">default</option>
+        <option value="">Default</option>
         <option value="small">Small</option>
         <option value="large">Large</option>
       </SelectField>
