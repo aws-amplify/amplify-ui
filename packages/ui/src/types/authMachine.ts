@@ -5,7 +5,7 @@ import { ValidationError } from './validator';
 export type AuthFormData = Record<string, string>;
 
 export interface AuthContext {
-  actorRef?: any;
+  activeActor?: any;
   actors?: {
     signInActor: ActorRefFrom<StateMachine<SignInContext, any, AuthEvent>>;
     signUpActor: ActorRefFrom<StateMachine<SignUpContext, any, AuthEvent>>;

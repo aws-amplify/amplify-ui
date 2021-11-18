@@ -35,7 +35,7 @@ export function createAuthenticatorMachine({
           signUpAttributes,
           socialProviders,
         },
-        actorRef: undefined,
+        activeActor: undefined,
       },
       states: {
         // See: https://xstate.js.org/docs/guides/communication.html#invoking-promises
@@ -124,7 +124,7 @@ export function createAuthenticatorMachine({
     },
     {
       actions: {
-        forwardToActor: forwardTo((context) => context.actorRef),
+        forwardToActor: forwardTo((context) => context.activeActor),
         setUser: assign({
           user: (_, event) => event.data.user || event.data,
         }),
@@ -192,20 +192,20 @@ export function createAuthenticatorMachine({
           },
         }),
         useSignInActor: assign({
-          actorRef: (context, event) => {
+          activeActor: (context, event) => {
             return context.actors.signInActor;
           },
         }),
         useSignUpActor: assign({
-          actorRef: (context) => context.actors.signUpActor,
+          activeActor: (context) => context.actors.signUpActor,
         }),
         useResetPasswordActor: assign({
-          actorRef: (context) => {
+          activeActor: (context) => {
             return context.actors.resetPasswordActor;
           },
         }),
         useSignOutActor: assign({
-          actorRef: (context) => context.actors.signOutActor,
+          activeActor: (context) => context.actors.signOutActor,
         }),
         initSignInActor: send((context, event) => {
           const data = {

@@ -119,7 +119,7 @@ export const getAliasInfoFromContext = (
   alias?: LoginMechanism
 ) => {
   const loginMechanisms = context.config?.loginMechanisms;
-  const error = context.actorRef?.context?.validationError['username'];
+  const error = context.activeActor?.context?.validationError['username'];
 
   if (LoginMechanismArray.includes(alias)) {
     return {
@@ -165,7 +165,7 @@ export const getConfiguredAliases = (context: AuthContext) => {
  * to render: e.g. `getActorState(state).matches('confirmSignUp.edit').
  */
 export const getActorState = (state: AuthMachineState): AuthActorState => {
-  return state.context.actorRef?.getSnapshot();
+  return state.context.activeActor?.getSnapshot();
 };
 
 /**
