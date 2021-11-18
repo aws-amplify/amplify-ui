@@ -11,6 +11,9 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     environment: ci
+    permissions:
+      id-token: write
+      contents: write
     # We only publish if the previous workflow run (Tests) was successful
     # and the previous workflow was called from main branch.
     #
@@ -44,7 +47,7 @@ jobs:
 
       # CodeArtifact
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@master
         with:
           role-to-assume: ${{ secrets.LIVENESS_DEPLOYMENT_ROLE }}
           aws-region: us-east-1
