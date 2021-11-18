@@ -29,11 +29,6 @@ to your application with minimal boilerplate.
 
 <Example>
   <Authenticator />
-
-  <p className="text-sm text-center mt-6 text-gray-500 italic">
-    <strong>Note</strong>: This example isn't fully functional until configured
-    with an Amplify backend.
-  </p>
 </Example>
 
 ## Quick Start
@@ -93,10 +88,6 @@ You can explicitly redirect to `signUp` or `resetPassword` as your `initialState
     </Fragment>
     <Example>
       <Authenticator initialState="signIn" />
-      <p className="text-sm text-center mt-6 text-gray-500 italic">
-        <strong>Note</strong>: This example isn't fully functional until
-        configured with an Amplify backend.
-      </p>
     </Example>
   </TabItem>
   <TabItem title="Sign Up">
@@ -105,10 +96,6 @@ You can explicitly redirect to `signUp` or `resetPassword` as your `initialState
     </Fragment>
     <Example>
       <Authenticator initialState="signUp" />
-      <p className="text-sm text-center mt-6 text-gray-500 italic">
-        <strong>Note</strong>: This example isn't fully functional until
-        configured with an Amplify backend.
-      </p>
     </Example>
   </TabItem>
   <TabItem title="Reset Password">
@@ -117,10 +104,6 @@ You can explicitly redirect to `signUp` or `resetPassword` as your `initialState
     </Fragment>
     <Example>
       <Authenticator initialState="resetPassword" />
-      <p className="text-sm text-center mt-6 text-gray-500 italic">
-        <strong>Note</strong>: This example isn't fully functional until
-        configured with an Amplify backend.
-      </p>
     </Example>
   </TabItem>
 </Tabs>
@@ -148,10 +131,6 @@ You can provide an alternative `username` such as `email` or `phone_number`.
     </Fragment>
     <Example>
       <Authenticator />
-      <p className="text-sm text-center mt-6 text-gray-500 italic">
-        <strong>Note</strong>: This example isn't fully functional until
-        configured with an Amplify backend.
-      </p>
     </Example>
   </TabItem>
   <TabItem title="Email">
@@ -160,10 +139,6 @@ You can provide an alternative `username` such as `email` or `phone_number`.
     </Fragment>
     <Example>
       <Authenticator loginMechanisms={['email']} />
-      <p className="text-sm text-center mt-6 text-gray-500 italic">
-        <strong>Note</strong>: This example isn't fully functional until
-        configured with an Amplify backend.
-      </p>
     </Example>
   </TabItem>
   <TabItem title="Phone Number">
@@ -174,10 +149,6 @@ You can provide an alternative `username` such as `email` or `phone_number`.
     </Fragment>
     <Example>
       <Authenticator loginMechanisms={['phone_number']} />
-      <p className="text-sm text-center mt-6 text-gray-500 italic">
-        <strong>Note</strong>: This example isn't fully functional until
-        configured with an Amplify backend.
-      </p>
     </Example>
   </TabItem>
 </Tabs>
@@ -258,10 +229,6 @@ For your [configured social providers](https://docs.amplify.aws/lib/auth/social/
 
 <Example>
   <Authenticator socialProviders={['amazon', 'apple', 'facebook', 'google']} />
-  <p className="text-sm text-center mt-6 text-gray-500 italic">
-    <strong>Note</strong>: This example isn't fully functional until configured
-    with an Amplify backend.
-  </p>
 </Example>
 
 ### `variation`
@@ -623,10 +590,6 @@ The example below uses a `<style>` tag to change the default colors to a dark th
     }
   `}</style>
   <Authenticator />
-  <p className="text-sm text-center mt-6 text-gray-500 italic">
-    <strong>Note</strong>: This example isn't fully functional until configured
-    with an Amplify backend.
-  </p>
 </Example>
 
 ### Additional CSS Styling
@@ -648,8 +611,4 @@ For example, if you'd like to hide the sign up tab, you can override the `amplif
     }
   `}</style>
   <Authenticator className="customization-hide-sign-up" />
-  <p className="text-sm text-center mt-6 text-gray-500 italic">
-    <strong>Note</strong>: This example isn't fully functional until configured
-    with an Amplify backend.
-  </p>
 </Example>
