@@ -1067,4 +1067,4 @@ Options:
 <amplify-sumerian-scene scene-name="scene1"></amplify-sumerian-scene>
 ```
 
-See the [XR documentation](/lib/xr/getting-started) for information on creating and publishing a Sumerian scene.
+See the [XR documentation](https://docs.amplify.aws/lib/xr/getting-started) for information on creating and publishing a Sumerian scene.
