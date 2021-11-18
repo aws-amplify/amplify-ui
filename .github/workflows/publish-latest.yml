@@ -11,6 +11,9 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
+        with:
+          # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
+          fetch-depth: 0
       - name: Setup Node.js LTS
         uses: actions/setup-node@v2
         with:
