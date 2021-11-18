@@ -18,9 +18,7 @@ export class ForceNewPasswordComponent {
   constructor(public authenticator: AuthenticatorService) {}
 
   public get context() {
-    const { updateForm, toSignIn, submitForm, user, error } =
-      this.authenticator;
-    return { updateForm, toSignIn, submitForm, user, error };
+    return this.authenticator.slotContext;
   }
 
   onInput(event: Event) {

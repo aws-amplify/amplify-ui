@@ -1,17 +1,29 @@
-import { translate } from '@aws-amplify/ui';
+import { getAliasInfoFromContext, translate } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '..';
-import { Flex, Form, Heading, TextField } from '../../..';
+import { Flex, Heading, TextField } from '../../..';
 import { RemoteErrorMessage, TwoButtonSubmitFooter } from '../shared';
+import { isInputOrSelectElement, isInputElement } from '../../../helpers/utils';
 
 export const ResetPassword = (): JSX.Element => {
-  const { isPending, submitForm, updateForm } = useAuthenticator();
+  const { isPending, submitForm, updateForm, _state } = useAuthenticator();
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    let { checked, name, type, value } = event.target;
-    if (type === 'checkbox' && !checked) value = undefined;
+  const { label } = getAliasInfoFromContext(_state.context);
+  const labelText = `Enter your ${label.toLowerCase()}`;
 
-    updateForm({ name, value });
+  const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
+    if (isInputOrSelectElement(event.target)) {
+      let { name, type, value } = event.target;
+      if (
+        isInputElement(event.target) &&
+        type === 'checkbox' &&
+        !event.target.checked
+      ) {
+        value = undefined;
+      }
+
+      updateForm({ name, value });
+    }
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -20,7 +32,8 @@ export const ResetPassword = (): JSX.Element => {
   };
 
   return (
-    <Form
+    <form
+      data-amplify-form=""
       data-amplify-authenticator-resetpassword=""
       method="post"
       onChange={handleChange}
@@ -33,7 +46,7 @@ export const ResetPassword = (): JSX.Element => {
           <TextField
             autoComplete="username"
             name="username"
-            placeholder={translate('Enter your username')}
+            placeholder={translate<string>(labelText)}
             label={translate('Enter your username')}
             labelHidden={true}
             required={true}
@@ -54,6 +67,6 @@ export const ResetPassword = (): JSX.Element => {
           }
         />
       </Flex>
-    </Form>
+    </form>
   );
 };

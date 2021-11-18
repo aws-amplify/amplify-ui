@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 
 import { Radio } from '../Radio';
@@ -25,6 +26,18 @@ describe('RadioField test suite', () => {
     const radioLabel = await screen.findByText('test');
     expect(radioLabel).toContainHTML('test');
     expect(radioLabel).toHaveClass(ComponentClassNames.RadioLabel);
+  });
+
+  it('should forward ref to DOM element', async () => {
+    const ref = React.createRef<HTMLInputElement>();
+    render(
+      <Radio id="test" value="test" ref={ref}>
+        test
+      </Radio>
+    );
+
+    await screen.findByRole('radio');
+    expect(ref.current.nodeName).toBe('INPUT');
   });
 
   it('should be disabled if isDisabled passed', async () => {

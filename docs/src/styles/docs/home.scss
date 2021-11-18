@@ -49,3 +49,16 @@
   flex-grow: 1;
   margin: 0;
 }
+
+.docs-home-amp-product-card {
+  transition: transform var(--amplify-time-medium) ease;
+  display: block;
+  
+  &:hover {
+    transform: scale(1.05);
+  }
+  
+  & > .amplify-card {
+    width: 100%;
+  }
+}

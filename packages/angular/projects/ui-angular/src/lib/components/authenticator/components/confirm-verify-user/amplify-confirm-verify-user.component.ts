@@ -20,9 +20,7 @@ export class ConfirmVerifyUserComponent {
   constructor(public authenticator: AuthenticatorService) {}
 
   public get context() {
-    const { updateForm, skipVerification, submitForm, error } =
-      this.authenticator;
-    return { updateForm, skipVerification, submitForm, error };
+    return this.authenticator.slotContext;
   }
 
   onInput(event: Event) {

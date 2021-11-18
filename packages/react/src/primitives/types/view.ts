@@ -13,13 +13,19 @@ export type ElementType = React.FC<any> | keyof JSX.IntrinsicElements;
  */
 export type HTMLElementType<Element extends ElementType> =
   Element extends keyof JSX.IntrinsicElements
-    ? JSX.IntrinsicElements[Element] extends React.DetailedHTMLProps<
-        unknown,
-        infer HTMLType
-      >
-      ? HTMLType
-      : never
-    : HTMLDivElement;
+    ? React.ElementRef<Element>
+    : HTMLElementTypeFromExoticComponentRef<Element>;
+
+/**
+ * Allows us to extract ElementType from `typeof Root` used in SliderField
+ * e.g. React.ForwardRefExoticComponent<SliderProps & React.RefAttributes<HTMLSpanElement>> => HTMLSpanElement
+ */
+type HTMLElementTypeFromExoticComponentRef<Element extends ElementType> =
+  Element extends React.ForwardRefExoticComponent<
+    React.RefAttributes<infer DOMHTMLElement>
+  >
+    ? DOMHTMLElement
+    : HTMLElement; // Fallback to HTMLElement if nothing else matches
 
 export type ElementProps<Element extends ElementType> =
   Element extends keyof JSX.IntrinsicElements

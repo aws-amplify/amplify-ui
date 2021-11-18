@@ -27,8 +27,7 @@ export class SetupTotpComponent implements OnInit {
   }
 
   public get context() {
-    const { updateForm, submitForm, error, user } = this.authenticator;
-    return { updateForm, submitForm, error, user };
+    return this.authenticator.slotContext;
   }
 
   async generateQRCode() {

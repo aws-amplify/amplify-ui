@@ -37,9 +37,7 @@ export class VerifyUserComponent implements OnInit {
   }
 
   public get context() {
-    const { updateForm, skipVerification, submitForm, error } =
-      this.authenticator;
-    return { updateForm, skipVerification, submitForm, error };
+    return this.authenticator.slotContext;
   }
 
   getLabelForAttr(authAttr: string): string {

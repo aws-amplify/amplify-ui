@@ -1,26 +1,23 @@
 import * as React from 'react';
 
-import { AlertVariations, IconSize } from '../types';
+import { ComponentClassNames } from '../shared/constants';
+import { AlertVariations } from '../types';
 import { IconInfo, IconError, IconWarning, IconCheckCircle } from '../Icon';
 
 interface AlertIconProps {
   variation: AlertVariations;
-  iconSize: IconSize;
 }
 
-export const AlertIcon: React.FC<AlertIconProps> = ({
-  variation,
-  iconSize,
-}) => {
+export const AlertIcon: React.FC<AlertIconProps> = ({ variation }) => {
   switch (variation) {
     case 'info':
-      return <IconInfo size={iconSize} />;
+      return <IconInfo className={ComponentClassNames.AlertIcon} />;
     case 'error':
-      return <IconError size={iconSize} />;
+      return <IconError className={ComponentClassNames.AlertIcon} />;
     case 'warning':
-      return <IconWarning size={iconSize} />;
+      return <IconWarning className={ComponentClassNames.AlertIcon} />;
     case 'success':
-      return <IconCheckCircle size={iconSize} />;
+      return <IconCheckCircle className={ComponentClassNames.AlertIcon} />;
     default:
       return null;
   }
