@@ -1374,6 +1374,7 @@ describe('@aws-amplify/ui-react', () => {
           "ScrollView",
           "SearchField",
           "SelectField",
+          "SharedText",
           "SliderField",
           "StepperField",
           "SwitchField",
@@ -1397,6 +1398,7 @@ describe('@aws-amplify/ui-react', () => {
           "primitives",
           "useAmplify",
           "useAuthenticator",
+          "usePagination",
           "useTheme",
           "withAuthenticator",
         ]

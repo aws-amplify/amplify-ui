@@ -1,1 +1,2 @@
-export { ComponentClassNames } from './constants';
+export * from './constants';
+export * from './i18n';
