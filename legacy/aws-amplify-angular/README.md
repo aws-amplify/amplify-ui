@@ -226,15 +226,84 @@ or
 
 The SignUp Component accepts a 'signUpConfig' object which allows you to customize it.
 
-import angular0 from "/src/fragments/ui-legacy/sign-up-attributes.mdx";
-
-<Fragments fragments={{angular: angular0}} />
+<table>
+    <thead>
+      <tr>
+        <th>Attribute</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+        <th>Required</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td data-column="Attribute">header</td>
+        <td data-column="Type">string</td>
+        <td data-column="Description">the component header</td>
+        <td data-column="Default">'Confirm Sign Up'</td>
+        <td data-column="Required">no</td>
+      </tr>
+      <tr>
+          <td data-column="Attribute">username</td>
+          <td data-column="Type">string</td>
+          <td data-column="Description">the username of the user who is signing up</td>
+          <td data-column="Default">''</td>
+          <td data-column="Required">no</td>
+      </tr>
+    </tbody>
+</table>
 
 The signUpFields array in turn consist of an array of objects, each describing a field that will appear in sign up form that your users fill out:
 
-import angular1 from "/src/fragments/ui-legacy/sign-up-fields.mdx";
-
-<Fragments fragments={{angular: angular1}} />
+<table>
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Possible Values</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td data-column="Attribute">label</td>
+      <td data-column="Type">string</td>
+      <td data-column="Description">label for the input field</td>
+      <td data-column="Possible Values">N/A</td>
+    </tr>
+    <tr>
+        <td data-column="Attribute">key</td>
+        <td data-column="Type">string</td>
+        <td data-column="Description">key name for the attribute as defined in the User Pool</td>
+        <td data-column="Possible Values">N/A</td>
+    </tr>
+    <tr>
+        <td data-column="Attribute">required</td>
+        <td data-column="Type">boolean</td>
+        <td data-column="Description">whether or not the field is required</td>
+        <td data-column="Possible Values">N/A</td>
+    </tr>
+    <tr>
+        <td data-column="Attribute">displayOrder</td>
+        <td data-column="Type">number</td>
+        <td data-column="Description">number indicating the order in which fields will be displayed</td>
+        <td data-column="Possible Values">N/A</td>
+    </tr>
+    <tr>
+        <td data-column="Attribute">type</td>
+        <td data-column="Type">string</td>
+        <td data-column="Description">the type attribute for the html input element</td>
+        <td data-column="Possible Values">‘string’, ‘number’, ‘password’, etc</td>
+    </tr>
+    <tr>
+        <td data-column="Attribute">custom</td>
+        <td data-column="Type">boolean</td>
+        <td data-column="Description">flag which indicates whether or not the field is ‘custom’ in the User Pool</td>
+        <td data-column="Possible Values">N/A</td>
+    </tr>
+  </tbody>
+</table>
 
 The following example will replace all the default sign up fields with the ones defined in the `signUpFields` array.
 In `app.component.ts`:
