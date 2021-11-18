@@ -29,7 +29,7 @@ export class LivenessPredictionsProvider extends AmazonAIInterpretPredictionsPro
       region: 'us-west-2',
       credentials,
       customUserAgent: getAmplifyUserAgent(),
-      endpoint: 'http://alankrp-1.aka.corp.amazon.com:8080/',
+      endpoint: 'https://us-west-2.beta.reventlov.rekognition.aws.dev/',
     });
 
     // TODO: remove try/catch
