@@ -45,7 +45,7 @@ const PropControls = (props) => {
           props.setVariation(event.target.value as ButtonVariations)
         }
       >
-        <option value="">default</option>
+        <option value="">Default</option>
         <option value="primary">Primary</option>
         <option value="link">Link</option>
       </SelectField>
