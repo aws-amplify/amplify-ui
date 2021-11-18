@@ -2,6 +2,7 @@
 // See: https://github.com/facebook/jest/issues/9771
 import * as exported from '../dist';
 import * as legacy from '../dist/legacy';
+import * as internal from '../dist/internal';
 
 describe('@aws-amplify/ui-react', () => {
   describe('exports', () => {
@@ -1399,12 +1400,7 @@ describe('@aws-amplify/ui-react', () => {
           "getOverridesFromVariants",
           "primitives",
           "useAmplify",
-          "useAuth",
           "useAuthenticator",
-          "useDataStoreBinding",
-          "useDataStoreCollection",
-          "useDataStoreItem",
-          "useStorageURL",
           "useTheme",
           "withAuthenticator",
         ]
@@ -1430,6 +1426,22 @@ describe('@aws-amplify/ui-react/legacy', () => {
           "AmplifySignIn",
           "AmplifySignOut",
           "withAuthenticator",
+        ]
+      `);
+    });
+  });
+});
+
+describe('@aws-amplify/ui-react/internal', () => {
+  describe('exports', () => {
+    it('should match snapshot', () => {
+      expect(Object.keys(internal)).toMatchInlineSnapshot(`
+        Array [
+          "useAuth",
+          "useDataStoreBinding",
+          "useDataStoreCollection",
+          "useDataStoreItem",
+          "useStorageURL",
         ]
       `);
     });
