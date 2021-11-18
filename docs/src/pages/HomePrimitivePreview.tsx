@@ -18,7 +18,6 @@ import {
   Loader,
   Placeholder,
   Pagination,
-  usePagination,
   SwitchField,
   CheckboxField,
   Divider,
@@ -28,11 +27,6 @@ import {
 
 export const HomePrimitivePreview = () => {
   const [exclusiveValue, setExclusiveValue] = React.useState('align-left');
-  const pagination = usePagination({
-    currentPage: 1,
-    totalPages: 10,
-    siblingCount: 1,
-  });
   const { tokens } = useTheme();
 
   return (
@@ -49,7 +43,14 @@ export const HomePrimitivePreview = () => {
           New
         </Badge>
 
-        <Pagination {...pagination} />
+        <Pagination
+          currentPage={1}
+          totalPages={10}
+          siblingCount={1}
+          onChange={() => {}}
+          onPrevious={() => {}}
+          onNext={() => {}}
+        />
       </Flex>
       <Flex direction="row" padding={`0 0 0 ${tokens.space.medium}`}>
         <ToggleButtonGroup
