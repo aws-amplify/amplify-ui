@@ -24,6 +24,7 @@ module.exports = {
   radio: require('./radio'),
   rating: require('./rating'),
   select: require('./select'),
+  selectfield: require('./selectField'),
   sliderfield: require('./sliderField'),
   stepperfield: require('./stepperField'),
   switchfield: require('./switchField'),

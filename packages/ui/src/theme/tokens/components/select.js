@@ -7,10 +7,11 @@ module.exports = {
     cursor: { value: 'pointer' },
   },
   iconWrapper: {
+    alignItems: { value: 'center' },
     position: { value: 'absolute' },
-    height: { value: '50%' },
-    top: { value: '25%' },
+    top: { value: '50%' },
     right: { value: '{space.medium.value}' },
+    transform: { value: 'translateY(-50%)' },
     pointerEvents: { value: 'none' },
   },
   whiteSpace: { value: 'nowrap' },
