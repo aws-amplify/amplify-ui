@@ -1,6 +1,6 @@
-import * as React from 'react';
+import { GridContainerStyleProps } from '@aws-amplify/ui-react';
+import { useState } from 'react';
 
-import { DividerOptions, GridContainerStyleProps } from '@aws-amplify/ui-react';
 import { GridContainerPropControlsProps } from './GridContainerPropControls';
 
 interface UseGridContainerProps {
