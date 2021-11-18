@@ -497,10 +497,10 @@ Using the same techniques as [Internationalization (I18n)](#internationalization
 
 ### Sign Up Fields
 
-The following example customizes the Sign Up screen with:
+The following example customizes the Sign Up screen by:
 
-- Re-using the default form fields
-- Appending a custom "Terms & Conditions" checkbox with custom validation
+- Re-using the default Sign Up form fields
+- Appending a custom "Terms & Conditions" checkbox with a `validateCustomSignUp` service
 
 <Fragment>
   {({ platform }) => import(`./sign-up-fields.${platform}.mdx`)}
