@@ -42,14 +42,10 @@
   }
 }
 
-[data-amplify-authenticator] [data-amplify-header],
-[data-amplify-authenticator] [data-amplify-footer] {
-  text-align: center;
-}
-
 // footers inside each screen should have some margin below it
 [data-amplify-authenticator] [data-amplify-router] [data-amplify-footer] {
   padding-bottom: var(--amplify-space-medium);
+  text-align: center;
 }
 
 [data-amplify-authenticator] [data-amplify-router] {
