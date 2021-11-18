@@ -21,9 +21,9 @@ jobs:
       - name: Create Release Pull Request or Publish to npm
         id: changesets
         uses: changesets/action@b98cec97583b917ff1dc6179dd4d230d3e439894
-        # with:
-        # version: yarn version:latest # commented out until we're ready for GA release
-        # publish: yarn release:latest # commented out until we're ready for GA release
+        with:
+          version: yarn version:latest
+          publish: yarn release:latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # NPM_TOKEN: ${{ secrets.NPM_TOKEN }} # commented out until we're ready for GA release
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
