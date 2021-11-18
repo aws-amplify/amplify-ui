@@ -196,7 +196,7 @@ const federated = {
 
 There is also `withGoogle`, `withFacebook`, `withAmazon` components, in case you need to customize a single provider.
 
-#### Wrapping your Component
+### Wrapping your Component
 
 This will render your App component with _Authenticator_:
 
@@ -258,15 +258,117 @@ It can also be used as part of the authentication HOC:
 
 The SignUp Component accepts a 'signUpConfig' object which allows you to customize it.
 
-import react0 from "/src/fragments/ui-legacy/auth/react/sign-up-attributes.mdx";
-
-<Fragments fragments={{react: react0}} />
+<table>
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td data-column="Attribute">header</td>
+      <td data-column="Type">string</td>
+      <td data-column="Description">the component header</td>
+      <td data-column="Default">'Create a new account'</td>
+      <td data-column="Required">no</td>
+    </tr>
+    <tr>
+      <td data-column="Attribute">signUpFields</td>
+      <td data-column="Type">array</td>
+      <td data-column="Description">see below</td>
+      <td data-column="Default">see below</td>
+      <td data-column="Required">no</td>
+    </tr>
+    <tr>
+      <td data-column="Attribute">defaultCountryCode</td>
+      <td data-column="Type">string</td>
+      <td data-column="Description">
+        the preselected value in the country code dropdown
+      </td>
+      <td data-column="Default">'1'</td>
+      <td data-column="Required">no</td>
+    </tr>
+    <tr>
+      <td data-column="Attribute">hideAllDefaults</td>
+      <td data-column="Type">boolean</td>
+      <td data-column="Description">
+        determines whether all default signup fields are to be hidden. This
+        works in conjunction with the signUpFields attribute
+      </td>
+      <td data-column="Default">
+        if there is no signUpFields attribute, defaults to false
+      </td>
+      <td data-column="Required">no</td>
+    </tr>
+    <tr>
+      <td data-column="Attribute">hiddenDefaults</td>
+      <td data-column="Type">array</td>
+      <td data-column="Description">
+        determines whether particular default fields are hidden
+      </td>
+      <td data-column="Default">
+        N/A (possible values include 'username', 'password', 'phone_number', and
+        'email')
+      </td>
+      <td data-column="Required">no</td>
+    </tr>
+  </tbody>
+</table>
 
 The signUpFields array in turn consist of an array of objects, each describing a field that will appear in sign up form that your users fill out:
 
-import react1 from "/src/fragments/ui-legacy/auth/react/sign-up-fields.mdx";
-
-<Fragments fragments={{react: react1}} />
+<table>
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Possible Values</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td data-column="Attribute">label</td>
+      <td data-column="Type">string</td>
+      <td data-column="Description">label for the input field</td>
+      <td data-column="Possible Values">N/A</td>
+    </tr>
+    <tr>
+        <td data-column="Attribute">key</td>
+        <td data-column="Type">string</td>
+        <td data-column="Description">key name for the attribute as defined in the User Pool</td>
+        <td data-column="Possible Values">N/A</td>
+    </tr>
+    <tr>
+        <td data-column="Attribute">required</td>
+        <td data-column="Type">boolean</td>
+        <td data-column="Description">whether or not the field is required</td>
+        <td data-column="Possible Values">N/A</td>
+    </tr>
+    <tr>
+        <td data-column="Attribute">displayOrder</td>
+        <td data-column="Type">number</td>
+        <td data-column="Description">number indicating the order in which fields will be displayed</td>
+        <td data-column="Possible Values">N/A</td>
+    </tr>
+    <tr>
+        <td data-column="Attribute">type</td>
+        <td data-column="Type">string</td>
+        <td data-column="Description">the type attribute for the html input element</td>
+        <td data-column="Possible Values">‘string’, ‘number’, ‘password’, etc</td>
+    </tr>
+    <tr>
+        <td data-column="Attribute">custom</td>
+        <td data-column="Type">boolean</td>
+        <td data-column="Description">flag which indicates whether or not the field is ‘custom’ in the User Pool</td>
+        <td data-column="Possible Values">N/A</td>
+    </tr>
+  </tbody>
+</table>
 
 A Sample signUpFields attribute would look like the following:
 
