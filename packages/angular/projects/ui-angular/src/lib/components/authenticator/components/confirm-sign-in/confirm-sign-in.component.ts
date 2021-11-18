@@ -29,9 +29,7 @@ export class ConfirmSignInComponent implements OnInit {
   }
 
   public get context() {
-    const { updateForm, toSignIn, submitForm, error, isPending } =
-      this.authenticator;
-    return { updateForm, toSignIn, submitForm, error, isPending };
+    return this.authenticator.slotContext;
   }
 
   setHeaderText(): void {

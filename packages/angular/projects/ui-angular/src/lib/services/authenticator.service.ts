@@ -9,6 +9,7 @@ import {
   createAuthenticatorMachine,
   getSendEventAliases,
   getServiceContextFacade,
+  getServiceFacade,
 } from '@aws-amplify/ui';
 import { Event, interpret, Subscription } from 'xstate';
 import { AuthSubscriptionCallback } from '../common';
@@ -149,6 +150,19 @@ export class AuthenticatorService implements OnDestroy {
   /** @deprecated For internal use only */
   public get context(): AuthContext {
     return this._authState.context;
+  }
+
+  /** @deprecated For internal use only */
+  public get slotContext() {
+    const slotContext = {
+      ...this._facade,
+      ...this._sendEventAliases,
+    };
+
+    return {
+      ...slotContext,
+      $implicit: { ...slotContext },
+    };
   }
 
   /** @deprecated For internal use only */

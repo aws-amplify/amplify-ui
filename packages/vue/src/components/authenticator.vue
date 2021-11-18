@@ -38,11 +38,11 @@ const {
     loginMechanisms?: AuthenticatorMachineOptions['loginMechanisms'];
     services?: AuthenticatorMachineOptions['services'];
     signUpAttributes?: AuthenticatorMachineOptions['signUpAttributes'];
-    variation?: 'modal';
+    variation?: 'default' | 'modal';
     socialProviders?: SocialProvider[];
   }>(),
   {
-    variation: undefined,
+    variation: 'default',
   }
 );
 
@@ -74,7 +74,6 @@ const { state, send } = useActor(service);
 useAuth(service);
 
 const actorState = computed(() => getActorState(state.value));
-const variationModal = computed(() => (variation === 'modal' ? true : null));
 
 const signInComponent = ref();
 const signUpComponent = ref();
@@ -200,9 +199,9 @@ watch(
   <div
     v-bind="$attrs"
     data-amplify-authenticator
+    :data-variation="variation"
     v-if="!state?.matches('authenticated')"
   >
-    <div data-authenticator-variation="modal" v-if="variationModal" />
     <div data-amplify-container>
       <div data-amplify-header>
         <slot name="header"> </slot>

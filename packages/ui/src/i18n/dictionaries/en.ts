@@ -16,6 +16,8 @@ export const enDict = {
   Email: 'Email',
   'Enter your code': 'Enter your code',
   'Enter your username': 'Enter your username',
+  'Enter your phone number': 'Enter your phone number',
+  'Enter your email': 'Enter your email',
   'Forgot your password? ': 'Forgot your password? ',
   'Hide password': 'Hide password',
   Loading: 'Loading',

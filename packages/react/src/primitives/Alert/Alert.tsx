@@ -1,10 +1,11 @@
-import { useState, useCallback } from 'react';
-import { ComponentClassNames } from '../shared/constants';
+import * as React from 'react';
 import classNames from 'classnames';
+
+import { ComponentClassNames } from '../shared/constants';
 import { AlertProps, Primitive } from '../types';
 import { View } from '../View';
 import { Flex } from '../Flex';
-import { Heading } from '../Heading';
+import { Text } from '../Text';
 import { Button } from '../Button';
 import { AlertIcon } from './AlertIcon';
 import { IconClose } from '../Icon';
@@ -19,8 +20,6 @@ export const Alert: Primitive<AlertProps, typeof Flex> = ({
   gap,
   hasIcon = true,
   heading,
-  headingLevel,
-  iconSize,
   isDismissible = false,
   justifyContent = 'space-between',
   onDismiss,
@@ -28,9 +27,9 @@ export const Alert: Primitive<AlertProps, typeof Flex> = ({
   wrap,
   ...rest
 }) => {
-  const [dismissed, setDismissed] = useState<boolean>(false);
+  const [dismissed, setDismissed] = React.useState<boolean>(false);
 
-  const dismissAlert = useCallback(() => {
+  const dismissAlert = React.useCallback(() => {
     setDismissed(!dismissed);
 
     if (isFunction(onDismiss)) {
@@ -51,23 +50,20 @@ export const Alert: Primitive<AlertProps, typeof Flex> = ({
         wrap={wrap}
         {...rest}
       >
-        <Flex alignItems="center">
-          {hasIcon && <AlertIcon variation={variation} iconSize={iconSize} />}
-          <View role="alert">
-            {heading && (
-              <Heading
-                className={ComponentClassNames.AlertHeading}
-                level={headingLevel}
-              >
-                {heading}
-              </Heading>
-            )}
-            {children}
-          </View>
-        </Flex>
+        {hasIcon && <AlertIcon variation={variation} />}
+        <View role="alert" flex="1">
+          {heading && (
+            <View className={ComponentClassNames.AlertHeading}>{heading}</View>
+          )}
+          <View className={ComponentClassNames.AlertBody}>{children}</View>
+        </View>
         {isDismissible && (
-          <Button variation="link" onClick={dismissAlert}>
-            <IconClose size={iconSize} />
+          <Button
+            variation="link"
+            className={ComponentClassNames.AlertDismiss}
+            onClick={dismissAlert}
+          >
+            <IconClose />
           </Button>
         )}
       </Flex>

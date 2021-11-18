@@ -20,9 +20,14 @@ export type RouterProps = {
     signOut: ReturnType<typeof useAuthenticator>['signOut'];
     user: CognitoUserAmplify;
   }) => JSX.Element;
+  variation?: 'default' | 'modal';
 };
 
-export function Router({ className, children }: RouterProps) {
+export function Router({
+  children,
+  className,
+  variation = 'default',
+}: RouterProps) {
   const {
     components: { Header, Footer },
     route,
@@ -36,9 +41,11 @@ export function Router({ className, children }: RouterProps) {
 
   return (
     <>
-      <View className={className} data-amplify-authenticator="">
-        <View data-authenticator-variation="modal" />
-
+      <View
+        className={className}
+        data-amplify-authenticator=""
+        data-variation={variation}
+      >
         <View data-amplify-container="">
           <Header />
 

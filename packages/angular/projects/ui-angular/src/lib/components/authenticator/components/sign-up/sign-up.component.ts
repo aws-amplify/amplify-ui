@@ -15,9 +15,7 @@ export class SignUpComponent {
   constructor(public authenticator: AuthenticatorService) {}
 
   public get context() {
-    const { updateForm, toSignIn, submitForm, validationErrors, error } =
-      this.authenticator;
-    return { updateForm, toSignIn, submitForm, validationErrors, error };
+    return this.authenticator.slotContext;
   }
 
   onInput(event: Event) {

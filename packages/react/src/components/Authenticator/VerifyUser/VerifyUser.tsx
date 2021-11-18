@@ -9,8 +9,9 @@ import {
 } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '..';
-import { Flex, Form, Heading, Radio, RadioGroupField } from '../../..';
+import { Flex, Heading, Radio, RadioGroupField } from '../../..';
 import { RemoteErrorMessage, TwoButtonSubmitFooter } from '../shared';
+import { isInputOrSelectElement, isInputElement } from '../../../helpers/utils';
 
 const censorContactInformation = (
   type: ContactMethod,
@@ -70,11 +71,19 @@ export const VerifyUser = (): JSX.Element => {
     </RadioGroupField>
   );
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    let { checked, name, type, value } = event.target;
-    if (type === 'checkbox' && !checked) value = undefined;
+  const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
+    if (isInputOrSelectElement(event.target)) {
+      let { name, type, value } = event.target;
+      if (
+        isInputElement(event.target) &&
+        type === 'checkbox' &&
+        !event.target.checked
+      ) {
+        value = undefined;
+      }
 
-    updateForm({ name, value });
+      updateForm({ name, value });
+    }
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -83,7 +92,8 @@ export const VerifyUser = (): JSX.Element => {
   };
 
   return (
-    <Form
+    <form
+      data-amplify-form=""
       data-amplify-authenticator-verifyuser=""
       method="post"
       onChange={handleChange}
@@ -104,6 +114,6 @@ export const VerifyUser = (): JSX.Element => {
           submitButtonText={footerSubmitText}
         />
       </Flex>
-    </Form>
+    </form>
   );
 };

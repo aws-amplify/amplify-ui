@@ -1,3 +1,4 @@
+import * as React from 'react';
 import classNames from 'classnames';
 
 import { ComponentClassNames } from '../shared/constants';
@@ -6,9 +7,12 @@ import { FieldErrorMessage, FieldDescription } from '../Field';
 import { Flex } from '../Flex';
 import { Select } from '../Select';
 import { Label } from '../Label';
-import { SelectFieldProps, Primitive } from '../types';
+import { SelectFieldProps, PrimitiveWithForwardRef } from '../types';
 
-export const SelectField: Primitive<SelectFieldProps, 'select'> = (props) => {
+const SelectFieldPrimitive: PrimitiveWithForwardRef<
+  SelectFieldProps,
+  'select'
+> = (props, ref) => {
   const {
     alignContent,
     alignItems,
@@ -75,6 +79,7 @@ export const SelectField: Primitive<SelectFieldProps, 'select'> = (props) => {
         isRequired={isRequired}
         onChange={onChange}
         placeholder={placeholder}
+        ref={ref}
         size={size}
         variation={variation}
         value={value}
@@ -86,5 +91,7 @@ export const SelectField: Primitive<SelectFieldProps, 'select'> = (props) => {
     </Flex>
   );
 };
+
+export const SelectField = React.forwardRef(SelectFieldPrimitive);
 
 SelectField.displayName = 'SelectField';

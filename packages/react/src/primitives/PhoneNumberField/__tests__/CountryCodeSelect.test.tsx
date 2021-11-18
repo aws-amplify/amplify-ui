@@ -1,3 +1,5 @@
+import * as React from 'react';
+
 import { getByAltText, render, screen } from '@testing-library/react';
 import { countryDialCodes } from '@aws-amplify/ui';
 
@@ -10,7 +12,7 @@ describe('CountryCodeSelect', () => {
     defaultValue = '+1',
     label = 'Country Code',
     ...rest
-  }: Partial<CountryCodeSelectProps>) => {
+  }: Partial<typeof CountryCodeSelect['defaultProps']>) => {
     render(
       <CountryCodeSelect label={label} defaultValue={defaultValue} {...rest} />
     );
@@ -261,6 +263,15 @@ describe('CountryCodeSelect', () => {
     expect($countryCodeSelect).toHaveClass(
       ComponentClassNames.CountryCodeSelect
     );
+  });
+
+  it('should forward ref to DOM element', async () => {
+    const ref = React.createRef<HTMLSelectElement>();
+    const testId = 'CountryCodeSelectTestId';
+    await setup({ testId, ref });
+
+    await screen.findByTestId(testId);
+    expect(ref.current.nodeName).toBe('SELECT');
   });
 
   it('should have a hidden label by default', async () => {

@@ -8,7 +8,7 @@ import { Flex } from '../Flex';
 import { Label } from '../Label';
 import { View } from '../View';
 import { SliderFieldProps } from '../types/sliderField';
-import { Primitive } from '../types/view';
+import { PrimitiveWithForwardRef } from '../types/view';
 import { ComponentClassNames } from '../shared/constants';
 import { splitPrimitiveProps } from '../shared/styleUtils';
 import { isFunction, useStableId } from '../shared/utils';
@@ -18,30 +18,37 @@ export const SLIDER_ROOT_TEST_ID = 'slider-root';
 export const SLIDER_TRACK_TEST_ID = 'slider-track';
 export const SLIDER_RANGE_TEST_ID = 'slider-range';
 
-export const SliderField: Primitive<SliderFieldProps, typeof Root> = ({
-  ariaValuetext,
-  className,
-  defaultValue,
-  descriptiveText,
-  emptyTrackColor,
-  errorMessage,
-  filledTrackColor,
-  hasError = false,
-  id,
-  isDisabled,
-  isValueHidden = false,
-  label,
-  labelHidden = false,
-  onChange,
-  orientation = 'horizontal',
-  outerEndComponent,
-  outerStartComponent,
-  testId,
-  thumbColor,
-  trackSize,
-  value,
-  ..._rest
-}) => {
+const SliderFieldPrimitive: PrimitiveWithForwardRef<
+  SliderFieldProps,
+  typeof Root
+> = (
+  {
+    ariaValuetext,
+    className,
+    defaultValue,
+    descriptiveText,
+    emptyTrackColor,
+    errorMessage,
+    filledTrackColor,
+    hasError = false,
+    id,
+    isDisabled,
+    isValueHidden = false,
+    label,
+    labelHidden = false,
+    onChange,
+    orientation = 'horizontal',
+    outerEndComponent,
+    outerStartComponent,
+    testId,
+    thumbColor,
+    trackSize,
+    dir,
+    value,
+    ..._rest
+  },
+  ref
+) => {
   const fieldId = useStableId(id);
 
   const { flexContainerStyleProps, rest } = splitPrimitiveProps(_rest);
@@ -101,10 +108,11 @@ export const SliderField: Primitive<SliderFieldProps, typeof Root> = ({
           className={classNames(ComponentClassNames.SliderFieldRoot, className)}
           data-testid={SLIDER_ROOT_TEST_ID}
           disabled={isDisabled}
-          orientation={orientation}
           defaultValue={defaultValues}
-          value={values}
           onValueChange={onValueChange}
+          orientation={orientation}
+          ref={ref}
+          value={values}
           {...rest}
         >
           <Track
@@ -133,5 +141,7 @@ export const SliderField: Primitive<SliderFieldProps, typeof Root> = ({
     </Flex>
   );
 };
+
+export const SliderField = React.forwardRef(SliderFieldPrimitive);
 
 SliderField.displayName = 'SliderField';
