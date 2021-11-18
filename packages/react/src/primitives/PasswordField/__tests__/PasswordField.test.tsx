@@ -2,8 +2,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { PasswordField } from '../PasswordField';
-import { ComponentClassNames } from '../../shared';
-import { SharedText } from '../../shared/i18n';
+import { ComponentClassNames, SharedText } from '../../shared';
 
 const ariaLabelText = SharedText.ShowPasswordButton.ariaLabel;
 
