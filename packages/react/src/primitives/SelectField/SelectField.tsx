@@ -1,12 +1,13 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
-import { ComponentClassNames } from '../shared/constants';
-import { useStableId } from '../shared/utils';
 import { FieldErrorMessage, FieldDescription } from '../Field';
 import { Flex } from '../Flex';
 import { Select } from '../Select';
 import { Label } from '../Label';
+import { ComponentClassNames } from '../shared/constants';
+import { splitPrimitiveProps } from '../shared/styleUtils';
+import { useStableId } from '../shared/utils';
 import { SelectFieldProps, PrimitiveWithForwardRef } from '../types';
 
 const SelectFieldPrimitive: PrimitiveWithForwardRef<
@@ -14,52 +15,35 @@ const SelectFieldPrimitive: PrimitiveWithForwardRef<
   'select'
 > = (props, ref) => {
   const {
-    alignContent,
-    alignItems,
-    autoComplete,
     children,
     className,
-    defaultValue,
     descriptiveText,
-    direction = 'column',
     errorMessage,
-    gap,
     hasError = false,
-    icon,
-    iconColor,
     id,
-    isDisabled,
-    isRequired,
-    justifyContent,
     label,
     labelHidden = false,
-    onChange,
-    placeholder,
     size,
     testId,
-    value,
-    variation,
-    wrap,
-    ...rest
+    ..._rest
   } = props;
 
   const fieldId = useStableId(id);
 
+  const { flexContainerStyleProps, baseStyleProps, rest } =
+    splitPrimitiveProps(_rest);
+
   return (
     <Flex
-      alignContent={alignContent}
-      alignItems={alignItems}
       className={classNames(
         ComponentClassNames.Field,
         ComponentClassNames.SelectField,
         className
       )}
       data-size={size}
-      direction={direction}
-      gap={gap}
-      justifyContent={justifyContent}
       testId={testId}
-      wrap={wrap}
+      {...baseStyleProps}
+      {...flexContainerStyleProps}
     >
       <Label htmlFor={fieldId} visuallyHidden={labelHidden}>
         {label}
@@ -68,23 +52,7 @@ const SelectFieldPrimitive: PrimitiveWithForwardRef<
         labelHidden={labelHidden}
         descriptiveText={descriptiveText}
       />
-      <Select
-        autoComplete={autoComplete}
-        defaultValue={defaultValue}
-        hasError={hasError}
-        icon={icon}
-        iconColor={iconColor}
-        id={fieldId}
-        isDisabled={isDisabled}
-        isRequired={isRequired}
-        onChange={onChange}
-        placeholder={placeholder}
-        ref={ref}
-        size={size}
-        variation={variation}
-        value={value}
-        {...rest}
-      >
+      <Select hasError={hasError} id={fieldId} ref={ref} size={size} {...rest}>
         {children}
       </Select>
       <FieldErrorMessage hasError={hasError} errorMessage={errorMessage} />

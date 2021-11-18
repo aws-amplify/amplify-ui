@@ -94,7 +94,7 @@ for (const [componentName, [node]] of source.getExportedDeclarations()) {
 
   // Skip primitives without properties
   if (Object.keys(properties).length > 0) {
-    catalog[componentName] = properties;
+    catalog[componentName] = { properties };
   }
 }
 
