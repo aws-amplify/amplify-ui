@@ -29,6 +29,9 @@
   width: 100%;
   margin-bottom: var(--amplify-space-large);
 
+  pre {
+    white-space: pre-wrap;
+  }
   & .example-copy-button {
     bottom: var(--amplify-space-small);
     top: auto;
