@@ -25,7 +25,6 @@ jobs:
         id: changesets
         uses: changesets/action@b98cec97583b917ff1dc6179dd4d230d3e439894
         with:
-          version: yarn version:latest
           publish: yarn release:latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
