@@ -21,7 +21,7 @@ import { FrameworkChooser } from './FrameworkChooser';
 
 const NavLink = ({ href, children, isExternal = false }) => {
   const { pathname, query } = useRouter();
-  const isCurrent = pathname.startsWith(href);
+  const isCurrent = pathname.startsWith(href) && href !== '/';
   const className = `docs-nav-link ${isCurrent ? 'current' : ''}`;
 
   if (isExternal) {
