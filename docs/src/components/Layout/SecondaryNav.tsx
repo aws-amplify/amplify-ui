@@ -11,7 +11,6 @@ import {
   inputComponents,
   layoutComponents,
   navigationComponents,
-  reactHooks,
   utilityComponents,
 } from '../../data/links';
 
@@ -22,11 +21,11 @@ const NavLinks = ({ items }: { items: ComponentNavItem[] }) => (
 );
 
 const NavLink = ({ href, children }) => {
-  const { pathname } = useRouter();
+  const { pathname, query } = useRouter();
   const isCurrent = pathname === href;
 
   return (
-    <Link href={href}>
+    <Link href={{ pathname: href, query }}>
       <a className={`docs-secondary-nav-link ${isCurrent ? 'current' : ''}`}>
         {children}
       </a>
@@ -63,7 +62,7 @@ export const SecondaryNav = () => {
     );
   }
 
-  if (section === 'components' || section === 'hooks') {
+  if (section === 'components') {
     return (
       <Sidebar>
         <Heading level={6}>Connected Components</Heading>
@@ -89,13 +88,6 @@ export const SecondaryNav = () => {
 
         <Heading level={6}>Utilities</Heading>
         <NavLinks items={utilityComponents} />
-
-        {platform === 'react' ? (
-          <>
-            <Heading level={6}>Hooks</Heading>
-            <NavLinks items={reactHooks} />
-          </>
-        ) : null}
       </Sidebar>
     );
   }

@@ -26,7 +26,6 @@ describe('@aws-amplify/ui-react', () => {
           "FieldGroupIcon",
           "FieldGroupIconButton",
           "Flex",
-          "Form",
           "Grid",
           "Heading",
           "Icon",

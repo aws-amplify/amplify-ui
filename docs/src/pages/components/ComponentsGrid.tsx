@@ -10,12 +10,14 @@ import {
   navigationComponents,
   utilityComponents,
 } from '@/data/links';
+import { useRouter } from 'next/router';
 
 const ComponentGrid = ({ components }) => {
+  const { query } = useRouter();
   return (
     <Grid templateColumns="1fr 1fr" gap="var(--amplify-space-large)">
       {components.map(({ href, label, body }) => (
-        <Link href={href} key={href}>
+        <Link href={{ pathname: href, query }} key={href}>
           <Card className="docs-component-card" variation="elevated">
             <Heading level={4}>{label}</Heading>
             <div className="docs-component-card-contents">{body}</div>
