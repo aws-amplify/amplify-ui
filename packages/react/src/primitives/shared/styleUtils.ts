@@ -197,6 +197,7 @@ const BaseStylePropsMap: Required<{ [key in keyof BaseStyleProps]: true }> = {
   alignSelf: true,
   area: true,
   backgroundColor: true,
+  backgroundImage: true,
   basis: true,
   border: true,
   borderRadius: true,
