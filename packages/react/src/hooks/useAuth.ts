@@ -15,6 +15,10 @@ export interface UseAuthResult {
   fetch?: () => void;
 }
 
+/**
+ * Amplify Auth React hook
+ * @internal
+ */
 export const useAuth = (): UseAuthResult => {
   const [result, setResult] = useState<UseAuthResult>({
     error: undefined,
