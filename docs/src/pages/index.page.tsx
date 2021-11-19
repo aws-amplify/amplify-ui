@@ -150,7 +150,7 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
               isReadOnly={true}
               className="install-code"
               size="large"
-              innerEndComponent={
+              outerEndComponent={
                 <Copy
                   variation="link"
                   text={`npm i aws-amplify @aws-amplify/ui-${framework}`}
