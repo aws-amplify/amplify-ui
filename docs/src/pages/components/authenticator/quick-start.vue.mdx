@@ -1,9 +1,12 @@
-For Vue, import and add to your template the `Authenticator` component:
+import { Alert } from '@aws-amplify/ui-react';
 
-```js{2-3,11}
+For Vue 3, import the `Authenticator` and the `styles.css` into your single file component. You can then use the `<authenticator>` inside your template.
+
+```js{2-3,12-17}
 <script setup>
   import { Authenticator } from "@aws-amplify/ui-vue";
   import "@aws-amplify/ui-vue/styles.css";
+
   import Amplify from 'aws-amplify';
   import awsconfig from './aws-exports';
 
@@ -11,6 +14,17 @@ For Vue, import and add to your template the `Authenticator` component:
 </script>
 
 <template>
-  <authenticator />
+  <authenticator>
+    <template v-slot="{ user, signOut }">
+      <h1>Hello {{ user.username }}!</h1>
+      <button @click="signOut">Sign Out</button>
+    </template>
+  </authenticator>
 </template>
 ```
+
+<Alert variation="info" heading="Vue 2">
+  If you're looking for the [Vue 2
+  documentation](https://github.com/aws-amplify/amplify-ui/tree/legacy/legacy/amplify-ui-vue)
+  please click here.
+</Alert>
