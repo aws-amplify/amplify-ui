@@ -156,7 +156,7 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
                   text={`npm i aws-amplify @aws-amplify/ui-${framework}`}
                 />
               }
-              value={`npm i @aws-amplify/ui-${framework}@next`}
+              value={`npm i @aws-amplify/ui-${framework}`}
             />
           </Flex>
         </Card>
