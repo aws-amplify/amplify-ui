@@ -134,7 +134,10 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
             (more coming soon).
           </Text>
 
-          <Flex direction="row" padding={`${tokens.space.medium} 0 0 0`}>
+          <Flex
+            direction={{ base: 'column-reverse', medium: 'row' }}
+            padding={`${tokens.space.medium} 0 0 0`}
+          >
             <Button
               size="large"
               variation="primary"
