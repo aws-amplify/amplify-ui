@@ -4,10 +4,6 @@
 
 # Amplify UI
 
-> 🚧 This is the `next` version of Amplify UI 🚧
->
-> For the the `latest` Amplify UI documentation, [click here](https://docs.amplify.aws/ui)
-
 [![GitHub](https://img.shields.io/github/license/aws-amplify/amplify-ui)](LICENSE)
 [![Discord](https://img.shields.io/discord/308323056592486420?logo=discord)](https://discord.gg/jWVbPfC)
 [![Tests](https://github.com/aws-amplify/amplify-ui/actions/workflows/tests.yml/badge.svg)](https://github.com/aws-amplify/amplify-ui/actions/workflows/tests.yml)
