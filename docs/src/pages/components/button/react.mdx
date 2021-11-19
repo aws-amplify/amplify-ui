@@ -1,10 +1,8 @@
-import { Button, ButtonGroup, Flex } from '@aws-amplify/ui-react';
+import { Button, ButtonGroup, Flex, View } from '@aws-amplify/ui-react';
 
 import { ButtonDemo } from './demo';
-import { Example } from '@/components/Example';
-import { IconButtonExample } from './examples';
-
-The Button primitive is used to trigger an action or event, such as submitting a form, opening a dialog, canceling an action, or performing a delete operation.
+import { Example, ExampleCode } from '@/components/Example';
+import { IconButtonExample, ButtonThemeExample } from './examples';
 
 ## Demo
 
@@ -14,6 +12,13 @@ The Button primitive is used to trigger an action or event, such as submitting a
 
 Import the Button primitive and styles.
 
+<Example>
+  <View>
+    <Button>Hello world</Button>
+  </View>
+
+<ExampleCode>
+
 ```jsx
 import { Button } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
@@ -21,25 +26,39 @@ import '@aws-amplify/ui-react/styles.css';
 <Button>Hello world</Button>;
 ```
 
-<Example>
-  <Button>Hello world</Button>
+</ExampleCode>
 </Example>
 
 ### onClick
 
 Use the `onClick` prop to add a click handler to the Button.
 
+<Example>
+  <View>
+    <Button onClick={() => alert('👋 hello')}>Click me</Button>
+  </View>
+
+<ExampleCode>
+
 ```jsx
 <Button onClick={() => alert('👋 hello')}>Click me</Button>
 ```
 
-<Example>
-  <Button onClick={() => alert('👋 hello')}>Click me</Button>
+</ExampleCode>
 </Example>
 
 ### Sizes
 
 Use the `size` prop to change the Button size. Available options are `small`, `large`, and none (default).
+
+<Example>
+  <View>
+    <Button size="small">Small</Button>
+    <Button>Default</Button>
+    <Button size="large">Large</Button>
+  </View>
+
+<ExampleCode>
 
 ```jsx
 <Button size="small">Small</Button>
@@ -47,15 +66,22 @@ Use the `size` prop to change the Button size. Available options are `small`, `l
 <Button size="large">Large</Button>
 ```
 
-<Example>
-  <Button size="small">Small</Button>
-  <Button>Default</Button>
-  <Button size="large">Large</Button>
+</ExampleCode>
 </Example>
 
 ### Variations
 
 Use the `variation` prop to change the Button variation. Available options are `primary`, `link`, `menu` and none (default).
+
+<Example>
+  <View>
+    <Button variation="primary">Primary</Button>
+    <Button variation="link">Link</Button>
+    <Button variation="menu">Menu</Button>
+    <Button>Default</Button>
+  </View>
+
+<ExampleCode>
 
 ```jsx
 <Button variation="primary">Primary</Button>
@@ -64,26 +90,35 @@ Use the `variation` prop to change the Button variation. Available options are `
 <Button>Default</Button>
 ```
 
-<Example>
-  <Button variation="primary">Primary</Button>
-  <Button variation="link">Link</Button>
-  <Button variation="menu">Menu</Button>
-  <Button>Default</Button>
+</ExampleCode>
 </Example>
 
 ### Icon buttons
 
 Icons can be added to buttons and will adapt to the surrounding font-size.
 
+<Example>
+  <IconButtonExample />
+  
+<ExampleCode>
+
 ```tsx file=./examples/iconButton.tsx
 
 ```
 
-<Example>
-  <IconButtonExample />
+</ExampleCode>
 </Example>
 
 ### Loading state
+
+<Example>
+  <View>
+    <Button isLoading={true} loadingText="Loading..." variation="primary">
+      Hello
+    </Button>
+  </View>
+
+<ExampleCode>
 
 ```jsx
 <Button isLoading={true} loadingText="Loading..." variation="primary">
@@ -91,39 +126,62 @@ Icons can be added to buttons and will adapt to the surrounding font-size.
 </Button>
 ```
 
-<Example>
-  <Button isLoading={true} loadingText="Loading..." variation="primary">
-    Hello
-  </Button>
+</ExampleCode>
 </Example>
 
 ### Other states
+
+<Example>
+  <Flex direction="column" alignItems="flex-start">
+    <Button isDisabled={true}>Disabled</Button>
+    <Button isFullWidth={true}>Full width</Button>
+  </Flex>
+
+<ExampleCode>
 
 ```jsx
 <Button isDisabled={true}>Disabled</Button>
 <Button isFullWidth={true}>Full width</Button>
 ```
 
-<Example>
-  <Button isDisabled={true}>Disabled</Button>
-  <Button isFullWidth={true}>Full width</Button>
+</ExampleCode>
 </Example>
 
 ### Accessibility
 
 Setting an `aria-label` attribute for an icon Button:
 
+<Example>
+  <Button ariaLabel="To the moon!">🚀</Button>
+
+<ExampleCode>
+
 ```jsx
 <Button ariaLabel="To the moon!">🚀</Button>
 ```
 
-<Example>
-  <Button ariaLabel="To the moon!">🚀</Button>
+</ExampleCode>
 </Example>
 
 ### ButtonGroup
 
 Use a `ButtonGroup` to group buttons with the same `size` or `variation`.
+
+<Example>
+  <Flex direction="column">
+    <ButtonGroup size="small">
+      <Button>🚀</Button>
+      <Button>🚀</Button>
+      <Button>🚀</Button>
+    </ButtonGroup>
+    <ButtonGroup variation="primary">
+      <Button>🚀</Button>
+      <Button>🚀</Button>
+      <Button>🚀</Button>
+    </ButtonGroup>
+  </Flex>
+
+<ExampleCode>
 
 ```jsx
 import { Button, ButtonGroup } from '@aws-amplify/ui-react';
@@ -144,22 +202,26 @@ import '@aws-amplify/ui-react/styles.css';
 </ButtonGroup>;
 ```
 
+</ExampleCode>
+</Example>
+
+`ButtonGroup` is also a flex container, so any flex props can apply to it for layout purpose. See [Flex](/ui/primitives/flex?platform=react).
+
 <Example>
   <Flex direction="column">
-    <ButtonGroup size="small">
+    <ButtonGroup justifyContent="center">
       <Button>🚀</Button>
       <Button>🚀</Button>
       <Button>🚀</Button>
     </ButtonGroup>
-    <ButtonGroup variation="primary">
+    <ButtonGroup direction="column">
       <Button>🚀</Button>
       <Button>🚀</Button>
       <Button>🚀</Button>
     </ButtonGroup>
   </Flex>
-</Example>
 
-`ButtonGroup` is also a flex container, so any flex props can apply to it for layout purpose. See [Flex](/ui/primitives/flex?platform=react).
+<ExampleCode>
 
 ```jsx
 import { Button, ButtonGroup } from '@aws-amplify/ui-react';
@@ -178,30 +240,36 @@ import '@aws-amplify/ui-react/styles.css';
 </ButtonGroup>;
 ```
 
-<Example>
-  <Flex direction="column">
-    <ButtonGroup justifyContent="center">
-      <Button>🚀</Button>
-      <Button>🚀</Button>
-      <Button>🚀</Button>
-    </ButtonGroup>
-    <ButtonGroup direction="column">
-      <Button>🚀</Button>
-      <Button>🚀</Button>
-      <Button>🚀</Button>
-    </ButtonGroup>
-  </Flex>
+</ExampleCode>
 </Example>
 
-## CSS Styling
+## Customization
 
-### Global styling
+### Theme
+
+You can customize the appearance of all Buttons in your application with a [Theme](/theming).
+
+<Example>
+  <ButtonThemeExample />
+  
+<ExampleCode>
+
+```jsx file=./examples/ButtonThemeExample.tsx
+
+```
+
+</ExampleCode>
+</Example>
+
+### CSS
 
 To override styling on all Buttons, you can set the Amplify CSS variables or use the built-in `.amplify-button` class.
 
+<ExampleCode>
+
 ```css
 /* styles.css */
-:root {
+[data-amplify-theme] {
   --amplify-components-button-primary-background-color: #0057ff;
   --amplify-components-button-primary-hover-background-color: #4d89fc;
 }
@@ -214,7 +282,11 @@ To override styling on all Buttons, you can set the Amplify CSS variables or use
 }
 ```
 
+</ExampleCode>
+
 To replace the Button styling, unset it:
+
+<ExampleCode>
 
 ```css
 .amplify-button {
@@ -223,11 +295,18 @@ To replace the Button styling, unset it:
 }
 ```
 
+</ExampleCode>
+
 ### Local styling
 
 To override styling on a specific Button, you can use (in order of increasing specificity): a class selector, data attributes, or style props.
 
 _Using a class selector:_
+
+<Example>
+  <Button className="colorful-button">I'm colorful!</Button>
+
+<ExampleCode>
 
 ```css
 /* Example: class selector styling override */
@@ -236,17 +315,21 @@ _Using a class selector:_
 }
 ```
 
+</ExampleCode>
+<ExampleCode>
+
 ```jsx
 import './styles.css';
 
 <Button className="colorful-button">I'm colorful!</Button>;
 ```
 
-<Example>
-  <Button className="colorful-button">I'm colorful!</Button>
+</ExampleCode>
 </Example>
 
 _Using data attributes:_
+
+<ExampleCode>
 
 ```css
 /* styles.css */
@@ -267,6 +350,10 @@ _Using data attributes:_
 }
 ```
 
+</ExampleCode>
+
+<ExampleCode>
+
 ```jsx
 import './styles.css';
 
@@ -275,7 +362,19 @@ import './styles.css';
 <Button isDisabled={true}>Lighter opacity</Button>
 ```
 
+</ExampleCode>
+
 _Using style props:_
+
+<Example>
+  <View>
+    <Button style={{ backgroundColor: 'green', color: 'white' }}>Green</Button>
+    <Button backgroundColor="purple" color="white">
+      {'Purple'}
+    </Button>
+  </View>
+
+<ExampleCode>
 
 ```jsx
 <Button style={{ backgroundColor: 'green', color: 'white' }}>Green</Button>;
@@ -287,9 +386,11 @@ _Using style props:_
 </Button>;
 ```
 
-<Example>
-  <Button style={{ backgroundColor: 'green', color: 'white' }}>Green</Button>
-  <Button backgroundColor="purple" color="white">
-    {'Purple'}
-  </Button>
+</ExampleCode>
 </Example>
+
+### Default theme
+
+```js file=../../../../../packages/ui/src/theme/tokens/components/badge.js
+
+```

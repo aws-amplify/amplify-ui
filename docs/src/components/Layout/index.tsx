@@ -20,7 +20,7 @@ const PrimitiveAlert = () => {
       heading="Developer preview"
       margin={`${tokens.space.small} 0 0 0`}
     >
-      <Text>
+      <Text color="inherit">
         Amplify UI primitive components like this one are in developer preview
         and only available in React for now.
       </Text>
