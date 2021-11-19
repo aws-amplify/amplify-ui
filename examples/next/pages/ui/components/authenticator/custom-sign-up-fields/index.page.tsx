@@ -13,6 +13,9 @@ Amplify.configure(awsExports);
 export default function App() {
   return (
     <Authenticator
+      // Default to Sign Up screen
+      initialState="signUp"
+      // Customize `Authenticator.SignUp.FormFields`
       components={{
         SignUp: {
           FormFields() {
