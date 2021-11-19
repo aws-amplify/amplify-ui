@@ -17,3 +17,5 @@ export const TableHead: Primitive<TableHeadProps, 'thead'> = ({
     {children}
   </View>
 );
+
+TableHead.displayName = 'TableHead';
