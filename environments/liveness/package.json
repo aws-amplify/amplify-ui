@@ -3,6 +3,6 @@
   "name": "liveness-environment",
   "version": "0.0.1",
   "scripts": {
-    "pull": "amplify pull --appId d1q4tdldi50e7t --envName staging"
+    "pull": "amplify pull --appId d2ik0ne7ts7o1u --envName dev"
   }
 }

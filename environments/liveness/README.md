@@ -14,11 +14,11 @@ External contributors can re-create this backend by following the instructions i
 Internal (Liveness team) contributors can use this backend directly by:
 
 1. Ensure you have the Amplify CLI tool installed as well as the internal `isengardcli` tool installed.
-2. In a new terminal window, use `isengardcli` to assume the shared `rekognition-liveness-sdk-models-alpha` account and manually set your region to `us-east-1` and role to `Admin`:
+2. In a new terminal window, use `isengardcli` to assume the shared `livenesssampleserverapp-app` account and manually set your region to `us-east-1` and role to `Admin`:
    ```shell
-   isengardcli assume rekognition-liveness-sdk-models-alpha --role Admin --region us-east-1
+   isengardcli assume livenesssampleserverapp-app --role Admin --region us-east-1
    ```
-   This will configure a local AWS profile which uses temporary access keys from our shared `rekognition-liveness-sdk-models-alpha` account that can be used for accessing our shared environments.
+   This will configure a local AWS profile which uses temporary access keys from our shared `livenesssampleserverapp-app` account that can be used for accessing our shared environments.
 3. Run the following command to pull the credentials
    ```shell
    yarn pull

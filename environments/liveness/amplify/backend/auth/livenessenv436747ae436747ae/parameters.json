@@ -1,10 +1,10 @@
 {
-    "identityPoolName": "testAuthIdentityPool",
+    "identityPoolName": "livenessenv436747ae_identitypool_436747ae",
     "allowUnauthenticatedIdentities": true,
-    "resourceNameTruncated": "livene133f0d24",
-    "userPoolName": "livenessenvironment",
+    "resourceNameTruncated": "livene436747ae",
+    "userPoolName": "livenessenv436747ae_userpool_436747ae",
     "autoVerifiedAttributes": [
-        "email"
+        "phone_number"
     ],
     "mfaConfiguration": "OFF",
     "mfaTypes": [
@@ -12,28 +12,27 @@
     ],
     "smsAuthenticationMessage": "Your authentication code is {####}",
     "smsVerificationMessage": "Your verification code is {####}",
-    "emailVerificationSubject": "Forgot password code: {####}",
-    "emailVerificationMessage": "Forgot password code: {####}",
+    "emailVerificationSubject": "Your verification code",
+    "emailVerificationMessage": "Your verification code is {####}",
     "defaultPasswordPolicy": false,
     "passwordPolicyMinLength": 8,
-    "passwordPolicyCharacters": [
-        "Requires Lowercase",
-        "Requires Numbers",
-        "Requires Symbols",
-        "Requires Uppercase"
-    ],
+    "passwordPolicyCharacters": [],
     "requiredAttributes": [
         "email"
     ],
     "aliasAttributes": [],
     "userpoolClientGenerateSecret": false,
     "userpoolClientRefreshTokenValidity": 30,
-    "userpoolClientWriteAttributes": [],
-    "userpoolClientReadAttributes": [],
-    "userpoolClientLambdaRole": "livene133f0d24_userpoolclient_lambda_role",
+    "userpoolClientWriteAttributes": [
+        "email"
+    ],
+    "userpoolClientReadAttributes": [
+        "email"
+    ],
+    "userpoolClientLambdaRole": "livene436747ae_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "133f0d24",
-    "resourceName": "livenessenvironment",
+    "sharedId": "436747ae",
+    "resourceName": "livenessenv436747ae436747ae",
     "authSelections": "identityPoolAndUserPool",
     "authRoleArn": {
         "Fn::GetAtt": [
@@ -47,23 +46,19 @@
             "Arn"
         ]
     },
-    "serviceName": "Cognito",
-    "usernameAttributes": [
-        "email"
-    ],
     "useDefault": "manual",
-    "userPoolGroups": false,
-    "userPoolGroupList": [],
-    "adminQueries": false,
     "thirdPartyAuth": false,
-    "authProviders": [],
-    "usernameCaseSensitive": false,
-    "dependsOn": [],
+    "userPoolGroups": false,
+    "adminQueries": false,
     "triggers": "{}",
     "hostedUI": false,
+    "userPoolGroupList": [],
+    "serviceName": "Cognito",
+    "usernameCaseSensitive": false,
     "parentStack": {
         "Ref": "AWS::StackId"
     },
     "breakCircularDependency": true,
-    "permissions": []
+    "permissions": [],
+    "dependsOn": []
 }
