@@ -1,3 +1,4 @@
+import * as React from 'react';
 import classNames from 'classnames';
 import debounce from 'lodash/debounce';
 import { useCallback, useState } from 'react';
