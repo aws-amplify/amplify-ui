@@ -27,6 +27,7 @@ function MyApp({ Component, pageProps }) {
     <div className={themeOverride}>
       <Head>
         <title>Amplify UI</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" type="image/svg+xml" href={favicon} />
         {/* Adding custom variable fonts from google */}
         {/* Including multiple to show theming capabilities */}

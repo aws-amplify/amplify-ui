@@ -29,7 +29,6 @@
   height: 10rem;
 }
 
-
 .docs-home-section {
   position: relative;
   padding: var(--amplify-space-xxl);
@@ -40,9 +39,10 @@
 }
 
 .docs-home-section-bg > .amplify-card {
-  width: 50%;
-  margin: calc(var(--amplify-space-xl) * -1) 0 var(--amplify-space-xl)
-    var(--amplify-space-xl);
+  position: relative;
+  max-width: 70ch;
+  margin: calc(var(--amplify-space-xl) * -1) var(--amplify-space-xl)
+    var(--amplify-space-xl) var(--amplify-space-xl);
 }
 
 .install-code {
@@ -53,11 +53,11 @@
 .docs-home-amp-product-card {
   transition: transform var(--amplify-time-medium) ease;
   display: block;
-  
+
   &:hover {
     transform: scale(1.05);
   }
-  
+
   & > .amplify-card {
     width: 100%;
   }
