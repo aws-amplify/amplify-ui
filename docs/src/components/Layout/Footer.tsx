@@ -37,6 +37,7 @@ export const Footer = () => {
           variation="link"
           gap={tokens.space.small}
           alignItems="baseline"
+          href="https://discord.gg/amplify"
           isExternal={true}
           color={tokens.colors.font.tertiary}
         >

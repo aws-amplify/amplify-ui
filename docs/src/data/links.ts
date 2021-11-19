@@ -57,9 +57,9 @@ export const connectedComponents = [
     body: 'Chatbot automatically renders a complete chat messaging interface that can be used out-of-the-box, or it can be customized using theming support.',
   },
   {
-    href: '/components/s3album',
-    label: 'S3 Album',
-    body: 'Renders a list of S3Image objects.',
+    href: '/components/storage',
+    label: 'Storage',
+    body: 'A set of components to help interact with S3 storage.',
   },
 ].sort(sortByLabel);
 

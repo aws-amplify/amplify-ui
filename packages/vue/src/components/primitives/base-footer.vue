@@ -4,7 +4,7 @@
     name="footert"
     :slotData="mySlots.default && mySlots.default()"
   >
-    <footer v-bind="$attrs" data-amplify-footer=""><slot></slot></footer>
+    <footer v-bind="$attrs"><slot></slot></footer>
   </slot>
 </template>
 
