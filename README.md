@@ -1,12 +1,11 @@
-<img src="https://s3.amazonaws.com/aws-mobile-hub-images/aws-amplify-logo.png" alt="AWS Amplify" width="225">
-
----
-
-# Amplify UI
-
-> 🚧 This is the `next` version of Amplify UI 🚧
->
-> For the the `latest` Amplify UI documentation, [click here](https://docs.amplify.aws/ui)
+<p align="center">
+  <a href="https://ui.docs.amplify.aws">
+    <img alt="Amplify UI" src="https://github.com/aws-amplify/community/blob/master/src/assets/images/logo-dark.png" width="60" />
+  </a>
+</p>
+<h1 align="center">
+  Amplify UI
+</h1>
 
 [![GitHub](https://img.shields.io/github/license/aws-amplify/amplify-ui)](LICENSE)
 [![Discord](https://img.shields.io/discord/308323056592486420?logo=discord)](https://discord.gg/jWVbPfC)
