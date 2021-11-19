@@ -17,3 +17,5 @@ export const TableBody: Primitive<TableBodyProps, 'tbody'> = ({
     {children}
   </View>
 );
+
+TableBody.displayName = 'TableBody';

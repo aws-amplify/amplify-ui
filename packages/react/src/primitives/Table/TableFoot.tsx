@@ -17,3 +17,5 @@ export const TableFoot: Primitive<TableFootProps, 'tfoot'> = ({
     {children}
   </View>
 );
+
+TableFoot.displayName = 'TableFoot';

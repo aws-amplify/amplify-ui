@@ -29,3 +29,5 @@ export const Table: Primitive<TableProps, 'table'> = ({
     {children}
   </View>
 );
+
+Table.displayName = 'Table';
