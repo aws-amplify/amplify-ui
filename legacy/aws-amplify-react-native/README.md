@@ -491,7 +491,7 @@ For mutations, a `mutation` function needs to be provided with the `Connect` com
 
 `S3Album` renders a list of `S3Image` and `S3Text` objects:
 
-![Image](/images/S3Album_and_code.png)
+![Image](S3Album_and_code.png)
 
 ```jsx
 import { S3Album } from 'aws-amplify-react-native';
