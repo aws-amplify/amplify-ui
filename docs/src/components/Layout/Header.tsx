@@ -14,6 +14,8 @@ import {
   IconMenu,
   Divider,
   useTheme,
+  Menu,
+  MenuItem,
 } from '@aws-amplify/ui-react';
 import { useRouter } from 'next/router';
 import { Logo } from '@/components/Logo';
@@ -72,9 +74,26 @@ export const Header = ({ platform, colorMode, setColorMode }) => {
           alignItems="center"
           padding={`${tokens.space.small} ${tokens.space.xl}`}
         >
-          <Button className="docs-header-menu-button" size="small">
-            <IconMenu />
-          </Button>
+          <Menu className="docs-header-menu-button" size="small">
+            <MenuItem>
+              <NavLink href="/getting-started/installation">
+                Getting started
+              </NavLink>
+            </MenuItem>
+            <MenuItem>
+              <NavLink href="/components">Components</NavLink>
+            </MenuItem>
+            <MenuItem>
+              <NavLink href="/theming">Theming</NavLink>
+            </MenuItem>
+            <Divider />
+            <MenuItem>
+              <NavLink isExternal href="https://docs.amplify.aws">
+                Amplify docs <IconOpenInNew />
+              </NavLink>
+            </MenuItem>
+          </Menu>
+
           <NavLink href="/">
             <a className="docs-logo-link">
               <VisuallyHidden>Amplify UI Home</VisuallyHidden>
