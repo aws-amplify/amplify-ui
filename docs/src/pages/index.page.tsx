@@ -292,7 +292,9 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
             large: 'row',
           }}
         >
-          <HomePrimitivePreview />
+          <View maxWidth="100%" overflow="hidden">
+            <HomePrimitivePreview />
+          </View>
           <Flex flex="1" direction="column" alignItems="flex-start">
             <Heading level={2}>Primitive Components</Heading>
             <Text className="docs-home-description">
