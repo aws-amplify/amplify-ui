@@ -17,12 +17,12 @@
     "build:icons": "yarn react build:icons",
     "test": "yarn react test && yarn e2e test",
     "prepare": "husky install",
-    "version:next": "yarn changeset version --snapshot next-$(git rev-parse --short=7 HEAD) && yarn build",
+    "version:next": "yarn changeset version --snapshot next-$(git rev-parse --short=7 HEAD) && yarn angular build",
     "publish:next": "yarn changeset publish --tag next",
     "version:liveness": "yarn changeset version --snapshot liveness-$(git rev-parse --short=7 HEAD) && yarn build",
     "publish:liveness": "yarn changeset publish --tag liveness",
-    "version:latest": "echo \"not implemented until stable release\"",
-    "publish:latest": "echo \"not implemented until stable release\""
+    "version:latest": "yarn changeset version && yarn angular build",
+    "publish:latest": "yarn changeset publish"
   },
   "workspaces": [
     "docs",

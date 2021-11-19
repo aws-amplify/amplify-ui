@@ -27,15 +27,17 @@
   </form>
 
   <amplify-slot name="sign-in-footer" [context]="context">
-    <button
-      amplify-button
-      fontWeight="normal"
-      size="small"
-      variation="link"
-      fullWidth="true"
-      (click)="authenticator.toResetPassword()"
-    >
-      {{ forgotPasswordText }}
-    </button>
+    <div data-amplify-footer>
+      <button
+        amplify-button
+        fontWeight="normal"
+        size="small"
+        variation="link"
+        fullWidth="true"
+        (click)="authenticator.toResetPassword()"
+      >
+        {{ forgotPasswordText }}
+      </button>
+    </div>
   </amplify-slot>
 </div>

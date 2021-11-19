@@ -11,6 +11,9 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
+        with:
+          # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
+          fetch-depth: 0
       - name: Setup Node.js LTS
         uses: actions/setup-node@v2
         with:
@@ -21,9 +24,8 @@ jobs:
       - name: Create Release Pull Request or Publish to npm
         id: changesets
         uses: changesets/action@b98cec97583b917ff1dc6179dd4d230d3e439894
-        # with:
-        # version: yarn version:latest # commented out until we're ready for GA release
-        # publish: yarn release:latest # commented out until we're ready for GA release
+        with:
+          publish: yarn publish:latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # NPM_TOKEN: ${{ secrets.NPM_TOKEN }} # commented out until we're ready for GA release
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
