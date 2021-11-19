@@ -203,10 +203,8 @@ watch(
     v-if="!state?.matches('authenticated')"
   >
     <div data-amplify-container>
-      <div data-amplify-header>
-        <slot name="header"> </slot>
-      </div>
-      <div data-amplify-body>
+      <slot name="header"> </slot>
+      <div data-amplify-router>
         <base-two-tabs
           v-if="actorState?.matches('signIn') || actorState?.matches('signUp')"
         >
@@ -444,9 +442,7 @@ watch(
           </template>
         </confirm-verify-user>
       </div>
-      <div data-amplify-footer>
-        <slot name="footer"></slot>
-      </div>
+      <slot name="footer"></slot>
     </div>
   </div>
 

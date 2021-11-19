@@ -19,8 +19,6 @@ export function SignUp() {
     },
   } = components;
 
-  console.log({ components });
-
   const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
     if (isInputOrSelectElement(event.target)) {
       let { name, type, value } = event.target;

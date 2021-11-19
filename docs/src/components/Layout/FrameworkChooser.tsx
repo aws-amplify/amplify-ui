@@ -10,10 +10,27 @@ export const FrameworkChooser = ({ platform }) => {
   const router = useRouter();
 
   const chooseFramework = (framework) => {
-    router.replace({
-      pathname: router.pathname,
-      query: { platform: framework },
-    });
+    const { hash } = window.location;
+
+    router.replace(
+      {
+        hash,
+        pathname: router.pathname,
+        query: { platform: framework },
+      },
+      // `as?` prop  isn't needed when URL is already provided
+      undefined,
+      {
+        // Scroll to top if a new page
+        scroll: hash ? false : true,
+      }
+    );
+
+    // Because layout may change, explicitly tell the browser to scroll to that anchor
+    // e.g. <a id="#variation" />
+    if (hash) {
+      document.getElementById(hash.slice(1)).scrollIntoView();
+    }
   };
 
   return (
