@@ -134,7 +134,10 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
             (more coming soon).
           </Text>
 
-          <Flex direction="row" padding={`${tokens.space.medium} 0 0 0`}>
+          <Flex
+            direction={{ base: 'column-reverse', medium: 'row' }}
+            padding={`${tokens.space.medium} 0 0 0`}
+          >
             <Button
               size="large"
               variation="primary"
@@ -150,13 +153,13 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
               isReadOnly={true}
               className="install-code"
               size="large"
-              innerEndComponent={
+              outerEndComponent={
                 <Copy
                   variation="link"
                   text={`npm i aws-amplify @aws-amplify/ui-${framework}`}
                 />
               }
-              value={`npm i @aws-amplify/ui-${framework}@next`}
+              value={`npm i @aws-amplify/ui-${framework}`}
             />
           </Flex>
         </Card>
@@ -289,7 +292,9 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
             large: 'row',
           }}
         >
-          <HomePrimitivePreview />
+          <View maxWidth="100%" overflow="hidden">
+            <HomePrimitivePreview />
+          </View>
           <Flex flex="1" direction="column" alignItems="flex-start">
             <Heading level={2}>Primitive Components</Heading>
             <Text className="docs-home-description">

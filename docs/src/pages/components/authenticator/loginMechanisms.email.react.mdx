@@ -1,5 +1,14 @@
-```js{2}
-export default withAuthenticator(App, {
-  loginMechanisms: ['email']
-});
+```js{3}
+export default function App() {
+  return (
+    <Authenticator loginMechanisms={['email']}>
+      {({ signOut, user }) => (
+        <main>
+          <h1>Hello {user.username}</h1>
+          <button onClick={signOut}>Sign out</button>
+        </main>
+      )}
+    </Authenticator>
+  );
+}
 ```

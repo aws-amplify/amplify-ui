@@ -61,3 +61,5 @@ export const ExpanderItem: Primitive<ExpanderItemProps, typeof Item> = ({
     </Item>
   );
 };
+
+ExpanderItem.displayName = 'ExpanderItem';

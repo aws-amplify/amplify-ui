@@ -21,7 +21,7 @@ export const Footer = () => {
       </Flex>
       <View textAlign="center">
         <Button
-          as="a"
+          as={Link}
           variation="link"
           gap={tokens.space.small}
           alignItems="baseline"
@@ -33,7 +33,7 @@ export const Footer = () => {
           Github
         </Button>
         <Button
-          as="a"
+          as={Link}
           variation="link"
           gap={tokens.space.small}
           alignItems="baseline"

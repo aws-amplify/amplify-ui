@@ -1,7 +1,6 @@
 module.exports = {
   // shared styles
-  fontWeight: { value: 'bold' },
-  borderRadius: { value: '{components.fieldcontrol.borderRadius.value}' },
+  fontWeight: { value: '{fontWeights.bold.value}' },
   transitionDuration: {
     value: '{components.fieldcontrol.transitionDuration.value}',
   },
@@ -19,10 +18,11 @@ module.exports = {
   paddingInlineEnd: {
     value: '{components.fieldcontrol.paddingInlineEnd.value}',
   },
-  borderColor: { value: '{colors.brand.primary.20.value}' },
-  borderWidth: { value: '{borderWidths.small.value}' },
-  borderStyle: { value: 'solid' },
-  color: { value: '{colors.brand.primary.80.value}' },
+  borderColor: { value: '{components.fieldcontrol.borderColor.value}' },
+  borderWidth: { value: '{components.fieldcontrol.borderWidth.value}' },
+  borderStyle: { value: '{components.fieldcontrol.borderStyle.value}' },
+  borderRadius: { value: '{components.fieldcontrol.borderRadius.value}' },
+  color: { value: '{colors.font.primary.value}' },
 
   _hover: {
     color: { value: '{colors.font.focus.value}' },
@@ -31,12 +31,13 @@ module.exports = {
   },
   _focus: {
     color: { value: '{colors.font.focus.value}' },
+    backgroundColor: { value: '{colors.brand.primary.10.value}' },
     borderColor: { value: '{colors.border.focus.value}' },
     boxShadow: { value: '{components.fieldcontrol._focus.boxShadow.value}' },
   },
   _active: {
-    color: { value: '{colors.font.inverse.value}' },
-    backgroundColor: { value: '{colors.brand.primary.100.value}' },
+    color: { value: '{colors.font.active.value}' },
+    backgroundColor: { value: '{colors.brand.primary.20.value}' },
     borderColor: { value: '{colors.brand.primary.100.value}' },
   },
   _loading: {
@@ -52,45 +53,56 @@ module.exports = {
 
   // variations
   primary: {
-    borderWidth: { value: 0 },
+    borderColor: { value: 'transparent' },
+    borderWidth: { value: '{borderWidths.small.value}' },
+    borderStyle: { value: 'solid' },
     backgroundColor: { value: '{colors.brand.primary.80.value}' },
     color: { value: '{colors.font.inverse.value}' },
     _disabled: {
-      backgroundColor: { value: '{colors.background.tertiary.value}' },
-      color: { value: '{colors.font.tertiary.value}' },
+      borderColor: { value: 'transparent' },
+      backgroundColor: { value: '{colors.background.disabled.value}' },
+      color: { value: '{colors.font.disabled.value}' },
     },
     _loading: {
+      borderColor: { value: 'transparent' },
       backgroundColor: { value: '{colors.background.tertiary.value}' },
-      color: { value: '{colors.font.tertiary.value}' },
+      color: { value: '{colors.font.inverse.value}' },
     },
     _hover: {
+      borderColor: { value: 'transparent' },
       backgroundColor: { value: '{colors.brand.primary.90.value}' },
+      color: { value: '{colors.font.inverse.value}' },
     },
     _focus: {
+      borderColor: { value: 'transparent' },
       backgroundColor: { value: '{colors.brand.primary.90.value}' },
+      color: { value: '{colors.font.inverse.value}' },
+      boxShadow: { value: '{components.fieldcontrol._focus.boxShadow.value}' },
     },
     _active: {
+      borderColor: { value: 'transparent' },
       backgroundColor: { value: '{colors.brand.primary.100.value}' },
+      color: { value: '{colors.font.inverse.value}' },
     },
   },
 
   menu: {
     borderWidth: { value: 0 },
-    backgroundColor: { value: 'none' },
+    backgroundColor: { value: 'transparent' },
     justifyContent: { value: 'start' },
     // Focus and hover styles are identical for menu variation
     // because for Menu primitive, menu items are forced to be focused even
     // for mouse interactions, making it impossible to distinguish the two interactions
     _hover: {
-      color: { value: '{colors.white.value}' },
+      color: { value: '{colors.font.inverse.value}' },
       backgroundColor: { value: '{colors.brand.primary.80.value}' },
     },
     _focus: {
-      color: { value: '{colors.white.value}' },
+      color: { value: '{colors.font.inverse.value}' },
       backgroundColor: { value: '{colors.brand.primary.80.value}' },
     },
     _active: {
-      color: { value: '{colors.white.value}' },
+      color: { value: '{colors.font.inverse.value}' },
       backgroundColor: { value: '{colors.brand.primary.90.value}' },
     },
     _disabled: {
@@ -100,22 +112,34 @@ module.exports = {
 
   link: {
     borderWidth: { value: 0 },
+    borderColor: { value: 'transparent' },
     backgroundColor: { value: 'transparent' },
     color: { value: '{colors.font.interactive.value}' },
     _hover: {
+      borderColor: { value: 'transparent' },
+      backgroundColor: { value: '{colors.brand.primary.10.value}' },
       color: { value: '{colors.font.hover.value}' },
     },
     _focus: {
+      borderColor: { value: 'transparent' },
+      backgroundColor: { value: '{colors.brand.primary.10.value}' },
       color: { value: '{colors.font.focus.value}' },
+      boxShadow: { value: '{components.fieldcontrol._focus.boxShadow.value}' },
     },
     _active: {
+      borderColor: { value: 'transparent' },
+      backgroundColor: { value: '{colors.brand.primary.20.value}' },
       color: { value: '{colors.font.active.value}' },
     },
     _disabled: {
+      borderColor: { value: 'transparent' },
+      backgroundColor: { value: 'transparent' },
       color: { value: '{colors.font.disabled.value}' },
     },
     _loading: {
-      color: { value: '{colors.font.tertiary.value}' },
+      borderColor: { value: 'transparent' },
+      backgroundColor: { value: 'transparent' },
+      color: { value: '{colors.font.disabled.value}' },
     },
   },
 

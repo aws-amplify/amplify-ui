@@ -23,3 +23,5 @@ export const TableCell: Primitive<TableCellProps, TableCellElement> = ({
     {children}
   </View>
 );
+
+TableCell.displayName = 'TableCell';
