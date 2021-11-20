@@ -14,31 +14,42 @@ import {
   utilityComponents,
 } from '../../data/links';
 
-const NavLinks = ({ items }: { items: ComponentNavItem[] }) => (
+const NavLinks = ({
+  items,
+  onClick,
+}: {
+  items: ComponentNavItem[];
+  onClick?: () => void;
+}) => (
   <Collection type="list" items={items} gap="0">
     {({ href, label }) => (
-      <NavLink key={label} href={href}>
+      <NavLink key={label} href={href} onClick={onClick}>
         {label}
       </NavLink>
     )}
   </Collection>
 );
 
-const NavLink = ({ href, children }) => {
+const NavLink = ({ href, children, onClick }) => {
   const { pathname, query } = useRouter();
   const isCurrent = pathname === href;
 
   return (
     <Link href={{ pathname: href, query }}>
-      <a className={`docs-secondary-nav-link ${isCurrent ? 'current' : ''}`}>
-        {children}
-      </a>
+      <div>
+        <a
+          onClick={onClick}
+          className={`docs-secondary-nav-link ${isCurrent ? 'current' : ''}`}
+        >
+          {children}
+        </a>
+      </div>
     </Link>
   );
 };
 
 // TODO: clean up this logic
-export const SecondaryNav = () => {
+export const SecondaryNav = (props) => {
   const router = useRouter();
   const { platform = 'react' } = router.query;
 
@@ -47,62 +58,72 @@ export const SecondaryNav = () => {
 
   if (section === 'theming') {
     return (
-      <Sidebar>
-        <NavLink href="/theming">Overview</NavLink>
-        <NavLink href="/theming/responsive">Responsive</NavLink>
-        <NavLink href="/theming/dark-mode">Dark mode</NavLink>
-        <NavLink href="/theming/alternative-styling">
+      <>
+        <NavLink {...props} href="/theming">
+          Overview
+        </NavLink>
+        <NavLink {...props} href="/theming/responsive">
+          Responsive
+        </NavLink>
+        <NavLink {...props} href="/theming/dark-mode">
+          Dark mode
+        </NavLink>
+        <NavLink {...props} href="/theming/alternative-styling">
           Alternative styling
         </NavLink>
-      </Sidebar>
+      </>
     );
   }
 
   if (section === 'getting-started') {
     return (
-      <Sidebar>
-        <NavLink href="/getting-started/installation">Installation</NavLink>
-      </Sidebar>
+      <>
+        <NavLink {...props} href="/getting-started/installation">
+          Installation
+        </NavLink>
+      </>
     );
   }
 
   if (section === 'components') {
     return (
-      <Sidebar>
+      <>
         <Heading level={6}>Connected Components</Heading>
-        <NavLinks items={connectedComponents} />
+        <NavLinks {...props} items={connectedComponents} />
 
         <Heading level={6}>Base</Heading>
-        <NavLinks items={baseComponents} />
+        <NavLinks {...props} items={baseComponents} />
 
         <Heading level={6}>Feedback</Heading>
-        <NavLinks items={feedbackComponents} />
+        <NavLinks {...props} items={feedbackComponents} />
 
         <Heading level={6}>Navigation</Heading>
-        <NavLinks items={navigationComponents} />
+        <NavLinks {...props} items={navigationComponents} />
 
         <Heading level={6}>Inputs</Heading>
-        <NavLinks items={inputComponents} />
+        <NavLinks {...props} items={inputComponents} />
 
         <Heading level={6}>Layout</Heading>
-        <NavLinks items={layoutComponents} />
+        <NavLinks {...props} items={layoutComponents} />
 
         <Heading level={6}>Data Display</Heading>
-        <NavLinks items={dataDisplayComponents} />
+        <NavLinks {...props} items={dataDisplayComponents} />
 
         <Heading level={6}>Utilities</Heading>
-        <NavLinks items={utilityComponents} />
-      </Sidebar>
+        <NavLinks {...props} items={utilityComponents} />
+      </>
     );
   }
   return null;
 };
 
-const Sidebar = ({ children }) => {
+export const Sidebar = () => {
   return (
     <aside className="docs-sidebar">
       <div className="docs-sidebar-inner">
-        <nav className="docs-sidebar-nav">{children}</nav>
+        <nav className="docs-sidebar-nav">
+          <SecondaryNav />
+        </nav>
       </div>
     </aside>
   );

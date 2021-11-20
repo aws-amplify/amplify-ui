@@ -1,3 +1,4 @@
+import * as React from 'react';
 import NextLink from 'next/link';
 import {
   IconOpenInNew,
@@ -13,15 +14,15 @@ import {
   IconTonality,
   IconMenu,
   Divider,
-  useTheme,
-  Menu,
-  MenuItem,
+  View,
+  IconClose,
 } from '@aws-amplify/ui-react';
 import { useRouter } from 'next/router';
 import { Logo } from '@/components/Logo';
 import { FrameworkChooser } from './FrameworkChooser';
+import { SecondaryNav } from './SecondaryNav';
 
-const NavLink = ({ href, children, isExternal = false }) => {
+const NavLink = ({ href, children, isExternal = false, onClick }) => {
   const { pathname, query } = useRouter();
   const isCurrent = pathname.startsWith(href) && href !== '/';
   const className = `docs-nav-link ${isCurrent ? 'current' : ''}`;
@@ -35,10 +36,39 @@ const NavLink = ({ href, children, isExternal = false }) => {
   }
   return (
     <NextLink href={{ pathname: href, query }}>
-      <a className={className}>{children}</a>
+      <div>
+        <a className={className} onClick={onClick}>
+          {children}
+        </a>
+      </div>
     </NextLink>
   );
 };
+
+const Nav = (props) => (
+  <Flex as="nav" className="docs-nav" alignItems="center" gap="0" grow="1">
+    <NavLink {...props} href="/getting-started/installation">
+      Getting started
+    </NavLink>
+    <NavLink {...props} href="/components">
+      Components
+    </NavLink>
+    <NavLink {...props} href="/theming">
+      Theming
+    </NavLink>
+    <Divider orientation="vertical" />
+    <NavLink {...props} isExternal href="https://docs.amplify.aws">
+      Amplify docs <IconOpenInNew />
+    </NavLink>
+  </Flex>
+);
+
+const Settings = ({ platform, setColorMode, colorMode }) => (
+  <Flex className="docs-settings" justifyContent="center" alignItems="center">
+    <FrameworkChooser platform={platform} />
+    <ColorModeSwitcher setColorMode={setColorMode} colorMode={colorMode} />
+  </Flex>
+);
 
 const ColorModeSwitcher = ({ colorMode, setColorMode }) => {
   return (
@@ -65,66 +95,46 @@ const ColorModeSwitcher = ({ colorMode, setColorMode }) => {
 };
 
 export const Header = ({ platform, colorMode, setColorMode }) => {
-  const { tokens } = useTheme();
+  const [expanded, setExpanded] = React.useState(false);
+
   return (
     <>
-      <header className="docs-header">
-        <Flex
-          direction="row"
-          alignItems="center"
-          padding={`${tokens.space.small} ${tokens.space.xl}`}
+      <header className={`docs-header ${expanded ? 'expanded' : ''}`}>
+        <Button
+          className="docs-header-menu-button"
+          onClick={() => setExpanded(!expanded)}
         >
-          <Menu className="docs-header-menu-button" size="small">
-            <MenuItem>
-              <NavLink href="/getting-started/installation">
-                Getting started
-              </NavLink>
-            </MenuItem>
-            <MenuItem>
-              <NavLink href="/components">Components</NavLink>
-            </MenuItem>
-            <MenuItem>
-              <NavLink href="/theming">Theming</NavLink>
-            </MenuItem>
-            <Divider />
-            <MenuItem>
-              <NavLink isExternal href="https://docs.amplify.aws">
-                Amplify docs <IconOpenInNew />
-              </NavLink>
-            </MenuItem>
-          </Menu>
+          {expanded ? <IconClose /> : <IconMenu />}
+        </Button>
 
-          <NavLink href="/">
-            <a className="docs-logo-link">
-              <VisuallyHidden>Amplify UI Home</VisuallyHidden>
-              <Logo />
-            </a>
-          </NavLink>
+        <NavLink href="/">
+          <a className="docs-logo-link">
+            <VisuallyHidden>Amplify UI Home</VisuallyHidden>
+            <Logo />
+          </a>
+        </NavLink>
 
-          <Flex as="nav" className="docs-nav" alignItems="center" gap="0">
-            <NavLink href="/getting-started/installation">
-              Getting started
-            </NavLink>
-            <NavLink href="/components">Components</NavLink>
-            <NavLink href="/theming">Theming</NavLink>
-            {/* <NavLink href="/examples">Examples</NavLink> */}
-            <Divider orientation="vertical" />
-            <NavLink isExternal href="https://docs.amplify.aws">
-              Amplify docs <IconOpenInNew />
-            </NavLink>
-          </Flex>
-          <Flex direction="row" alignItems="center">
-            {/* <Button variation="primary" size="small">
-              <IconSearch />
-            </Button> */}
-            <FrameworkChooser platform={platform} />
-            <ColorModeSwitcher
-              setColorMode={setColorMode}
-              colorMode={colorMode}
-            />
-          </Flex>
-        </Flex>
+        <Nav />
+
+        <Settings
+          colorMode={colorMode}
+          setColorMode={setColorMode}
+          platform={platform}
+        />
       </header>
+      {expanded ? (
+        <View className="docs-header-mobile-nav">
+          <Settings
+            colorMode={colorMode}
+            setColorMode={setColorMode}
+            platform={platform}
+          />
+          <Nav onClick={() => setExpanded(false)} />
+          <nav className="docs-sidebar-nav">
+            <SecondaryNav onClick={() => setExpanded(false)} />
+          </nav>
+        </View>
+      ) : null}
     </>
   );
 };
