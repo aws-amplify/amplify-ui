@@ -8,6 +8,10 @@
       "import": "./dist/esm/index.js",
       "require": "./dist/index.js"
     },
+    "./internal": {
+      "import": "./dist/esm/internal.js",
+      "require": "./dist/internal.js"
+    },
     "./legacy": {
       "import": "./dist/esm/legacy.js",
       "require": "./dist/legacy.js"
@@ -22,6 +26,7 @@
   "files": [
     "dist",
     "legacy",
+    "internal",
     "LICENSE"
   ],
   "scripts": {

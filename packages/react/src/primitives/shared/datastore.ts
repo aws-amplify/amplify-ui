@@ -19,6 +19,7 @@ const mergePredicates = <Model extends PersistentModel>(
 
 /**
  * Creates a DataStore compatible predicate function from an object representation
+ * @internal
  */
 export const createDataStorePredicate = <Model extends PersistentModel>(
   predicateObject: DataStorePredicateObject

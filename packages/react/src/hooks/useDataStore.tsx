@@ -10,6 +10,7 @@ import {
 
 /**
  * Perform a collection query against a DataStore model
+ * @internal
  */
 export const useDataStoreCollection = <M extends PersistentModel>({
   model,
@@ -42,6 +43,7 @@ export const useDataStoreCollection = <M extends PersistentModel>({
 
 /**
  * Perform a single record query against a DataStore model
+ * @internal
  */
 export const useDataStoreItem = <M extends PersistentModel>({
   model,
@@ -71,6 +73,10 @@ export const useDataStoreItem = <M extends PersistentModel>({
   };
 };
 
+/**
+ * Perform a query against a DataStore model
+ * @internal
+ */
 export function useDataStoreBinding<Model extends PersistentModel>(
   props: DataStoreBindingProps<Model, 'record'>
 ): DataStoreItemResult<Model>;
