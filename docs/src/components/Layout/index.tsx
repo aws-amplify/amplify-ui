@@ -8,7 +8,7 @@ import {
   IconFeedback,
   useTheme,
 } from '@aws-amplify/ui-react';
-import { SecondaryNav } from './SecondaryNav';
+import { Sidebar } from './SecondaryNav';
 import { TableOfContents } from '../TableOfContents';
 import { Footer } from './Footer';
 
@@ -81,7 +81,7 @@ export default function Page({
   }, [children]);
   return (
     <div className="docs-main">
-      <SecondaryNav />
+      <Sidebar />
       <main className="docs-content">
         <section className="docs-content-body">
           <section className="docs-meta">
