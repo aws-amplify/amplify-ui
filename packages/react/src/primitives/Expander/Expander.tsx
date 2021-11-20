@@ -52,3 +52,5 @@ export const Expander: Primitive<ExpanderProps, typeof Root> = ({
 
   return expander;
 };
+
+Expander.displayName = 'Expander';

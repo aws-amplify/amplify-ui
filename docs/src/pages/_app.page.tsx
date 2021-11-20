@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import * as React from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { AmplifyProvider, ColorMode } from '@aws-amplify/ui-react';
@@ -8,11 +8,16 @@ import { Header } from '@/components/Layout/Header';
 import { theme } from '../theme';
 import '../styles/index.scss';
 
+// suppress useLayoutEffect warnings when running outside a browser
+// See: https://gist.github.com/gaearon/e7d97cdf38a2907924ea12e4ebdf3c85#gistcomment-3886909
+// @ts-ignore Cannot assign to 'useLayoutEffect' because it is a read-only property.ts(2540)
+if (typeof window === 'undefined') React.useLayoutEffect = React.useEffect;
+
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
   const { platform = 'react' } = router.query;
-  const [colorMode, setColorMode] = useState<ColorMode>('system');
-  const [themeOverride, setThemeOverride] = useState('');
+  const [colorMode, setColorMode] = React.useState<ColorMode>('system');
+  const [themeOverride, setThemeOverride] = React.useState('');
 
   const favicon =
     process.env.NODE_ENV === 'development'
@@ -22,6 +27,7 @@ function MyApp({ Component, pageProps }) {
     <div className={themeOverride}>
       <Head>
         <title>Amplify UI</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" type="image/svg+xml" href={favicon} />
         {/* Adding custom variable fonts from google */}
         {/* Including multiple to show theming capabilities */}

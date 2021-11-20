@@ -17,3 +17,5 @@ export const TableRow: Primitive<TableRowProps, 'tr'> = ({
     {children}
   </View>
 );
+
+TableRow.displayName = 'TableRow';
