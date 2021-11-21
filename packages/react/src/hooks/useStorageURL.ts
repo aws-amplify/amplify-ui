@@ -7,6 +7,10 @@ export interface UseStorageURLResult {
   isLoading: boolean;
 }
 
+/**
+ * Computes a public URL for an Amplify Storage file
+ * @internal
+ */
 export const useStorageURL = (key: string, options?: S3ProviderGetConfig) => {
   const [result, setResult] = useState<UseStorageURLResult>({
     isLoading: true,
