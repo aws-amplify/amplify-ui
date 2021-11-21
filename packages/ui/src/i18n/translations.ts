@@ -19,6 +19,7 @@ import {
   frDict,
   itDict,
   jaDict,
+  plDict,
   zhDict,
 } from './dictionaries';
 
