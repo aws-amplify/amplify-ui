@@ -72,6 +72,7 @@ export default function App() {
   }
 
   return (
+    // Ensure React knows it will be served from the ${name} subdirectory
     <div>
       {isLivenessActive ? (
         <LivenessFlow
