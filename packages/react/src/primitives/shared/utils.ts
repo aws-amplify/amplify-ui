@@ -34,6 +34,7 @@ export const AUTO_GENERATED_ID_PREFIX = 'radix-id-';
 /**
  * This method is used to parse through all of the overrides and
  * only pass the relevant child overrides for a given component.
+ * @internal
  * @param overrides escape hatch props
  * @param elementHierarchy
  * @returns overrides only for specified element
@@ -61,6 +62,7 @@ export const findChildOverrides = (
 /**
  * This helper method is used to get the overrides
  * that will be applied to a component
+ * @internal
  * @param overrides escape hatch props
  * @param elementHierarchy
  * @returns component overrides
@@ -93,6 +95,7 @@ export type Variant = {
 
 /**
  * Given a list of style variants, select a given one based on input props
+ * @internal
  * @param variants list of style variants to select from
  * @param props variant values to select from the list, may include additional props, to tidy up usage upstream
  */

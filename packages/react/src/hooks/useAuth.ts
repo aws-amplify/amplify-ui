@@ -16,26 +16,8 @@ export interface UseAuthResult {
 }
 
 /**
- * React hook for Amplify Auth.
- * Returns a reference to current authenticated Cognito `user`.
- *
- * Usage:
- * ```
- * const { user, isLoading, error } = useAuth();
- *
- * if (isLoading) {
- *   console.info('Fetching metadata for current user');
- * }
- *
- * if (error) {
- *   console.error(error.message);
- * }
- *
- * if (user) {
- *   console.log(`Current username is ${user.username}`);
- * }
- *
- * ```
+ * Amplify Auth React hook
+ * @internal
  */
 export const useAuth = (): UseAuthResult => {
   const [result, setResult] = useState<UseAuthResult>({
