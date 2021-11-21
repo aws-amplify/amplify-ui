@@ -123,5 +123,6 @@ export const translations: Record<string, Dict> = {
   fr: frDict,
   it: itDict,
   ja: jaDict,
+  pl: plDict,
   zh: zhDict,
 };
