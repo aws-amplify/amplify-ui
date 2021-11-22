@@ -1,5 +1,11 @@
 # @aws-amplify/ui
 
+## 3.0.1
+
+### Patch Changes
+
+- [#829](https://github.com/aws-amplify/amplify-ui/pull/829) [`9fd90d45b`](https://github.com/aws-amplify/amplify-ui/commit/9fd90d45b01a38ee6d78f0cb67238b210750115c) Thanks [@wlee221](https://github.com/wlee221)! - Fix redirect from signIn to confirmSignUp
+
 ## 3.0.0
 
 ### Major Changes

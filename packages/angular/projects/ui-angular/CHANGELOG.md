@@ -1,5 +1,14 @@
 # @aws-amplify/ui-angular
 
+## 2.0.1
+
+### Patch Changes
+
+- [#807](https://github.com/aws-amplify/amplify-ui/pull/807) [`de979b521`](https://github.com/aws-amplify/amplify-ui/commit/de979b52131d49b69e6cba930bf3001db8768a3a) Thanks [@ericclemmons](https://github.com/ericclemmons)! - Remove `@angular/*` `peerDependencies` at ^11.2.4
+
+- Updated dependencies [[`9fd90d45b`](https://github.com/aws-amplify/amplify-ui/commit/9fd90d45b01a38ee6d78f0cb67238b210750115c)]:
+  - @aws-amplify/ui@3.0.1
+
 ## 2.0.0
 
 ### Major Changes
