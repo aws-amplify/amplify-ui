@@ -31,10 +31,7 @@ export function AmplifyProvider({
         <div data-amplify-theme={name} data-amplify-color-mode={colorMode}>
           {children}
         </div>
-        <style
-          id={`amplify-theme-${name}`}
-          dangerouslySetInnerHTML={{ __html: cssText }}
-        />
+        <style id={`amplify-theme-${name}`}>{cssText}</style>
       </IdProvider>
     </AmplifyContext.Provider>
   );
