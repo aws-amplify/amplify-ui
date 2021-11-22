@@ -6,6 +6,7 @@
   border-radius: var(--amplify-components-placeholder-border-radius);
   height: var(--amplify-components-placeholder-default-height);
   width: 100%;
+  display: block;
 
   &[data-size='small'] {
     height: var(--amplify-components-placeholder-small-height);
