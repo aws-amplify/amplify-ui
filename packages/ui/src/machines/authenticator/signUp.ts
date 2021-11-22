@@ -262,13 +262,13 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
         async signUp(context, _event) {
           const { formValues, loginMechanisms } = context;
           const [primaryAlias] = loginMechanisms ?? ['username'];
+          console.log(formValues);
 
           if (formValues.phone_number) {
-            formValues.phone_number =
-              `${formValues.country_code}${formValues.phone_number}`.replace(
-                /[^A-Z0-9+]/gi,
-                ''
-              );
+            formValues.phone_number = formValues.phone_number.replace(
+              /[^A-Z0-9+]/gi,
+              ''
+            );
           }
 
           const username = formValues[primaryAlias];
