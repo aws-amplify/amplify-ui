@@ -6,7 +6,7 @@ es cloud-connected workflows inside of cross-framework UI components.
 ## Installation
 
 ```
-yarn add aws-amplify @aws-amplify/ui-angular@v1
+yarn add aws-amplify @aws-amplify/ui-angular@1.x.x
 ```
 
 # Authenticator
@@ -813,7 +813,7 @@ ChatBot automatically renders a complete chat messaging interface that can be us
 ## Installation
 
 ```
-yarn add aws-amplify @aws-amplify/ui-angular
+yarn add aws-amplify @aws-amplify/ui-angular@1.x.x
 ```
 
 ## Usage
