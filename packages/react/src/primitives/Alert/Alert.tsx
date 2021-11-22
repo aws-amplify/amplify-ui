@@ -11,65 +11,62 @@ import { IconClose } from '../Icon';
 import { isFunction } from '../shared/utils';
 import { splitPrimitiveProps } from '../shared/styleUtils';
 
-export const AlertPrimitive: PrimitiveWithForwardRef<AlertProps, typeof Flex> =
-  (
-    {
-      children,
-      className,
-      hasIcon = true,
-      heading,
-      isDismissible = false,
-      onDismiss,
-      variation,
-      ..._rest
-    },
-    ref
-  ) => {
-    const { baseStyleProps, flexContainerStyleProps, rest } =
-      splitPrimitiveProps(_rest);
+const AlertPrimitive: PrimitiveWithForwardRef<AlertProps, typeof Flex> = (
+  {
+    children,
+    className,
+    hasIcon = true,
+    heading,
+    isDismissible = false,
+    onDismiss,
+    variation,
+    ..._rest
+  },
+  ref
+) => {
+  const { baseStyleProps, flexContainerStyleProps, rest } =
+    splitPrimitiveProps(_rest);
 
-    const [dismissed, setDismissed] = React.useState<boolean>(false);
+  const [dismissed, setDismissed] = React.useState<boolean>(false);
 
-    const dismissAlert = React.useCallback(() => {
-      setDismissed(!dismissed);
+  const dismissAlert = React.useCallback(() => {
+    setDismissed(!dismissed);
 
-      if (isFunction(onDismiss)) {
-        onDismiss();
-      }
-    }, [setDismissed, onDismiss]);
+    if (isFunction(onDismiss)) {
+      onDismiss();
+    }
+  }, [setDismissed, onDismiss]);
 
-    return (
-      !dismissed && (
-        <Flex
-          className={classNames(ComponentClassNames.Alert, className)}
-          data-variation={variation}
-          ref={ref}
-          {...baseStyleProps}
-          {...flexContainerStyleProps}
-          {...rest}
-        >
-          {hasIcon && <AlertIcon variation={variation} />}
-          <View role="alert" flex="1">
-            {heading && (
-              <View className={ComponentClassNames.AlertHeading}>
-                {heading}
-              </View>
-            )}
-            <View className={ComponentClassNames.AlertBody}>{children}</View>
-          </View>
-          {isDismissible && (
-            <Button
-              variation="link"
-              className={ComponentClassNames.AlertDismiss}
-              onClick={dismissAlert}
-            >
-              <IconClose />
-            </Button>
+  return (
+    !dismissed && (
+      <Flex
+        className={classNames(ComponentClassNames.Alert, className)}
+        data-variation={variation}
+        ref={ref}
+        {...baseStyleProps}
+        {...flexContainerStyleProps}
+        {...rest}
+      >
+        {hasIcon && <AlertIcon variation={variation} />}
+        <View role="alert" flex="1">
+          {heading && (
+            <View className={ComponentClassNames.AlertHeading}>{heading}</View>
           )}
-        </Flex>
-      )
-    );
-  };
+          <View className={ComponentClassNames.AlertBody}>{children}</View>
+        </View>
+        {isDismissible && (
+          <Button
+            variation="link"
+            className={ComponentClassNames.AlertDismiss}
+            onClick={dismissAlert}
+          >
+            <IconClose />
+          </Button>
+        )}
+      </Flex>
+    )
+  );
+};
 
 export const Alert = React.forwardRef(AlertPrimitive);
 
