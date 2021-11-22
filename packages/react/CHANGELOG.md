@@ -1,5 +1,24 @@
 # @aws-amplify/ui-react
 
+## 2.1.0
+
+### Minor Changes
+
+- [#785](https://github.com/aws-amplify/amplify-ui/pull/785) [`c3a5e175a`](https://github.com/aws-amplify/amplify-ui/commit/c3a5e175a9a20124659a94293dd770e6790859ac) Thanks [@hvergara](https://github.com/hvergara)! - Move hooks to internal module
+
+### Patch Changes
+
+- [#812](https://github.com/aws-amplify/amplify-ui/pull/812) [`e8f998316`](https://github.com/aws-amplify/amplify-ui/commit/e8f998316a307860fc7a11806c8d35a7c8785643) Thanks [@hvergara](https://github.com/hvergara)! - Use Text primitive for Button loading text
+
+* [#781](https://github.com/aws-amplify/amplify-ui/pull/781) [`4c0a44248`](https://github.com/aws-amplify/amplify-ui/commit/4c0a44248b9d3590af32caab0c3790ed673238c7) Thanks [@hvergara](https://github.com/hvergara)! - Restore component catalog nested properties
+
+- [#800](https://github.com/aws-amplify/amplify-ui/pull/800) [`c8ce9445f`](https://github.com/aws-amplify/amplify-ui/commit/c8ce9445f560c4b8e6f80985e9659f268c583768) Thanks [@hvergara](https://github.com/hvergara)! - Add backgroundImage style property
+
+* [#811](https://github.com/aws-amplify/amplify-ui/pull/811) [`63b484714`](https://github.com/aws-amplify/amplify-ui/commit/63b4847147a2499d3532a27c75191b06607ab130) Thanks [@hvergara](https://github.com/hvergara)! - Add missing displayName properties
+
+* Updated dependencies [[`9fd90d45b`](https://github.com/aws-amplify/amplify-ui/commit/9fd90d45b01a38ee6d78f0cb67238b210750115c)]:
+  - @aws-amplify/ui@3.0.1
+
 ## 2.0.0
 
 ### Major Changes
