@@ -19,10 +19,22 @@ Feature: Sign In with Email
 
   @angular @react @vue
   Scenario: Sign in with unconfirmed credentials
+
+  If you sign in with an unconfirmed account, Authenticator will redirect you to `confirmSignUp` route.
+
+    Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-email"
     When I type my "email" with status "UNCONFIRMED"
     And I type my password
     And I click the "Sign in" button
     Then I see "Confirmation Code"
+    And I type a valid confirmation code
+    And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmSignUp" } }' with fixture "confirm-sign-up-with-email"
+    # Mocking these two calls is much easier than intercepting 6+ network calls with tokens that are validated & expire within the hour
+    And I mock 'Amplify.Auth.signIn' with fixture "Auth.signIn-verified-email"
+    And I mock 'Amplify.Auth.currentAuthenticatedUser' with fixture "Auth.currentAuthenticatedUser-verified-email"
+    And I click the "Confirm" button
+    Then I see "Sign out"
+
 
   @angular @react @vue
   Scenario: Sign in with confirmed credentials
