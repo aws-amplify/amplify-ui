@@ -2,73 +2,75 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { ComponentClassNames } from '../shared/constants';
-import { AlertProps, Primitive } from '../types';
+import { AlertProps, PrimitiveWithForwardRef } from '../types';
 import { View } from '../View';
 import { Flex } from '../Flex';
-import { Text } from '../Text';
 import { Button } from '../Button';
 import { AlertIcon } from './AlertIcon';
 import { IconClose } from '../Icon';
 import { isFunction } from '../shared/utils';
+import { splitPrimitiveProps } from '../shared/styleUtils';
 
-export const Alert: Primitive<AlertProps, typeof Flex> = ({
-  alignContent,
-  alignItems = 'center',
-  children,
-  className,
-  direction,
-  gap,
-  hasIcon = true,
-  heading,
-  isDismissible = false,
-  justifyContent = 'space-between',
-  onDismiss,
-  variation,
-  wrap,
-  ...rest
-}) => {
-  const [dismissed, setDismissed] = React.useState<boolean>(false);
+export const AlertPrimitive: PrimitiveWithForwardRef<AlertProps, typeof Flex> =
+  (
+    {
+      children,
+      className,
+      hasIcon = true,
+      heading,
+      isDismissible = false,
+      onDismiss,
+      variation,
+      ..._rest
+    },
+    ref
+  ) => {
+    const { baseStyleProps, flexContainerStyleProps, rest } =
+      splitPrimitiveProps(_rest);
 
-  const dismissAlert = React.useCallback(() => {
-    setDismissed(!dismissed);
+    const [dismissed, setDismissed] = React.useState<boolean>(false);
 
-    if (isFunction(onDismiss)) {
-      onDismiss();
-    }
-  }, [setDismissed, onDismiss]);
+    const dismissAlert = React.useCallback(() => {
+      setDismissed(!dismissed);
 
-  return (
-    !dismissed && (
-      <Flex
-        alignContent={alignContent}
-        alignItems={alignItems}
-        className={classNames(ComponentClassNames.Alert, className)}
-        data-variation={variation}
-        direction={direction}
-        gap={gap}
-        justifyContent={justifyContent}
-        wrap={wrap}
-        {...rest}
-      >
-        {hasIcon && <AlertIcon variation={variation} />}
-        <View role="alert" flex="1">
-          {heading && (
-            <View className={ComponentClassNames.AlertHeading}>{heading}</View>
+      if (isFunction(onDismiss)) {
+        onDismiss();
+      }
+    }, [setDismissed, onDismiss]);
+
+    return (
+      !dismissed && (
+        <Flex
+          className={classNames(ComponentClassNames.Alert, className)}
+          data-variation={variation}
+          ref={ref}
+          {...baseStyleProps}
+          {...flexContainerStyleProps}
+          {...rest}
+        >
+          {hasIcon && <AlertIcon variation={variation} />}
+          <View role="alert" flex="1">
+            {heading && (
+              <View className={ComponentClassNames.AlertHeading}>
+                {heading}
+              </View>
+            )}
+            <View className={ComponentClassNames.AlertBody}>{children}</View>
+          </View>
+          {isDismissible && (
+            <Button
+              variation="link"
+              className={ComponentClassNames.AlertDismiss}
+              onClick={dismissAlert}
+            >
+              <IconClose />
+            </Button>
           )}
-          <View className={ComponentClassNames.AlertBody}>{children}</View>
-        </View>
-        {isDismissible && (
-          <Button
-            variation="link"
-            className={ComponentClassNames.AlertDismiss}
-            onClick={dismissAlert}
-          >
-            <IconClose />
-          </Button>
-        )}
-      </Flex>
-    )
-  );
-};
+        </Flex>
+      )
+    );
+  };
+
+export const Alert = React.forwardRef(AlertPrimitive);
 
 Alert.displayName = 'Alert';

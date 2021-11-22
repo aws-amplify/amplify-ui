@@ -1,5 +1,7 @@
 module.exports = {
   // Default styles
+  alignItems: { value: 'center' },
+  justifyContent: { value: 'space-between' },
   color: { value: '{colors.font.primary.value}' },
   backgroundColor: { value: '{colors.background.tertiary.value}' },
   paddingBlock: { value: '{space.small.value}' },

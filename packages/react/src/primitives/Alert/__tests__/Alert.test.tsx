@@ -1,6 +1,8 @@
 import { render, screen } from '@testing-library/react';
+import * as React from 'react';
+
 import { Alert } from '../Alert';
-import { ComponentClassNames } from '../../shared';
+import { ComponentClassNames } from '../../shared/constants';
 import { ComponentPropsToStylePropsMap } from '../../types';
 import kebabCase from 'lodash/kebabCase';
 
@@ -131,5 +133,14 @@ describe('Alert: ', () => {
     render(<Alert data-demo="true" testId="dataTest"></Alert>);
     const alert = await screen.findByTestId('dataTest');
     expect(alert.dataset['demo']).toBe('true');
+  });
+
+  it('should forward ref to DOM element', async () => {
+    const testId = 'alert';
+    const ref = React.createRef<HTMLDivElement>();
+    render(<Alert ref={ref} testId={testId} />);
+
+    await screen.findAllByTestId(testId);
+    expect(ref.current.nodeName).toBe('DIV');
   });
 });
