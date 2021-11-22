@@ -388,13 +388,6 @@ pre > code.diff-highlight .token.token.inserted:not(.prefix) *::selection {
   color: var(--amplify-colors-pink-90);
 }
 
-[data-amplify-theme] .amplify-card .sp-wrapper {
-  --sp-colors-bg-default: var(--amplify-colors-background-primary);
-  --sp-colors-fg-inactive: var(--amplify-colors-border-primary);
-  --sp-border-radius: 0;
-  --sp-colors-accent: var(--amplify-colors-font-interactive);
-}
-
 .sp-tab-button[data-active='true'] {
   border-bottom-width: 2px;
 }
