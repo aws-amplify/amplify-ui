@@ -1,32 +1,26 @@
-import * as React from 'react';
 import { render, screen } from '@testing-library/react';
+import * as React from 'react';
 
-import { ComponentClassNames } from '../../shared';
 import { FieldGroupIconButton } from '../FieldGroupIconButton';
+import { ComponentClassNames } from '../../shared/constants';
 
-describe('FieldGroupIconButton component', () => {
-  const testId = 'fieldGroupTestId';
-  it('should render default and custom classname for FieldGroupIconButton', async () => {
-    render(<FieldGroupIconButton className="custom-class" testId={testId} />);
+describe('FieldGroupIconButton: ', () => {
+  it('should render default and custom classname', async () => {
+    const className = 'custom-class';
+    render(<FieldGroupIconButton className={className} />);
 
-    const fieldGroup = await screen.findByTestId(testId);
-
-    expect(fieldGroup).toHaveClass('custom-class');
-    expect(fieldGroup).toHaveClass(ComponentClassNames.FieldGroupIconButton);
+    const fieldGroupIconButton = await screen.findByRole('button');
+    expect(fieldGroupIconButton).toHaveClass(
+      ComponentClassNames.FieldGroupIconButton,
+      className
+    );
   });
 
   it('should forward ref to DOM element', async () => {
+    const testId = 'field-group-icon-button';
     const ref = React.createRef<HTMLButtonElement>();
-    render(
-      <FieldGroupIconButton
-        className="custom-class"
-        ref={ref}
-        testId={testId}
-      />
-    );
-
-    await screen.findByRole('button');
-
+    render(<FieldGroupIconButton ref={ref} testId={testId} />);
+    await screen.findAllByTestId(testId);
     expect(ref.current.nodeName).toBe('BUTTON');
   });
 });
