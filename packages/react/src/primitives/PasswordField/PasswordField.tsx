@@ -19,6 +19,7 @@ const PasswordFieldPrimitive: PrimitiveWithForwardRef<
     label,
     className,
     hideShowPassword = false,
+    showPasswordRef,
     size,
     ...rest
   },
@@ -43,6 +44,7 @@ const PasswordFieldPrimitive: PrimitiveWithForwardRef<
           <ShowPasswordButton
             fieldType={type}
             onClick={showPasswordOnClick}
+            ref={showPasswordRef}
             size={size}
           />
         )
