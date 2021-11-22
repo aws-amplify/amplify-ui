@@ -1,19 +1,29 @@
 import classNames from 'classnames';
 import * as React from 'react';
-import { ShowPasswordButton } from './ShowPasswordButton';
 
 import { ComponentClassNames } from '../shared/constants';
-import { PasswordFieldProps, PasswordFieldType, Primitive } from '../types';
+import {
+  PasswordFieldProps,
+  PasswordFieldType,
+  PrimitiveWithForwardRef,
+} from '../types';
+import { ShowPasswordButton } from './ShowPasswordButton';
 import { TextField } from '../TextField';
 
-export const PasswordField: Primitive<PasswordFieldProps, 'input'> = ({
-  autoComplete = 'current-password',
-  label,
-  className,
-  hideShowPassword = false,
-  size,
-  ...rest
-}) => {
+const PasswordFieldPrimitive: PrimitiveWithForwardRef<
+  PasswordFieldProps,
+  'input'
+> = (
+  {
+    autoComplete = 'current-password',
+    label,
+    className,
+    hideShowPassword = false,
+    size,
+    ...rest
+  },
+  ref
+) => {
   const [type, setType] = React.useState<PasswordFieldType>('password');
 
   const showPasswordOnClick = React.useCallback(() => {
@@ -41,9 +51,12 @@ export const PasswordField: Primitive<PasswordFieldProps, 'input'> = ({
       type={type}
       label={label}
       className={classNames(ComponentClassNames.PasswordField, className)}
+      ref={ref}
       {...rest}
     />
   );
 };
+
+export const PasswordField = React.forwardRef(PasswordFieldPrimitive);
 
 PasswordField.displayName = 'PasswordField';
