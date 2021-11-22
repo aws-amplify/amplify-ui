@@ -1,21 +1,28 @@
+import * as React from 'react';
 import classNames from 'classnames';
 
-import { Flex } from '../Flex';
 import { ComponentClassNames } from '../shared/constants';
-import { FieldGroupOptions, Primitive } from '../types';
+import { FieldGroupOptions, PrimitiveWithForwardRef } from '../types';
+import { Flex } from '../Flex';
 import { View } from '../View';
 
-export const FieldGroup: Primitive<FieldGroupOptions, typeof Flex> = ({
-  children,
-  className,
-  orientation = 'horizontal',
-  outerStartComponent,
-  outerEndComponent,
-  innerStartComponent,
-  innerEndComponent,
-  ...rest
-}) => {
-  // Don't apply field group has icon classnames unless an icon was provided
+const FieldGroupPrimitive: PrimitiveWithForwardRef<
+  FieldGroupOptions,
+  typeof Flex
+> = (
+  {
+    children,
+    className,
+    innerEndComponent,
+    innerStartComponent,
+    orientation = 'horizontal',
+    outerEndComponent,
+    outerStartComponent,
+    ...rest
+  },
+  ref
+) => {
+  // Don't apply hasInner classnames unless a component was provided
   const hasInnerStartComponent = innerStartComponent != null;
   const hasInnerEndComponent = innerEndComponent != null;
   const fieldGroupHasInnerStartClassName = hasInnerStartComponent
@@ -34,6 +41,7 @@ export const FieldGroup: Primitive<FieldGroupOptions, typeof Flex> = ({
         className
       )}
       data-orientation={orientation}
+      ref={ref}
       {...rest}
     >
       {outerStartComponent && (
@@ -66,5 +74,7 @@ export const FieldGroup: Primitive<FieldGroupOptions, typeof Flex> = ({
     </Flex>
   );
 };
+
+export const FieldGroup = React.forwardRef(FieldGroupPrimitive);
 
 FieldGroup.displayName = 'FieldGroup';

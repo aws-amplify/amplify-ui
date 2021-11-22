@@ -6,7 +6,7 @@ import { ComponentClassNames } from '../shared/constants';
 import { FieldGroupIcon } from './FieldGroupIcon';
 import { FieldGroupIconButtonProps, PrimitiveWithForwardRef } from '../types';
 
-export const FieldGroupIconButtonPrimitive: PrimitiveWithForwardRef<
+const FieldGroupIconButtonPrimitive: PrimitiveWithForwardRef<
   FieldGroupIconButtonProps,
   'button'
 > = ({ children, className, ...rest }, ref) => (

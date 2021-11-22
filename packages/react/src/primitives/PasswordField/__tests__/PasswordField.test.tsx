@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
@@ -23,6 +24,14 @@ describe('PasswordField component', () => {
 
     expect(passwordFieldWrapper).toHaveClass('custom-class');
     expect(passwordFieldWrapper).toHaveClass(ComponentClassNames.PasswordField);
+  });
+
+  it('should forward ref to DOM element', async () => {
+    const ref = React.createRef<HTMLInputElement>();
+    render(<PasswordField testId={testId} label="Password" ref={ref} />);
+
+    await screen.findByTestId(testId);
+    expect(ref.current.nodeName).toBe('INPUT');
   });
 
   it('should be password input type', async () => {
