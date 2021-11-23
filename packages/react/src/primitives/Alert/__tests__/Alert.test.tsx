@@ -135,12 +135,22 @@ describe('Alert: ', () => {
     expect(alert.dataset['demo']).toBe('true');
   });
 
-  it('should forward ref to DOM element', async () => {
-    const testId = 'alert';
-    const ref = React.createRef<HTMLDivElement>();
-    render(<Alert ref={ref} testId={testId} />);
+  describe.only('Forward ref: ', () => {
+    it('should forward ref to container DOM element', async () => {
+      const testId = 'alert';
+      const ref = React.createRef<HTMLDivElement>();
+      render(<Alert ref={ref} testId={testId} />);
 
-    await screen.findAllByTestId(testId);
-    expect(ref.current.nodeName).toBe('DIV');
+      await screen.findByTestId(testId);
+      expect(ref.current.nodeName).toBe('DIV');
+    });
+
+    it('should forward ref to dismiss button DOM element', async () => {
+      const ref = React.createRef<HTMLButtonElement>();
+      render(<Alert buttonRef={ref} isDismissible />);
+
+      await screen.findByRole('button');
+      expect(ref.current.nodeName).toBe('BUTTON');
+    });
   });
 });

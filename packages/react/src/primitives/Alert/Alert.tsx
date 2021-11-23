@@ -9,10 +9,10 @@ import { Button } from '../Button';
 import { AlertIcon } from './AlertIcon';
 import { IconClose } from '../Icon';
 import { isFunction } from '../shared/utils';
-import { splitPrimitiveProps } from '../shared/styleUtils';
 
 const AlertPrimitive: PrimitiveWithForwardRef<AlertProps, typeof Flex> = (
   {
+    buttonRef,
     children,
     className,
     hasIcon = true,
@@ -20,13 +20,10 @@ const AlertPrimitive: PrimitiveWithForwardRef<AlertProps, typeof Flex> = (
     isDismissible = false,
     onDismiss,
     variation,
-    ..._rest
+    ...rest
   },
   ref
 ) => {
-  const { baseStyleProps, flexContainerStyleProps, rest } =
-    splitPrimitiveProps(_rest);
-
   const [dismissed, setDismissed] = React.useState<boolean>(false);
 
   const dismissAlert = React.useCallback(() => {
@@ -43,8 +40,6 @@ const AlertPrimitive: PrimitiveWithForwardRef<AlertProps, typeof Flex> = (
         className={classNames(ComponentClassNames.Alert, className)}
         data-variation={variation}
         ref={ref}
-        {...baseStyleProps}
-        {...flexContainerStyleProps}
         {...rest}
       >
         {hasIcon && <AlertIcon variation={variation} />}
@@ -59,6 +54,7 @@ const AlertPrimitive: PrimitiveWithForwardRef<AlertProps, typeof Flex> = (
             variation="link"
             className={ComponentClassNames.AlertDismiss}
             onClick={dismissAlert}
+            ref={buttonRef}
           >
             <IconClose />
           </Button>

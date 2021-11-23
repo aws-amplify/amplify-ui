@@ -146,7 +146,7 @@ describe('Expander: ', () => {
     expect(buttons[2]).toHaveAttribute('aria-expanded', 'true');
   });
 
-  it('should foward ref support on DOM element', async () => {
+  it('should forward ref support on DOM element', async () => {
     const testId = 'expander';
     const ref = React.createRef<HTMLDivElement>();
     render(<UncontrolledExpander testId={testId} ref={ref} />);

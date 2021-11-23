@@ -33,9 +33,9 @@ const ExpanderPrimitive: PrimitiveWithForwardRef<ExpanderProps, typeof Root> = (
         data-testid={testId}
         defaultValue={defaultValue as string[]}
         onValueChange={onChange}
+        ref={ref}
         type={type}
         value={value as string[]}
-        ref={ref}
         {...rest}
       >
         {children}
@@ -47,9 +47,9 @@ const ExpanderPrimitive: PrimitiveWithForwardRef<ExpanderProps, typeof Root> = (
         data-testid={testId}
         defaultValue={defaultValue as string}
         onValueChange={onChange}
+        ref={ref}
         type={type}
         value={value as string}
-        ref={ref}
         {...rest}
       >
         {children}
