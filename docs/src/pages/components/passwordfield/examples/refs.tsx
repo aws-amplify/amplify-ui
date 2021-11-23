@@ -10,8 +10,10 @@ export const RefExample = () => {
   }, []);
 
   React.useEffect(() => {
+    // Note: this example is contrived to demonstrate refs.
+    // Use the `onSubmit` prop on `SearchField` instead which
+    // responds to input field `Enter` keypresses and Submit button clicks.
     if (showPasswordButtonRef && showPasswordButtonRef.current) {
-      console.count('useeffect');
       showPasswordButtonRef.current.addEventListener(
         'click',
         onShowPasswordClick,

@@ -258,7 +258,9 @@ Use the `hasError` and `errorMessage` fields to mark a `PhoneNumberField` as hav
 
 ### Forward refs
 
-[Ref](https://reactjs.org/docs/forwarding-refs.html) props are available on the PhoneNumberField for more advanced use cases such as focus management. The standard `ref` prop will forward to the underlying `input` element, and the `countryCodeRef` prop forwards to the country code `select` element.
+<Fragment>{() => import('./../shared/forwardRefAlert.mdx')}</Fragment>
+
+The standard `ref` prop will forward to the underlying `input` element, and the `countryCodeRef` prop forwards to the country code `select` element.
 
 The following is a contrived example demonstrating use of the `ref` and `countryCodeRef` props:
 
