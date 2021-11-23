@@ -13,7 +13,7 @@ import {
   GridCollectionProps,
   ListCollectionProps,
 } from '../types';
-import { getItemsAtPage, itemHasText } from './utils';
+import { getItemsAtPage, itemHasText, getPageCount } from './utils';
 
 const DEFAULT_PAGE_SIZE = 10;
 const TYPEAHEAD_DELAY_MS = 300;
@@ -65,7 +65,7 @@ export const Collection = <Item,>({
 
   // Pagination
   const pagination = usePagination({
-    totalPages: Math.floor(items.length / itemsPerPage),
+    totalPages: getPageCount(items.length, itemsPerPage),
   });
 
   if (isPaginated) {
