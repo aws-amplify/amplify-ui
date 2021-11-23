@@ -291,7 +291,6 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-fieldcontrol-border-width: var(--amplify-border-widths-small);
         --amplify-components-fieldcontrol-border-radius: var(--amplify-radii-small);
         --amplify-components-fieldcontrol-color: var(--amplify-colors-font-primary);
-        --amplify-components-fieldcontrol-background-color: var(--amplify-colors-background-primary);
         --amplify-components-fieldcontrol-padding-block-start: var(--amplify-space-xs);
         --amplify-components-fieldcontrol-padding-block-end: var(--amplify-space-xs);
         --amplify-components-fieldcontrol-padding-inline-start: var(--amplify-space-medium);
