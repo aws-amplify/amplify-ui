@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import Amplify from 'aws-amplify';
-import awsExports from '@environments/auth-with-email-and-custom-attributes/src/aws-exports';
+import awsExports from './aws-exports';
 
 @Component({
   selector: 'custom-sign-up-fields',
