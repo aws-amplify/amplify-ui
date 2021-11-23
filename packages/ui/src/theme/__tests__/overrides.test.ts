@@ -508,7 +508,6 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-sliderfield-thumb-hover-background-color: var(--amplify-colors-background-secondary);
         --amplify-components-sliderfield-thumb-focus-box-shadow: 0 0 0 3px var(--amplify-colors-border-focus);
         --amplify-components-stepperfield-flex-direction: column;
-        --amplify-components-stepperfield-input-border-color: var(--amplify-colors-brand-primary-20);
         --amplify-components-stepperfield-input-text-align: center;
         --amplify-components-switchfield-disabled-opacity: var(--amplify-opacities-60);
         --amplify-components-switchfield-focused-shadow: var(--amplify-shadows-small);

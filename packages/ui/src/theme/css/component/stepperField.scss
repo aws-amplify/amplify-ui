@@ -6,11 +6,21 @@
   &[data-invalid='true'] {
     border-inline-end: none;
   }
+  
+  [data-variation='quiet'] & {
+    border-width: 0 0 var(--amplify-components-button-border-width) 0;
+    border-radius: 0;
+  }
 }
 
 .amplify-stepperfield__button--increase {
   &[data-invalid='true'] {
     border-inline-start: none;
+  }
+  
+  [data-variation='quiet'] & {
+    border-width: 0 0 var(--amplify-components-button-border-width) 0;
+    border-radius: 0;
   }
 }
 
@@ -25,7 +35,6 @@
   // Firefox
   -moz-appearance: textfield;
 
-  border-color: var(--amplify-components-stepperfield-input-border-color);
   text-align: var(--amplify-components-stepperfield-input-text-align);
 
   // To remove overlapped borders but keep those when the input gets focused
