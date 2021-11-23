@@ -31,13 +31,11 @@ describe('SearchField component', () => {
 
   it('should forward refs to DOM elements', async () => {
     const ref = React.createRef<HTMLInputElement>();
-    const clearButtonRef = React.createRef<HTMLButtonElement>();
     const searchButtonRef = React.createRef<HTMLButtonElement>();
 
     render(
       <SearchField
         className="custom-class"
-        clearButtonRef={clearButtonRef}
         label={label}
         name="q"
         ref={ref}
@@ -49,7 +47,6 @@ describe('SearchField component', () => {
     await screen.findByRole('button');
 
     expect(ref.current.nodeName).toBe('INPUT');
-    expect(clearButtonRef.current.nodeName).toBe('BUTTON');
     expect(searchButtonRef.current.nodeName).toBe('BUTTON');
   });
 

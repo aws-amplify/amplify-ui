@@ -77,7 +77,6 @@ const SearchFieldPrimitive: PrimitiveWithForwardRef<SearchFieldProps, 'input'> =
     {
       autoComplete = 'off',
       className,
-      clearButtonRef,
       labelHidden = true,
       name = 'q',
       onSubmit,
@@ -101,7 +100,6 @@ const SearchFieldPrimitive: PrimitiveWithForwardRef<SearchFieldProps, 'input'> =
             excludeFromTabOrder={true}
             isVisible={strHasLength(value)}
             onClick={onClearHandler}
-            ref={clearButtonRef}
             size={size}
             variation="link"
           />

@@ -4,14 +4,10 @@ import { Flex, SearchField } from '@aws-amplify/ui-react';
 export const RefExample = () => {
   const inputRef = React.useRef(null);
   const searchButtonRef = React.useRef(null);
-  const clearButtonRef = React.useRef(null);
 
   const onClick = React.useCallback(() => {
     inputRef.current.focus();
-    alert(`You searched for: ${inputRef.current.value}.
-Clear button has aria-label of ${clearButtonRef?.current.getAttribute(
-      'aria-label'
-    )}`);
+    alert(`You searched for: ${inputRef.current.value}`);
   }, []);
 
   React.useEffect(() => {
@@ -31,7 +27,6 @@ Clear button has aria-label of ${clearButtonRef?.current.getAttribute(
       label="Password"
       ref={inputRef}
       searchButtonRef={searchButtonRef}
-      clearButtonRef={clearButtonRef}
     />
   );
 };

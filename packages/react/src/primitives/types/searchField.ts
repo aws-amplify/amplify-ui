@@ -14,11 +14,6 @@ export interface SearchFieldProps extends TextInputFieldProps {
   onClear?: () => void;
 
   /**
-   * Provides ref access to field clear button DOM element
-   */
-  clearButtonRef?: React.Ref<HTMLButtonElement>;
-
-  /**
    * Visually hide label
    * @default true
    */
