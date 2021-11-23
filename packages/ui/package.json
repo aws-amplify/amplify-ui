@@ -51,6 +51,7 @@
     "ts-jest": "^27.0.3",
     "ts-node": "^10.2.1",
     "tslib": "^2.3.0",
+    "tsup": "^5.8.0",
     "type-fest": "^2.3.4"
   },
   "peerDependencies": {
