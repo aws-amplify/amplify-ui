@@ -1,8 +1,9 @@
 {
   "name": "expo-example",
-  "version": "1.0.0",
-  "main": "node_modules/expo/AppEntry.js",
+  "version": "0.0.1",
+  "main": "__generated__/AppEntry.js",
   "scripts": {
+    "postinstall": "expo-yarn-workspaces postinstall",
     "dev": "expo start",
     "start": "expo start",
     "android": "expo start --android",
@@ -11,6 +12,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@aws-amplify/ui-react": "2.1.0",
     "expo": "~43.0.2",
     "expo-status-bar": "~1.1.0",
     "react": "17.0.1",
