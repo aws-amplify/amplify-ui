@@ -1,8 +1,8 @@
+import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { PhoneNumberField } from '../PhoneNumberField';
-import { PhoneNumberFieldProps, PrimitiveProps } from '../../types';
 import { ComponentClassNames } from '../../shared/constants';
 
 describe('PhoneNumberField primitive', () => {
@@ -10,7 +10,7 @@ describe('PhoneNumberField primitive', () => {
     defaultCountryCode = '+1',
     label = 'Phone Number',
     ...rest
-  }: Partial<PrimitiveProps<PhoneNumberFieldProps, 'input'>>) => {
+  }: Partial<typeof PhoneNumberField['defaultProps']>) => {
     render(
       <PhoneNumberField
         defaultCountryCode={defaultCountryCode}
@@ -28,6 +28,16 @@ describe('PhoneNumberField primitive', () => {
       }),
     };
   };
+
+  it('should forward ref and countryCodeRef to DOM elements', async () => {
+    const ref = React.createRef<HTMLInputElement>();
+    const countryCodeRef = React.createRef<HTMLSelectElement>();
+    await setup({ ref, countryCodeRef });
+
+    await screen.findByRole('textbox');
+    expect(ref.current.nodeName).toBe('INPUT');
+    expect(countryCodeRef.current.nodeName).toBe('SELECT');
+  });
 
   it('should render a country code selector with an accessible role', async () => {
     const { $countryCodeSelector } = await setup({});
