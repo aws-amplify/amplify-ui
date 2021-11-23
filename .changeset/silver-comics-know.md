@@ -1,6 +1,5 @@
 ---
 '@aws-amplify/ui-angular': patch
-'e2e': patch
 '@aws-amplify/ui-react': patch
 '@aws-amplify/ui': patch
 '@aws-amplify/ui-vue': patch
