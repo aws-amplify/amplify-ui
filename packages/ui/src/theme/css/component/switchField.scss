@@ -36,7 +36,7 @@
   transition-duration: var(
     --amplify-components-switchfield-track-transition-duration
   );
-  background: var(--amplify-components-switchfield-track-background-color);
+  background-color: var(--amplify-components-switchfield-track-background-color);
   &[data-checked='true'] {
     background: var(--amplify-components-switchfield-track-checked-background-color);
   }
