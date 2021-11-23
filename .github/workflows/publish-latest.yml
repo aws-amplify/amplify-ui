@@ -7,7 +7,7 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    environment: ci
+    environment: deployment
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
