@@ -25,6 +25,7 @@ export const StepperFieldDemo = () => {
           max={stepperFieldProps.max}
           min={stepperFieldProps.min}
           size={stepperFieldProps.size}
+          variation={stepperFieldProps.variation}
           step={stepperFieldProps.step}
           labelHidden={stepperFieldProps.labelHidden}
         />

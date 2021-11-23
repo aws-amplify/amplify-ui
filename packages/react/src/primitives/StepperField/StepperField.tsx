@@ -34,6 +34,7 @@ export const StepperField: Primitive<StepperFieldProps, 'input'> = (props) => {
     labelHidden = false,
     onStepChange,
     size,
+    variation,
     testId,
     // this is only required in useStepper hook but deconstruct here to remove its existence in rest
     value: controlledValue,
@@ -66,6 +67,7 @@ export const StepperField: Primitive<StepperFieldProps, 'input'> = (props) => {
         className
       )}
       data-size={size}
+      data-variation={variation}
       testId={testId}
       {...flexContainerStyleProps}
     >
@@ -119,6 +121,7 @@ export const StepperField: Primitive<StepperFieldProps, 'input'> = (props) => {
           onChange={handleOnChange}
           onWheel={handleOnWheel}
           size={size}
+          variation={variation}
           type="number"
           value={inputValue}
           {...baseStyleProps}
