@@ -7,6 +7,5 @@ node_modules
 aws-exports.js
 aws-exports.ts
 !examples/**/aws-exports.js
-!examples/**/aws-exports.ts
 # .npmrc is used in our deployment procedure to login to npm. Ignored for security.
 .npmrc
