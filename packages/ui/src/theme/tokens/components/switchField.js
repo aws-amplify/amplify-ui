@@ -1,6 +1,6 @@
 module.exports = {
   disabled: {
-    opacity: { value: '{opacities.30.value}' },
+    opacity: { value: '{opacities.60.value}' },
   },
   focused: {
     shadow: { value: '{shadows.small.value}' },
@@ -19,11 +19,9 @@ module.exports = {
     },
   },
   thumb: {
-    background: { value: '{colors.white.value}' },
-    border: {
-      color: { value: '{colors.neutral.20.value}' },
-      radius: { value: '{radii.xxxl.value}' },
-    },
+    backgroundColor: { value: '{colors.background.primary.value}' },
+    borderColor: { value: '{colors.border.tertiary.value}' },
+    borderRadius: { value: '{radii.xxxl.value}' },
     checked: {
       transform: { value: '{transforms.slideX.medium.value}' },
     },
@@ -34,11 +32,9 @@ module.exports = {
   },
   track: {
     backgroundColor: { value: '{colors.background.tertiary.value}' },
-    border: {
-      radius: { value: '{radii.xxxl.value}' },
-    },
+    borderRadius: { value: '{radii.xxxl.value}' },
     checked: {
-      backgroundColor: { value: '{colors.brand.primary.600.value}' },
+      backgroundColor: { value: '{colors.brand.primary.60.value}' },
     },
     height: { value: '{space.relative.medium.value}' },
     padding: { value: '{outlineWidths.medium.value}' },
