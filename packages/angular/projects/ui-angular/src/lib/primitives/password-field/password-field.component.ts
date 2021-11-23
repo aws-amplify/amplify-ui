@@ -16,7 +16,7 @@ export class PasswordFieldComponent {
   @Input() placeholder = '';
   @Input() required = true;
   @Input() labelHidden = false;
-  @Output() onBlur = new EventEmitter<Event>();
+  @Output() setBlur = new EventEmitter<Event>();
 
   public type: 'text' | 'password' = 'password';
 
