@@ -12,6 +12,7 @@
     "@aws-amplify/ui-react": "^2.1.0",
     "@types/node": "^15.12.4",
     "@types/react": "^17.0.11",
+    "aws-amplify": "latest",
     "next": "latest",
     "next-global-css": "^1.1.1",
     "react": "latest",
