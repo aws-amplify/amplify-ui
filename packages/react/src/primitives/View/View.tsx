@@ -10,10 +10,7 @@ import {
 const ViewInner = <Element extends ElementType = 'div'>(
   {
     as = 'div',
-    className,
     children,
-    role,
-    id,
     testId,
     ariaLabel,
     isDisabled,
@@ -29,11 +26,8 @@ const ViewInner = <Element extends ElementType = 'div'>(
     as,
     {
       'aria-label': ariaLabel,
-      className,
       'data-testid': testId,
       disabled: isDisabled,
-      id,
-      role,
       ref,
       style: propStyles,
       ...nonStyleProps,

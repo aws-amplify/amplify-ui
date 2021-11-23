@@ -1,9 +1,9 @@
 import { render, screen } from '@testing-library/react';
+import * as React from 'react';
+
 import { Tabs, TabItem } from '../Tabs';
 import { Text } from '../../Text';
 import { ComponentClassNames } from '../../shared';
-import { ComponentPropsToStylePropsMap } from '../../types';
-import kebabCase from 'lodash/kebabCase';
 
 describe('Tabs: ', () => {
   it('can render custom classnames', async () => {
@@ -27,6 +27,19 @@ describe('Tabs: ', () => {
     );
     const tabs = await screen.findByTestId('tabsTest');
     expect(tabs.dataset['demo']).toBe('true');
+  });
+
+  it('should forward ref to Tabs DOM element', async () => {
+    const ref = React.createRef<HTMLDivElement>();
+
+    render(
+      <Tabs ref={ref} testId="tabsId">
+        <TabItem title="Tab 1">Tab 1</TabItem>
+      </Tabs>
+    );
+
+    await screen.findByTestId('tabsId');
+    expect(ref.current.nodeName).toBe('DIV');
   });
 
   describe('TabItem: ', () => {
@@ -66,6 +79,21 @@ describe('Tabs: ', () => {
 
       const tab = await screen.findByRole('tab');
       expect(tab).toHaveAttribute('aria-disabled');
+    });
+
+    it('should forward ref to TabItem DOM element', async () => {
+      const ref = React.createRef<HTMLDivElement>();
+
+      render(
+        <Tabs>
+          <TabItem ref={ref} title="Tab 1">
+            Tab 1
+          </TabItem>
+        </Tabs>
+      );
+
+      await screen.findByRole('tab');
+      expect(ref.current.nodeName).toBe('DIV');
     });
   });
 });
