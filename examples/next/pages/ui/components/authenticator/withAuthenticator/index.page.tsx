@@ -6,7 +6,11 @@ import '@aws-amplify/ui-react/styles.css';
 import awsExports from '@environments/auth-with-username-no-attributes/src/aws-exports';
 Amplify.configure(awsExports);
 
-function App({ signOut, user }) {
+function App({ isPassedToWithAuthenticator, signOut, user }) {
+  if (!isPassedToWithAuthenticator) {
+    throw new Error(`isPassedToWithAuthenticator was not provided`);
+  }
+
   return (
     <>
       <h1>Hello {user.username}</h1>
@@ -16,3 +20,11 @@ function App({ signOut, user }) {
 }
 
 export default withAuthenticator(App);
+
+export async function getStaticProps() {
+  return {
+    props: {
+      isPassedToWithAuthenticator: true,
+    },
+  };
+}
