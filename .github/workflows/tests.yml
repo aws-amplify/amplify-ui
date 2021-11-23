@@ -11,7 +11,9 @@ on:
     branches: [main]
     types: [opened, synchronize, labeled]
 
-permissions: read-all
+permissions:
+  pull-requests: write # used to remove label
+  # other permissions are defaulted to "none"
 
 jobs:
   setup:
