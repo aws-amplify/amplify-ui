@@ -6,6 +6,7 @@
     "build": "npx ultra -r --filter '@aws-amplify/*' build",
     "angular": "yarn workspace @aws-amplify/ui-angular",
     "react": "yarn workspace @aws-amplify/ui-react",
+    "react-native": "yarn workspace @aws-amplify/ui-react-native",
     "ui": "yarn workspace @aws-amplify/ui",
     "vue": "yarn workspace @aws-amplify/ui-vue",
     "angular-example": "yarn workspace angular-example",

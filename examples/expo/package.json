@@ -13,7 +13,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "2.1.0",
+    "@aws-amplify/ui-react-native": "0.0.1",
     "expo": "~43.0.2",
     "expo-status-bar": "~1.1.0",
     "react": "17.0.1",
