@@ -3,22 +3,22 @@ import { PasswordField } from '@aws-amplify/ui-react';
 
 export const RefExample = () => {
   const inputRef = React.useRef(null);
-  const showPasswordRef = React.useRef(null);
+  const showPasswordButtonRef = React.useRef(null);
 
   const onShowPasswordClick = React.useCallback(() => {
     inputRef.current.focus();
   }, []);
 
   React.useEffect(() => {
-    if (showPasswordRef && showPasswordRef.current) {
+    if (showPasswordButtonRef && showPasswordButtonRef.current) {
       console.count('useeffect');
-      showPasswordRef.current.addEventListener(
+      showPasswordButtonRef.current.addEventListener(
         'click',
         onShowPasswordClick,
         false
       );
       return () => {
-        showPasswordRef.current.removeEventListener(
+        showPasswordButtonRef.current.removeEventListener(
           'click',
           onShowPasswordClick,
           false
@@ -29,9 +29,9 @@ export const RefExample = () => {
 
   return (
     <PasswordField
-      ref={inputRef}
-      showPasswordRef={showPasswordRef}
       label="Password"
+      ref={inputRef}
+      showPasswordButtonRef={showPasswordButtonRef}
     />
   );
 };

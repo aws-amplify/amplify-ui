@@ -14,7 +14,6 @@ const ShowPasswordButtonPrimitive: PrimitiveWithForwardRef<
 > = ({ fieldType, size, ...rest }, ref) => {
   return (
     <Button
-      {...rest}
       ariaLabel={
         fieldType === 'password'
           ? ariaLabelText.showPassword
@@ -23,6 +22,7 @@ const ShowPasswordButtonPrimitive: PrimitiveWithForwardRef<
       className={ComponentClassNames.FieldShowPassword}
       ref={ref}
       size={size}
+      {...rest}
     >
       {fieldType === 'password' ? (
         <IconVisibility size={size} />

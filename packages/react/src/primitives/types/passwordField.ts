@@ -15,7 +15,10 @@ export interface PasswordFieldProps extends TextInputFieldProps {
    */
   autoComplete?: 'new-password' | 'current-password' | string;
 
-  showPasswordRef?: React.Ref<HTMLButtonElement>;
+  /**
+   * Forwarded ref for access to show password button DOM element
+   */
+  showPasswordButtonRef?: React.Ref<HTMLButtonElement>;
 }
 
 export type PasswordFieldType = 'password' | 'text';

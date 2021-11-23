@@ -28,19 +28,19 @@ describe('PasswordField component', () => {
 
   it('should forward refs to DOM elements', async () => {
     const ref = React.createRef<HTMLInputElement>();
-    const showPasswordRef = React.createRef<HTMLButtonElement>();
+    const showPasswordButtonRef = React.createRef<HTMLButtonElement>();
     render(
       <PasswordField
         testId={testId}
         label="Password"
         ref={ref}
-        showPasswordRef={showPasswordRef}
+        showPasswordButtonRef={showPasswordButtonRef}
       />
     );
 
     await screen.findByTestId(testId);
     expect(ref.current.nodeName).toBe('INPUT');
-    expect(showPasswordRef.current.nodeName).toBe('BUTTON');
+    expect(showPasswordButtonRef.current.nodeName).toBe('BUTTON');
   });
 
   it('should be password input type', async () => {
