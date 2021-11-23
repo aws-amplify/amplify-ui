@@ -1,3 +1,4 @@
+import React from 'react';
 import { FieldGroupIconButtonProps } from './fieldGroupIcon';
 import { TextInputFieldProps } from './textField';
 
@@ -13,10 +14,20 @@ export interface SearchFieldProps extends TextInputFieldProps {
   onClear?: () => void;
 
   /**
+   * Provides ref access to field clear button DOM element
+   */
+  clearButtonRef?: React.Ref<HTMLButtonElement>;
+
+  /**
    * Visually hide label
    * @default true
    */
   labelHidden?: boolean;
+
+  /**
+   * Provides ref access to search button DOM element
+   */
+  searchButtonRef?: React.Ref<HTMLButtonElement>;
 }
 
 export interface SearchFieldButtonProps

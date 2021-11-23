@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
@@ -26,6 +27,30 @@ describe('SearchField component', () => {
 
     expect(searchFieldWrapper).toHaveClass('custom-class');
     expect(searchFieldWrapper).toHaveClass(ComponentClassNames.SearchField);
+  });
+
+  it('should forward refs to DOM elements', async () => {
+    const ref = React.createRef<HTMLInputElement>();
+    const clearButtonRef = React.createRef<HTMLButtonElement>();
+    const searchButtonRef = React.createRef<HTMLButtonElement>();
+
+    render(
+      <SearchField
+        className="custom-class"
+        clearButtonRef={clearButtonRef}
+        label={label}
+        name="q"
+        ref={ref}
+        searchButtonRef={searchButtonRef}
+        testId={testId}
+      />
+    );
+
+    await screen.findByRole('button');
+
+    expect(ref.current.nodeName).toBe('INPUT');
+    expect(clearButtonRef.current.nodeName).toBe('BUTTON');
+    expect(searchButtonRef.current.nodeName).toBe('BUTTON');
   });
 
   it('should be text input type', async () => {
