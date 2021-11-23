@@ -1,7 +1,7 @@
+import * as React from 'react';
+
 import { Rating } from '../Rating';
 import { render, screen } from '@testing-library/react';
-import { ComponentClassNames } from '../../shared';
-import kebabCase from 'lodash/kebabCase';
 
 describe('Rating: ', () => {
   let customIcon;
@@ -10,11 +10,20 @@ describe('Rating: ', () => {
       return <svg className={className}></svg>;
     };
   });
+
   it('should render a classname for Rating', async () => {
     render(<Rating testId="testId" className="my-rating-component" />);
 
     const rating = await screen.findByTestId('testId');
     expect(rating.className).toContain('my-rating-component');
+  });
+
+  it('should forward ref to DOM element', async () => {
+    const ref = React.createRef<HTMLDivElement>();
+    render(<Rating testId="testId" ref={ref} />);
+
+    await screen.findByTestId('testId');
+    expect(ref.current.nodeName).toBe('DIV');
   });
 
   it('should render the data-size attribute', async () => {
