@@ -38,7 +38,7 @@
   );
   background-color: var(--amplify-components-switchfield-track-background-color);
   &[data-checked='true'] {
-    background: var(--amplify-components-switchfield-track-checked-background-color);
+    background-color: var(--amplify-components-switchfield-track-checked-background-color);
   }
   &[data-disabled='true'] {
     opacity: var(--amplify-components-switchfield-disabled-opacity);
