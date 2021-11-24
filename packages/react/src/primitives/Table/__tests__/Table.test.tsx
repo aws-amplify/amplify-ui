@@ -1,5 +1,4 @@
 import { render, screen } from '@testing-library/react';
-import * as React from 'react';
 
 import {
   Table,
@@ -153,16 +152,6 @@ describe('Table primitive', () => {
       const { $table } = await setup({ variation });
 
       expect($table).toHaveAttribute('data-variation', variation);
-    });
-  });
-
-  describe('Forward ref: ', () => {
-    it('should forward ref to TableRow DOM element', async () => {
-      const ref = React.createRef<HTMLTableRowElement>();
-      render(<TableRow ref={ref} />);
-
-      await screen.findByRole('row');
-      expect(ref.current.nodeName).toBe('TR');
     });
   });
 });
