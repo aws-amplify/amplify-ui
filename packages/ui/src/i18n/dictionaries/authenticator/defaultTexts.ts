@@ -33,7 +33,7 @@ export const defaultTexts = {
   PROFILE: 'Profile',
   RESEND_CODE: 'Resend Code',
   RESET_PASSWORD_HEADING: 'Reset your password',
-  RESET_PASSWORD: 'Send Code',
+  RESET_PASSWORD: 'Reset Password',
   SEND_CODE: 'Send code',
   SENDING: 'Sending',
   SETUP_TOTP: 'Setup TOTP',
