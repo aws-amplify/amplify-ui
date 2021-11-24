@@ -86,7 +86,7 @@ const TabsPrimitive: PrimitiveWithForwardRef<TabsProps, typeof Flex> = (
   );
 };
 
-const TabItemPrimitvie: PrimitiveWithForwardRef<TabItemProps, 'div'> = (
+const TabItemPrimitive: PrimitiveWithForwardRef<TabItemProps, 'div'> = (
   { className, title, ...rest },
   ref
 ) => (
