@@ -19,7 +19,7 @@ export async function getPageFromSlug(slug: string) {
 
   const source = await readFile(contentPath, 'utf8');
   const { data, content } = matter(source);
-  const frontmatter = {
+  const frontmatter: Record<string, string> = {
     ...data,
     slug,
   };

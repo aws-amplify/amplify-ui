@@ -3,6 +3,8 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { AmplifyProvider, ColorMode } from '@aws-amplify/ui-react';
 
+import { UI_DOCS_REFERENCE } from '@/data/links';
+import { getImagePath } from '@/utils/previews';
 import { Header } from '@/components/Layout/Header';
 
 import { theme } from '../theme';
@@ -40,6 +42,10 @@ function MyApp({ Component, pageProps }) {
         <link
           href="https://fonts.googleapis.com/css2?family=Inter:slnt,wght@-10..0,100..900&family=Open+Sans:wght@300..800&family=Work+Sans:wght@100..900&display=swap"
           rel="stylesheet"
+        />
+        <meta
+          property="og:image"
+          content={UI_DOCS_REFERENCE + getImagePath(router.pathname)}
         />
       </Head>
       <AmplifyProvider theme={theme} colorMode={colorMode}>
