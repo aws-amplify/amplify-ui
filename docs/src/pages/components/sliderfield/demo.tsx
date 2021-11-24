@@ -32,6 +32,7 @@ export const SliderFieldDemo = () => {
           filledTrackColor={sliderFieldProps.filledTrackColor}
           thumbColor={sliderFieldProps.thumbColor}
           trackSize={sliderFieldProps.trackSize}
+          size={sliderFieldProps.size}
         />
       </Example>
     </Flex>

@@ -31,6 +31,7 @@ export const useSliderFieldProps: UseSliderFieldProps = (initialValues) => {
     initialValues.filledTrackColor
   );
   const [thumbColor, setThumbColor] = React.useState(initialValues.thumbColor);
+  const [size, setSize] = React.useState(initialValues.size);
   return {
     defaultValue: initialValues.defaultValue,
     isDisabled,
@@ -45,6 +46,7 @@ export const useSliderFieldProps: UseSliderFieldProps = (initialValues) => {
     emptyTrackColor,
     filledTrackColor,
     thumbColor,
+    size,
     setEmptyTrackColor,
     setFilledTrackColor,
     setIsDisabled,
@@ -57,5 +59,6 @@ export const useSliderFieldProps: UseSliderFieldProps = (initialValues) => {
     setStep,
     setThumbColor,
     setTrackSize,
+    setSize,
   };
 };
