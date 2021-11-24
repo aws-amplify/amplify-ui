@@ -13,6 +13,7 @@ import {
   clearUnverifiedAttributes,
   clearValidationError,
   handleInput,
+  handleBlur,
   setChallengeName,
   setConfirmResetPasswordIntent,
   setConfirmSignUpIntent,
@@ -184,6 +185,10 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
                 actions: 'handleInput',
                 target: '.pending',
               },
+              BLUR: {
+                actions: 'handleBlur',
+                target: '.pending',
+              },
             },
           },
           submit: {
@@ -346,6 +351,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
       clearUnverifiedAttributes,
       clearValidationError,
       handleInput,
+      handleBlur,
       setChallengeName,
       setConfirmResetPasswordIntent,
       setConfirmSignUpIntent,

@@ -9,6 +9,7 @@ import {
   clearUsername,
   clearValidationError,
   handleInput,
+  handleBlur,
   setFieldErrors,
   setRemoteError,
   setUsername,
@@ -39,6 +40,7 @@ export const resetPasswordActor = createMachine<
             on: {
               SUBMIT: 'submit',
               CHANGE: { actions: 'handleInput' },
+              BLUR: { actions: 'handleBlur' },
             },
           },
           submit: {
@@ -85,6 +87,10 @@ export const resetPasswordActor = createMachine<
                 actions: 'handleInput',
                 target: '.pending',
               },
+              BLUR: {
+                actions: 'handleBlur',
+                target: '.pending',
+              },
             },
           },
           submission: {
@@ -96,6 +102,7 @@ export const resetPasswordActor = createMachine<
                   SUBMIT: 'validate',
                   RESEND: 'resendCode',
                   CHANGE: { actions: 'handleInput' },
+                  BLUR: { actions: 'handleBlur' },
                 },
               },
               validate: {
@@ -153,6 +160,7 @@ export const resetPasswordActor = createMachine<
       clearUsername,
       clearValidationError,
       handleInput,
+      handleBlur,
       setFieldErrors,
       setRemoteError,
       setUsername,

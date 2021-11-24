@@ -111,6 +111,7 @@ export function createAuthenticatorMachine({
       },
       on: {
         CHANGE: { actions: 'forwardToActor' },
+        BLUR: { actions: 'forwardToActor' },
         SUBMIT: { actions: 'forwardToActor' },
         FEDERATED_SIGN_IN: { actions: 'forwardToActor' },
         RESEND: { actions: 'forwardToActor' },

@@ -33,5 +33,5 @@ When(
 );
 
 When('I type my password', () => {
-  cy.findInputField('Password').type(Cypress.env('VALID_PASSWORD')).blur();
+  cy.findInputField('Password').type(Cypress.env('VALID_PASSWORD'));
 });

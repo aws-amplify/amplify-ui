@@ -48,8 +48,8 @@ fieldNames = fieldNames.filter((fieldName) => {
 });
 
 function onBlur(e: Event) {
-  const { name, value } = <HTMLInputElement>e.target;
-  props.updateForm({ name: `touched_${name}`, value: true });
+  const { name } = <HTMLInputElement>e.target;
+  props.updateBlur({ name });
 }
 
 // Only 1 is supported, so `['email', 'phone_number']` will only show `email`

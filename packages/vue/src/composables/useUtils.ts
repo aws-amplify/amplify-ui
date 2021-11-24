@@ -26,6 +26,7 @@ export const facade = {
   },
   change: (data?: AuthEventData) => null,
   updateForm: (data?: AuthEventData) => null,
+  updateBlur: (data?: AuthEventData) => null,
   resend: (data?: AuthEventData) => null,
   resendCode: (data?: AuthEventData) => null,
   signOut: (data?: AuthEventData) => null,

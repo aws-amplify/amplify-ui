@@ -25,6 +25,15 @@ export const defaultServices = {
       // these inputs are clean, don't complain yet
       return null;
     } else if (
+      (password || confirm_password) &&
+      touched_password &&
+      touched_confirm_password &&
+      password !== confirm_password
+    ) {
+      return {
+        confirm_password: 'Your passwords must match',
+      };
+    } else if (
       password &&
       confirm_password &&
       password !== confirm_password &&

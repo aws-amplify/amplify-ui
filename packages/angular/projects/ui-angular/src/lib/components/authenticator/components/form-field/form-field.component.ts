@@ -68,7 +68,7 @@ export class FormFieldComponent implements OnInit {
   public onBlur($event: Event) {
     let { name } = <HTMLInputElement>$event.target;
 
-    this.authenticator.updateForm({ name: `touched_${name}`, value: true });
+    this.authenticator.updateBlur({ name });
   }
 
   inferLabel(): string {

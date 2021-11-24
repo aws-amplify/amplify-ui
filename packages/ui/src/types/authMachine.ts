@@ -108,6 +108,7 @@ export type InvokeActorEventTypes =
 
 export type AuthEventTypes =
   | 'CHANGE'
+  | 'BLUR'
   | 'FEDERATED_SIGN_IN'
   | 'RESEND'
   | 'RESET_PASSWORD'

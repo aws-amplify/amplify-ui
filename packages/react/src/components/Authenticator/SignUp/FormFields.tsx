@@ -10,7 +10,7 @@ import { PasswordField, PhoneNumberField, Text, TextField } from '../../..';
 import { UserNameAlias as UserNameAliasComponent } from '../shared';
 
 export function FormFields() {
-  const { _state, updateForm } = useAuthenticator();
+  const { _state, updateForm, updateBlur } = useAuthenticator();
   const { country_code, validationError } = getActorContext(
     _state
   ) as SignUpContext;
@@ -25,7 +25,7 @@ export function FormFields() {
 
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
     const { name } = event.target;
-    updateForm({ name: `touched_${name}`, value: true });
+    updateBlur({ name });
   };
 
   return (

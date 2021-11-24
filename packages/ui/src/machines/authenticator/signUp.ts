@@ -10,6 +10,7 @@ import {
   clearFormValues,
   clearValidationError,
   handleInput,
+  handleBlur,
   setCredentials,
   setFieldErrors,
   setRemoteError,
@@ -59,6 +60,10 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
               on: {
                 CHANGE: {
                   actions: 'handleInput',
+                  target: '.pending',
+                },
+                BLUR: {
+                  actions: 'handleBlur',
                   target: '.pending',
                 },
               },
@@ -148,6 +153,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
               on: {
                 SUBMIT: 'submit',
                 CHANGE: { actions: 'handleInput' },
+                BLUR: { actions: 'handleBlur' },
                 RESEND: 'resend',
               },
             },
@@ -220,6 +226,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
         clearFormValues,
         clearValidationError,
         handleInput,
+        handleBlur,
         setCredentials,
         setFieldErrors,
         setRemoteError,

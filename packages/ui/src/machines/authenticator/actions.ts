@@ -110,3 +110,13 @@ export const handleInput = assign({
     };
   },
 });
+
+export const handleBlur = assign({
+  formValues: (context, event: AuthEvent) => {
+    const { name } = event.data;
+    return {
+      ...context['formValues'],
+      [`touched_${name}`]: true,
+    };
+  },
+});
