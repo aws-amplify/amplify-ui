@@ -2,7 +2,7 @@
 
 ---
 
-# Amplify UI
+# Amplify UI 
 
 [![GitHub](https://img.shields.io/github/license/aws-amplify/amplify-ui)](LICENSE)
 [![Discord](https://img.shields.io/discord/308323056592486420?logo=discord)](https://discord.gg/jWVbPfC)
