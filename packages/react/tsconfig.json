@@ -5,6 +5,7 @@
     }
   },
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
     "baseUrl": ".",
     "declaration": true,

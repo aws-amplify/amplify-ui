@@ -1,6 +1,7 @@
 {
   "name": "@aws-amplify/ui-react-native",
   "version": "0.0.1",
+  "source": "src/index.ts",
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/index.d.ts",
@@ -9,12 +10,14 @@
     "dist"
   ],
   "scripts": {
-    "dev": "tsup --watch src"
+    "prebuild": "rimraf dist",
+    "build": "parcel build",
+    "dev": "parcel watch"
   },
   "dependencies": {
     "@aws-amplify/ui-react": "2.1.0"
   },
   "devDependencies": {
-    "tsup": "^5.8.0"
+    "parcel": "^2.0.1"
   }
 }
