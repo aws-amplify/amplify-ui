@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
@@ -31,6 +32,25 @@ describe('Pagination component test suite', () => {
       const lastPage = await screen.findByLabelText('Go to page 5');
       expect(lastPage.childNodes.length).toBe(1);
       expect(lastPage).toHaveTextContent('5');
+    });
+
+    it('should forward ref to DOM element', async () => {
+      const ref = React.createRef<HTMLDivElement>();
+      render(
+        <Pagination
+          currentPage={1}
+          id={id}
+          onChange={() => {}}
+          onNext={() => {}}
+          onPrevious={() => {}}
+          ref={ref}
+          siblingCount={2}
+          totalPages={10}
+        />
+      );
+
+      await screen.findByRole('navigation');
+      expect(ref.current.nodeName).toBe('NAV');
     });
 
     it('should disable previous page button but enable next page button if current page is the first page', async () => {
