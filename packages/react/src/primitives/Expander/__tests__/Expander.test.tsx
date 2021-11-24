@@ -8,41 +8,42 @@ import { ExpanderProps } from '../../types/expander';
 import { ComponentClassNames } from '../../shared/constants';
 
 describe('Expander: ', () => {
-  const UncontrolledExpander = (props: ExpanderProps) => {
-    return (
-      <Expander {...props}>
-        <ExpanderItem title="Section 1 title" value="item-1">
-          content 1
-        </ExpanderItem>
-        <ExpanderItem title="Section 2 title" value="item-2">
-          content 2
-        </ExpanderItem>
-        <ExpanderItem title="Section 3 title" value="item-3">
-          content 3
-        </ExpanderItem>
-      </Expander>
-    );
-  };
+  const UncontrolledExpander = React.forwardRef<HTMLDivElement, ExpanderProps>(
+    (props, ref) => {
+      return (
+        <Expander {...props} ref={ref}>
+          <ExpanderItem title="Section 1 title" value="item-1">
+            content 1
+          </ExpanderItem>
+          <ExpanderItem title="Section 2 title" value="item-2">
+            content 2
+          </ExpanderItem>
+          <ExpanderItem title="Section 3 title" value="item-3">
+            content 3
+          </ExpanderItem>
+        </Expander>
+      );
+    }
+  );
 
-  const ControlledExpander = ({
-    value: initialValue,
-    ...rest
-  }: ExpanderProps) => {
-    const [value, setValue] = React.useState(initialValue);
-    return (
-      <Expander value={value} onChange={setValue} {...rest}>
-        <ExpanderItem title="Section 1 title" value="item-1">
-          content 1
-        </ExpanderItem>
-        <ExpanderItem title="Section 2 title" value="item-2">
-          content 2
-        </ExpanderItem>
-        <ExpanderItem title="Section 3 title" value="item-3">
-          content 3
-        </ExpanderItem>
-      </Expander>
-    );
-  };
+  const ControlledExpander = React.forwardRef<HTMLDivElement, ExpanderProps>(
+    ({ value: initialValue, ...rest }, ref) => {
+      const [value, setValue] = React.useState(initialValue);
+      return (
+        <Expander value={value} onChange={setValue} ref={ref} {...rest}>
+          <ExpanderItem title="Section 1 title" value="item-1">
+            content 1
+          </ExpanderItem>
+          <ExpanderItem title="Section 2 title" value="item-2">
+            content 2
+          </ExpanderItem>
+          <ExpanderItem title="Section 3 title" value="item-3">
+            content 3
+          </ExpanderItem>
+        </Expander>
+      );
+    }
+  );
 
   it('should set default and custom classnames', async () => {
     const testId = 'expander';
@@ -143,5 +144,14 @@ describe('Expander: ', () => {
     expect(buttons[0]).toHaveAttribute('aria-expanded', 'true');
     expect(buttons[1]).toHaveAttribute('aria-expanded', 'true');
     expect(buttons[2]).toHaveAttribute('aria-expanded', 'true');
+  });
+
+  it('should forward ref support on DOM element', async () => {
+    const testId = 'expander';
+    const ref = React.createRef<HTMLDivElement>();
+    render(<UncontrolledExpander testId={testId} ref={ref} />);
+
+    await screen.findByTestId(testId);
+    expect(ref.current.nodeName).toBe('DIV');
   });
 });

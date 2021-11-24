@@ -1,4 +1,4 @@
-import { getItemsAtPage, itemHasText } from '../utils';
+import { getItemsAtPage, getPageCount, itemHasText } from '../utils';
 
 describe('getItemsAtPage', () => {
   const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -57,5 +57,19 @@ describe('itemsHasText', () => {
 
     const result = itemHasText(obj, 'not found');
     expect(result).toBe(false);
+  });
+});
+
+describe('getPageCount', () => {
+  it('should return available page count', () => {
+    // Exact match
+    expect(getPageCount(100, 20)).toBe(5);
+    expect(getPageCount(3, 1)).toBe(3);
+
+    // Rounded match (Math.ceil)
+    expect(getPageCount(100, 15)).toBe(7);
+    expect(getPageCount(100, 12)).toBe(9);
+    expect(getPageCount(3, 2)).toBe(2);
+    expect(getPageCount(1, 30)).toBe(1);
   });
 });

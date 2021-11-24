@@ -3,7 +3,7 @@ import { Authenticator } from '@aws-amplify/ui-vue';
 import { translations } from '@aws-amplify/ui';
 import { Amplify, I18n } from 'aws-amplify';
 import '@aws-amplify/ui-vue/styles.css';
-import aws_exports from '@environments/auth-with-username-no-attributes/src/aws-exports';
+import aws_exports from './aws-exports';
 
 I18n.putVocabularies(translations);
 I18n.setLanguage('ja');

@@ -10,6 +10,9 @@ import {
 import { DemoBox } from './DemoBox';
 
 export interface StepperFieldPropControlsProps extends StepperFieldProps {
+  setVariation: (
+    value: React.SetStateAction<StepperFieldProps['variation']>
+  ) => void;
   setLabel: (value: React.SetStateAction<StepperFieldProps['label']>) => void;
   setLabelHidden: (
     value: React.SetStateAction<StepperFieldProps['labelHidden']>
@@ -34,6 +37,8 @@ export const StepperFieldPropControls: React.FC<StepperFieldPropControlsProps> =
     setSize,
     step,
     setStep,
+    variation,
+    setVariation,
   }) => (
     <DemoBox primitiveName="StepperField">
       <TextField
@@ -77,6 +82,16 @@ export const StepperFieldPropControls: React.FC<StepperFieldPropControlsProps> =
         <option value="default">default</option>
         <option value="small">small</option>
         <option value="large">large</option>
+      </SelectField>
+      <SelectField
+        label="variation"
+        value={variation}
+        onChange={(event) =>
+          setVariation(event.target.value as StepperFieldProps['variation'])
+        }
+      >
+        <option value="">default</option>
+        <option value="quiet">quiet</option>
       </SelectField>
       <CheckboxField
         name="label-hidden"

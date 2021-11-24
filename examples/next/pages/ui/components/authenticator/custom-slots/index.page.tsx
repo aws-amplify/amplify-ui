@@ -14,7 +14,7 @@ import {
   useTheme,
 } from '@aws-amplify/ui-react';
 
-import awsExports from '@environments/auth-with-federated/src/aws-exports';
+import awsExports from './aws-exports';
 Amplify.configure(awsExports);
 
 const components = {

@@ -1,10 +1,10 @@
+import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 
+import { Button } from '../../Button';
+import { ComponentClassNames } from '../../shared';
 import { FieldGroup } from '../FieldGroup';
 import { Text } from '../../Text';
-import { Button } from '../../Button';
-
-import { ComponentClassNames } from '../../shared';
 
 describe('FieldGroup component', () => {
   const testId = 'fieldGroupTestId';
@@ -18,13 +18,53 @@ describe('FieldGroup component', () => {
     const fieldGroup = await screen.findByTestId(testId);
 
     expect(fieldGroup).toHaveClass('custom-class');
+    expect(fieldGroup).toHaveClass(ComponentClassNames.FieldGroup);
   });
 
-  it('should render FieldGroup classname when outerStartComponent provided', async () => {
+  it('should forward ref to DOM element', async () => {
+    const ref = React.createRef<HTMLDivElement>();
+    const innerText = '<span>hello</span>';
+    render(
+      <FieldGroup
+        ref={ref}
+        testId={testId}
+        outerStartComponent={<Button>Click me</Button>}
+      >
+        {innerText}
+      </FieldGroup>
+    );
+
+    await screen.findByTestId(testId);
+    expect(ref.current.nodeName).toBe('DIV');
+    expect(ref.current).toHaveClass(ComponentClassNames.FieldGroup);
+  });
+
+  it('should not render hasInnerStart/End ClassName when inner components not provided', async () => {
+    render(
+      <FieldGroup testId={testId}>
+        <Text>Hello</Text>
+      </FieldGroup>
+    );
+
+    const fieldGroup = await screen.findByTestId(testId);
+    expect(fieldGroup).toHaveClass(ComponentClassNames.FieldGroup);
+    expect(fieldGroup).not.toHaveClass(
+      ComponentClassNames.FieldGroupHasInnerEnd
+    );
+    expect(fieldGroup).not.toHaveClass(
+      ComponentClassNames.FieldGroupHasInnerStart
+    );
+  });
+
+  it('should render hasInnerStart/End classnames when inner components provided', async () => {
+    const innerStart = 'innerStart';
+    const innerEnd = 'innerEnd';
+
     render(
       <FieldGroup
         testId={testId}
-        outerStartComponent={<Button>Click me</Button>}
+        innerEndComponent={innerEnd}
+        innerStartComponent={innerStart}
       >
         <Text>Hello</Text>
       </FieldGroup>
@@ -32,40 +72,81 @@ describe('FieldGroup component', () => {
 
     const fieldGroup = await screen.findByTestId(testId);
     expect(fieldGroup).toHaveClass(ComponentClassNames.FieldGroup);
+    expect(fieldGroup).toHaveClass(ComponentClassNames.FieldGroupHasInnerStart);
+    expect(fieldGroup).toHaveClass(ComponentClassNames.FieldGroupHasInnerEnd);
   });
 
-  it('should render FieldGroup classname when outerEndComponent provided', async () => {
-    render(
-      <FieldGroup testId={testId} outerEndComponent={<Button>Click me</Button>}>
-        <Text>Hello</Text>
-      </FieldGroup>
-    );
+  it('should render inner components when provided', async () => {
+    const innerStart = 'innerStart';
+    const innerEnd = 'innerEnd';
 
-    const fieldGroup = await screen.findByTestId(testId);
-    expect(fieldGroup).toHaveClass(ComponentClassNames.FieldGroup);
-
-    const button = await screen.findByRole('button');
-    expect(button.innerHTML).toBe('Click me');
-  });
-
-  it('should render FieldGroup classname when outerEndComponent and outerStartComponent provided', async () => {
     render(
       <FieldGroup
         testId={testId}
-        outerEndComponent={<Button>Click me</Button>}
-        outerStartComponent={<Button>Click me</Button>}
+        innerEndComponent={innerEnd}
+        innerStartComponent={innerStart}
       >
         <Text>Hello</Text>
       </FieldGroup>
     );
 
-    const fieldGroup = await screen.findByTestId(testId);
-    expect(fieldGroup).toHaveClass(ComponentClassNames.FieldGroup);
+    const innerStartComponent = await screen.queryByText(innerStart);
+    const innerEndComponent = await screen.queryByText(innerEnd);
 
-    const buttons = await screen.findAllByRole('button');
-    buttons.forEach((button) => {
-      expect(button.innerHTML).toBe('Click me');
-    });
-    expect(buttons.length).toBe(2);
+    expect(innerStartComponent).not.toBeNull();
+    expect(innerEndComponent).not.toBeNull();
+    expect(innerStartComponent).toHaveClass(
+      ComponentClassNames.FieldGroupInnerStart
+    );
+    expect(innerEndComponent).toHaveClass(
+      ComponentClassNames.FieldGroupInnerEnd
+    );
+  });
+
+  it('should render outer components when provided', async () => {
+    const outerStart = 'outerStart';
+    const outerEnd = 'outerEnd';
+
+    render(
+      <FieldGroup
+        testId={testId}
+        outerStartComponent={outerStart}
+        outerEndComponent={outerEnd}
+      >
+        <Text>Hello</Text>
+      </FieldGroup>
+    );
+
+    const outerStartComponent = await screen.queryByText(outerStart);
+    const outerEndComponent = await screen.queryByText(outerEnd);
+
+    expect(outerStartComponent).not.toBeNull();
+    expect(outerEndComponent).not.toBeNull();
+    expect(outerStartComponent).toHaveClass(
+      ComponentClassNames.FieldGroupOuterStart
+    );
+    expect(outerEndComponent).toHaveClass(
+      ComponentClassNames.FieldGroupOuterEnd
+    );
+  });
+
+  it('should set default horizontal orientation', async () => {
+    render(
+      <FieldGroup testId={testId}>
+        <Text>Hello</Text>
+      </FieldGroup>
+    );
+    const fieldGroup = await screen.findByTestId(testId);
+    expect(fieldGroup).toHaveAttribute('data-orientation', 'horizontal');
+  });
+
+  it('should set vertical orientation', async () => {
+    render(
+      <FieldGroup testId={testId} orientation="vertical">
+        <Text>Hello</Text>
+      </FieldGroup>
+    );
+    const fieldGroup = await screen.findByTestId(testId);
+    expect(fieldGroup).toHaveAttribute('data-orientation', 'vertical');
   });
 });

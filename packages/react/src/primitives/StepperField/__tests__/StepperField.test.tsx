@@ -91,6 +91,14 @@ describe('StepperField: ', () => {
       expect(stepperInput).toHaveClass(ComponentClassNames.StepperFieldInput);
     });
 
+    it('should forward ref to DOM element', async () => {
+      const ref = React.createRef<HTMLInputElement>();
+      render(<StepperField label={label} ref={ref} />);
+
+      await screen.findByLabelText(label);
+      expect(ref.current.nodeName).toBe('INPUT');
+    });
+
     it('should render labeled input when id is provided', async () => {
       render(<StepperField label={label} id="stepper-field" />);
       const stepperInput = await screen.findByLabelText(label);

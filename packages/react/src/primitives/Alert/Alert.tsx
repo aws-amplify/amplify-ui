@@ -2,31 +2,28 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { ComponentClassNames } from '../shared/constants';
-import { AlertProps, Primitive } from '../types';
+import { AlertProps, PrimitiveWithForwardRef } from '../types';
 import { View } from '../View';
 import { Flex } from '../Flex';
-import { Text } from '../Text';
 import { Button } from '../Button';
 import { AlertIcon } from './AlertIcon';
 import { IconClose } from '../Icon';
 import { isFunction } from '../shared/utils';
 
-export const Alert: Primitive<AlertProps, typeof Flex> = ({
-  alignContent,
-  alignItems = 'center',
-  children,
-  className,
-  direction,
-  gap,
-  hasIcon = true,
-  heading,
-  isDismissible = false,
-  justifyContent = 'space-between',
-  onDismiss,
-  variation,
-  wrap,
-  ...rest
-}) => {
+const AlertPrimitive: PrimitiveWithForwardRef<AlertProps, typeof Flex> = (
+  {
+    buttonRef,
+    children,
+    className,
+    hasIcon = true,
+    heading,
+    isDismissible = false,
+    onDismiss,
+    variation,
+    ...rest
+  },
+  ref
+) => {
   const [dismissed, setDismissed] = React.useState<boolean>(false);
 
   const dismissAlert = React.useCallback(() => {
@@ -40,14 +37,9 @@ export const Alert: Primitive<AlertProps, typeof Flex> = ({
   return (
     !dismissed && (
       <Flex
-        alignContent={alignContent}
-        alignItems={alignItems}
         className={classNames(ComponentClassNames.Alert, className)}
         data-variation={variation}
-        direction={direction}
-        gap={gap}
-        justifyContent={justifyContent}
-        wrap={wrap}
+        ref={ref}
         {...rest}
       >
         {hasIcon && <AlertIcon variation={variation} />}
@@ -62,6 +54,7 @@ export const Alert: Primitive<AlertProps, typeof Flex> = ({
             variation="link"
             className={ComponentClassNames.AlertDismiss}
             onClick={dismissAlert}
+            ref={buttonRef}
           >
             <IconClose />
           </Button>
@@ -70,5 +63,7 @@ export const Alert: Primitive<AlertProps, typeof Flex> = ({
     )
   );
 };
+
+export const Alert = React.forwardRef(AlertPrimitive);
 
 Alert.displayName = 'Alert';

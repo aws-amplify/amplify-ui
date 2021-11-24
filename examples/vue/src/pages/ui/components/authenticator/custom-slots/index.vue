@@ -8,7 +8,7 @@ import {
 import '@aws-amplify/ui-vue/styles.css';
 import { toRefs } from 'vue';
 
-import awsExports from '@environments/auth-with-federated/src/aws-exports';
+import awsExports from './aws-exports';
 Amplify.configure(awsExports);
 
 const { toResetPassword, toSignIn } = toRefs(useAuthenticator());

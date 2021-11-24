@@ -21,18 +21,12 @@ module.exports = {
     outlineStyle: { value: 'solid' },
     outlineWidth: { value: '{outlineWidths.medium.value}' },
     outlineOffset: { value: '{outlineOffsets.medium.value}' },
+    // We want the dot inside the border to be a border-width from the border
+    padding: { value: '{borderWidths.medium.value}' },
 
-    before: {
-      content: { value: '""' },
-      display: { value: 'inline-block' },
-      width: { value: '50%' },
-      height: { value: '50%' },
-      borderRadius: { value: '50%' },
-      backgroundColor: { value: 'currentColor' },
-    },
     small: {
-      width: { value: '{fontSizes.xs.value}' },
-      height: { value: '{fontSizes.xs.value}' },
+      width: { value: '{fontSizes.small.value}' },
+      height: { value: '{fontSizes.small.value}' },
     },
     large: {
       width: { value: '{fontSizes.large.value}' },
@@ -41,7 +35,7 @@ module.exports = {
 
     _checked: {
       color: {
-        value: '{colors.red.60.value}',
+        value: '{colors.brand.primary.80.value}',
       },
       _disabled: { color: { value: '{colors.background.disabled.value}' } },
     },
@@ -62,8 +56,7 @@ module.exports = {
 
     _disabled: {
       borderColor: { value: '{colors.border.disabled.value}' },
-      backgroundColor: { value: '{colors.white.value}' },
-      color: { value: '{colors.white.value}' },
+      backgroundColor: { value: '{colors.background.primary.value}' },
     },
   },
 
