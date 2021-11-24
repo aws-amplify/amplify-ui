@@ -1,15 +1,18 @@
+import * as React from 'react';
 import classNames from 'classnames';
 
 import { ComponentClassNames } from '../shared/constants';
-import { Primitive, TableCellElement, TableCellProps } from '../types';
+import {
+  PrimitiveWithForwardRef,
+  TableCellElement,
+  TableCellProps,
+} from '../types';
 import { View } from '../View';
 
-export const TableCell: Primitive<TableCellProps, TableCellElement> = ({
-  as: asElementTag = 'td',
-  children,
-  className,
-  ...rest
-}) => (
+const TableCellPrimitive: PrimitiveWithForwardRef<
+  TableCellProps,
+  TableCellElement
+> = ({ as: asElementTag = 'td', children, className, ...rest }, ref) => (
   <View
     as={asElementTag}
     className={classNames(
@@ -18,10 +21,13 @@ export const TableCell: Primitive<TableCellProps, TableCellElement> = ({
         : ComponentClassNames.TableTh,
       className
     )}
+    ref={ref}
     {...rest}
   >
     {children}
   </View>
 );
+
+export const TableCell = React.forwardRef(TableCellPrimitive);
 
 TableCell.displayName = 'TableCell';

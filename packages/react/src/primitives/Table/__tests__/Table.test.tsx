@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 
 import {
@@ -153,5 +154,13 @@ describe('Table primitive', () => {
 
       expect($table).toHaveAttribute('data-variation', variation);
     });
+  });
+
+  it('should forward ref to DOM element', async () => {
+    const ref = React.createRef<HTMLTableElement>();
+    render(<Table testId="testId" ref={ref} />);
+
+    await screen.findByTestId('testId');
+    expect(ref.current.nodeName).toBe('TABLE');
   });
 });
