@@ -10,10 +10,10 @@ export function withAuthenticator(
 ) {
   const { variation = 'modal' } = options;
 
-  return function WrappedWithAuthenticator() {
+  return function WrappedWithAuthenticator(props) {
     return (
       <Authenticator variation={variation} {...options}>
-        {(props) => <Component {...props} />}
+        {(authenticator) => <Component {...props} {...authenticator} />}
       </Authenticator>
     );
   };

@@ -10,7 +10,7 @@ import {
 } from '@aws-amplify/ui-vue';
 import '@aws-amplify/ui-vue/styles.css';
 
-import awsExports from '@environments/auth-with-email-and-custom-attributes/src/aws-exports';
+import awsExports from './aws-exports';
 Amplify.configure(awsExports);
 import { toRefs } from 'vue';
 

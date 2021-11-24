@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import * as React from 'react';
 
 import { Expander } from '../Expander';
 import {
@@ -99,5 +100,19 @@ describe('ExpanderItem: ', () => {
 
     const icon = await screen.findByTestId(EXPANDER_ICON_TEST_ID);
     expect(icon).toHaveAttribute('aria-hidden', 'true');
+  });
+
+  it('should foward ref to DOM element', async () => {
+    const ref = React.createRef<HTMLDivElement>();
+    render(
+      <Expander type="single" defaultValue="item-value">
+        <ExpanderItem title="item-title" value="item-value" ref={ref}>
+          content
+        </ExpanderItem>
+      </Expander>
+    );
+
+    await screen.findByTestId(EXPANDER_ITEM_TEST_ID);
+    expect(ref.current.nodeName).toBe('DIV');
   });
 });

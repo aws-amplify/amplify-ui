@@ -66,7 +66,8 @@ export const setConfirmSignUpIntent = assign({
 export const setCredentials = assign({
   authAttributes: (context: SignInContext | SignUpContext, _) => {
     const [primaryAlias] = context.loginMechanisms;
-    const username = context.formValues[primaryAlias];
+    const username =
+      context.formValues[primaryAlias] ?? context.formValues['username'];
     const password = context.formValues?.password;
 
     return { username, password };

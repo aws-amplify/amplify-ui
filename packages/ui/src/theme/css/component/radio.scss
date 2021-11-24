@@ -13,6 +13,7 @@
   justify-content: var(--amplify-components-radio-button-justify-content);
   width: var(--amplify-components-radio-button-width);
   height: var(--amplify-components-radio-button-height);
+  padding: var(--amplify-components-radio-button-padding);
   box-sizing: var(--amplify-components-radio-button-box-sizing);
   border-width: var(--amplify-components-radio-button-border-width);
   border-style: var(--amplify-components-radio-button-border-style);
@@ -35,14 +36,13 @@
   outline-offset: var(--amplify-components-radio-button-outline-offset);
 
   &::before {
-    content: var(--amplify-components-radio-button-before-content);
-    display: var(--amplify-components-radio-button-before-display);
-    width: var(--amplify-components-radio-button-before-width);
-    height: var(--amplify-components-radio-button-before-height);
+    content: '';
+    display: inline-block;
+    width: 100%;
+    height: 100%;
     border-radius: var(--amplify-components-radio-button-before-border-radius);
-    background-color: var(
-      --amplify-components-radio-button-before-background-color
-    );
+    background-color: currentColor;
+    border-radius: 50%;
   }
 
   &[data-size='small'] {
