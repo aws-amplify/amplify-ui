@@ -101,7 +101,7 @@ const TabItemPrimitive: PrimitiveWithForwardRef<TabItemProps, 'div'> = (
 );
 
 export const Tabs = React.forwardRef(TabsPrimitive);
-export const TabItem = React.forwardRef(TabItemPrimitvie);
+export const TabItem = React.forwardRef(TabItemPrimitive);
 
 Tabs.displayName = 'Tabs';
 TabItem.displayName = 'TabItem';
