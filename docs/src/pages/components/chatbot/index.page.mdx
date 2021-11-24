@@ -6,12 +6,7 @@ description: A simple way to add a conversational UI into your app is to use our
 import { Fragment } from '@/components/Fragment';
 import { Alert } from '@aws-amplify/ui-react';
 
-<Alert variation="info" heading="Web Component">
-This component has not yet been converted to a native implementation.
-
-If you’re migrating from version 1 of the `@aws-amplify/ui-[framework]`, please see [Usage](#usage) below to see the updated import with `/legacy` path.
-
-</Alert>
+<Fragment>{({ platform }) => import(`./warning.${platform}.mdx`)}</Fragment>
 
 ## Usage
 

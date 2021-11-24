@@ -13,8 +13,9 @@ import {
   StatesExample,
   StyledRequiredExample,
 } from './examples';
-import { Example } from '@/components/Example';
+import { Example, ExampleCode } from '@/components/Example';
 import { Fragment } from '@/components/Fragment';
+import { RefExample } from './examples/refs';
 
 The `PhoneNumberField` form primitive can be used allow users to input a phone number.
 
@@ -253,6 +254,25 @@ Use the `hasError` and `errorMessage` fields to mark a `PhoneNumberField` as hav
 
 <Example>
   <ErrorExample />
+</Example>
+
+### Forward refs
+
+<Fragment>{() => import('./../shared/forwardRefAlert.mdx')}</Fragment>
+
+The standard `ref` prop will forward to the underlying `input` element, and the `countryCodeRef` prop forwards to the country code `select` element.
+
+The following is a contrived example demonstrating use of the `ref` and `countryCodeRef` props:
+
+<Example>
+  <RefExample />
+<ExampleCode>
+
+```tsx file=./examples/refs.tsx
+
+```
+
+</ExampleCode>
 </Example>
 
 ## CSS Styling

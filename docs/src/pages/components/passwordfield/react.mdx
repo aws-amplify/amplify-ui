@@ -14,8 +14,9 @@ import {
   RequiredPasswordFieldExample,
   SignUpFormExample,
 } from './examples';
-import { Example } from '@/components/Example';
+import { Example, ExampleCode } from '@/components/Example';
 import { Fragment } from '@/components/Fragment';
+import { RefExample } from './examples/refs';
 
 The PasswordField primitive allows users to input passwords. It also features full password manager support and an optional show/hide password button for user convenience.
 
@@ -267,6 +268,25 @@ Use the `hasError` and `errorMessage` fields to mark a PasswordField as having a
       errorMessage="Password should not be 1234! 😱"
     />
   </Flex>
+</Example>
+
+### Forward refs
+
+<Fragment>{() => import('./../shared/forwardRefAlert.mdx')}</Fragment>
+
+The standard `ref` prop will forward to the underlying `input` element, and the `showPasswordButtonRef` prop forwards to the show password `button` element.
+
+The following is an example demonstrating use of the `ref` and `showPasswordButtonRef` props:
+
+<Example>
+  <RefExample />
+<ExampleCode>
+
+```tsx file=./examples/refs.tsx
+
+```
+
+</ExampleCode>
 </Example>
 
 ## CSS Styling

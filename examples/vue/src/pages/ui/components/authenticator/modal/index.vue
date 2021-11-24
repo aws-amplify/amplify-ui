@@ -2,7 +2,7 @@
 import Amplify from 'aws-amplify';
 import { Authenticator } from '@aws-amplify/ui-vue';
 import '@aws-amplify/ui-vue/styles.css';
-import aws_exports from '@environments/auth-with-username/src/aws-exports';
+import aws_exports from './aws-exports';
 
 Amplify.configure(aws_exports);
 </script>

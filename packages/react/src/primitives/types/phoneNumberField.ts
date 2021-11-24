@@ -9,6 +9,10 @@ export interface PhoneNumberFieldProps extends TextInputFieldProps {
   defaultCountryCode: string;
   onCountryCodeChange?: React.ChangeEventHandler<HTMLSelectElement>;
   type?: 'tel';
+  /**
+   * Forwarded ref for access to Country Code select DOM element
+   */
+  countryCodeRef?: React.Ref<HTMLSelectElement>;
 }
 
 export interface CountryCodeSelectProps extends SelectFieldProps {

@@ -2,4 +2,4 @@
 "@aws-amplify/ui-react": patch
 ---
 
-Add missing displayName properties
+ForwardRef support for StepperField

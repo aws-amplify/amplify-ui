@@ -2,4 +2,4 @@
 "@aws-amplify/ui-react": patch
 ---
 
-Add backgroundImage style property
+Add DataStore.observeQuery support

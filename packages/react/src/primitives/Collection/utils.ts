@@ -30,3 +30,9 @@ export const itemHasText = (item: unknown, text: string): boolean => {
 
   return false;
 };
+
+/**
+ * Computes the amount of available pages
+ */
+export const getPageCount = (totalItems: number, itemsPerPage: number) =>
+  Math.ceil(totalItems / itemsPerPage);

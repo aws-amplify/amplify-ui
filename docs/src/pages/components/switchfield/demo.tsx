@@ -7,9 +7,6 @@ import { Example } from '@/components/Example';
 
 export const SwitchDemo = () => {
   const switchProps = useSwitchProps({
-    thumbColor: '#fff',
-    trackColor: 'hsl(210, 5%, 80%)',
-    trackCheckedColor: 'hsl(220, 70%, 70%)',
     isDisabled: false,
     size: '',
     label: 'SwitchField',

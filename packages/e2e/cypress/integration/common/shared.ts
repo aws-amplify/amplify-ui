@@ -170,3 +170,12 @@ Then('the {string} field is invalid', (name: string) => {
     .then(($el) => $el.get(0).checkValidity())
     .should('be.false');
 });
+
+When('I type a valid confirmation code', () => {
+  // This should be intercepted & mocked
+  cy.findByLabelText('Confirmation Code').type('validcode');
+});
+
+When('I type an invalid confirmation code', () => {
+  cy.findByLabelText('Confirmation Code').type('invalidcode');
+});

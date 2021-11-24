@@ -1,4 +1,6 @@
 .amplify-alert {
+  align-items: var(--amplify-components-alert-align-items);
+  justify-content: var(--amplify-components-alert-justify-content);
   background-color: var(--amplify-components-alert-background-color);
   padding-block: var(--amplify-components-alert-padding-block);
   padding-inline: var(--amplify-components-alert-padding-inline);
