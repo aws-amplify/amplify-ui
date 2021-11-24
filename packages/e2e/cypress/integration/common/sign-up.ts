@@ -9,7 +9,8 @@ Given('I click {string}', (text: string) => {
 When('I confirm my password', () => {
   cy.findInputField('Confirm Password')
     .type(Cypress.env('VALID_PASSWORD'))
-    .blur();
+    .blur()
+    .wait(100);
 });
 
 Then('I see {string} as an input field', (name: string) => {
