@@ -1,5 +1,48 @@
 # @aws-amplify/ui-react
 
+## 2.1.1
+
+### Patch Changes
+
+- [#857](https://github.com/aws-amplify/amplify-ui/pull/857) [`cf1a15a69`](https://github.com/aws-amplify/amplify-ui/commit/cf1a15a6900c0e92d6125adbb40ff78776db6f3b) Thanks [@reesscot](https://github.com/reesscot)! - ForwardRef support - Rating
+
+* [#859](https://github.com/aws-amplify/amplify-ui/pull/859) [`62765e70b`](https://github.com/aws-amplify/amplify-ui/commit/62765e70bff5652fef96e132a5bc17f226e041a0) Thanks [@reesscot](https://github.com/reesscot)! - ForwardRef support for StepperField
+
+- [#877](https://github.com/aws-amplify/amplify-ui/pull/877) [`3774e9aac`](https://github.com/aws-amplify/amplify-ui/commit/3774e9aacf787cf0e1cca3b00f32c6606925a797) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - Add back in dangerouslySetInnerHTML for theme. Not using this was causing hydration issues in NextJS
+
+* [#866](https://github.com/aws-amplify/amplify-ui/pull/866) [`473f1db6c`](https://github.com/aws-amplify/amplify-ui/commit/473f1db6c42c8221f369e8cdbf6bdd307d09220f) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - Making size prop on slider field work like other fields and adding disabled styling.
+
+- [#832](https://github.com/aws-amplify/amplify-ui/pull/832) [`f81aa5917`](https://github.com/aws-amplify/amplify-ui/commit/f81aa5917f08a1ec112d8f889a6c72d2b1acf614) Thanks [@reesscot](https://github.com/reesscot)! - ForwardRef support for PasswordField, FieldGroup, & FieldGroupIconButton primitives.
+
+* [#850](https://github.com/aws-amplify/amplify-ui/pull/850) [`9d7907ec4`](https://github.com/aws-amplify/amplify-ui/commit/9d7907ec44b130e3610c3518e188806b5fe06eec) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - Updating radio styles to be consistent with checkbox field.
+
+- [#840](https://github.com/aws-amplify/amplify-ui/pull/840) [`5522af055`](https://github.com/aws-amplify/amplify-ui/commit/5522af0557e93dae5f6a26da327920d030319955) Thanks [@ericclemmons](https://github.com/ericclemmons)! - Pass props from withAuthenticator to Component
+
+* [#860](https://github.com/aws-amplify/amplify-ui/pull/860) [`b0985f662`](https://github.com/aws-amplify/amplify-ui/commit/b0985f662263d1041889fb1523b22fdbdaa92cab) Thanks [@reesscot](https://github.com/reesscot)! - ForwardRef support - SwitchField
+
+- [#862](https://github.com/aws-amplify/amplify-ui/pull/862) [`6c4039590`](https://github.com/aws-amplify/amplify-ui/commit/6c4039590f3bb2acb9af2a1abd1e9c97eeb42cfc) Thanks [@hvergara](https://github.com/hvergara)! - Add DataStore.observeQuery support
+
+* [#854](https://github.com/aws-amplify/amplify-ui/pull/854) [`81c7d5525`](https://github.com/aws-amplify/amplify-ui/commit/81c7d5525bdf19a35d66757b94038144046c8046) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - Updating quiet variation of stepper field
+
+- [#842](https://github.com/aws-amplify/amplify-ui/pull/842) [`97ca4e48f`](https://github.com/aws-amplify/amplify-ui/commit/97ca4e48f4d7f73e842072e63d3dcd39d5f983d8) Thanks [@zchenwei](https://github.com/zchenwei)! - ForwardRef support for Alert, ButtonGroup, Expander & ExpanderItem
+
+* [#870](https://github.com/aws-amplify/amplify-ui/pull/870) [`8b6b0088a`](https://github.com/aws-amplify/amplify-ui/commit/8b6b0088a5baee4bfce5222875a807f1934aa6aa) Thanks [@hvergara](https://github.com/hvergara)! - ForwardRef support for Table/TableBody/TableHeader/TableFoot/TableCell
+
+- [#878](https://github.com/aws-amplify/amplify-ui/pull/878) [`5c4935411`](https://github.com/aws-amplify/amplify-ui/commit/5c49354115c06e05e4f9ad50d3d66f8fcb86a7ca) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - Updating text colors for better contrast
+
+* [#841](https://github.com/aws-amplify/amplify-ui/pull/841) [`8e36aa4ac`](https://github.com/aws-amplify/amplify-ui/commit/8e36aa4ac40f67308e998b3dbc8fa459aafb2cb9) Thanks [@reesscot](https://github.com/reesscot)! - Update PasswordField to support showPasswordButton ref
+
+- [#831](https://github.com/aws-amplify/amplify-ui/pull/831) [`d2cda9c70`](https://github.com/aws-amplify/amplify-ui/commit/d2cda9c70e20a5a62bc73e25ee80cf835ba85f94) Thanks [@zchenwei](https://github.com/zchenwei)! - ForwardRef support for FieldClearButton and FieldGroupIconButton.
+
+* [#851](https://github.com/aws-amplify/amplify-ui/pull/851) [`8d84116bb`](https://github.com/aws-amplify/amplify-ui/commit/8d84116bb46de5d9f18c18445b947d1f2aede9ad) Thanks [@reesscot](https://github.com/reesscot)! - ForwardRef support for SearchField
+
+- [#873](https://github.com/aws-amplify/amplify-ui/pull/873) [`2a486da75`](https://github.com/aws-amplify/amplify-ui/commit/2a486da75f110fa757f969d744ecf548f04daaa1) Thanks [@reesscot](https://github.com/reesscot)! - ForwardRef support - Menu & Pagination primitives
+
+* [#839](https://github.com/aws-amplify/amplify-ui/pull/839) [`e0aafe759`](https://github.com/aws-amplify/amplify-ui/commit/e0aafe759188ba0e648f3b3e115faa8ca38feb9b) Thanks [@reesscot](https://github.com/reesscot)! - ForwardRef for PhoneNumberField
+
+* Updated dependencies [[`473f1db6c`](https://github.com/aws-amplify/amplify-ui/commit/473f1db6c42c8221f369e8cdbf6bdd307d09220f), [`e77e47fe5`](https://github.com/aws-amplify/amplify-ui/commit/e77e47fe5872961bb70d53bfb54f95d5a9d89ef4), [`9d7907ec4`](https://github.com/aws-amplify/amplify-ui/commit/9d7907ec44b130e3610c3518e188806b5fe06eec), [`81c7d5525`](https://github.com/aws-amplify/amplify-ui/commit/81c7d5525bdf19a35d66757b94038144046c8046), [`97ca4e48f`](https://github.com/aws-amplify/amplify-ui/commit/97ca4e48f4d7f73e842072e63d3dcd39d5f983d8), [`5c4935411`](https://github.com/aws-amplify/amplify-ui/commit/5c49354115c06e05e4f9ad50d3d66f8fcb86a7ca), [`c41c6fad1`](https://github.com/aws-amplify/amplify-ui/commit/c41c6fad138269dc72bec682bf7e15341d09ec8a)]:
+  - @aws-amplify/ui@3.0.2
+
 ## 2.1.0
 
 ### Minor Changes
