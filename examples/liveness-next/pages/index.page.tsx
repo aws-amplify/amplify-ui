@@ -1,9 +1,5 @@
 import { useState } from 'react';
-import {
-  LivenessFlow,
-  LivenessFlowProps,
-  LivenessStatus,
-} from '@aws-amplify/ui-react';
+import { LivenessFlow, LivenessFlowProps } from '@aws-amplify/ui-react';
 import { Amplify, API } from 'aws-amplify';
 import useSWR from 'swr';
 import awsExports from '@environments/liveness/src/aws-exports';
@@ -64,7 +60,7 @@ export default function App() {
         console.log({ err });
       }
 
-      return { isLive: LivenessStatus.SUCCESS };
+      return { isLive: true };
     };
 
   if (startLivenessApiError) {

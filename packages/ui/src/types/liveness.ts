@@ -59,16 +59,11 @@ export interface LivenessFlowProps {
   onSuccess?: () => void;
 }
 
-export enum LivenessStatus {
-  SUCCESS,
-  FAILURE,
-}
-
 /**
  * The object to be returned as part of the onGetLivenessDetection callback
  */
 export interface GetLivenessDetectionCallbackResponse {
-  isLive: LivenessStatus;
+  isLive: boolean;
 }
 
 /**

@@ -1366,7 +1366,6 @@ describe('@aws-amplify/ui-react', () => {
           "Link",
           "LivenessFlow",
           "LivenessFlowProps",
-          "LivenessStatus",
           "Loader",
           "Menu",
           "MenuButton",

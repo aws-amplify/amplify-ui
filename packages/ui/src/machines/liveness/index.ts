@@ -6,7 +6,6 @@ import {
   LivenessEvent,
   FaceMatchState,
   LivenessErrorState,
-  LivenessStatus,
 } from '../../types';
 import {
   BlazeFaceFaceDetection,
@@ -132,7 +131,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
           checking: {
             always: [
               {
-                target: '#livenessMachine.end',
+                target: '#livenessMachine.checkSucceeded',
                 cond: 'hasLivenessCheckSucceeded',
               },
               { target: '#livenessMachine.checkFailed' },
@@ -152,25 +151,19 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       },
       permissionDenied: {
         entry: 'callUserPermissionDeniedCallback',
-        type: 'final',
-      },
-      userCancel: {
-        entry: 'callUserCancelCallback',
-        type: 'final',
       },
       timeout: {
         entry: 'callUserTimeoutCallback',
-        type: 'final',
       },
       error: {
         entry: 'callErrorCallback',
-        type: 'final',
       },
-      checkFailed: {
-        type: 'final',
-      },
-      end: {
+      checkFailed: {},
+      checkSucceeded: {
         entry: 'callSuccessCallback',
+      },
+      userCancel: {
+        entry: 'callUserCancelCallback',
         type: 'final',
       },
     },
@@ -277,8 +270,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         context.failedAttempts >= context.maxFailedAttempts,
       hasFaceMatchedInOval: (context) =>
         context.faceMatchState === FaceMatchState.MATCHED,
-      hasLivenessCheckSucceeded: (_, __, meta) =>
-        meta.state.event.data.isLive === LivenessStatus.SUCCESS,
+      hasLivenessCheckSucceeded: (_, __, meta) => meta.state.event.data.isLive,
       hasSingleFace: (context) =>
         context.faceMatchState === FaceMatchState.FACE_IDENTIFIED,
     },

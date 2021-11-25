@@ -2,7 +2,7 @@ import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { LivenessFlow, LivenessFlowProps, LivenessStatus } from '..';
+import { LivenessFlow, LivenessFlowProps } from '..';
 
 jest.mock('../../../styles.css', () => ({}));
 
@@ -11,7 +11,7 @@ describe('LivenessFlow', () => {
     sessionId: 'sessionId',
     clientActionDocument: 'clientActionDocument',
     onGetLivenessDetection: async () => {
-      return { isLive: LivenessStatus.SUCCESS };
+      return { isLive: true };
     },
   };
   const livenessFlowTestId = 'liveness-flow';

@@ -23,7 +23,7 @@ export const Instruction: React.FC<InstructionProps> = (props) => {
 
   const isNotRecording = state.matches('notRecording');
   const isUploading = state.matches('uploading');
-  const isSuccessful = state.matches('end');
+  const isSuccessful = state.matches('checkSucceeded');
 
   const getInstructionContent = () => {
     if (state.context.errorState) {
