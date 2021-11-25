@@ -62,10 +62,18 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # CodeArtifact
+      - name: Login to CodeArtifact
+        run: |
+          CODEARTIFACT_REGISTRY=${REGISTRY_ENDPOINT#"https://"}
+
+          yarn config set registry $REGISTRY_ENDPOINT
+          echo "//$CODEARTIFACT_REGISTRY:_authToken=$NPM_TOKEN" >> .npmrc
+          echo "//$CODEARTIFACT_REGISTRY:always-auth=true" >> .npmrc
+        env:
+          REGISTRY_ENDPOINT: ${{ steps.configure-codeartifact.outputs.repository-endpoint }}
+          NPM_TOKEN: ${{ steps.configure-codeartifact.outputs.repository-token }}
       - name: Publish to liveness tag for CodeArtifact
         run: yarn publish:liveness
-        env:
-          NODE_AUTH_TOKEN: ${{ steps.configure-codeartifact.outputs.repository-token }}
 
       # Verdaccio
       - name: Login to Verdaccio
