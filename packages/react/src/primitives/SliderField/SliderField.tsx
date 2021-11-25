@@ -45,6 +45,7 @@ const SliderFieldPrimitive: PrimitiveWithForwardRef<
     trackSize,
     dir,
     value,
+    size,
     ..._rest
   },
   ref
@@ -83,6 +84,7 @@ const SliderFieldPrimitive: PrimitiveWithForwardRef<
         ComponentClassNames.SliderField
       )}
       testId={testId}
+      data-size={size}
       {...flexContainerStyleProps}
     >
       <Label

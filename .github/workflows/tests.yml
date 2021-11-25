@@ -7,11 +7,39 @@ on:
   push:
     branches: [main]
 
-  pull_request:
+  pull_request_target:
     branches: [main]
+    types: [opened, synchronize, labeled]
+
+permissions:
+  pull-requests: write # used to remove label
+  # other permissions are defaulted to "none"
 
 jobs:
+  setup:
+    runs-on: ubuntu-latest
+    # We run tests only if it's:
+    #   1) push to main, or
+    #   2) pull request not from a fork (ie. internal PR), or
+    #   3) pull request from a fork (ie. external PR) that was added "run-tests" label
+    if: |
+      github.event_name == 'push' ||
+      (github.event.pull_request.head.repo.full_name == github.repository) || 
+      (github.event.action == 'labeled' && github.event.label.name == 'run-tests')
+    steps:
+      # This would be a good place to run and cache `yarn`, `yarn build`, etc
+      - name: Remove run-tests label, if applicable
+        if: always() && github.event.label.name == 'run-tests'
+        uses: actions/github-script@0.3.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { issue: { number: issue_number }, repo: { owner, repo } } = context;
+            const label = 'run-tests';
+            github.issues.removeLabel({ owner, repo, issue_number, name: label });
+
   unit:
+    needs: setup
     runs-on: ubuntu-latest
     env:
       NODE_ENV: test
@@ -28,6 +56,10 @@ jobs:
     steps:
       - name: Checkout Amplify UI
         uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event_name == 'push' && github.ref || github.event.pull_request.head.ref }}
+          repository: ${{github.event.pull_request.head.repo.full_name}}
+          persist-credentials: false
 
       - name: Setup Node.js LTS
         uses: actions/setup-node@v2
@@ -73,6 +105,13 @@ jobs:
     steps:
       - name: Checkout Amplify UI
         uses: actions/checkout@v2
+        with:
+          # For `pull_request_target`, we want ref to point to `pull_request.head.ref` because `github.ref`
+          # always points to the target branch.
+          # See: https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows
+          ref: ${{ github.event_name == 'push' && github.ref || github.event.pull_request.head.ref }}
+          repository: ${{github.event.pull_request.head.repo.full_name}}
+          persist-credentials: false
 
       - name: Next.js Cache
         uses: actions/cache@v2
@@ -126,6 +165,10 @@ jobs:
     steps:
       - name: Checkout Amplify UI
         uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event_name == 'push' && github.ref || github.event.pull_request.head.ref }}
+          repository: ${{github.event.pull_request.head.repo.full_name}}
+          persist-credentials: false
 
       - name: Setup Node.js LTS
         uses: actions/setup-node@v2

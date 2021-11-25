@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { screen, render, cleanup } from '@testing-library/react';
 
 import { ComponentClassNames } from '../../shared';
@@ -96,6 +97,14 @@ describe('Menu: ', () => {
         ComponentClassNames.MenuTrigger,
         triggerClassName
       );
+    });
+
+    it('should forward ref to DOM element', async () => {
+      const ref = React.createRef<HTMLDivElement>();
+      render(<Menu ref={ref} isOpen></Menu>);
+
+      await screen.findByTestId(MENU_ITEMS_GROUP_TEST_ID);
+      expect(ref.current.nodeName).toBe('DIV');
     });
 
     it('should set size attribute', async () => {

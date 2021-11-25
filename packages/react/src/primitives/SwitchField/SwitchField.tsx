@@ -1,33 +1,40 @@
+import * as React from 'react';
 import classNames from 'classnames';
 
-import { useSwitch } from './useSwitch';
-import { Label } from '../Label';
-import { Input } from '../Input';
-import { View } from '../View';
-import { Flex } from '../Flex';
-import { VisuallyHidden } from '../VisuallyHidden';
 import { ComponentClassNames } from '../shared/constants';
+import { Flex } from '../Flex';
+import { Input } from '../Input';
+import { Label } from '../Label';
+import { PrimitiveWithForwardRef, SwitchFieldProps } from '../types';
 import { useStableId } from '../shared/utils';
-import { Primitive, SwitchFieldProps } from '../types';
+import { useSwitch } from './useSwitch';
+import { View } from '../View';
+import { VisuallyHidden } from '../VisuallyHidden';
 
-export const SwitchField: Primitive<SwitchFieldProps, typeof Flex> = ({
-  className,
-  defaultChecked,
-  id,
-  isChecked,
-  isDisabled,
-  isLabelHidden,
-  label,
-  labelPosition,
-  name,
-  onChange,
-  size,
-  thumbColor,
-  trackColor,
-  trackCheckedColor,
-  value,
-  ...rest
-}) => {
+const SwitchFieldPrimitive: PrimitiveWithForwardRef<
+  SwitchFieldProps,
+  typeof Flex
+> = (
+  {
+    className,
+    defaultChecked,
+    id,
+    isChecked,
+    isDisabled,
+    isLabelHidden,
+    label,
+    labelPosition,
+    name,
+    onChange,
+    size,
+    thumbColor,
+    trackCheckedColor,
+    trackColor,
+    value,
+    ...rest
+  },
+  ref
+) => {
   const { isOn, changeHandler, isFocused, setIsFocused } = useSwitch({
     onChange,
     isChecked,
@@ -43,6 +50,7 @@ export const SwitchField: Primitive<SwitchFieldProps, typeof Flex> = ({
       className={classNames(ComponentClassNames.SwitchField, className)}
       data-size={size}
       data-label-position={labelPosition}
+      ref={ref}
       {...rest}
     >
       <VisuallyHidden>
@@ -91,5 +99,7 @@ export const SwitchField: Primitive<SwitchFieldProps, typeof Flex> = ({
     </Flex>
   );
 };
+
+export const SwitchField = React.forwardRef(SwitchFieldPrimitive);
 
 SwitchField.displayName = 'SwitchField';
