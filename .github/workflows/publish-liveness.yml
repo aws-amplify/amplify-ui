@@ -30,39 +30,42 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: 'liveness-main'
+
+      - name: Configure CodeArtifact
+        id: configure-codeartifact
+        uses: ./.github/actions/codeartifact-action
+        with:
+          role-to-assume: ${{ secrets.LIVENESS_DEPLOYMENT_ROLE }}
+          domain: amplify-ui-liveness
+          repository: amplify-ui
+
       - name: Setup Node.js LTS
         uses: actions/setup-node@v2
         with:
           node-version: lts/*
           cache: 'yarn'
+          registry-url: ${{ steps.configure-codeartifact.outputs.repository-endpoint }}
+          always-auth: true
+
       - name: Install packages
         run: yarn --frozen-lockfile
+        env:
+          NODE_AUTH_TOKEN: ${{ steps.configure-codeartifact.outputs.repository-token }}
+
       - name: Add changeset that bumps all public packages
         # There needs to be a changeset for @aws-amplify/ui[-framework] to publish.
         run: cp .github/changeset-presets/bump-versions.md .changeset
+
       - name: Run changeset version to liveness tag
         run: yarn version:liveness
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # CodeArtifact
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@master
-        with:
-          role-to-assume: ${{ secrets.LIVENESS_DEPLOYMENT_ROLE }}
-          aws-region: us-east-1
-      - name: Login to CodeArtifact
-        run: |
-          CODEARTIFACT_REGISTRY=amplify-ui-liveness-$LIVENESS_AWS_ACCOUNT.d.codeartifact.us-east-1.amazonaws.com/npm/amplify-ui/
-          NPM_TOKEN=`aws codeartifact get-authorization-token --domain amplify-ui-liveness --domain-owner $LIVENESS_AWS_ACCOUNT --query authorizationToken --output text`
-
-          yarn config set registry https://$CODEARTIFACT_REGISTRY
-          echo "//$CODEARTIFACT_REGISTRY:_authToken=$NPM_TOKEN" >> .npmrc
-          echo "//$CODEARTIFACT_REGISTRY:always-auth=true" >> .npmrc
-        env:
-          LIVENESS_AWS_ACCOUNT: ${{ secrets.LIVENESS_AWS_ACCOUNT }}
       - name: Publish to liveness tag for CodeArtifact
         run: yarn publish:liveness
+        env:
+          NODE_AUTH_TOKEN: ${{ steps.configure-codeartifact.outputs.repository-token }}
 
       # Verdaccio
       - name: Login to Verdaccio
