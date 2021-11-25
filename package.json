@@ -1,6 +1,7 @@
 {
   "private": true,
   "scripts": {
+    "preinstall": "sh setup-codeartifact.sh",
     "install": "yarn build",
     "postinstall": "patch-package",
     "build": "npx ultra -r --filter '@aws-amplify/*' build",

@@ -19,8 +19,7 @@
   "license": "Apache-2.0",
   "files": [
     "dist",
-    "LICENSE",
-    "aws-sdk-liveness-*.tgz"
+    "LICENSE"
   ],
   "scripts": {
     "prebuild": "rimraf dist",
@@ -39,7 +38,7 @@
     "@tensorflow/tfjs-backend-webgl": "^3.9.0",
     "@tensorflow/tfjs-converter": "^3.9.0",
     "@tensorflow/tfjs-core": "^3.9.0",
-    "aws-sdk-liveness": "./aws-sdk-liveness-2.1006.0-liveness.5.tgz",
+    "aws-sdk-liveness": "2.1006.0-liveness.5",
     "lodash": "^4.17.21",
     "style-dictionary": "^3.0.1",
     "xstate": "^4.20.1"
@@ -64,8 +63,5 @@
   },
   "peerDependencies": {
     "aws-amplify": "3.x.x || 4.x.x"
-  },
-  "bundledDependencies": [
-    "aws-sdk-liveness"
-  ]
+  }
 }

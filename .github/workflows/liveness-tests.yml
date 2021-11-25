@@ -13,6 +13,9 @@ on:
 jobs:
   unit:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: write
     env:
       NODE_ENV: test
 
@@ -29,14 +32,26 @@ jobs:
       - name: Checkout Amplify UI
         uses: actions/checkout@v2
 
+      - name: Configure CodeArtifact
+        id: configure-codeartifact
+        uses: ./.github/actions/codeartifact-action
+        with:
+          role-to-assume: ${{ secrets.LIVENESS_DEPLOYMENT_ROLE }}
+          domain: amplify-ui-liveness
+          repository: amplify-ui
+
       - name: Setup Node.js LTS
         uses: actions/setup-node@v2
         with:
           node-version: lts/*
           cache: 'yarn'
+          registry-url: ${{ steps.configure-codeartifact.outputs.repository-endpoint }}
+          always-auth: true
 
       - name: Install packages
         run: yarn --frozen-lockfile
+        env:
+          NODE_AUTH_TOKEN: ${{ steps.configure-codeartifact.outputs.repository-token }}
 
       - name: Lint packages
         run: yarn workspace ${{ matrix.package }} lint
