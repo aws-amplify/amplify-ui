@@ -65,7 +65,7 @@ jobs:
       - name: Publish to liveness tag for CodeArtifact
         run: yarn publish:liveness
         env:
-          NPM_TOKEN: ${{ steps.configure-codeartifact.outputs.repository-token }}
+          NPM_AUTH_TOKEN: ${{ steps.configure-codeartifact.outputs.repository-token }}
 
       # Verdaccio
       - name: Login to Verdaccio
