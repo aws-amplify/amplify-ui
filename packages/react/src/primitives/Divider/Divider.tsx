@@ -5,7 +5,7 @@ import { ComponentClassNames } from '../shared';
 import { DividerProps, PrimitiveWithForwardRef } from '../types';
 import { View } from '../View';
 
-const DividerInner: PrimitiveWithForwardRef<DividerProps, 'hr'> = (
+const DividerPrimitive: PrimitiveWithForwardRef<DividerProps, 'hr'> = (
   { className, orientation = 'horizontal', size, ...rest },
   ref
 ) => (
@@ -19,6 +19,6 @@ const DividerInner: PrimitiveWithForwardRef<DividerProps, 'hr'> = (
   />
 );
 
-export const Divider = React.forwardRef(DividerInner);
+export const Divider = React.forwardRef(DividerPrimitive);
 
 Divider.displayName = 'Divider';

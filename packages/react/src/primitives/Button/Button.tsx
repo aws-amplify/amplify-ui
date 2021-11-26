@@ -6,7 +6,7 @@ import { ButtonProps, PrimitiveWithForwardRef } from '../types';
 import { Text } from '../Text';
 import { View } from '../View';
 
-const ButtonInner: PrimitiveWithForwardRef<ButtonProps, 'button'> = (
+const ButtonPrimitive: PrimitiveWithForwardRef<ButtonProps, 'button'> = (
   {
     className,
     children,
@@ -47,6 +47,6 @@ const ButtonInner: PrimitiveWithForwardRef<ButtonProps, 'button'> = (
   );
 };
 
-export const Button = React.forwardRef(ButtonInner);
+export const Button = React.forwardRef(ButtonPrimitive);
 
 Button.displayName = 'Button';

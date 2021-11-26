@@ -5,7 +5,7 @@ import { ComponentClassNames } from '../shared/constants';
 import { BadgeProps, PrimitiveWithForwardRef } from '../types';
 import { View } from '../View';
 
-const BadgeInner: PrimitiveWithForwardRef<BadgeProps, 'span'> = (
+const BadgePrimitive: PrimitiveWithForwardRef<BadgeProps, 'span'> = (
   { className, children, variation, size, ...rest },
   ref
 ) => (
@@ -21,6 +21,6 @@ const BadgeInner: PrimitiveWithForwardRef<BadgeProps, 'span'> = (
   </View>
 );
 
-export const Badge = React.forwardRef(BadgeInner);
+export const Badge = React.forwardRef(BadgePrimitive);
 
 Badge.displayName = 'Badge';

@@ -5,7 +5,7 @@ import { ComponentClassNames } from '../shared';
 import { LinkProps, PrimitiveWithForwardRef } from '../types';
 import { View } from '../View';
 
-const LinkInner: PrimitiveWithForwardRef<LinkProps, 'a'> = (
+const LinkPrimitive: PrimitiveWithForwardRef<LinkProps, 'a'> = (
   { as = 'a', children, className, isExternal, ...rest },
   ref
 ) => {
@@ -23,6 +23,6 @@ const LinkInner: PrimitiveWithForwardRef<LinkProps, 'a'> = (
   );
 };
 
-export const Link = React.forwardRef(LinkInner);
+export const Link = React.forwardRef(LinkPrimitive);
 
 Link.displayName = 'Link';

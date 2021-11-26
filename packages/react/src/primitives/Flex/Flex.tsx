@@ -5,7 +5,7 @@ import { ComponentClassNames } from '../shared/constants';
 import { FlexProps, PrimitiveWithForwardRef } from '../types';
 import { View } from '../View';
 
-const FlexInner: PrimitiveWithForwardRef<FlexProps, 'div'> = (
+const FlexPrimitive: PrimitiveWithForwardRef<FlexProps, 'div'> = (
   { className, children, ...rest },
   ref
 ) => (
@@ -18,6 +18,6 @@ const FlexInner: PrimitiveWithForwardRef<FlexProps, 'div'> = (
   </View>
 );
 
-export const Flex = React.forwardRef(FlexInner);
+export const Flex = React.forwardRef(FlexPrimitive);
 
 Flex.displayName = 'Flex';

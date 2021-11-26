@@ -5,7 +5,7 @@ import { ComponentClassNames } from '../shared';
 import { PlaceholderProps, PrimitiveWithForwardRef } from '../types';
 import { View } from '../View';
 
-const PlaceholderInner: PrimitiveWithForwardRef<PlaceholderProps, 'div'> = (
+const PlaceholderPrimitive: PrimitiveWithForwardRef<PlaceholderProps, 'div'> = (
   { className, children, isLoaded, size, ...rest },
   ref
 ) => {
@@ -23,6 +23,6 @@ const PlaceholderInner: PrimitiveWithForwardRef<PlaceholderProps, 'div'> = (
   );
 };
 
-export const Placeholder = React.forwardRef(PlaceholderInner);
+export const Placeholder = React.forwardRef(PlaceholderPrimitive);
 
 Placeholder.displayName = 'Placeholder';
