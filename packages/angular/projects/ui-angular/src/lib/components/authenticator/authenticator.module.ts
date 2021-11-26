@@ -67,7 +67,7 @@ import { AmplifySlotDirective } from '../../utilities/amplify-slot/amplify-slot.
     UserNameAliasComponent,
     VerifyUserComponent,
   ],
-  imports: [CommonModule, BrowserModule],
+  imports: [CommonModule],
   exports: [
     AmplifySlotDirective,
     AuthenticatorComponent,
