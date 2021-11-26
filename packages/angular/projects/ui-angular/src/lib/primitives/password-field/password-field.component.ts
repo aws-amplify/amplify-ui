@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { translate } from '@aws-amplify/ui';
 import { nanoid } from 'nanoid';
 
@@ -16,6 +16,7 @@ export class PasswordFieldComponent {
   @Input() placeholder = '';
   @Input() required = true;
   @Input() labelHidden = false;
+  @Output() setBlur = new EventEmitter<Event>();
 
   public type: 'text' | 'password' = 'password';
 

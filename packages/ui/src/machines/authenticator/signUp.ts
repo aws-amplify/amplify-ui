@@ -8,8 +8,10 @@ import { runValidators } from '../../validators';
 import {
   clearError,
   clearFormValues,
+  clearTouched,
   clearValidationError,
   handleInput,
+  handleBlur,
   setCredentials,
   setFieldErrors,
   setRemoteError,
@@ -35,7 +37,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
         },
         signUp: {
           type: 'parallel',
-          exit: ['clearError', 'clearFormValues'],
+          exit: ['clearError', 'clearFormValues', 'clearTouched'],
           states: {
             validation: {
               initial: 'pending',
@@ -59,6 +61,10 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
               on: {
                 CHANGE: {
                   actions: 'handleInput',
+                  target: '.pending',
+                },
+                BLUR: {
+                  actions: 'handleBlur',
                   target: '.pending',
                 },
               },
@@ -148,6 +154,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
               on: {
                 SUBMIT: 'submit',
                 CHANGE: { actions: 'handleInput' },
+                BLUR: { actions: 'handleBlur' },
                 RESEND: 'resend',
               },
             },
@@ -218,8 +225,10 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
       actions: {
         clearError,
         clearFormValues,
+        clearTouched,
         clearValidationError,
         handleInput,
+        handleBlur,
         setCredentials,
         setFieldErrors,
         setRemoteError,
@@ -309,7 +318,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
         },
         async validateSignUp(context, event) {
           // This needs to exist in the machine to reference new `services`
-          return runValidators(context.formValues, [
+          return runValidators(context.formValues, context.touched, [
             // Validation for default form fields
             services.validateConfirmPassword,
             services.validatePreferredUsername,

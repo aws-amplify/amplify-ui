@@ -5,8 +5,15 @@ import { Button, Flex, Heading, PasswordField, Text } from '../../..';
 import { isInputOrSelectElement, isInputElement } from '../../../helpers/utils';
 
 export const ForceNewPassword = (): JSX.Element => {
-  const { _state, error, isPending, toSignIn, submitForm, updateForm } =
-    useAuthenticator();
+  const {
+    _state,
+    error,
+    isPending,
+    toSignIn,
+    submitForm,
+    updateForm,
+    updateBlur,
+  } = useAuthenticator();
   const { validationError } = getActorContext(_state) as SignInContext;
 
   const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
@@ -29,6 +36,11 @@ export const ForceNewPassword = (): JSX.Element => {
     submitForm();
   };
 
+  const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+    const { name } = event.target;
+    updateBlur({ name });
+  };
+
   return (
     <form
       data-amplify-form=""
@@ -49,6 +61,7 @@ export const ForceNewPassword = (): JSX.Element => {
             label={translate('Password')}
             labelHidden={true}
             hasError={!!validationError['confirm_password']}
+            onBlur={handleBlur}
           />
           <PasswordField
             data-amplify-confirmpassword
@@ -58,6 +71,7 @@ export const ForceNewPassword = (): JSX.Element => {
             label={translate('Confirm Password')}
             labelHidden={true}
             hasError={!!validationError['confirm_password']}
+            onBlur={handleBlur}
           />
 
           {!!validationError['confirm_password'] && (

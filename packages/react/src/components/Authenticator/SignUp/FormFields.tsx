@@ -10,7 +10,7 @@ import { PasswordField, PhoneNumberField, Text, TextField } from '../../..';
 import { UserNameAlias as UserNameAliasComponent } from '../shared';
 
 export function FormFields() {
-  const { _state } = useAuthenticator();
+  const { _state, updateForm, updateBlur } = useAuthenticator();
   const { country_code, validationError } = getActorContext(
     _state
   ) as SignUpContext;
@@ -22,6 +22,11 @@ export function FormFields() {
 
   // Only 1 is supported, so `['email', 'phone_number']` will only show `email`
   const loginMechanism = fieldNames.shift() as LoginMechanism;
+
+  const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+    const { name } = event.target;
+    updateBlur({ name });
+  };
 
   return (
     <>
@@ -39,6 +44,7 @@ export function FormFields() {
         label={translate('Password')}
         labelHidden={true}
         placeholder={translate('Password')}
+        onBlur={handleBlur}
       />
 
       <PasswordField
@@ -50,6 +56,7 @@ export function FormFields() {
         label={translate('Confirm Password')}
         labelHidden={true}
         name="confirm_password"
+        onBlur={handleBlur}
       />
 
       {validationError['confirm_password'] && (

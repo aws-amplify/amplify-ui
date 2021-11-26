@@ -18,6 +18,7 @@ interface BaseFormContext {
   authAttributes?: Record<string, any>;
   challengeName?: string;
   formValues?: AuthFormData;
+  touched?: AuthFormData;
   intent?: string;
   remoteError?: string;
   user?: CognitoUserAmplify;
@@ -108,6 +109,7 @@ export type InvokeActorEventTypes =
 
 export type AuthEventTypes =
   | 'CHANGE'
+  | 'BLUR'
   | 'FEDERATED_SIGN_IN'
   | 'RESEND'
   | 'RESET_PASSWORD'
