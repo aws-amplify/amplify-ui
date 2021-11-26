@@ -1,10 +1,14 @@
-import { useContext } from 'react';
+import * as React from 'react';
 
-import { WebTheme } from '@aws-amplify/ui';
+import { defaultTheme, WebTheme } from '@aws-amplify/ui';
 import { AmplifyContext } from '../components/AmplifyProvider/AmplifyContext';
 
 export const useTheme = (): WebTheme => {
-  const { theme } = useContext(AmplifyContext);
+  const context = React.useContext(AmplifyContext);
 
-  return theme;
+  if (typeof context === 'undefined' || typeof context.theme === 'undefined') {
+    return defaultTheme;
+  }
+
+  return context.theme;
 };
