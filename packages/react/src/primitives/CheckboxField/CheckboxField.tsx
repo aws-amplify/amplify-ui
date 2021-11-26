@@ -45,6 +45,7 @@ const CheckboxFieldPrimitive: PrimitiveWithForwardRef<
     </Flex>
   );
 };
+
 export const CheckboxField = React.forwardRef(CheckboxFieldPrimitive);
 
 CheckboxField.displayName = 'CheckboxField';
