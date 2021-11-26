@@ -12,6 +12,7 @@ module.exports = withNextPluginPreval({
   // Differentiate pages with frontmatter & layout vs. normal MD(X)
   pageExtensions: ['page.mdx', 'page.tsx'],
 
+  swcMinify: true,
 
   // don't want to fix typescript errors right now...
   typescript: {
