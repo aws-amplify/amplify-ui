@@ -181,14 +181,13 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
               labelHidden={true}
               isReadOnly={true}
               className="install-code"
-              size="large"
               outerEndComponent={
                 <Copy
                   variation="link"
                   text={`npm i aws-amplify @aws-amplify/ui-${framework}`}
                 />
               }
-              value={`npm i @aws-amplify/ui-${framework}`}
+              value={`npm i aws-amplify @aws-amplify/ui-${framework}`}
             />
           </Flex>
         </Card>
