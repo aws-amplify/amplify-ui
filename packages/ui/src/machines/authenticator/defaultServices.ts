@@ -26,16 +26,6 @@ export const defaultServices = {
       return null;
     } else if (
       (password || confirm_password) &&
-      touched_password &&
-      touched_confirm_password &&
-      password !== confirm_password
-    ) {
-      return {
-        confirm_password: 'Your passwords must match',
-      };
-    } else if (
-      password &&
-      confirm_password &&
       password !== confirm_password &&
       ((touched_confirm_password && touched_password) ||
         (password.length >= 6 && confirm_password.length >= 6))
@@ -43,6 +33,7 @@ export const defaultServices = {
       // Only return an error if both fields have text entered,
       // the passwords do not match, and the fields have been
       // touched or the password and confirm password is longer then or equal to 6.
+
       return {
         confirm_password: 'Your passwords must match',
       };

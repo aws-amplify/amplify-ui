@@ -42,6 +42,7 @@ export const clearAttributeToVerify = assign({
 export const clearChallengeName = assign({ challengeName: (_) => undefined });
 export const clearError = assign({ remoteError: (_) => '' });
 export const clearFormValues = assign({ formValues: (_) => ({}) });
+export const clearFormControls = assign({ formControls: (_) => ({}) });
 export const clearUnverifiedAttributes = assign({
   unverifiedAttributes: (_) => undefined,
 });
@@ -112,10 +113,10 @@ export const handleInput = assign({
 });
 
 export const handleBlur = assign({
-  formValues: (context, event: AuthEvent) => {
+  formControls: (context, event: AuthEvent) => {
     const { name } = event.data;
     return {
-      ...context['formValues'],
+      ...context['formControls'],
       [`touched_${name}`]: true,
     };
   },
