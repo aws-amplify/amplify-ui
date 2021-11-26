@@ -8,7 +8,7 @@ import { runValidators } from '../../validators';
 import {
   clearError,
   clearFormValues,
-  clearFormControls,
+  clearTouched,
   clearValidationError,
   handleInput,
   handleBlur,
@@ -37,7 +37,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
         },
         signUp: {
           type: 'parallel',
-          exit: ['clearError', 'clearFormValues', 'clearFormControls'],
+          exit: ['clearError', 'clearFormValues', 'clearTouched'],
           states: {
             validation: {
               initial: 'pending',
@@ -225,7 +225,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
       actions: {
         clearError,
         clearFormValues,
-        clearFormControls,
+        clearTouched,
         clearValidationError,
         handleInput,
         handleBlur,
@@ -318,17 +318,14 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
         },
         async validateSignUp(context, event) {
           // This needs to exist in the machine to reference new `services`
-          return runValidators(
-            { ...context.formValues, ...context.formControls },
-            [
-              // Validation for default form fields
-              services.validateConfirmPassword,
-              services.validatePreferredUsername,
+          return runValidators(context.formValues, context.touched, [
+            // Validation for default form fields
+            services.validateConfirmPassword,
+            services.validatePreferredUsername,
 
-              // Validation for any custom Sign Up fields
-              services.validateCustomSignUp,
-            ]
-          );
+            // Validation for any custom Sign Up fields
+            services.validateCustomSignUp,
+          ]);
         },
       },
     }

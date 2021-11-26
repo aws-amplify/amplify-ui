@@ -10,7 +10,7 @@ import {
   clearChallengeName,
   clearError,
   clearFormValues,
-  clearFormControls,
+  clearTouched,
   clearUnverifiedAttributes,
   clearValidationError,
   handleInput,
@@ -37,7 +37,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
       },
       signIn: {
         initial: 'edit',
-        exit: ['clearFormValues', 'clearFormControls'],
+        exit: ['clearFormValues', 'clearTouched'],
         states: {
           edit: {
             entry: sendUpdate(),
@@ -131,7 +131,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
       },
       confirmSignIn: {
         initial: 'edit',
-        exit: ['clearFormValues', 'clearError', 'clearFormControls'],
+        exit: ['clearFormValues', 'clearError', 'clearTouched'],
         states: {
           edit: {
             entry: sendUpdate(),
@@ -160,7 +160,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
       },
       forceNewPassword: {
         type: 'parallel',
-        exit: ['clearFormValues', 'clearError', 'clearFormControls'],
+        exit: ['clearFormValues', 'clearError', 'clearTouched'],
         states: {
           validation: {
             initial: 'pending',
@@ -238,7 +238,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
       },
       setupTOTP: {
         initial: 'edit',
-        exit: ['clearFormValues', 'clearError', 'clearFormControls'],
+        exit: ['clearFormValues', 'clearError', 'clearTouched'],
         states: {
           edit: {
             entry: sendUpdate(),
@@ -267,7 +267,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
       },
       verifyUser: {
         initial: 'edit',
-        exit: ['clearFormValues', 'clearError', 'clearFormControls'],
+        exit: ['clearFormValues', 'clearError', 'clearTouched'],
         states: {
           edit: {
             entry: sendUpdate(),
@@ -300,7 +300,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
           'clearError',
           'clearUnverifiedAttributes',
           'clearAttributeToVerify',
-          'clearFormControls',
+          'clearTouched',
         ],
         states: {
           edit: {
@@ -350,7 +350,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
       clearChallengeName,
       clearError,
       clearFormValues,
-      clearFormControls,
+      clearTouched,
       clearUnverifiedAttributes,
       clearValidationError,
       handleInput,
@@ -459,10 +459,9 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
         );
       },
       async validateFields(context, event) {
-        return runValidators(
-          { ...context.formValues, ...context.formControls },
-          [defaultServices.validateConfirmPassword]
-        );
+        return runValidators(context.formValues, context.touched, [
+          defaultServices.validateConfirmPassword,
+        ]);
       },
     },
   }

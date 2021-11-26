@@ -6,7 +6,7 @@ import { runValidators } from '../../../validators';
 import {
   clearError,
   clearFormValues,
-  clearFormControls,
+  clearTouched,
   clearUsername,
   clearValidationError,
   handleInput,
@@ -34,7 +34,7 @@ export const resetPasswordActor = createMachine<
       },
       resetPassword: {
         initial: 'edit',
-        exit: ['clearFormValues', 'clearError', 'clearFormControls'],
+        exit: ['clearFormValues', 'clearError', 'clearTouched'],
         states: {
           edit: {
             entry: sendUpdate(),
@@ -66,7 +66,7 @@ export const resetPasswordActor = createMachine<
           'clearFormValues',
           'clearError',
           'clearUsername',
-          'clearFormControls',
+          'clearTouched',
         ],
         states: {
           validation: {
@@ -163,7 +163,7 @@ export const resetPasswordActor = createMachine<
     actions: {
       clearError,
       clearFormValues,
-      clearFormControls,
+      clearTouched,
       clearUsername,
       clearValidationError,
       handleInput,
@@ -190,10 +190,9 @@ export const resetPasswordActor = createMachine<
         return Auth.forgotPasswordSubmit(username, code, password);
       },
       async validateFields(context, event) {
-        return runValidators(
-          { ...context.formValues, ...context.formControls },
-          [defaultServices.validateConfirmPassword]
-        );
+        return runValidators(context.formValues, context.touched, [
+          defaultServices.validateConfirmPassword,
+        ]);
       },
     },
   }

@@ -18,7 +18,7 @@ interface BaseFormContext {
   authAttributes?: Record<string, any>;
   challengeName?: string;
   formValues?: AuthFormData;
-  formControls?: AuthFormData;
+  touched?: AuthFormData;
   intent?: string;
   remoteError?: string;
   user?: CognitoUserAmplify;

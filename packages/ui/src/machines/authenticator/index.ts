@@ -182,7 +182,7 @@ export function createAuthenticatorMachine({
               intent: event.data?.intent,
               country_code: DEFAULT_COUNTRY_CODE,
               formValues: {},
-              formControls: {},
+              touched: {},
               validationError: {},
               loginMechanisms: context.config?.loginMechanisms,
               socialProviders: context.config?.socialProviders,
@@ -197,7 +197,7 @@ export function createAuthenticatorMachine({
               country_code: DEFAULT_COUNTRY_CODE,
               intent: event.data?.intent,
               formValues: {},
-              formControls: {},
+              touched: {},
               validationError: {},
               loginMechanisms: context.config?.loginMechanisms,
               socialProviders: context.config?.socialProviders,
@@ -209,7 +209,7 @@ export function createAuthenticatorMachine({
           actorRef: (context, event) => {
             const actor = resetPasswordActor.withContext({
               formValues: {},
-              formControls: {},
+              touched: {},
               intent: event.data?.intent,
               username: event.data?.authAttributes?.username,
               validationError: {},
