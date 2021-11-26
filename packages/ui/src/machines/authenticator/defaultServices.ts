@@ -23,7 +23,6 @@ export const defaultServices = {
       confirm_password: touched_confirm_password,
       password: touched_password,
     } = touchData;
-    console.log('got', touched_confirm_password, touched_password);
 
     if (!password && !confirm_password) {
       // these inputs are clean, don't complain yet
@@ -34,7 +33,6 @@ export const defaultServices = {
       ((touched_confirm_password && touched_password) ||
         (password.length >= 6 && confirm_password.length >= 6))
     ) {
-      console.log('got here');
       // Only return an error if both fields have text entered,
       // the passwords do not match, and the fields have been
       // touched or the password and confirm password is longer then or equal to 6.
