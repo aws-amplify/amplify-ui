@@ -6,7 +6,6 @@ import { useTheme } from '../useTheme';
 const serializeTheme = (theme: WebTheme) => JSON.stringify(theme);
 
 describe('useTheme', () => {
-  // afterEach(() => jest.clearAllMocks());
   it('should return a theme object if provided', async () => {
     const customTheme = {
       name: 'my-theme',
