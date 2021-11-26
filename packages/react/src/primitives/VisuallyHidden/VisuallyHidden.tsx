@@ -5,7 +5,7 @@ import { ComponentClassNames } from '../shared/constants';
 import { PrimitiveWithForwardRef, VisuallyHiddenProps } from '../types';
 import { View } from '../View';
 
-const VisuallyHiddenInner: PrimitiveWithForwardRef<
+const VisuallyHiddenPrimitive: PrimitiveWithForwardRef<
   VisuallyHiddenProps,
   'span'
 > = ({ as = 'span', children, className, ...rest }, ref) => (
@@ -19,6 +19,6 @@ const VisuallyHiddenInner: PrimitiveWithForwardRef<
   </View>
 );
 
-export const VisuallyHidden = React.forwardRef(VisuallyHiddenInner);
+export const VisuallyHidden = React.forwardRef(VisuallyHiddenPrimitive);
 
 VisuallyHidden.displayName = 'VisuallyHidden';

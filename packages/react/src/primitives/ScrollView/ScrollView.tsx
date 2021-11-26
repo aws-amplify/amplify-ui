@@ -5,7 +5,7 @@ import { View } from '../View';
 import { PrimitiveWithForwardRef, ScrollViewProps } from '../types';
 import { ComponentClassNames } from '../shared/constants';
 
-const ScrollViewInner: PrimitiveWithForwardRef<ScrollViewProps, 'div'> = (
+const ScrollViewPrimitive: PrimitiveWithForwardRef<ScrollViewProps, 'div'> = (
   { children, className, orientation, ...rest },
   ref
 ) => (
@@ -19,6 +19,6 @@ const ScrollViewInner: PrimitiveWithForwardRef<ScrollViewProps, 'div'> = (
   </View>
 );
 
-export const ScrollView = React.forwardRef(ScrollViewInner);
+export const ScrollView = React.forwardRef(ScrollViewPrimitive);
 
 ScrollView.displayName = 'ScrollView';

@@ -5,7 +5,7 @@ import { ComponentClassNames } from '../shared/constants';
 import { TextProps, PrimitiveWithForwardRef } from '../types';
 import { View } from '../View';
 
-const TextInner: PrimitiveWithForwardRef<TextProps, 'p'> = (
+const TextPrimitive: PrimitiveWithForwardRef<TextProps, 'p'> = (
   { as = 'p', className, children, isTruncated, variation, ...rest },
   ref
 ) => (
@@ -21,6 +21,6 @@ const TextInner: PrimitiveWithForwardRef<TextProps, 'p'> = (
   </View>
 );
 
-export const Text = React.forwardRef(TextInner);
+export const Text = React.forwardRef(TextPrimitive);
 
 Text.displayName = 'Text';

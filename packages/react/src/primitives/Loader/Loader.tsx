@@ -11,7 +11,7 @@ export const LINEAR_FILLED = 'linear-filled';
 export const CIRCULAR_EMPTY = 'circular-empty';
 export const CIRCULAR_FILLED = 'circular-filled';
 
-const LoaderInner: PrimitiveWithForwardRef<LoaderProps, 'svg'> = (
+const LoaderPrimitive: PrimitiveWithForwardRef<LoaderProps, 'svg'> = (
   { className, filledColor, emptyColor, size, variation, ...rest },
   ref
 ) => {
@@ -73,6 +73,6 @@ const LoaderInner: PrimitiveWithForwardRef<LoaderProps, 'svg'> = (
   );
 };
 
-export const Loader = React.forwardRef(LoaderInner);
+export const Loader = React.forwardRef(LoaderPrimitive);
 
 Loader.displayName = 'Loader';
