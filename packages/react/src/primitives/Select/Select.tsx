@@ -8,7 +8,7 @@ import { SelectProps } from '../types/select';
 import { PrimitiveWithForwardRef } from '../types';
 import { ComponentClassNames } from '../shared/constants';
 
-const SelectInner: PrimitiveWithForwardRef<SelectProps, 'select'> = (
+const SelectPrimitive: PrimitiveWithForwardRef<SelectProps, 'select'> = (
   {
     autoComplete,
     className,
@@ -65,6 +65,6 @@ const SelectInner: PrimitiveWithForwardRef<SelectProps, 'select'> = (
   );
 };
 
-export const Select = React.forwardRef(SelectInner);
+export const Select = React.forwardRef(SelectPrimitive);
 
 Select.displayName = 'Select';

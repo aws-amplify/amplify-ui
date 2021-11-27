@@ -7,7 +7,7 @@ import {
   ViewProps,
 } from '../types';
 
-const ViewInner = <Element extends ElementType = 'div'>(
+const ViewPrimitive = <Element extends ElementType = 'div'>(
   {
     as = 'div',
     className,
@@ -42,6 +42,6 @@ const ViewInner = <Element extends ElementType = 'div'>(
   );
 };
 
-export const View = React.forwardRef(ViewInner);
+export const View = React.forwardRef(ViewPrimitive);
 
 View.displayName = 'View';

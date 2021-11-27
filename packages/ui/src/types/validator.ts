@@ -11,5 +11,6 @@ export type ValidatorResult = void | null | ValidationError; // null if there ar
  * Validates the given formData. This can be synchronous or asynchronous.
  */
 export type Validator = (
-  formData: AuthFormData
+  formData: AuthFormData,
+  touchData?: AuthFormData
 ) => ValidatorResult | Promise<ValidatorResult>;

@@ -5,7 +5,7 @@ import { ComponentClassNames } from '../shared';
 import { InputProps, PrimitiveWithForwardRef } from '../types';
 import { View } from '../View';
 
-const InputInner: PrimitiveWithForwardRef<InputProps, 'input'> = (
+const InputPrimitive: PrimitiveWithForwardRef<InputProps, 'input'> = (
   {
     autoComplete,
     checked,
@@ -68,6 +68,6 @@ const InputInner: PrimitiveWithForwardRef<InputProps, 'input'> = (
   />
 );
 
-export const Input = React.forwardRef(InputInner);
+export const Input = React.forwardRef(InputPrimitive);
 
 Input.displayName = 'Input';

@@ -11,7 +11,7 @@ import { useStableId } from '../shared/utils';
 
 // Note: RadioGroupField doesn't extend the JSX.IntrinsicElements<'input'> types (instead extending 'typeof Flex')
 // because all rest props are passed to Flex container
-const RadioGroupFieldInner: PrimitiveWithForwardRef<
+const RadioGroupFieldPrimitive: PrimitiveWithForwardRef<
   RadioGroupFieldProps,
   typeof Flex
 > = (
@@ -94,6 +94,6 @@ const RadioGroupFieldInner: PrimitiveWithForwardRef<
   );
 };
 
-export const RadioGroupField = React.forwardRef(RadioGroupFieldInner);
+export const RadioGroupField = React.forwardRef(RadioGroupFieldPrimitive);
 
 RadioGroupField.displayName = 'RadioGroupField';
