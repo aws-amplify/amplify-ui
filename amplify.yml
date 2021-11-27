@@ -5,13 +5,13 @@ applications:
         preBuild:
           commands:
             - nvm install 14
-            - nvm use
+            - nvm use 14
             - node -v
             - (cd .. && yarn install)
         build:
           commands:
             - nvm install 14
-            - nvm use
+            - nvm use 14
             - node -v
             - yarn build
       artifacts:
