@@ -7,7 +7,7 @@ import { View } from '../View';
 
 const defaultViewBox = { minX: 0, minY: 0, width: 24, height: 24 };
 
-const IconInner: PrimitiveWithForwardRef<IconProps, 'svg'> = (
+const IconPrimitive: PrimitiveWithForwardRef<IconProps, 'svg'> = (
   {
     className,
     fill = 'currentColor',
@@ -35,6 +35,6 @@ const IconInner: PrimitiveWithForwardRef<IconProps, 'svg'> = (
   );
 };
 
-export const Icon = React.forwardRef(IconInner);
+export const Icon = React.forwardRef(IconPrimitive);
 
 Icon.displayName = 'Icon';

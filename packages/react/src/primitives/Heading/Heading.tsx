@@ -20,7 +20,7 @@ const headingLevels: HeadingLevels = {
   6: 'h6',
 };
 
-const HeadingInner: PrimitiveWithForwardRef<HeadingProps, HeadingTag> = (
+const HeadingPrimitive: PrimitiveWithForwardRef<HeadingProps, HeadingTag> = (
   { className, children, level = 6, ...rest },
   ref
 ) => (
@@ -34,6 +34,6 @@ const HeadingInner: PrimitiveWithForwardRef<HeadingProps, HeadingTag> = (
   </View>
 );
 
-export const Heading = React.forwardRef(HeadingInner);
+export const Heading = React.forwardRef(HeadingPrimitive);
 
 Heading.displayName = 'Heading';

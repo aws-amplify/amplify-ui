@@ -14,7 +14,7 @@ import {
 import { isInputOrSelectElement, isInputElement } from '../../../helpers/utils';
 
 export const ConfirmResetPassword = (): JSX.Element => {
-  const { _state, submitForm, updateForm } = useAuthenticator();
+  const { _state, submitForm, updateForm, updateBlur } = useAuthenticator();
   const { validationError } = getActorContext(_state) as ResetPasswordContext;
 
   const headerText = translate('Reset your password');
@@ -41,6 +41,11 @@ export const ConfirmResetPassword = (): JSX.Element => {
     submitForm();
   };
 
+  const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+    const { name } = event.target;
+    updateBlur({ name });
+  };
+
   return (
     <form
       data-amplify-form=""
@@ -63,6 +68,7 @@ export const ConfirmResetPassword = (): JSX.Element => {
             name="password"
             label={passwordText}
             labelHidden={true}
+            onBlur={handleBlur}
           />
           <PasswordField
             data-amplify-confirmpassword
@@ -72,6 +78,7 @@ export const ConfirmResetPassword = (): JSX.Element => {
             label={confirmPasswordLabel}
             labelHidden={true}
             hasError={!!validationError['confirm_password']}
+            onBlur={handleBlur}
           />
 
           {!!validationError['confirm_password'] && (

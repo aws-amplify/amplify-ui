@@ -13,7 +13,7 @@ import { splitPrimitiveProps } from '../shared/styleUtils';
 import { ComponentClassNames } from '../shared/constants';
 import { useTestId } from '../utils/testUtils';
 
-const CheckboxInner: PrimitiveWithForwardRef<CheckboxProps, 'input'> = (
+const CheckboxPrimitive: PrimitiveWithForwardRef<CheckboxProps, 'input'> = (
   {
     checked,
     className,
@@ -99,6 +99,6 @@ const CheckboxInner: PrimitiveWithForwardRef<CheckboxProps, 'input'> = (
   );
 };
 
-export const Checkbox = React.forwardRef(CheckboxInner);
+export const Checkbox = React.forwardRef(CheckboxPrimitive);
 
 Checkbox.displayName = 'Checkbox';

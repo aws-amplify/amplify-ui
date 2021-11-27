@@ -97,6 +97,10 @@ export class AuthenticatorService implements OnDestroy {
     return this._sendEventAliases.updateForm;
   }
 
+  public get updateBlur() {
+    return this._sendEventAliases.updateBlur;
+  }
+
   public get resendCode() {
     return this._sendEventAliases.resendCode;
   }
