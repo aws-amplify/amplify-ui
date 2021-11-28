@@ -161,7 +161,6 @@ Guidelines for bug reports:
 - Provide a short and descriptive issue title
 - Remove any sensitive data from your examples or snippets
 - Format any code snippets using [Markdown](https://docs.github.com/en/github/writing-on-github/creating-and-highlighting-code-blocks) syntax
-- If you're not using the latest version of a [specific package](https://github.com/aws-amplify/amplify-js/tree/main/packages), see if the issue still persists after upgrading - this helps to isolate regressions!
 
 Finally, thank you for taking the time to read this, and taking the time to write a good bug report.
 
