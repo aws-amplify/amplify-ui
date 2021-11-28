@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useRouter } from 'next/router';
-import { Sandpack, codesandboxDarkTheme } from '@codesandbox/sandpack-react';
+import { Sandpack } from '@codesandbox/sandpack-react';
 import {
   Link,
   Grid,
@@ -101,8 +101,37 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
   const { tokens } = useTheme();
   const framework = router.query.platform ?? 'react';
   const sandPackTheme = {
-    ...(colorMode === 'dark' ? codesandboxDarkTheme : {}),
+    palette: {
+      activeText: `${tokens.colors.font.interactive}`,
+      defaultText: `${tokens.colors.font.secondary}`,
+      // this is also used as the border color in sandpack
+      inactiveText: `${tokens.colors.border.primary}`,
+      activeBackground: `${tokens.colors.overlay[10]}`,
+      defaultBackground: `${tokens.colors.background.primary}`,
+      inputBackground: `${tokens.colors.background.primary}`,
+      accent: `${tokens.colors.border.focus}`,
+      errorBackground: `${tokens.colors.background.error}`,
+      errorForeground: `${tokens.colors.font.error}`,
+    },
+    syntax: {
+      plain: `${tokens.colors.font.primary}`,
+      comment: {
+        color: `${tokens.colors.font.tertiary}`,
+        fontStyle: 'italic',
+      },
+      keyword: `${tokens.colors.red[80]}`,
+      tag: `${tokens.colors.orange[80]}`,
+      punctuation: `${tokens.colors.blue[80]}`,
+      definition: `${tokens.colors.teal[80]}`,
+      property: `${tokens.colors.purple[90]}`,
+      static: `${tokens.colors.pink[90]}`,
+      string: `${tokens.colors.green[90]}`,
+    },
     typography: {
+      bodyFont:
+        '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
+      monoFont:
+        '"Fira Mono", "DejaVu Sans Mono", Menlo, Consolas, "Liberation Mono", Monaco, "Lucida Console", monospace',
       fontSize: '16px',
       lineHeight: '1.5',
     },
@@ -152,14 +181,13 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
               labelHidden={true}
               isReadOnly={true}
               className="install-code"
-              size="large"
               outerEndComponent={
                 <Copy
                   variation="link"
-                  text={`npm i aws-amplify @aws-amplify/ui-${framework}`}
+                  text={`npm i @aws-amplify/ui-${framework} aws-amplify`}
                 />
               }
-              value={`npm i @aws-amplify/ui-${framework}`}
+              value={`npm i @aws-amplify/ui-${framework} aws-amplify`}
             />
           </Flex>
         </Card>

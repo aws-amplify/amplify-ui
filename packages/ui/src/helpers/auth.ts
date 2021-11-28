@@ -199,6 +199,7 @@ export const getSendEventAliases = (send: Sender<AuthEvent>) => {
     signOut: sendToMachine('SIGN_OUT'),
     submitForm: sendToMachine('SUBMIT'),
     updateForm: sendToMachine('CHANGE'),
+    updateBlur: sendToMachine('BLUR'),
 
     // Actions that don't immediately invoke a service but instead transition to a screen
     // are prefixed with `to*`

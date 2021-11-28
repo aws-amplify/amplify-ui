@@ -18,9 +18,13 @@ describe('useDataStoreCollection', () => {
   afterEach(() => jest.clearAllMocks());
 
   it('should return default values while data is being fetched', async () => {
-    (DataStore.query as jest.Mock).mockResolvedValue(undefined);
+    (DataStore.observeQuery as jest.Mock).mockImplementation(() => ({
+      subscribe: () => ({
+        unsubscribe: jest.fn(),
+      }),
+    }));
 
-    const { result, waitForNextUpdate } = renderHook(() =>
+    const { result } = renderHook(() =>
       useDataStoreCollection({
         model: fakeModel,
       })
@@ -29,15 +33,20 @@ describe('useDataStoreCollection', () => {
     expect(result.current.isLoading).toBe(true);
     expect(result.current.items).toHaveLength(0);
     expect(result.current.error).toBeUndefined();
-
-    await waitForNextUpdate();
   });
 
   it('should set error if DataStore.query throws an error', async () => {
     const fakeError = new Error('Unexpected DataStore error');
-    const fakeDataStoreQuery = jest.fn(() => Promise.reject(fakeError));
+    const fakeDataStoreObserveQuery = jest.fn(() => ({
+      subscribe: (onSuccess, onError) => {
+        setTimeout(() => onError(fakeError), 500);
+        return { unsubscribe: () => {} };
+      },
+    }));
 
-    (DataStore.query as jest.Mock).mockImplementation(fakeDataStoreQuery);
+    (DataStore.observeQuery as jest.Mock).mockImplementation(
+      fakeDataStoreObserveQuery
+    );
 
     const { result, waitForNextUpdate } = renderHook(() =>
       useDataStoreCollection({
@@ -66,8 +75,16 @@ describe('useDataStoreCollection', () => {
       sort: (s) => s.rating(SortDirection.ASCENDING),
     };
 
-    const fakeDataStoreQuery = jest.fn(() => Promise.resolve(fakeItems));
-    (DataStore.query as jest.Mock).mockImplementation(fakeDataStoreQuery);
+    const fakeDataStoreObserveQuery = jest.fn(() => ({
+      subscribe: (onSuccess) => {
+        setTimeout(() => onSuccess({ items: fakeItems }), 500);
+        return { unsubscribe: () => {} };
+      },
+    }));
+
+    (DataStore.observeQuery as jest.Mock).mockImplementation(
+      fakeDataStoreObserveQuery
+    );
 
     const { result, waitForNextUpdate } = renderHook(() =>
       useDataStoreCollection({
@@ -82,6 +99,29 @@ describe('useDataStoreCollection', () => {
     expect(result.current.isLoading).toBe(false);
     expect(result.current.error).toBeUndefined();
     expect(result.current.items).toBe(fakeItems);
+  });
+
+  it('should unsubscribe on unmount', async () => {
+    const unsubscribe = jest.fn();
+
+    const fakeDataStoreObserveQuery = jest.fn(() => ({
+      subscribe: () => ({ unsubscribe }),
+    }));
+
+    (DataStore.observeQuery as jest.Mock).mockImplementation(
+      fakeDataStoreObserveQuery
+    );
+
+    const { result, unmount } = renderHook(() =>
+      useDataStoreCollection({
+        model: fakeModel,
+      })
+    );
+
+    // Force component unmount
+    unmount();
+
+    expect(unsubscribe).toHaveBeenCalled();
   });
 });
 

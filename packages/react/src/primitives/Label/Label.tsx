@@ -5,7 +5,7 @@ import { ComponentClassNames } from '../shared/constants';
 import { LabelProps, PrimitiveWithForwardRef } from '../types';
 import { View } from '../View';
 
-const LabelInner: PrimitiveWithForwardRef<LabelProps, 'label'> = (
+const LabelPrimitive: PrimitiveWithForwardRef<LabelProps, 'label'> = (
   { children, className, visuallyHidden, ...rest },
   ref
 ) => {
@@ -23,6 +23,6 @@ const LabelInner: PrimitiveWithForwardRef<LabelProps, 'label'> = (
   );
 };
 
-export const Label = React.forwardRef(LabelInner);
+export const Label = React.forwardRef(LabelPrimitive);
 
 Label.displayName = 'Label';

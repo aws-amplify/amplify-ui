@@ -111,6 +111,7 @@ export function createAuthenticatorMachine({
       },
       on: {
         CHANGE: { actions: 'forwardToActor' },
+        BLUR: { actions: 'forwardToActor' },
         SUBMIT: { actions: 'forwardToActor' },
         FEDERATED_SIGN_IN: { actions: 'forwardToActor' },
         RESEND: { actions: 'forwardToActor' },
@@ -181,6 +182,7 @@ export function createAuthenticatorMachine({
               intent: event.data?.intent,
               country_code: DEFAULT_COUNTRY_CODE,
               formValues: {},
+              touched: {},
               validationError: {},
               loginMechanisms: context.config?.loginMechanisms,
               socialProviders: context.config?.socialProviders,
@@ -195,6 +197,7 @@ export function createAuthenticatorMachine({
               country_code: DEFAULT_COUNTRY_CODE,
               intent: event.data?.intent,
               formValues: {},
+              touched: {},
               validationError: {},
               loginMechanisms: context.config?.loginMechanisms,
               socialProviders: context.config?.socialProviders,
@@ -206,6 +209,7 @@ export function createAuthenticatorMachine({
           actorRef: (context, event) => {
             const actor = resetPasswordActor.withContext({
               formValues: {},
+              touched: {},
               intent: event.data?.intent,
               username: event.data?.authAttributes?.username,
               validationError: {},

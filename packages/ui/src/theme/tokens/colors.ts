@@ -119,13 +119,13 @@ export const colors: Colors = {
   },
 
   green: {
-    10: { value: 'hsl(130, 75%, 95%)' },
-    20: { value: 'hsl(130, 75%, 85%)' },
-    40: { value: 'hsl(130, 75%, 75%)' },
-    60: { value: 'hsl(130, 50%, 50%)' },
-    80: { value: 'hsl(130, 95%, 30%)' },
-    90: { value: 'hsl(130, 100%, 20%)' },
-    100: { value: 'hsl(130, 100%, 15%)' },
+    10: { value: 'hsl(130, 60%, 95%)' },
+    20: { value: 'hsl(130, 60%, 90%)' },
+    40: { value: 'hsl(130, 44%, 63%)' },
+    60: { value: 'hsl(130, 43%, 46%)' },
+    80: { value: 'hsl(130, 33%, 37%)' },
+    90: { value: 'hsl(130, 27%, 29%)' },
+    100: { value: 'hsl(130, 22%, 23%)' },
   },
 
   teal: {
@@ -169,9 +169,9 @@ export const colors: Colors = {
   },
 
   neutral: {
-    10: { value: 'hsl(210, 5%, 95%)' },
-    20: { value: 'hsl(210, 5%, 90%)' },
-    40: { value: 'hsl(210, 5%, 80%)' },
+    10: { value: 'hsl(210, 5%, 98%)' },
+    20: { value: 'hsl(210, 5%, 94%)' },
+    40: { value: 'hsl(210, 5%, 87%)' },
     60: { value: 'hsl(210, 6%, 70%)' },
     80: { value: 'hsl(210, 10%, 40%)' },
     90: { value: 'hsl(210, 25%, 25%)' },
@@ -201,8 +201,8 @@ export const colors: Colors = {
 
   font: {
     primary: { value: '{colors.neutral.100.value}' },
-    secondary: { value: '{colors.neutral.80.value}' },
-    tertiary: { value: '{colors.neutral.60.value}' },
+    secondary: { value: '{colors.neutral.90.value}' },
+    tertiary: { value: '{colors.neutral.80.value}' },
     disabled: { value: '{colors.font.tertiary.value}' },
     inverse: { value: '{colors.white.value}' },
 
@@ -215,10 +215,10 @@ export const colors: Colors = {
     focus: { value: '{colors.brand.primary.100.value}' },
     active: { value: '{colors.brand.primary.100.value}' },
 
-    info: { value: '{colors.blue.80.value}' },
-    warning: { value: '{colors.orange.80.value}' },
-    error: { value: '{colors.red.80.value}' },
-    success: { value: '{colors.green.80.value}' },
+    info: { value: '{colors.blue.90.value}' },
+    warning: { value: '{colors.orange.90.value}' },
+    error: { value: '{colors.red.90.value}' },
+    success: { value: '{colors.green.90.value}' },
   },
 
   background: {

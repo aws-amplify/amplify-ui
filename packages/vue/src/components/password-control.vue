@@ -26,6 +26,11 @@ function togglePasswordText(): void {
   showHideType.value = showHideType.value === 'password' ? 'text' : 'password';
 }
 </script>
+<script lang="ts">
+export default {
+  inheritAttrs: false,
+};
+</script>
 
 <template>
   <base-label class="amplify-label sr-only" :for="'amplify-field-' + random">
@@ -33,6 +38,7 @@ function togglePasswordText(): void {
   </base-label>
   <base-wrapper class="amplify-flex amplify-field-group">
     <base-input
+      v-bind="$attrs"
       v-model="password"
       class="amplify-input amplify-field-group__control"
       :aria-invalid="ariainvalid"

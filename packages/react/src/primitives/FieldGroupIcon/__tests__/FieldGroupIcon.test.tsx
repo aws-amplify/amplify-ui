@@ -1,12 +1,9 @@
 import { render, screen } from '@testing-library/react';
-
 import * as React from 'react';
 
 import { FieldGroupIcon } from '../FieldGroupIcon';
-import { Text } from '../../Text';
-import { Button } from '../../Button';
 
-import { ComponentClassNames } from '../../shared';
+import { ComponentClassNames } from '../../shared/constants';
 
 describe('FieldGroupIcon component', () => {
   const testId = 'fieldGroupTestId';

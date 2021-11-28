@@ -17,6 +17,7 @@ export const useStepperFieldProps: UseStepperFieldProps = (initialValues) => {
   const [min, setMin] = React.useState(initialValues.min);
   const [step, setStep] = React.useState(initialValues.step);
   const [size, setSize] = React.useState(initialValues.size);
+  const [variation, setVariation] = React.useState(initialValues.variation);
   return {
     label,
     setLabel,
@@ -30,5 +31,7 @@ export const useStepperFieldProps: UseStepperFieldProps = (initialValues) => {
     setStep,
     size,
     setSize,
+    variation,
+    setVariation,
   };
 };

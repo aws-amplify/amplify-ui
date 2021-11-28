@@ -1,5 +1,5 @@
 import { AmplifyAuthenticator } from '@aws-amplify/ui-react/legacy';
-import awsExports from '@environments/auth-with-email/src/aws-exports';
+import awsExports from './aws-exports';
 import { Amplify } from 'aws-amplify';
 
 Amplify.configure(awsExports);

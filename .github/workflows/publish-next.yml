@@ -9,7 +9,7 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    environment: ci
+    environment: deployment
     # We only publish if the previous workflow run (Tests) was successful
     # and the previous workflow was called from main branch.
     #

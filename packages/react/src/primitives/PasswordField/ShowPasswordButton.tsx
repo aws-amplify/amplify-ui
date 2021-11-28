@@ -1,28 +1,28 @@
 import * as React from 'react';
 
-import { ShowPasswordButtonProps } from '../types';
 import { Button } from '../Button';
 import { ComponentClassNames } from '../shared/constants';
 import { IconVisibility, IconVisibilityOff } from '../Icon';
 import { SharedText } from '../shared/i18n';
+import { PrimitiveWithForwardRef, ShowPasswordButtonProps } from '../types';
 
 const ariaLabelText = SharedText.ShowPasswordButton.ariaLabel;
 
-export const ShowPasswordButton: React.FC<ShowPasswordButtonProps> = ({
-  fieldType,
-  size,
-  onClick,
-}) => {
+const ShowPasswordButtonPrimitive: PrimitiveWithForwardRef<
+  ShowPasswordButtonProps,
+  typeof Button
+> = ({ fieldType, size, ...rest }, ref) => {
   return (
     <Button
-      className={ComponentClassNames.FieldShowPassword}
-      onClick={onClick}
-      size={size}
       ariaLabel={
         fieldType === 'password'
           ? ariaLabelText.showPassword
           : ariaLabelText.hidePassword
       }
+      className={ComponentClassNames.FieldShowPassword}
+      ref={ref}
+      size={size}
+      {...rest}
     >
       {fieldType === 'password' ? (
         <IconVisibility size={size} />
@@ -32,5 +32,7 @@ export const ShowPasswordButton: React.FC<ShowPasswordButtonProps> = ({
     </Button>
   );
 };
+
+export const ShowPasswordButton = React.forwardRef(ShowPasswordButtonPrimitive);
 
 ShowPasswordButton.displayName = 'ShowPasswordButton';

@@ -1,26 +1,34 @@
+import * as React from 'react';
 import classNames from 'classnames';
 
 import { CountryCodeSelect } from './CountryCodeSelect';
 import { TextField } from '../TextField';
 import { ComponentClassNames } from '../shared/constants';
 import { SharedText } from '../shared/i18n';
-import { PhoneNumberFieldProps, Primitive } from '../types';
+import { PhoneNumberFieldProps, PrimitiveWithForwardRef } from '../types';
 
-export const PhoneNumberField: Primitive<PhoneNumberFieldProps, 'input'> = ({
-  autoComplete = 'tel-national',
-  className,
-  countryCodeName,
-  countryCodeLabel = SharedText.CountryCodeSelect.ariaLabel,
-  defaultCountryCode,
-  hasError,
-  isDisabled,
-  onCountryCodeChange,
-  onInput,
-  size,
-  type,
-  variation,
-  ...rest
-}) => {
+const PhoneNumberFieldPrimitive: PrimitiveWithForwardRef<
+  PhoneNumberFieldProps,
+  'input'
+> = (
+  {
+    autoComplete = 'tel-national',
+    className,
+    countryCodeName,
+    countryCodeLabel = SharedText.CountryCodeSelect.ariaLabel,
+    defaultCountryCode,
+    hasError,
+    isDisabled,
+    onCountryCodeChange,
+    onInput,
+    size,
+    type,
+    variation,
+    countryCodeRef,
+    ...rest
+  },
+  ref
+) => {
   return (
     <TextField
       outerStartComponent={
@@ -32,6 +40,7 @@ export const PhoneNumberField: Primitive<PhoneNumberFieldProps, 'input'> = ({
           label={countryCodeLabel}
           name={countryCodeName}
           onChange={onCountryCodeChange}
+          ref={countryCodeRef}
           size={size}
           variation={variation}
         />
@@ -42,6 +51,7 @@ export const PhoneNumberField: Primitive<PhoneNumberFieldProps, 'input'> = ({
       isDisabled={isDisabled}
       isMultiline={false}
       onInput={onInput}
+      ref={ref}
       size={size}
       type="tel"
       variation={variation}
@@ -49,5 +59,7 @@ export const PhoneNumberField: Primitive<PhoneNumberFieldProps, 'input'> = ({
     />
   );
 };
+
+export const PhoneNumberField = React.forwardRef(PhoneNumberFieldPrimitive);
 
 PhoneNumberField.displayName = 'PhoneNumberField';
