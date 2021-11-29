@@ -143,3 +143,25 @@ yarn build:icons
 
 1. Review and commit changes to icons
 1. Submit PR for review
+
+## Bug Reports
+
+Bug reports and feature requests are always welcome. Good bug reports are extremely helpful, so thanks in advance!
+
+When filing a bug, please try to be as detailed as possible. In addition to the bug report form information, details like these are incredibly useful:
+
+- A reproducible test case or series of steps
+- The date/commit/version(s) of the code you're running
+- Any modifications you've made relevant to the bug
+- Anything unusual about your environment or deployment
+
+Guidelines for bug reports:
+
+- Check to see if a [duplicate or closed issue](https://github.com/aws-amplify/amplify-ui/issues?q=is%3Aissue+) already exists!
+- Provide a short and descriptive issue title
+- Remove any sensitive data from your examples or snippets
+- Format any code snippets using [Markdown](https://docs.github.com/en/github/writing-on-github/creating-and-highlighting-code-blocks) syntax
+
+Finally, thank you for taking the time to read this, and taking the time to write a good bug report.
+
+

@@ -1,0 +1,87 @@
+name: Bug report
+description: Create a report to help us improve Amplify UI
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for taking the time to fill out this bug report! Please try to provide as much information as you can.
+  
+  - type: checkboxes
+    attributes:
+      label: |
+        Before creating a new issue, please confirm:
+      options:
+        - label: I have [searched for duplicate or closed issues](https://github.com/aws-amplify/amplify-ui/issues?q=is%3Aissue+) and [discussions](https://github.com/aws-amplify/amplify-ui/discussions).
+          required: true
+        - label: I have read the guide for [submitting bug reports](https://github.com/aws-amplify/amplify-ui/blob/main/CONTRIBUTING.md#bug-reports).
+          required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Environment
+  - type: dropdown
+    attributes:
+      label: On which framework/platform are you having an issue? 
+      description: Please select one or more platform!
+      multiple: true
+      options:
+        - React
+        - Angular
+        - Vue
+        - React Native
+        - Flutter
+        - iOS
+        - Android
+        - Other
+    validations:
+      required: true
+  - type: dropdown
+    attributes:
+      label: Which UI component?
+      description: Select one of our UI components below. If the bug report is for any of our primitives, please select Other. 
+      multiple: true
+      options:
+        - Authenticator
+        - Chatbot
+        - Storage
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Please describe your bug.
+      description: A clear and concise description of what the bug is.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: What's the expected behaviour? 
+      description: A clear and concise description of what you expected to happen.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Help us reproduce the bug! 
+      description: |
+        Please provide detailed information on how can we reproduce the bug? 
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Code Snippet
+      description: |
+        We recommend you to include your code snippet or a link to a sample code where you are experiencing the issue. 
+        **Be sure to remove any sensitive data.**
+      value: |
+        ```typescript
+        // Put your code below this line.
+
+        ```
+  - type: textarea
+    attributes:
+      label: Additional information and screenshots
+      description: |
+        If you have any additional information (i.e. `package.json`), workarounds, etc. for us, use the field below.
+        Please note, you can attach screenshots or screen recordings here, by dragging and dropping files in the field below.
