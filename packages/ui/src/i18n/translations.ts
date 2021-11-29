@@ -21,6 +21,7 @@ import {
   jaDict,
   plDict,
   zhDict,
+  ptDict,
   defaultTexts,
 } from './dictionaries';
 
@@ -70,4 +71,5 @@ export const translations: Record<string, Dict> = {
   ja: jaDict,
   pl: plDict,
   zh: zhDict,
+  pt: ptDict
 };

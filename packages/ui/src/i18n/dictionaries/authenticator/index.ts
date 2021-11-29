@@ -7,6 +7,7 @@ export { itDict } from './it';
 export { jaDict } from './ja';
 export { plDict } from './pl';
 export { zhDict } from './zh';
+export { ptDict } from './pt';
 
 // default text phrases
 export { defaultTexts } from './defaultTexts';

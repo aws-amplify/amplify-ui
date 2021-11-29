@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { defaultTheme, WebTheme } from '@aws-amplify/ui';
 
-interface AmplifyContextType {
+export interface AmplifyContextType {
   theme: WebTheme;
 }
 
