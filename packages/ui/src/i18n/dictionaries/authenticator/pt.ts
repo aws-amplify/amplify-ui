@@ -27,11 +27,13 @@ export const ptDict = {
   'Phone Number': 'Número de telefone',
   'Resend Code': 'Reenviar código',
   'Reset your password': 'Redefina sua senha',
+  'Send Code': 'Enviar código',
   'Send code': 'Enviar código',
   Sending: 'Enviando',
   'Setup TOTP': 'Configurar TOTP',
   'Show password': 'Mostrar senha',
   'Sign In': 'Entrar',
+  'Sign in': 'Entrar',
   'Sign In with Amazon': 'Entrar com a Amazon',
   'Sign In with Apple': 'Entrar com a Apple',
   'Sign In with Facebook': 'Entrar com o Facebook',
@@ -44,6 +46,6 @@ export const ptDict = {
   Submitting: 'Enviando',
   'Verify Contact': 'Verificar contato',
   'Account recovery requires verified contact information':
-  'A recuperação da conta requer informações de contato verificadas',
+    'A recuperação da conta requer informações de contato verificadas',
   Verify: 'Verificar',
 };
