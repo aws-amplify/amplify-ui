@@ -1,7 +1,7 @@
 export const esDict = {
   'Account recovery requires verified contact information':
     'La recuperación de la cuenta requiere información de contacto verificada',
-  'Back to Sign In': 'Volver para Inicio de Sesión',
+  'Back to Sign In': 'Volver a Inicio de Sesión',
   'Change Password': 'Cambia la contraseña',
   Code: 'Código',
   Confirm: 'Confirmar',
