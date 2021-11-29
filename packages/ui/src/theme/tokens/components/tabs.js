@@ -3,6 +3,7 @@ module.exports = {
   borderColor: { value: '{colors.border.secondary.value}' },
   borderStyle: { value: 'solid' },
   borderWidth: { value: '{borderWidths.medium.value}' },
+  gap: { value: '0' },
 
   item: {
     backgroundColor: { value: 'transparent' },

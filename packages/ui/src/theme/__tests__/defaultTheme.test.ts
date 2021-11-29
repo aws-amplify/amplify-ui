@@ -541,6 +541,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-tabs-border-color: var(--amplify-colors-border-secondary);
         --amplify-components-tabs-border-style: solid;
         --amplify-components-tabs-border-width: var(--amplify-border-widths-medium);
+        --amplify-components-tabs-gap: 0;
         --amplify-components-tabs-item-background-color: transparent;
         --amplify-components-tabs-item-border-color: var(--amplify-colors-border-secondary);
         --amplify-components-tabs-item-border-style: solid;
