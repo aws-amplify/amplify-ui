@@ -73,10 +73,9 @@ body:
       label: Code Snippet
       description: |
         We recommend you to include your code snippet or a link to a sample code where you are experiencing the issue. 
-
         **Be sure to remove any sensitive data.**
       value: |
-        ```javascript
+        ```typescript
         // Put your code below this line.
 
         ```
