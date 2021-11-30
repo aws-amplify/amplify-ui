@@ -67,7 +67,7 @@ const machine = createAuthenticatorMachine({
 });
 
 const service = useInterpret(machine, {
-  devTools: process.env.NODE_ENV !== 'development',
+  devTools: process.env.NODE_ENV === 'development',
 });
 
 const { state, send } = useActor(service);
