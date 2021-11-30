@@ -1,19 +1,19 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
+import { ComponentClassNames } from '../shared/constants';
 import { FieldErrorMessage, FieldDescription } from '../Field';
 import { Flex } from '../Flex';
-import { Select } from '../Select';
 import { Label } from '../Label';
-import { ComponentClassNames } from '../shared/constants';
+import { Select } from '../Select';
+import { SelectFieldProps, Primitive } from '../types';
 import { splitPrimitiveProps } from '../shared/styleUtils';
 import { useStableId } from '../shared/utils';
-import { SelectFieldProps, PrimitiveWithForwardRef } from '../types';
 
-const SelectFieldPrimitive: PrimitiveWithForwardRef<
-  SelectFieldProps,
-  'select'
-> = (props, ref) => {
+const SelectFieldPrimitive: Primitive<SelectFieldProps, 'select'> = (
+  props,
+  ref
+) => {
   const {
     children,
     className,

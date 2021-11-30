@@ -2,10 +2,10 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { ComponentClassNames } from '../shared/constants';
-import { FlexProps, PrimitiveWithForwardRef } from '../types';
+import { FlexProps, Primitive } from '../types';
 import { View } from '../View';
 
-const FlexPrimitive: PrimitiveWithForwardRef<FlexProps, 'div'> = (
+const FlexPrimitive: Primitive<FlexProps, 'div'> = (
   { className, children, ...rest },
   ref
 ) => (

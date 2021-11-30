@@ -1,15 +1,12 @@
 import classNames from 'classnames';
 import * as React from 'react';
 
-import { useToggleButton } from './useToggleButton';
 import { Button } from '../Button';
-import { ToggleButtonProps, PrimitiveWithForwardRef } from '../types';
 import { ComponentClassNames } from '../shared/constants';
+import { ToggleButtonProps, Primitive } from '../types';
+import { useToggleButton } from './useToggleButton';
 
-const ToggleButtonPrimitive: PrimitiveWithForwardRef<
-  ToggleButtonProps,
-  typeof Button
-> = (
+const ToggleButtonPrimitive: Primitive<ToggleButtonProps, typeof Button> = (
   {
     className,
     children,

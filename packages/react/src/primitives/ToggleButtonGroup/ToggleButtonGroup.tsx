@@ -1,16 +1,12 @@
 import classNames from 'classnames';
 import * as React from 'react';
 
-import { useToggleButtonGroup } from './useToggleButtonGroup';
-import { Flex } from '../Flex';
 import { ComponentClassNames } from '../shared/constants';
-import {
-  PrimitiveWithForwardRef,
-  ToggleButtonProps,
-  ToggleButtonGroupProps,
-} from '../types';
+import { Flex } from '../Flex';
+import { Primitive, ToggleButtonProps, ToggleButtonGroupProps } from '../types';
+import { useToggleButtonGroup } from './useToggleButtonGroup';
 
-const ToggleButtonGroupPrimitive: PrimitiveWithForwardRef<
+const ToggleButtonGroupPrimitive: Primitive<
   ToggleButtonGroupProps,
   typeof Flex
 > = (

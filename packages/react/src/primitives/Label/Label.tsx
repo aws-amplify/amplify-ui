@@ -2,10 +2,10 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { ComponentClassNames } from '../shared/constants';
-import { LabelProps, PrimitiveWithForwardRef } from '../types';
+import { LabelProps, Primitive } from '../types';
 import { View } from '../View';
 
-const LabelPrimitive: PrimitiveWithForwardRef<LabelProps, 'label'> = (
+const LabelPrimitive: Primitive<LabelProps, 'label'> = (
   { children, className, visuallyHidden, ...rest },
   ref
 ) => {

@@ -1,13 +1,13 @@
-import classNames from 'classnames';
-import { Root } from '@radix-ui/react-accordion';
 import * as React from 'react';
+import { Root } from '@radix-ui/react-accordion';
+import classNames from 'classnames';
 
-import { PrimitiveWithForwardRef } from '../types/view';
-import { ExpanderProps } from '../types/expander';
 import { ComponentClassNames } from '../shared/constants';
+import { ExpanderProps } from '../types/expander';
+import { Primitive } from '../types/view';
 import { splitPrimitiveProps } from '../shared/styleUtils';
 
-const ExpanderPrimitive: PrimitiveWithForwardRef<ExpanderProps, typeof Root> = (
+const ExpanderPrimitive: Primitive<ExpanderProps, typeof Root> = (
   {
     children,
     className,
