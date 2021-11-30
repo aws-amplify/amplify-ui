@@ -9,6 +9,66 @@ import {
 } from '../src/types/catalog';
 
 /**
+ * Because our types have a lot of noise, we want to mark the important props.
+ * This is an interim solution!
+ */
+const fieldProps = [
+  'label',
+  'value',
+  'placeholder',
+  'descriptiveText',
+  'size',
+  'isDisabled',
+];
+const priorityProps = {
+  Alert: ['variation', 'hasIcon', 'children', 'isDismissible'],
+  Badge: ['children', 'variation', 'size'],
+  Button: ['children', 'variation', 'size'],
+  Card: ['variation'],
+  CheckBoxField: ['label', 'labelPosition', 'size', 'isDisabled', 'checked'],
+  Divider: ['orientation', 'size'],
+  Flex: ['direction', 'justifyContent', 'alignItems', 'gap', 'wrap'],
+  Heading: ['children', 'level'],
+  Icon: ['color', 'width', 'height'],
+  Image: ['src', 'width', 'height', 'alt', 'objectFit'],
+  Pagination: ['totalPages', 'currentPage', 'siblingCount'],
+  PasswordField: [...fieldProps, 'hideShowPassword', 'labelHidden'],
+  PhoneNumberField: [...fieldProps, 'labelHidden'],
+  Radio: ['label', 'value', 'checked', 'isDisabled', 'size', 'labelPosition'],
+  Rating: ['value', 'size', 'maxValue', 'fillColor', 'emptyColor'],
+  SearchField: [...fieldProps, 'variation', 'labelHidden'],
+  SliderField: [
+    ...fieldProps,
+    'min',
+    'max',
+    'step',
+    'thumbColor',
+    'emptyTrackColor',
+    'filledTrackColor',
+    'orientation',
+  ],
+  StepperField: [
+    ...fieldProps,
+    'min',
+    'max',
+    'step',
+    'labelHidden',
+    'variation',
+  ],
+  SwitchField: [
+    ...fieldProps,
+    'isChecked',
+    'thumbColor',
+    'labelPosition',
+    'isLabelHidden',
+    'trackColor',
+    'trackCheckedColor',
+  ],
+  Text: ['children', 'fontWeight', 'fontSize', 'color'],
+  TextField: [...fieldProps, 'variation', 'isMultiline'],
+};
+
+/**
  * Determine if a TypeScript AST Node is a React component
  */
 const isPrimitive = (node: Node): node is VariableDeclaration => {
@@ -95,6 +155,15 @@ for (const [componentName, [node]] of source.getExportedDeclarations()) {
 
   // Skip primitives without properties
   if (Object.keys(properties).length > 0) {
+    if (priorityProps.hasOwnProperty(componentName)) {
+      priorityProps[componentName].forEach((prop) => {
+        if (properties.hasOwnProperty(prop)) {
+          properties[prop].priority = true;
+        } else {
+          console.log(`Skipping ${prop} on ${componentName}`);
+        }
+      });
+    }
     catalog[componentName] = { properties };
   }
 }
