@@ -1,25 +1,4 @@
-<amplify-authenticator
-  variation="modal"
-  [signUpAttributes]="[
-    'address',
-    'birthdate',
-    'email',
-    'family_name',
-    'gender',
-    'given_name',
-    'locale',
-    'middle_name',
-    'name',
-    'nickname',
-    'phone_number',
-    'picture',
-    'preferred_username',
-    'profile',
-    'updated_at',
-    'website',
-    'zoneinfo'
-  ]"
->
+<amplify-authenticator variation="modal">
   <ng-template
     amplifySlot="authenticated"
     let-user="user"
