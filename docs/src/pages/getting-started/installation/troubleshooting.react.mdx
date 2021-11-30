@@ -9,8 +9,11 @@ When working with a [Vite](https://vitejs.dev) project you must make a few modif
 ```html
 ...
   <script>
-        window.global = window;
-        var exports = {};
+    window.global = window;
+    window.process = {
+      env: { DEBUG: undefined },
+    };
+    var exports = {};
   </script>
 </body>
 ```
@@ -38,5 +41,15 @@ export default defineConfig({
 ...
   "compilerOptions": {
     "skipLibCheck": true,
+...
+```
+
+**4.** Update the `package.json` file and add `@aws-amplify/ui` to `resolutions`:
+
+```js
+...
+  "resolutions": {
+    "@aws-amplify/ui": "^3.0.0"
+  },
 ...
 ```
