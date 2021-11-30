@@ -3,6 +3,11 @@ import { Interpreter, State } from 'xstate';
 import { ValidationError } from './validator';
 
 export type AuthFormData = Record<string, string>;
+export interface CodeDeliveryDetailsContext {
+  AttributeName: string;
+  DeliveryMedium: string;
+  Destination: string;
+}
 
 export interface AuthContext {
   actorRef?: any;
@@ -23,6 +28,7 @@ interface BaseFormContext {
   remoteError?: string;
   user?: CognitoUserAmplify;
   validationError?: ValidationError;
+  codeDeliveryDetails?: CodeDeliveryDetailsContext;
   country_code?: string;
 }
 
