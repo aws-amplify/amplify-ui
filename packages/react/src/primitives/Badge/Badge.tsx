@@ -1,11 +1,11 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
+import { BadgeProps, Primitive } from '../types';
 import { ComponentClassNames } from '../shared/constants';
-import { BadgeProps, PrimitiveWithForwardRef } from '../types';
 import { View } from '../View';
 
-const BadgePrimitive: PrimitiveWithForwardRef<BadgeProps, 'span'> = (
+const BadgePrimitive: Primitive<BadgeProps, 'span'> = (
   { className, children, variation, size, ...rest },
   ref
 ) => (

@@ -2,10 +2,10 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { ComponentClassNames } from '../shared/constants';
-import { TextProps, PrimitiveWithForwardRef } from '../types';
+import { TextProps, Primitive } from '../types';
 import { View } from '../View';
 
-const TextPrimitive: PrimitiveWithForwardRef<TextProps, 'p'> = (
+const TextPrimitive: Primitive<TextProps, 'p'> = (
   { as = 'p', className, children, isTruncated, variation, ...rest },
   ref
 ) => (

@@ -10,12 +10,12 @@ import { ButtonGroup } from '../ButtonGroup';
 import { ComponentClassNames } from '../shared/constants';
 import { IconMenu } from '../Icon';
 import { MenuButton } from './MenuButton';
-import { MenuProps, PrimitiveWithForwardRef } from '../types';
+import { MenuProps, Primitive } from '../types';
 
 export const MENU_TRIGGER_TEST_ID = 'amplify-menu-trigger-test-id';
 export const MENU_ITEMS_GROUP_TEST_ID = 'amplify-menu-items-group-test-id';
 
-const MenuPrimitive: PrimitiveWithForwardRef<MenuProps, 'div'> = (
+const MenuPrimitive: Primitive<MenuProps, 'div'> = (
   {
     menuAlign = 'start',
     children,

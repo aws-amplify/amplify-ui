@@ -2,10 +2,10 @@ import classNames from 'classnames';
 import * as React from 'react';
 
 import { ComponentClassNames } from '../shared';
-import { DividerProps, PrimitiveWithForwardRef } from '../types';
+import { DividerProps, Primitive } from '../types';
 import { View } from '../View';
 
-const DividerPrimitive: PrimitiveWithForwardRef<DividerProps, 'hr'> = (
+const DividerPrimitive: Primitive<DividerProps, 'hr'> = (
   { className, orientation = 'horizontal', size, ...rest },
   ref
 ) => (
