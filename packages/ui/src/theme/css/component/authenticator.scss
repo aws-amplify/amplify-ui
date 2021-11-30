@@ -17,6 +17,16 @@
 
   /* Having a z-index at least "wins" by default */
   z-index: 1;
+
+  /* top-align at the top 20% of the screen */
+  padding-top: 20vh;
+  align-content: flex-start; // top align
+}
+
+[data-amplify-authenticator][data-variation='modal']
+  [data-amplify-router-content] {
+  max-height: 60vh;
+  overflow-y: auto;
 }
 
 /* Texture for modal */

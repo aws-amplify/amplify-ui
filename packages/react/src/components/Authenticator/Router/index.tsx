@@ -23,6 +23,10 @@ export type RouterProps = {
   variation?: 'default' | 'modal';
 };
 
+const hasTabItems = (route: string) => {
+  return route === 'signIn' || 'signUp';
+};
+
 export function Router({
   children,
   className,
@@ -49,7 +53,10 @@ export function Router({
         <View data-amplify-container="">
           <Header />
 
-          <View data-amplify-router="">
+          <View
+            data-amplify-router=""
+            data-amplify-router-content={hasTabItems(route) ? undefined : ''}
+          >
             {(() => {
               switch (route) {
                 case 'idle':
