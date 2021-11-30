@@ -29,4 +29,9 @@ export interface AlertProps extends FlexProps {
    * The heading property will affect the content of the Alert heading.
    */
   heading?: React.ReactNode;
+
+  /**
+   * The ref will be forwarded to the dismiss button
+   */
+  buttonRef?: React.Ref<HTMLButtonElement>;
 }

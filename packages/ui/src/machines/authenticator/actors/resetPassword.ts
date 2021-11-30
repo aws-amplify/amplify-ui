@@ -6,9 +6,11 @@ import { runValidators } from '../../../validators';
 import {
   clearError,
   clearFormValues,
+  clearTouched,
   clearUsername,
   clearValidationError,
   handleInput,
+  handleBlur,
   setFieldErrors,
   setRemoteError,
   setUsername,
@@ -32,13 +34,14 @@ export const resetPasswordActor = createMachine<
       },
       resetPassword: {
         initial: 'edit',
-        exit: ['clearFormValues', 'clearError'],
+        exit: ['clearFormValues', 'clearError', 'clearTouched'],
         states: {
           edit: {
             entry: sendUpdate(),
             on: {
               SUBMIT: 'submit',
               CHANGE: { actions: 'handleInput' },
+              BLUR: { actions: 'handleBlur' },
             },
           },
           submit: {
@@ -59,7 +62,12 @@ export const resetPasswordActor = createMachine<
       },
       confirmResetPassword: {
         type: 'parallel',
-        exit: ['clearFormValues', 'clearError', 'clearUsername'],
+        exit: [
+          'clearFormValues',
+          'clearError',
+          'clearUsername',
+          'clearTouched',
+        ],
         states: {
           validation: {
             initial: 'pending',
@@ -85,6 +93,10 @@ export const resetPasswordActor = createMachine<
                 actions: 'handleInput',
                 target: '.pending',
               },
+              BLUR: {
+                actions: 'handleBlur',
+                target: '.pending',
+              },
             },
           },
           submission: {
@@ -96,6 +108,7 @@ export const resetPasswordActor = createMachine<
                   SUBMIT: 'validate',
                   RESEND: 'resendCode',
                   CHANGE: { actions: 'handleInput' },
+                  BLUR: { actions: 'handleBlur' },
                 },
               },
               validate: {
@@ -150,9 +163,11 @@ export const resetPasswordActor = createMachine<
     actions: {
       clearError,
       clearFormValues,
+      clearTouched,
       clearUsername,
       clearValidationError,
       handleInput,
+      handleBlur,
       setFieldErrors,
       setRemoteError,
       setUsername,
@@ -175,7 +190,7 @@ export const resetPasswordActor = createMachine<
         return Auth.forgotPasswordSubmit(username, code, password);
       },
       async validateFields(context, event) {
-        return runValidators(context.formValues, [
+        return runValidators(context.formValues, context.touched, [
           defaultServices.validateConfirmPassword,
         ]);
       },

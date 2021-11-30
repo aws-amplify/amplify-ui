@@ -1,13 +1,13 @@
-import { useState } from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import * as React from 'react';
 
 import { ComponentClassNames } from '../../shared';
 import { ToggleButton } from '../ToggleButton';
 
 describe('ToggleButton: ', () => {
   const ControlledToggleButton = () => {
-    const [pressed, setPressed] = useState(false);
+    const [pressed, setPressed] = React.useState(false);
     return (
       <ToggleButton isPressed={pressed} onChange={() => setPressed(!pressed)} />
     );
@@ -66,5 +66,13 @@ describe('ToggleButton: ', () => {
     expect(toggleButton).toHaveAttribute('aria-pressed', 'true');
     userEvent.click(toggleButton);
     expect(toggleButton).toHaveAttribute('aria-pressed', 'false');
+  });
+
+  it('should forward ref to DOM element', async () => {
+    const ref = React.createRef<HTMLButtonElement>();
+    render(<ToggleButton ref={ref} />);
+
+    await screen.findByRole('button');
+    expect(ref.current.nodeName).toBe('BUTTON');
   });
 });

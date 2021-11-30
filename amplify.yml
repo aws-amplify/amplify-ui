@@ -4,14 +4,14 @@ applications:
       phases:
         preBuild:
           commands:
-            - nvm install
-            - nvm use
+            - nvm install 14
+            - nvm use 14
             - node -v
             - (cd .. && yarn install)
         build:
           commands:
-            - nvm install
-            - nvm use
+            - nvm install 14
+            - nvm use 14
             - node -v
             - yarn build
       artifacts:

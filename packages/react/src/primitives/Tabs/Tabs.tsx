@@ -1,16 +1,16 @@
-import * as React from 'react';
+import classNames from 'classnames';
 import {
   Root,
   List,
   Trigger as RadixTab,
   Content as Panel,
 } from '@radix-ui/react-tabs';
-import { TabsProps, TabItemProps } from '../types';
+import * as React from 'react';
+
 import { Flex } from '../Flex';
+import { View } from '../View';
+import { TabsProps, TabItemProps, PrimitiveWithForwardRef } from '../types';
 import { ComponentClassNames } from '../shared/constants';
-import classNames from 'classnames';
-import { convertStylePropsToStyleObj, prefixer } from '../shared/styleUtils';
-import { Primitive } from '../types';
 
 const isTabsType = (child: any): child is React.Component<TabItemProps> => {
   return (
@@ -21,29 +21,26 @@ const isTabsType = (child: any): child is React.Component<TabItemProps> => {
   );
 };
 
-export const Tabs: Primitive<TabsProps, typeof Flex> = ({
-  alignContent,
-  alignItems,
-  ariaLabel,
-  children,
-  className,
-  defaultIndex = 0,
-  currentIndex,
-  onChange,
-  indicatorPosition,
-  direction,
-  gap = '0',
-  spacing,
-  justifyContent,
-  wrap,
-  ...rest
-}: TabsProps) => {
+const TabsPrimitive: PrimitiveWithForwardRef<TabsProps, typeof Flex> = (
+  {
+    ariaLabel,
+    children,
+    className,
+    defaultIndex = 0,
+    currentIndex,
+    onChange,
+    indicatorPosition,
+    spacing,
+    ...rest
+  }: TabsProps,
+  ref
+) => {
   const tabs = React.Children.map(children, (child) => {
     if (!isTabsType(child)) {
       console.warn(
         'Amplify UI: <Tabs> component only accepts <TabItem> as children.'
       );
-      return null;
+      return {};
     }
 
     return child.props;
@@ -58,33 +55,26 @@ export const Tabs: Primitive<TabsProps, typeof Flex> = ({
     value: currentIndex != null ? currentIndex.toString() : undefined,
     onValueChange: onChange,
   };
-
   return (
     <Root {...rootProps}>
       <List aria-label={ariaLabel}>
         <Flex
-          alignContent={alignContent}
-          alignItems={alignItems}
           className={classNames(ComponentClassNames.Tabs, className)}
-          direction={direction}
-          gap={gap}
-          justifyContent={justifyContent}
-          wrap={wrap}
           data-indicator-position={indicatorPosition}
+          ref={ref}
           {...rest}
         >
-          {tabs.map(({ className, isDisabled, title, ...rest }, index) => (
-            <RadixTab
-              className={classNames(ComponentClassNames.TabItems, className)}
-              data-spacing={spacing}
-              disabled={isDisabled}
-              key={index}
-              style={prefixer(convertStylePropsToStyleObj(rest))}
-              value={`${index}`}
-            >
-              {title}
-            </RadixTab>
-          ))}
+          {React.Children.map(children, (child, index) => {
+            if (!isTabsType(child)) {
+              return null;
+            }
+
+            return React.cloneElement(child, {
+              ['data-spacing']: spacing,
+              key: index,
+              value: `${index}`,
+            });
+          })}
         </Flex>
       </List>
       {tabs.map((tab, index) => (
@@ -96,7 +86,22 @@ export const Tabs: Primitive<TabsProps, typeof Flex> = ({
   );
 };
 
-export const TabItem: React.FC<TabItemProps> = () => <></>;
+const TabItemPrimitive: PrimitiveWithForwardRef<TabItemProps, 'div'> = (
+  { className, title, ...rest },
+  ref
+) => (
+  <View
+    as={RadixTab}
+    className={classNames(ComponentClassNames.TabItems, className)}
+    ref={ref}
+    {...rest}
+  >
+    {title}
+  </View>
+);
+
+export const Tabs = React.forwardRef(TabsPrimitive);
+export const TabItem = React.forwardRef(TabItemPrimitive);
 
 Tabs.displayName = 'Tabs';
 TabItem.displayName = 'TabItem';

@@ -1,18 +1,20 @@
+import * as React from 'react';
 import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import kebabCase from 'lodash/kebabCase';
+import userEvent from '@testing-library/user-event';
 
-import { SwitchField } from '../SwitchField';
-import { ComponentClassNames } from '../../shared';
 import { AUTO_GENERATED_ID_PREFIX } from '../../shared/utils';
+import { ComponentClassNames } from '../../shared';
 import { ComponentPropsToStylePropsMap } from '../../types';
+import { SwitchField } from '../SwitchField';
 
 describe('Switch Field', () => {
   const label = 'My switch label';
+
   describe('Switch wrapper', () => {
     it('should pass through the className', async () => {
       const { container } = render(
-        <SwitchField label={label} className={'my-switch'} />
+        <SwitchField label={label} className="my-switch" />
       );
 
       const wrapper = container.getElementsByClassName(
@@ -21,10 +23,16 @@ describe('Switch Field', () => {
       expect(wrapper).toHaveClass('my-switch');
     });
 
+    it('should forward ref to DOM element', async () => {
+      const ref = React.createRef<HTMLDivElement>();
+      render(<SwitchField testId="testId" label={label} ref={ref} />);
+
+      await screen.findByLabelText(label);
+      expect(ref.current.nodeName).toBe('DIV');
+    });
+
     it('should set the data-size attribute', async () => {
-      const { container } = render(
-        <SwitchField label={label} size={'large'} />
-      );
+      const { container } = render(<SwitchField label={label} size="large" />);
 
       const wrapper = container.getElementsByClassName(
         ComponentClassNames.SwitchField
@@ -34,7 +42,7 @@ describe('Switch Field', () => {
 
     it('should set the label for attribute to match the passed in id', async () => {
       const { container } = render(
-        <SwitchField label={label} id={'my-switch'} />
+        <SwitchField label={label} id="my-switch" />
       );
 
       const wrapper = container.getElementsByClassName(
@@ -45,7 +53,7 @@ describe('Switch Field', () => {
 
     it('should set the data-label-position attribute', async () => {
       const { container } = render(
-        <SwitchField label={label} labelPosition={'end'} />
+        <SwitchField label={label} labelPosition="end" />
       );
 
       const wrapper = container.getElementsByClassName(
@@ -102,11 +110,7 @@ describe('Switch Field', () => {
 
     it('should pass through the name and value properties to the checkbox', async () => {
       const { container } = render(
-        <SwitchField
-          label={label}
-          name={'myCheckbox'}
-          value={'checkboxValue'}
-        />
+        <SwitchField label={label} name="myCheckbox" value="checkboxValue" />
       );
 
       const field = container.getElementsByTagName('input')[0];
@@ -153,7 +157,7 @@ describe('Switch Field', () => {
 
     it('should set the id on the input element', async () => {
       const { container } = render(
-        <SwitchField label={label} id={'my-switch'} />
+        <SwitchField label={label} id="my-switch" />
       );
 
       const field = container.getElementsByTagName('input')[0];
@@ -170,7 +174,7 @@ describe('Switch Field', () => {
   describe('Switch Track', () => {
     it('should set the track color for the unchecked switch', async () => {
       const { container } = render(
-        <SwitchField label={label} trackColor={'red'} />
+        <SwitchField label={label} trackColor="red" />
       );
 
       const track = container.getElementsByClassName(
@@ -187,7 +191,7 @@ describe('Switch Field', () => {
       const { container } = render(
         <SwitchField
           label={label}
-          trackCheckedColor={'red'}
+          trackCheckedColor="red"
           defaultChecked={true}
         />
       );
@@ -218,7 +222,7 @@ describe('Switch Field', () => {
   describe('Switch Thumb', () => {
     it('should change the switch thumb color', async () => {
       const { container } = render(
-        <SwitchField label={label} thumbColor={'red'} />
+        <SwitchField label={label} thumbColor="red" />
       );
 
       const track = container.getElementsByClassName(

@@ -1,9 +1,10 @@
 import classNames from 'classnames';
 import { Item, Header, Trigger, Content } from '@radix-ui/react-accordion';
+import * as React from 'react';
 
 import { IconExpandMore } from '../Icon';
 import { View } from '../View';
-import { Primitive } from '../types/view';
+import { PrimitiveWithForwardRef } from '../types/view';
 import { ExpanderItemProps } from '../types/expander';
 import { ComponentClassNames } from '../shared/constants';
 import { splitPrimitiveProps } from '../shared/styleUtils';
@@ -14,12 +15,10 @@ export const EXPANDER_HEADER_TEST_ID = 'expander-header';
 export const EXPANDER_ICON_TEST_ID = 'expander-icon';
 export const EXPANDER_CONTENT_TEXT_TEST_ID = 'expander-content-text';
 
-export const ExpanderItem: Primitive<ExpanderItemProps, typeof Item> = ({
-  children,
-  className,
-  title,
-  ..._rest
-}) => {
+const ExpanderItemPrimitive: PrimitiveWithForwardRef<
+  ExpanderItemProps,
+  typeof Item
+> = ({ children, className, title, ..._rest }, ref) => {
   const triggerId = useStableId();
   const contentId = useStableId();
   const { rest } = splitPrimitiveProps(_rest);
@@ -27,6 +26,7 @@ export const ExpanderItem: Primitive<ExpanderItemProps, typeof Item> = ({
     <Item
       className={classNames(ComponentClassNames.ExpanderItem, className)}
       data-testid={EXPANDER_ITEM_TEST_ID}
+      ref={ref}
       {...rest}
     >
       <Header
@@ -61,5 +61,7 @@ export const ExpanderItem: Primitive<ExpanderItemProps, typeof Item> = ({
     </Item>
   );
 };
+
+export const ExpanderItem = React.forwardRef(ExpanderItemPrimitive);
 
 ExpanderItem.displayName = 'ExpanderItem';

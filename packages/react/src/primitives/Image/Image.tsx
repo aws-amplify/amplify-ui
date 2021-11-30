@@ -5,7 +5,7 @@ import { ComponentClassNames } from '../shared';
 import { ImageProps, PrimitiveWithForwardRef } from '../types';
 import { View } from '../View';
 
-const ImageInner: PrimitiveWithForwardRef<ImageProps, 'img'> = (
+const ImagePrimitive: PrimitiveWithForwardRef<ImageProps, 'img'> = (
   { className, ...rest },
   ref
 ) => (
@@ -17,6 +17,6 @@ const ImageInner: PrimitiveWithForwardRef<ImageProps, 'img'> = (
   />
 );
 
-export const Image = React.forwardRef(ImageInner);
+export const Image = React.forwardRef(ImagePrimitive);
 
 Image.displayName = 'Image';

@@ -36,9 +36,9 @@
   transition-duration: var(
     --amplify-components-switchfield-track-transition-duration
   );
-  background: var(--amplify-components-switchfield-track-background);
+  background-color: var(--amplify-components-switchfield-track-background-color);
   &[data-checked='true'] {
-    background: var(--amplify-components-switchfield-track-checked-background);
+    background-color: var(--amplify-components-switchfield-track-checked-background-color);
   }
   &[data-disabled='true'] {
     opacity: var(--amplify-components-switchfield-disabled-opacity);
@@ -50,7 +50,7 @@
 }
 
 .amplify-switch-thumb {
-  background: var(--amplify-components-switchfield-thumb-background);
+  background-color: var(--amplify-components-switchfield-thumb-background-color);
   transition-duration: var(
     --amplify-components-switchfield-thumb-transition-duration
   );

@@ -1,6 +1,8 @@
 import { render, screen } from '@testing-library/react';
+import * as React from 'react';
+
 import { Alert } from '../Alert';
-import { ComponentClassNames } from '../../shared';
+import { ComponentClassNames } from '../../shared/constants';
 import { ComponentPropsToStylePropsMap } from '../../types';
 import kebabCase from 'lodash/kebabCase';
 
@@ -131,5 +133,24 @@ describe('Alert: ', () => {
     render(<Alert data-demo="true" testId="dataTest"></Alert>);
     const alert = await screen.findByTestId('dataTest');
     expect(alert.dataset['demo']).toBe('true');
+  });
+
+  describe.only('Forward ref: ', () => {
+    it('should forward ref to container DOM element', async () => {
+      const testId = 'alert';
+      const ref = React.createRef<HTMLDivElement>();
+      render(<Alert ref={ref} testId={testId} />);
+
+      await screen.findByTestId(testId);
+      expect(ref.current.nodeName).toBe('DIV');
+    });
+
+    it('should forward ref to dismiss button DOM element', async () => {
+      const ref = React.createRef<HTMLButtonElement>();
+      render(<Alert buttonRef={ref} isDismissible />);
+
+      await screen.findByRole('button');
+      expect(ref.current.nodeName).toBe('BUTTON');
+    });
   });
 });

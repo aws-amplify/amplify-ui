@@ -4,7 +4,7 @@ import { translations } from '@aws-amplify/ui';
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
-import awsExports from '@environments/auth-with-username-no-attributes/src/aws-exports';
+import awsExports from './aws-exports';
 Amplify.configure(awsExports);
 
 I18n.putVocabularies(translations);
