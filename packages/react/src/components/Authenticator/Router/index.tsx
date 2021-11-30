@@ -23,7 +23,7 @@ export type RouterProps = {
   variation?: 'default' | 'modal';
 };
 
-const hasTabItems = (route: string) => {
+const hasTabs = (route: string) => {
   return route === 'signIn' || 'signUp';
 };
 
@@ -55,7 +55,7 @@ export function Router({
 
           <View
             data-amplify-router=""
-            data-amplify-router-content={hasTabItems(route) ? undefined : ''}
+            data-amplify-router-content={hasTabs(route) ? undefined : ''}
           >
             {(() => {
               switch (route) {
