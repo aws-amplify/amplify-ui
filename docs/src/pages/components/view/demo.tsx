@@ -51,7 +51,7 @@ export const ViewDemo = ({ children }) => {
   return (
     <div>
       <h4>View Props:</h4>
-      <div className="grid grid-cols-3 gap-5 flex-wrap my-8">
+      <div className="grid flex-wrap grid-cols-3 gap-5 my-8">
         <FieldSet id="as">
           <select
             id="as"
@@ -279,7 +279,7 @@ export const ViewDemo = ({ children }) => {
         width={width}
         {...customAttributes}
       >
-        I'm a &lt;{asElementType}&gt;! 🤩
+        {`I'm a <${asElementType}>! 🤩`}
       </View>
     </div>
   );

@@ -25,8 +25,9 @@ export const ThemeButton = ({ colors, label }) => {
       <Flex direction="row" gap="0" justifyContent="center">
         {colors.map((color) => (
           <Swatch
-            color={color}
             border={`4px solid ${tokens.colors.background.primary}`}
+            color={color}
+            key={color}
           />
         ))}
       </Flex>
