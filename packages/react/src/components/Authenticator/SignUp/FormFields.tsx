@@ -4,24 +4,33 @@ import {
   SignUpContext,
   translate,
 } from '@aws-amplify/ui';
+import { Flex, ToggleButton, ToggleButtonGroup } from '@aws-amplify/ui-react';
+import capitalize from 'lodash/capitalize';
+import words from 'lodash/words';
+import * as React from 'react';
 
 import { useAuthenticator } from '..';
 import { PasswordField, PhoneNumberField, Text, TextField } from '../../..';
 import { UserNameAlias as UserNameAliasComponent } from '../shared';
 
 export function FormFields() {
-  const { _state, updateForm, updateBlur } = useAuthenticator();
-  const { country_code, validationError } = getActorContext(
+  const { _state, updateBlur } = useAuthenticator();
+  const { country_code, formValues, validationError } = getActorContext(
     _state
   ) as SignUpContext;
   const { loginMechanisms, signUpAttributes } = _state.context.config;
+  const [loginMechanismIndex, setLoginMechanismIndex] = React.useState(0);
 
+  // Only 1 mechanism can be used for `username`
+  const usernameAlias = loginMechanisms[loginMechanismIndex] as LoginMechanism;
   const fieldNames = Array.from(
-    new Set([...loginMechanisms, ...signUpAttributes])
+    new Set([
+      // Remove duplicate sign up attribute that's a selected login mechanism
+      ...signUpAttributes.filter(
+        (attribute) => attribute !== loginMechanisms[loginMechanismIndex]
+      ),
+    ])
   );
-
-  // Only 1 is supported, so `['email', 'phone_number']` will only show `email`
-  const loginMechanism = fieldNames.shift() as LoginMechanism;
 
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
     const { name } = event.target;
@@ -30,8 +39,34 @@ export function FormFields() {
 
   return (
     <>
+      {loginMechanisms.length > 1 && (
+        <Flex alignItems="baseline">
+          <TextField
+            isReadOnly={true}
+            label="Login with"
+            name="username"
+            placeholder="Showing the hidden value of username"
+            type="hidden"
+            value={formValues[usernameAlias]}
+          />
+          <ToggleButtonGroup
+            isExclusive
+            onChange={(value) => setLoginMechanismIndex(Number(value))}
+            value={String(loginMechanismIndex)}
+          >
+            {loginMechanisms.map((alias, i) => (
+              <ToggleButton key={alias} value={String(i)}>
+                <Text fontSize="var(--amplify-font-sizes-xs)">
+                  {capitalize(words(alias).join(' '))}
+                </Text>
+              </ToggleButton>
+            ))}
+          </ToggleButtonGroup>
+        </Flex>
+      )}
+
       <UserNameAliasComponent
-        alias={loginMechanism}
+        alias={usernameAlias}
         data-amplify-usernamealias
       />
 
