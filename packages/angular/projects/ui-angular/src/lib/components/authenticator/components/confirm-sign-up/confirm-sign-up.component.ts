@@ -20,23 +20,25 @@ export class ConfirmSignUpComponent {
     return this.authenticator.slotContext;
   }
 
-  public get deliveryText(): string {
-    return this.authenticator.codeDeliveryDetails.DeliveryMedium === 'EMAIL'
-      ? 'Emailed'
-      : 'Texted';
-  }
-
   public get confirmSignUpHeading(): string {
-    return translate(`We ${this.deliveryText} You`);
+    const { codeDeliveryDetails: { DeliveryMedium } = {} } = this.authenticator;
+    return DeliveryMedium === 'EMAIL'
+      ? translate('We Emailed You')
+      : DeliveryMedium === 'SMS'
+      ? translate('We Texted You')
+      : translate('We Sent A Code');
   }
 
   public get subtitleText(): string {
-    return translate(`Your code is on the way. To log in, enter the code we
-            ${this.deliveryText.toLowerCase()} to
-            ${
-              this.authenticator.codeDeliveryDetails.Destination
-            }. It may take a minute to
-            arrive.`);
+    const { codeDeliveryDetails: { DeliveryMedium, Destination } = {} } =
+      this.authenticator;
+    return DeliveryMedium === 'EMAIL'
+      ? `Your code is on the way. To log in, enter the code we emailed to ${Destination}. It may take a minute to arrive.`
+      : DeliveryMedium === 'SMS'
+      ? `Your code is on the way. To log in, enter the code we texted to ${Destination}. It may take a minute to arrive.`
+      : translate(
+          `Your code is on the way. To log in, enter the code we sent you. It may take a minute to arrive.`
+        );
   }
 
   onInput(event: Event) {

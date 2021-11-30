@@ -10,27 +10,30 @@ const emit = defineEmits(['confirmSignUpSubmit', 'lostCodeClicked']);
 const { isPending, error, codeDeliveryDetails } = toRefs(useAuthenticator());
 const { submitForm, updateForm, resendCode } = useAuthenticator();
 
+//computed properties
+
 // Only two types of delivery methods is EMAIL or SMS
-const delivery = computed(() => {
+const confirmSignUpHeading = computed(() => {
   return codeDeliveryDetails.value?.DeliveryMedium === 'EMAIL'
-    ? 'Emailed'
-    : 'Texted';
+    ? translate('We Emailed You')
+    : codeDeliveryDetails.value?.DeliveryMedium === 'SMS'
+    ? translate('We Texted You')
+    : translate('We Sent A Code');
 });
 
-//computed properties
 const enterCode = computed(() => translate('Enter your code'));
-const confirmSignUpHeading = computed(() =>
-  translate(`We ${delivery.value} You`)
-);
 const confirmationCodeText = computed(() => translate('Confirmation Code'));
 const resendCodeText = computed(() => translate('Resend Code'));
 const confirmText = computed(() => translate('Confirm'));
-const subtitleText = computed(() =>
-  translate(`Your code is on the way. To log in, enter the code we
-            ${delivery.value.toLowerCase()} to
-            ${codeDeliveryDetails.value?.Destination}. It may take a minute to
-            arrive.`)
-);
+const subtitleText = computed(() => {
+  return codeDeliveryDetails.value?.DeliveryMedium === 'EMAIL'
+    ? `Your code is on the way. To log in, enter the code we emailed to ${codeDeliveryDetails.value?.Destination}. It may take a minute to arrive.`
+    : codeDeliveryDetails.value?.DeliveryMedium === 'SMS'
+    ? `Your code is on the way. To log in, enter the code we texted to ${codeDeliveryDetails.value?.Destination}. It may take a minute to arrive.`
+    : translate(
+        `Your code is on the way. To log in, enter the code we sent you. It may take a minute to arrive.`
+      );
+});
 
 // Methods
 const onInput = (e: Event): void => {

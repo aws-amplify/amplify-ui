@@ -11,8 +11,13 @@ import {
 } from '../shared';
 
 export function ConfirmSignUp() {
-  const { isPending, resendCode, submitForm, updateForm, codeDeliveryDetails } =
-    useAuthenticator();
+  const {
+    isPending,
+    resendCode,
+    submitForm,
+    updateForm,
+    codeDeliveryDetails: { DeliveryMedium, Destination } = {},
+  } = useAuthenticator();
 
   const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
     if (isInputOrSelectElement(event.target)) {
@@ -39,16 +44,20 @@ export function ConfirmSignUp() {
     placeholder: translate('Enter your code'),
   };
 
-  const deliveryText =
-    codeDeliveryDetails.DeliveryMedium === 'EMAIL' ? 'Emailed' : 'Texted';
-
-  const confirmSignUpHeading = translate(`We ${deliveryText} You`);
-
+  const confirmSignUpHeading =
+    DeliveryMedium === 'EMAIL'
+      ? translate('We Emailed You')
+      : DeliveryMedium === 'SMS'
+      ? translate('We Texted You')
+      : translate('We Sent A Code');
   const subtitleText =
-    translate(`Your code is on the way. To log in, enter the code we
-            ${deliveryText.toLowerCase()} to
-            ${codeDeliveryDetails.Destination}. It may take a minute to
-            arrive.`);
+    DeliveryMedium === 'EMAIL'
+      ? `Your code is on the way. To log in, enter the code we emailed to ${Destination}. It may take a minute to arrive.`
+      : DeliveryMedium === 'SMS'
+      ? `Your code is on the way. To log in, enter the code we texted to ${Destination}. It may take a minute to arrive.`
+      : translate(
+          `Your code is on the way. To log in, enter the code we sent you. It may take a minute to arrive.`
+        );
 
   return (
     // TODO Automatically add these namespaces again from `useAmplify`
