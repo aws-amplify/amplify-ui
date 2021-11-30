@@ -26,7 +26,7 @@ export const LivenessCameraModule = (
   const [countDownRunning, setCountDownRunning] = useState<boolean>(false);
   const [videoHeight, setVideoHeight] = useState<number>(height);
   const [videoWidth, setVideoWidth] = useState<number>(width);
-  const [top, setTop] = useState<number>(0);
+  const [streamOffset, setStreamOffset] = useState<number>(0);
 
   const isNotRecording = state.matches('notRecording');
   const isRecording = state.matches('recording');
@@ -45,11 +45,11 @@ export const LivenessCameraModule = (
   const onMediaAvailable = () => {
     const { height: streamHeight, width: streamWidth } =
       webcamRef.current.stream.getTracks()[0].getSettings();
-    const offsetHeight = height - streamHeight;
+    const offsetHeight = window.innerHeight - streamHeight;
 
     setVideoHeight(streamHeight);
     setVideoWidth(streamWidth);
-    setTop(offsetHeight <= 0 ? 0 : offsetHeight / 2);
+    setStreamOffset(offsetHeight <= 0 ? 0 : offsetHeight / 2);
     send({
       type: 'PERMISSION_GRANTED',
     });
@@ -65,6 +65,8 @@ export const LivenessCameraModule = (
         top: 0,
         left: 0,
         backgroundColor: 'black',
+        height: '100%',
+        width: '100%',
       })}
     >
       <Flex direction="column" position="relative">
@@ -73,35 +75,30 @@ export const LivenessCameraModule = (
           audio={false}
           allowFullScreen
           videoConstraints={videoConstraints}
-          height={height}
-          width={width}
+          height={videoHeight}
+          width={videoWidth}
           mirrored
           onUserMedia={onMediaAvailable}
           onUserMediaError={() => send({ type: 'PERMISSION_DENIED' })}
           onCanPlay={() => setCountDownRunning(true)}
         />
-        <canvas
+        <View
+          as="canvas"
           ref={canvasRef}
-          style={{
-            height: videoHeight,
-            width: videoWidth,
-            position: 'absolute',
-            top: top,
-          }}
-        ></canvas>
+          height={videoHeight}
+          width={videoWidth}
+          position="absolute"
+          top={0}
+        />
 
         {isRecording && (
-          <View
-            position="absolute"
-            top={isMobileScreen ? top + 10 : 10}
-            left={10}
-          >
+          <View position="absolute" top={10} left={10}>
             <RecordingIcon />
           </View>
         )}
 
         {isMobileScreen && (
-          <View position="absolute" top={top + 10} right={10}>
+          <View position="absolute" top={10} right={10}>
             <CancelButton isMobileScreen={true} />
           </View>
         )}
@@ -111,7 +108,7 @@ export const LivenessCameraModule = (
           direction="column"
           alignItems="center"
           position={isMobileScreen ? 'absolute' : 'relative'}
-          bottom={top + 10}
+          bottom={isMobileScreen ? streamOffset + 10 : 10}
         >
           <Instruction isMobileScreen={isMobileScreen} />
 

@@ -33,12 +33,12 @@ export const Instruction: React.FC<InstructionProps> = (props) => {
           color={
             isMobileScreen
               ? `${tokens.colors.red[40]}`
-              : `${tokens.colors.red[80]}`
+              : `${tokens.colors.red[60]}`
           }
-          alignItems="flex-end"
+          alignItems="center"
         >
           <IconHighlightOff size="large" viewBox="0 0 20 20" />
-          <span>{state.context.errorState}</span>
+          <View as="span">{state.context.errorState}</View>
         </Flex>
       );
     }
@@ -53,7 +53,7 @@ export const Instruction: React.FC<InstructionProps> = (props) => {
       return (
         <Flex gap={`${tokens.space.xxs}`} alignItems="center">
           <Loader />
-          <span>{I18n.get('Authenticating...')}</span>
+          <View as="span">{I18n.get('Authenticating...')}</View>
         </Flex>
       );
     }
@@ -65,12 +65,14 @@ export const Instruction: React.FC<InstructionProps> = (props) => {
           color={
             isMobileScreen
               ? `${tokens.colors.green[40]}`
-              : `${tokens.colors.green[100]}`
+              : `${tokens.colors.green[60]}`
           }
-          alignItems="flex-end"
+          alignItems="center"
         >
           <IconCheckCircleOutline size="large" viewBox="0 0 20 20" />
-          <span>{I18n.get('Check succeeded!')}</span>
+          <View as="span" style={{ whiteSpace: 'nowrap' }}>
+            {I18n.get('Check succeeded!')}
+          </View>
         </Flex>
       );
     }
@@ -81,13 +83,12 @@ export const Instruction: React.FC<InstructionProps> = (props) => {
   return (
     <Flex
       borderRadius={`${tokens.radii.medium}`}
-      width={{ base: '80%', medium: '100%' }}
       backgroundColor={{
         base: `${tokens.colors.black}`,
         medium: `${tokens.colors.transparent}`,
       }}
       padding={`${tokens.space.small}`}
-      opacity={0.5}
+      margin={`0 ${tokens.space.medium}`}
     >
       <View
         color={{

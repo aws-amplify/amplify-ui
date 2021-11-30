@@ -1,12 +1,17 @@
 import * as React from 'react';
 import { useActor, useInterpret } from '@xstate/react';
-import { livenessMachine, LivenessFlowProps } from '@aws-amplify/ui';
+import {
+  livenessMachine,
+  LivenessFlowProps as LivenessFlowPropsFromUi,
+} from '@aws-amplify/ui';
 
 import { useControllable } from '../../hooks/useControllable';
 import { LivenessFlowProvider } from './providers';
 import { StartLiveness } from './StartLiveness';
 import { LivenessCheck } from './LivenessCheck';
 import { View } from '../..';
+
+export interface LivenessFlowProps extends LivenessFlowPropsFromUi {}
 
 export const LivenessFlow: React.FC<LivenessFlowProps> = (props) => {
   const {
