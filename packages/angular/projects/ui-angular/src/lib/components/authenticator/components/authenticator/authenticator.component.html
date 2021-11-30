@@ -1,22 +1,33 @@
 <div data-amplify-authenticator [attr.data-variation]="variation">
   <div data-amplify-container>
     <amplify-slot name="header" [context]="context"></amplify-slot>
-    <div data-amplify-router>
+    <div
+      data-amplify-router
+      [attr.data-amplify-router-content]="hasTabs() ? undefined : ''"
+    >
       <amplify-tabs
         (tabChange)="onTabChange()"
         *ngIf="route === 'signIn' || route === 'signUp'"
       >
-        <amplify-tab-item [title]="signInTitle" [active]="route === 'signIn'">
+        <amplify-tab-item
+          [title]="signInTitle"
+          [active]="route === 'signIn'"
+          data-amplify-router-content
+        >
           <!-- signIn component -->
           <amplify-slot
             name="sign-in"
             [context]="context"
             *ngIf="route === 'signIn'"
           >
-            <amplify-sign-in></amplify-sign-in>
+            <amplify-sign-in data-amplify-router-content></amplify-sign-in>
           </amplify-slot>
         </amplify-tab-item>
-        <amplify-tab-item [title]="signUpTitle" [active]="route === 'signUp'">
+        <amplify-tab-item
+          [title]="signUpTitle"
+          [active]="route === 'signUp'"
+          data-amplify-router-content
+        >
           <!-- signUp component -->
           <amplify-slot
             name="sign-up"
