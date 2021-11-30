@@ -400,9 +400,9 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
     services: {
       async signIn(context) {
         const source = context.formValues;
-        const { country_code, username, password } = source;
+        const { username, password } = source;
 
-        return Auth.signIn((country_code ?? '') + username, password);
+        return Auth.signIn(username, password);
       },
       async confirmSignIn(context, event) {
         const { challengeName, user } = context;
