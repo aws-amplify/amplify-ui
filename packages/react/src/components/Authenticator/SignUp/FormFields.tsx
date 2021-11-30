@@ -120,6 +120,7 @@ export function FormFields() {
             return (
               <TextField
                 autoComplete="email"
+                defaultValue={formValues.email}
                 key={name}
                 isRequired
                 label={translate('Email')}
