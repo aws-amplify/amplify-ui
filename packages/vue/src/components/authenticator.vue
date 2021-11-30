@@ -196,7 +196,7 @@ watch(
 
 const hasTabs = () => {
   return (
-    actorState?.value.matches('signIn') || actorState?.value.matches('signUp')
+    actorState.value?.matches('signIn') || actorState.value?.matches('signUp')
   );
 };
 </script>
