@@ -1,17 +1,17 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
-import { View } from '../View';
-import { LoaderProps } from '../types/loader';
-import { PrimitiveWithForwardRef } from '../types/view';
 import { ComponentClassNames } from '../shared/constants';
+import { LoaderProps } from '../types/loader';
+import { Primitive } from '../types/view';
+import { View } from '../View';
 
 export const LINEAR_EMPTY = 'linear-empty';
 export const LINEAR_FILLED = 'linear-filled';
 export const CIRCULAR_EMPTY = 'circular-empty';
 export const CIRCULAR_FILLED = 'circular-filled';
 
-const LoaderInner: PrimitiveWithForwardRef<LoaderProps, 'svg'> = (
+const LoaderPrimitive: Primitive<LoaderProps, 'svg'> = (
   { className, filledColor, emptyColor, size, variation, ...rest },
   ref
 ) => {
@@ -73,6 +73,6 @@ const LoaderInner: PrimitiveWithForwardRef<LoaderProps, 'svg'> = (
   );
 };
 
-export const Loader = React.forwardRef(LoaderInner);
+export const Loader = React.forwardRef(LoaderPrimitive);
 
 Loader.displayName = 'Loader';

@@ -1,7 +1,7 @@
 import { translate } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '../..';
-import { Button, Flex, Heading } from '../../..';
+import { Button, Flex, Heading, Text } from '../../..';
 import { isInputOrSelectElement, isInputElement } from '../../../helpers/utils';
 
 import {
@@ -11,7 +11,13 @@ import {
 } from '../shared';
 
 export function ConfirmSignUp() {
-  const { isPending, resendCode, submitForm, updateForm } = useAuthenticator();
+  const {
+    isPending,
+    resendCode,
+    submitForm,
+    updateForm,
+    codeDeliveryDetails: { DeliveryMedium, Destination } = {},
+  } = useAuthenticator();
 
   const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
     if (isInputOrSelectElement(event.target)) {
@@ -38,6 +44,21 @@ export function ConfirmSignUp() {
     placeholder: translate('Enter your code'),
   };
 
+  const confirmSignUpHeading =
+    DeliveryMedium === 'EMAIL'
+      ? translate('We Emailed You')
+      : DeliveryMedium === 'SMS'
+      ? translate('We Texted You')
+      : translate('We Sent A Code');
+  const subtitleText =
+    DeliveryMedium === 'EMAIL'
+      ? `Your code is on the way. To log in, enter the code we emailed to ${Destination}. It may take a minute to arrive.`
+      : DeliveryMedium === 'SMS'
+      ? `Your code is on the way. To log in, enter the code we texted to ${Destination}. It may take a minute to arrive.`
+      : translate(
+          `Your code is on the way. To log in, enter the code we sent you. It may take a minute to arrive.`
+        );
+
   return (
     // TODO Automatically add these namespaces again from `useAmplify`
     <form
@@ -48,9 +69,12 @@ export function ConfirmSignUp() {
       onSubmit={handleSubmit}
     >
       <Flex direction="column">
-        <Heading level={3}>{translate('Confirm Sign Up')}</Heading>
+        <Heading level={3} style={{ fontSize: '1.5rem' }}>
+          {confirmSignUpHeading}
+        </Heading>
 
         <Flex direction="column">
+          <Text style={{ marginBottom: '1rem' }}>{subtitleText}</Text>
           <ConfirmationCodeInput {...confirmationCodeInputProps} />
 
           <RemoteErrorMessage />

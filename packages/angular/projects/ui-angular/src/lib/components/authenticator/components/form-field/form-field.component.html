@@ -24,6 +24,7 @@
     [disabled]="disabled"
     [labelHidden]="labelHidden"
     [autocomplete]="inferAutocomplete()"
+    (setBlur)="onBlur($event)"
   ></amplify-password-field>
 
   <amplify-text-field

@@ -2,7 +2,7 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { ComponentClassNames } from '../shared/constants';
-import { HeadingProps, PrimitiveWithForwardRef } from '../types';
+import { HeadingProps, Primitive } from '../types';
 import { View } from '../View';
 
 type HeadingTag = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
@@ -20,7 +20,7 @@ const headingLevels: HeadingLevels = {
   6: 'h6',
 };
 
-const HeadingInner: PrimitiveWithForwardRef<HeadingProps, HeadingTag> = (
+const HeadingPrimitive: Primitive<HeadingProps, HeadingTag> = (
   { className, children, level = 6, ...rest },
   ref
 ) => (
@@ -34,6 +34,6 @@ const HeadingInner: PrimitiveWithForwardRef<HeadingProps, HeadingTag> = (
   </View>
 );
 
-export const Heading = React.forwardRef(HeadingInner);
+export const Heading = React.forwardRef(HeadingPrimitive);
 
 Heading.displayName = 'Heading';

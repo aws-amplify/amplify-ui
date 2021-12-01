@@ -1,4 +1,4 @@
-import { CognitoUser } from 'amazon-cognito-identity-js';
+import { CognitoUser, CodeDeliveryDetails } from 'amazon-cognito-identity-js';
 import { Interpreter, State } from 'xstate';
 import { ValidationError } from './validator';
 
@@ -18,10 +18,12 @@ interface BaseFormContext {
   authAttributes?: Record<string, any>;
   challengeName?: string;
   formValues?: AuthFormData;
+  touched?: AuthFormData;
   intent?: string;
   remoteError?: string;
   user?: CognitoUserAmplify;
   validationError?: ValidationError;
+  codeDeliveryDetails?: CodeDeliveryDetails;
   country_code?: string;
 }
 
@@ -108,6 +110,7 @@ export type InvokeActorEventTypes =
 
 export type AuthEventTypes =
   | 'CHANGE'
+  | 'BLUR'
   | 'FEDERATED_SIGN_IN'
   | 'RESEND'
   | 'RESET_PASSWORD'

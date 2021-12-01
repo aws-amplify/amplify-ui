@@ -2,10 +2,10 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { ComponentClassNames } from '../shared/constants';
-import { PrimitiveWithForwardRef, TableProps } from '../types';
+import { Primitive, TableProps } from '../types';
 import { View } from '../View';
 
-const TablePrimitive: PrimitiveWithForwardRef<TableProps, 'table'> = (
+const TablePrimitive: Primitive<TableProps, 'table'> = (
   {
     caption,
     children,

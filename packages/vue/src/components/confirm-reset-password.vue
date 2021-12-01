@@ -1,3 +1,84 @@
+<script setup lang="ts">
+import { computed, ComputedRef, useAttrs, defineEmits } from 'vue';
+import {
+  getActorContext,
+  getActorState,
+  ResetPasswordContext,
+  ResetPasswordState,
+  ValidationError,
+  translate,
+} from '@aws-amplify/ui';
+
+import { useAuth, useAuthenticator } from '../composables/useAuth';
+import PasswordControl from './password-control.vue';
+
+const { state, send } = useAuth();
+const props = useAuthenticator();
+
+const attrs = useAttrs();
+const emit = defineEmits(['confirmResetPasswordSubmit', 'backToSignInClicked']);
+
+const actorState: ComputedRef<ResetPasswordState> = computed(() =>
+  getActorState(state.value)
+) as ComputedRef<ResetPasswordState>;
+
+const actorContext = computed(() =>
+  getActorContext(state.value)
+) as ComputedRef<ResetPasswordContext>;
+
+// Computed Properties
+const resendCodeText = computed(() => translate('Resend Code'));
+const confirmationCodeText = computed(() => translate('Confirmation Code'));
+const confirmResetPasswordHeading = computed(() =>
+  translate('Reset your Password')
+);
+const confirmResetPasswordText = computed(() => translate('Submit'));
+
+const codeText = computed(() => translate('Code'));
+const newPasswordLabel = computed(() => translate('New password'));
+const confirmPasswordLabel = computed(() => translate('Confirm Password'));
+
+// Methods
+const onConfirmResetPasswordSubmit = (e: Event): void => {
+  if (attrs?.onConfirmResetPasswordSubmit) {
+    emit('confirmResetPasswordSubmit', e);
+  } else {
+    submit(e);
+  }
+};
+
+const submit = (e: Event): void => {
+  const formData = new FormData(<HTMLFormElement>e.target);
+  send({
+    type: 'SUBMIT',
+    //@ts-ignore
+    data: {
+      //@ts-ignore
+      ...Object.fromEntries(formData),
+    },
+  });
+};
+
+const onLostYourCodeClicked = (): void => {
+  send({
+    type: 'RESEND',
+  });
+};
+
+const onInput = (e: Event) => {
+  const { name, value } = <HTMLInputElement>e.target;
+  send({
+    type: 'CHANGE',
+    data: { name, value },
+  });
+};
+
+function onBlur(e: Event) {
+  const { name } = <HTMLInputElement>e.target;
+  props.updateBlur({ name });
+}
+</script>
+
 <template>
   <slot v-bind="$attrs" name="confirmResetPasswordSlotI">
     <base-wrapper v-bind="$attrs">
@@ -58,6 +139,7 @@
                 :ariainvalid="
                   !!(actorContext.validationError as ValidationError)['confirm_password']
                 "
+                @blur="onBlur"
               />
             </base-wrapper>
             <base-wrapper
@@ -76,6 +158,7 @@
                 :ariainvalid="
                   !!(actorContext.validationError as ValidationError)['confirm_password']
                 "
+                @blur="onBlur"
               />
             </base-wrapper>
           </base-wrapper>
@@ -124,78 +207,3 @@
     </base-wrapper>
   </slot>
 </template>
-
-<script setup lang="ts">
-import { computed, ComputedRef, useAttrs, defineEmits } from 'vue';
-import {
-  getActorContext,
-  getActorState,
-  ResetPasswordContext,
-  ResetPasswordState,
-  ValidationError,
-  translate,
-} from '@aws-amplify/ui';
-
-import { useAuth } from '../composables/useAuth';
-import PasswordControl from './password-control.vue';
-
-const { state, send } = useAuth();
-
-const attrs = useAttrs();
-const emit = defineEmits(['confirmResetPasswordSubmit', 'backToSignInClicked']);
-
-const actorState: ComputedRef<ResetPasswordState> = computed(() =>
-  getActorState(state.value)
-) as ComputedRef<ResetPasswordState>;
-
-const actorContext = computed(() =>
-  getActorContext(state.value)
-) as ComputedRef<ResetPasswordContext>;
-
-// Computed Properties
-const resendCodeText = computed(() => translate('Resend Code'));
-const confirmationCodeText = computed(() => translate('Confirmation Code'));
-const confirmResetPasswordHeading = computed(() =>
-  translate('Reset your Password')
-);
-const confirmResetPasswordText = computed(() => translate('Submit'));
-
-const codeText = computed(() => translate('Code'));
-const newPasswordLabel = computed(() => translate('New password'));
-const confirmPasswordLabel = computed(() => translate('Confirm Password'));
-
-// Methods
-const onConfirmResetPasswordSubmit = (e: Event): void => {
-  if (attrs?.onConfirmResetPasswordSubmit) {
-    emit('confirmResetPasswordSubmit', e);
-  } else {
-    submit(e);
-  }
-};
-
-const submit = (e: Event): void => {
-  const formData = new FormData(<HTMLFormElement>e.target);
-  send({
-    type: 'SUBMIT',
-    //@ts-ignore
-    data: {
-      //@ts-ignore
-      ...Object.fromEntries(formData),
-    },
-  });
-};
-
-const onLostYourCodeClicked = (): void => {
-  send({
-    type: 'RESEND',
-  });
-};
-
-const onInput = (e: Event) => {
-  const { name, value } = <HTMLInputElement>e.target;
-  send({
-    type: 'CHANGE',
-    data: { name, value },
-  });
-};
-</script>

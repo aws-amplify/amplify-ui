@@ -1,23 +1,27 @@
 import classNames from 'classnames';
+import * as React from 'react';
 
-import { useToggleButton } from './useToggleButton';
 import { Button } from '../Button';
-import { ToggleButtonProps, Primitive } from '../types';
 import { ComponentClassNames } from '../shared/constants';
+import { ToggleButtonProps, Primitive } from '../types';
+import { useToggleButton } from './useToggleButton';
 
-export const ToggleButton: Primitive<ToggleButtonProps, typeof Button> = ({
-  className,
-  children,
-  defaultPressed = false,
-  isDisabled,
-  isPressed: isPressedProp,
-  onChange,
-  onClick,
-  size,
-  value,
-  variation,
-  ...rest
-}) => {
+const ToggleButtonPrimitive: Primitive<ToggleButtonProps, typeof Button> = (
+  {
+    className,
+    children,
+    defaultPressed = false,
+    isDisabled,
+    isPressed: isPressedProp,
+    onChange,
+    onClick,
+    size,
+    value,
+    variation,
+    ...rest
+  },
+  ref
+) => {
   const { isPressed, handleClick } = useToggleButton({
     isPressed: isPressedProp,
     defaultPressed,
@@ -31,6 +35,7 @@ export const ToggleButton: Primitive<ToggleButtonProps, typeof Button> = ({
       className={classNames(ComponentClassNames.ToggleButton, className)}
       isDisabled={isDisabled}
       onClick={handleClick}
+      ref={ref}
       size={size}
       type="button"
       variation={variation}
@@ -40,5 +45,7 @@ export const ToggleButton: Primitive<ToggleButtonProps, typeof Button> = ({
     </Button>
   );
 };
+
+export const ToggleButton = React.forwardRef(ToggleButtonPrimitive);
 
 ToggleButton.displayName = 'ToggleButton';

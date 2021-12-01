@@ -42,6 +42,7 @@ export const clearAttributeToVerify = assign({
 export const clearChallengeName = assign({ challengeName: (_) => undefined });
 export const clearError = assign({ remoteError: (_) => '' });
 export const clearFormValues = assign({ formValues: (_) => ({}) });
+export const clearTouched = assign({ touched: (_) => ({}) });
 export const clearUnverifiedAttributes = assign({
   unverifiedAttributes: (_) => undefined,
 });
@@ -94,6 +95,10 @@ export const setUsername = assign({
   username: (context: ActorContextWithForms, _) => context.formValues.username,
 });
 
+export const setCodeDeliveryDetails = assign({
+  codeDeliveryDetails: (_, event: AuthEvent) => event.data.codeDeliveryDetails,
+});
+
 export const setUsernameAuthAttributes = assign({
   authAttributes: (context: ActorContextWithForms, _) => ({
     username: context.formValues.username,
@@ -107,6 +112,16 @@ export const handleInput = assign({
     return {
       ...context['formValues'],
       [name]: value,
+    };
+  },
+});
+
+export const handleBlur = assign({
+  touched: (context, event: AuthEvent) => {
+    const { name } = event.data;
+    return {
+      ...context['touched'],
+      [`${name}`]: true,
     };
   },
 });
