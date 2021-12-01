@@ -82,6 +82,9 @@ export const setFieldErrors = assign({
 export const setRemoteError = assign({
   remoteError: (_, event: AuthEvent) => {
     console.log(event);
+    if (event.data.message === 'Authentication Error') {
+      return `Configuration error (see console) – please contact the administrator`;
+    }
     return event.data?.message || event.data;
   },
 });
