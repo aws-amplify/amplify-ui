@@ -21,7 +21,7 @@ export interface WebFonts {
 export const fonts: Fonts = {
   default: {
     variable: {
-      value: `'InterVariable', -apple-system, BlinkMacSystemFont,
+      value: `'InterVariable', 'Inter var', 'Inter', -apple-system, BlinkMacSystemFont,
         'Helvetica Neue', 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans',
         sans-serif`,
     },
