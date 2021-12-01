@@ -19,6 +19,9 @@ import {
   frDict,
   itDict,
   jaDict,
+  krDict,
+  plDict,
+  ptDict,
   zhDict,
   defaultTexts,
 } from './dictionaries';
@@ -67,5 +70,8 @@ export const translations: Record<string, Dict> = {
   fr: frDict,
   it: itDict,
   ja: jaDict,
+  kr: krDict,
+  pl: plDict,
+  pt: ptDict,
   zh: zhDict,
 };

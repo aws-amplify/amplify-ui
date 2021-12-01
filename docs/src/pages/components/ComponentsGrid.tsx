@@ -1,5 +1,3 @@
-import Link from 'next/link';
-import { Card, Grid, Heading, Alert, Badge, Flex } from '@aws-amplify/ui-react';
 import {
   baseComponents,
   connectedComponents,
@@ -10,6 +8,8 @@ import {
   navigationComponents,
   utilityComponents,
 } from '@/data/links';
+import { Card, Flex, Grid, Heading } from '@aws-amplify/ui-react';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 const ComponentGrid = ({ components }) => {

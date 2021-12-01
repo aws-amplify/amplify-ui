@@ -1,14 +1,16 @@
 import classNames from 'classnames';
 import * as React from 'react';
 
-import { useToggleButtonGroup } from './useToggleButtonGroup';
+import { ComponentClassNames } from '../shared/constants';
 import { Flex } from '../Flex';
-import { ComponentClassNames } from '../shared';
 import { Primitive, ToggleButtonProps, ToggleButtonGroupProps } from '../types';
+import { useToggleButtonGroup } from './useToggleButtonGroup';
 
-export const ToggleButtonGroup: Primitive<ToggleButtonGroupProps, typeof Flex> =
-  ({
-    ariaLabel,
+const ToggleButtonGroupPrimitive: Primitive<
+  ToggleButtonGroupProps,
+  typeof Flex
+> = (
+  {
     children,
     className,
     isExclusive,
@@ -17,31 +19,35 @@ export const ToggleButtonGroup: Primitive<ToggleButtonGroupProps, typeof Flex> =
     value,
     variation,
     ...rest
-  }) => {
-    const handleChange = useToggleButtonGroup(onChange, value, isExclusive);
+  },
+  ref
+) => {
+  const handleChange = useToggleButtonGroup(onChange, value, isExclusive);
 
-    return (
-      <Flex
-        ariaLabel={ariaLabel}
-        className={classNames(ComponentClassNames.ToggleButtonGroup, className)}
-        role="group"
-        {...rest}
-      >
-        {React.Children.map(children, (child) => {
-          if (React.isValidElement<ToggleButtonProps>(child)) {
-            return React.cloneElement(child, {
-              isPressed: isExclusive
-                ? value === child.props.value
-                : value.includes(child.props.value),
-              onChange: handleChange,
-              size,
-              variation,
-            });
-          }
-          return child;
-        })}
-      </Flex>
-    );
-  };
+  return (
+    <Flex
+      className={classNames(ComponentClassNames.ToggleButtonGroup, className)}
+      ref={ref}
+      role="group"
+      {...rest}
+    >
+      {React.Children.map(children, (child) => {
+        if (React.isValidElement<ToggleButtonProps>(child)) {
+          return React.cloneElement(child, {
+            isPressed: isExclusive
+              ? value === child.props.value
+              : value.includes(child.props.value),
+            onChange: handleChange,
+            size,
+            variation,
+          });
+        }
+        return child;
+      })}
+    </Flex>
+  );
+};
+
+export const ToggleButtonGroup = React.forwardRef(ToggleButtonGroupPrimitive);
 
 ToggleButtonGroup.displayName = 'ToggleButtonGroup';

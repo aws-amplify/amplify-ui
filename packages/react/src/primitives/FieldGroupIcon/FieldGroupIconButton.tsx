@@ -4,9 +4,9 @@ import classNames from 'classnames';
 import { Button } from '../Button';
 import { ComponentClassNames } from '../shared/constants';
 import { FieldGroupIcon } from './FieldGroupIcon';
-import { FieldGroupIconButtonProps, PrimitiveWithForwardRef } from '../types';
+import { FieldGroupIconButtonProps, Primitive } from '../types';
 
-const FieldGroupIconButtonPrimitive: PrimitiveWithForwardRef<
+const FieldGroupIconButtonPrimitive: Primitive<
   FieldGroupIconButtonProps,
   'button'
 > = ({ children, className, ...rest }, ref) => (

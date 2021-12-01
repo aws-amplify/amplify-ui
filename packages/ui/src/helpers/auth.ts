@@ -218,6 +218,7 @@ export const getServiceContextFacade = (state: AuthMachineState) => {
   const actorContext = getActorContext(state) as ActorContextWithForms;
   const error = actorContext?.remoteError;
   const validationErrors = { ...actorContext?.validationError };
+  const codeDeliveryDetails = actorContext?.codeDeliveryDetails;
   const hasValidationErrors = Object.keys(validationErrors).length > 0;
   const isPending =
     state.hasTag('pending') || getActorState(state)?.hasTag('pending');
@@ -265,6 +266,7 @@ export const getServiceContextFacade = (state: AuthMachineState) => {
     route,
     user,
     validationErrors,
+    codeDeliveryDetails,
   };
 };
 

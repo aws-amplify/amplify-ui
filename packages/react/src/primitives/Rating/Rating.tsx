@@ -2,18 +2,18 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { ComponentClassNames } from '../shared/constants';
-import { RatingProps, PrimitiveWithForwardRef } from '../types';
-import { RatingIcon } from './RatingIcon';
-import { RatingMixedIcon } from './RatingMixedIcon';
 import { Flex } from '../Flex';
 import { IconStar } from '../Icon';
-import { VisuallyHidden } from '../VisuallyHidden';
 import { isIconFilled, isIconEmpty, isIconMixed } from './utils';
+import { RatingIcon } from './RatingIcon';
+import { RatingMixedIcon } from './RatingMixedIcon';
+import { RatingProps, Primitive } from '../types';
+import { VisuallyHidden } from '../VisuallyHidden';
 
 const RATING_DEFAULT_MAX_VALUE = 5;
 const RATING_DEFAULT_VALUE = 0;
 
-const RatingPrimitive: PrimitiveWithForwardRef<RatingProps, typeof Flex> = (
+const RatingPrimitive: Primitive<RatingProps, typeof Flex> = (
   {
     className,
     emptyColor,

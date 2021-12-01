@@ -1,12 +1,12 @@
 import classNames from 'classnames';
 import * as React from 'react';
 
+import { ButtonProps, Primitive } from '../types';
 import { ComponentClassNames } from '../shared/constants';
-import { ButtonProps, PrimitiveWithForwardRef } from '../types';
 import { Text } from '../Text';
 import { View } from '../View';
 
-const ButtonPrimitive: PrimitiveWithForwardRef<ButtonProps, 'button'> = (
+const ButtonPrimitive: Primitive<ButtonProps, 'button'> = (
   {
     className,
     children,

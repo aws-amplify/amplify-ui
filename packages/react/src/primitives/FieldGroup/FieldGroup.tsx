@@ -2,14 +2,11 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { ComponentClassNames } from '../shared/constants';
-import { FieldGroupOptions, PrimitiveWithForwardRef } from '../types';
+import { FieldGroupOptions, Primitive } from '../types';
 import { Flex } from '../Flex';
 import { View } from '../View';
 
-const FieldGroupPrimitive: PrimitiveWithForwardRef<
-  FieldGroupOptions,
-  typeof Flex
-> = (
+const FieldGroupPrimitive: Primitive<FieldGroupOptions, typeof Flex> = (
   {
     children,
     className,

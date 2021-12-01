@@ -1,13 +1,13 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
-import { Flex } from '../Flex';
-import { View } from '../View';
-import { usePaginationItems } from './usePaginationItems';
-import { PaginationProps, PrimitiveWithForwardRef } from '../types';
 import { ComponentClassNames } from '../shared/constants';
+import { Flex } from '../Flex';
+import { PaginationProps, Primitive } from '../types';
+import { usePaginationItems } from './usePaginationItems';
+import { View } from '../View';
 
-const PaginationPrimitive: PrimitiveWithForwardRef<PaginationProps, 'nav'> = (
+const PaginationPrimitive: Primitive<PaginationProps, 'nav'> = (
   {
     className,
     currentPage,
