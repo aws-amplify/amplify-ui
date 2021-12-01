@@ -34,6 +34,26 @@
   max-height: 60vh;
   overflow-y: auto;
 
+  /* Scroll shadows, adapted from https://codepen.io/chriscoyier/pen/YzXBYvL */
+  background: linear-gradient(white 30%, rgba(255, 255, 255, 0)) center top,
+    linear-gradient(rgba(255, 255, 255, 0), white 70%) center bottom,
+    radial-gradient(
+        farthest-side at 50% 0,
+        rgba(0, 0, 0, 0.1),
+        rgba(0, 0, 0, 0)
+      )
+      center top,
+    radial-gradient(
+        farthest-side at 50% 100%,
+        rgba(0, 0, 0, 0.1),
+        rgba(0, 0, 0, 0)
+      )
+      center bottom;
+
+  background-repeat: no-repeat;
+  background-size: 100% 40px, 100% 40px, 100% 14px, 100% 14px;
+  background-attachment: local, local, scroll, scroll;
+
   @media (max-width: 30rem) {
     max-height: unset; // on mobile, let content take the whole height
   }
