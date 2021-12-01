@@ -89,6 +89,10 @@ export class AuthenticatorService implements OnDestroy {
     return this._facade?.validationErrors;
   }
 
+  public get codeDeliveryDetails() {
+    return this._facade?.codeDeliveryDetails;
+  }
+
   /**
    * Service facades
    */

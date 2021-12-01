@@ -95,6 +95,10 @@ export const setUsername = assign({
   username: (context: ActorContextWithForms, _) => context.formValues.username,
 });
 
+export const setCodeDeliveryDetails = assign({
+  codeDeliveryDetails: (_, event: AuthEvent) => event.data.codeDeliveryDetails,
+});
+
 export const setUsernameAuthAttributes = assign({
   authAttributes: (context: ActorContextWithForms, _) => ({
     username: context.formValues.username,
