@@ -9,8 +9,11 @@ When working with a [Vite](https://vitejs.dev) project you must make a few modif
 ```html
 ...
   <script>
-        window.global = window;
-        var exports = {};
+    window.global = window;
+    window.process = {
+      env: { DEBUG: undefined },
+    };
+    var exports = {};
   </script>
 </body>
 ```
