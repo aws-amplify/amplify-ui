@@ -8,7 +8,6 @@
   width: 100vw;
   height: 100vh;
   height: -webkit-fill-available;
-  overflow: auto;
   background-color: var(--amplify-colors-background-secondary, #e1e5e9);
 
   /* Override browser default `body { margin: 8px }` */
@@ -22,11 +21,11 @@
   /* top-align at the top 20% of the screen */
   box-sizing: border-box; // don't add padding to total height
   padding-top: 20vh;
-  box-sizing: border-box; // ensure padding doesn't add to total height
   align-content: flex-start; // top align
 
   @media (max-width: 30rem) {
-    padding-top: 0; // on mobile, use the full height
+    overflow: auto; // only overflow on mobile. On web, router-content overflows.
+    padding-top: 0; // use the full height on mobile
   }
 }
 
