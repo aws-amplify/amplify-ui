@@ -49,6 +49,7 @@ export class AuthenticatorService implements OnDestroy {
     }).start();
 
     this._subscription = authService.subscribe((state) => {
+      console.log(state);
       this._authState = state;
       this._facade = getServiceContextFacade(state);
     });

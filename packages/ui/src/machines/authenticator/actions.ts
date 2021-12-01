@@ -80,7 +80,10 @@ export const setFieldErrors = assign({
 });
 
 export const setRemoteError = assign({
-  remoteError: (_, event: AuthEvent) => event.data?.message || event.data,
+  remoteError: (_, event: AuthEvent) => {
+    console.log(event);
+    return event.data?.message || event.data;
+  },
 });
 
 export const setUnverifiedAttributes = assign({
