@@ -194,11 +194,11 @@ watch(
   }
 );
 
-const hasTabs = () => {
+const hasTabs = computed(() => {
   return (
     actorState.value?.matches('signIn') || actorState.value?.matches('signUp')
   );
-};
+});
 </script>
 
 <template>
@@ -212,9 +212,9 @@ const hasTabs = () => {
       <slot name="header"> </slot>
       <div
         data-amplify-router
-        :data-amplify-router-content="hasTabs() ? undefined : ''"
+        :data-amplify-router-content="hasTabs ? undefined : ''"
       >
-        <base-two-tabs v-if="hasTabs()">
+        <base-two-tabs v-if="hasTabs">
           <base-two-tab-item
             :active="actorState?.matches('signIn')"
             :id="44472"
@@ -228,7 +228,7 @@ const hasTabs = () => {
             @click="send('SIGN_UP')"
           />
         </base-two-tabs>
-        <div v-if="hasTabs()" data-amplify-router-content>
+        <div v-if="hasTabs" data-amplify-router-content>
           <sign-in
             v-if="actorState?.matches('signIn')"
             @sign-in-submit="onSignInSubmitI"
