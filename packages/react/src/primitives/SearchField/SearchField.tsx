@@ -2,11 +2,11 @@ import classNames from 'classnames';
 import * as React from 'react';
 
 import { ComponentClassNames } from '../shared/constants';
-import { TextField } from '../TextField';
 import { FieldClearButton } from '../Field';
-import { SearchFieldButton } from './SearchFieldButton';
 import { isFunction, strHasLength } from '../shared/utils';
-import { SearchFieldProps, PrimitiveWithForwardRef } from '../types';
+import { SearchFieldButton } from './SearchFieldButton';
+import { SearchFieldProps, Primitive } from '../types';
+import { TextField } from '../TextField';
 
 const ESCAPE_KEY = 'Escape';
 const ENTER_KEY = 'Enter';
@@ -72,56 +72,56 @@ export const useSearchField = ({
   };
 };
 
-const SearchFieldPrimitive: PrimitiveWithForwardRef<SearchFieldProps, 'input'> =
-  (
-    {
-      autoComplete = 'off',
-      className,
-      labelHidden = true,
-      name = 'q',
-      onSubmit,
-      onClear,
-      searchButtonRef,
-      size,
-      ...rest
-    },
-    ref
-  ) => {
-    const { value, onClearHandler, onInput, onKeyDown, onClick } =
-      useSearchField({ onSubmit, onClear });
+const SearchFieldPrimitive: Primitive<SearchFieldProps, 'input'> = (
+  {
+    autoComplete = 'off',
+    className,
+    labelHidden = true,
+    name = 'q',
+    onSubmit,
+    onClear,
+    searchButtonRef,
+    size,
+    ...rest
+  },
+  ref
+) => {
+  const { value, onClearHandler, onInput, onKeyDown, onClick } = useSearchField(
+    { onSubmit, onClear }
+  );
 
-    return (
-      <TextField
-        autoComplete={autoComplete}
-        className={classNames(ComponentClassNames.SearchField, className)}
-        labelHidden={labelHidden}
-        innerEndComponent={
-          <FieldClearButton
-            excludeFromTabOrder={true}
-            isVisible={strHasLength(value)}
-            onClick={onClearHandler}
-            size={size}
-            variation="link"
-          />
-        }
-        isMultiline={false}
-        name={name}
-        onInput={onInput}
-        onKeyDown={onKeyDown}
-        outerEndComponent={
-          <SearchFieldButton
-            onClick={onClick}
-            ref={searchButtonRef}
-            size={size}
-          />
-        }
-        ref={ref}
-        size={size}
-        value={value}
-        {...rest}
-      />
-    );
-  };
+  return (
+    <TextField
+      autoComplete={autoComplete}
+      className={classNames(ComponentClassNames.SearchField, className)}
+      labelHidden={labelHidden}
+      innerEndComponent={
+        <FieldClearButton
+          excludeFromTabOrder={true}
+          isVisible={strHasLength(value)}
+          onClick={onClearHandler}
+          size={size}
+          variation="link"
+        />
+      }
+      isMultiline={false}
+      name={name}
+      onInput={onInput}
+      onKeyDown={onKeyDown}
+      outerEndComponent={
+        <SearchFieldButton
+          onClick={onClick}
+          ref={searchButtonRef}
+          size={size}
+        />
+      }
+      ref={ref}
+      size={size}
+      value={value}
+      {...rest}
+    />
+  );
+};
 
 export const SearchField = React.forwardRef(SearchFieldPrimitive);
 

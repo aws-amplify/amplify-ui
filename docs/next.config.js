@@ -12,11 +12,7 @@ module.exports = withNextPluginPreval({
   // Differentiate pages with frontmatter & layout vs. normal MD(X)
   pageExtensions: ['page.mdx', 'page.tsx'],
 
-  // Sets the lang attribute on html element
-  i18n: {
-    locales: ['en'],
-    defaultLocale: 'en',
-  },
+  swcMinify: true,
 
   // don't want to fix typescript errors right now...
   typescript: {

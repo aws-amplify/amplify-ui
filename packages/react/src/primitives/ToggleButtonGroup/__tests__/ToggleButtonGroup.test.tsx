@@ -7,11 +7,12 @@ import { ToggleButton } from '../../ToggleButton';
 import { ToggleButtonGroup } from '../ToggleButtonGroup';
 
 describe('ToggleButtonGroup: ', () => {
-  const MultipleSelectionGroup = () => {
+  const MultipleSelectionGroup = React.forwardRef<HTMLDivElement>((_, ref) => {
     const [value, setValue] = React.useState(['test-button-1']);
     return (
       <ToggleButtonGroup
         onChange={(value: string[]) => setValue(value)}
+        ref={ref}
         value={value}
       >
         <ToggleButton value="test-button-1" />
@@ -19,13 +20,14 @@ describe('ToggleButtonGroup: ', () => {
         <ToggleButton value="test-button-3" />
       </ToggleButtonGroup>
     );
-  };
+  });
 
-  const ExclusiveSelectionGroup = () => {
+  const ExclusiveSelectionGroup = React.forwardRef<HTMLDivElement>((_, ref) => {
     const [value, setValue] = React.useState('test-button-1');
     return (
       <ToggleButtonGroup
         onChange={(value: string) => setValue(value)}
+        ref={ref}
         value={value}
         isExclusive
       >
@@ -34,7 +36,7 @@ describe('ToggleButtonGroup: ', () => {
         <ToggleButton value="test-button-3" />
       </ToggleButtonGroup>
     );
-  };
+  });
 
   it('should set basic props for both group and child button correctly', async () => {
     const testLabel = 'test-label';
@@ -103,5 +105,13 @@ describe('ToggleButtonGroup: ', () => {
     expect(toggleButtons[0]).toHaveAttribute('aria-pressed', 'false');
     expect(toggleButtons[1]).toHaveAttribute('aria-pressed', 'false');
     expect(toggleButtons[2]).toHaveAttribute('aria-pressed', 'true');
+  });
+
+  it('should forward ref to DOM element', async () => {
+    const ref = React.createRef<HTMLDivElement>();
+    render(<ExclusiveSelectionGroup ref={ref} />);
+
+    await screen.findByRole('group');
+    expect(ref.current.nodeName).toBe('DIV');
   });
 });

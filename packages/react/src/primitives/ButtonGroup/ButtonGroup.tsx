@@ -1,18 +1,11 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
-import { Flex } from '../Flex';
-import {
-  ButtonProps,
-  ButtonGroupProps,
-  PrimitiveWithForwardRef,
-} from '../types';
+import { ButtonProps, ButtonGroupProps, Primitive } from '../types';
 import { ComponentClassNames } from '../shared/constants';
+import { Flex } from '../Flex';
 
-const ButtonGroupPrimitive: PrimitiveWithForwardRef<
-  ButtonGroupProps,
-  typeof Flex
-> = (
+const ButtonGroupPrimitive: Primitive<ButtonGroupProps, typeof Flex> = (
   { className, children, role = 'group', size, variation, ...rest },
   ref
 ) => (

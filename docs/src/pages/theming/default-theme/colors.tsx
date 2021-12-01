@@ -17,7 +17,7 @@ export const Colors = () => {
   return (
     <>
       {baseColors.map((baseColor) => (
-        <Flex direction="row">
+        <Flex direction="row" key={baseColor}>
           {Object.values(tokens.colors[baseColor]).map(({ name, value }) => (
             <View
               key={name}

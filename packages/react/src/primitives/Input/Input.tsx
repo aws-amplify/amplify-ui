@@ -2,10 +2,10 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { ComponentClassNames } from '../shared';
-import { InputProps, PrimitiveWithForwardRef } from '../types';
+import { InputProps, Primitive } from '../types';
 import { View } from '../View';
 
-const InputPrimitive: PrimitiveWithForwardRef<InputProps, 'input'> = (
+const InputPrimitive: Primitive<InputProps, 'input'> = (
   {
     autoComplete,
     checked,
