@@ -7,8 +7,13 @@
       [disabled]="context.isPending"
     >
       <amplify-slot name="confirm-sign-up-header" [context]="context">
-        <h3 class="amplify-heading">{{ this.headerText }}</h3>
+        <h3 class="amplify-heading" style="font-size: 1.5rem">
+          {{ confirmSignUpHeading }}
+        </h3>
       </amplify-slot>
+      <span style="margin-bottom: 1rem">
+        {{ subtitleText }}
+      </span>
       <amplify-form-field
         name="confirmation_code"
         autocomplete="one-time-code"

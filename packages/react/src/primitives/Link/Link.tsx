@@ -2,10 +2,10 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { ComponentClassNames } from '../shared';
-import { LinkProps, PrimitiveWithForwardRef } from '../types';
+import { LinkProps, Primitive } from '../types';
 import { View } from '../View';
 
-const LinkPrimitive: PrimitiveWithForwardRef<LinkProps, 'a'> = (
+const LinkPrimitive: Primitive<LinkProps, 'a'> = (
   { as = 'a', children, className, isExternal, ...rest },
   ref
 ) => {

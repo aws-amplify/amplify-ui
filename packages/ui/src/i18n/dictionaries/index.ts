@@ -7,6 +7,9 @@ export const esDict = { ...authenticatorDict.esDict };
 export const frDict = { ...authenticatorDict.frDict };
 export const itDict = { ...authenticatorDict.itDict };
 export const jaDict = { ...authenticatorDict.jaDict };
+export const krDict = { ...authenticatorDict.krDict };
+export const plDict = { ...authenticatorDict.plDict };
+export const ptDict = { ...authenticatorDict.ptDict };
 export const zhDict = { ...authenticatorDict.zhDict };
 
 export const defaultTexts = {

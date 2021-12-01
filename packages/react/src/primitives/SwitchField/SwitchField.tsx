@@ -5,16 +5,13 @@ import { ComponentClassNames } from '../shared/constants';
 import { Flex } from '../Flex';
 import { Input } from '../Input';
 import { Label } from '../Label';
-import { PrimitiveWithForwardRef, SwitchFieldProps } from '../types';
+import { Primitive, SwitchFieldProps } from '../types';
 import { useStableId } from '../shared/utils';
 import { useSwitch } from './useSwitch';
 import { View } from '../View';
 import { VisuallyHidden } from '../VisuallyHidden';
 
-const SwitchFieldPrimitive: PrimitiveWithForwardRef<
-  SwitchFieldProps,
-  typeof Flex
-> = (
+const SwitchFieldPrimitive: Primitive<SwitchFieldProps, typeof Flex> = (
   {
     className,
     defaultChecked,
