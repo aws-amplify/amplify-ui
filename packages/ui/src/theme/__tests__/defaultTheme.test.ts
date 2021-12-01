@@ -732,7 +732,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-colors-black: hsl(0, 0%, 0%);
         --amplify-colors-white: hsl(0, 0%, 100%);
         --amplify-colors-transparent: transparent;
-        --amplify-fonts-default-variable: 'InterVariable', -apple-system, BlinkMacSystemFont,
+        --amplify-fonts-default-variable: 'InterVariable', 'Inter Var', 'Inter', -apple-system, BlinkMacSystemFont,
                 'Helvetica Neue', 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans',
                 sans-serif;
         --amplify-fonts-default-static: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue',
