@@ -1,10 +1,8 @@
-[data-amplify-theme] {
-  font-family: var(--amplify-fonts-default-static);
-}
-@supports (font-variation-settings: normal) {
-  [data-amplify-theme] {
-    font-family: var(--amplify-fonts-default-variable);
-  }
+@import url('https://rsms.me/inter/inter.css');
+
+html {
+  /* this enables some alternative styles and contextual characters to the font */
+  font-feature-settings: "ss01", "ss02", "case", "salt";
 }
 
 @media screen and (prefers-reduced-motion: no-preference) {
