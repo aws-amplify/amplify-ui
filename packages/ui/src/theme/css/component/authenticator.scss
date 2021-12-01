@@ -7,6 +7,7 @@
   display: grid;
   width: 100vw;
   height: 100vh;
+  height: -webkit-fill-available;
   overflow: auto;
   background-color: var(--amplify-colors-background-secondary, #e1e5e9);
 
@@ -20,13 +21,22 @@
 
   /* top-align at the top 20% of the screen */
   padding-top: 20vh;
+  box-sizing: border-box; // ensure padding doesn't add to total height
   align-content: flex-start; // top align
+
+  @media (max-width: 30rem) {
+    padding-top: 0; // on mobile, use the full height
+  }
 }
 
 [data-amplify-authenticator][data-variation='modal']
   [data-amplify-router-content] {
   max-height: 60vh;
   overflow-y: auto;
+
+  @media (max-width: 30rem) {
+    max-height: unset; // on mobile, let content take the whole height
+  }
 }
 
 /* Texture for modal */
