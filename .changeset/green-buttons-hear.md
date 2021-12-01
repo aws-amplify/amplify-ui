@@ -5,4 +5,4 @@
 "@aws-amplify/ui-angular": patch
 ---
 
-Fix tab jumps between screens and tabs
+Fix height jumps between screens and tabs
