@@ -20,6 +20,7 @@
   z-index: 1;
 
   /* top-align at the top 20% of the screen */
+  box-sizing: border-box; // don't add padding to total height
   padding-top: 20vh;
   box-sizing: border-box; // ensure padding doesn't add to total height
   align-content: flex-start; // top align
