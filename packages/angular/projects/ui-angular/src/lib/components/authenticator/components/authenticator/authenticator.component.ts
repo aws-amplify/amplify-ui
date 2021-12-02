@@ -98,6 +98,11 @@ export class AuthenticatorComponent implements OnInit, AfterContentInit {
     }
   }
 
+  public hasTabs() {
+    const route = this.authenticator.route;
+    return route === 'signIn' || route === 'signUp';
+  }
+
   private mapCustomComponents(
     componentQuery: QueryList<AmplifySlotDirective>
   ): Record<string, TemplateRef<any>> {
