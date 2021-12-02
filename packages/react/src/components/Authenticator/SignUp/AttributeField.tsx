@@ -8,11 +8,7 @@ import {
 import { useAuthenticator } from '..';
 import { PhoneNumberField, TextField } from '../../..';
 
-type AttributeFieldProps = {
-  name: LoginMechanism | SignUpAttribute;
-};
-
-export function AttributeField({ name, ...attrs }: AttributeFieldProps) {
+export function AttributeField({ name, ...attrs }) {
   const { _state } = useAuthenticator();
   const { country_code, formValues } = getActorContext(_state) as SignUpContext;
 
