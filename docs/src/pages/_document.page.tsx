@@ -20,7 +20,7 @@ class MyDocument extends Document {
             crossOrigin="true"
           />
           <link
-            href="https://fonts.googleapis.com/css2?family=Inter:slnt,wght@-10..0,100..900&family=Open+Sans:wght@300..800&family=Work+Sans:wght@100..900&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300..800&family=Work+Sans:wght@100..900&display=swap"
             rel="stylesheet"
           />
         </Head>

@@ -208,6 +208,7 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
             }}
             theme={sandPackTheme}
             options={{
+              autorun: false,
               editorHeight: 500,
               showNavigator: true, // this will show a top navigator bar instead of the refresh button
               showTabs: true, // you can toggle the tabs on/off manually

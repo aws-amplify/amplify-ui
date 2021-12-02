@@ -11,7 +11,7 @@ export class AppComponent {
 
   constructor() {
     if (typeof window !== 'undefined') {
-      window['Amplify'] = Amplify;
+      (window as any)['Amplify'] = Amplify;
     }
   }
 }

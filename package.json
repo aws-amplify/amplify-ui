@@ -35,15 +35,17 @@
     "packages/angular/projects/ui-angular"
   ],
   "resolutions": {
+    "@aws-sdk/client-location": "3.22.0",
     "ansi-regex": "5.0.1",
-    "trim": "^0.0.3",
     "fs-extra": "^10.0.0",
-    "ws": "^7.4.6",
     "jest": "^26.6.3",
-    "ts-jest": "^26.5.6",
+    "json-schema": "^0.4.0",
+    "next": "^11.0.1",
     "prismjs": "^1.25.0",
+    "trim": "^0.0.3",
+    "ts-jest": "^26.5.6",
     "vscode-vue-languageservice": "0.27.26",
-    "json-schema": "^0.4.0"
+    "ws": "^7.4.6"
   },
   "dependencies": {
     "patch-package": "^6.4.7",
@@ -51,8 +53,8 @@
     "tsup": "^4.14.0"
   },
   "devDependencies": {
-    "@changesets/changelog-github": "0.4.1",
     "@changesets/cli": "^2.16.0",
+    "@changesets/changelog-github": "0.4.1",
     "husky": ">=6",
     "lint-staged": ">=10",
     "prettier": "2.4.1",
