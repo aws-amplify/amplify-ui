@@ -180,8 +180,10 @@ export function createAuthenticatorMachine({
               authAttributes: event.data?.authAttributes,
               user: event.data?.user,
               intent: event.data?.intent,
-              country_code: DEFAULT_COUNTRY_CODE,
-              formValues: {},
+              formValues: {
+                // TODO Accept a default value from the app. Possibly defaultFormValues or initialFormValues?
+                country_code: DEFAULT_COUNTRY_CODE,
+              },
               touched: {},
               validationError: {},
               loginMechanisms: context.config?.loginMechanisms,
