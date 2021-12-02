@@ -51,7 +51,7 @@ export function FormFields() {
             {loginMechanisms.map((alias, i) => (
               <ToggleButton key={alias} value={String(i)}>
                 <Text fontSize="var(--amplify-font-sizes-xs)">
-                  {capitalize(words(alias).join(' '))}
+                  {words(alias).map(capitalize).join(' ')}
                 </Text>
               </ToggleButton>
             ))}
