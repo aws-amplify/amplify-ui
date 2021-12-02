@@ -1,13 +1,26 @@
-import { translate } from '@aws-amplify/ui';
+import {
+  getActorContext,
+  getAliasInfoFromContext,
+  SignInContext,
+  translate,
+} from '@aws-amplify/ui';
 
 import { useAuthenticator } from '..';
-import { Button, Flex, PasswordField, View } from '../../..';
+import {
+  Button,
+  Flex,
+  PasswordField,
+  PhoneNumberField,
+  TextField,
+  View,
+} from '../../..';
 import { FederatedSignIn } from '../FederatedSignIn';
-import { RemoteErrorMessage, UserNameAlias } from '../shared';
+import { RemoteErrorMessage } from '../shared';
 import { isInputElement, isInputOrSelectElement } from '../../../helpers/utils';
 
 export function SignIn() {
   const {
+    _state,
     components: {
       SignIn: { Header = SignIn.Header, Footer = SignIn.Footer },
     },
@@ -15,6 +28,10 @@ export function SignIn() {
     submitForm,
     updateForm,
   } = useAuthenticator();
+  const { formValues, validationError } = getActorContext(
+    _state
+  ) as SignInContext;
+  const { error, label, type } = getAliasInfoFromContext(_state.context);
 
   const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
     if (isInputOrSelectElement(event.target)) {
@@ -50,7 +67,32 @@ export function SignIn() {
         <FederatedSignIn />
         <Flex direction="column">
           <Flex direction="column">
-            <UserNameAlias data-amplify-usernamealias />
+            {type === 'tel' ? (
+              <PhoneNumberField
+                autoComplete="username"
+                countryCodeName="country_code"
+                defaultCountryCode={formValues.country_code}
+                errorMessage={error}
+                label={translate(label)}
+                labelHidden={true}
+                name="username"
+                placeholder={translate(label)}
+                isRequired
+              />
+            ) : (
+              <TextField
+                autoComplete="username"
+                errorMessage={error}
+                label={translate(label)}
+                labelHidden={true}
+                name="username"
+                required
+                placeholder={translate(label)}
+                isRequired
+                type={type}
+              />
+            )}
+
             <PasswordField
               data-amplify-password
               className="password-field"
