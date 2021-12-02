@@ -28,9 +28,7 @@ export function SignIn() {
     submitForm,
     updateForm,
   } = useAuthenticator();
-  const { formValues, validationError } = getActorContext(
-    _state
-  ) as SignInContext;
+  const { formValues } = getActorContext(_state) as SignInContext;
   const { error, label, type } = getAliasInfoFromContext(_state.context);
 
   const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
@@ -50,7 +48,11 @@ export function SignIn() {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    submitForm();
+
+    const formData = new FormData(event.target as HTMLFormElement);
+    const json = Object.fromEntries(formData);
+
+    submitForm(json);
   };
 
   return (
@@ -68,17 +70,29 @@ export function SignIn() {
         <Flex direction="column">
           <Flex direction="column">
             {type === 'tel' ? (
-              <PhoneNumberField
-                autoComplete="username"
-                countryCodeName="country_code"
-                defaultCountryCode={formValues.country_code}
-                errorMessage={error}
-                label={translate(label)}
-                labelHidden={true}
-                name="username"
-                placeholder={translate(label)}
-                isRequired
-              />
+              <>
+                <input
+                  key="username"
+                  name="username"
+                  readOnly
+                  type="hidden"
+                  value={`${formValues.country_code ?? ''}${
+                    formValues.phone ?? ''
+                  }`}
+                />
+
+                <PhoneNumberField
+                  autoComplete="username"
+                  countryCodeName="country_code"
+                  defaultCountryCode={formValues.country_code}
+                  errorMessage={error}
+                  label={translate(label)}
+                  labelHidden={true}
+                  name="phone"
+                  placeholder={translate(label)}
+                  isRequired
+                />
+              </>
             ) : (
               <TextField
                 autoComplete="username"

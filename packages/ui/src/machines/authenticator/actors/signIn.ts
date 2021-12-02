@@ -13,8 +13,9 @@ import {
   clearTouched,
   clearUnverifiedAttributes,
   clearValidationError,
-  handleInput,
   handleBlur,
+  handleInput,
+  handleSubmit,
   setChallengeName,
   setConfirmResetPasswordIntent,
   setConfirmSignUpIntent,
@@ -42,7 +43,10 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
           edit: {
             entry: sendUpdate(),
             on: {
-              SUBMIT: 'submit',
+              SUBMIT: {
+                actions: 'handleSubmit',
+                target: 'submit',
+              },
               CHANGE: { actions: 'handleInput' },
               FEDERATED_SIGN_IN: 'federatedSignIn',
             },
@@ -272,7 +276,10 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
           edit: {
             entry: sendUpdate(),
             on: {
-              SUBMIT: 'submit',
+              SUBMIT: {
+                actions: 'handleSubmit',
+                target: 'submit',
+              },
               SKIP: '#signInActor.resolved',
               CHANGE: { actions: 'handleInput' },
             },
@@ -353,8 +360,9 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
       clearTouched,
       clearUnverifiedAttributes,
       clearValidationError,
-      handleInput,
       handleBlur,
+      handleInput,
+      handleSubmit,
       setChallengeName,
       setConfirmResetPasswordIntent,
       setConfirmSignUpIntent,
@@ -399,8 +407,7 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
     },
     services: {
       async signIn(context) {
-        const source = context.formValues;
-        const { username, password } = source;
+        const { username, password } = context.formValues;
 
         return Auth.signIn(username, password);
       },
