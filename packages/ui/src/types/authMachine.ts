@@ -28,8 +28,8 @@ interface BaseFormContext {
 }
 
 export interface SignInContext extends BaseFormContext {
-  loginMechanisms: AuthContext['config']['loginMechanisms'];
-  socialProviders: AuthContext['config']['socialProviders'];
+  loginMechanisms: Required<AuthContext>['config']['loginMechanisms'];
+  socialProviders: Required<AuthContext>['config']['socialProviders'];
   attributeToVerify?: string;
   redirectIntent?: string;
   unverifiedAttributes?: Record<string, string>;
@@ -69,8 +69,8 @@ export type SignUpAttribute =
   | SignUpFieldsWithoutDefaults;
 
 export interface SignUpContext extends BaseFormContext {
-  loginMechanisms: AuthContext['config']['loginMechanisms'];
-  socialProviders: AuthContext['config']['socialProviders'];
+  loginMechanisms: Required<AuthContext>['config']['loginMechanisms'];
+  socialProviders: Required<AuthContext>['config']['socialProviders'];
   unverifiedAttributes?: Record<string, string>;
 }
 
