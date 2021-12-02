@@ -70,7 +70,7 @@ export function FormFields() {
         }
       />
 
-      <AttributeField name={usernameAlias} />
+      <AttributeField autoComplete="username" name={usernameAlias} />
 
       <PasswordField
         autoComplete="new-password"

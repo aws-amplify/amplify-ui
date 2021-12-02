@@ -12,7 +12,7 @@ type AttributeFieldProps = {
   name: LoginMechanism | SignUpAttribute;
 };
 
-export function AttributeField({ name }: AttributeFieldProps) {
+export function AttributeField({ name, ...attrs }: AttributeFieldProps) {
   const { _state } = useAuthenticator();
   const { country_code, formValues } = getActorContext(_state) as SignUpContext;
 
@@ -28,6 +28,7 @@ export function AttributeField({ name }: AttributeFieldProps) {
           name={name}
           placeholder={translate('Birthdate')}
           type="date"
+          {...attrs}
         />
       );
 
@@ -43,6 +44,7 @@ export function AttributeField({ name }: AttributeFieldProps) {
           name={name}
           placeholder={translate('Email')}
           type="email"
+          {...attrs}
         />
       );
 
@@ -55,6 +57,7 @@ export function AttributeField({ name }: AttributeFieldProps) {
           label={translate('Family Name')}
           name={name}
           placeholder={translate('Family Name')}
+          {...attrs}
         />
       );
 
@@ -67,6 +70,7 @@ export function AttributeField({ name }: AttributeFieldProps) {
           label={translate('Given Name')}
           name={name}
           placeholder={translate('Given Name')}
+          {...attrs}
         />
       );
 
@@ -79,6 +83,7 @@ export function AttributeField({ name }: AttributeFieldProps) {
           label={translate('Middle Name')}
           name={name}
           placeholder={translate('Middle Name')}
+          {...attrs}
         />
       );
 
@@ -91,6 +96,7 @@ export function AttributeField({ name }: AttributeFieldProps) {
           label={translate('Name')}
           name={name}
           placeholder={translate('Name')}
+          {...attrs}
         />
       );
 
@@ -102,6 +108,7 @@ export function AttributeField({ name }: AttributeFieldProps) {
           label={translate('Nickname')}
           name={name}
           placeholder={translate('Nickname')}
+          {...attrs}
         />
       );
 
@@ -127,6 +134,7 @@ export function AttributeField({ name }: AttributeFieldProps) {
             labelHidden
             name="phone"
             placeholder={translate('Phone Number')}
+            {...attrs}
           />
         </>
       );
@@ -140,6 +148,7 @@ export function AttributeField({ name }: AttributeFieldProps) {
           name={name}
           placeholder={translate('Preferred Username')}
           required
+          {...attrs}
         />
       );
 
@@ -153,6 +162,7 @@ export function AttributeField({ name }: AttributeFieldProps) {
           name={name}
           placeholder={translate('Profile')}
           type="url"
+          {...attrs}
         />
       );
 
@@ -166,6 +176,7 @@ export function AttributeField({ name }: AttributeFieldProps) {
           name="website"
           placeholder={translate('Website')}
           type="url"
+          {...attrs}
         />
       );
 
