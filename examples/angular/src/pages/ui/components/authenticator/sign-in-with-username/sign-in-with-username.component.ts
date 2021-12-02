@@ -9,6 +9,6 @@ import awsExports from './aws-exports';
 })
 export class SignInWithUsernameComponent {
   constructor() {
-    Amplify.configure({});
+    Amplify.configure(awsExports);
   }
 }

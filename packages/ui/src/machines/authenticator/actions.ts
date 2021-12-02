@@ -81,7 +81,6 @@ export const setFieldErrors = assign({
 
 export const setRemoteError = assign({
   remoteError: (_, event: AuthEvent) => {
-    console.log(event);
     if (event.data.name === 'NoUserPoolError') {
       return `Configuration error (see console) – please contact the administrator`;
     }
