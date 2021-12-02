@@ -12,6 +12,7 @@ import {
   clearValidationError,
   handleInput,
   handleBlur,
+  handleSubmit,
   setCredentials,
   setFieldErrors,
   setRemoteError,
@@ -75,7 +76,10 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
                 idle: {
                   entry: sendUpdate(),
                   on: {
-                    SUBMIT: 'validate',
+                    SUBMIT: {
+                      actions: 'handleSubmit',
+                      target: 'validate',
+                    },
                     FEDERATED_SIGN_IN: 'federatedSignIn',
                   },
                 },
@@ -229,6 +233,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
         clearValidationError,
         handleInput,
         handleBlur,
+        handleSubmit,
         setCredentials,
         setFieldErrors,
         setRemoteError,

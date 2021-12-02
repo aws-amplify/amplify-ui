@@ -34,9 +34,13 @@ export function SignUp() {
     }
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
-    submitForm();
+
+    const formData = new FormData(event.target as HTMLFormElement);
+    const json = Object.fromEntries(formData);
+
+    submitForm(json);
   };
 
   return (
