@@ -7,7 +7,6 @@ import {
   Authenticator,
   RenderInfo,
   PasswordControl,
-  UserNameAlias,
   ForceNewPassword,
   ResetPassword,
   ConfirmResetPassword,
@@ -33,7 +32,6 @@ export default {
     app.component('Authenticator', Authenticator);
     app.component('RenderInfo', RenderInfo);
     app.component('PasswordControl', PasswordControl);
-    app.component('UserNameAlias', UserNameAlias);
     app.component('ForceNewPassword', ForceNewPassword);
     app.component('ResetPassword', ResetPassword);
     app.component('ConfirmResetPassword', ConfirmResetPassword);

@@ -1,13 +1,19 @@
 <script setup lang="ts">
 import { computed, ComputedRef, useAttrs } from 'vue';
-import { getActorState, SignInState, translate } from '@aws-amplify/ui';
+import {
+  getActorContext,
+  getAliasInfoFromContext,
+  SignInState,
+  translate,
+  SignInContext,
+  countryDialCodes,
+} from '@aws-amplify/ui';
 
 import PasswordControl from './password-control.vue';
-import UserNameAlias from './user-name-alias.vue';
 import FederatedSignIn from './federated-sign-in.vue';
 
 // @xstate
-import { useAuth } from '../composables/useAuth';
+import { useAuthenticator } from '../composables/useAuth';
 
 const attrs = useAttrs();
 const emit = defineEmits([
@@ -24,20 +30,18 @@ const forgotYourPasswordLink = computed(() =>
 const signInButtonText = computed(() => translate('Sign in'));
 const signIngButtonText = computed(() => translate('Signing in'));
 
-const { state, send } = useAuth();
-const actorState = computed(() =>
-  getActorState(state.value)
-) as ComputedRef<SignInState>;
+const { error, isPending, state, send, updateForm } = useAuthenticator();
+const { label, type } = getAliasInfoFromContext(state.context);
+const { formValues } = getActorContext(state) as SignInContext;
+const phoneNumber = computed(
+  () => `${formValues.country_code ?? ''}${formValues.phone ?? ''}`
+);
 
 // Methods
 
 const onInput = (e: Event): void => {
   const { name, value } = <HTMLInputElement>e.target;
-  send({
-    type: 'CHANGE',
-    //@ts-ignore
-    data: { name, value },
-  });
+  updateForm({ name, value });
 };
 
 const onSignInSubmit = (e: Event): void => {
@@ -90,7 +94,7 @@ const onForgotPasswordClicked = (): void => {
         <federated-sign-in></federated-sign-in>
         <base-wrapper class="amplify-flex" style="flex-direction: column">
           <base-field-set
-            :disabled="actorState.matches('signIn.submit')"
+            :disabled="isPending"
             class="amplify-flex"
             style="flex-direction: column"
           >
@@ -98,15 +102,90 @@ const onForgotPasswordClicked = (): void => {
               <slot name="signin-fields" :info="slotData"> </slot>
             </template>
 
-            <user-name-alias :userNameAlias="true" />
             <base-wrapper
-              class="
-                amplify-flex
-                amplify-field
-                amplify-textfield
-                amplify-passwordfield
-                password-field
-              "
+              class=" amplify-flex amplify-field amplify-textfield amplify-phonenumberfield"
+              style="flex-direction: column"
+            >
+              <base-label
+                class="sr-only amplify-label"
+                for="amplify-field-601d"
+                v-bind="$attrs"
+              >
+                {{ label }}
+              </base-label>
+              <base-wrapper class="amplify-flex amplify-field-group">
+                <base-wrapper class="amplify-field-group__outer-start">
+                  <!--Drop Down-->
+                  <template v-if="type === 'tel'">
+                    <input
+                      name="username"
+                      readOnly
+                      type="hidden"
+                      :value="phoneNumber"
+                    />
+
+                    <base-wrapper
+                      class=" amplify-flex amplify-field amplify-selectfield amplify-countrycodeselect"
+                      style="flex-direction: column"
+                    >
+                      <base-label
+                        class="sr-only amplify-label"
+                        for="amplify-field-1177"
+                      >
+                        {{ 'Country Code' }}
+                      </base-label>
+                      <base-wrapper class="amplify-select__wrapper">
+                        <base-select
+                          class="amplify-select amplify-field-group__control"
+                          id="amplify-field-1177"
+                          aria-label="country code"
+                          name="country_code"
+                          :options="countryDialCodes"
+                          :selectValue="formValues.country_code"
+                        >
+                        </base-select>
+                        <base-wrapper
+                          class="amplify-flex amplify-select__icon-wrapper"
+                          style="align-items: center; justify-content: center"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="amplify-icon"
+                            viewBox="0 0 24 24"
+                            data-size="large"
+                            fill="currentColor"
+                          >
+                            <path
+                              d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
+                            ></path>
+                          </svg>
+                        </base-wrapper>
+                      </base-wrapper>
+                    </base-wrapper>
+                  </template>
+                </base-wrapper>
+
+                <base-wrapper class="amplify-field-group__field-wrapper">
+                  <base-input
+                    class="amplify-input amplify-field-group__control"
+                    id="amplify-field-601d"
+                    aria-invalid="false"
+                    autocomplete="username"
+                    :placeholder="label"
+                    required
+                    name="phone"
+                    :disabled="isPending"
+                    type="tel"
+                  ></base-input>
+                </base-wrapper>
+              </base-wrapper>
+            </base-wrapper>
+
+            <template v-if="type === 'tel'"> Phone Number </template>
+            <template v-else> Username </template>
+
+            <base-wrapper
+              class=" amplify-flex amplify-field amplify-textfield amplify-passwordfield password-field"
               style="flex-direction: column"
             >
               <password-control
@@ -117,23 +196,19 @@ const onForgotPasswordClicked = (): void => {
               />
             </base-wrapper>
           </base-field-set>
-          <base-alert v-if="actorState.context.remoteError">
-            {{ actorState.context.remoteError }}
+          <base-alert v-if="error">
+            {{ error }}
           </base-alert>
 
           <amplify-button
-            :disabled="actorState.matches('signIn.submit')"
+            :disabled="isPending"
             class="amplify-field-group__control"
             :fullwidth="true"
             data-loading="false"
             :variation="'primary'"
             style="border-radius: 0x; font-weight: normal"
           >
-            {{
-              actorState.matches('signIn.submit')
-                ? signIngButtonText
-                : signInButtonText
-            }}
+            {{ signInButtonText }}
           </amplify-button>
         </base-wrapper>
       </base-form>

@@ -8,7 +8,6 @@ import {
   SignUpAttribute,
 } from '@aws-amplify/ui';
 import { useAuth, useAuthenticator } from '../composables/useAuth';
-import UserNameAliasComponent from './user-name-alias.vue';
 import PasswordControl from './password-control.vue';
 import AliasControl from './alias-control.vue';
 
@@ -59,10 +58,7 @@ const loginMechanism = fieldNames.shift() as LoginMechanism;
 <template>
   <user-name-alias-component :userName="loginMechanism" />
   <base-wrapper
-    class="
-      amplify-flex amplify-field amplify-textfield amplify-passwordfield
-      password-field
-    "
+    class=" amplify-flex amplify-field amplify-textfield amplify-passwordfield password-field"
     style="flex-direction: column"
   >
     <password-control
@@ -74,10 +70,7 @@ const loginMechanism = fieldNames.shift() as LoginMechanism;
     />
   </base-wrapper>
   <base-wrapper
-    class="
-      amplify-flex amplify-field amplify-textfield amplify-passwordfield
-      password-field
-    "
+    class=" amplify-flex amplify-field amplify-textfield amplify-passwordfield password-field"
     style="flex-direction: column"
   >
     <password-control
