@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { I18n } from 'aws-amplify';
+import { translate } from '@aws-amplify/ui';
 
 import { useTheme } from '../../../hooks';
 import { useLivenessActor } from '../hooks';
@@ -37,7 +37,7 @@ export const CancelButton: React.FC<CancelButtonProps> = (props) => {
     </Button>
   ) : (
     <Button variation="link" type="button" onClick={handleClick}>
-      {I18n.get('Cancel')}
+      {translate('Cancel')}
     </Button>
   );
 };

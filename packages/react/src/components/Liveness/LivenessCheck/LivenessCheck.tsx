@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { I18n } from 'aws-amplify';
+import { translate } from '@aws-amplify/ui';
 
 import { useTheme } from '../../../hooks';
 import { useThemeBreakpoint } from '../../../hooks/useThemeBreakpoint';
@@ -30,7 +30,7 @@ export const LivenessCheck: React.FC = () => {
   return (
     <Flex direction="column" position="relative" ref={currElementRef}>
       {!isMobileScreen && (
-        <Heading level={3}>{I18n.get('Liveness check')}</Heading>
+        <Heading level={3}>{translate('Liveness check')}</Heading>
       )}
       {!state.matches('permissionDenied') ? (
         videoConstraints && (
@@ -42,16 +42,24 @@ export const LivenessCheck: React.FC = () => {
       ) : (
         <Flex
           backgroundColor={`${tokens.colors.black}`}
-          alignSelf="center"
+          color={`${tokens.colors.white}`}
+          direction="column"
+          textAlign="center"
           alignItems="center"
           justifyContent="center"
-          height={`${(videoConstraints.height as ConstrainULongRange).ideal}`}
-          width={`${(videoConstraints.width as ConstrainULongRange).ideal}`}
+          width="100%"
+          height={480}
         >
-          <Text color={`${tokens.colors.white}`}>
-            {I18n.get(
-              'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Soluta atque' +
-                'architecto consequatur suscipit. Accusantium deleniti quibusdam'
+          <Text
+            color="inherit"
+            fontSize={`${tokens.fontSizes.large}`}
+            fontWeight={`${tokens.fontWeights.bold}`}
+          >
+            {translate('No camera detected')}
+          </Text>
+          <Text color="inherit" maxWidth={300}>
+            {translate(
+              "Camera access is needed in order to function. Check your browser settings to ensure that you've enabled camera access."
             )}
           </Text>
         </Flex>

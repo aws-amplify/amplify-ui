@@ -4,7 +4,9 @@ import {
   Face,
   FaceMatchState,
   BoundingBox,
+  LivenessErrorState,
 } from '../types';
+import { translate } from '../i18n';
 
 /**
  * ClientActionObject parsed from clientActionDocument string
@@ -294,3 +296,21 @@ export function estimateIllumination(videoEl: HTMLVideoElement): Illumination {
   if (ind === MAX_SCALE) return Illumination.BRIGHT;
   return Illumination.NORMAL;
 }
+
+export const FaceMatchStateStringMap: Record<FaceMatchState, string> = {
+  [FaceMatchState.CANT_IDENTIFY]: translate('No face detected'),
+  [FaceMatchState.FACE_IDENTIFIED]: translate('Face detected'),
+  [FaceMatchState.TOO_MANY]: translate('Multiple faces detected'),
+  [FaceMatchState.TOO_CLOSE]: translate('Move the face further away.'),
+  [FaceMatchState.TOO_FAR]: translate('Move the face closer.'),
+  [FaceMatchState.TOO_LEFT]: translate('Move the face to the right.'),
+  [FaceMatchState.TOO_RIGHT]: translate('Move the face to the left.'),
+  [FaceMatchState.MATCHED]: translate('Face matched!'),
+};
+
+export const LivenessErrorStateStringMap: Record<LivenessErrorState, string> = {
+  [LivenessErrorState.RUNTIME_ERROR]: translate(
+    'Liveness encountered an error. Please try again.'
+  ),
+  [LivenessErrorState.TIMEOUT]: translate<string>('Timeout!'),
+};

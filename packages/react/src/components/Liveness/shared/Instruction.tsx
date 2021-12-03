@@ -1,5 +1,9 @@
 import * as React from 'react';
-import { I18n } from 'aws-amplify';
+import {
+  translate,
+  FaceMatchStateStringMap,
+  LivenessErrorStateStringMap,
+} from '@aws-amplify/ui';
 
 import { useLivenessActor } from '../hooks';
 import { useTheme } from '../../../hooks';
@@ -21,12 +25,14 @@ export const Instruction: React.FC<InstructionProps> = (props) => {
   const { tokens } = useTheme();
   const [state] = useLivenessActor();
 
+  const { errorState, faceMatchState } = state.context;
   const isNotRecording = state.matches('notRecording');
   const isUploading = state.matches('uploading');
-  const isSuccessful = state.matches('checkSucceeded');
+  const isCheckSuccessful = state.matches('checkSucceeded');
+  const isCheckFailed = state.matches('checkFailed');
 
   const getInstructionContent = () => {
-    if (state.context.errorState) {
+    if (errorState || isCheckFailed) {
       return (
         <Flex
           gap={`${tokens.space.xs}`}
@@ -38,14 +44,17 @@ export const Instruction: React.FC<InstructionProps> = (props) => {
           alignItems="center"
         >
           <IconHighlightOff size="large" viewBox="0 0 20 20" />
-          <View as="span">{state.context.errorState}</View>
+          <View as="span">
+            {errorState && LivenessErrorStateStringMap[errorState]}
+            {isCheckFailed && translate('Check failed! Please try again.')}
+          </View>
         </Flex>
       );
     }
 
     if (isNotRecording) {
-      return I18n.get(
-        'Once recording begins, move your face inside the frame that appears'
+      return translate(
+        'When recording begins, move your face inside the frame that appears.'
       );
     }
 
@@ -53,12 +62,12 @@ export const Instruction: React.FC<InstructionProps> = (props) => {
       return (
         <Flex gap={`${tokens.space.xxs}`} alignItems="center">
           <Loader />
-          <View as="span">{I18n.get('Authenticating...')}</View>
+          <View as="span">{translate('Authenticating...')}</View>
         </Flex>
       );
     }
 
-    if (isSuccessful) {
+    if (isCheckSuccessful) {
       return (
         <Flex
           gap={`${tokens.space.xs}`}
@@ -71,13 +80,13 @@ export const Instruction: React.FC<InstructionProps> = (props) => {
         >
           <IconCheckCircleOutline size="large" viewBox="0 0 20 20" />
           <View as="span" style={{ whiteSpace: 'nowrap' }}>
-            {I18n.get('Check succeeded!')}
+            {translate('Check succeeded!')}
           </View>
         </Flex>
       );
     }
 
-    return state.context.faceMatchState;
+    return FaceMatchStateStringMap[faceMatchState];
   };
 
   return (

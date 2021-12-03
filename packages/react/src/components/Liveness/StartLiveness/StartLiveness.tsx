@@ -1,23 +1,31 @@
 import * as React from 'react';
-import { I18n } from 'aws-amplify';
+import { translate } from '@aws-amplify/ui';
 
 import { useTheme } from '../../../hooks';
 import { CancelButton, DescriptionBullet } from '../shared';
 import { useLivenessActor } from '../hooks';
-import { Flex, Heading, Button, Collection, Divider } from '../../..';
+import {
+  Flex,
+  Heading,
+  Button,
+  Collection,
+  Divider,
+  Text,
+  View,
+} from '../../..';
 
 const INSTRUCTIONS = [
   {
-    title: I18n.get('Provide camera permissions'),
-    desc: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex quaerat nisi voluptatem mollitia. Rerum incidunt impedit',
+    title: translate('Provide camera permissions'),
+    desc: translate(
+      "Liveness needs permission to use your device's camera to verify your presence and identity."
+    ),
   },
   {
-    title: I18n.get('Liveness check'),
-    desc: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex quaerat nisi voluptatem mollitia. Rerum incidunt impedit',
-  },
-  {
-    title: I18n.get('Legal desclaimer'),
-    desc: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex quaerat nisi voluptatem mollitia. Rerum incidunt impedit',
+    title: translate('Liveness check'),
+    desc: translate(
+      'Follow instructions on the screen to record a short video of yourself and verify your identity and presence.'
+    ),
   },
 ];
 
@@ -27,7 +35,7 @@ export const StartLiveness = () => {
 
   return (
     <Flex direction="column">
-      <Heading level={3}>{I18n.get('How it works')}</Heading>
+      <Heading level={3}>{translate('How it works')}</Heading>
       <Collection
         type="list"
         items={INSTRUCTIONS}
@@ -54,8 +62,33 @@ export const StartLiveness = () => {
           type="button"
           onClick={() => send({ type: 'BEGIN' })}
         >
-          {I18n.get('Begin liveness check')}
+          {translate('Begin check')}
         </Button>
+      </Flex>
+
+      <Flex
+        justifyContent="flex-end"
+        style={{ marginTop: `calc(-1 * ${tokens.space.small})` }}
+      >
+        <View>
+          <Text
+            as="span"
+            fontSize={`${tokens.fontSizes.xs}`}
+            fontWeight={`${tokens.fontWeights.bold}`}
+            color={`${tokens.colors.font.tertiary}`}
+          >
+            {translate<string>('Legal desclaimer: ')}
+          </Text>
+          <Text
+            as="span"
+            fontSize={`${tokens.fontSizes.xs}`}
+            color={`${tokens.colors.font.tertiary}`}
+          >
+            {translate<string>(
+              'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex quaerat nisi voluptatem mollitia. Rerum incidunt impedit'
+            )}
+          </Text>
+        </View>
       </Flex>
     </Flex>
   );

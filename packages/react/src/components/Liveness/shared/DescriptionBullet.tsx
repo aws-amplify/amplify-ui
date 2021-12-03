@@ -37,7 +37,12 @@ export const DescriptionBullet = (
 
       <Flex direction="column" gap={`${tokens.space.xxs}`}>
         <Text fontWeight="bold">{title}</Text>
-        <Text fontSize={`${tokens.fontSizes.small}`}>{desc}</Text>
+        <Text
+          fontSize={`${tokens.fontSizes.small}`}
+          color={`${tokens.colors.font.tertiary}`}
+        >
+          {desc}
+        </Text>
       </Flex>
     </Flex>
   );
