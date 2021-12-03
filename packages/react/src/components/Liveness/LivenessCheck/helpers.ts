@@ -1,17 +1,8 @@
-function getContentWidth(element: HTMLElement) {
-  const styles = getComputedStyle(element);
-  return (
-    element.clientWidth -
-    parseFloat(styles.paddingLeft) -
-    parseFloat(styles.paddingRight)
-  );
-}
-
 export function getVideoConstraints(
   isMobileScreen: boolean,
-  currentElement: HTMLElement | undefined
+  contentWidth: number
 ): MediaTrackConstraints | null {
-  if (isMobileScreen) {
+  if (isMobileScreen && contentWidth < 485) {
     const isPortrait = screen.orientation.type.includes('portrait');
 
     // opposite values of width/height are used because getMediaStream handles the aspect ratio on mobile
@@ -29,9 +20,6 @@ export function getVideoConstraints(
       facingMode: 'user',
     };
   } else {
-    if (!currentElement) return null;
-    const contentWidth = getContentWidth(currentElement);
-
     return {
       width: {
         min: 320,

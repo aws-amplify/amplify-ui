@@ -22,11 +22,17 @@ export class BlazeFaceFaceDetection extends FaceDetection {
   modelBackend: BlazeFaceModelBackend;
 
   async loadModels() {
-    if (isWebAssemblySupported()) {
-      await this._loadWebAssemblyBackend();
-    } else if (isWebGLSupported()) {
+    // TODO: Figure out fix for: https://github.com/tensorflow/tfjs/issues/5913
+    // if (isWebAssemblySupported()) {
+    //   console.log('Loading WebAssembly backend');
+    //   await this._loadWebAssemblyBackend();
+    // } else
+
+    if (isWebGLSupported()) {
+      console.log('Loading WebGL backend');
       await this._loadWebGLBackend();
     } else {
+      console.log('Loading CPU backend');
       await this._loadCPUBackend();
     }
 

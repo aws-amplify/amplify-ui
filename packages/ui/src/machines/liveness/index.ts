@@ -43,13 +43,13 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         },
       },
       permissionCheck: {
+        entry: ['initializeFaceDetector'],
         on: {
           PERMISSION_GRANTED: 'notRecording',
           PERMISSION_DENIED: 'permissionDenied',
         },
       },
       notRecording: {
-        entry: ['initializeFaceDetector'],
         on: {
           START_RECORDING: 'recording',
         },

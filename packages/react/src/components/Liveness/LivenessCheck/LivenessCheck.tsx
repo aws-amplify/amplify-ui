@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { I18n } from 'aws-amplify';
 
 import { useTheme } from '../../../hooks';
@@ -19,23 +19,16 @@ export const LivenessCheck: React.FC = () => {
 
   const isMobileScreen = breakpoint === 'base';
 
-  useLayoutEffect(() => {
-    if (currElementRef.current) {
-      const constraints = getVideoConstraints(
-        isMobileScreen,
-        currElementRef.current
-      );
-      setVideoConstraints(constraints);
-    }
-  }, [isMobileScreen, currElementRef.current]);
+  useEffect(() => {
+    const constraints = getVideoConstraints(
+      isMobileScreen,
+      currElementRef.current.clientWidth
+    );
+    setVideoConstraints(constraints);
+  }, [isMobileScreen]);
 
   return (
-    <Flex
-      direction="column"
-      position="relative"
-      padding={{ medium: `${tokens.space.medium} ${tokens.space.large}` }}
-      ref={currElementRef}
-    >
+    <Flex direction="column" position="relative" ref={currElementRef}>
       {!isMobileScreen && (
         <Heading level={3}>{I18n.get('Liveness check')}</Heading>
       )}

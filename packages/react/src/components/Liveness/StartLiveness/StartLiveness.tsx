@@ -26,10 +26,7 @@ export const StartLiveness = () => {
   const [_, send] = useLivenessActor();
 
   return (
-    <Flex
-      direction="column"
-      padding={`${tokens.space.medium} ${tokens.space.large}`}
-    >
+    <Flex direction="column">
       <Heading level={3}>{I18n.get('How it works')}</Heading>
       <Collection
         type="list"

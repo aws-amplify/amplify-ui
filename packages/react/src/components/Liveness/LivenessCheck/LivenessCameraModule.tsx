@@ -2,9 +2,10 @@ import React, { useState, useRef } from 'react';
 import Webcam from 'react-webcam';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 
+import { useTheme } from '../../../hooks';
 import { useLivenessActor } from '../hooks';
 import { CancelButton, Instruction, RecordingIcon } from '../shared';
-import { Flex, View } from '../../..';
+import { Flex, Text, View } from '../../..';
 
 export interface LivenessCameraModuleProps {
   isMobileScreen: boolean;
@@ -18,6 +19,7 @@ export const LivenessCameraModule = (
   const height = (videoConstraints.height as ConstrainULongRange).ideal;
   const width = (videoConstraints.width as ConstrainULongRange).ideal;
 
+  const { tokens } = useTheme();
   const [state, send] = useLivenessActor();
 
   const webcamRef = useRef<Webcam>(null);
@@ -89,6 +91,11 @@ export const LivenessCameraModule = (
           width={videoWidth}
           position="absolute"
           top={0}
+          {...(isMobileScreen && {
+            style: {
+              background: 'linear-gradient(transparent 70%, white 100%)',
+            },
+          })}
         />
 
         {isRecording && (
@@ -115,15 +122,23 @@ export const LivenessCameraModule = (
           {isNotRecording && (
             <CountdownCircleTimer
               isPlaying={isNotRecording}
-              size={80}
+              size={85}
+              strokeWidth={8}
               duration={3}
               rotation="counterclockwise"
               // TODO:: using hardcoded colors for now since it requires hex value
-              colors={isMobileScreen ? '#ffffff' : '#000000'}
+              colors={'#000000'}
               trailColor={'#909090'}
               onComplete={timerCompleteHandler}
             >
-              {({ remainingTime }) => remainingTime}
+              {({ remainingTime }) => (
+                <Text
+                  fontSize={`${tokens.fontSizes.xxxl}`}
+                  fontWeight={`${tokens.fontWeights.bold}`}
+                >
+                  {remainingTime}
+                </Text>
+              )}
             </CountdownCircleTimer>
           )}
         </Flex>
