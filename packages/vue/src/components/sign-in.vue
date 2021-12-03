@@ -29,7 +29,8 @@ const forgotYourPasswordLink = computed(() =>
 
 const signInButtonText = computed(() => translate('Sign in'));
 
-const { error, isPending, state, send, updateForm } = useAuthenticator();
+const { error, isPending, state, send, submitForm, updateForm } =
+  useAuthenticator();
 const { label, type } = getAliasInfoFromContext(state.value.context);
 const actorContext = computed(() => {
   return getActorContext(state.value);
@@ -61,11 +62,8 @@ const onSignInSubmit = (e: Event): void => {
 
 const submit = (e: Event): void => {
   const formData = new FormData(<HTMLFormElement>e.target);
-  send({
-    type: 'SUBMIT',
-    // @ts-ignore Property 'fromEntries' does not exist on type 'ObjectConstructor'. Do you need to change your target library? Try changing the `lib` compiler option to 'es2019' or later.ts(2550)
-    data: Object.fromEntries(formData),
-  });
+  // @ts-ignore Property 'fromEntries' does not exist on type 'ObjectConstructor'. Do you need to change your target library? Try changing the `lib` compiler option to 'es2019' or later.ts(2550)
+  submitForm(Object.fromEntries(formData));
 };
 
 const onForgotPasswordClicked = (): void => {
@@ -197,9 +195,6 @@ const onForgotPasswordClicked = (): void => {
                 </base-wrapper>
               </base-wrapper>
             </base-wrapper>
-
-            <template v-if="type === 'tel'"> Phone Number </template>
-            <template v-else> Username </template>
 
             <base-wrapper
               class="
