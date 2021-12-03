@@ -56,7 +56,6 @@ export {
   Authenticator,
   AuthenticatorSignUpFormFields,
   RenderInfo,
-  UserNameAlias,
   ForceNewPassword,
   PasswordControl,
   ResetPassword,

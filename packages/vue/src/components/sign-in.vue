@@ -3,10 +3,10 @@ import { computed, ComputedRef, useAttrs } from 'vue';
 import {
   getActorContext,
   getAliasInfoFromContext,
-  SignInState,
   translate,
   SignInContext,
   countryDialCodes,
+  AuthFormData,
 } from '@aws-amplify/ui';
 
 import PasswordControl from './password-control.vue';
@@ -28,13 +28,20 @@ const forgotYourPasswordLink = computed(() =>
 );
 
 const signInButtonText = computed(() => translate('Sign in'));
-const signIngButtonText = computed(() => translate('Signing in'));
 
 const { error, isPending, state, send, updateForm } = useAuthenticator();
-const { label, type } = getAliasInfoFromContext(state.context);
-const { formValues } = getActorContext(state) as SignInContext;
+const { label, type } = getAliasInfoFromContext(state.value.context);
+const actorContext = computed(() => {
+  return getActorContext(state.value);
+}) as ComputedRef<SignInContext>;
+
+const formValues = actorContext.value?.formValues as AuthFormData;
+
 const phoneNumber = computed(
-  () => `${formValues.country_code ?? ''}${formValues.phone ?? ''}`
+  () =>
+    `${actorContext.value.formValues?.country_code ?? ''}${
+      actorContext.value.formValues?.phone ?? ''
+    }`
 );
 
 // Methods
@@ -103,7 +110,12 @@ const onForgotPasswordClicked = (): void => {
             </template>
 
             <base-wrapper
-              class=" amplify-flex amplify-field amplify-textfield amplify-phonenumberfield"
+              class="
+                amplify-flex
+                amplify-field
+                amplify-textfield
+                amplify-phonenumberfield
+              "
               style="flex-direction: column"
             >
               <base-label
@@ -125,7 +137,12 @@ const onForgotPasswordClicked = (): void => {
                     />
 
                     <base-wrapper
-                      class=" amplify-flex amplify-field amplify-selectfield amplify-countrycodeselect"
+                      class="
+                        amplify-flex
+                        amplify-field
+                        amplify-selectfield
+                        amplify-countrycodeselect
+                      "
                       style="flex-direction: column"
                     >
                       <base-label
@@ -185,7 +202,13 @@ const onForgotPasswordClicked = (): void => {
             <template v-else> Username </template>
 
             <base-wrapper
-              class=" amplify-flex amplify-field amplify-textfield amplify-passwordfield password-field"
+              class="
+                amplify-flex
+                amplify-field
+                amplify-textfield
+                amplify-passwordfield
+                password-field
+              "
               style="flex-direction: column"
             >
               <password-control

@@ -19,7 +19,8 @@ export const useAuthenticator = () => {
   watchEffect(() => {
     createValues();
   });
-  return useAuthenticatorValue;
+  const { state, send } = useAuth();
+  return { ...useAuthenticatorValue, state, send };
 };
 
 function createValues() {
@@ -32,6 +33,4 @@ function createValues() {
     //@ts-ignore
     useAuthenticatorValue[key] = facadeValues[key];
   }
-  useAuthenticatorValue.send = send;
-  useAuthenticatorValue.state = state;
 }
