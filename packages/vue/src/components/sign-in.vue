@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ComputedRef, useAttrs } from 'vue';
+import { computed, ComputedRef, useAttrs, toRefs } from 'vue';
 import {
   getActorContext,
   getAliasInfoFromContext,
@@ -29,8 +29,8 @@ const forgotYourPasswordLink = computed(() =>
 
 const signInButtonText = computed(() => translate('Sign in'));
 
-const { error, isPending, state, send, submitForm, updateForm } =
-  useAuthenticator();
+const { error, isPending, state } = toRefs(useAuthenticator());
+const { send, submitForm, updateForm } = useAuthenticator();
 const { label, type } = getAliasInfoFromContext(state.value.context);
 const actorContext = computed(() => {
   return getActorContext(state.value);
@@ -121,79 +121,88 @@ const onForgotPasswordClicked = (): void => {
                 for="amplify-field-601d"
                 v-bind="$attrs"
               >
-                {{ label }}
+                {{ translate(label) }}
               </base-label>
-              <base-wrapper class="amplify-flex amplify-field-group">
+              <base-wrapper
+                v-if="type === 'tel'"
+                class="amplify-flex amplify-field-group"
+              >
                 <base-wrapper class="amplify-field-group__outer-start">
                   <!--Drop Down-->
-                  <template v-if="type === 'tel'">
-                    <input
-                      name="username"
-                      readOnly
-                      type="hidden"
-                      :value="phoneNumber"
-                    />
+                  <input
+                    name="username"
+                    readOnly
+                    type="hidden"
+                    :value="phoneNumber"
+                  />
 
-                    <base-wrapper
-                      class="
-                        amplify-flex
-                        amplify-field
-                        amplify-selectfield
-                        amplify-countrycodeselect
-                      "
-                      style="flex-direction: column"
+                  <base-wrapper
+                    class="
+                      amplify-flex
+                      amplify-field
+                      amplify-selectfield
+                      amplify-countrycodeselect
+                    "
+                    style="flex-direction: column"
+                  >
+                    <base-label
+                      class="sr-only amplify-label"
+                      for="amplify-field-1177"
                     >
-                      <base-label
-                        class="sr-only amplify-label"
-                        for="amplify-field-1177"
+                      {{ 'Country Code' }}
+                    </base-label>
+                    <base-wrapper class="amplify-select__wrapper">
+                      <base-select
+                        class="amplify-select amplify-field-group__control"
+                        id="amplify-field-1177"
+                        aria-label="country code"
+                        name="country_code"
+                        :options="countryDialCodes"
+                        :selectValue="formValues.country_code"
                       >
-                        {{ 'Country Code' }}
-                      </base-label>
-                      <base-wrapper class="amplify-select__wrapper">
-                        <base-select
-                          class="amplify-select amplify-field-group__control"
-                          id="amplify-field-1177"
-                          aria-label="country code"
-                          name="country_code"
-                          :options="countryDialCodes"
-                          :selectValue="formValues.country_code"
+                      </base-select>
+                      <base-wrapper
+                        class="amplify-flex amplify-select__icon-wrapper"
+                        style="align-items: center; justify-content: center"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          class="amplify-icon"
+                          viewBox="0 0 24 24"
+                          data-size="large"
+                          fill="currentColor"
                         >
-                        </base-select>
-                        <base-wrapper
-                          class="amplify-flex amplify-select__icon-wrapper"
-                          style="align-items: center; justify-content: center"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="amplify-icon"
-                            viewBox="0 0 24 24"
-                            data-size="large"
-                            fill="currentColor"
-                          >
-                            <path
-                              d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
-                            ></path>
-                          </svg>
-                        </base-wrapper>
+                          <path
+                            d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
+                          ></path>
+                        </svg>
                       </base-wrapper>
                     </base-wrapper>
-                  </template>
+                  </base-wrapper>
                 </base-wrapper>
-
-                <base-wrapper class="amplify-field-group__field-wrapper">
-                  <base-input
-                    class="amplify-input amplify-field-group__control"
-                    id="amplify-field-601d"
-                    aria-invalid="false"
-                    autocomplete="username"
-                    :placeholder="label"
-                    required
-                    name="phone"
-                    :disabled="isPending"
-                    type="tel"
-                  ></base-input>
-                </base-wrapper>
+                <amplify-text-field
+                  id="amplify-field-601d"
+                  aria-invalid="false"
+                  autocomplete="username"
+                  :labelHidden="true"
+                  :placeholder="translate(label)"
+                  :required="true"
+                  name="phone"
+                  :disabled="isPending"
+                  type="tel"
+                />
               </base-wrapper>
+              <amplify-text-field
+                v-else
+                id="amplify-field-601d"
+                autocomplete="username"
+                :label="translate(label)"
+                :labelHidden="true"
+                name="username"
+                :required="true"
+                :placeholder="translate(label)"
+                :type="type"
+              />
             </base-wrapper>
 
             <base-wrapper
