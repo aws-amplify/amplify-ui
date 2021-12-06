@@ -7,7 +7,10 @@ import aws_exports from './aws-exports';
 
 I18n.putVocabularies(translations);
 I18n.setLanguage('ja');
-I18n.putVocabulariesForLanguage('ja', { 'Sign In': 'Sign In Custom' });
+I18n.putVocabulariesForLanguage('ja', {
+  'Sign In': 'Sign In Custom',
+  'User does not exist.': 'Error with your user',
+});
 
 Amplify.configure(aws_exports);
 </script>
