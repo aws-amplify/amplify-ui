@@ -1,18 +1,21 @@
 <div class="amplify-flex amplify-field" style="flex-direction: column">
-  <!-- Country code field -->
-  <amplify-phone-number-field
-    *ngIf="isPhoneField()"
-    [defaultCountryCode]="defaultCountryCode"
-    [type]="inferType()"
-    [name]="name"
-    [label]="inferLabel()"
-    [placeholder]="inferPlaceholder()"
-    [required]="required"
-    [initialValue]="initialValue"
-    [disabled]="disabled"
-    [labelHidden]="labelHidden"
-    [autocomplete]="inferAutocomplete()"
-  ></amplify-phone-number-field>
+  <!-- Phone number field -->
+  <ng-container *ngIf="isPhoneField()">
+    <input name="username" readonly type="hidden" [value]="phoneNumber" />
+
+    <amplify-phone-number-field
+      name="phone"
+      [defaultCountryCode]="defaultCountryCode"
+      [type]="inferType()"
+      [label]="inferLabel()"
+      [placeholder]="inferPlaceholder()"
+      [required]="required"
+      [initialValue]="initialValue"
+      [disabled]="disabled"
+      [labelHidden]="labelHidden"
+      [autocomplete]="inferAutocomplete()"
+    ></amplify-phone-number-field>
+  </ng-container>
 
   <amplify-password-field
     *ngIf="isPasswordField()"

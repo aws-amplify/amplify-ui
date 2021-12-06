@@ -5,6 +5,7 @@ import {
   getActorContext,
   translate,
   countryDialCodes,
+  SignInContext,
 } from '@aws-amplify/ui';
 import { getAttributeMap } from '../../../../common';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
@@ -100,5 +101,11 @@ export class FormFieldComponent implements OnInit {
 
   isPhoneField(): boolean {
     return this.inferType() === 'tel';
+  }
+
+  get phoneNumber(): string {
+    const { authState } = this.authenticator;
+    const { formValues } = getActorContext(authState) as SignInContext;
+    return `${formValues.country_code ?? ''}${formValues.phone ?? ''}`;
   }
 }
