@@ -46,6 +46,9 @@ export class SignInComponent implements OnInit {
 
   onSubmit(event: Event): void {
     event.preventDefault();
-    this.authenticator.submitForm();
+    const formData = new FormData(event.target as HTMLFormElement);
+    const json = Object.fromEntries(formData);
+
+    this.authenticator.submitForm(json);
   }
 }
