@@ -11,6 +11,7 @@ import { PhoneNumberField, TextField } from '../../..';
 export function AttributeField({ name, ...attrs }) {
   const { _state } = useAuthenticator();
   const { country_code, formValues } = getActorContext(_state) as SignUpContext;
+  console.log(name);
 
   // See: https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html#user-pool-settings-custom-attributes
   switch (name) {
@@ -187,5 +188,6 @@ export function AttributeField({ name, ...attrs }) {
       console.debug(
         `Authenticator does not have a default implementation for ${name}. Customize Authenticator.SignUp.FormFields to add your own.`
       );
+      return null;
   }
 }
