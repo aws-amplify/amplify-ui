@@ -9,7 +9,13 @@
       data-amplify-fieldset
       [disabled]="authenticator.isPending"
     >
-      <amplify-user-name-alias></amplify-user-name-alias>
+      <amplify-form-field
+        name="username"
+        [type]="type"
+        [placeholder]="label"
+        [label]="label"
+        autocomplete="username"
+      ></amplify-form-field>
       <amplify-form-field
         data-amplify-password
         name="password"

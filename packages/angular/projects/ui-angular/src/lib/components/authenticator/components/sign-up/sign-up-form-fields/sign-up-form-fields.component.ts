@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticatorService } from '../../../../../services/authenticator.service';
 import {
   authInputAttributes,
+  getAliasInfoFromContext,
   LoginMechanism,
   SignUpAttribute,
 } from '@aws-amplify/ui';
@@ -16,9 +17,27 @@ export class SignUpFormFieldsComponent implements OnInit {
   public fieldNames: Array<LoginMechanism | SignUpAttribute>;
   public loginMechanism: LoginMechanism;
 
+  public label: string; // username label
+  public type: string; // username type
+  public placeholder: string; // username placeholder
+
   constructor(private authenticator: AuthenticatorService) {}
 
   ngOnInit(): void {
+    this.getAliasInfo();
+    this.getFieldNames();
+  }
+
+  private getAliasInfo(): void {
+    const context = this.authenticator;
+    const { label, type } = getAliasInfoFromContext(context);
+
+    this.type = type;
+    this.label = label;
+    this.placeholder = label;
+  }
+
+  private getFieldNames(): void {
     const context = this.authenticator.context;
 
     const { loginMechanisms, signUpAttributes } = context.config;

@@ -12,5 +12,4 @@ export { SetupTotpComponent } from './setup-totp/setup-totp.component';
 export { SignInComponent } from './sign-in/sign-in.component';
 export { SignUpComponent } from './sign-up/sign-up.component';
 export { SignUpFormFieldsComponent } from './sign-up/sign-up-form-fields/sign-up-form-fields.component';
-export { UserNameAliasComponent } from './user-name-alias/user-name-alias.component';
 export { VerifyUserComponent } from './verify-user/verify-user.component';

@@ -20,7 +20,6 @@ import { SetupTotpComponent } from './components/setup-totp/setup-totp.component
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { SignUpFormFieldsComponent } from './components/sign-up/sign-up-form-fields/sign-up-form-fields.component';
-import { UserNameAliasComponent } from './components/user-name-alias/user-name-alias.component';
 import { VerifyUserComponent } from './components/verify-user/verify-user.component';
 
 import { ButtonComponent } from '../../primitives/button/button.component';
@@ -63,7 +62,6 @@ import { AmplifySlotDirective } from '../../utilities/amplify-slot/amplify-slot.
     TabItemComponent,
     TabsComponent,
     TextFieldComponent,
-    UserNameAliasComponent,
     VerifyUserComponent,
   ],
   imports: [CommonModule],
