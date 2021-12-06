@@ -29,7 +29,7 @@ export class SignUpFormFieldsComponent implements OnInit {
   }
 
   private getAliasInfo(): void {
-    const context = this.authenticator;
+    const { context } = this.authenticator;
     const { label, type } = getAliasInfoFromContext(context);
 
     this.type = type;
