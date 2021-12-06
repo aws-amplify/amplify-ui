@@ -1,15 +1,9 @@
-.styled-text.amplify-ui-text {
-  font-weight: bold;
-  color: red;
+.styled-text.amplify-text {
+  font-weight: var(--amplify-font-weights-bold);
+  color: var(--amplify-colors-red-80);
   text-decoration: underline;
 }
 
-.styled-variable-text.amplify-ui-text {
-  --amplify-ui-components-text-font-weight: bold;
-  --amplify-ui-components-text-color: red;
-  --amplify-ui-components-text-text-decoration: underline;
-}
-
-.primary-styled-variable-text.amplify-ui-text {
-  --amplify-ui-components-text-color-primary: red;
+.primary-styled-variable-text.amplify-text {
+  --amplify-components-text-primary-color: var(--amplify-colors-red-80);
 }
