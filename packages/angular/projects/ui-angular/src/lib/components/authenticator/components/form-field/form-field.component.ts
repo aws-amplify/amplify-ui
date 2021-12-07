@@ -45,12 +45,6 @@ export class FormFieldComponent implements OnInit {
       const state = this.authenticator.authState;
       const { country_code }: ActorContextWithForms = getActorContext(state);
       this.defaultCountryCode = country_code;
-
-      // TODO: remove this side-effect
-      this.authenticator.updateForm({
-        name: 'country_code',
-        value: country_code,
-      });
     }
   }
 
@@ -105,7 +99,7 @@ export class FormFieldComponent implements OnInit {
 
   get phoneNumber(): string {
     const { authState } = this.authenticator;
-    const { formValues } = getActorContext(authState) as SignInContext;
+    const { formValues } = getActorContext(authState) as ActorContextWithForms;
     return `${formValues.country_code ?? ''}${formValues.phone ?? ''}`;
   }
 }
