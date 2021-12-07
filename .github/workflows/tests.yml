@@ -58,6 +58,8 @@ jobs:
           echo "::set-output name=commit::$(git rev-parse --short "$GITHUB_SHA")"
       - name: Install packages
         run: yarn --frozen-lockfile
+      - name: build @aws-amplify/ui package
+        run: yarn ui build
       - name: Cache build
         uses: actions/cache@v2
         id: build-cache
@@ -65,7 +67,7 @@ jobs:
           path: |
             ./node_modules
             **/node_modules
-            **/dist
+            ./packages/ui/dist
             ~/.cache/Cypress
           key: ${{ runner.os }}-yarn-${{ steps.get-ref.outputs.commit }}
   unit:
@@ -104,13 +106,19 @@ jobs:
           path: |
             ./node_modules
             **/node_modules
-            **/dist
-            ~/.cache/Cypress
+            ./packages/ui/dist
           key: ${{ runner.os }}-yarn-${{ needs.setup.outputs.commit }}
 
       - name: Install packages
         if: steps.restore-cache.outputs.cache-hit != 'true'
         run: yarn --frozen-lockfile --prefer-offline
+
+      - name: Build @aws-amplify/ui package
+        if: steps.restore-cache.outputs.cache-hit != 'true' && ${{ matrix.package }} != '@aws-amplify/ui'
+        run: yarn ui build
+
+      - name: Build {{ matrix.package }} package
+        run: yarn {{ matrix.package }} build
 
       - name: Lint packages
         run: yarn workspace ${{ matrix.package }} lint
@@ -171,13 +179,17 @@ jobs:
           path: |
             ./node_modules
             **/node_modules
-            **/dist
+            ./packages/ui/dist
             ~/.cache/Cypress
           key: ${{ runner.os }}-yarn-${{ needs.setup.outputs.commit }}
 
       - name: Install packages
         if: steps.restore-cache.outputs.cache-hit != 'true'
         run: yarn --frozen-lockfile
+
+      - name: Build @aws-amplify/ui package
+        if: steps.restore-cache.outputs.cache-hit != 'true'
+        run: yarn ui build
 
       - name: Add Amplify CLI
         run: yarn global add @aws-amplify/cli
@@ -234,13 +246,19 @@ jobs:
           path: |
             ./node_modules
             **/node_modules
-            **/dist
-            ~/.cache/Cypress
+            ./packages/ui/dist
           key: ${{ runner.os }}-yarn-${{ needs.setup.outputs.commit }}
 
       - name: Install packages
         if: steps.restore-cache.outputs.cache-hit != 'true'
         run: yarn --frozen-lockfile
+
+      - name: Build @aws-amplify/ui package
+        if: steps.restore-cache.outputs.cache-hit != 'true'
+        run: yarn ui build
+
+      - name: build react package
+        run: yarn react build
 
       - name: Build docs package
         run: yarn docs build
