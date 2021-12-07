@@ -108,8 +108,8 @@ jobs:
         with:
           path: |
             ./node_modules
-            **/node_modules
             ./packages/ui/dist
+            **/node_modules
           key: ${{ runner.os }}-yarn-${{ needs.setup.outputs.commit }}
 
       - name: Install packages
@@ -189,9 +189,8 @@ jobs:
         with:
           path: |
             ./node_modules
-            **/node_modules
             ./packages/ui/dist
-            ~/.cache/Cypress
+            **/node_modules
           key: ${{ runner.os }}-yarn-${{ needs.setup.outputs.commit }}
 
       - name: Install packages
