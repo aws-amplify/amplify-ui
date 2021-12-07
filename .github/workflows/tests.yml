@@ -206,29 +206,41 @@ jobs:
           USERNAME: ${{ secrets.USERNAME }}
           NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
           VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
-  # docs:
-  #   # Only run docs tests if e2e tests pass
-  #   needs: e2e
-  #   runs-on: ubuntu-latest
-  #   environment: ci
-  #   env:
-  #     NODE_ENV: test
-  #   steps:
-  #     - name: Checkout Amplify UI
-  #       uses: actions/checkout@v2
-  #       with:
-  #         ref: ${{ github.event_name == 'push' && github.ref || github.event.pull_request.head.ref }}
-  #         repository: ${{github.event.pull_request.head.repo.full_name}}
-  #         persist-credentials: false
+  docs:
+    # Only run docs tests if e2e tests pass
+    needs: [setup, unit]
+    runs-on: ubuntu-latest
+    environment: ci
+    env:
+      NODE_ENV: test
+    steps:
+      - name: Checkout Amplify UI
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event_name == 'push' && github.ref || github.event.pull_request.head.ref }}
+          repository: ${{github.event.pull_request.head.repo.full_name}}
+          persist-credentials: false
 
-  #     - name: Setup Node.js LTS
-  #       uses: actions/setup-node@v2
-  #       with:
-  #         node-version: lts/*
-  #         cache: 'yarn'
+      - name: Setup Node.js LTS
+        uses: actions/setup-node@v2
+        with:
+          node-version: lts/*
+          cache: 'yarn'
 
-  #     - name: Install packages
-  #       run: yarn --frozen-lockfile
+      - name: Restore Cache
+        uses: actions/cache@v2
+        id: restore-cache
+        with:
+          path: |
+            ./node_modules
+            **/node_modules
+            **/dist
+            ~/.cache/Cypress
+          key: ${{ runner.os }}-yarn-${{ needs.setup.outputs.commit }}
 
-  #     - name: Build docs package
-  #       run: yarn docs build
+      - name: Install packages
+        if: steps.restore-cache.outputs.cache-hit != 'true'
+        run: yarn --frozen-lockfile
+
+      - name: Build docs package
+        run: yarn docs build
