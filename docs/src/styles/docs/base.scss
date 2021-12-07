@@ -18,16 +18,16 @@
 
 @font-face {
   font-family: 'Inter';
-  font-style:  normal;
+  font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('/fonts/Inter-Regular.woff2?v=3.19') format("woff2"),
-       url('/fonts/Inter-Regular.woff?v=3.19') format("woff");
+  src: url('/fonts/Inter-Regular.woff2?v=3.19') format('woff2'),
+    url('/fonts/Inter-Regular.woff?v=3.19') format('woff');
 }
 
 html {
   /* this enables some alternative styles and contextual characters to the font */
-  font-feature-settings: "ss01", "ss02", "case", "salt";
+  font-feature-settings: 'ss01', 'ss02', 'case', 'salt';
 }
 
 @media screen and (prefers-reduced-motion: no-preference) {
@@ -39,13 +39,13 @@ html {
 // Remove this when this gets fixed in the UI package
 * {
   box-sizing: border-box;
-  
+
   /* Selection */
   &::-moz-selection {
     background: var(--amplify-colors-overlay-10);
     color: inherit;
   }
-  
+
   &::selection {
     background: var(--amplify-colors-overlay-10);
     color: inherit;
@@ -54,7 +54,7 @@ html {
 
 html {
   // https://rsms.me/inter/#features
-  font-feature-settings: "ss01", "ss02", "case", "salt";
+  font-feature-settings: 'ss01', 'ss02', 'case', 'salt';
 }
 
 body {
@@ -68,12 +68,12 @@ a {
   [data-amplify-theme] & {
     cursor: pointer;
   }
-  
+
   &:hover,
   &:focus {
     color: var(--amplify-components-link-hover-color);
   }
-  
+
   &:active {
     color: var(--amplify-components-link-active-color);
   }
@@ -106,20 +106,16 @@ ul {
   list-style-type: disc;
 }
 
-
 code {
   padding: var(--amplify-space-xxxs) var(--amplify-space-xxs);
   background-color: var(--amplify-colors-background-secondary);
   font-size: 0.875em;
   border-radius: 0.3em;
-  
-  &[class*=language-] {
+
+  &[class*='language-'] {
     padding: 0;
   }
 }
-
-
-
 
 h2 {
   font-size: var(--amplify-components-heading-2-font-size);
@@ -143,14 +139,15 @@ h3[id] {
 
 h2[id] {
   margin-top: var(--amplify-space-xxl);
-  
+
   &::before {
     content: '';
     position: absolute;
     top: -1rem;
     left: 0;
     width: 5rem;
-    border-top: var(--amplify-border-widths-large) solid var(--amplify-colors-border-tertiary);
+    border-top: var(--amplify-border-widths-large) solid
+      var(--amplify-colors-border-tertiary);
   }
 }
 
@@ -159,7 +156,7 @@ h3[id] > a {
   position: absolute;
   left: -1.75rem;
   text-decoration: none;
-  
+
   &:hover {
     text-decoration: none;
   }
@@ -185,7 +182,7 @@ h3:hover > a .icon-link {
   background-color: var(--amplify-colors-background-primary);
   color: var(--amplify-colors-font-primary);
   min-height: 100vh;
-  
+
   --amplify-components-fieldcontrol-line-height: 1.5;
   --amplify-borders-primary: var(--amplify-border-widths-small) solid
     var(--amplify-colors-border-primary);
@@ -196,7 +193,13 @@ h3:hover > a .icon-link {
 
   --amplify-components-heading-1-font-size: 3rem;
   --amplify-components-heading-1-font-weight: 750;
-  
+
   /* custom vars */
   --docs-header-height: 4rem;
+}
+
+.container {
+  max-width: 125em; // 2000px;
+  margin-right: auto;
+  margin-left: auto;
 }
