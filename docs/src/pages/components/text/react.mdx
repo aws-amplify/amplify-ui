@@ -81,8 +81,8 @@ To override styling on all Text, you can set the Amplify CSS variables or use th
 
 ```css
 /* styles.css */
-.primary-styled-variable-text.amplify-ui-text {
-  --amplify-components-text-color-primary: red;
+.primary-styled-variable-text.amplify-text {
+  --amplify-components-text-color-primary: var(--amplify-colors-red-80);
 }
 ```
 
@@ -97,18 +97,9 @@ import '@aws-amplify/ui-react/styles.css';
 
 <Example>
   <Text className="primary-styled-variable-text" variation="primary">
-    This is my styled text
+    {'This is my styled text'}
   </Text>
 </Example>
-
-To replace the Text styling, unset it:
-
-```css
-.amplify-text {
-  all: unset;
-  /* Add your styling here*/
-}
-```
 
 ### Local styling
 
@@ -119,8 +110,8 @@ _Using a class selector:_
 ```css
 /* styles.css */
 .styled-text {
-  font-weight: bold;
-  color: red;
+  font-weight: var(--amplify-font-weights-bold);
+  color: var(--amplify-colors-red-80);
   text-decoration: underline;
 }
 ```
@@ -138,7 +129,11 @@ import './styles.css';
 _Using style props:_
 
 ```jsx
-<Text fontWeight="bold" color="red" textDecoration="underline">
+<Text
+  fontWeight={theme.tokens.fontWeights.bold}
+  color={theme.tokens.colors.red[80]}
+  textDecoration="underline"
+>
   This is my styled text
 </Text>
 ```

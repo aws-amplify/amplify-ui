@@ -1,0 +1,9 @@
+.styled-text.amplify-text {
+  font-weight: var(--amplify-font-weights-bold);
+  color: var(--amplify-colors-red-80);
+  text-decoration: underline;
+}
+
+.primary-styled-variable-text.amplify-text {
+  --amplify-components-text-primary-color: var(--amplify-colors-red-80);
+}
