@@ -121,7 +121,8 @@ jobs:
         run: yarn ui build
 
       - name: Build packages
-        run: yarn ${{ matrix.package }} build
+        if: ${{ matrix.package != '@aws-amplify/ui' }}
+        run: yarn workspace ${{ matrix.package }} build
 
       - name: Lint packages
         run: yarn workspace ${{ matrix.package }} lint
