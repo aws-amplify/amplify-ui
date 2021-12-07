@@ -198,11 +198,11 @@ jobs:
         run: yarn --frozen-lockfile --prefer-offline
 
       - name: Build @aws-amplify/ui package
-        if: steps.restore-cache.outputs.cache-hit != 'true' || ${{ matrix.framework == '@aws-amplify/ui' }}
+        if: steps.restore-cache.outputs.cache-hit != 'true'
         run: yarn ui build
 
       - name: Build ${{ matrix.framework }} package
-        run: yarn ${{ matrix.framework }} build
+        run: yarn ${{ matrix.framework == 'next' && 'react' || ${{ matrix.framework }} }} build
 
       - name: Add Amplify CLI
         run: yarn global add @aws-amplify/cli
