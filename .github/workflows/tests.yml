@@ -41,7 +41,7 @@ jobs:
         id: get-ref
         run: |
           echo "::set-output name=key::${{ github.event_name == 'push' && github.ref || github.event.pull_request.head.ref }}"
-          echo "::set-output name=commit::$(git rev-parse --short "$GITHUB_SHA")
+          echo "::set-output name=commit::$(git rev-parse --short "$GITHUB_SHA")"
       - name: Checkout Amplify UI
         uses: actions/checkout@v2
         with:
