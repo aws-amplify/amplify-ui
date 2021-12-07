@@ -219,7 +219,7 @@ jobs:
           key: ${{ runner.os }}-ui-${{ needs.setup.outputs.commit }}
 
       - name: Restore ${{ matrix.package }}/dist cache
-        id: restore-{{ matrix.package }}-cache
+        id: restore-package-cache
         uses: actions/cache@v2
         with:
           path: ./packages/${{ matrix.package }}/dist
@@ -234,7 +234,7 @@ jobs:
         run: yarn ui build
 
       - name: Build ${{ matrix.framework }} package
-        if: steps.restore-{{ matrix.package }}-cache.outputs.cache-hit != 'true'
+        if: steps.restore-package-cache.outputs.cache-hit != 'true'
         run: yarn ${{ matrix.package }} build
 
       - name: Add Amplify CLI
