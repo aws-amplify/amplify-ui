@@ -197,12 +197,12 @@ jobs:
         if: steps.restore-cache.outputs.cache-hit != 'true' || steps.restore-cypress-cache.outputs.cache-hit != 'true'
         run: yarn --frozen-lockfile --prefer-offline
 
-      - name: Build packages
-        run: yarn workspace ${{ matrix.package }} build
-
       - name: Build @aws-amplify/ui package
-        if: steps.restore-cache.outputs.cache-hit != 'true' || ${{ matrix.package == '@aws-amplify/ui' }}
+        if: steps.restore-cache.outputs.cache-hit != 'true' || ${{ matrix.framework == '@aws-amplify/ui' }}
         run: yarn ui build
+
+      - name: Build ${{ matrix.framework }} package
+        run: yarn workspace ${{ matrix.framework }} build
 
       - name: Add Amplify CLI
         run: yarn global add @aws-amplify/cli
