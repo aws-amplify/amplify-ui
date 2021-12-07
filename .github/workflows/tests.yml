@@ -127,7 +127,7 @@ jobs:
         run: yarn --frozen-lockfile --prefer-offline  --prefer-offline
 
       - name: Build @aws-amplify/ui package
-        if: steps.restore-ui-cache.outputs.cache-hit != 'true' && ${{ matrix.package != '@aws-amplify/ui' }}
+        if: ${{ steps.restore-ui-cache.outputs.cache-hit != 'true' && matrix.package != '@aws-amplify/ui' }}
         run: yarn ui build
 
       - name: Build ${{ matrix.package }} package
