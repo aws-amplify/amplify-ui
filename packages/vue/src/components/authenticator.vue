@@ -174,7 +174,6 @@ const onConfirmVerifyUserSubmitI = (e: Event) => {
 };
 
 // watchers
-
 /**
  * Update service facade when context updates
  */
