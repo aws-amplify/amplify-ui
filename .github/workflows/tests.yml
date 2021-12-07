@@ -202,7 +202,7 @@ jobs:
         run: yarn ui build
 
       - name: Build ${{ matrix.framework }} package
-        run: yarn workspace ${{ matrix.framework }} build
+        run: yarn ${{ matrix.framework }} build
 
       - name: Add Amplify CLI
         run: yarn global add @aws-amplify/cli
