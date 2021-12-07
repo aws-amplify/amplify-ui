@@ -26,6 +26,9 @@ jobs:
       github.event_name == 'push' ||
       (github.event.pull_request.head.repo.full_name == github.repository) || 
       (github.event.action == 'labeled' && github.event.label.name == 'run-tests')
+    outputs:
+      ref: ${{ steps.get-ref.outputs.ref }}
+      commit: ${{ steps.get-ref.outputs.commit }}
     steps:
       # This would be a good place to run and cache `yarn`, `yarn build`, etc
       - name: Remove run-tests label, if applicable
@@ -63,7 +66,7 @@ jobs:
             ./node_modules
             **/node_modules
             **/dist
-          key: ${{ runner.os }}-${{ steps.get-ref.outputs.commit }}
+          key: ${{ runner.os }}-yarn-${{ steps.get-ref.outputs.commit }}
   unit:
     needs: setup
     runs-on: ubuntu-latest
@@ -93,8 +96,19 @@ jobs:
           node-version: lts/*
           cache: 'yarn'
 
+      - name: Restore Cache
+        uses: actions/cache@v2
+        id: restore-cache
+        with:
+          path: |
+            ./node_modules
+            **/node_modules
+            **/dist
+          key: ${{ runner.os }}-yarn-${{ needs.setup.outputs.commit }}
+
       - name: Install packages
-        run: yarn --frozen-lockfile
+        if: steps.restore-cache.outputs.cache-hit != 'true'
+        run: yarn --frozen-lockfile --prefer-offline
 
       - name: Lint packages
         run: yarn workspace ${{ matrix.package }} lint
