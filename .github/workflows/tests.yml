@@ -76,7 +76,7 @@ jobs:
           path: |
             ./node_modules
             **/node_modules
-          key: ${{ runner.os }}-yarn-${{ steps.get-ref.outputs.commit }}
+          key: ${{ runner.os }}-nodemodules-${{ steps.get-ref.outputs.commit }}
   unit:
     needs: setup
     runs-on: ubuntu-latest
@@ -113,14 +113,14 @@ jobs:
           path: |
             ./node_modules
             **/node_modules
-          key: ${{ runner.os }}-yarn-${{ needs.setup.outputs.commit }}
+          key: ${{ runner.os }}-nodemodules-${{ needs.setup.outputs.commit }}
 
-      - name: Restore packages/ui/dist cache
+      - name: Restore ui/dist cache
         uses: actions/cache@v2
         id: restore-ui-cache
         with:
           path: ./packages/ui/dist
-          key: ${{ runner.os }}-ui-${{ steps.get-ref.outputs.commit }}
+          key: ${{ runner.os }}-ui-${{ needs.setup.outputs.commit }}
 
       - name: Install packages
         if: steps.restore-cache.outputs.cache-hit != 'true'
@@ -130,9 +130,15 @@ jobs:
         if: steps.restore-ui-cache.outputs.cache-hit != 'true' && ${{ matrix.package != '@aws-amplify/ui' }}
         run: yarn ui build
 
-      - name: Build packages
+      - name: Build ${{ matrix.package }} package
         if: ${{ matrix.package != '@aws-amplify/ui' }}
         run: yarn workspace ${{ matrix.package }} build
+
+      - name: Cache ${{ matrix.package }}/dist
+        uses: actions/cache@v2
+        with:
+          path: ./packages/${{ matrix.package }}/dist
+          key: ${{ runner.os }}-${{ matrix.package }}-${{ needs.setup.outputs.commit }}
 
       - name: Lint packages
         run: yarn workspace ${{ matrix.package }} lint
@@ -155,12 +161,15 @@ jobs:
       matrix:
         include:
           - framework: angular
+            package: angular
             tags: '@angular and not (@skip or @todo-angular)'
 
           - framework: next
+            package: react
             tags: '@react and not (@skip or @todo-react)'
 
           - framework: vue
+            package: vue
             tags: '@vue and not (@skip or @todo-vue)'
 
     steps:
@@ -200,14 +209,21 @@ jobs:
           path: |
             ./node_modules
             **/node_modules
-          key: ${{ runner.os }}-yarn-${{ needs.setup.outputs.commit }}
+          key: ${{ runner.os }}-nodemodules-${{ needs.setup.outputs.commit }}
 
-      - name: Restore packages/ui/dist cache
+      - name: Restore ui/dist cache
         uses: actions/cache@v2
         id: restore-ui-cache
         with:
           path: ./packages/ui/dist
-          key: ${{ runner.os }}-ui-${{ steps.get-ref.outputs.commit }}
+          key: ${{ runner.os }}-ui-${{ needs.setup.outputs.commit }}
+
+      - name: Restore ${{ matrix.package }}/dist cache
+        id: restore-{{ matrix.package }}-cache
+        uses: actions/cache@v2
+        with:
+          path: ./packages/${{ matrix.package }}/dist
+          key: ${{ runner.os }}-${{ matrix.package }}-${{ needs.setup.outputs.commit }}
 
       - name: Install packages
         if: steps.restore-cache.outputs.cache-hit != 'true' || steps.restore-cypress-cache.outputs.cache-hit != 'true'
@@ -218,7 +234,8 @@ jobs:
         run: yarn ui build
 
       - name: Build ${{ matrix.framework }} package
-        run: yarn ${{ matrix.framework == 'next' && 'react' || matrix.framework }} build
+        if: steps.restore-{{ matrix.package }}-cache.outputs.cache-hit != 'true'
+        run: yarn ${{ matrix.package }} build
 
       - name: Add Amplify CLI
         run: yarn global add @aws-amplify/cli
@@ -275,24 +292,32 @@ jobs:
           path: |
             ./node_modules
             **/node_modules
-          key: ${{ runner.os }}-yarn-${{ needs.setup.outputs.commit }}
+          key: ${{ runner.os }}-nodemodules-${{ needs.setup.outputs.commit }}
 
       - name: Install packages
         if: steps.restore-cache.outputs.cache-hit != 'true'
         run: yarn --frozen-lockfile --prefer-offline
 
-      - name: Restore packages/ui/dist cache
+      - name: Restore ui/dist cache
         uses: actions/cache@v2
         id: restore-ui-cache
         with:
           path: ./packages/ui/dist
-          key: ${{ runner.os }}-ui-${{ steps.get-ref.outputs.commit }}
+          key: ${{ runner.os }}-ui-${{ needs.setup.outputs.commit }}
+
+      - name: Restore react/dist cache
+        uses: actions/cache@v2
+        id: restore-react-cache
+        with:
+          path: ./packages/react/dist
+          key: ${{ runner.os }}-react-${{ needs.setup.outputs.commit }}
 
       - name: Build @aws-amplify/ui package
         if: steps.restore-ui-cache.outputs.cache-hit != 'true'
         run: yarn ui build
 
       - name: build react package
+        if: steps.restore-react-cache.outputs.cache-hit != 'true'
         run: yarn react build
 
       - name: Build docs package
