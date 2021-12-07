@@ -38,13 +38,13 @@ jobs:
             const label = 'run-tests';
             github.issues.removeLabel({ owner, repo, issue_number, name: label });
       - name: Get commit ref
-        id: get-commit-ref
+        id: get-ref
         run: echo "::set-output name=ref::${{ github.event_name == 'push' && github.ref || github.event.pull_request.head.ref }}"
-      - run: echo ${{ steps.get-commit-ref.ref }}
+      - run: echo ${{ steps.get-ref.outputs.ref }}
       - name: Checkout Amplify UI
         uses: actions/checkout@v2
         with:
-          ref: ${{ steps.get-commit-ref.ref }}
+          ref: ${{ steps.get-ref.outputs.ref }}
           repository: ${{github.event.pull_request.head.repo.full_name}}
           persist-credentials: false
       - name: Checkout Amplify UI
@@ -78,7 +78,7 @@ jobs:
             ~/.cache/Cypress
             node_modules
             ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-${{ steps.get-commit-ref.ref }}
+          key: ${{ runner.os }}-${{ steps.get-ref.outputs.ref }}
   unit:
     needs: setup
     runs-on: ubuntu-latest
