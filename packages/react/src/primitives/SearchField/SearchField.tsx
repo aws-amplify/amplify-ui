@@ -3,74 +3,11 @@ import * as React from 'react';
 
 import { ComponentClassNames } from '../shared/constants';
 import { FieldClearButton } from '../Field';
-import { isFunction, strHasLength } from '../shared/utils';
+import { strHasLength } from '../shared/utils';
 import { SearchFieldButton } from './SearchFieldButton';
 import { SearchFieldProps, Primitive } from '../types';
 import { TextField } from '../TextField';
-
-const ESCAPE_KEY = 'Escape';
-const ENTER_KEY = 'Enter';
-const DEFAULT_KEYS = [ESCAPE_KEY, ENTER_KEY];
-
-export const useSearchField = ({
-  onSubmit,
-  onClear,
-}: Partial<SearchFieldProps>) => {
-  const [value, setValue] = React.useState<string>('');
-
-  const onClearHandler = React.useCallback(() => {
-    setValue('');
-
-    if (isFunction(onClear)) {
-      onClear();
-    }
-  }, [setValue, onClear]);
-
-  const onSubmitHandler = React.useCallback(
-    (value: string) => {
-      if (isFunction(onSubmit)) {
-        onSubmit(value);
-      }
-    },
-    [onSubmit]
-  );
-
-  const onKeyDown = React.useCallback(
-    (event) => {
-      const key = event.key;
-
-      if (DEFAULT_KEYS.includes(key)) {
-        event.preventDefault();
-      }
-
-      if (key === ESCAPE_KEY) {
-        onClearHandler();
-      } else if (key === ENTER_KEY) {
-        onSubmitHandler(value);
-      }
-    },
-    [value, onClearHandler, onSubmitHandler]
-  );
-
-  const onInput = React.useCallback(
-    (event) => {
-      setValue(event.target.value);
-    },
-    [setValue]
-  );
-
-  const onClick = React.useCallback(() => {
-    onSubmitHandler(value);
-  }, [onSubmitHandler, value]);
-
-  return {
-    value,
-    onClearHandler,
-    onKeyDown,
-    onInput,
-    onClick,
-  };
-};
+import { useSearchField } from './useSearchField';
 
 const SearchFieldPrimitive: Primitive<SearchFieldProps, 'input'> = (
   {
@@ -86,9 +23,8 @@ const SearchFieldPrimitive: Primitive<SearchFieldProps, 'input'> = (
   },
   ref
 ) => {
-  const { value, onClearHandler, onInput, onKeyDown, onClick } = useSearchField(
-    { onSubmit, onClear }
-  );
+  const { value, onClearHandler, onInput, onKeyDown, onClick, composeRefs } =
+    useSearchField({ onSubmit, onClear, externalRef: ref });
 
   return (
     <TextField
@@ -115,7 +51,7 @@ const SearchFieldPrimitive: Primitive<SearchFieldProps, 'input'> = (
           size={size}
         />
       }
-      ref={ref}
+      ref={composeRefs}
       size={size}
       value={value}
       {...rest}
