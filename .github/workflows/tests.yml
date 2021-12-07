@@ -66,6 +66,7 @@ jobs:
             ./node_modules
             **/node_modules
             **/dist
+            ~/.cache/Cypress
           key: ${{ runner.os }}-yarn-${{ steps.get-ref.outputs.commit }}
   unit:
     needs: setup
@@ -104,6 +105,7 @@ jobs:
             ./node_modules
             **/node_modules
             **/dist
+            ~/.cache/Cypress
           key: ${{ runner.os }}-yarn-${{ needs.setup.outputs.commit }}
 
       - name: Install packages
@@ -170,6 +172,7 @@ jobs:
             ./node_modules
             **/node_modules
             **/dist
+            ~/.cache/Cypress
           key: ${{ runner.os }}-yarn-${{ needs.setup.outputs.commit }}
 
       - name: Install packages
