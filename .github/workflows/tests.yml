@@ -37,7 +37,48 @@ jobs:
             const { issue: { number: issue_number }, repo: { owner, repo } } = context;
             const label = 'run-tests';
             github.issues.removeLabel({ owner, repo, issue_number, name: label });
+      - name: Get commit ref
+        id: get-commit-ref
+        run: echo "::set-output name=ref::${{ github.event_name == 'push' && github.ref || github.event.pull_request.head.ref }}"
+      - run: echo ${{ steps.get-commit-ref.ref }}
+      - name: Checkout Amplify UI
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ steps.get-commit-ref.ref }}
+          repository: ${{github.event.pull_request.head.repo.full_name}}
+          persist-credentials: false
+      - name: Checkout Amplify UI
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event_name == 'push' && github.ref || github.event.pull_request.head.ref }}
+          repository: ${{github.event.pull_request.head.repo.full_name}}
+          persist-credentials: false
 
+      - name: Setup Node.js LTS
+        uses: actions/setup-node@v2
+        with:
+          node-version: lts/*
+          cache: 'yarn'
+
+      - name: Install packages
+        run: yarn --frozen-lockfile
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - name: Cache build
+        uses: actions/cache@v2
+        id: build-cache
+        with:
+          path: |
+            **/.ultra.cache.json
+            **/dist
+            **/node_modules
+            ~/.cache/Cypress
+            node_modules
+            ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-${{ steps.get-commit-ref.ref }}
   unit:
     needs: setup
     runs-on: ubuntu-latest
