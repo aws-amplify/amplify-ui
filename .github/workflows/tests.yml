@@ -40,20 +40,12 @@ jobs:
       - name: Get commit ref
         id: get-ref
         run: echo "::set-output name=ref::${{ github.event_name == 'push' && github.ref || github.event.pull_request.head.ref }}"
-      - run: echo ${{ steps.get-ref.outputs.ref }}
       - name: Checkout Amplify UI
         uses: actions/checkout@v2
         with:
           ref: ${{ steps.get-ref.outputs.ref }}
           repository: ${{github.event.pull_request.head.repo.full_name}}
           persist-credentials: false
-      - name: Checkout Amplify UI
-        uses: actions/checkout@v2
-        with:
-          ref: ${{ github.event_name == 'push' && github.ref || github.event.pull_request.head.ref }}
-          repository: ${{github.event.pull_request.head.repo.full_name}}
-          persist-credentials: false
-
       - name: Setup Node.js LTS
         uses: actions/setup-node@v2
         with:
@@ -72,12 +64,9 @@ jobs:
         id: build-cache
         with:
           path: |
-            **/.ultra.cache.json
-            **/dist
+            ./node_modules
             **/node_modules
-            ~/.cache/Cypress
-            node_modules
-            ${{ steps.yarn-cache-dir-path.outputs.dir }}
+            **/dist
           key: ${{ runner.os }}-${{ steps.get-ref.outputs.ref }}
   unit:
     needs: setup
