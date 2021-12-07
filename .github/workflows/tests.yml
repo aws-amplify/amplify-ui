@@ -57,7 +57,7 @@ jobs:
           echo "::set-output name=key::${{ github.event_name == 'push' && github.ref || github.event.pull_request.head.ref }}"
           echo "::set-output name=commit::$(git rev-parse --short "$GITHUB_SHA")"
       - name: Install packages
-        run: yarn --frozen-lockfile
+        run: yarn --frozen-lockfile --prefer-offline
       - name: build @aws-amplify/ui package
         run: yarn ui build
       - name: Cache cypress runner
@@ -114,7 +114,7 @@ jobs:
 
       - name: Install packages
         if: steps.restore-cache.outputs.cache-hit != 'true'
-        run: yarn --frozen-lockfile --prefer-offline
+        run: yarn --frozen-lockfile --prefer-offline  --prefer-offline
 
       - name: Build @aws-amplify/ui package
         if: steps.restore-cache.outputs.cache-hit != 'true' && ${{ matrix.package != '@aws-amplify/ui' }}
@@ -195,7 +195,7 @@ jobs:
 
       - name: Install packages
         if: steps.restore-cache.outputs.cache-hit != 'true' || steps.restore-cypress-cache.outputs.cache-hit != 'true'
-        run: yarn --frozen-lockfile
+        run: yarn --frozen-lockfile --prefer-offline
 
       - name: Build packages
         run: yarn workspace ${{ matrix.package }} build
@@ -264,7 +264,7 @@ jobs:
 
       - name: Install packages
         if: steps.restore-cache.outputs.cache-hit != 'true'
-        run: yarn --frozen-lockfile
+        run: yarn --frozen-lockfile --prefer-offline
 
       - name: Build @aws-amplify/ui package
         if: steps.restore-cache.outputs.cache-hit != 'true'
