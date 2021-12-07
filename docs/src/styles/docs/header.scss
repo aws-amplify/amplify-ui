@@ -2,7 +2,7 @@
   display: flex;
   position: sticky;
   top: 0;
-  width: 100vw;
+  width: 100%;
   background-color: var(--amplify-colors-background-primary);
   z-index: 100;
   border-bottom: var(--amplify-borders-primary);
@@ -10,7 +10,7 @@
   justify-content: flex-start;
   align-items: center;
   padding: var(--amplify-space-small) var(--amplify-space-xl);
-  
+
   @media (min-width: 62rem) {
     justify-content: space-between;
   }
@@ -19,7 +19,7 @@
 .docs-header-mobile-nav {
   background-color: var(--amplify-colors-background-primary);
   z-index: 99;
-  
+
   .expanded + & {
     position: fixed;
     width: 100vw;
@@ -42,19 +42,20 @@
 .docs-nav,
 .docs-settings {
   display: none;
-  
+
   @media (min-width: 62rem) {
     display: flex;
     padding: 0 var(--amplify-space-medium);
   }
-  
+
   .docs-header-mobile-nav & {
     display: flex;
     width: 100%;
     visibility: visible;
     white-space: nowrap;
     overflow-x: auto;
-    border-bottom: var(--amplify-border-widths-small) solid var(--amplify-colors-border-primary);
+    border-bottom: var(--amplify-border-widths-small) solid
+      var(--amplify-colors-border-primary);
     padding-block: var(--amplify-space-medium);
   }
 }
@@ -83,7 +84,6 @@
   color: var(--amplify-colors-font-hover);
   background-color: var(--amplify-colors-brand-primary-10);
 }
-
 
 .docs-logo-svg {
   height: 1.5rem;
