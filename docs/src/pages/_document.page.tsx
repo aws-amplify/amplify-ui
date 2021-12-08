@@ -1,4 +1,5 @@
 import crypto from 'crypto';
+import type { HtmlProps } from 'next/dist/shared/lib/utils';
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 
 const favicon =
@@ -11,28 +12,39 @@ const cspHashOf = (text) => {
   hash.update(text);
   return `'sha256-${hash.digest('base64')}'`;
 };
+
+// See: https://github.com/vercel/next.js/blob/master/examples/with-strict-csp/pages/_document.js
+const getCSPContent = (context: Readonly<HtmlProps>) => {
+  const cspInlineScriptHash = cspHashOf(
+    NextScript.getInlineScriptSource(context)
+  );
+
+  // Dev environment
+  if (process.env.NODE_ENV !== 'production') {
+    return `default-src 'self';
+      style-src 'self' 'unsafe-inline';
+      font-src 'self' data:;
+      script-src 'unsafe-eval' 'self' ${cspInlineScriptHash}
+    `;
+  }
+
+  // Prod environment
+  return `default-src 'self';
+    style-src 'self' 'unsafe-inline';
+    font-src 'self';
+    script-src 'self' ${cspInlineScriptHash}
+  `;
+};
+
 class MyDocument extends Document {
   render() {
-    // See: https://github.com/vercel/next.js/blob/master/examples/with-strict-csp/pages/_document.js
-    let csp = `default-src 'self';
-              style-src 'self' 'unsafe-inline';
-              font-src 'self';
-              script-src 'self' ${cspHashOf(
-                NextScript.getInlineScriptSource(this.props)
-              )}`;
-    if (process.env.NODE_ENV !== 'production') {
-      csp = `default-src 'self';
-            style-src 'self' 'unsafe-inline';
-            font-src 'self' data:;
-            script-src 'unsafe-eval' 'self' ${cspHashOf(
-              NextScript.getInlineScriptSource(this.props)
-            )}`;
-    }
-
     return (
       <Html>
         <Head>
-          <meta httpEquiv="Content-Security-Policy" content={csp} />
+          <meta
+            httpEquiv="Content-Security-Policy"
+            content={getCSPContent(this.props)}
+          />
           <link rel="icon" type="image/svg+xml" href={favicon} />
         </Head>
         <body>
