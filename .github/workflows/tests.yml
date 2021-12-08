@@ -165,7 +165,7 @@ jobs:
             tags: '@angular and not (@skip or @todo-angular)'
 
           - framework: next
-            package: next
+            package: react
             tags: '@react and not (@skip or @todo-react)'
 
           - framework: vue
