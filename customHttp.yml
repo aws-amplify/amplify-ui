@@ -9,5 +9,6 @@ customHeaders:
         value: "1; mode=block"
       - key: "X-Content-Type-Options"
         value: "nosniff"
-      - key: "Content-Security-Policy"
-        value: "default-src 'self'"
+      # CSP set in _document.page.tsx meta tag
+      # - key: "Content-Security-Policy"
+      #   value: "default-src 'self'"
