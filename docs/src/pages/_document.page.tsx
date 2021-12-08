@@ -33,6 +33,7 @@ const getCSPContent = (context: Readonly<HtmlProps>) => {
   return `default-src 'self';
     style-src 'self' 'unsafe-inline';
     font-src 'self';
+    frame-src *.codesandbox.io;
     script-src 'self' '${cspInlineScriptHash}'
   `;
 };
