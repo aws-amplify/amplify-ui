@@ -161,15 +161,15 @@ jobs:
       matrix:
         include:
           - framework: angular
-            package: angular
+            package: '@aws-amplify/ui-angular'
             tags: '@angular and not (@skip or @todo-angular)'
 
           - framework: next
-            package: react
+            package: '@aws-amplify/ui-react'
             tags: '@react and not (@skip or @todo-react)'
 
           - framework: vue
-            package: vue
+            package: '@aws-amplify/ui-vue'
             tags: '@vue and not (@skip or @todo-vue)'
 
     steps:
@@ -235,7 +235,7 @@ jobs:
 
       - name: Build ${{ matrix.framework }} package
         if: steps.restore-package-cache.outputs.cache-hit != 'true'
-        run: yarn ${{ matrix.package }} build
+        run: yarn workspace ${{ matrix.package }} build
 
       - name: Add Amplify CLI
         run: yarn global add @aws-amplify/cli
@@ -310,7 +310,7 @@ jobs:
         id: restore-react-cache
         with:
           path: ./packages/react/dist
-          key: ${{ runner.os }}-react-${{ needs.setup.outputs.commit }}
+          key: ${{ runner.os }}-@aws-amplify/ui-react-${{ needs.setup.outputs.commit }}
 
       - name: Build @aws-amplify/ui package
         if: steps.restore-ui-cache.outputs.cache-hit != 'true'
