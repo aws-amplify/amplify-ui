@@ -22,7 +22,7 @@ To extend or override a token in the default theme with `createTheme`
 import { AmplifyProvider, Theme } from '@aws-amplify/ui-react';
 
 // Step 1: Create a new Theme with your custom values
-const theme: Theme = {
+const theme = createTheme({
   name: 'my-theme',
   tokens: {
     colors: {
