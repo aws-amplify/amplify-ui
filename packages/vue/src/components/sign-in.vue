@@ -118,7 +118,7 @@ const onForgotPasswordClicked = (): void => {
             </base-wrapper>
           </base-field-set>
           <base-alert v-if="actorState.context.remoteError">
-            {{ actorState.context.remoteError }}
+            {{ translate(actorState.context.remoteError) }}
           </base-alert>
 
           <amplify-button
