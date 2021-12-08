@@ -15,7 +15,7 @@ class MyDocument extends Document {
   render() {
     // See: https://github.com/vercel/next.js/blob/master/examples/with-strict-csp/pages/_document.js
     let csp = `default-src 'self';
-              style-src 'self' fonts.googleapis.com;
+              style-src 'self' fonts.googleapis.com 'unsafe-inline';
               font-src 'self' fonts.gstatic.com;
               script-src 'self' ${cspHashOf(
                 NextScript.getInlineScriptSource(this.props)
