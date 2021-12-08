@@ -87,10 +87,10 @@ jobs:
       matrix:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
         package:
-          - '@aws-amplify/ui'
-          - '@aws-amplify/ui-angular'
-          - '@aws-amplify/ui-vue'
-          - '@aws-amplify/ui-react'
+          - ui
+          - angular
+          - vue
+          - react
 
     steps:
       - name: Checkout Amplify UI
@@ -126,13 +126,13 @@ jobs:
         if: steps.restore-cache.outputs.cache-hit != 'true'
         run: yarn --frozen-lockfile --prefer-offline  --prefer-offline
 
-      - name: Build @aws-amplify/ui package
-        if: ${{ steps.restore-ui-cache.outputs.cache-hit != 'true' && matrix.package != '@aws-amplify/ui' }}
+      - name: Build ui package
+        if: ${{ steps.restore-ui-cache.outputs.cache-hit != 'true' && matrix.package != 'ui' }}
         run: yarn ui build
 
       - name: Build ${{ matrix.package }} package
         if: ${{ matrix.package != '@aws-amplify/ui' }}
-        run: yarn workspace ${{ matrix.package }} build
+        run: yarn ${{ matrix.package }} build
 
       - name: Cache ${{ matrix.package }}/dist
         uses: actions/cache@v2
@@ -141,10 +141,10 @@ jobs:
           key: ${{ runner.os }}-${{ matrix.package }}-${{ needs.setup.outputs.commit }}
 
       - name: Lint packages
-        run: yarn workspace ${{ matrix.package }} lint
+        run: yarn ${{ matrix.package }} lint
 
       - name: Run ${{ matrix.package }} tests
-        run: yarn workspace ${{ matrix.package}} test
+        run: yarn ${{ matrix.package}} test
 
   e2e:
     # Only run e2e tests if unit tests pass
@@ -161,15 +161,15 @@ jobs:
       matrix:
         include:
           - framework: angular
-            package: '@aws-amplify/ui-angular'
+            package: angular
             tags: '@angular and not (@skip or @todo-angular)'
 
           - framework: next
-            package: '@aws-amplify/ui-react'
+            package: next
             tags: '@react and not (@skip or @todo-react)'
 
           - framework: vue
-            package: '@aws-amplify/ui-vue'
+            package: vue
             tags: '@vue and not (@skip or @todo-vue)'
 
     steps:
@@ -233,9 +233,9 @@ jobs:
         if: steps.restore-ui-cache.outputs.cache-hit != 'true'
         run: yarn ui build
 
-      - name: Build ${{ matrix.framework }} package
+      - name: Build ${{ matrix.package }} package
         if: steps.restore-package-cache.outputs.cache-hit != 'true'
-        run: yarn workspace ${{ matrix.package }} build
+        run: yarn ${{ matrix.package }} build
 
       - name: Add Amplify CLI
         run: yarn global add @aws-amplify/cli
