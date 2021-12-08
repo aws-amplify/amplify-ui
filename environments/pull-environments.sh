@@ -15,7 +15,7 @@ done
 
 numParallelTasks=8; # Future improvement: could set this to # of logical cores in localdevice
 
-if [ "$NODE_ENV" == "test" ]; then
+if [ "$NODE_ENV" = "test" ]; then
   numParallelTasks=1; # GitHub actions has trouble handling parallel executions
 fi
 
