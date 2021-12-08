@@ -10,7 +10,7 @@ const favicon =
 const cspHashOf = (text) => {
   const hash = crypto.createHash('sha256');
   hash.update(text);
-  return `'sha256-${hash.digest('base64')}'`;
+  return `sha256-${hash.digest('base64')}`;
 };
 
 // See: https://github.com/vercel/next.js/blob/master/examples/with-strict-csp/pages/_document.js
@@ -24,7 +24,7 @@ const getCSPContent = (context: Readonly<HtmlProps>) => {
     return `default-src 'self';
       style-src 'self' 'unsafe-inline';
       font-src 'self' data:;
-      script-src 'unsafe-eval' 'self' ${cspInlineScriptHash}
+      script-src 'unsafe-eval' 'self' '${cspInlineScriptHash}'
     `;
   }
 
@@ -32,7 +32,7 @@ const getCSPContent = (context: Readonly<HtmlProps>) => {
   return `default-src 'self';
     style-src 'self' 'unsafe-inline';
     font-src 'self';
-    script-src 'self' ${cspInlineScriptHash}
+    script-src 'self' '${cspInlineScriptHash}'
   `;
 };
 
