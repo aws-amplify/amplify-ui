@@ -1,3 +1,6 @@
+# Custom headers when serving docs through Amplify Hosting
+#
+# See: https://docs.aws.amazon.com/amplify/latest/userguide/custom-headers.html#setting-custom-headers
 customHeaders:
   - pattern: "**/*"
     headers:
