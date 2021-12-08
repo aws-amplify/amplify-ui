@@ -2,35 +2,7 @@
 set -e
 IFS='|'
 
-# In development, AWS_PROFILE should be set. In CI, it's not.
-[ "$AWS_PROFILE" ] && useProfile="true" || useProfile="false";
-
-FRONTENDCONFIG="{\
-\"SourceDir\":\"src\",\
-\"DistributionDir\":\"dist\",\
-\"BuildCommand\":\"npm run-script build\",\
-\"StartCommand\":\"npm run-script start\"\
-}"
-FRONTEND="{\
-\"frontend\":\"javascript\",\
-\"framework\":\"none\",\
-\"config\":$FRONTENDCONFIG\
-}"
-AMPLIFY="{\
-\"defaultEditor\":\"code\",\
-}"
-AWSCLOUDFORMATIONCONFIG="{\
-\"configLevel\":\"project\",\
-\"useProfile\":$useProfile,\
-\"profileName\":\"$AWS_PROFILE\",\
-\"accessKeyId\":\"$AWS_ACCESS_KEY_ID\",\
-\"secretAccessKey\":\"$AWS_SECRET_ACCESS_KEY\",\
-\"region\":\"us-east-1\"\
-}"
-PROVIDERS="{\
-\"awscloudformation\":$AWSCLOUDFORMATIONCONFIG\
-}"
-
+dirs=""
 # Pull the backend for each environment
 for dir in ./*/ ; do
   if ! [ -f "$dir/package.json" ]; then
@@ -38,14 +10,8 @@ for dir in ./*/ ; do
     continue
   fi
 
-  cd $dir
-
-  # 'echo y' is used to answer "Yes" to the prompt "Do you plan on modifying this backend?"
-  # See https://github.com/aws-amplify/amplify-cli/issues/5275
-  echo y | yarn pull \
-    --amplify $AMPLIFY \
-    --frontend $FRONTEND \
-    --providers $PROVIDERS
-
-  cd -
+  dirs="$dirs\n$dir"
 done
+
+echo $dirs | xargs -P 16 -I {} sh -c "./pull-environment.sh {}"
+
