@@ -129,7 +129,7 @@ jobs:
         run: yarn --frozen-lockfile
 
       - name: Add Amplify CLI
-        run: npm i -g @aws-amplify/cli
+        run: yarn global add @aws-amplify/cli
 
       - name: Pull down AWS environments
         run: yarn environments pull
