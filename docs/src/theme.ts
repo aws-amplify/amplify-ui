@@ -116,12 +116,6 @@ export const theme: Theme = {
     {
       selector: '.classic [data-amplify-theme="amplify-docs"]',
       tokens: {
-        fonts: {
-          default: {
-            variable: { value: `'Open Sans'` },
-            static: { value: `'Open Sans'` },
-          },
-        },
         colors: {
           brand: {
             primary: usePalette('blue'),
@@ -143,12 +137,6 @@ export const theme: Theme = {
     {
       selector: '.terminal [data-amplify-theme="amplify-docs"]',
       tokens: {
-        fonts: {
-          default: {
-            variable: { value: "'Work Sans'" },
-            static: { value: "'Work Sans'" },
-          },
-        },
         colors: {
           green: {
             10: { value: '#C7EFCA' },
