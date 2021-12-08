@@ -17,7 +17,6 @@ class MyDocument extends Document {
         </Head>
         <body>
           <title>Liveness Example App</title>
-          <h1>Liveness Example App</h1>
           <Main />
           <NextScript />
         </body>

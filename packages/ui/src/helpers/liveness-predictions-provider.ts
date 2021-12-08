@@ -5,6 +5,7 @@ import RekognitionLiveness from 'aws-sdk-liveness/clients/rekognitionliveness';
 export interface PutLivenessVideoInput {
   sessionId: string;
   videoBlob: Blob;
+  livenessActionDocument: string;
 }
 
 export interface PutLivenessVideoOutput {
@@ -32,18 +33,13 @@ export class LivenessPredictionsProvider extends AmazonAIInterpretPredictionsPro
       endpoint: 'https://us-west-2.beta.reventlov.rekognition.aws.dev/',
     });
 
-    // TODO: remove try/catch
-    try {
-      await rekognitionClient
-        .putLivenessVideo({
-          SessionId: input.sessionId,
-          Video: input.videoBlob,
-          LivenessActionDocument: 'placeholder',
-        })
-        .promise();
-    } catch (err) {
-      console.log({ err });
-    }
+    await rekognitionClient
+      .putLivenessVideo({
+        SessionId: input.sessionId,
+        Video: input.videoBlob,
+        LivenessActionDocument: input.livenessActionDocument,
+      })
+      .promise();
 
     return {
       sessionId: input.sessionId,

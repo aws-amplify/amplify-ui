@@ -1,9 +1,11 @@
-import { useState } from 'react';
-import { LivenessFlow, LivenessFlowProps } from '@aws-amplify/ui-react';
-import { Amplify, API } from 'aws-amplify';
-import useSWR from 'swr';
+import dynamic from 'next/dynamic';
+import { Tabs, TabItem } from '@aws-amplify/ui-react';
+import { Amplify } from 'aws-amplify';
 import awsExports from '@environments/liveness/src/aws-exports';
 import '@aws-amplify/ui-react/styles.css';
+
+import LivenessCard from './components/LivenessCard';
+import LivenessDefault from './components/LivenessDefault';
 
 Amplify.configure({
   ...awsExports,
@@ -18,77 +20,20 @@ Amplify.configure({
   },
 });
 
-export default function App() {
-  const [isLivenessActive, setLivenessActive] = useState(false);
-
-  const {
-    data: startLivenessApiData,
-    error: startLivenessApiError,
-    isValidating: startLivenessApiLoading,
-  } = useSWR(
-    'StartLiveness',
-    () => API.post('SampleBackend', '/liveness/start', {}),
-    { revalidateOnFocus: false }
-  );
-
-  const handleStartLiveness = () => {
-    setLivenessActive(true);
-  };
-
-  const handleExit = () => {
-    setLivenessActive(false);
-  };
-
-  const handleUserExit = (event: CustomEvent) => {
-    event.preventDefault();
-    setLivenessActive(false);
-  };
-
-  const handleSuccess = async () => {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    setLivenessActive(false);
-  };
-
-  const handleGetLivenessDetection: LivenessFlowProps['onGetLivenessDetection'] =
-    async (sessionId) => {
-      let response;
-      // TODO: remove try/catch and return response
-      try {
-        response = await API.get('SampleBackend', `/liveness/${sessionId}`, {});
-        console.log({ response });
-      } catch (err) {
-        console.log({ err });
-      }
-
-      return { isLive: true };
-    };
-
-  if (startLivenessApiError) {
-    return <div>Some error occured...</div>;
-  }
-
+const App = () => {
   return (
-    // Ensure React knows it will be served from the ${name} subdirectory
-    <div>
-      {isLivenessActive ? (
-        <LivenessFlow
-          sessionId={startLivenessApiData.sessionId}
-          clientActionDocument={startLivenessApiData.clientActionDocument}
-          onGetLivenessDetection={handleGetLivenessDetection}
-          active={isLivenessActive}
-          onExit={handleExit}
-          onUserCancel={handleUserExit}
-          onSuccess={handleSuccess}
-        />
-      ) : (
-        <button
-          id="StartButton"
-          onClick={handleStartLiveness}
-          disabled={startLivenessApiLoading}
-        >
-          {startLivenessApiLoading ? 'Loading...' : 'Start Liveness'}
-        </button>
-      )}
-    </div>
+    <Tabs spacing="equal">
+      <TabItem title="Card View">
+        <LivenessCard />
+      </TabItem>
+
+      <TabItem title="Default View">
+        <LivenessDefault />
+      </TabItem>
+    </Tabs>
   );
-}
+};
+
+export default dynamic(() => Promise.resolve(App), {
+  ssr: false,
+});

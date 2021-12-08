@@ -16,6 +16,25 @@ import {
   VideoRecorder,
 } from '../../helpers';
 
+interface LivenessActionDocument {
+  initialFacePosition: {
+    height: number;
+    width: number;
+    left: number;
+    top: number;
+  };
+  targetFacePosition: {
+    height: number;
+    width: number;
+    centerX: number;
+    centerY: number;
+  };
+  deviceInformation: {
+    videoHeight: number;
+    videoWidth: number;
+  };
+}
+
 export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
   {
     id: 'livenessMachine',
@@ -211,9 +230,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       updateOvalAssociatedParams: assign({
         ovalAssociatedParams: (context, event) => ({
           ...context.ovalAssociatedParams,
-          initialFace: event.data.ovalDetails
-            ? event.data.ovalDetails.initialFace
-            : null,
+          initialFace: event.data.initialFace,
           ovalDetails: event.data.ovalDetails,
         }),
       }),
@@ -332,7 +349,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         canvasEl.height = height;
         drawLivenessOvalInCanvas(canvasEl, ovalDetails);
 
-        return { faceMatchState, ovalDetails };
+        return { faceMatchState, ovalDetails, initialFace };
       },
       async detectFaceAndMatchOval(context) {
         const {
@@ -372,7 +389,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
       async putLivenessVideo(context) {
         const {
           flowProps: { sessionId, onGetLivenessDetection },
-          videoAssociatedParams: { videoRecorder },
+          videoAssociatedParams: { videoRecorder, videoMediaStream },
+          ovalAssociatedParams: { initialFace, ovalDetails },
         } = context;
 
         const provider = new LivenessPredictionsProvider();
@@ -380,10 +398,31 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         await new Promise((resolve) => setTimeout(resolve, 500));
         const videoBlob = videoRecorder.getBlob();
 
+        const { width, height } = videoMediaStream.getTracks()[0].getSettings();
+        const livenessActionDocument: LivenessActionDocument = {
+          initialFacePosition: {
+            height: initialFace.height,
+            width: initialFace.width,
+            left: initialFace.left,
+            top: initialFace.top,
+          },
+          targetFacePosition: {
+            centerX: ovalDetails.centerX,
+            centerY: ovalDetails.centerY,
+            height: ovalDetails.height,
+            width: ovalDetails.width,
+          },
+          deviceInformation: {
+            videoHeight: height,
+            videoWidth: width,
+          },
+        };
+
         // Put liveness video
         await provider.putLivenessVideo({
           sessionId,
           videoBlob,
+          livenessActionDocument: JSON.stringify(livenessActionDocument),
         });
 
         // Get liveness result

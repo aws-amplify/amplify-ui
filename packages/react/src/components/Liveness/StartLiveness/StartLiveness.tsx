@@ -66,30 +66,28 @@ export const StartLiveness = () => {
         </Button>
       </Flex>
 
-      <Flex
-        justifyContent="flex-end"
+      <View
+        textAlign={{ medium: 'end' }}
         style={{ marginTop: `calc(-1 * ${tokens.space.small})` }}
       >
-        <View>
-          <Text
-            as="span"
-            fontSize={`${tokens.fontSizes.xs}`}
-            fontWeight={`${tokens.fontWeights.bold}`}
-            color={`${tokens.colors.font.tertiary}`}
-          >
-            {translate<string>('Legal desclaimer: ')}
-          </Text>
-          <Text
-            as="span"
-            fontSize={`${tokens.fontSizes.xs}`}
-            color={`${tokens.colors.font.tertiary}`}
-          >
-            {translate<string>(
-              'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex quaerat nisi voluptatem mollitia. Rerum incidunt impedit'
-            )}
-          </Text>
-        </View>
-      </Flex>
+        <Text
+          as="span"
+          fontSize={`${tokens.fontSizes.xs}`}
+          fontWeight={`${tokens.fontWeights.bold}`}
+          color={`${tokens.colors.font.tertiary}`}
+        >
+          {translate<string>('Legal desclaimer: ')}
+        </Text>
+        <Text
+          as="span"
+          fontSize={`${tokens.fontSizes.xs}`}
+          color={`${tokens.colors.font.tertiary}`}
+        >
+          {translate<string>(
+            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex quaerat nisi voluptatem mollitia. Rerum incidunt impedit'
+          )}
+        </Text>
+      </View>
     </Flex>
   );
 };

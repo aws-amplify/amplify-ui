@@ -3,7 +3,7 @@ export function getVideoConstraints(
   contentWidth: number
 ): MediaTrackConstraints | null {
   if (isMobileScreen && contentWidth < 485) {
-    const isPortrait = screen.orientation.type.includes('portrait');
+    const isPortrait = screen.orientation?.type?.includes('portrait') || true;
 
     // opposite values of width/height are used because getMediaStream handles the aspect ratio on mobile
     return {
