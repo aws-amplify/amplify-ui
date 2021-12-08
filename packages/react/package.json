@@ -16,7 +16,8 @@
       "import": "./dist/esm/legacy.js",
       "require": "./dist/legacy.js"
     },
-    "./styles.css": "./dist/index.css"
+    "./styles.css": "./dist/index.css",
+    "./primitives.json": "./dist/primitives.json"
   },
   "browser": {
     "./styles.css": "./dist/index.css"
