@@ -10,6 +10,7 @@ for dir in ./*/ ; do
     continue
   fi
 
+  # Append to enter-separated directory lists
   dirs="$dirs\n$dir"
 done
 
