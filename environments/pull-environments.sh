@@ -13,5 +13,11 @@ for dir in ./*/ ; do
   dirs="$dirs\n$dir"
 done
 
-echo $dirs | xargs -P 1 -I {} sh -c "./pull-environment.sh {}"
+numParallelTasks=8; # Future improvement: could set this to # of logical cores in localdevice
+
+if [ "$CI" == true ]; then
+  numParallelTasks=1; # GitHub actions has trouble handling parallel executions
+fi
+
+echo $dirs | xargs -P $numParallelTasks -I {} sh -c "./pull-environment.sh {}"
 
