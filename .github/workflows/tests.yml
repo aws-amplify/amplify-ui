@@ -58,7 +58,7 @@ jobs:
           echo "::set-output name=commit::$(git rev-parse --short "$GITHUB_SHA")"
       - name: Install packages
         run: yarn --frozen-lockfile --prefer-offline
-      - name: build @aws-amplify/ui package
+      - name: build packages/ui package
         run: yarn ui build
       - name: Cache cypress runner
         uses: actions/cache@v2
@@ -106,7 +106,7 @@ jobs:
           node-version: lts/*
           cache: 'yarn'
 
-      - name: Restore Cache
+      - name: Restore node_modules cache
         uses: actions/cache@v2
         id: restore-cache
         with:
@@ -144,7 +144,7 @@ jobs:
         run: yarn ${{ matrix.package }} lint
 
       - name: Run ${{ matrix.package }} tests
-        run: yarn ${{ matrix.package}} test
+        run: yarn ${{ matrix.package }} test
 
   e2e:
     # Only run e2e tests if unit tests pass
@@ -202,7 +202,7 @@ jobs:
           path: ~/.cache/Cypress
           key: ${{ runner.os }}-cypress-${{ hashFiles('yarn.lock') }}
 
-      - name: Restore Cache
+      - name: Restore node_modules cache
         uses: actions/cache@v2
         id: restore-cache
         with:
@@ -251,7 +251,7 @@ jobs:
           path: environments/**/aws-exports.js
           key: ${{ runner.os }}-environments-${{ steps.cli-version.outputs.version }}-${{ hashFiles('environments/**/amplify/**') }}
 
-      - name: Pull down AWS environments
+      - name: Pull down AWS environments on cache miss
         if: steps.environments-cache.outputs.cache-hit != 'true'
         run: yarn environments pull
         env:
@@ -324,11 +324,11 @@ jobs:
           path: ./packages/react/dist
           key: ${{ runner.os }}-@aws-amplify/ui-react-${{ needs.setup.outputs.commit }}
 
-      - name: Build @aws-amplify/ui package
+      - name: Build ui package
         if: steps.restore-ui-cache.outputs.cache-hit != 'true'
         run: yarn ui build
 
-      - name: build react package
+      - name: Build react package
         if: steps.restore-react-cache.outputs.cache-hit != 'true'
         run: yarn react build
 
