@@ -76,7 +76,7 @@ export const ForceNewPassword = (): JSX.Element => {
 
           {!!validationError['confirm_password'] && (
             <Text role="alert" variation="error">
-              {validationError['confirm_password']}
+              {translate(validationError['confirm_password'])}
             </Text>
           )}
         </Flex>
