@@ -25,7 +25,9 @@ const getCSPContent = (context: Readonly<HtmlProps>) => {
       style-src 'self' 'unsafe-inline';
       font-src 'self' data:;
       frame-src *.codesandbox.io;
-      script-src 'unsafe-eval' 'self' '${cspInlineScriptHash}'
+      img-src 'self' cm.everesttech.net amazonwebservices.d2.sc.omtrdc.net;
+      connect-src 'self' *.shortbread.aws.dev dpm.demdex.net;
+      script-src 'unsafe-eval' 'self' '${cspInlineScriptHash}' a0.awsstatic.com;
     `;
   }
 
@@ -34,7 +36,9 @@ const getCSPContent = (context: Readonly<HtmlProps>) => {
     style-src 'self' 'unsafe-inline';
     font-src 'self';
     frame-src *.codesandbox.io;
-    script-src 'self' '${cspInlineScriptHash}'
+    img-src 'self' cm.everesttech.net amazonwebservices.d2.sc.omtrdc.net;
+    connect-src 'self' *.shortbread.aws.dev dpm.demdex.net;
+    script-src 'self' '${cspInlineScriptHash} a0.awsstatic.com;'
   `;
 };
 
