@@ -485,6 +485,15 @@
   resolved "https://registry.yarnpkg.com/@aws-amplify/ui/-/ui-2.0.3.tgz#7a88a416942aedbc6a6ea9850a2c98693c80340a"
   integrity sha512-LxbmPGD/S4bWzUh2PXMPSt/rXeUVJTsCbMpwH18XilTkXgOSmKH/eyVZNXUBY8C/xwqjzMTC68EtTlsM1DCq1A==
 
+"@aws-amplify/ui@3.0.3":
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/ui/-/ui-3.0.3.tgz#8692a5a741c935f2cb5041511fc59edc83f4a314"
+  integrity sha512-IWimjvWcSDq7PPDzEtM6QVeXjP1wGOurHwU2EaOJqeI7x7/d1exd/qhPl/f3PdqXIE6AOxiqGR0EvB8LcWMoWw==
+  dependencies:
+    lodash "^4.17.21"
+    style-dictionary "^3.0.1"
+    xstate "^4.20.1"
+
 "@aws-amplify/xr@3.0.26":
   version "3.0.26"
   resolved "https://registry.yarnpkg.com/@aws-amplify/xr/-/xr-3.0.26.tgz#9f5c3af4a0af68ec52262c9e62bfa1ba14605275"
@@ -15884,7 +15893,7 @@ next-tick@~1.0.0:
   resolved "https://registry.yarnpkg.com/next-tick/-/next-tick-1.0.0.tgz#ca86d1fe8828169b0120208e3dc8424b9db8342c"
   integrity sha1-yobR/ogoFpsBICCOPchCS524NCw=
 
-next@12, next@^11.0.1:
+next@^11.0.1, next@latest:
   version "11.1.2"
   resolved "https://registry.yarnpkg.com/next/-/next-11.1.2.tgz#527475787a9a362f1bc916962b0c0655cc05bc91"
   integrity sha512-azEYL0L+wFjv8lstLru3bgvrzPvK0P7/bz6B/4EJ9sYkXeW8r5Bjh78D/Ol7VOg0EIPz0CXoe72hzAlSAXo9hw==
