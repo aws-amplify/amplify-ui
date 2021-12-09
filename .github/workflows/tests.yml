@@ -70,6 +70,13 @@ jobs:
         with:
           path: ./packages/ui/dist
           key: ${{ runner.os }}-ui-${{ steps.get-ref.outputs.commit }}
+      - name: Cache node_modules
+        uses: actions/cache@v2
+        with:
+          path: |
+            ./node_modules
+            **/node_modules
+          key: ${{ runner.os }}-nodemodules-${{ steps.get-ref.outputs.commit }}
   unit:
     needs: setup
     runs-on: ubuntu-latest
@@ -99,6 +106,15 @@ jobs:
           node-version: lts/*
           cache: 'yarn'
 
+      - name: Restore node_modules cache
+        uses: actions/cache@v2
+        id: restore-cache
+        with:
+          path: |
+            ./node_modules
+            **/node_modules
+          key: ${{ runner.os }}-nodemodules-${{ needs.setup.outputs.commit }}
+
       - name: Restore ui/dist cache
         uses: actions/cache@v2
         id: restore-ui-cache
@@ -107,7 +123,8 @@ jobs:
           key: ${{ runner.os }}-ui-${{ needs.setup.outputs.commit }}
 
       - name: Install packages
-        run: yarn --frozen-lockfile --prefer-offline
+        if: steps.restore-cache.outputs.cache-hit != 'true'
+        run: yarn --frozen-lockfile --prefer-offline  --prefer-offline
 
       - name: Build ui package
         if: ${{ steps.restore-ui-cache.outputs.cache-hit != 'true' && matrix.package != 'ui' }}
@@ -185,6 +202,15 @@ jobs:
           path: ~/.cache/Cypress
           key: ${{ runner.os }}-cypress-${{ hashFiles('yarn.lock') }}
 
+      - name: Restore node_modules cache
+        uses: actions/cache@v2
+        id: restore-cache
+        with:
+          path: |
+            ./node_modules
+            **/node_modules
+          key: ${{ runner.os }}-nodemodules-${{ needs.setup.outputs.commit }}
+
       - name: Restore ui/dist cache
         uses: actions/cache@v2
         id: restore-ui-cache
@@ -200,6 +226,7 @@ jobs:
           key: ${{ runner.os }}-${{ matrix.package }}-${{ needs.setup.outputs.commit }}
 
       - name: Install packages
+        if: steps.restore-cache.outputs.cache-hit != 'true' || steps.restore-cypress-cache.outputs.cache-hit != 'true'
         run: yarn --frozen-lockfile --prefer-offline
 
       - name: Build @aws-amplify/ui package
@@ -270,7 +297,17 @@ jobs:
           node-version: lts/*
           cache: 'yarn'
 
+      - name: Restore Cache
+        uses: actions/cache@v2
+        id: restore-cache
+        with:
+          path: |
+            ./node_modules
+            **/node_modules
+          key: ${{ runner.os }}-nodemodules-${{ needs.setup.outputs.commit }}
+
       - name: Install packages
+        if: steps.restore-cache.outputs.cache-hit != 'true'
         run: yarn --frozen-lockfile --prefer-offline
 
       - name: Restore ui/dist cache
