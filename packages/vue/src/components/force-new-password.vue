@@ -148,10 +148,10 @@ function onBlur(e: Event) {
               class="amplify-text"
               v-if="!!(actorContext.validationError as ValidationError)['confirm_password']"
             >
-              {{ (actorContext.validationError as ValidationError)['confirm_password'] }}
+              {{ translate((actorContext.validationError as ValidationError)['confirm_password']) }}
             </base-box>
             <base-alert data-ui-error v-if="actorState.context.remoteError">
-              {{ actorState.context.remoteError }}
+              {{ translate(actorState.context.remoteError) }}
             </base-alert>
             <amplify-button
               class="amplify-field-group__control"

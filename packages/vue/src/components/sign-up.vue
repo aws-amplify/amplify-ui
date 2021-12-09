@@ -59,7 +59,7 @@ const submit = (): void => {
             <authenticator-sign-up-form-fields />
           </base-field-set>
           <base-alert v-if="error">
-            {{ error }}
+            {{ translate(error) }}
           </base-alert>
           <amplify-button
             class="amplify-field-group__control"
