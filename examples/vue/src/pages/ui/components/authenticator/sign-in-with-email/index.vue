@@ -9,7 +9,6 @@ Amplify.configure(aws_exports);
 const services = {
   async handleSignUp(e) {
     const { username, password, attributes } = e;
-    console.log('custom login');
     return Auth.signUp({ username, password, attributes });
   },
 };
