@@ -38,7 +38,7 @@ const getCSPContent = (context: Readonly<HtmlProps>) => {
     frame-src *.codesandbox.io;
     img-src 'self' cm.everesttech.net amazonwebservices.d2.sc.omtrdc.net;
     connect-src 'self' *.shortbread.aws.dev dpm.demdex.net;
-    script-src 'self' '${cspInlineScriptHash} a0.awsstatic.com;'
+    script-src 'self' '${cspInlineScriptHash}' a0.awsstatic.com;
   `;
 };
 
