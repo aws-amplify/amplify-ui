@@ -1,23 +1,21 @@
 import * as React from 'react';
 
 import { isFunction } from '../shared/utils';
-import { SearchFieldProps } from '../types';
+import { SearchFieldProps, UseSearchFieldProps } from '../types';
 import { useComposeRefsCallback } from '../../hooks/useComposeRefsCallback';
 
 const ESCAPE_KEY = 'Escape';
 const ENTER_KEY = 'Enter';
-const DEFAULT_KEYS = [ESCAPE_KEY, ENTER_KEY];
+const DEFAULT_KEYS = new Set([ESCAPE_KEY, ENTER_KEY]);
 
 export const useSearchField = ({
   onSubmit,
   onClear,
   externalRef,
-}: Partial<
-  SearchFieldProps & { externalRef: React.ForwardedRef<HTMLInputElement> }
->) => {
+}: UseSearchFieldProps) => {
   const [value, setValue] = React.useState<string>('');
   const internalRef = React.useRef<HTMLInputElement>(null);
-  const composeRefs = useComposeRefsCallback({ externalRef, internalRef });
+  const composedRefs = useComposeRefsCallback({ externalRef, internalRef });
 
   const onClearHandler = React.useCallback(() => {
     setValue('');
@@ -38,11 +36,13 @@ export const useSearchField = ({
 
   const onKeyDown = React.useCallback(
     (event) => {
-      const key = event.key;
+      const { key } = event;
 
-      if (DEFAULT_KEYS.includes(key)) {
-        event.preventDefault();
+      if (!DEFAULT_KEYS.has(key)) {
+        return;
       }
+
+      event.preventDefault();
 
       if (key === ESCAPE_KEY) {
         onClearHandler();
@@ -70,6 +70,6 @@ export const useSearchField = ({
     onKeyDown,
     onInput,
     onClick,
-    composeRefs,
+    composedRefs,
   };
 };

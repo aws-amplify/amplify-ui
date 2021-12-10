@@ -23,7 +23,7 @@ const SearchFieldPrimitive: Primitive<SearchFieldProps, 'input'> = (
   },
   ref
 ) => {
-  const { value, onClearHandler, onInput, onKeyDown, onClick, composeRefs } =
+  const { value, onClearHandler, onInput, onKeyDown, onClick, composedRefs } =
     useSearchField({ onSubmit, onClear, externalRef: ref });
 
   return (
@@ -51,7 +51,7 @@ const SearchFieldPrimitive: Primitive<SearchFieldProps, 'input'> = (
           size={size}
         />
       }
-      ref={composeRefs}
+      ref={composedRefs}
       size={size}
       value={value}
       {...rest}
