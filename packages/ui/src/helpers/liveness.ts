@@ -1,6 +1,6 @@
 import {
   LivenessOvalDetails,
-  Illumination,
+  IlluminationState,
   Face,
   FaceMatchState,
   BoundingBox,
@@ -261,7 +261,9 @@ export function getFaceMatchStateInLivenessOval(
 /**
  * Returns the illumination state in the provided video frame.
  */
-export function estimateIllumination(videoEl: HTMLVideoElement): Illumination {
+export function estimateIllumination(
+  videoEl: HTMLVideoElement
+): IlluminationState {
   const canvasEl = document.createElement('canvas');
   canvasEl.width = videoEl.videoWidth;
   canvasEl.height = videoEl.videoHeight;
@@ -292,10 +294,16 @@ export function estimateIllumination(videoEl: HTMLVideoElement): Illumination {
 
   canvasEl.remove();
 
-  if (ind === 0) return Illumination.DARK;
-  if (ind === MAX_SCALE) return Illumination.BRIGHT;
-  return Illumination.NORMAL;
+  if (ind === 0) return IlluminationState.DARK;
+  if (ind === MAX_SCALE) return IlluminationState.BRIGHT;
+  return IlluminationState.NORMAL;
 }
+
+export const IlluminationStateStringMap: Record<IlluminationState, string> = {
+  [IlluminationState.BRIGHT]: translate('Environment too bright'),
+  [IlluminationState.DARK]: translate('Environment too dark'),
+  [IlluminationState.NORMAL]: translate('Lighting conditions normal'),
+};
 
 export const FaceMatchStateStringMap: Record<FaceMatchState, string> = {
   [FaceMatchState.CANT_IDENTIFY]: translate('No face detected'),

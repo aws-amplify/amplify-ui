@@ -6,6 +6,7 @@ export interface Face {
   left: number;
   width: number;
   height: number;
+  timestampMs: number;
   probability?: number;
 }
 

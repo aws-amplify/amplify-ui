@@ -1,6 +1,8 @@
 import * as React from 'react';
 import {
   translate,
+  IlluminationState,
+  IlluminationStateStringMap,
   FaceMatchStateStringMap,
   LivenessErrorStateStringMap,
 } from '@aws-amplify/ui';
@@ -25,7 +27,10 @@ export const Instruction: React.FC<InstructionProps> = (props) => {
   const { tokens } = useTheme();
   const [state] = useLivenessActor();
 
-  const { errorState, faceMatchState } = state.context;
+  const {
+    errorState,
+    faceMatchAssociatedParams: { faceMatchState, illuminationState },
+  } = state.context;
   const isNotRecording = state.matches('notRecording');
   const isUploading = state.matches('uploading');
   const isCheckSuccessful = state.matches('checkSucceeded');
@@ -84,6 +89,10 @@ export const Instruction: React.FC<InstructionProps> = (props) => {
           </View>
         </Flex>
       );
+    }
+
+    if (illuminationState && illuminationState !== IlluminationState.NORMAL) {
+      return IlluminationStateStringMap[illuminationState];
     }
 
     return FaceMatchStateStringMap[faceMatchState];

@@ -9,6 +9,9 @@ export const enDict = {
   'Check succeeded!': 'Check succeeded!',
   'Liveness encountered an error. Please try again.':
     'Liveness encountered an error. Please try again.',
+  'Lighting conditions normal': 'Lighting conditions normal',
+  'Environment too bright': 'Environment too bright',
+  'Environment too dark': 'Environment too dark',
   'Face detected': 'Face detected',
   'Face matched!': 'Face matched!',
   'Move the face further away.': 'Move the face further away.',

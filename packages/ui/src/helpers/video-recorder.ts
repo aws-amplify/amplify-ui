@@ -45,7 +45,8 @@ export class VideoRecorder {
     return this._recorder.state;
   }
 
-  getBlob(): Blob {
+  async getBlob(): Promise<Blob> {
+    await new Promise((resolve) => setTimeout(resolve, 500)); // TODO:: figure out alternative
     return new Blob(this._chunks, { type: 'video/webm' });
   }
 

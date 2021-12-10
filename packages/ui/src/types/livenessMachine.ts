@@ -5,6 +5,7 @@ import {
   FaceMatchState,
   LivenessErrorState,
   LivenessOvalDetails,
+  IlluminationState,
 } from './liveness';
 import { VideoRecorder } from '../helpers';
 import { Face, FaceDetection } from './faceDetection';
@@ -18,13 +19,21 @@ export interface LivenessContext {
     canvasEl: HTMLCanvasElement;
     videoMediaStream: MediaStream;
     videoRecorder: VideoRecorder;
+    recordingStartTimestampMs: number;
   };
   ovalAssociatedParams: {
     faceDetector: FaceDetection;
     initialFace: Face;
     ovalDetails: LivenessOvalDetails;
   };
-  faceMatchState: FaceMatchState;
+  faceMatchAssociatedParams: {
+    illuminationState: IlluminationState;
+    faceMatchState: FaceMatchState;
+    faceMatchCount: number;
+    currentDetectedFace: Face;
+    startFace: Face;
+    endFace: Face;
+  };
   errorState: LivenessErrorState | null;
 }
 

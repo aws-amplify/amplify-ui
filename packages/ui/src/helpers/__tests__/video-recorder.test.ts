@@ -51,9 +51,9 @@ describe('VideoRecorder', () => {
     expect(videoRecorder.getState()).toBe('recording');
   });
 
-  it('should return blob from the recorded chunks', () => {
+  it('should return blob from the recorded chunks', async () => {
     const videoRecorder = new VideoRecorder(stream);
-    const blob = videoRecorder.getBlob();
+    const blob = await videoRecorder.getBlob();
 
     expect(blob).toBeTruthy();
     expect(blob).toBeInstanceOf(Blob);

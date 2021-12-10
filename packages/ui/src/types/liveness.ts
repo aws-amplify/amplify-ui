@@ -89,7 +89,7 @@ export interface LivenessOvalDetails {
 /**
  * The illumination states
  */
-export enum Illumination {
+export enum IlluminationState {
   DARK = 'dark',
   BRIGHT = 'bright',
   NORMAL = 'normal',

@@ -50,6 +50,8 @@ export class BlazeFaceFaceDetection extends FaceDetection {
       annotateBoxes
     );
 
+    const timestampMs = Date.now();
+
     const faces: Face[] = predictions.map((prediction) => {
       const { topLeft, bottomRight, probability } = prediction;
 
@@ -63,6 +65,7 @@ export class BlazeFaceFaceDetection extends FaceDetection {
         left,
         width,
         height,
+        timestampMs,
         probability: probability[0] as number,
       };
     });
