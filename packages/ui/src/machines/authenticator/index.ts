@@ -176,7 +176,7 @@ export function createAuthenticatorMachine({
         }),
         spawnSignInActor: assign({
           actorRef: (context, event) => {
-            const actor = signInActor.withContext({
+            const actor = signInActor({ services }).withContext({
               authAttributes: event.data?.authAttributes,
               user: event.data?.user,
               intent: event.data?.intent,
@@ -207,7 +207,7 @@ export function createAuthenticatorMachine({
         }),
         spawnResetPasswordActor: assign({
           actorRef: (context, event) => {
-            const actor = resetPasswordActor.withContext({
+            const actor = resetPasswordActor({ services }).withContext({
               formValues: {},
               touched: {},
               intent: event.data?.intent,

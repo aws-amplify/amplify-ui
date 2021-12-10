@@ -1,6 +1,6 @@
 import { Amplify, Auth } from 'aws-amplify';
 
-import { ValidatorResult } from '../../types';
+import { AuthChallengeNames, ValidatorResult } from '../../types';
 
 export const defaultServices = {
   async getAmplifyConfig() {
@@ -9,6 +9,43 @@ export const defaultServices = {
 
   async getCurrentUser() {
     return Auth.currentAuthenticatedUser();
+  },
+
+  async handleSignUp(formData): Promise<any> {
+    return Auth.signUp(formData);
+  },
+  async handleSignIn(formData: {
+    username: string;
+    password: string;
+  }): Promise<any> {
+    const { username, password } = formData;
+    return Auth.signIn(username, password);
+  },
+  async handleConfirmSignIn(formData: {
+    user: string;
+    code: string;
+    mfaType: AuthChallengeNames.SMS_MFA | AuthChallengeNames.SOFTWARE_TOKEN_MFA;
+  }): Promise<any> {
+    const { user, code, mfaType } = formData;
+    return Auth.confirmSignIn(user, code, mfaType);
+  },
+  async handleConfirmSignUp(formData: {
+    username: string;
+    code: string;
+  }): Promise<any> {
+    const { username, code } = formData;
+    return await Auth.confirmSignUp(username, code);
+  },
+  async handleForgotPasswordSubmit(formData: {
+    username: string;
+    code: string;
+    password: string;
+  }): Promise<any> {
+    const { username, code, password } = formData;
+    return Auth.forgotPasswordSubmit(username, code, password);
+  },
+  async handleForgotPassword(formData: string): Promise<any> {
+    return Auth.forgotPassword(formData);
   },
 
   // Validation hooks for overriding
