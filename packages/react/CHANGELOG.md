@@ -1,5 +1,11 @@
 # @aws-amplify/ui-react
 
+## 2.1.4
+
+### Patch Changes
+
+- [#969](https://github.com/aws-amplify/amplify-ui/pull/969) [`8e1f1f947`](https://github.com/aws-amplify/amplify-ui/commit/8e1f1f94748fac97d3a750174a8e4af9f8592eae) Thanks [@hvergara](https://github.com/hvergara)! - Pin @radix-ui/react-id dependency to 0.1.1
+
 ## 2.1.3
 
 ### Patch Changes
