@@ -1,6 +1,6 @@
 import { Amplify, Auth } from 'aws-amplify';
 
-import { AuthChallengeNames, ValidatorResult } from '../../types';
+import { AuthChallengeNames, SignInResult, ValidatorResult } from '../../types';
 
 export const defaultServices = {
   async getAmplifyConfig() {
@@ -28,7 +28,7 @@ export const defaultServices = {
     code,
     mfaType,
   }: {
-    user: string;
+    user: any;
     code: string;
     mfaType: AuthChallengeNames.SMS_MFA | AuthChallengeNames.SOFTWARE_TOKEN_MFA;
   }): Promise<any> {
@@ -51,10 +51,10 @@ export const defaultServices = {
     username: string;
     code: string;
     password: string;
-  }): Promise<any> {
+  }): Promise<SignInResult> {
     return Auth.forgotPasswordSubmit(username, code, password);
   },
-  async handleForgotPassword(formData: string): Promise<any> {
+  async handleForgotPassword(formData): Promise<any> {
     return Auth.forgotPassword(formData);
   },
 
