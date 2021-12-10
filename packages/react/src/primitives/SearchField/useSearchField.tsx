@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { isFunction } from '../shared/utils';
-import { SearchFieldProps, UseSearchFieldProps } from '../types';
+import { UseSearchFieldProps } from '../types';
 import { useComposeRefsCallback } from '../../hooks/useComposeRefsCallback';
 
 const ESCAPE_KEY = 'Escape';
