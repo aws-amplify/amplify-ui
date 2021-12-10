@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { AmplifyProvider, ColorMode } from '@aws-amplify/ui-react';
 
 import { Header } from '@/components/Layout/Header';
-import { track, trackPageVisit, AnalyticsEventType } from '../utils/track';
+import { trackPageVisit } from '../utils/track';
 import { theme } from '../theme';
 import '../styles/index.scss';
 
@@ -20,14 +20,6 @@ function MyApp({ Component, pageProps }) {
   const [themeOverride, setThemeOverride] = React.useState('');
 
   React.useEffect(() => {
-    track({
-      type: AnalyticsEventType.PAGE_VISIT,
-      attributes: {
-        url: '/',
-        previousUrl: document.referrer,
-        referrer: document.referrer,
-      },
-    });
     trackPageVisit();
   }, []);
 
