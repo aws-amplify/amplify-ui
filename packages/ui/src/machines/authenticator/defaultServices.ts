@@ -14,34 +14,44 @@ export const defaultServices = {
   async handleSignUp(formData): Promise<any> {
     return Auth.signUp(formData);
   },
-  async handleSignIn(formData: {
+  async handleSignIn({
+    username,
+    password,
+  }: {
     username: string;
     password: string;
   }): Promise<any> {
-    const { username, password } = formData;
     return Auth.signIn(username, password);
   },
-  async handleConfirmSignIn(formData: {
+  async handleConfirmSignIn({
+    user,
+    code,
+    mfaType,
+  }: {
     user: string;
     code: string;
     mfaType: AuthChallengeNames.SMS_MFA | AuthChallengeNames.SOFTWARE_TOKEN_MFA;
   }): Promise<any> {
-    const { user, code, mfaType } = formData;
     return Auth.confirmSignIn(user, code, mfaType);
   },
-  async handleConfirmSignUp(formData: {
+  async handleConfirmSignUp({
+    username,
+    code,
+  }: {
     username: string;
     code: string;
   }): Promise<any> {
-    const { username, code } = formData;
     return await Auth.confirmSignUp(username, code);
   },
-  async handleForgotPasswordSubmit(formData: {
+  async handleForgotPasswordSubmit({
+    username,
+    code,
+    password,
+  }: {
     username: string;
     code: string;
     password: string;
   }): Promise<any> {
-    const { username, code, password } = formData;
     return Auth.forgotPasswordSubmit(username, code, password);
   },
   async handleForgotPassword(formData: string): Promise<any> {
