@@ -52,6 +52,7 @@ export const Collection = <Item,>({
 }: CollectionProps<Item>): JSX.Element => {
   const [searchText, setSearchText] = useState<string>();
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const onSearch = useCallback(debounce(setSearchText, TYPEAHEAD_DELAY_MS), [
     setSearchText,
   ]);
