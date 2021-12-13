@@ -1,2 +1,2 @@
-import awsExports from '@environments/auth-with-email/src/aws-exports';
+import awsExports from '@environments/auth-with-username-no-attributes/src/aws-exports';
 export default awsExports;

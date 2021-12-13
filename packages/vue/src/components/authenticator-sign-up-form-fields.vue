@@ -94,7 +94,7 @@ const loginMechanism = fieldNames.shift() as LoginMechanism;
     class="amplify-text"
     v-if="!!validationErrors.confirm_password"
   >
-    {{ validationErrors.confirm_password }}
+    {{ translate(validationErrors.confirm_password) }}
   </p>
 
   <template v-for="(field, idx) in fieldNames" :key="idx">

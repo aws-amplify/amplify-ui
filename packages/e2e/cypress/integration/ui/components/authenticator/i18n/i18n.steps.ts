@@ -27,6 +27,24 @@ And('the {string} input is in {string}', (label: string, language: string) => {
   cy.findByPlaceholderText(translations[language][label].trim());
 });
 
+And(
+  'the {string} input is in {string} and I type the wrong username or password',
+  (label: string, language: string) => {
+    cy.findByPlaceholderText(translations[language][label].trim()).type(
+      'UNKNOWN@UNKNOWN.com'
+    );
+  }
+);
+
+And(
+  'the {string} button is in {string} and I click it',
+  (label: string, language: string) => {
+    cy.findByRole('button', {
+      name: translations[language][label].trim(),
+    }).click();
+  }
+);
+
 And('the {string} button is in {string}', (label: string, language: string) => {
   cy.findByRole('button', {
     name: translations[language][label].trim(),
