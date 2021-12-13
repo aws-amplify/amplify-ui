@@ -1,5 +1,6 @@
 import { LivenessFlow, Button, Card } from '@aws-amplify/ui-react';
 import { useLiveness } from './useLiveness';
+import { SessionIdAlert } from './SessionIdAlert';
 
 export default function LivenessCard() {
   const {
@@ -22,6 +23,8 @@ export default function LivenessCard() {
     <div style={{ marginTop: '1rem' }}>
       {isLivenessActive ? (
         <div style={{ maxWidth: 600, margin: 'auto' }}>
+          <SessionIdAlert sessionId={startLivenessApiData.sessionId} />
+
           <Card variation="elevated">
             <LivenessFlow
               sessionId={startLivenessApiData.sessionId}

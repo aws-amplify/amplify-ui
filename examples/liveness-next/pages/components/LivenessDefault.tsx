@@ -1,5 +1,6 @@
 import { LivenessFlow } from '@aws-amplify/ui-react';
 import { useLiveness } from './useLiveness';
+import { SessionIdAlert } from './SessionIdAlert';
 
 export default function LivenessDefault() {
   const {
@@ -19,12 +20,16 @@ export default function LivenessDefault() {
       {startLivenessApiLoading ? (
         'Loading...'
       ) : (
-        <LivenessFlow
-          sessionId={startLivenessApiData.sessionId}
-          clientActionDocument={startLivenessApiData.clientActionDocument}
-          onGetLivenessDetection={handleGetLivenessDetection}
-          onExit={stopLiveness}
-        />
+        <div>
+          <SessionIdAlert sessionId={startLivenessApiData.sessionId} />
+
+          <LivenessFlow
+            sessionId={startLivenessApiData.sessionId}
+            clientActionDocument={startLivenessApiData.clientActionDocument}
+            onGetLivenessDetection={handleGetLivenessDetection}
+            onExit={stopLiveness}
+          />
+        </div>
       )}
     </div>
   );
