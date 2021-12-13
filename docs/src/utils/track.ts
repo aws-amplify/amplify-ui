@@ -1,22 +1,29 @@
 // https://github.com/aws-amplify/docs/blob/main/src/utils/track.ts
 let configured = false;
-let AWSCShortbread;
-let s;
 
-if (typeof window !== 'undefined') {
-  AWSCShortbread = window.AWSCShortbread;
-  s = window.s;
-}
-
-if (!configured) {
-  if (typeof window !== 'undefined') {
-    AWSCShortbread({
-      domain: '.amplify.aws',
-    }).checkForCookieConsent();
-    if (typeof s != 'undefined') s.trackExternalLinks = false;
+declare global {
+  interface Window {
+    s: any;
+    AWSCShortbread: any;
   }
-  configured = true;
 }
+
+export const configure = (): void => {
+  if (!configured) {
+    if (
+      typeof window !== 'undefined' &&
+      typeof window.AWSCShortbread !== 'undefined'
+    ) {
+      window
+        .AWSCShortbread({
+          domain: '.amplify.aws',
+        })
+        .checkForCookieConsent();
+      if (typeof window.s !== 'undefined') window.s.trackExternalLinks = false;
+      configured = true;
+    }
+  }
+};
 
 export enum AnalyticsEventType {
   PAGE_VISIT = 'PAGE_VISIT',
@@ -65,14 +72,16 @@ type AnalyticsEvent =
   | AnalyticsEventPageDataFetchException;
 
 export const trackPageVisit = (): void => {
-  if (typeof window !== 'undefined' && typeof s != 'undefined') {
+  if (typeof window !== 'undefined' && typeof window.s !== 'undefined') {
+    const { s } = window;
     s.pageURL = window.location.href;
     s.t();
   }
 };
 
 export const trackPageFetchException = (): void => {
-  if (typeof window !== 'undefined' && typeof s != 'undefined') {
+  if (typeof window !== 'undefined' && typeof window.s !== 'undefined') {
+    const { s } = window;
     s.linkTrackVars =
       'prop39,prop41,prop50,prop61,prop62,eVar39,eVar41,eVar50,eVar61,eVar62,eVar69';
     s.tl(true, 'o', 'page fetch exception');
@@ -80,7 +89,8 @@ export const trackPageFetchException = (): void => {
 };
 
 export const trackExternalLink = (hrefTo: string): void => {
-  if (typeof window !== 'undefined' && typeof s != 'undefined') {
+  if (typeof window !== 'undefined' && typeof window.s !== 'undefined') {
+    const { s } = window;
     s.linkTrackVars =
       'prop39,prop41,prop50,prop61,prop62,eVar39,eVar41,eVar50,eVar61,eVar62,eVar69';
     s.tl(true, 'e', hrefTo);
@@ -88,30 +98,35 @@ export const trackExternalLink = (hrefTo: string): void => {
 };
 
 export const setSearchQuery = (query: string): void => {
-  if (typeof window !== 'undefined' && typeof s != 'undefined') {
+  if (typeof window !== 'undefined' && typeof window.s != 'undefined') {
+    const { s } = window;
     s.eVar26 = query;
   }
 };
 
 const triggerNoSearchResults = (query: string): void => {
-  const queryBackup: string = s.eVar26;
-  const resultCountBackup: number = parseInt(s.eVar27, 10);
+  if (typeof window !== 'undefined' && typeof window.s != 'undefined') {
+    const { s } = window;
+    const queryBackup: string = s.eVar26;
+    const resultCountBackup: number = parseInt(s.eVar27, 10);
 
-  s.eVar26 = query;
-  s.eVar27 = '0'; // If it's the number 0, the variable won't be sent
-  s.linkTrackVars =
-    'prop39,prop41,prop50,prop61,prop62,eVar26,eVar27,eVar39,eVar41,eVar50,eVar61,eVar62,eVar69,events';
-  s.linkTrackEvents = 'event2';
-  s.events = 'event2';
-  s.tl(true, 'o', 'internal search');
+    s.eVar26 = query;
+    s.eVar27 = '0'; // If it's the number 0, the variable won't be sent
+    s.linkTrackVars =
+      'prop39,prop41,prop50,prop61,prop62,eVar26,eVar27,eVar39,eVar41,eVar50,eVar61,eVar62,eVar69,events';
+    s.linkTrackEvents = 'event2';
+    s.events = 'event2';
+    s.tl(true, 'o', 'internal search');
 
-  s.eVar26 = queryBackup;
-  s.eVar27 = resultCountBackup.toString();
+    s.eVar26 = queryBackup;
+    s.eVar27 = resultCountBackup.toString();
+  }
 };
 
 let noResultsTimeout: NodeJS.Timeout;
 export const setSearchResultCount = (resultCount: number): void => {
-  if (typeof window !== 'undefined' && typeof s != 'undefined') {
+  if (typeof window !== 'undefined' && typeof window.s !== 'undefined') {
+    const { s } = window;
     s.eVar27 = resultCount.toString();
     s.events = resultCount === 0 ? 'event1' : 'event2';
 
@@ -134,7 +149,8 @@ export const trackSearchQuery = (
   _datasetNumber,
   _context
 ): void => {
-  if (typeof window !== 'undefined' && typeof s != 'undefined') {
+  if (typeof window !== 'undefined' && typeof window.s !== 'undefined') {
+    const { s } = window;
     s.linkTrackVars =
       'prop39,prop41,prop50,prop61,prop62,eVar26,eVar27,eVar39,eVar41,eVar50,eVar61,eVar62,eVar69,events';
     s.linkTrackEvents = 'event1';

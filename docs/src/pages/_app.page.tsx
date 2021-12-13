@@ -1,10 +1,11 @@
 import * as React from 'react';
 import Head from 'next/head';
+import Script from 'next/script';
 import { useRouter } from 'next/router';
 import { AmplifyProvider, ColorMode } from '@aws-amplify/ui-react';
 
 import { Header } from '@/components/Layout/Header';
-import { trackPageVisit } from '../utils/track';
+import { configure, trackPageVisit } from '../utils/track';
 import { theme } from '../theme';
 import '../styles/index.scss';
 
@@ -19,6 +20,7 @@ function MyApp({ Component, pageProps }) {
   const [colorMode, setColorMode] = React.useState<ColorMode>('system');
   const [themeOverride, setThemeOverride] = React.useState('');
 
+  configure();
   trackPageVisit();
 
   return (
@@ -40,8 +42,8 @@ function MyApp({ Component, pageProps }) {
           themeOverride={themeOverride}
         />
       </AmplifyProvider>
-      <script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js"></script>
-      <script src="/scripts/shortbreadv2.js"></script>
+      <Script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" />
+      <Script src="/scripts/shortbreadv2.js" />
     </div>
   );
 }
