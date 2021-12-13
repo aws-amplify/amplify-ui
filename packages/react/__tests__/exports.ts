@@ -1443,6 +1443,7 @@ describe('@aws-amplify/ui-react/internal', () => {
           "findChildOverrides",
           "getOverrideProps",
           "getOverridesFromVariants",
+          "mergeVariantsAndOverrides",
           "useAuth",
           "useDataStoreBinding",
           "useDataStoreCollection",
