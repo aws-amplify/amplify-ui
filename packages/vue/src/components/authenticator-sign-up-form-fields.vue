@@ -1,25 +1,26 @@
 <script setup lang="ts">
 import { computed, ComputedRef, toRefs } from 'vue';
 import {
+  AuthFormData,
+  getActorContext,
   translate,
   LoginMechanism,
   AuthInputAttributes,
   authInputAttributes,
   SignUpAttribute,
+  SignInContext,
 } from '@aws-amplify/ui';
 import { useAuth, useAuthenticator } from '../composables/useAuth';
 import PasswordControl from './password-control.vue';
 import AliasControl from './alias-control.vue';
 
 // state
-const { state } = useAuth();
+const { state, validationErrors } = toRefs(useAuthenticator());
+const props = useAuthenticator();
 
 const {
   value: { context },
 } = state;
-
-const { validationErrors } = toRefs(useAuthenticator());
-const props = useAuthenticator();
 
 const inputAttributes: ComputedRef<AuthInputAttributes> = computed(
   () => authInputAttributes
@@ -53,10 +54,38 @@ function onBlur(e: Event) {
 
 // Only 1 is supported, so `['email', 'phone_number']` will only show `email`
 const loginMechanism = fieldNames.shift() as LoginMechanism;
+const actorContext = computed(() => {
+  return getActorContext(state.value);
+}) as ComputedRef<SignInContext>;
+const formValues = actorContext.value?.formValues as AuthFormData;
+const loginMechanismValue = computed(() => {
+  return loginMechanism === 'phone_number'
+    ? `${formValues.country_code ?? ''}${formValues.phone ?? ''}`
+    : formValues.email;
+});
 </script>
 
 <template>
-  <user-name-alias-component :userName="loginMechanism" />
+  <alias-control
+    :label="
+      // prettier-ignore
+      translate<string>((inputAttributes[loginMechanism]).label)
+    "
+    :name="loginMechanism"
+    :placeholder="
+      // prettier-ignore
+      translate<string>( inputAttributes[loginMechanism].label)
+    "
+  />
+
+  <input
+    v-if="['email', 'phone_number'].includes(loginMechanism)"
+    name="username"
+    readOnly
+    type="hidden"
+    :value="loginMechanismValue"
+  />
+
   <base-wrapper
     class=" amplify-flex amplify-field amplify-textfield amplify-passwordfield password-field"
     style="flex-direction: column"
