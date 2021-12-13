@@ -61,7 +61,7 @@ export function FormFields() {
 
       {validationError['confirm_password'] && (
         <Text role="alert" variation="error">
-          {validationError['confirm_password']}
+          {translate(validationError['confirm_password'])}
         </Text>
       )}
 

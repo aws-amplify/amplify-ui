@@ -1,5 +1,6 @@
 import { useAuthenticator } from '..';
 import { Alert } from '../../..';
+import { translate } from '@aws-amplify/ui';
 
 export const RemoteErrorMessage = (): JSX.Element => {
   const { error } = useAuthenticator();
@@ -8,7 +9,7 @@ export const RemoteErrorMessage = (): JSX.Element => {
     <>
       {error ? (
         <Alert variation="error" isDismissible={true}>
-          {error}
+          {translate(error)}
         </Alert>
       ) : null}
     </>

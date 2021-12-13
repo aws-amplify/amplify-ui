@@ -29,8 +29,8 @@ jobs:
         with:
           node-version: lts/*
           cache: 'yarn'
-      - name: Install packages
-        run: yarn --frozen-lockfile
+      - name: Install and build packages
+        run: yarn --frozen-lockfile --prefer-offline && yarn build
       - name: Add changeset that bumps all public packages
         # There needs to be a changeset for @aws-amplify/ui[-framework] to publish.
         run: cp .github/changeset-presets/bump-versions.md .changeset

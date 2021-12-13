@@ -1,5 +1,26 @@
 # @aws-amplify/ui-react
 
+## 2.1.4
+
+### Patch Changes
+
+- [#969](https://github.com/aws-amplify/amplify-ui/pull/969) [`8e1f1f947`](https://github.com/aws-amplify/amplify-ui/commit/8e1f1f94748fac97d3a750174a8e4af9f8592eae) Thanks [@hvergara](https://github.com/hvergara)! - Pin @radix-ui/react-id dependency to 0.1.1
+
+## 2.1.3
+
+### Patch Changes
+
+- [#910](https://github.com/aws-amplify/amplify-ui/pull/910) [`96830f6a3`](https://github.com/aws-amplify/amplify-ui/commit/96830f6a34a417aa9bc6329c839679bd10da84f0) Thanks [@ErikCH](https://github.com/ErikCH)! - Added text to confirm sign up page, so user knows where code was delivered.
+
+* [#912](https://github.com/aws-amplify/amplify-ui/pull/912) [`f447ec75a`](https://github.com/aws-amplify/amplify-ui/commit/f447ec75ac839195c6c5709987ef734f40dc5c76) Thanks [@wlee221](https://github.com/wlee221)! - Fix height jumps between screens and tabs
+
+- [#909](https://github.com/aws-amplify/amplify-ui/pull/909) [`03ed3de02`](https://github.com/aws-amplify/amplify-ui/commit/03ed3de02253b584b507ba548552dde34ae15b1d) Thanks [@reesscot](https://github.com/reesscot)! - Rename PrimitiveWithForwardRef => Primitive type
+
+* [#949](https://github.com/aws-amplify/amplify-ui/pull/949) [`aec9a9479`](https://github.com/aws-amplify/amplify-ui/commit/aec9a9479198240cbe1f535114121e58443f0733) Thanks [@ErikCH](https://github.com/ErikCH)! - Added a way for users to add in custom translations for error messages returned from cognito.
+
+* Updated dependencies [[`72b543ded`](https://github.com/aws-amplify/amplify-ui/commit/72b543ded4c37325a0eb1e4a4803aa88d6d73d5d), [`96830f6a3`](https://github.com/aws-amplify/amplify-ui/commit/96830f6a34a417aa9bc6329c839679bd10da84f0), [`f447ec75a`](https://github.com/aws-amplify/amplify-ui/commit/f447ec75ac839195c6c5709987ef734f40dc5c76), [`712edfccc`](https://github.com/aws-amplify/amplify-ui/commit/712edfccc77a71542166431ba79b25a31d0dca80), [`f1c2d82db`](https://github.com/aws-amplify/amplify-ui/commit/f1c2d82db913be13425e8b4476983d7cf6f55c40)]:
+  - @aws-amplify/ui@3.0.4
+
 ## 2.1.2
 
 ### Patch Changes

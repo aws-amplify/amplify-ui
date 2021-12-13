@@ -17,11 +17,20 @@ export const PaginationItem: React.FC<PaginationItemProps> = ({
   ariaLabel,
   ...rest
 }) => {
+  const onChange = React.useCallback(() => {
+    onClick(page, currentPage);
+  }, [page, currentPage, onClick]);
+
+  const onPrevious = React.useCallback(() => {
+    onClick();
+  }, [onClick]);
+
+  const onNext = React.useCallback(() => {
+    onClick();
+  }, [onClick]);
+
   switch (type) {
     case 'page':
-      const onChange = React.useCallback(() => {
-        onClick(page, currentPage);
-      }, [page, currentPage, onClick]);
       return (
         <View as="li">
           {page === currentPage ? (
@@ -52,9 +61,6 @@ export const PaginationItem: React.FC<PaginationItemProps> = ({
         </View>
       );
     case 'next':
-      const onNext = React.useCallback(() => {
-        onClick();
-      }, [onClick]);
       return (
         <View as="li">
           <Button
@@ -71,9 +77,6 @@ export const PaginationItem: React.FC<PaginationItemProps> = ({
         </View>
       );
     case 'previous':
-      const onPrevious = React.useCallback(() => {
-        onClick();
-      }, [onClick]);
       return (
         <View as="li">
           <Button

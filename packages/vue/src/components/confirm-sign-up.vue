@@ -110,7 +110,7 @@ const onLostCodeClicked = (): void => {
             style="flex-direction: column; align-items: unset"
           >
             <base-alert v-if="error">
-              {{ error }}
+              {{ translate(error) }}
             </base-alert>
             <amplify-button
               class="amplify-field-group__control"

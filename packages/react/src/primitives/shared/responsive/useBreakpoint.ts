@@ -19,11 +19,12 @@ export const useBreakpoint: UseBreakpoint = ({
 
   const mediaQueries = React.useMemo(
     () => getMediaQueries({ breakpoints, breakpointUnit }),
-    [breakpoints, breakpointUnit, getMediaQueries]
+    [breakpoints, breakpointUnit]
   );
 
-  const [breakpoint, setBreakpoint] =
-    React.useState<Breakpoint>(defaultBreakpoint);
+  const [breakpoint, setBreakpoint] = React.useState<Breakpoint>(
+    defaultBreakpoint
+  );
 
   const updateBreakpoint = React.useCallback(
     (matches: boolean, breakpoint: Breakpoint) => {
