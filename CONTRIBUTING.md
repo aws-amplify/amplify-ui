@@ -6,6 +6,7 @@
 1. [`nvm install`](https://github.com/nvm-sh/nvm)
 1. [`nvm use`](https://github.com/nvm-sh/nvm)
 1. `yarn install`
+1. `yarn build`
 
 ## Documentation Development
 
@@ -163,5 +164,3 @@ Guidelines for bug reports:
 - Format any code snippets using [Markdown](https://docs.github.com/en/github/writing-on-github/creating-and-highlighting-code-blocks) syntax
 
 Finally, thank you for taking the time to read this, and taking the time to write a good bug report.
-
-
