@@ -1,5 +1,6 @@
 import {
   getActorContext,
+  getAliasInfoFromContext,
   LoginMechanism,
   SignUpContext,
   translate,
@@ -20,6 +21,7 @@ export function FormFields() {
   ) as SignUpContext;
   const { loginMechanisms, signUpAttributes } = _state.context.config;
   const [loginMechanismIndex, setLoginMechanismIndex] = React.useState(0);
+  const { error, label, type } = getAliasInfoFromContext(_state.context);
 
   // Only 1 mechanism can be used for `username`
   const usernameAlias = loginMechanisms[loginMechanismIndex] as LoginMechanism;
@@ -59,18 +61,33 @@ export function FormFields() {
         </Flex>
       )}
 
-      <input
-        name="username"
-        readOnly
-        type="hidden"
-        value={
-          usernameAlias === 'email'
-            ? formValues.email
-            : `${formValues.country_code ?? ''}${formValues.phone ?? ''}`
-        }
-      />
-
-      <AttributeField autoComplete="username" name={usernameAlias} />
+      {['email', 'phone_number'].includes(usernameAlias) ? (
+        <>
+          <AttributeField autoComplete="username" name={usernameAlias} />
+          <input
+            name="username"
+            readOnly
+            type="hidden"
+            value={
+              usernameAlias === 'phone_number'
+                ? `${formValues.country_code ?? ''}${formValues.phone ?? ''}`
+                : formValues.email
+            }
+          />
+        </>
+      ) : (
+        <TextField
+          autoComplete="username"
+          errorMessage={error}
+          label={translate(label)}
+          labelHidden={true}
+          name="username"
+          required
+          placeholder={translate(label)}
+          isRequired
+          type={type}
+        />
+      )}
 
       <PasswordField
         autoComplete="new-password"
