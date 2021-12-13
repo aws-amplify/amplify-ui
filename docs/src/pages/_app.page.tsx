@@ -19,9 +19,7 @@ function MyApp({ Component, pageProps }) {
   const [colorMode, setColorMode] = React.useState<ColorMode>('system');
   const [themeOverride, setThemeOverride] = React.useState('');
 
-  React.useEffect(() => {
-    trackPageVisit();
-  }, []);
+  trackPageVisit();
 
   return (
     <div className={themeOverride}>

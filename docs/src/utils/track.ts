@@ -1,6 +1,5 @@
 // https://github.com/aws-amplify/docs/blob/main/src/utils/track.ts
 let configured = false;
-let firstPageOfVisit = true;
 let AWSCShortbread;
 let s;
 
@@ -66,15 +65,10 @@ type AnalyticsEvent =
   | AnalyticsEventPageDataFetchException;
 
 export const trackPageVisit = (): void => {
-  if (
-    typeof window !== 'undefined' &&
-    typeof s != 'undefined' &&
-    !firstPageOfVisit
-  ) {
+  if (typeof window !== 'undefined' && typeof s != 'undefined') {
     s.pageURL = window.location.href;
     s.t();
   }
-  firstPageOfVisit = false;
 };
 
 export const trackPageFetchException = (): void => {
