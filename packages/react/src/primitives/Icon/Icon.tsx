@@ -1,13 +1,13 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
-import { IconProps, PrimitiveWithForwardRef } from '../types';
 import { ComponentClassNames } from '../shared';
+import { IconProps, Primitive } from '../types';
 import { View } from '../View';
 
 const defaultViewBox = { minX: 0, minY: 0, width: 24, height: 24 };
 
-const IconPrimitive: PrimitiveWithForwardRef<IconProps, 'svg'> = (
+const IconPrimitive: Primitive<IconProps, 'svg'> = (
   {
     className,
     fill = 'currentColor',

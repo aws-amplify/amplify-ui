@@ -130,6 +130,7 @@ export function Feature({ name = required('Missing feature name') }) {
                   <td>
                     <a
                       href={`http://localhost:${port}${pathname}/${name}`}
+                      rel="noreferrer"
                       target="_blank"
                     >
                       <span className="sr-only">Demo</span>
@@ -142,6 +143,7 @@ export function Feature({ name = required('Missing feature name') }) {
                     href={`${getGitHubUrlForExample(
                       platform
                     )}${pathname}/${name}`}
+                    rel="noreferrer"
                     target="_blank"
                   >
                     <span className="sr-only">Source</span>
@@ -151,6 +153,7 @@ export function Feature({ name = required('Missing feature name') }) {
                 <td>
                   <a
                     href={`https://github.com/aws-amplify/amplify-ui/blob/${process.env.BRANCH}/packages/e2e/features${pathname}/${name}.feature#L${scenario.location.line}`}
+                    rel="noreferrer"
                     target="_blank"
                   >
                     <span className="sr-only">Test</span>

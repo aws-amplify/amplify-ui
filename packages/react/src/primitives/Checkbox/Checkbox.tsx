@@ -1,19 +1,19 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
-import { useCheckbox } from './useCheckbox';
+import { CheckboxProps } from '../types/checkbox';
+import { ComponentClassNames } from '../shared/constants';
 import { Flex } from '../Flex';
 import { IconCheck } from '../Icon';
 import { Input } from '../Input';
-import { Text } from '../Text';
-import { VisuallyHidden } from '../VisuallyHidden';
-import { CheckboxProps } from '../types/checkbox';
-import { PrimitiveWithForwardRef } from '../types/view';
+import { Primitive } from '../types/view';
 import { splitPrimitiveProps } from '../shared/styleUtils';
-import { ComponentClassNames } from '../shared/constants';
+import { Text } from '../Text';
+import { useCheckbox } from './useCheckbox';
+import { VisuallyHidden } from '../VisuallyHidden';
 import { useTestId } from '../utils/testUtils';
 
-const CheckboxPrimitive: PrimitiveWithForwardRef<CheckboxProps, 'input'> = (
+const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
   {
     checked,
     className,

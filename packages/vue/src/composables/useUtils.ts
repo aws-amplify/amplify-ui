@@ -24,6 +24,9 @@ export const facade = {
   validationErrors: {
     val: '',
   },
+  codeDeliveryDetails: {
+    val: '',
+  },
   change: (data?: AuthEventData) => null,
   updateForm: (data?: AuthEventData) => null,
   updateBlur: (data?: AuthEventData) => null,

@@ -7,10 +7,10 @@ import {
 } from '@radix-ui/react-tabs';
 import * as React from 'react';
 
-import { Flex } from '../Flex';
-import { View } from '../View';
-import { TabsProps, TabItemProps, PrimitiveWithForwardRef } from '../types';
 import { ComponentClassNames } from '../shared/constants';
+import { Flex } from '../Flex';
+import { TabsProps, TabItemProps, Primitive } from '../types';
+import { View } from '../View';
 
 const isTabsType = (child: any): child is React.Component<TabItemProps> => {
   return (
@@ -21,7 +21,7 @@ const isTabsType = (child: any): child is React.Component<TabItemProps> => {
   );
 };
 
-const TabsPrimitive: PrimitiveWithForwardRef<TabsProps, typeof Flex> = (
+const TabsPrimitive: Primitive<TabsProps, typeof Flex> = (
   {
     ariaLabel,
     children,
@@ -86,7 +86,7 @@ const TabsPrimitive: PrimitiveWithForwardRef<TabsProps, typeof Flex> = (
   );
 };
 
-const TabItemPrimitive: PrimitiveWithForwardRef<TabItemProps, 'div'> = (
+const TabItemPrimitive: Primitive<TabItemProps, 'div'> = (
   { className, title, ...rest },
   ref
 ) => (

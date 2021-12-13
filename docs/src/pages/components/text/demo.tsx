@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text } from '@aws-amplify/ui-react';
+import { Text, useTheme } from '@aws-amplify/ui-react';
 import { Example } from '@/components/Example';
 
 export const TextDemo = ({ children }) => {
@@ -157,8 +157,14 @@ export const TextTruncatedSample = () => {
 };
 
 export const TextStylingSample = () => {
+  const theme = useTheme();
   return (
-    <Text fontWeight="bold" color="red" textDecoration="underline" as="span">
+    <Text
+      fontWeight={theme.tokens.fontWeights.bold}
+      color={theme.tokens.colors.red[80]}
+      textDecoration="underline"
+      as="span"
+    >
       This is my styled text
     </Text>
   );

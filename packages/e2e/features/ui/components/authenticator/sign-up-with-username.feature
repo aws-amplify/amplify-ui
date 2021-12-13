@@ -30,7 +30,7 @@ Feature: Sign Up with Username
     And I type my "email" with status "UNCONFIRMED"
     And I type a new "preferred username"
     And I click the "Create Account" button
-    Then I see "Confirm Sign Up"
+    Then I see "Your code is on the way"
     And I see "Confirmation Code"
 
   @angular @react @vue

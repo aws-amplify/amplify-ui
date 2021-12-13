@@ -19,10 +19,11 @@ yarn add aws-amplify @aws-amplify/ui-react
 </TabItem>
 </Tabs>
 
-Wrap your application in `<AmplifyProvider/>`:
+Wrap your application in `<AmplifyProvider/>` and include default styling:
 
 ```jsx
 import { AmplifyProvider } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css'; // default theme
 
 export default = () => (
   <AmplifyProvider>

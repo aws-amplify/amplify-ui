@@ -12,15 +12,42 @@ module.exports = withNextPluginPreval({
   // Differentiate pages with frontmatter & layout vs. normal MD(X)
   pageExtensions: ['page.mdx', 'page.tsx'],
 
-  // Sets the lang attribute on html element
-  i18n: {
-    locales: ['en'],
-    defaultLocale: 'en',
-  },
+  swcMinify: true,
 
   // don't want to fix typescript errors right now...
   typescript: {
     ignoreBuildErrors: true,
+  },
+
+  async headers() {
+    return [
+      {
+        // Apply these headers to all routes in your application.
+        source: '/(.*)',
+        headers: [
+          // IMPORTANT:
+          // These are ONLY used for the Dev server and MUST
+          // be kept in sync with customHttp.yml
+          {
+            key: 'Strict-Transport-Security',
+            value: 'max-age=63072000; includeSubDomains',
+          },
+          {
+            key: 'X-Frame-Options',
+            value: 'SAMEORIGIN',
+          },
+          {
+            key: 'X-XSS-Protection',
+            value: '1; mode=block',
+          },
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff',
+          },
+          // for 'Content-Security-Policy', see _document.page.tsx
+        ],
+      },
+    ];
   },
 
   // These redirects are because of the IA change from previous docs

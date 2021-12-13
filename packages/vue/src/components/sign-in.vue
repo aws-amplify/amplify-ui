@@ -224,7 +224,7 @@ const onForgotPasswordClicked = (): void => {
             </base-wrapper>
           </base-field-set>
           <base-alert v-if="error">
-            {{ error }}
+            {{ translate(error) }}
           </base-alert>
 
           <amplify-button

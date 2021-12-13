@@ -2,18 +2,11 @@ import classNames from 'classnames';
 import * as React from 'react';
 
 import { ComponentClassNames } from '../shared/constants';
-import {
-  PasswordFieldProps,
-  PasswordFieldType,
-  PrimitiveWithForwardRef,
-} from '../types';
+import { PasswordFieldProps, PasswordFieldType, Primitive } from '../types';
 import { ShowPasswordButton } from './ShowPasswordButton';
 import { TextField } from '../TextField';
 
-const PasswordFieldPrimitive: PrimitiveWithForwardRef<
-  PasswordFieldProps,
-  'input'
-> = (
+const PasswordFieldPrimitive: Primitive<PasswordFieldProps, 'input'> = (
   {
     autoComplete = 'current-password',
     label,

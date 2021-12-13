@@ -138,7 +138,7 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
   };
   return (
     <>
-      <View as="section" className="docs-home-section-bg">
+      <View as="section" className="docs-home-section-bg container">
         <HomeLogo />
         <Image
           alt=""
@@ -199,33 +199,36 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
         <Heading level={2} textAlign="center" margin={tokens.space.xl}>
           Take it for a test drive
         </Heading>
-        <Card style={{ width: '100%', padding: 0 }} variation="outlined">
-          <Sandpack
-            template="react"
-            files={{
-              '/App.js': { code: code, active: true },
-              '/theme.js': { code: themeCode },
-            }}
-            theme={sandPackTheme}
-            options={{
-              editorHeight: 500,
-              showNavigator: true, // this will show a top navigator bar instead of the refresh button
-              showTabs: true, // you can toggle the tabs on/off manually
-              showLineNumbers: true, // this is off by default, but you can show line numbers for the editor
-              wrapContent: true, // also off by default, this wraps the code instead of creating horizontal overflow
-            }}
-            customSetup={{
-              dependencies: {
-                '@aws-amplify/ui-react': 'next',
-                'aws-amplify': 'latest',
-              },
-              entry: '/index.js',
-            }}
-          />
-        </Card>
+        <View className="container">
+          <Card style={{ width: '100%', padding: 0 }} variation="outlined">
+            <Sandpack
+              template="react"
+              files={{
+                '/App.js': { code: code, active: true },
+                '/theme.js': { code: themeCode },
+              }}
+              theme={sandPackTheme}
+              options={{
+                autorun: false,
+                editorHeight: 500,
+                showNavigator: true, // this will show a top navigator bar instead of the refresh button
+                showTabs: true, // you can toggle the tabs on/off manually
+                showLineNumbers: true, // this is off by default, but you can show line numbers for the editor
+                wrapContent: true, // also off by default, this wraps the code instead of creating horizontal overflow
+              }}
+              customSetup={{
+                dependencies: {
+                  '@aws-amplify/ui-react': 'next',
+                  'aws-amplify': 'latest',
+                },
+                entry: '/index.js',
+              }}
+            />
+          </Card>
+        </View>
       </View>
 
-      <View as="section" className="docs-home-section">
+      <View as="section" className="docs-home-section container">
         <Flex
           direction={{
             base: 'column-reverse',
@@ -257,6 +260,7 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
         backgroundColor={tokens.colors.background.secondary}
       >
         <Flex
+          className="container"
           direction={{
             base: 'column',
             large: 'row',
@@ -315,10 +319,12 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
 
       <View as="section" className="docs-home-section">
         <Flex
+          className="container"
           direction={{
             base: 'column',
             large: 'row',
           }}
+          gap={tokens.space.xxl}
         >
           <View maxWidth="100%" overflow="hidden">
             <HomePrimitivePreview />
@@ -344,6 +350,7 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
         backgroundColor={tokens.colors.background.secondary}
       >
         <Flex
+          className="container"
           direction={{
             base: 'column',
             large: 'row',
@@ -376,7 +383,8 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
           Looking for other Amplify Products?
         </Heading>
         <Grid
-          templateColumns="1fr 1fr"
+          className="container"
+          templateColumns={{ base: '1fr', medium: '1fr 1fr' }}
           templateRows="1fr 1fr 1fr"
           gap={tokens.space.medium}
           flex="1"
@@ -397,9 +405,9 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
             description="Fully managed web hosting with full-stack CI/CD."
           />
           <AmpCard
-            href="https://docs.amplify.aws/console/adminui/intro/"
-            title="Amplify Admin"
-            description="Visually configure and manage your app backend."
+            href="https://docs.amplify.aws/console/"
+            title="Amplify Studio"
+            description="Visual development environment to accelerate full-stack development."
           />
         </Grid>
       </View>

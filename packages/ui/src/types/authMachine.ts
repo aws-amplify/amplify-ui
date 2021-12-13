@@ -1,4 +1,4 @@
-import { CognitoUser } from 'amazon-cognito-identity-js';
+import { CognitoUser, CodeDeliveryDetails } from 'amazon-cognito-identity-js';
 import { Interpreter, State } from 'xstate';
 import { ValidationError } from './validator';
 
@@ -23,12 +23,13 @@ interface BaseFormContext {
   remoteError?: string;
   user?: CognitoUserAmplify;
   validationError?: ValidationError;
+  codeDeliveryDetails?: CodeDeliveryDetails;
   country_code?: string;
 }
 
 export interface SignInContext extends BaseFormContext {
-  loginMechanisms: AuthContext['config']['loginMechanisms'];
-  socialProviders: AuthContext['config']['socialProviders'];
+  loginMechanisms: Required<AuthContext>['config']['loginMechanisms'];
+  socialProviders: Required<AuthContext>['config']['socialProviders'];
   attributeToVerify?: string;
   redirectIntent?: string;
   unverifiedAttributes?: Record<string, string>;
@@ -68,8 +69,8 @@ export type SignUpAttribute =
   | SignUpFieldsWithoutDefaults;
 
 export interface SignUpContext extends BaseFormContext {
-  loginMechanisms: AuthContext['config']['loginMechanisms'];
-  socialProviders: AuthContext['config']['socialProviders'];
+  loginMechanisms: Required<AuthContext>['config']['loginMechanisms'];
+  socialProviders: Required<AuthContext>['config']['socialProviders'];
   unverifiedAttributes?: Record<string, string>;
 }
 

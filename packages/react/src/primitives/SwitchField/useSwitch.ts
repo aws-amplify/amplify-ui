@@ -17,7 +17,7 @@ export const useSwitch = (props) => {
         setIsOn(event.target.checked);
       }
     },
-    [onChange, isChecked]
+    [onChange, isControlled, isDisabled]
   );
 
   if (isControlled && isOn !== isChecked) {

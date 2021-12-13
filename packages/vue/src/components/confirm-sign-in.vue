@@ -43,7 +43,7 @@
           </base-wrapper>
           <base-footer class="amplify-flex" style="flex-direction: column">
             <base-alert v-if="actorState?.context?.remoteError">
-              {{ actorState?.context?.remoteError }}
+              {{ translate(actorState?.context?.remoteError) }}
             </base-alert>
             <amplify-button
               class="amplify-field-group__control"

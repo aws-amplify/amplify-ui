@@ -1,7 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
-import { useStepper } from './useStepper';
+import { ComponentClassNames } from '../shared/constants';
 import { FieldDescription, FieldErrorMessage } from '../Field';
 import { FieldGroup } from '../FieldGroup';
 import { FieldGroupIconButton } from '../FieldGroupIcon';
@@ -9,20 +9,20 @@ import { Flex } from '../Flex';
 import { IconAdd, IconRemove } from '../Icon';
 import { Input } from '../Input';
 import { Label } from '../Label';
-import { StepperFieldProps } from '../types/stepperField';
-import { ComponentClassNames } from '../shared/constants';
+import { Primitive } from '../types/view';
 import { SharedText } from '../shared/i18n';
-import { useStableId } from '../shared/utils';
-import { PrimitiveWithForwardRef } from '../types/view';
 import { splitPrimitiveProps } from '../shared/styleUtils';
+import { StepperFieldProps } from '../types/stepperField';
+import { useStableId } from '../shared/utils';
+import { useStepper } from './useStepper';
 
 export const DECREASE_ICON = 'decrease-icon';
 export const INCREASE_ICON = 'increase-icon';
 
-const StepperFieldPrimitive: PrimitiveWithForwardRef<
-  StepperFieldProps,
-  'input'
-> = (props, ref) => {
+const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
+  props,
+  ref
+) => {
   const {
     className,
     descriptiveText,

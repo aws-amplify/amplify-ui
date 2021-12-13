@@ -2,7 +2,7 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { ComponentClassNames } from '../shared/constants';
-import { AlertProps, PrimitiveWithForwardRef } from '../types';
+import { AlertProps, Primitive } from '../types';
 import { View } from '../View';
 import { Flex } from '../Flex';
 import { Button } from '../Button';
@@ -10,7 +10,7 @@ import { AlertIcon } from './AlertIcon';
 import { IconClose } from '../Icon';
 import { isFunction } from '../shared/utils';
 
-const AlertPrimitive: PrimitiveWithForwardRef<AlertProps, typeof Flex> = (
+const AlertPrimitive: Primitive<AlertProps, typeof Flex> = (
   {
     buttonRef,
     children,
@@ -32,7 +32,7 @@ const AlertPrimitive: PrimitiveWithForwardRef<AlertProps, typeof Flex> = (
     if (isFunction(onDismiss)) {
       onDismiss();
     }
-  }, [setDismissed, onDismiss]);
+  }, [setDismissed, onDismiss, dismissed]);
 
   return (
     !dismissed && (

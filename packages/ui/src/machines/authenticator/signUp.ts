@@ -16,6 +16,7 @@ import {
   setCredentials,
   setFieldErrors,
   setRemoteError,
+  setCodeDeliveryDetails,
   setUser,
 } from './actions';
 import { defaultServices } from './defaultServices';
@@ -119,7 +120,11 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
                       },
                       {
                         target: 'resolved',
-                        actions: ['setUser', 'setCredentials'],
+                        actions: [
+                          'setUser',
+                          'setCredentials',
+                          'setCodeDeliveryDetails',
+                        ],
                       },
                     ],
                     onError: {
@@ -183,7 +188,10 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
               entry: [sendUpdate(), 'clearError'],
               invoke: {
                 src: 'confirmSignUp',
-                onDone: { target: '#signUpActor.resolved', actions: 'setUser' },
+                onDone: {
+                  target: '#signUpActor.resolved',
+                  actions: ['setUser'],
+                },
                 onError: { target: 'edit', actions: 'setRemoteError' },
               },
             },
@@ -237,6 +245,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
         setCredentials,
         setFieldErrors,
         setRemoteError,
+        setCodeDeliveryDetails,
         setUser,
       },
       services: {

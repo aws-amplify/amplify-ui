@@ -1,5 +1,33 @@
 # @aws-amplify/ui
 
+## 3.0.4
+
+### Patch Changes
+
+- [#902](https://github.com/aws-amplify/amplify-ui/pull/902) [`72b543ded`](https://github.com/aws-amplify/amplify-ui/commit/72b543ded4c37325a0eb1e4a4803aa88d6d73d5d) Thanks [@hvergara](https://github.com/hvergara)! - Fix Spanish translation
+
+* [#910](https://github.com/aws-amplify/amplify-ui/pull/910) [`96830f6a3`](https://github.com/aws-amplify/amplify-ui/commit/96830f6a34a417aa9bc6329c839679bd10da84f0) Thanks [@ErikCH](https://github.com/ErikCH)! - Added text to confirm sign up page, so user knows where code was delivered.
+
+- [#912](https://github.com/aws-amplify/amplify-ui/pull/912) [`f447ec75a`](https://github.com/aws-amplify/amplify-ui/commit/f447ec75ac839195c6c5709987ef734f40dc5c76) Thanks [@wlee221](https://github.com/wlee221)! - Fix height jumps between screens and tabs
+
+* [#890](https://github.com/aws-amplify/amplify-ui/pull/890) [`712edfccc`](https://github.com/aws-amplify/amplify-ui/commit/712edfccc77a71542166431ba79b25a31d0dca80) Thanks [@wlee221](https://github.com/wlee221)! - fix(angular): Add first class support for `strict: true`
+
+- [#926](https://github.com/aws-amplify/amplify-ui/pull/926) [`f1c2d82db`](https://github.com/aws-amplify/amplify-ui/commit/f1c2d82db913be13425e8b4476983d7cf6f55c40) Thanks [@wlee221](https://github.com/wlee221)! - Provide helpful message for NoUserPool Error
+
+## 3.0.3
+
+### Patch Changes
+
+- [#828](https://github.com/aws-amplify/amplify-ui/pull/828) [`5d115786c`](https://github.com/aws-amplify/amplify-ui/commit/5d115786c23ce6292842467b4417b26a15f60cb5) Thanks [@strugman](https://github.com/strugman)! - Add Polish to Authenticator i18n module
+
+* [#861](https://github.com/aws-amplify/amplify-ui/pull/861) [`b21e3e3cb`](https://github.com/aws-amplify/amplify-ui/commit/b21e3e3cb6688238a513f8b125d3be36145dadca) Thanks [@zchenwei](https://github.com/zchenwei)! - Forward ref support for TableRow, Tabs, ToggleButton & ToggleButtonGroup
+
+- [#882](https://github.com/aws-amplify/amplify-ui/pull/882) [`4a12ed4f5`](https://github.com/aws-amplify/amplify-ui/commit/4a12ed4f580f852de2558ec3fcf0da152f74dbd5) Thanks [@AbhishekDesai99](https://github.com/AbhishekDesai99)! - Authenticator component translations support for Portuguese language
+
+* [#901](https://github.com/aws-amplify/amplify-ui/pull/901) [`907cd18df`](https://github.com/aws-amplify/amplify-ui/commit/907cd18df6213d432a4b3c5d18c848717e3703e4) Thanks [@wlee221](https://github.com/wlee221)! - Add korean translations
+
+- [#858](https://github.com/aws-amplify/amplify-ui/pull/858) [`cc4a328a4`](https://github.com/aws-amplify/amplify-ui/commit/cc4a328a4f93888a968c9c51382752998549d917) Thanks [@ErikCH](https://github.com/ErikCH)! - Updated the password validation logic, so errors are only display on blur, or when six or more characters is typed for both the confirm password and password fields.
+
 ## 3.0.2
 
 ### Patch Changes

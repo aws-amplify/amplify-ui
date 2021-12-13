@@ -2,11 +2,11 @@ import * as React from 'react';
 import classNames from 'classnames';
 import { countryDialCodes } from '@aws-amplify/ui';
 
-import { SelectField } from '../SelectField';
 import { ComponentClassNames } from '../shared/constants';
-import { CountryCodeSelectProps, PrimitiveWithForwardRef } from '../types';
+import { CountryCodeSelectProps, Primitive } from '../types';
+import { SelectField } from '../SelectField';
 
-const CountryCodeSelectPrimitive: PrimitiveWithForwardRef<
+const CountryCodeSelectPrimitive: Primitive<
   CountryCodeSelectProps,
   'select'
 > = ({ className, ...props }, ref) => {
@@ -17,7 +17,7 @@ const CountryCodeSelectPrimitive: PrimitiveWithForwardRef<
           {dialCode}
         </option>
       )),
-    [countryDialCodes]
+    []
   );
 
   return (

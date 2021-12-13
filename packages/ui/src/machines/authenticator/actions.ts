@@ -80,7 +80,12 @@ export const setFieldErrors = assign({
 });
 
 export const setRemoteError = assign({
-  remoteError: (_, event: AuthEvent) => event.data?.message || event.data,
+  remoteError: (_, event: AuthEvent) => {
+    if (event.data.name === 'NoUserPoolError') {
+      return `Configuration error (see console) – please contact the administrator`;
+    }
+    return event.data?.message || event.data;
+  },
 });
 
 export const setUnverifiedAttributes = assign({
@@ -93,6 +98,10 @@ export const setUser = assign({
 
 export const setUsername = assign({
   username: (context: ActorContextWithForms, _) => context.formValues.username,
+});
+
+export const setCodeDeliveryDetails = assign({
+  codeDeliveryDetails: (_, event: AuthEvent) => event.data.codeDeliveryDetails,
 });
 
 export const setUsernameAuthAttributes = assign({

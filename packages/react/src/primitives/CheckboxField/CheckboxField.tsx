@@ -2,16 +2,13 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { Checkbox } from '../Checkbox';
+import { CheckboxFieldProps, Primitive } from '../types';
+import { ComponentClassNames } from '../shared';
 import { FieldErrorMessage } from '../Field';
 import { Flex } from '../Flex';
-import { CheckboxFieldProps, PrimitiveWithForwardRef } from '../types';
-import { ComponentClassNames } from '../shared';
 import { useTestId } from '../utils/testUtils';
 
-const CheckboxFieldPrimitive: PrimitiveWithForwardRef<
-  CheckboxFieldProps,
-  'input'
-> = (
+const CheckboxFieldPrimitive: Primitive<CheckboxFieldProps, 'input'> = (
   {
     className,
     errorMessage,
