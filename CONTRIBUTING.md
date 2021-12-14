@@ -6,6 +6,7 @@
 1. [`nvm install`](https://github.com/nvm-sh/nvm)
 1. [`nvm use`](https://github.com/nvm-sh/nvm)
 1. `yarn install`
+1. `yarn build`
 
 ## Documentation Development
 
