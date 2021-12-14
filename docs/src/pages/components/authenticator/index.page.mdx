@@ -40,6 +40,11 @@ Once an end-user has created an account & signed in, the underlying component is
 
 <Fragment>{({ platform }) => import(`./quick-start.${platform}.mdx`)}</Fragment>
 
+<Alert variation="warning">
+  Please see [troubleshooting](/getting-started/installation#troubleshooting) if
+  you have trouble building or running your application with Authenticator.
+</Alert>
+
 ## Configuration
 
 ### Zero Configuration
@@ -550,7 +555,7 @@ The following example customizes the Sign Up screen by:
 
 ### Styling
 
-You can customize the Authenticator's default [theme](/ui/theme) with [CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties).
+You can customize the Authenticator's default [theme](/theming) with [CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties).
 The example below uses a `<style>` tag to change the default colors to a dark theme:
 
 ```css
