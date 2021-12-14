@@ -41,7 +41,8 @@
     "trim": "^0.0.3",
     "ts-jest": "^26.5.6",
     "vscode-vue-languageservice": "0.27.26",
-    "ws": "^7.4.6"
+    "ws": "^7.4.6",
+    "**/mapbox-gl": "npm:maplibre-gl"
   },
   "dependencies": {
     "patch-package": "^6.4.7",
