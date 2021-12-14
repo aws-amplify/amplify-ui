@@ -13,17 +13,17 @@ export const ELLIPSIS = '...';
  * @returns an array that contains the range of numbers to be rendered
  */
 export const useRange = (
-  currentPage: number,
-  totalPages: number,
-  siblingCount = 1
+  currentPageParam: number,
+  totalPagesParam: number,
+  siblingCountParam = 1
 ): (string | number)[] => {
   const range = useMemo(() => {
     // The current page should not be less than 1
-    currentPage = Math.max(currentPage, 1);
+    const currentPage = Math.max(currentPageParam, 1);
     // The sibling count should not be less than 1
-    siblingCount = Math.max(siblingCount, 1);
+    const siblingCount = Math.max(siblingCountParam, 1);
     // The total pages should be always greater than current page
-    totalPages = Math.max(currentPage, totalPages);
+    const totalPages = Math.max(currentPage, totalPagesParam);
 
     // Note: 1-based index will be used for page value.
     const firstPage = 1;
@@ -84,7 +84,7 @@ export const useRange = (
       rightSiblingPage
     );
     return [firstPage, ELLIPSIS, ...middleRange, ELLIPSIS, lastPage];
-  }, [currentPage, totalPages, siblingCount]);
+  }, [currentPageParam, totalPagesParam, siblingCountParam]);
 
   return range;
 };
