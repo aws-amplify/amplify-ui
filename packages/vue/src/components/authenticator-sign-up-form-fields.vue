@@ -57,10 +57,11 @@ const loginMechanism = fieldNames.shift() as LoginMechanism;
 const actorContext = computed(() => {
   return getActorContext(state.value);
 }) as ComputedRef<SignInContext>;
+
 const formValues = computed(
   () => actorContext.value?.formValues as AuthFormData
 );
-actorContext.value.formValues;
+
 const loginMechanismValue = computed(() => {
   return loginMechanism === 'phone_number'
     ? `${formValues.value.country_code ?? ''}${formValues.value.phone ?? ''}`
