@@ -7,7 +7,7 @@ on:
   push:
     branches: [main]
 
-  pull_request:
+  pull_request_target:
     branches: [main]
     types: [opened, synchronize, labeled]
 
@@ -49,7 +49,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: ${{ steps.get-ref.outputs.ref }}
-          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          repository: ${{github.event.pull_request.head.repo.full_name}}
           persist-credentials: false
       - name: Setup Node.js LTS
         uses: actions/setup-node@v2
@@ -60,25 +60,23 @@ jobs:
         run: yarn --frozen-lockfile --prefer-offline
       - name: Build ui package
         run: yarn ui build
-      - name: Build vue package
-        run: yarn vue build
       - name: Cache cypress runner
         uses: actions/cache@v2
         with:
           path: ~/.cache/Cypress
-          key: ${{ runner.os }}--foo-cypress-${{ hashFiles('yarn.lock') }}
+          key: ${{ runner.os }}-cypress-${{ hashFiles('yarn.lock') }}
       - name: Cache packages/ui/dist
         uses: actions/cache@v2
         with:
           path: ./packages/ui/dist
-          key: ${{ runner.os }}--foo-ui-${{ steps.get-ref.outputs.commit }}
+          key: ${{ runner.os }}-ui-${{ steps.get-ref.outputs.commit }}
       - name: Cache node_modules
         uses: actions/cache@v2
         with:
           path: |
             ./node_modules
             **/node_modules
-          key: ${{ runner.os }}--foo-nodemodules-${{ steps.get-ref.outputs.commit }}
+          key: ${{ runner.os }}-nodemodules-${{ steps.get-ref.outputs.commit }}
   unit:
     needs: setup
     runs-on: ubuntu-latest
@@ -99,7 +97,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: ${{ github.event_name == 'push' && github.ref || github.event.pull_request.head.ref }}
-          repository: ${{ github.event.pull_request.head.repo.full_name}}
+          repository: ${{github.event.pull_request.head.repo.full_name}}
           persist-credentials: false
 
       - name: Setup Node.js LTS
@@ -115,14 +113,14 @@ jobs:
           path: |
             ./node_modules
             **/node_modules
-          key: ${{ runner.os }}--foo-nodemodules-${{ needs.setup.outputs.commit }}
+          key: ${{ runner.os }}-nodemodules-${{ needs.setup.outputs.commit }}
 
       - name: Restore ui/dist cache
         uses: actions/cache@v2
         id: restore-ui-cache
         with:
           path: ./packages/ui/dist
-          key: ${{ runner.os }}--foo-ui-${{ needs.setup.outputs.commit }}
+          key: ${{ runner.os }}-ui-${{ needs.setup.outputs.commit }}
 
       - name: Install packages
         if: steps.restore-cache.outputs.cache-hit != 'true'
@@ -182,7 +180,7 @@ jobs:
           # always points to the target branch.
           # See: https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows
           ref: ${{ github.event_name == 'push' && github.ref || github.event.pull_request.head.ref }}
-          repository: ${{ github.event.pull_request.head.repo.full_name}}
+          repository: ${{github.event.pull_request.head.repo.full_name}}
           persist-credentials: false
 
       - name: Next.js Cache
@@ -202,7 +200,7 @@ jobs:
         id: restore-cypress-cache
         with:
           path: ~/.cache/Cypress
-          key: ${{ runner.os }}--foo-cypress-${{ hashFiles('yarn.lock') }}
+          key: ${{ runner.os }}-cypress-${{ hashFiles('yarn.lock') }}
 
       - name: Restore node_modules cache
         uses: actions/cache@v2
@@ -211,14 +209,14 @@ jobs:
           path: |
             ./node_modules
             **/node_modules
-          key: ${{ runner.os }}--foo-nodemodules-${{ needs.setup.outputs.commit }}
+          key: ${{ runner.os }}-nodemodules-${{ needs.setup.outputs.commit }}
 
       - name: Restore ui/dist cache
         uses: actions/cache@v2
         id: restore-ui-cache
         with:
           path: ./packages/ui/dist
-          key: ${{ runner.os }}--foo-ui-${{ needs.setup.outputs.commit }}
+          key: ${{ runner.os }}-ui-${{ needs.setup.outputs.commit }}
 
       - name: Restore ${{ matrix.package }}/dist cache
         id: restore-package-cache
@@ -278,31 +276,6 @@ jobs:
           USERNAME: ${{ secrets.USERNAME }}
           NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
           VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
-
-      - name: Upload videos
-        if: ${{ always() }}
-        uses: actions/upload-artifact@v2
-        with:
-          name: cypress-videos-${{ matrix.example }}
-          path: packages/e2e/cypress/videos
-          retention-days: 5
-
-      - name: Upload screenshots
-        if: ${{ always() }}
-        uses: actions/upload-artifact@v2
-        with:
-          name: cypress-screenshots-${{ matrix.example }}
-          path: packages/e2e/cypress/screenshots
-          retention-days: 5
-
-      - name: Upload ui/dist
-        if: ${{ always() }}
-        uses: actions/upload-artifact@v2
-        with:
-          name: ui-dist-${{ matrix.example }}
-          path: packages/ui
-          retention-days: 5
-
   docs:
     # Only run docs tests if e2e tests pass
     needs: [setup, unit]
@@ -315,7 +288,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: ${{ github.event_name == 'push' && github.ref || github.event.pull_request.head.ref }}
-          repository: ${{ github.event.pull_request.head.repo.full_name}}
+          repository: ${{github.event.pull_request.head.repo.full_name}}
           persist-credentials: false
 
       - name: Setup Node.js LTS
