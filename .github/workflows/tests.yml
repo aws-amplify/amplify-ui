@@ -40,11 +40,6 @@ jobs:
             const { issue: { number: issue_number }, repo: { owner, repo } } = context;
             const label = 'run-tests';
             github.issues.removeLabel({ owner, repo, issue_number, name: label });
-      - name: Setup Node.js LTS
-        uses: actions/setup-node@v2
-        with:
-          node-version: lts/*
-          cache: 'yarn'
       - name: Get ref and commit
         id: get-ref
         run: |
@@ -56,6 +51,11 @@ jobs:
           ref: ${{ steps.get-ref.outputs.ref }}
           repository: ${{github.event.pull_request.head.repo.full_name}}
           persist-credentials: false
+      - name: Setup Node.js LTS
+        uses: actions/setup-node@v2
+        with:
+          node-version: lts/*
+          cache: 'yarn'
       - name: Install packages
         run: yarn --frozen-lockfile --prefer-offline
       - name: Build ui package
