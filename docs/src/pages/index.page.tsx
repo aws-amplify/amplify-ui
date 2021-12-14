@@ -405,9 +405,9 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
             description="Fully managed web hosting with full-stack CI/CD."
           />
           <AmpCard
-            href="https://docs.amplify.aws/console/adminui/intro/"
-            title="Amplify Admin"
-            description="Visually configure and manage your app backend."
+            href="https://docs.amplify.aws/console/"
+            title="Amplify Studio"
+            description="Visual development environment to accelerate full-stack development."
           />
         </Grid>
       </View>
