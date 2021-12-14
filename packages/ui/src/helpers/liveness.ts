@@ -12,10 +12,15 @@ import { translate } from '../i18n';
  * ClientActionObject parsed from clientActionDocument string
  */
 interface ClientActionObject {
-  ovalScaleFactor: {
-    width: string;
-    centerX: string;
-    centerY: string;
+  challenge: {
+    type: string;
+    faceMovementChallenge: {
+      ovalScaleFactors: {
+        width: string;
+        centerX: string;
+        centerY: string;
+      };
+    };
   };
 }
 
@@ -59,10 +64,13 @@ function getIntersectionOverUnion(
  */
 export function getRandomScalingAttributes(clientActionDocument: string) {
   const clientActionObj: ClientActionObject = JSON.parse(clientActionDocument);
+  const ovalScaleFactors =
+    clientActionObj?.challenge?.faceMovementChallenge?.ovalScaleFactors;
+
   return {
-    centerX: parseFloat(clientActionObj.ovalScaleFactor?.centerX),
-    centerY: parseFloat(clientActionObj.ovalScaleFactor?.centerY),
-    width: parseFloat(clientActionObj.ovalScaleFactor?.width),
+    centerX: parseFloat(ovalScaleFactors?.centerX),
+    centerY: parseFloat(ovalScaleFactors?.centerY),
+    width: parseFloat(ovalScaleFactors?.width),
   };
 }
 

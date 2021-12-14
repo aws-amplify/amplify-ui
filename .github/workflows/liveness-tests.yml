@@ -70,6 +70,9 @@ jobs:
           echo "::set-output name=commit::$(git rev-parse --short "$GITHUB_SHA")"
       - name: Install packages
         run: yarn --frozen-lockfile --prefer-offline
+        env:
+          NODE_AUTH_TOKEN: ${{ steps.configure-codeartifact.outputs.repository-token }}
+
       - name: Build ui package
         run: yarn ui build
       - name: Cache cypress runner
@@ -148,6 +151,8 @@ jobs:
       - name: Install packages
         if: steps.restore-cache.outputs.cache-hit != 'true'
         run: yarn --frozen-lockfile --prefer-offline  --prefer-offline
+        env:
+          NODE_AUTH_TOKEN: ${{ steps.configure-codeartifact.outputs.repository-token }}
 
       - name: Build ui package
         if: ${{ steps.restore-ui-cache.outputs.cache-hit != 'true' && matrix.package != 'ui' }}

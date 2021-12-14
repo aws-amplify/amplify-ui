@@ -1,16 +1,17 @@
 import { LivenessFlow, Button, Card } from '@aws-amplify/ui-react';
 import { useLiveness } from './useLiveness';
 import { SessionIdAlert } from './SessionIdAlert';
+import { AuditImage } from './AuditImage';
 
 export default function LivenessCard() {
   const {
     isLivenessActive,
+    auditImageBytes,
     startLivenessApiError,
     startLivenessApiData,
     startLivenessApiLoading,
     handleGetLivenessDetection,
     handleStartLiveness,
-    handleSuccess,
     handleUserExit,
     handleExit,
   } = useLiveness();
@@ -33,9 +34,10 @@ export default function LivenessCard() {
               active={isLivenessActive}
               onExit={handleExit}
               onUserCancel={handleUserExit}
-              onSuccess={handleSuccess}
             />
           </Card>
+
+          <AuditImage auditImageBytes={auditImageBytes} />
         </div>
       ) : (
         <Button

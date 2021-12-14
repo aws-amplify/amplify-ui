@@ -25,7 +25,7 @@ interface LivenessActionDocument {
   };
   challenge: {
     type: string;
-    challengeParameters: {
+    faceMovementChallenge: {
       initialFacePosition: {
         height: number;
         width: number;
@@ -39,10 +39,10 @@ interface LivenessActionDocument {
         left: number;
       };
       recordingTimestamps: {
-        videoStartTimestamp: number;
-        initialFaceDetectedTimestamp: number;
-        faceMatchedInOvalStartTimestamp: number;
-        faceMatchedInOvalEndTimestamp: number;
+        videoStart: number;
+        initialFaceDetected: number;
+        faceDetectedInTargetPositionStart: number;
+        faceDetectedInTargetPositionEnd: number;
       };
     };
   };
@@ -491,8 +491,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             videoWidth: width,
           },
           challenge: {
-            type: 'OVAL',
-            challengeParameters: {
+            type: 'FACE_MOVEMENT',
+            faceMovementChallenge: {
               initialFacePosition: {
                 height: initialFace.height,
                 width: initialFace.width,
@@ -506,10 +506,10 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
                 left: ovalDetails.centerX - ovalDetails.width / 2,
               },
               recordingTimestamps: {
-                videoStartTimestamp: recordingStartTimestampMs,
-                initialFaceDetectedTimestamp: initialFace.timestampMs,
-                faceMatchedInOvalStartTimestamp: startFace.timestampMs,
-                faceMatchedInOvalEndTimestamp: endFace.timestampMs,
+                videoStart: recordingStartTimestampMs,
+                initialFaceDetected: initialFace.timestampMs,
+                faceDetectedInTargetPositionStart: startFace.timestampMs,
+                faceDetectedInTargetPositionEnd: endFace.timestampMs,
               },
             },
           },
