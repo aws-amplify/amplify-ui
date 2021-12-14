@@ -264,6 +264,14 @@ jobs:
           USERNAME: ${{ secrets.USERNAME }}
           NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
           VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
+
+      - name: Upload videos
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: cypress-videos
+          path: packages/e2e/cypress/videos
+
   docs:
     # Only run docs tests if e2e tests pass
     needs: [setup, unit]
