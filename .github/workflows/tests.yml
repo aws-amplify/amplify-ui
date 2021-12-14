@@ -115,7 +115,7 @@ jobs:
           path: |
             ./node_modules
             **/node_modules
-          key: ${{ runner.os }}-foo-nodemodules-${{ needs.setup.outputs.commit }}
+          key: ${{ runner.os }}--foo-nodemodules-${{ needs.setup.outputs.commit }}
 
       - name: Restore ui/dist cache
         uses: actions/cache@v2
@@ -283,8 +283,15 @@ jobs:
         if: ${{ always() }}
         uses: actions/upload-artifact@v2
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ matrix.example }}
           path: packages/e2e/cypress/videos
+
+      - name: Upload screenshots
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: cypress-screenshots-${{ matrix.example }}
+          path: packages/e2e/cypress/screenshots
 
   docs:
     # Only run docs tests if e2e tests pass
