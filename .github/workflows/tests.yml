@@ -136,12 +136,6 @@ jobs:
         if: ${{ matrix.package != '@aws-amplify/ui' }}
         run: yarn ${{ matrix.package }} build
 
-      - name: Cache ${{ matrix.package }}/dist
-        uses: actions/cache@v2
-        with:
-          path: ./packages/${{ matrix.package }}/dist
-          key: ${{ runner.os }}-${{ matrix.package }}-${{ needs.setup.outputs.commit }}
-
       - name: Lint packages
         run: yarn ${{ matrix.package }} lint
 
@@ -220,15 +214,7 @@ jobs:
           path: ./packages/ui/dist
           key: ${{ runner.os }}--foo-ui-${{ needs.setup.outputs.commit }}
 
-      - name: Restore ${{ matrix.package }}/dist cache
-        id: restore-package-cache
-        uses: actions/cache@v2
-        with:
-          path: ./packages/${{ matrix.package }}/dist
-          key: ${{ runner.os }}-${{ matrix.package }}-${{ needs.setup.outputs.commit }}
-
       - name: Install packages
-        if: steps.restore-cache.outputs.cache-hit != 'true' || steps.restore-cypress-cache.outputs.cache-hit != 'true'
         run: yarn --frozen-lockfile --prefer-offline
 
       - name: Build @aws-amplify/ui package
