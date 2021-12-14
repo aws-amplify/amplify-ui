@@ -454,7 +454,6 @@ const hasTabs = computed(() => {
       <slot name="footer"></slot>
     </div>
   </div>
-
   <slot
     v-if="state?.matches('authenticated')"
     :user="user"
