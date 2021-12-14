@@ -225,10 +225,18 @@ export const signInActor = createMachine<SignInContext, AuthEvent>(
                 entry: [sendUpdate(), 'clearError'],
                 invoke: {
                   src: 'forceNewPassword',
-                  onDone: {
-                    target: 'resolved',
-                    actions: ['setUser', 'setCredentials'],
-                  },
+                  onDone: [
+                    {
+                      cond: 'shouldConfirmSignIn',
+                      actions: ['setUser', 'setChallengeName'],
+                      target: '#signInActor.confirmSignIn',
+                    },
+
+                    {
+                      target: 'resolved',
+                      actions: ['setUser', 'setCredentials'],
+                    },
+                  ],
                   onError: {
                     target: 'idle',
                     actions: 'setRemoteError',
