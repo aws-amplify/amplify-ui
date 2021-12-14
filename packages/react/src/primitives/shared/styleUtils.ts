@@ -40,7 +40,7 @@ export const useTransformStyleProps = (props: ViewProps): ViewProps => {
         columnSpan
       ) as GridItemStyleProps['column'],
     };
-  }, [rowSpan, columnSpan, convertGridSpan]);
+  }, [rowSpan, columnSpan]);
 
   return {
     row: !isNullOrEmptyString(row) ? row : rowFromSpanValue,
@@ -175,9 +175,11 @@ export const useNonStyleProps = (props: ViewProps) => {
  * The type requires all keys in order to ensure it remains
  * in sync with the FlexContainerStyleProps type.
  */
-const FlexContainerStylePropsMap: Required<{
-  [key in keyof FlexContainerStyleProps]: true;
-}> = {
+const FlexContainerStylePropsMap: Required<
+  {
+    [key in keyof FlexContainerStyleProps]: true;
+  }
+> = {
   alignContent: true,
   alignItems: true,
   direction: true,

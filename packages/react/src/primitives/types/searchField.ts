@@ -27,3 +27,7 @@ export interface SearchFieldProps extends TextInputFieldProps {
 
 export interface SearchFieldButtonProps
   extends Partial<FieldGroupIconButtonProps> {}
+
+export type UseSearchFieldProps = Partial<SearchFieldProps> & {
+  externalRef?: React.ForwardedRef<HTMLInputElement>;
+};

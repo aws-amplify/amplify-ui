@@ -32,7 +32,7 @@ const AlertPrimitive: Primitive<AlertProps, typeof Flex> = (
     if (isFunction(onDismiss)) {
       onDismiss();
     }
-  }, [setDismissed, onDismiss]);
+  }, [setDismissed, onDismiss, dismissed]);
 
   return (
     !dismissed && (
