@@ -57,11 +57,14 @@ const loginMechanism = fieldNames.shift() as LoginMechanism;
 const actorContext = computed(() => {
   return getActorContext(state.value);
 }) as ComputedRef<SignInContext>;
-const formValues = actorContext.value?.formValues as AuthFormData;
+const formValues = computed(
+  () => actorContext.value?.formValues as AuthFormData
+);
+actorContext.value.formValues;
 const loginMechanismValue = computed(() => {
   return loginMechanism === 'phone_number'
-    ? `${formValues.country_code ?? ''}${formValues.phone ?? ''}`
-    : formValues.email;
+    ? `${formValues.value.country_code ?? ''}${formValues.value.phone ?? ''}`
+    : formValues.value.email;
 });
 </script>
 
@@ -87,7 +90,10 @@ const loginMechanismValue = computed(() => {
   />
 
   <base-wrapper
-    class=" amplify-flex amplify-field amplify-textfield amplify-passwordfield password-field"
+    class="
+      amplify-flex amplify-field amplify-textfield amplify-passwordfield
+      password-field
+    "
     style="flex-direction: column"
   >
     <password-control
@@ -99,7 +105,10 @@ const loginMechanismValue = computed(() => {
     />
   </base-wrapper>
   <base-wrapper
-    class=" amplify-flex amplify-field amplify-textfield amplify-passwordfield password-field"
+    class="
+      amplify-flex amplify-field amplify-textfield amplify-passwordfield
+      password-field
+    "
     style="flex-direction: column"
   >
     <password-control

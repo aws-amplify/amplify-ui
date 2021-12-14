@@ -24,18 +24,21 @@ const onInput = (e: Event): void => {
 
   if (type === 'checkbox' && !checked)
     (value as string | undefined) = undefined;
+
   props.updateForm({ name, value });
 };
 const onSignUpSubmit = (e: Event): void => {
   if (attrs?.onSignUpSubmit) {
     emit('signUpSubmit', e);
   } else {
-    submit();
+    submit(e);
   }
 };
 
-const submit = (): void => {
-  props.submitForm();
+const submit = (e: Event): void => {
+  const formData = new FormData(<HTMLFormElement>e.target);
+  const json = Object.fromEntries(formData);
+  props.submitForm(json);
 };
 </script>
 
