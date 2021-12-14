@@ -47,8 +47,8 @@ jobs:
           registry-url: ${{ steps.configure-codeartifact.outputs.repository-endpoint }}
           always-auth: true
 
-      - name: Install packages
-        run: yarn --frozen-lockfile
+      - name: Install and build packages
+        run: yarn --frozen-lockfile --prefer-offline && yarn build
         env:
           NODE_AUTH_TOKEN: ${{ steps.configure-codeartifact.outputs.repository-token }}
 
