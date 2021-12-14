@@ -55,7 +55,7 @@ jobs:
         id: get-ref
         run: |
           echo "::set-output name=key::${{ github.event_name == 'push' && github.ref || github.event.pull_request.head.ref }}"
-          echo "::set-output name=commit::$(git rev-parse --short HEAD)"
+          echo "::set-output name=commit::${{ github.event_name == 'push' && github.sha || github.event.pull_request.head.sha }}"
       - name: Install packages
         run: yarn --frozen-lockfile --prefer-offline
       - name: Build ui package
