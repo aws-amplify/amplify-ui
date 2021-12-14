@@ -40,12 +40,6 @@ jobs:
             const { issue: { number: issue_number }, repo: { owner, repo } } = context;
             const label = 'run-tests';
             github.issues.removeLabel({ owner, repo, issue_number, name: label });
-      - name: Checkout Amplify UI
-        uses: actions/checkout@v2
-        with:
-          ref: ${{ steps.get-ref.outputs.ref }}
-          repository: ${{github.event.pull_request.head.repo.full_name}}
-          persist-credentials: false
       - name: Setup Node.js LTS
         uses: actions/setup-node@v2
         with:
@@ -56,6 +50,12 @@ jobs:
         run: |
           echo "::set-output name=key::${{ github.event_name == 'push' && github.ref || github.event.pull_request.head.ref }}"
           echo "::set-output name=commit::${{ github.event_name == 'push' && github.sha || github.event.pull_request.head.sha }}"
+      - name: Checkout Amplify UI
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ steps.get-ref.outputs.ref }}
+          repository: ${{github.event.pull_request.head.repo.full_name}}
+          persist-credentials: false
       - name: Install packages
         run: yarn --frozen-lockfile --prefer-offline
       - name: Build ui package
