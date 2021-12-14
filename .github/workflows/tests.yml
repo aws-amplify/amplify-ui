@@ -285,6 +285,7 @@ jobs:
         with:
           name: cypress-videos-${{ matrix.example }}
           path: packages/e2e/cypress/videos
+          retention-days: 5
 
       - name: Upload screenshots
         if: ${{ always() }}
@@ -292,6 +293,15 @@ jobs:
         with:
           name: cypress-screenshots-${{ matrix.example }}
           path: packages/e2e/cypress/screenshots
+          retention-days: 5
+
+      - name: Upload ui/dist
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: ui-dist-${{ matrix.example }}
+          path: packages/ui
+          retention-days: 5
 
   docs:
     # Only run docs tests if e2e tests pass
