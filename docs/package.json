@@ -6,6 +6,7 @@
     "dev": "next dev -p 5000",
     "build": "next build && next export",
     "lint": "next lint",
+    "postbuild": "next-sitemap",
     "start": "next start",
     "test": "$_ run build"
   },
@@ -29,6 +30,7 @@
     "mdx-prism": "^0.3.3",
     "next": "12",
     "next-plugin-preval": "^1.2.1",
+    "next-sitemap": "^1.6.203",
     "prism-react-renderer": "^1.2.1",
     "prism-theme-night-owl": "^1.4.0",
     "raw-loader": "^4.0.2",
