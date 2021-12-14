@@ -60,23 +60,25 @@ jobs:
         run: yarn --frozen-lockfile --prefer-offline
       - name: Build ui package
         run: yarn ui build
+      - name: Build vue package
+        run: yarn vue build
       - name: Cache cypress runner
         uses: actions/cache@v2
         with:
           path: ~/.cache/Cypress
-          key: ${{ runner.os }}-cypress-${{ hashFiles('yarn.lock') }}
+          key: ${{ runner.os }}--foo-cypress-${{ hashFiles('yarn.lock') }}
       - name: Cache packages/ui/dist
         uses: actions/cache@v2
         with:
           path: ./packages/ui/dist
-          key: ${{ runner.os }}-ui-${{ steps.get-ref.outputs.commit }}
+          key: ${{ runner.os }}--foo-ui-${{ steps.get-ref.outputs.commit }}
       - name: Cache node_modules
         uses: actions/cache@v2
         with:
           path: |
             ./node_modules
             **/node_modules
-          key: ${{ runner.os }}-nodemodules-${{ steps.get-ref.outputs.commit }}
+          key: ${{ runner.os }}--foo-nodemodules-${{ steps.get-ref.outputs.commit }}
   unit:
     needs: setup
     runs-on: ubuntu-latest
@@ -113,14 +115,14 @@ jobs:
           path: |
             ./node_modules
             **/node_modules
-          key: ${{ runner.os }}-nodemodules-${{ needs.setup.outputs.commit }}
+          key: ${{ runner.os }}-foo-nodemodules-${{ needs.setup.outputs.commit }}
 
       - name: Restore ui/dist cache
         uses: actions/cache@v2
         id: restore-ui-cache
         with:
           path: ./packages/ui/dist
-          key: ${{ runner.os }}-ui-${{ needs.setup.outputs.commit }}
+          key: ${{ runner.os }}--foo-ui-${{ needs.setup.outputs.commit }}
 
       - name: Install packages
         if: steps.restore-cache.outputs.cache-hit != 'true'
@@ -200,7 +202,7 @@ jobs:
         id: restore-cypress-cache
         with:
           path: ~/.cache/Cypress
-          key: ${{ runner.os }}-cypress-${{ hashFiles('yarn.lock') }}
+          key: ${{ runner.os }}--foo-cypress-${{ hashFiles('yarn.lock') }}
 
       - name: Restore node_modules cache
         uses: actions/cache@v2
@@ -209,14 +211,14 @@ jobs:
           path: |
             ./node_modules
             **/node_modules
-          key: ${{ runner.os }}-nodemodules-${{ needs.setup.outputs.commit }}
+          key: ${{ runner.os }}--foo-nodemodules-${{ needs.setup.outputs.commit }}
 
       - name: Restore ui/dist cache
         uses: actions/cache@v2
         id: restore-ui-cache
         with:
           path: ./packages/ui/dist
-          key: ${{ runner.os }}-ui-${{ needs.setup.outputs.commit }}
+          key: ${{ runner.os }}--foo-ui-${{ needs.setup.outputs.commit }}
 
       - name: Restore ${{ matrix.package }}/dist cache
         id: restore-package-cache
