@@ -13,16 +13,14 @@ export class SignUpWithEmailComponent {
 
   services = {
     async handleSignUp(formData: Record<string, any>) {
-      const { username, password, attributes } = formData;
+      let { username, password, attributes } = formData;
       // custom username
-      const newAttributes = {
-        ...attributes,
-        email: attributes.email.toLowerCase(),
-      };
+      username = username.toLowerCase();
+      attributes.email = attributes.email.toLowerCase();
       return Auth.signUp({
-        username: username.toLowerCase(),
+        username,
         password,
-        attributes: newAttributes,
+        attributes,
       });
     },
   };

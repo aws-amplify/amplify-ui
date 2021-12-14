@@ -8,16 +8,14 @@ Amplify.configure(aws_exports);
 
 const services = {
   async handleSignUp(formData) {
-    const { username, password, attributes } = formData;
+    let { username, password, attributes } = formData;
     // custom username
-    const newAttributes = {
-      ...attributes,
-      email: attributes.email.toLowerCase(),
-    };
+    username = username.toLowerCase();
+    attributes.email = attributes.email.toLowerCase();
     return Auth.signUp({
-      username: username.toLowerCase(),
+      username,
       password,
-      attributes: newAttributes,
+      attributes,
     });
   },
 };
