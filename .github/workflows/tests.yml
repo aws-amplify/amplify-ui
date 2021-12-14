@@ -234,6 +234,7 @@ jobs:
         run: yarn ui build
 
       - name: Build ${{ matrix.package }} package
+        if: steps.restore-package-cache.outputs.cache-hit != 'true'
         run: yarn ${{ matrix.package }} build
 
       - name: Add Amplify CLI
