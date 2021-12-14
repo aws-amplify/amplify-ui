@@ -333,7 +333,6 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
             // Validation for default form fields
             services.validateConfirmPassword,
             services.validatePreferredUsername,
-
             // Validation for any custom Sign Up fields
             services.validateCustomSignUp,
           ]);

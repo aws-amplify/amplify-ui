@@ -225,10 +225,18 @@ export function signInActor({ services }: SignInMachineOptions) {
                   entry: [sendUpdate(), 'clearError'],
                   invoke: {
                     src: 'forceNewPassword',
-                    onDone: {
-                      target: 'resolved',
-                      actions: ['setUser', 'setCredentials'],
-                    },
+                    onDone: [
+                      {
+                        cond: 'shouldConfirmSignIn',
+                        actions: ['setUser', 'setChallengeName'],
+                        target: '#signInActor.confirmSignIn',
+                      },
+
+                      {
+                        target: 'resolved',
+                        actions: ['setUser', 'setCredentials'],
+                      },
+                    ],
                     onError: {
                       target: 'idle',
                       actions: 'setRemoteError',
