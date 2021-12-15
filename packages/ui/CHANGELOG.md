@@ -1,5 +1,13 @@
 # @aws-amplify/ui
 
+## 3.0.5
+
+### Patch Changes
+
+- [#986](https://github.com/aws-amplify/amplify-ui/pull/986) [`63f773ee2`](https://github.com/aws-amplify/amplify-ui/commit/63f773ee2af1f55f1891794c1de1398e3eb47d93) Thanks [@ErikCH](https://github.com/ErikCH)! - Added additional conditional that checks if user has an SMS_MFA challenge question after FORCE_CHANGE_PASSWORD occurs
+
+* [#975](https://github.com/aws-amplify/amplify-ui/pull/975) [`88b15eb9a`](https://github.com/aws-amplify/amplify-ui/commit/88b15eb9aa608b58ca84fbf60e1beba8090f32e2) Thanks [@ErikCH](https://github.com/ErikCH)! - Added new services to override handleSignup, handleSignIn, handleConfirmSignIn, handleConfirmSignUp, handleForgotPasswordSubmit, handleForgotPassword
+
 ## 3.0.4
 
 ### Patch Changes

@@ -16,6 +16,8 @@ When('I select my country code with status {string}', (status: string) => {
         ? '+7'
         : status === 'UNKNOWN'
         ? '+20'
+        : status === 'FORCE_CHANGE_PASSWORD'
+        ? '+30'
         : null;
 
     countryCodeSelect.select(countryCode);
