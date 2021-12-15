@@ -231,7 +231,11 @@ export function signInActor({ services }: SignInMachineOptions) {
                         actions: ['setUser', 'setChallengeName'],
                         target: '#signInActor.confirmSignIn',
                       },
-
+                      {
+                        cond: 'shouldSetupTOTP',
+                        actions: ['setUser', 'setChallengeName'],
+                        target: '#signInActor.setupTOTP',
+                      },
                       {
                         target: 'resolved',
                         actions: ['setUser', 'setCredentials'],
