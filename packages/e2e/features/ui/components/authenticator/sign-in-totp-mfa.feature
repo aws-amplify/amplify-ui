@@ -50,6 +50,6 @@ Feature: Sign In with TOTP MFA
     And I confirm my password
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }' with fixture "force-change-password-mfa-setup"
     And I click the "Change Password" button
-    Then I will be redirected to the setup totp page
+    Then I see "Setup TOTP"
 
 
