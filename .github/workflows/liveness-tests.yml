@@ -41,6 +41,13 @@ jobs:
             const { issue: { number: issue_number }, repo: { owner, repo } } = context;
             const label = 'run-tests';
             github.issues.removeLabel({ owner, repo, issue_number, name: label });
+
+      - name: Get ref and commit
+        id: get-ref
+        run: |
+          echo "::set-output name=ref::${{ github.event_name == 'push' && github.ref || github.event.pull_request.head.ref }}"
+          echo "::set-output name=commit::${{ github.event_name == 'push' && github.sha || github.event.pull_request.head.sha }}"
+
       - name: Checkout Amplify UI
         uses: actions/checkout@v2
         with:
@@ -63,11 +70,7 @@ jobs:
           cache: 'yarn'
           registry-url: ${{ steps.configure-codeartifact.outputs.repository-endpoint }}
           always-auth: true
-      - name: Get ref and commit
-        id: get-ref
-        run: |
-          echo "::set-output name=key::${{ github.event_name == 'push' && github.ref || github.event.pull_request.head.ref }}"
-          echo "::set-output name=commit::$(git rev-parse --short "$GITHUB_SHA")"
+
       - name: Install packages
         run: yarn --frozen-lockfile --prefer-offline
         env:
