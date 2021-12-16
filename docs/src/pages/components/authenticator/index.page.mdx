@@ -295,10 +295,7 @@ The following example customizes these slots with:
         const { tokens } = useTheme();
         return (
           <View textAlign="center" padding={tokens.space.large}>
-            <Image
-              alt="Amplify logo"
-              src="https://docs.amplify.aws/assets/logo-dark.svg"
-            />
+            <Image alt="Amplify logo" src="/amplify-logo.svg" />
           </View>
         );
       },
@@ -452,7 +449,7 @@ Using the same techniques as [Internationalization (I18n)](#internationalization
   </TabItem>
 
   <TabItem title="Sign Up">
-    
+
     ```js
     I18n.putVocabulariesForLanguage('en', {
       'Create Account': 'Register', // Tab header
@@ -470,7 +467,7 @@ Using the same techniques as [Internationalization (I18n)](#internationalization
   </TabItem>
 
   <TabItem title="Reset Password">
-    
+
     ```js
     I18n.putVocabulariesForLanguage('en', {
       'Reset your password': 'Forgot your password?',
