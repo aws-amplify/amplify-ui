@@ -86,7 +86,7 @@ const onBackToSignInClicked = (): void => {
             <base-label class="sr-only amplify-label" for="amplify-field-7dce">
               {{ labelText }}
             </base-label>
-            <base-wrapper class="amplify-flex">
+            <base-wrapper class="amplify-flex amplify-field-group">
               <base-input
                 class="amplify-input amplify-field-group__control"
                 id="amplify-field-7dce"
