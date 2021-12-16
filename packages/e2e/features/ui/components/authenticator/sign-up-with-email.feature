@@ -12,6 +12,16 @@ Feature: Sign Up with Email
     And I don't see "Phone Number" as an input field
 
   @angular @react @vue  
+  Scenario: Sign up with a new email & password and lowercase the email 
+    Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-email"
+    When I type a new "email" with value "TEST@example.com"
+    And I type my password
+    And I confirm my password
+    And I click the "Create Account" button
+    And I verify the body has "test@example.com" included
+    Then I see "Confirmation Code"
+
+@angular @react @vue  
   Scenario: Sign up with a new email & password
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-email"
     When I type a new "email"

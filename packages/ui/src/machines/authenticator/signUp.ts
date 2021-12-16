@@ -266,7 +266,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
             get(user, 'username') || get(authAttributes, 'username');
           const { password } = authAttributes;
 
-          await Auth.confirmSignUp(username, code);
+          await services.handleConfirmSignUp({ username, code });
 
           return await Auth.signIn(username, password);
         },
@@ -314,13 +314,15 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
             }
           });
 
-          const result = await Auth.signUp({ username, password, attributes });
-
-          // TODO `cond`itionally transition to `signUp.confirm` or `resolved` based on result
-          return result;
+          return await services.handleSignUp({
+            username,
+            password,
+            attributes,
+          });
         },
         async validateSignUp(context, event) {
           // This needs to exist in the machine to reference new `services`
+
           return runValidators(context.formValues, context.touched, [
             // Validation for default form fields
             services.validateConfirmPassword,

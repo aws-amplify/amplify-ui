@@ -1,5 +1,14 @@
 # @aws-amplify/ui-react
 
+## 2.1.5
+
+### Patch Changes
+
+- [#953](https://github.com/aws-amplify/amplify-ui/pull/953) [`b1418ba44`](https://github.com/aws-amplify/amplify-ui/commit/b1418ba44958290a33987df8684b06f560638055) Thanks [@reesscot](https://github.com/reesscot)! - Refocus `SearchField` input field on clear button click
+
+- Updated dependencies [[`63f773ee2`](https://github.com/aws-amplify/amplify-ui/commit/63f773ee2af1f55f1891794c1de1398e3eb47d93), [`88b15eb9a`](https://github.com/aws-amplify/amplify-ui/commit/88b15eb9aa608b58ca84fbf60e1beba8090f32e2)]:
+  - @aws-amplify/ui@3.0.5
+
 ## 2.1.4
 
 ### Patch Changes

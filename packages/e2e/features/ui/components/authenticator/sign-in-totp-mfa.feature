@@ -37,3 +37,19 @@ Feature: Sign In with TOTP MFA
     And I type my password
     And I click the "Sign in" button
     Then I see "User does not exist"
+
+
+@angular @react @vue
+  Scenario: Sign in with force change password with mfa setup
+    Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }' with fixture "force-change-password"
+    When I type my "email" with status "FORCE_CHANGE_PASSWORD"
+    And I type my password
+    And I click the "Sign in" button
+    Then I see "Change Password"
+    And I type my password
+    And I confirm my password
+    Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }' with fixture "force-change-password-mfa-setup"
+    And I click the "Change Password" button
+    Then I see "Setup TOTP"
+
+
