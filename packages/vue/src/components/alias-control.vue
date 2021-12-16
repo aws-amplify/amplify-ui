@@ -69,10 +69,12 @@ const inferAutocomplete = computed((): string => {
     style="flex-direction: column"
   >
     <base-label
-      v-if="!['email', 'phone_number', 'username'].includes(name)"
       :for="'amplify-field-' + random"
-      class="amplify-label"
       v-bind="$attrs"
+      v-bind:class="{
+        'amplify-label': true,
+        'sr-only': ['email', 'phone_number', 'username'].includes(name),
+      }"
     >
       {{ label }}
     </base-label>
