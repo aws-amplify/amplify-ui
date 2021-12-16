@@ -14,8 +14,9 @@ const emit = defineEmits(['resetPasswordSubmit', 'backToSignInClicked']);
 const { state, send } = useAuthenticator();
 const { error, isPending } = toRefs(useAuthenticator());
 
-const { label } = getAliasInfoFromContext(state.context);
+const { label, type } = getAliasInfoFromContext(state.context);
 const labelText = `Enter your ${label.toLowerCase()}`;
+const inputType = type !== 'username' ? type : 'text';
 
 // Computed Properties
 const backSignInText = computed(() => translate('Back to Sign In'));
@@ -94,7 +95,7 @@ const onBackToSignInClicked = (): void => {
                 :placeholder="enterUsernameText"
                 autocomplete="username"
                 required
-                type="username"
+                :type="inputType"
               ></base-input>
             </base-wrapper>
           </base-wrapper>
