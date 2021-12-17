@@ -218,7 +218,7 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
               }}
               customSetup={{
                 dependencies: {
-                  '@aws-amplify/ui-react': 'next',
+                  '@aws-amplify/ui-react': 'latest',
                   'aws-amplify': 'latest',
                 },
                 entry: '/index.js',

@@ -6,6 +6,7 @@ export { frDict } from './fr';
 export { itDict } from './it';
 export { jaDict } from './ja';
 export { krDict } from './kr';
+export { nlDict } from './nl';
 export { plDict } from './pl';
 export { ptDict } from './pt';
 export { zhDict } from './zh';
