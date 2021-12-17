@@ -12,6 +12,7 @@ import {
   clearValidationError,
   handleInput,
   handleBlur,
+  handleSubmit,
   setCredentials,
   setFieldErrors,
   setRemoteError,
@@ -76,7 +77,10 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
                 idle: {
                   entry: sendUpdate(),
                   on: {
-                    SUBMIT: 'validate',
+                    SUBMIT: {
+                      actions: 'handleSubmit',
+                      target: 'validate',
+                    },
                     FEDERATED_SIGN_IN: 'federatedSignIn',
                   },
                 },
@@ -237,6 +241,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
         clearValidationError,
         handleInput,
         handleBlur,
+        handleSubmit,
         setCredentials,
         setFieldErrors,
         setRemoteError,
@@ -278,19 +283,8 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
           return result;
         },
         async signUp(context, _event) {
-          const { formValues, loginMechanisms } = context;
-          const [primaryAlias] = loginMechanisms ?? ['username'];
-
-          if (formValues.phone_number) {
-            formValues.phone_number =
-              `${formValues.country_code}${formValues.phone_number}`.replace(
-                /[^A-Z0-9+]/gi,
-                ''
-              );
-          }
-
-          const username = formValues[primaryAlias];
-          const { password } = formValues;
+          const { formValues } = context;
+          const { username, password } = formValues;
           const attributes = pickBy(formValues, (value, key) => {
             // Allowlist of Cognito User Pool Attributes (from OpenID Connect specification)
             // See: https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html

@@ -121,6 +121,13 @@ export const handleInput = assign({
   },
 });
 
+export const handleSubmit = assign({
+  formValues: (context, event: AuthEvent) => ({
+    ...context['formValues'],
+    ...event.data,
+  }),
+});
+
 export const handleBlur = assign({
   touched: (context, event: AuthEvent) => {
     const { name } = event.data;

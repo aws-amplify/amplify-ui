@@ -14,6 +14,7 @@ import {
   clearValidationError,
   handleInput,
   handleBlur,
+  handleSubmit,
   setChallengeName,
   setConfirmResetPasswordIntent,
   setConfirmSignUpIntent,
@@ -46,7 +47,10 @@ export function signInActor({ services }: SignInMachineOptions) {
             edit: {
               entry: sendUpdate(),
               on: {
-                SUBMIT: 'submit',
+                SUBMIT: {
+                  actions: 'handleSubmit',
+                  target: 'submit',
+                },
                 CHANGE: { actions: 'handleInput' },
                 FEDERATED_SIGN_IN: 'federatedSignIn',
               },
@@ -288,7 +292,10 @@ export function signInActor({ services }: SignInMachineOptions) {
             edit: {
               entry: sendUpdate(),
               on: {
-                SUBMIT: 'submit',
+                SUBMIT: {
+                  actions: 'handleSubmit',
+                  target: 'submit',
+                },
                 SKIP: '#signInActor.resolved',
                 CHANGE: { actions: 'handleInput' },
               },
@@ -371,6 +378,7 @@ export function signInActor({ services }: SignInMachineOptions) {
         clearValidationError,
         handleInput,
         handleBlur,
+        handleSubmit,
         setChallengeName,
         setConfirmResetPasswordIntent,
         setConfirmSignUpIntent,
@@ -415,13 +423,9 @@ export function signInActor({ services }: SignInMachineOptions) {
       },
       services: {
         async signIn(context) {
-          const source = context.formValues;
-          const { country_code, username, password } = source;
+          const { username, password } = context.formValues;
 
-          return await services.handleSignIn({
-            username: (country_code ?? '') + username,
-            password,
-          });
+          return await services.handleSignIn({ username, password });
         },
         async confirmSignIn(context, event) {
           const { challengeName, user } = context;

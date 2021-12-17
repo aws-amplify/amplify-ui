@@ -180,8 +180,10 @@ export function createAuthenticatorMachine({
               authAttributes: event.data?.authAttributes,
               user: event.data?.user,
               intent: event.data?.intent,
-              country_code: DEFAULT_COUNTRY_CODE,
-              formValues: {},
+              formValues: {
+                // TODO Accept a default value from the app. Possibly defaultFormValues or initialFormValues?
+                country_code: DEFAULT_COUNTRY_CODE,
+              },
               touched: {},
               validationError: {},
               loginMechanisms: context.config?.loginMechanisms,
@@ -194,9 +196,11 @@ export function createAuthenticatorMachine({
           actorRef: (context, event) => {
             const actor = createSignUpMachine({ services }).withContext({
               authAttributes: event.data?.authAttributes ?? {},
-              country_code: DEFAULT_COUNTRY_CODE,
               intent: event.data?.intent,
-              formValues: {},
+              formValues: {
+                // TODO Accept a default value from the app. Possibly defaultFormValues or initialFormValues?
+                country_code: DEFAULT_COUNTRY_CODE,
+              },
               touched: {},
               validationError: {},
               loginMechanisms: context.config?.loginMechanisms,
