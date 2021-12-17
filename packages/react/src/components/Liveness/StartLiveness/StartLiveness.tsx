@@ -84,7 +84,7 @@ export const StartLiveness = () => {
           color={`${tokens.colors.font.tertiary}`}
         >
           {translate<string>(
-            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex quaerat nisi voluptatem mollitia. Rerum incidunt impedit'
+            'By using this service, you provide your express, informed, written release and consent for this app and Amazon Web Services to collect, use and store your biometric data.'
           )}
         </Text>
       </View>

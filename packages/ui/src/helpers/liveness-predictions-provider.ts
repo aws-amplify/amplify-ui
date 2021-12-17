@@ -31,6 +31,7 @@ export class LivenessPredictionsProvider extends AmazonAIInterpretPredictionsPro
       credentials,
       customUserAgent: getAmplifyUserAgent(),
       endpoint: 'https://us-west-2.beta.reventlov.rekognition.aws.dev/',
+      maxRetries: 0, // TODO: revisit once appropriate retry exceptions are added in the service
     });
 
     await rekognitionClient

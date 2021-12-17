@@ -5,7 +5,7 @@ import useSWR from 'swr';
 
 export function useLiveness() {
   const [isLivenessActive, setLivenessActive] = useState(false);
-  const [auditImageBytes, setAuditImageBytes] = useState(null);
+  const [getLivenessResponse, setGetLivenessResponse] = useState(null);
 
   const {
     data: startLivenessApiData,
@@ -38,7 +38,7 @@ export function useLiveness() {
 
   const stopLiveness = () => {
     setLivenessActive(false);
-    setAuditImageBytes(null);
+    setGetLivenessResponse(null);
     mutate();
   };
 
@@ -49,13 +49,13 @@ export function useLiveness() {
         `/liveness/${sessionId}`,
         {}
       );
-      setAuditImageBytes(response.auditImageBytes);
+      setGetLivenessResponse(response);
       return { isLive: response.isLive };
     };
 
   return {
     isLivenessActive,
-    auditImageBytes,
+    getLivenessResponse,
     handleStartLiveness,
     handleExit,
     handleUserExit,

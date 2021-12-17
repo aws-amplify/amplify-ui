@@ -75,6 +75,7 @@ export const LivenessCameraModule = (
         <Webcam
           ref={webcamRef}
           audio={false}
+          audioConstraints={false}
           allowFullScreen
           videoConstraints={videoConstraints}
           height={videoHeight}

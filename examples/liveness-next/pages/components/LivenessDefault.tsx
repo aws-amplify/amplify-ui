@@ -1,11 +1,11 @@
 import { LivenessFlow } from '@aws-amplify/ui-react';
 import { useLiveness } from './useLiveness';
 import { SessionIdAlert } from './SessionIdAlert';
-import { AuditImage } from './AuditImage';
+import { GetLivenessResultCard } from './GetLivenessResultCard';
 
 export default function LivenessDefault() {
   const {
-    auditImageBytes,
+    getLivenessResponse,
     startLivenessApiError,
     startLivenessApiData,
     startLivenessApiLoading,
@@ -32,7 +32,7 @@ export default function LivenessDefault() {
             onExit={stopLiveness}
           />
 
-          <AuditImage auditImageBytes={auditImageBytes} />
+          <GetLivenessResultCard getLivenessResponse={getLivenessResponse} />
         </div>
       )}
     </div>

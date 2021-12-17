@@ -89,14 +89,16 @@ export function getRandomLivenessOvalDetails({
   initialFace: Face;
   clientActionDocument: string;
 }): LivenessOvalDetails {
+  const videoHeight = height;
   let videoWidth = width;
-  let videoHeight = height;
   let ovalWidthOffset = 0;
+  let ovalWidthMinProportion = 0.3;
 
   // if the video is landscape, convert to portrait
   if (width > height) {
     videoWidth = height ** 2 / width;
     ovalWidthOffset = (width ** 2 - height ** 2) / (2 * width);
+    ovalWidthMinProportion = 0.4;
   }
 
   // center of oval
@@ -120,11 +122,10 @@ export function getRandomLivenessOvalDetails({
   );
 
   // dimensions of oval
-  const MIN_PROPORTION = 0.3;
   const MAX_PROPORTION = 0.8;
   const GOLDEN_RATIO = 1.618;
 
-  const minOvalWidth = videoWidth * MIN_PROPORTION;
+  const minOvalWidth = videoWidth * ovalWidthMinProportion;
   const maxOvalWidth = videoWidth * MAX_PROPORTION;
 
   const ovalThreshold = videoWidth / 2;

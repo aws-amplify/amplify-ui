@@ -8,11 +8,13 @@ export default async function handler(req, res) {
     })
     .promise();
 
-  const isLive = response.LivenessSession.LivenessConfidence > 90;
-  const auditImageBytes = response.LivenessSession.AuditImage?.Bytes;
+  const confidenceScore = response.LivenessSession.LivenessConfidence;
+  const isLive = confidenceScore >= 90;
+  const auditImageBytes = response.LivenessSession.AuditImages?.[0]?.Bytes;
 
   res.status(200).json({
     isLive,
+    confidenceScore,
     auditImageBytes,
   });
 }
