@@ -25,7 +25,7 @@ Amplify UI is an open-source UI library with cloud-connected components that are
 
 ## Getting started
 
-- https://ui.docs.amplify.aws/ui/getting-started/installation
+- https://ui.docs.amplify.aws/getting-started/installation
 
 ## Component Matrix
 
