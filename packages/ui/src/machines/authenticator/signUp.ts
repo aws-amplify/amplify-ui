@@ -281,16 +281,22 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
           const { formValues, loginMechanisms } = context;
           const [primaryAlias] = loginMechanisms ?? ['username'];
 
+          let phoneNumberWithCountryCode;
           if (formValues.phone_number) {
-            formValues.phone_number =
+            phoneNumberWithCountryCode =
               `${formValues.country_code}${formValues.phone_number}`.replace(
                 /[^A-Z0-9+]/gi,
                 ''
               );
           }
 
-          const username = formValues[primaryAlias];
+          const username =
+            primaryAlias === 'phone_number'
+              ? phoneNumberWithCountryCode
+              : formValues[primaryAlias];
+
           const { password } = formValues;
+
           const attributes = pickBy(formValues, (value, key) => {
             // Allowlist of Cognito User Pool Attributes (from OpenID Connect specification)
             // See: https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html
@@ -305,7 +311,6 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
               case 'middle_name':
               case 'name':
               case 'nickname':
-              case 'phone_number':
               case 'picture':
               case 'preferred_username':
               case 'profile':
@@ -323,7 +328,10 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
           return await services.handleSignUp({
             username,
             password,
-            attributes,
+            attributes: {
+              ...attributes,
+              phone_number: phoneNumberWithCountryCode,
+            },
           });
         },
         async validateSignUp(context, event) {
