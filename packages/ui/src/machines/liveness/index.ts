@@ -9,6 +9,10 @@ import {
   IlluminationState,
 } from '../../types';
 import {
+  ChallengeType,
+  LivenessActionDocument,
+} from '../../types/liveness-service-types';
+import {
   BlazeFaceFaceDetection,
   drawLivenessOvalInCanvas,
   getFaceMatchStateInLivenessOval,
@@ -17,36 +21,6 @@ import {
   VideoRecorder,
   estimateIllumination,
 } from '../../helpers';
-
-interface LivenessActionDocument {
-  deviceInformation: {
-    videoHeight: number;
-    videoWidth: number;
-  };
-  challenge: {
-    type: string;
-    faceMovementChallenge: {
-      initialFacePosition: {
-        height: number;
-        width: number;
-        top: number;
-        left: number;
-      };
-      targetFacePosition: {
-        height: number;
-        width: number;
-        top: number;
-        left: number;
-      };
-      recordingTimestamps: {
-        videoStart: number;
-        initialFaceDetected: number;
-        faceDetectedInTargetPositionStart: number;
-        faceDetectedInTargetPositionEnd: number;
-      };
-    };
-  };
-}
 
 export const MIN_FACE_MATCH_COUNT = 5;
 
@@ -490,29 +464,31 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             videoHeight: height,
             videoWidth: width,
           },
-          challenge: {
-            type: 'FACE_MOVEMENT',
-            faceMovementChallenge: {
-              initialFacePosition: {
-                height: initialFace.height,
-                width: initialFace.width,
-                top: initialFace.top,
-                left: initialFace.left,
-              },
-              targetFacePosition: {
-                height: ovalDetails.height,
-                width: ovalDetails.width,
-                top: ovalDetails.centerY - ovalDetails.height / 2,
-                left: ovalDetails.centerX - ovalDetails.width / 2,
-              },
-              recordingTimestamps: {
-                videoStart: recordingStartTimestampMs,
-                initialFaceDetected: initialFace.timestampMs,
-                faceDetectedInTargetPositionStart: startFace.timestampMs,
-                faceDetectedInTargetPositionEnd: endFace.timestampMs,
+          challenges: [
+            {
+              type: ChallengeType.FACE_MOVEMENT,
+              faceMovementChallenge: {
+                initialFacePosition: {
+                  height: initialFace.height,
+                  width: initialFace.width,
+                  top: initialFace.top,
+                  left: initialFace.left,
+                },
+                targetFacePosition: {
+                  height: ovalDetails.height,
+                  width: ovalDetails.width,
+                  top: ovalDetails.centerY - ovalDetails.height / 2,
+                  left: ovalDetails.centerX - ovalDetails.width / 2,
+                },
+                recordingTimestamps: {
+                  videoStart: recordingStartTimestampMs,
+                  initialFaceDetected: initialFace.timestampMs,
+                  faceDetectedInTargetPositionStart: startFace.timestampMs,
+                  faceDetectedInTargetPositionEnd: endFace.timestampMs,
+                },
               },
             },
-          },
+          ],
         };
 
         // Put liveness video

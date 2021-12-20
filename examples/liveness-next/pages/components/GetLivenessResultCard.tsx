@@ -30,7 +30,7 @@ export const GetLivenessResultCard = ({
             <Image
               width="100%"
               height="100%"
-              src={`data:image/png;base64,${auditImageBytes}`}
+              src={`data:image/jpeg;base64,${auditImageBytes}`}
               alt="Audit image"
             />
           </View>

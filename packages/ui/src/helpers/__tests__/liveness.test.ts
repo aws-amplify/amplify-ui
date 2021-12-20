@@ -4,29 +4,76 @@ import {
   getFaceMatchStateInLivenessOval,
 } from '../liveness';
 import { Face, FaceMatchState, LivenessOvalDetails } from '../../types';
+import {
+  ChallengeType,
+  ClientActionDocument,
+} from '../../types/liveness-service-types';
 
 describe('Liveness Helper', () => {
   describe('getRandomScalingAttributes', () => {
     it('should parse clientActionDocumnet and return oval scaling attributes', () => {
-      const testClientActionJSON = {
-        challenge: {
-          type: 'FACE_MOVEMENT',
-          faceMovementChallenge: {
-            ovalScaleFactors: {
-              width: 0.76,
-              centerX: 0.65,
-              centerY: 0.66,
+      const testClientActionJSON: ClientActionDocument = {
+        challenges: [
+          {
+            type: ChallengeType.FACE_MOVEMENT,
+            faceMovementChallenge: {
+              ovalScaleFactors: {
+                width: 0.76,
+                centerX: 0.65,
+                centerY: 0.66,
+              },
             },
           },
-        },
+        ],
       };
       const randomScalingAttributes = getRandomScalingAttributes(
         JSON.stringify(testClientActionJSON)
       );
 
-      expect(Number(randomScalingAttributes.centerX)).toBe(0.65);
+      expect(randomScalingAttributes.centerX).toBe(0.65);
       expect(randomScalingAttributes.centerY).toBe(0.66);
       expect(randomScalingAttributes.width).toBe(0.76);
+    });
+
+    it('should throw if challeng list is empty', () => {
+      const testClientActionJSON: ClientActionDocument = {
+        challenges: [],
+      };
+
+      expect(() => {
+        getRandomScalingAttributes(JSON.stringify(testClientActionJSON));
+      }).toThrow();
+    });
+
+    it('should throw if challeng list has more than one element', () => {
+      const testClientActionJSON: ClientActionDocument = {
+        challenges: [
+          {
+            type: ChallengeType.FACE_MOVEMENT,
+            faceMovementChallenge: {
+              ovalScaleFactors: {
+                width: 0.76,
+                centerX: 0.65,
+                centerY: 0.66,
+              },
+            },
+          },
+          {
+            type: ChallengeType.FACE_MOVEMENT,
+            faceMovementChallenge: {
+              ovalScaleFactors: {
+                width: 0.76,
+                centerX: 0.65,
+                centerY: 0.66,
+              },
+            },
+          },
+        ],
+      };
+
+      expect(() => {
+        getRandomScalingAttributes(JSON.stringify(testClientActionJSON));
+      }).toThrow();
     });
   });
 
@@ -39,25 +86,27 @@ describe('Liveness Helper', () => {
       timestampMs: Date.now(),
     };
     const clientActionDocument = JSON.stringify({
-      challenge: {
-        type: 'FACE_MOVEMENT',
-        faceMovementChallenge: {
-          ovalScaleFactors: {
-            width: 0.2751161,
-            centerX: 0.04077655,
-            centerY: 0.9716218,
+      challenges: [
+        {
+          type: ChallengeType.FACE_MOVEMENT,
+          faceMovementChallenge: {
+            ovalScaleFactors: {
+              width: 0.2751161,
+              centerX: 0.04077655,
+              centerY: 0.9716218,
+            },
           },
         },
-      },
-    });
+      ],
+    } as ClientActionDocument);
 
     it('should return the correct oval details in landscape', () => {
       const width = 640;
       const height = 480;
 
       const expectedOvalDetails: LivenessOvalDetails = {
-        height: 254,
-        width: 157,
+        height: 476,
+        width: 294,
         centerX: 286,
         centerY: 285,
       };

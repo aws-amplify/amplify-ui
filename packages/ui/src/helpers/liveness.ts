@@ -6,23 +6,8 @@ import {
   BoundingBox,
   LivenessErrorState,
 } from '../types';
+import { ClientActionDocument } from '../types/liveness-service-types';
 import { translate } from '../i18n';
-
-/**
- * ClientActionObject parsed from clientActionDocument string
- */
-interface ClientActionObject {
-  challenge: {
-    type: string;
-    faceMovementChallenge: {
-      ovalScaleFactors: {
-        width: string;
-        centerX: string;
-        centerY: string;
-      };
-    };
-  };
-}
 
 /**
  * Returns the random number between min and max
@@ -62,15 +47,24 @@ function getIntersectionOverUnion(
  * centerX: number;
  * centerY: number;
  */
-export function getRandomScalingAttributes(clientActionDocument: string) {
-  const clientActionObj: ClientActionObject = JSON.parse(clientActionDocument);
+export function getRandomScalingAttributes(clientActionDocumentStr: string) {
+  const clientActionDocument: ClientActionDocument = JSON.parse(
+    clientActionDocumentStr
+  );
+  if (
+    clientActionDocument.challenges.length === 0 ||
+    clientActionDocument.challenges.length > 1
+  ) {
+    throw new Error('Invalid clientActionDocument');
+  }
+
   const ovalScaleFactors =
-    clientActionObj?.challenge?.faceMovementChallenge?.ovalScaleFactors;
+    clientActionDocument.challenges[0].faceMovementChallenge.ovalScaleFactors;
 
   return {
-    centerX: parseFloat(ovalScaleFactors?.centerX),
-    centerY: parseFloat(ovalScaleFactors?.centerY),
-    width: parseFloat(ovalScaleFactors?.width),
+    centerX: ovalScaleFactors.centerX,
+    centerY: ovalScaleFactors.centerY,
+    width: ovalScaleFactors.width,
   };
 }
 
@@ -93,12 +87,17 @@ export function getRandomLivenessOvalDetails({
   let videoWidth = width;
   let ovalWidthOffset = 0;
   let ovalWidthMinProportion = 0.3;
+  let ovalWidthMaxProportion = 0.8;
+  let ovalThresholdMultiplier = 0.5;
 
   // if the video is landscape, convert to portrait
   if (width > height) {
     videoWidth = height ** 2 / width;
     ovalWidthOffset = (width ** 2 - height ** 2) / (2 * width);
     ovalWidthMinProportion = 0.4;
+    ovalWidthMaxProportion = 1.0;
+    ovalThresholdMultiplier =
+      (ovalWidthMinProportion + ovalWidthMaxProportion) / 2;
   }
 
   // center of oval
@@ -122,13 +121,12 @@ export function getRandomLivenessOvalDetails({
   );
 
   // dimensions of oval
-  const MAX_PROPORTION = 0.8;
   const GOLDEN_RATIO = 1.618;
 
   const minOvalWidth = videoWidth * ovalWidthMinProportion;
-  const maxOvalWidth = videoWidth * MAX_PROPORTION;
+  const maxOvalWidth = videoWidth * ovalWidthMaxProportion;
 
-  const ovalThreshold = videoWidth / 2;
+  const ovalThreshold = videoWidth * ovalThresholdMultiplier;
   const faceWidthHeight = (initialFace.width + initialFace.height) / 2;
 
   let ovalWidth: number;
