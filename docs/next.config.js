@@ -14,8 +14,6 @@ module.exports = withNextPluginPreval({
 
   swcMinify: true,
 
-  trailingSlash: true,
-
   // don't want to fix typescript errors right now...
   typescript: {
     ignoreBuildErrors: true,
