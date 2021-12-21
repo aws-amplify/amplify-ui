@@ -49,6 +49,12 @@ body:
         - Other
     validations:
       required: true
+  - type: input
+    attributes:
+      label: How is your app built?
+      description: Specify your build system (Create React App / Vite / parcel / Webpack5 / etc). 
+    validations:
+      required: true      
   - type: textarea
     attributes:
       label: Please describe your bug.
