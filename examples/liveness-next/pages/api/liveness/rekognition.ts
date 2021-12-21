@@ -9,9 +9,9 @@ export async function getRekognitionClient() {
 
   const credentials = await Credentials.get();
   const rekognitionClient = new RekognitionLiveness({
-    region: 'us-west-2',
+    region: 'us-east-1',
     credentials,
-    endpoint: 'https://us-west-2.beta.reventlov.rekognition.aws.dev/',
+    endpoint: 'https://us-east-1.gamma.reventlov.rekognition.aws.dev/',
   });
 
   return rekognitionClient;

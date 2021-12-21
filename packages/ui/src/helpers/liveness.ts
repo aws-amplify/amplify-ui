@@ -95,7 +95,7 @@ export function getRandomLivenessOvalDetails({
     videoWidth = height ** 2 / width;
     ovalWidthOffset = (width ** 2 - height ** 2) / (2 * width);
     ovalWidthMinProportion = 0.4;
-    ovalWidthMaxProportion = 1.0;
+    ovalWidthMaxProportion = 0.9;
     ovalThresholdMultiplier =
       (ovalWidthMinProportion + ovalWidthMaxProportion) / 2;
   }
