@@ -27,10 +27,10 @@ export class LivenessPredictionsProvider extends AmazonAIInterpretPredictionsPro
 
     const rekognitionClient = new RekognitionLiveness({
       // TODO: remove hardcoded region and endpoint
-      region: 'us-west-2',
+      region: 'us-east-1',
       credentials,
       customUserAgent: getAmplifyUserAgent(),
-      endpoint: 'https://us-west-2.beta.reventlov.rekognition.aws.dev/',
+      endpoint: 'https://us-east-1.gamma.reventlov.rekognition.aws.dev/',
       maxRetries: 0, // TODO: revisit once appropriate retry exceptions are added in the service
     });
 

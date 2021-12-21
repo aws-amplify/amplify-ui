@@ -105,8 +105,8 @@ describe('Liveness Helper', () => {
       const height = 480;
 
       const expectedOvalDetails: LivenessOvalDetails = {
-        height: 476,
-        width: 294,
+        height: 429,
+        width: 265,
         centerX: 286,
         centerY: 285,
       };

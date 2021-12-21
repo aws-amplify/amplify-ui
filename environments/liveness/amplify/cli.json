@@ -40,6 +40,9 @@
       "rekognition": 1,
       "textract": 1,
       "comprehend": 1
+    },
+    "project": {
+      "overrides": true
     }
   }
 }

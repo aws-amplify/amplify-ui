@@ -1,14 +1,16 @@
 {
+  "version": "1",
+  "cognitoConfig": {
     "identityPoolName": "livenessenv436747ae_identitypool_436747ae",
     "allowUnauthenticatedIdentities": true,
     "resourceNameTruncated": "livene436747ae",
     "userPoolName": "livenessenv436747ae_userpool_436747ae",
     "autoVerifiedAttributes": [
-        "phone_number"
+      "email"
     ],
     "mfaConfiguration": "OFF",
     "mfaTypes": [
-        "SMS Text Message"
+      "SMS Text Message"
     ],
     "smsAuthenticationMessage": "Your authentication code is {####}",
     "smsVerificationMessage": "Your verification code is {####}",
@@ -18,47 +20,50 @@
     "passwordPolicyMinLength": 8,
     "passwordPolicyCharacters": [],
     "requiredAttributes": [
-        "email"
+      "email"
     ],
     "aliasAttributes": [],
     "userpoolClientGenerateSecret": false,
     "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [
-        "email"
+      "email"
     ],
     "userpoolClientReadAttributes": [
-        "email"
+      "email"
     ],
     "userpoolClientLambdaRole": "livene436747ae_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "436747ae",
-    "resourceName": "livenessenv436747ae436747ae",
     "authSelections": "identityPoolAndUserPool",
+    "resourceName": "livenessenv436747ae436747ae",
+    "serviceName": "Cognito",
+    "useDefault": "manual",
+    "sharedId": "436747ae",
+    "userPoolGroupList": [],
+    "userPoolGroups": false,
+    "usernameCaseSensitive": false,
+    "adminQueries": false,
+    "hostedUI": false,
+    "thirdPartyAuth": false,
+    "triggers": {},
     "authRoleArn": {
-        "Fn::GetAtt": [
-            "AuthRole",
-            "Arn"
-        ]
+      "Fn::GetAtt": [
+        "AuthRole",
+        "Arn"
+      ]
     },
     "unauthRoleArn": {
-        "Fn::GetAtt": [
-            "UnauthRole",
-            "Arn"
-        ]
-    },
-    "useDefault": "manual",
-    "thirdPartyAuth": false,
-    "userPoolGroups": false,
-    "adminQueries": false,
-    "triggers": "{}",
-    "hostedUI": false,
-    "userPoolGroupList": [],
-    "serviceName": "Cognito",
-    "usernameCaseSensitive": false,
-    "parentStack": {
-        "Ref": "AWS::StackId"
+      "Fn::GetAtt": [
+        "UnauthRole",
+        "Arn"
+      ]
     },
     "breakCircularDependency": true,
-    "permissions": [],
-    "dependsOn": []
+    "useEnabledMfas": false,
+    "dependsOn": [],
+    "authProviders": [],
+    "parentStack": {
+      "Ref": "AWS::StackId"
+    },
+    "permissions": []
+  }
 }
