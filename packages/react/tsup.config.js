@@ -8,6 +8,7 @@ module.exports = {
     'src/legacy.tsx',
     'src/icons.tsx',
     'src/internal.tsx',
+    'src/styles.ts',
   ],
   // `aws-amplify` is external, but sub-dependencies weren't automatically externalized ("require" statements were included)
   external: ['`aws-amplify', /^@aws-amplify\//],
