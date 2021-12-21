@@ -10,7 +10,8 @@ export default async function handler(req, res) {
 
   const confidenceScore = response.LivenessSession.LivenessConfidence;
   const isLive = confidenceScore >= 90;
-  const auditImageBytes = response.LivenessSession.AuditImages?.[0]?.Bytes;
+  const auditImageBytes =
+    response.LivenessSession.AuditImages?.[0]?.Bytes?.toString('base64');
 
   res.status(200).json({
     isLive,

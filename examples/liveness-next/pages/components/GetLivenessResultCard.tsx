@@ -21,11 +21,6 @@ export const GetLivenessResultCard = ({
   if (!getLivenessResponse) return null;
 
   const { isLive, confidenceScore, auditImageBytes } = getLivenessResponse;
-  const auditImageSrc = auditImageBytes
-    ? `data:image/jpeg;base64,${btoa(
-        String.fromCharCode.apply(null, auditImageBytes.data)
-      )}`
-    : '';
 
   return (
     <Flex margin="1rem 0" alignItems="center" justifyContent="center">
@@ -35,7 +30,7 @@ export const GetLivenessResultCard = ({
             <Image
               width="100%"
               height="100%"
-              src={auditImageSrc}
+              src={`data:image/jpeg;base64,${auditImageBytes}`}
               alt="Audit image"
             />
           </View>
