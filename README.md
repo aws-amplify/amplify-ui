@@ -28,13 +28,14 @@ Amplify UI is an open-source UI library with cloud-connected components that are
 
 ## Component Matrix
 
-| **Component**            | **React** | **Angular** | **Vue** |
+| **Connected Components**            | **React** | **Angular** | **Vue** |
 | :----------------------- | :-------: | :---------: | :-----: |
-| **Connected Components** |           |             |
 | Authenticator            |    ✅     |     ✅      |   ✅    |
 | Interactions             |           |             |
 | Storage                  |           |             |
-| **Primitives**           |           |             |
+
+| **Primitives**            | **React** | **Angular** | **Vue** |
+| :----------------------- | :-------: | :---------: | :-----: |
 | Alert                    |    ✅     |             |
 | Badge                    |    ✅     |             |
 | Button                   |    ✅     |             |
@@ -42,7 +43,6 @@ Amplify UI is an open-source UI library with cloud-connected components that are
 | CheckboxField            |    ✅     |             |
 | Collection               |    ✅     |             |
 | Divider                  |    ✅     |             |
-| Dropdown                 |           |             |
 | Expander                 |    ✅     |             |
 | Flex                     |    ✅     |             |
 | Grid                     |    ✅     |             |
@@ -50,6 +50,8 @@ Amplify UI is an open-source UI library with cloud-connected components that are
 | Icon                     |    ✅     |             |
 | Image                    |    ✅     |             |
 | Link                     |    ✅     |             |
+| Loader                   |    ✅     |             |
+| Menu                     |    ✅     |             |
 | Pagination               |    ✅     |             |
 | PasswordField            |    ✅     |             |
 | PhoneNumberField         |    ✅     |             |
@@ -60,10 +62,9 @@ Amplify UI is an open-source UI library with cloud-connected components that are
 | SearchField              |    ✅     |             |
 | SelectField              |    ✅     |             |
 | SliderField              |    ✅     |             |
-| Loader                   |    ✅     |             |
 | StepperField             |    ✅     |             |
 | SwitchField              |    ✅     |             |
-| Table                    |           |             |
+| Table                    |    ✅     |             |
 | Tabs                     |    ✅     |             |
 | Text                     |    ✅     |             |
 | TextField                |    ✅     |             |
