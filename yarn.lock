@@ -19478,6 +19478,11 @@ schema-utils@^3.0.0, schema-utils@^3.1.0, schema-utils@^3.1.1:
     ajv "^6.12.5"
     ajv-keywords "^3.5.2"
 
+sdp@^3.0.2:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/sdp/-/sdp-3.0.3.tgz#669958d54663ea9f4a46cc66518c9d980c52c61e"
+  integrity sha512-8EkfckS+XZQaPLyChu4ey7PghrdcraCVNpJe2Gfdi2ON1ylQ7OasuKX+b37R9slnRChwIAiQgt+oj8xXGD8x+A==
+
 section-matter@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/section-matter/-/section-matter-1.0.0.tgz#e9041953506780ec01d59f292a19c7b850b84167"
@@ -22753,6 +22758,13 @@ webpack@^5.56.0:
     terser-webpack-plugin "^5.1.3"
     watchpack "^2.3.0"
     webpack-sources "^3.2.2"
+
+webrtc-adapter@^8.1.0:
+  version "8.1.0"
+  resolved "https://registry.yarnpkg.com/webrtc-adapter/-/webrtc-adapter-8.1.0.tgz#89429d837eb43c7a2885a0eb66390af6c552bba6"
+  integrity sha512-I+y/LWBiGYPVhIb8Ww7nyoNWhrCYENeGoRvZuyytLn/h+ahDBgItvuIfMdzT+xhOnjLIMVkOykttGJPv1dr6kA==
+  dependencies:
+    sdp "^3.0.2"
 
 websocket-driver@>=0.5.1, websocket-driver@^0.7.4:
   version "0.7.4"

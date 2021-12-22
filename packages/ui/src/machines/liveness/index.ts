@@ -1,4 +1,5 @@
 import { createMachine, assign, actions } from 'xstate';
+import adapter from 'webrtc-adapter';
 
 import {
   Face,
