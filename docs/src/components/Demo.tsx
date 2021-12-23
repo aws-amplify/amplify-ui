@@ -63,13 +63,15 @@ export const Demo = ({
           <Highlight Prism={defaultProps.Prism} code={code} language="jsx">
             {({ className, style, tokens, getLineProps, getTokenProps }) => (
               <pre className={className} style={{ ...style, height: '100%' }}>
-                {tokens.map((line, i) => (
-                  <div key={i} {...getLineProps({ line, key: i })}>
-                    {line.map((token, key) => (
-                      <span key={key} {...getTokenProps({ token, key })} />
-                    ))}
-                  </div>
-                ))}
+                <code className={className}>
+                  {tokens.map((line, i) => (
+                    <div key={i} {...getLineProps({ line, key: i })}>
+                      {line.map((token, key) => (
+                        <span key={key} {...getTokenProps({ token, key })} />
+                      ))}
+                    </div>
+                  ))}
+                </code>
               </pre>
             )}
           </Highlight>
