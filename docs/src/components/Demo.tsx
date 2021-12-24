@@ -35,8 +35,14 @@ export const Demo = ({
   };
 
   return (
-    <Card className="docs-component-demo" variation="outlined">
-      <Flex direction="row" alignItems="stretch">
+    <View className="docs-component-demo">
+      <Flex
+        direction={{
+          base: 'column',
+          medium: 'row',
+        }}
+        alignItems="stretch"
+      >
         <Flex direction="column" flex="1">
           <View>{children}</View>
           <Tabs>
@@ -75,6 +81,6 @@ export const Demo = ({
           </Highlight>
         </View>
       </Flex>
-    </Card>
+    </View>
   );
 };
