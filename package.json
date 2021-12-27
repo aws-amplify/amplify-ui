@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "build": "npx ultra -r --filter '@aws-amplify/*' build",
+    "build": "turbo run build",
     "angular": "yarn workspace @aws-amplify/ui-angular",
     "react": "yarn workspace @aws-amplify/ui-react",
     "ui": "yarn workspace @aws-amplify/ui",
@@ -19,6 +19,20 @@
     "publish:next": "yarn changeset publish --tag next",
     "version:latest": "yarn changeset version && yarn angular build",
     "publish:latest": "yarn changeset publish"
+  },
+  "turbo": {
+    "baseBranch": "origin/main",
+    "pipeline": {
+      "build": {
+        "outputs": [
+          ".next/**",
+          "dist/**"
+        ],
+        "dependsOn": [
+          "^build"
+        ]
+      }
+    }
   },
   "workspaces": [
     "docs",
@@ -47,7 +61,7 @@
     "lint-staged": ">=10",
     "prettier": "2.4.1",
     "tsup": "^5.11.9",
-    "ultra-runner": "^3.10.5",
+    "turbo": "^1.0.23",
     "wait-on": "^6.0.0"
   },
   "lint-staged": {
