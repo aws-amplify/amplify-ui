@@ -299,7 +299,6 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
               case 'middle_name':
               case 'name':
               case 'nickname':
-              case 'phone_number':
               case 'picture':
               case 'preferred_username':
               case 'profile':

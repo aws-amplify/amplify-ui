@@ -4,17 +4,11 @@ title: Overview
 
 import { Fragment } from '@/components/Fragment';
 import { Example } from '@/components/Example';
-import {
-  AmplifyProvider,
-  createTheme,
-  Text,
-  defaultTheme,
-} from '@aws-amplify/ui-react';
 
 A Theme is a structured collection of design decisions that change the appearance of a UI library. An Amplify UI theme is a structured object of [design tokens](#design-tokens), [breakpoints](#breakpoints), and [overrides](#overrides). The goals of the Amplify UI theme are:
 
 1. **Leverage platform technologies as much as possible for performance and broad support.** This means plain CSS and CSS variables. You can always fall back to writing CSS (or a pre-processer to CSS like [Sass](https://sass-lang.com/)).
-1. **Use framework-specific patterns to provide an easier developer experience.** This is using a `createTheme` method with a theme configuration which generates the CSS for you and can be used at build-time.
+1. **Use framework-specific patterns to provide an easier developer experience.** This means providing an extendable theme which generates CSS and CSS variables for your application.
 
 ## Getting started
 
@@ -24,13 +18,10 @@ A Theme is a structured collection of design decisions that change the appearanc
 
 ### Theme object
 
-The theme object is where you define tokens for color palette, font stacks, spacing, and more. Use the `createTheme` method to create your theme. By default, it will extend from the `defaultTheme` Amplify UI provides, but you can also extend from another theme as well:
+The theme object is where you define tokens for color palette, font stacks, spacing, and more. By default it will extend from the `defaultTheme` Amplify UI provides.
 
 ```javascript
-import { createTheme, defaultTheme } from '@aws-amplify/ui';
-
-// by default, createTheme extends the defaultTheme.
-export const myTheme = createTheme({
+export const myTheme = {
   name: 'my-theme',
   tokens: {
     colors: {
@@ -39,23 +30,7 @@ export const myTheme = createTheme({
       },
     },
   },
-});
-
-export const myOtherTheme = createTheme(
-  {
-    name: 'my-other-theme',
-    tokens: {
-      colors: {
-        font: {
-          primary: { value: 'blue' },
-        },
-      },
-    },
-  },
-  myTheme
-);
-// The 2nd argument is the base theme to be extended
-// if it is omitted, it will use the defaultTheme
+};
 ```
 
 ### CSS
@@ -120,7 +95,7 @@ Amplify UI follows the [System UI Theme Specification](https://system-ui.com/the
 One import thing about design tokens is they can reference other design tokens. The default theme tokens use references a lot to make a robust system where you can modify a few tokens to have a large effect. The syntax for design token references follows the draft [W3C Design Tokens Community Group specification](https://design-tokens.github.io/community-group/format/#aliases-references)
 
 ```javascript
-const myTheme = createTheme({
+const myTheme = {
   name: 'my-theme',
   tokens: {
     colors: {
@@ -132,7 +107,7 @@ const myTheme = createTheme({
       },
     },
   },
-});
+};
 ```
 
 ### Breakpoints
@@ -143,13 +118,13 @@ Breakpoints allow you to set media query breakpoints for responsive design. You 
 
 ```
 
-You can modify default breakpoints in the `createTheme` method:
+You can modify default breakpoints in your theme's `breakpoints` definition:
 
 ```javascript
-const myTheme = createTheme({
+const myTheme = {
   name: 'my-theme',
   breakpoints: {
-    // createTheme does a deep merge with the default theme
+    // Will be deep merged with the default theme
     // so you don't have to override all the breakpoint values
     values: {
       // default unit is 'em'
@@ -157,7 +132,7 @@ const myTheme = createTheme({
     },
   },
   //...
-});
+};
 ```
 
 _Note: Unfortunately right now CSS media queries do not support CSS variables so there is no way to customize the breakpoints using only CSS._
@@ -167,9 +142,9 @@ _Note: Unfortunately right now CSS media queries do not support CSS variables so
 An `override` is a collection of design tokens that should take precedence in certain situations, like dark mode. Overrides are built into the theme configuration, but kept separate, so that Amplify UI can use CSS for overriding parts of the theme.
 
 ```javascript
-import { createTheme, defaultTheme } from '@aws-amplify/ui-react';
+import { defaultTheme } from '@aws-amplify/ui-react';
 
-export const theme = createTheme({
+export const theme = {
   name: 'my-theme',
   overrides: [
     {
@@ -200,7 +175,7 @@ export const theme = createTheme({
       },
     },
   ],
-});
+};
 ```
 
 You can override design tokens in CSS by using a media query or adding extra selectors to `[data-amplify-theme="{theme.name}"]`.
@@ -216,4 +191,40 @@ You can override design tokens in CSS by using a media query or adding extra sel
 [data-amplify-theme='my-theme'].disco {
   --amplify-colors-font-primary: pink;
 }
+```
+
+### Merging multiple themes
+
+If you have multiple themes, you can extend your base theme using the `createTheme` function.
+
+```javascript
+import { createTheme, defaultTheme } from '@aws-amplify/ui';
+
+// by default, createTheme extends the defaultTheme.
+export const baseBrandTheme = createTheme({
+  name: 'base-brand-theme',
+  tokens: {
+    colors: {
+      font: {
+        primary: { value: 'red' },
+      },
+    },
+  },
+});
+
+export const otherBrandTheme = createTheme(
+  {
+    name: 'other-brand-theme',
+    tokens: {
+      colors: {
+        font: {
+          primary: { value: 'blue' },
+        },
+      },
+    },
+  },
+  baseBrandTheme
+);
+// The 2nd argument is the base theme to be extended
+// if it is omitted, it will use the defaultTheme
 ```

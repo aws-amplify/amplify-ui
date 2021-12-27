@@ -59,14 +59,16 @@ export default function Page({
   React.useLayoutEffect(() => {
     const updateHeaders = debounce(() => {
       setHeadings(
-        [...document.querySelectorAll('h2[id],h3[id]')].map(
-          (node: HTMLElement) => ({
-            id: node.id,
-            label: node.innerText,
-            level: node.nodeName,
-            top: node.offsetTop,
-          })
-        )
+        [
+          ...document
+            .querySelector('#__next')
+            .querySelectorAll('h2[id],h3[id]'),
+        ].map((node: HTMLElement) => ({
+          id: node.id,
+          label: node.innerText,
+          level: node.nodeName,
+          top: node.offsetTop,
+        }))
       );
     });
 

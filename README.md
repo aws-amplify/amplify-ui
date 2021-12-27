@@ -18,24 +18,24 @@ Amplify UI is an open-source UI library with cloud-connected components that are
 3. Data-bound components that make it easy to display dynamic data, like DataStoreCollections.
 4. Theming capabilities that allow you to customize the appearance of Amplify UI to match your brand.
 
-
 ## Documentation
 
 - https://ui.docs.amplify.aws/
 
 ## Getting started
 
-- https://ui.docs.amplify.aws/ui/getting-started/installation
+- https://ui.docs.amplify.aws/getting-started/installation
 
 ## Component Matrix
 
-| **Component**            | **React** | **Angular** | **Vue** |
+| **Connected Components**            | **React** | **Angular** | **Vue** |
 | :----------------------- | :-------: | :---------: | :-----: |
-| **Connected Components** |           |             |
 | Authenticator            |    ✅     |     ✅      |   ✅    |
 | Interactions             |           |             |
 | Storage                  |           |             |
-| **Primitives**           |           |             |
+
+| **Primitives**            | **React** | **Angular** | **Vue** |
+| :----------------------- | :-------: | :---------: | :-----: |
 | Alert                    |    ✅     |             |
 | Badge                    |    ✅     |             |
 | Button                   |    ✅     |             |
@@ -43,7 +43,6 @@ Amplify UI is an open-source UI library with cloud-connected components that are
 | CheckboxField            |    ✅     |             |
 | Collection               |    ✅     |             |
 | Divider                  |    ✅     |             |
-| Dropdown                 |           |             |
 | Expander                 |    ✅     |             |
 | Flex                     |    ✅     |             |
 | Grid                     |    ✅     |             |
@@ -51,6 +50,8 @@ Amplify UI is an open-source UI library with cloud-connected components that are
 | Icon                     |    ✅     |             |
 | Image                    |    ✅     |             |
 | Link                     |    ✅     |             |
+| Loader                   |    ✅     |             |
+| Menu                     |    ✅     |             |
 | Pagination               |    ✅     |             |
 | PasswordField            |    ✅     |             |
 | PhoneNumberField         |    ✅     |             |
@@ -61,10 +62,9 @@ Amplify UI is an open-source UI library with cloud-connected components that are
 | SearchField              |    ✅     |             |
 | SelectField              |    ✅     |             |
 | SliderField              |    ✅     |             |
-| Loader                   |    ✅     |             |
 | StepperField             |    ✅     |             |
 | SwitchField              |    ✅     |             |
-| Table                    |           |             |
+| Table                    |    ✅     |             |
 | Tabs                     |    ✅     |             |
 | Text                     |    ✅     |             |
 | TextField                |    ✅     |             |
