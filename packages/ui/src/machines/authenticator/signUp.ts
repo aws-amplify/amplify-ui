@@ -261,7 +261,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
             get(user, 'username') || get(authAttributes, 'username');
           const { password } = authAttributes;
 
-          await Auth.confirmSignUp(username, code);
+          await services.handleConfirmSignUp({ username, code });
 
           return await Auth.signIn(username, password);
         },
@@ -281,16 +281,22 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
           const { formValues, loginMechanisms } = context;
           const [primaryAlias] = loginMechanisms ?? ['username'];
 
+          let phoneNumberWithCountryCode;
           if (formValues.phone_number) {
-            formValues.phone_number =
+            phoneNumberWithCountryCode =
               `${formValues.country_code}${formValues.phone_number}`.replace(
                 /[^A-Z0-9+]/gi,
                 ''
               );
           }
 
-          const username = formValues[primaryAlias];
+          const username =
+            primaryAlias === 'phone_number'
+              ? phoneNumberWithCountryCode
+              : formValues[primaryAlias];
+
           const { password } = formValues;
+
           const attributes = pickBy(formValues, (value, key) => {
             // Allowlist of Cognito User Pool Attributes (from OpenID Connect specification)
             // See: https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html
@@ -305,7 +311,6 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
               case 'middle_name':
               case 'name':
               case 'nickname':
-              case 'phone_number':
               case 'picture':
               case 'preferred_username':
               case 'profile':
@@ -320,18 +325,22 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
             }
           });
 
-          const result = await Auth.signUp({ username, password, attributes });
-
-          // TODO `cond`itionally transition to `signUp.confirm` or `resolved` based on result
-          return result;
+          return await services.handleSignUp({
+            username,
+            password,
+            attributes: {
+              ...attributes,
+              phone_number: phoneNumberWithCountryCode,
+            },
+          });
         },
         async validateSignUp(context, event) {
           // This needs to exist in the machine to reference new `services`
+
           return runValidators(context.formValues, context.touched, [
             // Validation for default form fields
             services.validateConfirmPassword,
             services.validatePreferredUsername,
-
             // Validation for any custom Sign Up fields
             services.validateCustomSignUp,
           ]);

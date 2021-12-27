@@ -8,7 +8,8 @@ code[class*='language-'],
 pre[class*='language-'] {
   background: var(--amplify-colors-background-secondary);
   color: var(--amplify-colors-font-primary);
-  font-family: 'Fira Code', 'Fira Mono', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
+  font-family: 'Fira Code', 'Fira Mono', Menlo, Consolas, 'DejaVu Sans Mono',
+    monospace;
   direction: ltr;
   text-align: left;
   white-space: pre;
@@ -52,7 +53,7 @@ pre.language-shell code.language-shell::before {
   content: '$ ';
 }
 
-section > pre[class*=language-] {
+section > pre[class*='language-'] {
   margin-bottom: var(--amplify-space-medium);
 }
 
@@ -101,7 +102,7 @@ section > pre[class*=language-] {
 /* HTML overrides */
 .token.attr-value > .token.punctuation.attr-equals,
 .token.special-attr > .token.attr-value > .token.value.css {
-  color: hsl(230, 8%, 24%);
+  color: var(--amplify-colors-teal-80);
 }
 
 /* CSS overrides */
@@ -275,7 +276,6 @@ pre[id].linkable-line-numbers.linkable-line-numbers
 .command-line .command-line-prompt > span:before {
   color: hsl(230, 1%, 62%);
 }
-
 
 /* Diff Highlight plugin overrides */
 /* Taken from https://github.com/atom/github/blob/master/styles/variables.less */

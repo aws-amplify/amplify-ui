@@ -12,6 +12,18 @@ export interface AuthContext {
     socialProviders?: SocialProvider[];
   };
   user?: CognitoUserAmplify;
+  username?: string;
+  password?: string;
+  code?: string;
+  mfaType?: AuthChallengeNames.SMS_MFA | AuthChallengeNames.SOFTWARE_TOKEN_MFA;
+}
+
+export interface ServicesContext {
+  username?: string;
+  password?: string;
+  user?: string;
+  code?: string;
+  mfaType: AuthChallengeNames.SMS_MFA | AuthChallengeNames.SOFTWARE_TOKEN_MFA;
 }
 
 interface BaseFormContext {
