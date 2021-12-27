@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "@aws-amplify/ui": "3.0.5",
+    "@vueuse/core": "^7.4.1",
     "@xstate/vue": "^0.8.0",
     "qrcode": "^1.4.4"
   },
