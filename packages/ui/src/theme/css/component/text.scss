@@ -10,6 +10,10 @@
     display: inline;
   }
 
+  @at-root p#{&} {
+    white-space: pre-wrap;
+  }
+
   &[data-truncate='true'] {
     display: inline-block;
     max-width: 100%;
