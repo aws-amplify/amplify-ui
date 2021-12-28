@@ -1,4 +1,4 @@
-import adapter from '@sveltejs/adapter-auto';
+import adapter from '@sveltejs/adapter-static';
 import preprocess from 'svelte-preprocess';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -19,6 +19,9 @@ const config = {
 		// hydrate the <div id="svelte"> element in src/app.html
 		target: '#svelte',
 		vite: {
+			ssr: {
+				noExternal: ['lodash', 'xstate', 'style-dictionary']
+			},
 			resolve: {
 				alias: {
 					'./runtimeConfig': './runtimeConfig.browser',

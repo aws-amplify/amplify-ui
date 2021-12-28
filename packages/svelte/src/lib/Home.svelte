@@ -1,4 +1,4 @@
-<script>
+<script >
 	import {
 		createAuthenticatorMachine,
 		getServiceContextFacade,
@@ -9,7 +9,6 @@
 	import '@aws-amplify/ui/styles.css';
 
 	// import { useSelector } from '@xstate/svelte';
-	import { useMachine } from '@xstate/svelte';
 	import { onDestroy } from 'svelte';
 
 	const machine = createAuthenticatorMachine({
@@ -22,16 +21,13 @@
 	let _facade;
 
 	// const { state, send } = useMachine(machine);
-	// console.log('state,', state, send);
 
 	const authService = interpret(machine, {
 		devTools: process.env.NODE_ENV === 'development'
 	}).start();
 
 	const _subscription = authService.subscribe((state) => {
-		console.log('sub', state);
 		_facade = getServiceContextFacade(state);
-		console.log('_facade', _facade);
 	});
 
 	const _sendEventAliases = getSendEventAliases(authService.send);
@@ -42,7 +38,6 @@
 	});
 
 	// const state = useSelector(service, (state) => state.context);
-	// console.log('send', state);
 
 	// const { state, send } = useActor(service);
 </script>
