@@ -867,19 +867,23 @@ describe('@aws-amplify/ui', () => {
             --amplify-colors-background-primary: #000;
           }
         }
-        @media(min-width: 30em) {
+
+        @media (min-width: 30em) {
           [data-amplify-theme=\\"test-theme\\"] {
             --amplify-space-medium: 0.5rem;
           }
         }
-        @media(min-width: 62em) {
+
+        @media (min-width: 62em) {
           [data-amplify-theme=\\"test-theme\\"] {
             --amplify-space-medium: 2.5rem;
           }
         }
+
         .disco-theme {
         --amplify-colors-background-primary: pink;
-        }"
+        }
+        "
       `);
     });
   });
