@@ -21,31 +21,31 @@ const expectedMediaQueries = [
     breakpoint: 'xl',
     maxWidth: 96,
     minWidth: 80,
-    query: '(min-width: 80em) and (max-width: 95em)',
+    query: '(min-width: 80em) and (max-width: calc(96em - 1px))',
   },
   {
     breakpoint: 'large',
     maxWidth: 80,
     minWidth: 62,
-    query: '(min-width: 62em) and (max-width: 79em)',
+    query: '(min-width: 62em) and (max-width: calc(80em - 1px))',
   },
   {
     breakpoint: 'medium',
     maxWidth: 62,
     minWidth: 48,
-    query: '(min-width: 48em) and (max-width: 61em)',
+    query: '(min-width: 48em) and (max-width: calc(62em - 1px))',
   },
   {
     breakpoint: 'small',
     maxWidth: 48,
     minWidth: 30,
-    query: '(min-width: 30em) and (max-width: 47em)',
+    query: '(min-width: 30em) and (max-width: calc(48em - 1px))',
   },
   {
     breakpoint: 'base',
     maxWidth: 30,
     minWidth: 0,
-    query: '(min-width: 0em) and (max-width: 29em)',
+    query: '(min-width: 0em) and (max-width: calc(30em - 1px))',
   },
 ];
 
@@ -69,7 +69,7 @@ describe('getMediaQueries', () => {
     };
     const expectedMediaQueriesNegWidth = [...expectedMediaQueries];
     expectedMediaQueriesNegWidth[5].minWidth = -1;
-    expectedMediaQueriesNegWidth[5].query = '(max-width: 29em)';
+    expectedMediaQueriesNegWidth[5].query = '(max-width: calc(30em - 1px))';
 
     expect(
       getMediaQueries({
