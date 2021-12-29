@@ -110,6 +110,26 @@ const myTheme = {
 };
 ```
 
+### Fonts
+
+Amplify UI allows custom fonts to be used in the theme. The font tokens are defined in the `fonts` namespace, you can define your primary font stack and a fallback font stack the same way you would do in CSS
+
+```javascript
+const myTheme = {
+  name: 'my-theme',
+  tokens: {
+    fonts: {
+      default: {
+        variable: { value: 'Raleway' },
+        static: { value: 'Raleway' },
+      },
+    },
+  },
+};
+```
+
+_Note: If you are importing Amplify UI React CSS `import '@aws-amplify/ui-react/styles.css'` this needs to be imported before any other CSS to avoid overriding the html `font-family` directive._
+
 ### Breakpoints
 
 Breakpoints allow you to set media query breakpoints for responsive design. You can then define breakpoint-specific token overrides or use the breakpoints for different layouts in Javascript.
