@@ -1,3 +1,3 @@
-import Home from './Home.svelte';
+import Home from './components/Home.svelte';
 
 export { Home };

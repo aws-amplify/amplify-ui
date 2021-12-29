@@ -1,5 +1,5 @@
 <script>
-	import Home from '$lib/Home.svelte';
+	import Home from '$lib/components/Home.svelte';
 </script>
 
 <h1>Welcome to SvelteKit</h1>

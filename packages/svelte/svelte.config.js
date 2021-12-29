@@ -20,7 +20,8 @@ const config = {
 		target: '#svelte',
 		vite: {
 			ssr: {
-				noExternal: ['lodash', 'xstate', 'style-dictionary']
+				noExternal:
+					process.env.NODE_ENV !== 'development' ? ['lodash', 'xstate', 'style-dictionary'] : []
 			},
 			resolve: {
 				alias: {
