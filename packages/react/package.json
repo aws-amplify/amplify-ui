@@ -57,11 +57,9 @@
     "@radix-ui/react-slider": "0.1.1",
     "@radix-ui/react-tabs": "0.1.1",
     "@xstate/react": "^1.4.0",
-    "autoprefixer": "^10.3.1",
     "classnames": "^2.3.1",
     "deepmerge": "^4.2.2",
     "lodash": "^4.17.21",
-    "postcss-js": "^3.0.3",
     "qrcode": "^1.4.4",
     "react-generate-context": "^1.0.0"
   },
