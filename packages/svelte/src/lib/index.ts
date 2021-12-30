@@ -1,3 +1,4 @@
 import Home from './components/Home.svelte';
+import * as store from '$lib/components/store';
 
-export { Home };
+export { Home, store };
