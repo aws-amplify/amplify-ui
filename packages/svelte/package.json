@@ -2,12 +2,16 @@
 	"name": "@aws-amplify/ui-svelte",
 	"version": "2.0.0",
 	"type": "module",
-	"main": "package/index.js",
+	"main": "dist/index.js",
 	"svelte": "index.js",
 	"exports": {
 		".": {
-			"import": "./package/index.js"
-		}
+			"import": "./dist/index.js"
+		},
+		"./styles.css": "./dist/styles.css"
+	},
+	"browser": {
+		"./styles.css": "./dist/styles.css"
 	},
 	"scripts": {
 		"dev": "svelte-kit dev",
@@ -44,6 +48,7 @@
 	"dependencies": {
 		"@aws-amplify/ui": "^3.0.5",
 		"@rollup/plugin-replace": "^3.0.0",
+		"nanoid": "^3.1.30",
 		"qrcode": "^1.5.0",
 		"svelte2tsx": "^0.4.12",
 		"xstate": "^4.26.1"

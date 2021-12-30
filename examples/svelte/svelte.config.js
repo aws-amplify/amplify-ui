@@ -1,6 +1,6 @@
 import adapter from '@sveltejs/adapter-static';
 import preprocess from 'svelte-preprocess';
-import path from 'path';
+import path, { resolve } from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 
@@ -26,6 +26,7 @@ const config = {
 			resolve: {
 				alias: {
 					'./runtimeConfig': './runtimeConfig.browser',
+					'@environments': resolve('../../environments'),
 					entries: {
 						svelte: path.join(__dirname, '../../node_modules/svelte')
 					}

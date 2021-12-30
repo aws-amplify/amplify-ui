@@ -1,8 +1,9 @@
-<script>
+<script lang="ts">
 	import { onDestroy } from 'svelte';
-	import { setupMachine, route, toSignUp, toSignIn } from '$lib/components/store';
-
-	import '@aws-amplify/ui/styles.css';
+	import { setupMachine, route, toSignUp, toSignIn, signOut } from '$lib/components/store';
+	import SignIn from './SignIn.svelte';
+	import { Amplify } from 'aws-amplify';
+	Amplify.configure({ ssr: true });
 
 	export let initialState = undefined;
 	export let loginMechanisms = undefined;
@@ -23,28 +24,28 @@
 	});
 </script>
 
-<main>
-	<div class="container">
-		{#if $route === 'signIn'}
-			<p>Sign In</p>
-			<button on:click={toSignUp()}>To Sign Up</button>
-		{/if}
-		{#if $route === 'signUp'}
-			<p>Sign Up</p>
-			<button on:click={toSignIn()}>To Sign In</button>
-		{/if}
+<div data-amplify-authenticator v-if="!state?.matches('authenticated')">
+	<div data-amplify-container>
+		<!--Slot header goes here-->
+		<div data-amplify-router>
+			{#if $route === 'signIn'}
+				<SignIn />
+			{/if}
+			{#if $route === 'signUp'}
+				<p>Sign Up</p>
+				<button on:click={toSignIn()}>To Sign In</button>
+			{/if}
+			{#if $route === 'resetPassword'}
+				<p>reset password</p>
+				<button on:click={toSignIn()}>To Sign In</button>
+			{/if}
+			{#if $route === 'authenticated'}
+				<p>Authenticated</p>
+				<button on:click={signOut()}>Sign Out</button>
+			{/if}
+		</div>
 	</div>
-</main>
+</div>
 
 <style>
-	main {
-		font-family: sans-serif;
-	}
-
-	.container {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		padding: 0px 20px;
-	}
 </style>

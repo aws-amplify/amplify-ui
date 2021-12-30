@@ -8,7 +8,7 @@ import { interpret } from 'xstate';
 
 import { writable, get } from 'svelte/store';
 
-let _facade = writable(null);
+let _facade = writable<ReturnType<typeof getServiceContextFacade>>(null);
 export const error = writable(null);
 export const route = writable(null);
 export const isPending = writable(null);
@@ -16,7 +16,9 @@ export const hasValidationErrors = writable(null);
 export const user = writable(null);
 export const validationErrors = writable(null);
 export const codeDeliveryDetails = writable(null);
-const _sendEventAliases = writable(null);
+const _sendEventAliases = writable<ReturnType<typeof getSendEventAliases>>(null);
+/** @deprecated For internal use only */
+export const authState = writable(null);
 
 export function setupMachine(
 	initialState,
@@ -37,7 +39,8 @@ export function setupMachine(
 		devTools: process.env.NODE_ENV === 'development'
 	}).start();
 
-	const subscription = authService.subscribe((state) => {
+	const subscription = authService.subscribe(state => {
+		authState.update(() => state);
 		_facade.update(() => getServiceContextFacade(state));
 		setError();
 		setRoute();
@@ -132,3 +135,7 @@ export function toSignUp() {
 export function skipVerification() {
 	return get(_sendEventAliases).skipVerification;
 }
+
+/**
+ * Internal utility functions
+ */
