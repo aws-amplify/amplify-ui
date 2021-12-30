@@ -112,7 +112,7 @@ const myTheme = {
 
 ### Fonts
 
-Amplify UI allows custom fonts to be used in the theme. The font tokens are defined in the `fonts` namespace, you can define your primary font stack and a fallback font stack the same way you would do in CSS
+Amplify UI allows custom fonts to be used in the theme. The font tokens are defined in the `fonts` namespace, you can define your primary font stack and a fallback font stack values the same way you would do in CSS `font-family` rule.
 
 ```javascript
 const myTheme = {
@@ -120,8 +120,8 @@ const myTheme = {
   tokens: {
     fonts: {
       default: {
-        variable: { value: 'Raleway' },
-        static: { value: 'Raleway' },
+        variable: { value: 'Raleway, sans-serif' },
+        static: { value: 'Raleway, sans-serif' },
       },
     },
   },
