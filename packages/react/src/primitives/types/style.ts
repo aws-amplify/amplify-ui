@@ -72,6 +72,7 @@ export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
   transform?: ResponsiveStyle<StyleToken<Property.Transform>>;
   transformOrigin?: ResponsiveStyle<StyleToken<Property.TransformOrigin>>;
   width?: ResponsiveStyle<StyleToken<Property.Width>>;
+  whiteSpace?: ResponsiveStyle<StyleToken<Property.WhiteSpace>>;
 }
 
 export interface CSSLayoutStyleProps {
@@ -187,6 +188,7 @@ export const ComponentPropsToStylePropsMap: ComponentPropToStyleProp = {
   transform: 'transform',
   transformOrigin: 'transformOrigin',
   width: 'width',
+  whiteSpace: 'whiteSpace',
   wrap: 'flexWrap',
 };
 

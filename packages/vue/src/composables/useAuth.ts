@@ -3,6 +3,7 @@ import { ref, reactive, Ref, watchEffect } from 'vue';
 import { getServiceFacade } from '@aws-amplify/ui';
 import { facade } from './useUtils';
 import { InterpretService } from '@/components';
+import { createSharedComposable } from '@vueuse/core';
 
 const service = ref() as Ref<InterpretService>;
 let useAuthenticatorValue = reactive({ ...facade, send: '', state: '' }) as any;
@@ -14,13 +15,17 @@ export const useAuth = (serv?: InterpretService) => {
   return useActor(service.value);
 };
 
-export const useAuthenticator = () => {
+const useInternalAuthenticator = () => {
   createValues();
   watchEffect(() => {
     createValues();
   });
   return useAuthenticatorValue;
 };
+
+export const useAuthenticator = createSharedComposable(
+  useInternalAuthenticator
+);
 
 function createValues() {
   if (!service.value) return;
