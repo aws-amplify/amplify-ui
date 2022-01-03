@@ -36,7 +36,7 @@
 			defaultCountryCode = country_code;
 
 			// TODO: remove this side-effect
-			updateForm()({
+			updateForm({
 				name: 'country_code',
 				value: country_code
 			});
