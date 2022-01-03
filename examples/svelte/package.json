@@ -29,7 +29,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@aws-amplify/ui-svelte": "^2",
+		"@aws-amplify/ui-svelte": "^0.0.1",
 		"@sveltejs/adapter-static": "^1.0.0-next.23",
 		"aws-amplify": "^4.3.11"
 	}
