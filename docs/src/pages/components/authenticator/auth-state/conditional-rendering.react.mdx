@@ -1,0 +1,15 @@
+You can use `route` from [`useAuthenticator`](#access--modify-auth-state) hook to manage the rendering and layout of the Authenticator separately from your App.
+
+```ts
+import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react';
+import { route, user } = useAuthenticator();
+
+return route === 'authenticated' ? (
+  <div className="App">
+    <div>Hello, {user.username}</div>
+    <AmplifySignOut />
+  </div>
+) : (
+  <Authenticator />
+);
+```

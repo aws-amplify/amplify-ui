@@ -643,3 +643,67 @@ For example, if you'd like to hide the sign up tab, you can override the `amplif
   `}</style>
   <Authenticator className="customization-hide-sign-up" />
 </Example>
+
+## Advanced Usage
+
+<Fragment>
+  {({ platform }) => import(`./auth-state/useAuthenticator.${platform}.mdx`)}
+</Fragment>
+
+<Tabs>
+  <TabItem title="Access Contexts">
+
+These are `readonly` contexts that represent the current auth state. Any unapplicable `context` will be `undefined`.
+
+| Name                  | Description                                                                         | Type                                                                                                                                                                  |
+| --------------------- | ----------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `user`                | Current signed in user                                                              | [`CognitoUserAmplify`](https://github.com/aws-amplify/amplify-ui/blob/f9be291e4b89137d7b521bd3e82b4f96ee4323f6/packages/ui/src/types/authMachine.ts#L113-L115)        |
+| `route`               | Name of the auth flow user is in                                                    | `string`                                                                                                                                                              |
+| `error`               | Any error returned from service API call                                            | `string`                                                                                                                                                              |
+| `validationErrors`    | Any form validation errors found. Maps each error message to respective input name. | `Record<string, string>`                                                                                                                                              |
+| `hasValidationErrors` | Whether there are any form validation errors                                        | `boolean`                                                                                                                                                             |
+| `isPending`           | Whether service API call is in progress                                             | `boolean`                                                                                                                                                             |
+| `codeDeliveryDetail`  | Provides detail on where confirm sign up code is sent to.                           | [`CodeDeliveryDetail`](https://github.com/aws-amplify/amplify-js/blob/6c4d4b5fc737652f88dcdfa26bdb02a1defdfa2e/packages/amazon-cognito-identity-js/index.d.ts#L9-L13) |
+
+  </TabItem>
+  <TabItem title="Trigger Transition">
+
+These helper functions trigger transition to another `route`. Note that any invalid transition (e.g. `sign-in` to `authenticated` directly) will be no-op.
+
+| Name                | Description                                                                                                                                                                                                                             | Type                         |
+| ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- |
+| `toSignIn`          | Transitions to `signIn`. Allowed from `signUp`, `confirmSignUp`, `confirmSignIn`, `setupTOTP`, `resetPassword`, and `confirmResetPassword`                                                                                              | `() => void`                 |
+| `toSignUp`          | Transitions to `signUp`. Allowed from `signIn`.                                                                                                                                                                                         | `() => void`                 |
+| `toResetPassword`   | Transitions to `resetPassword`. Allowed from `signIn`.                                                                                                                                                                                  | `() => void`                 |
+| `toFederatedSignIn` | Transitions to `provider`'s federated sign in page. Supported `provider` values can be found [here](https://github.com/aws-amplify/amplify-ui/blob/96830f6a34a417aa9bc6329c839679bd10da84f0/packages/ui/src/helpers/auth.ts#L104-L109). | `(provider: string) => void` |
+| `skipVerification`  | Skips verification process. Allowed from `verifyUser` and `confirmVerifyUser`                                                                                                                                                           | `() => void`                 |
+
+See [Headers & Footers](#headers--footers) above to see an example that adds `toResetPassword` button to `sign-in` screen.
+
+  </TabItem>
+  <TabItem title="Update Form">
+
+These helper functions send `form` related events to authenticator. This is typically not needed because `authenticator` already handles native HTML form events, but can be useful if you're rebuilding an entire `route` screen from scratch.
+
+| Name         | Description                                                              | Type                        |
+| ------------ | ------------------------------------------------------------------------ | --------------------------- |
+| `updateForm` | Sends a form change event to authenticator and triggers input validation | `({ name, value }) => void` |
+| `updateBlur` | Sends an input blur event to authenticator                               | `({ name }) => void`        |
+| `submitForm` | Submits current form and sends form data to service API                  | `() => void`                |
+
+  </TabItem>
+</Tabs>
+
+### Route Based Rendering
+
+<Fragment>
+  {({ platform }) =>
+    import(`./auth-state/conditional-rendering.${platform}.mdx`)
+  }
+</Fragment>
+
+### Headless Authenticator
+
+<Fragment>
+  {({ platform }) => import(`./auth-state/headless.${platform}.mdx`)}
+</Fragment>
