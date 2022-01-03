@@ -28,7 +28,7 @@ export const getMediaQueries: GetMediaQueries = ({
       if (query) {
         query += ' and ';
       }
-      query += `(max-width: calc(${maxWidth}${breakpointUnit} - 1px))`;
+      query += `(max-width: ${maxWidth - 1}${breakpointUnit})`;
     }
 
     return {
