@@ -16,6 +16,7 @@
 	"scripts": {
 		"dev": "svelte-kit dev",
 		"build": "svelte-kit build",
+		"postbuild": "svelte-kit package",
 		"package": "svelte-kit package",
 		"preview": "svelte-kit preview",
 		"check": "svelte-check --tsconfig ./tsconfig.json",
