@@ -7049,10 +7049,10 @@ aws-amplify@^4.1.3, aws-amplify@latest:
     "@aws-amplify/ui" "2.0.3"
     "@aws-amplify/xr" "3.0.26"
 
-aws-sdk-liveness@2.1035.0-liveness.7:
-  version "2.1035.0-liveness.7"
-  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/aws-sdk-liveness/-/aws-sdk-liveness-2.1035.0-liveness.7.tgz#37ea1d831ba46a73a76dbd45ad6227f7d9d2f6ab"
-  integrity sha512-S0nvfPd/s0CwPdtGCc3lFNXX5fmoTQeeMQwuvgEGtMKukBek8kQ4Aj9HD1XY1JZLWzwcHHRnxaLvmt1PIMJ0gQ==
+aws-sdk-liveness@2.1035.0-liveness.8:
+  version "2.1035.0-liveness.8"
+  resolved "https://amplify-ui-liveness-081249381366.d.codeartifact.us-east-1.amazonaws.com:443/npm/amplify-ui/aws-sdk-liveness/-/aws-sdk-liveness-2.1035.0-liveness.8.tgz#e0750312b432212cabb37626ba3bb3e9d37bbe72"
+  integrity sha512-1xi8f7XxPeIX5VxbjsI5LxgpiCDe6nGN9MpAcRLunGTY7PY75qiGsgMNKszdwDP65RODjI4INDOnmX+/EnopUA==
   dependencies:
     buffer "4.9.2"
     events "1.1.1"

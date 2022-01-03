@@ -38,7 +38,7 @@
     "@tensorflow/tfjs-backend-webgl": "3.11.0",
     "@tensorflow/tfjs-converter": "3.11.0",
     "@tensorflow/tfjs-core": "3.11.0",
-    "aws-sdk-liveness": "2.1035.0-liveness.7",
+    "aws-sdk-liveness": "2.1035.0-liveness.8",
     "lodash": "^4.17.21",
     "style-dictionary": "^3.0.1",
     "webrtc-adapter": "^8.1.0",
