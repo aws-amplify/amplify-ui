@@ -31,14 +31,14 @@
 <div class="amplify-flex amplify-field-group">
 	<input
 		{...$$restProps}
-		class={`amplify-input amplify-field-group__control ${$$props.class}`}
+		class={`amplify-input amplify-field-group__control ${$$props.class ?? ''}`}
 		id={fieldId}
 		{type}
 		{name}
 		{placeholder}
 		{required}
 		value={initialValue}
-		disabled={disabled ? true : false}
+		{disabled}
 		{autocomplete}
 	/>
 	<div class="amplify-field-group__outer-end">

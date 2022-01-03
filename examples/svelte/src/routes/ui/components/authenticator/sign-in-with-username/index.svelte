@@ -2,14 +2,14 @@
 	import { Amplify } from 'aws-amplify';
 	import aws_exports from './aws-exports';
 	Amplify.configure({ ...aws_exports, ssr: true });
-	import { Home, store } from '@aws-amplify/ui-svelte';
+	import { Authenticator, store } from '@aws-amplify/ui-svelte';
 	import '@aws-amplify/ui-svelte/styles.css';
 	console.log('store', store.signOut);
 	const { signOut, user } = store;
 </script>
 
 <h1>Welcome to SvelteKit</h1>
-<Home loginMechanisms={['username']}>
+<Authenticator>
 	<h1>Hello {$user.username}!</h1>
-	<button on:click={signOut()}>Sign Out</button>
-</Home>
+	<button on:click={signOut}>Sign Out</button>
+</Authenticator>

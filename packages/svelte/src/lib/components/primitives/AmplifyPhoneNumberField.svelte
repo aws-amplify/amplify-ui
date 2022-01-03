@@ -46,7 +46,7 @@
 		{placeholder}
 		{required}
 		value={initialValue}
-		disabled={disabled ? true : false}
+		{disabled}
 		{autocomplete}
 	/>
 </div>

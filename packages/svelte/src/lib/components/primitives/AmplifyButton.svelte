@@ -12,7 +12,7 @@
 <button
 	{...$$restProps}
 	on:click={() => dispatch('click')}
-	class={`amplify-button ${$$props.class}`}
+	class={`amplify-button ${$$props.class ?? ''}`}
 	{type}
 	style="font-weight: {fontWeight} "
 	data-fullwidth={fullWidth}

@@ -30,7 +30,7 @@
 
 	let defaultCountryCode: string;
 	onMount(() => {
-		if (isPhoneField()) {
+		if (isPhoneField) {
 			const state = $authState;
 			const { country_code }: ActorContextWithForms = getActorContext(state);
 			defaultCountryCode = country_code;
@@ -43,104 +43,103 @@
 		}
 	});
 
-	// function attributeMap(): AuthInputAttributes {
-	// 	return getAttributeMap();
-	// }
-
 	const attributeMap = getAttributeMap();
 
-	function error(): string {
+	let error: string;
+	$: {
 		const formContext: ActorContextWithForms = getActorContext($authState);
 		const { validationError } = formContext;
-		return translate(validationError[name]);
+		error = translate(validationError[name]);
 	}
 
-	function onBlur($event: Event) {
-		let { name } = <HTMLInputElement>$event.target;
+	function onBlur($event) {
+		let { name } = <HTMLInputElement>$event?.detail?.target;
 
-		updateBlur()({ name });
+		updateBlur({ name });
 	}
 
-	function inferLabel(): string {
-		const myLabel = label || attributeMap[name]?.label;
-		return translate<string>(myLabel);
-	}
-
-	// function inferPlaceholder(): string {
-	let inferPlaceholder;
+	let inferLabel: string;
 	$: {
-		const myPlaceholder = placeholder || attributeMap[name]?.placeholder || inferLabel();
+		const myLabel = label || attributeMap[name]?.label;
+		inferLabel = translate<string>(myLabel);
+	}
+
+	let inferPlaceholder: string;
+	$: {
+		const myPlaceholder = placeholder || attributeMap[name]?.placeholder || inferLabel;
 		inferPlaceholder = translate<string>(myPlaceholder);
 	}
-	// }
 
 	// infers what the `type` of underlying input element should be.
-	function inferType(): string {
-		return type ?? attributeMap[name]?.type ?? 'text';
+	let inferType: string;
+	$: {
+		inferType = type ?? attributeMap[name]?.type ?? 'text';
 	}
 
-	function inferAutocomplete(): string {
-		return autocomplete || attributeMap[name]?.autocomplete;
+	let inferAutocomplete: string;
+	$: {
+		inferAutocomplete = autocomplete || attributeMap[name]?.autocomplete;
 	}
 
 	// TODO(enhancement): use enum to differentiate special field types
-	function isPasswordField(): boolean {
-		return inferType() === 'password';
+	let isPasswordField: boolean;
+	$: {
+		isPasswordField = inferType === 'password';
 	}
 
-	function isPhoneField(): boolean {
-		return inferType() === 'tel';
-	}
+	let isPhoneField: boolean;
+	isPhoneField = inferType === 'tel';
 </script>
 
 <div class="amplify-flex amplify-field" style="flex-direction: column">
 	<!-- Country code field -->
-	{#if isPhoneField()}
+	{#if isPhoneField}
 		<AmplifyPhoneNumberField
 			{defaultCountryCode}
-			type={inferType()}
+			type={inferType}
 			{name}
-			label={inferLabel()}
+			label={inferLabel}
 			placeholder={inferPlaceholder}
 			{required}
 			{initialValue}
 			{disabled}
 			{labelHidden}
-			autocomplete={inferAutocomplete()}
+			autocomplete={inferAutocomplete}
 		/>
 	{/if}
 
-	{#if isPasswordField()}
+	{#if isPasswordField}
 		<AmplifyPasswordField
 			{...$$restProps}
 			{name}
-			label={inferLabel()}
+			label={inferLabel}
 			placeholder={inferPlaceholder}
 			{required}
 			{initialValue}
 			{disabled}
 			{labelHidden}
-			autocomplete={inferAutocomplete()}
+			autocomplete={inferAutocomplete}
 		/>
 	{/if}
 
-	{#if !isPasswordField() && !isPhoneField()}
+	{#if !isPasswordField && !isPhoneField}
 		<AmplifyTextField
-			type={inferType()}
+			on:blur={onBlur}
+			type={inferType}
 			{name}
-			label={inferLabel()}
+			label={inferLabel}
 			placeholder={inferPlaceholder}
 			{required}
 			{initialValue}
 			{disabled}
 			{labelHidden}
-			autocomplete={inferAutocomplete()}
+			autocomplete={inferAutocomplete}
 		/>
 	{/if}
 
-	{#if error()}
+	{#if error}
 		<AmplifyError>
-			{error()}
+			{error}
 		</AmplifyError>
 	{/if}
 </div>

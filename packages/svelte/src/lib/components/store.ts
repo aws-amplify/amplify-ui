@@ -39,7 +39,7 @@ export function setupMachine(
 		devTools: process.env.NODE_ENV === 'development'
 	}).start();
 
-	const subscription = authService.subscribe(state => {
+	const subscription = authService.subscribe((state) => {
 		authState.update(() => state);
 		_facade.update(() => getServiceContextFacade(state));
 		setError();
@@ -92,50 +92,46 @@ function setCodeDeliveryDetails() {
 //  * Service facades
 //  */
 
-export function updateForm() {
-	return get(_sendEventAliases).updateForm;
+export function updateForm(...args) {
+	return get(_sendEventAliases).updateForm(...args);
 }
 
-export function updateBlur() {
-	return get(_sendEventAliases).updateBlur;
+export function updateBlur(...args) {
+	return get(_sendEventAliases).updateBlur(...args);
 }
 
-export function resendCode() {
-	return get(_sendEventAliases).resendCode;
+export function resendCode(...args) {
+	return get(_sendEventAliases).resendCode(...args);
 }
 
-export function signOut() {
-	return get(_sendEventAliases).signOut;
+export function signOut(...args) {
+	return get(_sendEventAliases).signOut(...args);
 }
 
-export function submitForm() {
-	return get(_sendEventAliases).submitForm;
+export function submitForm(...args) {
+	return get(_sendEventAliases).submitForm(...args);
 }
 
 // /**
 //  * Transition facades
 //  */
 
-export function toFederatedSignIn() {
-	return get(_sendEventAliases).toFederatedSignIn;
+export function toFederatedSignIn(...args) {
+	return get(_sendEventAliases).toFederatedSignIn(...args);
 }
 
-export function toResetPassword() {
-	return get(_sendEventAliases).toResetPassword;
+export function toResetPassword(...args) {
+	return get(_sendEventAliases).toResetPassword(...args);
 }
 
-export function toSignIn() {
-	return get(_sendEventAliases).toSignIn;
+export function toSignIn(...args) {
+	return get(_sendEventAliases).toSignIn(...args);
 }
 
-export function toSignUp() {
-	return get(_sendEventAliases).toSignUp;
+export function toSignUp(...args) {
+	return get(_sendEventAliases).toSignUp(...args);
 }
 
-export function skipVerification() {
-	return get(_sendEventAliases).skipVerification;
+export function skipVerification(...args) {
+	return get(_sendEventAliases).skipVerification(...args);
 }
-
-/**
- * Internal utility functions
- */

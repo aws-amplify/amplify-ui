@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onDestroy } from 'svelte';
-	import { setupMachine, route, toSignUp, toSignIn, signOut, user } from '$lib/components/store';
+	import { setupMachine, route, toSignIn } from '$lib/components/store';
 	import SignIn from './SignIn.svelte';
 	import AmplifyTabs from './primitives/AmplifyTabs.svelte';
 
@@ -37,11 +37,11 @@
 				{/if}
 				{#if $route === 'signUp'}
 					<p>Sign Up</p>
-					<button on:click={toSignIn()}>To Sign In</button>
+					<button on:click={toSignIn}>To Sign In</button>
 				{/if}
 				{#if $route === 'resetPassword'}
 					<p>reset password</p>
-					<button on:click={toSignIn()}>To Sign In</button>
+					<button on:click={toSignIn}>To Sign In</button>
 				{/if}
 			</div>
 		</div>

@@ -4,14 +4,7 @@
 	import UserNameAlias from './UserNameAlias.svelte';
 	import AmplifyButton from './primitives/AmplifyButton.svelte';
 	import { translate } from '@aws-amplify/ui';
-	import {
-		updateForm,
-		submitForm,
-		isPending,
-		error,
-		toResetPassword,
-		toSignUp
-	} from '$lib/components/store';
+	import { updateForm, submitForm, isPending, error, toResetPassword } from '$lib/components/store';
 
 	const forgotPasswordText = translate('Forgot your password? ');
 	const signInButtonText = translate('Sign in');
@@ -20,12 +13,12 @@
 	function onInput(event: Event) {
 		event.preventDefault();
 		const { name, value } = <HTMLInputElement>event.target;
-		updateForm()({ name, value });
+		updateForm({ name, value });
 	}
 
 	function onSubmit(event: Event): void {
 		event.preventDefault();
-		submitForm()();
+		submitForm();
 	}
 </script>
 
@@ -35,7 +28,7 @@
 			class="amplify-flex"
 			style="flex-direction: column"
 			data-amplify-fieldset
-			disabled={$isPending ? true : false}
+			disabled={$isPending}
 		>
 			<UserNameAlias />
 			<AmplifyFormField
@@ -63,7 +56,7 @@
 			data-size="small"
 			variation="link"
 			fullWidth="true"
-			on:click={toResetPassword()}
+			on:click={toResetPassword}
 		>
 			{forgotPasswordText}
 		</AmplifyButton>
