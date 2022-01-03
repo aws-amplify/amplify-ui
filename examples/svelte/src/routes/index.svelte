@@ -4,7 +4,6 @@
 	Amplify.configure({ ...aws_exports, ssr: true });
 	import { Authenticator, store } from '@aws-amplify/ui-svelte';
 	import '@aws-amplify/ui-svelte/styles.css';
-	console.log('store', store.signOut);
 	const { signOut, user } = store;
 </script>
 

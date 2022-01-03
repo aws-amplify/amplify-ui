@@ -16,7 +16,7 @@
 	];
 
 	function handleTabClick(e) {
-		console.log('here', e);
+		// future
 	}
 </script>
 
