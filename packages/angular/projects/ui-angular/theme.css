@@ -1,1 +1,11 @@
 @import '@aws-amplify/ui/dist/styles.css';
+
+html {
+  font-family: var(--amplify-fonts-default-static);
+}
+
+@supports (font-variation-settings: normal) {
+  html {
+    font-family: var(--amplify-fonts-default-variable);
+  }
+}
