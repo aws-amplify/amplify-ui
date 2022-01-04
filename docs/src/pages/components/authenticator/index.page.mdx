@@ -647,7 +647,7 @@ For example, if you'd like to hide the sign up tab, you can override the `amplif
 ## Advanced Usage
 
 <Fragment>
-  {({ platform }) => import(`./auth-state/useAuthenticator.${platform}.mdx`)}
+  {({ platform }) => import(`./advanced/useAuthenticator.${platform}.mdx`)}
 </Fragment>
 
 <Tabs>
@@ -681,29 +681,10 @@ These helper functions trigger transition to another `route`. Note that any inva
 See [Headers & Footers](#headers--footers) above to see an example that adds `toResetPassword` button to `sign-in` screen.
 
   </TabItem>
-  <TabItem title="Update Form">
-
-These helper functions send `form` related events to authenticator. This is typically not needed because `authenticator` already handles native HTML form events, but can be useful if you're rebuilding an entire `route` screen from scratch.
-
-| Name         | Description                                                              | Type                        |
-| ------------ | ------------------------------------------------------------------------ | --------------------------- |
-| `updateForm` | Sends a form change event to authenticator and triggers input validation | `({ name, value }) => void` |
-| `updateBlur` | Sends an input blur event to authenticator                               | `({ name }) => void`        |
-| `submitForm` | Submits current form and sends form data to service API                  | `() => void`                |
-
-  </TabItem>
 </Tabs>
 
 ### Route Based Rendering
 
 <Fragment>
-  {({ platform }) =>
-    import(`./auth-state/conditional-rendering.${platform}.mdx`)
-  }
-</Fragment>
-
-### Headless Authenticator
-
-<Fragment>
-  {({ platform }) => import(`./auth-state/headless.${platform}.mdx`)}
+  {({ platform }) => import(`./advanced/conditional-rendering.${platform}.mdx`)}
 </Fragment>
