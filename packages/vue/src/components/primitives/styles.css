@@ -1,3 +1,5 @@
+/** These fonts are added in only temporarily until Vue has it's own theming system */
+
 html {
   font-family: var(--amplify-fonts-default-static);
 }
