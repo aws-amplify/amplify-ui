@@ -8,16 +8,11 @@ import { Breakpoint } from '../primitives/types/responsive';
  */
 export const useThemeBreakpoint = (): Breakpoint => {
   const {
-    breakpoints: {
-      values: breakpoints,
-      unit: breakpointUnit,
-      defaultBreakpoint,
-    },
+    breakpoints: { values: breakpoints, defaultBreakpoint },
   } = useTheme();
 
   const breakpoint = useBreakpoint({
     breakpoints,
-    breakpointUnit,
     defaultBreakpoint: defaultBreakpoint as Breakpoint,
   });
 
