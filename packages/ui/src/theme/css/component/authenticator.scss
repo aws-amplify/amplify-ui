@@ -139,3 +139,32 @@
     padding: 0px 1.5rem;
   }
 }
+[data-amplify-copy] {
+  display: flex;
+  font-size: 0.688rem;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+
+  @media (max-width: 30rem) {
+    word-break: break-all;
+  }
+}
+
+[data-amplify-copy-svg] {
+  cursor: pointer;
+  position: relative;
+
+  &:hover [data-amplify-copy-tooltip] {
+    visibility: visible;
+    font-size: 0.55rem;
+  }
+}
+
+[data-amplify-copy-tooltip] {
+  visibility: hidden;
+  position: absolute;
+  top: -1rem;
+  left: -0.1rem;
+  color: var(--amplify-colors-teal-100);
+}
