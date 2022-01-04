@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "TZ=UTC cypress open",
+    "test": "TZ=UTC cypress run --spec features/ui/components/authenticator/*.features",
     "test:authenticator": "TZ=UTC cypress run --spec features/ui/components/authenticator/*.features",
     "test:theme": "TZ=UTC CYPRESS_BASE_URL=http://localhost:5000 cypress run --spec features/ui/theme/*.features"
   },
