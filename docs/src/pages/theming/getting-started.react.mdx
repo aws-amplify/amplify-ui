@@ -50,9 +50,11 @@ Optional: To extend or override a token in the default theme, create a custom th
 
     // Step 2: Pass the new theme to `AmplifyProvider`
     // this will apply the theme to all Amplify UI components
-    <AmplifyProvider theme={theme}>
-      <App />
-    </AmplifyProvider>;
+    const App = (
+      <AmplifyProvider theme={theme}>
+        <MyApp>/* AmplifyUI */</MyApp>
+      </AmplifyProvider>
+    );
     ```
 
   </TabItem>
@@ -75,9 +77,11 @@ Optional: To extend or override a token in the default theme, create a custom th
 
     // Step 2: Pass the new theme to `AmplifyProvider`
     // this will apply the theme to all Amplify UI components
-    <AmplifyProvider theme={theme}>
-      <App />
-    </AmplifyProvider>;
+    const App = (
+      <AmplifyProvider theme={theme}>
+        <MyApp>/* AmplifyUI */</MyApp>
+      </AmplifyProvider>
+    );
     ```
 
   </TabItem>
