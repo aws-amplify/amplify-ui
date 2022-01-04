@@ -24,7 +24,7 @@ jobs:
     #   3) pull request from a fork (ie. external PR) that was added "run-tests" label
     if: |
       github.event_name == 'push' ||
-      (github.event.pull_request.head.repo.full_name == github.repository) || 
+      (github.event.pull_request.head.repo.full_name == github.repository) ||
       (github.event.action == 'labeled' && github.event.label.name == 'run-tests')
     outputs:
       ref: ${{ steps.get-ref.outputs.ref }}
@@ -265,10 +265,10 @@ jobs:
         run: yarn workspace ${{ matrix.example }}-example start & npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:3000/ui/components/authenticator/sign-in-with-username
 
       - name: Run E2E tests against ${{ matrix.example }} example
-        run: yarn workspace e2e test
+        run: yarn workspace e2e test:authenticator
         env:
           # Override on the default value in `cypress.json` with framework-specific tag
-          TAGS: '${{ matrix.tags }}'
+          TAGS: "${{ matrix.tags }}"
 
           # Env values for testing flows
           DOMAIN: ${{ secrets.DOMAIN }}
@@ -334,3 +334,9 @@ jobs:
 
       - name: Build docs package
         run: yarn docs build
+
+      - name: Start docs site
+        run: yarn docs dev && npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:5000
+
+      - name: Run E2E tests against docs
+        run: yarn workspace e2e test:theme
