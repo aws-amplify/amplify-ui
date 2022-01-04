@@ -13,42 +13,20 @@ const App = (
 
 Step 2: Use the theme to style components
 
-<Tabs>
-  <TabItem title="JavaScript">
-    ```jsx
-    // Option 1: Use the theme through component variations
-    import { Text } from '@aws-amplify/ui-react';
-    const MyComponent = ({ children }) => {
-      return <Text variation="primary">{children}</Text>;
-    };
+```jsx
+// Option 1: Use the theme through component variations
+import { Text } from '@aws-amplify/ui-react';
+const MyComponent = ({ children }) => {
+  return <Text variation="primary">{children}</Text>;
+};
 
-    // Option 2: Get the theme object through the useTheme hook and style components with it
-    import { Text, useTheme } from '@aws-amplify/ui-react';
-    const MyComponent = ({ children }) => {
-      const { tokens } = useTheme();
-      return <Text color={tokens.colors.font.tertiary}>{children}</Text>;
-    };
-    ```
-
-  </TabItem>
-  <TabItem title="TypeScript">
-    ```jsx
-    // Option 1: Reference the theme object through component variations
-    import { Text } from '@aws-amplify/ui-react';
-    const MyComponent = ({ children }: React.PropsWithChildren<{}>) => {
-      return <Text variation="primary">{children}</Text>;
-    };
-
-    // Option 2: Get the theme object through the useTheme hook and style components with it
-    import { Text, useTheme } from '@aws-amplify/ui-react';
-    const MyComponent = ({ children }: React.PropsWithChildren<{}>) => {
-      const { tokens } = useTheme();
-      return <Text color={tokens.colors.font.tertiary}>{children}</Text>;
-    };
-    ```
-
-  </TabItem>
-</Tabs>
+// Option 2: Get the theme object through the useTheme hook and style components with it
+import { Text, useTheme } from '@aws-amplify/ui-react';
+const MyComponent = ({ children }) => {
+  const { tokens } = useTheme();
+  return <Text color={tokens.colors.font.tertiary}>{children}</Text>;
+};
+```
 
 Optional: To extend or override a token in the default theme, create a custom theme:
 
