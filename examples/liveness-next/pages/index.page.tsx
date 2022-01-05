@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import { Tabs, TabItem } from '@aws-amplify/ui-react';
+import { AmplifyProvider, Tabs, TabItem } from '@aws-amplify/ui-react';
 import { Amplify } from 'aws-amplify';
 import awsExports from '@environments/liveness/src/aws-exports';
 import '@aws-amplify/ui-react/styles.css';
@@ -23,15 +23,17 @@ Amplify.configure({
 
 const App = () => {
   return (
-    <Tabs spacing="equal">
-      <TabItem title="Card View">
-        <LivenessCard />
-      </TabItem>
+    <AmplifyProvider>
+      <Tabs spacing="equal">
+        <TabItem title="Card View">
+          <LivenessCard />
+        </TabItem>
 
-      <TabItem title="Default View">
-        <LivenessDefault />
-      </TabItem>
-    </Tabs>
+        <TabItem title="Default View">
+          <LivenessDefault />
+        </TabItem>
+      </Tabs>
+    </AmplifyProvider>
   );
 };
 
