@@ -1,6 +1,7 @@
 {
   "name": "@aws-amplify/ui-angular",
   "version": "2.0.6",
+  "private": true,
   "scripts": {
     "build": "yarn --cwd ../../ build",
     "dev": "yarn --cwd ../../ dev",

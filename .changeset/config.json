@@ -15,10 +15,8 @@
     "angular-example",
     "next-example",
     "vue-example",
+    "svelte-example",
     "amplify-ui-angular-mono",
-    "e2e",
-    "@aws-amplify/ui-angular",
-    "@aws-amplify/ui-react",
-    "@aws-amplify/ui-vue"
+    "e2e"
   ]
 }
