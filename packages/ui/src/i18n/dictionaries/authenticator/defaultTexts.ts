@@ -19,7 +19,7 @@ export const defaultTexts = {
   ENTER_USERNAME: 'Enter your username',
   FAMILY_NAME: 'Family Name',
   GIVEN_NAME: 'Given Name',
-  FORGOT_YOUR_PASSWORD: 'Forgot your password? ',
+  FORGOT_YOUR_PASSWORD: 'Forgot your password?',
   HIDE_PASSWORD: 'Hide password',
   LOADING: 'Loading',
   LOGIN_NAME: 'Username',

@@ -18,7 +18,7 @@ const emit = defineEmits([
 
 const passwordLabel = computed(() => translate('Password'));
 const forgotYourPasswordLink = computed(() =>
-  translate('Forgot your password? ')
+  translate('Forgot your password?')
 );
 
 const signInButtonText = computed(() => translate('Sign in'));

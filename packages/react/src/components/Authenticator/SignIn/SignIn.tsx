@@ -94,7 +94,7 @@ SignIn.Footer = () => {
         size="small"
         variation="link"
       >
-        {translate('Forgot your password? ')}
+        {translate('Forgot your password?')}
       </Button>
     </View>
   );

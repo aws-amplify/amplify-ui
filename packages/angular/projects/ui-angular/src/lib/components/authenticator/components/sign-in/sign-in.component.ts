@@ -16,7 +16,7 @@ export class SignInComponent {
   @HostBinding('attr.data-amplify-authenticator-signin') dataAttr = '';
 
   // translated phrases
-  public forgotPasswordText = translate('Forgot your password? ');
+  public forgotPasswordText = translate('Forgot your password?');
   public signInButtonText = translate('Sign in');
 
   constructor(public authenticator: AuthenticatorService) {}

@@ -25,7 +25,7 @@ export const frDict = {
   'Enter your phone number': 'Saisissez votre numéro de téléphone',
   'Enter your username': "Saisissez votre nom d'utilisateur",
   'Forgot Password': 'Mot de passe oublié',
-  'Forgot your password? ': 'Mot de passe oublié ? ',
+  'Forgot your password?': 'Mot de passe oublié ? ',
   'Have an account? ': 'Déjà un compte ? ',
   Hello: 'Bonjour',
   'Incorrect username or password': 'Identifiant ou mot de passe incorrect',
