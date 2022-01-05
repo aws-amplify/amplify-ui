@@ -11,8 +11,7 @@ export class SignInComponent {
   @HostBinding('attr.data-amplify-authenticator-signin') dataAttr = '';
 
   // translated phrases
-  // TODO: Fully ignore trailing space on next major version.
-  // https://github.com/aws-amplify/amplify-ui/pull/1088
+  // Support backwards compatibility for legacy key with trailing space
   public forgotPasswordText = !hasTranslation('Forgot your password? ')
     ? translate('Forgot your password?')
     : translate('Forgot your password? ');

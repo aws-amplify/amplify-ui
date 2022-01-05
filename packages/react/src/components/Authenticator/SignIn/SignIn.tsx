@@ -86,7 +86,7 @@ SignIn.Header = (): JSX.Element => null;
 SignIn.Footer = () => {
   const { toResetPassword } = useAuthenticator();
 
-  // Support backwards compatibility for legacy key with trailing space.
+  // Support backwards compatibility for legacy key with trailing space
   const forgotPasswordText = !hasTranslation('Forgot your password? ')
     ? translate('Forgot your password?')
     : translate('Forgot your password? ');
