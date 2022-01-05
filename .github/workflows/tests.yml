@@ -336,7 +336,7 @@ jobs:
         run: yarn docs build
 
       - name: Start docs site
-        run: yarn docs start && npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:5000
+        run: yarn docs start && npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:3000
 
       - name: Run E2E tests against docs
         run: yarn workspace e2e test:theme
