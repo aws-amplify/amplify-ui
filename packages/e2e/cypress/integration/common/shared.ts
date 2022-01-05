@@ -21,7 +21,6 @@ Given("I'm running the example {string}", (example: string) => {
 });
 
 Given("I'm running the docs page {string}", (page: string) => {
-  Cypress.config('baseUrl', 'http://localhost:5000/');
   cy.visit(page, {
     // See: https://glebbahmutov.com/blog/cypress-tips-and-tricks/#control-navigatorlanguage
     onBeforeLoad(win) {
