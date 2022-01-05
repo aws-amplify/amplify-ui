@@ -55,7 +55,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: lts/*
-          cache: 'yarn'
+          cache: "yarn"
       - name: Install packages
         run: yarn --frozen-lockfile --prefer-offline
       - name: Build ui package
@@ -104,7 +104,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: lts/*
-          cache: 'yarn'
+          cache: "yarn"
 
       - name: Restore node_modules cache
         uses: actions/cache@v2
@@ -162,15 +162,15 @@ jobs:
         include:
           - example: angular
             package: angular
-            tags: '@angular and not (@skip or @todo-angular)'
+            tags: "@angular and not (@skip or @todo-angular)"
 
           - example: next
             package: react
-            tags: '@react and not (@skip or @todo-react)'
+            tags: "@react and not (@skip or @todo-react)"
 
           - example: vue
             package: vue
-            tags: '@vue and not (@skip or @todo-vue)'
+            tags: "@vue and not (@skip or @todo-vue)"
 
     steps:
       - name: Checkout Amplify UI
@@ -193,7 +193,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: lts/*
-          cache: 'yarn'
+          cache: "yarn"
 
       - name: Restore cypress runner Cache
         uses: actions/cache@v2
@@ -295,7 +295,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: lts/*
-          cache: 'yarn'
+          cache: "yarn"
 
       - name: Restore Cache
         uses: actions/cache@v2
