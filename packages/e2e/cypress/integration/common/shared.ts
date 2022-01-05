@@ -20,6 +20,18 @@ Given("I'm running the example {string}", (example: string) => {
   });
 });
 
+Given("I'm running the docs page {string}", (page: string) => {
+  cy.visit(page, {
+    // See: https://glebbahmutov.com/blog/cypress-tips-and-tricks/#control-navigatorlanguage
+    onBeforeLoad(win) {
+      Object.defineProperty(win.navigator, 'language', { value: language });
+    },
+    onLoad(contentWindow) {
+      window = contentWindow;
+    },
+  });
+});
+
 Given(
   'I intercept {string} with fixture {string}',
   (json: string, fixture: string) => {

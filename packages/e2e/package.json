@@ -5,7 +5,9 @@
   "private": true,
   "scripts": {
     "dev": "TZ=UTC cypress open",
-    "test": "TZ=UTC cypress run --spec **/*.features"
+    "test": "TZ=UTC cypress run --spec features/ui/components/authenticator/*.features",
+    "test:authenticator": "TZ=UTC cypress run --spec features/ui/components/authenticator/*.features",
+    "test:theme": "TZ=UTC cypress run --spec features/ui/theme/*.features"
   },
   "cypress-cucumber-preprocessor": {
     "nonGlobalStepDefinitions": true,

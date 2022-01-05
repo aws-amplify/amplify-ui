@@ -111,8 +111,7 @@ export function createTheme(
       }
       if ('breakpoint' in override) {
         const breakpoint = mergedTheme.breakpoints.values[override.breakpoint];
-        const breakpointUnit = mergedTheme.breakpoints.unit;
-        cssText += `\n@media (min-width: ${breakpoint}${breakpointUnit}) {
+        cssText += `\n@media (min-width: ${breakpoint}px) {
   [data-amplify-theme="${name}"] {
     ${customProperties}
   }
