@@ -5,10 +5,10 @@ name: Tests
 
 on:
   push:
-    branches: [main]
+    branches: [ui-svelte/main]
 
-  pull_request_target:
-    branches: [main]
+  pull_request:
+    branches: [ui-svelte/main]
     types: [opened, synchronize, labeled]
 
 permissions:
