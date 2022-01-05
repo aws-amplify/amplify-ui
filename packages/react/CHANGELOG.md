@@ -1,5 +1,18 @@
 # @aws-amplify/ui-react
 
+## 2.1.6
+
+### Patch Changes
+
+- [#1056](https://github.com/aws-amplify/amplify-ui/pull/1056) [`276d7e97a`](https://github.com/aws-amplify/amplify-ui/commit/276d7e97a5f8e722e8010edff25d5992f86c486d) Thanks [@hvergara](https://github.com/hvergara)! - Add white-space style prop
+
+* [#1035](https://github.com/aws-amplify/amplify-ui/pull/1035) [`ea98bea67`](https://github.com/aws-amplify/amplify-ui/commit/ea98bea6730f48b44e5159586b76e60de20f757b) Thanks [@ErikCH](https://github.com/ErikCH)! - Updated externals config in tsup. Removed typo.
+
+- [#1024](https://github.com/aws-amplify/amplify-ui/pull/1024) [`59d8b8efd`](https://github.com/aws-amplify/amplify-ui/commit/59d8b8efdc80deff7c144cbfd0f5040a4ec563c4) Thanks [@reesscot](https://github.com/reesscot)! - Build ui styles into ui-react package to fix [parcel](https://parceljs.org/) and [UMIJS](https://umijs.org/) apps.
+
+- Updated dependencies [[`5bfe1e599`](https://github.com/aws-amplify/amplify-ui/commit/5bfe1e5996536f8b5ada60e16db565dd8fb52f26), [`86e70f8e8`](https://github.com/aws-amplify/amplify-ui/commit/86e70f8e8486e70cccc23d04754e435b184915e8), [`43634b06a`](https://github.com/aws-amplify/amplify-ui/commit/43634b06aaccb1cf33cb18e0e142aee91df54aad), [`d8a422d7c`](https://github.com/aws-amplify/amplify-ui/commit/d8a422d7ce4c62a216a19d127907a2b80eb588ab), [`f9a09df7c`](https://github.com/aws-amplify/amplify-ui/commit/f9a09df7cded5bae1681bc138c048786f3bb75bc)]:
+  - @aws-amplify/ui@3.0.6
+
 ## 2.1.5
 
 ### Patch Changes
