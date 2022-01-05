@@ -10,7 +10,7 @@
     "test": "$_ run build"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "^2.1.5",
+    "@aws-amplify/ui-react": "^2.1.6",
     "@aws-amplify/ui-react-v1": "npm:@aws-amplify/ui-react",
     "@codesandbox/sandpack-react": "0.1.9",
     "@cucumber/gherkin": "^19.0.3",

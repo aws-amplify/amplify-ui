@@ -1,5 +1,16 @@
 # @aws-amplify/ui-vue
 
+## 2.0.6
+
+### Patch Changes
+
+- [#1052](https://github.com/aws-amplify/amplify-ui/pull/1052) [`5d96f7331`](https://github.com/aws-amplify/amplify-ui/commit/5d96f733110bb453245ccb76e275919cd8e3f5ef) Thanks [@ErikCH](https://github.com/ErikCH)! - Added wrapper for useAuthenticator to handle better memory usage
+
+* [#1082](https://github.com/aws-amplify/amplify-ui/pull/1082) [`a4a1e21f1`](https://github.com/aws-amplify/amplify-ui/commit/a4a1e21f15afe2e4bdb05db166fdb92bb4685b63) Thanks [@ErikCH](https://github.com/ErikCH)! - Added back fonts that were deleted in previous PR
+
+* Updated dependencies [[`5bfe1e599`](https://github.com/aws-amplify/amplify-ui/commit/5bfe1e5996536f8b5ada60e16db565dd8fb52f26), [`86e70f8e8`](https://github.com/aws-amplify/amplify-ui/commit/86e70f8e8486e70cccc23d04754e435b184915e8), [`43634b06a`](https://github.com/aws-amplify/amplify-ui/commit/43634b06aaccb1cf33cb18e0e142aee91df54aad), [`d8a422d7c`](https://github.com/aws-amplify/amplify-ui/commit/d8a422d7ce4c62a216a19d127907a2b80eb588ab), [`f9a09df7c`](https://github.com/aws-amplify/amplify-ui/commit/f9a09df7cded5bae1681bc138c048786f3bb75bc)]:
+  - @aws-amplify/ui@3.0.6
+
 ## 2.0.5
 
 ### Patch Changes
