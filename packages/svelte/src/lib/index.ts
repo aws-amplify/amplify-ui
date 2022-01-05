@@ -1,4 +1,4 @@
 import Authenticator from './components/Authenticator.svelte';
-import * as store from '$lib/components/store';
+import * as authStore from '$lib/components/authStore';
 
-export { Authenticator, store };
+export { Authenticator, authStore };

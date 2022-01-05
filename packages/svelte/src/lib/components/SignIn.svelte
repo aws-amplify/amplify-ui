@@ -10,7 +10,7 @@
     isPending,
     error,
     toResetPassword,
-  } from '$lib/components/store';
+  } from '$lib/components/authStore';
 
   const forgotPasswordText = translate('Forgot your password? ');
   const signInButtonText = translate('Sign in');
