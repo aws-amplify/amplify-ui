@@ -28,7 +28,7 @@ function Screen({ Component }: ScreenProps) {
       'Sign in to your account': 'Welcome Back!', // Header text
       Username: 'Enter your username', // Username label
       Password: 'Enter your password', // Password label
-      'Forgot your password? ': 'Reset Password',
+      'Forgot your password?': 'Reset Password',
 
       // Sign Up screen
       'Create Account': 'Register', // Tab header

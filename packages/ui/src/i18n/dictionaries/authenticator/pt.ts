@@ -18,7 +18,7 @@ export const ptDict = {
   'Enter your username': 'entre com seu nome de usuário',
   'Enter your phone number': 'Digite seu número de telefone',
   'Enter your email': 'Digite seu e-mail',
-  'Forgot your password? ': 'Esqueceu sua senha? ',
+  'Forgot your password?': 'Esqueceu sua senha? ',
   'Hide password': 'Esconder a senha',
   Loading: 'Carregando',
   Username: 'Nome do usuário',
