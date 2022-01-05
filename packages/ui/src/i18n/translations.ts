@@ -64,6 +64,13 @@ export function translate<T = Phrase>(phrase: NoInfer<T>): string {
   return I18n.get(phrase);
 }
 
+/**
+ * Whether I18n has a translation entry for given phrase
+ */
+export function hasTranslation(phrase: string) {
+  return I18n.get(phrase) !== phrase;
+}
+
 export const translations: Record<string, Dict> = {
   de: deDict,
   en: enDict,

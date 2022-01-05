@@ -1,11 +1,6 @@
-import {
-  Component,
-  HostBinding,
-  Input,
-  ViewEncapsulation,
-} from '@angular/core';
+import { Component, HostBinding, ViewEncapsulation } from '@angular/core';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
-import { translate } from '@aws-amplify/ui';
+import { translate, hasTranslation } from '@aws-amplify/ui';
 
 @Component({
   selector: 'amplify-sign-in',
@@ -16,7 +11,11 @@ export class SignInComponent {
   @HostBinding('attr.data-amplify-authenticator-signin') dataAttr = '';
 
   // translated phrases
-  public forgotPasswordText = translate('Forgot your password?');
+  // TODO: Fully ignore trailing space on next major version.
+  // https://github.com/aws-amplify/amplify-ui/pull/1088
+  public forgotPasswordText = !hasTranslation('Forgot your password? ')
+    ? translate('Forgot your password?')
+    : translate('Forgot your password? ');
   public signInButtonText = translate('Sign in');
 
   constructor(public authenticator: AuthenticatorService) {}
