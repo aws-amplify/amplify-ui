@@ -7,7 +7,7 @@ import { Flex } from '../Flex';
 import { Label } from '../Label';
 import { RadioGroupContext, RadioGroupContextType } from './context';
 import { RadioGroupFieldProps, Primitive } from '../types';
-import { useStableId } from '../shared/utils';
+import { useStableId } from '../utils/useStableId';
 
 // Note: RadioGroupField doesn't extend the JSX.IntrinsicElements<'input'> types (instead extending 'typeof Flex')
 // because all rest props are passed to Flex container
