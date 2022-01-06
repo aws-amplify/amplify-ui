@@ -2,6 +2,7 @@ module.exports = {
   paddingInlineEnd: { value: '{space.xxl.value}' },
   // wrappers
   wrapper: {
+    flex: { value: '1' },
     display: { value: 'block' },
     position: { value: 'relative' },
     cursor: { value: 'pointer' },
