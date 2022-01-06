@@ -7,16 +7,16 @@ export default defineConfig({
   server: {
     port: 3001,
   },
-  define: {
-    'process.env': process.env,
-    'process.argv': [],
-  },
   resolve: {
     preserveSymlinks: true,
     alias: [
       {
         find: '@environments',
         replacement: path.resolve(__dirname, '../../environments/'),
+      },
+      {
+        find: './runtimeConfig',
+        replacement: './runtimeConfig.browser',
       },
     ],
   },

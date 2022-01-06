@@ -10,6 +10,11 @@
     <div id="app"></div>
     <script>
       window.global = window;
+      window.process = {
+        env: { DEBUG: undefined },
+        argv: [],
+        cwd: () => {},
+      };
       var exports = {};
     </script>
     <script type="module" src="/src/main.ts"></script>
