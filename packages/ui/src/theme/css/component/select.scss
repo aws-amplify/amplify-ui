@@ -1,4 +1,5 @@
 .amplify-select__wrapper {
+  flex: var(--amplify-components-select-wrapper-flex);
   display: var(--amplify-components-select-wrapper-display);
   position: var(--amplify-components-select-wrapper-position);
   cursor: var(--amplify-components-select-wrapper-cursor);
