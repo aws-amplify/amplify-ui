@@ -8,7 +8,7 @@ import { Label } from '../Label';
 import { Select } from '../Select';
 import { SelectFieldProps, Primitive } from '../types';
 import { splitPrimitiveProps } from '../shared/styleUtils';
-import { useStableId } from '../shared/utils';
+import { useStableId } from '../utils/useStableId';
 
 const SelectFieldPrimitive: Primitive<SelectFieldProps, 'select'> = (
   props,
