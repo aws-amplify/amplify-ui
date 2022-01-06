@@ -1,8 +1,8 @@
 import {
   createAuthenticatorMachine,
-  getServiceContextFacade,
   getSendEventAliases,
   translate,
+  getServiceContextFacade,
 } from '@aws-amplify/ui';
 import { interpret } from 'xstate';
 
@@ -16,9 +16,9 @@ export const hasValidationErrors = writable(null);
 export const user = writable(null);
 export const validationErrors = writable(null);
 export const codeDeliveryDetails = writable(null);
-const _sendEventAliases = writable<ReturnType<typeof getSendEventAliases>>(
-  null
-);
+const _sendEventAliases =
+  writable<ReturnType<typeof getSendEventAliases>>(null);
+const contextFacade = getServiceContextFacade;
 /** @deprecated For internal use only */
 export const authState = writable(null);
 
@@ -43,7 +43,7 @@ export function setupMachine(
 
   const subscription = authService.subscribe((state) => {
     authState.update(() => state);
-    _facade.update(() => getServiceContextFacade(state));
+    _facade.update(() => contextFacade(state));
     setError();
     setRoute();
     setHasValidationErrors();
