@@ -304,15 +304,6 @@ jobs:
           path: ~/.cache/Cypress
           key: ${{ runner.os }}-cypress-${{ hashFiles('yarn.lock') }}
 
-      - name: Restore node_modules cache
-        uses: actions/cache@v2
-        id: restore-cache
-        with:
-          path: |
-            ./node_modules
-            **/node_modules
-          key: ${{ runner.os }}-nodemodules-${{ needs.setup.outputs.commit }}
-
       - name: Restore Cache
         uses: actions/cache@v2
         id: restore-cache
