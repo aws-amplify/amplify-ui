@@ -10,7 +10,6 @@ const useIsomorphicEffect =
 
 export const useBreakpoint: UseBreakpoint = ({
   breakpoints,
-  breakpointUnit,
   defaultBreakpoint,
 }) => {
   const supportMatchMedia =
@@ -18,13 +17,12 @@ export const useBreakpoint: UseBreakpoint = ({
   const matchMedia = supportMatchMedia ? window.matchMedia : null;
 
   const mediaQueries = React.useMemo(
-    () => getMediaQueries({ breakpoints, breakpointUnit }),
-    [breakpoints, breakpointUnit]
+    () => getMediaQueries({ breakpoints }),
+    [breakpoints]
   );
 
-  const [breakpoint, setBreakpoint] = React.useState<Breakpoint>(
-    defaultBreakpoint
-  );
+  const [breakpoint, setBreakpoint] =
+    React.useState<Breakpoint>(defaultBreakpoint);
 
   const updateBreakpoint = React.useCallback(
     (matches: boolean, breakpoint: Breakpoint) => {

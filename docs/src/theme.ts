@@ -64,10 +64,8 @@ export const theme: Theme = {
       },
       togglebutton: {
         borderColor: { value: '{colors.border.primary.value}' },
-        color: { value: '{colors.font.tertiary.value}' },
         pressed: {
           color: { value: '{colors.font.primary.value}' },
-          backgroundColor: { value: '{colors.background.secondary.value}' },
         },
       },
       fieldcontrol: {

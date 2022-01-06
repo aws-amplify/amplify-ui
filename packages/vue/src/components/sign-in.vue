@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import { computed, ComputedRef, useAttrs } from 'vue';
-import { getActorState, SignInState, translate } from '@aws-amplify/ui';
+import {
+  getActorState,
+  hasTranslation,
+  SignInState,
+  translate,
+} from '@aws-amplify/ui';
 
 import PasswordControl from './password-control.vue';
 import UserNameAlias from './user-name-alias.vue';
@@ -18,7 +23,10 @@ const emit = defineEmits([
 
 const passwordLabel = computed(() => translate('Password'));
 const forgotYourPasswordLink = computed(() =>
-  translate('Forgot your password? ')
+  // Support backwards compatibility for legacy key with trailing space
+  !hasTranslation('Forgot your password? ')
+    ? translate('Forgot your password?')
+    : translate('Forgot your password? ')
 );
 
 const signInButtonText = computed(() => translate('Sign in'));

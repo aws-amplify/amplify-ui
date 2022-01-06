@@ -19,7 +19,7 @@ export const itDict = {
   'Enter your password': 'Inserire la password',
   'Enter your username': 'Inserisci il tuo nome utente',
   'Forgot Password': 'Password dimenticata',
-  'Forgot your password? ': 'Password dimenticata?',
+  'Forgot your password?': 'Password dimenticata?',
   'Have an account? ': 'Già registrato?',
   'Incorrect username or password': 'Nome utente o password errati',
   'Invalid password format': 'Formato della password non valido',

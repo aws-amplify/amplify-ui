@@ -868,13 +868,13 @@ describe('@aws-amplify/ui', () => {
           }
         }
 
-        @media (min-width: 30em) {
+        @media (min-width: 480px) {
           [data-amplify-theme=\\"test-theme\\"] {
             --amplify-space-medium: 0.5rem;
           }
         }
 
-        @media (min-width: 62em) {
+        @media (min-width: 992px) {
           [data-amplify-theme=\\"test-theme\\"] {
             --amplify-space-medium: 2.5rem;
           }

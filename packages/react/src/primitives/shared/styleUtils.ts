@@ -51,16 +51,11 @@ export const useTransformStyleProps = (props: ViewProps): ViewProps => {
 
 export const usePropStyles = (props: ViewProps, style: React.CSSProperties) => {
   const {
-    breakpoints: {
-      values: breakpoints,
-      unit: breakpointUnit,
-      defaultBreakpoint,
-    },
+    breakpoints: { values: breakpoints, defaultBreakpoint },
   } = useTheme();
 
   const breakpoint = useBreakpoint({
     breakpoints,
-    breakpointUnit,
     defaultBreakpoint: defaultBreakpoint as Breakpoint,
   });
 
