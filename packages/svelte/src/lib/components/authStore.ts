@@ -8,7 +8,7 @@ import { interpret } from 'xstate';
 
 import { writable, get } from 'svelte/store';
 
-let _facade = writable<ReturnType<typeof getServiceContextFacade>>(null);
+let _facade = writable(null);
 export const error = writable(null);
 export const route = writable(null);
 export const isPending = writable(null);
@@ -16,8 +16,9 @@ export const hasValidationErrors = writable(null);
 export const user = writable(null);
 export const validationErrors = writable(null);
 export const codeDeliveryDetails = writable(null);
-const _sendEventAliases =
-  writable<ReturnType<typeof getSendEventAliases>>(null);
+const _sendEventAliases = writable<ReturnType<typeof getSendEventAliases>>(
+  null
+);
 /** @deprecated For internal use only */
 export const authState = writable(null);
 
