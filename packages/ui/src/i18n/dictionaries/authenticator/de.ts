@@ -19,7 +19,7 @@ export const deDict = {
   'Enter your password': 'Geben Sie Ihr Passwort ein',
   'Enter your username': 'Geben Sie Ihren Benutzernamen ein',
   'Forgot Password': 'Passwort vergessen',
-  'Forgot your password? ': 'Passwort vergessen? ',
+  'Forgot your password?': 'Passwort vergessen? ',
   'Have an account? ': 'Schon registriert? ',
   'Incorrect username or password':
     'Falscher Benutzername oder falsches Passwort',
