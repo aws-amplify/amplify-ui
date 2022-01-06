@@ -304,6 +304,15 @@ jobs:
           path: ~/.cache/Cypress
           key: ${{ runner.os }}-cypress-${{ hashFiles('yarn.lock') }}
 
+      - name: Restore node_modules cache
+        uses: actions/cache@v2
+        id: restore-cache
+        with:
+          path: |
+            ./node_modules
+            **/node_modules
+          key: ${{ runner.os }}-nodemodules-${{ needs.setup.outputs.commit }}
+
       - name: Restore Cache
         uses: actions/cache@v2
         id: restore-cache
@@ -347,3 +356,10 @@ jobs:
 
       - name: Run E2E tests against docs
         run: yarn workspace e2e test:theme
+        env:
+          # Env values for testing flows
+          DOMAIN: ${{ secrets.DOMAIN }}
+          PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
+          USERNAME: ${{ secrets.USERNAME }}
+          NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
+          VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
