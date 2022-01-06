@@ -31,6 +31,7 @@
   "devDependencies": {
     "@aws-amplify/ui-react": "^2.0.0",
     "@types/jest": "^26.0.23",
+    "esbuild-node-builtins": "^0.1.0",
     "esbuild-plugin-alias": "^0.1.2",
     "jest": "^27.0.4",
     "preact": "^10.5.15",
