@@ -5,7 +5,7 @@ import {
   useAuthenticator,
   View,
 } from '@aws-amplify/ui-react';
-import { I18n } from 'aws-amplify';
+import { I18n } from '@aws-amplify/core';
 import * as React from 'react';
 
 type ScreenProps = {

@@ -2,7 +2,7 @@
 
 // https://nextjs.org/docs/advanced-features/custom-app
 import App from 'next/app';
-import { Amplify } from 'aws-amplify';
+import { Amplify } from '@aws-amplify/core';
 
 if (typeof window !== 'undefined') {
   window['Amplify'] = Amplify;
