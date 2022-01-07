@@ -494,6 +494,15 @@
     style-dictionary "^3.0.1"
     xstate "^4.20.1"
 
+"@aws-amplify/ui@3.0.6":
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/ui/-/ui-3.0.6.tgz#d2bf0638765d216b36fb134719441ba961984914"
+  integrity sha512-FO7pjE1SRi9hB+umQtYmr48RibbUqC39yFssM716zR+GuUWxp2daGECHOPz3oY+EshdqnNdclHAkfkN+KxVHmw==
+  dependencies:
+    lodash "^4.17.21"
+    style-dictionary "^3.0.1"
+    xstate "^4.20.1"
+
 "@aws-amplify/xr@3.0.26":
   version "3.0.26"
   resolved "https://registry.yarnpkg.com/@aws-amplify/xr/-/xr-3.0.26.tgz#9f5c3af4a0af68ec52262c9e62bfa1ba14605275"
