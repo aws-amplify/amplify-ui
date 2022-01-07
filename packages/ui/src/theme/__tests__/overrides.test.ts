@@ -241,6 +241,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-checkboxfield-align-content: center;
         --amplify-components-checkboxfield-flex-direction: column;
         --amplify-components-checkboxfield-justify-content: center;
+        --amplify-components-countrycodeselect-height: 100%;
         --amplify-components-divider-border-style: solid;
         --amplify-components-divider-border-color: var(--amplify-colors-border-primary);
         --amplify-components-divider-border-width: var(--amplify-border-widths-medium);
@@ -478,6 +479,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-rating-filled-color: var(--amplify-colors-brand-secondary-80);
         --amplify-components-rating-empty-color: var(--amplify-colors-background-tertiary);
         --amplify-components-select-padding-inline-end: var(--amplify-space-xxl);
+        --amplify-components-select-wrapper-flex: 1;
         --amplify-components-select-wrapper-display: block;
         --amplify-components-select-wrapper-position: relative;
         --amplify-components-select-wrapper-cursor: pointer;
