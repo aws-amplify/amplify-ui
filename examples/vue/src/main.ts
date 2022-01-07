@@ -1,4 +1,4 @@
-import { Amplify } from 'aws-amplify';
+import { Amplify } from '@aws-amplify/core';
 import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
