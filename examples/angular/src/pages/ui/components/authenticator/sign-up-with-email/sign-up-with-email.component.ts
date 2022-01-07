@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { Amplify, Auth } from 'aws-amplify';
+import { Auth } from '@aws-amplify/auth';
+import { Amplify } from '@aws-amplify/core';
 import awsExports from './aws-exports';
 
 @Component({

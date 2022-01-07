@@ -1,6 +1,7 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import QRCode from 'qrcode';
-import { Auth, Logger } from 'aws-amplify';
+import { Auth } from '@aws-amplify/auth';
+import { Logger } from '@aws-amplify/core';
 import { getActorContext, SignInContext } from '@aws-amplify/ui';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
 import { translate } from '@aws-amplify/ui';

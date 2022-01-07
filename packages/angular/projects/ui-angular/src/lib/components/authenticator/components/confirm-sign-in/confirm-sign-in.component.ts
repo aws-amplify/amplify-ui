@@ -1,5 +1,5 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
-import { Logger } from 'aws-amplify';
+import { Logger } from '@aws-amplify/core';
 import {
   AuthChallengeNames,
   getActorContext,
