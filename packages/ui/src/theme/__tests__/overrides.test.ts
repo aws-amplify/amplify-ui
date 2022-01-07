@@ -487,6 +487,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-select-icon-wrapper-right: var(--amplify-space-medium);
         --amplify-components-select-icon-wrapper-transform: translateY(-50%);
         --amplify-components-select-icon-wrapper-pointer-events: none;
+        --amplify-components-select-option-background-color: var(--amplify-colors-background-primary);
         --amplify-components-select-white-space: nowrap;
         --amplify-components-select-min-width: 6.5rem;
         --amplify-components-select-small-min-width: 5.5rem;
