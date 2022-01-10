@@ -14,6 +14,7 @@ import { View } from '../View';
 
 const isTabsType = (child: any): child is React.Component<TabItemProps> => {
   return (
+    child !== null &&
     typeof child === 'object' &&
     child.hasOwnProperty('props') &&
     child.props.title != null &&

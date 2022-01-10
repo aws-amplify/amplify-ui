@@ -42,6 +42,32 @@ describe('Tabs: ', () => {
     expect(ref.current.nodeName).toBe('DIV');
   });
 
+  it('should skip over null children', async () => {
+    render(
+      <Tabs testId="tabsTest">
+        <TabItem title="Tab 1">Tab 1</TabItem>
+        {null}
+      </Tabs>
+    );
+    const tabs = await screen.findByTestId('tabsTest');
+    expect(tabs.children.length).toEqual(1);
+  });
+
+  it('should log a warning for null children', async () => {
+    const warningMessage =
+      'Amplify UI: <Tabs> component only accepts <TabItem> as children.';
+    jest.spyOn(console, 'warn');
+
+    render(
+      <Tabs testId="tabsTest">
+        <TabItem title="Tab 1">Tab 1</TabItem>
+        {null}
+      </Tabs>
+    );
+
+    expect(console.warn).toHaveBeenCalledWith(warningMessage);
+  });
+
   describe('TabItem: ', () => {
     it('can render custom classnames', async () => {
       render(
