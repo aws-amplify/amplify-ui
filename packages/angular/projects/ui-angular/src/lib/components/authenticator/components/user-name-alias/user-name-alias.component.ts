@@ -57,7 +57,7 @@ export class UserNameAliasComponent implements OnInit {
     event.stopPropagation();
 
     const { name, value } = <HTMLInputElement>event.target;
-    this.fullPhoneNumber = { ...this.fullPhoneNumber, [name]: value };
+    this.fullPhoneNumber[name] = value;
 
     this.authenticator.updateForm({
       name: this.name,
