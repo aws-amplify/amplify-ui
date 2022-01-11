@@ -9,6 +9,6 @@
   [required]="required"
   [defaultCountryCode]="isPhoneField() ? defaultCountryCode : null"
   autocomplete="username"
-  (input)="handlePhoneNumberChange($event)"
+  (input)="isPhoneField() ? handlePhoneNumberChange($event) : null"
 >
 </amplify-form-field>
