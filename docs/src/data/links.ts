@@ -11,7 +11,7 @@ export const baseComponents: ComponentNavItem[] = [
   {
     href: '/components/view',
     label: 'View',
-    body: `An Alert displays a brief, important message in a way that attracts the user's attention without interrupting the user's task. Alerts are typically intended to be read out dynamically by a screen reader.`,
+    body: `View is a container that contains stuff. View is the most abstract component on top of which all other components live.`,
   },
   {
     href: '/components/text',
