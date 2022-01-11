@@ -10,7 +10,7 @@ import {
 import { isInputOrSelectElement, isInputElement } from '../../../helpers/utils';
 
 export const ConfirmVerifyUser = (): JSX.Element => {
-  const { submitForm, updateForm } = useAuthenticator();
+  const { submitForm, updateForm, isPending } = useAuthenticator();
 
   const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
     if (isInputOrSelectElement(event.target)) {
@@ -40,7 +40,11 @@ export const ConfirmVerifyUser = (): JSX.Element => {
       onChange={handleChange}
       onSubmit={handleSubmit}
     >
-      <Flex direction="column">
+      <fieldset
+        style={{ display: 'flex', flexDirection: 'column' }}
+        className="amplify-flex"
+        disabled={isPending}
+      >
         <Heading level={3}>
           {translate('Account recovery requires verified contact information')}
         </Heading>
@@ -55,7 +59,7 @@ export const ConfirmVerifyUser = (): JSX.Element => {
           cancelButtonText={translate('Skip')}
           cancelButtonSendType="SKIP"
         />
-      </Flex>
+      </fieldset>
     </form>
   );
 };
