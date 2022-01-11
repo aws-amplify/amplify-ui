@@ -5,7 +5,7 @@ import {
   LoginMechanism,
   translate,
 } from '@aws-amplify/ui';
-import React, { useState } from 'react';
+import React, { useRef } from 'react';
 
 import { useAuthenticator } from '..';
 import { PhoneNumberField, TextField } from '../../..';
@@ -28,8 +28,9 @@ export function UserNameAlias(props: UserNameAliasProps) {
   const inputFieldName = alias ?? 'username';
   const countryCodeName = 'country_code';
 
-  const [fullPhoneNumber, setFullPhoneNumber] = useState({
+  const fullPhoneNumber = useRef({
     [countryCodeName]: defaultCountryCode,
+    [inputFieldName]: '',
   });
 
   /**
@@ -41,17 +42,15 @@ export function UserNameAlias(props: UserNameAliasProps) {
   ) => {
     event.stopPropagation();
 
-    const newState = {
-      ...fullPhoneNumber,
-      [event.target.name]: event.target.value,
-    };
+    fullPhoneNumber.current[event.target.name] = event.target.value;
+
+    const { [countryCodeName]: countryCode, [inputFieldName]: phoneNumber } =
+      fullPhoneNumber.current;
 
     updateForm({
       name: inputFieldName,
-      value: newState[countryCodeName] + newState[inputFieldName],
+      value: countryCode + phoneNumber,
     });
-
-    setFullPhoneNumber(newState);
   };
 
   return isPhoneAlias ? (
