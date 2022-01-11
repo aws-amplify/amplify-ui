@@ -1,6 +1,6 @@
 import { assign, createMachine, forwardTo, spawn } from 'xstate';
 
-import { AuthContext, AuthEvent } from '../../types';
+import { AuthContext, AuthEvent, ServicesContext } from '../../types';
 import { stopActor } from './actions';
 import { resetPasswordActor, signInActor, signOutActor } from './actors';
 import { defaultServices } from './defaultServices';
@@ -111,6 +111,7 @@ export function createAuthenticatorMachine({
       },
       on: {
         CHANGE: { actions: 'forwardToActor' },
+        BLUR: { actions: 'forwardToActor' },
         SUBMIT: { actions: 'forwardToActor' },
         FEDERATED_SIGN_IN: { actions: 'forwardToActor' },
         RESEND: { actions: 'forwardToActor' },
@@ -175,12 +176,13 @@ export function createAuthenticatorMachine({
         }),
         spawnSignInActor: assign({
           actorRef: (context, event) => {
-            const actor = signInActor.withContext({
+            const actor = signInActor({ services }).withContext({
               authAttributes: event.data?.authAttributes,
               user: event.data?.user,
               intent: event.data?.intent,
               country_code: DEFAULT_COUNTRY_CODE,
               formValues: {},
+              touched: {},
               validationError: {},
               loginMechanisms: context.config?.loginMechanisms,
               socialProviders: context.config?.socialProviders,
@@ -195,6 +197,7 @@ export function createAuthenticatorMachine({
               country_code: DEFAULT_COUNTRY_CODE,
               intent: event.data?.intent,
               formValues: {},
+              touched: {},
               validationError: {},
               loginMechanisms: context.config?.loginMechanisms,
               socialProviders: context.config?.socialProviders,
@@ -204,8 +207,9 @@ export function createAuthenticatorMachine({
         }),
         spawnResetPasswordActor: assign({
           actorRef: (context, event) => {
-            const actor = resetPasswordActor.withContext({
+            const actor = resetPasswordActor({ services }).withContext({
               formValues: {},
+              touched: {},
               intent: event.data?.intent,
               username: event.data?.authAttributes?.username,
               validationError: {},

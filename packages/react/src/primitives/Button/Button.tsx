@@ -1,11 +1,12 @@
 import classNames from 'classnames';
 import * as React from 'react';
 
+import { ButtonProps, Primitive } from '../types';
 import { ComponentClassNames } from '../shared/constants';
-import { ButtonProps, PrimitiveWithForwardRef } from '../types';
+import { Text } from '../Text';
 import { View } from '../View';
 
-const ButtonInner: PrimitiveWithForwardRef<ButtonProps, 'button'> = (
+const ButtonPrimitive: Primitive<ButtonProps, 'button'> = (
   {
     className,
     children,
@@ -37,11 +38,15 @@ const ButtonInner: PrimitiveWithForwardRef<ButtonProps, 'button'> = (
       type={type}
       {...rest}
     >
-      {isLoading && loadingText ? <span>{loadingText}</span> : children}
+      {isLoading && loadingText ? (
+        <Text as="span">{loadingText}</Text>
+      ) : (
+        children
+      )}
     </View>
   );
 };
 
-export const Button = React.forwardRef(ButtonInner);
+export const Button = React.forwardRef(ButtonPrimitive);
 
 Button.displayName = 'Button';

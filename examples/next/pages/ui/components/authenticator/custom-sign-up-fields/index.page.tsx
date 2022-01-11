@@ -1,26 +1,22 @@
 import { Amplify } from 'aws-amplify';
 
 import {
-  // Access the default `Authenticator.SignUp.FormFields` for re-use
   Authenticator,
-  // Amplify UI Primitives to simplify the custom fields
   CheckboxField,
-  // React hook to get access to validation errors
   useAuthenticator,
 } from '@aws-amplify/ui-react';
-import { withAuthenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
-import awsExports from '@environments/auth-with-email-and-custom-attributes/src/aws-exports';
+import awsExports from './aws-exports';
 Amplify.configure(awsExports);
 
-export default function App({ signOut }) {
+export default function App() {
   return (
     <Authenticator
       // Default to Sign Up screen
       initialState="signUp"
+      // Customize `Authenticator.SignUp.FormFields`
       components={{
-        // Customize `Authenticator.SignUp.FormFields`
         SignUp: {
           FormFields() {
             const { validationErrors } = useAuthenticator();
@@ -53,7 +49,12 @@ export default function App({ signOut }) {
         },
       }}
     >
-      {({ signOut }) => <button onClick={signOut}>Sign out</button>}
+      {({ signOut, user }) => (
+        <main>
+          <h1>Hello {user.username}</h1>
+          <button onClick={signOut}>Sign out</button>
+        </main>
+      )}
     </Authenticator>
   );
 }

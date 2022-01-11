@@ -28,7 +28,7 @@ function Screen({ Component }: ScreenProps) {
       'Sign in to your account': 'Welcome Back!', // Header text
       Username: 'Enter your username', // Username label
       Password: 'Enter your password', // Password label
-      'Forgot your password? ': 'Reset Password',
+      'Forgot your password?': 'Reset Password',
 
       // Sign Up screen
       'Create Account': 'Register', // Tab header
@@ -73,7 +73,7 @@ function Screen({ Component }: ScreenProps) {
 export function LabelsAndTextDemo({ Component }: ScreenProps) {
   return (
     <Authenticator.Provider>
-      <View data-amplify-authenticator="" data-variaton="modal">
+      <View data-amplify-authenticator="">
         <View data-amplify-container="">
           <View data-amplify-body>
             <Screen Component={Component} />

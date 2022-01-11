@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import { computed, ComputedRef, useAttrs } from 'vue';
-import { getActorState, SignInState, translate } from '@aws-amplify/ui';
+import {
+  getActorState,
+  hasTranslation,
+  SignInState,
+  translate,
+} from '@aws-amplify/ui';
 
 import PasswordControl from './password-control.vue';
 import UserNameAlias from './user-name-alias.vue';
@@ -18,7 +23,10 @@ const emit = defineEmits([
 
 const passwordLabel = computed(() => translate('Password'));
 const forgotYourPasswordLink = computed(() =>
-  translate('Forgot your password? ')
+  // Support backwards compatibility for legacy key with trailing space
+  !hasTranslation('Forgot your password? ')
+    ? translate('Forgot your password?')
+    : translate('Forgot your password? ')
 );
 
 const signInButtonText = computed(() => translate('Sign in'));
@@ -100,7 +108,13 @@ const onForgotPasswordClicked = (): void => {
 
             <user-name-alias :userNameAlias="true" />
             <base-wrapper
-              class=" amplify-flex amplify-field amplify-textfield amplify-passwordfield password-field"
+              class="
+                amplify-flex
+                amplify-field
+                amplify-textfield
+                amplify-passwordfield
+                password-field
+              "
               style="flex-direction: column"
             >
               <password-control
@@ -112,7 +126,7 @@ const onForgotPasswordClicked = (): void => {
             </base-wrapper>
           </base-field-set>
           <base-alert v-if="actorState.context.remoteError">
-            {{ actorState.context.remoteError }}
+            {{ translate(actorState.context.remoteError) }}
           </base-alert>
 
           <amplify-button
@@ -135,17 +149,19 @@ const onForgotPasswordClicked = (): void => {
 
     <base-footer>
       <slot name="footer">
-        <amplify-button
-          @click="onForgotPasswordClicked"
-          class="amplify-field-group__control"
-          data-fullwidth="true"
-          data-size="small"
-          data-variation="link"
-          style="font-weight: normal"
-          type="button"
-        >
-          {{ forgotYourPasswordLink }}
-        </amplify-button>
+        <div data-amplify-footer>
+          <amplify-button
+            @click="onForgotPasswordClicked"
+            class="amplify-field-group__control"
+            data-fullwidth="true"
+            data-size="small"
+            data-variation="link"
+            style="font-weight: normal"
+            type="button"
+          >
+            {{ forgotYourPasswordLink }}
+          </amplify-button>
+        </div>
       </slot>
     </base-footer>
   </slot>

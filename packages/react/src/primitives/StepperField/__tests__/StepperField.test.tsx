@@ -9,8 +9,7 @@ import {
 } from '../../Flex/__tests__/Flex.test';
 import { ComponentClassNames } from '../../shared/constants';
 import { SharedText } from '../../shared/i18n';
-import { AUTO_GENERATED_ID_PREFIX } from '../../shared/utils';
-
+import { AUTO_GENERATED_ID_PREFIX } from '../../utils/useStableId';
 describe('StepperField: ', () => {
   describe('Flex wrapper', () => {
     it('should render default and custom classname', async () => {
@@ -89,6 +88,14 @@ describe('StepperField: ', () => {
       render(<StepperField label={label} />);
       const stepperInput = await screen.findByLabelText(label);
       expect(stepperInput).toHaveClass(ComponentClassNames.StepperFieldInput);
+    });
+
+    it('should forward ref to DOM element', async () => {
+      const ref = React.createRef<HTMLInputElement>();
+      render(<StepperField label={label} ref={ref} />);
+
+      await screen.findByLabelText(label);
+      expect(ref.current.nodeName).toBe('INPUT');
     });
 
     it('should render labeled input when id is provided', async () => {

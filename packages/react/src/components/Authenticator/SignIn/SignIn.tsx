@@ -1,4 +1,4 @@
-import { translate } from '@aws-amplify/ui';
+import { translate, hasTranslation } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '..';
 import { Button, Flex, PasswordField, View } from '../../..';
@@ -77,7 +77,6 @@ export function SignIn() {
           </Button>
         </Flex>
       </form>
-
       <Footer />
     </View>
   );
@@ -87,15 +86,20 @@ SignIn.Header = (): JSX.Element => null;
 SignIn.Footer = () => {
   const { toResetPassword } = useAuthenticator();
 
+  // Support backwards compatibility for legacy key with trailing space
+  const forgotPasswordText = !hasTranslation('Forgot your password? ')
+    ? translate('Forgot your password?')
+    : translate('Forgot your password? ');
+
   return (
-    <View textAlign="center">
+    <View data-amplify-footer="">
       <Button
         fontWeight="normal"
         onClick={toResetPassword}
         size="small"
         variation="link"
       >
-        {translate('Forgot your password? ')}
+        {forgotPasswordText}
       </Button>
     </View>
   );

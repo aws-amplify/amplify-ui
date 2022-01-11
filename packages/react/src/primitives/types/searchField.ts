@@ -1,3 +1,4 @@
+import React from 'react';
 import { FieldGroupIconButtonProps } from './fieldGroupIcon';
 import { TextInputFieldProps } from './textField';
 
@@ -17,7 +18,16 @@ export interface SearchFieldProps extends TextInputFieldProps {
    * @default true
    */
   labelHidden?: boolean;
+
+  /**
+   * Provides ref access to search button DOM element
+   */
+  searchButtonRef?: React.Ref<HTMLButtonElement>;
 }
 
 export interface SearchFieldButtonProps
   extends Partial<FieldGroupIconButtonProps> {}
+
+export type UseSearchFieldProps = Partial<SearchFieldProps> & {
+  externalRef?: React.ForwardedRef<HTMLInputElement>;
+};

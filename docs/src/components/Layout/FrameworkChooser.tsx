@@ -38,7 +38,6 @@ export const FrameworkChooser = ({ platform }) => {
       value={platform}
       isExclusive
       size="small"
-      style={{ margin: '0 auto' }}
       onChange={(value: string) => {
         if (!value) return;
         chooseFramework(value);

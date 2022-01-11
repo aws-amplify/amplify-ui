@@ -1,24 +1,28 @@
+import * as React from 'react';
+
+import { ComponentClassNames } from '../shared/constants';
 import { FieldGroupIconButton } from '../FieldGroupIcon';
 import { IconSearch } from '../Icon';
-import { SharedText } from '../shared/i18n';
 import { Primitive, SearchFieldButtonProps } from '../types';
-import { ComponentClassNames } from '../shared/constants';
+import { SharedText } from '../shared/i18n';
 
 const ariaLabelText = SharedText.SearchField.ariaLabel.search;
 
-export const SearchFieldButton: Primitive<SearchFieldButtonProps, 'button'> = (
-  props
-) => {
-  return (
-    <FieldGroupIconButton
-      ariaLabel={ariaLabelText}
-      className={ComponentClassNames.SearchFieldSearch}
-      type="submit"
-      {...props}
-    >
-      <IconSearch size={props.size} />
-    </FieldGroupIconButton>
-  );
-};
+const SearchFieldButtonPrimitive: Primitive<SearchFieldButtonProps, 'button'> =
+  (props, ref) => {
+    return (
+      <FieldGroupIconButton
+        ariaLabel={ariaLabelText}
+        className={ComponentClassNames.SearchFieldSearch}
+        ref={ref}
+        type="submit"
+        {...props}
+      >
+        <IconSearch size={props.size} />
+      </FieldGroupIconButton>
+    );
+  };
+
+export const SearchFieldButton = React.forwardRef(SearchFieldButtonPrimitive);
 
 SearchFieldButton.displayName = 'SearchFieldButton';

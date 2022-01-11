@@ -193,6 +193,12 @@ watch(
     signOut.value = s;
   }
 );
+
+const hasTabs = computed(() => {
+  return (
+    actorState.value?.matches('signIn') || actorState.value?.matches('signUp')
+  );
+});
 </script>
 
 <template>
@@ -203,13 +209,12 @@ watch(
     v-if="!state?.matches('authenticated')"
   >
     <div data-amplify-container>
-      <div data-amplify-header>
-        <slot name="header"> </slot>
-      </div>
-      <div data-amplify-body>
-        <base-two-tabs
-          v-if="actorState?.matches('signIn') || actorState?.matches('signUp')"
-        >
+      <slot name="header"> </slot>
+      <div
+        data-amplify-router
+        :data-amplify-router-content="hasTabs ? undefined : ''"
+      >
+        <base-two-tabs v-if="hasTabs">
           <base-two-tab-item
             :active="actorState?.matches('signIn')"
             :id="44472"
@@ -223,54 +228,56 @@ watch(
             @click="send('SIGN_UP')"
           />
         </base-two-tabs>
-        <sign-in
-          v-if="actorState?.matches('signIn')"
-          @sign-in-submit="onSignInSubmitI"
-          ref="signInComponent"
-        >
-          <template #signInSlotI>
-            <slot name="sign-in"></slot>
-          </template>
-
-          <template
-            #form="{ info, onSignInSubmit, onForgotPasswordClicked, onInput }"
+        <div v-if="hasTabs" data-amplify-router-content>
+          <sign-in
+            v-if="actorState?.matches('signIn')"
+            @sign-in-submit="onSignInSubmitI"
+            ref="signInComponent"
           >
-            <slot
-              name="sign-in-form"
-              :info="info"
-              :onInput="onInput"
-              :onSignInSubmit="onSignInSubmit"
-              :onForgotPasswordClicked="onForgotPasswordClicked"
-            ></slot>
-          </template>
+            <template #signInSlotI>
+              <slot name="sign-in"></slot>
+            </template>
 
-          <template #header>
-            <slot name="sign-in-header"></slot>
-          </template>
+            <template
+              #form="{ info, onSignInSubmit, onForgotPasswordClicked, onInput }"
+            >
+              <slot
+                name="sign-in-form"
+                :info="info"
+                :onInput="onInput"
+                :onSignInSubmit="onSignInSubmit"
+                :onForgotPasswordClicked="onForgotPasswordClicked"
+              ></slot>
+            </template>
 
-          <template #footer>
-            <slot name="sign-in-footer"> </slot>
-          </template>
-        </sign-in>
-        <sign-up
-          v-if="actorState?.matches('signUp')"
-          @sign-up-submit="onSignUpSubmitI"
-          ref="signUpComponent"
-        >
-          <template #signUpSlotI>
-            <slot name="sign-up"></slot>
-          </template>
-          <template #header>
-            <slot name="sign-up-header"></slot>
-          </template>
-          <template #signup-fields="{ info }">
-            <slot name="sign-up-fields" :info="info"></slot>
-          </template>
+            <template #header>
+              <slot name="sign-in-header"></slot>
+            </template>
 
-          <template #footer>
-            <slot name="sign-up-footer"> </slot>
-          </template>
-        </sign-up>
+            <template #footer>
+              <slot name="sign-in-footer"> </slot>
+            </template>
+          </sign-in>
+          <sign-up
+            v-if="actorState?.matches('signUp')"
+            @sign-up-submit="onSignUpSubmitI"
+            ref="signUpComponent"
+          >
+            <template #signUpSlotI>
+              <slot name="sign-up"></slot>
+            </template>
+            <template #header>
+              <slot name="sign-up-header"></slot>
+            </template>
+            <template #signup-fields="{ info }">
+              <slot name="sign-up-fields" :info="info"></slot>
+            </template>
+
+            <template #footer>
+              <slot name="sign-up-footer"> </slot>
+            </template>
+          </sign-up>
+        </div>
 
         <confirm-sign-up
           v-if="actorState?.matches('confirmSignUp')"
@@ -444,12 +451,9 @@ watch(
           </template>
         </confirm-verify-user>
       </div>
-      <div data-amplify-footer>
-        <slot name="footer"></slot>
-      </div>
+      <slot name="footer"></slot>
     </div>
   </div>
-
   <slot
     v-if="state?.matches('authenticated')"
     :user="user"

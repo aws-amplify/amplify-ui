@@ -1,4 +1,4 @@
-import { CognitoUser } from 'amazon-cognito-identity-js';
+import { CognitoUser, CodeDeliveryDetails } from 'amazon-cognito-identity-js';
 import { Interpreter, State } from 'xstate';
 import { ValidationError } from './validator';
 
@@ -12,22 +12,36 @@ export interface AuthContext {
     socialProviders?: SocialProvider[];
   };
   user?: CognitoUserAmplify;
+  username?: string;
+  password?: string;
+  code?: string;
+  mfaType?: AuthChallengeNames.SMS_MFA | AuthChallengeNames.SOFTWARE_TOKEN_MFA;
+}
+
+export interface ServicesContext {
+  username?: string;
+  password?: string;
+  user?: string;
+  code?: string;
+  mfaType: AuthChallengeNames.SMS_MFA | AuthChallengeNames.SOFTWARE_TOKEN_MFA;
 }
 
 interface BaseFormContext {
   authAttributes?: Record<string, any>;
   challengeName?: string;
   formValues?: AuthFormData;
+  touched?: AuthFormData;
   intent?: string;
   remoteError?: string;
   user?: CognitoUserAmplify;
   validationError?: ValidationError;
+  codeDeliveryDetails?: CodeDeliveryDetails;
   country_code?: string;
 }
 
 export interface SignInContext extends BaseFormContext {
-  loginMechanisms: AuthContext['config']['loginMechanisms'];
-  socialProviders: AuthContext['config']['socialProviders'];
+  loginMechanisms: Required<AuthContext>['config']['loginMechanisms'];
+  socialProviders: Required<AuthContext>['config']['socialProviders'];
   attributeToVerify?: string;
   redirectIntent?: string;
   unverifiedAttributes?: Record<string, string>;
@@ -67,8 +81,8 @@ export type SignUpAttribute =
   | SignUpFieldsWithoutDefaults;
 
 export interface SignUpContext extends BaseFormContext {
-  loginMechanisms: AuthContext['config']['loginMechanisms'];
-  socialProviders: AuthContext['config']['socialProviders'];
+  loginMechanisms: Required<AuthContext>['config']['loginMechanisms'];
+  socialProviders: Required<AuthContext>['config']['socialProviders'];
   unverifiedAttributes?: Record<string, string>;
 }
 
@@ -108,6 +122,7 @@ export type InvokeActorEventTypes =
 
 export type AuthEventTypes =
   | 'CHANGE'
+  | 'BLUR'
   | 'FEDERATED_SIGN_IN'
   | 'RESEND'
   | 'RESET_PASSWORD'

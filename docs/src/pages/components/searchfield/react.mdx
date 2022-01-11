@@ -1,8 +1,10 @@
 import { Flex, SearchField } from '@aws-amplify/ui-react';
-import { Example } from '@/components/Example';
+
+import { Example, ExampleCode } from '@/components/Example';
 import { Fragment } from '@/components/Fragment';
 import { SearchFieldStyledPropsExample } from './examples';
 import { SearchFieldDemo } from './demo';
+import { RefExample } from './examples/refs';
 
 SearchField accepts query text for search. Users may clear the field by hitting the `Esc` key or by clicking the
 clear button. When users hit `Enter` key or click the search icon, the `onSubmit` event handler will be fired.
@@ -76,6 +78,25 @@ There are two variation styles available: default and `quiet`.
     <SearchField label="search" />
     <SearchField label="search" variation="quiet" />
   </Flex>
+</Example>
+
+### Forward refs
+
+<Fragment>{() => import('./../shared/forwardRefAlert.mdx')}</Fragment>
+
+The standard `ref` prop will forward to the `input` element, the `searchButtonRef` prop forwards to the search `button` element.
+
+The following is a contrived example demonstrating use of the ref props:
+
+<Example>
+  <RefExample />
+<ExampleCode>
+
+```tsx file=./examples/refs.tsx
+
+```
+
+</ExampleCode>
 </Example>
 
 ## CSS Styling

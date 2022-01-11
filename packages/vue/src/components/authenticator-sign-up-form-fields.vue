@@ -20,6 +20,7 @@ const {
 } = state;
 
 const { validationErrors } = toRefs(useAuthenticator());
+const props = useAuthenticator();
 
 const inputAttributes: ComputedRef<AuthInputAttributes> = computed(
   () => authInputAttributes
@@ -46,6 +47,11 @@ fieldNames = fieldNames.filter((fieldName) => {
   return hasDefaultField;
 });
 
+function onBlur(e: Event) {
+  const { name } = <HTMLInputElement>e.target;
+  props.updateBlur({ name });
+}
+
 // Only 1 is supported, so `['email', 'phone_number']` will only show `email`
 const loginMechanism = fieldNames.shift() as LoginMechanism;
 </script>
@@ -64,6 +70,7 @@ const loginMechanism = fieldNames.shift() as LoginMechanism;
       :label="passwordLabel"
       autocomplete="new-password"
       :ariainvalid="!!validationErrors.confirm_password"
+      @blur="onBlur"
     />
   </base-wrapper>
   <base-wrapper
@@ -78,6 +85,7 @@ const loginMechanism = fieldNames.shift() as LoginMechanism;
       :label="confirmPasswordLabel"
       autocomplete="new-password"
       :ariainvalid="!!validationErrors.confirm_password"
+      @blur="onBlur"
     />
   </base-wrapper>
   <p
@@ -86,7 +94,7 @@ const loginMechanism = fieldNames.shift() as LoginMechanism;
     class="amplify-text"
     v-if="!!validationErrors.confirm_password"
   >
-    {{ validationErrors.confirm_password }}
+    {{ translate(validationErrors.confirm_password) }}
   </p>
 
   <template v-for="(field, idx) in fieldNames" :key="idx">

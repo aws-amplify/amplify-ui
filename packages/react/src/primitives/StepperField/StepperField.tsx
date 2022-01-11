@@ -1,6 +1,7 @@
+import * as React from 'react';
 import classNames from 'classnames';
 
-import { useStepper } from './useStepper';
+import { ComponentClassNames } from '../shared/constants';
 import { FieldDescription, FieldErrorMessage } from '../Field';
 import { FieldGroup } from '../FieldGroup';
 import { FieldGroupIconButton } from '../FieldGroupIcon';
@@ -8,17 +9,20 @@ import { Flex } from '../Flex';
 import { IconAdd, IconRemove } from '../Icon';
 import { Input } from '../Input';
 import { Label } from '../Label';
-import { StepperFieldProps } from '../types/stepperField';
-import { ComponentClassNames } from '../shared/constants';
-import { SharedText } from '../shared/i18n';
-import { useStableId } from '../shared/utils';
 import { Primitive } from '../types/view';
+import { SharedText } from '../shared/i18n';
 import { splitPrimitiveProps } from '../shared/styleUtils';
+import { StepperFieldProps } from '../types/stepperField';
+import { useStableId } from '../utils/useStableId';
+import { useStepper } from './useStepper';
 
 export const DECREASE_ICON = 'decrease-icon';
 export const INCREASE_ICON = 'increase-icon';
 
-export const StepperField: Primitive<StepperFieldProps, 'input'> = (props) => {
+const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
+  props,
+  ref
+) => {
   const {
     className,
     descriptiveText,
@@ -34,6 +38,7 @@ export const StepperField: Primitive<StepperFieldProps, 'input'> = (props) => {
     labelHidden = false,
     onStepChange,
     size,
+    variation,
     testId,
     // this is only required in useStepper hook but deconstruct here to remove its existence in rest
     value: controlledValue,
@@ -66,6 +71,7 @@ export const StepperField: Primitive<StepperFieldProps, 'input'> = (props) => {
         className
       )}
       data-size={size}
+      data-variation={variation}
       testId={testId}
       {...flexContainerStyleProps}
     >
@@ -118,7 +124,9 @@ export const StepperField: Primitive<StepperFieldProps, 'input'> = (props) => {
           onBlur={handleOnBlur}
           onChange={handleOnChange}
           onWheel={handleOnWheel}
+          ref={ref}
           size={size}
+          variation={variation}
           type="number"
           value={inputValue}
           {...baseStyleProps}
@@ -129,5 +137,7 @@ export const StepperField: Primitive<StepperFieldProps, 'input'> = (props) => {
     </Flex>
   );
 };
+
+export const StepperField = React.forwardRef(StepperFieldPrimitive);
 
 StepperField.displayName = 'StepperField';

@@ -40,6 +40,7 @@ export type ResponsiveStyle<PropertyType> =
 export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
   alignSelf?: ResponsiveStyle<StyleToken<Property.AlignSelf>>;
   backgroundColor?: ResponsiveStyle<StyleToken<Property.BackgroundColor>>;
+  backgroundImage?: ResponsiveStyle<StyleToken<Property.BackgroundImage>>;
   border?: ResponsiveStyle<StyleToken<Property.Border>>;
   borderRadius?: ResponsiveStyle<StyleToken<Property.BorderRadius>>;
   bottom?: ResponsiveStyle<StyleToken<Property.Bottom>>;
@@ -71,6 +72,7 @@ export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
   transform?: ResponsiveStyle<StyleToken<Property.Transform>>;
   transformOrigin?: ResponsiveStyle<StyleToken<Property.TransformOrigin>>;
   width?: ResponsiveStyle<StyleToken<Property.Width>>;
+  whiteSpace?: ResponsiveStyle<StyleToken<Property.WhiteSpace>>;
 }
 
 export interface CSSLayoutStyleProps {
@@ -130,6 +132,7 @@ export const ComponentPropsToStylePropsMap: ComponentPropToStyleProp = {
   autoFlow: 'gridAutoFlow',
   autoRows: 'gridAutoRows',
   backgroundColor: 'backgroundColor',
+  backgroundImage: 'backgroundImage',
   basis: 'flexBasis',
   border: 'border',
   borderRadius: 'borderRadius',
@@ -185,6 +188,7 @@ export const ComponentPropsToStylePropsMap: ComponentPropToStyleProp = {
   transform: 'transform',
   transformOrigin: 'transformOrigin',
   width: 'width',
+  whiteSpace: 'whiteSpace',
   wrap: 'flexWrap',
 };
 

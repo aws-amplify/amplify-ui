@@ -1,0 +1,92 @@
+import { Alert, Tabs, TabItem } from '@aws-amplify/ui-react';
+
+## Troubleshooting
+
+### Webpack 5+
+
+Follow the instructions below to if you are using Webpack 5:
+
+<Alert variation="info">
+*Note:*
+Polyfill is only required for Webpack 5+. In this version Node.js global variable shims required by the `aws-amplify` package were removed, which results in the following error message:
+
+```
+Uncaught ReferenceError: process is not defined
+```
+
+Webpack 4 already includes this polyfill.
+
+</Alert>
+
+1. Add
+   [node-polyfill-webpack-plugin](https://www.npmjs.com/package/node-polyfill-webpack-plugin)
+   as dev dependency:
+
+<Tabs>
+<TabItem title="npm">
+
+```shell
+npm install node-polyfill-webpack-plugin -D
+```
+
+</TabItem>
+<TabItem title="yarn">
+
+```shell
+yarn add node-polyfill-webpack-plugin -D
+```
+
+</TabItem>
+</Tabs>
+
+2. Add the plugin to your `webpack.config.js` plugins list:\_
+
+```js
+  plugins: [
+    new NodePolyfillPlugin(), // Polyfill Node.js globals (e.g. global, process, etc)
+  ],
+```
+
+### Vite
+
+When working with a [Vite](https://vitejs.dev) project you must make a few modifications. Please follow the steps below.
+
+**1.** Add the following script tag to the `index.html` file at the bottom of the `<body>` tag.
+
+```html
+...
+  <script>
+    window.global = window;
+    window.process = {
+      env: { DEBUG: undefined },
+    };
+    var exports = {};
+  </script>
+</body>
+```
+
+**2.** Update the `vite.config.ts` and add in a resolve object inside the `defineConfig({})` as seen below.
+
+```js
+...
+export default defineConfig({
+  plugins: [react()],
+  resolve: {
+      alias: [
+      {
+        find: './runtimeConfig',
+        replacement: './runtimeConfig.browser',
+      },
+    ]
+  }
+})
+```
+
+**3.** Update the `tsconfig.json` file and add `skipLibCheck: true` under `compilerOptions`.
+
+```js
+...
+  "compilerOptions": {
+    "skipLibCheck": true,
+...
+```

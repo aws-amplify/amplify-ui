@@ -8,7 +8,7 @@ import {
   IconFeedback,
   useTheme,
 } from '@aws-amplify/ui-react';
-import { SecondaryNav } from './SecondaryNav';
+import { Sidebar } from './SecondaryNav';
 import { TableOfContents } from '../TableOfContents';
 import { Footer } from './Footer';
 
@@ -20,7 +20,7 @@ const PrimitiveAlert = () => {
       heading="Developer preview"
       margin={`${tokens.space.small} 0 0 0`}
     >
-      <Text>
+      <Text color="inherit">
         Amplify UI primitive components like this one are in developer preview
         and only available in React for now.
       </Text>
@@ -59,14 +59,16 @@ export default function Page({
   React.useLayoutEffect(() => {
     const updateHeaders = debounce(() => {
       setHeadings(
-        [...document.querySelectorAll('h2[id],h3[id]')].map(
-          (node: HTMLElement) => ({
-            id: node.id,
-            label: node.innerText,
-            level: node.nodeName,
-            top: node.offsetTop,
-          })
-        )
+        [
+          ...document
+            .querySelector('#__next')
+            .querySelectorAll('h2[id],h3[id]'),
+        ].map((node: HTMLElement) => ({
+          id: node.id,
+          label: node.innerText,
+          level: node.nodeName,
+          top: node.offsetTop,
+        }))
       );
     });
 
@@ -81,7 +83,7 @@ export default function Page({
   }, [children]);
   return (
     <div className="docs-main">
-      <SecondaryNav />
+      <Sidebar />
       <main className="docs-content">
         <section className="docs-content-body">
           <section className="docs-meta">
@@ -103,20 +105,6 @@ export default function Page({
       {hideToc ? null : (
         <TableOfContents title="Contents" headings={headings} />
       )}
-
-      <Alert
-        variation="warning"
-        isDismissible={true}
-        position="fixed"
-        bottom={`${tokens.space.large}`}
-        left={`${tokens.space.large}`}
-        right={`${tokens.space.large}`}
-        style={{ zIndex: '9999', boxShadow: `${tokens.shadows.medium}` }}
-      >
-        You're viewing documentation for the next release of Amplify UI. For the
-        latest stable release, visit:&nbsp;
-        <a href="https://docs.amplify.aws/ui">https://docs.amplify.aws/ui</a>.
-      </Alert>
     </div>
   );
 }

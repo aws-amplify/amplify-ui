@@ -1,102 +1,5 @@
-<template>
-  <slot v-bind="$attrs" name="confirmSetupTOTPI">
-    <base-wrapper v-bind="$attrs">
-      <base-form
-        data-amplify-authenticator-setup-totp
-        @input="onInput"
-        @submit.prevent="onSetupTOTPSubmit"
-      >
-        <base-field-set
-          class="amplify-flex"
-          style="flex-direction: column"
-          :disabled="actorState.matches('confirmSignIn.pending')"
-        >
-          <template v-if="qrCode.isLoading">
-            <p>Loading...</p>
-          </template>
-          <template v-else>
-            <base-wrapper class="amplify-flex" style="flex-direction: column">
-              <slot name="header">
-                <base-heading class="amplify-heading" :level="3">
-                  Setup TOTP
-                </base-heading>
-              </slot>
-
-              <base-wrapper class="amplify-flex" style="flex-direction: column">
-                <img
-                  class="amplify-image"
-                  data-amplify-qrcode
-                  :src="qrCode.qrCodeImageSource"
-                  alt="qr code"
-                  width="228"
-                  height="228"
-                />
-                <base-wrapper
-                  class="amplify-flex amplify-field amplify-textfield"
-                  style="flex-direction: column"
-                >
-                  <base-label
-                    class="sr-only amplify-label"
-                    for="amplify-field-45d1"
-                    >Code *</base-label
-                  >
-                  <base-wrapper class="amplify-flex">
-                    <base-input
-                      class="amplify-input amplify-field-group__control"
-                      id="amplify-field-45d1"
-                      aria-invalid="false"
-                      name="confirmation_code"
-                      :placeholder="codeText"
-                      autocomplete="one-time-code"
-                      required
-                      type="text"
-                    ></base-input>
-                  </base-wrapper>
-                </base-wrapper>
-              </base-wrapper>
-              <base-footer class="amplify-flex" style="flex-direction: column">
-                <base-alert v-if="actorState.context?.remoteError">
-                  {{ actorState.context.remoteError }}
-                </base-alert>
-                <amplify-button
-                  class="amplify-field-group__control"
-                  data-fullwidth="false"
-                  data-loading="false"
-                  data-variation="primary"
-                  type="submit"
-                  style="font-weight: normal"
-                  :disabled="actorState.matches('confirmSignIn.pending')"
-                >
-                  {{ confirmText }}
-                </amplify-button>
-                <amplify-button
-                  class="amplify-field-group__control"
-                  data-fullwidth="false"
-                  data-size="small"
-                  data-variation="link"
-                  style="font-weight: normal"
-                  type="button"
-                  @click.prevent="onBackToSignInClicked"
-                >
-                  {{ backSignInText }}</amplify-button
-                >
-                <slot
-                  name="footer"
-                  :onBackToSignInClicked="onBackToSignInClicked"
-                  :onSetupTOTPSubmit="onSetupTOTPSubmit"
-                >
-                </slot>
-              </base-footer>
-            </base-wrapper>
-          </template>
-        </base-field-set>
-      </base-form>
-    </base-wrapper>
-  </slot>
-</template>
-
 <script setup lang="ts">
-import { onMounted, reactive, computed, ComputedRef, useAttrs } from 'vue';
+import { onMounted, reactive, computed, ComputedRef, useAttrs, ref } from 'vue';
 import QRCode from 'qrcode';
 
 import { Auth, Logger } from 'aws-amplify';
@@ -116,6 +19,13 @@ let qrCode = reactive({
   qrCodeImageSource: '',
   isLoading: true,
 });
+let secretKey = ref('');
+let copyTextLabel = ref(translate('COPY'));
+
+function copyText() {
+  navigator.clipboard.writeText(secretKey.value);
+  copyTextLabel.value = translate('COPIED');
+}
 
 // lifecycle hooks
 
@@ -126,7 +36,7 @@ onMounted(async () => {
     return;
   }
   try {
-    const secretKey = await Auth.setupTOTP(user);
+    secretKey.value = await Auth.setupTOTP(user);
     const issuer = 'AWSCognito';
     const totpCode = `otpauth://totp/${issuer}:${user.username}?secret=${secretKey}&issuer=${issuer}`;
     qrCode.qrCodeImageSource = await QRCode.toDataURL(totpCode);
@@ -182,3 +92,118 @@ const onBackToSignInClicked = (): void => {
   }
 };
 </script>
+
+<template>
+  <slot v-bind="$attrs" name="confirmSetupTOTPI">
+    <base-wrapper v-bind="$attrs">
+      <base-form
+        data-amplify-authenticator-setup-totp
+        @input="onInput"
+        @submit.prevent="onSetupTOTPSubmit"
+      >
+        <base-field-set
+          class="amplify-flex"
+          style="flex-direction: column"
+          :disabled="actorState.matches('confirmSignIn.pending')"
+        >
+          <template v-if="qrCode.isLoading">
+            <p>Loading...</p>
+          </template>
+          <template v-else>
+            <base-wrapper class="amplify-flex" style="flex-direction: column">
+              <slot name="header">
+                <base-heading class="amplify-heading" :level="3">
+                  Setup TOTP
+                </base-heading>
+              </slot>
+
+              <base-wrapper class="amplify-flex" style="flex-direction: column">
+                <img
+                  class="amplify-image"
+                  data-amplify-qrcode
+                  :src="qrCode.qrCodeImageSource"
+                  alt="qr code"
+                  width="228"
+                  height="228"
+                />
+                <base-wrapper class="amplify-flex" data-amplify-copy>
+                  <div>{{ secretKey }}</div>
+                  <base-wrapper data-amplify-copy-svg @click="copyText">
+                    <div data-amplify-copy-tooltip>{{ copyTextLabel }}</div>
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M16 1H4C2.9 1 2 1.9 2 3V17H4V3H16V1ZM15 5H8C6.9 5 6.01 5.9 6.01 7L6 21C6 22.1 6.89 23 7.99 23H19C20.1 23 21 22.1 21 21V11L15 5ZM8 21V7H14V12H19V21H8Z"
+                        fill="black"
+                      />
+                    </svg>
+                  </base-wrapper>
+                </base-wrapper>
+                <base-wrapper
+                  class="amplify-flex amplify-field amplify-textfield"
+                  style="flex-direction: column"
+                >
+                  <base-label
+                    class="sr-only amplify-label"
+                    for="amplify-field-45d1"
+                    >Code *</base-label
+                  >
+                  <base-wrapper class="amplify-flex">
+                    <base-input
+                      class="amplify-input amplify-field-group__control"
+                      id="amplify-field-45d1"
+                      aria-invalid="false"
+                      name="confirmation_code"
+                      :placeholder="codeText"
+                      autocomplete="one-time-code"
+                      required
+                      type="text"
+                    ></base-input>
+                  </base-wrapper>
+                </base-wrapper>
+              </base-wrapper>
+              <base-footer class="amplify-flex" style="flex-direction: column">
+                <base-alert v-if="actorState.context?.remoteError">
+                  {{ translate(actorState.context.remoteError) }}
+                </base-alert>
+                <amplify-button
+                  class="amplify-field-group__control"
+                  data-fullwidth="false"
+                  data-loading="false"
+                  data-variation="primary"
+                  type="submit"
+                  style="font-weight: normal"
+                  :disabled="actorState.matches('confirmSignIn.pending')"
+                >
+                  {{ confirmText }}
+                </amplify-button>
+                <amplify-button
+                  class="amplify-field-group__control"
+                  data-fullwidth="false"
+                  data-size="small"
+                  data-variation="link"
+                  style="font-weight: normal"
+                  type="button"
+                  @click.prevent="onBackToSignInClicked"
+                >
+                  {{ backSignInText }}</amplify-button
+                >
+                <slot
+                  name="footer"
+                  :onBackToSignInClicked="onBackToSignInClicked"
+                  :onSetupTOTPSubmit="onSetupTOTPSubmit"
+                >
+                </slot>
+              </base-footer>
+            </base-wrapper>
+          </template>
+        </base-field-set>
+      </base-form>
+    </base-wrapper>
+  </slot>
+</template>

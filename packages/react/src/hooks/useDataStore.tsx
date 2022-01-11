@@ -10,38 +10,46 @@ import {
 
 /**
  * Perform a collection query against a DataStore model
+ * @internal
  */
 export const useDataStoreCollection = <M extends PersistentModel>({
   model,
   criteria,
   pagination,
 }: DataStoreCollectionProps<M>): DataStoreCollectionResult<M> => {
-  const [items, setItems] = useState<M[]>([]);
-  const [isLoading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<Error>();
+  const [result, setResult] = useState<DataStoreCollectionResult<M>>({
+    items: [],
+    isLoading: false,
+    error: undefined,
+  });
 
   const fetch = () => {
-    setLoading(true);
+    setResult({ isLoading: true, items: [] });
 
-    DataStore.query(model, criteria, pagination)
-      .then(setItems)
-      .catch(setError)
-      .finally(() => setLoading(false));
+    const subscription = DataStore.observeQuery(
+      model,
+      criteria,
+      pagination
+    ).subscribe(
+      (snapshot) => setResult({ items: snapshot.items, isLoading: false }),
+      (error) => setResult({ items: [], error, isLoading: false })
+    );
+
+    // Unsubscribe from query updates on unmount
+    if (subscription) {
+      return () => subscription.unsubscribe();
+    }
   };
 
   // Fetch on next render cycle
   useEffect(fetch, []);
 
-  return {
-    error,
-    fetch,
-    items,
-    isLoading,
-  };
+  return result;
 };
 
 /**
  * Perform a single record query against a DataStore model
+ * @internal
  */
 export const useDataStoreItem = <M extends PersistentModel>({
   model,
@@ -65,12 +73,15 @@ export const useDataStoreItem = <M extends PersistentModel>({
 
   return {
     error,
-    fetch,
     item,
     isLoading,
   };
 };
 
+/**
+ * Perform a query against a DataStore model
+ * @internal
+ */
 export function useDataStoreBinding<Model extends PersistentModel>(
   props: DataStoreBindingProps<Model, 'record'>
 ): DataStoreItemResult<Model>;

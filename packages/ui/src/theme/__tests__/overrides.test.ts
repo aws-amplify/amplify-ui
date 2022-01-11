@@ -55,6 +55,8 @@ describe('@aws-amplify/ui', () => {
     it('should match snapshot', () => {
       expect(themeWithOverrides.cssText).toMatchInlineSnapshot(`
         "[data-amplify-theme=\\"test-theme\\"] {
+        --amplify-components-alert-align-items: center;
+        --amplify-components-alert-justify-content: space-between;
         --amplify-components-alert-color: var(--amplify-colors-font-primary);
         --amplify-components-alert-background-color: var(--amplify-colors-background-tertiary);
         --amplify-components-alert-padding-block: var(--amplify-space-small);
@@ -93,8 +95,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-badge-large-font-size: var(--amplify-font-sizes-medium);
         --amplify-components-badge-large-padding-vertical: var(--amplify-space-small);
         --amplify-components-badge-large-padding-horizontal: var(--amplify-space-medium);
-        --amplify-components-button-font-weight: bold;
-        --amplify-components-button-border-radius: var(--amplify-components-fieldcontrol-border-radius);
+        --amplify-components-button-font-weight: var(--amplify-font-weights-bold);
         --amplify-components-button-transition-duration: var(--amplify-components-fieldcontrol-transition-duration);
         --amplify-components-button-font-size: var(--amplify-components-fieldcontrol-font-size);
         --amplify-components-button-line-height: var(--amplify-components-fieldcontrol-line-height);
@@ -102,18 +103,20 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-button-padding-block-end: var(--amplify-components-fieldcontrol-padding-block-end);
         --amplify-components-button-padding-inline-start: var(--amplify-components-fieldcontrol-padding-inline-start);
         --amplify-components-button-padding-inline-end: var(--amplify-components-fieldcontrol-padding-inline-end);
-        --amplify-components-button-border-color: var(--amplify-colors-brand-primary-20);
-        --amplify-components-button-border-width: var(--amplify-border-widths-small);
-        --amplify-components-button-border-style: solid;
-        --amplify-components-button-color: var(--amplify-colors-brand-primary-80);
+        --amplify-components-button-border-color: var(--amplify-components-fieldcontrol-border-color);
+        --amplify-components-button-border-width: var(--amplify-components-fieldcontrol-border-width);
+        --amplify-components-button-border-style: var(--amplify-components-fieldcontrol-border-style);
+        --amplify-components-button-border-radius: var(--amplify-components-fieldcontrol-border-radius);
+        --amplify-components-button-color: var(--amplify-colors-font-primary);
         --amplify-components-button-hover-color: var(--amplify-colors-font-focus);
         --amplify-components-button-hover-background-color: var(--amplify-colors-brand-primary-10);
         --amplify-components-button-hover-border-color: var(--amplify-colors-brand-primary-60);
         --amplify-components-button-focus-color: var(--amplify-colors-font-focus);
+        --amplify-components-button-focus-background-color: var(--amplify-colors-brand-primary-10);
         --amplify-components-button-focus-border-color: var(--amplify-colors-border-focus);
         --amplify-components-button-focus-box-shadow: var(--amplify-components-fieldcontrol-focus-box-shadow);
-        --amplify-components-button-active-color: var(--amplify-colors-font-inverse);
-        --amplify-components-button-active-background-color: var(--amplify-colors-brand-primary-100);
+        --amplify-components-button-active-color: var(--amplify-colors-font-active);
+        --amplify-components-button-active-background-color: var(--amplify-colors-brand-primary-20);
         --amplify-components-button-active-border-color: var(--amplify-colors-brand-primary-100);
         --amplify-components-button-loading-color: var(--amplify-colors-font-tertiary);
         --amplify-components-button-loading-background-color: transparent;
@@ -121,34 +124,57 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-button-disabled-color: var(--amplify-colors-font-disabled);
         --amplify-components-button-disabled-background-color: transparent;
         --amplify-components-button-disabled-border-color: var(--amplify-colors-border-tertiary);
-        --amplify-components-button-primary-border-width: 0;
+        --amplify-components-button-primary-border-color: transparent;
+        --amplify-components-button-primary-border-width: var(--amplify-border-widths-small);
+        --amplify-components-button-primary-border-style: solid;
         --amplify-components-button-primary-background-color: var(--amplify-colors-brand-primary-80);
         --amplify-components-button-primary-color: var(--amplify-colors-font-inverse);
-        --amplify-components-button-primary-disabled-background-color: var(--amplify-colors-background-tertiary);
-        --amplify-components-button-primary-disabled-color: var(--amplify-colors-font-tertiary);
+        --amplify-components-button-primary-disabled-border-color: transparent;
+        --amplify-components-button-primary-disabled-background-color: var(--amplify-colors-background-disabled);
+        --amplify-components-button-primary-disabled-color: var(--amplify-colors-font-disabled);
+        --amplify-components-button-primary-loading-border-color: transparent;
         --amplify-components-button-primary-loading-background-color: var(--amplify-colors-background-tertiary);
-        --amplify-components-button-primary-loading-color: var(--amplify-colors-font-tertiary);
+        --amplify-components-button-primary-loading-color: var(--amplify-colors-font-inverse);
+        --amplify-components-button-primary-hover-border-color: transparent;
         --amplify-components-button-primary-hover-background-color: var(--amplify-colors-brand-primary-90);
+        --amplify-components-button-primary-hover-color: var(--amplify-colors-font-inverse);
+        --amplify-components-button-primary-focus-border-color: transparent;
         --amplify-components-button-primary-focus-background-color: var(--amplify-colors-brand-primary-90);
+        --amplify-components-button-primary-focus-color: var(--amplify-colors-font-inverse);
+        --amplify-components-button-primary-focus-box-shadow: var(--amplify-components-fieldcontrol-focus-box-shadow);
+        --amplify-components-button-primary-active-border-color: transparent;
         --amplify-components-button-primary-active-background-color: var(--amplify-colors-brand-primary-100);
+        --amplify-components-button-primary-active-color: var(--amplify-colors-font-inverse);
         --amplify-components-button-menu-border-width: 0;
-        --amplify-components-button-menu-background-color: none;
+        --amplify-components-button-menu-background-color: transparent;
         --amplify-components-button-menu-justify-content: start;
-        --amplify-components-button-menu-hover-color: var(--amplify-colors-white);
+        --amplify-components-button-menu-hover-color: var(--amplify-colors-font-inverse);
         --amplify-components-button-menu-hover-background-color: var(--amplify-colors-brand-primary-80);
-        --amplify-components-button-menu-focus-color: var(--amplify-colors-white);
+        --amplify-components-button-menu-focus-color: var(--amplify-colors-font-inverse);
         --amplify-components-button-menu-focus-background-color: var(--amplify-colors-brand-primary-80);
-        --amplify-components-button-menu-active-color: var(--amplify-colors-white);
+        --amplify-components-button-menu-active-color: var(--amplify-colors-font-inverse);
         --amplify-components-button-menu-active-background-color: var(--amplify-colors-brand-primary-90);
         --amplify-components-button-menu-disabled-color: var(--amplify-colors-font-disabled);
         --amplify-components-button-link-border-width: 0;
+        --amplify-components-button-link-border-color: transparent;
         --amplify-components-button-link-background-color: transparent;
         --amplify-components-button-link-color: var(--amplify-colors-font-interactive);
+        --amplify-components-button-link-hover-border-color: transparent;
+        --amplify-components-button-link-hover-background-color: var(--amplify-colors-brand-primary-10);
         --amplify-components-button-link-hover-color: var(--amplify-colors-font-hover);
+        --amplify-components-button-link-focus-border-color: transparent;
+        --amplify-components-button-link-focus-background-color: var(--amplify-colors-brand-primary-10);
         --amplify-components-button-link-focus-color: var(--amplify-colors-font-focus);
+        --amplify-components-button-link-focus-box-shadow: var(--amplify-components-fieldcontrol-focus-box-shadow);
+        --amplify-components-button-link-active-border-color: transparent;
+        --amplify-components-button-link-active-background-color: var(--amplify-colors-brand-primary-20);
         --amplify-components-button-link-active-color: var(--amplify-colors-font-active);
+        --amplify-components-button-link-disabled-border-color: transparent;
+        --amplify-components-button-link-disabled-background-color: transparent;
         --amplify-components-button-link-disabled-color: var(--amplify-colors-font-disabled);
-        --amplify-components-button-link-loading-color: var(--amplify-colors-font-tertiary);
+        --amplify-components-button-link-loading-border-color: transparent;
+        --amplify-components-button-link-loading-background-color: transparent;
+        --amplify-components-button-link-loading-color: var(--amplify-colors-font-disabled);
         --amplify-components-button-small-font-size: var(--amplify-components-fieldcontrol-small-font-size);
         --amplify-components-button-small-padding-block-start: var(--amplify-components-fieldcontrol-small-padding-block-start);
         --amplify-components-button-small-padding-block-end: var(--amplify-components-fieldcontrol-small-padding-block-end);
@@ -215,6 +241,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-checkboxfield-align-content: center;
         --amplify-components-checkboxfield-flex-direction: column;
         --amplify-components-checkboxfield-justify-content: center;
+        --amplify-components-countrycodeselect-height: 100%;
         --amplify-components-divider-border-style: solid;
         --amplify-components-divider-border-color: var(--amplify-colors-border-primary);
         --amplify-components-divider-border-width: var(--amplify-border-widths-medium);
@@ -432,25 +459,19 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-radio-button-outline-style: solid;
         --amplify-components-radio-button-outline-width: var(--amplify-outline-widths-medium);
         --amplify-components-radio-button-outline-offset: var(--amplify-outline-offsets-medium);
-        --amplify-components-radio-button-before-content: \\"\\";
-        --amplify-components-radio-button-before-display: inline-block;
-        --amplify-components-radio-button-before-width: 50%;
-        --amplify-components-radio-button-before-height: 50%;
-        --amplify-components-radio-button-before-border-radius: 50%;
-        --amplify-components-radio-button-before-background-color: currentColor;
-        --amplify-components-radio-button-small-width: var(--amplify-font-sizes-xs);
-        --amplify-components-radio-button-small-height: var(--amplify-font-sizes-xs);
+        --amplify-components-radio-button-padding: var(--amplify-border-widths-medium);
+        --amplify-components-radio-button-small-width: var(--amplify-font-sizes-small);
+        --amplify-components-radio-button-small-height: var(--amplify-font-sizes-small);
         --amplify-components-radio-button-large-width: var(--amplify-font-sizes-large);
         --amplify-components-radio-button-large-height: var(--amplify-font-sizes-large);
-        --amplify-components-radio-button-checked-color: var(--amplify-colors-red-60);
+        --amplify-components-radio-button-checked-color: var(--amplify-colors-brand-primary-80);
         --amplify-components-radio-button-checked-disabled-color: var(--amplify-colors-background-disabled);
         --amplify-components-radio-button-focus-border-color: var(--amplify-colors-border-focus);
         --amplify-components-radio-button-focus-box-shadow: var(--amplify-components-fieldcontrol-focus-box-shadow);
         --amplify-components-radio-button-error-border-color: var(--amplify-colors-border-error);
         --amplify-components-radio-button-error-focus-box-shadow: var(--amplify-components-fieldcontrol-error-focus-box-shadow);
         --amplify-components-radio-button-disabled-border-color: var(--amplify-colors-border-disabled);
-        --amplify-components-radio-button-disabled-background-color: var(--amplify-colors-white);
-        --amplify-components-radio-button-disabled-color: var(--amplify-colors-white);
+        --amplify-components-radio-button-disabled-background-color: var(--amplify-colors-background-primary);
         --amplify-components-radio-label-disabled-color: var(--amplify-colors-font-disabled);
         --amplify-components-rating-large-size: var(--amplify-font-sizes-xxxl);
         --amplify-components-rating-default-size: var(--amplify-font-sizes-xl);
@@ -458,52 +479,66 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-rating-filled-color: var(--amplify-colors-brand-secondary-80);
         --amplify-components-rating-empty-color: var(--amplify-colors-background-tertiary);
         --amplify-components-select-padding-inline-end: var(--amplify-space-xxl);
+        --amplify-components-select-wrapper-flex: 1;
         --amplify-components-select-wrapper-display: block;
         --amplify-components-select-wrapper-position: relative;
         --amplify-components-select-wrapper-cursor: pointer;
+        --amplify-components-select-icon-wrapper-align-items: center;
         --amplify-components-select-icon-wrapper-position: absolute;
-        --amplify-components-select-icon-wrapper-height: 50%;
-        --amplify-components-select-icon-wrapper-top: 25%;
+        --amplify-components-select-icon-wrapper-top: 50%;
         --amplify-components-select-icon-wrapper-right: var(--amplify-space-medium);
+        --amplify-components-select-icon-wrapper-transform: translateY(-50%);
         --amplify-components-select-icon-wrapper-pointer-events: none;
+        --amplify-components-select-option-background-color: var(--amplify-colors-background-primary);
         --amplify-components-select-white-space: nowrap;
         --amplify-components-select-min-width: 6.5rem;
         --amplify-components-select-small-min-width: 5.5rem;
         --amplify-components-select-large-min-width: 7.5rem;
-        --amplify-components-sliderfield-group-gap: var(--amplify-space-small);
-        --amplify-components-sliderfield-root-horizontal-height: 2rem;
-        --amplify-components-sliderfield-root-vertical-width: 2rem;
+        --amplify-components-selectfield-flex-direction: column;
+        --amplify-components-sliderfield-padding-block: var(--amplify-space-xs);
         --amplify-components-sliderfield-track-background-color: var(--amplify-colors-background-tertiary);
         --amplify-components-sliderfield-track-border-radius: 9999px;
-        --amplify-components-sliderfield-track-horizontal-height: 0.375rem;
-        --amplify-components-sliderfield-track-horizontal-min-width: 10rem;
-        --amplify-components-sliderfield-track-vertical-width: 0.375rem;
-        --amplify-components-sliderfield-track-vertical-min-height: 10rem;
+        --amplify-components-sliderfield-track-height: 0.375rem;
+        --amplify-components-sliderfield-track-min-width: 10rem;
         --amplify-components-sliderfield-range-background-color: var(--amplify-colors-brand-primary-80);
+        --amplify-components-sliderfield-range-border-radius: 9999px;
+        --amplify-components-sliderfield-range-disabled-background-color: var(--amplify-colors-background-disabled);
         --amplify-components-sliderfield-thumb-width: 1.25rem;
         --amplify-components-sliderfield-thumb-height: 1.25rem;
-        --amplify-components-sliderfield-thumb-background-color: var(--amplify-colors-white);
-        --amplify-components-sliderfield-thumb-box-shadow: 0 2px 10px  var(--amplify-colors-black);
+        --amplify-components-sliderfield-thumb-background-color: var(--amplify-colors-background-primary);
+        --amplify-components-sliderfield-thumb-box-shadow: var(--amplify-shadows-medium);
         --amplify-components-sliderfield-thumb-border-radius: 50%;
-        --amplify-components-sliderfield-thumb-hover-background-color: var(--amplify-colors-background-secondary);
+        --amplify-components-sliderfield-thumb-border-width: var(--amplify-border-widths-small);
+        --amplify-components-sliderfield-thumb-border-color: var(--amplify-colors-border-primary);
+        --amplify-components-sliderfield-thumb-border-style: solid;
+        --amplify-components-sliderfield-thumb-disabled-background-color: var(--amplify-colors-background-disabled);
+        --amplify-components-sliderfield-thumb-disabled-border-color: transparent;
+        --amplify-components-sliderfield-thumb-disabled-box-shadow: none;
+        --amplify-components-sliderfield-thumb-hover-background-color: var(--amplify-colors-background-primary);
+        --amplify-components-sliderfield-thumb-hover-border-color: var(--amplify-colors-border-focus);
         --amplify-components-sliderfield-thumb-focus-box-shadow: 0 0 0 3px var(--amplify-colors-border-focus);
+        --amplify-components-sliderfield-small-track-height: 0.25rem;
+        --amplify-components-sliderfield-small-thumb-width: 1rem;
+        --amplify-components-sliderfield-small-thumb-height: 1rem;
+        --amplify-components-sliderfield-large-track-height: 0.625rem;
+        --amplify-components-sliderfield-large-thumb-width: 1.5rem;
+        --amplify-components-sliderfield-large-thumb-height: 1.5rem;
         --amplify-components-stepperfield-flex-direction: column;
-        --amplify-components-stepperfield-input-border-color: var(--amplify-colors-brand-primary-20);
         --amplify-components-stepperfield-input-text-align: center;
-        --amplify-components-switchfield-disabled-opacity: var(--amplify-opacities-30);
+        --amplify-components-switchfield-disabled-opacity: var(--amplify-opacities-60);
         --amplify-components-switchfield-focused-shadow: var(--amplify-shadows-small);
         --amplify-components-switchfield-label-padding: var(--amplify-space-xs);
         --amplify-components-switchfield-large-font-size: var(--amplify-font-sizes-large);
         --amplify-components-switchfield-small-font-size: var(--amplify-font-sizes-small);
-        --amplify-components-switchfield-thumb-background: var(--amplify-colors-white);
-        --amplify-components-switchfield-thumb-border-color: var(--amplify-colors-neutral-20);
+        --amplify-components-switchfield-thumb-background-color: var(--amplify-colors-background-primary);
+        --amplify-components-switchfield-thumb-border-color: var(--amplify-colors-border-tertiary);
         --amplify-components-switchfield-thumb-border-radius: var(--amplify-radii-xxxl);
         --amplify-components-switchfield-thumb-checked-transform: var(--amplify-transforms-slide-x-medium);
         --amplify-components-switchfield-thumb-transition-duration: var(--amplify-time-medium);
         --amplify-components-switchfield-thumb-width: var(--amplify-space-relative-medium);
         --amplify-components-switchfield-track-background-color: var(--amplify-colors-background-tertiary);
         --amplify-components-switchfield-track-border-radius: var(--amplify-radii-xxxl);
-        --amplify-components-switchfield-track-checked-background-color: var(--amplify-colors-brand-primary-600);
+        --amplify-components-switchfield-track-checked-background-color: var(--amplify-colors-brand-primary-60);
         --amplify-components-switchfield-track-height: var(--amplify-space-relative-medium);
         --amplify-components-switchfield-track-padding: var(--amplify-outline-widths-medium);
         --amplify-components-switchfield-track-transition-duration: var(--amplify-time-short);
@@ -559,6 +594,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-tabs-border-color: var(--amplify-colors-border-secondary);
         --amplify-components-tabs-border-style: solid;
         --amplify-components-tabs-border-width: var(--amplify-border-widths-medium);
+        --amplify-components-tabs-gap: 0;
         --amplify-components-tabs-item-background-color: transparent;
         --amplify-components-tabs-item-border-color: var(--amplify-colors-border-secondary);
         --amplify-components-tabs-item-border-style: solid;
@@ -651,13 +687,13 @@ describe('@aws-amplify/ui', () => {
         --amplify-colors-yellow-80: hsl(60, 95%, 30%);
         --amplify-colors-yellow-90: hsl(60, 100%, 20%);
         --amplify-colors-yellow-100: hsl(60, 100%, 15%);
-        --amplify-colors-green-10: hsl(130, 75%, 95%);
-        --amplify-colors-green-20: hsl(130, 75%, 85%);
-        --amplify-colors-green-40: hsl(130, 75%, 75%);
-        --amplify-colors-green-60: hsl(130, 50%, 50%);
-        --amplify-colors-green-80: hsl(130, 95%, 30%);
-        --amplify-colors-green-90: hsl(130, 100%, 20%);
-        --amplify-colors-green-100: hsl(130, 100%, 15%);
+        --amplify-colors-green-10: hsl(130, 60%, 95%);
+        --amplify-colors-green-20: hsl(130, 60%, 90%);
+        --amplify-colors-green-40: hsl(130, 44%, 63%);
+        --amplify-colors-green-60: hsl(130, 43%, 46%);
+        --amplify-colors-green-80: hsl(130, 33%, 37%);
+        --amplify-colors-green-90: hsl(130, 27%, 29%);
+        --amplify-colors-green-100: hsl(130, 22%, 23%);
         --amplify-colors-teal-10: hsl(190, 75%, 95%);
         --amplify-colors-teal-20: hsl(190, 75%, 85%);
         --amplify-colors-teal-40: hsl(190, 70%, 70%);
@@ -686,9 +722,9 @@ describe('@aws-amplify/ui', () => {
         --amplify-colors-pink-80: hsl(340, 95%, 30%);
         --amplify-colors-pink-90: hsl(340, 100%, 20%);
         --amplify-colors-pink-100: hsl(340, 100%, 15%);
-        --amplify-colors-neutral-10: hsl(210, 5%, 95%);
-        --amplify-colors-neutral-20: hsl(210, 5%, 90%);
-        --amplify-colors-neutral-40: hsl(210, 5%, 80%);
+        --amplify-colors-neutral-10: hsl(210, 5%, 98%);
+        --amplify-colors-neutral-20: hsl(210, 5%, 94%);
+        --amplify-colors-neutral-40: hsl(210, 5%, 87%);
         --amplify-colors-neutral-60: hsl(210, 6%, 70%);
         --amplify-colors-neutral-80: hsl(210, 10%, 40%);
         --amplify-colors-neutral-90: hsl(210, 25%, 25%);
@@ -708,18 +744,18 @@ describe('@aws-amplify/ui', () => {
         --amplify-colors-brand-secondary-90: var(--amplify-colors-purple-90);
         --amplify-colors-brand-secondary-100: var(--amplify-colors-purple-100);
         --amplify-colors-font-primary: var(--amplify-colors-neutral-100);
-        --amplify-colors-font-secondary: var(--amplify-colors-neutral-80);
-        --amplify-colors-font-tertiary: var(--amplify-colors-neutral-60);
+        --amplify-colors-font-secondary: var(--amplify-colors-neutral-90);
+        --amplify-colors-font-tertiary: var(--amplify-colors-neutral-80);
         --amplify-colors-font-disabled: var(--amplify-colors-font-tertiary);
         --amplify-colors-font-inverse: var(--amplify-colors-white);
         --amplify-colors-font-interactive: var(--amplify-colors-brand-primary-80);
         --amplify-colors-font-hover: var(--amplify-colors-brand-primary-90);
         --amplify-colors-font-focus: var(--amplify-colors-brand-primary-100);
         --amplify-colors-font-active: var(--amplify-colors-brand-primary-100);
-        --amplify-colors-font-info: var(--amplify-colors-blue-80);
-        --amplify-colors-font-warning: var(--amplify-colors-orange-80);
-        --amplify-colors-font-error: var(--amplify-colors-red-80);
-        --amplify-colors-font-success: var(--amplify-colors-green-80);
+        --amplify-colors-font-info: var(--amplify-colors-blue-90);
+        --amplify-colors-font-warning: var(--amplify-colors-orange-90);
+        --amplify-colors-font-error: var(--amplify-colors-red-90);
+        --amplify-colors-font-success: var(--amplify-colors-green-90);
         --amplify-colors-background-primary: var(--amplify-colors-white);
         --amplify-colors-background-secondary: var(--amplify-colors-neutral-10);
         --amplify-colors-background-tertiary: var(--amplify-colors-neutral-20);
@@ -749,7 +785,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-colors-black: hsl(0, 0%, 0%);
         --amplify-colors-white: hsl(0, 0%, 100%);
         --amplify-colors-transparent: transparent;
-        --amplify-fonts-default-variable: 'InterVariable', -apple-system, BlinkMacSystemFont,
+        --amplify-fonts-default-variable: 'InterVariable', 'Inter var', 'Inter', -apple-system, BlinkMacSystemFont,
                 'Helvetica Neue', 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans',
                 sans-serif;
         --amplify-fonts-default-static: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue',
@@ -834,19 +870,23 @@ describe('@aws-amplify/ui', () => {
             --amplify-colors-background-primary: #000;
           }
         }
-        @media(min-width: 30em) {
+
+        @media (min-width: 480px) {
           [data-amplify-theme=\\"test-theme\\"] {
             --amplify-space-medium: 0.5rem;
           }
         }
-        @media(min-width: 62em) {
+
+        @media (min-width: 992px) {
           [data-amplify-theme=\\"test-theme\\"] {
             --amplify-space-medium: 2.5rem;
           }
         }
+
         .disco-theme {
         --amplify-colors-background-primary: pink;
-        }"
+        }
+        "
       `);
     });
   });

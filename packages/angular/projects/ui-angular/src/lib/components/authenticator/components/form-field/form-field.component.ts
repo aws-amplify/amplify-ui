@@ -62,7 +62,13 @@ export class FormFieldComponent implements OnInit {
       this.authenticator.authState
     );
     const { validationError } = formContext;
-    return validationError[this.name];
+    return translate(validationError[this.name]);
+  }
+
+  public onBlur($event: Event) {
+    let { name } = <HTMLInputElement>$event.target;
+
+    this.authenticator.updateBlur({ name });
   }
 
   inferLabel(): string {

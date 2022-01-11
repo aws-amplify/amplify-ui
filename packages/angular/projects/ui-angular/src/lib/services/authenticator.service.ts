@@ -13,6 +13,7 @@ import {
 } from '@aws-amplify/ui';
 import { Event, interpret, Subscription } from 'xstate';
 import { AuthSubscriptionCallback } from '../common';
+import { translate } from '@aws-amplify/ui';
 
 const logger = new Logger('state-machine');
 
@@ -66,7 +67,7 @@ export class AuthenticatorService implements OnDestroy {
    */
 
   public get error() {
-    return this._facade?.error;
+    return translate(this._facade?.error);
   }
 
   public get hasValidationErrors() {
@@ -89,12 +90,20 @@ export class AuthenticatorService implements OnDestroy {
     return this._facade?.validationErrors;
   }
 
+  public get codeDeliveryDetails() {
+    return this._facade?.codeDeliveryDetails;
+  }
+
   /**
    * Service facades
    */
 
   public get updateForm() {
     return this._sendEventAliases.updateForm;
+  }
+
+  public get updateBlur() {
+    return this._sendEventAliases.updateBlur;
   }
 
   public get resendCode() {

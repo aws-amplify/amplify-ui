@@ -32,11 +32,6 @@ const usePalette = (str) => {
 export const theme: Theme = {
   name: 'amplify-docs',
   tokens: {
-    colors: {
-      border: {
-        primary: { value: '{colors.neutral.100.value}' },
-      },
-    },
     components: {
       heading: {
         1: {
@@ -67,20 +62,10 @@ export const theme: Theme = {
           },
         },
       },
-      button: {
-        borderColor: { value: '{colors.border.primary.value}' },
-        color: { value: '{colors.font.primary.value}' },
-        primary: {
-          borderWidth: { value: '{borderWidths.small.value}' },
-          borderColor: { value: 'transparent' },
-        },
-      },
       togglebutton: {
         borderColor: { value: '{colors.border.primary.value}' },
-        color: { value: '{colors.font.tertiary.value}' },
         pressed: {
           color: { value: '{colors.font.primary.value}' },
-          backgroundColor: { value: '{colors.background.secondary.value}' },
         },
       },
       fieldcontrol: {
@@ -129,12 +114,6 @@ export const theme: Theme = {
     {
       selector: '.classic [data-amplify-theme="amplify-docs"]',
       tokens: {
-        fonts: {
-          default: {
-            variable: { value: `'Open Sans'` },
-            static: { value: `'Open Sans'` },
-          },
-        },
         colors: {
           brand: {
             primary: usePalette('blue'),
@@ -156,12 +135,6 @@ export const theme: Theme = {
     {
       selector: '.terminal [data-amplify-theme="amplify-docs"]',
       tokens: {
-        fonts: {
-          default: {
-            variable: { value: "'Work Sans'" },
-            static: { value: "'Work Sans'" },
-          },
-        },
         colors: {
           green: {
             10: { value: '#C7EFCA' },

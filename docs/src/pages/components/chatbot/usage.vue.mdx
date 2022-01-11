@@ -1,6 +1,63 @@
-_App.vue_
+import { Tabs, TabItem } from '@aws-amplify/ui-react';
 
 To use the chatbot, make sure to install the `@aws-amplify/ui-components` package.
+
+**main.js**
+
+<Tabs>
+<TabItem title="Vue 3">
+
+```js
+import { createApp } from 'vue';
+import App from './App.vue';
+import {
+  applyPolyfills,
+  defineCustomElements,
+} from '@aws-amplify/ui-components/loader';
+
+import Amplify from 'aws-amplify';
+import awsconfig from './aws-exports';
+Amplify.configure(awsconfig);
+
+applyPolyfills().then(() => {
+  defineCustomElements(window);
+});
+
+const app = createApp(App);
+app.config.isCustomElement = (tag) => tag.startsWith('amplify-');
+app.mount('#app');
+```
+
+</TabItem>
+<TabItem title="Vue 2">
+
+```js
+import Vue from 'vue';
+import App from './App.vue';
+import {
+  applyPolyfills,
+  defineCustomElements,
+} from '@aws-amplify/ui-components/loader';
+
+import Amplify from 'aws-amplify';
+import awsconfig from './aws-exports';
+
+Amplify.configure(awsconfig);
+
+applyPolyfills().then(() => {
+  defineCustomElements(window);
+});
+
+Vue.config.ignoredElements = [/amplify-\w*/];
+
+new Vue({
+  render: (h) => h(App),
+}).$mount('#app');
+```
+
+  </TabItem>
+</Tabs>
+**App.vue**
 
 ```html
 <template>

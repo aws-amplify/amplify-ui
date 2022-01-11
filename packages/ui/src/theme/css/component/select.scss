@@ -1,14 +1,16 @@
 .amplify-select__wrapper {
+  flex: var(--amplify-components-select-wrapper-flex);
   display: var(--amplify-components-select-wrapper-display);
   position: var(--amplify-components-select-wrapper-position);
   cursor: var(--amplify-components-select-wrapper-cursor);
 }
 
 .amplify-select__icon-wrapper {
+  align-items: var(--amplify-components-select-icon-wrapper-align-items);
   position: var(--amplify-components-select-icon-wrapper-position);
-  height: var(--amplify-components-select-icon-wrapper-height);
   top: var(--amplify-components-select-icon-wrapper-top);
   right: var(--amplify-components-select-icon-wrapper-right);
+  transform: var(--amplify-components-select-icon-wrapper-transform);
   pointer-events: var(--amplify-components-select-icon-wrapper-pointer-events);
 }
 
@@ -18,6 +20,15 @@
   padding-inline-end: var(--amplify-components-select-padding-inline-end);
   min-width: var(--amplify-components-select-min-width);
   white-space: var(--amplify-components-select-white-space);
+
+  // for Firefox only, to fix background color in darkmode
+  @-moz-document url-prefix() {
+    option {
+      background-color: var(
+        --amplify-components-select-option-background-color
+      );
+    }
+  }
 
   &[data-size='small'] {
     min-width: var(--amplify-components-select-small-min-width);

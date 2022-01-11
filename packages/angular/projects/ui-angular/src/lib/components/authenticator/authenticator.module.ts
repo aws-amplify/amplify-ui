@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BrowserModule } from '@angular/platform-browser';
 
 /**
  * Note: Angular components and directives inside module files has to be imported directly.
@@ -67,7 +66,7 @@ import { AmplifySlotDirective } from '../../utilities/amplify-slot/amplify-slot.
     UserNameAliasComponent,
     VerifyUserComponent,
   ],
-  imports: [CommonModule, BrowserModule],
+  imports: [CommonModule],
   exports: [
     AmplifySlotDirective,
     AuthenticatorComponent,

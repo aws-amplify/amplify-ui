@@ -9,7 +9,7 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    environment: ci
+    environment: deployment
     # We only publish if the previous workflow run (Tests) was successful
     # and the previous workflow was called from main branch.
     #
@@ -20,17 +20,22 @@ jobs:
     # https://github.community/t/workflow-run-not-working-as-expected/139342
     if: |
       github.event.workflow_run.conclusion == 'success' &&
-      github.event.workflow_run.head_branch == 'main'
+      (
+        github.event.workflow_run.head_branch == 'main' ||
+        github.event.workflow_run.head_branch == 'ui-svelte/main'
+      )
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
+        with: 
+          ref: ${{ github.event.workflow_run.head_branch }}
       - name: Setup Node.js LTS
         uses: actions/setup-node@v2
         with:
           node-version: lts/*
           cache: 'yarn'
-      - name: Install packages
-        run: yarn --frozen-lockfile
+      - name: Install and build packages
+        run: yarn --frozen-lockfile --prefer-offline && yarn build
       - name: Add changeset that bumps all public packages
         # There needs to be a changeset for @aws-amplify/ui[-framework] to publish.
         run: cp .github/changeset-presets/bump-versions.md .changeset

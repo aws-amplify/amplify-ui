@@ -29,11 +29,6 @@ to your application with minimal boilerplate.
 
 <Example>
   <Authenticator />
-
-  <p className="text-sm text-center mt-6 text-gray-500 italic">
-    <strong>Note</strong>: This example isn't fully functional until configured
-    with an Amplify backend.
-  </p>
 </Example>
 
 ## Quick Start
@@ -44,6 +39,11 @@ The quickest way to get started is by wrapping your application with the Authent
 Once an end-user has created an account & signed in, the underlying component is rendered with access to the `user`.
 
 <Fragment>{({ platform }) => import(`./quick-start.${platform}.mdx`)}</Fragment>
+
+<Alert variation="warning">
+  Please see [troubleshooting](/getting-started/installation#troubleshooting) if
+  you have trouble building or running your application with Authenticator.
+</Alert>
 
 ## Configuration
 
@@ -93,10 +93,6 @@ You can explicitly redirect to `signUp` or `resetPassword` as your `initialState
     </Fragment>
     <Example>
       <Authenticator initialState="signIn" />
-      <p className="text-sm text-center mt-6 text-gray-500 italic">
-        <strong>Note</strong>: This example isn't fully functional until
-        configured with an Amplify backend.
-      </p>
     </Example>
   </TabItem>
   <TabItem title="Sign Up">
@@ -105,10 +101,6 @@ You can explicitly redirect to `signUp` or `resetPassword` as your `initialState
     </Fragment>
     <Example>
       <Authenticator initialState="signUp" />
-      <p className="text-sm text-center mt-6 text-gray-500 italic">
-        <strong>Note</strong>: This example isn't fully functional until
-        configured with an Amplify backend.
-      </p>
     </Example>
   </TabItem>
   <TabItem title="Reset Password">
@@ -117,10 +109,6 @@ You can explicitly redirect to `signUp` or `resetPassword` as your `initialState
     </Fragment>
     <Example>
       <Authenticator initialState="resetPassword" />
-      <p className="text-sm text-center mt-6 text-gray-500 italic">
-        <strong>Note</strong>: This example isn't fully functional until
-        configured with an Amplify backend.
-      </p>
     </Example>
   </TabItem>
 </Tabs>
@@ -148,10 +136,6 @@ You can provide an alternative `username` such as `email` or `phone_number`.
     </Fragment>
     <Example>
       <Authenticator />
-      <p className="text-sm text-center mt-6 text-gray-500 italic">
-        <strong>Note</strong>: This example isn't fully functional until
-        configured with an Amplify backend.
-      </p>
     </Example>
   </TabItem>
   <TabItem title="Email">
@@ -160,10 +144,6 @@ You can provide an alternative `username` such as `email` or `phone_number`.
     </Fragment>
     <Example>
       <Authenticator loginMechanisms={['email']} />
-      <p className="text-sm text-center mt-6 text-gray-500 italic">
-        <strong>Note</strong>: This example isn't fully functional until
-        configured with an Amplify backend.
-      </p>
     </Example>
   </TabItem>
   <TabItem title="Phone Number">
@@ -174,10 +154,6 @@ You can provide an alternative `username` such as `email` or `phone_number`.
     </Fragment>
     <Example>
       <Authenticator loginMechanisms={['phone_number']} />
-      <p className="text-sm text-center mt-6 text-gray-500 italic">
-        <strong>Note</strong>: This example isn't fully functional until
-        configured with an Amplify backend.
-      </p>
     </Example>
   </TabItem>
 </Tabs>
@@ -258,11 +234,9 @@ For your [configured social providers](https://docs.amplify.aws/lib/auth/social/
 
 <Example>
   <Authenticator socialProviders={['amazon', 'apple', 'facebook', 'google']} />
-  <p className="text-sm text-center mt-6 text-gray-500 italic">
-    <strong>Note</strong>: This example isn't fully functional until configured
-    with an Amplify backend.
-  </p>
 </Example>
+
+_[Step by step video](https://youtu.be/8KwZNn56F78) on setting up social providers._
 
 ### `variation`
 
@@ -323,10 +297,7 @@ The following example customizes these slots with:
         const { tokens } = useTheme();
         return (
           <View textAlign="center" padding={tokens.space.large}>
-            <Image
-              alt="Amplify logo"
-              src="https://docs.amplify.aws/assets/logo-dark.svg"
-            />
+            <Image alt="Amplify logo" src="/amplify-logo.svg" />
           </View>
         );
       },
@@ -402,16 +373,43 @@ The following example customizes these slots with:
   />
 </Example>
 
+### Override Function Calls
+
+You can override the call to `signUp`, `signIn`, `confirmSignIn`, `confirmSignUp`, `forgotPassword` and `forgotPasswordSubmit` functions.
+To override a call you must create a new `services` object with an `async` `handle*` function that returns an `aws-amplify` `Auth.*` promise.
+
+The service object must then be passed into the `authenticator` component as a `services` prop. For example, let's imagine you'd like to lowercase the `username` and the `email` attributes during `signUp`.
+This would be overriden like so:
+
+<Fragment>
+  {({ platform }) => import(`./overrides/username.${platform}.mdx`)}
+</Fragment>
+
+Each `handle*` function will return the neccessary values you'll need to make the call to the `Auth.*` function call. Here is a table of each override function name, and the values returned from `formData`.
+
+| Function Call               | Override Name                | formData Properties                 |
+| --------------------------- | ---------------------------- | ----------------------------------- |
+| `Auth.signUp`               | `handleSignUp`               | `{username, password, attributes }` |
+| `Auth.signIn`               | `handleSignIn`               | `{username, password}`              |
+| `Auth.confirmSignIn`        | `handleConfirmSignIn`        | `{user, code, mfaType}`             |
+| `Auth.confirmSignUp`        | `handleConfirmSignUp`        | `{username, code, password}`        |
+| `Auth.forgotPassword`       | `handleForgotPassword`       | `{username}`                        |
+| `Auth.forgotPasswordSubmit` | `handleForgotPasswordSubmit` | `{username, code, password}`        |
+
 ### Internationalization (I18n)
 
 The `Authenticator` ships with [translations](https://github.com/aws-amplify/amplify-ui/blob/main/packages/ui/src/i18n/translations.ts) for:
 
 - `en` – English (default)
 - `zh` – Chinese
+- `nl` – Dutch
 - `fr` – French
 - `de` – German
 - `it` – Italian
 - `ja` – Japenese
+- `kr` - Korean
+- `pl` - Polish
+- `pt` – Portuguese
 - `es` – Spanish
 
 These [translations](https://github.com/aws-amplify/amplify-ui/blob/main/packages/ui/src/i18n/translations.ts) can be customized using the [Amplify JS' `I18n`](https://docs.amplify.aws/lib/utilities/i18n/q/platform/js/) module:
@@ -465,7 +463,7 @@ Using the same techniques as [Internationalization (I18n)](#internationalization
       'Sign in to your account': 'Welcome Back!',
       Username: 'Enter your username', // Username label
       Password: 'Enter your password', // Password label
-      'Forgot your password? ': 'Reset Password',
+      'Forgot your password?': 'Reset Password',
     });
     ```
 
@@ -476,7 +474,7 @@ Using the same techniques as [Internationalization (I18n)](#internationalization
   </TabItem>
 
   <TabItem title="Sign Up">
-    
+
     ```js
     I18n.putVocabulariesForLanguage('en', {
       'Create Account': 'Register', // Tab header
@@ -494,7 +492,7 @@ Using the same techniques as [Internationalization (I18n)](#internationalization
   </TabItem>
 
   <TabItem title="Reset Password">
-    
+
     ```js
     I18n.putVocabulariesForLanguage('en', {
       'Reset your password': 'Forgot your password?',
@@ -530,10 +528,10 @@ Using the same techniques as [Internationalization (I18n)](#internationalization
 
 ### Sign Up Fields
 
-The following example customizes the Sign Up screen with:
+The following example customizes the Sign Up screen by:
 
-- Re-using the default form fields
-- Appending a custom "Terms & Conditions" checkbox with custom validation
+- Re-using the default Sign Up form fields
+- Appending a custom "Terms & Conditions" checkbox with a `validateCustomSignUp` service
 
 <Fragment>
   {({ platform }) => import(`./sign-up-fields.${platform}.mdx`)}
@@ -580,7 +578,7 @@ The following example customizes the Sign Up screen with:
 
 ### Styling
 
-You can customize the Authenticator's default [theme](/ui/theme) with [CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties).
+You can customize the Authenticator's default [theme](/theming) with [CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties).
 The example below uses a `<style>` tag to change the default colors to a dark theme:
 
 ```css
@@ -623,10 +621,6 @@ The example below uses a `<style>` tag to change the default colors to a dark th
     }
   `}</style>
   <Authenticator />
-  <p className="text-sm text-center mt-6 text-gray-500 italic">
-    <strong>Note</strong>: This example isn't fully functional until configured
-    with an Amplify backend.
-  </p>
 </Example>
 
 ### Additional CSS Styling
@@ -648,8 +642,4 @@ For example, if you'd like to hide the sign up tab, you can override the `amplif
     }
   `}</style>
   <Authenticator className="customization-hide-sign-up" />
-  <p className="text-sm text-center mt-6 text-gray-500 italic">
-    <strong>Note</strong>: This example isn't fully functional until configured
-    with an Amplify backend.
-  </p>
 </Example>

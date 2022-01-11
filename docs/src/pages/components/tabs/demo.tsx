@@ -9,13 +9,13 @@ export const DemoTabPanel = ({ children }) => {
 };
 
 const demoChildren = [
-  <TabItem title="Tab 1">
+  <TabItem key={1} title="Tab 1">
     <DemoTabPanel>Tab content #1</DemoTabPanel>
   </TabItem>,
-  <TabItem title="Tab 2">
+  <TabItem key={2} title="Tab 2">
     <DemoTabPanel>Tab content #2</DemoTabPanel>
   </TabItem>,
-  <TabItem title="Disabled" isDisabled={true}>
+  <TabItem key={3} title="Disabled" isDisabled={true}>
     <DemoTabPanel>Cannot click</DemoTabPanel>
   </TabItem>,
 ];

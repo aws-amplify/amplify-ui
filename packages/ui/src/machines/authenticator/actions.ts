@@ -42,6 +42,7 @@ export const clearAttributeToVerify = assign({
 export const clearChallengeName = assign({ challengeName: (_) => undefined });
 export const clearError = assign({ remoteError: (_) => '' });
 export const clearFormValues = assign({ formValues: (_) => ({}) });
+export const clearTouched = assign({ touched: (_) => ({}) });
 export const clearUnverifiedAttributes = assign({
   unverifiedAttributes: (_) => undefined,
 });
@@ -66,7 +67,8 @@ export const setConfirmSignUpIntent = assign({
 export const setCredentials = assign({
   authAttributes: (context: SignInContext | SignUpContext, _) => {
     const [primaryAlias] = context.loginMechanisms;
-    const username = context.formValues[primaryAlias];
+    const username =
+      context.formValues[primaryAlias] ?? context.formValues['username'];
     const password = context.formValues?.password;
 
     return { username, password };
@@ -78,7 +80,12 @@ export const setFieldErrors = assign({
 });
 
 export const setRemoteError = assign({
-  remoteError: (_, event: AuthEvent) => event.data?.message || event.data,
+  remoteError: (_, event: AuthEvent) => {
+    if (event.data.name === 'NoUserPoolError') {
+      return `Configuration error (see console) – please contact the administrator`;
+    }
+    return event.data?.message || event.data;
+  },
 });
 
 export const setUnverifiedAttributes = assign({
@@ -91,6 +98,10 @@ export const setUser = assign({
 
 export const setUsername = assign({
   username: (context: ActorContextWithForms, _) => context.formValues.username,
+});
+
+export const setCodeDeliveryDetails = assign({
+  codeDeliveryDetails: (_, event: AuthEvent) => event.data.codeDeliveryDetails,
 });
 
 export const setUsernameAuthAttributes = assign({
@@ -106,6 +117,16 @@ export const handleInput = assign({
     return {
       ...context['formValues'],
       [name]: value,
+    };
+  },
+});
+
+export const handleBlur = assign({
+  touched: (context, event: AuthEvent) => {
+    const { name } = event.data;
+    return {
+      ...context['touched'],
+      [`${name}`]: true,
     };
   },
 });

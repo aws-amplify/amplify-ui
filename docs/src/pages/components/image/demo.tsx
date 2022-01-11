@@ -22,7 +22,7 @@ export const ImageDemo = () => {
     padding: '0',
   });
   const imageProps = useImageProps({
-    src: 'https://docs.amplify.aws/assets/logo-dark.svg',
+    src: '/amplify-logo.svg',
     alt: 'Amplify logo',
     objectFit: 'fill',
     objectPosition: 'initial',

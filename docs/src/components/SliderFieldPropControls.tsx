@@ -54,6 +54,7 @@ export const SliderFieldPropControls: React.FC<SliderFieldPropControlsProps> =
     emptyTrackColor,
     filledTrackColor,
     thumbColor,
+    size,
     setEmptyTrackColor,
     setFilledTrackColor,
     setIsDisabled,
@@ -66,6 +67,7 @@ export const SliderFieldPropControls: React.FC<SliderFieldPropControlsProps> =
     setStep,
     setThumbColor,
     setTrackSize,
+    setSize,
   }) => {
     return (
       <DemoBox primitiveName="SliderField">
@@ -143,6 +145,17 @@ export const SliderFieldPropControls: React.FC<SliderFieldPropControlsProps> =
         >
           <option value="horizontal">horizontal</option>
           <option value="vertical">vertical</option>
+        </SelectField>
+        <SelectField
+          label="size"
+          value={size}
+          onChange={(event) =>
+            setSize(event.target.value as SliderFieldProps['size'])
+          }
+        >
+          <option value="">default</option>
+          <option value="large">large</option>
+          <option value="small">small</option>
         </SelectField>
         <CheckboxField
           name="disabled"

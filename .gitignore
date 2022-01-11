@@ -1,10 +1,10 @@
 .DS_Store
 .env
 .env.local
-.ultra.cache.json
 *.log
 node_modules
 aws-exports.js
 aws-exports.ts
+!examples/**/aws-exports.js
 # .npmrc is used in our deployment procedure to login to npm. Ignored for security.
 .npmrc

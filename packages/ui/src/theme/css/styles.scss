@@ -4,11 +4,11 @@
 
 @import 'dist/theme';
 
-html {
+[data-amplify-theme] {
   font-family: var(--amplify-fonts-default-static);
 }
 @supports (font-variation-settings: normal) {
-  html {
+  [data-amplify-theme] {
     font-family: var(--amplify-fonts-default-variable);
   }
 }
@@ -60,6 +60,7 @@ html {
 @import './component/collection.scss';
 @import './component/checkbox.scss';
 @import './component/checkboxField.scss';
+@import './component/countryCodeSelect.scss';
 @import './component/divider.scss';
 @import './component/expander.scss';
 @import './component/field.scss';
@@ -72,6 +73,7 @@ html {
 @import './component/radiogroup.scss';
 @import './component/radioGroupField.scss';
 @import './component/select.scss';
+@import './component/selectField.scss';
 @import './component/sliderField.scss';
 @import './component/stepperField.scss';
 @import './component/switchField.scss';

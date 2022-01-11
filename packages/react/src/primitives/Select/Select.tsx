@@ -1,14 +1,14 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
+import { ComponentClassNames } from '../shared/constants';
 import { Flex } from '../Flex';
-import { View } from '../View';
 import { IconExpandMore } from '../Icon';
+import { Primitive } from '../types';
 import { SelectProps } from '../types/select';
-import { PrimitiveWithForwardRef } from '../types';
-import { ComponentClassNames } from '../shared';
+import { View } from '../View';
 
-const SelectInner: PrimitiveWithForwardRef<SelectProps, 'select'> = (
+const SelectPrimitive: Primitive<SelectProps, 'select'> = (
   {
     autoComplete,
     className,
@@ -17,7 +17,7 @@ const SelectInner: PrimitiveWithForwardRef<SelectProps, 'select'> = (
     value,
     defaultValue,
     hasError,
-    icon = <IconExpandMore size="large" />,
+    icon = <IconExpandMore />,
     iconColor,
     children,
     placeholder,
@@ -58,18 +58,13 @@ const SelectInner: PrimitiveWithForwardRef<SelectProps, 'select'> = (
         {placeholder && <option value="">{placeholder}</option>}
         {children}
       </View>
-      <Flex
-        className={ComponentClassNames.SelectIconWrapper}
-        alignItems="center"
-        justifyContent="center"
-        color={iconColor}
-      >
+      <Flex className={ComponentClassNames.SelectIconWrapper} color={iconColor}>
         {icon}
       </Flex>
     </View>
   );
 };
 
-export const Select = React.forwardRef(SelectInner);
+export const Select = React.forwardRef(SelectPrimitive);
 
 Select.displayName = 'Select';

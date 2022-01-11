@@ -26,7 +26,7 @@ export const ThemeStructure = () => {
         </tr>
       </thead>
       {allTokens.map(({ name, value }) => (
-        <tr>
+        <tr key={name}>
           <td>
             <code>{name}</code>
           </td>

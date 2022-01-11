@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, HostBinding, Input } from '@angular/core';
 
 @Component({
   selector: 'amplify-tab-item',
@@ -10,4 +10,5 @@ export class TabItemComponent {
   @Input() id: string;
   @Input() labelledById: string;
   @Input() tabIndex: number;
+  @HostBinding('style.display') display = 'block'; // emulate div behavior
 }

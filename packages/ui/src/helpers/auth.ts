@@ -199,6 +199,7 @@ export const getSendEventAliases = (send: Sender<AuthEvent>) => {
     signOut: sendToMachine('SIGN_OUT'),
     submitForm: sendToMachine('SUBMIT'),
     updateForm: sendToMachine('CHANGE'),
+    updateBlur: sendToMachine('BLUR'),
 
     // Actions that don't immediately invoke a service but instead transition to a screen
     // are prefixed with `to*`
@@ -217,6 +218,7 @@ export const getServiceContextFacade = (state: AuthMachineState) => {
   const actorContext = getActorContext(state) as ActorContextWithForms;
   const error = actorContext?.remoteError;
   const validationErrors = { ...actorContext?.validationError };
+  const codeDeliveryDetails = actorContext?.codeDeliveryDetails;
   const hasValidationErrors = Object.keys(validationErrors).length > 0;
   const isPending =
     state.hasTag('pending') || getActorState(state)?.hasTag('pending');
@@ -264,6 +266,7 @@ export const getServiceContextFacade = (state: AuthMachineState) => {
     route,
     user,
     validationErrors,
+    codeDeliveryDetails,
   };
 };
 

@@ -2,26 +2,24 @@ import classNames from 'classnames';
 import { Range, Root, Thumb, Track } from '@radix-ui/react-slider';
 import * as React from 'react';
 
+import { ComponentClassNames } from '../shared/constants';
 import { FieldDescription, FieldErrorMessage } from '../Field';
 import { FieldGroup } from '../FieldGroup';
 import { Flex } from '../Flex';
+import { isFunction } from '../shared/utils';
 import { Label } from '../Label';
-import { View } from '../View';
+import { Primitive } from '../types/view';
 import { SliderFieldProps } from '../types/sliderField';
-import { PrimitiveWithForwardRef } from '../types/view';
-import { ComponentClassNames } from '../shared/constants';
 import { splitPrimitiveProps } from '../shared/styleUtils';
-import { isFunction, useStableId } from '../shared/utils';
+import { View } from '../View';
+import { useStableId } from '../utils/useStableId';
 
 export const SLIDER_LABEL_TEST_ID = 'slider-label';
 export const SLIDER_ROOT_TEST_ID = 'slider-root';
 export const SLIDER_TRACK_TEST_ID = 'slider-track';
 export const SLIDER_RANGE_TEST_ID = 'slider-range';
 
-const SliderFieldPrimitive: PrimitiveWithForwardRef<
-  SliderFieldProps,
-  typeof Root
-> = (
+const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
   {
     ariaValuetext,
     className,
@@ -45,6 +43,7 @@ const SliderFieldPrimitive: PrimitiveWithForwardRef<
     trackSize,
     dir,
     value,
+    size,
     ..._rest
   },
   ref
@@ -83,6 +82,7 @@ const SliderFieldPrimitive: PrimitiveWithForwardRef<
         ComponentClassNames.SliderField
       )}
       testId={testId}
+      data-size={size}
       {...flexContainerStyleProps}
     >
       <Label

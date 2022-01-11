@@ -1,24 +1,29 @@
+import * as React from 'react';
 import classNames from 'classnames';
 
 import { ComponentClassNames } from '../shared/constants';
 import { Primitive, TableProps } from '../types';
 import { View } from '../View';
 
-export const Table: Primitive<TableProps, 'table'> = ({
-  caption,
-  children,
-  className,
-  highlightOnHover = false,
-  size,
-  variation,
-  ...rest
-}) => (
+const TablePrimitive: Primitive<TableProps, 'table'> = (
+  {
+    caption,
+    children,
+    className,
+    highlightOnHover = false,
+    size,
+    variation,
+    ...rest
+  },
+  ref
+) => (
   <View
     as="table"
     className={classNames(ComponentClassNames.Table, className)}
     data-highlightonhover={highlightOnHover}
     data-size={size}
     data-variation={variation}
+    ref={ref}
     {...rest}
   >
     {caption && (
@@ -29,3 +34,7 @@ export const Table: Primitive<TableProps, 'table'> = ({
     {children}
   </View>
 );
+
+export const Table = React.forwardRef(TablePrimitive);
+
+Table.displayName = 'Table';
