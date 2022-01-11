@@ -4,6 +4,7 @@
       amplify-flex amplify-field amplify-textfield amplify-phonenumberfield
     "
     style="flex-direction: column"
+    @input.prevent="handlePhoneNumberChange"
   >
     <base-label
       class="amplify-label sr-only"
@@ -88,7 +89,7 @@ import {
   LoginMechanism,
 } from '@aws-amplify/ui';
 
-import { useAuth } from '../composables/useAuth';
+import { useAuth, useAuthenticator } from '../composables/useAuth';
 import { useAliases } from '../composables/useUtils';
 
 interface PropsInterface {
@@ -107,6 +108,7 @@ const { userNameAlias, userName, disabled } = withDefaults(
 );
 
 const { state, send } = useAuth();
+const { updateForm } = useAuthenticator();
 
 const {
   value: { context },
@@ -146,12 +148,28 @@ if (userNameAlias) {
   name = 'username';
 }
 label = translate<string>(label);
-onMounted(() => {
-  if (type === 'tel') {
-    send({
-      type: 'CHANGE',
-      data: { name: 'country_code', value: defaultDialCode },
-    });
-  }
+
+const fullPhoneNumber = ref({
+  country_code: defaultDialCode,
+  [name]: '',
 });
+
+/**
+ * When the field being rendered is for a phone number, this handler is used to prevent change event propagation in
+ * order to manually update the state machine with a country code + phone number.
+ */
+const handlePhoneNumberChange = (event: Event) => {
+  event.stopPropagation();
+
+  const target = <HTMLInputElement | HTMLSelectElement>event.target;
+
+  fullPhoneNumber.value[target.name] = target.value;
+
+  const { country_code, [name]: phoneNumber } = fullPhoneNumber.value;
+
+  updateForm({
+    name,
+    value: country_code + phoneNumber,
+  });
+};
 </script>
