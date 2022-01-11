@@ -32,8 +32,14 @@ interface BaseOverride {
  * }
  * ```
  */
-interface BreakpointOverride extends BaseOverride {
+export type BreakpointOverride = BaseOverride & {
   breakpoint: keyof Breakpoints['values'];
+};
+
+export function isBreakpointOverride(
+  override: Override
+): override is BreakpointOverride {
+  return 'breakpoint' in override;
 }
 
 /**
@@ -44,8 +50,14 @@ interface BreakpointOverride extends BaseOverride {
  * }
  * ```
  */
-export interface MediaQueryOverride extends BaseOverride {
+export type MediaQueryOverride = BaseOverride & {
   mediaQuery: string;
+};
+
+export function isMediaQueryOverride(
+  override: Override
+): override is MediaQueryOverride {
+  return 'mediaQuery' in override;
 }
 
 /**
@@ -58,8 +70,14 @@ export interface MediaQueryOverride extends BaseOverride {
  * }
  * ```
  */
-export interface SelectorOverride extends BaseOverride {
+export type SelectorOverride = BaseOverride & {
   selector: string;
+};
+
+export function isSelectorOverride(
+  override: Override
+): override is SelectorOverride {
+  return 'selector' in override;
 }
 
 type ColorMode = 'light' | 'dark';
@@ -79,8 +97,14 @@ type ColorMode = 'light' | 'dark';
  * }
  * ```
  */
-export interface ColorModeOverride extends BaseOverride {
+export type ColorModeOverride = BaseOverride & {
   colorMode: ColorMode;
+};
+
+export function isColorModeOverride(
+  override: Override
+): override is ColorModeOverride {
+  return 'colorMode' in override;
 }
 
 /**

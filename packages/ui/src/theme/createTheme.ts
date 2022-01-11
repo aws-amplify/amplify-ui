@@ -3,7 +3,16 @@ import deepExtend from 'style-dictionary/lib/utils/deepExtend';
 import flattenProperties from 'style-dictionary/lib/utils/flattenProperties';
 
 import { baseTheme as _baseTheme } from './baseTheme';
-import { Theme, BaseTheme, WebTheme, Override } from './types';
+import {
+  Theme,
+  BaseTheme,
+  WebTheme,
+  Override,
+  isSelectorOverride,
+  isMediaQueryOverride,
+  isColorModeOverride,
+  isBreakpointOverride,
+} from './types';
 import { cssValue, cssNameTransform } from './utils';
 import { WebTokens } from './tokens';
 import { DesignToken, WebDesignToken } from './tokens/types/designToken';
@@ -50,6 +59,22 @@ function setupTokens(obj: any, path = []) {
   return tokens;
 }
 
+function sameOverride(override1: Override, override2: Override) {
+  if (isBreakpointOverride(override1) && isBreakpointOverride(override2)) {
+    return override1.breakpoint === override2.breakpoint;
+  }
+  if (isMediaQueryOverride(override1) && isMediaQueryOverride(override2)) {
+    return override1.mediaQuery === override2.mediaQuery;
+  }
+  if (isSelectorOverride(override1) && isSelectorOverride(override2)) {
+    return override1.selector === override2.selector;
+  }
+  if (isColorModeOverride(override1) && isColorModeOverride(override2)) {
+    return override1.colorMode === override2.colorMode;
+  }
+  return false;
+}
+
 /**
  * This will be used like `const myTheme = createTheme({})`
  * `myTheme` can then be passed to a Provider or the generated CSS
@@ -65,7 +90,18 @@ export function createTheme(
   // deepExtend is an internal Style Dictionary method
   // that performs a deep merge on n objects. We could change
   // this to another 3p deep merge solution too.
-  const mergedTheme: BaseTheme = deepExtend([{}, baseTheme, theme]);
+  const mergedTheme: BaseTheme = deepExtend([
+    {},
+    {
+      tokens: baseTheme.tokens,
+      breakpoints: baseTheme.breakpoints,
+    },
+    {
+      tokens: theme.tokens,
+      breakpoints: theme.breakpoints,
+      name: theme.name,
+    },
+  ]);
 
   // Setting up the tokens. This is similar to what Style Dictionary
   // does. At the end of this, each token should have:
@@ -84,15 +120,33 @@ export function createTheme(
       .join('\n') +
     `\n}\n`;
 
-  let overrides: Array<Override> = [];
+  let overrides: Array<Override> = [...baseTheme.overrides];
+
+  /**
+   * We need to intelligently merge the overrides arrays so that a base theme
+   * with a colorMode override gets correctly merged with an override
+   * of the same type and condition (colorMode: 'dark' for example).
+   */
+  if (theme.overrides && theme.overrides.length > 0) {
+    theme.overrides.forEach((override) => {
+      const index = overrides.findIndex((baseOverride) =>
+        sameOverride(baseOverride, override)
+      );
+      if (index > -1) {
+        overrides[index] = deepExtend([{}, overrides[index], override]);
+      } else {
+        overrides.push(override);
+      }
+    });
+  }
 
   /**
    * For each override, we setup the tokens and then generate the CSS.
    * This allows us to have one single CSS string for all possible overrides
    * and avoid re-renders in React, but also support other frameworks as well.
    */
-  if (mergedTheme.overrides) {
-    overrides = mergedTheme.overrides.map((override) => {
+  if (overrides.length > 0) {
+    overrides = overrides.map((override) => {
       const tokens = setupTokens(override.tokens);
       const customProperties = flattenProperties(tokens)
         .map((token) => `${token.name}: ${token.value};`)

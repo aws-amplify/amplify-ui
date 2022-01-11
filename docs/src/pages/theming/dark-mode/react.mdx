@@ -1,3 +1,28 @@
+import { Example, ExampleCode } from '@/components/Example';
+import { CustomDarkModeExample } from './customDarkMode';
+
+The default Amplify UI theme comes with a dark mode override by default.
+
+To enable dark mode in your application set the `colorMode` prop in the `AmplifyProvider` to either:
+
+- `system` if you want the user's OS color mode setting to be used
+- `dark` if you want to explicitly set the app to dark mode
+
+Here
+
 ```jsx file=./darkMode.tsx
 
 ```
+
+### Customizing dark mode
+
+<Example>
+  <CustomDarkModeExample />
+  <ExampleCode>
+
+```jsx file=./customDarkMode.tsx
+
+```
+
+  </ExampleCode>
+</Example>

@@ -1,4 +1,7 @@
+import { create } from 'lodash';
+import { isBreakpointOverride, isColorModeOverride } from '..';
 import { createTheme } from '../createTheme';
+import { isSelectorOverride } from '../types';
 
 const darkTokens = {
   colors: {
@@ -30,6 +33,116 @@ const discoTokens = {
 
 describe('@aws-amplify/ui', () => {
   describe('overrides', () => {
+    describe('merging', () => {
+      const baseTheme = createTheme({
+        name: 'base-theme',
+        overrides: [
+          {
+            selector: '.disco',
+            tokens: {
+              colors: {
+                font: {
+                  primary: { value: 'hotpink' },
+                },
+              },
+            },
+          },
+          {
+            breakpoint: 'small',
+            tokens: {
+              space: {
+                small: { value: '1rem' },
+                medium: { value: '2rem' },
+              },
+            },
+          },
+        ],
+      });
+      const extendedThemeWithOverrides = createTheme(
+        {
+          name: 'extended-theme',
+          overrides: [
+            {
+              colorMode: 'dark',
+              tokens: {
+                colors: {
+                  red: {
+                    10: { value: 'hotpink' },
+                  },
+                },
+              },
+            },
+            {
+              breakpoint: 'small',
+              tokens: {
+                space: {
+                  medium: { value: '3rem' },
+                  large: { value: '4rem' },
+                },
+              },
+            },
+            {
+              selector: '.disco',
+              tokens: {
+                colors: {
+                  font: {
+                    primary: { value: 'teal' },
+                    secondary: { value: 'rebeccapurple' },
+                  },
+                },
+              },
+            },
+            {
+              breakpoint: 'large',
+              tokens: {
+                space: {
+                  medium: { value: '1rem' },
+                },
+              },
+            },
+          ],
+        },
+        baseTheme
+      );
+      const smallOverride = extendedThemeWithOverrides.overrides.find(
+        (o) => isBreakpointOverride(o) && o.breakpoint === 'small'
+      );
+      const largeOverride = extendedThemeWithOverrides.overrides.find(
+        (o) => isBreakpointOverride(o) && o.breakpoint === 'large'
+      );
+      const selectorOverride = extendedThemeWithOverrides.overrides.find((o) =>
+        isSelectorOverride(o)
+      );
+      const colorOverride = extendedThemeWithOverrides.overrides.find((o) =>
+        isColorModeOverride(o)
+      );
+
+      it('should keep base override tokens if not overridden', () => {
+        expect(smallOverride.tokens.space.small.value).toEqual('1rem');
+      });
+
+      it('should override base override token', () => {
+        expect(smallOverride.tokens.space.medium.value).toEqual('3rem');
+      });
+
+      it('should include new override objects if present', () => {
+        expect(extendedThemeWithOverrides.overrides.length).toEqual(4);
+        expect(largeOverride.tokens.space.medium.value).toEqual('1rem');
+      });
+
+      it('should include new override tokens if given', () => {
+        expect(smallOverride.tokens.space.large.value).toEqual('4rem');
+        expect(selectorOverride.tokens.colors.font.secondary.value).toEqual(
+          'rebeccapurple'
+        );
+      });
+
+      it('should work on transitive overrides', () => {
+        expect(colorOverride).toBeDefined();
+        expect(colorOverride.tokens.colors.red[10].value).toEqual('hotpink');
+      });
+    });
+
     const themeWithOverrides = createTheme({
       name: 'test-theme',
       tokens: {},
@@ -865,6 +978,142 @@ describe('@aws-amplify/ui', () => {
         --amplify-transforms-slide-x-large: translateX(2em);
         }
 
+        @media(prefers-color-scheme: dark) {
+                  [data-amplify-theme=\\"test-theme\\"][data-amplify-color-mode=\\"system\\"] {
+        --amplify-colors-red-10: hsl(0, 100%, 15%);
+        --amplify-colors-red-20: hsl(0, 100%, 20%);
+        --amplify-colors-red-40: hsl(0, 95%, 30%);
+        --amplify-colors-red-80: hsl(0, 75%, 75%);
+        --amplify-colors-red-90: hsl(0, 75%, 85%);
+        --amplify-colors-red-100: hsl(0, 75%, 95%);
+        --amplify-colors-orange-10: hsl(30, 100%, 15%);
+        --amplify-colors-orange-20: hsl(30, 100%, 20%);
+        --amplify-colors-orange-40: hsl(30, 95%, 30%);
+        --amplify-colors-orange-80: hsl(30, 75%, 75%);
+        --amplify-colors-orange-90: hsl(30, 75%, 85%);
+        --amplify-colors-orange-100: hsl(30, 75%, 95%);
+        --amplify-colors-yellow-10: hsl(60, 100%, 15%);
+        --amplify-colors-yellow-20: hsl(60, 100%, 20%);
+        --amplify-colors-yellow-40: hsl(60, 95%, 30%);
+        --amplify-colors-yellow-80: hsl(60, 75%, 75%);
+        --amplify-colors-yellow-90: hsl(60, 75%, 85%);
+        --amplify-colors-yellow-100: hsl(60, 75%, 95%);
+        --amplify-colors-green-10: hsl(130, 22%, 23%);
+        --amplify-colors-green-20: hsl(130, 27%, 29%);
+        --amplify-colors-green-40: hsl(130, 33%, 37%);
+        --amplify-colors-green-80: hsl(130, 44%, 63%);
+        --amplify-colors-green-90: hsl(130, 60%, 90%);
+        --amplify-colors-green-100: hsl(130, 60%, 95%);
+        --amplify-colors-teal-10: hsl(190, 100%, 15%);
+        --amplify-colors-teal-20: hsl(190, 100%, 20%);
+        --amplify-colors-teal-40: hsl(190, 95%, 30%);
+        --amplify-colors-teal-80: hsl(190, 70%, 70%);
+        --amplify-colors-teal-90: hsl(190, 75%, 85%);
+        --amplify-colors-teal-100: hsl(190, 75%, 95%);
+        --amplify-colors-blue-10: hsl(220, 100%, 15%);
+        --amplify-colors-blue-20: hsl(220, 100%, 20%);
+        --amplify-colors-blue-40: hsl(220, 95%, 30%);
+        --amplify-colors-blue-80: hsl(220, 70%, 70%);
+        --amplify-colors-blue-90: hsl(220, 85%, 85%);
+        --amplify-colors-blue-100: hsl(220, 95%, 95%);
+        --amplify-colors-purple-10: hsl(300, 100%, 15%);
+        --amplify-colors-purple-20: hsl(300, 100%, 20%);
+        --amplify-colors-purple-40: hsl(300, 95%, 30%);
+        --amplify-colors-purple-80: hsl(300, 70%, 70%);
+        --amplify-colors-purple-90: hsl(300, 85%, 85%);
+        --amplify-colors-purple-100: hsl(300, 95%, 95%);
+        --amplify-colors-pink-10: hsl(340, 100%, 15%);
+        --amplify-colors-pink-20: hsl(340, 100%, 20%);
+        --amplify-colors-pink-40: hsl(340, 95%, 30%);
+        --amplify-colors-pink-80: hsl(340, 70%, 70%);
+        --amplify-colors-pink-90: hsl(340, 90%, 85%);
+        --amplify-colors-pink-100: hsl(340, 95%, 95%);
+        --amplify-colors-neutral-10: hsl(210, 50%, 10%);
+        --amplify-colors-neutral-20: hsl(210, 25%, 25%);
+        --amplify-colors-neutral-40: hsl(210, 10%, 40%);
+        --amplify-colors-neutral-80: hsl(210, 5%, 87%);
+        --amplify-colors-neutral-90: hsl(210, 5%, 94%);
+        --amplify-colors-neutral-100: hsl(210, 5%, 98%);
+        --amplify-colors-black: #fff;
+        --amplify-colors-white: #000;
+        --amplify-colors-overlay-10: hsla(0, 0%, 100%, 0.1);
+        --amplify-colors-overlay-20: hsla(0, 0%, 100%, 0.2);
+        --amplify-colors-overlay-30: hsla(0, 0%, 100%, 0.3);
+        --amplify-colors-overlay-40: hsla(0, 0%, 100%, 0.4);
+        --amplify-colors-overlay-50: hsla(0, 0%, 100%, 0.5);
+        --amplify-colors-overlay-60: hsla(0, 0%, 100%, 0.6);
+        --amplify-colors-overlay-70: hsla(0, 0%, 100%, 0.7);
+        --amplify-colors-overlay-80: hsla(0, 0%, 100%, 0.8);
+        --amplify-colors-overlay-90: hsla(0, 0%, 100%, 0.9);
+        }
+                }
+        [data-amplify-theme=\\"test-theme\\"][data-amplify-color-mode=\\"dark\\"] {
+        --amplify-colors-red-10: hsl(0, 100%, 15%);
+        --amplify-colors-red-20: hsl(0, 100%, 20%);
+        --amplify-colors-red-40: hsl(0, 95%, 30%);
+        --amplify-colors-red-80: hsl(0, 75%, 75%);
+        --amplify-colors-red-90: hsl(0, 75%, 85%);
+        --amplify-colors-red-100: hsl(0, 75%, 95%);
+        --amplify-colors-orange-10: hsl(30, 100%, 15%);
+        --amplify-colors-orange-20: hsl(30, 100%, 20%);
+        --amplify-colors-orange-40: hsl(30, 95%, 30%);
+        --amplify-colors-orange-80: hsl(30, 75%, 75%);
+        --amplify-colors-orange-90: hsl(30, 75%, 85%);
+        --amplify-colors-orange-100: hsl(30, 75%, 95%);
+        --amplify-colors-yellow-10: hsl(60, 100%, 15%);
+        --amplify-colors-yellow-20: hsl(60, 100%, 20%);
+        --amplify-colors-yellow-40: hsl(60, 95%, 30%);
+        --amplify-colors-yellow-80: hsl(60, 75%, 75%);
+        --amplify-colors-yellow-90: hsl(60, 75%, 85%);
+        --amplify-colors-yellow-100: hsl(60, 75%, 95%);
+        --amplify-colors-green-10: hsl(130, 22%, 23%);
+        --amplify-colors-green-20: hsl(130, 27%, 29%);
+        --amplify-colors-green-40: hsl(130, 33%, 37%);
+        --amplify-colors-green-80: hsl(130, 44%, 63%);
+        --amplify-colors-green-90: hsl(130, 60%, 90%);
+        --amplify-colors-green-100: hsl(130, 60%, 95%);
+        --amplify-colors-teal-10: hsl(190, 100%, 15%);
+        --amplify-colors-teal-20: hsl(190, 100%, 20%);
+        --amplify-colors-teal-40: hsl(190, 95%, 30%);
+        --amplify-colors-teal-80: hsl(190, 70%, 70%);
+        --amplify-colors-teal-90: hsl(190, 75%, 85%);
+        --amplify-colors-teal-100: hsl(190, 75%, 95%);
+        --amplify-colors-blue-10: hsl(220, 100%, 15%);
+        --amplify-colors-blue-20: hsl(220, 100%, 20%);
+        --amplify-colors-blue-40: hsl(220, 95%, 30%);
+        --amplify-colors-blue-80: hsl(220, 70%, 70%);
+        --amplify-colors-blue-90: hsl(220, 85%, 85%);
+        --amplify-colors-blue-100: hsl(220, 95%, 95%);
+        --amplify-colors-purple-10: hsl(300, 100%, 15%);
+        --amplify-colors-purple-20: hsl(300, 100%, 20%);
+        --amplify-colors-purple-40: hsl(300, 95%, 30%);
+        --amplify-colors-purple-80: hsl(300, 70%, 70%);
+        --amplify-colors-purple-90: hsl(300, 85%, 85%);
+        --amplify-colors-purple-100: hsl(300, 95%, 95%);
+        --amplify-colors-pink-10: hsl(340, 100%, 15%);
+        --amplify-colors-pink-20: hsl(340, 100%, 20%);
+        --amplify-colors-pink-40: hsl(340, 95%, 30%);
+        --amplify-colors-pink-80: hsl(340, 70%, 70%);
+        --amplify-colors-pink-90: hsl(340, 90%, 85%);
+        --amplify-colors-pink-100: hsl(340, 95%, 95%);
+        --amplify-colors-neutral-10: hsl(210, 50%, 10%);
+        --amplify-colors-neutral-20: hsl(210, 25%, 25%);
+        --amplify-colors-neutral-40: hsl(210, 10%, 40%);
+        --amplify-colors-neutral-80: hsl(210, 5%, 87%);
+        --amplify-colors-neutral-90: hsl(210, 5%, 94%);
+        --amplify-colors-neutral-100: hsl(210, 5%, 98%);
+        --amplify-colors-black: #fff;
+        --amplify-colors-white: #000;
+        --amplify-colors-overlay-10: hsla(0, 0%, 100%, 0.1);
+        --amplify-colors-overlay-20: hsla(0, 0%, 100%, 0.2);
+        --amplify-colors-overlay-30: hsla(0, 0%, 100%, 0.3);
+        --amplify-colors-overlay-40: hsla(0, 0%, 100%, 0.4);
+        --amplify-colors-overlay-50: hsla(0, 0%, 100%, 0.5);
+        --amplify-colors-overlay-60: hsla(0, 0%, 100%, 0.6);
+        --amplify-colors-overlay-70: hsla(0, 0%, 100%, 0.7);
+        --amplify-colors-overlay-80: hsla(0, 0%, 100%, 0.8);
+        --amplify-colors-overlay-90: hsla(0, 0%, 100%, 0.9);
+        }
         @media (prefers-color-scheme: dark) {
           [data-amplify-theme=\\"test-theme\\"] {
             --amplify-colors-background-primary: #000;
