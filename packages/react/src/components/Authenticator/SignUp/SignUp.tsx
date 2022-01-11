@@ -52,7 +52,11 @@ export function SignUp() {
       >
         <FederatedSignIn />
 
-        <Flex direction="column">
+        <fieldset
+          style={{ display: 'flex', flexDirection: 'column' }}
+          className="amplify-flex"
+          disabled={isPending}
+        >
           <Flex direction="column">
             <FormFields />
             <RemoteErrorMessage />
@@ -70,7 +74,7 @@ export function SignUp() {
           >
             {translate('Create Account')}
           </Button>
-        </Flex>
+        </fieldset>
       </form>
 
       <Footer />
