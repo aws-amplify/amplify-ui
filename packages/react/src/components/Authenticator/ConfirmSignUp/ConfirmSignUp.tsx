@@ -68,7 +68,11 @@ export function ConfirmSignUp() {
       onChange={handleChange}
       onSubmit={handleSubmit}
     >
-      <Flex direction="column">
+      <fieldset
+        style={{ display: 'flex', flexDirection: 'column' }}
+        className="amplify-flex"
+        disabled={isPending}
+      >
         <Heading level={3} style={{ fontSize: '1.5rem' }}>
           {confirmSignUpHeading}
         </Heading>
@@ -94,7 +98,7 @@ export function ConfirmSignUp() {
             {translate('Resend Code')}
           </Button>
         </Flex>
-      </Flex>
+      </fieldset>
     </form>
   );
 }

@@ -49,7 +49,11 @@ export const ForceNewPassword = (): JSX.Element => {
       onChange={handleChange}
       onSubmit={handleSubmit}
     >
-      <Flex direction="column">
+      <fieldset
+        style={{ display: 'flex', flexDirection: 'column' }}
+        className="amplify-flex"
+        disabled={isPending}
+      >
         <Heading level={3}>{translate('Change Password')}</Heading>
 
         <Flex direction="column">
@@ -106,7 +110,7 @@ export const ForceNewPassword = (): JSX.Element => {
         >
           {translate('Back to Sign In')}
         </Button>
-      </Flex>
+      </fieldset>
     </form>
   );
 };
