@@ -7,6 +7,8 @@
   [initialValue]="initialValue"
   [disabled]="disabled"
   [required]="required"
+  [defaultCountryCode]="isPhoneField() ? defaultCountryCode : null"
   autocomplete="username"
+  (input)="handlePhoneNumberChange($event)"
 >
 </amplify-form-field>

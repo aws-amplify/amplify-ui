@@ -20,7 +20,7 @@ import { AuthenticatorService } from '../../../../services/authenticator.service
   selector: 'amplify-form-field',
   templateUrl: './form-field.component.html',
 })
-export class FormFieldComponent implements OnInit {
+export class FormFieldComponent {
   @Input() name: string;
   @Input() type: string;
   @Input() required = true;
@@ -30,28 +30,13 @@ export class FormFieldComponent implements OnInit {
   @Input() disabled = false;
   @Input() autocomplete = '';
   @Input() labelHidden = true;
+  @Input() defaultCountryCode?: string;
 
-  public defaultCountryCode: string;
   public countryDialCodes = countryDialCodes;
   public textFieldId: string;
   public selectFieldId: string;
 
-  public fullPhoneNumber: {
-    country_code: string;
-    phone_number?: string;
-    username?: string;
-  };
-
   constructor(private authenticator: AuthenticatorService) {}
-
-  ngOnInit(): void {
-    if (this.isPhoneField()) {
-      const state = this.authenticator.authState;
-      const { country_code }: ActorContextWithForms = getActorContext(state);
-      this.defaultCountryCode = country_code;
-      this.fullPhoneNumber = { country_code };
-    }
-  }
 
   get attributeMap(): AuthInputAttributes {
     return getAttributeMap();
@@ -100,21 +85,5 @@ export class FormFieldComponent implements OnInit {
 
   isPhoneField(): boolean {
     return this.inferType() === 'tel';
-  }
-
-  /**
-   * When the field being rendered is for a phone number, this handler is used to prevent change event propagation in
-   * order to manually update the state machine with a country code + phone number.
-   */
-  handlePhoneNumberChange(event: InputEvent) {
-    event.stopPropagation();
-
-    const { name, value } = <HTMLInputElement>event.target;
-    this.fullPhoneNumber = { ...this.fullPhoneNumber, [name]: value };
-
-    this.authenticator.updateForm({
-      name: this.name,
-      value: this.fullPhoneNumber.country_code + this.fullPhoneNumber[name],
-    });
   }
 }
