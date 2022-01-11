@@ -54,8 +54,7 @@
     "type-fest": "^2.3.4"
   },
   "peerDependencies": {
-    "aws-amplify": "3.x.x || 4.x.x",
-    "@aws-amplify/core": "latest",
-    "@aws-amplify/auth": "latest"
+    "@aws-amplify/core": "4.3.12",
+    "@aws-amplify/auth": "4.3.20"
   }
 }
