@@ -4,7 +4,7 @@
       amplify-flex amplify-field amplify-textfield amplify-phonenumberfield
     "
     style="flex-direction: column"
-    @input.prevent="handlePhoneNumberChange"
+    v-on="isPhoneField ? { input: handlePhoneNumberChange } : {}"
   >
     <base-label
       class="amplify-label sr-only"
@@ -16,7 +16,7 @@
     <base-wrapper class="amplify-flex amplify-field-group">
       <base-wrapper class="amplify-field-group__outer-start">
         <!--Drop Down-->
-        <template v-if="type === 'tel'">
+        <template v-if="isPhoneField">
           <base-wrapper
             class="
               amplify-flex
@@ -139,6 +139,8 @@ let label =
 let type =
   authInputAttributes[name as LoginMechanism]?.type ??
   authInputAttributes['username'].label;
+
+const isPhoneField = type === 'tel';
 
 // Only show for Sign In
 if (userNameAlias) {
