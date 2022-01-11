@@ -12,6 +12,7 @@
     [disabled]="disabled"
     [labelHidden]="labelHidden"
     [autocomplete]="inferAutocomplete()"
+    (input)="handlePhoneNumberChange($event)"
   ></amplify-phone-number-field>
 
   <amplify-password-field

@@ -36,20 +36,20 @@ export class FormFieldComponent implements OnInit {
   public textFieldId: string;
   public selectFieldId: string;
 
+  public fullPhoneNumber: {
+    country_code: string;
+    phone_number?: string;
+    username?: string;
+  };
+
   constructor(private authenticator: AuthenticatorService) {}
 
   ngOnInit(): void {
-    // TODO: consider better default handling mechanisms across frameworks
     if (this.isPhoneField()) {
       const state = this.authenticator.authState;
       const { country_code }: ActorContextWithForms = getActorContext(state);
       this.defaultCountryCode = country_code;
-
-      // TODO: remove this side-effect
-      this.authenticator.updateForm({
-        name: 'country_code',
-        value: country_code,
-      });
+      this.fullPhoneNumber = { country_code };
     }
   }
 
@@ -100,5 +100,21 @@ export class FormFieldComponent implements OnInit {
 
   isPhoneField(): boolean {
     return this.inferType() === 'tel';
+  }
+
+  /**
+   * When the field being rendered is for a phone number, this handler is used to prevent change event propagation in
+   * order to manually update the state machine with a country code + phone number.
+   */
+  handlePhoneNumberChange(event: InputEvent) {
+    event.stopPropagation();
+
+    const { name, value } = <HTMLInputElement>event.target;
+    this.fullPhoneNumber = { ...this.fullPhoneNumber, [name]: value };
+
+    this.authenticator.updateForm({
+      name: this.name,
+      value: this.fullPhoneNumber.country_code + this.fullPhoneNumber[name],
+    });
   }
 }
