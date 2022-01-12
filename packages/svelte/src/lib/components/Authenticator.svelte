@@ -29,7 +29,6 @@
     <div data-amplify-container>
       <!--Slot header goes here-->
       <div data-amplify-router>
-        {$route}
         {#if $route === 'signIn' || $route === 'signUp'}
           <AmplifyTabs let:tabs>
             {#each tabs as tab}
