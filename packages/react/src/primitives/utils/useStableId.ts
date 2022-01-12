@@ -9,6 +9,7 @@ export type UseStableId = (id?: string) => string;
 
 // Create a local version of React.useId which will reference React.useId for React 18
 // and fallback to noop for React 17 and below
+// @ts-ignore
 const useReactId = 'useId' in React ? React.useId : () => undefined;
 let count = 0;
 
