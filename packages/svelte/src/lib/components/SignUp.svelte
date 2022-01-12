@@ -26,8 +26,6 @@
   }
 </script>
 
-<!-- <button on:click={toSignIn}>To Sign In</button> -->
-
 <form data-amplify-form on:submit|preventDefault={onSubmit} on:input={onInput}>
   <div class="amplify-flex" style="flex-direction: column">
     <div class="amplify-flex" style="flex-direction: column">
