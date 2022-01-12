@@ -49,7 +49,11 @@ export function SignIn() {
       >
         <FederatedSignIn />
         <Flex direction="column">
-          <Flex direction="column">
+          <fieldset
+            style={{ display: 'flex', flexDirection: 'column' }}
+            className="amplify-flex"
+            disabled={isPending}
+          >
             <UserNameAlias data-amplify-usernamealias />
             <PasswordField
               data-amplify-password
@@ -61,7 +65,7 @@ export function SignIn() {
               autoComplete="current-password"
               labelHidden={true}
             />
-          </Flex>
+          </fieldset>
 
           <RemoteErrorMessage />
 

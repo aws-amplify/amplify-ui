@@ -12,6 +12,12 @@ import {
 
 export function ConfirmSignUp() {
   const {
+    components: {
+      ConfirmSignUp: {
+        Header = ConfirmSignUp.Header,
+        Footer = ConfirmSignUp.Footer,
+      },
+    },
     isPending,
     resendCode,
     submitForm,
@@ -44,12 +50,6 @@ export function ConfirmSignUp() {
     placeholder: translate('Enter your code'),
   };
 
-  const confirmSignUpHeading =
-    DeliveryMedium === 'EMAIL'
-      ? translate('We Emailed You')
-      : DeliveryMedium === 'SMS'
-      ? translate('We Texted You')
-      : translate('We Sent A Code');
   const subtitleText =
     DeliveryMedium === 'EMAIL'
       ? `Your code is on the way. To log in, enter the code we emailed to ${Destination}. It may take a minute to arrive.`
@@ -68,10 +68,12 @@ export function ConfirmSignUp() {
       onChange={handleChange}
       onSubmit={handleSubmit}
     >
-      <Flex direction="column">
-        <Heading level={3} style={{ fontSize: '1.5rem' }}>
-          {confirmSignUpHeading}
-        </Heading>
+      <fieldset
+        style={{ display: 'flex', flexDirection: 'column' }}
+        className="amplify-flex"
+        disabled={isPending}
+      >
+        <Header />
 
         <Flex direction="column">
           <Text style={{ marginBottom: '1rem' }}>{subtitleText}</Text>
@@ -94,7 +96,28 @@ export function ConfirmSignUp() {
             {translate('Resend Code')}
           </Button>
         </Flex>
-      </Flex>
+        <Footer />
+      </fieldset>
     </form>
   );
 }
+
+ConfirmSignUp.Header = () => {
+  const { codeDeliveryDetails: { DeliveryMedium, Destination } = {} } =
+    useAuthenticator();
+
+  const confirmSignUpHeading =
+    DeliveryMedium === 'EMAIL'
+      ? translate('We Emailed You')
+      : DeliveryMedium === 'SMS'
+      ? translate('We Texted You')
+      : translate('We Sent A Code');
+
+  return (
+    <Heading level={3} style={{ fontSize: '1.5rem' }}>
+      {confirmSignUpHeading}
+    </Heading>
+  );
+};
+
+ConfirmSignUp.Footer = (): JSX.Element => null;
