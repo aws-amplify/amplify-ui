@@ -6,6 +6,7 @@ import { View } from '../../..';
 import { ConfirmSignIn } from '../ConfirmSignIn';
 import { ConfirmSignUp } from '../ConfirmSignUp';
 import { ForceNewPassword } from '../ForceNewPassword';
+import { useCustomComponents } from '../hooks/useCustomComponents';
 import { ConfirmResetPassword, ResetPassword } from '../ResetPassword';
 import { SetupTOTP } from '../SetupTOTP';
 import { SignInSignUpTabs } from '../shared';
@@ -32,12 +33,10 @@ export function Router({
   className,
   variation = 'default',
 }: RouterProps) {
+  const { route, signOut, user } = useAuthenticator();
   const {
     components: { Header, Footer },
-    route,
-    signOut,
-    user,
-  } = useAuthenticator();
+  } = useCustomComponents();
 
   if (['authenticated', 'signOut'].includes(route)) {
     return children({ signOut, user });

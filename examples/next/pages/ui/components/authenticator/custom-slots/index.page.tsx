@@ -123,6 +123,8 @@ const components = {
 };
 
 export default function App() {
+  const auth = useAuthenticator();
+  console.log(auth);
   return (
     <Authenticator components={components}>
       {({ signOut }) => <button onClick={signOut}>Sign out</button>}

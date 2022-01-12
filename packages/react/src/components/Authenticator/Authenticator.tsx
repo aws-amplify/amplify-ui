@@ -1,11 +1,19 @@
-import { Provider, ProviderProps } from './Provider';
+import { AuthenticatorMachineOptions } from '@aws-amplify/ui';
+import { PartialDeep } from 'src/types';
+import { defaultComponents } from './hooks/defaultComponents';
+import { startAuthMachine } from './hooks/useAuthenticator';
+import { CustomComponentsContext } from './hooks/useCustomComponents';
 import { ResetPassword } from './ResetPassword';
 import { Router, RouterProps } from './Router';
 import { SetupTOTP } from './SetupTOTP';
 import { SignIn } from './SignIn';
 import { SignUp } from './SignUp';
 
-export type AuthenticatorProps = ProviderProps & RouterProps;
+export type AuthenticatorProps = AuthenticatorMachineOptions &
+  RouterProps & {
+    components?: PartialDeep<typeof defaultComponents>;
+    services?: AuthenticatorMachineOptions['services'];
+  };
 
 export function Authenticator({
   children,
@@ -18,21 +26,23 @@ export function Authenticator({
   socialProviders,
   variation,
 }: AuthenticatorProps) {
+  // First start auth machine
+  startAuthMachine({
+    initialState,
+    loginMechanisms,
+    services,
+    signUpAttributes,
+    socialProviders,
+  });
+
   return (
-    <Provider
-      components={components}
-      initialState={initialState}
-      loginMechanisms={loginMechanisms}
-      services={services}
-      signUpAttributes={signUpAttributes}
-      socialProviders={socialProviders}
-    >
+    <CustomComponentsContext.Provider value={{ components }}>
       <Router className={className} children={children} variation={variation} />
-    </Provider>
+    </CustomComponentsContext.Provider>
   );
 }
 
-Authenticator.Provider = Provider;
+Authenticator.Provider = ({ children }) => <>{children}</>; // for backwards compatibility
 Authenticator.ResetPassword = ResetPassword;
 Authenticator.SetupTOTP = SetupTOTP;
 Authenticator.SignIn = SignIn;
