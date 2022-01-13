@@ -284,6 +284,8 @@ The following example customizes these slots with:
 - Custom Sign In footer with a _Reset Password_ link
 - Custom Sign Up header with _Create a new account_
 - Custom Sign Up footer with a _Back to Sign In_ link
+- Custom Confirm Sign Up header with an _Enter Information_ header
+- Custom Confirm Sign Up footer with a _Footer Information_ message
 
 <Fragment>
   {({ platform }) => import(`./headers-and-footers.${platform}.mdx`)}
@@ -365,6 +367,22 @@ The following example customizes these slots with:
               </Button>
             </View>
           );
+        },
+        ConfirmSignUp: {
+          Header() {
+            const { tokens } = useTheme();
+            return (
+              <Heading
+                padding={`${tokens.space.xl} 0 0 ${tokens.space.xl}`}
+                level={3}
+              >
+                Enter Information:
+              </Heading>
+            );
+          },
+          Footer() {
+            return <Text>Footer Information</Text>;
+          },
         },
       },
       /*

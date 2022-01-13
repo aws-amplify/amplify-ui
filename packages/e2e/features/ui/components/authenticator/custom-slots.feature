@@ -39,4 +39,15 @@ Feature: Sign Up with Attributes
     Then I see "Sign in to your account"
 
 
+@angular @react @vue  
+  Scenario: Has custom Confirm Sign Up Footer and Header slot text
+    Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-email"
+    When I click the "Create Account" tab
+    When I type a new "email"
+    And I type my password
+    And I confirm my password
+    And I click the "Create Account" button
+    Then I see "Enter Information:"
+    Then I see "Footer Information"
+
 

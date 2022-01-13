@@ -5,4 +5,4 @@
 "@aws-amplify/ui-angular": patch
 ---
 
-Remove trailing space on "Forgot your password? "
+Add explicit `INIT` step for initializing authMachine

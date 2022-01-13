@@ -21,7 +21,7 @@ export const SetupTOTP = (): JSX.Element => {
   const [qrCode, setQrCode] = useState<string>();
   const [copyTextLabel, setCopyTextLabel] = useState<string>('COPY');
   const [secretKey, setSecretKey] = useState<string>('');
-  const { _state, submitForm, updateForm } = useAuthenticator();
+  const { _state, submitForm, updateForm, isPending } = useAuthenticator();
 
   // `user` hasn't been set on the top-level state yet, so it's only available from the signIn actor
   const actorState = getActorState(_state) as SignInState;
@@ -81,7 +81,11 @@ export const SetupTOTP = (): JSX.Element => {
       onChange={handleChange}
       onSubmit={handleSubmit}
     >
-      <Flex direction="column">
+      <fieldset
+        style={{ display: 'flex', flexDirection: 'column' }}
+        className="amplify-flex"
+        disabled={isPending}
+      >
         <Heading level={3}>{translate('Setup TOTP')}</Heading>
 
         <Flex direction="column">
@@ -120,7 +124,7 @@ export const SetupTOTP = (): JSX.Element => {
         </Flex>
 
         <ConfirmSignInFooter />
-      </Flex>
+      </fieldset>
     </form>
   );
 };
