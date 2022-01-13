@@ -1,5 +1,11 @@
 # @aws-amplify/ui-react
 
+## 2.1.8
+
+### Patch Changes
+
+- [`f137f8a1d`](https://github.com/aws-amplify/amplify-ui/commit/f137f8a1dcedb6be9024494df726aa9a34e2472f) Thanks [@wlee221](https://github.com/wlee221)! - Revert "Remove IdProvider and port useId from radix (#1010)"
+
 ## 2.1.7
 
 ### Patch Changes
