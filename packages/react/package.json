@@ -49,8 +49,10 @@
     "test:unit:watch": "jest --watch"
   },
   "dependencies": {
+    "@aws-amplify/geo": "^1.1.12",
     "@aws-amplify/ui": "3.0.7",
     "@aws-amplify/ui-react-v1": "npm:@aws-amplify/ui-react@1.2.9",
+    "@maplibre/maplibre-gl-geocoder": "^1.2.0",
     "@radix-ui/react-accordion": "0.1.2",
     "@radix-ui/react-dropdown-menu": "0.1.2",
     "@radix-ui/react-slider": "0.1.2",

@@ -1,1 +1,2 @@
-export { Map } from './BasicMap';
+export { Map } from './Map';
+export { Geocoder } from './Geocoder';

@@ -17,5 +17,10 @@ export type AmplifyDependentResourcesAttributes = {
       Region: 'string';
       Arn: 'string';
     };
+    placeindex5588737e: {
+      Name: 'string';
+      Region: 'string';
+      Arn: 'string';
+    };
   };
 };
