@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { IdProvider } from '@radix-ui/react-id';
 
 import { createTheme, defaultTheme, Theme as UiTheme } from '@aws-amplify/ui';
 
@@ -26,13 +27,15 @@ export function AmplifyProvider({
         theme: webTheme,
       }}
     >
-      <div data-amplify-theme={name} data-amplify-color-mode={colorMode}>
-        {children}
-      </div>
-      <style
-        id={`amplify-theme-${name}`}
-        dangerouslySetInnerHTML={{ __html: cssText }}
-      />
+      <IdProvider>
+        <div data-amplify-theme={name} data-amplify-color-mode={colorMode}>
+          {children}
+        </div>
+        <style
+          id={`amplify-theme-${name}`}
+          dangerouslySetInnerHTML={{ __html: cssText }}
+        />
+      </IdProvider>
     </AmplifyContext.Provider>
   );
 }
