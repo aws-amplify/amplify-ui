@@ -29,7 +29,13 @@
 <form data-amplify-form on:submit|preventDefault={onSubmit} on:input={onInput}>
   <div class="amplify-flex" style="flex-direction: column">
     <div class="amplify-flex" style="flex-direction: column">
-      <AmplifySignUpFormFields />
+      <fieldset
+        class="amplify-flex"
+        style="flex-direction: column"
+        disabled={$isPending}
+      >
+        <AmplifySignUpFormFields />
+      </fieldset>
       {#if $error}
         <AmplifyError>
           {$error}
