@@ -23,9 +23,7 @@ const useAuthenticatorValue = ({
   signUpAttributes,
   services,
 }: ProviderProps) => {
-  const [state, send] = useMachine(() => createAuthenticatorMachine(), {
-    devTools: process.env.NODE_ENV === 'development',
-  });
+  const [state, send] = useMachine(() => createAuthenticatorMachine());
 
   React.useEffect(() => {
     send({
