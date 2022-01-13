@@ -40,8 +40,6 @@ const useAuthenticatorValue = ({
     });
   }, []);
 
-  console.log(state);
-
   const components = React.useMemo(
     () => ({ ...defaultComponents, ...customComponents }),
     [customComponents]
