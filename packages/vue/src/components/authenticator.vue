@@ -22,7 +22,6 @@ import ResetPassword from './reset-password.vue';
 import ConfirmResetPassword from './confirm-reset-password.vue';
 import VerifyUser from './verify-user.vue';
 import ConfirmVerifyUser from './confirm-verify-user.vue';
-import { tryOnMounted } from '@vueuse/core';
 
 const attrs = useAttrs();
 
