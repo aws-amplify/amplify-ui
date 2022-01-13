@@ -7,7 +7,7 @@ export interface ComponentsProviderProps {
 }
 
 export const CustomComponentsContext: React.Context<ComponentsProviderProps> =
-  React.createContext({});
+  React.createContext({ components: defaultComponents });
 
 export const useCustomComponents = () => {
   return React.useContext(CustomComponentsContext);

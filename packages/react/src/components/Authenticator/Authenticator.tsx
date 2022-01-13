@@ -1,7 +1,8 @@
+import React from 'react';
 import { AuthenticatorMachineOptions } from '@aws-amplify/ui';
 import { PartialDeep } from 'src/types';
+import { useAuthenticator } from '..';
 import { defaultComponents } from './hooks/defaultComponents';
-import { startAuthMachine } from './hooks/useAuthenticator';
 import { CustomComponentsContext } from './hooks/useCustomComponents';
 import { ResetPassword } from './ResetPassword';
 import { Router, RouterProps } from './Router';
@@ -18,7 +19,7 @@ export type AuthenticatorProps = AuthenticatorMachineOptions &
 export function Authenticator({
   children,
   className,
-  components,
+  components: customComponents,
   initialState,
   loginMechanisms,
   services,
@@ -26,14 +27,21 @@ export function Authenticator({
   socialProviders,
   variation,
 }: AuthenticatorProps) {
-  // First start auth machine
-  startAuthMachine({
-    initialState,
-    loginMechanisms,
-    services,
-    signUpAttributes,
-    socialProviders,
-  });
+  const { _send } = useAuthenticator();
+  const components = { ...defaultComponents, ...customComponents };
+
+  React.useEffect(() => {
+    _send({
+      type: 'INIT',
+      data: {
+        initialState,
+        loginMechanisms,
+        socialProviders,
+        signUpAttributes,
+        services,
+      },
+    });
+  }, []);
 
   return (
     <CustomComponentsContext.Provider value={{ components }}>

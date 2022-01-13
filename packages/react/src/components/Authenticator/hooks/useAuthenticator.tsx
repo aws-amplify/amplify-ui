@@ -10,19 +10,16 @@ import { interpret } from 'xstate';
 
 let authMachine: AuthInterpreter;
 
-export const startAuthMachine = (options: AuthenticatorMachineOptions) => {
-  authMachine = interpret(createAuthenticatorMachine(options)).start();
-  return authMachine;
-};
-
-export const getAuthMachine = () => {
+export const lazyStartAuthMachine = () => {
+  if (!authMachine) {
+    authMachine = interpret(createAuthenticatorMachine()).start();
+  }
   return authMachine;
 };
 
 export const useAuthenticator = () => {
-  if (!authMachine) return; // this breaks the rules of hooks though.
-  const [state, send] = useActor(authMachine);
-  console.log(state.value);
+  const machine = lazyStartAuthMachine();
+  const [state, send] = useActor(machine);
 
   const facade = React.useMemo(
     () => getServiceFacade({ send, state }),
