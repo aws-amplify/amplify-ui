@@ -23,19 +23,24 @@ const useAuthenticatorValue = ({
   signUpAttributes,
   services,
 }: ProviderProps) => {
-  const [state, send] = useMachine(
-    () =>
-      createAuthenticatorMachine({
+  const [state, send] = useMachine(() => createAuthenticatorMachine(), {
+    devTools: process.env.NODE_ENV === 'development',
+  });
+
+  React.useEffect(() => {
+    send({
+      type: 'INIT',
+      data: {
         initialState,
         loginMechanisms,
-        services,
-        signUpAttributes,
         socialProviders,
-      }),
-    {
-      devTools: process.env.NODE_ENV === 'development',
-    }
-  );
+        signUpAttributes,
+        services,
+      },
+    });
+  }, []);
+
+  console.log(state);
 
   const components = React.useMemo(
     () => ({ ...defaultComponents, ...customComponents }),
