@@ -91,7 +91,7 @@ export function createAuthenticatorMachine() {
           on: {
             SIGN_IN: 'signIn',
             'done.invoke.signUpActor': {
-              target: 'idle',
+              target: 'setup',
               actions: 'setUser',
             },
           },
@@ -171,7 +171,6 @@ export function createAuthenticatorMachine() {
               socialProviders,
               initialState,
             } = context.config;
-            console.log(context.config);
             return {
               loginMechanisms: loginMechanisms ?? cliLoginMechanisms,
               signUpAttributes:
@@ -207,7 +206,6 @@ export function createAuthenticatorMachine() {
         spawnSignUpActor: assign({
           actorRef: (context, event) => {
             const { services } = context;
-            console.log(services);
             const actor = createSignUpMachine({ services }).withContext({
               authAttributes: event.data?.authAttributes ?? {},
               country_code: DEFAULT_COUNTRY_CODE,
