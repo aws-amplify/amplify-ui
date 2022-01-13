@@ -58,20 +58,23 @@ const emit = defineEmits([
   'verifyUserSubmit',
   'confirmVerifyUserSubmit',
 ]);
-const machine = createAuthenticatorMachine({
-  initialState,
-  loginMechanisms,
-  services,
-  signUpAttributes,
-  socialProviders,
-});
+const machine = createAuthenticatorMachine();
 
-const service = useInterpret(machine, {
-  devTools: process.env.NODE_ENV === 'development',
-});
+const service = useInterpret(machine);
 
 const { state, send } = useActor(service);
 useAuth(service);
+
+send({
+  type: 'INIT',
+  data: {
+    initialState,
+    loginMechanisms,
+    socialProviders,
+    signUpAttributes,
+    services,
+  },
+});
 
 const actorState = computed(() => getActorState(state.value));
 

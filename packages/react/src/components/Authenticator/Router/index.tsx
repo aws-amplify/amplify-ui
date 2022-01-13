@@ -59,6 +59,7 @@ export function Router({
             {(() => {
               switch (route) {
                 case 'idle':
+                case 'setup':
                   return null;
                 case 'confirmSignUp':
                   return <ConfirmSignUp />;

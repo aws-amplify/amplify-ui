@@ -226,6 +226,8 @@ export const getServiceContextFacade = (state: AuthMachineState) => {
     switch (true) {
       case state.matches('idle'):
         return 'idle';
+      case state.matches('setup'):
+        return 'setup';
       case state.matches('signOut'):
         return 'signOut';
       case state.matches('authenticated'):
