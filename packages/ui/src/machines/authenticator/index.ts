@@ -9,7 +9,7 @@ import { createSignUpMachine } from './signUp';
 const DEFAULT_COUNTRY_CODE = '+1';
 
 export type AuthenticatorMachineOptions = AuthContext['config'] & {
-  services: AuthContext['services'];
+  services?: AuthContext['services'];
 };
 
 export function createAuthenticatorMachine() {
