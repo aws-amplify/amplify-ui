@@ -1,7 +1,6 @@
 import { CognitoUser, CodeDeliveryDetails } from 'amazon-cognito-identity-js';
 import { Interpreter, State } from 'xstate';
 import { ValidationError } from './validator';
-import { defaultServices } from '../machines/authenticator/defaultServices';
 
 export type AuthFormData = Record<string, string>;
 
@@ -11,9 +10,7 @@ export interface AuthContext {
     loginMechanisms?: LoginMechanism[];
     signUpAttributes?: SignUpAttribute[];
     socialProviders?: SocialProvider[];
-    initialState?: 'signIn' | 'signUp' | 'resetPassword';
   };
-  services?: Partial<typeof defaultServices>;
   user?: CognitoUserAmplify;
   username?: string;
   password?: string;
@@ -134,7 +131,6 @@ export type AuthEventTypes =
   | 'SIGN_UP'
   | 'SKIP'
   | 'SUBMIT'
-  | 'INIT'
   | InvokeActorEventTypes;
 
 export enum AuthChallengeNames {

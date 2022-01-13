@@ -9,54 +9,50 @@ import { createSignUpMachine } from './signUp';
 const DEFAULT_COUNTRY_CODE = '+1';
 
 export type AuthenticatorMachineOptions = AuthContext['config'] & {
-  services?: AuthContext['services'];
+  initialState?: 'signIn' | 'signUp' | 'resetPassword';
+  services?: Partial<typeof defaultServices>;
 };
 
-export function createAuthenticatorMachine() {
+export function createAuthenticatorMachine({
+  initialState = 'signIn',
+  loginMechanisms,
+  signUpAttributes,
+  socialProviders,
+  services: customServices,
+}: AuthenticatorMachineOptions) {
+  const services = {
+    ...defaultServices,
+    ...customServices,
+  };
+
   return createMachine<AuthContext, AuthEvent>(
     {
       id: 'authenticator',
       initial: 'idle',
       context: {
         user: undefined,
-        config: {},
-        services: {},
+        config: {
+          loginMechanisms,
+          signUpAttributes,
+          socialProviders,
+        },
         actorRef: undefined,
       },
       states: {
         // See: https://xstate.js.org/docs/guides/communication.html#invoking-promises
         idle: {
-          on: {
-            INIT: {
-              target: 'setup',
-              actions: 'configure',
-            },
-          },
-        },
-        setup: {
           invoke: [
             {
               // TODO Wait for Auth to be configured
-              src: (context, _) => context.services.getCurrentUser(),
+              src: 'getCurrentUser',
               onDone: {
                 actions: 'setUser',
                 target: 'authenticated',
               },
-              onError: [
-                {
-                  target: 'signUp',
-                  cond: (context) => context.config.initialState === 'signUp',
-                },
-                {
-                  target: 'resetPassword',
-                  cond: (context) =>
-                    context.config.initialState === 'resetPassword',
-                },
-                { target: 'signIn' },
-              ],
+              onError: initialState,
             },
             {
-              src: (context, _) => context.services.getAmplifyConfig(),
+              src: 'getAmplifyConfig',
               onDone: {
                 actions: 'applyAmplifyConfig',
               },
@@ -91,7 +87,7 @@ export function createAuthenticatorMachine() {
           on: {
             SIGN_IN: 'signIn',
             'done.invoke.signUpActor': {
-              target: 'setup',
+              target: 'idle',
               actions: 'setUser',
             },
           },
@@ -163,14 +159,7 @@ export function createAuthenticatorMachine() {
               cliLoginMechanisms.push('username');
             }
 
-            // Prefer explicitly configured settings over default CLI values\
-
-            const {
-              loginMechanisms,
-              signUpAttributes,
-              socialProviders,
-              initialState,
-            } = context.config;
+            // Prefer explicitly configured settings over default CLI values
             return {
               loginMechanisms: loginMechanisms ?? cliLoginMechanisms,
               signUpAttributes:
@@ -182,13 +171,11 @@ export function createAuthenticatorMachine() {
                   ])
                 ),
               socialProviders: socialProviders ?? cliSocialProviders.sort(),
-              initialState,
             };
           },
         }),
         spawnSignInActor: assign({
           actorRef: (context, event) => {
-            const { services } = context;
             const actor = signInActor({ services }).withContext({
               authAttributes: event.data?.authAttributes,
               user: event.data?.user,
@@ -205,7 +192,6 @@ export function createAuthenticatorMachine() {
         }),
         spawnSignUpActor: assign({
           actorRef: (context, event) => {
-            const { services } = context;
             const actor = createSignUpMachine({ services }).withContext({
               authAttributes: event.data?.authAttributes ?? {},
               country_code: DEFAULT_COUNTRY_CODE,
@@ -221,7 +207,6 @@ export function createAuthenticatorMachine() {
         }),
         spawnResetPasswordActor: assign({
           actorRef: (context, event) => {
-            const { services } = context;
             const actor = resetPasswordActor({ services }).withContext({
               formValues: {},
               touched: {},
@@ -240,13 +225,6 @@ export function createAuthenticatorMachine() {
             return spawn(actor, { name: 'signOutActor' });
           },
         }),
-        configure: assign((_, event) => {
-          const { services: customServices, ...config } = event.data;
-          return {
-            services: { ...defaultServices, ...customServices },
-            config,
-          };
-        }),
       },
       guards: {
         shouldRedirectToSignUp: (_, event): boolean => {
@@ -258,6 +236,7 @@ export function createAuthenticatorMachine() {
           return event.data.intent === 'confirmPasswordReset';
         },
       },
+      services,
     }
   );
 }
