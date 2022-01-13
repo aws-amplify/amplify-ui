@@ -99,7 +99,11 @@ export const VerifyUser = (): JSX.Element => {
       onChange={handleChange}
       onSubmit={handleSubmit}
     >
-      <Flex direction="column">
+      <fieldset
+        style={{ display: 'flex', flexDirection: 'column' }}
+        className="amplify-flex"
+        disabled={isPending}
+      >
         <Heading level={3}>
           {translate('Account recovery requires verified contact information')}
         </Heading>
@@ -113,7 +117,7 @@ export const VerifyUser = (): JSX.Element => {
           cancelButtonSendType="SKIP"
           submitButtonText={footerSubmitText}
         />
-      </Flex>
+      </fieldset>
     </form>
   );
 };

@@ -4,7 +4,3 @@
 
 yarn install
 yarn build
-
-# React's build doesn't pick up on patch changes, so we need to run it twice
-yarn patch-package
-yarn react build

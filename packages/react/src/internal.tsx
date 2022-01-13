@@ -8,4 +8,5 @@ export {
   findChildOverrides,
   getOverridesFromVariants,
   getOverrideProps,
+  mergeVariantsAndOverrides,
 } from './primitives/shared/utils';

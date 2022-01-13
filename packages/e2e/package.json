@@ -5,7 +5,9 @@
   "private": true,
   "scripts": {
     "dev": "TZ=UTC cypress open",
-    "test": "TZ=UTC cypress run --spec **/*.features"
+    "test": "TZ=UTC cypress run --spec features/ui/components/authenticator/*.features",
+    "test:authenticator": "TZ=UTC cypress run --spec features/ui/components/authenticator/*.features",
+    "test:theme": "TZ=UTC cypress run --spec features/ui/theme/*.features"
   },
   "cypress-cucumber-preprocessor": {
     "nonGlobalStepDefinitions": true,
@@ -13,7 +15,7 @@
     "stepDefinitions": "features"
   },
   "devDependencies": {
-    "@aws-amplify/ui": "^3.0.4",
+    "@aws-amplify/ui": "^3.0.7",
     "@testing-library/cypress": "^7.0.6",
     "@types/cypress-cucumber-preprocessor": "^4.0.0",
     "cypress": "^8.5.0",

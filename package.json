@@ -1,8 +1,8 @@
 {
   "private": true,
   "scripts": {
-    "postinstall": "patch-package",
-    "build": "npx ultra -r --filter '@aws-amplify/*' build",
+    "clean": "turbo run clean && rm -rf node_modules/.cache",
+    "build": "turbo run build --include-dependencies --no-deps --scope=*@aws-amplify/*",
     "angular": "yarn workspace @aws-amplify/ui-angular",
     "react": "yarn workspace @aws-amplify/ui-react",
     "ui": "yarn workspace @aws-amplify/ui",
@@ -21,6 +21,23 @@
     "version:latest": "yarn changeset version && yarn angular build",
     "publish:latest": "yarn changeset publish"
   },
+  "turbo": {
+    "baseBranch": "origin/main",
+    "pipeline": {
+      "build": {
+        "outputs": [
+          ".next/**",
+          "dist/**"
+        ],
+        "dependsOn": [
+          "^build"
+        ]
+      },
+      "clean": {
+        "cache": false
+      }
+    }
+  },
   "workspaces": [
     "docs",
     "angular-docs",
@@ -35,18 +52,12 @@
     "fs-extra": "^10.0.0",
     "jest": "^26.6.3",
     "json-schema": "^0.4.0",
-    "next": "^11.0.1",
+    "**/mapbox-gl": "npm:maplibre-gl",
     "prismjs": "^1.25.0",
     "trim": "^0.0.3",
     "ts-jest": "^26.5.6",
     "vscode-vue-languageservice": "0.27.26",
-    "ws": "^7.4.6",
-    "**/mapbox-gl": "npm:maplibre-gl"
-  },
-  "dependencies": {
-    "patch-package": "^6.4.7",
-    "postinstall-postinstall": "^2.1.0",
-    "tsup": "^4.14.0"
+    "ws": "^7.4.6"
   },
   "devDependencies": {
     "@changesets/changelog-github": "0.4.1",
@@ -54,7 +65,8 @@
     "husky": ">=6",
     "lint-staged": ">=10",
     "prettier": "2.4.1",
-    "ultra-runner": "^3.10.5",
+    "tsup": "^5.11.9",
+    "turbo": "^1.0.23",
     "wait-on": "^6.0.0"
   },
   "lint-staged": {

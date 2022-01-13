@@ -236,6 +236,8 @@ For your [configured social providers](https://docs.amplify.aws/lib/auth/social/
   <Authenticator socialProviders={['amazon', 'apple', 'facebook', 'google']} />
 </Example>
 
+_[Step by step video](https://youtu.be/8KwZNn56F78) on setting up social providers._
+
 ### `variation`
 
 The Authenticator has multiple variations to meet the needs of your application.
@@ -282,6 +284,8 @@ The following example customizes these slots with:
 - Custom Sign In footer with a _Reset Password_ link
 - Custom Sign Up header with _Create a new account_
 - Custom Sign Up footer with a _Back to Sign In_ link
+- Custom Confirm Sign Up header with an _Enter Information_ header
+- Custom Confirm Sign Up footer with a _Footer Information_ message
 
 <Fragment>
   {({ platform }) => import(`./headers-and-footers.${platform}.mdx`)}
@@ -295,10 +299,7 @@ The following example customizes these slots with:
         const { tokens } = useTheme();
         return (
           <View textAlign="center" padding={tokens.space.large}>
-            <Image
-              alt="Amplify logo"
-              src="https://docs.amplify.aws/assets/logo-dark.svg"
-            />
+            <Image alt="Amplify logo" src="/amplify-logo.svg" />
           </View>
         );
       },
@@ -367,6 +368,22 @@ The following example customizes these slots with:
             </View>
           );
         },
+        ConfirmSignUp: {
+          Header() {
+            const { tokens } = useTheme();
+            return (
+              <Heading
+                padding={`${tokens.space.xl} 0 0 ${tokens.space.xl}`}
+                level={3}
+              >
+                Enter Information:
+              </Heading>
+            );
+          },
+          Footer() {
+            return <Text>Footer Information</Text>;
+          },
+        },
       },
       /*
        */
@@ -374,12 +391,36 @@ The following example customizes these slots with:
   />
 </Example>
 
+### Override Function Calls
+
+You can override the call to `signUp`, `signIn`, `confirmSignIn`, `confirmSignUp`, `forgotPassword` and `forgotPasswordSubmit` functions.
+To override a call you must create a new `services` object with an `async` `handle*` function that returns an `aws-amplify` `Auth.*` promise.
+
+The service object must then be passed into the `authenticator` component as a `services` prop. For example, let's imagine you'd like to lowercase the `username` and the `email` attributes during `signUp`.
+This would be overriden like so:
+
+<Fragment>
+  {({ platform }) => import(`./overrides/username.${platform}.mdx`)}
+</Fragment>
+
+Each `handle*` function will return the neccessary values you'll need to make the call to the `Auth.*` function call. Here is a table of each override function name, and the values returned from `formData`.
+
+| Function Call               | Override Name                | formData Properties                 |
+| --------------------------- | ---------------------------- | ----------------------------------- |
+| `Auth.signUp`               | `handleSignUp`               | `{username, password, attributes }` |
+| `Auth.signIn`               | `handleSignIn`               | `{username, password}`              |
+| `Auth.confirmSignIn`        | `handleConfirmSignIn`        | `{user, code, mfaType}`             |
+| `Auth.confirmSignUp`        | `handleConfirmSignUp`        | `{username, code, password}`        |
+| `Auth.forgotPassword`       | `handleForgotPassword`       | `{username}`                        |
+| `Auth.forgotPasswordSubmit` | `handleForgotPasswordSubmit` | `{username, code, password}`        |
+
 ### Internationalization (I18n)
 
 The `Authenticator` ships with [translations](https://github.com/aws-amplify/amplify-ui/blob/main/packages/ui/src/i18n/translations.ts) for:
 
 - `en` – English (default)
 - `zh` – Chinese
+- `nl` – Dutch
 - `fr` – French
 - `de` – German
 - `it` – Italian
@@ -440,7 +481,7 @@ Using the same techniques as [Internationalization (I18n)](#internationalization
       'Sign in to your account': 'Welcome Back!',
       Username: 'Enter your username', // Username label
       Password: 'Enter your password', // Password label
-      'Forgot your password? ': 'Reset Password',
+      'Forgot your password?': 'Reset Password',
     });
     ```
 
@@ -451,7 +492,7 @@ Using the same techniques as [Internationalization (I18n)](#internationalization
   </TabItem>
 
   <TabItem title="Sign Up">
-    
+
     ```js
     I18n.putVocabulariesForLanguage('en', {
       'Create Account': 'Register', // Tab header
@@ -469,7 +510,7 @@ Using the same techniques as [Internationalization (I18n)](#internationalization
   </TabItem>
 
   <TabItem title="Reset Password">
-    
+
     ```js
     I18n.putVocabulariesForLanguage('en', {
       'Reset your password': 'Forgot your password?',

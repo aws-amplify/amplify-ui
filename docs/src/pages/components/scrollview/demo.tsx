@@ -19,7 +19,7 @@ export const ScrollViewDemo = () => {
             <Image
               width="800px"
               maxWidth="800px"
-              src="https://docs.amplify.aws/assets/logo-dark.svg"
+              src="/amplify-logo.svg"
               alt="Amplify-logo"
             />
           </ScrollView>

@@ -5,6 +5,7 @@ export const deDict = {
     'Ein Account mit dieser Email existiert bereits.',
   'Back to Sign In': 'Zurück zur Anmeldung',
   'Change Password': 'Passwort ändern',
+  'Confirm Password': 'Passwort bestätigen',
   Code: 'Code',
   Confirm: 'Bestätigen',
   'Confirm a Code': 'Code bestätigen',
@@ -18,7 +19,7 @@ export const deDict = {
   'Enter your password': 'Geben Sie Ihr Passwort ein',
   'Enter your username': 'Geben Sie Ihren Benutzernamen ein',
   'Forgot Password': 'Passwort vergessen',
-  'Forgot your password? ': 'Passwort vergessen? ',
+  'Forgot your password?': 'Passwort vergessen? ',
   'Have an account? ': 'Schon registriert? ',
   'Incorrect username or password':
     'Falscher Benutzername oder falsches Passwort',

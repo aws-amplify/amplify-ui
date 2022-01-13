@@ -1,5 +1,46 @@
 # @aws-amplify/ui-react
 
+## 2.1.7
+
+### Patch Changes
+
+- [#1083](https://github.com/aws-amplify/amplify-ui/pull/1083) [`2e7dbaeab`](https://github.com/aws-amplify/amplify-ui/commit/2e7dbaeaba19b8fc2a450acae0efa3e05810938e) Thanks [@ErikCH](https://github.com/ErikCH)! - Updated QR code page so users on mobile don't have to take a picture of the QR code
+
+* [#1122](https://github.com/aws-amplify/amplify-ui/pull/1122) [`7e0a6305f`](https://github.com/aws-amplify/amplify-ui/commit/7e0a6305fd92c55aea3d03ec5806f0ebac735015) Thanks [@ErikCH](https://github.com/ErikCH)! - Added new Confirm Sign Up Footer and Header slot
+
+- [#1125](https://github.com/aws-amplify/amplify-ui/pull/1125) [`c12184702`](https://github.com/aws-amplify/amplify-ui/commit/c12184702cb6e602a931a58b8ceb090d9d54a96b) Thanks [@ErikCH](https://github.com/ErikCH)! - Disable input on form submit for React on Sign up, Confirm Sign In, Confirm Sign Up, Force New Password, Confirm Reset Password, Reset Password, Setup TOTP, Confirm Verify User, and Verify User.
+
+* [#1077](https://github.com/aws-amplify/amplify-ui/pull/1077) [`9a095ae46`](https://github.com/aws-amplify/amplify-ui/commit/9a095ae46ee6639f7c8fe9a3a7b2b871449867b8) Thanks [@reesscot](https://github.com/reesscot)! - Fix media query logic to return correct breakpoint
+
+- [#1088](https://github.com/aws-amplify/amplify-ui/pull/1088) [`a2fa3603e`](https://github.com/aws-amplify/amplify-ui/commit/a2fa3603eda90a67c9a092ce170e86d13a152e18) Thanks [@wlee221](https://github.com/wlee221)! - Remove trailing space on "Forgot your password? "
+
+* [#1010](https://github.com/aws-amplify/amplify-ui/pull/1010) [`0197ab553`](https://github.com/aws-amplify/amplify-ui/commit/0197ab553c56da415b8db2e85e8c11e9d76e02dc) Thanks [@reesscot](https://github.com/reesscot)! - Remove IdProvider and port useId from radix.
+
+* Updated dependencies [[`1d5b84ac8`](https://github.com/aws-amplify/amplify-ui/commit/1d5b84ac828b962648e9b8600ed96297b1eb0c2a), [`9a095ae46`](https://github.com/aws-amplify/amplify-ui/commit/9a095ae46ee6639f7c8fe9a3a7b2b871449867b8), [`a2fa3603e`](https://github.com/aws-amplify/amplify-ui/commit/a2fa3603eda90a67c9a092ce170e86d13a152e18), [`87af74164`](https://github.com/aws-amplify/amplify-ui/commit/87af74164fb87b61d3c897b03af6e15cf73de79d), [`352a28197`](https://github.com/aws-amplify/amplify-ui/commit/352a281970f2568e7ea035cc89fb51afa31cbfc4)]:
+  - @aws-amplify/ui@3.0.7
+
+## 2.1.6
+
+### Patch Changes
+
+- [#1056](https://github.com/aws-amplify/amplify-ui/pull/1056) [`276d7e97a`](https://github.com/aws-amplify/amplify-ui/commit/276d7e97a5f8e722e8010edff25d5992f86c486d) Thanks [@hvergara](https://github.com/hvergara)! - Add white-space style prop
+
+* [#1035](https://github.com/aws-amplify/amplify-ui/pull/1035) [`ea98bea67`](https://github.com/aws-amplify/amplify-ui/commit/ea98bea6730f48b44e5159586b76e60de20f757b) Thanks [@ErikCH](https://github.com/ErikCH)! - Updated externals config in tsup. Removed typo.
+
+- [#1024](https://github.com/aws-amplify/amplify-ui/pull/1024) [`59d8b8efd`](https://github.com/aws-amplify/amplify-ui/commit/59d8b8efdc80deff7c144cbfd0f5040a4ec563c4) Thanks [@reesscot](https://github.com/reesscot)! - Build ui styles into ui-react package to fix [parcel](https://parceljs.org/) and [UMIJS](https://umijs.org/) apps.
+
+- Updated dependencies [[`5bfe1e599`](https://github.com/aws-amplify/amplify-ui/commit/5bfe1e5996536f8b5ada60e16db565dd8fb52f26), [`86e70f8e8`](https://github.com/aws-amplify/amplify-ui/commit/86e70f8e8486e70cccc23d04754e435b184915e8), [`43634b06a`](https://github.com/aws-amplify/amplify-ui/commit/43634b06aaccb1cf33cb18e0e142aee91df54aad), [`d8a422d7c`](https://github.com/aws-amplify/amplify-ui/commit/d8a422d7ce4c62a216a19d127907a2b80eb588ab), [`f9a09df7c`](https://github.com/aws-amplify/amplify-ui/commit/f9a09df7cded5bae1681bc138c048786f3bb75bc)]:
+  - @aws-amplify/ui@3.0.6
+
+## 2.1.5
+
+### Patch Changes
+
+- [#953](https://github.com/aws-amplify/amplify-ui/pull/953) [`b1418ba44`](https://github.com/aws-amplify/amplify-ui/commit/b1418ba44958290a33987df8684b06f560638055) Thanks [@reesscot](https://github.com/reesscot)! - Refocus `SearchField` input field on clear button click
+
+- Updated dependencies [[`63f773ee2`](https://github.com/aws-amplify/amplify-ui/commit/63f773ee2af1f55f1891794c1de1398e3eb47d93), [`88b15eb9a`](https://github.com/aws-amplify/amplify-ui/commit/88b15eb9aa608b58ca84fbf60e1beba8090f32e2)]:
+  - @aws-amplify/ui@3.0.5
+
 ## 2.1.4
 
 ### Patch Changes
