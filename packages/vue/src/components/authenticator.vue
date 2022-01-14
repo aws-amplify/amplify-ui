@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { useAuth } from '../composables/useAuth';
-import { ref, computed, useAttrs, watch, Ref } from 'vue';
+import { ref, computed, useAttrs, watch, Ref, onMounted } from 'vue';
 import { useActor, useInterpret } from '@xstate/vue';
+import { Hub } from '@aws-amplify/core';
 import {
   getActorState,
   getServiceFacade,
@@ -72,6 +73,18 @@ const service = useInterpret(machine, {
 
 const { state, send } = useActor(service);
 useAuth(service);
+
+onMounted(() => {
+  // TODO: share this logic from @aws-amplify/ui
+  // TODO: type this
+  const listener = (data: any) => {
+    if (data.payload.event === 'signOut') {
+      send('SIGN_OUT');
+    }
+  };
+  // TODO: unsubscribe
+  Hub.listen('auth', listener);
+});
 
 const actorState = computed(() => getActorState(state.value));
 

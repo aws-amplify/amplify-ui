@@ -1,5 +1,5 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { Logger } from '@aws-amplify/core';
+import { Logger, Hub } from '@aws-amplify/core';
 import {
   AuthContext,
   AuthenticatorMachineOptions,
@@ -53,6 +53,16 @@ export class AuthenticatorService implements OnDestroy {
       this._authState = state;
       this._facade = getServiceContextFacade(state);
     });
+
+    // TODO: share this logic from @aws-amplify/ui
+    // TODO: type this
+    const listener = (data: any) => {
+      if (data.payload.event === 'signOut') {
+        authService.send('SIGN_OUT');
+      }
+    };
+    // TODO: unsubscribe
+    Hub.listen('auth', listener);
 
     this._sendEventAliases = getSendEventAliases(authService.send);
     this._authService = authService;

@@ -1,3 +1,4 @@
+import { Hub } from '@aws-amplify/core';
 import {
   AuthenticatorMachineOptions,
   createAuthenticatorMachine,
@@ -36,6 +37,17 @@ const useAuthenticatorValue = ({
       devTools: process.env.NODE_ENV === 'development',
     }
   );
+
+  React.useEffect(() => {
+    // TODO: share this logic from @aws-amplify/ui
+    const listener = (data) => {
+      if (data.payload.event === 'signOut') {
+        console.log('signOut detected, sending SIGN_OUT signal');
+        send('SIGN_OUT');
+      }
+    };
+    return Hub.listen('auth', listener);
+  }, []);
 
   const components = React.useMemo(
     () => ({ ...defaultComponents, ...customComponents }),

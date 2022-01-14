@@ -1,4 +1,5 @@
 import { assign, createMachine, forwardTo, spawn } from 'xstate';
+import { Hub } from '@aws-amplify/core';
 
 import { AuthContext, AuthEvent, ServicesContext } from '../../types';
 import { stopActor } from './actions';
@@ -24,6 +25,7 @@ export function createAuthenticatorMachine({
     ...defaultServices,
     ...customServices,
   };
+  let subscription;
 
   return createMachine<AuthContext, AuthEvent>(
     {
