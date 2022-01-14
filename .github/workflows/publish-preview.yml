@@ -1,0 +1,33 @@
+name: PR Preview
+on:
+  # https://docs.github.com/en/actions/reference/events-that-trigger-workflows#pull_request_target
+  pull_request:
+    types: [labeled]
+    branches: [listen-hub-events]
+
+jobs:
+  Release-Snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      - name: Setup Node.js LTS
+        uses: actions/setup-node@v2
+        with:
+          node-version: lts/*
+          cache: 'yarn'
+      - name: Install and build packages
+        run: yarn --frozen-lockfile --prefer-offline && yarn build
+      - name: Add changeset that bumps all public packages
+        # There needs to be a changeset for @aws-amplify/ui[-framework] to publish.
+        run: cp .github/changeset-presets/bump-versions.md .changeset
+      - name: Run changeset version to next tag
+        run: yarn version:experimental
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create .npmrc
+        run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Publish to next tag
+        run: yarn publish:experimental

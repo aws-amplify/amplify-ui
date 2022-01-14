@@ -18,6 +18,8 @@
     "prepare": "husky install",
     "version:next": "yarn changeset version --snapshot next-$(git rev-parse --short=7 HEAD) && yarn angular build",
     "publish:next": "yarn changeset publish --tag next",
+    "version:experimental": "yarn changeset version --snapshot experimental-$(git rev-parse --short=7 HEAD) && yarn angular build",
+    "publish:experimental": "yarn changeset publish --tag experimental",
     "version:latest": "yarn changeset version && yarn angular build",
     "publish:latest": "yarn changeset publish"
   },
