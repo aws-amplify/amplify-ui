@@ -683,14 +683,18 @@ If you'd like to update the primary color of your submit button you can override
 
 ```css
 .amplify-button[data-variation='primary'] {
-  background: linear-gradient(to right, #8360c3, #2ebf91);
+  background: linear-gradient(
+    to right,
+    var(--amplify-colors-green-80),
+    var(--amplify-colors-orange-40)
+  );
 }
 ```
 
 <Example>
   <style>{`
     .customization-button .amplify-button[data-variation="primary"] {
-      background:linear-gradient(to right, #8360c3, #2ebf91);
+      background:linear-gradient(to right, var(--amplify-colors-green-80),var(--amplify-colors-orange-40) );
     }
   `}</style>
   <Authenticator className="customization-button" />
