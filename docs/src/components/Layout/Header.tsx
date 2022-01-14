@@ -108,10 +108,10 @@ export const Header = ({ platform, colorMode, setColorMode }) => {
         </Button>
 
         <NavLink href="/">
-          <a className="docs-logo-link">
+          <span className="docs-logo-link">
             <VisuallyHidden>Amplify UI Home</VisuallyHidden>
             <Logo />
-          </a>
+          </span>
         </NavLink>
 
         <Nav />
