@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react",
-  "version": "2.1.7",
+  "version": "2.1.8",
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
   "exports": {
@@ -53,10 +53,11 @@
     "@aws-amplify/ui": "3.0.7",
     "@aws-amplify/ui-react-v1": "npm:@aws-amplify/ui-react@1.2.9",
     "@maplibre/maplibre-gl-geocoder": "^1.2.0",
-    "@radix-ui/react-accordion": "0.1.2",
-    "@radix-ui/react-dropdown-menu": "0.1.2",
-    "@radix-ui/react-slider": "0.1.2",
-    "@radix-ui/react-tabs": "0.1.2",
+    "@radix-ui/react-accordion": "0.1.1",
+    "@radix-ui/react-dropdown-menu": "0.1.1",
+    "@radix-ui/react-id": "0.1.1",
+    "@radix-ui/react-slider": "0.1.1",
+    "@radix-ui/react-tabs": "0.1.1",
     "@xstate/react": "^1.4.0",
     "amazon-location-helpers": "^1.1.1",
     "autoprefixer": "^10.3.1",
