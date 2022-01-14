@@ -3,7 +3,6 @@ on:
   # https://docs.github.com/en/actions/reference/events-that-trigger-workflows#pull_request_target
   pull_request:
     types: [synchronize]
-    branches: [listen-hub-events]
 
 jobs:
   Release-Snapshot:
