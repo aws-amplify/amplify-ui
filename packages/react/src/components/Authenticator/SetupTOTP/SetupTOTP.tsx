@@ -29,11 +29,12 @@ export const SetupTOTP = (): JSX.Element => {
 
   const generateQRCode = async (user): Promise<void> => {
     try {
-      setSecretKey(await Auth.setupTOTP(user));
+      const newSecretKey = await Auth.setupTOTP(user);
       const issuer = 'AWSCognito';
-      const totpCode = `otpauth://totp/${issuer}:${user.username}?secret=${secretKey}&issuer=${issuer}`;
+      const totpCode = `otpauth://totp/${issuer}:${user.username}?secret=${newSecretKey}&issuer=${issuer}`;
       const qrCodeImageSource = await QRCode.toDataURL(totpCode);
 
+      setSecretKey(newSecretKey);
       setQrCode(qrCodeImageSource);
     } catch (error) {
       logger.error(error);
