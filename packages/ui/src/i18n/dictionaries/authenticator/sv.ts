@@ -23,7 +23,7 @@ export const svDict = {
   'Have an account? ': 'Redan registrerad? ',
   'Incorrect username or password': 'Felaktigt användarnamn eller lösenord',
   'Invalid password format': 'Ogiltigt lösenordsformat',
-  'Invalid phone number format': `Ogiltigt telefonnummerformat. Använd ett nummer med detta format: +12345678900`,
+  'Invalid phone number format': `Ogiltigt format för telefonnummer`,
   'Lost your code? ': 'Förlorat koden? ',
   'New Password': 'Nytt lösenord',
   'No account? ': 'Inget konto? ',
