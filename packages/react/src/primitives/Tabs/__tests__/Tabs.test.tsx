@@ -42,6 +42,59 @@ describe('Tabs: ', () => {
     expect(ref.current.nodeName).toBe('DIV');
   });
 
+  it('should skip over null children', async () => {
+    render(
+      <Tabs testId="tabsTest">
+        <TabItem title="Tab 1">Tab 1</TabItem>
+        {null}
+      </Tabs>
+    );
+    const tabs = await screen.findByTestId('tabsTest');
+    expect(tabs.children.length).toEqual(1);
+  });
+
+  it('should not log a warning for null children', async () => {
+    const warningMessage =
+      'Amplify UI: <Tabs> component only accepts <TabItem> as children.';
+    jest.spyOn(console, 'warn');
+
+    render(
+      <Tabs testId="tabsTest">
+        <TabItem title="Tab 1">Tab 1</TabItem>
+        {null}
+      </Tabs>
+    );
+
+    expect(console.warn).not.toHaveBeenCalledWith(warningMessage);
+  });
+
+  it('should log a warning for children not matching the tabItem structure', async () => {
+    const invalidChildren = [
+      123,
+      'test',
+      <div title="someTitle"></div>,
+      <div>
+        <span></span>
+      </div>,
+    ];
+    const warningMessage =
+      'Amplify UI: <Tabs> component only accepts <TabItem> as children.';
+    const spy = jest.spyOn(console, 'warn');
+
+    invalidChildren.forEach((child) => {
+      render(
+        <Tabs testId="tabsTest">
+          <TabItem title="Tab 1">Tab 1</TabItem>
+          {child as any}
+        </Tabs>
+      );
+
+      expect(console.warn).toHaveBeenCalledWith(warningMessage);
+
+      spy.mockClear();
+    });
+  });
+
   describe('TabItem: ', () => {
     it('can render custom classnames', async () => {
       render(
@@ -68,7 +121,7 @@ describe('Tabs: ', () => {
       expect(tab.innerHTML).toContain('Test1234');
     });
 
-    it('should render disabled button when disabled', async () => {
+    it('should render the disabled', async () => {
       render(
         <Tabs data-demo="true" testId="tabsTest">
           <TabItem title="Tab 1" isDisabled>
@@ -78,11 +131,11 @@ describe('Tabs: ', () => {
       );
 
       const tab = await screen.findByRole('tab');
-      expect(tab).toHaveAttribute('disabled');
+      expect(tab).toHaveAttribute('aria-disabled');
     });
 
-    it('should forward ref to TabItem Button DOM element', async () => {
-      const ref = React.createRef<HTMLButtonElement>();
+    it('should forward ref to TabItem DOM element', async () => {
+      const ref = React.createRef<HTMLDivElement>();
 
       render(
         <Tabs>
@@ -93,7 +146,7 @@ describe('Tabs: ', () => {
       );
 
       await screen.findByRole('tab');
-      expect(ref.current.nodeName).toBe('BUTTON');
+      expect(ref.current.nodeName).toBe('DIV');
     });
   });
 });
