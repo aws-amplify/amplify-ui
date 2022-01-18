@@ -1,5 +1,16 @@
 # @aws-amplify/ui-react
 
+## 2.1.9
+
+### Patch Changes
+
+- [#1163](https://github.com/aws-amplify/amplify-ui/pull/1163) [`679a89383`](https://github.com/aws-amplify/amplify-ui/commit/679a89383814ad66b81494fe8dc9ce2cf8df5c2e) Thanks [@ErikCH](https://github.com/ErikCH)! - Fixed bug with QR code setup page
+
+* [#1166](https://github.com/aws-amplify/amplify-ui/pull/1166) [`c5cc41a70`](https://github.com/aws-amplify/amplify-ui/commit/c5cc41a70d7c0de4b2dcae385f7661361455e7b6) Thanks [@wlee221](https://github.com/wlee221)! - Thanks @jacoblogan! -- handle null children in tabs
+
+* Updated dependencies [[`c5cc41a70`](https://github.com/aws-amplify/amplify-ui/commit/c5cc41a70d7c0de4b2dcae385f7661361455e7b6)]:
+  - @aws-amplify/ui@3.0.8
+
 ## 2.1.8
 
 ### Patch Changes

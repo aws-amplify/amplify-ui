@@ -1,5 +1,11 @@
 # @aws-amplify/ui
 
+## 3.0.8
+
+### Patch Changes
+
+- [#1166](https://github.com/aws-amplify/amplify-ui/pull/1166) [`c5cc41a70`](https://github.com/aws-amplify/amplify-ui/commit/c5cc41a70d7c0de4b2dcae385f7661361455e7b6) Thanks [@wlee221](https://github.com/wlee221)! - Thanks @Ashafix! -- added missing German translations; sorted English translations
+
 ## 3.0.7
 
 ### Patch Changes
