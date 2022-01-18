@@ -63,14 +63,12 @@ export function SignUp() {
           </Flex>
 
           <Button
-            borderRadius={0}
             isDisabled={hasValidationErrors || isPending}
             isFullWidth={true}
             type="submit"
             variation="primary"
             isLoading={isPending}
             loadingText={translate('Creating Account')}
-            fontWeight="normal"
           >
             {translate('Create Account')}
           </Button>
