@@ -1,14 +1,15 @@
 export const enDict = {
+  'Account recovery requires verified contact information': 
+    'Account recovery requires verified contact information',
   'Back to Sign In': 'Back to Sign In',
   'Change Password': 'Change Password',
   Changing: 'Changing',
   Code: 'Code',
+  Confirm: 'Confirm',
   'Confirm Password': 'Confirm Password',
-  'Reset your Password': 'Reset your Password',
   'Confirm Sign Up': 'Confirm Sign Up',
   'Confirm SMS Code': 'Confirm SMS Code',
   'Confirm TOTP Code': 'Confirm TOTP Code',
-  Confirm: 'Confirm',
   'Confirmation Code': 'Confirmation Code',
   Confirming: 'Confirming',
   'Create Account': 'Create Account',
@@ -27,6 +28,7 @@ export const enDict = {
   'Phone Number': 'Phone Number',
   'Resend Code': 'Resend Code',
   'Reset your password': 'Reset your password',
+  'Reset your Password': 'Reset your Password',
   'Send Code': 'Send Code',
   'Send code': 'Send code',
   Sending: 'Sending',
@@ -45,7 +47,5 @@ export const enDict = {
   Submit: 'Submit',
   Submitting: 'Submitting',
   'Verify Contact': 'Verify Contact',
-  'Account recovery requires verified contact information':
-    'Account recovery requires verified contact information',
   Verify: 'Verify',
 };
