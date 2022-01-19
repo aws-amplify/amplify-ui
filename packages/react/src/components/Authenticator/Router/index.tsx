@@ -38,6 +38,7 @@ export function Router({
     components: { Header, Footer },
   } = useCustomComponents();
 
+  // `Authenticator` might not have `children` for non SPA use cases.
   if (['authenticated', 'signOut'].includes(route)) {
     return children ? children({ signOut, user }) : null;
   }
