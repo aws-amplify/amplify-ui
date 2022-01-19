@@ -1,6 +1,6 @@
-import { SignIn } from '../SignIn';
-import { SignUp } from '../SignUp';
-import { ConfirmSignUp } from '../ConfirmSignUp';
+import { SignIn } from '../../SignIn';
+import { SignUp } from '../../SignUp';
+import { ConfirmSignUp } from '../../ConfirmSignUp';
 
 export const defaultComponents = {
   Header: (): JSX.Element => null,

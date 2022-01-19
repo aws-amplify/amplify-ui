@@ -124,7 +124,7 @@ const components = {
 
 export default function App() {
   return (
-    <Authenticator components={components}>
+    <Authenticator initialState="signUp" components={components}>
       {({ signOut }) => <button onClick={signOut}>Sign out</button>}
     </Authenticator>
   );
