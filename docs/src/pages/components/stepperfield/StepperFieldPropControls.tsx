@@ -2,12 +2,11 @@ import * as React from 'react';
 
 import {
   CheckboxField,
+  Flex,
   StepperFieldProps,
   SelectField,
   TextField,
 } from '@aws-amplify/ui-react';
-
-import { DemoBox } from './DemoBox';
 
 export interface StepperFieldPropControlsProps extends StepperFieldProps {
   setVariation: (
@@ -40,7 +39,7 @@ export const StepperFieldPropControls: React.FC<StepperFieldPropControlsProps> =
     variation,
     setVariation,
   }) => (
-    <DemoBox primitiveName="StepperField">
+    <Flex direction="column">
       <TextField
         label="label"
         value={label as string}
@@ -100,5 +99,5 @@ export const StepperFieldPropControls: React.FC<StepperFieldPropControlsProps> =
         onChange={(event) => setLabelHidden(event.target.checked)}
         label="labelHidden"
       />
-    </DemoBox>
+    </Flex>
   );

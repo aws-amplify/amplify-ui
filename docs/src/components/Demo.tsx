@@ -4,7 +4,6 @@ import Highlight, { defaultProps } from 'prism-react-renderer';
 import {
   Tabs,
   TabItem,
-  Card,
   Flex,
   View,
   Button,
