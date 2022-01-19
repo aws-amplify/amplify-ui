@@ -67,23 +67,6 @@ export const FlexPropControls: FlexPropControlsInterface = ({
       </SelectField>
 
       <SelectField
-        name="justifyContent"
-        id="justifyContent"
-        label="Justify Content"
-        value={justifyContent as string}
-        onChange={(event) =>
-          setJustifyContent(event.target.value as FlexProps['justifyContent'])
-        }
-      >
-        <option value="flex-start">flex-start</option>
-        <option value="flex-end">flex-end</option>
-        <option value="center">center</option>
-        <option value="space-between">space-between</option>
-        <option value="space-around">space-around</option>
-        <option value="space-evenly">space-evenly</option>
-      </SelectField>
-
-      <SelectField
         name="alignItems"
         id="alignItems"
         label="Align Items"
