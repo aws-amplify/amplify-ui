@@ -1402,6 +1402,8 @@ describe('@aws-amplify/ui-react', () => {
           "primitives",
           "useAmplify",
           "useAuthenticator",
+          "useAuthenticatorRoute",
+          "useAuthenticatorUser",
           "usePagination",
           "useTheme",
           "withAuthenticator",
