@@ -7,7 +7,7 @@ import {
   getSendEventAliases,
   getServiceContextFacade,
 } from '@aws-amplify/ui';
-import { useMachine, useSelector, useInterpret, useActor } from '@xstate/react';
+import { useSelector, useInterpret } from '@xstate/react';
 import isEmpty from 'lodash/isEmpty';
 import isEqual from 'lodash/isEqual';
 
