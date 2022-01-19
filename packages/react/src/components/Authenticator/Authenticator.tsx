@@ -40,12 +40,14 @@ export function Authenticator({
 
   // Helper component that sends init event to the parent provider
   function InitMachine({ children, ...machineProps }) {
-    const { _send } = useAuthenticator();
+    const { _send, route } = useAuthenticator();
     useEffect(() => {
-      _send({
-        type: 'INIT',
-        data: machineProps,
-      });
+      if (route === 'idle') {
+        _send({
+          type: 'INIT',
+          data: machineProps,
+        });
+      }
     }, []);
     return <>{children}</>;
   }
