@@ -13,7 +13,7 @@ import { ConfirmVerifyUser, VerifyUser } from '../VerifyUser';
 
 export type RouterProps = {
   className?: string;
-  children: ({
+  children?: ({
     signOut,
     user,
   }: {
@@ -39,7 +39,7 @@ export function Router({
   } = useCustomComponents();
 
   if (['authenticated', 'signOut'].includes(route)) {
-    return children({ signOut, user });
+    return children ? children({ signOut, user }) : null;
   }
 
   return (
