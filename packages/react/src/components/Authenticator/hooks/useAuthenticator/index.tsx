@@ -86,14 +86,24 @@ export const useAuthenticator = (selector?: Selector) => {
   ) => {
     if (!selector) return false;
 
-    // convert xstate state to facade that selector understands
+    // convert xstate state to facade that `useAuthenticator` selector understands
     const prevFacade = getFacade(prevState);
     const nextFacade = getFacade(nextState);
 
     return isEqual(selector(prevFacade), selector(nextFacade));
   };
 
-  const state = useSelector(service, (state) => state, comparator);
+  /**
+   * For `useSelector`'s selector argument, we just return back the `state`.
+   * The reason is that whenever you select a specific value of the state, the
+   * hook will return *only* that selected value instead of the whole `state`.
+   *
+   * To provide a consistent set of facade, we let the `selector` trivially return
+   * itself and let comparator decide when to re-render.
+   */
+  const xstateSelector = (state: AuthMachineState) => state;
+
+  const state = useSelector(service, xstateSelector, comparator);
 
   return {
     /** @deprecated For internal use only */
