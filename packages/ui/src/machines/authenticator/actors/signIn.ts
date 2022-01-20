@@ -416,9 +416,12 @@ export function signInActor({ services }: SignInMachineOptions) {
       services: {
         async signIn(context) {
           const source = context.formValues;
-          const { username, password } = source;
+          const { country_code, username, password } = source;
 
-          return services.handleSignIn({ username, password });
+          return await services.handleSignIn({
+            username: (country_code ?? '') + username,
+            password,
+          });
         },
         async confirmSignIn(context, event) {
           const { challengeName, user } = context;

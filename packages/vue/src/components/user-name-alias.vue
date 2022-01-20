@@ -4,7 +4,6 @@
       amplify-flex amplify-field amplify-textfield amplify-phonenumberfield
     "
     style="flex-direction: column"
-    v-on="isPhoneField ? { input: handlePhoneNumberChange } : {}"
   >
     <base-label
       class="amplify-label sr-only"
@@ -16,7 +15,7 @@
     <base-wrapper class="amplify-flex amplify-field-group">
       <base-wrapper class="amplify-field-group__outer-start">
         <!--Drop Down-->
-        <template v-if="isPhoneField">
+        <template v-if="type === 'tel'">
           <base-wrapper
             class="
               amplify-flex
@@ -78,7 +77,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, ComputedRef } from 'vue';
+import { ref, computed, ComputedRef, onMounted } from 'vue';
 import {
   authInputAttributes,
   getActorContext,
@@ -89,7 +88,7 @@ import {
   LoginMechanism,
 } from '@aws-amplify/ui';
 
-import { useAuth, useAuthenticator } from '../composables/useAuth';
+import { useAuth } from '../composables/useAuth';
 import { useAliases } from '../composables/useUtils';
 
 interface PropsInterface {
@@ -107,8 +106,7 @@ const { userNameAlias, userName, disabled } = withDefaults(
   }
 );
 
-const { state } = useAuth();
-const { updateForm } = useAuthenticator();
+const { state, send } = useAuth();
 
 const {
   value: { context },
@@ -140,8 +138,6 @@ let type =
   authInputAttributes[name as LoginMechanism]?.type ??
   authInputAttributes['username'].label;
 
-const isPhoneField = type === 'tel';
-
 // Only show for Sign In
 if (userNameAlias) {
   const aliasInfo = getAliasInfoFromContext(context);
@@ -150,28 +146,12 @@ if (userNameAlias) {
   name = 'username';
 }
 label = translate<string>(label);
-
-const fullPhoneNumber = ref({
-  country_code: defaultDialCode,
-  [name]: '',
+onMounted(() => {
+  if (type === 'tel') {
+    send({
+      type: 'CHANGE',
+      data: { name: 'country_code', value: defaultDialCode },
+    });
+  }
 });
-
-/**
- * When the field being rendered is for a phone number, this handler is used to prevent change event propagation in
- * order to manually update the state machine with a country code + phone number.
- */
-const handlePhoneNumberChange = (event: Event) => {
-  event.stopPropagation();
-
-  const target = <HTMLInputElement | HTMLSelectElement>event.target;
-
-  fullPhoneNumber.value[target.name] = target.value;
-
-  const { country_code, [name]: phoneNumber = '' } = fullPhoneNumber.value;
-
-  updateForm({
-    name,
-    value: country_code + phoneNumber,
-  });
-};
 </script>

@@ -283,10 +283,11 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
 
           let phoneNumberWithCountryCode;
           if (formValues.phone_number) {
-            phoneNumberWithCountryCode = formValues.phone_number.replace(
-              /[^A-Z0-9+]/gi,
-              ''
-            );
+            phoneNumberWithCountryCode =
+              `${formValues.country_code}${formValues.phone_number}`.replace(
+                /[^A-Z0-9+]/gi,
+                ''
+              );
           }
 
           const username =

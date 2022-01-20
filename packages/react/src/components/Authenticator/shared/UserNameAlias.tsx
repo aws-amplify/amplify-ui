@@ -5,65 +5,46 @@ import {
   LoginMechanism,
   translate,
 } from '@aws-amplify/ui';
-import React, { useRef } from 'react';
+import { useEffect } from 'react';
 
 import { useAuthenticator } from '..';
 import { PhoneNumberField, TextField } from '../../..';
 
 export interface UserNameAliasProps {
+  handleInputChange?(event): void;
   alias?: LoginMechanism;
   [key: string]: any;
 }
 
 export function UserNameAlias(props: UserNameAliasProps) {
-  const { alias, ...attrs } = props;
-  const { _state, updateForm } = useAuthenticator();
+  const { handleInputChange, alias, ...attrs } = props;
+  const { _state, _send } = useAuthenticator();
 
-  const { country_code: defaultCountryCode }: ActorContextWithForms =
-    getActorContext(_state);
+  const { country_code }: ActorContextWithForms = getActorContext(_state);
   const { label, type, error } = getAliasInfoFromContext(_state.context, alias);
   const i18nLabel = translate<string>(label);
 
   const isPhoneAlias = type === 'tel';
-  const inputFieldName = alias ?? 'username';
-  const countryCodeName = 'country_code';
 
-  const fullPhoneNumber = useRef({
-    [countryCodeName]: defaultCountryCode,
-    [inputFieldName]: '',
-  });
-
-  /**
-   * When the field being rendered is for a phone number, this handler is used to prevent change event propagation in
-   * order to manually update the state machine with a country code + phone number.
-   */
-  const handlePhoneNumberChange = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    event.stopPropagation();
-
-    fullPhoneNumber.current[event.target.name] = event.target.value;
-
-    const { [countryCodeName]: countryCode, [inputFieldName]: phoneNumber } =
-      fullPhoneNumber.current;
-
-    updateForm({
-      name: inputFieldName,
-      value: countryCode + phoneNumber,
-    });
-  };
+  // TODO This should exist on context & not rely on side-effects
+  useEffect(() => {
+    isPhoneAlias &&
+      _send({
+        type: 'CHANGE',
+        data: { name: 'country_code', value: country_code },
+      });
+  }, []);
 
   return isPhoneAlias ? (
     <PhoneNumberField
       autoComplete="username"
-      countryCodeName={countryCodeName}
-      defaultCountryCode={defaultCountryCode}
+      countryCodeName="country_code"
+      defaultCountryCode={country_code}
       errorMessage={error}
       label={i18nLabel}
       labelHidden={true}
-      name={inputFieldName}
-      onCountryCodeChange={handlePhoneNumberChange}
-      onChange={handlePhoneNumberChange}
+      name={alias ?? 'username'}
+      onChange={handleInputChange}
       placeholder={i18nLabel}
       isRequired
       {...attrs}
@@ -74,7 +55,7 @@ export function UserNameAlias(props: UserNameAliasProps) {
       errorMessage={error}
       label={i18nLabel}
       labelHidden={true}
-      name={inputFieldName}
+      name={alias ?? 'username'}
       required
       placeholder={i18nLabel}
       isRequired

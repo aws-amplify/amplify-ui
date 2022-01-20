@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   ActorContextWithForms,
   AuthInputAttributes,
@@ -20,7 +20,7 @@ import { AuthenticatorService } from '../../../../services/authenticator.service
   selector: 'amplify-form-field',
   templateUrl: './form-field.component.html',
 })
-export class FormFieldComponent {
+export class FormFieldComponent implements OnInit {
   @Input() name: string;
   @Input() type: string;
   @Input() required = true;
@@ -30,13 +30,28 @@ export class FormFieldComponent {
   @Input() disabled = false;
   @Input() autocomplete = '';
   @Input() labelHidden = true;
-  @Input() defaultCountryCode?: string;
 
+  public defaultCountryCode: string;
   public countryDialCodes = countryDialCodes;
   public textFieldId: string;
   public selectFieldId: string;
 
   constructor(private authenticator: AuthenticatorService) {}
+
+  ngOnInit(): void {
+    // TODO: consider better default handling mechanisms across frameworks
+    if (this.isPhoneField()) {
+      const state = this.authenticator.authState;
+      const { country_code }: ActorContextWithForms = getActorContext(state);
+      this.defaultCountryCode = country_code;
+
+      // TODO: remove this side-effect
+      this.authenticator.updateForm({
+        name: 'country_code',
+        value: country_code,
+      });
+    }
+  }
 
   get attributeMap(): AuthInputAttributes {
     return getAttributeMap();
