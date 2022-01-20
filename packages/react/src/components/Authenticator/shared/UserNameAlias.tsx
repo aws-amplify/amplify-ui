@@ -5,7 +5,6 @@ import {
   LoginMechanism,
   translate,
 } from '@aws-amplify/ui';
-import { useEffect } from 'react';
 
 import { useAuthenticator } from '..';
 import { PhoneNumberField, TextField } from '../../..';
