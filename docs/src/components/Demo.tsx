@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import * as React from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import Highlight, { defaultProps } from 'prism-react-renderer';
 import {
@@ -24,7 +24,7 @@ export const Demo = ({
   themeControls,
   code,
 }: DemoProps) => {
-  const [copied, setCopied] = useState(false);
+  const [copied, setCopied] = React.useState(false);
   const { tokens } = useTheme();
 
   const copy = () => {
@@ -68,7 +68,10 @@ export const Demo = ({
           </CopyToClipboard>
           <Highlight Prism={defaultProps.Prism} code={code} language="jsx">
             {({ className, style, tokens, getLineProps, getTokenProps }) => (
-              <pre className={className} style={{ ...style, height: '100%' }}>
+              <pre
+                className={className}
+                style={{ ...style, maxHeight: '100%' }}
+              >
                 <code className={className}>
                   {tokens.map((line, i) => (
                     <div key={i} {...getLineProps({ line, key: i })}>

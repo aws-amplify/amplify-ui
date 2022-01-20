@@ -92,7 +92,11 @@ export const feedbackComponents: ComponentNavItem[] = [
 ].sort(sortByLabel);
 
 export const inputComponents = [
-  { href: '/components/textfield', label: 'Text Field', body: `` },
+  {
+    href: '/components/textfield',
+    label: 'Text Field',
+    body: `The TextField form primitive can be used allow users to input text content.`,
+  },
   { href: '/components/selectfield', label: 'Select Field', body: `` },
   { href: '/components/sliderfield', label: 'Slider Field', body: `` },
   { href: '/components/stepperfield', label: 'Stepper Field', body: `` },
