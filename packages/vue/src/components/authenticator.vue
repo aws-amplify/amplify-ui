@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useAuth } from '../composables/useAuth';
-import { ref, computed, useAttrs, watch, Ref } from 'vue';
+import { ref, computed, useAttrs, watch, Ref, onMounted } from 'vue';
 import { useActor, useInterpret } from '@xstate/vue';
 import {
   getActorState,
@@ -58,20 +58,25 @@ const emit = defineEmits([
   'verifyUserSubmit',
   'confirmVerifyUserSubmit',
 ]);
-const machine = createAuthenticatorMachine({
-  initialState,
-  loginMechanisms,
-  services,
-  signUpAttributes,
-  socialProviders,
-});
+const machine = createAuthenticatorMachine();
 
-const service = useInterpret(machine, {
-  devTools: process.env.NODE_ENV === 'development',
-});
+const service = useInterpret(machine);
 
 const { state, send } = useActor(service);
 useAuth(service);
+
+onMounted(() => {
+  send({
+    type: 'INIT',
+    data: {
+      initialState,
+      loginMechanisms,
+      socialProviders,
+      signUpAttributes,
+      services,
+    },
+  });
+});
 
 const actorState = computed(() => getActorState(state.value));
 
