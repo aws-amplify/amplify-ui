@@ -13,8 +13,8 @@ import {
   FlexContainerStyleProps,
 } from '@aws-amplify/ui-react';
 
-import { useFlexContainerStyleProps } from '@/components/useFlexContainerStyleProps';
-import { GetFieldControls } from '@/components/GetFieldControls';
+import { useFlexContainerStyleProps } from '../textfield/useFlexContainerStyleProps';
+import { GetFieldControls } from '../textfield/GetFieldControls';
 import { Example } from '@/components/Example';
 
 export const CollectionDemo = () => {

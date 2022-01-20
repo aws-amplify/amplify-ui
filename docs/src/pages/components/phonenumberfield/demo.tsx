@@ -8,9 +8,9 @@ import {
 } from '@aws-amplify/ui-react';
 
 import { Example } from '@/components/Example';
-import { GetFieldControls } from '@/components/GetFieldControls';
-import { useFlexContainerStyleProps } from '@/components/useFlexContainerStyleProps';
-import { useTextFieldProps } from '@/components/useTextFieldProps';
+import { GetFieldControls } from '../textfield/GetFieldControls';
+import { useFlexContainerStyleProps } from '../textfield/useFlexContainerStyleProps';
+import { useTextFieldProps } from '../textfield/useTextFieldProps';
 
 export const PhoneNumberFieldDemo = () => {
   const flexStyleProps = useFlexContainerStyleProps({
