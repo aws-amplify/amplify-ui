@@ -146,12 +146,4 @@ if (userNameAlias) {
   name = 'username';
 }
 label = translate<string>(label);
-onMounted(() => {
-  if (type === 'tel') {
-    send({
-      type: 'CHANGE',
-      data: { name: 'country_code', value: defaultDialCode },
-    });
-  }
-});
 </script>
