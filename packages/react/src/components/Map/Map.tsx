@@ -1,11 +1,8 @@
 import { ICredentials } from '@aws-amplify/core';
 import { Auth } from 'aws-amplify';
 import { AmplifyMapLibreRequest } from 'maplibre-gl-js-amplify';
-import React, { useEffect, useState } from 'react';
-import ReactMapGL, {
-  InteractiveMapProps,
-  NavigationControl,
-} from 'react-map-gl';
+import { useEffect, useState } from 'react';
+import ReactMapGL, { NavigationControl } from 'react-map-gl';
 
 import 'maplibre-gl/dist/maplibre-gl.css';
 
