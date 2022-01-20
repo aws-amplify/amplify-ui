@@ -137,7 +137,6 @@ export const handleBlur = assign({
  * the result, and updates the form values with the full phone number which is
  * the required format by Cognito for form submission.
  */
-
 export const parsePhoneNumber = assign({
   formValues: (context: SignInContext | SignUpContext, _) => {
     const [primaryAlias = 'username'] = context.loginMechanisms;
