@@ -12,6 +12,7 @@ export const nlDict = { ...authenticatorDict.nlDict };
 export const plDict = { ...authenticatorDict.plDict };
 export const ptDict = { ...authenticatorDict.ptDict };
 export const zhDict = { ...authenticatorDict.zhDict };
+export const svDict = { ...authenticatorDict.svDict };
 
 export const defaultTexts = {
   ...authenticatorDict.defaultTexts,
