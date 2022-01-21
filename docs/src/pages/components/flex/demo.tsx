@@ -1,4 +1,4 @@
-import { Button, Flex } from '@aws-amplify/ui-react';
+import { Flex, View } from '@aws-amplify/ui-react';
 
 import { Demo } from '@/components/Demo';
 import { FlexPropControls } from './FlexPropControls';
@@ -6,17 +6,34 @@ import { useFlexProps } from './useFlexProps';
 
 const propsToCode = (props) => {
   return `<Flex
-    direction="${props.direction}"
-    justifyContent="${props.justifyContent}"
-    alignItems="${props.alignItems}"
-    alignContent="${props.alignContent}"
-    wrap="${props.wrap}"
-    gap="${props.gap}"
-  >
-    <Button>Button 1</Button>
-    <Button>Button 2</Button>
-    <Button>Button 3</Button>
-  </Flex>`;
+  direction="${props.direction}"
+  justifyContent="${props.justifyContent}"
+  alignItems="${props.alignItems}"
+  alignContent="${props.alignContent}"
+  wrap="${props.wrap}"
+  gap="${props.gap}"
+>
+  <View
+    height="2rem"
+    width="5rem"
+    backgroundColor="var(--amplify-colors-blue-20)"
+  ></View>
+  <View
+    height="2.5rem"
+    width="6.25rem"
+    backgroundColor="var(--amplify-colors-blue-40)"
+  ></View>
+  <View
+    height="3rem"
+    width="7.5rem"
+    backgroundColor="var(--amplify-colors-blue-60)"
+  ></View>
+  <View
+    height="3.5rem"
+    width="8.75rem"
+    backgroundColor="var(--amplify-colors-blue-80)"
+  ></View>
+</Flex>`;
 };
 
 export const FlexDemo = () => {
@@ -42,9 +59,26 @@ export const FlexDemo = () => {
         wrap={flexProps.wrap}
         gap={flexProps.gap}
       >
-        <Button>Button 1</Button>
-        <Button>Button 2</Button>
-        <Button>Button 3</Button>
+        <View
+          height="2rem"
+          width="5rem"
+          backgroundColor="var(--amplify-colors-blue-20)"
+        ></View>
+        <View
+          height="2.5rem"
+          width="6.25rem"
+          backgroundColor="var(--amplify-colors-blue-40)"
+        ></View>
+        <View
+          height="3rem"
+          width="7.5rem"
+          backgroundColor="var(--amplify-colors-blue-60)"
+        ></View>
+        <View
+          height="3.5rem"
+          width="8.75rem"
+          backgroundColor="var(--amplify-colors-blue-80)"
+        ></View>
       </Flex>
     </Demo>
   );

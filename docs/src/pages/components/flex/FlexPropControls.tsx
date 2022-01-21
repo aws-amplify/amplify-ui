@@ -37,7 +37,7 @@ export const FlexPropControls: FlexPropControlsInterface = ({
       <SelectField
         name="direction"
         id="direction"
-        label="Direction"
+        label="direction"
         value={direction as string}
         onChange={(event) =>
           setDirection(event.target.value as FlexProps['direction'])
@@ -52,7 +52,7 @@ export const FlexPropControls: FlexPropControlsInterface = ({
       <SelectField
         name="justifyContent"
         id="justifyContent"
-        label="Justify Content"
+        label="justifyContent"
         value={justifyContent as string}
         onChange={(event) =>
           setJustifyContent(event.target.value as FlexProps['justifyContent'])
@@ -69,7 +69,7 @@ export const FlexPropControls: FlexPropControlsInterface = ({
       <SelectField
         name="alignItems"
         id="alignItems"
-        label="Align Items"
+        label="alignItems"
         value={alignItems as string}
         onChange={(event) =>
           setAlignItems(event.target.value as FlexProps['alignItems'])
@@ -85,7 +85,7 @@ export const FlexPropControls: FlexPropControlsInterface = ({
       <SelectField
         name="alignContent"
         id="alignContent"
-        label="Align Content"
+        label="alignContent"
         value={alignContent as string}
         onChange={(event) =>
           setAlignContent(event.target.value as FlexProps['alignContent'])
@@ -102,7 +102,7 @@ export const FlexPropControls: FlexPropControlsInterface = ({
       <SelectField
         name="wrap"
         id="wrap"
-        label="Wrap"
+        label="wrap"
         value={wrap as string}
         onChange={(event) => setWrap(event.target.value as FlexProps['wrap'])}
       >
@@ -112,7 +112,7 @@ export const FlexPropControls: FlexPropControlsInterface = ({
       </SelectField>
 
       <TextField
-        label="Gap"
+        label="gap"
         value={gap as string}
         onChange={(event) => setGap(event.target.value as FlexProps['gap'])}
       />
