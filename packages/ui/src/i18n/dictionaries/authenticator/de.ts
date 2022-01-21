@@ -16,7 +16,7 @@ export const deDict = {
   'Confirmation Code': 'Bestätigungs-Code',
   'Create a new account': 'Einen neuen Account erstellen',
   'Create account': 'Hier registrieren',
-  'Create Account': 'Account erstellen',
+  'Create Account': 'Account erstellen',  
   'Creating Account': 'Account wird erstellt',
   Email: 'Email',
   'Enter your code': 'Geben Sie Ihren Code ein',
