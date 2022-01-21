@@ -2,7 +2,7 @@
 "@aws-amplify/ui-react": patch
 ---
 
-This enables `useAuthenticator` usage outside <Authenticator /> to access commonly requested authenticator context like `user` and `route`. This also adds `useAuthenticatorRoute` and `useAuthenticatorUser` that only triggers re-render whenever `route` or `user` change respectively. 
+This enables `useAuthenticator` usage outside <Authenticator /> to access commonly requested authenticator context like `user` and `route`. This also adds `useAuthenticatorRoute`, `useAuthenticatorUser`, `useAuthenticatorTransitions` that only triggers re-render whenever the value of interest changes.
 
 First wrap your App with `Authenticator.Provider`:
 
@@ -14,11 +14,12 @@ const App = (
 )
 ```
 
-We highly suggest using `useAuthenticatorUser` or `useAuthenticatorRoute` based on your use case to minimize re-render on every auth state change (which happens on every form change!)
+We highly suggest using `useAuthenticatorUser`, `useAuthenticatorRoute`, and `useAuthenticatorTransitions` based on your use case to minimize re-render on every auth state change (which happens on every form change!)
 
 ```tsx
 const Home = () => {
-  const { signOut, user } = useAuthenticatorUser();
+  const user = useAuthenticatorUser();
+  const { signOut } = useAuthenticatorTransitions();
 
   return (
     <>
@@ -31,7 +32,7 @@ const Home = () => {
 const Login = () => <Authenticator />;
 
 function MyApp() {
-  const { route } = useAuthenticatorRoute();
+  const route = useAuthenticatorRoute();
 
   return route === 'authenticated' ? <Home /> : <Login />;
 }
