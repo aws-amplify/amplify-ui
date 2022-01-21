@@ -1,5 +1,5 @@
 ---
-"@aws-amplify/ui-react": patch
+"@aws-amplify/ui-react": minor
 ---
 
 Adds optional `selector` parameter to `useAuthenticator`. This specifies which context should trigger to re-render. For example,
