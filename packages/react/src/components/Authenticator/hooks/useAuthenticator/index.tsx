@@ -36,7 +36,7 @@ export const Provider = ({ children }) => {
    * Ideally, `useInterpret` shouldn't even be run if `parentProviderVal` is
    * not empty. But conditionally running `useInterpret` breaks rules of hooks.
    *
-   * Leaving this as is for now in the interest of suggested coding guideline.
+   * Leaving this as is for now in the interest of suggested code guideline.
    */
   const service = useInterpret(createAuthenticatorMachine);
   const currentProviderVal = { service };
@@ -70,48 +70,58 @@ export const useAuthenticator = (selector?: Selector) => {
   const send = service.send;
 
   // send aliases are static and thus can be memoized
-  const sendAliases = React.useMemo(() => getSendEventAliases(send), [service]);
+  const sendAliases = React.useMemo<ReturnType<typeof getSendEventAliases>>(
+    () => getSendEventAliases(send),
+    [service]
+  );
 
   const getFacade = (state: AuthMachineState) => {
     return { ...sendAliases, ...getServiceContextFacade(state) };
   };
 
   /**
+   * Selects which value to return from `useAuthenticator`. If selector is not
+   * provided, then we return the whole state back.
+   */
+  const xstateSelector = (state: AuthMachineState) => {
+    if (!selector) return state;
+
+    const facade = getFacade(state);
+    return selector(facade);
+  };
+
+  /**
    * comparator decides whether or not the new authState should trigger a
-   * re-render, based on the provided `selector`.
+   * re-render. Does a deep equality check.
    */
   const comparator = (
     prevState: AuthMachineState,
     nextState: AuthMachineState
   ) => {
     if (!selector) return false;
-
-    // convert xstate state to facade that `useAuthenticator` selector understands
-    const prevFacade = getFacade(prevState);
-    const nextFacade = getFacade(nextState);
-
-    return isEqual(selector(prevFacade), selector(nextFacade));
+    return isEqual(prevState, nextState);
   };
+
+  const selectedValue = useSelector(service, xstateSelector, comparator);
 
   /**
-   * For `useSelector`'s selector argument, we just return back the `state`.
-   * The reason is that whenever you select a specific value of the state, the
-   * hook will return *only* that selected value instead of the whole `state`.
+   * If selector was passed into the hook, we return just the selected value.
    *
-   * To provide a consistent set of facade, we let the `selector` trivially return
-   * itself and let comparator decide when to re-render.
+   * Otherwise if developer `useAuthenticator()` without selector, then we return
+   * back the whole facade.
    */
-  const xstateSelector = (state: AuthMachineState) => state;
-
-  const state = useSelector(service, xstateSelector, comparator);
-
-  return {
-    /** @deprecated For internal use only */
-    _send: send,
-    /** @deprecated For internal use only */
-    _state: state,
-    ...getFacade(state),
-  };
+  if (selector) {
+    return selectedValue;
+  } else {
+    const state = selectedValue;
+    return {
+      /** @deprecated For internal use only */
+      _send: send,
+      /** @deprecated For internal use only */
+      _state: state,
+      ...getFacade(state),
+    };
+  }
 };
 
 /**
@@ -121,9 +131,28 @@ export const useAuthenticator = (selector?: Selector) => {
 export const useAuthenticatorRoute = () =>
   useAuthenticator((context) => context.route);
 
+export const useAuthenticatorCustom = () =>
+  useAuthenticator((context) => ({ route: context.route, user: context.user }));
+
 /**
  * Subscribes to every update to authenticated user and provides authenticator
  * context.
  */
 export const useAuthenticatorUser = () =>
   useAuthenticator((context) => context.user);
+
+/**
+ * Provides helpers to trigger transitions to Authenticator.
+ */
+export const useAuthenticatorTransitions = () => {
+  const { service } = React.useContext(AuthenticatorContext);
+  const send = service.send;
+
+  // send aliases are static and thus can be memoized
+  const sendAliases = React.useMemo<ReturnType<typeof getSendEventAliases>>(
+    () => getSendEventAliases(send),
+    [service]
+  );
+
+  return sendAliases;
+};

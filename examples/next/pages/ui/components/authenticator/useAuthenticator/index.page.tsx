@@ -4,6 +4,7 @@ import {
   Authenticator,
   useAuthenticatorUser,
   useAuthenticatorRoute,
+  useAuthenticatorTransitions,
 } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
@@ -12,7 +13,8 @@ import awsExports from './aws-exports';
 Amplify.configure(awsExports);
 
 const Home = () => {
-  const { signOut, user } = useAuthenticatorUser();
+  const user = useAuthenticatorUser();
+  const { signOut } = useAuthenticatorTransitions();
 
   return (
     <>
@@ -25,7 +27,7 @@ const Home = () => {
 const Login = () => <Authenticator />;
 
 function App() {
-  const { route } = useAuthenticatorRoute();
+  const route = useAuthenticatorRoute();
 
   return route === 'authenticated' ? <Home /> : <Login />;
 }
