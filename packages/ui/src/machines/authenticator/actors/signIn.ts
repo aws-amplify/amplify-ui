@@ -421,7 +421,6 @@ export function signInActor({ services }: SignInMachineOptions) {
             AuthChallengeNames.SMS_MFA,
             AuthChallengeNames.SOFTWARE_TOKEN_MFA,
           ];
-          console.log('shoulconfirm', event);
 
           return validChallengeNames.includes(challengeName);
         },
@@ -438,7 +437,6 @@ export function signInActor({ services }: SignInMachineOptions) {
         },
         shouldForceChangePassword: (_, event): boolean => {
           const challengeName = get(event, 'data.challengeName');
-          console.log('event info', event);
 
           return challengeName === AuthChallengeNames.NEW_PASSWORD_REQUIRED;
         },

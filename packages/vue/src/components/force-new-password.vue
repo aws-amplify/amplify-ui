@@ -7,15 +7,12 @@ import {
   SignUpContext,
   ValidationError,
   translate,
-  LoginMechanism,
-  AuthInputAttributes,
-  authInputAttributes,
 } from '@aws-amplify/ui';
 
 import { useAuth, useAuthenticator } from '../composables/useAuth';
 
 import PasswordControl from './password-control.vue';
-import AliasControl from './alias-control.vue';
+import AuthenticatorForceNewFormFields from './authenticator-force-new-form-fields.vue';
 
 const attrs = useAttrs();
 const emit = defineEmits(['haveAccountClicked', 'forceNewPasswordSubmit']);
@@ -36,26 +33,6 @@ const changingPasswordLabel = computed(() => translate('Changing'));
 const backSignInText = computed(() => translate('Back to Sign In'));
 const passwordLabel = computed(() => translate('Password'));
 const confirmPasswordLabel = computed(() => translate('Confirm Password'));
-
-// const challengeName = actorState.value.context.requiredAttributes;
-let requiredAttributes = actorState.value.context.requiredAttributes;
-
-const inputAttributes: ComputedRef<AuthInputAttributes> = computed(
-  () => authInputAttributes
-);
-
-const unknownFieldNames = [];
-
-requiredAttributes = requiredAttributes?.filter((fieldName) => {
-  const hasDefaultField = !!authInputAttributes[fieldName as LoginMechanism];
-  if (!hasDefaultField) {
-    console.debug(
-      `Authenticator does not have a default implementation for ${fieldName}.`
-    );
-    unknownFieldNames.push(fieldName);
-  }
-  return hasDefaultField;
-});
 
 // Methods
 const onHaveAccountClicked = (): void => {
@@ -78,7 +55,6 @@ const onForceNewPasswordSubmit = (e: Event): void => {
 
 const submit = (e: Event): void => {
   const formData = new FormData(<HTMLFormElement>e.target);
-  console.log('sending', Object.fromEntries(formData));
   send({
     type: 'SUBMIT',
     //@ts-ignore
@@ -164,34 +140,11 @@ function onBlur(e: Event) {
                 @blur="onBlur"
               />
             </base-wrapper>
-            <template v-for="(field, idx) in requiredAttributes" :key="idx">
-              <alias-control
-                :label="
-        // prettier-ignore
-        translate<string>((inputAttributes[field as LoginMechanism]).label)
-      "
-                :name="field"
-                :placeholder="
-        // prettier-ignore
-        translate<string>( inputAttributes[field as LoginMechanism].label)
-      "
-              />
-            </template>
+            <slot name="force-new-form-fields">
+              <authenticator-force-new-form-fields />
+            </slot>
           </base-wrapper>
 
-          <template v-for="(field, idx) in unknownFieldNames" :key="idx">
-            <alias-control
-              :label="
-                // prettier-ignore
-                translate<string>(field.charAt(0).toUpperCase()+field.slice(1))
-              "
-              :name="field"
-              :placeholder="
-                // prettier-ignore
-                translate<string>( field.charAt(0).toUpperCase()+field.slice(1))
-              "
-            />
-          </template>
           <base-footer class="amplify-flex" style="flex-direction: column">
             <base-box
               data-ui-error

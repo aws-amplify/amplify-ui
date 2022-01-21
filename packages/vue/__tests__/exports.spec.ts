@@ -9,6 +9,7 @@ describe('@aws-amplify/ui-vue', () => {
           "AmplifyCheckBox",
           "AmplifyTextField",
           "Authenticator",
+          "AuthenticatorForceNewFormFields",
           "AuthenticatorSignUpFormFields",
           "ConfirmResetPassword",
           "ConfirmSignIn",
