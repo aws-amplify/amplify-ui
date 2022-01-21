@@ -6,6 +6,7 @@ import {
   AuthMachineState,
   getSendEventAliases,
   getServiceContextFacade,
+  AuthMachineSend,
 } from '@aws-amplify/ui';
 import { useSelector, useInterpret } from '@xstate/react';
 import isEmpty from 'lodash/isEmpty';
@@ -59,13 +60,28 @@ export const Provider = ({ children }) => {
 export type AuthenticatorContext = ReturnType<typeof getServiceFacade>;
 
 /**
+ * These are internal xstate helpers to we share with `useAuthenticator`.
+ *
+ * TODO(breaking?): remove these internal contexts
+ */
+export type InternalAuthenticatorContext = {
+  _state: AuthMachineState;
+  _send: AuthMachineSend;
+};
+
+/**
  * Inspired from https://xstate.js.org/docs/packages/xstate-react/#useselector-actor-selector-compare-getsnapshot.
  *
- * Selector  accepts current facade values and returns desired value(s) that should trigger re-render.
+ * Selector accepts current facade values and returns desired value(s) that should trigger re-render.
  */
 export type Selector = (context: AuthenticatorContext) => any;
 
-export const useAuthenticator = (selector?: Selector) => {
+export type UseAuthenticator = {
+  (): AuthenticatorContext & InternalAuthenticatorContext;
+  (selector: Selector): any;
+};
+
+export const useAuthenticator: UseAuthenticator = (selector?: Selector) => {
   const { service } = React.useContext(AuthenticatorContext);
   const send = service.send;
 
@@ -130,9 +146,6 @@ export const useAuthenticator = (selector?: Selector) => {
  */
 export const useAuthenticatorRoute = () =>
   useAuthenticator((context) => context.route);
-
-export const useAuthenticatorCustom = () =>
-  useAuthenticator((context) => ({ route: context.route, user: context.user }));
 
 /**
  * Subscribes to every update to authenticated user and provides authenticator

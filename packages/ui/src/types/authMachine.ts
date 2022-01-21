@@ -1,5 +1,5 @@
 import { CognitoUser, CodeDeliveryDetails } from 'amazon-cognito-identity-js';
-import { Interpreter, State } from 'xstate';
+import { Interpreter, State, SendAction, send } from 'xstate';
 import { ValidationError } from './validator';
 import { defaultServices } from '../machines/authenticator/defaultServices';
 
@@ -184,3 +184,5 @@ export interface AuthEvent {
 export type AuthMachineState = State<AuthContext, AuthEvent>;
 
 export type AuthInterpreter = Interpreter<AuthContext, any, AuthEvent>;
+
+export type AuthMachineSend = AuthInterpreter['send'];
