@@ -7,7 +7,7 @@ on:
   push:
     branches: [main, ui-svelte/main]
 
-  pull_request_target:
+  pull_request:
     branches: [main, ui-svelte/main]
     types: [opened, synchronize, labeled]
 
@@ -55,9 +55,9 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: lts/*
-          cache: "yarn"
+          cache: 'yarn'
       - name: Install packages
-        run: yarn --frozen-lockfile --prefer-offline
+        run: yarn no-lockfile --prefer-offline
       - name: Build ui package
         run: yarn ui build
       - name: Cache cypress runner
@@ -104,7 +104,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: lts/*
-          cache: "yarn"
+          cache: 'yarn'
 
       - name: Restore node_modules cache
         uses: actions/cache@v2
@@ -124,7 +124,7 @@ jobs:
 
       - name: Install packages
         if: steps.restore-cache.outputs.cache-hit != 'true'
-        run: yarn --frozen-lockfile --prefer-offline  --prefer-offline
+        run: yarn --no-lockfile --prefer-offline  --prefer-offline
 
       - name: Build ui package
         if: ${{ steps.restore-ui-cache.outputs.cache-hit != 'true' && matrix.package != 'ui' }}
@@ -162,15 +162,15 @@ jobs:
         include:
           - example: angular
             package: angular
-            tags: "@angular and not (@skip or @todo-angular)"
+            tags: '@angular and not (@skip or @todo-angular)'
 
           - example: next
             package: react
-            tags: "@react and not (@skip or @todo-react)"
+            tags: '@react and not (@skip or @todo-react)'
 
           - example: vue
             package: vue
-            tags: "@vue and not (@skip or @todo-vue)"
+            tags: '@vue and not (@skip or @todo-vue)'
 
     steps:
       - name: Checkout Amplify UI
@@ -193,7 +193,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: lts/*
-          cache: "yarn"
+          cache: 'yarn'
 
       - name: Restore cypress runner Cache
         uses: actions/cache@v2
@@ -227,7 +227,7 @@ jobs:
 
       - name: Install packages
         if: steps.restore-cache.outputs.cache-hit != 'true' || steps.restore-cypress-cache.outputs.cache-hit != 'true'
-        run: yarn --frozen-lockfile --prefer-offline
+        run: yarn --no-lockfile --prefer-offline
 
       - name: Build @aws-amplify/ui package
         if: steps.restore-ui-cache.outputs.cache-hit != 'true'
@@ -268,7 +268,7 @@ jobs:
         run: yarn workspace e2e test:authenticator
         env:
           # Override on the default value in `cypress.json` with framework-specific tag
-          TAGS: "${{ matrix.tags }}"
+          TAGS: '${{ matrix.tags }}'
 
           # Env values for testing flows
           DOMAIN: ${{ secrets.DOMAIN }}
@@ -295,7 +295,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: lts/*
-          cache: "yarn"
+          cache: 'yarn'
 
       - name: Restore cypress runner Cache
         uses: actions/cache@v2
@@ -315,7 +315,7 @@ jobs:
 
       - name: Install packages
         if: steps.restore-cache.outputs.cache-hit != 'true'
-        run: yarn --frozen-lockfile --prefer-offline
+        run: yarn --no-lockfile --prefer-offline
 
       - name: Restore ui/dist cache
         uses: actions/cache@v2
