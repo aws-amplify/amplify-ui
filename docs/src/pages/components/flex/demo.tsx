@@ -40,7 +40,7 @@ export const FlexDemo = () => {
   const flexProps = useFlexProps({
     direction: 'row',
     justifyContent: 'flex-start',
-    alignItems: 'flex-start',
+    alignItems: 'stretch',
     alignContent: 'flex-start',
     wrap: 'nowrap',
     gap: '1rem',

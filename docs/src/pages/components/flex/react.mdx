@@ -1,9 +1,9 @@
 import { Flex, Text, Button, View } from '@aws-amplify/ui-react';
-import { Example } from '@/components/Example';
-
 import { FlexDemo } from './demo';
+import { Example, ExampleCode } from '@/components/Example';
+import { DefaultFlexExample } from './examples';
 
-The Flex primitive provides a flex container with style `display: flex`. To learn how to use Flexbox CSS properties, see the following documentation:
+The Flex primitive provides a Flexbox container with style `display: flex`. To learn how to use Flexbox CSS properties, see the following documentation:
 
 - [Flex layout - MDN](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Flexbox)
 - [A Complete Guide to Flex - CSS Tricks](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
@@ -14,26 +14,23 @@ The Flex primitive provides a flex container with style `display: flex`. To lear
 
 ## Usage
 
-Import the Flex component and styles.
+Import the Flex primitive.
 
-```jsx
-import { Flex, Button } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
+<Example>
+  <View>
+    <DefaultFlexExample />
+  </View>
+  
+  <ExampleCode>
 
-<Flex>
-  <Button backgroundColor="var(--amplify-colors-pink-10)">Button 1</Button>
-  <Button backgroundColor="var(--amplify-colors-pink-20)">Button 2</Button>
-  <Button backgroundColor="var(--amplify-colors-pink-40)">Button 3</Button>
-</Flex>;
+```jsx file=./examples/DefaultFlexExample.tsx
+
 ```
 
-<Flex>
-  <Button backgroundColor="var(--amplify-colors-pink-10)">Button 1</Button>
-  <Button backgroundColor="var(--amplify-colors-pink-20)">Button 2</Button>
-  <Button backgroundColor="var(--amplify-colors-pink-40)">Button 3</Button>
-</Flex>
+  </ExampleCode>
+</Example>
 
-### Mapping CSS Flexbox properties to Flex props
+### Mapping Flexbox CSS properties to Flex props
 
 #### Flexbox CSS property => Flex prop:
 
@@ -43,3 +40,12 @@ import '@aws-amplify/ui-react/styles.css';
 - `align-content` => `alignContent`
 - `flex-wrap` => `wrap`
 - `gap` => `gap`
+
+#### Default prop values:
+
+- `direction="row"`
+- `justifyContent="normal"`
+- `alignItems="stretch"`
+- `alignContent="normal"`
+- `wrap="nowrap"`
+- `gap="1rem"`

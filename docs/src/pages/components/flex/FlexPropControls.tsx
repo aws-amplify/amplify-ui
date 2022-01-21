@@ -75,11 +75,11 @@ export const FlexPropControls: FlexPropControlsInterface = ({
           setAlignItems(event.target.value as FlexProps['alignItems'])
         }
       >
+        <option value="stretch">stretch</option>
         <option value="flex-start">flex-start</option>
         <option value="flex-end">flex-end</option>
         <option value="center">center</option>
         <option value="baseline">baseline</option>
-        <option value="stretch">stretch</option>
       </SelectField>
 
       <SelectField
