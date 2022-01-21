@@ -1,5 +1,5 @@
 ---
-"@aws-amplify/ui-react": patch
+"@aws-amplify/ui-react": minor
 ---
 
 This enables `useAuthenticator` usage outside <Authenticator /> to access commonly requested authenticator context like `user` and `route`. This also adds `useAuthenticatorRoute`, `useAuthenticatorUser`, `useAuthenticatorTransitions` that only triggers re-render whenever the value of interest changes.
