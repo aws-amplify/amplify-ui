@@ -594,6 +594,17 @@ The following example customizes the Sign Up screen by:
 
 </Example>
 
+### Force New Password Fields
+
+The following example customizes the Force New Password screen by:
+
+- Re-using the default Force New Password form fields
+- Appending a custom "Zone Info" text field
+
+<Fragment>
+  {({ platform }) => import(`./force-new-password-fields.${platform}.mdx`)}
+</Fragment>
+
 ### Styling
 
 You can customize the Authenticator's default [theme](/theming) with [CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties).

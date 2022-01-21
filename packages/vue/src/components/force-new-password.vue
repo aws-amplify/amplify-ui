@@ -12,7 +12,7 @@ import {
 import { useAuth, useAuthenticator } from '../composables/useAuth';
 
 import PasswordControl from './password-control.vue';
-import AuthenticatorForceNewFormFields from './authenticator-force-new-form-fields.vue';
+import AuthenticatorForceNewPasswordFormFields from './authenticator-force-new-password-form-fields.vue';
 
 const attrs = useAttrs();
 const emit = defineEmits(['haveAccountClicked', 'forceNewPasswordSubmit']);
@@ -140,8 +140,8 @@ function onBlur(e: Event) {
                 @blur="onBlur"
               />
             </base-wrapper>
-            <slot name="force-new-form-fields">
-              <authenticator-force-new-form-fields />
+            <slot name="force-new-password-form-fields">
+              <authenticator-force-new-password-form-fields />
             </slot>
           </base-wrapper>
 

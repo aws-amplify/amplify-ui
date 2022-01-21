@@ -7,10 +7,10 @@ import {
 } from '@aws-amplify/ui';
 
 @Component({
-  selector: 'amplify-force-new-form-fields',
-  templateUrl: './force-new-form-fields.component.html',
+  selector: 'amplify-force-new-password-form-fields',
+  templateUrl: './force-new-password-form-fields.component.html',
 })
-export class ForceNewFormFieldsComponent implements OnInit {
+export class ForceNewPasswordFormFieldsComponent implements OnInit {
   public fieldNames: string[];
 
   constructor(private authenticator: AuthenticatorService) {}

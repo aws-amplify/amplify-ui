@@ -2,7 +2,7 @@
 import Amplify from 'aws-amplify';
 import {
   Authenticator,
-  AuthenticatorForceNewFormFields,
+  AuthenticatorForceNewPasswordFormFields,
   AmplifyTextField,
 } from '@aws-amplify/ui-vue';
 import '@aws-amplify/ui-vue/styles.css';
@@ -12,8 +12,8 @@ Amplify.configure(aws_exports);
 
 <template>
   <authenticator initial-state="signUp">
-    <template v-slot:force-new-form-fields>
-      <authenticator-force-new-form-fields />
+    <template v-slot:force-new-password-form-fields>
+      <authenticator-force-new-password-form-fields />
       <amplify-text-field
         label="Zone Info"
         id="12233"
