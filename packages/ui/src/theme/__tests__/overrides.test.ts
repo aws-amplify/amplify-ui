@@ -241,6 +241,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-checkboxfield-align-content: center;
         --amplify-components-checkboxfield-flex-direction: column;
         --amplify-components-checkboxfield-justify-content: center;
+        --amplify-components-countrycodeselect-height: 100%;
         --amplify-components-divider-border-style: solid;
         --amplify-components-divider-border-color: var(--amplify-colors-border-primary);
         --amplify-components-divider-border-width: var(--amplify-border-widths-medium);
@@ -478,6 +479,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-rating-filled-color: var(--amplify-colors-brand-secondary-80);
         --amplify-components-rating-empty-color: var(--amplify-colors-background-tertiary);
         --amplify-components-select-padding-inline-end: var(--amplify-space-xxl);
+        --amplify-components-select-wrapper-flex: 1;
         --amplify-components-select-wrapper-display: block;
         --amplify-components-select-wrapper-position: relative;
         --amplify-components-select-wrapper-cursor: pointer;
@@ -487,6 +489,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-select-icon-wrapper-right: var(--amplify-space-medium);
         --amplify-components-select-icon-wrapper-transform: translateY(-50%);
         --amplify-components-select-icon-wrapper-pointer-events: none;
+        --amplify-components-select-option-background-color: var(--amplify-colors-background-primary);
         --amplify-components-select-white-space: nowrap;
         --amplify-components-select-min-width: 6.5rem;
         --amplify-components-select-small-min-width: 5.5rem;
@@ -868,13 +871,13 @@ describe('@aws-amplify/ui', () => {
           }
         }
 
-        @media (min-width: 30em) {
+        @media (min-width: 480px) {
           [data-amplify-theme=\\"test-theme\\"] {
             --amplify-space-medium: 0.5rem;
           }
         }
 
-        @media (min-width: 62em) {
+        @media (min-width: 992px) {
           [data-amplify-theme=\\"test-theme\\"] {
             --amplify-space-medium: 2.5rem;
           }

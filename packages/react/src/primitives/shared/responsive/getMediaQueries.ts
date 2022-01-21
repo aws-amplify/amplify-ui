@@ -3,10 +3,7 @@
 
 import { Breakpoint, GetMediaQueries } from '../../types/responsive';
 
-export const getMediaQueries: GetMediaQueries = ({
-  breakpoints,
-  breakpointUnit,
-}) => {
+export const getMediaQueries: GetMediaQueries = ({ breakpoints }) => {
   const sortedBreakpoints = Object.keys(breakpoints).sort(
     (a, b) => breakpoints[b] - breakpoints[a]
   );
@@ -18,17 +15,17 @@ export const getMediaQueries: GetMediaQueries = ({
     const nextBreakpoint = sortedBreakpoints[index - 1] as
       | Breakpoint
       | undefined;
-    const maxWidth = nextBreakpoint ? breakpoints[nextBreakpoint] : null;
+    const maxWidth = nextBreakpoint ? breakpoints[nextBreakpoint] - 1 : null;
 
     if (minWidth >= 0) {
-      query = `(min-width: ${minWidth}${breakpointUnit})`;
+      query = `(min-width: ${minWidth}px)`;
     }
 
     if (maxWidth !== null) {
       if (query) {
         query += ' and ';
       }
-      query += `(max-width: calc(${maxWidth}${breakpointUnit} - 1px))`;
+      query += `(max-width: ${maxWidth}px)`;
     }
 
     return {

@@ -1,5 +1,34 @@
 # @aws-amplify/ui-angular
 
+## 2.0.8
+
+### Patch Changes
+
+- Updated dependencies [[`c5cc41a70`](https://github.com/aws-amplify/amplify-ui/commit/c5cc41a70d7c0de4b2dcae385f7661361455e7b6)]:
+  - @aws-amplify/ui@3.0.8
+
+## 2.0.7
+
+### Patch Changes
+
+- [#1083](https://github.com/aws-amplify/amplify-ui/pull/1083) [`2e7dbaeab`](https://github.com/aws-amplify/amplify-ui/commit/2e7dbaeaba19b8fc2a450acae0efa3e05810938e) Thanks [@ErikCH](https://github.com/ErikCH)! - Updated QR code page so users on mobile don't have to take a picture of the QR code
+
+* [#1094](https://github.com/aws-amplify/amplify-ui/pull/1094) [`04d1020e7`](https://github.com/aws-amplify/amplify-ui/commit/04d1020e73877c296f7781830d60fc3562d0a380) Thanks [@wlee221](https://github.com/wlee221)! - deps(angular): Pin @stencil/core to 2.8.0
+
+- [#1088](https://github.com/aws-amplify/amplify-ui/pull/1088) [`a2fa3603e`](https://github.com/aws-amplify/amplify-ui/commit/a2fa3603eda90a67c9a092ce170e86d13a152e18) Thanks [@wlee221](https://github.com/wlee221)! - Remove trailing space on "Forgot your password? "
+
+- Updated dependencies [[`1d5b84ac8`](https://github.com/aws-amplify/amplify-ui/commit/1d5b84ac828b962648e9b8600ed96297b1eb0c2a), [`9a095ae46`](https://github.com/aws-amplify/amplify-ui/commit/9a095ae46ee6639f7c8fe9a3a7b2b871449867b8), [`a2fa3603e`](https://github.com/aws-amplify/amplify-ui/commit/a2fa3603eda90a67c9a092ce170e86d13a152e18), [`87af74164`](https://github.com/aws-amplify/amplify-ui/commit/87af74164fb87b61d3c897b03af6e15cf73de79d), [`352a28197`](https://github.com/aws-amplify/amplify-ui/commit/352a281970f2568e7ea035cc89fb51afa31cbfc4)]:
+  - @aws-amplify/ui@3.0.7
+
+## 2.0.6
+
+### Patch Changes
+
+- [#1082](https://github.com/aws-amplify/amplify-ui/pull/1082) [`a4a1e21f1`](https://github.com/aws-amplify/amplify-ui/commit/a4a1e21f15afe2e4bdb05db166fdb92bb4685b63) Thanks [@ErikCH](https://github.com/ErikCH)! - Added back fonts that were deleted in previous PR
+
+- Updated dependencies [[`5bfe1e599`](https://github.com/aws-amplify/amplify-ui/commit/5bfe1e5996536f8b5ada60e16db565dd8fb52f26), [`86e70f8e8`](https://github.com/aws-amplify/amplify-ui/commit/86e70f8e8486e70cccc23d04754e435b184915e8), [`43634b06a`](https://github.com/aws-amplify/amplify-ui/commit/43634b06aaccb1cf33cb18e0e142aee91df54aad), [`d8a422d7c`](https://github.com/aws-amplify/amplify-ui/commit/d8a422d7ce4c62a216a19d127907a2b80eb588ab), [`f9a09df7c`](https://github.com/aws-amplify/amplify-ui/commit/f9a09df7cded5bae1681bc138c048786f3bb75bc)]:
+  - @aws-amplify/ui@3.0.6
+
 ## 2.0.5
 
 ### Patch Changes

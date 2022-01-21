@@ -6,18 +6,21 @@ import { FederatedSignIn } from '../FederatedSignIn';
 import { RemoteErrorMessage } from '../shared';
 import { FormFields } from './FormFields';
 import { isInputOrSelectElement, isInputElement } from '../../../helpers/utils';
+import { useCustomComponents } from '../hooks/useCustomComponents';
 
 export function SignUp() {
-  const { components, hasValidationErrors, isPending, submitForm, updateForm } =
+  const { hasValidationErrors, isPending, submitForm, updateForm } =
     useAuthenticator();
 
   const {
-    SignUp: {
-      Header = SignUp.Header,
-      FormFields = SignUp.FormFields,
-      Footer = SignUp.Footer,
+    components: {
+      SignUp: {
+        Header = SignUp.Header,
+        FormFields = SignUp.FormFields,
+        Footer = SignUp.Footer,
+      },
     },
-  } = components;
+  } = useCustomComponents();
 
   const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
     if (isInputOrSelectElement(event.target)) {
@@ -52,7 +55,11 @@ export function SignUp() {
       >
         <FederatedSignIn />
 
-        <Flex direction="column">
+        <fieldset
+          style={{ display: 'flex', flexDirection: 'column' }}
+          className="amplify-flex"
+          disabled={isPending}
+        >
           <Flex direction="column">
             <FormFields />
             <RemoteErrorMessage />
@@ -70,7 +77,7 @@ export function SignUp() {
           >
             {translate('Create Account')}
           </Button>
-        </Flex>
+        </fieldset>
       </form>
 
       <Footer />

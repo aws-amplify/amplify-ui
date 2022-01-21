@@ -1,4 +1,5 @@
 .amplify-select__wrapper {
+  flex: var(--amplify-components-select-wrapper-flex);
   display: var(--amplify-components-select-wrapper-display);
   position: var(--amplify-components-select-wrapper-position);
   cursor: var(--amplify-components-select-wrapper-cursor);
@@ -19,6 +20,15 @@
   padding-inline-end: var(--amplify-components-select-padding-inline-end);
   min-width: var(--amplify-components-select-min-width);
   white-space: var(--amplify-components-select-white-space);
+
+  // for Firefox only, to fix background color in darkmode
+  @-moz-document url-prefix() {
+    option {
+      background-color: var(
+        --amplify-components-select-option-background-color
+      );
+    }
+  }
 
   &[data-size='small'] {
     min-width: var(--amplify-components-select-small-min-width);

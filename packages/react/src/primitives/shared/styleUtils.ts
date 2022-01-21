@@ -1,9 +1,5 @@
 import * as React from 'react';
-import autoprefixer from 'autoprefixer';
-import postcss from 'postcss-js';
 import { isDesignToken } from '@aws-amplify/ui';
-
-export const prefixer = postcss.sync([autoprefixer]);
 
 import {
   BaseStyleProps,
@@ -51,16 +47,11 @@ export const useTransformStyleProps = (props: ViewProps): ViewProps => {
 
 export const usePropStyles = (props: ViewProps, style: React.CSSProperties) => {
   const {
-    breakpoints: {
-      values: breakpoints,
-      unit: breakpointUnit,
-      defaultBreakpoint,
-    },
+    breakpoints: { values: breakpoints, defaultBreakpoint },
   } = useTheme();
 
   const breakpoint = useBreakpoint({
     breakpoints,
-    breakpointUnit,
     defaultBreakpoint: defaultBreakpoint as Breakpoint,
   });
 
@@ -68,14 +59,12 @@ export const usePropStyles = (props: ViewProps, style: React.CSSProperties) => {
 
   return React.useMemo(
     () =>
-      prefixer(
-        convertStylePropsToStyleObj({
-          props: propStyles,
-          style,
-          breakpoint,
-          breakpoints,
-        })
-      ),
+      convertStylePropsToStyleObj({
+        props: propStyles,
+        style,
+        breakpoint,
+        breakpoints,
+      }),
     [propStyles, style, breakpoints, breakpoint]
   );
 };

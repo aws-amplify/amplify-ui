@@ -12,7 +12,8 @@ import { ConfirmationCodeInput, ConfirmSignInFooter } from '../shared';
 import { isInputOrSelectElement, isInputElement } from '../../../helpers/utils';
 
 export const ConfirmSignIn = (): JSX.Element => {
-  const { _state, error, submitForm, updateForm } = useAuthenticator();
+  const { _state, error, submitForm, updateForm, isPending } =
+    useAuthenticator();
   const actorState = getActorState(_state) as SignInState;
 
   const { challengeName } = actorState.context as SignInContext;
@@ -58,7 +59,11 @@ export const ConfirmSignIn = (): JSX.Element => {
       onChange={handleChange}
       onSubmit={handleSubmit}
     >
-      <Flex direction="column">
+      <fieldset
+        style={{ display: 'flex', flexDirection: 'column' }}
+        className="amplify-flex"
+        disabled={isPending}
+      >
         <Heading level={3}>{headerText}</Heading>
 
         <Flex direction="column">
@@ -66,7 +71,7 @@ export const ConfirmSignIn = (): JSX.Element => {
         </Flex>
 
         <ConfirmSignInFooter />
-      </Flex>
+      </fieldset>
     </form>
   );
 };
