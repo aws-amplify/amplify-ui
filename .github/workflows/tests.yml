@@ -57,7 +57,7 @@ jobs:
           node-version: lts/*
           cache: "yarn"
       - name: Install packages
-        run: yarn no-lockfile --prefer-offline
+        run: yarn --no-lockfile --prefer-offline
       - name: Build ui package
         run: yarn ui build
       - name: Cache cypress runner
