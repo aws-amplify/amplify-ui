@@ -17,6 +17,7 @@ import { SignUpWithPhoneComponent } from 'src/pages/ui/components/authenticator/
 import { SignUpWithUsernameComponent } from 'src/pages/ui/components/authenticator/sign-up-with-username/sign-up-with-username.component';
 import { CustomSignUpFieldsComponent } from 'src/pages/ui/components/authenticator/custom-sign-up-fields/custom-sign-up-fields.component';
 import { CustomSlotsComponent } from 'src/pages/ui/components/authenticator/custom-slots/custom-slots.component';
+import { UseAuthenticatorComponent } from 'src/pages/ui/components/authenticator/useAuthenticator/useAuthenticator.component';
 
 const routes: Routes = [
   {
@@ -90,6 +91,10 @@ const routes: Routes = [
   {
     path: 'ui/components/authenticator/sign-up-with-email',
     component: SignUpWithEmailComponent,
+  },
+  {
+    path: 'ui/components/authenticator/useAuthenticator',
+    component: UseAuthenticatorComponent,
   },
 ];
 
