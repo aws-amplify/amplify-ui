@@ -32,6 +32,7 @@ export interface ServicesContext {
 interface BaseFormContext {
   authAttributes?: Record<string, any>;
   challengeName?: string;
+  requiredAttributes?: Array<string>;
   formValues?: AuthFormData;
   touched?: AuthFormData;
   intent?: string;

@@ -7,6 +7,7 @@ import { runValidators } from '../../../validators';
 import {
   clearAttributeToVerify,
   clearChallengeName,
+  clearRequiredAttributes,
   clearError,
   clearFormValues,
   clearTouched,
@@ -20,6 +21,7 @@ import {
   setCredentials,
   setFieldErrors,
   setRemoteError,
+  setRequiredAttributes,
   setUnverifiedAttributes,
   setUser,
   setUsernameAuthAttributes,
@@ -69,17 +71,29 @@ export function signInActor({ services }: SignInMachineOptions) {
                 onDone: [
                   {
                     cond: 'shouldSetupTOTP',
-                    actions: ['setUser', 'setChallengeName'],
+                    actions: [
+                      'setUser',
+                      'setChallengeName',
+                      'setRequiredAttributes',
+                    ],
                     target: '#signInActor.setupTOTP',
                   },
                   {
                     cond: 'shouldConfirmSignIn',
-                    actions: ['setUser', 'setChallengeName'],
+                    actions: [
+                      'setUser',
+                      'setChallengeName',
+                      'setRequiredAttributes',
+                    ],
                     target: '#signInActor.confirmSignIn',
                   },
                   {
                     cond: 'shouldForceChangePassword',
-                    actions: ['setUser', 'setChallengeName'],
+                    actions: [
+                      'setUser',
+                      'setChallengeName',
+                      'setRequiredAttributes',
+                    ],
                     target: '#signInActor.forceNewPassword',
                   },
                   {
@@ -152,7 +166,11 @@ export function signInActor({ services }: SignInMachineOptions) {
                 src: 'confirmSignIn',
                 onDone: {
                   target: '#signInActor.resolved',
-                  actions: ['setUser', 'clearChallengeName'],
+                  actions: [
+                    'setUser',
+                    'clearChallengeName',
+                    'clearRequiredAttributes',
+                  ],
                 },
                 onError: {
                   target: 'edit',
@@ -228,12 +246,21 @@ export function signInActor({ services }: SignInMachineOptions) {
                     onDone: [
                       {
                         cond: 'shouldConfirmSignIn',
-                        actions: ['setUser', 'setChallengeName'],
+                        actions: [
+                          'setUser',
+                          'setChallengeName',
+                          'setRequiredAttributes',
+                        ],
                         target: '#signInActor.confirmSignIn',
                       },
                       {
                         cond: 'shouldSetupTOTP',
-                        actions: ['setUser', 'setChallengeName'],
+                        actions: [
+                          'setUser',
+                          'setChallengeName',
+                          'setRequiredAttributes',
+                        ],
+
                         target: '#signInActor.setupTOTP',
                       },
                       {
@@ -270,7 +297,11 @@ export function signInActor({ services }: SignInMachineOptions) {
               invoke: {
                 src: 'verifyTotpToken',
                 onDone: {
-                  actions: ['setUser', 'clearChallengeName'],
+                  actions: [
+                    'setUser',
+                    'clearChallengeName',
+                    'clearRequiredAttributes',
+                  ],
                   target: '#signInActor.resolved',
                 },
                 onError: {
@@ -364,6 +395,7 @@ export function signInActor({ services }: SignInMachineOptions) {
       actions: {
         clearAttributeToVerify,
         clearChallengeName,
+        clearRequiredAttributes,
         clearError,
         clearFormValues,
         clearTouched,
@@ -374,6 +406,7 @@ export function signInActor({ services }: SignInMachineOptions) {
         setChallengeName,
         setConfirmResetPasswordIntent,
         setConfirmSignUpIntent,
+        setRequiredAttributes,
         setCredentials,
         setFieldErrors,
         setRemoteError,
@@ -388,6 +421,7 @@ export function signInActor({ services }: SignInMachineOptions) {
             AuthChallengeNames.SMS_MFA,
             AuthChallengeNames.SOFTWARE_TOKEN_MFA,
           ];
+          console.log('shoulconfirm', event);
 
           return validChallengeNames.includes(challengeName);
         },
@@ -404,6 +438,7 @@ export function signInActor({ services }: SignInMachineOptions) {
         },
         shouldForceChangePassword: (_, event): boolean => {
           const challengeName = get(event, 'data.challengeName');
+          console.log('event info', event);
 
           return challengeName === AuthChallengeNames.NEW_PASSWORD_REQUIRED;
         },
@@ -439,9 +474,22 @@ export function signInActor({ services }: SignInMachineOptions) {
         },
         async forceNewPassword(context, event) {
           const { user, formValues } = context;
-          const { password } = formValues;
+          let {
+            password,
+            confirm_password,
+            phone_number,
+            country_code,
+            ...rest
+          } = formValues;
 
-          return Auth.completeNewPassword(user, password);
+          let phoneNumberWithCountryCode;
+          if (phone_number) {
+            phoneNumberWithCountryCode =
+              `${country_code}${phone_number}`.replace(/[^A-Z0-9+]/gi, '');
+            rest = { ...rest, phone_number: phoneNumberWithCountryCode };
+          }
+
+          return Auth.completeNewPassword(user, password, rest);
         },
         async verifyTotpToken(context, event) {
           const { user } = context;
