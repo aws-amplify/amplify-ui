@@ -1512,10 +1512,42 @@ These variables are used in the theming of the Authenticator. You can override t
 | --amplify-transforms-slide-x-medium                                      | translateX(1em)                                                                                                                                            |
 | --amplify-transforms-slide-x-large                                       | translateX(2em)                                                                                                                                            |
 
-## Advanced Usage
+## Headless Usage
 
 <Fragment>
   {({ platform }) => import(`./advanced/useAuthenticator.${platform}.mdx`)}
+</Fragment>
+
+### Access Auth State
+
+<Fragment>
+  {({ platform }) => import(`./advanced/conditional-rendering.${platform}.mdx`)}
+</Fragment>
+
+### Access Authenticated User
+
+<Fragment>
+  {({ platform }) => import(`./advanced/current-user.${platform}.mdx`)}
+</Fragment>
+
+### Trigger Transitions
+
+<Fragment>
+  {({ platform }) => import(`./advanced/trigger-transitions.${platform}.mdx`)}
+</Fragment>
+
+#### Example
+
+Here's an example that uses above methods to conditionally render different components based on current authentication status. Note that this can be extended to support routed application.
+
+<Fragment>
+  {({ platform }) => import(`./advanced/example.${platform}.mdx`)}
+</Fragment>
+
+### Full API
+
+<Fragment>
+  {({ platform }) => import(`./advanced/full-api.${platform}.mdx`)}
 </Fragment>
 
 <Tabs>
@@ -1546,13 +1578,9 @@ These helper functions trigger transition to another `route`. Note that any inva
 | `toFederatedSignIn` | Transitions to `provider`'s federated sign in page. Supported `provider` values can be found [here](https://github.com/aws-amplify/amplify-ui/blob/96830f6a34a417aa9bc6329c839679bd10da84f0/packages/ui/src/helpers/auth.ts#L104-L109). | `(provider: string) => void` |
 | `skipVerification`  | Skips verification process. Allowed from `verifyUser` and `confirmVerifyUser`                                                                                                                                                           | `() => void`                 |
 
-See [Headers & Footers](#headers--footers) above to see an example that adds `toResetPassword` button to `sign-in` screen.
-
   </TabItem>
 </Tabs>
 
-### Route Based Rendering
-
-<Fragment>
-  {({ platform }) => import(`./advanced/conditional-rendering.${platform}.mdx`)}
+<Fragment platforms={['react']}>
+  {({ platform }) => import(`./advanced/render-optimizations.${platform}.mdx`)}
 </Fragment>

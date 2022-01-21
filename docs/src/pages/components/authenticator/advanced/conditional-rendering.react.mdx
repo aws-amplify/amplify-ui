@@ -1,15 +1,27 @@
-You can use `route` from [`useAuthenticator`](#access--modify-auth-state) hook to manage the rendering and layout of the Authenticator separately from your App.
+You can use `useAuthenticatorRoute` hook to access `route` string that represents the current `authState`. They can be one of:
 
-```ts
-import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react';
-import { route, user } = useAuthenticator();
+- `idle`
+- `setup`
+- `signIn`
+- `signUp`
+- `confirmSignIn`
+- `confirmSignUp`
+- `setupTOTP`
+- `forceNewPassword`
+- `resetPassword`
+- `confirmResetPassword`
+- `verifyUser`
+- `confirmVerifyUser`
+- `signOut`
+- `authenticated`
 
-return route === 'authenticated' ? (
-  <div className="App">
-    <div>Hello, {user.username}</div>
-    <AmplifySignOut />
-  </div>
-) : (
-  <Authenticator />
-);
+```tsx{1,4-7}
+import { useAuthenticatorRoute } from '@aws-amplify/ui-react';
+
+const App = () => {
+  const route = useAuthenticatorRoute();
+
+  // Use the value of route to decide which page to render
+  return route === 'authenticated' ? <Home /> : <Authenticator />;
+};
 ```

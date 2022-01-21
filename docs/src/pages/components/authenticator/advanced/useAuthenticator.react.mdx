@@ -1,3 +1,11 @@
-### Access & Modify Auth State
+`@aws-amplify/ui-react` ships with `useAuthenticator` React hooks that can be used to access, modify, and update Authenticator's auth state. To use them, first wrap your application with `<Authenticator.Provider>`:
 
-`@aws-amplify/ui-react` ships with `useAuthenticator` hook that can be used to access, modify, and update Authenticator's auth state. Following is the list of variables that this hook provides per use case:
+```tsx
+import { Authenticator } from '@aws-amplify/ui-react';
+
+export default = () => (
+  <Authenticator.Provider>
+    <App />
+  </AmplifyProvider>
+);
+```
