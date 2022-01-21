@@ -1404,6 +1404,7 @@ describe('@aws-amplify/ui-react', () => {
           "useAuthenticator",
           "useAuthenticatorRoute",
           "useAuthenticatorUser",
+          "useAuthenticatorTransitions",
           "usePagination",
           "useTheme",
           "withAuthenticator",
