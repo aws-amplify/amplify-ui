@@ -16,7 +16,7 @@
     "@aws-amplify/ui-components": "^1.7.0",
     "@aws-amplify/ui": "3.0.8",
     "@stencil/core": "2.8.0",
-    "nanoid": "^3.1.25",
+    "nanoid": "^3.1.31",
     "qrcode": "^1.4.4",
     "tslib": "^2.0.0",
     "xstate": "^4.20.1"
