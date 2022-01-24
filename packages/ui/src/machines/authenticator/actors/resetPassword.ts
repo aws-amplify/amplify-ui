@@ -1,4 +1,3 @@
-import { Auth } from 'aws-amplify';
 import { createMachine, sendUpdate } from 'xstate';
 import { AuthEvent, ResetPasswordContext } from '../../../types';
 import { runValidators } from '../../../validators';

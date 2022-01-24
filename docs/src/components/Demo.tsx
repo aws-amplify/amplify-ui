@@ -4,7 +4,6 @@ import Highlight, { defaultProps } from 'prism-react-renderer';
 import {
   Tabs,
   TabItem,
-  Card,
   Flex,
   View,
   Button,
@@ -35,8 +34,14 @@ export const Demo = ({
   };
 
   return (
-    <Card className="docs-component-demo" variation="outlined">
-      <Flex direction="row" alignItems="stretch">
+    <View className="docs-component-demo">
+      <Flex
+        direction={{
+          base: 'column',
+          medium: 'row',
+        }}
+        alignItems="stretch"
+      >
         <Flex direction="column" flex="1">
           <View>{children}</View>
           <Tabs>
@@ -63,18 +68,20 @@ export const Demo = ({
           <Highlight Prism={defaultProps.Prism} code={code} language="jsx">
             {({ className, style, tokens, getLineProps, getTokenProps }) => (
               <pre className={className} style={{ ...style, height: '100%' }}>
-                {tokens.map((line, i) => (
-                  <div key={i} {...getLineProps({ line, key: i })}>
-                    {line.map((token, key) => (
-                      <span key={key} {...getTokenProps({ token, key })} />
-                    ))}
-                  </div>
-                ))}
+                <code className={className}>
+                  {tokens.map((line, i) => (
+                    <div key={i} {...getLineProps({ line, key: i })}>
+                      {line.map((token, key) => (
+                        <span key={key} {...getTokenProps({ token, key })} />
+                      ))}
+                    </div>
+                  ))}
+                </code>
               </pre>
             )}
           </Highlight>
         </View>
       </Flex>
-    </Card>
+    </View>
   );
 };

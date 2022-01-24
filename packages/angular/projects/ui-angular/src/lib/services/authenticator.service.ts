@@ -37,17 +37,20 @@ export class AuthenticatorService implements OnDestroy {
     signUpAttributes,
     socialProviders,
   }: AuthenticatorMachineOptions) {
-    const machine = createAuthenticatorMachine({
-      initialState,
-      loginMechanisms,
-      services,
-      signUpAttributes,
-      socialProviders,
-    });
+    const machine = createAuthenticatorMachine();
 
-    const authService = interpret(machine, {
-      devTools: process.env.NODE_ENV === 'development',
-    }).start();
+    const authService = interpret(machine).start();
+
+    authService.send({
+      type: 'INIT',
+      data: {
+        initialState,
+        loginMechanisms,
+        socialProviders,
+        signUpAttributes,
+        services,
+      },
+    });
 
     this._subscription = authService.subscribe((state) => {
       this._authState = state;

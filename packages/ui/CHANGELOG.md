@@ -1,5 +1,39 @@
 # @aws-amplify/ui
 
+## 3.0.8
+
+### Patch Changes
+
+- [#1166](https://github.com/aws-amplify/amplify-ui/pull/1166) [`c5cc41a70`](https://github.com/aws-amplify/amplify-ui/commit/c5cc41a70d7c0de4b2dcae385f7661361455e7b6) Thanks [@wlee221](https://github.com/wlee221)! - Thanks @Ashafix! -- added missing German translations; sorted English translations
+
+## 3.0.7
+
+### Patch Changes
+
+- [#1103](https://github.com/aws-amplify/amplify-ui/pull/1103) [`1d5b84ac8`](https://github.com/aws-amplify/amplify-ui/commit/1d5b84ac828b962648e9b8600ed96297b1eb0c2a) Thanks [@zchenwei](https://github.com/zchenwei)! - fix: fixing unaligned border outlines between `CountryCodeSelect` and `TextField` on `PhoneNumberField`
+
+* [#1077](https://github.com/aws-amplify/amplify-ui/pull/1077) [`9a095ae46`](https://github.com/aws-amplify/amplify-ui/commit/9a095ae46ee6639f7c8fe9a3a7b2b871449867b8) Thanks [@reesscot](https://github.com/reesscot)! - Fix media query logic to return correct breakpoint
+
+- [#1088](https://github.com/aws-amplify/amplify-ui/pull/1088) [`a2fa3603e`](https://github.com/aws-amplify/amplify-ui/commit/a2fa3603eda90a67c9a092ce170e86d13a152e18) Thanks [@wlee221](https://github.com/wlee221)! - Remove trailing space on "Forgot your password? "
+
+* [#1110](https://github.com/aws-amplify/amplify-ui/pull/1110) [`87af74164`](https://github.com/aws-amplify/amplify-ui/commit/87af74164fb87b61d3c897b03af6e15cf73de79d) Thanks [@zchenwei](https://github.com/zchenwei)! - fix: fixing `option` background color in darkmode on Firefox
+
+- [#1127](https://github.com/aws-amplify/amplify-ui/pull/1127) [`352a28197`](https://github.com/aws-amplify/amplify-ui/commit/352a281970f2568e7ea035cc89fb51afa31cbfc4) Thanks [@wlee221](https://github.com/wlee221)! - Removed unused Amplify auth import in reset password actor
+
+## 3.0.6
+
+### Patch Changes
+
+- [#996](https://github.com/aws-amplify/amplify-ui/pull/996) [`5bfe1e599`](https://github.com/aws-amplify/amplify-ui/commit/5bfe1e5996536f8b5ada60e16db565dd8fb52f26) Thanks [@rvmourik](https://github.com/rvmourik)! - Add dutch translation
+
+* [#1065](https://github.com/aws-amplify/amplify-ui/pull/1065) [`86e70f8e8`](https://github.com/aws-amplify/amplify-ui/commit/86e70f8e8486e70cccc23d04754e435b184915e8) Thanks [@reesscot](https://github.com/reesscot)! - Fix issue where custom theme fonts are ignored
+
+- [#1014](https://github.com/aws-amplify/amplify-ui/pull/1014) [`43634b06a`](https://github.com/aws-amplify/amplify-ui/commit/43634b06aaccb1cf33cb18e0e142aee91df54aad) Thanks [@reesscot](https://github.com/reesscot)! - Fix issue where phone_number validation fails on multiple signup submissions
+
+* [#997](https://github.com/aws-amplify/amplify-ui/pull/997) [`d8a422d7c`](https://github.com/aws-amplify/amplify-ui/commit/d8a422d7ce4c62a216a19d127907a2b80eb588ab) Thanks [@ErikCH](https://github.com/ErikCH)! - Updated Xstate so users who are in the FORCE CHANGE PASSWORD state also check for setup TOTP MFA.
+
+- [#1004](https://github.com/aws-amplify/amplify-ui/pull/1004) [`f9a09df7c`](https://github.com/aws-amplify/amplify-ui/commit/f9a09df7cded5bae1681bc138c048786f3bb75bc) Thanks [@Domino987](https://github.com/Domino987)! - Add missing Confirm Password translation for German language
+
 ## 3.0.5
 
 ### Patch Changes

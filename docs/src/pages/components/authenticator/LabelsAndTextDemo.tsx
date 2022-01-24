@@ -28,7 +28,7 @@ function Screen({ Component }: ScreenProps) {
       'Sign in to your account': 'Welcome Back!', // Header text
       Username: 'Enter your username', // Username label
       Password: 'Enter your password', // Password label
-      'Forgot your password? ': 'Reset Password',
+      'Forgot your password?': 'Reset Password',
 
       // Sign Up screen
       'Create Account': 'Register', // Tab header
@@ -71,15 +71,28 @@ function Screen({ Component }: ScreenProps) {
 }
 
 export function LabelsAndTextDemo({ Component }: ScreenProps) {
+  const OnMachineInit = ({ children }) => {
+    /**
+     * This waits for Authenticator machine to init before its inner components
+     * start consuming machine context.
+     */
+    const { route } = useAuthenticator();
+    if (!route || route === 'idle' || route === 'setup') return null;
+
+    return <>{children}</>;
+  };
+
   return (
     <Authenticator.Provider>
-      <View data-amplify-authenticator="">
-        <View data-amplify-container="">
-          <View data-amplify-body>
-            <Screen Component={Component} />
+      <OnMachineInit>
+        <View data-amplify-authenticator="">
+          <View data-amplify-container="">
+            <View data-amplify-body>
+              <Screen Component={Component} />
+            </View>
           </View>
         </View>
-      </View>
+      </OnMachineInit>
     </Authenticator.Provider>
   );
 }

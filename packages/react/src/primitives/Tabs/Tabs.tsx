@@ -14,6 +14,7 @@ import { View } from '../View';
 
 const isTabsType = (child: any): child is React.Component<TabItemProps> => {
   return (
+    child !== null &&
     typeof child === 'object' &&
     child.hasOwnProperty('props') &&
     child.props.title != null &&
@@ -36,6 +37,7 @@ const TabsPrimitive: Primitive<TabsProps, typeof Flex> = (
   ref
 ) => {
   const tabs = React.Children.map(children, (child) => {
+    if (child === null) return {};
     if (!isTabsType(child)) {
       console.warn(
         'Amplify UI: <Tabs> component only accepts <TabItem> as children.'

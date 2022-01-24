@@ -18,7 +18,7 @@ export const nlDict = {
   'Enter your username': 'Vul je gebruikersnaam in',
   'Enter your phone number': 'Vul je telefoonnummer in',
   'Enter your email': 'Vul je e-mail in',
-  'Forgot your password? ': 'Wachtwoord vergeten? ',
+  'Forgot your password?': 'Wachtwoord vergeten? ',
   'Hide password': 'Verberg wachtwoord',
   Loading: 'Laden',
   Username: 'Gebruikersnaam',

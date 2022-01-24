@@ -1,4 +1,4 @@
-import { translate } from '@aws-amplify/ui';
+import { translate, hasTranslation } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '..';
 import { Button, Flex, PasswordField, View } from '../../..';
@@ -49,7 +49,11 @@ export function SignIn() {
       >
         <FederatedSignIn />
         <Flex direction="column">
-          <Flex direction="column">
+          <fieldset
+            style={{ display: 'flex', flexDirection: 'column' }}
+            className="amplify-flex"
+            disabled={isPending}
+          >
             <UserNameAlias data-amplify-usernamealias />
             <PasswordField
               data-amplify-password
@@ -61,7 +65,7 @@ export function SignIn() {
               autoComplete="current-password"
               labelHidden={true}
             />
-          </Flex>
+          </fieldset>
 
           <RemoteErrorMessage />
 
@@ -86,6 +90,11 @@ SignIn.Header = (): JSX.Element => null;
 SignIn.Footer = () => {
   const { toResetPassword } = useAuthenticator();
 
+  // Support backwards compatibility for legacy key with trailing space
+  const forgotPasswordText = !hasTranslation('Forgot your password? ')
+    ? translate('Forgot your password?')
+    : translate('Forgot your password? ');
+
   return (
     <View data-amplify-footer="">
       <Button
@@ -94,7 +103,7 @@ SignIn.Footer = () => {
         size="small"
         variation="link"
       >
-        {translate('Forgot your password? ')}
+        {forgotPasswordText}
       </Button>
     </View>
   );
