@@ -22,5 +22,8 @@
     "cypress-cucumber-preprocessor": "^4.1.2",
     "dotenv-safe": "^8.2.0",
     "typescript": "^4.3.2"
+  },
+  "resolutions": {
+    "resolve": "1.20.0"
   }
 }
