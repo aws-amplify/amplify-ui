@@ -77,7 +77,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, ComputedRef, onMounted } from 'vue';
+import { ref, computed, ComputedRef } from 'vue';
 import {
   authInputAttributes,
   getActorContext,
@@ -106,7 +106,7 @@ const { userNameAlias, userName, disabled } = withDefaults(
   }
 );
 
-const { state, send } = useAuth();
+const { state } = useAuth();
 
 const {
   value: { context },
@@ -146,12 +146,4 @@ if (userNameAlias) {
   name = 'username';
 }
 label = translate<string>(label);
-onMounted(() => {
-  if (type === 'tel') {
-    send({
-      type: 'CHANGE',
-      data: { name: 'country_code', value: defaultDialCode },
-    });
-  }
-});
 </script>
