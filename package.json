@@ -52,7 +52,6 @@
     "fs-extra": "^10.0.0",
     "jest": "^26.6.3",
     "json-schema": "^0.4.0",
-    "**/mapbox-gl": "npm:maplibre-gl",
     "prismjs": "^1.25.0",
     "trim": "^0.0.3",
     "ts-jest": "^26.5.6",
