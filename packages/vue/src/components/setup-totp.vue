@@ -38,7 +38,7 @@ onMounted(async () => {
   try {
     secretKey.value = await Auth.setupTOTP(user);
     const issuer = 'AWSCognito';
-    const totpCode = `otpauth://totp/${issuer}:${user.username}?secret=${secretKey}&issuer=${issuer}`;
+    const totpCode = `otpauth://totp/${issuer}:${user.username}?secret=${secretKey.value}&issuer=${issuer}`;
     qrCode.qrCodeImageSource = await QRCode.toDataURL(totpCode);
   } catch (error) {
     logger.error(error);
