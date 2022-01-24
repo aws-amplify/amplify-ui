@@ -124,7 +124,7 @@ jobs:
 
       - name: Install packages
         if: steps.restore-cache.outputs.cache-hit != 'true'
-        run: yarn --no-lockfile --prefer-offline  --prefer-offline
+        run: yarn --no-lockfile --prefer-offline
 
       - name: Build ui package
         if: ${{ steps.restore-ui-cache.outputs.cache-hit != 'true' && matrix.package != 'ui' }}
