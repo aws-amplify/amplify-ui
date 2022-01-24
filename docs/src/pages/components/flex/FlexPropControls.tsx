@@ -1,5 +1,5 @@
 import { FlexProps, TextField, SelectField, Flex } from '@aws-amplify/ui-react';
-import React from 'react';
+import * as React from 'react';
 
 export interface FlexPropControlsProps extends FlexProps {
   setDirection: (value: React.SetStateAction<FlexProps['direction']>) => void;

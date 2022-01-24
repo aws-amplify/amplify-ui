@@ -1,4 +1,4 @@
-import { Flex, View } from '@aws-amplify/ui-react';
+import { Flex, View, useTheme } from '@aws-amplify/ui-react';
 
 import { Demo } from '@/components/Demo';
 import { FlexPropControls } from './FlexPropControls';
@@ -16,22 +16,22 @@ const propsToCode = (props) => {
   <View
     height="2rem"
     width="5rem"
-    backgroundColor="var(--amplify-colors-blue-20)"
+    backgroundColor={tokens.colors.blue[20]}
   ></View>
   <View
     height="2.5rem"
     width="6.25rem"
-    backgroundColor="var(--amplify-colors-blue-40)"
+    backgroundColor={tokens.colors.blue[40]}
   ></View>
   <View
     height="3rem"
     width="7.5rem"
-    backgroundColor="var(--amplify-colors-blue-60)"
+    backgroundColor={tokens.colors.blue[60]}
   ></View>
   <View
     height="3.5rem"
     width="8.75rem"
-    backgroundColor="var(--amplify-colors-blue-80)"
+    backgroundColor={tokens.colors.blue[80]}
   ></View>
 </Flex>`;
 };
@@ -45,6 +45,8 @@ export const FlexDemo = () => {
     wrap: 'nowrap',
     gap: '1rem',
   });
+
+  const { tokens } = useTheme();
 
   return (
     <Demo
@@ -62,22 +64,22 @@ export const FlexDemo = () => {
         <View
           height="2rem"
           width="5rem"
-          backgroundColor="var(--amplify-colors-blue-20)"
+          backgroundColor={tokens.colors.blue[20]}
         ></View>
         <View
           height="2.5rem"
           width="6.25rem"
-          backgroundColor="var(--amplify-colors-blue-40)"
+          backgroundColor={tokens.colors.blue[40]}
         ></View>
         <View
           height="3rem"
           width="7.5rem"
-          backgroundColor="var(--amplify-colors-blue-60)"
+          backgroundColor={tokens.colors.blue[60]}
         ></View>
         <View
           height="3.5rem"
           width="8.75rem"
-          backgroundColor="var(--amplify-colors-blue-80)"
+          backgroundColor={tokens.colors.blue[80]}
         ></View>
       </Flex>
     </Demo>

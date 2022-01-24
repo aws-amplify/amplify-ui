@@ -1,5 +1,5 @@
+import * as React from 'react';
 import { FlexProps } from '@aws-amplify/ui-react';
-import { useState } from 'react';
 import { FlexPropControlsProps } from './FlexPropControls';
 
 interface UseFlexProps {
@@ -7,20 +7,20 @@ interface UseFlexProps {
 }
 
 export const useFlexProps: UseFlexProps = (initialValues) => {
-  const [direction, setDirection] = useState<FlexProps['direction']>(
+  const [direction, setDirection] = React.useState<FlexProps['direction']>(
     initialValues.direction
   );
-  const [justifyContent, setJustifyContent] = useState<
+  const [justifyContent, setJustifyContent] = React.useState<
     FlexProps['justifyContent']
   >(initialValues.justifyContent);
-  const [alignItems, setAlignItems] = useState<FlexProps['alignItems']>(
+  const [alignItems, setAlignItems] = React.useState<FlexProps['alignItems']>(
     initialValues.alignItems
   );
-  const [alignContent, setAlignContent] = useState<FlexProps['alignContent']>(
-    initialValues.alignContent
-  );
-  const [wrap, setWrap] = useState<FlexProps['wrap']>(initialValues.wrap);
-  const [gap, setGap] = useState<string>(initialValues.gap as string);
+  const [alignContent, setAlignContent] = React.useState<
+    FlexProps['alignContent']
+  >(initialValues.alignContent);
+  const [wrap, setWrap] = React.useState<FlexProps['wrap']>(initialValues.wrap);
+  const [gap, setGap] = React.useState<string>(initialValues.gap as string);
 
   return {
     direction,
