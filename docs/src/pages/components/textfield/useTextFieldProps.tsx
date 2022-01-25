@@ -1,6 +1,7 @@
 import { TextFieldProps } from '@aws-amplify/ui-react';
-import { useState } from 'react';
-import { FieldControl } from './GetFieldControls';
+import * as React from 'react';
+
+import { FieldControl } from '../shared/GetFieldControls';
 
 export type TextFieldDocsProps = Omit<TextFieldProps, '[key]'>;
 
@@ -11,95 +12,109 @@ interface UseTextFieldProps {
 export const useTextFieldProps: UseTextFieldProps = (initialValues) => {
   return [
     [
-      ...useState<TextFieldDocsProps['autoComplete']>(
+      ...React.useState<TextFieldDocsProps['autoComplete']>(
         initialValues.autoComplete
       ),
       'autoComplete',
       'text',
     ],
     [
-      ...useState<TextFieldDocsProps['defaultValue']>(
+      ...React.useState<TextFieldDocsProps['defaultValue']>(
         initialValues.defaultValue
       ),
       'defaultValue',
       'text',
     ],
     [
-      ...useState<TextFieldDocsProps['descriptiveText']>(
+      ...React.useState<TextFieldDocsProps['descriptiveText']>(
         initialValues.descriptiveText
       ),
       'descriptiveText',
       'text',
     ],
     [
-      ...useState<TextFieldDocsProps['errorMessage']>(
+      ...React.useState<TextFieldDocsProps['errorMessage']>(
         initialValues.errorMessage
       ),
       'errorMessage',
       'text',
     ],
     [
-      ...useState<TextFieldDocsProps['hasError']>(initialValues.hasError),
+      ...React.useState<TextFieldDocsProps['hasError']>(initialValues.hasError),
       'hasError',
       'checkbox',
     ],
     [
-      ...useState<TextFieldDocsProps['inputMode']>(initialValues.inputMode),
+      ...React.useState<TextFieldDocsProps['inputMode']>(
+        initialValues.inputMode
+      ),
       'inputMode',
       'text',
     ],
     [
-      ...useState<TextFieldDocsProps['isDisabled']>(initialValues.isDisabled),
+      ...React.useState<TextFieldDocsProps['isDisabled']>(
+        initialValues.isDisabled
+      ),
       'isDisabled',
       'checkbox',
     ],
     [
-      ...useState<TextFieldDocsProps['isReadOnly']>(initialValues.isReadOnly),
+      ...React.useState<TextFieldDocsProps['isReadOnly']>(
+        initialValues.isReadOnly
+      ),
       'isReadOnly',
       'checkbox',
     ],
     [
-      ...useState<TextFieldDocsProps['isRequired']>(initialValues.isRequired),
+      ...React.useState<TextFieldDocsProps['isRequired']>(
+        initialValues.isRequired
+      ),
       'isRequired',
       'checkbox',
     ],
     [
-      ...useState<TextFieldDocsProps['label']>(initialValues.label),
+      ...React.useState<TextFieldDocsProps['label']>(initialValues.label),
       'label',
       'text',
     ],
     [
-      ...useState<TextFieldDocsProps['labelHidden']>(initialValues.labelHidden),
+      ...React.useState<TextFieldDocsProps['labelHidden']>(
+        initialValues.labelHidden
+      ),
       'labelHidden',
       'checkbox',
     ],
     [
-      ...useState<TextFieldDocsProps['name']>(initialValues.name),
+      ...React.useState<TextFieldDocsProps['name']>(initialValues.name),
       'name',
       'text',
     ],
     [
-      ...useState<TextFieldDocsProps['placeholder']>(initialValues.placeholder),
+      ...React.useState<TextFieldDocsProps['placeholder']>(
+        initialValues.placeholder
+      ),
       'placeholder',
       'text',
     ],
     [
-      ...useState<TextFieldDocsProps['size']>(initialValues.size),
+      ...React.useState<TextFieldDocsProps['size']>(initialValues.size),
       'size',
       'text',
     ],
     [
-      ...useState<TextFieldDocsProps['type']>(initialValues.type),
+      ...React.useState<TextFieldDocsProps['type']>(initialValues.type),
       'type',
       'text',
     ],
     [
-      ...useState<TextFieldDocsProps['value']>(initialValues.value),
+      ...React.useState<TextFieldDocsProps['value']>(initialValues.value),
       'value',
       'text',
     ],
     [
-      ...useState<TextFieldDocsProps['variation']>(initialValues.variation),
+      ...React.useState<TextFieldDocsProps['variation']>(
+        initialValues.variation
+      ),
       'variation',
       'text',
     ],

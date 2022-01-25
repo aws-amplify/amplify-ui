@@ -10,9 +10,9 @@ import {
 } from '@aws-amplify/ui-react';
 
 import { Example } from '@/components/Example';
-import { GetFieldControls } from '../textfield/GetFieldControls';
-import { useFlexContainerStyleProps } from '../textfield/useFlexContainerStyleProps';
 import { usePasswordFieldProps } from '@/components/usePasswordFieldProps';
+import { GetFieldControls } from '../shared/GetFieldControls';
+import { useFlexContainerStyleProps } from '../shared/useFlexContainerStyleProps';
 
 export const PasswordFieldDemo = () => {
   const flexStyleProps = useFlexContainerStyleProps({
