@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-import { Expander, ExpanderItem, ExpanderProps } from '@aws-amplify/ui-react';
+import { Expander, ExpanderItem } from '@aws-amplify/ui-react';
 
-export const CollapsibleExpander = (props: ExpanderProps) => {
+export const CollapsibleExpander = () => {
   return (
-    <Expander type="single" isCollapsible {...props}>
+    <Expander type="single" isCollapsible={true}>
       <ExpanderItem title="Section 1 title" value="item-1">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua.

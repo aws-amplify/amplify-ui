@@ -1,20 +1,17 @@
-import { Expander, ExpanderItem } from '@aws-amplify/ui-react';
+import { Expander, ExpanderItem, View } from '@aws-amplify/ui-react';
 
 import {
   BasicSingleExpander,
   BasicMultipleExpander,
   ClassStylingExpander,
   CollapsibleExpander,
-  ControlledMultipleExpander,
   ControlledSingleExpander,
-  ExpandedByDefaultSingleExpander,
+  DefaultExpanderExample,
   ExpandedByDefaultMultipleExpander,
   StylePropsExpander,
 } from './examples';
 import { ExpanderDemo } from './demo';
-import { Example } from '@/components/Example';
-
-The Expander primitive enables users to expand or collapse a set of sections.
+import { Example, ExampleCode } from '@/components/Example';
 
 ## Demo
 
@@ -24,100 +21,108 @@ The Expander primitive enables users to expand or collapse a set of sections.
 
 Import the Expander and ExpanderItem components and styles.
 
-### Single Item
+<Example>
+  <View>
+    <DefaultExpanderExample />
+  </View>
+  
+  <ExampleCode>
 
-```tsx file=./examples/basicSingleExample.tsx
+```jsx file=./examples/DefaultExpanderExample.tsx
 
 ```
 
-<Example>
-  <BasicSingleExpander />
+  </ExampleCode>
 </Example>
 
-### Multiple Items
+### Single or multiple
 
-```tsx file=./examples/basicMultipleExample.tsx
+To only allow one item to be open at a time, set the `type` prop to `single` (default).
+
+<Example>
+  <View>
+    <BasicSingleExpander />
+  </View>
+  
+  <ExampleCode>
+
+```jsx file=./examples/basicSingleExample.tsx
 
 ```
 
-<Example>
-  <BasicMultipleExpander />
+  </ExampleCode>
 </Example>
 
-## Controlled component
+To enable opening multiple items at once, set the `type` prop to `multiple`.
 
-To use the `Expander` as controlled component, specify the `value` of the item(s) to expand and use in conjunction with `onChange`.
+<Example>
+  <View>
+    <BasicMultipleExpander />
+  </View>
+  
+  <ExampleCode>
 
-### Single Item
-
-```tsx file=./examples/controlledSingleExample.tsx
+```jsx file=./examples/basicMultipleExample.tsx
 
 ```
 
-<Example>
-  <ControlledSingleExpander />
+  </ExampleCode>
 </Example>
 
-### Multiple Items
+### Allow collapsing
 
-```tsx file=./examples/controlledMultipleExample.tsx
+To allow collapsing on a `single` Expander, set `isCollapsible` to `true`.
+
+Note: The `isCollapsible` prop only applies to the `single` Expander, and it is set to `false` (not collapsible) by default.
+
+<Example>
+  <View>
+    <CollapsibleExpander />
+  </View>
+  
+  <ExampleCode>
+
+```jsx file=./examples/collapsibleExample.tsx
 
 ```
 
-<Example>
-  <ControlledMultipleExpander />
+  </ExampleCode>
 </Example>
 
-## Expanded by default
+### Expanded by default
 
-By specifying `defaultValue`, the Expanders are able to expand the items by default.
+To expand specific items by default, pass a `string` or `string[]` of value(s) to the `defaultValue` prop.
 
-### Single Item
+<Example>
+  <View>
+    <ExpandedByDefaultMultipleExpander />
+  </View>
+  
+  <ExampleCode>
 
-```tsx file=./examples/expandedByDefaultSingleExample.tsx
+```jsx file=./examples/expandedByDefaultMultipleExample.tsx
 
 ```
 
-<Example>
-  <ExpandedByDefaultSingleExpander />
+  </ExampleCode>
 </Example>
 
-### Multiple Items
+### Controlled component
 
-```tsx file=./examples/expandedByDefaultMultipleExample.tsx
+To use the Expander as controlled component, specify the `value` of the item(s) to expand and use in conjunction with `onChange`.
+
+<Example>
+  <View>
+    <ControlledSingleExpander />
+  </View>
+  
+  <ExampleCode>
+
+```jsx file=./examples/controlledSingleExample.tsx
 
 ```
 
-<Example>
-  <ExpandedByDefaultMultipleExpander />
-</Example>
-
-## Allow collapsing
-
-The open item in `Expander` with type `single` is not collapsible. To allow collapsing, set `isCollapsible` to true.
-
-```jsx
-import { Expander, ExpanderItem } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-<Expander type="single" isCollapsible={true}>
-  <ExpanderItem title="Section 1 title" value="item-1">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-    tempor incididunt ut labore et dolore magna aliqua.
-  </ExpanderItem>
-  <ExpanderItem title="Section 2 title" value="item-2">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-    tempor incididunt ut labore et dolore magna aliqua.
-  </ExpanderItem>
-  <ExpanderItem title="Section 3 title" value="item-3">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-    tempor incididunt ut labore et dolore magna aliqua.
-  </ExpanderItem>
-</Expander>;
-```
-
-<Example>
-  <CollapsibleExpander />
+  </ExampleCode>
 </Example>
 
 ## CSS Styling
@@ -167,20 +172,32 @@ _Using a class selector:_
 }
 ```
 
-```tsx file=./examples/classStylingExample.tsx
+<Example>
+  <View>
+    <ClassStylingExpander />
+  </View>
+  
+  <ExampleCode>
+
+```jsx file=./examples/classStylingExample.tsx
 
 ```
 
-<Example>
-  <ClassStylingExpander />
+  </ExampleCode>
 </Example>
 
 _Using style props:_
 
-```tsx file=./examples/stylePropsExample.tsx
+<Example>
+  <View>
+    <StylePropsExpander />
+  </View>
+  
+  <ExampleCode>
+
+```jsx file=./examples/stylePropsExample.tsx
 
 ```
 
-<Example>
-  <StylePropsExpander />
+  </ExampleCode>
 </Example>

@@ -1,11 +1,11 @@
 import * as React from 'react';
 
-import { Expander, ExpanderItem, ExpanderProps } from '@aws-amplify/ui-react';
+import { Expander, ExpanderItem } from '@aws-amplify/ui-react';
 
-export const BasicSingleExpander = (props: ExpanderProps) => {
+export const BasicSingleExpander = () => {
   return (
-    <Expander type="single" {...props}>
-      <ExpanderItem title="Section 1 title" value="item-1">
+    <Expander type="single">
+      <ExpanderItem title="HELLOOOOOOO" value="item-1">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua.
       </ExpanderItem>

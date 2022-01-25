@@ -4,15 +4,14 @@ import {
   CheckboxField,
   ExpanderProps,
   SelectField,
+  Flex,
 } from '@aws-amplify/ui-react';
 
-import { DemoBox } from './DemoBox';
-
 export interface ExpanderPropControlsProps extends ExpanderProps {
+  setType: (value: React.SetStateAction<ExpanderProps['type']>) => void;
   setIsCollapsible: (
     value: React.SetStateAction<ExpanderProps['isCollapsible']>
   ) => void;
-  setType: (value: React.SetStateAction<ExpanderProps['type']>) => void;
 }
 
 export const ExpanderPropControls: React.FC<ExpanderPropControlsProps> = ({
@@ -22,7 +21,7 @@ export const ExpanderPropControls: React.FC<ExpanderPropControlsProps> = ({
   setIsCollapsible,
 }) => {
   return (
-    <DemoBox primitiveName="Expander">
+    <Flex direction="column">
       <SelectField
         label="type"
         value={type}
@@ -42,6 +41,6 @@ export const ExpanderPropControls: React.FC<ExpanderPropControlsProps> = ({
           label="isCollapsible"
         />
       ) : null}
-    </DemoBox>
+    </Flex>
   );
 };

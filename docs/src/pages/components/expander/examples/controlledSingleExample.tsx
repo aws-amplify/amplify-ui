@@ -1,11 +1,11 @@
 import * as React from 'react';
 
-import { Expander, ExpanderItem, ExpanderProps } from '@aws-amplify/ui-react';
+import { Expander, ExpanderItem } from '@aws-amplify/ui-react';
 
-export const ControlledSingleExpander = (props: ExpanderProps) => {
+export const ControlledSingleExpander = () => {
   const [value, setValue] = React.useState<string | string[]>();
   return (
-    <Expander type="single" value={value} onChange={setValue} {...props}>
+    <Expander type="single" value={value} onChange={setValue}>
       <ExpanderItem title="Section 1 title" value="item-1">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua.
