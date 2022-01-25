@@ -21,7 +21,7 @@ export const baseComponents: ComponentNavItem[] = [
   {
     href: '/components/heading',
     label: 'Heading',
-    body: ``,
+    body: `This is a separate primitive from Text for semantic purposes. The Heading primitive maps to an <h*> tag, and Text maps to a <p> tag.`,
   },
   {
     href: '/components/icon',
