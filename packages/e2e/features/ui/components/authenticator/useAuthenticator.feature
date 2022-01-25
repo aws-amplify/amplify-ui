@@ -10,7 +10,7 @@ Feature: Sign Up with Username
   Background:
     Given I'm running the example "/ui/components/authenticator/useAuthenticator"
 
-  @angular @react @vue @todo-vue
+  @angular @react @vue
   Scenario: Conditionally render Login and Logout component
 
   /useAuthenticator example uses headless API to get access to conditionally render 
