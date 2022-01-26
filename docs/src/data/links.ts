@@ -40,8 +40,8 @@ export const baseComponents: ComponentNavItem[] = [
   },
   {
     href: '/components/scrollview',
-    label: 'Scrollview',
-    body: ``,
+    label: 'ScrollView',
+    body: `ScrollView is essentially a View that allows scrolling of its inner contents.`,
   },
 ].sort(sortByLabel);
 
