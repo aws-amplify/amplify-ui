@@ -51,7 +51,7 @@ module.exports = withNextPluginPreval({
   },
 
   // These redirects are because of the IA change from previous docs
-  redirects() {
+  async redirects() {
     return [
       // Normalizing URLs
       // these need to come before the generic redirects

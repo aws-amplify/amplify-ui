@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { StepperField } from '@aws-amplify/ui-react';
 
-export const ControlledStepperField = () => {
+export const ControlledStepperFieldExample = () => {
   const [value, setValue] = React.useState(0);
 
   return (
