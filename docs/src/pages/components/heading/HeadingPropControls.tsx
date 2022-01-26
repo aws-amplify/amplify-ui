@@ -23,7 +23,6 @@ export const HeadingPropControls: HeadingPropControlsInterface = ({
       <SelectField
         name="level"
         value={String(level)}
-        placeholder="Select heading level"
         onChange={(event) => setLevel(+event.target.value as HeadingLevel)}
         label="level"
       >
