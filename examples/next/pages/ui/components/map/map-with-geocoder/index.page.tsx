@@ -1,4 +1,4 @@
-import { Map } from '@aws-amplify/ui-react';
+import { Map, Geocoder } from '@aws-amplify/ui-react';
 import { Amplify } from 'aws-amplify';
 
 import '@aws-amplify/ui-react/styles.css';
@@ -7,6 +7,10 @@ import awsExports from './aws-exports';
 
 Amplify.configure(awsExports);
 
-export default function BasicMap() {
-  return <Map />;
+export default function MapWithGeocoder() {
+  return (
+    <Map>
+      <Geocoder />
+    </Map>
+  );
 }
