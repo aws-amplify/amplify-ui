@@ -1,15 +1,11 @@
 You can use `useAuthenticatorTransitions` hook to access functions that lets you trigger transitions to the authenticator. Please see [Full API]() to see all supported transition functions. Any invalid transitions (e.g. `signUp` directly to `authenticated`) will be ignored.
 
-```tsx{1,4-5,7}
-import {
-  useAuthenticatorUser,
-  useAuthenticatorTransitions,
-} from '@aws-amplify/ui-react';
+```tsx{1,4-6}
+import { useAuthenticator } from '@aws-amplify/ui-react';
 
 const Home = () => {
-  const user = useAuthenticatorUser();
-  const { signOut } = useAuthenticatorTransitions();
+  const { user, signOut } = useAuthenticator((context) => [context.user]);
 
-  return <h2>Welcome, {user.username}!</h2>;
+  return <button onClick={signOut}>Welcome, {user.username}!</button>;
 };
 ```

@@ -1,11 +1,10 @@
 You can use `useAuthenticatorUser` hook to access current signed in `user`. If no user is authenticated user, it'll return `undefined`.
 
-```tsx{1,4-5,9-10}
+```tsx{1,4,8-9}
 import { useAuthenticatorUser } from '@aws-amplify/ui-react';
 
 const Home = () => {
-  const user = useAuthenticatorUser();
-  const { signOut } = useAuthenticatorTransitions();
+  const { user, signOut } = useAuthenticator((context) => [context.user]);
 
   return (
     <>

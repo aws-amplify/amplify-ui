@@ -19,7 +19,7 @@ You can use `useAuthenticatorRoute` hook to access `route` string that represent
 import { useAuthenticatorRoute } from '@aws-amplify/ui-react';
 
 const App = () => {
-  const route = useAuthenticatorRoute();
+  const { route } = useAuthenticator(context => [context.route]);
 
   // Use the value of route to decide which page to render
   return route === 'authenticated' ? <Home /> : <Authenticator />;
