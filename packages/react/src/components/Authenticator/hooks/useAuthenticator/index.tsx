@@ -92,8 +92,12 @@ export const useAuthenticator = (selector?: Selector) => {
   };
 
   /**
-   * Selects which value to return from `useAuthenticator`. If selector is not
-   * provided, then we return the whole state back.
+   * For `useSelector`'s selector argument, we just return back the `state`.
+   * The reason is that whenever you select a specific value of the state, the
+   * hook will return *only* that selected value instead of the whole `state`.
+   *
+   * To provide a consistent set of facade, we let the `selector` trivially return
+   * itself and let comparator decide when to re-render.
    */
   const xstateSelector = (state: AuthMachineState) => state;
 
@@ -128,11 +132,5 @@ export const useAuthenticator = (selector?: Selector) => {
 
   const state = useSelector(service, xstateSelector, comparator);
 
-  /**
-   * If selector was passed into the hook, we return just the selected value.
-   *
-   * Otherwise if developer `useAuthenticator()` without selector, then we return
-   * back the whole facade.
-   */
   return { ...getFacade(state), _state: state, _send: send };
 };
