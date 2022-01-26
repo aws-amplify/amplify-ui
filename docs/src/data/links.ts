@@ -31,7 +31,7 @@ export const baseComponents: ComponentNavItem[] = [
   {
     href: '/components/image',
     label: 'Image',
-    body: ``,
+    body: `The Image primitive can be used to display responsive images.`,
   },
   {
     href: '/components/divider',

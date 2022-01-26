@@ -1,5 +1,6 @@
-import { ImageOptions, ImageProps } from '@aws-amplify/ui-react';
-import { useState } from 'react';
+import { ImageOptions } from '@aws-amplify/ui-react';
+import * as React from 'react';
+
 import { ImagePropControlsProps } from './ImagePropControls';
 
 interface UseImageProps {
@@ -7,18 +8,18 @@ interface UseImageProps {
 }
 
 export const useImageProps: UseImageProps = (initialValues) => {
-  const [alt, setAlt] = useState<ImageOptions['alt']>(initialValues.alt);
-  const [sizes, setSizes] = useState<ImageOptions['sizes']>(
+  const [alt, setAlt] = React.useState<ImageOptions['alt']>(initialValues.alt);
+  const [sizes, setSizes] = React.useState<ImageOptions['sizes']>(
     initialValues.sizes
   );
-  const [src, setSrc] = useState<ImageOptions['src']>(initialValues.src);
-  const [srcSet, setSrcSet] = useState<ImageOptions['srcSet']>(
+  const [src, setSrc] = React.useState<ImageOptions['src']>(initialValues.src);
+  const [srcSet, setSrcSet] = React.useState<ImageOptions['srcSet']>(
     initialValues.srcSet
   );
-  const [objectFit, setObjectFit] = useState<ImageOptions['objectFit']>(
+  const [objectFit, setObjectFit] = React.useState<ImageOptions['objectFit']>(
     initialValues.objectFit
   );
-  const [objectPosition, setObjectPosition] = useState<
+  const [objectPosition, setObjectPosition] = React.useState<
     ImageOptions['objectPosition']
   >(initialValues.objectPosition);
 
