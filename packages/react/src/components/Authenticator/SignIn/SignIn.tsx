@@ -5,16 +5,15 @@ import { Button, Flex, PasswordField, View } from '../../..';
 import { FederatedSignIn } from '../FederatedSignIn';
 import { RemoteErrorMessage, UserNameAlias } from '../shared';
 import { isInputElement, isInputOrSelectElement } from '../../../helpers/utils';
+import { useCustomComponents } from '../hooks/useCustomComponents';
 
 export function SignIn() {
+  const { isPending, submitForm, updateForm } = useAuthenticator();
   const {
     components: {
       SignIn: { Header = SignIn.Header, Footer = SignIn.Footer },
     },
-    isPending,
-    submitForm,
-    updateForm,
-  } = useAuthenticator();
+  } = useCustomComponents();
 
   const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
     if (isInputOrSelectElement(event.target)) {
