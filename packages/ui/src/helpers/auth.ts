@@ -216,8 +216,6 @@ export const getServiceContextFacade = (state: AuthMachineState) => {
   const user = state.context?.user;
   const actorState = getActorState(state);
   const actorContext = getActorContext(state) as ActorContextWithForms;
-
-  // contexts that do not need actors
   const error = actorContext?.remoteError;
   const validationErrors = { ...actorContext?.validationError };
   const codeDeliveryDetails = actorContext?.codeDeliveryDetails;
