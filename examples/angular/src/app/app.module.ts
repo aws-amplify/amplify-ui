@@ -57,7 +57,7 @@ import { UseAuthenticatorComponent } from 'src/pages/ui/components/authenticator
     AmplifyAuthenticatorModule,
     HttpClientModule,
   ],
-  providers: [AuthenticatorService],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
