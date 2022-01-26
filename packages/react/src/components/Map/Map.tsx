@@ -6,8 +6,6 @@ import ReactMapGL from 'react-map-gl';
 
 import 'maplibre-gl/dist/maplibre-gl.css';
 
-import { View } from '../../primitives';
-
 import './index.css';
 
 export const Map = (props: any) => {
@@ -15,9 +13,9 @@ export const Map = (props: any) => {
   const [credentials, setCredentials] = useState<ICredentials>();
   const [transformRequest, setRequestTransformer] = useState<any>();
   const [viewport, setViewport] = useState({
-    latitude: 37.7577,
-    longitude: -122.4376,
-    zoom: 10,
+    latitude: props.latitude ?? 28.728,
+    longitude: props.longitude ?? 10.041,
+    zoom: props.zoom ?? 1.816,
   });
   const [pointerEvents, setPointerEvents] = useState<string | void>();
 
@@ -83,22 +81,20 @@ export const Map = (props: any) => {
   }, [transformRequest]);
 
   return transformRequest ? (
-    <View width="100%" height="100vh">
-      <ReactMapGL
-        ref={mapRef}
-        width="100%"
-        height="100vh"
-        transformRequest={transformRequest}
-        mapStyle={'map5df169f7-staging'}
-        onViewportChange={setViewport}
-        style={{ pointerEvents }}
-        {...viewport}
-      >
-        {React.Children.map(props.children, (child) =>
-          React.cloneElement(child, { mapRef })
-        )}
-      </ReactMapGL>
-    </View>
+    <ReactMapGL
+      ref={mapRef}
+      width="50%"
+      height="50vh"
+      transformRequest={transformRequest}
+      mapStyle={'map5df169f7-staging'}
+      onViewportChange={setViewport}
+      style={{ pointerEvents }}
+      {...viewport}
+    >
+      {React.Children.map(props.children, (child) =>
+        React.cloneElement(child, { mapRef })
+      )}
+    </ReactMapGL>
   ) : (
     <h1>Loading...</h1>
   );

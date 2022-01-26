@@ -9,6 +9,8 @@ const GEOCODER_OPTIONS = {
   showResultsWhileTyping: true,
 };
 
+const GEOCODER_CONTAINER = 'geocoder-container';
+
 export const Geocoder = (props) => {
   const geocoder: any = useRef();
   const map = props.mapRef?.current?.getMap();
@@ -16,9 +18,12 @@ export const Geocoder = (props) => {
   const initializeGeocoder = () => {
     geocoder.current = createAmplifyGeocoder({
       ...GEOCODER_OPTIONS,
+      ...props,
     });
 
-    map?.addControl(geocoder.current);
+    map
+      ? map?.addControl(geocoder.current)
+      : geocoder.current.addTo(`#${GEOCODER_CONTAINER}`);
     geocoder.current._showButton();
   };
 
@@ -32,7 +37,7 @@ export const Geocoder = (props) => {
     return () => {
       removeGeocoder();
     };
-  }, [props.mapRef.current]);
+  }, [props.mapRef?.current]);
 
-  return null;
+  return !props.mapRef ? <div id={GEOCODER_CONTAINER} /> : null;
 };
