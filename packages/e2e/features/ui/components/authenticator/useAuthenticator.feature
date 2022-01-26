@@ -1,4 +1,4 @@
-Feature: Sign Up with Username
+Feature: Headless Usage
 
   Authenticator supports headless usage that provides access to current authenticator context
   outside the Authenticator component. React and Vue provides it through `useAuthenticator` 

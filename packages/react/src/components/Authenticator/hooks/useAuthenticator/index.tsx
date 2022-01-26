@@ -10,7 +10,7 @@ import {
 } from '@aws-amplify/ui';
 import { useSelector, useInterpret } from '@xstate/react';
 import isEmpty from 'lodash/isEmpty';
-import isEqual from 'lodash/isEqual';
+import { areArraysEqual } from '../../../../helpers';
 
 export type AuthenticatorContextValue = {
   service?: AuthInterpreter;
@@ -72,16 +72,12 @@ export type InternalAuthenticatorContext = {
 /**
  * Inspired from https://xstate.js.org/docs/packages/xstate-react/#useselector-actor-selector-compare-getsnapshot.
  *
- * Selector accepts current facade values and returns desired value(s) that should trigger re-render.
+ * Selector accepts current facade values and returns an array of
+ * desired value(s) that should trigger re-render.
  */
-export type Selector = (context: AuthenticatorContext) => any;
+export type Selector = (context: AuthenticatorContext) => Array<any>;
 
-export type UseAuthenticator = {
-  (): AuthenticatorContext & InternalAuthenticatorContext;
-  (selector: Selector): any;
-};
-
-export const useAuthenticator: UseAuthenticator = (selector?: Selector) => {
+export const useAuthenticator = (selector?: Selector) => {
   const { service } = React.useContext(AuthenticatorContext);
   const send = service.send;
 
@@ -99,12 +95,7 @@ export const useAuthenticator: UseAuthenticator = (selector?: Selector) => {
    * Selects which value to return from `useAuthenticator`. If selector is not
    * provided, then we return the whole state back.
    */
-  const xstateSelector = (state: AuthMachineState) => {
-    if (!selector) return state;
-
-    const facade = getFacade(state);
-    return selector(facade);
-  };
+  const xstateSelector = (state: AuthMachineState) => state;
 
   /**
    * comparator decides whether or not the new authState should trigger a
@@ -115,10 +106,27 @@ export const useAuthenticator: UseAuthenticator = (selector?: Selector) => {
     nextState: AuthMachineState
   ) => {
     if (!selector) return false;
-    return isEqual(prevState, nextState);
+
+    /**
+     * We only trigger re-render if any of values in specified selected
+     * values change. First compute the facade for prev and next state.
+     */
+    const prevFacade = getFacade(prevState);
+    const nextFacade = getFacade(nextState);
+
+    /**
+     * Apply the passed in `selector` to get the value of their desired
+     * dependency array.
+     */
+    const prevDepsArray = selector(prevFacade);
+    const nextDepsArray = selector(nextFacade);
+
+    // Shallow compare the array values
+    // TODO: is there a reason to compare deep at the cost of expensive comparisons?
+    return areArraysEqual(prevDepsArray, nextDepsArray);
   };
 
-  const selectedValue = useSelector(service, xstateSelector, comparator);
+  const state = useSelector(service, xstateSelector, comparator);
 
   /**
    * If selector was passed into the hook, we return just the selected value.
@@ -126,46 +134,5 @@ export const useAuthenticator: UseAuthenticator = (selector?: Selector) => {
    * Otherwise if developer `useAuthenticator()` without selector, then we return
    * back the whole facade.
    */
-  if (selector) {
-    return selectedValue;
-  } else {
-    const state = selectedValue;
-    return {
-      /** @deprecated For internal use only */
-      _send: send,
-      /** @deprecated For internal use only */
-      _state: state,
-      ...getFacade(state),
-    };
-  }
-};
-
-/**
- * Subscribes to every update to authenticator route (ie. authState) and
- * provides authenticator context.
- */
-export const useAuthenticatorRoute = () =>
-  useAuthenticator((context) => context.route);
-
-/**
- * Subscribes to every update to authenticated user and provides authenticator
- * context.
- */
-export const useAuthenticatorUser = () =>
-  useAuthenticator((context) => context.user);
-
-/**
- * Provides helpers to trigger transitions to Authenticator.
- */
-export const useAuthenticatorTransitions = () => {
-  const { service } = React.useContext(AuthenticatorContext);
-  const send = service.send;
-
-  // send aliases are static and thus can be memoized
-  const sendAliases = React.useMemo<ReturnType<typeof getSendEventAliases>>(
-    () => getSendEventAliases(send),
-    [service]
-  );
-
-  return sendAliases;
+  return { ...getFacade(state), _state: state, _send: send };
 };
