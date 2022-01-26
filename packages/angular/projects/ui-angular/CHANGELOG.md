@@ -1,5 +1,16 @@
 # @aws-amplify/ui-angular
 
+## 2.0.9
+
+### Patch Changes
+
+- [#1162](https://github.com/aws-amplify/amplify-ui/pull/1162) [`e0fcf3685`](https://github.com/aws-amplify/amplify-ui/commit/e0fcf3685164075fe385f8e09247f9620a7e6ccc) Thanks [@wlee221](https://github.com/wlee221)! - Add explicit `INIT` step for initializing authMachine
+
+* [#1180](https://github.com/aws-amplify/amplify-ui/pull/1180) [`9c1c175e4`](https://github.com/aws-amplify/amplify-ui/commit/9c1c175e452fd27dfbfc5d305d25b4952d66d7e8) Thanks [@sdsanders](https://github.com/sdsanders)! - Fix Angular README 'anuglar' typo
+
+* Updated dependencies [[`6c070b2e1`](https://github.com/aws-amplify/amplify-ui/commit/6c070b2e118560dec9629c7c0abdfb218d53267c), [`e0fcf3685`](https://github.com/aws-amplify/amplify-ui/commit/e0fcf3685164075fe385f8e09247f9620a7e6ccc), [`3a69c2a75`](https://github.com/aws-amplify/amplify-ui/commit/3a69c2a752b9ab07bb55911cae6447dccd76cc1f)]:
+  - @aws-amplify/ui@3.0.9
+
 ## 2.0.8
 
 ### Patch Changes
