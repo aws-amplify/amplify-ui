@@ -1,5 +1,29 @@
 # @aws-amplify/ui-react
 
+## 2.1.10
+
+### Patch Changes
+
+- [#1165](https://github.com/aws-amplify/amplify-ui/pull/1165) [`4238ee696`](https://github.com/aws-amplify/amplify-ui/commit/4238ee696270d8e39e7f88d83956c2666f0305bb) Thanks [@joebuono](https://github.com/joebuono)! - Pin all @aws-amplify/ui-react dependencies
+
+* [#1162](https://github.com/aws-amplify/amplify-ui/pull/1162) [`e0fcf3685`](https://github.com/aws-amplify/amplify-ui/commit/e0fcf3685164075fe385f8e09247f9620a7e6ccc) Thanks [@wlee221](https://github.com/wlee221)! - Add explicit `INIT` step for initializing authMachine
+
+- [#1164](https://github.com/aws-amplify/amplify-ui/pull/1164) [`b4c327a73`](https://github.com/aws-amplify/amplify-ui/commit/b4c327a73ee34a0f4292b6972774011b0b4ca6d4) Thanks [@Jesmaster](https://github.com/Jesmaster)! - Removed hard-coded styles from Authenticator Sign Up button
+
+- Updated dependencies [[`6c070b2e1`](https://github.com/aws-amplify/amplify-ui/commit/6c070b2e118560dec9629c7c0abdfb218d53267c), [`e0fcf3685`](https://github.com/aws-amplify/amplify-ui/commit/e0fcf3685164075fe385f8e09247f9620a7e6ccc), [`3a69c2a75`](https://github.com/aws-amplify/amplify-ui/commit/3a69c2a752b9ab07bb55911cae6447dccd76cc1f)]:
+  - @aws-amplify/ui@3.0.9
+
+## 2.1.9
+
+### Patch Changes
+
+- [#1163](https://github.com/aws-amplify/amplify-ui/pull/1163) [`679a89383`](https://github.com/aws-amplify/amplify-ui/commit/679a89383814ad66b81494fe8dc9ce2cf8df5c2e) Thanks [@ErikCH](https://github.com/ErikCH)! - Fixed bug with QR code setup page
+
+* [#1166](https://github.com/aws-amplify/amplify-ui/pull/1166) [`c5cc41a70`](https://github.com/aws-amplify/amplify-ui/commit/c5cc41a70d7c0de4b2dcae385f7661361455e7b6) Thanks [@wlee221](https://github.com/wlee221)! - Thanks @jacoblogan! -- handle null children in tabs
+
+* Updated dependencies [[`c5cc41a70`](https://github.com/aws-amplify/amplify-ui/commit/c5cc41a70d7c0de4b2dcae385f7661361455e7b6)]:
+  - @aws-amplify/ui@3.0.8
+
 ## 2.1.8
 
 ### Patch Changes

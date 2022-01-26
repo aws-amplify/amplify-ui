@@ -130,3 +130,33 @@ export const handleBlur = assign({
     };
   },
 });
+
+/**
+ * This action occurs on the entry to a state where a form submit action
+ * occurs. It combines the phone_number and country_code form values, parses
+ * the result, and updates the form values with the full phone number which is
+ * the required format by Cognito for form submission.
+ */
+export const parsePhoneNumber = assign({
+  formValues: (context: SignInContext | SignUpContext, _) => {
+    const [primaryAlias = 'username'] = context.loginMechanisms;
+
+    if (!context.formValues.phone_number && primaryAlias !== 'phone_number')
+      return context.formValues;
+
+    const { formValues, country_code: defaultCountryCode } = context;
+    const phoneAlias = formValues.phone_number ? 'phone_number' : 'username';
+
+    const parsedPhoneNumber = `${
+      formValues.country_code ?? defaultCountryCode
+    }${formValues[phoneAlias]}`.replace(/[^A-Z0-9+]/gi, '');
+
+    const updatedFormValues = {
+      ...formValues,
+      [phoneAlias]: parsedPhoneNumber,
+    };
+    delete updatedFormValues.country_code;
+
+    return updatedFormValues;
+  },
+});
