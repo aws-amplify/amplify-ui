@@ -402,6 +402,9 @@ const hasTabs = computed(() => {
           <template #header>
             <slot name="force-new-password-header"></slot>
           </template>
+          <template #force-new-password-form-fields>
+            <slot name="force-new-password-form-fields"></slot>
+          </template>
           <template
             #footer="{ onHaveAccountClicked, onForceNewPasswordSubmit }"
           >

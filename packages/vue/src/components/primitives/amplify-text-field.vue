@@ -9,6 +9,7 @@ interface textFields {
   disabled: boolean;
   name: string;
   type: string;
+  hideLabel?: boolean;
 }
 const props = withDefaults(defineProps<textFields>(), {
   label: '',
@@ -19,13 +20,14 @@ const props = withDefaults(defineProps<textFields>(), {
   disabled: false,
   name: '',
   type: 'text',
+  hideLabel: true,
 });
 
 const { label, id, autocomplete, placeholder, required, name, type } =
   toRefs(props);
 </script>
 <template>
-  <base-label class="amplify-label sr-only" :for="id">
+  <base-label class="amplify-label" :class="{ 'sr-only': hideLabel }" :for="id">
     {{ label }}
   </base-label>
   <base-wrapper class="amplify-field-group__field-wrapper">
