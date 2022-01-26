@@ -1,5 +1,5 @@
 import { CognitoUser, CodeDeliveryDetails } from 'amazon-cognito-identity-js';
-import { Interpreter, State, SendAction, send } from 'xstate';
+import { Interpreter, State } from 'xstate';
 import { ValidationError } from './validator';
 import { defaultServices } from '../machines/authenticator/defaultServices';
 
