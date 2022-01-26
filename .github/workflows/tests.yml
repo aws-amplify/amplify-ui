@@ -57,7 +57,7 @@ jobs:
           node-version: lts/*
           cache: "yarn"
       - name: Install packages
-        run: yarn --frozen-lockfile --prefer-offline
+        run: yarn --no-lockfile --prefer-offline
       - name: Build ui package
         run: yarn ui build
       - name: Cache cypress runner
@@ -124,7 +124,7 @@ jobs:
 
       - name: Install packages
         if: steps.restore-cache.outputs.cache-hit != 'true'
-        run: yarn --frozen-lockfile --prefer-offline  --prefer-offline
+        run: yarn --no-lockfile --prefer-offline
 
       - name: Build ui package
         if: ${{ steps.restore-ui-cache.outputs.cache-hit != 'true' && matrix.package != 'ui' }}
@@ -227,7 +227,7 @@ jobs:
 
       - name: Install packages
         if: steps.restore-cache.outputs.cache-hit != 'true' || steps.restore-cypress-cache.outputs.cache-hit != 'true'
-        run: yarn --frozen-lockfile --prefer-offline
+        run: yarn --no-lockfile --prefer-offline
 
       - name: Build @aws-amplify/ui package
         if: steps.restore-ui-cache.outputs.cache-hit != 'true'
@@ -315,7 +315,7 @@ jobs:
 
       - name: Install packages
         if: steps.restore-cache.outputs.cache-hit != 'true'
-        run: yarn --frozen-lockfile --prefer-offline
+        run: yarn --no-lockfile --prefer-offline
 
       - name: Restore ui/dist cache
         uses: actions/cache@v2

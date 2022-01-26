@@ -1,7 +1,7 @@
-import { SignIn } from '../SignIn';
-import { SignUp } from '../SignUp';
-import { ConfirmSignUp } from '../ConfirmSignUp';
-import { ForceNewPassword } from '../ForceNewPassword';
+import { SignIn } from '../../SignIn';
+import { SignUp } from '../../SignUp';
+import { ConfirmSignUp } from '../../ConfirmSignUp';
+import { ForceNewPassword } from '../../ForceNewPassword';
 
 export const defaultComponents = {
   Header: (): JSX.Element => null,

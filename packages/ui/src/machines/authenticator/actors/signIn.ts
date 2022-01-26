@@ -15,6 +15,7 @@ import {
   clearValidationError,
   handleInput,
   handleBlur,
+  parsePhoneNumber,
   setChallengeName,
   setConfirmResetPasswordIntent,
   setConfirmSignUpIntent,
@@ -65,26 +66,18 @@ export function signInActor({ services }: SignInMachineOptions) {
             },
             submit: {
               tags: ['pending'],
-              entry: ['clearError', sendUpdate()],
+              entry: ['parsePhoneNumber', 'clearError', sendUpdate()],
               invoke: {
                 src: 'signIn',
                 onDone: [
                   {
                     cond: 'shouldSetupTOTP',
-                    actions: [
-                      'setUser',
-                      'setChallengeName',
-                      'setRequiredAttributes',
-                    ],
+                    actions: ['setUser', 'setChallengeName'],
                     target: '#signInActor.setupTOTP',
                   },
                   {
                     cond: 'shouldConfirmSignIn',
-                    actions: [
-                      'setUser',
-                      'setChallengeName',
-                      'setRequiredAttributes',
-                    ],
+                    actions: ['setUser', 'setChallengeName'],
                     target: '#signInActor.confirmSignIn',
                   },
                   {
@@ -246,20 +239,12 @@ export function signInActor({ services }: SignInMachineOptions) {
                     onDone: [
                       {
                         cond: 'shouldConfirmSignIn',
-                        actions: [
-                          'setUser',
-                          'setChallengeName',
-                          'setRequiredAttributes',
-                        ],
+                        actions: ['setUser', 'setChallengeName'],
                         target: '#signInActor.confirmSignIn',
                       },
                       {
                         cond: 'shouldSetupTOTP',
-                        actions: [
-                          'setUser',
-                          'setChallengeName',
-                          'setRequiredAttributes',
-                        ],
+                        actions: ['setUser', 'setChallengeName'],
 
                         target: '#signInActor.setupTOTP',
                       },
@@ -403,6 +388,7 @@ export function signInActor({ services }: SignInMachineOptions) {
         clearValidationError,
         handleInput,
         handleBlur,
+        parsePhoneNumber,
         setChallengeName,
         setConfirmResetPasswordIntent,
         setConfirmSignUpIntent,
@@ -448,11 +434,10 @@ export function signInActor({ services }: SignInMachineOptions) {
       },
       services: {
         async signIn(context) {
-          const source = context.formValues;
-          const { country_code, username, password } = source;
+          const { username, password } = context.formValues;
 
           return await services.handleSignIn({
-            username: (country_code ?? '') + username,
+            username,
             password,
           });
         },
