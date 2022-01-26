@@ -5,17 +5,13 @@ import { Expander, ExpanderItem } from '@aws-amplify/ui-react';
 export const BasicMultipleExpander = () => {
   return (
     <Expander type="multiple">
-      <ExpanderItem title="Section 1 title" value="item-1">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua.
+      <ExpanderItem title="Click me first!" value="item-1">
+        Now when you click the second item, this item will stay open until you
+        close it.
       </ExpanderItem>
-      <ExpanderItem title="Section 2 title" value="item-2">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua.
-      </ExpanderItem>
-      <ExpanderItem title="Section 3 title" value="item-3">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua.
+      <ExpanderItem title="Then click me!" value="item-2">
+        Notice how both items can be open at the same time for the multiple
+        Expander.
       </ExpanderItem>
     </Expander>
   );

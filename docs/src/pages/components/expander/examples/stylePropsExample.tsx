@@ -13,11 +13,7 @@ export const StylePropsExpander = () => {
         color: `${tokens.colors.white}`,
       }}
     >
-      <ExpanderItem
-        title="Section 1 title"
-        value="item-1"
-        backgroundColor="blue"
-      >
+      <ExpanderItem title="Section 1 title" value="item-1">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua.
       </ExpanderItem>

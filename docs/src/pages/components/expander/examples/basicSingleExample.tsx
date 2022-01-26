@@ -5,17 +5,13 @@ import { Expander, ExpanderItem } from '@aws-amplify/ui-react';
 export const BasicSingleExpander = () => {
   return (
     <Expander type="single">
-      <ExpanderItem title="HELLOOOOOOO" value="item-1">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua.
+      <ExpanderItem title="Click me first!" value="item-1">
+        Now when you click the second item, this item will automatically
+        collapse.
       </ExpanderItem>
-      <ExpanderItem title="Section 2 title" value="item-2">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua.
-      </ExpanderItem>
-      <ExpanderItem title="Section 3 title" value="item-3">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua.
+      <ExpanderItem title="Then click me!" value="item-2">
+        Notice how only one item can be open at a time for the single Expander
+        type.
       </ExpanderItem>
     </Expander>
   );

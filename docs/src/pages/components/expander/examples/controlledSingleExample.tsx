@@ -6,17 +6,17 @@ export const ControlledSingleExpander = () => {
   const [value, setValue] = React.useState<string | string[]>();
   return (
     <Expander type="single" value={value} onChange={setValue}>
-      <ExpanderItem title="Section 1 title" value="item-1">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua.
+      <ExpanderItem
+        title="What do you call a deer with no eyes?"
+        value="joke-1"
+      >
+        No eye-deer.
       </ExpanderItem>
-      <ExpanderItem title="Section 2 title" value="item-2">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua.
-      </ExpanderItem>
-      <ExpanderItem title="Section 3 title" value="item-3">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua.
+      <ExpanderItem
+        title="What do you call a deer with no eyes or legs?"
+        value="joke-2"
+      >
+        Still, no eye-deer.
       </ExpanderItem>
     </Expander>
   );

@@ -4,18 +4,15 @@ import { Expander, ExpanderItem } from '@aws-amplify/ui-react';
 
 export const ExpandedByDefaultMultipleExpander = () => {
   return (
-    <Expander type="multiple" defaultValue={['item-1', 'item-2']}>
-      <ExpanderItem title="Section 1 title" value="item-1">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua.
+    <Expander type="multiple" defaultValue={['line-1', 'line-2']}>
+      <ExpanderItem title="Line 1" value="line-1">
+        Haikus can be fun
       </ExpanderItem>
-      <ExpanderItem title="Section 2 title" value="item-2">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua.
+      <ExpanderItem title="Line 2" value="line-2">
+        But sometimes they don&lsquo;t make sense...
       </ExpanderItem>
-      <ExpanderItem title="Section 3 title" value="item-3">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua.
+      <ExpanderItem title="Line 3" value="line-3">
+        Refrigerator
       </ExpanderItem>
     </Expander>
   );
