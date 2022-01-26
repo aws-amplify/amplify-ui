@@ -214,7 +214,6 @@ export const getSendEventAliases = (send: Sender<AuthEvent>) => {
 
 export const getServiceContextFacade = (state: AuthMachineState) => {
   const user = state.context?.user;
-  const hasActor = !!state.context.actorRef;
   const actorState = getActorState(state);
   const actorContext = getActorContext(state) as ActorContextWithForms;
 
