@@ -1,10 +1,16 @@
-import { Flex, SearchField } from '@aws-amplify/ui-react';
+import { SearchField, Flex, View } from '@aws-amplify/ui-react';
 
 import { Example, ExampleCode } from '@/components/Example';
 import { Fragment } from '@/components/Fragment';
-import { SearchFieldStyledPropsExample } from './examples';
 import { SearchFieldDemo } from './demo';
-import { RefExample } from './examples/refs';
+import {
+  DefaultSearchFieldExample,
+  PlaceholderSearchFieldExample,
+  RefExample,
+  SearchFieldStyledPropsExample,
+  SizeSearchFieldExample,
+  VariationSearchFieldExample,
+} from './examples';
 
 SearchField accepts query text for search. Users may clear the field by hitting the `Esc` key or by clicking the
 clear button. When users hit `Enter` key or click the search icon, the `onSubmit` event handler will be fired.
@@ -17,18 +23,21 @@ clear button. When users hit `Enter` key or click the search icon, the `onSubmit
 
 Import the `SearchField` component and styles and provide a `label` for accessibility/usability.
 
-```jsx
-import { SearchField } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
+<Example>
+  <View>
+    <DefaultSearchFieldExample />
+  </View>
+  
+  <ExampleCode>
 
-<SearchField id="search" label="search" />;
+```jsx file=./examples/DefaultSearchFieldExample.tsx
+
 ```
 
-<Example>
-  <SearchField id="search" label="search" />
+  </ExampleCode>
 </Example>
 
-Note: clear text (x) button will show after user has entered text.
+**Note**: The clear text (x) button will show after user has entered text.
 
 ### Accessibility / Label behavior
 
@@ -38,46 +47,54 @@ Note: clear text (x) button will show after user has entered text.
 
 Text that appears in the form control when it has no value set.
 
-```jsx
-<SearchField label="search" placeholder="Search…" />
+<Example>
+  <View>
+    <PlaceholderSearchFieldExample />
+  </View>
+  
+  <ExampleCode>
+
+```jsx file=./examples/PlaceholderSearchFieldExample.tsx
+
 ```
 
-<SearchField label="search" placeholder="Search…" />
+  </ExampleCode>
+</Example>
 
 ### Sizes
 
 Use the `size` prop to change the Placeholder size. Available options are `small`, `large`, and none (default).
 
-```jsx
-<SearchField label="search" size="small" />
-<SearchField label="search" />
-<SearchField label="search" size="large" />
+<Example>
+  <View>
+    <SizeSearchFieldExample />
+  </View>
+  
+  <ExampleCode>
+
+```jsx file=./examples/SizeSearchFieldExample.tsx
+
 ```
 
-<Example>
-  <Flex direction="column">
-    <SearchField label="search" size="small" />
-    <SearchField label="search" />
-    <SearchField label="search" size="large" />
-  </Flex>
+  </ExampleCode>
 </Example>
 
 ### Variations
 
 There are two variation styles available: default and `quiet`.
 
-```jsx
-<Flex direction="column" gap="1rem">
-  <SearchField label="search" />
-  <SearchField label="search" variation="quiet" />
-</Flex>
+<Example>
+  <View>
+    <VariationSearchFieldExample />
+  </View>
+  
+  <ExampleCode>
+
+```jsx file=./examples/VariationSearchFieldExample.tsx
+
 ```
 
-<Example>
-  <Flex direction="column" gap="1rem">
-    <SearchField label="search" />
-    <SearchField label="search" variation="quiet" />
-  </Flex>
+  </ExampleCode>
 </Example>
 
 ### Forward refs
@@ -152,15 +169,16 @@ _Using style props:_
 
 Flex styling props will be applied to the SearchField wrapping Flex component, whereas other style props will be applied to the input field. This allows us to change the layout of the label and input field, while also styling the input field directly.
 
-```jsx
-<SearchField
-  label="search"
-  fontSize="var(--amplify-font-sizes-xl)"
-  backgroundColor="var(--amplify-colors-blue-20)"
-  color="var(--amplify-colors-black)"
-/>
+<Example>
+  <View>
+    <SearchFieldStyledPropsExample />
+  </View>
+  
+  <ExampleCode>
+
+```jsx file=./examples/SearchFieldStyledPropsExample.tsx
+
 ```
 
-<Example>
-  <SearchFieldStyledPropsExample />
+  </ExampleCode>
 </Example>

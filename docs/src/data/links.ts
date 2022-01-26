@@ -104,7 +104,11 @@ export const inputComponents = [
     label: 'Stepper Field',
     body: `A StepperField is a number input with buttons to increase or decrease the value.`,
   },
-  { href: '/components/searchfield', label: 'Search Field', body: `` },
+  {
+    href: '/components/searchfield',
+    label: 'Search Field',
+    body: `SearchField accepts query text for search.`,
+  },
   { href: '/components/passwordfield', label: 'Password Field', body: `` },
   {
     href: '/components/phonenumberfield',
