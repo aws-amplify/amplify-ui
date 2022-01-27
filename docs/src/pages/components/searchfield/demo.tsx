@@ -1,4 +1,5 @@
 import * as React from 'react';
+
 import { SearchField } from '@aws-amplify/ui-react';
 import { useSearchFieldProps } from './useSearchFieldProps';
 import { SearchFieldPropControls } from './SearchFieldPropControls';
