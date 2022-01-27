@@ -16,6 +16,7 @@ import {
   ConfirmVerifyUser,
   VerifyUser,
   AuthenticatorSignUpFormFields,
+  AuthenticatorForceNewPasswordFormFields,
   AmplifyTextField,
   AmplifyCheckBox,
   AmplifyButton,
@@ -48,6 +49,10 @@ export default {
       'AuthenticatorSignUpFormFields',
       AuthenticatorSignUpFormFields
     );
+    app.component(
+      'AuthenticatorForceNewPasswordFormFields',
+      AuthenticatorForceNewPasswordFormFields
+    );
   },
 };
 
@@ -57,6 +62,7 @@ export {
   FederatedSignIn,
   Authenticator,
   AuthenticatorSignUpFormFields,
+  AuthenticatorForceNewPasswordFormFields,
   RenderInfo,
   UserNameAlias,
   ForceNewPassword,

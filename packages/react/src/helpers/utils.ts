@@ -15,3 +15,8 @@ export const isSelectElement = (
 ): target is HTMLInputElement => {
   return (target as HTMLElement)?.nodeName === 'SELECT';
 };
+
+export const areArraysEqual = (arr1: Array<any>, arr2: Array<any>) => {
+  if (arr1.length !== arr2.length) return false;
+  return arr1.every((value, index) => value === arr2[index]);
+};

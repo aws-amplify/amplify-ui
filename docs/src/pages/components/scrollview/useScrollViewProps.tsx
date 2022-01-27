@@ -1,5 +1,4 @@
 import * as React from 'react';
-
 import { ScrollViewProps } from '@aws-amplify/ui-react';
 
 import { ScrollViewPropControlsProp } from './ScrollViewPropControls';
