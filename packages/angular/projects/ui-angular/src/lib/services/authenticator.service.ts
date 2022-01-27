@@ -1,5 +1,5 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { Logger, Hub } from '@aws-amplify/core';
+import { Logger } from '@aws-amplify/core';
 import {
   AuthContext,
   AuthenticatorMachineOptions,
