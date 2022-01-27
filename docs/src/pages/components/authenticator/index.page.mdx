@@ -424,7 +424,7 @@ The `Authenticator` ships with [translations](https://github.com/aws-amplify/amp
 - `fr` – French
 - `de` – German
 - `it` – Italian
-- `ja` – Japenese
+- `ja` – Japanese
 - `kr` - Korean
 - `pl` - Polish
 - `pt` – Portuguese
@@ -594,6 +594,17 @@ The following example customizes the Sign Up screen by:
 />
 
 </Example>
+
+### Force New Password Fields
+
+The following example customizes the Force New Password screen by:
+
+- Re-using the default Force New Password form fields
+- Appending a custom "Zone Info" text field
+
+<Fragment>
+  {({ platform }) => import(`./force-new-password-fields.${platform}.mdx`)}
+</Fragment>
 
 ### Styling
 

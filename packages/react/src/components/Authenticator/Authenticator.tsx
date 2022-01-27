@@ -6,6 +6,7 @@ import { Router, RouterProps } from './Router';
 import { SetupTOTP } from './SetupTOTP';
 import { SignIn } from './SignIn';
 import { SignUp } from './SignUp';
+import { ForceNewPassword } from './ForceNewPassword';
 import {
   CustomComponentsContext,
   ComponentsProviderProps,
@@ -72,3 +73,4 @@ Authenticator.ResetPassword = ResetPassword;
 Authenticator.SetupTOTP = SetupTOTP;
 Authenticator.SignIn = SignIn;
 Authenticator.SignUp = SignUp;
+Authenticator.ForceNewPassword = ForceNewPassword;

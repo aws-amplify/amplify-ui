@@ -7,6 +7,7 @@ import {
   getSendEventAliases,
   getServiceContextFacade,
   AuthMachineSend,
+  listenToAuthHub,
 } from '@aws-amplify/ui';
 import { useSelector, useInterpret } from '@xstate/react';
 import isEmpty from 'lodash/isEmpty';
@@ -45,6 +46,14 @@ export const Provider = ({ children }) => {
   const value = isEmpty(parentProviderVal)
     ? currentProviderVal
     : parentProviderVal;
+
+  const {
+    service: { send },
+  } = value;
+
+  React.useEffect(() => {
+    return listenToAuthHub(send);
+  }, []);
 
   return (
     <AuthenticatorContext.Provider value={value}>
