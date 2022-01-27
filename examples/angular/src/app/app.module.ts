@@ -11,6 +11,7 @@ import { AppComponent } from './app.component';
 
 import { CustomSignUpFieldsComponent } from 'src/pages/ui/components/authenticator/custom-sign-up-fields/custom-sign-up-fields.component';
 import { CustomSlotsComponent } from 'src/pages/ui/components/authenticator/custom-slots/custom-slots.component';
+import { HubEventsComponent } from 'src/pages/ui/components/authenticator/hub-events/hub-events.component';
 import { I18nComponent } from 'src/pages/ui/components/authenticator/i18n/i18n.component';
 import { ModalComponent } from 'src/pages/ui/components/authenticator/modal/modal.component';
 import { ResetPasswordComponent } from 'src/pages/ui/components/authenticator/reset-password/reset-password.component';
@@ -32,6 +33,7 @@ import { SignUpWithUsernameComponent } from 'src/pages/ui/components/authenticat
     AppComponent,
     CustomSignUpFieldsComponent,
     CustomSlotsComponent,
+    HubEventsComponent,
     I18nComponent,
     ModalComponent,
     ResetPasswordComponent,
