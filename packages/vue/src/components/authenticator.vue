@@ -1,8 +1,15 @@
 <script setup lang="ts">
 import { useAuth } from '../composables/useAuth';
-import { ref, computed, useAttrs, watch, Ref, onMounted } from 'vue';
+import {
+  ref,
+  computed,
+  useAttrs,
+  watch,
+  Ref,
+  onMounted,
+  onUnmounted,
+} from 'vue';
 import { useActor, useInterpret } from '@xstate/vue';
-import { Hub } from '@aws-amplify/core';
 import {
   getActorState,
   getServiceFacade,
@@ -11,6 +18,7 @@ import {
   translate,
   CognitoUserAmplify,
   SocialProvider,
+  listenToAuthHub,
 } from '@aws-amplify/ui';
 
 import SignIn from './sign-in.vue';
@@ -62,20 +70,13 @@ const emit = defineEmits([
 const machine = createAuthenticatorMachine();
 
 const service = useInterpret(machine);
+let unsubscribeHub: ReturnType<typeof listenToAuthHub>;
 
 const { state, send } = useActor(service);
 useAuth(service);
 
 onMounted(() => {
-  // TODO: share this logic from @aws-amplify/ui
-  // TODO: type this
-  const listener = (data: any) => {
-    if (data.payload.event === 'signOut') {
-      send('SIGN_OUT');
-    }
-  };
-  // TODO: unsubscribe
-  Hub.listen('auth', listener);
+  unsubscribeHub = listenToAuthHub(send);
   send({
     type: 'INIT',
     data: {
@@ -86,6 +87,10 @@ onMounted(() => {
       services,
     },
   });
+});
+
+onUnmounted(() => {
+  if (unsubscribeHub) unsubscribeHub();
 });
 
 const actorState = computed(() => getActorState(state.value));

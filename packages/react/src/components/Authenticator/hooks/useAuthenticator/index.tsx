@@ -1,5 +1,4 @@
 import React from 'react';
-import { Hub, HubCallback } from '@aws-amplify/core';
 import {
   createAuthenticatorMachine,
   getServiceFacade,
@@ -8,6 +7,7 @@ import {
   getSendEventAliases,
   getServiceContextFacade,
   AuthMachineSend,
+  listenToAuthHub,
 } from '@aws-amplify/ui';
 import { useSelector, useInterpret } from '@xstate/react';
 import isEmpty from 'lodash/isEmpty';
@@ -52,13 +52,7 @@ export const Provider = ({ children }) => {
   } = value;
 
   React.useEffect(() => {
-    // TODO: share this logic from @aws-amplify/ui
-    const listener: HubCallback = (data) => {
-      if (data.payload.event === 'signOut') {
-        send('SIGN_OUT');
-      }
-    };
-    return Hub.listen('auth', listener);
+    return listenToAuthHub(send);
   }, []);
 
   return (
