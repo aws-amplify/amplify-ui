@@ -115,7 +115,11 @@ export const inputComponents = [
     label: 'Phone Number Field',
     body: ``,
   },
-  { href: '/components/switchfield', label: 'Switch Field', body: `` },
+  {
+    href: '/components/switchfield',
+    label: 'Switch Field',
+    body: `The SwitchField form primitive is a toggleable input type with a checked (on) and unchecked (off) state.`,
+  },
   { href: '/components/radiogroupfield', label: 'Radio Group Field', body: `` },
   { href: '/components/checkboxfield', label: 'Checkbox Field', body: `` },
   { href: '/components/togglebutton', label: 'Toggle Button', body: `` },
