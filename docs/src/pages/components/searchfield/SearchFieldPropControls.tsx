@@ -1,29 +1,27 @@
-import React from 'react';
-
+import * as React from 'react';
 import {
   SearchFieldProps,
   SelectField,
   TextField,
+  Flex,
+  CheckboxField,
 } from '@aws-amplify/ui-react';
 
-import { FieldLabeler } from './FieldLabeler';
-import { DemoBox } from './DemoBox';
-
 export interface SearchFieldPropControlsProps extends SearchFieldProps {
-  setIsDisabled: React.Dispatch<
-    React.SetStateAction<SearchFieldProps['isDisabled']>
-  >;
-  setLabelHidden: React.Dispatch<
-    React.SetStateAction<SearchFieldProps['labelHidden']>
-  >;
-  setLabel: React.Dispatch<React.SetStateAction<SearchFieldProps['label']>>;
-  setSize: React.Dispatch<React.SetStateAction<SearchFieldProps['size']>>;
-  setVariation: React.Dispatch<
-    React.SetStateAction<SearchFieldProps['variation']>
-  >;
-  setPlaceholder: React.Dispatch<
-    React.SetStateAction<SearchFieldProps['placeholder']>
-  >;
+  setLabel: (value: React.SetStateAction<SearchFieldProps['label']>) => void;
+  setPlaceholder: (
+    value: React.SetStateAction<SearchFieldProps['placeholder']>
+  ) => void;
+  setSize: (value: React.SetStateAction<SearchFieldProps['size']>) => void;
+  setVariation: (
+    value: React.SetStateAction<SearchFieldProps['variation']>
+  ) => void;
+  setLabelHidden: (
+    value: React.SetStateAction<SearchFieldProps['labelHidden']>
+  ) => void;
+  setIsDisabled: (
+    value: React.SetStateAction<SearchFieldProps['isDisabled']>
+  ) => void;
 }
 
 interface SearchFieldPropControlsInterface {
@@ -31,21 +29,21 @@ interface SearchFieldPropControlsInterface {
 }
 
 export const SearchFieldPropControls: SearchFieldPropControlsInterface = ({
-  isDisabled,
-  setIsDisabled,
   label,
   setLabel,
-  labelHidden,
-  setLabelHidden,
   placeholder,
   setPlaceholder,
   size,
   setSize,
   variation,
   setVariation,
+  labelHidden,
+  setLabelHidden,
+  isDisabled,
+  setIsDisabled,
 }) => {
   return (
-    <DemoBox primitiveName="SearchField">
+    <Flex direction="column">
       <TextField
         label="label"
         name="label"
@@ -64,7 +62,8 @@ export const SearchFieldPropControls: SearchFieldPropControlsInterface = ({
       <SelectField
         label="size"
         name="size"
-        defaultValue={size}
+        id="size"
+        value={size}
         onChange={(event) =>
           setSize(event.target.value as SearchFieldProps['size'])
         }
@@ -77,6 +76,8 @@ export const SearchFieldPropControls: SearchFieldPropControlsInterface = ({
       <SelectField
         label="variation"
         name="variation"
+        id="variation"
+        value={variation}
         onChange={(event) =>
           setVariation(
             event.target.value as unknown as SearchFieldProps['variation']
@@ -86,30 +87,30 @@ export const SearchFieldPropControls: SearchFieldPropControlsInterface = ({
         <option value="">default</option>
         <option value="quiet">quiet</option>
       </SelectField>
-      <FieldLabeler id="isDisabled">
-        <input
-          type="checkbox"
-          name="isDisabled"
-          defaultChecked={isDisabled}
-          onChange={(event) => {
-            setIsDisabled(
-              Boolean(event.target.checked) as SearchFieldProps['isDisabled']
-            );
-          }}
-        />
-      </FieldLabeler>
-      <FieldLabeler id="labelHidden">
-        <input
-          type="checkbox"
-          name="labelHidden"
-          defaultChecked={labelHidden as boolean}
-          onChange={(event) => {
-            setLabelHidden(
-              Boolean(event.target.checked) as SearchFieldProps['labelHidden']
-            );
-          }}
-        />
-      </FieldLabeler>
-    </DemoBox>
+
+      <CheckboxField
+        label="labelHidden"
+        name="labelHidden"
+        value="labelHidden"
+        checked={labelHidden}
+        onChange={(event) => {
+          setLabelHidden(
+            Boolean(event.target.checked) as SearchFieldProps['labelHidden']
+          );
+        }}
+      />
+
+      <CheckboxField
+        label="isDisabled"
+        name="isDisabled"
+        value="isDisabled"
+        checked={isDisabled}
+        onChange={(event) => {
+          setIsDisabled(
+            Boolean(event.target.checked) as SearchFieldProps['isDisabled']
+          );
+        }}
+      />
+    </Flex>
   );
 };
