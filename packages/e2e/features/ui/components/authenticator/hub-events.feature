@@ -4,7 +4,7 @@ Feature: Hub Events
   "signOut" hub event.
 
   Background:
-    Given I'm running the example "/ui/components/authenticator/hub-event"
+    Given I'm running the example "/ui/components/authenticator/hub-events"
 
 @angular @react @vue
   Scenario: Sign in with confirmed credentials then sign out
