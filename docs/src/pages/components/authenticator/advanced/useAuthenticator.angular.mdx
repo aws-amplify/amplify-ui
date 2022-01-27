@@ -1,3 +1,7 @@
+### Authenticator Service
+
+`@aws-amplify/ui-angular` ships with `AuthenticatorService` Angular service that can be used to access, modify, and update Authenticator's auth state. To use them, first inject the service into your component:
+
 _app.component.ts_
 
 ```ts{3,12}
@@ -19,8 +23,10 @@ export class UseAuthenticatorComponent {
 
 ```
 
+Then you can use the `authenticator` value in your component or template:
+
 _app.component.html_
 
-```tsx{2,8,14,30,36,52,60,66,70} file=../../../../../examples/angular/src/pages/ui/components/authenticator/custom-slots/custom-slots.component.html
-
+```html
+<button (click)="authenticator.signOut()">Sign Out</button>
 ```

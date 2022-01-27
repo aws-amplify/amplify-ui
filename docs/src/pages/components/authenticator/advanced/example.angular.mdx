@@ -1,6 +1,6 @@
 _app.component.ts_
 
-```ts{3,12}
+```ts
 import { Component } from '@angular/core';
 import { Amplify } from 'aws-amplify';
 import { AuthenticatorService } from '@aws-amplify/ui-angular';
@@ -16,11 +16,10 @@ export class UseAuthenticatorComponent {
     Amplify.configure(awsExports);
   }
 }
-
 ```
 
 _app.component.html_
 
-```tsx{2,8,14,30,36,52,60,66,70} file=../../../../../examples/angular/src/pages/ui/components/authenticator/custom-slots/custom-slots.component.html
+```js file=../../../../../../examples/angular/src/pages/ui/components/authenticator/useAuthenticator/useAuthenticator.component.html#L1-L8
 
 ```
