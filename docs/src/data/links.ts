@@ -65,7 +65,11 @@ export const connectedComponents = [
 
 export const dataDisplayComponents = [
   { href: '/components/badge', label: 'Badge', body: `` },
-  { href: '/components/rating', label: 'Rating', body: `` },
+  {
+    href: '/components/rating',
+    label: 'Rating',
+    body: `The Rating component is a read only rating used to show interest`,
+  },
 ].sort(sortByLabel);
 
 export const feedbackComponents: ComponentNavItem[] = [
