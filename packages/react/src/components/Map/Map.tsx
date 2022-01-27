@@ -6,16 +6,18 @@ import ReactMapGL from 'react-map-gl';
 
 import 'maplibre-gl/dist/maplibre-gl.css';
 
+import { Loader } from '../../primitives';
+
 import './index.css';
 
-export const Map = (props: any) => {
+export const Map = ({ children, latitude, longitude, zoom, ...rest }: any) => {
   const mapRef = useRef<any>();
   const [credentials, setCredentials] = useState<ICredentials>();
   const [transformRequest, setRequestTransformer] = useState<any>();
   const [viewport, setViewport] = useState({
-    latitude: props.latitude ?? 28.728,
-    longitude: props.longitude ?? 10.041,
-    zoom: props.zoom ?? 1.816,
+    latitude: latitude ?? 28.728,
+    longitude: longitude ?? 10.041,
+    zoom: zoom ?? 1.816,
   });
   const [pointerEvents, setPointerEvents] = useState<string | void>();
 
@@ -83,19 +85,20 @@ export const Map = (props: any) => {
   return transformRequest ? (
     <ReactMapGL
       ref={mapRef}
-      width="50%"
-      height="50vh"
+      width="100%"
+      height="100vh"
       transformRequest={transformRequest}
       mapStyle={'map5df169f7-staging'}
       onViewportChange={setViewport}
       style={{ pointerEvents }}
       {...viewport}
+      {...rest}
     >
-      {React.Children.map(props.children, (child) =>
+      {React.Children.map(children, (child) =>
         React.cloneElement(child, { mapRef })
       )}
     </ReactMapGL>
   ) : (
-    <h1>Loading...</h1>
+    <Loader size="large" variation="linear" />
   );
 };
