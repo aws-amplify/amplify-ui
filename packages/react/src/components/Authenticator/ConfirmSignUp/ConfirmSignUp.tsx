@@ -3,6 +3,7 @@ import { translate } from '@aws-amplify/ui';
 import { useAuthenticator } from '../..';
 import { Button, Flex, Heading, Text } from '../../..';
 import { isInputOrSelectElement, isInputElement } from '../../../helpers/utils';
+import { useCustomComponents } from '../hooks/useCustomComponents';
 
 import {
   ConfirmationCodeInput,
@@ -12,18 +13,20 @@ import {
 
 export function ConfirmSignUp() {
   const {
-    components: {
-      ConfirmSignUp: {
-        Header = ConfirmSignUp.Header,
-        Footer = ConfirmSignUp.Footer,
-      },
-    },
     isPending,
     resendCode,
     submitForm,
     updateForm,
     codeDeliveryDetails: { DeliveryMedium, Destination } = {},
   } = useAuthenticator();
+  const {
+    components: {
+      ConfirmSignUp: {
+        Header = ConfirmSignUp.Header,
+        Footer = ConfirmSignUp.Footer,
+      },
+    },
+  } = useCustomComponents();
 
   const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
     if (isInputOrSelectElement(event.target)) {

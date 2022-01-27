@@ -21,7 +21,7 @@ export const baseComponents: ComponentNavItem[] = [
   {
     href: '/components/heading',
     label: 'Heading',
-    body: ``,
+    body: `This is a separate primitive from Text for semantic purposes. The Heading primitive maps to an <h*> tag, and Text maps to a <p> tag.`,
   },
   {
     href: '/components/icon',
@@ -31,7 +31,7 @@ export const baseComponents: ComponentNavItem[] = [
   {
     href: '/components/image',
     label: 'Image',
-    body: ``,
+    body: `The Image primitive can be used to display responsive images.`,
   },
   {
     href: '/components/divider',
@@ -40,8 +40,8 @@ export const baseComponents: ComponentNavItem[] = [
   },
   {
     href: '/components/scrollview',
-    label: 'Scrollview',
-    body: ``,
+    label: 'ScrollView',
+    body: `ScrollView is essentially a View that allows scrolling of its inner contents.`,
   },
 ].sort(sortByLabel);
 
@@ -92,7 +92,11 @@ export const feedbackComponents: ComponentNavItem[] = [
 ].sort(sortByLabel);
 
 export const inputComponents = [
-  { href: '/components/textfield', label: 'Text Field', body: `` },
+  {
+    href: '/components/textfield',
+    label: 'Text Field',
+    body: `The TextField form primitive can be used allow users to input text content.`,
+  },
   { href: '/components/selectfield', label: 'Select Field', body: `` },
   { href: '/components/sliderfield', label: 'Slider Field', body: `` },
   {
