@@ -3,8 +3,8 @@ import * as React from 'react';
 import { Flex } from '@aws-amplify/ui-react';
 
 import { Example } from '@/components/Example';
-import { TablePropControls } from '@/components/TablePropControls';
-import { useTableProps } from '@/components/useTableProps';
+import { TablePropControls } from './TablePropControls';
+import { useTableProps } from './useTableProps';
 import { BasicExample } from './examples';
 
 export const TableDemo = () => {

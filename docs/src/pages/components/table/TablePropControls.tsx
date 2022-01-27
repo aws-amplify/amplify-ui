@@ -7,8 +7,8 @@ import {
   TextField,
 } from '@aws-amplify/ui-react';
 
-import { DemoBox } from './DemoBox';
-import { FieldLabeler } from './FieldLabeler';
+import { DemoBox } from '@/components/DemoBox';
+import { FieldLabeler } from '@/components/FieldLabeler';
 
 export interface TablePropControlsProps extends TableProps {
   setCaption: (value: React.SetStateAction<TableProps['caption']>) => void;
