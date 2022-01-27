@@ -1,8 +1,8 @@
-export { BasicMultipleExpander } from './basicMultipleExample';
-export { BasicSingleExpander } from './basicSingleExample';
-export { ClassStylingExpander } from './classStylingExample';
-export { CollapsibleExpander } from './collapsibleExample';
-export { ControlledSingleExpander } from './controlledSingleExample';
-export { DefaultExpanderExample } from './defaultExpanderExample';
-export { ExpandedByDefaultMultipleExpander } from './expandedByDefaultMultipleExample';
-export { StylePropsExpander } from './stylePropsExample';
+export { BasicMultipleExpander } from './BasicMultipleExample';
+export { BasicSingleExpander } from './BasicSingleExample';
+export { ClassStylingExpander } from './ClassStylingExample';
+export { CollapsibleExpander } from './CollapsibleExample';
+export { ControlledSingleExpander } from './ControlledSingleExample';
+export { DefaultExpanderExample } from './DefaultExpanderExample';
+export { ExpandedByDefaultMultipleExpander } from './ExpandedByDefaultMultipleExample';
+export { StylePropsExpander } from './StylePropsExample';
