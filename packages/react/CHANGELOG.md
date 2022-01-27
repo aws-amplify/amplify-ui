@@ -1,5 +1,53 @@
 # @aws-amplify/ui-react
 
+## 2.2.0
+
+### Minor Changes
+
+- [#1168](https://github.com/aws-amplify/amplify-ui/pull/1168) [`b32dd86bf`](https://github.com/aws-amplify/amplify-ui/commit/b32dd86bf4e26011f8b17e59b98fed3430f8fe50) Thanks [@wlee221](https://github.com/wlee221)! - This enables `useAuthenticator` usage outside <Authenticator /> to access commonly requested authenticator context like `user` and `route`.
+
+  First wrap your App with `Authenticator.Provider`:
+
+  ```tsx
+  const App = (
+    <Authenticator.Provider>
+      <MyApp />
+    </Authenticator.Provider>
+  );
+  ```
+
+  To avoid repeated re-renders, you can pass a function that takes in Authenticator context and returns an array of desired context values. This hook will only trigger re-render if any of the array value changes.
+
+  ```tsx
+  const Home = () => {
+    const { user, signOut } = useAuthenticator((context) => [context.user]);
+
+    return (
+      <>
+        <h2>Welcome, {user.username}!</h2>
+        <button onClick={signOut}>Sign Out</button>
+      </>
+    );
+  };
+
+  const Login = () => <Authenticator />;
+
+  function MyApp() {
+    const { route } = useAuthenticator((context) => [context.route]);
+
+    return route === 'authenticated' ? <Home /> : <Login />;
+  }
+  ```
+
+### Patch Changes
+
+- [#1153](https://github.com/aws-amplify/amplify-ui/pull/1153) [`3afdc1fc9`](https://github.com/aws-amplify/amplify-ui/commit/3afdc1fc9a876a17403ccfc607b922ec352fd1cf) Thanks [@wlee221](https://github.com/wlee221)! - Listen to Auth Hub events
+
+* [#1176](https://github.com/aws-amplify/amplify-ui/pull/1176) [`f7f77237e`](https://github.com/aws-amplify/amplify-ui/commit/f7f77237e69272f1d1d878620946e2914354b503) Thanks [@ErikCH](https://github.com/ErikCH)! - Added new force new password fields component. Also auto detect required attributes on force new password page.
+
+* Updated dependencies [[`3afdc1fc9`](https://github.com/aws-amplify/amplify-ui/commit/3afdc1fc9a876a17403ccfc607b922ec352fd1cf)]:
+  - @aws-amplify/ui@3.0.10
+
 ## 2.1.10
 
 ### Patch Changes
