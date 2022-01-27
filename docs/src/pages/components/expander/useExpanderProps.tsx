@@ -14,9 +14,9 @@ export const useExpanderProps: UseExpanderProps = (initialValues) => {
     initialValues.isCollapsible
   );
   return {
-    isCollapsible,
-    setIsCollapsible,
     type,
     setType,
+    isCollapsible,
+    setIsCollapsible,
   };
 };

@@ -1,18 +1,17 @@
 import * as React from 'react';
 
-import { Expander, ExpanderItem, ExpanderProps } from '@aws-amplify/ui-react';
+import { Expander, ExpanderItem, useTheme } from '@aws-amplify/ui-react';
 
-export const StylePropsExpander = (props: ExpanderProps) => {
+export const StylePropsExpander = () => {
+  const { tokens } = useTheme();
+
   return (
     <Expander
       type="single"
       style={{
-        backgroundColor: 'var(--amplify-colors-brand-secondary-80)',
-        color: 'var(--amplify-colors-white)',
-        '--amplify-components-expander-content-text-color':
-          'var(--amplify-colors-white)',
+        backgroundColor: `${tokens.colors.brand.secondary[80]}`,
+        color: `${tokens.colors.white}`,
       }}
-      {...props}
     >
       <ExpanderItem title="Section 1 title" value="item-1">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod

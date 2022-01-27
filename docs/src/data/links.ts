@@ -136,7 +136,11 @@ export const layoutComponents = [
   },
   { href: '/components/grid', label: 'Grid', body: `` },
   { href: '/components/table', label: 'Table', body: `` },
-  { href: '/components/expander', label: 'Expander', body: `` },
+  {
+    href: '/components/expander',
+    label: 'Expander',
+    body: `The Expander primitive enables users to expand or collapse a set of sections.`,
+  },
 ].sort(sortByLabel);
 
 export const navigationComponents: ComponentNavItem[] = [
