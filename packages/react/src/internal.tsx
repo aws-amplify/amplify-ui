@@ -1,6 +1,7 @@
 export * from './hooks/useAuth';
 export * from './hooks/useDataStore';
 export * from './hooks/useStorageURL';
+export * from './hooks/actions/useAuthSignOutAction';
 export * from './primitives/shared/datastore';
 export {
   EscapeHatchProps,
