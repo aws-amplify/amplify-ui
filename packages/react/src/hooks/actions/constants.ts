@@ -1,4 +1,8 @@
-export const HUB_AUTH_SIGNOUT_NAMESPACE = 'AuthSignOut';
+export const ACTIONS_CHANNEL = 'ui-actions';
+export const ACTION_AUTH_SIGNOUT = 'AuthSignOut';
 
-export const ACTION_EVENT_STARTED = 'Started';
-export const ACTION_EVENT_FINISHED = 'Finished';
+export const ACTION_STARTED = 'Started';
+export const ACTION_FINISHED = 'Finished';
+
+export const ACTION_AUTH_SIGNOUT_STARTED = `${ACTION_AUTH_SIGNOUT}.${ACTION_STARTED}`;
+export const ACTION_AUTH_SIGNOUT_FINISHED = `${ACTION_AUTH_SIGNOUT}.${ACTION_FINISHED}`;
