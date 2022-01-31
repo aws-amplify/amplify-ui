@@ -3,6 +3,7 @@ export { default as SignUp } from './sign-up.vue';
 export { default as FederatedSignIn } from './federated-sign-in.vue';
 export { default as Authenticator } from './authenticator.vue';
 export { default as AuthenticatorSignUpFormFields } from './authenticator-sign-up-form-fields.vue';
+export { default as AuthenticatorForceNewPasswordFormFields } from './authenticator-force-new-password-form-fields.vue';
 export { default as RenderInfo } from './primitives/render-info.vue';
 export { default as PasswordControl } from './password-control.vue';
 export { default as UserNameAlias } from './user-name-alias.vue';

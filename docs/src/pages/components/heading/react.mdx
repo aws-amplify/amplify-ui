@@ -1,8 +1,12 @@
 import { Heading } from '@aws-amplify/ui-react';
-import { HeadingDemo } from './demo';
-import { Example } from '@/components/Example';
 
-This is a separate primitive from Text for semantic purposes. The Heading primitive maps to an `<h*>` tag, and Text maps to a `<p>` tag.
+import {
+  DefaultHeadingExample,
+  HeadingLevelExample,
+  HeadingStylePropsExample,
+} from './examples';
+import { HeadingDemo } from './demo';
+import { Example, ExampleCode } from '@/components/Example';
 
 ## Demo
 
@@ -10,41 +14,30 @@ This is a separate primitive from Text for semantic purposes. The Heading primit
 
 ## Usage
 
-Import the Heading primitive and styles.
-
-```jsx
-import { Heading } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-<Heading>Hello world</Heading>;
-```
+Import the Heading primitive.
 
 <Example>
-  <Heading>Hello world</Heading>
+  <DefaultHeadingExample />
+  <ExampleCode>
+    ```jsx file=./examples/DefaultHeadingExample.tsx
+
+    ```
+
+  </ExampleCode>
 </Example>
 
 ### Heading levels
 
 Use the `level` prop to change the heading level (e.g., `h1 - h6`). Available options are `1`, `2`, `3`, `4`, `5` and `6`.
 
-```jsx
-<Heading level={1}>Heading 1</Heading>
-<Heading level={2}>Heading 2</Heading>
-<Heading level={3}>Heading 3</Heading>
-<Heading level={4}>Heading 4</Heading>
-<Heading level={5}>Heading 5</Heading>
-<Heading level={6}>Heading 6</Heading>
-<Heading>Default (level 6)</Heading>
-```
-
 <Example>
-  <Heading level={1}>Heading 1</Heading>
-  <Heading level={2}>Heading 2</Heading>
-  <Heading level={3}>Heading 3</Heading>
-  <Heading level={4}>Heading 4</Heading>
-  <Heading level={5}>Heading 5</Heading>
-  <Heading level={6}>Heading 6</Heading>
-  <Heading>Default (level 6)</Heading>
+  <HeadingLevelExample />
+  <ExampleCode>
+    ```jsx file=./examples/HeadingLevelExample.tsx
+
+    ```
+
+  </ExampleCode>
 </Example>
 
 ## CSS Styling
@@ -53,47 +46,23 @@ Use the `level` prop to change the heading level (e.g., `h1 - h6`). Available op
 
 To override styling on all Headings, you can set the Amplify CSS variables or use the built-in `.amplify-heading` class.
 
-```css
-/* styles.css */
-:root {
-  --amplify-components-heading-color: gray;
-}
-/* OR */
-.amplify-heading {
-  color: gray;
-}
-```
-
-To replace the Heading styling, unset it:
-
-```css
-.amplify-heading {
-  all: unset;
-  /* Add your styling here*/
-}
-```
+<Example>
+  <Heading class="heading-global-styling" level={3}>Hello world</Heading>
+  <ExampleCode>
+    ```css
+    /* styles.css */
+    :root {
+      --amplify-components-heading-color: gray;
+    }
+    /* OR */
+    .amplify-heading {
+      color: gray;
+    }
+    ```
+  </ExampleCode>
+</Example>
 
 Override styles for any `Heading` component `h1 - h6`
-
-```css
-/* styles.css */
-h1.amplify-heading {
-  font-size: 1rem;
-  font-style: italic;
-}
-
-h6.amplify-heading {
-  font-size: 2rem;
-  font-weight: bold;
-}
-```
-
-```jsx
-import './styles.css';
-
-<Heading level={1}>Small and italic</Heading>
-<Heading>Big and bold</Heading>
-```
 
 <Example>
   <Heading fontSize="1rem" fontStyle="italic">
@@ -102,6 +71,30 @@ import './styles.css';
   <Heading fontSize="2rem" fontWeight="bold">
     Big and bold
   </Heading>
+  <ExampleCode>
+    ```css
+    /* styles.css */
+    h1.amplify-heading {
+      font-size: 1rem;
+      font-style: italic;
+    }
+
+    h6.amplify-heading {
+    font-size: 2rem;
+    font-weight: bold;
+    }
+    ```
+
+  </ExampleCode>
+  <ExampleCode>
+    ```jsx
+    import './styles.css';
+
+    <Heading level={1}>Small and italic</Heading>
+    <Heading>Big and bold</Heading>
+    ```
+
+  </ExampleCode>
 </Example>
 
 ### Local styling
@@ -110,18 +103,40 @@ To override styling on a specific Heading, you can use a class selector or style
 
 _Using a class selector:_
 
-(Example needed)
+<Example>
+  <Heading className="heading-blue" level={3}>
+    Hello world
+  </Heading>
+  <ExampleCode>
+  ```css
+  /* styles.css */
+  .heading-blue {
+    color: var(--amplify-colors-blue-80);
+  }
+  ```
+
+  </ExampleCode>
+  <ExampleCode>
+    ```jsx
+    import './styles.css';
+
+    <Heading className="heading-blue" level={3}>
+      Hello world
+    </Heading>;
+    ```
+
+  </ExampleCode>
+</Example>
 
 _Using style props:_
 
-```jsx
-<Heading level={3} color="green" fontWeight="bold">
-  Save the environment
-</Heading>
-```
-
 <Example>
-  <Heading level={3} color="green" fontWeight="bold">
-    Save the environment
-  </Heading>
+  <HeadingStylePropsExample />
+  <ExampleCode>
+    ```jsx
+    <Heading level={3} color="green" fontWeight="bold">
+      Hello world
+    </Heading>
+    ```
+  </ExampleCode>
 </Example>

@@ -1,4 +1,15 @@
 <amplify-authenticator initialState="signUp">
+  <ng-template amplifySlot="force-new-form-fields">
+    <amplify-force-new-password-form-fields></amplify-force-new-password-form-fields>
+    <amplify-text-field
+      label="Zone Info"
+      id="12233"
+      autocomplete="false"
+      placeholder="Zone Info"
+      name="zoneinfo"
+      type="text"
+    ></amplify-text-field>
+  </ng-template>
   <ng-template
     amplifySlot="authenticated"
     let-user="user"

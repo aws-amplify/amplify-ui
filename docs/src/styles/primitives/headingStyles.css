@@ -1,5 +1,7 @@
-#subscribe {
-  color: darkblue;
-  font-style: italic;
-  font-size: 1.5rem;
+.heading-global-styling {
+  color: var(--amplify-colors-neutral-80);
+}
+
+.heading-blue {
+  color: var(--amplify-colors-blue-80);
 }

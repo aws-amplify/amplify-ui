@@ -1,5 +1,11 @@
 # @aws-amplify/ui
 
+## 3.0.10
+
+### Patch Changes
+
+- [#1153](https://github.com/aws-amplify/amplify-ui/pull/1153) [`3afdc1fc9`](https://github.com/aws-amplify/amplify-ui/commit/3afdc1fc9a876a17403ccfc607b922ec352fd1cf) Thanks [@wlee221](https://github.com/wlee221)! - Listen to Auth Hub events
+
 ## 3.0.9
 
 ### Patch Changes
