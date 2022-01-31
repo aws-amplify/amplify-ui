@@ -1,9 +1,9 @@
 import { Hub } from '@aws-amplify/core';
 
 import {
-  ACTION_EVENT_STARTED,
-  ACTION_EVENT_FINISHED,
-  HUB_NAVIGATE_NAMESPACE,
+  ACTIONS_CHANNEL,
+  ACTION_NAVIGATE_FINISHED,
+  ACTION_NAVIGATE_STARTED,
 } from '../actions/constants';
 import {
   defaultTarget,
@@ -21,11 +21,11 @@ describe('useNavigateHook: ', () => {
 
   const testHubEventEmit = () => {
     expect(Hub.dispatch).toHaveBeenCalledTimes(2);
-    expect(Hub.dispatch).toHaveBeenCalledWith(HUB_NAVIGATE_NAMESPACE, {
-      event: ACTION_EVENT_STARTED,
+    expect(Hub.dispatch).toHaveBeenCalledWith(ACTIONS_CHANNEL, {
+      event: ACTION_NAVIGATE_STARTED,
     });
-    expect(Hub.dispatch).toHaveBeenLastCalledWith(HUB_NAVIGATE_NAMESPACE, {
-      event: ACTION_EVENT_FINISHED,
+    expect(Hub.dispatch).toHaveBeenLastCalledWith(ACTIONS_CHANNEL, {
+      event: ACTION_NAVIGATE_FINISHED,
     });
   };
 

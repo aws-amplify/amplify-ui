@@ -2,9 +2,10 @@ import * as React from 'react';
 import { Hub } from '@aws-amplify/core';
 
 import {
-  ACTION_EVENT_STARTED,
-  ACTION_EVENT_FINISHED,
-  HUB_NAVIGATE_NAMESPACE,
+  ACTIONS_CHANNEL,
+  ACTION_NAVIGATE_FINISHED,
+  ACTION_AUTH_SIGNOUT_STARTED,
+  ACTION_NAVIGATE_STARTED,
 } from './constants';
 
 type NavigateType = 'url' | 'anchor' | 'reload';
@@ -51,9 +52,9 @@ export const useNavigateAction = (props: UseNavigateActionProps) => {
   }
 
   const navigateAction = () => {
-    Hub.dispatch(HUB_NAVIGATE_NAMESPACE, { event: ACTION_EVENT_STARTED });
+    Hub.dispatch(ACTIONS_CHANNEL, { event: ACTION_NAVIGATE_STARTED });
     run();
-    Hub.dispatch(HUB_NAVIGATE_NAMESPACE, { event: ACTION_EVENT_FINISHED });
+    Hub.dispatch(ACTIONS_CHANNEL, { event: ACTION_NAVIGATE_FINISHED });
   };
 
   return navigateAction;
