@@ -2,22 +2,16 @@
   "name": "@aws-amplify/ui-svelte",
   "version": "0.0.1",
   "type": "module",
-  "main": "dist/index.js",
-  "svelte": "dist/index.js",
+  "license": "Apache-2.0",
   "exports": {
-    "./package.json": "./package.json",
-    ".": {
-      "import": "./dist/index.js"
-    },
-    "./styles.css": "./dist/styles.css"
+    "./styles.css": "./styles.css"
   },
   "browser": {
-    "./styles.css": "./dist/styles.css"
+    "./styles.css": "./styles.css"
   },
-  "files": [
-    "dist",
-    "LICENSE"
-  ],
+  "publishConfig": {
+    "directory": "dist"
+  },
   "scripts": {
     "dev": "svelte-kit dev",
     "build": "svelte-kit build",
@@ -30,8 +24,6 @@
     "format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. ."
   },
   "devDependencies": {
-    "@sveltejs/adapter-auto": "next",
-    "@sveltejs/adapter-node": "^1.0.0-next.56",
     "@sveltejs/adapter-static": "^1.0.0-next.23",
     "@sveltejs/kit": "next",
     "@typescript-eslint/eslint-plugin": "^4.31.1",
@@ -50,7 +42,8 @@
     "typescript": "^4.4.3"
   },
   "peerDependencies": {
-    "aws-amplify": "^4.2.2"
+    "aws-amplify": "^4.2.2",
+    "svelte": "^3.44.0"
   },
   "dependencies": {
     "@aws-amplify/ui": "3.0.6",

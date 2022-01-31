@@ -480,6 +480,16 @@
   dependencies:
     "@aws-amplify/ui-components" "1.7.2"
 
+"@aws-amplify/ui-svelte@./packages/svelte/dist":
+  version "0.0.1"
+  dependencies:
+    "@aws-amplify/ui" "3.0.6"
+    "@rollup/plugin-replace" "^3.0.0"
+    nanoid "^3.1.30"
+    qrcode "^1.5.0"
+    svelte2tsx "^0.4.12"
+    xstate "^4.26.1"
+
 "@aws-amplify/ui@2.0.5":
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/@aws-amplify/ui/-/ui-2.0.5.tgz#0800938a0bf36ff51922637628b0889017da19f1"
@@ -5047,13 +5057,6 @@
   dependencies:
     "@iarna/toml" "^2.2.5"
     esbuild "^0.13.15"
-    tiny-glob "^0.2.9"
-
-"@sveltejs/adapter-node@^1.0.0-next.56":
-  version "1.0.0-next.60"
-  resolved "https://registry.yarnpkg.com/@sveltejs/adapter-node/-/adapter-node-1.0.0-next.60.tgz#3c9756e336a950e383c1b32a427db22786b3a66a"
-  integrity sha512-aOX0WEoSoy9ANHDbyul83c0F9qxI+vl//kYEhTZURY4NNnRQ4B1+QECDIv70v3SjU/aAT+56ofpvcZA++sfQxw==
-  dependencies:
     tiny-glob "^0.2.9"
 
 "@sveltejs/adapter-static@^1.0.0-next.23":
