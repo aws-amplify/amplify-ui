@@ -11,7 +11,7 @@ type NavigateType = 'url' | 'anchor' | 'reload';
 
 type NavigateRun = () => void;
 
-interface UseNavigateActionProps {
+export interface UseNavigateActionProps {
   type: NavigateType;
 
   url?: string;
@@ -21,13 +21,15 @@ interface UseNavigateActionProps {
   target?: React.HTMLAttributeAnchorTarget;
 }
 
+export const defaultTarget = '_self';
+
 export const useNavigateAction = (props: UseNavigateActionProps) => {
   const { type, url, anchor, target } = props;
   let run: NavigateRun;
   switch (type) {
     case 'url':
       run = () => {
-        window.open(url, target ? target : '_self');
+        window.open(url, target ? target : defaultTarget);
       };
       break;
     case 'anchor':
