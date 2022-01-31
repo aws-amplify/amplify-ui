@@ -35,14 +35,14 @@ export const RatingPropControls: RatingPropControlsInterface = ({
   return (
     <Flex direction="column">
       <TextField
-        label="Value"
+        label="value"
         value={value}
         placeholder="Set Value"
         onChange={(event) => setValue(event.target.value)}
       />
 
       <TextField
-        label="MaxValue"
+        label="maxValue"
         value={maxValue}
         placeholder="Set Max Value"
         onChange={(event) => setMaxValue(event.target.value)}
@@ -51,7 +51,7 @@ export const RatingPropControls: RatingPropControlsInterface = ({
       <SelectField
         name="size"
         id="size"
-        label="Size"
+        label="size"
         value={size}
         onChange={(event) =>
           setSize(
@@ -66,14 +66,14 @@ export const RatingPropControls: RatingPropControlsInterface = ({
       </SelectField>
 
       <TextField
-        label="FillColor"
+        label="fillColor"
         value={fillColor}
         placeholder="Set Fill Color"
         onChange={(event) => setFillColor(event.target.value)}
       />
 
       <TextField
-        label="EmptyColor"
+        label="emptyColor"
         value={emptyColor}
         placeholder="Set Empty Color"
         onChange={(event) => setEmptyColor(event.target.value)}

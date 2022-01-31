@@ -68,7 +68,7 @@ export const dataDisplayComponents = [
   {
     href: '/components/rating',
     label: 'Rating',
-    body: `The Rating component is a read only rating used to show interest`,
+    body: 'The Rating component displays a read-only star rating of a product or service.',
   },
 ].sort(sortByLabel);
 

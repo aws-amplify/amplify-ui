@@ -13,16 +13,16 @@ const propsToCode = (props) => {
   maxValue={${props.maxValue}}
   fillColor="${props.fillColor}"
   emptyColor="${props.emptyColor}"
-   />`
+  />`
   );
 };
 
 export const RatingDemo = () => {
   const ratingProps = useRatingProps({
-    value: 0,
+    value: 2,
     maxValue: 5,
-    fillColor: 'hsl(300, 50%, 50%)',
-    emptyColor: 'hsla(0, 0%, 100%, 0.1)',
+    fillColor: 'hsl(300, 95%, 30%)',
+    emptyColor: 'hsl(210, 5%, 94%)',
   });
 
   return (

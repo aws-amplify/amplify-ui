@@ -25,7 +25,7 @@ Rating shows users a star rating of a product or service (currently read-only).
 
 ## Usage
 
-Import Rating component and styles
+Import Rating component
 
 <Example>
   <DefaultRatingExample />
@@ -37,7 +37,7 @@ Import Rating component and styles
   </ExampleCode>
 </Example>
 
-### Rating Value
+### Value
 
 Pass in a `value` prop to set the Rating value.
 
@@ -53,7 +53,7 @@ Pass in a `value` prop to set the Rating value.
 
 ### Max Value
 
-Pass in a `maxValue` prop to set the maximum value of the Rating component.
+Pass in an optional `maxValue` prop to set the maximum value of the Rating component (default maxValue is 5).
 
 <Example>
   <RatingMaxExample />
@@ -229,7 +229,8 @@ The empty and filled icon colors can be overridden using a custom CSS class on y
 
 #### Sizes
 
-The size variations on the Rating component can be overridden at the individual component level
+The size variations on the Rating component can be overridden at the individual component level.
+Here we override the `small` size to display `xxxl` stars.
 
 <Example>
   <RatingStyleSizeExample />
