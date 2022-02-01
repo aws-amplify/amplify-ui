@@ -34,7 +34,7 @@
   "dependencies": {
     "lodash": "^4.17.21",
     "style-dictionary": "^3.0.1",
-    "xstate": "4.29.0"
+    "xstate": "4.26.1"
   },
   "devDependencies": {
     "@types/jest": "^26.0.23",
