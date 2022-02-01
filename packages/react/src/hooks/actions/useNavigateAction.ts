@@ -23,6 +23,10 @@ export interface UseNavigateActionOptions {
 
 export const defaultTarget = '_self';
 
+/**
+ * Action to instruct user’s browser to change current location
+ * @internal
+ */
 export const useNavigateAction = (options: UseNavigateActionOptions) => {
   const { type, url, anchor, target } = options;
   const run: NavigateRun = React.useMemo(() => {
