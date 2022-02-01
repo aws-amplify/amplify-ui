@@ -16,6 +16,8 @@
     "build:icons": "yarn react build:icons",
     "test": "yarn react test && yarn e2e test",
     "prepare": "husky install",
+    "version:actions": "yarn changeset version --snapshot actions-$(git rev-parse --short=7 HEAD) && yarn angular build",
+    "publish:actions": "yarn changeset publish --tag actions",
     "version:next": "yarn changeset version --snapshot next-$(git rev-parse --short=7 HEAD) && yarn angular build",
     "publish:next": "yarn changeset publish --tag next",
     "version:latest": "yarn changeset version && yarn angular build",

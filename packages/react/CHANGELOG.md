@@ -1,5 +1,12 @@
 # @aws-amplify/ui-react
 
+## 0.0.0-actions-0017b77-20221102144
+
+### Patch Changes
+
+- b920368e7: Added translations for errors for confirm sign in
+- Testing actions tag
+
 ## 2.2.0
 
 ### Minor Changes
