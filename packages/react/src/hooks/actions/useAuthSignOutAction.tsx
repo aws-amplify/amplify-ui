@@ -1,5 +1,4 @@
 import { Auth, Hub } from 'aws-amplify';
-import type { HubPayload } from '@aws-amplify/core';
 import { SignOutOpts } from '@aws-amplify/auth/lib-esm/types/Auth';
 
 import {
@@ -9,7 +8,7 @@ import {
 } from './constants';
 import { getErrorMessage } from '../../helpers/utils';
 
-interface UseAuthSignOutAction {
+export interface UseAuthSignOutAction {
   (options?: SignOutOpts): () => Promise<void>;
 }
 
