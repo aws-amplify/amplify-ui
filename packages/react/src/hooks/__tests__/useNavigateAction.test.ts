@@ -20,6 +20,10 @@ describe('useNavigateHook: ', () => {
   const target = '_blank';
   const anchor = '#about';
 
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   const testHubEventEmit = (data: UseNavigateActionOptions) => {
     expect(Hub.dispatch).toHaveBeenCalledTimes(2);
     expect(Hub.dispatch).toHaveBeenCalledWith(ACTIONS_CHANNEL, {
@@ -30,7 +34,6 @@ describe('useNavigateHook: ', () => {
       event: ACTION_NAVIGATE_FINISHED,
       data,
     });
-    jest.resetAllMocks();
   };
 
   it('Should call window.open', () => {
