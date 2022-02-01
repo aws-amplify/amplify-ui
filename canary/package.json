@@ -1,0 +1,19 @@
+{
+  "name": "canary",
+  "version": "0.0.1",
+  "scripts": {
+    "test": "echo \"Future\" && exit 1",
+    "build": "npm run react && npm run vue && npm run angular",
+    "react": "npm run cra && npm run cra-ts && npm run next",
+    "vue": "npm run vite && npm run vuecli",
+    "angular": "npm run angularcli",
+    "cra": "npm run build --prefix react/cra",
+    "cra-ts": "npm run build --prefix react/cra-ts",
+    "next": "npm run build --prefix react/next",
+    "angularcli": "npm run build --prefix angular/angularcli",
+    "vite": "npm run build --prefix vue/vite",
+    "vuecli": "npm run build --prefix vue/vuecli"
+  },
+  "author": "",
+  "license": "Apache-2.0"
+}
