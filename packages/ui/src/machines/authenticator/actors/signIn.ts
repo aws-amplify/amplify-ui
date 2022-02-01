@@ -7,6 +7,7 @@ import { runValidators } from '../../../validators';
 import {
   clearAttributeToVerify,
   clearChallengeName,
+  clearRequiredAttributes,
   clearError,
   clearFormValues,
   clearTouched,
@@ -14,12 +15,14 @@ import {
   clearValidationError,
   handleInput,
   handleBlur,
+  parsePhoneNumber,
   setChallengeName,
   setConfirmResetPasswordIntent,
   setConfirmSignUpIntent,
   setCredentials,
   setFieldErrors,
   setRemoteError,
+  setRequiredAttributes,
   setUnverifiedAttributes,
   setUser,
   setUsernameAuthAttributes,
@@ -63,7 +66,7 @@ export function signInActor({ services }: SignInMachineOptions) {
             },
             submit: {
               tags: ['pending'],
-              entry: ['clearError', sendUpdate()],
+              entry: ['parsePhoneNumber', 'clearError', sendUpdate()],
               invoke: {
                 src: 'signIn',
                 onDone: [
@@ -79,7 +82,11 @@ export function signInActor({ services }: SignInMachineOptions) {
                   },
                   {
                     cond: 'shouldForceChangePassword',
-                    actions: ['setUser', 'setChallengeName'],
+                    actions: [
+                      'setUser',
+                      'setChallengeName',
+                      'setRequiredAttributes',
+                    ],
                     target: '#signInActor.forceNewPassword',
                   },
                   {
@@ -152,7 +159,11 @@ export function signInActor({ services }: SignInMachineOptions) {
                 src: 'confirmSignIn',
                 onDone: {
                   target: '#signInActor.resolved',
-                  actions: ['setUser', 'clearChallengeName'],
+                  actions: [
+                    'setUser',
+                    'clearChallengeName',
+                    'clearRequiredAttributes',
+                  ],
                 },
                 onError: {
                   target: 'edit',
@@ -234,6 +245,7 @@ export function signInActor({ services }: SignInMachineOptions) {
                       {
                         cond: 'shouldSetupTOTP',
                         actions: ['setUser', 'setChallengeName'],
+
                         target: '#signInActor.setupTOTP',
                       },
                       {
@@ -270,7 +282,11 @@ export function signInActor({ services }: SignInMachineOptions) {
               invoke: {
                 src: 'verifyTotpToken',
                 onDone: {
-                  actions: ['setUser', 'clearChallengeName'],
+                  actions: [
+                    'setUser',
+                    'clearChallengeName',
+                    'clearRequiredAttributes',
+                  ],
                   target: '#signInActor.resolved',
                 },
                 onError: {
@@ -364,6 +380,7 @@ export function signInActor({ services }: SignInMachineOptions) {
       actions: {
         clearAttributeToVerify,
         clearChallengeName,
+        clearRequiredAttributes,
         clearError,
         clearFormValues,
         clearTouched,
@@ -371,9 +388,11 @@ export function signInActor({ services }: SignInMachineOptions) {
         clearValidationError,
         handleInput,
         handleBlur,
+        parsePhoneNumber,
         setChallengeName,
         setConfirmResetPasswordIntent,
         setConfirmSignUpIntent,
+        setRequiredAttributes,
         setCredentials,
         setFieldErrors,
         setRemoteError,
@@ -415,11 +434,10 @@ export function signInActor({ services }: SignInMachineOptions) {
       },
       services: {
         async signIn(context) {
-          const source = context.formValues;
-          const { country_code, username, password } = source;
+          const { username, password } = context.formValues;
 
           return await services.handleSignIn({
-            username: (country_code ?? '') + username,
+            username,
             password,
           });
         },
@@ -439,9 +457,22 @@ export function signInActor({ services }: SignInMachineOptions) {
         },
         async forceNewPassword(context, event) {
           const { user, formValues } = context;
-          const { password } = formValues;
+          let {
+            password,
+            confirm_password,
+            phone_number,
+            country_code,
+            ...rest
+          } = formValues;
 
-          return Auth.completeNewPassword(user, password);
+          let phoneNumberWithCountryCode;
+          if (phone_number) {
+            phoneNumberWithCountryCode =
+              `${country_code}${phone_number}`.replace(/[^A-Z0-9+]/gi, '');
+            rest = { ...rest, phone_number: phoneNumberWithCountryCode };
+          }
+
+          return Auth.completeNewPassword(user, password, rest);
         },
         async verifyTotpToken(context, event) {
           const { user } = context;

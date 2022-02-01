@@ -12,6 +12,7 @@ import {
   clearValidationError,
   handleInput,
   handleBlur,
+  parsePhoneNumber,
   setCredentials,
   setFieldErrors,
   setRemoteError,
@@ -105,7 +106,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
                 },
                 pending: {
                   tags: ['pending'],
-                  entry: [sendUpdate(), 'clearError'],
+                  entry: ['parsePhoneNumber', sendUpdate(), 'clearError'],
                   invoke: {
                     src: 'signUp',
                     onDone: [
@@ -237,6 +238,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
         clearValidationError,
         handleInput,
         handleBlur,
+        parsePhoneNumber,
         setCredentials,
         setFieldErrors,
         setRemoteError,
@@ -279,25 +281,10 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
         },
         async signUp(context, _event) {
           const { formValues, loginMechanisms } = context;
-          const [primaryAlias] = loginMechanisms ?? ['username'];
+          const [primaryAlias = 'username'] = loginMechanisms;
+          const { [primaryAlias]: username, password } = formValues;
 
-          let phoneNumberWithCountryCode;
-          if (formValues.phone_number) {
-            phoneNumberWithCountryCode =
-              `${formValues.country_code}${formValues.phone_number}`.replace(
-                /[^A-Z0-9+]/gi,
-                ''
-              );
-          }
-
-          const username =
-            primaryAlias === 'phone_number'
-              ? phoneNumberWithCountryCode
-              : formValues[primaryAlias];
-
-          const { password } = formValues;
-
-          const attributes = pickBy(formValues, (value, key) => {
+          const attributes = pickBy(formValues, (_, key) => {
             // Allowlist of Cognito User Pool Attributes (from OpenID Connect specification)
             // See: https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html
             switch (key) {
@@ -311,6 +298,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
               case 'middle_name':
               case 'name':
               case 'nickname':
+              case 'phone_number':
               case 'picture':
               case 'preferred_username':
               case 'profile':
@@ -328,10 +316,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
           return await services.handleSignUp({
             username,
             password,
-            attributes: {
-              ...attributes,
-              phone_number: phoneNumberWithCountryCode,
-            },
+            attributes,
           });
         },
         async validateSignUp(context, event) {

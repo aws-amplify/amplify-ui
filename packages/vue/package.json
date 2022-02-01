@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-vue",
-  "version": "2.0.5",
+  "version": "2.0.11",
   "type": "module",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
@@ -29,8 +29,9 @@
     "test:unit:watch": "jest --watch"
   },
   "dependencies": {
-    "@aws-amplify/ui": "3.0.5",
-    "@xstate/vue": "^0.8.0",
+    "@aws-amplify/ui": "3.0.11",
+    "@vueuse/core": "^7.4.1",
+    "@xstate/vue": "0.8.1",
     "qrcode": "^1.4.4"
   },
   "devDependencies": {

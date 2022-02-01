@@ -20,10 +20,15 @@ jobs:
     # https://github.community/t/workflow-run-not-working-as-expected/139342
     if: |
       github.event.workflow_run.conclusion == 'success' &&
-      github.event.workflow_run.head_branch == 'main'
+      (
+        github.event.workflow_run.head_branch == 'main' ||
+        github.event.workflow_run.head_branch == 'ui-svelte/main'
+      )
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
+        with: 
+          ref: ${{ github.event.workflow_run.head_branch }}
       - name: Setup Node.js LTS
         uses: actions/setup-node@v2
         with:

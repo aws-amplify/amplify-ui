@@ -12,7 +12,8 @@ import { ConfirmationCodeInput, ConfirmSignInFooter } from '../shared';
 import { isInputOrSelectElement, isInputElement } from '../../../helpers/utils';
 
 export const ConfirmSignIn = (): JSX.Element => {
-  const { _state, error, submitForm, updateForm } = useAuthenticator();
+  const { _state, error, submitForm, updateForm, isPending } =
+    useAuthenticator();
   const actorState = getActorState(_state) as SignInState;
 
   const { challengeName } = actorState.context as SignInContext;
@@ -27,7 +28,9 @@ export const ConfirmSignIn = (): JSX.Element => {
       break;
     default:
       throw new Error(
-        `Unexpected challengeName encountered in ConfirmSignIn: ${challengeName}`
+        `${translate(
+          'Unexpected challengeName encountered in ConfirmSignIn:'
+        )} ${challengeName}`
       );
   }
   const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
@@ -58,15 +61,19 @@ export const ConfirmSignIn = (): JSX.Element => {
       onChange={handleChange}
       onSubmit={handleSubmit}
     >
-      <Flex direction="column">
+      <fieldset
+        style={{ display: 'flex', flexDirection: 'column' }}
+        className="amplify-flex"
+        disabled={isPending}
+      >
         <Heading level={3}>{headerText}</Heading>
 
         <Flex direction="column">
-          <ConfirmationCodeInput errorText={error} />
+          <ConfirmationCodeInput errorText={translate(error)} />
         </Flex>
 
         <ConfirmSignInFooter />
-      </Flex>
+      </fieldset>
     </form>
   );
 };

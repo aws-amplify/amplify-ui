@@ -61,7 +61,7 @@ If you want more customization than the design tokens provide, you can also over
 }
 ```
 
-Or if you prefer you can use [alternative styling with a styling libraries](alternativeStyling)
+Or if you prefer you can use [alternative styling with a styling libraries](/theming/alternative-styling)
 
 #### Unstyled
 
@@ -104,6 +104,24 @@ const myTheme = {
         // because the default theme defines that color already
         // we don't need to re-define it here
         primary: { value: '{colors.neutral.100.value}' },
+      },
+    },
+  },
+};
+```
+
+### Fonts
+
+Amplify UI allows custom fonts to be used in the theme. The font tokens are defined in the `fonts` namespace. You can define your primary font stack and fallback font stack values the same way you would do in a CSS `font-family` rule.
+
+```javascript
+const myTheme = {
+  name: 'my-theme',
+  tokens: {
+    fonts: {
+      default: {
+        variable: { value: 'Raleway, sans-serif' },
+        static: { value: 'Raleway, sans-serif' },
       },
     },
   },

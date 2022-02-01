@@ -14,7 +14,8 @@ import {
 import { isInputOrSelectElement, isInputElement } from '../../../helpers/utils';
 
 export const ConfirmResetPassword = (): JSX.Element => {
-  const { _state, submitForm, updateForm, updateBlur } = useAuthenticator();
+  const { _state, submitForm, updateForm, updateBlur, isPending } =
+    useAuthenticator();
   const { validationError } = getActorContext(_state) as ResetPasswordContext;
 
   const headerText = translate('Reset your password');
@@ -54,7 +55,11 @@ export const ConfirmResetPassword = (): JSX.Element => {
       onSubmit={handleSubmit}
       onChange={handleChange}
     >
-      <Flex direction="column">
+      <fieldset
+        style={{ display: 'flex', flexDirection: 'column' }}
+        className="amplify-flex"
+        disabled={isPending}
+      >
         <Heading level={3}>{headerText}</Heading>
 
         <Flex direction="column">
@@ -93,7 +98,7 @@ export const ConfirmResetPassword = (): JSX.Element => {
           cancelButtonSendType="RESEND"
           cancelButtonText={translate('Resend Code')}
         />
-      </Flex>
+      </fieldset>
     </form>
   );
 };

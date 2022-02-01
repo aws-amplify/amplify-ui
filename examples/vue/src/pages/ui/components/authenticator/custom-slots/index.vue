@@ -84,6 +84,19 @@ const { toResetPassword, toSignIn } = toRefs(useAuthenticator());
       </div>
     </template>
 
+    <template v-slot:confirm-sign-up-header>
+      <h3
+        class="amplify-heading"
+        style="padding: var(--amplify-space-xl) 0 0 var(--amplify-space-xl)"
+      >
+        Enter Information:
+      </h3>
+    </template>
+
+    <template v-slot:confirm-sign-up-footer>
+      <div>Footer Information</div>
+    </template>
+
     <template v-slot="{ user, signOut }">
       <h1>Hello {{ user.username }}!</h1>
       <button @click="signOut">Sign Out</button>

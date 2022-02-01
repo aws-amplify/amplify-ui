@@ -1,9 +1,47 @@
 import * as React from 'react';
-import { SwitchField, Flex, Text } from '@aws-amplify/ui-react';
+import {
+  SwitchField,
+  SwitchFieldProps,
+  Text,
+  View,
+} from '@aws-amplify/ui-react';
 
-import { SwitchPropControls } from '@/components/SwitchPropControls';
-import { useSwitchProps } from '@/components/useSwitchProps';
+import { SwitchPropControls } from './SwitchPropControls';
+import { useSwitchProps } from './useSwitchProps';
+import { Demo } from '@/components/Demo';
 import { Example } from '@/components/Example';
+
+const propsToCode = (props: SwitchFieldProps) => {
+  return (
+    `<SwitchField` +
+    (props.thumbColor
+      ? `
+  thumbColor={${props.thumbColor}}`
+      : '') +
+    (props.trackColor
+      ? `
+  trackColor={${props.trackColor}}`
+      : '') +
+    (props.trackCheckedColor
+      ? `
+  trackCheckedColor={${props.trackCheckedColor}}`
+      : '') +
+    (props.isChecked
+      ? `
+  isChecked={${props.isChecked}}`
+      : '') +
+    (props.size
+      ? `
+  size={${props.size}}`
+      : '') +
+    `
+  isDisabled={${props.isDisabled}}
+  label="${props.label}"
+  labelPosition="${props.labelPosition}"
+  isLabelHidden={${props.isLabelHidden}}
+/>`
+  );
+};
 
 export const SwitchDemo = () => {
   const switchProps = useSwitchProps({
@@ -15,27 +53,27 @@ export const SwitchDemo = () => {
   });
 
   return (
-    <Flex direction="column" gap="0.5rem">
-      <SwitchPropControls {...switchProps} />
-      <Example>
-        <SwitchField
-          isChecked={switchProps.isChecked}
-          thumbColor={switchProps.thumbColor}
-          trackColor={switchProps.trackColor}
-          trackCheckedColor={switchProps.trackCheckedColor}
-          isDisabled={switchProps.isDisabled}
-          size={switchProps.size}
-          label={switchProps.label}
-          labelPosition={switchProps.labelPosition}
-          isLabelHidden={switchProps.isLabelHidden}
-        />
-        {typeof switchProps.isChecked !== 'undefined' && (
-          <Text>
-            <sup>*</sup>This component is in a controlled state
-          </Text>
-        )}
-      </Example>
-    </Flex>
+    <Demo
+      code={propsToCode(switchProps)}
+      propControls={<SwitchPropControls {...switchProps} />}
+    >
+      <SwitchField
+        thumbColor={switchProps.thumbColor}
+        trackColor={switchProps.trackColor}
+        trackCheckedColor={switchProps.trackCheckedColor}
+        isChecked={switchProps.isChecked}
+        isDisabled={switchProps.isDisabled}
+        size={switchProps.size}
+        label={switchProps.label}
+        labelPosition={switchProps.labelPosition}
+        isLabelHidden={switchProps.isLabelHidden}
+      />
+      {typeof switchProps.isChecked !== 'undefined' && (
+        <Text>
+          <View as="sup">*</View>This component is in a controlled state
+        </Text>
+      )}
+    </Demo>
   );
 };
 

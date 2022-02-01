@@ -11,7 +11,7 @@ export const baseComponents: ComponentNavItem[] = [
   {
     href: '/components/view',
     label: 'View',
-    body: `An Alert displays a brief, important message in a way that attracts the user's attention without interrupting the user's task. Alerts are typically intended to be read out dynamically by a screen reader.`,
+    body: `View is a container that contains stuff. View is the most abstract component on top of which all other components live.`,
   },
   {
     href: '/components/text',
@@ -21,7 +21,7 @@ export const baseComponents: ComponentNavItem[] = [
   {
     href: '/components/heading',
     label: 'Heading',
-    body: ``,
+    body: `This is a separate primitive from Text for semantic purposes. The Heading primitive maps to an <h*> tag, and Text maps to a <p> tag.`,
   },
   {
     href: '/components/icon',
@@ -31,7 +31,7 @@ export const baseComponents: ComponentNavItem[] = [
   {
     href: '/components/image',
     label: 'Image',
-    body: ``,
+    body: `The Image primitive can be used to display responsive images.`,
   },
   {
     href: '/components/divider',
@@ -40,8 +40,8 @@ export const baseComponents: ComponentNavItem[] = [
   },
   {
     href: '/components/scrollview',
-    label: 'Scrollview',
-    body: ``,
+    label: 'ScrollView',
+    body: `ScrollView is essentially a View that allows scrolling of its inner contents.`,
   },
 ].sort(sortByLabel);
 
@@ -92,18 +92,34 @@ export const feedbackComponents: ComponentNavItem[] = [
 ].sort(sortByLabel);
 
 export const inputComponents = [
-  { href: '/components/textfield', label: 'Text Field', body: `` },
+  {
+    href: '/components/textfield',
+    label: 'Text Field',
+    body: `The TextField form primitive can be used allow users to input text content.`,
+  },
   { href: '/components/selectfield', label: 'Select Field', body: `` },
   { href: '/components/sliderfield', label: 'Slider Field', body: `` },
-  { href: '/components/stepperfield', label: 'Stepper Field', body: `` },
-  { href: '/components/searchfield', label: 'Search Field', body: `` },
+  {
+    href: '/components/stepperfield',
+    label: 'Stepper Field',
+    body: `A StepperField is a number input with buttons to increase or decrease the value.`,
+  },
+  {
+    href: '/components/searchfield',
+    label: 'Search Field',
+    body: `SearchField accepts query text for search.`,
+  },
   { href: '/components/passwordfield', label: 'Password Field', body: `` },
   {
     href: '/components/phonenumberfield',
     label: 'Phone Number Field',
     body: ``,
   },
-  { href: '/components/switchfield', label: 'Switch Field', body: `` },
+  {
+    href: '/components/switchfield',
+    label: 'Switch Field',
+    body: `The SwitchField form primitive is a toggleable input type with a checked (on) and unchecked (off) state.`,
+  },
   { href: '/components/radiogroupfield', label: 'Radio Group Field', body: `` },
   { href: '/components/checkboxfield', label: 'Checkbox Field', body: `` },
   { href: '/components/togglebutton', label: 'Toggle Button', body: `` },
@@ -113,10 +129,18 @@ export const inputComponents = [
 export const layoutComponents = [
   { href: '/components/card', label: 'Card', body: `` },
   { href: '/components/collection', label: 'Collection', body: `` },
-  { href: '/components/flex', label: 'Flex', body: `` },
+  {
+    href: '/components/flex',
+    label: 'Flex',
+    body: `A layout container using Flexbox.`,
+  },
   { href: '/components/grid', label: 'Grid', body: `` },
   { href: '/components/table', label: 'Table', body: `` },
-  { href: '/components/expander', label: 'Expander', body: `` },
+  {
+    href: '/components/expander',
+    label: 'Expander',
+    body: `The Expander primitive enables users to expand or collapse a set of sections.`,
+  },
 ].sort(sortByLabel);
 
 export const navigationComponents: ComponentNavItem[] = [
