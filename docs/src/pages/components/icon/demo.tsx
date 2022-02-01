@@ -1,19 +1,19 @@
 import React from 'react';
 import { Property } from 'csstype';
 
-import { Icon, Flex, TextField, View, useTheme } from '@aws-amplify/ui-react';
-import { Example } from '@/components/Example';
+import { Icon, TextField, View, useTheme } from '@aws-amplify/ui-react';
 import { Demo } from '@/components/Demo';
 
-const propsToCode = (props) => `<Icon
-  pathData=${JSON.stringify(props.pathData)}
-  viewBox={{
-    width: ${JSON.stringify(props.width)},
-    height: ${JSON.stringify(props.height)}
-  }}
-  fill=${JSON.stringify(props.fill)}
-  ariaLabel=${JSON.stringify(props.ariaLabel)}
-  />`;
+const propsToCode = ({ pathData, width, height, color, ariaLabel }) =>
+  `<Icon` +
+  (pathData ? `\n  pathData=${JSON.stringify(pathData)}` : '') +
+  `\n  viewBox={{` +
+  (width ? `\n    width: ${JSON.stringify(width)},` : '') +
+  (height ? `\n    height: ${JSON.stringify(height)},` : '') +
+  `\n  }}` +
+  (color ? `\n  color=${JSON.stringify(color)}` : '') +
+  (ariaLabel ? `\n  ariaLabel=${JSON.stringify(ariaLabel)}` : '') +
+  `\n/>`;
 
 const PropControls = (props) => {
   const { tokens } = useTheme();

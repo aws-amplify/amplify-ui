@@ -26,7 +26,7 @@ export const baseComponents: ComponentNavItem[] = [
   {
     href: '/components/icon',
     label: 'Icon',
-    body: ``,
+    body: `The icon component displays simple vector graphics for use in other components like Buttons.`,
   },
   {
     href: '/components/image',

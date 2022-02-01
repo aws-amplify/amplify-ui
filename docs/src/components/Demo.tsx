@@ -53,6 +53,7 @@ export const Demo = ({
         </Flex>
         <View
           flex="1"
+          maxWidth="50%"
           position="relative"
           backgroundColor={tokens.colors.background.secondary}
         >
