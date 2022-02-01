@@ -1445,6 +1445,7 @@ describe('@aws-amplify/ui-react/internal', () => {
           "getOverridesFromVariants",
           "mergeVariantsAndOverrides",
           "useAuth",
+          "useAuthSignOutAction",
           "useDataStoreBinding",
           "useDataStoreCollection",
           "useDataStoreItem",
