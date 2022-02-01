@@ -2,6 +2,7 @@ import { useAuthSignOutAction } from '../useAuthSignOutAction';
 
 import { Auth, Hub } from 'aws-amplify';
 import {
+  ACTIONS_CHANNEL,
   ACTION_AUTH_SIGNOUT_FINISHED,
   ACTION_AUTH_SIGNOUT_STARTED,
 } from '../constants';
@@ -26,11 +27,11 @@ describe('useAuthSignOutAction', () => {
 
     await authSignOutAction();
     expect(hubDispatchSpy).toHaveBeenCalledTimes(2);
-    expect(hubDispatchSpy).toHaveBeenCalledWith('ui-actions', {
+    expect(hubDispatchSpy).toHaveBeenCalledWith(ACTIONS_CHANNEL, {
       data: { options: undefined },
       event: ACTION_AUTH_SIGNOUT_STARTED,
     });
-    expect(hubDispatchSpy).toHaveBeenCalledWith('ui-actions', {
+    expect(hubDispatchSpy).toHaveBeenCalledWith(ACTIONS_CHANNEL, {
       data: { options: undefined },
       event: ACTION_AUTH_SIGNOUT_FINISHED,
     });
@@ -41,11 +42,11 @@ describe('useAuthSignOutAction', () => {
 
     await authSignOutAction();
     expect(hubDispatchSpy).toHaveBeenCalledTimes(2);
-    expect(hubDispatchSpy).toHaveBeenCalledWith('ui-actions', {
+    expect(hubDispatchSpy).toHaveBeenCalledWith(ACTIONS_CHANNEL, {
       data: { options: { global: true } },
       event: ACTION_AUTH_SIGNOUT_STARTED,
     });
-    expect(hubDispatchSpy).toHaveBeenCalledWith('ui-actions', {
+    expect(hubDispatchSpy).toHaveBeenCalledWith(ACTIONS_CHANNEL, {
       data: { options: { global: true } },
       event: ACTION_AUTH_SIGNOUT_FINISHED,
     });
