@@ -6,7 +6,7 @@ on:
 
 jobs:
   test:
-    uses: aws-amplify/amplify-ui/.github/workflows/tests.yml@main
+    uses: wlee221/amplify-ui/.github/workflows/tests.yml@main
     with:
       commit: ${{ github.sha }}
       repository: ${{ github.repository }}

@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   test:
-    uses: aws-amplify/amplify-ui/.github/workflows/tests.yml@main
+    uses: wlee221/amplify-ui/.github/workflows/tests.yml@main
     with:
       commit: ${{ github.event.pull_request.head.sha }}
       repository: ${{ github.event.pull_request.head.repo.full_name }}
