@@ -4,58 +4,47 @@
 name: Tests
 
 on:
-  push:
-    branches: [main, ui-svelte/main]
-
-  pull_request_target:
-    branches: [main, ui-svelte/main]
-    types: [opened, synchronize, labeled]
-
-permissions:
-  pull-requests: write # used to remove label
-  # other permissions are defaulted to "none"
+  workflow_call:
+    inputs:
+      commit:
+        # commit to run tests against
+        required: true
+        type: string
+      repository:
+        # repository to run tests against (possibly a fork of amplify-ui)
+        required: true
+        type: string
+    secrets:
+      AWS_ACCESS_KEY_ID:
+        required: true
+      AWS_SECRET_ACCESS_KEY:
+        required: true
+      DOMAIN:
+        required: true
+      PHONE_NUMBER:
+        required: true
+      USERNAME:
+        required: true
+      NEW_PASSWORD:
+        required: true
+      VALID_PASSWORD:
+        required: true
 
 jobs:
   setup:
     runs-on: ubuntu-latest
-    # We run tests only if it's:
-    #   1) push to main, or
-    #   2) pull request not from a fork (ie. internal PR), or
-    #   3) pull request from a fork (ie. external PR) that was added "run-tests" label
-    if: |
-      github.event_name == 'push' ||
-      (github.event.pull_request.head.repo.full_name == github.repository) ||
-      (github.event.action == 'labeled' && github.event.label.name == 'run-tests')
-    outputs:
-      ref: ${{ steps.get-ref.outputs.ref }}
-      commit: ${{ steps.get-ref.outputs.commit }}
     steps:
-      # This would be a good place to run and cache `yarn`, `yarn build`, etc
-      - name: Remove run-tests label, if applicable
-        if: always() && github.event.label.name == 'run-tests'
-        uses: actions/github-script@0.3.0
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const { issue: { number: issue_number }, repo: { owner, repo } } = context;
-            const label = 'run-tests';
-            github.issues.removeLabel({ owner, repo, issue_number, name: label });
-      - name: Get ref and commit
-        id: get-ref
-        run: |
-          echo "::set-output name=ref::${{ github.event_name == 'push' && github.ref || github.event.pull_request.head.ref }}"
-          echo "::set-output name=commit::${{ github.event_name == 'push' && github.sha || github.event.pull_request.head.sha }}"
       - name: Checkout Amplify UI
         uses: actions/checkout@v2
         with:
-          ref: ${{ steps.get-ref.outputs.ref }}
-          repository: ${{github.event.pull_request.head.repo.full_name}}
+          ref: ${{ inputs.commit }}
+          repository: ${{ inputs.repository }}
           persist-credentials: false
       - name: Setup Node.js LTS
         uses: actions/setup-node@v2
         with:
           node-version: lts/*
-          cache: "yarn"
+          cache: 'yarn'
       - name: Install packages
         run: yarn --no-lockfile --prefer-offline
       - name: Build ui package
@@ -69,14 +58,14 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ./packages/ui/dist
-          key: ${{ runner.os }}-ui-${{ steps.get-ref.outputs.commit }}
+          key: ${{ runner.os }}-ui-${{ inputs.commit }}
       - name: Cache node_modules
         uses: actions/cache@v2
         with:
           path: |
             ./node_modules
             **/node_modules
-          key: ${{ runner.os }}-nodemodules-${{ steps.get-ref.outputs.commit }}
+          key: ${{ runner.os }}-nodemodules-${{ inputs.commit }}
   unit:
     needs: setup
     runs-on: ubuntu-latest
@@ -96,15 +85,15 @@ jobs:
       - name: Checkout Amplify UI
         uses: actions/checkout@v2
         with:
-          ref: ${{ github.event_name == 'push' && github.ref || github.event.pull_request.head.ref }}
-          repository: ${{github.event.pull_request.head.repo.full_name}}
+          ref: ${{ inputs.commit }}
+          repository: ${{ inputs.repository }}
           persist-credentials: false
 
       - name: Setup Node.js LTS
         uses: actions/setup-node@v2
         with:
           node-version: lts/*
-          cache: "yarn"
+          cache: 'yarn'
 
       - name: Restore node_modules cache
         uses: actions/cache@v2
@@ -113,14 +102,14 @@ jobs:
           path: |
             ./node_modules
             **/node_modules
-          key: ${{ runner.os }}-nodemodules-${{ needs.setup.outputs.commit }}
+          key: ${{ runner.os }}-nodemodules-${{ inputs.commit }}
 
       - name: Restore ui/dist cache
         uses: actions/cache@v2
         id: restore-ui-cache
         with:
           path: ./packages/ui/dist
-          key: ${{ runner.os }}-ui-${{ needs.setup.outputs.commit }}
+          key: ${{ runner.os }}-ui-${{ inputs.commit }}
 
       - name: Install packages
         if: steps.restore-cache.outputs.cache-hit != 'true'
@@ -138,7 +127,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ./packages/${{ matrix.package }}/dist
-          key: ${{ runner.os }}-${{ matrix.package }}-${{ needs.setup.outputs.commit }}
+          key: ${{ runner.os }}-${{ matrix.package }}-${{ inputs.commit }}
 
       - name: Lint packages
         run: yarn ${{ matrix.package }} lint
@@ -162,25 +151,22 @@ jobs:
         include:
           - example: angular
             package: angular
-            tags: "@angular and not (@skip or @todo-angular)"
+            tags: '@angular and not (@skip or @todo-angular)'
 
           - example: next
             package: react
-            tags: "@react and not (@skip or @todo-react)"
+            tags: '@react and not (@skip or @todo-react)'
 
           - example: vue
             package: vue
-            tags: "@vue and not (@skip or @todo-vue)"
+            tags: '@vue and not (@skip or @todo-vue)'
 
     steps:
       - name: Checkout Amplify UI
         uses: actions/checkout@v2
         with:
-          # For `pull_request_target`, we want ref to point to `pull_request.head.ref` because `github.ref`
-          # always points to the target branch.
-          # See: https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows
-          ref: ${{ github.event_name == 'push' && github.ref || github.event.pull_request.head.ref }}
-          repository: ${{github.event.pull_request.head.repo.full_name}}
+          ref: ${{ inputs.commit }}
+          repository: ${{ inputs.repository }}
           persist-credentials: false
 
       - name: Next.js Cache
@@ -193,7 +179,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: lts/*
-          cache: "yarn"
+          cache: 'yarn'
 
       - name: Restore cypress runner Cache
         uses: actions/cache@v2
@@ -209,21 +195,21 @@ jobs:
           path: |
             ./node_modules
             **/node_modules
-          key: ${{ runner.os }}-nodemodules-${{ needs.setup.outputs.commit }}
+          key: ${{ runner.os }}-nodemodules-${{ inputs.commit }}
 
       - name: Restore ui/dist cache
         uses: actions/cache@v2
         id: restore-ui-cache
         with:
           path: ./packages/ui/dist
-          key: ${{ runner.os }}-ui-${{ needs.setup.outputs.commit }}
+          key: ${{ runner.os }}-ui-${{ inputs.commit }}
 
       - name: Restore ${{ matrix.package }}/dist cache
         id: restore-package-cache
         uses: actions/cache@v2
         with:
           path: ./packages/${{ matrix.package }}/dist
-          key: ${{ runner.os }}-${{ matrix.package }}-${{ needs.setup.outputs.commit }}
+          key: ${{ runner.os }}-${{ matrix.package }}-${{ inputs.commit }}
 
       - name: Install packages
         if: steps.restore-cache.outputs.cache-hit != 'true' || steps.restore-cypress-cache.outputs.cache-hit != 'true'
@@ -268,7 +254,7 @@ jobs:
         run: yarn workspace e2e test:authenticator
         env:
           # Override on the default value in `cypress.json` with framework-specific tag
-          TAGS: "${{ matrix.tags }}"
+          TAGS: '${{ matrix.tags }}'
 
           # Env values for testing flows
           DOMAIN: ${{ secrets.DOMAIN }}
@@ -287,15 +273,15 @@ jobs:
       - name: Checkout Amplify UI
         uses: actions/checkout@v2
         with:
-          ref: ${{ github.event_name == 'push' && github.ref || github.event.pull_request.head.ref }}
-          repository: ${{github.event.pull_request.head.repo.full_name}}
+          ref: ${{ inputs.commit }}
+          repository: ${{ inputs.repository }}
           persist-credentials: false
 
       - name: Setup Node.js LTS
         uses: actions/setup-node@v2
         with:
           node-version: lts/*
-          cache: "yarn"
+          cache: 'yarn'
 
       - name: Restore cypress runner Cache
         uses: actions/cache@v2
@@ -311,7 +297,7 @@ jobs:
           path: |
             ./node_modules
             **/node_modules
-          key: ${{ runner.os }}-nodemodules-${{ needs.setup.outputs.commit }}
+          key: ${{ runner.os }}-nodemodules-${{ inputs.commit }}
 
       - name: Install packages
         if: steps.restore-cache.outputs.cache-hit != 'true'
@@ -322,14 +308,14 @@ jobs:
         id: restore-ui-cache
         with:
           path: ./packages/ui/dist
-          key: ${{ runner.os }}-ui-${{ needs.setup.outputs.commit }}
+          key: ${{ runner.os }}-ui-${{ inputs.commit }}
 
       - name: Restore react/dist cache
         uses: actions/cache@v2
         id: restore-react-cache
         with:
           path: ./packages/react/dist
-          key: ${{ runner.os }}-@aws-amplify/ui-react-${{ needs.setup.outputs.commit }}
+          key: ${{ runner.os }}-@aws-amplify/ui-react-${{ inputs.commit }}
 
       - name: Build ui package
         if: steps.restore-ui-cache.outputs.cache-hit != 'true'
