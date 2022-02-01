@@ -4,15 +4,14 @@ import { Hub } from '@aws-amplify/core';
 import {
   ACTIONS_CHANNEL,
   ACTION_NAVIGATE_FINISHED,
-  ACTION_AUTH_SIGNOUT_STARTED,
   ACTION_NAVIGATE_STARTED,
 } from './constants';
 
-type NavigateType = 'url' | 'anchor' | 'reload';
+export type NavigateType = 'url' | 'anchor' | 'reload';
 
 type NavigateRun = () => void;
 
-export interface UseNavigateActionProps {
+export interface UseNavigateActionOptions {
   type: NavigateType;
 
   url?: string;
@@ -24,37 +23,41 @@ export interface UseNavigateActionProps {
 
 export const defaultTarget = '_self';
 
-export const useNavigateAction = (props: UseNavigateActionProps) => {
-  const { type, url, anchor, target } = props;
-  let run: NavigateRun;
-  switch (type) {
-    case 'url':
-      run = () => {
-        window.open(url, target ? target : defaultTarget);
-      };
-      break;
-    case 'anchor':
-      run = () => {
-        window.location.hash = anchor;
-      };
-      break;
-    case 'reload':
-      run = () => {
-        window.location.reload();
-      };
-      break;
-    default:
-      run = () => {
-        console.warn(
-          'Please provide a valid navigate type. Available types are "url", "anchor" and "reload".'
-        );
-      };
-  }
+export const useNavigateAction = (options: UseNavigateActionOptions) => {
+  const { type, url, anchor, target } = options;
+  const run: NavigateRun = React.useMemo(() => {
+    switch (type) {
+      case 'url':
+        return () => {
+          window.open(url, target ? target : defaultTarget);
+        };
+      case 'anchor':
+        return () => {
+          window.location.hash = anchor;
+        };
+      case 'reload':
+        return () => {
+          window.location.reload();
+        };
+      default:
+        return () => {
+          console.warn(
+            'Please provide a valid navigate type. Available types are "url", "anchor" and "reload".'
+          );
+        };
+    }
+  }, [anchor, target, type, url]);
 
   const navigateAction = () => {
-    Hub.dispatch(ACTIONS_CHANNEL, { event: ACTION_NAVIGATE_STARTED });
+    Hub.dispatch(ACTIONS_CHANNEL, {
+      event: ACTION_NAVIGATE_STARTED,
+      data: options,
+    });
     run();
-    Hub.dispatch(ACTIONS_CHANNEL, { event: ACTION_NAVIGATE_FINISHED });
+    Hub.dispatch(ACTIONS_CHANNEL, {
+      event: ACTION_NAVIGATE_FINISHED,
+      data: options,
+    });
   };
 
   return navigateAction;

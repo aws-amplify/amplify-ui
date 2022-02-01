@@ -1,4 +1,5 @@
 import { Hub } from '@aws-amplify/core';
+import { renderHook, act } from '@testing-library/react-hooks';
 
 import {
   ACTIONS_CHANNEL,
@@ -8,7 +9,7 @@ import {
 import {
   defaultTarget,
   useNavigateAction,
-  UseNavigateActionProps,
+  UseNavigateActionOptions,
 } from '../actions/useNavigateAction';
 
 jest.mock('@aws-amplify/core');
@@ -19,69 +20,80 @@ describe('useNavigateHook: ', () => {
   const target = '_blank';
   const anchor = '#about';
 
-  const testHubEventEmit = () => {
+  const testHubEventEmit = (data: UseNavigateActionOptions) => {
     expect(Hub.dispatch).toHaveBeenCalledTimes(2);
     expect(Hub.dispatch).toHaveBeenCalledWith(ACTIONS_CHANNEL, {
       event: ACTION_NAVIGATE_STARTED,
+      data,
     });
     expect(Hub.dispatch).toHaveBeenLastCalledWith(ACTIONS_CHANNEL, {
       event: ACTION_NAVIGATE_FINISHED,
+      data,
     });
+    jest.resetAllMocks();
   };
 
   it('Should call window.open', () => {
-    windowSpy = jest.spyOn(window, 'open');
+    windowSpy = jest.spyOn(window, 'open').mockImplementation((url, target) => {
+      console.log(url, target);
+      return window;
+    });
 
-    const config: UseNavigateActionProps = {
+    const config: UseNavigateActionOptions = {
       type: 'url',
       url,
     };
-    const navigateAction = useNavigateAction(config);
+    const { result } = renderHook(() => useNavigateAction(config));
 
-    navigateAction();
+    result.current();
     expect(windowSpy).toBeCalledTimes(1);
     expect(windowSpy).toBeCalledWith(url, defaultTarget);
 
-    testHubEventEmit();
+    testHubEventEmit(config);
 
     windowSpy.mockRestore();
   });
 
   it('Should call window.open with "_blank" as target', () => {
-    windowSpy = jest.spyOn(window, 'open');
+    windowSpy = jest.spyOn(window, 'open').mockImplementation((url, target) => {
+      console.log(url, target);
+      return window;
+    });
 
-    const config: UseNavigateActionProps = {
+    const config: UseNavigateActionOptions = {
       type: 'url',
       url,
       target,
     };
-    const navigateAction = useNavigateAction(config);
+    const { result } = renderHook(() => useNavigateAction(config));
 
-    navigateAction();
+    result.current();
     expect(windowSpy).toBeCalledTimes(1);
     expect(windowSpy).toBeCalledWith(url, target);
 
-    testHubEventEmit();
+    testHubEventEmit(config);
 
     windowSpy.mockRestore();
   });
 
   it('Should change window location hash', () => {
-    const config: UseNavigateActionProps = {
+    const config: UseNavigateActionOptions = {
       type: 'anchor',
       anchor,
     };
-    const navigateAction = useNavigateAction(config);
+    const { result } = renderHook(() => useNavigateAction(config));
 
-    navigateAction();
+    expect(window.location.hash).toBe('');
+    result.current();
     expect(window.location.hash).toBe(anchor);
 
-    testHubEventEmit();
+    testHubEventEmit(config);
   });
 
-  it.only('Should call window.reload', () => {
+  it('Should call window.reload', () => {
     const location = window.location;
     // reload is a read-only prop and thus cannot be simply spied on
+    // https://stackoverflow.com/questions/55712640/jest-testing-window-location-reload
     // @ts-ignore
     delete window.location;
 
@@ -90,15 +102,15 @@ describe('useNavigateHook: ', () => {
       reload: jest.fn(),
     };
 
-    const config: UseNavigateActionProps = {
+    const config: UseNavigateActionOptions = {
       type: 'reload',
     };
-    const navigateAction = useNavigateAction(config);
+    const { result } = renderHook(() => useNavigateAction(config));
 
-    navigateAction();
+    result.current();
     expect(window.location.reload).toBeCalledTimes(1);
 
-    testHubEventEmit();
+    testHubEventEmit(config);
 
     window.location = location;
   });
