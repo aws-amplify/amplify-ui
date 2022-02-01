@@ -1,5 +1,15 @@
 # @aws-amplify/ui-react
 
+## 0.0.0-actions-4910206-20220201012357
+
+### Minor Changes
+
+- ca56c342a: Add useAuthSignOutAction hook
+
+### Patch Changes
+
+- 491020608: feat: adding useNavigateAction hook
+
 ## 0.0.0-actions-0017b77-20221102144
 
 ### Patch Changes
