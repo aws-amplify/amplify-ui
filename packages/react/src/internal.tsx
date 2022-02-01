@@ -5,6 +5,11 @@ export {
   UseAuthSignOutAction,
   useAuthSignOutAction,
 } from './hooks/actions/useAuthSignOutAction';
+export {
+  useNavigateAction,
+  UseNavigateActionOptions,
+} from './hooks/actions/useNavigateAction';
+
 export * from './primitives/shared/datastore';
 export {
   EscapeHatchProps,

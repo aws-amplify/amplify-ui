@@ -1,8 +1,11 @@
 export const ACTIONS_CHANNEL = 'ui-actions';
 export const ACTION_AUTH_SIGNOUT = 'AuthSignOut';
+export const ACTION_NAVIGATE = 'Navigate';
 
 export const ACTION_STARTED = 'Started';
 export const ACTION_FINISHED = 'Finished';
 
 export const ACTION_AUTH_SIGNOUT_STARTED = `${ACTION_AUTH_SIGNOUT}_${ACTION_STARTED}`;
 export const ACTION_AUTH_SIGNOUT_FINISHED = `${ACTION_AUTH_SIGNOUT}_${ACTION_FINISHED}`;
+export const ACTION_NAVIGATE_STARTED = `${ACTION_NAVIGATE}_${ACTION_STARTED}`;
+export const ACTION_NAVIGATE_FINISHED = `${ACTION_NAVIGATE}_${ACTION_FINISHED}`;
