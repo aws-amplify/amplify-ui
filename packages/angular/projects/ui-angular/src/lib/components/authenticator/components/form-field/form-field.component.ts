@@ -44,12 +44,6 @@ export class FormFieldComponent implements OnInit {
       const state = this.authenticator.authState;
       const { country_code }: ActorContextWithForms = getActorContext(state);
       this.defaultCountryCode = country_code;
-
-      // TODO: remove this side-effect
-      this.authenticator.updateForm({
-        name: 'country_code',
-        value: country_code,
-      });
     }
   }
 

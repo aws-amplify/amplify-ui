@@ -3,6 +3,8 @@ import { getActorContext, SignInContext, translate } from '@aws-amplify/ui';
 import { useAuthenticator } from '..';
 import { Button, Flex, Heading, PasswordField, Text } from '../../..';
 import { isInputOrSelectElement, isInputElement } from '../../../helpers/utils';
+import { useCustomComponents } from '../hooks/useCustomComponents';
+import { FormFields } from './FormFields';
 
 export const ForceNewPassword = (): JSX.Element => {
   const {
@@ -14,8 +16,14 @@ export const ForceNewPassword = (): JSX.Element => {
     updateForm,
     updateBlur,
   } = useAuthenticator();
-  const { validationError } = getActorContext(_state) as SignInContext;
 
+  const {
+    components: {
+      ForceNewPassword: { FormFields = ForceNewPassword.FormFields },
+    },
+  } = useCustomComponents();
+
+  const { validationError } = getActorContext(_state) as SignInContext;
   const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
     if (isInputOrSelectElement(event.target)) {
       let { name, type, value } = event.target;
@@ -91,6 +99,7 @@ export const ForceNewPassword = (): JSX.Element => {
           </Text>
         )}
 
+        <FormFields></FormFields>
         <Button
           isDisabled={isPending}
           type="submit"
@@ -114,3 +123,5 @@ export const ForceNewPassword = (): JSX.Element => {
     </form>
   );
 };
+
+ForceNewPassword.FormFields = FormFields;
