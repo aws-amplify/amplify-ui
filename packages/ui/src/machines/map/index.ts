@@ -1,14 +1,14 @@
-import { assign, createMachine, forwardTo, spawn } from 'xstate';
+import { Amplify } from 'aws-amplify';
+import { assign, createMachine } from 'xstate';
 
-export const createMapMachine = () =>
-  createMachine({
+export const mapMachine = createMachine<any, any>(
+  {
     id: 'map',
     initial: 'idle',
     context: {
       config: {},
     },
     states: {
-      // See: https://xstate.js.org/docs/guides/communication.html#invoking-promises
       idle: {
         invoke: [
           {
@@ -20,4 +20,25 @@ export const createMapMachine = () =>
         ],
       },
     },
-  });
+  },
+  {
+    actions: {
+      applyAmplifyConfig: assign({
+        config(context, event) {
+          const {
+            default: mapStyle,
+          } = event.data.geo.amazon_location_service.maps;
+          const { region } = event.data.geo.amazon_location_service;
+
+          return {
+            mapStyle,
+            region,
+          };
+        },
+      }),
+    },
+    services: {
+      getAmplifyConfig: async (): Promise<any> => Amplify.configure(),
+    },
+  }
+);
