@@ -1,16 +1,22 @@
 import { ICredentials } from '@aws-amplify/core';
+import { mapMachine } from '@aws-amplify/ui';
+import { useMachine } from '@xstate/react';
 import { Auth } from 'aws-amplify';
 import { AmplifyMapLibreRequest } from 'maplibre-gl-js-amplify';
 import React, { useEffect, useRef, useState } from 'react';
 import ReactMapGL from 'react-map-gl';
 
-import 'maplibre-gl/dist/maplibre-gl.css';
-
 import { Loader } from '../../primitives';
 
-import './index.css';
-
-export const Map = ({ children, latitude, longitude, zoom, ...rest }: any) => {
+export const Map = ({
+  children,
+  height,
+  latitude,
+  longitude,
+  width,
+  zoom,
+  ...rest
+}: any) => {
   const mapRef = useRef<any>();
   const [credentials, setCredentials] = useState<ICredentials>();
   const [transformRequest, setRequestTransformer] = useState<any>();
@@ -20,6 +26,7 @@ export const Map = ({ children, latitude, longitude, zoom, ...rest }: any) => {
     zoom: zoom ?? 1.816,
   });
   const [pointerEvents, setPointerEvents] = useState<string | void>();
+  const [state] = useMachine(mapMachine) as any;
 
   const handleMapMoveStart = () => {
     const map = mapRef.current.getMap();
@@ -57,7 +64,7 @@ export const Map = ({ children, latitude, longitude, zoom, ...rest }: any) => {
       if (credentials != null) {
         const { transformRequest } = new AmplifyMapLibreRequest(
           credentials,
-          'us-east-1'
+          state.context.config.region
         );
         // wrap the new value in an anonymous function to prevent React from recognizing it as a
         // function and immediately calling it
@@ -85,10 +92,10 @@ export const Map = ({ children, latitude, longitude, zoom, ...rest }: any) => {
   return transformRequest ? (
     <ReactMapGL
       ref={mapRef}
-      width="100%"
-      height="100vh"
+      width={width ?? '100%'}
+      height={height ?? '100vh'}
       transformRequest={transformRequest}
-      mapStyle={'map5df169f7-staging'}
+      mapStyle={state.context.config.mapStyle}
       onViewportChange={setViewport}
       style={{ pointerEvents }}
       {...viewport}
