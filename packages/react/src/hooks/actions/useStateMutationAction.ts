@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Hub } from '@aws-amplify/core';
+import { Hub } from 'aws-amplify';
 
 import {
   ACTIONS_CHANNEL,
@@ -16,18 +16,18 @@ export const useStateMutationAction = <T>(
 
   const setNewState = React.useCallback(
     (newState: T) => {
-      const oldState = state;
+      const prevState = state;
 
       Hub.dispatch(ACTIONS_CHANNEL, {
         event: ACTION_STATE_MUTATION_STARTED,
-        data: { oldState, newState },
+        data: { prevState, newState },
       });
 
       setState(newState);
 
       Hub.dispatch(ACTIONS_CHANNEL, {
         event: ACTION_STATE_MUTATION_FINISHED,
-        data: { oldState, newState },
+        data: { prevState, newState },
       });
     },
     [state]

@@ -1,4 +1,4 @@
-import { Hub } from '@aws-amplify/core';
+import { Hub } from 'aws-amplify';
 import { renderHook, act } from '@testing-library/react-hooks';
 
 import {
@@ -8,15 +8,15 @@ import {
 } from '../constants';
 import { useStateMutationAction } from '../useStateMutationAction';
 
-jest.mock('@aws-amplify/core');
+jest.mock('aws-amplify');
 
 describe('useStateMutationAction: ', () => {
   it('should update state correctly', () => {
-    const oldState = 'none';
+    const prevState = 'none';
     const newState = 'block';
-    const data = { oldState, newState };
+    const data = { prevState, newState };
 
-    const { result } = renderHook(() => useStateMutationAction(oldState));
+    const { result } = renderHook(() => useStateMutationAction(prevState));
     act(() => {
       const [_, setNewState] = result.current;
       setNewState(newState);
