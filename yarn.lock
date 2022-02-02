@@ -345,20 +345,6 @@
   dependencies:
     "@aws-amplify/core" "4.3.13"
 
-"@aws-amplify/core@4.3.12":
-  version "4.3.12"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/core/-/core-4.3.12.tgz#06ff24090b741ab0f088ffe86894b102dee88490"
-  integrity sha512-HfSY6cmQ17Azhk/vkljMFJtkqWVrsdNXT2CTBVyii051MqvLOsMHBZgB+kul3lvbhtUZ2vQ5uw9GAJbI3yNcvw==
-  dependencies:
-    "@aws-crypto/sha256-js" "1.0.0-alpha.0"
-    "@aws-sdk/client-cloudwatch-logs" "3.6.1"
-    "@aws-sdk/client-cognito-identity" "3.6.1"
-    "@aws-sdk/credential-provider-cognito-identity" "3.6.1"
-    "@aws-sdk/types" "3.6.1"
-    "@aws-sdk/util-hex-encoding" "3.6.1"
-    universal-cookie "^4.0.4"
-    zen-observable-ts "0.8.19"
-
 "@aws-amplify/core@4.3.13", "@aws-amplify/core@^4.0.3":
   version "4.3.13"
   resolved "https://registry.yarnpkg.com/@aws-amplify/core/-/core-4.3.13.tgz#d4748e6b249f8b6b3109d18b25d0aadcb25ba783"
@@ -389,15 +375,6 @@
     uuid "3.3.2"
     zen-observable-ts "0.8.19"
     zen-push "0.2.1"
-
-"@aws-amplify/geo@1.1.12":
-  version "1.1.12"
-  resolved "https://registry.yarnpkg.com/@aws-amplify/geo/-/geo-1.1.12.tgz#b5cb7e6e4059b61b60149e4c7ecc010d5a0ffac3"
-  integrity sha512-/cH2uDdacJNUnYoZEtrccQgqeTwVK30yIwhUVKBhJjns4eJ0BAnNFDtEIbgtCoV3x+lnkyXlE4K/LqiXdvvBRQ==
-  dependencies:
-    "@aws-amplify/core" "4.3.12"
-    "@aws-sdk/client-location" "3.41.0"
-    camelcase-keys "6.2.2"
 
 "@aws-amplify/geo@1.1.13":
   version "1.1.13"
@@ -4930,7 +4907,7 @@
     globby "^11.0.0"
     read-yaml-file "^1.1.0"
 
-"@mapbox/geojson-rewind@^0.5.0", "@mapbox/geojson-rewind@^0.5.1":
+"@mapbox/geojson-rewind@^0.5.1":
   version "0.5.1"
   resolved "https://registry.yarnpkg.com/@mapbox/geojson-rewind/-/geojson-rewind-0.5.1.tgz#adbe16dc683eb40e90934c51a5e28c7bbf44f4e1"
   integrity sha512-eL7fMmfTBKjrb+VFHXCGv9Ot0zc3C0U+CwXo1IrP+EPwDczLoXv34Tgq3y+2mPSFNVUXgU42ILWJTC7145KPTA==
@@ -4948,11 +4925,6 @@
   resolved "https://registry.yarnpkg.com/@mapbox/jsonlint-lines-primitives/-/jsonlint-lines-primitives-2.0.2.tgz#ce56e539f83552b58d10d672ea4d6fc9adc7b234"
   integrity sha1-zlblOfg1UrWNENZy6k1vya3HsjQ=
 
-"@mapbox/mapbox-gl-supported@^1.5.0":
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/@mapbox/mapbox-gl-supported/-/mapbox-gl-supported-1.5.0.tgz#f60b6a55a5d8e5ee908347d2ce4250b15103dc8e"
-  integrity sha512-/PT1P6DNf7vjEEiPkVIRJkvibbqWtqnyGaBz3nfRdcxclNSnSdaLU5tfAgcD7I8Yt5i+L19s406YLl1koLnLbg==
-
 "@mapbox/mapbox-gl-supported@^2.0.0", "@mapbox/mapbox-gl-supported@^2.0.1":
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/@mapbox/mapbox-gl-supported/-/mapbox-gl-supported-2.0.1.tgz#c15367178d8bfe4765e6b47b542fe821ce259c7b"
@@ -4962,11 +4934,6 @@
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/@mapbox/point-geometry/-/point-geometry-0.1.0.tgz#8a83f9335c7860effa2eeeca254332aa0aeed8f2"
   integrity sha1-ioP5M1x4YO/6Lu7KJUMyqgru2PI=
-
-"@mapbox/tiny-sdf@^1.1.1":
-  version "1.2.5"
-  resolved "https://registry.yarnpkg.com/@mapbox/tiny-sdf/-/tiny-sdf-1.2.5.tgz#424c620a96442b20402552be70a7f62a8407cc59"
-  integrity sha512-cD8A/zJlm6fdJOk6DqPUV8mcpyJkRz2x2R+/fYcWDYG3oWbG7/L7Yl/WqQ1VZCjnL9OTIMAn6c+BC5Eru4sQEw==
 
 "@mapbox/tiny-sdf@^2.0.2", "@mapbox/tiny-sdf@^2.0.4":
   version "2.0.5"
@@ -10889,7 +10856,7 @@ duration@^0.2.0:
     d "1"
     es5-ext "~0.10.46"
 
-earcut@^2.2.2, earcut@^2.2.3:
+earcut@^2.2.3:
   version "2.2.3"
   resolved "https://registry.yarnpkg.com/earcut/-/earcut-2.2.3.tgz#d44ced2ff5a18859568e327dd9c7d46b16f55cf4"
   integrity sha512-iRDI1QeCQIhMCZk48DRDMVgQSSBDmbzzNhnxIo+pwx3swkfjMh6vh0nWLq1NdvGHLKH6wIrAM3vQWeTj6qeoug==
@@ -12699,7 +12666,7 @@ github-slugger@^1.1.1:
   resolved "https://registry.yarnpkg.com/github-slugger/-/github-slugger-1.4.0.tgz#206eb96cdb22ee56fdc53a28d5a302338463444e"
   integrity sha512-w0dzqw/nt51xMVmlaV1+JRzN+oCa1KfcgGEWhxUG16wbdA+Xnt/yoFO8Z8x/V82ZcZ0wy6ln9QDup5avbhiDhQ==
 
-gl-matrix@^3.2.1, gl-matrix@^3.3.0, gl-matrix@^3.4.3:
+gl-matrix@^3.3.0, gl-matrix@^3.4.3:
   version "3.4.3"
   resolved "https://registry.yarnpkg.com/gl-matrix/-/gl-matrix-3.4.3.tgz#fc1191e8320009fd4d20e9339595c6041ddc22c9"
   integrity sha512-wcCp8vu8FT22BnvKVPjXa/ICBWRq/zjFfdofZy1WSpQZpphblv12/bOQLBC1rMM7SGOFS9ltVmKOHil5+Ml7gA==
@@ -15944,14 +15911,14 @@ mapbox-gl@^2.3.0:
     tinyqueue "^2.0.3"
     vt-pbf "^3.1.3"
 
-maplibre-gl-js-amplify@1.1.3:
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/maplibre-gl-js-amplify/-/maplibre-gl-js-amplify-1.1.3.tgz#4b6f47d573c289fc396bc486f34862ac6ef969cf"
-  integrity sha512-O4hgdLYihzcUd6VgzP+aUnVX7n/mGHdxOuO8M8UfAxbaNb00fLgjs7vH6yD+g3a/mUUZu3BPnHQbc73GJ2nm3A==
+maplibre-gl-js-amplify@1.2.3:
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/maplibre-gl-js-amplify/-/maplibre-gl-js-amplify-1.2.3.tgz#5ac644c663986e287237677074687b797c8e55c2"
+  integrity sha512-dBntciMcerEIG7+Ky9MNj2nBXhIgPB5+qmqaHKV6mrmvujR1GF7fGf5S9H+6T1DBXZVeVU2+YIZNEpamaTWvbQ==
   dependencies:
     "@maplibre/maplibre-gl-geocoder" "^1.1.0"
 
-maplibre-gl@*:
+maplibre-gl@*, maplibre-gl@2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/maplibre-gl/-/maplibre-gl-2.1.1.tgz#561f5ad94a2e7e1f3e1be75ed994a5bf0b54c9c9"
   integrity sha512-FRAHc4kPYKDF0+QMm8tnkyhv65Ed5SKLbzcH6hHM20XAK+9pqHMIHxlwpxcb4zGl+czz1bUegYf/KXjJRh9aDA==
@@ -15975,35 +15942,6 @@ maplibre-gl@*:
     supercluster "^7.1.4"
     tinyqueue "^2.0.3"
     vt-pbf "^3.1.3"
-
-maplibre-gl@1.15.2:
-  version "1.15.2"
-  resolved "https://registry.yarnpkg.com/maplibre-gl/-/maplibre-gl-1.15.2.tgz#7fb47868b62455af916c090903f2154394450f9c"
-  integrity sha512-uPeV530apb4JfX3cRFfE+awFnbcJTOnCv2QvY4mw4huiInbybElWYkNzTs324YLSADq0f4bidRoYcR81ho3aLA==
-  dependencies:
-    "@mapbox/geojson-rewind" "^0.5.0"
-    "@mapbox/geojson-types" "^1.0.2"
-    "@mapbox/jsonlint-lines-primitives" "^2.0.2"
-    "@mapbox/mapbox-gl-supported" "^1.5.0"
-    "@mapbox/point-geometry" "^0.1.0"
-    "@mapbox/tiny-sdf" "^1.1.1"
-    "@mapbox/unitbezier" "^0.0.0"
-    "@mapbox/vector-tile" "^1.3.1"
-    "@mapbox/whoots-js" "^3.1.0"
-    csscolorparser "~1.0.3"
-    earcut "^2.2.2"
-    geojson-vt "^3.2.1"
-    gl-matrix "^3.2.1"
-    grid-index "^1.1.0"
-    minimist "^1.2.5"
-    murmurhash-js "^1.0.0"
-    pbf "^3.2.1"
-    potpack "^1.0.1"
-    quickselect "^2.0.0"
-    rw "^1.3.3"
-    supercluster "^7.1.0"
-    tinyqueue "^2.0.3"
-    vt-pbf "^3.1.1"
 
 markdown-escapes@^1.0.0:
   version "1.0.4"
@@ -19437,10 +19375,10 @@ react-is@^16.13.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
-react-map-gl@6.1.18:
-  version "6.1.18"
-  resolved "https://registry.yarnpkg.com/react-map-gl/-/react-map-gl-6.1.18.tgz#3e2b12d2e81521b4cac26d849489b809b9eabbdc"
-  integrity sha512-O5MAaXFTuqEGhKvoJQjTmXLnfnNtr/7bffN1DJy3HsQhUPE7N2tqi0VzYTVKg2KHx2hS6stqyRgcC8cx3vJsMw==
+react-map-gl@6.1.19:
+  version "6.1.19"
+  resolved "https://registry.yarnpkg.com/react-map-gl/-/react-map-gl-6.1.19.tgz#7c5e2d6c0ba582376157af942fa004fe6f3c28b8"
+  integrity sha512-rrDoRyEIGzVLUB5QfgsZ5xCw7jeUtmmYzHUv86xDx8oGp90VTV2KTQJ4RPQiSAmpfIFh6/pPqI28Pguf1u/mOg==
   dependencies:
     "@babel/runtime" "^7.0.0"
     "@types/geojson" "^7946.0.7"
@@ -21627,7 +21565,7 @@ suggestions-list@^0.0.2:
     fuzzy "^0.1.1"
     xtend "^4.0.0"
 
-supercluster@^7.1.0, supercluster@^7.1.4:
+supercluster@^7.1.4:
   version "7.1.4"
   resolved "https://registry.yarnpkg.com/supercluster/-/supercluster-7.1.4.tgz#6762aabfd985d3390b49f13b815567d5116a828a"
   integrity sha512-GhKkRM1jMR6WUwGPw05fs66pOFWhf59lXq+Q3J3SxPvhNcmgOtLRV6aVQPMRsmXdpaeFJGivt+t7QXUPL3ff4g==
@@ -23354,7 +23292,7 @@ vscode-vue-languageservice@0.27.26, vscode-vue-languageservice@^0.27.0:
     vscode-pug-languageservice "^0.27.24"
     vscode-typescript-languageservice "^0.27.25"
 
-vt-pbf@^3.1.1, vt-pbf@^3.1.3:
+vt-pbf@^3.1.3:
   version "3.1.3"
   resolved "https://registry.yarnpkg.com/vt-pbf/-/vt-pbf-3.1.3.tgz#68fd150756465e2edae1cc5c048e063916dcfaac"
   integrity sha512-2LzDFzt0mZKZ9IpVF2r69G9bXaP2Q2sArJCmcCgvfTdCCZzSyz4aCLoQyUilu37Ll56tCblIZrXFIjNUpGIlmA==
