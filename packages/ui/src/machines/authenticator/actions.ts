@@ -40,6 +40,9 @@ export const clearAttributeToVerify = assign({
   attributeToVerify: (_) => undefined,
 });
 export const clearChallengeName = assign({ challengeName: (_) => undefined });
+export const clearRequiredAttributes = assign({
+  requiredAttributes: (_) => undefined,
+});
 export const clearError = assign({ remoteError: (_) => '' });
 export const clearFormValues = assign({ formValues: (_) => ({}) });
 export const clearTouched = assign({ touched: (_) => ({}) });
@@ -54,6 +57,11 @@ export const clearValidationError = assign({ validationError: (_) => ({}) });
  */
 export const setChallengeName = assign({
   challengeName: (_, event: AuthEvent) => event.data?.challengeName,
+});
+
+export const setRequiredAttributes = assign({
+  requiredAttributes: (_, event: AuthEvent) =>
+    event.data?.challengeParam?.requiredAttributes,
 });
 
 export const setConfirmResetPasswordIntent = assign({

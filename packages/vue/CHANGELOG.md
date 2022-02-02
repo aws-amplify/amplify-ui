@@ -1,5 +1,36 @@
 # @aws-amplify/ui-vue
 
+## 2.0.11
+
+### Patch Changes
+
+- [#1224](https://github.com/aws-amplify/amplify-ui/pull/1224) [`4932b43f8`](https://github.com/aws-amplify/amplify-ui/commit/4932b43f8f3ad5d851a4fd8635b1b92abf6c4ef0) Thanks [@wlee221](https://github.com/wlee221)! - Pin xstate versions
+
+- Updated dependencies [[`4932b43f8`](https://github.com/aws-amplify/amplify-ui/commit/4932b43f8f3ad5d851a4fd8635b1b92abf6c4ef0)]:
+  - @aws-amplify/ui@3.0.11
+
+## 2.0.10
+
+### Patch Changes
+
+- [#1153](https://github.com/aws-amplify/amplify-ui/pull/1153) [`3afdc1fc9`](https://github.com/aws-amplify/amplify-ui/commit/3afdc1fc9a876a17403ccfc607b922ec352fd1cf) Thanks [@wlee221](https://github.com/wlee221)! - Listen to Auth Hub events
+
+* [#1176](https://github.com/aws-amplify/amplify-ui/pull/1176) [`f7f77237e`](https://github.com/aws-amplify/amplify-ui/commit/f7f77237e69272f1d1d878620946e2914354b503) Thanks [@ErikCH](https://github.com/ErikCH)! - Added new force new password fields component. Also auto detect required attributes on force new password page.
+
+* Updated dependencies [[`3afdc1fc9`](https://github.com/aws-amplify/amplify-ui/commit/3afdc1fc9a876a17403ccfc607b922ec352fd1cf)]:
+  - @aws-amplify/ui@3.0.10
+
+## 2.0.9
+
+### Patch Changes
+
+- [#1181](https://github.com/aws-amplify/amplify-ui/pull/1181) [`5481b9e0a`](https://github.com/aws-amplify/amplify-ui/commit/5481b9e0a963ab219d97588f21c833bf0a1edb1c) Thanks [@sgpopov](https://github.com/sgpopov)! - fixed setting secret key value when generating TOTP QR code
+
+* [#1162](https://github.com/aws-amplify/amplify-ui/pull/1162) [`e0fcf3685`](https://github.com/aws-amplify/amplify-ui/commit/e0fcf3685164075fe385f8e09247f9620a7e6ccc) Thanks [@wlee221](https://github.com/wlee221)! - Add explicit `INIT` step for initializing authMachine
+
+* Updated dependencies [[`6c070b2e1`](https://github.com/aws-amplify/amplify-ui/commit/6c070b2e118560dec9629c7c0abdfb218d53267c), [`e0fcf3685`](https://github.com/aws-amplify/amplify-ui/commit/e0fcf3685164075fe385f8e09247f9620a7e6ccc), [`3a69c2a75`](https://github.com/aws-amplify/amplify-ui/commit/3a69c2a752b9ab07bb55911cae6447dccd76cc1f)]:
+  - @aws-amplify/ui@3.0.9
+
 ## 2.0.8
 
 ### Patch Changes

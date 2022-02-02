@@ -1,0 +1,30 @@
+You can use `useAuthenticator` composable to access `route` string that represents the current `authState`. They can be one of:
+
+- `idle`
+- `setup`
+- `signIn`
+- `signUp`
+- `confirmSignIn`
+- `confirmSignUp`
+- `setupTOTP`
+- `forceNewPassword`
+- `resetPassword`
+- `confirmResetPassword`
+- `verifyUser`
+- `confirmVerifyUser`
+- `signOut`
+- `authenticated`
+
+```html{1,5-7}
+<script setup>
+  import { Authenticator, useAuthenticator } from '@aws-amplify/ui-vue';
+  const auth = useAuthenticator();
+</script>
+
+<template>
+  <authenticator></authenticator>
+  <template v-if="auth.route === 'authenticated'">
+    <button @click="auth.signOut">Sign out</button>
+  </template>
+</template>
+```

@@ -76,7 +76,12 @@ export function LabelsAndTextDemo({ Component }: ScreenProps) {
      * This waits for Authenticator machine to init before its inner components
      * start consuming machine context.
      */
-    const { route } = useAuthenticator();
+    const { route, _send } = useAuthenticator();
+    React.useEffect(() => {
+      if (route === 'idle') {
+        _send('INIT', { data: {} });
+      }
+    }, []);
     if (!route || route === 'idle' || route === 'setup') return null;
 
     return <>{children}</>;
