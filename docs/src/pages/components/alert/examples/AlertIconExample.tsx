@@ -7,9 +7,7 @@ export const AlertIconExample = () => {
       <Alert variation="error" hasIcon={false}>
         This Alert does not have an icon
       </Alert>
-      <Alert variation="success" iconSize="large">
-        This Alert has a large icon
-      </Alert>
+      <Alert variation="success">This Alert has a large icon</Alert>
     </>
   );
 };

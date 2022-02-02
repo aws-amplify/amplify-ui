@@ -71,15 +71,33 @@ function Screen({ Component }: ScreenProps) {
 }
 
 export function LabelsAndTextDemo({ Component }: ScreenProps) {
+  const OnMachineInit = ({ children }) => {
+    /**
+     * This waits for Authenticator machine to init before its inner components
+     * start consuming machine context.
+     */
+    const { route, _send } = useAuthenticator();
+    React.useEffect(() => {
+      if (route === 'idle') {
+        _send('INIT', { data: {} });
+      }
+    }, []);
+    if (!route || route === 'idle' || route === 'setup') return null;
+
+    return <>{children}</>;
+  };
+
   return (
     <Authenticator.Provider>
-      <View data-amplify-authenticator="">
-        <View data-amplify-container="">
-          <View data-amplify-body>
-            <Screen Component={Component} />
+      <OnMachineInit>
+        <View data-amplify-authenticator="">
+          <View data-amplify-container="">
+            <View data-amplify-body>
+              <Screen Component={Component} />
+            </View>
           </View>
         </View>
-      </View>
+      </OnMachineInit>
     </Authenticator.Provider>
   );
 }

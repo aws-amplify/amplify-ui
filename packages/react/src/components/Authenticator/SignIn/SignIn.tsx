@@ -5,16 +5,15 @@ import { Button, Flex, PasswordField, View } from '../../..';
 import { FederatedSignIn } from '../FederatedSignIn';
 import { RemoteErrorMessage, UserNameAlias } from '../shared';
 import { isInputElement, isInputOrSelectElement } from '../../../helpers/utils';
+import { useCustomComponents } from '../hooks/useCustomComponents';
 
 export function SignIn() {
+  const { isPending, submitForm, updateForm } = useAuthenticator();
   const {
     components: {
       SignIn: { Header = SignIn.Header, Footer = SignIn.Footer },
     },
-    isPending,
-    submitForm,
-    updateForm,
-  } = useAuthenticator();
+  } = useCustomComponents();
 
   const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
     if (isInputOrSelectElement(event.target)) {
@@ -49,7 +48,11 @@ export function SignIn() {
       >
         <FederatedSignIn />
         <Flex direction="column">
-          <Flex direction="column">
+          <fieldset
+            style={{ display: 'flex', flexDirection: 'column' }}
+            className="amplify-flex"
+            disabled={isPending}
+          >
             <UserNameAlias data-amplify-usernamealias />
             <PasswordField
               data-amplify-password
@@ -61,7 +64,7 @@ export function SignIn() {
               autoComplete="current-password"
               labelHidden={true}
             />
-          </Flex>
+          </fieldset>
 
           <RemoteErrorMessage />
 

@@ -5,7 +5,6 @@ import {
   LoginMechanism,
   translate,
 } from '@aws-amplify/ui';
-import { useEffect } from 'react';
 
 import { useAuthenticator } from '..';
 import { PhoneNumberField, TextField } from '../../..';
@@ -18,22 +17,13 @@ export interface UserNameAliasProps {
 
 export function UserNameAlias(props: UserNameAliasProps) {
   const { handleInputChange, alias, ...attrs } = props;
-  const { _state, _send } = useAuthenticator();
+  const { _state } = useAuthenticator();
 
   const { country_code }: ActorContextWithForms = getActorContext(_state);
   const { label, type, error } = getAliasInfoFromContext(_state.context, alias);
   const i18nLabel = translate<string>(label);
 
   const isPhoneAlias = type === 'tel';
-
-  // TODO This should exist on context & not rely on side-effects
-  useEffect(() => {
-    isPhoneAlias &&
-      _send({
-        type: 'CHANGE',
-        data: { name: 'country_code', value: country_code },
-      });
-  }, []);
 
   return isPhoneAlias ? (
     <PhoneNumberField

@@ -2,6 +2,7 @@ module.exports = {
   paddingInlineEnd: { value: '{space.xxl.value}' },
   // wrappers
   wrapper: {
+    flex: { value: '1' },
     display: { value: 'block' },
     position: { value: 'relative' },
     cursor: { value: 'pointer' },
@@ -13,6 +14,10 @@ module.exports = {
     right: { value: '{space.medium.value}' },
     transform: { value: 'translateY(-50%)' },
     pointerEvents: { value: 'none' },
+  },
+  // for Firefox only, to fix background color in darkmode
+  option: {
+    backgroundColor: { value: '{colors.background.primary.value}' },
   },
   whiteSpace: { value: 'nowrap' },
   minWidth: { value: '6.5rem' },

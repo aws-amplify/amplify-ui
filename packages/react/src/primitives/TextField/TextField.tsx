@@ -16,7 +16,7 @@ import {
   isTextAreaRef,
 } from './utils';
 import { TextArea } from '../TextArea';
-import { useStableId } from '../utils/useStableId';
+import { useStableId } from '../shared/utils';
 
 export const DEFAULT_ROW_COUNT = 3;
 

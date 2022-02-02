@@ -1,6 +1,14 @@
 <script setup lang="ts">
 import { useAuth } from '../composables/useAuth';
-import { ref, computed, useAttrs, watch, Ref } from 'vue';
+import {
+  ref,
+  computed,
+  useAttrs,
+  watch,
+  Ref,
+  onMounted,
+  onUnmounted,
+} from 'vue';
 import { useActor, useInterpret } from '@xstate/vue';
 import {
   getActorState,
@@ -10,6 +18,7 @@ import {
   translate,
   CognitoUserAmplify,
   SocialProvider,
+  listenToAuthHub,
 } from '@aws-amplify/ui';
 
 import SignIn from './sign-in.vue';
@@ -58,20 +67,31 @@ const emit = defineEmits([
   'verifyUserSubmit',
   'confirmVerifyUserSubmit',
 ]);
-const machine = createAuthenticatorMachine({
-  initialState,
-  loginMechanisms,
-  services,
-  signUpAttributes,
-  socialProviders,
-});
+const machine = createAuthenticatorMachine();
 
-const service = useInterpret(machine, {
-  devTools: process.env.NODE_ENV === 'development',
-});
+const service = useInterpret(machine);
+let unsubscribeHub: ReturnType<typeof listenToAuthHub>;
 
 const { state, send } = useActor(service);
 useAuth(service);
+
+onMounted(() => {
+  unsubscribeHub = listenToAuthHub(send);
+  send({
+    type: 'INIT',
+    data: {
+      initialState,
+      loginMechanisms,
+      socialProviders,
+      signUpAttributes,
+      services,
+    },
+  });
+});
+
+onUnmounted(() => {
+  if (unsubscribeHub) unsubscribeHub();
+});
 
 const actorState = computed(() => getActorState(state.value));
 
@@ -396,6 +416,9 @@ const hasTabs = computed(() => {
           </template>
           <template #header>
             <slot name="force-new-password-header"></slot>
+          </template>
+          <template #force-new-password-form-fields>
+            <slot name="force-new-password-form-fields"></slot>
           </template>
           <template
             #footer="{ onHaveAccountClicked, onForceNewPasswordSubmit }"

@@ -148,9 +148,9 @@ A Collection can be paginated, adding a special `isPaginated` property. Change t
 
 ```jsx
 <Collection type="list" items={countries} isPaginated itemsPerPage={12}>
-  {(country) => (
+  {(regions) => (
     <Button>
-      {country.emoji} {country.name}
+      {regions.emoji} {regions.name}
     </Button>
   )}
 </Collection>
@@ -165,9 +165,9 @@ A Collection can be paginated, adding a special `isPaginated` property. Change t
     isPaginated
     itemsPerPage={12}
   >
-    {(country) => (
+    {(regions) => (
       <Button grow="1">
-        {country.emoji} {country.name}
+        {regions.emoji} {regions.name}
       </Button>
     )}
   </Collection>
@@ -178,7 +178,7 @@ A Collection can be paginated, adding a special `isPaginated` property. Change t
 Collections can also be filtered, adding a `isSearchable` property. Pass a custom `searchFilter` function to enhance your search experience (default search filter looks for any string-like property inside of items)
 
 ```jsx
-const startsWith = (country, keyword) => country.name.startsWith(keyword)
+const startsWith = (regions, keyword) => regions.name.startsWith(keyword)
 
 <Collection
   type="grid"
@@ -188,9 +188,9 @@ const startsWith = (country, keyword) => country.name.startsWith(keyword)
   searchFilter={startsWith}
   searchPlaceholder="Type to search..."
 >
-  {(country) => (
+  {(regions) => (
     <Button grow="1">
-      {country.emoji} {country.name}
+      {regions.emoji} {regions.name}
     </Button>
   )}
 </Collection>
@@ -206,13 +206,13 @@ const startsWith = (country, keyword) => country.name.startsWith(keyword)
     isPaginated
     itemsPerPage={9}
     searchPlaceholder="Type to search..."
-    searchFilter={(country, keyword) =>
-      country.name.toLowerCase().startsWith(keyword.toLowerCase())
+    searchFilter={(regions, keyword) =>
+      regions.name.toLowerCase().startsWith(keyword.toLowerCase())
     }
   >
-    {(country) => (
+    {(regions) => (
       <Button grow="1">
-        {country.emoji} {country.name}
+        {regions.emoji} {regions.name}
       </Button>
     )}
   </Collection>

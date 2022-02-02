@@ -1,5 +1,56 @@
 # @aws-amplify/ui-angular
 
+## 2.0.11
+
+### Patch Changes
+
+- [#1224](https://github.com/aws-amplify/amplify-ui/pull/1224) [`4932b43f8`](https://github.com/aws-amplify/amplify-ui/commit/4932b43f8f3ad5d851a4fd8635b1b92abf6c4ef0) Thanks [@wlee221](https://github.com/wlee221)! - Pin xstate versions
+
+- Updated dependencies [[`4932b43f8`](https://github.com/aws-amplify/amplify-ui/commit/4932b43f8f3ad5d851a4fd8635b1b92abf6c4ef0)]:
+  - @aws-amplify/ui@3.0.11
+
+## 2.0.10
+
+### Patch Changes
+
+- [#1153](https://github.com/aws-amplify/amplify-ui/pull/1153) [`3afdc1fc9`](https://github.com/aws-amplify/amplify-ui/commit/3afdc1fc9a876a17403ccfc607b922ec352fd1cf) Thanks [@wlee221](https://github.com/wlee221)! - Listen to Auth Hub events
+
+* [#1176](https://github.com/aws-amplify/amplify-ui/pull/1176) [`f7f77237e`](https://github.com/aws-amplify/amplify-ui/commit/f7f77237e69272f1d1d878620946e2914354b503) Thanks [@ErikCH](https://github.com/ErikCH)! - Added new force new password fields component. Also auto detect required attributes on force new password page.
+
+* Updated dependencies [[`3afdc1fc9`](https://github.com/aws-amplify/amplify-ui/commit/3afdc1fc9a876a17403ccfc607b922ec352fd1cf)]:
+  - @aws-amplify/ui@3.0.10
+
+## 2.0.9
+
+### Patch Changes
+
+- [#1162](https://github.com/aws-amplify/amplify-ui/pull/1162) [`e0fcf3685`](https://github.com/aws-amplify/amplify-ui/commit/e0fcf3685164075fe385f8e09247f9620a7e6ccc) Thanks [@wlee221](https://github.com/wlee221)! - Add explicit `INIT` step for initializing authMachine
+
+* [#1180](https://github.com/aws-amplify/amplify-ui/pull/1180) [`9c1c175e4`](https://github.com/aws-amplify/amplify-ui/commit/9c1c175e452fd27dfbfc5d305d25b4952d66d7e8) Thanks [@sdsanders](https://github.com/sdsanders)! - Fix Angular README 'anuglar' typo
+
+* Updated dependencies [[`6c070b2e1`](https://github.com/aws-amplify/amplify-ui/commit/6c070b2e118560dec9629c7c0abdfb218d53267c), [`e0fcf3685`](https://github.com/aws-amplify/amplify-ui/commit/e0fcf3685164075fe385f8e09247f9620a7e6ccc), [`3a69c2a75`](https://github.com/aws-amplify/amplify-ui/commit/3a69c2a752b9ab07bb55911cae6447dccd76cc1f)]:
+  - @aws-amplify/ui@3.0.9
+
+## 2.0.8
+
+### Patch Changes
+
+- Updated dependencies [[`c5cc41a70`](https://github.com/aws-amplify/amplify-ui/commit/c5cc41a70d7c0de4b2dcae385f7661361455e7b6)]:
+  - @aws-amplify/ui@3.0.8
+
+## 2.0.7
+
+### Patch Changes
+
+- [#1083](https://github.com/aws-amplify/amplify-ui/pull/1083) [`2e7dbaeab`](https://github.com/aws-amplify/amplify-ui/commit/2e7dbaeaba19b8fc2a450acae0efa3e05810938e) Thanks [@ErikCH](https://github.com/ErikCH)! - Updated QR code page so users on mobile don't have to take a picture of the QR code
+
+* [#1094](https://github.com/aws-amplify/amplify-ui/pull/1094) [`04d1020e7`](https://github.com/aws-amplify/amplify-ui/commit/04d1020e73877c296f7781830d60fc3562d0a380) Thanks [@wlee221](https://github.com/wlee221)! - deps(angular): Pin @stencil/core to 2.8.0
+
+- [#1088](https://github.com/aws-amplify/amplify-ui/pull/1088) [`a2fa3603e`](https://github.com/aws-amplify/amplify-ui/commit/a2fa3603eda90a67c9a092ce170e86d13a152e18) Thanks [@wlee221](https://github.com/wlee221)! - Remove trailing space on "Forgot your password? "
+
+- Updated dependencies [[`1d5b84ac8`](https://github.com/aws-amplify/amplify-ui/commit/1d5b84ac828b962648e9b8600ed96297b1eb0c2a), [`9a095ae46`](https://github.com/aws-amplify/amplify-ui/commit/9a095ae46ee6639f7c8fe9a3a7b2b871449867b8), [`a2fa3603e`](https://github.com/aws-amplify/amplify-ui/commit/a2fa3603eda90a67c9a092ce170e86d13a152e18), [`87af74164`](https://github.com/aws-amplify/amplify-ui/commit/87af74164fb87b61d3c897b03af6e15cf73de79d), [`352a28197`](https://github.com/aws-amplify/amplify-ui/commit/352a281970f2568e7ea035cc89fb51afa31cbfc4)]:
+  - @aws-amplify/ui@3.0.7
+
 ## 2.0.6
 
 ### Patch Changes

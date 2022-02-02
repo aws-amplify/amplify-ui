@@ -10,7 +10,8 @@ import {
   testFlexProps,
   expectFlexContainerStyleProps,
 } from '../../Flex/__tests__/Flex.test';
-import { AUTO_GENERATED_ID_PREFIX } from '../../utils/useStableId';
+import { AUTO_GENERATED_ID_PREFIX } from '../../shared/utils';
+
 describe('RadioFieldGroup test suite', () => {
   const basicProps = { label: 'test', name: 'test', testId: 'test' };
 
