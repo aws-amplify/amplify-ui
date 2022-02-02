@@ -1,16 +1,16 @@
 import { Hub } from '@aws-amplify/core';
-import { renderHook, act } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react-hooks';
 
 import {
   ACTIONS_CHANNEL,
   ACTION_NAVIGATE_FINISHED,
   ACTION_NAVIGATE_STARTED,
-} from '../actions/constants';
+} from '../constants';
 import {
   defaultTarget,
   useNavigateAction,
   UseNavigateActionOptions,
-} from '../actions/useNavigateAction';
+} from '../useNavigateAction';
 
 jest.mock('@aws-amplify/core');
 
