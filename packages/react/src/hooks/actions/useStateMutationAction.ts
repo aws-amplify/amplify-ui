@@ -7,15 +7,18 @@ import {
   ACTION_STATE_MUTATION_STARTED,
 } from './constants';
 
-type UseStateMutationAction<T> = [T, (newState: T) => void];
+type UseStateMutationAction<StateType> = [
+  StateType,
+  (newState: StateType) => void
+];
 
-export const useStateMutationAction = <T>(
-  initialState: T
-): UseStateMutationAction<T> => {
+export const useStateMutationAction = <StateType>(
+  initialState: StateType
+): UseStateMutationAction<StateType> => {
   const [state, setState] = React.useState(initialState);
 
   const setNewState = React.useCallback(
-    (newState: T) => {
+    (newState: StateType) => {
       const prevState = state;
 
       Hub.dispatch(ACTIONS_CHANNEL, {
