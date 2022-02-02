@@ -1,0 +1,5 @@
+@import 'maplibre-gl/dist/maplibre-gl.css';
+
+[data-amplify-map] .overlays {
+  pointer-events: none;
+}
