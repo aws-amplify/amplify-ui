@@ -1,5 +1,86 @@
 # @aws-amplify/ui-react
 
+## 2.2.1
+
+### Patch Changes
+
+- [#1207](https://github.com/aws-amplify/amplify-ui/pull/1207) [`b920368e7`](https://github.com/aws-amplify/amplify-ui/commit/b920368e7037035b798689716bdcd0c12cd4df67) Thanks [@ErikCH](https://github.com/ErikCH)! - Added translations for errors for confirm sign in
+
+- Updated dependencies [[`4932b43f8`](https://github.com/aws-amplify/amplify-ui/commit/4932b43f8f3ad5d851a4fd8635b1b92abf6c4ef0)]:
+  - @aws-amplify/ui@3.0.11
+
+## 2.2.0
+
+### Minor Changes
+
+- [#1168](https://github.com/aws-amplify/amplify-ui/pull/1168) [`b32dd86bf`](https://github.com/aws-amplify/amplify-ui/commit/b32dd86bf4e26011f8b17e59b98fed3430f8fe50) Thanks [@wlee221](https://github.com/wlee221)! - This enables `useAuthenticator` usage outside <Authenticator /> to access commonly requested authenticator context like `user` and `route`.
+
+  First wrap your App with `Authenticator.Provider`:
+
+  ```tsx
+  const App = (
+    <Authenticator.Provider>
+      <MyApp />
+    </Authenticator.Provider>
+  );
+  ```
+
+  To avoid repeated re-renders, you can pass a function that takes in Authenticator context and returns an array of desired context values. This hook will only trigger re-render if any of the array value changes.
+
+  ```tsx
+  const Home = () => {
+    const { user, signOut } = useAuthenticator((context) => [context.user]);
+
+    return (
+      <>
+        <h2>Welcome, {user.username}!</h2>
+        <button onClick={signOut}>Sign Out</button>
+      </>
+    );
+  };
+
+  const Login = () => <Authenticator />;
+
+  function MyApp() {
+    const { route } = useAuthenticator((context) => [context.route]);
+
+    return route === 'authenticated' ? <Home /> : <Login />;
+  }
+  ```
+
+### Patch Changes
+
+- [#1153](https://github.com/aws-amplify/amplify-ui/pull/1153) [`3afdc1fc9`](https://github.com/aws-amplify/amplify-ui/commit/3afdc1fc9a876a17403ccfc607b922ec352fd1cf) Thanks [@wlee221](https://github.com/wlee221)! - Listen to Auth Hub events
+
+* [#1176](https://github.com/aws-amplify/amplify-ui/pull/1176) [`f7f77237e`](https://github.com/aws-amplify/amplify-ui/commit/f7f77237e69272f1d1d878620946e2914354b503) Thanks [@ErikCH](https://github.com/ErikCH)! - Added new force new password fields component. Also auto detect required attributes on force new password page.
+
+* Updated dependencies [[`3afdc1fc9`](https://github.com/aws-amplify/amplify-ui/commit/3afdc1fc9a876a17403ccfc607b922ec352fd1cf)]:
+  - @aws-amplify/ui@3.0.10
+
+## 2.1.10
+
+### Patch Changes
+
+- [#1165](https://github.com/aws-amplify/amplify-ui/pull/1165) [`4238ee696`](https://github.com/aws-amplify/amplify-ui/commit/4238ee696270d8e39e7f88d83956c2666f0305bb) Thanks [@joebuono](https://github.com/joebuono)! - Pin all @aws-amplify/ui-react dependencies
+
+* [#1162](https://github.com/aws-amplify/amplify-ui/pull/1162) [`e0fcf3685`](https://github.com/aws-amplify/amplify-ui/commit/e0fcf3685164075fe385f8e09247f9620a7e6ccc) Thanks [@wlee221](https://github.com/wlee221)! - Add explicit `INIT` step for initializing authMachine
+
+- [#1164](https://github.com/aws-amplify/amplify-ui/pull/1164) [`b4c327a73`](https://github.com/aws-amplify/amplify-ui/commit/b4c327a73ee34a0f4292b6972774011b0b4ca6d4) Thanks [@Jesmaster](https://github.com/Jesmaster)! - Removed hard-coded styles from Authenticator Sign Up button
+
+- Updated dependencies [[`6c070b2e1`](https://github.com/aws-amplify/amplify-ui/commit/6c070b2e118560dec9629c7c0abdfb218d53267c), [`e0fcf3685`](https://github.com/aws-amplify/amplify-ui/commit/e0fcf3685164075fe385f8e09247f9620a7e6ccc), [`3a69c2a75`](https://github.com/aws-amplify/amplify-ui/commit/3a69c2a752b9ab07bb55911cae6447dccd76cc1f)]:
+  - @aws-amplify/ui@3.0.9
+
+## 2.1.9
+
+### Patch Changes
+
+- [#1163](https://github.com/aws-amplify/amplify-ui/pull/1163) [`679a89383`](https://github.com/aws-amplify/amplify-ui/commit/679a89383814ad66b81494fe8dc9ce2cf8df5c2e) Thanks [@ErikCH](https://github.com/ErikCH)! - Fixed bug with QR code setup page
+
+* [#1166](https://github.com/aws-amplify/amplify-ui/pull/1166) [`c5cc41a70`](https://github.com/aws-amplify/amplify-ui/commit/c5cc41a70d7c0de4b2dcae385f7661361455e7b6) Thanks [@wlee221](https://github.com/wlee221)! - Thanks @jacoblogan! -- handle null children in tabs
+
+* Updated dependencies [[`c5cc41a70`](https://github.com/aws-amplify/amplify-ui/commit/c5cc41a70d7c0de4b2dcae385f7661361455e7b6)]:
+  - @aws-amplify/ui@3.0.8
+
 ## 2.1.8
 
 ### Patch Changes
