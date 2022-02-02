@@ -1,4 +1,4 @@
-import { Hub } from '@aws-amplify/core';
+import { Hub } from 'aws-amplify';
 import { renderHook } from '@testing-library/react-hooks';
 
 import {
@@ -12,7 +12,7 @@ import {
   UseNavigateActionOptions,
 } from '../useNavigateAction';
 
-jest.mock('@aws-amplify/core');
+jest.mock('aws-amplify');
 
 describe('useNavigateHook: ', () => {
   let windowSpy: jest.SpyInstance;
