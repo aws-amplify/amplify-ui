@@ -9,6 +9,7 @@ export {
   useNavigateAction,
   UseNavigateActionOptions,
 } from './hooks/actions/useNavigateAction';
+export { useStateMutationAction } from './hooks/actions/useStateMutationAction';
 
 export * from './primitives/shared/datastore';
 export {
