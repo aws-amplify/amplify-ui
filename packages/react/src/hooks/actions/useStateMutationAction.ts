@@ -7,32 +7,31 @@ import {
   ACTION_STATE_MUTATION_STARTED,
 } from './constants';
 
-type StateChangeEvent = React.ChangeEvent<
-  HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
->;
+type UseStateMutationAction<T> = [T, (newState: T) => void];
 
-type UseStateMutationAction = [string, (event: StateChangeEvent) => void];
-
-export const useStateMutationAction = (
-  initialState: string
-): UseStateMutationAction => {
+export const useStateMutationAction = <T>(
+  initialState: T
+): UseStateMutationAction<T> => {
   const [state, setState] = React.useState(initialState);
 
-  const setNewState = React.useCallback((event: StateChangeEvent) => {
-    const newState = event.currentTarget.value;
+  const setNewState = React.useCallback(
+    (newState: T) => {
+      const oldState = state;
 
-    Hub.dispatch(ACTIONS_CHANNEL, {
-      event: ACTION_STATE_MUTATION_STARTED,
-      data: newState,
-    });
+      Hub.dispatch(ACTIONS_CHANNEL, {
+        event: ACTION_STATE_MUTATION_STARTED,
+        data: { oldState, newState },
+      });
 
-    setState(newState);
+      setState(newState);
 
-    Hub.dispatch(ACTIONS_CHANNEL, {
-      event: ACTION_STATE_MUTATION_FINISHED,
-      data: newState,
-    });
-  }, []);
+      Hub.dispatch(ACTIONS_CHANNEL, {
+        event: ACTION_STATE_MUTATION_FINISHED,
+        data: { oldState, newState },
+      });
+    },
+    [state]
+  );
 
   return [state, setNewState];
 };
