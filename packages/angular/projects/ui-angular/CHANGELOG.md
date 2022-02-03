@@ -1,5 +1,14 @@
 # @aws-amplify/ui-angular
 
+## 0.0.0-actions-1bf892b-20220203214717
+
+### Patch Changes
+
+- b824136bf: Pin xstate to `4.28.0`
+- Updated dependencies [f7d86db6d]
+- Updated dependencies [b824136bf]
+  - @aws-amplify/ui@0.0.0-actions-1bf892b-20220203214717
+
 ## 2.0.11
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "e2e",
-  "version": "0.0.1",
+  "version": "0.0.0-actions-1bf892b-20220203214717",
   "license": "MIT",
   "private": true,
   "scripts": {
@@ -15,7 +15,7 @@
     "stepDefinitions": "features"
   },
   "devDependencies": {
-    "@aws-amplify/ui": "^3.0.11",
+    "@aws-amplify/ui": "^0.0.0-actions-1bf892b-20220203214717",
     "@testing-library/cypress": "^7.0.6",
     "@types/cypress-cucumber-preprocessor": "^4.0.0",
     "cypress": "^8.5.0",

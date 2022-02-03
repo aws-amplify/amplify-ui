@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "docs",
-  "version": "0.0.0-actions-4910206-20220201012357",
+  "version": "0.0.0-actions-1bf892b-20220203214717",
   "scripts": {
     "dev": "next dev -p 5000",
     "build": "next build",
@@ -11,7 +11,7 @@
     "test": "$_ run build"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "^0.0.0-actions-4910206-20220201012357",
+    "@aws-amplify/ui-react": "^0.0.0-actions-1bf892b-20220203214717",
     "@aws-amplify/ui-react-v1": "npm:@aws-amplify/ui-react",
     "@codesandbox/sandpack-react": "0.1.9",
     "@cucumber/gherkin": "^19.0.3",

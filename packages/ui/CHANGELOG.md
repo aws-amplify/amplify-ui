@@ -1,5 +1,12 @@
 # @aws-amplify/ui
 
+## 0.0.0-actions-1bf892b-20220203214717
+
+### Patch Changes
+
+- f7d86db6d: fix: change box-sizing to have less specificity
+- b824136bf: Pin xstate to `4.28.0`
+
 ## 3.0.11
 
 ### Patch Changes
