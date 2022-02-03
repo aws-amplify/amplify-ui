@@ -10,6 +10,11 @@ export {
   UseNavigateActionOptions,
 } from './hooks/actions/useNavigateAction';
 
+export { useDataStoreCreateAction } from './hooks/actions/useDataStoreCreate';
+export type { UseDataStoreCreateActionOptions } from './hooks/actions/useDataStoreCreate';
+export { useDataStoreDeleteAction } from './hooks/actions/useDataStoreDelete';
+export type { UseDataStoreDeleteActionOptions } from './hooks/actions/useDataStoreDelete';
+
 export * from './primitives/shared/datastore';
 export {
   EscapeHatchProps,
