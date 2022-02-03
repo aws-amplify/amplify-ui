@@ -53,6 +53,12 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
       - run: aws cloudwatch put-metric-data --metric-name BuildFailure --namespace GithubCanaryApps --value 20
+
+  trigger-sucess-alarm:
+    # Triggers an alarm if all the builds succeed
+    runs-on: ubuntu-latest
+    environment: ci
+    needs: build
     if: ${{ success() }}
     steps:
       - name: Configure AWS credentials
