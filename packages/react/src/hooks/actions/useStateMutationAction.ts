@@ -15,7 +15,7 @@ type UseStateMutationAction<StateType> = [
 export const useStateMutationAction = <StateType>(
   initialState: StateType
 ): UseStateMutationAction<StateType> => {
-  const [state, setState] = React.useState(initialState);
+  const [state, setState] = React.useState<StateType | undefined>(initialState);
 
   const setNewState = React.useCallback(
     (newState: StateType) => {
