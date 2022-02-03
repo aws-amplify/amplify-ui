@@ -39,7 +39,7 @@ jobs:
         run: yarn build
         working-directory: ./canary/${{ matrix.path }}
 
-  trigger-alarm:
+  trigger-failure-alarm:
     # Triggers an alarm if any of builds failed.
     runs-on: ubuntu-latest
     environment: ci
