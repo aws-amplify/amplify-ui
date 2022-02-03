@@ -27,11 +27,11 @@ jobs:
         with:
           persist-credentials: false
       - name: Install packages
-        run: yarn --cwd ${{ matrix.path }} --no-lockfile
-        working-directory: ./canary # Run from canary folder
+        run: yarn install --no-lockfile
+        working-directory: ./canary/${{ matrix.path }}
       - name: Build example app
-        run: yarn --cwd ${{ matrix.path }} build
-        working-directory: ./canary # Run from canary folder
+        run: yarn build
+        working-directory: ./canary/${{ matrix.path }}
 
   trigger-alarm:
     # Triggers an alarm if any of builds failed.
