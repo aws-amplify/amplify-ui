@@ -35,6 +35,7 @@ jobs:
   trigger-alarm:
     # Triggers an alarm if any of builds failed.
     runs-on: ubuntu-latest
+    needs: build
     if: ${{ failure() }}
     steps:
       - run: echo "Not yet implemented"
