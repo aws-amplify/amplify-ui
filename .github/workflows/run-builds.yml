@@ -1,0 +1,24 @@
+name: Run Builds
+
+on:
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    - cron: '30 5,17 * * *'
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # Paths for each example app we want to test build on
+        path:
+          - angular/angularcli
+          - react/cra
+          - react/cra-ts
+          - react/next
+          - vue/vite
+          - vue/vuecli
+    steps:
+      - run: echo ${{ matrix.path }}
