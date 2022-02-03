@@ -3,7 +3,7 @@ name: Run Builds
 on:
   schedule:
     # * is a special character in YAML so you have to quote this string
-    - cron: '30 5,17 * * *'
+    - cron: '0 * * * *'
   pull_request:
     branches: [main]
 
@@ -32,3 +32,9 @@ jobs:
         run: yarn --cwd ${{ matrix.path }} build
         working-directory: ./canary # Run from canary folder
 
+  trigger-alarm:
+    # Triggers an alarm if any of builds failed.
+    runs-on: ubuntu-latest
+    if: ${{ failure() }}
+    steps:
+      - run: echo "Not yet implemented"
