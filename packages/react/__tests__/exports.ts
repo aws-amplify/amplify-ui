@@ -1450,6 +1450,7 @@ describe('@aws-amplify/ui-react/internal', () => {
           "useDataStoreCollection",
           "useDataStoreItem",
           "useNavigateAction",
+          "useStateMutationAction",
           "useStorageURL",
         ]
       `);
