@@ -25,9 +25,10 @@ jobs:
         uses: actions/checkout@v2
         with:
           persist-credentials: false
-      - name: cd into the example app directory
-        run: cd canary && cd ${{ matrix.path }} && pwd && ls
       - name: Install packages
-        run: pwd && yarn --no-lockfile
+        run: yarn --cwd ${{ matrix.path }} --no-lockfile
+        working-directory: ./canary # Run from canary folder
       - name: Build example app
-        run: yarn build
+        run: yarn --cwd ${{ matrix.path }} build
+        working-directory: ./canary # Run from canary folder
+
