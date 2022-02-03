@@ -9,6 +9,7 @@ export {
   useNavigateAction,
   UseNavigateActionOptions,
 } from './hooks/actions/useNavigateAction';
+export { useStateMutationAction } from './hooks/actions/useStateMutationAction';
 
 export { useDataStoreCreateAction } from './hooks/actions/useDataStoreCreate';
 export type { UseDataStoreCreateActionOptions } from './hooks/actions/useDataStoreCreate';

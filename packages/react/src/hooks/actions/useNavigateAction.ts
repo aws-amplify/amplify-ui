@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Hub } from '@aws-amplify/core';
+import { Hub } from 'aws-amplify';
 
 import {
   ACTIONS_CHANNEL,

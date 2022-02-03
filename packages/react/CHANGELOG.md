@@ -1,5 +1,15 @@
 # @aws-amplify/ui-react
 
+## 0.0.0-actions-1bf892b-20220203214717
+
+### Patch Changes
+
+- 5b71ac670: feat: adding useStateMutationHook
+- 93834bf58: fix: fixing error throwing when typing in `Collection` search due to `items` prop contains `null` value
+- Updated dependencies [f7d86db6d]
+- Updated dependencies [b824136bf]
+  - @aws-amplify/ui@0.0.0-actions-1bf892b-20220203214717
+
 ## 0.0.0-actions-4910206-20220201012357
 
 ### Minor Changes
