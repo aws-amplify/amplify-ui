@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import kebabCase from 'lodash/kebabCase';
 
 import { Collection } from '../Collection';
@@ -17,6 +18,23 @@ const emojis = [
   {
     title: 'Face palm',
     emoji: '🤦‍♂️',
+  },
+];
+
+const visitNewZealand = [
+  {
+    title: 'Fiordland National Park',
+    description:
+      'This national park includes the famous fjords of Milford, Dusky and Doubtful Sounds.',
+  },
+  {
+    title: 'Bay of Islands, North Island',
+    description:
+      'Three hours north of Auckland, this area features over 144 islands to explore.',
+  },
+  {
+    title: 'Queenstown, South Island',
+    description: null,
   },
 ];
 
@@ -158,5 +176,28 @@ describe('Collection component', () => {
     );
 
     expect(items.dataset['demo']).toBe('true');
+  });
+
+  it('should not break the search functionality when items contain null values', async () => {
+    render(
+      <Collection
+        testId={testList}
+        type="list"
+        items={visitNewZealand}
+        isSearchable
+      >
+        {(item, index) => (
+          <div key={index} aria-label={item.title}>
+            {item.description}
+          </div>
+        )}
+      </Collection>
+    );
+
+    const searchInput = await screen.findByRole('textbox');
+
+    const text = 'Yosemite National Park';
+    userEvent.type(searchInput, text);
+    expect(searchInput).toHaveValue(text);
   });
 });
