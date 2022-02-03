@@ -28,6 +28,6 @@ jobs:
       - name: cd into the example app directory
         run: cd canary && cd ${{ matrix.path }} && pwd && ls
       - name: Install packages
-        run: yarn --no-lockfile
+        run: pwd && yarn --no-lockfile
       - name: Build example app
         run: yarn build
