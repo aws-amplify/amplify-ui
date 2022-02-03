@@ -31,6 +31,8 @@ jobs:
         with:
           node-version: lts/*
           cache: 'yarn'
+      - name: Ignore monorepo postcss.config.js
+        run: mv postcss.config.js _postcss.config.js
       - name: Install packages
         run: yarn install --no-lockfile
         working-directory: ./canary/${{ matrix.path }}
