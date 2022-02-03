@@ -29,7 +29,7 @@ export const useDataStoreDeleteAction =
     try {
       Hub.dispatch(ACTIONS_CHANNEL, {
         event: ACTION_DATASTORE_DELETE_STARTED,
-        data: { model, id },
+        data: { id },
         message: ACTION_DATASTORE_DELETE_STARTED_MESSAGE,
       });
 
@@ -37,13 +37,13 @@ export const useDataStoreDeleteAction =
 
       Hub.dispatch(ACTIONS_CHANNEL, {
         event: ACTION_DATASTORE_DELETE_FINISHED,
-        data: { model, id },
+        data: { id },
         message: ACTION_DATASTORE_DELETE_FINISHED_MESSAGE,
       });
     } catch (error) {
       Hub.dispatch(ACTIONS_CHANNEL, {
         event: ACTION_DATASTORE_DELETE_FINISHED,
-        data: { model, id, errorMessage: getErrorMessage(error) },
+        data: { id, errorMessage: getErrorMessage(error) },
         message: `${ACTION_DATASTORE_DELETE_FINISHED_MESSAGE} with errors`,
       });
     }

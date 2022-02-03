@@ -30,7 +30,7 @@ export const useDataStoreCreateAction =
     try {
       Hub.dispatch(ACTIONS_CHANNEL, {
         event: ACTION_DATASTORE_CREATE_STARTED,
-        data: { model, fields },
+        data: { fields },
         message: ACTION_DATASTORE_CREATE_STARTED_MESSAGE,
       });
 
@@ -38,13 +38,13 @@ export const useDataStoreCreateAction =
 
       Hub.dispatch(ACTIONS_CHANNEL, {
         event: ACTION_DATASTORE_CREATE_FINISHED,
-        data: { model, fields, item },
+        data: { fields, item },
         message: ACTION_DATASTORE_CREATE_FINISHED_MESSAGE,
       });
     } catch (error) {
       Hub.dispatch(ACTIONS_CHANNEL, {
         event: ACTION_DATASTORE_CREATE_FINISHED,
-        data: { model, fields, errorMessage: getErrorMessage(error) },
+        data: { fields, errorMessage: getErrorMessage(error) },
         message: `${ACTION_DATASTORE_CREATE_FINISHED_MESSAGE} with errors`,
       });
     }
