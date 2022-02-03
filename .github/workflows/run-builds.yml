@@ -26,7 +26,7 @@ jobs:
         with:
           persist-credentials: false
       - name: cd into the example app directory
-        run: cd canary && cd ${{ matrix.path }}
+        run: cd canary && cd ${{ matrix.path }} && pwd && ls
       - name: Install packages
         run: yarn --no-lockfile
       - name: Build example app
