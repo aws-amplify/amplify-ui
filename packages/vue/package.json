@@ -21,7 +21,7 @@
     "prebuild": "rimraf dist",
     "build": "vue-tsc --noEmit && vite build",
     "dev": "vite build --watch",
-    "clean": "rimraf dist",
+    "clean": "rimraf dist node_modules",
     "lint": "echo No linting enabled for @aws-amplify/ui-vue",
     "test": "yarn test:unit",
     "test:watch": "yarn test:unit:watch",
