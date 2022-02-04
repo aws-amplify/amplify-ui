@@ -1,19 +1,10 @@
-import {
-  Button,
-  Icon,
-  Flex,
-  IconAdd,
-  IconDone,
-  IconStar,
-  IconClose,
-  IconSave,
-  Text,
-} from '@aws-amplify/ui-react';
+import { Button, Icon, Flex, Text } from '@aws-amplify/ui-react';
 import { IconDemo } from './demo';
 import { AllIcons } from './AllIcons';
 import { Example, ExampleCode } from '@/components/Example';
 
 import {
+  AccessibilityIconExample,
   DefaultIconExample,
   BuiltInIconExample,
   CustomIconExample,
@@ -168,13 +159,14 @@ Use the `color` prop to change the Icon color. The fill of the path inside the S
 
 Set an `aria-label` attribute for an Icon.
 
-```jsx
-import { IconClose } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
+<Example>
+  <AccessibilityIconExample />
+  
+  <ExampleCode>
 
-<IconClose ariaLabel="Close" />;
+```jsx file=./examples/AccessibilityIconExample.tsx
+
 ```
 
-<Example>
-  <IconClose ariaLabel="Close" />
+  </ExampleCode>
 </Example>

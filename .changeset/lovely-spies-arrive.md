@@ -1,8 +1,8 @@
 ---
-"@aws-amplify/ui-react": patch
+"@aws-amplify/ui-react": minor
 ---
 
-Adding more customizability and flexibility for the Icon component. Added `as` and `children` to the Icon props. 
+Adding more flexibility in the Icon component. Added `as` and `children` to the Icon props to allow for more complex icons. 
 
 Using `as` prop with icon libraries:
 
