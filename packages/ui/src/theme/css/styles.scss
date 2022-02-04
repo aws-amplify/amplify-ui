@@ -4,10 +4,12 @@
 
 @import 'dist/theme';
 
+:root,
 [data-amplify-theme] {
   font-family: var(--amplify-fonts-default-static);
 }
 @supports (font-variation-settings: normal) {
+  :root,
   [data-amplify-theme] {
     font-family: var(--amplify-fonts-default-variable);
   }
