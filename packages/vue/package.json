@@ -30,9 +30,9 @@
   },
   "dependencies": {
     "@aws-amplify/ui": "3.0.11",
-    "@vueuse/core": "^7.4.1",
+    "@vueuse/core": "7.4.1",
     "@xstate/vue": "0.8.1",
-    "qrcode": "^1.4.4"
+    "qrcode": "1.5.0"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.15.8",
