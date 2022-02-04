@@ -5,7 +5,11 @@ import { TabItem, Tabs, View } from '../../..';
 import { SignIn } from '../SignIn';
 import { SignUp } from '../SignUp';
 
-export const SignInSignUpTabs = (): JSX.Element => {
+export const SignInSignUpTabs = ({
+  hideSignUp,
+}: {
+  hideSignUp: boolean;
+}): JSX.Element => {
   const { route, toSignIn, toSignUp } = useAuthenticator();
   return (
     <Tabs
@@ -20,11 +24,15 @@ export const SignInSignUpTabs = (): JSX.Element => {
            {route === 'signIn' && <SignIn />}
         </View>
       </TabItem>
-      <TabItem title={translate('Create Account')}>
-        <View data-amplify-router-content="">
-           {route === 'signUp' && <SignUp />}
-        </View>
-      </TabItem>
+      {!hideSignUp ? (
+        <TabItem title={translate('Create Account')}>
+          <View data-amplify-router-content="">
+             {route === 'signUp' && <SignUp />}
+          </View>
+        </TabItem>
+      ) : (
+        <></>
+      )}
     </Tabs>
   );
 };

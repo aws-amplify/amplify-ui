@@ -41,8 +41,10 @@ const {
   services,
   signUpAttributes,
   socialProviders,
+  hideSignUp,
 } = withDefaults(
   defineProps<{
+    hideSignUp?: boolean;
     initialState?: AuthenticatorMachineOptions['initialState'];
     loginMechanisms?: AuthenticatorMachineOptions['loginMechanisms'];
     services?: AuthenticatorMachineOptions['services'];
@@ -242,6 +244,7 @@ const hasTabs = computed(() => {
             @click="send('SIGN_IN')"
           />
           <base-two-tab-item
+            v-if="!hideSignUp"
             :active="actorState?.matches('signUp')"
             :id="44471"
             :label="signInLabel"
@@ -279,7 +282,7 @@ const hasTabs = computed(() => {
             </template>
           </sign-in>
           <sign-up
-            v-if="actorState?.matches('signUp')"
+            v-if="actorState?.matches('signUp') && !hideSignUp"
             @sign-up-submit="onSignUpSubmitI"
             ref="signUpComponent"
           >

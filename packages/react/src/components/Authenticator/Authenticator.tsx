@@ -29,6 +29,7 @@ export function Authenticator({
   signUpAttributes,
   socialProviders,
   variation,
+  hideSignUp,
 }: AuthenticatorProps) {
   const components = { ...defaultComponents, ...customComponents };
   const machineProps = {
@@ -61,6 +62,7 @@ export function Authenticator({
             className={className}
             children={children}
             variation={variation}
+            hideSignUp={hideSignUp}
           />
         </InitMachine>
       </CustomComponentsContext.Provider>

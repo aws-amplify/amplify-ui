@@ -10,4 +10,4 @@ function App({ signOut }) {
   return <button onClick={signOut}>Sign out</button>;
 }
 
-export default withAuthenticator(App);
+export default withAuthenticator(App, { hideSignUp: true });

@@ -27,6 +27,7 @@
           [title]="signUpTitle"
           [active]="route === 'signUp'"
           data-amplify-router-content
+          *ngIf="!hideSignUp"
         >
           <!-- signUp component -->
           <amplify-slot
