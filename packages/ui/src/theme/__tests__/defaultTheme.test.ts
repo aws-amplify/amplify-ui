@@ -4,7 +4,7 @@ describe('@aws-amplify/ui', () => {
   describe('defaultTheme', () => {
     it('should match snapshot', () => {
       expect(defaultTheme.cssText).toMatchInlineSnapshot(`
-        "[data-amplify-theme=\\"default-theme\\"] {
+        ":root, [data-amplify-theme=\\"default-theme\\"] {
         --amplify-components-alert-align-items: center;
         --amplify-components-alert-justify-content: space-between;
         --amplify-components-alert-color: var(--amplify-colors-font-primary);
