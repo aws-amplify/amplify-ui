@@ -3,8 +3,6 @@ name: Run Builds
 on:
   schedule:
     - cron: '*/20 * * * *' # Run every 20 minutes
-  pull_request:
-    branches: [main]
 
 jobs:
   build:
