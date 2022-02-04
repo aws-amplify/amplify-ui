@@ -1,7 +1,7 @@
 import { Property } from 'csstype';
 import { ViewProps } from './view';
 import { Sizes } from './base';
-import React from 'react';
+import * as React from 'react';
 
 export interface ViewBox {
   minX?: number;
