@@ -162,7 +162,11 @@ export const navigationComponents: ComponentNavItem[] = [
 ].sort(sortByLabel);
 
 export const utilityComponents = [
-  { href: '/components/visuallyhidden', label: 'Visually Hidden', body: `` },
+  {
+    href: '/components/visuallyhidden',
+    label: 'Visually Hidden',
+    body: `The Visually Hidden component is used to visually hide content while leaving it available to screen readers.`,
+  },
 ].sort(sortByLabel);
 
 export const DISCORD = 'https://discord.gg/amplify';
