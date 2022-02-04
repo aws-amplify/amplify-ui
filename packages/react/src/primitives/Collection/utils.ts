@@ -24,7 +24,7 @@ export const itemHasText = (item: unknown, text: string): boolean => {
     return item.toLowerCase().includes(text.toLowerCase());
   }
 
-  if (typeof item === 'object') {
+  if (typeof item === 'object' && item !== null) {
     return Object.values(item).some((subItem) => itemHasText(subItem, text));
   }
 
