@@ -92,7 +92,7 @@ Amplify UI team publish on every Tues (mandatory) and Thurs (optional). We use [
 1. Maintainer will run tests, approve, and merge the PR.
 1. Previous step will trigger [`publish-latest`](./.github/workflows/publish-next.yml) action that will build and publish packages to NPM.
 
-### Updating Icons
+## Updating Icons
 
 If material design icon svg files are updated [upstream](https://github.com/google/material-design-icons/), follow these steps to update our icons components for all frameworks:
 
