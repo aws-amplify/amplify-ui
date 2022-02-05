@@ -6,76 +6,12 @@ Please read through these guidelines carefully before submitting a PR and let us
 
 ## Table of Contents
 
-- [Project Structure](#project-structure)
-- [Pull requests](#getting-started)
-- [Local Development Guides](#local-devleopment-guides)
 - [Bug Reports](#bug-reports)
+- [Pull requests](#getting-started)
+- [Project Structure](#project-structure)
+- [Local Development Guides](#local-devleopment-guides)
 - [Publishing](#publishing)
 - [Updating Icons](#updating-icons)
-
-## Project Structure
-
-`amplify-ui` is a monorepo that contains the following workspaces:
-
-```bash
-amplify-ui
-├── docs # ui.docs.amplify.aws documentation code
-├── environments # Amplify backend environments we use for e2e testing
-├── examples # Example apps we use for e2e testing
-│   └── angular
-│   └── next
-│   └── vue
-├── packages # Amplify UI components implementations
-│   └── angular
-│   └── react
-│   └── vue
-```
-
-## Pull Requests
-
-We welcome pull requests!
-
-You should open an issue to discuss your pull request, unless it's a trivial change. It's best to ensure that your proposed change would be accepted so that you don't waste your own time. If you would like to implement support for a significant feature that is not yet available, please talk to us beforehand to avoid any duplication of effort.
-
-## Contribution Process
-
-1. Fork & Clone this repo
-1. [`nvm install`](https://github.com/nvm-sh/nvm)
-1. [`nvm use`](https://github.com/nvm-sh/nvm)
-1. `yarn setup`
-1. Within your fork, create a new branch based on the issue you're addressing -- `git checkout -b angular/remove-browser-module`
-1. Once your work is committed, validate your changes according to [local development guides](#local-devleopment-guides).
-1. Push your branch with `git push origin -u`
-1. Open a PR against this repo from your newly published branch.
-1. Add a [changeset](https://github.com/changesets/changesets) that describes your changes. More info [here](https://github.com/changesets/changesets/blob/main/docs/adding-a-changeset.md). Please make sure that your changeset only bumps `@aws-amplify/*` packages and not any of private packages.
-1. Finally, Amplify UI team will review your PR. Add reviewers based on the core member who is tracking the issue with you or code owners. In the meantime, address any automated check that fail (such as linting, unit tests, etc. in CI)
-
-## Local Devleopment Guides
-
-Please refer to the following contributing guides:
-
-- [`docs`](docs/README.md#contributing)
-- [`@aws-amplify/ui`](packages/ui/CONTRIBUTING.md)
-- [`@aws-amplify/ui-angular`](packages/angular/CONTRIBUTING.md)
-- [`@aws-amplify/ui-react`](packages/react/CONTRIBUTING.md)
-- [`@aws-amplify/ui-vue`](packages/vue/CONTRIBUTING.md)
-- [`examples`](examples/README.md#examples-development)
-- [`e2e`](packages/e2e/README.md#contributing)
-- [`environments`](environments/README.md#external-contributors)
-
-### Updating Icons
-
-If material design icon svg files are updated [upstream](https://github.com/google/material-design-icons/), follow these steps to update our icons components for all frameworks:
-
-1. Copy [material-design-icons repo](https://github.com/google/material-design-icons/) svg icons to `material-design-icons` folder (TODO: create script for this step)
-1. Update components for all frameworks by runing the following command at root:
-
-```
-yarn build:icons
-```
-
-1. Review and commit changes to icons
-1. Submit PR for review
 
 ## Bug Reports
 
@@ -96,3 +32,76 @@ Guidelines for bug reports:
 - Format any code snippets using [Markdown](https://docs.github.com/en/github/writing-on-github/creating-and-highlighting-code-blocks) syntax
 
 Finally, thank you for taking the time to read this, and taking the time to write a good bug report.
+
+## Pull Requests
+
+We welcome pull requests!
+
+You should open an issue to discuss your pull request, unless it's a trivial change. It's best to ensure that your proposed change would be accepted so that you don't waste your own time. If you would like to implement support for a significant feature that is not yet available, please talk to us beforehand to avoid any duplication of effort.
+
+### Contribution Process
+
+1. Fork & Clone this repo
+1. [`nvm install`](https://github.com/nvm-sh/nvm)
+1. [`nvm use`](https://github.com/nvm-sh/nvm)
+1. `yarn setup`
+1. Within your fork, create a new branch based on the issue you're addressing -- `git checkout -b angular/remove-browser-module`
+1. Once your work is committed, validate your changes according to [local development guides](#local-devleopment-guides).
+1. Push your branch with `git push origin -u`
+1. Open a PR against this repo from your newly published branch.
+1. Add a [changeset](https://github.com/changesets/changesets) that describes your changes. More info [here](https://github.com/changesets/changesets/blob/main/docs/adding-a-changeset.md). Please make sure that your changeset only bumps `@aws-amplify/*` packages and not any of private packages.
+1. Finally, Amplify UI team will review your PR. Add reviewers based on the core member who is tracking the issue with you or code owners. In the meantime, address any automated check that fail (such as linting, unit tests, etc. in CI)
+
+## Project Structure
+
+`amplify-ui` is a monorepo that contains the following workspaces:
+
+```bash
+amplify-ui
+├── docs # ui.docs.amplify.aws documentation code
+├── environments # Amplify backend environments we use for e2e testing
+├── examples # Example apps we use for e2e testing
+│   └── angular
+│   └── next
+│   └── vue
+├── packages # Amplify UI components implementations
+│   └── angular
+│   └── react
+│   └── vue
+```
+
+## Local Devleopment Guides
+
+Please refer to the following contributing guides:
+
+- [`docs`](docs/README.md#contributing)
+- [`@aws-amplify/ui`](packages/ui/CONTRIBUTING.md)
+- [`@aws-amplify/ui-angular`](packages/angular/CONTRIBUTING.md)
+- [`@aws-amplify/ui-react`](packages/react/CONTRIBUTING.md)
+- [`@aws-amplify/ui-vue`](packages/vue/CONTRIBUTING.md)
+- [`examples`](examples/README.md#examples-development)
+- [`e2e`](packages/e2e/README.md#contributing)
+- [`environments`](environments/README.md#external-contributors)
+
+## Publishing
+
+Amplify UI team publish on every Tues (mandatory) and Thurs (optional). We use [`changesets`](https://github.com/changesets/changesets) to drive our deployment procedure:
+
+1. Each contributor adds a changeset in their PR
+1. Changesets get accumulated into [Version Packages PR](https://github.com/aws-amplify/amplify-ui/pulls/app%2Fgithub-actions).
+1. Maintainer will run tests, approve, and merge the PR.
+1. Previous step will trigger [`publish-latest`](./.github/workflows/publish-next.yml) action that will build and publish packages to NPM.
+
+### Updating Icons
+
+If material design icon svg files are updated [upstream](https://github.com/google/material-design-icons/), follow these steps to update our icons components for all frameworks:
+
+1. Copy [material-design-icons repo](https://github.com/google/material-design-icons/) svg icons to `material-design-icons` folder (TODO: create script for this step)
+1. Update components for all frameworks by runing the following command at root:
+
+```
+yarn build:icons
+```
+
+1. Review and commit changes to icons
+1. Submit PR for review
