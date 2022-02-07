@@ -27,6 +27,7 @@ export const useDataStoreCreateAction =
     fields,
   }: UseDataStoreCreateActionOptions<Model>) =>
   async () => {
+    console.log('no really, we are supposed to be using datastore here');
     try {
       Hub.dispatch(ACTIONS_CHANNEL, {
         event: ACTION_DATASTORE_CREATE_STARTED,
@@ -35,7 +36,7 @@ export const useDataStoreCreateAction =
       });
 
       const item = await DataStore.save(new model(fields));
-
+      console.log('anyone home?');
       Hub.dispatch(ACTIONS_CHANNEL, {
         event: ACTION_DATASTORE_CREATE_FINISHED,
         data: { fields, item },
