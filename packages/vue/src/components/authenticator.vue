@@ -236,7 +236,7 @@ const hasTabs = computed(() => {
         data-amplify-router
         :data-amplify-router-content="hasTabs ? undefined : ''"
       >
-        <base-two-tabs v-if="hasTabs">
+        <base-two-tabs v-if="hasTabs && !hideSignUp">
           <base-two-tab-item
             :active="actorState?.matches('signIn')"
             :id="44472"
@@ -244,7 +244,6 @@ const hasTabs = computed(() => {
             @click="send('SIGN_IN')"
           />
           <base-two-tab-item
-            v-if="!hideSignUp"
             :active="actorState?.matches('signUp')"
             :id="44471"
             :label="signInLabel"
