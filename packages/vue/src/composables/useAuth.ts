@@ -31,7 +31,6 @@ function createValues() {
   const { state, send } = useAuth();
 
   const facadeValues = getServiceFacade({ send, state: state.value });
-  console.log('running createValues');
   for (const key of Object.keys(facade)) {
     //@ts-ignore
     useAuthenticatorValue[key] = facadeValues[key];
