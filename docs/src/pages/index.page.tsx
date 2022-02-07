@@ -36,7 +36,7 @@ const Example = () => {
     <Card>
       <Flex direction="row" alignItems="flex-start">
         <Image src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=930&q=80"
-          alt="Grey chair splash image" width="8rem"/>
+          alt="Grey chair" width="8rem"/>
         <Flex direction="column" gap={tokens.space.xs}>
           <Flex direction="row">
             <Badge variation="success">New</Badge>
