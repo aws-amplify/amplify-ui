@@ -23,9 +23,7 @@ const useInternalAuthenticator = () => {
   return useAuthenticatorValue;
 };
 
-export const useAuthenticator = createSharedComposable(
-  useInternalAuthenticator
-);
+export const useAuthenticator = useInternalAuthenticator;
 
 function createValues() {
   if (!service.value) return;
@@ -33,6 +31,7 @@ function createValues() {
   const { state, send } = useAuth();
 
   const facadeValues = getServiceFacade({ send, state: state.value });
+  console.log('running createValues');
   for (const key of Object.keys(facade)) {
     //@ts-ignore
     useAuthenticatorValue[key] = facadeValues[key];
