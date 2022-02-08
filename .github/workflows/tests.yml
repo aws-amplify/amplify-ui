@@ -29,6 +29,8 @@ on:
         required: true
       VALID_PASSWORD:
         required: true
+      NOT_SECRET: # Dummy value to validate secret management in this fork
+        required: true
 
 jobs:
   setup:
@@ -237,31 +239,46 @@ jobs:
           path: environments/**/aws-exports.js
           key: ${{ runner.os }}-environments-${{ steps.cli-version.outputs.version }}-${{ hashFiles('environments/**/amplify/**') }}
 
-      - name: Pull down AWS environments on cache miss
-        if: steps.environments-cache.outputs.cache-hit != 'true'
-        run: yarn environments pull
+      - name: Check if secret is still present
+        id: check-secret
+        if: "${{ env.NOT_SECRET != '' }}"
+        run: echo "::set-output name=defined::true"
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          MY_KEY: ${{ secrets.NOT_SECRET }}
 
-      - name: Build ${{ matrix.example }} example
-        run: yarn workspace ${{ matrix.example }}-example build
+      - name: exit 0 if secret is present
+        if: steps.check-secret.outputs.defined == 'true'
+        run: exit 0
 
-      - name: Start ${{ matrix.example }} example
-        run: yarn workspace ${{ matrix.example }}-example start & npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:3000/ui/components/authenticator/sign-in-with-username
+      - name: exit 1 if secret is not present
+        if: steps.check-secret.outputs.defined != 'true'
+        run: exit 1
 
-      - name: Run E2E tests against ${{ matrix.example }} example
-        run: yarn workspace e2e test:authenticator
-        env:
-          # Override on the default value in `cypress.json` with framework-specific tag
-          TAGS: '${{ matrix.tags }}'
+      # - name: Pull down AWS environments on cache miss
+      #   if: steps.environments-cache.outputs.cache-hit != 'true'
+      #   run: yarn environments pull
+      #   env:
+      #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-          # Env values for testing flows
-          DOMAIN: ${{ secrets.DOMAIN }}
-          PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
-          USERNAME: ${{ secrets.USERNAME }}
-          NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
-          VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
+      # - name: Build ${{ matrix.example }} example
+      #   run: yarn workspace ${{ matrix.example }}-example build
+
+      # - name: Start ${{ matrix.example }} example
+      #   run: yarn workspace ${{ matrix.example }}-example start & npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:3000/ui/components/authenticator/sign-in-with-username
+
+      # - name: Run E2E tests against ${{ matrix.example }} example
+      #   run: yarn workspace e2e test:authenticator
+      #   env:
+      #     # Override on the default value in `cypress.json` with framework-specific tag
+      #     TAGS: '${{ matrix.tags }}'
+
+      #     # Env values for testing flows
+      #     DOMAIN: ${{ secrets.DOMAIN }}
+      #     PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
+      #     USERNAME: ${{ secrets.USERNAME }}
+      #     NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
+      #     VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
   docs:
     # Only run docs tests if e2e tests pass
     needs: [setup, unit]

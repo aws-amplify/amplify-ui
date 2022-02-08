@@ -1,8 +1,6 @@
 name: Run Builds
 
-on:
-  schedule:
-    - cron: '*/20 * * * *' # Run every 20 minutes
+on: workflow_dispatch
 
 jobs:
   build:
