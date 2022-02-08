@@ -12,6 +12,7 @@ import {
   ACTION_DATASTORE_UPDATE_STARTED,
   ACTIONS_CHANNEL,
   DATASTORE_QUERY_BY_ID_ERROR,
+  ACTION_DATASTORE_UPDATE_FINISHED_ERRORS_MESSAGE,
 } from './constants';
 import { getErrorMessage } from '../../helpers/utils';
 
@@ -65,7 +66,7 @@ export const useDataStoreUpdateAction =
       Hub.dispatch(ACTIONS_CHANNEL, {
         event: ACTION_DATASTORE_UPDATE_FINISHED,
         data: { fields, id, errorMessage: getErrorMessage(error) },
-        message: `${ACTION_DATASTORE_UPDATE_FINISHED_MESSAGE} with errors`,
+        message: ACTION_DATASTORE_UPDATE_FINISHED_ERRORS_MESSAGE,
       });
     }
   };

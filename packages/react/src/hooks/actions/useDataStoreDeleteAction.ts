@@ -10,6 +10,7 @@ import {
   ACTION_DATASTORE_DELETE_STARTED_MESSAGE,
   ACTION_DATASTORE_DELETE_STARTED,
   ACTIONS_CHANNEL,
+  ACTION_DATASTORE_DELETE_FINISHED_ERRORS_MESSAGE,
 } from './constants';
 import { getErrorMessage } from '../../helpers/utils';
 
@@ -44,7 +45,7 @@ export const useDataStoreDeleteAction =
       Hub.dispatch(ACTIONS_CHANNEL, {
         event: ACTION_DATASTORE_DELETE_FINISHED,
         data: { id, errorMessage: getErrorMessage(error) },
-        message: `${ACTION_DATASTORE_DELETE_FINISHED_MESSAGE} with errors`,
+        message: ACTION_DATASTORE_DELETE_FINISHED_ERRORS_MESSAGE,
       });
     }
   };
