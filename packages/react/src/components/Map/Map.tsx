@@ -6,7 +6,7 @@ import { AmplifyMapLibreRequest } from 'maplibre-gl-js-amplify';
 import React, { useEffect, useRef, useState } from 'react';
 import ReactMapGL from 'react-map-gl';
 
-import { Loader } from '../../primitives';
+import { Loader, View } from '../../primitives';
 
 export const Map = ({
   children,
@@ -90,21 +90,23 @@ export const Map = ({
   }, [transformRequest]);
 
   return transformRequest ? (
-    <ReactMapGL
-      ref={mapRef}
-      width={width ?? '100%'}
-      height={height ?? '100vh'}
-      transformRequest={transformRequest}
-      mapStyle={state.context.config.mapStyle}
-      onViewportChange={setViewport}
-      style={{ pointerEvents }}
-      {...viewport}
-      {...rest}
-    >
-      {React.Children.map(children, (child) =>
-        React.cloneElement(child, { mapRef })
-      )}
-    </ReactMapGL>
+    <View data-amplify-map>
+      <ReactMapGL
+        ref={mapRef}
+        width={width ?? '100%'}
+        height={height ?? '100vh'}
+        transformRequest={transformRequest}
+        mapStyle={state.context.config.mapStyle}
+        onViewportChange={setViewport}
+        style={{ pointerEvents }}
+        {...viewport}
+        {...rest}
+      >
+        {React.Children.map(children, (child) =>
+          React.cloneElement(child, { mapRef })
+        )}
+      </ReactMapGL>
+    </View>
   ) : (
     <Loader size="large" variation="linear" />
   );

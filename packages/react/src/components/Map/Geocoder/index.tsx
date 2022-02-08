@@ -21,7 +21,6 @@ export const Geocoder = (props) => {
     map
       ? map?.addControl(geocoder.current)
       : geocoder.current.addTo(`#${GEOCODER_CONTAINER}`);
-    geocoder.current._showButton();
   };
 
   const removeGeocoder = () => {
