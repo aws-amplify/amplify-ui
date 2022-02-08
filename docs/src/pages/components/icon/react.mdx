@@ -1,24 +1,18 @@
-import {
-  Button,
-  Icon,
-  Flex,
-  IconAdd,
-  IconDone,
-  IconStar,
-  IconClose,
-  IconSave,
-  Text,
-} from '@aws-amplify/ui-react';
+import { Button, Icon, Flex, Text } from '@aws-amplify/ui-react';
 import { IconDemo } from './demo';
 import { AllIcons } from './AllIcons';
 import { Example, ExampleCode } from '@/components/Example';
 
 import {
+  AccessibilityIconExample,
   DefaultIconExample,
   BuiltInIconExample,
   CustomIconExample,
   IconColorExample,
   IconSizesExample,
+  CustomIconWithSvgExample,
+  CustomIconWithLibExample,
+  ViewboxExample,
 } from './examples';
 
 Icons should be thought of as plain text; they inherit the size and color of their context or can be set directly. Icons themselves do not have any state or handlers, those should be at a higher level like a button. Amplify uses the [Google Material icon set](https://github.com/google/material-design-icons) as the default because it meets the needs above and uses an approved license (Apache-2).
@@ -61,9 +55,11 @@ Use a default icon from the [Material Design icons](http://google.github.io/mate
 
 <AllIcons />
 
-### Custom icon
+## Custom icon
 
-Create a custom icon using a path. Provide the `d` attribute in svg to `pathData` prop.
+### Using path data
+
+To create a custom icon using a path data, provide the `d` attribute in svg to `pathData` prop.
 
 <Example>
   <CustomIconExample />
@@ -76,6 +72,54 @@ Create a custom icon using a path. Provide the `d` attribute in svg to `pathData
 
   </ExampleCode>
 </Example>
+
+You can use the `viewBox` prop to change the SVG [`viewBox`](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox). Both `width` and `height` default to `24`.
+
+<Example>
+  <ViewboxExample />
+  
+  <ExampleCode>
+
+```jsx file=./examples/ViewboxExample.tsx
+
+```
+
+  </ExampleCode>
+</Example>
+
+### Using SVG
+
+You can also pass SVG elements as children to the `Icon` component if you have more than 1 path or want to provide other SVG attributes like [`stroke`](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke)
+
+<Example>
+  <CustomIconWithSvgExample />
+  
+  <ExampleCode>
+
+```jsx file=./examples/CustomIconWithSvgExample.tsx
+
+```
+
+  </ExampleCode>
+</Example>
+
+### Using a library
+
+To use an icon library like [React Icons](https://react-icons.github.io/react-icons), import the desired icon and pass it to the `as` prop.
+
+<Example>
+  <CustomIconWithLibExample />
+  
+  <ExampleCode>
+
+```jsx file=./examples/CustomIconWithLibExample.tsx
+
+```
+
+  </ExampleCode>
+</Example>
+
+## Styling
 
 ### Sizes
 
@@ -111,58 +155,18 @@ Use the `color` prop to change the Icon color. The fill of the path inside the S
   </ExampleCode>
 </Example>
 
-### viewBox
-
-Use the `viewBox` prop to change the SVG [`viewBox`](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox). Both `width` and `height` default to `24`.
-
-```jsx
-import { Icon } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-// This is a camera icon
-<Icon
-  ariaLabel="Camera"
-  viewBox={{ width: 30, height: 30 }}
-  pathData="M10 8v8l5-4-5-4zm9-5H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14z"
-/>;
-```
-
-<Example>
-  <Icon
-    ariaLabel="Camera"
-    viewBox={{ width: 30, height: 30 }}
-    pathData="M10 8v8l5-4-5-4zm9-5H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14z"
-  />
-</Example>
-
-### Accessibility
+## Accessibility
 
 Set an `aria-label` attribute for an Icon.
 
-```jsx
-import { IconClose } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-<IconClose ariaLabel="Close" />;
-```
-
 <Example>
-  <IconClose ariaLabel="Close" />
-</Example>
+  <AccessibilityIconExample />
+  
+  <ExampleCode>
 
-### Third-party icon library
+```jsx file=./examples/AccessibilityIconExample.tsx
 
-Use third-party icon libraries like react-icons.
-
-```jsx
-import { FaBeer } from 'react-icons/fa';
-import { Button } from '@aws-amplify/ui';
-
-export default function MyButton() {
-  return (
-    <Button>
-      <FaBeer />
-    </Button>
-  );
-}
 ```
+
+  </ExampleCode>
+</Example>

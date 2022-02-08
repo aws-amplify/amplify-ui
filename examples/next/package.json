@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "clean": "rimraf node_modules .next",
     "start": "next start",
     "lint": "next lint"
   },
@@ -20,6 +21,7 @@
   },
   "devDependencies": {
     "eslint": "7.29.0",
+    "rimraf": "^3.0.2",
     "eslint-config-next": "11.0.1"
   }
 }

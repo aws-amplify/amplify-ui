@@ -27,6 +27,7 @@
     "build:css": "./scripts/generateCSS.js",
     "build:js": "tsup --minify",
     "build:sd": "ts-node --transpile-only sd.config.ts",
+    "clean": "rimraf dist node_modules",
     "dev": "tsup --watch src",
     "lint": "tsc --noEmit",
     "test": "jest"
