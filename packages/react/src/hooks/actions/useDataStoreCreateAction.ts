@@ -22,6 +22,10 @@ export interface UseDataStoreCreateActionOptions<
   fields: ModelInit<Model, { readOnlyFields: 'createdAt' | 'updatedAt' }>;
 }
 
+/**
+ * Action to Create DataStore item
+ * @internal
+ */
 export const useDataStoreCreateAction =
   <Model extends PersistentModel>({
     model,

@@ -24,6 +24,10 @@ export interface UseDataStoreUpdateActionOptions<
   fields: ModelInit<Model, { readOnlyFields: 'createdAt' | 'updatedAt' }>;
 }
 
+/**
+ * Action to Update DataStore item
+ * @internal
+ */
 export const useDataStoreUpdateAction =
   <Model extends PersistentModel>({
     model,

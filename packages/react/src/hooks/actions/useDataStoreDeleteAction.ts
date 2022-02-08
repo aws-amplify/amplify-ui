@@ -21,6 +21,10 @@ export interface UseDataStoreDeleteActionOptions<
   id: string;
 }
 
+/**
+ * Action to Delete DataStore item
+ * @internal
+ */
 export const useDataStoreDeleteAction =
   <Model extends PersistentModel>({
     model,
