@@ -46,7 +46,7 @@ export const useDataStoreUpdateAction =
       const original = await DataStore.query(model, id);
       // If query by id doesn't return an item,
       // original will be undefined
-      // so we'll throw a helpful message.
+      // so we'll log a helpful message.
       if (!original) {
         throw new Error(`${DATASTORE_QUERY_BY_ID_ERROR}: ${id}`);
       }

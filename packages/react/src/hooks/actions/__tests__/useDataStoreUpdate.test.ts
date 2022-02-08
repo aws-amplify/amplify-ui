@@ -8,7 +8,7 @@ import {
   ACTION_DATASTORE_UPDATE_STARTED,
   ACTION_DATASTORE_UPDATE_STARTED_MESSAGE,
 } from '../constants';
-import { Todo } from './shared';
+import { Todo } from '../testShared';
 import { useDataStoreUpdateAction } from '../useDataStoreUpdateAction';
 
 jest.mock('aws-amplify');

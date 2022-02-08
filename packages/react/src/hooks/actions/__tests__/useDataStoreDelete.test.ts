@@ -8,7 +8,7 @@ import {
   ACTION_DATASTORE_DELETE_STARTED,
   ACTION_DATASTORE_DELETE_STARTED_MESSAGE,
 } from '../constants';
-import { Todo } from './shared';
+import { Todo } from '../testShared';
 import { useDataStoreDeleteAction } from '../useDataStoreDeleteAction';
 
 jest.mock('aws-amplify');

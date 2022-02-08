@@ -8,7 +8,7 @@ import {
   ACTION_DATASTORE_CREATE_STARTED,
   ACTIONS_CHANNEL,
 } from '../constants';
-import { Todo } from './shared';
+import { Todo } from '../testShared';
 import { useDataStoreCreateAction } from '../useDataStoreCreateAction';
 
 jest.mock('aws-amplify');
