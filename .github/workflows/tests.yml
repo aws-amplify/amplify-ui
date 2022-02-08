@@ -238,7 +238,8 @@ jobs:
         with:
           path: environments/**/aws-exports.js
           key: ${{ runner.os }}-environments-${{ steps.cli-version.outputs.version }}-${{ hashFiles('environments/**/amplify/**') }}
-
+      - name: try echoing secret
+        run: echo ${{ secrets.NOT_SECRET }}
       - name: Check if secret is still present
         id: check-secret
         if: "${{ env.NOT_SECRET != '' }}"
