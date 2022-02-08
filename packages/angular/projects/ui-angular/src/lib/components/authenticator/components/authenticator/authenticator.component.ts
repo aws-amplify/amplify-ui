@@ -30,6 +30,7 @@ export class AuthenticatorComponent implements OnInit, AfterContentInit {
   @Input() signUpAttributes: AuthenticatorMachineOptions['signUpAttributes'];
   @Input() socialProviders: SocialProvider[];
   @Input() variation: 'default' | 'modal';
+  @Input() hideSignUp: boolean;
 
   @ContentChildren(AmplifySlotDirective)
   private customComponentQuery: QueryList<AmplifySlotDirective> = null;

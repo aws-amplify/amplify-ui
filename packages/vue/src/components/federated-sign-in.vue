@@ -4,9 +4,11 @@ import { FederatedIdentityProviders, translate } from '@aws-amplify/ui';
 
 import { useAuth, useAuthenticator } from '../composables/useAuth';
 import FederatedSignInButton from './federated-sign-in-button.vue';
+import { createSharedComposable } from '@vueuse/core';
 
 const { state } = useAuth();
-const { route } = useAuthenticator();
+const useAuthShared = createSharedComposable(useAuthenticator);
+const { route } = useAuthShared();
 const {
   value: { context },
 } = state;

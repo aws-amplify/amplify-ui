@@ -38,8 +38,6 @@ html {
 
 // Remove this when this gets fixed in the UI package
 * {
-  box-sizing: border-box;
-
   /* Selection */
   &::-moz-selection {
     background: var(--amplify-colors-overlay-10);
@@ -111,7 +109,9 @@ code {
   background-color: var(--amplify-colors-background-secondary);
   font-size: 0.875em;
   border-radius: 0.3em;
-  font-family: "Source Code Pro", "Fira Code", "Fira Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-family: 'Source Code Pro', 'Fira Code', 'Fira Mono', ui-monospace,
+    SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
+    monospace;
   direction: ltr;
   text-align: left;
   white-space: pre;
