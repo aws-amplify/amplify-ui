@@ -11,6 +11,13 @@ export {
 } from './hooks/actions/useNavigateAction';
 export { useStateMutationAction } from './hooks/actions/useStateMutationAction';
 
+export { useDataStoreCreateAction } from './hooks/actions/useDataStoreCreateAction';
+export type { UseDataStoreCreateActionOptions } from './hooks/actions/useDataStoreCreateAction';
+export { useDataStoreDeleteAction } from './hooks/actions/useDataStoreDeleteAction';
+export type { UseDataStoreDeleteActionOptions } from './hooks/actions/useDataStoreDeleteAction';
+export { useDataStoreUpdateAction } from './hooks/actions/useDataStoreUpdateAction';
+export type { UseDataStoreUpdateActionOptions } from './hooks/actions/useDataStoreUpdateAction';
+
 export * from './primitives/shared/datastore';
 export {
   EscapeHatchProps,
