@@ -21,10 +21,15 @@ export function AmplifyProvider({
 }: AmplifyProviderProps) {
   const webTheme = createTheme(theme);
   const { name, cssText } = webTheme;
-  if (typeof window === 'object') {
-    document.documentElement.setAttribute('data-amplify-theme', name);
-    document.documentElement.setAttribute('data-amplify-color-mode', colorMode);
-  }
+  React.useEffect(() => {
+    if (document && document.documentElement) {
+      document.documentElement.setAttribute('data-amplify-theme', name);
+      document.documentElement.setAttribute(
+        'data-amplify-color-mode',
+        colorMode
+      );
+    }
+  }, [theme, colorMode]);
   return (
     <AmplifyContext.Provider
       value={{
