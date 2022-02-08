@@ -21,13 +21,8 @@ export interface UseDataStoreUpdateActionOptions<
 > {
   model: PersistentModelConstructor<Model>;
   id: string;
-  fields: UseDataStoreUpdateActionFields<Model>;
+  fields: ModelInit<Model, { readOnlyFields: 'createdAt' | 'updatedAt' }>;
 }
-
-type UseDataStoreUpdateActionFields<Model> = ModelInit<
-  Model,
-  { readOnlyFields: 'createdAt' | 'updatedAt' }
->;
 
 export const useDataStoreUpdateAction =
   <Model extends PersistentModel>({
