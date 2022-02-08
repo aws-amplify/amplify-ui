@@ -270,6 +270,18 @@ The Authenticator has multiple variations to meet the needs of your application.
   </TabItem>
 </Tabs>
 
+### `hideSignUp`
+
+The Authenticator has an option to hide the sign up page including the `Create Account` tab.
+
+<Fragment>
+  {({ platform }) => import(`./hidesignup.default.${platform}.mdx`)}
+</Fragment>
+
+<Example>
+  <Authenticator hideSignUp={true} />
+</Example>
+
 ## Customization
 
 ### Headers & Footers

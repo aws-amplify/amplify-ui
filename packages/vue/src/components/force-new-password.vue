@@ -13,12 +13,14 @@ import { useAuth, useAuthenticator } from '../composables/useAuth';
 
 import PasswordControl from './password-control.vue';
 import AuthenticatorForceNewPasswordFormFields from './authenticator-force-new-password-form-fields.vue';
+import { createSharedComposable } from '@vueuse/core';
 
 const attrs = useAttrs();
 const emit = defineEmits(['haveAccountClicked', 'forceNewPasswordSubmit']);
 
 const { state, send } = useAuth();
-const props = useAuthenticator();
+const useAuthShared = createSharedComposable(useAuthenticator);
+const props = useAuthShared();
 const actorState = computed(() =>
   getActorState(state.value)
 ) as ComputedRef<SignInState>;
