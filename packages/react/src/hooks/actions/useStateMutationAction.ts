@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Hub } from 'aws-amplify';
 
 import {
-  ACTIONS_CHANNEL,
+  UI_CHANNEL,
   ACTION_STATE_MUTATION_FINISHED,
   ACTION_STATE_MUTATION_STARTED,
 } from './constants';
@@ -21,14 +21,14 @@ export const useStateMutationAction = <StateType>(
     (newState: StateType) => {
       const prevState = state;
 
-      Hub.dispatch(ACTIONS_CHANNEL, {
+      Hub.dispatch(UI_CHANNEL, {
         event: ACTION_STATE_MUTATION_STARTED,
         data: { prevState, newState },
       });
 
       setState(newState);
 
-      Hub.dispatch(ACTIONS_CHANNEL, {
+      Hub.dispatch(UI_CHANNEL, {
         event: ACTION_STATE_MUTATION_FINISHED,
         data: { prevState, newState },
       });

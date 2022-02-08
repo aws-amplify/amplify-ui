@@ -6,7 +6,7 @@ import {
   ACTION_DATASTORE_CREATE_FINISHED,
   ACTION_DATASTORE_CREATE_STARTED_MESSAGE,
   ACTION_DATASTORE_CREATE_STARTED,
-  ACTIONS_CHANNEL,
+  UI_CHANNEL,
 } from '../constants';
 import { Todo } from '../testShared';
 import { useDataStoreCreateAction } from '../useDataStoreCreateAction';
@@ -36,12 +36,12 @@ describe('useDataStoreCreateAction', () => {
 
     await action();
     expect(hubDispatchSpy).toHaveBeenCalledTimes(2);
-    expect(hubDispatchSpy).toHaveBeenCalledWith(ACTIONS_CHANNEL, {
+    expect(hubDispatchSpy).toHaveBeenCalledWith(UI_CHANNEL, {
       data: { fields: { name } },
       event: ACTION_DATASTORE_CREATE_STARTED,
       message: ACTION_DATASTORE_CREATE_STARTED_MESSAGE,
     });
-    expect(hubDispatchSpy).toHaveBeenCalledWith(ACTIONS_CHANNEL, {
+    expect(hubDispatchSpy).toHaveBeenCalledWith(UI_CHANNEL, {
       data: { fields: { name } },
       event: ACTION_DATASTORE_CREATE_FINISHED,
       message: ACTION_DATASTORE_CREATE_FINISHED_MESSAGE,
@@ -57,12 +57,12 @@ describe('useDataStoreCreateAction', () => {
     await action();
 
     expect(hubDispatchSpy).toHaveBeenCalledTimes(2);
-    expect(hubDispatchSpy).toHaveBeenCalledWith(ACTIONS_CHANNEL, {
+    expect(hubDispatchSpy).toHaveBeenCalledWith(UI_CHANNEL, {
       data: { fields: { name } },
       event: ACTION_DATASTORE_CREATE_STARTED,
       message: ACTION_DATASTORE_CREATE_STARTED_MESSAGE,
     });
-    expect(hubDispatchSpy).toHaveBeenCalledWith(ACTIONS_CHANNEL, {
+    expect(hubDispatchSpy).toHaveBeenCalledWith(UI_CHANNEL, {
       data: {
         fields: { name },
         errorMessage,

@@ -2,7 +2,7 @@ import { Hub } from 'aws-amplify';
 import { renderHook, act } from '@testing-library/react-hooks';
 
 import {
-  ACTIONS_CHANNEL,
+  UI_CHANNEL,
   ACTION_STATE_MUTATION_FINISHED,
   ACTION_STATE_MUTATION_STARTED,
 } from '../constants';
@@ -26,11 +26,11 @@ describe('useStateMutationAction: ', () => {
     expect(state).toBe(newState);
 
     expect(Hub.dispatch).toHaveBeenCalledTimes(2);
-    expect(Hub.dispatch).toHaveBeenCalledWith(ACTIONS_CHANNEL, {
+    expect(Hub.dispatch).toHaveBeenCalledWith(UI_CHANNEL, {
       event: ACTION_STATE_MUTATION_STARTED,
       data,
     });
-    expect(Hub.dispatch).toHaveBeenLastCalledWith(ACTIONS_CHANNEL, {
+    expect(Hub.dispatch).toHaveBeenLastCalledWith(UI_CHANNEL, {
       event: ACTION_STATE_MUTATION_FINISHED,
       data,
     });

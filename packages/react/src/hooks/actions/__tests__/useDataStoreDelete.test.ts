@@ -1,7 +1,7 @@
 import { DataStore, Hub } from 'aws-amplify';
 
 import {
-  ACTIONS_CHANNEL,
+  UI_CHANNEL,
   ACTION_DATASTORE_DELETE_FINISHED,
   ACTION_DATASTORE_DELETE_FINISHED_ERRORS_MESSAGE,
   ACTION_DATASTORE_DELETE_FINISHED_MESSAGE,
@@ -37,12 +37,12 @@ describe('useDataStoreDeleteAction', () => {
 
     await action();
     expect(hubDispatchSpy).toHaveBeenCalledTimes(2);
-    expect(hubDispatchSpy).toHaveBeenCalledWith(ACTIONS_CHANNEL, {
+    expect(hubDispatchSpy).toHaveBeenCalledWith(UI_CHANNEL, {
       data: { id },
       event: ACTION_DATASTORE_DELETE_STARTED,
       message: ACTION_DATASTORE_DELETE_STARTED_MESSAGE,
     });
-    expect(hubDispatchSpy).toHaveBeenCalledWith(ACTIONS_CHANNEL, {
+    expect(hubDispatchSpy).toHaveBeenCalledWith(UI_CHANNEL, {
       data: { id },
       event: ACTION_DATASTORE_DELETE_FINISHED,
       message: ACTION_DATASTORE_DELETE_FINISHED_MESSAGE,
@@ -58,12 +58,12 @@ describe('useDataStoreDeleteAction', () => {
     await action();
 
     expect(hubDispatchSpy).toHaveBeenCalledTimes(2);
-    expect(hubDispatchSpy).toHaveBeenCalledWith(ACTIONS_CHANNEL, {
+    expect(hubDispatchSpy).toHaveBeenCalledWith(UI_CHANNEL, {
       data: { id },
       event: ACTION_DATASTORE_DELETE_STARTED,
       message: ACTION_DATASTORE_DELETE_STARTED_MESSAGE,
     });
-    expect(hubDispatchSpy).toHaveBeenCalledWith(ACTIONS_CHANNEL, {
+    expect(hubDispatchSpy).toHaveBeenCalledWith(UI_CHANNEL, {
       data: {
         id,
         errorMessage,

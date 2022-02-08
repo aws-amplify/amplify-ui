@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Hub } from 'aws-amplify';
 
 import {
-  ACTIONS_CHANNEL,
+  UI_CHANNEL,
   ACTION_NAVIGATE_FINISHED,
   ACTION_NAVIGATE_STARTED,
 } from './constants';
@@ -53,12 +53,12 @@ export const useNavigateAction = (options: UseNavigateActionOptions) => {
   }, [anchor, target, type, url]);
 
   const navigateAction = () => {
-    Hub.dispatch(ACTIONS_CHANNEL, {
+    Hub.dispatch(UI_CHANNEL, {
       event: ACTION_NAVIGATE_STARTED,
       data: options,
     });
     run();
-    Hub.dispatch(ACTIONS_CHANNEL, {
+    Hub.dispatch(UI_CHANNEL, {
       event: ACTION_NAVIGATE_FINISHED,
       data: options,
     });

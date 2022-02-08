@@ -10,7 +10,7 @@ import {
   ACTION_DATASTORE_CREATE_FINISHED,
   ACTION_DATASTORE_CREATE_STARTED_MESSAGE,
   ACTION_DATASTORE_CREATE_STARTED,
-  ACTIONS_CHANNEL,
+  UI_CHANNEL,
   ACTION_DATASTORE_CREATE_FINISHED_ERRORS_MESSAGE,
 } from './constants';
 import { getErrorMessage } from '../../helpers/utils';
@@ -33,7 +33,7 @@ export const useDataStoreCreateAction =
   }: UseDataStoreCreateActionOptions<Model>) =>
   async () => {
     try {
-      Hub.dispatch(ACTIONS_CHANNEL, {
+      Hub.dispatch(UI_CHANNEL, {
         event: ACTION_DATASTORE_CREATE_STARTED,
         data: { fields },
         message: ACTION_DATASTORE_CREATE_STARTED_MESSAGE,
@@ -41,13 +41,13 @@ export const useDataStoreCreateAction =
 
       const item = await DataStore.save(new model(fields));
 
-      Hub.dispatch(ACTIONS_CHANNEL, {
+      Hub.dispatch(UI_CHANNEL, {
         event: ACTION_DATASTORE_CREATE_FINISHED,
         data: { fields, item },
         message: ACTION_DATASTORE_CREATE_FINISHED_MESSAGE,
       });
     } catch (error) {
-      Hub.dispatch(ACTIONS_CHANNEL, {
+      Hub.dispatch(UI_CHANNEL, {
         event: ACTION_DATASTORE_CREATE_FINISHED,
         data: { fields, errorMessage: getErrorMessage(error) },
         message: ACTION_DATASTORE_CREATE_FINISHED_ERRORS_MESSAGE,

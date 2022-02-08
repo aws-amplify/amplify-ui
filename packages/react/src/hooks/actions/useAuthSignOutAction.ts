@@ -2,7 +2,7 @@ import { Auth, Hub } from 'aws-amplify';
 import { SignOutOpts } from '@aws-amplify/auth/lib-esm/types/Auth';
 
 import {
-  ACTIONS_CHANNEL,
+  UI_CHANNEL,
   ACTION_AUTH_SIGNOUT_FINISHED,
   ACTION_AUTH_SIGNOUT_STARTED,
 } from './constants';
@@ -19,18 +19,18 @@ export interface UseAuthSignOutAction {
 export const useAuthSignOutAction: UseAuthSignOutAction =
   (options) => async () => {
     try {
-      Hub.dispatch(ACTIONS_CHANNEL, {
+      Hub.dispatch(UI_CHANNEL, {
         event: ACTION_AUTH_SIGNOUT_STARTED,
         data: { options },
       });
 
       await Auth.signOut(options);
-      Hub.dispatch(ACTIONS_CHANNEL, {
+      Hub.dispatch(UI_CHANNEL, {
         event: ACTION_AUTH_SIGNOUT_FINISHED,
         data: { options },
       });
     } catch (error) {
-      Hub.dispatch(ACTIONS_CHANNEL, {
+      Hub.dispatch(UI_CHANNEL, {
         event: ACTION_AUTH_SIGNOUT_FINISHED,
         data: { options, errorMessage: getErrorMessage(error) },
       });

@@ -10,7 +10,7 @@ import {
   ACTION_DATASTORE_UPDATE_FINISHED,
   ACTION_DATASTORE_UPDATE_STARTED_MESSAGE,
   ACTION_DATASTORE_UPDATE_STARTED,
-  ACTIONS_CHANNEL,
+  UI_CHANNEL,
   DATASTORE_QUERY_BY_ID_ERROR,
   ACTION_DATASTORE_UPDATE_FINISHED_ERRORS_MESSAGE,
 } from './constants';
@@ -36,7 +36,7 @@ export const useDataStoreUpdateAction =
   }: UseDataStoreUpdateActionOptions<Model>) =>
   async () => {
     try {
-      Hub.dispatch(ACTIONS_CHANNEL, {
+      Hub.dispatch(UI_CHANNEL, {
         event: ACTION_DATASTORE_UPDATE_STARTED,
         data: { fields, id },
         message: ACTION_DATASTORE_UPDATE_STARTED_MESSAGE,
@@ -56,13 +56,13 @@ export const useDataStoreUpdateAction =
         })
       );
 
-      Hub.dispatch(ACTIONS_CHANNEL, {
+      Hub.dispatch(UI_CHANNEL, {
         event: ACTION_DATASTORE_UPDATE_FINISHED,
         data: { fields, id, item },
         message: ACTION_DATASTORE_UPDATE_FINISHED_MESSAGE,
       });
     } catch (error) {
-      Hub.dispatch(ACTIONS_CHANNEL, {
+      Hub.dispatch(UI_CHANNEL, {
         event: ACTION_DATASTORE_UPDATE_FINISHED,
         data: { fields, id, errorMessage: getErrorMessage(error) },
         message: ACTION_DATASTORE_UPDATE_FINISHED_ERRORS_MESSAGE,

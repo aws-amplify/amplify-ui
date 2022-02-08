@@ -2,7 +2,7 @@ import { Hub } from 'aws-amplify';
 import { renderHook } from '@testing-library/react-hooks';
 
 import {
-  ACTIONS_CHANNEL,
+  UI_CHANNEL,
   ACTION_NAVIGATE_FINISHED,
   ACTION_NAVIGATE_STARTED,
 } from '../constants';
@@ -26,11 +26,11 @@ describe('useNavigateHook: ', () => {
 
   const testHubEventEmit = (data: UseNavigateActionOptions) => {
     expect(Hub.dispatch).toHaveBeenCalledTimes(2);
-    expect(Hub.dispatch).toHaveBeenCalledWith(ACTIONS_CHANNEL, {
+    expect(Hub.dispatch).toHaveBeenCalledWith(UI_CHANNEL, {
       event: ACTION_NAVIGATE_STARTED,
       data,
     });
-    expect(Hub.dispatch).toHaveBeenLastCalledWith(ACTIONS_CHANNEL, {
+    expect(Hub.dispatch).toHaveBeenLastCalledWith(UI_CHANNEL, {
       event: ACTION_NAVIGATE_FINISHED,
       data,
     });

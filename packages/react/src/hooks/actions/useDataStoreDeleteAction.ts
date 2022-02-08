@@ -9,7 +9,7 @@ import {
   ACTION_DATASTORE_DELETE_FINISHED,
   ACTION_DATASTORE_DELETE_STARTED_MESSAGE,
   ACTION_DATASTORE_DELETE_STARTED,
-  ACTIONS_CHANNEL,
+  UI_CHANNEL,
   ACTION_DATASTORE_DELETE_FINISHED_ERRORS_MESSAGE,
 } from './constants';
 import { getErrorMessage } from '../../helpers/utils';
@@ -32,7 +32,7 @@ export const useDataStoreDeleteAction =
   }: UseDataStoreDeleteActionOptions<Model>) =>
   async () => {
     try {
-      Hub.dispatch(ACTIONS_CHANNEL, {
+      Hub.dispatch(UI_CHANNEL, {
         event: ACTION_DATASTORE_DELETE_STARTED,
         data: { id },
         message: ACTION_DATASTORE_DELETE_STARTED_MESSAGE,
@@ -40,13 +40,13 @@ export const useDataStoreDeleteAction =
 
       await DataStore.delete(model, id);
 
-      Hub.dispatch(ACTIONS_CHANNEL, {
+      Hub.dispatch(UI_CHANNEL, {
         event: ACTION_DATASTORE_DELETE_FINISHED,
         data: { id },
         message: ACTION_DATASTORE_DELETE_FINISHED_MESSAGE,
       });
     } catch (error) {
-      Hub.dispatch(ACTIONS_CHANNEL, {
+      Hub.dispatch(UI_CHANNEL, {
         event: ACTION_DATASTORE_DELETE_FINISHED,
         data: { id, errorMessage: getErrorMessage(error) },
         message: ACTION_DATASTORE_DELETE_FINISHED_ERRORS_MESSAGE,
