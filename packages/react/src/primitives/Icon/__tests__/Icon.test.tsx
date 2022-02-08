@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 
 import { Icon } from '../Icon';
 import { ComponentClassNames } from '../../shared';
@@ -82,5 +82,24 @@ describe('Icon component', () => {
 
     const icon = await screen.findByTestId(iconTestId);
     expect(icon.getAttribute('viewBox')).toBe('0 0 100 100');
+  });
+
+  it('can accept SVG children', async () => {
+    render(
+      <Icon testId={iconTestId} ariaLabel="Search">
+        <path
+          role="path"
+          opacity="0.5"
+          d="M21 10C21 13.3137 18.3137 16 15 16C11.6863 16 9 13.3137 9 10C9 6.68629 11.6863 4 15 4C18.3137 4 21 6.68629 21 10Z"
+          fill="currentColor"
+        />
+        <path role="path" d="M3 4H7V20H3V4Z" fill="currentColor" />
+      </Icon>
+    );
+
+    const icon = await screen.findByTestId(iconTestId);
+    const paths = await within(icon).findAllByRole('path');
+    expect(paths.length).toBe(2);
+    expect(paths[0].getAttribute('opacity')).toBe('0.5');
   });
 });

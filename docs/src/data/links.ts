@@ -26,7 +26,7 @@ export const baseComponents: ComponentNavItem[] = [
   {
     href: '/components/icon',
     label: 'Icon',
-    body: ``,
+    body: `The icon component displays simple vector graphics for use in other components like Buttons.`,
   },
   {
     href: '/components/image',
@@ -162,7 +162,11 @@ export const navigationComponents: ComponentNavItem[] = [
 ].sort(sortByLabel);
 
 export const utilityComponents = [
-  { href: '/components/visuallyhidden', label: 'Visually Hidden', body: `` },
+  {
+    href: '/components/visuallyhidden',
+    label: 'Visually Hidden',
+    body: `The Visually Hidden component is used to visually hide content while leaving it available to screen readers.`,
+  },
 ].sort(sortByLabel);
 
 export const DISCORD = 'https://discord.gg/amplify';

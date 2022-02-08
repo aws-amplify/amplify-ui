@@ -1,8 +1,10 @@
 {
   "private": true,
   "scripts": {
-    "clean": "turbo run clean && rm -rf node_modules/.cache",
     "build": "turbo run build --include-dependencies --no-deps --scope=*@aws-amplify/*",
+    "clean": "turbo run clean && rm -rf node_modules/.cache",
+    "setup": "yarn install && yarn build",
+    "refresh": "yarn clean && yarn setup",
     "angular": "yarn workspace @aws-amplify/ui-angular",
     "react": "yarn workspace @aws-amplify/ui-react",
     "ui": "yarn workspace @aws-amplify/ui",
