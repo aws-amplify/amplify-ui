@@ -1,4 +1,4 @@
-import type {
+import {
   ModelInit,
   PersistentModel,
   PersistentModelConstructor,
@@ -6,14 +6,13 @@ import type {
 import { DataStore, Hub } from 'aws-amplify';
 
 import {
-  ACTION_DATASTORE_CREATE_FINISHED_MESSAGE,
   ACTION_DATASTORE_CREATE_FINISHED,
-  ACTION_DATASTORE_CREATE_STARTED_MESSAGE,
   ACTION_DATASTORE_CREATE_STARTED,
+  EVENT_ACTION_DATASTORE_CREATE,
   UI_CHANNEL,
-  ACTION_DATASTORE_CREATE_FINISHED_ERRORS_MESSAGE,
 } from './constants';
 import { getErrorMessage } from '../../helpers/utils';
+import { AMPLIFY_SYMBOL } from '../../helpers/constants';
 
 export interface UseDataStoreCreateActionOptions<
   Model extends PersistentModel
@@ -26,31 +25,41 @@ export interface UseDataStoreCreateActionOptions<
  * Action to Create DataStore item
  * @internal
  */
-export const useDataStoreCreateAction =
-  <Model extends PersistentModel>({
-    model,
-    fields,
-  }: UseDataStoreCreateActionOptions<Model>) =>
-  async () => {
-    try {
-      Hub.dispatch(UI_CHANNEL, {
+export const useDataStoreCreateAction = <Model extends PersistentModel>({
+  model,
+  fields,
+}: UseDataStoreCreateActionOptions<Model>) => async () => {
+  try {
+    Hub.dispatch(
+      UI_CHANNEL,
+      {
         event: ACTION_DATASTORE_CREATE_STARTED,
         data: { fields },
-        message: ACTION_DATASTORE_CREATE_STARTED_MESSAGE,
-      });
+      },
+      EVENT_ACTION_DATASTORE_CREATE,
+      AMPLIFY_SYMBOL
+    );
 
-      const item = await DataStore.save(new model(fields));
+    const item = await DataStore.save(new model(fields));
 
-      Hub.dispatch(UI_CHANNEL, {
+    Hub.dispatch(
+      UI_CHANNEL,
+      {
         event: ACTION_DATASTORE_CREATE_FINISHED,
         data: { fields, item },
-        message: ACTION_DATASTORE_CREATE_FINISHED_MESSAGE,
-      });
-    } catch (error) {
-      Hub.dispatch(UI_CHANNEL, {
+      },
+      EVENT_ACTION_DATASTORE_CREATE,
+      AMPLIFY_SYMBOL
+    );
+  } catch (error) {
+    Hub.dispatch(
+      UI_CHANNEL,
+      {
         event: ACTION_DATASTORE_CREATE_FINISHED,
         data: { fields, errorMessage: getErrorMessage(error) },
-        message: ACTION_DATASTORE_CREATE_FINISHED_ERRORS_MESSAGE,
-      });
-    }
-  };
+      },
+      EVENT_ACTION_DATASTORE_CREATE,
+      AMPLIFY_SYMBOL
+    );
+  }
+};

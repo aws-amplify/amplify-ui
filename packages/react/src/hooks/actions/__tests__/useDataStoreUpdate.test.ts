@@ -1,15 +1,14 @@
 import { DataStore, Hub } from 'aws-amplify';
 
 import {
-  UI_CHANNEL,
-  ACTION_DATASTORE_UPDATE_FINISHED_ERRORS_MESSAGE,
   ACTION_DATASTORE_UPDATE_FINISHED,
-  ACTION_DATASTORE_UPDATE_FINISHED_MESSAGE,
   ACTION_DATASTORE_UPDATE_STARTED,
-  ACTION_DATASTORE_UPDATE_STARTED_MESSAGE,
+  EVENT_ACTION_DATASTORE_UPDATE,
+  UI_CHANNEL,
 } from '../constants';
 import { Todo } from '../testShared';
 import { useDataStoreUpdateAction } from '../useDataStoreUpdateAction';
+import { AMPLIFY_SYMBOL } from '../../../helpers/constants';
 
 jest.mock('aws-amplify');
 const name = 'milk';
@@ -44,16 +43,24 @@ describe('useAuthSignOutAction', () => {
 
     await action();
     expect(hubDispatchSpy).toHaveBeenCalledTimes(2);
-    expect(hubDispatchSpy).toHaveBeenCalledWith(UI_CHANNEL, {
-      data: { id, fields: { name } },
-      event: ACTION_DATASTORE_UPDATE_STARTED,
-      message: ACTION_DATASTORE_UPDATE_STARTED_MESSAGE,
-    });
-    expect(hubDispatchSpy).toHaveBeenCalledWith(UI_CHANNEL, {
-      data: { id, fields: { name } },
-      event: ACTION_DATASTORE_UPDATE_FINISHED,
-      message: ACTION_DATASTORE_UPDATE_FINISHED_MESSAGE,
-    });
+    expect(hubDispatchSpy).toHaveBeenCalledWith(
+      UI_CHANNEL,
+      {
+        data: { id, fields: { name } },
+        event: ACTION_DATASTORE_UPDATE_STARTED,
+      },
+      EVENT_ACTION_DATASTORE_UPDATE,
+      AMPLIFY_SYMBOL
+    );
+    expect(hubDispatchSpy).toHaveBeenCalledWith(
+      UI_CHANNEL,
+      {
+        data: { id, fields: { name } },
+        event: ACTION_DATASTORE_UPDATE_FINISHED,
+      },
+      EVENT_ACTION_DATASTORE_UPDATE,
+      AMPLIFY_SYMBOL
+    );
   });
 
   it('should call Hub with error message if DataStore.save rejects', async () => {
@@ -65,20 +72,28 @@ describe('useAuthSignOutAction', () => {
     await action();
 
     expect(hubDispatchSpy).toHaveBeenCalledTimes(2);
-    expect(hubDispatchSpy).toHaveBeenCalledWith(UI_CHANNEL, {
-      data: { id, fields: { name } },
-      event: ACTION_DATASTORE_UPDATE_STARTED,
-      message: ACTION_DATASTORE_UPDATE_STARTED_MESSAGE,
-    });
-    expect(hubDispatchSpy).toHaveBeenCalledWith(UI_CHANNEL, {
-      data: {
-        id,
-        fields: { name },
-        errorMessage,
+    expect(hubDispatchSpy).toHaveBeenCalledWith(
+      UI_CHANNEL,
+      {
+        data: { id, fields: { name } },
+        event: ACTION_DATASTORE_UPDATE_STARTED,
       },
-      event: ACTION_DATASTORE_UPDATE_FINISHED,
-      message: ACTION_DATASTORE_UPDATE_FINISHED_ERRORS_MESSAGE,
-    });
+      EVENT_ACTION_DATASTORE_UPDATE,
+      AMPLIFY_SYMBOL
+    );
+    expect(hubDispatchSpy).toHaveBeenCalledWith(
+      UI_CHANNEL,
+      {
+        data: {
+          id,
+          fields: { name },
+          errorMessage,
+        },
+        event: ACTION_DATASTORE_UPDATE_FINISHED,
+      },
+      EVENT_ACTION_DATASTORE_UPDATE,
+      AMPLIFY_SYMBOL
+    );
   });
 
   it('when original not found, should call Hub with error message', async () => {
@@ -87,19 +102,27 @@ describe('useAuthSignOutAction', () => {
 
     await action();
     expect(hubDispatchSpy).toHaveBeenCalledTimes(2);
-    expect(hubDispatchSpy).toHaveBeenCalledWith(UI_CHANNEL, {
-      data: { id, fields: { name } },
-      event: ACTION_DATASTORE_UPDATE_STARTED,
-      message: ACTION_DATASTORE_UPDATE_STARTED_MESSAGE,
-    });
-    expect(hubDispatchSpy).toHaveBeenCalledWith(UI_CHANNEL, {
-      data: {
-        id,
-        fields: { name },
-        errorMessage: `Error querying datastore item by id: ${id}`,
+    expect(hubDispatchSpy).toHaveBeenCalledWith(
+      UI_CHANNEL,
+      {
+        data: { id, fields: { name } },
+        event: ACTION_DATASTORE_UPDATE_STARTED,
       },
-      event: ACTION_DATASTORE_UPDATE_FINISHED,
-      message: ACTION_DATASTORE_UPDATE_FINISHED_ERRORS_MESSAGE,
-    });
+      EVENT_ACTION_DATASTORE_UPDATE,
+      AMPLIFY_SYMBOL
+    );
+    expect(hubDispatchSpy).toHaveBeenCalledWith(
+      UI_CHANNEL,
+      {
+        data: {
+          id,
+          fields: { name },
+          errorMessage: `Error querying datastore item by id: ${id}`,
+        },
+        event: ACTION_DATASTORE_UPDATE_FINISHED,
+      },
+      EVENT_ACTION_DATASTORE_UPDATE,
+      AMPLIFY_SYMBOL
+    );
   });
 });

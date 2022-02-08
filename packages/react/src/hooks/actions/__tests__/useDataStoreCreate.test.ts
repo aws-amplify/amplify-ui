@@ -1,15 +1,14 @@
 import { DataStore, Hub } from 'aws-amplify';
 
 import {
-  ACTION_DATASTORE_CREATE_FINISHED_ERRORS_MESSAGE,
-  ACTION_DATASTORE_CREATE_FINISHED_MESSAGE,
   ACTION_DATASTORE_CREATE_FINISHED,
-  ACTION_DATASTORE_CREATE_STARTED_MESSAGE,
   ACTION_DATASTORE_CREATE_STARTED,
+  EVENT_ACTION_DATASTORE_CREATE,
   UI_CHANNEL,
 } from '../constants';
 import { Todo } from '../testShared';
 import { useDataStoreCreateAction } from '../useDataStoreCreateAction';
+import { AMPLIFY_SYMBOL } from '../../../helpers/constants';
 
 jest.mock('aws-amplify');
 
@@ -36,16 +35,24 @@ describe('useDataStoreCreateAction', () => {
 
     await action();
     expect(hubDispatchSpy).toHaveBeenCalledTimes(2);
-    expect(hubDispatchSpy).toHaveBeenCalledWith(UI_CHANNEL, {
-      data: { fields: { name } },
-      event: ACTION_DATASTORE_CREATE_STARTED,
-      message: ACTION_DATASTORE_CREATE_STARTED_MESSAGE,
-    });
-    expect(hubDispatchSpy).toHaveBeenCalledWith(UI_CHANNEL, {
-      data: { fields: { name } },
-      event: ACTION_DATASTORE_CREATE_FINISHED,
-      message: ACTION_DATASTORE_CREATE_FINISHED_MESSAGE,
-    });
+    expect(hubDispatchSpy).toHaveBeenCalledWith(
+      UI_CHANNEL,
+      {
+        data: { fields: { name } },
+        event: ACTION_DATASTORE_CREATE_STARTED,
+      },
+      EVENT_ACTION_DATASTORE_CREATE,
+      AMPLIFY_SYMBOL
+    );
+    expect(hubDispatchSpy).toHaveBeenCalledWith(
+      UI_CHANNEL,
+      {
+        data: { fields: { name } },
+        event: ACTION_DATASTORE_CREATE_FINISHED,
+      },
+      EVENT_ACTION_DATASTORE_CREATE,
+      AMPLIFY_SYMBOL
+    );
   });
 
   it('should call Hub with error message if DataStore.save rejects', async () => {
@@ -57,18 +64,26 @@ describe('useDataStoreCreateAction', () => {
     await action();
 
     expect(hubDispatchSpy).toHaveBeenCalledTimes(2);
-    expect(hubDispatchSpy).toHaveBeenCalledWith(UI_CHANNEL, {
-      data: { fields: { name } },
-      event: ACTION_DATASTORE_CREATE_STARTED,
-      message: ACTION_DATASTORE_CREATE_STARTED_MESSAGE,
-    });
-    expect(hubDispatchSpy).toHaveBeenCalledWith(UI_CHANNEL, {
-      data: {
-        fields: { name },
-        errorMessage,
+    expect(hubDispatchSpy).toHaveBeenCalledWith(
+      UI_CHANNEL,
+      {
+        data: { fields: { name } },
+        event: ACTION_DATASTORE_CREATE_STARTED,
       },
-      event: ACTION_DATASTORE_CREATE_FINISHED,
-      message: ACTION_DATASTORE_CREATE_FINISHED_ERRORS_MESSAGE,
-    });
+      EVENT_ACTION_DATASTORE_CREATE,
+      AMPLIFY_SYMBOL
+    );
+    expect(hubDispatchSpy).toHaveBeenCalledWith(
+      UI_CHANNEL,
+      {
+        data: {
+          fields: { name },
+          errorMessage,
+        },
+        event: ACTION_DATASTORE_CREATE_FINISHED,
+      },
+      EVENT_ACTION_DATASTORE_CREATE,
+      AMPLIFY_SYMBOL
+    );
   });
 });
