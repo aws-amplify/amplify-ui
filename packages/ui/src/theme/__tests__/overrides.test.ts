@@ -54,7 +54,7 @@ describe('@aws-amplify/ui', () => {
     });
     it('should match snapshot', () => {
       expect(themeWithOverrides.cssText).toMatchInlineSnapshot(`
-        ":root, [data-amplify-theme=\\"test-theme\\"] {
+        "[data-amplify-theme=\\"test-theme\\"] {
         --amplify-components-alert-align-items: center;
         --amplify-components-alert-justify-content: space-between;
         --amplify-components-alert-color: var(--amplify-colors-font-primary);
