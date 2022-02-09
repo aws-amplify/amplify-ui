@@ -245,7 +245,7 @@ jobs:
         if: "${{ env.NOT_SECRET != '' }}"
         run: echo "::set-output name=defined::true"
         env:
-          MY_KEY: ${{ secrets.NOT_SECRET }}
+          NOT_SECRET: ${{ secrets.NOT_SECRET }}
 
       - name: exit 0 if secret is present
         if: steps.check-secret.outputs.defined == 'true'
