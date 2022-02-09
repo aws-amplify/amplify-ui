@@ -1,8 +1,10 @@
 {
   "private": true,
   "scripts": {
-    "clean": "turbo run clean && rm -rf node_modules/.cache",
     "build": "turbo run build --include-dependencies --no-deps --scope=*@aws-amplify/*",
+    "clean": "turbo run clean && rm -rf node_modules/.cache",
+    "setup": "yarn install && yarn build",
+    "refresh": "yarn clean && yarn setup",
     "angular": "yarn workspace @aws-amplify/ui-angular",
     "react": "yarn workspace @aws-amplify/ui-react",
     "ui": "yarn workspace @aws-amplify/ui",
@@ -56,6 +58,7 @@
     "json-schema": "^0.4.0",
     "node-forge": "1.0.0",
     "prismjs": "^1.25.0",
+    "prism-react-renderer": "1.2.1",
     "trim": "^0.0.3",
     "ts-jest": "^26.5.6",
     "vscode-vue-languageservice": "0.27.26",

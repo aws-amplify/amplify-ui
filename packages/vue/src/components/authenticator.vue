@@ -41,8 +41,10 @@ const {
   services,
   signUpAttributes,
   socialProviders,
+  hideSignUp,
 } = withDefaults(
   defineProps<{
+    hideSignUp?: boolean;
     initialState?: AuthenticatorMachineOptions['initialState'];
     loginMechanisms?: AuthenticatorMachineOptions['loginMechanisms'];
     services?: AuthenticatorMachineOptions['services'];
@@ -234,7 +236,7 @@ const hasTabs = computed(() => {
         data-amplify-router
         :data-amplify-router-content="hasTabs ? undefined : ''"
       >
-        <base-two-tabs v-if="hasTabs">
+        <base-two-tabs v-if="hasTabs && !hideSignUp">
           <base-two-tab-item
             :active="actorState?.matches('signIn')"
             :id="44472"
@@ -279,7 +281,7 @@ const hasTabs = computed(() => {
             </template>
           </sign-in>
           <sign-up
-            v-if="actorState?.matches('signUp')"
+            v-if="actorState?.matches('signUp') && !hideSignUp"
             @sign-up-submit="onSignUpSubmitI"
             ref="signUpComponent"
           >

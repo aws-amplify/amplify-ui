@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react",
-  "version": "2.2.2",
+  "version": "2.3.0",
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
   "exports": {
@@ -39,7 +39,7 @@
     "eslint:primitives": "eslint ./src/primitives --ext .js,.ts,.tsx",
     "update:icons": "node scripts/updateIcons.js",
     "build:icons": "yarn run clean:icons && node scripts/generateIcons.js",
-    "clean": "rimraf dist",
+    "clean": "rimraf dist node_modules",
     "clean:icons": "rimraf ./src/primitives/Icon/icons",
     "primitives:new": "hygen primitives new",
     "lint": "tsc --noEmit && yarn eslint:primitives",
@@ -84,6 +84,7 @@
     "hygen": "^6.1.0",
     "jest": "^27.0.4",
     "jest-matchmedia-mock": "^1.1.0",
+    "react-router-dom": "^6.2.1",
     "rimraf": "^3.0.2",
     "ts-jest": "^27.0.3",
     "ts-morph": "^12.0.0",
