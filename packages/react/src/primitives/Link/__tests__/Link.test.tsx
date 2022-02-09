@@ -45,7 +45,7 @@ function About() {
   return <Heading level={2}>You are on the about page</Heading>;
 }
 
-describe('Text: ', () => {
+describe('Link: ', () => {
   const linkText = 'My Link';
 
   it('renders correct defaults', async () => {
