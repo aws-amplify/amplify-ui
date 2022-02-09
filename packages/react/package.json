@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-react",
-  "version": "2.2.2",
+  "version": "2.3.0",
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
   "exports": {
