@@ -7129,7 +7129,7 @@ aws-amplify-react@latest:
     qrcode.react "^0.8.0"
     regenerator-runtime "^0.11.1"
 
-aws-amplify@^4.1.3, aws-amplify@latest:
+aws-amplify@latest:
   version "4.3.8"
   resolved "https://registry.yarnpkg.com/aws-amplify/-/aws-amplify-4.3.8.tgz#8e69bc0dbfb7f8dfe7b01b22a1b7e11037c5e610"
   integrity sha512-Hez6+46IpIiQiFvtk7FOG2zeWU5gKZnoJ6/BZjGKfae0xFiAEQeST0l2n2/9x8lqXZ59kOVvVDUxgEoQ+C5Y9g==
