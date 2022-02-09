@@ -9,7 +9,7 @@ jobs:
   test:
     # Only run this on non-fork PRs
     if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
-    uses: wlee221/amplify-ui/.github/workflows/tests.yml
+    uses: ./.github/workflows/tests.yml
     with:
       commit: ${{ github.event.pull_request.head.sha }}
       repository: ${{ github.repository }}
