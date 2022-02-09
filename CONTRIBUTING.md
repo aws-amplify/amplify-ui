@@ -49,7 +49,7 @@ You should open an issue to discuss your pull request, unless it's a trivial cha
 1. Once your work is committed, validate your changes according to [local development guides](#local-devleopment-guides).
 1. Push your branch with `git push origin -u`
 1. Open a PR against this repo from your newly published branch.
-1. Add a [changeset](https://github.com/changesets/changesets) that describes your changes. More info [here](https://github.com/changesets/changesets/blob/main/docs/adding-a-changeset.md). Please make sure that your changeset only bumps `@aws-amplify/*` packages and not any of private packages.
+1. Add a [changeset](https://github.com/changesets/changesets) that describes your changes. More info [here](https://github.com/changesets/changesets/blob/main/docs/adding-a-changeset.md). Please make sure that your changeset only bumps `@aws-amplify/*` packages and does not bump any of private packages like `docs`, `e2e`, `examples`, etc.
 1. Finally, Amplify UI team will review your PR. Add reviewers based on the core member who is tracking the issue with you or code owners. In the meantime, address any automated check that fail (such as linting, unit tests, etc. in CI)
 
 ## Project Structure
