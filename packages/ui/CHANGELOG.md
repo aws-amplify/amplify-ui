@@ -1,5 +1,11 @@
 # @aws-amplify/ui
 
+## 0.0.0-actions-d5d1775-20220209035722
+
+### Patch Changes
+
+- Force update of all packages for actions
+
 ## 0.0.0-actions-1bf892b-20220203214717
 
 ### Patch Changes

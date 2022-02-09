@@ -1,5 +1,12 @@
 # @aws-amplify/ui-react
 
+## 0.0.0-actions-d5d1775-20220209035722
+
+### Patch Changes
+
+- Updated dependencies
+  - @aws-amplify/ui@0.0.0-actions-d5d1775-20220209035722
+
 ## 0.0.0-actions-1bf892b-20220203214717
 
 ### Patch Changes

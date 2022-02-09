@@ -1,6 +1,6 @@
 {
   "name": "angular-example",
-  "version": "0.0.0-actions-1bf892b-20220203214717",
+  "version": "0.0.0-actions-d5d1775-20220209035722",
   "scripts": {
     "ng": "ng",
     "dev": "ng serve --port 3000",
@@ -20,7 +20,7 @@
     "@angular/platform-browser": "~11.2.14",
     "@angular/platform-browser-dynamic": "~11.2.14",
     "@angular/router": "~11.2.14",
-    "@aws-amplify/ui-angular": "^0.0.0-actions-1bf892b-20220203214717",
+    "@aws-amplify/ui-angular": "^0.0.0-actions-d5d1775-20220209035722",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.3"
