@@ -18,7 +18,7 @@ export interface FragmentProps {
   /**
    * If true, all JS frameworks (react, vue, angular) will be treated as a single platform named 'js'
    */
-  consolidateJsFrameworks?: boolean;
+  useCommonJsContent?: boolean;
   children: ({ platform: string }) => LoaderComponent;
 }
 
@@ -42,11 +42,11 @@ const shouldRenderFragment = (
 export const Fragment = ({
   children,
   platforms,
-  consolidateJsFrameworks,
+  useCommonJsContent,
 }: FragmentProps) => {
   const { query } = useRouter();
   const framework = (query.platform as string) ?? 'react';
-  const platform = getPlatform(framework, consolidateJsFrameworks);
+  const platform = getPlatform(framework, useCommonJsContent);
   const Component = React.useMemo(() => {
     if (!shouldRenderFragment(platforms, platform)) {
       return null;
@@ -86,8 +86,8 @@ export const Fragment = ({
   return Component ? <Component /> : null;
 };
 
-function getPlatform(framework = 'react', consolidateJsFrameworks = false) {
-  if (!consolidateJsFrameworks) {
+function getPlatform(framework = 'react', useCommonJsContent = false) {
+  if (!useCommonJsContent) {
     return framework;
   }
   if (['react', 'vue', 'angular'].includes(framework)) {

@@ -17,11 +17,11 @@ import { Fragment } from '@/components/Fragment';
   {({ platform }) => import(`./dependencies.${platform}.mdx`)}
 </Fragment>
 
-<Fragment platforms={['angular', 'react', 'vue']} consolidateJsFrameworks>
+<Fragment platforms={['angular', 'react', 'vue']} useCommonJsContent>
   {() => import(`./styles.${platform}.mdx`)}
 </Fragment>
 
-<Fragment platforms={['angular', 'react', 'vue']} consolidateJsFrameworks>
+<Fragment platforms={['angular', 'react', 'vue']} useCommonJsContent>
   {() => import(`./fonts.${platform}.mdx`)}
 </Fragment>
 
