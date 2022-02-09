@@ -1,15 +1,14 @@
 import { DataStore, Hub } from 'aws-amplify';
 
 import {
-  ACTIONS_CHANNEL,
   ACTION_DATASTORE_DELETE_FINISHED,
-  ACTION_DATASTORE_DELETE_FINISHED_ERRORS_MESSAGE,
-  ACTION_DATASTORE_DELETE_FINISHED_MESSAGE,
   ACTION_DATASTORE_DELETE_STARTED,
-  ACTION_DATASTORE_DELETE_STARTED_MESSAGE,
+  EVENT_ACTION_DATASTORE_DELETE,
+  UI_CHANNEL,
 } from '../constants';
 import { Todo } from '../testShared';
 import { useDataStoreDeleteAction } from '../useDataStoreDeleteAction';
+import { AMPLIFY_SYMBOL } from '../../../helpers/constants';
 
 jest.mock('aws-amplify');
 
@@ -37,16 +36,24 @@ describe('useDataStoreDeleteAction', () => {
 
     await action();
     expect(hubDispatchSpy).toHaveBeenCalledTimes(2);
-    expect(hubDispatchSpy).toHaveBeenCalledWith(ACTIONS_CHANNEL, {
-      data: { id },
-      event: ACTION_DATASTORE_DELETE_STARTED,
-      message: ACTION_DATASTORE_DELETE_STARTED_MESSAGE,
-    });
-    expect(hubDispatchSpy).toHaveBeenCalledWith(ACTIONS_CHANNEL, {
-      data: { id },
-      event: ACTION_DATASTORE_DELETE_FINISHED,
-      message: ACTION_DATASTORE_DELETE_FINISHED_MESSAGE,
-    });
+    expect(hubDispatchSpy).toHaveBeenCalledWith(
+      UI_CHANNEL,
+      {
+        data: { id },
+        event: ACTION_DATASTORE_DELETE_STARTED,
+      },
+      EVENT_ACTION_DATASTORE_DELETE,
+      AMPLIFY_SYMBOL
+    );
+    expect(hubDispatchSpy).toHaveBeenCalledWith(
+      UI_CHANNEL,
+      {
+        data: { id },
+        event: ACTION_DATASTORE_DELETE_FINISHED,
+      },
+      EVENT_ACTION_DATASTORE_DELETE,
+      AMPLIFY_SYMBOL
+    );
   });
 
   it('should call Hub with error message if DataStore.delete rejects', async () => {
@@ -58,18 +65,26 @@ describe('useDataStoreDeleteAction', () => {
     await action();
 
     expect(hubDispatchSpy).toHaveBeenCalledTimes(2);
-    expect(hubDispatchSpy).toHaveBeenCalledWith(ACTIONS_CHANNEL, {
-      data: { id },
-      event: ACTION_DATASTORE_DELETE_STARTED,
-      message: ACTION_DATASTORE_DELETE_STARTED_MESSAGE,
-    });
-    expect(hubDispatchSpy).toHaveBeenCalledWith(ACTIONS_CHANNEL, {
-      data: {
-        id,
-        errorMessage,
+    expect(hubDispatchSpy).toHaveBeenCalledWith(
+      UI_CHANNEL,
+      {
+        data: { id },
+        event: ACTION_DATASTORE_DELETE_STARTED,
       },
-      event: ACTION_DATASTORE_DELETE_FINISHED,
-      message: ACTION_DATASTORE_DELETE_FINISHED_ERRORS_MESSAGE,
-    });
+      EVENT_ACTION_DATASTORE_DELETE,
+      AMPLIFY_SYMBOL
+    );
+    expect(hubDispatchSpy).toHaveBeenCalledWith(
+      UI_CHANNEL,
+      {
+        data: {
+          id,
+          errorMessage,
+        },
+        event: ACTION_DATASTORE_DELETE_FINISHED,
+      },
+      EVENT_ACTION_DATASTORE_DELETE,
+      AMPLIFY_SYMBOL
+    );
   });
 });

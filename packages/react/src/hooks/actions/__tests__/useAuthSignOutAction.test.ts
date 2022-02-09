@@ -2,10 +2,12 @@ import { useAuthSignOutAction } from '../useAuthSignOutAction';
 
 import { Auth, Hub } from 'aws-amplify';
 import {
-  ACTIONS_CHANNEL,
   ACTION_AUTH_SIGNOUT_FINISHED,
   ACTION_AUTH_SIGNOUT_STARTED,
+  EVENT_ACTION_AUTH_SIGNOUT,
+  UI_CHANNEL,
 } from '../constants';
+import { AMPLIFY_SYMBOL } from '../../../helpers/constants';
 
 jest.mock('aws-amplify');
 
@@ -27,14 +29,24 @@ describe('useAuthSignOutAction', () => {
 
     await authSignOutAction();
     expect(hubDispatchSpy).toHaveBeenCalledTimes(2);
-    expect(hubDispatchSpy).toHaveBeenCalledWith(ACTIONS_CHANNEL, {
-      data: { options: undefined },
-      event: ACTION_AUTH_SIGNOUT_STARTED,
-    });
-    expect(hubDispatchSpy).toHaveBeenCalledWith(ACTIONS_CHANNEL, {
-      data: { options: undefined },
-      event: ACTION_AUTH_SIGNOUT_FINISHED,
-    });
+    expect(hubDispatchSpy).toHaveBeenCalledWith(
+      UI_CHANNEL,
+      {
+        data: { options: undefined },
+        event: ACTION_AUTH_SIGNOUT_STARTED,
+      },
+      EVENT_ACTION_AUTH_SIGNOUT,
+      AMPLIFY_SYMBOL
+    );
+    expect(hubDispatchSpy).toHaveBeenCalledWith(
+      UI_CHANNEL,
+      {
+        data: { options: undefined },
+        event: ACTION_AUTH_SIGNOUT_FINISHED,
+      },
+      EVENT_ACTION_AUTH_SIGNOUT,
+      AMPLIFY_SYMBOL
+    );
   });
 
   it('should call Hub with started and finished events with options', async () => {
@@ -42,13 +54,23 @@ describe('useAuthSignOutAction', () => {
 
     await authSignOutAction();
     expect(hubDispatchSpy).toHaveBeenCalledTimes(2);
-    expect(hubDispatchSpy).toHaveBeenCalledWith(ACTIONS_CHANNEL, {
-      data: { options: { global: true } },
-      event: ACTION_AUTH_SIGNOUT_STARTED,
-    });
-    expect(hubDispatchSpy).toHaveBeenCalledWith(ACTIONS_CHANNEL, {
-      data: { options: { global: true } },
-      event: ACTION_AUTH_SIGNOUT_FINISHED,
-    });
+    expect(hubDispatchSpy).toHaveBeenCalledWith(
+      UI_CHANNEL,
+      {
+        data: { options: { global: true } },
+        event: ACTION_AUTH_SIGNOUT_STARTED,
+      },
+      EVENT_ACTION_AUTH_SIGNOUT,
+      AMPLIFY_SYMBOL
+    );
+    expect(hubDispatchSpy).toHaveBeenCalledWith(
+      UI_CHANNEL,
+      {
+        data: { options: { global: true } },
+        event: ACTION_AUTH_SIGNOUT_FINISHED,
+      },
+      EVENT_ACTION_AUTH_SIGNOUT,
+      AMPLIFY_SYMBOL
+    );
   });
 });

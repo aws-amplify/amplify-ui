@@ -2,15 +2,17 @@ import { Hub } from 'aws-amplify';
 import { renderHook } from '@testing-library/react-hooks';
 
 import {
-  ACTIONS_CHANNEL,
   ACTION_NAVIGATE_FINISHED,
   ACTION_NAVIGATE_STARTED,
+  EVENT_ACTION_CORE_NAVIGATE,
+  UI_CHANNEL,
 } from '../constants';
 import {
   defaultTarget,
   useNavigateAction,
   UseNavigateActionOptions,
 } from '../useNavigateAction';
+import { AMPLIFY_SYMBOL } from '../../../helpers/constants';
 
 jest.mock('aws-amplify');
 
@@ -26,14 +28,24 @@ describe('useNavigateHook: ', () => {
 
   const testHubEventEmit = (data: UseNavigateActionOptions) => {
     expect(Hub.dispatch).toHaveBeenCalledTimes(2);
-    expect(Hub.dispatch).toHaveBeenCalledWith(ACTIONS_CHANNEL, {
-      event: ACTION_NAVIGATE_STARTED,
-      data,
-    });
-    expect(Hub.dispatch).toHaveBeenLastCalledWith(ACTIONS_CHANNEL, {
-      event: ACTION_NAVIGATE_FINISHED,
-      data,
-    });
+    expect(Hub.dispatch).toHaveBeenCalledWith(
+      UI_CHANNEL,
+      {
+        event: ACTION_NAVIGATE_STARTED,
+        data,
+      },
+      EVENT_ACTION_CORE_NAVIGATE,
+      AMPLIFY_SYMBOL
+    );
+    expect(Hub.dispatch).toHaveBeenLastCalledWith(
+      UI_CHANNEL,
+      {
+        event: ACTION_NAVIGATE_FINISHED,
+        data,
+      },
+      EVENT_ACTION_CORE_NAVIGATE,
+      AMPLIFY_SYMBOL
+    );
   };
 
   it('Should call window.open', () => {
