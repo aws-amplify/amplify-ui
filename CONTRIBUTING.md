@@ -7,7 +7,7 @@ Please read through these guidelines carefully before submitting a PR and let us
 ## Table of Contents
 
 - [Bug Reports](#bug-reports)
-- [Pull requests](#getting-started)
+- [Pull Requests](#pull-requests)
 - [Project Structure](#project-structure)
 - [Local Development Guides](#local-devleopment-guides)
 - [Publishing](#publishing)
