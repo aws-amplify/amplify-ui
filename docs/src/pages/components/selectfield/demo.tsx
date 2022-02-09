@@ -1,36 +1,71 @@
 import * as React from 'react';
 
-import { SelectField, Flex } from '@aws-amplify/ui-react';
+import { SelectField } from '@aws-amplify/ui-react';
+import { useSelectFieldProps } from './useSelectFieldProps';
+import { SelectFieldPropControls } from './SelectFieldPropControls';
+import { Demo } from '@/components/Demo';
 
-import { SelectFieldPropControls } from '@/components/SelectFieldPropControls';
-import { useSelectFieldProps } from '@/components/useSelectFieldProps';
-
-export const SelectDemo = () => {
-  const selectProps = useSelectFieldProps({
-    label: '',
-    labelHidden: false,
-    hasError: false,
-  });
+const propsToCode = (selectFieldProps) => {
   return (
-    <Flex direction="column">
-      <SelectFieldPropControls {...selectProps} />
+    `<SelectField` +
+    `\n  label=${JSON.stringify(selectFieldProps.label)}` +
+    (selectFieldProps.placeholder
+      ? `\n  placeholder=${JSON.stringify(selectFieldProps.placeholder)}`
+      : '') +
+    (selectFieldProps.size
+      ? `\n  size=${JSON.stringify(selectFieldProps.size)}`
+      : '') +
+    (selectFieldProps.variation
+      ? `\n  variation=${JSON.stringify(selectFieldProps.variation)}`
+      : '') +
+    (selectFieldProps.descriptiveText
+      ? `\n  descriptiveText=${JSON.stringify(
+          selectFieldProps.descriptiveText
+        )}`
+      : '') +
+    (selectFieldProps.errorMessage
+      ? `\n  errorMessage=${JSON.stringify(selectFieldProps.errorMessage)}`
+      : '') +
+    (selectFieldProps.labelHidden
+      ? `\n  labelHidden={${JSON.stringify(selectFieldProps.labelHidden)}}`
+      : '') +
+    (selectFieldProps.isDisabled
+      ? `\n  isDisabled={${JSON.stringify(selectFieldProps.isDisabled)}}`
+      : '') +
+    `\n/>`
+  );
+};
+
+export const SelectFieldDemo = () => {
+  const selectFieldProps = useSelectFieldProps({
+    descriptiveText: "What's your favorite fruit?",
+    hasError: false,
+    label: 'Fruit',
+    labelHidden: false,
+  });
+
+  return (
+    <Demo
+      code={propsToCode(selectFieldProps)}
+      propControls={<SelectFieldPropControls {...selectFieldProps} />}
+    >
       <SelectField
         name="fruits"
-        descriptiveText={selectProps.descriptiveText}
-        errorMessage={selectProps.errorMessage}
-        hasError={selectProps.hasError}
-        isDisabled={selectProps.isDisabled}
-        label={selectProps.label}
-        labelHidden={selectProps.labelHidden}
+        descriptiveText={selectFieldProps.descriptiveText}
+        errorMessage={selectFieldProps.errorMessage}
+        hasError={selectFieldProps.hasError}
+        isDisabled={selectFieldProps.isDisabled}
+        label={selectFieldProps.label}
+        labelHidden={selectFieldProps.labelHidden}
         placeholder="Please select a fruit"
-        size={selectProps.size}
-        variation={selectProps.variation}
+        size={selectFieldProps.size}
+        variation={selectFieldProps.variation}
       >
         <option value="apple">Apple</option>
         <option value="banana">Banana</option>
         <option value="orange">Orange</option>
       </SelectField>
-    </Flex>
+    </Demo>
   );
 };
 
