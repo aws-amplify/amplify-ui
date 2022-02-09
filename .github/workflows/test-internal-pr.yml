@@ -9,7 +9,7 @@ jobs:
   test:
     # Only run this on non-fork PRs
     if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
-    uses: wlee221/amplify-ui/.github/workflows/tests.yml@main
+    uses: wlee221/amplify-ui/.github/workflows/tests.yml
     with:
       commit: ${{ github.event.pull_request.head.sha }}
       repository: ${{ github.repository }}
@@ -22,3 +22,14 @@ jobs:
       NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
       VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
       NOT_SECRET: ${{ secrets.NOT_SECRET }}
+  on-success:
+    runs-on: ubuntu-latest
+    needs: test
+    if: ${{ success() }}
+    steps:
+      - name: Create success status check
+        uses: actions/github-script@0.3.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            console.log(context);
