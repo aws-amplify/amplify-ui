@@ -4063,11 +4063,6 @@
   dependencies:
     "@hapi/hoek" "^9.0.0"
 
-"@headlessui/react@^1.2.0":
-  version "1.4.2"
-  resolved "https://registry.yarnpkg.com/@headlessui/react/-/react-1.4.2.tgz#87e264f190dbebbf8dfdd900530da973dad24576"
-  integrity sha512-N8tv7kLhg9qGKBkVdtg572BvKvWhmiudmeEpOCyNwzOsZHCXBtl8AazGikIfUS+vBoub20Fse3BjawXDVPPdug==
-
 "@heroicons/react@^1.0.1":
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/@heroicons/react/-/react-1.0.5.tgz#2fe4df9d33eb6ce6d5178a0f862e97b61c01e27d"
@@ -18520,15 +18515,10 @@ pretty@2.0.0:
     extend-shallow "^2.0.1"
     js-beautify "^1.6.12"
 
-prism-react-renderer@^1.1.1, prism-react-renderer@^1.2.1:
+prism-react-renderer@1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/prism-react-renderer/-/prism-react-renderer-1.2.1.tgz#392460acf63540960e5e3caa699d851264e99b89"
   integrity sha512-w23ch4f75V1Tnz8DajsYKvY5lF7H1+WvzvLUcF0paFxkTHSp42RS0H5CttdN2Q8RR3DRGZ9v5xD/h3n8C8kGmg==
-
-prism-theme-night-owl@^1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/prism-theme-night-owl/-/prism-theme-night-owl-1.4.0.tgz#af8a215ba75c081e22e74be41661dc40d7ad0c34"
-  integrity sha512-1N1GVbVorGd5t1Vw76yL/3rhqdiCpDrJg26Is+jGeMV7qiIMZL+bC7Mjx7HMMuVKZoi+2nWSbU5IutBYNy9tiQ==
 
 prismjs@^1.25.0, prismjs@~1.23.0:
   version "1.26.0"
@@ -19063,29 +19053,6 @@ react-remove-scroll@^2.4.0:
     tslib "^1.0.0"
     use-callback-ref "^1.2.3"
     use-sidecar "^1.0.1"
-
-react-smooshpack@^1.0.0-alpha-31:
-  version "1.0.0-beta-5"
-  resolved "https://registry.yarnpkg.com/react-smooshpack/-/react-smooshpack-1.0.0-beta-5.tgz#989b7599888c6ef74277ad8715c0f0edbd47a0c5"
-  integrity sha512-9L2WadF9CV4J+ogmX4lASvGXMekT1eFyv1MCBqwBH8Scbx41f0x7GY+lUMFc6YTVGEkJLYs35M9DYBFYqOdWlQ==
-  dependencies:
-    "@code-hike/classer" "^0.0.0-aa6efee"
-    "@codemirror/closebrackets" "^0.18.0"
-    "@codemirror/commands" "^0.18.0"
-    "@codemirror/comment" "^0.18.0"
-    "@codemirror/gutter" "^0.18.0"
-    "@codemirror/highlight" "^0.18.0"
-    "@codemirror/history" "^0.18.0"
-    "@codemirror/lang-css" "^0.18.0"
-    "@codemirror/lang-html" "^0.18.0"
-    "@codemirror/lang-javascript" "^0.18.0"
-    "@codemirror/language" "^0.18.0"
-    "@codemirror/matchbrackets" "^0.18.0"
-    "@codemirror/state" "^0.18.0"
-    "@codemirror/view" "^0.18.0"
-    codesandbox-import-utils "^1.2.3"
-    prism-react-renderer "^1.1.1"
-    smooshpack "1.0.0-beta-5"
 
 react-style-singleton@^2.1.0:
   version "2.1.1"
@@ -20351,14 +20318,6 @@ smartwrap@^1.2.3:
     strip-ansi "^6.0.0"
     wcwidth "^1.0.1"
     yargs "^15.1.0"
-
-smooshpack@1.0.0-beta-5:
-  version "1.0.0-beta-5"
-  resolved "https://registry.yarnpkg.com/smooshpack/-/smooshpack-1.0.0-beta-5.tgz#f112b2ad68093884fda6170fdaf91ecb051a2bd2"
-  integrity sha512-DszOdnRY90R8A6y8DCL96f9BE6bEaMBRWJoaL5I3XfvbxxTi6PdPGfgFLp77uWlx3rHDLNIe2Uvnib1nRRFROA==
-  dependencies:
-    codesandbox-import-utils "^1.2.3"
-    lodash.isequal "^4.5.0"
 
 snake-case@^2.1.0:
   version "2.1.0"
