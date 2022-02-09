@@ -12,6 +12,7 @@
     "angular-example": "yarn workspace angular-example",
     "docs": "yarn workspace docs",
     "next-example": "yarn workspace next-example",
+    "react-example": "yarn workspace next-example",
     "vue-example": "yarn workspace vue-example",
     "e2e": "yarn workspace e2e",
     "environments": "yarn workspace environments",
