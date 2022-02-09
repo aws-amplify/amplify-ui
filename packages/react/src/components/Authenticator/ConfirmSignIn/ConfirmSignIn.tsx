@@ -28,7 +28,9 @@ export const ConfirmSignIn = (): JSX.Element => {
       break;
     default:
       throw new Error(
-        `Unexpected challengeName encountered in ConfirmSignIn: ${challengeName}`
+        `${translate(
+          'Unexpected challengeName encountered in ConfirmSignIn:'
+        )} ${challengeName}`
       );
   }
   const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
@@ -67,7 +69,7 @@ export const ConfirmSignIn = (): JSX.Element => {
         <Heading level={3}>{headerText}</Heading>
 
         <Flex direction="column">
-          <ConfirmationCodeInput errorText={error} />
+          <ConfirmationCodeInput errorText={translate(error)} />
         </Flex>
 
         <ConfirmSignInFooter />

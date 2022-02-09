@@ -1,17 +1,28 @@
-import { TextField, Flex, PasswordField, Button } from '@aws-amplify/ui-react';
+import { TextField } from '@aws-amplify/ui-react';
+
 import { TextFieldDemo } from './demo';
 import {
-  DescriptiveTextFieldExample,
+  DefaultRequiredTextFieldExample,
+  DefaultTextAreaExample,
+  DefaultTextFieldExample,
   RequiredTextFieldExample,
-  TextFieldStyledPropsExample,
-  TextFieldStartEndComponentsExample,
-  TextFieldStartEndIconExample,
-  TextFieldStartEndComponentAndIconExample,
+  TextAreaMaxLengthExample,
+  TextAreaResizableExample,
+  TextAreaRowsExample,
+  TextAreaSizeExample,
+  TextFieldAccessibilityExample,
+  TextFieldDescriptiveTextExample,
+  TextFieldInnerComponentsExample,
+  TextFieldOuterAndInnerComponentsExample,
+  TextFieldOuterComponentsExample,
+  TextFieldSizeExample,
+  TextFieldStatesExample,
+  TextFieldStylePropsExample,
+  TextFieldValidationErrorExample,
+  TextFieldVariationExample,
 } from './examples';
-import { Example } from '@/components/Example';
+import { Example, ExampleCode } from '@/components/Example';
 import { Fragment } from '@/components/Fragment';
-
-The `TextField` form primitive can be used allow users to input text content.
 
 ## Demo
 
@@ -21,259 +32,140 @@ The `TextField` form primitive can be used allow users to input text content.
 
 Import the `TextField` component and styles and provide a `label` for accessibility/usability.
 
-```jsx
-import { TextField } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-<TextField
-  label="Name"
-  placeholder="Galadriel"
-  descriptiveText="Please enter valid name"
-/>;
-```
-
 <Example>
-  <TextField
-    label="Name"
-    placeholder="Galadriel"
-    descriptiveText="Please enter valid name"
-  />
+  <DefaultTextFieldExample />
+  <ExampleCode>
+    ```jsx file=./examples/DefaultTextFieldExample.tsx
+
+    ```
+
+</ExampleCode>
 </Example>
 
 ### Accessibility / Label behavior
 
 <Fragment>{() => import('./../shared/formFieldAccessibility.mdx')}</Fragment>
 
-```jsx
-<Flex>
-  <TextField label="Search" labelHidden={true} />
-  <Button>Search</Button>
-</Flex>
-```
-
 <Example>
-  <Flex>
-    <TextField label="Search" labelHidden={true} />
-    <Button>Search</Button>
-  </Flex>
+  <TextFieldAccessibilityExample />
+  <ExampleCode>
+    ```jsx file=./examples/TextFieldAccessibilityExample.tsx 
+    
+    ```
+
+  </ExampleCode>
 </Example>
 
 ### Sizes
 
 TextField sizes are designed to match styling of other field components such as buttons. There are three sizes: small, (default), and large.
 
-```jsx
-<Flex>
-  <TextField label="Small" size="small" labelHidden/>
-  <Button size="small">Small</Button>
-</Flex>
-
-<Flex>
-  <TextField label="Default" labelHidden/>
-  <Button>Default</Button>
-</Flex>
-
-<Flex>
-  <TextField label="Large" size="large" labelHidden/>
-  <Button size="large">Large</Button>
-</Flex>
-```
-
 <Example>
-  <Flex direction="column" gap="1rem">
-    <Flex>
-      <TextField label="Small" size="small" labelHidden />
-      <Button size="small">Small</Button>
-    </Flex>
-    <Flex>
-      <TextField label="Default" labelHidden />
-      <Button>Default</Button>
-    </Flex>
-    <Flex>
-      <TextField label="Large" size="large" labelHidden />
-      <Button size="large">Large</Button>
-    </Flex>
-  </Flex>
+  <TextFieldSizeExample />
+  <ExampleCode>
+    ```jsx file=./examples/TextFieldSizeExample.tsx
+
+    ```
+
+  </ExampleCode>
 </Example>
 
 ### Variations
 
 There are two variation styles available: default and `quiet`.
 
-```jsx
-<TextField label="Default" />
-<TextField label="Quiet"  variation="quiet"/>
-```
-
 <Example>
-  <TextField label="Default" />
-  <TextField label="Quiet" variation="quiet" />
+  <TextFieldVariationExample />
+  <ExampleCode>
+  ```jsx file=./examples/TextFieldVariationExample.tsx
+  ```
+  </ExampleCode>
+
 </Example>
 
 ### Multiline textarea
 
 To render a multi-line `textarea`, set the `isMultiline` prop to `true`.
 
-```jsx
-<TextField label="Comments" isMultiline={true} />
-```
-
 <Example>
-  <TextField label="Comments" isMultiline={true} />
+  <DefaultTextAreaExample />
+  <ExampleCode>
+    ```jsx file=./examples/DefaultTextAreaExample.tsx
+    
+    ```
+
+  </ExampleCode>
 </Example>
 
 #### Resizeable
 
 For a resizeable multiline field, use `resize` prop. Common values are `horizontal`, `vertical`, `both`. See [MDN resize docs](https://developer.mozilla.org/en-US/docs/Web/CSS/resize) for supported values.
 
-```jsx
-<TextField
-  label="Address"
-  placeholder="1234 Main St."
-  descriptiveText="Please enter a USPS validated address"
-  isMultiline={true}
-  resize="vertical"
-/>
-```
-
 <Example>
-  <TextField
-    label="Address"
-    placeholder="1234 Main St."
-    descriptiveText="Please enter a USPS validated address"
-    isMultiline={true}
-    resize="vertical"
-  />
+  <TextAreaResizableExample />
+  <ExampleCode>
+    ```jsx file=./examples/TextAreaResizableExample.tsx
+
+    ```
+
+  </ExampleCode>
 </Example>
 
 #### Size
 
 To change the general size, use the `size` prop. Available options are `small`, none (default), and `large`.
 
-```jsx
-<TextField
-  label="Small"
-  isMultiline={true}
-  size="small"
-  defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-/>
-
-<TextField
-  label="Default"
-  isMultiline={true}
-  defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-/>
-<TextField
-  label="Large"
-  isMultiline={true}
-  size="large"
-  defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-/>
-```
-
 <Example>
-  <Flex direction="column" gap="1.5rem">
-    <TextField
-      label="Small"
-      isMultiline={true}
-      size="small"
-      defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-    />
+  <TextAreaSizeExample />
+  <ExampleCode>
+    ```jsx file=./examples/TextAreaSizeExample.tsx
 
-    <TextField
-      label="Default"
-      isMultiline={true}
-      defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-    />
-    <TextField
-      label="Large"
-      isMultiline={true}
-      size="large"
-      defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-    />
+    ```
 
-  </Flex>
+  </ExampleCode>
 </Example>
 
 #### Rows
 
 To change the number of rows of text displayed, use the `rows` prop with desired number.
 
-```jsx
-<TextField
-  label="6 rows"
-  isMultiline={true}
-  rows={6}
-  defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-/>
-```
-
 <Example>
-  <TextField
-    label="6 rows"
-    isMultiline={true}
-    rows={6}
-    defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-  />
+  <TextAreaRowsExample />
+  <ExampleCode>
+    ```jsx file=./examples/TextAreaRowsExample.tsx
+
+    ```
+
+  </ExampleCode>
 </Example>
 
 #### Maximum length
 
 To enforce a maximum length of multiline text, use the `maxLength` prop.
 
-```jsx
-<TextField
-  label="Maximum length of 100 characters"
-  isMultiline={true}
-  defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut laboree"
-  maxLength={100}
-/>
-```
-
 <Example>
-  <TextField
-    label="Maximum length of 100 characters"
-    isMultiline={true}
-    defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut laboree"
-    maxLength={100}
-  />
+  <TextAreaMaxLengthExample />
+  <ExampleCode>
+    ```jsx file=./examples/TextAreaMaxLengthExample.tsx
+
+    ```
+
+  </ExampleCode>
 </Example>
 
 ### Outer components
 
 Compose field components such as `Button` and `Select` at the start or end of an TextField input using the `outerStartComponent` or `outerEndComponent` props.
 
-```jsx
-<Flex gap="1rem" direction="column">
-  <TextField label="Start" outerStartComponent={<Button>Start</Button>} />
-  <TextField
-    label="Start and End"
-    outerStartComponent={<Button>Start</Button>}
-    outerEndComponent={<Button>End</Button>}
-  />
-  <TextField label="End" outerEndComponent={<Button>End</Button>} />
-  <TextField
-    label="Multiple End"
-    outerEndComponent={
-      <>
-        <Button>End</Button>
-        <Button>End</Button>
-      </>
-    }
-  />
-  <TextField
-    label="Multiple Start"
-    outerStartComponent={
-      <>
-        <Button>Start</Button>
-        <Button>Start</Button>
-      </>
-    }
-  />
-</Flex>
-```
+<Example>
+  <TextFieldOuterComponentsExample />
+  <ExampleCode>
+    ```jsx file=./examples/TextFieldOuterComponentsExample.tsx
 
-<TextFieldStartEndComponentsExample />
+    ```
+
+  </ExampleCode>
+</Example>
 
 ### Inner components (icons)
 
@@ -282,196 +174,94 @@ To create an interactive icon button, use the `FieldGroupIconButton` component. 
 
 Note: When clicked, `FieldGroupIcon` will focus the field, whereas the `FieldGroupIconButton` will trigger its `onClick` event.
 
-```jsx
-<Flex gap="1rem" direction="column">
-  <TextField
-    label="Start and End"
-    innerStartComponent={
-      <FieldGroupIcon ariaLabel="">
-        {/** Accessibility tip: pass empty ariaLabel for decorative icons. */}
-        <IconInfo />
-      </FieldGroupIcon>
-    }
-    innerEndComponent={
-      <FieldGroupIconButton
-        ariaLabel="Search"
-        variation="link"
-        onClick={() => alert('😎')}
-      >
-        <IconSearch />
-      </FieldGroupIconButton>
-    }
-  />
-</Flex>
-```
-
 <Example>
-  <TextFieldStartEndIconExample />
+  <TextFieldInnerComponentsExample />
+  <ExampleCode>
+    ```jsx file=./examples/TextFieldInnerComponentsExample.tsx
+
+    ```
+
+  </ExampleCode>
 </Example>
 
 _You can also both inner and outer components together_
 
-```jsx
-<Flex gap="1rem" direction="column">
-  <TextField
-    label="Start and End inner and outer components"
-    outerStartComponent={<Button>Start</Button>}
-    outerEndComponent={<Button>End</Button>}
-    innerStartComponent={
-      <FieldGroupIcon ariaLabel="">
-        {/** Accessibility tip: pass empty ariaLabel for decorative icons. */}
-        <IconInfo />
-      </FieldGroupIcon>
-    }
-    innerEndComponent={
-      <FieldGroupIconButton
-        ariaLabel="Search"
-        variation="link"
-        onClick={() => alert('😎')}
-      >
-        <IconSearch />
-      </FieldGroupIconButton>
-    }
-  />
-</Flex>
-```
-
 <Example>
-  <TextFieldStartEndComponentAndIconExample />
+  <TextFieldOuterAndInnerComponentsExample />
+  <ExampleCode>
+    ```jsx file=./examples/TextFieldOuterAndInnerComponentsExample.tsx
+
+    ```
+
+  </ExampleCode>
 </Example>
 
 ### Descriptive text
 
 To provide additional descriptive text of requirements of the field, use the `descriptiveText` field:
 
-```jsx
-<TextField
-  type="password"
-  label="Password"
-  descriptiveText={
-    <Text as="span" color="rebeccapurple" fontStyle="italic" fontSize="0.8rem">
-      Password length must be greater than 8 characters
-    </Text>
-  }
-/>
-```
-
 <Example>
-  <DescriptiveTextFieldExample />
+  <TextFieldDescriptiveTextExample />
+  <ExampleCode>
+    ```jsx file=./examples/TextFieldDescriptiveTextExample.tsx
+
+    ```
+
+  </ExampleCode>
 </Example>
 
 ### States
 
 The available TextField states include `isDisabled` and `isReadonly`. A disabled field will be not be focusable not mutable and will not be submitted with form data. A readonly field cannot be edited by the user.
 
-```jsx
-<TextField label="Disabled" defaultValue="Disabled" isDisabled={true} />
-<TextField label="Readonly" defaultValue="You can't edit me!" isReadOnly={true} />
-```
-
 <Example>
-  <Flex direction="column" gap="1rem">
-    <TextField label="Disabled" defaultValue="Disabled" isDisabled={true} />
-    <TextField
-      label="Readonly"
-      defaultValue="You can't edit me!"
-      isReadOnly={true}
-    />
-  </Flex>
+  <TextFieldStatesExample />
+  <ExampleCode>
+    ```jsx file=./examples/TextFieldStatesExample.tsx
+
+    ```
+
+  </ExampleCode>
 </Example>
 
 ### Required fields
 
 Use the `isRequired` prop to specify a required field.
 
-```jsx
-<Flex as="form" direction="column" width="20rem">
-  <TextField label="Email" type="email" isRequired={true} />
-  <Button type="submit">Submit</Button>
-</Flex>
-```
-
 <Example>
-  <Flex as="form" direction="column" width="20rem">
-    <TextField label="Email" type="email" isRequired={true} />
-    <Button type="submit">Submit</Button>
-  </Flex>
+  <DefaultRequiredTextFieldExample />
+  <ExampleCode>
+    ```jsx file=./examples/DefaultRequiredTextFieldExample.tsx
+
+    ```
+
+  </ExampleCode>
 </Example>
 
 There is no default styling for required fields. Customize the `label` or `descriptiveText` to instruct the form user of the required field.
 
-```jsx
-<Flex as="form" direction="column" width="20rem">
-  <TextField
-    label={
-      <Text>
-        Email
-        <Text as="span" fontSize="0.8rem" color="red">
-          {' '}
-          (required)
-        </Text>
-      </Text>
-    }
-    type="email"
-    isRequired={true}
-  />
-  <TextField
-    label="Password"
-    type="password"
-    descriptiveText={
-      <Text as="span" fontSize="0.8rem" color="red" fontStyle="italic">
-        Required
-      </Text>
-    }
-    type="email"
-    isRequired={true}
-  />
-  <Button type="submit">Submit</Button>
-</Flex>
-```
-
 <Example>
   <RequiredTextFieldExample />
+  <ExampleCode>
+    ```jsx file=./examples/RequiredTextFieldExample.tsx
+
+    ```
+
+  </ExampleCode>
 </Example>
 
 ### Validation error styling
 
 Use the `hasError` and `errorMessage` fields to mark a TextField as having an validation error.
 
-```jsx
-<TextField
-  label="Password"
-  defaultValue="1234"
-  hasError={true}
-  errorMessage="Password should not be 1234! 😱"
-/>
-<TextField
-  label="Password"
-  defaultValue="1234"
-  hasError={true}
-  variation="quiet"
-  errorMessage="Password should not be 1234! 😱"
-/>
-```
-
 <Example>
-  <Flex gap="1rem" direction="column">
-    <TextField
-      label="Password"
-      type="password"
-      defaultValue="1234"
-      hasError={true}
-      errorMessage="Password should not be 1234! 😱"
-    />
-    <TextField
-      label="Password"
-      type="password"
-      defaultValue="1234"
-      hasError={true}
-      variation="quiet"
-      errorMessage="Password should not be 1234! 😱"
-    />
-  </Flex>
+  <TextFieldValidationErrorExample />
+  <ExampleCode>
+    ```jsx file=./examples/TextFieldValidationErrorExample.tsx
+
+    ```
+
+  </ExampleCode>
 </Example>
 
 ## CSS Styling
@@ -480,18 +270,19 @@ Use the `hasError` and `errorMessage` fields to mark a TextField as having an va
 
 To override styling on all TextField primitives, you can set the Amplify CSS variables with the built-in `.amplify-textfield` class.
 
-```css
-/* styles.css */
-.amplify-textfield {
-  --amplify-components-fieldcontrol-border-color: rebeccapurple;
-}
-```
-
 <Example>
   <TextField
     label="Globally styled field"
     className="globally-styled-textfield"
   />
+  <ExampleCode>
+    ```css
+    /* styles.css */
+    .amplify-textfield {
+      --amplify-components-fieldcontrol-border-color: rebeccapurple;
+    }
+    ```
+  </ExampleCode>
 </Example>
 
 ### Local styling
@@ -500,37 +291,28 @@ To override styling on a specific TextField, you can use a class selector or sty
 
 _Using a class selector:_
 
-```css
-/* styles.css */
-.custom-textfield-class .amplify-input {
-  border-radius: 0;
-}
-```
-
 <Example>
   <TextField className="custom-textfield-class" label="Square field" />
+  <ExampleCode>
+    ```css
+    /* styles.css */
+    .custom-textfield-class .amplify-input {
+      border-radius: 0;
+    }
+    ```
+  </ExampleCode>
 </Example>
 
 _Using style props:_
 
 Flex styling props will be applied to the TextField wrapping Flex component, whereas other style props will be applied to the field. This allows us to change the layout of the label and field, while also styling the input field.
 
-```jsx
-<TextField
-  direction="row"
-  alignItems="baseline"
-  label={
-    <Text fontWeight="bold" fontSize="1.5rem">
-      Name:
-    </Text>
-  }
-  fontSize="1.5rem"
-  backgroundColor="#fff1e7"
-  color="#000"
-  width="400px"
-/>
-```
-
 <Example>
-  <TextFieldStyledPropsExample />
+  <TextFieldStylePropsExample />
+  <ExampleCode>
+    ```jsx file=./examples/TextFieldStylePropsExample.tsx
+
+    ```
+
+  </ExampleCode>
 </Example>

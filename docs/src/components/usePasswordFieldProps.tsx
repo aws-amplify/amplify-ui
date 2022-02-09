@@ -1,7 +1,8 @@
 import { PasswordFieldProps } from '@aws-amplify/ui-react';
-import { useState } from 'react';
-import { FieldControl } from './GetFieldControls';
-import { useTextFieldProps } from './useTextFieldProps';
+import * as React from 'react';
+
+import { FieldControl } from '../pages/components/shared/GetFieldControls';
+import { useTextFieldProps } from '../pages/components/textfield/useTextFieldProps';
 
 export type PasswordFieldDocsProps = Omit<PasswordFieldProps, '[key]'>;
 
@@ -14,7 +15,7 @@ export const usePasswordFieldProps: UsePasswordFieldProps = (initialValues) => {
   return [
     ...propState,
     [
-      ...useState<PasswordFieldDocsProps['hideShowPassword']>(
+      ...React.useState<PasswordFieldDocsProps['hideShowPassword']>(
         initialValues.hideShowPassword
       ),
       'hideShowPassword',
