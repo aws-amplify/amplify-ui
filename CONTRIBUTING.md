@@ -58,6 +58,7 @@ You should open an issue to discuss your pull request, unless it's a trivial cha
 
 ```bash
 amplify-ui
+├── canary # contains examples we use to test build systems
 ├── docs # ui.docs.amplify.aws documentation code
 ├── environments # Amplify backend environments we use for e2e testing
 ├── examples # Example apps we use for e2e testing
