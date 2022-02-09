@@ -8,23 +8,30 @@
   border-width: 0;
 }
 
-.docs-home-vue {
+.docs-home-flutter {
   position: absolute;
   right: 5rem;
   bottom: 8rem;
   height: 10rem;
 }
 
-.docs-home-react {
+.docs-home-vue {
   position: absolute;
   right: 15rem;
   bottom: 8rem;
   height: 10rem;
 }
 
-.docs-home-angular {
+.docs-home-react {
   position: absolute;
   right: 25rem;
+  bottom: 8rem;
+  height: 10rem;
+}
+
+.docs-home-angular {
+  position: absolute;
+  right: 35rem;
   bottom: 8rem;
   height: 10rem;
 }

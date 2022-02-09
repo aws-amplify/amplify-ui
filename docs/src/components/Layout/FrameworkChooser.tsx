@@ -70,6 +70,15 @@ export const FrameworkChooser = ({ platform }) => {
           src="/svg/integrations/vue.svg"
         />
       </ToggleButton>
+      <ToggleButton value="flutter" size="small">
+        <VisuallyHidden>Flutter</VisuallyHidden>
+        <Image
+          alt=""
+          height="1rem"
+          style={{ display: 'block' }}
+          src="/svg/integrations/flutter.svg"
+        />
+      </ToggleButton>
     </ToggleButtonGroup>
   );
 };
