@@ -25,7 +25,7 @@ const App = () => {
 
 ### Prevent Re-renders
 
-Using `useAuthenticator` hook at your `App` level is risky, because it'll trigger a re-render down its true whenever any of its context changes value.
+Using `useAuthenticator` hook at your `App` level is risky, because it'll trigger a re-render down its tree whenever any of its context changes value.
 
 To prevent undesired re-renders, you can pass a function to `useAuthenticator` that takes in Authenticator context and returns an array of desired context values. The hook will only trigger re-render if any of the array values change.
 
