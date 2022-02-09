@@ -9,7 +9,7 @@ import {
   createAuthenticatorMachine,
   getSendEventAliases,
   getServiceContextFacade,
-  getServiceFacade,
+  listenToAuthHub,
 } from '@aws-amplify/ui';
 import { Event, interpret, Subscription } from 'xstate';
 import { AuthSubscriptionCallback } from '../common';
@@ -27,7 +27,8 @@ export class AuthenticatorService implements OnDestroy {
   private _authState: AuthMachineState;
   private _authService: AuthInterpreter;
   private _sendEventAliases: ReturnType<typeof getSendEventAliases>;
-  private _subscription: Subscription;
+  private _machineSubscription: Subscription;
+  private _hubSubscription: ReturnType<typeof listenToAuthHub>;
   private _facade: ReturnType<typeof getServiceContextFacade>;
 
   public startMachine({
@@ -52,17 +53,19 @@ export class AuthenticatorService implements OnDestroy {
       },
     });
 
-    this._subscription = authService.subscribe((state) => {
+    this._machineSubscription = authService.subscribe((state) => {
       this._authState = state;
       this._facade = getServiceContextFacade(state);
     });
 
+    this._hubSubscription = listenToAuthHub(authService.send);
     this._sendEventAliases = getSendEventAliases(authService.send);
     this._authService = authService;
   }
 
   ngOnDestroy(): void {
-    if (this._subscription) this._subscription.unsubscribe();
+    if (this._machineSubscription) this._machineSubscription.unsubscribe();
+    if (this._hubSubscription) this._hubSubscription();
   }
 
   /**

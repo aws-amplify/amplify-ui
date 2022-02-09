@@ -21,6 +21,7 @@ export type RouterProps = {
     user: CognitoUserAmplify;
   }) => JSX.Element;
   variation?: 'default' | 'modal';
+  hideSignUp?: boolean;
 };
 
 const hasTabs = (route: string) => {
@@ -31,6 +32,7 @@ export function Router({
   children,
   className,
   variation = 'default',
+  hideSignUp,
 }: RouterProps) {
   const { route, signOut, user } = useAuthenticator();
 
@@ -70,7 +72,7 @@ export function Router({
                   return <SetupTOTP />;
                 case 'signIn':
                 case 'signUp':
-                  return <SignInSignUpTabs />;
+                  return <SignInSignUpTabs hideSignUp={hideSignUp} />;
                 case 'forceNewPassword':
                   return <ForceNewPassword />;
                 case 'resetPassword':

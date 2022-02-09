@@ -11,6 +11,7 @@ import { useAuth, useAuthenticator } from '../composables/useAuth';
 import UserNameAliasComponent from './user-name-alias.vue';
 import PasswordControl from './password-control.vue';
 import AliasControl from './alias-control.vue';
+import { createSharedComposable } from '@vueuse/core';
 
 // state
 const { state } = useAuth();
@@ -19,8 +20,9 @@ const {
   value: { context },
 } = state;
 
-const { validationErrors } = toRefs(useAuthenticator());
-const props = useAuthenticator();
+const useAuthShared = createSharedComposable(useAuthenticator);
+const { validationErrors } = toRefs(useAuthShared());
+const props = useAuthShared();
 
 const inputAttributes: ComputedRef<AuthInputAttributes> = computed(
   () => authInputAttributes
