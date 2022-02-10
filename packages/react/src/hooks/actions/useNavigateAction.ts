@@ -23,6 +23,7 @@ export interface UseNavigateActionOptions {
   target?: React.HTMLAttributeAnchorTarget;
 }
 
+export const windowFeatures = 'noopener noreferrer';
 export const defaultTarget = '_self';
 
 /**
@@ -35,7 +36,7 @@ export const useNavigateAction = (options: UseNavigateActionOptions) => {
     switch (type) {
       case 'url':
         return () => {
-          window.open(url, target ? target : defaultTarget);
+          window.open(url, target ? target : defaultTarget, windowFeatures);
         };
       case 'anchor':
         return () => {
