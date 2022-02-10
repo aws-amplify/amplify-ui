@@ -118,9 +118,3 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
     </Flex>
   );
 };
-
-Hub.listen('ui-actions', (data) => {
-  if (data.source == 'DataStoreCreate' && data.payload.event === 'Started') {
-    alert('Creating...');
-  }
-});
