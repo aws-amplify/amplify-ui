@@ -15,7 +15,7 @@ import {
   useDataStoreUpdateAction,
 } from '@aws-amplify/ui-react/internal';
 
-import { Todo } from './models/index';
+import { Todo } from './models';
 
 export const DataStoreTodoForm = () => {
   const [toDoName, setToDoName] = React.useState<string>('');
