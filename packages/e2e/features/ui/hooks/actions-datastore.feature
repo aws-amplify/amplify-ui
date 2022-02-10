@@ -9,6 +9,7 @@ Feature: Datastore action hooks
     And I click the "Sign in" button
     Then I see "Sign out"
 
+  @react
   Scenario: DataStore Create, Update, Delete actions work correctly
     # Create
     When I type a new "ToDo" with value "milk2"

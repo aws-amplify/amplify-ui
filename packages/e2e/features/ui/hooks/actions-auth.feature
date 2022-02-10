@@ -6,6 +6,7 @@ Feature: Auth action hooks
     Given I'm running the example "ui/hooks/actions"
     Then I see tab "Sign In"
 
+  @react
   Scenario: Signout action works correctly
     When I type my "email" with status "CONFIRMED"
     And I type my password
