@@ -11,9 +11,11 @@ import {
 
 import { useAuth, useAuthenticator } from '../composables/useAuth';
 import PasswordControl from './password-control.vue';
+import { createSharedComposable } from '@vueuse/core';
 
 const { state, send } = useAuth();
-const props = useAuthenticator();
+const useAuthShared = createSharedComposable(useAuthenticator);
+const props = useAuthShared();
 
 const attrs = useAttrs();
 const emit = defineEmits(['confirmResetPasswordSubmit', 'backToSignInClicked']);

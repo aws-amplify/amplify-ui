@@ -16,6 +16,7 @@ const IconPrimitive: Primitive<IconProps, 'svg'> = (
     pathData,
     viewBox = defaultViewBox,
     children,
+    paths,
     ...rest
   },
   ref
@@ -25,9 +26,20 @@ const IconPrimitive: Primitive<IconProps, 'svg'> = (
   const width = viewBox.width ? viewBox.width : defaultViewBox.width;
   const height = viewBox.height ? viewBox.height : defaultViewBox.height;
 
-  // If given children, pass those through. They are expected to be valid
-  // SVG elements. Fall back on rendering a single path with pathData
-  const _children = children ? children : <path d={pathData} fill={fill} />;
+  // An icon can be drawn in 3 ways:
+  // 1. Pass it children which should be valid SVG elements
+  // 2. Pass an array of path-like objects to `paths` prop
+  // 3. Supply `pathData` for a simple icons
+  let _children: React.ReactNode;
+  if (children) {
+    _children = children;
+  }
+  if (paths) {
+    _children = paths.map((path) => <path {...path} />);
+  }
+  if (pathData) {
+    _children = <path d={pathData} fill={fill} />;
+  }
 
   return (
     <View
