@@ -17,8 +17,6 @@ Feature: Sign In with SMS MFA
     Then I see "Confirm SMS Code"
     And I type a valid SMS confirmation code
     And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmSignUp" } }' with fixture "confirm-sign-up-with-email"
-    # Mocking these two calls is much easier than intercepting 6+ network calls with tokens that are validated & expire within the hour
-    # And I mock 'Amplify.Auth.signIn' with fixture "Auth.signIn-verified-email"
     And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }' with fixture "confirm-sign-in-sms-mfa"
     And I mock 'Amplify.Auth.currentAuthenticatedUser' with fixture "Auth.currentAuthenticatedUser-sms-mfa"
     And I click the "Confirm" button
