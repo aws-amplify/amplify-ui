@@ -26,7 +26,7 @@ export const baseComponents: ComponentNavItem[] = [
   {
     href: '/components/icon',
     label: 'Icon',
-    body: ``,
+    body: `The icon component displays simple vector graphics for use in other components like Buttons.`,
   },
   {
     href: '/components/image',
@@ -104,14 +104,22 @@ export const inputComponents = [
     label: 'Stepper Field',
     body: `A StepperField is a number input with buttons to increase or decrease the value.`,
   },
-  { href: '/components/searchfield', label: 'Search Field', body: `` },
+  {
+    href: '/components/searchfield',
+    label: 'Search Field',
+    body: `SearchField accepts query text for search.`,
+  },
   { href: '/components/passwordfield', label: 'Password Field', body: `` },
   {
     href: '/components/phonenumberfield',
     label: 'Phone Number Field',
     body: ``,
   },
-  { href: '/components/switchfield', label: 'Switch Field', body: `` },
+  {
+    href: '/components/switchfield',
+    label: 'Switch Field',
+    body: `The SwitchField form primitive is a toggleable input type with a checked (on) and unchecked (off) state.`,
+  },
   { href: '/components/radiogroupfield', label: 'Radio Group Field', body: `` },
   { href: '/components/checkboxfield', label: 'Checkbox Field', body: `` },
   { href: '/components/togglebutton', label: 'Toggle Button', body: `` },
@@ -132,7 +140,11 @@ export const layoutComponents = [
     label: 'Table',
     body: `The Table primitive provides users with a styled and customizable table element.`,
   },
-  { href: '/components/expander', label: 'Expander', body: `` },
+  {
+    href: '/components/expander',
+    label: 'Expander',
+    body: `The Expander primitive enables users to expand or collapse a set of sections.`,
+  },
 ].sort(sortByLabel);
 
 export const navigationComponents: ComponentNavItem[] = [
@@ -154,7 +166,11 @@ export const navigationComponents: ComponentNavItem[] = [
 ].sort(sortByLabel);
 
 export const utilityComponents = [
-  { href: '/components/visuallyhidden', label: 'Visually Hidden', body: `` },
+  {
+    href: '/components/visuallyhidden',
+    label: 'Visually Hidden',
+    body: `The Visually Hidden component is used to visually hide content while leaving it available to screen readers.`,
+  },
 ].sort(sortByLabel);
 
 export const DISCORD = 'https://discord.gg/amplify';

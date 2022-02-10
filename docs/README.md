@@ -2,44 +2,17 @@
 
 These docs are published at https://docs.amplify.aws/ui and powered by the following technologies:
 
-- [aws-amplify/docs#next](https://github.com/aws-amplify/docs/tree/next) – Layout & Styling
-
-  Before updating, `yarn` v1 has a known bug where cached GitHub tarballs aren't updated. Explicitly clear any previously cached versions of `amplify-docs`:
-
-  ```shell
-  # /Users/user/Library/Caches/Yarn/v6/npm-amplify-docs-*
-  rm -rf $(yarn cache dir)/npm-amplify-docs-*
-  # Remove all node_modules, otherwise yarn won't install the new version
-  rm -rf node_modules
-  ```
-
-  As a GitHub dependency, this package should be **explicitly updated** using a SHA (e.g. `#33d383d`) rather than a branch (e.g. `#next`):
-
-  ```shell
-  yarn docs add amplify-docs@github:https://github.com/aws-amplify/docs#33d383d
-  ```
-
-  You can find the latest/relevant commit at https://github.com/aws-amplify/docs/commits/next.
-
-  Finally, if you make any changes to `node_modules/amplify-docs`, you can save these using `patch-package`:
-
-  ```shell
-  npx patch-package amplify-docs
-  ```
-
 - [XDM](https://github.com/wooorm/xdm) – Content
 - [Next.js](https://nextjs.org/) – Framework
 
-## Getting Started
+## Contributing
+
+### Getting Started
 
 1. Navigate to the _root_ of your local clone of [aws-amplify/amplify-ui](https://github.com/aws-amplify/amplify-ui)
-1. Run `yarn install`
+1. Run `yarn setup`
 1. Run `yarn docs dev`
 1. Open <http://localhost:5000/>
-
-   (The docs root is `/ui` for consistency with https://docs.amplify.aws/ui)
-
-## Contributing
 
 ### Creating a Page
 
