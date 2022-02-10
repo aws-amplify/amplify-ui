@@ -15,6 +15,7 @@ Feature: Sign In with SMS MFA
     And I click the "Sign in" button
     Then I will be redirected to the confirm sms mfa page
 
+
   @angular @react @vue
   Scenario: Redirect to sign in page
     When I select my country code with status "CONFIRMED"
@@ -25,14 +26,14 @@ Feature: Sign In with SMS MFA
     Then I see "Sign in"
 
   @angular @react @vue
-  Scenario: Incorrect SMS code
+  Scenario: Incorrect SMS code with translated text
     When I select my country code with status "CONFIRMED"
     And I type my "phone number" with status "CONFIRMED"
     And I type my password
     And I click the "Sign in" button
     And I type an invalid SMS code
     And I click the "Confirm" button
-    Then I see "Invalid code or auth state for the user."
+    Then I see "translated text"
     
   @angular @react @vue
   Scenario: Sign in with unknown credentials
@@ -41,3 +42,17 @@ Feature: Sign In with SMS MFA
     And I type my password
     And I click the "Sign in" button
     Then I see "User does not exist"
+
+@angular @react @vue
+  Scenario: Sign in with force change password with sms mfa
+    Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }' with fixture "force-change-password"
+    When I select my country code with status "FORCE_CHANGE_PASSWORD"
+    And I type my "phone number" with status "CONFIRMED"
+    And I type my password
+    And I click the "Sign in" button
+    Then I see "Change Password"
+    And I type my password
+    And I confirm my password
+    Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }' with fixture "force-change-password-sms-mfa"
+    And I click the "Change Password" button
+    Then I see "Confirm SMS Code"

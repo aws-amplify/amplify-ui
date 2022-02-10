@@ -5,10 +5,10 @@ name: Tests
 
 on:
   push:
-    branches: [main]
+    branches: [main, ui-svelte/main]
 
   pull_request_target:
-    branches: [main]
+    branches: [main, ui-svelte/main]
     types: [opened, synchronize, labeled]
 
 permissions:
@@ -24,7 +24,7 @@ jobs:
     #   3) pull request from a fork (ie. external PR) that was added "run-tests" label
     if: |
       github.event_name == 'push' ||
-      (github.event.pull_request.head.repo.full_name == github.repository) || 
+      (github.event.pull_request.head.repo.full_name == github.repository) ||
       (github.event.action == 'labeled' && github.event.label.name == 'run-tests')
     outputs:
       ref: ${{ steps.get-ref.outputs.ref }}
@@ -40,6 +40,11 @@ jobs:
             const { issue: { number: issue_number }, repo: { owner, repo } } = context;
             const label = 'run-tests';
             github.issues.removeLabel({ owner, repo, issue_number, name: label });
+      - name: Get ref and commit
+        id: get-ref
+        run: |
+          echo "::set-output name=ref::${{ github.event_name == 'push' && github.ref || github.event.pull_request.head.ref }}"
+          echo "::set-output name=commit::${{ github.event_name == 'push' && github.sha || github.event.pull_request.head.sha }}"
       - name: Checkout Amplify UI
         uses: actions/checkout@v2
         with:
@@ -51,13 +56,8 @@ jobs:
         with:
           node-version: lts/*
           cache: 'yarn'
-      - name: Get ref and commit
-        id: get-ref
-        run: |
-          echo "::set-output name=key::${{ github.event_name == 'push' && github.ref || github.event.pull_request.head.ref }}"
-          echo "::set-output name=commit::$(git rev-parse --short "$GITHUB_SHA")"
       - name: Install packages
-        run: yarn --frozen-lockfile --prefer-offline
+        run: yarn --no-lockfile
       - name: Build ui package
         run: yarn ui build
       - name: Cache cypress runner
@@ -124,7 +124,7 @@ jobs:
 
       - name: Install packages
         if: steps.restore-cache.outputs.cache-hit != 'true'
-        run: yarn --frozen-lockfile --prefer-offline  --prefer-offline
+        run: yarn --no-lockfile
 
       - name: Build ui package
         if: ${{ steps.restore-ui-cache.outputs.cache-hit != 'true' && matrix.package != 'ui' }}
@@ -227,7 +227,7 @@ jobs:
 
       - name: Install packages
         if: steps.restore-cache.outputs.cache-hit != 'true' || steps.restore-cypress-cache.outputs.cache-hit != 'true'
-        run: yarn --frozen-lockfile --prefer-offline
+        run: yarn --no-lockfile
 
       - name: Build @aws-amplify/ui package
         if: steps.restore-ui-cache.outputs.cache-hit != 'true'
@@ -265,7 +265,7 @@ jobs:
         run: yarn workspace ${{ matrix.example }}-example start & npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:3000/ui/components/authenticator/sign-in-with-username
 
       - name: Run E2E tests against ${{ matrix.example }} example
-        run: yarn workspace e2e test
+        run: yarn workspace e2e test:authenticator
         env:
           # Override on the default value in `cypress.json` with framework-specific tag
           TAGS: '${{ matrix.tags }}'
@@ -297,6 +297,13 @@ jobs:
           node-version: lts/*
           cache: 'yarn'
 
+      - name: Restore cypress runner Cache
+        uses: actions/cache@v2
+        id: restore-cypress-cache
+        with:
+          path: ~/.cache/Cypress
+          key: ${{ runner.os }}-cypress-${{ hashFiles('yarn.lock') }}
+
       - name: Restore Cache
         uses: actions/cache@v2
         id: restore-cache
@@ -308,7 +315,7 @@ jobs:
 
       - name: Install packages
         if: steps.restore-cache.outputs.cache-hit != 'true'
-        run: yarn --frozen-lockfile --prefer-offline
+        run: yarn --no-lockfile
 
       - name: Restore ui/dist cache
         uses: actions/cache@v2
@@ -334,3 +341,16 @@ jobs:
 
       - name: Build docs package
         run: yarn docs build
+
+      - name: Start docs site
+        run: yarn docs start & npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:3000
+
+      - name: Run E2E tests against docs
+        run: yarn workspace e2e test:theme
+        env:
+          # Env values for testing flows
+          DOMAIN: ${{ secrets.DOMAIN }}
+          PHONE_NUMBER: ${{ secrets.PHONE_NUMBER }}
+          USERNAME: ${{ secrets.USERNAME }}
+          NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
+          VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}

@@ -21,6 +21,15 @@ export function AmplifyProvider({
 }: AmplifyProviderProps) {
   const webTheme = createTheme(theme);
   const { name, cssText } = webTheme;
+  React.useEffect(() => {
+    if (document && document.documentElement) {
+      document.documentElement.setAttribute('data-amplify-theme', name);
+      document.documentElement.setAttribute(
+        'data-amplify-color-mode',
+        colorMode
+      );
+    }
+  }, [theme, colorMode]);
   return (
     <AmplifyContext.Provider
       value={{
@@ -28,9 +37,7 @@ export function AmplifyProvider({
       }}
     >
       <IdProvider>
-        <div data-amplify-theme={name} data-amplify-color-mode={colorMode}>
-          {children}
-        </div>
+        <div>{children}</div>
         <style
           id={`amplify-theme-${name}`}
           dangerouslySetInnerHTML={{ __html: cssText }}

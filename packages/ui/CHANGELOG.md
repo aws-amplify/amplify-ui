@@ -1,5 +1,79 @@
 # @aws-amplify/ui
 
+## 3.0.12
+
+### Patch Changes
+
+- [#1151](https://github.com/aws-amplify/amplify-ui/pull/1151) [`f7d86db6d`](https://github.com/aws-amplify/amplify-ui/commit/f7d86db6dbd3af650ce4c64e6efbc5acb4523e78) Thanks [@reesscot](https://github.com/reesscot)! - fix: change box-sizing to have less specificity
+
+* [#1230](https://github.com/aws-amplify/amplify-ui/pull/1230) [`b824136bf`](https://github.com/aws-amplify/amplify-ui/commit/b824136bfb288df0f3300421f73f9bfdcd61bf57) Thanks [@wlee221](https://github.com/wlee221)! - Pin xstate to `4.28.0`
+
+- [#1251](https://github.com/aws-amplify/amplify-ui/pull/1251) [`2913fe8cb`](https://github.com/aws-amplify/amplify-ui/commit/2913fe8cb35e08ad6c61121dfb9d12b4ae9cf6ad) Thanks [@joebuono](https://github.com/joebuono)! - Pin all dependencies
+
+## 3.0.11
+
+### Patch Changes
+
+- [#1224](https://github.com/aws-amplify/amplify-ui/pull/1224) [`4932b43f8`](https://github.com/aws-amplify/amplify-ui/commit/4932b43f8f3ad5d851a4fd8635b1b92abf6c4ef0) Thanks [@wlee221](https://github.com/wlee221)! - Pin xstate versions
+
+## 3.0.10
+
+### Patch Changes
+
+- [#1153](https://github.com/aws-amplify/amplify-ui/pull/1153) [`3afdc1fc9`](https://github.com/aws-amplify/amplify-ui/commit/3afdc1fc9a876a17403ccfc607b922ec352fd1cf) Thanks [@wlee221](https://github.com/wlee221)! - Listen to Auth Hub events
+
+## 3.0.9
+
+### Patch Changes
+
+- [#1157](https://github.com/aws-amplify/amplify-ui/pull/1157) [`6c070b2e1`](https://github.com/aws-amplify/amplify-ui/commit/6c070b2e118560dec9629c7c0abdfb218d53267c) Thanks [@eli6](https://github.com/eli6)! - Added Swedish as supported language to Authenticator
+
+* [#1162](https://github.com/aws-amplify/amplify-ui/pull/1162) [`e0fcf3685`](https://github.com/aws-amplify/amplify-ui/commit/e0fcf3685164075fe385f8e09247f9620a7e6ccc) Thanks [@wlee221](https://github.com/wlee221)! - Add explicit `INIT` step for initializing authMachine
+
+- [#1184](https://github.com/aws-amplify/amplify-ui/pull/1184) [`3a69c2a75`](https://github.com/aws-amplify/amplify-ui/commit/3a69c2a752b9ab07bb55911cae6447dccd76cc1f) Thanks [@slaymance](https://github.com/slaymance)! - Update phone number parsing in Authenticator state machine
+
+## 3.0.8
+
+### Patch Changes
+
+- [#1166](https://github.com/aws-amplify/amplify-ui/pull/1166) [`c5cc41a70`](https://github.com/aws-amplify/amplify-ui/commit/c5cc41a70d7c0de4b2dcae385f7661361455e7b6) Thanks [@wlee221](https://github.com/wlee221)! - Thanks @Ashafix! -- added missing German translations; sorted English translations
+
+## 3.0.7
+
+### Patch Changes
+
+- [#1103](https://github.com/aws-amplify/amplify-ui/pull/1103) [`1d5b84ac8`](https://github.com/aws-amplify/amplify-ui/commit/1d5b84ac828b962648e9b8600ed96297b1eb0c2a) Thanks [@zchenwei](https://github.com/zchenwei)! - fix: fixing unaligned border outlines between `CountryCodeSelect` and `TextField` on `PhoneNumberField`
+
+* [#1077](https://github.com/aws-amplify/amplify-ui/pull/1077) [`9a095ae46`](https://github.com/aws-amplify/amplify-ui/commit/9a095ae46ee6639f7c8fe9a3a7b2b871449867b8) Thanks [@reesscot](https://github.com/reesscot)! - Fix media query logic to return correct breakpoint
+
+- [#1088](https://github.com/aws-amplify/amplify-ui/pull/1088) [`a2fa3603e`](https://github.com/aws-amplify/amplify-ui/commit/a2fa3603eda90a67c9a092ce170e86d13a152e18) Thanks [@wlee221](https://github.com/wlee221)! - Remove trailing space on "Forgot your password? "
+
+* [#1110](https://github.com/aws-amplify/amplify-ui/pull/1110) [`87af74164`](https://github.com/aws-amplify/amplify-ui/commit/87af74164fb87b61d3c897b03af6e15cf73de79d) Thanks [@zchenwei](https://github.com/zchenwei)! - fix: fixing `option` background color in darkmode on Firefox
+
+- [#1127](https://github.com/aws-amplify/amplify-ui/pull/1127) [`352a28197`](https://github.com/aws-amplify/amplify-ui/commit/352a281970f2568e7ea035cc89fb51afa31cbfc4) Thanks [@wlee221](https://github.com/wlee221)! - Removed unused Amplify auth import in reset password actor
+
+## 3.0.6
+
+### Patch Changes
+
+- [#996](https://github.com/aws-amplify/amplify-ui/pull/996) [`5bfe1e599`](https://github.com/aws-amplify/amplify-ui/commit/5bfe1e5996536f8b5ada60e16db565dd8fb52f26) Thanks [@rvmourik](https://github.com/rvmourik)! - Add dutch translation
+
+* [#1065](https://github.com/aws-amplify/amplify-ui/pull/1065) [`86e70f8e8`](https://github.com/aws-amplify/amplify-ui/commit/86e70f8e8486e70cccc23d04754e435b184915e8) Thanks [@reesscot](https://github.com/reesscot)! - Fix issue where custom theme fonts are ignored
+
+- [#1014](https://github.com/aws-amplify/amplify-ui/pull/1014) [`43634b06a`](https://github.com/aws-amplify/amplify-ui/commit/43634b06aaccb1cf33cb18e0e142aee91df54aad) Thanks [@reesscot](https://github.com/reesscot)! - Fix issue where phone_number validation fails on multiple signup submissions
+
+* [#997](https://github.com/aws-amplify/amplify-ui/pull/997) [`d8a422d7c`](https://github.com/aws-amplify/amplify-ui/commit/d8a422d7ce4c62a216a19d127907a2b80eb588ab) Thanks [@ErikCH](https://github.com/ErikCH)! - Updated Xstate so users who are in the FORCE CHANGE PASSWORD state also check for setup TOTP MFA.
+
+- [#1004](https://github.com/aws-amplify/amplify-ui/pull/1004) [`f9a09df7c`](https://github.com/aws-amplify/amplify-ui/commit/f9a09df7cded5bae1681bc138c048786f3bb75bc) Thanks [@Domino987](https://github.com/Domino987)! - Add missing Confirm Password translation for German language
+
+## 3.0.5
+
+### Patch Changes
+
+- [#986](https://github.com/aws-amplify/amplify-ui/pull/986) [`63f773ee2`](https://github.com/aws-amplify/amplify-ui/commit/63f773ee2af1f55f1891794c1de1398e3eb47d93) Thanks [@ErikCH](https://github.com/ErikCH)! - Added additional conditional that checks if user has an SMS_MFA challenge question after FORCE_CHANGE_PASSWORD occurs
+
+* [#975](https://github.com/aws-amplify/amplify-ui/pull/975) [`88b15eb9a`](https://github.com/aws-amplify/amplify-ui/commit/88b15eb9aa608b58ca84fbf60e1beba8090f32e2) Thanks [@ErikCH](https://github.com/ErikCH)! - Added new services to override handleSignup, handleSignIn, handleConfirmSignIn, handleConfirmSignUp, handleForgotPasswordSubmit, handleForgotPassword
+
 ## 3.0.4
 
 ### Patch Changes

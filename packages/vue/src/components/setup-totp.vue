@@ -1,3 +1,98 @@
+<script setup lang="ts">
+import { onMounted, reactive, computed, ComputedRef, useAttrs, ref } from 'vue';
+import QRCode from 'qrcode';
+
+import { Auth, Logger } from 'aws-amplify';
+import { getActorState, SignInState, translate } from '@aws-amplify/ui';
+
+import { useAuth } from '../composables/useAuth';
+
+const attrs = useAttrs();
+const emit = defineEmits(['confirmSetupTOTPSubmit', 'backToSignInClicked']);
+
+const { state, send } = useAuth();
+const actorState = computed(() =>
+  getActorState(state.value)
+) as ComputedRef<SignInState>;
+
+let qrCode = reactive({
+  qrCodeImageSource: '',
+  isLoading: true,
+});
+let secretKey = ref('');
+let copyTextLabel = ref(translate('COPY'));
+
+function copyText() {
+  navigator.clipboard.writeText(secretKey.value);
+  copyTextLabel.value = translate('COPIED');
+}
+
+// lifecycle hooks
+
+onMounted(async () => {
+  const logger = new Logger('SetupTOTP-logger');
+  const { user } = actorState.value.context;
+  if (!user) {
+    return;
+  }
+  try {
+    secretKey.value = await Auth.setupTOTP(user);
+    const issuer = 'AWSCognito';
+    const totpCode = `otpauth://totp/${issuer}:${user.username}?secret=${secretKey.value}&issuer=${issuer}`;
+    qrCode.qrCodeImageSource = await QRCode.toDataURL(totpCode);
+  } catch (error) {
+    logger.error(error);
+  } finally {
+    qrCode.isLoading = false;
+  }
+});
+
+// Computed Properties
+const backSignInText = computed(() => translate('Back to Sign In'));
+const confirmText = computed(() => translate('Confirm'));
+const codeText = computed(() => translate('Code'));
+
+// Methods
+const onInput = (e: Event): void => {
+  const { name, value } = <HTMLInputElement>e.target;
+  send({
+    type: 'CHANGE',
+    //@ts-ignore
+    data: { name, value },
+  });
+};
+
+const onSetupTOTPSubmit = (e: Event): void => {
+  if (attrs?.onConfirmSetupTOTPSubmit) {
+    emit('confirmSetupTOTPSubmit', e);
+  } else {
+    submit(e);
+  }
+};
+
+const submit = (e: Event): void => {
+  const formData = new FormData(<HTMLFormElement>e.target);
+  send({
+    type: 'SUBMIT',
+    //@ts-ignore
+    data: {
+      //@ts-ignore
+      ...Object.fromEntries(formData),
+    },
+  });
+};
+
+const onBackToSignInClicked = (): void => {
+  if (attrs?.onBackToSignInClicked) {
+    emit('backToSignInClicked');
+  } else {
+    send({
+      type: 'SIGN_IN',
+    });
+  }
+};
+</script>
+
 <template>
   <slot v-bind="$attrs" name="confirmSetupTOTPI">
     <base-wrapper v-bind="$attrs">
@@ -31,6 +126,24 @@
                   width="228"
                   height="228"
                 />
+                <base-wrapper class="amplify-flex" data-amplify-copy>
+                  <div>{{ secretKey }}</div>
+                  <base-wrapper data-amplify-copy-svg @click="copyText">
+                    <div data-amplify-copy-tooltip>{{ copyTextLabel }}</div>
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M16 1H4C2.9 1 2 1.9 2 3V17H4V3H16V1ZM15 5H8C6.9 5 6.01 5.9 6.01 7L6 21C6 22.1 6.89 23 7.99 23H19C20.1 23 21 22.1 21 21V11L15 5ZM8 21V7H14V12H19V21H8Z"
+                        fill="black"
+                      />
+                    </svg>
+                  </base-wrapper>
+                </base-wrapper>
                 <base-wrapper
                   class="amplify-flex amplify-field amplify-textfield"
                   style="flex-direction: column"
@@ -94,91 +207,3 @@
     </base-wrapper>
   </slot>
 </template>
-
-<script setup lang="ts">
-import { onMounted, reactive, computed, ComputedRef, useAttrs } from 'vue';
-import QRCode from 'qrcode';
-
-import { Auth, Logger } from 'aws-amplify';
-import { getActorState, SignInState, translate } from '@aws-amplify/ui';
-
-import { useAuth } from '../composables/useAuth';
-
-const attrs = useAttrs();
-const emit = defineEmits(['confirmSetupTOTPSubmit', 'backToSignInClicked']);
-
-const { state, send } = useAuth();
-const actorState = computed(() =>
-  getActorState(state.value)
-) as ComputedRef<SignInState>;
-
-let qrCode = reactive({
-  qrCodeImageSource: '',
-  isLoading: true,
-});
-
-// lifecycle hooks
-
-onMounted(async () => {
-  const logger = new Logger('SetupTOTP-logger');
-  const { user } = actorState.value.context;
-  if (!user) {
-    return;
-  }
-  try {
-    const secretKey = await Auth.setupTOTP(user);
-    const issuer = 'AWSCognito';
-    const totpCode = `otpauth://totp/${issuer}:${user.username}?secret=${secretKey}&issuer=${issuer}`;
-    qrCode.qrCodeImageSource = await QRCode.toDataURL(totpCode);
-  } catch (error) {
-    logger.error(error);
-  } finally {
-    qrCode.isLoading = false;
-  }
-});
-
-// Computed Properties
-const backSignInText = computed(() => translate('Back to Sign In'));
-const confirmText = computed(() => translate('Confirm'));
-const codeText = computed(() => translate('Code'));
-
-// Methods
-const onInput = (e: Event): void => {
-  const { name, value } = <HTMLInputElement>e.target;
-  send({
-    type: 'CHANGE',
-    //@ts-ignore
-    data: { name, value },
-  });
-};
-
-const onSetupTOTPSubmit = (e: Event): void => {
-  if (attrs?.onConfirmSetupTOTPSubmit) {
-    emit('confirmSetupTOTPSubmit', e);
-  } else {
-    submit(e);
-  }
-};
-
-const submit = (e: Event): void => {
-  const formData = new FormData(<HTMLFormElement>e.target);
-  send({
-    type: 'SUBMIT',
-    //@ts-ignore
-    data: {
-      //@ts-ignore
-      ...Object.fromEntries(formData),
-    },
-  });
-};
-
-const onBackToSignInClicked = (): void => {
-  if (attrs?.onBackToSignInClicked) {
-    emit('backToSignInClicked');
-  } else {
-    send({
-      type: 'SIGN_IN',
-    });
-  }
-};
-</script>

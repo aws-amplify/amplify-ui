@@ -1,6 +1,7 @@
 import { CognitoUser, CodeDeliveryDetails } from 'amazon-cognito-identity-js';
 import { Interpreter, State } from 'xstate';
 import { ValidationError } from './validator';
+import { defaultServices } from '../machines/authenticator/defaultServices';
 
 export type AuthFormData = Record<string, string>;
 
@@ -10,13 +11,28 @@ export interface AuthContext {
     loginMechanisms?: LoginMechanism[];
     signUpAttributes?: SignUpAttribute[];
     socialProviders?: SocialProvider[];
+    initialState?: 'signIn' | 'signUp' | 'resetPassword';
   };
+  services?: Partial<typeof defaultServices>;
   user?: CognitoUserAmplify;
+  username?: string;
+  password?: string;
+  code?: string;
+  mfaType?: AuthChallengeNames.SMS_MFA | AuthChallengeNames.SOFTWARE_TOKEN_MFA;
+}
+
+export interface ServicesContext {
+  username?: string;
+  password?: string;
+  user?: string;
+  code?: string;
+  mfaType: AuthChallengeNames.SMS_MFA | AuthChallengeNames.SOFTWARE_TOKEN_MFA;
 }
 
 interface BaseFormContext {
   authAttributes?: Record<string, any>;
   challengeName?: string;
+  requiredAttributes?: Array<string>;
   formValues?: AuthFormData;
   touched?: AuthFormData;
   intent?: string;
@@ -119,6 +135,7 @@ export type AuthEventTypes =
   | 'SIGN_UP'
   | 'SKIP'
   | 'SUBMIT'
+  | 'INIT'
   | InvokeActorEventTypes;
 
 export enum AuthChallengeNames {
@@ -168,3 +185,5 @@ export interface AuthEvent {
 export type AuthMachineState = State<AuthContext, AuthEvent>;
 
 export type AuthInterpreter = Interpreter<AuthContext, any, AuthEvent>;
+
+export type AuthMachineSend = AuthInterpreter['send'];

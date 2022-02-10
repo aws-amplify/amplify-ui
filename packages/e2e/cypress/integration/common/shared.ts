@@ -20,6 +20,18 @@ Given("I'm running the example {string}", (example: string) => {
   });
 });
 
+Given("I'm running the docs page {string}", (page: string) => {
+  cy.visit(page, {
+    // See: https://glebbahmutov.com/blog/cypress-tips-and-tricks/#control-navigatorlanguage
+    onBeforeLoad(win) {
+      Object.defineProperty(win.navigator, 'language', { value: language });
+    },
+    onLoad(contentWindow) {
+      window = contentWindow;
+    },
+  });
+});
+
 Given(
   'I intercept {string} with fixture {string}',
   (json: string, fixture: string) => {
@@ -31,9 +43,13 @@ Given(
       throw error;
     }
 
-    cy.intercept(routeMatcher, { fixture });
+    cy.intercept(routeMatcher, { fixture }).as('route');
   }
 );
+
+Given('I verify the body has {string} included', (value: string) => {
+  cy.wait('@route').its('request.body.Username').should('include', value);
+});
 
 Given(
   'I intercept {string} with error fixture {string}',
@@ -79,6 +95,13 @@ When('I type an invalid password', () => {
 When('I type a new {string}', (field: string) => {
   cy.findInputField(field).typeAliasWithStatus(field, `${Date.now()}`);
 });
+
+When(
+  'I type a new {string} with value {string}',
+  (field: string, value: string) => {
+    cy.findInputField(field).type(value);
+  }
+);
 
 When('I click the {string} tab', (label: string) => {
   cy.findByRole('tab', {

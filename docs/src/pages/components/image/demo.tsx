@@ -1,9 +1,36 @@
 import * as React from 'react';
-import { Image, View } from '@aws-amplify/ui-react';
-import { StylePropControls } from '@/components/StylePropControls';
-import { ImagePropControls } from '@/components/ImagePropControls';
-import { useStyleProps } from '@/components/useStyleProps';
-import { useImageProps } from '@/components/useImageProps';
+import { Image } from '@aws-amplify/ui-react';
+
+import { Demo } from '@/components/Demo';
+import { ImagePropControls } from './ImagePropControls';
+import { useImageProps } from './useImageProps';
+import { useStyleProps } from '../shared/useStyleProps';
+import { StylePropControls } from '../shared/StylePropControls';
+
+const propsToCode = (props) => {
+  return `<Image
+  src="${props.src}"
+  srcSet="${props.srcSet}"
+  sizes="${props.sizes}"
+  alt="${props.alt}"
+  objectFit="${props.objectFit}"
+  objectPosition="${props.objectPosition}"
+  backgroundColor="${props.backgroundColor}"
+  borderRadius="${props.borderRadius}"
+  border="${props.border}"
+  boxShadow="${props.boxShadow}"
+  color="${props.color}"
+  height="${props.height}"
+  maxHeight="${props.maxHeight}"
+  maxWidth="${props.maxWidth}"
+  minHeight="${props.minHeight}"
+  minWidth="${props.minWidth}"
+  opacity="${props.opacity}"
+  padding="${props.padding}"
+  width="${props.width}"
+  onClick={() => alert('📸 Say cheese!')}
+/>`;
+};
 
 export const ImageDemo = () => {
   const styleProps = useStyleProps({
@@ -21,8 +48,9 @@ export const ImageDemo = () => {
     opacity: '100%',
     padding: '0',
   });
+
   const imageProps = useImageProps({
-    src: 'https://docs.amplify.aws/assets/logo-dark.svg',
+    src: '/amplify-logo.svg',
     alt: 'Amplify logo',
     objectFit: 'fill',
     objectPosition: 'initial',
@@ -33,34 +61,37 @@ export const ImageDemo = () => {
   });
 
   return (
-    <div>
-      <ImagePropControls {...imageProps} />
-      <StylePropControls {...styleProps} />
-
-      <View width="350px" height="350px" className="p-6">
-        <Image
-          src={imageProps.src}
-          srcSet={imageProps.srcSet}
-          sizes={imageProps.sizes}
-          alt={imageProps.alt}
-          backgroundColor={styleProps.backgroundColor}
-          borderRadius={styleProps.borderRadius}
-          border={styleProps.border}
-          boxShadow={styleProps.boxShadow}
-          color={styleProps.color}
-          height={styleProps.height}
-          maxHeight={styleProps.maxHeight}
-          maxWidth={styleProps.maxWidth}
-          minHeight={styleProps.minHeight}
-          minWidth={styleProps.minWidth}
-          onClick={() => alert('📸 Say cheese!')}
-          opacity={styleProps.opacity}
-          padding={styleProps.padding}
-          width={styleProps.width}
-          objectFit={imageProps.objectFit}
-          objectPosition={imageProps.objectPosition}
-        />
-      </View>
-    </div>
+    <Demo
+      code={propsToCode({ ...styleProps, ...imageProps })}
+      propControls={
+        <>
+          <ImagePropControls {...imageProps} />
+          <StylePropControls {...styleProps} />
+        </>
+      }
+    >
+      <Image
+        src={imageProps.src}
+        srcSet={imageProps.srcSet}
+        sizes={imageProps.sizes}
+        alt={imageProps.alt}
+        objectFit={imageProps.objectFit}
+        objectPosition={imageProps.objectPosition}
+        backgroundColor={styleProps.backgroundColor}
+        borderRadius={styleProps.borderRadius}
+        border={styleProps.border}
+        boxShadow={styleProps.boxShadow}
+        color={styleProps.color}
+        height={styleProps.height}
+        maxHeight={styleProps.maxHeight}
+        maxWidth={styleProps.maxWidth}
+        minHeight={styleProps.minHeight}
+        minWidth={styleProps.minWidth}
+        opacity={styleProps.opacity}
+        padding={styleProps.padding}
+        width={styleProps.width}
+        onClick={() => alert('📸 Say cheese!')}
+      />
+    </Demo>
   );
 };

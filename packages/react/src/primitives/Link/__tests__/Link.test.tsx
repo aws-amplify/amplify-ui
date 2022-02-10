@@ -1,13 +1,51 @@
 import * as React from 'react';
 import kebabCase from 'lodash/kebabCase';
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import { ComponentClassNames } from '../../shared';
 import { ComponentPropsToStylePropsMap } from '../../types';
 import { Link } from '../Link';
 import { Text } from '../../Text/Text';
+import { Flex } from '../../Flex';
+import { Heading } from '../../Heading';
 
-describe('Text: ', () => {
+import {
+  BrowserRouter as Router,
+  Link as ReactRouterLink,
+  Routes,
+  Route,
+} from 'react-router-dom';
+
+function SampleRoutingApp() {
+  return (
+    <Router>
+      <Flex>
+        <Link as={ReactRouterLink} to="/">
+          Home
+        </Link>
+        <Link as={ReactRouterLink} to="/about">
+          About
+        </Link>
+      </Flex>
+
+      <Routes>
+        <Route path="/about" element={<About />} />
+        <Route path="/" element={<Home />} />
+      </Routes>
+    </Router>
+  );
+}
+
+function Home() {
+  return <Heading level={2}>You are home</Heading>;
+}
+
+function About() {
+  return <Heading level={2}>You are on the about page</Heading>;
+}
+
+describe('Link: ', () => {
   const linkText = 'My Link';
 
   it('renders correct defaults', async () => {
@@ -79,5 +117,16 @@ describe('Text: ', () => {
         kebabCase(ComponentPropsToStylePropsMap.textDecoration)
       )
     ).toBe('underline');
+  });
+
+  it('can integrate with react-router-dom using the "to" prop', async () => {
+    render(<SampleRoutingApp />);
+
+    expect(screen.getByText(/you are home/i)).toBeInTheDocument();
+
+    const leftClick = { button: 0 };
+    userEvent.click(screen.getByText(/about/i), leftClick);
+
+    expect(screen.getByText(/you are on the about page/i)).toBeInTheDocument();
   });
 });

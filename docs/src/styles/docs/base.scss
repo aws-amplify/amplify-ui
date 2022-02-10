@@ -38,8 +38,6 @@ html {
 
 // Remove this when this gets fixed in the UI package
 * {
-  box-sizing: border-box;
-
   /* Selection */
   &::-moz-selection {
     background: var(--amplify-colors-overlay-10);
@@ -111,10 +109,22 @@ code {
   background-color: var(--amplify-colors-background-secondary);
   font-size: 0.875em;
   border-radius: 0.3em;
-
-  &[class*='language-'] {
-    padding: 0;
-  }
+  font-family: 'Source Code Pro', 'Fira Code', 'Fira Mono', ui-monospace,
+    SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
+    monospace;
+  direction: ltr;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  line-height: 1.5;
+  -moz-tab-size: 2;
+  -o-tab-size: 2;
+  tab-size: 2;
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
 }
 
 h2 {

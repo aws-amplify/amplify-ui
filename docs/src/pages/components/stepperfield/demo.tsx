@@ -1,10 +1,31 @@
 import * as React from 'react';
 
-import { Flex, StepperField } from '@aws-amplify/ui-react';
+import { StepperField } from '@aws-amplify/ui-react';
 
-import { StepperFieldPropControls } from '@/components/StepperFieldPropControls';
-import { useStepperFieldProps } from '@/components/useStepperFieldProps';
-import { Example } from '@/components/Example';
+import { Demo } from '@/components/Demo';
+import {
+  StepperFieldPropControls,
+  StepperFieldPropControlsProps,
+} from './StepperFieldPropControls';
+import { useStepperFieldProps } from './useStepperFieldProps';
+
+const propsToCode = (props: StepperFieldPropControlsProps) => {
+  return (
+    `<StepperField
+  max={${props.max}}
+  min={${props.min}}
+  step={${props.step}}` +
+    (props.variation
+      ? `\n  variation=${JSON.stringify(props.variation)}`
+      : '') +
+    (props.size ? `\n  size="${props.size}"` : '') +
+    `
+  label="${props.label}"` +
+    (props.labelHidden ? `\n  labelHidden=${props.labelHidden}` : '') +
+    `
+/>`
+  );
+};
 
 export const StepperFieldDemo = () => {
   const stepperFieldProps = useStepperFieldProps({
@@ -16,20 +37,20 @@ export const StepperFieldDemo = () => {
   });
 
   return (
-    <Flex direction="column">
-      <StepperFieldPropControls {...stepperFieldProps} />
-      <Example>
-        <StepperField
-          label={stepperFieldProps.label}
-          defaultValue={stepperFieldProps.defaultValue}
-          max={stepperFieldProps.max}
-          min={stepperFieldProps.min}
-          size={stepperFieldProps.size}
-          variation={stepperFieldProps.variation}
-          step={stepperFieldProps.step}
-          labelHidden={stepperFieldProps.labelHidden}
-        />
-      </Example>
-    </Flex>
+    <Demo
+      code={propsToCode(stepperFieldProps)}
+      propControls={<StepperFieldPropControls {...stepperFieldProps} />}
+    >
+      <StepperField
+        label={stepperFieldProps.label}
+        defaultValue={stepperFieldProps.defaultValue}
+        max={stepperFieldProps.max}
+        min={stepperFieldProps.min}
+        size={stepperFieldProps.size}
+        variation={stepperFieldProps.variation}
+        step={stepperFieldProps.step}
+        labelHidden={stepperFieldProps.labelHidden}
+      />
+    </Demo>
   );
 };

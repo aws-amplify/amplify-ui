@@ -4,23 +4,24 @@
 
 @import 'dist/theme';
 
-html {
+[data-amplify-theme] {
   font-family: var(--amplify-fonts-default-static);
 }
 @supports (font-variation-settings: normal) {
-  html {
+  [data-amplify-theme] {
     font-family: var(--amplify-fonts-default-variable);
   }
 }
 
-[class*='amplify'] {
-  all: unset; /* protect against external styles */
+// Note: This rule can be easily overwritten when
+// needed due to very low specificity of 0 0 0
+* {
+  box-sizing: border-box;
 }
 
-// Must be defined AFTER `[class*='amplify']
-// or rules will be unset to initial/default
-[data-amplify-theme] * {
-  box-sizing: border-box;
+[class*='amplify'] {
+  all: unset; /* protect against external styles */
+  box-sizing: border-box; /* set box-sizing after unset above */
 }
 
 .sr-only {
@@ -60,6 +61,7 @@ html {
 @import './component/collection.scss';
 @import './component/checkbox.scss';
 @import './component/checkboxField.scss';
+@import './component/countryCodeSelect.scss';
 @import './component/divider.scss';
 @import './component/expander.scss';
 @import './component/field.scss';
