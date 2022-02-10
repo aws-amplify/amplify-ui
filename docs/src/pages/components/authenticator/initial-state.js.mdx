@@ -1,0 +1,37 @@
+import { Authenticator } from '@aws-amplify/ui-react';
+import { Example } from '@/components/Example';
+import { Fragment } from '@/components/Fragment';
+import { Tabs, TabItem } from '@aws-amplify/ui-react';
+
+### `initialState`
+
+By default, unauthenticated users are redirected to the `signIn` flow.
+
+You can explicitly redirect to `signUp` or `resetPassword` as your `initialState`:
+
+<Tabs>
+  <TabItem title="Sign In">
+    <Fragment>
+      {({ platform }) => import(`./initialState.signIn.${platform}.mdx`)}
+    </Fragment>
+    <Example>
+      <Authenticator initialState="signIn" />
+    </Example>
+  </TabItem>
+  <TabItem title="Sign Up">
+    <Fragment>
+      {({ platform }) => import(`./initialState.signUp.${platform}.mdx`)}
+    </Fragment>
+    <Example>
+      <Authenticator initialState="signUp" />
+    </Example>
+  </TabItem>
+  <TabItem title="Reset Password">
+    <Fragment>
+      {({ platform }) => import(`./initialState.resetPassword.${platform}.mdx`)}
+    </Fragment>
+    <Example>
+      <Authenticator initialState="resetPassword" />
+    </Example>
+  </TabItem>
+</Tabs>

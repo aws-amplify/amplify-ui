@@ -1,0 +1,24 @@
+import { Alert, Authenticator } from '@aws-amplify/ui-react';
+import { Example } from '@/components/Example';
+import { Fragment } from '@/components/Fragment';
+
+### `socialProviders`
+
+<Alert heading="Zero Configuration">
+
+The Authenticator [automatically infers](#zero-configuration) `socialProviders` from `amplify pull`,
+but can be explicitly defined as seen below.
+
+</Alert>
+
+For your [configured social providers](https://docs.amplify.aws/lib/auth/social/q/platform/js/), you can also provide `amazon`, `facebook`, or `google`:
+
+<Fragment>
+  {({ platform }) => import(`./socialProviders.${platform}.mdx`)}
+</Fragment>
+
+<Example>
+  <Authenticator socialProviders={['amazon', 'apple', 'facebook', 'google']} />
+</Example>
+
+_[Step by step video](https://youtu.be/8KwZNn56F78) on setting up social providers._
