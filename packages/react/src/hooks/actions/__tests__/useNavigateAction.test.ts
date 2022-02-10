@@ -9,6 +9,7 @@ import {
 } from '../constants';
 import {
   defaultTarget,
+  windowFeatures,
   useNavigateAction,
   UseNavigateActionOptions,
 } from '../useNavigateAction';
@@ -62,7 +63,7 @@ describe('useNavigateHook: ', () => {
 
     result.current();
     expect(windowSpy).toBeCalledTimes(1);
-    expect(windowSpy).toBeCalledWith(url, defaultTarget);
+    expect(windowSpy).toBeCalledWith(url, defaultTarget, windowFeatures);
 
     testHubEventEmit(config);
 
@@ -84,7 +85,7 @@ describe('useNavigateHook: ', () => {
 
     result.current();
     expect(windowSpy).toBeCalledTimes(1);
-    expect(windowSpy).toBeCalledWith(url, target);
+    expect(windowSpy).toBeCalledWith(url, target, windowFeatures);
 
     testHubEventEmit(config);
 
