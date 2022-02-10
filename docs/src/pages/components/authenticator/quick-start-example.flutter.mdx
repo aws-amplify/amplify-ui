@@ -1,6 +1,6 @@
 Add the authenticator to your app by wrapping the MaterialApp widget in the Authenticator widget, and then set the MaterialApp's `builder` to `Authenticator.builder()`.
 
-```dart{38,41}
+```dart{38,40}
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -40,7 +40,6 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return Authenticator(
       child: MaterialApp(
-        title: 'Authenticator Demo',
         builder: Authenticator.builder(),
         home: const Scaffold(
           body: Center(
