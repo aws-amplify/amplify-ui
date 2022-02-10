@@ -8,7 +8,8 @@
     "dev": "TZ=UTC cypress open",
     "test": "TZ=UTC cypress run --spec features/ui/components/authenticator/*.features",
     "test:authenticator": "TZ=UTC cypress run --spec features/ui/components/authenticator/*.features",
-    "test:theme": "TZ=UTC cypress run --spec features/ui/theme/*.features"
+    "test:theme": "TZ=UTC cypress run --spec features/ui/theme/*.features",
+    "test:hooks": "TZ=UTC cypress run --spec features/ui/hooks/*.features"
   },
   "cypress-cucumber-preprocessor": {
     "nonGlobalStepDefinitions": true,
