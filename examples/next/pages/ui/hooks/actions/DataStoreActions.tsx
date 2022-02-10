@@ -1,6 +1,5 @@
 import * as React from 'react';
 
-import { Hub } from 'aws-amplify';
 import {
   TextField,
   Button,
