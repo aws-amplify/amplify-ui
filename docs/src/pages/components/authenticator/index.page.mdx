@@ -270,6 +270,18 @@ The Authenticator has multiple variations to meet the needs of your application.
   </TabItem>
 </Tabs>
 
+### `hideSignUp`
+
+The Authenticator has an option to hide the sign up page including the `Create Account` tab.
+
+<Fragment>
+  {({ platform }) => import(`./hidesignup.default.${platform}.mdx`)}
+</Fragment>
+
+<Example>
+  <Authenticator hideSignUp={true} />
+</Example>
+
 ## Customization
 
 ### Headers & Footers
@@ -434,6 +446,7 @@ The `Authenticator` ships with [translations](https://github.com/aws-amplify/amp
 These [translations](https://github.com/aws-amplify/amplify-ui/blob/main/packages/ui/src/i18n/translations.ts) can be customized using the [Amplify JS' `I18n`](https://docs.amplify.aws/lib/utilities/i18n/q/platform/js/) module:
 
 ```js
+import { I18n } from 'aws-amplify';
 import { translations } from '@aws-amplify/ui';
 I18n.putVocabularies(translations);
 I18n.setLanguage('fr');

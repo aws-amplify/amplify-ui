@@ -7,12 +7,14 @@ import {
 } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '../composables/useAuth';
+import { createSharedComposable } from '@vueuse/core';
 
 const attrs = useAttrs();
 const emit = defineEmits(['resetPasswordSubmit', 'backToSignInClicked']);
 
-const { state, send } = useAuthenticator();
-const { error, isPending } = toRefs(useAuthenticator());
+const useAuthShared = createSharedComposable(useAuthenticator);
+const { state, send } = useAuthShared();
+const { error, isPending } = toRefs(useAuthShared());
 
 const { label } = getAliasInfoFromContext(state.context);
 const labelText = `Enter your ${label.toLowerCase()}`;

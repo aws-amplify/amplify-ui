@@ -1,5 +1,11 @@
 # @aws-amplify/ui-vue
 
+## 2.1.0
+
+### Minor Changes
+
+- [#1260](https://github.com/aws-amplify/amplify-ui/pull/1260) [`ecd7bea7e`](https://github.com/aws-amplify/amplify-ui/commit/ecd7bea7ee4466930c15bceb8986e0a090d0570e) Thanks [@ErikCH](https://github.com/ErikCH)! - Added new hide sign up prop, for Vue, Angular, and React
+
 ## 2.0.12
 
 ### Patch Changes

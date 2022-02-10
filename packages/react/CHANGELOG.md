@@ -1,5 +1,38 @@
 # @aws-amplify/ui-react
 
+## 2.3.0
+
+### Minor Changes
+
+- [#1260](https://github.com/aws-amplify/amplify-ui/pull/1260) [`ecd7bea7e`](https://github.com/aws-amplify/amplify-ui/commit/ecd7bea7ee4466930c15bceb8986e0a090d0570e) Thanks [@ErikCH](https://github.com/ErikCH)! - Added new hide sign up prop, for Vue, Angular, and React
+
+* [#1229](https://github.com/aws-amplify/amplify-ui/pull/1229) [`dc4bb31d5`](https://github.com/aws-amplify/amplify-ui/commit/dc4bb31d51ed628c732e3efaa22143541bc73068) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - Adding more flexibility in the Icon component. Added `as` and `children` to the Icon props to allow for more complex icons.
+
+  Using `as` prop with icon libraries:
+
+  ```jsx
+  import { Icon } from '@aws-amplify/ui-react';
+  import { DiJsBadge } from 'react-icons/di';
+
+  <Icon ariaLabel="Javascript" as={DiJsBadge} />;
+  ```
+
+  Using multiple paths:
+
+  ```jsx
+  import { Icon } from '@aws-amplify/ui-react';
+
+  <Icon ariaLabel="Align bottom" color="rebeccapurple">
+    <path d="M13 10H17V16H13V10Z" fill="currentColor" opacity="0.5" />
+    <path d="M11 4H7V16H11V4Z" fill="currentColor" />
+    <path d="M18 18H6V20H18V18Z" fill="currentColor" />
+  </Icon>;
+  ```
+
+### Patch Changes
+
+- [#1249](https://github.com/aws-amplify/amplify-ui/pull/1249) [`d0bb758cb`](https://github.com/aws-amplify/amplify-ui/commit/d0bb758cbfb6b6e79e0921ef05c0a3a1ec8b9e63) Thanks [@zchenwei](https://github.com/zchenwei)! - test: adding unit tests against null values
+
 ## 2.2.2
 
 ### Patch Changes
