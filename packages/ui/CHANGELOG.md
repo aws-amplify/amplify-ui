@@ -1,5 +1,27 @@
 # @aws-amplify/ui
 
+## 3.0.12
+
+### Patch Changes
+
+- [#1151](https://github.com/aws-amplify/amplify-ui/pull/1151) [`f7d86db6d`](https://github.com/aws-amplify/amplify-ui/commit/f7d86db6dbd3af650ce4c64e6efbc5acb4523e78) Thanks [@reesscot](https://github.com/reesscot)! - fix: change box-sizing to have less specificity
+
+* [#1230](https://github.com/aws-amplify/amplify-ui/pull/1230) [`b824136bf`](https://github.com/aws-amplify/amplify-ui/commit/b824136bfb288df0f3300421f73f9bfdcd61bf57) Thanks [@wlee221](https://github.com/wlee221)! - Pin xstate to `4.28.0`
+
+- [#1251](https://github.com/aws-amplify/amplify-ui/pull/1251) [`2913fe8cb`](https://github.com/aws-amplify/amplify-ui/commit/2913fe8cb35e08ad6c61121dfb9d12b4ae9cf6ad) Thanks [@joebuono](https://github.com/joebuono)! - Pin all dependencies
+
+## 3.0.11
+
+### Patch Changes
+
+- [#1224](https://github.com/aws-amplify/amplify-ui/pull/1224) [`4932b43f8`](https://github.com/aws-amplify/amplify-ui/commit/4932b43f8f3ad5d851a4fd8635b1b92abf6c4ef0) Thanks [@wlee221](https://github.com/wlee221)! - Pin xstate versions
+
+## 3.0.10
+
+### Patch Changes
+
+- [#1153](https://github.com/aws-amplify/amplify-ui/pull/1153) [`3afdc1fc9`](https://github.com/aws-amplify/amplify-ui/commit/3afdc1fc9a876a17403ccfc607b922ec352fd1cf) Thanks [@wlee221](https://github.com/wlee221)! - Listen to Auth Hub events
+
 ## 3.0.9
 
 ### Patch Changes

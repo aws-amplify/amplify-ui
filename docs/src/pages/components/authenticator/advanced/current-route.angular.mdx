@@ -1,0 +1,28 @@
+You can use `AuthenticatorService` to access `route` string that represents the current `authState`. They can be one of:
+
+- `idle`
+- `setup`
+- `signIn`
+- `signUp`
+- `confirmSignIn`
+- `confirmSignUp`
+- `setupTOTP`
+- `forceNewPassword`
+- `resetPassword`
+- `confirmResetPassword`
+- `verifyUser`
+- `confirmVerifyUser`
+- `signOut`
+- `authenticated`
+
+```html
+<!-- Only render this if there's an authenticated user -->
+<ng-container *ngIf="authenticator.route === 'authenticated'">
+  Welcome back!
+</ng-container>
+
+<!-- Render sign-in screen otherwise with authenticator -->
+<ng-container *ngIf="authenticator.route !== 'authenticated'">
+  <amplify-authenticator></amplify-authenticator>
+</ng-container>
+```

@@ -81,3 +81,25 @@ Feature: Sign Up with Attributes
   Scenario: Sign Up screen does not have Zone Info
     Then I don't see "Zone Info"
 
+  @angular @react @vue  
+  Scenario: Sign In Force New Password screen has correct attributes 
+    Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }' with fixture "force-change-password-with-attributes"
+    When I click the "Sign In" tab
+    When I type my "username" with status "CONFIRMED"
+    And I type my password
+    And I click the "Sign in" button
+    Then I see "Website" as a "url" field
+    Then I don't see "Updated At"
+    Then I see "Profile" as a "url" field
+    Then I don't see "Picture"
+    Then I see "Preferred Username" as a "text" field
+    Then I see "Phone Number" as a "tel" field
+    Then I see "Nickname" as a "text" field
+    Then I see "Name" as a "text" field
+    Then I see "Given Name" as a "text" field
+    Then I don't see "Locale"
+    Then I don't see "Gender"
+    Then I see "Middle Name" as a "text" field
+    Then I see "Zone Info" as a "text" field
+    Then I see "Family Name" as a "text" field
+    Then I don't see "Address"

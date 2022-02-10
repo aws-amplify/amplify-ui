@@ -27,7 +27,7 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
-        with: 
+        with:
           ref: ${{ github.event.workflow_run.head_branch }}
       - name: Setup Node.js LTS
         uses: actions/setup-node@v2
@@ -35,7 +35,7 @@ jobs:
           node-version: lts/*
           cache: 'yarn'
       - name: Install and build packages
-        run: yarn --frozen-lockfile --prefer-offline && yarn build
+        run: yarn --frozen-lockfile && yarn build
       - name: Add changeset that bumps all public packages
         # There needs to be a changeset for @aws-amplify/ui[-framework] to publish.
         run: cp .github/changeset-presets/bump-versions.md .changeset

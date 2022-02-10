@@ -32,6 +32,7 @@ export interface ServicesContext {
 interface BaseFormContext {
   authAttributes?: Record<string, any>;
   challengeName?: string;
+  requiredAttributes?: Array<string>;
   formValues?: AuthFormData;
   touched?: AuthFormData;
   intent?: string;
@@ -184,3 +185,5 @@ export interface AuthEvent {
 export type AuthMachineState = State<AuthContext, AuthEvent>;
 
 export type AuthInterpreter = Interpreter<AuthContext, any, AuthEvent>;
+
+export type AuthMachineSend = AuthInterpreter['send'];

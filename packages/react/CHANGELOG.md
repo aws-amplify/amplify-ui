@@ -1,5 +1,104 @@
 # @aws-amplify/ui-react
 
+## 2.3.0
+
+### Minor Changes
+
+- [#1260](https://github.com/aws-amplify/amplify-ui/pull/1260) [`ecd7bea7e`](https://github.com/aws-amplify/amplify-ui/commit/ecd7bea7ee4466930c15bceb8986e0a090d0570e) Thanks [@ErikCH](https://github.com/ErikCH)! - Added new hide sign up prop, for Vue, Angular, and React
+
+* [#1229](https://github.com/aws-amplify/amplify-ui/pull/1229) [`dc4bb31d5`](https://github.com/aws-amplify/amplify-ui/commit/dc4bb31d51ed628c732e3efaa22143541bc73068) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - Adding more flexibility in the Icon component. Added `as` and `children` to the Icon props to allow for more complex icons.
+
+  Using `as` prop with icon libraries:
+
+  ```jsx
+  import { Icon } from '@aws-amplify/ui-react';
+  import { DiJsBadge } from 'react-icons/di';
+
+  <Icon ariaLabel="Javascript" as={DiJsBadge} />;
+  ```
+
+  Using multiple paths:
+
+  ```jsx
+  import { Icon } from '@aws-amplify/ui-react';
+
+  <Icon ariaLabel="Align bottom" color="rebeccapurple">
+    <path d="M13 10H17V16H13V10Z" fill="currentColor" opacity="0.5" />
+    <path d="M11 4H7V16H11V4Z" fill="currentColor" />
+    <path d="M18 18H6V20H18V18Z" fill="currentColor" />
+  </Icon>;
+  ```
+
+### Patch Changes
+
+- [#1249](https://github.com/aws-amplify/amplify-ui/pull/1249) [`d0bb758cb`](https://github.com/aws-amplify/amplify-ui/commit/d0bb758cbfb6b6e79e0921ef05c0a3a1ec8b9e63) Thanks [@zchenwei](https://github.com/zchenwei)! - test: adding unit tests against null values
+
+## 2.2.2
+
+### Patch Changes
+
+- [#1243](https://github.com/aws-amplify/amplify-ui/pull/1243) [`93834bf58`](https://github.com/aws-amplify/amplify-ui/commit/93834bf5888cec3b031c63abd8a261fab521ae28) Thanks [@zchenwei](https://github.com/zchenwei)! - fix: fixing error throwing when typing in `Collection` search due to `items` prop contains `null` value
+
+- Updated dependencies [[`f7d86db6d`](https://github.com/aws-amplify/amplify-ui/commit/f7d86db6dbd3af650ce4c64e6efbc5acb4523e78), [`b824136bf`](https://github.com/aws-amplify/amplify-ui/commit/b824136bfb288df0f3300421f73f9bfdcd61bf57), [`2913fe8cb`](https://github.com/aws-amplify/amplify-ui/commit/2913fe8cb35e08ad6c61121dfb9d12b4ae9cf6ad)]:
+  - @aws-amplify/ui@3.0.12
+
+## 2.2.1
+
+### Patch Changes
+
+- [#1207](https://github.com/aws-amplify/amplify-ui/pull/1207) [`b920368e7`](https://github.com/aws-amplify/amplify-ui/commit/b920368e7037035b798689716bdcd0c12cd4df67) Thanks [@ErikCH](https://github.com/ErikCH)! - Added translations for errors for confirm sign in
+
+- Updated dependencies [[`4932b43f8`](https://github.com/aws-amplify/amplify-ui/commit/4932b43f8f3ad5d851a4fd8635b1b92abf6c4ef0)]:
+  - @aws-amplify/ui@3.0.11
+
+## 2.2.0
+
+### Minor Changes
+
+- [#1168](https://github.com/aws-amplify/amplify-ui/pull/1168) [`b32dd86bf`](https://github.com/aws-amplify/amplify-ui/commit/b32dd86bf4e26011f8b17e59b98fed3430f8fe50) Thanks [@wlee221](https://github.com/wlee221)! - This enables `useAuthenticator` usage outside <Authenticator /> to access commonly requested authenticator context like `user` and `route`.
+
+  First wrap your App with `Authenticator.Provider`:
+
+  ```tsx
+  const App = (
+    <Authenticator.Provider>
+      <MyApp />
+    </Authenticator.Provider>
+  );
+  ```
+
+  To avoid repeated re-renders, you can pass a function that takes in Authenticator context and returns an array of desired context values. This hook will only trigger re-render if any of the array value changes.
+
+  ```tsx
+  const Home = () => {
+    const { user, signOut } = useAuthenticator((context) => [context.user]);
+
+    return (
+      <>
+        <h2>Welcome, {user.username}!</h2>
+        <button onClick={signOut}>Sign Out</button>
+      </>
+    );
+  };
+
+  const Login = () => <Authenticator />;
+
+  function MyApp() {
+    const { route } = useAuthenticator((context) => [context.route]);
+
+    return route === 'authenticated' ? <Home /> : <Login />;
+  }
+  ```
+
+### Patch Changes
+
+- [#1153](https://github.com/aws-amplify/amplify-ui/pull/1153) [`3afdc1fc9`](https://github.com/aws-amplify/amplify-ui/commit/3afdc1fc9a876a17403ccfc607b922ec352fd1cf) Thanks [@wlee221](https://github.com/wlee221)! - Listen to Auth Hub events
+
+* [#1176](https://github.com/aws-amplify/amplify-ui/pull/1176) [`f7f77237e`](https://github.com/aws-amplify/amplify-ui/commit/f7f77237e69272f1d1d878620946e2914354b503) Thanks [@ErikCH](https://github.com/ErikCH)! - Added new force new password fields component. Also auto detect required attributes on force new password page.
+
+* Updated dependencies [[`3afdc1fc9`](https://github.com/aws-amplify/amplify-ui/commit/3afdc1fc9a876a17403ccfc607b922ec352fd1cf)]:
+  - @aws-amplify/ui@3.0.10
+
 ## 2.1.10
 
 ### Patch Changes

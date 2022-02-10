@@ -6,16 +6,17 @@ import { LinkProps, Primitive } from '../types';
 import { View } from '../View';
 
 const LinkPrimitive: Primitive<LinkProps, 'a'> = (
-  { as = 'a', children, className, isExternal, ...rest },
+  { as = 'a', children, className, isExternal, to, ...rest },
   ref
 ) => {
   return (
     <View
       as={as}
       className={classNames(ComponentClassNames.Link, className)}
+      ref={ref}
       rel={isExternal ? 'noopener noreferrer' : undefined}
       target={isExternal ? '_blank' : undefined}
-      ref={ref}
+      to={to}
       {...rest}
     >
       {children}
