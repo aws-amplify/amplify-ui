@@ -1,4 +1,5 @@
 import { Example } from '@/components/Example';
+import { FlutterAuthenticatorExample } from '@/components/FlutterAuthenticatorExample';
 import { Fragment } from '@/components/Fragment';
 import { Tabs, TabItem } from '@aws-amplify/ui-react';
 
@@ -13,18 +14,24 @@ You can explicitly redirect to Sign Up or Reset Password as your initial step:
     <Fragment>
       {({ platform }) => import(`./initialState.signIn.${platform}.mdx`)}
     </Fragment>
-    // TODO: Example
+    <FlutterAuthenticatorExample
+      initialStep={'signIn'}
+    ></FlutterAuthenticatorExample>
   </TabItem>
   <TabItem title="Sign Up">
     <Fragment>
       {({ platform }) => import(`./initialState.signUp.${platform}.mdx`)}
     </Fragment>
-    // TODO: Example
+    <FlutterAuthenticatorExample
+      initialStep={'signUp'}
+    ></FlutterAuthenticatorExample>
   </TabItem>
   <TabItem title="Reset Password">
     <Fragment>
       {({ platform }) => import(`./initialState.resetPassword.${platform}.mdx`)}
     </Fragment>
-    // TODO: Example
+    <FlutterAuthenticatorExample
+      initialStep={'resetPassword'}
+    ></FlutterAuthenticatorExample>
   </TabItem>
 </Tabs>
