@@ -1,7 +1,8 @@
-import React from 'react';
-import { Rating, RatingProps } from '@aws-amplify/ui-react';
+import * as React from 'react';
 import { RatingPropControls } from './RatingPropControls';
 import { useRatingProps } from './useRatingProps';
+
+import { Rating } from '@aws-amplify/ui-react';
 import { Demo } from '@/components/Demo';
 
 const propsToCode = (props) => {
