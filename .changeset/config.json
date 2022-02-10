@@ -1,5 +1,9 @@
 {
   "$schema": "https://unpkg.com/@changesets/config@1.6.0/schema.json",
+  "changelog": [
+    "@changesets/changelog-github",
+    { "repo": "aws-amplify/amplify-ui" }
+  ],
   "commit": false,
   "linked": [],
   "access": "public",

@@ -1,19 +1,19 @@
 # @aws-amplify/ui-vue
 
-## 0.0.0-actions-d5d1775-20220209035722
+## 2.1.0
+
+### Minor Changes
+
+- [#1260](https://github.com/aws-amplify/amplify-ui/pull/1260) [`ecd7bea7e`](https://github.com/aws-amplify/amplify-ui/commit/ecd7bea7ee4466930c15bceb8986e0a090d0570e) Thanks [@ErikCH](https://github.com/ErikCH)! - Added new hide sign up prop, for Vue, Angular, and React
+
+## 2.0.12
 
 ### Patch Changes
 
-- Updated dependencies
-  - @aws-amplify/ui@0.0.0-actions-d5d1775-20220209035722
+- [#1251](https://github.com/aws-amplify/amplify-ui/pull/1251) [`2913fe8cb`](https://github.com/aws-amplify/amplify-ui/commit/2913fe8cb35e08ad6c61121dfb9d12b4ae9cf6ad) Thanks [@joebuono](https://github.com/joebuono)! - Pin all dependencies
 
-## 0.0.0-actions-1bf892b-20220203214717
-
-### Patch Changes
-
-- Updated dependencies [f7d86db6d]
-- Updated dependencies [b824136bf]
-  - @aws-amplify/ui@0.0.0-actions-1bf892b-20220203214717
+- Updated dependencies [[`f7d86db6d`](https://github.com/aws-amplify/amplify-ui/commit/f7d86db6dbd3af650ce4c64e6efbc5acb4523e78), [`b824136bf`](https://github.com/aws-amplify/amplify-ui/commit/b824136bfb288df0f3300421f73f9bfdcd61bf57), [`2913fe8cb`](https://github.com/aws-amplify/amplify-ui/commit/2913fe8cb35e08ad6c61121dfb9d12b4ae9cf6ad)]:
+  - @aws-amplify/ui@3.0.12
 
 ## 2.0.11
 

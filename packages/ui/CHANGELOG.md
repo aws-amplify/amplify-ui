@@ -1,17 +1,14 @@
 # @aws-amplify/ui
 
-## 0.0.0-actions-d5d1775-20220209035722
+## 3.0.12
 
 ### Patch Changes
 
-- Force update of all packages for actions
+- [#1151](https://github.com/aws-amplify/amplify-ui/pull/1151) [`f7d86db6d`](https://github.com/aws-amplify/amplify-ui/commit/f7d86db6dbd3af650ce4c64e6efbc5acb4523e78) Thanks [@reesscot](https://github.com/reesscot)! - fix: change box-sizing to have less specificity
 
-## 0.0.0-actions-1bf892b-20220203214717
+* [#1230](https://github.com/aws-amplify/amplify-ui/pull/1230) [`b824136bf`](https://github.com/aws-amplify/amplify-ui/commit/b824136bfb288df0f3300421f73f9bfdcd61bf57) Thanks [@wlee221](https://github.com/wlee221)! - Pin xstate to `4.28.0`
 
-### Patch Changes
-
-- f7d86db6d: fix: change box-sizing to have less specificity
-- b824136bf: Pin xstate to `4.28.0`
+- [#1251](https://github.com/aws-amplify/amplify-ui/pull/1251) [`2913fe8cb`](https://github.com/aws-amplify/amplify-ui/commit/2913fe8cb35e08ad6c61121dfb9d12b4ae9cf6ad) Thanks [@joebuono](https://github.com/joebuono)! - Pin all dependencies
 
 ## 3.0.11
 
