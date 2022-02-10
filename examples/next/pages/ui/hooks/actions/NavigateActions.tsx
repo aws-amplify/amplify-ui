@@ -1,4 +1,4 @@
-import { Button } from '@aws-amplify/ui-react';
+import { Button, View } from '@aws-amplify/ui-react';
 import { useNavigateAction } from '@aws-amplify/ui-react/internal';
 
 export const NavigateActions = () => {
@@ -19,7 +19,7 @@ export const NavigateActions = () => {
     goToHash();
   };
   return (
-    <div>
+    <View>
       <Button testId="locationChange" onClick={() => goToAmazon()}>
         Go to amazon.com
       </Button>
@@ -29,7 +29,7 @@ export const NavigateActions = () => {
       <Button testId="hash" onClick={() => handleHashClick()}>
         Go to #notes
       </Button>
-      <div id="notes">notes</div>
-    </div>
+      <View id="notes">notes</View>
+    </View>
   );
 };
