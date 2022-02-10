@@ -28,49 +28,49 @@ Amplify UI is an open-source UI library with cloud-connected components that are
 
 ## Component Matrix
 
-| **Connected Components**            | **React** | **Angular** | **Vue** |
+| **Connected Components** | **React** | **Angular** | **Vue** |
 | :----------------------- | :-------: | :---------: | :-----: |
 | Authenticator            |    ✅     |     ✅      |   ✅    |
 | Interactions             |           |             |
 | Storage                  |           |             |
 
-| **Primitives**            | **React** | **Angular** | **Vue** |
-| :----------------------- | :-------: | :---------: | :-----: |
-| Alert                    |    ✅     |             |
-| Badge                    |    ✅     |             |
-| Button                   |    ✅     |             |
-| Card                     |    ✅     |             |
-| CheckboxField            |    ✅     |             |
-| Collection               |    ✅     |             |
-| Divider                  |    ✅     |             |
-| Expander                 |    ✅     |             |
-| Flex                     |    ✅     |             |
-| Grid                     |    ✅     |             |
-| Heading                  |    ✅     |             |
-| Icon                     |    ✅     |             |
-| Image                    |    ✅     |             |
-| Link                     |    ✅     |             |
-| Loader                   |    ✅     |             |
-| Menu                     |    ✅     |             |
-| Pagination               |    ✅     |             |
-| PasswordField            |    ✅     |             |
-| PhoneNumberField         |    ✅     |             |
-| Placeholder              |    ✅     |             |
-| RadioGroupField          |    ✅     |             |
-| Rating                   |    ✅     |             |
-| ScrollView               |    ✅     |             |
-| SearchField              |    ✅     |             |
-| SelectField              |    ✅     |             |
-| SliderField              |    ✅     |             |
-| StepperField             |    ✅     |             |
-| SwitchField              |    ✅     |             |
-| Table                    |    ✅     |             |
-| Tabs                     |    ✅     |             |
-| Text                     |    ✅     |             |
-| TextField                |    ✅     |             |
-| ToggleButton             |    ✅     |             |
-| View                     |    ✅     |             |
-| VisuallyHidden           |    ✅     |             |
+| **Primitives**   | **React** | **Angular** | **Vue** |
+| :--------------- | :-------: | :---------: | :-----: |
+| Alert            |    ✅     |             |
+| Badge            |    ✅     |             |
+| Button           |    ✅     |             |
+| Card             |    ✅     |             |
+| CheckboxField    |    ✅     |             |
+| Collection       |    ✅     |             |
+| Divider          |    ✅     |             |
+| Expander         |    ✅     |             |
+| Flex             |    ✅     |             |
+| Grid             |    ✅     |             |
+| Heading          |    ✅     |             |
+| Icon             |    ✅     |             |
+| Image            |    ✅     |             |
+| Link             |    ✅     |             |
+| Loader           |    ✅     |             |
+| Menu             |    ✅     |             |
+| Pagination       |    ✅     |             |
+| PasswordField    |    ✅     |             |
+| PhoneNumberField |    ✅     |             |
+| Placeholder      |    ✅     |             |
+| RadioGroupField  |    ✅     |             |
+| Rating           |    ✅     |             |
+| ScrollView       |    ✅     |             |
+| SearchField      |    ✅     |             |
+| SelectField      |    ✅     |             |
+| SliderField      |    ✅     |             |
+| StepperField     |    ✅     |             |
+| SwitchField      |    ✅     |             |
+| Table            |    ✅     |             |
+| Tabs             |    ✅     |             |
+| Text             |    ✅     |             |
+| TextField        |    ✅     |             |
+| ToggleButton     |    ✅     |             |
+| View             |    ✅     |             |
+| VisuallyHidden   |    ✅     |             |
 
 ## Frequently asked questions
 
