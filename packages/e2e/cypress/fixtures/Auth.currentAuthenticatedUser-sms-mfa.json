@@ -1,0 +1,10 @@
+{
+  "attributes": {
+    "sub": "************",
+    "email_verified": true,
+    "phone_number_verified": true,
+    "phone_number": "+17755551212",
+    "email": "amplify_test_user@example.com"
+  },
+  "username": "amplify_test_user"
+}

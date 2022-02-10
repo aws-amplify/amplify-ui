@@ -17,7 +17,12 @@ I18n.putVocabulariesForLanguage('en', {
 export default function AuthenticatorWithSmsMfa() {
   return (
     <Authenticator>
-      {({ signOut }) => <button onClick={signOut}>Sign out</button>}
+      {({ signOut, user }) => (
+        <>
+          Hello {user.attributes.email}
+          <button onClick={signOut}>Sign out</button>
+        </>
+      )}
     </Authenticator>
   );
 }
