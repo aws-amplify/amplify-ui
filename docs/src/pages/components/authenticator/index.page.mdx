@@ -5,13 +5,13 @@ title: Authenticator
 import { Fragment } from '@/components/Fragment';
 import { Tabs, TabItem } from '@aws-amplify/ui-react';
 
-<Fragment useCommonJsContent>
+<Fragment useCommonWebContent>
   {({ platform }) => import(`./intro.${platform}.mdx`)}
 </Fragment>
 
 ## Quick Start
 
-<Fragment useCommonJsContent>
+<Fragment useCommonWebContent>
   {({ platform }) => import(`./quick-start-intro.${platform}.mdx`)}
 </Fragment>
 
@@ -19,7 +19,7 @@ import { Tabs, TabItem } from '@aws-amplify/ui-react';
   {({ platform }) => import(`./quick-start-example.${platform}.mdx`)}
 </Fragment>
 
-<Fragment useCommonJsContent platforms={['js']}>
+<Fragment useCommonWebContent platforms={['web']}>
   {({ platform }) => import(`./trouble-shooting-alert.${platform}.mdx`)}
 </Fragment>
 
@@ -50,34 +50,34 @@ yarn global add @aws-amplify/cli@latest
 </TabItem>
 </Tabs>
 
-<Fragment useCommonJsContent>
+<Fragment useCommonWebContent>
   {({ platform }) => import(`./amplify-pull.${platform}.mdx`)}
 </Fragment>
 
-<Fragment useCommonJsContent>
+<Fragment useCommonWebContent>
   {({ platform }) => import(`./initialState.${platform}.mdx`)}
 </Fragment>
 
-<Fragment useCommonJsContent>
+<Fragment useCommonWebContent>
   {({ platform }) => import(`./loginMechanisms.${platform}.mdx`)}
 </Fragment>
 
-<Fragment useCommonJsContent>
+<Fragment useCommonWebContent>
   {({ platform }) => import(`./signUpAttributes.${platform}.mdx`)}
 </Fragment>
 
-<Fragment useCommonJsContent>
+<Fragment useCommonWebContent>
   {({ platform }) => import(`./socialProviders.${platform}.mdx`)}
 </Fragment>
 
-<Fragment useCommonJsContent>
+<Fragment useCommonWebContent>
   {({ platform }) => import(`./variation.${platform}.mdx`)}
 </Fragment>
 
-<Fragment useCommonJsContent>
+<Fragment useCommonWebContent>
   {({ platform }) => import(`./customization.${platform}.mdx`)}
 </Fragment>
 
-<Fragment useCommonJsContent>
+<Fragment useCommonWebContent>
   {({ platform }) => import(`./headless-usage.${platform}.mdx`)}
 </Fragment>

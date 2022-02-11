@@ -1,4 +1,4 @@
-import { Tabs, TabItem } from '@aws-amplify/ui-react';
+import { Link, Alert, Text, Tabs, TabItem } from '@aws-amplify/ui-react';
 
 Add the `amplify_authenticator` package with [pub](https://pub.dev/):
 
@@ -6,29 +6,19 @@ Add the `amplify_authenticator` package with [pub](https://pub.dev/):
 flutter pub add amplify_authenticator
 ```
 
-This will add a dependencies like this to your package's pubspec.yaml
+This will add a dependency like this to your package's pubspec.yaml
 
 ```yaml
 dependencies:
-  amplify_authenticator: ^0.1.0-rc.5
+  amplify_authenticator: ^1.0.0
 ```
 
-Wrap your app's `MaterialApp` widget with the Authenticator widget, and set MaterialApp's builder to `Authenticator.builder()`:
-
-```dart
-@override
-Widget build(BuildContext context) {
-  // Wrap your MaterialApp app in the Authenticator widget
-  return Authenticator(
-    child: MaterialApp(
-      // Set builder to Authenticator.builder() to protect all routes
-      builder: Authenticator.builder(),
-      home: const Scaffold(
-        body: Center(
-          child: Text('You are logged in!'),
-        ),
-      ),
-    ),
-  );
-}
-```
+<Alert variation="info">
+  <Text color="inherit">
+    The authenticator component is currently the only supported component for
+    flutter.
+  </Text>
+  <Link href="/components/authenticator?platform=flutter">
+    View Authenticator Component docs
+  </Link>
+</Alert>

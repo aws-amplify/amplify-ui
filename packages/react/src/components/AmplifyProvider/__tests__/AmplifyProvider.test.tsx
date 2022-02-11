@@ -20,14 +20,21 @@ describe('AmplifyProvider', () => {
   });
 
   it('wraps the App in [data-amplify-theme="default-theme"]', () => {
+    spyOn(global.document.documentElement, 'setAttribute');
     const { container } = render(
       <AmplifyProvider>
         <App />
       </AmplifyProvider>
     );
 
-    const wrapper = container.querySelector('[data-amplify-theme]');
-    expect(wrapper).toBeInTheDocument();
-    expect(wrapper).toHaveAttribute('data-amplify-theme', 'default-theme');
+    expect(global.document.documentElement.setAttribute).toHaveBeenCalledWith(
+      'data-amplify-theme',
+      'default-theme'
+    );
+
+    expect(global.document.documentElement.setAttribute).toHaveBeenCalledWith(
+      'data-amplify-color-mode',
+      undefined
+    );
   });
 });
