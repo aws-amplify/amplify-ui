@@ -27,35 +27,27 @@ dependencies:
     # TODO: Update to use 0.4.0
     # ^0.3.0
     git:
-      url: https://github.com/Jordan-Nelson/amplify-flutter.git
-      ref: 8234babedab6249bb315e19195a8f1202841383d
+      url: https://github.com/aws-amplify/amplify-flutter.git
       path: packages/amplify_flutter
   amplify_auth_cognito:
     # TODO: Update to use 0.4.0
     # ^0.3.0
     git:
-      url: https://github.com/Jordan-Nelson/amplify-flutter.git
-      ref: 8234babedab6249bb315e19195a8f1202841383d
+      url: https://github.com/aws-amplify/amplify-flutter.git
       path: packages/amplify_auth_cognito
   amplify_authenticator: 0.1.0-rc.5
   device_preview: ^1.0.0
   provider: ^6.0.0
 
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.2
-
 # TODO: Update to use 0.4.0
 dependency_overrides:
   amplify_flutter:
     git:
-      url: https://github.com/Jordan-Nelson/amplify-flutter.git
-      ref: 8234babedab6249bb315e19195a8f1202841383d
+      url: https://github.com/aws-amplify/amplify-flutter.git
       path: packages/amplify_flutter
   amplify_auth_cognito:
     git:
-      url: https://github.com/Jordan-Nelson/amplify-flutter.git
-      ref: 8234babedab6249bb315e19195a8f1202841383d
+      url: https://github.com/aws-amplify/amplify-flutter.git
       path: packages/amplify_auth_cognito
 
 dev_dependencies:

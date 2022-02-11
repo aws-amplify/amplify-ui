@@ -19,9 +19,9 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/amplify_auth_cognito"
-      ref: "8234babedab6249bb315e19195a8f1202841383d"
-      resolved-ref: "8234babedab6249bb315e19195a8f1202841383d"
-      url: "https://github.com/Jordan-Nelson/amplify-flutter.git"
+      ref: HEAD
+      resolved-ref: b5a1c3a5b33f39adee4c1e387247f03be3e6fec4
+      url: "https://github.com/aws-amplify/amplify-flutter.git"
     source: git
     version: "0.3.2"
   amplify_auth_plugin_interface:
@@ -56,9 +56,9 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/amplify_flutter"
-      ref: "8234babedab6249bb315e19195a8f1202841383d"
-      resolved-ref: "8234babedab6249bb315e19195a8f1202841383d"
-      url: "https://github.com/Jordan-Nelson/amplify-flutter.git"
+      ref: HEAD
+      resolved-ref: b5a1c3a5b33f39adee4c1e387247f03be3e6fec4
+      url: "https://github.com/aws-amplify/amplify-flutter.git"
     source: git
     version: "0.3.2"
   amplify_storage_plugin_interface:
@@ -117,13 +117,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.1"
-  cupertino_icons:
-    dependency: "direct main"
-    description:
-      name: cupertino_icons
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.4"
   date_time_format:
     dependency: transitive
     description:
