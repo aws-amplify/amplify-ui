@@ -30,10 +30,14 @@ const NavLinks = ({
   </Collection>
 );
 
-const NavLink = ({ href, children, onClick }) => {
+const NavLink = ({ href, children, onClick, platforms = [] }) => {
   const { pathname, query } = useRouter();
   const isCurrent = pathname === href;
+  const { platform = 'react' } = query;
 
+  if (platforms.length && !platforms.includes(platform)) {
+    return null;
+  }
   return (
     <Link href={{ pathname: href, query }}>
       <div>
@@ -48,10 +52,31 @@ const NavLink = ({ href, children, onClick }) => {
   );
 };
 
+const NavLinkComponentsSection = ({ heading, components, ...props }) => {
+  const { query } = useRouter();
+  const { platform = 'react' } = query;
+
+  const platformComponents = components.filter((component) => {
+    if (component.platforms) {
+      return component.platforms.includes(platform);
+    }
+    return true;
+  });
+
+  if (!platformComponents.length) {
+    return null;
+  }
+  return (
+    <>
+      <Heading level={6}>{heading}</Heading>
+      <NavLinks {...props} items={platformComponents} />
+    </>
+  );
+};
+
 // TODO: clean up this logic
 export const SecondaryNav = (props) => {
   const router = useRouter();
-  const { platform = 'react' } = router.query;
 
   // Extract section from URL (/section/... => section)
   const section = router.pathname.split('/')[1];
@@ -62,13 +87,25 @@ export const SecondaryNav = (props) => {
         <NavLink {...props} href="/theming">
           Overview
         </NavLink>
-        <NavLink {...props} href="/theming/responsive">
+        <NavLink
+          {...props}
+          platforms={['react', 'vue', 'angular']}
+          href="/theming/responsive"
+        >
           Responsive
         </NavLink>
-        <NavLink {...props} href="/theming/dark-mode">
+        <NavLink
+          {...props}
+          platforms={['react', 'vue', 'angular']}
+          href="/theming/dark-mode"
+        >
           Dark mode
         </NavLink>
-        <NavLink {...props} href="/theming/alternative-styling">
+        <NavLink
+          {...props}
+          platforms={['react', 'vue', 'angular']}
+          href="/theming/alternative-styling"
+        >
           Alternative styling
         </NavLink>
       </>
@@ -88,29 +125,45 @@ export const SecondaryNav = (props) => {
   if (section === 'components') {
     return (
       <>
-        <Heading level={6}>Connected Components</Heading>
-        <NavLinks {...props} items={connectedComponents} />
+        <NavLinkComponentsSection
+          heading={'Connected Components'}
+          components={connectedComponents}
+        ></NavLinkComponentsSection>
 
-        <Heading level={6}>Base</Heading>
-        <NavLinks {...props} items={baseComponents} />
+        <NavLinkComponentsSection
+          heading={'Base'}
+          components={baseComponents}
+        ></NavLinkComponentsSection>
 
-        <Heading level={6}>Feedback</Heading>
-        <NavLinks {...props} items={feedbackComponents} />
+        <NavLinkComponentsSection
+          heading={'Feedback'}
+          components={feedbackComponents}
+        ></NavLinkComponentsSection>
 
-        <Heading level={6}>Navigation</Heading>
-        <NavLinks {...props} items={navigationComponents} />
+        <NavLinkComponentsSection
+          heading={'Navigation'}
+          components={navigationComponents}
+        ></NavLinkComponentsSection>
 
-        <Heading level={6}>Inputs</Heading>
-        <NavLinks {...props} items={inputComponents} />
+        <NavLinkComponentsSection
+          heading={'Inputs'}
+          components={inputComponents}
+        ></NavLinkComponentsSection>
 
-        <Heading level={6}>Layout</Heading>
-        <NavLinks {...props} items={layoutComponents} />
+        <NavLinkComponentsSection
+          heading={'Layout'}
+          components={layoutComponents}
+        ></NavLinkComponentsSection>
 
-        <Heading level={6}>Data Display</Heading>
-        <NavLinks {...props} items={dataDisplayComponents} />
+        <NavLinkComponentsSection
+          heading={'Data Display'}
+          components={dataDisplayComponents}
+        ></NavLinkComponentsSection>
 
-        <Heading level={6}>Utilities</Heading>
-        <NavLinks {...props} items={utilityComponents} />
+        <NavLinkComponentsSection
+          heading={'Utilities'}
+          components={utilityComponents}
+        ></NavLinkComponentsSection>
       </>
     );
   }

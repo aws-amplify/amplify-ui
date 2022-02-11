@@ -12,36 +12,43 @@ export const baseComponents: ComponentNavItem[] = [
     href: '/components/view',
     label: 'View',
     body: `View is a container that contains stuff. View is the most abstract component on top of which all other components live.`,
+    platforms: ['react'],
   },
   {
     href: '/components/text',
     label: 'Text',
     body: `The Text primitive is used to display simple strings of text in an interface.`,
+    platforms: ['react'],
   },
   {
     href: '/components/heading',
     label: 'Heading',
     body: `This is a separate primitive from Text for semantic purposes. The Heading primitive maps to an <h*> tag, and Text maps to a <p> tag.`,
+    platforms: ['react'],
   },
   {
     href: '/components/icon',
     label: 'Icon',
     body: `The icon component displays simple vector graphics for use in other components like Buttons.`,
+    platforms: ['react'],
   },
   {
     href: '/components/image',
     label: 'Image',
     body: `The Image primitive can be used to display responsive images.`,
+    platforms: ['react'],
   },
   {
     href: '/components/divider',
     label: 'Divider',
     body: ``,
+    platforms: ['react'],
   },
   {
     href: '/components/scrollview',
     label: 'ScrollView',
     body: `ScrollView is essentially a View that allows scrolling of its inner contents.`,
+    platforms: ['react'],
   },
 ].sort(sortByLabel);
 
@@ -50,22 +57,35 @@ export const connectedComponents = [
     href: '/components/authenticator',
     label: 'Authenticator',
     body: 'The Authenticator component adds complete authentication flows to your application with minimal boilerplate.',
+    platforms: ['react', 'vue', 'angular', 'flutter'],
   },
   {
     href: '/components/chatbot',
     label: 'Chatbot',
     body: 'Chatbot automatically renders a complete chat messaging interface that can be used out-of-the-box, or it can be customized using theming support.',
+    platforms: ['react', 'vue', 'angular'],
   },
   {
     href: '/components/storage',
     label: 'Storage',
     body: 'A set of components to help interact with S3 storage.',
+    platforms: ['react', 'vue', 'angular'],
   },
 ].sort(sortByLabel);
 
 export const dataDisplayComponents = [
-  { href: '/components/badge', label: 'Badge', body: `` },
-  { href: '/components/rating', label: 'Rating', body: `` },
+  {
+    href: '/components/badge',
+    label: 'Badge',
+    body: ``,
+    platforms: ['react'],
+  },
+  {
+    href: '/components/rating',
+    label: 'Rating',
+    body: ``,
+    platforms: ['react'],
+  },
 ].sort(sortByLabel);
 
 export const feedbackComponents: ComponentNavItem[] = [
@@ -73,21 +93,25 @@ export const feedbackComponents: ComponentNavItem[] = [
     href: '/components/alert',
     label: 'Alert',
     body: `An Alert displays a brief, important message in a way that attracts the user's attention without interrupting the user's task. Alerts are typically intended to be read out dynamically by a screen reader.`,
+    platforms: ['react'],
   },
   {
     href: '/components/pagination',
     label: 'Pagination',
     body: `Pagination provides navigation to allow customers to move between large sets of content that are distributed across multiple pages.`,
+    platforms: ['react'],
   },
   {
     href: '/components/placeholder',
     label: 'Placeholder',
     body: `The Placeholder component is used to fill out the interface while content is loaded asynchronously.`,
+    platforms: ['react'],
   },
   {
     href: '/components/loader',
     label: 'Loader',
     body: ``,
+    platforms: ['react'],
   },
 ].sort(sortByLabel);
 
@@ -96,50 +120,112 @@ export const inputComponents = [
     href: '/components/textfield',
     label: 'Text Field',
     body: `The TextField form primitive can be used allow users to input text content.`,
+    platforms: ['react'],
   },
-  { href: '/components/selectfield', label: 'Select Field', body: `` },
-  { href: '/components/sliderfield', label: 'Slider Field', body: `` },
+  {
+    href: '/components/selectfield',
+    label: 'Select Field',
+    body: ``,
+    platforms: ['react'],
+  },
+  {
+    href: '/components/sliderfield',
+    label: 'Slider Field',
+    body: ``,
+    platforms: ['react'],
+  },
   {
     href: '/components/stepperfield',
     label: 'Stepper Field',
     body: `A StepperField is a number input with buttons to increase or decrease the value.`,
+    platforms: ['react'],
   },
   {
     href: '/components/searchfield',
     label: 'Search Field',
     body: `SearchField accepts query text for search.`,
+    platforms: ['react'],
   },
-  { href: '/components/passwordfield', label: 'Password Field', body: `` },
+  {
+    href: '/components/passwordfield',
+    label: 'Password Field',
+    body: ``,
+    platforms: ['react'],
+  },
   {
     href: '/components/phonenumberfield',
     label: 'Phone Number Field',
     body: ``,
+    platforms: ['react'],
   },
   {
     href: '/components/switchfield',
     label: 'Switch Field',
     body: `The SwitchField form primitive is a toggleable input type with a checked (on) and unchecked (off) state.`,
+    platforms: ['react'],
   },
-  { href: '/components/radiogroupfield', label: 'Radio Group Field', body: `` },
-  { href: '/components/checkboxfield', label: 'Checkbox Field', body: `` },
-  { href: '/components/togglebutton', label: 'Toggle Button', body: `` },
-  { href: '/components/button', label: 'Button', body: `` },
+  {
+    href: '/components/radiogroupfield',
+    label: 'Radio Group Field',
+    body: ``,
+    platforms: ['react'],
+  },
+  {
+    href: '/components/checkboxfield',
+    label: 'Checkbox Field',
+    body: ``,
+    platforms: ['react'],
+  },
+  {
+    href: '/components/togglebutton',
+    label: 'Toggle Button',
+    body: ``,
+    platforms: ['react'],
+  },
+  {
+    href: '/components/button',
+    label: 'Button',
+    body: ``,
+    platforms: ['react'],
+  },
 ].sort(sortByLabel);
 
 export const layoutComponents = [
-  { href: '/components/card', label: 'Card', body: `` },
-  { href: '/components/collection', label: 'Collection', body: `` },
+  {
+    href: '/components/card',
+    label: 'Card',
+    body: ``,
+    platforms: ['react'],
+  },
+  {
+    href: '/components/collection',
+    label: 'Collection',
+    body: ``,
+    platforms: ['react'],
+  },
   {
     href: '/components/flex',
     label: 'Flex',
     body: `A layout container using Flexbox.`,
+    platforms: ['react'],
   },
-  { href: '/components/grid', label: 'Grid', body: `` },
-  { href: '/components/table', label: 'Table', body: `` },
+  {
+    href: '/components/grid',
+    label: 'Grid',
+    body: ``,
+    platforms: ['react'],
+  },
+  {
+    href: '/components/table',
+    label: 'Table',
+    body: ``,
+    platforms: ['react'],
+  },
   {
     href: '/components/expander',
     label: 'Expander',
     body: `The Expander primitive enables users to expand or collapse a set of sections.`,
+    platforms: ['react'],
   },
 ].sort(sortByLabel);
 
@@ -148,16 +234,19 @@ export const navigationComponents: ComponentNavItem[] = [
     href: '/components/link',
     label: 'Link',
     body: ``,
+    platforms: ['react'],
   },
   {
     href: '/components/menu',
     label: 'Menu',
     body: ``,
+    platforms: ['react'],
   },
   {
     href: '/components/tabs',
     label: 'Tabs',
     body: ``,
+    platforms: ['react'],
   },
 ].sort(sortByLabel);
 
@@ -166,6 +255,7 @@ export const utilityComponents = [
     href: '/components/visuallyhidden',
     label: 'Visually Hidden',
     body: `The Visually Hidden component is used to visually hide content while leaving it available to screen readers.`,
+    platforms: ['react'],
   },
 ].sort(sortByLabel);
 
