@@ -256,8 +256,8 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-fieldcontrol-outline-width: var(--amplify-outline-widths-medium);
         --amplify-components-fieldcontrol-outline-offset: var(--amplify-outline-offsets-medium);
         --amplify-components-fieldcontrol-small-font-size: var(--amplify-components-field-small-font-size);
-        --amplify-components-fieldcontrol-small-padding-block-start: var(--amplify-space-xs);
-        --amplify-components-fieldcontrol-small-padding-block-end: var(--amplify-space-xs);
+        --amplify-components-fieldcontrol-small-padding-block-start: var(--amplify-space-xxs);
+        --amplify-components-fieldcontrol-small-padding-block-end: var(--amplify-space-xxs);
         --amplify-components-fieldcontrol-small-padding-inline-start: var(--amplify-space-small);
         --amplify-components-fieldcontrol-small-padding-inline-end: var(--amplify-space-small);
         --amplify-components-fieldcontrol-large-font-size: var(--amplify-components-field-large-font-size);
@@ -759,8 +759,8 @@ describe('@aws-amplify/ui', () => {
         --amplify-font-weights-bold: 700;
         --amplify-font-weights-extrabold: 800;
         --amplify-font-weights-black: 900;
-        --amplify-line-heights-small: 1.5;
-        --amplify-line-heights-medium: 1.75;
+        --amplify-line-heights-small: 1.25;
+        --amplify-line-heights-medium: 1.5;
         --amplify-line-heights-large: 2;
         --amplify-opacities-0: 0;
         --amplify-opacities-10: 0.1;
