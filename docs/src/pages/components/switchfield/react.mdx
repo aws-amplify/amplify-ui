@@ -45,7 +45,9 @@ The most basic usage simply includes a SwitchField component passing in a requir
 
 ### isChecked
 
-The `isChecked` property is a `boolean` value that defines if the switch is on or off. This is a boolean property and being set to either true or false will change this into a controlled switchField which can only be switched on or off using this controlled value.
+The `isChecked` property is a `boolean` value that defines if the switch is on or off. This is a boolean property and being set to either true or false will change this into a controlled switchField.
+If you would like to be able to toggle a controlled `SwitchField` through the click event of the `SwitchField` component, you will need to pass in an `onChange` event function which updates the controlled value.
+This is demonstrated in the example below.
 
 <Example>
   <SwitchFieldIsCheckedExample />

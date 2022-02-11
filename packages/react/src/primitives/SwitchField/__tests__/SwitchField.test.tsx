@@ -94,6 +94,23 @@ describe('Switch Field', () => {
   });
 
   describe('Input', () => {
+    let updateControlledValue;
+    const ControlledSwitch = () => {
+      const [isChecked, setIsChecked] = React.useState(true);
+      const changeFunction = (e) => {
+        setIsChecked(e.target.checked);
+      };
+      updateControlledValue = setIsChecked;
+
+      return (
+        <SwitchField
+          label={label}
+          isChecked={isChecked}
+          onChange={changeFunction}
+        />
+      );
+    };
+
     it('should create a checkbox input element', async () => {
       const { container } = render(<SwitchField label={label} />);
 
@@ -128,12 +145,32 @@ describe('Switch Field', () => {
     });
 
     it('should set the input to checked with the isChecked prop', async () => {
-      const { container } = render(
-        <SwitchField label={label} isChecked={true} />
-      );
+      const { container } = render(<ControlledSwitch />);
 
       const field = container.getElementsByTagName('input')[0];
       expect(field).toBeChecked();
+    });
+
+    it('should update the checked value when a controlled value is updated', async () => {
+      render(<ControlledSwitch />);
+
+      let input = await screen.findByLabelText(label);
+      expect(input).toBeChecked();
+
+      updateControlledValue(false);
+      input = await screen.findByLabelText(label);
+      expect(input).not.toBeChecked();
+    });
+
+    it('should update the checked value with a click event', async () => {
+      render(<ControlledSwitch />);
+
+      let input = await screen.findByLabelText(label);
+      expect(input).toBeChecked();
+
+      userEvent.click(input);
+      input = await screen.findByLabelText(label);
+      expect(input).not.toBeChecked();
     });
 
     it('should set the input to checked with the defaultChecked prop', async () => {
