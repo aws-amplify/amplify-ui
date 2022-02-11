@@ -66,10 +66,10 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
 
   React.useEffect(() => {
     const isControlled = controlledValue !== undefined;
-    if (isControlled && inputValue !== controlledValue) {
+    if (isControlled) {
       setInputValue(controlledValue);
     }
-  }, [controlledValue, inputValue, setInputValue]);
+  }, [controlledValue, setInputValue]);
 
   return (
     <Flex
