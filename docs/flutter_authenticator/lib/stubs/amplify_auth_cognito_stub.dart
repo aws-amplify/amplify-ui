@@ -216,7 +216,7 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface {
   Future<SignInResult> signInWithWebUI(
       {SignInWithWebUIRequest? request}) async {
     throw InvalidStateException(
-        'signInWithWebUI is not supported in this mock');
+        'social sign in is not supported in this demo.');
   }
 
   @override
