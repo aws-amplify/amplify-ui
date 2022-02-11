@@ -17,14 +17,14 @@ import { Fragment } from '@/components/Fragment';
   {({ platform }) => import(`./dependencies.${platform}.mdx`)}
 </Fragment>
 
-<Fragment platforms={['angular', 'react', 'vue']} useCommonJsContent>
-  {() => import(`./styles.${platform}.mdx`)}
+<Fragment platforms={['web']} useCommonWebContent>
+  {({ platform }) => import(`./styles.${platform}.mdx`)}
 </Fragment>
 
-<Fragment platforms={['angular', 'react', 'vue']} useCommonJsContent>
-  {() => import(`./fonts.${platform}.mdx`)}
+<Fragment platforms={['web']} useCommonWebContent>
+  {({ platform }) => import(`./fonts.${platform}.mdx`)}
 </Fragment>
 
-<Fragment platforms={['angular', 'react', 'vue']}>
+<Fragment platforms={['react', 'vue', 'angular']}>
   {({ platform }) => import(`./troubleshooting.${platform}.mdx`)}
 </Fragment>
