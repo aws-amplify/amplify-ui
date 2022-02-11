@@ -16,7 +16,7 @@ export interface FragmentProps {
    * */
   platforms?: string[];
   /**
-   * If true, all JS frameworks (react, vue, angular) will be treated as a single platform named 'js'.
+   * If true, all JS frameworks (react, vue, angular) will be treated as a single platform named 'web'.
    * Note: if this is true, platforms={['web']} should be used to enable web content instead of platforms={['react', 'vue', 'angular']}
    */
   useCommonWebContent?: boolean;
