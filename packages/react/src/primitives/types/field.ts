@@ -1,5 +1,6 @@
 import { FieldGroupIconButtonProps } from './fieldGroupIcon';
 import { InputProps } from './input';
+import { BaseStyleProps } from './style';
 
 /**
  * Shared type across all field types
@@ -26,6 +27,8 @@ export interface FieldProps {
    * @default false
    */
   labelHidden?: boolean;
+
+  inputStyles?: BaseStyleProps;
 }
 
 export interface FieldClearButtonProps

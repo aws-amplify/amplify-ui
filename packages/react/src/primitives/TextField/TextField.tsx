@@ -2,7 +2,6 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { ComponentClassNames } from '../shared/constants';
-import { splitPrimitiveProps } from '../shared/styleUtils';
 import { FieldDescription, FieldErrorMessage } from '../Field';
 import { FieldGroup } from '../FieldGroup';
 import { Flex } from '../Flex';
@@ -40,13 +39,11 @@ const TextFieldPrimitive = <Multiline extends boolean>(
     type, // remove from rest to prevent passing as DOM attribute to textarea
     size,
     testId,
-    ..._rest
+    inputStyles,
+    ...rest
   } = props;
 
   const fieldId = useStableId(id);
-
-  const { flexContainerStyleProps, baseStyleProps, rest } =
-    splitPrimitiveProps(_rest);
 
   let control: JSX.Element = null;
   if (isTextAreaField(props)) {
@@ -58,8 +55,7 @@ const TextFieldPrimitive = <Multiline extends boolean>(
         ref={isTextAreaRef(props, ref) ? ref : undefined}
         rows={rows ?? DEFAULT_ROW_COUNT}
         size={size}
-        {...baseStyleProps}
-        {...rest}
+        {...inputStyles}
       />
     );
   } else if (isInputField(props)) {
@@ -71,8 +67,7 @@ const TextFieldPrimitive = <Multiline extends boolean>(
         ref={isInputRef(props, ref) ? ref : undefined}
         size={size}
         type={type}
-        {...baseStyleProps}
-        {...rest}
+        {...inputStyles}
       />
     );
   }
@@ -86,7 +81,7 @@ const TextFieldPrimitive = <Multiline extends boolean>(
       )}
       data-size={size}
       testId={testId}
-      {...flexContainerStyleProps}
+      {...rest}
     >
       <Label htmlFor={fieldId} visuallyHidden={labelHidden}>
         {label}
