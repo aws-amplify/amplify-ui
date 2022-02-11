@@ -43,7 +43,7 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
     if (isControlled && checked !== dataChecked) {
       setDataChecked(checked);
     }
-  }, [checked]);
+  }, [checked, dataChecked, setDataChecked]);
 
   const buttonTestId = useTestId(testId, ComponentClassNames.CheckboxButton);
   const iconTestId = useTestId(testId, ComponentClassNames.CheckboxIcon);

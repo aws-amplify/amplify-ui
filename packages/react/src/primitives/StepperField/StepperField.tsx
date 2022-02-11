@@ -69,7 +69,7 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
     if (isControlled && inputValue !== controlledValue) {
       setInputValue(controlledValue);
     }
-  }, [controlledValue]);
+  }, [controlledValue, inputValue, setInputValue]);
 
   return (
     <Flex
