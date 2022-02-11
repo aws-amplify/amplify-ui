@@ -7,7 +7,7 @@ applications:
             - nvm install 14
             - nvm use 14
             - node -v
-            - export FLUTTER_HOME=${HOME}/sdks/flutter'
+            - export FLUTTER_HOME=${HOME}/sdks/flutter
             - git clone -b stable --depth 1 https://github.com/flutter/flutter.git ${FLUTTER_HOME}
             - export PATH="$PATH:${FLUTTER_HOME}/bin"
             - (cd .. && yarn install && yarn build)
