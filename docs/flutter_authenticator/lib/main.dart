@@ -22,8 +22,8 @@ class DemoConfig {
 
   static DemoConfig fromMap(Map<String, String?> map) {
     return DemoConfig(
-      themeMode: map['themeMode'] == 'dark' ? ThemeMode.dark : ThemeMode.light,
-      initialStep: _authenticatorStepfromString(map['initialStep']),
+      themeMode: _parseThemeMode(map['themeMode']),
+      initialStep: _parseAuthenticatorStep(map['initialStep']),
     );
   }
 
@@ -37,7 +37,20 @@ class DemoConfig {
     );
   }
 
-  static AuthenticatorStep _authenticatorStepfromString(String? value) {
+  static ThemeMode _parseThemeMode(String? value) {
+    switch (value) {
+      case 'dark':
+        return ThemeMode.dark;
+      case 'light':
+        return ThemeMode.light;
+      case 'system':
+        return ThemeMode.system;
+      default:
+        return ThemeMode.dark;
+    }
+  }
+
+  static AuthenticatorStep _parseAuthenticatorStep(String? value) {
     switch (value) {
       case 'signIn':
         return AuthenticatorStep.signIn;
@@ -139,9 +152,6 @@ class _MyAppState extends State<MyApp> {
       for (var entry in queryArray) entry.split('=')[0]: entry.split('=')[1]
     };
     final newConfig = DemoConfig.fromMap(queryParams);
-    print(queryParams);
-    print(newConfig.themeMode);
-    print(newConfig.initialStep);
     final config = context.read<DemoConfigChangeNotifier>();
     config.setConfig(newConfig);
   }
