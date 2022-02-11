@@ -17,7 +17,7 @@ const theme = {
         primary: {
           backgroundColor: { value: 'rebeccapurple' },
           _hover: {
-            backgroundColor: { value: 'hotpink' },
+            backgroundColor: { value: 'teal' },
           },
         },
       },
@@ -26,7 +26,7 @@ const theme = {
 };
 
 export const ButtonThemeExample = () => (
-  <AmplifyProvider theme={theme}>
+  <AmplifyProvider theme={theme} scoped>
     <Flex direction="row">
       <Button>Default</Button>
       <Button variation="primary">Primary</Button>
