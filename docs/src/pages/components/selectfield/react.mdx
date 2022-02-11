@@ -3,8 +3,17 @@ import { SelectField, Flex, IconArrowDropDown } from '@aws-amplify/ui-react';
 import { Example, ExampleCode } from '@/components/Example';
 import { Fragment } from '@/components/Fragment';
 import { SelectFieldDemo, ControlledSelect } from './demo.tsx';
-
-The `<option>` tags nested inside the component define the available options in the drop-down list.
+import {
+  DefaultSelectFieldExample,
+  SelectFieldSizeExample,
+  SelectFieldVariationExample,
+  SelectFieldPlaceholderExample,
+  SelectFieldDescriptiveTextExample,
+  SelectFieldIconExample,
+  SelectFieldDisabledStateExample,
+  SelectFieldValidationErrorExample,
+  SelectFieldControlledExample,
+} from './examples';
 
 ## Demo
 
@@ -12,398 +21,150 @@ The `<option>` tags nested inside the component define the available options in 
 
 ## Usage
 
-Import the SelectField primitive and styles.
-
-```jsx
-import { SelectField } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-<SelectField
-  label="Fruit"
-  labelHidden={true}
-  placeholder="Please select a fruit"
->
-  <option value="apple">Apple</option>
-  <option value="banana">Banana</option>
-  <option value="orange">Orange</option>
-</SelectField>;
-```
+Import the SelectField primitive, and provide a `label` for accessibility. The `<option>` tags nested inside the component define the available options in the drop-down list.
 
 <Example>
-  <SelectField
-    label="Fruit"
-    labelHidden={true}
-    placeholder="Please select a fruit"
-  >
-    <option value="apple">Apple</option>
-    <option value="banana">Banana</option>
-    <option value="orange">Orange</option>
-  </SelectField>
-</Example>
+  <DefaultSelectFieldExample />
+  
+  <ExampleCode>
 
-### Controlled component
+```jsx file=./examples/DefaultSelectFieldExample.tsx
 
-```jsx
-import { useState } from 'react';
-import { SelectField } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-const [value, setValue] = useState('');
-
-<SelectField
-  label="Fruit"
-  labelHidden={true}
-  value={value}
-  placeholder="Please select a fruit"
-  onChange={(e) => setValue(e.target.value)}
->
-  <option value="apple">Apple</option>
-  <option value="banana">Banana</option>
-  <option value="orange">Orange</option>
-</SelectField>;
 ```
 
-<Example>
-  <ControlledSelect />
+  </ExampleCode>
 </Example>
 
 ### Accessibility / Label behavior
 
 <Fragment>{() => import('./../shared/formFieldAccessibility.mdx')}</Fragment>
 
-```jsx
-<SelectField
-  label="Fruit"
-  labelHidden={true}
-  placeholder="Please select a fruit"
->
-  <option value="apple">Apple</option>
-  <option value="banana">Banana</option>
-  <option value="orange">Orange</option>
-</SelectField>
-```
+### Controlled component
+
+To manually control the SelectField state, you can use the `value` and `onChange` props along with React's `useState` hook.
 
 <Example>
-  <SelectField
-    label="Fruit"
-    labelHidden={true}
-    placeholder="Please select a fruit"
-  >
-    <option value="apple">Apple</option>
-    <option value="banana">Banana</option>
-    <option value="orange">Orange</option>
-  </SelectField>
+  <SelectFieldControlledExample />
+  
+  <ExampleCode>
+
+```jsx file=./examples/SelectFieldControlledExample.tsx
+
+```
+
+  </ExampleCode>
 </Example>
 
 ### Sizes
 
 Use the `size` prop to change the SelectField size. Available options are `small`, `large`, and none (default).
 
-```jsx
-import { SelectField } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
+<Example>
+  <SelectFieldSizeExample />
+  
+  <ExampleCode>
 
-<SelectField
-  label="Fruit"
-  labelHidden={true}
-  placeholder="Please select a fruit"
-  size="small"
->
-  <option value="apple">Apple</option>
-  <option value="banana">Banana</option>
-  <option value="orange">Orange</option>
-</SelectField>;
+```jsx file=./examples/SelectFieldSizeExample.tsx
 
-<SelectField
-  label="Fruit"
-  labelHidden={true}
-  placeholder="Please select a fruit"
->
-  <option value="apple">Apple</option>
-  <option value="banana">Banana</option>
-  <option value="orange">Orange</option>
-</SelectField>;
-
-<SelectField
-  label="Fruit"
-  labelHidden={true}
-  placeholder="Please select a fruit"
-  size="large"
->
-  <option value="apple">Apple</option>
-  <option value="banana">Banana</option>
-  <option value="orange">Orange</option>
-</SelectField>;
 ```
 
-<Example>
-  <Flex direction="column">
-    <SelectField
-      label="Fruit"
-      labelHidden={true}
-      placeholder="Please select a fruit"
-      size="small"
-    >
-      <option value="apple">Apple</option>
-      <option value="banana">Banana</option>
-      <option value="orange">Orange</option>
-    </SelectField>
-    <SelectField
-      label="Fruit"
-      labelHidden={true}
-      placeholder="Please select a fruit"
-    >
-      <option value="apple">Apple</option>
-      <option value="banana">Banana</option>
-      <option value="orange">Orange</option>
-    </SelectField>
-    <SelectField
-      label="Fruit"
-      labelHidden={true}
-      placeholder="Please select a fruit"
-      size="large"
-    >
-      <option value="apple">Apple</option>
-      <option value="banana">Banana</option>
-      <option value="orange">Orange</option>
-    </SelectField>
-  </Flex>
+  </ExampleCode>
 </Example>
 
-### Variation
+### Variations
 
-SelectField comes in 2 variants, `quiet` and none(default). Pass the `variation` prop and set it to either of these values.
-
-```jsx
-import { SelectField } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-<SelectField
-  label="Fruit"
-  labelHidden={true}
-  placeholder="Please select a fruit"
->
-  <option value="apple">Apple</option>
-  <option value="banana">Banana</option>
-  <option value="orange">Orange</option>
-</Select>
-
-<SelectField
-  label="Fruit"
-  labelHidden={true}
-  placeholder="Please select a fruit"
-  variation="quiet"
->
-  <option value="apple">Apple</option>
-  <option value="banana">Banana</option>
-  <option value="orange">Orange</option>
-</SelectField>
-```
+There are two variation styles available: default and `quiet`.
 
 <Example>
-  <Flex direction="column">
-    <SelectField
-      label="Fruit"
-      labelHidden={true}
-      placeholder="Please select a fruit"
-    >
-      <option value="apple">Apple</option>
-      <option value="banana">Banana</option>
-      <option value="orange">Orange</option>
-    </SelectField>
-    <SelectField
-      label="Fruit"
-      labelHidden={true}
-      placeholder="Please select a fruit"
-      variation="quiet"
-    >
-      <option value="apple">Apple</option>
-      <option value="banana">Banana</option>
-      <option value="orange">Orange</option>
-    </SelectField>
-  </Flex>
+  <SelectFieldVariationExample />
+  
+  <ExampleCode>
+
+```jsx file=./examples/SelectFieldVariationExample.tsx
+
+```
+
+  </ExampleCode>
 </Example>
 
 ### Placeholder
 
-You can set a placeholder option out of box via the `placeholder` props. The value for the placeholder option will set to empty string `""`. If you would like to pass your own placeholder with a custom value, then just simply leave it off and pass your custom one.
-
-```jsx
-import { SelectField } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-// use the placeholder out of box
-<SelectField
-  label="Fruit"
-  labelHidden={true}
-  placeholder="Please select a fruit"
->
-  <option value="apple">Apple</option>
-  <option value="banana">Banana</option>
-  <option value="orange">Orange</option>
-</SelectField>;
-
-// or pass a custom placeholder
-<SelectField label="Fruit" labelHidden={true} defaultValue="DEFAULT">
-  <option value="DEFAULT">Please select a fruit</option>
-  <option value="apple">Apple</option>
-  <option value="banana">Banana</option>
-  <option value="orange">Orange</option>
-</SelectField>;
-```
+Text that appears in the form control when it has no value set.
 
 <Example>
-  <Flex direction="column">
-    <SelectField
-      label="Fruit"
-      labelHidden={true}
-      placeholder="Please select a fruit"
-    >
-      <option value="apple">Apple</option>
-      <option value="banana">Banana</option>
-      <option value="orange">Orange</option>
-    </SelectField>
-    <SelectField label="Fruit" labelHidden={true} defaultValue="DEFAULT">
-      <option value="DEFAULT">Please select a fruit</option>
-      <option value="apple">Apple</option>
-      <option value="banana">Banana</option>
-      <option value="orange">Orange</option>
-    </SelectField>
-  </Flex>
+  <SelectFieldPlaceholderExample />
+  
+  <ExampleCode>
+
+```jsx file=./examples/SelectFieldPlaceholderExample.tsx
+
+```
+
+  </ExampleCode>
 </Example>
 
 ### Descriptive text
 
-To provide additional descriptive text of requirements of the field, use the `descriptiveText` field. It will only be visible when `label` is not hidden.
-
-```jsx
-import { SelectField } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-<SelectField
-  label="Fruit"
-  descriptiveText="A fruit of your choice"
-  placeholder="Please select a fruit"
->
-  <option value="apple">Apple</option>
-  <option value="banana">Banana</option>
-  <option value="orange">Orange</option>
-</SelectField>;
-```
+The `descriptiveText` prop will only be visible when `label` is not hidden (i.e., `labelHidden={false}`). You can use it to provide some additional description of the field.
 
 <Example>
-  <SelectField
-    label="Fruit"
-    descriptiveText="A fruit of your choice"
-    placeholder="Please select a fruit"
-  >
-    <option value="apple">Apple</option>
-    <option value="banana">Banana</option>
-    <option value="orange">Orange</option>
-  </SelectField>
+  <SelectFieldDescriptiveTextExample />
+  
+  <ExampleCode>
+
+```jsx file=./examples/SelectFieldDescriptiveTextExample.tsx
+
+```
+
+  </ExampleCode>
 </Example>
 
 ### Icon
 
-You can change the expand icon used in the select. Simply pass the `icon` prop. Also, you can change the icon color by passing the `iconColor` prop.
-
-```jsx
-import { SelectField } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-<SelectField
-  label="Fruit"
-  labelHidden={true}
-  placeholder="Please select a fruit"
-  icon={<IconArrowDropDown />}
-  iconColor="purple"
->
-  <option value="apple">Apple</option>
-  <option value="banana">Banana</option>
-  <option value="orange">Orange</option>
-</SelectField>;
-```
+You can change the icon used to expand the SelectField by using the `icon` prop. You can also change the icon's color by passing the `iconColor` prop.
 
 <Example>
-  <SelectField
-    label="Fruit"
-    labelHidden={true}
-    placeholder="Please select a fruit"
-    icon={<IconArrowDropDown />}
-    iconColor="purple"
-  >
-    <option value="apple">Apple</option>
-    <option value="banana">Banana</option>
-    <option value="orange">Orange</option>
-  </SelectField>
+  <SelectFieldIconExample />
+  
+  <ExampleCode>
+
+```jsx file=./examples/SelectFieldIconExample.tsx
+
+```
+
+  </ExampleCode>
 </Example>
 
-### State
+### Disabled state
 
-`isDisabled` is the only available state for SelectField. A disabled field will be not be focusable not mutable and will not be submitted with form data.
-
-```jsx
-import { SelectField } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-<SelectField
-  isDisabled={true}
-  label="Fruit"
-  labelHidden={true}
-  placeholder="Please select a fruit"
->
-  <option value="apple">Apple</option>
-  <option value="banana">Banana</option>
-  <option value="orange">Orange</option>
-</SelectField>;
-```
+A disabled field will not be focusable or mutable, and it will not be submitted with form data. Use the `isDisabled` prop to set the state for the SelectField.
 
 <Example>
-  <SelectField
-    isDisabled={true}
-    label="Fruit"
-    labelHidden={true}
-    placeholder="Please select a fruit"
-  >
-    <option value="apple">Apple</option>
-    <option value="banana">Banana</option>
-    <option value="orange">Orange</option>
-  </SelectField>
+  <SelectFieldDisabledStateExample />
+  
+  <ExampleCode>
+
+```jsx file=./examples/SelectFieldDisabledStateExample.tsx
+
+```
+
+  </ExampleCode>
 </Example>
 
 ### Validation error
 
-Use the `hasError` and `errorMessage` props to mark a SelectField as having an validation error.
-
-```jsx
-import { SelectField } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-<SelectField
-  label="Fruit"
-  labelHidden={true}
-  placeholder="Please select a fruit"
-  errorMessage="This is a required field."
-  hasError
->
-  <option value="apple">Apple</option>
-  <option value="banana">Banana</option>
-  <option value="orange">Orange</option>
-</SelectField>;
-```
+Use the `hasError` and `errorMessage` props to mark a SelectField as having a validation error.
 
 <Example>
-  <SelectField
-    label="Fruit"
-    labelHidden={true}
-    placeholder="Please select a fruit"
-    errorMessage="This is a required field."
-    hasError
-  >
-    <option value="apple">Apple</option>
-    <option value="banana">Banana</option>
-    <option value="orange">Orange</option>
-  </SelectField>
+  <SelectFieldValidationErrorExample />
+  
+  <ExampleCode>
+
+```jsx file=./examples/SelectFieldValidationErrorExample.tsx
+
+```
+
+  </ExampleCode>
 </Example>
 
 ## CSS Styling
@@ -416,15 +177,6 @@ To override styling on all SelectFields, you can set the Amplify CSS variables w
 /* styles.css */
 .amplify-selectfield {
   --amplify-components-field-control-border-color: rebeccapurple;
-}
-```
-
-To replace the SelectField styling, unset it:
-
-```css
-.amplify-selectfield {
-  all: unset;
-  /* Add your styling here*/
 }
 ```
 

@@ -68,20 +68,3 @@ export const SelectFieldDemo = () => {
     </Demo>
   );
 };
-
-export const ControlledSelect = () => {
-  const [value, setValue] = React.useState('');
-  return (
-    <SelectField
-      label="Fruit"
-      labelHidden={true}
-      value={value}
-      placeholder="Please select a fruit"
-      onChange={(e) => setValue(e.target.value)}
-    >
-      <option value="apple">Apple</option>
-      <option value="banana">Banana</option>
-      <option value="orange">Orange</option>
-    </SelectField>
-  );
-};
