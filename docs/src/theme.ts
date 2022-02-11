@@ -68,10 +68,6 @@ export const theme: Theme = {
           color: { value: '{colors.font.primary.value}' },
         },
       },
-      fieldcontrol: {
-        lineHeight: { value: 1 },
-        color: { value: '{colors.font.primary.value}' },
-      },
     },
   },
   overrides: [
