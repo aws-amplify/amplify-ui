@@ -3,12 +3,14 @@ import { computed, useAttrs, toRefs } from 'vue';
 import { translate } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '../composables/useAuth';
+import { createSharedComposable } from '@vueuse/core';
 
 const attrs = useAttrs();
 const emit = defineEmits(['confirmSignUpSubmit', 'lostCodeClicked']);
 
-const { isPending, error, codeDeliveryDetails } = toRefs(useAuthenticator());
-const { submitForm, updateForm, resendCode } = useAuthenticator();
+const useAuthShared = createSharedComposable(useAuthenticator);
+const { isPending, error, codeDeliveryDetails } = toRefs(useAuthShared());
+const { submitForm, updateForm, resendCode } = useAuthShared();
 
 //computed properties
 

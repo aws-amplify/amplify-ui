@@ -1,191 +1,87 @@
-import { useState } from 'react';
+import { Flex, View, useTheme } from '@aws-amplify/ui-react';
 
-import { Property } from 'csstype';
+import { Demo } from '@/components/Demo';
+import { FlexPropControls } from './FlexPropControls';
+import { useFlexProps } from './useFlexProps';
 
-import { Flex, Button, View, ViewProps } from '@aws-amplify/ui-react';
-
-const JustifyContentProps: Property.JustifyContent[] = [
-  'flex-start',
-  'flex-end',
-  'center',
-  'space-between',
-  'space-around',
-  'space-evenly',
-];
-
-const AlignItemsProps: Property.AlignItems[] = [
-  'stretch',
-  'flex-start',
-  'flex-end',
-  'center',
-  'baseline',
-];
-
-const WrapProps: Property.FlexWrap[] = ['nowrap', 'wrap', 'wrap-reverse'];
-
-const DirectionProps: Property.FlexDirection[] = [
-  'row',
-  'column',
-  'column-reverse',
-  'row-reverse',
-];
-
-const Direction = () => {
-  const [direction, setDirection] = useState<Property.FlexDirection>('row');
-
-  return (
-    <View>
-      <Flex>
-        {DirectionProps.map((prop, i) => (
-          <Button
-            onClick={() => setDirection(prop)}
-            variation={prop === direction ? 'primary' : undefined}
-            size="small"
-            key={i}
-          >
-            {prop}
-          </Button>
-        ))}
-      </Flex>
-      <br />
-      <Flex direction={direction}>{mockElements(3)}</Flex>
-    </View>
-  );
+const propsToCode = (props) => {
+  return `<Flex
+  direction="${props.direction}"
+  justifyContent="${props.justifyContent}"
+  alignItems="${props.alignItems}"
+  alignContent="${props.alignContent}"
+  wrap="${props.wrap}"
+  gap="${props.gap}"
+>
+  <View
+    height="2rem"
+    width="5rem"
+    backgroundColor={tokens.colors.blue[20]}
+  ></View>
+  <View
+    height="2.5rem"
+    width="6.25rem"
+    backgroundColor={tokens.colors.blue[40]}
+  ></View>
+  <View
+    height="3rem"
+    width="7.5rem"
+    backgroundColor={tokens.colors.blue[60]}
+  ></View>
+  <View
+    height="3.5rem"
+    width="8.75rem"
+    backgroundColor={tokens.colors.blue[80]}
+  ></View>
+</Flex>`;
 };
 
-const Gap = () => <Flex gap="3rem">{mockElements(3)}</Flex>;
+export const FlexDemo = () => {
+  const flexProps = useFlexProps({
+    direction: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'stretch',
+    alignContent: 'flex-start',
+    wrap: 'nowrap',
+    gap: '1rem',
+  });
 
-const JustifyContent = () => {
-  const [justifyContent, setJustifyContent] =
-    useState<Property.JustifyContent>('flex-start');
-
-  return (
-    <View>
-      <Flex>
-        {JustifyContentProps.map((prop, i) => (
-          <Button
-            onClick={() => setJustifyContent(prop)}
-            variation={prop === justifyContent ? 'primary' : undefined}
-            size="small"
-            key={i}
-          >
-            {prop}
-          </Button>
-        ))}
-      </Flex>
-      <br />
-      <Flex justifyContent={justifyContent} gap="20px">
-        {mockElements(3)}
-      </Flex>
-    </View>
-  );
-};
-
-const AlignItems = () => {
-  const [alignItems, setAlignItems] = useState<Property.AlignItems>('stretch');
+  const { tokens } = useTheme();
 
   return (
-    <View>
-      <Flex>
-        {AlignItemsProps.map((prop, i) => (
-          <Button
-            onClick={() => setAlignItems(prop)}
-            variation={prop === alignItems ? 'primary' : undefined}
-            size="small"
-            key={i}
-          >
-            {prop}
-          </Button>
-        ))}
-      </Flex>
-      <br />
-      <Flex alignItems={alignItems}>
+    <Demo
+      code={propsToCode(flexProps)}
+      propControls={<FlexPropControls {...flexProps} />}
+    >
+      <Flex
+        direction={flexProps.direction}
+        justifyContent={flexProps.justifyContent}
+        alignItems={flexProps.alignItems}
+        alignContent={flexProps.alignContent}
+        wrap={flexProps.wrap}
+        gap={flexProps.gap}
+      >
         <View
-          backgroundColor="#b794f4"
-          height="100px"
-          padding="2rem"
-          color="white"
-        >
-          Wow!
-        </View>
+          height="2rem"
+          width="5rem"
+          backgroundColor={tokens.colors.blue[20]}
+        ></View>
         <View
-          backgroundColor="#805AD5"
-          padding="10px 2rem 0 2rem"
-          color="white"
-        >
-          I love to use
-        </View>
+          height="2.5rem"
+          width="6.25rem"
+          backgroundColor={tokens.colors.blue[40]}
+        ></View>
         <View
-          backgroundColor="#322659"
-          height="70px"
-          padding="2rem"
-          color="white"
-        >
-          Flex
-        </View>
+          height="3rem"
+          width="7.5rem"
+          backgroundColor={tokens.colors.blue[60]}
+        ></View>
+        <View
+          height="3.5rem"
+          width="8.75rem"
+          backgroundColor={tokens.colors.blue[80]}
+        ></View>
       </Flex>
-    </View>
+    </Demo>
   );
 };
-
-const Wrap = () => {
-  const [wrap, setWrap] = useState<Property.FlexWrap>('nowrap');
-
-  return (
-    <View>
-      <Flex>
-        {WrapProps.map((prop, i) => (
-          <Button
-            onClick={() => setWrap(prop)}
-            variation={prop === wrap ? 'primary' : undefined}
-            size="small"
-            key={i}
-          >
-            {prop}
-          </Button>
-        ))}
-      </Flex>
-      <br />
-      <Flex wrap={wrap}>{mockElements(6)}</Flex>
-    </View>
-  );
-};
-
-const mockStyle: ViewProps = {
-  width: '15rem',
-  height: '3rem',
-  borderRadius: '5px',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  fontWeight: 'bold',
-  color: 'white',
-  backgroundColor: '#805AD5',
-};
-
-const mockElements = (elements) => {
-  const arr =
-    typeof elements === 'number' ? [...Array(elements)] : [...elements];
-  return arr.map((char, i) => (
-    <Flex {...mockStyle} key={i}>
-      {typeof elements === 'number' ? i + 1 : char}
-    </Flex>
-  ));
-};
-
-const selectDemo = (demoType) => {
-  switch (demoType) {
-    case 'direction':
-      return <Direction />;
-    case 'gap':
-      return <Gap />;
-    case 'justifyContent':
-      return <JustifyContent />;
-    case 'alignItems':
-      return <AlignItems />;
-    case 'wrap':
-      return <Wrap />;
-  }
-};
-
-export const FlexDemo = ({ demoType }) => <View>{selectDemo(demoType)}</View>;

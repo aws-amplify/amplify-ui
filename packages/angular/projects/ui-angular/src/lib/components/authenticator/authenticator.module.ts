@@ -14,6 +14,7 @@ import { ConfirmVerifyUserComponent } from './components/confirm-verify-user/amp
 import { FederatedSignInButtonComponent } from './components/federated-sign-in-button/federated-sign-in-button.component';
 import { FederatedSignInComponent } from './components/federated-sign-in/federated-sign-in.component';
 import { ForceNewPasswordComponent } from './components/force-new-password/force-new-password.component';
+import { ForceNewPasswordFormFieldsComponent } from './components/force-new-password/force-new-password-form-fields/force-new-password-form-fields.component';
 import { FormFieldComponent } from './components/form-field/form-field.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { SetupTotpComponent } from './components/setup-totp/setup-totp.component';
@@ -51,6 +52,7 @@ import { AmplifySlotDirective } from '../../utilities/amplify-slot/amplify-slot.
     FederatedSignInButtonComponent,
     FederatedSignInComponent,
     ForceNewPasswordComponent,
+    ForceNewPasswordFormFieldsComponent,
     FormFieldComponent,
     PasswordFieldComponent,
     PhoneNumberFieldComponent,
@@ -72,6 +74,7 @@ import { AmplifySlotDirective } from '../../utilities/amplify-slot/amplify-slot.
     AuthenticatorComponent,
     CheckboxComponent,
     SignUpFormFieldsComponent,
+    ForceNewPasswordFormFieldsComponent,
     TextFieldComponent,
   ],
 })

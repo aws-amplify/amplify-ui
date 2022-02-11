@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Flex, SearchField } from '@aws-amplify/ui-react';
+import { SearchField } from '@aws-amplify/ui-react';
 
 export const RefExample = () => {
   const inputRef = React.useRef(null);

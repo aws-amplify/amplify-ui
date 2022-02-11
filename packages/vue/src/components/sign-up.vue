@@ -6,8 +6,10 @@ import FederatedSignIn from './federated-sign-in.vue';
 import AuthenticatorSignUpFormFields from './authenticator-sign-up-form-fields.vue';
 
 import { useAuthenticator } from '../composables/useAuth';
-const facadeValues = useAuthenticator();
-const props = useAuthenticator();
+import { createSharedComposable } from '@vueuse/core';
+const useAuthShared = createSharedComposable(useAuthenticator);
+const facadeValues = useAuthShared();
+const props = useAuthShared();
 const { hasValidationErrors, isPending, error } = toRefs(facadeValues);
 
 const attrs = useAttrs();
