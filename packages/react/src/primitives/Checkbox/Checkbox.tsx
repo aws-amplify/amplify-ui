@@ -22,6 +22,7 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
     isDisabled,
     label,
     labelHidden,
+    labelPosition,
     onChange: onChangeProp,
     size,
     testId,
@@ -49,6 +50,7 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
       as="label"
       className={classNames(ComponentClassNames.Checkbox, className)}
       data-disabled={isDisabled}
+      data-label-position={labelPosition}
       testId={testId}
       {...baseStyleProps}
       {...flexContainerStyleProps}
