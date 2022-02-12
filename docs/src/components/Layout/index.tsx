@@ -1,13 +1,7 @@
 import * as React from 'react';
 import debounce from 'lodash/debounce';
-import {
-  Alert,
-  Heading,
-  Button,
-  Text,
-  IconFeedback,
-  useTheme,
-} from '@aws-amplify/ui-react';
+import { Alert, Heading, Button, Text, useTheme } from '@aws-amplify/ui-react';
+import { FiInfo } from 'react-icons/fi';
 import { Sidebar } from './SecondaryNav';
 import { TableOfContents } from '../TableOfContents';
 import { Footer } from './Footer';
@@ -32,7 +26,7 @@ const PrimitiveAlert = () => {
         isExternal
         href="https://github.com/aws-amplify/amplify-ui/discussions/198"
       >
-        <IconFeedback />
+        <FiInfo />
         Add feedback here
       </Button>
     </Alert>

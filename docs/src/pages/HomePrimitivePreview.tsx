@@ -11,10 +11,6 @@ import {
   useTheme,
   ToggleButtonGroup,
   ToggleButton,
-  IconFormatAlignLeft,
-  IconFormatAlignRight,
-  IconFormatAlignCenter,
-  IconFormatAlignJustify,
   Loader,
   Placeholder,
   Pagination,
@@ -25,6 +21,12 @@ import {
   Menu,
   MenuItem,
 } from '@aws-amplify/ui-react';
+import {
+  FiAlignCenter,
+  FiAlignLeft,
+  FiAlignRight,
+  FiAlignJustify,
+} from 'react-icons/fi';
 
 export const HomePrimitivePreview = () => {
   const [exclusiveValue, setExclusiveValue] = React.useState('align-left');
@@ -58,16 +60,16 @@ export const HomePrimitivePreview = () => {
           onChange={(value: string) => setExclusiveValue(value)}
         >
           <ToggleButton value="align-left">
-            <IconFormatAlignLeft />
+            <FiAlignLeft />
           </ToggleButton>
           <ToggleButton value="align-center">
-            <IconFormatAlignCenter />
+            <FiAlignCenter />
           </ToggleButton>
           <ToggleButton value="align-right">
-            <IconFormatAlignRight />
+            <FiAlignRight />
           </ToggleButton>
           <ToggleButton value="align-justify">
-            <IconFormatAlignJustify />
+            <FiAlignJustify />
           </ToggleButton>
         </ToggleButtonGroup>
         <Button variation="primary">Get started</Button>

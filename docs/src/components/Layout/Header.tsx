@@ -1,7 +1,6 @@
 import * as React from 'react';
 import NextLink from 'next/link';
 import {
-  IconOpenInNew,
   Button,
   VisuallyHidden,
   Link,
@@ -9,14 +8,12 @@ import {
   ColorMode,
   ToggleButton,
   ToggleButtonGroup,
-  IconWbSunny,
-  IconBedtime,
-  IconTonality,
   IconMenu,
   Divider,
   View,
   IconClose,
 } from '@aws-amplify/ui-react';
+import { FiMoon, FiSun, FiSliders, FiExternalLink } from 'react-icons/fi';
 import { useRouter } from 'next/router';
 import { Logo } from '@/components/Logo';
 import { FrameworkChooser } from './FrameworkChooser';
@@ -58,7 +55,7 @@ const Nav = (props) => (
     </NavLink>
     <Divider orientation="vertical" />
     <NavLink {...props} isExternal href="https://docs.amplify.aws">
-      Amplify docs <IconOpenInNew />
+      Amplify docs <FiExternalLink />
     </NavLink>
   </Flex>
 );
@@ -80,15 +77,15 @@ const ColorModeSwitcher = ({ colorMode, setColorMode }) => {
     >
       <ToggleButton value="light">
         <VisuallyHidden>Light mode</VisuallyHidden>
-        <IconWbSunny />
+        <FiSun />
       </ToggleButton>
       <ToggleButton value="dark">
         <VisuallyHidden>Dark mode</VisuallyHidden>
-        <IconBedtime />
+        <FiMoon />
       </ToggleButton>
       <ToggleButton value="system">
         <VisuallyHidden>System preference</VisuallyHidden>
-        <IconTonality />
+        <FiSliders />
       </ToggleButton>
     </ToggleButtonGroup>
   );
