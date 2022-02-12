@@ -2,6 +2,7 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { ComponentClassNames } from '../shared/constants';
+import { splitPrimitiveProps } from '../shared/styleUtils';
 import { FieldDescription, FieldErrorMessage } from '../Field';
 import { FieldGroup } from '../FieldGroup';
 import { Flex } from '../Flex';
@@ -40,10 +41,12 @@ const TextFieldPrimitive = <Multiline extends boolean>(
     size,
     testId,
     inputStyles,
-    ...rest
+    ..._rest
   } = props;
 
   const fieldId = useStableId(id);
+  const { flexContainerStyleProps, baseStyleProps, rest } =
+    splitPrimitiveProps(_rest);
 
   let control: JSX.Element = null;
   if (isTextAreaField(props)) {
@@ -56,6 +59,7 @@ const TextFieldPrimitive = <Multiline extends boolean>(
         rows={rows ?? DEFAULT_ROW_COUNT}
         size={size}
         {...inputStyles}
+        {...rest}
       />
     );
   } else if (isInputField(props)) {
@@ -68,6 +72,7 @@ const TextFieldPrimitive = <Multiline extends boolean>(
         size={size}
         type={type}
         {...inputStyles}
+        {...rest}
       />
     );
   }
@@ -81,7 +86,8 @@ const TextFieldPrimitive = <Multiline extends boolean>(
       )}
       data-size={size}
       testId={testId}
-      {...rest}
+      {...flexContainerStyleProps}
+      {...baseStyleProps}
     >
       <Label htmlFor={fieldId} visuallyHidden={labelHidden}>
         {label}
