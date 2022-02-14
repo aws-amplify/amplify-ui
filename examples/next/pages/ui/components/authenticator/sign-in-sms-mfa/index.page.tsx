@@ -19,7 +19,7 @@ export default function AuthenticatorWithSmsMfa() {
     <Authenticator>
       {({ signOut, user }) => (
         <>
-          Hello {user.attributes.email}
+          Hello {user.attributes?.name}
           <button onClick={signOut}>Sign out</button>
         </>
       )}

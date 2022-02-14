@@ -9,7 +9,7 @@ Feature: Sign In with SMS MFA
 
 
 @angular @react @vue
-  Scenario: Sign in with with sms mfa and check email attribute
+  Scenario: Sign in with with sms mfa and check mocked name attribute
     When I select my country code with status "CONFIRMED"
     And I type my "phone number" with status "CONFIRMED"
     And I type my password
@@ -20,7 +20,7 @@ Feature: Sign In with SMS MFA
     And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }' with fixture "confirm-sign-in-sms-mfa"
     And I mock 'Amplify.Auth.currentAuthenticatedUser' with fixture "Auth.currentAuthenticatedUser-sms-mfa"
     And I click the "Confirm" button
-    Then I see "amplify_test_user@example.com"
+    Then I see "testName"
 
 
   @angular @react @vue

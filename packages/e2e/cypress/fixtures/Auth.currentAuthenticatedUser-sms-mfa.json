@@ -4,7 +4,7 @@
     "email_verified": true,
     "phone_number_verified": true,
     "phone_number": "+17755551212",
-    "email": "amplify_test_user@example.com"
+    "name": "testName"
   },
   "username": "amplify_test_user"
 }
