@@ -33,6 +33,7 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface {
 
   @override
   Future<SignUpResult> signUp({required SignUpRequest request}) async {
+    await Future.delayed(const Duration(milliseconds: 250));
     User? user = users[request.username];
     if (user != null) {
       throw UsernameExistsException('User already exists.');
@@ -60,6 +61,7 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface {
   Future<SignUpResult> confirmSignUp({
     required ConfirmSignUpRequest request,
   }) async {
+    await Future.delayed(const Duration(milliseconds: 250));
     if (request.confirmationCode != '123456') {
       throw CodeMismatchException('Incorrect code. Please try again.');
     }
@@ -73,6 +75,7 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface {
   Future<ResendSignUpCodeResult> resendSignUpCode({
     required ResendSignUpCodeRequest request,
   }) async {
+    await Future.delayed(const Duration(milliseconds: 250));
     User? user = users[request.username];
     if (user == null) {
       throw UserNotFoundException('User does not exist.');
@@ -82,6 +85,7 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface {
 
   @override
   Future<SignInResult> signIn({required SignInRequest request}) async {
+    await Future.delayed(const Duration(milliseconds: 250));
     User? user = users[request.username];
     if (user == null) {
       throw UserNotFoundException('User does not exist.');
@@ -98,6 +102,7 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface {
 
   @override
   Future<SignInResult> confirmSignIn({ConfirmSignInRequest? request}) async {
+    await Future.delayed(const Duration(milliseconds: 250));
     return CognitoSignInResult(
       isSignedIn: isSignedIn(),
       nextStep: AuthNextSignInStep(signInStep: 'DONE'),
@@ -121,6 +126,7 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface {
   Future<ResetPasswordResult> resetPassword({
     ResetPasswordRequest? request,
   }) async {
+    await Future.delayed(const Duration(milliseconds: 250));
     if (request == null) {
       throw InvalidStateException('Missing request');
     }
@@ -141,6 +147,7 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface {
   Future<UpdatePasswordResult> confirmResetPassword({
     ConfirmResetPasswordRequest? request,
   }) async {
+    await Future.delayed(const Duration(milliseconds: 250));
     if (request == null) {
       throw InvalidStateException('Missing request');
     }
