@@ -9,7 +9,7 @@ import { useControllable } from '../../hooks/useControllable';
 import { LivenessFlowProvider } from './providers';
 import { StartLiveness } from './StartLiveness';
 import { LivenessCheck } from './LivenessCheck';
-import { View } from '../..';
+import { View } from '../../primitives';
 
 export interface LivenessFlowProps extends LivenessFlowPropsFromUi {}
 

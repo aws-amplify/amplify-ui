@@ -4,16 +4,14 @@ export const AlertStylePropsExample = () => {
   const { tokens } = useTheme();
 
   return (
-    <>
-      <Alert
-        backgroundColor={tokens.colors.brand.primary[10]}
-        color={tokens.colors.font.primary}
-        fontWeight="bold"
-        border={`${tokens.borderWidths.large} solid ${tokens.colors.brand.primary[80]}`}
-        borderRadius="10px"
-      >
-        Passing props directly
-      </Alert>
-    </>
+    <Alert
+      backgroundColor={tokens.colors.brand.primary[10]}
+      color={tokens.colors.font.primary}
+      fontWeight="bold"
+      border={`${tokens.borderWidths.large} solid ${tokens.colors.brand.primary[80]}`}
+      borderRadius="10px"
+    >
+      Passing props directly
+    </Alert>
   );
 };

@@ -12,7 +12,7 @@ import {
   Divider,
   Text,
   View,
-} from '../../..';
+} from '../../../primitives';
 
 const INSTRUCTIONS = [
   {

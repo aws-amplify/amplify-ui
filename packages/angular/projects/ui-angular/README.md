@@ -1,4 +1,4 @@
-# @aws-amplify/ui-anuglar
+# @aws-amplify/ui-angular
 
 ## Getting Started
 

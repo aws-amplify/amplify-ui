@@ -5,7 +5,7 @@ import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 import { useTheme } from '../../../hooks';
 import { useLivenessActor } from '../hooks';
 import { CancelButton, Instruction, RecordingIcon } from '../shared';
-import { Flex, Text, View } from '../../..';
+import { Flex, Text, View } from '../../../primitives';
 
 export interface LivenessCameraModuleProps {
   isMobileScreen: boolean;

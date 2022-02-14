@@ -8,7 +8,7 @@
 // ***********************************************************
 
 const cucumber = require('cypress-cucumber-preprocessor').default;
-const resolve = require('resolve');
+const path = require('path');
 require('dotenv-safe').config({
   allowEmptyValues: true,
 });
@@ -21,7 +21,7 @@ require('dotenv-safe').config({
  */
 module.exports = (on, config) => {
   const options = {
-    typescript: resolve.sync('typescript', { baseDir: config.projectRoot }),
+    typescript: path.join(path.resolve('../..'), 'node_modules/typescript'),
   };
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
