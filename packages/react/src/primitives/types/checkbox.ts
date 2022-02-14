@@ -25,5 +25,9 @@ export interface CheckboxProps extends FlexProps, InputProps {
    */
   value: string;
 
+  /**
+   * Position of label in relation to the checkbox,
+   * default is 'start'
+   */
   labelPosition?: LabelPositions;
 }

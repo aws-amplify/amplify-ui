@@ -67,7 +67,7 @@ export const CheckboxFieldPropControls: CheckboxFieldPropControlsInterface = ({
         id="labelPosition"
         name="labelPosition"
         label="labelPosition"
-        placeholder=""
+        placeholder="default"
         value={labelPosition}
         onChange={(e) =>
           setLabelPosition(
@@ -75,7 +75,6 @@ export const CheckboxFieldPropControls: CheckboxFieldPropControlsInterface = ({
           )
         }
       >
-        <option></option>
         <option value="start">start</option>
         <option value="end">end</option>
         <option value="top">top</option>
