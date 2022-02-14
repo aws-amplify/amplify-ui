@@ -5,9 +5,8 @@ import {
   SelectField,
   SelectFieldProps,
   TextField,
+  Flex,
 } from '@aws-amplify/ui-react';
-
-import { DemoBox } from './DemoBox';
 
 export interface SelectFieldPropControlsProps extends SelectFieldProps {
   setDescriptiveText: (
@@ -55,7 +54,7 @@ export const SelectFieldPropControls: SelectFieldPropControlsInterface = ({
   setVariation,
 }) => {
   return (
-    <DemoBox primitiveName="SelectField">
+    <Flex direction="column">
       <SelectField
         label="size"
         name="size"
@@ -68,6 +67,7 @@ export const SelectFieldPropControls: SelectFieldPropControlsInterface = ({
         <option value="small">small</option>
         <option value="large">large</option>
       </SelectField>
+
       <SelectField
         label="variation"
         name="variation"
@@ -79,6 +79,7 @@ export const SelectFieldPropControls: SelectFieldPropControlsInterface = ({
       >
         <option value="quiet">quiet</option>
       </SelectField>
+
       <TextField
         label="label"
         name="label"
@@ -88,10 +89,11 @@ export const SelectFieldPropControls: SelectFieldPropControlsInterface = ({
           setLabel(event.target.value as SelectFieldProps['label'])
         }
       />
+
       <TextField
         label="descriptiveText"
         name="descriptiveText"
-        placeholder="Provide a descriptive text"
+        placeholder="Provide some descriptive text"
         value={descriptiveText as string}
         onChange={(event) =>
           setDescriptiveText(
@@ -99,6 +101,7 @@ export const SelectFieldPropControls: SelectFieldPropControlsInterface = ({
           )
         }
       />
+
       <TextField
         label="errorMessage"
         name="errorMessage"
@@ -110,6 +113,7 @@ export const SelectFieldPropControls: SelectFieldPropControlsInterface = ({
           )
         }
       />
+
       <CheckboxField
         name="labelHidden"
         value="yes"
@@ -121,6 +125,7 @@ export const SelectFieldPropControls: SelectFieldPropControlsInterface = ({
         }}
         label="labelHidden"
       />
+
       <CheckboxField
         name="hasError"
         value="yes"
@@ -132,6 +137,7 @@ export const SelectFieldPropControls: SelectFieldPropControlsInterface = ({
         }}
         label="hasError"
       />
+
       <CheckboxField
         name="isDisabled"
         value="yes"
@@ -143,6 +149,6 @@ export const SelectFieldPropControls: SelectFieldPropControlsInterface = ({
         }}
         label="isDisabled"
       />
-    </DemoBox>
+    </Flex>
   );
 };

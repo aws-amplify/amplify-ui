@@ -97,7 +97,11 @@ export const inputComponents = [
     label: 'Text Field',
     body: `The TextField form primitive can be used allow users to input text content.`,
   },
-  { href: '/components/selectfield', label: 'Select Field', body: `` },
+  {
+    href: '/components/selectfield',
+    label: 'Select Field',
+    body: `The SelectField primitive allows you to create a drop-down list.`,
+  },
   { href: '/components/sliderfield', label: 'Slider Field', body: `` },
   {
     href: '/components/stepperfield',
