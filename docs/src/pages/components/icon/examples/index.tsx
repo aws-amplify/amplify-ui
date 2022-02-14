@@ -1,5 +1,4 @@
 export { AccessibilityIconExample } from './AccessibilityIconExample';
-export { BuiltInIconExample } from './BuiltInIconExample';
 export { CustomIconExample } from './CustomIconExample';
 export { CustomIconWithLibExample } from './CustomIconWithLibExample';
 export { CustomIconWithPathsExample } from './CustomIconWithPathsExample';

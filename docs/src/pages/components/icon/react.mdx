@@ -1,12 +1,10 @@
-import { Button, Icon, Flex, Text } from '@aws-amplify/ui-react';
+import { Link } from '@aws-amplify/ui-react';
 import { IconDemo } from './demo';
-import { AllIcons } from './AllIcons';
 import { Example, ExampleCode } from '@/components/Example';
 
 import {
   AccessibilityIconExample,
   DefaultIconExample,
-  BuiltInIconExample,
   CustomIconExample,
   IconColorExample,
   IconSizesExample,
@@ -16,7 +14,7 @@ import {
   ViewboxExample,
 } from './examples';
 
-Icons should be thought of as plain text; they inherit the size and color of their context or can be set directly. Icons themselves do not have any state or handlers, those should be at a higher level like a button. Amplify uses the [Google Material icon set](https://github.com/google/material-design-icons) as the default because it meets the needs above and uses an approved license (Apache-2).
+Icons should be thought of as plain text; they inherit the size and color of their context or can be set directly. Icons themselves do not have any state or handlers, those should be at a higher level like a button. Amplify UI does not include any icons other than the ones Amplify UI components like [Alert](/components/alert) and [Expander](/components/expander) use. The icons for these primitives come from [Google Material](https://github.com/google/material-design-icons).
 
 ## Demo
 
@@ -37,24 +35,6 @@ Import the Icon component and styles.
 
   </ExampleCode>
 </Example>
-
-### Built-in iconset
-
-Use a default icon from the [Material Design icons](http://google.github.io/material-design-icons/).
-
-<Example>
-  <BuiltInIconExample />
-  
-  <ExampleCode>
-
-```jsx file=./examples/BuiltInIconExample.tsx
-
-```
-
-  </ExampleCode>
-</Example>
-
-<AllIcons />
 
 ## Custom icon
 
@@ -133,6 +113,18 @@ To use an icon library like [React Icons](https://react-icons.github.io/react-ic
 
   </ExampleCode>
 </Example>
+
+Here are some good open source icon libraries:
+
+- <Link href="https://css.gg" isExternal={true}>
+    CSS.gg
+  </Link>
+- <Link href="https://react-icons.github.io/react-icons/" isExternal={true}>
+    React icons
+  </Link>
+- <Link href="https://heroicons.com/" isExternal={true}>
+    Hero icons
+  </Link>
 
 ## Styling
 

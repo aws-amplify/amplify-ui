@@ -1,4 +1,5 @@
 module.exports = {
+  textDecoration: { value: 'underline' },
   active: {
     color: { value: '{colors.font.active.value}' },
   },
