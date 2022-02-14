@@ -59,9 +59,17 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
     handleOnBlur,
     handleOnChange,
     handleOnWheel,
+    setInputValue,
     shouldDisableDecreaseButton,
     shouldDisableIncreaseButton,
   } = useStepper(props);
+
+  React.useEffect(() => {
+    const isControlled = controlledValue !== undefined;
+    if (isControlled) {
+      setInputValue(controlledValue);
+    }
+  }, [controlledValue, setInputValue]);
 
   return (
     <Flex
