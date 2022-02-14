@@ -1,4 +1,3 @@
-import { Example } from '@/components/Example';
 import { FlutterAuthenticatorExample } from '@/components/FlutterAuthenticatorExample';
 import { Fragment } from '@/components/Fragment';
 import { Tabs, TabItem } from '@aws-amplify/ui-react';
@@ -14,6 +13,9 @@ You can explicitly redirect to Sign Up or Reset Password as your initial step:
     <Fragment>
       {({ platform }) => import(`./initialState.signIn.${platform}.mdx`)}
     </Fragment>
+    <Fragment>
+      {({ platform }) => import(`./example-info-alert.${platform}.mdx`)}
+    </Fragment>
     <FlutterAuthenticatorExample
       initialStep={'signIn'}
     ></FlutterAuthenticatorExample>
@@ -22,6 +24,9 @@ You can explicitly redirect to Sign Up or Reset Password as your initial step:
     <Fragment>
       {({ platform }) => import(`./initialState.signUp.${platform}.mdx`)}
     </Fragment>
+    <Fragment>
+      {({ platform }) => import(`./example-info-alert.${platform}.mdx`)}
+    </Fragment>
     <FlutterAuthenticatorExample
       initialStep={'signUp'}
     ></FlutterAuthenticatorExample>
@@ -29,6 +34,9 @@ You can explicitly redirect to Sign Up or Reset Password as your initial step:
   <TabItem title="Reset Password">
     <Fragment>
       {({ platform }) => import(`./initialState.resetPassword.${platform}.mdx`)}
+    </Fragment>
+    <Fragment>
+      {({ platform }) => import(`./example-info-alert.${platform}.mdx`)}
     </Fragment>
     <FlutterAuthenticatorExample
       initialStep={'resetPassword'}

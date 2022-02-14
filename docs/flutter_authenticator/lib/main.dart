@@ -98,11 +98,6 @@ class _FlutterAuthenticatorPreviewState
               screen: const MyApp(),
               device: Devices.ios.iPhone13,
             ),
-            // TODO: Add Android example
-            // DeviceFrame(
-            //   screen: const MyApp(),
-            //   device: Devices.android.samsungGalaxyS20,
-            // ),
           ],
         ),
       ),
@@ -167,11 +162,14 @@ class _MyAppState extends State<MyApp> {
         themeMode: _authenticatorConfig.themeMode,
         home: Scaffold(
           appBar: AppBar(),
-          body: Column(
-            children: const [
-              Text('You are logged in!'),
-              SignOutButton(),
-            ],
+          body: Center(
+            child: Column(
+              children: const [
+                Text('You are logged in!'),
+                SizedBox(height: 16),
+                SignOutButton(),
+              ],
+            ),
           ),
         ),
       ),
@@ -183,6 +181,7 @@ String buildConfig({
   String? signupAttribute = 'USERNAME',
   bool includeSocialProviders = false,
 }) {
+  signupAttribute = signupAttribute?.toUpperCase();
   Map<String, dynamic> config = {
     "UserAgent": "aws-amplify-cli/2.0",
     "Version": "1.0",

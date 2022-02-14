@@ -35,8 +35,7 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface {
   Future<SignUpResult> signUp({required SignUpRequest request}) async {
     User? user = users[request.username];
     if (user != null) {
-      throw UsernameExistsException(
-          'There is already an account associated with this username.');
+      throw UsernameExistsException('User already exists.');
     } else {
       User newUser = User(
         sub: Random().nextInt(10000).toString(),
@@ -61,8 +60,7 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface {
   Future<SignUpResult> confirmSignUp({
     required ConfirmSignUpRequest request,
   }) async {
-    if (request.confirmationCode.length != 6 ||
-        request.confirmationCode == '000000') {
+    if (request.confirmationCode != '123456') {
       throw CodeMismatchException('Incorrect code. Please try again.');
     }
     return CognitoSignUpResult(
@@ -77,7 +75,7 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface {
   }) async {
     User? user = users[request.username];
     if (user == null) {
-      throw UserNotFoundException('There is no user with this username');
+      throw UserNotFoundException('User does not exist.');
     }
     return CognitoResendSignUpCodeResult(codeDeliveryDetails(user));
   }
@@ -86,7 +84,7 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface {
   Future<SignInResult> signIn({required SignInRequest request}) async {
     User? user = users[request.username];
     if (user == null) {
-      throw UserNotFoundException('There is no user with this username');
+      throw UserNotFoundException('User does not exist.');
     }
     if (user.password != request.password) {
       throw NotAuthorizedException('Incorrect username or password.');
@@ -128,7 +126,7 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface {
     }
     User? user = users[request.username];
     if (user == null) {
-      throw UserNotFoundException('There is no user with this username');
+      throw UserNotFoundException('User does not exist.');
     }
     return CognitoResetPasswordResult(
       isPasswordReset: true,
@@ -148,10 +146,9 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface {
     }
     User? user = users[request.username];
     if (user == null) {
-      throw UserNotFoundException('There is no user with this username');
+      throw UserNotFoundException('User does not exist.');
     }
-    if (request.confirmationCode.length != 6 ||
-        request.confirmationCode == '000000') {
+    if (request.confirmationCode != '123456') {
       throw CodeMismatchException('Incorrect code. Please try again.');
     }
     User updatedUser = user.copyWith(password: request.newPassword);
@@ -182,7 +179,7 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface {
     FetchUserAttributesRequest? request,
   }) async {
     if (currentUser == null) {
-      throw SignedOutException('There is not user signed in.');
+      throw SignedOutException('There is no user signed in.');
     }
     return [
       if (currentUser!.email != null) ...[
@@ -216,7 +213,8 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface {
   Future<SignInResult> signInWithWebUI(
       {SignInWithWebUIRequest? request}) async {
     throw InvalidStateException(
-        'social sign in is not supported in this demo.');
+      'social sign in is not supported in this demo.',
+    );
   }
 
   @override
@@ -224,7 +222,7 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface {
     UpdateUserAttributeRequest? request,
   }) async {
     if (currentUser == null) {
-      throw SignedOutException('There is not user signed in.');
+      throw SignedOutException('There is no user signed in.');
     }
     return UpdateUserAttributeResult(
       isUpdated: true,
@@ -264,19 +262,31 @@ class AmplifyAuthCognitoStub extends AuthPluginInterface {
   }
 
   @override
-  Future<void> rememberDevice() async {}
+  Future<void> rememberDevice() async {
+    throw UnimplementedError(
+      'rememberDevice is not supported in this demo.',
+    );
+  }
 
   @override
-  Future<void> forgetDevice([AuthDevice? device]) async {}
+  Future<void> forgetDevice([AuthDevice? device]) async {
+    throw UnimplementedError(
+      'forgetDevice is not supported in this demo.',
+    );
+  }
 
   @override
   Future<List<AuthDevice>> fetchDevices() async {
-    return [];
+    throw UnimplementedError(
+      'fetchDevices is not supported in this demo.',
+    );
   }
 
   @override
   Future<void> deleteUser() async {
-    // return _instance.deleteUser();
+    throw UnimplementedError(
+      'deleteUser is not supported in this demo.',
+    );
   }
 }
 
