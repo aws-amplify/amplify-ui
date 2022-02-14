@@ -2,6 +2,7 @@ import * as React from 'react';
 
 export function FlutterAuthenticatorExample({
   initialStep = 'signIn',
+  signupAttribute = 'USERNAME',
   width,
   height,
   id,
@@ -18,7 +19,7 @@ export function FlutterAuthenticatorExample({
       id={id}
       height={height ?? '800px'}
       width={width ?? '100%'}
-      src={`/flutter-authenticator/flutter-authenticator-component.html?themeMode=${colorMode}&initialStep=${initialStep}`}
+      src={`/flutter-authenticator/flutter-authenticator-component.html?themeMode=${colorMode}&initialStep=${initialStep}&signupAttribute=${signupAttribute}`}
     ></iframe>
   );
 }
