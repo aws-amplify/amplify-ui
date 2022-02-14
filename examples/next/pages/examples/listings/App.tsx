@@ -2,11 +2,9 @@ import {
   ToggleButton,
   ToggleButtonGroup,
   AmplifyProvider,
-  IconWbSunny,
-  IconBedtime,
-  IconTonality,
   ColorMode,
 } from '@aws-amplify/ui-react';
+import { MdWbSunny, MdBedtime, MdTonality } from 'react-icons/md';
 import { useState } from 'react';
 
 import { theme } from '../../../theme';
@@ -29,13 +27,13 @@ export const App = ({ children }) => {
           onChange={(value: ColorMode) => setColorMode(value)}
         >
           <ToggleButton value="light">
-            <IconWbSunny />
+            <MdWbSunny />
           </ToggleButton>
           <ToggleButton value="dark">
-            <IconBedtime />
+            <MdBedtime />
           </ToggleButton>
           <ToggleButton value="system">
-            <IconTonality />
+            <MdTonality />
           </ToggleButton>
         </ToggleButtonGroup>
       </header>
