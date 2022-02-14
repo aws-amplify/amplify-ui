@@ -3,7 +3,7 @@ import { translate } from '@aws-amplify/ui';
 
 import { useTheme } from '../../../hooks';
 import { useLivenessActor } from '../hooks';
-import { Button, IconClose } from '../../..';
+import { Button, IconClose } from '../../../primitives';
 
 export interface CancelButtonProps {
   isMobileScreen?: boolean;

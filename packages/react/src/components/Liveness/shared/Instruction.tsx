@@ -15,7 +15,7 @@ import {
   IconHighlightOff,
   Loader,
   View,
-} from '../../..';
+} from '../../../primitives';
 
 export interface InstructionProps {
   isMobileScreen: boolean;

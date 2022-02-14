@@ -6,7 +6,7 @@ import { useThemeBreakpoint } from '../../../hooks/useThemeBreakpoint';
 import { LivenessCameraModule } from './LivenessCameraModule';
 import { useLivenessActor } from '../hooks';
 import { CancelButton } from '../shared';
-import { Text, Flex, Heading, Divider } from '../../..';
+import { Text, Flex, Heading, Divider } from '../../../primitives';
 import { getVideoConstraints } from './helpers';
 
 export const LivenessCheck: React.FC = () => {

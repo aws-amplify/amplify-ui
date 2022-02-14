@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { useTheme } from '../../../hooks';
-import { Flex, Text } from '../../..';
+import { Flex, Text } from '../../../primitives';
 
 export interface DescriptionBulletProps {
   index: number;
