@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui",
-  "version": "3.0.12",
+  "version": "3.0.13",
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
   "exports": {
