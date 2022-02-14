@@ -21,7 +21,7 @@
 .docs-toc-inner {
   position: sticky;
   width: 16rem;
-  height: 80vh;
+  height: calc(100vh - var(--docs-header-height));
   flex-shrink: 0;
   top: var(--docs-header-height);
   right: 0;
