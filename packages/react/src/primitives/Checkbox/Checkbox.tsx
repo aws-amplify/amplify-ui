@@ -35,10 +35,15 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
   // controlled way should always override uncontrolled way
   const initialChecked = checked !== undefined ? checked : defaultChecked;
 
-  const { dataChecked, dataFocus, onBlur, onChange, onFocus } = useCheckbox(
-    initialChecked,
-    onChangeProp
-  );
+  const { dataChecked, dataFocus, onBlur, onChange, onFocus, setDataChecked } =
+    useCheckbox(initialChecked, onChangeProp);
+
+  React.useEffect(() => {
+    const isControlled = checked !== undefined;
+    if (isControlled && checked !== dataChecked) {
+      setDataChecked(checked);
+    }
+  }, [checked, dataChecked, setDataChecked]);
 
   const buttonTestId = useTestId(testId, ComponentClassNames.CheckboxButton);
   const iconTestId = useTestId(testId, ComponentClassNames.CheckboxIcon);
