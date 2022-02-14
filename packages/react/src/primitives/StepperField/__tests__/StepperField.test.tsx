@@ -70,9 +70,11 @@ describe('StepperField: ', () => {
 
   describe('Input field', () => {
     const label = 'stepper';
+    let updateValueFunction;
 
     const ControlledStepper = () => {
       const [value, setValue] = React.useState(0);
+      updateValueFunction = setValue;
       return (
         <StepperField
           label={label}
@@ -201,6 +203,15 @@ describe('StepperField: ', () => {
       expect(onChange).toHaveBeenCalled();
       expect(onBlur).toHaveBeenCalled();
       expect(onWheel).toHaveBeenCalled();
+    });
+
+    it('should update the value correctly(controlled)', async () => {
+      render(<ControlledStepper />);
+      let stepperInput = await screen.findByLabelText(label);
+      expect(stepperInput).toHaveValue(0);
+      updateValueFunction(8);
+      stepperInput = await screen.findByLabelText(label);
+      expect(stepperInput).toHaveValue(8);
     });
   });
 

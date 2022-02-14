@@ -23,19 +23,20 @@
   width: 16rem;
   height: 80vh;
   flex-shrink: 0;
-  top: 8rem;
+  top: var(--docs-header-height);
   right: 0;
   padding: var(--amplify-space-medium);
 }
 
 .docs-toc-heading {
   color: var(--amplify-colors-font-tertiary);
+  font-weight: var(--amplify-font-weights-bold);
   padding: var(--amplify-space-xs) var(--amplify-space-medium);
 }
 
 .docs-toc-link {
   display: block;
-  padding: var(--amplify-space-xs) var(--amplify-space-medium);
+  padding: var(--amplify-space-xxs) var(--amplify-space-medium);
   text-decoration: none;
   color: var(--amplify-colors-font-secondary);
   position: relative;

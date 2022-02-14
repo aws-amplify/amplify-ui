@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import debounce from 'lodash/debounce';
-import { Heading, ScrollView } from '@aws-amplify/ui-react';
+import { Text, ScrollView } from '@aws-amplify/ui-react';
 
 export const TableOfContents = ({ title, headings }) => {
   const [activeHeading, setActiveHeading] = useState(-1);
@@ -41,9 +41,7 @@ export const TableOfContents = ({ title, headings }) => {
   return (
     <aside className="docs-toc" id="toc">
       <ScrollView className="docs-toc-inner">
-        <Heading className="docs-toc-heading" level={6}>
-          {title}
-        </Heading>
+        <Text className="docs-toc-heading">{title}</Text>
         {headings.map(({ id, label, level }, i) => (
           <a
             key={id}

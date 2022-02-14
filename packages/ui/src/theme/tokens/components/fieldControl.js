@@ -28,10 +28,10 @@ module.exports = {
   small: {
     fontSize: { value: '{components.field.small.fontSize.value}' },
     paddingBlockStart: {
-      value: '{space.xs.value}',
+      value: '{space.xxs.value}',
     },
     paddingBlockEnd: {
-      value: '{space.xs.value}',
+      value: '{space.xxs.value}',
     },
     paddingInlineStart: {
       value: '{space.small.value}',
