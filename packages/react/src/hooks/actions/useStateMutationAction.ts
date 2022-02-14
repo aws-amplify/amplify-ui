@@ -14,6 +14,10 @@ type UseStateMutationAction<StateType> = [
   (newState: StateType) => void
 ];
 
+/**
+ * Action to wrap React.useState with Hub events
+ * @internal
+ */
 export const useStateMutationAction = <StateType>(
   initialState: StateType
 ): UseStateMutationAction<StateType> => {
