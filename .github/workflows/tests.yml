@@ -249,7 +249,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: environments/**/aws-exports.js
-          key: ${{ runner.os }}-environments-${{ steps.cli-version.outputs.version }}-${{ hashFiles('environments/**/amplify/**') }}-test
+          key: ${{ runner.os }}-environments-${{ steps.cli-version.outputs.version }}-${{ hashFiles('environments/**/amplify/**') }}
 
       - name: Pull down AWS environments on cache miss
         if: steps.environments-cache.outputs.cache-hit != 'true'
