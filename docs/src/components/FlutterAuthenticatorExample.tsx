@@ -2,7 +2,8 @@ import * as React from 'react';
 
 export function FlutterAuthenticatorExample({
   initialStep = 'signIn',
-  signupAttribute = 'USERNAME',
+  usernameAttribute = 'USERNAME',
+  signUpAttributes = [],
   width,
   height,
   id,
@@ -14,12 +15,19 @@ export function FlutterAuthenticatorExample({
     ? colorElements[0].getAttribute(colorAttr)
     : 'light';
 
+  const baseUrl =
+    '/flutter-authenticator/flutter-authenticator-component.html?';
+  var src = `${baseUrl}themeMode=${colorMode}&initialStep=${initialStep}&usernameAttribute=${usernameAttribute}`;
+  if (signUpAttributes.length) {
+    src += `&signUpAttributes=${signUpAttributes.join('|')}`;
+  }
+  console.log(src);
   return (
     <iframe
       id={id}
       height={height ?? '800px'}
       width={width ?? '100%'}
-      src={`/flutter-authenticator/flutter-authenticator-component.html?themeMode=${colorMode}&initialStep=${initialStep}&signupAttribute=${signupAttribute}`}
+      src={src}
     ></iframe>
   );
 }

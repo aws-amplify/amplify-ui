@@ -15,10 +15,12 @@ class AuthenticatorConfig {
   final ThemeMode themeMode;
   final AuthenticatorStep initialStep;
   final String config;
+  final List<SignUpFormField> signUpAttributes;
   AuthenticatorConfig({
     this.themeMode = ThemeMode.light,
     this.initialStep = AuthenticatorStep.signIn,
     String? config,
+    this.signUpAttributes = const [],
   }) : config = config ?? buildConfig();
 
   static AuthenticatorConfig fromMap(Map<String, String?> map) {
@@ -26,8 +28,9 @@ class AuthenticatorConfig {
       themeMode: _parseThemeMode(map['themeMode']),
       initialStep: _parseAuthenticatorStep(map['initialStep']),
       config: buildConfig(
-          signupAttribute: map['signupAttribute'] ?? 'USERNAME',
+          usernameAttribute: map['usernameAttribute'] ?? 'USERNAME',
           includeSocialProviders: map['includeSocialProviders'] == 'true'),
+      signUpAttributes: _parseSignUpAttributes(map['signUpAttributes']),
     );
   }
 
@@ -67,6 +70,50 @@ class AuthenticatorConfig {
       default:
         return AuthenticatorStep.signIn;
     }
+  }
+
+  static List<SignUpFormField> _parseSignUpAttributes(String? value) {
+    final signUpFields = value?.split('|') ?? [];
+    return signUpFields
+        .map((field) {
+          switch (field) {
+            case 'username':
+              return SignUpFormField.username();
+            case 'password':
+              return SignUpFormField.password();
+            case 'password_confirmation':
+              return SignUpFormField.passwordConfirmation();
+            case 'email':
+              return SignUpFormField.email();
+            case 'phone_number':
+              return SignUpFormField.phoneNumber();
+            case 'family_name':
+              return SignUpFormField.familyName();
+            case 'given_name':
+              return SignUpFormField.givenName();
+            case 'middle_name':
+              return SignUpFormField.middleName();
+            case 'name':
+              return SignUpFormField.name();
+            case 'nickname':
+              return SignUpFormField.nickname();
+            case 'preferred_username':
+              return SignUpFormField.preferredUsername();
+            case 'address':
+              return SignUpFormField.address();
+            case 'birthdate':
+              return SignUpFormField.birthdate();
+            case 'gender':
+              return SignUpFormField.gender();
+            default:
+              return SignUpFormField.custom(
+                title: field,
+                attributeKey: CognitoUserAttributeKey.custom(field),
+              );
+          }
+        })
+        .whereType<SignUpFormField>()
+        .toList();
   }
 }
 
@@ -151,6 +198,9 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return Authenticator(
+      signUpForm: SignUpForm.custom(
+        fields: _authenticatorConfig.signUpAttributes,
+      ),
       initialStep: _authenticatorConfig.initialStep,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -178,10 +228,10 @@ class _MyAppState extends State<MyApp> {
 }
 
 String buildConfig({
-  String? signupAttribute = 'USERNAME',
+  String? usernameAttribute = 'USERNAME',
   bool includeSocialProviders = false,
 }) {
-  signupAttribute = signupAttribute?.toUpperCase();
+  usernameAttribute = usernameAttribute?.toUpperCase();
   Map<String, dynamic> config = {
     "UserAgent": "aws-amplify-cli/2.0",
     "Version": "1.0",
@@ -195,17 +245,19 @@ String buildConfig({
                   ? ['AMAZON', 'APPLE', 'FACEBOOK', 'GOOGLE']
                   : [],
               "usernameAttributes":
-                  signupAttribute == 'USERNAME' ? [] : [signupAttribute],
-              "signupAttributes":
-                  signupAttribute == 'USERNAME' ? ['EMAIL'] : [signupAttribute],
+                  usernameAttribute == 'USERNAME' ? [] : [usernameAttribute],
+              "signupAttributes": usernameAttribute == 'USERNAME'
+                  ? ['EMAIL']
+                  : [usernameAttribute],
               "passwordProtectionSettings": {
                 "passwordPolicyMinLength": 8,
                 "passwordPolicyCharacters": []
               },
               "mfaConfiguration": "OFF",
               "mfaTypes": ["SMS"],
-              "verificationMechanisms":
-                  signupAttribute == 'USERNAME' ? ['EMAIL'] : [signupAttribute],
+              "verificationMechanisms": usernameAttribute == 'USERNAME'
+                  ? ['EMAIL']
+                  : [usernameAttribute],
             }
           }
         }
