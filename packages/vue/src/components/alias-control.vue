@@ -45,7 +45,7 @@ const defaultDialCode = actorContext.value.country_code;
 const dialCodes = computed(() => countryDialCodes);
 
 onMounted(() => {
-  if (inputAttributes.value[name as LoginMechanism].type === 'tel') {
+  if (inputAttributes.value[name as LoginMechanism]?.type === 'tel') {
     send({
       type: 'CHANGE',
       data: { name: 'country_code', value: defaultDialCode },
@@ -56,7 +56,8 @@ onMounted(() => {
 const inferAutocomplete = computed((): string => {
   return (
     autocomplete ||
-    (authInputAttributes[name as LoginMechanism]?.autocomplete as string)
+    (authInputAttributes[name as LoginMechanism]?.autocomplete as string) ||
+    name
   );
 });
 </script>
@@ -132,7 +133,7 @@ const inferAutocomplete = computed((): string => {
           :autocomplete="inferAutocomplete"
           :name="name"
           required
-          :type="inputAttributes[name as LoginMechanism].type"
+          :type="inputAttributes[name as LoginMechanism]?.type ?? 'text'"
           :placeholder="placeholder"
         ></base-input>
       </base-wrapper>

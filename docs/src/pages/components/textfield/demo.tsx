@@ -3,15 +3,14 @@ import * as React from 'react';
 import {
   TextField,
   Flex,
-  View,
   FlexContainerStyleProps,
   TextFieldProps,
 } from '@aws-amplify/ui-react';
 
-import { Example } from '@/components/Example';
-import { GetFieldControls } from '@/components/GetFieldControls';
-import { useFlexContainerStyleProps } from '@/components/useFlexContainerStyleProps';
-import { useTextFieldProps } from '@/components/useTextFieldProps';
+import { Demo } from '@/components/Demo';
+import { useTextFieldProps } from './useTextFieldProps';
+import { GetFieldControls } from '../shared/GetFieldControls';
+import { useFlexContainerStyleProps } from '../shared/useFlexContainerStyleProps';
 
 export const TextFieldDemo = () => {
   const flexStyleProps = useFlexContainerStyleProps({
@@ -76,67 +75,134 @@ export const TextFieldDemo = () => {
     [value],
     [variation],
   ] = textFieldProps;
+
+  const code =
+    `<TextField` +
+    (alignContent
+      ? `
+  alignContent={${alignContent}}`
+      : '') +
+    (alignItems
+      ? `
+    alignItems={${alignItems}}`
+      : '') +
+    `
+  autoComplete="${autoComplete}"
+  descriptiveText="${descriptiveText}"` +
+    (defaultValue
+      ? `
+  defaultValue="${defaultValue}"`
+      : '') +
+    `
+  direction="${direction}"` +
+    (errorMessage
+      ? `
+  errorMessage="${errorMessage}"`
+      : '') +
+    (gap
+      ? `
+  gap="${gap}"`
+      : '') +
+    `
+  hasError={${hasError}}
+  inputMode="${inputMode}"
+  isDisabled={${isDisabled}}
+  isReadOnly={${isReadOnly}}
+  isRequired={${isRequired}}` +
+    (justifyContent
+      ? `
+  justifyContent={${justifyContent}}`
+      : '') +
+    `
+  label="${label}"
+  labelHidden={${labelHidden}}
+  name="${name}"
+  placeholder="${placeholder}"` +
+    (size
+      ? `
+  size="${size}"`
+      : '') +
+    `
+  type="${type}"` +
+    (value
+      ? `
+  value="${value}"`
+      : '') +
+    (variation
+      ? `
+  variation="${variation}"`
+      : '') +
+    `
+  wrap="${wrap}"
+  onChange={(e) => console.info(e.currentTarget.value)}
+  onInput={(e) => console.info('input fired:', e.currentTarget.value)}
+  onCopy={(e) => console.info('onCopy fired:', e.currentTarget.value)}
+  onCut={(e) => console.info('onCut fired:', e.currentTarget.value)}
+  onPaste={(e) => console.info('onPaste fired:', e.currentTarget.value)}
+  onSelect={(e) =>
+    console.info(
+      'onSelect fired:',
+      e.currentTarget.value.substring(
+        e.currentTarget.selectionStart,
+        e.currentTarget.selectionEnd
+      )
+    )
+  }
+/>`;
+
   return (
-    <View width="100%">
-      {TextFieldPropControls}
-      {FlexPropControls}
-      <Example>
-        <View maxWidth="500px" padding="2rem">
-          <Flex gap="2rem" direction="column">
-            <TextField
-              alignContent={
-                alignContent as FlexContainerStyleProps['alignContent']
-              }
-              alignItems={alignItems as FlexContainerStyleProps['alignItems']}
-              autoComplete={autoComplete as TextFieldProps['autoComplete']}
-              descriptiveText={
-                descriptiveText as TextFieldProps['descriptiveText']
-              }
-              defaultValue={defaultValue as TextFieldProps['defaultValue']}
-              direction={direction as FlexContainerStyleProps['direction']}
-              errorMessage={errorMessage as TextFieldProps['errorMessage']}
-              gap={gap as FlexContainerStyleProps['gap']}
-              hasError={hasError as unknown as boolean}
-              inputMode={inputMode as TextFieldProps['inputMode']}
-              isDisabled={isDisabled as unknown as boolean}
-              isReadOnly={isReadOnly as unknown as boolean}
-              isRequired={isRequired as unknown as boolean}
-              justifyContent={
-                justifyContent as FlexContainerStyleProps['justifyContent']
-              }
-              label={label as TextFieldProps['label']}
-              labelHidden={labelHidden as unknown as boolean}
-              name={name as TextFieldProps['name']}
-              placeholder={placeholder as TextFieldProps['placeholder']}
-              size={size as TextFieldProps['size']}
-              type={type as TextFieldProps['type']}
-              value={value as TextFieldProps['value']}
-              variation={variation as TextFieldProps['variation']}
-              wrap={wrap as FlexContainerStyleProps['wrap']}
-              onChange={(e) => console.info(e.currentTarget.value)}
-              onInput={(e) =>
-                console.info('input fired:', e.currentTarget.value)
-              }
-              onCopy={(e) =>
-                console.info('onCopy fired:', e.currentTarget.value)
-              }
-              onCut={(e) => console.info('onCut fired:', e.currentTarget.value)}
-              onPaste={(e) =>
-                console.info('onPaste fired:', e.currentTarget.value)
-              }
-              onSelect={(e) =>
-                console.info(
-                  'onSelect fired:',
-                  e.currentTarget.value.substring(
-                    e.currentTarget.selectionStart,
-                    e.currentTarget.selectionEnd
-                  )
-                )
-              }
-            />
-          </Flex>
-        </View>
-      </Example>
-    </View>
+    <Demo
+      code={code}
+      propControls={
+        <Flex direction="column">
+          {TextFieldPropControls}
+          {FlexPropControls}
+        </Flex>
+      }
+    >
+      <TextField
+        alignContent={alignContent as FlexContainerStyleProps['alignContent']}
+        alignItems={alignItems as FlexContainerStyleProps['alignItems']}
+        autoComplete={autoComplete as TextFieldProps<false>['autoComplete']}
+        descriptiveText={
+          descriptiveText as TextFieldProps<false>['descriptiveText']
+        }
+        defaultValue={defaultValue as TextFieldProps<false>['defaultValue']}
+        direction={direction as FlexContainerStyleProps['direction']}
+        errorMessage={errorMessage as TextFieldProps<false>['errorMessage']}
+        gap={gap as FlexContainerStyleProps['gap']}
+        hasError={hasError as unknown as boolean}
+        inputMode={inputMode as TextFieldProps<false>['inputMode']}
+        isDisabled={isDisabled as unknown as boolean}
+        isReadOnly={isReadOnly as unknown as boolean}
+        isRequired={isRequired as unknown as boolean}
+        justifyContent={
+          justifyContent as FlexContainerStyleProps['justifyContent']
+        }
+        label={label as TextFieldProps<false>['label']}
+        labelHidden={labelHidden as unknown as boolean}
+        name={name as TextFieldProps<false>['name']}
+        placeholder={placeholder as TextFieldProps<false>['placeholder']}
+        size={size as TextFieldProps<false>['size']}
+        type={type as TextFieldProps<false>['type']}
+        value={value as TextFieldProps<false>['value']}
+        variation={variation as TextFieldProps<false>['variation']}
+        wrap={wrap as FlexContainerStyleProps['wrap']}
+        onChange={(e) => console.info(e.currentTarget.value)}
+        onInput={(e) => console.info('input fired:', e.currentTarget.value)}
+        onCopy={(e) => console.info('onCopy fired:', e.currentTarget.value)}
+        onCut={(e) => console.info('onCut fired:', e.currentTarget.value)}
+        onPaste={(e) => console.info('onPaste fired:', e.currentTarget.value)}
+        onSelect={(e) =>
+          console.info(
+            'onSelect fired:',
+            e.currentTarget.value.substring(
+              e.currentTarget.selectionStart,
+              e.currentTarget.selectionEnd
+            )
+          )
+        }
+      />
+    </Demo>
   );
 };

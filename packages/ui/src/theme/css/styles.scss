@@ -13,14 +13,15 @@
   }
 }
 
-[class*='amplify'] {
-  all: unset; /* protect against external styles */
+// Note: This rule can be easily overwritten when
+// needed due to very low specificity of 0 0 0
+* {
+  box-sizing: border-box;
 }
 
-// Must be defined AFTER `[class*='amplify']
-// or rules will be unset to initial/default
-[data-amplify-theme] * {
-  box-sizing: border-box;
+[class*='amplify'] {
+  all: unset; /* protect against external styles */
+  box-sizing: border-box; /* set box-sizing after unset above */
 }
 
 .sr-only {

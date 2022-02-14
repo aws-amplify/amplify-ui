@@ -23,9 +23,7 @@ const useInternalAuthenticator = () => {
   return useAuthenticatorValue;
 };
 
-export const useAuthenticator = createSharedComposable(
-  useInternalAuthenticator
-);
+export const useAuthenticator = useInternalAuthenticator;
 
 function createValues() {
   if (!service.value) return;
