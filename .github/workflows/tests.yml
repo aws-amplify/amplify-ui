@@ -11,6 +11,9 @@ on:
     branches: [main, ui-svelte/main]
     types: [opened, synchronize, labeled]
 
+  pull_request:
+    branches: [main]
+
 permissions:
   pull-requests: write # used to remove label
   # other permissions are defaulted to "none"
