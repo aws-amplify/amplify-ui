@@ -4,4 +4,9 @@
 '@aws-amplify/ui-vue': patch
 ---
 
-Re-export `translations` from ui-[framework] packages
+Re-export `translations` from ui-[framework] packages. This lets you use `translations` directly:
+
+```diff
+- import { translations } from '@aws-amplify/ui';
++ import { translations } from '@aws-amplify/ui-[framework]';
+```
