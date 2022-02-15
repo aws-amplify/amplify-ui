@@ -1,5 +1,18 @@
 # @aws-amplify/ui
 
+## 3.0.13
+
+### Patch Changes
+
+- [#1296](https://github.com/aws-amplify/amplify-ui/pull/1296) [`f9bb30efd`](https://github.com/aws-amplify/amplify-ui/commit/f9bb30efd4c0a384162fbcef22d4b5bccec62dc5) Thanks [@ErikCH](https://github.com/ErikCH)! - Fixed bug where attributes were not being added for SMS/MFA logins
+
+* [#1268](https://github.com/aws-amplify/amplify-ui/pull/1268) [`7c81bacdf`](https://github.com/aws-amplify/amplify-ui/commit/7c81bacdfdc71d71843b8a7285e513e09e9842cb) Thanks [@th3oxen](https://github.com/th3oxen)! - Improve IT translation accuracy
+
+- [#1297](https://github.com/aws-amplify/amplify-ui/pull/1297) [`4e19822e4`](https://github.com/aws-amplify/amplify-ui/commit/4e19822e4d995d4cb3b3ad23090a161249806939) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - Updating line-heights in controls (fields and buttons) to be consistent and adding a simple CSS reset.
+  This will also give some default line-height to all components by default.
+
+* [#1299](https://github.com/aws-amplify/amplify-ui/pull/1299) [`b4254e58a`](https://github.com/aws-amplify/amplify-ui/commit/b4254e58ac3473bd141e48b3a553c632a84fab5c) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - Tweaks to default headings theme
+
 ## 3.0.12
 
 ### Patch Changes

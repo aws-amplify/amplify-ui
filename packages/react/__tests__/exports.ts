@@ -1401,6 +1401,7 @@ describe('@aws-amplify/ui-react', () => {
           "createTheme",
           "defaultTheme",
           "primitives",
+          "translations",
           "useAmplify",
           "useAuthenticator",
           "usePagination",
@@ -1446,9 +1447,15 @@ describe('@aws-amplify/ui-react/internal', () => {
           "getOverridesFromVariants",
           "mergeVariantsAndOverrides",
           "useAuth",
+          "useAuthSignOutAction",
           "useDataStoreBinding",
           "useDataStoreCollection",
+          "useDataStoreCreateAction",
+          "useDataStoreDeleteAction",
           "useDataStoreItem",
+          "useDataStoreUpdateAction",
+          "useNavigateAction",
+          "useStateMutationAction",
           "useStorageURL",
         ]
       `);

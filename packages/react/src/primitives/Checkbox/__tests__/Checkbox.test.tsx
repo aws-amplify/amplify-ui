@@ -116,6 +116,21 @@ describe('Checkbox test suite', () => {
   });
 
   describe('Button test suite', () => {
+    let updateCheckedFunction;
+    const ControlledCheckbox = () => {
+      const [checked, setChecked] = React.useState(false);
+      updateCheckedFunction = setChecked;
+      return (
+        <Checkbox
+          {...basicProps}
+          onChange={(event) => {
+            setChecked(event.target.checked);
+          }}
+          checked={checked}
+        />
+      );
+    };
+
     it('should render basic props correctly', async () => {
       render(getCheckbox({ ...basicProps }));
 
@@ -126,6 +141,23 @@ describe('Checkbox test suite', () => {
       expect(button).not.toHaveAttribute('data-disabled');
       expect(button).toHaveAttribute('data-focus', 'false');
       expect(button).toHaveClass(ComponentClassNames.CheckboxButton);
+    });
+
+    it('should update the checked button with a change to the controlled value', async () => {
+      render(<ControlledCheckbox />);
+
+      let button = await screen.findByTestId(
+        `${basicProps.testId}-${ComponentClassNames.CheckboxButton}`
+      );
+      expect(button).toHaveAttribute('data-checked', 'false');
+      expect(button).not.toHaveAttribute('data-disabled');
+      expect(button).toHaveAttribute('data-focus', 'false');
+      expect(button).toHaveClass(ComponentClassNames.CheckboxButton);
+      updateCheckedFunction(true);
+      button = await screen.findByTestId(
+        `${basicProps.testId}-${ComponentClassNames.CheckboxButton}`
+      );
+      expect(button).toHaveAttribute('data-checked', 'true');
     });
   });
 
