@@ -105,24 +105,16 @@
       background-color: var(
         --amplify-components-button-primary-hover-background-color
       );
-      border-color: var(
-        --amplify-components-button-primary-hover-border-color
-      );
-      color: var(
-        --amplify-components-button-primary-hover-color
-      );
+      border-color: var(--amplify-components-button-primary-hover-border-color);
+      color: var(--amplify-components-button-primary-hover-color);
     }
 
     &:focus {
       background-color: var(
         --amplify-components-button-primary-focus-background-color
       );
-      border-color: var(
-        --amplify-components-button-primary-focus-border-color
-      );
-      color: var(
-        --amplify-components-button-primary-focus-color
-      );
+      border-color: var(--amplify-components-button-primary-focus-border-color);
+      color: var(--amplify-components-button-primary-focus-color);
       box-shadow: var(--amplify-components-button-primary-focus-box-shadow);
     }
 
@@ -133,9 +125,7 @@
       border-color: var(
         --amplify-components-button-primary-active-border-color
       );
-      color: var(
-        --amplify-components-button-primary-active-color
-      );
+      color: var(--amplify-components-button-primary-active-color);
     }
 
     &[data-loading='true'] {
@@ -165,33 +155,43 @@
     color: var(--amplify-components-button-link-color);
 
     &:hover {
-      background-color: var(--amplify-components-button-link-hover-background-color);
+      background-color: var(
+        --amplify-components-button-link-hover-background-color
+      );
       border-color: var(--amplify-components-button-link-hover-border-color);
       color: var(--amplify-components-button-link-hover-color);
     }
 
     &:focus {
-      background-color: var(--amplify-components-button-link-focus-background-color);
+      background-color: var(
+        --amplify-components-button-link-focus-background-color
+      );
       border-color: var(--amplify-components-button-link-focus-border-color);
       color: var(--amplify-components-button-link-focus-color);
       box-shadow: var(--amplify-components-button-link-focus-box-shadow);
     }
 
     &:active {
-      background-color: var(--amplify-components-button-link-active-background-color);
+      background-color: var(
+        --amplify-components-button-link-active-background-color
+      );
       border-color: var(--amplify-components-button-link-active-border-color);
       color: var(--amplify-components-button-link-active-color);
     }
 
     &[disabled] {
-      background-color: var(--amplify-components-button-link-disabled-background-color);
+      background-color: var(
+        --amplify-components-button-link-disabled-background-color
+      );
       border-color: var(--amplify-components-button-link-disabled-border-color);
       color: var(--amplify-components-button-link-disabled-color);
       text-decoration: none;
     }
 
     &[data-loading='true'] {
-      background-color: var(--amplify-components-button-link-loading-background-color);
+      background-color: var(
+        --amplify-components-button-link-loading-background-color
+      );
       border-color: var(--amplify-components-button-link-loading-border-color);
       color: var(--amplify-components-button-link-loading-color);
       text-decoration: none;
@@ -225,6 +225,11 @@
       --amplify-components-button-large-padding-inline-end
     );
   }
+}
+
+.amplify-button .amplify-button__loader-wrapper {
+  align-items: var(--amplify-components-button-loader-wrapper-align-items);
+  gap: var(--amplify-components-button-loader-wrapper-gap);
 }
 
 @media (prefers-reduced-motion: reduce) {

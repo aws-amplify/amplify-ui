@@ -159,6 +159,7 @@ module.exports = {
       value: '{components.fieldcontrol.small.paddingInlineEnd.value}',
     },
   },
+
   large: {
     fontSize: { value: '{components.fieldcontrol.large.fontSize.value}' },
     paddingBlockStart: {
@@ -172,6 +173,15 @@ module.exports = {
     },
     paddingInlineEnd: {
       value: '{components.fieldcontrol.large.paddingInlineEnd.value}',
+    },
+  },
+
+  loaderWrapper: {
+    alignItems: {
+      value: 'center',
+    },
+    gap: {
+      value: '{space.xs.value}',
     },
   },
 };
