@@ -197,6 +197,7 @@ export function signInActor({ services }: SignInMachineOptions) {
                 invalid: { entry: sendUpdate() },
               },
               on: {
+                SIGN_IN: '#signInActor.signIn',
                 CHANGE: {
                   actions: 'handleInput',
                   target: '.pending',
