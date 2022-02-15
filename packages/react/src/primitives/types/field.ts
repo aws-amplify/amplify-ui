@@ -1,5 +1,6 @@
 import { FieldGroupIconButtonProps } from './fieldGroupIcon';
 import { InputProps } from './input';
+import { TextProps } from './text';
 
 /**
  * Shared type across all field types
@@ -31,9 +32,11 @@ export interface FieldProps {
 export interface FieldClearButtonProps
   extends Partial<FieldGroupIconButtonProps> {}
 export interface FieldDescriptionProps
-  extends Pick<FieldProps, 'descriptiveText' | 'labelHidden'> {}
+  extends TextProps,
+    Pick<FieldProps, 'descriptiveText' | 'labelHidden'> {}
 export interface FieldErrorMessageProps
-  extends Pick<FieldProps, 'errorMessage'>,
+  extends TextProps,
+    Pick<FieldProps, 'errorMessage'>,
     Pick<InputProps, 'hasError'> {}
 
 export type FieldVariations = 'quiet';
