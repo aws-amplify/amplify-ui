@@ -4,11 +4,11 @@
   right: -14rem;
   background-color: var(--amplify-colors-background-primary);
   font-size: var(--amplify-font-sizes-small);
-  
+
   &:hover {
     right: 0;
   }
-  
+
   @media (min-width: 80rem) {
     display: block;
     position: relative;
@@ -21,6 +21,7 @@
 .docs-toc-inner {
   position: sticky;
   width: 16rem;
+  height: calc(100vh - var(--docs-header-height));
   flex-shrink: 0;
   top: var(--docs-header-height);
   right: 0;
@@ -39,7 +40,7 @@
   text-decoration: none;
   color: var(--amplify-colors-font-secondary);
   position: relative;
-  
+
   &::before {
     content: '';
     position: absolute;
@@ -51,7 +52,7 @@
     border-radius: 0.5rem;
     background-color: var(--amplify-colors-font-tertiary);
   }
-  
+
   &.active {
     color: var(--amplify-colors-font-primary);
     font-weight: 700;
@@ -59,7 +60,7 @@
       background-color: var(--amplify-colors-font-primary);
     }
   }
-  
+
   &.level-H3 {
     // padding-left: var(--amplify-space-large);
     margin-left: var(--amplify-space-small);

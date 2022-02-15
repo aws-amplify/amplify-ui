@@ -18,39 +18,38 @@ export interface UseAuthSignOutAction {
  * Action to Signout of Authenticated session
  * @internal
  */
-export const useAuthSignOutAction: UseAuthSignOutAction = (
-  options
-) => async () => {
-  try {
-    Hub.dispatch(
-      UI_CHANNEL,
-      {
-        event: ACTION_AUTH_SIGNOUT_STARTED,
-        data: { options },
-      },
-      EVENT_ACTION_AUTH_SIGNOUT,
-      AMPLIFY_SYMBOL
-    );
+export const useAuthSignOutAction: UseAuthSignOutAction =
+  (options) => async () => {
+    try {
+      Hub.dispatch(
+        UI_CHANNEL,
+        {
+          event: ACTION_AUTH_SIGNOUT_STARTED,
+          data: { options },
+        },
+        EVENT_ACTION_AUTH_SIGNOUT,
+        AMPLIFY_SYMBOL
+      );
 
-    await Auth.signOut(options);
-    Hub.dispatch(
-      UI_CHANNEL,
-      {
-        event: ACTION_AUTH_SIGNOUT_FINISHED,
-        data: { options },
-      },
-      EVENT_ACTION_AUTH_SIGNOUT,
-      AMPLIFY_SYMBOL
-    );
-  } catch (error) {
-    Hub.dispatch(
-      UI_CHANNEL,
-      {
-        event: ACTION_AUTH_SIGNOUT_FINISHED,
-        data: { options, errorMessage: getErrorMessage(error) },
-      },
-      EVENT_ACTION_AUTH_SIGNOUT,
-      AMPLIFY_SYMBOL
-    );
-  }
-};
+      await Auth.signOut(options);
+      Hub.dispatch(
+        UI_CHANNEL,
+        {
+          event: ACTION_AUTH_SIGNOUT_FINISHED,
+          data: { options },
+        },
+        EVENT_ACTION_AUTH_SIGNOUT,
+        AMPLIFY_SYMBOL
+      );
+    } catch (error) {
+      Hub.dispatch(
+        UI_CHANNEL,
+        {
+          event: ACTION_AUTH_SIGNOUT_FINISHED,
+          data: { options, errorMessage: getErrorMessage(error) },
+        },
+        EVENT_ACTION_AUTH_SIGNOUT,
+        AMPLIFY_SYMBOL
+      );
+    }
+  };
