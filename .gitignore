@@ -9,5 +9,5 @@ aws-exports.ts
 # .npmrc is used in our deployment procedure to login to npm. Ignored for security.
 .npmrc
 
-# this dir is built with `yarn flutter:build`
-**/public/flutter-authenticator
+# flutter assets are built with `yarn flutter:build` and should not be checked in to source control
+**/public/flutter/**/

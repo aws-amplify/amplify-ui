@@ -15,8 +15,7 @@ export function FlutterAuthenticatorExample({
     ? colorElements[0].getAttribute(colorAttr)
     : 'light';
 
-  const baseUrl =
-    '/flutter-authenticator/flutter-authenticator-component.html?';
+  const baseUrl = '/flutter/authenticator/component.html?';
   var src = `${baseUrl}themeMode=${colorMode}&initialStep=${initialStep}&usernameAttribute=${usernameAttribute}`;
   if (signUpAttributes.length) {
     src += `&signUpAttributes=${signUpAttributes.join('|')}`;
