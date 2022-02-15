@@ -144,8 +144,56 @@ with the exception of `address`, `gender`, `locale`, `picture`, `updated_at`, an
   {({ platform }) => import(`./variation.${platform}.mdx`)}
 </Fragment>
 
+## Customization
+
+<Fragment useCommonWebContent platforms={['web']}>
+  {({ platform }) =>
+    import(`./customization.headers-and-footers.${platform}.mdx`)
+  }
+</Fragment>
+
+<Fragment useCommonWebContent platforms={['web']}>
+  {({ platform }) =>
+    import(`./customization.override-function-calls.${platform}.mdx`)
+  }
+</Fragment>
+
+### Internationalization (I18n)
+
 <Fragment useCommonWebContent>
-  {({ platform }) => import(`./customization.${platform}.mdx`)}
+  {({ platform }) => import(`./customization.i18n.${platform}.mdx`)}
+</Fragment>
+
+### Labels & Text
+
+<Fragment useCommonWebContent>
+  {({ platform }) => import(`./customization.labels-and-text.${platform}.mdx`)}
+</Fragment>
+
+### Sign Up Fields
+
+The following example customizes the Sign Up screen by:
+
+- Re-using the default Sign Up form fields
+- Appending a custom "Terms & Conditions" checkbox with a `validateCustomSignUp` service
+
+<Fragment useCommonWebContent>
+  {({ platform }) => import(`./customization.sign-up-fields.${platform}.mdx`)}
+</Fragment>
+
+### Force New Password Fields
+
+The following example customizes the Force New Password screen by:
+
+- Re-using the default Force New Password form fields
+- Appending a custom "Zone Info" text field
+
+<Fragment>
+  {({ platform }) => import(`./force-new-password-fields.${platform}.mdx`)}
+</Fragment>
+
+<Fragment useCommonWebContent>
+  {({ platform }) => import(`./customization.styling.${platform}.mdx`)}
 </Fragment>
 
 <Fragment useCommonWebContent platforms={['web']}>
