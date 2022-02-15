@@ -1,0 +1,29 @@
+### Theming
+
+By default, the Amplify Authenticator uses your app's Material theme for its styling. Any customizations you make to colors, buttons, input widgets, etc. will be reflected in the Authenticator.
+
+```dart
+return Authenticator(
+  child: MaterialApp(
+    title: 'Authenticator Demo',
+    theme: ThemeData.from(
+      colorScheme: ColorScheme.fromSwatch(
+        primarySwatch: Colors.red,
+        backgroundColor: Colors.white,
+      ),
+    ).copyWith(
+      indicatorColor: Colors.red,
+    ),
+    darkTheme: ThemeData.from(
+      colorScheme: ColorScheme.fromSwatch(
+        primarySwatch: Colors.red,
+        backgroundColor: Colors.black,
+        brightness: Brightness.dark,
+      ),
+    ),
+    builder: Authenticator.builder(),
+    home: const SignedInScreen(),
+  )
+);
+
+```
