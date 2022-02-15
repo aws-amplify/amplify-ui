@@ -228,6 +228,19 @@ describe('SelectField test suite', () => {
       const descriptiveField = await screen.queryByText(descriptiveText);
       expect(descriptiveField).toContainHTML(descriptiveText);
     });
+
+    it('should map to descriptive text correctly', async () => {
+      render(
+        <SelectField label={label} descriptiveText={descriptiveText}>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+        </SelectField>
+      );
+
+      const select = await screen.findByRole(role);
+      expect(select).toHaveAccessibleDescription(descriptiveText);
+    });
   });
 
   describe('Error messages', () => {
