@@ -18,7 +18,7 @@ export function FlutterAuthenticatorExample({
       id={id}
       height={height ?? '800px'}
       width={width ?? '100%'}
-      src={`/flutter-authenticator/flutter-authenticator-component.html?themeMode=${colorMode}&initialStep=${initialStep}`}
+      src={`/flutter/authenticator/component.html?themeMode=${colorMode}&initialStep=${initialStep}`}
     ></iframe>
   );
 }
