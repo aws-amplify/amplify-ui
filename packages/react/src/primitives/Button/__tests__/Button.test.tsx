@@ -57,6 +57,13 @@ describe('Button test suite', () => {
     expect(button).toHaveTextContent('loading');
   });
 
+  it('should render Loader correctly if isLoading is set to true', async () => {
+    render(<Button loadingText="loading" isLoading />);
+
+    const loader = await screen.findByRole('img');
+    expect(loader).toHaveClass(ComponentClassNames.Loader);
+  });
+
   it('should fire onClick function if the button is clicked on', async () => {
     const onClick = jest.fn();
     render(<Button onClick={onClick} />);
