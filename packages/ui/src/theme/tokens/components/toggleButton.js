@@ -17,7 +17,7 @@ module.exports = {
     color: { value: '{colors.font.disabled.value}' },
   },
   _pressed: {
-    color: { value: '{colors.overlay.90.value}' },
+    color: { value: '{colors.font.primary.value}' },
     backgroundColor: { value: '{colors.overlay.20.value}' },
     _hover: {
       backgroundColor: { value: '{colors.overlay.30.value}' },
