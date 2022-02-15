@@ -3,7 +3,7 @@ title: Authenticator
 ---
 
 import { Fragment } from '@/components/Fragment';
-import { Tabs, TabItem } from '@aws-amplify/ui-react';
+import { Alert, Tabs, TabItem } from '@aws-amplify/ui-react';
 
 <Fragment useCommonWebContent>
   {({ platform }) => import(`./intro.${platform}.mdx`)}
@@ -91,13 +91,48 @@ By default, unauthenticated users are redirected to the Sign In flow. You can ex
   </TabItem>
 </Tabs>
 
+### Login Mechanisms
+
 <Fragment useCommonWebContent>
   {({ platform }) => import(`./loginMechanisms.${platform}.mdx`)}
 </Fragment>
 
-<Fragment useCommonWebContent>
-  {({ platform }) => import(`./signUpAttributes.${platform}.mdx`)}
-</Fragment>
+### Sign Up Attributes
+
+<Alert heading="Zero Configuration">
+
+The Authenticator [automatically infers](#zero-configuration) `signUpAttributes` from `amplify pull`,
+but can be explicitly defined as seen below.
+
+</Alert>
+
+The Authenticator automatically renders _most_ [Cognito User Pools attributes](https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html),
+with the exception of `address`, `gender`, `locale`, `picture`, `updated_at`, and `zoneinfo`. Because these are often app-specific, they can be customized via [Sign Up fields](#sign-up-fields).
+
+<Tabs>
+  <TabItem title="Verification Attributes">
+    By default, the Authenticator will still require any attributes required for
+    verification, such as `email`, _even if `signUpAttributes` is empty_:
+    <Fragment>
+      {({ platform }) => import(`./signUpAttributes.default.${platform}.mdx`)}
+    </Fragment>
+    <Fragment useCommonWebContent>
+      {({ platform }) =>
+        import(`./signUpAttributes.default.example.${platform}.mdx`)
+      }
+    </Fragment>
+  </TabItem>
+  <TabItem title="All Attributes">
+    <Fragment>
+      {({ platform }) => import(`./signUpAttributes.all.${platform}.mdx`)}
+    </Fragment>
+    <Fragment useCommonWebContent>
+      {({ platform }) =>
+        import(`./signUpAttributes.all.example.${platform}.mdx`)
+      }
+    </Fragment>
+  </TabItem>
+</Tabs>
 
 <Fragment useCommonWebContent>
   {({ platform }) => import(`./socialProviders.${platform}.mdx`)}
