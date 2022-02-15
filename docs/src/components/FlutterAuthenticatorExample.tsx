@@ -5,6 +5,7 @@ export function FlutterAuthenticatorExample({
   usernameAttribute = 'USERNAME',
   signUpAttributes = [],
   includeSocialProviders = false,
+  useCustomUI = false,
   width = '100%',
   height = '800px',
 }) {
@@ -21,6 +22,7 @@ export function FlutterAuthenticatorExample({
     initialStep,
     usernameAttribute,
     includeSocialProviders,
+    useCustomUI,
     ...(signUpAttributes.length && { signUpAttributes }),
   };
   var src = `${baseUrl}?${new URLSearchParams(queryParams).toString()}`;

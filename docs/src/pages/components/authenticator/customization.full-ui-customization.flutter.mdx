@@ -1,0 +1,97 @@
+import { Link } from '@aws-amplify/ui-react';
+import { FlutterAuthenticatorExample } from '@/components/FlutterAuthenticatorExample';
+
+### Full UI Customization
+
+In addition to customizing form fields and theming, you can also fully customize the UI for one or more of the authentication steps (Sign In, Sign Up, Confirm Sign Up, Forgot Password). This can be used for simple use cases, such as adding a logo to the sign up and sign in screen, as well as more complex use cases.
+
+This is done by providing a builder to the Authenticator's `authenticatorBuilder` value. If you are familiar with widgets like <Link isExternal href="https://api.flutter.dev/flutter/widgets/StreamBuilder-class.html">StreamBuilder</Link>, <Link isExternal href="https://api.flutter.dev/flutter/widgets/FutureBuilder-class.html">FutureBuilder</Link>, or <Link isExternal href="https://api.flutter.dev/flutter/widgets/LayoutBuilder-class.html">LayoutBuilder</Link>, this may feel familiar. `authenticatorBuilder` is a builder method that takes arguments for the current `BuildContext` and `AuthenticatorState`, which is a representation of the state being managed by the authenticator.
+
+Below is an example of how you can use `authenticatorBuilder` to add a logo to both the sign up and sign in screen, as well as change the layout to remove the default tab structure.
+
+This example uses several prebuilt widgets from the amplify_authenticator package, such as `SignInForm()`, `SignUpForm()`, `SignInFormField.username()`, and `SignInButton()`. All of the prebuilt widgets are integrated into the authenticator's state, meaning that you do not have to add an `onChanged` callback for the Form Fields, or an `onTap` callback for the Buttons.
+
+```dart
+return Authenticator(
+  // builder used to show a custom sign in and sign up experience
+  authenticatorBuilder: (BuildContext context, AuthenticatorState state) {
+    const padding = EdgeInsets.only(left: 16, right: 16, top: 48, bottom: 16);
+    switch (state.currentStep) {
+      case AuthenticatorStep.signIn:
+        return Scaffold(
+          body: Padding(
+            padding: padding,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  // app logo
+                  const Center(child: FlutterLogo(size: 100)),
+                  // prebuilt sign in form from amplify_authenticator package
+                  SignInForm(),
+                ],
+              ),
+            ),
+          ),
+          // custom button to take the user to sign up
+          persistentFooterButtons: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text('Don\'t have an account?'),
+                TextButton(
+                  onPressed: () => state.changeStep(
+                    AuthenticatorStep.signUp,
+                  ),
+                  child: const Text('Sign Up'),
+                ),
+              ],
+            ),
+          ],
+        );
+      case AuthenticatorStep.signUp:
+        return Scaffold(
+          body: padding,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  // app logo
+                  const Center(child: FlutterLogo(size: 100)),
+                  // prebuilt sign up form from amplify_authenticator package
+                  SignUpForm(),
+                ],
+              ),
+            ),
+          ),
+          // custom button to take the user to sign in
+          persistentFooterButtons: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text('Already have an account?'),
+                TextButton(
+                  onPressed: () => state.changeStep(
+                    AuthenticatorStep.signIn,
+                  ),
+                  child: const Text('Sign In'),
+                ),
+              ],
+            ),
+          ],
+        );
+      default:
+        // returning null defaults to the prebuilt authenticator for all other steps
+        return null;
+    }
+  },
+  child: MaterialApp(
+    builder: Authenticator.builder(),
+    home: const Scaffold(
+      body: Center(
+        child: Text('You are logged in!'),
+      ),
+    ),
+  ),
+);
+```
+
+<FlutterAuthenticatorExample useCustomUI={true} />

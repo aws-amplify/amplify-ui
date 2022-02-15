@@ -1,8 +1,5 @@
 import 'dart:convert';
 
-// ignore: avoid_web_libraries_in_flutter
-import 'dart:html' as html;
-
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:device_preview/device_preview.dart';
@@ -16,22 +13,24 @@ class AuthenticatorConfig {
   final AuthenticatorStep initialStep;
   final String config;
   final List<SignUpFormField> signUpAttributes;
+  final bool useCustomUI;
   AuthenticatorConfig({
     this.themeMode = ThemeMode.light,
     this.initialStep = AuthenticatorStep.signIn,
     String? config,
     this.signUpAttributes = const [],
+    this.useCustomUI = false,
   }) : config = config ?? buildConfig();
 
   static AuthenticatorConfig fromMap(Map<String, String?> map) {
     return AuthenticatorConfig(
-      themeMode: _parseThemeMode(map['themeMode']),
-      initialStep: _parseAuthenticatorStep(map['initialStep']),
-      config: buildConfig(
-          usernameAttribute: map['usernameAttribute'] ?? 'USERNAME',
-          includeSocialProviders: map['includeSocialProviders'] == 'true'),
-      signUpAttributes: _parseSignUpAttributes(map['signUpAttributes']),
-    );
+        themeMode: _parseThemeMode(map['themeMode']),
+        initialStep: _parseAuthenticatorStep(map['initialStep']),
+        config: buildConfig(
+            usernameAttribute: map['usernameAttribute'] ?? 'USERNAME',
+            includeSocialProviders: map['includeSocialProviders'] == 'true'),
+        signUpAttributes: _parseSignUpAttributes(map['signUpAttributes']),
+        useCustomUI: map['useCustomUI'] == 'true');
   }
 
   AuthenticatorConfig copyWith({
@@ -171,12 +170,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _setAuthenticatorConfig() {
-    var queryString = html.window.location.search?.substring(1);
-    var queryArray = queryString?.split('&') ?? [];
-    Map<String, String?> queryParams = {
-      for (var entry in queryArray) entry.split('=')[0]: entry.split('=')[1]
-    };
-    final newConfig = AuthenticatorConfig.fromMap(queryParams);
+    final newConfig = AuthenticatorConfig.fromMap(Uri.base.queryParameters);
     setState(() {
       _authenticatorConfig = newConfig;
     });
@@ -198,6 +192,8 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return Authenticator(
+      authenticatorBuilder:
+          _authenticatorConfig.useCustomUI ? customBuilder : null,
       signUpForm: SignUpForm.custom(
         fields: _authenticatorConfig.signUpAttributes,
       ),
@@ -265,4 +261,114 @@ String buildConfig({
     }
   };
   return jsonEncode(config);
+}
+
+Widget? customBuilder(BuildContext context, AuthenticatorState state) {
+  const padding = EdgeInsets.only(left: 16, right: 16, top: 48, bottom: 16);
+  Widget buildScaffold({
+    List<Widget> children = const <Widget>[],
+    List<Widget>? persistentFooterButtons,
+  }) {
+    return Scaffold(
+      body: Padding(
+        padding: padding,
+        child: SingleChildScrollView(
+          child: Column(
+            children: children,
+          ),
+        ),
+      ),
+      persistentFooterButtons: persistentFooterButtons,
+    );
+  }
+
+  switch (state.currentStep) {
+    case AuthenticatorStep.signIn:
+      return buildScaffold(
+        children: [
+          // app logo
+          const Center(child: FlutterLogo(size: 100)),
+          // prebuilt sign in form from amplify_authenticator package
+          SignInForm(),
+        ],
+        persistentFooterButtons: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text('Don\'t have an account?'),
+              TextButton(
+                onPressed: () => state.changeStep(
+                  AuthenticatorStep.signUp,
+                ),
+                child: const Text('Sign Up'),
+              ),
+            ],
+          ),
+        ],
+      );
+      return Scaffold(
+        body: Padding(
+          padding: padding,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                // app logo
+                const Center(child: FlutterLogo(size: 100)),
+                // prebuilt sign in form from amplify_authenticator package
+                SignInForm(),
+              ],
+            ),
+          ),
+        ),
+        // custom button to take the user to sign up
+        persistentFooterButtons: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text('Don\'t have an account?'),
+              TextButton(
+                onPressed: () => state.changeStep(
+                  AuthenticatorStep.signUp,
+                ),
+                child: const Text('Sign Up'),
+              ),
+            ],
+          ),
+        ],
+      );
+    case AuthenticatorStep.signUp:
+      return Scaffold(
+        body: Padding(
+          padding: padding,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                // app logo
+                const Center(child: FlutterLogo(size: 100)),
+                // prebuilt sign up form from amplify_authenticator package
+                SignUpForm(),
+              ],
+            ),
+          ),
+        ),
+        // custom button to take the user to sign in
+        persistentFooterButtons: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text('Already have an account?'),
+              TextButton(
+                onPressed: () => state.changeStep(
+                  AuthenticatorStep.signIn,
+                ),
+                child: const Text('Sign In'),
+              ),
+            ],
+          ),
+        ],
+      );
+    default:
+      // returning null defaults to the prebuilt authenticator for all other steps
+      return null;
+  }
 }

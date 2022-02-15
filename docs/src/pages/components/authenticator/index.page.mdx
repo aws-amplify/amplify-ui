@@ -196,6 +196,12 @@ The following example customizes the Force New Password screen by:
   {({ platform }) => import(`./customization.styling.${platform}.mdx`)}
 </Fragment>
 
+<Fragment platforms={['flutter']}>
+  {({ platform }) =>
+    import(`./customization.full-ui-customization.${platform}.mdx`)
+  }
+</Fragment>
+
 <Fragment useCommonWebContent platforms={['web']}>
   {({ platform }) => import(`./headless-usage.${platform}.mdx`)}
 </Fragment>
