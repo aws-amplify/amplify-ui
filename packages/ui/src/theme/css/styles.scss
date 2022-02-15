@@ -4,19 +4,46 @@
 
 @import 'dist/theme';
 
-[data-amplify-theme] {
+// Keeping these selector low (001) so it can be easily overridden
+html {
   font-family: var(--amplify-fonts-default-static);
 }
+
 @supports (font-variation-settings: normal) {
-  [data-amplify-theme] {
+  html {
     font-family: var(--amplify-fonts-default-variable);
   }
+}
+
+// https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-behavior
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+// https://piccalil.li/blog/a-modern-css-reset/
+body {
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  line-height: var(--amplify-line-heights-medium);
 }
 
 // Note: This rule can be easily overwritten when
 // needed due to very low specificity of 0 0 0
 * {
   box-sizing: border-box;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+   scroll-behavior: auto;
+  }
 }
 
 [class*='amplify'] {

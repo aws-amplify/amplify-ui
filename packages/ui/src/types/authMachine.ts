@@ -116,6 +116,13 @@ export type AuthActorContext = ActorContextWithForms | SignOutContext;
 export type AuthActorState = State<AuthActorContext, AuthEvent>;
 export interface CognitoUserAmplify extends CognitoUser {
   username?: string;
+  attributes?: CognitoAttributes;
+}
+
+export interface CognitoAttributes {
+  email: string;
+  phone_number: string;
+  [key: string]: string;
 }
 
 export type InvokeActorEventTypes =
