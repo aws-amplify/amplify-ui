@@ -60,8 +60,18 @@ describe('Button test suite', () => {
   it('should render Loader correctly if isLoading is set to true', async () => {
     render(<Button loadingText="loading" isLoading />);
 
+    const loaderWrapper = await screen.findByText('loading');
+    expect(loaderWrapper).toHaveClass(ComponentClassNames.ButtonLoaderWrapper);
+
     const loader = await screen.findByRole('img');
     expect(loader).toHaveClass(ComponentClassNames.Loader);
+  });
+
+  it('should pass size to Loader correctly if size is set', async () => {
+    render(<Button loadingText="loading" size="small" isLoading />);
+
+    const loader = await screen.findByRole('img');
+    expect(loader).toHaveAttribute('data-size', 'small');
   });
 
   it('should fire onClick function if the button is clicked on', async () => {
