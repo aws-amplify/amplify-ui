@@ -4,22 +4,28 @@ export function FlutterAuthenticatorExample({
   initialStep = 'signIn',
   usernameAttribute = 'USERNAME',
   signUpAttributes = [],
-  width,
-  height,
-  id,
+  includeSocialProviders = false,
+  width = '100%',
+  height = '800px',
 }) {
   const colorAttr = 'data-amplify-color-mode';
   // in dev mode, `data-amplify-color-mode` will not be on the html element
   const colorElements = document.querySelectorAll(`[${colorAttr}]`);
-  const colorMode = colorElements.length
+  const themeMode = colorElements.length
     ? colorElements[0].getAttribute(colorAttr)
     : 'light';
 
-  const baseUrl = '/flutter/authenticator/component.html?';
-  var src = `${baseUrl}themeMode=${colorMode}&initialStep=${initialStep}&usernameAttribute=${usernameAttribute}`;
-  if (signUpAttributes.length) {
-    src += `&signUpAttributes=${signUpAttributes.join('|')}`;
-  }
+  const baseUrl = '/flutter/authenticator/component.html';
+  const queryParams: Record<string, any> = {
+    themeMode,
+    initialStep,
+    usernameAttribute,
+    includeSocialProviders,
+    ...(signUpAttributes.length && {
+      signUpAttributes: signUpAttributes.join('|'),
+    }),
+  };
+  var src = `${baseUrl}?${new URLSearchParams(queryParams).toString()}`;
   console.log(src);
   return (
     <>
@@ -28,12 +34,7 @@ export function FlutterAuthenticatorExample({
         are stored in memory. You can verify accounts that you create with the
         code "123456".
       </Alert>
-      <iframe
-        id={id}
-        height={height ?? '800px'}
-        width={width ?? '100%'}
-        src={src}
-      ></iframe>
+      <iframe height={height} width={width} src={src}></iframe>
     </>
   );
 }

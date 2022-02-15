@@ -1,0 +1,14 @@
+import { Alert } from '@aws-amplify/ui-react';
+import { FlutterAuthenticatorExample } from '@/components/FlutterAuthenticatorExample';
+import { Example } from '@/components/Example';
+import { Fragment } from '@/components/Fragment';
+
+<Alert heading="Zero Configuration">
+
+The Authenticator [automatically infers](#zero-configuration) `socialProviders` from `amplify pull`.
+
+</Alert>
+
+For your [configured social providers](https://docs.amplify.aws/lib/auth/social_signin_web_ui/q/platform/flutter/), you can configure Apple, Amazon, Facebook, or Google:
+
+<FlutterAuthenticatorExample includeSocialProviders={true} />
