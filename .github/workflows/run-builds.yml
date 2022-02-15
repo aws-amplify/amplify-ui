@@ -2,7 +2,7 @@ name: Run Builds
 
 on:
   schedule:
-    - cron: '*/7 * * * *' # Run every 7 minutes
+    - cron: '*/7 17-23,0-4 * * *' # Run every 7 minutes
 
 jobs:
   build:
