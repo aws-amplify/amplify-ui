@@ -25,7 +25,7 @@ Feature: Sign In with Force New Password flow
     And I type my "phone number" with status "FORCE_CHANGE_PASSWORD"
     And I type my password
     And I click the "Sign in" button
-		Then I should see the Force Change Password screen
+    Then I should see the Force Change Password screen
 
   @angular @react @vue 
   Scenario: User is in a FORCE_CHANGE_PASSWORD state and then enters an invalid new password
@@ -33,7 +33,7 @@ Feature: Sign In with Force New Password flow
     And I type my "phone number" with status "FORCE_CHANGE_PASSWORD"
     And I type my password
     And I click the "Sign in" button
-		Then I should see the Force Change Password screen
+    Then I should see the Force Change Password screen
     And I type an invalid password
     And I confirm my password
     And I click the "Change Password" button
