@@ -14,9 +14,9 @@ Feature: Sign In with Force New Password flow
     And I type my "phone number" with status "FORCE_CHANGE_PASSWORD"
     And I type my password
     And I click the "Sign in" button
-		And I should see the Force Change Password screen
+    And I should see the Force Change Password screen
     And I click the "Back to Sign In" button
-		And I see "Sign In"
+    And I see "Sign In"
     
 
   @angular @react @vue 
