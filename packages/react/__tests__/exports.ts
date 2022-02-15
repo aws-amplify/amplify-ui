@@ -1400,6 +1400,7 @@ describe('@aws-amplify/ui-react', () => {
           "createTheme",
           "defaultTheme",
           "primitives",
+          "translations",
           "useAmplify",
           "useAuthenticator",
           "usePagination",

@@ -445,23 +445,7 @@ The `Authenticator` ships with [translations](https://github.com/aws-amplify/amp
 
 These [translations](https://github.com/aws-amplify/amplify-ui/blob/main/packages/ui/src/i18n/translations.ts) can be customized using the [Amplify JS' `I18n`](https://docs.amplify.aws/lib/utilities/i18n/q/platform/js/) module:
 
-```js
-import { I18n } from 'aws-amplify';
-import { translations } from '@aws-amplify/ui';
-I18n.putVocabularies(translations);
-I18n.setLanguage('fr');
-
-I18n.putVocabularies({
-  fr: {
-    'Sign In': 'Se connecter',
-    'Sign Up': "S'inscrire",
-  },
-  es: {
-    'Sign In': 'Registrarse',
-    'Sign Up': 'Regístrate',
-  },
-});
-```
+<Fragment>{({ platform }) => import(`./i18n/i18n.${platform}.mdx`)}</Fragment>
 
 The list of available keys are available [here](https://github.com/aws-amplify/amplify-ui/blob/main/packages/ui/src/i18n/translations.ts).
 
