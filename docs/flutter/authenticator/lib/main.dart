@@ -73,7 +73,7 @@ class AuthenticatorConfig {
   }
 
   static List<SignUpFormField> _parseSignUpAttributes(String? value) {
-    final signUpFields = value?.split('|') ?? [];
+    final signUpFields = value?.split('%2C') ?? [];
     return signUpFields
         .map((field) {
           switch (field) {
@@ -173,7 +173,7 @@ class _MyAppState extends State<MyApp> {
   void _setAuthenticatorConfig() {
     var queryString = html.window.location.search?.substring(1);
     var queryArray = queryString?.split('&') ?? [];
-    Map<String, String> queryParams = {
+    Map<String, String?> queryParams = {
       for (var entry in queryArray) entry.split('=')[0]: entry.split('=')[1]
     };
     final newConfig = AuthenticatorConfig.fromMap(queryParams);

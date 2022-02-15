@@ -21,9 +21,7 @@ export function FlutterAuthenticatorExample({
     initialStep,
     usernameAttribute,
     includeSocialProviders,
-    ...(signUpAttributes.length && {
-      signUpAttributes: signUpAttributes.join('|'),
-    }),
+    ...(signUpAttributes.length && { signUpAttributes }),
   };
   var src = `${baseUrl}?${new URLSearchParams(queryParams).toString()}`;
   console.log(src);
