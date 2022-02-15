@@ -70,7 +70,7 @@ yarn global add @aws-amplify/cli@latest
   {({ platform }) => import(`./socialProviders.${platform}.mdx`)}
 </Fragment>
 
-<Fragment useCommonWebContent>
+<Fragment useCommonWebContent platforms={['web']}>
   {({ platform }) => import(`./variation.${platform}.mdx`)}
 </Fragment>
 
@@ -78,6 +78,6 @@ yarn global add @aws-amplify/cli@latest
   {({ platform }) => import(`./customization.${platform}.mdx`)}
 </Fragment>
 
-<Fragment useCommonWebContent>
+<Fragment useCommonWebContent platforms={['web']}>
   {({ platform }) => import(`./headless-usage.${platform}.mdx`)}
 </Fragment>
