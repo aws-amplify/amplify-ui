@@ -2,7 +2,7 @@ name: Run Builds
 
 on:
   schedule:
-    - cron: '*/20 * * * *' # Run every 20 minutes
+    - cron: '*/7 17-23,0-4 * * *' # Run every 7 minutes, from 9am to 8pm Pacific Time
 
 jobs:
   build:
@@ -50,7 +50,7 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
-      - run: aws cloudwatch put-metric-data --metric-name BuildFailure --namespace GithubCanaryApps --value 20
+      - run: aws cloudwatch put-metric-data --metric-name BuildFailure --namespace GithubCanaryApps --value 1
 
   trigger-sucess-alarm:
     # Triggers an alarm if all the builds succeed
@@ -65,4 +65,4 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
-      - run: aws cloudwatch put-metric-data --metric-name BuildFailure --namespace GithubCanaryApps --value 1
+      - run: aws cloudwatch put-metric-data --metric-name BuildFailure --namespace GithubCanaryApps --value 0
