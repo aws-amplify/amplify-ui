@@ -318,5 +318,19 @@ describe('TextField component', () => {
       const descriptiveText = await screen.queryByText('Description');
       expect(descriptiveText.innerHTML).toContain('Description');
     });
+
+    it('should map to descriptive text correctly', async () => {
+      const descriptiveText = 'Description';
+      render(
+        <TextField
+          descriptiveText={descriptiveText}
+          label="Field"
+          id="testField"
+        />
+      );
+
+      const field = (await screen.findByRole('textbox')) as HTMLInputElement;
+      expect(field).toHaveAccessibleDescription(descriptiveText);
+    });
   });
 });

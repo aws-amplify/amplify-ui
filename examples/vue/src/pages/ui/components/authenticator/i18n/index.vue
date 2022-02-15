@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { Authenticator } from '@aws-amplify/ui-vue';
-import { translations } from '@aws-amplify/ui';
+import { Authenticator, translations } from '@aws-amplify/ui-vue';
 import { Amplify, I18n } from 'aws-amplify';
 import '@aws-amplify/ui-vue/styles.css';
 import aws_exports from './aws-exports';
