@@ -23,9 +23,6 @@ with the exception of `locale`, `picture`, `updated_at`, and `zoneinfo`. Because
       {({ platform }) => import(`./signUpAttributes.default.${platform}.mdx`)}
     </Fragment>
 
-    <Fragment>
-      {({ platform }) => import(`./example-info-alert.${platform}.mdx`)}
-    </Fragment>
     <FlutterAuthenticatorExample initialStep={'signUp'}></FlutterAuthenticatorExample>
 
   </TabItem>
@@ -35,9 +32,6 @@ with the exception of `locale`, `picture`, `updated_at`, and `zoneinfo`. Because
       {({ platform }) => import(`./signUpAttributes.all.${platform}.mdx`)}
     </Fragment>
 
-    <Fragment>
-      {({ platform }) => import(`./example-info-alert.${platform}.mdx`)}
-    </Fragment>
     <FlutterAuthenticatorExample
       initialStep={'signUp'}
       signUpAttributes={[

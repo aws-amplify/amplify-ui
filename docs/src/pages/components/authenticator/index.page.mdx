@@ -54,9 +54,42 @@ yarn global add @aws-amplify/cli@latest
   {({ platform }) => import(`./amplify-pull.${platform}.mdx`)}
 </Fragment>
 
-<Fragment useCommonWebContent>
-  {({ platform }) => import(`./initialState.${platform}.mdx`)}
-</Fragment>
+### Initial State
+
+By default, unauthenticated users are redirected to the Sign In flow. You can explicitly redirect to Sign Up or Reset Password:
+
+<Tabs>
+  <TabItem title="Sign In">
+    <Fragment>
+      {({ platform }) => import(`./initialState.signIn.${platform}.mdx`)}
+    </Fragment>
+    <Fragment useCommonWebContent>
+      {({ platform }) =>
+        import(`./initialState.signIn.example.${platform}.mdx`)
+      }
+    </Fragment>
+  </TabItem>
+  <TabItem title="Sign Up">
+    <Fragment>
+      {({ platform }) => import(`./initialState.signUp.${platform}.mdx`)}
+    </Fragment>
+    <Fragment useCommonWebContent>
+      {({ platform }) =>
+        import(`./initialState.signUp.example.${platform}.mdx`)
+      }
+    </Fragment>
+  </TabItem>
+  <TabItem title="Reset Password">
+    <Fragment>
+      {({ platform }) => import(`./initialState.resetPassword.${platform}.mdx`)}
+    </Fragment>
+    <Fragment useCommonWebContent>
+      {({ platform }) =>
+        import(`./initialState.resetPassword.example.${platform}.mdx`)
+      }
+    </Fragment>
+  </TabItem>
+</Tabs>
 
 <Fragment useCommonWebContent>
   {({ platform }) => import(`./loginMechanisms.${platform}.mdx`)}

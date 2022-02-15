@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { Alert } from '@aws-amplify/ui-react';
 
 export function FlutterAuthenticatorExample({
   initialStep = 'signIn',
@@ -22,11 +22,18 @@ export function FlutterAuthenticatorExample({
   }
   console.log(src);
   return (
-    <iframe
-      id={id}
-      height={height ?? '800px'}
-      width={width ?? '100%'}
-      src={src}
-    ></iframe>
+    <>
+      <Alert variation="info">
+        The Authenticator demo below uses a mock backend. Any users you create
+        are stored in memory. You can verify accounts that you create with the
+        code "123456".
+      </Alert>
+      <iframe
+        id={id}
+        height={height ?? '800px'}
+        width={width ?? '100%'}
+        src={src}
+      ></iframe>
+    </>
   );
 }
