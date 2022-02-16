@@ -460,6 +460,8 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
         const videoBlob = await videoRecorder.getBlob();
         const { width, height } = videoMediaStream.getTracks()[0].getSettings();
 
+        const flippedInitialFaceLeft =
+          width - initialFace.left - initialFace.width;
         const livenessActionDocument: LivenessActionDocument = {
           deviceInformation: {
             videoHeight: height,
@@ -473,7 +475,7 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
                   height: initialFace.height,
                   width: initialFace.width,
                   top: initialFace.top,
-                  left: initialFace.left,
+                  left: flippedInitialFaceLeft,
                 },
                 targetFacePosition: {
                   height: ovalDetails.height,
@@ -491,7 +493,6 @@ export const livenessMachine = createMachine<LivenessContext, LivenessEvent>(
             },
           ],
         };
-
         // Put liveness video
         const provider = new LivenessPredictionsProvider();
         await provider.putLivenessVideo({

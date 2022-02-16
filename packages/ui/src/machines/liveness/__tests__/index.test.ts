@@ -16,6 +16,7 @@ jest.mock('../../../helpers');
 
 const mockedHelpers = helpers as jest.Mocked<typeof helpers>;
 const flushPromises = () => new Promise(setImmediate);
+const testTimestampMs = 1640995200000;
 
 describe('Liveness Machine', () => {
   const mockVideoRecorder: any = {
@@ -54,9 +55,9 @@ describe('Liveness Machine', () => {
   const mockFace: Face = {
     height: 100,
     width: 100,
-    left: 0,
-    top: 0,
-    timestampMs: Date.now(),
+    left: 150,
+    top: 200,
+    timestampMs: testTimestampMs,
   };
   const mockOvalDetails: LivenessOvalDetails = {
     height: 100,
@@ -311,6 +312,7 @@ describe('Liveness Machine', () => {
 
   describe('uploading', () => {
     it('should reach checkSucceeded state after putLivenessVideo success and check success', async () => {
+      Date.now = jest.fn(() => testTimestampMs);
       (mockFlowProps.onGetLivenessDetection as jest.Mock).mockResolvedValue({
         isLive: true,
       });
@@ -322,6 +324,14 @@ describe('Liveness Machine', () => {
       expect(service.state.value).toEqual('checkSucceeded');
       expect(mockVideoRecorder.getBlob).toHaveBeenCalledTimes(1);
       expect(mockFlowProps.onSuccess).toHaveBeenCalledTimes(1);
+      expect(
+        mockLivenessPredictionsProvider.putLivenessVideo
+      ).toHaveBeenCalledWith({
+        livenessActionDocument:
+          '{"deviceInformation":{"videoHeight":480,"videoWidth":640},"challenges":[{"type":"FACE_MOVEMENT","faceMovementChallenge":{"initialFacePosition":{"height":100,"width":100,"top":200,"left":390},"targetFacePosition":{"height":100,"width":100,"top":0,"left":0},"recordingTimestamps":{"videoStart":1640995200000,"initialFaceDetected":1640995200000,"faceDetectedInTargetPositionStart":1640995200000,"faceDetectedInTargetPositionEnd":1640995200000}}}]}',
+        sessionId: 'some-sessionId',
+        videoBlob: undefined,
+      });
     });
 
     it('should reach checkFailed state after putLivenessVideo success and check fail', async () => {
