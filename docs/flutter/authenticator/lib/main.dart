@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:html';
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -9,12 +10,14 @@ import 'package:flutter/material.dart';
 
 // configuration values for the Demo such as theme and initial step
 class AuthenticatorConfig {
+  final String id;
   final ThemeMode themeMode;
   final AuthenticatorStep initialStep;
   final String config;
   final List<SignUpFormField> signUpAttributes;
   final bool useCustomUI;
   AuthenticatorConfig({
+    this.id = '',
     this.themeMode = ThemeMode.light,
     this.initialStep = AuthenticatorStep.signIn,
     String? config,
@@ -24,6 +27,7 @@ class AuthenticatorConfig {
 
   static AuthenticatorConfig fromMap(Map<String, String?> map) {
     return AuthenticatorConfig(
+        id: map['id'] ?? '',
         themeMode: _parseThemeMode(map['themeMode']),
         initialStep: _parseAuthenticatorStep(map['initialStep']),
         config: buildConfig(
@@ -31,16 +35,6 @@ class AuthenticatorConfig {
             includeSocialProviders: map['includeSocialProviders'] == 'true'),
         signUpAttributes: _parseSignUpAttributes(map['signUpAttributes']),
         useCustomUI: map['useCustomUI'] == 'true');
-  }
-
-  AuthenticatorConfig copyWith({
-    ThemeMode? themeMode,
-    AuthenticatorStep? initialStep,
-  }) {
-    return AuthenticatorConfig(
-      themeMode: themeMode ?? this.themeMode,
-      initialStep: initialStep ?? this.initialStep,
-    );
   }
 
   static ThemeMode _parseThemeMode(String? value) {
@@ -184,6 +178,11 @@ class _MyAppState extends State<MyApp> {
       await Amplify.addPlugin(AmplifyAuthCognitoStub());
       // configure amplify
       await Amplify.configure(_authenticatorConfig.config);
+      final message = {
+        'name': 'loaded',
+        'id': _authenticatorConfig.id,
+      };
+      window.parent?.postMessage(jsonEncode(message), "*");
     } on Exception catch (e) {
       print('An error occurred configuring Amplify: $e');
     }

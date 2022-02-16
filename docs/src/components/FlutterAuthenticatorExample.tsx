@@ -1,4 +1,5 @@
-import { Alert } from '@aws-amplify/ui-react';
+import { Alert, Loader } from '@aws-amplify/ui-react';
+import React from 'react';
 
 export function FlutterAuthenticatorExample({
   initialStep = 'signIn',
@@ -8,6 +9,7 @@ export function FlutterAuthenticatorExample({
   useCustomUI = false,
   width = '100%',
   height = '800px',
+  id = generateId(),
 }) {
   const colorAttr = 'data-amplify-color-mode';
   // in dev mode, `data-amplify-color-mode` will not be on the html element
@@ -18,6 +20,7 @@ export function FlutterAuthenticatorExample({
 
   const baseUrl = '/flutter/authenticator/component.html';
   const queryParams: Record<string, any> = {
+    id,
     themeMode,
     initialStep,
     usernameAttribute,
@@ -26,7 +29,7 @@ export function FlutterAuthenticatorExample({
     ...(signUpAttributes.length && { signUpAttributes }),
   };
   var src = `${baseUrl}?${new URLSearchParams(queryParams).toString()}`;
-  console.log(src);
+
   return (
     <>
       <Alert variation="info">
@@ -34,7 +37,43 @@ export function FlutterAuthenticatorExample({
         are stored in memory. You can verify accounts that you create with the
         code "123456".
       </Alert>
-      <iframe height={height} width={width} src={src} loading="lazy"></iframe>
+      <FlutterAuthenticatorLoader id={id} />
+      <iframe
+        key={id}
+        height={height}
+        width={width}
+        src={src}
+        loading="lazy"
+      ></iframe>
     </>
   );
 }
+
+// Loader is in a separate component to prevent the iframe from re-rendering
+// when setHasLoaded is called
+function FlutterAuthenticatorLoader({ id }) {
+  const [hasLoaded, setHasLoaded] = React.useState(false);
+
+  React.useEffect(() => {
+    window.addEventListener('message', (event) => {
+      const data = JSON.parse(event.data);
+      if (data['name'] == 'loaded' && data['id'] == id) {
+        setHasLoaded(true);
+      }
+    });
+  });
+
+  return (
+    <Loader
+      style={{
+        bottom: '-16px',
+        padding: '0 6px',
+        visibility: hasLoaded ? 'hidden' : 'visible',
+      }}
+      position="relative"
+      variation="linear"
+    />
+  );
+}
+
+const generateId = () => (Math.random() + 1).toString(36).substring(2);
