@@ -66,7 +66,7 @@ class AuthenticatorConfig {
   }
 
   static List<SignUpFormField> _parseSignUpAttributes(String? value) {
-    final signUpFields = value?.split('%2C') ?? [];
+    final signUpFields = value?.split(',') ?? [];
     return signUpFields
         .map((field) {
           switch (field) {
