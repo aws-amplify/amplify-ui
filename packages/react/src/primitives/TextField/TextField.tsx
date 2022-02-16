@@ -49,6 +49,14 @@ const TextFieldPrimitive = <Multiline extends boolean>(
   const { flexContainerStyleProps, baseStyleProps, rest } =
     splitPrimitiveProps(_rest);
 
+  React.useEffect(() => {
+    if (props.isMultiline === true) {
+      console.error(
+        'TextField multiline prop will be deprecated in next major release of @aws-amplify/ui-react. Please use TextAreaField component instead.'
+      );
+    }
+  }, [props.isMultiline]);
+
   let control: JSX.Element = null;
   if (isTextAreaField(props)) {
     const { rows } = props;
