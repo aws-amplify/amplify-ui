@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, toRefs } from 'vue';
+import { translate } from '@aws-amplify/ui';
 const checked = ref(false);
 
 const props = withDefaults(defineProps<{ errorMessage: string }>(), {
@@ -40,7 +41,7 @@ const { errorMessage } = toRefs(props);
             d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"
           ></path></svg></span
       ><span class="amplify-text amplify-checkbox__label">
-        I agree with the Terms &amp; Conditions</span
+        {{translate(`I agree with the Terms &amp; Conditions`)}}</span
       ></label
     >
     <p v-if="!checked" class="amplify-text amplify-field__error-message">
