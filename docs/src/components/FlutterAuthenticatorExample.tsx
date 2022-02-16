@@ -33,9 +33,9 @@ export function FlutterAuthenticatorExample({
   return (
     <>
       <Alert variation="info">
-        The Authenticator demo below uses a mock backend. Any users you create
-        are stored in memory. You can verify accounts that you create with the
-        code "123456".
+        {
+          'The Authenticator demo below uses a mock backend. Any users you create are stored in memory. You can verify accounts that you create with the code "123456".'
+        }
       </Alert>
       <FlutterAuthenticatorLoader id={id} />
       <iframe
