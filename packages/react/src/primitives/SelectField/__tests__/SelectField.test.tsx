@@ -269,4 +269,22 @@ describe('SelectField test suite', () => {
       expect(errorText.innerHTML).toContain(errorMessage);
     });
   });
+
+  describe('Options', () => {
+    it('correctly maps the options prop to corresponding option tags with matching value, label and children', async () => {
+      const optionStrings = ['lions', 'tigers', 'bears'];
+
+      render(<SelectField label={label} options={optionStrings}></SelectField>);
+
+      const selectFieldOptions = await screen.findAllByRole('option');
+      expect(selectFieldOptions.length).toBe(optionStrings.length);
+
+      selectFieldOptions.forEach((option, index) => {
+        const optionString = optionStrings[index];
+        expect(option).toHaveAttribute('value', optionString);
+        expect(option).toHaveAttribute('label', optionString);
+        expect(option.innerHTML).toBe(optionString);
+      });
+    });
+  });
 });

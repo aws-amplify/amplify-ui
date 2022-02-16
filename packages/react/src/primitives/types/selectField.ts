@@ -5,4 +5,9 @@ import { FieldProps } from './field';
 export interface SelectFieldProps
   extends FieldProps,
     FlexContainerStyleProps,
-    SelectProps {}
+    SelectProps {
+  /**
+   * Accepts an array of strings which maps to the value, label and children of each option tag in the SelectField
+   */
+  options?: string[];
+}

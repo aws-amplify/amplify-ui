@@ -10,6 +10,27 @@ import { SelectFieldProps, Primitive } from '../types';
 import { splitPrimitiveProps } from '../shared/styleUtils';
 import { useStableId } from '../shared/utils';
 
+const selectFieldChildren = (
+  children?: React.ReactNode,
+  options?: string[]
+) => {
+  if (options?.length) {
+    if (children) {
+      console.warn(
+        'Amplify UI: <SelectField> component defaults to rendering children over `options`. When using the `options` prop, do not also pass children.'
+      );
+    } else {
+      return options.map((option, index) => (
+        <option label={option} value={option} key={index}>
+          {option}
+        </option>
+      ));
+    }
+  }
+
+  return children;
+};
+
 const SelectFieldPrimitive: Primitive<SelectFieldProps, 'select'> = (
   props,
   ref
@@ -23,6 +44,7 @@ const SelectFieldPrimitive: Primitive<SelectFieldProps, 'select'> = (
     id,
     label,
     labelHidden = false,
+    options,
     size,
     testId,
     ..._rest
@@ -62,7 +84,7 @@ const SelectFieldPrimitive: Primitive<SelectFieldProps, 'select'> = (
         size={size}
         {...rest}
       >
-        {children}
+        {selectFieldChildren(children, options)}
       </Select>
       <FieldErrorMessage hasError={hasError} errorMessage={errorMessage} />
     </Flex>
