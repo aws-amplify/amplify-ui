@@ -128,16 +128,6 @@
       color: var(--amplify-components-button-primary-active-color);
     }
 
-    &[data-loading='true'] {
-      background-color: var(
-        --amplify-components-button-primary-loading-background-color
-      );
-      border-color: var(
-        --amplify-components-button-primary-loading-border-color
-      );
-      color: var(--amplify-components-button-primary-loading-color);
-    }
-
     &[disabled] {
       background-color: var(
         --amplify-components-button-primary-disabled-background-color
@@ -146,6 +136,16 @@
         --amplify-components-button-primary-disabled-border-color
       );
       color: var(--amplify-components-button-primary-disabled-color);
+    }
+
+    &[data-loading='true'] {
+      background-color: var(
+        --amplify-components-button-primary-loading-background-color
+      );
+      border-color: var(
+        --amplify-components-button-primary-loading-border-color
+      );
+      color: var(--amplify-components-button-primary-loading-color);
     }
   }
 

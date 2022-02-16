@@ -41,7 +41,7 @@ module.exports = {
     borderColor: { value: '{colors.brand.primary.100.value}' },
   },
   _loading: {
-    color: { value: '{colors.font.tertiary.value}' },
+    color: { value: '{colors.font.disabled.value}' },
     backgroundColor: { value: 'transparent' },
     borderColor: { value: '{colors.border.tertiary.value}' },
   },
@@ -65,8 +65,8 @@ module.exports = {
     },
     _loading: {
       borderColor: { value: 'transparent' },
-      backgroundColor: { value: '{colors.background.tertiary.value}' },
-      color: { value: '{colors.font.inverse.value}' },
+      backgroundColor: { value: '{colors.background.disabled.value}' },
+      color: { value: '{colors.font.disabled.value}' },
     },
     _hover: {
       borderColor: { value: 'transparent' },

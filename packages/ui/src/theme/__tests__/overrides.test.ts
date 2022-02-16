@@ -118,7 +118,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-button-active-color: var(--amplify-colors-font-active);
         --amplify-components-button-active-background-color: var(--amplify-colors-brand-primary-20);
         --amplify-components-button-active-border-color: var(--amplify-colors-brand-primary-100);
-        --amplify-components-button-loading-color: var(--amplify-colors-font-tertiary);
+        --amplify-components-button-loading-color: var(--amplify-colors-font-disabled);
         --amplify-components-button-loading-background-color: transparent;
         --amplify-components-button-loading-border-color: var(--amplify-colors-border-tertiary);
         --amplify-components-button-disabled-color: var(--amplify-colors-font-disabled);
@@ -133,8 +133,8 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-button-primary-disabled-background-color: var(--amplify-colors-background-disabled);
         --amplify-components-button-primary-disabled-color: var(--amplify-colors-font-disabled);
         --amplify-components-button-primary-loading-border-color: transparent;
-        --amplify-components-button-primary-loading-background-color: var(--amplify-colors-background-tertiary);
-        --amplify-components-button-primary-loading-color: var(--amplify-colors-font-inverse);
+        --amplify-components-button-primary-loading-background-color: var(--amplify-colors-background-disabled);
+        --amplify-components-button-primary-loading-color: var(--amplify-colors-font-disabled);
         --amplify-components-button-primary-hover-border-color: transparent;
         --amplify-components-button-primary-hover-background-color: var(--amplify-colors-brand-primary-90);
         --amplify-components-button-primary-hover-color: var(--amplify-colors-font-inverse);
