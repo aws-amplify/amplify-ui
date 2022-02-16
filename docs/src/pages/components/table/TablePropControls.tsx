@@ -2,12 +2,12 @@ import * as React from 'react';
 
 import {
   CheckboxField,
+  Flex,
   SelectField,
   TableProps,
   TextField,
 } from '@aws-amplify/ui-react';
 
-import { DemoBox } from '@/components/DemoBox';
 import { FieldLabeler } from '@/components/FieldLabeler';
 
 export interface TablePropControlsProps extends TableProps {
@@ -32,7 +32,7 @@ export const TablePropControls: TablePropControlsInterface = ({
   size,
   variation,
 }) => (
-  <DemoBox primitiveName="Table">
+  <Flex direction="column">
     <TextField
       id="caption-control"
       label="caption"
@@ -79,5 +79,5 @@ export const TablePropControls: TablePropControlsInterface = ({
         <option value="striped">striped</option>
       </SelectField>
     </FieldLabeler>
-  </DemoBox>
+  </Flex>
 );
