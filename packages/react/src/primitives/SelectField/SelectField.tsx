@@ -29,6 +29,7 @@ const SelectFieldPrimitive: Primitive<SelectFieldProps, 'select'> = (
   } = props;
 
   const fieldId = useStableId(id);
+  const descriptionId = useStableId();
 
   const { flexContainerStyleProps, baseStyleProps, rest } =
     splitPrimitiveProps(_rest);
@@ -49,10 +50,18 @@ const SelectFieldPrimitive: Primitive<SelectFieldProps, 'select'> = (
         {label}
       </Label>
       <FieldDescription
+        id={descriptionId}
         labelHidden={labelHidden}
         descriptiveText={descriptiveText}
       />
-      <Select hasError={hasError} id={fieldId} ref={ref} size={size} {...rest}>
+      <Select
+        aria-describedby={descriptionId}
+        hasError={hasError}
+        id={fieldId}
+        ref={ref}
+        size={size}
+        {...rest}
+      >
         {children}
       </Select>
       <FieldErrorMessage hasError={hasError} errorMessage={errorMessage} />

@@ -46,6 +46,7 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
   } = props;
 
   const fieldId = useStableId(id);
+  const descriptionId = useStableId();
 
   const { baseStyleProps, flexContainerStyleProps, rest } =
     splitPrimitiveProps(_rest);
@@ -87,6 +88,7 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
         {label}
       </Label>
       <FieldDescription
+        id={descriptionId}
         labelHidden={labelHidden}
         descriptiveText={descriptiveText}
       />
@@ -103,7 +105,7 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
             onClick={handleDecrease}
             size={size}
           >
-            <IconRemove data-testid={DECREASE_ICON} size={size} />
+            <IconRemove data-testid={DECREASE_ICON} />
           </FieldGroupIconButton>
         }
         outerEndComponent={
@@ -118,11 +120,12 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
             onClick={handleIncrease}
             size={size}
           >
-            <IconAdd data-testid={INCREASE_ICON} size={size} />
+            <IconAdd data-testid={INCREASE_ICON} />
           </FieldGroupIconButton>
         }
       >
         <Input
+          aria-describedby={descriptionId}
           className={ComponentClassNames.StepperFieldInput}
           hasError={hasError}
           id={fieldId}

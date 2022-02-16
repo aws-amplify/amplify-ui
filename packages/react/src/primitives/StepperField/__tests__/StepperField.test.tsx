@@ -2,7 +2,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import * as React from 'react';
 
-import { StepperField, DECREASE_ICON, INCREASE_ICON } from '../StepperField';
+import { StepperField } from '../StepperField';
 import {
   testFlexProps,
   expectFlexContainerStyleProps,
@@ -247,18 +247,6 @@ describe('StepperField: ', () => {
       expect(buttons[0]).toHaveAttribute('aria-controls', id);
       expect(buttons[1]).toHaveAttribute('aria-controls', id);
     });
-
-    describe('Increase/Decrease icon', () => {
-      it('should pass through size attribute', async () => {
-        render(<StepperField label="stepper" size="small" />);
-
-        const decreaseIcon = await screen.findByTestId(DECREASE_ICON);
-        const increaseIcon = await screen.findByTestId(INCREASE_ICON);
-
-        // expect(decreaseIcon).toHaveAttribute('data-size', 'small');
-        // expect(increaseIcon).toHaveAttribute('data-size', 'small');
-      });
-    });
   });
 
   describe('Error messages', () => {
@@ -285,6 +273,13 @@ describe('StepperField: ', () => {
 
       const descriptiveText = await screen.queryByText('Description');
       expect(descriptiveText.innerHTML).toContain('Description');
+    });
+
+    it('should map to descriptive text correctly', async () => {
+      render(<StepperField label="stepper" descriptiveText="Description" />);
+
+      const stepperInput = await screen.findByLabelText('stepper');
+      expect(stepperInput).toHaveAccessibleDescription('Description');
     });
   });
 });
