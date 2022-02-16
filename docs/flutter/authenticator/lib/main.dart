@@ -264,47 +264,8 @@ String buildConfig({
 
 Widget? customBuilder(BuildContext context, AuthenticatorState state) {
   const padding = EdgeInsets.only(left: 16, right: 16, top: 48, bottom: 16);
-  Widget buildScaffold({
-    List<Widget> children = const <Widget>[],
-    List<Widget>? persistentFooterButtons,
-  }) {
-    return Scaffold(
-      body: Padding(
-        padding: padding,
-        child: SingleChildScrollView(
-          child: Column(
-            children: children,
-          ),
-        ),
-      ),
-      persistentFooterButtons: persistentFooterButtons,
-    );
-  }
-
   switch (state.currentStep) {
     case AuthenticatorStep.signIn:
-      return buildScaffold(
-        children: [
-          // app logo
-          const Center(child: FlutterLogo(size: 100)),
-          // prebuilt sign in form from amplify_authenticator package
-          SignInForm(),
-        ],
-        persistentFooterButtons: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text('Don\'t have an account?'),
-              TextButton(
-                onPressed: () => state.changeStep(
-                  AuthenticatorStep.signUp,
-                ),
-                child: const Text('Sign Up'),
-              ),
-            ],
-          ),
-        ],
-      );
       return Scaffold(
         body: Padding(
           padding: padding,
