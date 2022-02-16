@@ -9,6 +9,8 @@ export function FlutterAuthenticatorExample({
   useCustomUI = false,
   width = '100%',
   height = '800px',
+  // id is passed to the flutter authenticator.
+  // it is used by the authenticator to signal when the authenticator has finished loading.
   id = generateId(),
 }) {
   const colorAttr = 'data-amplify-color-mode';
@@ -55,6 +57,7 @@ function FlutterAuthenticatorLoader({ id }) {
   const [hasLoaded, setHasLoaded] = React.useState(false);
 
   React.useEffect(() => {
+    // the authenticator will post a message to the parent window when it has finished loading
     window.addEventListener('message', (event) => {
       const data = JSON.parse(event.data);
       if (data['name'] == 'loaded' && data['id'] == id) {
