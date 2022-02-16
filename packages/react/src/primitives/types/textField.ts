@@ -34,10 +34,12 @@ export interface TextFieldOptions extends FieldProps, FlexContainerStyleProps {
 
 export interface TextInputFieldProps extends TextFieldOptions, InputProps {}
 
-export interface TextAreaFieldProps extends TextFieldOptions, TextAreaProps {}
+export interface TextAreaFieldMultilineProps
+  extends TextFieldOptions,
+    TextAreaProps {}
 
 export type TextFieldProps<Multiline extends boolean> = (Multiline extends true
-  ? TextAreaFieldProps
+  ? TextAreaFieldMultilineProps
   : TextInputFieldProps) & {
   isMultiline?: Multiline;
 };
