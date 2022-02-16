@@ -7,6 +7,7 @@ export function FlutterAuthenticatorExample({
   signUpAttributes = [],
   includeSocialProviders = false,
   useCustomUI = false,
+  useCustomTheme = false,
   width = '100%',
   height = '800px',
   // id is passed to the flutter authenticator.
@@ -28,6 +29,7 @@ export function FlutterAuthenticatorExample({
     usernameAttribute,
     includeSocialProviders,
     useCustomUI,
+    useCustomTheme,
     ...(signUpAttributes.length && { signUpAttributes }),
   };
   var src = `${baseUrl}?${new URLSearchParams(queryParams).toString()}`;

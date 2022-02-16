@@ -16,6 +16,7 @@ class AuthenticatorConfig {
   final String config;
   final List<SignUpFormField> signUpAttributes;
   final bool useCustomUI;
+  final bool useCustomTheme;
   AuthenticatorConfig({
     this.id = '',
     this.themeMode = ThemeMode.light,
@@ -23,18 +24,21 @@ class AuthenticatorConfig {
     String? config,
     this.signUpAttributes = const [],
     this.useCustomUI = false,
+    this.useCustomTheme = false,
   }) : config = config ?? buildConfig();
 
   static AuthenticatorConfig fromMap(Map<String, String?> map) {
     return AuthenticatorConfig(
-        id: map['id'] ?? '',
-        themeMode: _parseThemeMode(map['themeMode']),
-        initialStep: _parseAuthenticatorStep(map['initialStep']),
-        config: buildConfig(
-            usernameAttribute: map['usernameAttribute'] ?? 'USERNAME',
-            includeSocialProviders: map['includeSocialProviders'] == 'true'),
-        signUpAttributes: _parseSignUpAttributes(map['signUpAttributes']),
-        useCustomUI: map['useCustomUI'] == 'true');
+      id: map['id'] ?? '',
+      themeMode: _parseThemeMode(map['themeMode']),
+      initialStep: _parseAuthenticatorStep(map['initialStep']),
+      config: buildConfig(
+          usernameAttribute: map['usernameAttribute'] ?? 'USERNAME',
+          includeSocialProviders: map['includeSocialProviders'] == 'true'),
+      signUpAttributes: _parseSignUpAttributes(map['signUpAttributes']),
+      useCustomUI: map['useCustomUI'] == 'true',
+      useCustomTheme: map['useCustomTheme'] == 'true',
+    );
   }
 
   static ThemeMode _parseThemeMode(String? value) {
@@ -202,8 +206,12 @@ class _MyAppState extends State<MyApp> {
         useInheritedMediaQuery: true,
         title: 'Authenticator Demo',
         builder: Authenticator.builder(),
-        theme: ThemeData.light(),
-        darkTheme: ThemeData.dark(),
+        theme: _authenticatorConfig.useCustomTheme
+            ? customLigthTheme
+            : ThemeData.light(),
+        darkTheme: _authenticatorConfig.useCustomTheme
+            ? customDarkTheme
+            : ThemeData.dark(),
         themeMode: _authenticatorConfig.themeMode,
         home: Scaffold(
           appBar: AppBar(),
@@ -332,3 +340,73 @@ Widget? customBuilder(BuildContext context, AuthenticatorState state) {
       return null;
   }
 }
+
+ThemeData customLigthTheme = ThemeData.from(
+  colorScheme: ColorScheme.fromSwatch(
+    primarySwatch: Colors.indigo,
+    backgroundColor: Colors.white,
+  ),
+).copyWith(
+  indicatorColor: Colors.indigo,
+  textTheme: const TextTheme(
+    headline6: TextStyle(
+      fontWeight: FontWeight.w600,
+      fontSize: 24,
+    ),
+  ),
+  inputDecorationTheme: InputDecorationTheme(
+    floatingLabelBehavior: FloatingLabelBehavior.never,
+    fillColor: Colors.grey[100],
+    filled: true,
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(12),
+      borderSide: BorderSide.none,
+    ),
+  ),
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: ButtonStyle(
+      padding: MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.all(22)),
+      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+      ),
+    ),
+  ),
+);
+
+ThemeData customDarkTheme = ThemeData.from(
+  colorScheme: ColorScheme.fromSwatch(
+    brightness: Brightness.dark,
+    primarySwatch: Colors.indigo,
+    backgroundColor: Colors.grey[850],
+  ),
+).copyWith(
+  indicatorColor: Colors.indigo,
+  textTheme: const TextTheme(
+    headline6: TextStyle(
+      fontWeight: FontWeight.w600,
+      fontSize: 24,
+      color: Colors.white,
+    ),
+  ),
+  inputDecorationTheme: InputDecorationTheme(
+    floatingLabelBehavior: FloatingLabelBehavior.never,
+    fillColor: Colors.grey[700],
+    filled: true,
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(12),
+      borderSide: BorderSide.none,
+    ),
+  ),
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: ButtonStyle(
+      padding: MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.all(22)),
+      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+      ),
+    ),
+  ),
+);

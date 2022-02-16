@@ -1,29 +1,98 @@
+import { FlutterAuthenticatorExample } from '@/components/FlutterAuthenticatorExample';
+
 ### Theming
 
 By default, the Amplify Authenticator uses your app's Material theme for its styling. Any customizations you make to colors, buttons, input widgets, etc. will be reflected in the Authenticator.
 
+Below is an example with custom themes for the page titles, form fields, and elevated buttons.
+
 ```dart
-return Authenticator(
-  child: MaterialApp(
-    title: 'Authenticator Demo',
-    theme: ThemeData.from(
-      colorScheme: ColorScheme.fromSwatch(
-        primarySwatch: Colors.red,
-        backgroundColor: Colors.white,
+@override
+Widget build(BuildContext context) {
+  return Authenticator(
+    child: MaterialApp(
+      theme: customLigthTheme,
+      darkTheme: customDarkTheme,
+      themeMode: ThemeMode.system,
+      builder: Authenticator.builder(),
+      home: const Scaffold(
+        body: Center(
+          child: Text('You are logged in!'),
+        ),
       ),
-    ).copyWith(
-      indicatorColor: Colors.red,
+    )
+  );
+}
+
+ThemeData customLigthTheme = ThemeData.from(
+  colorScheme: ColorScheme.fromSwatch(
+    primarySwatch: Colors.indigo,
+    backgroundColor: Colors.white,
+  ),
+).copyWith(
+  indicatorColor: Colors.indigo,
+  textTheme: const TextTheme(
+    headline6: TextStyle(
+      fontWeight: FontWeight.w600,
+      fontSize: 24,
     ),
-    darkTheme: ThemeData.from(
-      colorScheme: ColorScheme.fromSwatch(
-        primarySwatch: Colors.red,
-        backgroundColor: Colors.black,
-        brightness: Brightness.dark,
+  ),
+  inputDecorationTheme: InputDecorationTheme(
+    floatingLabelBehavior: FloatingLabelBehavior.never,
+    fillColor: Colors.grey[100],
+    filled: true,
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(12),
+      borderSide: BorderSide.none,
+    ),
+  ),
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: ButtonStyle(
+      padding: MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.all(22)),
+      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
       ),
     ),
-    builder: Authenticator.builder(),
-    home: const SignedInScreen(),
-  )
+  ),
 );
 
+ThemeData customDarkTheme = ThemeData.from(
+  colorScheme: ColorScheme.fromSwatch(
+    brightness: Brightness.dark,
+    primarySwatch: Colors.indigo,
+    backgroundColor: Colors.grey[850],
+  ),
+).copyWith(
+  indicatorColor: Colors.indigo,
+  textTheme: const TextTheme(
+    headline6: TextStyle(
+      fontWeight: FontWeight.w600,
+      fontSize: 24,
+      color: Colors.white,
+    ),
+  ),
+  inputDecorationTheme: InputDecorationTheme(
+    floatingLabelBehavior: FloatingLabelBehavior.never,
+    fillColor: Colors.grey[700],
+    filled: true,
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(12),
+      borderSide: BorderSide.none,
+    ),
+  ),
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: ButtonStyle(
+      padding: MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.all(22)),
+      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+      ),
+    ),
+  ),
+);
 ```
+
+<FlutterAuthenticatorExample useCustomTheme={true} />
