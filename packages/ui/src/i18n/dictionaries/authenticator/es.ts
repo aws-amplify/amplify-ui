@@ -36,7 +36,7 @@ export const esDict = {
   Sending: 'Enviando',
   'Setup TOTP': 'Configurar TOTP',
   'Show password': 'Mostrar contraseña',
-  'Sign In': 'Iniciar sesión',
+  'Sign in': 'Iniciar sesión',
   'Sign In': 'Iniciar Sesión',
   'Sign In with Amazon': 'Iniciar Sesión con Amazon',
   'Sign In with Apple': 'Iniciar Sesión con Apple',
