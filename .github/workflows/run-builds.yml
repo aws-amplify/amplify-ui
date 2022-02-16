@@ -17,7 +17,7 @@ jobs:
           - react/cra-ts
           - react/next
           - vue/vite
-          # - vue/vuecli
+          - vue/vuecli
     steps:
       - name: Checkout Amplify UI
         uses: actions/checkout@v2
