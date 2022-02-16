@@ -12,22 +12,22 @@ export const Geocoder = (props) => {
   const geocoder: any = useRef();
   const map = props.mapRef?.current?.getMap();
 
-  const initializeGeocoder = () => {
-    geocoder.current = createAmplifyGeocoder({
-      ...GEOCODER_OPTIONS,
-      ...props,
-    });
-
-    map
-      ? map?.addControl(geocoder.current)
-      : geocoder.current.addTo(`#${GEOCODER_CONTAINER}`);
-  };
-
-  const removeGeocoder = () => {
-    map?.removeControl(geocoder.current);
-  };
-
   useEffect(() => {
+    const initializeGeocoder = () => {
+      geocoder.current = createAmplifyGeocoder({
+        ...GEOCODER_OPTIONS,
+        ...props,
+      });
+
+      map
+        ? map?.addControl(geocoder.current)
+        : geocoder.current.addTo(`#${GEOCODER_CONTAINER}`);
+    };
+
+    const removeGeocoder = () => {
+      map?.removeControl(geocoder.current);
+    };
+
     initializeGeocoder();
 
     return () => {

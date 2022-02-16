@@ -1,79 +1,78 @@
-import { ICredentials } from '@aws-amplify/core';
 import { mapMachine } from '@aws-amplify/ui';
-import { useMachine } from '@xstate/react';
-import { Auth } from 'aws-amplify';
+import { useInterpret, useSelector } from '@xstate/react';
+import { identity } from 'lodash';
 import { AmplifyMapLibreRequest } from 'maplibre-gl-js-amplify';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import ReactMapGL from 'react-map-gl';
 
 import { Loader, View } from '../../primitives';
 
 export const Map = ({
+  bearing = 0,
   children,
   height,
-  latitude,
-  longitude,
+  latitude = 0,
+  longitude = 0,
+  pitch = 0,
   width,
-  zoom,
+  zoom = 0,
   ...rest
 }: any) => {
   const mapRef = useRef<any>();
-  const [credentials, setCredentials] = useState<ICredentials>();
-  const [transformRequest, setRequestTransformer] = useState<any>();
+  const [transformRequest, setTransformRequest] = useState<any>();
   const [viewport, setViewport] = useState({
-    latitude: latitude ?? 28.728,
-    longitude: longitude ?? 10.041,
-    zoom: zoom ?? 1.816,
+    bearing,
+    latitude,
+    longitude,
+    pitch,
+    zoom,
   });
-  const [pointerEvents, setPointerEvents] = useState<string | void>();
-  const [state] = useMachine(mapMachine) as any;
+  const service = useInterpret(mapMachine);
+  const { send } = service;
+  const state: any = useSelector(service, identity);
 
-  const handleMapMoveStart = () => {
-    const map = mapRef.current.getMap();
+  const shouldDisableInteraction = state.matches('transitioning');
 
-    if (map.isMoving()) {
-      setPointerEvents('none');
-    }
-  };
+  const handleMapMoveStart = useCallback(
+    ({ target: map }) => {
+      if (map.isMoving()) {
+        send('TRANSITION_START');
+      }
+    },
+    [send]
+  );
 
-  const handleMapMoveEnd = () => {
-    const map = mapRef.current.getMap();
-    const { lat: latitude, lng: longitude } = map.getCenter();
-    const zoom = map.getZoom();
+  const handleMapMoveEnd = useCallback(
+    ({ target: map }) => {
+      if (state.matches('transitioning')) {
+        const { lat: latitude, lng: longitude } = map.getCenter();
+        setViewport({
+          bearing: map.getBearing(),
+          latitude,
+          longitude,
+          pitch: map.getPitch(),
+          zoom: map.getZoom(),
+        });
+        send('TRANSITION_END');
+      }
+    },
+    [state.value, send]
+  );
 
-    setViewport({
-      latitude,
-      longitude,
-      zoom,
-    });
-
-    setPointerEvents();
-  };
-
-  useEffect(() => {
-    const fetchCredentials = async () => {
-      setCredentials(await Auth.currentUserCredentials());
-    };
-
-    fetchCredentials();
-  }, []);
-
-  // create a new transformRequest function whenever the credentials change
   useEffect(() => {
     const makeRequestTransformer = async () => {
-      if (credentials != null) {
-        const { transformRequest } = new AmplifyMapLibreRequest(
-          credentials,
-          state.context.config.region
-        );
-        // wrap the new value in an anonymous function to prevent React from recognizing it as a
-        // function and immediately calling it
-        setRequestTransformer(() => transformRequest);
+      if (state.context.credentials != null) {
+        const { transformRequest: amplifyTransformRequest } =
+          new AmplifyMapLibreRequest(
+            state.context.credentials,
+            state.context.config.region
+          );
+        setTransformRequest(() => amplifyTransformRequest);
       }
     };
 
     makeRequestTransformer();
-  }, [credentials]);
+  }, [state.context.credentials]);
 
   useEffect(() => {
     if (transformRequest) {
@@ -87,7 +86,7 @@ export const Map = ({
         map.off('moveend', handleMapMoveEnd);
       };
     }
-  }, [transformRequest]);
+  }, [transformRequest, handleMapMoveEnd, handleMapMoveStart]);
 
   return transformRequest ? (
     <View data-amplify-map>
@@ -96,9 +95,11 @@ export const Map = ({
         width={width ?? '100%'}
         height={height ?? '100vh'}
         transformRequest={transformRequest}
-        mapStyle={state.context.config.mapStyle}
+        mapStyle={state.context.config.mapId}
         onViewportChange={setViewport}
-        style={{ pointerEvents }}
+        {...(shouldDisableInteraction
+          ? { style: { pointerEvents: 'none' } }
+          : {})}
         {...viewport}
         {...rest}
       >

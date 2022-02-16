@@ -4962,7 +4962,18 @@
   resolved "https://registry.yarnpkg.com/@mapbox/whoots-js/-/whoots-js-3.1.0.tgz#497c67a1cef50d1a2459ba60f315e448d2ad87fe"
   integrity sha512-Es6WcD0nO5l+2BOQS4uLfNPYQaNDfbot3X1XUoloz+x0mPDS3eeORZJl06HXjwBG1fOGwCRnzK88LMdxKRrd6Q==
 
-"@maplibre/maplibre-gl-geocoder@1.2.0", "@maplibre/maplibre-gl-geocoder@^1.1.0":
+"@maplibre/maplibre-gl-geocoder@1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@maplibre/maplibre-gl-geocoder/-/maplibre-gl-geocoder-1.3.0.tgz#55a7cbb40774a765a34a1096a3957bfe50970dae"
+  integrity sha512-xNGy/RRm2bebdDeJhyATAGi/cQp2wTYTx/BI0eMPdT7A3DNFxBbRyxNr2yyXqyWE+qpKHplTgY5arxYlsyT60w==
+  dependencies:
+    lodash.debounce "^4.0.6"
+    nanoid "^2.0.1"
+    subtag "^0.5.0"
+    suggestions-list "^0.0.2"
+    xtend "^4.0.1"
+
+"@maplibre/maplibre-gl-geocoder@^1.1.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@maplibre/maplibre-gl-geocoder/-/maplibre-gl-geocoder-1.2.0.tgz#6ae850bb3d9741cf93e2c75531665c3a4097f101"
   integrity sha512-kvlvz6FnEsrZXgSaLnM+rv8Kp3XNUGIBraJLw9+bVoT/hqPbeGqScecJ7dVH/MTGMO4gLgxRAe3XJm3/a5o/PQ==
