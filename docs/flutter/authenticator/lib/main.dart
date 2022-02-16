@@ -202,8 +202,12 @@ class _MyAppState extends State<MyApp> {
         useInheritedMediaQuery: true,
         title: 'Authenticator Demo',
         builder: Authenticator.builder(),
-        theme: ThemeData.light(),
-        darkTheme: ThemeData.dark(),
+        theme: ThemeData.light().copyWith(
+          visualDensity: VisualDensity.standard,
+        ),
+        darkTheme: ThemeData.dark().copyWith(
+          visualDensity: VisualDensity.standard,
+        ),
         themeMode: _authenticatorConfig.themeMode,
         home: Scaffold(
           appBar: AppBar(),
