@@ -23,7 +23,6 @@ export const esDict = {
   'Forgot your password?': '¿Olvidó su contraseña?',
   'Hide password': 'Ocultar contraseña',
   'Loading...': 'Cargando...',
-  Username: 'Nombre de usuario',
   'New Password': 'Nueva contraseña',
   or: 'o',
   Password: 'Contraseña',
