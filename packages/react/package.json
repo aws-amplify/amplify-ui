@@ -33,7 +33,7 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "yarn run build:ts && yarn run build:catalog",
-    "build:ts": "tsup --minify --keep-names",
+    "build:ts": "tsup --minify",
     "build:catalog": "ts-node scripts/generatePrimitivesCatalog.ts",
     "dev": "tsup --watch src",
     "eslint:primitives": "eslint ./src/primitives --ext .js,.ts,.tsx",
@@ -49,7 +49,6 @@
     "test:unit:watch": "jest --watch"
   },
   "dependencies": {
-    "@aws-amplify/geo": "1.1.13",
     "@aws-amplify/ui": "3.0.13",
     "@aws-amplify/ui-react-v1": "npm:@aws-amplify/ui-react@1.2.9",
     "@radix-ui/react-accordion": "0.1.1",
