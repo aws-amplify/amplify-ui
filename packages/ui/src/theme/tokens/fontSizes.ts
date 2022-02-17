@@ -30,6 +30,6 @@ export const fontSizes: FontSizes = {
   large: { value: '1.25rem' },
   xl: { value: '1.5rem' },
   xxl: { value: '2rem' },
-  xxxl: { value: '3rem' },
-  xxxxl: { value: '5rem' },
+  xxxl: { value: '2.5rem' },
+  xxxxl: { value: '3rem' },
 };

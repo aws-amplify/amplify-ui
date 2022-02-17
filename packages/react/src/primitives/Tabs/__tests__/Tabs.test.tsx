@@ -68,11 +68,10 @@ describe('Tabs: ', () => {
     expect(console.warn).not.toHaveBeenCalledWith(warningMessage);
   });
 
-  it('should log a warning for children not matching the tabItem structure', async () => {
+  it('should log a warning for children not matching the TabItem structure', async () => {
     const invalidChildren = [
       123,
       'test',
-      <div title="someTitle"></div>,
       <div>
         <span></span>
       </div>,

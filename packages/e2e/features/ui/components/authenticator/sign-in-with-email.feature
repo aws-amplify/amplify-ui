@@ -52,6 +52,11 @@ Feature: Sign In with Email
     And I click the "Sign out" button
     Then I see "Sign in"
 
+@angular @react @vue
+  Scenario: Sign Up Tab Is Not Present 
+    Then I see "Sign in"
+    Then I don't see "Create Account"
+
 
 
   # FORCE_CHANGE_PASSWORD tests are skipped as the temporary passwords used for these

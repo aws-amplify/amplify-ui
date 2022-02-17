@@ -1,6 +1,6 @@
 {
   "name": "@aws-amplify/ui-vue",
-  "version": "2.0.11",
+  "version": "2.1.1",
   "type": "module",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
@@ -21,7 +21,7 @@
     "prebuild": "rimraf dist",
     "build": "vue-tsc --noEmit && vite build",
     "dev": "vite build --watch",
-    "clean": "rimraf dist",
+    "clean": "rimraf dist node_modules",
     "lint": "echo No linting enabled for @aws-amplify/ui-vue",
     "test": "yarn test:unit",
     "test:watch": "yarn test:unit:watch",
@@ -29,10 +29,10 @@
     "test:unit:watch": "jest --watch"
   },
   "dependencies": {
-    "@aws-amplify/ui": "3.0.11",
-    "@vueuse/core": "^7.4.1",
+    "@aws-amplify/ui": "3.0.13",
+    "@vueuse/core": "7.5.5",
     "@xstate/vue": "0.8.1",
-    "qrcode": "^1.4.4"
+    "qrcode": "1.5.0"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.15.8",

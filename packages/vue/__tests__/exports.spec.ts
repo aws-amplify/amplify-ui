@@ -25,6 +25,7 @@ describe('@aws-amplify/ui-vue', () => {
           "UserNameAlias",
           "VerifyUser",
           "default",
+          "translations",
           "useAuthenticator",
         ]
       `);

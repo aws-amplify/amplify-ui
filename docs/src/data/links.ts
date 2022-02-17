@@ -26,7 +26,7 @@ export const baseComponents: ComponentNavItem[] = [
   {
     href: '/components/icon',
     label: 'Icon',
-    body: ``,
+    body: `The icon component displays simple vector graphics for use in other components like Buttons.`,
   },
   {
     href: '/components/image',
@@ -70,7 +70,11 @@ export const connectedComponents = [
 
 export const dataDisplayComponents = [
   { href: '/components/badge', label: 'Badge', body: `` },
-  { href: '/components/rating', label: 'Rating', body: `` },
+  {
+    href: '/components/rating',
+    label: 'Rating',
+    body: 'The Rating component displays a read-only star rating of a product or service.',
+  },
 ].sort(sortByLabel);
 
 export const feedbackComponents: ComponentNavItem[] = [
@@ -102,7 +106,11 @@ export const inputComponents = [
     label: 'Text Field',
     body: `The TextField form primitive can be used allow users to input text content.`,
   },
-  { href: '/components/selectfield', label: 'Select Field', body: `` },
+  {
+    href: '/components/selectfield',
+    label: 'Select Field',
+    body: `The SelectField primitive allows you to create a drop-down list.`,
+  },
   { href: '/components/sliderfield', label: 'Slider Field', body: `` },
   {
     href: '/components/stepperfield',
@@ -167,7 +175,11 @@ export const navigationComponents: ComponentNavItem[] = [
 ].sort(sortByLabel);
 
 export const utilityComponents = [
-  { href: '/components/visuallyhidden', label: 'Visually Hidden', body: `` },
+  {
+    href: '/components/visuallyhidden',
+    label: 'Visually Hidden',
+    body: `The Visually Hidden component is used to visually hide content while leaving it available to screen readers.`,
+  },
 ].sort(sortByLabel);
 
 export const DISCORD = 'https://discord.gg/amplify';

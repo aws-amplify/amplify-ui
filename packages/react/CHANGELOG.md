@@ -1,5 +1,87 @@
 # @aws-amplify/ui-react
 
+## 2.4.0
+
+### Minor Changes
+
+- [#1285](https://github.com/aws-amplify/amplify-ui/pull/1285) [`bbd182130`](https://github.com/aws-amplify/amplify-ui/commit/bbd182130137403c4fde5d1ac9217f8d33c05b48) Thanks [@joebuono](https://github.com/joebuono)! - Add 'to' prop to Link primitive
+
+* [#1267](https://github.com/aws-amplify/amplify-ui/pull/1267) [`3600d9b6f`](https://github.com/aws-amplify/amplify-ui/commit/3600d9b6feaaad4ba297faaa09c83c365e2a1ddc) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - Adding `paths` prop to Icon which is an array of path-like objects that will be mapped to `<path>` elements.
+
+  Example:
+
+  ```jsx
+  <Icon
+    ariaLabel="tag"
+    viewBox={{ width: 23, height: 15 }}
+    paths={[
+      {
+        d: 'M1 0.5C0.723858 0.5 0.5 0.723858 0.5 1V14C0.5 14.2761 0.723858 14.5 1 14.5H14C14.1148 14.5 14.2262 14.4605 14.3153 14.3881L22.3153 7.88806C22.4322 7.79311 22.5 7.65056 22.5 7.5C22.5 7.34944 22.4322 7.20689 22.3153 7.11194L14.3153 0.611943C14.2262 0.539529 14.1148 0.5 14 0.5H1Z',
+        strokeLinejoin: 'bevel',
+        strokeLinecap: 'round',
+        strokeDasharray: '4 4',
+        fill: 'transparent',
+        stroke: 'currentColor',
+      },
+    ]}
+  />
+  ```
+
+### Patch Changes
+
+- [#1259](https://github.com/aws-amplify/amplify-ui/pull/1259) [`a6af87143`](https://github.com/aws-amplify/amplify-ui/commit/a6af87143d2a232b95ba3a1e0b63a1b3566e5aab) Thanks [@jacoblogan](https://github.com/jacoblogan)! - move data-theme attributes to document root to capture elements that fall outside of the amplify provider component
+
+* [#1302](https://github.com/aws-amplify/amplify-ui/pull/1302) [`732aee95c`](https://github.com/aws-amplify/amplify-ui/commit/732aee95cfa342ac793095627dcddc72fcbbca1f) Thanks [@jacoblogan](https://github.com/jacoblogan)! - update SwitchField to allow user updates on controlled component
+
+- [#1276](https://github.com/aws-amplify/amplify-ui/pull/1276) [`169a26cdf`](https://github.com/aws-amplify/amplify-ui/commit/169a26cdf62f18386dafc4e63484b5a62b78bc17) Thanks [@reesscot](https://github.com/reesscot)! - feat: Add Action/Workflow hooks
+
+* [#1292](https://github.com/aws-amplify/amplify-ui/pull/1292) [`aa051a012`](https://github.com/aws-amplify/amplify-ui/commit/aa051a0124690bc373301fa2456143e3346c1f56) Thanks [@jacoblogan](https://github.com/jacoblogan)! - update StepperField and CheckboxField to update the visual display when a controlled value is changed
+
+* Updated dependencies [[`f9bb30efd`](https://github.com/aws-amplify/amplify-ui/commit/f9bb30efd4c0a384162fbcef22d4b5bccec62dc5), [`7c81bacdf`](https://github.com/aws-amplify/amplify-ui/commit/7c81bacdfdc71d71843b8a7285e513e09e9842cb), [`4e19822e4`](https://github.com/aws-amplify/amplify-ui/commit/4e19822e4d995d4cb3b3ad23090a161249806939), [`b4254e58a`](https://github.com/aws-amplify/amplify-ui/commit/b4254e58ac3473bd141e48b3a553c632a84fab5c)]:
+  - @aws-amplify/ui@3.0.13
+
+## 2.3.0
+
+### Minor Changes
+
+- [#1260](https://github.com/aws-amplify/amplify-ui/pull/1260) [`ecd7bea7e`](https://github.com/aws-amplify/amplify-ui/commit/ecd7bea7ee4466930c15bceb8986e0a090d0570e) Thanks [@ErikCH](https://github.com/ErikCH)! - Added new hide sign up prop, for Vue, Angular, and React
+
+* [#1229](https://github.com/aws-amplify/amplify-ui/pull/1229) [`dc4bb31d5`](https://github.com/aws-amplify/amplify-ui/commit/dc4bb31d51ed628c732e3efaa22143541bc73068) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - Adding more flexibility in the Icon component. Added `as` and `children` to the Icon props to allow for more complex icons.
+
+  Using `as` prop with icon libraries:
+
+  ```jsx
+  import { Icon } from '@aws-amplify/ui-react';
+  import { DiJsBadge } from 'react-icons/di';
+
+  <Icon ariaLabel="Javascript" as={DiJsBadge} />;
+  ```
+
+  Using multiple paths:
+
+  ```jsx
+  import { Icon } from '@aws-amplify/ui-react';
+
+  <Icon ariaLabel="Align bottom" color="rebeccapurple">
+    <path d="M13 10H17V16H13V10Z" fill="currentColor" opacity="0.5" />
+    <path d="M11 4H7V16H11V4Z" fill="currentColor" />
+    <path d="M18 18H6V20H18V18Z" fill="currentColor" />
+  </Icon>;
+  ```
+
+### Patch Changes
+
+- [#1249](https://github.com/aws-amplify/amplify-ui/pull/1249) [`d0bb758cb`](https://github.com/aws-amplify/amplify-ui/commit/d0bb758cbfb6b6e79e0921ef05c0a3a1ec8b9e63) Thanks [@zchenwei](https://github.com/zchenwei)! - test: adding unit tests against null values
+
+## 2.2.2
+
+### Patch Changes
+
+- [#1243](https://github.com/aws-amplify/amplify-ui/pull/1243) [`93834bf58`](https://github.com/aws-amplify/amplify-ui/commit/93834bf5888cec3b031c63abd8a261fab521ae28) Thanks [@zchenwei](https://github.com/zchenwei)! - fix: fixing error throwing when typing in `Collection` search due to `items` prop contains `null` value
+
+- Updated dependencies [[`f7d86db6d`](https://github.com/aws-amplify/amplify-ui/commit/f7d86db6dbd3af650ce4c64e6efbc5acb4523e78), [`b824136bf`](https://github.com/aws-amplify/amplify-ui/commit/b824136bfb288df0f3300421f73f9bfdcd61bf57), [`2913fe8cb`](https://github.com/aws-amplify/amplify-ui/commit/2913fe8cb35e08ad6c61121dfb9d12b4ae9cf6ad)]:
+  - @aws-amplify/ui@3.0.12
+
 ## 2.2.1
 
 ### Patch Changes
