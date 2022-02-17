@@ -42,7 +42,7 @@ select {
 
 @media (prefers-reduced-motion: reduce) {
   html:focus-within {
-   scroll-behavior: auto;
+    scroll-behavior: auto;
   }
 }
 
@@ -107,6 +107,7 @@ select {
 @import './component/switchField.scss';
 @import './component/table.scss';
 @import './component/tabs.scss';
+@import './component/textAreaField.scss';
 @import './component/textField.scss';
 @import './component/toggleButton.scss';
 @import './component/toggleButtonGroup.scss';
