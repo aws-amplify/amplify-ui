@@ -19,7 +19,7 @@ export interface AuthContext {
   password?: string;
   code?: string;
   mfaType?: AuthChallengeNames.SMS_MFA | AuthChallengeNames.SOFTWARE_TOKEN_MFA;
-  actorDoneData?: ActorDoneData; // data returned from actors when they finish and reach their final state
+  actorDoneData?: Omit<ActorDoneData, 'user'>; // data returned from actors when they finish and reach their final state
 }
 
 export interface ServicesContext {
@@ -186,6 +186,7 @@ export type AuthInputAttributes = Record<
 export interface ActorDoneData {
   authAttributes?: AuthFormData;
   intent?: string;
+  user?: CognitoUserAmplify;
 }
 
 export type AuthEventData = Record<PropertyKey, any>; // TODO: this should be typed further
