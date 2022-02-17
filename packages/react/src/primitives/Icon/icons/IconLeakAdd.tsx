@@ -2,9 +2,14 @@ import classNames from 'classnames';
 
 import { ComponentClassNames } from '../../shared';
 import { View } from '../../View';
+import { deprecationWarning } from '../deprecationWarning';
 
+/**
+ * @deprecated These icons are being removed in the next major release. You can use the [react-icons](https://react-icons.github.io/react-icons) package or other React icon libraries in its place. `import { IconLeakAdd } from '@aws-amplify/ui-react';` → `import { MdLeakAdd } from 'react-icons/md';`
+ */
 export const IconLeakAdd = (props) => {
   const { className, ...rest } = props;
+  deprecationWarning('IconLeakAdd');
   return (
     <View
       as="span"

@@ -2,9 +2,14 @@ import classNames from 'classnames';
 
 import { ComponentClassNames } from '../../shared';
 import { View } from '../../View';
+import { deprecationWarning } from '../deprecationWarning';
 
+/**
+ * @deprecated These icons are being removed in the next major release. You can use the [react-icons](https://react-icons.github.io/react-icons) package or other React icon libraries in its place. `import { IconEscalator } from '@aws-amplify/ui-react';` → `import { MdEscalator } from 'react-icons/md';`
+ */
 export const IconEscalator = (props) => {
   const { className, ...rest } = props;
+  deprecationWarning('IconEscalator');
   return (
     <View
       as="span"

@@ -2,9 +2,14 @@ import classNames from 'classnames';
 
 import { ComponentClassNames } from '../../shared';
 import { View } from '../../View';
+import { deprecationWarning } from '../deprecationWarning';
 
+/**
+ * @deprecated These icons are being removed in the next major release. You can use the [react-icons](https://react-icons.github.io/react-icons) package or other React icon libraries in its place. `import { IconLocationSearching } from '@aws-amplify/ui-react';` → `import { MdLocationSearching } from 'react-icons/md';`
+ */
 export const IconLocationSearching = (props) => {
   const { className, ...rest } = props;
+  deprecationWarning('IconLocationSearching');
   return (
     <View
       as="span"

@@ -2,9 +2,14 @@ import classNames from 'classnames';
 
 import { ComponentClassNames } from '../../shared';
 import { View } from '../../View';
+import { deprecationWarning } from '../deprecationWarning';
 
+/**
+ * @deprecated These icons are being removed in the next major release. You can use the [react-icons](https://react-icons.github.io/react-icons) package or other React icon libraries in its place. `import { IconColorLens } from '@aws-amplify/ui-react';` → `import { MdColorLens } from 'react-icons/md';`
+ */
 export const IconColorLens = (props) => {
   const { className, ...rest } = props;
+  deprecationWarning('IconColorLens');
   return (
     <View
       as="span"

@@ -2,9 +2,14 @@ import classNames from 'classnames';
 
 import { ComponentClassNames } from '../../shared';
 import { View } from '../../View';
+import { deprecationWarning } from '../deprecationWarning';
 
+/**
+ * @deprecated These icons are being removed in the next major release. You can use the [react-icons](https://react-icons.github.io/react-icons) package or other React icon libraries in its place. `import { IconForward_30 } from '@aws-amplify/ui-react';` → `import { MdForward_30 } from 'react-icons/md';`
+ */
 export const IconForward_30 = (props) => {
   const { className, ...rest } = props;
+  deprecationWarning('IconForward_30');
   return (
     <View
       as="span"

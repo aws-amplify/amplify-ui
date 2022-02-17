@@ -2,9 +2,14 @@ import classNames from 'classnames';
 
 import { ComponentClassNames } from '../../shared';
 import { View } from '../../View';
+import { deprecationWarning } from '../deprecationWarning';
 
+/**
+ * @deprecated These icons are being removed in the next major release. You can use the [react-icons](https://react-icons.github.io/react-icons) package or other React icon libraries in its place. `import { IconMarkChatUnread } from '@aws-amplify/ui-react';` → `import { MdMarkChatUnread } from 'react-icons/md';`
+ */
 export const IconMarkChatUnread = (props) => {
   const { className, ...rest } = props;
+  deprecationWarning('IconMarkChatUnread');
   return (
     <View
       as="span"

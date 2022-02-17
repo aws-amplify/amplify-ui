@@ -2,9 +2,14 @@ import classNames from 'classnames';
 
 import { ComponentClassNames } from '../../shared';
 import { View } from '../../View';
+import { deprecationWarning } from '../deprecationWarning';
 
+/**
+ * @deprecated These icons are being removed in the next major release. You can use the [react-icons](https://react-icons.github.io/react-icons) package or other React icon libraries in its place. `import { IconToggleOn } from '@aws-amplify/ui-react';` → `import { MdToggleOn } from 'react-icons/md';`
+ */
 export const IconToggleOn = (props) => {
   const { className, ...rest } = props;
+  deprecationWarning('IconToggleOn');
   return (
     <View
       as="span"

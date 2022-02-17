@@ -2,9 +2,14 @@ import classNames from 'classnames';
 
 import { ComponentClassNames } from '../../shared';
 import { View } from '../../View';
+import { deprecationWarning } from '../deprecationWarning';
 
+/**
+ * @deprecated These icons are being removed in the next major release. You can use the [react-icons](https://react-icons.github.io/react-icons) package or other React icon libraries in its place. `import { IconDry } from '@aws-amplify/ui-react';` → `import { MdDry } from 'react-icons/md';`
+ */
 export const IconDry = (props) => {
   const { className, ...rest } = props;
+  deprecationWarning('IconDry');
   return (
     <View
       as="span"

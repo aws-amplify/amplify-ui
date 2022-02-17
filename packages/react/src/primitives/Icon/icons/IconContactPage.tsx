@@ -2,9 +2,14 @@ import classNames from 'classnames';
 
 import { ComponentClassNames } from '../../shared';
 import { View } from '../../View';
+import { deprecationWarning } from '../deprecationWarning';
 
+/**
+ * @deprecated These icons are being removed in the next major release. You can use the [react-icons](https://react-icons.github.io/react-icons) package or other React icon libraries in its place. `import { IconContactPage } from '@aws-amplify/ui-react';` → `import { MdContactPage } from 'react-icons/md';`
+ */
 export const IconContactPage = (props) => {
   const { className, ...rest } = props;
+  deprecationWarning('IconContactPage');
   return (
     <View
       as="span"

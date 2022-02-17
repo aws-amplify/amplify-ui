@@ -2,9 +2,14 @@ import classNames from 'classnames';
 
 import { ComponentClassNames } from '../../shared';
 import { View } from '../../View';
+import { deprecationWarning } from '../deprecationWarning';
 
+/**
+ * @deprecated These icons are being removed in the next major release. You can use the [react-icons](https://react-icons.github.io/react-icons) package or other React icon libraries in its place. `import { IconStickyNote_2 } from '@aws-amplify/ui-react';` → `import { MdStickyNote_2 } from 'react-icons/md';`
+ */
 export const IconStickyNote_2 = (props) => {
   const { className, ...rest } = props;
+  deprecationWarning('IconStickyNote_2');
   return (
     <View
       as="span"

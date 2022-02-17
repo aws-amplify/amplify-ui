@@ -10,9 +10,17 @@ const template = ({ iconName, source }) => `import classNames from 'classnames';
 
 import { ComponentClassNames } from '../../shared';
 import { View } from '../../View';
+import { deprecationWarning } from '../deprecationWarning';
 
+/**
+ * @deprecated These icons are being removed in the next major release. You can use the [react-icons](https://react-icons.github.io/react-icons) package or other React icon libraries in its place. \`import { ${iconName} } from '@aws-amplify/ui-react';\` → \`import { Md${iconName.replace(
+  'Icon',
+  ''
+)} } from 'react-icons/md';\`
+ */
 export const ${iconName} = (props) => {
   const { className, ...rest } = props;
+  deprecationWarning('${iconName}');
   return (
     <View
       as='span'

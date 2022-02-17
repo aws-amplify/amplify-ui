@@ -5,6 +5,7 @@ import {
   IconWbSunny,
   IconBedtime,
   IconTonality,
+  Icon4k,
   ColorMode,
 } from '@aws-amplify/ui-react';
 import { useState } from 'react';
@@ -21,7 +22,7 @@ export const App = ({ children }) => {
     <AmplifyProvider theme={theme} colorMode={colorMode}>
       <header className="listing-app-header">
         <Logo />
-
+        <Icon4k />
         <input type="search" placeholder="search" />
         <ToggleButtonGroup
           value={colorMode}

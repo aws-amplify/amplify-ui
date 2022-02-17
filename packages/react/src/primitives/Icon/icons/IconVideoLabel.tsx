@@ -2,9 +2,14 @@ import classNames from 'classnames';
 
 import { ComponentClassNames } from '../../shared';
 import { View } from '../../View';
+import { deprecationWarning } from '../deprecationWarning';
 
+/**
+ * @deprecated These icons are being removed in the next major release. You can use the [react-icons](https://react-icons.github.io/react-icons) package or other React icon libraries in its place. `import { IconVideoLabel } from '@aws-amplify/ui-react';` → `import { MdVideoLabel } from 'react-icons/md';`
+ */
 export const IconVideoLabel = (props) => {
   const { className, ...rest } = props;
+  deprecationWarning('IconVideoLabel');
   return (
     <View
       as="span"

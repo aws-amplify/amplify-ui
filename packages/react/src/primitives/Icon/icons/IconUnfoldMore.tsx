@@ -2,9 +2,14 @@ import classNames from 'classnames';
 
 import { ComponentClassNames } from '../../shared';
 import { View } from '../../View';
+import { deprecationWarning } from '../deprecationWarning';
 
+/**
+ * @deprecated These icons are being removed in the next major release. You can use the [react-icons](https://react-icons.github.io/react-icons) package or other React icon libraries in its place. `import { IconUnfoldMore } from '@aws-amplify/ui-react';` → `import { MdUnfoldMore } from 'react-icons/md';`
+ */
 export const IconUnfoldMore = (props) => {
   const { className, ...rest } = props;
+  deprecationWarning('IconUnfoldMore');
   return (
     <View
       as="span"

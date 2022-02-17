@@ -2,9 +2,14 @@ import classNames from 'classnames';
 
 import { ComponentClassNames } from '../../shared';
 import { View } from '../../View';
+import { deprecationWarning } from '../deprecationWarning';
 
+/**
+ * @deprecated These icons are being removed in the next major release. You can use the [react-icons](https://react-icons.github.io/react-icons) package or other React icon libraries in its place. `import { IconBrightnessMedium } from '@aws-amplify/ui-react';` → `import { MdBrightnessMedium } from 'react-icons/md';`
+ */
 export const IconBrightnessMedium = (props) => {
   const { className, ...rest } = props;
+  deprecationWarning('IconBrightnessMedium');
   return (
     <View
       as="span"

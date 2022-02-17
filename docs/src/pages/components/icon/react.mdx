@@ -1,4 +1,4 @@
-import { Button, Icon, Flex, Text } from '@aws-amplify/ui-react';
+import { Button, Icon, Flex, Text, Alert } from '@aws-amplify/ui-react';
 import { IconDemo } from './demo';
 import { AllIcons } from './AllIcons';
 import { Example, ExampleCode } from '@/components/Example';
@@ -39,6 +39,13 @@ Import the Icon component and styles.
 </Example>
 
 ### Built-in iconset
+
+<Alert variation="warning" heading="Deprecated">
+  The built-in icons are being removed in the next major release. You can use
+  the [react-icons](https://react-icons.github.io/react-icons) package or other
+  React icon libraries in its place. `import {ICON_NAME} from
+  '@aws-amplify/ui-react';` becomes `import {ICON_NAME} from 'react-icons/md';`
+</Alert>
 
 Use a default icon from the [Material Design icons](http://google.github.io/material-design-icons/).
 

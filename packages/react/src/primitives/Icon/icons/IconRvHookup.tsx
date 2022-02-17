@@ -2,9 +2,14 @@ import classNames from 'classnames';
 
 import { ComponentClassNames } from '../../shared';
 import { View } from '../../View';
+import { deprecationWarning } from '../deprecationWarning';
 
+/**
+ * @deprecated These icons are being removed in the next major release. You can use the [react-icons](https://react-icons.github.io/react-icons) package or other React icon libraries in its place. `import { IconRvHookup } from '@aws-amplify/ui-react';` → `import { MdRvHookup } from 'react-icons/md';`
+ */
 export const IconRvHookup = (props) => {
   const { className, ...rest } = props;
+  deprecationWarning('IconRvHookup');
   return (
     <View
       as="span"

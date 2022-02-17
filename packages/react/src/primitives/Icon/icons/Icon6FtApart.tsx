@@ -2,9 +2,14 @@ import classNames from 'classnames';
 
 import { ComponentClassNames } from '../../shared';
 import { View } from '../../View';
+import { deprecationWarning } from '../deprecationWarning';
 
+/**
+ * @deprecated These icons are being removed in the next major release. You can use the [react-icons](https://react-icons.github.io/react-icons) package or other React icon libraries in its place. `import { Icon6FtApart } from '@aws-amplify/ui-react';` → `import { Md6FtApart } from 'react-icons/md';`
+ */
 export const Icon6FtApart = (props) => {
   const { className, ...rest } = props;
+  deprecationWarning('Icon6FtApart');
   return (
     <View
       as="span"

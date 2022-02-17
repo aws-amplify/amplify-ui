@@ -2,9 +2,14 @@ import classNames from 'classnames';
 
 import { ComponentClassNames } from '../../shared';
 import { View } from '../../View';
+import { deprecationWarning } from '../deprecationWarning';
 
+/**
+ * @deprecated These icons are being removed in the next major release. You can use the [react-icons](https://react-icons.github.io/react-icons) package or other React icon libraries in its place. `import { IconDoDisturbAlt } from '@aws-amplify/ui-react';` → `import { MdDoDisturbAlt } from 'react-icons/md';`
+ */
 export const IconDoDisturbAlt = (props) => {
   const { className, ...rest } = props;
+  deprecationWarning('IconDoDisturbAlt');
   return (
     <View
       as="span"

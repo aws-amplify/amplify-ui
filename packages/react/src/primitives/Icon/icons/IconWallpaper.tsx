@@ -2,9 +2,14 @@ import classNames from 'classnames';
 
 import { ComponentClassNames } from '../../shared';
 import { View } from '../../View';
+import { deprecationWarning } from '../deprecationWarning';
 
+/**
+ * @deprecated These icons are being removed in the next major release. You can use the [react-icons](https://react-icons.github.io/react-icons) package or other React icon libraries in its place. `import { IconWallpaper } from '@aws-amplify/ui-react';` → `import { MdWallpaper } from 'react-icons/md';`
+ */
 export const IconWallpaper = (props) => {
   const { className, ...rest } = props;
+  deprecationWarning('IconWallpaper');
   return (
     <View
       as="span"

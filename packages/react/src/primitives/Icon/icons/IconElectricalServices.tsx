@@ -2,9 +2,14 @@ import classNames from 'classnames';
 
 import { ComponentClassNames } from '../../shared';
 import { View } from '../../View';
+import { deprecationWarning } from '../deprecationWarning';
 
+/**
+ * @deprecated These icons are being removed in the next major release. You can use the [react-icons](https://react-icons.github.io/react-icons) package or other React icon libraries in its place. `import { IconElectricalServices } from '@aws-amplify/ui-react';` → `import { MdElectricalServices } from 'react-icons/md';`
+ */
 export const IconElectricalServices = (props) => {
   const { className, ...rest } = props;
+  deprecationWarning('IconElectricalServices');
   return (
     <View
       as="span"
