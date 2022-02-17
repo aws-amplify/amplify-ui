@@ -4,6 +4,7 @@ import { identity } from 'lodash';
 import { AmplifyMapLibreRequest } from 'maplibre-gl-js-amplify';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import ReactMapGL from 'react-map-gl';
+import maplibregl from 'maplibre-gl';
 
 import { Loader, View } from '../../primitives';
 
@@ -14,6 +15,7 @@ export const Map = ({
   latitude = 0,
   longitude = 0,
   pitch = 0,
+  style,
   width,
   zoom = 0,
   ...rest
@@ -31,7 +33,13 @@ export const Map = ({
   const { send } = service;
   const state: any = useSelector(service, identity);
 
-  const shouldDisableInteraction = state.matches('transitioning');
+  const styleProps = {
+    height: '100vh',
+    position: 'relative',
+    width: '100%',
+    ...(state.matches('transitioning') ? { pointerEvents: 'none' } : {}),
+    ...style,
+  };
 
   const handleMapMoveStart = useCallback(
     ({ target: map }) => {
@@ -75,7 +83,7 @@ export const Map = ({
   }, [state.context.credentials]);
 
   useEffect(() => {
-    if (transformRequest) {
+    if (transformRequest && mapRef.current) {
       const map = mapRef.current?.getMap();
 
       map.on('movestart', handleMapMoveStart);
@@ -92,15 +100,10 @@ export const Map = ({
     <View data-amplify-map>
       <ReactMapGL
         ref={mapRef}
-        width={width ?? '100%'}
-        height={height ?? '100vh'}
+        mapLib={maplibregl}
         transformRequest={transformRequest}
         mapStyle={state.context.config.mapId}
-        onViewportChange={setViewport}
-        {...(shouldDisableInteraction
-          ? { style: { pointerEvents: 'none' } }
-          : {})}
-        {...viewport}
+        style={styleProps}
         {...rest}
       >
         {React.Children.map(children, (child) =>

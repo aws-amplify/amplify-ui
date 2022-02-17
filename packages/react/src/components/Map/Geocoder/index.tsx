@@ -10,22 +10,27 @@ const GEOCODER_CONTAINER = 'geocoder-container';
 
 export const Geocoder = (props) => {
   const geocoder: any = useRef();
-  const map = props.mapRef?.current?.getMap();
 
   useEffect(() => {
     const initializeGeocoder = () => {
-      geocoder.current = createAmplifyGeocoder({
-        ...GEOCODER_OPTIONS,
-        ...props,
-      });
+      if (props.mapRef?.current) {
+        const map = props.mapRef.current.getMap();
+        geocoder.current = createAmplifyGeocoder({
+          ...GEOCODER_OPTIONS,
+          ...props,
+        });
 
-      map
-        ? map?.addControl(geocoder.current)
-        : geocoder.current.addTo(`#${GEOCODER_CONTAINER}`);
+        map
+          ? map?.addControl(geocoder.current)
+          : geocoder.current.addTo(`#${GEOCODER_CONTAINER}`);
+      }
     };
 
     const removeGeocoder = () => {
-      map?.removeControl(geocoder.current);
+      if (props.mapRef?.current) {
+        const map = props.mapRef.current.getMap();
+        map?.removeControl(geocoder.current);
+      }
     };
 
     initializeGeocoder();
