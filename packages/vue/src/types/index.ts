@@ -54,6 +54,5 @@ export type InterpretService = Interpreter<
   }
 >;
 
-export const InterpretServiceInjectionKeyTypes: InjectionKey<InterpretService> = Symbol(
-  'interpret.service'
-);
+export const InterpretServiceInjectionKeyTypes: InjectionKey<InterpretService> =
+  Symbol('interpret.service');

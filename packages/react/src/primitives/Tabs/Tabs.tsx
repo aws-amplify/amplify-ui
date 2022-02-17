@@ -17,8 +17,7 @@ const isTabsType = (child: any): child is React.Component<TabItemProps> => {
     child !== null &&
     typeof child === 'object' &&
     child.hasOwnProperty('props') &&
-    child.props.title != null &&
-    child.props.children != null
+    child.props.title != null
   );
 };
 
@@ -38,6 +37,12 @@ const TabsPrimitive: Primitive<TabsProps, typeof Flex> = (
 ) => {
   const tabs = React.Children.map(children, (child) => {
     if (child === null) return {};
+
+    // checking if the child is a whitespace character
+    if (typeof child === 'string' && /\s/.test(child)) {
+      return {};
+    }
+
     if (!isTabsType(child)) {
       console.warn(
         'Amplify UI: <Tabs> component only accepts <TabItem> as children.'
