@@ -57,6 +57,11 @@ export const connectedComponents = [
     body: 'Chatbot automatically renders a complete chat messaging interface that can be used out-of-the-box, or it can be customized using theming support.',
   },
   {
+    href: '/components/map',
+    label: 'Map',
+    body: 'The Map component comes with various controls that give your application an interactive map built on top of Amazon Location Service.',
+  },
+  {
     href: '/components/storage',
     label: 'Storage',
     body: 'A set of components to help interact with S3 storage.',
