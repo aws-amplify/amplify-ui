@@ -7,67 +7,63 @@ packages:
       name: amplify_analytics_plugin_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.2"
+    version: "0.4.0"
   amplify_api_plugin_interface:
     dependency: transitive
     description:
       name: amplify_api_plugin_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.2"
+    version: "0.4.0"
   amplify_auth_cognito:
     dependency: "direct main"
     description:
-      path: "packages/amplify_auth_cognito"
-      ref: HEAD
-      resolved-ref: b5a1c3a5b33f39adee4c1e387247f03be3e6fec4
-      url: "https://github.com/aws-amplify/amplify-flutter.git"
-    source: git
-    version: "0.3.2"
+      name: amplify_auth_cognito
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.0"
   amplify_auth_plugin_interface:
     dependency: transitive
     description:
       name: amplify_auth_plugin_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.2"
+    version: "0.4.0"
   amplify_authenticator:
     dependency: "direct main"
     description:
       name: amplify_authenticator
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.0-rc.5"
+    version: "0.1.0-rc.6"
   amplify_core:
     dependency: transitive
     description:
       name: amplify_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.2"
+    version: "0.4.0"
   amplify_datastore_plugin_interface:
     dependency: transitive
     description:
       name: amplify_datastore_plugin_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.2"
+    version: "0.4.0"
   amplify_flutter:
     dependency: "direct main"
     description:
-      path: "packages/amplify_flutter"
-      ref: HEAD
-      resolved-ref: b5a1c3a5b33f39adee4c1e387247f03be3e6fec4
-      url: "https://github.com/aws-amplify/amplify-flutter.git"
-    source: git
-    version: "0.3.2"
+      name: amplify_flutter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.0"
   amplify_storage_plugin_interface:
     dependency: transitive
     description:
       name: amplify_storage_plugin_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.3.2"
+    version: "0.4.0"
   async:
     dependency: transitive
     description:
