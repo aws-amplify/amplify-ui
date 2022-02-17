@@ -1,10 +1,10 @@
 import { mapMachine } from '@aws-amplify/ui';
 import { useInterpret, useSelector } from '@xstate/react';
 import { identity } from 'lodash';
+import maplibregl from 'maplibre-gl';
 import { AmplifyMapLibreRequest } from 'maplibre-gl-js-amplify';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import ReactMapGL from 'react-map-gl';
-import maplibregl from 'maplibre-gl';
 
 import { Loader, View } from '../../primitives';
 
