@@ -1,6 +1,6 @@
 import { assign, createMachine, forwardTo, spawn } from 'xstate';
 
-import { AuthContext, AuthEvent } from '../../types';
+import { AuthContext, AuthEvent, AuthServices } from '../../types';
 import { stopActor } from './actions';
 import { resetPasswordActor, signInActor, signOutActor } from './actors';
 import { defaultServices } from './defaultServices';
@@ -18,6 +18,7 @@ export const createAuthenticatorMachine = () =>
       schema: {
         context: {} as AuthContext,
         events: {} as AuthEvent,
+        services: {} as AuthServices,
       },
       id: 'authenticator',
       initial: 'idle',

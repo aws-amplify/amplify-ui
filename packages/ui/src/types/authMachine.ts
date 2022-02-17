@@ -196,6 +196,15 @@ export interface ActorDoneData {
 
 export type AuthEventData = Record<PropertyKey, any>; // TODO: this should be typed further
 
+export type AuthServices = {
+  getCurrentUser: {
+    data: CognitoUserAmplify;
+  };
+  getAmplifyConfig: {
+    data: Record<PropertyKey, any>;
+  };
+};
+
 export type AuthEvent =
   | {
       type: 'INIT';
@@ -203,13 +212,6 @@ export type AuthEvent =
     }
   | {
       type: 'SIGN_UP' | 'RESET_PASSWORD' | 'SIGN_IN' | 'SIGN_OUT';
-    }
-  | {
-      /**
-       * This event is called to provide awsExports content to
-       */
-      type: 'done.invoke.authenticator.setup:invocation[1]';
-      data: Record<PropertyKey, any>; // awsExports content
     }
   | {
       /**
@@ -235,14 +237,6 @@ export type AuthEvent =
     }
   | {
       type: 'done.invoke.signOutActor';
-    }
-  | {
-      /**
-       * This event is called if `getCurrentUser` invocation was successful on
-       * `setup` state.
-       */
-      type: 'done.invoke.authenticator.setup:invocation[0]';
-      data: CognitoUserAmplify;
     }
   | {
       /**

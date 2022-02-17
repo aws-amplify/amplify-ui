@@ -34,10 +34,15 @@ export type SignInMachineOptions = {
 };
 
 export function signInActor({ services }: SignInMachineOptions) {
-  return createMachine<SignInContext, AuthEvent>(
+  return createMachine(
     {
       initial: 'init',
       id: 'signInActor',
+      schema: {
+        context: {} as SignInContext,
+        events: {} as AuthEvent,
+      },
+      tsTypes: {} as import('./signIn.typegen').Typegen0,
       states: {
         init: {
           always: [{ target: 'signIn' }],
