@@ -4,6 +4,11 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "next dev -p 5000",
+    "preflutter:build": "yarn flutter:clean",
+    "flutter:build": "(cd flutter/authenticator && flutter build web)",
+    "postflutter:build": "yarn flutter:copy",
+    "flutter:clean": "rm -rf public/flutter/authenticator",
+    "flutter:copy": "cp -r ./flutter/authenticator/build/web public/flutter/authenticator",
     "build": "next build",
     "lint": "next lint",
     "postbuild": "npx next-sitemap",

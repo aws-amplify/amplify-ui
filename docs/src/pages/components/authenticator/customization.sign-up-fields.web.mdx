@@ -1,0 +1,51 @@
+import {
+  Authenticator,
+  CheckboxField,
+  useAuthenticator,
+} from '@aws-amplify/ui-react';
+
+import { Example } from '@/components/Example';
+import { Fragment } from '@/components/Fragment';
+
+<Fragment>
+  {({ platform }) => import(`./sign-up-fields.${platform}.mdx`)}
+</Fragment>
+
+<Example>
+  <Authenticator
+    initialState="signUp"
+    loginMechanisms={['email']}
+    signUpAttributes={['preferred_username']}
+    components={{
+      SignUp: {
+        FormFields() {
+          const { validationErrors } = useAuthenticator();
+          return (
+            <>
+              <Authenticator.SignUp.FormFields />
+
+              <CheckboxField
+                errorMessage={validationErrors.acknowledgement}
+                hasError={!!validationErrors.acknowledgement}
+                name="acknowledgement"
+                value="yes"
+                label="I agree with the Terms & Conditions"
+              />
+            </>
+          );
+        },
+      },
+    }}
+    services={{
+      async validateCustomSignUp(formData) {
+        if (!formData.acknowledgement) {
+          return {
+            acknowledgement: 'You must agree to the Terms & Conditions',
+          };
+        }
+      },
+    }}
+
+/>
+
+</Example>
