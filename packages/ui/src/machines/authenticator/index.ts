@@ -1,6 +1,11 @@
 import { assign, createMachine, forwardTo, spawn } from 'xstate';
 
-import { AuthContext, AuthEvent, ServicesContext } from '../../types';
+import {
+  AuthContext,
+  AuthEvent,
+  CognitoUserAmplify,
+  ServicesContext,
+} from '../../types';
 import { stopActor } from './actions';
 import { resetPasswordActor, signInActor, signOutActor } from './actors';
 import { defaultServices } from './defaultServices';
@@ -72,15 +77,17 @@ export function createAuthenticatorMachine() {
             'done.invoke.signInActor': [
               {
                 target: 'signUp',
+                actions: 'setActorDoneData',
                 cond: 'shouldRedirectToSignUp',
               },
               {
                 target: 'resetPassword',
+                actions: 'setActorDoneData',
                 cond: 'shouldRedirectToResetPassword',
               },
               {
                 target: 'authenticated',
-                actions: 'setUser',
+                actions: ['setActorDoneData'],
               },
             ],
           },
@@ -92,7 +99,7 @@ export function createAuthenticatorMachine() {
             SIGN_IN: 'signIn',
             'done.invoke.signUpActor': {
               target: 'setup',
-              actions: 'setUser',
+              actions: 'setActorDoneData',
             },
           },
         },
@@ -101,13 +108,18 @@ export function createAuthenticatorMachine() {
           exit: stopActor('resetPasswordActor'),
           on: {
             SIGN_IN: 'signIn',
-            'done.invoke.resetPasswordActor': 'signIn',
+            'done.invoke.resetPasswordActor': {
+              target: 'signIn',
+              actions: 'setActorDoneData',
+            },
           },
         },
         signOut: {
           entry: 'spawnSignOutActor',
           exit: [stopActor('signOutActor'), 'clearUser'],
-          on: { 'done.invoke.signOutActor': 'signIn' },
+          on: {
+            'done.invoke.signOutActor': 'signIn',
+          },
         },
         authenticated: {
           on: { SIGN_OUT: 'signOut' },
@@ -128,7 +140,14 @@ export function createAuthenticatorMachine() {
       actions: {
         forwardToActor: forwardTo((context) => context.actorRef),
         setUser: assign({
-          user: (_, event) => event.data.user || event.data,
+          user: (_, event) => event.data as CognitoUserAmplify,
+        }),
+        setActorDoneData: assign({
+          actorDoneData: (_, event) => ({
+            authAttributes: { ...event.data.authAttributes },
+            intent: event.data.intent,
+          }),
+          user: (_, event) => event.data.user,
         }),
         clearUser: assign({
           user: undefined,
@@ -187,12 +206,12 @@ export function createAuthenticatorMachine() {
           },
         }),
         spawnSignInActor: assign({
-          actorRef: (context, event) => {
+          actorRef: (context, _) => {
             const { services } = context;
             const actor = signInActor({ services }).withContext({
-              authAttributes: event.data?.authAttributes,
-              user: event.data?.user,
-              intent: event.data?.intent,
+              authAttributes: context.actorDoneData?.authAttributes,
+              user: context.user,
+              intent: context.actorDoneData?.intent,
               country_code: DEFAULT_COUNTRY_CODE,
               formValues: {},
               touched: {},
@@ -204,12 +223,12 @@ export function createAuthenticatorMachine() {
           },
         }),
         spawnSignUpActor: assign({
-          actorRef: (context, event) => {
+          actorRef: (context, _) => {
             const { services } = context;
             const actor = createSignUpMachine({ services }).withContext({
-              authAttributes: event.data?.authAttributes ?? {},
+              authAttributes: context.actorDoneData?.authAttributes ?? {},
               country_code: DEFAULT_COUNTRY_CODE,
-              intent: event.data?.intent,
+              intent: context.actorDoneData?.intent,
               formValues: {},
               touched: {},
               validationError: {},
@@ -220,13 +239,13 @@ export function createAuthenticatorMachine() {
           },
         }),
         spawnResetPasswordActor: assign({
-          actorRef: (context, event) => {
+          actorRef: (context, _) => {
             const { services } = context;
             const actor = resetPasswordActor({ services }).withContext({
               formValues: {},
               touched: {},
-              intent: event.data?.intent,
-              username: event.data?.authAttributes?.username,
+              intent: context.actorDoneData?.intent,
+              username: context.actorDoneData?.authAttributes?.username,
               validationError: {},
             });
             return spawn(actor, { name: 'resetPasswordActor' });

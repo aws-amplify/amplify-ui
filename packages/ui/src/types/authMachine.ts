@@ -19,6 +19,7 @@ export interface AuthContext {
   password?: string;
   code?: string;
   mfaType?: AuthChallengeNames.SMS_MFA | AuthChallengeNames.SOFTWARE_TOKEN_MFA;
+  actorDoneData?: ActorDoneData; // data returned from actors when they finish and reach their final state
 }
 
 export interface ServicesContext {
@@ -181,6 +182,15 @@ export type AuthInputAttributes = Record<
   AuthFieldsWithDefaults,
   InputAttributes
 >;
+
+export interface ActorDoneData {
+  authAttributes?: {
+    username?: string;
+    password?: string;
+    [other_attributes: string]: string;
+  };
+  intent?: string;
+}
 
 export type AuthEventData = Record<PropertyKey, any>; // TODO: this should be typed further
 
