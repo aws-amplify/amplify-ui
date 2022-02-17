@@ -11,7 +11,7 @@ Below is an example with custom themes for the page titles, form fields, and ele
 Widget build(BuildContext context) {
   return Authenticator(
     child: MaterialApp(
-      theme: customLigthTheme,
+      theme: customLightTheme,
       darkTheme: customDarkTheme,
       themeMode: ThemeMode.system,
       builder: Authenticator.builder(),
@@ -24,7 +24,7 @@ Widget build(BuildContext context) {
   );
 }
 
-ThemeData customLigthTheme = ThemeData.from(
+ThemeData customLightTheme = ThemeData.from(
   colorScheme: ColorScheme.fromSwatch(
     primarySwatch: Colors.indigo,
     backgroundColor: Colors.white,

@@ -206,12 +206,16 @@ class _MyAppState extends State<MyApp> {
         useInheritedMediaQuery: true,
         title: 'Authenticator Demo',
         builder: Authenticator.builder(),
-        theme: _authenticatorConfig.useCustomTheme
-            ? customLigthTheme
-            : ThemeData.light(),
-        darkTheme: _authenticatorConfig.useCustomTheme
+        theme: (_authenticatorConfig.useCustomTheme
+            ? customLightTheme
+            : ThemeData.light()).copyWith(
+          visualDensity: VisualDensity.standard,
+        ),
+        darkTheme: (_authenticatorConfig.useCustomTheme
             ? customDarkTheme
-            : ThemeData.dark(),
+            : ThemeData.dark()).copyWith(
+          visualDensity: VisualDensity.standard,
+        ),
         themeMode: _authenticatorConfig.themeMode,
         home: Scaffold(
           appBar: AppBar(),
@@ -341,7 +345,7 @@ Widget? customBuilder(BuildContext context, AuthenticatorState state) {
   }
 }
 
-ThemeData customLigthTheme = ThemeData.from(
+ThemeData customLightTheme = ThemeData.from(
   colorScheme: ColorScheme.fromSwatch(
     primarySwatch: Colors.indigo,
     backgroundColor: Colors.white,
