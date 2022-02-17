@@ -1,5 +1,12 @@
+@import '@maplibre/maplibre-gl-geocoder/dist/maplibre-gl-geocoder.css';
 @import 'maplibre-gl/dist/maplibre-gl.css';
 
-[data-amplify-map] .overlays {
-  pointer-events: none;
+.mapboxgl-popup-content,
+.maplibregl-popup-content {
+  border: 2px solid #0000001f;
+  border-radius: 4px;
+}
+
+.maplibre-ctrl-geocoder--suggestion {
+  border: none;
 }
