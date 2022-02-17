@@ -14,6 +14,7 @@ const ToggleButtonGroupPrimitive: Primitive<
     children,
     className,
     isExclusive,
+    isSelectionRequired,
     onChange,
     size,
     value,
@@ -22,7 +23,12 @@ const ToggleButtonGroupPrimitive: Primitive<
   },
   ref
 ) => {
-  const handleChange = useToggleButtonGroup(onChange, value, isExclusive);
+  const handleChange = useToggleButtonGroup(
+    onChange,
+    value,
+    isExclusive,
+    isSelectionRequired
+  );
 
   return (
     <Flex
