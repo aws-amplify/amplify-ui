@@ -184,11 +184,7 @@ export type AuthInputAttributes = Record<
 >;
 
 export interface ActorDoneData {
-  authAttributes?: {
-    username?: string;
-    password?: string;
-    [other_attributes: string]: string;
-  };
+  authAttributes?: AuthFormData;
   intent?: string;
 }
 
