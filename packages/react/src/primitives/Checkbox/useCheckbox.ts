@@ -25,5 +25,5 @@ export const useCheckbox = (
     setDataFocus(false);
   };
 
-  return { dataChecked, dataFocus, onBlur, onChange, onFocus };
+  return { dataChecked, dataFocus, onBlur, onChange, onFocus, setDataChecked };
 };

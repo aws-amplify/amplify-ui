@@ -48,6 +48,8 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
   ref
 ) => {
   const fieldId = useStableId(id);
+  const labelId = useStableId();
+  const descriptionId = useStableId();
 
   const { flexContainerStyleProps, rest } = splitPrimitiveProps(_rest);
 
@@ -86,7 +88,7 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
     >
       <Label
         className={ComponentClassNames.SliderFieldLabel}
-        id={fieldId}
+        id={labelId}
         testId={SLIDER_LABEL_TEST_ID}
         visuallyHidden={labelHidden}
       >
@@ -94,11 +96,13 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
         {!isValueHidden ? <View as="span">{currentValue}</View> : null}
       </Label>
       <FieldDescription
+        id={descriptionId}
         labelHidden={labelHidden}
         descriptiveText={descriptiveText}
       />
       <FieldGroup
         className={ComponentClassNames.SliderFieldGroup}
+        id={fieldId}
         orientation={orientation}
         outerStartComponent={outerStartComponent}
         outerEndComponent={outerEndComponent}
@@ -129,7 +133,8 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
             />
           </Track>
           <Thumb
-            aria-describedby={fieldId}
+            aria-describedby={descriptionId}
+            aria-labelledby={labelId}
             aria-valuetext={ariaValuetext}
             className={ComponentClassNames.SliderFieldThumb}
             style={{ backgroundColor: thumbColor }}

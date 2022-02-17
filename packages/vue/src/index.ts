@@ -78,3 +78,8 @@ export {
   AmplifyButton,
   useAuthenticator,
 };
+
+/**
+ * Re-export public APIs from `@aws-amplify/ui`
+ */
+export { translations } from '@aws-amplify/ui';
