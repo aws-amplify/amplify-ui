@@ -286,5 +286,24 @@ describe('SelectField test suite', () => {
         expect(option.innerHTML).toBe(optionString);
       });
     });
+
+    it('logs a warning to the console if the customer passes both children and options', async () => {
+      const warningMessage =
+        'Amplify UI: <SelectField> component  defaults to rendering children over `options`. When using the `options` prop, omit children.';
+      const spy = jest.spyOn(console, 'warn');
+
+      const optionStrings = ['lions', 'tigers', 'bears'];
+      render(
+        <SelectField label={label} options={optionStrings}>
+          <option value="lions">lions</option>
+          <option value="tigers">tigers</option>
+          <option value="bears">bears</option>
+        </SelectField>
+      );
+
+      expect(console.warn).toHaveBeenCalledWith(warningMessage);
+
+      spy.mockClear();
+    });
   });
 });

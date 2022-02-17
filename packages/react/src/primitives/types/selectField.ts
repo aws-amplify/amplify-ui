@@ -7,7 +7,7 @@ export interface SelectFieldProps
     FlexContainerStyleProps,
     SelectProps {
   /**
-   * Accepts an array of strings which maps to the value, label and children of each option tag in the SelectField
+   * List of option values for select dropdown
    */
   options?: string[];
 }
