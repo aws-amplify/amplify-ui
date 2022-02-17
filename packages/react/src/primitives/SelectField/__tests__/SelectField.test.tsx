@@ -290,7 +290,8 @@ describe('SelectField test suite', () => {
     it('logs a warning to the console if the customer passes both children and options', async () => {
       const warningMessage =
         'Amplify UI: <SelectField> component  defaults to rendering children over `options`. When using the `options` prop, omit children.';
-      const spy = jest.spyOn(console, 'warn');
+      const originalWarn = console.warn;
+      console.warn = jest.fn();
 
       const optionStrings = ['lions', 'tigers', 'bears'];
       render(
@@ -303,7 +304,7 @@ describe('SelectField test suite', () => {
 
       expect(console.warn).toHaveBeenCalledWith(warningMessage);
 
-      spy.mockClear();
+      console.warn = originalWarn;
     });
   });
 });
