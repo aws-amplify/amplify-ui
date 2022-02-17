@@ -1,7 +1,9 @@
+import maplibregl from 'maplibre-gl';
 import { createAmplifyGeocoder } from 'maplibre-gl-js-amplify';
 import { useEffect, useRef } from 'react';
 
 const GEOCODER_OPTIONS = {
+  maplibregl,
   popup: true,
   showResultsWhileTyping: true,
 };
