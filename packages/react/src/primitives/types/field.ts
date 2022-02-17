@@ -40,3 +40,5 @@ export interface FieldErrorMessageProps
     Pick<InputProps, 'hasError'> {}
 
 export type FieldVariations = 'quiet';
+
+export type LabelPositions = 'start' | 'end' | 'top' | 'bottom';
