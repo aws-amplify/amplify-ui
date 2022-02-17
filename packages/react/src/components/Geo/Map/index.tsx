@@ -6,29 +6,11 @@ import { AmplifyMapLibreRequest } from 'maplibre-gl-js-amplify';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import ReactMapGL from 'react-map-gl';
 
-import { Loader, View } from '../../primitives';
+import { Loader, View } from '../../../primitives';
 
-export const Map = ({
-  bearing = 0,
-  children,
-  height,
-  latitude = 0,
-  longitude = 0,
-  pitch = 0,
-  style,
-  width,
-  zoom = 0,
-  ...rest
-}: any) => {
+export const Map = ({ children, style, ...rest }: any) => {
   const mapRef = useRef<any>();
   const [transformRequest, setTransformRequest] = useState<any>();
-  const [viewport, setViewport] = useState({
-    bearing,
-    latitude,
-    longitude,
-    pitch,
-    zoom,
-  });
   const service = useInterpret(mapMachine);
   const { send } = service;
   const state: any = useSelector(service, identity);
@@ -50,22 +32,9 @@ export const Map = ({
     [send]
   );
 
-  const handleMapMoveEnd = useCallback(
-    ({ target: map }) => {
-      if (state.matches('transitioning')) {
-        const { lat: latitude, lng: longitude } = map.getCenter();
-        setViewport({
-          bearing: map.getBearing(),
-          latitude,
-          longitude,
-          pitch: map.getPitch(),
-          zoom: map.getZoom(),
-        });
-        send('TRANSITION_END');
-      }
-    },
-    [state.value, send]
-  );
+  const handleMapMoveEnd = useCallback(() => {
+    send('TRANSITION_END');
+  }, [state.value, send]);
 
   useEffect(() => {
     const makeRequestTransformer = async () => {

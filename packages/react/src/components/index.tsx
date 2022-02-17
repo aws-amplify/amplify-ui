@@ -1,3 +1,3 @@
 export * from './AmplifyProvider';
 export * from './Authenticator';
-export * from './Map';
+export * from './Geo';

@@ -10,7 +10,7 @@ const GEOCODER_OPTIONS = {
 
 const GEOCODER_CONTAINER = 'geocoder-container';
 
-export const Geocoder = (props) => {
+export const Geocoder = ({ position = 'top-right', style = {}, ...props }) => {
   const geocoder: any = useRef();
 
   useEffect(() => {
@@ -23,8 +23,17 @@ export const Geocoder = (props) => {
         });
 
         map
-          ? map?.addControl(geocoder.current)
+          ? map?.addControl(geocoder.current, position)
           : geocoder.current.addTo(`#${GEOCODER_CONTAINER}`);
+
+        if (typeof window !== 'undefined') {
+          document
+            .querySelectorAll('.maplibregl-ctrl-geocoder')
+            .forEach((geocoderEl: HTMLElement) => {
+              geocoderEl.setAttribute('data-amplify-geocoder', '');
+              Object.assign(geocoderEl.style, style);
+            });
+        }
       }
     };
 
