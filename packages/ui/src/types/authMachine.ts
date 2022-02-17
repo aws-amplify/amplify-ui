@@ -2,6 +2,8 @@ import { CognitoUser, CodeDeliveryDetails } from 'amazon-cognito-identity-js';
 import { Interpreter, State } from 'xstate';
 import { ValidationError } from './validator';
 import { defaultServices } from '../machines/authenticator/defaultServices';
+import { AuthenticatorMachineOptions } from '../machines';
+import { FederatedIdentityProviders } from '../helpers';
 
 export type AuthFormData = Record<string, string>;
 
@@ -182,12 +184,101 @@ export type AuthInputAttributes = Record<
   InputAttributes
 >;
 
+export interface ActorDoneData {
+  user?: CognitoUserAmplify;
+  authAttributes?: {
+    username?: string;
+    password?: string;
+    [other_attributes: string]: string;
+  };
+  intent?: string;
+}
+
 export type AuthEventData = Record<PropertyKey, any>; // TODO: this should be typed further
 
-export interface AuthEvent {
-  type: AuthEventTypes;
-  data?: AuthEventData;
-}
+export type AuthEvent =
+  | {
+      type: 'INIT';
+      data: AuthenticatorMachineOptions;
+    }
+  | {
+      type: 'SIGN_UP' | 'RESET_PASSWORD' | 'SIGN_IN' | 'SIGN_OUT';
+    }
+  | {
+      /**
+       * This event is called to provide awsExports content to
+       */
+      type: 'done.invoke.authenticator.setup:invocation[1]';
+      data: Record<PropertyKey, any>; // awsExports content
+    }
+  | {
+      /**
+       * This event is called after signUp actor is done.
+       */
+      type: 'done.invoke.signInActor';
+      data: {
+        user: CognitoUserAmplify;
+        intent: string;
+        authAttributes: Record<string, any>;
+      };
+    }
+  | {
+      /**
+       * This event is called after signUp actor is done.
+       */
+      type: 'done.invoke.signUpActor';
+      data: ActorDoneData;
+    }
+  | {
+      type: 'done.invoke.resetPasswordActor';
+      data: ActorDoneData;
+    }
+  | {
+      type: 'done.invoke.signOutActor';
+    }
+  | {
+      /**
+       * This event is called if `getCurrentUser` invocation was successful on
+       * `setup` state.
+       */
+      type: 'done.invoke.authenticator.setup:invocation[0]';
+      data: CognitoUserAmplify;
+    }
+  | {
+      /**
+       * This event is called when `getCurrentUser` invocation fails on `setup`
+       * state.
+       */
+      type: 'error.platform.authenticator.setup:invocation[0]';
+      data: Partial<CognitoUserAmplify & ActorDoneData>;
+    }
+  | {
+      type: 'CHANGE';
+      data: {
+        name: string;
+        value: string;
+      };
+    }
+  | {
+      type: 'BLUR';
+      data: {
+        name: string;
+      };
+    }
+  | {
+      type: 'SUBMIT';
+      data: Record<string, string>;
+    }
+  | {
+      type: 'FEDERATED_SIGN_IN';
+      data: { provider: FederatedIdentityProviders };
+    }
+  | {
+      type: 'RESEND';
+    }
+  | {
+      type: 'SKIP';
+    };
 
 export type AuthMachineState = State<AuthContext, AuthEvent>;
 
