@@ -25,12 +25,12 @@ The `PhoneNumberField` form primitive can be used allow users to input a phone n
 
 ## Usage
 
-Import the `PhoneNumberField` component and styles and provide a `label` for accessibility/usability as well as a `defaultCountryCode`
+Import the `PhoneNumberField` component and provide a `label` for accessibility/usability as well as a `defaultCountryCode`
 which will auto-populate the country or region code select field.
+The `PhoneNumberField` component will also accept any of the native HTML properties that are accepted by an `input` tag.
 
 ```jsx
 import { PhoneNumberField } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
 
 <PhoneNumberField defaultCountryCode="+1" label="Phone Number" />;
 ```

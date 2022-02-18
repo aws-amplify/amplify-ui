@@ -26,11 +26,11 @@ The PasswordField primitive allows users to input passwords. It also features fu
 
 ## Usage
 
-Import the `PasswordField` component and styles and provide a `label` for accessibility/usability.
+Import the `PasswordField` component and provide a `label` for accessibility/usability.
+The `PasswordField` component will also accept any of the native HTML properties that are accepted by an `input` tag.
 
 ```jsx
 import { PasswordField } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
 
 <PasswordField label="Password" name="password" />;
 ```
