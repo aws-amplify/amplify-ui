@@ -4,7 +4,7 @@ import {
   IconKeyboardArrowUp,
 } from '@aws-amplify/ui-react';
 import classNames from 'classnames';
-import React from 'react';
+import * as React from 'react';
 
 interface DemoBoxProps {
   primitiveName: string;
