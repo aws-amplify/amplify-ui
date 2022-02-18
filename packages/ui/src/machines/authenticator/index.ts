@@ -142,6 +142,7 @@ export function createAuthenticatorMachine() {
           },
         },
         signOut: {
+          initial: 'spawnActor',
           states: {
             spawnActor: {
               always: { actions: 'spawnSignOutActor', target: 'runActor' },
