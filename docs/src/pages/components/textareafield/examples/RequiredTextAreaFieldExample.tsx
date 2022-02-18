@@ -2,7 +2,7 @@ import { Button, Flex, Text, TextAreaField } from '@aws-amplify/ui-react';
 
 export const RequiredTextAreaFieldExample = () => {
   return (
-    <Flex as="form" direction="column" width="20rem">
+    <Flex as="form" direction="column">
       <TextAreaField
         label={
           <Text>
