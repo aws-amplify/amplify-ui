@@ -1,11 +1,11 @@
 import { Property } from 'csstype';
 
-import { TextInputFieldProps } from './textField';
+import { TextFieldProps } from './textField';
 import { ViewProps } from './view';
 
 type SliderOrientation = 'horizontal' | 'vertical';
 
-export interface SliderFieldProps extends TextInputFieldProps, ViewProps {
+export interface SliderFieldProps extends TextFieldProps, ViewProps {
   min?: number;
   max?: number;
   step?: number;

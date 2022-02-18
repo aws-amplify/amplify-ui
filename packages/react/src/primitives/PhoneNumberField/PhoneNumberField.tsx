@@ -46,7 +46,6 @@ const PhoneNumberFieldPrimitive: Primitive<PhoneNumberFieldProps, 'input'> = (
       className={classNames(ComponentClassNames.PhoneNumberField, className)}
       hasError={hasError}
       isDisabled={isDisabled}
-      isMultiline={false}
       onInput={onInput}
       ref={ref}
       size={size}

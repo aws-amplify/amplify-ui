@@ -1,9 +1,9 @@
 import * as React from 'react';
 
 import { SelectFieldProps } from './selectField';
-import { TextInputFieldProps } from './textField';
+import { TextFieldProps } from './textField';
 
-export interface PhoneNumberFieldProps extends TextInputFieldProps {
+export interface PhoneNumberFieldProps extends TextFieldProps {
   countryCodeLabel?: string;
   countryCodeName?: string;
   defaultCountryCode: string;
