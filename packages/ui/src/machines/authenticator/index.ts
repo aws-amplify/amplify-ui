@@ -95,7 +95,7 @@ export function createAuthenticatorMachine() {
               },
               {
                 target: 'authenticated',
-                actions: ['setActorDoneData'],
+                actions: 'setActorDoneData',
               },
             ],
           },
