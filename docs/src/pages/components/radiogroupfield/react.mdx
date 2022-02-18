@@ -41,11 +41,11 @@ import '@aws-amplify/ui-react/styles.css';
 ### Controlled component
 
 ```jsx
-import { useState } from 'react';
+import * as React from 'react';
 import { RadioGroupField, Radio } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
-const [value, setValue] = useState('html');
+const [value, setValue] = React.useState('html');
 
 <RadioGroupField
   label="Language"
