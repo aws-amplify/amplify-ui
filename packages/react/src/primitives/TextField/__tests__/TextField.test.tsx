@@ -12,6 +12,8 @@ import { AUTO_GENERATED_ID_PREFIX } from '../../shared/utils';
 
 const label = 'Field';
 const testId = 'testId';
+const originalWarn = console.warn;
+
 describe('TextField component', () => {
   describe('wrapper Flex', () => {
     it('should render default and custom classname ', async () => {
@@ -157,6 +159,13 @@ describe('TextField component', () => {
   });
 
   describe('Multiline textarea field', () => {
+    beforeAll(() => {
+      console.warn = jest.fn();
+    });
+    afterAll(() => {
+      console.warn = originalWarn;
+    });
+
     it('should render labeled textarea when id is provided', async () => {
       render(
         <TextField
@@ -170,6 +179,8 @@ describe('TextField component', () => {
       expect(field.tagName).toBe('TEXTAREA');
       expect(field).toHaveClass(ComponentClassNames.Textarea);
       expect(field.id).toBe('testField');
+      // Show deprecation message
+      expect(console.warn).toBeCalledTimes(1);
     });
 
     it('should forward ref to DOM element', async () => {

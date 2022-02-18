@@ -1,5 +1,6 @@
 import { DividerOptions } from '@aws-amplify/ui-react';
-import { useState } from 'react';
+import * as React from 'react';
+
 import { DividerPropControlsProps } from './DividerPropControls';
 
 interface UseDividerProps {
@@ -7,10 +8,12 @@ interface UseDividerProps {
 }
 
 export const useDividerProps: UseDividerProps = (initialValues) => {
-  const [size, setSize] = useState<DividerOptions['size']>(initialValues.size);
-  const [orientation, setOrientation] = useState<DividerOptions['orientation']>(
-    initialValues.orientation
+  const [size, setSize] = React.useState<DividerOptions['size']>(
+    initialValues.size
   );
+  const [orientation, setOrientation] = React.useState<
+    DividerOptions['orientation']
+  >(initialValues.orientation);
 
   return {
     size,

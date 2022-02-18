@@ -27,14 +27,22 @@ const enterCode = computed(() => translate('Enter your code'));
 const confirmationCodeText = computed(() => translate('Confirmation Code'));
 const resendCodeText = computed(() => translate('Resend Code'));
 const confirmText = computed(() => translate('Confirm'));
+const emailMessage = translate(
+  'Your code is on the way. To log in, enter the code we emailed to'
+);
+const textedMessage = translate(
+  'Your code is on the way. To log in, enter the code we texted to'
+);
+const defaultMessage = translate(
+  'Your code is on the way. To log in, enter the code we sent you. It may take a minute to arrive.'
+);
+const minutesMessage = translate('It may take a minute to arrive.');
 const subtitleText = computed(() => {
   return codeDeliveryDetails.value?.DeliveryMedium === 'EMAIL'
-    ? `Your code is on the way. To log in, enter the code we emailed to ${codeDeliveryDetails.value?.Destination}. It may take a minute to arrive.`
+    ? `${emailMessage} ${codeDeliveryDetails.value?.Destination}. ${minutesMessage}`
     : codeDeliveryDetails.value?.DeliveryMedium === 'SMS'
-    ? `Your code is on the way. To log in, enter the code we texted to ${codeDeliveryDetails.value?.Destination}. It may take a minute to arrive.`
-    : translate(
-        `Your code is on the way. To log in, enter the code we sent you. It may take a minute to arrive.`
-      );
+    ? `${textedMessage} ${codeDeliveryDetails.value?.Destination}. ${minutesMessage}`
+    : translate(`${defaultMessage}`);
 });
 
 // Methods
