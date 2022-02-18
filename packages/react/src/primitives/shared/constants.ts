@@ -103,7 +103,7 @@ export enum ComponentClassNames {
   Tabs = 'amplify-tabs',
   TabItems = 'amplify-tabs-item',
   Text = 'amplify-text',
-  TextArea = 'amplify-textarea',
+  Textarea = 'amplify-textarea',
   TextField = 'amplify-textfield',
   TextAreaField = 'amplify-textareafield',
   ToggleButton = 'amplify-togglebutton',

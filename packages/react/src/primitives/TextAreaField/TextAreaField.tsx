@@ -2,15 +2,14 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { ComponentClassNames } from '../shared/constants';
-import { splitPrimitiveProps } from '../shared/styleUtils';
 import { FieldDescription, FieldErrorMessage } from '../Field';
+import { Flex } from '../Flex';
 import { Label } from '../Label';
 import { Primitive } from '../types';
-import { TextAreaFieldProps } from '../types/textAreaField';
-
-import { useStableId } from '../shared/utils';
-import { Flex } from '../Flex';
+import { splitPrimitiveProps } from '../shared/styleUtils';
 import { TextArea } from '../TextArea';
+import { TextAreaFieldProps } from '../types/textAreaField';
+import { useStableId } from '../shared/utils';
 
 export const DEFAULT_ROW_COUNT = 3;
 
@@ -58,12 +57,12 @@ const TextAreaFieldPrimitive: Primitive<TextAreaFieldProps, 'textarea'> = (
         descriptiveText={descriptiveText}
       />
       <TextArea
-        id={fieldId}
         aria-describedby={descriptionId}
-        rows={rows ?? DEFAULT_ROW_COUNT}
         hasError={hasError}
-        size={size}
+        id={fieldId}
         ref={ref}
+        rows={rows ?? DEFAULT_ROW_COUNT}
+        size={size}
         {...baseStyleProps}
         {...rest}
       />
@@ -74,4 +73,4 @@ const TextAreaFieldPrimitive: Primitive<TextAreaFieldProps, 'textarea'> = (
 
 export const TextAreaField = React.forwardRef(TextAreaFieldPrimitive);
 
-TextAreaField.displayName = 'TextArea';
+TextAreaField.displayName = 'TextAreaField';

@@ -22,7 +22,7 @@ const TextAreaPrimitive: Primitive<TextAreaProps, 'textarea'> = (
     aria-invalid={hasError}
     as="textarea"
     className={classNames(
-      ComponentClassNames.TextArea,
+      ComponentClassNames.Textarea,
       ComponentClassNames.FieldGroupControl,
       className
     )}
