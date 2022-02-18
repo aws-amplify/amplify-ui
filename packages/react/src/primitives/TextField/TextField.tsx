@@ -51,7 +51,7 @@ const TextFieldPrimitive = <Multiline extends boolean>(
     splitPrimitiveProps(_rest);
 
   useDeprecationWarning({
-    shouldWarn: props.isMultiline === true,
+    shouldWarn: props.isMultiline,
     message:
       'TextField isMultiLine prop will be deprecated in next major release of @aws-amplify/ui-react. Please use TextAreaField component instead.',
   });

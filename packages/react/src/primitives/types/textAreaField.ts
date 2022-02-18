@@ -1,4 +1,4 @@
-import { TextAreaProps } from '.';
+import { TextAreaProps } from './textArea';
 import { FieldProps } from './field';
 import { FlexContainerStyleProps } from './flex';
 
