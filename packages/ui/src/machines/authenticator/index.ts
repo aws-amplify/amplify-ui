@@ -72,8 +72,7 @@ export function createAuthenticatorMachine() {
           initial: 'spawnActor',
           states: {
             spawnActor: {
-              entry: 'spawnSignInActor',
-              always: 'runActor',
+              always: { actions: 'spawnSignInActor', target: 'runActor' },
             },
             runActor: {
               entry: 'clearActorDoneData',
@@ -105,8 +104,7 @@ export function createAuthenticatorMachine() {
           initial: 'spawnActor',
           states: {
             spawnActor: {
-              entry: 'spawnSignUpActor',
-              always: 'runActor',
+              always: { actions: 'spawnSignUpActor', target: 'runActor' },
             },
             runActor: {
               entry: 'clearActorDoneData',
@@ -125,8 +123,10 @@ export function createAuthenticatorMachine() {
           initial: 'spawnActor',
           states: {
             spawnActor: {
-              entry: 'spawnResetPasswordActor',
-              always: 'runActor',
+              always: {
+                actions: 'spawnResetPasswordActor',
+                target: 'runActor',
+              },
             },
             runActor: {
               entry: 'clearActorDoneData',
@@ -144,8 +144,7 @@ export function createAuthenticatorMachine() {
         signOut: {
           states: {
             spawnActor: {
-              entry: 'spawnSignOutActor',
-              always: 'runActor',
+              always: { actions: 'spawnSignOutActor', target: 'runActor' },
             },
             runActor: {
               entry: 'clearActorDoneData',
