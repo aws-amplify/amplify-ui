@@ -106,6 +106,7 @@ export enum ComponentClassNames {
   Text = 'amplify-text',
   Textarea = 'amplify-textarea',
   TextField = 'amplify-textfield',
+  TextAreaField = 'amplify-textareafield',
   ToggleButton = 'amplify-togglebutton',
   ToggleButtonGroup = 'amplify-togglebuttongroup',
   VisuallyHidden = 'amplify-visually-hidden',

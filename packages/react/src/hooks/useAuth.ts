@@ -1,6 +1,7 @@
+import * as React from 'react';
+
 import Auth, { CognitoUser } from '@aws-amplify/auth';
 import { Hub } from '@aws-amplify/core';
-import { useEffect, useState } from 'react';
 
 // Exposes relevant CognitoUser properties
 interface AuthUser extends CognitoUser {
@@ -20,7 +21,7 @@ export interface UseAuthResult {
  * @internal
  */
 export const useAuth = (): UseAuthResult => {
-  const [result, setResult] = useState<UseAuthResult>({
+  const [result, setResult] = React.useState<UseAuthResult>({
     error: undefined,
     isLoading: true,
     user: undefined,
@@ -51,7 +52,7 @@ export const useAuth = (): UseAuthResult => {
     return () => Hub.remove('auth', handleAuth);
   };
 
-  useEffect(fetch, []);
+  React.useEffect(fetch, []);
 
   return { ...result, fetch };
 };
