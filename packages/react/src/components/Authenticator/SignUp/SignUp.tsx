@@ -5,7 +5,11 @@ import { Button, Flex, View } from '../../..';
 import { FederatedSignIn } from '../FederatedSignIn';
 import { RemoteErrorMessage } from '../shared';
 import { FormFields } from './FormFields';
-import { isInputOrSelectElement, isInputElement } from '../../../helpers/utils';
+import {
+  isInputOrSelectElement,
+  isInputElement,
+  getFormDataFromEvent,
+} from '../../../helpers/utils';
 import { useCustomComponents } from '../hooks/useCustomComponents';
 
 export function SignUp() {
@@ -39,11 +43,7 @@ export function SignUp() {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    const formData = new FormData(event.target as HTMLFormElement);
-    const json = Object.fromEntries(formData);
-
-    submitForm(json);
+    submitForm(getFormDataFromEvent(event));
   };
 
   return (

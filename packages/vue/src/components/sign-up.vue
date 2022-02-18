@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, useAttrs, toRefs } from 'vue';
-import { translate } from '@aws-amplify/ui';
+import { translate, getFormDataFromEvent } from '@aws-amplify/ui';
 
 import FederatedSignIn from './federated-sign-in.vue';
 import AuthenticatorSignUpFormFields from './authenticator-sign-up-form-fields.vue';
@@ -38,11 +38,7 @@ const onSignUpSubmit = (e: Event): void => {
 
 const submit = (e: Event): void => {
   e.preventDefault();
-
-  const formData = new FormData(e.target as HTMLFormElement);
-  const json = Object.fromEntries(formData);
-
-  props.submitForm(json);
+  props.submitForm(getFormDataFromEvent(e));
 };
 </script>
 

@@ -1,6 +1,6 @@
 import { Component, HostBinding, Input } from '@angular/core';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
-import { translate } from '@aws-amplify/ui';
+import { translate, getFormDataFromEvent } from '@aws-amplify/ui';
 
 @Component({
   selector: 'amplify-sign-up',
@@ -27,10 +27,6 @@ export class SignUpComponent {
 
   onSubmit(event: Event): void {
     event.preventDefault();
-
-    const formData = new FormData(event.target as HTMLFormElement);
-    const json = Object.fromEntries(formData);
-
-    this.authenticator.submitForm(json);
+    this.authenticator.submitForm(getFormDataFromEvent(event));
   }
 }
