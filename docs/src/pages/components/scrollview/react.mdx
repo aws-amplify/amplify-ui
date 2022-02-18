@@ -1,9 +1,13 @@
 import { Flex, Image, ScrollView } from '@aws-amplify/ui-react';
 
 import { ScrollViewDemo } from './demo';
-import { Example } from '@/components/Example';
-
-`ScrollView` is essentially a `View` that allows scrolling of its inner contents. See also [View](/ui/primitives/view?platform=react).
+import {
+  DefaultScrollViewExample,
+  ScrollViewHorizontalExample,
+  ScrollViewStylePropsExample,
+  ScrollViewVerticalExample,
+} from './examples';
+import { Example, ExampleCode } from '@/components/Example';
 
 ## Demo
 
@@ -11,33 +15,16 @@ import { Example } from '@/components/Example';
 
 ## Usage
 
-Import the ScrollView component and styles.
-
-```jsx
-import { Image, ScrollView } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-<ScrollView height="300px" width="400px">
-  <Image
-    width="800px"
-    maxWidth="800px"
-    src="https://docs.amplify.aws/assets/logo-dark.svg"
-    alt="Amplify-logo"
-  />
-</ScrollView>;
-```
+Import the ScrollView component.
 
 <Example>
-  <Flex justifyContent="center">
-    <ScrollView height="300px" width="400px">
-      <Image
-        width="800px"
-        maxWidth="800px"
-        src="https://docs.amplify.aws/assets/logo-dark.svg"
-        alt="Amplify-logo"
-      />
-    </ScrollView>
-  </Flex>
+  <DefaultScrollViewExample />
+  <ExampleCode>
+    ```jsx file=./examples/DefaultScrollViewExample.tsx
+
+    ```
+
+  </ExampleCode>
 </Example>
 
 ### Orientation
@@ -48,89 +35,46 @@ _Notes: In order for overflow to have an effect, the block-level container must 
 
 **Default(Horizontal and Vertical)**
 
-```jsx
-import { Image, ScrollView } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-<ScrollView height="300px" width="400px">
-  <Image
-    width="800px"
-    maxWidth="800px"
-    src="https://docs.amplify.aws/assets/logo-dark.svg"
-    alt="Amplify-logo"
-  />
-</ScrollView>;
-```
-
 <Example>
-  <Flex justifyContent="center">
-    <ScrollView height="300px" width="400px">
-      <Image
-        width="800px"
-        maxWidth="800px"
-        src="https://docs.amplify.aws/assets/logo-dark.svg"
-        alt="Amplify-logo"
-      />
-    </ScrollView>
-  </Flex>
+  <DefaultScrollViewExample />
+  <ExampleCode>
+    ```jsx file=./examples/DefaultScrollViewExample.tsx
+
+    ```
+
+  </ExampleCode>
 </Example>
 
 **Horizontal**
 
-```css
-/* style.css */
-.horizontal-example {
-  overflow-wrap: normal;
-}
-```
-
-```jsx
-import { Image, ScrollView } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-import './style.css';
-
-<ScrollView
-  width="200px"
-  className="horizontal-example"
-  orientation="horizontal"
->
-  The value of Pi is 3.1415926535897932384626433832795029. The value of e is
-  2.7182818284590452353602874713526625.
-</ScrollView>;
-```
-
 <Example>
-  <ScrollView
-    width="200px"
-    className="horizontal-example"
-    orientation="horizontal"
-  >
-    {
-      'The value of Pi is 3.1415926535897932384626433832795029. The value of e is 2.7182818284590452353602874713526625.'
+  <ScrollViewHorizontalExample />
+  <ExampleCode>
+    ```css
+    /* style.css */
+    .horizontal-example {
+      overflow-wrap: normal;
     }
-  </ScrollView>
+    ```
+  </ExampleCode>
+  <ExampleCode>
+    ```jsx file=./examples/ScrollViewHorizontalExample.tsx
+
+    ```
+
+  </ExampleCode>
 </Example>
 
 **Vertical**
 
-```jsx
-import { Image, ScrollView } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-<ScrollView height="100px" width="200px" orientation="vertical">
-  Michaelmas term lately over, and the Lord Chancellor sitting in Lincoln's Inn
-  Hall. Implacable November weather. As much mud in the streets as if the waters
-  had but newly retired from the face of the earth.
-</ScrollView>;
-```
-
 <Example>
-  <ScrollView height="100px" width="200px" orientation="vertical">
-    {
-      "Michaelmas term lately over, and the Lord Chancellor sitting in Lincoln's Inn Hall. Implacable November weather. As much mud in the streets as if the waters had but newly retired from the face of the earth."
-    }
-  </ScrollView>
+  <ScrollViewVerticalExample />
+  <ExampleCode>
+    ```jsx file=./examples/ScrollViewVerticalExample.tsx
+
+    ```
+
+  </ExampleCode>
 </Example>
 
 ## CSS Styling
@@ -141,61 +85,46 @@ To override styling on a specific View, you can use a class selector or style pr
 
 _Using a class selector:_
 
-```css
-/* styles.css */
-.my-scrollview {
-  height: 100px;
-  width: 200px;
-  background-color: var(--amplify-colors-blue-40);
-}
-```
-
-```jsx
-import { ScrollView } from '@aws-amplify/ui-react';
-
-import './styles.css';
-
 <Example>
   <ScrollView className="my-scrollview">
     {
       "Michaelmas term lately over, and the Lord Chancellor sitting in Lincoln's Inn Hall. Implacable November weather. As much mud in the streets as if the waters had but newly retired from the face of the earth."
     }
   </ScrollView>
-</Example>;
-```
+  <ExampleCode>
+  ```css
+  /* styles.css */
+  .my-scrollview {
+    height: 100px;
+    width: 200px;
+    background-color: var(--amplify-colors-blue-40);
+  }
+  ```
+  </ExampleCode>
+  <ExampleCode>
+    ```jsx
+    import { ScrollView } from '@aws-amplify/ui-react';
 
-<Example>
-  <ScrollView className="my-scrollview">
-    {
-      "Michaelmas term lately over, and the Lord Chancellor sitting in Lincoln's Inn Hall. Implacable November weather. As much mud in the streets as if the waters had but newly retired from the face of the earth."
-    }
-  </ScrollView>
+    import './styles.css';
+
+    <ScrollView className="my-scrollview">
+      {
+        "Michaelmas term lately over, and the Lord Chancellor sitting in Lincoln's Inn Hall. Implacable November weather. As much mud in the streets as if the waters had but newly retired from the face of the earth."
+      }
+    </ScrollView>
+    ```
+
+  </ExampleCode>
 </Example>
 
 _Using style props:_
 
-```jsx
-import { ScrollView } from '@aws-amplify/ui-react';
-
-<ScrollView
-  height="100px"
-  width="200px"
-  backgroundColor="var(--amplify-colors-blue-40)"
->
-  {
-    "Michaelmas term lately over, and the Lord Chancellor sitting in Lincoln's Inn Hall. Implacable November weather. As much mud in the streets as if the waters had but newly retired from the face of the earth."
-  }
-</ScrollView>;
-```
-
 <Example>
-  <ScrollView
-    height="100px"
-    width="200px"
-    backgroundColor="var(--amplify-colors-blue-40)"
-  >
-    {
-      "Michaelmas term lately over, and the Lord Chancellor sitting in Lincoln's Inn Hall. Implacable November weather. As much mud in the streets as if the waters had but newly retired from the face of the earth."
-    }
-  </ScrollView>
+  <ScrollViewStylePropsExample />
+  <ExampleCode>
+    ```jsx file=./examples/ScrollViewStylePropsExample.tsx
+
+    ```
+
+  </ExampleCode>
 </Example>

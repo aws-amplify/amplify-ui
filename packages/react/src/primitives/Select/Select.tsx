@@ -1,14 +1,14 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
-import { Flex } from '../Flex';
-import { View } from '../View';
-import { IconExpandMore } from '../Icon';
-import { SelectProps } from '../types/select';
-import { PrimitiveWithForwardRef } from '../types';
 import { ComponentClassNames } from '../shared/constants';
+import { Flex } from '../Flex';
+import { IconExpandMore } from '../Icon';
+import { Primitive } from '../types';
+import { SelectProps } from '../types/select';
+import { View } from '../View';
 
-const SelectPrimitive: PrimitiveWithForwardRef<SelectProps, 'select'> = (
+const SelectPrimitive: Primitive<SelectProps, 'select'> = (
   {
     autoComplete,
     className,

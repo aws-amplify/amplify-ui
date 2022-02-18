@@ -39,7 +39,11 @@ export const ResetPassword = (): JSX.Element => {
       onChange={handleChange}
       onSubmit={handleSubmit}
     >
-      <Flex direction="column">
+      <fieldset
+        style={{ display: 'flex', flexDirection: 'column' }}
+        className="amplify-flex"
+        disabled={isPending}
+      >
         <Heading level={3}>{translate('Reset your password')}</Heading>
 
         <Flex direction="column">
@@ -66,7 +70,7 @@ export const ResetPassword = (): JSX.Element => {
             )
           }
         />
-      </Flex>
+      </fieldset>
     </form>
   );
 };

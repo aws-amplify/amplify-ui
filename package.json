@@ -1,9 +1,10 @@
 {
   "private": true,
   "scripts": {
-    "install": "yarn build",
-    "postinstall": "patch-package",
-    "build": "npx ultra -r --filter '@aws-amplify/*' build",
+    "build": "turbo run build --include-dependencies --no-deps --scope=*@aws-amplify/*",
+    "clean": "turbo run clean && rm -rf node_modules",
+    "setup": "yarn install && yarn build",
+    "refresh": "yarn clean && yarn setup",
     "angular": "yarn workspace @aws-amplify/ui-angular",
     "react": "yarn workspace @aws-amplify/ui-react",
     "ui": "yarn workspace @aws-amplify/ui",
@@ -11,6 +12,7 @@
     "angular-example": "yarn workspace angular-example",
     "docs": "yarn workspace docs",
     "next-example": "yarn workspace next-example",
+    "react-example": "yarn workspace next-example",
     "vue-example": "yarn workspace vue-example",
     "e2e": "yarn workspace e2e",
     "environments": "yarn workspace environments",
@@ -20,7 +22,26 @@
     "version:next": "yarn changeset version --snapshot next-$(git rev-parse --short=7 HEAD) && yarn angular build",
     "publish:next": "yarn changeset publish --tag next",
     "version:latest": "yarn changeset version && yarn angular build",
-    "publish:latest": "yarn changeset publish"
+    "publish:latest": "yarn changeset publish",
+    "canary:build": "yarn --cwd canary/ build",
+    "canary:install": "yarn --cwd canary/ install "
+  },
+  "turbo": {
+    "baseBranch": "origin/main",
+    "pipeline": {
+      "build": {
+        "outputs": [
+          ".next/**",
+          "dist/**"
+        ],
+        "dependsOn": [
+          "^build"
+        ]
+      },
+      "clean": {
+        "cache": false
+      }
+    }
   },
   "workspaces": [
     "docs",
@@ -32,28 +53,25 @@
   ],
   "resolutions": {
     "ansi-regex": "5.0.1",
-    "trim": "^0.0.3",
     "fs-extra": "^10.0.0",
-    "next": "^11.0.1",
-    "ws": "^7.4.6",
     "jest": "^26.6.3",
-    "ts-jest": "^26.5.6",
+    "json-schema": "^0.4.0",
+    "node-forge": "1.0.0",
     "prismjs": "^1.25.0",
+    "prism-react-renderer": "1.2.1",
+    "trim": "^0.0.3",
+    "ts-jest": "^26.5.6",
     "vscode-vue-languageservice": "0.27.26",
-    "json-schema": "^0.4.0"
-  },
-  "dependencies": {
-    "patch-package": "^6.4.7",
-    "postinstall-postinstall": "^2.1.0",
-    "tsup": "^4.14.0"
+    "ws": "^7.4.6"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.16.0",
     "@changesets/changelog-github": "0.4.1",
+    "@changesets/cli": "^2.16.0",
     "husky": ">=6",
     "lint-staged": ">=10",
     "prettier": "2.4.1",
-    "ultra-runner": "^3.10.5",
+    "tsup": "^5.11.9",
+    "turbo": "^1.0.23",
     "wait-on": "^6.0.0"
   },
   "lint-staged": {

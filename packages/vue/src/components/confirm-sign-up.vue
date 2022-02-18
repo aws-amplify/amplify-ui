@@ -1,17 +1,98 @@
+<script setup lang="ts">
+import { computed, useAttrs, toRefs } from 'vue';
+import { translate } from '@aws-amplify/ui';
+
+import { useAuthenticator } from '../composables/useAuth';
+import { createSharedComposable } from '@vueuse/core';
+
+const attrs = useAttrs();
+const emit = defineEmits(['confirmSignUpSubmit', 'lostCodeClicked']);
+
+const useAuthShared = createSharedComposable(useAuthenticator);
+const { isPending, error, codeDeliveryDetails } = toRefs(useAuthShared());
+const { submitForm, updateForm, resendCode } = useAuthShared();
+
+//computed properties
+
+// Only two types of delivery methods is EMAIL or SMS
+const confirmSignUpHeading = computed(() => {
+  return codeDeliveryDetails.value?.DeliveryMedium === 'EMAIL'
+    ? translate('We Emailed You')
+    : codeDeliveryDetails.value?.DeliveryMedium === 'SMS'
+    ? translate('We Texted You')
+    : translate('We Sent A Code');
+});
+
+const enterCode = computed(() => translate('Enter your code'));
+const confirmationCodeText = computed(() => translate('Confirmation Code'));
+const resendCodeText = computed(() => translate('Resend Code'));
+const confirmText = computed(() => translate('Confirm'));
+const emailMessage = translate(
+  'Your code is on the way. To log in, enter the code we emailed to'
+);
+const textedMessage = translate(
+  'Your code is on the way. To log in, enter the code we texted to'
+);
+const defaultMessage = translate(
+  'Your code is on the way. To log in, enter the code we sent you. It may take a minute to arrive.'
+);
+const minutesMessage = translate('It may take a minute to arrive.');
+const subtitleText = computed(() => {
+  return codeDeliveryDetails.value?.DeliveryMedium === 'EMAIL'
+    ? `${emailMessage} ${codeDeliveryDetails.value?.Destination}. ${minutesMessage}`
+    : codeDeliveryDetails.value?.DeliveryMedium === 'SMS'
+    ? `${textedMessage} ${codeDeliveryDetails.value?.Destination}. ${minutesMessage}`
+    : translate(`${defaultMessage}`);
+});
+
+// Methods
+const onInput = (e: Event): void => {
+  const { name, value } = <HTMLInputElement>e.target;
+  updateForm({ name, value });
+};
+
+const onConfirmSignUpSubmit = (e: Event): void => {
+  if (attrs?.onConfirmSignUpSubmit) {
+    emit('confirmSignUpSubmit', e);
+  } else {
+    submit(e);
+  }
+};
+
+const submit = (e: Event): void => {
+  submitForm();
+};
+
+const onLostCodeClicked = (): void => {
+  if (attrs?.onLostCodeClicked) {
+    emit('lostCodeClicked');
+  } else {
+    resendCode();
+  }
+};
+</script>
+
 <template>
   <slot v-bind="$attrs" name="confirmSignUpSlotI">
     <base-wrapper v-bind="$attrs">
       <base-form @input="onInput" @submit.prevent="onConfirmSignUpSubmit">
         <base-wrapper class="amplify-flex" style="flex-direction: column">
           <slot name="header">
-            <base-heading class="amplify-heading" :level="3">
+            <base-heading
+              class="amplify-heading"
+              style="font-size: 1.5rem"
+              :level="3"
+            >
               {{ confirmSignUpHeading }}
             </base-heading>
           </slot>
+          <base-text style="margin-bottom: 1rem">
+            {{ subtitleText }}
+          </base-text>
           <base-field-set
             class="amplify-flex"
             style="flex-direction: column"
-            :disabled="actorState.matches('confirmSignUp.pending')"
+            :disabled="isPending"
           >
             <base-wrapper
               class="amplify-flex amplify-field amplify-textfield"
@@ -38,8 +119,8 @@
             class="amplify-flex"
             style="flex-direction: column; align-items: unset"
           >
-            <base-alert v-if="actorState?.context?.remoteError">
-              {{ actorState?.context?.remoteError }}
+            <base-alert v-if="error">
+              {{ translate(error) }}
             </base-alert>
             <amplify-button
               class="amplify-field-group__control"
@@ -48,7 +129,7 @@
               data-variation="primary"
               type="submit"
               style="font-weight: normal"
-              :disabled="actorState.matches('confirmSignUp.pending')"
+              :disabled="isPending"
             >
               {{ confirmText }}
             </amplify-button>
@@ -74,72 +155,3 @@
     </base-wrapper>
   </slot>
 </template>
-
-<script setup lang="ts">
-import { computed, ComputedRef, useAttrs } from 'vue';
-import { getActorState, SignUpContext, translate } from '@aws-amplify/ui';
-
-import { useAuth } from '../composables/useAuth';
-
-const attrs = useAttrs();
-const emit = defineEmits(['confirmSignUpSubmit', 'lostCodeClicked']);
-
-const { state, send } = useAuth();
-const actorState = computed(() =>
-  getActorState(state.value)
-) as ComputedRef<any>;
-
-const context = actorState.value.context as SignUpContext;
-const username = context.user?.username ?? context.authAttributes?.username;
-
-//computed properties
-const enterCode = computed(() => translate('Enter your code'));
-const confirmSignUpHeading = computed(() => translate('Confirm Sign Up'));
-const confirmationCodeText = computed(() => translate('Confirmation Code'));
-const resendCodeText = computed(() => translate('Resend Code'));
-const confirmText = computed(() => translate('Confirm'));
-
-// Methods
-const onInput = (e: Event): void => {
-  const { name, value } = <HTMLInputElement>e.target;
-  send({
-    type: 'CHANGE',
-    //@ts-ignore
-    data: { name, value },
-  });
-};
-
-const onConfirmSignUpSubmit = (e: Event): void => {
-  if (attrs?.onConfirmSignUpSubmit) {
-    emit('confirmSignUpSubmit', e);
-  } else {
-    submit(e);
-  }
-};
-
-const submit = (e: Event): void => {
-  const formData = new FormData(<HTMLFormElement>e.target);
-  send({
-    type: 'SUBMIT',
-    //@ts-ignore
-    data: {
-      //@ts-ignore
-      ...Object.fromEntries(formData),
-      username,
-    },
-  });
-};
-
-const onLostCodeClicked = (): void => {
-  // do something
-  if (attrs?.onLostCodeClicked) {
-    emit('lostCodeClicked');
-  } else {
-    send({
-      type: 'RESEND',
-      //@ts-ignore
-      data: { username },
-    });
-  }
-};
-</script>

@@ -1,5 +1,6 @@
-import includes from 'lodash/includes';
+import { Hub } from 'aws-amplify';
 import { Sender } from 'xstate';
+import includes from 'lodash/includes';
 
 import { AuthContext } from '..';
 import {
@@ -10,6 +11,7 @@ import {
   AuthEventData,
   AuthEventTypes,
   AuthInputAttributes,
+  AuthMachineSend,
   AuthMachineState,
   LoginMechanism,
   LoginMechanismArray,
@@ -218,6 +220,7 @@ export const getServiceContextFacade = (state: AuthMachineState) => {
   const actorContext = getActorContext(state) as ActorContextWithForms;
   const error = actorContext?.remoteError;
   const validationErrors = { ...actorContext?.validationError };
+  const codeDeliveryDetails = actorContext?.codeDeliveryDetails;
   const hasValidationErrors = Object.keys(validationErrors).length > 0;
   const isPending =
     state.hasTag('pending') || getActorState(state)?.hasTag('pending');
@@ -225,6 +228,8 @@ export const getServiceContextFacade = (state: AuthMachineState) => {
     switch (true) {
       case state.matches('idle'):
         return 'idle';
+      case state.matches('setup'):
+        return 'setup';
       case state.matches('signOut'):
         return 'signOut';
       case state.matches('authenticated'):
@@ -265,6 +270,7 @@ export const getServiceContextFacade = (state: AuthMachineState) => {
     route,
     user,
     validationErrors,
+    codeDeliveryDetails,
   };
 };
 
@@ -276,4 +282,24 @@ export const getServiceFacade = ({ send, state }) => {
     ...sendEventAliases,
     ...serviceContext,
   };
+};
+
+/**
+ * Listens to external auth Hub events and sends corresponding event to
+ * the `authService` of interest
+ *
+ * @param send - `send` function associated with the `authService` of interest
+ *
+ * @returns function that unsubscribes to the hub evenmt
+ */
+export const listenToAuthHub = (send: AuthMachineSend) => {
+  return Hub.listen('auth', (data) => {
+    switch (data.payload.event) {
+      // TODO: We can add more cases here, according to
+      // https://docs.amplify.aws/lib/auth/auth-events/q/platform/js/
+      case 'signOut':
+        send('SIGN_OUT');
+        break;
+    }
+  });
 };

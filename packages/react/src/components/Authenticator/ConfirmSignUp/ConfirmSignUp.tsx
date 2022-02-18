@@ -1,8 +1,9 @@
 import { translate } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '../..';
-import { Button, Flex, Heading } from '../../..';
+import { Button, Flex, Heading, Text } from '../../..';
 import { isInputOrSelectElement, isInputElement } from '../../../helpers/utils';
+import { useCustomComponents } from '../hooks/useCustomComponents';
 
 import {
   ConfirmationCodeInput,
@@ -11,7 +12,21 @@ import {
 } from '../shared';
 
 export function ConfirmSignUp() {
-  const { isPending, resendCode, submitForm, updateForm } = useAuthenticator();
+  const {
+    isPending,
+    resendCode,
+    submitForm,
+    updateForm,
+    codeDeliveryDetails: { DeliveryMedium, Destination } = {},
+  } = useAuthenticator();
+  const {
+    components: {
+      ConfirmSignUp: {
+        Header = ConfirmSignUp.Header,
+        Footer = ConfirmSignUp.Footer,
+      },
+    },
+  } = useCustomComponents();
 
   const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
     if (isInputOrSelectElement(event.target)) {
@@ -32,11 +47,29 @@ export function ConfirmSignUp() {
     event.preventDefault();
     submitForm();
   };
+  const emailMessage = translate(
+    'Your code is on the way. To log in, enter the code we emailed to'
+  );
+  const textedMessage = translate(
+    'Your code is on the way. To log in, enter the code we texted to'
+  );
+  const defaultMessage = translate(
+    'Your code is on the way. To log in, enter the code we sent you. It may take a minute to arrive.'
+  );
+
+  const minutesMessage = translate('It may take a minute to arrive.');
 
   const confirmationCodeInputProps: ConfirmationCodeInputProps = {
     label: translate('Confirmation Code'),
     placeholder: translate('Enter your code'),
   };
+
+  const subtitleText =
+    DeliveryMedium === 'EMAIL'
+      ? `${emailMessage} ${Destination}. ${minutesMessage}`
+      : DeliveryMedium === 'SMS'
+      ? `${textedMessage} ${Destination}. ${minutesMessage}`
+      : translate(`${defaultMessage}`);
 
   return (
     // TODO Automatically add these namespaces again from `useAmplify`
@@ -47,10 +80,15 @@ export function ConfirmSignUp() {
       onChange={handleChange}
       onSubmit={handleSubmit}
     >
-      <Flex direction="column">
-        <Heading level={3}>{translate('Confirm Sign Up')}</Heading>
+      <fieldset
+        style={{ display: 'flex', flexDirection: 'column' }}
+        className="amplify-flex"
+        disabled={isPending}
+      >
+        <Header />
 
         <Flex direction="column">
+          <Text style={{ marginBottom: '1rem' }}>{subtitleText}</Text>
           <ConfirmationCodeInput {...confirmationCodeInputProps} />
 
           <RemoteErrorMessage />
@@ -70,7 +108,28 @@ export function ConfirmSignUp() {
             {translate('Resend Code')}
           </Button>
         </Flex>
-      </Flex>
+        <Footer />
+      </fieldset>
     </form>
   );
 }
+
+ConfirmSignUp.Header = () => {
+  const { codeDeliveryDetails: { DeliveryMedium, Destination } = {} } =
+    useAuthenticator();
+
+  const confirmSignUpHeading =
+    DeliveryMedium === 'EMAIL'
+      ? translate('We Emailed You')
+      : DeliveryMedium === 'SMS'
+      ? translate('We Texted You')
+      : translate('We Sent A Code');
+
+  return (
+    <Heading level={3} style={{ fontSize: '1.5rem' }}>
+      {confirmSignUpHeading}
+    </Heading>
+  );
+};
+
+ConfirmSignUp.Footer = (): JSX.Element => null;

@@ -16,25 +16,24 @@ const mockUseDebugValue = React.useDebugValue as jest.Mock<
 >;
 
 const breakpoints: Breakpoints = {
-  xl: 80,
-  small: 30,
+  xl: 1280,
+  small: 480,
   base: 0,
-  large: 62,
-  medium: 48,
-  xxl: 96,
+  medium: 768,
+  large: 992,
+  xxl: 1536,
 };
 
-const breakpointUnit = 'em';
 const defaultBreakpoint = 'base';
 
 let matchMedia: MatchMediaMock;
-let mediaQueries = getMediaQueries({ breakpointUnit: 'em', breakpoints });
+let mediaQueries = getMediaQueries({ breakpoints });
 
 const testBreakpoints = (m) => {
   it(`should return ${m.breakpoint} breakpoint`, () => {
     matchMedia.useMediaQuery(m.query);
     const { result } = renderHook(() =>
-      useBreakpoint({ breakpoints, breakpointUnit, defaultBreakpoint })
+      useBreakpoint({ breakpoints, defaultBreakpoint })
     );
     const breakpoint = result.current;
 
@@ -63,7 +62,7 @@ describe('useBreakpoint', () => {
 
   it('should return default breakpoint', () => {
     const { result } = renderHook(() =>
-      useBreakpoint({ breakpoints, breakpointUnit, defaultBreakpoint })
+      useBreakpoint({ breakpoints, defaultBreakpoint })
     );
     const breakpoint = result.current;
 

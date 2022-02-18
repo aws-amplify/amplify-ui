@@ -40,6 +40,9 @@ export const clearAttributeToVerify = assign({
   attributeToVerify: (_) => undefined,
 });
 export const clearChallengeName = assign({ challengeName: (_) => undefined });
+export const clearRequiredAttributes = assign({
+  requiredAttributes: (_) => undefined,
+});
 export const clearError = assign({ remoteError: (_) => '' });
 export const clearFormValues = assign({ formValues: (_) => ({}) });
 export const clearTouched = assign({ touched: (_) => ({}) });
@@ -54,6 +57,11 @@ export const clearValidationError = assign({ validationError: (_) => ({}) });
  */
 export const setChallengeName = assign({
   challengeName: (_, event: AuthEvent) => event.data?.challengeName,
+});
+
+export const setRequiredAttributes = assign({
+  requiredAttributes: (_, event: AuthEvent) =>
+    event.data?.challengeParam?.requiredAttributes,
 });
 
 export const setConfirmResetPasswordIntent = assign({
@@ -80,7 +88,12 @@ export const setFieldErrors = assign({
 });
 
 export const setRemoteError = assign({
-  remoteError: (_, event: AuthEvent) => event.data?.message || event.data,
+  remoteError: (_, event: AuthEvent) => {
+    if (event.data.name === 'NoUserPoolError') {
+      return `Configuration error (see console) – please contact the administrator`;
+    }
+    return event.data?.message || event.data;
+  },
 });
 
 export const setUnverifiedAttributes = assign({
@@ -93,6 +106,10 @@ export const setUser = assign({
 
 export const setUsername = assign({
   username: (context: ActorContextWithForms, _) => context.formValues.username,
+});
+
+export const setCodeDeliveryDetails = assign({
+  codeDeliveryDetails: (_, event: AuthEvent) => event.data.codeDeliveryDetails,
 });
 
 export const setUsernameAuthAttributes = assign({
@@ -119,5 +136,35 @@ export const handleBlur = assign({
       ...context['touched'],
       [`${name}`]: true,
     };
+  },
+});
+
+/**
+ * This action occurs on the entry to a state where a form submit action
+ * occurs. It combines the phone_number and country_code form values, parses
+ * the result, and updates the form values with the full phone number which is
+ * the required format by Cognito for form submission.
+ */
+export const parsePhoneNumber = assign({
+  formValues: (context: SignInContext | SignUpContext, _) => {
+    const [primaryAlias = 'username'] = context.loginMechanisms;
+
+    if (!context.formValues.phone_number && primaryAlias !== 'phone_number')
+      return context.formValues;
+
+    const { formValues, country_code: defaultCountryCode } = context;
+    const phoneAlias = formValues.phone_number ? 'phone_number' : 'username';
+
+    const parsedPhoneNumber = `${
+      formValues.country_code ?? defaultCountryCode
+    }${formValues[phoneAlias]}`.replace(/[^A-Z0-9+]/gi, '');
+
+    const updatedFormValues = {
+      ...formValues,
+      [phoneAlias]: parsedPhoneNumber,
+    };
+    delete updatedFormValues.country_code;
+
+    return updatedFormValues;
   },
 });

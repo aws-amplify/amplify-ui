@@ -228,6 +228,19 @@ describe('SelectField test suite', () => {
       const descriptiveField = await screen.queryByText(descriptiveText);
       expect(descriptiveField).toContainHTML(descriptiveText);
     });
+
+    it('should map to descriptive text correctly', async () => {
+      render(
+        <SelectField label={label} descriptiveText={descriptiveText}>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+        </SelectField>
+      );
+
+      const select = await screen.findByRole(role);
+      expect(select).toHaveAccessibleDescription(descriptiveText);
+    });
   });
 
   describe('Error messages', () => {
@@ -254,6 +267,44 @@ describe('SelectField test suite', () => {
       );
       const errorText = await screen.queryByText(errorMessage);
       expect(errorText.innerHTML).toContain(errorMessage);
+    });
+  });
+
+  describe('Options', () => {
+    it('correctly maps the options prop to corresponding option tags with matching value, label and children', async () => {
+      const optionStrings = ['lions', 'tigers', 'bears'];
+
+      render(<SelectField label={label} options={optionStrings}></SelectField>);
+
+      const selectFieldOptions = await screen.findAllByRole('option');
+      expect(selectFieldOptions.length).toBe(optionStrings.length);
+
+      selectFieldOptions.forEach((option, index) => {
+        const optionString = optionStrings[index];
+        expect(option).toHaveAttribute('value', optionString);
+        expect(option).toHaveAttribute('label', optionString);
+        expect(option.innerHTML).toBe(optionString);
+      });
+    });
+
+    it('logs a warning to the console if the customer passes both children and options', async () => {
+      const warningMessage =
+        'Amplify UI: <SelectField> component  defaults to rendering children over `options`. When using the `options` prop, omit children.';
+      const originalWarn = console.warn;
+      console.warn = jest.fn();
+
+      const optionStrings = ['lions', 'tigers', 'bears'];
+      render(
+        <SelectField label={label} options={optionStrings}>
+          <option value="lions">lions</option>
+          <option value="tigers">tigers</option>
+          <option value="bears">bears</option>
+        </SelectField>
+      );
+
+      expect(console.warn).toHaveBeenCalledWith(warningMessage);
+
+      console.warn = originalWarn;
     });
   });
 });

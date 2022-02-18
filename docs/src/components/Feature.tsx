@@ -12,7 +12,6 @@ import {
 } from '@heroicons/react/solid';
 import { useRouter } from 'next/router';
 import * as React from 'react';
-import { useEffect } from 'react';
 import * as runtime from 'react/jsx-runtime';
 import remarkGfm from 'remark-gfm';
 import { evaluateSync } from 'xdm';
@@ -61,7 +60,7 @@ export function Feature({ name = required('Missing feature name') }) {
 
   const port = getPortForPlatform(platform);
 
-  useEffect(() => {
+  React.useEffect(() => {
     import(`../../../packages/e2e/features${pathname}/${name}.feature`).then(
       (exports) => setSource(exports.default)
     );
@@ -130,6 +129,7 @@ export function Feature({ name = required('Missing feature name') }) {
                   <td>
                     <a
                       href={`http://localhost:${port}${pathname}/${name}`}
+                      rel="noreferrer"
                       target="_blank"
                     >
                       <span className="sr-only">Demo</span>
@@ -142,6 +142,7 @@ export function Feature({ name = required('Missing feature name') }) {
                     href={`${getGitHubUrlForExample(
                       platform
                     )}${pathname}/${name}`}
+                    rel="noreferrer"
                     target="_blank"
                   >
                     <span className="sr-only">Source</span>
@@ -151,6 +152,7 @@ export function Feature({ name = required('Missing feature name') }) {
                 <td>
                   <a
                     href={`https://github.com/aws-amplify/amplify-ui/blob/${process.env.BRANCH}/packages/e2e/features${pathname}/${name}.feature#L${scenario.location.line}`}
+                    rel="noreferrer"
                     target="_blank"
                   >
                     <span className="sr-only">Test</span>

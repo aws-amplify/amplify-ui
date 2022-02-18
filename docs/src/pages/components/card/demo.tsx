@@ -59,7 +59,7 @@ export const CardDemo = () => {
         backgroundColor={tokens.colors.background.secondary}
         padding={tokens.space.medium}
       >
-        <Card {...props}>I'm a card!</Card>
+        <Card {...props}>{`I'm a card!`}</Card>
       </View>
     </Demo>
   );

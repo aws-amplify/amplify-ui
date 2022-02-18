@@ -40,6 +40,11 @@ Once an end-user has created an account & signed in, the underlying component is
 
 <Fragment>{({ platform }) => import(`./quick-start.${platform}.mdx`)}</Fragment>
 
+<Alert variation="warning">
+  Please see [troubleshooting](/getting-started/installation#troubleshooting) if
+  you have trouble building or running your application with Authenticator.
+</Alert>
+
 ## Configuration
 
 ### Zero Configuration
@@ -231,6 +236,8 @@ For your [configured social providers](https://docs.amplify.aws/lib/auth/social/
   <Authenticator socialProviders={['amazon', 'apple', 'facebook', 'google']} />
 </Example>
 
+_[Step by step video](https://youtu.be/8KwZNn56F78) on setting up social providers._
+
 ### `variation`
 
 The Authenticator has multiple variations to meet the needs of your application.
@@ -263,6 +270,18 @@ The Authenticator has multiple variations to meet the needs of your application.
   </TabItem>
 </Tabs>
 
+### `hideSignUp`
+
+The Authenticator has an option to hide the sign up page including the `Create Account` tab.
+
+<Fragment>
+  {({ platform }) => import(`./hidesignup.default.${platform}.mdx`)}
+</Fragment>
+
+<Example>
+  <Authenticator hideSignUp={true} />
+</Example>
+
 ## Customization
 
 ### Headers & Footers
@@ -277,6 +296,8 @@ The following example customizes these slots with:
 - Custom Sign In footer with a _Reset Password_ link
 - Custom Sign Up header with _Create a new account_
 - Custom Sign Up footer with a _Back to Sign In_ link
+- Custom Confirm Sign Up header with an _Enter Information_ header
+- Custom Confirm Sign Up footer with a _Footer Information_ message
 
 <Fragment>
   {({ platform }) => import(`./headers-and-footers.${platform}.mdx`)}
@@ -290,10 +311,7 @@ The following example customizes these slots with:
         const { tokens } = useTheme();
         return (
           <View textAlign="center" padding={tokens.space.large}>
-            <Image
-              alt="Amplify logo"
-              src="https://docs.amplify.aws/assets/logo-dark.svg"
-            />
+            <Image alt="Amplify logo" src="/amplify-logo.svg" />
           </View>
         );
       },
@@ -362,6 +380,22 @@ The following example customizes these slots with:
             </View>
           );
         },
+        ConfirmSignUp: {
+          Header() {
+            const { tokens } = useTheme();
+            return (
+              <Heading
+                padding={`${tokens.space.xl} 0 0 ${tokens.space.xl}`}
+                level={3}
+              >
+                Enter Information:
+              </Heading>
+            );
+          },
+          Footer() {
+            return <Text>Footer Information</Text>;
+          },
+        },
       },
       /*
        */
@@ -369,41 +403,66 @@ The following example customizes these slots with:
   />
 </Example>
 
+### Override Function Calls
+
+You can override the call to `signUp`, `signIn`, `confirmSignIn`, `confirmSignUp`, `forgotPassword` and `forgotPasswordSubmit` functions.
+To override a call you must create a new `services` object with an `async` `handle*` function that returns an `aws-amplify` `Auth.*` promise.
+
+The service object must then be passed into the `authenticator` component as a `services` prop. For example, let's imagine you'd like to lowercase the `username` and the `email` attributes during `signUp`.
+This would be overriden like so:
+
+<Fragment>
+  {({ platform }) => import(`./overrides/username.${platform}.mdx`)}
+</Fragment>
+
+Each `handle*` function will return the neccessary values you'll need to make the call to the `Auth.*` function call. Here is a table of each override function name, and the values returned from `formData`.
+
+| Function Call               | Override Name                | formData Properties                 |
+| --------------------------- | ---------------------------- | ----------------------------------- |
+| `Auth.signUp`               | `handleSignUp`               | `{username, password, attributes }` |
+| `Auth.signIn`               | `handleSignIn`               | `{username, password}`              |
+| `Auth.confirmSignIn`        | `handleConfirmSignIn`        | `{user, code, mfaType}`             |
+| `Auth.confirmSignUp`        | `handleConfirmSignUp`        | `{username, code, password}`        |
+| `Auth.forgotPassword`       | `handleForgotPassword`       | `{username}`                        |
+| `Auth.forgotPasswordSubmit` | `handleForgotPasswordSubmit` | `{username, code, password}`        |
+
 ### Internationalization (I18n)
 
 The `Authenticator` ships with [translations](https://github.com/aws-amplify/amplify-ui/blob/main/packages/ui/src/i18n/translations.ts) for:
 
 - `en` – English (default)
 - `zh` – Chinese
+- `nl` – Dutch
 - `fr` – French
 - `de` – German
 - `it` – Italian
-- `ja` – Japenese
+- `ja` – Japanese
 - `kr` - Korean
 - `pl` - Polish
 - `pt` – Portuguese
 - `es` – Spanish
+- `sv` – Swedish
 
 These [translations](https://github.com/aws-amplify/amplify-ui/blob/main/packages/ui/src/i18n/translations.ts) can be customized using the [Amplify JS' `I18n`](https://docs.amplify.aws/lib/utilities/i18n/q/platform/js/) module:
 
-```js
-import { translations } from '@aws-amplify/ui';
-I18n.putVocabularies(translations);
-I18n.setLanguage('fr');
-
-I18n.putVocabularies({
-  fr: {
-    'Sign In': 'Se connecter',
-    'Sign Up': "S'inscrire",
-  },
-  es: {
-    'Sign In': 'Registrarse',
-    'Sign Up': 'Regístrate',
-  },
-});
-```
+<Fragment>{({ platform }) => import(`./i18n/i18n.${platform}.mdx`)}</Fragment>
 
 The list of available keys are available [here](https://github.com/aws-amplify/amplify-ui/blob/main/packages/ui/src/i18n/translations.ts).
+
+#### Confirm Sign Up Page Translations
+
+The confirm sign up page has a few specialized strings that can be translated.
+These include:
+
+```
+Your code is on the way. To log in, enter the code we emailed to
+
+Your code is on the way. To log in, enter the code we texted to
+
+Your code is on the way. To log in, enter the code we sent you. It may take a minute to arrive.
+
+It may take a minute to arrive.
+```
 
 <Alert variation="info" heading="Translations Needed 📖">
   If you see any missing translations or would like to contribute a new
@@ -416,86 +475,86 @@ The list of available keys are available [here](https://github.com/aws-amplify/a
 Using the same techniques as [Internationalization (I18n)](#internationalization-i18n), you can customize the labels and text of the components:
 
 <Tabs>
-  <TabItem title="Default Values">
-    Compare the default labels below to those in the customized screens via the tabs above.
+<TabItem title="Default Values">
+  Compare the default labels below to those in the customized screens via the tabs above.
 
-    Because `I18n` manages global translations, customizing these will affect all translations of these strings (including those on this page!).
+Because `I18n` manages global translations, customizing these will affect all translations of these strings (including those on this page!).
 
-    <Example>
-      <Authenticator />
-    </Example>
+<Example>
+  <Authenticator />
+</Example>
 
-  </TabItem>
-  <TabItem title="Sign In">
+</TabItem>
+<TabItem title="Sign In">
 
-    ```js
-    I18n.putVocabulariesForLanguage('en', {
-      'Sign In': 'Login', // Tab header
-      'Sign in': 'Log in', // Button label
-      'Sign in to your account': 'Welcome Back!',
-      Username: 'Enter your username', // Username label
-      Password: 'Enter your password', // Password label
-      'Forgot your password? ': 'Reset Password',
-    });
-    ```
+```js
+I18n.putVocabulariesForLanguage('en', {
+  'Sign In': 'Login', // Tab header
+  'Sign in': 'Log in', // Button label
+  'Sign in to your account': 'Welcome Back!',
+  Username: 'Enter your username', // Username label
+  Password: 'Enter your password', // Password label
+  'Forgot your password?': 'Reset Password',
+});
+```
 
-    <Example>
-      <LabelsAndTextDemo Component={Authenticator.SignIn} />
-    </Example>
+<Example>
+  <LabelsAndTextDemo Component={Authenticator.SignIn} />
+</Example>
 
-  </TabItem>
+</TabItem>
 
-  <TabItem title="Sign Up">
-    
-    ```js
-    I18n.putVocabulariesForLanguage('en', {
-      'Create Account': 'Register', // Tab header
-      'Create a new account': 'New User', // Header text
-      'Confirm Password': 'Confirm your password', // Confirm Password label
-      Email: 'Enter your email',
-      'Phone Number': 'Enter your phone number',
-    });
-    ```
+<TabItem title="Sign Up">
 
-    <Example>
-      <LabelsAndTextDemo Component={Authenticator.SignUp} />
-    </Example>
+```js
+I18n.putVocabulariesForLanguage('en', {
+  'Create Account': 'Register', // Tab header
+  'Create a new account': 'New User', // Header text
+  'Confirm Password': 'Confirm your password', // Confirm Password label
+  Email: 'Enter your email',
+  'Phone Number': 'Enter your phone number',
+});
+```
 
-  </TabItem>
+<Example>
+  <LabelsAndTextDemo Component={Authenticator.SignUp} />
+</Example>
 
-  <TabItem title="Reset Password">
-    
-    ```js
-    I18n.putVocabulariesForLanguage('en', {
-      'Reset your password': 'Forgot your password?',
-      'Enter your username': 'Username or Email',
-      'Send code': 'Reset my password',
-      'Back to Sign In': 'Back to Login',
-    });
-    ```
+</TabItem>
 
-    <Example>
-      <LabelsAndTextDemo Component={Authenticator.ResetPassword} />
-    </Example>
+<TabItem title="Reset Password">
 
-  </TabItem>
+```js
+I18n.putVocabulariesForLanguage('en', {
+  'Reset your password': 'Forgot your password?',
+  'Enter your username': 'Username or Email',
+  'Send code': 'Reset my password',
+  'Back to Sign In': 'Back to Login',
+});
+```
 
-  <TabItem title="Setup TOTP">
+<Example>
+  <LabelsAndTextDemo Component={Authenticator.ResetPassword} />
+</Example>
 
-    ```js
-    I18n.putVocabulariesForLanguage('en', {
-      Loading: 'QR code would show here',
-      Code: '2FA Code',
-      Confirm: 'Confirm 2FA',
-      'Back to Sign In': 'Back to Login',
-    });
-    ```
+</TabItem>
 
-    <Example>
-      <LabelsAndTextDemo Component={Authenticator.SetupTOTP} />
-    </Example>
+<TabItem title="Setup TOTP">
 
-  </TabItem>
+```js
+I18n.putVocabulariesForLanguage('en', {
+  Loading: 'QR code would show here',
+  Code: '2FA Code',
+  Confirm: 'Confirm 2FA',
+  'Back to Sign In': 'Back to Login',
+});
+```
+
+<Example>
+  <LabelsAndTextDemo Component={Authenticator.SetupTOTP} />
+</Example>
+
+</TabItem>
 </Tabs>
 
 ### Sign Up Fields
@@ -510,47 +569,59 @@ The following example customizes the Sign Up screen by:
 </Fragment>
 
 <Example>
-  <Authenticator
-    initialState="signUp"
-    loginMechanisms={['email']}
-    signUpAttributes={['preferred_username']}
-    components={{
-      SignUp: {
-        FormFields() {
-          const { validationErrors } = useAuthenticator();
-          return (
-            <>
-              <Authenticator.SignUp.FormFields />
+<Authenticator
+  initialState="signUp"
+  loginMechanisms={['email']}
+  signUpAttributes={['preferred_username']}
+  components={{
+    SignUp: {
+      FormFields() {
+        const { validationErrors } = useAuthenticator();
+        return (
+          <>
+            <Authenticator.SignUp.FormFields />
 
-              <CheckboxField
-                errorMessage={validationErrors.acknowledgement}
-                hasError={!!validationErrors.acknowledgement}
-                name="acknowledgement"
-                value="yes"
-                label="I agree with the Terms & Conditions"
-              />
-            </>
-          );
-        },
+            <CheckboxField
+              errorMessage={validationErrors.acknowledgement}
+              hasError={!!validationErrors.acknowledgement}
+              name="acknowledgement"
+              value="yes"
+              label="I agree with the Terms & Conditions"
+            />
+          </>
+        );
       },
-    }}
-    services={{
-      async validateCustomSignUp(formData) {
-        if (!formData.acknowledgement) {
-          return {
-            acknowledgement: 'You must agree to the Terms & Conditions',
-          };
-        }
-      },
-    }}
+    },
+
+}}
+services={{
+    async validateCustomSignUp(formData) {
+      if (!formData.acknowledgement) {
+        return {
+          acknowledgement: 'You must agree to the Terms & Conditions',
+        };
+      }
+    },
+  }}
 
 />
 
 </Example>
 
+### Force New Password Fields
+
+The following example customizes the Force New Password screen by:
+
+- Re-using the default Force New Password form fields
+- Appending a custom "Zone Info" text field
+
+<Fragment>
+  {({ platform }) => import(`./force-new-password-fields.${platform}.mdx`)}
+</Fragment>
+
 ### Styling
 
-You can customize the Authenticator's default [theme](/ui/theme) with [CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties).
+You can customize the Authenticator's default [theme](/theming) with [CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties).
 The example below uses a `<style>` tag to change the default colors to a dark theme:
 
 ```css
@@ -558,7 +629,24 @@ The example below uses a `<style>` tag to change the default colors to a dark th
   --amplify-colors-background-primary: var(--amplify-colors-neutral-90);
   --amplify-colors-background-secondary: var(--amplify-colors-neutral-100);
   --amplify-colors-background-tertiary: var(--amplify-colors-black);
-  ...
+  --amplify-colors-border-primary: var(--amplify-colors-neutral-20);
+  --amplify-colors-border-secondary: var(--amplify-colors-neutral-40);
+  --amplify-colors-border-tertiary: var(--amplify-colors-neutral-60);
+  --amplify-colors-brand-primary-10: var(--amplify-colors-teal-100);
+  --amplify-colors-brand-primary-20: var(--amplify-colors-teal-90);
+  --amplify-colors-brand-primary-40: var(--amplify-colors-teal-80);
+  --amplify-colors-brand-primary-60: var(--amplify-colors-teal-60);
+  --amplify-colors-brand-primary-80: var(--amplify-colors-teal-40);
+  --amplify-colors-brand-primary-90: var(--amplify-colors-teal-20);
+  --amplify-colors-brand-primary-100: var(--amplify-colors-teal-10);
+  --amplify-colors-font-interactive: var(--amplify-colors-white);
+  --amplify-components-heading-color: var(--amplify-colors-neutral-20);
+  --amplify-components-tabs-item-active-border-color: var(
+    --amplify-colors-white
+  );
+  --amplify-components-tabs-item-active-color: var(--amplify-colors-white);
+  --amplify-components-tabs-item-color: var(--amplify-colors-white);
+  --amplify-components-tabs-item-focus-color: var(--amplify-colors-white);
   --amplify-components-text-color: var(--amplify-colors-font-interactive);
 }
 ```
@@ -615,3 +703,99 @@ For example, if you'd like to hide the sign up tab, you can override the `amplif
   `}</style>
   <Authenticator className="customization-hide-sign-up" />
 </Example>
+
+If you'd like to update the primary color of your submit button you can override the `amplify-button` class.
+
+```css
+.amplify-button[data-variation='primary'] {
+  background: linear-gradient(
+    to right,
+    var(--amplify-colors-green-80),
+    var(--amplify-colors-orange-40)
+  );
+}
+```
+
+<Example>
+  <style>{`
+    .customization-button .amplify-button[data-variation="primary"] {
+      background:linear-gradient(to right, var(--amplify-colors-green-80),var(--amplify-colors-orange-40) );
+    }
+  `}</style>
+  <Authenticator className="customization-button" />
+</Example>
+
+### Amplify CSS Variables
+
+These variables are used in the theming of the Authenticator. You can override these values to update the look and feel.
+
+<Fragment>{() => import(`./css-variables.mdx`)}</Fragment>
+
+## Headless Usage
+
+<Fragment>
+  {({ platform }) => import(`./advanced/useAuthenticator.${platform}.mdx`)}
+</Fragment>
+
+### Access Auth State
+
+<Fragment>
+  {({ platform }) => import(`./advanced/current-route.${platform}.mdx`)}
+</Fragment>
+
+### Access Authenticated User
+
+<Fragment>
+  {({ platform }) => import(`./advanced/current-user.${platform}.mdx`)}
+</Fragment>
+
+### Trigger Transitions
+
+<Fragment>
+  {({ platform }) => import(`./advanced/trigger-transitions.${platform}.mdx`)}
+</Fragment>
+
+#### Example
+
+Here's an example that conditionally renders different components based on current authentication status. Note that this can be extended to support routed application.
+
+<Fragment>
+  {({ platform }) => import(`./advanced/example.${platform}.mdx`)}
+</Fragment>
+
+### Full API
+
+<Fragment>
+  {({ platform }) => import(`./advanced/full-api.${platform}.mdx`)}
+</Fragment>
+
+<Tabs>
+  <TabItem title="Access Contexts">
+
+These are `readonly` contexts that represent the current auth state. Any unapplicable `context` will be `undefined`.
+
+| Name                  | Description                                                                         | Type                                                                                                                                                                  |
+| --------------------- | ----------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `user`                | Current signed in user                                                              | [`CognitoUserAmplify`](https://github.com/aws-amplify/amplify-ui/blob/f9be291e4b89137d7b521bd3e82b4f96ee4323f6/packages/ui/src/types/authMachine.ts#L113-L115)        |
+| `route`               | Name of the auth flow user is in                                                    | `string`                                                                                                                                                              |
+| `error`               | Any error returned from service API call                                            | `string`                                                                                                                                                              |
+| `validationErrors`    | Any form validation errors found. Maps each error message to respective input name. | `Record<string, string>`                                                                                                                                              |
+| `hasValidationErrors` | Whether there are any form validation errors                                        | `boolean`                                                                                                                                                             |
+| `isPending`           | Whether service API call is in progress                                             | `boolean`                                                                                                                                                             |
+| `codeDeliveryDetail`  | Provides detail on where confirm sign up code is sent to.                           | [`CodeDeliveryDetail`](https://github.com/aws-amplify/amplify-js/blob/6c4d4b5fc737652f88dcdfa26bdb02a1defdfa2e/packages/amazon-cognito-identity-js/index.d.ts#L9-L13) |
+
+  </TabItem>
+  <TabItem title="Trigger Transition">
+
+These helper functions trigger transition to another `route`. Note that any invalid transition (e.g. `sign-in` to `authenticated` directly) will be no-op.
+
+| Name                | Description                                                                                                                                                                                                                             | Type                         |
+| ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- |
+| `toSignIn`          | Transitions to `signIn`. Allowed from `signUp`, `confirmSignUp`, `confirmSignIn`, `setupTOTP`, `resetPassword`, and `confirmResetPassword`                                                                                              | `() => void`                 |
+| `toSignUp`          | Transitions to `signUp`. Allowed from `signIn`.                                                                                                                                                                                         | `() => void`                 |
+| `toResetPassword`   | Transitions to `resetPassword`. Allowed from `signIn`.                                                                                                                                                                                  | `() => void`                 |
+| `toFederatedSignIn` | Transitions to `provider`'s federated sign in page. Supported `provider` values can be found [here](https://github.com/aws-amplify/amplify-ui/blob/96830f6a34a417aa9bc6329c839679bd10da84f0/packages/ui/src/helpers/auth.ts#L104-L109). | `(provider: string) => void` |
+| `skipVerification`  | Skips verification process. Allowed from `verifyUser` and `confirmVerifyUser`                                                                                                                                                           | `() => void`                 |
+
+  </TabItem>
+</Tabs>

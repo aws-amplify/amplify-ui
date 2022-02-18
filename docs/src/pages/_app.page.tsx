@@ -1,10 +1,11 @@
 import * as React from 'react';
 import Head from 'next/head';
+import Script from 'next/script';
 import { useRouter } from 'next/router';
 import { AmplifyProvider, ColorMode } from '@aws-amplify/ui-react';
 
 import { Header } from '@/components/Layout/Header';
-
+import { configure, trackPageVisit } from '../utils/track';
 import { theme } from '../theme';
 import '../styles/index.scss';
 
@@ -19,28 +20,21 @@ function MyApp({ Component, pageProps }) {
   const [colorMode, setColorMode] = React.useState<ColorMode>('system');
   const [themeOverride, setThemeOverride] = React.useState('');
 
-  const favicon =
-    process.env.NODE_ENV === 'development'
-      ? '/svg/favicon-dev.svg'
-      : '/svg/favicon.svg';
+  React.useEffect(() => {
+    document.documentElement.setAttribute(
+      'data-amplify-theme-override',
+      themeOverride
+    );
+  }, [themeOverride]);
+
+  configure();
+  trackPageVisit();
+
   return (
-    <div className={themeOverride}>
+    <>
       <Head>
         <title>Amplify UI</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" type="image/svg+xml" href={favicon} />
-        {/* Adding custom variable fonts from google */}
-        {/* Including multiple to show theming capabilities */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="true"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:slnt,wght@-10..0,100..900&family=Open+Sans:wght@300..800&family=Work+Sans:wght@100..900&display=swap"
-          rel="stylesheet"
-        />
       </Head>
       <AmplifyProvider theme={theme} colorMode={colorMode}>
         <Header
@@ -55,7 +49,9 @@ function MyApp({ Component, pageProps }) {
           themeOverride={themeOverride}
         />
       </AmplifyProvider>
-    </div>
+      <Script src="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js" />
+      <Script src="/scripts/shortbreadv2.js" />
+    </>
   );
 }
 

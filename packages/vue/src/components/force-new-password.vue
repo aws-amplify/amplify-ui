@@ -12,12 +12,15 @@ import {
 import { useAuth, useAuthenticator } from '../composables/useAuth';
 
 import PasswordControl from './password-control.vue';
+import AuthenticatorForceNewPasswordFormFields from './authenticator-force-new-password-form-fields.vue';
+import { createSharedComposable } from '@vueuse/core';
 
 const attrs = useAttrs();
 const emit = defineEmits(['haveAccountClicked', 'forceNewPasswordSubmit']);
 
 const { state, send } = useAuth();
-const props = useAuthenticator();
+const useAuthShared = createSharedComposable(useAuthenticator);
+const props = useAuthShared();
 const actorState = computed(() =>
   getActorState(state.value)
 ) as ComputedRef<SignInState>;
@@ -139,7 +142,11 @@ function onBlur(e: Event) {
                 @blur="onBlur"
               />
             </base-wrapper>
+            <slot name="force-new-password-form-fields">
+              <authenticator-force-new-password-form-fields />
+            </slot>
           </base-wrapper>
+
           <base-footer class="amplify-flex" style="flex-direction: column">
             <base-box
               data-ui-error
@@ -148,10 +155,10 @@ function onBlur(e: Event) {
               class="amplify-text"
               v-if="!!(actorContext.validationError as ValidationError)['confirm_password']"
             >
-              {{ (actorContext.validationError as ValidationError)['confirm_password'] }}
+              {{ translate((actorContext.validationError as ValidationError)['confirm_password']) }}
             </base-box>
             <base-alert data-ui-error v-if="actorState.context.remoteError">
-              {{ actorState.context.remoteError }}
+              {{ translate(actorState.context.remoteError) }}
             </base-alert>
             <amplify-button
               class="amplify-field-group__control"

@@ -2,26 +2,23 @@ import classNames from 'classnames';
 import { Range, Root, Thumb, Track } from '@radix-ui/react-slider';
 import * as React from 'react';
 
+import { ComponentClassNames } from '../shared/constants';
 import { FieldDescription, FieldErrorMessage } from '../Field';
 import { FieldGroup } from '../FieldGroup';
 import { Flex } from '../Flex';
-import { Label } from '../Label';
-import { View } from '../View';
-import { SliderFieldProps } from '../types/sliderField';
-import { PrimitiveWithForwardRef } from '../types/view';
-import { ComponentClassNames } from '../shared/constants';
-import { splitPrimitiveProps } from '../shared/styleUtils';
 import { isFunction, useStableId } from '../shared/utils';
+import { Label } from '../Label';
+import { Primitive } from '../types/view';
+import { SliderFieldProps } from '../types/sliderField';
+import { splitPrimitiveProps } from '../shared/styleUtils';
+import { View } from '../View';
 
 export const SLIDER_LABEL_TEST_ID = 'slider-label';
 export const SLIDER_ROOT_TEST_ID = 'slider-root';
 export const SLIDER_TRACK_TEST_ID = 'slider-track';
 export const SLIDER_RANGE_TEST_ID = 'slider-range';
 
-const SliderFieldPrimitive: PrimitiveWithForwardRef<
-  SliderFieldProps,
-  typeof Root
-> = (
+const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
   {
     ariaValuetext,
     className,
@@ -51,6 +48,8 @@ const SliderFieldPrimitive: PrimitiveWithForwardRef<
   ref
 ) => {
   const fieldId = useStableId(id);
+  const labelId = useStableId();
+  const descriptionId = useStableId();
 
   const { flexContainerStyleProps, rest } = splitPrimitiveProps(_rest);
 
@@ -89,7 +88,7 @@ const SliderFieldPrimitive: PrimitiveWithForwardRef<
     >
       <Label
         className={ComponentClassNames.SliderFieldLabel}
-        id={fieldId}
+        id={labelId}
         testId={SLIDER_LABEL_TEST_ID}
         visuallyHidden={labelHidden}
       >
@@ -97,11 +96,13 @@ const SliderFieldPrimitive: PrimitiveWithForwardRef<
         {!isValueHidden ? <View as="span">{currentValue}</View> : null}
       </Label>
       <FieldDescription
+        id={descriptionId}
         labelHidden={labelHidden}
         descriptiveText={descriptiveText}
       />
       <FieldGroup
         className={ComponentClassNames.SliderFieldGroup}
+        id={fieldId}
         orientation={orientation}
         outerStartComponent={outerStartComponent}
         outerEndComponent={outerEndComponent}
@@ -132,7 +133,8 @@ const SliderFieldPrimitive: PrimitiveWithForwardRef<
             />
           </Track>
           <Thumb
-            aria-describedby={fieldId}
+            aria-describedby={descriptionId}
+            aria-labelledby={labelId}
             aria-valuetext={ariaValuetext}
             className={ComponentClassNames.SliderFieldThumb}
             style={{ backgroundColor: thumbColor }}

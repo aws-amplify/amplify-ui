@@ -2,10 +2,10 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { ComponentClassNames } from '../shared';
-import { PlaceholderProps, PrimitiveWithForwardRef } from '../types';
+import { PlaceholderProps, Primitive } from '../types';
 import { View } from '../View';
 
-const PlaceholderPrimitive: PrimitiveWithForwardRef<PlaceholderProps, 'div'> = (
+const PlaceholderPrimitive: Primitive<PlaceholderProps, 'div'> = (
   { className, children, isLoaded, size, ...rest },
   ref
 ) => {

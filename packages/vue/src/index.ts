@@ -16,6 +16,7 @@ import {
   ConfirmVerifyUser,
   VerifyUser,
   AuthenticatorSignUpFormFields,
+  AuthenticatorForceNewPasswordFormFields,
   AmplifyTextField,
   AmplifyCheckBox,
   AmplifyButton,
@@ -48,6 +49,10 @@ export default {
       'AuthenticatorSignUpFormFields',
       AuthenticatorSignUpFormFields
     );
+    app.component(
+      'AuthenticatorForceNewPasswordFormFields',
+      AuthenticatorForceNewPasswordFormFields
+    );
   },
 };
 
@@ -57,6 +62,7 @@ export {
   FederatedSignIn,
   Authenticator,
   AuthenticatorSignUpFormFields,
+  AuthenticatorForceNewPasswordFormFields,
   RenderInfo,
   UserNameAlias,
   ForceNewPassword,
@@ -72,3 +78,8 @@ export {
   AmplifyButton,
   useAuthenticator,
 };
+
+/**
+ * Re-export public APIs from `@aws-amplify/ui`
+ */
+export { translations } from '@aws-amplify/ui';

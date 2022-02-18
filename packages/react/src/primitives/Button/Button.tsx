@@ -1,12 +1,13 @@
 import classNames from 'classnames';
 import * as React from 'react';
 
+import { ButtonProps, Primitive } from '../types';
 import { ComponentClassNames } from '../shared/constants';
-import { ButtonProps, PrimitiveWithForwardRef } from '../types';
-import { Text } from '../Text';
+import { Flex } from '../Flex';
+import { Loader } from '../Loader';
 import { View } from '../View';
 
-const ButtonPrimitive: PrimitiveWithForwardRef<ButtonProps, 'button'> = (
+const ButtonPrimitive: Primitive<ButtonProps, 'button'> = (
   {
     className,
     children,
@@ -39,7 +40,10 @@ const ButtonPrimitive: PrimitiveWithForwardRef<ButtonProps, 'button'> = (
       {...rest}
     >
       {isLoading && loadingText ? (
-        <Text as="span">{loadingText}</Text>
+        <Flex as="span" className={ComponentClassNames.ButtonLoaderWrapper}>
+          <Loader size={size} />
+          {loadingText}
+        </Flex>
       ) : (
         children
       )}

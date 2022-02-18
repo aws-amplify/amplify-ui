@@ -20,7 +20,7 @@ jobs:
           node-version: lts/*
           cache: 'yarn'
       - name: Install and build packages
-        run: yarn --frozen-lockfile
+        run: yarn --frozen-lockfile && yarn build
       - name: Create Release Pull Request or Publish to npm
         id: changesets
         uses: changesets/action@b98cec97583b917ff1dc6179dd4d230d3e439894

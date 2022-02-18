@@ -1,11 +1,11 @@
 import { CognitoUserAmplify } from '@aws-amplify/ui';
-import * as React from 'react';
 
 import { useAuthenticator } from '..';
 import { View } from '../../..';
 import { ConfirmSignIn } from '../ConfirmSignIn';
 import { ConfirmSignUp } from '../ConfirmSignUp';
 import { ForceNewPassword } from '../ForceNewPassword';
+import { useCustomComponents } from '../hooks/useCustomComponents';
 import { ConfirmResetPassword, ResetPassword } from '../ResetPassword';
 import { SetupTOTP } from '../SetupTOTP';
 import { SignInSignUpTabs } from '../shared';
@@ -13,7 +13,7 @@ import { ConfirmVerifyUser, VerifyUser } from '../VerifyUser';
 
 export type RouterProps = {
   className?: string;
-  children: ({
+  children?: ({
     signOut,
     user,
   }: {
@@ -21,22 +21,28 @@ export type RouterProps = {
     user: CognitoUserAmplify;
   }) => JSX.Element;
   variation?: 'default' | 'modal';
+  hideSignUp?: boolean;
+};
+
+const hasTabs = (route: string) => {
+  return route === 'signIn' || 'signUp';
 };
 
 export function Router({
   children,
   className,
   variation = 'default',
+  hideSignUp,
 }: RouterProps) {
+  const { route, signOut, user } = useAuthenticator();
+
   const {
     components: { Header, Footer },
-    route,
-    signOut,
-    user,
-  } = useAuthenticator();
+  } = useCustomComponents();
 
+  // `Authenticator` might not have `children` for non SPA use cases.
   if (['authenticated', 'signOut'].includes(route)) {
-    return children({ signOut, user });
+    return children ? children({ signOut, user }) : null;
   }
 
   return (
@@ -49,10 +55,14 @@ export function Router({
         <View data-amplify-container="">
           <Header />
 
-          <View data-amplify-router="">
+          <View
+            data-amplify-router=""
+            data-amplify-router-content={hasTabs(route) ? undefined : ''}
+          >
             {(() => {
               switch (route) {
                 case 'idle':
+                case 'setup':
                   return null;
                 case 'confirmSignUp':
                   return <ConfirmSignUp />;
@@ -62,7 +72,7 @@ export function Router({
                   return <SetupTOTP />;
                 case 'signIn':
                 case 'signUp':
-                  return <SignInSignUpTabs />;
+                  return <SignInSignUpTabs hideSignUp={hideSignUp} />;
                 case 'forceNewPassword':
                   return <ForceNewPassword />;
                 case 'resetPassword':

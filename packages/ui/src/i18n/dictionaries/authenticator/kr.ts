@@ -19,7 +19,7 @@ export const krDict = {
   'Enter your username': '아이디를 입력해주세요',
   'Family Name': '성',
   'Given Name': '이름',
-  'Forgot your password? ': '비밀번호를 잊으셨나요?',
+  'Forgot your password?': '비밀번호를 잊으셨나요?',
   'Hide password': '비밀번호 숨기기',
   Loading: '로딩중',
   Username: '아이디',

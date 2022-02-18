@@ -1,6 +1,7 @@
-import { CognitoUser } from 'amazon-cognito-identity-js';
+import { CognitoUser, CodeDeliveryDetails } from 'amazon-cognito-identity-js';
 import { Interpreter, State } from 'xstate';
 import { ValidationError } from './validator';
+import { defaultServices } from '../machines/authenticator/defaultServices';
 
 export type AuthFormData = Record<string, string>;
 
@@ -10,25 +11,41 @@ export interface AuthContext {
     loginMechanisms?: LoginMechanism[];
     signUpAttributes?: SignUpAttribute[];
     socialProviders?: SocialProvider[];
+    initialState?: 'signIn' | 'signUp' | 'resetPassword';
   };
+  services?: Partial<typeof defaultServices>;
   user?: CognitoUserAmplify;
+  username?: string;
+  password?: string;
+  code?: string;
+  mfaType?: AuthChallengeNames.SMS_MFA | AuthChallengeNames.SOFTWARE_TOKEN_MFA;
+}
+
+export interface ServicesContext {
+  username?: string;
+  password?: string;
+  user?: string;
+  code?: string;
+  mfaType: AuthChallengeNames.SMS_MFA | AuthChallengeNames.SOFTWARE_TOKEN_MFA;
 }
 
 interface BaseFormContext {
   authAttributes?: Record<string, any>;
   challengeName?: string;
+  requiredAttributes?: Array<string>;
   formValues?: AuthFormData;
   touched?: AuthFormData;
   intent?: string;
   remoteError?: string;
   user?: CognitoUserAmplify;
   validationError?: ValidationError;
+  codeDeliveryDetails?: CodeDeliveryDetails;
   country_code?: string;
 }
 
 export interface SignInContext extends BaseFormContext {
-  loginMechanisms: AuthContext['config']['loginMechanisms'];
-  socialProviders: AuthContext['config']['socialProviders'];
+  loginMechanisms: Required<AuthContext>['config']['loginMechanisms'];
+  socialProviders: Required<AuthContext>['config']['socialProviders'];
   attributeToVerify?: string;
   redirectIntent?: string;
   unverifiedAttributes?: Record<string, string>;
@@ -68,8 +85,8 @@ export type SignUpAttribute =
   | SignUpFieldsWithoutDefaults;
 
 export interface SignUpContext extends BaseFormContext {
-  loginMechanisms: AuthContext['config']['loginMechanisms'];
-  socialProviders: AuthContext['config']['socialProviders'];
+  loginMechanisms: Required<AuthContext>['config']['loginMechanisms'];
+  socialProviders: Required<AuthContext>['config']['socialProviders'];
   unverifiedAttributes?: Record<string, string>;
 }
 
@@ -99,6 +116,13 @@ export type AuthActorContext = ActorContextWithForms | SignOutContext;
 export type AuthActorState = State<AuthActorContext, AuthEvent>;
 export interface CognitoUserAmplify extends CognitoUser {
   username?: string;
+  attributes?: CognitoAttributes;
+}
+
+export interface CognitoAttributes {
+  email: string;
+  phone_number: string;
+  [key: string]: string;
 }
 
 export type InvokeActorEventTypes =
@@ -118,6 +142,7 @@ export type AuthEventTypes =
   | 'SIGN_UP'
   | 'SKIP'
   | 'SUBMIT'
+  | 'INIT'
   | InvokeActorEventTypes;
 
 export enum AuthChallengeNames {
@@ -167,3 +192,5 @@ export interface AuthEvent {
 export type AuthMachineState = State<AuthContext, AuthEvent>;
 
 export type AuthInterpreter = Interpreter<AuthContext, any, AuthEvent>;
+
+export type AuthMachineSend = AuthInterpreter['send'];

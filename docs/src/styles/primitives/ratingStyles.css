@@ -1,0 +1,25 @@
+.my-cool-svg {
+  fill: currentColor;
+}
+
+.my-rating-component .amplify-rating-icon-filled {
+  color: var(--amplify-colors-purple-60);
+}
+
+.my-rating-component .amplify-rating-icon-empty {
+  color: var(--amplify-colors-blue-60);
+}
+
+.large-rating[data-size='small'] {
+  font-size: var(--amplify-font-sizes-xxxl);
+  line-height: var(--amplify-font-sizes-xxxl);
+}
+
+.application-color-override {
+  --amplify-components-rating-filled-color: var(--amplify-colors-purple-60);
+  --amplify-components-rating-empty-color: var(--amplify-colors-blue-60);
+}
+
+.application-size-override {
+  --amplify-components-rating-small-size: 60px;
+}

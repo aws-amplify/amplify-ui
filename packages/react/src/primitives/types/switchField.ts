@@ -1,10 +1,9 @@
 import { AriaProps, BaseComponentProps, Sizes } from './base';
 import { BaseStyleProps } from './style';
 import { InputProps } from './input';
-import { FieldProps } from './field';
+import { FieldProps, LabelPositions } from './field';
 import { Property } from 'csstype';
 
-export type labelPositions = 'start' | 'end' | 'top' | 'bottom';
 export interface SwitchFieldProps
   extends InputProps,
     FieldProps,
@@ -38,7 +37,7 @@ export interface SwitchFieldProps
   /**
    * Position of label in relation to the switchfield
    */
-  labelPosition?: labelPositions;
+  labelPosition?: LabelPositions;
 
   /**
    * This prop adds a name attribute to the input element

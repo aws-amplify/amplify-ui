@@ -1,11 +1,11 @@
+import QRCode from 'qrcode';
+import * as React from 'react';
+
 import { Auth, Logger } from 'aws-amplify';
 import { getActorState, SignInState, translate } from '@aws-amplify/ui';
 
-import QRCode from 'qrcode';
-import { useEffect, useState } from 'react';
-
 import { useAuthenticator } from '..';
-import { Flex, Heading, Image } from '../../..';
+import { Flex, Heading } from '../../..';
 import { isInputOrSelectElement, isInputElement } from '../../../helpers/utils';
 
 import {
@@ -17,9 +17,11 @@ import {
 const logger = new Logger('SetupTOTP-logger');
 
 export const SetupTOTP = (): JSX.Element => {
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [qrCode, setQrCode] = useState<string>();
-  const { _state, submitForm, updateForm } = useAuthenticator();
+  const [isLoading, setIsLoading] = React.useState<boolean>(true);
+  const [qrCode, setQrCode] = React.useState<string>();
+  const [copyTextLabel, setCopyTextLabel] = React.useState<string>('COPY');
+  const [secretKey, setSecretKey] = React.useState<string>('');
+  const { _state, submitForm, updateForm, isPending } = useAuthenticator();
 
   // `user` hasn't been set on the top-level state yet, so it's only available from the signIn actor
   const actorState = getActorState(_state) as SignInState;
@@ -27,9 +29,10 @@ export const SetupTOTP = (): JSX.Element => {
 
   const generateQRCode = async (user): Promise<void> => {
     try {
-      const secretKey = await Auth.setupTOTP(user);
+      const newSecretKey = await Auth.setupTOTP(user);
+      setSecretKey(newSecretKey);
       const issuer = 'AWSCognito';
-      const totpCode = `otpauth://totp/${issuer}:${user.username}?secret=${secretKey}&issuer=${issuer}`;
+      const totpCode = `otpauth://totp/${issuer}:${user.username}?secret=${newSecretKey}&issuer=${issuer}`;
       const qrCodeImageSource = await QRCode.toDataURL(totpCode);
 
       setQrCode(qrCodeImageSource);
@@ -40,7 +43,7 @@ export const SetupTOTP = (): JSX.Element => {
     }
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (!user) return;
 
     generateQRCode(user);
@@ -66,6 +69,11 @@ export const SetupTOTP = (): JSX.Element => {
     submitForm();
   };
 
+  const copyText = (): void => {
+    navigator.clipboard.writeText(secretKey);
+    setCopyTextLabel(translate('COPIED'));
+  };
+
   return (
     <form
       data-amplify-form=""
@@ -74,7 +82,11 @@ export const SetupTOTP = (): JSX.Element => {
       onChange={handleChange}
       onSubmit={handleSubmit}
     >
-      <Flex direction="column">
+      <fieldset
+        style={{ display: 'flex', flexDirection: 'column' }}
+        className="amplify-flex"
+        disabled={isPending}
+      >
         <Heading level={3}>{translate('Setup TOTP')}</Heading>
 
         <Flex direction="column">
@@ -90,12 +102,30 @@ export const SetupTOTP = (): JSX.Element => {
               height="228"
             />
           )}
+          <Flex data-amplify-copy>
+            <div>{secretKey}</div>
+            <Flex data-amplify-copy-svg onClick={copyText}>
+              <div data-amplify-copy-tooltip>{copyTextLabel}</div>
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M16 1H4C2.9 1 2 1.9 2 3V17H4V3H16V1ZM15 5H8C6.9 5 6.01 5.9 6.01 7L6 21C6 22.1 6.89 23 7.99 23H19C20.1 23 21 22.1 21 21V11L15 5ZM8 21V7H14V12H19V21H8Z"
+                  fill="black"
+                />
+              </svg>
+            </Flex>
+          </Flex>
           <ConfirmationCodeInput />
           <RemoteErrorMessage />
         </Flex>
 
         <ConfirmSignInFooter />
-      </Flex>
+      </fieldset>
     </form>
   );
 };

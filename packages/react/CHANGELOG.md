@@ -1,5 +1,264 @@
 # @aws-amplify/ui-react
 
+## 2.5.0
+
+### Minor Changes
+
+- [#1342](https://github.com/aws-amplify/amplify-ui/pull/1342) [`7a675ac73`](https://github.com/aws-amplify/amplify-ui/commit/7a675ac731843333882165c5602c1f996df2eb52) Thanks [@joebuono](https://github.com/joebuono)! - Add `options` prop to <SelectField>
+
+  Example:
+  <SelectField
+  options=['lions', 'tigers', 'bears']
+
+  > </SelectField>
+
+### Patch Changes
+
+- [#1340](https://github.com/aws-amplify/amplify-ui/pull/1340) [`43d8106d3`](https://github.com/aws-amplify/amplify-ui/commit/43d8106d378e0438326f8992b4b1bfe73d91f5d8) Thanks [@joebuono](https://github.com/joebuono)! - Allow Content-less TabItem
+
+* [#1320](https://github.com/aws-amplify/amplify-ui/pull/1320) [`94d09948a`](https://github.com/aws-amplify/amplify-ui/commit/94d09948ac9d36a49b1872751f0587e73413bd99) Thanks [@wlee221](https://github.com/wlee221)! - Re-export `translations` from ui-[framework] packages. This lets you use `translations` directly:
+
+  ```diff
+  - import { translations } from '@aws-amplify/ui';
+  + import { translations } from '@aws-amplify/ui-[framework]';
+  ```
+
+- [#1321](https://github.com/aws-amplify/amplify-ui/pull/1321) [`e85c0db5c`](https://github.com/aws-amplify/amplify-ui/commit/e85c0db5cd6a3c4f9924466afb5e7e5e7dbbeea3) Thanks [@zchenwei](https://github.com/zchenwei)! - chore: using aria-describedby on field controls
+
+- Updated dependencies [[`722e2a932`](https://github.com/aws-amplify/amplify-ui/commit/722e2a93263478aed2a9aee872ab1fcbc86b41ca), [`4c6d198e4`](https://github.com/aws-amplify/amplify-ui/commit/4c6d198e409d46eef37b88b2327132b4a5dbe425), [`38cdf38e4`](https://github.com/aws-amplify/amplify-ui/commit/38cdf38e473853ba93ffb22a1d9252286a7d2a6f)]:
+  - @aws-amplify/ui@3.0.14
+
+## 2.4.0
+
+### Minor Changes
+
+- [#1285](https://github.com/aws-amplify/amplify-ui/pull/1285) [`bbd182130`](https://github.com/aws-amplify/amplify-ui/commit/bbd182130137403c4fde5d1ac9217f8d33c05b48) Thanks [@joebuono](https://github.com/joebuono)! - Add 'to' prop to Link primitive
+
+* [#1267](https://github.com/aws-amplify/amplify-ui/pull/1267) [`3600d9b6f`](https://github.com/aws-amplify/amplify-ui/commit/3600d9b6feaaad4ba297faaa09c83c365e2a1ddc) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - Adding `paths` prop to Icon which is an array of path-like objects that will be mapped to `<path>` elements.
+
+  Example:
+
+  ```jsx
+  <Icon
+    ariaLabel="tag"
+    viewBox={{ width: 23, height: 15 }}
+    paths={[
+      {
+        d: 'M1 0.5C0.723858 0.5 0.5 0.723858 0.5 1V14C0.5 14.2761 0.723858 14.5 1 14.5H14C14.1148 14.5 14.2262 14.4605 14.3153 14.3881L22.3153 7.88806C22.4322 7.79311 22.5 7.65056 22.5 7.5C22.5 7.34944 22.4322 7.20689 22.3153 7.11194L14.3153 0.611943C14.2262 0.539529 14.1148 0.5 14 0.5H1Z',
+        strokeLinejoin: 'bevel',
+        strokeLinecap: 'round',
+        strokeDasharray: '4 4',
+        fill: 'transparent',
+        stroke: 'currentColor',
+      },
+    ]}
+  />
+  ```
+
+### Patch Changes
+
+- [#1259](https://github.com/aws-amplify/amplify-ui/pull/1259) [`a6af87143`](https://github.com/aws-amplify/amplify-ui/commit/a6af87143d2a232b95ba3a1e0b63a1b3566e5aab) Thanks [@jacoblogan](https://github.com/jacoblogan)! - move data-theme attributes to document root to capture elements that fall outside of the amplify provider component
+
+* [#1302](https://github.com/aws-amplify/amplify-ui/pull/1302) [`732aee95c`](https://github.com/aws-amplify/amplify-ui/commit/732aee95cfa342ac793095627dcddc72fcbbca1f) Thanks [@jacoblogan](https://github.com/jacoblogan)! - update SwitchField to allow user updates on controlled component
+
+- [#1276](https://github.com/aws-amplify/amplify-ui/pull/1276) [`169a26cdf`](https://github.com/aws-amplify/amplify-ui/commit/169a26cdf62f18386dafc4e63484b5a62b78bc17) Thanks [@reesscot](https://github.com/reesscot)! - feat: Add Action/Workflow hooks
+
+* [#1292](https://github.com/aws-amplify/amplify-ui/pull/1292) [`aa051a012`](https://github.com/aws-amplify/amplify-ui/commit/aa051a0124690bc373301fa2456143e3346c1f56) Thanks [@jacoblogan](https://github.com/jacoblogan)! - update StepperField and CheckboxField to update the visual display when a controlled value is changed
+
+* Updated dependencies [[`f9bb30efd`](https://github.com/aws-amplify/amplify-ui/commit/f9bb30efd4c0a384162fbcef22d4b5bccec62dc5), [`7c81bacdf`](https://github.com/aws-amplify/amplify-ui/commit/7c81bacdfdc71d71843b8a7285e513e09e9842cb), [`4e19822e4`](https://github.com/aws-amplify/amplify-ui/commit/4e19822e4d995d4cb3b3ad23090a161249806939), [`b4254e58a`](https://github.com/aws-amplify/amplify-ui/commit/b4254e58ac3473bd141e48b3a553c632a84fab5c)]:
+  - @aws-amplify/ui@3.0.13
+
+## 2.3.0
+
+### Minor Changes
+
+- [#1260](https://github.com/aws-amplify/amplify-ui/pull/1260) [`ecd7bea7e`](https://github.com/aws-amplify/amplify-ui/commit/ecd7bea7ee4466930c15bceb8986e0a090d0570e) Thanks [@ErikCH](https://github.com/ErikCH)! - Added new hide sign up prop, for Vue, Angular, and React
+
+* [#1229](https://github.com/aws-amplify/amplify-ui/pull/1229) [`dc4bb31d5`](https://github.com/aws-amplify/amplify-ui/commit/dc4bb31d51ed628c732e3efaa22143541bc73068) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - Adding more flexibility in the Icon component. Added `as` and `children` to the Icon props to allow for more complex icons.
+
+  Using `as` prop with icon libraries:
+
+  ```jsx
+  import { Icon } from '@aws-amplify/ui-react';
+  import { DiJsBadge } from 'react-icons/di';
+
+  <Icon ariaLabel="Javascript" as={DiJsBadge} />;
+  ```
+
+  Using multiple paths:
+
+  ```jsx
+  import { Icon } from '@aws-amplify/ui-react';
+
+  <Icon ariaLabel="Align bottom" color="rebeccapurple">
+    <path d="M13 10H17V16H13V10Z" fill="currentColor" opacity="0.5" />
+    <path d="M11 4H7V16H11V4Z" fill="currentColor" />
+    <path d="M18 18H6V20H18V18Z" fill="currentColor" />
+  </Icon>;
+  ```
+
+### Patch Changes
+
+- [#1249](https://github.com/aws-amplify/amplify-ui/pull/1249) [`d0bb758cb`](https://github.com/aws-amplify/amplify-ui/commit/d0bb758cbfb6b6e79e0921ef05c0a3a1ec8b9e63) Thanks [@zchenwei](https://github.com/zchenwei)! - test: adding unit tests against null values
+
+## 2.2.2
+
+### Patch Changes
+
+- [#1243](https://github.com/aws-amplify/amplify-ui/pull/1243) [`93834bf58`](https://github.com/aws-amplify/amplify-ui/commit/93834bf5888cec3b031c63abd8a261fab521ae28) Thanks [@zchenwei](https://github.com/zchenwei)! - fix: fixing error throwing when typing in `Collection` search due to `items` prop contains `null` value
+
+- Updated dependencies [[`f7d86db6d`](https://github.com/aws-amplify/amplify-ui/commit/f7d86db6dbd3af650ce4c64e6efbc5acb4523e78), [`b824136bf`](https://github.com/aws-amplify/amplify-ui/commit/b824136bfb288df0f3300421f73f9bfdcd61bf57), [`2913fe8cb`](https://github.com/aws-amplify/amplify-ui/commit/2913fe8cb35e08ad6c61121dfb9d12b4ae9cf6ad)]:
+  - @aws-amplify/ui@3.0.12
+
+## 2.2.1
+
+### Patch Changes
+
+- [#1207](https://github.com/aws-amplify/amplify-ui/pull/1207) [`b920368e7`](https://github.com/aws-amplify/amplify-ui/commit/b920368e7037035b798689716bdcd0c12cd4df67) Thanks [@ErikCH](https://github.com/ErikCH)! - Added translations for errors for confirm sign in
+
+- Updated dependencies [[`4932b43f8`](https://github.com/aws-amplify/amplify-ui/commit/4932b43f8f3ad5d851a4fd8635b1b92abf6c4ef0)]:
+  - @aws-amplify/ui@3.0.11
+
+## 2.2.0
+
+### Minor Changes
+
+- [#1168](https://github.com/aws-amplify/amplify-ui/pull/1168) [`b32dd86bf`](https://github.com/aws-amplify/amplify-ui/commit/b32dd86bf4e26011f8b17e59b98fed3430f8fe50) Thanks [@wlee221](https://github.com/wlee221)! - This enables `useAuthenticator` usage outside <Authenticator /> to access commonly requested authenticator context like `user` and `route`.
+
+  First wrap your App with `Authenticator.Provider`:
+
+  ```tsx
+  const App = (
+    <Authenticator.Provider>
+      <MyApp />
+    </Authenticator.Provider>
+  );
+  ```
+
+  To avoid repeated re-renders, you can pass a function that takes in Authenticator context and returns an array of desired context values. This hook will only trigger re-render if any of the array value changes.
+
+  ```tsx
+  const Home = () => {
+    const { user, signOut } = useAuthenticator((context) => [context.user]);
+
+    return (
+      <>
+        <h2>Welcome, {user.username}!</h2>
+        <button onClick={signOut}>Sign Out</button>
+      </>
+    );
+  };
+
+  const Login = () => <Authenticator />;
+
+  function MyApp() {
+    const { route } = useAuthenticator((context) => [context.route]);
+
+    return route === 'authenticated' ? <Home /> : <Login />;
+  }
+  ```
+
+### Patch Changes
+
+- [#1153](https://github.com/aws-amplify/amplify-ui/pull/1153) [`3afdc1fc9`](https://github.com/aws-amplify/amplify-ui/commit/3afdc1fc9a876a17403ccfc607b922ec352fd1cf) Thanks [@wlee221](https://github.com/wlee221)! - Listen to Auth Hub events
+
+* [#1176](https://github.com/aws-amplify/amplify-ui/pull/1176) [`f7f77237e`](https://github.com/aws-amplify/amplify-ui/commit/f7f77237e69272f1d1d878620946e2914354b503) Thanks [@ErikCH](https://github.com/ErikCH)! - Added new force new password fields component. Also auto detect required attributes on force new password page.
+
+* Updated dependencies [[`3afdc1fc9`](https://github.com/aws-amplify/amplify-ui/commit/3afdc1fc9a876a17403ccfc607b922ec352fd1cf)]:
+  - @aws-amplify/ui@3.0.10
+
+## 2.1.10
+
+### Patch Changes
+
+- [#1165](https://github.com/aws-amplify/amplify-ui/pull/1165) [`4238ee696`](https://github.com/aws-amplify/amplify-ui/commit/4238ee696270d8e39e7f88d83956c2666f0305bb) Thanks [@joebuono](https://github.com/joebuono)! - Pin all @aws-amplify/ui-react dependencies
+
+* [#1162](https://github.com/aws-amplify/amplify-ui/pull/1162) [`e0fcf3685`](https://github.com/aws-amplify/amplify-ui/commit/e0fcf3685164075fe385f8e09247f9620a7e6ccc) Thanks [@wlee221](https://github.com/wlee221)! - Add explicit `INIT` step for initializing authMachine
+
+- [#1164](https://github.com/aws-amplify/amplify-ui/pull/1164) [`b4c327a73`](https://github.com/aws-amplify/amplify-ui/commit/b4c327a73ee34a0f4292b6972774011b0b4ca6d4) Thanks [@Jesmaster](https://github.com/Jesmaster)! - Removed hard-coded styles from Authenticator Sign Up button
+
+- Updated dependencies [[`6c070b2e1`](https://github.com/aws-amplify/amplify-ui/commit/6c070b2e118560dec9629c7c0abdfb218d53267c), [`e0fcf3685`](https://github.com/aws-amplify/amplify-ui/commit/e0fcf3685164075fe385f8e09247f9620a7e6ccc), [`3a69c2a75`](https://github.com/aws-amplify/amplify-ui/commit/3a69c2a752b9ab07bb55911cae6447dccd76cc1f)]:
+  - @aws-amplify/ui@3.0.9
+
+## 2.1.9
+
+### Patch Changes
+
+- [#1163](https://github.com/aws-amplify/amplify-ui/pull/1163) [`679a89383`](https://github.com/aws-amplify/amplify-ui/commit/679a89383814ad66b81494fe8dc9ce2cf8df5c2e) Thanks [@ErikCH](https://github.com/ErikCH)! - Fixed bug with QR code setup page
+
+* [#1166](https://github.com/aws-amplify/amplify-ui/pull/1166) [`c5cc41a70`](https://github.com/aws-amplify/amplify-ui/commit/c5cc41a70d7c0de4b2dcae385f7661361455e7b6) Thanks [@wlee221](https://github.com/wlee221)! - Thanks @jacoblogan! -- handle null children in tabs
+
+* Updated dependencies [[`c5cc41a70`](https://github.com/aws-amplify/amplify-ui/commit/c5cc41a70d7c0de4b2dcae385f7661361455e7b6)]:
+  - @aws-amplify/ui@3.0.8
+
+## 2.1.8
+
+### Patch Changes
+
+- [`f137f8a1d`](https://github.com/aws-amplify/amplify-ui/commit/f137f8a1dcedb6be9024494df726aa9a34e2472f) Thanks [@wlee221](https://github.com/wlee221)! - Revert "Remove IdProvider and port useId from radix (#1010)"
+
+## 2.1.7
+
+### Patch Changes
+
+- [#1083](https://github.com/aws-amplify/amplify-ui/pull/1083) [`2e7dbaeab`](https://github.com/aws-amplify/amplify-ui/commit/2e7dbaeaba19b8fc2a450acae0efa3e05810938e) Thanks [@ErikCH](https://github.com/ErikCH)! - Updated QR code page so users on mobile don't have to take a picture of the QR code
+
+* [#1122](https://github.com/aws-amplify/amplify-ui/pull/1122) [`7e0a6305f`](https://github.com/aws-amplify/amplify-ui/commit/7e0a6305fd92c55aea3d03ec5806f0ebac735015) Thanks [@ErikCH](https://github.com/ErikCH)! - Added new Confirm Sign Up Footer and Header slot
+
+- [#1125](https://github.com/aws-amplify/amplify-ui/pull/1125) [`c12184702`](https://github.com/aws-amplify/amplify-ui/commit/c12184702cb6e602a931a58b8ceb090d9d54a96b) Thanks [@ErikCH](https://github.com/ErikCH)! - Disable input on form submit for React on Sign up, Confirm Sign In, Confirm Sign Up, Force New Password, Confirm Reset Password, Reset Password, Setup TOTP, Confirm Verify User, and Verify User.
+
+* [#1077](https://github.com/aws-amplify/amplify-ui/pull/1077) [`9a095ae46`](https://github.com/aws-amplify/amplify-ui/commit/9a095ae46ee6639f7c8fe9a3a7b2b871449867b8) Thanks [@reesscot](https://github.com/reesscot)! - Fix media query logic to return correct breakpoint
+
+- [#1088](https://github.com/aws-amplify/amplify-ui/pull/1088) [`a2fa3603e`](https://github.com/aws-amplify/amplify-ui/commit/a2fa3603eda90a67c9a092ce170e86d13a152e18) Thanks [@wlee221](https://github.com/wlee221)! - Remove trailing space on "Forgot your password? "
+
+* [#1010](https://github.com/aws-amplify/amplify-ui/pull/1010) [`0197ab553`](https://github.com/aws-amplify/amplify-ui/commit/0197ab553c56da415b8db2e85e8c11e9d76e02dc) Thanks [@reesscot](https://github.com/reesscot)! - Remove IdProvider and port useId from radix.
+
+* Updated dependencies [[`1d5b84ac8`](https://github.com/aws-amplify/amplify-ui/commit/1d5b84ac828b962648e9b8600ed96297b1eb0c2a), [`9a095ae46`](https://github.com/aws-amplify/amplify-ui/commit/9a095ae46ee6639f7c8fe9a3a7b2b871449867b8), [`a2fa3603e`](https://github.com/aws-amplify/amplify-ui/commit/a2fa3603eda90a67c9a092ce170e86d13a152e18), [`87af74164`](https://github.com/aws-amplify/amplify-ui/commit/87af74164fb87b61d3c897b03af6e15cf73de79d), [`352a28197`](https://github.com/aws-amplify/amplify-ui/commit/352a281970f2568e7ea035cc89fb51afa31cbfc4)]:
+  - @aws-amplify/ui@3.0.7
+
+## 2.1.6
+
+### Patch Changes
+
+- [#1056](https://github.com/aws-amplify/amplify-ui/pull/1056) [`276d7e97a`](https://github.com/aws-amplify/amplify-ui/commit/276d7e97a5f8e722e8010edff25d5992f86c486d) Thanks [@hvergara](https://github.com/hvergara)! - Add white-space style prop
+
+* [#1035](https://github.com/aws-amplify/amplify-ui/pull/1035) [`ea98bea67`](https://github.com/aws-amplify/amplify-ui/commit/ea98bea6730f48b44e5159586b76e60de20f757b) Thanks [@ErikCH](https://github.com/ErikCH)! - Updated externals config in tsup. Removed typo.
+
+- [#1024](https://github.com/aws-amplify/amplify-ui/pull/1024) [`59d8b8efd`](https://github.com/aws-amplify/amplify-ui/commit/59d8b8efdc80deff7c144cbfd0f5040a4ec563c4) Thanks [@reesscot](https://github.com/reesscot)! - Build ui styles into ui-react package to fix [parcel](https://parceljs.org/) and [UMIJS](https://umijs.org/) apps.
+
+- Updated dependencies [[`5bfe1e599`](https://github.com/aws-amplify/amplify-ui/commit/5bfe1e5996536f8b5ada60e16db565dd8fb52f26), [`86e70f8e8`](https://github.com/aws-amplify/amplify-ui/commit/86e70f8e8486e70cccc23d04754e435b184915e8), [`43634b06a`](https://github.com/aws-amplify/amplify-ui/commit/43634b06aaccb1cf33cb18e0e142aee91df54aad), [`d8a422d7c`](https://github.com/aws-amplify/amplify-ui/commit/d8a422d7ce4c62a216a19d127907a2b80eb588ab), [`f9a09df7c`](https://github.com/aws-amplify/amplify-ui/commit/f9a09df7cded5bae1681bc138c048786f3bb75bc)]:
+  - @aws-amplify/ui@3.0.6
+
+## 2.1.5
+
+### Patch Changes
+
+- [#953](https://github.com/aws-amplify/amplify-ui/pull/953) [`b1418ba44`](https://github.com/aws-amplify/amplify-ui/commit/b1418ba44958290a33987df8684b06f560638055) Thanks [@reesscot](https://github.com/reesscot)! - Refocus `SearchField` input field on clear button click
+
+- Updated dependencies [[`63f773ee2`](https://github.com/aws-amplify/amplify-ui/commit/63f773ee2af1f55f1891794c1de1398e3eb47d93), [`88b15eb9a`](https://github.com/aws-amplify/amplify-ui/commit/88b15eb9aa608b58ca84fbf60e1beba8090f32e2)]:
+  - @aws-amplify/ui@3.0.5
+
+## 2.1.4
+
+### Patch Changes
+
+- [#969](https://github.com/aws-amplify/amplify-ui/pull/969) [`8e1f1f947`](https://github.com/aws-amplify/amplify-ui/commit/8e1f1f94748fac97d3a750174a8e4af9f8592eae) Thanks [@hvergara](https://github.com/hvergara)! - Pin @radix-ui/react-id dependency to 0.1.1
+
+## 2.1.3
+
+### Patch Changes
+
+- [#910](https://github.com/aws-amplify/amplify-ui/pull/910) [`96830f6a3`](https://github.com/aws-amplify/amplify-ui/commit/96830f6a34a417aa9bc6329c839679bd10da84f0) Thanks [@ErikCH](https://github.com/ErikCH)! - Added text to confirm sign up page, so user knows where code was delivered.
+
+* [#912](https://github.com/aws-amplify/amplify-ui/pull/912) [`f447ec75a`](https://github.com/aws-amplify/amplify-ui/commit/f447ec75ac839195c6c5709987ef734f40dc5c76) Thanks [@wlee221](https://github.com/wlee221)! - Fix height jumps between screens and tabs
+
+- [#909](https://github.com/aws-amplify/amplify-ui/pull/909) [`03ed3de02`](https://github.com/aws-amplify/amplify-ui/commit/03ed3de02253b584b507ba548552dde34ae15b1d) Thanks [@reesscot](https://github.com/reesscot)! - Rename PrimitiveWithForwardRef => Primitive type
+
+* [#949](https://github.com/aws-amplify/amplify-ui/pull/949) [`aec9a9479`](https://github.com/aws-amplify/amplify-ui/commit/aec9a9479198240cbe1f535114121e58443f0733) Thanks [@ErikCH](https://github.com/ErikCH)! - Added a way for users to add in custom translations for error messages returned from cognito.
+
+* Updated dependencies [[`72b543ded`](https://github.com/aws-amplify/amplify-ui/commit/72b543ded4c37325a0eb1e4a4803aa88d6d73d5d), [`96830f6a3`](https://github.com/aws-amplify/amplify-ui/commit/96830f6a34a417aa9bc6329c839679bd10da84f0), [`f447ec75a`](https://github.com/aws-amplify/amplify-ui/commit/f447ec75ac839195c6c5709987ef734f40dc5c76), [`712edfccc`](https://github.com/aws-amplify/amplify-ui/commit/712edfccc77a71542166431ba79b25a31d0dca80), [`f1c2d82db`](https://github.com/aws-amplify/amplify-ui/commit/f1c2d82db913be13425e8b4476983d7cf6f55c40)]:
+  - @aws-amplify/ui@3.0.4
+
 ## 2.1.2
 
 ### Patch Changes

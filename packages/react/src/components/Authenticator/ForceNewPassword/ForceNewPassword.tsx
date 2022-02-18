@@ -3,6 +3,8 @@ import { getActorContext, SignInContext, translate } from '@aws-amplify/ui';
 import { useAuthenticator } from '..';
 import { Button, Flex, Heading, PasswordField, Text } from '../../..';
 import { isInputOrSelectElement, isInputElement } from '../../../helpers/utils';
+import { useCustomComponents } from '../hooks/useCustomComponents';
+import { FormFields } from './FormFields';
 
 export const ForceNewPassword = (): JSX.Element => {
   const {
@@ -14,8 +16,14 @@ export const ForceNewPassword = (): JSX.Element => {
     updateForm,
     updateBlur,
   } = useAuthenticator();
-  const { validationError } = getActorContext(_state) as SignInContext;
 
+  const {
+    components: {
+      ForceNewPassword: { FormFields = ForceNewPassword.FormFields },
+    },
+  } = useCustomComponents();
+
+  const { validationError } = getActorContext(_state) as SignInContext;
   const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
     if (isInputOrSelectElement(event.target)) {
       let { name, type, value } = event.target;
@@ -49,7 +57,11 @@ export const ForceNewPassword = (): JSX.Element => {
       onChange={handleChange}
       onSubmit={handleSubmit}
     >
-      <Flex direction="column">
+      <fieldset
+        style={{ display: 'flex', flexDirection: 'column' }}
+        className="amplify-flex"
+        disabled={isPending}
+      >
         <Heading level={3}>{translate('Change Password')}</Heading>
 
         <Flex direction="column">
@@ -76,7 +88,7 @@ export const ForceNewPassword = (): JSX.Element => {
 
           {!!validationError['confirm_password'] && (
             <Text role="alert" variation="error">
-              {validationError['confirm_password']}
+              {translate(validationError['confirm_password'])}
             </Text>
           )}
         </Flex>
@@ -87,6 +99,7 @@ export const ForceNewPassword = (): JSX.Element => {
           </Text>
         )}
 
+        <FormFields></FormFields>
         <Button
           isDisabled={isPending}
           type="submit"
@@ -106,7 +119,9 @@ export const ForceNewPassword = (): JSX.Element => {
         >
           {translate('Back to Sign In')}
         </Button>
-      </Flex>
+      </fieldset>
     </form>
   );
 };
+
+ForceNewPassword.FormFields = FormFields;

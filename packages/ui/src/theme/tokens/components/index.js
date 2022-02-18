@@ -5,6 +5,7 @@ module.exports = {
   card: require('./card'),
   checkbox: require('./checkbox'),
   checkboxfield: require('./checkboxField'),
+  countrycodeselect: require('./countryCodeSelect'),
   divider: require('./divider'),
   expander: require('./expander'),
   field: require('./field'),

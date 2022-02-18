@@ -19,7 +19,7 @@ export const plDict = {
   'Enter your username': 'Wprowadź swoją nazwę użytkownika',
   'Family Name': 'Nazwisko',
   'Given Name': 'Pierwsze imię',
-  'Forgot your password? ': 'Zapomniałeś hasła? ',
+  'Forgot your password?': 'Zapomniałeś hasła? ',
   'Hide password': 'Ukryj hasło',
   Loading: 'Ładowanie',
   Username: 'Nazwa użytkownika',

@@ -11,9 +11,11 @@ import {
 
 import { useAuth, useAuthenticator } from '../composables/useAuth';
 import PasswordControl from './password-control.vue';
+import { createSharedComposable } from '@vueuse/core';
 
 const { state, send } = useAuth();
-const props = useAuthenticator();
+const useAuthShared = createSharedComposable(useAuthenticator);
+const props = useAuthShared();
 
 const attrs = useAttrs();
 const emit = defineEmits(['confirmResetPasswordSubmit', 'backToSignInClicked']);
@@ -170,10 +172,10 @@ function onBlur(e: Event) {
               class="amplify-text"
               v-if="!!(actorContext.validationError as ValidationError)['confirm_password']"
             >
-              {{ (actorContext.validationError as ValidationError)['confirm_password'] }}
+              {{ translate(actorContext.validationError?.confirm_password as string) }}
             </base-box>
             <base-alert v-if="actorState?.context?.remoteError">
-              {{ actorState?.context?.remoteError }}
+              {{ translate(actorState?.context?.remoteError) }}
             </base-alert>
             <amplify-button
               class="amplify-field-group__control"

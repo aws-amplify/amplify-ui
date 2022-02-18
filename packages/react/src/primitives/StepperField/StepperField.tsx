@@ -1,7 +1,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
-import { useStepper } from './useStepper';
+import { ComponentClassNames } from '../shared/constants';
 import { FieldDescription, FieldErrorMessage } from '../Field';
 import { FieldGroup } from '../FieldGroup';
 import { FieldGroupIconButton } from '../FieldGroupIcon';
@@ -9,20 +9,20 @@ import { Flex } from '../Flex';
 import { IconAdd, IconRemove } from '../Icon';
 import { Input } from '../Input';
 import { Label } from '../Label';
-import { StepperFieldProps } from '../types/stepperField';
-import { ComponentClassNames } from '../shared/constants';
+import { Primitive } from '../types/view';
 import { SharedText } from '../shared/i18n';
-import { useStableId } from '../shared/utils';
-import { PrimitiveWithForwardRef } from '../types/view';
 import { splitPrimitiveProps } from '../shared/styleUtils';
+import { StepperFieldProps } from '../types/stepperField';
+import { useStableId } from '../shared/utils';
+import { useStepper } from './useStepper';
 
 export const DECREASE_ICON = 'decrease-icon';
 export const INCREASE_ICON = 'increase-icon';
 
-const StepperFieldPrimitive: PrimitiveWithForwardRef<
-  StepperFieldProps,
-  'input'
-> = (props, ref) => {
+const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
+  props,
+  ref
+) => {
   const {
     className,
     descriptiveText,
@@ -46,6 +46,7 @@ const StepperFieldPrimitive: PrimitiveWithForwardRef<
   } = props;
 
   const fieldId = useStableId(id);
+  const descriptionId = useStableId();
 
   const { baseStyleProps, flexContainerStyleProps, rest } =
     splitPrimitiveProps(_rest);
@@ -59,9 +60,17 @@ const StepperFieldPrimitive: PrimitiveWithForwardRef<
     handleOnBlur,
     handleOnChange,
     handleOnWheel,
+    setInputValue,
     shouldDisableDecreaseButton,
     shouldDisableIncreaseButton,
   } = useStepper(props);
+
+  React.useEffect(() => {
+    const isControlled = controlledValue !== undefined;
+    if (isControlled) {
+      setInputValue(controlledValue);
+    }
+  }, [controlledValue, setInputValue]);
 
   return (
     <Flex
@@ -79,6 +88,7 @@ const StepperFieldPrimitive: PrimitiveWithForwardRef<
         {label}
       </Label>
       <FieldDescription
+        id={descriptionId}
         labelHidden={labelHidden}
         descriptiveText={descriptiveText}
       />
@@ -95,7 +105,7 @@ const StepperFieldPrimitive: PrimitiveWithForwardRef<
             onClick={handleDecrease}
             size={size}
           >
-            <IconRemove data-testid={DECREASE_ICON} size={size} />
+            <IconRemove data-testid={DECREASE_ICON} />
           </FieldGroupIconButton>
         }
         outerEndComponent={
@@ -110,11 +120,12 @@ const StepperFieldPrimitive: PrimitiveWithForwardRef<
             onClick={handleIncrease}
             size={size}
           >
-            <IconAdd data-testid={INCREASE_ICON} size={size} />
+            <IconAdd data-testid={INCREASE_ICON} />
           </FieldGroupIconButton>
         }
       >
         <Input
+          aria-describedby={descriptionId}
           className={ComponentClassNames.StepperFieldInput}
           hasError={hasError}
           id={fieldId}

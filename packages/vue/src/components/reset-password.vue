@@ -7,12 +7,14 @@ import {
 } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '../composables/useAuth';
+import { createSharedComposable } from '@vueuse/core';
 
 const attrs = useAttrs();
 const emit = defineEmits(['resetPasswordSubmit', 'backToSignInClicked']);
 
-const { state, send } = useAuthenticator();
-const { error, isPending } = toRefs(useAuthenticator());
+const useAuthShared = createSharedComposable(useAuthenticator);
+const { state, send } = useAuthShared();
+const { error, isPending } = toRefs(useAuthShared());
 
 const { label } = getAliasInfoFromContext(state.context);
 const labelText = `Enter your ${label.toLowerCase()}`;
@@ -105,7 +107,7 @@ const onBackToSignInClicked = (): void => {
           style="flex-direction: column; align-items: unset"
         >
           <base-alert v-if="error">
-            {{ error }}
+            {{ translate(error) }}
           </base-alert>
           <amplify-button
             class="amplify-field-group__control"

@@ -1,20 +1,17 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
-import { RadioGroupContext, RadioGroupContextType } from './context';
+import { ComponentClassNames } from '../shared/constants';
 import { FieldErrorMessage, FieldDescription } from '../Field';
 import { Flex } from '../Flex';
 import { Label } from '../Label';
-import { RadioGroupFieldProps, PrimitiveWithForwardRef } from '../types';
-import { ComponentClassNames } from '../shared/constants';
+import { RadioGroupContext, RadioGroupContextType } from './context';
+import { RadioGroupFieldProps, Primitive } from '../types';
 import { useStableId } from '../shared/utils';
 
 // Note: RadioGroupField doesn't extend the JSX.IntrinsicElements<'input'> types (instead extending 'typeof Flex')
 // because all rest props are passed to Flex container
-const RadioGroupFieldPrimitive: PrimitiveWithForwardRef<
-  RadioGroupFieldProps,
-  typeof Flex
-> = (
+const RadioGroupFieldPrimitive: Primitive<RadioGroupFieldProps, typeof Flex> = (
   {
     children,
     className,
@@ -37,6 +34,9 @@ const RadioGroupFieldPrimitive: PrimitiveWithForwardRef<
   ref
 ) => {
   const fieldId = useStableId(id);
+  const labelId = useStableId();
+  const descriptionId = useStableId();
+
   const radioGroupContextValue: RadioGroupContextType = React.useMemo(
     () => ({
       currentValue: value,
@@ -73,16 +73,19 @@ const RadioGroupFieldPrimitive: PrimitiveWithForwardRef<
       ref={ref}
       {...rest}
     >
-      <Label id={fieldId} visuallyHidden={labelHidden}>
+      <Label id={labelId} visuallyHidden={labelHidden}>
         {label}
       </Label>
       <FieldDescription
+        id={descriptionId}
         labelHidden={labelHidden}
         descriptiveText={descriptiveText}
       />
       <Flex
-        aria-labelledby={fieldId}
+        aria-describedby={descriptionId}
+        aria-labelledby={labelId}
         className={ComponentClassNames.RadioGroup}
+        id={fieldId}
         role="radiogroup"
       >
         <RadioGroupContext.Provider value={radioGroupContextValue}>

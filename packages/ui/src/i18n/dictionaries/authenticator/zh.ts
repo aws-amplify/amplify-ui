@@ -2,7 +2,7 @@ export const zhDict = {
   'Account recovery requires verified contact information':
     '账户恢复需要验证过的联系方式',
   'Back to Sign In': '回到登录',
-  'Change Password': '改变密码',
+  'Change Password': '更改密码',
   Code: '确认码',
   Confirm: '确认',
   'Confirm a Code': '确认码',

@@ -30,6 +30,7 @@ export class AuthenticatorComponent implements OnInit, AfterContentInit {
   @Input() signUpAttributes: AuthenticatorMachineOptions['signUpAttributes'];
   @Input() socialProviders: SocialProvider[];
   @Input() variation: 'default' | 'modal';
+  @Input() hideSignUp: boolean;
 
   @ContentChildren(AmplifySlotDirective)
   private customComponentQuery: QueryList<AmplifySlotDirective> = null;
@@ -96,6 +97,11 @@ export class AuthenticatorComponent implements OnInit, AfterContentInit {
     } else {
       this.authenticator.toSignIn();
     }
+  }
+
+  public hasTabs() {
+    const route = this.authenticator.route;
+    return route === 'signIn' || route === 'signUp';
   }
 
   private mapCustomComponents(

@@ -42,6 +42,58 @@ describe('Tabs: ', () => {
     expect(ref.current.nodeName).toBe('DIV');
   });
 
+  it('should skip over null children', async () => {
+    render(
+      <Tabs testId="tabsTest">
+        <TabItem title="Tab 1">Tab 1</TabItem>
+        {null}
+      </Tabs>
+    );
+    const tabs = await screen.findByTestId('tabsTest');
+    expect(tabs.children.length).toEqual(1);
+  });
+
+  it('should not log a warning for null children', async () => {
+    const warningMessage =
+      'Amplify UI: <Tabs> component only accepts <TabItem> as children.';
+    jest.spyOn(console, 'warn');
+
+    render(
+      <Tabs testId="tabsTest">
+        <TabItem title="Tab 1">Tab 1</TabItem>
+        {null}
+      </Tabs>
+    );
+
+    expect(console.warn).not.toHaveBeenCalledWith(warningMessage);
+  });
+
+  it('should log a warning for children not matching the TabItem structure', async () => {
+    const invalidChildren = [
+      123,
+      'test',
+      <div>
+        <span></span>
+      </div>,
+    ];
+    const warningMessage =
+      'Amplify UI: <Tabs> component only accepts <TabItem> as children.';
+    const spy = jest.spyOn(console, 'warn');
+
+    invalidChildren.forEach((child) => {
+      render(
+        <Tabs testId="tabsTest">
+          <TabItem title="Tab 1">Tab 1</TabItem>
+          {child as any}
+        </Tabs>
+      );
+
+      expect(console.warn).toHaveBeenCalledWith(warningMessage);
+
+      spy.mockClear();
+    });
+  });
+
   describe('TabItem: ', () => {
     it('can render custom classnames', async () => {
       render(

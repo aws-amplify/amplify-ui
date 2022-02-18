@@ -10,10 +10,9 @@ import {
   testFlexProps,
   expectFlexContainerStyleProps,
 } from '../../Flex/__tests__/Flex.test';
-import { AUTO_GENERATED_ID_PREFIX } from '../../shared/utils';
 
 describe('RadioFieldGroup test suite', () => {
-  const basicProps = { label: 'test', name: 'test', testId: 'test' };
+  const basicProps = { label: 'testLabel', name: 'testName', testId: 'testId' };
 
   const getRadioFieldGroup = ({
     label,
@@ -54,7 +53,7 @@ describe('RadioFieldGroup test suite', () => {
     const className = 'class-test';
     render(getRadioFieldGroup({ ...basicProps, className }));
 
-    const radioField = await screen.findByTestId('test');
+    const radioField = await screen.findByTestId(basicProps.testId);
     expect(radioField).toHaveClass(
       ComponentClassNames.Field,
       ComponentClassNames.RadioGroupField,
@@ -66,13 +65,13 @@ describe('RadioFieldGroup test suite', () => {
     const ref = React.createRef<HTMLDivElement>();
     render(<RadioGroupField {...basicProps} ref={ref}></RadioGroupField>);
 
-    await screen.findByTestId('test');
+    await screen.findByTestId(basicProps.testId);
     expect(ref.current.nodeName).toBe('DIV');
   });
 
   it('should render all flex style props', async () => {
     render(getRadioFieldGroup({ ...basicProps, ...testFlexProps }));
-    const radioField = await screen.findByTestId('test');
+    const radioField = await screen.findByTestId(basicProps.testId);
     expectFlexContainerStyleProps(radioField);
   });
 
@@ -81,29 +80,21 @@ describe('RadioFieldGroup test suite', () => {
       render(getRadioFieldGroup({ ...basicProps }));
 
       const labelElelment = (await screen.findByText(
-        'test'
+        basicProps.label
       )) as HTMLLabelElement;
       expect(labelElelment).toHaveClass(ComponentClassNames.Label);
     });
 
-    it('should match radio group aria-labelledby', async () => {
+    it('should map to label correctly', async () => {
       render(getRadioFieldGroup({ ...basicProps }));
-      const labelElelment = (await screen.findByText(
-        'test'
-      )) as HTMLLabelElement;
       const radioGroup = await screen.findByRole('radiogroup');
-      expect(radioGroup).toHaveAttribute('aria-labelledby', labelElelment.id);
-      expect(
-        radioGroup
-          .getAttribute('aria-labelledby')
-          .startsWith(AUTO_GENERATED_ID_PREFIX)
-      ).toBe(true);
+      expect(radioGroup).toHaveAccessibleName(basicProps.label);
     });
 
     it('should have `sr-only` class when labelHidden is true', async () => {
       render(getRadioFieldGroup({ ...basicProps, labelHidden: true }));
 
-      const labelElelment = await screen.findByText('test');
+      const labelElelment = await screen.findByText(basicProps.label);
       expect(labelElelment).toHaveClass('sr-only');
     });
   });
@@ -149,7 +140,7 @@ describe('RadioFieldGroup test suite', () => {
     it('should set size attribute', async () => {
       render(getRadioFieldGroup({ ...basicProps, size: 'large' }));
 
-      const radioField = await screen.findByTestId('test');
+      const radioField = await screen.findByTestId(basicProps.testId);
       expect(radioField).toHaveAttribute('data-size', 'large');
 
       const radioButtons = await screen.findAllByTestId('radio-button');
@@ -219,11 +210,19 @@ describe('RadioFieldGroup test suite', () => {
 
   describe('Descriptive message', () => {
     const descriptiveText = 'This is a descriptive text.';
+
     it('should render when descriptiveText is provided', async () => {
       render(getRadioFieldGroup({ ...basicProps, descriptiveText }));
 
       const descriptiveField = await screen.queryByText(descriptiveText);
       expect(descriptiveField).toContainHTML(descriptiveText);
+    });
+
+    it('should map to descriptive text correctly', async () => {
+      const descriptiveText = 'Description';
+      render(getRadioFieldGroup({ ...basicProps, descriptiveText }));
+      const radioGroup = await screen.findByRole('radiogroup');
+      expect(radioGroup).toHaveAccessibleDescription(descriptiveText);
     });
   });
 

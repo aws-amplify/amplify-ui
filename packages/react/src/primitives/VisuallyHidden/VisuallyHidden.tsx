@@ -2,13 +2,13 @@ import * as React from 'react';
 import classNames from 'classnames';
 
 import { ComponentClassNames } from '../shared/constants';
-import { PrimitiveWithForwardRef, VisuallyHiddenProps } from '../types';
+import { Primitive, VisuallyHiddenProps } from '../types';
 import { View } from '../View';
 
-const VisuallyHiddenPrimitive: PrimitiveWithForwardRef<
-  VisuallyHiddenProps,
-  'span'
-> = ({ as = 'span', children, className, ...rest }, ref) => (
+const VisuallyHiddenPrimitive: Primitive<VisuallyHiddenProps, 'span'> = (
+  { as = 'span', children, className, ...rest },
+  ref
+) => (
   <View
     as={as}
     className={classNames(ComponentClassNames.VisuallyHidden, className)}

@@ -1,148 +1,17 @@
-# Contributing
+# Contributing Guidelines
 
-## Getting Started
+Thank you for your interest in contributing to our project! 💛
 
-1. Fork & Clone this repo
-1. [`nvm install`](https://github.com/nvm-sh/nvm)
-1. [`nvm use`](https://github.com/nvm-sh/nvm)
-1. `yarn install`
+Please read through these guidelines carefully before submitting a PR and let us know if it's not up to date (or even better, submit a PR with your corrections 😉).
 
-## Documentation Development
+## Table of Contents
 
-1. Run the documentation via `yarn docs dev`
-1. Visit <http://localhost:5000/>
-1. Create/Update content based on the URL.
-
-   For example, the content for
-   http://localhost:5000/components/authenticator is located at [`docs/src/pages/components/authenticator/index.mdx`](docs/src/pages/components/authenticator/index.mdx)
-
-Internally, this content is served by a single, Next.js [optional catch all route](https://nextjs.org/docs/routing/dynamic-routes#optional-catch-all-routes):
-[`docs/src/pages/[[...slugs]].tsx`](docs/src/pages/[[...slugs]].tsx).
-
-## `@aws-amplify/ui`
-
-- `yarn ui build` to rebuild for production.
-- `yarn ui dev` to watch & rebuild for development.
-
-## `@aws-amplify/ui-react`
-
-- `yarn react build` to rebuild for production.
-- `yarn react dev` to watch & rebuild for development.
-- `yarn next-example dev` to run React examples on Next.js.
-
-## `@aws-amplify/ui-vue`
-
-- `yarn vue build` to rebuild for production
-- `yarn vue dev` to watch & rebuild for development.
-- `yarn vue-example dev` to run Vue examples on Vite.
-
-## `@aws-amplify/ui-angular`
-
-- `yarn angular build` to rebuild for production
-- `yarn angular dev` to watch & rebuild for development
-- `yarn angular-example dev` to run Angular examples.
-
-### Angular Troubleshooting
-
-Whenever `yarn angular build` is run, such as part of postinstall script, you want to run `yarn angular dev` again. This is to ensure that both `yarn angular` and `yarn angular-example` have [ivy](https://angular.io/guide/ivy) enabled for local development.
-
-## Examples Development
-
-1. Create or Update an example at [`examples/{next,vue,angular}/...`](examples)
-
-   For your `aws-exports.js`, you can [reference an existing or create a new environment](environments).
-
-   ```js
-   // examples/next/pages/components/authenticator/sign-up-with-username.tsx
-   import { Authenticator } from '@aws-amplify/ui-react';
-   import { Amplify } from 'aws-amplify';
-   import awsExports from '../../../../../environments/auth-with-username-no-attributes/src/aws-exports';
-
-   Amplify.configure(awsExports);
-
-   export default function AuthenticatorWithUsername() {
-     return <Authenticator />;
-   }
-   ```
-
-1. Run your example: `yarn {next,vue,angular}-example dev`
-1. Visit your example (e.g. <http://localhost:3000/ui/components/authenticator/sign-up-with-username>)
-1. Make changes to [`@aws-amplify/ui-{react,vue,angular}`](packages) & save.
-
-   Examples should automatically hot-reload your changes in the example.
-
-### E2E Testing
-
-1. Create or Update a `${feature}.feature` file (using [Gherkin](https://cucumber.io/docs/gherkin/reference/)) describing the behavior in [`packages/e2e/features/${slug}`](packages/e2e/features).
-
-   ```gherkin
-   Feature: My new feature
-
-     Documentation-friendly description of this feature, why it exists, & how to use it.
-
-     @angular @react @vue
-     Scenario: Example scenario using this feature
-       Given some "STARTING_POINT"
-       When I DO "SOMETHING"
-       And I DO SOMETHING "ELSE"
-       Then I see "THE DESIRED BEHAVIOR"
-
-     @react @skip
-     Scenario: Some React-specific scenario that can't be rain in CI
-
-     @angular @todo-react @todo-vue
-     Scenario: Some scenario supported in Angular, but React & Vue haven't added yet
-   ```
-
-1. Create or Update the accompanying `${slug}.feature` tests (e.g. `packages/e2e/cypress/integration/${slug}/${feature}/${feature}.steps.ts`
-1. Start one of the [examples](examples).
-1. Run `yarn e2e dev` to load Cypress
-
-   ```shell
-   TAGS='@react and not (@skip or @todo-react)' yarn e2e dev
-   ```
-
-1. Click on your updated `${feature}.feature` file to validate your changes
-1. Add tags above your `Scenario` to indicate how this feature should be tested:
-
-   - If the library supports it, then add one of the following:
-
-     - `@angular` for `@aws-amplify/ui-angular`
-     - `@react` for `@aws-amplify/ui-react`
-     - `@vue` for `@aws-amplify/ui-vue`
-
-     This will ensure automated documentation marks these as supported features.
-
-   - If the library supports it, **but tests cannot be ran in CI for technical reasons**, then also add:
-
-     - `@skip` for all libraries
-     - `@skip-angular` for specifically `@aws-amplify/ui-angular`
-     - `@skip-react` for specifically `@aws-amplify/ui-react`
-     - `@skip-vue` for specifically `@aws-amplify/ui-vue`
-
-     This will ensure automated documentation marks these as supported features, but won't block builds (in PRs or `main`) with test failures.
-
-   - If the library _should_ support it, then also add:
-
-     - `@todo-angular` for `@aws-amplify/ui-angular`
-     - `@todo-react` for `@aws-amplify/ui-react`
-     - `@todo-vue` for `@aws-amplify/ui-vue`
-
-     This will ensure automated documentation marks these as _upcoming_ features, will skip these on PRs, but **will error on `main` until completed**.
-
-## Updating Icons
-
-If material design icon svg files are updated [upstream](https://github.com/google/material-design-icons/), follow these steps to update our icons components for all frameworks:
-
-1. Copy [material-design-icons repo](https://github.com/google/material-design-icons/) svg icons to `material-design-icons` folder (TODO: create script for this step)
-1. Update components for all frameworks by runing the following command at root:
-
-```
-yarn build:icons
-```
-
-1. Review and commit changes to icons
-1. Submit PR for review
+- [Bug Reports](#bug-reports)
+- [Pull Requests](#pull-requests)
+- [Project Structure](#project-structure)
+- [Local Development Guides](#local-devleopment-guides)
+- [Publishing](#publishing)
+- [Updating Icons](#updating-icons)
 
 ## Bug Reports
 
@@ -164,4 +33,76 @@ Guidelines for bug reports:
 
 Finally, thank you for taking the time to read this, and taking the time to write a good bug report.
 
+## Pull Requests
 
+We welcome pull requests!
+
+You should open an issue to discuss your pull request, unless it's a trivial change. It's best to ensure that your proposed change would be accepted so that you don't waste your own time. If you would like to implement support for a significant feature that is not yet available, please talk to us beforehand to avoid any duplication of effort.
+
+### Contribution Process
+
+1. Fork & Clone this repo
+1. [`nvm install`](https://github.com/nvm-sh/nvm)
+1. [`nvm use`](https://github.com/nvm-sh/nvm)
+1. `yarn setup`
+1. Within your fork, create a new branch based on the issue you're addressing -- `git checkout -b angular/remove-browser-module`
+1. Once your work is committed, validate your changes according to [local development guides](#local-devleopment-guides).
+1. Push your branch with `git push origin -u`
+1. Open a PR against this repo from your newly published branch.
+1. Add a [changeset](https://github.com/changesets/changesets) that describes your changes. More info [here](https://github.com/changesets/changesets/blob/main/docs/adding-a-changeset.md). Please make sure that your changeset only bumps `@aws-amplify/*` packages and does not bump any of private packages like `docs`, `e2e`, `examples`, etc.
+1. Finally, Amplify UI team will review your PR. Add reviewers based on the core member who is tracking the issue with you or code owners. In the meantime, address any automated check that fail (such as linting, unit tests, etc. in CI)
+
+## Project Structure
+
+`amplify-ui` is a monorepo that contains the following workspaces:
+
+```bash
+amplify-ui
+├── canary # contains examples we use to test build systems
+├── docs # ui.docs.amplify.aws documentation code
+├── environments # Amplify backend environments we use for e2e testing
+├── examples # Example apps we use for e2e testing
+│   └── angular
+│   └── next
+│   └── vue
+├── packages # Amplify UI components implementations
+│   └── angular
+│   └── react
+│   └── vue
+```
+
+## Local Devleopment Guides
+
+Please refer to the following contributing guides:
+
+- [`docs`](docs/README.md#contributing)
+- [`@aws-amplify/ui`](packages/ui/CONTRIBUTING.md)
+- [`@aws-amplify/ui-angular`](packages/angular/CONTRIBUTING.md)
+- [`@aws-amplify/ui-react`](packages/react/CONTRIBUTING.md)
+- [`@aws-amplify/ui-vue`](packages/vue/CONTRIBUTING.md)
+- [`examples`](examples/README.md#examples-development)
+- [`e2e`](packages/e2e/README.md#contributing)
+- [`environments`](environments/README.md#external-contributors)
+
+## Publishing
+
+Amplify UI team publishes to NPM on every Tues (mandatory) and Thurs (optional). We use [`changesets`](https://github.com/changesets/changesets) to drive our deployment procedure:
+
+1. Each contributor adds a changeset in their PR
+1. Changesets get accumulated into [Version Packages PR](https://github.com/aws-amplify/amplify-ui/pulls/app%2Fgithub-actions).
+1. Maintainer will run tests, approve, and merge the PR.
+1. Previous step will trigger [`publish-latest`](./.github/workflows/publish-next.yml) action that will build and publish packages to NPM.
+
+## Updating Icons
+
+If material design icon svg files are updated [upstream](https://github.com/google/material-design-icons/), follow these steps to update our icons components for all frameworks:
+
+1. Copy [material-design-icons repo](https://github.com/google/material-design-icons/) svg icons to `material-design-icons` folder (TODO: create script for this step)
+1. Update components for all frameworks by runing the following command at root:
+
+```
+yarn build:icons
+```
+
+1. Review and commit changes to icons
+1. Submit PR for review

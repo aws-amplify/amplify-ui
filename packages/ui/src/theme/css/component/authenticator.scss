@@ -7,7 +7,7 @@
   display: grid;
   width: 100vw;
   height: 100vh;
-  overflow: auto;
+  height: -webkit-fill-available;
   background-color: var(--amplify-colors-background-secondary, #e1e5e9);
 
   /* Override browser default `body { margin: 8px }` */
@@ -17,6 +17,46 @@
 
   /* Having a z-index at least "wins" by default */
   z-index: 1;
+
+  /* top-align at the top 20% of the screen */
+  box-sizing: border-box; // don't add padding to total height
+  padding-top: 20vh;
+  align-content: flex-start; // top align
+
+  @media (max-width: 30rem) {
+    overflow: auto; // only overflow on mobile. On web, router-content overflows.
+    padding-top: 0; // use the full height on mobile
+  }
+}
+
+[data-amplify-authenticator][data-variation='modal']
+  [data-amplify-router-content] {
+  max-height: 60vh;
+  overflow-y: auto;
+
+  /* Scroll shadows, adapted from https://codepen.io/chriscoyier/pen/YzXBYvL */
+  background: linear-gradient(white 30%, rgba(255, 255, 255, 0)) center top,
+    linear-gradient(rgba(255, 255, 255, 0), white 70%) center bottom,
+    radial-gradient(
+        farthest-side at 50% 0,
+        rgba(0, 0, 0, 0.15),
+        rgba(0, 0, 0, 0)
+      )
+      center top,
+    radial-gradient(
+        farthest-side at 50% 100%,
+        rgba(0, 0, 0, 0.15),
+        rgba(0, 0, 0, 0)
+      )
+      center bottom;
+
+  background-repeat: no-repeat;
+  background-size: 100% 40px, 100% 40px, 100% 14px, 100% 14px;
+  background-attachment: local, local, scroll, scroll;
+
+  @media (max-width: 30rem) {
+    max-height: unset; // on mobile, let content take the whole height
+  }
 }
 
 /* Texture for modal */
@@ -98,4 +138,33 @@
     z-index: 1;
     padding: 0px 1.5rem;
   }
+}
+[data-amplify-copy] {
+  display: flex;
+  font-size: 0.688rem;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+
+  @media (max-width: 30rem) {
+    word-break: break-all;
+  }
+}
+
+[data-amplify-copy-svg] {
+  cursor: pointer;
+  position: relative;
+
+  &:hover [data-amplify-copy-tooltip] {
+    visibility: visible;
+    font-size: 0.55rem;
+  }
+}
+
+[data-amplify-copy-tooltip] {
+  visibility: hidden;
+  position: absolute;
+  top: -1rem;
+  left: -0.1rem;
+  color: var(--amplify-colors-teal-100);
 }

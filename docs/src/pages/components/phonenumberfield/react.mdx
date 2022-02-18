@@ -26,7 +26,7 @@ The `PhoneNumberField` form primitive can be used allow users to input a phone n
 ## Usage
 
 Import the `PhoneNumberField` component and styles and provide a `label` for accessibility/usability as well as a `defaultCountryCode`
-which will auto-populate the country code select field.
+which will auto-populate the country or region code select field.
 
 ```jsx
 import { PhoneNumberField } from '@aws-amplify/ui-react';
@@ -35,15 +35,15 @@ import '@aws-amplify/ui-react/styles.css';
 <PhoneNumberField defaultCountryCode="+1" label="Phone Number" />;
 ```
 
-### Country Code Select Properties
+### Country or Region Code Select Properties
 
-The country code selector can be customized by setting several properties when using the `PhoneNumberField` primitive. The custom
-properties specific to the country code selector are the following:
+The country or region code selector can be customized by setting several properties when using the `PhoneNumberField` primitive. The custom
+properties specific to the country or region code selector are the following:
 
-- `defaultCountryCode` (_required_): The default country code that will be selected upon render (e.g. `defaultValue={defaultCountryCode}`)
-- `countryCodeName`: A name for the country code selector for handling form submission (e.g. `name={countryCodeName}`)
-- `countryCodeLabel`: A hidden accessible label for the country code selector (e.g. `label={countryCodeLabel}`)
-- `onCountryCodeChange`: A custom change handler for the country code selector (e.g. `onChange={onCountryCodeChange}`)
+- `defaultCountryCode` (_required_): The default country or region code that will be selected upon render (e.g. `defaultValue={defaultCountryCode}`)
+- `countryCodeName`: A name for the country or region code selector for handling form submission (e.g. `name={countryCodeName}`)
+- `countryCodeLabel`: A hidden accessible label for the country or region code selector (e.g. `label={countryCodeLabel}`)
+- `onCountryCodeChange`: A custom change handler for the country or region code selector (e.g. `onChange={onCountryCodeChange}`)
 
 ```jsx
 <Flex direction="column">
@@ -64,7 +64,7 @@ properties specific to the country code selector are the following:
 ### Autocomplete - supporting password managers
 
 Use the `autoComplete` prop to tell the browser how to populate the `PhoneNumberField`. By default, the `PhoneNumberField` primitive uses `tel-national`
-as the `autoComplete` property for the text field and `tel-country-code` as the `autoComplete` property for the country code selector.
+as the `autoComplete` property for the text field and `tel-country-code` as the `autoComplete` property for the country or region code selector.
 
 If the `PhoneNumberField` primitive is intended to be used in a form that is compatible with most password managers, the `autoComplete` property should
 be set to `username` (see [Password Form Styles that Chromium Understands](https://www.chromium.org/developers/design-documents/form-styles-that-chromium-understands)).
@@ -260,7 +260,7 @@ Use the `hasError` and `errorMessage` fields to mark a `PhoneNumberField` as hav
 
 <Fragment>{() => import('./../shared/forwardRefAlert.mdx')}</Fragment>
 
-The standard `ref` prop will forward to the underlying `input` element, and the `countryCodeRef` prop forwards to the country code `select` element.
+The standard `ref` prop will forward to the underlying `input` element, and the `countryCodeRef` prop forwards to the country or region code `select` element.
 
 The following is a contrived example demonstrating use of the `ref` and `countryCodeRef` props:
 

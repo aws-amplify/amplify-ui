@@ -1,16 +1,13 @@
 import * as React from 'react';
 import classNames from 'classnames';
 
-import { CountryCodeSelect } from './CountryCodeSelect';
-import { TextField } from '../TextField';
 import { ComponentClassNames } from '../shared/constants';
+import { CountryCodeSelect } from './CountryCodeSelect';
+import { PhoneNumberFieldProps, Primitive } from '../types';
 import { SharedText } from '../shared/i18n';
-import { PhoneNumberFieldProps, PrimitiveWithForwardRef } from '../types';
+import { TextField } from '../TextField';
 
-const PhoneNumberFieldPrimitive: PrimitiveWithForwardRef<
-  PhoneNumberFieldProps,
-  'input'
-> = (
+const PhoneNumberFieldPrimitive: Primitive<PhoneNumberFieldProps, 'input'> = (
   {
     autoComplete = 'tel-national',
     className,
