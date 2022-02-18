@@ -159,7 +159,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
             edit: {
               entry: sendUpdate(),
               on: {
-                SUBMIT: 'submit',
+                SUBMIT: { actions: 'handleSubmit', target: 'submit' },
                 CHANGE: { actions: 'handleInput' },
                 BLUR: { actions: 'handleBlur' },
                 RESEND: 'resend',
