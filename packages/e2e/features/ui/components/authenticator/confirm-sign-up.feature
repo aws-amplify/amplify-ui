@@ -9,6 +9,16 @@ Feature: Confirm Sign Up
     And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-email"
 
   @angular @react @vue
+  Scenario: Confirm  new password page has correct translations
+    When I type a new "email"
+    And I type my password
+    And I confirm my password
+    And I click the "Create Account" button
+    And I see "Confirmation Code"
+    Then I see "Enter this code:"
+    Then I see ". It will take several minutes to arrive."
+
+  @angular @react @vue
   Scenario: Confirm a new username & password with an invalid code
     When I type a new "email"
     And I type my password
