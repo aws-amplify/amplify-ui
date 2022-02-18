@@ -9,14 +9,30 @@ const showHideLabel = ref(showPassword);
 
 const random = Math.floor(Math.random() * 999999);
 
-const props = defineProps({
-  name: String,
-  label: String,
-  autocomplete: String,
-  ariainvalid: Boolean,
+interface PropsInterface {
+  name: string;
+  label: string;
+  autocomplete: string;
+  ariainvalid: boolean;
+  labelHidden?: boolean;
+  placeholder?: string | null;
+  required?: boolean;
+}
+
+const props = withDefaults(defineProps<PropsInterface>(), {
+  labelHidden: true,
+  required: true,
 });
 
-const { name, label, autocomplete, ariainvalid } = toRefs(props);
+const {
+  name,
+  label,
+  autocomplete,
+  ariainvalid,
+  labelHidden,
+  placeholder,
+  required,
+} = toRefs(props);
 
 let password = ref('');
 
@@ -25,6 +41,9 @@ function togglePasswordText(): void {
     showHideLabel.value === showPassword ? hidePassword : showPassword;
   showHideType.value = showHideType.value === 'password' ? 'text' : 'password';
 }
+
+const placeholderValue = translate<string>(placeholder?.value ?? label.value);
+const labelValue = translate<string>(label.value);
 </script>
 <script lang="ts">
 export default {
@@ -33,8 +52,12 @@ export default {
 </script>
 
 <template>
-  <base-label class="amplify-label sr-only" :for="'amplify-field-' + random">
-    {{ label }}
+  <base-label
+    class="amplify-label"
+    :class="{ 'sr-only': labelHidden ?? true }"
+    :for="'amplify-field-' + random"
+  >
+    {{ labelValue }}
   </base-label>
   <base-wrapper class="amplify-flex amplify-field-group">
     <base-input
@@ -46,8 +69,8 @@ export default {
       data-amplify-password="true"
       :name="name"
       :autocomplete="autocomplete"
-      required
-      :placeholder="label"
+      :required="required ?? true"
+      :placeholder="placeholderValue"
       :type="showHideType"
     />
     <base-wrapper class="amplify-field-group__outer-end">

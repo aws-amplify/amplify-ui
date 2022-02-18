@@ -11,6 +11,7 @@ export interface AuthContext {
     loginMechanisms?: LoginMechanism[];
     signUpAttributes?: SignUpAttribute[];
     socialProviders?: SocialProvider[];
+    formFields?: FormFields;
     initialState?: 'signIn' | 'signUp' | 'resetPassword';
   };
   services?: Partial<typeof defaultServices>;
@@ -46,6 +47,7 @@ interface BaseFormContext {
 export interface SignInContext extends BaseFormContext {
   loginMechanisms: Required<AuthContext>['config']['loginMechanisms'];
   socialProviders: Required<AuthContext>['config']['socialProviders'];
+  formFields?: FormFields;
   attributeToVerify?: string;
   redirectIntent?: string;
   unverifiedAttributes?: Record<string, string>;
@@ -87,6 +89,7 @@ export type SignUpAttribute =
 export interface SignUpContext extends BaseFormContext {
   loginMechanisms: Required<AuthContext>['config']['loginMechanisms'];
   socialProviders: Required<AuthContext>['config']['socialProviders'];
+  formFields: FormFields;
   unverifiedAttributes?: Record<string, string>;
 }
 
@@ -169,6 +172,32 @@ export const LoginMechanismArray = [
 export type LoginMechanism = typeof LoginMechanismArray[number];
 
 export type SocialProvider = 'amazon' | 'apple' | 'facebook' | 'google';
+
+type formFieldComponents =
+  | 'signIn'
+  | 'signUp'
+  | 'forceNewPassword'
+  | 'confirmResetPassword'
+  | 'confrimSignIn'
+  | 'confirmSignUp'
+  | 'confirmVerifyUser'
+  | 'resetPassword'
+  | 'setupTOTP'
+  | 'verifyUser';
+
+export type FormFields = {
+  [key in formFieldComponents]?: formField;
+};
+export interface formField {
+  [key: string]: formFieldTypes;
+}
+
+export interface formFieldTypes {
+  labelHidden?: boolean;
+  label?: string;
+  placeholder?: string;
+  required?: boolean;
+}
 
 // Auth fields that we provide default fields with
 export type AuthFieldsWithDefaults =

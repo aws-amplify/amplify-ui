@@ -6,6 +6,20 @@ import aws_exports from './aws-exports';
 
 Amplify.configure(aws_exports);
 
+const formFields = {
+  signUp: {
+    email: {
+      type: 'email',
+      labelHidden: false,
+      placeholder: 'boo',
+    },
+    password: {
+      labelHidden: false,
+      placeholder: 'boo23',
+    },
+  },
+};
+
 const services = {
   async handleSignUp(formData) {
     let { username, password, attributes } = formData;
@@ -22,7 +36,11 @@ const services = {
 </script>
 
 <template>
-  <authenticator :services="services" initial-state="signUp">
+  <authenticator
+    :services="services"
+    :form-fields="formFields"
+    initial-state="signUp"
+  >
     <template v-slot="{ user, signOut }">
       <h1>Hello {{ user.username }}!</h1>
       <button @click="signOut">Sign Out</button>

@@ -1,3 +1,80 @@
+<script setup lang="ts">
+import { ref, computed, ComputedRef } from 'vue';
+import {
+  authInputAttributes,
+  getActorContext,
+  getAliasInfoFromContext,
+  ActorContextWithForms,
+  countryDialCodes,
+  translate,
+  LoginMechanism,
+} from '@aws-amplify/ui';
+
+import { useAuth } from '../composables/useAuth';
+import { useAliases } from '../composables/useUtils';
+
+interface PropsInterface {
+  userNameAlias?: boolean;
+  userName?: string;
+  disabled?: boolean;
+  labelHidden?: boolean;
+  label?: string;
+  placeholder?: string | null;
+  required?: boolean;
+}
+
+const { userNameAlias, userName, disabled, placeholder, required, label } =
+  withDefaults(defineProps<PropsInterface>(), {
+    userNameAlias: false,
+    userName: '',
+    disable: false,
+    labelHidden: true,
+    required: true,
+  });
+
+const { state } = useAuth();
+
+const {
+  value: { context },
+} = state;
+
+const actorContext: ComputedRef<ActorContextWithForms> = computed(() =>
+  getActorContext(state.value)
+);
+
+const defaultDialCode = actorContext.value.country_code;
+
+let uName = ref('');
+
+if (userName) {
+  uName = computed(() => userName);
+}
+
+const dialCodes = computed(() => countryDialCodes);
+
+const [primaryAlias] = useAliases(
+  context?.config?.loginMechanisms as LoginMechanism[]
+);
+
+let name = primaryAlias;
+let labelValue =
+  authInputAttributes[primaryAlias as LoginMechanism]?.label ??
+  authInputAttributes['username'].label;
+let type =
+  authInputAttributes[name as LoginMechanism]?.type ??
+  authInputAttributes['username'].label;
+
+// Only show for Sign In
+if (userNameAlias) {
+  const aliasInfo = getAliasInfoFromContext(context);
+  labelValue = aliasInfo.label || authInputAttributes['username'].label;
+  type = aliasInfo.type;
+  name = 'username';
+}
+const placeholderValue = translate<string>(placeholder ?? labelValue);
+labelValue = translate<string>(label ?? labelValue);
+</script>
+
 <template>
   <base-wrapper
     class="
@@ -6,11 +83,12 @@
     style="flex-direction: column"
   >
     <base-label
-      class="amplify-label sr-only"
+      class="amplify-label"
+      :class="{ 'sr-only': labelHidden ?? true }"
       for="amplify-field-601d"
       v-bind="$attrs"
     >
-      {{ label }}
+      {{ labelValue }}
     </base-label>
     <base-wrapper class="amplify-flex amplify-field-group">
       <base-wrapper class="amplify-field-group__outer-start">
@@ -65,8 +143,8 @@
           aria-invalid="false"
           :textValue="uName"
           autocomplete="username"
-          :placeholder="label"
-          required
+          :placeholder="placeholderValue"
+          :required="required ?? true"
           :name="name"
           :disabled="disabled"
           :type="type"
@@ -75,75 +153,3 @@
     </base-wrapper>
   </base-wrapper>
 </template>
-
-<script setup lang="ts">
-import { ref, computed, ComputedRef } from 'vue';
-import {
-  authInputAttributes,
-  getActorContext,
-  getAliasInfoFromContext,
-  ActorContextWithForms,
-  countryDialCodes,
-  translate,
-  LoginMechanism,
-} from '@aws-amplify/ui';
-
-import { useAuth } from '../composables/useAuth';
-import { useAliases } from '../composables/useUtils';
-
-interface PropsInterface {
-  userNameAlias?: boolean;
-  userName?: string;
-  disabled?: boolean;
-}
-
-const { userNameAlias, userName, disabled } = withDefaults(
-  defineProps<PropsInterface>(),
-  {
-    userNameAlias: false,
-    userName: '',
-    disable: false,
-  }
-);
-
-const { state } = useAuth();
-
-const {
-  value: { context },
-} = state;
-
-const actorContext: ComputedRef<ActorContextWithForms> = computed(() =>
-  getActorContext(state.value)
-);
-
-const defaultDialCode = actorContext.value.country_code;
-
-let uName = ref('');
-
-if (userName) {
-  uName = computed(() => userName);
-}
-
-const dialCodes = computed(() => countryDialCodes);
-
-const [primaryAlias] = useAliases(
-  context?.config?.loginMechanisms as LoginMechanism[]
-);
-
-let name = primaryAlias;
-let label =
-  authInputAttributes[primaryAlias as LoginMechanism]?.label ??
-  authInputAttributes['username'].label;
-let type =
-  authInputAttributes[name as LoginMechanism]?.type ??
-  authInputAttributes['username'].label;
-
-// Only show for Sign In
-if (userNameAlias) {
-  const aliasInfo = getAliasInfoFromContext(context);
-  label = aliasInfo.label || authInputAttributes['username'].label;
-  type = aliasInfo.type;
-  name = 'username';
-}
-label = translate<string>(label);
-</script>

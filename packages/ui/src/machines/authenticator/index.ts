@@ -170,9 +170,11 @@ export function createAuthenticatorMachine() {
               signUpAttributes,
               socialProviders,
               initialState,
+              formFields,
             } = context.config;
             return {
               loginMechanisms: loginMechanisms ?? cliLoginMechanisms,
+              formFields: formFields ?? {},
               signUpAttributes:
                 signUpAttributes ??
                 Array.from(
@@ -199,6 +201,7 @@ export function createAuthenticatorMachine() {
               validationError: {},
               loginMechanisms: context.config?.loginMechanisms,
               socialProviders: context.config?.socialProviders,
+              formFields: context.config?.formFields,
             });
             return spawn(actor, { name: 'signInActor' });
           },
@@ -206,6 +209,7 @@ export function createAuthenticatorMachine() {
         spawnSignUpActor: assign({
           actorRef: (context, event) => {
             const { services } = context;
+            console.log('formFields?', context.config);
             const actor = createSignUpMachine({ services }).withContext({
               authAttributes: event.data?.authAttributes ?? {},
               country_code: DEFAULT_COUNTRY_CODE,
@@ -215,6 +219,7 @@ export function createAuthenticatorMachine() {
               validationError: {},
               loginMechanisms: context.config?.loginMechanisms,
               socialProviders: context.config?.socialProviders,
+              formFields: context.config?.formFields,
             });
             return spawn(actor, { name: 'signUpActor' });
           },
@@ -242,6 +247,7 @@ export function createAuthenticatorMachine() {
         }),
         configure: assign((_, event) => {
           const { services: customServices, ...config } = event.data;
+          console.log('got confi', config);
           return {
             services: { ...defaultServices, ...customServices },
             config,

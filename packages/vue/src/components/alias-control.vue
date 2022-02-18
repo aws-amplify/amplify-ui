@@ -15,17 +15,19 @@ interface PropsInterface {
   name: string;
   placeholder?: string;
   autocomplete?: string;
+  labelHidden?: boolean;
+  required?: boolean;
 }
 
-const { label, name, placeholder, autocomplete } = withDefaults(
-  defineProps<PropsInterface>(),
-  {
+const { label, name, placeholder, autocomplete, labelHidden, required } =
+  withDefaults(defineProps<PropsInterface>(), {
     label: 'Username',
     name: 'username',
     placeholder: '',
     autocomplete: '',
-  }
-);
+    labelHidden: false,
+    required: true,
+  });
 const random = Math.floor(Math.random() * 999999);
 const randomPhone = Math.floor(Math.random() * 999999);
 
@@ -72,6 +74,7 @@ const inferAutocomplete = computed((): string => {
     <base-label
       :for="'amplify-field-' + random"
       class="amplify-label"
+      :class="{ 'sr-only': labelHidden }"
       v-bind="$attrs"
     >
       {{ label }}
@@ -132,7 +135,7 @@ const inferAutocomplete = computed((): string => {
           :id="'amplify-field-' + random"
           :autocomplete="inferAutocomplete"
           :name="name"
-          required
+          :required="required ?? true"
           :type="inputAttributes[name as LoginMechanism]?.type ?? 'text'"
           :placeholder="placeholder"
         ></base-input>

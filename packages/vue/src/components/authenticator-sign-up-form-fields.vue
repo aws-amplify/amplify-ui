@@ -7,6 +7,7 @@ import {
   authInputAttributes,
   SignUpAttribute,
 } from '@aws-amplify/ui';
+
 import { useAuth, useAuthenticator } from '../composables/useAuth';
 import UserNameAliasComponent from './user-name-alias.vue';
 import PasswordControl from './password-control.vue';
@@ -19,6 +20,8 @@ const { state } = useAuth();
 const {
   value: { context },
 } = state;
+
+const formOverrides = context?.config?.formFields?.signUp;
 
 const useAuthShared = createSharedComposable(useAuthenticator);
 const { validationErrors } = toRefs(useAuthShared());
@@ -59,7 +62,13 @@ const loginMechanism = fieldNames.shift() as LoginMechanism;
 </script>
 
 <template>
-  <user-name-alias-component :userName="loginMechanism" />
+  <user-name-alias-component
+    :label-hidden="formOverrides?.[loginMechanism]?.labelHidden"
+    :userName="loginMechanism"
+    :placeholder="formOverrides?.[loginMechanism]?.placeholder"
+    :required="formOverrides?.[loginMechanism]?.required"
+    :label="formOverrides?.[loginMechanism]?.label"
+  />
   <base-wrapper
     class="
       amplify-flex amplify-field amplify-textfield amplify-passwordfield
@@ -69,7 +78,10 @@ const loginMechanism = fieldNames.shift() as LoginMechanism;
   >
     <password-control
       name="password"
-      :label="passwordLabel"
+      :label-hidden="formOverrides?.['password']?.labelHidden"
+      :placeholder="formOverrides?.['password']?.placeholder"
+      :required="formOverrides?.['password']?.required"
+      :label="formOverrides?.['password']?.label ?? passwordLabel"
       autocomplete="new-password"
       :ariainvalid="!!validationErrors.confirm_password"
       @blur="onBlur"
@@ -82,9 +94,15 @@ const loginMechanism = fieldNames.shift() as LoginMechanism;
     "
     style="flex-direction: column"
   >
+    <!-- :label-hidden="formOverrides?.['confirm_password'].labelHidden" -->
     <password-control
       name="confirm_password"
-      :label="confirmPasswordLabel"
+      :label="
+        formOverrides?.['confirm_password']?.label ?? confirmPasswordLabel
+      "
+      :label-hidden="formOverrides?.['confirm_password']?.labelHidden"
+      :placeholder="formOverrides?.['confirm_password']?.placeholder"
+      :required="formOverrides?.['confirm_password']?.required"
       autocomplete="new-password"
       :ariainvalid="!!validationErrors.confirm_password"
       @blur="onBlur"
@@ -103,12 +121,14 @@ const loginMechanism = fieldNames.shift() as LoginMechanism;
     <alias-control
       :label="
         // prettier-ignore
-        translate<string>((inputAttributes[field as LoginMechanism]).label)
+        translate<string>(formOverrides?.[field]?.label ?? (inputAttributes[field as LoginMechanism]).label)
       "
+      :label-hidden="formOverrides?.[field]?.labelHidden"
+      :required="formOverrides?.[field]?.required"
       :name="field"
       :placeholder="
         // prettier-ignore
-        translate<string>( inputAttributes[field as LoginMechanism].label)
+        translate<string>( formOverrides?.[field]?.placeholder  ?? inputAttributes[field as LoginMechanism].label)
       "
     />
   </template>
