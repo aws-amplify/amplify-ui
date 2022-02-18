@@ -5,6 +5,12 @@ import { defaultServices } from '../machines/authenticator/defaultServices';
 
 export type AuthFormData = Record<string, string>;
 
+export interface ActorDoneData {
+  authAttributes?: AuthFormData;
+  intent?: string;
+  user?: CognitoUserAmplify;
+}
+
 export interface AuthContext {
   actorRef?: any;
   config?: {
@@ -182,12 +188,6 @@ export type AuthInputAttributes = Record<
   AuthFieldsWithDefaults,
   InputAttributes
 >;
-
-export interface ActorDoneData {
-  authAttributes?: AuthFormData;
-  intent?: string;
-  user?: CognitoUserAmplify;
-}
 
 export type AuthEventData = Record<PropertyKey, any>; // TODO: this should be typed further
 
