@@ -17,7 +17,7 @@ import {
 } from './utils';
 import { TextArea } from '../TextArea';
 import { useStableId } from '../shared/utils';
-import { useDeprecationWarning } from 'src/hooks/useDeprecationWarning';
+import { useDeprecationWarning } from '../../hooks/useDeprecationWarning';
 
 export const DEFAULT_ROW_COUNT = 3;
 
