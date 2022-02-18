@@ -22,7 +22,7 @@ export class ConfirmSignUpComponent {
   public defaultMessage = translate(
     'Your code is on the way. To log in, enter the code we sent you. It may take a minute to arrive.'
   );
-  public minutesMessage = translate('. It may take a minute to arrive.');
+  public minutesMessage = translate('It may take a minute to arrive.');
 
   constructor(public authenticator: AuthenticatorService) {}
 
@@ -43,9 +43,9 @@ export class ConfirmSignUpComponent {
     const { codeDeliveryDetails: { DeliveryMedium, Destination } = {} } =
       this.authenticator;
     return DeliveryMedium === 'EMAIL'
-      ? `${this.emailMessage} ${Destination}${this.minutesMessage}`
+      ? `${this.emailMessage} ${Destination}. ${this.minutesMessage}`
       : DeliveryMedium === 'SMS'
-      ? `${this.textedMessage} ${Destination}${this.minutesMessage}`
+      ? `${this.textedMessage} ${Destination}. ${this.minutesMessage}`
       : translate(`${this.defaultMessage}`);
   }
 

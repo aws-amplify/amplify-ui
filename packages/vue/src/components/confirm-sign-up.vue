@@ -36,12 +36,12 @@ const textedMessage = translate(
 const defaultMessage = translate(
   'Your code is on the way. To log in, enter the code we sent you. It may take a minute to arrive.'
 );
-const minutesMessage = translate('. It may take a minute to arrive.');
+const minutesMessage = translate('It may take a minute to arrive.');
 const subtitleText = computed(() => {
   return codeDeliveryDetails.value?.DeliveryMedium === 'EMAIL'
-    ? `${emailMessage} ${codeDeliveryDetails.value?.Destination}${minutesMessage}`
+    ? `${emailMessage} ${codeDeliveryDetails.value?.Destination}. ${minutesMessage}`
     : codeDeliveryDetails.value?.DeliveryMedium === 'SMS'
-    ? `${textedMessage} ${codeDeliveryDetails.value?.Destination}${minutesMessage}`
+    ? `${textedMessage} ${codeDeliveryDetails.value?.Destination}. ${minutesMessage}`
     : translate(`${defaultMessage}`);
 });
 

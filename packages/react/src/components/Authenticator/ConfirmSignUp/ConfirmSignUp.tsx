@@ -57,7 +57,7 @@ export function ConfirmSignUp() {
     'Your code is on the way. To log in, enter the code we sent you. It may take a minute to arrive.'
   );
 
-  const minutesMessage = translate('. It may take a minute to arrive.');
+  const minutesMessage = translate('It may take a minute to arrive.');
 
   const confirmationCodeInputProps: ConfirmationCodeInputProps = {
     label: translate('Confirmation Code'),
@@ -66,9 +66,9 @@ export function ConfirmSignUp() {
 
   const subtitleText =
     DeliveryMedium === 'EMAIL'
-      ? `${emailMessage} ${Destination}${minutesMessage}`
+      ? `${emailMessage} ${Destination}. ${minutesMessage}`
       : DeliveryMedium === 'SMS'
-      ? `${textedMessage} ${Destination}${minutesMessage}`
+      ? `${textedMessage} ${Destination}. ${minutesMessage}`
       : translate(`${defaultMessage}`);
 
   return (

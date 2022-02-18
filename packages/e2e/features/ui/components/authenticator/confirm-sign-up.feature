@@ -16,7 +16,7 @@ Feature: Confirm Sign Up
     And I click the "Create Account" button
     And I see "Confirmation Code"
     Then I see "Enter this code:"
-    Then I see ". It will take several minutes to arrive."
+    Then I see "It will take several minutes to arrive."
 
   @angular @react @vue
   Scenario: Confirm a new username & password with an invalid code
