@@ -69,8 +69,17 @@ export function createAuthenticatorMachine() {
           ],
         },
         signIn: {
-          entry: 'spawnSignInActor',
-          exit: stopActor('signInActor'),
+          initial: 'spawnActor',
+          states: {
+            spawnActor: {
+              entry: 'spawnSignInActor',
+              always: 'runActor',
+            },
+            runActor: {
+              entry: 'clearActorDoneData',
+              exit: stopActor('signInActor'),
+            },
+          },
           on: {
             SIGN_UP: 'signUp',
             RESET_PASSWORD: 'resetPassword',
@@ -93,8 +102,17 @@ export function createAuthenticatorMachine() {
           },
         },
         signUp: {
-          entry: 'spawnSignUpActor',
-          exit: stopActor('signUpActor'),
+          initial: 'spawnActor',
+          states: {
+            spawnActor: {
+              entry: 'spawnSignUpActor',
+              always: 'runActor',
+            },
+            runActor: {
+              entry: 'clearActorDoneData',
+              exit: stopActor('signUpActor'),
+            },
+          },
           on: {
             SIGN_IN: 'signIn',
             'done.invoke.signUpActor': {
@@ -104,8 +122,17 @@ export function createAuthenticatorMachine() {
           },
         },
         resetPassword: {
-          entry: 'spawnResetPasswordActor',
-          exit: stopActor('resetPasswordActor'),
+          initial: 'spawnActor',
+          states: {
+            spawnActor: {
+              entry: 'spawnResetPasswordActor',
+              always: 'runActor',
+            },
+            runActor: {
+              entry: 'clearActorDoneData',
+              exit: stopActor('resetPasswordActor'),
+            },
+          },
           on: {
             SIGN_IN: 'signIn',
             'done.invoke.resetPasswordActor': {
@@ -115,8 +142,16 @@ export function createAuthenticatorMachine() {
           },
         },
         signOut: {
-          entry: 'spawnSignOutActor',
-          exit: [stopActor('signOutActor'), 'clearUser'],
+          states: {
+            spawnActor: {
+              entry: 'spawnSignOutActor',
+              always: 'runActor',
+            },
+            runActor: {
+              entry: 'clearActorDoneData',
+              exit: [stopActor('signOutActor'), 'clearUser'],
+            },
+          },
           on: {
             'done.invoke.signOutActor': 'signIn',
           },
@@ -149,9 +184,8 @@ export function createAuthenticatorMachine() {
           }),
           user: (_, event) => event.data.user,
         }),
-        clearUser: assign({
-          user: undefined,
-        }),
+        clearUser: assign({ user: undefined }),
+        clearActorDoneData: assign({ actorDoneData: undefined }),
         applyAmplifyConfig: assign({
           config(context, event) {
             // The CLI uses uppercased constants in `aws-exports.js`, while `parameters.json` are lowercase.
