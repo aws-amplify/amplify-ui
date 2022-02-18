@@ -18,7 +18,6 @@ export const useTextAreaFieldProps = (initialValues: TextAreaFieldProps) => {
     initialValues.label
   );
 
-  // start here:
   const [descriptiveText, setDescriptiveText] = React.useState<
     TextAreaFieldProps['descriptiveText']
   >(initialValues.descriptiveText);
@@ -47,12 +46,20 @@ export const useTextAreaFieldProps = (initialValues: TextAreaFieldProps) => {
     TextAreaFieldProps['placeholder']
   >(initialValues.placeholder);
 
-  const [size, setSize] = React.useState<TextAreaFieldProps['size']>(
-    initialValues.size
-  );
+  const [maxLength, setMaxLength] = React.useState<
+    TextAreaFieldProps['maxLength']
+  >(initialValues.maxLength);
 
   const [name, setName] = React.useState<TextAreaFieldProps['name']>(
     initialValues.name
+  );
+
+  const [rows, setRows] = React.useState<TextAreaFieldProps['rows']>(
+    initialValues.rows
+  );
+
+  const [size, setSize] = React.useState<TextAreaFieldProps['size']>(
+    initialValues.size
   );
 
   const [value, setValue] = React.useState<TextAreaFieldProps['value']>(
@@ -74,8 +81,10 @@ export const useTextAreaFieldProps = (initialValues: TextAreaFieldProps) => {
     isRequired,
     label,
     labelHidden,
+    maxLength,
     name,
     placeholder,
+    rows,
     setAutoComplete,
     setDefaultValue,
     setDescriptiveText,
@@ -86,8 +95,10 @@ export const useTextAreaFieldProps = (initialValues: TextAreaFieldProps) => {
     setIsRequired,
     setLabel,
     setLabelHidden,
+    setMaxLength,
     setName,
     setPlaceholder,
+    setRows,
     setSize,
     setValue,
     setVariation,

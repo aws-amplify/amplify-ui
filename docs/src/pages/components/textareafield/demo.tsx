@@ -35,6 +35,8 @@ export const TextAreaFieldDemo = () => {
     labelHidden: false,
     name: 'last_name',
     placeholder: 'Baggins',
+    rows: 3,
+    maxLength: null,
     size: 'small',
     value: null,
     variation: null,
@@ -66,6 +68,8 @@ export const TextAreaFieldDemo = () => {
     labelHidden,
     placeholder,
     size,
+    rows,
+    maxLength,
     value,
     name,
     variation,
@@ -109,9 +113,18 @@ export const TextAreaFieldDemo = () => {
       : '') +
     `
   label="${label}"
-  labelHidden={${labelHidden}}
+  labelHidden={${labelHidden}} ` +
+    (maxLength
+      ? `
+  maxLength="${maxLength}"`
+      : '') +
+    `
   name="${name}"
   placeholder="${placeholder}"` +
+    (rows
+      ? `
+  rows="${rows}"`
+      : '') +
     (size
       ? `
   size="${size}"`
@@ -172,8 +185,10 @@ export const TextAreaFieldDemo = () => {
         }
         label={label as TextAreaFieldProps['label']}
         labelHidden={labelHidden as unknown as boolean}
+        maxLength={maxLength as TextAreaFieldProps['maxLength']}
         name={name as TextAreaFieldProps['name']}
         placeholder={placeholder as TextAreaFieldProps['placeholder']}
+        rows={rows as TextAreaFieldProps['rows']}
         size={size as TextAreaFieldProps['size']}
         value={value as TextAreaFieldProps['value']}
         variation={variation as TextAreaFieldProps['variation']}

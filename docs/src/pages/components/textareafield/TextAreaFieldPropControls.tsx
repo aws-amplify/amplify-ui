@@ -36,11 +36,15 @@ export interface TextAreaFieldControlsProps extends TextAreaFieldProps {
   setLabelHidden: (
     value: React.SetStateAction<TextAreaFieldProps['labelHidden']>
   ) => void;
+  setMaxLength: (
+    value: React.SetStateAction<TextAreaFieldProps['maxLength']>
+  ) => void;
   setName: (value: React.SetStateAction<TextAreaFieldProps['name']>) => void;
   setPlaceholder: (
     value: React.SetStateAction<TextAreaFieldProps['placeholder']>
   ) => void;
   setSize: (value: React.SetStateAction<TextAreaFieldProps['size']>) => void;
+  setRows: (value: React.SetStateAction<TextAreaFieldProps['rows']>) => void;
   setValue: (value: React.SetStateAction<TextAreaFieldProps['value']>) => void;
   setVariation: (
     value: React.SetStateAction<TextAreaFieldProps['variation']>
@@ -53,34 +57,38 @@ interface TextAreaFieldControlsInterface {
 
 export const TextAreaFieldPropControls: TextAreaFieldControlsInterface = ({
   autoComplete,
-  setAutoComplete,
   defaultValue,
-  setDefaultValue,
-  hasError,
-  setHasError,
-  label,
-  setLabel,
   descriptiveText,
+  errorMessage,
+  hasError,
+  isDisabled,
+  isReadOnly,
+  isRequired,
+  label,
+  labelHidden,
+  maxLength,
+  name,
+  placeholder,
+  rows,
+  setAutoComplete,
+  setDefaultValue,
   setDescriptiveText,
   setErrorMessage,
-  errorMessage,
+  setHasError,
   setIsDisabled,
-  isDisabled,
   setIsReadOnly,
-  isReadOnly,
   setIsRequired,
-  isRequired,
+  setLabel,
   setLabelHidden,
-  labelHidden,
+  setMaxLength,
   setName,
-  name,
   setPlaceholder,
-  placeholder,
+  setRows,
   setSize,
-  size,
   setValue,
-  value,
   setVariation,
+  size,
+  value,
   variation,
 }) => {
   return (
@@ -129,6 +137,24 @@ export const TextAreaFieldPropControls: TextAreaFieldControlsInterface = ({
           setPlaceholder(event.target.value);
         }}
         label="placeholder"
+      />
+      <TextField
+        placeholder="Set rows"
+        name="rows"
+        value={rows}
+        onChange={(event: any) => {
+          setRows(event.target.value);
+        }}
+        label="rows"
+      />
+      <TextField
+        placeholder="Set maxLength"
+        name="maxLength"
+        value={maxLength}
+        onChange={(event: any) => {
+          setMaxLength(event.target.value);
+        }}
+        label="maxLength"
       />
       <TextField
         placeholder="Set descriptive text"
