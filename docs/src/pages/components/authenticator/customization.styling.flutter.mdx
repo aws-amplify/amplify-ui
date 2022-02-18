@@ -24,47 +24,50 @@ Widget build(BuildContext context) {
   );
 }
 
-ThemeData customLightTheme = ThemeData.from(
+// light theme
+ThemeData customLightTheme = ThemeData(
+  // app's colors scheme and brightness
   colorScheme: ColorScheme.fromSwatch(
+    brightness: Brightness.light,
     primarySwatch: Colors.indigo,
-    backgroundColor: Colors.white,
   ),
-).copyWith(
+  // tab bar indicator color
   indicatorColor: Colors.indigo,
   textTheme: const TextTheme(
+    // text theme of the header on each step
     headline6: TextStyle(
       fontWeight: FontWeight.w600,
       fontSize: 24,
     ),
   ),
+  // theme of the form fields for each step
   inputDecorationTheme: InputDecorationTheme(
+    contentPadding: const EdgeInsets.all(16),
     floatingLabelBehavior: FloatingLabelBehavior.never,
-    fillColor: Colors.grey[100],
+    fillColor: Colors.grey[200],
     filled: true,
     border: OutlineInputBorder(
       borderRadius: BorderRadius.circular(12),
       borderSide: BorderSide.none,
     ),
   ),
+  // theme of the primary button for each step
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ButtonStyle(
-      padding: MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.all(22)),
+      padding: MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.all(16)),
       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-        RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
     ),
   ),
 );
 
-ThemeData customDarkTheme = ThemeData.from(
+// dark theme
+ThemeData customDarkTheme = ThemeData(
   colorScheme: ColorScheme.fromSwatch(
     brightness: Brightness.dark,
     primarySwatch: Colors.indigo,
-    backgroundColor: Colors.grey[850],
   ),
-).copyWith(
   indicatorColor: Colors.indigo,
   textTheme: const TextTheme(
     headline6: TextStyle(
@@ -74,6 +77,7 @@ ThemeData customDarkTheme = ThemeData.from(
     ),
   ),
   inputDecorationTheme: InputDecorationTheme(
+    contentPadding: const EdgeInsets.all(16),
     floatingLabelBehavior: FloatingLabelBehavior.never,
     fillColor: Colors.grey[700],
     filled: true,
@@ -84,11 +88,9 @@ ThemeData customDarkTheme = ThemeData.from(
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ButtonStyle(
-      padding: MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.all(22)),
+      padding: MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.all(16)),
       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-        RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
     ),
   ),

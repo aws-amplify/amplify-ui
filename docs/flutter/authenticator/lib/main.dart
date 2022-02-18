@@ -192,6 +192,20 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
+  ThemeData get theme {
+    final theme = _authenticatorConfig.useCustomTheme
+        ? customLightTheme
+        : ThemeData.light();
+    return theme.copyWith(visualDensity: VisualDensity.standard);
+  }
+
+  ThemeData get darkTheme {
+    final theme = _authenticatorConfig.useCustomTheme
+        ? customDarkTheme
+        : ThemeData.dark();
+    return theme.copyWith(visualDensity: VisualDensity.standard);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Authenticator(
@@ -206,16 +220,8 @@ class _MyAppState extends State<MyApp> {
         useInheritedMediaQuery: true,
         title: 'Authenticator Demo',
         builder: Authenticator.builder(),
-        theme: (_authenticatorConfig.useCustomTheme
-            ? customLightTheme
-            : ThemeData.light()).copyWith(
-          visualDensity: VisualDensity.standard,
-        ),
-        darkTheme: (_authenticatorConfig.useCustomTheme
-            ? customDarkTheme
-            : ThemeData.dark()).copyWith(
-          visualDensity: VisualDensity.standard,
-        ),
+        theme: theme,
+        darkTheme: darkTheme,
         themeMode: _authenticatorConfig.themeMode,
         home: Scaffold(
           appBar: AppBar(),
@@ -345,47 +351,50 @@ Widget? customBuilder(BuildContext context, AuthenticatorState state) {
   }
 }
 
-ThemeData customLightTheme = ThemeData.from(
+// light theme
+ThemeData customLightTheme = ThemeData(
+  // app's colors scheme and brightness
   colorScheme: ColorScheme.fromSwatch(
+    brightness: Brightness.light,
     primarySwatch: Colors.indigo,
-    backgroundColor: Colors.white,
   ),
-).copyWith(
+  // tab bar indicator color
   indicatorColor: Colors.indigo,
   textTheme: const TextTheme(
+    // text theme of the header on each step
     headline6: TextStyle(
       fontWeight: FontWeight.w600,
       fontSize: 24,
     ),
   ),
+  // theme of the form fields for each step
   inputDecorationTheme: InputDecorationTheme(
+    contentPadding: const EdgeInsets.all(16),
     floatingLabelBehavior: FloatingLabelBehavior.never,
-    fillColor: Colors.grey[100],
+    fillColor: Colors.grey[200],
     filled: true,
     border: OutlineInputBorder(
       borderRadius: BorderRadius.circular(12),
       borderSide: BorderSide.none,
     ),
   ),
+  // theme of the primary button for each step
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ButtonStyle(
-      padding: MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.all(22)),
+      padding: MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.all(16)),
       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-        RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
     ),
   ),
 );
 
-ThemeData customDarkTheme = ThemeData.from(
+// dark theme
+ThemeData customDarkTheme = ThemeData(
   colorScheme: ColorScheme.fromSwatch(
     brightness: Brightness.dark,
     primarySwatch: Colors.indigo,
-    backgroundColor: Colors.grey[850],
   ),
-).copyWith(
   indicatorColor: Colors.indigo,
   textTheme: const TextTheme(
     headline6: TextStyle(
@@ -395,6 +404,7 @@ ThemeData customDarkTheme = ThemeData.from(
     ),
   ),
   inputDecorationTheme: InputDecorationTheme(
+    contentPadding: const EdgeInsets.all(16),
     floatingLabelBehavior: FloatingLabelBehavior.never,
     fillColor: Colors.grey[700],
     filled: true,
@@ -405,11 +415,9 @@ ThemeData customDarkTheme = ThemeData.from(
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ButtonStyle(
-      padding: MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.all(22)),
+      padding: MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.all(16)),
       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-        RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
     ),
   ),
