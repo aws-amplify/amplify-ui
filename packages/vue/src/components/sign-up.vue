@@ -32,12 +32,17 @@ const onSignUpSubmit = (e: Event): void => {
   if (attrs?.onSignUpSubmit) {
     emit('signUpSubmit', e);
   } else {
-    submit();
+    submit(e);
   }
 };
 
-const submit = (): void => {
-  props.submitForm();
+const submit = (e: Event): void => {
+  e.preventDefault();
+
+  const formData = new FormData(e.target as HTMLFormElement);
+  const json = Object.fromEntries(formData);
+
+  props.submitForm(json);
 };
 </script>
 
