@@ -10,7 +10,12 @@ export const useDeprecationWarning = ({
   message,
 }: UseDeprecationWarning) => {
   React.useEffect(() => {
-    if (shouldWarn && process && process.env.NODE_ENV !== 'production') {
+    if (
+      shouldWarn &&
+      // show message on builds without Node `process` polyfill
+      // or with process.env.NODE_ENV not production
+      (!process || (process && process.env.NODE_ENV !== 'production'))
+    ) {
       console.warn(message);
     }
   }, [shouldWarn, message]);
