@@ -20,6 +20,6 @@ Amplify UI is an open-source UI library with cloud-connected components that are
 - **Primitive components (React only right now)** Primitive components are used in the connected components, like Authenticator, you can also customize them and use them to build the rest of your UI.
 
 
-## We love contributors! 
+## We love contributors!!
 
 See our contributing guide [CONTRIBUTING.md](/CONTRIBUTING.md) to help us scale Amplify UI! 
