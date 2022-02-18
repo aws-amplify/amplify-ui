@@ -7,6 +7,7 @@ export enum ComponentClassNames {
   Badge = 'amplify-badge',
   Button = 'amplify-button',
   ButtonGroup = 'amplify-buttongroup',
+  ButtonLoaderWrapper = 'amplify-button__loader-wrapper',
   Card = 'amplify-card',
   Checkbox = 'amplify-checkbox',
   CheckboxButton = 'amplify-checkbox__button',
