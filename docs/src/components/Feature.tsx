@@ -1,4 +1,4 @@
-import { Alert } from '@aws-amplify/ui-react';
+import { Alert, VisuallyHidden } from '@aws-amplify/ui-react';
 import {
   AstBuilder,
   GherkinClassicTokenMatcher,
@@ -113,7 +113,7 @@ export function Feature({ name = required('Missing feature name') }) {
         <table className="w-full ml-4 table-auto">
           <thead>
             <tr className="text-sm text-left text-gray-600">
-              <th className="sr-only">Example</th>
+              <VisuallyHidden as="th">Example</VisuallyHidden>
               {process.env.NODE_ENV === 'development' && <td>Demo</td>}
               <td>Source</td>
               <td>Test</td>
@@ -133,7 +133,7 @@ export function Feature({ name = required('Missing feature name') }) {
                       rel="noreferrer"
                       target="_blank"
                     >
-                      <span className="sr-only">Demo</span>
+                      <VisuallyHidden as="span">Demo</VisuallyHidden>
                       <ExternalLinkIcon className="h-4" />
                     </a>
                   </td>
@@ -146,7 +146,7 @@ export function Feature({ name = required('Missing feature name') }) {
                     rel="noreferrer"
                     target="_blank"
                   >
-                    <span className="sr-only">Source</span>
+                    <VisuallyHidden as="span">Source</VisuallyHidden>
                     <CodeIcon className="h-4" />
                   </a>
                 </td>
@@ -156,7 +156,7 @@ export function Feature({ name = required('Missing feature name') }) {
                     rel="noreferrer"
                     target="_blank"
                   >
-                    <span className="sr-only">Test</span>
+                    <VisuallyHidden as="span">Test</VisuallyHidden>
                     <ClipboardCheckIcon className="h-4" />
                   </a>
                 </td>

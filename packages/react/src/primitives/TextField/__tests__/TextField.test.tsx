@@ -46,11 +46,11 @@ describe('TextField component', () => {
       expect(label).toHaveClass(ComponentClassNames.Label);
     });
 
-    it('should have `sr-only` class when labelHidden is true', async () => {
+    it('should have `amplify-visually-hidden` class when labelHidden is true', async () => {
       render(<TextField label="Search" labelHidden={true} />);
 
       const label = await screen.findByText('Search');
-      expect(label).toHaveClass('sr-only');
+      expect(label).toHaveClass('amplify-visually-hidden');
     });
   });
 

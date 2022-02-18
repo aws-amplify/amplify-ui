@@ -90,7 +90,9 @@ const onLostCodeClicked = (): void => {
               class="amplify-flex amplify-field amplify-textfield"
               style="flex-direction: column"
             >
-              <base-label class="sr-only amplify-label" for="amplify-field-124b"
+              <base-label
+                class="amplify-visually-hidden amplify-label"
+                for="amplify-field-124b"
                 >{{ confirmationCodeText }}
               </base-label>
               <base-wrapper class="amplify-flex">
