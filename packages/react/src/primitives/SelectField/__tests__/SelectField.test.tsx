@@ -215,6 +215,23 @@ describe('SelectField test suite', () => {
     expect(onChange).toHaveBeenCalled();
   });
 
+  it('should accept a inputStyles prop for styling', async () => {
+    render(
+      <SelectField
+        label="Field"
+        inputStyles={{
+          backgroundColor: 'red',
+        }}
+      >
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+      </SelectField>
+    );
+    const field = (await screen.findByRole(role)) as HTMLInputElement;
+    expect(field).toHaveStyle(`background-color: red`);
+  });
+
   describe('Descriptive message', () => {
     it('renders when descriptiveText is provided', async () => {
       render(

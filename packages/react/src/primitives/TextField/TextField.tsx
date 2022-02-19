@@ -41,6 +41,7 @@ const TextFieldPrimitive = <Multiline extends boolean>(
     type, // remove from rest to prevent passing as DOM attribute to textarea
     size,
     testId,
+    inputStyles,
     ..._rest
   } = props;
 
@@ -67,7 +68,7 @@ const TextFieldPrimitive = <Multiline extends boolean>(
         ref={isTextAreaRef(props, ref) ? ref : undefined}
         rows={rows ?? DEFAULT_ROW_COUNT}
         size={size}
-        {...baseStyleProps}
+        {...inputStyles}
         {...rest}
       />
     );
@@ -81,7 +82,7 @@ const TextFieldPrimitive = <Multiline extends boolean>(
         ref={isInputRef(props, ref) ? ref : undefined}
         size={size}
         type={type}
-        {...baseStyleProps}
+        {...inputStyles}
         {...rest}
       />
     );
@@ -96,6 +97,7 @@ const TextFieldPrimitive = <Multiline extends boolean>(
       )}
       data-size={size}
       testId={testId}
+      {...baseStyleProps}
       {...flexContainerStyleProps}
     >
       <Label htmlFor={fieldId} visuallyHidden={labelHidden}>

@@ -42,6 +42,7 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
     testId,
     // this is only required in useStepper hook but deconstruct here to remove its existence in rest
     value: controlledValue,
+    inputStyles,
     ..._rest
   } = props;
 
@@ -82,6 +83,7 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
       data-size={size}
       data-variation={variation}
       testId={testId}
+      {...baseStyleProps}
       {...flexContainerStyleProps}
     >
       <Label htmlFor={fieldId} visuallyHidden={labelHidden}>
@@ -140,7 +142,7 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
           variation={variation}
           type="number"
           value={inputValue}
-          {...baseStyleProps}
+          {...inputStyles}
           {...rest}
         />
       </FieldGroup>

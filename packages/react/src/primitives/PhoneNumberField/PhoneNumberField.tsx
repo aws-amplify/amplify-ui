@@ -22,6 +22,7 @@ const PhoneNumberFieldPrimitive: Primitive<PhoneNumberFieldProps, 'input'> = (
     type,
     variation,
     countryCodeRef,
+    selectStyles,
     ...rest
   },
   ref
@@ -40,6 +41,9 @@ const PhoneNumberFieldPrimitive: Primitive<PhoneNumberFieldProps, 'input'> = (
           ref={countryCodeRef}
           size={size}
           variation={variation}
+          // CountryCodeSelect is a SelectField, so to send style props to it
+          // we send them to its inputStyles. Get it?
+          inputStyles={selectStyles}
         />
       }
       autoComplete={autoComplete}

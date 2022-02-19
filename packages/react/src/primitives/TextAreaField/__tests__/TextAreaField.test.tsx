@@ -176,6 +176,19 @@ describe('TextAreaField component', () => {
       expect(onInput).toHaveBeenCalled();
       expect(onPaste).toHaveBeenCalled();
     });
+
+    it('should accept a inputStyles prop for styling', async () => {
+      render(
+        <TextAreaField
+          label="Field"
+          inputStyles={{
+            backgroundColor: 'red',
+          }}
+        />
+      );
+      const field = (await screen.findByRole('textbox')) as HTMLInputElement;
+      expect(field).toHaveStyle(`background-color: red`);
+    });
   });
 
   describe('error messages', () => {

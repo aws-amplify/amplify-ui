@@ -135,4 +135,32 @@ describe('PhoneNumberField primitive', () => {
 
     expect(onCountryCodeChange).toHaveBeenCalled();
   });
+
+  it('should accept a inputStyles prop for styling', async () => {
+    render(
+      <PhoneNumberField
+        label="Field"
+        defaultCountryCode="+1"
+        inputStyles={{
+          backgroundColor: 'red',
+        }}
+      />
+    );
+    const field = (await screen.findByRole('textbox')) as HTMLInputElement;
+    expect(field).toHaveStyle(`background-color: red`);
+  });
+
+  it('should accept a selectStyles prop for styling', async () => {
+    render(
+      <PhoneNumberField
+        label="Field"
+        defaultCountryCode="+1"
+        selectStyles={{
+          backgroundColor: 'red',
+        }}
+      />
+    );
+    const field = (await screen.findByRole('combobox')) as HTMLInputElement;
+    expect(field).toHaveStyle(`background-color: red`);
+  });
 });

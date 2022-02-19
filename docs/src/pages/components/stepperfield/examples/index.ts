@@ -4,5 +4,6 @@ export { DisabledStepperFieldExample } from './DisabledStepperFieldExample';
 export { ReadOnlyStepperFieldExample } from './ReadOnlyStepperFieldExample';
 export { StepperFieldAccessibilityExample } from './StepperFieldAccessibilityExample';
 export { StepperFieldSizeExample } from './StepperFieldSizeExample';
-export { StepperFieldStylePropsExample } from './StepperFieldStylePropsExample';
+export { StylePropsExample } from './StylePropsExample';
 export { StepperFieldValidationErrorExample } from './StepperFieldValidationErrorExample';
+export { InputStyleExample } from './InputStyleExample';

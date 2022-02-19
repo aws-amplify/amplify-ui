@@ -7,9 +7,10 @@ import {
   DefaultSearchFieldExample,
   PlaceholderSearchFieldExample,
   RefExample,
-  SearchFieldStyledPropsExample,
+  StylePropsExample,
   SizeSearchFieldExample,
   VariationSearchFieldExample,
+  InputStyleExample,
 } from './examples';
 
 Users may clear the field by hitting the `Esc` key or by clicking the
@@ -148,7 +149,7 @@ To override styling on all TextField primitives, you can set the Amplify CSS var
 
 To override styling on a specific TextField, you can use a class selector or style props.
 
-_Using a class selector:_
+#### Using a class selector
 
 ```css
 /* styles.css */
@@ -165,20 +166,18 @@ _Using a class selector:_
   />
 </Example>
 
-_Using style props:_
+#### Using style props
 
-Flex styling props will be applied to the SearchField wrapping Flex component, whereas other style props will be applied to the input field. This allows us to change the layout of the label and input field, while also styling the input field directly.
+All style props will be applied to the outermost [Flex](/components/flex) component of the SearchField.
 
 <Example>
-  <View>
-    <SearchFieldStyledPropsExample />
-  </View>
-  
-  <ExampleCode>
+  <StylePropsExample />
+  <ExampleCode>```jsx file=./examples/StylePropsExample.tsx ```</ExampleCode>
+</Example>
 
-```jsx file=./examples/SearchFieldStyledPropsExample.tsx
+<Fragment>{() => import('./../shared/inputStyles.mdx')}</Fragment>
 
-```
-
-  </ExampleCode>
+<Example>
+  <InputStyleExample />
+  <ExampleCode>```jsx file=./examples/InputStyleExample.tsx ```</ExampleCode>
 </Example>

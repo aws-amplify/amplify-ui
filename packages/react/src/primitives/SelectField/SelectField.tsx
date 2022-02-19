@@ -51,6 +51,7 @@ const SelectFieldPrimitive: Primitive<SelectFieldProps, 'select'> = (
     options,
     size,
     testId,
+    inputStyles,
     ..._rest
   } = props;
 
@@ -86,6 +87,7 @@ const SelectFieldPrimitive: Primitive<SelectFieldProps, 'select'> = (
         id={fieldId}
         ref={ref}
         size={size}
+        {...inputStyles}
         {...rest}
       >
         {selectFieldChildren({ children, options })}

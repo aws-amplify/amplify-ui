@@ -156,6 +156,19 @@ describe('TextField component', () => {
       expect(onInput).toHaveBeenCalled();
       expect(onPaste).toHaveBeenCalled();
     });
+
+    it('should accept a inputStyles prop for styling', async () => {
+      render(
+        <TextField
+          label="Field"
+          inputStyles={{
+            backgroundColor: 'red',
+          }}
+        />
+      );
+      const field = (await screen.findByRole('textbox')) as HTMLInputElement;
+      expect(field).toHaveStyle(`background-color: red`);
+    });
   });
 
   describe('Multiline textarea field', () => {

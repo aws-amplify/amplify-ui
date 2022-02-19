@@ -101,6 +101,22 @@ describe('PasswordField component', () => {
     expect(button).toBeNull();
   });
 
+  it('should accept a inputStyles prop for styling', async () => {
+    render(
+      <PasswordField
+        label="Password"
+        placeholder="Password"
+        inputStyles={{
+          backgroundColor: 'red',
+        }}
+      />
+    );
+    const field = (await screen.getByPlaceholderText(
+      'Password'
+    )) as HTMLInputElement;
+    expect(field).toHaveStyle(`background-color: red`);
+  });
+
   describe(' - ShowPasswordButton', () => {
     it('should toggle button type and label when clicked', async () => {
       render(

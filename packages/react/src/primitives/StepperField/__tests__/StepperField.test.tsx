@@ -213,6 +213,19 @@ describe('StepperField: ', () => {
       stepperInput = await screen.findByLabelText(label);
       expect(stepperInput).toHaveValue(8);
     });
+
+    it('should accept a inputStyles prop for styling', async () => {
+      render(
+        <StepperField
+          label={label}
+          inputStyles={{
+            backgroundColor: 'red',
+          }}
+        />
+      );
+      const stepperInput = await screen.findByLabelText(label);
+      expect(stepperInput).toHaveStyle(`background-color: red`);
+    });
   });
 
   describe('Increase/Decrease button', () => {

@@ -141,6 +141,21 @@ describe('SearchField component', () => {
     expect(searchField).toHaveValue('');
   });
 
+  it('should accept a inputStyles prop for styling', async () => {
+    render(
+      <SearchField
+        label={label}
+        inputStyles={{
+          backgroundColor: 'red',
+        }}
+      />
+    );
+    const searchField = (await screen.findByLabelText(
+      label
+    )) as HTMLInputElement;
+    expect(searchField).toHaveStyle(`background-color: red`);
+  });
+
   describe(' - search button', () => {
     it('should call onSubmit handler when clicked', async () => {
       const onSubmit = jest.fn();

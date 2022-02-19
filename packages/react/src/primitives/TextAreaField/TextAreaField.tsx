@@ -28,6 +28,7 @@ const TextAreaFieldPrimitive: Primitive<TextAreaFieldProps, 'textarea'> = (
     rows,
     size,
     testId,
+    inputStyles,
     ..._rest
   } = props;
 
@@ -46,6 +47,7 @@ const TextAreaFieldPrimitive: Primitive<TextAreaFieldProps, 'textarea'> = (
       )}
       data-size={size}
       testId={testId}
+      {...baseStyleProps}
       {...flexContainerStyleProps}
     >
       <Label htmlFor={fieldId} visuallyHidden={labelHidden}>
@@ -63,7 +65,7 @@ const TextAreaFieldPrimitive: Primitive<TextAreaFieldProps, 'textarea'> = (
         ref={ref}
         rows={rows ?? DEFAULT_ROW_COUNT}
         size={size}
-        {...baseStyleProps}
+        {...inputStyles}
         {...rest}
       />
       <FieldErrorMessage hasError={hasError} errorMessage={errorMessage} />

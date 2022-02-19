@@ -13,6 +13,6 @@ export { TextFieldOuterAndInnerComponentsExample } from './TextFieldOuterAndInne
 export { TextFieldOuterComponentsExample } from './TextFieldOuterComponentsExample';
 export { TextFieldSizeExample } from './TextFieldSizeExample';
 export { TextFieldStatesExample } from './TextFieldStatesExample';
-export { TextFieldStylePropsExample } from './TextFieldStylePropsExample';
+export { StylePropsExample } from './StylePropsExample';
 export { TextFieldValidationErrorExample } from './TextFieldValidationErrorExample';
 export { TextFieldVariationExample } from './TextFieldVariationExample';
