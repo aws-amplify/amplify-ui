@@ -20,7 +20,7 @@ Amplify.configure(awsExports);
 const components = {
   SignUp: {
     FormFields() {
-      const { updateBlur, validationErrors } = useAuthenticator();
+      const { validationErrors } = useAuthenticator();
       return (
         <>
           <PhoneNumberField
@@ -75,12 +75,10 @@ const components = {
   },
 };
 
-function App({ signOut }) {
-  return <button onClick={signOut}>Sign out</button>;
+export default function App() {
+  return (
+    <Authenticator initialState="signUp" components={components}>
+      {({ signOut }) => <button onClick={signOut}>Sign out</button>}
+    </Authenticator>
+  );
 }
-
-export default () => (
-  <Authenticator initialState="signUp" components={components}>
-    {({ signOut }) => <button onClick={signOut}>Sign out</button>}
-  </Authenticator>
-);
