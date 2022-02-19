@@ -1,6 +1,10 @@
 import { Component, HostBinding, ViewEncapsulation } from '@angular/core';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
-import { translate, hasTranslation } from '@aws-amplify/ui';
+import {
+  translate,
+  hasTranslation,
+  getFormDataFromEvent,
+} from '@aws-amplify/ui';
 
 @Component({
   selector: 'amplify-sign-in',
@@ -31,6 +35,6 @@ export class SignInComponent {
 
   onSubmit(event: Event): void {
     event.preventDefault();
-    this.authenticator.submitForm();
+    this.authenticator.submitForm(getFormDataFromEvent(event));
   }
 }
