@@ -7,7 +7,7 @@ Feature: Default Phone Number Field
   Background:
     Given I'm running the example "ui/components/authenticator/default-region-code"
 
-  @angular @react @vue  
+  @react
   Scenario: Sign up with a new email & password and lowercase the email 
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp" } }' with fixture "sign-up-with-phone"
     And I type my "phone number" with status "UNCONFIRMED"
