@@ -6,11 +6,11 @@ import { SearchFieldDemo } from './demo';
 import {
   DefaultSearchFieldExample,
   PlaceholderSearchFieldExample,
-  RefExample,
-  StylePropsExample,
-  SizeSearchFieldExample,
-  VariationSearchFieldExample,
-  InputStyleExample,
+  SearchFieldInputStyleExample,
+  SearchFieldRefExample,
+  SearchFieldStylePropsExample,
+  SearchFieldSizeExample,
+  SearchFieldVariationExample,
 } from './examples';
 
 Users may clear the field by hitting the `Esc` key or by clicking the
@@ -25,9 +25,7 @@ clear button. When users hit `Enter` key or click the search icon, the `onSubmit
 Import the `SearchField` primitive, and provide a `label` for accessibility/usability.
 
 <Example>
-  <View>
-    <DefaultSearchFieldExample />
-  </View>
+  <DefaultSearchFieldExample />
   
   <ExampleCode>
 
@@ -49,9 +47,7 @@ Import the `SearchField` primitive, and provide a `label` for accessibility/usab
 Text that appears in the form control when it has no value set.
 
 <Example>
-  <View>
-    <PlaceholderSearchFieldExample />
-  </View>
+  <PlaceholderSearchFieldExample />
   
   <ExampleCode>
 
@@ -67,13 +63,11 @@ Text that appears in the form control when it has no value set.
 Use the `size` prop to change the Placeholder size. Available options are `small`, `large`, and none (default).
 
 <Example>
-  <View>
-    <SizeSearchFieldExample />
-  </View>
+  <SearchFieldSizeExample />
   
   <ExampleCode>
 
-```jsx file=./examples/SizeSearchFieldExample.tsx
+```jsx file=./examples/SearchFieldSizeExample.tsx
 
 ```
 
@@ -85,13 +79,11 @@ Use the `size` prop to change the Placeholder size. Available options are `small
 There are two variation styles available: default and `quiet`.
 
 <Example>
-  <View>
-    <VariationSearchFieldExample />
-  </View>
+  <SearchFieldVariationExample />
   
   <ExampleCode>
 
-```jsx file=./examples/VariationSearchFieldExample.tsx
+```jsx file=./examples/SearchFieldVariationExample.tsx
 
 ```
 
@@ -107,42 +99,39 @@ The standard `ref` prop will forward to the `input` element, the `searchButtonRe
 The following is a contrived example demonstrating use of the ref props:
 
 <Example>
-  <RefExample />
-<ExampleCode>
-
-```tsx file=./examples/refs.tsx
-
-```
-
-</ExampleCode>
+  <SearchFieldRefExample />
+  <ExampleCode>
+    ```tsx file=./examples/SearchFieldRefExample.tsx ```
+  </ExampleCode>
 </Example>
 
-## CSS Styling
+## Styling
 
 ### Global styling
 
 To override styling on all TextField primitives, you can set the Amplify CSS variables or use the built-in `.amplify-textfield` class.
-
-```css
-/* styles.css */
-:root {
-  --amplify-components-button-color: black;
-  --amplify-components-button-border-color: black;
-  --amplify-components-fieldcontrol-border-color: black;
-}
-/* OR */
-.amplify-searchfield {
-  --amplify-components-button-color: black;
-  --amplify-components-button-border-color: black;
-  --amplify-components-fieldcontrol-border-color: black;
-}
-```
 
 <Example>
   <SearchField
     label="Globally styled search field"
     className="globally-styled-searchfield"
   />
+  <ExampleCode>
+    ```css
+    /* styles.css */
+    :root {
+      --amplify-components-button-color: black;
+      --amplify-components-button-border-color: black;
+      --amplify-components-fieldcontrol-border-color: black;
+    }
+    /* OR */
+    .amplify-searchfield {
+      --amplify-components-button-color: black;
+      --amplify-components-button-border-color: black;
+      --amplify-components-fieldcontrol-border-color: black;
+    }
+    ```
+  </ExampleCode>
 </Example>
 
 ### Local styling
@@ -151,19 +140,20 @@ To override styling on a specific TextField, you can use a class selector or sty
 
 #### Using a class selector
 
-```css
-/* styles.css */
-.custom-searchfield-class .amplify-input,
-.custom-searchfield-class .amplify-button {
-  border-radius: 0;
-}
-```
-
 <Example>
   <SearchField
     className="custom-searchfield-class"
     label="Square password field"
   />
+  <ExampleCode>
+    ```css
+    /* styles.css */
+    .custom-searchfield-class .amplify-input,
+    .custom-searchfield-class .amplify-button {
+      border-radius: 0;
+    }
+    ```
+  </ExampleCode>
 </Example>
 
 #### Using style props
@@ -171,13 +161,17 @@ To override styling on a specific TextField, you can use a class selector or sty
 All style props will be applied to the outermost [Flex](/components/flex) component of the SearchField.
 
 <Example>
-  <StylePropsExample />
-  <ExampleCode>```jsx file=./examples/StylePropsExample.tsx ```</ExampleCode>
+  <SearchFieldStylePropsExample />
+  <ExampleCode>
+    ```jsx file=./examples/SearchFieldStylePropsExample.tsx ```
+  </ExampleCode>
 </Example>
 
 <Fragment>{() => import('./../shared/inputStyles.mdx')}</Fragment>
 
 <Example>
-  <InputStyleExample />
-  <ExampleCode>```jsx file=./examples/InputStyleExample.tsx ```</ExampleCode>
+  <SearchFieldInputStyleExample />
+  <ExampleCode>
+    ```jsx file=./examples/SearchFieldInputStyleExample.tsx ```
+  </ExampleCode>
 </Example>

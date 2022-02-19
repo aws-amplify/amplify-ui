@@ -5,7 +5,6 @@ import {
   DefaultRequiredTextFieldExample,
   DefaultTextAreaExample,
   DefaultTextFieldExample,
-  InputStyleExample,
   RequiredTextFieldExample,
   TextAreaMaxLengthExample,
   TextAreaResizableExample,
@@ -14,11 +13,12 @@ import {
   TextFieldAccessibilityExample,
   TextFieldDescriptiveTextExample,
   TextFieldInnerComponentsExample,
+  TextFieldInputStyleExample,
   TextFieldOuterAndInnerComponentsExample,
   TextFieldOuterComponentsExample,
   TextFieldSizeExample,
   TextFieldStatesExample,
-  StylePropsExample,
+  TextFieldStylePropsExample,
   TextFieldValidationErrorExample,
   TextFieldVariationExample,
 } from './examples';
@@ -317,13 +317,17 @@ To override styling on a specific TextField, you can use a class selector or sty
 All style props will be applied to the outermost [Flex](/components/flex) component of the TextField.
 
 <Example>
-  <StylePropsExample />
-  <ExampleCode>```jsx file=./examples/StylePropsExample.tsx ```</ExampleCode>
+  <TextFieldStylePropsExample />
+  <ExampleCode>
+    ```jsx file=./examples/TextFieldStylePropsExample.tsx ```
+  </ExampleCode>
 </Example>
 
 <Fragment>{() => import('./../shared/inputStyles.mdx')}</Fragment>
 
 <Example>
-  <InputStyleExample />
-  <ExampleCode>```jsx file=./examples/InputStyleExample.tsx ```</ExampleCode>
+  <TextFieldInputStyleExample />
+  <ExampleCode>
+    ```jsx file=./examples/TextFieldInputStyleExample.tsx ```
+  </ExampleCode>
 </Example>

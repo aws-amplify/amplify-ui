@@ -3,17 +3,19 @@ import { PhoneNumberField } from '@aws-amplify/ui-react';
 
 import { PhoneNumberFieldDemo } from './demo';
 import {
-  AccessibilityExample,
-  AutoCompleteExample,
-  CountryCodePropsExample,
-  DescriptiveTextExample,
-  ErrorExample,
-  InputStyleExample,
-  RefExample,
-  SizeExample,
-  StatesExample,
-  StyledRequiredExample,
-  StylePropsExample,
+  DefaultPhoneNumberFieldExample,
+  PhoneNumberFieldAccessibilityExample,
+  PhoneNumberFieldAutoCompleteExample,
+  PhoneNumberFieldCountryCodePropsExample,
+  PhoneNumberFieldDescriptiveTextExample,
+  PhoneNumberFieldErrorExample,
+  PhoneNumberFieldInputStyleExample,
+  PhoneNumberFieldRefExample,
+  PhoneNumberFieldSizeExample,
+  PhoneNumberFieldStatesExample,
+  PhoneNumberFieldStyledRequiredExample,
+  PhoneNumberFieldStylePropsExample,
+  PhoneNumberFieldVariationExample,
 } from './examples';
 import { Example, ExampleCode } from '@/components/Example';
 import { Fragment } from '@/components/Fragment';
@@ -29,12 +31,12 @@ The `PhoneNumberField` form primitive can be used allow users to input a phone n
 Import the `PhoneNumberField` component and styles and provide a `label` for accessibility/usability as well as a `defaultCountryCode`
 which will auto-populate the country or region code select field.
 
-```jsx
-import { PhoneNumberField } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-<PhoneNumberField defaultCountryCode="+1" label="Phone Number" />;
-```
+<Example>
+  <DefaultPhoneNumberFieldExample />
+  <ExampleCode>
+    ```jsx file=./examples/DefaultPhoneNumberFieldExample.tsx ```
+  </ExampleCode>
+</Example>
 
 ### Country or Region Code Select Properties
 
@@ -47,9 +49,9 @@ properties specific to the country or region code selector are the following:
 - `onCountryCodeChange`: A custom change handler for the country or region code selector (e.g. `onChange={onCountryCodeChange}`)
 
 <Example>
-  <CountryCodePropsExample />
+  <PhoneNumberFieldCountryCodePropsExample />
   <ExampleCode>
-    ```jsx file=./examples/CountryCodePropsExample.tsx ```
+    ```jsx file=./examples/PhoneNumberFieldCountryCodePropsExample.tsx ```
   </ExampleCode>
 </Example>
 
@@ -62,8 +64,10 @@ If the `PhoneNumberField` primitive is intended to be used in a form that is com
 be set to `username` (see [Password Form Styles that Chromium Understands](https://www.chromium.org/developers/design-documents/form-styles-that-chromium-understands)).
 
 <Example>
-  <AutoCompleteExample />
-  <ExampleCode>```jsx file=./examples/AutoCompleteExample.tsx ```</ExampleCode>
+  <PhoneNumberFieldAutoCompleteExample />
+  <ExampleCode>
+    ```jsx file=./examples/PhoneNumberFieldAutoCompleteExample.tsx ```
+  </ExampleCode>
 </Example>
 
 ### Accessibility / Label behavior
@@ -71,8 +75,10 @@ be set to `username` (see [Password Form Styles that Chromium Understands](https
 <Fragment>{() => import('./../shared/formFieldAccessibility.mdx')}</Fragment>
 
 <Example>
-  <AccessibilityExample />
-  <ExampleCode>```jsx file=./examples/AccessibilityExample.tsx ```</ExampleCode>
+  <PhoneNumberFieldAccessibilityExample />
+  <ExampleCode>
+    ```jsx file=./examples/PhoneNumberFieldAccessibilityExample.tsx ```
+  </ExampleCode>
 </Example>
 
 ### Sizes
@@ -80,22 +86,21 @@ be set to `username` (see [Password Form Styles that Chromium Understands](https
 `PhoneNumberField` sizes are designed to match styling of other field components such as buttons. There are three sizes: small, (default), and large.
 
 <Example>
-  <SizeExample />
-  <ExampleCode>```jsx file=./examples/SizeExample.tsx ```</ExampleCode>
+  <PhoneNumberFieldSizeExample />
+  <ExampleCode>
+    ```jsx file=./examples/PhoneNumberFieldSizeExample.tsx ```
+  </ExampleCode>
 </Example>
 
 ### Variations
 
 There are two variation styles available: default and `quiet`.
 
-```jsx
-<PhoneNumberField defaultCountryCode="+1" label="Default" />
-<PhoneNumberField defaultCountryCode="+1" label="Quiet"  variation="quiet"/>
-```
-
 <Example>
-  <PhoneNumberField defaultCountryCode="+1" label="Default" />
-  <PhoneNumberField defaultCountryCode="+1" label="Quiet" variation="quiet" />
+  <PhoneNumberFieldVariationExample />
+  <ExampleCode>
+    ```jsx file=./examples/PhoneNumberFieldVariationExample.tsx ```
+  </ExampleCode>
 </Example>
 
 ### Descriptive text
@@ -103,9 +108,9 @@ There are two variation styles available: default and `quiet`.
 To provide additional descriptive text of requirements of the field, use the `descriptiveText` field:
 
 <Example>
-  <DescriptiveTextExample />
+  <PhoneNumberFieldDescriptiveTextExample />
   <ExampleCode>
-    ```jsx file=./examples/DescriptiveTextExample.tsx ```
+    ```jsx file=./examples/PhoneNumberFieldDescriptiveTextExample.tsx ```
   </ExampleCode>
 </Example>
 
@@ -115,31 +120,20 @@ The available `PhoneNumberField` states include `isDisabled` and `isReadonly`. A
 and will not be submitted with form data. A readonly field cannot be edited by the user.
 
 <Example>
-  <StatesExample />
-  <ExampleCode>```jsx file=./examples/StatesExample.tsx ```</ExampleCode>
+  <PhoneNumberFieldStatesExample />
+  <ExampleCode>
+    ```jsx file=./examples/PhoneNumberFieldStatesExample.tsx ```
+  </ExampleCode>
 </Example>
 
 ### Required fields
 
-Use the `isRequired` prop to specify a required field.
-
-```jsx
-<Flex as="form" direction="column" width="20rem">
-  <PhoneNumberField
-    defaultCountryCode="+1"
-    label="Phone Number"
-    isRequired={true}
-  />
-  <Button type="submit">Submit</Button>
-</Flex>
-```
-
-There is no default styling for required fields. Customize the `label` or `descriptiveText` to instruct the form user of the required field.
+Use the `isRequired` prop to specify a required field. There is no default styling for required fields. Customize the `label` or `descriptiveText` to instruct the form user of the required field.
 
 <Example>
-  <StyledRequiredExample />
+  <PhoneNumberFieldStyledRequiredExample />
   <ExampleCode>
-    ```jsx file=./examples/StyledRequiredExample.tsx ```
+    ```jsx file=./examples/PhoneNumberFieldStyledRequiredExample.tsx ```
   </ExampleCode>
 </Example>
 
@@ -148,8 +142,10 @@ There is no default styling for required fields. Customize the `label` or `descr
 Use the `hasError` and `errorMessage` fields to mark a `PhoneNumberField` as having an validation error.
 
 <Example>
-  <ErrorExample />
-  <ExampleCode>```jsx file=./examples/ErrorExample.tsx ```</ExampleCode>
+  <PhoneNumberFieldErrorExample />
+  <ExampleCode>
+    ```jsx file=./examples/PhoneNumberFieldErrorExample.tsx ```
+  </ExampleCode>
 </Example>
 
 ### Forward refs
@@ -161,11 +157,13 @@ The standard `ref` prop will forward to the underlying `input` element, and the 
 The following is a contrived example demonstrating use of the `ref` and `countryCodeRef` props:
 
 <Example>
-  <RefExample />
-  <ExampleCode>```jsx file=./examples/RefExample.tsx ```</ExampleCode>
+  <PhoneNumberFieldRefExample />
+  <ExampleCode>
+    ```jsx file=./examples/PhoneNumberFieldRefExample.tsx ```
+  </ExampleCode>
 </Example>
 
-## CSS Styling
+## Styling
 
 ### Global styling
 
@@ -217,13 +215,17 @@ To override styling on a specific `PhoneNumberField`, you can use a class select
 All style props will be applied to the outermost [Flex](/components/flex) component of the PhoneNumberField.
 
 <Example>
-  <StylePropsExample />
-  <ExampleCode>```jsx file=./examples/StylePropsExample.tsx ```</ExampleCode>
+  <PhoneNumberFieldStylePropsExample />
+  <ExampleCode>
+    ```jsx file=./examples/PhoneNumberFieldStylePropsExample.tsx ```
+  </ExampleCode>
 </Example>
 
 <Fragment>{() => import('./../shared/inputStyles.mdx')}</Fragment>
 
 <Example>
-  <InputStyleExample />
-  <ExampleCode>```jsx file=./examples/InputStyleExample.tsx ```</ExampleCode>
+  <PhoneNumberFieldInputStyleExample />
+  <ExampleCode>
+    ```jsx file=./examples/PhoneNumberFieldInputStyleExample.tsx ```
+  </ExampleCode>
 </Example>

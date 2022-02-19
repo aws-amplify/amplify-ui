@@ -1,10 +1,11 @@
-import { IconArrowDropDown, SelectField } from '@aws-amplify/ui-react';
+import { SelectField } from '@aws-amplify/ui-react';
+import { HiArrowNarrowDown } from 'react-icons/hi';
 
 export const SelectFieldIconExample = () => (
   <SelectField
     label="Icon example"
     labelHidden
-    icon={<IconArrowDropDown />}
+    icon={<HiArrowNarrowDown />}
     iconColor="red"
     placeholder="Check out that Icon! ---> "
   >

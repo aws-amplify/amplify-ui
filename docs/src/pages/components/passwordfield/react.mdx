@@ -7,16 +7,19 @@ import {
 } from '@aws-amplify/ui-react';
 import { PasswordFieldDemo } from './demo';
 import {
-  ChangePasswordFormExample,
-  DescriptiveTextExample,
-  ErrorExample,
-  HideShowPasswordExample,
-  InputStyleExample,
-  LoginFormExample,
-  RefExample,
-  RequiredExample,
-  SignUpFormExample,
-  StylePropsExample,
+  DefaultPasswordFieldExample,
+  PasswordFieldChangePasswordFormExample,
+  PasswordFieldDescriptiveTextExample,
+  PasswordFieldErrorExample,
+  PasswordFieldHideShowPasswordExample,
+  PasswordFieldInputStyleExample,
+  PasswordFieldLoginFormExample,
+  PasswordFieldRefExample,
+  PasswordFieldRequiredExample,
+  PasswordFieldSignUpFormExample,
+  PasswordFieldStylePropsExample,
+  PasswordFieldSizeExample,
+  PasswordFieldVariationExample,
 } from './examples';
 import { Example, ExampleCode } from '@/components/Example';
 import { Fragment } from '@/components/Fragment';
@@ -31,15 +34,11 @@ The PasswordField primitive allows users to input passwords. It also features fu
 
 Import the `PasswordField` component and styles and provide a `label` for accessibility/usability.
 
-```jsx
-import { PasswordField } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-<PasswordField label="Password" name="password" />;
-```
-
 <Example>
-  <PasswordField label="Password" name="password" />
+  <DefaultPasswordFieldExample />
+  <ExampleCode>
+    ```jsx file=./examples/DefaultPasswordFieldExample.tsx ```
+  </ExampleCode>
 </Example>
 
 ### Hiding the show password button
@@ -47,9 +46,9 @@ import '@aws-amplify/ui-react/styles.css';
 Use the `hideShowPassword` prop to hide the show password button.
 
 <Example>
-  <HideShowPasswordExample />
+  <PasswordFieldHideShowPasswordExample />
   <ExampleCode>
-    ```jsx file=./examples/HideShowPasswordExample.tsx ```
+    ```jsx file=./examples/PasswordFieldHideShowPasswordExample.tsx ```
   </ExampleCode>
 </Example>
 
@@ -64,23 +63,27 @@ See [MDN for more information on autocomplete](https://developer.mozilla.org/en-
 _Signup form example: `new-password`_
 
 <Example>
-  <SignUpFormExample />
-  <ExampleCode>```jsx file=./examples/SignUpFormExample.tsx ```</ExampleCode>
+  <PasswordFieldSignUpFormExample />
+  <ExampleCode>
+    ```jsx file=./examples/PasswordFieldSignUpFormExample.tsx ```
+  </ExampleCode>
 </Example>
 
 _Login form example: `current-password` (default)_
 
 <Example>
-  <LoginFormExample />
-  <ExampleCode>```jsx file=./examples/LoginFormExample.tsx ```</ExampleCode>
+  <PasswordFieldLoginFormExample />
+  <ExampleCode>
+    ```jsx file=./examples/PasswordFieldLoginFormExample.tsx ```
+  </ExampleCode>
 </Example>
 
 _Change password example: `current-password` and `new-password`_
 
 <Example>
-  <ChangePasswordFormExample />
+  <PasswordFieldChangePasswordFormExample />
   <ExampleCode>
-    ```jsx file=./examples/ChangePasswordFormExample.tsx ```
+    ```jsx file=./examples/PasswordFieldChangePasswordFormExample.tsx ```
   </ExampleCode>
 </Example>
 
@@ -92,38 +95,22 @@ _Change password example: `current-password` and `new-password`_
 
 Use the `size` prop to change the visual size of the PasswordField. Three sizes are available: `small`, (default), and `large`.
 
-```jsx
-<Flex direction="column" gap="1rem">
-  <PasswordField label="Password" name="password" size="small" />
-  <PasswordField label="Password" name="password" />
-  <PasswordField label="Password" name="password" size="large" />
-</Flex>
-```
-
 <Example>
-  <Flex direction="column" gap="1rem">
-    <PasswordField label="Password" name="password" size="small" />
-    <PasswordField label="Password" name="password" />
-    <PasswordField label="Password" name="password" size="large" />
-  </Flex>
+  <PasswordFieldSizeExample />
+  <ExampleCode>
+    ```jsx file=./examples/PasswordFieldSizeExample.tsx ```
+  </ExampleCode>
 </Example>
 
 ### Variations
 
 There are two variation styles available: default and `quiet`.
 
-```jsx
-<Flex direction="column" gap="1rem">
-  <PasswordField label="Password" name="password" />
-  <PasswordField label="Password" name="password" variation="quiet" />
-</Flex>
-```
-
 <Example>
-  <Flex direction="column" gap="1rem">
-    <PasswordField label="Password" name="password" />
-    <PasswordField label="Password" name="password" variation="quiet" />
-  </Flex>
+  <PasswordFieldVariationExample />
+  <ExampleCode>
+    ```jsx file=./examples/PasswordFieldVariationExample.tsx ```
+  </ExampleCode>
 </Example>
 
 ### Descriptive text
@@ -131,35 +118,21 @@ There are two variation styles available: default and `quiet`.
 To provide additional descriptive text of requirements of the field, use the `descriptiveText` field.
 
 <Example>
-  <DescriptiveTextExample />
+  <PasswordFieldDescriptiveTextExample />
   <ExampleCode>
-    ```jsx file=./examples/DescriptiveTextExample.tsx ```
+    ```jsx file=./examples/PasswordFieldDescriptiveTextExample.tsx ```
   </ExampleCode>
 </Example>
 
 ### Required fields
 
-Use the `isRequired` prop to specify a required field.
-
-```jsx
-<Flex as="form" direction="column" width="20rem">
-  <PasswordField label="Password" name="password" isRequired={true} />
-  <Button type="submit">Submit</Button>
-</Flex>
-```
+Use the `isRequired` prop to specify a required field. There is no default styling for required fields. Customize the `label` or `descriptiveText` to instruct the form user of the required field.
 
 <Example>
-  <Flex as="form" direction="column" width="20rem">
-    <PasswordField label="Password" name="password" isRequired={true} />
-    <Button type="submit">Submit</Button>
-  </Flex>
-</Example>
-
-There is no default styling for required fields. Customize the `label` or `descriptiveText` to instruct the form user of the required field.
-
-<Example>
-  <RequiredExample />
-  <ExampleCode>```jsx file=./examples/RequiredExample.tsx ```</ExampleCode>
+  <PasswordFieldRequiredExample />
+  <ExampleCode>
+    ```jsx file=./examples/PasswordFieldRequiredExample.tsx ```
+  </ExampleCode>
 </Example>
 
 ### Validation error styling
@@ -167,8 +140,13 @@ There is no default styling for required fields. Customize the `label` or `descr
 Use the `hasError` and `errorMessage` fields to mark a PasswordField as having an validation error.
 
 <Example>
-  <ErrorExample />
-  <ExampleCode>```jsx file=./examples/ErrorExample.tsx ```</ExampleCode>
+  <PasswordFieldErrorExample />
+  <ExampleCode>
+
+    ```jsx file=./examples/PasswordFieldErrorExample.tsx
+    ```
+
+  </ExampleCode>
 </Example>
 
 ### Forward refs
@@ -180,26 +158,17 @@ The standard `ref` prop will forward to the underlying `input` element, and the 
 The following is an example demonstrating use of the `ref` and `showPasswordButtonRef` props:
 
 <Example>
-  <RefExample />
-  <ExampleCode>```tsx file=./examples/RefExample.tsx ```</ExampleCode>
+  <PasswordFieldRefExample />
+  <ExampleCode>
+    ```tsx file=./examples/PasswordFieldRefExample.tsx ```
+  </ExampleCode>
 </Example>
 
-## CSS Styling
+## Styling
 
 ### Global styling
 
 To override styling on all TextField primitives, you can set the Amplify CSS variables or use the built-in `.amplify-textfield` class.
-
-```css
-/* styles.css */
-:root {
-  --amplify-components-field-border-color: rebeccapurple;
-}
-/* OR */
-.amplify-passwordfield {
-  --amplify-components-field-border-color: rebeccapurple;
-}
-```
 
 <Example>
   <PasswordField
@@ -207,6 +176,20 @@ To override styling on all TextField primitives, you can set the Amplify CSS var
     name="password"
     className="globally-styled-textfield"
   />
+  <ExampleCode>
+    
+    ```css
+    /* styles.css */
+    :root {
+      --amplify-components-field-border-color: rebeccapurple;
+    }
+    /* OR */
+    .amplify-passwordfield {
+      --amplify-components-field-border-color: rebeccapurple;
+    }
+    ```
+    
+  </ExampleCode>
 </Example>
 
 ### Local styling
@@ -222,6 +205,7 @@ To override styling on a specific TextField, you can use a class selector or sty
     name="password"
   />
   <ExampleCode>
+    
     ```css
     /* styles.css */
     .custom-passwordfield-class .amplify-input,
@@ -229,6 +213,7 @@ To override styling on a specific TextField, you can use a class selector or sty
       border-radius: 0;
     }
     ```
+    
   </ExampleCode>
 </Example>
 
@@ -237,13 +222,17 @@ To override styling on a specific TextField, you can use a class selector or sty
 All style props will be applied to the outermost [Flex](/components/flex) component of the PasswordField.
 
 <Example>
-  <StylePropsExample />
-  <ExampleCode>```jsx file=./examples/StylePropsExample.tsx ```</ExampleCode>
+  <PasswordFieldStylePropsExample />
+  <ExampleCode>
+    ```jsx file=./examples/PasswordFieldStylePropsExample.tsx ```
+  </ExampleCode>
 </Example>
 
 <Fragment>{() => import('./../shared/inputStyles.mdx')}</Fragment>
 
 <Example>
-  <InputStyleExample />
-  <ExampleCode>```jsx file=./examples/InputStyleExample.tsx ```</ExampleCode>
+  <PasswordFieldInputStyleExample />
+  <ExampleCode>
+    ```jsx file=./examples/PasswordFieldInputStyleExample.tsx ```
+  </ExampleCode>
 </Example>

@@ -1,6 +1,6 @@
+export { DefaultRequiredTextFieldExample } from './DefaultRequiredTextFieldExample';
 export { DefaultTextAreaExample } from './DefaultTextAreaExample';
 export { DefaultTextFieldExample } from './DefaultTextFieldExample';
-export { DefaultRequiredTextFieldExample } from './DefaultRequiredTextFieldExample';
 export { RequiredTextFieldExample } from './RequiredTextFieldExample';
 export { TextAreaMaxLengthExample } from './TextAreaMaxLengthExample';
 export { TextAreaResizableExample } from './TextAreaResizableExample';
@@ -13,6 +13,6 @@ export { TextFieldOuterAndInnerComponentsExample } from './TextFieldOuterAndInne
 export { TextFieldOuterComponentsExample } from './TextFieldOuterComponentsExample';
 export { TextFieldSizeExample } from './TextFieldSizeExample';
 export { TextFieldStatesExample } from './TextFieldStatesExample';
-export { StylePropsExample } from './StylePropsExample';
+export { TextFieldStylePropsExample } from './TextFieldStylePropsExample';
 export { TextFieldValidationErrorExample } from './TextFieldValidationErrorExample';
 export { TextFieldVariationExample } from './TextFieldVariationExample';

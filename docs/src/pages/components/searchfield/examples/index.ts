@@ -1,7 +1,7 @@
 export { DefaultSearchFieldExample } from './DefaultSearchFieldExample';
 export { PlaceholderSearchFieldExample } from './PlaceholderSearchFieldExample';
-export { RefExample } from './RefExample';
-export { StylePropsExample } from './StylePropsExample';
-export { SizeSearchFieldExample } from './SizeSearchFieldExample';
-export { VariationSearchFieldExample } from './VariationSearchFieldExample';
-export { InputStyleExample } from './InputStyleExample';
+export { SearchFieldInputStyleExample } from './SearchFieldInputStyleExample';
+export { SearchFieldRefExample } from './SearchFieldRefExample';
+export { SearchFieldStylePropsExample } from './SearchFieldStylePropsExample';
+export { SearchFieldSizeExample } from './SearchFieldSizeExample';
+export { SearchFieldVariationExample } from './SearchFieldVariationExample';

@@ -5,15 +5,16 @@ import {
   DefaultRequiredTextAreaFieldExample,
   DefaultTextAreaExample,
   RequiredTextAreaFieldExample,
-  TextAreaMaxLengthExample,
-  TextAreaResizableExample,
-  TextAreaRowsExample,
-  TextAreaSizeExample,
   TextAreaFieldDescriptiveExample,
+  TextAreaFieldInputStyleExample,
   TextAreaFieldStatesExample,
   TextAreaFieldStylePropsExample,
   TextAreaFieldValidationErrorExample,
   TextAreaFieldVariationExample,
+  TextAreaMaxLengthExample,
+  TextAreaResizableExample,
+  TextAreaRowsExample,
+  TextAreaSizeExample,
 } from './examples';
 import { Example, ExampleCode } from '@/components/Example';
 import { Fragment } from '@/components/Fragment';
@@ -202,7 +203,7 @@ To override styling on all TextAreaField primitives, you can set the Amplify CSS
 
 To override styling on a specific TextAreaField, you can use a class selector or style props.
 
-_Using a class selector:_
+#### Using a class selector
 
 <Example>
   <TextAreaField className="custom-textareafield-class" label="Square field" />
@@ -216,16 +217,22 @@ _Using a class selector:_
   </ExampleCode>
 </Example>
 
-_Using style props:_
+#### Using style props
 
-Flex styling props will be applied to the TextAreaField wrapping Flex component, whereas other style props will be applied to the field. This allows us to change the layout of the label and field, while also styling the input field.
+All style props will be applied to the outermost [Flex](/components/flex) component of the TextField.
 
 <Example>
   <TextAreaFieldStylePropsExample />
   <ExampleCode>
-    ```jsx file=./examples/TextAreaFieldStylePropsExample.tsx
+    ```jsx file=./examples/TextAreaFieldStylePropsExample.tsx ```
+  </ExampleCode>
+</Example>
 
-    ```
+<Fragment>{() => import('./../shared/inputStyles.mdx')}</Fragment>
 
+<Example>
+  <TextAreaFieldInputStyleExample />
+  <ExampleCode>
+    ```jsx file=./examples/TextAreaFieldInputStyleExample.tsx ```
   </ExampleCode>
 </Example>

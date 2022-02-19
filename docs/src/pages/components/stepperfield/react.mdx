@@ -7,10 +7,10 @@ import {
   DisabledStepperFieldExample,
   ReadOnlyStepperFieldExample,
   StepperFieldAccessibilityExample,
+  StepperFieldInputStyleExample,
   StepperFieldSizeExample,
-  StepperFieldValidationErrorExample,
   StepperFieldStylePropsExample,
-  InputStyleExample,
+  StepperFieldValidationErrorExample,
 } from './examples';
 import { Example, ExampleCode } from '@/components/Example';
 import { Fragment } from '@/components/Fragment';
@@ -209,6 +209,8 @@ All style props will be applied to the outermost [Flex](/components/flex) compon
 <Fragment>{() => import('./../shared/inputStyles.mdx')}</Fragment>
 
 <Example>
-  <InputStyleExample />
-  <ExampleCode>```jsx file=./examples/InputStyleExample.tsx ```</ExampleCode>
+  <StepperFieldInputStyleExample />
+  <ExampleCode>
+    ```jsx file=./examples/StepperFieldInputStyleExample.tsx ```
+  </ExampleCode>
 </Example>
