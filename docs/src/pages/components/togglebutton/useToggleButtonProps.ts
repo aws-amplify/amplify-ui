@@ -11,7 +11,6 @@ export const useToggleButtonProps: UseToggleButtonProps = (initialValues) => {
   const [isDisabled, setIsDisabled] = React.useState<
     ToggleButtonProps['isDisabled']
   >(initialValues.isDisabled);
-
   const [size, setSize] = React.useState<ToggleButtonProps['size']>(
     initialValues.size
   );

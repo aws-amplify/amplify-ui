@@ -7,3 +7,4 @@ export { SelectFieldIconExample } from './SelectFieldIconExample';
 export { SelectFieldDisabledStateExample } from './SelectFieldDisabledStateExample';
 export { SelectFieldValidationErrorExample } from './SelectFieldValidationErrorExample';
 export { SelectFieldControlledExample } from './SelectFieldControlledExample';
+export { SelectFieldOptionsExample } from './SelectFieldOptionsExample';

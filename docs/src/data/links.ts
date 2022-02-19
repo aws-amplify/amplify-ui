@@ -97,6 +97,11 @@ export const feedbackComponents: ComponentNavItem[] = [
 
 export const inputComponents = [
   {
+    href: '/components/textareafield',
+    label: 'TextArea Field',
+    body: `The TextAreaField form primitive can be used allow users to input multiline text content.`,
+  },
+  {
     href: '/components/textfield',
     label: 'Text Field',
     body: `The TextField form primitive can be used allow users to input text content.`,

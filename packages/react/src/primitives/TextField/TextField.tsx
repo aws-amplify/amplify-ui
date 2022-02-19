@@ -17,6 +17,7 @@ import {
 } from './utils';
 import { TextArea } from '../TextArea';
 import { useStableId } from '../shared/utils';
+import { useDeprecationWarning } from '../../hooks/useDeprecationWarning';
 
 export const DEFAULT_ROW_COUNT = 3;
 
@@ -48,6 +49,12 @@ const TextFieldPrimitive = <Multiline extends boolean>(
 
   const { flexContainerStyleProps, baseStyleProps, rest } =
     splitPrimitiveProps(_rest);
+
+  useDeprecationWarning({
+    shouldWarn: props.isMultiline,
+    message:
+      'TextField isMultiLine prop will be deprecated in next major release of @aws-amplify/ui-react. Please use TextAreaField component instead.',
+  });
 
   let control: JSX.Element = null;
   if (isTextAreaField(props)) {
