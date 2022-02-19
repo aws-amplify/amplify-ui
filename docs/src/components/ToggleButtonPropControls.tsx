@@ -1,11 +1,10 @@
-import React from 'react';
-
+import * as React from 'react';
 import {
   CheckboxField,
   ToggleButtonProps,
   SelectField,
 } from '@aws-amplify/ui-react';
-import { FieldLabeler } from './FieldLabeler';
+
 import { DemoBox } from './DemoBox';
 
 export interface ToggleButtonPropControlsProps extends ToggleButtonProps {

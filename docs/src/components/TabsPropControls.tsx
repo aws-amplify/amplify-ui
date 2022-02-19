@@ -1,5 +1,6 @@
-import React from 'react';
+import * as React from 'react';
 import { TabsProps } from '@aws-amplify/ui-react';
+
 import { FieldLabeler } from './FieldLabeler';
 import { DemoBox } from './DemoBox';
 

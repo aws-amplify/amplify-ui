@@ -25,11 +25,6 @@
     url('/fonts/Inter-Regular.woff?v=3.19') format('woff');
 }
 
-html {
-  /* this enables some alternative styles and contextual characters to the font */
-  font-feature-settings: 'ss01', 'ss02', 'case', 'salt';
-}
-
 @media screen and (prefers-reduced-motion: no-preference) {
   html {
     scroll-behavior: smooth;
@@ -51,6 +46,7 @@ html {
 }
 
 html {
+  // this enables some alternative styles and contextual characters to the font
   // https://rsms.me/inter/#features
   font-feature-settings: 'ss01', 'ss02', 'case', 'salt';
 }
@@ -193,16 +189,12 @@ h3:hover > a .icon-link {
   color: var(--amplify-colors-font-primary);
   min-height: 100vh;
 
-  --amplify-components-fieldcontrol-line-height: 1.5;
   --amplify-borders-primary: var(--amplify-border-widths-small) solid
     var(--amplify-colors-border-primary);
   --amplify-borders-secondary: var(--amplify-border-widths-small) solid
     var(--amplify-colors-border-secondary);
   --amplify-borders-tertiary: var(--amplify-border-widths-small) solid
     var(--amplify-colors-border-tertiary);
-
-  --amplify-components-heading-1-font-size: 3rem;
-  --amplify-components-heading-1-font-weight: 750;
 
   /* custom vars */
   --docs-header-height: 4rem;

@@ -17,6 +17,7 @@ import {
 } from './utils';
 import { TextArea } from '../TextArea';
 import { useStableId } from '../shared/utils';
+import { useDeprecationWarning } from '../../hooks/useDeprecationWarning';
 
 export const DEFAULT_ROW_COUNT = 3;
 
@@ -44,15 +45,23 @@ const TextFieldPrimitive = <Multiline extends boolean>(
   } = props;
 
   const fieldId = useStableId(id);
+  const descriptionId = useStableId();
 
   const { flexContainerStyleProps, baseStyleProps, rest } =
     splitPrimitiveProps(_rest);
+
+  useDeprecationWarning({
+    shouldWarn: props.isMultiline,
+    message:
+      'TextField isMultiLine prop will be deprecated in next major release of @aws-amplify/ui-react. Please use TextAreaField component instead.',
+  });
 
   let control: JSX.Element = null;
   if (isTextAreaField(props)) {
     const { rows } = props;
     control = (
       <TextArea
+        aria-describedby={descriptionId}
         hasError={hasError}
         id={fieldId}
         ref={isTextAreaRef(props, ref) ? ref : undefined}
@@ -66,6 +75,7 @@ const TextFieldPrimitive = <Multiline extends boolean>(
     const { type = 'text' } = props;
     control = (
       <Input
+        aria-describedby={descriptionId}
         hasError={hasError}
         id={fieldId}
         ref={isInputRef(props, ref) ? ref : undefined}
@@ -92,6 +102,7 @@ const TextFieldPrimitive = <Multiline extends boolean>(
         {label}
       </Label>
       <FieldDescription
+        id={descriptionId}
         labelHidden={labelHidden}
         descriptiveText={descriptiveText}
       />

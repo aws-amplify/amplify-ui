@@ -5,7 +5,7 @@ import {
   ColorMode,
 } from '@aws-amplify/ui-react';
 import { MdWbSunny, MdBedtime, MdTonality } from 'react-icons/md';
-import { useState } from 'react';
+import * as React from 'react';
 
 import { theme } from '../../../theme';
 import { Logo } from './Logo';
@@ -14,7 +14,7 @@ import '@aws-amplify/ui-react/styles.css';
 import './styles.scss';
 
 export const App = ({ children }) => {
-  const [colorMode, setColorMode] = useState<ColorMode>('system');
+  const [colorMode, setColorMode] = React.useState<ColorMode>('system');
   return (
     <AmplifyProvider theme={theme} colorMode={colorMode}>
       <header className="listing-app-header">

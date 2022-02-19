@@ -13,6 +13,7 @@
   },
   "private": true,
   "dependencies": {
+    "aws-amplify": "latest",
     "@angular/animations": "~11.2.14",
     "@angular/common": "~11.2.14",
     "@angular/compiler": "~11.2.14",
@@ -20,7 +21,7 @@
     "@angular/platform-browser": "~11.2.14",
     "@angular/platform-browser-dynamic": "~11.2.14",
     "@angular/router": "~11.2.14",
-    "@aws-amplify/ui-angular": "^2.1.0",
+    "@aws-amplify/ui-angular": "^2.1.2",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.3"
@@ -31,7 +32,6 @@
     "@angular/compiler-cli": "~11.2.14",
     "@types/jasmine": "~3.6.0",
     "@types/node": "^12.11.1",
-    "aws-amplify": "latest",
     "codelyzer": "^6.0.0",
     "jasmine-core": "~3.6.0",
     "jasmine-spec-reporter": "~5.0.0",

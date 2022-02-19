@@ -12,7 +12,6 @@ import {
 } from '@heroicons/react/solid';
 import { useRouter } from 'next/router';
 import * as React from 'react';
-import { useEffect } from 'react';
 import * as runtime from 'react/jsx-runtime';
 import remarkGfm from 'remark-gfm';
 import { evaluateSync } from 'xdm';
@@ -61,7 +60,7 @@ export function Feature({ name = required('Missing feature name') }) {
 
   const port = getPortForPlatform(platform);
 
-  useEffect(() => {
+  React.useEffect(() => {
     import(`../../../packages/e2e/features${pathname}/${name}.feature`).then(
       (exports) => setSource(exports.default)
     );

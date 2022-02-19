@@ -197,6 +197,7 @@ export function signInActor({ services }: SignInMachineOptions) {
                 invalid: { entry: sendUpdate() },
               },
               on: {
+                SIGN_IN: '#signInActor.signIn',
                 CHANGE: {
                   actions: 'handleInput',
                   target: '.pending',
@@ -453,7 +454,8 @@ export function signInActor({ services }: SignInMachineOptions) {
             mfaType = challengeName;
           }
 
-          return await services.handleConfirmSignIn({ user, code, mfaType });
+          await services.handleConfirmSignIn({ user, code, mfaType });
+          return await Auth.currentAuthenticatedUser();
         },
         async forceNewPassword(context, event) {
           const { user, formValues } = context;
