@@ -1,5 +1,6 @@
-import React from 'react';
+import * as React from 'react';
 import { RadioGroupFieldProps, SelectField } from '@aws-amplify/ui-react';
+
 import { FieldLabeler } from './FieldLabeler';
 import { DemoBox } from './DemoBox';
 

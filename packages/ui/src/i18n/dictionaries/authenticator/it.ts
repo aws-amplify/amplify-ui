@@ -1,15 +1,15 @@
 export const itDict = {
   'Account recovery requires verified contact information':
-    'Il ripristino dell\'account richiede informazioni di contatto verificate',
+    "Il ripristino dell'account richiede informazioni di contatto verificate",
   'An account with the given email already exists.':
-    'Questa email è già utilizzata da un\'altro account.',
+    "Questa email è già utilizzata da un'altro account.",
   'Back to Sign In': 'Torna alla schermata di accesso',
   'Change Password': 'Cambia la password',
   Code: 'Codice',
   Confirm: 'Conferma',
   'Confirm a Code': 'Conferma un codice',
   'Confirm Password': 'Conferma la password',
-  'Confirm Sign In': 'Conferma l\'accesso',
+  'Confirm Sign In': "Conferma l'accesso",
   'Confirm Sign Up': 'Conferma registrazione',
   'Confirmation Code': 'Codice di verifica',
   'Create a new account': 'Crea un nuovo account',
@@ -23,8 +23,7 @@ export const itDict = {
   'Have an account? ': 'Già registrato?',
   'Incorrect username or password': 'Nome utente o password errati',
   'Invalid password format': 'Formato della password non valido',
-  'Invalid phone number format':
-    'Formato del numero di telefono non valido',
+  'Invalid phone number format': 'Formato del numero di telefono non valido',
   'Lost your code?': 'Codice smarrito?',
   'New Password': 'Nuova password',
   or: 'o',

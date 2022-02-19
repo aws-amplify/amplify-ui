@@ -6,8 +6,9 @@
   "scripts": {
     "clean": "rimraf node_modules",
     "dev": "TZ=UTC cypress open",
-    "test": "TZ=UTC cypress run --spec features/ui/components/authenticator/*.features",
+    "test:examples": "TZ=UTC cypress run --spec features/ui/hooks/*.features,features/ui/components/authenticator/*.features",
     "test:authenticator": "TZ=UTC cypress run --spec features/ui/components/authenticator/*.features",
+    "test:hooks": "TZ=UTC cypress run --spec features/ui/hooks/*.features",
     "test:theme": "TZ=UTC cypress run --spec features/ui/theme/*.features"
   },
   "cypress-cucumber-preprocessor": {
@@ -16,7 +17,7 @@
     "stepDefinitions": "features"
   },
   "devDependencies": {
-    "@aws-amplify/ui": "^3.0.12",
+    "@aws-amplify/ui": "^3.0.14",
     "aws-crt": "^1.10.6",
     "@testing-library/cypress": "^7.0.6",
     "@types/cypress-cucumber-preprocessor": "^4.0.0",

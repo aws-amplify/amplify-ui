@@ -65,7 +65,11 @@ export const connectedComponents = [
 
 export const dataDisplayComponents = [
   { href: '/components/badge', label: 'Badge', body: `` },
-  { href: '/components/rating', label: 'Rating', body: `` },
+  {
+    href: '/components/rating',
+    label: 'Rating',
+    body: 'The Rating component displays a read-only star rating of a product or service.',
+  },
 ].sort(sortByLabel);
 
 export const feedbackComponents: ComponentNavItem[] = [
@@ -93,11 +97,20 @@ export const feedbackComponents: ComponentNavItem[] = [
 
 export const inputComponents = [
   {
+    href: '/components/textareafield',
+    label: 'TextArea Field',
+    body: `The TextAreaField form primitive can be used allow users to input multiline text content.`,
+  },
+  {
     href: '/components/textfield',
     label: 'Text Field',
     body: `The TextField form primitive can be used allow users to input text content.`,
   },
-  { href: '/components/selectfield', label: 'Select Field', body: `` },
+  {
+    href: '/components/selectfield',
+    label: 'Select Field',
+    body: `The SelectField primitive allows you to create a drop-down list.`,
+  },
   { href: '/components/sliderfield', label: 'Slider Field', body: `` },
   {
     href: '/components/stepperfield',

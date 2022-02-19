@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import * as React from 'react';
 
 import { TableProps } from '@aws-amplify/ui-react';
 
@@ -9,17 +9,19 @@ interface UseTableProps {
 }
 
 export const useTableProps: UseTableProps = (initialValues) => {
-  const [caption, setCaption] = useState<TableProps['caption']>(
+  const [caption, setCaption] = React.useState<TableProps['caption']>(
     initialValues.caption
   );
 
-  const [highlightOnHover, setHighlightOnHover] = useState<
+  const [highlightOnHover, setHighlightOnHover] = React.useState<
     TableProps['highlightOnHover']
   >(initialValues.highlightOnHover);
 
-  const [size, setSize] = useState<TableProps['size']>(initialValues.size);
+  const [size, setSize] = React.useState<TableProps['size']>(
+    initialValues.size
+  );
 
-  const [variation, setVariation] = useState<TableProps['variation']>(
+  const [variation, setVariation] = React.useState<TableProps['variation']>(
     initialValues.variation
   );
 
