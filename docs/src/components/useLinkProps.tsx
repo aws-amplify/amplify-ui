@@ -1,5 +1,6 @@
 import { LinkProps } from '@aws-amplify/ui-react';
-import { useState } from 'react';
+import * as React from 'react';
+
 import { LinkPropControlsProps } from './LinkPropControls';
 
 interface UseLinkProps {
@@ -7,11 +8,13 @@ interface UseLinkProps {
 }
 
 export const useLinkProps: UseLinkProps = (initialValues) => {
-  const [isExternal, setIsExternal] = useState<LinkProps['isExternal']>(
+  const [isExternal, setIsExternal] = React.useState<LinkProps['isExternal']>(
     initialValues.isExternal
   );
-  const [color, setColor] = useState<LinkProps['color']>(initialValues.color);
-  const [textDecoration, setTextDecoration] = useState<
+  const [color, setColor] = React.useState<LinkProps['color']>(
+    initialValues.color
+  );
+  const [textDecoration, setTextDecoration] = React.useState<
     LinkProps['textDecoration']
   >(initialValues.textDecoration);
 

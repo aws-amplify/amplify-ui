@@ -1,5 +1,4 @@
-import { useState } from 'react';
-
+import * as React from 'react';
 import { Radio, RadioGroupField, View } from '@aws-amplify/ui-react';
 
 import { RadioGroupFieldPropControls } from '@/components/RadioGroupFieldPropControls';
@@ -24,7 +23,7 @@ export const Demo = () => {
 };
 
 export const ControlledRadioGroupField = () => {
-  const [value, setValue] = useState('html');
+  const [value, setValue] = React.useState('html');
   return (
     <RadioGroupField
       label="Language"
