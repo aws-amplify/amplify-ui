@@ -95,15 +95,21 @@
 
 <script setup lang="ts">
 import { computed, ComputedRef, useAttrs } from 'vue';
+import { createSharedComposable } from '@vueuse/core';
+
 import {
   getActorState,
   SignInState,
   authInputAttributes,
   LoginMechanism,
   translate,
+  getFormDataFromEvent,
 } from '@aws-amplify/ui';
 
-import { useAuth } from '../composables/useAuth';
+import { useAuth, useAuthenticator } from '../composables/useAuth';
+
+const useAuthShared = createSharedComposable(useAuthenticator);
+const props = useAuthShared();
 
 const attrs = useAttrs();
 const emit = defineEmits(['verifyUserSubmit', 'skipClicked']);
@@ -143,15 +149,8 @@ const onVerifyUserSubmit = (e: Event): void => {
 };
 
 const submit = (e: Event): void => {
-  const formData = new FormData(<HTMLFormElement>e.target);
-  send({
-    type: 'SUBMIT',
-    //@ts-ignore
-    data: {
-      //@ts-ignore
-      ...Object.fromEntries(formData),
-    },
-  });
+  e.preventDefault();
+  props.submitForm(getFormDataFromEvent(e));
 };
 
 const onSkipClicked = (): void => {

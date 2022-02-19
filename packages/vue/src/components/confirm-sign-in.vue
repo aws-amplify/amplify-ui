@@ -82,17 +82,22 @@
 import {
   AuthChallengeNames,
   getActorState,
+  getFormDataFromEvent,
   SignInState,
   translate,
 } from '@aws-amplify/ui';
 import { computed, ComputedRef, useAttrs } from 'vue';
+import { createSharedComposable } from '@vueuse/core';
 
-import { useAuth } from '../composables/useAuth';
+import { useAuth, useAuthenticator } from '../composables/useAuth';
 
 const emit = defineEmits(['confirmSignInSubmit', 'backToSignInClicked']);
 const attrs = useAttrs();
 
 const { state, send } = useAuth();
+const useAuthShared = createSharedComposable(useAuthenticator);
+const props = useAuthShared();
+
 const actorState = computed(() =>
   getActorState(state.value)
 ) as ComputedRef<SignInState>;
@@ -129,15 +134,8 @@ const onConfirmSignInSubmit = (e: Event): void => {
 };
 
 const submit = (e: Event): void => {
-  const formData = new FormData(<HTMLFormElement>e.target);
-  send({
-    type: 'SUBMIT',
-    //@ts-ignore
-    data: {
-      //@ts-ignore
-      ...Object.fromEntries(formData),
-    },
-  });
+  e.preventDefault();
+  props.submitForm(getFormDataFromEvent(e));
 };
 
 const onBackToSignInClicked = (): void => {

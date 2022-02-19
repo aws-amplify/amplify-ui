@@ -60,7 +60,6 @@ const onConfirmSignUpSubmit = (e: Event): void => {
 };
 
 const submit = (e: Event): void => {
-  e.preventDefault();
   submitForm(getFormDataFromEvent(e));
 };
 
