@@ -400,6 +400,9 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-loader-linear-large-stroke-width: var(--amplify-font-sizes-large);
         --amplify-components-menu-background-color: var(--amplify-colors-white);
         --amplify-components-menu-border-radius: var(--amplify-radii-medium);
+        --amplify-components-menu-border-width: var(--amplify-border-widths-small);
+        --amplify-components-menu-border-style: solid;
+        --amplify-components-menu-border-color: var(--amplify-colors-border-primary);
         --amplify-components-menu-box-shadow: var(--amplify-shadows-large);
         --amplify-components-menu-flex-direction: column;
         --amplify-components-menu-gap: 0;

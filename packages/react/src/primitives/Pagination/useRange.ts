@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import * as React from 'react';
 
 import { getConsecutiveIntArray } from '../shared/utils';
 
@@ -17,7 +17,7 @@ export const useRange = (
   totalPagesParam: number,
   siblingCountParam = 1
 ): (string | number)[] => {
-  const range = useMemo(() => {
+  const range = React.useMemo(() => {
     // The current page should not be less than 1
     const currentPage = Math.max(currentPageParam, 1);
     // The sibling count should not be less than 1
