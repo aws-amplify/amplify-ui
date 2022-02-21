@@ -1,11 +1,10 @@
 import * as React from 'react';
 import {
-  CheckboxField,
+  Flex,
   ToggleButtonProps,
   SelectField,
+  SwitchField,
 } from '@aws-amplify/ui-react';
-
-import { DemoBox } from './DemoBox';
 
 export interface ToggleButtonPropControlsProps extends ToggleButtonProps {
   setIsDisabled: (
@@ -30,7 +29,7 @@ export const ToggleButtonPropControls: ToggleButtonPropControlsInterface = ({
   setVariation,
 }) => {
   return (
-    <DemoBox primitiveName="ToggleButton">
+    <Flex direction="column">
       <SelectField
         label="variation"
         value={variation}
@@ -46,21 +45,20 @@ export const ToggleButtonPropControls: ToggleButtonPropControlsInterface = ({
       <SelectField
         value={size}
         label="size"
+        placeholder="default"
         onChange={(event) =>
           setSize(event.target.value as ToggleButtonProps['size'])
         }
       >
         <option value="small">small</option>
-        <option value="medium">medium</option>
         <option value="large">large</option>
       </SelectField>
-      <CheckboxField
-        name="isDisabled"
-        value="yes"
-        checked={isDisabled}
+      <SwitchField
+        isChecked={isDisabled}
         onChange={(event) => setIsDisabled(event.target.checked)}
         label="isDisabled"
+        labelPosition="end"
       />
-    </DemoBox>
+    </Flex>
   );
 };

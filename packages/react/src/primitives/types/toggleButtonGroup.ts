@@ -1,6 +1,5 @@
 import * as React from 'react';
 
-import { AriaProps } from './base';
 import { FlexProps } from './flex';
 import { ToggleButtonProps } from './toggleButton';
 
@@ -9,6 +8,7 @@ export interface ToggleButtonGroupProps
     Pick<ToggleButtonProps, 'size' | 'variation'> {
   children: React.ReactNode;
   isExclusive?: boolean;
+  isSelectionRequired?: boolean;
   value: string | string[];
   onChange: (value: string | string[]) => void;
 }
