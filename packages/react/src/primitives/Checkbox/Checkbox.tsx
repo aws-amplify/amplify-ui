@@ -21,7 +21,7 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
     hasError,
     isDisabled,
     label,
-    labelHidden,
+    isLabelHidden,
     labelPosition,
     onChange: onChangeProp,
     size,
@@ -74,7 +74,7 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
           {...rest}
         />
       </VisuallyHidden>
-      {label && !labelHidden && (
+      {label && !isLabelHidden && (
         <Text
           as="span"
           className={ComponentClassNames.CheckboxLabel}

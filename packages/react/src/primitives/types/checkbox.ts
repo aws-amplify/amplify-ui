@@ -12,7 +12,7 @@ export interface CheckboxProps extends FlexProps, InputProps {
    * Visually hide label (not recommended in most cases)
    * @default false
    */
-  labelHidden?: boolean;
+  isLabelHidden?: boolean;
 
   /**
    * The name of the input field in a checkbox (Useful for form submission).
