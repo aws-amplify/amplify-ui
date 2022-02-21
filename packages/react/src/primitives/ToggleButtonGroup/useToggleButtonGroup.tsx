@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import * as React from 'react';
 
 import { isFunction } from '../shared/utils';
 import { ToggleButtonProps, ToggleButtonGroupProps } from '../types';
@@ -8,7 +8,7 @@ export const useToggleButtonGroup = (
   isExclusive = false
 ) => {
   // Multiple selection
-  const handleChange: ToggleButtonProps['onChange'] = useCallback(
+  const handleChange: ToggleButtonProps['onChange'] = React.useCallback(
     (buttonValue) => {
       if (!isFunction(onChange) || !Array.isArray(value)) {
         return;
@@ -33,16 +33,17 @@ export const useToggleButtonGroup = (
   );
 
   // Exclusive selection
-  const handleExclusiveChange: ToggleButtonProps['onChange'] = useCallback(
-    (buttonValue) => {
-      if (!onChange) {
-        return;
-      }
+  const handleExclusiveChange: ToggleButtonProps['onChange'] =
+    React.useCallback(
+      (buttonValue) => {
+        if (!onChange) {
+          return;
+        }
 
-      onChange(value === buttonValue ? null : buttonValue);
-    },
-    [onChange, value]
-  );
+        onChange(value === buttonValue ? null : buttonValue);
+      },
+      [onChange, value]
+    );
 
   return isExclusive ? handleExclusiveChange : handleChange;
 };
