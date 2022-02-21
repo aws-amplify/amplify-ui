@@ -100,7 +100,7 @@ function onBlur(e: Event) {
               style="flex-direction: column"
             >
               <base-label
-                class="sr-only amplify-label"
+                class="amplify-visually-hidden amplify-label"
                 for="amplify-field-d653"
               >
                 {{ confirmationCodeText }}

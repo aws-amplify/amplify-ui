@@ -80,7 +80,10 @@ const onBackToSignInClicked = (): void => {
             class="amplify-flex amplify-field amplify-textfield"
             style="flex-direction: column"
           >
-            <base-label class="sr-only amplify-label" for="amplify-field-7dce">
+            <base-label
+              class="amplify-visually-hidden amplify-label"
+              for="amplify-field-7dce"
+            >
               {{ labelText }}
             </base-label>
             <base-wrapper class="amplify-flex">

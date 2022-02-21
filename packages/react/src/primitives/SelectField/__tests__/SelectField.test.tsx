@@ -78,7 +78,7 @@ describe('SelectField test suite', () => {
       expect(labelElelment).toHaveAttribute('for', select.id);
     });
 
-    it('should have `sr-only` class when labelHidden is true', async () => {
+    it('should have `amplify-visually-hidden` class when labelHidden is true', async () => {
       render(
         <SelectField label={label} labelHidden>
           <option value="1">1</option>
@@ -88,7 +88,7 @@ describe('SelectField test suite', () => {
       );
 
       const labelElelment = await screen.findByText(label);
-      expect(labelElelment).toHaveClass('sr-only');
+      expect(labelElelment).toHaveClass('amplify-visually-hidden');
     });
   });
 

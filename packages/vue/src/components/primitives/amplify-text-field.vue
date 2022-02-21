@@ -27,7 +27,11 @@ const { label, id, autocomplete, placeholder, required, name, type } =
   toRefs(props);
 </script>
 <template>
-  <base-label class="amplify-label" :class="{ 'sr-only': hideLabel }" :for="id">
+  <base-label
+    class="amplify-label"
+    :class="{ 'amplify-visually-hidden': hideLabel }"
+    :for="id"
+  >
     {{ label }}
   </base-label>
   <base-wrapper class="amplify-field-group__field-wrapper">

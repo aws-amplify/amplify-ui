@@ -16,7 +16,10 @@
             class="amplify-flex amplify-field amplify-radiogroupfield"
             style="flex-direction: column"
           >
-            <base-label class="sr-only amplify-label" id="amplify-field-493c">
+            <base-label
+              class="amplify-visually-hidden amplify-label"
+              id="amplify-field-493c"
+            >
               {{ verifyContactText }}
             </base-label>
             <base-wrapper
