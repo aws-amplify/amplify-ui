@@ -25,9 +25,4 @@ applications:
       cache:
         paths:
           - node_modules/**/*
-      customHeaders:
-        - pattern: '**/*'
-          headers:
-            - key: 'Cache-Control'
-              value: 's-maxage=3600'
     appRoot: docs
