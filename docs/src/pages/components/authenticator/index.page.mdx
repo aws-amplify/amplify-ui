@@ -146,6 +146,10 @@ with the exception of `address`, `gender`, `locale`, `picture`, `updated_at`, an
 
 ## Customization
 
+<Fragment platforms={['flutter']}>
+  {({ platform }) => import(`./customization.routing.${platform}.mdx`)}
+</Fragment>
+
 <Fragment useCommonWebContent platforms={['web']}>
   {({ platform }) =>
     import(`./customization.headers-and-footers.${platform}.mdx`)
