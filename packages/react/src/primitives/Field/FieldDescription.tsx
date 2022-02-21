@@ -6,10 +6,10 @@ import { ComponentClassNames } from '../shared/constants';
 
 export const FieldDescription: React.FC<FieldDescriptionProps> = ({
   descriptiveText,
-  labelHidden,
+  isLabelHidden,
   ...rest
 }) => {
-  return !labelHidden && descriptiveText ? (
+  return !isLabelHidden && descriptiveText ? (
     <Text className={ComponentClassNames.FieldDescription} {...rest}>
       {descriptiveText}
     </Text>

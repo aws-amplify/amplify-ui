@@ -24,16 +24,24 @@ export interface FieldProps {
 
   /**
    * Visually hide label (not recommended in most cases)
+   * Deprecated, use isLabelHidden
    * @default false
+   * @deprecated Will be removed in next major version bump
    */
   labelHidden?: boolean;
+
+  /**
+   * Visually hide label (not recommended in most cases)
+   * @default false
+   */
+  isLabelHidden?: boolean;
 }
 
 export interface FieldClearButtonProps
   extends Partial<FieldGroupIconButtonProps> {}
 export interface FieldDescriptionProps
   extends TextProps,
-    Pick<FieldProps, 'descriptiveText' | 'labelHidden'> {}
+    Pick<FieldProps, 'descriptiveText' | 'isLabelHidden'> {}
 export interface FieldErrorMessageProps
   extends TextProps,
     Pick<FieldProps, 'errorMessage'>,
