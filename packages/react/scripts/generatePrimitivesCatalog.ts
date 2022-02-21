@@ -65,7 +65,8 @@ const priorityProps = {
     'trackCheckedColor',
   ],
   Text: ['children', 'fontWeight', 'fontSize', 'color'],
-  TextField: [...fieldProps, 'variation', 'isMultiline'],
+  TextField: [...fieldProps, 'variation'],
+  TextAreaField: [...fieldProps, 'rows', 'maxLength', 'variation'],
 };
 
 /**

@@ -40,7 +40,6 @@ const SearchFieldPrimitive: Primitive<SearchFieldProps, 'input'> = (
           variation="link"
         />
       }
-      isMultiline={false}
       name={name}
       onInput={onInput}
       onKeyDown={onKeyDown}

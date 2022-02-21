@@ -163,30 +163,28 @@ export const TextFieldDemo = () => {
       <TextField
         alignContent={alignContent as FlexContainerStyleProps['alignContent']}
         alignItems={alignItems as FlexContainerStyleProps['alignItems']}
-        autoComplete={autoComplete as TextFieldProps<false>['autoComplete']}
-        descriptiveText={
-          descriptiveText as TextFieldProps<false>['descriptiveText']
-        }
-        defaultValue={defaultValue as TextFieldProps<false>['defaultValue']}
+        autoComplete={autoComplete as TextFieldProps['autoComplete']}
+        descriptiveText={descriptiveText as TextFieldProps['descriptiveText']}
+        defaultValue={defaultValue as TextFieldProps['defaultValue']}
         direction={direction as FlexContainerStyleProps['direction']}
-        errorMessage={errorMessage as TextFieldProps<false>['errorMessage']}
+        errorMessage={errorMessage as TextFieldProps['errorMessage']}
         gap={gap as FlexContainerStyleProps['gap']}
         hasError={hasError as unknown as boolean}
-        inputMode={inputMode as TextFieldProps<false>['inputMode']}
+        inputMode={inputMode as TextFieldProps['inputMode']}
         isDisabled={isDisabled as unknown as boolean}
         isReadOnly={isReadOnly as unknown as boolean}
         isRequired={isRequired as unknown as boolean}
         justifyContent={
           justifyContent as FlexContainerStyleProps['justifyContent']
         }
-        label={label as TextFieldProps<false>['label']}
+        label={label as TextFieldProps['label']}
         labelHidden={labelHidden as unknown as boolean}
-        name={name as TextFieldProps<false>['name']}
-        placeholder={placeholder as TextFieldProps<false>['placeholder']}
-        size={size as TextFieldProps<false>['size']}
-        type={type as TextFieldProps<false>['type']}
-        value={value as TextFieldProps<false>['value']}
-        variation={variation as TextFieldProps<false>['variation']}
+        name={name as TextFieldProps['name']}
+        placeholder={placeholder as TextFieldProps['placeholder']}
+        size={size as TextFieldProps['size']}
+        type={type as TextFieldProps['type']}
+        value={value as TextFieldProps['value']}
+        variation={variation as TextFieldProps['variation']}
         wrap={wrap as FlexContainerStyleProps['wrap']}
         onChange={(e) => console.info(e.currentTarget.value)}
         onInput={(e) => console.info('input fired:', e.currentTarget.value)}
