@@ -36,12 +36,12 @@ export const FrameworkChooser = ({ platform }) => {
   return (
     <ToggleButtonGroup
       value={platform}
-      isExclusive
       size="small"
       onChange={(value: string) => {
-        if (!value) return;
         chooseFramework(value);
       }}
+      isExclusive
+      isSelectionRequired
     >
       <ToggleButton value="react" size="small">
         <VisuallyHidden>React</VisuallyHidden>

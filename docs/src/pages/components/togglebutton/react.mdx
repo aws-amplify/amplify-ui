@@ -1,233 +1,158 @@
 import { Flex, ToggleButton } from '@aws-amplify/ui-react';
 
-import { Example } from '@/components/Example';
-import { Demo } from './demo';
+import { Example, ExampleCode } from '@/components/Example';
+import { ToggleButtonDemo } from './demo';
 import {
-  ControlledToggleButton,
-  ExclusiveSelectionDemo,
-  MultipleSelectionDemo,
+  ControlledToggleButtonExample,
+  DefaultToggleButtonExample,
+  DefaultToggleButtonGroupExample,
+  DisabledToggleButtonExample,
+  ExclusiveToggleButtonGroupExample,
+  SelectionRequiredToggleButtonGroupExample,
+  ToggleButtonSizeExample,
+  ToggleButtonStylePropsExample,
+  ToggleButtonVariationsExample,
 } from './examples';
-
-A toggle button represents an on/off state for some configuration, for example switching on/off bold text in a text editor.
 
 ## Demo
 
-<Demo />
+<ToggleButtonDemo />
 
 ## Usage
 
-Import the ToggleButton primitive and styles.
-
-```jsx
-import { ToggleButton } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-<ToggleButton>Press me!</ToggleButton>;
-```
+Import the ToggleButton primitive.
 
 <Example>
-  <ToggleButton>Press me!</ToggleButton>
+  <DefaultToggleButtonExample />
+  <ExampleCode>
+    ```jsx file=./examples/DefaultToggleButtonExample.tsx
+
+    ```
+
+  </ExampleCode>
 </Example>
 
 ### Controlled component
 
-A toggle button can be a controlled component when given `isPressed` prop and `onChange` prop must be provided in this case
-
-```jsx
-import * as React from 'react';
-import { ToggleButton } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-const ControlledToggleButton = ({ children }) => {
-  const [isPressed, setIsPressed] = React.useState(false);
-  return (
-    <ToggleButton
-      isPressed={isPressed}
-      onChange={() => setIsPressed(!isPressed)}
-    >
-      Press me!
-    </ToggleButton>
-  );
-};
-
-<ControlledToggleButton>Press me!</ControlledToggleButton>;
-```
+A toggle button can be a controlled component when given `isPressed` prop and `onChange` prop must be provided in this case.
 
 <Example>
-  <ControlledToggleButton>Press me!</ControlledToggleButton>
+  <ControlledToggleButtonExample />
+  <ExampleCode>
+    ```jsx file=./examples/ControlledToggleButtonExample.tsx
+
+    ```
+
+  </ExampleCode>
 </Example>
 
 ### Sizes
 
 Use the `size` prop to change the Button size. Available options are `small`, `large`, and none (default).
 
-```jsx
-import { ToggleButton } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-<ToggleButton size="small">Press me!</ToggleButton>;
-<ToggleButton>Press me!</ToggleButton>;
-<ToggleButton size="large">Press me!</ToggleButton>;
-```
-
 <Example>
-  <ToggleButton size="small">Press me!</ToggleButton>
-  <ToggleButton>Press me!</ToggleButton>
-  <ToggleButton size="large">Press me!</ToggleButton>
+  <ToggleButtonSizeExample />
+  <ExampleCode>
+    ```jsx file=./examples/ToggleButtonSizeExample.tsx
+
+    ```
+
+  </ExampleCode>
 </Example>
 
 ### Variations
 
 Use the `variation` prop to change the Button variation. Available options are `primary`, `link`, and none (default).
 
-```jsx
-import { ToggleButton } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-<ToggleButton defaultPressed>Press me!</ToggleButton>
-<ToggleButton variation="primary" defaultPressed>Press me!</ToggleButton>
-<ToggleButton variation="link" defaultPressed>Press me!</ToggleButton>
-```
-
 <Example>
-  <Flex>
-    <ToggleButton defaultPressed>Press me!</ToggleButton>
-    <ToggleButton variation="primary" defaultPressed>
-      {'Press me!'}
-    </ToggleButton>
-    <ToggleButton variation="link" defaultPressed>
-      {'Press me!'}
-    </ToggleButton>
-  </Flex>
+  <ToggleButtonVariationsExample />
+
+  <ExampleCode>
+    ```jsx file=./examples/ToggleButtonVariationsExample.tsx
+    ```
+  </ExampleCode>
 </Example>
 
 ### Disabled
 
-A disabled toggle button will not be able to switch state and will not be focusable
-
-```jsx
-import { ToggleButton } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-<ToggleButton isDisabled>Press me!</ToggleButton>;
-<ToggleButton isDisabled defaultPressed>
-  Press me!
-</ToggleButton>;
-```
+A disabled toggle button will not be able to switch state and will not be focusable.
 
 <Example>
-  <Flex>
-    <ToggleButton isDisabled>Press me!</ToggleButton>
-    <ToggleButton isDisabled defaultPressed>
-      {'Press me!'}
-    </ToggleButton>
-  </Flex>
+  <DisabledToggleButtonExample />
+  <ExampleCode>
+    ```jsx file=./examples/DisabledToggleButtonExample.tsx
+
+    ```
+
+  </ExampleCode>
 </Example>
 
 ### ToggleButtonGroup
 
 You can group related Toggle buttons easily with a `ToggleButtonGroup` out of box. To control the selected state of its child buttons, both `value` and `onChange` props must be provided.
 
-_Exclusive Selection_
+<Example>
+  <DefaultToggleButtonGroupExample />
+  <ExampleCode>
+    ```jsx file=./examples/DefaultToggleButtonGroupExample.tsx
 
-```jsx
-import * as React from 'react';
-import { ToggleButton, ToggleButtonGroup } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
+    ```
 
-const ExclusiveSelectionGroup = () => {
-  const [exclusiveValue, setExclusiveValue] = React.useState('align-left');
-  return (
-    <ToggleButtonGroup
-      value={exclusiveValue}
-      isExclusive
-      onChange={(value: string) => setExclusiveValue(value)}
-    >
-      <ToggleButton value="align-left">
-        <IconFormatAlignLeft />
-      </ToggleButton>
-      <ToggleButton value="align-center">
-        <IconFormatAlignCenter />
-      </ToggleButton>
-      <ToggleButton value="align-right">
-        <IconFormatAlignRight />
-      </ToggleButton>
-      <ToggleButton value="align-justify">
-        <IconFormatAlignJustify />
-      </ToggleButton>
-    </ToggleButtonGroup>
-  );
-};
+  </ExampleCode>
+</Example>
 
-<ExclusiveSelectionGroup />;
-```
+To make your toggle button group exclusive, set the `isExclusive` prop to `true`.
 
-<ExclusiveSelectionDemo />
+<Example>
+  <ExclusiveToggleButtonGroupExample />
+  <ExampleCode>
+    ```jsx file=./examples/ExclusiveToggleButtonGroupExample.tsx
 
-_Multiple Selection_
+    ```
 
-```jsx
-import * as React from 'react';
-import { ToggleButton, ToggleButtonGroup } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
+  </ExampleCode>
+</Example>
 
-const MultipleSelectionGroup = () => {
-  const [multipleValue, setMultipleValue] = React.useState(['bold']);
-  return (
-    <ToggleButtonGroup
-      value={multipleValue}
-      onChange={(value: string[]) => setMultipleValue(value)}
-    >
-      <ToggleButton value="bold">
-        <IconFormatBold />
-      </ToggleButton>
-      <ToggleButton value="italic">
-        <IconFormatItalic />
-      </ToggleButton>
-      <ToggleButton value="underlined">
-        <IconFormatUnderlined />
-      </ToggleButton>
-      <ToggleButton value="color-fill">
-        <IconFormatColorFill />
-      </ToggleButton>
-    </ToggleButtonGroup>
-  );
-};
+In cases where you need to have at least one option on, you can set the `isSelectionRequired` prop to `true`.
 
-<MultipleSelectionGroup />;
-```
+<Example>
+  <SelectionRequiredToggleButtonGroupExample />
+  <ExampleCode>
+    ```jsx file=./examples/SelectionRequiredToggleButtonGroupExample.tsx
 
-<MultipleSelectionDemo />
+    ```
 
-## CSS Styling
+  </ExampleCode>
+</Example>
+
+## Styling
 
 ### Global styling
 
 To override styling on all ToggleButtons, you can set the Amplify CSS variables or use the built-in `.amplify-togglebutton` class.
 
-```css
-/* styles.css */
-:root {
-  --amplify-components-togglebutton-color: var(--amplify-colors-purple-60);
-}
-/* OR */
-.amplify-togglebutton {
-  color: var(--amplify-colors-purple-60);
-}
-```
-
 <Example>
   <ToggleButton className="my-togglebutton-global">{'Press me!'}</ToggleButton>
+  <ExampleCode>
+    ```css
+    :root {
+      --amplify-components-togglebutton-color: var(--amplify-colors-purple-60);
+    }
+
+    .amplify-togglebutton {
+      color: var(--amplify-colors-purple-60);
+    }
+    ```
+
+  </ExampleCode>
+
+  <ExampleCode>
+    ```jsx
+    <ToggleButton className="my-togglebutton-global">Press me!</ToggleButton>
+    ```
+
+  </ExampleCode>
 </Example>
-
-To replace the ToggleButton styling, unset it:
-
-```css
-.amplify-togglebutton {
-  all: unset;
-  /* Add your styling here*/
-}
-```
 
 ### Local styling
 
@@ -235,63 +160,58 @@ To override styling on a specific ToggleButton, you can use (in order of increas
 
 _Using a class selector:_
 
-```css
-/* styles.css */
-.my-togglebutton {
-  border-radius: 20px;
-}
-```
-
 <Example>
   <ToggleButton className="my-togglebutton">Press me!</ToggleButton>
+  <ExampleCode>
+    ```css
+    .my-togglebutton {
+      border-radius: 20px;
+    }
+    ```
+
+  </ExampleCode>
+
+  <ExampleCode>
+    ```jsx
+    <ToggleButton className="my-togglebutton">Press me!</ToggleButton>
+    ```
+
+  </ExampleCode>
 </Example>
 
 _Using data attributes:_
-
-```css
-/* styles.css */
-/* Override primary variation styles */
-.amplify-togglebutton[data-variation='primary'] {
-  color: var(--amplify-colors-blue-60);
-}
-```
 
 <Example>
   <ToggleButton className="my-togglebutton-data-attribute" variation="primary">
     {'Press me!'}
   </ToggleButton>
+  <ExampleCode>
+    ```css
+    .amplify-togglebutton[data-variation='primary'] {
+      color: var(--amplify-colors-blue-60);
+    }
+    ```
+
+  </ExampleCode>
+
+  <ExampleCode>
+    ```jsx
+    <ToggleButton className="my-togglebutton-data-attribute" variation="primary">
+      'Press me!'
+    </ToggleButton>
+    ```
+
+  </ExampleCode>
 </Example>
 
 _Using style props:_
 
-```jsx
-import { ToggleButton } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-<ToggleButton
-  style={{
-    color: 'var(--amplify-colors-orange-60)',
-  }}
->
-  Press me!
-</ToggleButton>
-/* OR */
-<ToggleButton color="var(--amplify-colors-orange-60)">
-   Press me!
-</ToggleButton>;
-```
-
 <Example>
-  <Flex>
-    <ToggleButton color="var(--amplify-colors-orange-60)">
-      {' Press me!'}
-    </ToggleButton>
-    <ToggleButton
-      style={{
-        color: 'var(--amplify-colors-orange-60)',
-      }}
-    >
-      {'Press me!'}
-    </ToggleButton>
-  </Flex>
+  <ToggleButtonStylePropsExample />
+  <ExampleCode>
+    ```jsx file=./examples/ToggleButtonStylePropsExample.tsx
+
+    ```
+
+  </ExampleCode>
 </Example>
