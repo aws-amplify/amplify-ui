@@ -82,6 +82,8 @@ class AuthenticatorConfig {
               return SignUpFormField.passwordConfirmation();
             case 'email':
               return SignUpFormField.email();
+            case 'email-required':
+              return SignUpFormField.email(required: true);
             case 'phone_number':
               return SignUpFormField.phoneNumber();
             case 'family_name':
@@ -102,8 +104,31 @@ class AuthenticatorConfig {
               return SignUpFormField.birthdate();
             case 'gender':
               return SignUpFormField.gender();
+            case 'website':
+              return SignUpFormField.custom(
+                key: Key(field),
+                required: true,
+                validator: ((value) {
+                  if (value == null || value.isEmpty) {
+                    return 'You must provide a website';
+                  }
+                  if (!value.contains('example.com')) {
+                    return 'Your website must be have a domain of example.com';
+                  }
+                  return null;
+                }),
+                title: 'Website',
+                attributeKey: CognitoUserAttributeKey.website,
+              );
+            case 'bio':
+              return SignUpFormField.custom(
+                key: Key(field),
+                title: 'Bio',
+                attributeKey: CognitoUserAttributeKey.custom(field),
+              );
             default:
               return SignUpFormField.custom(
+                key: Key(field),
                 title: field,
                 attributeKey: CognitoUserAttributeKey.custom(field),
               );
