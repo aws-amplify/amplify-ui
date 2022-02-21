@@ -36,9 +36,10 @@ Import the `TextField` component and styles and provide a `label` for accessibil
 <Example>
   <DefaultTextFieldExample />
   <ExampleCode>
-    ```jsx file=./examples/DefaultTextFieldExample.tsx
 
-    ```
+```jsx file=./examples/DefaultTextFieldExample.tsx
+
+```
 
 </ExampleCode>
 </Example>
@@ -50,9 +51,10 @@ Import the `TextField` component and styles and provide a `label` for accessibil
 <Example>
   <TextFieldAccessibilityExample />
   <ExampleCode>
-    ```jsx file=./examples/TextFieldAccessibilityExample.tsx 
-    
-    ```
+
+```jsx file=./examples/TextFieldAccessibilityExample.tsx
+
+```
 
   </ExampleCode>
 </Example>
@@ -64,9 +66,10 @@ TextField sizes are designed to match styling of other field components such as 
 <Example>
   <TextFieldSizeExample />
   <ExampleCode>
-    ```jsx file=./examples/TextFieldSizeExample.tsx
 
-    ```
+```jsx file=./examples/TextFieldSizeExample.tsx
+
+```
 
   </ExampleCode>
 </Example>
@@ -78,8 +81,11 @@ There are two variation styles available: default and `quiet`.
 <Example>
   <TextFieldVariationExample />
   <ExampleCode>
-  ```jsx file=./examples/TextFieldVariationExample.tsx
-  ```
+
+```jsx file=./examples/TextFieldVariationExample.tsx
+
+```
+
   </ExampleCode>
 
 </Example>
@@ -99,9 +105,10 @@ To render a multi-line `textarea`, set the `isMultiline` prop to `true`.
 <Example>
   <DefaultTextAreaExample />
   <ExampleCode>
-    ```jsx file=./examples/DefaultTextAreaExample.tsx
-    
-    ```
+
+```jsx file=./examples/DefaultTextAreaExample.tsx
+
+```
 
   </ExampleCode>
 </Example>
@@ -113,9 +120,10 @@ For a resizeable multiline field, use `resize` prop. Common values are `horizont
 <Example>
   <TextAreaResizableExample />
   <ExampleCode>
-    ```jsx file=./examples/TextAreaResizableExample.tsx
 
-    ```
+```jsx file=./examples/TextAreaResizableExample.tsx
+
+```
 
   </ExampleCode>
 </Example>
@@ -127,9 +135,10 @@ To change the general size, use the `size` prop. Available options are `small`, 
 <Example>
   <TextAreaSizeExample />
   <ExampleCode>
-    ```jsx file=./examples/TextAreaSizeExample.tsx
 
-    ```
+```jsx file=./examples/TextAreaSizeExample.tsx
+
+```
 
   </ExampleCode>
 </Example>
@@ -141,9 +150,10 @@ To change the number of rows of text displayed, use the `rows` prop with desired
 <Example>
   <TextAreaRowsExample />
   <ExampleCode>
-    ```jsx file=./examples/TextAreaRowsExample.tsx
 
-    ```
+```jsx file=./examples/TextAreaRowsExample.tsx
+
+```
 
   </ExampleCode>
 </Example>
@@ -155,9 +165,10 @@ To enforce a maximum length of multiline text, use the `maxLength` prop.
 <Example>
   <TextAreaMaxLengthExample />
   <ExampleCode>
-    ```jsx file=./examples/TextAreaMaxLengthExample.tsx
 
-    ```
+```jsx file=./examples/TextAreaMaxLengthExample.tsx
+
+```
 
   </ExampleCode>
 </Example>
@@ -169,9 +180,10 @@ Compose field components such as `Button` and `Select` at the start or end of an
 <Example>
   <TextFieldOuterComponentsExample />
   <ExampleCode>
-    ```jsx file=./examples/TextFieldOuterComponentsExample.tsx
 
-    ```
+```jsx file=./examples/TextFieldOuterComponentsExample.tsx
+
+```
 
   </ExampleCode>
 </Example>
@@ -186,9 +198,10 @@ Note: When clicked, `FieldGroupIcon` will focus the field, whereas the `FieldGro
 <Example>
   <TextFieldInnerComponentsExample />
   <ExampleCode>
-    ```jsx file=./examples/TextFieldInnerComponentsExample.tsx
 
-    ```
+```jsx file=./examples/TextFieldInnerComponentsExample.tsx
+
+```
 
   </ExampleCode>
 </Example>
@@ -198,9 +211,10 @@ _You can also both inner and outer components together_
 <Example>
   <TextFieldOuterAndInnerComponentsExample />
   <ExampleCode>
-    ```jsx file=./examples/TextFieldOuterAndInnerComponentsExample.tsx
 
-    ```
+```jsx file=./examples/TextFieldOuterAndInnerComponentsExample.tsx
+
+```
 
   </ExampleCode>
 </Example>
@@ -212,9 +226,10 @@ To provide additional descriptive text of requirements of the field, use the `de
 <Example>
   <TextFieldDescriptiveTextExample />
   <ExampleCode>
-    ```jsx file=./examples/TextFieldDescriptiveTextExample.tsx
 
-    ```
+```jsx file=./examples/TextFieldDescriptiveTextExample.tsx
+
+```
 
   </ExampleCode>
 </Example>
@@ -226,9 +241,10 @@ The available TextField states include `isDisabled` and `isReadonly`. A disabled
 <Example>
   <TextFieldStatesExample />
   <ExampleCode>
-    ```jsx file=./examples/TextFieldStatesExample.tsx
 
-    ```
+```jsx file=./examples/TextFieldStatesExample.tsx
+
+```
 
   </ExampleCode>
 </Example>
@@ -240,9 +256,10 @@ Use the `isRequired` prop to specify a required field.
 <Example>
   <DefaultRequiredTextFieldExample />
   <ExampleCode>
-    ```jsx file=./examples/DefaultRequiredTextFieldExample.tsx
 
-    ```
+```jsx file=./examples/DefaultRequiredTextFieldExample.tsx
+
+```
 
   </ExampleCode>
 </Example>
@@ -252,9 +269,10 @@ There is no default styling for required fields. Customize the `label` or `descr
 <Example>
   <RequiredTextFieldExample />
   <ExampleCode>
-    ```jsx file=./examples/RequiredTextFieldExample.tsx
 
-    ```
+```jsx file=./examples/RequiredTextFieldExample.tsx
+
+```
 
   </ExampleCode>
 </Example>
@@ -266,14 +284,15 @@ Use the `hasError` and `errorMessage` fields to mark a TextField as having an va
 <Example>
   <TextFieldValidationErrorExample />
   <ExampleCode>
-    ```jsx file=./examples/TextFieldValidationErrorExample.tsx
 
-    ```
+```jsx file=./examples/TextFieldValidationErrorExample.tsx
+
+```
 
   </ExampleCode>
 </Example>
 
-## CSS Styling
+## Styling
 
 ### Global styling
 
@@ -285,12 +304,12 @@ To override styling on all TextField primitives, you can set the Amplify CSS var
     className="globally-styled-textfield"
   />
   <ExampleCode>
-    ```css
-    /* styles.css */
-    .amplify-textfield {
-      --amplify-components-fieldcontrol-border-color: rebeccapurple;
-    }
-    ```
+```css
+/* styles.css */
+.amplify-textfield {
+  --amplify-components-fieldcontrol-border-color: rebeccapurple;
+}
+```
   </ExampleCode>
 </Example>
 
@@ -303,12 +322,12 @@ To override styling on a specific TextField, you can use a class selector or sty
 <Example>
   <TextField className="custom-textfield-class" label="Square field" />
   <ExampleCode>
-    ```css
-    /* styles.css */
-    .custom-textfield-class .amplify-input {
-      border-radius: 0;
-    }
-    ```
+```css
+/* styles.css */
+.custom-textfield-class .amplify-input {
+  border-radius: 0;
+}
+```
   </ExampleCode>
 </Example>
 
@@ -319,7 +338,11 @@ All style props will be applied to the outermost [Flex](/components/flex) compon
 <Example>
   <TextFieldStylePropsExample />
   <ExampleCode>
-    ```jsx file=./examples/TextFieldStylePropsExample.tsx ```
+
+```jsx file=./examples/TextFieldStylePropsExample.tsx
+
+```
+
   </ExampleCode>
 </Example>
 
@@ -328,6 +351,10 @@ All style props will be applied to the outermost [Flex](/components/flex) compon
 <Example>
   <TextFieldInputStyleExample />
   <ExampleCode>
-    ```jsx file=./examples/TextFieldInputStyleExample.tsx ```
+
+```jsx file=./examples/TextFieldInputStyleExample.tsx
+
+```
+
   </ExampleCode>
 </Example>

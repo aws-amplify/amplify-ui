@@ -1,6 +1,6 @@
 import { TextField, useTheme } from '@aws-amplify/ui-react';
 
-export const TextFieldStylePropsExample = () => {
+export const TextFieldInputStyleExample = () => {
   const { tokens } = useTheme();
   return (
     <TextField

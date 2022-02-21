@@ -9,6 +9,7 @@ export { TextAreaSizeExample } from './TextAreaSizeExample';
 export { TextFieldAccessibilityExample } from './TextFieldAccessibilityExample';
 export { TextFieldDescriptiveTextExample } from './TextFieldDescriptiveTextExample';
 export { TextFieldInnerComponentsExample } from './TextFieldInnerComponentsExample';
+export { TextFieldInputStyleExample } from './TextFieldInputStyleExample';
 export { TextFieldOuterAndInnerComponentsExample } from './TextFieldOuterAndInnerComponentsExample';
 export { TextFieldOuterComponentsExample } from './TextFieldOuterComponentsExample';
 export { TextFieldSizeExample } from './TextFieldSizeExample';

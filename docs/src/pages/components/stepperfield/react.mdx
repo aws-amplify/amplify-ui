@@ -27,9 +27,10 @@ Import StepperField and styles. You could edit the stepping value directly but i
   <DefaultStepperFieldExample />
 
   <ExampleCode>
-    ```jsx file=./examples/DefaultStepperFieldExample.tsx
 
-    ````
+```jsx file=./examples/DefaultStepperFieldExample.tsx
+
+```
 
   </ExampleCode>
 </Example>
@@ -39,9 +40,10 @@ Import StepperField and styles. You could edit the stepping value directly but i
 <Example>
   <ControlledStepperFieldExample />
   <ExampleCode>
-    ```jsx file=./examples/ControlledStepperFieldExample.tsx
 
-    ````
+```jsx file=./examples/ControlledStepperFieldExample.tsx
+
+```
 
   </ExampleCode>
 </Example>
@@ -53,9 +55,10 @@ Import StepperField and styles. You could edit the stepping value directly but i
 <Example>
   <StepperFieldAccessibilityExample />
   <ExampleCode>
-    ```jsx file=./examples/StepperFieldAccessibilityExample.tsx
 
-    ```
+```jsx file=./examples/StepperFieldAccessibilityExample.tsx
+
+```
 
   </ExampleCode>
 </Example>
@@ -67,9 +70,10 @@ Use the `size` prop to change the StepperField size. Available options are `smal
 <Example>
   <StepperFieldSizeExample />
   <ExampleCode>
-    ```jsx file=./examples/StepperFieldSizeExample.tsx
 
-    ```
+```jsx file=./examples/StepperFieldSizeExample.tsx
+
+```
 
   </ExampleCode>
 </Example>
@@ -83,9 +87,10 @@ The available StepperField states include `isDisabled` and `isReadonly`. A disab
 <Example>
   <DisabledStepperFieldExample />
   <ExampleCode>
-    ```jsx file=./examples/DisabledStepperFieldExample.tsx
 
-    ```
+```jsx file=./examples/DisabledStepperFieldExample.tsx
+
+```
 
   </ExampleCode>
 </Example>
@@ -95,9 +100,10 @@ The available StepperField states include `isDisabled` and `isReadonly`. A disab
 <Example>
   <ReadOnlyStepperFieldExample />
   <ExampleCode>
-    ```jsx file=./examples/ReadOnlyStepperFieldExample.tsx
 
-    ```
+```jsx file=./examples/ReadOnlyStepperFieldExample.tsx
+
+```
 
   </ExampleCode>
 </Example>
@@ -109,14 +115,15 @@ Use the `hasError` and `errorMessage` props to mark a StepperField as having an 
 <Example>
   <StepperFieldValidationErrorExample />
     <ExampleCode>
-    ```jsx file=./examples/StepperFieldValidationErrorExample.tsx
 
-    ```
+```jsx file=./examples/StepperFieldValidationErrorExample.tsx
+
+```
 
   </ExampleCode>
 </Example>
 
-## CSS Styling
+## Styling
 
 ### Global styling
 
@@ -134,18 +141,18 @@ To override styling on all StepperFields, you can set the Amplify CSS variables 
   />
 
   <ExampleCode>
-    ```css
-    /* styles.css */
-    :root {
-      --amplify-components-stepperfield-input-border-color: var(
-        --amplify-colors-purple-80
-      );
-    }
-    /* OR */
-    .amplify-stepperfield__input {
-      border-color: var(--amplify-colors-purple-80);
-    }
-    ```
+```css
+/* styles.css */
+:root {
+  --amplify-components-stepperfield-input-border-color: var(
+    --amplify-colors-purple-80
+  );
+}
+/* OR */
+.amplify-stepperfield__input {
+  border-color: var(--amplify-colors-purple-80);
+}
+```
   </ExampleCode>
 </Example>
 
@@ -166,32 +173,31 @@ To override styling on a specific StepperField, you can use (in order of increas
     labelHidden
   />
   <ExampleCode>
-    ```css
-    /* styles.css */
-    .custom-button .amplify-stepperfield__button--decrease,
-    .amplify-stepperfield__button--increase {
-      color: var(--amplify-colors-white);
-      background-color: var(--amplify-colors-purple-80);
-    }
-    ```
+```css
+/* styles.css */
+.custom-button .amplify-stepperfield__button--decrease,
+.amplify-stepperfield__button--increase {
+  color: var(--amplify-colors-white);
+  background-color: var(--amplify-colors-purple-80);
+}
+```
   </ExampleCode>
   <ExampleCode>
-    ```jsx
-    import { StepperField } from '@aws-amplify/ui-react';
+```jsx
+import { StepperField } from '@aws-amplify/ui-react';
 
-    import './styles.css';
+import './styles.css';
 
-    <StepperField
-      label="Stepper"
-      classname="custom-button"
-      defaultValue={0}
-      min={0}
-      max={10}
-      step={1}
-      labelHidden
-    />;
-    ```
-
+<StepperField
+  label="Stepper"
+  classname="custom-button"
+  defaultValue={0}
+  min={0}
+  max={10}
+  step={1}
+  labelHidden
+/>;
+```
   </ExampleCode>
 </Example>
 
@@ -202,7 +208,11 @@ All style props will be applied to the outermost [Flex](/components/flex) compon
 <Example>
   <StepperFieldStylePropsExample />
   <ExampleCode>
-    ```jsx file=./examples/StepperFieldStylePropsExample.tsx ```
+
+```jsx file=./examples/StepperFieldStylePropsExample.tsx
+
+```
+
   </ExampleCode>
 </Example>
 
@@ -211,6 +221,10 @@ All style props will be applied to the outermost [Flex](/components/flex) compon
 <Example>
   <StepperFieldInputStyleExample />
   <ExampleCode>
-    ```jsx file=./examples/StepperFieldInputStyleExample.tsx ```
+
+```jsx file=./examples/StepperFieldInputStyleExample.tsx
+
+```
+
   </ExampleCode>
 </Example>
