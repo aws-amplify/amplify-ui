@@ -1,5 +1,15 @@
 # @aws-amplify/ui
 
+## 3.0.14
+
+### Patch Changes
+
+- [#1328](https://github.com/aws-amplify/amplify-ui/pull/1328) [`722e2a932`](https://github.com/aws-amplify/amplify-ui/commit/722e2a93263478aed2a9aee872ab1fcbc86b41ca) Thanks [@ErikCH](https://github.com/ErikCH)! - Fixed bug where "Back to sign in" was not working on force new password page
+
+* [#1348](https://github.com/aws-amplify/amplify-ui/pull/1348) [`4c6d198e4`](https://github.com/aws-amplify/amplify-ui/commit/4c6d198e409d46eef37b88b2327132b4a5dbe425) Thanks [@Jesmaster](https://github.com/Jesmaster)! - Lowered priority of visited link style for link component
+
+- [#1313](https://github.com/aws-amplify/amplify-ui/pull/1313) [`38cdf38e4`](https://github.com/aws-amplify/amplify-ui/commit/38cdf38e473853ba93ffb22a1d9252286a7d2a6f) Thanks [@franscal7](https://github.com/franscal7)! - chore: add missing es translations
+
 ## 3.0.13
 
 ### Patch Changes

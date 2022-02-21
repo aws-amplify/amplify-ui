@@ -1,5 +1,6 @@
 import { SelectFieldProps } from '@aws-amplify/ui-react';
-import { useState } from 'react';
+import * as React from 'react';
+
 import { SelectFieldPropControlsProps } from './SelectFieldPropControls';
 
 interface UseSelectFieldProps {
@@ -7,30 +8,30 @@ interface UseSelectFieldProps {
 }
 
 export const useSelectFieldProps: UseSelectFieldProps = (initialValues) => {
-  const [descriptiveText, setDescriptiveText] = useState<
+  const [descriptiveText, setDescriptiveText] = React.useState<
     SelectFieldProps['descriptiveText']
   >(initialValues.descriptiveText);
-  const [errorMessage, setErrorMessage] = useState<
+  const [errorMessage, setErrorMessage] = React.useState<
     SelectFieldProps['errorMessage']
   >(initialValues.errorMessage);
-  const [hasError, setHasError] = useState<SelectFieldProps['hasError']>(
+  const [hasError, setHasError] = React.useState<SelectFieldProps['hasError']>(
     initialValues.hasError
   );
-  const [isDisabled, setIsDisabled] = useState<SelectFieldProps['isDisabled']>(
-    initialValues.isDisabled
-  );
-  const [label, setLabel] = useState<SelectFieldProps['label']>(
+  const [isDisabled, setIsDisabled] = React.useState<
+    SelectFieldProps['isDisabled']
+  >(initialValues.isDisabled);
+  const [label, setLabel] = React.useState<SelectFieldProps['label']>(
     initialValues.label
   );
-  const [labelHidden, setLabelHidden] = useState<
+  const [labelHidden, setLabelHidden] = React.useState<
     SelectFieldProps['labelHidden']
   >(initialValues.labelHidden);
-  const [size, setSize] = useState<SelectFieldProps['size']>(
+  const [size, setSize] = React.useState<SelectFieldProps['size']>(
     initialValues.size
   );
-  const [variation, setVariation] = useState<SelectFieldProps['variation']>(
-    initialValues.variation
-  );
+  const [variation, setVariation] = React.useState<
+    SelectFieldProps['variation']
+  >(initialValues.variation);
 
   return {
     descriptiveText,
