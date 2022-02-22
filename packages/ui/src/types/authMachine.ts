@@ -191,16 +191,6 @@ export type AuthInputAttributes = Record<
   InputAttributes
 >;
 
-export interface ActorDoneData {
-  user?: CognitoUserAmplify;
-  authAttributes?: {
-    username?: string;
-    password?: string;
-    [other_attributes: string]: string;
-  };
-  intent?: string;
-}
-
 export type AuthEventData = Record<PropertyKey, any>; // TODO: this should be typed further
 
 export type AuthServices = {
@@ -244,14 +234,6 @@ export type AuthEvent =
     }
   | {
       type: 'done.invoke.signOutActor';
-    }
-  | {
-      /**
-       * This event is called when `getCurrentUser` invocation fails on `setup`
-       * state.
-       */
-      type: 'error.platform.authenticator.setup:invocation[0]';
-      data: Partial<CognitoUserAmplify & ActorDoneData>;
     }
   | {
       type: 'CHANGE';
