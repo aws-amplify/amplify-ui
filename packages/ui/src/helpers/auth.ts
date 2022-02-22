@@ -222,8 +222,7 @@ export const getServiceContextFacade = (state: AuthMachineState) => {
   const validationErrors = { ...actorContext?.validationError };
   const codeDeliveryDetails = actorContext?.codeDeliveryDetails;
   const hasValidationErrors = Object.keys(validationErrors).length > 0;
-  const isPending =
-    state.hasTag('pending') || getActorState(state)?.hasTag('pending');
+  const isPending = getActorState(state)?.hasTag('pending');
   const route = (() => {
     switch (true) {
       case state.matches('idle'):
