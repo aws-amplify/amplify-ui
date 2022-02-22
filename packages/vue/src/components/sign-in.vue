@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { computed, ComputedRef, useAttrs } from 'vue';
+import { createSharedComposable } from '@vueuse/core';
+
 import {
   getActorState,
+  getFormDataFromEvent,
   hasTranslation,
   SignInState,
   translate,
@@ -12,7 +15,10 @@ import UserNameAlias from './user-name-alias.vue';
 import FederatedSignIn from './federated-sign-in.vue';
 
 // @xstate
-import { useAuth } from '../composables/useAuth';
+import { useAuth, useAuthenticator } from '../composables/useAuth';
+
+const useAuthShared = createSharedComposable(useAuthenticator);
+const props = useAuthShared();
 
 const attrs = useAttrs();
 const emit = defineEmits([
@@ -57,12 +63,7 @@ const onSignInSubmit = (e: Event): void => {
 };
 
 const submit = (e: Event): void => {
-  const formData = new FormData(<HTMLFormElement>e.target);
-  send({
-    type: 'SUBMIT',
-    // @ts-ignore Property 'fromEntries' does not exist on type 'ObjectConstructor'. Do you need to change your target library? Try changing the `lib` compiler option to 'es2019' or later.ts(2550)
-    data: Object.fromEntries(formData),
-  });
+  props.submitForm(getFormDataFromEvent(e));
 };
 
 const onForgotPasswordClicked = (): void => {

@@ -11,8 +11,12 @@ import {
   RemoteErrorMessage,
   TwoButtonSubmitFooter,
 } from '../shared';
-import { isInputOrSelectElement, isInputElement } from '../../../helpers/utils';
 import { useCustomComponents } from '../hooks/useCustomComponents';
+import {
+  isInputOrSelectElement,
+  isInputElement,
+  getFormDataFromEvent,
+} from '../../../helpers/utils';
 
 export const ConfirmResetPassword = (): JSX.Element => {
   const {
@@ -48,7 +52,7 @@ export const ConfirmResetPassword = (): JSX.Element => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    submitForm();
+    submitForm(getFormDataFromEvent(event));
   };
 
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {

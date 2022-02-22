@@ -1,6 +1,6 @@
 import { Component, HostBinding, Input } from '@angular/core';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
-import { translate } from '@aws-amplify/ui';
+import { getFormDataFromEvent, translate } from '@aws-amplify/ui';
 @Component({
   selector: 'amplify-confirm-sign-up',
   templateUrl: './confirm-sign-up.component.html',
@@ -57,6 +57,6 @@ export class ConfirmSignUpComponent {
 
   onSubmit(event: Event): void {
     event.preventDefault();
-    this.authenticator.submitForm();
+    this.authenticator.submitForm(getFormDataFromEvent(event));
   }
 }

@@ -3,8 +3,12 @@ import { getAliasInfoFromContext, translate } from '@aws-amplify/ui';
 import { useAuthenticator } from '..';
 import { Flex, Heading, TextField } from '../../..';
 import { RemoteErrorMessage, TwoButtonSubmitFooter } from '../shared';
-import { isInputOrSelectElement, isInputElement } from '../../../helpers/utils';
 import { useCustomComponents } from '../hooks/useCustomComponents';
+import {
+  isInputOrSelectElement,
+  isInputElement,
+  getFormDataFromEvent,
+} from '../../../helpers/utils';
 
 export const ResetPassword = (): JSX.Element => {
   const {
@@ -37,7 +41,7 @@ export const ResetPassword = (): JSX.Element => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    submitForm();
+    submitForm(getFormDataFromEvent(event));
   };
 
   return (

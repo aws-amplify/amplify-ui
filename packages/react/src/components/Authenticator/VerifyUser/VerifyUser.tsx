@@ -9,10 +9,14 @@ import {
 } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '..';
-import { Flex, Heading, Radio, RadioGroupField } from '../../..';
+import { Heading, Radio, RadioGroupField } from '../../..';
 import { RemoteErrorMessage, TwoButtonSubmitFooter } from '../shared';
-import { isInputOrSelectElement, isInputElement } from '../../../helpers/utils';
 import { useCustomComponents } from '../hooks/useCustomComponents';
+import {
+  isInputOrSelectElement,
+  isInputElement,
+  getFormDataFromEvent,
+} from '../../../helpers/utils';
 
 const censorContactInformation = (
   type: ContactMethod,
@@ -95,7 +99,7 @@ export const VerifyUser = (): JSX.Element => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    submitForm();
+    submitForm(getFormDataFromEvent(event));
   };
 
   return (
