@@ -44,6 +44,21 @@ export interface Typegen0 {
       | 'error.platform.signInActor.forceNewPassword.submit.validate:invocation[0]';
     clearFormValues: 'xstate.init';
     clearTouched: 'xstate.init';
+    sendUpdate:
+      | 'error.platform.signInActor.signIn.submit:invocation[0]'
+      | 'error.platform.signInActor.signIn.verifying:invocation[0]'
+      | 'FEDERATED_SIGN_IN'
+      | 'SUBMIT'
+      | 'done.invoke.signInActor.signIn.submit:invocation[0]'
+      | 'error.platform.signInActor.confirmSignIn.submit:invocation[0]'
+      | 'done.invoke.signInActor.forceNewPassword.validation.pending:invocation[0]'
+      | 'error.platform.signInActor.forceNewPassword.validation.pending:invocation[0]'
+      | 'error.platform.signInActor.forceNewPassword.submit.validate:invocation[0]'
+      | 'error.platform.signInActor.forceNewPassword.submit.pending:invocation[0]'
+      | 'done.invoke.signInActor.forceNewPassword.submit.validate:invocation[0]'
+      | 'error.platform.signInActor.setupTOTP.submit:invocation[0]'
+      | 'error.platform.signInActor.verifyUser.submit:invocation[0]'
+      | 'error.platform.signInActor.confirmVerifyUser.submit:invocation[0]';
     clearError:
       | 'FEDERATED_SIGN_IN'
       | 'SUBMIT'

@@ -52,7 +52,7 @@ export function signInActor({ services }: SignInMachineOptions) {
           exit: ['clearFormValues', 'clearTouched'],
           states: {
             edit: {
-              entry: sendUpdate(),
+              entry: 'sendUpdate',
               on: {
                 SUBMIT: 'submit',
                 CHANGE: { actions: 'handleInput' },
@@ -61,7 +61,7 @@ export function signInActor({ services }: SignInMachineOptions) {
             },
             federatedSignIn: {
               tags: ['pending'],
-              entry: [sendUpdate(), 'clearError'],
+              entry: ['sendUpdate', 'clearError'],
               invoke: {
                 src: 'federatedSignIn',
                 // getting navigated out anyway, only track errors.
@@ -71,7 +71,7 @@ export function signInActor({ services }: SignInMachineOptions) {
             },
             submit: {
               tags: ['pending'],
-              entry: ['parsePhoneNumber', 'clearError', sendUpdate()],
+              entry: ['parsePhoneNumber', 'clearError', 'sendUpdate'],
               invoke: {
                 src: 'signIn',
                 onDone: [
@@ -122,7 +122,7 @@ export function signInActor({ services }: SignInMachineOptions) {
             },
             verifying: {
               tags: ['pending'],
-              entry: ['clearError', sendUpdate()],
+              entry: ['clearError', 'sendUpdate'],
               invoke: {
                 src: 'checkVerifiedContact',
                 onDone: [
@@ -150,7 +150,7 @@ export function signInActor({ services }: SignInMachineOptions) {
           exit: ['clearFormValues', 'clearError', 'clearTouched'],
           states: {
             edit: {
-              entry: sendUpdate(),
+              entry: 'sendUpdate',
               on: {
                 SUBMIT: 'submit',
                 SIGN_IN: '#signInActor.signIn',
@@ -159,7 +159,7 @@ export function signInActor({ services }: SignInMachineOptions) {
             },
             submit: {
               tags: ['pending'],
-              entry: ['clearError', sendUpdate()],
+              entry: ['clearError', 'sendUpdate'],
               invoke: {
                 src: 'confirmSignIn',
                 onDone: {
@@ -198,8 +198,8 @@ export function signInActor({ services }: SignInMachineOptions) {
                     },
                   },
                 },
-                valid: { entry: sendUpdate() },
-                invalid: { entry: sendUpdate() },
+                valid: { entry: 'sendUpdate' },
+                invalid: { entry: 'sendUpdate' },
               },
               on: {
                 SIGN_IN: '#signInActor.signIn',
@@ -218,13 +218,13 @@ export function signInActor({ services }: SignInMachineOptions) {
               entry: 'clearError',
               states: {
                 idle: {
-                  entry: sendUpdate(),
+                  entry: 'sendUpdate',
                   on: {
                     SUBMIT: 'validate',
                   },
                 },
                 validate: {
-                  entry: sendUpdate(),
+                  entry: 'sendUpdate',
                   invoke: {
                     src: 'validateFields',
                     onDone: {
@@ -239,7 +239,7 @@ export function signInActor({ services }: SignInMachineOptions) {
                 },
                 pending: {
                   tags: ['pending'],
-                  entry: [sendUpdate(), 'clearError'],
+                  entry: ['sendUpdate', 'clearError'],
                   invoke: {
                     src: 'forceNewPassword',
                     onDone: [
@@ -275,7 +275,7 @@ export function signInActor({ services }: SignInMachineOptions) {
           exit: ['clearFormValues', 'clearError', 'clearTouched'],
           states: {
             edit: {
-              entry: sendUpdate(),
+              entry: 'sendUpdate',
               on: {
                 SUBMIT: 'submit',
                 SIGN_IN: '#signInActor.signIn',
@@ -284,7 +284,7 @@ export function signInActor({ services }: SignInMachineOptions) {
             },
             submit: {
               tags: ['pending'],
-              entry: [sendUpdate(), 'clearError'],
+              entry: ['sendUpdate', 'clearError'],
               invoke: {
                 src: 'verifyTotpToken',
                 onDone: {
@@ -308,7 +308,7 @@ export function signInActor({ services }: SignInMachineOptions) {
           exit: ['clearFormValues', 'clearError', 'clearTouched'],
           states: {
             edit: {
-              entry: sendUpdate(),
+              entry: 'sendUpdate',
               on: {
                 SUBMIT: 'submit',
                 SKIP: '#signInActor.resolved',
@@ -342,7 +342,7 @@ export function signInActor({ services }: SignInMachineOptions) {
           ],
           states: {
             edit: {
-              entry: sendUpdate(),
+              entry: 'sendUpdate',
               on: {
                 SUBMIT: 'submit',
                 SKIP: '#signInActor.resolved',
@@ -405,6 +405,7 @@ export function signInActor({ services }: SignInMachineOptions) {
         setUnverifiedAttributes,
         setUser,
         setUsernameAuthAttributes,
+        sendUpdate,
       },
       guards: {
         shouldConfirmSignIn: (_, event): boolean => {
