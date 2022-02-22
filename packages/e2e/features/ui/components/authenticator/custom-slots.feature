@@ -77,7 +77,3 @@ Feature: Sign Up with Attributes
     And I click the "Create Account" button
     Then I see "Enter Information:"
     Then I see "Footer Information"
-
-  
-
-
