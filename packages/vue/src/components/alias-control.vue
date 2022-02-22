@@ -91,7 +91,7 @@ const inferAutocomplete = computed((): string => {
         >
           <base-label
             :for="'amplify-field-' + randomPhone"
-            class="amplify-label sr-only"
+            class="amplify-label amplify-visually-hidden"
             v-bind="$attrs"
           >
             {{ 'Country Code' }}

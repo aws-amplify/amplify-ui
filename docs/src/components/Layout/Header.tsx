@@ -74,9 +74,10 @@ const ColorModeSwitcher = ({ colorMode, setColorMode }) => {
   return (
     <ToggleButtonGroup
       value={colorMode}
-      isExclusive
       size="small"
       onChange={(value: ColorMode) => setColorMode(value)}
+      isExclusive
+      isSelectionRequired
     >
       <ToggleButton value="light">
         <VisuallyHidden>Light mode</VisuallyHidden>
