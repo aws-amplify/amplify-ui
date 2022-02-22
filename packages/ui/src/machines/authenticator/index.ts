@@ -253,7 +253,6 @@ export const createAuthenticatorMachine = () =>
         spawnSignInActor: assign({
           actorRef: (context, _) => {
             const { services } = context;
-            const data = (event as Record<PropertyKey, any>).data;
 
             const actor = signInActor({ services }).withContext({
               authAttributes: context.actorDoneData?.authAttributes,
