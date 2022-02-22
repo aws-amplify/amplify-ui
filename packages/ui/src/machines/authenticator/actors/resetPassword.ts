@@ -12,6 +12,7 @@ import {
   clearUsername,
   clearValidationError,
   handleInput,
+  handleSubmit,
   handleBlur,
   setFieldErrors,
   setRemoteError,
@@ -48,7 +49,7 @@ export function resetPasswordActor({ services }: ResetPasswordMachineOptions) {
             edit: {
               entry: 'sendUpdate',
               on: {
-                SUBMIT: 'submit',
+                SUBMIT: { actions: 'handleSubmit', target: 'submit' },
                 CHANGE: { actions: 'handleInput' },
                 BLUR: { actions: 'handleBlur' },
               },
@@ -114,7 +115,7 @@ export function resetPasswordActor({ services }: ResetPasswordMachineOptions) {
                 idle: {
                   entry: 'sendUpdate',
                   on: {
-                    SUBMIT: 'validate',
+                    SUBMIT: { actions: 'handleSubmit', target: 'validate' },
                     RESEND: 'resendCode',
                     CHANGE: { actions: 'handleInput' },
                     BLUR: { actions: 'handleBlur' },
@@ -176,6 +177,7 @@ export function resetPasswordActor({ services }: ResetPasswordMachineOptions) {
         clearUsername,
         clearValidationError,
         handleInput,
+        handleSubmit,
         handleBlur,
         setFieldErrors,
         setRemoteError,

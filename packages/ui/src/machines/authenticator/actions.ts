@@ -115,6 +115,16 @@ export const handleInput = assign<ActorContextWithForms>({
   },
 });
 
+export const handleSubmit = assign<
+  ActorContextWithForms,
+  Extract<AuthEvent, { type: 'SUBMIT' }>
+>({
+  formValues: (context, event) => ({
+    ...context['formValues'],
+    ...event.data,
+  }),
+});
+
 export const handleBlur = assign<
   ActorContextWithForms,
   Extract<AuthEvent, { type: 'BLUR' }>

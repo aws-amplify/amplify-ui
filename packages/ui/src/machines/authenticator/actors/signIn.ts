@@ -19,6 +19,7 @@ import {
   clearUnverifiedAttributes,
   clearValidationError,
   handleInput,
+  handleSubmit,
   handleBlur,
   parsePhoneNumber,
   setConfirmResetPasswordIntent,
@@ -57,7 +58,7 @@ export function signInActor({ services }: SignInMachineOptions) {
             edit: {
               entry: 'sendUpdate',
               on: {
-                SUBMIT: 'submit',
+                SUBMIT: { actions: 'handleSubmit', target: 'submit' },
                 CHANGE: { actions: 'handleInput' },
                 FEDERATED_SIGN_IN: 'federatedSignIn',
               },
@@ -155,7 +156,7 @@ export function signInActor({ services }: SignInMachineOptions) {
             edit: {
               entry: 'sendUpdate',
               on: {
-                SUBMIT: 'submit',
+                SUBMIT: { actions: 'handleSubmit', target: 'submit' },
                 SIGN_IN: '#signInActor.signIn',
                 CHANGE: { actions: 'handleInput' },
               },
@@ -223,7 +224,7 @@ export function signInActor({ services }: SignInMachineOptions) {
                 idle: {
                   entry: 'sendUpdate',
                   on: {
-                    SUBMIT: 'validate',
+                    SUBMIT: { actions: 'handleSubmit', target: 'validate' },
                   },
                 },
                 validate: {
@@ -280,7 +281,7 @@ export function signInActor({ services }: SignInMachineOptions) {
             edit: {
               entry: 'sendUpdate',
               on: {
-                SUBMIT: 'submit',
+                SUBMIT: { actions: 'handleSubmit', target: 'submit' },
                 SIGN_IN: '#signInActor.signIn',
                 CHANGE: { actions: 'handleInput' },
               },
@@ -313,7 +314,7 @@ export function signInActor({ services }: SignInMachineOptions) {
             edit: {
               entry: 'sendUpdate',
               on: {
-                SUBMIT: 'submit',
+                SUBMIT: { actions: 'handleSubmit', target: 'submit' },
                 SKIP: '#signInActor.resolved',
                 CHANGE: { actions: 'handleInput' },
               },
@@ -347,7 +348,7 @@ export function signInActor({ services }: SignInMachineOptions) {
             edit: {
               entry: 'sendUpdate',
               on: {
-                SUBMIT: 'submit',
+                SUBMIT: { actions: 'handleSubmit', target: 'submit' },
                 SKIP: '#signInActor.resolved',
                 CHANGE: { actions: 'handleInput' },
               },
@@ -406,6 +407,7 @@ export function signInActor({ services }: SignInMachineOptions) {
         clearUnverifiedAttributes,
         clearValidationError,
         handleInput,
+        handleSubmit,
         handleBlur,
         parsePhoneNumber,
         setConfirmResetPasswordIntent,
