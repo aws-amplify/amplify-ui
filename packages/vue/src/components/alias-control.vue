@@ -45,10 +45,11 @@ const defaultDialCode = actorContext.value.country_code;
 const dialCodes = computed(() => countryDialCodes);
 
 onMounted(() => {
+  // TODO: remove this side effect
   if (inputAttributes.value[name as LoginMechanism]?.type === 'tel') {
     send({
       type: 'CHANGE',
-      data: { name: 'country_code', value: defaultDialCode },
+      data: { name: 'country_code', value: defaultDialCode as string },
     });
   }
 });

@@ -17,6 +17,7 @@
 
 <script setup lang="ts">
 // @xstate
+import { FederatedIdentityProviders } from '@aws-amplify/ui';
 import { useAuth } from '../composables/useAuth';
 const { provider } = defineProps({
   provider: String,
@@ -26,11 +27,10 @@ const { send } = useAuth();
 
 // Methods
 const onClick = (e: Event): void => {
-  send({
-    type: 'FEDERATED_SIGN_IN',
-    data: {
-      provider: provider,
-    },
-  });
+  if (provider)
+    send({
+      type: 'FEDERATED_SIGN_IN',
+      data: { provider: provider as FederatedIdentityProviders },
+    });
 };
 </script>
