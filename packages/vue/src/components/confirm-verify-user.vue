@@ -127,7 +127,6 @@ const onConfirmVerifyUserSubmit = (e: Event): void => {
 };
 
 const submit = (e: Event): void => {
-  e.preventDefault();
   props.submitForm(getFormDataFromEvent(e));
 };
 
