@@ -204,6 +204,8 @@ export interface formFieldTypes {
   label?: string;
   placeholder?: string;
   required?: boolean;
+  dialCode?: string;
+  totpIssuer?: string;
 }
 
 // Auth fields that we provide default fields with

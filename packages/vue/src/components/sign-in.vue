@@ -3,7 +3,9 @@ import { computed, ComputedRef, useAttrs } from 'vue';
 import {
   getActorState,
   hasTranslation,
+  LoginMechanism,
   SignInState,
+  SignUpAttribute,
   translate,
 } from '@aws-amplify/ui';
 
@@ -36,6 +38,17 @@ const { state, send } = useAuth();
 const actorState = computed(() =>
   getActorState(state.value)
 ) as ComputedRef<SignInState>;
+
+const {
+  value: { context },
+} = state;
+
+const formOverrides = context?.config?.formFields?.signIn;
+
+let loginMechanisms = context.config?.loginMechanisms as LoginMechanism[];
+let fieldNames: Array<LoginMechanism | SignUpAttribute>;
+fieldNames = Array.from(new Set([...loginMechanisms]));
+const loginMechanism = fieldNames.shift() as LoginMechanism;
 
 // Methods
 
@@ -106,7 +119,14 @@ const onForgotPasswordClicked = (): void => {
               <slot name="signin-fields" :info="slotData"> </slot>
             </template>
 
-            <user-name-alias :userNameAlias="true" />
+            <user-name-alias
+              :userNameAlias="true"
+              :label-hidden="formOverrides?.[loginMechanism]?.labelHidden"
+              :userName="loginMechanism"
+              :placeholder="formOverrides?.[loginMechanism]?.placeholder"
+              :required="formOverrides?.[loginMechanism]?.required"
+              :label="formOverrides?.[loginMechanism]?.label"
+            />
             <base-wrapper
               class="
                 amplify-flex
@@ -118,8 +138,11 @@ const onForgotPasswordClicked = (): void => {
               style="flex-direction: column"
             >
               <password-control
+                :label-hidden="formOverrides?.['password']?.labelHidden"
+                :placeholder="formOverrides?.['password']?.placeholder"
+                :required="formOverrides?.['password']?.required"
+                :label="formOverrides?.['password']?.label ?? passwordLabel"
                 name="password"
-                :label="passwordLabel"
                 autocomplete="current-password"
                 :ariainvalid="false"
               />

@@ -262,7 +262,6 @@ export function createAuthenticatorMachine() {
         spawnSignUpActor: assign({
           actorRef: (context, _) => {
             const { services } = context;
-            console.log('formFields?', context.config);
             const actor = createSignUpMachine({ services }).withContext({
               authAttributes: context.actorDoneData?.authAttributes ?? {},
               country_code: DEFAULT_COUNTRY_CODE,
@@ -300,7 +299,6 @@ export function createAuthenticatorMachine() {
         }),
         configure: assign((_, event) => {
           const { services: customServices, ...config } = event.data;
-          console.log('got confi', config);
           return {
             services: { ...defaultServices, ...customServices },
             config,

@@ -7,15 +7,11 @@ import aws_exports from './aws-exports';
 Amplify.configure(aws_exports);
 
 const formFields = {
-  signUp: {
-    email: {
-      type: 'email',
+  confirmSignUp: {
+    confirmation_code: {
       labelHidden: false,
-      placeholder: 'boo',
-    },
-    password: {
-      labelHidden: false,
-      placeholder: 'boo23',
+      placeholder: 'Enter the code given',
+      required: true,
     },
   },
 };

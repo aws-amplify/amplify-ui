@@ -15,6 +15,7 @@ Feature: Confirm Sign Up
     And I confirm my password
     And I click the "Create Account" button
     And I see "Confirmation Code"
+    And I see placeholder "Enter the code given"
     Then I see "Enter this code:"
     Then I see "It will take several minutes to arrive."
 

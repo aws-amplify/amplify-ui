@@ -35,7 +35,6 @@ const inputAttributes: ComputedRef<AuthInputAttributes> = computed(
 const passwordLabel = computed(() => translate('Password'));
 const confirmPasswordLabel = computed(() => translate('Confirm Password'));
 
-//
 let fieldNames: Array<LoginMechanism | SignUpAttribute>;
 let loginMechanisms = context.config?.loginMechanisms as LoginMechanism[];
 let signUpAttributes = context.config?.signUpAttributes as SignUpAttribute[];
@@ -94,7 +93,6 @@ const loginMechanism = fieldNames.shift() as LoginMechanism;
     "
     style="flex-direction: column"
   >
-    <!-- :label-hidden="formOverrides?.['confirm_password'].labelHidden" -->
     <password-control
       name="confirm_password"
       :label="

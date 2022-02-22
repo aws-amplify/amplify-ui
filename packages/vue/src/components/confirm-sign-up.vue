@@ -2,7 +2,7 @@
 import { computed, useAttrs, toRefs } from 'vue';
 import { translate } from '@aws-amplify/ui';
 
-import { useAuthenticator } from '../composables/useAuth';
+import { useAuthenticator, useAuth } from '../composables/useAuth';
 import { createSharedComposable } from '@vueuse/core';
 
 const attrs = useAttrs();
@@ -11,8 +11,15 @@ const emit = defineEmits(['confirmSignUpSubmit', 'lostCodeClicked']);
 const useAuthShared = createSharedComposable(useAuthenticator);
 const { isPending, error, codeDeliveryDetails } = toRefs(useAuthShared());
 const { submitForm, updateForm, resendCode } = useAuthShared();
+const { state } = useAuth();
 
 //computed properties
+
+const {
+  value: { context },
+} = state;
+
+const formOverrides = context?.config?.formFields?.confirmSignUp;
 
 // Only two types of delivery methods is EMAIL or SMS
 const confirmSignUpHeading = computed(() => {
@@ -44,6 +51,10 @@ const subtitleText = computed(() => {
     ? `${textedMessage} ${codeDeliveryDetails.value?.Destination}. ${minutesMessage}`
     : translate(`${defaultMessage}`);
 });
+
+const label =
+  formOverrides?.['confirmation_code']?.label ?? confirmationCodeText;
+const labelHidden = formOverrides?.['confirmation_code']?.labelHidden;
 
 // Methods
 const onInput = (e: Event): void => {
@@ -99,19 +110,25 @@ const onLostCodeClicked = (): void => {
               style="flex-direction: column"
             >
               <base-label
-                class="amplify-visually-hidden amplify-label"
+                class="amplify-label"
+                :class="{ 'amplify-visually-hidden': labelHidden ?? true }"
                 for="amplify-field-124b"
-                >{{ confirmationCodeText }}
+                >{{ label }}
               </base-label>
               <base-wrapper class="amplify-flex">
                 <base-input
+                  :placeholder="
+                    formOverrides?.['confirmation_code']?.placeholder ??
+                    enterCode
+                  "
+                  :required="
+                    formOverrides?.['confirmation_code']?.required ?? true
+                  "
                   class="amplify-input amplify-field-group__control"
                   id="amplify-field-124b"
                   aria-invalid="false"
                   autocomplete="one-time-code"
                   name="confirmation_code"
-                  required
-                  :placeholder="enterCode"
                 ></base-input>
               </base-wrapper>
             </base-wrapper>

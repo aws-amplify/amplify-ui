@@ -1,0 +1,51 @@
+Feature: Form Fields
+
+  Amazon Congito User Pools allow for standard OAuth attributes to be required:
+  > https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html
+  These are automatically persisted to `aws-exports.js` and rendered by the Authenticator.
+
+  Background:
+    Given I'm running the example "ui/components/authenticator/custom-slots"
+
+@angular @react @vue
+  Scenario: Confirm Force New Password has custom label
+    Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }' with fixture "force-change-password"
+    And I type my "email" with status "FORCE_CHANGE_PASSWORD"
+    And I type my password
+    And I click the "Sign in" button
+    Then I see "Enter Information:"
+    Then I see "Footer Information"
+
+  @angular @react @vue
+  Scenario: Sign in with replaced email placeholder 
+    Then I see placeholder "Enter your email"
+
+  @angular @react @vue
+  Scenario: Sign in label is visibile 
+    When I see "Email"
+    Then "Email" field does not have class "amplify-visually-hidden"
+
+@angular @react @vue
+  Scenario: Sign up with replaced password label 
+    When I click the "Create Account" tab 
+    Then I see "Password:"
+
+@angular @react @vue
+  Scenario: Sign up with replaced password placeholder 
+    When I click the "Create Account" tab 
+    Then I see placeholder "Enter your Password:"
+
+@angular @react @vue
+  Scenario: Sign up with not required email 
+    When I click the "Create Account" tab 
+    Then 'Password:' field does not have "required"
+
+@angular @react @vue
+  Scenario: Sign up with replaced confirm password placeholder and is visible 
+    When I click the "Create Account" tab 
+    Then I see placeholder "Confirm Password:"
+    Then "Confirm Password:" field does not have class "amplify-visually-hidden"
+
+
+
+   

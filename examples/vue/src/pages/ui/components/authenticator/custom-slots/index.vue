@@ -12,10 +12,36 @@ import awsExports from './aws-exports';
 Amplify.configure(awsExports);
 
 const { toResetPassword, toSignIn } = toRefs(useAuthenticator());
+
+const formFields = {
+  signIn: {
+    email: {
+      labelHidden: false,
+      placeholder: 'Enter your email',
+    },
+  },
+  signUp: {
+    password: {
+      labelHidden: false,
+      label: 'Password:',
+      placeholder: 'Enter your Password:',
+      required: false,
+    },
+    confirm_password: {
+      labelHidden: false,
+      label: 'Confirm Password:',
+    },
+  },
+  forceNewPassword: {
+    password: {
+      labelHidden: false,
+    },
+  },
+};
 </script>
 
 <template>
-  <authenticator>
+  <authenticator :form-fields="formFields">
     <template v-slot:header>
       <div style="padding: var(--amplify-space-large); text-align: center">
         <img

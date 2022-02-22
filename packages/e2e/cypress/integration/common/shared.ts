@@ -156,6 +156,10 @@ Then('I see {string}', (message: string) => {
   cy.findByRole('document').contains(new RegExp(escapeRegExp(message), 'i'));
 });
 
+Then('I see placeholder {string}', (message: string) => {
+  cy.findByPlaceholderText(message).should('exist');
+});
+
 Then('I see the {string} image', (alt: string) => {
   cy.findByAltText(alt).should('exist');
 });
@@ -188,6 +192,20 @@ Then(
     cy.findInputField(fieldName)
       .should('have.attr', 'autocomplete')
       .should('eq', autocomplete);
+  }
+);
+
+Then(
+  '{string} field does not have {string}',
+  (fieldName: string, attribute: string) => {
+    cy.findByLabelText(fieldName).should('not.have.attr', attribute);
+  }
+);
+
+Then(
+  '{string} field does not have class {string}',
+  (fieldName: string, className: string) => {
+    cy.findByText(fieldName).should('not.have.class', className);
   }
 );
 

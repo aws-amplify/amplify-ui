@@ -19,6 +19,13 @@ const attrs = useAttrs();
 const emit = defineEmits(['haveAccountClicked', 'forceNewPasswordSubmit']);
 
 const { state, send } = useAuth();
+
+const {
+  value: { context },
+} = state;
+
+const formOverrides = context?.config?.formFields?.forceNewPassword;
+
 const useAuthShared = createSharedComposable(useAuthenticator);
 const props = useAuthShared();
 const actorState = computed(() =>
@@ -112,8 +119,11 @@ function onBlur(e: Event) {
               style="flex-direction: column"
             >
               <password-control
+                :label-hidden="formOverrides?.['password']?.labelHidden"
+                :placeholder="formOverrides?.['password']?.placeholder"
+                :required="formOverrides?.['password']?.required"
+                :label="formOverrides?.['password']?.label ?? passwordLabel"
                 name="password"
-                :label="passwordLabel"
                 autocomplete="new-password"
                 :ariainvalid="
                   !!(actorContext.validationError as ValidationError)['confirm_password']
@@ -133,8 +143,14 @@ function onBlur(e: Event) {
               style="flex-direction: column"
             >
               <password-control
+                :label-hidden="formOverrides?.['confirm_password']?.labelHidden"
+                :placeholder="formOverrides?.['confirm_password']?.placeholder"
+                :required="formOverrides?.['confirm_password']?.required"
+                :label="
+                  formOverrides?.['confirm_password']?.label ??
+                  confirmPasswordLabel
+                "
                 name="confirm_password"
-                :label="confirmPasswordLabel"
                 autocomplete="new-password"
                 :ariainvalid="
                   !!(actorContext.validationError as ValidationError)['confirm_password']
