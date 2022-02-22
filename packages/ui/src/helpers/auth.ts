@@ -193,7 +193,7 @@ export const getSendEventAliases = (send: Sender<AuthEvent>) => {
   const sendToMachine = (type: AuthEventTypes) => {
     // TODO If these were created during the creation of the machine & provider,
     // then invalid transitions could be caught via https://xstate.js.org/docs/guides/states.html#state-can-event
-    return (data?: AuthEventData) => send({ type, data });
+    return (data?: AuthEventData) => send({ type, data } as any);
   };
 
   return {
