@@ -333,9 +333,3 @@ export type AuthEvent =
 export interface EventWithUserData extends EventObject {
   data: CognitoUserAmplify;
 }
-
-export type AuthMachineState = State<AuthContext, AuthEvent>;
-
-export type AuthInterpreter = Interpreter<AuthContext, any, AuthEvent>;
-
-export type AuthMachineSend = AuthInterpreter['send'];
