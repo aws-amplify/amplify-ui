@@ -8,8 +8,18 @@ import {
   TwoButtonSubmitFooter,
 } from '../shared';
 import { isInputOrSelectElement, isInputElement } from '../../../helpers/utils';
+import { useCustomComponents } from '../hooks/useCustomComponents';
 
 export const ConfirmVerifyUser = (): JSX.Element => {
+  const {
+    components: {
+      ConfirmVerifyUser: {
+        Header = ConfirmVerifyUser.Header,
+        Footer = ConfirmVerifyUser.Footer,
+      },
+    },
+  } = useCustomComponents();
+
   const { submitForm, updateForm, isPending } = useAuthenticator();
 
   const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
@@ -45,9 +55,7 @@ export const ConfirmVerifyUser = (): JSX.Element => {
         className="amplify-flex"
         disabled={isPending}
       >
-        <Heading level={3}>
-          {translate('Account recovery requires verified contact information')}
-        </Heading>
+        <Header />
 
         <Flex direction="column">
           <ConfirmationCodeInput />
@@ -59,7 +67,18 @@ export const ConfirmVerifyUser = (): JSX.Element => {
           cancelButtonText={translate('Skip')}
           cancelButtonSendType="SKIP"
         />
+        <Footer />
       </fieldset>
     </form>
   );
 };
+
+ConfirmVerifyUser.Header = () => {
+  return (
+    <Heading level={3}>
+      {translate('Account recovery requires verified contact information')}
+    </Heading>
+  );
+};
+
+ConfirmVerifyUser.Footer = (): JSX.Element => null;

@@ -13,10 +13,17 @@ import {
   ConfirmSignInFooter,
   RemoteErrorMessage,
 } from '../shared';
+import { useCustomComponents } from '../hooks/useCustomComponents';
 
 const logger = new Logger('SetupTOTP-logger');
 
 export const SetupTOTP = (): JSX.Element => {
+  const {
+    components: {
+      SetupTOTP: { Header = SetupTOTP.Header, Footer = SetupTOTP.Footer },
+    },
+  } = useCustomComponents();
+
   const [isLoading, setIsLoading] = React.useState<boolean>(true);
   const [qrCode, setQrCode] = React.useState<string>();
   const [copyTextLabel, setCopyTextLabel] = React.useState<string>('COPY');
@@ -87,7 +94,7 @@ export const SetupTOTP = (): JSX.Element => {
         className="amplify-flex"
         disabled={isPending}
       >
-        <Heading level={3}>{translate('Setup TOTP')}</Heading>
+        <Header />
 
         <Flex direction="column">
           {/* TODO: Add spinner here instead of loading text... */}
@@ -125,7 +132,14 @@ export const SetupTOTP = (): JSX.Element => {
         </Flex>
 
         <ConfirmSignInFooter />
+        <Footer />
       </fieldset>
     </form>
   );
 };
+
+SetupTOTP.Header = () => {
+  return <Heading level={3}>{translate('Setup TOTP')}</Heading>;
+};
+
+SetupTOTP.Footer = (): JSX.Element => null;

@@ -12,6 +12,7 @@ import { useAuthenticator } from '..';
 import { Flex, Heading, Radio, RadioGroupField } from '../../..';
 import { RemoteErrorMessage, TwoButtonSubmitFooter } from '../shared';
 import { isInputOrSelectElement, isInputElement } from '../../../helpers/utils';
+import { useCustomComponents } from '../hooks/useCustomComponents';
 
 const censorContactInformation = (
   type: ContactMethod,
@@ -51,6 +52,12 @@ const generateRadioGroup = (
 };
 
 export const VerifyUser = (): JSX.Element => {
+  const {
+    components: {
+      VerifyUser: { Header = VerifyUser.Header, Footer = VerifyUser.Footer },
+    },
+  } = useCustomComponents();
+
   const { _state, isPending, submitForm, updateForm } = useAuthenticator();
   const context = getActorContext(_state) as SignInContext;
 
@@ -104,9 +111,7 @@ export const VerifyUser = (): JSX.Element => {
         className="amplify-flex"
         disabled={isPending}
       >
-        <Heading level={3}>
-          {translate('Account recovery requires verified contact information')}
-        </Heading>
+        <Header />
 
         {verificationRadioGroup}
 
@@ -117,7 +122,18 @@ export const VerifyUser = (): JSX.Element => {
           cancelButtonSendType="SKIP"
           submitButtonText={footerSubmitText}
         />
+        <Footer />
       </fieldset>
     </form>
   );
 };
+
+VerifyUser.Header = () => {
+  return (
+    <Heading level={3}>
+      {translate('Account recovery requires verified contact information')}
+    </Heading>
+  );
+};
+
+VerifyUser.Footer = (): JSX.Element => null;
