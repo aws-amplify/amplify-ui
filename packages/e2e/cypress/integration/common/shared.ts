@@ -51,6 +51,12 @@ Given('I verify the body has {string} included', (value: string) => {
   cy.wait('@route').its('request.body.Username').should('include', value);
 });
 
+Given('I verify the body starts with {string}', (value: string) => {
+  cy.wait('@route')
+    .its('request.body.Username')
+    .should('match', new RegExp(`^${escapeRegExp(value)}`));
+});
+
 Given(
   'I intercept {string} with error fixture {string}',
   (json: string, fixture: string) => {

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, useAttrs, toRefs } from 'vue';
-import { translate } from '@aws-amplify/ui';
+import { getFormDataFromEvent, translate } from '@aws-amplify/ui';
 
 import { useAuthenticator, useAuth } from '../composables/useAuth';
 import { createSharedComposable } from '@vueuse/core';
@@ -71,7 +71,7 @@ const onConfirmSignUpSubmit = (e: Event): void => {
 };
 
 const submit = (e: Event): void => {
-  submitForm();
+  submitForm(getFormDataFromEvent(e));
 };
 
 const onLostCodeClicked = (): void => {

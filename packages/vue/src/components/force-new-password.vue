@@ -7,6 +7,7 @@ import {
   SignUpContext,
   ValidationError,
   translate,
+  getFormDataFromEvent,
 } from '@aws-amplify/ui';
 
 import { useAuth, useAuthenticator } from '../composables/useAuth';
@@ -63,15 +64,7 @@ const onForceNewPasswordSubmit = (e: Event): void => {
 };
 
 const submit = (e: Event): void => {
-  const formData = new FormData(<HTMLFormElement>e.target);
-  send({
-    type: 'SUBMIT',
-    //@ts-ignore
-    data: {
-      //@ts-ignore
-      ...Object.fromEntries(formData),
-    },
-  });
+  props.submitForm(getFormDataFromEvent(e));
 };
 
 const onInput = (e: Event): void => {
