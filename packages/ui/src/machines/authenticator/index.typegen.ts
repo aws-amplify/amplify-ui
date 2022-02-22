@@ -13,28 +13,22 @@ export interface Typegen0 {
       | 'SIGN_IN'
       | 'SKIP';
     configure: 'INIT';
-    setUserFromService: 'done.invoke.authenticator.setup:invocation[0]';
+    setUser: 'done.invoke.authenticator.setup:invocation[0]';
     applyAmplifyConfig: 'done.invoke.authenticator.setup:invocation[1]';
-    setUserFromEvent: 'done.invoke.signInActor' | 'done.invoke.signUpActor';
+    setActorDoneData:
+      | 'done.invoke.signInActor'
+      | 'done.invoke.signUpActor'
+      | 'done.invoke.resetPasswordActor';
+    spawnSignInActor: '';
+    spawnSignUpActor: '';
+    spawnResetPasswordActor: '';
+    spawnSignOutActor: '';
     stopSignInActor: 'xstate.init';
-    spawnSignInActor:
-      | 'error.platform.authenticator.setup:invocation[0]'
-      | 'SIGN_IN'
-      | 'done.invoke.resetPasswordActor'
-      | 'done.invoke.signOutActor';
+    clearActorDoneData: '';
     stopSignUpActor: 'xstate.init';
-    spawnSignUpActor:
-      | 'error.platform.authenticator.setup:invocation[0]'
-      | 'SIGN_UP'
-      | 'done.invoke.signInActor';
     stopResetPasswordActor: 'xstate.init';
-    spawnResetPasswordActor:
-      | 'error.platform.authenticator.setup:invocation[0]'
-      | 'RESET_PASSWORD'
-      | 'done.invoke.signInActor';
     stopSignOutActor: 'xstate.init';
     clearUser: 'xstate.init';
-    spawnSignOutActor: 'SIGN_OUT';
   };
   internalEvents: {
     'done.invoke.authenticator.setup:invocation[0]': {
@@ -57,19 +51,15 @@ export interface Typegen0 {
       data: unknown;
       __tip: 'See the XState TS docs to learn how to strongly type this.';
     };
-    'error.platform.authenticator.setup:invocation[0]': {
-      type: 'error.platform.authenticator.setup:invocation[0]';
-      data: unknown;
-    };
     'done.invoke.resetPasswordActor': {
       type: 'done.invoke.resetPasswordActor';
       data: unknown;
       __tip: 'See the XState TS docs to learn how to strongly type this.';
     };
-    'done.invoke.signOutActor': {
-      type: 'done.invoke.signOutActor';
+    '': { type: '' };
+    'error.platform.authenticator.setup:invocation[0]': {
+      type: 'error.platform.authenticator.setup:invocation[0]';
       data: unknown;
-      __tip: 'See the XState TS docs to learn how to strongly type this.';
     };
     'xstate.init': { type: 'xstate.init' };
   };
@@ -78,7 +68,7 @@ export interface Typegen0 {
     getAmplifyConfig: 'done.invoke.authenticator.setup:invocation[1]';
   };
   missingImplementations: {
-    actions: 'clearUser';
+    actions: never;
     services: never;
     guards: never;
     delays: never;
@@ -98,9 +88,23 @@ export interface Typegen0 {
     | 'idle'
     | 'setup'
     | 'signIn'
+    | 'signIn.spawnActor'
+    | 'signIn.runActor'
     | 'signUp'
+    | 'signUp.spawnActor'
+    | 'signUp.runActor'
     | 'resetPassword'
+    | 'resetPassword.spawnActor'
+    | 'resetPassword.runActor'
     | 'signOut'
-    | 'authenticated';
+    | 'signOut.spawnActor'
+    | 'signOut.runActor'
+    | 'authenticated'
+    | {
+        signIn?: 'spawnActor' | 'runActor';
+        signUp?: 'spawnActor' | 'runActor';
+        resetPassword?: 'spawnActor' | 'runActor';
+        signOut?: 'spawnActor' | 'runActor';
+      };
   tags: never;
 }
