@@ -11,6 +11,7 @@ export interface Typegen0 {
     setFieldErrors:
       | 'error.platform.signUpActor.signUp.validation.pending:invocation[0]'
       | 'error.platform.signUpActor.signUp.submission.validate:invocation[0]';
+    handleSubmit: 'SUBMIT';
     setRemoteError:
       | 'error.platform.signUpActor.signUp.submission.federatedSignIn:invocation[0]'
       | 'error.platform.signUpActor.signUp.submission.pending:invocation[0]'

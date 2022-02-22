@@ -3,6 +3,7 @@
 export interface Typegen0 {
   '@@xstate/typegen': true;
   eventsCausingActions: {
+    handleSubmit: 'SUBMIT';
     handleInput: 'CHANGE';
     setRemoteError:
       | 'error.platform.signInActor.signIn.federatedSignIn:invocation[0]'

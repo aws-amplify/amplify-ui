@@ -3,6 +3,7 @@
 export interface Typegen0 {
   '@@xstate/typegen': true;
   eventsCausingActions: {
+    handleSubmit: 'SUBMIT';
     handleInput: 'CHANGE';
     handleBlur: 'BLUR';
     setRemoteError:
