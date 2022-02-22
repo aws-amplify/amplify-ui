@@ -1,5 +1,6 @@
-import { useEffect } from 'react';
+import * as React from 'react';
 import { AuthenticatorMachineOptions } from '@aws-amplify/ui';
+
 import { Provider, useAuthenticator } from './hooks/useAuthenticator';
 import { ResetPassword } from './ResetPassword';
 import { Router, RouterProps } from './Router';
@@ -43,7 +44,7 @@ export function Authenticator({
   // Helper component that sends init event to the parent provider
   function InitMachine({ children, ...machineProps }) {
     const { _send, route } = useAuthenticator();
-    useEffect(() => {
+    React.useEffect(() => {
       if (route === 'idle') {
         _send({
           type: 'INIT',

@@ -1,5 +1,6 @@
-import React from 'react';
+import * as React from 'react';
 import { Link, Text, View } from '@aws-amplify/ui-react';
+
 import { LinkPropControls } from '@/components/LinkPropControls';
 import { useLinkProps } from '@/components/useLinkProps';
 import { Example } from '@/components/Example';

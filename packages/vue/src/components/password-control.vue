@@ -54,7 +54,7 @@ export default {
 <template>
   <base-label
     class="amplify-label"
-    :class="{ 'sr-only': labelHidden ?? true }"
+    :class="{ 'amplify-visually-hidden': labelHidden ?? true }"
     :for="'amplify-field-' + random"
   >
     {{ labelValue }}
