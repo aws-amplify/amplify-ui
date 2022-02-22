@@ -16,7 +16,10 @@ const useAuthShared = createSharedComposable(useAuthenticator);
 const { state, send, submitForm } = useAuthShared();
 const { error, isPending } = toRefs(useAuthShared());
 
+const formOverrides = state.context?.config?.formFields?.resetPassword;
+
 const { label } = getAliasInfoFromContext(state.context);
+
 const labelText = `Enter your ${label.toLowerCase()}`;
 
 // Computed Properties
@@ -24,6 +27,9 @@ const backSignInText = computed(() => translate('Back to Sign In'));
 const resetPasswordHeading = computed(() => translate('Reset your password'));
 const resetPasswordText = computed(() => translate('Send Code'));
 const enterUsernameText = computed(() => translate<string>(labelText));
+
+const labelValue = formOverrides?.['username']?.label ?? labelText;
+const labelHidden = formOverrides?.['username']?.labelHidden;
 
 // Methods
 const onResetPasswordSubmit = (e: Event): void => {
@@ -81,18 +87,22 @@ const onBackToSignInClicked = (): void => {
             style="flex-direction: column"
           >
             <base-label
-              class="amplify-visually-hidden amplify-label"
+              class="amplify-label"
+              :class="{ 'amplify-visually-hidden': labelHidden ?? true }"
               for="amplify-field-7dce"
             >
-              {{ labelText }}
+              {{ labelValue }}
             </base-label>
             <base-wrapper class="amplify-flex">
               <base-input
+                :placeholder="
+                  formOverrides?.['username']?.placeholder ?? enterUsernameText
+                "
+                :required="formOverrides?.['username']?.required ?? true"
                 class="amplify-input amplify-field-group__control"
                 id="amplify-field-7dce"
                 aria-invalid="false"
                 name="username"
-                :placeholder="enterUsernameText"
                 autocomplete="username"
                 required
                 type="username"

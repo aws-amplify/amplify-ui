@@ -35,6 +35,21 @@ const formFields = {
   forceNewPassword: {
     password: {
       labelHidden: false,
+      placeholder: 'Enter your Password:',
+    },
+  },
+  resetPassword: {
+    username: {
+      labelHidden: false,
+      placeholder: 'Enter your email:',
+    },
+  },
+  confirmResetPassword: {
+    confirmation_code: {
+      labelHidden: false,
+      placeholder: 'Enter your Confirmation Code:',
+      label: 'New Label',
+      required: false,
     },
   },
 };

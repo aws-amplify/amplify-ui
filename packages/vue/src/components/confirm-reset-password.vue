@@ -15,6 +15,13 @@ import PasswordControl from './password-control.vue';
 import { createSharedComposable } from '@vueuse/core';
 
 const { state, send } = useAuth();
+
+const {
+  value: { context },
+} = state;
+
+const formOverrides = context?.config?.formFields?.confirmResetPassword;
+
 const useAuthShared = createSharedComposable(useAuthenticator);
 const props = useAuthShared();
 
@@ -40,6 +47,10 @@ const confirmResetPasswordText = computed(() => translate('Submit'));
 const codeText = computed(() => translate('Code'));
 const newPasswordLabel = computed(() => translate('New password'));
 const confirmPasswordLabel = computed(() => translate('Confirm Password'));
+
+const label =
+  formOverrides?.['confirmation_code']?.label ?? confirmationCodeText;
+const labelHidden = formOverrides?.['confirmation_code']?.labelHidden;
 
 // Methods
 const onConfirmResetPasswordSubmit = (e: Event): void => {
@@ -72,6 +83,8 @@ function onBlur(e: Event) {
   const { name } = <HTMLInputElement>e.target;
   props.updateBlur({ name });
 }
+
+console.log('does this work', formOverrides?.['confirmation_code']?.required);
 </script>
 
 <template>
@@ -99,18 +112,25 @@ function onBlur(e: Event) {
               style="flex-direction: column"
             >
               <base-label
-                class="amplify-visually-hidden amplify-label"
+                class="amplify-label"
+                :class="{ 'amplify-visually-hidden': labelHidden ?? true }"
                 for="amplify-field-d653"
               >
-                {{ confirmationCodeText }}
+                {{ label }}
               </base-label>
               <base-wrapper class="amplify-flex">
                 <base-input
+                  :placeholder="
+                    formOverrides?.['confirmation_code']?.placeholder ??
+                    codeText
+                  "
+                  :required="
+                    formOverrides?.['confirmation_code']?.required ?? true
+                  "
                   class="amplify-input amplify-field-group__control"
                   id="amplify-field-d653"
                   aria-invalid="false"
                   autocomplete="one-time-code"
-                  :placeholder="codeText"
                   name="confirmation_code"
                   required
                   type="number"
@@ -128,8 +148,11 @@ function onBlur(e: Event) {
               style="flex-direction: column"
             >
               <password-control
+                :label-hidden="formOverrides?.['password']?.labelHidden"
+                :placeholder="formOverrides?.['password']?.placeholder"
+                :required="formOverrides?.['password']?.required"
+                :label="formOverrides?.['password']?.label ?? newPasswordLabel"
                 name="password"
-                :label="newPasswordLabel"
                 autocomplete="current-password"
                 :ariainvalid="
                   !!(actorContext.validationError as ValidationError)['confirm_password']
@@ -147,8 +170,14 @@ function onBlur(e: Event) {
               style="flex-direction: column"
             >
               <password-control
+                :label-hidden="formOverrides?.['confirm_password']?.labelHidden"
+                :placeholder="formOverrides?.['confirm_password']?.placeholder"
+                :required="formOverrides?.['confirm_password']?.required"
+                :label="
+                  formOverrides?.['confirm_password']?.label ??
+                  confirmPasswordLabel
+                "
                 name="confirm_password"
-                :label="confirmPasswordLabel"
                 autocomplete="new-password"
                 :ariainvalid="
                   !!(actorContext.validationError as ValidationError)['confirm_password']
