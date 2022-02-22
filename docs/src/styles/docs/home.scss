@@ -9,48 +9,25 @@
 }
 
 .docs-home-flutter {
-  position: absolute;
-  right: 5rem;
-  bottom: 8rem;
   height: 10rem;
   padding: 1.25rem 0 0.5rem 0;
 }
 
 .docs-home-vue {
-  position: absolute;
-  right: 15rem;
-  bottom: 8rem;
   height: 10rem;
 }
 
 .docs-home-react {
-  position: absolute;
-  right: 25rem;
-  bottom: 8rem;
   height: 10rem;
 }
 
 .docs-home-angular {
-  position: absolute;
-  right: 35rem;
-  bottom: 8rem;
   height: 10rem;
 }
 
 .docs-home-section {
   position: relative;
   padding: var(--amplify-space-xxl);
-}
-
-.docs-home-section-bg {
-  position: relative;
-}
-
-.docs-home-section-bg > .amplify-card {
-  position: relative;
-  max-width: 70ch;
-  margin: calc(var(--amplify-space-xl) * -1) var(--amplify-space-xl)
-    var(--amplify-space-xl) var(--amplify-space-xl);
 }
 
 .install-code {

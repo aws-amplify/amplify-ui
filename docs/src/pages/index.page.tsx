@@ -145,61 +145,71 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
   const frameworkInstallScript = installScripts[framework];
   return (
     <>
-      <View as="section" className="docs-home-section-bg container">
+      <View as="section" className="container">
         <HomeLogo />
-        <Image
-          alt=""
-          className="docs-home-vue"
-          src="/svg/integrations/vue.svg"
-        />
-        <Image
-          alt=""
-          className="docs-home-react"
-          src="/svg/integrations/react.svg"
-        />
-        <Image
-          alt=""
-          className="docs-home-angular"
-          src="/svg/integrations/angular.svg"
-        />
-        <Image
-          alt=""
-          className="docs-home-flutter"
-          src="/svg/integrations/flutter.svg"
-        />
-        <Card padding={tokens.space.xl} variation="outlined">
-          <Text fontSize={tokens.fontSizes.xl}>
-            Amplify UI is an open-source design system with cloud-connected
-            components and primitives that simplify building accessible,
-            performant, and beautiful applications in React, Angular, Vue, and
-            Flutter (more coming soon).
-          </Text>
 
-          <Flex
-            direction={{ base: 'column-reverse', medium: 'row' }}
-            padding={`${tokens.space.medium} 0 0 0`}
-          >
-            <Button
-              size="large"
-              variation="primary"
-              as="a"
-              href={`/getting-started/installation?platform=${framework}`}
+        <Flex direction="row" padding={tokens.space.xl}>
+          <Card variation="outlined" flex="1">
+            <Text fontSize={tokens.fontSizes.xl}>
+              Amplify UI is an open-source design system with cloud-connected
+              components and primitives that simplify building accessible,
+              performant, and beautiful applications in React, Angular, Vue, and
+              Flutter (more coming soon).
+            </Text>
+
+            <Flex
+              direction={{ base: 'column-reverse', medium: 'row' }}
+              padding={`${tokens.space.medium} 0 0 0`}
             >
-              Get started
-              <IconChevronRight />
-            </Button>
-            <TextField
-              label=""
-              labelHidden={true}
-              isReadOnly={true}
-              className="install-code"
-              outerEndComponent={
-                <Copy variation="link" text={frameworkInstallScript} />
-              }
-              value={frameworkInstallScript}
+              <Button
+                size="large"
+                variation="primary"
+                as="a"
+                href={`/getting-started/installation?platform=${framework}`}
+              >
+                Get started
+                <IconChevronRight />
+              </Button>
+              <TextField
+                label=""
+                labelHidden={true}
+                isReadOnly={true}
+                className="install-code"
+                outerEndComponent={
+                  <Copy variation="link" text={frameworkInstallScript} />
+                }
+                value={frameworkInstallScript}
+              />
+            </Flex>
+          </Card>
+          <Flex
+            alignSelf="center"
+            textAlign="center"
+            flex="1"
+            display={{ base: 'none', large: 'initial' }}
+          >
+            <Image
+              alt=""
+              className="docs-home-vue"
+              src="/svg/integrations/vue.svg"
+            />
+            <Image
+              alt=""
+              className="docs-home-react"
+              src="/svg/integrations/react.svg"
+            />
+            <Image
+              alt=""
+              className="docs-home-angular"
+              src="/svg/integrations/angular.svg"
+            />
+            <Image
+              alt=""
+              className="docs-home-flutter"
+              src="/svg/integrations/flutter.svg"
             />
           </Flex>
-        </Card>
+        </Flex>
       </View>
       <View
         backgroundColor={tokens.colors.background.secondary}
