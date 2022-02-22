@@ -1,5 +1,77 @@
 # @aws-amplify/ui-react
 
+## 2.6.0
+
+### Minor Changes
+
+- [#1355](https://github.com/aws-amplify/amplify-ui/pull/1355) [`19d5a6bfa`](https://github.com/aws-amplify/amplify-ui/commit/19d5a6bfab21eb5d952613ec8570287611d29497) Thanks [@zchenwei](https://github.com/zchenwei)! - feat: adding `isSelectionRequired` prop to `ToggleButtonGroup` primitive
+
+  **Example:**
+
+  ```jsx
+  import * as React from 'react';
+  import {
+    MdFormatBold,
+    MdFormatColorFill,
+    MdFormatItalic,
+    MdFormatUnderlined,
+  } from 'react-icons/md';
+  import { ToggleButton, ToggleButtonGroup } from '@aws-amplify/ui-react';
+
+  export const SelectionRequiredToggleButtonGroupExample = () => {
+    const [value, setValue] = React.useState('bold');
+    return (
+      <ToggleButtonGroup
+        value={value}
+        onChange={(value) => setValue(value as string)}
+        isExclusive
+        isSelectionRequired
+      >
+        <ToggleButton value="bold">
+          <MdFormatBold />
+        </ToggleButton>
+        <ToggleButton value="italic">
+          <MdFormatItalic />
+        </ToggleButton>
+        <ToggleButton value="underlined">
+          <MdFormatUnderlined />
+        </ToggleButton>
+        <ToggleButton value="color-fill">
+          <MdFormatColorFill />
+        </ToggleButton>
+      </ToggleButtonGroup>
+    );
+  };
+  ```
+
+### Patch Changes
+
+- [#1358](https://github.com/aws-amplify/amplify-ui/pull/1358) [`43c814db4`](https://github.com/aws-amplify/amplify-ui/commit/43c814db418865672730449ba8c983bcb7d94847) Thanks [@zchenwei](https://github.com/zchenwei)! - chore: updating all React imports from default to namespace
+
+* [#1368](https://github.com/aws-amplify/amplify-ui/pull/1368) [`c57a02349`](https://github.com/aws-amplify/amplify-ui/commit/c57a02349376b4fea82bc9f854971445aa01c676) Thanks [@zchenwei](https://github.com/zchenwei)! - style: cleaning up sr-only class
+
+- [#1366](https://github.com/aws-amplify/amplify-ui/pull/1366) [`e73e0276f`](https://github.com/aws-amplify/amplify-ui/commit/e73e0276f8b1707cd01e24d55bd023b4a2347625) Thanks [@wlee221](https://github.com/wlee221)! - Pass `formData` to `submitForm` event on submit. This will ensure any default form values are submitted to Cognito, without relying on `CHANGE` events.
+
+* [#1357](https://github.com/aws-amplify/amplify-ui/pull/1357) [`65ed5351f`](https://github.com/aws-amplify/amplify-ui/commit/65ed5351f2ca850ddf7db0c9a002ff563351f138) Thanks [@ErikCH](https://github.com/ErikCH)! - Added new translations for confirm sign up page
+
+- [#1371](https://github.com/aws-amplify/amplify-ui/pull/1371) [`1a2f8a732`](https://github.com/aws-amplify/amplify-ui/commit/1a2f8a732952c0e76e91b3b2c8472e3c0eed2af8) Thanks [@reesscot](https://github.com/reesscot)! - feat: add new TextAreaField primitive (replaces TextField `isMultiline` feature)
+
+  **Example**
+
+  ```
+  <TextAreaField
+    descriptiveText="Enter a valid last name"
+    label="Last name"
+    name="last_name"
+    placeholder="Baggins"
+    rows="3"
+    onChange={(e) => console.info(e.currentTarget.value)}
+  />
+  ```
+
+- Updated dependencies [[`fbfcd04d3`](https://github.com/aws-amplify/amplify-ui/commit/fbfcd04d36753a69d24d5576736a9082f1a66dbe), [`c57a02349`](https://github.com/aws-amplify/amplify-ui/commit/c57a02349376b4fea82bc9f854971445aa01c676), [`e73e0276f`](https://github.com/aws-amplify/amplify-ui/commit/e73e0276f8b1707cd01e24d55bd023b4a2347625), [`929cb8f76`](https://github.com/aws-amplify/amplify-ui/commit/929cb8f768d9a95b3854d7fa87b08a83af72c96c)]:
+  - @aws-amplify/ui@3.0.15
+
 ## 2.5.0
 
 ### Minor Changes
