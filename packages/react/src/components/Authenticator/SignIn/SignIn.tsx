@@ -4,7 +4,11 @@ import { useAuthenticator } from '..';
 import { Button, Flex, PasswordField, View } from '../../..';
 import { FederatedSignIn } from '../FederatedSignIn';
 import { RemoteErrorMessage, UserNameAlias } from '../shared';
-import { isInputElement, isInputOrSelectElement } from '../../../helpers/utils';
+import {
+  getFormDataFromEvent,
+  isInputElement,
+  isInputOrSelectElement,
+} from '../../../helpers/utils';
 import { useCustomComponents } from '../hooks/useCustomComponents';
 
 export function SignIn() {
@@ -32,7 +36,7 @@ export function SignIn() {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    submitForm();
+    submitForm(getFormDataFromEvent(event));
   };
 
   return (
