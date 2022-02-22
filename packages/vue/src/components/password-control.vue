@@ -33,7 +33,10 @@ export default {
 </script>
 
 <template>
-  <base-label class="amplify-label sr-only" :for="'amplify-field-' + random">
+  <base-label
+    class="amplify-label amplify-visually-hidden"
+    :for="'amplify-field-' + random"
+  >
     {{ label }}
   </base-label>
   <base-wrapper class="amplify-flex amplify-field-group">
