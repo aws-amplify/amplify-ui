@@ -51,6 +51,10 @@ const formFields = {
       label: 'New Label',
       required: false,
     },
+    confirm_password: {
+      labelHidden: false,
+      placeholder: 'Enter your Password Please:',
+    },
   },
 };
 </script>

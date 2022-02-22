@@ -132,7 +132,6 @@ console.log('does this work', formOverrides?.['confirmation_code']?.required);
                   aria-invalid="false"
                   autocomplete="one-time-code"
                   name="confirmation_code"
-                  required
                   type="number"
                 ></base-input>
               </base-wrapper>

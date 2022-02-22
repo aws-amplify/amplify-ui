@@ -104,7 +104,6 @@ const onBackToSignInClicked = (): void => {
                 aria-invalid="false"
                 name="username"
                 autocomplete="username"
-                required
                 type="username"
               ></base-input>
             </base-wrapper>

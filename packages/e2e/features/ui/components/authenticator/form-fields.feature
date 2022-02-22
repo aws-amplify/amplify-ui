@@ -14,6 +14,7 @@ Feature: Form Fields
     Then I type my "email" with status "UNVERIFIED"
     And I click the "Send Code" button
     Then I see "New Label"
+    Then I see placeholder "Enter your Password Please:"
     Then "New Label" field does not have class "amplify-visually-hidden"
     Then 'New Label' field does not have "required"
     Then I see placeholder "Enter your Confirmation Code:"
