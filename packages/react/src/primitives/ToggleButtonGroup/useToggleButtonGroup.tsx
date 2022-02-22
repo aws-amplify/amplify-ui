@@ -5,7 +5,8 @@ import { ToggleButtonProps, ToggleButtonGroupProps } from '../types';
 export const useToggleButtonGroup = (
   onChange: ToggleButtonGroupProps['onChange'],
   value: ToggleButtonGroupProps['value'],
-  isExclusive = false
+  isExclusive = false,
+  isSelectionRequired = false
 ) => {
   // Multiple selection
   const handleChange: ToggleButtonProps['onChange'] = React.useCallback(
@@ -15,13 +16,15 @@ export const useToggleButtonGroup = (
       }
 
       const index = value.indexOf(buttonValue);
-      let newValue;
+      let newValue: string[];
 
       const shouldToggleOff = index >= 0;
       if (shouldToggleOff) {
         // Toggle off
         newValue = [...value];
-        newValue.splice(index, 1);
+        if (!isSelectionRequired || newValue.length > 1) {
+          newValue.splice(index, 1);
+        }
       } else {
         // Toggle on
         newValue = [...value, buttonValue];
@@ -29,20 +32,22 @@ export const useToggleButtonGroup = (
 
       onChange(newValue);
     },
-    [onChange, value]
+    [onChange, value, isSelectionRequired]
   );
 
   // Exclusive selection
   const handleExclusiveChange: ToggleButtonProps['onChange'] =
     React.useCallback(
       (buttonValue) => {
-        if (!onChange) {
+        if (!isFunction(onChange)) {
           return;
         }
 
-        onChange(value === buttonValue ? null : buttonValue);
+        onChange(
+          value === buttonValue && !isSelectionRequired ? null : buttonValue
+        );
       },
-      [onChange, value]
+      [onChange, value, isSelectionRequired]
     );
 
   return isExclusive ? handleExclusiveChange : handleChange;
