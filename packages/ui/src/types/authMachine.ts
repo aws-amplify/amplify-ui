@@ -209,6 +209,15 @@ export type AuthServices = {
   };
 };
 
+export type ResetPasswordServices = {
+  resetPassword: {
+    data: any;
+  };
+  confirmResetPassword: {
+    data: string;
+  };
+};
+
 export type SignInServices = {
   signIn: {
     data: CognitoUserAmplify;

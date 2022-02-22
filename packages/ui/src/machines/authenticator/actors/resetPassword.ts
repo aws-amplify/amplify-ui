@@ -1,5 +1,9 @@
 import { createMachine, sendUpdate } from 'xstate';
-import { AuthEvent, ResetPasswordContext } from '../../../types';
+import {
+  AuthEvent,
+  ResetPasswordContext,
+  ResetPasswordServices,
+} from '../../../types';
 import { runValidators } from '../../../validators';
 import {
   clearError,
@@ -20,8 +24,14 @@ export type ResetPasswordMachineOptions = {
 };
 
 export function resetPasswordActor({ services }: ResetPasswordMachineOptions) {
-  return createMachine<ResetPasswordContext, AuthEvent>(
+  return createMachine(
     {
+      schema: {
+        context: {} as ResetPasswordContext,
+        events: {} as AuthEvent,
+        services: {} as ResetPasswordServices,
+      },
+      tsTypes: {} as import('./resetPassword.typegen').Typegen0,
       id: 'resetPasswordActor',
       initial: 'init',
       states: {
@@ -36,7 +46,7 @@ export function resetPasswordActor({ services }: ResetPasswordMachineOptions) {
           exit: ['clearFormValues', 'clearError', 'clearTouched'],
           states: {
             edit: {
-              entry: sendUpdate(),
+              entry: 'sendUpdate',
               on: {
                 SUBMIT: 'submit',
                 CHANGE: { actions: 'handleInput' },
@@ -45,7 +55,7 @@ export function resetPasswordActor({ services }: ResetPasswordMachineOptions) {
             },
             submit: {
               tags: ['pending'],
-              entry: [sendUpdate(), 'setUsername', 'clearError'],
+              entry: ['sendUpdate', 'setUsername', 'clearError'],
               invoke: {
                 src: 'resetPassword',
                 onDone: {
@@ -84,8 +94,8 @@ export function resetPasswordActor({ services }: ResetPasswordMachineOptions) {
                     },
                   },
                 },
-                valid: { entry: sendUpdate() },
-                invalid: { entry: sendUpdate() },
+                valid: { entry: 'sendUpdate' },
+                invalid: { entry: 'sendUpdate' },
               },
               on: {
                 CHANGE: {
@@ -102,7 +112,7 @@ export function resetPasswordActor({ services }: ResetPasswordMachineOptions) {
               initial: 'idle',
               states: {
                 idle: {
-                  entry: sendUpdate(),
+                  entry: 'sendUpdate',
                   on: {
                     SUBMIT: 'validate',
                     RESEND: 'resendCode',
@@ -111,7 +121,7 @@ export function resetPasswordActor({ services }: ResetPasswordMachineOptions) {
                   },
                 },
                 validate: {
-                  entry: sendUpdate(),
+                  entry: 'sendUpdate',
                   invoke: {
                     src: 'validateFields',
                     onDone: {
@@ -126,7 +136,7 @@ export function resetPasswordActor({ services }: ResetPasswordMachineOptions) {
                 },
                 resendCode: {
                   tags: ['pending'],
-                  entry: ['clearError', sendUpdate()],
+                  entry: ['clearError', 'sendUpdate'],
                   invoke: {
                     src: 'resetPassword',
                     onDone: { target: 'idle' },
@@ -138,7 +148,7 @@ export function resetPasswordActor({ services }: ResetPasswordMachineOptions) {
                 },
                 pending: {
                   tags: ['pending'],
-                  entry: ['clearError', sendUpdate()],
+                  entry: ['clearError', 'sendUpdate'],
                   invoke: {
                     src: 'confirmResetPassword',
                     onDone: {
@@ -170,6 +180,7 @@ export function resetPasswordActor({ services }: ResetPasswordMachineOptions) {
         setFieldErrors,
         setRemoteError,
         setUsername,
+        sendUpdate,
       },
       guards: {
         shouldAutoConfirmReset: (context, event): boolean => {
