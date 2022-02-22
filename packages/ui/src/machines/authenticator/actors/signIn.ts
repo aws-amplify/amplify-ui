@@ -1,8 +1,13 @@
 import { Auth } from 'aws-amplify';
 import get from 'lodash/get';
 import isEmpty from 'lodash/isEmpty';
-import { createMachine, sendUpdate } from 'xstate';
-import { AuthChallengeNames, AuthEvent, SignInContext } from '../../../types';
+import { assign, createMachine, sendUpdate } from 'xstate';
+import {
+  AuthChallengeNames,
+  AuthEvent,
+  SignInContext,
+  SignInServices,
+} from '../../../types';
 import { runValidators } from '../../../validators';
 import {
   clearAttributeToVerify,
@@ -16,14 +21,11 @@ import {
   handleInput,
   handleBlur,
   parsePhoneNumber,
-  setChallengeName,
   setConfirmResetPasswordIntent,
   setConfirmSignUpIntent,
   setCredentials,
   setFieldErrors,
   setRemoteError,
-  setRequiredAttributes,
-  setUnverifiedAttributes,
   setUser,
   setUsernameAuthAttributes,
 } from '../actions';
@@ -41,6 +43,7 @@ export function signInActor({ services }: SignInMachineOptions) {
       schema: {
         context: {} as SignInContext,
         events: {} as AuthEvent,
+        services: {} as SignInServices,
       },
       tsTypes: {} as import('./signIn.typegen').Typegen0,
       states: {
@@ -384,6 +387,16 @@ export function signInActor({ services }: SignInMachineOptions) {
     },
     {
       actions: {
+        setChallengeName: assign({
+          challengeName: (_, event) => event.data?.challengeName,
+        }),
+        setRequiredAttributes: assign({
+          requiredAttributes: (_, event) =>
+            event.data?.challengeParam?.requiredAttributes,
+        }),
+        setUnverifiedAttributes: assign({
+          unverifiedAttributes: (_, event) => event.data.unverified,
+        }),
         clearAttributeToVerify,
         clearChallengeName,
         clearRequiredAttributes,
@@ -395,14 +408,11 @@ export function signInActor({ services }: SignInMachineOptions) {
         handleInput,
         handleBlur,
         parsePhoneNumber,
-        setChallengeName,
         setConfirmResetPasswordIntent,
         setConfirmSignUpIntent,
-        setRequiredAttributes,
         setCredentials,
         setFieldErrors,
         setRemoteError,
-        setUnverifiedAttributes,
         setUser,
         setUsernameAuthAttributes,
         sendUpdate,
@@ -489,7 +499,8 @@ export function signInActor({ services }: SignInMachineOptions) {
           return Auth.verifyTotpToken(user, confirmation_code);
         },
         async federatedSignIn(_, event) {
-          const { provider } = event.data;
+          // TODO: strictly type below
+          const { provider } = event.data as any;
 
           return await Auth.federatedSignIn({ provider });
         },

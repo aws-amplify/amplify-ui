@@ -1,9 +1,12 @@
 import { CognitoUser, CodeDeliveryDetails } from 'amazon-cognito-identity-js';
-import { Interpreter, State } from 'xstate';
+import { EventObject, Interpreter, State } from 'xstate';
 import { ValidationError } from './validator';
 import { defaultServices } from '../machines/authenticator/defaultServices';
 import { AuthenticatorMachineOptions } from '../machines';
 import { FederatedIdentityProviders } from '../helpers';
+import { Typegen0 as SignInType } from '../machines/authenticator/actors/signIn.typegen';
+import { Auth } from 'aws-amplify';
+import { ICredentials } from '@aws-amplify/core';
 
 export type AuthFormData = Record<string, string>;
 
@@ -126,6 +129,10 @@ export type AuthActorState = State<AuthActorContext, AuthEvent>;
 export interface CognitoUserAmplify extends CognitoUser {
   username?: string;
   attributes?: CognitoAttributes;
+  challengeName?: string;
+  challengeParam: {
+    requiredAttributes: string[];
+  };
 }
 
 export interface CognitoAttributes {
@@ -202,6 +209,31 @@ export type AuthServices = {
   };
 };
 
+export type SignInServices = {
+  signIn: {
+    data: CognitoUserAmplify;
+    error: any;
+  };
+  forceNewPassword: {
+    data: CognitoUserAmplify;
+  };
+  checkVerifiedContact: {
+    data: {
+      verified: Record<string, string>;
+      unverified: Record<string, string>;
+    };
+  };
+  federatedSignIn: {
+    data: ICredentials;
+  };
+  confirmVerifyUser: {
+    data: string;
+  };
+  verifyUser: {
+    data: void;
+  };
+};
+
 export type AuthEvent =
   | {
       type: 'INIT';
@@ -261,7 +293,17 @@ export type AuthEvent =
     }
   | {
       type: 'SKIP';
+    }
+  | {
+      type: SignInType['eventsCausingGuards']['shouldRedirectToConfirmSignUp'];
+      data: {
+        code: string;
+      };
     };
+
+export interface EventWithUserData extends EventObject {
+  data: CognitoUserAmplify;
+}
 
 export type AuthMachineState = State<AuthContext, AuthEvent>;
 

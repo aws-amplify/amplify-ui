@@ -55,15 +55,6 @@ export const clearValidationError = assign({ validationError: (_) => ({}) });
 /**
  * "set" actions
  */
-export const setChallengeName = assign({
-  challengeName: (_, event: AuthEvent) => event.data?.challengeName,
-});
-
-export const setRequiredAttributes = assign({
-  requiredAttributes: (_, event: AuthEvent) =>
-    event.data?.challengeParam?.requiredAttributes,
-});
-
 export const setConfirmResetPasswordIntent = assign({
   redirectIntent: (_) => 'confirmPasswordReset',
 });
@@ -83,12 +74,12 @@ export const setCredentials = assign({
   },
 });
 
-export const setFieldErrors = assign({
-  validationError: (_, event: AuthEvent) => event.data,
+export const setFieldErrors = assign<ActorContextWithForms, any>({
+  validationError: (_, event) => event.data,
 });
 
-export const setRemoteError = assign({
-  remoteError: (_, event: AuthEvent) => {
+export const setRemoteError = assign<ActorContextWithForms, any>({
+  remoteError: (_, event) => {
     if (event.data.name === 'NoUserPoolError') {
       return `Configuration error (see console) – please contact the administrator`;
     }
@@ -96,12 +87,8 @@ export const setRemoteError = assign({
   },
 });
 
-export const setUnverifiedAttributes = assign({
-  unverifiedAttributes: (_, event: AuthEvent) => event.data.unverified,
-});
-
-export const setUser = assign({
-  user: (_, event: AuthEvent) => event.data.user || event.data,
+export const setUser = assign<ActorContextWithForms, any>({
+  user: (_, event) => event.data.user || event.data,
 });
 
 export const setUsername = assign({
@@ -118,8 +105,11 @@ export const setUsernameAuthAttributes = assign({
   }),
 });
 
-export const handleInput = assign({
-  formValues: (context, event: AuthEvent) => {
+export const handleInput = assign<ActorContextWithForms>({
+  formValues: (
+    context: ActorContextWithForms,
+    event: Extract<AuthEvent, { type: 'CHANGE' }>
+  ) => {
     const { name, value } = event.data;
 
     return {
@@ -129,8 +119,11 @@ export const handleInput = assign({
   },
 });
 
-export const handleBlur = assign({
-  touched: (context, event: AuthEvent) => {
+export const handleBlur = assign<
+  ActorContextWithForms,
+  Extract<AuthEvent, { type: 'BLUR' }>
+>({
+  touched: (context, event) => {
     const { name } = event.data;
     return {
       ...context['touched'],
