@@ -24,7 +24,7 @@ Feature: Sign Up with Attributes
     Then I see "Enter Information:"
     Then I see "Footer Information"
 
-  Scenario: Has confirm confirm sign in Footer and Header slot text
+  Scenario: Has confirm sign in Footer and Header slot text
     When I type my "email" with status "UNVERIFIED"
     And I type my password
     And I click the "Sign in" button
