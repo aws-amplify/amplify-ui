@@ -2,14 +2,18 @@ import classNames from 'classnames';
 
 import { ComponentClassNames } from '../../shared';
 import { View } from '../../View';
-import { deprecationWarning } from '../deprecationWarning';
+import { useDeprecationWarning } from '../../../hooks/useDeprecationWarning';
 
 /**
  * @deprecated These icons are being removed in the next major release. You can use the [react-icons](https://react-icons.github.io/react-icons) package or other React icon libraries in its place. `import { IconMaximize } from '@aws-amplify/ui-react';` → `import { MdMaximize } from 'react-icons/md';`
  */
 export const IconMaximize = (props) => {
   const { className, ...rest } = props;
-  deprecationWarning('IconMaximize');
+  useDeprecationWarning({
+    shouldWarn: true,
+    message: `Built-in icons are being deprecated in the next major release. You can use the react-icons (https://react-icons.github.io/react-icons) package with the Material Icon set in place of these icons or any other React Icon library.
+import { IconMaximize } from '@aws-amplify/ui-react'; → import { MdMaximize } from 'react-icons/md';`,
+  });
   return (
     <View
       as="span"
