@@ -357,3 +357,4 @@ export type AuthInterpreter = ReturnType<typeof interpretAuthMachine>;
 
 export type AuthMachineState = AuthInterpreter['state'];
 export type AuthMachineSend = AuthInterpreter['send'];
+export { Typegen0 } from './index.typegen';
