@@ -1,9 +1,9 @@
 import { Auth } from 'aws-amplify';
 import get from 'lodash/get';
 import pickBy from 'lodash/pickBy';
-import { createMachine, sendUpdate } from 'xstate';
+import { assign, createMachine, sendUpdate } from 'xstate';
 
-import { AuthEvent, SignUpContext } from '../../types';
+import { AuthEvent, SignUpContext, SignUpServices } from '../../types';
 import { runValidators } from '../../validators';
 import {
   clearError,
@@ -16,7 +16,6 @@ import {
   setCredentials,
   setFieldErrors,
   setRemoteError,
-  setCodeDeliveryDetails,
   setUser,
 } from './actions';
 import { defaultServices } from './defaultServices';
@@ -26,8 +25,14 @@ export type SignUpMachineOptions = {
 };
 
 export function createSignUpMachine({ services }: SignUpMachineOptions) {
-  return createMachine<SignUpContext, AuthEvent>(
+  return createMachine(
     {
+      schema: {
+        context: {} as SignUpContext,
+        events: {} as AuthEvent,
+        services: {} as SignUpServices,
+      },
+      tsTypes: {} as import('./signUp.typegen').Typegen0,
       id: 'signUpActor',
       initial: 'init',
       states: {
@@ -57,8 +62,8 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
                     },
                   },
                 },
-                valid: { entry: sendUpdate() },
-                invalid: { entry: sendUpdate() },
+                valid: { entry: 'sendUpdate' },
+                invalid: { entry: 'sendUpdate' },
               },
               on: {
                 CHANGE: {
@@ -75,7 +80,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
               initial: 'idle',
               states: {
                 idle: {
-                  entry: sendUpdate(),
+                  entry: 'sendUpdate',
                   on: {
                     SUBMIT: 'validate',
                     FEDERATED_SIGN_IN: 'federatedSignIn',
@@ -83,7 +88,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
                 },
                 federatedSignIn: {
                   tags: ['pending'],
-                  entry: [sendUpdate(), 'clearError'],
+                  entry: ['sendUpdate', 'clearError'],
                   invoke: {
                     src: 'federatedSignIn',
                     onDone: '#signUpActor.resolved',
@@ -91,7 +96,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
                   },
                 },
                 validate: {
-                  entry: sendUpdate(),
+                  entry: 'sendUpdate',
                   invoke: {
                     src: 'validateSignUp',
                     onDone: {
@@ -106,7 +111,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
                 },
                 pending: {
                   tags: ['pending'],
-                  entry: ['parsePhoneNumber', sendUpdate(), 'clearError'],
+                  entry: ['parsePhoneNumber', 'sendUpdate', 'clearError'],
                   invoke: {
                     src: 'signUp',
                     onDone: [
@@ -156,7 +161,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
           initial: 'edit',
           states: {
             edit: {
-              entry: sendUpdate(),
+              entry: 'sendUpdate',
               on: {
                 SUBMIT: 'submit',
                 CHANGE: { actions: 'handleInput' },
@@ -166,7 +171,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
             },
             resend: {
               tags: ['pending'],
-              entry: sendUpdate(),
+              entry: 'sendUpdate',
               invoke: {
                 src: 'resendConfirmationCode',
                 onDone: { target: 'edit' },
@@ -182,7 +187,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
             },
             submit: {
               tags: ['pending'],
-              entry: [sendUpdate(), 'clearError'],
+              entry: ['sendUpdate', 'clearError'],
               invoke: {
                 src: 'confirmSignUp',
                 onDone: {
@@ -242,7 +247,9 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
         setCredentials,
         setFieldErrors,
         setRemoteError,
-        setCodeDeliveryDetails,
+        setCodeDeliveryDetails: assign({
+          codeDeliveryDetails: (_, event) => event.data.codeDeliveryDetails,
+        }),
         setUser,
       },
       services: {
@@ -255,7 +262,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
 
           return await Auth.signIn(username, password);
         },
-        async confirmSignUp(context, event) {
+        async confirmSignUp(context, _) {
           const { user, authAttributes, formValues } = context;
           const { confirmation_code: code } = formValues;
 
@@ -275,7 +282,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
           return Auth.resendSignUp(username);
         },
         async federatedSignIn(_, event) {
-          const { provider } = event.data;
+          const { provider } = event.data as any;
           const result = await Auth.federatedSignIn({ provider });
           return result;
         },

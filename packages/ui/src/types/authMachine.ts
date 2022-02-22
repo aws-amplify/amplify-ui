@@ -5,7 +5,7 @@ import { defaultServices } from '../machines/authenticator/defaultServices';
 import { AuthenticatorMachineOptions } from '../machines';
 import { FederatedIdentityProviders } from '../helpers';
 import { Typegen0 as SignInType } from '../machines/authenticator/actors/signIn.typegen';
-import { Auth } from 'aws-amplify';
+import { Typegen0 as SignUpType } from '../machines/authenticator/signUp.typegen';
 import { ICredentials } from '@aws-amplify/core';
 
 export type AuthFormData = Record<string, string>;
@@ -218,6 +218,20 @@ export type ResetPasswordServices = {
   };
 };
 
+export type SignUpServices = {
+  federatedSignIn: {
+    data: ICredentials;
+  };
+  signUp: {
+    data: {
+      user: CognitoUserAmplify;
+      userConfirmed: boolean;
+      userSub: string;
+      codeDeliveryDetails: CodeDeliveryDetails;
+    };
+  };
+};
+
 export type SignInServices = {
   signIn: {
     data: CognitoUserAmplify;
@@ -307,6 +321,12 @@ export type AuthEvent =
       type: SignInType['eventsCausingGuards']['shouldRedirectToConfirmSignUp'];
       data: {
         code: string;
+      };
+    }
+  | {
+      type: SignUpType['eventsCausingGuards']['isUserAlreadyConfirmed'];
+      data: {
+        message: string;
       };
     };
 
