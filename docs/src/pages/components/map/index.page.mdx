@@ -41,13 +41,20 @@ for generating results. `Geocoder` is used as a child component of `Map` for whi
   {({ platform }) => import(`./fragments/geocoder.${platform}.mdx`)}
 </Fragment>
 
-`Geocoder` can also be used as a standalone component, provided initial proximity coordinates to use for generating results.
+`Geocoder` can also be used as a standalone component using initial proximity coordinates for generating results.
 
 <Fragment platforms={['react']}>
   {({ platform }) => import(`./fragments/standalone-geocoder.${platform}.mdx`)}
 </Fragment>
 
 #### Configuration
+
+`position (string?)` - Position on the map to which the control will be added.
+Valid values are `'top-left'`, `'top-right'`, `'bottom-left'`, and `'bottom-right'`. Defaults to `'top-right'`.
+
+<Fragment platforms={['react']}>
+  {({ platform }) => import(`./fragments/geocoder-position.${platform}.mdx`)}
+</Fragment>
 
 `Geocoder` is built atop [maplibre-gl-geocoder](https://github.com/maplibre/maplibre-gl-geocoder) and supports the [options parameter values](https://github.com/maplibre/maplibre-gl-geocoder/blob/main/API.md#parameters) used by the library.
 
