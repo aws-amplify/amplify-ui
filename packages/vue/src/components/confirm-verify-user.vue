@@ -18,7 +18,7 @@
               style="flex-direction: column"
             >
               <base-label
-                class="sr-only amplify-label"
+                class="amplify-visually-hidden amplify-label"
                 for="amplify-field-c34b"
                 >{{ confirmationCodeText }}</base-label
               >
