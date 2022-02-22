@@ -149,7 +149,7 @@ const onBackToSignInClicked = (): void => {
                   style="flex-direction: column"
                 >
                   <base-label
-                    class="sr-only amplify-label"
+                    class="amplify-visually-hidden amplify-label"
                     for="amplify-field-45d1"
                     >Code *</base-label
                   >
