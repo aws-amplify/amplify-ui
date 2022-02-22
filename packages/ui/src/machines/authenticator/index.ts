@@ -1,6 +1,12 @@
 import { assign, createMachine, forwardTo, spawn } from 'xstate';
 
-import { AuthContext, AuthEvent, AuthServices } from '../../types';
+import {
+  AuthContext,
+  AuthEvent,
+  CognitoUserAmplify,
+  ServicesContext,
+  AuthServices,
+} from '../../types';
 import { stopActor } from './actions';
 import { resetPasswordActor, signInActor, signOutActor } from './actors';
 import { defaultServices } from './defaultServices';
@@ -43,7 +49,7 @@ export const createAuthenticatorMachine = () =>
             {
               src: 'getCurrentUser',
               onDone: {
-                actions: 'setUserFromService',
+                actions: 'setUser',
                 target: 'authenticated',
               },
               onError: [
@@ -67,50 +73,92 @@ export const createAuthenticatorMachine = () =>
           ],
         },
         signIn: {
-          entry: 'spawnSignInActor',
-          exit: 'stopSignInActor',
+          initial: 'spawnActor',
+          states: {
+            spawnActor: {
+              always: { actions: 'spawnSignInActor', target: 'runActor' },
+            },
+            runActor: {
+              entry: 'clearActorDoneData',
+              exit: 'stopSignInActor',
+            },
+          },
           on: {
             SIGN_UP: 'signUp',
             RESET_PASSWORD: 'resetPassword',
             'done.invoke.signInActor': [
               {
                 target: 'signUp',
+                actions: 'setActorDoneData',
                 cond: 'shouldRedirectToSignUp',
               },
               {
                 target: 'resetPassword',
+                actions: 'setActorDoneData',
                 cond: 'shouldRedirectToResetPassword',
               },
               {
                 target: 'authenticated',
-                actions: 'setUserFromEvent',
+                actions: 'setActorDoneData',
               },
             ],
           },
         },
         signUp: {
-          entry: 'spawnSignUpActor',
-          exit: 'stopSignUpActor',
+          initial: 'spawnActor',
+          states: {
+            spawnActor: {
+              always: { actions: 'spawnSignUpActor', target: 'runActor' },
+            },
+            runActor: {
+              entry: 'clearActorDoneData',
+              exit: 'stopSignUpActor',
+            },
+          },
           on: {
             SIGN_IN: 'signIn',
             'done.invoke.signUpActor': {
               target: 'setup',
-              actions: 'setUserFromEvent',
+              actions: 'setActorDoneData',
             },
           },
         },
         resetPassword: {
-          entry: 'spawnResetPasswordActor',
-          exit: 'stopResetPasswordActor',
+          initial: 'spawnActor',
+          states: {
+            spawnActor: {
+              always: {
+                actions: 'spawnResetPasswordActor',
+                target: 'runActor',
+              },
+            },
+            runActor: {
+              entry: 'clearActorDoneData',
+              exit: 'stopResetPasswordActor',
+            },
+          },
           on: {
             SIGN_IN: 'signIn',
-            'done.invoke.resetPasswordActor': 'signIn',
+            'done.invoke.resetPasswordActor': {
+              target: 'signIn',
+              actions: 'setActorDoneData',
+            },
           },
         },
         signOut: {
-          entry: 'spawnSignOutActor',
-          exit: ['stopSignOutActor', 'clearUser'],
-          on: { 'done.invoke.signOutActor': 'signIn' },
+          initial: 'spawnActor',
+          states: {
+            spawnActor: {
+              always: { actions: 'spawnSignOutActor', target: 'runActor' },
+            },
+            runActor: {
+              entry: 'clearActorDoneData',
+              exit: ['stopSignOutActor', 'clearUser'],
+            },
+          },
+          on: {
+            'done.invoke.signOutActor': 'signIn',
+          },
         },
         authenticated: {
           on: { SIGN_OUT: 'signOut' },
@@ -137,12 +185,18 @@ export const createAuthenticatorMachine = () =>
             config,
           };
         }),
-        setUserFromEvent: assign({
+        setUser: assign({
+          user: (_, event) => event.data as CognitoUserAmplify,
+        }),
+        setActorDoneData: assign({
+          actorDoneData: (_, event) => ({
+            authAttributes: { ...event.data.authAttributes },
+            intent: event.data.intent,
+          }),
           user: (_, event) => event.data.user,
         }),
-        setUserFromService: assign({
-          user: (_, event) => event.data,
-        }),
+        clearUser: assign({ user: undefined }),
+        clearActorDoneData: assign({ actorDoneData: undefined }),
         applyAmplifyConfig: assign({
           config(context, event) {
             // The CLI uses uppercased constants in `aws-exports.js`, while `parameters.json` are lowercase.
@@ -197,14 +251,14 @@ export const createAuthenticatorMachine = () =>
           },
         }),
         spawnSignInActor: assign({
-          actorRef: (context, event) => {
+          actorRef: (context, _) => {
             const { services } = context;
             const data = (event as Record<PropertyKey, any>).data;
 
             const actor = signInActor({ services }).withContext({
-              authAttributes: data?.authAttributes,
-              user: data.user,
-              intent: data.intent,
+              authAttributes: context.actorDoneData?.authAttributes,
+              user: context.user,
+              intent: context.actorDoneData?.intent,
               country_code: DEFAULT_COUNTRY_CODE,
               formValues: {},
               touched: {},
@@ -216,12 +270,12 @@ export const createAuthenticatorMachine = () =>
           },
         }),
         spawnSignUpActor: assign({
-          actorRef: (context, event) => {
+          actorRef: (context, _) => {
             const { services } = context;
             const actor = createSignUpMachine({ services }).withContext({
-              authAttributes: event.data?.authAttributes ?? {},
+              authAttributes: context.actorDoneData?.authAttributes ?? {},
               country_code: DEFAULT_COUNTRY_CODE,
-              intent: event.data?.intent,
+              intent: context.actorDoneData?.intent,
               formValues: {},
               touched: {},
               validationError: {},
@@ -232,13 +286,13 @@ export const createAuthenticatorMachine = () =>
           },
         }),
         spawnResetPasswordActor: assign({
-          actorRef: (context, event) => {
+          actorRef: (context, _) => {
             const { services } = context;
             const actor = resetPasswordActor({ services }).withContext({
               formValues: {},
               touched: {},
-              intent: event.data?.intent,
-              username: event.data?.authAttributes?.username,
+              intent: context.actorDoneData?.intent,
+              username: context.actorDoneData?.authAttributes?.username,
               validationError: {},
             });
             return spawn(actor, { name: 'resetPasswordActor' });

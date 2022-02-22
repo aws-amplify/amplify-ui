@@ -91,7 +91,11 @@ export const HomePrimitivePreview = () => {
       <Flex padding={`0 0 0 ${tokens.space.xxl}`}>
         <Placeholder />
       </Flex>
-      <Flex direction="row" padding={`0 0 0 ${tokens.space.xxl}`}>
+      <Flex
+        alignItems="center"
+        direction="row"
+        padding={`0 0 0 ${tokens.space.xxl}`}
+      >
         <Tabs>
           <TabItem title="Tab 1">
             <p></p>

@@ -1,5 +1,6 @@
+import * as React from 'react';
+
 import { S3ProviderGetConfig, Storage } from '@aws-amplify/storage';
-import { useEffect, useState } from 'react';
 
 export interface UseStorageURLResult {
   url?: string;
@@ -12,7 +13,7 @@ export interface UseStorageURLResult {
  * @internal
  */
 export const useStorageURL = (key: string, options?: S3ProviderGetConfig) => {
-  const [result, setResult] = useState<UseStorageURLResult>({
+  const [result, setResult] = React.useState<UseStorageURLResult>({
     isLoading: true,
   });
 
@@ -34,7 +35,7 @@ export const useStorageURL = (key: string, options?: S3ProviderGetConfig) => {
     return () => Storage.cancel(promise);
   };
 
-  useEffect(fetch, [key, serializedOptions]);
+  React.useEffect(fetch, [key, options, serializedOptions]);
 
   return { ...result, fetch };
 };

@@ -5,9 +5,8 @@ import {
   CheckboxFieldProps,
   TextField,
   SelectField,
+  Flex,
 } from '@aws-amplify/ui-react';
-import { FieldLabeler } from './FieldLabeler';
-import { DemoBox } from './DemoBox';
 
 export interface CheckboxFieldPropControlsProps extends CheckboxFieldProps {
   setChecked: (
@@ -21,6 +20,9 @@ export interface CheckboxFieldPropControlsProps extends CheckboxFieldProps {
     value: React.SetStateAction<CheckboxFieldProps['labelHidden']>
   ) => void;
   setSize: (value: React.SetStateAction<CheckboxFieldProps['size']>) => void;
+  setLabelPosition: (
+    value: React.SetStateAction<CheckboxFieldProps['labelPosition']>
+  ) => void;
 }
 
 interface CheckboxFieldPropControlsInterface {
@@ -34,39 +36,50 @@ export const CheckboxFieldPropControls: CheckboxFieldPropControlsInterface = ({
   setLabel,
   labelHidden,
   setLabelHidden,
+  labelPosition,
+  setLabelPosition,
   size,
   setSize,
 }) => {
   return (
-    <DemoBox primitiveName="CheckboxField">
-      <FieldLabeler id="label">
-        <TextField
-          id="label"
-          name="label"
-          label="label"
-          labelHidden
-          value={label as string}
-          onChange={(e) =>
-            setLabel(e.target.value as CheckboxFieldProps['label'])
-          }
-        />
-      </FieldLabeler>
-      <FieldLabeler id="size">
-        <SelectField
-          id="size"
-          name="size"
-          label="size"
-          labelHidden
-          placeholder="default"
-          value={size}
-          onChange={(e) =>
-            setSize(e.target.value as CheckboxFieldProps['size'])
-          }
-        >
-          <option value="small">small</option>
-          <option value="large">large</option>
-        </SelectField>
-      </FieldLabeler>
+    <Flex direction="column">
+      <TextField
+        id="label"
+        name="label"
+        label="label"
+        value={label as string}
+        onChange={(e) =>
+          setLabel(e.target.value as CheckboxFieldProps['label'])
+        }
+      />
+      <SelectField
+        id="size"
+        name="size"
+        label="size"
+        placeholder="default"
+        value={size}
+        onChange={(e) => setSize(e.target.value as CheckboxFieldProps['size'])}
+      >
+        <option value="small">small</option>
+        <option value="large">large</option>
+      </SelectField>
+      <SelectField
+        id="labelPosition"
+        name="labelPosition"
+        label="labelPosition"
+        placeholder="default"
+        value={labelPosition}
+        onChange={(e) =>
+          setLabelPosition(
+            e.target.value as CheckboxFieldProps['labelPosition']
+          )
+        }
+      >
+        <option value="start">start</option>
+        <option value="end">end</option>
+        <option value="top">top</option>
+        <option value="bottom">bottom</option>
+      </SelectField>
       <CheckboxField
         name="is-disabled"
         value="true"
@@ -81,6 +94,6 @@ export const CheckboxFieldPropControls: CheckboxFieldPropControlsInterface = ({
         onChange={(e) => setLabelHidden(e.target.checked)}
         label="labelHidden"
       />
-    </DemoBox>
+    </Flex>
   );
 };

@@ -17,7 +17,7 @@ There are many CSS In JS libraries out there that give a number of benefits. Amp
 #### Usage
 
 ```jsx
-import React from 'react';
+import * as React from 'react';
 import styled from 'styled-components';
 import { View } from '@aws-amplify/ui-react';
 
@@ -41,7 +41,7 @@ There are various ways to customize an Amplify component and Styled Components w
 These are styling props that can be used directly on an Amplify component which will affect a single style property. Examples of styling props are `color` or `fontWeight`. These Amplify styling props will take precedence over Styled Component styling.
 
 ```jsx
-import React from 'react';
+import * as React from 'react';
 import styled from 'styled-components';
 import { View } from '@aws-amplify/ui-react';
 
@@ -59,7 +59,7 @@ In the example above, the color of the view will be set to `red` because of the 
 These props change the look and/or behavior of certain Amplify components. Examples include `size` and `variation`.
 
 ```jsx
-import React from 'react';
+import * as React from 'react';
 import styled from "styled-components";
 import { Button } from '@aws-amplify/ui-react';
 
@@ -77,7 +77,7 @@ In the example above, the color of the button will be set to `white`, because th
 These are custom classnames added onto Amplify components and can be used with CSS styling rules to modify the look of an Amplify component.
 
 ```jsx
-import React from 'react';
+import * as React from 'react';
 import styled from 'styled-components';
 import { View } from '@aws-amplify/ui-react';
 
@@ -102,7 +102,7 @@ In the example above, the color of the view will be `blue` because the styled co
 Amplify theming provides many CSS variables to customize the look and feel of the entire application. These CSS variables can be used with the `:root` CSS psuedo-class to override all instances of component styling.
 
 ```jsx
-import React from 'react';
+import * as React from 'react';
 import styled from 'styled-components';
 import { Button } from '@aws-amplify/ui-react';
 
@@ -130,7 +130,7 @@ In the example above, the button color will be set to `blue` because the Styled 
 #### Usage
 
 ```jsx
-import React from 'react';
+import * as React from 'react';
 import { createUseStyles } from 'react-jss';
 import { View } from '@aws-amplify/ui-react';
 
@@ -155,7 +155,7 @@ There are various ways to customize an Amplify component and JSS will interact w
 These are styling props that can be used directly on an Amplify component which will affect a single style property. Examples of styling props are `color` or `fontWeight`. These Amplify styling props will take precedence over JSS styling.
 
 ```jsx
-import React from 'react';
+import * as React from 'react';
 import { createUseStyles } from 'react-jss';
 import { View } from '@aws-amplify/ui-react';
 
@@ -179,7 +179,7 @@ In the example above, the color of the view will be set to `red` because of the 
 These props change the look and/or behavior of certain Amplify components. Examples include `size` and `variation`.
 
 ```jsx
-import React from 'react';
+import * as React from 'react';
 import { createUseStyles } from 'react-jss';
 import { Button } from '@aws-amplify/ui-react';
 
@@ -203,7 +203,7 @@ In the example above, the color of the button will be set to `white`, because th
 These are custom classnames added onto Amplify components and can be used with CSS styling rules to modify the look of an Amplify component.
 
 ```jsx
-import React from 'react';
+import * as React from 'react';
 import { createUseStyles } from 'react-jss';
 import { View } from '@aws-amplify/ui-react';
 
@@ -233,7 +233,7 @@ In the example above, the color of the text will be `blue` because the JSS styli
 Amplify theming provides many CSS variables to customize the look and feel of the entire application. These CSS variables can be used at a root level to override all instances of component styling.
 
 ```jsx
-import React from 'react';
+import * as React from 'react';
 import { createUseStyles } from 'react-jss';
 import { Button } from '@aws-amplify/ui-react';
 
