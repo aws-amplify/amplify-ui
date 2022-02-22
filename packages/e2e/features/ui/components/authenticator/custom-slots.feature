@@ -9,10 +9,12 @@ Feature: Sign Up with Attributes
 
 @angular @react @vue
   Scenario: Has Confirm Reset Password Verify User Footer and Header slot text
+    Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ForgotPassword" } }' with fixture "verify-user-email"
     When I click the "Reset Password" button
     Then I see "Enter Information:"
     Then I type my "email" with status "UNVERIFIED"
     And I click the "Send Code" button
+    Then I see "Code"
     Then I see "Enter Information:"
     Then I see "Footer Information"
 
