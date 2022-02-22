@@ -5,6 +5,12 @@ import { defaultServices } from '../machines/authenticator/defaultServices';
 
 export type AuthFormData = Record<string, string>;
 
+export interface ActorDoneData {
+  authAttributes?: AuthFormData;
+  intent?: string;
+  user?: CognitoUserAmplify;
+}
+
 export interface AuthContext {
   actorRef?: any;
   config?: {
@@ -19,6 +25,7 @@ export interface AuthContext {
   password?: string;
   code?: string;
   mfaType?: AuthChallengeNames.SMS_MFA | AuthChallengeNames.SOFTWARE_TOKEN_MFA;
+  actorDoneData?: Omit<ActorDoneData, 'user'>; // data returned from actors when they finish and reach their final state
 }
 
 export interface ServicesContext {

@@ -42,7 +42,7 @@ select {
 
 @media (prefers-reduced-motion: reduce) {
   html:focus-within {
-   scroll-behavior: auto;
+    scroll-behavior: auto;
   }
 }
 
@@ -51,17 +51,12 @@ select {
   box-sizing: border-box; /* set box-sizing after unset above */
 }
 
-.sr-only {
-  position: absolute !important;
-  width: 1px !important;
-  height: 1px !important;
-  padding: 0 !important;
-  margin: -1px !important;
-  overflow: hidden !important;
-  clip: rect(0, 0, 0, 0) !important;
-  white-space: nowrap !important;
-  border-width: 0 !important;
-}
+// Layout
+// They are commonly used in other primitives
+// Move them to the top here makes it easy to override their styling
+@import './component/flex.scss';
+@import './component/grid.scss';
+@import './component/scrollView.scss';
 
 @import './component/text.scss'; // text styling must be imported to allow override
 @import './component/badge.scss';
@@ -75,11 +70,6 @@ select {
 @import './component/link.scss';
 @import './component/loader.scss';
 @import './component/placeholder.scss';
-
-// Layout
-@import './component/flex.scss';
-@import './component/grid.scss';
-@import './component/scrollView.scss';
 
 // Composed components
 @import './component/alert.scss';
@@ -109,6 +99,7 @@ select {
 @import './component/switchField.scss';
 @import './component/table.scss';
 @import './component/tabs.scss';
+@import './component/textAreaField.scss';
 @import './component/textField.scss';
 @import './component/toggleButton.scss';
 @import './component/toggleButtonGroup.scss';
