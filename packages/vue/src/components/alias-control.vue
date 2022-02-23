@@ -18,6 +18,7 @@ interface PropsInterface {
   labelHidden?: boolean;
   required?: boolean;
   dialCode?: string;
+  dialCodeList?: Array<string>;
 }
 
 const {
@@ -28,6 +29,7 @@ const {
   labelHidden,
   required,
   dialCode,
+  dialCodeList,
 } = withDefaults(defineProps<PropsInterface>(), {
   label: 'Username',
   name: 'username',
@@ -49,7 +51,7 @@ const actorContext: ComputedRef<ActorContextWithForms> = computed(() =>
 
 const defaultDialCode = dialCode ?? actorContext.value.country_code;
 
-const dialCodes = computed(() => countryDialCodes);
+const dialCodes = computed(() => dialCodeList ?? countryDialCodes);
 
 onMounted(() => {
   if (inputAttributes.value[name as LoginMechanism]?.type === 'tel') {

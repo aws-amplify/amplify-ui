@@ -68,6 +68,7 @@ const loginMechanism = fieldNames.shift() as LoginMechanism;
     :required="formOverrides?.[loginMechanism]?.required"
     :label="formOverrides?.[loginMechanism]?.label"
     :dialCode="formOverrides?.[loginMechanism]?.dialCode"
+    :dialCodeList="formOverrides?.[loginMechanism]?.dialCodeList"
   />
   <base-wrapper
     class="
@@ -130,6 +131,7 @@ const loginMechanism = fieldNames.shift() as LoginMechanism;
         translate<string>( formOverrides?.[field]?.placeholder  ?? inputAttributes[field as LoginMechanism].label)
       "
       :dialCode="formOverrides?.[field]?.dialCode"
+      :dialCodeList="formOverrides?.[field]?.dialCodeList"
     />
   </template>
 </template>

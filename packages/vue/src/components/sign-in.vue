@@ -128,6 +128,7 @@ const onForgotPasswordClicked = (): void => {
               :required="formOverrides?.['username']?.required"
               :label="formOverrides?.['username']?.label"
               :dialCode="formOverrides?.['username']?.dialCode"
+              :dialCodeList="formOverrides?.['username']?.dialCodeList"
             />
             <base-wrapper
               class="

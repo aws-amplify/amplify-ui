@@ -206,6 +206,7 @@ export interface formFieldTypes {
   dialCode?: string;
   totpIssuer?: string;
   totpUsername?: string;
+  dialCodeList?: Array<string>;
 }
 
 // Auth fields that we provide default fields with

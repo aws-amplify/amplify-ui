@@ -15,9 +15,15 @@ Feature: Sign In with Phone Number
     Then I see "Sign In"
     Then the 'country code' select drop down is '+82'
 
-@angular @react @vue
+  @angular @react @vue
   Scenario: Sign up and replace default dial code
     When I click the "Create Account" tab
+    Then the 'country code' select drop down is '+227'
+
+@angular @react @vue
+  Scenario: Sign up and replace dial code list
+    When I click the "Create Account" tab
+    Then the 'country code' select drop down should have a length of '5'
     Then the 'country code' select drop down is '+227'
 
   @angular @react @vue

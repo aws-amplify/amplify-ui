@@ -22,6 +22,7 @@ interface PropsInterface {
   placeholder?: string | null;
   required?: boolean;
   dialCode?: string;
+  dialCodeList?: Array<string>;
 }
 
 const {
@@ -32,6 +33,7 @@ const {
   required,
   label,
   dialCode,
+  dialCodeList,
 } = withDefaults(defineProps<PropsInterface>(), {
   userNameAlias: false,
   userName: '',
@@ -58,7 +60,7 @@ if (userName) {
   uName = computed(() => userName);
 }
 
-const dialCodes = computed(() => countryDialCodes);
+const dialCodes = computed(() => dialCodeList ?? countryDialCodes);
 
 const [primaryAlias] = useAliases(
   context?.config?.loginMechanisms as LoginMechanism[]

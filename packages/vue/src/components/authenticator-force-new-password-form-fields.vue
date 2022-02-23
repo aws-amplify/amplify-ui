@@ -54,6 +54,7 @@ requiredAttributes = requiredAttributes?.filter((fieldName) => {
         translate<string>( formOverrides?.[field]?.placeholder  ?? inputAttributes[field as LoginMechanism].label)
       "
       :dialCode="formOverrides?.[field]?.dialCode"
+      :dialCodeList="formOverrides?.[field]?.dialCodeList"
     />
   </template>
 </template>

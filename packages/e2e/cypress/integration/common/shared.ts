@@ -234,6 +234,13 @@ Then(
   }
 );
 
+Then(
+  'the {string} select drop down should have a length of {string}',
+  (name: string, value: string) => {
+    cy.findByLabelText(name).find('option').should('have.length', value);
+  }
+);
+
 When('I type a valid confirmation code', () => {
   // This should be intercepted & mocked
   cy.findByLabelText('Confirmation Code').type('validcode');
