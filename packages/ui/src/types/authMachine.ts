@@ -185,12 +185,11 @@ type formFieldComponents =
   | 'signUp'
   | 'forceNewPassword'
   | 'confirmResetPassword'
-  | 'confrimSignIn'
+  | 'confirmSignIn'
   | 'confirmSignUp'
   | 'confirmVerifyUser'
   | 'resetPassword'
-  | 'setupTOTP'
-  | 'verifyUser';
+  | 'setupTOTP';
 
 export type FormFields = {
   [key in formFieldComponents]?: formField;
@@ -206,6 +205,7 @@ export interface formFieldTypes {
   required?: boolean;
   dialCode?: string;
   totpIssuer?: string;
+  totpUsername?: string;
 }
 
 // Auth fields that we provide default fields with

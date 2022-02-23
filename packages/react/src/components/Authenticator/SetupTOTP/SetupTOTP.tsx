@@ -38,6 +38,9 @@ export const SetupTOTP = (): JSX.Element => {
   const actorState = getActorState(_state) as SignInState;
   const { user } = actorState.context;
 
+  const formOverrides = _state.context?.config?.formFields?.setupTOTP;
+  //totpIssuer
+
   const generateQRCode = async (user): Promise<void> => {
     try {
       const newSecretKey = await Auth.setupTOTP(user);

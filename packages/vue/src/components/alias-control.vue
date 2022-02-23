@@ -17,24 +17,29 @@ interface PropsInterface {
   autocomplete?: string;
   labelHidden?: boolean;
   required?: boolean;
+  dialCode?: string;
 }
 
-const { label, name, placeholder, autocomplete, labelHidden, required } =
-  withDefaults(defineProps<PropsInterface>(), {
-    label: 'Username',
-    name: 'username',
-    placeholder: '',
-    autocomplete: '',
-    labelHidden: false,
-    required: true,
-  });
+const {
+  label,
+  name,
+  placeholder,
+  autocomplete,
+  labelHidden,
+  required,
+  dialCode,
+} = withDefaults(defineProps<PropsInterface>(), {
+  label: 'Username',
+  name: 'username',
+  placeholder: '',
+  autocomplete: '',
+  labelHidden: false,
+  required: true,
+});
 const random = Math.floor(Math.random() * 999999);
 const randomPhone = Math.floor(Math.random() * 999999);
 
 const { state, send } = useAuth();
-const {
-  value: { context },
-} = state;
 
 //computed
 const inputAttributes = computed(() => authInputAttributes);
@@ -42,7 +47,7 @@ const actorContext: ComputedRef<ActorContextWithForms> = computed(() =>
   getActorContext(state.value)
 );
 
-const defaultDialCode = actorContext.value.country_code;
+const defaultDialCode = dialCode ?? actorContext.value.country_code;
 
 const dialCodes = computed(() => countryDialCodes);
 

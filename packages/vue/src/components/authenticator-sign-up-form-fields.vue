@@ -67,6 +67,7 @@ const loginMechanism = fieldNames.shift() as LoginMechanism;
     :placeholder="formOverrides?.[loginMechanism]?.placeholder"
     :required="formOverrides?.[loginMechanism]?.required"
     :label="formOverrides?.[loginMechanism]?.label"
+    :dialCode="formOverrides?.[loginMechanism]?.dialCode"
   />
   <base-wrapper
     class="
@@ -128,6 +129,7 @@ const loginMechanism = fieldNames.shift() as LoginMechanism;
         // prettier-ignore
         translate<string>( formOverrides?.[field]?.placeholder  ?? inputAttributes[field as LoginMechanism].label)
       "
+      :dialCode="formOverrides?.[field]?.dialCode"
     />
   </template>
 </template>

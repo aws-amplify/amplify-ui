@@ -8,6 +8,26 @@ Feature: Form Fields
     Given I'm running the example "ui/components/authenticator/custom-slots"
 
 @angular @react @vue
+Scenario: Confirm sign in and replace placeholder, and label
+    When I type my "email" with status "UNVERIFIED"
+    And I type my password
+    And I click the "Sign in" button
+    Then 'New Label' field does not have "required"
+    Then I see "New Label"
+    Then "New Label" field does not have class "amplify-visually-hidden"
+    Then I see placeholder "Enter your Confirmation Code:"
+
+@angular @react @vue
+  Scenario: Setup TOTP Sign in replace placeholder, and label
+    When I type my "email" with status "CONFIRMED"
+    And I type my password
+    And I click the "Sign in" button
+    Then 'New Label' field does not have "required"
+    Then I see "New Label"
+    Then "New Label" field does not have class "amplify-visually-hidden"
+    Then I see placeholder "Enter your Confirmation Code:"
+
+@angular @react @vue
   Scenario: Confirm Reset Password replaced placeholder, label and label is visible
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ForgotPassword" } }' with fixture "verify-user-email"
     When I click the "Reset Password" button

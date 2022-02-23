@@ -122,11 +122,12 @@ const onForgotPasswordClicked = (): void => {
 
             <user-name-alias
               :userNameAlias="true"
-              :label-hidden="formOverrides?.[loginMechanism]?.labelHidden"
+              :label-hidden="formOverrides?.['username']?.labelHidden"
               :userName="loginMechanism"
-              :placeholder="formOverrides?.[loginMechanism]?.placeholder"
-              :required="formOverrides?.[loginMechanism]?.required"
-              :label="formOverrides?.[loginMechanism]?.label"
+              :placeholder="formOverrides?.['username']?.placeholder"
+              :required="formOverrides?.['username']?.required"
+              :label="formOverrides?.['username']?.label"
+              :dialCode="formOverrides?.['username']?.dialCode"
             />
             <base-wrapper
               class="

@@ -5,10 +5,20 @@ import '@aws-amplify/ui-vue/styles.css';
 import aws_exports from './aws-exports';
 
 Amplify.configure(aws_exports);
+const formFields = {
+  confirmVerifyUser: {
+    confirmation_code: {
+      labelHidden: false,
+      label: 'New Label',
+      placeholder: 'Enter your Confirmation Code:',
+      required: false,
+    },
+  },
+};
 </script>
 
 <template>
-  <authenticator :hide-sign-up="true">
+  <authenticator :form-fields="formFields" :hide-sign-up="true">
     <template v-slot="{ user, signOut }">
       <h1>Hello {{ user.username }}!</h1>
       <button @click="signOut">Sign Out</button>

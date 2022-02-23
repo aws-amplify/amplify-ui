@@ -227,6 +227,13 @@ Then('the {string} field is invalid', (name: string) => {
     .should('be.false');
 });
 
+Then(
+  'the {string} select drop down is {string}',
+  (name: string, value: string) => {
+    cy.findByLabelText(name).find('option:selected').should('have.text', value);
+  }
+);
+
 When('I type a valid confirmation code', () => {
   // This should be intercepted & mocked
   cy.findByLabelText('Confirmation Code').type('validcode');

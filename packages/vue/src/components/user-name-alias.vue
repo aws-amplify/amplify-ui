@@ -21,16 +21,24 @@ interface PropsInterface {
   label?: string;
   placeholder?: string | null;
   required?: boolean;
+  dialCode?: string;
 }
 
-const { userNameAlias, userName, disabled, placeholder, required, label } =
-  withDefaults(defineProps<PropsInterface>(), {
-    userNameAlias: false,
-    userName: '',
-    disable: false,
-    labelHidden: true,
-    required: true,
-  });
+const {
+  userNameAlias,
+  userName,
+  disabled,
+  placeholder,
+  required,
+  label,
+  dialCode,
+} = withDefaults(defineProps<PropsInterface>(), {
+  userNameAlias: false,
+  userName: '',
+  disable: false,
+  labelHidden: true,
+  required: true,
+});
 
 const { state } = useAuth();
 
@@ -42,7 +50,7 @@ const actorContext: ComputedRef<ActorContextWithForms> = computed(() =>
   getActorContext(state.value)
 );
 
-const defaultDialCode = actorContext.value.country_code;
+const defaultDialCode = dialCode ?? actorContext.value.country_code;
 
 let uName = ref('');
 

@@ -11,6 +11,24 @@ Feature: Sign In with Phone Number
     Given I'm running the example "ui/components/authenticator/sign-in-with-phone"
 
   @angular @react @vue
+  Scenario: Sign in and replace default dial code
+    Then I see "Sign In"
+    Then the 'country code' select drop down is '+82'
+
+@angular @react @vue
+  Scenario: Sign up and replace default dial code
+    When I click the "Create Account" tab
+    Then the 'country code' select drop down is '+227'
+
+  @angular @react @vue
+  Scenario: Sign in with unknown credentials
+    When I select my country code with status "UNKNOWN"
+    And I type my "phone number" with status "UNKNOWN"
+    And I type my password
+    And I click the "Sign in" button
+    Then I see "User does not exist"
+
+  @angular @react @vue
   Scenario: Sign in with unknown credentials
     When I select my country code with status "UNKNOWN"
     And I type my "phone number" with status "UNKNOWN"
@@ -39,7 +57,7 @@ Feature: Sign In with Phone Number
     When I type my "phone number" with status "CONFIRMED"
     And I type my password
     And I click the "Sign in" button
-    Then I see "Sign out"
+    Then I see "User does not exist."
 
   @angular @react @vue
   Scenario: Sign in with confirmed credentials then sign out
@@ -73,3 +91,4 @@ Feature: Sign In with Phone Number
   @angular @react @vue
   Scenario: Password fields autocomplete "new-password"
     Then "Password" field autocompletes "current-password"
+

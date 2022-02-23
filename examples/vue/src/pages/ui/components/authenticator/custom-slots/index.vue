@@ -15,7 +15,7 @@ const { toResetPassword, toSignIn } = toRefs(useAuthenticator());
 
 const formFields = {
   signIn: {
-    email: {
+    username: {
       labelHidden: false,
       placeholder: 'Enter your email',
     },
@@ -54,6 +54,26 @@ const formFields = {
     confirm_password: {
       labelHidden: false,
       placeholder: 'Enter your Password Please:',
+    },
+  },
+  setupTOTP: {
+    QR: {
+      totpIssuer: 'test issuer',
+      totpUsername: 'amlify_qr_test_user',
+    },
+    confirmation_code: {
+      labelHidden: false,
+      label: 'New Label',
+      placeholder: 'Enter your Confirmation Code:',
+      required: false,
+    },
+  },
+  confirmSignIn: {
+    confirmation_code: {
+      labelHidden: false,
+      label: 'New Label',
+      placeholder: 'Enter your Confirmation Code:',
+      required: false,
     },
   },
 };

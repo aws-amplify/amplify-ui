@@ -53,6 +53,7 @@ requiredAttributes = requiredAttributes?.filter((fieldName) => {
         // prettier-ignore
         translate<string>( formOverrides?.[field]?.placeholder  ?? inputAttributes[field as LoginMechanism].label)
       "
+      :dialCode="formOverrides?.[field]?.dialCode"
     />
   </template>
 </template>

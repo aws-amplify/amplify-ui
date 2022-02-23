@@ -5,10 +5,23 @@ import '@aws-amplify/ui-vue/styles.css';
 import aws_exports from './aws-exports';
 
 Amplify.configure(aws_exports);
+
+const formFields = {
+  signIn: {
+    username: {
+      dialCode: '+82',
+    },
+  },
+  signUp: {
+    phone_number: {
+      dialCode: '+227',
+    },
+  },
+};
 </script>
 
 <template>
-  <authenticator>
+  <authenticator :form-fields="formFields">
     <template v-slot="{ user, signOut }">
       <h1>Hello {{ user.username }}!</h1>
       <button @click="signOut">Sign Out</button>
