@@ -7,6 +7,7 @@ import {
   ResetPasswordState,
   ValidationError,
   translate,
+  getFormDataFromEvent,
 } from '@aws-amplify/ui';
 
 import { useAuth, useAuthenticator } from '../composables/useAuth';
@@ -50,15 +51,7 @@ const onConfirmResetPasswordSubmit = (e: Event): void => {
 };
 
 const submit = (e: Event): void => {
-  const formData = new FormData(<HTMLFormElement>e.target);
-  send({
-    type: 'SUBMIT',
-    //@ts-ignore
-    data: {
-      //@ts-ignore
-      ...Object.fromEntries(formData),
-    },
-  });
+  props.submitForm(getFormDataFromEvent(e));
 };
 
 const onLostYourCodeClicked = (): void => {
@@ -106,7 +99,7 @@ function onBlur(e: Event) {
               style="flex-direction: column"
             >
               <base-label
-                class="sr-only amplify-label"
+                class="amplify-visually-hidden amplify-label"
                 for="amplify-field-d653"
               >
                 {{ confirmationCodeText }}

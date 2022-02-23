@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, useAttrs, toRefs } from 'vue';
-import { translate } from '@aws-amplify/ui';
+import { getFormDataFromEvent, translate } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '../composables/useAuth';
 import { createSharedComposable } from '@vueuse/core';
@@ -27,14 +27,22 @@ const enterCode = computed(() => translate('Enter your code'));
 const confirmationCodeText = computed(() => translate('Confirmation Code'));
 const resendCodeText = computed(() => translate('Resend Code'));
 const confirmText = computed(() => translate('Confirm'));
+const emailMessage = translate(
+  'Your code is on the way. To log in, enter the code we emailed to'
+);
+const textedMessage = translate(
+  'Your code is on the way. To log in, enter the code we texted to'
+);
+const defaultMessage = translate(
+  'Your code is on the way. To log in, enter the code we sent you. It may take a minute to arrive.'
+);
+const minutesMessage = translate('It may take a minute to arrive.');
 const subtitleText = computed(() => {
   return codeDeliveryDetails.value?.DeliveryMedium === 'EMAIL'
-    ? `Your code is on the way. To log in, enter the code we emailed to ${codeDeliveryDetails.value?.Destination}. It may take a minute to arrive.`
+    ? `${emailMessage} ${codeDeliveryDetails.value?.Destination}. ${minutesMessage}`
     : codeDeliveryDetails.value?.DeliveryMedium === 'SMS'
-    ? `Your code is on the way. To log in, enter the code we texted to ${codeDeliveryDetails.value?.Destination}. It may take a minute to arrive.`
-    : translate(
-        `Your code is on the way. To log in, enter the code we sent you. It may take a minute to arrive.`
-      );
+    ? `${textedMessage} ${codeDeliveryDetails.value?.Destination}. ${minutesMessage}`
+    : translate(`${defaultMessage}`);
 });
 
 // Methods
@@ -52,7 +60,7 @@ const onConfirmSignUpSubmit = (e: Event): void => {
 };
 
 const submit = (e: Event): void => {
-  submitForm();
+  submitForm(getFormDataFromEvent(e));
 };
 
 const onLostCodeClicked = (): void => {
@@ -90,7 +98,9 @@ const onLostCodeClicked = (): void => {
               class="amplify-flex amplify-field amplify-textfield"
               style="flex-direction: column"
             >
-              <base-label class="sr-only amplify-label" for="amplify-field-124b"
+              <base-label
+                class="amplify-visually-hidden amplify-label"
+                for="amplify-field-124b"
                 >{{ confirmationCodeText }}
               </base-label>
               <base-wrapper class="amplify-flex">

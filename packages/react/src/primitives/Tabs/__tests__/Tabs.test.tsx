@@ -78,7 +78,7 @@ describe('Tabs: ', () => {
     ];
     const warningMessage =
       'Amplify UI: <Tabs> component only accepts <TabItem> as children.';
-    const spy = jest.spyOn(console, 'warn');
+    const spy = jest.spyOn(console, 'warn').mockImplementation();
 
     invalidChildren.forEach((child) => {
       render(

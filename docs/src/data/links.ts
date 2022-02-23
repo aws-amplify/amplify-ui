@@ -97,6 +97,11 @@ export const feedbackComponents: ComponentNavItem[] = [
 
 export const inputComponents = [
   {
+    href: '/components/textareafield',
+    label: 'TextArea Field',
+    body: `The TextAreaField form primitive can be used allow users to input multiline text content.`,
+  },
+  {
     href: '/components/textfield',
     label: 'Text Field',
     body: `The TextField form primitive can be used allow users to input text content.`,
@@ -130,7 +135,11 @@ export const inputComponents = [
   },
   { href: '/components/radiogroupfield', label: 'Radio Group Field', body: `` },
   { href: '/components/checkboxfield', label: 'Checkbox Field', body: `` },
-  { href: '/components/togglebutton', label: 'Toggle Button', body: `` },
+  {
+    href: '/components/togglebutton',
+    label: 'Toggle Button',
+    body: `A toggle button represents an on/off state for some configuration, for example switching on/off bold text in a text editor.`,
+  },
   { href: '/components/button', label: 'Button', body: `` },
 ].sort(sortByLabel);
 

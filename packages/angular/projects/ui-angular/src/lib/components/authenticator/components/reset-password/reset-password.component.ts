@@ -1,6 +1,10 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
-import { getAliasInfoFromContext, translate } from '@aws-amplify/ui';
+import {
+  getAliasInfoFromContext,
+  getFormDataFromEvent,
+  translate,
+} from '@aws-amplify/ui';
 
 @Component({
   selector: 'amplify-reset-password',
@@ -35,6 +39,6 @@ export class ResetPasswordComponent implements OnInit {
 
   onSubmit(event: Event): void {
     event.preventDefault();
-    this.authenticator.submitForm();
+    this.authenticator.submitForm(getFormDataFromEvent(event));
   }
 }

@@ -1,11 +1,20 @@
 <script setup lang="ts">
 import { onMounted, reactive, computed, ComputedRef, useAttrs, ref } from 'vue';
+import { createSharedComposable } from '@vueuse/core';
 import QRCode from 'qrcode';
 
 import { Auth, Logger } from 'aws-amplify';
-import { getActorState, SignInState, translate } from '@aws-amplify/ui';
+import {
+  getActorState,
+  getFormDataFromEvent,
+  SignInState,
+  translate,
+} from '@aws-amplify/ui';
 
-import { useAuth } from '../composables/useAuth';
+import { useAuth, useAuthenticator } from '../composables/useAuth';
+
+const useAuthShared = createSharedComposable(useAuthenticator);
+const props = useAuthShared();
 
 const attrs = useAttrs();
 const emit = defineEmits(['confirmSetupTOTPSubmit', 'backToSignInClicked']);
@@ -71,15 +80,7 @@ const onSetupTOTPSubmit = (e: Event): void => {
 };
 
 const submit = (e: Event): void => {
-  const formData = new FormData(<HTMLFormElement>e.target);
-  send({
-    type: 'SUBMIT',
-    //@ts-ignore
-    data: {
-      //@ts-ignore
-      ...Object.fromEntries(formData),
-    },
-  });
+  props.submitForm(getFormDataFromEvent(e));
 };
 
 const onBackToSignInClicked = (): void => {
@@ -149,7 +150,7 @@ const onBackToSignInClicked = (): void => {
                   style="flex-direction: column"
                 >
                   <base-label
-                    class="sr-only amplify-label"
+                    class="amplify-visually-hidden amplify-label"
                     for="amplify-field-45d1"
                     >Code *</base-label
                   >
