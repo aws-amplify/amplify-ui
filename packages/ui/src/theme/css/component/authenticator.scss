@@ -1,84 +1,30 @@
 /* Center by default */
 [data-amplify-authenticator] {
   display: grid;
-}
 
-[data-amplify-authenticator][data-variation='modal'] {
-  display: grid;
-  width: 100vw;
-  height: 100vh;
-  height: -webkit-fill-available;
-  background-color: var(--amplify-colors-background-secondary, #e1e5e9);
+  &[data-variation='modal'] {
+    display: grid;
+    width: var(--amplify-components-authenticator-modal-width);
+    height: var(--amplify-components-authenticator-modal-height);
+    background-color: var(--amplify-colors-overlay-50);
 
-  /* Override browser default `body { margin: 8px }` */
-  position: fixed;
-  top: 0;
-  left: 0;
+    /* Override browser default `body { margin: 8px }` */
+    position: fixed;
+    top: var(--amplify-components-authenticator-modal-top);
+    left: var(--amplify-components-authenticator-modal-left);
 
-  /* Having a z-index at least "wins" by default */
-  z-index: 1;
-
-  /* top-align at the top 20% of the screen */
-  box-sizing: border-box; // don't add padding to total height
-  padding-top: 20vh;
-  align-content: flex-start; // top align
-
-  @media (max-width: 30rem) {
-    overflow: auto; // only overflow on mobile. On web, router-content overflows.
-    padding-top: 0; // use the full height on mobile
+    /* Having a z-index at least "wins" by default */
+    z-index: 1;
   }
-}
 
-[data-amplify-authenticator][data-variation='modal']
-  [data-amplify-router-content] {
-  max-height: 60vh;
-  overflow-y: auto;
-
-  /* Scroll shadows, adapted from https://codepen.io/chriscoyier/pen/YzXBYvL */
-  background: linear-gradient(white 30%, rgba(255, 255, 255, 0)) center top,
-    linear-gradient(rgba(255, 255, 255, 0), white 70%) center bottom,
-    radial-gradient(
-        farthest-side at 50% 0,
-        rgba(0, 0, 0, 0.15),
-        rgba(0, 0, 0, 0)
-      )
-      center top,
-    radial-gradient(
-        farthest-side at 50% 100%,
-        rgba(0, 0, 0, 0.15),
-        rgba(0, 0, 0, 0)
-      )
-      center bottom;
-
-  background-repeat: no-repeat;
-  background-size: 100% 40px, 100% 40px, 100% 14px, 100% 14px;
-  background-attachment: local, local, scroll, scroll;
-
-  @media (max-width: 30rem) {
-    max-height: unset; // on mobile, let content take the whole height
-  }
-}
-
-/* Texture for modal */
-[data-amplify-authenticator][data-variation='modal']::before {
-  // Fill modal space, but don't scroll
-  position: absolute;
-  width: 100%;
-  height: 100%;
-
-  content: '';
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' id='texture' data-v-1d260e0e=''%3E%3Cfilter id='noise' data-v-1d260e0e=''%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch' data-v-1d260e0e=''%3E%3C/feTurbulence%3E%3CfeColorMatrix type='saturate' values='0' data-v-1d260e0e=''%3E%3C/feColorMatrix%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' data-v-1d260e0e=''%3E%3C/rect%3E%3C/svg%3E");
-  opacity: 0.35;
-  filter: 'contrast(120%) brightness(120%)';
-}
-
-[data-amplify-authenticator] [data-amplify-container] {
-  /* Fix z-index of texture being over the Authenticator */
-  position: relative;
-  place-self: center;
-  width: 30rem;
-  @media (max-width: 30rem) {
-    width: 100%;
+  & [data-amplify-container] {
+    /* Fix z-index of texture being over the Authenticator */
+    place-self: var(--amplify-components-authenticator-container-place-self);
+    width: var(--amplify-components-authenticator-container-width-handheld);
+    @media (min-width: 30rem) {
+      width: var(--amplify-components-authenticator-container-width-desktop);
+      max-width: var(--amplify-components-authenticator-container-width-max);
+    }
   }
 }
 

@@ -1,5 +1,6 @@
 module.exports = {
   alert: require('./alert'),
+  authenticator: require('./authenticator'),
   badge: require('./badge'),
   button: require('./button'),
   card: require('./card'),
