@@ -6,6 +6,8 @@
   opacity: var(--amplify-components-divider-opacity);
   padding: 0;
   display: block;
+  position: relative;
+  text-align: center;
 
   &[aria-orientation='horizontal'] {
     width: 100%;
@@ -29,6 +31,20 @@
 
     &[data-size='large'] {
       border-left-width: var(--amplify-components-divider-large-border-width);
+    }
+  }
+  
+  &[data-label] {
+    &::after {
+      content: attr(data-label);
+      position: absolute;
+      top: calc(var(--amplify-components-divider-label-font-size) * -0.5);
+      font-size: var(--amplify-components-divider-label-font-size);
+      padding-block: var(--amplify-components-divider-label-padding-block);
+      padding-inline: var(--amplify-components-divider-label-padding-inline);
+      background-color: var(--amplify-components-divider-label-background-color);
+      color: var(--amplify-components-divider-label-color);
+      line-height: 1;
     }
   }
 }

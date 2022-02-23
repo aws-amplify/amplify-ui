@@ -1,12 +1,13 @@
 import classNames from 'classnames';
 import * as React from 'react';
+import { Label } from '../Label';
 
 import { ComponentClassNames } from '../shared';
 import { DividerProps, Primitive } from '../types';
 import { View } from '../View';
 
 const DividerPrimitive: Primitive<DividerProps, 'hr'> = (
-  { className, orientation = 'horizontal', size, ...rest },
+  { className, orientation = 'horizontal', size, label, ...rest },
   ref
 ) => (
   <View
@@ -14,6 +15,7 @@ const DividerPrimitive: Primitive<DividerProps, 'hr'> = (
     as="hr"
     className={classNames(ComponentClassNames.Divider, className)}
     data-size={size}
+    data-label={label}
     ref={ref}
     {...rest}
   />
