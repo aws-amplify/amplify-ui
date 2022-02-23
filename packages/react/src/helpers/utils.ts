@@ -53,3 +53,10 @@ export const toErrorWithMessage = (maybeError: unknown): ErrorWithMessage => {
 export const getErrorMessage = (error: unknown) => {
   return toErrorWithMessage(error).message;
 };
+
+export const getFormDataFromEvent = (
+  event: React.FormEvent<HTMLFormElement>
+) => {
+  const formData = new FormData(event.target as HTMLFormElement);
+  return Object.fromEntries(formData);
+};
