@@ -62,3 +62,20 @@
     width: 100%;
   }
 }
+
+.docs-home-preview {
+  padding: var(--amplify-space-large);
+  background-color: var(--amplify-colors-background-secondary);
+  background-image: url("data:image/svg+xml;utf8,<svg width='10' height='10' fill='%23ddd' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='10'/></svg>");
+}
+
+.docs-home-editor {
+  border-right: var(--amplify-border-widths-small) solid var(--amplify-colors-border-primary);
+  max-height: 30rem;
+  overflow-y: auto;
+  font-size: 1rem;
+}
+
+.npm__react-simple-code-editor__textarea {
+  outline: none;
+}
