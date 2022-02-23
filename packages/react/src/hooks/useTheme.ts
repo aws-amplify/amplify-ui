@@ -2,12 +2,12 @@ import * as React from 'react';
 
 import { defaultTheme, WebTheme } from '@aws-amplify/ui';
 import {
-  AmplifyContext,
-  AmplifyContextType,
-} from '../components/AmplifyProvider/AmplifyContext';
+  ThemeContext,
+  ThemeContextType,
+} from '../components/ThemeProvider/ThemeContext';
 
 export const useTheme = (): WebTheme => {
-  const context = React.useContext(AmplifyContext);
+  const context = React.useContext(ThemeContext);
   return getThemeFromContext(context);
 };
 
@@ -15,7 +15,7 @@ export const useTheme = (): WebTheme => {
  * Get current Theme object value from Amplify context.
  * Returns a default theme if context is not available
  */
-export const getThemeFromContext = (context: AmplifyContextType) => {
+export const getThemeFromContext = (context: ThemeContextType) => {
   if (typeof context === 'undefined' || typeof context.theme === 'undefined') {
     return defaultTheme;
   }

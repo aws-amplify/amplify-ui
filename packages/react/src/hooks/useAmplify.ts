@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { Theme } from '@aws-amplify/ui';
 
-import { AmplifyContext } from '../components/AmplifyProvider/AmplifyContext';
+import { ThemeContext } from '../components/ThemeProvider/ThemeContext';
 import { getThemeFromContext } from './useTheme';
 
 interface UseAmplifyOutput {
@@ -10,7 +10,7 @@ interface UseAmplifyOutput {
 }
 
 export function useAmplify(): UseAmplifyOutput {
-  const context = React.useContext(AmplifyContext);
+  const context = React.useContext(ThemeContext);
   const theme = getThemeFromContext(context);
 
   return { theme };
