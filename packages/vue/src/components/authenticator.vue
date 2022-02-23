@@ -19,6 +19,8 @@ import {
   CognitoUserAmplify,
   SocialProvider,
   listenToAuthHub,
+  AuthContext,
+  AuthEvent,
 } from '@aws-amplify/ui';
 
 import SignIn from './sign-in.vue';
@@ -71,7 +73,7 @@ const emit = defineEmits([
 ]);
 const machine = createAuthenticatorMachine();
 
-const service = useInterpret(machine);
+const service = useInterpret<AuthContext, AuthEvent>(machine);
 let unsubscribeHub: ReturnType<typeof listenToAuthHub>;
 
 const { state, send } = useActor(service);

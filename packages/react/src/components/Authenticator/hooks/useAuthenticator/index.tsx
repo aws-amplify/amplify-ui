@@ -8,6 +8,8 @@ import {
   getServiceContextFacade,
   AuthMachineSend,
   listenToAuthHub,
+  AuthContext,
+  AuthEvent,
 } from '@aws-amplify/ui';
 import { useSelector, useInterpret } from '@xstate/react';
 import isEmpty from 'lodash/isEmpty';
@@ -41,7 +43,9 @@ export const Provider = ({ children }) => {
    *
    * Leaving this as is for now in the interest of suggested code guideline.
    */
-  const service = useInterpret(createAuthenticatorMachine);
+  const service = useInterpret<AuthContext, AuthEvent>(
+    createAuthenticatorMachine
+  );
   const currentProviderVal = { service };
 
   const value = isEmpty(parentProviderVal)
