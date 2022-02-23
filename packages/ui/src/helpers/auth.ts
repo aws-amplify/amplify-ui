@@ -2,9 +2,7 @@ import { Hub } from 'aws-amplify';
 import { Sender } from 'xstate';
 import includes from 'lodash/includes';
 
-import { AuthMachineSend, AuthMachineState } from '../machines';
-import { AuthContext } from '../types';
-
+import { AuthContext } from '..';
 import {
   ActorContextWithForms,
   AuthActorContext,
@@ -13,6 +11,8 @@ import {
   AuthEventData,
   AuthEventTypes,
   AuthInputAttributes,
+  AuthMachineSend,
+  AuthMachineState,
   LoginMechanism,
   LoginMechanismArray,
 } from '../types';
