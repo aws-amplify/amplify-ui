@@ -11,6 +11,7 @@ import {
   RemoteErrorMessage,
   TwoButtonSubmitFooter,
 } from '../shared';
+import { useCustomComponents } from '../hooks/useCustomComponents';
 import {
   isInputOrSelectElement,
   isInputElement,
@@ -18,11 +19,19 @@ import {
 } from '../../../helpers/utils';
 
 export const ConfirmResetPassword = (): JSX.Element => {
+  const {
+    components: {
+      ConfirmResetPassword: {
+        Header = ConfirmResetPassword.Header,
+        Footer = ConfirmResetPassword.Footer,
+      },
+    },
+  } = useCustomComponents();
+
   const { _state, submitForm, updateForm, updateBlur, isPending } =
     useAuthenticator();
   const { validationError } = getActorContext(_state) as ResetPasswordContext;
 
-  const headerText = translate('Reset your password');
   const passwordText = translate('New password');
   const confirmPasswordLabel = translate('Confirm Password');
 
@@ -64,7 +73,7 @@ export const ConfirmResetPassword = (): JSX.Element => {
         className="amplify-flex"
         disabled={isPending}
       >
-        <Heading level={3}>{headerText}</Heading>
+        <Header />
 
         <Flex direction="column">
           <ConfirmationCodeInput />
@@ -102,7 +111,16 @@ export const ConfirmResetPassword = (): JSX.Element => {
           cancelButtonSendType="RESEND"
           cancelButtonText={translate('Resend Code')}
         />
+        <Footer />
       </fieldset>
     </form>
   );
 };
+
+ConfirmResetPassword.Header = () => {
+  const headerText = translate('Reset your password');
+
+  return <Heading level={3}>{headerText}</Heading>;
+};
+
+ConfirmResetPassword.Footer = (): JSX.Element => null;

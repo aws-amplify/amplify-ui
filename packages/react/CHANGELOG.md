@@ -1,5 +1,13 @@
 # @aws-amplify/ui-react
 
+## 2.6.1
+
+### Patch Changes
+
+- [#1382](https://github.com/aws-amplify/amplify-ui/pull/1382) [`3e82f7238`](https://github.com/aws-amplify/amplify-ui/commit/3e82f7238080d7e56add1f60854bdf6855b6a9ea) Thanks [@ErikCH](https://github.com/ErikCH)! - Added missing slots for React components
+
+* [#1388](https://github.com/aws-amplify/amplify-ui/pull/1388) [`c65565e4b`](https://github.com/aws-amplify/amplify-ui/commit/c65565e4b07219866be73cf9ed6fc2c39fc81c05) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - Fixes useDeprecationWarning hook
+
 ## 2.6.0
 
 ### Minor Changes

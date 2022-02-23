@@ -2,12 +2,12 @@ import * as React from 'react';
 import { AuthenticatorMachineOptions } from '@aws-amplify/ui';
 
 import { Provider, useAuthenticator } from './hooks/useAuthenticator';
-import { ResetPassword } from './ResetPassword';
 import { Router, RouterProps } from './Router';
 import { SetupTOTP } from './SetupTOTP';
 import { SignIn } from './SignIn';
 import { SignUp } from './SignUp';
 import { ForceNewPassword } from './ForceNewPassword';
+import { ResetPassword } from './ResetPassword';
 import {
   CustomComponentsContext,
   ComponentsProviderProps,
