@@ -33,7 +33,7 @@ to your application with minimal boilerplate.
 
 ## Quick Start
 
-> Preqrequisite: [Create an Authentication backend](https://docs.amplify.aws/lib/auth/getting-started/q/platform/js)
+> Prerequisite: [Create an Authentication backend](https://docs.amplify.aws/lib/auth/getting-started/q/platform/js)
 
 The quickest way to get started is by wrapping your application with the Authenticator component.
 Once an end-user has created an account & signed in, the underlying component is rendered with access to the `user`.
@@ -563,6 +563,8 @@ The following example customizes the Sign Up screen by:
 
 - Re-using the default Sign Up form fields
 - Appending a custom "Terms & Conditions" checkbox with a `validateCustomSignUp` service
+
+**Note**: In the example code below, `preferred_username` is not set as an attribute because it has already been defined through [Zero Configuration](https://ui.docs.amplify.aws/components/authenticator?platform=vue#signupattributes).
 
 <Fragment>
   {({ platform }) => import(`./sign-up-fields.${platform}.mdx`)}
