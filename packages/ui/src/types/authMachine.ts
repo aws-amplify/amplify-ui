@@ -195,9 +195,3 @@ export interface AuthEvent {
   type: AuthEventTypes;
   data?: AuthEventData;
 }
-
-export type AuthMachineState = State<AuthContext, AuthEvent>;
-
-export type AuthInterpreter = Interpreter<AuthContext, any, AuthEvent>;
-
-export type AuthMachineSend = AuthInterpreter['send'];

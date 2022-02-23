@@ -1,4 +1,11 @@
-import { assign, createMachine, forwardTo, spawn } from 'xstate';
+import {
+  assign,
+  createMachine,
+  forwardTo,
+  interpret,
+  Interpreter,
+  spawn,
+} from 'xstate';
 
 import {
   AuthContext,
@@ -314,3 +321,14 @@ export function createAuthenticatorMachine() {
     }
   );
 }
+
+/**
+ * Utility types that describes the AuthMachine
+ */
+
+const interpretAuthMachine = () => interpret(createAuthenticatorMachine());
+
+export type AuthInterpreter = ReturnType<typeof interpretAuthMachine>;
+
+export type AuthMachineState = AuthInterpreter['state'];
+export type AuthMachineSend = AuthInterpreter['send'];

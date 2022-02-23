@@ -24,8 +24,8 @@ const logger = new Logger('state-machine');
   providedIn: 'root', // ensure we have a singleton service
 })
 export class AuthenticatorService implements OnDestroy {
-  private _authState: AuthMachineState;
   private _authService: AuthInterpreter;
+  private _authState: AuthMachineState;
   private _sendEventAliases: ReturnType<typeof getSendEventAliases>;
   private _machineSubscription: Subscription;
   private _hubSubscription: ReturnType<typeof listenToAuthHub>;
@@ -39,7 +39,6 @@ export class AuthenticatorService implements OnDestroy {
     socialProviders,
   }: AuthenticatorMachineOptions) {
     const machine = createAuthenticatorMachine();
-
     const authService = interpret(machine).start();
 
     authService.send({
