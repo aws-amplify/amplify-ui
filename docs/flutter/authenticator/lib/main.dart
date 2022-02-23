@@ -252,6 +252,7 @@ class _MyAppState extends State<MyApp> {
           appBar: AppBar(),
           body: Center(
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: const [
                 Text('You are logged in!'),
                 SizedBox(height: 16),
