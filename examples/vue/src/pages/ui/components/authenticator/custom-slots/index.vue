@@ -97,6 +97,58 @@ const { toResetPassword, toSignIn } = toRefs(useAuthenticator());
       <div>Footer Information</div>
     </template>
 
+    <template v-slot:setup-totp-header>
+      <h3
+        class="amplify-heading"
+        style="padding: var(--amplify-space-xl) 0 0 var(--amplify-space-xl)"
+      >
+        Enter Information:
+      </h3>
+    </template>
+
+    <template v-slot:setup-totp-footer>
+      <div>Footer Information</div>
+    </template>
+
+    <template v-slot:confirm-sign-in-header>
+      <h3
+        class="amplify-heading"
+        style="padding: var(--amplify-space-xl) 0 0 var(--amplify-space-xl)"
+      >
+        Enter Information:
+      </h3>
+    </template>
+
+    <template v-slot:confirm-sign-in-footer>
+      <div>Footer Information</div>
+    </template>
+
+    <template v-slot:reset-password-header>
+      <h3
+        class="amplify-heading"
+        style="padding: var(--amplify-space-xl) 0 0 var(--amplify-space-xl)"
+      >
+        Enter Information:
+      </h3>
+    </template>
+
+    <template v-slot:reset-password-footer>
+      <div>Footer Information</div>
+    </template>
+
+    <template v-slot:confirm-reset-password-header>
+      <h3
+        class="amplify-heading"
+        style="padding: var(--amplify-space-xl) 0 0 var(--amplify-space-xl)"
+      >
+        Enter Information:
+      </h3>
+    </template>
+
+    <template v-slot:confirm-reset-password-footer>
+      <div>Footer Information</div>
+    </template>
+
     <template v-slot="{ user, signOut }">
       <h1>Hello {{ user.username }}!</h1>
       <button @click="signOut">Sign Out</button>
