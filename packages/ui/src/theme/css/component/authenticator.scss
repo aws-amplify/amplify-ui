@@ -81,6 +81,10 @@
   cursor: pointer;
   position: relative;
 
+  path {
+    fill: var(--amplify-colors-font-primary);
+  }
+
   &:hover [data-amplify-copy-tooltip] {
     visibility: visible;
     font-size: var(--amplify-font-sizes-xxs);
