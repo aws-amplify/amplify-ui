@@ -8,6 +8,38 @@ Feature: Form Fields
     Given I'm running the example "ui/components/authenticator/custom-slots"
 
 @angular @react @vue
+  Scenario: Sign in with replaced email placeholder 
+    Then I see placeholder "Enter your email"
+
+  @angular @react @vue
+  Scenario: Sign in label is visibile 
+    When I see "Email"
+    Then "Email" field does not have class "amplify-visually-hidden"
+
+@angular @react @vue
+  Scenario: Sign up with replaced password label 
+    When I click the "Create Account" tab 
+    Then I see "Password:"
+
+@angular @react @vue
+  Scenario: Sign up with replaced password placeholder 
+    When I click the "Create Account" tab 
+    Then I see placeholder "Enter your Password:"
+
+@angular @react @vue
+  Scenario: Sign up with not required email 
+    When I click the "Create Account" tab 
+    Then 'Password:' field does not have "required"
+
+@angular @react @vue
+  Scenario: Sign up with replaced confirm password placeholder and is visible 
+    When I click the "Create Account" tab 
+    Then I see placeholder "Confirm Password:"
+    Then "Confirm Password:" field does not have class "amplify-visually-hidden"
+
+
+
+@angular @react @vue
 Scenario: Confirm sign in and replace placeholder, and label
     When I type my "email" with status "UNVERIFIED"
     And I type my password
@@ -54,36 +86,6 @@ Scenario: Confirm sign in and replace placeholder, and label
     Then "Enter your email" field does not have class "amplify-visually-hidden"
     Then I see placeholder "Enter your email:"
 
-  @angular @react @vue
-  Scenario: Sign in with replaced email placeholder 
-    Then I see placeholder "Enter your email"
-
-  @angular @react @vue
-  Scenario: Sign in label is visibile 
-    When I see "Email"
-    Then "Email" field does not have class "amplify-visually-hidden"
-
-@angular @react @vue
-  Scenario: Sign up with replaced password label 
-    When I click the "Create Account" tab 
-    Then I see "Password:"
-
-@angular @react @vue
-  Scenario: Sign up with replaced password placeholder 
-    When I click the "Create Account" tab 
-    Then I see placeholder "Enter your Password:"
-
-@angular @react @vue
-  Scenario: Sign up with not required email 
-    When I click the "Create Account" tab 
-    Then 'Password:' field does not have "required"
-
-@angular @react @vue
-  Scenario: Sign up with replaced confirm password placeholder and is visible 
-    When I click the "Create Account" tab 
-    Then I see placeholder "Confirm Password:"
-    Then "Confirm Password:" field does not have class "amplify-visually-hidden"
-
-
+  
 
    

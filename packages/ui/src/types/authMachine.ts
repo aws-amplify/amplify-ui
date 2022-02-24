@@ -103,6 +103,7 @@ export interface SignUpContext extends BaseFormContext {
 export interface ResetPasswordContext extends BaseFormContext {
   username?: string;
   unverifiedAttributes?: Record<string, string>;
+  formFields?: FormFields;
 }
 
 export interface SignOutContext {
@@ -110,6 +111,7 @@ export interface SignOutContext {
   challengeName?: string;
   unverifiedAttributes?: Record<string, string>;
   user?: CognitoUserAmplify;
+  formFields?: FormFields;
 }
 
 // actors that have forms. Has `formValues, remoteErrror, and validationError in common.

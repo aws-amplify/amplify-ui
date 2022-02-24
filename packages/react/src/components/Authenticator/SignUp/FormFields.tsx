@@ -1,5 +1,6 @@
 import {
   getActorContext,
+  getActorState,
   LoginMechanism,
   SignUpContext,
   translate,
@@ -20,18 +21,56 @@ export function FormFields() {
     new Set([...loginMechanisms, ...signUpAttributes])
   );
 
+  const formOverrides = getActorState(_state).context.formFields.signUp;
+
   // Only 1 is supported, so `['email', 'phone_number']` will only show `email`
   const loginMechanism = fieldNames.shift() as LoginMechanism;
+
+  const userOR = formOverrides?.[loginMechanism];
+  const passwordOR = formOverrides?.['password'];
+  const cPasswordOR = formOverrides?.['confirm_password'];
 
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
     const { name } = event.target;
     updateBlur({ name });
   };
 
+  interface fieldProps {
+    labelHidden: boolean;
+    isRequired: boolean;
+    label: string;
+    placeholder: string;
+  }
+
+  const propsCreator = (name: string, show: string): fieldProps => {
+    const fo = formOverrides?.[name];
+    return {
+      labelHidden: fo?.labelHidden ?? false,
+      isRequired: fo?.required ?? true,
+      label: fo?.label ?? translate(show),
+      placeholder: fo?.placeholder ?? translate(show),
+    };
+  };
+
+  const phonePropsCreator = (name: string, show: string) => {
+    const fo = formOverrides?.[name];
+    return {
+      ...propsCreator(name, show),
+      defaultCountryCode: fo?.dialCode ?? country_code,
+      dialCodeList: fo?.dialCodeList,
+    };
+  };
+
   return (
     <>
       <UserNameAliasComponent
         alias={loginMechanism}
+        labelHidden={userOR?.labelHidden}
+        placeholder={userOR?.placeholder}
+        required={userOR?.required}
+        label={userOR?.label}
+        dialCode={userOR?.dialCode}
+        dialCodeList={userOR?.dialCodeList}
         data-amplify-usernamealias
       />
 
@@ -39,22 +78,22 @@ export function FormFields() {
         autoComplete="new-password"
         data-amplify-password
         hasError={!!validationError['confirm_password']}
-        isRequired
+        isRequired={passwordOR?.required ?? true}
         name="password"
-        label={translate('Password')}
-        labelHidden={true}
-        placeholder={translate('Password')}
+        label={passwordOR?.label ?? translate('Password')}
+        labelHidden={passwordOR?.labelHidden ?? true}
+        placeholder={passwordOR?.placeholder ?? translate('Password')}
         onBlur={handleBlur}
       />
 
       <PasswordField
         autoComplete="new-password"
         data-amplify-confirmpassword
-        placeholder={translate('Confirm Password')}
+        placeholder={cPasswordOR?.placeholder ?? translate('Confirm Password')}
         hasError={!!validationError['confirm_password']}
-        isRequired
-        label={translate('Confirm Password')}
-        labelHidden={true}
+        isRequired={cPasswordOR?.required ?? true}
+        label={cPasswordOR?.label ?? translate('Confirm Password')}
+        labelHidden={cPasswordOR?.labelHidden ?? true}
         name="confirm_password"
         onBlur={handleBlur}
       />
@@ -71,12 +110,10 @@ export function FormFields() {
           case 'birthdate':
             return (
               <TextField
+                {...propsCreator('birthdate', 'Birthdate')}
                 autoComplete="bday"
                 key={name}
-                isRequired
-                label={translate('Birthdate')}
                 name={name}
-                placeholder={translate('Birthdate')}
                 type="date"
               />
             );
@@ -84,12 +121,10 @@ export function FormFields() {
           case 'email':
             return (
               <TextField
+                {...propsCreator('email', 'Email')}
                 autoComplete="email"
                 key={name}
-                isRequired
-                label={translate('Email')}
                 name={name}
-                placeholder={translate('Email')}
                 type="email"
               />
             );
@@ -98,11 +133,9 @@ export function FormFields() {
             return (
               <TextField
                 autoComplete="family-name"
+                {...propsCreator('family_name', 'Family Name')}
                 key={name}
-                isRequired
-                label={translate('Family Name')}
                 name={name}
-                placeholder={translate('Family Name')}
               />
             );
 
@@ -110,11 +143,9 @@ export function FormFields() {
             return (
               <TextField
                 autoComplete="given-name"
+                {...propsCreator('given_name', 'Given Name')}
                 key={name}
-                isRequired
-                label={translate('Given Name')}
                 name={name}
-                placeholder={translate('Given Name')}
               />
             );
 
@@ -122,11 +153,9 @@ export function FormFields() {
             return (
               <TextField
                 autoComplete="additional-name"
+                {...propsCreator('middle_namme', 'Middle Name')}
                 key={name}
-                isRequired
-                label={translate('Middle Name')}
                 name={name}
-                placeholder={translate('Middle Name')}
               />
             );
 
@@ -134,22 +163,18 @@ export function FormFields() {
             return (
               <TextField
                 autoComplete="name"
+                {...propsCreator('name', 'Name')}
                 key={name}
-                isRequired
-                label={translate('Name')}
                 name={name}
-                placeholder={translate('Name')}
               />
             );
 
           case 'nickname':
             return (
               <TextField
+                {...propsCreator('nickname', 'Nickname')}
                 key={name}
-                isRequired
-                label={translate('Nickname')}
                 name={name}
-                placeholder={translate('Nickname')}
               />
             );
 
@@ -157,26 +182,19 @@ export function FormFields() {
             return (
               <PhoneNumberField
                 autoComplete="tel"
+                {...phonePropsCreator('phone_number', 'Phone Number')}
                 countryCodeName="country_code"
-                defaultCountryCode={country_code}
-                // errorMessage={error}
-                isRequired
-                label={translate('Phone Number')}
                 key={name}
                 name={name}
-                placeholder={translate('Phone Number')}
               />
             );
 
           case 'preferred_username':
             return (
               <TextField
-                isRequired
+                {...propsCreator('preferred_username', 'Preferred Username')}
                 key={name}
-                label={translate('Preferred Username')}
                 name={name}
-                placeholder={translate('Preferred Username')}
-                required
               />
             );
 
@@ -184,11 +202,9 @@ export function FormFields() {
             return (
               <TextField
                 autoComplete="url"
-                isRequired
+                {...propsCreator('profile', 'Profile')}
                 key={name}
-                label={translate('Profile')}
                 name={name}
-                placeholder={translate('Profile')}
                 type="url"
               />
             );
@@ -197,11 +213,9 @@ export function FormFields() {
             return (
               <TextField
                 autoComplete="url"
-                isRequired
+                {...propsCreator('website', 'Website')}
                 key={name}
-                label={translate('Website')}
                 name="website"
-                placeholder={translate('Website')}
                 type="url"
               />
             );

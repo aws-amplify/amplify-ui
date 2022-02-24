@@ -186,9 +186,74 @@ const components = {
   },
 };
 
+const formFields = {
+  signIn: {
+    username: {
+      labelHidden: false,
+      placeholder: 'Enter your email',
+    },
+  },
+  signUp: {
+    password: {
+      labelHidden: false,
+      label: 'Password:',
+      placeholder: 'Enter your Password:',
+      required: false,
+    },
+    confirm_password: {
+      labelHidden: false,
+      label: 'Confirm Password:',
+    },
+  },
+  forceNewPassword: {
+    password: {
+      labelHidden: false,
+      placeholder: 'Enter your Password:',
+    },
+  },
+  resetPassword: {
+    username: {
+      labelHidden: false,
+      placeholder: 'Enter your email:',
+    },
+  },
+  confirmResetPassword: {
+    confirmation_code: {
+      labelHidden: false,
+      placeholder: 'Enter your Confirmation Code:',
+      label: 'New Label',
+      required: false,
+    },
+    confirm_password: {
+      labelHidden: false,
+      placeholder: 'Enter your Password Please:',
+    },
+  },
+  setupTOTP: {
+    QR: {
+      totpIssuer: 'test issuer',
+      totpUsername: 'amlify_qr_test_user',
+    },
+    confirmation_code: {
+      labelHidden: false,
+      label: 'New Label',
+      placeholder: 'Enter your Confirmation Code:',
+      required: false,
+    },
+  },
+  confirmSignIn: {
+    confirmation_code: {
+      labelHidden: false,
+      label: 'New Label',
+      placeholder: 'Enter your Confirmation Code:',
+      required: false,
+    },
+  },
+};
+
 export default function App() {
   return (
-    <Authenticator components={components}>
+    <Authenticator formFields={formFields} components={components}>
       {({ signOut }) => <button onClick={signOut}>Sign out</button>}
     </Authenticator>
   );
