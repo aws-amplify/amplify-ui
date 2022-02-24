@@ -2,13 +2,11 @@ import * as React from 'react';
 
 import {
   CheckboxField,
+  Flex,
   SelectField,
   TableProps,
   TextField,
 } from '@aws-amplify/ui-react';
-
-import { DemoBox } from './DemoBox';
-import { FieldLabeler } from './FieldLabeler';
 
 export interface TablePropControlsProps extends TableProps {
   setCaption: (value: React.SetStateAction<TableProps['caption']>) => void;
@@ -32,7 +30,7 @@ export const TablePropControls: TablePropControlsInterface = ({
   size,
   variation,
 }) => (
-  <DemoBox primitiveName="Table">
+  <Flex direction="column">
     <TextField
       id="caption-control"
       label="caption"
@@ -49,35 +47,27 @@ export const TablePropControls: TablePropControlsInterface = ({
       label="highlightOnHover"
       onChange={(e) => setHighlightOnHover(e.target.checked)}
     />
-    <FieldLabeler id="size">
-      <SelectField
-        id="size"
-        name="size"
-        label="size"
-        labelHidden
-        placeholder="(default)"
-        value={size}
-        onChange={(e) => setSize(e.target.value as TableProps['size'])}
-      >
-        <option value="small">small</option>
-        <option value="large">large</option>
-      </SelectField>
-    </FieldLabeler>
-    <FieldLabeler id="variation">
-      <SelectField
-        id="variation"
-        name="variation"
-        label="variation"
-        labelHidden
-        placeholder="(default)"
-        value={variation}
-        onChange={(e) =>
-          setVariation(e.target.value as TableProps['variation'])
-        }
-      >
-        <option value="bordered">bordered</option>
-        <option value="striped">striped</option>
-      </SelectField>
-    </FieldLabeler>
-  </DemoBox>
+    <SelectField
+      id="size"
+      name="size"
+      label="size"
+      placeholder="(default)"
+      value={size}
+      onChange={(e) => setSize(e.target.value as TableProps['size'])}
+    >
+      <option value="small">small</option>
+      <option value="large">large</option>
+    </SelectField>
+    <SelectField
+      id="variation"
+      name="variation"
+      label="variation"
+      placeholder="(default)"
+      value={variation}
+      onChange={(e) => setVariation(e.target.value as TableProps['variation'])}
+    >
+      <option value="bordered">bordered</option>
+      <option value="striped">striped</option>
+    </SelectField>
+  </Flex>
 );

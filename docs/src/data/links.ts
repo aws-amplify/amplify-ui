@@ -152,7 +152,11 @@ export const layoutComponents = [
     body: `A layout container using Flexbox.`,
   },
   { href: '/components/grid', label: 'Grid', body: `` },
-  { href: '/components/table', label: 'Table', body: `` },
+  {
+    href: '/components/table',
+    label: 'Table',
+    body: `The Table primitive provides users with a styled and customizable table element.`,
+  },
   {
     href: '/components/expander',
     label: 'Expander',
