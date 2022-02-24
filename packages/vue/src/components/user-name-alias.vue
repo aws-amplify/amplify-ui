@@ -6,7 +6,7 @@
     style="flex-direction: column"
   >
     <base-label
-      class="amplify-label sr-only"
+      class="amplify-label amplify-visually-hidden"
       for="amplify-field-601d"
       v-bind="$attrs"
     >
@@ -25,7 +25,10 @@
             "
             style="flex-direction: column"
           >
-            <base-label class="amplify-label sr-only" for="amplify-field-1177">
+            <base-label
+              class="amplify-label amplify-visually-hidden"
+              for="amplify-field-1177"
+            >
               {{ 'Country Code' }}
             </base-label>
             <base-wrapper class="amplify-select__wrapper">

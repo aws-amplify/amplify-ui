@@ -10,6 +10,31 @@ import { SelectFieldProps, Primitive } from '../types';
 import { splitPrimitiveProps } from '../shared/styleUtils';
 import { useStableId } from '../shared/utils';
 
+interface SelectFieldChildrenProps {
+  children?: React.ReactNode;
+  options?: SelectFieldProps['options'];
+}
+
+const selectFieldChildren = ({
+  children,
+  options,
+}: SelectFieldChildrenProps) => {
+  if (children) {
+    if (options?.length) {
+      console.warn(
+        'Amplify UI: <SelectField> component  defaults to rendering children over `options`. When using the `options` prop, omit children.'
+      );
+    }
+    return children;
+  }
+
+  return options?.map((option, index) => (
+    <option label={option} value={option} key={`${option}-${index}`}>
+      {option}
+    </option>
+  ));
+};
+
 const SelectFieldPrimitive: Primitive<SelectFieldProps, 'select'> = (
   props,
   ref
@@ -23,12 +48,14 @@ const SelectFieldPrimitive: Primitive<SelectFieldProps, 'select'> = (
     id,
     label,
     labelHidden = false,
+    options,
     size,
     testId,
     ..._rest
   } = props;
 
   const fieldId = useStableId(id);
+  const descriptionId = useStableId();
 
   const { flexContainerStyleProps, baseStyleProps, rest } =
     splitPrimitiveProps(_rest);
@@ -49,11 +76,19 @@ const SelectFieldPrimitive: Primitive<SelectFieldProps, 'select'> = (
         {label}
       </Label>
       <FieldDescription
+        id={descriptionId}
         labelHidden={labelHidden}
         descriptiveText={descriptiveText}
       />
-      <Select hasError={hasError} id={fieldId} ref={ref} size={size} {...rest}>
-        {children}
+      <Select
+        aria-describedby={descriptionId}
+        hasError={hasError}
+        id={fieldId}
+        ref={ref}
+        size={size}
+        {...rest}
+      >
+        {selectFieldChildren({ children, options })}
       </Select>
       <FieldErrorMessage hasError={hasError} errorMessage={errorMessage} />
     </Flex>

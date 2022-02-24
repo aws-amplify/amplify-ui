@@ -7,6 +7,22 @@ Feature: Sign In with SMS MFA
   Background:
     Given I'm running the example "ui/components/authenticator/sign-in-sms-mfa"
 
+
+@angular @react @vue
+  Scenario: Sign in with with sms mfa and check mocked name attribute
+    When I select my country code with status "CONFIRMED"
+    And I type my "phone number" with status "CONFIRMED"
+    And I type my password
+    And I click the "Sign in" button
+    Then I see "Confirm SMS Code"
+    And I type a valid SMS confirmation code
+    And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmSignUp" } }' with fixture "confirm-sign-up-with-email"
+    And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }' with fixture "confirm-sign-in-sms-mfa"
+    And I mock 'Amplify.Auth.currentAuthenticatedUser' with fixture "Auth.currentAuthenticatedUser-sms-mfa"
+    And I click the "Confirm" button
+    Then I see "testName"
+
+
   @angular @react @vue
   Scenario: Sign in using a valid phone number and SMS MFA
     When I select my country code with status "CONFIRMED"
@@ -56,3 +72,5 @@ Feature: Sign In with SMS MFA
     Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }' with fixture "force-change-password-sms-mfa"
     And I click the "Change Password" button
     Then I see "Confirm SMS Code"
+
+

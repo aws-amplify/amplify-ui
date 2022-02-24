@@ -2,7 +2,7 @@
 /// <reference types="cypress" />
 /// <reference types="../../support/commands" />
 
-import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { And, Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
 import { get, escapeRegExp } from 'lodash';
 
 let language = 'en-US';
@@ -51,6 +51,12 @@ Given('I verify the body has {string} included', (value: string) => {
   cy.wait('@route').its('request.body.Username').should('include', value);
 });
 
+Given('I verify the body starts with {string}', (value: string) => {
+  cy.wait('@route')
+    .its('request.body.Username')
+    .should('match', new RegExp(`^${escapeRegExp(value)}`));
+});
+
 Given(
   'I intercept {string} with error fixture {string}',
   (json: string, fixture: string) => {
@@ -96,12 +102,11 @@ When('I type a new {string}', (field: string) => {
   cy.findInputField(field).typeAliasWithStatus(field, `${Date.now()}`);
 });
 
-When(
-  'I type a new {string} with value {string}',
-  (field: string, value: string) => {
-    cy.findInputField(field).type(value);
-  }
-);
+const typeInInputHandler = (field: string, value: string) => {
+  cy.findInputField(field).type(value);
+};
+When('I type a new {string} with value {string}', typeInInputHandler);
+And('I type a new {string} with value {string}', typeInInputHandler);
 
 When('I click the {string} tab', (label: string) => {
   cy.findByRole('tab', {
@@ -113,6 +118,12 @@ When('I click the {string} button', (name: string) => {
   cy.findByRole('button', {
     name: new RegExp(`^${escapeRegExp(name)}$`, 'i'),
   }).click();
+});
+
+Then('I see the {string} button', (name: string) => {
+  cy.findByRole('button', {
+    name: new RegExp(`^${escapeRegExp(name)}$`, 'i'),
+  }).should('be.visible');
 });
 
 When('I click the {string} checkbox', (label: string) => {
@@ -141,6 +152,10 @@ When('I click the {string} radio button', (label: string) => {
 
 When('I reload the page', () => {
   cy.reload();
+});
+
+Then('I see tab {string}', (search: string) => {
+  cy.findAllByRole('tab').first().should('be.visible').contains(search);
 });
 
 Then('I see {string}', (message: string) => {
@@ -197,6 +212,11 @@ Then('the {string} field is invalid', (name: string) => {
 When('I type a valid confirmation code', () => {
   // This should be intercepted & mocked
   cy.findByLabelText('Confirmation Code').type('validcode');
+});
+
+When('I type a valid SMS confirmation code', () => {
+  // This should be intercepted & mocked
+  cy.findByLabelText('Code *').type('validcode');
 });
 
 When('I type an invalid confirmation code', () => {

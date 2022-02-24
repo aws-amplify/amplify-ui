@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { computed, ComputedRef, useAttrs, toRefs } from 'vue';
+import { computed, useAttrs, toRefs } from 'vue';
 import {
   getAliasInfoFromContext,
-  ResetPasswordState,
+  getFormDataFromEvent,
   translate,
 } from '@aws-amplify/ui';
 
@@ -13,7 +13,7 @@ const attrs = useAttrs();
 const emit = defineEmits(['resetPasswordSubmit', 'backToSignInClicked']);
 
 const useAuthShared = createSharedComposable(useAuthenticator);
-const { state, send } = useAuthShared();
+const { state, send, submitForm } = useAuthShared();
 const { error, isPending } = toRefs(useAuthShared());
 
 const { label } = getAliasInfoFromContext(state.context);
@@ -35,11 +35,7 @@ const onResetPasswordSubmit = (e: Event): void => {
 };
 
 const submit = (e: Event): void => {
-  const formData = new FormData(<HTMLFormElement>e.target);
-  send({
-    type: 'SUBMIT',
-    data: Object.fromEntries(formData),
-  });
+  submitForm(getFormDataFromEvent(e));
 };
 
 const onInput = (e: Event): void => {
@@ -84,7 +80,10 @@ const onBackToSignInClicked = (): void => {
             class="amplify-flex amplify-field amplify-textfield"
             style="flex-direction: column"
           >
-            <base-label class="sr-only amplify-label" for="amplify-field-7dce">
+            <base-label
+              class="amplify-visually-hidden amplify-label"
+              for="amplify-field-7dce"
+            >
               {{ labelText }}
             </base-label>
             <base-wrapper class="amplify-flex">

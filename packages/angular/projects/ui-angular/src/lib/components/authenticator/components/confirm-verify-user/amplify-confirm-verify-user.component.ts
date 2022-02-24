@@ -1,5 +1,5 @@
 import { Component, HostBinding, Input } from '@angular/core';
-import { translate } from '@aws-amplify/ui';
+import { getFormDataFromEvent, translate } from '@aws-amplify/ui';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
 
 @Component({
@@ -31,6 +31,6 @@ export class ConfirmVerifyUserComponent {
 
   onSubmit(event: Event): void {
     event.preventDefault();
-    this.authenticator.submitForm();
+    this.authenticator.submitForm(getFormDataFromEvent(event));
   }
 }

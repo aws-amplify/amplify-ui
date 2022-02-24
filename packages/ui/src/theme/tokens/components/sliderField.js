@@ -23,7 +23,7 @@ module.exports = {
     width: { value: '1.25rem' },
     height: { value: '1.25rem' },
     backgroundColor: { value: '{colors.background.primary.value}' },
-    boxShadow: { value: '{shadows.medium.value}' },
+    boxShadow: { value: '{shadows.small.value}' },
     borderRadius: { value: '50%' },
     borderWidth: { value: '{borderWidths.small.value}' },
     borderColor: { value: '{colors.border.primary.value}' },

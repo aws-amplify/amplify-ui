@@ -18,7 +18,7 @@
               style="flex-direction: column"
             >
               <base-label
-                class="sr-only amplify-label"
+                class="amplify-visually-hidden amplify-label"
                 for="amplify-field-c34b"
                 >{{ confirmationCodeText }}</base-label
               >
@@ -76,9 +76,19 @@
 
 <script setup lang="ts">
 import { computed, ComputedRef, useAttrs } from 'vue';
-import { getActorState, SignInState, translate } from '@aws-amplify/ui';
+import { createSharedComposable } from '@vueuse/core';
 
-import { useAuth } from '../composables/useAuth';
+import {
+  getActorState,
+  getFormDataFromEvent,
+  SignInState,
+  translate,
+} from '@aws-amplify/ui';
+
+import { useAuth, useAuthenticator } from '../composables/useAuth';
+
+const useAuthShared = createSharedComposable(useAuthenticator);
+const props = useAuthShared();
 
 const attrs = useAttrs();
 const emit = defineEmits(['confirmVerifyUserSubmit', 'skipClicked']);
@@ -117,15 +127,7 @@ const onConfirmVerifyUserSubmit = (e: Event): void => {
 };
 
 const submit = (e: Event): void => {
-  const formData = new FormData(<HTMLFormElement>e.target);
-  send({
-    type: 'SUBMIT',
-    //@ts-ignore
-    data: {
-      //@ts-ignore
-      ...Object.fromEntries(formData),
-    },
-  });
+  props.submitForm(getFormDataFromEvent(e));
 };
 
 const onSkipClicked = (): void => {

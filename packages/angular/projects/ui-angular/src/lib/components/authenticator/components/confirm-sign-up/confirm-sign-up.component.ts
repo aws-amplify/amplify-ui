@@ -1,6 +1,6 @@
 import { Component, HostBinding, Input } from '@angular/core';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
-import { translate } from '@aws-amplify/ui';
+import { getFormDataFromEvent, translate } from '@aws-amplify/ui';
 @Component({
   selector: 'amplify-confirm-sign-up',
   templateUrl: './confirm-sign-up.component.html',
@@ -13,6 +13,16 @@ export class ConfirmSignUpComponent {
   // translated texts
   public resendCodeText = translate('Resend Code');
   public confirmText = translate('Confirm');
+  public emailMessage = translate(
+    'Your code is on the way. To log in, enter the code we emailed to'
+  );
+  public textedMessage = translate(
+    'Your code is on the way. To log in, enter the code we texted to'
+  );
+  public defaultMessage = translate(
+    'Your code is on the way. To log in, enter the code we sent you. It may take a minute to arrive.'
+  );
+  public minutesMessage = translate('It may take a minute to arrive.');
 
   constructor(public authenticator: AuthenticatorService) {}
 
@@ -33,12 +43,10 @@ export class ConfirmSignUpComponent {
     const { codeDeliveryDetails: { DeliveryMedium, Destination } = {} } =
       this.authenticator;
     return DeliveryMedium === 'EMAIL'
-      ? `Your code is on the way. To log in, enter the code we emailed to ${Destination}. It may take a minute to arrive.`
+      ? `${this.emailMessage} ${Destination}. ${this.minutesMessage}`
       : DeliveryMedium === 'SMS'
-      ? `Your code is on the way. To log in, enter the code we texted to ${Destination}. It may take a minute to arrive.`
-      : translate(
-          `Your code is on the way. To log in, enter the code we sent you. It may take a minute to arrive.`
-        );
+      ? `${this.textedMessage} ${Destination}. ${this.minutesMessage}`
+      : translate(`${this.defaultMessage}`);
   }
 
   onInput(event: Event) {
@@ -49,6 +57,6 @@ export class ConfirmSignUpComponent {
 
   onSubmit(event: Event): void {
     event.preventDefault();
-    this.authenticator.submitForm();
+    this.authenticator.submitForm(getFormDataFromEvent(event));
   }
 }

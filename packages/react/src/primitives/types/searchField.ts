@@ -1,4 +1,5 @@
-import React from 'react';
+import * as React from 'react';
+
 import { FieldGroupIconButtonProps } from './fieldGroupIcon';
 import { TextInputFieldProps } from './textField';
 
