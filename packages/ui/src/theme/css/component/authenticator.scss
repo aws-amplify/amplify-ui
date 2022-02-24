@@ -19,9 +19,9 @@
 
   & [data-amplify-container] {
     /* Fix z-index of texture being over the Authenticator */
-    place-self: var(--amplify-components-authenticator-container-place-self);
+    place-self: center;
     width: var(--amplify-components-authenticator-container-width-handheld);
-    @media (min-width: 30rem) {
+    @media (min-width: var(--amplify-components-authenticator-container-width-max)) {
       width: var(--amplify-components-authenticator-container-width-desktop);
       max-width: var(--amplify-components-authenticator-container-width-max);
     }
