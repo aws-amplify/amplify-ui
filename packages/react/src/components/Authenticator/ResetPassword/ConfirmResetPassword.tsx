@@ -1,5 +1,6 @@
 import {
   getActorContext,
+  getActorState,
   ResetPasswordContext,
   translate,
 } from '@aws-amplify/ui';
@@ -16,6 +17,8 @@ import {
   isInputOrSelectElement,
   isInputElement,
   getFormDataFromEvent,
+  confPropsCreator,
+  propsCreator,
 } from '../../../helpers/utils';
 
 export const ConfirmResetPassword = (): JSX.Element => {
@@ -31,9 +34,8 @@ export const ConfirmResetPassword = (): JSX.Element => {
   const { _state, submitForm, updateForm, updateBlur, isPending } =
     useAuthenticator();
   const { validationError } = getActorContext(_state) as ResetPasswordContext;
-
-  const passwordText = translate('New password');
-  const confirmPasswordLabel = translate('Confirm Password');
+  const formOverrides =
+    getActorState(_state).context?.formFields?.confirmResetPassword;
 
   const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
     if (isInputOrSelectElement(event.target)) {
@@ -76,25 +78,31 @@ export const ConfirmResetPassword = (): JSX.Element => {
         <Header />
 
         <Flex direction="column">
-          <ConfirmationCodeInput />
+          <ConfirmationCodeInput
+            {...confPropsCreator(
+              'confirmation_code',
+              'Code',
+              'Code *',
+              formOverrides
+            )}
+          />
 
           <PasswordField
             data-amplify-password
+            {...propsCreator('password', 'Password', formOverrides, true)}
             className="password-field"
-            placeholder={passwordText}
-            required
             name="password"
-            label={passwordText}
-            labelHidden={true}
             onBlur={handleBlur}
           />
           <PasswordField
             data-amplify-confirmpassword
-            placeholder={confirmPasswordLabel}
-            required
+            {...propsCreator(
+              'confirm_password',
+              'Confirm Password',
+              formOverrides,
+              true
+            )}
             name="confirm_password"
-            label={confirmPasswordLabel}
-            labelHidden={true}
             hasError={!!validationError['confirm_password']}
             onBlur={handleBlur}
           />

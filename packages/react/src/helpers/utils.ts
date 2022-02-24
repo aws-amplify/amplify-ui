@@ -1,3 +1,4 @@
+import { formField, translate } from '@aws-amplify/ui';
 export const isDevelopment = () => process.env.NODE_ENV !== 'production';
 
 export const isInputOrSelectElement = (
@@ -59,4 +60,58 @@ export const getFormDataFromEvent = (
 ) => {
   const formData = new FormData(event.target as HTMLFormElement);
   return Object.fromEntries(formData);
+};
+
+interface fieldProps {
+  labelHidden: boolean;
+  isRequired?: boolean;
+  label: string;
+  placeholder: string;
+  required?: boolean; // TextField input sometimes uses required instead of isRequired
+}
+
+// base props creator for formFields prop
+export const propsCreator = (
+  name: string,
+  show: string,
+  formOverrides: formField,
+  labelHiddenDefault: boolean = false
+): fieldProps => {
+  const fo = formOverrides?.[name];
+  return {
+    labelHidden: fo?.labelHidden ?? labelHiddenDefault,
+    isRequired: fo?.required ?? true,
+    label: fo?.label ?? translate(show),
+    placeholder: fo?.placeholder ?? translate(show),
+  };
+};
+
+// props creator for Confirmation Codes
+export const confPropsCreator = (
+  name: string,
+  showPlaceholder: string,
+  showLabel: string,
+  formOverrides: formField
+): fieldProps => {
+  const fo = formOverrides?.[name];
+  return {
+    ...propsCreator(name, showPlaceholder, formOverrides, true),
+    required: fo?.required ?? true,
+    label: fo?.label ?? translate(showLabel),
+  };
+};
+
+// props creator for phone
+export const phonePropsCreator = (
+  name: string,
+  show: string,
+  formOverrides: formField,
+  country_code: string
+) => {
+  const fo = formOverrides?.[name];
+  return {
+    ...propsCreator(name, show, formOverrides),
+    defaultCountryCode: fo?.dialCode ?? country_code,
+    dialCodeList: fo?.dialCodeList,
+  };
 };

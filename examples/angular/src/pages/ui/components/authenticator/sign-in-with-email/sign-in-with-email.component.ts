@@ -10,4 +10,15 @@ export class SignInWithEmailComponent {
   constructor() {
     Amplify.configure(awsExports);
   }
+
+  public formFields = {
+    confirmVerifyUser: {
+      confirmation_code: {
+        labelHidden: false,
+        label: 'New Label',
+        placeholder: 'Enter your Confirmation Code:',
+        required: false,
+      },
+    },
+  };
 }

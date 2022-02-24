@@ -9,6 +9,7 @@ import {
 import { useAuthenticator } from '..';
 import { PasswordField, PhoneNumberField, Text, TextField } from '../../..';
 import { UserNameAlias as UserNameAliasComponent } from '../shared';
+import { propsCreator, phonePropsCreator } from '../../../helpers/utils';
 
 export function FormFields() {
   const { _state, updateForm, updateBlur } = useAuthenticator();
@@ -21,44 +22,16 @@ export function FormFields() {
     new Set([...loginMechanisms, ...signUpAttributes])
   );
 
-  const formOverrides = getActorState(_state).context.formFields.signUp;
+  const formOverrides = getActorState(_state).context?.formFields?.signUp;
 
   // Only 1 is supported, so `['email', 'phone_number']` will only show `email`
   const loginMechanism = fieldNames.shift() as LoginMechanism;
 
   const userOR = formOverrides?.[loginMechanism];
-  const passwordOR = formOverrides?.['password'];
-  const cPasswordOR = formOverrides?.['confirm_password'];
 
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
     const { name } = event.target;
     updateBlur({ name });
-  };
-
-  interface fieldProps {
-    labelHidden: boolean;
-    isRequired: boolean;
-    label: string;
-    placeholder: string;
-  }
-
-  const propsCreator = (name: string, show: string): fieldProps => {
-    const fo = formOverrides?.[name];
-    return {
-      labelHidden: fo?.labelHidden ?? false,
-      isRequired: fo?.required ?? true,
-      label: fo?.label ?? translate(show),
-      placeholder: fo?.placeholder ?? translate(show),
-    };
-  };
-
-  const phonePropsCreator = (name: string, show: string) => {
-    const fo = formOverrides?.[name];
-    return {
-      ...propsCreator(name, show),
-      defaultCountryCode: fo?.dialCode ?? country_code,
-      dialCodeList: fo?.dialCodeList,
-    };
   };
 
   return (
@@ -77,23 +50,22 @@ export function FormFields() {
       <PasswordField
         autoComplete="new-password"
         data-amplify-password
+        {...propsCreator('password', 'Password', formOverrides, true)}
         hasError={!!validationError['confirm_password']}
-        isRequired={passwordOR?.required ?? true}
         name="password"
-        label={passwordOR?.label ?? translate('Password')}
-        labelHidden={passwordOR?.labelHidden ?? true}
-        placeholder={passwordOR?.placeholder ?? translate('Password')}
         onBlur={handleBlur}
       />
 
       <PasswordField
         autoComplete="new-password"
         data-amplify-confirmpassword
-        placeholder={cPasswordOR?.placeholder ?? translate('Confirm Password')}
+        {...propsCreator(
+          'confirm_password',
+          'Confirm Password',
+          formOverrides,
+          true
+        )}
         hasError={!!validationError['confirm_password']}
-        isRequired={cPasswordOR?.required ?? true}
-        label={cPasswordOR?.label ?? translate('Confirm Password')}
-        labelHidden={cPasswordOR?.labelHidden ?? true}
         name="confirm_password"
         onBlur={handleBlur}
       />
@@ -110,7 +82,7 @@ export function FormFields() {
           case 'birthdate':
             return (
               <TextField
-                {...propsCreator('birthdate', 'Birthdate')}
+                {...propsCreator('birthdate', 'Birthdate', formOverrides)}
                 autoComplete="bday"
                 key={name}
                 name={name}
@@ -121,7 +93,7 @@ export function FormFields() {
           case 'email':
             return (
               <TextField
-                {...propsCreator('email', 'Email')}
+                {...propsCreator('email', 'Email', formOverrides)}
                 autoComplete="email"
                 key={name}
                 name={name}
@@ -133,7 +105,7 @@ export function FormFields() {
             return (
               <TextField
                 autoComplete="family-name"
-                {...propsCreator('family_name', 'Family Name')}
+                {...propsCreator('family_name', 'Family Name', formOverrides)}
                 key={name}
                 name={name}
               />
@@ -143,7 +115,7 @@ export function FormFields() {
             return (
               <TextField
                 autoComplete="given-name"
-                {...propsCreator('given_name', 'Given Name')}
+                {...propsCreator('given_name', 'Given Name', formOverrides)}
                 key={name}
                 name={name}
               />
@@ -153,7 +125,7 @@ export function FormFields() {
             return (
               <TextField
                 autoComplete="additional-name"
-                {...propsCreator('middle_namme', 'Middle Name')}
+                {...propsCreator('middle_namme', 'Middle Name', formOverrides)}
                 key={name}
                 name={name}
               />
@@ -163,7 +135,7 @@ export function FormFields() {
             return (
               <TextField
                 autoComplete="name"
-                {...propsCreator('name', 'Name')}
+                {...propsCreator('name', 'Name', formOverrides)}
                 key={name}
                 name={name}
               />
@@ -172,7 +144,7 @@ export function FormFields() {
           case 'nickname':
             return (
               <TextField
-                {...propsCreator('nickname', 'Nickname')}
+                {...propsCreator('nickname', 'Nickname', formOverrides)}
                 key={name}
                 name={name}
               />
@@ -182,7 +154,12 @@ export function FormFields() {
             return (
               <PhoneNumberField
                 autoComplete="tel"
-                {...phonePropsCreator('phone_number', 'Phone Number')}
+                {...phonePropsCreator(
+                  'phone_number',
+                  'Phone Number',
+                  formOverrides,
+                  country_code
+                )}
                 countryCodeName="country_code"
                 key={name}
                 name={name}
@@ -192,7 +169,11 @@ export function FormFields() {
           case 'preferred_username':
             return (
               <TextField
-                {...propsCreator('preferred_username', 'Preferred Username')}
+                {...propsCreator(
+                  'preferred_username',
+                  'Preferred Username',
+                  formOverrides
+                )}
                 key={name}
                 name={name}
               />
@@ -202,7 +183,7 @@ export function FormFields() {
             return (
               <TextField
                 autoComplete="url"
-                {...propsCreator('profile', 'Profile')}
+                {...propsCreator('profile', 'Profile', formOverrides)}
                 key={name}
                 name={name}
                 type="url"
@@ -213,7 +194,7 @@ export function FormFields() {
             return (
               <TextField
                 autoComplete="url"
-                {...propsCreator('website', 'Website')}
+                {...propsCreator('website', 'Website', formOverrides)}
                 key={name}
                 name="website"
                 type="url"

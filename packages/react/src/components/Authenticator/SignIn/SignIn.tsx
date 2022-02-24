@@ -10,6 +10,7 @@ import {
   isInputOrSelectElement,
 } from '../../../helpers/utils';
 import { useCustomComponents } from '../hooks/useCustomComponents';
+import { propsCreator } from '../../../helpers/utils';
 
 export function SignIn() {
   const { isPending, submitForm, updateForm, _state } = useAuthenticator();
@@ -19,9 +20,8 @@ export function SignIn() {
     },
   } = useCustomComponents();
 
-  const formOverrides = getActorState(_state).context.formFields.signIn;
+  const formOverrides = getActorState(_state).context?.formFields?.signIn;
   const userOR = formOverrides?.['username'];
-  const passwordOR = formOverrides?.['password'];
 
   const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
     if (isInputOrSelectElement(event.target)) {
@@ -73,12 +73,9 @@ export function SignIn() {
             <PasswordField
               data-amplify-password
               className="password-field"
-              placeholder={passwordOR?.placeholder ?? translate('Password')}
-              isRequired={passwordOR?.required ?? true}
+              {...propsCreator('password', 'Password', formOverrides, true)}
               name="password"
-              label={passwordOR?.label ?? translate('Password')}
               autoComplete="current-password"
-              labelHidden={passwordOR?.labelHidden ?? true}
             />
           </fieldset>
 

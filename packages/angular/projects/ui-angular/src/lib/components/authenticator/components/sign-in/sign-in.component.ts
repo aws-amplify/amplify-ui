@@ -1,9 +1,16 @@
-import { Component, HostBinding, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  HostBinding,
+  OnInit,
+  ViewEncapsulation,
+} from '@angular/core';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
 import {
   translate,
   hasTranslation,
   getFormDataFromEvent,
+  getActorContext,
+  getActorState,
 } from '@aws-amplify/ui';
 
 @Component({
@@ -11,7 +18,7 @@ import {
   templateUrl: './sign-in.component.html',
   encapsulation: ViewEncapsulation.None,
 })
-export class SignInComponent {
+export class SignInComponent implements OnInit {
   @HostBinding('attr.data-amplify-authenticator-signin') dataAttr = '';
 
   // translated phrases
@@ -22,6 +29,15 @@ export class SignInComponent {
   public signInButtonText = translate('Sign in');
 
   constructor(public authenticator: AuthenticatorService) {}
+
+  ngOnInit(): void {
+    this.setFormFields();
+  }
+
+  public setFormFields() {
+    const _state = this.authenticator.authState;
+    const formOverrides = getActorState(_state).context?.formFields?.signIn;
+  }
 
   public get context() {
     return this.authenticator.slotContext;

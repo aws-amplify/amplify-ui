@@ -40,7 +40,7 @@ export class AuthenticatorService implements OnDestroy {
   }: AuthenticatorMachineOptions) {
     const machine = createAuthenticatorMachine();
 
-    const authService = interpret(machine).start();
+    const authService = interpret(machine, { devTools: true }).start();
 
     authService.send({
       type: 'INIT',

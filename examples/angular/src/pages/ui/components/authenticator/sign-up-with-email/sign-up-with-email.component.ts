@@ -23,6 +23,16 @@ export class SignUpWithEmailComponent implements OnInit {
     });
   }
 
+  public formFields = {
+    confirmSignUp: {
+      confirmation_code: {
+        labelHidden: false,
+        placeholder: 'Enter the code given',
+        required: true,
+      },
+    },
+  };
+
   services = {
     async handleSignUp(formData: Record<string, any>) {
       let { username, password, attributes } = formData;

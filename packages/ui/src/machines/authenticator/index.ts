@@ -284,6 +284,7 @@ export function createAuthenticatorMachine() {
               touched: {},
               intent: context.actorDoneData?.intent,
               username: context.actorDoneData?.authAttributes?.username,
+              formFields: context.config?.formFields,
               validationError: {},
             });
             return spawn(actor, { name: 'resetPasswordActor' });
