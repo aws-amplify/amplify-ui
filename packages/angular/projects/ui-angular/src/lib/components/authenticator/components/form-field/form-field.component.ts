@@ -30,9 +30,11 @@ export class FormFieldComponent implements OnInit {
   @Input() disabled = false;
   @Input() autocomplete = '';
   @Input() labelHidden = true;
+  @Input() defaultCountryCode: string;
+  @Input() dialCodeList: Array<string>;
 
-  public defaultCountryCode: string;
-  public countryDialCodes = countryDialCodes;
+  public defaultCountryCodeValue: string;
+  public countryDialCodesValue = countryDialCodes;
   public textFieldId: string;
   public selectFieldId: string;
 
@@ -43,7 +45,7 @@ export class FormFieldComponent implements OnInit {
     if (this.isPhoneField()) {
       const state = this.authenticator.authState;
       const { country_code }: ActorContextWithForms = getActorContext(state);
-      this.defaultCountryCode = country_code;
+      this.defaultCountryCodeValue = this.defaultCountryCode ?? country_code;
     }
   }
 

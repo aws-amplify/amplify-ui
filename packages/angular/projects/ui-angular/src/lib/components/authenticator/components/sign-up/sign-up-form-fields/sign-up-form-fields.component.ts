@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticatorService } from '../../../../../services/authenticator.service';
 import {
   authInputAttributes,
+  formField,
+  formFieldTypes,
+  getActorState,
   LoginMechanism,
   SignUpAttribute,
 } from '@aws-amplify/ui';
@@ -15,6 +18,9 @@ export class SignUpFormFieldsComponent implements OnInit {
   public secondaryAliases: string[] = [];
   public fieldNames: Array<LoginMechanism | SignUpAttribute>;
   public loginMechanism: LoginMechanism;
+
+  public userOR: formFieldTypes;
+  public formOverrides: formField;
 
   constructor(private authenticator: AuthenticatorService) {}
 
@@ -39,5 +45,16 @@ export class SignUpFormFieldsComponent implements OnInit {
 
     // Only 1 is supported, so `['email', 'phone_number']` will only show `email`
     this.loginMechanism = this.fieldNames.shift() as LoginMechanism;
+    this.setFormFields();
+  }
+
+  public setFormFields() {
+    const _state = this.authenticator.authState;
+    this.formOverrides = getActorState(_state).context?.formFields?.signUp;
+    this.userOR = this.formOverrides?.[this.loginMechanism];
+  }
+
+  public grabField(name: string, field: string, defaultV) {
+    return this.formOverrides?.[name]?.[field] ?? defaultV;
   }
 }

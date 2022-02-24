@@ -1,11 +1,15 @@
-import { Component, HostBinding, Input } from '@angular/core';
+import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
-import { getFormDataFromEvent, translate } from '@aws-amplify/ui';
+import {
+  getActorState,
+  getFormDataFromEvent,
+  translate,
+} from '@aws-amplify/ui';
 @Component({
   selector: 'amplify-confirm-sign-up',
   templateUrl: './confirm-sign-up.component.html',
 })
-export class ConfirmSignUpComponent {
+export class ConfirmSignUpComponent implements OnInit {
   @Input() headerText = translate('Confirm Sign Up');
 
   @HostBinding('attr.data-amplify-authenticator-confirmsignup') dataAttr = '';
@@ -23,8 +27,22 @@ export class ConfirmSignUpComponent {
     'Your code is on the way. To log in, enter the code we sent you. It may take a minute to arrive.'
   );
   public minutesMessage = translate('It may take a minute to arrive.');
+  public formOverrides: formField;
 
   constructor(public authenticator: AuthenticatorService) {}
+
+  ngOnInit(): void {
+    this.setFormFields();
+  }
+
+  public setFormFields() {
+    const _state = this.authenticator.authState;
+    this.formOverrides = getActorState(_state).context?.formFields?.signUp;
+  }
+
+  public grabField(name: string, field: string, defaultV) {
+    return this.formOverrides?.[name]?.[field] ?? defaultV;
+  }
 
   public get context() {
     return this.authenticator.slotContext;

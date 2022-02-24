@@ -9,8 +9,19 @@
       data-amplify-fieldset
       [disabled]="authenticator.isPending"
     >
-      <amplify-user-name-alias></amplify-user-name-alias>
+      <amplify-user-name-alias
+        [labelHidden]="labelHidden('username')"
+        [placeholder]="userOR?.placeholder"
+        [required]="required('username')"
+        [label]="userOR?.label"
+        [dialCode]="userOR?.dialCode"
+        [dialCodeList]="userOR?.dialCodeList"
+      ></amplify-user-name-alias>
       <amplify-form-field
+        [labelHidden]="labelHidden('password')"
+        [placeholder]="passwordOR?.placeholder"
+        [required]="required('password')"
+        [label]="passwordOR?.label"
         data-amplify-password
         name="password"
         type="password"
