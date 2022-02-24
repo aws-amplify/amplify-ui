@@ -18,6 +18,7 @@ import {
   setRemoteError,
   setCodeDeliveryDetails,
   setUser,
+  handleSubmit,
 } from './actions';
 import { defaultServices } from './defaultServices';
 
@@ -77,7 +78,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
                 idle: {
                   entry: sendUpdate(),
                   on: {
-                    SUBMIT: 'validate',
+                    SUBMIT: { actions: 'handleSubmit', target: 'validate' },
                     FEDERATED_SIGN_IN: 'federatedSignIn',
                   },
                 },
@@ -158,7 +159,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
             edit: {
               entry: sendUpdate(),
               on: {
-                SUBMIT: 'submit',
+                SUBMIT: { actions: 'handleSubmit', target: 'submit' },
                 CHANGE: { actions: 'handleInput' },
                 BLUR: { actions: 'handleBlur' },
                 RESEND: 'resend',
@@ -237,6 +238,7 @@ export function createSignUpMachine({ services }: SignUpMachineOptions) {
         clearTouched,
         clearValidationError,
         handleInput,
+        handleSubmit,
         handleBlur,
         parsePhoneNumber,
         setCredentials,

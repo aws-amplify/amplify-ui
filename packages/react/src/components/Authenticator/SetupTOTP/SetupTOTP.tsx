@@ -1,26 +1,37 @@
+import QRCode from 'qrcode';
+import * as React from 'react';
+
 import { Auth, Logger } from 'aws-amplify';
 import { getActorState, SignInState, translate } from '@aws-amplify/ui';
 
-import QRCode from 'qrcode';
-import { useEffect, useState } from 'react';
-
 import { useAuthenticator } from '..';
-import { Flex, Heading, Image } from '../../..';
-import { isInputOrSelectElement, isInputElement } from '../../../helpers/utils';
+import { Flex, Heading } from '../../..';
+import {
+  isInputOrSelectElement,
+  isInputElement,
+  getFormDataFromEvent,
+} from '../../../helpers/utils';
 
 import {
   ConfirmationCodeInput,
   ConfirmSignInFooter,
   RemoteErrorMessage,
 } from '../shared';
+import { useCustomComponents } from '../hooks/useCustomComponents';
 
 const logger = new Logger('SetupTOTP-logger');
 
 export const SetupTOTP = (): JSX.Element => {
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [qrCode, setQrCode] = useState<string>();
-  const [copyTextLabel, setCopyTextLabel] = useState<string>('COPY');
-  const [secretKey, setSecretKey] = useState<string>('');
+  const {
+    components: {
+      SetupTOTP: { Header = SetupTOTP.Header, Footer = SetupTOTP.Footer },
+    },
+  } = useCustomComponents();
+
+  const [isLoading, setIsLoading] = React.useState<boolean>(true);
+  const [qrCode, setQrCode] = React.useState<string>();
+  const [copyTextLabel, setCopyTextLabel] = React.useState<string>('COPY');
+  const [secretKey, setSecretKey] = React.useState<string>('');
   const { _state, submitForm, updateForm, isPending } = useAuthenticator();
 
   // `user` hasn't been set on the top-level state yet, so it's only available from the signIn actor
@@ -43,7 +54,7 @@ export const SetupTOTP = (): JSX.Element => {
     }
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (!user) return;
 
     generateQRCode(user);
@@ -66,7 +77,7 @@ export const SetupTOTP = (): JSX.Element => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    submitForm();
+    submitForm(getFormDataFromEvent(event));
   };
 
   const copyText = (): void => {
@@ -87,7 +98,7 @@ export const SetupTOTP = (): JSX.Element => {
         className="amplify-flex"
         disabled={isPending}
       >
-        <Heading level={3}>{translate('Setup TOTP')}</Heading>
+        <Header />
 
         <Flex direction="column">
           {/* TODO: Add spinner here instead of loading text... */}
@@ -125,7 +136,14 @@ export const SetupTOTP = (): JSX.Element => {
         </Flex>
 
         <ConfirmSignInFooter />
+        <Footer />
       </fieldset>
     </form>
   );
 };
+
+SetupTOTP.Header = () => {
+  return <Heading level={3}>{translate('Setup TOTP')}</Heading>;
+};
+
+SetupTOTP.Footer = (): JSX.Element => null;

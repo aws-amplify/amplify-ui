@@ -25,3 +25,8 @@ export const censorPhoneNumber = (val: string): string => {
 
   return split.join('');
 };
+
+export const getFormDataFromEvent = (event: Event) => {
+  const formData = new FormData(event.target as HTMLFormElement);
+  return Object.fromEntries(formData);
+};

@@ -1,5 +1,153 @@
 # @aws-amplify/ui-react
 
+## 2.6.1
+
+### Patch Changes
+
+- [#1382](https://github.com/aws-amplify/amplify-ui/pull/1382) [`3e82f7238`](https://github.com/aws-amplify/amplify-ui/commit/3e82f7238080d7e56add1f60854bdf6855b6a9ea) Thanks [@ErikCH](https://github.com/ErikCH)! - Added missing slots for React components
+
+* [#1388](https://github.com/aws-amplify/amplify-ui/pull/1388) [`c65565e4b`](https://github.com/aws-amplify/amplify-ui/commit/c65565e4b07219866be73cf9ed6fc2c39fc81c05) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - Fixes useDeprecationWarning hook
+
+## 2.6.0
+
+### Minor Changes
+
+- [#1355](https://github.com/aws-amplify/amplify-ui/pull/1355) [`19d5a6bfa`](https://github.com/aws-amplify/amplify-ui/commit/19d5a6bfab21eb5d952613ec8570287611d29497) Thanks [@zchenwei](https://github.com/zchenwei)! - feat: adding `isSelectionRequired` prop to `ToggleButtonGroup` primitive
+
+  **Example:**
+
+  ```jsx
+  import * as React from 'react';
+  import {
+    MdFormatBold,
+    MdFormatColorFill,
+    MdFormatItalic,
+    MdFormatUnderlined,
+  } from 'react-icons/md';
+  import { ToggleButton, ToggleButtonGroup } from '@aws-amplify/ui-react';
+
+  export const SelectionRequiredToggleButtonGroupExample = () => {
+    const [value, setValue] = React.useState('bold');
+    return (
+      <ToggleButtonGroup
+        value={value}
+        onChange={(value) => setValue(value as string)}
+        isExclusive
+        isSelectionRequired
+      >
+        <ToggleButton value="bold">
+          <MdFormatBold />
+        </ToggleButton>
+        <ToggleButton value="italic">
+          <MdFormatItalic />
+        </ToggleButton>
+        <ToggleButton value="underlined">
+          <MdFormatUnderlined />
+        </ToggleButton>
+        <ToggleButton value="color-fill">
+          <MdFormatColorFill />
+        </ToggleButton>
+      </ToggleButtonGroup>
+    );
+  };
+  ```
+
+### Patch Changes
+
+- [#1358](https://github.com/aws-amplify/amplify-ui/pull/1358) [`43c814db4`](https://github.com/aws-amplify/amplify-ui/commit/43c814db418865672730449ba8c983bcb7d94847) Thanks [@zchenwei](https://github.com/zchenwei)! - chore: updating all React imports from default to namespace
+
+* [#1368](https://github.com/aws-amplify/amplify-ui/pull/1368) [`c57a02349`](https://github.com/aws-amplify/amplify-ui/commit/c57a02349376b4fea82bc9f854971445aa01c676) Thanks [@zchenwei](https://github.com/zchenwei)! - style: cleaning up sr-only class
+
+- [#1366](https://github.com/aws-amplify/amplify-ui/pull/1366) [`e73e0276f`](https://github.com/aws-amplify/amplify-ui/commit/e73e0276f8b1707cd01e24d55bd023b4a2347625) Thanks [@wlee221](https://github.com/wlee221)! - Pass `formData` to `submitForm` event on submit. This will ensure any default form values are submitted to Cognito, without relying on `CHANGE` events.
+
+* [#1357](https://github.com/aws-amplify/amplify-ui/pull/1357) [`65ed5351f`](https://github.com/aws-amplify/amplify-ui/commit/65ed5351f2ca850ddf7db0c9a002ff563351f138) Thanks [@ErikCH](https://github.com/ErikCH)! - Added new translations for confirm sign up page
+
+- [#1371](https://github.com/aws-amplify/amplify-ui/pull/1371) [`1a2f8a732`](https://github.com/aws-amplify/amplify-ui/commit/1a2f8a732952c0e76e91b3b2c8472e3c0eed2af8) Thanks [@reesscot](https://github.com/reesscot)! - feat: add new TextAreaField primitive (replaces TextField `isMultiline` feature)
+
+  **Example**
+
+  ```
+  <TextAreaField
+    descriptiveText="Enter a valid last name"
+    label="Last name"
+    name="last_name"
+    placeholder="Baggins"
+    rows="3"
+    onChange={(e) => console.info(e.currentTarget.value)}
+  />
+  ```
+
+- Updated dependencies [[`fbfcd04d3`](https://github.com/aws-amplify/amplify-ui/commit/fbfcd04d36753a69d24d5576736a9082f1a66dbe), [`c57a02349`](https://github.com/aws-amplify/amplify-ui/commit/c57a02349376b4fea82bc9f854971445aa01c676), [`e73e0276f`](https://github.com/aws-amplify/amplify-ui/commit/e73e0276f8b1707cd01e24d55bd023b4a2347625), [`929cb8f76`](https://github.com/aws-amplify/amplify-ui/commit/929cb8f768d9a95b3854d7fa87b08a83af72c96c)]:
+  - @aws-amplify/ui@3.0.15
+
+## 2.5.0
+
+### Minor Changes
+
+- [#1342](https://github.com/aws-amplify/amplify-ui/pull/1342) [`7a675ac73`](https://github.com/aws-amplify/amplify-ui/commit/7a675ac731843333882165c5602c1f996df2eb52) Thanks [@joebuono](https://github.com/joebuono)! - Add `options` prop to <SelectField>
+
+  Example:
+  <SelectField
+  options=['lions', 'tigers', 'bears']
+
+  > </SelectField>
+
+### Patch Changes
+
+- [#1340](https://github.com/aws-amplify/amplify-ui/pull/1340) [`43d8106d3`](https://github.com/aws-amplify/amplify-ui/commit/43d8106d378e0438326f8992b4b1bfe73d91f5d8) Thanks [@joebuono](https://github.com/joebuono)! - Allow Content-less TabItem
+
+* [#1320](https://github.com/aws-amplify/amplify-ui/pull/1320) [`94d09948a`](https://github.com/aws-amplify/amplify-ui/commit/94d09948ac9d36a49b1872751f0587e73413bd99) Thanks [@wlee221](https://github.com/wlee221)! - Re-export `translations` from ui-[framework] packages. This lets you use `translations` directly:
+
+  ```diff
+  - import { translations } from '@aws-amplify/ui';
+  + import { translations } from '@aws-amplify/ui-[framework]';
+  ```
+
+- [#1321](https://github.com/aws-amplify/amplify-ui/pull/1321) [`e85c0db5c`](https://github.com/aws-amplify/amplify-ui/commit/e85c0db5cd6a3c4f9924466afb5e7e5e7dbbeea3) Thanks [@zchenwei](https://github.com/zchenwei)! - chore: using aria-describedby on field controls
+
+- Updated dependencies [[`722e2a932`](https://github.com/aws-amplify/amplify-ui/commit/722e2a93263478aed2a9aee872ab1fcbc86b41ca), [`4c6d198e4`](https://github.com/aws-amplify/amplify-ui/commit/4c6d198e409d46eef37b88b2327132b4a5dbe425), [`38cdf38e4`](https://github.com/aws-amplify/amplify-ui/commit/38cdf38e473853ba93ffb22a1d9252286a7d2a6f)]:
+  - @aws-amplify/ui@3.0.14
+
+## 2.4.0
+
+### Minor Changes
+
+- [#1285](https://github.com/aws-amplify/amplify-ui/pull/1285) [`bbd182130`](https://github.com/aws-amplify/amplify-ui/commit/bbd182130137403c4fde5d1ac9217f8d33c05b48) Thanks [@joebuono](https://github.com/joebuono)! - Add 'to' prop to Link primitive
+
+* [#1267](https://github.com/aws-amplify/amplify-ui/pull/1267) [`3600d9b6f`](https://github.com/aws-amplify/amplify-ui/commit/3600d9b6feaaad4ba297faaa09c83c365e2a1ddc) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - Adding `paths` prop to Icon which is an array of path-like objects that will be mapped to `<path>` elements.
+
+  Example:
+
+  ```jsx
+  <Icon
+    ariaLabel="tag"
+    viewBox={{ width: 23, height: 15 }}
+    paths={[
+      {
+        d: 'M1 0.5C0.723858 0.5 0.5 0.723858 0.5 1V14C0.5 14.2761 0.723858 14.5 1 14.5H14C14.1148 14.5 14.2262 14.4605 14.3153 14.3881L22.3153 7.88806C22.4322 7.79311 22.5 7.65056 22.5 7.5C22.5 7.34944 22.4322 7.20689 22.3153 7.11194L14.3153 0.611943C14.2262 0.539529 14.1148 0.5 14 0.5H1Z',
+        strokeLinejoin: 'bevel',
+        strokeLinecap: 'round',
+        strokeDasharray: '4 4',
+        fill: 'transparent',
+        stroke: 'currentColor',
+      },
+    ]}
+  />
+  ```
+
+### Patch Changes
+
+- [#1259](https://github.com/aws-amplify/amplify-ui/pull/1259) [`a6af87143`](https://github.com/aws-amplify/amplify-ui/commit/a6af87143d2a232b95ba3a1e0b63a1b3566e5aab) Thanks [@jacoblogan](https://github.com/jacoblogan)! - move data-theme attributes to document root to capture elements that fall outside of the amplify provider component
+
+* [#1302](https://github.com/aws-amplify/amplify-ui/pull/1302) [`732aee95c`](https://github.com/aws-amplify/amplify-ui/commit/732aee95cfa342ac793095627dcddc72fcbbca1f) Thanks [@jacoblogan](https://github.com/jacoblogan)! - update SwitchField to allow user updates on controlled component
+
+- [#1276](https://github.com/aws-amplify/amplify-ui/pull/1276) [`169a26cdf`](https://github.com/aws-amplify/amplify-ui/commit/169a26cdf62f18386dafc4e63484b5a62b78bc17) Thanks [@reesscot](https://github.com/reesscot)! - feat: Add Action/Workflow hooks
+
+* [#1292](https://github.com/aws-amplify/amplify-ui/pull/1292) [`aa051a012`](https://github.com/aws-amplify/amplify-ui/commit/aa051a0124690bc373301fa2456143e3346c1f56) Thanks [@jacoblogan](https://github.com/jacoblogan)! - update StepperField and CheckboxField to update the visual display when a controlled value is changed
+
+* Updated dependencies [[`f9bb30efd`](https://github.com/aws-amplify/amplify-ui/commit/f9bb30efd4c0a384162fbcef22d4b5bccec62dc5), [`7c81bacdf`](https://github.com/aws-amplify/amplify-ui/commit/7c81bacdfdc71d71843b8a7285e513e09e9842cb), [`4e19822e4`](https://github.com/aws-amplify/amplify-ui/commit/4e19822e4d995d4cb3b3ad23090a161249806939), [`b4254e58a`](https://github.com/aws-amplify/amplify-ui/commit/b4254e58ac3473bd141e48b3a553c632a84fab5c)]:
+  - @aws-amplify/ui@3.0.13
+
 ## 2.3.0
 
 ### Minor Changes

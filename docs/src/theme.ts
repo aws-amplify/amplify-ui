@@ -31,49 +31,6 @@ const usePalette = (str) => {
 
 export const theme: Theme = {
   name: 'amplify-docs',
-  tokens: {
-    components: {
-      heading: {
-        1: {
-          fontWeight: { value: 900 },
-          fontSize: { value: '3rem' },
-        },
-        2: {
-          fontWeight: { value: 900 },
-          fontSize: { value: '2.5rem' },
-        },
-        3: {
-          fontWeight: { value: 600 },
-          fontSize: { value: '2rem' },
-        },
-      },
-      sliderfield: {
-        thumb: {
-          boxShadow: { value: '{shadows.small.value}' },
-        },
-      },
-      badge: {
-        borderRadius: { value: '{radii.large.value}' },
-      },
-      switchfield: {
-        track: {
-          checked: {
-            background: { value: '{colors.brand.primary.80.value}' },
-          },
-        },
-      },
-      togglebutton: {
-        borderColor: { value: '{colors.border.primary.value}' },
-        pressed: {
-          color: { value: '{colors.font.primary.value}' },
-        },
-      },
-      fieldcontrol: {
-        lineHeight: { value: 1 },
-        color: { value: '{colors.font.primary.value}' },
-      },
-    },
-  },
   overrides: [
     {
       colorMode: 'dark',
@@ -112,17 +69,12 @@ export const theme: Theme = {
       },
     },
     {
-      selector: '.classic [data-amplify-theme="amplify-docs"]',
+      selector: '[data-amplify-theme-override="classic"]',
       tokens: {
         colors: {
           brand: {
             primary: usePalette('blue'),
             secondary: usePalette('neutral'),
-          },
-          radii: {
-            small: { value: '0' },
-            medium: { value: '2px' },
-            large: { value: '4px' },
           },
           border: {
             primary: { value: '{colors.neutral.40.value}' },
@@ -130,10 +82,16 @@ export const theme: Theme = {
             tertiary: { value: '{colors.neutral.10.value}' },
           },
         },
+        radii: {
+          small: { value: '2px' },
+          medium: { value: '2px' },
+          large: { value: '4px' },
+          xl: { value: '6px' },
+        },
       },
     },
     {
-      selector: '.terminal [data-amplify-theme="amplify-docs"]',
+      selector: '[data-amplify-theme-override="terminal"]',
       tokens: {
         colors: {
           green: {
@@ -181,6 +139,17 @@ export const theme: Theme = {
           },
         },
         components: {
+          card: {
+            boxShadow: { value: '{shadows.medium.value}' },
+          },
+          heading: {
+            1: { fontWeight: { value: '{fontWeights.extrabold.value}' } },
+            2: { fontWeight: { value: '{fontWeights.extrabold.value}' } },
+            3: { fontWeight: { value: '{fontWeights.extrabold.value}' } },
+            4: { fontWeight: { value: '{fontWeights.extrabold.value}' } },
+            5: { fontWeight: { value: '{fontWeights.extrabold.value}' } },
+            6: { fontWeight: { value: '{fontWeights.extrabold.value}' } },
+          },
           button: {
             primary: {
               backgroundColor: { value: '{colors.brand.primary.40.value}' },

@@ -67,6 +67,7 @@ Amplify UI is an open-source UI library with cloud-connected components that are
 | Table            |    ✅     |             |
 | Tabs             |    ✅     |             |
 | Text             |    ✅     |             |
+| TextAreaField    |    ✅     |             |
 | TextField        |    ✅     |             |
 | ToggleButton     |    ✅     |             |
 | View             |    ✅     |             |

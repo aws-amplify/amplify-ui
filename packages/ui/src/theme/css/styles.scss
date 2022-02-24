@@ -4,13 +4,27 @@
 
 @import 'dist/theme';
 
-[data-amplify-theme] {
+// Keeping these selector low (001) so it can be easily overridden
+html {
   font-family: var(--amplify-fonts-default-static);
 }
+
 @supports (font-variation-settings: normal) {
-  [data-amplify-theme] {
+  html {
     font-family: var(--amplify-fonts-default-variable);
   }
+}
+
+// https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-behavior
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+// https://piccalil.li/blog/a-modern-css-reset/
+body {
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  line-height: var(--amplify-line-heights-medium);
 }
 
 // Note: This rule can be easily overwritten when
@@ -19,22 +33,30 @@
   box-sizing: border-box;
 }
 
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+}
+
 [class*='amplify'] {
   all: unset; /* protect against external styles */
   box-sizing: border-box; /* set box-sizing after unset above */
 }
 
-.sr-only {
-  position: absolute !important;
-  width: 1px !important;
-  height: 1px !important;
-  padding: 0 !important;
-  margin: -1px !important;
-  overflow: hidden !important;
-  clip: rect(0, 0, 0, 0) !important;
-  white-space: nowrap !important;
-  border-width: 0 !important;
-}
+// Layout
+// They are commonly used in other primitives
+// Move them to the top here makes it easy to override their styling
+@import './component/flex.scss';
+@import './component/grid.scss';
+@import './component/scrollView.scss';
 
 @import './component/text.scss'; // text styling must be imported to allow override
 @import './component/badge.scss';
@@ -48,11 +70,6 @@
 @import './component/link.scss';
 @import './component/loader.scss';
 @import './component/placeholder.scss';
-
-// Layout
-@import './component/flex.scss';
-@import './component/grid.scss';
-@import './component/scrollView.scss';
 
 // Composed components
 @import './component/alert.scss';
@@ -80,6 +97,7 @@
 @import './component/switchField.scss';
 @import './component/table.scss';
 @import './component/tabs.scss';
+@import './component/textAreaField.scss';
 @import './component/textField.scss';
 @import './component/toggleButton.scss';
 @import './component/toggleButtonGroup.scss';

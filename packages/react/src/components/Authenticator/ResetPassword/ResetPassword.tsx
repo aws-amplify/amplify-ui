@@ -3,9 +3,22 @@ import { getAliasInfoFromContext, translate } from '@aws-amplify/ui';
 import { useAuthenticator } from '..';
 import { Flex, Heading, TextField } from '../../..';
 import { RemoteErrorMessage, TwoButtonSubmitFooter } from '../shared';
-import { isInputOrSelectElement, isInputElement } from '../../../helpers/utils';
+import { useCustomComponents } from '../hooks/useCustomComponents';
+import {
+  isInputOrSelectElement,
+  isInputElement,
+  getFormDataFromEvent,
+} from '../../../helpers/utils';
 
 export const ResetPassword = (): JSX.Element => {
+  const {
+    components: {
+      ResetPassword: {
+        Header = ResetPassword.Header,
+        Footer = ResetPassword.Footer,
+      },
+    },
+  } = useCustomComponents();
   const { isPending, submitForm, updateForm, _state } = useAuthenticator();
 
   const { label } = getAliasInfoFromContext(_state.context);
@@ -28,7 +41,7 @@ export const ResetPassword = (): JSX.Element => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    submitForm();
+    submitForm(getFormDataFromEvent(event));
   };
 
   return (
@@ -44,14 +57,14 @@ export const ResetPassword = (): JSX.Element => {
         className="amplify-flex"
         disabled={isPending}
       >
-        <Heading level={3}>{translate('Reset your password')}</Heading>
+        <Header />
 
         <Flex direction="column">
           <TextField
             autoComplete="username"
             name="username"
             placeholder={translate<string>(labelText)}
-            label={translate('Enter your username')}
+            label={translate<string>(labelText)}
             labelHidden={true}
             required={true}
             type="username"
@@ -70,7 +83,14 @@ export const ResetPassword = (): JSX.Element => {
             )
           }
         />
+        <Footer />
       </fieldset>
     </form>
   );
 };
+
+ResetPassword.Header = () => {
+  return <Heading level={3}>{translate('Reset your password')}</Heading>;
+};
+
+ResetPassword.Footer = (): JSX.Element => null;
