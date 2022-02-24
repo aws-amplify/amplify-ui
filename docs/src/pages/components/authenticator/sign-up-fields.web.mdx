@@ -8,6 +8,10 @@ import { Example } from '@/components/Example';
 import { Fragment } from '@/components/Fragment';
 
 **Note**: In the example code below, `preferred_username` is not set as an attribute because it has already been defined through [Zero Configuration](https://ui.docs.amplify.aws/components/authenticator?platform=vue#signupattributes).
+The following example customizes the Sign Up screen by:
+
+- Re-using the default Sign Up form fields
+- Appending a custom "Terms & Conditions" checkbox with a `validateCustomSignUp` service
 
 <Fragment>
   {({ platform }) => import(`./sign-up-fields.${platform}.mdx`)}

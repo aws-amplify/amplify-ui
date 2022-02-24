@@ -15,3 +15,7 @@ applications:
           - key: "X-Content-Type-Options"
             value: "nosniff"
           # CSP set in _document.page.tsx meta tag
+      - pattern: "flutter/**/*"
+        headers:
+          - key: "Cache-Control"
+            value: "public, max-age=300"

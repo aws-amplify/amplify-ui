@@ -146,6 +146,10 @@ with the exception of `address`, `gender`, `locale`, `picture`, `updated_at`, an
 
 ## Customization
 
+<Fragment platforms={['flutter']}>
+  {({ platform }) => import(`./customization.routing.${platform}.mdx`)}
+</Fragment>
+
 <Fragment useCommonWebContent platforms={['web']}>
   {({ platform }) =>
     import(`./customization.headers-and-footers.${platform}.mdx`)
@@ -172,13 +176,8 @@ with the exception of `address`, `gender`, `locale`, `picture`, `updated_at`, an
 
 ### Sign Up Fields
 
-The following example customizes the Sign Up screen by:
-
-- Re-using the default Sign Up form fields
-- Appending a custom "Terms & Conditions" checkbox with a `validateCustomSignUp` service
-
 <Fragment useCommonWebContent>
-  {({ platform }) => import(`./customization.sign-up-fields.${platform}.mdx`)}
+  {({ platform }) => import(`./sign-up-fields.${platform}.mdx`)}
 </Fragment>
 
 ### Force New Password Fields

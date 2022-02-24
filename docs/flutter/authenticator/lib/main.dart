@@ -3,6 +3,7 @@ import 'dart:html';
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:confetti/confetti.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter_authenticator_example/stubs/amplify_auth_cognito_stub.dart';
 import 'package:flutter_authenticator_example/stubs/amplify_stub.dart';
@@ -16,6 +17,7 @@ class AuthenticatorConfig {
   final String config;
   final List<SignUpFormField> signUpAttributes;
   final bool useCustomUI;
+  final bool useCustomTheme;
   AuthenticatorConfig({
     this.id = '',
     this.themeMode = ThemeMode.light,
@@ -23,18 +25,21 @@ class AuthenticatorConfig {
     String? config,
     this.signUpAttributes = const [],
     this.useCustomUI = false,
+    this.useCustomTheme = false,
   }) : config = config ?? buildConfig();
 
   static AuthenticatorConfig fromMap(Map<String, String?> map) {
     return AuthenticatorConfig(
-        id: map['id'] ?? '',
-        themeMode: _parseThemeMode(map['themeMode']),
-        initialStep: _parseAuthenticatorStep(map['initialStep']),
-        config: buildConfig(
-            usernameAttribute: map['usernameAttribute'] ?? 'USERNAME',
-            includeSocialProviders: map['includeSocialProviders'] == 'true'),
-        signUpAttributes: _parseSignUpAttributes(map['signUpAttributes']),
-        useCustomUI: map['useCustomUI'] == 'true');
+      id: map['id'] ?? '',
+      themeMode: _parseThemeMode(map['themeMode']),
+      initialStep: _parseAuthenticatorStep(map['initialStep']),
+      config: buildConfig(
+          usernameAttribute: map['usernameAttribute'] ?? 'USERNAME',
+          includeSocialProviders: map['includeSocialProviders'] == 'true'),
+      signUpAttributes: _parseSignUpAttributes(map['signUpAttributes']),
+      useCustomUI: map['useCustomUI'] == 'true',
+      useCustomTheme: map['useCustomTheme'] == 'true',
+    );
   }
 
   static ThemeMode _parseThemeMode(String? value) {
@@ -78,6 +83,8 @@ class AuthenticatorConfig {
               return SignUpFormField.passwordConfirmation();
             case 'email':
               return SignUpFormField.email();
+            case 'email-required':
+              return SignUpFormField.email(required: true);
             case 'phone_number':
               return SignUpFormField.phoneNumber();
             case 'family_name':
@@ -98,8 +105,31 @@ class AuthenticatorConfig {
               return SignUpFormField.birthdate();
             case 'gender':
               return SignUpFormField.gender();
+            case 'website':
+              return SignUpFormField.custom(
+                key: Key(field),
+                required: true,
+                validator: ((value) {
+                  if (value == null || value.isEmpty) {
+                    return 'You must provide a website';
+                  }
+                  if (!value.contains('example.com')) {
+                    return 'Your website must be have a domain of example.com';
+                  }
+                  return null;
+                }),
+                title: 'Website',
+                attributeKey: CognitoUserAttributeKey.website,
+              );
+            case 'bio':
+              return SignUpFormField.custom(
+                key: Key(field),
+                title: 'Bio',
+                attributeKey: CognitoUserAttributeKey.custom(field),
+              );
             default:
               return SignUpFormField.custom(
+                key: Key(field),
                 title: field,
                 attributeKey: CognitoUserAttributeKey.custom(field),
               );
@@ -188,6 +218,20 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
+  ThemeData get theme {
+    final theme = _authenticatorConfig.useCustomTheme
+        ? customLightTheme
+        : ThemeData.light();
+    return theme.copyWith(visualDensity: VisualDensity.standard);
+  }
+
+  ThemeData get darkTheme {
+    final theme = _authenticatorConfig.useCustomTheme
+        ? customDarkTheme
+        : ThemeData.dark();
+    return theme.copyWith(visualDensity: VisualDensity.standard);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Authenticator(
@@ -202,26 +246,66 @@ class _MyAppState extends State<MyApp> {
         useInheritedMediaQuery: true,
         title: 'Authenticator Demo',
         builder: Authenticator.builder(),
-        theme: ThemeData.light().copyWith(
-          visualDensity: VisualDensity.standard,
-        ),
-        darkTheme: ThemeData.dark().copyWith(
-          visualDensity: VisualDensity.standard,
-        ),
+        theme: theme,
+        darkTheme: darkTheme,
         themeMode: _authenticatorConfig.themeMode,
-        home: Scaffold(
+        home: const HomeWidget(),
+      ),
+    );
+  }
+}
+
+class HomeWidget extends StatefulWidget {
+  const HomeWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<HomeWidget> createState() => _HomeWidgetState();
+}
+
+class _HomeWidgetState extends State<HomeWidget> {
+  late ConfettiController _controller;
+
+  @override
+  void initState() {
+    _controller = ConfettiController(duration: const Duration(seconds: 10));
+    _controller.play();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Scaffold(
           appBar: AppBar(),
           body: Center(
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: const [
-                Text('You are logged in!'),
-                SizedBox(height: 16),
+                Text(
+                  'You are logged in!',
+                  style: TextStyle(fontSize: 16),
+                ),
+                SizedBox(height: 32),
                 SignOutButton(),
               ],
             ),
           ),
         ),
-      ),
+        Align(
+          alignment: Alignment.topCenter,
+          child: ConfettiWidget(
+            confettiController: _controller,
+            canvas: const Size(800, 800),
+            shouldLoop: true,
+            blastDirectionality: BlastDirectionality.explosive,
+            emissionFrequency: 0.04,
+            minBlastForce: 10,
+          ),
+        ),
+      ],
     );
   }
 }
@@ -249,7 +333,7 @@ String buildConfig({
                   ? ['EMAIL']
                   : [usernameAttribute],
               "passwordProtectionSettings": {
-                "passwordPolicyMinLength": 8,
+                "passwordPolicyMinLength": 6,
                 "passwordPolicyCharacters": []
               },
               "mfaConfiguration": "OFF",
@@ -336,3 +420,75 @@ Widget? customBuilder(BuildContext context, AuthenticatorState state) {
       return null;
   }
 }
+
+// light theme
+ThemeData customLightTheme = ThemeData(
+  // app's colors scheme and brightness
+  colorScheme: ColorScheme.fromSwatch(
+    brightness: Brightness.light,
+    primarySwatch: Colors.indigo,
+  ),
+  // tab bar indicator color
+  indicatorColor: Colors.indigo,
+  textTheme: const TextTheme(
+    // text theme of the header on each step
+    headline6: TextStyle(
+      fontWeight: FontWeight.w600,
+      fontSize: 24,
+    ),
+  ),
+  // theme of the form fields for each step
+  inputDecorationTheme: InputDecorationTheme(
+    contentPadding: const EdgeInsets.all(16),
+    floatingLabelBehavior: FloatingLabelBehavior.never,
+    fillColor: Colors.grey[200],
+    filled: true,
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(12),
+      borderSide: BorderSide.none,
+    ),
+  ),
+  // theme of the primary button for each step
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: ButtonStyle(
+      padding: MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.all(16)),
+      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      ),
+    ),
+  ),
+);
+
+// dark theme
+ThemeData customDarkTheme = ThemeData(
+  colorScheme: ColorScheme.fromSwatch(
+    brightness: Brightness.dark,
+    primarySwatch: Colors.indigo,
+  ),
+  indicatorColor: Colors.indigo,
+  textTheme: const TextTheme(
+    headline6: TextStyle(
+      fontWeight: FontWeight.w600,
+      fontSize: 24,
+      color: Colors.white,
+    ),
+  ),
+  inputDecorationTheme: InputDecorationTheme(
+    contentPadding: const EdgeInsets.all(16),
+    floatingLabelBehavior: FloatingLabelBehavior.never,
+    fillColor: Colors.grey[700],
+    filled: true,
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(12),
+      borderSide: BorderSide.none,
+    ),
+  ),
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: ButtonStyle(
+      padding: MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.all(16)),
+      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      ),
+    ),
+  ),
+);
