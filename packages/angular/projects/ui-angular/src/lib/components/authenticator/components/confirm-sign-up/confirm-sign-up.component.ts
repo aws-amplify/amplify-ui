@@ -1,6 +1,7 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
 import {
+  formField,
   getActorState,
   getFormDataFromEvent,
   translate,
