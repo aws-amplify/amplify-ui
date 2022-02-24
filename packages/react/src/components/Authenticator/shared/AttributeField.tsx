@@ -3,8 +3,8 @@ import {
   getActorContext,
   translate,
 } from '@aws-amplify/ui';
-import { useAuthenticator } from '..';
-import { PhoneNumberField, TextField } from '../../..';
+import { useAuthenticator } from '../hooks/useAuthenticator';
+import { PhoneNumberField, TextField } from '../../../primitives';
 
 export function AttributeField({ name, ...attrs }) {
   const { _state } = useAuthenticator();
