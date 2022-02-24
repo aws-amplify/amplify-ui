@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   ModelPredicate,
   PersistentModel,
@@ -53,4 +54,22 @@ export const createDataStorePredicate = <Model extends PersistentModel>(
 
     return predicate;
   };
+};
+
+/**
+ * Creates a DataStore compatible predicate function from an object representation using useCallback
+ * @internal
+ */
+export const useCreateDataStorePredicate = <Model extends PersistentModel>(
+  predicateObject: DataStorePredicateObject
+): ProducerModelPredicate<Model> => {
+  const serializedPredicateObject = JSON.stringify(predicateObject);
+
+  return React.useCallback(
+    (predicate: ModelPredicate<Model>) =>
+      createDataStorePredicate<Model>(JSON.parse(serializedPredicateObject))(
+        predicate
+      ),
+    [serializedPredicateObject]
+  );
 };

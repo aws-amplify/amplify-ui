@@ -1,19 +1,22 @@
+import { renderHook } from '@testing-library/react-hooks';
 import { DataStorePredicateObject } from '../../types/datastore';
-import { createDataStorePredicate } from '../datastore';
+import {
+  createDataStorePredicate,
+  useCreateDataStorePredicate,
+} from '../datastore';
 
 type Post = {
   id: string;
   name: string;
   age: string;
 };
+const namePredicateObject = {
+  field: 'name',
+  operator: 'startsWith',
+  operand: 'John',
+};
 
 describe('createDataStorePredicate', () => {
-  const namePredicateObject = {
-    field: 'name',
-    operator: 'startsWith',
-    operand: 'John',
-  };
-
   const agePredicateObject = {
     field: 'age',
     operator: 'gt',
@@ -154,6 +157,34 @@ describe('createDataStorePredicate', () => {
     expect(agePredicate).toHaveBeenCalledWith(
       agePredicateObject.operator,
       agePredicateObject.operand
+    );
+  });
+});
+
+describe('useCreateDataStorePredicate', () => {
+  test('should give same result as createDataStorePredicate', () => {
+    const namePredicate = jest.fn();
+
+    createDataStorePredicate<Post>(namePredicateObject)({
+      name: namePredicate,
+    } as any);
+
+    expect(namePredicate).toHaveBeenCalledWith(
+      namePredicateObject.operator,
+      namePredicateObject.operand
+    );
+
+    namePredicate.mockClear();
+
+    renderHook(() =>
+      useCreateDataStorePredicate<Post>(namePredicateObject)({
+        name: namePredicate,
+      } as any)
+    );
+
+    expect(namePredicate).toHaveBeenCalledWith(
+      namePredicateObject.operator,
+      namePredicateObject.operand
     );
   });
 });
