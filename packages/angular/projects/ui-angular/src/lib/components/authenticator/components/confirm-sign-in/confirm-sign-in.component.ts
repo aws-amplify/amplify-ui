@@ -3,6 +3,7 @@ import { Logger } from 'aws-amplify';
 import {
   AuthChallengeNames,
   getActorContext,
+  getFormDataFromEvent,
   SignInContext,
 } from '@aws-amplify/ui';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
@@ -56,6 +57,6 @@ export class ConfirmSignInComponent implements OnInit {
 
   onSubmit(event: Event): void {
     event.preventDefault();
-    this.authenticator.submitForm();
+    this.authenticator.submitForm(getFormDataFromEvent(event));
   }
 }

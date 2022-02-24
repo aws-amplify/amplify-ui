@@ -2,7 +2,11 @@ import { getActorContext, SignInContext, translate } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '..';
 import { Button, Flex, Heading, PasswordField, Text } from '../../..';
-import { isInputOrSelectElement, isInputElement } from '../../../helpers/utils';
+import {
+  isInputOrSelectElement,
+  isInputElement,
+  getFormDataFromEvent,
+} from '../../../helpers/utils';
 import { useCustomComponents } from '../hooks/useCustomComponents';
 import { FormFields } from './FormFields';
 
@@ -41,7 +45,7 @@ export const ForceNewPassword = (): JSX.Element => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    submitForm();
+    submitForm(getFormDataFromEvent(event));
   };
 
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
