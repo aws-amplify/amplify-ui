@@ -115,6 +115,7 @@ export const inputComponents = [
     href: '/components/textareafield',
     label: 'TextArea Field',
     body: `The TextAreaField form primitive can be used allow users to input multiline text content.`,
+    platforms: ['react'],
   },
   {
     href: '/components/textfield',

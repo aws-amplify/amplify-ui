@@ -1,5 +1,5 @@
 import { Alert, Loader } from '@aws-amplify/ui-react';
-import React from 'react';
+import React, { useCallback } from 'react';
 
 export function FlutterAuthenticatorExample({
   initialStep = 'signIn',
@@ -58,15 +58,21 @@ export function FlutterAuthenticatorExample({
 function FlutterAuthenticatorLoader({ id }) {
   const [hasLoaded, setHasLoaded] = React.useState(false);
 
+  const onMessage = useCallback((event) => {
+    const data = JSON.parse(event.data);
+    if (data['name'] == 'loaded' && data['id'] == id) {
+      setHasLoaded(true);
+      window.removeEventListener('message', onMessage);
+    }
+  }, []);
+
   React.useEffect(() => {
     // the authenticator will post a message to the parent window when it has finished loading
-    window.addEventListener('message', (event) => {
-      const data = JSON.parse(event.data);
-      if (data['name'] == 'loaded' && data['id'] == id) {
-        setHasLoaded(true);
-      }
-    });
-  });
+    window.addEventListener('message', onMessage);
+    return () => {
+      window.removeEventListener('message', onMessage);
+    };
+  }, [onMessage]);
 
   return (
     <Loader
