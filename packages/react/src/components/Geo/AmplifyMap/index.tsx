@@ -8,7 +8,7 @@ import ReactMapGL from 'react-map-gl';
 
 import { Loader, View } from '../../../primitives';
 
-export const Map = ({ children, style, ...rest }: any) => {
+export const AmplifyMap = ({ children, style, ...rest }: any) => {
   const mapRef = useRef<any>();
   const [transformRequest, setTransformRequest] = useState<any>();
   const service = useInterpret(mapMachine);

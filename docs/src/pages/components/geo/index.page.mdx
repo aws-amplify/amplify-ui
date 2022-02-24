@@ -1,5 +1,5 @@
 ---
-title: Map
+title: Geo Map
 ---
 
 import { Example } from '@/components/Example';
@@ -8,17 +8,17 @@ import { Fragment } from '@/components/Fragment';
 import { XStateInspector } from '@/components/XStateInspector';
 import { Tabs, TabItem } from '@aws-amplify/ui-react';
 
-The `Map` component adds an interactive map to your application backed by [Amplify Geo APIs](https://docs.amplify.aws/lib/geo/getting-started/q/platform/js/)
+The `AmplifyMap` component adds an interactive map to your application backed by [Amplify Geo APIs](https://docs.amplify.aws/lib/geo/getting-started/q/platform/js/)
 powered by [Amazon Location Service](https://aws.amazon.com/location/).
 
-`Map` is built on top of the open source library [react-map-gl](https://visgl.github.io/react-map-gl/) while using
+`AmplifyMap` is built on top of the open source library [react-map-gl](https://visgl.github.io/react-map-gl/) while using
 [maplibre-gl-js](https://maplibre.org/maplibre-gl-js-docs/api/) as the map tile source.
 
 ## Quick Start
 
 > Preqrequisite: [Create a Geo backend](https://docs.amplify.aws/lib/geo/getting-started/q/platform/js/)
 
-You can import the `Map` component and use it in your Amplify application without any additional configuration.
+You can import the `AmplifyMap` component and use it in your Amplify application without any additional configuration.
 
 <Fragment platforms={['react']}>
   {({ platform }) => import(`./fragments/quick-start.${platform}.mdx`)}
@@ -26,16 +26,16 @@ You can import the `Map` component and use it in your Amplify application withou
 
 ## Configuration
 
-`Map` supports the configuration properties available to the [default map of react-map-gl](https://visgl.github.io/react-map-gl/docs/api-reference/map#properties).
+`AmplifyMap` supports the configuration properties available to the [default map of react-map-gl](https://visgl.github.io/react-map-gl/docs/api-reference/map#properties).
 
 ## Controls
 
-`Map` can be used with various controls to enhance functionality.
+`AmplifyMap` can be used with various controls to enhance functionality.
 
 ### Geocoder (location search)
 
-`Geocoder` provides location search powered by [Amazon Location Service](https://aws.amazon.com/location/) for the `Map` component, using the viewport as the proximity
-for generating results. `Geocoder` is used as a child component of `Map` for which it renders visual markers and information based on its location search results.
+`Geocoder` provides location search powered by [Amazon Location Service](https://aws.amazon.com/location/) for the `AmplifyMap` component, using the viewport as the proximity
+for generating results. `Geocoder` is used as a child component of `AmplifyMap` for which it renders visual markers and information based on its location search results.
 
 <Fragment platforms={['react']}>
   {({ platform }) => import(`./fragments/geocoder.${platform}.mdx`)}
@@ -60,7 +60,7 @@ Valid values are `'top-left'`, `'top-right'`, `'bottom-left'`, and `'bottom-righ
 
 ## Customization
 
-Custom styling for `Map` and any utilized controls can be achieved by passing a custom `style` property to the given component.
+Custom styling for `AmplifyMap` and any utilized controls can be achieved by passing a custom `style` property to the given component.
 
 <Fragment platforms={['react']}>
   {({ platform }) => import(`./fragments/style-prop.${platform}.mdx`)}

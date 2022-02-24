@@ -1,2 +1,2 @@
-export { Map } from './Map';
+export { AmplifyMap } from './AmplifyMap';
 export { Geocoder } from './Geocoder';
