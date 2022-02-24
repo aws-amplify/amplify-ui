@@ -23,31 +23,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  amplify_flutter:
-    # TODO: Update to use 0.4.0
-    # ^0.3.0
-    git:
-      url: https://github.com/aws-amplify/amplify-flutter.git
-      path: packages/amplify_flutter
-  amplify_auth_cognito:
-    # TODO: Update to use 0.4.0
-    # ^0.3.0
-    git:
-      url: https://github.com/aws-amplify/amplify-flutter.git
-      path: packages/amplify_auth_cognito
-  amplify_authenticator: 0.1.0-rc.5
+  amplify_flutter: ^0.4.0
+  amplify_auth_cognito: ^0.4.0
+  amplify_authenticator: ^0.1.0-rc.6 # TODO: update to ^1.0.0 after GA release
   device_preview: ^1.0.0
-
-# TODO: Update to use 0.4.0
-dependency_overrides:
-  amplify_flutter:
-    git:
-      url: https://github.com/aws-amplify/amplify-flutter.git
-      path: packages/amplify_flutter
-  amplify_auth_cognito:
-    git:
-      url: https://github.com/aws-amplify/amplify-flutter.git
-      path: packages/amplify_auth_cognito
+  confetti: ^0.6.0
 
 dev_dependencies:
   flutter_test:

@@ -94,11 +94,7 @@ export const SecondaryNav = (props) => {
         >
           Responsive
         </NavLink>
-        <NavLink
-          {...props}
-          platforms={['react', 'vue', 'angular']}
-          href="/theming/dark-mode"
-        >
+        <NavLink {...props} href="/theming/dark-mode">
           Dark mode
         </NavLink>
         <NavLink
