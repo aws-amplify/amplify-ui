@@ -1,4 +1,4 @@
-import { Alert, Loader } from '@aws-amplify/ui-react';
+import { Alert, Loader, View } from '@aws-amplify/ui-react';
 import React, { useCallback } from 'react';
 
 export function FlutterAuthenticatorExample({
@@ -42,13 +42,14 @@ export function FlutterAuthenticatorExample({
         }
       </Alert>
       <FlutterAuthenticatorLoader id={id} />
-      <iframe
+      <View
+        as="iframe"
         key={id}
         height={height}
         width={width}
         src={src}
         loading="lazy"
-      ></iframe>
+      />
     </>
   );
 }
