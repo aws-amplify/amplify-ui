@@ -1,14 +1,13 @@
 /* Center by default */
 [data-amplify-authenticator] {
   display: grid;
+  max-width: 60rem;
 
   &[data-variation='modal'] {
     display: grid;
     width: var(--amplify-components-authenticator-modal-width);
     height: var(--amplify-components-authenticator-modal-height);
     background-color: var(--amplify-colors-overlay-50);
-
-    /* Override browser default `body { margin: 8px }` */
     position: fixed;
     top: var(--amplify-components-authenticator-modal-top);
     left: var(--amplify-components-authenticator-modal-left);
@@ -18,10 +17,10 @@
   }
 
   & [data-amplify-container] {
-    /* Fix z-index of texture being over the Authenticator */
     place-self: center;
     width: var(--amplify-components-authenticator-container-width-handheld);
-    @media (min-width: var(--amplify-components-authenticator-container-width-max)) {
+    @media (min-width: 30rem) {
+      // @media min-width 30rem (--amplify-components-authenticator-container-width-max)
       width: var(--amplify-components-authenticator-container-width-desktop);
       max-width: var(--amplify-components-authenticator-container-width-max);
     }
