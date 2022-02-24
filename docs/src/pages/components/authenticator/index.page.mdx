@@ -144,6 +144,10 @@ with the exception of `address`, `gender`, `locale`, `picture`, `updated_at`, an
   {({ platform }) => import(`./variation.${platform}.mdx`)}
 </Fragment>
 
+<Fragment useCommonWebContent platforms={['web']}>
+  {({ platform }) => import(`./hidesignup.${platform}.mdx`)}
+</Fragment>
+
 ## Customization
 
 <Fragment platforms={['flutter']}>
