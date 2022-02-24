@@ -47,4 +47,4 @@ jobs:
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Publish to geo tag
-        run: yarn changeset publish --tag next
+        run: yarn changeset publish --tag geo
