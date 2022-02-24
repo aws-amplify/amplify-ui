@@ -72,6 +72,17 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-alert-warning-background-color: var(--amplify-colors-background-warning);
         --amplify-components-alert-success-color: var(--amplify-colors-font-success);
         --amplify-components-alert-success-background-color: var(--amplify-colors-background-success);
+        --amplify-components-authenticator-modal-width: 100%;
+        --amplify-components-authenticator-modal-height: 100%;
+        --amplify-components-authenticator-modal-background-color: var(--amplify-colors-background-secondary);
+        --amplify-components-authenticator-modal-top: var(--amplify-space-zero);
+        --amplify-components-authenticator-modal-left: var(--amplify-space-zero);
+        --amplify-components-authenticator-container-width-desktop: 70%;
+        --amplify-components-authenticator-container-width-handheld: var(--amplify-space-relative-full);
+        --amplify-components-authenticator-container-width-max: 30rem;
+        --amplify-components-authenticator-router-border-width: var(--amplify-border-widths-small);
+        --amplify-components-authenticator-router-border-style: solid;
+        --amplify-components-authenticator-router-border-color: var(--amplify-colors-border-primary);
         --amplify-components-badge-color: var(--amplify-colors-font-primary);
         --amplify-components-badge-line-height: 1;
         --amplify-components-badge-font-weight: var(--amplify-font-weights-semibold);
@@ -845,6 +856,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-shadows-small: 0px 2px 4px  var(--amplify-colors-shadow-tertiary);
         --amplify-shadows-medium: 0px 2px 6px  var(--amplify-colors-shadow-secondary);
         --amplify-shadows-large: 0px 4px 12px  var(--amplify-colors-shadow-primary);
+        --amplify-space-zero: 0;
         --amplify-space-xxxs: 0.25rem;
         --amplify-space-xxs: 0.375rem;
         --amplify-space-xs: 0.5rem;
@@ -855,7 +867,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-space-xxl: 3.0rem;
         --amplify-space-xxxl: 4.5rem;
         --amplify-space-relative-xxxs: 0.25em;
-        --amplify-space-relative-xxs: 0.375rem;
+        --amplify-space-relative-xxs: 0.375em;
         --amplify-space-relative-xs: 0.5em;
         --amplify-space-relative-small: 0.75em;
         --amplify-space-relative-medium: 1em;
@@ -863,6 +875,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-space-relative-xl: 2.0em;
         --amplify-space-relative-xxl: 3.0em;
         --amplify-space-relative-xxxl: 4.5em;
+        --amplify-space-relative-full: 100%;
         --amplify-time-short: 100ms;
         --amplify-time-medium: 250ms;
         --amplify-time-long: 500ms;
