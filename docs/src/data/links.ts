@@ -74,12 +74,7 @@ export const connectedComponents = [
 ].sort(sortByLabel);
 
 export const dataDisplayComponents = [
-  {
-    href: '/components/badge',
-    label: 'Badge',
-    body: ``,
-    platforms: ['react'],
-  },
+  { href: '/components/badge', label: 'Badge', body: ``, platforms: ['react'] },
   {
     href: '/components/rating',
     label: 'Rating',
