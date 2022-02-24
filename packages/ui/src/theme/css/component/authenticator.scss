@@ -26,75 +26,55 @@
       max-width: var(--amplify-components-authenticator-container-width-max);
     }
   }
-}
 
-// footers inside each screen should have some margin below it
-[data-amplify-authenticator] [data-amplify-router] [data-amplify-footer] {
-  padding-bottom: var(--amplify-space-medium);
-  text-align: center;
-}
+  & [data-amplify-router] {
+    background-color: var(--amplify-colors-background-primary);
+    box-shadow: var(--amplify-shadows-medium);
+    border-color: var(--amplify-components-authenticator-router-border-color);
+    border-width: var(--amplify-components-authenticator-router-border-width);
+    border-style: solid;
+  }
 
-[data-amplify-authenticator] [data-amplify-router] {
-  background-color: var(--amplify-colors-background-primary);
-  box-shadow: var(--amplify-shadows-medium);
-}
+  & [data-amplify-footer] {
+    padding-bottom: var(--amplify-space-medium);
+    text-align: center;
+  }
 
-[data-amplify-authenticator] [data-amplify-form] {
-  padding: var(--amplify-space-xl);
-}
+  & [data-amplify-form] {
+    padding: var(--amplify-space-xl);
+  }
 
-[data-amplify-authenticator] [data-state='inactive'][role='tab'] {
-  background-color: var(--amplify-colors-background-secondary);
-}
+  & [data-state='inactive'] {
+    background-color: var(--amplify-colors-background-secondary);
+  }
 
-/* Remove double-border between the password field & reveal button */
-[data-amplify-authenticator]
-  .amplify-passwordfield
-  .amplify-button:not(:focus) {
-  border-left: none;
-}
+  & .amplify-passwordfield .amplify-button:not(:focus) {
+    border-left: none; /* Remove double-border between the password field & reveal button */
+  }
 
-[data-amplify-authenticator]
-  .amplify-phonenumberfield
-  .amplify-countrycodeselect {
-  height: 100%;
-}
+  & [data-or-container] {
+    position: relative;
+    color: var(--amplify-colors-neutral-80);
+    align-items: center;
+    justify-content: center;
+    padding: var(--amplify-space-relative-large) var(--amplify-space-zero);
 
-[data-amplify-authenticator]
-  .amplify-phonenumberfield
-  .amplify-select__wrapper {
-  height: 100%;
-}
-
-/* Remove double-border between the phone field & country select  */
-[data-amplify-authenticator] .amplify-phonenumberfield select:not(:focus) {
-  border-right: none;
-}
-
-[data-amplify-authenticator] [data-or-container] {
-  position: relative;
-  color: gray;
-  align-items: center;
-  justify-content: center;
-  padding: 1.5rem 0px;
-
-  [data-or-line] {
-    position: absolute;
-    background: var(--amplify-colors-white);
-    z-index: 1;
-    padding: 0px 1.5rem;
+    & [data-or-line] {
+      position: absolute;
+      background: var(--amplify-colors-background-primary);
+      z-index: 1;
+      padding: var(--amplify-space-zero) var(--amplify-space-relative-large);
+    }
   }
 }
+
 [data-amplify-copy] {
   display: flex;
-  font-size: 0.688rem;
-  gap: 1rem;
+  font-size: var(--amplify-font-sizes-xs);
+  gap: var(--amplify-space-relative-medium);
   justify-content: center;
   align-items: center;
-
-  @media (max-width: 30rem) {
-    word-break: break-all;
-  }
+  word-break: break-all;
 }
 
 [data-amplify-copy-svg] {
@@ -103,14 +83,13 @@
 
   &:hover [data-amplify-copy-tooltip] {
     visibility: visible;
-    font-size: 0.55rem;
+    font-size: var(--amplify-font-sizes-xxs);
   }
 }
 
 [data-amplify-copy-tooltip] {
   visibility: hidden;
   position: absolute;
-  top: -1rem;
-  left: -0.1rem;
+  bottom: var(--amplify-space-large);
   color: var(--amplify-colors-teal-100);
 }

@@ -13,4 +13,9 @@ module.exports = {
     widthHandheld: { value: '{space.relative.full}' },
     widthMax: { value: '30rem' },
   },
+  router: {
+    borderWidth: { value: '{borderWidths.small.value}' },
+    borderStyle: { value: 'solid' },
+    borderColor: { value: '{colors.border.primary.value}' },
+  },
 };
