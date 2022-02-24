@@ -15,25 +15,23 @@ export const Geocoder = ({ position = 'top-right', style = {}, ...props }) => {
 
   useEffect(() => {
     const initializeGeocoder = () => {
-      if (props.mapRef?.current) {
-        const map = props.mapRef.current.getMap();
-        geocoder.current = createAmplifyGeocoder({
-          ...GEOCODER_OPTIONS,
-          ...props,
-        });
+      const map = props.mapRef?.current.getMap();
+      geocoder.current = createAmplifyGeocoder({
+        ...GEOCODER_OPTIONS,
+        ...props,
+      });
 
-        map
-          ? map?.addControl(geocoder.current, position)
-          : geocoder.current.addTo(`#${GEOCODER_CONTAINER}`);
+      map
+        ? map?.addControl(geocoder.current, position)
+        : geocoder.current.addTo(`#${GEOCODER_CONTAINER}`);
 
-        if (typeof window !== 'undefined') {
-          document
-            .querySelectorAll('.maplibregl-ctrl-geocoder')
-            .forEach((geocoderEl: HTMLElement) => {
-              geocoderEl.setAttribute('data-amplify-geocoder', '');
-              Object.assign(geocoderEl.style, style);
-            });
-        }
+      if (typeof window !== 'undefined') {
+        document
+          .querySelectorAll('.maplibregl-ctrl-geocoder')
+          .forEach((geocoderEl: HTMLElement) => {
+            geocoderEl.setAttribute('data-amplify-geocoder', '');
+            Object.assign(geocoderEl.style, style);
+          });
       }
     };
 
