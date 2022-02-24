@@ -3,6 +3,7 @@ import 'dart:html';
 
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:confetti/confetti.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter_authenticator_example/stubs/amplify_auth_cognito_stub.dart';
 import 'package:flutter_authenticator_example/stubs/amplify_stub.dart';
@@ -248,20 +249,63 @@ class _MyAppState extends State<MyApp> {
         theme: theme,
         darkTheme: darkTheme,
         themeMode: _authenticatorConfig.themeMode,
-        home: Scaffold(
+        home: const HomeWidget(),
+      ),
+    );
+  }
+}
+
+class HomeWidget extends StatefulWidget {
+  const HomeWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<HomeWidget> createState() => _HomeWidgetState();
+}
+
+class _HomeWidgetState extends State<HomeWidget> {
+  late ConfettiController _controller;
+
+  @override
+  void initState() {
+    _controller = ConfettiController(duration: const Duration(seconds: 10));
+    _controller.play();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Scaffold(
           appBar: AppBar(),
           body: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: const [
-                Text('You are logged in!'),
-                SizedBox(height: 16),
+                Text(
+                  'You are logged in!',
+                  style: TextStyle(fontSize: 16),
+                ),
+                SizedBox(height: 32),
                 SignOutButton(),
               ],
             ),
           ),
         ),
-      ),
+        Align(
+          alignment: Alignment.topCenter,
+          child: ConfettiWidget(
+            confettiController: _controller,
+            canvas: const Size(800, 800),
+            shouldLoop: true,
+            blastDirectionality: BlastDirectionality.explosive,
+            emissionFrequency: 0.04,
+            minBlastForce: 10,
+          ),
+        ),
+      ],
     );
   }
 }
@@ -289,7 +333,7 @@ String buildConfig({
                   ? ['EMAIL']
                   : [usernameAttribute],
               "passwordProtectionSettings": {
-                "passwordPolicyMinLength": 8,
+                "passwordPolicyMinLength": 6,
                 "passwordPolicyCharacters": []
               },
               "mfaConfiguration": "OFF",

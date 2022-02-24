@@ -27,6 +27,7 @@ dependencies:
   amplify_auth_cognito: ^0.4.0
   amplify_authenticator: ^0.1.0-rc.6 # TODO: update to ^1.0.0 after GA release
   device_preview: ^1.0.0
+  confetti: ^0.6.0
 
 dev_dependencies:
   flutter_test:
