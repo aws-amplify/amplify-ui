@@ -14,7 +14,7 @@ export function FormFields() {
     <>
       {fieldNames.flatMap((name) => (
         // See: https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html#user-pool-settings-custom-attributes
-        <AttributeField name={name} />
+        <AttributeField name={name} key={name} />
       ))}
     </>
   );
