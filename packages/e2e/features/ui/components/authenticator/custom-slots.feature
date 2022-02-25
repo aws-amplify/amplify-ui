@@ -7,6 +7,37 @@ Feature: Sign Up with Attributes
   Background:
     Given I'm running the example "ui/components/authenticator/custom-slots"
 
+@angular @react @vue
+  Scenario: Has Confirm Reset Password Verify User Footer and Header slot text
+    Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ForgotPassword" } }' with fixture "verify-user-email"
+    When I click the "Reset Password" button
+    Then I see "Enter Information:"
+    Then I type my "email" with status "UNVERIFIED"
+    And I click the "Send Code" button
+    Then I see "Code"
+    Then I see "Enter Information:"
+    Then I see "Footer Information"
+
+@angular @react @vue
+  Scenario: Has Setup TOTP Verify User Footer and Header slot text
+    When I type my "email" with status "CONFIRMED"
+    And I type my password
+    And I click the "Sign in" button
+    Then I see "Enter Information:"
+    Then I see "Footer Information"
+
+  Scenario: Has confirm sign in Footer and Header slot text
+    When I type my "email" with status "UNVERIFIED"
+    And I type my password
+    And I click the "Sign in" button
+    Then I see "Enter Information:"
+    Then I see "Footer Information"
+
+  Scenario: Has reset password in Footer and Header slot text
+    When I click the "Reset Password" button
+    Then I see "Enter Information:"
+    Then I see "Footer Information"
+
   @angular @react @vue
   Scenario: Has a custom Header slot logo
     Then I see the "Amplify logo" image
@@ -23,7 +54,6 @@ Feature: Sign Up with Attributes
   Scenario: Has custom Sign In Footer slot text
     Given I see "Reset Password"
     When I click "Reset Password"
-    Then I see "Reset your password"
     And I see "Send code"
 
   @angular @react @vue
@@ -49,5 +79,3 @@ Feature: Sign Up with Attributes
     And I click the "Create Account" button
     Then I see "Enter Information:"
     Then I see "Footer Information"
-
-
