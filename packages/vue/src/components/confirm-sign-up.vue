@@ -52,9 +52,9 @@ const subtitleText = computed(() => {
     : translate(`${defaultMessage}`);
 });
 
-const label =
-  formOverrides?.['confirmation_code']?.label ?? confirmationCodeText;
-const labelHidden = formOverrides?.['confirmation_code']?.labelHidden;
+const confOR = formOverrides?.['confirmation_code'];
+const label = confOR?.label ?? confirmationCodeText;
+const labelHidden = confOR?.labelHidden;
 
 // Methods
 const onInput = (e: Event): void => {
@@ -117,13 +117,8 @@ const onLostCodeClicked = (): void => {
               </base-label>
               <base-wrapper class="amplify-flex">
                 <base-input
-                  :placeholder="
-                    formOverrides?.['confirmation_code']?.placeholder ??
-                    enterCode
-                  "
-                  :required="
-                    formOverrides?.['confirmation_code']?.required ?? true
-                  "
+                  :placeholder="confOR?.placeholder ?? enterCode"
+                  :required="confOR?.required ?? true"
                   class="amplify-input amplify-field-group__control"
                   id="amplify-field-124b"
                   aria-invalid="false"

@@ -26,6 +26,8 @@ const {
 } = state;
 
 const formOverrides = context?.config?.formFields?.forceNewPassword;
+const passwordOR = formOverrides?.['password'];
+const cPasswordOR = formOverrides?.['confirm_password'];
 
 const useAuthShared = createSharedComposable(useAuthenticator);
 const props = useAuthShared();
@@ -112,10 +114,10 @@ function onBlur(e: Event) {
               style="flex-direction: column"
             >
               <password-control
-                :label-hidden="formOverrides?.['password']?.labelHidden"
-                :placeholder="formOverrides?.['password']?.placeholder"
-                :required="formOverrides?.['password']?.required"
-                :label="formOverrides?.['password']?.label ?? passwordLabel"
+                :label-hidden="passwordOR?.labelHidden"
+                :placeholder="passwordOR?.placeholder"
+                :required="passwordOR?.required"
+                :label="passwordOR?.label ?? passwordLabel"
                 name="password"
                 autocomplete="new-password"
                 :ariainvalid="
@@ -136,13 +138,10 @@ function onBlur(e: Event) {
               style="flex-direction: column"
             >
               <password-control
-                :label-hidden="formOverrides?.['confirm_password']?.labelHidden"
-                :placeholder="formOverrides?.['confirm_password']?.placeholder"
-                :required="formOverrides?.['confirm_password']?.required"
-                :label="
-                  formOverrides?.['confirm_password']?.label ??
-                  confirmPasswordLabel
-                "
+                :label-hidden="cPasswordOR?.labelHidden"
+                :placeholder="cPasswordOR?.placeholder"
+                :required="cPasswordOR?.required"
+                :label="cPasswordOR?.label ?? confirmPasswordLabel"
                 name="confirm_password"
                 autocomplete="new-password"
                 :ariainvalid="

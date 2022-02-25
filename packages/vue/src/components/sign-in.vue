@@ -3,6 +3,7 @@ import { computed, ComputedRef, useAttrs } from 'vue';
 import { createSharedComposable } from '@vueuse/core';
 
 import {
+  formField,
   getActorState,
   getFormDataFromEvent,
   hasTranslation,
@@ -11,6 +12,8 @@ import {
   SignUpAttribute,
   translate,
 } from '@aws-amplify/ui';
+
+import { propsCreator } from '../composables/useUtils';
 
 import PasswordControl from './password-control.vue';
 import UserNameAlias from './user-name-alias.vue';
@@ -49,7 +52,8 @@ const {
   value: { context },
 } = state;
 
-const formOverrides = context?.config?.formFields?.signIn;
+const formOverrides = context?.config?.formFields?.signIn as formField;
+const userOR = formOverrides?.['username'];
 
 let loginMechanisms = context.config?.loginMechanisms as LoginMechanism[];
 let fieldNames: Array<LoginMechanism | SignUpAttribute>;
@@ -122,13 +126,13 @@ const onForgotPasswordClicked = (): void => {
 
             <user-name-alias
               :userNameAlias="true"
-              :label-hidden="formOverrides?.['username']?.labelHidden"
+              :label-hidden="userOR?.labelHidden"
               :userName="loginMechanism"
-              :placeholder="formOverrides?.['username']?.placeholder"
-              :required="formOverrides?.['username']?.required"
-              :label="formOverrides?.['username']?.label"
-              :dialCode="formOverrides?.['username']?.dialCode"
-              :dialCodeList="formOverrides?.['username']?.dialCodeList"
+              :placeholder="userOR?.placeholder"
+              :required="userOR?.required"
+              :label="userOR?.label"
+              :dialCode="userOR?.dialCode"
+              :dialCodeList="userOR?.dialCodeList"
             />
             <base-wrapper
               class="
@@ -141,10 +145,9 @@ const onForgotPasswordClicked = (): void => {
               style="flex-direction: column"
             >
               <password-control
-                :label-hidden="formOverrides?.['password']?.labelHidden"
-                :placeholder="formOverrides?.['password']?.placeholder"
-                :required="formOverrides?.['password']?.required"
-                :label="formOverrides?.['password']?.label ?? passwordLabel"
+                v-bind="
+                  propsCreator('password', passwordLabel, formOverrides, true)
+                "
                 name="password"
                 autocomplete="current-password"
                 :ariainvalid="false"

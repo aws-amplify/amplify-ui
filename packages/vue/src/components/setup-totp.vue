@@ -25,6 +25,8 @@ const {
 } = state;
 
 const formOverrides = context?.config?.formFields?.setupTOTP;
+const QROR = formOverrides?.['QR'];
+const confOR = formOverrides?.['confirmation_code'];
 
 const actorState = computed(() =>
   getActorState(state.value)
@@ -52,8 +54,8 @@ onMounted(async () => {
   }
   try {
     secretKey.value = await Auth.setupTOTP(user);
-    const issuer = formOverrides?.['QR']?.totpIssuer ?? 'AWSCognito';
-    const username = formOverrides?.['QR']?.totpUsername ?? user.username;
+    const issuer = QROR?.totpIssuer ?? 'AWSCognito';
+    const username = QROR?.totpUsername ?? user.username;
     const totpCode = `otpauth://totp/${issuer}:${username}?secret=${secretKey.value}&issuer=${issuer}`;
     qrCode.qrCodeImageSource = await QRCode.toDataURL(totpCode);
   } catch (error) {
@@ -68,9 +70,8 @@ const backSignInText = computed(() => translate('Back to Sign In'));
 const confirmText = computed(() => translate('Confirm'));
 const codeText = computed(() => translate('Code'));
 
-const label =
-  formOverrides?.['confirmation_code']?.label ?? translate('Code *');
-const labelHidden = formOverrides?.['confirmation_code']?.labelHidden;
+const label = confOR?.label ?? translate('Code *');
+const labelHidden = confOR?.labelHidden;
 
 // Methods
 const onInput = (e: Event): void => {
@@ -168,13 +169,8 @@ const onBackToSignInClicked = (): void => {
                   </base-label>
                   <base-wrapper class="amplify-flex">
                     <base-input
-                      :placeholder="
-                        formOverrides?.['confirmation_code']?.placeholder ??
-                        codeText
-                      "
-                      :required="
-                        formOverrides?.['confirmation_code']?.required ?? true
-                      "
+                      :placeholder="confOR?.placeholder ?? codeText"
+                      :required="confOR?.required ?? true"
                       class="amplify-input amplify-field-group__control"
                       id="amplify-field-45d1"
                       aria-invalid="false"

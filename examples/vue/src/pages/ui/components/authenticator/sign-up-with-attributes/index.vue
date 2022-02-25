@@ -11,7 +11,7 @@ Amplify.configure(aws_exports);
 </script>
 
 <template>
-  <authenticator :form-fields="formFields" initial-state="signUp">
+  <authenticator initial-state="signUp">
     <template v-slot:force-new-password-form-fields>
       <authenticator-force-new-password-form-fields />
       <amplify-text-field

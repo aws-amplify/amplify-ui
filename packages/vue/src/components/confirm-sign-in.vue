@@ -21,6 +21,7 @@ const {
 } = state;
 
 const formOverrides = context?.config?.formFields?.confirmSignIn;
+const confOR = formOverrides?.['confirmation_code'];
 
 const useAuthShared = createSharedComposable(useAuthenticator);
 const props = useAuthShared();
@@ -42,9 +43,8 @@ const backSignInText = computed(() => translate('Back to Sign In'));
 const confirmText = computed(() => translate('Confirm'));
 const codeText = computed(() => translate('Code'));
 
-const label =
-  formOverrides?.['confirmation_code']?.label ?? translate('Code *');
-const labelHidden = formOverrides?.['confirmation_code']?.labelHidden;
+const label = confOR?.label ?? translate('Code *');
+const labelHidden = confOR?.labelHidden;
 
 // Methods
 const onInput = (e: Event): void => {
@@ -111,13 +111,8 @@ const onBackToSignInClicked = (): void => {
               </base-label>
               <base-wrapper class="amplify-flex" style="flex-direction: column">
                 <base-input
-                  :placeholder="
-                    formOverrides?.['confirmation_code']?.placeholder ??
-                    codeText
-                  "
-                  :required="
-                    formOverrides?.['confirmation_code']?.required ?? true
-                  "
+                  :placeholder="confOR?.placeholder ?? codeText"
+                  :required="confOR?.required ?? true"
                   class="amplify-input amplify-field-group__control"
                   id="amplify-field-51ee"
                   aria-invalid="false"

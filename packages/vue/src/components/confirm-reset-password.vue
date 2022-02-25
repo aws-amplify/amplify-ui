@@ -21,6 +21,9 @@ const {
 } = state;
 
 const formOverrides = context?.config?.formFields?.confirmResetPassword;
+const confOR = formOverrides?.['confirmation_code'];
+const passwordOR = formOverrides?.['password'];
+const cPasswordOR = formOverrides?.['confirm_password'];
 
 const useAuthShared = createSharedComposable(useAuthenticator);
 const props = useAuthShared();
@@ -48,9 +51,8 @@ const codeText = computed(() => translate('Code'));
 const newPasswordLabel = computed(() => translate('New password'));
 const confirmPasswordLabel = computed(() => translate('Confirm Password'));
 
-const label =
-  formOverrides?.['confirmation_code']?.label ?? confirmationCodeText;
-const labelHidden = formOverrides?.['confirmation_code']?.labelHidden;
+const label = confOR?.label ?? confirmationCodeText;
+const labelHidden = confOR?.labelHidden;
 
 // Methods
 const onConfirmResetPasswordSubmit = (e: Event): void => {
@@ -118,13 +120,8 @@ function onBlur(e: Event) {
               </base-label>
               <base-wrapper class="amplify-flex">
                 <base-input
-                  :placeholder="
-                    formOverrides?.['confirmation_code']?.placeholder ??
-                    codeText
-                  "
-                  :required="
-                    formOverrides?.['confirmation_code']?.required ?? true
-                  "
+                  :placeholder="confOR?.placeholder ?? codeText"
+                  :required="confOR?.required ?? true"
                   class="amplify-input amplify-field-group__control"
                   id="amplify-field-d653"
                   aria-invalid="false"
@@ -145,10 +142,10 @@ function onBlur(e: Event) {
               style="flex-direction: column"
             >
               <password-control
-                :label-hidden="formOverrides?.['password']?.labelHidden"
-                :placeholder="formOverrides?.['password']?.placeholder"
-                :required="formOverrides?.['password']?.required"
-                :label="formOverrides?.['password']?.label ?? newPasswordLabel"
+                :label-hidden="passwordOR?.labelHidden"
+                :placeholder="passwordOR?.placeholder"
+                :required="passwordOR?.required"
+                :label="passwordOR?.label ?? newPasswordLabel"
                 name="password"
                 autocomplete="current-password"
                 :ariainvalid="
@@ -167,13 +164,10 @@ function onBlur(e: Event) {
               style="flex-direction: column"
             >
               <password-control
-                :label-hidden="formOverrides?.['confirm_password']?.labelHidden"
-                :placeholder="formOverrides?.['confirm_password']?.placeholder"
-                :required="formOverrides?.['confirm_password']?.required"
-                :label="
-                  formOverrides?.['confirm_password']?.label ??
-                  confirmPasswordLabel
-                "
+                :label-hidden="cPasswordOR?.labelHidden"
+                :placeholder="cPasswordOR?.placeholder"
+                :required="cPasswordOR?.required"
+                :label="cPasswordOR?.label ?? confirmPasswordLabel"
                 name="confirm_password"
                 autocomplete="new-password"
                 :ariainvalid="

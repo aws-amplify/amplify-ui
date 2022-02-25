@@ -6,6 +6,7 @@ import {
   AuthInputAttributes,
   authInputAttributes,
   SignUpAttribute,
+  formField,
 } from '@aws-amplify/ui';
 
 import { useAuth, useAuthenticator } from '../composables/useAuth';
@@ -13,6 +14,7 @@ import UserNameAliasComponent from './user-name-alias.vue';
 import PasswordControl from './password-control.vue';
 import AliasControl from './alias-control.vue';
 import { createSharedComposable } from '@vueuse/core';
+import { propsCreator } from '../composables/useUtils';
 
 // state
 const { state } = useAuth();
@@ -21,7 +23,7 @@ const {
   value: { context },
 } = state;
 
-const formOverrides = context?.config?.formFields?.signUp;
+const formOverrides = context?.config?.formFields?.signUp as formField;
 
 const useAuthShared = createSharedComposable(useAuthenticator);
 const { validationErrors } = toRefs(useAuthShared());
@@ -58,17 +60,19 @@ function onBlur(e: Event) {
 
 // Only 1 is supported, so `['email', 'phone_number']` will only show `email`
 const loginMechanism = fieldNames.shift() as LoginMechanism;
+
+const userOR = formOverrides?.[loginMechanism];
 </script>
 
 <template>
   <user-name-alias-component
-    :label-hidden="formOverrides?.[loginMechanism]?.labelHidden"
+    :label-hidden="userOR?.labelHidden"
     :userName="loginMechanism"
-    :placeholder="formOverrides?.[loginMechanism]?.placeholder"
-    :required="formOverrides?.[loginMechanism]?.required"
-    :label="formOverrides?.[loginMechanism]?.label"
-    :dialCode="formOverrides?.[loginMechanism]?.dialCode"
-    :dialCodeList="formOverrides?.[loginMechanism]?.dialCodeList"
+    :placeholder="userOR?.placeholder"
+    :required="userOR?.required"
+    :label="userOR?.label"
+    :dialCode="userOR?.dialCode"
+    :dialCodeList="userOR?.dialCodeList"
   />
   <base-wrapper
     class="
@@ -79,10 +83,7 @@ const loginMechanism = fieldNames.shift() as LoginMechanism;
   >
     <password-control
       name="password"
-      :label-hidden="formOverrides?.['password']?.labelHidden"
-      :placeholder="formOverrides?.['password']?.placeholder"
-      :required="formOverrides?.['password']?.required"
-      :label="formOverrides?.['password']?.label ?? passwordLabel"
+      v-bind="propsCreator('password', passwordLabel, formOverrides, true)"
       autocomplete="new-password"
       :ariainvalid="!!validationErrors.confirm_password"
       @blur="onBlur"
@@ -97,12 +98,14 @@ const loginMechanism = fieldNames.shift() as LoginMechanism;
   >
     <password-control
       name="confirm_password"
-      :label="
-        formOverrides?.['confirm_password']?.label ?? confirmPasswordLabel
+      v-bind="
+        propsCreator(
+          'confirm_password',
+          confirmPasswordLabel,
+          formOverrides,
+          true
+        )
       "
-      :label-hidden="formOverrides?.['confirm_password']?.labelHidden"
-      :placeholder="formOverrides?.['confirm_password']?.placeholder"
-      :required="formOverrides?.['confirm_password']?.required"
       autocomplete="new-password"
       :ariainvalid="!!validationErrors.confirm_password"
       @blur="onBlur"

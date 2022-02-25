@@ -24,6 +24,7 @@ const {
 } = state;
 
 const formOverrides = context?.config?.formFields?.confirmVerifyUser;
+const confOR = formOverrides?.['confirmation_code'];
 
 const actorState: ComputedRef<SignInState> = computed(
   () => getActorState(state.value) as SignInState
@@ -39,9 +40,8 @@ const confirmationCodeText = computed(() => translate('Confirmation Code'));
 const codeText = computed(() => translate('Code'));
 const submitText = computed(() => translate('Submit'));
 
-const label =
-  formOverrides?.['confirmation_code']?.label ?? confirmationCodeText.value;
-const labelHidden = formOverrides?.['confirmation_code']?.labelHidden;
+const label = confOR?.label ?? confirmationCodeText.value;
+const labelHidden = confOR?.labelHidden;
 
 // Methods
 const onInput = (e: Event): void => {
@@ -103,13 +103,8 @@ const onSkipClicked = (): void => {
               >
               <base-wrapper class="amplify-flex">
                 <base-input
-                  :placeholder="
-                    formOverrides?.['confirmation_code']?.placeholder ??
-                    codeText
-                  "
-                  :required="
-                    formOverrides?.['confirmation_code']?.required ?? true
-                  "
+                  :placeholder="confOR?.placeholder ?? codeText"
+                  :required="confOR?.required ?? true"
                   class="amplify-input amplify-field-group__control"
                   id="amplify-field-c34b"
                   aria-invalid="false"
