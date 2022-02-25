@@ -8,27 +8,6 @@ import {
 import '@aws-amplify/ui-vue/styles.css';
 import aws_exports from './aws-exports';
 Amplify.configure(aws_exports);
-
-const formFields = {
-  signUp: {
-    username: {
-      labelHidden: false,
-      placeholder: 'boo',
-      required: false,
-      label: 'my special label',
-    },
-    password: {
-      labelHidden: false,
-      placeholder: 'boo23',
-      label: 'oops I did it again',
-    },
-    given_name: {
-      placeholder: 'give my name',
-      required: false,
-      label: 'Name Please',
-    },
-  },
-};
 </script>
 
 <template>
