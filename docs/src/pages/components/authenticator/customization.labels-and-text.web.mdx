@@ -1,0 +1,91 @@
+import { Authenticator, Button } from '@aws-amplify/ui-react';
+
+import { Example } from '@/components/Example';
+import { Tabs, TabItem } from '@aws-amplify/ui-react';
+
+import { LabelsAndTextDemo } from './LabelsAndTextDemo';
+
+Using the same techniques as [Internationalization (I18n)](#internationalization-i18n), you can customize the labels and text of the components:
+
+<Tabs>
+  <TabItem title="Default Values">
+    Compare the default labels below to those in the customized screens via the tabs above.
+
+    Because `I18n` manages global translations, customizing these will affect all translations of these strings (including those on this page!).
+
+    <Example>
+      <Authenticator />
+    </Example>
+
+  </TabItem>
+  <TabItem title="Sign In">
+
+    ```js
+    I18n.putVocabulariesForLanguage('en', {
+      'Sign In': 'Login', // Tab header
+      'Sign in': 'Log in', // Button label
+      'Sign in to your account': 'Welcome Back!',
+      Username: 'Enter your username', // Username label
+      Password: 'Enter your password', // Password label
+      'Forgot your password?': 'Reset Password',
+    });
+    ```
+
+    <Example>
+      <LabelsAndTextDemo Component={Authenticator.SignIn} />
+    </Example>
+
+  </TabItem>
+
+  <TabItem title="Sign Up">
+
+    ```js
+    I18n.putVocabulariesForLanguage('en', {
+      'Create Account': 'Register', // Tab header
+      'Create a new account': 'New User', // Header text
+      'Confirm Password': 'Confirm your password', // Confirm Password label
+      Email: 'Enter your email',
+      'Phone Number': 'Enter your phone number',
+    });
+    ```
+
+    <Example>
+      <LabelsAndTextDemo Component={Authenticator.SignUp} />
+    </Example>
+
+  </TabItem>
+
+  <TabItem title="Reset Password">
+
+    ```js
+    I18n.putVocabulariesForLanguage('en', {
+      'Reset your password': 'Forgot your password?',
+      'Enter your username': 'Username or Email',
+      'Send code': 'Reset my password',
+      'Back to Sign In': 'Back to Login',
+    });
+    ```
+
+    <Example>
+      <LabelsAndTextDemo Component={Authenticator.ResetPassword} />
+    </Example>
+
+  </TabItem>
+
+  <TabItem title="Setup TOTP">
+
+    ```js
+    I18n.putVocabulariesForLanguage('en', {
+      Loading: 'QR code would show here',
+      Code: '2FA Code',
+      Confirm: 'Confirm 2FA',
+      'Back to Sign In': 'Back to Login',
+    });
+    ```
+
+    <Example>
+      <LabelsAndTextDemo Component={Authenticator.SetupTOTP} />
+    </Example>
+
+  </TabItem>
+</Tabs>
