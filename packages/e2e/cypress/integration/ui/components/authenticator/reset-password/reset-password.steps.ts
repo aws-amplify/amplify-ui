@@ -9,6 +9,5 @@ When('I type my new password', () => {
 });
 
 When('I type a valid code', () => {
-  // This should be intercepted & mocked
   cy.findByPlaceholderText('Code').type('validcode');
 });
