@@ -33,7 +33,7 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "yarn run build:ts && yarn run build:catalog",
-    "build:ts": "tsup --minify --keep-names",
+    "build:ts": "tsup --minify",
     "build:catalog": "ts-node scripts/generatePrimitivesCatalog.ts",
     "dev": "tsup --watch src",
     "eslint:primitives": "eslint ./src/primitives --ext .js,.ts,.tsx",
@@ -57,11 +57,15 @@
     "@radix-ui/react-slider": "0.1.1",
     "@radix-ui/react-tabs": "0.1.1",
     "@xstate/react": "1.6.3",
+    "amazon-location-helpers": "1.1.1",
     "classnames": "2.3.1",
     "deepmerge": "4.2.2",
     "lodash": "4.17.21",
+    "mapbox-gl": "2.7.0",
+    "maplibre-gl-js-amplify": "1.2.3",
     "qrcode": "1.5.0",
-    "react-generate-context": "1.0.1"
+    "react-generate-context": "1.0.1",
+    "react-map-gl": "7.0.6"
   },
   "peerDependencies": {
     "aws-amplify": "3.x.x || 4.x.x",

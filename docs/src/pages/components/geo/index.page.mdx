@@ -1,0 +1,73 @@
+---
+title: Geo Map
+---
+
+import { Example } from '@/components/Example';
+import { Feature } from '@/components/Feature';
+import { Fragment } from '@/components/Fragment';
+import { XStateInspector } from '@/components/XStateInspector';
+import { Tabs, TabItem } from '@aws-amplify/ui-react';
+
+The `AmplifyMap` component adds an interactive map to your application backed by [Amplify Geo APIs](https://docs.amplify.aws/lib/geo/getting-started/q/platform/js/)
+powered by [Amazon Location Service](https://aws.amazon.com/location/).
+
+`AmplifyMap` is built on top of the open source library [react-map-gl](https://visgl.github.io/react-map-gl/) while using
+[maplibre-gl-js](https://maplibre.org/maplibre-gl-js-docs/api/) as the map tile source.
+
+## Quick Start
+
+> Preqrequisite: [Create a Geo backend](https://docs.amplify.aws/lib/geo/getting-started/q/platform/js/)
+
+You can import the `AmplifyMap` component and use it in your Amplify application without any additional configuration.
+
+<Fragment platforms={['react']}>
+  {({ platform }) => import(`./fragments/quick-start.${platform}.mdx`)}
+</Fragment>
+
+## Configuration
+
+`AmplifyMap` supports the configuration properties available to the [default map of react-map-gl](https://visgl.github.io/react-map-gl/docs/api-reference/map#properties).
+
+## Controls
+
+`AmplifyMap` can be used with various controls to enhance functionality.
+
+### Geocoder (location search)
+
+`Geocoder` provides location search powered by [Amazon Location Service](https://aws.amazon.com/location/) for the `AmplifyMap` component, using the viewport as the proximity
+for generating results. `Geocoder` is used as a child component of `AmplifyMap` for which it renders visual markers and information based on its location search results.
+
+<Fragment platforms={['react']}>
+  {({ platform }) => import(`./fragments/geocoder.${platform}.mdx`)}
+</Fragment>
+
+`Geocoder` can also be used as a standalone component using initial proximity coordinates for generating results.
+
+<Fragment platforms={['react']}>
+  {({ platform }) => import(`./fragments/standalone-geocoder.${platform}.mdx`)}
+</Fragment>
+
+#### Configuration
+
+`position (string?)` - Position on the map to which the control will be added.
+Valid values are `'top-left'`, `'top-right'`, `'bottom-left'`, and `'bottom-right'`. Defaults to `'top-right'`.
+
+<Fragment platforms={['react']}>
+  {({ platform }) => import(`./fragments/geocoder-position.${platform}.mdx`)}
+</Fragment>
+
+`Geocoder` is built atop [maplibre-gl-geocoder](https://github.com/maplibre/maplibre-gl-geocoder) and supports the [options parameter values](https://github.com/maplibre/maplibre-gl-geocoder/blob/main/API.md#parameters) used by the library.
+
+## Customization
+
+Custom styling for `AmplifyMap` and any utilized controls can be achieved by passing a custom `style` property to the given component.
+
+<Fragment platforms={['react']}>
+  {({ platform }) => import(`./fragments/style-prop.${platform}.mdx`)}
+</Fragment>
+
+Additionally, you can override a component's `data-amplify` attribute.
+
+<Fragment platforms={['react']}>
+  {({ platform }) => import(`./fragments/override-class.${platform}.mdx`)}
+</Fragment>

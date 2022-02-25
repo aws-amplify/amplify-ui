@@ -14,6 +14,7 @@ describe('@aws-amplify/ui-react', () => {
       expect(Object.keys(exported)).toMatchInlineSnapshot(`
         Array [
           "Alert",
+          "AmplifyMap",
           "AmplifyProvider",
           "Authenticator",
           "Badge",
@@ -31,6 +32,7 @@ describe('@aws-amplify/ui-react', () => {
           "FieldGroupIcon",
           "FieldGroupIconButton",
           "Flex",
+          "Geocoder",
           "Grid",
           "Heading",
           "Icon",
