@@ -107,14 +107,14 @@ const authFieldsWithDefaults = [
   ...LoginMechanismArray,
   'confirmation_code',
   'password',
-];
+] as const;
 
 export type AuthFieldsWithDefaults = typeof authFieldsWithDefaults[number];
 
-export const isAuthFieldWithDefaults = (
+export const isSupportedAuthField = (
   name: string
 ): name is AuthFieldsWithDefaults => {
-  return authFieldsWithDefaults.includes(name);
+  return authFieldsWithDefaults.includes(name as AuthFieldsWithDefaults);
 };
 
 export type AuthInputAttributes = Record<
