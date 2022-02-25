@@ -22,7 +22,7 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
     isDisabled,
     label,
     labelHidden,
-    labelPosition = 'end',
+    labelPosition,
     onChange: onChangeProp,
     size,
     testId,
