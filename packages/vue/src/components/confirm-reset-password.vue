@@ -8,7 +8,9 @@ import {
   ValidationError,
   translate,
   getFormDataFromEvent,
+  formField,
 } from '@aws-amplify/ui';
+import { propsCreator } from '../composables/useUtils';
 
 import { useAuth, useAuthenticator } from '../composables/useAuth';
 import PasswordControl from './password-control.vue';
@@ -20,10 +22,9 @@ const {
   value: { context },
 } = state;
 
-const formOverrides = context?.config?.formFields?.confirmResetPassword;
+const formOverrides = context?.config?.formFields
+  ?.confirmResetPassword as formField;
 const confOR = formOverrides?.['confirmation_code'];
-const passwordOR = formOverrides?.['password'];
-const cPasswordOR = formOverrides?.['confirm_password'];
 
 const useAuthShared = createSharedComposable(useAuthenticator);
 const props = useAuthShared();
@@ -142,10 +143,14 @@ function onBlur(e: Event) {
               style="flex-direction: column"
             >
               <password-control
-                :label-hidden="passwordOR?.labelHidden"
-                :placeholder="passwordOR?.placeholder"
-                :required="passwordOR?.required"
-                :label="passwordOR?.label ?? newPasswordLabel"
+                v-bind="
+                  propsCreator(
+                    'password',
+                    newPasswordLabel,
+                    formOverrides,
+                    true
+                  )
+                "
                 name="password"
                 autocomplete="current-password"
                 :ariainvalid="
@@ -164,10 +169,14 @@ function onBlur(e: Event) {
               style="flex-direction: column"
             >
               <password-control
-                :label-hidden="cPasswordOR?.labelHidden"
-                :placeholder="cPasswordOR?.placeholder"
-                :required="cPasswordOR?.required"
-                :label="cPasswordOR?.label ?? confirmPasswordLabel"
+                v-bind="
+                  propsCreator(
+                    'confirm_password',
+                    confirmPasswordLabel,
+                    formOverrides,
+                    true
+                  )
+                "
                 name="confirm_password"
                 autocomplete="new-password"
                 :ariainvalid="

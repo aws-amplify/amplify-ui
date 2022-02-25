@@ -8,7 +8,9 @@ import {
   ValidationError,
   translate,
   getFormDataFromEvent,
+  formField,
 } from '@aws-amplify/ui';
+import { propsCreator } from '../composables/useUtils';
 
 import { useAuth, useAuthenticator } from '../composables/useAuth';
 
@@ -25,9 +27,8 @@ const {
   value: { context },
 } = state;
 
-const formOverrides = context?.config?.formFields?.forceNewPassword;
-const passwordOR = formOverrides?.['password'];
-const cPasswordOR = formOverrides?.['confirm_password'];
+const formOverrides = context?.config?.formFields
+  ?.forceNewPassword as formField;
 
 const useAuthShared = createSharedComposable(useAuthenticator);
 const props = useAuthShared();
@@ -114,10 +115,9 @@ function onBlur(e: Event) {
               style="flex-direction: column"
             >
               <password-control
-                :label-hidden="passwordOR?.labelHidden"
-                :placeholder="passwordOR?.placeholder"
-                :required="passwordOR?.required"
-                :label="passwordOR?.label ?? passwordLabel"
+                v-bind="
+                  propsCreator('password', passwordLabel, formOverrides, true)
+                "
                 name="password"
                 autocomplete="new-password"
                 :ariainvalid="
@@ -138,10 +138,14 @@ function onBlur(e: Event) {
               style="flex-direction: column"
             >
               <password-control
-                :label-hidden="cPasswordOR?.labelHidden"
-                :placeholder="cPasswordOR?.placeholder"
-                :required="cPasswordOR?.required"
-                :label="cPasswordOR?.label ?? confirmPasswordLabel"
+                v-bind="
+                  propsCreator(
+                    'confirm_password',
+                    confirmPasswordLabel,
+                    formOverrides,
+                    true
+                  )
+                "
                 name="confirm_password"
                 autocomplete="new-password"
                 :ariainvalid="

@@ -71,18 +71,3 @@ export const propsCreator = (
     placeholder: fo?.placeholder ?? translate(show),
   };
 };
-
-// props creator for phone
-export const phonePropsCreator = (
-  name: string,
-  show: string,
-  formOverrides: formField,
-  country_code: string
-) => {
-  const fo = formOverrides?.[name];
-  return {
-    ...propsCreator(name, show, formOverrides),
-    dialCode: fo?.dialCode ?? country_code,
-    dialCodeList: fo?.dialCodeList,
-  };
-};
