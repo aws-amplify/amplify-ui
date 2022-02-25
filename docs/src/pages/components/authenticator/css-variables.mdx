@@ -145,14 +145,22 @@ import { ScrollView } from '@aws-amplify/ui-react';
 | --amplify-components-authenticator-container-width-desktop | 70% |
 | --amplify-components-authenticator-container-width-handheld | var(--amplify-space-relative-full) |
 | --amplify-components-authenticator-container-width-max | 30rem |
-| --amplify-components-authenticator-modal-background-color | var(--amplify-colors-background-secondary) |
-| --amplify-components-authenticator-modal-height | 100% |
+| --amplify-components-authenticator-footer-padding-bottom | var(--amplify-space-medium) |
+| --amplify-components-authenticator-form-padding | var(--amplify-space-xl) |
+| --amplify-components-authenticator-max-width | 60rem |
+| --amplify-components-authenticator-modal-background-color | var(--amplify-colors-overlay-50) |
+| --amplify-components-authenticator-modal-height | var(--amplify-space-relative-full) |
 | --amplify-components-authenticator-modal-left | var(--amplify-space-zero) |
 | --amplify-components-authenticator-modal-top | var(--amplify-space-zero) |
-| --amplify-components-authenticator-modal-width | 100% |
+| --amplify-components-authenticator-modal-width | var(--amplify-space-relative-full) |
+| --amplify-components-authenticator-or-container-color | var(--amplify-colors-neutral-80) |
+| --amplify-components-authenticator-or-container-or-line-background-color | var(--amplify-colors-background-primary) |
+| --amplify-components-authenticator-router-background-color | var(--amplify-colors-background-primary) |
 | --amplify-components-authenticator-router-border-color | var(--amplify-colors-border-primary) |
 | --amplify-components-authenticator-router-border-style | solid |
 | --amplify-components-authenticator-router-border-width | var(--amplify-border-widths-small) |
+| --amplify-components-authenticator-router-box-shadow | var(--amplify-shadows-medium) |
+| --amplify-components-authenticator-state-inactive-background-color | var(--amplify-colors-background-secondary) |
 | --amplify-components-badge-background-color | var(--amplify-colors-background-tertiary) |
 | --amplify-components-badge-border-radius | var(--amplify-radii-xl) |
 | --amplify-components-badge-color | var(--amplify-colors-font-primary) |
@@ -325,6 +333,12 @@ import { ScrollView } from '@aws-amplify/ui-react';
 | --amplify-components-checkboxfield-align-items | flex-start |
 | --amplify-components-checkboxfield-flex-direction | column |
 | --amplify-components-checkboxfield-justify-content | center |
+| --amplify-components-copy-font-size | var(--amplify-font-sizes-xs) |
+| --amplify-components-copy-gap | var(--amplify-space-relative-medium) |
+| --amplify-components-copy-svg-path-fill | var(--amplify-space-relative-medium) |
+| --amplify-components-copy-tool-tip-bottom | var(--amplify-space-large) |
+| --amplify-components-copy-tool-tip-color | var(--amplify-colors-teal-100) |
+| --amplify-components-copy-tool-tip-font-size | var(--amplify-font-sizes-xxs) |
 | --amplify-components-countrycodeselect-height | 100% |
 | --amplify-components-divider-border-color | var(--amplify-colors-border-primary) |
 | --amplify-components-divider-border-style | solid |
@@ -345,7 +359,7 @@ import { ScrollView } from '@aws-amplify/ui-react';
 | --amplify-components-expander-content-text-padding-block-end | var(--amplify-space-medium) |
 | --amplify-components-expander-content-text-padding-block-start | var(--amplify-space-medium) |
 | --amplify-components-expander-display | block |
-| --amplify-components-expander-header-box-shadow | 0 1px 0 var(--amplify-colors-overlay-20) |
+| --amplify-components-expander-header-box-shadow | 0 1px 0  var(--amplify-colors-overlay-20) |
 | --amplify-components-expander-icon-transition-duration | var(--amplify-time-medium) |
 | --amplify-components-expander-icon-transition-timing-function | cubic-bezier(0.87, 0, 0.13, 1) |
 | --amplify-components-expander-item-border-bottom-left-radius | var(--amplify-radii-medium) |
@@ -408,9 +422,9 @@ import { ScrollView } from '@aws-amplify/ui-react';
 | --amplify-components-fieldcontrol-quiet-border-radius | 0 |
 | --amplify-components-fieldcontrol-quiet-border-style | none |
 | --amplify-components-fieldcontrol-quiet-error-border-block-end-color | var(--amplify-colors-border-error) |
-| --amplify-components-fieldcontrol-quiet-error-focus-box-shadow | 0px 1px var(--amplify-colors-border-error) |
+| --amplify-components-fieldcontrol-quiet-error-focus-box-shadow | 0px 1px   var(--amplify-colors-border-error) |
 | --amplify-components-fieldcontrol-quiet-focus-border-block-end-color | var(--amplify-colors-border-focus) |
-| --amplify-components-fieldcontrol-quiet-focus-box-shadow | 0px 1px var(--amplify-colors-border-focus) |
+| --amplify-components-fieldcontrol-quiet-focus-box-shadow | 0px 1px   var(--amplify-colors-border-focus) |
 | --amplify-components-fieldcontrol-small-font-size | var(--amplify-components-field-small-font-size) |
 | --amplify-components-fieldcontrol-small-padding-block-end | var(--amplify-space-xxs) |
 | --amplify-components-fieldcontrol-small-padding-block-start | var(--amplify-space-xxs) |
@@ -769,8 +783,8 @@ import { ScrollView } from '@aws-amplify/ui-react';
 | --amplify-font-weights-normal | 400 |
 | --amplify-font-weights-semibold | 600 |
 | --amplify-font-weights-thin | 200 |
-| --amplify-fonts-default-static | "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", Oxygen, UbuntuCantarell, "Open Sans", sans-serif |
-| --amplify-fonts-default-variable | "InterVariable", "Inter var", "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue""Segoe UI", Oxygen, Ubuntu, Cantarell, "Open Sans", sans-serif |
+| --amplify-fonts-default-static | 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif |
+| --amplify-fonts-default-variable | 'InterVariable', 'Inter var', 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif |
 | --amplify-line-heights-large | 2 |
 | --amplify-line-heights-medium | 1.5 |
 | --amplify-line-heights-small | 1.25 |
@@ -798,9 +812,9 @@ import { ScrollView } from '@aws-amplify/ui-react';
 | --amplify-radii-xs | 0.125rem |
 | --amplify-radii-xxl | 4rem |
 | --amplify-radii-xxxl | 8rem |
-| --amplify-shadows-large | 0px 4px 12px var(--amplify-colors-shadow-primary) |
-| --amplify-shadows-medium | 0px 2px 6px var(--amplify-colors-shadow-secondary) |
-| --amplify-shadows-small | 0px 2px 4px var(--amplify-colors-shadow-tertiary) |
+| --amplify-shadows-large | 0px 4px 12px  var(--amplify-colors-shadow-primary) |
+| --amplify-shadows-medium | 0px 2px 6px  var(--amplify-colors-shadow-secondary) |
+| --amplify-shadows-small | 0px 2px 4px  var(--amplify-colors-shadow-tertiary) |
 | --amplify-space-large | 1.5rem |
 | --amplify-space-medium | 1rem |
 | --amplify-space-relative-full | 100% |
@@ -826,6 +840,6 @@ import { ScrollView } from '@aws-amplify/ui-react';
 | --amplify-time-short | 100ms |
 | --amplify-transforms-slide-x-large | translateX(2em) |
 | --amplify-transforms-slide-x-medium | translateX(1em) |
-| --amplify-transforms-slide-x-small | translateX(0.5em) |                                                                                                                          |
+| --amplify-transforms-slide-x-small | translateX(0.5em) |
 
 </ScrollView>
