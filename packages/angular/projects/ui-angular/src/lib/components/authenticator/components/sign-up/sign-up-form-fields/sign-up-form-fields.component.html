@@ -20,7 +20,7 @@
     [labelHidden]="grabField('confirm_password', 'labelHidden', true)"
     [placeholder]="grabField('confirm_password', 'placeholder', null)"
     [required]="grabField('confirm_password', 'required', true)"
-    [label]="grabField('confirm_password', 'label', null)"
+    [label]="grabField('confirm_password', 'label', 'Confirm Password')"
     name="confirm_password"
     type="password"
     autocomplete="new-password"
@@ -33,6 +33,8 @@
       [placeholder]="grabField(field, 'placeholder', null)"
       [required]="grabField(field, 'required', true)"
       [label]="grabField(field, 'label', null)"
+      [defaultCountryCode]="grabField(field, 'dialCode', null)"
+      [dialCodeList]="grabField(field, 'dialCodeList', null)"
     ></amplify-form-field>
   </ng-container>
 </div>

@@ -37,16 +37,20 @@ Feature: Form Fields
     Then I see "Confirm Password:"
     Then "Confirm Password:" field does not have class "amplify-visually-hidden"
 
-
 @angular @react @vue
-  Scenario: Setup TOTP Sign in replace placeholder, and label
-    When I type my "email" with status "CONFIRMED"
+  Scenario: Confirm Force New Password replaced placeholder and label is visible
+    Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }' with fixture "force-change-password"
+    And I type my "email" with status "FORCE_CHANGE_PASSWORD"
     And I type my password
     And I click the "Sign in" button
-    Then 'New Label' field does not have "required"
-    Then I see "New Label"
-    Then "New Label" field does not have class "amplify-visually-hidden"
-    Then I see placeholder "Enter your Confirmation Code:"
+    Then "Password" field does not have class "amplify-visually-hidden"
+    Then I see placeholder "Enter your Password:"
+
+Scenario: Reset password replaced placeholder and label is visible
+    When I click the "Reset Password" button
+    Then "Enter your email" field does not have class "amplify-visually-hidden"
+    Then I see placeholder "Enter your email:"
+
 
 @angular @react @vue
   Scenario: Confirm Reset Password replaced placeholder, label and label is visible
@@ -61,18 +65,15 @@ Feature: Form Fields
     Then I see placeholder "Enter your Confirmation Code:"
 
 @angular @react @vue
-  Scenario: Confirm Force New Password replaced placeholder and label is visible
-    Given I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.RespondToAuthChallenge" } }' with fixture "force-change-password"
-    And I type my "email" with status "FORCE_CHANGE_PASSWORD"
+  Scenario: Setup TOTP Sign in replace placeholder, and label
+    When I type my "email" with status "CONFIRMED"
     And I type my password
     And I click the "Sign in" button
-    Then "Password" field does not have class "amplify-visually-hidden"
-    Then I see placeholder "Enter your Password:"
+    Then 'New Label' field does not have "required"
+    Then I see "New Label"
+    Then "New Label" field does not have class "amplify-visually-hidden"
+    Then I see placeholder "Enter your Confirmation Code:"
 
-  Scenario: Reset password replaced placeholder and label is visible
-    When I click the "Reset Password" button
-    Then "Enter your email" field does not have class "amplify-visually-hidden"
-    Then I see placeholder "Enter your email:"
 
 
 @angular @react @vue

@@ -38,7 +38,8 @@ export class ConfirmSignUpComponent implements OnInit {
 
   public setFormFields() {
     const _state = this.authenticator.authState;
-    this.formOverrides = getActorState(_state).context?.formFields?.signUp;
+    this.formOverrides =
+      getActorState(_state).context?.formFields?.confirmSignUp;
   }
 
   public grabField(name: string, field: string, defaultV) {

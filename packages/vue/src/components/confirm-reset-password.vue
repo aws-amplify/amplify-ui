@@ -83,8 +83,6 @@ function onBlur(e: Event) {
   const { name } = <HTMLInputElement>e.target;
   props.updateBlur({ name });
 }
-
-console.log('does this work', formOverrides?.['confirmation_code']?.required);
 </script>
 
 <template>
