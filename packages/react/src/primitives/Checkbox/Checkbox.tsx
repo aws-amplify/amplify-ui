@@ -22,7 +22,7 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
     isDisabled,
     label,
     labelHidden,
-    labelPosition,
+    labelPosition = 'end',
     onChange: onChangeProp,
     size,
     testId,
@@ -74,6 +74,16 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
           {...rest}
         />
       </VisuallyHidden>
+      {label && !labelHidden && (
+        <Text
+          as="span"
+          className={ComponentClassNames.CheckboxLabel}
+          data-disabled={isDisabled}
+          testId={labelTestId}
+        >
+          {label}
+        </Text>
+      )}
       <Flex
         aria-hidden="true"
         as="span"
@@ -92,16 +102,6 @@ const CheckboxPrimitive: Primitive<CheckboxProps, 'input'> = (
           size={size}
         />
       </Flex>
-      {label && !labelHidden && (
-        <Text
-          as="span"
-          className={ComponentClassNames.CheckboxLabel}
-          data-disabled={isDisabled}
-          testId={labelTestId}
-        >
-          {label}
-        </Text>
-      )}
     </Flex>
   );
 };
