@@ -44,6 +44,9 @@ export const useDataStoreCollection = <M extends PersistentModel>({
   };
 
   // Fetch on next render cycle
+  // useEffect should only run once here
+  // Ignore dependencies array here by design
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   React.useEffect(fetch, []);
 
   return result;
@@ -71,6 +74,9 @@ export const useDataStoreItem = <M extends PersistentModel>({
   };
 
   // Fetch on next render cycle
+  // useEffect should only run once here
+  // Ignore dependencies array here by design
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   React.useEffect(fetch, []);
 
   return {
@@ -96,6 +102,8 @@ export function useDataStoreBinding<Model extends PersistentModel>(
     | DataStoreBindingProps<Model, 'collection'>
 ): DataStoreItemResult<Model> | DataStoreCollectionResult<Model> {
   return props.type === 'record'
-    ? useDataStoreItem(props)
-    : useDataStoreCollection(props);
+    ? // eslint-disable-next-line react-hooks/rules-of-hooks
+      useDataStoreItem(props)
+    : // eslint-disable-next-line react-hooks/rules-of-hooks
+      useDataStoreCollection(props);
 }
