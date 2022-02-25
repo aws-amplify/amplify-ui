@@ -18,7 +18,7 @@ Feature: Reset Password
     And I type my new password
     And I confirm my password
     And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmForgotPassword" } }' with fixture "confirm-reset-password"
-    And I click the "Submit" button
+    And I click the submit button
     Then I see "Sign In"
     
   @angular @react @vue
