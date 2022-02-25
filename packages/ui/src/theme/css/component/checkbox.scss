@@ -5,6 +5,7 @@
   &[data-disabled='true'] {
     cursor: var(--amplify-components-checkbox-disabled-cursor);
   }
+  flex-direction: row-reverse;
 }
 
 .amplify-checkbox__button {
