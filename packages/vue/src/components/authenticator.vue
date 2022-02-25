@@ -74,7 +74,7 @@ const emit = defineEmits([
 ]);
 const machine = createAuthenticatorMachine();
 
-const service = useInterpret(machine, { devTools: true });
+const service = useInterpret(machine);
 let unsubscribeHub: ReturnType<typeof listenToAuthHub>;
 
 const { state, send } = useActor(service);
