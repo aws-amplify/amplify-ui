@@ -89,17 +89,17 @@ export const authInputAttributes: AuthInputAttributes = {
     type: 'url',
     autocomplete: 'url',
   },
-  website: {
-    label: 'Website',
-    placeholder: 'Website',
-    type: 'url',
-    autocomplete: 'url',
-  },
   username: {
     label: 'Username',
     type: 'text',
     placeholder: 'Username',
     autocomplete: 'username',
+  },
+  website: {
+    label: 'Website',
+    placeholder: 'Website',
+    type: 'url',
+    autocomplete: 'url',
   },
 };
 
