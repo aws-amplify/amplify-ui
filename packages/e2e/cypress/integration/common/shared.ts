@@ -246,6 +246,14 @@ When('I type a valid confirmation code', () => {
   cy.findByLabelText('Confirmation Code').type('validcode');
 });
 
+When('I type a custom password from label {string}', (custom) => {
+  cy.findByLabelText(custom).type(Cypress.env('VALID_PASSWORD'));
+});
+
+When('I type a custom confirm password from label {string}', (custom) => {
+  cy.findByLabelText(custom).type(Cypress.env('VALID_PASSWORD'));
+});
+
 When('I type a valid SMS confirmation code', () => {
   // This should be intercepted & mocked
   cy.findByLabelText('Code *').type('validcode');
