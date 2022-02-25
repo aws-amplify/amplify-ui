@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
+import * as React from 'react';
 import debounce from 'lodash/debounce';
 import { Text, ScrollView } from '@aws-amplify/ui-react';
 
 export const TableOfContents = ({ title, headings }) => {
-  const [activeHeading, setActiveHeading] = useState(-1);
+  const [activeHeading, setActiveHeading] = React.useState(-1);
 
   let offsets = [...headings].map((heading) => {
     return heading.top;
@@ -23,7 +23,7 @@ export const TableOfContents = ({ title, headings }) => {
     setActiveHeading(index);
   });
 
-  useEffect(() => {
+  React.useEffect(() => {
     // if the URL has a hash, set the active heading
     // so the right ToC link is active on page load
     if (document.location.hash) {
@@ -36,7 +36,7 @@ export const TableOfContents = ({ title, headings }) => {
     return function cleanup() {
       document.removeEventListener('scroll', scrollHandler);
     };
-  }, [headings]);
+  }, [headings, scrollHandler]);
 
   return (
     <aside className="docs-toc" id="toc">

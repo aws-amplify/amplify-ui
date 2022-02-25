@@ -2,7 +2,11 @@ import { translate } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '../..';
 import { Button, Flex, Heading, Text } from '../../..';
-import { isInputOrSelectElement, isInputElement } from '../../../helpers/utils';
+import {
+  isInputOrSelectElement,
+  isInputElement,
+  getFormDataFromEvent,
+} from '../../../helpers/utils';
 import { useCustomComponents } from '../hooks/useCustomComponents';
 
 import {
@@ -45,8 +49,20 @@ export function ConfirmSignUp() {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    submitForm();
+    submitForm(getFormDataFromEvent(event));
   };
+
+  const emailMessage = translate(
+    'Your code is on the way. To log in, enter the code we emailed to'
+  );
+  const textedMessage = translate(
+    'Your code is on the way. To log in, enter the code we texted to'
+  );
+  const defaultMessage = translate(
+    'Your code is on the way. To log in, enter the code we sent you. It may take a minute to arrive.'
+  );
+
+  const minutesMessage = translate('It may take a minute to arrive.');
 
   const confirmationCodeInputProps: ConfirmationCodeInputProps = {
     label: translate('Confirmation Code'),
@@ -55,12 +71,10 @@ export function ConfirmSignUp() {
 
   const subtitleText =
     DeliveryMedium === 'EMAIL'
-      ? `Your code is on the way. To log in, enter the code we emailed to ${Destination}. It may take a minute to arrive.`
+      ? `${emailMessage} ${Destination}. ${minutesMessage}`
       : DeliveryMedium === 'SMS'
-      ? `Your code is on the way. To log in, enter the code we texted to ${Destination}. It may take a minute to arrive.`
-      : translate(
-          `Your code is on the way. To log in, enter the code we sent you. It may take a minute to arrive.`
-        );
+      ? `${textedMessage} ${Destination}. ${minutesMessage}`
+      : translate(`${defaultMessage}`);
 
   return (
     // TODO Automatically add these namespaces again from `useAmplify`

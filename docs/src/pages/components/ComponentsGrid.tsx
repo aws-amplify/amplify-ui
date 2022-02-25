@@ -14,6 +14,7 @@ import { useRouter } from 'next/router';
 
 const ComponentGrid = ({ components }) => {
   const { query } = useRouter();
+  const { platform = 'react' } = query;
   return (
     <Grid templateColumns="1fr 1fr" gap="var(--amplify-space-large)">
       {components.map(({ href, label, body }) => (
@@ -28,29 +29,70 @@ const ComponentGrid = ({ components }) => {
   );
 };
 
+const ComponentGridSection = ({ heading, components }) => {
+  const { query } = useRouter();
+  const { platform = 'react' } = query;
+
+  const platformComponents = components.filter((component) => {
+    if (component.platforms) {
+      return component.platforms.includes(platform);
+    }
+    return true;
+  });
+
+  if (!platformComponents.length) {
+    return null;
+  }
+  return (
+    <>
+      <Heading level={3}>{heading}</Heading>
+      <ComponentGrid components={platformComponents} />
+    </>
+  );
+};
+
 export const ComponentsGrid = () => {
   return (
     <Flex direction="column" gap="var(--amplify-space-large)">
-      <Heading level={3}>Connected components</Heading>
-      <ComponentGrid components={connectedComponents} />
-      <Heading level={3}>Base components</Heading>
-      <ComponentGrid components={baseComponents} />
-      <Heading level={3}>Feedback components</Heading>
-      <ComponentGrid components={feedbackComponents} />
-      <Heading level={3}>Navigation components</Heading>
-      <ComponentGrid components={navigationComponents} />
+      <ComponentGridSection
+        heading={'Connected components'}
+        components={connectedComponents}
+      ></ComponentGridSection>
 
-      <Heading level={3}>Input components</Heading>
-      <ComponentGrid components={inputComponents} />
+      <ComponentGridSection
+        heading={'Base components'}
+        components={baseComponents}
+      ></ComponentGridSection>
 
-      <Heading level={3}>Layout components</Heading>
-      <ComponentGrid components={layoutComponents} />
+      <ComponentGridSection
+        heading={'Feedback components'}
+        components={feedbackComponents}
+      ></ComponentGridSection>
 
-      <Heading level={3}>Data display components</Heading>
-      <ComponentGrid components={dataDisplayComponents} />
+      <ComponentGridSection
+        heading={'Navigation components'}
+        components={navigationComponents}
+      ></ComponentGridSection>
 
-      <Heading level={3}>Utility components</Heading>
-      <ComponentGrid components={utilityComponents} />
+      <ComponentGridSection
+        heading={'Input components'}
+        components={inputComponents}
+      ></ComponentGridSection>
+
+      <ComponentGridSection
+        heading={'Layout components'}
+        components={layoutComponents}
+      ></ComponentGridSection>
+
+      <ComponentGridSection
+        heading={'Data display components'}
+        components={dataDisplayComponents}
+      ></ComponentGridSection>
+
+      <ComponentGridSection
+        heading={'Utility components'}
+        components={utilityComponents}
+      ></ComponentGridSection>
     </Flex>
   );
 };

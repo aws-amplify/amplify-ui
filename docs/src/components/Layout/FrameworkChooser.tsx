@@ -36,19 +36,19 @@ export const FrameworkChooser = ({ platform }) => {
   return (
     <ToggleButtonGroup
       value={platform}
-      isExclusive
       size="small"
       onChange={(value: string) => {
-        if (!value) return;
         chooseFramework(value);
       }}
+      isExclusive
+      isSelectionRequired
     >
       <ToggleButton value="react" size="small">
         <VisuallyHidden>React</VisuallyHidden>
         <Image
           alt=""
           height="1rem"
-          style={{ display: 'block' }}
+          display="block"
           src="/svg/integrations/react.svg"
         />
       </ToggleButton>
@@ -57,7 +57,7 @@ export const FrameworkChooser = ({ platform }) => {
         <Image
           alt=""
           height="1rem"
-          style={{ display: 'block' }}
+          display="block"
           src="/svg/integrations/angular.svg"
         />
       </ToggleButton>
@@ -66,8 +66,17 @@ export const FrameworkChooser = ({ platform }) => {
         <Image
           alt=""
           height="1rem"
-          style={{ display: 'block' }}
+          display="block"
           src="/svg/integrations/vue.svg"
+        />
+      </ToggleButton>
+      <ToggleButton value="flutter" size="small">
+        <VisuallyHidden>Flutter</VisuallyHidden>
+        <Image
+          alt=""
+          height="1rem"
+          display="block"
+          src="/svg/integrations/flutter.svg"
         />
       </ToggleButton>
     </ToggleButtonGroup>

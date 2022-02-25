@@ -39,6 +39,7 @@ export * from './table';
 export * from './tabs';
 export * from './text';
 export * from './textArea';
+export * from './textAreaField';
 export * from './textField';
 export * from './toggleButton';
 export * from './toggleButtonGroup';

@@ -34,10 +34,17 @@ export interface TextFieldOptions extends FieldProps, FlexContainerStyleProps {
 
 export interface TextInputFieldProps extends TextFieldOptions, InputProps {}
 
-export interface TextAreaFieldProps extends TextFieldOptions, TextAreaProps {}
+export interface TextAreaFieldMultilineProps
+  extends TextFieldOptions,
+    TextAreaProps {}
 
 export type TextFieldProps<Multiline extends boolean> = (Multiline extends true
-  ? TextAreaFieldProps
+  ? TextAreaFieldMultilineProps
   : TextInputFieldProps) & {
+  /**
+   * @deprecated
+   * Multiline functionality has been moved to TextAreaField and will be removed in next major release.
+   * Please use TextAreaField instead of TextField for multiline text fields.
+   */
   isMultiline?: Multiline;
 };
