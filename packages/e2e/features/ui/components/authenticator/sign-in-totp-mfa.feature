@@ -29,7 +29,7 @@ Feature: Sign In with TOTP MFA
     And I click the "Sign In" button
     And I enter an invalid confirmation code
     And I click the "Confirm" button
-    Then I see 'Code mismatch and fail enable Software Token MFA'
+    Then I see 'Code mismatch'
 
   @angular @react @vue
   Scenario: Sign in with unknown credentials
