@@ -48,7 +48,7 @@ Cypress.Commands.add(
 );
 
 Cypress.Commands.add('findInputField', (field: string) => {
-  const passwordFieldNames = ['password', 'confirm password'];
+  const passwordFieldNames = ['password', 'new password', 'confirm password'];
   const isPasswordField = passwordFieldNames.includes(field.toLowerCase());
   const regexString = `^(enter your )?${escapeRegExp(field)}$`;
   const regex = new RegExp(regexString, 'i');

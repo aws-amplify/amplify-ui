@@ -10,8 +10,16 @@ Feature: Reset Password
   @angular @react @vue
   Scenario: Reset Password with valid username
     When I type my "username" with status "CONFIRMED"
+    And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ForgotPassword" } }' with fixture "reset-password"
     And I click the "Send code" button
     Then I will be redirected to the confirm forgot password page
+    And I see "Code"
+    Then I type a valid code
+    And I type my new password
+    And I confirm my password
+    And I intercept '{ "headers": { "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmForgotPassword" } }' with fixture "confirm-reset-password"
+    And I click the "Submit" button
+    Then I see "Sign In"
     
   @angular @react @vue
   Scenario: Reset Password with invalid username
