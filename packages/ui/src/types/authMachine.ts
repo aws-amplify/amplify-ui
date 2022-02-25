@@ -58,8 +58,16 @@ export interface SignInContext extends BaseFormContext {
   unverifiedAttributes?: Record<string, string>;
 }
 
+export const LoginMechanismArray = [
+  'username',
+  'email',
+  'phone_number',
+] as const;
+
+export type LoginMechanism = typeof LoginMechanismArray[number];
+
 // https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html
-export const signUpFieldsWithDefault = [
+export const cognitoFieldsWithDefaults = [
   'birthdate',
   'email',
   'family_name',
@@ -82,14 +90,37 @@ export const signUpFieldsWithoutDefault = [
   'zoneinfo',
 ] as const;
 
-export type SignUpFieldsWithDefaults = typeof signUpFieldsWithDefault[number];
+export type CognitoFieldsWithDefaults =
+  typeof cognitoFieldsWithDefaults[number];
 
-export type SignUpFieldsWithoutDefaults =
+export type CognitoFieldsWithoutDefaults =
   typeof signUpFieldsWithoutDefault[number];
 
 export type SignUpAttribute =
-  | SignUpFieldsWithDefaults
-  | SignUpFieldsWithoutDefaults;
+  | CognitoFieldsWithDefaults
+  | CognitoFieldsWithoutDefaults;
+
+// Auth fields that we provide default fields with
+
+const authFieldsWithDefaults = [
+  ...cognitoFieldsWithDefaults,
+  ...LoginMechanismArray,
+  'confirmation_code',
+  'password',
+];
+
+export type AuthFieldsWithDefaults = typeof authFieldsWithDefaults[number];
+
+export const isAuthFieldWithDefaults = (
+  name: string
+): name is AuthFieldsWithDefaults => {
+  return authFieldsWithDefaults.includes(name);
+};
+
+export type AuthInputAttributes = Record<
+  AuthFieldsWithDefaults,
+  InputAttributes
+>;
 
 export interface SignUpContext extends BaseFormContext {
   loginMechanisms: Required<AuthContext>['config']['loginMechanisms'];
@@ -167,27 +198,7 @@ export interface InputAttributes {
   autocomplete?: string;
 }
 
-export const LoginMechanismArray = [
-  'username',
-  'email',
-  'phone_number',
-] as const;
-
-export type LoginMechanism = typeof LoginMechanismArray[number];
-
 export type SocialProvider = 'amazon' | 'apple' | 'facebook' | 'google';
-
-// Auth fields that we provide default fields with
-export type AuthFieldsWithDefaults =
-  | LoginMechanism
-  | SignUpFieldsWithDefaults
-  | 'confirmation_code'
-  | 'password';
-
-export type AuthInputAttributes = Record<
-  AuthFieldsWithDefaults,
-  InputAttributes
->;
 
 export type AuthEventData = Record<PropertyKey, any>; // TODO: this should be typed further
 
