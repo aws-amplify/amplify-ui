@@ -78,12 +78,13 @@ function FlutterAuthenticatorLoader({ id }) {
   return (
     <Loader
       style={{
-        bottom: '-16px',
+        bottom: '-14px',
         padding: '0 6px',
         visibility: hasLoaded ? 'hidden' : 'visible',
       }}
       position="relative"
       variation="linear"
+      size="small"
     />
   );
 }
