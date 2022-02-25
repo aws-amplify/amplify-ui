@@ -25,13 +25,13 @@
 }
 
 .my-custom-table .amplify-table__td {
-  font-size: 0.75rem;
+  font-size: var(--amplify-font-sizes-xs);
 }
 
 .my-custom-table .amplify-table__row {
-  background-color: gray;
+  background-color: var(--amplify-colors-neutral-60);
 }
 
 .custom-data-styling.amplify-table[data-size='large'] .amplify-table__td {
-  font-size: 2.5rem;
+  font-size: var(--amplify-font-sizes-xxxl);
 }

@@ -1,5 +1,11 @@
 # @aws-amplify/ui-react
 
+## 2.6.2
+
+### Patch Changes
+
+- [#1408](https://github.com/aws-amplify/amplify-ui/pull/1408) [`71d7b79c5`](https://github.com/aws-amplify/amplify-ui/commit/71d7b79c54181ff657d79444934947bd057d72c3) Thanks [@zchenwei](https://github.com/zchenwei)! - fix: fixing infinite useEffect call in useDataStore hook
+
 ## 2.6.1
 
 ### Patch Changes
