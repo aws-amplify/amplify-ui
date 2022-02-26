@@ -99,7 +99,7 @@ const AmpCard = ({ title, description, href }) => (
 const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
   const router = useRouter();
   const { tokens } = useTheme();
-  const framework = router.query.platform ?? 'react';
+  const framework = (router.query.platform as string) ?? 'react';
   const sandPackTheme = {
     palette: {
       activeText: `${tokens.colors.font.interactive}`,
@@ -136,61 +136,80 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
       lineHeight: '1.5',
     },
   };
+  const installScripts = {
+    react: `npm i @aws-amplify/ui-${framework} aws-amplify`,
+    vue: `npm i @aws-amplify/ui-${framework} aws-amplify`,
+    angular: `npm i @aws-amplify/ui-${framework} aws-amplify`,
+    flutter: 'flutter pub add amplify_authenticator',
+  };
+  const frameworkInstallScript = installScripts[framework];
   return (
     <>
-      <View as="section" className="docs-home-section-bg container">
+      <View as="section" className="container">
         <HomeLogo />
-        <Image
-          alt=""
-          className="docs-home-vue"
-          src="/svg/integrations/vue.svg"
-        />
-        <Image
-          alt=""
-          className="docs-home-react"
-          src="/svg/integrations/react.svg"
-        />
-        <Image
-          alt=""
-          className="docs-home-angular"
-          src="/svg/integrations/angular.svg"
-        />
-        <Card padding={tokens.space.xl} variation="outlined">
-          <Text fontSize={tokens.fontSizes.xl}>
-            Amplify UI is an open-source design system with cloud-connected
-            components and primitives that simplify building accessible,
-            performant, and beautiful applications in React, Angular, and Vue
-            (more coming soon).
-          </Text>
 
-          <Flex
-            direction={{ base: 'column-reverse', medium: 'row' }}
-            padding={`${tokens.space.medium} 0 0 0`}
-          >
-            <Button
-              size="large"
-              variation="primary"
-              as="a"
-              href="/getting-started/installation"
+        <Flex direction="row" padding={tokens.space.xl}>
+          <Card variation="outlined" flex="1">
+            <Text fontSize={tokens.fontSizes.xl}>
+              Amplify UI is an open-source design system with cloud-connected
+              components and primitives that simplify building accessible,
+              performant, and beautiful applications in React, Angular, Vue, and
+              Flutter (more coming soon).
+            </Text>
+
+            <Flex
+              direction={{ base: 'column-reverse', medium: 'row' }}
+              padding={`${tokens.space.medium} 0 0 0`}
             >
-              Get started
-              <IconChevronRight />
-            </Button>
-            <TextField
-              label=""
-              labelHidden={true}
-              isReadOnly={true}
-              className="install-code"
-              outerEndComponent={
-                <Copy
-                  variation="link"
-                  text={`npm i @aws-amplify/ui-${framework} aws-amplify`}
-                />
-              }
-              value={`npm i @aws-amplify/ui-${framework} aws-amplify`}
+              <Button
+                size="large"
+                variation="primary"
+                as="a"
+                href={`/getting-started/installation?platform=${framework}`}
+              >
+                Get started
+                <IconChevronRight />
+              </Button>
+              <TextField
+                label=""
+                labelHidden={true}
+                isReadOnly={true}
+                className="install-code"
+                outerEndComponent={
+                  <Copy variation="link" text={frameworkInstallScript} />
+                }
+                value={frameworkInstallScript}
+              />
+            </Flex>
+          </Card>
+          <Flex
+            alignSelf="center"
+            textAlign="center"
+            flex="1"
+            display={{ base: 'none', large: 'initial' }}
+          >
+            <Image
+              alt=""
+              className="docs-home-vue"
+              src="/svg/integrations/vue.svg"
+            />
+            <Image
+              alt=""
+              className="docs-home-react"
+              src="/svg/integrations/react.svg"
+            />
+            <Image
+              alt=""
+              className="docs-home-angular"
+              src="/svg/integrations/angular.svg"
+            />
+            <Image
+              alt=""
+              className="docs-home-flutter"
+              src="/svg/integrations/flutter.svg"
             />
           </Flex>
-        </Card>
+        </Flex>
       </View>
       <View
         backgroundColor={tokens.colors.background.secondary}
@@ -246,7 +265,11 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
               Simplify complex cloud-connected workflows like authentication
               with minimal boilerplate code.
             </Text>
-            <Button as="a" size="large" href="/components/authenticator">
+            <Button
+              as="a"
+              size="large"
+              href={`/components/authenticator?platform=${framework}`}
+            >
               Authenticator
               <IconChevronRight />
             </Button>
@@ -272,7 +295,7 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
               Theming capabilities that allow you to customize the appearance of
               Amplify UI to match your brand.
             </Text>
-            <Button as="a" size="large" href="/theming">
+            <Button as="a" size="large" href={`/theming?platform=${framework}`}>
               Get started with theming
               <IconChevronRight />
             </Button>
@@ -336,7 +359,11 @@ const HomePage = ({ colorMode, setThemeOverride, themeOverride }) => {
               allow you to build complete applications that fit your brand, like
               Buttons and Badges.
             </Text>
-            <Button as="a" size="large" href="/components/authenticator">
+            <Button
+              as="a"
+              size="large"
+              href={`/components/authenticator?platform=${framework}`}
+            >
               Get started with components
               <IconChevronRight />
             </Button>
