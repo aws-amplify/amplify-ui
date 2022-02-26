@@ -134,25 +134,14 @@ const onForgotPasswordClicked = (): void => {
               :dialCode="userOR?.dialCode"
               :dialCodeList="userOR?.dialCodeList"
             />
-            <base-wrapper
-              class="
-                amplify-flex
-                amplify-field
-                amplify-textfield
-                amplify-passwordfield
-                password-field
+            <password-control
+              v-bind="
+                propsCreator('password', passwordLabel, formOverrides, true)
               "
-              style="flex-direction: column"
-            >
-              <password-control
-                v-bind="
-                  propsCreator('password', passwordLabel, formOverrides, true)
-                "
-                name="password"
-                autocomplete="current-password"
-                :ariainvalid="false"
-              />
-            </base-wrapper>
+              name="password"
+              autocomplete="current-password"
+              :ariainvalid="false"
+            />
           </base-field-set>
           <base-alert v-if="actorState.context.remoteError">
             {{ translate(actorState.context.remoteError) }}

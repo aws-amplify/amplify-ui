@@ -123,7 +123,7 @@ labelValue = translate<string>(label ?? labelValue);
               <base-select
                 class="amplify-select amplify-field-group__control"
                 id="amplify-field-1177"
-                aria-label="country code"
+                aria-label="Country code"
                 name="country_code"
                 :options="dialCodes"
                 :selectValue="defaultDialCode"

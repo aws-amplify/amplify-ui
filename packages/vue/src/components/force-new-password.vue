@@ -105,55 +105,35 @@ function onBlur(e: Event) {
           </slot>
           <base-wrapper class="amplify-flex" style="flex-direction: column">
             <!--Input 1-->
-            <base-wrapper
-              class="
-                amplify-flex
-                amplify-field
-                amplify-textfield
-                amplify-passwordfield
+            <password-control
+              v-bind="
+                propsCreator('password', passwordLabel, formOverrides, true)
               "
-              style="flex-direction: column"
-            >
-              <password-control
-                v-bind="
-                  propsCreator('password', passwordLabel, formOverrides, true)
-                "
-                name="password"
-                autocomplete="new-password"
-                :ariainvalid="
+              name="password"
+              autocomplete="new-password"
+              :ariainvalid="
                   !!(actorContext.validationError as ValidationError)['confirm_password']
                 "
-                @blur="onBlur"
-              />
-            </base-wrapper>
+              @blur="onBlur"
+            />
 
             <!--Input 2-->
-            <base-wrapper
-              class="
-                amplify-flex
-                amplify-field
-                amplify-textfield
-                amplify-passwordfield
+            <password-control
+              v-bind="
+                propsCreator(
+                  'confirm_password',
+                  confirmPasswordLabel,
+                  formOverrides,
+                  true
+                )
               "
-              style="flex-direction: column"
-            >
-              <password-control
-                v-bind="
-                  propsCreator(
-                    'confirm_password',
-                    confirmPasswordLabel,
-                    formOverrides,
-                    true
-                  )
-                "
-                name="confirm_password"
-                autocomplete="new-password"
-                :ariainvalid="
+              name="confirm_password"
+              autocomplete="new-password"
+              :ariainvalid="
                   !!(actorContext.validationError as ValidationError)['confirm_password']
                 "
-                @blur="onBlur"
-              />
-            </base-wrapper>
+              @blur="onBlur"
+            />
             <slot name="force-new-password-form-fields">
               <authenticator-force-new-password-form-fields />
             </slot>

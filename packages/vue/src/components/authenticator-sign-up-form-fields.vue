@@ -62,6 +62,24 @@ function onBlur(e: Event) {
 const loginMechanism = fieldNames.shift() as LoginMechanism;
 
 const userOR = formOverrides?.[loginMechanism];
+
+// const keys = Object.keys(formOverrides);
+// const notFound = [];
+// const newSet = new Set(
+//   [...keys].filter((x: any) => {
+//     let check = fieldNames.includes(x);
+//     if (check) {
+//       return check;
+//     } else {
+//       notFound.push(x);
+//     }
+//     return false;
+//   })
+// );
+// console.log('newSet', newSet);
+// console.log('old', notFound);
+
+// console.log('formOverrides', Object.entries(formOverrides)).forEach();
 </script>
 
 <template>
@@ -74,43 +92,27 @@ const userOR = formOverrides?.[loginMechanism];
     :dialCode="userOR?.dialCode"
     :dialCodeList="userOR?.dialCodeList"
   />
-  <base-wrapper
-    class="
-      amplify-flex amplify-field amplify-textfield amplify-passwordfield
-      password-field
+  <password-control
+    name="password"
+    v-bind="propsCreator('password', passwordLabel, formOverrides, true)"
+    autocomplete="new-password"
+    :ariainvalid="!!validationErrors.confirm_password"
+    @blur="onBlur"
+  />
+  <password-control
+    name="confirm_password"
+    v-bind="
+      propsCreator(
+        'confirm_password',
+        confirmPasswordLabel,
+        formOverrides,
+        true
+      )
     "
-    style="flex-direction: column"
-  >
-    <password-control
-      name="password"
-      v-bind="propsCreator('password', passwordLabel, formOverrides, true)"
-      autocomplete="new-password"
-      :ariainvalid="!!validationErrors.confirm_password"
-      @blur="onBlur"
-    />
-  </base-wrapper>
-  <base-wrapper
-    class="
-      amplify-flex amplify-field amplify-textfield amplify-passwordfield
-      password-field
-    "
-    style="flex-direction: column"
-  >
-    <password-control
-      name="confirm_password"
-      v-bind="
-        propsCreator(
-          'confirm_password',
-          confirmPasswordLabel,
-          formOverrides,
-          true
-        )
-      "
-      autocomplete="new-password"
-      :ariainvalid="!!validationErrors.confirm_password"
-      @blur="onBlur"
-    />
-  </base-wrapper>
+    autocomplete="new-password"
+    :ariainvalid="!!validationErrors.confirm_password"
+    @blur="onBlur"
+  />
   <p
     role="alert"
     data-variation="error"

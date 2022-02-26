@@ -230,7 +230,7 @@ Then('the {string} field is invalid', (name: string) => {
 Then(
   'the {string} select drop down is {string}',
   (name: string, value: string) => {
-    cy.findByLabelText(name).find('option:selected').should('have.text', value);
+    cy.findByLabelText(name).find('option:selected').contains(value);
   }
 );
 
