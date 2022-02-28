@@ -4,12 +4,15 @@ import {
   LoginMechanism,
   SignUpContext,
   translate,
+  CommonFields,
+  setFormOrder,
 } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '..';
 import { PasswordField, PhoneNumberField, Text, TextField } from '../../..';
 import { UserNameAlias as UserNameAliasComponent } from '../shared';
 import { propsCreator, phonePropsCreator } from '../../../helpers/utils';
+import React from 'react';
 
 export function FormFields() {
   const { _state, updateForm, updateBlur } = useAuthenticator();
@@ -17,6 +20,8 @@ export function FormFields() {
     _state
   ) as SignUpContext;
   const { loginMechanisms, signUpAttributes } = _state.context.config;
+
+  const [order, setOrder] = React.useState([]);
 
   const fieldNames = Array.from(
     new Set([...loginMechanisms, ...signUpAttributes])
@@ -28,6 +33,16 @@ export function FormFields() {
   const loginMechanism = fieldNames.shift() as LoginMechanism;
 
   const userOR = formOverrides?.[loginMechanism];
+  const common = [
+    loginMechanism,
+    'password',
+    'confirm_password',
+  ] as CommonFields[];
+
+  React.useEffect(() => {
+    fieldNames.push(...common);
+    setOrder(setFormOrder(formOverrides, fieldNames as LoginMechanism[]));
+  }, []);
 
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
     const { name } = event.target;
@@ -36,49 +51,59 @@ export function FormFields() {
 
   return (
     <>
-      <UserNameAliasComponent
-        alias={loginMechanism}
-        labelHidden={userOR?.labelHidden}
-        placeholder={userOR?.placeholder}
-        required={userOR?.required}
-        label={userOR?.label}
-        dialCode={userOR?.dialCode}
-        dialCodeList={userOR?.dialCodeList}
-        data-amplify-usernamealias
-      />
-
-      <PasswordField
-        autoComplete="new-password"
-        data-amplify-password
-        {...propsCreator('password', 'Password', formOverrides, true)}
-        hasError={!!validationError['confirm_password']}
-        name="password"
-        onBlur={handleBlur}
-      />
-
-      <PasswordField
-        autoComplete="new-password"
-        data-amplify-confirmpassword
-        {...propsCreator(
-          'confirm_password',
-          'Confirm Password',
-          formOverrides,
-          true
-        )}
-        hasError={!!validationError['confirm_password']}
-        name="confirm_password"
-        onBlur={handleBlur}
-      />
-
-      {validationError['confirm_password'] && (
-        <Text role="alert" variation="error">
-          {translate(validationError['confirm_password'])}
-        </Text>
-      )}
-
-      {fieldNames.flatMap((name) => {
+      {order.flatMap((name) => {
         // See: https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html#user-pool-settings-custom-attributes
         switch (name) {
+          case loginMechanism:
+            return (
+              <UserNameAliasComponent
+                key={name}
+                alias={loginMechanism}
+                labelHidden={userOR?.labelHidden}
+                placeholder={userOR?.placeholder}
+                required={userOR?.required}
+                label={userOR?.label}
+                dialCode={userOR?.dialCode}
+                dialCodeList={userOR?.dialCodeList}
+                data-amplify-usernamealias
+              />
+            );
+          case 'password':
+            return (
+              <PasswordField
+                key={name}
+                autoComplete="new-password"
+                data-amplify-password
+                {...propsCreator('password', 'Password', formOverrides, true)}
+                hasError={!!validationError['confirm_password']}
+                name="password"
+                onBlur={handleBlur}
+              />
+            );
+          case 'confirm_password':
+            return (
+              <React.Fragment key={name}>
+                <PasswordField
+                  autoComplete="new-password"
+                  {...propsCreator(
+                    'confirm_password',
+                    'Confirm Password',
+                    formOverrides,
+                    true
+                  )}
+                  data-amplify-confirmpassword
+                  hasError={!!validationError['confirm_password']}
+                  name="confirm_password"
+                  onBlur={handleBlur}
+                />
+
+                {validationError['confirm_password'] && (
+                  <Text role="alert" variation="error">
+                    {translate(validationError['confirm_password'])}
+                  </Text>
+                )}
+              </React.Fragment>
+            );
           case 'birthdate':
             return (
               <TextField
@@ -89,7 +114,6 @@ export function FormFields() {
                 type="date"
               />
             );
-
           case 'email':
             return (
               <TextField

@@ -1,3 +1,5 @@
+import { formField, LoginMechanism } from '..';
+
 export type ContactMethod = 'Email' | 'Phone Number';
 
 // replaces all characters in a string with '*', except for the first and last char
@@ -29,4 +31,30 @@ export const censorPhoneNumber = (val: string): string => {
 export const getFormDataFromEvent = (event: Event) => {
   const formData = new FormData(event.target as HTMLFormElement);
   return Object.fromEntries(formData);
+};
+
+export const setFormOrder = (
+  formOverrides: formField,
+  fieldNames: LoginMechanism[]
+): Array<string | number> => {
+  type keyValues = string | number;
+  let orderedKeys = [] as keyValues[];
+  if (formOverrides) {
+    orderedKeys = Object.keys(formOverrides)
+      .reduce((prev, key) => {
+        // reduce to array that can be sorted
+        prev.push([key, formOverrides[key]?.order as number]);
+        return prev;
+      }, [] as Array<Array<keyValues>>)
+      .sort(
+        (a: keyValues[], b: keyValues[]) =>
+          //sort them based on order
+          (a as number[])[1] - (b as number[])[1]
+      ) // returned just key
+      .filter((a) => a[1] !== undefined)
+      .map((a: keyValues[]) => a[0]);
+  }
+
+  // remove duplicates
+  return Array.from(new Set([...orderedKeys, ...fieldNames]));
 };

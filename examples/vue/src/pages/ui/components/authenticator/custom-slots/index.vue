@@ -21,15 +21,20 @@ const formFields = {
     },
   },
   signUp: {
+    confirm_password: {
+      labelHidden: false,
+      label: 'Confirm Password:',
+      order: 1,
+    },
+    email: {
+      order: 2,
+    },
     password: {
       labelHidden: false,
       label: 'Password:',
       placeholder: 'Enter your Password:',
       required: false,
-    },
-    confirm_password: {
-      labelHidden: false,
-      label: 'Confirm Password:',
+      order: 3,
     },
   },
   forceNewPassword: {

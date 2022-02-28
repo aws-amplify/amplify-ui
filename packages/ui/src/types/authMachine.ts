@@ -178,11 +178,12 @@ export const LoginMechanismArray = [
   'phone_number',
 ] as const;
 
-export type LoginMechanism = typeof LoginMechanismArray[number];
+export type CommonFields = 'username' | 'password' | 'confirm_password';
+export type LoginMechanism = typeof LoginMechanismArray[number] | CommonFields;
 
 export type SocialProvider = 'amazon' | 'apple' | 'facebook' | 'google';
 
-type formFieldComponents =
+export type formFieldComponents =
   | 'signIn'
   | 'signUp'
   | 'forceNewPassword'
@@ -209,6 +210,7 @@ export interface formFieldTypes {
   totpIssuer?: string;
   totpUsername?: string;
   dialCodeList?: Array<string>;
+  order?: number;
 }
 
 // Auth fields that we provide default fields with
