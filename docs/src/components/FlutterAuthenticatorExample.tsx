@@ -83,7 +83,7 @@ function FlutterAuthenticatorLoader({ id }) {
         visibility: hasLoaded ? 'hidden' : 'visible',
       }}
       variation="linear"
-      size="large"
+      size="small"
     />
   );
 }
