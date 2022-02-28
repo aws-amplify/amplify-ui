@@ -1,0 +1,129 @@
+import {
+  Authenticator,
+  CheckboxField,
+  useAuthenticator,
+} from '@aws-amplify/ui-react';
+
+import { Example } from '@/components/Example';
+import { Fragment } from '@/components/Fragment';
+
+### Change Order Of Sign Up Fields
+
+### Form Fields
+
+The Authenticator allows for customization of the form input fields.
+Customers can change the look and feel of these inputs so it conforms more closely to the website it's added on.
+
+#### Updating labels, placeholders, required fields and showing labels.
+
+You can customize any label, placeholder, set a field as required or not required, and hide or show labels by configuring the `formFields` props, and passing it into the `authenticator` component.
+To use this feature create a `formFields` prop and include the component name as a key.
+Inside that object you can list all the inputs you'd like to change by their name.
+
+The following example customizes the Sign In page by:
+
+- Updating the placeholder with `placeholder`.
+- Setting required to true with `required`, which is also the default for this field.
+- Updating the label text with `label`.
+- Show the label using `labelHidden` set to `false`.
+
+**Note:** On the sign in page the input name is always `username`, regardless of the login mechanism type.
+
+<Fragment>{({ platform }) => import(`./form-fields.${platform}.mdx`)}</Fragment>
+
+<Example>
+  <Authenticator
+    loginMechanisms={['email']}
+    formFields={{
+      signIn: {
+        username: {
+          labelHidden: false,
+          placeholder: 'Enter Your Email Here',
+          required: true,
+          label: 'Email:'
+        },
+      }
+    }}
+/>
+
+</Example>
+
+#### Default international dial code
+
+Default Dial code customization is available via the `dialCode` form field key.
+
+The following example will set the default dial code to `+227` on the Sign Up and Sign In page.
+
+<Fragment>
+  {({ platform }) => import(`./dialcode/form-fields.${platform}.mdx`)}
+</Fragment>
+
+<Example>
+  <Authenticator
+    loginMechanisms={['phone_number']}
+    formFields={{
+      signIn: {
+        username: {
+          dialCode: '+227'
+        },
+      },
+      signUp: {
+        phone_number: {
+          dialCode: '+227'
+        }
+      }
+    }}
+/>
+
+</Example>
+
+#### Change dial code list
+
+If you'd like you can update the list of dial codes show to the user by assigning an array of dial codes to the `dialCodeList`.
+
+In this example, only four dial codes are show in the drop down list for the sign in and sign up pages.
+
+**Note:** Make sure to add the plus sign to each dial code in the `dialCodeList`.
+
+<Fragment>
+  {({ platform }) => import(`./dialcodelist/form-fields.${platform}.mdx`)}
+</Fragment>
+
+<Example>
+  <Authenticator
+    loginMechanisms={['phone_number']}
+    formFields={{
+      signIn: {
+        username: {
+          dialCodeList: ['+1', '+123', '+227', '+229'] 
+        },
+      },
+      signUp: {
+        phone_number: {
+          dialCodeList: ['+1', '+123', '+227', '+229'] 
+        }
+      }
+    }}
+/>
+
+</Example>
+
+#### Input Form Field Names Table
+
+Here are the various components and input names that are available for customization.
+
+| Component Name         | Form Field Names                                                                                                                                                                |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `signIn`               | `username` `password`                                                                                                                                                           |
+| `signUp`               | `email` `phone_number` `username` `password` `confirm_password` `preferred_username` `birthdate` `family_name` `middle_name` `given_name` `name` `nickname` `profile` `website` |
+| `confirmSignUp`        | `confirmation_code`                                                                                                                                                             |
+| `resetPassword`        | `username`                                                                                                                                                                      |
+| `confirmResetPassword` | `confirmation_code` `password` `confirm_password`                                                                                                                               |
+| `forceNewPassword`     | `password` `confirm_password`                                                                                                                                                   |
+| `setupTOTP`            | `confirmation_code`                                                                                                                                                             |
+| `confirmSignIn`        | `confirmation_code`                                                                                                                                                             |
+| `confirmVerifyUser`    | `confirmation_code`                                                                                                                                                             |
+
+**Note:** Custom sign up attributes not listed in this table are customizable. Use the form field name as the key.
+
+### Update QR Code Issuer and Username
