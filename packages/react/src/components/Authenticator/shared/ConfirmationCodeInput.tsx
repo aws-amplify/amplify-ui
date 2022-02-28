@@ -8,6 +8,7 @@ export interface ConfirmationCodeInputProps {
   label?: string;
   placeholder?: string;
   required?: boolean;
+  type?: string;
 }
 
 export const ConfirmationCodeInput = (
@@ -19,7 +20,9 @@ export const ConfirmationCodeInput = (
     label = `${translate('Code')} *`,
     placeholder = translate('Code'),
     required = true,
+    type = 'text',
   } = props;
+  // TODO: enforce type="number" on all confirmation codes
 
   return (
     <TextField
@@ -31,6 +34,7 @@ export const ConfirmationCodeInput = (
       autoComplete="one-time-code"
       errorMessage={errorText}
       hasError={!!errorText}
+      type={type}
     />
   );
 };

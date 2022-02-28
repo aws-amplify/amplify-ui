@@ -85,6 +85,7 @@ export const ConfirmResetPassword = (): JSX.Element => {
               'Code *',
               formOverrides
             )}
+            type="number"
           />
 
           <PasswordField
