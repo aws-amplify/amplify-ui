@@ -4,6 +4,7 @@ import {
   TableCell,
   TableHead,
   TableRow,
+  View,
 } from '@aws-amplify/ui-react';
 
 import { TableDemo } from './demo';
@@ -12,9 +13,10 @@ import {
   HighlightExample,
   SizeExample,
   SpanExample,
+  TableStylePropExample,
   VariationExample,
 } from './examples';
-import { Example } from '@/components/Example';
+import { Example, ExampleCode } from '@/components/Example';
 import { Fragment } from '@/components/Fragment';
 import { ComponentClassTable } from '@/components/ComponentClassTable';
 
@@ -29,44 +31,55 @@ The `Table` primitive provides users with a styled and customizable table elemen
 The `Table` primitive and its various components can be used similiarly to how the
 HTML `table`, `tbody`, `td`, `tfoot`, `th`, `thead`, and `tr` elements are used.
 
-```tsx file=./examples/basicExample.tsx
+<Example>
+  <ExampleCode>
+    ```tsx file=./examples/BasicExample.tsx
 
-```
+    ````
+
+  </ExampleCode>
+</Example>
 
 ### Size
 
 Control the cell height and font size of a Table using the `size` prop. Available options are `small`, none (default), and `large`.
 
-```tsx file=./examples/sizeExample.tsx
-
-```
-
 <Example>
   <SizeExample />
+  <ExampleCode>
+    ```tsx file=./examples/SizeExample.tsx
+
+    ```
+
+  </ExampleCode>
 </Example>
 
 ### Variation
 
 The `variation` prop can be used to make all cells `bordered` or rows `striped`. Note that the `striped` variation doesn't apply to rows in a `TableHead` tag.
 
-```tsx file=./examples/variationExample.tsx
-
-```
-
 <Example>
   <VariationExample />
+  <ExampleCode>
+    ```tsx file=./examples/VariationExample.tsx
+
+    ```
+
+  </ExampleCode>
 </Example>
 
 ### Highlight on Hover
 
 The `highlightOnHover` prop can be used to change the background color of table rows upon mouse hover. Note that rows in a `TableHead` tag are not highlighted.
 
-```tsx file=./examples/highlightExample.tsx
-
-```
-
 <Example>
   <HighlightExample />
+  <ExampleCode>
+    ```tsx file=./examples/HighlightExample.tsx
+
+    ```
+
+  </ExampleCode>
 </Example>
 
 ### TableCell
@@ -76,9 +89,11 @@ The `highlightOnHover` prop can be used to change the background color of table 
 The `TableCell` is used for all data presented in a table. If a cell is intended to be a heading for a row or column,
 it's recommended to set the cell as a `th` element using the `as` property:
 
-```jsx
-<TableCell as="th">Column Header</TableCell>
-```
+<Example>
+  ```jsx
+  <TableCell as="th">Column Header</TableCell>
+  ```
+</Example>
 
 By default, the `TableCell` is rendered as a `td` element.
 
@@ -87,12 +102,14 @@ By default, the `TableCell` is rendered as a `td` element.
 The `TableCell` component can be made to span multiple columns or rows using the `colspan` or `rowspan` properties,
 respectively. This is similar to how the HTML native `th` and `td` elements are made to span multiple columns and rows.
 
-```tsx file=./examples/spanExample.tsx
-
-```
-
 <Example>
   <SpanExample />
+  <ExampleCode>
+    ```tsx file=./examples/SpanExample.tsx
+
+    ```
+
+  </ExampleCode>
 </Example>
 
 ## CSS Styling
@@ -106,118 +123,126 @@ respectively. This is similar to how the HTML native `th` and `td` elements are 
 Each component related to the `Table` primitive has its own class name which
 may be used to override styling with custom CSS.
 
-```css
-/* styles.css */
-.amplify-table__th {
-  background-color: var(--amplify-colors-background-tertiary);
-}
-
-.amplify-table__th:first-child {
-  text-align: right;
-}
-
-.amplify-table__row:not(:first-child) .amplify-table__th {
-  border-top: none;
-}
-
-.amplify-table__row:not(:last-child) .amplify-table__th {
-  border-bottom: none;
-}
-
-.amplify-table__caption {
-  caption-side: top;
-  text-align: right;
-}
-
-.table-summary {
-  color: var(--amplify-colors-font-secondary);
-  font-style: italic;
-}
-```
-
-```jsx
-import { Table, TableBody, TableCell, TableRow } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
-
-import './styles.css';
-
-<Table
-  className="global-styling-table"
-  caption={
-    <>
-      Table Title
-      <br />
-      <span class="table-summary">A short table description</span>
-    </>
-  }
->
-  <TableBody>
-    <TableRow>
-      <TableCell as="th" />
-      <TableCell as="th">A</TableCell>
-      <TableCell as="th">B</TableCell>
-      <TableCell as="th">C</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell as="th">1</TableCell>
-      <TableCell>A1</TableCell>
-      <TableCell>B1</TableCell>
-      <TableCell>C1</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell as="th">2</TableCell>
-      <TableCell>A2</TableCell>
-      <TableCell>B2</TableCell>
-      <TableCell>C2</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell as="th">3</TableCell>
-      <TableCell>A3</TableCell>
-      <TableCell>B3</TableCell>
-      <TableCell>C3</TableCell>
-    </TableRow>
-  </TableBody>
-</Table>;
-```
-
 <Example>
-  <Table
-    className="global-styling-table"
-    caption={
-      <>
-        Table Title
-        <br />
-        <span class="table-summary">A short table description</span>
-      </>
+  <View>
+    <Table
+      className="global-styling-table"
+      caption={
+        <>
+          Table Title
+          <br />
+          <span class="table-summary">A short table description</span>
+        </>
+      }
+    >
+      <TableBody>
+        <TableRow>
+          <TableCell as="th" />
+          <TableCell as="th">A</TableCell>
+          <TableCell as="th">B</TableCell>
+          <TableCell as="th">C</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell as="th">1</TableCell>
+          <TableCell>A1</TableCell>
+          <TableCell>B1</TableCell>
+          <TableCell>C1</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell as="th">2</TableCell>
+          <TableCell>A2</TableCell>
+          <TableCell>B2</TableCell>
+          <TableCell>C2</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell as="th">3</TableCell>
+          <TableCell>A3</TableCell>
+          <TableCell>B3</TableCell>
+          <TableCell>C3</TableCell>
+        </TableRow>
+      </TableBody>
+    </Table>
+  </View>
+
+  <ExampleCode>
+    ```css
+    /* styles.css */
+    .amplify-table__th {
+      background-color: var(--amplify-colors-background-tertiary);
     }
-  >
-    <TableBody>
-      <TableRow>
-        <TableCell as="th" />
-        <TableCell as="th">A</TableCell>
-        <TableCell as="th">B</TableCell>
-        <TableCell as="th">C</TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell as="th">1</TableCell>
-        <TableCell>A1</TableCell>
-        <TableCell>B1</TableCell>
-        <TableCell>C1</TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell as="th">2</TableCell>
-        <TableCell>A2</TableCell>
-        <TableCell>B2</TableCell>
-        <TableCell>C2</TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell as="th">3</TableCell>
-        <TableCell>A3</TableCell>
-        <TableCell>B3</TableCell>
-        <TableCell>C3</TableCell>
-      </TableRow>
-    </TableBody>
-  </Table>
+
+    .amplify-table__th:first-child {
+      text-align: right;
+    }
+
+    .amplify-table__row:not(:first-child) .amplify-table__th {
+      border-top: none;
+    }
+
+    .amplify-table__row:not(:last-child) .amplify-table__th {
+      border-bottom: none;
+    }
+
+    .amplify-table__caption {
+      caption-side: top;
+      text-align: right;
+    }
+
+    .table-summary {
+      color: var(--amplify-colors-font-secondary);
+      font-style: italic;
+    }
+    ```
+
+  </ExampleCode>
+
+  <ExampleCode>
+    ```jsx
+    import { Table, TableBody, TableCell, TableRow } from '@aws-amplify/ui-react';
+    import '@aws-amplify/ui-react/styles.css';
+
+    import './styles.css';
+
+    <Table
+      className="global-styling-table"
+      caption={
+        <>
+          Table Title
+          <br />
+          <span class="table-summary">A short table description</span>
+        </>
+      }
+    >
+      <TableBody>
+        <TableRow>
+          <TableCell as="th" />
+          <TableCell as="th">A</TableCell>
+          <TableCell as="th">B</TableCell>
+          <TableCell as="th">C</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell as="th">1</TableCell>
+          <TableCell>A1</TableCell>
+          <TableCell>B1</TableCell>
+          <TableCell>C1</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell as="th">2</TableCell>
+          <TableCell>A2</TableCell>
+          <TableCell>B2</TableCell>
+          <TableCell>C2</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell as="th">3</TableCell>
+          <TableCell>A3</TableCell>
+          <TableCell>B3</TableCell>
+          <TableCell>C3</TableCell>
+        </TableRow>
+      </TableBody>
+    </Table>;
+    ```
+
+  </ExampleCode>
 </Example>
 
 ### Local Styling
@@ -227,106 +252,106 @@ selector, data attributes, or style props.
 
 _Using a class selector:_
 
-```css
-/* styles.css */
-.my-custom-table .amplify-table__td {
-  font-size: 0.75rem;
-}
-
-.my-custom-table .amplify-table__row {
-  background-color: gray;
-}
-```
-
-```jsx
-import './styles.css';
-
-<Table className="my-custom-table">
-  <TableBody>
-    <TableRow>
-      <TableCell>Smaller Text</TableCell>
-      <TableCell>Smaller Text</TableCell>
-    </TableRow>
-  </TableBody>
-</Table>;
-```
-
 <Example>
-  <Table className="my-custom-table">
-    <TableBody>
-      <TableRow>
-        <TableCell>Smaller Text</TableCell>
-        <TableCell>Smaller Text</TableCell>
-      </TableRow>
-    </TableBody>
-  </Table>
+  <View>
+    <Table className="my-custom-table">
+      <TableBody>
+        <TableRow>
+          <TableCell>Smaller Text</TableCell>
+          <TableCell>Smaller Text</TableCell>
+        </TableRow>
+      </TableBody>
+    </Table>
+  </View>
+  <ExampleCode>
+    ```css
+    /* styles.css */
+    .my-custom-table .amplify-table__td {
+      font-size: var(--amplify-font-sizes-xs);
+    }
+
+    .my-custom-table .amplify-table__row {
+      background-color: var(--amplify-colors-neutral-60);
+    }
+    ```
+
+  </ExampleCode>
+
+  <ExampleCode>
+    ```jsx
+    import './styles.css';
+
+    <Table className="my-custom-table">
+      <TableBody>
+        <TableRow>
+          <TableCell>Smaller Text</TableCell>
+          <TableCell>Smaller Text</TableCell>
+        </TableRow>
+      </TableBody>
+    </Table>;
+    ```
+
+  </ExampleCode>
 </Example>
 
 _Using data attributes:_
 
-```css
-/* styles.css */
-/* Override only large size styles */
-.amplify-table[data-size='large'] .amplify-table__td {
-  font-size: 2.5rem;
-}
-```
-
-```jsx
-import './styles.css';
-
-<Table size="large">
-  <TableBody>
-    <TableRow>
-      <TableCell>Larger Text</TableCell>
-      <TableCell>Larger Text</TableCell>
-    </TableRow>
-  </TableBody>
-</Table>;
-```
-
 <Example>
-  <Table className="custom-data-styling" size="large">
-    <TableBody>
-      <TableRow>
-        <TableCell>Larger Text</TableCell>
-        <TableCell>Larger Text</TableCell>
-      </TableRow>
-    </TableBody>
-  </Table>
+  <View>
+    <Table className="custom-data-styling" size="large">
+      <TableBody>
+        <TableRow>
+          <TableCell>Larger Text</TableCell>
+          <TableCell>Larger Text</TableCell>
+        </TableRow>
+      </TableBody>
+    </Table>
+  </View>
+  
+  <ExampleCode>
+    ```css
+    /* styles.css */
+    /* Override only large size styles */
+    .amplify-table[data-size='large'] .amplify-table__td {
+      font-size: var(--amplify-font-sizes-xxxl);
+    }
+    ```
+  </ExampleCode>
+
+  <ExampleCode>
+    ```jsx
+    import './styles.css';
+
+    <Table size="large">
+      <TableBody>
+        <TableRow>
+          <TableCell>Larger Text</TableCell>
+          <TableCell>Larger Text</TableCell>
+        </TableRow>
+      </TableBody>
+    </Table>;
+    ```
+
+  </ExampleCode>
+
 </Example>
 
 _Using style props:_
 
-```jsx
-<Table>
-  <TableBody>
-    <TableRow>
-      <TableCell style={{ fontSize: '0.75rem' }}>Smaller Text</TableCell>
-      <TableCell style={{ fontSize: '0.75rem' }}>Smaller Text</TableCell>
-    </TableRow>
-  </TableBody>
-</Table>;
-{
-  /* OR */
-}
-<Table>
-  <TableBody>
-    <TableRow>
-      <TableCell fontSize={'0.75rem'}>Smaller Text</TableCell>
-      <TableCell fontSize={'0.75rem'}>Smaller Text</TableCell>
-    </TableRow>
-  </TableBody>
-</Table>;
-```
-
 <Example>
-  <Table>
-    <TableBody>
-      <TableRow>
-        <TableCell fontSize={'0.75rem'}>Smaller Text</TableCell>
-        <TableCell fontSize={'0.75rem'}>Smaller Text</TableCell>
-      </TableRow>
-    </TableBody>
-  </Table>
+  <TableStylePropExample />
+
+  <ExampleCode>
+    ```jsx file=./examples/TableStylePropExample.tsx
+
+    ```
+
+  </ExampleCode>
+    /* OR */
+  <ExampleCode>
+    ```jsx file=./examples/TableFontSizePropExample.tsx
+
+    ```
+
+  </ExampleCode>
 </Example>
