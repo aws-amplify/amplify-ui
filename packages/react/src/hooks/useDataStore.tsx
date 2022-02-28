@@ -45,7 +45,7 @@ export const useDataStoreCollection = <M extends PersistentModel>({
 
   // Fetch on next render cycle
   // useEffect should only run once here
-  // Ignore dependencies array here by design
+  // Ignore exhaustive dependencies rule here by design
   // eslint-disable-next-line react-hooks/exhaustive-deps
   React.useEffect(fetch, []);
 
@@ -75,7 +75,7 @@ export const useDataStoreItem = <M extends PersistentModel>({
 
   // Fetch on next render cycle
   // useEffect should only run once here
-  // Ignore dependencies array here by design
+  // Ignore exhaustive dependencies rule here by design
   // eslint-disable-next-line react-hooks/exhaustive-deps
   React.useEffect(fetch, []);
 
