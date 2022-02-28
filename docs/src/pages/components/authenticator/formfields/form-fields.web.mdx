@@ -7,12 +7,57 @@ import {
 import { Example } from '@/components/Example';
 import { Fragment } from '@/components/Fragment';
 
-### Change Order Of Sign Up Fields
+### Sign Up Field Order
 
-### Form Fields
+The authenticator allows a custom order of sign up fields on the Sign Up page.
 
-The Authenticator allows for customization of the form input fields.
-Customers can change the look and feel of these inputs so it conforms more closely to the website it's added on.
+Order is determined by a `formFields` prop that is passed into the `authenticator` component.
+This prop will have the `signUp` key with a list of all the input fields. Each input field will
+have an `order` key that specifies which order it will be displayed on the page.
+
+In the example below the order will be set as `email`, `family_name`, `birthdate`, `preferred_username`, `password` and finally `confirm_password`.
+
+**Note:** Fields that do not have a `order` key will be displayed at the bottom of the Sign Up page. The `order` key can also be combined with other form field updates.
+
+<Fragment>
+  {({ platform }) => import(`./orderformfields/form-fields.${platform}.mdx`)}
+</Fragment>
+
+<Example>
+  <Authenticator
+    initialState={'signUp'}
+    loginMechanisms={['email']}
+    signUpAttributes={['birthdate', 'family_name', 'preferred_username']}
+    formFields={{
+      signUp: {
+        email: {
+          order:1
+        },
+        family_name: {
+          order: 2
+        },
+        preferred_username: {
+          order: 4
+        },
+        birthdate: {
+          order: 3
+        },
+        password: {
+          order: 5
+        },
+        confirm_password: {
+          order: 6
+        }
+      },
+    }}
+
+/>
+
+</Example>
+
+### Form Field Customization
+
+The Authenticator allows for customization of the form input fields throughout the Authenticator.
 
 #### Updating labels, placeholders, required fields and showing labels.
 
@@ -79,7 +124,7 @@ The following example will set the default dial code to `+227` on the Sign Up an
 
 #### Change dial code list
 
-If you'd like you can update the list of dial codes show to the user by assigning an array of dial codes to the `dialCodeList`.
+If needed, you can update the list of dial codes shown to the user by assigning an array of dial codes to the `dialCodeList`.
 
 In this example, only four dial codes are show in the drop down list for the sign in and sign up pages.
 
@@ -126,4 +171,14 @@ Here are the various components and input names that are available for customiza
 
 **Note:** Custom sign up attributes not listed in this table are customizable. Use the form field name as the key.
 
-### Update QR Code Issuer and Username
+### Update Setup TOTP QR Issuer and Username
+
+When setting up TOTP you can customize the issuer and username that will be shown in TOTP applications.
+This can be done by adding the `formFields` prop to the `authenticator` component with a `setupTOTP` key.
+The `setupTOTP` should have a `QR` key with a `totpIssuer` and or `totpUsername` as seen in the example below.
+
+**Note:** Unless changed, the default `issuer` is `AWSCognito` and `username` will be the current `user.username` for the user signing up.
+
+<Fragment>
+  {({ platform }) => import(`./qrcode/form-fields.${platform}.mdx`)}
+</Fragment>
