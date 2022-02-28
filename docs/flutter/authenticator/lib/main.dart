@@ -159,17 +159,14 @@ class _FlutterAuthenticatorPreviewState
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            DeviceFrame(
-              screen: const MyApp(),
-              device: Devices.ios.iPhone13,
-            ),
-          ],
-        ),
+      home: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          DeviceFrame(
+            screen: const MyApp(),
+            device: Devices.ios.iPhone13,
+          ),
+        ],
       ),
     );
   }
