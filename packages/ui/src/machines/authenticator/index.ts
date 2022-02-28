@@ -179,10 +179,10 @@ export function createAuthenticatorMachine() {
         }),
         setActorDoneData: assign({
           actorDoneData: (_, event) => ({
-            authAttributes: { ...event.data.authAttributes },
-            intent: event.data.intent,
+            authAttributes: { ...event.data?.authAttributes },
+            intent: event.data?.intent,
           }),
-          user: (_, event) => event.data.user,
+          user: (_, event) => event.data?.user,
         }),
         clearUser: assign({ user: undefined }),
         clearActorDoneData: assign({ actorDoneData: undefined }),
