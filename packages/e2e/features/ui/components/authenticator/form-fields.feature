@@ -10,7 +10,7 @@ Feature: Form Fields
 @angular @react @vue
   Scenario: Order of sign up inputs are backwards
     When I click the "Create Account" tab 
-    Then I see "Confirm Password:" as the "0" input
+    Then I see "Confirm Password" as the "0" input
     Then I see "Enter your Password:" as the "1" input
     Then I see "Email" as the "2" input
 

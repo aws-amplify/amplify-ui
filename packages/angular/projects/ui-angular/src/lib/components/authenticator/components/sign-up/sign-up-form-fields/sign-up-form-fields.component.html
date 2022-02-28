@@ -23,7 +23,9 @@
       <amplify-form-field
         *ngSwitchCase="'confirm_password'"
         [labelHidden]="grabField('confirm_password', 'labelHidden', true)"
-        [placeholder]="grabField('confirm_password', 'placeholder', null)"
+        [placeholder]="
+          grabField('confirm_password', 'placeholder', 'Confirm Password')
+        "
         [required]="grabField('confirm_password', 'required', true)"
         [label]="grabField('confirm_password', 'label', 'Confirm Password')"
         name="confirm_password"

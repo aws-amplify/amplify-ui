@@ -77,6 +77,7 @@ export class FormFieldComponent implements OnInit {
       this.placeholder ||
       this.attributeMap[this.name]?.placeholder ||
       this.inferLabel();
+
     return translate<string>(placeholder);
   }
 
