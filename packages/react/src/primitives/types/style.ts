@@ -56,6 +56,10 @@ export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
   letterSpacing?: ResponsiveStyle<StyleToken<Property.LetterSpacing>>;
   lineHeight?: ResponsiveStyle<StyleToken<Property.LineHeight>>;
   margin?: ResponsiveStyle<StyleToken<Property.Margin>>;
+  marginBottom?: ResponsiveStyle<StyleToken<Property.MarginBottom>>;
+  marginLeft?: ResponsiveStyle<StyleToken<Property.MarginLeft>>;
+  marginRight?: ResponsiveStyle<StyleToken<Property.MarginRight>>;
+  marginTop?: ResponsiveStyle<StyleToken<Property.MarginTop>>;
   maxHeight?: ResponsiveStyle<StyleToken<Property.MaxHeight>>;
   maxWidth?: ResponsiveStyle<StyleToken<Property.MaxWidth>>;
   minHeight?: ResponsiveStyle<StyleToken<Property.MinHeight>>;
@@ -63,6 +67,10 @@ export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
   opacity?: ResponsiveStyle<StyleToken<Property.Opacity>>;
   overflow?: ResponsiveStyle<StyleToken<Property.Overflow>>;
   padding?: ResponsiveStyle<StyleToken<Property.Padding>>;
+  paddingBottom?: ResponsiveStyle<StyleToken<Property.PaddingBottom>>;
+  paddingLeft?: ResponsiveStyle<StyleToken<Property.PaddingLeft>>;
+  paddingRight?: ResponsiveStyle<StyleToken<Property.PaddingRight>>;
+  paddingTop?: ResponsiveStyle<StyleToken<Property.PaddingTop>>;
   position?: ResponsiveStyle<StyleToken<Property.Position>>;
   right?: ResponsiveStyle<StyleToken<Property.Right>>;
   textAlign?: ResponsiveStyle<StyleToken<Property.TextAlign>>;
@@ -159,6 +167,10 @@ export const ComponentPropsToStylePropsMap: ComponentPropToStyleProp = {
   letterSpacing: 'letterSpacing',
   lineHeight: 'lineHeight',
   margin: 'margin',
+  marginBottom: 'marginBottom',
+  marginLeft: 'marginLeft',
+  marginRight: 'marginRight',
+  marginTop: 'marginTop',
   maxHeight: 'maxHeight',
   maxWidth: 'maxWidth',
   minHeight: 'minHeight',
@@ -169,6 +181,10 @@ export const ComponentPropsToStylePropsMap: ComponentPropToStyleProp = {
   order: 'order',
   overflow: 'overflow',
   padding: 'padding',
+  paddingBottom: 'paddingBottom',
+  paddingLeft: 'paddingLeft',
+  paddingRight: 'paddingRight',
+  paddingTop: 'paddingTop',
   position: 'position',
   resize: 'resize',
   right: 'right',
