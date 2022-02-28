@@ -18,7 +18,7 @@ export const ComponentClassTable = ({ componentName }) => {
         );
       })
       .map((value: any) => (
-        <TableRow>
+        <TableRow key={value.className}>
           <TableCell>{value.className}</TableCell>
           <TableCell>{value.description}</TableCell>
         </TableRow>
