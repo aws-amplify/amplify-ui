@@ -178,9 +178,9 @@ const FlexContainerStylePropsMap: Required<{
 };
 
 /**
- * Map of all the FlexContainerStyleProps type keys
+ * Map of all the BaseStylePropsMap type keys
  * The type requires all keys in order to ensure it remains
- * in sync with the FlexContainerStyleProps type.
+ * in sync with the BaseStylePropsMap type.
  */
 const BaseStylePropsMap: Required<{ [key in keyof BaseStyleProps]: true }> = {
   alignSelf: true,
