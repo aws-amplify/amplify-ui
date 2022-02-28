@@ -30,7 +30,7 @@ export function FormFields() {
   const formOverrides = getActorState(_state).context?.formFields?.signUp;
 
   // Only 1 is supported, so `['email', 'phone_number']` will only show `email`
-  const loginMechanism = fieldNames.shift() as LoginMechanism;
+  const loginMechanism = fieldNames.shift() as LoginMechanism | CommonFields;
 
   const userOR = formOverrides?.[loginMechanism];
   const common = [
@@ -40,8 +40,8 @@ export function FormFields() {
   ] as CommonFields[];
 
   React.useEffect(() => {
-    fieldNames.unshift(...common);
-    setOrder(setFormOrder(formOverrides, fieldNames as LoginMechanism[]));
+    const fieldNamesCombined = [...common, ...fieldNames];
+    setOrder(setFormOrder(formOverrides, fieldNamesCombined));
   }, []);
 
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
@@ -58,7 +58,7 @@ export function FormFields() {
             return (
               <UserNameAliasComponent
                 key={name}
-                alias={loginMechanism}
+                alias={loginMechanism as LoginMechanism}
                 labelHidden={userOR?.labelHidden}
                 placeholder={userOR?.placeholder}
                 required={userOR?.required}

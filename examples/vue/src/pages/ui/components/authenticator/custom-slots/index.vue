@@ -26,15 +26,12 @@ const formFields = {
       label: 'Confirm Password:',
       order: 1,
     },
-    email: {
-      order: 2,
-    },
     password: {
       labelHidden: false,
       label: 'Password:',
       placeholder: 'Enter your Password:',
       required: false,
-      order: 3,
+      order: 2,
     },
   },
   forceNewPassword: {

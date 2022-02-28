@@ -39,7 +39,7 @@ const inputAttributes: ComputedRef<AuthInputAttributes> = computed(
 const passwordLabel = computed(() => translate('Password'));
 const confirmPasswordLabel = computed(() => translate('Confirm Password'));
 
-let fieldNames: Array<LoginMechanism | SignUpAttribute | Common>;
+let fieldNames: Array<LoginMechanism | SignUpAttribute>;
 let loginMechanisms = context.config?.loginMechanisms as LoginMechanism[];
 let signUpAttributes = context.config?.signUpAttributes as SignUpAttribute[];
 
@@ -61,7 +61,7 @@ function onBlur(e: Event) {
 }
 
 // Only 1 is supported, so `['email', 'phone_number']` will only show `email`
-const loginMechanism = fieldNames.shift() as LoginMechanism;
+const loginMechanism = fieldNames.shift() as LoginMechanism | CommonFields;
 
 const userOR = formOverrides?.[loginMechanism];
 
@@ -70,9 +70,9 @@ const common = [
   'password',
   'confirm_password',
 ] as CommonFields[];
-fieldNames.unshift(...common);
 
-const order = setFormOrder(formOverrides, fieldNames as LoginMechanism[]);
+const fieldNamesCombined = [...common, ...fieldNames];
+const order = setFormOrder(formOverrides, fieldNamesCombined);
 </script>
 
 <template>

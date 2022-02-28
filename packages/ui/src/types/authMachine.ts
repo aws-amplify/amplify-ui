@@ -179,7 +179,7 @@ export const LoginMechanismArray = [
 ] as const;
 
 export type CommonFields = 'username' | 'password' | 'confirm_password';
-export type LoginMechanism = typeof LoginMechanismArray[number] | CommonFields;
+export type LoginMechanism = typeof LoginMechanismArray[number];
 
 export type SocialProvider = 'amazon' | 'apple' | 'facebook' | 'google';
 

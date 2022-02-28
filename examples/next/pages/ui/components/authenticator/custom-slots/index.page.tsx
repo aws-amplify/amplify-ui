@@ -199,12 +199,12 @@ const formFields = {
       label: 'Password:',
       placeholder: 'Enter your Password:',
       required: false,
-      order: 1,
+      order: 2,
     },
     confirm_password: {
       labelHidden: false,
       label: 'Confirm Password:',
-      order: 2,
+      order: 1,
     },
   },
   forceNewPassword: {

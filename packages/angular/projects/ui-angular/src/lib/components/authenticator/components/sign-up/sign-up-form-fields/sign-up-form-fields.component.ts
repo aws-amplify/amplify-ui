@@ -9,6 +9,7 @@ import {
   SignUpAttribute,
   CommonFields,
   setFormOrder,
+  LoginMechanismArray,
 } from '@aws-amplify/ui';
 
 @Component({
@@ -19,6 +20,7 @@ export class SignUpFormFieldsComponent implements OnInit {
   public primaryAlias = '';
   public secondaryAliases: string[] = [];
   public fieldNames: Array<LoginMechanism | SignUpAttribute>;
+  public fieldNamesCombined: Array<SignUpAttribute | CommonFields>;
   public loginMechanism: LoginMechanism;
   public order: (string | number)[];
 
@@ -54,8 +56,7 @@ export class SignUpFormFieldsComponent implements OnInit {
       'password',
       'confirm_password',
     ] as CommonFields[];
-    this.fieldNames.unshift(...common);
-
+    this.fieldNamesCombined = [...common, ...this.fieldNames];
     this.setFormFields();
   }
 
@@ -63,10 +64,7 @@ export class SignUpFormFieldsComponent implements OnInit {
     const _state = this.authenticator.authState;
     this.formOverrides = getActorState(_state).context?.formFields?.signUp;
     this.userOR = this.formOverrides?.[this.loginMechanism];
-    this.order = setFormOrder(
-      this.formOverrides,
-      this.fieldNames as LoginMechanism[]
-    );
+    this.order = setFormOrder(this.formOverrides, this.fieldNamesCombined);
   }
 
   public grabField(name: string, field: string, defaultV) {

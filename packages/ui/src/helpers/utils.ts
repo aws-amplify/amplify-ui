@@ -1,4 +1,4 @@
-import { formField, LoginMechanism } from '..';
+import { CommonFields, formField, LoginMechanism, SignUpAttribute } from '..';
 
 export type ContactMethod = 'Email' | 'Phone Number';
 
@@ -35,7 +35,7 @@ export const getFormDataFromEvent = (event: Event) => {
 
 export const setFormOrder = (
   formOverrides: formField,
-  fieldNames: LoginMechanism[]
+  fieldNames: Array<SignUpAttribute | CommonFields>
 ): Array<string | number> => {
   type keyValues = string | number;
   let orderedKeys = [] as keyValues[];
