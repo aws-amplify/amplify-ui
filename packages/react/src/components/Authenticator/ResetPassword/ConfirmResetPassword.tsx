@@ -90,7 +90,7 @@ export const ConfirmResetPassword = (): JSX.Element => {
 
           <PasswordField
             data-amplify-password
-            {...propsCreator('password', 'Password', formOverrides, true)}
+            {...propsCreator('password', 'New password', formOverrides, true)}
             className="password-field"
             name="password"
             onBlur={handleBlur}
