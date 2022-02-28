@@ -40,7 +40,7 @@ export function FormFields() {
   ] as CommonFields[];
 
   React.useEffect(() => {
-    fieldNames.push(...common);
+    fieldNames.unshift(...common);
     setOrder(setFormOrder(formOverrides, fieldNames as LoginMechanism[]));
   }, []);
 

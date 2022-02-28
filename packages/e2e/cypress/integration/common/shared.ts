@@ -262,3 +262,9 @@ When('I type a valid SMS confirmation code', () => {
 When('I type an invalid confirmation code', () => {
   cy.findByLabelText('Confirmation Code').type('invalidcode');
 });
+
+When('I see {string} as the {string} input', (custom, order) => {
+  cy.get('input').eq(order).should('have.attr', 'placeholder', custom);
+
+  // cy.findByLabelText(custom).type(Cypress.env('VALID_PASSWORD'));
+});

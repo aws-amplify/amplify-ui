@@ -8,6 +8,7 @@ import {
   SignUpAttribute,
   formField,
   setFormOrder,
+  CommonFields,
 } from '@aws-amplify/ui';
 
 import { useAuth, useAuthenticator } from '../composables/useAuth';
@@ -37,7 +38,6 @@ const inputAttributes: ComputedRef<AuthInputAttributes> = computed(
 // computed properties
 const passwordLabel = computed(() => translate('Password'));
 const confirmPasswordLabel = computed(() => translate('Confirm Password'));
-type Common = 'username' | 'password' | 'confirm_password';
 
 let fieldNames: Array<LoginMechanism | SignUpAttribute | Common>;
 let loginMechanisms = context.config?.loginMechanisms as LoginMechanism[];
@@ -65,8 +65,12 @@ const loginMechanism = fieldNames.shift() as LoginMechanism;
 
 const userOR = formOverrides?.[loginMechanism];
 
-const common = [loginMechanism, 'password', 'confirm_password'] as Common[];
-fieldNames.push(...common);
+const common = [
+  loginMechanism,
+  'password',
+  'confirm_password',
+] as CommonFields[];
+fieldNames.unshift(...common);
 
 const order = setFormOrder(formOverrides, fieldNames as LoginMechanism[]);
 </script>
