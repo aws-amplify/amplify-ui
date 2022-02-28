@@ -23,6 +23,7 @@ describe('@aws-amplify/ui-react', () => {
           "CheckboxField",
           "Collection",
           "ComponentClassNames",
+          "ComponentClassObject",
           "ComponentPropsToStylePropsMap",
           "ComponentPropsToStylePropsMapKeys",
           "Divider",
