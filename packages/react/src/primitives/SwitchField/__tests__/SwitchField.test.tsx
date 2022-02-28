@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { render, screen } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import kebabCase from 'lodash/kebabCase';
 import userEvent from '@testing-library/user-event';
 
@@ -157,7 +157,7 @@ describe('Switch Field', () => {
       let input = await screen.findByLabelText(label);
       expect(input).toBeChecked();
 
-      updateControlledValue(false);
+      act(() => updateControlledValue(false));
       input = await screen.findByLabelText(label);
       expect(input).not.toBeChecked();
     });
