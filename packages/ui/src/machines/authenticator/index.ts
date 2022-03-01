@@ -4,7 +4,7 @@ import {
   AuthContext,
   AuthEvent,
   CognitoUserAmplify,
-  ServicesContext,
+  FormFields,
 } from '../../types';
 import { stopActor } from './actions';
 import { resetPasswordActor, signInActor, signOutActor } from './actors';
@@ -223,9 +223,11 @@ export function createAuthenticatorMachine() {
               signUpAttributes,
               socialProviders,
               initialState,
+              formFields,
             } = context.config;
             return {
               loginMechanisms: loginMechanisms ?? cliLoginMechanisms,
+              formFields: convertFormFields(formFields) ?? {},
               signUpAttributes:
                 signUpAttributes ??
                 Array.from(
@@ -252,6 +254,7 @@ export function createAuthenticatorMachine() {
               validationError: {},
               loginMechanisms: context.config?.loginMechanisms,
               socialProviders: context.config?.socialProviders,
+              formFields: context.config?.formFields,
             });
             return spawn(actor, { name: 'signInActor' });
           },
@@ -268,6 +271,7 @@ export function createAuthenticatorMachine() {
               validationError: {},
               loginMechanisms: context.config?.loginMechanisms,
               socialProviders: context.config?.socialProviders,
+              formFields: context.config?.formFields,
             });
             return spawn(actor, { name: 'signUpActor' });
           },
@@ -280,6 +284,7 @@ export function createAuthenticatorMachine() {
               touched: {},
               intent: context.actorDoneData?.intent,
               username: context.actorDoneData?.authAttributes?.username,
+              formFields: context.config?.formFields,
               validationError: {},
             });
             return spawn(actor, { name: 'resetPasswordActor' });
@@ -313,4 +318,16 @@ export function createAuthenticatorMachine() {
       },
     }
   );
+}
+
+function convertFormFields(formFields: FormFields): FormFields {
+  if (formFields) {
+    Object.keys(formFields).forEach((component: string) => {
+      Object.keys(formFields[component]).forEach((inputName) => {
+        let ff = formFields[component][inputName];
+        ff.required = ff.isRequired;
+      });
+    });
+  }
+  return formFields;
 }
