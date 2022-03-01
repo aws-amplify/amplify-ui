@@ -1,6 +1,5 @@
 {
   "private": true,
-  "type": "module",
   "scripts": {
     "build": "turbo run build --include-dependencies --no-deps --scope=*@aws-amplify/*",
     "clean": "turbo run clean && rimraf node_modules",
@@ -27,7 +26,7 @@
     "canary:build": "yarn --cwd canary/ build",
     "canary:install": "yarn --cwd canary/ install ",
     "canary:clean": "yarn --cwd canary clean ",
-    "canary:updatePackage": "node script/changeCanaryPackageVersion.js",
+    "canary:updatePackage": "node script/changeCanaryPackageVersion.mjs",
     "release:canary": "yarn install && yarn canary:updatePackage && rm postcss.config.js && yarn canary:install && yarn canary:build"
   },
   "turbo": {
