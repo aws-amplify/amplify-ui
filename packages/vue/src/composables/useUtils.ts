@@ -1,7 +1,9 @@
 import {
   AuthEventData,
+  formField,
   LoginMechanism,
   LoginMechanismArray,
+  translate,
 } from '@aws-amplify/ui';
 
 /**
@@ -45,4 +47,27 @@ export const facade = {
   skipVerification: (data?: AuthEventData) => null,
   submit: (data?: AuthEventData) => null,
   submitForm: (data?: AuthEventData) => null,
+};
+
+interface fieldProps {
+  labelHidden: boolean;
+  isRequired?: boolean;
+  label: string;
+  placeholder: string;
+  required?: boolean; // TextField input sometimes uses required instead of isRequired
+}
+
+export const propsCreator = (
+  name: string,
+  show: string,
+  formOverrides: formField,
+  labelHiddenDefault: boolean = false
+): fieldProps => {
+  const fo = formOverrides?.[name];
+  return {
+    labelHidden: fo?.labelHidden ?? labelHiddenDefault,
+    required: fo?.required ?? true,
+    label: fo?.label ?? translate(show),
+    placeholder: fo?.placeholder ?? translate(show),
+  };
 };
