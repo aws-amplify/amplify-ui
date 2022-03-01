@@ -166,7 +166,6 @@ describe('SearchField component', () => {
       userEvent.type(searchField, searchQuery);
 
       const clearButton = await screen.findByLabelText(clearButtonLabel);
-      console.log('this is the clear button', clearButton);
 
       expect(searchField).toHaveValue(searchQuery);
       userEvent.click(clearButton);

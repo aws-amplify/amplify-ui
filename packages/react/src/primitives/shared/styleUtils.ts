@@ -4,7 +4,6 @@ import { isDesignToken } from '@aws-amplify/ui';
 import {
   BaseStyleProps,
   ComponentPropsToStylePropsMap,
-  // ComponentPropsToStylePropsMapKeys,
   GridItemStyleProps,
   GridSpanType,
   ResponsiveObject,
@@ -128,7 +127,7 @@ export const convertStylePropsToStyleObj: ConvertStylePropsToStyleObj = ({
 }) => {
   const nonStyleProps = {};
   Object.keys(props)
-    .filter((propKey) => !isNullOrEmptyString(props[propKey]))
+    .filter((propKey) => props[propKey] !== null)
     .forEach((stylePropKey) => {
       if (!(stylePropKey in ComponentPropsToStylePropsMap)) {
         nonStyleProps[stylePropKey] = props[stylePropKey];

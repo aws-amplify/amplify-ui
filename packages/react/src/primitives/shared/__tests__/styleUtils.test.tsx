@@ -63,11 +63,10 @@ describe('convertStylePropsToStyleObj: ', () => {
     expect(propStyles['as']).toBeUndefined();
   });
 
-  it('should ignore undefined, null or empty string style prop values', () => {
+  it('should ignore undefined or null style prop values', () => {
     const props: ViewProps = {
       backgroundColor: undefined,
       color: null,
-      border: '',
       borderRadius: '6px',
       ariaLabel: 'important section',
       as: 'section',
@@ -79,7 +78,6 @@ describe('convertStylePropsToStyleObj: ', () => {
 
     expect(propStyles['backgroundColor']).toBeUndefined();
     expect(propStyles['color']).toBeUndefined();
-    expect(propStyles['border']).toBeUndefined();
     expect(propStyles['borderRadius']).toBe(props.borderRadius);
     expect(propStyles['as']).toBeUndefined();
   });
