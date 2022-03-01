@@ -22,6 +22,7 @@ const PhoneNumberFieldPrimitive: Primitive<PhoneNumberFieldProps, 'input'> = (
     type,
     variation,
     countryCodeRef,
+    dialCodeList,
     ...rest
   },
   ref
@@ -31,6 +32,7 @@ const PhoneNumberFieldPrimitive: Primitive<PhoneNumberFieldProps, 'input'> = (
       outerStartComponent={
         <CountryCodeSelect
           defaultValue={defaultCountryCode}
+          dialCodeList={dialCodeList}
           className={className}
           hasError={hasError}
           isDisabled={isDisabled}

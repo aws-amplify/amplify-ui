@@ -1,3 +1,71 @@
+<script setup lang="ts">
+import { computed, ComputedRef, useAttrs } from 'vue';
+import { createSharedComposable } from '@vueuse/core';
+
+import {
+  getActorState,
+  SignInState,
+  authInputAttributes,
+  LoginMechanism,
+  translate,
+  getFormDataFromEvent,
+} from '@aws-amplify/ui';
+
+import { useAuth, useAuthenticator } from '../composables/useAuth';
+
+const useAuthShared = createSharedComposable(useAuthenticator);
+const props = useAuthShared();
+
+const attrs = useAttrs();
+const emit = defineEmits(['verifyUserSubmit', 'skipClicked']);
+
+const { state, send } = useAuth();
+
+const actorState: ComputedRef<SignInState> = computed(
+  () => getActorState(state.value) as SignInState
+);
+
+const unverifiedAttributes = actorState.value.context.unverifiedAttributes;
+
+// Computed Properties
+const verifyHeading = computed(() =>
+  translate('Account recovery requires verified contact information')
+);
+const skipText = computed(() => translate('Skip'));
+const verifyText = computed(() => translate('Verify'));
+const verifyContactText = computed(() => translate('Verify Contact'));
+
+// Methods
+const onInput = (e: Event): void => {
+  const { name, value } = <HTMLInputElement>e.target;
+  send({
+    type: 'CHANGE',
+    //@ts-ignore
+    data: { name, value },
+  });
+};
+
+const onVerifyUserSubmit = (e: Event): void => {
+  if (attrs?.onVerifyUserSubmit) {
+    emit('verifyUserSubmit', e);
+  } else {
+    submit(e);
+  }
+};
+
+const submit = (e: Event): void => {
+  props.submitForm(getFormDataFromEvent(e));
+};
+
+const onSkipClicked = (): void => {
+  if (attrs?.onSkipClicked) {
+    emit('skipClicked');
+  } else {
+    send('SKIP');
+  }
+};
+</script>
+
 <template>
   <slot name="verifyUserSlotI">
     <base-wrapper>
@@ -95,71 +163,3 @@
     </base-wrapper>
   </slot>
 </template>
-
-<script setup lang="ts">
-import { computed, ComputedRef, useAttrs } from 'vue';
-import { createSharedComposable } from '@vueuse/core';
-
-import {
-  getActorState,
-  SignInState,
-  authInputAttributes,
-  LoginMechanism,
-  translate,
-  getFormDataFromEvent,
-} from '@aws-amplify/ui';
-
-import { useAuth, useAuthenticator } from '../composables/useAuth';
-
-const useAuthShared = createSharedComposable(useAuthenticator);
-const props = useAuthShared();
-
-const attrs = useAttrs();
-const emit = defineEmits(['verifyUserSubmit', 'skipClicked']);
-
-const { state, send } = useAuth();
-
-const actorState: ComputedRef<SignInState> = computed(
-  () => getActorState(state.value) as SignInState
-);
-
-const unverifiedAttributes = actorState.value.context.unverifiedAttributes;
-
-// Computed Properties
-const verifyHeading = computed(() =>
-  translate('Account recovery requires verified contact information')
-);
-const skipText = computed(() => translate('Skip'));
-const verifyText = computed(() => translate('Verify'));
-const verifyContactText = computed(() => translate('Verify Contact'));
-
-// Methods
-const onInput = (e: Event): void => {
-  const { name, value } = <HTMLInputElement>e.target;
-  send({
-    type: 'CHANGE',
-    //@ts-ignore
-    data: { name, value },
-  });
-};
-
-const onVerifyUserSubmit = (e: Event): void => {
-  if (attrs?.onVerifyUserSubmit) {
-    emit('verifyUserSubmit', e);
-  } else {
-    submit(e);
-  }
-};
-
-const submit = (e: Event): void => {
-  props.submitForm(getFormDataFromEvent(e));
-};
-
-const onSkipClicked = (): void => {
-  if (attrs?.onSkipClicked) {
-    emit('skipClicked');
-  } else {
-    send('SKIP');
-  }
-};
-</script>
