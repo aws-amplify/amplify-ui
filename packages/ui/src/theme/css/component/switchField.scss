@@ -1,11 +1,13 @@
 .amplify-switchfield {
   display: inline-block;
-  &[data-size='small'] {
-    font-size: var(--amplify-components-switchfield-small-font-size);
-  }
-  &[data-size='large'] {
-    font-size: var(--amplify-components-switchfield-large-font-size);
-  }
+}
+
+.amplify-switchfield--size-small {
+  font-size: var(--amplify-components-switchfield-small-font-size);
+}
+
+.amplify-switchfield--size-large {
+  font-size: var(--amplify-components-switchfield-large-font-size);
 }
 
 .amplify-switch__wrapper {
@@ -36,9 +38,13 @@
   transition-duration: var(
     --amplify-components-switchfield-track-transition-duration
   );
-  background-color: var(--amplify-components-switchfield-track-background-color);
+  background-color: var(
+    --amplify-components-switchfield-track-background-color
+  );
   &[data-checked='true'] {
-    background-color: var(--amplify-components-switchfield-track-checked-background-color);
+    background-color: var(
+      --amplify-components-switchfield-track-checked-background-color
+    );
   }
   &[data-disabled='true'] {
     opacity: var(--amplify-components-switchfield-disabled-opacity);
@@ -50,7 +56,9 @@
 }
 
 .amplify-switch-thumb {
-  background-color: var(--amplify-components-switchfield-thumb-background-color);
+  background-color: var(
+    --amplify-components-switchfield-thumb-background-color
+  );
   transition-duration: var(
     --amplify-components-switchfield-thumb-transition-duration
   );

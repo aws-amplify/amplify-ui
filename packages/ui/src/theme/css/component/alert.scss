@@ -1,29 +1,32 @@
 .amplify-alert {
   align-items: var(--amplify-components-alert-align-items);
   justify-content: var(--amplify-components-alert-justify-content);
-  background-color: var(--amplify-components-alert-background-color);
   padding-block: var(--amplify-components-alert-padding-block);
   padding-inline: var(--amplify-components-alert-padding-inline);
+}
 
-  &[data-variation='info'] {
-    color: var(--amplify-components-alert-info-color);
-    background-color: var(--amplify-components-alert-info-background-color);
-  }
+.amplify-alert--variation-info {
+  color: var(--amplify-components-alert-info-color);
+  background-color: var(--amplify-components-alert-info-background-color);
+}
 
-  &[data-variation='error'] {
-    color: var(--amplify-components-alert-error-color);
-    background-color: var(--amplify-components-alert-error-background-color);
-  }
+.amplify-alert--variation-error {
+  color: var(--amplify-components-alert-error-color);
+  background-color: var(--amplify-components-alert-error-background-color);
+}
 
-  &[data-variation='warning'] {
-    color: var(--amplify-components-alert-warning-color);
-    background-color: var(--amplify-components-alert-warning-background-color);
-  }
+.amplify-alert--variation-warning {
+  color: var(--amplify-components-alert-warning-color);
+  background-color: var(--amplify-components-alert-warning-background-color);
+}
 
-  &[data-variation='success'] {
-    color: var(--amplify-components-alert-success-color);
-    background-color: var(--amplify-components-alert-success-background-color);
-  }
+.amplify-alert--variation-success {
+  color: var(--amplify-components-alert-success-color);
+  background-color: var(--amplify-components-alert-success-background-color);
+}
+
+.amplify-alert--variation-default {
+  background-color: var(--amplify-components-alert-background-color);
 }
 
 .amplify-alert__icon {

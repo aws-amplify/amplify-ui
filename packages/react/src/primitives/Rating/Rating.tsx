@@ -59,9 +59,15 @@ const RatingPrimitive: Primitive<RatingProps, typeof Flex> = (
         />
       );
   });
+  size = size || 'default';
+
   return (
     <Flex
-      className={classNames(ComponentClassNames.Rating, className)}
+      className={classNames(
+        ComponentClassNames.Rating,
+        `${ComponentClassNames.Rating}--size-${size}`,
+        className
+      )}
       data-size={size}
       ref={ref}
       {...rest}

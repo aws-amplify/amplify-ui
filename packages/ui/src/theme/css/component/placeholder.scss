@@ -7,14 +7,18 @@
   height: var(--amplify-components-placeholder-default-height);
   width: 100%;
   display: block;
+}
 
-  &[data-size='small'] {
-    height: var(--amplify-components-placeholder-small-height);
-  }
+.amplify-placeholder--size-default {
+  height: var(--amplify-components-placeholder-default-height);
+}
 
-  &[data-size='large'] {
-    height: var(--amplify-components-placeholder-large-height);
-  }
+.amplify-placeholder--size-small {
+  height: var(--amplify-components-placeholder-small-height);
+}
+
+.amplify-placeholder--size-large {
+  height: var(--amplify-components-placeholder-large-height);
 }
 
 @keyframes amplify-placeholder-loading {

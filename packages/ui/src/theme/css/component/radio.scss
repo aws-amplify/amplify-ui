@@ -11,8 +11,6 @@
 .amplify-radio__button {
   align-items: var(--amplify-components-radio-button-align-items);
   justify-content: var(--amplify-components-radio-button-justify-content);
-  width: var(--amplify-components-radio-button-width);
-  height: var(--amplify-components-radio-button-height);
   padding: var(--amplify-components-radio-button-padding);
   box-sizing: var(--amplify-components-radio-button-box-sizing);
   border-width: var(--amplify-components-radio-button-border-width);
@@ -44,15 +42,21 @@
     background-color: currentColor;
     border-radius: 50%;
   }
+}
 
-  &[data-size='small'] {
-    width: var(--amplify-components-radio-button-small-width);
-    height: var(--amplify-components-radio-button-small-height);
-  }
-  &[data-size='large'] {
-    width: var(--amplify-components-radio-button-large-width);
-    height: var(--amplify-components-radio-button-large-height);
-  }
+.amplify-radio__button--size-default {
+  width: var(--amplify-components-radio-button-width);
+  height: var(--amplify-components-radio-button-height);
+}
+
+.amplify-radio__button--size-small {
+  width: var(--amplify-components-radio-button-small-width);
+  height: var(--amplify-components-radio-button-small-height);
+}
+
+.amplify-radio__button--size-large {
+  width: var(--amplify-components-radio-button-large-width);
+  height: var(--amplify-components-radio-button-large-height);
 }
 
 .amplify-radio__input:checked + .amplify-radio__button {

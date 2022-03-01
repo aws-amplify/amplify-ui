@@ -44,101 +44,99 @@
       );
     }
   }
+}
 
-  &[data-variation='primary'] {
-    @extend %togglebutton-shared;
+.amplify-togglebutton--variation-primary {
+  @extend %togglebutton-shared;
+  background-color: var(
+    --amplify-components-togglebutton-primary-background-color
+  );
+  border-width: var(--amplify-components-togglebutton-primary-border-width);
+
+  &:focus {
     background-color: var(
-      --amplify-components-togglebutton-primary-background-color
+      --amplify-components-togglebutton-primary-focus-background-color
     );
-    border-width: var(--amplify-components-togglebutton-primary-border-width);
-
-    &:focus {
-      background-color: var(
-        --amplify-components-togglebutton-primary-focus-background-color
-      );
-      border-color: var(
-        --amplify-components-togglebutton-primary-focus-border-color
-      );
-      color: var(--amplify-components-togglebutton-primary-focus-color);
-      box-shadow: var(
-        --amplify-components-togglebutton-primary-focus-box-shadow
-      );
-    }
-
-    &:hover {
-      background-color: var(
-        --amplify-components-togglebutton-primary-hover-background-color
-      );
-      color: var(--amplify-components-togglebutton-primary-hover-color);
-    }
-
-    &:disabled {
-      background-color: var(
-        --amplify-components-togglebutton-primary-disabled-background-color
-      );
-      color: var(--amplify-components-togglebutton-primary-disabled-color);
-    }
-
-    &[aria-pressed='true'] {
-      background-color: var(
-        --amplify-components-togglebutton-primary-pressed-background-color
-      );
-      border-color: var(
-        --amplify-components-togglebutton-primary-pressed-border-color
-      );
-      color: var(--amplify-components-togglebutton-primary-pressed-color);
-
-      &:focus {
-        border-color: var(
-          --amplify-components-togglebutton-primary-pressed-focus-border-color
-        );
-        background-color: var(
-          --amplify-components-togglebutton-primary-pressed-focus-background-color
-        );
-      }
-
-      &:hover:not(:disabled) {
-        border-color: var(
-          --amplify-components-togglebutton-primary-pressed-hover-border-color
-        );
-        background-color: var(
-          --amplify-components-togglebutton-primary-pressed-hover-background-color
-        );
-      }
-    }
+    border-color: var(
+      --amplify-components-togglebutton-primary-focus-border-color
+    );
+    color: var(--amplify-components-togglebutton-primary-focus-color);
+    box-shadow: var(--amplify-components-togglebutton-primary-focus-box-shadow);
   }
 
-  &[data-variation='link'] {
-    color: var(--amplify-components-togglebutton-link-color);
+  &:hover {
+    background-color: var(
+      --amplify-components-togglebutton-primary-hover-background-color
+    );
+    color: var(--amplify-components-togglebutton-primary-hover-color);
+  }
 
-    &:hover {
-      background-color: var(
-        --amplify-components-togglebutton-link-hover-background-color
-      );
-      color: var(--amplify-components-togglebutton-link-hover-color);
-    }
+  &:disabled {
+    background-color: var(
+      --amplify-components-togglebutton-primary-disabled-background-color
+    );
+    color: var(--amplify-components-togglebutton-primary-disabled-color);
+  }
+
+  &[aria-pressed='true'] {
+    background-color: var(
+      --amplify-components-togglebutton-primary-pressed-background-color
+    );
+    border-color: var(
+      --amplify-components-togglebutton-primary-pressed-border-color
+    );
+    color: var(--amplify-components-togglebutton-primary-pressed-color);
 
     &:focus {
-      background-color: var(
-        --amplify-components-togglebutton-link-focus-background-color
+      border-color: var(
+        --amplify-components-togglebutton-primary-pressed-focus-border-color
       );
-      color: var(--amplify-components-togglebutton-link-focus-color);
+      background-color: var(
+        --amplify-components-togglebutton-primary-pressed-focus-background-color
+      );
     }
 
-    &:disabled {
-      color: var(--amplify-components-togglebutton-link-disabled-color);
-    }
-
-    &[aria-pressed='true'] {
-      background-color: var(
-        --amplify-components-togglebutton-link-pressed-background-color
+    &:hover:not(:disabled) {
+      border-color: var(
+        --amplify-components-togglebutton-primary-pressed-hover-border-color
       );
-      color: var(--amplify-components-togglebutton-link-pressed-color);
-      &:hover {
-        background-color: var(
-          --amplify-components-togglebutton-link-pressed-hover-background-color
-        );
-      }
+      background-color: var(
+        --amplify-components-togglebutton-primary-pressed-hover-background-color
+      );
+    }
+  }
+}
+
+.amplify-togglebutton--variation-link {
+  color: var(--amplify-components-togglebutton-link-color);
+
+  &:hover {
+    background-color: var(
+      --amplify-components-togglebutton-link-hover-background-color
+    );
+    color: var(--amplify-components-togglebutton-link-hover-color);
+  }
+
+  &:focus {
+    background-color: var(
+      --amplify-components-togglebutton-link-focus-background-color
+    );
+    color: var(--amplify-components-togglebutton-link-focus-color);
+  }
+
+  &:disabled {
+    color: var(--amplify-components-togglebutton-link-disabled-color);
+  }
+
+  &[aria-pressed='true'] {
+    background-color: var(
+      --amplify-components-togglebutton-link-pressed-background-color
+    );
+    color: var(--amplify-components-togglebutton-link-pressed-color);
+    &:hover {
+      background-color: var(
+        --amplify-components-togglebutton-link-pressed-hover-background-color
+      );
     }
   }
 }

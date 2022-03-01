@@ -21,7 +21,7 @@ export const RadioPrimitive: Primitive<RadioProps, 'input'> = (
     isRequired,
     isReadOnly,
     onChange,
-    size,
+    size = 'default',
   } = useRadioGroupContext();
 
   const shouldBeDisabled =
@@ -62,7 +62,10 @@ export const RadioPrimitive: Primitive<RadioProps, 'input'> = (
       <Flex
         aria-hidden="true"
         as="span"
-        className={ComponentClassNames.RadioButton}
+        className={classNames(
+          ComponentClassNames.RadioButton,
+          `${ComponentClassNames.RadioButton}--size-${size || 'default'}`
+        )}
         data-size={size}
         testId={testId}
       />

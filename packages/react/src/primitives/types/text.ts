@@ -1,6 +1,7 @@
 import { ViewProps } from './view';
 
 export type TextVariation =
+  | 'default'
   | 'primary'
   | 'secondary'
   | 'tertiary'

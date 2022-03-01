@@ -58,10 +58,17 @@ const LoaderPrimitive: Primitive<LoaderProps, 'svg'> = (
     </g>
   );
 
+  size = size || 'default';
+  variation = variation || 'default';
+
   return (
     <View
       as="svg"
-      className={classNames(ComponentClassNames.Loader, className)}
+      className={classNames(
+        ComponentClassNames.Loader,
+        `${ComponentClassNames.Loader}--size-${size}--variation-${variation}`,
+        className
+      )}
       data-size={size}
       data-variation={variation}
       ref={ref}

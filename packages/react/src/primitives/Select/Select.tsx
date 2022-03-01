@@ -50,6 +50,7 @@ const SelectPrimitive: Primitive<SelectProps, 'select'> = (
         className={classNames(
           ComponentClassNames.Select,
           ComponentClassNames.FieldGroupControl,
+          `${ComponentClassNames.Select}--size-${size}`,
           className
         )}
         ref={ref}

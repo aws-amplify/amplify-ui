@@ -2,23 +2,27 @@
   display: inline-flex;
   position: relative;
   text-align: left;
-  font-size: var(--amplify-components-rating-default-size);
-  line-height: var(--amplify-components-rating-default-size);
-  &[data-size='small'] {
-    font-size: var(--amplify-components-rating-small-size);
-    line-height: var(--amplify-components-rating-small-size);
-  }
-
-  &[data-size='large'] {
-    font-size: var(--amplify-components-rating-large-size);
-    line-height: var(--amplify-components-rating-large-size);
-  }
 
   .amplify-icon {
     font-size: unset;
     line-height: unset;
     height: 1em;
   }
+}
+
+.amplify-rating--size-default {
+  font-size: var(--amplify-components-rating-default-size);
+  line-height: var(--amplify-components-rating-default-size);
+}
+
+.amplify-rating--size-small {
+  font-size: var(--amplify-components-rating-small-size);
+  line-height: var(--amplify-components-rating-small-size);
+}
+
+.amplify-rating--size-large {
+  font-size: var(--amplify-components-rating-large-size);
+  line-height: var(--amplify-components-rating-large-size);
 }
 
 .amplify-rating-filled {

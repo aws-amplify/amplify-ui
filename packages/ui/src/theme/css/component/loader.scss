@@ -19,16 +19,6 @@
     stroke-linecap: var(--amplify-components-loader-stroke-linecap);
   }
 
-  &[data-size='small'] {
-    width: var(--amplify-components-loader-small-width);
-    height: var(--amplify-components-loader-small-height);
-  }
-
-  &[data-size='large'] {
-    width: var(--amplify-components-loader-large-width);
-    height: var(--amplify-components-loader-large-height);
-  }
-
   line:last-of-type {
     stroke: var(--amplify-components-loader-linear-stroke-filled);
     stroke-dasharray: 50% 200%; // This will affect the animation. We don't want this to be overridden
@@ -43,25 +33,48 @@
       stroke-dashoffset: -50%;
     }
   }
+}
 
-  &[data-variation='linear'] {
-    width: var(--amplify-components-loader-linear-width);
-    min-width: var(--amplify-components-loader-linear-min-width);
-    height: var(--amplify-components-loader-linear-height);
-    stroke: var(--amplify-components-loader-linear-stroke-empty);
-    stroke-width: var(--amplify-components-loader-linear-stroke-width);
-    stroke-linecap: var(--amplify-components-loader-linear-stroke-linecap);
+.amplify-loader--size-default--variation-default {
+  width: var(--amplify-components-loader-width);
+  height: var(--amplify-components-loader-height);
+}
 
-    &[data-size='small'] {
-      height: var(--amplify-components-loader-linear-small-height);
-      stroke-width: var(--amplify-components-loader-linear-small-stroke-width);
-    }
+.amplify-loader--size-small--variation-default {
+  width: var(--amplify-components-loader-small-width);
+  height: var(--amplify-components-loader-small-height);
+}
 
-    &[data-size='large'] {
-      height: var(--amplify-components-loader-linear-large-height);
-      stroke-width: var(--amplify-components-loader-linear-large-stroke-width);
-    }
-  }
+.amplify-loader--size-large--variation-default {
+  width: var(--amplify-components-loader-large-width);
+  height: var(--amplify-components-loader-large-height);
+}
+
+.amplify-loader--size-default--variation-linear {
+  width: var(--amplify-components-loader-linear-width);
+  min-width: var(--amplify-components-loader-linear-min-width);
+  height: var(--amplify-components-loader-linear-height);
+  stroke: var(--amplify-components-loader-linear-stroke-empty);
+  stroke-width: var(--amplify-components-loader-linear-stroke-width);
+  stroke-linecap: var(--amplify-components-loader-linear-stroke-linecap);
+}
+
+.amplify-loader--size-small--variation-linear {
+  width: var(--amplify-components-loader-linear-width);
+  min-width: var(--amplify-components-loader-linear-min-width);
+  height: var(--amplify-components-loader-linear-small-height);
+  stroke: var(--amplify-components-loader-linear-stroke-empty);
+  stroke-width: var(--amplify-components-loader-linear-small-stroke-width);
+  stroke-linecap: var(--amplify-components-loader-linear-stroke-linecap);
+}
+
+.amplify-loader--size-large--variation-linear {
+  width: var(--amplify-components-loader-linear-width);
+  min-width: var(--amplify-components-loader-linear-min-width);
+  height: var(--amplify-components-loader-linear-large-height);
+  stroke: var(--amplify-components-loader-linear-stroke-empty);
+  stroke-width: var(--amplify-components-loader-linear-large-stroke-width);
+  stroke-linecap: var(--amplify-components-loader-linear-stroke-linecap);
 }
 
 @keyframes amplify-loader-circular {

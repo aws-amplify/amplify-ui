@@ -8,18 +8,25 @@ import { View } from '../View';
 const TextPrimitive: Primitive<TextProps, 'p'> = (
   { as = 'p', className, children, isTruncated, variation, ...rest },
   ref
-) => (
-  <View
-    as={as}
-    className={classNames(ComponentClassNames.Text, className)}
-    data-truncate={isTruncated}
-    data-variation={variation}
-    ref={ref}
-    {...rest}
-  >
-    {children}
-  </View>
-);
+) => {
+  variation = variation || 'default';
+  return (
+    <View
+      as={as}
+      className={classNames(
+        ComponentClassNames.Text,
+        `${ComponentClassNames.Text}-variation-${variation}`,
+        className
+      )}
+      data-truncate={isTruncated}
+      data-variation={variation}
+      ref={ref}
+      {...rest}
+    >
+      {children}
+    </View>
+  );
+};
 
 export const Text = React.forwardRef(TextPrimitive);
 

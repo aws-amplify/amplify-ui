@@ -76,6 +76,7 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
     <Flex
       className={classNames(
         ComponentClassNames.Field,
+        `${ComponentClassNames.Field}--size-${size}`,
         ComponentClassNames.StepperField,
         className
       )}

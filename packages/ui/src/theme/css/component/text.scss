@@ -1,5 +1,4 @@
 .amplify-text {
-  color: var(--amplify-components-text-color);
   display: block;
 
   @at-root b#{&},
@@ -17,32 +16,36 @@
     text-overflow: ellipsis;
     white-space: nowrap;
   }
+}
 
-  &[data-variation='primary'] {
-    color: var(--amplify-components-text-primary-color);
-  }
+.amplify-text--variation-default {
+  color: var(--amplify-components-text-color);
+}
 
-  &[data-variation='secondary'] {
-    color: var(--amplify-components-text-secondary-color);
-  }
+.amplify-text--variation-primary {
+  color: var(--amplify-components-text-primary-color);
+}
 
-  &[data-variation='tertiary'] {
-    color: var(--amplify-components-text-tertiary-color);
-  }
+.amplify-text--variation-secondary {
+  color: var(--amplify-components-text-secondary-color);
+}
 
-  &[data-variation='error'] {
-    color: var(--amplify-components-text-error-color);
-  }
+.amplify-text--variation-tertiary {
+  color: var(--amplify-components-text-tertiary-color);
+}
 
-  &[data-variation='info'] {
-    color: var(--amplify-components-text-info-color);
-  }
+.amplify-text--variation-error {
+  color: var(--amplify-components-text-error-color);
+}
 
-  &[data-variation='success'] {
-    color: var(--amplify-components-text-success-color);
-  }
+.amplify-text--variation-info {
+  color: var(--amplify-components-text-info-color);
+}
 
-  &[data-variation='warning'] {
-    color: var(--amplify-components-text-warning-color);
-  }
+.amplify-text--variation-success {
+  color: var(--amplify-components-text-success-color);
+}
+
+.amplify-text--variation-warning {
+  color: var(--amplify-components-text-warning-color);
 }

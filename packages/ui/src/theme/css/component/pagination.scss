@@ -16,7 +16,7 @@
   }
 }
 
-.amplify-pagination__item-button[data-variation='link'] {
+.amplify-pagination__item-button--variation-link {
   @extend %item-shared;
 
   display: flex;

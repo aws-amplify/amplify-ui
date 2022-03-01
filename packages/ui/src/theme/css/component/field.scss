@@ -1,16 +1,18 @@
 @import 'fieldControl';
 
-.amplify-field {
+.amplify-field--size-default {
   font-size: var(--amplify-components-field-font-size);
   gap: var(--amplify-components-field-gap);
-  &[data-size='small'] {
-    font-size: var(--amplify-components-field-small-font-size);
-    gap: var(--amplify-components-field-small-gap);
-  }
-  &[data-size='large'] {
-    font-size: var(--amplify-components-field-large-font-size);
-    gap: var(--amplify-components-field-large-gap);
-  }
+}
+
+.amplify-field--size-small {
+  font-size: var(--amplify-components-field-small-font-size);
+  gap: var(--amplify-components-field-small-gap);
+}
+
+.amplify-field--size-large {
+  font-size: var(--amplify-components-field-large-font-size);
+  gap: var(--amplify-components-field-large-gap);
 }
 
 .amplify-label {

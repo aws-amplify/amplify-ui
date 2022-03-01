@@ -8,16 +8,23 @@ import { View } from '../View';
 const DividerPrimitive: Primitive<DividerProps, 'hr'> = (
   { className, orientation = 'horizontal', size, ...rest },
   ref
-) => (
-  <View
-    aria-orientation={orientation}
-    as="hr"
-    className={classNames(ComponentClassNames.Divider, className)}
-    data-size={size}
-    ref={ref}
-    {...rest}
-  />
-);
+) => {
+  size = size || 'default';
+  return (
+    <View
+      aria-orientation={orientation}
+      as="hr"
+      className={classNames(
+        ComponentClassNames.Divider,
+        `${ComponentClassNames.Divider}--orientation-${orientation}--size-${size}`,
+        className
+      )}
+      data-size={size}
+      ref={ref}
+      {...rest}
+    />
+  );
+};
 
 export const Divider = React.forwardRef(DividerPrimitive);
 
