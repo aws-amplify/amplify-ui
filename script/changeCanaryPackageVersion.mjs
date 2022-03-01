@@ -13,7 +13,7 @@ for await (const path of globbyStream('canary/**/package.json')) {
   if (dependencies) {
     let pkgToUpdate;
     Object.keys(dependencies)
-      .filter((dependency) => dependency.includes('@aws-amplify'))
+      .filter((dependency) => dependency.includes('@aws-amplify/ui'))
       .forEach((key) => {
         dependencies[key] = 'next';
         pkgToUpdate = key;
