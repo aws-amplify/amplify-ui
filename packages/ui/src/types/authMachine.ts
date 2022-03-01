@@ -206,8 +206,7 @@ export interface formFieldTypes {
   label?: string;
   placeholder?: string;
   /**
-   * @deprecated
-   * Internal use only
+   * @deprecated Internal use only, please use `isRequired` instead.
    */
   required?: boolean;
   isRequired?: boolean;
