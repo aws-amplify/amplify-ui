@@ -8,8 +8,6 @@ export function FlutterAuthenticatorExample({
   includeSocialProviders = false,
   useCustomUI = false,
   useCustomTheme = false,
-  width = '100%',
-  height = '800px',
   // id is passed to the flutter authenticator.
   // it is used by the authenticator to signal when the authenticator has finished loading.
   id = generateId(),
@@ -42,14 +40,17 @@ export function FlutterAuthenticatorExample({
         }
       </Alert>
       <FlutterAuthenticatorLoader id={id} />
-      <View
-        as="iframe"
-        key={id}
-        height={height}
-        width={width}
-        src={src}
-        loading="lazy"
-      />
+      <View width="100%" textAlign="center">
+        <View
+          as="iframe"
+          key={id}
+          height={{ base: '600px', medium: '800px' }}
+          width={{ base: '300px', medium: '400px' }}
+          src={src}
+          loading="lazy"
+          frameborder="0"
+        />
+      </View>
     </>
   );
 }
@@ -78,11 +79,9 @@ function FlutterAuthenticatorLoader({ id }) {
   return (
     <Loader
       style={{
-        bottom: '-14px',
         padding: '0 6px',
         visibility: hasLoaded ? 'hidden' : 'visible',
       }}
-      position="relative"
       variation="linear"
       size="small"
     />
