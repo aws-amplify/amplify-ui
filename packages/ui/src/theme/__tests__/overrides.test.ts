@@ -265,7 +265,7 @@ describe('@aws-amplify/ui', () => {
         --amplify-components-checkboxfield-justify-content: center;
         --amplify-components-copy-font-size: var(--amplify-font-sizes-xs);
         --amplify-components-copy-gap: var(--amplify-space-relative-medium);
-        --amplify-components-copy-svg-path-fill: var(--amplify-space-relative-medium);
+        --amplify-components-copy-svg-path-fill: var(--amplify-colors-font-primary);
         --amplify-components-copy-tool-tip-bottom: var(--amplify-space-large);
         --amplify-components-copy-tool-tip-color: var(--amplify-colors-teal-100);
         --amplify-components-copy-tool-tip-font-size: var(--amplify-font-sizes-xxs);

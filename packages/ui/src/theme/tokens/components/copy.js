@@ -3,7 +3,11 @@ module.exports = {
   gap: { value: '{space.relative.medium.value}' },
 
   svg: {
-    path: { fill: { value: '{space.relative.medium.value}' } },
+    path: {
+      fill: {
+        value: '{colors.font.primary}',
+      },
+    },
   },
   toolTip: {
     bottom: { value: '{space.large}' },
