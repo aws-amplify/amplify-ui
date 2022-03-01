@@ -34,7 +34,7 @@ Feature: Form Fields
     Then I see placeholder "Enter your Password:"
 
 @angular @react @vue
-  Scenario: Sign up with not required email 
+  Scenario: Sign up with not required password 
     When I click the "Create Account" tab 
     Then 'Password:' field does not have "required"
 

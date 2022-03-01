@@ -4,7 +4,7 @@ import {
   AuthContext,
   AuthEvent,
   CognitoUserAmplify,
-  ServicesContext,
+  FormFields,
 } from '../../types';
 import { stopActor } from './actions';
 import { resetPasswordActor, signInActor, signOutActor } from './actors';
@@ -227,7 +227,7 @@ export function createAuthenticatorMachine() {
             } = context.config;
             return {
               loginMechanisms: loginMechanisms ?? cliLoginMechanisms,
-              formFields: formFields ?? {},
+              formFields: convertFormFields(formFields) ?? {},
               signUpAttributes:
                 signUpAttributes ??
                 Array.from(
@@ -318,4 +318,16 @@ export function createAuthenticatorMachine() {
       },
     }
   );
+}
+
+function convertFormFields(formFields: FormFields): FormFields {
+  if (formFields) {
+    Object.keys(formFields).forEach((component: string) => {
+      Object.keys(formFields[component]).forEach((inputName) => {
+        let ff = formFields[component][inputName];
+        ff.required = ff.isRequired;
+      });
+    });
+  }
+  return formFields;
 }

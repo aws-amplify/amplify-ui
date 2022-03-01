@@ -64,10 +64,9 @@ Overall, the following attributes are allowed to be modified on any input as des
 [labels and placeholder](#updating-labels-placeholders-required-fields-and-showing-labels) section:
 
 `placeholder`
-`required`
 `label`
 
-Additionally, you'll be able to show or hide the `label` of each form field by using `labelHidden` key.
+Additionally, you'll be able to show or hide the `label` of each form field by using `labelHidden` and set a field to required or not required with `isRequired`.
 
 For customers wishing to change a phone number field, a new `dialCode` and `dialCodeList` key are now available as described in the
 [dialCode](#default-international-dial-code) and [dialCodeList](#change-dial-code-list).
@@ -83,7 +82,7 @@ Inside that object you can list all the inputs you'd like to change by their nam
 The following example customizes the Sign In page by:
 
 - Updating the placeholder with `placeholder`.
-- Setting required to true with `required`, which is also the default for this field.
+- Setting required to true with `isRequired`, which is also the default for this field.
 - Updating the label text with `label`.
 - Show the label using `labelHidden` set to `false`.
 
@@ -99,7 +98,7 @@ The following example customizes the Sign In page by:
         username: {
           labelHidden: false,
           placeholder: 'Enter Your Email Here',
-          required: true,
+          isRequired: true,
           label: 'Email:'
         },
       }

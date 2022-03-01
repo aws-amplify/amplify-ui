@@ -24,7 +24,7 @@ export class CustomSlotsComponent {
         labelHidden: false,
         label: 'Password:',
         placeholder: 'Enter your Password:',
-        required: false,
+        isRequired: false,
         order: 2,
       },
       confirm_password: {
@@ -50,7 +50,7 @@ export class CustomSlotsComponent {
         labelHidden: false,
         placeholder: 'Enter your Confirmation Code:',
         label: 'New Label',
-        required: false,
+        isRequired: false,
       },
       confirm_password: {
         labelHidden: false,
@@ -66,7 +66,7 @@ export class CustomSlotsComponent {
         labelHidden: false,
         label: 'New Label',
         placeholder: 'Enter your Confirmation Code:',
-        required: false,
+        isRequired: false,
       },
     },
     confirmSignIn: {
@@ -74,7 +74,7 @@ export class CustomSlotsComponent {
         labelHidden: false,
         label: 'New Label',
         placeholder: 'Enter your Confirmation Code:',
-        required: false,
+        isRequired: false,
       },
     },
   };

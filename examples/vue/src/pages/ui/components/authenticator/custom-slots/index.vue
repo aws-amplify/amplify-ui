@@ -30,7 +30,7 @@ const formFields = {
       labelHidden: false,
       label: 'Password:',
       placeholder: 'Enter your Password:',
-      required: false,
+      isRequired: false,
       order: 2,
     },
   },
@@ -51,7 +51,7 @@ const formFields = {
       labelHidden: false,
       placeholder: 'Enter your Confirmation Code:',
       label: 'New Label',
-      required: false,
+      isRequired: false,
     },
     confirm_password: {
       labelHidden: false,
@@ -67,7 +67,7 @@ const formFields = {
       labelHidden: false,
       label: 'New Label',
       placeholder: 'Enter your Confirmation Code:',
-      required: false,
+      isRequired: false,
     },
   },
   confirmSignIn: {
@@ -75,7 +75,7 @@ const formFields = {
       labelHidden: false,
       label: 'New Label',
       placeholder: 'Enter your Confirmation Code:',
-      required: false,
+      isRequired: false,
     },
   },
 };

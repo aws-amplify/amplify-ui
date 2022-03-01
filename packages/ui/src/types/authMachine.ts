@@ -205,7 +205,12 @@ export interface formFieldTypes {
   labelHidden?: boolean;
   label?: string;
   placeholder?: string;
+  /**
+   * @deprecated
+   * Internal use only
+   */
   required?: boolean;
+  isRequired?: boolean;
   dialCode?: string;
   totpIssuer?: string;
   totpUsername?: string;
