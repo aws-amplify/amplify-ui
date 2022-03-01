@@ -76,7 +76,7 @@ export const ConfirmResetPassword = (): JSX.Element => {
         <Header />
 
         <Flex direction="column">
-          <ConfirmationCodeInput />
+          <ConfirmationCodeInput type="number" />
 
           <PasswordField
             data-amplify-password
