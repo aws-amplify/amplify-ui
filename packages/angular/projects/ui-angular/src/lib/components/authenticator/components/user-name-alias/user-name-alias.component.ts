@@ -11,19 +11,27 @@ export class UserNameAliasComponent implements OnInit {
   @Input() disabled: boolean = false;
   @Input() initialValue: string = '';
   @Input() required: boolean = true;
-  public label: string;
+  @Input() labelHidden: boolean;
+  @Input() label: string;
+  @Input() placeholder: string;
+  @Input() dialCode: string;
+  @Input() dialCodeList: Array<string>;
+
+  public labelValue: string;
   public type: string;
   public error: string;
-  public placeholder: string;
+  public placeholderValue: string;
+  public requiredValue: boolean;
 
   constructor(private authenticator: AuthenticatorService) {}
 
   ngOnInit(): void {
     const context = this.authenticator.context;
-    const { label, type } = getAliasInfoFromContext(context);
+    const { label: lbl, type } = getAliasInfoFromContext(context);
 
-    this.label = label;
+    this.labelValue = this.label ?? lbl;
     this.type = type;
-    this.placeholder = label;
+    this.placeholderValue = this.placeholder ?? lbl;
+    this.requiredValue = this.required ?? true;
   }
 }

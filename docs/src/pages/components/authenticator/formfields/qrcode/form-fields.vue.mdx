@@ -1,0 +1,20 @@
+```html{3}
+<script setup>
+const formFields = {
+  setupTOTP: {
+    QR: {
+      totpIssuer: 'test issuer',
+      totpUsername: 'amlify_qr_test_user',
+    },
+  },
+}
+</script>
+<template>
+  <authenticator :form-fields="formFields">
+    <template v-slot="{ user, signOut }">
+      <h1>Hello {{ user.username }}!</h1>
+      <button @click="signOut">Sign Out</button>
+    </template>
+  </authenticator>
+</template>
+```

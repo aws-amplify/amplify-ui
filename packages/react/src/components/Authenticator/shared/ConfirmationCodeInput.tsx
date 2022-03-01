@@ -4,6 +4,7 @@ import { TextField } from '../../../primitives';
 
 export interface ConfirmationCodeInputProps {
   errorText?: string;
+  labelHidden?: boolean;
   label?: string;
   placeholder?: string;
   required?: boolean;
@@ -15,6 +16,7 @@ export const ConfirmationCodeInput = (
 ): JSX.Element => {
   const {
     errorText,
+    labelHidden = true,
     label = `${translate('Code')} *`,
     placeholder = translate('Code'),
     required = true,
@@ -26,7 +28,7 @@ export const ConfirmationCodeInput = (
     <TextField
       name="confirmation_code"
       label={label}
-      labelHidden={true}
+      labelHidden={labelHidden}
       placeholder={placeholder}
       required={required}
       autoComplete="one-time-code"

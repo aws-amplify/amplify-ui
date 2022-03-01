@@ -11,4 +11,18 @@ export class SignInWithPhoneComponent {
   constructor() {
     Amplify.configure(awsExports);
   }
+
+  public formFields = {
+    signIn: {
+      username: {
+        dialCode: '+82',
+      },
+    },
+    signUp: {
+      phone_number: {
+        dialCode: '+227',
+        dialCodeList: ['+1', '+82', '+227', '+100', '+227'],
+      },
+    },
+  };
 }
