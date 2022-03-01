@@ -159,7 +159,9 @@ Then('I see tab {string}', (search: string) => {
 });
 
 Then('I see {string}', (message: string) => {
-  cy.findByRole('document').contains(new RegExp(escapeRegExp(message), 'i'));
+  cy.findByRole('document')
+    .contains(new RegExp(escapeRegExp(message), 'i'))
+    .should('exist');
 });
 
 Then('I see the {string} image', (alt: string) => {
