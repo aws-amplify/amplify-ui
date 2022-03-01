@@ -56,10 +56,10 @@ export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
   letterSpacing?: ResponsiveStyle<StyleToken<Property.LetterSpacing>>;
   lineHeight?: ResponsiveStyle<StyleToken<Property.LineHeight>>;
   margin?: ResponsiveStyle<StyleToken<Property.Margin>>;
-  marginBottom?: ResponsiveStyle<StyleToken<Property.MarginBottom>>;
+  marginBottom?: ResponsiveStyle<StyleToken<Property.MarginBlockEnd>>;
   marginLeft?: ResponsiveStyle<StyleToken<Property.MarginLeft>>;
   marginRight?: ResponsiveStyle<StyleToken<Property.MarginRight>>;
-  marginTop?: ResponsiveStyle<StyleToken<Property.MarginTop>>;
+  marginTop?: ResponsiveStyle<StyleToken<Property.MarginBlockStart>>;
   maxHeight?: ResponsiveStyle<StyleToken<Property.MaxHeight>>;
   maxWidth?: ResponsiveStyle<StyleToken<Property.MaxWidth>>;
   minHeight?: ResponsiveStyle<StyleToken<Property.MinHeight>>;
@@ -67,10 +67,10 @@ export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
   opacity?: ResponsiveStyle<StyleToken<Property.Opacity>>;
   overflow?: ResponsiveStyle<StyleToken<Property.Overflow>>;
   padding?: ResponsiveStyle<StyleToken<Property.Padding>>;
-  paddingBottom?: ResponsiveStyle<StyleToken<Property.PaddingBottom>>;
+  paddingBottom?: ResponsiveStyle<StyleToken<Property.PaddingBlockEnd>>;
   paddingLeft?: ResponsiveStyle<StyleToken<Property.PaddingLeft>>;
   paddingRight?: ResponsiveStyle<StyleToken<Property.PaddingRight>>;
-  paddingTop?: ResponsiveStyle<StyleToken<Property.PaddingTop>>;
+  paddingTop?: ResponsiveStyle<StyleToken<Property.PaddingBlockStart>>;
   position?: ResponsiveStyle<StyleToken<Property.Position>>;
   right?: ResponsiveStyle<StyleToken<Property.Right>>;
   textAlign?: ResponsiveStyle<StyleToken<Property.TextAlign>>;
@@ -81,6 +81,7 @@ export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
   transformOrigin?: ResponsiveStyle<StyleToken<Property.TransformOrigin>>;
   width?: ResponsiveStyle<StyleToken<Property.Width>>;
   whiteSpace?: ResponsiveStyle<StyleToken<Property.WhiteSpace>>;
+  writingMode?: ResponsiveStyle<StyleToken<Property.WritingMode>>;
 }
 
 export interface CSSLayoutStyleProps {
@@ -167,10 +168,10 @@ export const ComponentPropsToStylePropsMap: ComponentPropToStyleProp = {
   letterSpacing: 'letterSpacing',
   lineHeight: 'lineHeight',
   margin: 'margin',
-  marginBottom: 'marginBottom',
+  marginBottom: 'marginBlockEnd',
   marginLeft: 'marginLeft',
   marginRight: 'marginRight',
-  marginTop: 'marginTop',
+  marginTop: 'marginBlockStart',
   maxHeight: 'maxHeight',
   maxWidth: 'maxWidth',
   minHeight: 'minHeight',
@@ -181,10 +182,10 @@ export const ComponentPropsToStylePropsMap: ComponentPropToStyleProp = {
   order: 'order',
   overflow: 'overflow',
   padding: 'padding',
-  paddingBottom: 'paddingBottom',
+  paddingBottom: 'paddingBlockEnd',
   paddingLeft: 'paddingLeft',
   paddingRight: 'paddingRight',
-  paddingTop: 'paddingTop',
+  paddingTop: 'paddingBlockStart',
   position: 'position',
   resize: 'resize',
   right: 'right',
@@ -206,6 +207,7 @@ export const ComponentPropsToStylePropsMap: ComponentPropToStyleProp = {
   width: 'width',
   whiteSpace: 'whiteSpace',
   wrap: 'flexWrap',
+  writingMode: 'writingMode',
 };
 
 export const ComponentPropsToStylePropsMapKeys = Object.keys(

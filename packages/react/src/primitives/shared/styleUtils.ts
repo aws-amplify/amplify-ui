@@ -240,6 +240,7 @@ const BaseStylePropsMap: Required<{ [key in keyof BaseStyleProps]: true }> = {
   transformOrigin: true,
   width: true,
   whiteSpace: true,
+  writingMode: true,
 };
 
 interface SplitProps<PrimitiveProps> {
