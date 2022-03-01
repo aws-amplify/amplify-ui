@@ -53,7 +53,7 @@ const {
 } = state;
 
 const formOverrides = context?.config?.formFields?.signIn as formField;
-const userOR = formOverrides?.['username'];
+const userOverrides = formOverrides?.['username'];
 
 let loginMechanisms = context.config?.loginMechanisms as LoginMechanism[];
 let fieldNames: Array<LoginMechanism | SignUpAttribute>;
@@ -126,13 +126,13 @@ const onForgotPasswordClicked = (): void => {
 
             <user-name-alias
               :userNameAlias="true"
-              :label-hidden="userOR?.labelHidden"
+              :label-hidden="userOverrides?.labelHidden"
               :userName="loginMechanism"
-              :placeholder="userOR?.placeholder"
-              :required="userOR?.required"
-              :label="userOR?.label"
-              :dialCode="userOR?.dialCode"
-              :dialCodeList="userOR?.dialCodeList"
+              :placeholder="userOverrides?.placeholder"
+              :required="userOverrides?.required"
+              :label="userOverrides?.label"
+              :dialCode="userOverrides?.dialCode"
+              :dialCodeList="userOverrides?.dialCodeList"
             />
             <password-control
               v-bind="

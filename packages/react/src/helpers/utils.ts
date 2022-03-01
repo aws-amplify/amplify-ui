@@ -67,7 +67,6 @@ interface fieldProps {
   isRequired?: boolean;
   label: string;
   placeholder: string;
-  required?: boolean; // TextField input sometimes uses required instead of isRequired
 }
 
 // base props creator for formFields prop
@@ -92,7 +91,7 @@ export const confPropsCreator = (
   showPlaceholder: string,
   showLabel: string,
   formOverrides: formField
-): fieldProps => {
+): fieldProps | { required?: boolean } => {
   const fo = formOverrides?.[name];
   return {
     ...propsCreator(name, showPlaceholder, formOverrides, true),

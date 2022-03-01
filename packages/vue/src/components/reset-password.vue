@@ -17,7 +17,7 @@ const { state, send, submitForm } = useAuthShared();
 const { error, isPending } = toRefs(useAuthShared());
 
 const formOverrides = state.context?.config?.formFields?.resetPassword;
-const userOR = formOverrides?.['username'];
+const userOverrides = formOverrides?.['username'];
 
 const { label } = getAliasInfoFromContext(state.context);
 
@@ -29,8 +29,8 @@ const resetPasswordHeading = computed(() => translate('Reset your password'));
 const resetPasswordText = computed(() => translate('Send Code'));
 const enterUsernameText = computed(() => translate<string>(labelText));
 
-const labelValue = userOR?.label ?? labelText;
-const labelHidden = userOR?.labelHidden;
+const labelValue = userOverrides?.label ?? labelText;
+const labelHidden = userOverrides?.labelHidden;
 
 // Methods
 const onResetPasswordSubmit = (e: Event): void => {
@@ -96,8 +96,8 @@ const onBackToSignInClicked = (): void => {
             </base-label>
             <base-wrapper class="amplify-flex">
               <base-input
-                :placeholder="userOR?.placeholder ?? enterUsernameText"
-                :required="userOR?.required ?? true"
+                :placeholder="userOverrides?.placeholder ?? enterUsernameText"
+                :required="userOverrides?.required ?? true"
                 class="amplify-input amplify-field-group__control"
                 id="amplify-field-7dce"
                 aria-invalid="false"

@@ -1,4 +1,4 @@
-import { CommonFields, formField, LoginMechanism, SignUpAttribute } from '..';
+import { CommonFields, formField, SignUpAttribute } from '@/types';
 
 export type ContactMethod = 'Email' | 'Phone Number';
 

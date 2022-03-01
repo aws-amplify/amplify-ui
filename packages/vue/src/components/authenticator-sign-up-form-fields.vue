@@ -63,7 +63,7 @@ function onBlur(e: Event) {
 // Only 1 is supported, so `['email', 'phone_number']` will only show `email`
 const loginMechanism = fieldNames.shift() as LoginMechanism | CommonFields;
 
-const userOR = formOverrides?.[loginMechanism];
+const userOverrides = formOverrides?.[loginMechanism];
 
 const common = [
   loginMechanism,
@@ -79,13 +79,13 @@ const order = setFormOrder(formOverrides, fieldNamesCombined);
   <template v-for="(field, idx) in order" :key="idx">
     <user-name-alias-component
       v-if="field === loginMechanism"
-      :label-hidden="userOR?.labelHidden"
+      :label-hidden="userOverrides?.labelHidden"
       :userName="loginMechanism"
-      :placeholder="userOR?.placeholder"
-      :required="userOR?.required"
-      :label="userOR?.label"
-      :dialCode="userOR?.dialCode"
-      :dialCodeList="userOR?.dialCodeList"
+      :placeholder="userOverrides?.placeholder"
+      :required="userOverrides?.required"
+      :label="userOverrides?.label"
+      :dialCode="userOverrides?.dialCode"
+      :dialCodeList="userOverrides?.dialCodeList"
     />
     <password-control
       v-else-if="field === 'password'"

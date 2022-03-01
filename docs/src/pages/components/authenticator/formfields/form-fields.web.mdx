@@ -11,7 +11,7 @@ import { Fragment } from '@/components/Fragment';
 
 The authenticator allows a custom order of sign up fields on the Sign Up page.
 
-Order is determined by a `formFields` prop that is passed into the `authenticator` component.
+Order is determined by a `formFields` prop that is passed into the Authenticator component.
 This prop will have the `signUp` key with a list of all the input fields. Each input field will
 have an `order` key that specifies which order it will be displayed on the page.
 
@@ -31,7 +31,7 @@ In the example below the order will be set as `email`, `family_name`, `birthdate
     formFields={{
       signUp: {
         email: {
-          order:1
+          order: 1
         },
         family_name: {
           order: 2
@@ -57,11 +57,26 @@ In the example below the order will be set as `email`, `family_name`, `birthdate
 
 ### Form Field Customization
 
-The Authenticator allows for customization of the form input fields throughout the Authenticator.
+The Authenticator allows for customization of multiple aspects of the form fields.
+The sections below will describe several use cases, on how to modify these fields.
 
-#### Updating labels, placeholders, required fields and showing labels.
+Overall, the following attributes are allowed to be modified on any input as described in the
+[labels and placeholder](#updating-labels-placeholders-required-fields-and-showing-labels) section:
 
-You can customize any label, placeholder, set a field as required or not required, and hide or show labels by configuring the `formFields` props, and passing it into the `authenticator` component.
+`placeholder`
+`required`
+`label`
+
+Additionally, you'll be able to show or hide the `label` of each form field by using `labelHidden` key.
+
+For customers wishing to change a phone number field, a new `dialCode` and `dialCodeList` key are now available as described in the
+[dialCode](#default-international-dial-code) and [dialCodeList](#change-dial-code-list).
+
+For a full list of component names and field names can be found in the [input form table](#input-form-field-names-table).
+
+#### Updating labels, placeholders, required fields and showing labels
+
+You can customize any label, placeholder, set a field as required or not required, and hide or show labels by configuring the `formFields` props, and passing it into the Authenticator component.
 To use this feature create a `formFields` prop and include the component name as a key.
 Inside that object you can list all the inputs you'd like to change by their name.
 
@@ -174,7 +189,7 @@ Here are the various components and input names that are available for customiza
 ### Update Setup TOTP QR Issuer and Username
 
 When setting up TOTP you can customize the issuer and username that will be shown in TOTP applications.
-This can be done by adding the `formFields` prop to the `authenticator` component with a `setupTOTP` key.
+This can be done by adding the `formFields` prop to the Authenticator component with a `setupTOTP` key.
 The `setupTOTP` should have a `QR` key with a `totpIssuer` and or `totpUsername` as seen in the example below.
 
 **Note:** Unless changed, the default `issuer` is `AWSCognito` and `username` will be the current `user.username` for the user signing up.
