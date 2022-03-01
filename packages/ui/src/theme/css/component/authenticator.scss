@@ -55,10 +55,6 @@
     );
   }
 
-  & .amplify-passwordfield .amplify-button:not(:focus) {
-    border-left: none; /* Remove double-border between the password field & reveal button */
-  }
-
   & [data-or-container] {
     position: relative;
     color: var(--amplify-components-authenticator-or-container-color);
