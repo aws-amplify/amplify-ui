@@ -17,7 +17,7 @@ export class SignInWithEmailComponent {
         labelHidden: false,
         label: 'New Label',
         placeholder: 'Enter your Confirmation Code:',
-        required: false,
+        isRequired: false,
       },
     },
   };

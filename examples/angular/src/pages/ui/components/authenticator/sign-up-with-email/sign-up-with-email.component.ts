@@ -28,7 +28,7 @@ export class SignUpWithEmailComponent implements OnInit {
       confirmation_code: {
         labelHidden: false,
         placeholder: 'Enter the code given',
-        required: true,
+        isRequired: true,
       },
     },
   };
