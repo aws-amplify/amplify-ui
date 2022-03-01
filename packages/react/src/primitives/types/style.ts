@@ -57,8 +57,8 @@ export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
   lineHeight?: ResponsiveStyle<StyleToken<Property.LineHeight>>;
   margin?: ResponsiveStyle<StyleToken<Property.Margin>>;
   marginBottom?: ResponsiveStyle<StyleToken<Property.MarginBlockEnd>>;
-  marginLeft?: ResponsiveStyle<StyleToken<Property.MarginLeft>>;
-  marginRight?: ResponsiveStyle<StyleToken<Property.MarginRight>>;
+  marginLeft?: ResponsiveStyle<StyleToken<Property.MarginInlineStart>>;
+  marginRight?: ResponsiveStyle<StyleToken<Property.MarginInlineEnd>>;
   marginTop?: ResponsiveStyle<StyleToken<Property.MarginBlockStart>>;
   maxHeight?: ResponsiveStyle<StyleToken<Property.MaxHeight>>;
   maxWidth?: ResponsiveStyle<StyleToken<Property.MaxWidth>>;
@@ -68,8 +68,8 @@ export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
   overflow?: ResponsiveStyle<StyleToken<Property.Overflow>>;
   padding?: ResponsiveStyle<StyleToken<Property.Padding>>;
   paddingBottom?: ResponsiveStyle<StyleToken<Property.PaddingBlockEnd>>;
-  paddingLeft?: ResponsiveStyle<StyleToken<Property.PaddingLeft>>;
-  paddingRight?: ResponsiveStyle<StyleToken<Property.PaddingRight>>;
+  paddingLeft?: ResponsiveStyle<StyleToken<Property.PaddingInlineStart>>;
+  paddingRight?: ResponsiveStyle<StyleToken<Property.PaddingInlineEnd>>;
   paddingTop?: ResponsiveStyle<StyleToken<Property.PaddingBlockStart>>;
   position?: ResponsiveStyle<StyleToken<Property.Position>>;
   right?: ResponsiveStyle<StyleToken<Property.Right>>;
@@ -169,8 +169,8 @@ export const ComponentPropsToStylePropsMap: ComponentPropToStyleProp = {
   lineHeight: 'lineHeight',
   margin: 'margin',
   marginBottom: 'marginBlockEnd',
-  marginLeft: 'marginLeft',
-  marginRight: 'marginRight',
+  marginLeft: 'marginInlineStart',
+  marginRight: 'marginInlineEnd',
   marginTop: 'marginBlockStart',
   maxHeight: 'maxHeight',
   maxWidth: 'maxWidth',
@@ -183,8 +183,8 @@ export const ComponentPropsToStylePropsMap: ComponentPropToStyleProp = {
   overflow: 'overflow',
   padding: 'padding',
   paddingBottom: 'paddingBlockEnd',
-  paddingLeft: 'paddingLeft',
-  paddingRight: 'paddingRight',
+  paddingLeft: 'paddingInlineStart',
+  paddingRight: 'paddingInlineEnd',
   paddingTop: 'paddingBlockStart',
   position: 'position',
   resize: 'resize',
