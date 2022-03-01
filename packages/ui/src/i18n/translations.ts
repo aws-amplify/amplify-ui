@@ -25,6 +25,7 @@ import {
   ptDict,
   zhDict,
   svDict,
+  idDict,
   defaultTexts,
 } from './dictionaries';
 
