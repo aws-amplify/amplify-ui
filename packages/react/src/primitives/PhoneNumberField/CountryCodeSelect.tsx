@@ -16,7 +16,7 @@ const CountryCodeSelectPrimitive: Primitive<CountryCodeSelectProps, 'select'> =
             {dialCode}
           </option>
         )),
-      []
+      [dialList]
     );
 
     return (
