@@ -11,11 +11,11 @@
     >
       <amplify-user-name-alias
         [labelHidden]="labelHidden('username')"
-        [placeholder]="userOR?.placeholder"
+        [placeholder]="userOverrides?.placeholder"
         [required]="required('username')"
-        [label]="userOR?.label"
-        [dialCode]="userOR?.dialCode"
-        [dialCodeList]="userOR?.dialCodeList"
+        [label]="userOverrides?.label"
+        [dialCode]="userOverrides?.dialCode"
+        [dialCodeList]="userOverrides?.dialCodeList"
       ></amplify-user-name-alias>
       <amplify-form-field
         [labelHidden]="labelHidden('password')"

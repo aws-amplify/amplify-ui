@@ -32,7 +32,7 @@ export function FormFields() {
   // Only 1 is supported, so `['email', 'phone_number']` will only show `email`
   const loginMechanism = fieldNames.shift() as LoginMechanism | CommonFields;
 
-  const userOR = formOverrides?.[loginMechanism];
+  const userOverrides = formOverrides?.[loginMechanism];
   const common = [
     loginMechanism,
     'password',
@@ -59,12 +59,12 @@ export function FormFields() {
               <UserNameAliasComponent
                 key={name}
                 alias={loginMechanism as LoginMechanism}
-                labelHidden={userOR?.labelHidden}
-                placeholder={userOR?.placeholder}
-                required={userOR?.required}
-                label={userOR?.label}
-                dialCode={userOR?.dialCode}
-                dialCodeList={userOR?.dialCodeList}
+                labelHidden={userOverrides?.labelHidden}
+                placeholder={userOverrides?.placeholder}
+                required={userOverrides?.required}
+                label={userOverrides?.label}
+                dialCode={userOverrides?.dialCode}
+                dialCodeList={userOverrides?.dialCodeList}
                 data-amplify-usernamealias
               />
             );

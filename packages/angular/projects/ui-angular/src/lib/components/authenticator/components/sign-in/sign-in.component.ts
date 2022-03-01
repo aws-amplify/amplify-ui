@@ -28,7 +28,7 @@ export class SignInComponent implements OnInit {
     ? translate('Forgot your password?')
     : translate('Forgot your password? ');
   public signInButtonText = translate('Sign in');
-  public userOR: formFieldTypes;
+  public userOverrides: formFieldTypes;
   public passwordOR: formFieldTypes;
   public formOverrides: formField;
 
@@ -41,7 +41,7 @@ export class SignInComponent implements OnInit {
   public setFormFields() {
     const _state = this.authenticator.authState;
     this.formOverrides = getActorState(_state).context?.formFields?.signIn;
-    this.userOR = this.formOverrides?.['username'];
+    this.userOverrides = this.formOverrides?.['username'];
     this.passwordOR = this.formOverrides?.['password'];
   }
 

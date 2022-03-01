@@ -21,7 +21,7 @@ export function SignIn() {
   } = useCustomComponents();
 
   const formOverrides = getActorState(_state).context?.formFields?.signIn;
-  const userOR = formOverrides?.['username'];
+  const userOverrides = formOverrides?.['username'];
 
   const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
     if (isInputOrSelectElement(event.target)) {
@@ -62,12 +62,12 @@ export function SignIn() {
             disabled={isPending}
           >
             <UserNameAlias
-              labelHidden={userOR?.labelHidden}
-              placeholder={userOR?.placeholder}
-              required={userOR?.required}
-              label={userOR?.label}
-              dialCode={userOR?.dialCode}
-              dialCodeList={userOR?.dialCodeList}
+              labelHidden={userOverrides?.labelHidden}
+              placeholder={userOverrides?.placeholder}
+              required={userOverrides?.required}
+              label={userOverrides?.label}
+              dialCode={userOverrides?.dialCode}
+              dialCodeList={userOverrides?.dialCodeList}
               data-amplify-usernamealias
             />
             <PasswordField

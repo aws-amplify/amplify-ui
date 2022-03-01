@@ -5,11 +5,11 @@
         *ngSwitchCase="loginMechanism"
         [name]="loginMechanism"
         [labelHidden]="grabField(loginMechanism, 'labelHidden', true)"
-        [placeholder]="userOR?.placeholder"
+        [placeholder]="userOverrides?.placeholder"
         [required]="grabField(loginMechanism, 'required', true)"
-        [label]="userOR?.label"
-        [dialCode]="userOR?.dialCode"
-        [dialCodeList]="userOR?.dialCodeList"
+        [label]="userOverrides?.label"
+        [dialCode]="userOverrides?.dialCode"
+        [dialCodeList]="userOverrides?.dialCodeList"
       ></amplify-user-name-alias>
       <amplify-form-field
         *ngSwitchCase="'password'"

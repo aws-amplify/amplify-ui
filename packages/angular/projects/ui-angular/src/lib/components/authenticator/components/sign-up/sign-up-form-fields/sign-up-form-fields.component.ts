@@ -24,7 +24,7 @@ export class SignUpFormFieldsComponent implements OnInit {
   public loginMechanism: LoginMechanism;
   public order: (string | number)[];
 
-  public userOR: formFieldTypes;
+  public userOverrides: formFieldTypes;
   public formOverrides: formField;
 
   constructor(private authenticator: AuthenticatorService) {}
@@ -63,7 +63,7 @@ export class SignUpFormFieldsComponent implements OnInit {
   public setFormFields() {
     const _state = this.authenticator.authState;
     this.formOverrides = getActorState(_state).context?.formFields?.signUp;
-    this.userOR = this.formOverrides?.[this.loginMechanism];
+    this.userOverrides = this.formOverrides?.[this.loginMechanism];
     this.order = setFormOrder(this.formOverrides, this.fieldNamesCombined);
   }
 

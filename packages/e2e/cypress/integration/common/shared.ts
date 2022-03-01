@@ -232,14 +232,18 @@ Then('the {string} field is invalid', (name: string) => {
 Then(
   'the {string} select drop down is {string}',
   (name: string, value: string) => {
-    cy.findByLabelText(name).find('option:selected').contains(value);
+    cy.findByLabelText(new RegExp(`^${escapeRegExp(name)}`, 'i'))
+      .find('option:selected')
+      .contains(value);
   }
 );
 
 Then(
   'the {string} select drop down should have a length of {string}',
   (name: string, value: string) => {
-    cy.findByLabelText(name).find('option').should('have.length', value);
+    cy.findByLabelText(new RegExp(`^${escapeRegExp(name)}`, 'i'))
+      .find('option')
+      .should('have.length', value);
   }
 );
 
