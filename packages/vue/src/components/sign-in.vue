@@ -1,18 +1,29 @@
 <script setup lang="ts">
 import { computed, ComputedRef, useAttrs } from 'vue';
+import { createSharedComposable } from '@vueuse/core';
+
 import {
+  formField,
   getActorState,
+  getFormDataFromEvent,
   hasTranslation,
+  LoginMechanism,
   SignInState,
+  SignUpAttribute,
   translate,
 } from '@aws-amplify/ui';
+
+import { propsCreator } from '../composables/useUtils';
 
 import PasswordControl from './password-control.vue';
 import UserNameAlias from './user-name-alias.vue';
 import FederatedSignIn from './federated-sign-in.vue';
 
 // @xstate
-import { useAuth } from '../composables/useAuth';
+import { useAuth, useAuthenticator } from '../composables/useAuth';
+
+const useAuthShared = createSharedComposable(useAuthenticator);
+const props = useAuthShared();
 
 const attrs = useAttrs();
 const emit = defineEmits([
@@ -37,6 +48,18 @@ const actorState = computed(() =>
   getActorState(state.value)
 ) as ComputedRef<SignInState>;
 
+const {
+  value: { context },
+} = state;
+
+const formOverrides = context?.config?.formFields?.signIn as formField;
+const userOverrides = formOverrides?.['username'];
+
+let loginMechanisms = context.config?.loginMechanisms as LoginMechanism[];
+let fieldNames: Array<LoginMechanism | SignUpAttribute>;
+fieldNames = Array.from(new Set([...loginMechanisms]));
+const loginMechanism = fieldNames.shift() as LoginMechanism;
+
 // Methods
 
 const onInput = (e: Event): void => {
@@ -57,12 +80,7 @@ const onSignInSubmit = (e: Event): void => {
 };
 
 const submit = (e: Event): void => {
-  const formData = new FormData(<HTMLFormElement>e.target);
-  send({
-    type: 'SUBMIT',
-    // @ts-ignore Property 'fromEntries' does not exist on type 'ObjectConstructor'. Do you need to change your target library? Try changing the `lib` compiler option to 'es2019' or later.ts(2550)
-    data: Object.fromEntries(formData),
-  });
+  props.submitForm(getFormDataFromEvent(e));
 };
 
 const onForgotPasswordClicked = (): void => {
@@ -106,24 +124,24 @@ const onForgotPasswordClicked = (): void => {
               <slot name="signin-fields" :info="slotData"> </slot>
             </template>
 
-            <user-name-alias :userNameAlias="true" />
-            <base-wrapper
-              class="
-                amplify-flex
-                amplify-field
-                amplify-textfield
-                amplify-passwordfield
-                password-field
+            <user-name-alias
+              :userNameAlias="true"
+              :label-hidden="userOverrides?.labelHidden"
+              :userName="loginMechanism"
+              :placeholder="userOverrides?.placeholder"
+              :required="userOverrides?.required"
+              :label="userOverrides?.label"
+              :dialCode="userOverrides?.dialCode"
+              :dialCodeList="userOverrides?.dialCodeList"
+            />
+            <password-control
+              v-bind="
+                propsCreator('password', passwordLabel, formOverrides, true)
               "
-              style="flex-direction: column"
-            >
-              <password-control
-                name="password"
-                :label="passwordLabel"
-                autocomplete="current-password"
-                :ariainvalid="false"
-              />
-            </base-wrapper>
+              name="password"
+              autocomplete="current-password"
+              :ariainvalid="false"
+            />
           </base-field-set>
           <base-alert v-if="actorState.context.remoteError">
             {{ translate(actorState.context.remoteError) }}

@@ -13,8 +13,17 @@ import { AUTO_GENERATED_ID_PREFIX } from '../../shared/utils';
 const label = 'Field';
 const testId = 'testId';
 const originalWarn = console.warn;
+const deprecationMessage =
+  'TextField isMultiLine prop will be deprecated in next major release of @aws-amplify/ui-react. Please use TextAreaField component instead.';
 
 describe('TextField component', () => {
+  beforeAll(() => {
+    console.warn = jest.fn();
+  });
+  afterAll(() => {
+    console.warn = originalWarn;
+  });
+
   describe('wrapper Flex', () => {
     it('should render default and custom classname ', async () => {
       const customClassName = 'my-textfield';
@@ -48,11 +57,11 @@ describe('TextField component', () => {
       expect(label).toHaveClass(ComponentClassNames.Label);
     });
 
-    it('should have `sr-only` class when labelHidden is true', async () => {
+    it('should have `amplify-visually-hidden` class when labelHidden is true', async () => {
       render(<TextField label="Search" labelHidden={true} />);
 
       const label = await screen.findByText('Search');
-      expect(label).toHaveClass('sr-only');
+      expect(label).toHaveClass('amplify-visually-hidden');
     });
   });
 
@@ -159,13 +168,6 @@ describe('TextField component', () => {
   });
 
   describe('Multiline textarea field', () => {
-    beforeAll(() => {
-      console.warn = jest.fn();
-    });
-    afterAll(() => {
-      console.warn = originalWarn;
-    });
-
     it('should render labeled textarea when id is provided', async () => {
       render(
         <TextField
@@ -180,7 +182,7 @@ describe('TextField component', () => {
       expect(field).toHaveClass(ComponentClassNames.Textarea);
       expect(field.id).toBe('testField');
       // Show deprecation message
-      expect(console.warn).toBeCalledTimes(1);
+      expect(console.warn).toHaveBeenLastCalledWith(deprecationMessage);
     });
 
     it('should forward ref to DOM element', async () => {

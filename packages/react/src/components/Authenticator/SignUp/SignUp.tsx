@@ -5,11 +5,15 @@ import { Button, Flex, View } from '../../..';
 import { FederatedSignIn } from '../FederatedSignIn';
 import { RemoteErrorMessage } from '../shared';
 import { FormFields } from './FormFields';
-import { isInputOrSelectElement, isInputElement } from '../../../helpers/utils';
+import {
+  isInputOrSelectElement,
+  isInputElement,
+  getFormDataFromEvent,
+} from '../../../helpers/utils';
 import { useCustomComponents } from '../hooks/useCustomComponents';
 
 export function SignUp() {
-  const { hasValidationErrors, isPending, submitForm, updateForm } =
+  const { hasValidationErrors, isPending, submitForm, updateForm, _state } =
     useAuthenticator();
 
   const {
@@ -39,7 +43,7 @@ export function SignUp() {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    submitForm();
+    submitForm(getFormDataFromEvent(event));
   };
 
   return (

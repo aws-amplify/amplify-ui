@@ -1,16 +1,33 @@
 <script setup lang="ts">
 import { onMounted, reactive, computed, ComputedRef, useAttrs, ref } from 'vue';
+import { createSharedComposable } from '@vueuse/core';
 import QRCode from 'qrcode';
 
 import { Auth, Logger } from 'aws-amplify';
-import { getActorState, SignInState, translate } from '@aws-amplify/ui';
+import {
+  getActorState,
+  getFormDataFromEvent,
+  SignInState,
+  translate,
+} from '@aws-amplify/ui';
 
-import { useAuth } from '../composables/useAuth';
+import { useAuth, useAuthenticator } from '../composables/useAuth';
+
+const useAuthShared = createSharedComposable(useAuthenticator);
+const props = useAuthShared();
 
 const attrs = useAttrs();
 const emit = defineEmits(['confirmSetupTOTPSubmit', 'backToSignInClicked']);
 
 const { state, send } = useAuth();
+const {
+  value: { context },
+} = state;
+
+const formOverrides = context?.config?.formFields?.setupTOTP;
+const QROR = formOverrides?.['QR'];
+const confOR = formOverrides?.['confirmation_code'];
+
 const actorState = computed(() =>
   getActorState(state.value)
 ) as ComputedRef<SignInState>;
@@ -37,8 +54,9 @@ onMounted(async () => {
   }
   try {
     secretKey.value = await Auth.setupTOTP(user);
-    const issuer = 'AWSCognito';
-    const totpCode = `otpauth://totp/${issuer}:${user.username}?secret=${secretKey.value}&issuer=${issuer}`;
+    const issuer = QROR?.totpIssuer ?? 'AWSCognito';
+    const username = QROR?.totpUsername ?? user.username;
+    const totpCode = `otpauth://totp/${issuer}:${username}?secret=${secretKey.value}&issuer=${issuer}`;
     qrCode.qrCodeImageSource = await QRCode.toDataURL(totpCode);
   } catch (error) {
     logger.error(error);
@@ -51,6 +69,9 @@ onMounted(async () => {
 const backSignInText = computed(() => translate('Back to Sign In'));
 const confirmText = computed(() => translate('Confirm'));
 const codeText = computed(() => translate('Code'));
+
+const label = confOR?.label ?? translate('Code *');
+const labelHidden = confOR?.labelHidden;
 
 // Methods
 const onInput = (e: Event): void => {
@@ -71,15 +92,7 @@ const onSetupTOTPSubmit = (e: Event): void => {
 };
 
 const submit = (e: Event): void => {
-  const formData = new FormData(<HTMLFormElement>e.target);
-  send({
-    type: 'SUBMIT',
-    //@ts-ignore
-    data: {
-      //@ts-ignore
-      ...Object.fromEntries(formData),
-    },
-  });
+  props.submitForm(getFormDataFromEvent(e));
 };
 
 const onBackToSignInClicked = (): void => {
@@ -149,19 +162,20 @@ const onBackToSignInClicked = (): void => {
                   style="flex-direction: column"
                 >
                   <base-label
-                    class="sr-only amplify-label"
+                    class="amplify-label"
+                    :class="{ 'amplify-visually-hidden': labelHidden ?? true }"
                     for="amplify-field-45d1"
-                    >Code *</base-label
-                  >
+                    >{{ label }}
+                  </base-label>
                   <base-wrapper class="amplify-flex">
                     <base-input
+                      :placeholder="confOR?.placeholder ?? codeText"
+                      :required="confOR?.required ?? true"
                       class="amplify-input amplify-field-group__control"
                       id="amplify-field-45d1"
                       aria-invalid="false"
                       name="confirmation_code"
-                      :placeholder="codeText"
                       autocomplete="one-time-code"
-                      required
                       type="text"
                     ></base-input>
                   </base-wrapper>

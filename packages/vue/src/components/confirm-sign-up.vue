@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed, useAttrs, toRefs } from 'vue';
-import { translate } from '@aws-amplify/ui';
+import { getFormDataFromEvent, translate } from '@aws-amplify/ui';
 
-import { useAuthenticator } from '../composables/useAuth';
+import { useAuthenticator, useAuth } from '../composables/useAuth';
 import { createSharedComposable } from '@vueuse/core';
 
 const attrs = useAttrs();
@@ -11,8 +11,15 @@ const emit = defineEmits(['confirmSignUpSubmit', 'lostCodeClicked']);
 const useAuthShared = createSharedComposable(useAuthenticator);
 const { isPending, error, codeDeliveryDetails } = toRefs(useAuthShared());
 const { submitForm, updateForm, resendCode } = useAuthShared();
+const { state } = useAuth();
 
 //computed properties
+
+const {
+  value: { context },
+} = state;
+
+const formOverrides = context?.config?.formFields?.confirmSignUp;
 
 // Only two types of delivery methods is EMAIL or SMS
 const confirmSignUpHeading = computed(() => {
@@ -45,6 +52,10 @@ const subtitleText = computed(() => {
     : translate(`${defaultMessage}`);
 });
 
+const confOR = formOverrides?.['confirmation_code'];
+const label = confOR?.label ?? confirmationCodeText;
+const labelHidden = confOR?.labelHidden;
+
 // Methods
 const onInput = (e: Event): void => {
   const { name, value } = <HTMLInputElement>e.target;
@@ -60,7 +71,7 @@ const onConfirmSignUpSubmit = (e: Event): void => {
 };
 
 const submit = (e: Event): void => {
-  submitForm();
+  submitForm(getFormDataFromEvent(e));
 };
 
 const onLostCodeClicked = (): void => {
@@ -98,18 +109,21 @@ const onLostCodeClicked = (): void => {
               class="amplify-flex amplify-field amplify-textfield"
               style="flex-direction: column"
             >
-              <base-label class="sr-only amplify-label" for="amplify-field-124b"
-                >{{ confirmationCodeText }}
+              <base-label
+                class="amplify-label"
+                :class="{ 'amplify-visually-hidden': labelHidden ?? true }"
+                for="amplify-field-124b"
+                >{{ label }}
               </base-label>
               <base-wrapper class="amplify-flex">
                 <base-input
+                  :placeholder="confOR?.placeholder ?? enterCode"
+                  :required="confOR?.required ?? true"
                   class="amplify-input amplify-field-group__control"
                   id="amplify-field-124b"
                   aria-invalid="false"
                   autocomplete="one-time-code"
                   name="confirmation_code"
-                  required
-                  :placeholder="enterCode"
                 ></base-input>
               </base-wrapper>
             </base-wrapper>

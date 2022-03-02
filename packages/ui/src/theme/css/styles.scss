@@ -51,18 +51,6 @@ select {
   box-sizing: border-box; /* set box-sizing after unset above */
 }
 
-.sr-only {
-  position: absolute !important;
-  width: 1px !important;
-  height: 1px !important;
-  padding: 0 !important;
-  margin: -1px !important;
-  overflow: hidden !important;
-  clip: rect(0, 0, 0, 0) !important;
-  white-space: nowrap !important;
-  border-width: 0 !important;
-}
-
 // Layout
 // They are commonly used in other primitives
 // Move them to the top here makes it easy to override their styling
@@ -82,6 +70,7 @@ select {
 @import './component/link.scss';
 @import './component/loader.scss';
 @import './component/placeholder.scss';
+@import './component/copy.scss';
 
 // Composed components
 @import './component/alert.scss';

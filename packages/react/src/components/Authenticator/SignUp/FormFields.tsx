@@ -1,13 +1,18 @@
 import {
   getActorContext,
+  getActorState,
   LoginMechanism,
   SignUpContext,
   translate,
+  CommonFields,
+  setFormOrder,
 } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '..';
 import { PasswordField, PhoneNumberField, Text, TextField } from '../../..';
 import { UserNameAlias as UserNameAliasComponent } from '../shared';
+import { propsCreator, phonePropsCreator } from '../../../helpers/utils';
+import React from 'react';
 
 export function FormFields() {
   const { _state, updateForm, updateBlur } = useAuthenticator();
@@ -16,12 +21,28 @@ export function FormFields() {
   ) as SignUpContext;
   const { loginMechanisms, signUpAttributes } = _state.context.config;
 
+  const [order, setOrder] = React.useState([]);
+
   const fieldNames = Array.from(
     new Set([...loginMechanisms, ...signUpAttributes])
   );
 
+  const formOverrides = getActorState(_state).context?.formFields?.signUp;
+
   // Only 1 is supported, so `['email', 'phone_number']` will only show `email`
-  const loginMechanism = fieldNames.shift() as LoginMechanism;
+  const loginMechanism = fieldNames.shift() as LoginMechanism | CommonFields;
+
+  const userOverrides = formOverrides?.[loginMechanism];
+  const common = [
+    loginMechanism,
+    'password',
+    'confirm_password',
+  ] as CommonFields[];
+
+  React.useEffect(() => {
+    const fieldNamesCombined = [...common, ...fieldNames];
+    setOrder(setFormOrder(formOverrides, fieldNamesCombined));
+  }, []);
 
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
     const { name } = event.target;
@@ -30,66 +51,76 @@ export function FormFields() {
 
   return (
     <>
-      <UserNameAliasComponent
-        alias={loginMechanism}
-        data-amplify-usernamealias
-      />
-
-      <PasswordField
-        autoComplete="new-password"
-        data-amplify-password
-        hasError={!!validationError['confirm_password']}
-        isRequired
-        name="password"
-        label={translate('Password')}
-        labelHidden={true}
-        placeholder={translate('Password')}
-        onBlur={handleBlur}
-      />
-
-      <PasswordField
-        autoComplete="new-password"
-        data-amplify-confirmpassword
-        placeholder={translate('Confirm Password')}
-        hasError={!!validationError['confirm_password']}
-        isRequired
-        label={translate('Confirm Password')}
-        labelHidden={true}
-        name="confirm_password"
-        onBlur={handleBlur}
-      />
-
-      {validationError['confirm_password'] && (
-        <Text role="alert" variation="error">
-          {translate(validationError['confirm_password'])}
-        </Text>
-      )}
-
-      {fieldNames.flatMap((name) => {
+      {order.flatMap((name) => {
         // See: https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-settings-attributes.html#user-pool-settings-custom-attributes
         switch (name) {
+          case loginMechanism:
+            return (
+              <UserNameAliasComponent
+                key={name}
+                alias={loginMechanism as LoginMechanism}
+                labelHidden={userOverrides?.labelHidden}
+                placeholder={userOverrides?.placeholder}
+                required={userOverrides?.required}
+                label={userOverrides?.label}
+                dialCode={userOverrides?.dialCode}
+                dialCodeList={userOverrides?.dialCodeList}
+                data-amplify-usernamealias
+              />
+            );
+          case 'password':
+            return (
+              <PasswordField
+                key={name}
+                autoComplete="new-password"
+                data-amplify-password
+                {...propsCreator('password', 'Password', formOverrides, true)}
+                hasError={!!validationError['confirm_password']}
+                name="password"
+                onBlur={handleBlur}
+              />
+            );
+          case 'confirm_password':
+            return (
+              <React.Fragment key={name}>
+                <PasswordField
+                  autoComplete="new-password"
+                  {...propsCreator(
+                    'confirm_password',
+                    'Confirm Password',
+                    formOverrides,
+                    true
+                  )}
+                  data-amplify-confirmpassword
+                  hasError={!!validationError['confirm_password']}
+                  name="confirm_password"
+                  onBlur={handleBlur}
+                />
+
+                {validationError['confirm_password'] && (
+                  <Text role="alert" variation="error">
+                    {translate(validationError['confirm_password'])}
+                  </Text>
+                )}
+              </React.Fragment>
+            );
           case 'birthdate':
             return (
               <TextField
+                {...propsCreator('birthdate', 'Birthdate', formOverrides)}
                 autoComplete="bday"
                 key={name}
-                isRequired
-                label={translate('Birthdate')}
                 name={name}
-                placeholder={translate('Birthdate')}
                 type="date"
               />
             );
-
           case 'email':
             return (
               <TextField
+                {...propsCreator('email', 'Email', formOverrides)}
                 autoComplete="email"
                 key={name}
-                isRequired
-                label={translate('Email')}
                 name={name}
-                placeholder={translate('Email')}
                 type="email"
               />
             );
@@ -98,11 +129,9 @@ export function FormFields() {
             return (
               <TextField
                 autoComplete="family-name"
+                {...propsCreator('family_name', 'Family Name', formOverrides)}
                 key={name}
-                isRequired
-                label={translate('Family Name')}
                 name={name}
-                placeholder={translate('Family Name')}
               />
             );
 
@@ -110,11 +139,9 @@ export function FormFields() {
             return (
               <TextField
                 autoComplete="given-name"
+                {...propsCreator('given_name', 'Given Name', formOverrides)}
                 key={name}
-                isRequired
-                label={translate('Given Name')}
                 name={name}
-                placeholder={translate('Given Name')}
               />
             );
 
@@ -122,11 +149,9 @@ export function FormFields() {
             return (
               <TextField
                 autoComplete="additional-name"
+                {...propsCreator('middle_namme', 'Middle Name', formOverrides)}
                 key={name}
-                isRequired
-                label={translate('Middle Name')}
                 name={name}
-                placeholder={translate('Middle Name')}
               />
             );
 
@@ -134,22 +159,18 @@ export function FormFields() {
             return (
               <TextField
                 autoComplete="name"
+                {...propsCreator('name', 'Name', formOverrides)}
                 key={name}
-                isRequired
-                label={translate('Name')}
                 name={name}
-                placeholder={translate('Name')}
               />
             );
 
           case 'nickname':
             return (
               <TextField
+                {...propsCreator('nickname', 'Nickname', formOverrides)}
                 key={name}
-                isRequired
-                label={translate('Nickname')}
                 name={name}
-                placeholder={translate('Nickname')}
               />
             );
 
@@ -157,26 +178,28 @@ export function FormFields() {
             return (
               <PhoneNumberField
                 autoComplete="tel"
+                {...phonePropsCreator(
+                  'phone_number',
+                  'Phone Number',
+                  formOverrides,
+                  country_code
+                )}
                 countryCodeName="country_code"
-                defaultCountryCode={country_code}
-                // errorMessage={error}
-                isRequired
-                label={translate('Phone Number')}
                 key={name}
                 name={name}
-                placeholder={translate('Phone Number')}
               />
             );
 
           case 'preferred_username':
             return (
               <TextField
-                isRequired
+                {...propsCreator(
+                  'preferred_username',
+                  'Preferred Username',
+                  formOverrides
+                )}
                 key={name}
-                label={translate('Preferred Username')}
                 name={name}
-                placeholder={translate('Preferred Username')}
-                required
               />
             );
 
@@ -184,11 +207,9 @@ export function FormFields() {
             return (
               <TextField
                 autoComplete="url"
-                isRequired
+                {...propsCreator('profile', 'Profile', formOverrides)}
                 key={name}
-                label={translate('Profile')}
                 name={name}
-                placeholder={translate('Profile')}
                 type="url"
               />
             );
@@ -197,11 +218,9 @@ export function FormFields() {
             return (
               <TextField
                 autoComplete="url"
-                isRequired
+                {...propsCreator('website', 'Website', formOverrides)}
                 key={name}
-                label={translate('Website')}
                 name="website"
-                placeholder={translate('Website')}
                 type="url"
               />
             );

@@ -1,4 +1,4 @@
-import { translate } from '@aws-amplify/ui';
+import { getActorState, translate } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '..';
 import { Flex, Heading } from '../../..';
@@ -7,10 +7,28 @@ import {
   RemoteErrorMessage,
   TwoButtonSubmitFooter,
 } from '../shared';
-import { isInputOrSelectElement, isInputElement } from '../../../helpers/utils';
+import { useCustomComponents } from '../hooks/useCustomComponents';
+import {
+  isInputOrSelectElement,
+  isInputElement,
+  getFormDataFromEvent,
+  confPropsCreator,
+} from '../../../helpers/utils';
 
 export const ConfirmVerifyUser = (): JSX.Element => {
-  const { submitForm, updateForm, isPending } = useAuthenticator();
+  const {
+    components: {
+      ConfirmVerifyUser: {
+        Header = ConfirmVerifyUser.Header,
+        Footer = ConfirmVerifyUser.Footer,
+      },
+    },
+  } = useCustomComponents();
+
+  const { submitForm, updateForm, isPending, _state } = useAuthenticator();
+
+  const formOverrides =
+    getActorState(_state).context?.formFields?.confirmVerifyUser;
 
   const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
     if (isInputOrSelectElement(event.target)) {
@@ -27,9 +45,9 @@ export const ConfirmVerifyUser = (): JSX.Element => {
     }
   };
 
-  const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    submitForm();
+    submitForm(getFormDataFromEvent(event));
   };
 
   return (
@@ -45,12 +63,17 @@ export const ConfirmVerifyUser = (): JSX.Element => {
         className="amplify-flex"
         disabled={isPending}
       >
-        <Heading level={3}>
-          {translate('Account recovery requires verified contact information')}
-        </Heading>
+        <Header />
 
         <Flex direction="column">
-          <ConfirmationCodeInput />
+          <ConfirmationCodeInput
+            {...confPropsCreator(
+              'confirmation_code',
+              'Code',
+              'Code *',
+              formOverrides
+            )}
+          />
         </Flex>
 
         <RemoteErrorMessage />
@@ -59,7 +82,18 @@ export const ConfirmVerifyUser = (): JSX.Element => {
           cancelButtonText={translate('Skip')}
           cancelButtonSendType="SKIP"
         />
+        <Footer />
       </fieldset>
     </form>
   );
 };
+
+ConfirmVerifyUser.Header = () => {
+  return (
+    <Heading level={3}>
+      {translate('Account recovery requires verified contact information')}
+    </Heading>
+  );
+};
+
+ConfirmVerifyUser.Footer = (): JSX.Element => null;

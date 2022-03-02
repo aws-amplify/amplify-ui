@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import * as React from 'react';
 
@@ -60,11 +60,11 @@ describe('StepperField: ', () => {
       expect(label).toHaveClass(ComponentClassNames.Label);
     });
 
-    it('should have `sr-only` class when labelHidden is true', async () => {
+    it('should have `amplify-visually-hidden` class when labelHidden is true', async () => {
       render(<StepperField label="stepper" labelHidden={true} />);
 
       const label = await screen.findByText('stepper');
-      expect(label).toHaveClass('sr-only');
+      expect(label).toHaveClass('amplify-visually-hidden');
     });
   });
 
@@ -209,7 +209,7 @@ describe('StepperField: ', () => {
       render(<ControlledStepper />);
       let stepperInput = await screen.findByLabelText(label);
       expect(stepperInput).toHaveValue(0);
-      updateValueFunction(8);
+      act(() => updateValueFunction(8));
       stepperInput = await screen.findByLabelText(label);
       expect(stepperInput).toHaveValue(8);
     });

@@ -1,8 +1,18 @@
-import { getActorContext, SignInContext, translate } from '@aws-amplify/ui';
+import {
+  getActorContext,
+  getActorState,
+  SignInContext,
+  translate,
+} from '@aws-amplify/ui';
 
 import { useAuthenticator } from '..';
 import { Button, Flex, Heading, PasswordField, Text } from '../../..';
-import { isInputOrSelectElement, isInputElement } from '../../../helpers/utils';
+import {
+  isInputOrSelectElement,
+  isInputElement,
+  getFormDataFromEvent,
+  propsCreator,
+} from '../../../helpers/utils';
 import { useCustomComponents } from '../hooks/useCustomComponents';
 import { FormFields } from './FormFields';
 
@@ -23,6 +33,9 @@ export const ForceNewPassword = (): JSX.Element => {
     },
   } = useCustomComponents();
 
+  const formOverrides =
+    getActorState(_state).context?.formFields?.forceNewPassword;
+
   const { validationError } = getActorContext(_state) as SignInContext;
   const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
     if (isInputOrSelectElement(event.target)) {
@@ -41,7 +54,7 @@ export const ForceNewPassword = (): JSX.Element => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    submitForm();
+    submitForm(getFormDataFromEvent(event));
   };
 
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
@@ -67,21 +80,20 @@ export const ForceNewPassword = (): JSX.Element => {
         <Flex direction="column">
           <PasswordField
             data-amplify-password
-            placeholder={translate('Password')}
-            required
+            {...propsCreator('password', 'Password', formOverrides, true)}
             name="password"
-            label={translate('Password')}
-            labelHidden={true}
             hasError={!!validationError['confirm_password']}
             onBlur={handleBlur}
           />
           <PasswordField
             data-amplify-confirmpassword
-            placeholder={translate('Confirm Password')}
-            required
+            {...propsCreator(
+              'confirm_password',
+              'Confirm Password',
+              formOverrides,
+              true
+            )}
             name="confirm_password"
-            label={translate('Confirm Password')}
-            labelHidden={true}
             hasError={!!validationError['confirm_password']}
             onBlur={handleBlur}
           />

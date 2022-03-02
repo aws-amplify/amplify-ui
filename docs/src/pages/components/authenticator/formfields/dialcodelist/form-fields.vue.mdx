@@ -1,0 +1,24 @@
+```html{3}
+<script setup>
+const formFields = {
+  signIn: {
+    username: {
+      dialCodeList: ['+1', '+123', '+227', '+229']
+    },
+  },
+  signUp: {
+    phone_number: {
+      dialCodeList: ['+1', '+123', '+227', '+229']
+    },
+  },
+}
+</script>
+<template>
+  <authenticator :form-fields="formFields">
+    <template v-slot="{ user, signOut }">
+      <h1>Hello {{ user.username }}!</h1>
+      <button @click="signOut">Sign Out</button>
+    </template>
+  </authenticator>
+</template>
+```

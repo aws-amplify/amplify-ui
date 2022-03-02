@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { computed, ComputedRef, useAttrs, toRefs } from 'vue';
+import { computed, useAttrs, toRefs } from 'vue';
 import {
   getAliasInfoFromContext,
-  ResetPasswordState,
+  getFormDataFromEvent,
   translate,
 } from '@aws-amplify/ui';
 
@@ -13,10 +13,14 @@ const attrs = useAttrs();
 const emit = defineEmits(['resetPasswordSubmit', 'backToSignInClicked']);
 
 const useAuthShared = createSharedComposable(useAuthenticator);
-const { state, send } = useAuthShared();
+const { state, send, submitForm } = useAuthShared();
 const { error, isPending } = toRefs(useAuthShared());
 
+const formOverrides = state.context?.config?.formFields?.resetPassword;
+const userOverrides = formOverrides?.['username'];
+
 const { label } = getAliasInfoFromContext(state.context);
+
 const labelText = `Enter your ${label.toLowerCase()}`;
 
 // Computed Properties
@@ -24,6 +28,9 @@ const backSignInText = computed(() => translate('Back to Sign In'));
 const resetPasswordHeading = computed(() => translate('Reset your password'));
 const resetPasswordText = computed(() => translate('Send Code'));
 const enterUsernameText = computed(() => translate<string>(labelText));
+
+const labelValue = userOverrides?.label ?? labelText;
+const labelHidden = userOverrides?.labelHidden;
 
 // Methods
 const onResetPasswordSubmit = (e: Event): void => {
@@ -35,11 +42,7 @@ const onResetPasswordSubmit = (e: Event): void => {
 };
 
 const submit = (e: Event): void => {
-  const formData = new FormData(<HTMLFormElement>e.target);
-  send({
-    type: 'SUBMIT',
-    data: Object.fromEntries(formData),
-  });
+  submitForm(getFormDataFromEvent(e));
 };
 
 const onInput = (e: Event): void => {
@@ -84,18 +87,22 @@ const onBackToSignInClicked = (): void => {
             class="amplify-flex amplify-field amplify-textfield"
             style="flex-direction: column"
           >
-            <base-label class="sr-only amplify-label" for="amplify-field-7dce">
-              {{ labelText }}
+            <base-label
+              class="amplify-label"
+              :class="{ 'amplify-visually-hidden': labelHidden ?? true }"
+              for="amplify-field-7dce"
+            >
+              {{ labelValue }}
             </base-label>
             <base-wrapper class="amplify-flex">
               <base-input
+                :placeholder="userOverrides?.placeholder ?? enterUsernameText"
+                :required="userOverrides?.required ?? true"
                 class="amplify-input amplify-field-group__control"
                 id="amplify-field-7dce"
                 aria-invalid="false"
                 name="username"
-                :placeholder="enterUsernameText"
                 autocomplete="username"
-                required
                 type="username"
               ></base-input>
             </base-wrapper>

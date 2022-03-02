@@ -5,12 +5,19 @@ import { defaultServices } from '../machines/authenticator/defaultServices';
 
 export type AuthFormData = Record<string, string>;
 
+export interface ActorDoneData {
+  authAttributes?: AuthFormData;
+  intent?: string;
+  user?: CognitoUserAmplify;
+}
+
 export interface AuthContext {
   actorRef?: any;
   config?: {
     loginMechanisms?: LoginMechanism[];
     signUpAttributes?: SignUpAttribute[];
     socialProviders?: SocialProvider[];
+    formFields?: FormFields;
     initialState?: 'signIn' | 'signUp' | 'resetPassword';
   };
   services?: Partial<typeof defaultServices>;
@@ -19,6 +26,7 @@ export interface AuthContext {
   password?: string;
   code?: string;
   mfaType?: AuthChallengeNames.SMS_MFA | AuthChallengeNames.SOFTWARE_TOKEN_MFA;
+  actorDoneData?: Omit<ActorDoneData, 'user'>; // data returned from actors when they finish and reach their final state
 }
 
 export interface ServicesContext {
@@ -46,6 +54,7 @@ interface BaseFormContext {
 export interface SignInContext extends BaseFormContext {
   loginMechanisms: Required<AuthContext>['config']['loginMechanisms'];
   socialProviders: Required<AuthContext>['config']['socialProviders'];
+  formFields?: FormFields;
   attributeToVerify?: string;
   redirectIntent?: string;
   unverifiedAttributes?: Record<string, string>;
@@ -87,12 +96,14 @@ export type SignUpAttribute =
 export interface SignUpContext extends BaseFormContext {
   loginMechanisms: Required<AuthContext>['config']['loginMechanisms'];
   socialProviders: Required<AuthContext>['config']['socialProviders'];
+  formFields: FormFields;
   unverifiedAttributes?: Record<string, string>;
 }
 
 export interface ResetPasswordContext extends BaseFormContext {
   username?: string;
   unverifiedAttributes?: Record<string, string>;
+  formFields?: FormFields;
 }
 
 export interface SignOutContext {
@@ -100,6 +111,7 @@ export interface SignOutContext {
   challengeName?: string;
   unverifiedAttributes?: Record<string, string>;
   user?: CognitoUserAmplify;
+  formFields?: FormFields;
 }
 
 // actors that have forms. Has `formValues, remoteErrror, and validationError in common.
@@ -166,9 +178,44 @@ export const LoginMechanismArray = [
   'phone_number',
 ] as const;
 
+export type CommonFields = 'username' | 'password' | 'confirm_password';
 export type LoginMechanism = typeof LoginMechanismArray[number];
 
 export type SocialProvider = 'amazon' | 'apple' | 'facebook' | 'google';
+
+export type formFieldComponents =
+  | 'signIn'
+  | 'signUp'
+  | 'forceNewPassword'
+  | 'confirmResetPassword'
+  | 'confirmSignIn'
+  | 'confirmSignUp'
+  | 'confirmVerifyUser'
+  | 'resetPassword'
+  | 'setupTOTP';
+
+export type FormFields = {
+  [key in formFieldComponents]?: formField;
+};
+export interface formField {
+  [key: string]: formFieldTypes;
+}
+
+export interface formFieldTypes {
+  labelHidden?: boolean;
+  label?: string;
+  placeholder?: string;
+  /**
+   * @deprecated Internal use only, please use `isRequired` instead.
+   */
+  required?: boolean;
+  isRequired?: boolean;
+  dialCode?: string;
+  totpIssuer?: string;
+  totpUsername?: string;
+  dialCodeList?: Array<string>;
+  order?: number;
+}
 
 // Auth fields that we provide default fields with
 export type AuthFieldsWithDefaults =
