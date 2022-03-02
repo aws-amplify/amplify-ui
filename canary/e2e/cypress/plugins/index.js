@@ -21,7 +21,7 @@ require('dotenv-safe').config({
  */
 module.exports = (on, config) => {
   const options = {
-    typescript: path.join(path.resolve('../..'), 'node_modules/typescript'),
+    typescript: path.join(path.resolve('.'), 'node_modules/typescript'),
   };
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
