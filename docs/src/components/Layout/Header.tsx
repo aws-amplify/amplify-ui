@@ -21,6 +21,7 @@ import { useRouter } from 'next/router';
 import { Logo } from '@/components/Logo';
 import { FrameworkChooser } from './FrameworkChooser';
 import { SecondaryNav } from './SecondaryNav';
+import LinkButton from './LinkButton';
 
 const NavLink = ({ href, children, isExternal = false, onClick }) => {
   const { pathname, query } = useRouter();
@@ -35,12 +36,10 @@ const NavLink = ({ href, children, isExternal = false, onClick }) => {
     );
   }
   return (
-    <NextLink href={{ pathname: href, query }}>
-      <div>
-        <a className={className} onClick={onClick}>
-          {children}
-        </a>
-      </div>
+    <NextLink href={{ pathname: href, query }} passHref>
+      <LinkButton href={href} classNames={className} onClick={onClick}>
+        {children}
+      </LinkButton>
     </NextLink>
   );
 };
