@@ -1,4 +1,8 @@
-import { getAliasInfoFromContext, translate } from '@aws-amplify/ui';
+import {
+  getActorState,
+  getAliasInfoFromContext,
+  translate,
+} from '@aws-amplify/ui';
 
 import { useAuthenticator } from '..';
 import { Flex, Heading, TextField } from '../../..';
@@ -8,6 +12,7 @@ import {
   isInputOrSelectElement,
   isInputElement,
   getFormDataFromEvent,
+  propsCreator,
 } from '../../../helpers/utils';
 
 export const ResetPassword = (): JSX.Element => {
@@ -20,6 +25,9 @@ export const ResetPassword = (): JSX.Element => {
     },
   } = useCustomComponents();
   const { isPending, submitForm, updateForm, _state } = useAuthenticator();
+
+  const formOverrides =
+    getActorState(_state).context?.formFields?.resetPassword;
 
   const { label } = getAliasInfoFromContext(_state.context);
   const labelText = `Enter your ${label.toLowerCase()}`;
@@ -61,12 +69,9 @@ export const ResetPassword = (): JSX.Element => {
 
         <Flex direction="column">
           <TextField
+            {...propsCreator('username', labelText, formOverrides, true)}
             autoComplete="username"
             name="username"
-            placeholder={translate<string>(labelText)}
-            label={translate<string>(labelText)}
-            labelHidden={true}
-            required={true}
             type="username"
           />
         </Flex>

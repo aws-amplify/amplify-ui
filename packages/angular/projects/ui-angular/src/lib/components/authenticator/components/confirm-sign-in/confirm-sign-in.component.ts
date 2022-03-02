@@ -2,7 +2,9 @@ import { Component, HostBinding, OnInit } from '@angular/core';
 import { Logger } from 'aws-amplify';
 import {
   AuthChallengeNames,
+  formField,
   getActorContext,
+  getActorState,
   getFormDataFromEvent,
   SignInContext,
 } from '@aws-amplify/ui';
@@ -22,11 +24,23 @@ export class ConfirmSignInComponent implements OnInit {
   public headerText: string;
   public confirmText = translate('Confirm');
   public backToSignInText = translate('Back to Sign In');
+  public formOverrides: formField;
 
   constructor(public authenticator: AuthenticatorService) {}
 
   ngOnInit(): void {
     this.setHeaderText();
+    this.setFormFields();
+  }
+
+  public setFormFields() {
+    const _state = this.authenticator.authState;
+    this.formOverrides =
+      getActorState(_state).context?.formFields?.confirmSignIn;
+  }
+
+  public grabField(name: string, field: string, defaultV) {
+    return this.formOverrides?.[name]?.[field] ?? defaultV;
   }
 
   public get context() {

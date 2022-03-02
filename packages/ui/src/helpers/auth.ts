@@ -13,6 +13,7 @@ import {
   AuthInputAttributes,
   AuthMachineSend,
   AuthMachineState,
+  CommonFields,
   LoginMechanism,
   LoginMechanismArray,
 } from '../types';

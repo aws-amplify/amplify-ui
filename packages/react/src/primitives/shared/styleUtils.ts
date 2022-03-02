@@ -178,9 +178,9 @@ const FlexContainerStylePropsMap: Required<{
 };
 
 /**
- * Map of all the FlexContainerStyleProps type keys
+ * Map of all the BaseStylePropsMap type keys
  * The type requires all keys in order to ensure it remains
- * in sync with the FlexContainerStyleProps type.
+ * in sync with the BaseStylePropsMap type.
  */
 const BaseStylePropsMap: Required<{ [key in keyof BaseStyleProps]: true }> = {
   alignSelf: true,
@@ -209,6 +209,10 @@ const BaseStylePropsMap: Required<{ [key in keyof BaseStyleProps]: true }> = {
   letterSpacing: true,
   lineHeight: true,
   margin: true,
+  marginBottom: true,
+  marginLeft: true,
+  marginRight: true,
+  marginTop: true,
   maxHeight: true,
   maxWidth: true,
   minHeight: true,
@@ -217,6 +221,10 @@ const BaseStylePropsMap: Required<{ [key in keyof BaseStyleProps]: true }> = {
   order: true,
   overflow: true,
   padding: true,
+  paddingBottom: true,
+  paddingLeft: true,
+  paddingRight: true,
+  paddingTop: true,
   position: true,
   right: true,
   row: true,
