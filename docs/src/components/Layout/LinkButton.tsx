@@ -1,5 +1,4 @@
-import { forwardRef } from 'react';
-import type { MouseEventHandler, ReactElement } from 'react';
+import * as React from 'react';
 
 const LinkButton = (
   {
@@ -8,10 +7,10 @@ const LinkButton = (
     classNames,
     children,
   }: {
-    onClick?: MouseEventHandler<HTMLAnchorElement>;
+    onClick?: React.MouseEventHandler<HTMLAnchorElement>;
     href: string;
     classNames?: string;
-    children?: ReactElement;
+    children?: React.ReactElement;
   },
   ref
 ) => (
@@ -20,4 +19,4 @@ const LinkButton = (
   </a>
 );
 
-export default forwardRef(LinkButton);
+export default React.forwardRef(LinkButton);
