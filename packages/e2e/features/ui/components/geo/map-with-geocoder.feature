@@ -3,7 +3,7 @@ Feature: Map with Geocoder
   Testing map with geocoder.
 
   Background:
-    Given I'm running the example "ui/components/map/map-with-geocoder"
+    Given I'm running the example "ui/components/geo/map-with-geocoder"
     And my default search results is 5
 
   @react

@@ -3,7 +3,7 @@ Feature: Standalone Geocoder
   Testing geocoder without an attached map.
 
   Background:
-    Given I'm running the example "ui/components/map/standalone-geocoder"
+    Given I'm running the example "ui/components/geo/standalone-geocoder"
     And my default search results is 5
 
   @react

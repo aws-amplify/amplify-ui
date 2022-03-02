@@ -13,15 +13,15 @@ When('I press the enter key', () => {
 });
 
 When('I click on a map marker', () => {
-  cy.get('svg.maplibregl-marker').first().click();
+  cy.get('.maplibregl-marker').first().click();
 });
 
 Then('I see markers equal to my default search results', () => {
-  cy.get('svg.maplibregl-marker').should('have.length', defaultSearchResults);
+  cy.get('.maplibregl-marker').should('have.length', defaultSearchResults);
 });
 
 Then('I see one marker', () => {
-  cy.get('svg.maplibregl-marker').should('have.length', 1);
+  cy.get('.maplibregl-marker').should('have.length', 1);
 });
 
 Then('I see an information popup', () => {
@@ -29,5 +29,5 @@ Then('I see an information popup', () => {
 });
 
 Then('I see no map markers', () => {
-  cy.get('svg.maplibregl-marker').should('have.length', 0);
+  cy.get('.maplibregl-marker').should('have.length', 0);
 });
