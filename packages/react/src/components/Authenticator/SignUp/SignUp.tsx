@@ -13,7 +13,7 @@ import {
 import { useCustomComponents } from '../hooks/useCustomComponents';
 
 export function SignUp() {
-  const { hasValidationErrors, isPending, submitForm, updateForm } =
+  const { hasValidationErrors, isPending, submitForm, updateForm, _state } =
     useAuthenticator();
 
   const {

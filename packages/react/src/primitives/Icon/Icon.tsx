@@ -35,7 +35,7 @@ const IconPrimitive: Primitive<IconProps, 'svg'> = (
     _children = children;
   }
   if (paths) {
-    _children = paths.map((path) => <path {...path} />);
+    _children = paths.map((path, index) => <path {...path} key={index} />);
   }
   if (pathData) {
     _children = <path d={pathData} fill={fill} />;
