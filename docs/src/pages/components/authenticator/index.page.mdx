@@ -195,6 +195,10 @@ The following example customizes the Force New Password screen by:
   {({ platform }) => import(`./force-new-password-fields.${platform}.mdx`)}
 </Fragment>
 
+<Fragment useCommonWebContent platforms={['web']}>
+  {({ platform }) => import(`./formfields/form-fields.${platform}.mdx`)}
+</Fragment>
+
 <Fragment useCommonWebContent>
   {({ platform }) => import(`./customization.styling.${platform}.mdx`)}
 </Fragment>

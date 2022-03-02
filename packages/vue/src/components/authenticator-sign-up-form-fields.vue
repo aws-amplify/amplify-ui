@@ -6,12 +6,17 @@ import {
   AuthInputAttributes,
   authInputAttributes,
   SignUpAttribute,
+  formField,
+  setFormOrder,
+  CommonFields,
 } from '@aws-amplify/ui';
+
 import { useAuth, useAuthenticator } from '../composables/useAuth';
 import UserNameAliasComponent from './user-name-alias.vue';
 import PasswordControl from './password-control.vue';
 import AliasControl from './alias-control.vue';
 import { createSharedComposable } from '@vueuse/core';
+import { propsCreator } from '../composables/useUtils';
 
 // state
 const { state } = useAuth();
@@ -19,6 +24,8 @@ const { state } = useAuth();
 const {
   value: { context },
 } = state;
+
+const formOverrides = context?.config?.formFields?.signUp as formField;
 
 const useAuthShared = createSharedComposable(useAuthenticator);
 const { validationErrors } = toRefs(useAuthShared());
@@ -32,7 +39,6 @@ const inputAttributes: ComputedRef<AuthInputAttributes> = computed(
 const passwordLabel = computed(() => translate('Password'));
 const confirmPasswordLabel = computed(() => translate('Confirm Password'));
 
-//
 let fieldNames: Array<LoginMechanism | SignUpAttribute>;
 let loginMechanisms = context.config?.loginMechanisms as LoginMechanism[];
 let signUpAttributes = context.config?.signUpAttributes as SignUpAttribute[];
@@ -55,61 +61,79 @@ function onBlur(e: Event) {
 }
 
 // Only 1 is supported, so `['email', 'phone_number']` will only show `email`
-const loginMechanism = fieldNames.shift() as LoginMechanism;
+const loginMechanism = fieldNames.shift() as LoginMechanism | CommonFields;
+
+const userOverrides = formOverrides?.[loginMechanism];
+
+const common = [
+  loginMechanism,
+  'password',
+  'confirm_password',
+] as CommonFields[];
+
+const fieldNamesCombined = [...common, ...fieldNames];
+const order = setFormOrder(formOverrides, fieldNamesCombined);
 </script>
 
 <template>
-  <user-name-alias-component :userName="loginMechanism" />
-  <base-wrapper
-    class="
-      amplify-flex amplify-field amplify-textfield amplify-passwordfield
-      password-field
-    "
-    style="flex-direction: column"
-  >
+  <template v-for="(field, idx) in order" :key="idx">
+    <user-name-alias-component
+      v-if="field === loginMechanism"
+      :label-hidden="userOverrides?.labelHidden"
+      :userName="loginMechanism"
+      :placeholder="userOverrides?.placeholder"
+      :required="userOverrides?.required"
+      :label="userOverrides?.label"
+      :dialCode="userOverrides?.dialCode"
+      :dialCodeList="userOverrides?.dialCodeList"
+    />
     <password-control
+      v-else-if="field === 'password'"
       name="password"
-      :label="passwordLabel"
+      v-bind="propsCreator('password', passwordLabel, formOverrides, true)"
       autocomplete="new-password"
       :ariainvalid="!!validationErrors.confirm_password"
       @blur="onBlur"
     />
-  </base-wrapper>
-  <base-wrapper
-    class="
-      amplify-flex amplify-field amplify-textfield amplify-passwordfield
-      password-field
-    "
-    style="flex-direction: column"
-  >
-    <password-control
-      name="confirm_password"
-      :label="confirmPasswordLabel"
-      autocomplete="new-password"
-      :ariainvalid="!!validationErrors.confirm_password"
-      @blur="onBlur"
-    />
-  </base-wrapper>
-  <p
-    role="alert"
-    data-variation="error"
-    class="amplify-text"
-    v-if="!!validationErrors.confirm_password"
-  >
-    {{ translate(validationErrors.confirm_password) }}
-  </p>
-
-  <template v-for="(field, idx) in fieldNames" :key="idx">
+    <template v-else-if="field === 'confirm_password'">
+      <password-control
+        name="confirm_password"
+        v-bind="
+          propsCreator(
+            'confirm_password',
+            confirmPasswordLabel,
+            formOverrides,
+            true
+          )
+        "
+        autocomplete="new-password"
+        :ariainvalid="!!validationErrors.confirm_password"
+        @blur="onBlur"
+      />
+      <p
+        role="alert"
+        data-variation="error"
+        class="amplify-text"
+        v-if="!!validationErrors.confirm_password"
+      >
+        {{ translate(validationErrors.confirm_password) }}
+      </p>
+    </template>
     <alias-control
+      v-else
       :label="
         // prettier-ignore
-        translate<string>((inputAttributes[field as LoginMechanism]).label)
+        translate<string>(formOverrides?.[field]?.label ?? (inputAttributes[field as LoginMechanism]).label)
       "
-      :name="field"
+      :label-hidden="formOverrides?.[field]?.labelHidden"
+      :required="formOverrides?.[field]?.required"
+      :name="(field as string)"
       :placeholder="
         // prettier-ignore
-        translate<string>( inputAttributes[field as LoginMechanism].label)
+        translate<string>( formOverrides?.[field]?.placeholder  ?? inputAttributes[field as LoginMechanism].label)
       "
+      :dialCode="formOverrides?.[field]?.dialCode"
+      :dialCodeList="formOverrides?.[field]?.dialCodeList"
     />
   </template>
 </template>

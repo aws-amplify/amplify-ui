@@ -164,6 +164,10 @@ Then('I see {string}', (message: string) => {
     .should('exist');
 });
 
+Then('I see placeholder {string}', (message: string) => {
+  cy.findByPlaceholderText(message).should('exist');
+});
+
 Then('I see the {string} image', (alt: string) => {
   cy.findByAltText(alt).should('exist');
 });
@@ -199,6 +203,20 @@ Then(
   }
 );
 
+Then(
+  '{string} field does not have {string}',
+  (fieldName: string, attribute: string) => {
+    cy.findByLabelText(fieldName).should('not.have.attr', attribute);
+  }
+);
+
+Then(
+  '{string} field does not have class {string}',
+  (fieldName: string, className: string) => {
+    cy.findByText(fieldName).should('not.have.class', className);
+  }
+);
+
 Then('the {string} button is disabled', (name: string) => {
   cy.findByRole('button', {
     name: new RegExp(`^${escapeRegExp(name)}$`, 'i'),
@@ -211,9 +229,35 @@ Then('the {string} field is invalid', (name: string) => {
     .should('be.false');
 });
 
+Then(
+  'the {string} select drop down is {string}',
+  (name: string, value: string) => {
+    cy.findByLabelText(new RegExp(`^${escapeRegExp(name)}`, 'i'))
+      .find('option:selected')
+      .contains(value);
+  }
+);
+
+Then(
+  'the {string} select drop down should have a length of {string}',
+  (name: string, value: string) => {
+    cy.findByLabelText(new RegExp(`^${escapeRegExp(name)}`, 'i'))
+      .find('option')
+      .should('have.length', value);
+  }
+);
+
 When('I type a valid confirmation code', () => {
   // This should be intercepted & mocked
   cy.findByLabelText('Confirmation Code').type('validcode');
+});
+
+When('I type a custom password from label {string}', (custom) => {
+  cy.findByLabelText(custom).type(Cypress.env('VALID_PASSWORD'));
+});
+
+When('I type a custom confirm password from label {string}', (custom) => {
+  cy.findByLabelText(custom).type(Cypress.env('VALID_PASSWORD'));
 });
 
 When('I type a valid SMS confirmation code', () => {
@@ -223,4 +267,10 @@ When('I type a valid SMS confirmation code', () => {
 
 When('I type an invalid confirmation code', () => {
   cy.findByLabelText('Confirmation Code').type('invalidcode');
+});
+
+When('I see {string} as the {string} input', (custom, order) => {
+  cy.get('input').eq(order).should('have.attr', 'placeholder', custom);
+
+  // cy.findByLabelText(custom).type(Cypress.env('VALID_PASSWORD'));
 });

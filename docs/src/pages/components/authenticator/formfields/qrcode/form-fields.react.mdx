@@ -1,0 +1,19 @@
+```tsx{3-9, 17}
+
+const formFields = {
+  setupTOTP: {
+        QR: {
+          totpIssuer: 'test issuer',
+          totpUsername: 'amlify_qr_test_user',
+        },
+      },
+  }
+
+export default function App() {
+  return (
+    <Authenticator formFields={formFields}>
+      {({ signOut }) => <button onClick={signOut}>Sign out</button>}
+    </Authenticator>
+  );
+}
+```
