@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "scripts": {
     "test": "yarn --cwd e2e test",
+    "clean": "rimraf ./**/yarn.lock && rimraf ./**/node_modules",
     "build": "yarn react && yarn vue && yarn angular",
     "pull": "chmod +x ./environments/pull-environments.sh && ./environments/pull-environments.sh",
     "install": "yarn react:install && yarn vue:install && yarn angular:install",
@@ -27,5 +28,8 @@
     "vuecli:install": "yarn --cwd apps/vue/vuecli install"
   },
   "author": "",
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "rimraf": "^3.0.2"
+  }
 }
