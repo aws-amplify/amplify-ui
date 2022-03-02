@@ -11,7 +11,6 @@ Please read through these guidelines carefully before submitting a PR and let us
 - [Project Structure](#project-structure)
 - [Local Development Guides](#local-devleopment-guides)
 - [Publishing](#publishing)
-- [Updating Icons](#updating-icons)
 
 ## Bug Reports
 
@@ -92,17 +91,3 @@ Amplify UI team publishes to NPM on every Tues (mandatory) and Thurs (optional).
 1. Changesets get accumulated into [Version Packages PR](https://github.com/aws-amplify/amplify-ui/pulls/app%2Fgithub-actions).
 1. Maintainer will run tests, approve, and merge the PR.
 1. Previous step will trigger [`publish-latest`](./.github/workflows/publish-next.yml) action that will build and publish packages to NPM.
-
-## Updating Icons
-
-If material design icon svg files are updated [upstream](https://github.com/google/material-design-icons/), follow these steps to update our icons components for all frameworks:
-
-1. Copy [material-design-icons repo](https://github.com/google/material-design-icons/) svg icons to `material-design-icons` folder (TODO: create script for this step)
-1. Update components for all frameworks by runing the following command at root:
-
-```
-yarn build:icons
-```
-
-1. Review and commit changes to icons
-1. Submit PR for review

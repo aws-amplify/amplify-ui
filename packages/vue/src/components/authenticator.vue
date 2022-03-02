@@ -19,6 +19,7 @@ import {
   CognitoUserAmplify,
   SocialProvider,
   listenToAuthHub,
+  FormFields,
 } from '@aws-amplify/ui';
 
 import SignIn from './sign-in.vue';
@@ -42,6 +43,7 @@ const {
   signUpAttributes,
   socialProviders,
   hideSignUp,
+  formFields,
 } = withDefaults(
   defineProps<{
     hideSignUp?: boolean;
@@ -51,6 +53,7 @@ const {
     signUpAttributes?: AuthenticatorMachineOptions['signUpAttributes'];
     variation?: 'default' | 'modal';
     socialProviders?: SocialProvider[];
+    formFields?: FormFields;
   }>(),
   {
     variation: 'default',
@@ -87,6 +90,7 @@ onMounted(() => {
       socialProviders,
       signUpAttributes,
       services,
+      formFields,
     },
   });
 });
