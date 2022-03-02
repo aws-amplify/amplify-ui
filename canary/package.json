@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "scripts": {
     "test": "echo \"Future\" && exit 1",
+    "clean": "rimraf ./**/yarn.lock && rimraf ./**/node_modules",
     "build": "yarn react && yarn vue && yarn angular",
     "install": "yarn react:install && yarn vue:install && yarn angular:install",
     "react": "yarn cra && yarn cra-ts && yarn next",
@@ -25,5 +26,8 @@
     "vuecli:install": "yarn --cwd vue/vuecli install"
   },
   "author": "",
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "rimraf": "^3.0.2"
+  }
 }
