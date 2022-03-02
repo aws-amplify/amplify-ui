@@ -37,19 +37,19 @@ jobs:
       - name: Build example app
         run: yarn build
         working-directory: ./canary/apps/${{ matrix.path }}
-     - name: Pull down AWS environments
+      - name: Pull down AWS environments
         run: yarn pull
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         working-directory: ./canary
-    - name: Install cypress 
+      - name: Install cypress
         run: yarn install
         working-directory: ./canary/e2e
-     - name: Start ${{ matrix.example }} example
+      - name: Start ${{ matrix.example }} example
         run: yarn start & npx wait-on -c waitOnConfig.json -t 20000 http-get://localhost:3000
         working-directory: ./canary/apps/${{ matrix.path }}
-     - name: Run E2E tests against ${{ matrix.example }} example
+      - name: Run E2E tests against ${{ matrix.example }} example
         run: yarn test
         env:
           # Env values for testing flows
