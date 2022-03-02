@@ -34,15 +34,15 @@ jobs:
       - name: Install packages
         run: yarn install --no-lockfile
         working-directory: ./canary/apps/${{ matrix.path }}
-      - name: Build example app
-        run: yarn build
-        working-directory: ./canary/apps/${{ matrix.path }}
       - name: Pull down AWS environments
         run: yarn pull
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         working-directory: ./canary
+      - name: Build example app
+        run: yarn build
+        working-directory: ./canary/apps/${{ matrix.path }}
       - name: Install cypress
         run: yarn install
         working-directory: ./canary/e2e
