@@ -3,6 +3,15 @@
   justify-content: center;
   align-items: center;
 }
+// This is an ugly hack for now because it is the only way to get a 
+// non-portalled menu to appear above content below it. Currently, 
+// there is no way to target this element that Radix adds to the DOM
+// and because it is the element that is positioning the menu
+// it needs a z-index. Adding a z-index anywhere else in the DOM hierarchy
+// won't matter. 
+[data-radix-popper-content-wrapper] {
+  z-index: 2;
+}
 .amplify-menu-content {
   background-color: var(--amplify-components-menu-background-color);
   border-radius: var(--amplify-components-menu-border-radius);
@@ -16,7 +25,7 @@
   border-style: var(--amplify-components-menu-border-style);
 }
 .amplify-menu-content__item {
-  min-height: var(--amplify-components-menu-item-min-width);
+  min-height: var(--amplify-components-menu-item-min-height);
   padding-inline-start: var(
     --amplify-components-menu-item-padding-inline-start
   );

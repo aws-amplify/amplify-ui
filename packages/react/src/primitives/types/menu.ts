@@ -38,6 +38,12 @@ export interface MenuProps extends FlexProps {
    * Note: only applies if `trigger` prop is null
    */
   triggerClassName?: string;
+
+  /**
+   * Whether or not the menu should use a React Portal
+   * @default false
+   */
+  portalled?: boolean;
 }
 
 export interface MenuItemProps extends ButtonProps {

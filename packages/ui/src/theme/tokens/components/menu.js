@@ -1,5 +1,5 @@
 module.exports = {
-  backgroundColor: { value: '{colors.white.value}' },
+  backgroundColor: { value: '{colors.background.primary.value}' },
   borderRadius: { value: '{radii.medium.value}' },
   borderWidth: { value: '{borderWidths.small.value}' },
   borderStyle: { value: 'solid' },
@@ -10,14 +10,6 @@ module.exports = {
   maxWidth: { value: '30rem' },
   minWidth: { value: '14rem' },
 
-  small: {
-    width: { value: '{fontSizes.medium.value}' },
-    height: { value: '{fontSizes.medium.value}' },
-  },
-  large: {
-    width: { value: '{fontSizes.xxxl.value}' },
-    height: { value: '{fontSizes.xxxl.value}' },
-  },
   item: {
     minHeight: { value: '2.5rem' },
     paddingInlineStart: { value: '{space.medium.value}' },

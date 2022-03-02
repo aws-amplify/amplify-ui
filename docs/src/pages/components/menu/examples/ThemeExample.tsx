@@ -14,19 +14,20 @@ export const ThemeExample = () => {
         tokens: {
           colors: {
             background: {
+              // The menu's background color references the primary background color
               primary: { value: 'hotpink' },
             },
           },
           components: {
             menu: {
-              backgroundColor: { value: 'blue' },
+              borderColor: { value: 'blue' },
             },
           },
         },
       }}
     >
-      <Card />
-      <Menu>
+      {/*  */}
+      <Menu portalled={false}>
         <MenuItem onClick={() => alert('Download')}>Download</MenuItem>
         <MenuItem onClick={() => alert('Create a Copy')}>
           Create a Copy

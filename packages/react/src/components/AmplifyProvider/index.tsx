@@ -1,13 +1,10 @@
 import * as React from 'react';
 import { IdProvider } from '@radix-ui/react-id';
 
-import { defaultTheme, Theme as UiTheme } from '@aws-amplify/ui';
+import { Theme } from '@aws-amplify/ui';
 
 import { AmplifyContext } from './AmplifyContext';
-import { ThemeProvider } from '../ThemeProvider';
-
-export type Theme = UiTheme;
-export type ColorMode = 'system' | 'light' | 'dark';
+import { ThemeProvider, ColorMode } from '../ThemeProvider';
 
 interface AmplifyProviderProps {
   children: React.ReactNode;
@@ -18,26 +15,16 @@ interface AmplifyProviderProps {
 export function AmplifyProvider({
   children,
   colorMode,
-  theme = defaultTheme,
+  theme,
 }: AmplifyProviderProps) {
-  const { name } = theme;
-  React.useEffect(() => {
-    if (document && document.documentElement) {
-      document.documentElement.setAttribute('data-amplify-theme', name);
-      document.documentElement.setAttribute(
-        'data-amplify-color-mode',
-        colorMode
-      );
-    }
-  }, [theme, colorMode]);
   return (
     <AmplifyContext.Provider
       value={{
-        theme: theme,
+        theme,
       }}
     >
       <IdProvider>
-        <ThemeProvider theme={theme} colorMode={colorMode}>
+        <ThemeProvider theme={theme} colorMode={colorMode} root={true}>
           {children}
         </ThemeProvider>
       </IdProvider>

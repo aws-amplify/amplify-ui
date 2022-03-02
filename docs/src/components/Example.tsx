@@ -16,7 +16,9 @@ export function Example({ children, className = '' }: ExampleProps) {
       className={`example ${className}`}
       style={{ marginBottom: `${tokens.space.large}` }}
     >
-      <Flex direction="column">{children}</Flex>
+      <Flex direction="column" alignItems="flex-start">
+        {children}
+      </Flex>
     </Card>
   );
 }

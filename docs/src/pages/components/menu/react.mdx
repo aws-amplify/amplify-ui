@@ -10,7 +10,7 @@ import {
   ThemeExample,
 } from './examples/';
 
-import { Example } from '@/components/Example';
+import { Example, ExampleCode } from '@/components/Example';
 
 Menu provides an accessible, interactive menu for selecting actions within an application. Dropdown menu is collision-aware and will automatically change location based on available space.
 
@@ -22,36 +22,46 @@ Menu provides an accessible, interactive menu for selecting actions within an ap
 
 Import the `Menu` and `MenuItem` components and styles. Use `MenuItem` component to configure menu options.
 
+<Example>
+  <BasicExample />
+  <ExampleCode>
+
 ```tsx file=./examples/basicExample.tsx
 
 ```
 
-<Example>
-  <BasicExample />
+  </ExampleCode>
 </Example>
 
 ### Size
 
 Control the size of the Menu buttons and items using the `size` prop. Available options are `small`, none (default), and `large`.
 
+<Example>
+  <SizeExample />
+  <ExampleCode>
+
 ```tsx file=./examples/sizeExample.tsx
 
 ```
 
-<Example>
-  <SizeExample />
+  </ExampleCode>
 </Example>
 
 ### Menu alignment
 
 Alignment of menu with button trigger can be controlled using the `menuAlign` prop. Available options are `start` (default), `center`, and `end`.
 
+<Example>
+  <MenuAlignExample />
+  
+  <ExampleCode>
+
 ```tsx file=./examples/menuAlignExample.tsx
 
 ```
 
-<Example>
-  <MenuAlignExample />
+  </ExampleCode>
 </Example>
 
 ### Customize trigger button
@@ -59,30 +69,44 @@ Alignment of menu with button trigger can be controlled using the `menuAlign` pr
 The default trigger button can be overwritten using the `trigger` prop on `Menu` with the `MenuButton` component.
 `MenuButton` can take all the same props as [Button](./button).
 
+<Example>
+  <MenuExample />
+  <ExampleCode>
+
 ```tsx file=./examples/menuExample.tsx
 
 ```
 
-<Example>
-  <MenuExample />
+  </ExampleCode>
+  
 </Example>
 
 ### Controlled Menu
 
 Create a controlled `Menu` using the `isOpen` and `onOpenChange` props.
 
+<Example>
+  <ControlledExample />
+  <ExampleCode>
+
 ```tsx file=./examples/controlledExample.tsx
 
 ```
 
-<Example>
-  <ControlledExample />
+  </ExampleCode>
 </Example>
 
-## CSS Styling
+## Styling
 
 <Example>
   <ThemeExample />
+  <ExampleCode>
+
+```tsx file=./examples/ThemeExample.tsx
+
+```
+
+  </ExampleCode>
 </Example>
 
 ### Target classes
