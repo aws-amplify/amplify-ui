@@ -57,13 +57,13 @@ export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
   lineHeight?: ResponsiveStyle<StyleToken<Property.LineHeight>>;
   margin?: ResponsiveStyle<StyleToken<Property.Margin>>;
   marginBottom?: ResponsiveStyle<StyleToken<Property.MarginBlockEnd>>;
+  marginBlockEnd?: ResponsiveStyle<StyleToken<Property.MarginBlockEnd>>;
+  marginBlockStart?: ResponsiveStyle<StyleToken<Property.MarginBlockStart>>;
+  marginInlineEnd?: ResponsiveStyle<StyleToken<Property.MarginInlineEnd>>;
+  marginInlineStart?: ResponsiveStyle<StyleToken<Property.MarginInlineStart>>;
   marginLeft?: ResponsiveStyle<StyleToken<Property.MarginInlineStart>>;
   marginRight?: ResponsiveStyle<StyleToken<Property.MarginInlineEnd>>;
   marginTop?: ResponsiveStyle<StyleToken<Property.MarginBlockStart>>;
-  marginBlockEnd?: ResponsiveStyle<StyleToken<Property.MarginBlockEnd>>;
-  marginInlineStart?: ResponsiveStyle<StyleToken<Property.MarginInlineStart>>;
-  marginInlineEnd?: ResponsiveStyle<StyleToken<Property.MarginInlineEnd>>;
-  marginBlockStart?: ResponsiveStyle<StyleToken<Property.MarginBlockStart>>;
   maxHeight?: ResponsiveStyle<StyleToken<Property.MaxHeight>>;
   maxWidth?: ResponsiveStyle<StyleToken<Property.MaxWidth>>;
   minHeight?: ResponsiveStyle<StyleToken<Property.MinHeight>>;
@@ -72,13 +72,13 @@ export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
   overflow?: ResponsiveStyle<StyleToken<Property.Overflow>>;
   padding?: ResponsiveStyle<StyleToken<Property.Padding>>;
   paddingBottom?: ResponsiveStyle<StyleToken<Property.PaddingBlockEnd>>;
+  paddingBlockEnd?: ResponsiveStyle<StyleToken<Property.MarginBlockEnd>>;
+  paddingBlockStart?: ResponsiveStyle<StyleToken<Property.MarginBlockStart>>;
+  paddingInlineEnd?: ResponsiveStyle<StyleToken<Property.MarginInlineEnd>>;
+  paddingInlineStart?: ResponsiveStyle<StyleToken<Property.MarginInlineStart>>;
   paddingLeft?: ResponsiveStyle<StyleToken<Property.PaddingInlineStart>>;
   paddingRight?: ResponsiveStyle<StyleToken<Property.PaddingInlineEnd>>;
   paddingTop?: ResponsiveStyle<StyleToken<Property.PaddingBlockStart>>;
-  paddingBlockEnd?: ResponsiveStyle<StyleToken<Property.MarginBlockEnd>>;
-  paddingInlineStart?: ResponsiveStyle<StyleToken<Property.MarginInlineStart>>;
-  paddingInlineEnd?: ResponsiveStyle<StyleToken<Property.MarginInlineEnd>>;
-  paddingBlockStart?: ResponsiveStyle<StyleToken<Property.MarginBlockStart>>;
   position?: ResponsiveStyle<StyleToken<Property.Position>>;
   right?: ResponsiveStyle<StyleToken<Property.Right>>;
   textAlign?: ResponsiveStyle<StyleToken<Property.TextAlign>>;
@@ -176,6 +176,10 @@ export const ComponentPropsToStylePropsMap: ComponentPropToStyleProp = {
   lineHeight: 'lineHeight',
   margin: 'margin',
   marginBottom: 'marginBlockEnd',
+  marginBlockEnd: 'marginBlockEnd',
+  marginBlockStart: 'marginBlockStart',
+  marginInlineEnd: 'marginBlockEnd',
+  marginInlineStart: 'marginBlockStart',
   marginLeft: 'marginInlineStart',
   marginRight: 'marginInlineEnd',
   marginTop: 'marginBlockStart',
@@ -190,6 +194,10 @@ export const ComponentPropsToStylePropsMap: ComponentPropToStyleProp = {
   overflow: 'overflow',
   padding: 'padding',
   paddingBottom: 'paddingBlockEnd',
+  paddingBlockEnd: 'paddingBlockEnd',
+  paddingBlockStart: 'paddingBlockStart',
+  paddingInlineEnd: 'paddingBlockEnd',
+  paddingInlineStart: 'paddingBlockStart',
   paddingLeft: 'paddingInlineStart',
   paddingRight: 'paddingInlineEnd',
   paddingTop: 'paddingBlockStart',
