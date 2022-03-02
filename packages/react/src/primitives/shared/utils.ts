@@ -6,9 +6,11 @@ export const strHasLength = (str: unknown): str is string =>
 export const isFunction = (fn: unknown): fn is Function =>
   typeof fn === 'function';
 
-export const isNullOrEmptyString = (value: unknown) =>
-  value == null || (typeof value === 'string' && value.length === 0);
+export const isEmptyString = (value: unknown) =>
+  typeof value === 'string' && value.length === 0;
 
+export const isNullOrEmptyString = (value: unknown) =>
+  value == null || isEmptyString(value);
 /**
  * Create a consecutive integer array from start value to end value.
  * @param start start value
