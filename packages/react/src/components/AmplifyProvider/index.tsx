@@ -23,11 +23,27 @@ export function AmplifyProvider({
   const { name, cssText } = webTheme;
   React.useEffect(() => {
     if (document && document.documentElement) {
+      const originalName =
+        document.documentElement.getAttribute('data-amplify-theme');
+      const originalColorMode = document.documentElement.getAttribute(
+        'data-amplify-color-mode'
+      );
       document.documentElement.setAttribute('data-amplify-theme', name);
       document.documentElement.setAttribute(
         'data-amplify-color-mode',
-        colorMode
+        colorMode || ''
       );
+
+      return function cleanup() {
+        document.documentElement.setAttribute(
+          'data-amplify-theme',
+          originalName
+        );
+        document.documentElement.setAttribute(
+          'data-amplify-color-mode',
+          originalColorMode
+        );
+      };
     }
   }, [theme, colorMode]);
   return (
@@ -37,7 +53,9 @@ export function AmplifyProvider({
       }}
     >
       <IdProvider>
-        <div>{children}</div>
+        <div data-amplify-theme={name} data-amplify-color-mode={colorMode}>
+          {children}
+        </div>
         <style
           id={`amplify-theme-${name}`}
           dangerouslySetInnerHTML={{ __html: cssText }}
