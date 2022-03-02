@@ -1,4 +1,5 @@
-import React, { forwardRef, MouseEventHandler, ReactElement } from 'react';
+import { forwardRef } from 'react';
+import type { MouseEventHandler, ReactElement } from 'react';
 
 const LinkButton = (
   {

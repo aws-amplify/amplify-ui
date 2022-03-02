@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState } from 'react';
 import NextLink from 'next/link';
 import {
   IconOpenInNew,
@@ -22,8 +22,19 @@ import { Logo } from '@/components/Logo';
 import { FrameworkChooser } from './FrameworkChooser';
 import { SecondaryNav } from './SecondaryNav';
 import LinkButton from './LinkButton';
+import type { MouseEventHandler, ReactElement } from 'react';
 
-const NavLink = ({ href, children, isExternal = false, onClick }) => {
+const NavLink = ({
+  href,
+  children,
+  isExternal = false,
+  onClick,
+}: {
+  href: string;
+  children: ReactElement;
+  isExternal?: boolean;
+  onClick?: MouseEventHandler<HTMLAnchorElement>;
+}) => {
   const { pathname, query } = useRouter();
   const isCurrent = pathname.startsWith(href) && href !== '/';
   const className = `docs-nav-link ${isCurrent ? 'current' : ''}`;
@@ -95,7 +106,7 @@ const ColorModeSwitcher = ({ colorMode, setColorMode }) => {
 };
 
 export const Header = ({ platform, colorMode, setColorMode }) => {
-  const [expanded, setExpanded] = React.useState(false);
+  const [expanded, setExpanded] = useState(false);
 
   return (
     <>
