@@ -3,8 +3,9 @@ import { Authenticator } from '@aws-amplify/ui-vue';
 import '@aws-amplify/ui-vue/styles.css';
 
 import Amplify from 'aws-amplify';
+import aws_exports from '../../../enviroments/auth-with-email/src/aws-exports';
 
-Amplify.configure({});
+Amplify.configure(aws_exports);
 </script>
 
 <template>
