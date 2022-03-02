@@ -34,6 +34,8 @@ jobs:
       - name: Install packages
         run: yarn install --no-lockfile
         working-directory: ./canary/apps/${{ matrix.path }}
+      - name: Add Amplify CLI
+        run: yarn global add @aws-amplify/cli
       - name: Pull down AWS environments
         run: yarn pull
         env:
