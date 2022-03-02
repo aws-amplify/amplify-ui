@@ -56,9 +56,9 @@ export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
   letterSpacing?: ResponsiveStyle<StyleToken<Property.LetterSpacing>>;
   lineHeight?: ResponsiveStyle<StyleToken<Property.LineHeight>>;
   margin?: ResponsiveStyle<StyleToken<Property.Margin>>;
-  marginBottom?: ResponsiveStyle<StyleToken<Property.MarginBlockEnd>>;
   marginBlockEnd?: ResponsiveStyle<StyleToken<Property.MarginBlockEnd>>;
   marginBlockStart?: ResponsiveStyle<StyleToken<Property.MarginBlockStart>>;
+  marginBottom?: ResponsiveStyle<StyleToken<Property.MarginBlockEnd>>;
   marginInlineEnd?: ResponsiveStyle<StyleToken<Property.MarginInlineEnd>>;
   marginInlineStart?: ResponsiveStyle<StyleToken<Property.MarginInlineStart>>;
   marginLeft?: ResponsiveStyle<StyleToken<Property.MarginInlineStart>>;
@@ -71,9 +71,9 @@ export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
   opacity?: ResponsiveStyle<StyleToken<Property.Opacity>>;
   overflow?: ResponsiveStyle<StyleToken<Property.Overflow>>;
   padding?: ResponsiveStyle<StyleToken<Property.Padding>>;
-  paddingBottom?: ResponsiveStyle<StyleToken<Property.PaddingBlockEnd>>;
   paddingBlockEnd?: ResponsiveStyle<StyleToken<Property.MarginBlockEnd>>;
   paddingBlockStart?: ResponsiveStyle<StyleToken<Property.MarginBlockStart>>;
+  paddingBottom?: ResponsiveStyle<StyleToken<Property.PaddingBlockEnd>>;
   paddingInlineEnd?: ResponsiveStyle<StyleToken<Property.MarginInlineEnd>>;
   paddingInlineStart?: ResponsiveStyle<StyleToken<Property.MarginInlineStart>>;
   paddingLeft?: ResponsiveStyle<StyleToken<Property.PaddingInlineStart>>;
@@ -175,9 +175,9 @@ export const ComponentPropsToStylePropsMap: ComponentPropToStyleProp = {
   letterSpacing: 'letterSpacing',
   lineHeight: 'lineHeight',
   margin: 'margin',
-  marginBottom: 'marginBlockEnd',
   marginBlockEnd: 'marginBlockEnd',
   marginBlockStart: 'marginBlockStart',
+  marginBottom: 'marginBlockEnd',
   marginInlineEnd: 'marginBlockEnd',
   marginInlineStart: 'marginBlockStart',
   marginLeft: 'marginInlineStart',
@@ -193,9 +193,9 @@ export const ComponentPropsToStylePropsMap: ComponentPropToStyleProp = {
   order: 'order',
   overflow: 'overflow',
   padding: 'padding',
-  paddingBottom: 'paddingBlockEnd',
   paddingBlockEnd: 'paddingBlockEnd',
   paddingBlockStart: 'paddingBlockStart',
+  paddingBottom: 'paddingBlockEnd',
   paddingInlineEnd: 'paddingBlockEnd',
   paddingInlineStart: 'paddingBlockStart',
   paddingLeft: 'paddingInlineStart',
