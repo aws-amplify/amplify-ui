@@ -60,6 +60,10 @@ export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
   marginLeft?: ResponsiveStyle<StyleToken<Property.MarginInlineStart>>;
   marginRight?: ResponsiveStyle<StyleToken<Property.MarginInlineEnd>>;
   marginTop?: ResponsiveStyle<StyleToken<Property.MarginBlockStart>>;
+  marginBlockEnd?: ResponsiveStyle<StyleToken<Property.MarginBlockEnd>>;
+  marginInlineStart?: ResponsiveStyle<StyleToken<Property.MarginInlineStart>>;
+  marginInlineEnd?: ResponsiveStyle<StyleToken<Property.MarginInlineEnd>>;
+  marginBlockStart?: ResponsiveStyle<StyleToken<Property.MarginBlockStart>>;
   maxHeight?: ResponsiveStyle<StyleToken<Property.MaxHeight>>;
   maxWidth?: ResponsiveStyle<StyleToken<Property.MaxWidth>>;
   minHeight?: ResponsiveStyle<StyleToken<Property.MinHeight>>;
@@ -71,6 +75,10 @@ export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
   paddingLeft?: ResponsiveStyle<StyleToken<Property.PaddingInlineStart>>;
   paddingRight?: ResponsiveStyle<StyleToken<Property.PaddingInlineEnd>>;
   paddingTop?: ResponsiveStyle<StyleToken<Property.PaddingBlockStart>>;
+  paddingBlockEnd?: ResponsiveStyle<StyleToken<Property.MarginBlockEnd>>;
+  paddingInlineStart?: ResponsiveStyle<StyleToken<Property.MarginInlineStart>>;
+  paddingInlineEnd?: ResponsiveStyle<StyleToken<Property.MarginInlineEnd>>;
+  paddingBlockStart?: ResponsiveStyle<StyleToken<Property.MarginBlockStart>>;
   position?: ResponsiveStyle<StyleToken<Property.Position>>;
   right?: ResponsiveStyle<StyleToken<Property.Right>>;
   textAlign?: ResponsiveStyle<StyleToken<Property.TextAlign>>;
@@ -81,7 +89,6 @@ export interface BaseStyleProps extends FlexItemStyleProps, GridItemStyleProps {
   transformOrigin?: ResponsiveStyle<StyleToken<Property.TransformOrigin>>;
   width?: ResponsiveStyle<StyleToken<Property.Width>>;
   whiteSpace?: ResponsiveStyle<StyleToken<Property.WhiteSpace>>;
-  writingMode?: ResponsiveStyle<StyleToken<Property.WritingMode>>;
 }
 
 export interface CSSLayoutStyleProps {
@@ -207,7 +214,6 @@ export const ComponentPropsToStylePropsMap: ComponentPropToStyleProp = {
   width: 'width',
   whiteSpace: 'whiteSpace',
   wrap: 'flexWrap',
-  writingMode: 'writingMode',
 };
 
 export const ComponentPropsToStylePropsMapKeys = Object.keys(
