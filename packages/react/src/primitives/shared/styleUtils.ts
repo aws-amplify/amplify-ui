@@ -15,7 +15,7 @@ import { useBreakpoint } from './responsive/useBreakpoint';
 import { Breakpoint, Breakpoints } from '../types/responsive';
 
 import { useTheme } from '../../hooks';
-import { isNullOrEmptyString } from './utils';
+import { isEmptyString, isNullOrEmptyString } from './utils';
 import { FlexContainerStyleProps } from '../types/flex';
 
 /**
@@ -127,19 +127,19 @@ export const convertStylePropsToStyleObj: ConvertStylePropsToStyleObj = ({
 }) => {
   const nonStyleProps = {};
   Object.keys(props)
-    .filter((propKey) => props[propKey] !== null)
-    .forEach((stylePropKey) => {
-      if (!(stylePropKey in ComponentPropsToStylePropsMap)) {
-        nonStyleProps[stylePropKey] = props[stylePropKey];
-      } else {
-        let value = props[stylePropKey];
+    .filter((propKey) => props[propKey] != null)
+    .forEach((propKey) => {
+      if (!(propKey in ComponentPropsToStylePropsMap)) {
+        nonStyleProps[propKey] = props[propKey];
+      } else if (!isEmptyString(props[propKey])) {
+        let value = props[propKey];
         // if styleProp is a DesignToken use its toString()
         if (isDesignToken(value)) {
           value = value.toString();
         } else {
           value = getValueAtCurrentBreakpoint(value, breakpoint, breakpoints);
         }
-        const reactStyleProp = ComponentPropsToStylePropsMap[stylePropKey];
+        const reactStyleProp = ComponentPropsToStylePropsMap[propKey];
         style = { ...style, [reactStyleProp]: value };
       }
     });

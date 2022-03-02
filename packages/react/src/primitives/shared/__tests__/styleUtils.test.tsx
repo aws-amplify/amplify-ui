@@ -63,10 +63,11 @@ describe('convertStylePropsToStyleObj: ', () => {
     expect(propStyles['as']).toBeUndefined();
   });
 
-  it('should ignore undefined or null style prop values', () => {
+  it('should ignore undefined, null or empty string style prop values', () => {
     const props: ViewProps = {
       backgroundColor: undefined,
       color: null,
+      border: '',
       borderRadius: '6px',
       ariaLabel: 'important section',
       as: 'section',
@@ -78,6 +79,7 @@ describe('convertStylePropsToStyleObj: ', () => {
 
     expect(propStyles['backgroundColor']).toBeUndefined();
     expect(propStyles['color']).toBeUndefined();
+    expect(propStyles['border']).toBeUndefined();
     expect(propStyles['borderRadius']).toBe(props.borderRadius);
     expect(propStyles['as']).toBeUndefined();
   });
@@ -265,10 +267,13 @@ describe('convertStylePropsToStyleObj: ', () => {
   });
 });
 
-describe('useNonStyleProps: ', () => {
+describe('useStyleProps: ', () => {
   it('should return an object containing only the non style props', () => {
-    const { result } = renderHook(() => useStyles(props, {}));
-    const nonStyleProps = result.current.nonStyleProps;
+    const {
+      result: {
+        current: { nonStyleProps },
+      },
+    } = renderHook(() => useStyles(props, {}));
     expect(nonStyleProps['border']).toBeUndefined();
     expect(nonStyleProps['as']).toBe(props.as);
     expect(nonStyleProps['ariaLabel']).toBe(props.ariaLabel);
@@ -281,8 +286,11 @@ describe('useNonStyleProps: ', () => {
       backgroundColor: 'blue',
       fontWeight: 'bold',
     };
-    const { result } = renderHook(() => useStyles(allStyleProps, {}));
-    const nonStyleProps = result.current.nonStyleProps;
+    const {
+      result: {
+        current: { nonStyleProps },
+      },
+    } = renderHook(() => useStyles(allStyleProps, {}));
     expect(nonStyleProps).toEqual({});
   });
 
