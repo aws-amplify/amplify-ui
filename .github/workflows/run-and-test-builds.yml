@@ -1,9 +1,8 @@
-name: Run Builds
+name: Run and Test Builds
 
 on:
   pull_request:
     branches: [main, actions]
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -58,4 +57,3 @@ jobs:
           USERNAME: ${{ secrets.USERNAME }}
           NEW_PASSWORD: ${{ secrets.NEW_PASSWORD }}
           VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
-
