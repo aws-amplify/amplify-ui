@@ -3,16 +3,19 @@ import * as React from 'react';
 
 import { ComponentClassNames } from '../shared/constants';
 import { FieldClearButton } from '../Field';
-import { strHasLength } from '../shared/utils';
+import { LABEL_HIDDEN_DEPRECATED } from '../../helpers/messages';
 import { SearchFieldButton } from './SearchFieldButton';
 import { SearchFieldProps, Primitive } from '../types';
+import { strHasLength } from '../shared/utils';
 import { TextField } from '../TextField';
+import { useDeprecationWarning } from '../../hooks/useDeprecationWarning';
 import { useSearchField } from './useSearchField';
 
 const SearchFieldPrimitive: Primitive<SearchFieldProps, 'input'> = (
   {
     autoComplete = 'off',
     className,
+    isLabelHidden = true,
     labelHidden = true,
     name = 'q',
     onSubmit,
@@ -26,11 +29,16 @@ const SearchFieldPrimitive: Primitive<SearchFieldProps, 'input'> = (
   const { value, onClearHandler, onInput, onKeyDown, onClick, composedRefs } =
     useSearchField({ onSubmit, onClear, externalRef: ref });
 
+  useDeprecationWarning({
+    shouldWarn: labelHidden,
+    message: LABEL_HIDDEN_DEPRECATED,
+  });
+
   return (
     <TextField
       autoComplete={autoComplete}
       className={classNames(ComponentClassNames.SearchField, className)}
-      labelHidden={labelHidden}
+      isLabelHidden={isLabelHidden || labelHidden}
       innerEndComponent={
         <FieldClearButton
           excludeFromTabOrder={true}

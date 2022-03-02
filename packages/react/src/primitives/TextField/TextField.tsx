@@ -15,6 +15,10 @@ import {
   isInputRef,
   isTextAreaRef,
 } from './utils';
+import {
+  LABEL_HIDDEN_DEPRECATED,
+  TEXTFIELD_ISMULTILINE_DEPRECATED,
+} from '../../helpers/messages';
 import { TextArea } from '../TextArea';
 import { useStableId } from '../shared/utils';
 import { useDeprecationWarning } from '../../hooks/useDeprecationWarning';
@@ -38,23 +42,28 @@ const TextFieldPrimitive = <Multiline extends boolean>(
     innerStartComponent,
     innerEndComponent,
     isMultiline, // remove from rest to prevent passing as DOM attribute
+    isLabelHidden = false,
     type, // remove from rest to prevent passing as DOM attribute to textarea
     size,
     testId,
     ..._rest
   } = props;
 
+  useDeprecationWarning({
+    shouldWarn: isMultiline,
+    message: TEXTFIELD_ISMULTILINE_DEPRECATED,
+  });
+
+  useDeprecationWarning({
+    shouldWarn: labelHidden,
+    message: LABEL_HIDDEN_DEPRECATED,
+  });
+
   const fieldId = useStableId(id);
   const descriptionId = useStableId();
 
   const { flexContainerStyleProps, baseStyleProps, rest } =
     splitPrimitiveProps(_rest);
-
-  useDeprecationWarning({
-    shouldWarn: props.isMultiline,
-    message:
-      'TextField isMultiLine prop will be deprecated in next major release of @aws-amplify/ui-react. Please use TextAreaField component instead.',
-  });
 
   let control: JSX.Element = null;
   if (isTextAreaField(props)) {
@@ -98,12 +107,12 @@ const TextFieldPrimitive = <Multiline extends boolean>(
       testId={testId}
       {...flexContainerStyleProps}
     >
-      <Label htmlFor={fieldId} visuallyHidden={labelHidden}>
+      <Label htmlFor={fieldId} visuallyHidden={isLabelHidden || labelHidden}>
         {label}
       </Label>
       <FieldDescription
         id={descriptionId}
-        labelHidden={labelHidden}
+        isLabelHidden={isLabelHidden || labelHidden}
         descriptiveText={descriptiveText}
       />
       <FieldGroup

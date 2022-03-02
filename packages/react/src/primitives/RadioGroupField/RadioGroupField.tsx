@@ -5,8 +5,10 @@ import { ComponentClassNames } from '../shared/constants';
 import { FieldErrorMessage, FieldDescription } from '../Field';
 import { Flex } from '../Flex';
 import { Label } from '../Label';
+import { LABEL_HIDDEN_DEPRECATED } from '../../helpers/messages';
 import { RadioGroupContext, RadioGroupContextType } from './context';
 import { RadioGroupFieldProps, Primitive } from '../types';
+import { useDeprecationWarning } from '../../hooks/useDeprecationWarning';
 import { useStableId } from '../shared/utils';
 
 // Note: RadioGroupField doesn't extend the JSX.IntrinsicElements<'input'> types (instead extending 'typeof Flex')
@@ -21,6 +23,7 @@ const RadioGroupFieldPrimitive: Primitive<RadioGroupFieldProps, typeof Flex> = (
     hasError = false,
     id,
     isDisabled,
+    isLabelHidden = false,
     isRequired,
     isReadOnly,
     label,
@@ -36,6 +39,11 @@ const RadioGroupFieldPrimitive: Primitive<RadioGroupFieldProps, typeof Flex> = (
   const fieldId = useStableId(id);
   const labelId = useStableId();
   const descriptionId = useStableId();
+
+  useDeprecationWarning({
+    shouldWarn: labelHidden,
+    message: LABEL_HIDDEN_DEPRECATED,
+  });
 
   const radioGroupContextValue: RadioGroupContextType = React.useMemo(
     () => ({
@@ -73,12 +81,12 @@ const RadioGroupFieldPrimitive: Primitive<RadioGroupFieldProps, typeof Flex> = (
       ref={ref}
       {...rest}
     >
-      <Label id={labelId} visuallyHidden={labelHidden}>
+      <Label id={labelId} visuallyHidden={isLabelHidden || labelHidden}>
         {label}
       </Label>
       <FieldDescription
         id={descriptionId}
-        labelHidden={labelHidden}
+        isLabelHidden={isLabelHidden || labelHidden}
         descriptiveText={descriptiveText}
       />
       <Flex

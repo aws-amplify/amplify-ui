@@ -9,10 +9,13 @@ import { Flex } from '../Flex';
 import { IconAdd, IconRemove } from '../Icon';
 import { Input } from '../Input';
 import { Label } from '../Label';
+import { LABEL_HIDDEN_DEPRECATED } from '../../helpers/messages';
+
 import { Primitive } from '../types/view';
 import { SharedText } from '../shared/i18n';
 import { splitPrimitiveProps } from '../shared/styleUtils';
 import { StepperFieldProps } from '../types/stepperField';
+import { useDeprecationWarning } from '../../hooks/useDeprecationWarning';
 import { useStableId } from '../shared/utils';
 import { useStepper } from './useStepper';
 
@@ -32,6 +35,7 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
     hasError = false,
     id,
     isDisabled,
+    isLabelHidden = false,
     isReadOnly,
     isRequired,
     label,
@@ -44,6 +48,11 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
     value: controlledValue,
     ..._rest
   } = props;
+
+  useDeprecationWarning({
+    shouldWarn: labelHidden,
+    message: LABEL_HIDDEN_DEPRECATED,
+  });
 
   const fieldId = useStableId(id);
   const descriptionId = useStableId();
@@ -84,12 +93,12 @@ const StepperFieldPrimitive: Primitive<StepperFieldProps, 'input'> = (
       testId={testId}
       {...flexContainerStyleProps}
     >
-      <Label htmlFor={fieldId} visuallyHidden={labelHidden}>
+      <Label htmlFor={fieldId} visuallyHidden={isLabelHidden || labelHidden}>
         {label}
       </Label>
       <FieldDescription
         id={descriptionId}
-        labelHidden={labelHidden}
+        isLabelHidden={isLabelHidden || labelHidden}
         descriptiveText={descriptiveText}
       />
       <FieldGroup

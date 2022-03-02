@@ -97,6 +97,13 @@ describe('RadioFieldGroup test suite', () => {
       const labelElelment = await screen.findByText(basicProps.label);
       expect(labelElelment).toHaveClass('amplify-visually-hidden');
     });
+
+    it('should have `sr-only` class when isLabelHidden is true', async () => {
+      render(getRadioFieldGroup({ ...basicProps, isLabelHidden: true }));
+
+      const labelElelment = await screen.findByText(basicProps.label);
+      expect(labelElelment).toHaveClass('sr-only');
+    });
   });
 
   describe('RadioGroup', () => {

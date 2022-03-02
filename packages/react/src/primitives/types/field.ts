@@ -24,9 +24,8 @@ export interface FieldProps {
 
   /**
    * Visually hide label (not recommended in most cases)
-   * Deprecated, use isLabelHidden
    * @default false
-   * @deprecated Will be removed in next major version bump
+   * @deprecated Use isLabelHidden instead. Will be removed in next major version bump
    */
   labelHidden?: boolean;
 

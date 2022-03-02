@@ -6,6 +6,8 @@ import { CheckboxFieldProps, Primitive } from '../types';
 import { ComponentClassNames } from '../shared';
 import { FieldErrorMessage } from '../Field';
 import { Flex } from '../Flex';
+import { LABEL_HIDDEN_DEPRECATED } from '../../helpers/messages';
+import { useDeprecationWarning } from '../../hooks/useDeprecationWarning';
 import { useTestId } from '../utils/testUtils';
 
 const CheckboxFieldPrimitive: Primitive<CheckboxFieldProps, 'input'> = (
@@ -14,6 +16,7 @@ const CheckboxFieldPrimitive: Primitive<CheckboxFieldProps, 'input'> = (
     errorMessage,
     hasError = false,
     labelHidden = false,
+    isLabelHidden = false,
     labelPosition,
     testId,
     size,
@@ -22,6 +25,12 @@ const CheckboxFieldPrimitive: Primitive<CheckboxFieldProps, 'input'> = (
   ref
 ) => {
   const checkboxTestId = useTestId(testId, ComponentClassNames.Checkbox);
+
+  useDeprecationWarning({
+    shouldWarn: labelHidden,
+    message: LABEL_HIDDEN_DEPRECATED,
+  });
+
   return (
     <Flex
       className={classNames(
@@ -34,7 +43,7 @@ const CheckboxFieldPrimitive: Primitive<CheckboxFieldProps, 'input'> = (
     >
       <Checkbox
         hasError={hasError}
-        labelHidden={labelHidden}
+        isLabelHidden={isLabelHidden || labelHidden}
         testId={checkboxTestId}
         labelPosition={labelPosition}
         ref={ref}

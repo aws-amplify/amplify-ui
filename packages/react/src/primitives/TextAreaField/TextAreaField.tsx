@@ -5,10 +5,12 @@ import { ComponentClassNames } from '../shared/constants';
 import { FieldDescription, FieldErrorMessage } from '../Field';
 import { Flex } from '../Flex';
 import { Label } from '../Label';
+import { LABEL_HIDDEN_DEPRECATED } from '../../helpers/messages';
 import { Primitive } from '../types';
 import { splitPrimitiveProps } from '../shared/styleUtils';
 import { TextArea } from '../TextArea';
 import { TextAreaFieldProps } from '../types/textAreaField';
+import { useDeprecationWarning } from '../../hooks/useDeprecationWarning';
 import { useStableId } from '../shared/utils';
 
 export const DEFAULT_ROW_COUNT = 3;
@@ -23,6 +25,7 @@ const TextAreaFieldPrimitive: Primitive<TextAreaFieldProps, 'textarea'> = (
     errorMessage,
     hasError = false,
     id,
+    isLabelHidden = false,
     label,
     labelHidden = false,
     rows,
@@ -30,6 +33,11 @@ const TextAreaFieldPrimitive: Primitive<TextAreaFieldProps, 'textarea'> = (
     testId,
     ..._rest
   } = props;
+
+  useDeprecationWarning({
+    shouldWarn: labelHidden,
+    message: LABEL_HIDDEN_DEPRECATED,
+  });
 
   const fieldId = useStableId(id);
   const descriptionId = useStableId();
@@ -48,12 +56,12 @@ const TextAreaFieldPrimitive: Primitive<TextAreaFieldProps, 'textarea'> = (
       testId={testId}
       {...flexContainerStyleProps}
     >
-      <Label htmlFor={fieldId} visuallyHidden={labelHidden}>
+      <Label htmlFor={fieldId} visuallyHidden={isLabelHidden || labelHidden}>
         {label}
       </Label>
       <FieldDescription
         id={descriptionId}
-        labelHidden={labelHidden}
+        isLabelHidden={isLabelHidden || labelHidden}
         descriptiveText={descriptiveText}
       />
       <TextArea

@@ -5,9 +5,11 @@ import { ComponentClassNames } from '../shared/constants';
 import { FieldErrorMessage, FieldDescription } from '../Field';
 import { Flex } from '../Flex';
 import { Label } from '../Label';
+import { LABEL_HIDDEN_DEPRECATED } from '../../helpers/messages';
 import { Select } from '../Select';
 import { SelectFieldProps, Primitive } from '../types';
 import { splitPrimitiveProps } from '../shared/styleUtils';
+import { useDeprecationWarning } from '../../hooks/useDeprecationWarning';
 import { useStableId } from '../shared/utils';
 
 interface SelectFieldChildrenProps {
@@ -46,6 +48,7 @@ const SelectFieldPrimitive: Primitive<SelectFieldProps, 'select'> = (
     errorMessage,
     hasError = false,
     id,
+    isLabelHidden = false,
     label,
     labelHidden = false,
     options,
@@ -60,6 +63,11 @@ const SelectFieldPrimitive: Primitive<SelectFieldProps, 'select'> = (
   const { flexContainerStyleProps, baseStyleProps, rest } =
     splitPrimitiveProps(_rest);
 
+  useDeprecationWarning({
+    shouldWarn: labelHidden,
+    message: LABEL_HIDDEN_DEPRECATED,
+  });
+
   return (
     <Flex
       className={classNames(
@@ -72,12 +80,12 @@ const SelectFieldPrimitive: Primitive<SelectFieldProps, 'select'> = (
       {...baseStyleProps}
       {...flexContainerStyleProps}
     >
-      <Label htmlFor={fieldId} visuallyHidden={labelHidden}>
+      <Label htmlFor={fieldId} visuallyHidden={isLabelHidden || labelHidden}>
         {label}
       </Label>
       <FieldDescription
         id={descriptionId}
-        labelHidden={labelHidden}
+        isLabelHidden={isLabelHidden || labelHidden}
         descriptiveText={descriptiveText}
       />
       <Select

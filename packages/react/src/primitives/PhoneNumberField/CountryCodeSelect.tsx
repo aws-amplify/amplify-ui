@@ -23,7 +23,7 @@ const CountryCodeSelectPrimitive: Primitive<CountryCodeSelectProps, 'select'> =
       <SelectField
         autoComplete="tel-country-code"
         className={classNames(ComponentClassNames.CountryCodeSelect, className)}
-        labelHidden={true}
+        isLabelHidden={true}
         ref={ref}
         {...props}
       >

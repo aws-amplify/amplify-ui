@@ -90,6 +90,19 @@ describe('SelectField test suite', () => {
       const labelElelment = await screen.findByText(label);
       expect(labelElelment).toHaveClass('amplify-visually-hidden');
     });
+
+    it('should have `sr-only` class when isLabelHidden is true', async () => {
+      render(
+        <SelectField label={label} isLabelHidden>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+        </SelectField>
+      );
+
+      const labelElelment = await screen.findByText(label);
+      expect(labelElelment).toHaveClass('sr-only');
+    });
   });
 
   describe('Select control', () => {

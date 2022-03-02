@@ -63,6 +63,13 @@ describe('TextField component', () => {
       const label = await screen.findByText('Search');
       expect(label).toHaveClass('amplify-visually-hidden');
     });
+
+    it('should have `sr-only` class when isLabelHidden is true', async () => {
+      render(<TextField label="Search" isLabelHidden={true} />);
+
+      const label = await screen.findByText('Search');
+      expect(label).toHaveClass('sr-only');
+    });
   });
 
   describe('Input field', () => {

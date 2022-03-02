@@ -8,9 +8,11 @@ import { FieldGroup } from '../FieldGroup';
 import { Flex } from '../Flex';
 import { isFunction, useStableId } from '../shared/utils';
 import { Label } from '../Label';
+import { LABEL_HIDDEN_DEPRECATED } from '../../helpers/messages';
 import { Primitive } from '../types/view';
 import { SliderFieldProps } from '../types/sliderField';
 import { splitPrimitiveProps } from '../shared/styleUtils';
+import { useDeprecationWarning } from '../../hooks/useDeprecationWarning';
 import { View } from '../View';
 
 export const SLIDER_LABEL_TEST_ID = 'slider-label';
@@ -30,6 +32,7 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
     hasError = false,
     id,
     isDisabled,
+    isLabelHidden = false,
     isValueHidden = false,
     label,
     labelHidden = false,
@@ -47,6 +50,11 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
   },
   ref
 ) => {
+  useDeprecationWarning({
+    shouldWarn: labelHidden,
+    message: LABEL_HIDDEN_DEPRECATED,
+  });
+
   const fieldId = useStableId(id);
   const labelId = useStableId();
   const descriptionId = useStableId();
@@ -90,14 +98,14 @@ const SliderFieldPrimitive: Primitive<SliderFieldProps, typeof Root> = (
         className={ComponentClassNames.SliderFieldLabel}
         id={labelId}
         testId={SLIDER_LABEL_TEST_ID}
-        visuallyHidden={labelHidden}
+        visuallyHidden={isLabelHidden || labelHidden}
       >
         <View as="span">{label}</View>
         {!isValueHidden ? <View as="span">{currentValue}</View> : null}
       </Label>
       <FieldDescription
         id={descriptionId}
-        labelHidden={labelHidden}
+        isLabelHidden={isLabelHidden || labelHidden}
         descriptiveText={descriptiveText}
       />
       <FieldGroup

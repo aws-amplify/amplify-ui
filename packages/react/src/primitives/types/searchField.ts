@@ -18,6 +18,13 @@ export interface SearchFieldProps extends TextInputFieldProps {
    * Visually hide label
    * @default true
    */
+  isLabelHidden?: boolean;
+
+  /**
+   * Visually hide label
+   * @default true
+   * @deprecated Use isLabelHidden instead. Will be removed in next release.
+   */
   labelHidden?: boolean;
 
   /**

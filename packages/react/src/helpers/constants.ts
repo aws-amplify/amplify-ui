@@ -3,6 +3,3 @@ export const AMPLIFY_SYMBOL = (
     ? Symbol.for('amplify_default')
     : '@@amplify_default'
 ) as Symbol;
-
-export const LABEL_HIDDEN_DEPRECATED =
-  'labelHidden is deprecated and will be removed in next release. Please use isLabelHidden instead.';

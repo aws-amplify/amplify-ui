@@ -66,6 +66,13 @@ describe('StepperField: ', () => {
       const label = await screen.findByText('stepper');
       expect(label).toHaveClass('amplify-visually-hidden');
     });
+
+    it('should have `sr-only` class when isLabelHidden is true', async () => {
+      render(<StepperField label="stepper" isLabelHidden={true} />);
+
+      const label = await screen.findByText('stepper');
+      expect(label).toHaveClass('sr-only');
+    });
   });
 
   describe('Input field', () => {
