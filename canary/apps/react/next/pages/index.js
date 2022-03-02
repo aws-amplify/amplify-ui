@@ -4,17 +4,21 @@ import {
   Card,
   Heading,
   withAuthenticator,
+  useAuthenticator,
 } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import Amplify from 'aws-amplify';
-Amplify.configure({});
+import aws_exports from '../../../../environments/auth-with-email/src/aws-exports.js';
+Amplify.configure(aws_exports);
 
 function App() {
+  const { signOut } = useAuthenticator();
   return (
     <AmplifyProvider colorMode="dark">
       <Card>
         <Heading>Amplify Sample App</Heading>
         <Button variation="primary">Click me!</Button>
+        <button onClick={signOut}>Sign out</button>
       </Card>
     </AmplifyProvider>
   );
