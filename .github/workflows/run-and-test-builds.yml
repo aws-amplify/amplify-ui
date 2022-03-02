@@ -54,6 +54,7 @@ jobs:
         working-directory: ./canary/apps/${{ matrix.path }}
       - name: Run E2E tests against ${{ matrix.example }} example
         run: yarn test
+        working-directory: ./canary
         env:
           # Env values for testing flows
           DOMAIN: ${{ secrets.DOMAIN }}
