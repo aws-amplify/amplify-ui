@@ -2,14 +2,14 @@ import { CognitoUserAmplify } from '@aws-amplify/ui';
 
 import { useAuthenticator } from '..';
 import { View } from '../../..';
-import { ConfirmSignIn } from '../ConfirmSignIn';
 import { ConfirmSignUp } from '../ConfirmSignUp';
 import { ForceNewPassword } from '../ForceNewPassword';
 import { useCustomComponents } from '../hooks/useCustomComponents';
-import { ConfirmResetPassword, ResetPassword } from '../ResetPassword';
 import { SetupTOTP } from '../SetupTOTP';
 import { SignInSignUpTabs } from '../shared';
 import { ConfirmVerifyUser, VerifyUser } from '../VerifyUser';
+import { ConfirmSignIn } from '../ConfirmSignIn/ConfirmSignIn';
+import { ConfirmResetPassword, ResetPassword } from '../ResetPassword';
 
 export type RouterProps = {
   className?: string;

@@ -1,5 +1,37 @@
 # @aws-amplify/ui-react
 
+## 2.7.0
+
+### Minor Changes
+
+- [#1389](https://github.com/aws-amplify/amplify-ui/pull/1389) [`57f1441e4`](https://github.com/aws-amplify/amplify-ui/commit/57f1441e4809218a813148d0942de8171d159831) Thanks [@ErikCH](https://github.com/ErikCH)! - Added new formfields prop that allows more customization of inputs and setup TOTP.
+  New docs can be found at https://ui.docs.amplify.aws/components/authenticator#form-field-customization
+
+### Patch Changes
+
+- [#1415](https://github.com/aws-amplify/amplify-ui/pull/1415) [`74e066622`](https://github.com/aws-amplify/amplify-ui/commit/74e066622e9abe26e9f9427f6bdc82c4e14d4952) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - Fixing checkbox `labelPosition` to position the label correctly. Now `labelPosition="start"` actually means _start_.
+
+* [#1432](https://github.com/aws-amplify/amplify-ui/pull/1432) [`6c51a2400`](https://github.com/aws-amplify/amplify-ui/commit/6c51a2400f87fe3fb45913b898c2b60740b71894) Thanks [@joebuono](https://github.com/joebuono)! - Add `margin` and `padding` style props (`marginTop`, `paddingBottom`, etc)
+
+- [#1417](https://github.com/aws-amplify/amplify-ui/pull/1417) [`5b3b8479a`](https://github.com/aws-amplify/amplify-ui/commit/5b3b8479aea06c6b7df031dc6493abdd36b0bd6a) Thanks [@wlee221](https://github.com/wlee221)! - Fix undefined reference in reset password flow
+
+- Updated dependencies [[`74e066622`](https://github.com/aws-amplify/amplify-ui/commit/74e066622e9abe26e9f9427f6bdc82c4e14d4952), [`57f1441e4`](https://github.com/aws-amplify/amplify-ui/commit/57f1441e4809218a813148d0942de8171d159831), [`5b3b8479a`](https://github.com/aws-amplify/amplify-ui/commit/5b3b8479aea06c6b7df031dc6493abdd36b0bd6a)]:
+  - @aws-amplify/ui@3.1.0
+
+## 2.6.2
+
+### Patch Changes
+
+- [#1408](https://github.com/aws-amplify/amplify-ui/pull/1408) [`71d7b79c5`](https://github.com/aws-amplify/amplify-ui/commit/71d7b79c54181ff657d79444934947bd057d72c3) Thanks [@zchenwei](https://github.com/zchenwei)! - fix: fixing infinite useEffect call in useDataStore hook
+
+## 2.6.1
+
+### Patch Changes
+
+- [#1382](https://github.com/aws-amplify/amplify-ui/pull/1382) [`3e82f7238`](https://github.com/aws-amplify/amplify-ui/commit/3e82f7238080d7e56add1f60854bdf6855b6a9ea) Thanks [@ErikCH](https://github.com/ErikCH)! - Added missing slots for React components
+
+* [#1388](https://github.com/aws-amplify/amplify-ui/pull/1388) [`c65565e4b`](https://github.com/aws-amplify/amplify-ui/commit/c65565e4b07219866be73cf9ed6fc2c39fc81c05) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - Fixes useDeprecationWarning hook
+
 ## 2.6.0
 
 ### Minor Changes

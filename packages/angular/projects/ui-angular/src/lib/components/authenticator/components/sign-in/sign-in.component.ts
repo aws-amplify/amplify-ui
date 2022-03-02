@@ -1,9 +1,17 @@
-import { Component, HostBinding, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  HostBinding,
+  OnInit,
+  ViewEncapsulation,
+} from '@angular/core';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
 import {
   translate,
   hasTranslation,
   getFormDataFromEvent,
+  getActorState,
+  formFieldTypes,
+  formField,
 } from '@aws-amplify/ui';
 
 @Component({
@@ -11,7 +19,7 @@ import {
   templateUrl: './sign-in.component.html',
   encapsulation: ViewEncapsulation.None,
 })
-export class SignInComponent {
+export class SignInComponent implements OnInit {
   @HostBinding('attr.data-amplify-authenticator-signin') dataAttr = '';
 
   // translated phrases
@@ -20,8 +28,30 @@ export class SignInComponent {
     ? translate('Forgot your password?')
     : translate('Forgot your password? ');
   public signInButtonText = translate('Sign in');
+  public userOverrides: formFieldTypes;
+  public passwordOR: formFieldTypes;
+  public formOverrides: formField;
 
   constructor(public authenticator: AuthenticatorService) {}
+
+  ngOnInit(): void {
+    this.setFormFields();
+  }
+
+  public setFormFields() {
+    const _state = this.authenticator.authState;
+    this.formOverrides = getActorState(_state).context?.formFields?.signIn;
+    this.userOverrides = this.formOverrides?.['username'];
+    this.passwordOR = this.formOverrides?.['password'];
+  }
+
+  public labelHidden(name: string, defaultV = true) {
+    return this.formOverrides?.[name]?.labelHidden ?? defaultV;
+  }
+
+  public required(name: string, defaultV = true) {
+    return this.formOverrides?.[name]?.required ?? defaultV;
+  }
 
   public get context() {
     return this.authenticator.slotContext;

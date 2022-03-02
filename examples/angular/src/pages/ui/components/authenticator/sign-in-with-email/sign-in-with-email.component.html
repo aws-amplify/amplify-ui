@@ -1,4 +1,28 @@
-<amplify-authenticator [hideSignUp]="true">
+<amplify-authenticator [formFields]="formFields" [hideSignUp]="true">
+  <ng-template amplifySlot="verify-user-header">
+    <h3
+      class="amplify-heading"
+      style="padding: var(--amplify-space-xl) 0 0 var(--amplify-space-xl)"
+    >
+      Enter Information:
+    </h3>
+  </ng-template>
+
+  <ng-template amplifySlot="verify-user-footer">
+    <div>Footer Information</div>
+  </ng-template>
+  <ng-template amplifySlot="confirm-verify-user-header">
+    <h3
+      class="amplify-heading"
+      style="padding: var(--amplify-space-xl) 0 0 var(--amplify-space-xl)"
+    >
+      Enter Information:
+    </h3>
+  </ng-template>
+
+  <ng-template amplifySlot="confirm-verify-user-footer">
+    <div>Footer Information</div>
+  </ng-template>
   <ng-template
     amplifySlot="authenticated"
     let-user="user"

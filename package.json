@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {
     "build": "turbo run build --include-dependencies --no-deps --scope=*@aws-amplify/*",
-    "clean": "turbo run clean && rm -rf node_modules",
+    "clean": "turbo run clean && rimraf node_modules",
     "setup": "yarn install && yarn build",
     "refresh": "yarn clean && yarn setup",
     "angular": "yarn workspace @aws-amplify/ui-angular",
@@ -17,14 +17,17 @@
     "e2e": "yarn workspace e2e",
     "environments": "yarn workspace environments",
     "build:icons": "yarn react build:icons",
-    "test": "yarn react test && yarn e2e test",
+    "test": "yarn ui test && yarn react test && yarn e2e test",
     "prepare": "husky install",
     "version:next": "yarn changeset version --snapshot next-$(git rev-parse --short=7 HEAD) && yarn angular build",
     "publish:next": "yarn changeset publish --tag next",
     "version:latest": "yarn changeset version && yarn angular build",
     "publish:latest": "yarn changeset publish",
     "canary:build": "yarn --cwd canary/ build",
-    "canary:install": "yarn --cwd canary/ install "
+    "canary:install": "yarn --cwd canary/ install ",
+    "canary:clean": "yarn --cwd canary clean ",
+    "canary:updatePackage": "node script/changeCanaryPackageVersion.mjs",
+    "release:canary": "yarn install && yarn canary:updatePackage && rm postcss.config.js && yarn canary:install && yarn canary:build"
   },
   "turbo": {
     "baseBranch": "origin/main",
@@ -67,9 +70,11 @@
   "devDependencies": {
     "@changesets/changelog-github": "0.4.1",
     "@changesets/cli": "^2.16.0",
+    "globby": "^13.1.1",
     "husky": ">=6",
     "lint-staged": ">=10",
     "prettier": "2.4.1",
+    "rimraf": "^3.0.2",
     "tsup": "^5.11.9",
     "turbo": "^1.0.23",
     "wait-on": "^6.0.0"

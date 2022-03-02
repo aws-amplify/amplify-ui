@@ -14,6 +14,10 @@
         label="Code *"
         type="text"
         autocomplete="one-time-code"
+        [labelHidden]="grabField('confirmation_code', 'labelHidden', true)"
+        [placeholder]="grabField('confirmation_code', 'placeholder', null)"
+        [required]="grabField('confirmation_code', 'required', true)"
+        [label]="grabField('confirmation_code', 'label', 'Code *')"
       ></amplify-form-field>
 
       <button amplify-button variation="primary" fullWidth="true" type="submit">

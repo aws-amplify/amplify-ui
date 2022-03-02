@@ -9,34 +9,30 @@ import {
 import { useAuthenticator } from '..';
 import { Flex, Heading } from '../../..';
 import { ConfirmationCodeInput, ConfirmSignInFooter } from '../shared';
+import { useCustomComponents } from '../hooks/useCustomComponents';
 import {
   isInputOrSelectElement,
   isInputElement,
   getFormDataFromEvent,
+  confPropsCreator,
 } from '../../../helpers/utils';
 
 export const ConfirmSignIn = (): JSX.Element => {
-  const { _state, error, submitForm, updateForm, isPending } =
+  const { error, submitForm, updateForm, isPending, _state } =
     useAuthenticator();
-  const actorState = getActorState(_state) as SignInState;
 
-  const { challengeName } = actorState.context as SignInContext;
-  let headerText: string;
+  const formOverrides =
+    getActorState(_state).context?.formFields?.confirmSignIn;
 
-  switch (challengeName) {
-    case AuthChallengeNames.SMS_MFA:
-      headerText = translate('Confirm SMS Code');
-      break;
-    case AuthChallengeNames.SOFTWARE_TOKEN_MFA:
-      headerText = translate('Confirm TOTP Code');
-      break;
-    default:
-      throw new Error(
-        `${translate(
-          'Unexpected challengeName encountered in ConfirmSignIn:'
-        )} ${challengeName}`
-      );
-  }
+  const {
+    components: {
+      ConfirmSignIn: {
+        Header = ConfirmSignIn.Header,
+        Footer = ConfirmSignIn.Footer,
+      },
+    },
+  } = useCustomComponents();
+
   const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
     if (isInputOrSelectElement(event.target)) {
       let { name, type, value } = event.target;
@@ -70,14 +66,51 @@ export const ConfirmSignIn = (): JSX.Element => {
         className="amplify-flex"
         disabled={isPending}
       >
-        <Heading level={3}>{headerText}</Heading>
+        <Header />
 
         <Flex direction="column">
-          <ConfirmationCodeInput errorText={translate(error)} />
+          <ConfirmationCodeInput
+            {...confPropsCreator(
+              'confirmation_code',
+              'Code',
+              'Code *',
+              formOverrides
+            )}
+            errorText={translate(error)}
+          />
         </Flex>
 
         <ConfirmSignInFooter />
+        <Footer />
       </fieldset>
     </form>
   );
 };
+
+function Header() {
+  const { _state } = useAuthenticator();
+  const actorState = getActorState(_state) as SignInState;
+
+  const { challengeName } = actorState.context as SignInContext;
+  let headerText: string;
+
+  switch (challengeName) {
+    case AuthChallengeNames.SMS_MFA:
+      headerText = translate('Confirm SMS Code');
+      break;
+    case AuthChallengeNames.SOFTWARE_TOKEN_MFA:
+      headerText = translate('Confirm TOTP Code');
+      break;
+    default:
+      throw new Error(
+        `${translate(
+          'Unexpected challengeName encountered in ConfirmSignIn:'
+        )} ${challengeName}`
+      );
+  }
+
+  return <Heading level={3}>{headerText}</Heading>;
+}
+ConfirmSignIn.Header = Header;
+
+ConfirmSignIn.Footer = (): JSX.Element => null;

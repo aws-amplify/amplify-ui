@@ -1,5 +1,6 @@
 import {
   getActorContext,
+  getActorState,
   ResetPasswordContext,
   translate,
 } from '@aws-amplify/ui';
@@ -11,20 +12,30 @@ import {
   RemoteErrorMessage,
   TwoButtonSubmitFooter,
 } from '../shared';
+import { useCustomComponents } from '../hooks/useCustomComponents';
 import {
   isInputOrSelectElement,
   isInputElement,
   getFormDataFromEvent,
+  confPropsCreator,
+  propsCreator,
 } from '../../../helpers/utils';
 
 export const ConfirmResetPassword = (): JSX.Element => {
+  const {
+    components: {
+      ConfirmResetPassword: {
+        Header = ConfirmResetPassword.Header,
+        Footer = ConfirmResetPassword.Footer,
+      },
+    },
+  } = useCustomComponents();
+
   const { _state, submitForm, updateForm, updateBlur, isPending } =
     useAuthenticator();
   const { validationError } = getActorContext(_state) as ResetPasswordContext;
-
-  const headerText = translate('Reset your password');
-  const passwordText = translate('New password');
-  const confirmPasswordLabel = translate('Confirm Password');
+  const formOverrides =
+    getActorState(_state).context?.formFields?.confirmResetPassword;
 
   const handleChange = (event: React.FormEvent<HTMLFormElement>) => {
     if (isInputOrSelectElement(event.target)) {
@@ -64,28 +75,35 @@ export const ConfirmResetPassword = (): JSX.Element => {
         className="amplify-flex"
         disabled={isPending}
       >
-        <Heading level={3}>{headerText}</Heading>
+        <Header />
 
         <Flex direction="column">
-          <ConfirmationCodeInput />
+          <ConfirmationCodeInput
+            {...confPropsCreator(
+              'confirmation_code',
+              'Code',
+              'Code *',
+              formOverrides
+            )}
+            type="number"
+          />
 
           <PasswordField
             data-amplify-password
+            {...propsCreator('password', 'New password', formOverrides, true)}
             className="password-field"
-            placeholder={passwordText}
-            required
             name="password"
-            label={passwordText}
-            labelHidden={true}
             onBlur={handleBlur}
           />
           <PasswordField
             data-amplify-confirmpassword
-            placeholder={confirmPasswordLabel}
-            required
+            {...propsCreator(
+              'confirm_password',
+              'Confirm Password',
+              formOverrides,
+              true
+            )}
             name="confirm_password"
-            label={confirmPasswordLabel}
-            labelHidden={true}
             hasError={!!validationError['confirm_password']}
             onBlur={handleBlur}
           />
@@ -102,7 +120,16 @@ export const ConfirmResetPassword = (): JSX.Element => {
           cancelButtonSendType="RESEND"
           cancelButtonText={translate('Resend Code')}
         />
+        <Footer />
       </fieldset>
     </form>
   );
 };
+
+ConfirmResetPassword.Header = () => {
+  const headerText = translate('Reset your password');
+
+  return <Heading level={3}>{headerText}</Heading>;
+};
+
+ConfirmResetPassword.Footer = (): JSX.Element => null;

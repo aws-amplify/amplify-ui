@@ -17,6 +17,7 @@ export interface AuthContext {
     loginMechanisms?: LoginMechanism[];
     signUpAttributes?: SignUpAttribute[];
     socialProviders?: SocialProvider[];
+    formFields?: FormFields;
     initialState?: 'signIn' | 'signUp' | 'resetPassword';
   };
   services?: Partial<typeof defaultServices>;
@@ -53,6 +54,7 @@ interface BaseFormContext {
 export interface SignInContext extends BaseFormContext {
   loginMechanisms: Required<AuthContext>['config']['loginMechanisms'];
   socialProviders: Required<AuthContext>['config']['socialProviders'];
+  formFields?: FormFields;
   attributeToVerify?: string;
   redirectIntent?: string;
   unverifiedAttributes?: Record<string, string>;
@@ -94,12 +96,14 @@ export type SignUpAttribute =
 export interface SignUpContext extends BaseFormContext {
   loginMechanisms: Required<AuthContext>['config']['loginMechanisms'];
   socialProviders: Required<AuthContext>['config']['socialProviders'];
+  formFields: FormFields;
   unverifiedAttributes?: Record<string, string>;
 }
 
 export interface ResetPasswordContext extends BaseFormContext {
   username?: string;
   unverifiedAttributes?: Record<string, string>;
+  formFields?: FormFields;
 }
 
 export interface SignOutContext {
@@ -107,6 +111,7 @@ export interface SignOutContext {
   challengeName?: string;
   unverifiedAttributes?: Record<string, string>;
   user?: CognitoUserAmplify;
+  formFields?: FormFields;
 }
 
 // actors that have forms. Has `formValues, remoteErrror, and validationError in common.
@@ -173,9 +178,44 @@ export const LoginMechanismArray = [
   'phone_number',
 ] as const;
 
+export type CommonFields = 'username' | 'password' | 'confirm_password';
 export type LoginMechanism = typeof LoginMechanismArray[number];
 
 export type SocialProvider = 'amazon' | 'apple' | 'facebook' | 'google';
+
+export type formFieldComponents =
+  | 'signIn'
+  | 'signUp'
+  | 'forceNewPassword'
+  | 'confirmResetPassword'
+  | 'confirmSignIn'
+  | 'confirmSignUp'
+  | 'confirmVerifyUser'
+  | 'resetPassword'
+  | 'setupTOTP';
+
+export type FormFields = {
+  [key in formFieldComponents]?: formField;
+};
+export interface formField {
+  [key: string]: formFieldTypes;
+}
+
+export interface formFieldTypes {
+  labelHidden?: boolean;
+  label?: string;
+  placeholder?: string;
+  /**
+   * @deprecated Internal use only, please use `isRequired` instead.
+   */
+  required?: boolean;
+  isRequired?: boolean;
+  dialCode?: string;
+  totpIssuer?: string;
+  totpUsername?: string;
+  dialCodeList?: Array<string>;
+  order?: number;
+}
 
 // Auth fields that we provide default fields with
 export type AuthFieldsWithDefaults =

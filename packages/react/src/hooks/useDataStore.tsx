@@ -44,7 +44,7 @@ export const useDataStoreCollection = <M extends PersistentModel>({
   };
 
   // Fetch on next render cycle
-  React.useEffect(fetch, [criteria, model, pagination]);
+  React.useEffect(fetch, []);
 
   return result;
 };
@@ -71,7 +71,7 @@ export const useDataStoreItem = <M extends PersistentModel>({
   };
 
   // Fetch on next render cycle
-  React.useEffect(fetch, [id, model]);
+  React.useEffect(fetch, []);
 
   return {
     error,
