@@ -1,0 +1,19 @@
+{
+  "name": "vite",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --port 5050",
+    "start": "vite preview --port 3000"
+  },
+  "dependencies": {
+    "@aws-amplify/ui-vue": "latest",
+    "aws-amplify": "latest",
+    "vue": "^3.2.27"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^2.0.1",
+    "vite": "^2.7.13"
+  }
+}
