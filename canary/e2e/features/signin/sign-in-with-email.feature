@@ -8,7 +8,7 @@ Feature: Sign In with Email
   when signing into your application.
 
   Background:
-    Given I'm running the example "/sign-in"
+    Given I'm running the example "/"
 
   @angular @react @vue
   Scenario: Sign in with unknown credentials

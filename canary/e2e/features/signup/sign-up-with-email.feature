@@ -3,7 +3,7 @@ Feature: Sign Up with Email
   Create a new user in the Amazon Cognito UserPool by passing the new user’s email address and password.
 
   Background:
-    Given I'm running the example "ui/components/authenticator/sign-up-with-email"
+    Given I'm running the example "/"
 
 
 @angular @react @vue  
