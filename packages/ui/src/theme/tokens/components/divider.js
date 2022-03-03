@@ -2,11 +2,11 @@ module.exports = {
   borderStyle: { value: 'solid' },
   borderColor: { value: '{colors.border.primary.value}' },
   borderWidth: { value: '{borderWidths.medium.value}' },
+  // marginBlock: { value: '{space.xs.value}' },
 
   label: {
     color: { value: '{colors.font.tertiary.value}' },
-    paddingInline: { value: '{space.xs.value}' },
-    paddingBlock: { value: 0 },
+    paddingInline: { value: '{space.medium.value}' },
     fontSize: { value: '{fontSizes.small.value}' },
     backgroundColor: { value: '{colors.background.primary.value}' },
   },

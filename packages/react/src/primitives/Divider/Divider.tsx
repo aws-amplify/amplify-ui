@@ -1,6 +1,5 @@
 import classNames from 'classnames';
 import * as React from 'react';
-import { Label } from '../Label';
 
 import { ComponentClassNames } from '../shared';
 import { DividerProps, Primitive } from '../types';
@@ -13,7 +12,11 @@ const DividerPrimitive: Primitive<DividerProps, 'hr'> = (
   <View
     aria-orientation={orientation}
     as="hr"
-    className={classNames(ComponentClassNames.Divider, className)}
+    className={classNames(
+      ComponentClassNames.Divider,
+      className,
+      label ? ComponentClassNames.DividerLabel : null
+    )}
     data-size={size}
     data-label={label}
     ref={ref}

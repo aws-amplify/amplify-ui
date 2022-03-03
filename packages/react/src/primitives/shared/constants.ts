@@ -21,6 +21,7 @@ export enum ComponentClassNames {
   CollectionPagination = 'amplify-collection-pagination',
   CountryCodeSelect = 'amplify-countrycodeselect',
   Divider = 'amplify-divider',
+  DividerLabel = 'amplify-divider--label',
   Expander = 'amplify-expander',
   ExpanderContent = 'amplify-expander__content',
   ExpanderContentText = 'amplify-expander__content__text',

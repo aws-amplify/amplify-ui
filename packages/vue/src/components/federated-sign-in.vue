@@ -131,14 +131,11 @@ const signInWithGoogle = computed(() =>
         {{ signInWithGoogle }}
       </p>
     </federated-sign-in-button>
-    <base-wrapper class="amplify-flex" data-or-container>
-      <div data-or-line>or</div>
-
-      <hr
-        class="amplify-divider"
-        aria-orientation="horizontal"
-        data-size="small"
-      />
-    </base-wrapper>
+    <hr
+      class="amplify-divider"
+      aria-orientation="horizontal"
+      data-size="small"
+      data-label="or"
+    />
   </base-wrapper>
 </template>

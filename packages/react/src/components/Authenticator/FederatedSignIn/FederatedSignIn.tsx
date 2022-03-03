@@ -65,10 +65,7 @@ export function FederatedSignIn() {
         }
       })}
 
-      <Flex data-or-container="">
-        <View data-or-line>or</View>
-        <Divider size="small" />
-      </Flex>
+      <Divider size="small" label="or" />
     </Flex>
   );
 }
