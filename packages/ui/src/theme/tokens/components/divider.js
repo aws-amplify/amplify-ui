@@ -2,7 +2,6 @@ module.exports = {
   borderStyle: { value: 'solid' },
   borderColor: { value: '{colors.border.primary.value}' },
   borderWidth: { value: '{borderWidths.medium.value}' },
-  // marginBlock: { value: '{space.xs.value}' },
 
   label: {
     color: { value: '{colors.font.tertiary.value}' },
