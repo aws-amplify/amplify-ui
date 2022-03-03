@@ -12,11 +12,3 @@ When('I confirm my password', () => {
     .blur()
     .wait(100);
 });
-
-Then('I see {string} as an input field', (name: string) => {
-  cy.findByRole('textbox', { name }).should('exist');
-});
-
-Then("I don't see {string} as an input field", (name: string) => {
-  cy.findByRole('textbox', { name }).should('not.exist');
-});
