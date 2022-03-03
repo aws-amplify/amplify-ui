@@ -54,21 +54,4 @@
       --amplify-components-authenticator-state-inactive-background-color
     );
   }
-
-  & [data-or-container] {
-    position: relative;
-    color: var(--amplify-components-authenticator-or-container-color);
-    align-items: center;
-    justify-content: center;
-    padding: var(--amplify-space-relative-large) var(--amplify-space-zero);
-
-    & [data-or-line] {
-      position: absolute;
-      background: var(
-        --amplify-components-authenticator-or-container-or-line-background-color
-      );
-      z-index: 1;
-      padding: var(--amplify-space-zero) var(--amplify-space-relative-large);
-    }
-  }
 }
