@@ -10,6 +10,8 @@ import {
 import { ComponentClassNames } from '../../shared/constants';
 import { SharedText } from '../../shared/i18n';
 import { AUTO_GENERATED_ID_PREFIX } from '../../shared/utils';
+import { LABEL_HIDDEN_DEPRECATED } from '../../../helpers/messages';
+const originalWarn = console.warn;
 
 describe('StepperField: ', () => {
   describe('Flex wrapper', () => {
@@ -53,6 +55,12 @@ describe('StepperField: ', () => {
   });
 
   describe('Label', () => {
+    beforeAll(() => {
+      console.warn = jest.fn();
+    });
+    afterAll(() => {
+      console.warn = originalWarn;
+    });
     it('should render expected field classname', async () => {
       render(<StepperField label="stepper" />);
 
@@ -67,11 +75,17 @@ describe('StepperField: ', () => {
       expect(label).toHaveClass('amplify-visually-hidden');
     });
 
-    it('should have `sr-only` class when isLabelHidden is true', async () => {
+    it('should show deprecation message when labelHidden is true', async () => {
+      render(<StepperField label="stepper" labelHidden={true} />);
+
+      expect(console.warn).toHaveBeenLastCalledWith(LABEL_HIDDEN_DEPRECATED);
+    });
+
+    it('should have `amplify-visually-hidden` class when isLabelHidden is true', async () => {
       render(<StepperField label="stepper" isLabelHidden={true} />);
 
       const label = await screen.findByText('stepper');
-      expect(label).toHaveClass('sr-only');
+      expect(label).toHaveClass('amplify-visually-hidden');
     });
   });
 

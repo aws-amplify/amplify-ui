@@ -9,6 +9,8 @@ import {
   expectFlexContainerStyleProps,
 } from '../../Flex/__tests__/Flex.test';
 import { AUTO_GENERATED_ID_PREFIX } from '../../shared/utils';
+import { LABEL_HIDDEN_DEPRECATED } from '../../../helpers/messages';
+const originalWarn = console.warn;
 
 const label = 'Field';
 const testId = 'testId';
@@ -41,11 +43,24 @@ describe('TextAreaField component', () => {
   });
 
   describe('Label ', () => {
+    beforeAll(() => {
+      console.warn = jest.fn();
+    });
+    afterAll(() => {
+      console.warn = originalWarn;
+    });
+
     it('should render expected field classname', async () => {
       render(<TextAreaField label="Field" />);
 
       const label = (await screen.findByText('Field')) as HTMLLabelElement;
       expect(label).toHaveClass(ComponentClassNames.Label);
+    });
+
+    it('should show deprecation message when labelHidden is true', async () => {
+      render(<TextAreaField label="Field" labelHidden />);
+
+      expect(console.warn).toHaveBeenLastCalledWith(LABEL_HIDDEN_DEPRECATED);
     });
 
     it('should have `amplify-visually-hidden` class when labelHidden is true', async () => {
@@ -55,11 +70,11 @@ describe('TextAreaField component', () => {
       expect(label).toHaveClass('amplify-visually-hidden');
     });
 
-    it('should have `sr-only` class when isLabelHidden is true', async () => {
+    it('should have `amplify-visually-hidden` class when isLabelHidden is true', async () => {
       render(<TextAreaField label="Search" isLabelHidden={true} />);
 
       const label = await screen.findByText('Search');
-      expect(label).toHaveClass('sr-only');
+      expect(label).toHaveClass('amplify-visually-hidden');
     });
   });
 

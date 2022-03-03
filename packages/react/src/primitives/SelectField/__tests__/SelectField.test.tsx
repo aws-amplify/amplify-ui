@@ -9,6 +9,8 @@ import {
   expectFlexContainerStyleProps,
 } from '../../Flex/__tests__/Flex.test';
 import { AUTO_GENERATED_ID_PREFIX } from '../../shared/utils';
+import { LABEL_HIDDEN_DEPRECATED } from '../../../helpers/messages';
+const originalWarn = console.warn;
 
 describe('SelectField test suite', () => {
   const className = 'my-select';
@@ -48,6 +50,13 @@ describe('SelectField test suite', () => {
   });
 
   describe('Label', () => {
+    beforeAll(() => {
+      console.warn = jest.fn();
+    });
+    afterAll(() => {
+      console.warn = originalWarn;
+    });
+
     it('should render expected field classname', async () => {
       render(
         <SelectField label={label}>
@@ -78,6 +87,17 @@ describe('SelectField test suite', () => {
       expect(labelElelment).toHaveAttribute('for', select.id);
     });
 
+    it('should show deprecation message when labelHidden is true', async () => {
+      render(
+        <SelectField label={label} labelHidden>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+        </SelectField>
+      );
+      expect(console.warn).toHaveBeenLastCalledWith(LABEL_HIDDEN_DEPRECATED);
+    });
+
     it('should have `amplify-visually-hidden` class when labelHidden is true', async () => {
       render(
         <SelectField label={label} labelHidden>
@@ -91,7 +111,7 @@ describe('SelectField test suite', () => {
       expect(labelElelment).toHaveClass('amplify-visually-hidden');
     });
 
-    it('should have `sr-only` class when isLabelHidden is true', async () => {
+    it('should have `amplify-visually-hidden` class when isLabelHidden is true', async () => {
       render(
         <SelectField label={label} isLabelHidden>
           <option value="1">1</option>
@@ -101,7 +121,7 @@ describe('SelectField test suite', () => {
       );
 
       const labelElelment = await screen.findByText(label);
-      expect(labelElelment).toHaveClass('sr-only');
+      expect(labelElelment).toHaveClass('amplify-visually-hidden');
     });
   });
 

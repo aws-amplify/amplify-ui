@@ -13,8 +13,10 @@ import { AUTO_GENERATED_ID_PREFIX } from '../../shared/utils';
 const label = 'Field';
 const testId = 'testId';
 const originalWarn = console.warn;
-const deprecationMessage =
-  'TextField isMultiLine prop will be deprecated in next major release of @aws-amplify/ui-react. Please use TextAreaField component instead.';
+import {
+  LABEL_HIDDEN_DEPRECATED,
+  TEXTFIELD_ISMULTILINE_DEPRECATED,
+} from '../../../helpers/messages';
 
 describe('TextField component', () => {
   beforeAll(() => {
@@ -57,18 +59,25 @@ describe('TextField component', () => {
       expect(label).toHaveClass(ComponentClassNames.Label);
     });
 
+    it('should show deprecation message when labelHidden is true', async () => {
+      render(<TextField label="Search" labelHidden={true} />);
+
+      expect(console.warn).toHaveBeenLastCalledWith(LABEL_HIDDEN_DEPRECATED);
+    });
+
     it('should have `amplify-visually-hidden` class when labelHidden is true', async () => {
       render(<TextField label="Search" labelHidden={true} />);
 
       const label = await screen.findByText('Search');
       expect(label).toHaveClass('amplify-visually-hidden');
+      expect(console.warn).toHaveBeenLastCalledWith(LABEL_HIDDEN_DEPRECATED);
     });
 
-    it('should have `sr-only` class when isLabelHidden is true', async () => {
+    it('should have `amplify-visually-hidden` class when isLabelHidden is true', async () => {
       render(<TextField label="Search" isLabelHidden={true} />);
 
       const label = await screen.findByText('Search');
-      expect(label).toHaveClass('sr-only');
+      expect(label).toHaveClass('amplify-visually-hidden');
     });
   });
 
@@ -189,7 +198,9 @@ describe('TextField component', () => {
       expect(field).toHaveClass(ComponentClassNames.Textarea);
       expect(field.id).toBe('testField');
       // Show deprecation message
-      expect(console.warn).toHaveBeenLastCalledWith(deprecationMessage);
+      expect(console.warn).toHaveBeenLastCalledWith(
+        TEXTFIELD_ISMULTILINE_DEPRECATED
+      );
     });
 
     it('should forward ref to DOM element', async () => {

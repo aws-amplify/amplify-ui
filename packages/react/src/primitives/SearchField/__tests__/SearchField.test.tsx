@@ -11,6 +11,10 @@ const clearButtonLabel = SharedText.Fields.ariaLabel.clearField;
 
 const testId = 'SearchFieldTestId';
 const searchQuery = 'Amplify UI components';
+const role = 'textbox';
+
+import { LABEL_HIDDEN_DEPRECATED } from '../../../helpers/messages';
+const originalWarn = console.warn;
 
 describe('SearchField component', () => {
   it('should render classname for SearchField', async () => {
@@ -171,6 +175,42 @@ describe('SearchField component', () => {
       userEvent.click(clearButton);
       expect(searchField).toHaveValue('');
       expect(searchField).toHaveFocus();
+    });
+  });
+
+  describe('Label', () => {
+    beforeAll(() => {
+      console.warn = jest.fn();
+    });
+    afterAll(() => {
+      console.warn = originalWarn;
+    });
+
+    it('should render expected field classname', async () => {
+      render(<SearchField label={label} name="q" />);
+
+      const labelElement = (await screen.findByText(label)) as HTMLLabelElement;
+      expect(labelElement).toHaveClass(ComponentClassNames.Label);
+    });
+
+    it('should show deprecation message when labelHidden is true', async () => {
+      render(<SearchField label={label} name="q" labelHidden />);
+
+      expect(console.warn).toHaveBeenLastCalledWith(LABEL_HIDDEN_DEPRECATED);
+    });
+
+    it('should have `amplify-visually-hidden` class when labelHidden is true', async () => {
+      render(<SearchField label={label} name="q" labelHidden />);
+
+      const labelElement = await screen.findByText(label);
+      expect(labelElement).toHaveClass('amplify-visually-hidden');
+    });
+
+    it('should have `amplify-visually-hidden` class when isLabelHidden is true', async () => {
+      render(<SearchField label={label} name="q" isLabelHidden />);
+
+      const labelElement = await screen.findByText(label);
+      expect(labelElement).toHaveClass('amplify-visually-hidden');
     });
   });
 });

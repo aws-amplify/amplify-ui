@@ -4,8 +4,17 @@ import userEvent from '@testing-library/user-event';
 
 import { PhoneNumberField } from '../PhoneNumberField';
 import { ComponentClassNames } from '../../shared/constants';
+import { LABEL_HIDDEN_DEPRECATED } from '../../../helpers/messages';
+const originalWarn = console.warn;
 
 describe('PhoneNumberField primitive', () => {
+  beforeAll(() => {
+    console.warn = jest.fn();
+  });
+  afterAll(() => {
+    console.warn = originalWarn;
+  });
+
   const setup = async ({
     defaultCountryCode = '+1',
     label = 'Phone Number',
@@ -134,5 +143,11 @@ describe('PhoneNumberField primitive', () => {
     userEvent.selectOptions($countryCodeSelector, '+7');
 
     expect(onCountryCodeChange).toHaveBeenCalled();
+  });
+
+  it('should show deprecation message when labelHidden is true', async () => {
+    await setup({ labelHidden: true });
+
+    expect(console.warn).toHaveBeenLastCalledWith(LABEL_HIDDEN_DEPRECATED);
   });
 });

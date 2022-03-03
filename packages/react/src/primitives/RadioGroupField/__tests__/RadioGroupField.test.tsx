@@ -10,8 +10,17 @@ import {
   testFlexProps,
   expectFlexContainerStyleProps,
 } from '../../Flex/__tests__/Flex.test';
+import { LABEL_HIDDEN_DEPRECATED } from '../../../helpers/messages';
+const originalWarn = console.warn;
 
 describe('RadioFieldGroup test suite', () => {
+  beforeAll(() => {
+    console.warn = jest.fn();
+  });
+  afterAll(() => {
+    console.warn = originalWarn;
+  });
+
   const basicProps = { label: 'testLabel', name: 'testName', testId: 'testId' };
 
   const getRadioFieldGroup = ({
@@ -96,13 +105,20 @@ describe('RadioFieldGroup test suite', () => {
 
       const labelElelment = await screen.findByText(basicProps.label);
       expect(labelElelment).toHaveClass('amplify-visually-hidden');
+      expect(console.warn).toHaveBeenLastCalledWith(LABEL_HIDDEN_DEPRECATED);
     });
 
-    it('should have `sr-only` class when isLabelHidden is true', async () => {
+    it('should show deprecation message when labelHidden is true', async () => {
+      render(getRadioFieldGroup({ ...basicProps, labelHidden: true }));
+
+      expect(console.warn).toHaveBeenLastCalledWith(LABEL_HIDDEN_DEPRECATED);
+    });
+
+    it('should have `amplify-visually-hidden` class when isLabelHidden is true', async () => {
       render(getRadioFieldGroup({ ...basicProps, isLabelHidden: true }));
 
       const labelElelment = await screen.findByText(basicProps.label);
-      expect(labelElelment).toHaveClass('sr-only');
+      expect(labelElelment).toHaveClass('amplify-visually-hidden');
     });
   });
 
