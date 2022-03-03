@@ -32,10 +32,10 @@ jobs:
         run: mv postcss.config.js _postcss.config.js
       - name: Install packages
         run: yarn install --no-lockfile
-        working-directory: ./canary/${{ matrix.path }}
+        working-directory: ./canary/apps/${{ matrix.path }}
       - name: Build example app
         run: yarn build
-        working-directory: ./canary/${{ matrix.path }}
+        working-directory: ./canary/apps/${{ matrix.path }}
 
   trigger-failure-alarm:
     # Triggers an alarm if any of builds failed.
