@@ -37,6 +37,7 @@ export const PaginationItem: React.FC<PaginationItemProps> = ({
             <Flex
               as="span"
               className={ComponentClassNames.PaginationItemCurrent}
+              testId="current"
               {...rest}
             >
               {/**

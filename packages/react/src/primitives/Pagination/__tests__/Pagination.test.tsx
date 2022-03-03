@@ -207,6 +207,21 @@ describe('Pagination component test suite', () => {
       expect(pagination).toHaveTextContent('6');
       expect(pagination).toHaveTextContent('7');
     });
+
+    it('should default the current page to 1 if one is not provided', async () => {
+      render(
+        <Pagination
+          id={id}
+          totalPages={10}
+          siblingCount={2}
+          onChange={() => {}}
+          onNext={() => {}}
+          onPrevious={() => {}}
+        />
+      );
+      const currentPage = await screen.findByTestId('current');
+      expect(currentPage).toHaveTextContent('1');
+    });
   });
 
   describe('Test PaginationItem', () => {
