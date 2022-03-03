@@ -1,3 +1,5 @@
+import React from 'react';
+
 export type GeocoderProps = {
   /**
    * A bounding box given as an array in the format `[minX, minY, maxX, maxY]`.
@@ -24,6 +26,12 @@ export type GeocoderProps = {
    */
   countries?: string;
   /**
+   * Default: 200
+   * Sets the amount of time, in milliseconds, to wait before querying the server when a user types into the Geocoder
+   * input box. This parameter may be useful for reducing the total number of API calls made for a single query.
+   */
+  debounceSearch?: number;
+  /**
    * Default: true
    * Allow Maplibre to collect anonymous usage statistics from the plugin.
    */
@@ -47,6 +55,11 @@ export type GeocoderProps = {
    */
   filter?: function;
   /**
+   * A function that specifies how the selected result should be rendered in the search bar. This function should accept a single [Carmen GeoJSON](https://github.com/mapbox/carmen/blob/master/carmen-geojson.md) object as input and return a string.
+   * HTML tags in the output string will not be rendered. Defaults to `(item) => item.place_name`.
+   */
+  getItemValue?: function;
+  /**
    * Specify the language to use for response text and query result weighting. Options are IETF language tags comprised
    * of a mandatory ISO 639-1 language code and optionally one or more IETF subtags for country or script. More than
    * one value can also be specified, separated by commas. Defaults to the browser's language settings.
@@ -63,12 +76,18 @@ export type GeocoderProps = {
    */
   localGeocoder?: function;
   /**
-   * Default: true
+   * Default: false
+   * If `true`, indicates that the `localGeocoder` results should be the only ones returned to the user. If `false`,
+   * indicates that the `localGeocoder` results should be combined with those from the Maplibre API with the `localGeocoder` results ranked higher.
+   */
+  localGeocoderOnly?: boolean;
+  /**
+   * Default: { color: '#4668F2' }
    * If `true`, a [Marker](https://maplibre.org/maplibre-gl-js-docs/api/markers/#marker) will be added to the map at the location of the user-selected
    * result using a default set of Marker options.  If the value is an object, the marker will be constructed using these
-   * options. If `false`, no marker will be added to the map. Requires that `options.maplibregl` also be set.
+   * options. If `false`, no marker will be added to the map. Requires that `options.maplibregl` also be set (which it is by default).
    */
-  marker?: boolean;
+  marker?: boolean | object;
   /**
    * Default: 2
    * Minimum number of characters to enter before results are shown.
@@ -79,6 +98,18 @@ export type GeocoderProps = {
    * Override the default placeholder attribute value.
    */
   placeholder?: string;
+  /**
+   * Default: true
+   * If `true`, a [Popup](https://maplibre.org/maplibre-gl-js-docs/api/markers/#popup) will be added to the map when clicking on a marker using a default set of popup options.
+   * If the value is an object, the popup will be constructed using these options. If `false`, no popup will be added to the map.
+   * Requires that `options.maplibregl` also be set (which it is by default).
+   */
+  popup?: boolean | object;
+  /**
+   * A function that specifies how the results should be rendered in the popup menu. This function should accept a single [Carmen GeoJSON](https://github.com/mapbox/carmen/blob/master/carmen-geojson.md) object as input and return a string.
+   * Any HTML in the returned string will be rendered.
+   */
+  popupRender?: function;
   /**
    * Default: 'top-right'
    * Position the geocoder will be rendered on the map
@@ -91,6 +122,11 @@ export type GeocoderProps = {
    */
   proximity?: { latitude: number; longitude: number };
   /**
+   * A function that specifies how the results should be rendered in the dropdown menu. This function should accepts a single [Carmen GeoJSON](https://github.com/mapbox/carmen/blob/master/carmen-geojson.md)
+   * object as input and return a string. Any HTML in the returned string will be rendered.
+   */
+  render?: function;
+  /**
    * Default: false
    * If `true`, enable reverse geocoding mode. In reverse geocoding, search input is expected to be coordinates in the
    * form `lat, lon`, with suggestions being the reverse geocodes.
@@ -101,6 +137,19 @@ export type GeocoderProps = {
    * Set the factors that are used to sort nearby results.
    */
   reverseMode?: 'distance' | 'score';
+  /**
+   * Default: { color: '#4668F2' }
+   * If `true`, [Markers](https://maplibre.org/maplibre-gl-js-docs/api/markers/#marker) will be added to the map at the location the top results for the query.
+   * If the value is an object, the marker will be constructed using these options. If `false`, no marker will be added to the map.
+   * Requires that `options.maplibregl` also be set (which it is by default).
+   */
+  showResultMarkers?: boolean | object;
+  /**
+   * Default: true
+   * If `false`, indicates that search will only occur on enter key press. If `true`, indicates that the Geocoder will
+   * search on the input box being updated above the minLength option.
+   */
+  showResultsWhileTyping?: boolean;
   /**
    * Custom CSS properties for the Geocoder
    */
