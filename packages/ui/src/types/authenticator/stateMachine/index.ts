@@ -1,4 +1,4 @@
-export * from './authContext';
-export * from './authEvent';
+export * from './context';
+export * from './event';
 export * from './authMachine';
-export * from './authState';
+export * from './state';

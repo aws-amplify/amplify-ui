@@ -5,8 +5,8 @@ import {
   SignOutContext,
   AuthActorContext,
   AuthContext,
-} from './authContext';
-import { AuthEvent } from './authEvent';
+} from './context';
+import { AuthEvent } from './event';
 
 // Actor states
 export type SignInState = State<SignInContext, AuthEvent>;

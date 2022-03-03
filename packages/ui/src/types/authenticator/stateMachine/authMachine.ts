@@ -3,8 +3,8 @@
  * authenticator machine and its intepreter.
  */
 import { Interpreter } from 'xstate';
-import { AuthContext } from './authContext';
-import { AuthEvent } from './authEvent';
+import { AuthContext } from './context';
+import { AuthEvent } from './event';
 
 export type AuthInterpreter = Interpreter<AuthContext, any, AuthEvent>;
 

@@ -1,8 +1,8 @@
 import { ValidationError } from '../validator';
-import { AuthFormData, FormFields } from '../authForm';
-import { AuthChallengeNames, CognitoUserAmplify } from '../authUser';
+import { AuthFormData, FormFields } from '../form';
+import { AuthChallengeNames, CognitoUserAmplify } from '../user';
 import { CodeDeliveryDetails } from 'amazon-cognito-identity-js';
-import { LoginMechanism, SignUpAttribute, SocialProvider } from '../authFields';
+import { LoginMechanism, SignUpAttribute, SocialProvider } from '../attributes';
 import { defaultServices } from '../../../machines/authenticator/defaultServices';
 
 interface BaseFormContext {
