@@ -1,7 +1,7 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { AuthenticatorService } from '../../../../services/authenticator.service';
 import {
-  FormField,
+  formField,
   getActorState,
   getAliasInfoFromContext,
   getFormDataFromEvent,
@@ -20,7 +20,7 @@ export class ResetPasswordComponent implements OnInit {
   public sendCodeText = translate('Send Code');
   public backToSignInText = translate('Back to Sign In');
   public labelText = translate<string>('Username');
-  public formOverrides: FormField;
+  public formOverrides: formField;
 
   constructor(public authenticator: AuthenticatorService) {}
 

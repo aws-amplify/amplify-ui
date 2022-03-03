@@ -1,6 +1,6 @@
 import {
   AuthEventData,
-  FormField,
+  formField,
   LoginMechanism,
   LoginMechanismArray,
   translate,
@@ -60,7 +60,7 @@ interface fieldProps {
 export const propsCreator = (
   name: string,
   show: string,
-  formOverrides: FormField,
+  formOverrides: formField,
   labelHiddenDefault: boolean = false
 ): fieldProps => {
   const fo = formOverrides?.[name];

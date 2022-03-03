@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticatorService } from '../../../../../services/authenticator.service';
 import {
   authInputAttributes,
-  FormField,
+  formField,
   formFieldTypes,
   getActorState,
   LoginMechanism,
@@ -25,7 +25,7 @@ export class SignUpFormFieldsComponent implements OnInit {
   public order: (string | number)[];
 
   public userOverrides: formFieldTypes;
-  public formOverrides: FormField;
+  public formOverrides: formField;
 
   constructor(private authenticator: AuthenticatorService) {}
 
