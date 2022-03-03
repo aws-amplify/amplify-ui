@@ -1,7 +1,7 @@
 import maplibregl from 'maplibre-gl';
 import { createAmplifyGeocoder } from 'maplibre-gl-js-amplify';
 import { useEffect } from 'react';
-import { useControl } from 'react-map-gl';
+import { useControl, useMap } from 'react-map-gl';
 
 const GEOCODER_OPTIONS = {
   maplibregl,
@@ -14,7 +14,9 @@ const GEOCODER_OPTIONS = {
 const GEOCODER_CONTAINER = 'geocoder-container';
 
 export const Geocoder = ({ position = 'top-right', style = {}, ...props }) => {
-  if (props.mapRef) {
+  const { current: map } = useMap();
+
+  if (map) {
     useControl(
       () =>
         createAmplifyGeocoder({
@@ -42,7 +44,7 @@ export const Geocoder = ({ position = 'top-right', style = {}, ...props }) => {
           Object.assign(geocoderEl.style, style);
         });
     }
-  }, [props.mapRef?.current]);
+  }, [map]);
 
-  return !props.mapRef ? <div id={GEOCODER_CONTAINER} /> : null;
+  return !map ? <div id={GEOCODER_CONTAINER} /> : null;
 };

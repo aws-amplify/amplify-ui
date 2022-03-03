@@ -61,11 +61,11 @@
     "classnames": "2.3.1",
     "deepmerge": "4.2.2",
     "lodash": "4.17.21",
-    "mapbox-gl": "2.7.0",
+    "mapbox-gl": "1.0.0",
     "maplibre-gl-js-amplify": "1.2.3",
     "qrcode": "1.5.0",
     "react-generate-context": "1.0.1",
-    "react-map-gl": "7.0.6"
+    "react-map-gl": "7.0.8"
   },
   "peerDependencies": {
     "aws-amplify": "3.x.x || 4.x.x",

@@ -1,2 +1,2 @@
 export * from './authenticator';
-export * from './map';
+export * from './geo';

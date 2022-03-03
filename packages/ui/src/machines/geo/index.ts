@@ -2,10 +2,10 @@ import { ICredentials } from '@aws-amplify/core';
 import { Amplify, Auth } from 'aws-amplify';
 import { assign, createMachine } from 'xstate';
 
-export const mapMachine = () => {
+export const geoMachine = () => {
   return createMachine<any, any>(
     {
-      id: 'map',
+      id: 'geo',
       context: {
         config: {},
         credentials: null,
@@ -27,18 +27,6 @@ export const mapMachine = () => {
               },
             },
           ],
-          on: {
-            TRANSITION_START: {
-              target: 'transitioning',
-            },
-          },
-        },
-        transitioning: {
-          on: {
-            TRANSITION_END: {
-              target: 'idle',
-            },
-          },
         },
       },
     },
