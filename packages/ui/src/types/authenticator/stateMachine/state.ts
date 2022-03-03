@@ -1,4 +1,5 @@
 import { State } from 'xstate';
+import { ResetPasswordContext } from '.';
 import {
   SignInContext,
   SignUpContext,
@@ -12,7 +13,7 @@ import { AuthEvent } from './event';
 export type SignInState = State<SignInContext, AuthEvent>;
 export type SignUpState = State<SignUpContext, AuthEvent>;
 export type SignOutState = State<SignOutContext, AuthEvent>;
-export type ResetPasswordState = State<ResetPasswordState, AuthEvent>;
+export type ResetPasswordState = State<ResetPasswordContext, AuthEvent>;
 export type AuthActorState = State<AuthActorContext, AuthEvent>;
 
 // top level machine state
