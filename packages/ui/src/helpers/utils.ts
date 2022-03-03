@@ -1,4 +1,4 @@
-import { CommonFields, FormField, SignUpAttribute } from '@/types';
+import { CommonFields, formField, SignUpAttribute } from '@/types';
 
 export type ContactMethod = 'Email' | 'Phone Number';
 
@@ -34,7 +34,7 @@ export const getFormDataFromEvent = (event: Event) => {
 };
 
 export const setFormOrder = (
-  formOverrides: FormField,
+  formOverrides: formField,
   fieldNames: Array<SignUpAttribute | CommonFields>
 ): Array<string | number> => {
   type keyValues = string | number;
