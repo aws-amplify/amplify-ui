@@ -8,7 +8,9 @@ import {
   ValidationError,
   translate,
   getFormDataFromEvent,
+  formField,
 } from '@aws-amplify/ui';
+import { propsCreator } from '../composables/useUtils';
 
 import { useAuth, useAuthenticator } from '../composables/useAuth';
 
@@ -20,6 +22,14 @@ const attrs = useAttrs();
 const emit = defineEmits(['haveAccountClicked', 'forceNewPasswordSubmit']);
 
 const { state, send } = useAuth();
+
+const {
+  value: { context },
+} = state;
+
+const formOverrides = context?.config?.formFields
+  ?.forceNewPassword as formField;
+
 const useAuthShared = createSharedComposable(useAuthenticator);
 const props = useAuthShared();
 const actorState = computed(() =>
@@ -95,46 +105,35 @@ function onBlur(e: Event) {
           </slot>
           <base-wrapper class="amplify-flex" style="flex-direction: column">
             <!--Input 1-->
-            <base-wrapper
-              class="
-                amplify-flex
-                amplify-field
-                amplify-textfield
-                amplify-passwordfield
+            <password-control
+              v-bind="
+                propsCreator('password', passwordLabel, formOverrides, true)
               "
-              style="flex-direction: column"
-            >
-              <password-control
-                name="password"
-                :label="passwordLabel"
-                autocomplete="new-password"
-                :ariainvalid="
+              name="password"
+              autocomplete="new-password"
+              :ariainvalid="
                   !!(actorContext.validationError as ValidationError)['confirm_password']
                 "
-                @blur="onBlur"
-              />
-            </base-wrapper>
+              @blur="onBlur"
+            />
 
             <!--Input 2-->
-            <base-wrapper
-              class="
-                amplify-flex
-                amplify-field
-                amplify-textfield
-                amplify-passwordfield
+            <password-control
+              v-bind="
+                propsCreator(
+                  'confirm_password',
+                  confirmPasswordLabel,
+                  formOverrides,
+                  true
+                )
               "
-              style="flex-direction: column"
-            >
-              <password-control
-                name="confirm_password"
-                :label="confirmPasswordLabel"
-                autocomplete="new-password"
-                :ariainvalid="
+              name="confirm_password"
+              autocomplete="new-password"
+              :ariainvalid="
                   !!(actorContext.validationError as ValidationError)['confirm_password']
                 "
-                @blur="onBlur"
-              />
-            </base-wrapper>
+              @blur="onBlur"
+            />
             <slot name="force-new-password-form-fields">
               <authenticator-force-new-password-form-fields />
             </slot>

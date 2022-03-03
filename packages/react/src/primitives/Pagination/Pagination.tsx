@@ -10,7 +10,7 @@ import { View } from '../View';
 const PaginationPrimitive: Primitive<PaginationProps, 'nav'> = (
   {
     className,
-    currentPage,
+    currentPage = 1,
     totalPages,
     siblingCount,
     onNext,

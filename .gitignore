@@ -8,3 +8,6 @@ aws-exports.ts
 !examples/**/aws-exports.js
 # .npmrc is used in our deployment procedure to login to npm. Ignored for security.
 .npmrc
+
+# flutter assets are built with `yarn flutter:build` and should not be checked in to source control
+**/public/flutter/**/

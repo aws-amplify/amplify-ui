@@ -1,5 +1,57 @@
 # @aws-amplify/ui-react
 
+## 2.8.0
+
+### Minor Changes
+
+- [#1394](https://github.com/aws-amplify/amplify-ui/pull/1394) [`3d5acaa4c`](https://github.com/aws-amplify/amplify-ui/commit/3d5acaa4cce5ea8daf49caab71d92dc3c91d9021) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - Adding `label` prop to Divider component.
+
+  ```jsx
+  import { Flex, Text, Divider } from '@aws-amplify/ui-react';
+
+  export const LabelExample = () => (
+    <Flex direction="column">
+      <Text>Before</Text>
+      <Divider label="OR" />
+      <Text>After</Text>
+    </Flex>
+  );
+  ```
+
+### Patch Changes
+
+- [#1461](https://github.com/aws-amplify/amplify-ui/pull/1461) [`a7e65c56f`](https://github.com/aws-amplify/amplify-ui/commit/a7e65c56ff3d3beaad3d049581a21277d8135392) Thanks [@jacoblogan](https://github.com/jacoblogan)! - set pagination current page default to 1
+
+* [#1443](https://github.com/aws-amplify/amplify-ui/pull/1443) [`851288030`](https://github.com/aws-amplify/amplify-ui/commit/851288030f6e4ff95fc0a531a8128c7bb64cfa49) Thanks [@joebuono](https://github.com/joebuono)! - Improve efficiency of View styles by combining hooks into single `useStyles` hook
+
+- [#1434](https://github.com/aws-amplify/amplify-ui/pull/1434) [`45546b0d6`](https://github.com/aws-amplify/amplify-ui/commit/45546b0d63e32ecf79f36c4a8b18787a48ad901b) Thanks [@joebuono](https://github.com/joebuono)! - Convert `padding` and `margin` properties to logical equivalents
+  (e.g., `paddingTop` converts to `padding-block-start`)
+
+* [#1407](https://github.com/aws-amplify/amplify-ui/pull/1407) [`731587a58`](https://github.com/aws-amplify/amplify-ui/commit/731587a58e8ef89e9f0193d7118377093a6024b8) Thanks [@0618](https://github.com/0618)! - fix authenticator SetupTOTP, refactor authenticator styles
+
+- [#1447](https://github.com/aws-amplify/amplify-ui/pull/1447) [`3343e187b`](https://github.com/aws-amplify/amplify-ui/commit/3343e187b6dc9eab2c2a9c2d408bac8afb063f74) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - Fixing nested AmplifyProviders and theming. This fixes issues seen on the docs site if you have nested AmplifyProviders causing weird issues. The provider now cleans itself up properly and only injects CSS if necessary.
+
+- Updated dependencies [[`5f1753785`](https://github.com/aws-amplify/amplify-ui/commit/5f175378571e56c1f59bfa39060337148f428ce2), [`4c1a5cfbe`](https://github.com/aws-amplify/amplify-ui/commit/4c1a5cfbe6e984a790261d122ee4df368b249688), [`3d5acaa4c`](https://github.com/aws-amplify/amplify-ui/commit/3d5acaa4cce5ea8daf49caab71d92dc3c91d9021), [`731587a58`](https://github.com/aws-amplify/amplify-ui/commit/731587a58e8ef89e9f0193d7118377093a6024b8), [`3343e187b`](https://github.com/aws-amplify/amplify-ui/commit/3343e187b6dc9eab2c2a9c2d408bac8afb063f74)]:
+  - @aws-amplify/ui@3.2.0
+
+## 2.7.0
+
+### Minor Changes
+
+- [#1389](https://github.com/aws-amplify/amplify-ui/pull/1389) [`57f1441e4`](https://github.com/aws-amplify/amplify-ui/commit/57f1441e4809218a813148d0942de8171d159831) Thanks [@ErikCH](https://github.com/ErikCH)! - Added new formfields prop that allows more customization of inputs and setup TOTP.
+  New docs can be found at https://ui.docs.amplify.aws/components/authenticator#form-field-customization
+
+### Patch Changes
+
+- [#1415](https://github.com/aws-amplify/amplify-ui/pull/1415) [`74e066622`](https://github.com/aws-amplify/amplify-ui/commit/74e066622e9abe26e9f9427f6bdc82c4e14d4952) Thanks [@dbanksdesign](https://github.com/dbanksdesign)! - Fixing checkbox `labelPosition` to position the label correctly. Now `labelPosition="start"` actually means _start_.
+
+* [#1432](https://github.com/aws-amplify/amplify-ui/pull/1432) [`6c51a2400`](https://github.com/aws-amplify/amplify-ui/commit/6c51a2400f87fe3fb45913b898c2b60740b71894) Thanks [@joebuono](https://github.com/joebuono)! - Add `margin` and `padding` style props (`marginTop`, `paddingBottom`, etc)
+
+- [#1417](https://github.com/aws-amplify/amplify-ui/pull/1417) [`5b3b8479a`](https://github.com/aws-amplify/amplify-ui/commit/5b3b8479aea06c6b7df031dc6493abdd36b0bd6a) Thanks [@wlee221](https://github.com/wlee221)! - Fix undefined reference in reset password flow
+
+- Updated dependencies [[`74e066622`](https://github.com/aws-amplify/amplify-ui/commit/74e066622e9abe26e9f9427f6bdc82c4e14d4952), [`57f1441e4`](https://github.com/aws-amplify/amplify-ui/commit/57f1441e4809218a813148d0942de8171d159831), [`5b3b8479a`](https://github.com/aws-amplify/amplify-ui/commit/5b3b8479aea06c6b7df031dc6493abdd36b0bd6a)]:
+  - @aws-amplify/ui@3.1.0
+
 ## 2.6.2
 
 ### Patch Changes

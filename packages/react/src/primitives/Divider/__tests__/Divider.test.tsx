@@ -44,4 +44,10 @@ describe('Divider component', () => {
     const divider = (await screen.findByRole('separator')) as HTMLHRElement;
     expect(divider.dataset['demo']).toBe('true');
   });
+
+  it('adds label to the dataset (to then be displayed via CSS)', async () => {
+    render(<Divider label="Hello" />);
+    const divider = (await screen.findByRole('separator')) as HTMLHRElement;
+    expect(divider.dataset['label']).toBe('Hello');
+  });
 });
