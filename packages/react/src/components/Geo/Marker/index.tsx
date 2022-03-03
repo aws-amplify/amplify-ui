@@ -1,7 +1,11 @@
 import { useEffect } from 'react';
-import { Marker as MarkerRMG, MarkerProps } from 'react-map-gl';
+import { Marker as MarkerRMG } from 'react-map-gl';
+import type { MarkerProps } from 'react-map-gl';
 
-export const Marker = ({ children, ...props }: MarkerProps) => {
+export const Marker = ({
+  children,
+  ...props
+}: Omit<MarkerProps, 'onClick'> & Partial<Pick<MarkerProps, 'onClick'>>) => {
   useEffect(() => {
     [...document.getElementsByClassName('maplibregl-marker')].forEach(
       (marker) => marker.setAttribute('data-amplify-marker', '')
