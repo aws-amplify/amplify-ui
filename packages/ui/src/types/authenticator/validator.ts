@@ -1,4 +1,5 @@
-import { AuthChallengeNames, AuthFormData } from './authMachine';
+import { AuthFormData } from './form';
+import { AuthChallengeNames } from './user';
 
 export type ValidationError = Record<string, string>;
 
